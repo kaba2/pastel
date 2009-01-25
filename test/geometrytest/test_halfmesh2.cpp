@@ -15,8 +15,6 @@ namespace
 
 	void testTrivial()
 	{
-		log() << "- trivial" << logNewLine;
-
 		PureHalfMesh halfMesh;
 		halfMesh.addVertex();
 		for (int i = 0;i < 10000;i++)
@@ -33,8 +31,6 @@ namespace
 
 	void testSimpleEdge()
 	{
-		log() << "- simple edge" << logNewLine;
-
 		{
 			PureHalfMesh halfMesh;
 			PureHalfMesh::Vertex a = halfMesh.addVertex();
@@ -72,8 +68,6 @@ namespace
 
 	void testMultiHalfMesh()
 	{
-		log() << "- multi halfMesh" << logNewLine;
-
 		{
 			PureHalfMesh halfMesh;
 
@@ -117,8 +111,6 @@ namespace
 
 	void testSimpleRemoval()
 	{
-		log() << "- simple removal" << logNewLine;
-
 		{
 			PureHalfMesh halfMesh;
 			PureHalfMesh::Vertex a = halfMesh.addVertex();
@@ -215,8 +207,6 @@ namespace
 
 	void testComplexHalfMesh()
 	{
-		log() << "- complex halfMesh" << logNewLine;
-
 		enum
 		{
 			Vertices = 100000,

@@ -71,8 +71,6 @@ namespace
 
 	void testTrivial()
 	{
-		log() << "- trivial" << logNewLine;
-
 		LinearArray<3, int> b(100, 200, 300);
 
 		for (integer x = 0;x < 100;++x)

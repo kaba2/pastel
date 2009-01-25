@@ -9,8 +9,6 @@ namespace
 
 	void testTrivial()
 	{
-		log() << "- trivial" << logNewLine;
-
 		LinearArray<2, int> a(1024, 1024);
 		LinearArray<2, int> b(a);
 		a = b;
@@ -18,7 +16,6 @@ namespace
 		b = a;
 		a.clear();
 		a.setExtent(53, 45, 15);
-
 	}
 
 	void testBegin()

@@ -110,7 +110,7 @@ namespace
 
 	void testAdd()
 	{
-		//sysTestList().add("CountedPtr", testBegin);
+		sysTestList().add("CountedPtr", testBegin);
 	}
 
 	CallFunction run(testAdd);

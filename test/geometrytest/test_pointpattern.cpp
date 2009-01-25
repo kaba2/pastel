@@ -57,8 +57,6 @@ namespace
 
 	void testPoissonDiskPattern()
 	{
-		log() << "- poisson disk pattern" << logNewLine;
-
 		const integer width = 500;
 		const integer height = 500;
 

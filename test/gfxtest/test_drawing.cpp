@@ -26,8 +26,6 @@ namespace
 
 	void testDistortion()
 	{
-		log() << "- distortion" << logNewLine;
-
 		LinearArray<2, Color> textureImage;
 		loadPcx("lena.pcx", textureImage);
 
@@ -68,8 +66,6 @@ namespace
 
 	void testView()
 	{
-		log() << "- view" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500, Color(0));
 
 		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
@@ -86,8 +82,6 @@ namespace
 
 	void testBinary()
 	{
-		log() << "- binary" << logNewLine;
-
 		LinearArray<2, bool> image(500, 500, false);
 
 		clear(false, arrayView(image));
@@ -103,8 +97,6 @@ namespace
 
 	void testFloodFill()
 	{
-		log() << "- floodfill" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500, Color(0));
 
 		ImageGfxRenderer<Color> renderer;
@@ -132,8 +124,6 @@ namespace
 
 	void testPerspectiveTriangle()
 	{
-		log() << "- perspective triangle" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500);
 
 		LinearArray<2, Color> texture;
@@ -169,8 +159,6 @@ namespace
 
 	void testEwaPerspectiveTriangle()
 	{
-		log() << "- ewa perspective triangle" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500);
 
 		LinearArray<2, Color> textureImage;
@@ -204,8 +192,6 @@ namespace
 
 	void testTextureTriangle()
 	{
-		log() << "- texture triangle" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500);
 
 		LinearArray<2, Color> texture;
@@ -241,8 +227,6 @@ namespace
 
 	void testEwaTriangle()
 	{
-		log() << "- texture ewa triangle" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500);
 
 		LinearArray<2, Color> textureImage;
@@ -277,8 +261,6 @@ namespace
 
 	void testSolidTriangle()
 	{
-		log() << "- solid triangle" << logNewLine;
-
 		LinearArray<2, Color> image(500, 500);
 
 		LinearArray<2, Color> texture;
@@ -308,8 +290,6 @@ namespace
 
 	void testBoxes()
     {
-		log() << "- boxes" << logNewLine;
-
 		LinearArray<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
@@ -334,8 +314,6 @@ namespace
 
 	void testMoreCircles()
 	{
-		log() << "- more circles" << logNewLine;
-
 		LinearArray<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
@@ -356,8 +334,6 @@ namespace
 
 	void testCircles()
 	{
-		log() << "- circles" << logNewLine;
-		
 		LinearArray<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
@@ -425,8 +401,6 @@ namespace
 
 	void testLines()
 	{
-		log() << "- lines" << logNewLine;
-
 		LinearArray<2, Color> image(640, 480);
 
 		const integer steps = 128;
@@ -455,8 +429,6 @@ namespace
 
 	void testMoreLines()
 	{
-		log() << "- more lines" << logNewLine;
-
 		LinearArray<2, Color> image(640, 480);
 
 		const integer lines = 500;
@@ -473,8 +445,6 @@ namespace
 
 	void testEvenMoreLines()
 	{
-		log() << "- even more lines" << logNewLine;
-
 		const integer XLines = 5;
 		const integer YLines = 5;
 		const integer BoxWidth = 100;
@@ -505,28 +475,23 @@ namespace
 		savePcx(image, "testdrawing_evenmorelines.pcx");
 	}
 
-	void testBegin()
-	{
-		testDistortion();
-		testView();
-		testBinary();
-		testFloodFill();
-		testLines();
-		testMoreLines();
-		testEvenMoreLines();
-		testSolidTriangle();
-		testTextureTriangle();
-		testEwaTriangle();
-		testPerspectiveTriangle();
-		testEwaPerspectiveTriangle();
-        testBoxes();
-		testCircles();
-		testMoreCircles();
-	}
-
 	void testAdd()
 	{
-		gfxTestList().add("Drawing", testBegin);
+		gfxTestList().add("Drawing.Distortion", testDistortion);
+		gfxTestList().add("Drawing.View", testView);
+		gfxTestList().add("Drawing.Binary", testBinary);
+		gfxTestList().add("Drawing.FloodFill", testFloodFill);
+		gfxTestList().add("Drawing.Lines", testLines);
+		gfxTestList().add("Drawing.MoreLines", testMoreLines);
+		gfxTestList().add("Drawing.EvenMoreLines", testEvenMoreLines);
+		gfxTestList().add("Drawing.SolidTriangle", testSolidTriangle);
+		gfxTestList().add("Drawing.TextureTriangle", testTextureTriangle);
+		gfxTestList().add("Drawing.EwaTriangle", testEwaTriangle);
+		gfxTestList().add("Drawing.PerspectiveTriangle", testPerspectiveTriangle);
+		gfxTestList().add("Drawing.EwaPerspectiveTriangle", testEwaPerspectiveTriangle);
+		gfxTestList().add("Drawing.Boxes", testBoxes);
+		gfxTestList().add("Drawing.Circles", testCircles);
+		gfxTestList().add("Drawing.MoreCircles", testMoreCircles);
 	}
 
 	CallFunction run(testAdd);

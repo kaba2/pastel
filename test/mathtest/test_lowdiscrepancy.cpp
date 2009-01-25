@@ -16,8 +16,6 @@ namespace
 
 	void testHalton()
 	{
-		log() << "- halton" << logNewLine;
-
 		const integer Width = 500;
 		const integer Height = 500;
 
@@ -96,8 +94,6 @@ namespace
 
 	void testHammersley()
 	{
-		log() << "- hammersley" << logNewLine;
-
 		const integer Width = 500;
 		const integer Height = 500;
 
@@ -174,15 +170,10 @@ namespace
 		savePcx(image, "testlowdiscrepancy_hammersley_100000.pcx");
 	}
 
-	void testBegin()
-	{
-		testHalton();
-		testHammersley();
-	}
-
 	void testAdd()
 	{
-		mathTestList().add("LowDiscrepancy", testBegin);
+		mathTestList().add("LowDiscrepancy.Halton", testHalton);
+		mathTestList().add("LowDiscrepancy.Hammersley", testHammersley);
 	}
 
 	CallFunction run(testAdd);
