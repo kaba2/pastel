@@ -1,0 +1,247 @@
+Vector design space
+===================
+
+Requirements
+------------
+
+1) The vector must be a class template
+parametrized with dimension and number type:
+
+template <int N, typename NumberType>
+class Vector;
+
+This enables using the vector genericly
+in algorithms that are independent of
+the dimensions or the number type.
+
+2) Vector expressions must be as efficient
+as hand-coded expressions. For example:
+
+Vector<3, float> x;
+Vector<3, float> y = 2 * x  + 4;
+
+Must be equivalent in performance to:
+
+y[0] = 2 * x[0] + 4
+y[1] = 2 * x[1] + 4
+y[2] = 2 * x[2] + 4
+
+This guarantees that it is possible to use dimension
+independent expressions without paying an abstraction penalty.
+
+3) sizeof(Vector<N, NumberType>) = N * sizeof(NumberType)
+
+This guarantees that the size of the vector is minimal.
+This is most important because vectors are small
+primitives that are expected to be stored in large amounts.
+Minimal size decreases memory cost and increases performance.
+
+4) The low-dimensional (1d -> 4d) versions should have
+additional convenience functions (only showing the 3d
+version here as an example):
+
+Vector<3, NumberType> a(1, 2, 3);
+a.set(1, 2, 3);
+a.x() = 1;
+a.y() = 2;
+a.z() = a.x();
+
+However, the following should give a compiler error:
+
+Vector<2, NumberType> b(1, 2, 3);
+b.z() = 3;
+
+5) Array programming should be supported. For example:
+
+Vector<3, float> a(1, 2, 3);
+Vector<3, float> b = 2 * sin(a) * cos(a);
+
+Computes:
+b = (2 * sin(1) * cos(1), 2 * sin(2) * cos(2), 2 * sin(3) * sin(3))
+
+This expands the amount of legal vector expression. These
+expressions should also be evaluated with performance equal
+to the expanded versions.
+
+Also, comparison functions should be implemented such that the
+following works:
+
+anyLess(a, b);
+allLess(a, b);
+anyGreater(a, b);
+allGreater(a, b);
+allEqual(a, b);
+allLess(a, 4);
+etc.
+
+6) Point must be convertible to a Vector or a Tuple 
+with zero overhead. Similarly, a Vector must be
+convertible to a Tuple with zero overhead.
+The memory addresses of the elements
+must not change in the conversions.
+
+Achieving requirement 2
+-----------------------
+
+The problem is to compute vector expressions breath-first, not depth first.
+To achieve this, we use expression templates.
+
+There is some trade-off in usability: expressions yield expression objects
+and functions that accept Vector's will not recognize the expression objects
+=> the expressions must be evaluated to Vector's in these cases
+
+void f(const Vector<2, real>& v)
+{
+}
+
+Vector<2, real> a;
+Vector<2, real> b;
+// Not like this:
+//f(a * 5 + b);
+// But:
+f(evaluate(a * 5 + b));
+// Or:
+f(Vector<2, real>(a * 5 + b));
+
+Achieving requirement 3
+-----------------------
+
+This is almost trivial to achieve. However, the role of this requirement
+is to restrict the solutions available to achieving other requirements.
+In particular, the use of multiple inheritance adds an additional 4 bytes.
+
+Achieving requirement 4
+-----------------------
+
+This can be achieved by using the Curiously Recurring Template pattern.
+The common functionality is placed in a base class and the specific
+functionality is achieved by specializing Vector to each low dimension.
+
+Achieving requirement 5
+-----------------------
+
+This is just an extension to the expression template approach,
+extending the amount of legal vector expressions. You should
+make all the standard math functions usable with vectors.
+
+Achieving requirement 6
+-----------------------
+
+This is achieved by:
+
+Point containing
+Vector containing
+Tuple
+
+where only the Tuple contains concrete data.
+
+Redundancy between Tuple's, Vector's, and Point's
+-------------------------------------------------
+
+These objects share some of the algorithms. Namely:
+
+* all share comparison functions
+* Vector's and Point's share array computation functions
+
+How to implement these without replicating
+implementation?
+
+Solution:
+Only implement the function at the lowest level.
+Then forward to these functions from the higher levels.
+For example:
+
+template <int N, typename Type>
+bool anyLess(const Tuple<N, Type>& left,
+const Tuple<N, Type>& right)
+{
+}
+
+template <int N, typename Type>
+bool anyLess(const Vector<N, Type>& left,
+const Vector<N, Type>& right)
+{
+	return Pastel::anyLess(asTuple(left), asTuple(right));
+}
+
+What concept should the NumberType model?
+-----------------------------------------
+
+Points and vectors in Z^n
+-------------------------
+
+First of all, we abuse terminology here. By vectors in Z^n
+we actually mean elements of a module over Z.
+If the scalars are Z, then we have module elements,
+if the scalars are R, then we have vectors.
+We don't want to implement Points and Vectors separately
+for the modules (as in MPoint and MVector) because they 
+would be identical to the Point and Vector implementations.
+Thus we embed them into the existing Point and Vector classes.
+We need to separate those functions that only require
+the scalar set to be an ordered ring and those that require
+the scalar set to be R. Note the use of an ordered ring rather Z
+to underline that the functions should work for R too.
+
+Rejected ideas
+==============
+
+Vector is-a Tuple 
+-----------------
+
+It should be possible to pass a vector to a
+function requiring a tuple:
+
+template <int N, typename Type>
+bool anyLess(const Tuple<N, Type>& left,
+const Tuple<N, Type>& right)
+{
+	// Return the comparison result
+}
+
+Vector<2, float> a(1, 2, 3);
+Vector<2, float> b(3, 2, 1);
+bool r = anyLess(a, b);
+
+The idea here is to remove redundancy.
+We will have Vector's, Point's, and Tuple's and
+some of their algorithms overlap. Specifically,
+these are the functions that do not need
+to return the specific derived type. For example:
+
+template <int N, typename Type>
+Type sum(const Vector<N, Type>& that);
+
+Would be such a function, while
+
+Vector<2, float> f(const Vector<2, float>& that);
+
+would not. These functions include:
+
+* comparison functions: anyLess, anyGreater, etc.
+* minIndex, maxIndex, product, sum, unary min and max.
+
+Achieving Vector is-a Tuple requirement
+---------------------------------------
+
+It is essential that the tuple be a base-class
+of vector to make the template parameter
+deduction to work. However, the use of expression templates 
+also requires that a vector expression is a base class of
+vector. 
+
+If we now use the obvious multiple inheritance to achieve
+this hierarchy, then we increase the memory
+cost by 4 bytes and violate requirement 3.
+
+Could we convert the inheritance hierarchy to a linear one?
+Clearly the tuple can't be a base-class of
+the vector-expression because then every sub-expression
+would take the tuple's amount of extra memory
+(which most of the time is not used at all).
+So the question is if we should make
+the vector expression a base-class of the tuple?
+The answer is no because that would not make sense when 
+then tuple is used on its own.
+
+Thus it seems this requirement can't be satisfied.

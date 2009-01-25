@@ -1,0 +1,324 @@
+Remarks
+=======
+
+Qt installation
+---------------
+
+The following is needed to get Qt to work in combination
+with Visual Studio 2008 Express Edition.
+
+1. Add the /bin directory in the qt directory to the
+operating systems dll search path. 
+
+Note: It is possible that the search path already contains
+directories which contain Qt dll's (for example, MikTex). 
+To avoid mixing up with these, place your directory first 
+on the dll search path.
+
+2. Run 'configure' from the Qt directory.
+
+3. Run 'nmake' from the Qt directory. This step took me about 4h
+on one machine and 2.5h on another machine.
+
+4. Add Qt '/include' directory to the compiler's include search path.
+
+Note: you should refer to the Qt's include files by sublibraries,
+for example by: '#include <QtGui/QApplication>'.
+
+5. Add Qt '/lib' directory to the compiler's library search path.
+
+Note: If a normal Qt library is compiled as QtCore4.lib, then
+the corresponding debug version of that library is QtCored4.lib.
+
+Something bad about Qt
+----------------------
+
+* Qt dumps all of its stuff in the global namespace. I think
+this can be changed but I can't find where!
+
+* Some common words are reserved by the Qt as macros. These
+include 'signals', 'slots', 'SIGNAL', 'SLOT', and 'emit'.
+
+* Some Qt headers include Windows headers which have some
+common words used for macros, such as 'min' and 'max'.
+For example, the <QtOpenGL/QGLWidget> header does this.
+
+* The header files are not suffixed, making them
+look similar to the standard library headers. Aside from being arrogant,
+this risks conflicting with the possible standard library extensions
+in the future.
+
+Forward declarations
+--------------------
+
+Forward declarations are useful in cutting down include dependencies
+only if the class uses the type in its implementation _through a reference_ 
+but not in its interface. Otherwise the forward declaration introduces
+a burden to the user of the library to include all induced header
+files and in addition the compile time is not reduced at all. This kind
+of usage is very rare. Thus one should not use forward declarations at all.
+
+Concept based programming
+-------------------------
+
+I've been trying to avoid to go concept-based in my programming.
+But it seems I may have to give up on this. There are some
+generic programming problems that I can't solve without.
+For example: filtering the rows and columns of an image without
+practically doubling the code of the algorithm.
+
+The main reason why I want to
+avoid concept based functions in C++03 is that it
+lacks concept based overloading (coming up in C++09). This is in turn because
+concepts imply unbounded templates. For example, consider
+that I have a concept MatrixConcept, 
+which acts like the Matrix class currently does. Then for
+the matrix inverse I create a function 'inverse':
+
+template <typename MatrixConcept>
+MatrixConcept inverse(const MatrixConcept& matrix);
+
+That the template parameter is unbounded creates problems
+with function naming. Consider that I have a concept
+for real numbers, RealConcept, and a similarly named function:
+
+template <typename RealConcept>
+RealConcept inverse(const RealConcept& number);
+
+The two functions are named the same and can't
+be differentiated in C++03. This is because the parameters only
+differ in the concepts they model. Differentiating
+requires concept based overloading.
+
+To solve this problem in C++03 requires to add something
+to the name: to use a namespace, a prefix or a suffix.
+
+Then the function names become, for example:
+
+template <typename MatrixConcept>
+MatrixConcept matrixInverse(const MatrixConcept& matrix);
+
+template <typename RealConcept>
+RealConcept inverse(const RealConcept& number);
+
+This seems redundant: after all we know
+by the context which one we mean; but the compiler doesn't.
+
+So, if you use unbounded function templates, then
+name them such that they do not create overload ambiguities.
+
+Another problem is given by associated types.
+For example, now that we have:
+
+template <typename MatrixConcept>
+MatrixConcept matrixInverse(const MatrixConcept& matrix);
+
+Instead of:
+template <typename Real>
+Matrix<Real> matrixInverse(const Matrix<Real>& matrix);
+
+How do we deduce the type Real? The solution is either to
+say that all Matrix:s must be classes, or use a
+traits class as in MatrixTraits<Matrix>::ValueType.
+
+Division by zero
+----------------
+
+Never use the result of dividing by zero!
+
+Why? Because there are two kinds of zeros: +0 and -0.
+If you compute 1/+0, then you get Inf. But if you
+compute 1/-0, then you get -Inf!
+You can never be sure which zero you are holding.
+Moreover, +0 == -0. That means that without inspecting the bits
+itself you can not even check it.
+
+Some code to try:
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	float a = 1;
+	float b = 0;
+	float c = -b;
+	float d = a / b;
+	float e = a / c;
+	
+	cout << "b = " << b << endl;
+	cout << "c = " << c << endl;
+	cout << "d = " << d << endl;
+	cout << "e = " << e << endl;
+	cout << "(b == c) = " << (b == c) << endl;
+	cout << "(b < c) = " << (b < c) << endl;
+	
+	string tmp;
+	getline(cin, tmp);
+	
+	return 0;
+}
+
+Matrices, vectors, points and tuples
+------------------------------------
+
+Problem: should the data of fixed-size versions be stored on stack or free memory?
+
+Requirement 1: able to return matrices from functions and still be efficient
+
+For example, "m = transponate(xRotation(0.3))". Temporaries
+generated by functions are very convenient. However, if the matrix data
+is stored in stack, there is only one way to transmit the temporary 
+information to m: copying, which is very slow for big matrices.
+
+Solution 1: reference semantics. 
+=> implies using dynamic allocation and
+this is inefficient for small matrices, vectors etc.
+
+Solution 2: Use value semantics for small objects, but reference semantics for large objects.
+=> Large objects act similar to shared_ptr
+=> Now "Matrix a; Matrix m(a); a *= 2;" has different results for small and large matrices which
+is confusing. Copy construction must be a reference-copy, not value-copy because that
+is the essential efficiency requirement for returning from functions.
+
+Solution 3: Use move semantics..
+=> Large objects act similar to auto_ptr
+=> Now it is possible for a function to hijack a matrix: Matrix inverse(Matrix m)
+=> But so what, the user knows what he's calling.
+=> Constness of the matrix then does not mean that its contents can't be changed.
+=> For that you need to create ConstMatrix
+=> And now you have two kinds of matrices, Matrix and Constmatrix
+=> So you need to create unbounded template functions, which isn't nice in C++03 
+(but with concepts it will be in C++09).
+That is, value semantics for small objects, but large matrices move the ownerships.
+
+Problem: how do you do const matrices with reference semantics?
+=> You need "ConstMatrix".
+=> Then you need to generalize matrix functions
+
+
+Matrix indexing
+---------------
+
+It is standard to index a matrix A as A[y, x], where y gives the row and x the column.
+Also, it is standard to use column vectors, because then the matrix-vector multiplication
+Ax resembles function evaluation A(x). Given the column vector convention, the
+column vectors of the matrix are the ones of importance because they represent
+the images of the standard basis vectors. For a programmer it is very convenient to refer to the
+column vectors as a whole. A natural notation for this is A[x], where x gives
+the column. However, now A[x][y] and A[y, x] refer to the same element
+which is likely to cause confusion because the indices come at a different order!
+This discrepancy can be corrected by either:
+
+1) indexing matrices as A[x, y] 
+2) prohibiting column vector references
+3) switching to row vector convention
+
+The option 1 will not do because it would create more confusion 
+than it corrects by diverging from a world-wide standard.
+The option 2 will not do because it is of too great importance 
+for the usability of the library.
+The option 3 will create some confusion because most have
+been used to work with column vectors. However, the connection
+between using column or row vectors is trivial.
+
+Thus in this library we will use the row vector convention.
+
+Consequences:
+=> You lose the functional style notation for matrix-vector multiplication,
+because otherwise you have: x * A * B = B(A(x))
+which is again confusing because the A and B come at different order.
+=> You can't use this for affine transformations either, because
+you want an analog between them and matrices (because linear transformations form
+a submonoid of affine transformations). Let A and B be matrices and
+A' and B' their corresponding affine transformations. For analogy you need: 
+x * A * B = x * A' * B'. B'(A'(x)) would again be confusing.
+
+Transponation in LinearArray
+-----------------------
+
+To solve for the problem of reusing horizontal 2d resampling for vertical resampling, I made a transponate() function to the LinearArray class. This function toggled an inner flag. If the flag was on, width() would return the height of the array, and height() would return the width of the array. Similarly data access indexing was changed. In effect this was a constant time transponation.
+
+Lesson to be learned: 
+While it works nicely for non-const LinearArray's, it doesn't work for the const ones (reading from an array in a transposed manner).
+
+Complex concepts
+----------------
+
+Concepts will be an immersive addition to the C++0x, but currently implementing and using such code is a pain. The most important thing contributing to this is that there is no concept based overloading. Another is that defining and checking the concept requirements via Boost is quite cumbersome.
+
+Lesson to be learned:
+In C++03, do not create complex concepts.
+
+Bug with placement new
+----------------------
+
+I spent two days debugging a bug caused by writing:
+new(data) HalfData
+instead of the correct
+new(data) EdgeData
+
+The symptoms were plain illogical. Note that the type of 'data' was
+EdgeData*, but since the placement new takes a void pointer,
+there was no type error.
+
+Lesson to be learned:
+Double-check your placement news.
+
+Implementing static virtual functions
+-------------------------------------
+
+Summary:
+* In the base class, declare constructors, assignment, and destructor protected.
+=> Protected constructors imitate the workings of a pure abstract class.
+Protected assignment protects from slicing and protected destructor protects
+from destructing a derived object through a base object reference.
+* Declare the base class a friend of the derived class.
+=> This way you can declare private static virtual functions.
+* Do not use static virtual functions in the base class constructors or destructor.
+=> For the same reasons as with real virtual functions.
+
+_SECURE_SCL
+-----------
+
+I spent a week hunting a bug which had something to do with memory. I had access violations and plain illogical behaviour. The symptoms occurred only in release mode, not debug mode. The bug was in Visual Studio and caused by the feature _SECURE_SCL which can be turned off. I already had this done with other projects, but I forgot to turn the feature off in one project.
+
+Lesson to be learned:
+Remember to turn off _SECURE_SCL and (checked iterators) in every project. In project properties -> C++ -> Command line, write
+/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0"
+
+Frame rates to expect
+---------------------
+
+These are from MeshLab:
+
+Low bunny, 1000 kolmiota, 63 fps, 34 megaa
+Bunny, 70000 kolmiota, 58fps, 37 megaa
+Armadillo, 345000 kolmiota, 9fps, 25megaa
+Happy buddha, 1 miljoonaa kolmiota, 5fps, muistia 93 megaa
+Manuscript, 4,3 miljoonaa kolmiota, 1fps, muistia 278 megaa
+Dragon, 7,2 miljoonaa kolmiota, 1fps, muistia 429 megaa
+Statuette, 10 miljoonaa kolmiota, 0.7 fps, muistia 582megaa
+Lucy, muisti loppu kesken
+
+Entertaining bug
+----------------
+
+An extraneous ; was inserted at the code at some point.
+It compiled and resulted in a never-ending loop.
+
+template <int Height, int Width, typename Real>
+Matrix<Height, Width, Real> randomMatrix()
+{
+	Matrix<Height, Width, Real> result;
+	for (integer i = 0;i < Height;++i)
+	{
+		for (integer j = 0;j < Width;++j)
+		{
+			result;(i, j) = randomReal() * 2 - 1;
+		}
+	}
+	return result;
+}

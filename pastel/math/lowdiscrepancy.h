@@ -1,0 +1,61 @@
+#ifndef PASTELMATH_LOWDISCREPANCY_H
+#define PASTELMATH_LOWDISCREPANCY_H
+
+#include "pastel/sys/point.h"
+#include "pastel/sys/mytypes.h"
+
+namespace Pastel
+{
+
+	//! Returns the n:th element of the base-2 Van Der Corput sequence.
+	/*!
+	Preconditions:
+	n >= 0
+	*/
+
+	template <typename Real>
+	Real vanDerCorputSequence(integer n);
+
+	//! Returns the n:th element of the base-'base' Van Der Corput sequence.
+	/*!
+	Preconditions:
+	n >= 0
+	base >= 2
+	*/
+
+	template <typename Real>
+	Real vanDerCorputSequence(integer n, integer base);
+
+	//! Returns the n:th element of the Halton sequence.
+	/*!
+	Preconditions:
+	n >= 0
+	for all i e [0, N[: bases[i] >= 2
+	The elements of 'bases' should be coprime to each other (not enforced!).
+	*/
+
+	template <typename Real, int N>
+	Point<N, Real> haltonSequence(integer n, const Point<N, integer>& bases);
+
+	//! Returns the n:th element of the Hammersley sequence.
+	/*!
+	Preconditions:
+	size >= 1
+	0 <= n <= size
+	for all i e [0, N[: bases[i] >= 2
+	The elements of 'bases' should be coprime to each other (not enforced!).
+
+	The Hammersley sequence improves upon the discrepancy of the
+	Hammersley sequence in the case you know in advance the number of
+	samples you wish to draw.
+	*/
+
+	template <typename Real, int N>
+	Point<N + 1, Real> hammersleySequence(
+		integer n, const Point<N, integer>& bases, integer size);
+
+}
+
+#include "pastel/math/lowdiscrepancy.hpp"
+
+#endif

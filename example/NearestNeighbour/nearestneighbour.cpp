@@ -1,0 +1,569 @@
+#include "pastel/geometry/kdtree.h"
+#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/distance_point_point.h"
+
+#include "pastel/gfx/gfxrenderer_tools.h"
+
+#include "pastel/device/devicesystem.h"
+#include "pastel/device/gfxdevice.h"
+#include "pastel/device/timedevice.h"
+#include "pastel/device/timer.h"
+
+#include "pastel/math/matrix_tools.h"
+#include "pastel/math/affinetransformation_tools.h"
+
+#include "pastel/sys/random.h"
+#include "pastel/sys/log.h"
+#include "pastel/sys/streamlogobserver.h"
+#include "pastel/sys/filelogobserver.h"
+#include "pastel/sys/point_tools.h"
+#include "pastel/sys/vector_tools.h"
+
+#include "pastel/gl/glgfxrenderer.h"
+
+#include "pastel/geometry/overlaps_segments.h"
+
+#include <iostream>
+using std::cout;
+using std::endl;
+
+#include <set>
+
+using namespace Pastel;
+
+const integer ScreenWidth = 800;
+const integer ScreenHeight = 600;
+const integer LogicFps = 100;
+const real SearchRadius = 0.2;
+const integer NearestPoints = 15;
+const integer Points = 10000;
+const real TranslationSpeed = 0.02;
+const real ZOOM_Factor = 1.05;
+const real RotationSpeed = 0.02;
+const integer SprayPoints = 20;
+const real SPRAY_RADIUS = 0.05;
+const real PointRange = 0.9;
+
+integer nearestPoints__ = NearestPoints;
+real searchRadius__ = SearchRadius;
+
+GlGfxRenderer* renderer__;
+
+class PointPolicy
+{
+public:
+	typedef Point2 Object;
+
+	Tuple<2, real> bound(const Point2& object, integer axis) const
+	{
+		return Tuple<2, real>(object[axis]);
+	}
+
+	AlignedBox2 bound(const Point2& object) const
+	{
+		return AlignedBox2(object);
+	}
+};
+
+typedef KdTree<2, real, PointPolicy> MyTree;
+
+PointPolicy pointPolicy;
+MyTree tree__(pointPolicy);
+
+typedef SmallSet<KeyValue<real, MyTree::ConstObjectIterator> > NearestPointSet;
+
+NearestPointSet nearestPointSet__;
+real renderTimeAccumulator = 0;
+real secondAccumulator = 0;
+real lastUpdateTime = 0;
+integer fps = 0;
+
+bool drawTree__ = true;
+bool drawPoints__ = true;
+bool drawNearest__ = true;
+
+bool firstPoint__ = true;
+integer firstPointIndex__ = 0;
+
+bool mouseLeftPressed__ = false;
+
+void computeTree(integer maxDepth);
+void sprayPoints(const Point2& center, real radius, integer points);
+
+real pointDistance(const Point2& from, const Point2& to)
+{
+	return distanceManhattan(from, to);
+	//return std::sqrt(distance2(from, to));
+}
+
+void keyHandler(bool pressed, SDLKey key)
+{
+	if (pressed)
+	{
+		if (key == SDLK_ESCAPE)
+		{
+			deviceSystem().stopEventLoop();
+		}
+
+		if (key == SDLK_F5)
+		{
+			if (searchRadius__ == infinity<real>())
+			{
+				searchRadius__ = SearchRadius;
+			}
+			else
+			{
+				if (nearestPoints__ == -1)
+				{
+					nearestPoints__ = NearestPoints;
+					log() << "Automatically set nearest point count to " << nearestPoints__ << logNewLine;
+					log() << "(Otherwise every point would have matched)" << logNewLine;
+				}
+				searchRadius__ = infinity<real>();
+			}
+			log() << "Search radius set to " << searchRadius__ << logNewLine;
+		}
+		if (key == SDLK_F6)
+		{
+			if (nearestPoints__ == -1)
+			{
+				nearestPoints__ = NearestPoints;
+			}
+			else
+			{
+				nearestPoints__ = -1;
+				if (searchRadius__ == infinity<real>())
+				{
+					searchRadius__ = SearchRadius;
+					log() << "Automatically set search radius to " << searchRadius__ << logNewLine;
+					log() << "(Otherwise every point would have matched)" << logNewLine;
+				}
+			}
+
+			log() << "Nearest point count set to " << nearestPoints__ << logNewLine;
+		}
+
+		if (key == SDLK_t)
+		{
+			drawTree__ = !drawTree__;
+		}
+		if (key == SDLK_p)
+		{
+			drawPoints__ = !drawPoints__;
+		}
+		if (key == SDLK_n)
+		{
+			drawNearest__ = !drawNearest__;
+		}
+		if (key == SDLK_0)
+		{
+			computeTree(24);
+		}
+		if (key == SDLK_1)
+		{
+			computeTree(1);
+		}
+		if (key == SDLK_2)
+		{
+			computeTree(2);
+		}
+		if (key == SDLK_3)
+		{
+			computeTree(3);
+		}
+		if (key == SDLK_4)
+		{
+			computeTree(4);
+		}
+		if (key == SDLK_5)
+		{
+			computeTree(5);
+		}
+		if (key == SDLK_6)
+		{
+			computeTree(6);
+		}
+		if (key == SDLK_7)
+		{
+			computeTree(7);
+		}
+		if (key == SDLK_8)
+		{
+			computeTree(8);
+		}
+		if (key == SDLK_9)
+		{
+			computeTree(9);
+		}
+	}
+}
+
+void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
+{
+	if (!cursor.leaf() && drawTree__)
+	{
+		{
+			AlignedBox2 nextBound(bound);
+			nextBound.max()[cursor.splitAxis()] = cursor.splitPosition();
+			redrawTree(cursor.negative(), nextBound, depth + 1);
+		}
+		{
+			AlignedBox2 nextBound(bound);
+			nextBound.min()[cursor.splitAxis()] = cursor.splitPosition();
+			redrawTree(cursor.positive(), nextBound, depth + 1);
+		}
+	}
+	renderer__->setColor(Color(0, 1, 0) / std::pow((real)(depth + 1), (real)0.5));
+	renderer__->setFilled(false);
+	drawBox(*renderer__, bound);
+}
+
+void redrawPointSet()
+{
+	Color red(1, 0, 0);
+	Color yellow(0, 0, 1);
+
+	{
+		integer i = 0;
+		const integer points = tree__.objects();
+		MyTree::ConstObjectIterator iter(tree__.begin());
+		MyTree::ConstObjectIterator iterEnd(tree__.end());
+		while (iter != iterEnd)
+		{
+
+			const real alpha = (real)i / (points - 1);
+			Color color = red * (1 - alpha) + yellow * alpha;
+
+			renderer__->setColor(color);
+			renderer__->drawPoint(
+				*iter);
+			++i;
+			++iter;
+		}
+	}
+}
+
+void redrawNearest()
+{
+	Color aColor(1, 0, 0);
+	Color bColor(1, 1, 0);
+
+	Integer2 iMouse;
+	bool leftButton = false;
+	iMouse = deviceSystem().mouse(&leftButton);
+
+	const Vector2 currentMouse(
+		2 * ((real)iMouse[0] / ScreenWidth) - 1,
+		-(2 * ((real)iMouse[1] / ScreenHeight) - 1));
+
+	const Vector2 normMouse(
+		(currentMouse + 1) / 2);
+
+	const Point2 worldMouse(
+		renderer__->viewWindow().at(normMouse) *
+		renderer__->viewTransformation());
+
+	if (drawNearest__)
+	{
+		const integer points = nearestPointSet__.size();
+		for (integer i = 0;i < points;++i)
+		{
+			const real alpha = (real)i / points;
+			Color color = aColor * (1 - alpha) + bColor * alpha;
+
+			MyTree::ConstObjectIterator dataIter(
+				nearestPointSet__[i].value());
+			renderer__->setColor(color);
+			renderer__->setFilled(false);
+			//drawCircle(renderer__, Sphere2(dataIter->key(), 0.01), 20);
+			drawSegment(*renderer__, Segment2(worldMouse, *dataIter));
+		}
+	}
+
+	if (searchRadius__ != infinity<real>())
+	{
+		renderer__->setColor(Color(1));
+		renderer__->setFilled(false);
+		drawCircle(*renderer__, Sphere2(worldMouse, searchRadius__), 20);
+	}
+}
+
+void redraw()
+{
+	renderer__->setColor(Color(0));
+	renderer__->clear();
+
+	if (drawPoints__)
+	{
+		redrawPointSet();
+	}
+
+	redrawTree(tree__.root(), tree__.bound(), 0);
+	redrawNearest();
+
+	gfxDevice().swapBuffers();
+}
+
+void handleKeyboard()
+{
+	if (deviceSystem().keyDown(SDLK_q))
+	{
+		const AffineTransformation2 transformation(renderer__->viewTransformation());
+		renderer__->setViewTransformation(
+			rotation2<real>(RotationSpeed) *
+			transformation);
+	}
+	if (deviceSystem().keyDown(SDLK_e))
+	{
+		const AffineTransformation2 transformation(renderer__->viewTransformation());
+		renderer__->setViewTransformation(
+			rotation2<real>(-RotationSpeed) *
+			transformation);
+	}
+	if (deviceSystem().keyDown(SDLK_a))
+	{
+		const AffineTransformation2 transformation(renderer__->viewTransformation());
+		renderer__->setViewTransformation(
+			transformation *
+			translation2<real>(-TranslationSpeed * transformation.transformation()[0]));
+
+	}
+	if (deviceSystem().keyDown(SDLK_d))
+	{
+		const AffineTransformation2 transformation(renderer__->viewTransformation());
+		renderer__->setViewTransformation(
+			transformation *
+			translation2<real>(TranslationSpeed * transformation.transformation()[0]));
+	}
+	if (deviceSystem().keyDown(SDLK_w))
+	{
+		const AffineTransformation2 transformation(renderer__->viewTransformation());
+		renderer__->setViewTransformation(
+			transformation *
+			translation2<real>(TranslationSpeed * transformation.transformation()[1]));
+	}
+	if (deviceSystem().keyDown(SDLK_s))
+	{
+		const AffineTransformation2 transformation(renderer__->viewTransformation());
+		renderer__->setViewTransformation(
+			transformation *
+			translation2<real>(-TranslationSpeed * transformation.transformation()[1]));
+	}
+	if (deviceSystem().keyDown(SDLK_r))
+	{
+		AffineTransformation2 transformation(renderer__->viewTransformation());
+		transformation.transformation() /= ZOOM_Factor;
+		renderer__->setViewTransformation(transformation);
+	}
+
+	if (deviceSystem().keyDown(SDLK_f))
+	{
+		AffineTransformation2 transformation(renderer__->viewTransformation());
+		transformation.transformation() *= ZOOM_Factor;
+		renderer__->setViewTransformation(transformation);
+	}
+}
+
+void logicHandler()
+{
+	handleKeyboard();
+
+	const integer currentTicks =
+		timeDevice().ticks();
+	const real currentTime =
+		(real)currentTicks /
+		timeDevice().tickFrequency();
+
+	real deltaTime =
+		currentTime - lastUpdateTime;
+
+	lastUpdateTime = currentTime;
+
+	// Bound above by a second.
+	if (deltaTime > 1)
+	{
+		deltaTime = 1;
+	}
+
+	renderTimeAccumulator += deltaTime;
+	secondAccumulator += deltaTime;
+
+	real keyboardDelay = (real)1 / 100;
+
+	if (secondAccumulator >= 3)
+	{
+		log() << "Fps: " << fps / secondAccumulator << logNewLine;
+		secondAccumulator = 0;
+		fps = 0;
+	}
+
+	Integer2 iMouse;
+	bool leftButton = false;
+	iMouse = deviceSystem().mouse(&leftButton);
+
+	const Vector2 currentMouse(
+		2 * ((real)iMouse[0] / ScreenWidth) - 1,
+		-(2 * ((real)iMouse[1] / ScreenHeight) - 1));
+
+	const Vector2 normMouse(
+		(currentMouse + 1) / 2);
+
+	const Point2 worldMouse(
+		renderer__->viewWindow().at(normMouse) *
+		renderer__->viewTransformation());
+
+	if (leftButton)
+	{
+		sprayPoints(worldMouse, SPRAY_RADIUS, SprayPoints);
+	}
+
+	findNearest(tree__, worldMouse, searchRadius__, 
+		(real (*)(const Vector2&))norm, nearestPoints__, nearestPointSet__);
+
+	{
+		const integer Fps = 100;
+		const real FrameDelay =
+			(real)1 / Fps;
+
+		if (renderTimeAccumulator > FrameDelay)
+		{
+			redraw();
+
+			renderTimeAccumulator -= (real)(
+				(integer)(renderTimeAccumulator / FrameDelay) *
+				FrameDelay);
+			++fps;
+		}
+	}
+}
+
+FastList<Point2, PoolAllocator> pointSet__;
+
+void sprayPoints(const Point2& center, real radius, integer points)
+{
+	std::vector<Point2> pointSet;
+	for (integer i = 0;i < points;++i)
+	{
+		const real randomAngle = randomReal() * 2 * constantPi<real>();
+		const real randomRadius = randomReal() * radius;
+
+		Point2 point(
+			center +
+			Vector2(
+			cos(randomAngle) * randomRadius,
+			sin(randomAngle) * randomRadius));
+		pointSet.push_back(point);
+	}
+
+	pointSet__.insert(pointSet__.end(), pointSet.begin(), pointSet.end());
+	tree__.insert(pointSet.begin(), pointSet.end());
+}
+
+void generatePointSet(const AlignedBox2& region,
+					  integer points)
+{
+	for (integer i = 0;i < points;++i)
+	{
+		pointSet__.push_back(
+			region.at(Vector2(randomReal(), randomReal())));
+	}
+
+	log() << "Generated " << points << " points. " << logNewLine;
+}
+
+void computeTree(integer maxDepth)
+{
+	Timer timer;
+
+	log() << "Destructing the current kd-tree." << logNewLine;
+
+	timer.setStart();
+
+	tree__.clear();
+
+	timer.store();
+
+	cout << "Destruction took " << timer.seconds() << " seconds." << endl;
+
+	timer.setStart();
+
+	log() << "Constructing a new kd-tree with max-depth " << maxDepth << "." << logNewLine;
+
+	tree__.insert(pointSet__.begin(), pointSet__.end());
+
+	//refineSlidingMidpoint(computeKdTreeMaxDepth(tree__.objects()), 4, tree__);
+	refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
+
+	log() << "The constructed kd-tree has depth " << depth(tree__) << "." << logNewLine;
+
+	timer.store();
+
+	cout << "Construction took " << timer.seconds() << " seconds." << endl;
+}
+
+void timing()
+{
+	Timer timer;
+
+	timer.setStart();
+
+	MyTree::ConstObjectIterator iter(tree__.begin());
+	MyTree::ConstObjectIterator iterEnd(tree__.end());
+	while (iter != iterEnd)
+	{
+		findNearest(tree__, *iter,
+			infinity<real>(), 
+			(real (*)(const Vector2&))norm, 
+			NearestPoints, nearestPointSet__);
+		++iter;
+	}
+
+	timer.store();
+
+	cout << "Finding " << NearestPoints << " nearest neighbours for "
+		<< tree__.objects() << " points took " << timer.seconds() << " seconds." << endl;
+}
+
+int myMain()
+{
+	log().addObserver(LogObserverRef(new StreamLogObserver(&cout)));
+	log().addObserver(LogObserverRef(new FileLogObserver("log.txt")));
+
+	deviceSystem().initialize();
+	deviceSystem().setKeyHandler(keyHandler);
+	deviceSystem().setLogicHandler(logicHandler);
+
+	gfxDevice().initialize(ScreenWidth, ScreenHeight, 32, false);
+	deviceSystem().setCaption("Pastel's nearest neighbours example");
+
+	renderer__ = new GlGfxRenderer();
+	renderer__->setViewWindow(
+		AlignedBox2(Point2((real)-4 / 3, -1),
+		Point2((real)4 / 3, 1)));
+	renderer__->setColor(Color(0));
+	renderer__->clear();
+	gfxDevice().swapBuffers();
+
+	generatePointSet(
+		AlignedBox2(Point2(-1, -1), Point2(1, 1)), Points / 2);
+
+	generatePointSet(
+		AlignedBox2(Point2(0.5, 0.5), Point2(0.75, 0.75)), Points / 8);
+
+	generatePointSet(
+		AlignedBox2(Point2(0.6, 0.4), Point2(0.90, 0.6)), Points / 8);
+
+	generatePointSet(
+		AlignedBox2(Point2(0.4, 0.0), Point2(0.6, 0.2)), Points / 4);
+
+	computeTree(24);
+	//timing();
+
+	deviceSystem().startEventLoop(LogicFps);
+
+	delete renderer__;
+
+	gfxDevice().deInitialize();
+	deviceSystem().deInitialize();
+	return 0;
+}

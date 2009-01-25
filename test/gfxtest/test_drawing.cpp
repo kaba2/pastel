@@ -1,0 +1,534 @@
+#include "pastelgfxtest.h"
+
+#include "pastel/sys/extendedconstview_all.h"
+#include "pastel/sys/view_all.h"
+
+#include "pastel/gfx/pcx.h"
+#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/imagegfxrenderer.h"
+#include "pastel/gfx/gfxrenderer_tools.h"
+#include "pastel/gfx/mipmap_tools.h"
+#include "pastel/gfx/filter_all.h"
+
+#include "pastel/math/uniformsampling.h"
+
+#include "pastel/gfx/colormixers.h"
+#include "pastel/gfx/textures.h"
+
+#include <boost/lambda/lambda.hpp>
+using namespace boost::lambda;
+
+using namespace Pastel;
+
+namespace
+{
+
+	void testDistortion()
+	{
+		log() << "- distortion" << logNewLine;
+
+		LinearArray<2, Color> textureImage;
+		loadPcx("lena.pcx", textureImage);
+
+		MipMap<2, Color> mipMap(constArrayView(textureImage));
+		EwaImageTexture<Color> texture(mipMap);
+		transform(mipMap, fitColor);
+
+		LinearArray<2, Color> image(500, 100);
+
+		distortAnnulusToAlignedBox(
+			texture,
+			Point2(0.5),
+			0.25,
+			0.5,
+			0,
+			2 * constantPi<real>(),
+			arrayView(image),
+			AlignedBox2(0, 0, 500, 100),
+			assignColorMixer<Color>());
+
+		transform(arrayView(image), fitColor);
+		
+		savePcx(image, "test_distortion.pcx");
+
+		ImageGfxRenderer<Color> renderer;
+		renderer.setImage(&textureImage);
+		renderer.setFilled(false);
+		renderer.setColor(Color(0, 1, 0));
+		renderer.setViewWindow(
+			AlignedBox2(0, 0, 1, 1));
+
+		drawCircle(renderer, Sphere2(Point2(0.5), 0.25), 40);
+		drawCircle(renderer, Sphere2(Point2(0.5), 0.5), 40);
+		drawSegment(renderer, Segment2(Point2(0.6, 0.5), Point2(0.7, 0.5)));
+
+		savePcx(textureImage, "test_distortion_texture.pcx");
+	}
+
+	void testView()
+	{
+		log() << "- view" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500, Color(0));
+
+		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
+		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), IVector2(2, 2)));
+
+		clear(Color(0, 0, 1), rowView<0>(arrayView(image), IPoint2(10, 10)));
+		clear(Color(0, 0, 1), rowView<1>(arrayView(image), IPoint2(10, 10)));
+
+		copy(constSubView(constArrayView(image), Rectangle2(0, 0, 200, 200)),
+			subView(arrayView(image), Rectangle2(300, 300, 500, 500)));
+
+		savePcx(image, "testdrawing_view.pcx");
+	}
+
+	void testBinary()
+	{
+		log() << "- binary" << logNewLine;
+
+		LinearArray<2, bool> image(500, 500, false);
+
+		clear(false, arrayView(image));
+
+		drawBox(Rectangle2(100, 100, 200, 200), true, 
+			arrayView(image));
+
+		drawSegment(Segment2(Point2(250, 50), Point2(300, 30)),
+			true, arrayView(image));
+
+		saveBinaryPcx(image, "testdrawing_binary.pcx");
+	}
+
+	void testFloodFill()
+	{
+		log() << "- floodfill" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500, Color(0));
+
+		ImageGfxRenderer<Color> renderer;
+		renderer.setImage(&image);
+		renderer.setViewWindow(AlignedBox2(-1, -1, 1, 1));
+		renderer.setFilled(false);
+
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(Point2(0), 0.5), 20);						
+
+		renderer.setColor(randomRgbColor());
+		drawTriangle(renderer, Triangle2(Point2(0), Point2(0, -1), Point2(0.5))); 
+
+		floodFill(0, 0, randomRgbColor(), arrayView(image));
+
+        savePcx(image, "testdrawing_floodfill.pcx");
+	}
+
+	template <int N, typename Real>
+	Point<N, Real> randomPoint(
+		const AlignedBox<N, Real>& region)
+	{
+		return region.min() + randomVector<N, Real>() * region.extent();
+	}
+
+	void testPerspectiveTriangle()
+	{
+		log() << "- perspective triangle" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500);
+
+		LinearArray<2, Color> texture;
+		loadPcx("lena.pcx", texture);
+
+		log() << "Computing mipmaps.." << logNewLine;
+		MipMap<2, Color> mipMap(constArrayView(texture));
+		transform(mipMap, fitColor);
+
+		MipImageTexture<Color> sampler(mipMap);
+		
+		log() << "Rendering.." << logNewLine;
+
+		const AlignedBox3 region(
+			Point3(-100, -100, 0),
+			Point3(600, 600, 10));
+
+		for (integer i = 0;i < 5;++i)
+		{
+			drawTriangle(
+				Triangle3(
+					randomPoint(region),
+					randomPoint(region),
+					randomPoint(region)),
+				Triangle2(
+					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+				sampler,
+				arrayView(image));
+		}
+
+		savePcx(image, "testdrawing_perspectivetriangle.pcx");
+	}
+
+	void testEwaPerspectiveTriangle()
+	{
+		log() << "- ewa perspective triangle" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500);
+
+		LinearArray<2, Color> textureImage;
+		loadPcx("lena.pcx", textureImage);
+
+		log() << "Rendering.." << logNewLine;
+
+		const AlignedBox3 region(
+			Point3(-100, -100, 0),
+			Point3(600, 600, 10));
+
+		MipMap<2, Color> mipMap(constArrayView(textureImage));
+		EwaImageTexture<Color> texture(mipMap);
+		transform(mipMap, fitColor);
+
+		for (integer i = 0;i < 5;++i)
+		{
+			drawTriangle(
+				Triangle3(
+					randomPoint(region),
+					randomPoint(region),
+					randomPoint(region)),
+				Triangle2(
+					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+				texture,
+				arrayView(image));
+		}
+
+		savePcx(image, "testdrawing_ewaperspectivetriangle.pcx");
+	}
+
+	void testTextureTriangle()
+	{
+		log() << "- texture triangle" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500);
+
+		LinearArray<2, Color> texture;
+		loadPcx("lena.pcx", texture);
+
+		log() << "Computing mipmaps.." << logNewLine;
+		MipMap<2, Color> mipMap(constArrayView(texture));
+		transform(mipMap, fitColor);
+
+		MipImageTexture<Color> sampler(mipMap);
+		
+		log() << "Rendering.." << logNewLine;
+
+		const AlignedBox2 region(
+			Point2(-100, -100),
+			Point2(600, 600));
+
+		for (integer i = 0;i < 5;++i)
+		{
+			drawTriangle(
+				Triangle2(
+					randomPoint(region),
+					randomPoint(region),
+					randomPoint(region)),
+				Triangle2(
+					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+				sampler,
+				arrayView(image));
+		}
+
+		savePcx(image, "testdrawing_texturetriangle.pcx");
+	}
+
+	void testEwaTriangle()
+	{
+		log() << "- texture ewa triangle" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500);
+
+		LinearArray<2, Color> textureImage;
+		loadPcx("lena.pcx", textureImage);
+
+		log() << "Rendering.." << logNewLine;
+
+		const AlignedBox2 region(
+			Point2(-100, -100),
+			Point2(600, 600));
+
+		MipMap<2, Color> mipMap(constArrayView(textureImage));
+		EwaImageTexture<Color> texture(mipMap);
+		transform(mipMap, fitColor);
+
+		TriangleFilter ewaFilter;
+		for (integer i = 0;i < 5;++i)
+		{
+			drawTriangle(
+				Triangle2(
+					randomPoint(region),
+					randomPoint(region),
+					randomPoint(region)),
+				Triangle2(
+					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+				texture,
+				arrayView(image));
+		}
+
+		savePcx(image, "testdrawing_ewaimagetexturetriangle.pcx");
+	}
+
+	void testSolidTriangle()
+	{
+		log() << "- solid triangle" << logNewLine;
+
+		LinearArray<2, Color> image(500, 500);
+
+		LinearArray<2, Color> texture;
+		loadPcx("lena.pcx", texture);
+
+		log() << "Rendering.." << logNewLine;
+
+		const AlignedBox2 region(
+			Point2(-100, -100),
+			Point2(600, 600));
+
+		for (integer i = 0;i < 5;++i)
+		{
+			drawTriangle(
+				Triangle2(
+					randomPoint(region),
+					randomPoint(region),
+					randomPoint(region)),
+				randomRgbColor(),
+				arrayView(image),
+				transparentColorMixer<Color>(0.75));
+		}
+
+		savePcx(image, "testdrawing_solidtriangle.pcx");
+	}
+
+
+	void testBoxes()
+    {
+		log() << "- boxes" << logNewLine;
+
+		LinearArray<2, Color> image(640, 480);
+
+		ImageGfxRenderer<Color> renderer;
+		renderer.setImage(&image);
+		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
+
+		Point2 a(0, 0);
+        Point2 b(33.3, 45.6);
+        Point2 c(634.4, 200.1);
+        Point2 d(33.3, 0);
+        Point2 e(634.4, 45.6);
+
+		renderer.setColor(randomRgbColor());
+        drawBox(renderer, AlignedBox2(a, b));
+		renderer.setColor(randomRgbColor());
+        drawBox(renderer, AlignedBox2(b, c));
+		renderer.setColor(randomRgbColor());
+        drawBox(renderer, AlignedBox2(d, e));
+
+        savePcx(image, "testdrawing_boxes.pcx");
+    }
+
+	void testMoreCircles()
+	{
+		log() << "- more circles" << logNewLine;
+
+		LinearArray<2, Color> image(640, 480);
+
+		ImageGfxRenderer<Color> renderer;
+		renderer.setImage(&image);
+		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
+		renderer.setColor(randomRgbColor());
+
+		for (integer i = 0;i < 10;++i)
+		{
+			for (integer j = 0;j < 10;++j)
+			{
+				drawCircle(renderer, Sphere2(Point2(i * 64.1 + 32, j * 48 + 24), 20 + j * 0.1));
+			}
+		}
+
+		savePcx(image, "testdrawing_morecircles.pcx");
+	}
+
+	void testCircles()
+	{
+		log() << "- circles" << logNewLine;
+		
+		LinearArray<2, Color> image(640, 480);
+
+		ImageGfxRenderer<Color> renderer;
+		renderer.setImage(&image);
+		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
+
+		Point2 a(320, 240);
+
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 100));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 99));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 98));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 96));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 94));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 91));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 88));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 84));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 80));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 75));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 70));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 64));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 58));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 51));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 44));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 36));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 28));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 19));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(a, 10));
+
+		const Point2 b(55.3, 45.7);
+
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(b, 20.1));
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(b, 19.5));
+
+		const Point2 c(-50, 480);
+
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(c, 200));
+
+		renderer.setColor(randomRgbColor());
+		drawCircle(renderer, Sphere2(c, 45));
+
+		savePcx(image, "testdrawing_circles.pcx");
+	}
+
+	void testLines()
+	{
+		log() << "- lines" << logNewLine;
+
+		LinearArray<2, Color> image(640, 480);
+
+		const integer steps = 128;
+
+		const Point2 center(50.5, 240.5);
+		const real radius = 200;
+		real alphaStep = 2 * constantPi<real>() / steps;
+
+		for (integer i = 0;i < steps;++i)
+		{
+			const Point2 to(
+				center.x() + std::cos(alphaStep * i) * radius,
+				center.y() + std::sin(alphaStep * i) * radius);
+
+			/*
+			const Point2 to(
+				std::floor(center.x() + std::cos(alphaStep * i) * radius) + 0.5,
+				std::floor(center.y() + std::sin(alphaStep * i) * radius) + 0.5);
+			*/
+
+			drawSegment(Segment2(center, to), Color(1), arrayView(image));
+		}
+
+		savePcx(image, "testdrawing_lines.pcx");
+	}
+
+	void testMoreLines()
+	{
+		log() << "- more lines" << logNewLine;
+
+		LinearArray<2, Color> image(640, 480);
+
+		const integer lines = 500;
+
+		for (integer i = 0;i < lines;++i)
+		{
+			const Point2 from(randomReal() * 1000 - 180, randomReal() * 740 - 180);
+			const Point2 to(randomReal() * 1000 - 180, randomReal() * 740 - 180);
+			drawSegment(Segment2(from, to), randomRgbColor(), arrayView(image));
+		}
+
+		savePcx(image, "testdrawing_morelines.pcx");
+	}
+
+	void testEvenMoreLines()
+	{
+		log() << "- even more lines" << logNewLine;
+
+		const integer XLines = 5;
+		const integer YLines = 5;
+		const integer BoxWidth = 100;
+		const integer BoxHeight = 25;
+		const integer Border = 10;
+		const real YStart = 0.1;
+		const real YEnd = 0.9;
+		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);
+		const real YYStep = (real)(YEnd - YStart) / (YLines - 1);
+
+		LinearArray<2, Color> image(XLines* BoxWidth, YLines * BoxHeight);
+
+		for (integer y = 0;y < YLines;++y)
+		{
+			for (integer x = 0;x < XLines;++x)
+			{
+				const Point2 from(
+					x * BoxWidth + Border + 0.5, 
+					y * BoxHeight + Border + (YStart + x * XYStep));
+				const Point2 to(
+					x * BoxWidth + (BoxWidth - Border) + 0.5 , 
+					y * BoxHeight + (BoxHeight - Border) + (YStart + y * YYStep));
+
+				drawSegment(Segment2(from, to), Color(1), arrayView(image));
+			}
+		}
+
+		savePcx(image, "testdrawing_evenmorelines.pcx");
+	}
+
+	void testBegin()
+	{
+		testDistortion();
+		testView();
+		testBinary();
+		testFloodFill();
+		testLines();
+		testMoreLines();
+		testEvenMoreLines();
+		testSolidTriangle();
+		testTextureTriangle();
+		testEwaTriangle();
+		testPerspectiveTriangle();
+		testEwaPerspectiveTriangle();
+        testBoxes();
+		testCircles();
+		testMoreCircles();
+	}
+
+	void testAdd()
+	{
+		gfxTestList().add("Drawing", testBegin);
+	}
+
+	CallFunction run(testAdd);
+
+}

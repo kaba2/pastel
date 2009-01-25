@@ -1,0 +1,221 @@
+Style conventions
+=================
+
+Principles
+----------
+
+* Use English everywhere.
+	! English will be by far the most common language used by the
+	potential users of the library. Also, most computer related
+	terms have their roots in English and are well known.
+	Their translations in other languages are probable
+	to be less known and thus be hard to decipher.
+
+* Maximize readability of the code as English.
+
+Naming rules
+------------
+
+* Types, namespaces -> `LikeThis`
+
+* Macros -> 'PASTEL_LIKE_THIS'
+
+* Functions, variables -> `likeThis`
+
+* Program-time constants -> 'LikeThis'
+	! A program-time constant is a variable identifier
+	whose value stays the same no matter when the
+	value is considered during the program run.
+	For example: 'const real ShortPi = 3.14;'.
+	! This includes compile-time constants, such
+	as enumerations.
+	! In particular, program-time constants are not named
+	with upper-case characters with underscore delimiters,
+	because they would then risk colliding with macros.
+
+* Scope-time constants -> 'likeThis'
+	! A scope-time constant is an object identifier
+	whose value stays the same from its construction to its destruction
+	but can not be guaranteed to be the same at all times during the 
+	program run. For example: 'const integer width = image.width();'.
+	! In particular, scope-time constants are named just
+	like normal variables.
+
+* Class member variables -> `likeThis_`
+	! This way it is possible to make a distinction
+	between external variables and member variables.
+	! If there is a member variable named 'radius_',
+	then you can use a corresponding variable name 'radius'
+	as a constructor parameter. Similarly with other
+	functions where your aim is to directly influence
+	a member variable.
+
+* Class static variables -> `likeThis__`
+
+* Filenames -> `intersect_alignedbox_alignedbox.h`
+
+* Directories -> `pastel/sys/`
+
+* Libraries -> `PastelSys`
+
+* Header file guards -> `PASTELSYS_LIKETHIS_H`
+
+* Setters -> 'setRadius()'
+
+* Getters -> 'radius()'
+
+* Boolean getters -> 'empty()'
+	! In particular, 'is' prefix is not used.
+	! Exception: 'is' prefix can be used for disambiguation if the
+	property can be interpreted both as a verb and an adjective.
+	For example: 'open' -> 'isOpen'
+
+* Collections: 'shapeList_', 'shapeSet_'.
+
+* Quantities: 'shapes_', 'leaves_'.
+
+* When using curiously recurring template pattern with the
+class 'MyClass', name the super class as 'MyClassBase'
+
+* When prohibiting the use of implicitly generated class
+members, declare them private, with no implementation and
+comment them "Prohibited".
+
+* In a "switch" structure, if one case is meant to slip
+through to the handler of the next case, comment it
+with a "Fall-through".
+
+Clause related rules
+--------------------
+
+* All control structures must have their actions defined on a block.
+
+* Place { and } on individual rows.
+
+* Write at most one clause per row.
+
+* One row, one logical operation. It is hard to follow things 
+such as "a = b = c++;".
+
+* Pass in-parameter native types by value.
+
+* Pass in-parameter objects by const reference.
+
+* Use word 'that' in member functions to mean an object of the same class.
+
+* Use word 'result' to store the return value of a function if there is 
+no better name.
+
+* Write a space after a comma -> a, b, c
+
+* Separate binary operators with spaces from both sides
+a + b, a - b, a = b, a * b, a / b, a % b, a b, ...
+
+Class related rules
+-------------------
+
+* Always use classes, never use structs.
+	! There are just a few differences between classes and structs,
+	and these differences are only related to what is the default
+	behaviour. Everything you can do with one you can do with the
+	other. However, sometimes types must be forward-declared
+	and then it is convenient to not being required to remember
+	if the type was a struct or a class. Out of the default
+	behaviours, the one for the classes is the better one
+	since it encourages hiding.
+
+* Specify class member variables private.
+
+* Define member functions out-of-class.
+	! Exception: A class that is not to be used directly by a user 
+	(for example, a 'detail' class) and that contains a lot of template 
+	parameters can have member functions defined in-class. This is because 
+	in the current C++ out-of-class definitions for such a class generates 
+	a lot of distracting, redundant template boilerplate.
+	! Exception: Friend functions.
+
+* Define inner classes out-of-class.
+	! Exception: Those classes that are needed to be complete inside the 
+	containing class must of course be defined in-class.
+	! Exception: Pod classes can be defined in-class because they contain 
+	relevant information in compact form.
+
+* Specify variables const as often as possible.
+	! This makes the code easier to read since the reader
+	can fix the meaning and value of a variable in his head
+	for the rest of the code.
+	For example: 'const integer index = i * 5 + 1;'
+	! Exception: Do not specify function parameters given 
+	by value as const. This makes function declarations look odd
+	and thus harder to read because it is unconventional.
+
+Operator related rules
+----------------------
+
+* If relational operators are needed (<,>,<=,>=), implement less-than 
+and implement the rest of the operators in terms of that.
+
+* If equality operators are needed (==, !=), implement equality and 
+implement non-equality in terms of that.
+
+* If increment operators are needed (pre- and post-fix), implement 
+prefix increment and implement postfix increment in terms of that.
+
+* Use the boost::operators library to accomplish these in an easy way.
+
+Text editor related rules
+-------------------------
+
+* Do not write rows longer than 70 characters.
+	! Longer rows do not necessarily fit in other text editors.
+
+* Do not attempt to align for any other condition than indentation.
+	! In particular, do not place comments after a clause.
+	The position of the comment changes with the length of the
+	clause before it. Changing the clause requires to
+	reposition the comment. The comment is also likely
+	to exceed the given maximum of 70 characters per row.
+
+* Use hard tabs for indentation and only for indentation.
+	! Desired indentation amount is dependent on the programmer.
+	Tabs make it possible to change it on the fly without modifying
+	the source code.
+	! The much debated problems with the tabs stem from the fact that it
+	is often used incorrectly to match other boundary conditions than 
+	indentation (in the middle of a clause). 
+	! A hard tab can be added only if preceded by another hard tab 
+	or the beginning of a row.
+
+File name related rules
+-----------------------
+
+* Separate templates into two files: one for the function declarations
+(class definition) and one for the function definitions.
+
+* Name class definition (function declaration) files .h.
+
+* Name normal source files .cpp.
+
+* Name template/inline source files .hpp.
+
+* Include the .hpp file in its corresponding .h file.
+
+* Include the .h file in its corresponding .hpp file.
+
+Rejected naming rules
+---------------------
+
+For readability, the following have been explicitly rejected:
+
+* Hungarian notation, encoding the type of the variable
+into the variable name. For example "iSize" for variable
+named 'size' of int type.
+
+* Using 'get' prefix in getters. It is much clearer to read
+"if (cow.weight() > 5)" than "if (cow.getWeight() > 5)".
+
+* Using 'is' prefix in boolean getters (except for the exception).
+This prefix leads to long and heavy inflections.
+For example, it is much more comfortable to read
+"if (overlaps(sphere, alignedBox))" than
+"if (isOverlapping(sphere, alignedBox))"

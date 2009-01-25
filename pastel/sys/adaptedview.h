@@ -1,0 +1,117 @@
+#ifndef PASTELSYS_ADAPTEDVIEW_H
+#define PASTELSYS_ADAPTEDVIEW_H
+
+#include "pastel/sys/view.h"
+#include "pastel/sys/adaptedviewcursor.h"
+
+namespace Pastel
+{
+
+	template <int N, typename Adapter, typename Contained_ConstView>
+	class ConstAdaptedView
+	{
+	public:
+		enum
+		{
+			Dimension = N
+		};
+
+		typedef Detail_AdaptedView::ConstAdaptedViewCursor<N, typename Contained_ConstView::ConstCursor, Adapter>
+			ConstCursor;
+		typedef typename ConstCursor::Element Element;
+		typedef typename ConstCursor::ConstReference ConstReference;
+
+		explicit ConstAdaptedView(
+			const Contained_ConstView& view,
+			const Adapter& adapter)
+			: view_(view)
+			, adapter_(adapter)
+			, extent_(view.extent())
+		{
+		}
+
+		const Vector<N, integer>& extent() const
+		{
+			return extent_;
+		}
+
+		ConstCursor constCursor(
+			const Point<N, integer>& position) const
+		{
+			return ConstCursor(view_.constCursor(position), adapter_);
+		}
+
+	protected:
+		const Contained_ConstView view_;
+		const Adapter adapter_;
+		const Vector<N, integer> extent_;
+	};
+
+	template <int N, typename Input_Element, typename Input_ConstView, typename Adapter>
+	ConstView<N, typename ConstAdaptedView<N, Adapter, Input_ConstView>::Element, 
+		ConstAdaptedView<N, Adapter, Input_ConstView> > 
+		constAdaptedView(
+		const ConstView<N, Input_Element, Input_ConstView>& view,
+		const Adapter& adapter)
+	{
+		return wrapConstView(
+			ConstAdaptedView<N, Adapter, Input_ConstView>(view.contained(), adapter));
+	}
+
+	//! Permutes the dimensions of the view.
+	/*!
+	More specifically:
+
+	adaptedView(x_1, ..., x_n) =
+	view(x_p(1), ..., x_p(n))
+
+	Where
+	p is in [1, n]^n
+	*/
+
+	template <int N, typename Adapter, typename Contained_View>
+	class AdaptedView
+		: public ConstAdaptedView<N, Adapter, Contained_View>
+	{
+	private:
+		typedef ConstAdaptedView<N, Adapter, Contained_View> Base;
+
+		using Base::view_;
+		using Base::adapter_;
+	
+	public:
+		//using Base::Dimension;
+		using typename Base::ConstCursor;
+		using Base::extent;
+		using Base::constCursor;
+
+		typedef Detail_AdaptedView::AdaptedViewCursor<N, typename Contained_View::Cursor, Adapter>
+			Cursor;
+		using Base::Element;
+		typedef typename Cursor::Reference Reference;
+
+		explicit AdaptedView(
+			const Contained_View& view,
+			const Adapter& adapter)
+			: Base(view, adapter)
+		{
+		}
+
+		Cursor cursor(const Point<N, integer>& position) const
+		{
+			return Cursor(view_.cursor(position), adapter_);
+		}
+	};
+
+	template <int N, typename Input_Element, typename Input_View, typename Adapter>
+	View<N, typename AdaptedView<N, Adapter, Input_View>::Element, 
+		AdaptedView<N, Adapter, Input_View> > adaptedView(
+		const View<N, Input_Element, Input_View>& view,
+		const Adapter& adapter)
+	{
+		return wrapView(AdaptedView<N, Adapter, Input_View>(view.contained(), adapter));
+	}
+
+}
+
+#endif

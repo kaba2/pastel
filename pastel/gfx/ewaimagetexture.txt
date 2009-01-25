@@ -1,0 +1,73 @@
+Enhanced EWA filtering
+======================
+
+[Back to computer graphics][Up]
+
+[Up]: /Computer_Graphics/
+
+Abstract
+--------
+
+This paper discusses the Elliptically Weighted Average (EWA) filtering algorithm along
+with enhancements that further increase image quality. 
+We derive all the mathematical results that are needed in the algorithm and
+generalize the algorithm as follows. 
+First, we allow filters with varying radii of support. Second, we propose a technique to embed differing
+filters for the minification and magnification. This enhances the
+image quality by allowing to use those filters in reconstruction that
+are good in it (e.g. Lanczos filter with radius 2) and to use those filters in antialiasing that
+avoid aliasing (e.g. Gaussian filter). The transition between these filters
+is made invisible by linearly interpolating between the filters. The original
+EWA algorithm is recovered by setting both filters to a Gaussian filter with radius 1.
+Third, our derivations are coordinate-free which we believe is the best representation for the formulae
+in the algorithm. This also enables generalizing the algorithm to higher dimensions 
+(e.g. filtering voxel data in 3d), although this would be very costly.
+We shall demonstrate that using a filter radius of 1 for the gaussian filter as in the original
+EWA filtering algorithm leads to artifacts when magnifying.
+
+Paper
+-----
+
+[Download the paper (PDF)][Paper]
+
+[Paper]: Enhanced_Ewa.pdf
+
+Images
+------
+
+Since it can be hard to see from the paper which pixels are there in purpose and
+which are due to Adobe Acrobat resizing, I have included all the images in this webpage
+in their original size.
+
+=== Figure 2: Quality of anisotropic antialiasing with diagonal filter footprints ===
+
+![](checker1_nearest.png "No filtering")
+![](checker1_trilinear.png "Trilinear filtering")
+![](checker1_ewa.png "EWA filtering")
+![](checker1_enhanced_ewa.png "Enhanced EWA filtering")
+
+=== Figure 3: Quality of anisotropic antialiasing with high frequency content ===
+
+![](checker2_nearest.png "No filtering")
+![](checker2_trilinear.png "Trilinear filtering")
+![](checker2_ewa.png "EWA filtering")
+![](checker2_enhanced_ewa.png "Enhanced EWA filtering")
+
+=== Figure 4: A typical viewing situation ===
+
+![](lena1_nearest.png "No filtering")
+![](lena1_trilinear.png "Trilinear filtering")
+![](lena1_ewa.png "EWA filtering")
+![](lena1_enhanced_ewa.png "Enhanced EWA filtering")
+
+=== Figure 5: Quality of isotropic magnification ===
+
+![](lena_magnification.png "Enhanced EWA filtering")
+
+Top left: no filtering, top right: trilinear filtering,
+bottom left: EWA filtering, bottom right: enhanced EWA filtering.
+
+=== Figure 6: Magnification artifacts from gaussian filter clamping ===
+
+![](checker3_ewa_gaussian1.png "Enhanced EWA filtering using Gaussian filter with radius 1 for magnification")
+![](checker3_ewa_gaussian2.png "Enhanced EWA filtering using Gaussian filter with radius 2 for magnification")

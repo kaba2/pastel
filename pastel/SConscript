@@ -1,0 +1,27 @@
+Import('env')
+Import('config')
+
+env = env.Clone()
+config.apply('Boost', env)
+env.Append(CPPPATH='#')
+env.Append(CPPDEFINES=['PASTEL_EXPORTS=1'])
+Export('env')
+
+subdirs = [
+	'device',
+	#'fx',
+	'geometry',
+	'gfx',
+	'gl',
+	'math',
+	'ray',
+	'sys',
+]
+
+objs = []
+for subdir in subdirs:
+	lst = env.SConscript(subdir + '/SConscript')
+	if lst:
+		objs += lst
+
+Return('objs')

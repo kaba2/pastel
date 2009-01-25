@@ -1,0 +1,13 @@
+Allocator speed testing
+
+							Pool        Native      Arena
+Allocation      10000       0           31          0
+Allocation      100000      16          172         0
+Allocation      1000000     78          1406        63
+Allocation      10000000    688         13843       688
+Deallocation    10000       0 / 0       16 / -      - / 0
+Deallocation    100000      31 / 0      3400* / -    - / 0
+Deallocation    1000000     250 / 0     1594 / -    - / 0
+Deallocation    10000000    2547 / 0    16781 / -   - / 0
+
+* The lowest encountered time. Sometimes it timed to 7000ms...

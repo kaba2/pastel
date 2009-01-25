@@ -1,0 +1,20 @@
+Adapted arrays
+--------------
+
+* Should cursors work with adapted arrays?
+
+1) Make a new class, AdaptedArray, that
+is derived from LinearArray. The LinearArray
+represents the physical view, while
+the AdaptedArray represents the adapted view.
+
+AdaptedArray<2, uint32, Color, Rgb0888Adapter> image;
+
+resample(image, ...);
+
+* resample
+* load/save pcx
+* clear
+
+image(x, y) *= t + 2;
+

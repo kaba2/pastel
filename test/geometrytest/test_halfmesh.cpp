@@ -1,0 +1,532 @@
+#include "pastelgeometrytest.h"
+
+#include "pastel/geometry/halfmesh_tools.h"
+#include "pastel/geometry/simplehalfmesh.h"
+#include "pastel/sys/random.h"
+
+#include <algorithm>
+#include <iostream>
+
+using namespace Pastel;
+
+namespace
+{
+
+	typedef SimpleHalfMesh<int, int, int, int> Mesh;
+	typedef Mesh::Vertex Vertex;
+	typedef Mesh::Half Half;
+	typedef Mesh::Edge Edge;
+	typedef Mesh::Polygon Polygon;
+	typedef Mesh::ConstVertexIterator ConstVertexIterator;
+	typedef Mesh::ConstHalfIterator ConstHalfIterator;
+	typedef Mesh::ConstEdgeIterator ConstEdgeIterator;
+	typedef Mesh::ConstPolygonIterator ConstPolygonIterator;
+
+	template <typename InputIterator,
+		typename OtherInputIterator>
+	bool rotationEqual(
+	InputIterator from, InputIterator to,
+	OtherInputIterator otherFrom)
+	{
+		if (from == to)
+		{
+			return true;
+		}
+
+		InputIterator pivot(std::find(from, to, *otherFrom));
+		int delta = std::distance(from, pivot);
+		OtherInputIterator otherPivot(otherFrom);
+		std::advance(otherPivot, delta);
+
+		return std::equal(pivot, to, otherFrom) ||
+			std::equal(from, pivot, otherPivot);
+	}
+
+	void testBasic()
+	{
+		Mesh mesh;
+		mesh.clear();
+
+		Mesh otherMesh(mesh);
+		otherMesh.swap(mesh);
+
+		otherMesh.clear();
+		mesh.clear();
+	}
+
+	void testVertexAdd()
+	{
+		Mesh mesh;
+
+		const integer VertexCount = 100;
+		Vertex vertex[VertexCount];
+
+		for (integer i = 0;i < VertexCount;++i)
+		{
+			vertex[i] = mesh.addVertex();
+			REPORT(vertex[i].empty());
+		}
+
+		checkInvariants(mesh);
+
+		Mesh otherMesh(mesh);
+		checkInvariants(otherMesh);
+	}
+
+	void testEdge()
+	{
+		Mesh mesh;
+
+		const integer VertexCount = 100;
+		std::vector<Vertex> vertex(VertexCount);
+
+		for (integer i = 0;i < VertexCount;++i)
+		{
+			vertex[i] = mesh.addVertex();
+			REPORT(vertex[i].empty());
+		}
+
+		{
+			Mesh otherMesh(mesh);
+			checkInvariants(otherMesh);
+		}
+
+		const integer BucketSize = 100;
+		const integer BucketCount = 10;
+		const integer EdgeCount = BucketSize * BucketCount;
+		std::vector<Edge> edgeList(EdgeCount);
+
+		for (integer i = 0;i < BucketCount;++i)
+		{
+			for (integer j = 0;j < BucketSize;++j)
+			{
+				const integer aVertex =
+					randomInteger() % VertexCount;
+				const integer bVertex =
+					randomInteger() % VertexCount;
+				bool alreadyExisted = false;
+				Edge edge(
+					mesh.addEdge(vertex[aVertex], vertex[bVertex],
+					&alreadyExisted));
+				if (alreadyExisted)
+				{
+					edge.clear();
+				}
+				edgeList[i * BucketSize + j] = edge;
+				checkInvariants(mesh);
+			}
+
+		}
+
+		checkInvariants(mesh);
+
+		{
+			Mesh otherMesh(mesh);
+			checkInvariants(otherMesh);
+		}
+
+		for (integer i = 0;i < EdgeCount;++i)
+		{
+			const integer index = randomInteger() % EdgeCount;
+			if (!edgeList[i].empty())
+			{
+				mesh.removeEdge(edgeList[i]);
+				edgeList[i].clear();
+			}
+
+			checkInvariants(mesh);
+		}
+
+		{
+			Mesh otherMesh(mesh);
+			checkInvariants(otherMesh);
+		}
+	}
+
+	void testPolygon()
+	{
+		Mesh mesh;
+
+		Vertex vertex[4][4];
+
+		for (integer i = 0;i < 4;++i)
+		{
+			for (integer j = 0;j < 4;++j)
+			{
+				vertex[i][j] = mesh.addVertex();
+				REPORT(vertex[i][j].empty());
+				vertex[i][j]() = i * 10 + j;
+			}
+		}
+
+		// *   *   *   *
+		//
+		// *   *   *   *
+		//
+		// *   *   *   *
+		//
+		// *   *   *   *
+
+		Polygon polygon[16];
+
+		std::vector<Vertex> points;
+
+		points.clear();
+		points.push_back(vertex[0][0]);
+		points.push_back(vertex[1][0]);
+		points.push_back(vertex[1][1]);
+
+		polygon[0] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *   *   *   *
+		// |0\
+		// *---*   *   *
+		//
+		// *   *   *   *
+		//
+		// *   *   *   *
+
+		points.clear();
+		points.push_back(vertex[0][0]);
+		points.push_back(vertex[1][1]);
+		points.push_back(vertex[0][1]);
+
+		polygon[1] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*   *   *
+		// |0\1|
+		// *---*   *   *
+		//
+		// *   *   *   *
+		//
+		// *   *   *   *
+
+		points.clear();
+		points.push_back(vertex[0][1]);
+		points.push_back(vertex[1][1]);
+		points.push_back(vertex[1][0]);
+		points.push_back(vertex[2][0]);
+		points.push_back(vertex[2][1]);
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[0][2]);
+
+		polygon[2] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*---*   *
+		// |0\1|###|
+		// *---*#2#*   *
+		// |#######|
+		// *---*---*   *
+		//
+		// *   *   *   *
+
+		points.clear();
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[3][2]);
+		points.push_back(vertex[3][3]);
+		points.push_back(vertex[2][3]);
+
+		polygon[3] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*---*   *
+		// |0\1|###|
+		// *---*#2#*   *
+		// |#######|
+		// *---*---*---*
+		//         |#3#|
+		// *   *   *---*
+
+		points.clear();
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[2][3]);
+		points.push_back(vertex[1][3]);
+
+		polygon[4] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*---*   *
+		// |0\1|###|
+		// *---*#2#*---*
+		// |#######| \4|
+		// *---*---*---*
+		//         |#3#|
+		// *   *   *---*
+
+		points.clear();
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[2][3]);
+
+		polygon[5] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*---*   *
+		// |0\1|###|
+		// *---*#2#*---*
+		// |#######|5\4|
+		// *---*---*---*
+		//         |#3#|
+		// *   *   *---*
+
+		points.clear();
+		points.push_back(vertex[0][2]);
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[1][3]);
+		points.push_back(vertex[0][3]);
+
+		polygon[6] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*---*---*
+		// |0\1|###|#6#|
+		// *---*#2#*---*
+		// |#######|5\4|
+		// *---*---*---*
+		//         |#3#|
+		// *   *   *---*
+
+		points.clear();
+		points.push_back(vertex[2][0]);
+		points.push_back(vertex[3][0]);
+		points.push_back(vertex[3][1]);
+		points.push_back(vertex[3][2]);
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[2][1]);
+
+		polygon[7] = mesh.addPolygon(points);
+
+		checkInvariants(mesh);
+
+		// *---*---*---*
+		// |0\1|###|#6#|
+		// *---*#2#*---*
+		// |#######|5\4|
+		// *---*---*---*
+		// |###7###|#3#|
+		// *---*---*---*
+
+		mesh.removePolygon(polygon[5]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[0]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[7]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[6]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[4]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[1]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[2]);
+
+		checkInvariants(mesh);
+
+		mesh.removePolygon(polygon[3]);
+
+		checkInvariants(mesh);
+	}
+
+	void testPolygon2()
+	{
+		Mesh mesh;
+
+		Vertex vertex[5][4];
+
+		for (integer i = 0;i < 5;++i)
+		{
+			for (integer j = 0;j < 4;++j)
+			{
+				vertex[i][j] = mesh.addVertex();
+				REPORT(vertex[i][j].empty());
+				vertex[i][j]() = i * 10 + j;
+			}
+		}
+
+		// *   *   *   *
+		//
+		// *   *   *   *
+		//
+		// *   *   *   *
+		//
+		// *   *   *   *
+
+		std::vector<Vertex> points;
+
+		points.clear();
+		points.push_back(vertex[3][1]);
+		points.push_back(vertex[4][1]);
+		points.push_back(vertex[4][0]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[2][1]);
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[3][1]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[2][3]);
+		points.push_back(vertex[3][3]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[1][3]);
+		points.push_back(vertex[2][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[0][1]);
+		points.push_back(vertex[0][2]);
+		points.push_back(vertex[1][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[0][1]);
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[1][1]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[1][3]);
+		points.push_back(vertex[2][3]);
+		points.push_back(vertex[2][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[3][2]);
+		points.push_back(vertex[4][2]);
+		points.push_back(vertex[4][1]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[3][2]);
+		points.push_back(vertex[3][3]);
+		points.push_back(vertex[4][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[3][3]);
+		points.push_back(vertex[3][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[0][2]);
+		points.push_back(vertex[1][3]);
+		points.push_back(vertex[1][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[3][1]);
+		points.push_back(vertex[3][2]);
+		points.push_back(vertex[4][1]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[3][2]);
+		points.push_back(vertex[3][1]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[1][1]);
+		points.push_back(vertex[2][1]);
+		points.push_back(vertex[2][0]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[1][1]);
+		points.push_back(vertex[2][2]);
+		points.push_back(vertex[2][1]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[0][0]);
+		points.push_back(vertex[1][1]);
+		points.push_back(vertex[1][0]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+
+		points.clear();
+		points.push_back(vertex[1][1]);
+		points.push_back(vertex[1][2]);
+		points.push_back(vertex[2][2]);
+
+		mesh.addPolygon(points);
+		checkInvariants(mesh);
+	}
+
+	void testBegin()
+	{
+		testBasic();
+		testVertexAdd();
+		testPolygon();
+		testPolygon2();
+		testEdge();
+	}
+
+	void testAdd()
+	{
+		geometryTestList().add("HalfMesh", testBegin);
+	}
+
+	CallFunction run(testAdd);
+
+}
