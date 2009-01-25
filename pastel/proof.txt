@@ -1,0 +1,1144 @@
+Proofs about everything
+=======================
+
+Least squares rigid body transformation
+=======================================
+
+f(x) = Qx + r
+
+E = sum_i E_i
+
+E_i = |Qx_i + r - y_i|^2
+
+= (Qx_i + r - y_i)^T (Qx_i + r - y_i)
+
+= x_i^T Q^T Q x_i + r^T Q x_i - y_i^T Q x_i +
+x_i^T Q^T r + r^T r - y_i^T r -
+x_i^T Q^T y_i - r^T y_i + y_i^T y_i
+
+= x_i^T x_i + 2r^T Q x_i - 2r^T y_i + y_i^T y_i +
+2 x_i^T Q^T y_i + r^T r
+
+Dr(E_i) = 2 x_i^T Q - 2 y_i^T + 2 r^T = 0
+
+=>
+
+y~ = Q x~ + r
+
+Where x~ denotes the mean of {x_i}.
+Thus the mean of {x_i} maps to the mean of {y_i}.
+This way we eliminate the translation term r:
+
+r = y~ - Q x~
+
+Now we just have to find Q.
+
+Volume of a simplex
+===================
+
+Problem
+-------
+
+An n-simplex S is given as a set:
+S = {x in R^n | sum(x) <= 1, allGreaterEqual(x, 0)}
+Compute the volume of S.
+
+Solution
+--------
+
+volume(S) 
+= V  
+= int[S] 1 dS
+=
+int[0..1]
+int[0..(1 - u_1)]
+int[0..(1 - (u_1 + u_2))]
+...
+int[0..(1 - sum[i = 1..n-1](u_i))]
+1
+du_n
+du_(n-1)
+...
+du_1
+
+We will show by induction that the integrand at the k:th integration is:
+I_k(u_1, ..., u_(n-(k-1)))
+= (1 / (k - 1)!) (1 - sum[i = 1..(n-(k-1))](u_i))^(k-1)
+
+First note that the formula holds for k = 1:
+I_1(u_1, ..., u_n) = 1
+
+Now assume that the formula holds for 1 < k <= n. We will show that
+the formula holds for k+1.
+
+int[0..(1 - sum[i = 1..n-k](u_i))] I_k(u_1, ..., u_(n-(k-1)) du_(n-(k-1))
+= int[0..(1 - sum[i = 1..n-k](u_i))] (1 / (k - 1)!) (1 - sum[i = 1..(n-(k-1))](u_i))^(k-1) du_(n-(k-1))
+= (-(1 / (k - 1)!) / k) [0..(1 - sum[i = 1..n-k](u_i))] ((1 - sum[i = 1..(n-k)](u_i)) - u_(n-(k-1)))^k
+= (-(1 / k!)) [0 - (1 - sum[i = 1..(n-k)](u_i))^k]
+= (1 / k!) (1 - sum[i = 1..(n-k)](u_i))^k
+= I_(k+1)(u_1, ..., u_(n-k))
+
+Thus:
+
+V = I_(n+1) = 1 / n!
+
+Resampling n-dimensional arrays in optimal order
+================================================
+
+Problem
+-------
+
+The resampling of an n-dimensional array can be carried away
+by n subsequent 1-dimensional resamplings.
+What is the optimal order to carry out these 1-d resamplings
+to maximize efficiency?
+
+Formal problem statement
+------------------------
+
+Consider you have an n-dimensional array of real numbers. In each 
+dimension i there are extent[i] elements ('extent' in Z^n). So for 
+example with n = 1 and extent = (20) you would have a 20-element vector, 
+with n = 2 and extent = (4, 2) you would have a 2 x 4 matrix (extent is 
+given in 'xyz...' order), etc..
+
+You want to resize this array in all dimensions (given by 'newExtent' in 
+Z^n). You do this by resizing each dimension i at a time. Each resizing 
+operation is associated with a cost:
+
+C[i] = volume(extent), if newExtent[i] < extent[i]
+       volume(extent) * (newExtent[i] / extent[i]), otherwise
+
+And after each resize operation 'extent' is updated:
+extent[i] := newExtent[i]
+
+Let P in Z^n be a permutation of (1,2, ..., n - 1, n).
+The cost function can be given as a recursive formula as follows:
+
+C[1] = volume(extent), if newExtent[P[i]] < extent[P[i]]
+       volume(extent) * (newExtent[P[i]] / extent[P[i]]), otherwise
+       
+C[i] = C[i - 1] * (newExtent[P[i - 1]] / extent[P[i - 1]]), if newExtent[P[i]] < extent[P[i]]
+       C[i - 1] * (newExtent[P[i - 1]] / extent[P[i - 1]]) * (newExtent[P[i]] / extent[P[i]]), otherwise
+
+Ctot = sum(C[i])
+
+The problem is to construct an algorithm that outputs a P 
+which is a permutation of (1,2, ..., n - 1, n) such that Ctot is minimal.
+
+Solution
+--------
+
+The following is a quote from James Waldby, from
+a newsgroup post in sci.math:
+
+- begin quote -
+In any P consider two consecutive entries P[i], P[i+1] = a,b.  
+Note that the cost of operations 1...i-1 and i+2...n do not 
+depend on whether the order of those two entries is a,b or b,a.
+
+Use an O(n lg n) sort on the ratio newExtent[i]/extent[i].
+
+To verify that this sort leads to a global min, observe that 
+when given the choice of changing extent element a before or 
+after b, you can write out expressions for the two costs in 
+three possible cases: a,b both decreasing; both increasing; 
+or one increases, one decreases.  For example, if both increase,
+say from p to q and r to s respectively,
+  C1 = H + (p / q)V + (r / s)(p / q)V + T,
+  C2 = H + (r / s)V + (p / q)(r / s)V + T,
+where H is cost incurred in earlier steps, V is volume after
+those steps, and T is cost in later steps.  Clearly, C1 < C2
+iff p / q < r / s (for positive p, q, r, s).  The same criterion 
+arises in the other two cases also.  Thus, sorting the ratios 
+into ascending order gives a global min, as follows:  Suppose 
+a claimed-optimal vector P has consecutive operations that change
+p -> q and then r -> s, such that p / q > r / s.  Reversing those 
+operations gives a smaller cost.  Therefore P was not optimal.
+- end quote -
+
+Let us prove the claims. 
+
+Assume upsampling + upsampling
+(p / q >= 1 and r / s >= 1), then:
+
+C1 < C2 
+<=>
+H + (p / q)V + (r / s)(p / q)V + T < H + (r / s)V + (p / q)(r / s)V + T
+<=>
+(p / q)V + (r / s)(p / q)V < (r / s)V + (p / q)(r / s)V
+<=>
+(p / q) + (r / s)(p / q) < (r / s) + (p / q)(r / s)
+<=>
+(p / q) < (r / s)
+
+Now assume downsampling + downsampling,
+(p / q < 1 and r / s < 1), then:
+
+C1 < C2
+<=>
+H + V + (p / q)V + T < H + V + (r / s)V + T
+<=>
+(p / q)V < (r / s)V
+<=>
+(p / q) < (r / s)
+
+Last, assume downsampling + upsampling,
+(p / q < 1 and r / s >= 1), then:
+
+C1 < C2
+<=>
+H + V + (p / q)(r / s)V + T < H + (r / s)V + (r / s)V + T
+<=>
+V + (p / q)(r / s)V < (r / s)V + (r / s)V
+<=>
+1 + (p / q)(r / s) < 2(r / s)
+<=>
+(s / r) + (p / q) < 2
+<=>
+(p / q) < 2 - (s / r) <= (r / s)
+
+For the last step:
+
+2 - (s / r) <= (r / s)
+<=>
+2(r / s) - 1 <= (r / s)^2
+<=>
+(r / s)^2 - 2(r / s) + 1 >= 0
+<=>
+((r / s) - 1)^2 >= 0
+<=>
+true
+
+Generalization
+--------------
+
+Let us generalize the cost function in the following manner:
+
+C[i] = radius[i] * volume(extent), if newExtent[P[i]] < extent[P[i]]
+       radius[i] * volume(extent) * (newExtent[P[i]] / extent[P[i]]), otherwise
+       
+C[i] = C[i - 1] * (radius[i] / radius[i - 1]) * (newExtent[P[i - 1]] / extent[P[i - 1]]), if newExtent[P[i]] < extent[P[i]]
+       C[i - 1] * (radius[i] / radius[i - 1]) * (newExtent[P[i - 1]] / extent[P[i - 1]]) * (newExtent[P[i]] / extent[P[i]]), otherwise
+
+C[i] = C[i - 1] * (radius[i] / radius[i - 1]) * ((radius[i - 1] * newExtent[P[i - 1]]) / (radius[i - 1] * extent[P[i - 1]])), if newExtent[P[i]] < extent[P[i]]
+       C[i - 1] * (radius[i] / radius[i - 1]) * ((radius[i - 1] * newExtent[P[i - 1]]) / (radius[i - 1] * extent[P[i - 1]])) * ((radius[i] * newExtent[P[i]]) / (radius[i] * extent[P[i]])), otherwise
+
+Assume upsampling + upsampling
+(p / q >= 1 and r / s >= 1), then:
+
+C1 < C2 
+<=>
+H + u(p / q)V + v(r / s)u(p / q)V + T < H + v(r / s)V + u(p / q)v(r / s)V + T
+<=>
+u(p / q)V + v(r / s)u(p / q)V < v(r / s)V + u(p / q)v(r / s)V
+<=>
+u(p / q) + v(r / s)u(p / q) < v(r / s) + u(p / q)v(r / s)
+<=>
+u(p / q) < v(r / s)
+
+Assume downsampling + downsampling,
+(p / q < 1 and r / s < 1), then:
+
+C1 < C2
+<=>
+H + V + u(p / q)V + T < H + V + v(r / s)V + T
+<=>
+u(p / q)V < v(r / s)V
+<=>
+u(p / q) < v(r / s)
+
+Last, assume downsampling + upsampling,
+(p / q < 1 and r / s >= 1), then:
+
+C1 < C2
+<=>
+H + uV + u(p / q)v(r / s)V + T < H + v(r / s)V + uv(r / s)V + T
+<=>
+uV + u(p / q)v(r / s)V < v(r / s)V + uv(r / s)V
+<=>
+u + uv(p / q)(r / s) < (r / s)(v + uv)
+<=>
+u(s / r) + uv(p / q) < v + uv
+<=>
+(u / v)(s / r) + u(p / q) < 1 + u
+<=>
+u(p / q) < 1 + u - (u / v)(s / r)
+
+Let us examine if
+1 + u - (u / v)(s / r) <= v(r / s)
+<=>
+(r / s)(1 + u) - (u / v) <= v(r / s)^2
+<=>
+v(r / s)^2 - (r / s)(1 + u) + (u / v) >= 0
+<=>
+[1]
+
+Quadratic inequality in (r / s), find roots:
+
+r0 / s0
+= [(1 + u) +- sqrt((1 + u)^2 - 4 v (u / v))] / 2v
+= [(1 + u) +- sqrt((1 + u)^2 - 4u)] / 2v
+= [(1 + u) +- sqrt((u - 1)^2)] / 2v
+= [(1 + u) +- |u - 1|] / 2v
+
+=>
+r0 / s0 = 1 / v
+or
+r0 / s0 = u / v
+
+That is:
+[1]
+<=>
+(r / s) <= 1 / v or (r / s) >= (u / v)
+<=>
+(r / s) >= (u / v)
+<=>
+[2]
+
+Assume u / v <= 1 <=> u <= v
+then [2] <=> true and thus
+u(p / q) < v(r / s).
+
+The problematic case is when u > v. Then
+we can't end up at the same inequality:
+
+[2]
+<=>
+v(r / s) >= u
+=> Note missing the other direction!!
+v(r / s) >= u(p / q)
+<=>
+u(p / q) <= v(r / s)
+
+x down	y down	u <= v	result
+0		0		0		optimal
+0		0		1		optimal
+0		1		0		optimal
+0		1		1
+1		0		0
+1		0		1		optimal
+1		1		0		optimal
+1		1		1		optimal
+
+Bumpy cubic
+===========
+
+Problem
+-------
+
+f(x) = ax^3 + bx^2 + cx + d
+f'(x) = 3ax^2 + 2bx + c
+
+Solve a, b, c, d from
+f(0) = H
+f(R) = 0
+f'(0) = 0
+f'(R) = 0
+
+Solution
+--------
+
+f(0) = d = H
+f'(0) = c = 0
+
+f'(R) = 3aR^2 + 2bR = 0
+=>
+b = -3aR^2 / 2R = (-3/2)aR
+
+f(R) = aR^3 + bR^2 + H
+= aR^3 + (-3/2) aR R^2 + H
+= (-1/2) aR^3 + H
+= 0
+
+=>
+a = 2H / R^3
+
+=>
+b = (-3/2) (2H / R^3) R = -3H / R^2
+
+Summary
+-------
+
+a = 2H / R^3
+b = -3H / R^2
+c = 0
+d = H
+
+f(x) = (2H / R^3) x^3 + (-3H / R^2) x^2 + H
+= H [2 (x / R)^3 - 3 (x / R)^2 + 1]
+
+Bumpy quartic
+=============
+
+Problem
+-------
+
+f(x) = ax^4 + bx^2 + cx + d
+f'(x) = 4ax^3 + 2bx + c
+
+Solve a, b, c, d from
+f(0) = H
+f(R) = 0
+f'(0) = 0
+f'(R) = 0
+
+Solution
+--------
+
+f(0) = d = H
+f'(0) = c = 0
+
+f'(R) = 4aR^3 + 2bR = 0
+=>
+b = -2aR^2
+
+f(R) = aR^4 + bR^2 + H
+= aR^4 - 2aR^4 + H
+= -aR^4 + H = 0
+
+=>
+a = H / R^4
+
+=>
+b = -2H / R^2
+
+Summary
+-------
+
+a = H / R^4
+b = -2H / R^2
+c = 0
+d = H
+
+g(x) = (x^2 / R^2)^2 - 2 (x^2 / R^2) + 1
+
+f(x) = H g(x)
+
+Two-dimensional
+---------------
+
+Let d(x, y) = sqrt(x^2 + y^2)
+g(x, y) = f(d(x, y))
+= H [((x^2 + y^2) / R^2)^2 - 2 (x^2 + y^2) / R^2 + 1]
+
+Area of bumpy quartic
+=====================
+
+A = 2 int[0..R] H [(x / R)^4 - 2 (x / R)^2 + 1] dx
+= 2HR int[0..1] x^4 - 2 x^2 + 1 dx
+= 2HR [0..1] (1/5)x^5 - (2/3)x^3 + x
+= 2HR (1/5 - 2/3 + 1)
+= 2HR (3 - 10 + 15) / 15
+= 2HR (8 / 15)
+= HR (16 / 15)
+
+=>
+
+H = (15 / 16)A / R
+
+Finite support rational quadratic function
+==========================================
+
+Problem
+-------
+
+Let
+
+f(x) = (1 / (ax^2 + bx + c)) + d,      for 0 < x < R
+     = 0,                              otherwise
+     
+f'(x) = -(2ax + b) / (ax^2 + bx + c)^2
+
+Solve for a, b, c, d:
+
+f(0) = oo
+f(R) = 0
+f'(R) = 0
+for all x in ]0, R[: f'(x) < 0
+
+Solution
+--------
+
+f(0) = oo
+=> c = 0
+
+f'(R) = -(2aR + b) / (aR^2 + bR + c)^2 = 0
+=> 2aR + b = 0
+=> b = -2aR
+
+f(R) = (1 / (aR^2 + bR)) + d
+= (1 / (aR^2 - 2aR^2)) + d
+= -1 / aR^2 + d
+= 0
+
+=>
+d = 1 / aR^2
+
+f'(x) < 0
+<=>
+-(2ax + b) / (ax^2 + bx + c)^2 < 0
+<=>
+2ax + b > 0
+<=>
+2ax - 2aR > 0
+<=>
+a(x - R) > 0
+<=>
+a < 0
+
+Summary
+-------
+
+a = arbitrary negative number
+b = -2aR
+c = 0
+d = 1 / aR^2
+
+f(x) = (1 / (ax^2 - 2aRx)) + 1 / aR^2
+= (1 / aR^2) [(1 / ((x / R)^2 - 2(x / R))) + 1]
+
+Finite support rational quartic function
+========================================
+
+Problem
+-------
+
+Let
+f(x) = 1 / (ax^4 + bx^2 + c) + d,        for 0 < x < R
+     = 0,                                otherwise
+
+f'(x) = -(4ax^3 + 2bx) / (ax^4 + bx^2 + c)^2
+
+Solve for a, b, c, d:
+
+f(0) = oo
+f(R) = 0
+f'(R) = 0
+for all x in ]0, R[: f'(x) < 0
+
+Solution
+--------
+
+f(0) = oo
+=>
+c = 0
+
+f'(R) = 0
+=>
+4aR^3 + 2bR = 0
+=>
+b = -4aR^3 / 2R
+= -2aR^2
+
+f(R) = 1 / (aR^4 - 2aR^2 R^2) + d 
+= 1 / -aR^4 + d
+= -1 / aR^4 + d = 0
+
+=>
+d = 1 / aR^4
+
+f'(x) < 0
+<=>
+-(4ax^3 + 2bx) < 0
+<=>
+4ax^3 + 2bx > 0
+<=>
+4ax^3 - 4aR^2x > 0
+<=>
+ax^3 - aR^2x > 0
+<=>
+a(x^3 - R^2x) > 0
+<=>
+a < 0
+
+Because
+
+x^3 - R^2x < 0
+<=>
+x^2 - R^2 < 0
+<=>
+x^2 < R^2
+<=>
+|x| < R
+<=>
+true
+
+Summary
+-------
+
+a = arbitrary negative number
+b = -2aR^2
+c = 0
+d = 1 / aR^4
+
+f(x) = 1 / (ax^4 + bx^2 + c) + d
+= 1 / (ax^4 - 2aR^2 x^2) + 2 / aR^4
+= (1 / aR^4) [(1 / [(x / R)^4 - 2(x / R)^2]) + 1]
+
+Diagonal <=> Triangular + normal
+================================
+
+Claim
+-----
+
+M is diagonal
+<=>
+M is triangular and normal
+
+'=>'
+----
+
+A diagonal matrix is triangular.
+Furthermore, because diagonal
+matrices commute,
+M*M = MM*. Thus M is normal.
+
+'<='
+----
+
+Thanks to Angus Rodgers for this one
+(he credits the book "Linear algebra done right").
+
+Assume M is upper triangular.
+
+We will use the following
+normality condition:
+
+for all v: |Mv| = |M*v|
+
+If v = e1, then
+|Mv|^2 = m*(1, 1)m(1, 1)
+On the other hand
+|M*v|^2 = sum[i = 1..n] m*(1, 1)m(1, 1) + ... + m*(1, n)m(1, n)
+
+Because of normality m(1, 2) = 0, ..., m(1, n) = 0.
+
+Now repeat a similar deduction for e2, using the results
+for e1. The end results is that M is diagonal.
+Clearly the same deduction can be carried away with
+lower triangular M.
+
+[]
+
+Normal linear operators
+=======================
+
+Claim
+-----
+
+for all v: |Mv| = |M*v|
+<=>
+MM* = M*M (M is normal)
+
+'<='
+----
+
+Thanks to Robert Isreal for this one.
+
+(for all v:)
+
+|Mv| = |M*v|
+<=>
+|Mv|^2 = |M*v|^2
+
+|Mv|^2 
+= <Mv, Mv>
+= <v, M*Mv>
+= <v, MM*v>
+= <M*v, M*v>
+= |M*v|^2
+
+'=>'
+----
+
+(for all v:) 
+
+|Mv| = |M*v|
+=>
+|Mv|^2 = |M*v|^2
+=>
+<Mv, Mv> = <M*v, M*v>
+=>
+<M*Mv, v> - <MM*v, v> = 0
+=>
+<(M*M - MM*)v, v> = 0     (1)
+
+Let 
+A = M*M - MM*
+
+Now we have at least two ways to prove the
+claim. However, the second assumes less
+background than the first. We give both.
+
+Proof 1:
+
+A* = (M*M - MM*)* = M*M - MM* = A
+=> A is symmetric
+=> A is normal
+=> A is diagonalizable by Schur decomposition theorem 
+plus the fact that M diagonal <=> M triangular and normal.
+
+A = UDU*
+
+U unitary, D diagonal.
+
+(1)
+=>
+<Av, v> = 0
+=>
+<UDU*v, v> = 0
+=>
+<DU*v, U*v> = 0
+=>
+<Dv, v> = 0      (2)
+
+Where (2) is deduced as follows.
+U* is unitary and thus has full rank. 
+Thus U*v spans the same space as v.
+
+Plug in standard basis vectors e1, ..., en to show D(i, i) = 0. Thus 
+
+(2)
+=>
+D = 0
+=>
+A = 0 
+=> 
+M*M - MM* = 0 
+=> 
+M*M = MM* 
+=> 
+M is normal.
+
+Proof 2:
+
+Thanks to Angus Rodgers for this one (he credits
+the book 'Linear algebra done right').
+
+(for all u and v:)
+
+4<Au, v> = <A(u + w),  u + w>  - <A(u - w),  u - w>  +
+           <A(u + iw), u + iw> - <A(u - iw), u - iw>
+
+so, from <Av, v> = 0 for all v, we get <Au, v> = 0 for all u and v,
+and in particular ||Au||^2 = <Au, Au> = 0, so Au = 0 for all u, i.e. 
+A = 0, i.e. MM* = M*M.
+
+[ ]
+
+Least squares linear transformation
+===================================
+
+Given two vector sets P = {p_i}, Q = {q_i}
+in R^d with n vectors in each. Find the "best"
+linear transformation that approximately maps each p_i to q_i.
+
+Solution by Rob Johnson:
+
+Compute
+
+C = sum_i (p_i - p') (p_i - p')^T
+D = sum_i (q_i - q') (p_i - p')^T
+
+Then
+
+A = D C^-1
+
+Least squares affine transformation
+===================================
+
+Given two point sets P = {p_i}, Q = {q_i}
+in R^d with n points in each. Find the "best"
+affine transformation that approximately maps each p_i to q_i.
+
+Notation
+--------
+
+P = [p_1, ..., p_n]
+Q = [q_1, ..., q_n]
+
+Formal problem statement
+------------------------
+
+Let
+
+A in R^(n x n)
+b in R^n
+
+f(x; A, b) = Ax + b
+
+Find A and b such that the squared error
+
+err(A, b) = sum_i |q_i - f(p_i; A, b)|^2 
+
+is minimized
+
+Solution
+--------
+
+Let
+
+err(A, b)
+= sum_i |q_i - f(p_i; A, b)|^2 
+= sum_i |q_i - Ap_i - b|^2
+= sum_i |(q_i - b) - Ap_i|^2
+= sum_i ((q_i - b) - Ap_i)^T ((q_i - b) - Ap_i)
+= sum_i (q_i - b)^T (q_i - b) - 2p_i^T A^T (q_i - b) + p_i^T A^T A p_i
+
+derr / db_j = sum_i 2(b_j - q_i_j + p_i^T Aj^T) = sum_i 2((Aj p_i + b_j) - q_i_j)
+=>
+derr / db = sum_i 2((A p_i + b) - q_i)
+
+derr / db = 0
+=>
+sum_i 2((A p_i + b) - q_i) = 0
+=>
+sum_i (A p_i + b) - q_i = 0
+=>
+A [sum_i p_i] + n b - [sum_i q_i] = 0
+=>
+A [sum_i p_i]/n + b - [sum_i q_i]/n = 0
+
+Let 
+P' = [sum_i p_i] / n
+Q' = [sum_i q_i] / n
+
+Then
+A P' + b = Q'
+
+That is, the best affine transformation maps the centroid
+of P to the centroid of Q.
+
+Translate the point sets P and Q by their centroids
+and find the least squares linear transformation between
+these sets to find A.
+
+Then
+
+b = Q' - A P'
+
+Least squares similarity transformation in 2D
+=============================================
+
+Solution by Rob Johnson:
+
+p' = centroid of p_i
+q' = centroid of q_i
+
+S = (P - P')^T (Q - Q')
+
+Compute the polar decomposition of S:
+
+S = UD 
+
+with U orthonormal and D symmetric positive semidefinite.
+
+r1 = sum_i dot(p_i - p')
+r2 = sum_i dot((q - q')U, p - p')
+
+r = r1 / r2
+
+The similarity transformation is then given by:
+
+f(x) = rUx + (q' - rUp')
+
+If you can't compute the polar decomposition, then
+compute the svd:
+
+S = A B C^T = (A C^T) (C B C^T)
+=>
+U = A C^T
+
+Invertible skew-symmetric matrices
+==================================
+
+Let A be an n x n matrix
+and n odd.
+
+Claim:
+
+There are no invertible skew-symmetric
+matrices in odd dimensions.
+
+Proof:
+
+A^T = -A
+=>
+|A^T| = |-A|
+=>
+|A| = (-1)^n |A|
+=>
+(-1)^n = 1 or |A| = 0
+=>
+n is even or A is singular
+
+[]
+
+Perpendicular by a linear transformation
+========================================
+
+A direct implication of the Hairy ball theorem is
+the following: in R^n, for odd n, there is no
+continuous function that maps all non-zero vectors
+to their non-zero (arbitrary) perpendiculars.
+
+Let us prove this statement for the case
+of linear continuous functions. Such a function
+is of the form
+
+f : R^n -> R^n: f(x) = Ax
+
+with A an n x n matrix.
+
+Proof 1:
+(Thanks to "Niels Diepeveen" from sci.math)
+
+An n x n matrix has n eigenvalues. If n is odd,
+then there must be at least one real eigenvalue,
+because complex eigenvalues come in conjugate pairs.
+Thus there is an eigenvector v such that:
+
+f(v) = Av = tv
+
+with t the real eigenvalue. Certainly v is not
+perpendicular to tv.
+
+[]
+
+Proof 2:
+(Thanks to "Hagman" from sci.math)
+
+Sketch:
+1) A must be invertible
+2) A must be skew-symmetric
+3) There are no invertible skew-symmetric
+matrices in odd dimensions.
+
+If two vectors are not collinear then
+they don't have a common perpendicular. Also,
+if two vectors are collinear and differ by a 
+non-unity scalar, then by linearity the perpendiculars
+differ by the same scalar.
+Thus f is injective. But then f must also be surjective
+and thus bijective. Thus A is invertible.
+
+Perpendicularity production of f implies:
+
+for all x in R^n: x^T A x = 0
+
+<=>
+for all x in R^n: x^T A^T x = 0
+
+<=> 
+for all x in R^n: x^T (A + A^T) x = 0 (1)
+
+Let S = A + A^T
+
+S is symmetric and so can be decomposed as
+
+S = Q^T D Q
+
+with Q orthogonal and D diagonal.
+
+(1) 
+<=>
+for all x in R^n: x^T Q^T D Q x = 0
+
+<=> (columns of Q form a basis)
+for all x in R^n: x^T D x = 0
+
+<=> (substitute standard basis vectors for x)
+D = 0
+
+<=>
+S = 0
+
+<=>
+A + A^T = 0
+
+<=>
+A^T = -A
+
+<=>
+(A is skew-symmetric)
+
+But there are no invertible skew-symmetric matrices for odd n.
+
+[]
+
+Fourier transformation of the box filter
+========================================
+
+Let
+f(t) = {1, for -0.5 <= t <= 0.5
+       {0, otherwise
+
+F(f) = int[-oo..oo] e^(-2pi * ift) f(t) dt
+= int[-0.5..0.5] e^(-2pi * ift) dt
+= (1 / (-2pi * if)) * (e^(-2pi * if * 0.5) - e^(2pi * if * 0.5))
+
+e^(-ib) - e^(ib) = (cos(-b) + i sin(-b)) - (cos(b) + i sin(b))
+= -2i sin(b)
+
+=>
+F(f) = (1 / (-2pi * if)) * (-2i sin(pi * f))
+= sin(pi * f) / (pi * f)
+= sinc(f)
+
+Active pixels
+=============
+
+Problem:
+
+A (one-dimensional) "pixel" is an element of {[x, x + 1[ in R | x in Z}.
+
+Given an interval A = [x1, x2[ in R, a pixel [x, x + 1[ is called "active"
+if (x + 0.5) is contained in A.
+
+Identify pixels by their starting points (integers). 
+Given a real interval, give the set of active pixels (an integer interval).
+
+Solution:
+
+We wish to find a function f: P(R) -> P(Z)
+that maps half-open intervals in the reals to
+half open intervals in the integers, such
+that the integer interval contains all the active pixels in
+the real interval.
+We consider the problem in two steps by decomposing f to
+two functions:
+
+f([x1, x2[) = [f1(x1), f2(x2)[
+
+Consider f1. We require:
+f1(x) = 0, if x e [0, 0.5]
+f1(x) = 1, if x e ]0.5, 1[
+f1(x + n) = f1(x) + n, n in Z
+
+It can be seen the following function satisfies us:
+f1(x) = ceil(x - 0.5).
+For example:
+f1(0.4) = ceil(0.4 - 0.5) = ceil(-0.1) = 0
+f1(0.5) = ceil(0.5 - 0.5) = ceil(0) = 0
+f1(0.6) = ceil(0.6 - 0.5) = ceil(0.1) = 1
+and
+f1(x + n) = ceil(x + n - 0.5) = ceil(x - 0.5) + n = f1(x) + n
+
+Now consider f2. We require:
+f2(x) = 0, if x e [0, 0.5]
+f2(x) = 1, if x e ]0.5, 1[
+f2(x + n) = f2(x) + n, n in Z
+
+But that's the same as f1. So:
+
+f([x1, x2[) = [ceil(x1 - 0.5), ceil(x2 - 0.5)[
+
+Sinc integrates to 1
+====================
+
+Let
+sinc(x) = sin(pi * x) / (pi * x), when x != 0 
+          1, otherwise
+
+Claim:
+
+integrate[-oo..oo](sinc(x) dx) = 1
+
+Proof:
+
+A lame proof by using the sine integral follows.
+
+Si[t] = integrate[0..t]((sin(x) / x) dx)
+
+Si[oo] = pi / 2 
+(Taken from Mathworld. How do you prove it?)
+
+integrate[-oo..oo](sinc(x) dx)
+= 2 * integrate[0..oo](sinc(x) dx)
+= 2 * integrate[0..oo](sinc(u / pi) * (1 / pi) dx)
+= 2 * (1 / pi) * integrate[0..oo](sin(u) / u dx)
+= (2 / pi) * Si[oo]
+= 1
+
+Sinc filter has no frequency ripple
+===================================
+
+Thanks to 'rancid moth' from sci.math for help with this.
+
+Let
+sinc(x) = sin(pi * x) / (pi * x), when x != 0 
+          1, otherwise
+
+Claim:
+
+for all x in [0, 1[ in R:
+S = sum[i = -oo..oo](sinc(x + i)) = 1
+
+Proof:
+
+Assume x != 0.
+
+S = sum[i = -oo..oo](sin(pi * (x + i)) / (pi * (x + i)))
+= (sin(pi * x) / pi) * sum[i = -oo..oo]((-1)^i / (x + i))
+
+Let
+U = sum[i = -oo..oo]((-1)^i / (x + i))
+= (1 / x) + sum[i = 1..oo]((-1)^i / (x + i) + (-1)^(-i) / (x - i))
+= (1 / x) + sum[i = 1..oo]((-1)^i / (x + i) + (-1)^(-i) / (x - i))
+= (1 / x) + sum[i = 1..oo]((-1)^i * ((x - i) + (x + i)) / (x^2 - i^2))
+= (1 / x) + 2 * x * sum[i = 1..oo]((-1)^i / (x^2 - i^2))
+
+U / pi = (1 / (pi * x)) + 2 * (pi * x) * sum[i = 1..oo]((-1)^i / ((pi * x)^2 - (pi * i)^2))
+= csc(pi * x) = 1 / sin(pi * x)
+
+=>
+U = pi / sin(pi * x)
+
+=>
+S = (sin(pi * x) / pi) * U = 1
+
+Assume x = 0.
+
+Then 
+S = sum[i = -oo..oo](sinc(x + i)) = sinc(0) = 1
+
+[]
+
+Midpoint minimizes squared error
+================================
+
+Let P = {p[i]} be a set of vectors in R^m, with |P| = n. 
+Let f(x) = sum(i) ||p[i] - x||^2
+with ||x|| the 2-norm.
+
+Claim:
+
+f has its minimum at x' = sum(i)[p[i]] / n
+
+Proof:
+
+f(x)
+= sum(i)[dot(p[i] - x)]
+= sum(i)[dot(p[i]) - 2 * dot(p[i], x) + dot(x, x)]
+
+df(x) / dx[j]
+= sum(i)[
+0 -
+2 * p[i][j] +
+2 * x[j]]
+= -2 * sum(i)[p[i][j]] + 2 * n * x[j]
+
+df(x) / dx[j] = 0
+=>
+x[j] = sum(i)[p[i][j]] / n
+
+The previous works for any j, so:
+
+x = sum(i)[p[i]] / n
+
+d^2f(x) / dx[j]^2 = 2 * n > 0
+=> x is a minimum
+
+[]
+

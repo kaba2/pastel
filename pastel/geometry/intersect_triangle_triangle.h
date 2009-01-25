@@ -1,0 +1,33 @@
+/*!
+\file
+\brief A function for finding the intersection between two triangles.
+*/
+
+#ifndef PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
+#define PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
+
+#include "pastel/geometry/triangle.h"
+#include "pastel/geometry/segment.h"
+
+namespace Pastel
+{
+
+	//! Test if and where two 3d triangles intersect.
+
+	/*!
+	If the planes of the triangles coincide,
+	the possible intersection is a convex polygon.
+	This case is not considered intersecting.
+	*/
+
+	template <typename Real>
+	bool intersect(
+		const Triangle<3, Real>& aTriangle,
+		const Triangle<3, Real>& bTriangle,
+		Segment<3, Real>& segment);
+
+}
+
+#include "pastel/geometry/intersect_triangle_triangle.hpp"
+
+#endif

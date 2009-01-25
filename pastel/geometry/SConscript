@@ -1,0 +1,15 @@
+from glob import glob
+
+Import('env')
+Import('config')
+
+env = env.Clone()
+config.apply('RPly', env)
+
+src = glob('*.cpp')
+
+objs = []
+for filename in src:
+	objs += env.SharedObject(source=filename)
+
+Return('objs')

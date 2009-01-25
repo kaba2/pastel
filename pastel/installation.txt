@@ -1,0 +1,162 @@
+Installing the Pastel library
+=============================
+
+The Pastel library is cross-platform, but here we will only
+detail the installation for Windows and Visual Studio.
+However, based on this document you should be able
+to construct a system for building Pastel also in
+Unix-based environments.
+
+Windows and Visual Studio
+-------------------------
+
+1) Add the Pastel's source code directory
+to the compiler's include search paths.
+
+2) Add the 'pastel/lib' directory to the compiler's 
+library search paths.
+
+In Visual Studio, the search paths can be altered from
+Tools->Options...->[+] Projects and Solutions->VC++ Directories.
+
+3) Add the 'pastel/lib' directory to the operating system's
+dll search paths.
+
+In Windows XP, the dll search paths can be altered from
+Control panel->System->Advanced->Environment variables
+
+It is recommended that you refer to the Pastel's
+include files in the form
+'#include <pastel/sys/random.h>'
+to avoid conflicts with other libraries.
+
+Pastel includes solution and project files for
+Visual Studio 2008.
+
+External dependencies
+---------------------
+
+Pastel uses a few external third-party libraries which 
+must be installed in order to compile and link all
+Pastel libraries succesfully. The following
+diagram summarizes these dependencies:
+
+o Boost: All of Pastel
+o SDL: PastelDevice
+o Glew: PastelGl
+o Rply: PastelGeometry
+
+After installing these libraries, make sure 
+you add their corresponding directories for the 
+include files (.h, .hpp, etc) and libraries (.lib, etc) 
+to the search paths of your compiler. 
+
+The way Pastel refers to the include and library files is 
+given below for each library. 
+
+o Boost
+
+http://www.boost.org/
+
+Pastel refers to Boost's include files in the form
+'#include <boost/operators.hpp>'.
+Pastel only uses the template code found in Boost and
+thus requires no linking with object code.
+Boost is licensed under the Boost license.
+
+o SDL (Simple DirectMedia Layer)
+
+http://www.libsdl.org/
+
+Pastel refers to SDL's include files in the form 
+'#include <SDL.h>'. 
+In the included Visual Studio project files, the SDL library
+is referred to as 'SDL.lib' (both in release and debug mode).
+SDL is licensed under the GNU LGPL.
+
+o Glew (Gl Extension Wrangler)
+
+http://glew.sourceforge.net/
+
+Pastel refers to Glew's include files in the form 
+'#include <GL/glew.h>'. 
+In the included Visual Studio project files, the Glew library
+is referred to as 'glew32.lib' (both in release and debug mode).
+Glew is licensed under a modified BSD license.
+
+o RPly
+
+http://www.tecgraf.puc-rio.br/~diego/professional/rply/
+
+Pastel refers to RPly's include files in the form
+'#include <rply.h>'.
+In the included Visual Studio project files, the RPly library
+is referred to as 'rply.lib' (release mode) and
+'rplyd.lib' (debug mode). Note that the RPly does not
+come with precompiled .lib files, so you must first compile
+and link the RPly library yourself from the source files.
+
+Internal dependencies
+---------------------
+
+Internally, the Pastel's libraries are dependent of each other.
+The dependencies form an acyclic directed graph.
+This means that Pastel can be used either in its entirety
+or only as a subset if some functionality is not required.
+PastelSys forms the absolute basis of the whole Pastel library. 
+Every library is dependent on it. The following graph (which
+has been transitively reduced) summarizes the internal
+dependencies.
+
+sys <------- device
+^            ^
+|            |
+math         |
+^            |
+|            |
+geometry     |
+^            |
+|            |
+gfx <------- gl
+^
+|            
+ray
+
+Pastel's main configuration file
+--------------------------------
+
+A file of most importance is the 'environment.h' found
+in PastelSys library. 
+
+By default, the library is set to produce dll libraries.
+For this to work, the classes need to be dll-exported
+under Windows. In Unix the default is to dll-export everything.
+This dll-exporting can be switched on and off by the 
+PASTEL_DYNAMIC_LIBRARIES precompiler flag. Note
+that the included Visual Studio project files are set
+to produce dll libraries.
+
+The 'environment.h' also controls an important
+performance switch via PASTEL_ENABLE_PENSURES. ENSUREs are
+runtime checks used to check preconditions for functions.
+The triggering of such a check signals the presence of a bug
+on the user's side.
+However, some of these checks can cause relatively severe
+performance degradation, notably when the function is of low complexity.
+These checks are marked as PENSUREs, for 'Performance ENSURE'.
+For example, array indexing has an out-of-bound check that is 
+marked as such. This check induces branching to the function
+which can interfere with subsequent optimization. 
+By disabling PENSUREs, you can exchange security for performance.
+It is recommended that you disable PENSUREs only for the
+final release version. They are essential in finding bugs that
+might otherwise be hard to catch (take the array indexing
+as an example).
+
+The ASSERTs form another class of runtime checks which are
+used internally to check invariants in the Pastel library.
+The triggering of such check always signals a presence of a bug
+on the part of the implementation. They can possibly interfere 
+with optimization and therefore there is another switch that
+can be used to toggle whether the checks are included or not,
+the PASTEL_DEBUG_MODE flag.

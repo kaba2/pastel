@@ -1,0 +1,21 @@
+Import('env')
+
+env = env.Clone()
+env.Append(LIBS='pastel')
+
+src = [
+	'instantiatebounding.cpp',
+	'instantiatecommon.cpp',
+	'instantiatedistance.cpp',
+	'instantiateintersect.cpp',
+	'instantiateoverlap.cpp',
+	'pastelgeometrytest.cpp',
+	'testhalfmesh.cpp',
+	'testoverlapaabbaabb.cpp',
+]
+
+objs = []
+for filename in src:
+	objs += env.StaticObject(source=filename)
+
+env.Program(target='pastelgeometrytest', source=objs)

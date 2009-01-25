@@ -1,0 +1,46 @@
+Disjoint sets
+-------------
+
+Requirements:
+
+1) Given an element A, determine its group.
+2) Given two groups, form a new group as their union.
+3) Create an empty group.
+4) Add an element into a group.
+5) Query the size of the group.
+
+6) Traverse the elements of a group.
+7) Remove a group.
+8) Remove an element from a group.
+9) Traverse all elements.
+10) Traverse all groups.
+
+x) Find a group by key. Not important, one can create a mapping from a key to an iterator afterwards.
+
+Implementation options:
+
+All satisfy 1, 2, 3, 4, 5.
+
+a) Linked list of linked lists
+
+Satisfies: 6, 7, 8.
+Caveat:
+constant union + linear find or
+linear union + constant find
+
+b) Map of linked lists
+
+Satisfies: 6, 7, 8, x.
+Caveat: 
+constant union + linear find or
+linear union + constant find
+
+c) Linked list of trees
+
+Satisfies: -
+Caveat: -
+
+d) Map of trees
+
+Satisfies: x
+Caveat: -

@@ -1,0 +1,31 @@
+#ifndef PASTELMATH_BIGINTEGER_MORE_HPP
+#define PASTELMATH_BIGINTEGER_MORE_HPP
+
+#include "pastel/math/biginteger_more.h"
+
+namespace Pastel
+{
+
+	inline void swap(BigInteger& left, BigInteger& right)
+	{
+		left.swap(right);
+	}
+
+	inline bool zero(const BigInteger& that)
+	{
+		return that.zero();
+	}
+
+	inline bool negative(const BigInteger& that)
+	{
+		return that.negative();
+	}
+
+	inline bool positive(const BigInteger& that)
+	{
+		return that.positive();
+	}
+
+}
+
+#endif

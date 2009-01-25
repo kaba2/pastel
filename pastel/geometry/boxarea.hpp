@@ -1,0 +1,89 @@
+#ifndef PASTELGEOMETRY_BOXAREA_HPP
+#define PASTELGEOMETRY_BOXAREA_HPP
+
+#include "pastel/geometry/boxarea.h"
+
+#include "pastel/sys/vector_tools.h"
+
+namespace Pastel
+{
+
+	template <int N, typename Real>
+	Real area(const AlignedBox<N, Real>& box)
+	{
+		return boxArea(box.max() - box.min());
+	}
+
+	template <int N, typename Real>
+	Real area(const Box<N, Real>& box)
+	{
+		return boxArea(2 * box.width());
+	}
+
+	template <typename Real>
+	Real boxArea(const Vector<1, Real>& width)
+	{
+		return 0;
+	}
+
+	template <typename Real>
+	Real boxArea(const Vector<2, Real>& width)
+	{
+		// Yes, this is the right specialization of area for 2 dimensions:
+		// the perimeter.
+
+		return 2 * (
+			width[0] + 
+			width[1]);
+	}
+
+	template <typename Real>
+	Real boxArea(const Vector<3, Real>& width)
+	{
+		return 2 * (
+			width[1] * width[2] + 
+			width[0] * width[2] + 
+			width[0] * width[1]);
+	}
+
+	template <typename Real>
+	Real boxArea(const Vector<4, Real>& width)
+	{
+		return 2 * (
+			width[1] * width[2] * width[3] + 
+			width[0] * width[2] * width[3] + 
+			width[0] * width[1] * width[3] +
+			width[0] * width[1] * width[2]);
+	}
+
+	template <int N, typename Real>
+	Real boxArea(const Vector<N, Real>& width)
+	{
+		// area = 2 * sum_i(width[0] * ... * width[i - 1] * width[i + 1] * ... * width[N])
+		//
+		// Note that even if the box has volume 0, it can still
+		// have area (if exactly one of width[i] is zero).
+
+		Real result = 0;
+
+		for (integer i = 0;i < N;++i)
+		{
+			Real faceArea = 1;
+			for (integer k = 0;k < i;++k)
+			{
+				faceArea *= width[k];
+			}
+			for (integer k = i + 1;k < N;++k)
+			{
+				faceArea *= width[k];
+			}
+			
+			result += faceArea;
+		}
+
+		return 2 * result;
+	}
+
+}
+
+#endif
