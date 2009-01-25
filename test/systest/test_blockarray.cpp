@@ -13,8 +13,6 @@ namespace
 
     void testSimple()
     {
-        log() << "- simple" << logNewLine;
-
         BlockArray<integer> a;
         BlockArray<integer> b;
         
@@ -36,8 +34,6 @@ namespace
 
     void testWrite()
     {
-        log() << "- write" << logNewLine;
-        
         BlockArray<integer> a(100);
         for (integer i = 0;i < 100;++i)
         {

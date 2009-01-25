@@ -57,8 +57,6 @@ namespace
 
 	void testConvolute3()
 	{
-		log() << "- 3d convolution" << logNewLine;
-
 		Vector<3, integer> extent(500);
 		Vector<3, integer> filterExtent(31);
 

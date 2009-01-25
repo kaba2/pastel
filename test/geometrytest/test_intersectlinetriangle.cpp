@@ -17,8 +17,6 @@ namespace
 
 	void testPositive2()
 	{
-		log() << "- positive cases 2d" << logNewLine;
-
 		/*
 		const Triangle<2, Real> triangle(
 			Point<2, Real>(1, 1),
@@ -79,8 +77,6 @@ namespace
 
 	void testNegative2()
 	{
-		log() << "- negative cases 2d" << logNewLine;
-
 		/*
 		const Triangle<2, Real> triangle(
 			Point<2, Real>(1, 1),
@@ -163,8 +159,6 @@ namespace
 
 	void testPositive3()
 	{
-		log() << "- positive cases 3d" << logNewLine;
-
 		const Triangle<3, Real> triangle(
 			Point<3, Real>(1, 1, 1),
 			Point<3, Real>(3, 1, 1),
@@ -219,8 +213,6 @@ namespace
 
 	void testNegative3()
 	{
-		log() << "- negative cases 3d" << logNewLine;
-
 		const Triangle<3, Real> triangle(
 			Point<3, Real>(1, 1, 1),
 			Point<3, Real>(3, 1, 1),

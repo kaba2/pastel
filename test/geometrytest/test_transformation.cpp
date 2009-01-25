@@ -11,8 +11,6 @@ namespace
 
 	void testSimilaritySimple()
 	{
-		log() << "- similarity" << logNewLine;
-
 		for (integer i = 0;i < 10000;++i)
 		{
 			const Tuple<4, real> parameter(
@@ -48,8 +46,6 @@ namespace
 
 	void testSimilarityLs()
 	{
-		log() << "- least squares similarity" << logNewLine;
-
 		for (integer i = 0;i < 10000;++i)
 		{
 			const Tuple<4, real> parameter(

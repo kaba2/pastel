@@ -84,8 +84,6 @@ namespace
 		// Run functions with an empty container,
 		// nothing should happen.
 
-		log() << "- simple" << logNewLine;
-
 		{
 			Container a;
 			a == a;
@@ -121,8 +119,6 @@ namespace
 		// correctly disambiguate between
 		// the iterator construction
 		// and the resizing construction.
-
-		log() << "- disambiguation" << logNewLine;
 
 		Container c(3, 3);
 
@@ -163,8 +159,6 @@ namespace
 
 	void testSplice()
 	{
-		log() << "- splice" << logNewLine;
-
 		Container c;
 		Container b(10, 5, c.get_allocator());
 		b.push_front(2);
@@ -243,8 +237,6 @@ namespace
 
 	void testUnique()
 	{
-		log() << "- unique" << logNewLine;
-
 		const A values[] = {1, 2, 3, 3, 3, 4, 4, 4, 5, 4, 4, 4};
 		const int valueCount = sizeof(values) / sizeof(A);
 
@@ -259,8 +251,6 @@ namespace
 
 	void testRemoveIf()
 	{
-		log() << "- remove_if" << logNewLine;
-
 		const A values[] = {1, 2, 3, 3, 3, 4, 4, 4, 5, 4, 4, 4};
 		const int valueCount = sizeof(values) / sizeof(A);
 
@@ -275,8 +265,6 @@ namespace
 
 	void testResize()
 	{
-		log() << "- resize" << logNewLine;
-
 		Container a;
 		a.resize(10, 4);
 
@@ -301,8 +289,6 @@ namespace
 
 	void testRemove()
 	{
-		log() << "- remove" << logNewLine;
-
 		const A values[] = {1, 2, 3, 3, 3, 4, 4, 4, 5, 4, 4, 4};
 		const int valueCount = sizeof(values) / sizeof(A);
 
@@ -317,8 +303,6 @@ namespace
 
 	void testEqual()
 	{
-		log() << "- equal" << logNewLine;
-
 		const A values[] = {1, 2, 3, 3, 3, 4, 4, 4, 5, 4, 4, 4};
 		const int valueCount = sizeof(values) / sizeof(A);
 

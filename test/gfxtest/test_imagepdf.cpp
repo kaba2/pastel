@@ -33,8 +33,6 @@ namespace
 
 	void testTechnique1()
 	{
-		log() << "- distribution from image, technique 1" << logNewLine;
-
 		LinearArray<2, Color> colorImage;
 		loadPcx("test_imagepdf_input.pcx", colorImage);
 
@@ -71,8 +69,6 @@ namespace
 
 	void testTechnique2()
 	{
-		log() << "- distribution from image, technique 2" << logNewLine;
-
 		LinearArray<2, Color> colorImage;
 		loadPcx("test_imagepdf2_input.pcx", colorImage);
 
@@ -202,8 +198,6 @@ namespace
 
 	void testTechnique4()
 	{
-		log() << "- distribution from image, technique 4" << logNewLine;
-
 		LinearArray<2, Color> colorImage;
 		loadPcx("test_imagepdf4_input.pcx", colorImage);
 

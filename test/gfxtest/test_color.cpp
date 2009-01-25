@@ -112,8 +112,6 @@ namespace
 
 	void testChromaticAdaptation()
 	{
-		log() << "- chromatic adaptation" << logNewLine;
-
 		LinearArray<2, Color> image;
 		loadPcx("lena.pcx", image);
 
@@ -123,16 +121,10 @@ namespace
 		savePcx(image, "test_color_chromatic_adaptation.pcx");
 	}
 
-	void testBegin()
-	{
-		testConstants();
-		//testChromaticity();
-		testChromaticAdaptation();
-	}
-
 	void testAdd()
 	{
-		gfxTestList().add("Color", testBegin);
+		gfxTestList().add("Color.Constants", testConstants);
+		gfxTestList().add("Color.ChromaticAdaptation", testChromaticAdaptation);
 	}
 
 	CallFunction run(testAdd);
