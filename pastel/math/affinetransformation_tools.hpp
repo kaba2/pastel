@@ -133,7 +133,7 @@ namespace Pastel
 		}
 
 		const Matrix<N, N, Real> a = inverse(c) * d;
-		
+
 		return AffineTransformation<2, Real>(
 			a, toCentroid - fromCentroid * a);
 	}
@@ -150,7 +150,7 @@ namespace Pastel
 		InputIterator fromEnd = from.end();
 		InputIterator toIter = to.begin();
 		InputIterator toEnd = to.end();
-		
+
 		Vector<2, Real> sumFrom;
 		Vector<2, Real> sumTo;
 		Real sumSquareFrom = 0;
@@ -170,12 +170,12 @@ namespace Pastel
 			sumSquareFrom += dot(fromVector);
 			dotSum += dot(fromVector, toVector);
 			crossDotSum += dot(cross(fromVector), toVector);
-						
+
 			++fromIter;
 			++toIter;
 			++points;
 		}
-		
+
 		const Real det = points * sumSquareFrom - dot(sumFrom);
 		const Real invDet = inverse(det);
 
@@ -197,12 +197,12 @@ namespace Pastel
 		// = scale * (cos^2(angle) + sin^2(angle)) = scale
 
 		const Real scale = std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
-		
+
 		// atan(scaledSin / scaledCos) = atan((scale * sin(angle)) / (scale * cos(angle)))
 		// = atan(tan(angle)) = angle
 
 		const Real angle = positiveRadians<Real>(std::atan2(scaledSin, scaledCos));
-	
+
 		return Tuple<4, Real>(scale, angle, translation[0], translation[1]);
 	}
 
@@ -223,7 +223,7 @@ namespace Pastel
 			fromDelta, toDelta,
 			fromNorm, toNorm);
 
-		const AffineTransformation<2, Real> scaleRotate = 
+		const AffineTransformation<2, Real> scaleRotate =
 			Pastel::similarityTransformation(
 			scaling, ccwRotation, Vector<2, Real>(0));
 
@@ -249,7 +249,7 @@ namespace Pastel
 	AffineTransformation<2, Real> similarityTransformation(
 		const Tuple<4, Real>& parameter)
 	{
-		return Pastel::similarityTransformation(parameter[0], parameter[1], 
+		return Pastel::similarityTransformation(parameter[0], parameter[1],
 			Vector<2, Real>(parameter[2], parameter[3]));
 	}
 

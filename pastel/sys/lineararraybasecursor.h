@@ -100,7 +100,7 @@ namespace Pastel
 			}
 
 		protected:
-			ConstCursorBase(Type const* data, 
+			ConstCursorBase(Type const* data,
 				const Vector<N, integer>& factor)
 				: data_(data)
 				, factor_(factor)
@@ -128,7 +128,7 @@ namespace Pastel
 			}
 
 		protected:
-			ConstCursor(Type const* data, 
+			ConstCursor(Type const* data,
 				const Vector<N, integer>& factor)
 				: Base(data, factor)
 			{
@@ -174,7 +174,7 @@ namespace Pastel
 			}
 
 		protected:
-			ConstCursor(Type const* data, 
+			ConstCursor(Type const* data,
 				const Vector<1, integer>& factor)
 				: Base(data, factor)
 			{
@@ -235,7 +235,7 @@ namespace Pastel
 			}
 
 		protected:
-			ConstCursor(Type const* data, 
+			ConstCursor(Type const* data,
 				const Vector<2, integer>& factor)
 				: Base(data, factor)
 			{
@@ -311,7 +311,7 @@ namespace Pastel
 			}
 
 		protected:
-			ConstCursor(Type const* data, 
+			ConstCursor(Type const* data,
 				const Vector<3, integer>& factor)
 				: Base(data, factor)
 			{
@@ -354,7 +354,7 @@ namespace Pastel
 			}
 
 		protected:
-			CursorBase(Type* data, 
+			CursorBase(Type* data,
 				const Vector<N, integer>& factor)
 				: Base(data, factor)
 			{
@@ -378,7 +378,7 @@ namespace Pastel
 			}
 
 		private:
-			Cursor(Type* data, 
+			Cursor(Type* data,
 				const Vector<N, integer>& factor)
 				: Base(data, factor)
 			{
@@ -424,7 +424,7 @@ namespace Pastel
 			}
 
 		private:
-			Cursor(Type* data, 
+			Cursor(Type* data,
 				const Vector<1, integer>& factor)
 				: Base(data, factor)
 			{
@@ -485,7 +485,7 @@ namespace Pastel
 			}
 
 		private:
-			Cursor(Type* data, 
+			Cursor(Type* data,
 				const Vector<2, integer>& factor)
 				: Base(data, factor)
 			{
@@ -561,7 +561,7 @@ namespace Pastel
 			}
 
 		private:
-			Cursor(Type* data, 
+			Cursor(Type* data,
 				const Vector<3, integer>& factor)
 				: Base(data, factor)
 			{

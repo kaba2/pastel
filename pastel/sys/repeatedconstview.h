@@ -54,7 +54,7 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
-	ExtendedConstView<N, Input_Element, RepeatedConstView<N, Input_ConstView> > 
+	ExtendedConstView<N, Input_Element, RepeatedConstView<N, Input_ConstView> >
 		repeatedConstView(const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
 		return extendedConstView<N>(RepeatedConstView<N,

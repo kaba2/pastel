@@ -23,7 +23,7 @@ namespace Pastel
 
 	This can be used to interpolate two points
 	and their velocity vectors.
-	
+
 	If startVelocity = endVelocity = 0,
 	then you should consider the 'smoothStep()' functions
 	in 'pastel/math/smoothstep.h' instead.

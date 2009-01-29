@@ -27,7 +27,7 @@ namespace Pastel
 		Real imageSum = 0;
 
 		std::vector<CdfElement> cdfTmp;
-		
+
 		CdfFunctor cdfFunctor(imageSum, cdfTmp);
 		visitPosition(image, cdfFunctor);
 
@@ -43,8 +43,8 @@ namespace Pastel
 		}
 
 		const Real value = randomReal() * cdf_.back().cdf();
-		
-		return std::lower_bound(cdf_.begin(), cdf_.end(), 
+
+		return std::lower_bound(cdf_.begin(), cdf_.end(),
 			CdfElement(value, Point<N, integer>(0)))->position();
 	}
 

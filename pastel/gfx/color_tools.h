@@ -9,9 +9,9 @@
 namespace Pastel
 {
 
-    //! Generates a random rgb color.
+	//! Generates a random rgb color.
 
-    Color randomRgbColor();
+	Color randomRgbColor();
 
 	// Standard illuminants (CIE 1964)
 
@@ -79,24 +79,24 @@ namespace Pastel
 	Color fitColor(const Color& rgb);
 
 	//! Sets negative components to zero.
-	
+
 	Color fitNegativeColor(const Color& rgb);
 
 	// Color conversion
 
 	//! Converts sRGB color to HSV color.
-    /*!
-    The HSV color coordinates will be in
-    the range [0, 2pi[ x [0, 1]^2.
-    */
+	/*!
+	The HSV color coordinates will be in
+	the range [0, 2pi[ x [0, 1]^2.
+	*/
 
 	Color rgbToHsv(const Color& rgb);
 
 	//! Converts HSV color to sRGB color.
-    /*!
-    The HSV color coordinates will be in
-    the range [0, 2pi[ x [0, 1]^2.
-    */
+	/*!
+	The HSV color coordinates will be in
+	the range [0, 2pi[ x [0, 1]^2.
+	*/
 
 	Color hsvToRgb(const Color& rgb);
 

@@ -16,7 +16,7 @@ namespace Pastel
 	/*!
 	DataPolicy:
 	A policy you use to define user data, interface extensions, and
-	how to do react at the creation of elements. Predefined data policies 
+	how to do react at the creation of elements. Predefined data policies
 	can be found from 'pastel/geometry/simplexmesh_datapolicies.h'.
 
 	class DataPolicy_Concept
@@ -43,7 +43,7 @@ namespace Pastel
 
 		// If a user data type is defined as an
 		// EmptyClass, a zero pointer is passed
-		// to the following functions. The 
+		// to the following functions. The
 		// implementation must handle these cases
 		// correctly.
 
@@ -67,7 +67,7 @@ namespace Pastel
 
 		class Vertex;
 		class Simplex;
-		
+
 	private:
 		class VertexBody;
 		class SimplexBody;
@@ -80,7 +80,7 @@ namespace Pastel
 			{
 				return hash_(vertex.data_);
 			}
-		
+
 		private:
 			hash<VertexBody*> hash_;
 		};
@@ -92,7 +92,7 @@ namespace Pastel
 			{
 				return hash_(simplex.data_);
 			}
-		
+
 		private:
 			hash<SimplexBody*> hash_;
 		};

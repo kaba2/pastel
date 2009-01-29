@@ -26,18 +26,18 @@ namespace
 		LinearArray<2, Color> outputImage(texture.extent() * 2);
 
 		const integer images = mipMap.levels();
-        for (integer i = 0;i < images;++i)
-        {
+		for (integer i = 0;i < images;++i)
+		{
 			LinearArray<2, Color>& image = mipMap(i);
 
-			drawView(constArrayView(image), 
+			drawView(constArrayView(image),
 				position, arrayView(outputImage));
-			
+
 			position += image.extent();
-        }
-		
+		}
+
 		savePcx(outputImage, "test_mipmap.pcx");
-    }
+	}
 
 	void testBegin()
 	{

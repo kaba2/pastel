@@ -38,7 +38,7 @@ namespace Pastel
 		return Pastel::minIndex(asVector(that));
 	}
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	Point<N, Real> min(
 		const Point<N, Real>& left,
 		const Point<N, Real>& right)
@@ -69,7 +69,7 @@ namespace Pastel
 		return Pastel::maxIndex(asVector(that));
 	}
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	Point<N, Real> max(
 		const Point<N, Real>& left,
 		const Point<N, Real>& right)
@@ -127,7 +127,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::allEqual(asTuple(left), asTuple(right));
@@ -135,7 +135,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::allEqual(asTuple(left), right);
@@ -151,7 +151,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::anyEqual(asTuple(left), asTuple(right));
@@ -159,7 +159,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::anyEqual(asTuple(left), right);
@@ -175,7 +175,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::anyLess(asTuple(left), asTuple(right));
@@ -183,7 +183,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::anyLess(left, asTuple(right));
@@ -191,7 +191,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::anyLess(asTuple(left), right);
@@ -199,7 +199,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::anyGreater(asTuple(left), asTuple(right));
@@ -207,7 +207,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::anyGreater(left, asTuple(right));
@@ -215,7 +215,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::anyGreater(asTuple(left), right);
@@ -223,7 +223,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return !(allLess(right, left));
@@ -231,7 +231,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return !(allLess(right, left));
@@ -239,7 +239,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(allLess(right, left));
@@ -247,7 +247,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return !(allLess(left, right));
@@ -255,7 +255,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return !(allLess(left, right));
@@ -263,7 +263,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(allLess(left, right));
@@ -271,7 +271,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::allLess(asTuple(left), asTuple(right));
@@ -279,7 +279,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return Pastel::allLess(left, asTuple(right));
@@ -287,7 +287,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::allLess(asTuple(left), right);
@@ -295,7 +295,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return allLess(right, left);
@@ -303,7 +303,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return allLess(right, left);
@@ -311,7 +311,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return allLess(right, left);
@@ -319,7 +319,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return !(anyLess(right, left));
@@ -327,7 +327,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return !(anyLess(right, left));
@@ -335,7 +335,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(anyLess(right, left));
@@ -343,7 +343,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const Point<N, Real>& right)
 	{
 		return !(anyLess(left, right));
@@ -351,7 +351,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<N, Real>& right)
 	{
 		return !(anyLess(left, right));
@@ -359,7 +359,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Point<N, Real>& left, 
+		const Point<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(anyLess(left, right));

@@ -62,14 +62,14 @@ namespace Pastel
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::Vertex 
+	typename SimplexMesh<N, DataPolicy>::Vertex
 		SimplexMesh<N, DataPolicy>::addVertex()
 	{
 		return allocateVertex();
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::Simplex 
+	typename SimplexMesh<N, DataPolicy>::Simplex
 		SimplexMesh<N, DataPolicy>::addSimplex(
 			const Tuple<N + 1, Vertex>& vertexList)
 	{
@@ -82,28 +82,28 @@ namespace Pastel
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::ConstVertexIterator 
+	typename SimplexMesh<N, DataPolicy>::ConstVertexIterator
 		SimplexMesh<N, DataPolicy>::vertexBegin() const
 	{
 		return vertexSet_.begin();
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::ConstVertexIterator 
+	typename SimplexMesh<N, DataPolicy>::ConstVertexIterator
 		SimplexMesh<N, DataPolicy>::vertexEnd() const
 	{
 		return vertexSet_.end();
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::ConstSimplexIterator 
+	typename SimplexMesh<N, DataPolicy>::ConstSimplexIterator
 		SimplexMesh<N, DataPolicy>::simplexBegin() const
 	{
 		return simplexSet_.begin();
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::ConstSimplexIterator 
+	typename SimplexMesh<N, DataPolicy>::ConstSimplexIterator
 		SimplexMesh<N, DataPolicy>::simplexEnd() const
 	{
 		return simplexSet_.end();
@@ -124,11 +124,11 @@ namespace Pastel
 	// Private
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::Vertex 
+	typename SimplexMesh<N, DataPolicy>::Vertex
 		SimplexMesh<N, DataPolicy>::allocateVertex()
 	{
 		integer rollBackIndex = 0;
-		
+
 		VertexBody* vertexData = (VertexBody*)vertexAllocator_.allocate();
 		++rollBackIndex;
 
@@ -177,11 +177,11 @@ namespace Pastel
 	}
 
 	template <int N, typename DataPolicy>
-	typename SimplexMesh<N, DataPolicy>::Simplex 
+	typename SimplexMesh<N, DataPolicy>::Simplex
 		SimplexMesh<N, DataPolicy>::allocateSimplex()
 	{
 		integer rollBackIndex = 0;
-		
+
 		SimplexBody* simplexData = (SimplexBody*)simplexAllocator_.allocate();
 		++rollBackIndex;
 
@@ -198,7 +198,7 @@ namespace Pastel
 				new(simplexData->data()) SimplexData;
 			}
 			++rollBackIndex;
-			
+
 			DataPolicy::constructSimplex(simplexData->data());
 			++rollBackIndex;
 		}

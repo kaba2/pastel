@@ -43,31 +43,31 @@ namespace Pastel
 	=> C^T = A^-1
 	=> C = (A^-1)^T = (A^T)^-1
 
-    Let
-    f(x) = xA + b
-    g(x) = xC + d    
+	Let
+	f(x) = xA + b
+	g(x) = xC + d
 
-    Composition:
-    f(g(x)) = 
-    (xC + d)A + b
-    = xCA + (dA + b)
-    
-    Inversion:
-    Let A and C be invertible.
-    for all x: f(g(x)) = xCA + (dA + b) = x
-    <=>
-    CA = I and dA + b = 0
-    <=>
-    C = A^-1
-    d = -bA^-1
-    <=>
-    g(x) = f^-1(x) = (x - b)A^-1
-    */
+	Composition:
+	f(g(x)) =
+	(xC + d)A + b
+	= xCA + (dA + b)
 
-    template <int N, typename Real>
+	Inversion:
+	Let A and C be invertible.
+	for all x: f(g(x)) = xCA + (dA + b) = x
+	<=>
+	CA = I and dA + b = 0
+	<=>
+	C = A^-1
+	d = -bA^-1
+	<=>
+	g(x) = f^-1(x) = (x - b)A^-1
+	*/
+
+	template <int N, typename Real>
 	class AffineTransformation
 	{
-    public:
+	public:
 			// Using default copy constructor.
 			// Using default assignment.
 			// Using default destructor.

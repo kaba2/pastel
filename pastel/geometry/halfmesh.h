@@ -43,7 +43,7 @@ namespace Pastel
 
 		// If a user data type is defined as an
 		// EmptyClass, a zero pointer is passed
-		// to the following functions. The 
+		// to the following functions. The
 		// implementation must handle these cases
 		// correctly.
 
@@ -60,10 +60,10 @@ namespace Pastel
 
 	The 'DataPolicy' is used to control the construction
 	and destruction of user data. Because inheritance is
-	used, you can expand the interface of HalfMesh by 
+	used, you can expand the interface of HalfMesh by
 	simply defining your own functions in the policy.
-	If no user data is needed, memory can be saved by defining 
-	the desired user data type as an EmptyClass. 
+	If no user data is needed, memory can be saved by defining
+	the desired user data type as an EmptyClass.
 	In this case the construction and
 	destruction functions are passed a zero pointer.
 	The implementation of the policy should make sure that
@@ -96,7 +96,7 @@ namespace Pastel
 		using typename DataPolicy::EdgeData;
 		using typename DataPolicy::PolygonData;
 		*/
-		
+
 		// So we get around it by doing this.
 		typedef typename DataPolicy::VertexData VertexData;
 		typedef typename DataPolicy::HalfData HalfData;
@@ -300,7 +300,7 @@ namespace Pastel
 		Returns:
 		Whether the half-edges could be made adjacent
 		(sometimes this is not possible, meaning it
-		would lead to a non-representable non-manifold 
+		would lead to a non-representable non-manifold
 		configuration).
 
 		Preconditions:
@@ -415,7 +415,7 @@ namespace Pastel
 		//! Adds a polygon to the given vertex loop.
 		/*!
 		Time complexity:
-		sum_i O(edges around vertexLoop[i]) + 
+		sum_i O(edges around vertexLoop[i]) +
 		O(vertexLoop.size()) on average
 
 		Exception safety:

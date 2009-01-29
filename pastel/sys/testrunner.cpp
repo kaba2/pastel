@@ -92,7 +92,7 @@ namespace Pastel
 				run(iter);
 				result = true;
 			}
-			
+
 			++iter;
 		}
 

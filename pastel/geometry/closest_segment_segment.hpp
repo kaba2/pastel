@@ -29,7 +29,7 @@ namespace Pastel
 		// This is equivalent to minimizing
 		// w^2(u, v) = dot(p1(v) - p0(u))
 		// in [0, 1]^2.
-		// 
+		//
 		// w^2 is an increasing parabola in u and v.
 		// Let (tu, tv) be the global minimum of w^2.
 		// If (tu, tv) is in [0, 1]^2, then we have
@@ -42,7 +42,7 @@ namespace Pastel
 
 		// The regions in the uv-plane
 		// are divided as follows:
-		// 
+		//
 		// 0 1 2
 		// 3 x 4
 		// 5 6 7
@@ -112,12 +112,12 @@ namespace Pastel
 
 				const Real u0vCandidate =
 					clamp(-dot(startDelta, bDelta) / bNorm2, 0, 1);
-				const Real u0vDistance2 = dot((bSegment.start() - aSegment.start()) + 
+				const Real u0vDistance2 = dot((bSegment.start() - aSegment.start()) +
 					bDelta * u1vCandidate);
 
 				const Real v0uCandidate =
 					clamp(dot(startDelta, aDelta) / aNorm2, 0, 1);
-				const Real v0uDistance2 = dot((bSegment.start() - aSegment.start()) - 
+				const Real v0uDistance2 = dot((bSegment.start() - aSegment.start()) -
 					aDelta * v0uCandidate);
 
 				if (u0vDistance2 < v0uDistance2)
@@ -136,13 +136,13 @@ namespace Pastel
 
 					const Real u0vCandidate =
 						clamp(-dot(startDelta, bDelta) / bNorm2, 0, 1);
-					const Real u0vDistance2 = 
+					const Real u0vDistance2 =
 						dot((bSegment.start() - aSegment.start()) + bDelta * u1vCandidate);
 
 					const Real v1uCandidate =
-						clamp((dot(startDelta, aDelta) + 
+						clamp((dot(startDelta, aDelta) +
 						dot(aDelta, bDelta)) / aNorm2, 0, 1);
-					const Real v1uDistance2 = 
+					const Real v1uDistance2 =
 						dot((bSegment.end() - aSegment.start()) - aDelta * v1uCandidate);
 
 					if (u0vDistance2 < v1uDistance2)
@@ -174,16 +174,16 @@ namespace Pastel
 					// => Minimum at u = 1 or v = 0
 
 					const Real u1vCandidate =
-						clamp((dot(aDelta, bDelta) - 
+						clamp((dot(aDelta, bDelta) -
 						dot(startDelta, bDelta)) / bNorm2, 0, 1);
-					const Real u1vDistance2 = 
+					const Real u1vDistance2 =
 						dot((bSegment.start() - aSegment.end()) +
 						bDelta * u1vCandidate);
 
 					const Real v0uCandidate =
 						clamp(dot(startDelta, aDelta) / aNorm2, 0, 1);
-					const Real v0uDistance2 = 
-						dot((bSegment.start() - aSegment.start()) - 
+					const Real v0uDistance2 =
+						dot((bSegment.start() - aSegment.start()) -
 						aDelta * v0uCandidate);
 
 					if (u1vDistance2 < v0uDistance2)
@@ -214,15 +214,15 @@ namespace Pastel
 						// => Minimum at u = 1 or v = 1
 
 						const Real u1vCandidate =
-							clamp((dot(aDelta, bDelta) - 
+							clamp((dot(aDelta, bDelta) -
 							dot(startDelta, bDelta)) / bNorm2, 0, 1);
-						const Real u1vDistance2 = 
+						const Real u1vDistance2 =
 							dot((bSegment.start() - aSegment.end()) + bDelta * u1vCandidate);
 
 						const Real v1uCandidate =
-							clamp((dot(startDelta, aDelta) + 
+							clamp((dot(startDelta, aDelta) +
 							dot(aDelta, bDelta)) / aNorm2, 0, 1);
-						const Real v1uDistance2 = 
+						const Real v1uDistance2 =
 							dot((bSegment.end() - aSegment.start()) - aDelta * v1uCandidate);
 
 						if (u1vDistance2 < v1uDistance2)
@@ -240,7 +240,7 @@ namespace Pastel
 						// => v = [dot(d0, d1) - dot(p1 - p0, d1)] / dot(d1)
 
 						return Tuple<2, Real>(
-							clamp((dot(aDelta, bDelta) - 
+							clamp((dot(aDelta, bDelta) -
 							dot(bSegment.start() - aSegment.start(), bDelta)) / bNorm2, 0, 1), 0);
 					}
 				}
@@ -254,7 +254,7 @@ namespace Pastel
 						// => u = [dot(p1 - p0, d0) + dot(d0, d1)] / dot(d0)
 
 						return Tuple<2, Real>(
-							clamp((dot(bSegment.start() - aSegment.start(), aDelta) + 
+							clamp((dot(bSegment.start() - aSegment.start(), aDelta) +
 							dot(aDelta, bDelta)) / aNorm2, 0, 1), 0);
 					}
 					//else

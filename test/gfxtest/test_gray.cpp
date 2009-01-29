@@ -32,12 +32,12 @@ namespace
 
 		LinearArray<2, Color> transformed;
 
-		transform(constArrayView(image), 
+		transform(constArrayView(image),
 			arrayView(transformed), luma);
 
 		savePcx(transformed, "testgray_luma.pcx");
 
-		transform(constArrayView(image), 
+		transform(constArrayView(image),
 			arrayView(transformed), lightness);
 
 		savePcx(transformed, "testgray_lightness.pcx");

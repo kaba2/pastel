@@ -46,28 +46,28 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ElementIterator 
+	typename DisjointGroups<Type>::ElementIterator
 		DisjointGroups<Type>::elementBegin()
 	{
 		return elementList_.begin();
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ConstElementIterator 
+	typename DisjointGroups<Type>::ConstElementIterator
 		DisjointGroups<Type>::elementBegin() const
 	{
 		return elementList_.begin();
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ElementIterator 
+	typename DisjointGroups<Type>::ElementIterator
 		DisjointGroups<Type>::elementEnd()
 	{
 		return elementList_.end();
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ConstElementIterator 
+	typename DisjointGroups<Type>::ConstElementIterator
 		DisjointGroups<Type>::elementEnd() const
 	{
 		return elementList_.end();
@@ -96,7 +96,7 @@ namespace Pastel
 			{
 				group.last_ = elementList_.end();
 			}
-			// Else the element is 
+			// Else the element is
 			// at the middle of the list, do nothing.
 		}
 
@@ -113,12 +113,12 @@ namespace Pastel
 	// Groups
 
 	template <typename Type>
-	typename DisjointGroups<Type>::GroupIterator 
+	typename DisjointGroups<Type>::GroupIterator
 		DisjointGroups<Type>::insertGroup()
 	{
 		groupSet_.push_back(
 			Group(elementList_.end(), elementList_.end(), 0));
-		
+
 		GroupIterator result = groupSet_.end();
 		--result;
 
@@ -126,28 +126,28 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::GroupIterator 
+	typename DisjointGroups<Type>::GroupIterator
 		DisjointGroups<Type>::groupBegin()
 	{
 		return groupSet_.begin();
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ConstGroupIterator 
+	typename DisjointGroups<Type>::ConstGroupIterator
 		DisjointGroups<Type>::groupBegin() const
 	{
 		return groupSet_.begin();
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::GroupIterator 
+	typename DisjointGroups<Type>::GroupIterator
 		DisjointGroups<Type>::groupEnd()
 	{
 		return groupSet_.end();
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ConstGroupIterator 
+	typename DisjointGroups<Type>::ConstGroupIterator
 		DisjointGroups<Type>::groupEnd() const
 	{
 		return groupSet_.end();
@@ -167,7 +167,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::ElementIterator 
+	typename DisjointGroups<Type>::ElementIterator
 		DisjointGroups<Type>::insert(
 		const GroupIterator& group,
 		const Type& data)
@@ -198,7 +198,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	typename DisjointGroups<Type>::GroupIterator 
+	typename DisjointGroups<Type>::GroupIterator
 		DisjointGroups<Type>::merge(
 		const GroupIterator& aGroup,
 		const GroupIterator& bGroup)
@@ -230,14 +230,14 @@ namespace Pastel
 
 		ElementIterator elementIter = smallerGroup->begin();
 		ElementIterator elementEnd = smallerGroup->end();
-		
+
 		while(elementIter != elementEnd)
 		{
 			elementIter->group_ = biggerGroup;
 			++elementIter;
 		}
 
-		elementList_.splice(biggerGroup->end(), elementList_, 
+		elementList_.splice(biggerGroup->end(), elementList_,
 			smallerGroup->begin(), smallerGroup->end());
 
 		biggerGroup->last_ = smallerGroup->last_;

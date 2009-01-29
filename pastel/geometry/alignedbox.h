@@ -119,7 +119,7 @@ namespace Pastel
 
 		using Base::set;
 
-		void set(const Real& xMin, const Real& yMin, 
+		void set(const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
 		{
 			set(Point2(xMin, yMin),
@@ -150,7 +150,7 @@ namespace Pastel
 		{
 		}
 
-		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin, 
+		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 			: Base(Point<N, Real>(xMin, yMin, zMin),
 			Point<N, Real>(xMax, yMax, zMax))
@@ -165,7 +165,7 @@ namespace Pastel
 
 		using Base::set;
 
-		void set(const Real& xMin, const Real& yMin, const Real& zMin, 
+		void set(const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 		{
 			set(Point3(xMin, yMin, zMin),

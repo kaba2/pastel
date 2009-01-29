@@ -19,7 +19,7 @@ namespace Pastel
 	std::ostream& operator<<(std::ostream& stream,
 		const Vector<N, Real>& vector)
 	{
-        const integer size = vector.size();
+		const integer size = vector.size();
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -33,7 +33,7 @@ namespace Pastel
 	std::istream& operator>>(std::istream& stream,
 		Vector<N, Real>& vector)
 	{
-        const integer size = vector.size();
+		const integer size = vector.size();
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -46,7 +46,7 @@ namespace Pastel
 	template <int N, typename Real, typename Expression>
 	Real sum(const VectorExpression<N, Real, Expression>& x)
 	{
-        const integer size = x.size();
+		const integer size = x.size();
 
 		Real result(x[0]);
 
@@ -61,7 +61,7 @@ namespace Pastel
 	template <int N, typename Real, typename Expression>
 	Real product(const VectorExpression<N, Real, Expression>& x)
 	{
-        const integer size = x.size();
+		const integer size = x.size();
 
 		Real result(x[0]);
 
@@ -87,12 +87,12 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Unbounded);
 
-        enum
-        {
-            NResult = (N == Unbounded) ? Unbounded : N - 1
-        };
+		enum
+		{
+			NResult = (N == Unbounded) ? Unbounded : N - 1
+		};
 
-        const integer size = that.size();
+		const integer size = that.size();
 
 		Vector<NResult, Real> result(size - 1);
 		for (int i = 0;i < size - 1;++i)
@@ -107,12 +107,12 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
 	{
-        const integer size = right.size();
+		const integer size = right.size();
 
-        enum
-        {
-            NResult = (N == Unbounded) ? Unbounded : N + 1
-        };
+		enum
+		{
+			NResult = (N == Unbounded) ? Unbounded : N + 1
+		};
 
 		Vector<NResult, Real> result(size + 1);
 
@@ -130,14 +130,14 @@ namespace Pastel
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-        const integer size = left.size();
+		const integer size = left.size();
 
-        enum
-        {
-            NResult = (N == Unbounded) ? Unbounded : N + 1
-        };
+		enum
+		{
+			NResult = (N == Unbounded) ? Unbounded : N + 1
+		};
 
-        Vector<N + 1, Real> result(size + 1);
+		Vector<N + 1, Real> result(size + 1);
 
 		for (int i = 0;i < size;++i)
 		{
@@ -152,11 +152,11 @@ namespace Pastel
 		typename Expression>
 		inline Real dot(
 		const VectorExpression<N, Real, Expression>& that)
-    {
-        return sum(that * that);
-    }
+	{
+		return sum(that * that);
+	}
 
-    template <int N, typename Real,
+	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
 		const VectorExpression<N, Real, LeftExpression>& left,
@@ -166,14 +166,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Real>::type 
+	typename boost::enable_if_c<(N > 1), Real>::type
 		norm(const Vector<N, Real>& that)
 	{
 		//return std::sqrt(dot(that, that));
 
 		// If v[0] != 0,
 		// then
-		// sqrt(v[0]^2 + ... v[N - 1]^2) = 
+		// sqrt(v[0]^2 + ... v[N - 1]^2) =
 		// |v[0]| sqrt(1 + (v[1] / v[0])^2 + ... + (v[N - 1] / v[0])^2))
 		//
 		// This works for any component, so
@@ -210,7 +210,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N == 1), Real>::type 
+	typename boost::enable_if_c<(N == 1), Real>::type
 		norm(const Vector<N, Real>& that)
 	{
 		return std::abs(that[0]);
@@ -240,7 +240,7 @@ namespace Pastel
 
 		// If v[0] != 0,
 		// then
-		// root_p(v[0]^p + ... v[N - 1]^p) = 
+		// root_p(v[0]^p + ... v[N - 1]^p) =
 		// |v[0]| root_p(1 + (v[1] / v[0])^p + ... + (v[N - 1] / v[0])^p))
 		//
 		// This works for any component, so
@@ -314,7 +314,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return Pastel::allEqual(asTuple(left), asTuple(right));
@@ -322,7 +322,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::allEqual(asTuple(left), right);
@@ -338,7 +338,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return Pastel::anyEqual(asTuple(left), asTuple(right));
@@ -346,7 +346,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::anyEqual(asTuple(left), right);
@@ -362,7 +362,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return Pastel::anyLess(asTuple(left), asTuple(right));
@@ -370,7 +370,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return Pastel::anyLess(left, asTuple(right));
@@ -378,7 +378,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::anyLess(asTuple(left), right);
@@ -386,7 +386,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return anyLess(right, left);
@@ -394,7 +394,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return anyLess(right, left);
@@ -402,7 +402,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return anyLess(right, left);
@@ -410,7 +410,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return !(allLess(right, left));
@@ -418,7 +418,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return !(allLess(right, left));
@@ -426,7 +426,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(allLess(right, left));
@@ -434,7 +434,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return !(allLess(left, right));
@@ -442,7 +442,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return !(allLess(left, right));
@@ -450,7 +450,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(allLess(left, right));
@@ -458,7 +458,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return Pastel::allLess(asTuple(left), asTuple(right));
@@ -466,7 +466,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return Pastel::allLess(left, asTuple(right));
@@ -474,7 +474,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return Pastel::allLess(asTuple(left), right);
@@ -482,7 +482,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return allLess(right, left);
@@ -490,7 +490,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return allLess(right, left);
@@ -498,7 +498,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return allLess(right, left);
@@ -506,7 +506,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return !(anyLess(right, left));
@@ -514,7 +514,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return !(anyLess(right, left));
@@ -522,7 +522,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(anyLess(right, left));
@@ -530,7 +530,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right)
 	{
 		return !(anyLess(left, right));
@@ -538,7 +538,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right)
 	{
 		return !(anyLess(left, right));
@@ -546,7 +546,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(anyLess(left, right));

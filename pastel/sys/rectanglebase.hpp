@@ -114,7 +114,7 @@ namespace Pastel
 	Point<N, integer> RectangleBase<N, Derived>::at(
 		const Vector<N, integer>& coordinates) const
 	{
-		return Point<N, integer>((1 - coordinates) * asVector(min_) + 
+		return Point<N, integer>((1 - coordinates) * asVector(min_) +
 			coordinates * asVector(max_));
 	}
 

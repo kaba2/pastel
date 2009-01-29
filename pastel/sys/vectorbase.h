@@ -91,12 +91,12 @@ namespace Pastel
 			return expression[index];
 		}
 
-        integer size() const
-        {
+		integer size() const
+		{
 			const Expression& expression =
 				(const Expression&)*this;
-            return expression.size();
-        }
+			return expression.size();
+		}
 
 		// Negation
 
@@ -258,9 +258,9 @@ namespace Pastel
 	public:
 		VectorConstant(
 			const Real& that,
-            integer size)
+			integer size)
 			: data_(that)
-            , size_(size)
+			, size_(size)
 		{
 		}
 
@@ -270,14 +270,14 @@ namespace Pastel
 			return data_;
 		}
 
-        integer size() const
-        {
-            return size_;
-        }
+		integer size() const
+		{
+			return size_;
+		}
 
 	private:
 		const Real data_;
-        const integer size_;
+		const integer size_;
 	};
 
 	template <
@@ -300,13 +300,13 @@ namespace Pastel
 			return -data_[index];
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (Expression&)data_;
-            
-            return data_.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(Expression&)data_;
+
+			return data_.size();
+		}
 
 	private:
 		typedef typename StorageType<Expression>::
@@ -339,12 +339,12 @@ namespace Pastel
 			return left_[index] + right_[index];
 		}
 
-        integer size() const
-        {
-            const LeftExpression& expression =
-                (LeftExpression&)left_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const LeftExpression& expression =
+				(LeftExpression&)left_;
+			return expression.size();
+		}
 
 	private:
 		typedef typename StorageType<LeftExpression>::
@@ -380,14 +380,14 @@ namespace Pastel
 			return left_[index] - right_[index];
 		}
 
-        integer size() const
-        {
-            const LeftExpression& expression =
-                (LeftExpression&)left_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const LeftExpression& expression =
+				(LeftExpression&)left_;
+			return expression.size();
+		}
 
-    private:
+	private:
 		typedef typename StorageType<LeftExpression>::
 			Result LeftType;
 		typedef typename StorageType<RightExpression>::
@@ -421,14 +421,14 @@ namespace Pastel
 			return left_[index] * right_[index];
 		}
 
-        integer size() const
-        {
-            const LeftExpression& expression =
-                (LeftExpression&)left_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const LeftExpression& expression =
+				(LeftExpression&)left_;
+			return expression.size();
+		}
 
-    private:
+	private:
 		typedef typename StorageType<LeftExpression>::
 			Result LeftType;
 		typedef typename StorageType<RightExpression>::
@@ -462,14 +462,14 @@ namespace Pastel
 			return left_[index] / right_[index];
 		}
 
-        integer size() const
-        {
-            const LeftExpression& expression =
-                (LeftExpression&)left_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const LeftExpression& expression =
+				(LeftExpression&)left_;
+			return expression.size();
+		}
 
-    private:
+	private:
 		typedef typename StorageType<LeftExpression>::
 			Result LeftType;
 		typedef typename StorageType<RightExpression>::
@@ -484,7 +484,7 @@ namespace Pastel
 
 		template <int N, typename Real, typename Derived>
 		class VectorBase
-			: public boost::equality_comparable1<Derived, 
+			: public boost::equality_comparable1<Derived,
 			VectorExpression<N, Real, VectorBase<N, Real, Derived> >
 			>
 		{
@@ -536,10 +536,10 @@ namespace Pastel
 			{
 			}
 
-            integer size() const
-            {
-                return N;
-            }
+			integer size() const
+			{
+				return N;
+			}
 
 			void swap(Derived& that)
 			{

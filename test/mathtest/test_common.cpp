@@ -46,7 +46,7 @@ namespace
 			{
 				std::swap(aRoot, bRoot);
 			}
-			
+
 			const real aCoeff = randomReal() * 100 + 2;
 			const real bCoeff = (-aRoot - bRoot) * aCoeff;
 			const real cCoeff = (aRoot * bRoot) * aCoeff;

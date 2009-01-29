@@ -60,7 +60,7 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawSegmentOld(
 		const Segment2& segment,
-		const PASTEL_NO_DEDUCTION(Type)& color, 
+		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image)
 	{
 		// The Bresenham line algorithm for drawing line segments.
@@ -96,7 +96,7 @@ namespace Pastel
 		// of octants 0, 3, 4 and 7. We will deal
 		// with the other octants later.
 		//
-		// We start tracing from the pixel (x(0), y(0)) 
+		// We start tracing from the pixel (x(0), y(0))
 		// that has the sampling point closest to (xStart, yStart).
 		//
 		// From here, we perform either of the
@@ -104,7 +104,7 @@ namespace Pastel
 		// 1) x(i + 1) = x(i) + tx, y(i + 1) = y(i) + ty1
 		// 2) x(i + 1) = x(i) + tx, y(i + 1) = y(i) + ty2
 		// where
-		// (tx, ty1, ty2) is one of 
+		// (tx, ty1, ty2) is one of
 		// {(1, 0, 1), (1, 0, -1), (-1, 0, 1), (-1, 0, -1)}.
 		//
 		// We choose the one that will keep us closer to the line.
@@ -121,11 +121,11 @@ namespace Pastel
 		// If this comparison yields true, the option 1 is chosen.
 		// Otherwise option 2 is chosen. However, this is inefficient.
 		//
-		// Let 
+		// Let
 		// a(i) = x(i) + u
 		// b(i) = yStart + ((x(i) + u) - xStart) * (dy / dx)
 		//
-		// Then (a(i), b(i)) traces out points from the line 
+		// Then (a(i), b(i)) traces out points from the line
 		// with a(i) horizontally at the sampling points.
 		//
 		// Because of similar triangles, we can equivalently compare the
@@ -138,7 +138,7 @@ namespace Pastel
 		//
 		// Fortunately, we see that there is still one more equivalent
 		// comparison. Rather than comparing the distances of the two candidate points
-		// to the line segment, we can compare the position of their 
+		// to the line segment, we can compare the position of their
 		// midpoint to the line segment (along y-axis):
 		//
 		// ((y(i) + v + ty1) + (y(i) + v + ty2)) / 2 <= b(i + 1)
@@ -152,7 +152,7 @@ namespace Pastel
 		// Rather than comparing directly (left <= right), we compare the sign
 		// of the difference (left - right <= 0):
 		//
-		// s'(i) 
+		// s'(i)
 		// = (y(i) + v + ty1) - b(i + 1)) - (b(i + 1) - (y(i) + v + ty2))
 		// = 2(y(i) + v) - 2b(i + 1) + (ty1 + ty2)
 		// = 2(y(i) + v) - 2(yStart + (x(i + 1) + v - xStart) * (dy / dx)) + (ty1 + ty2)
@@ -165,7 +165,7 @@ namespace Pastel
 		// Because dx is positive, and thus does not change the sign
 		// of s', we can as well multiply s' by dx to avoid division.
 		//
-		// s(i)  
+		// s(i)
 		// = s'(i) * dx
 		// = 2(y(i) + v)dx - 2b(i)dx - 2 tx dy + (ty1 + ty2)dx
 		//
@@ -187,8 +187,8 @@ namespace Pastel
 		// = 2(y(0) + v)dx - 2b(0)dx - 2 tx dy + (ty1 + ty2)dx
 		// = 2(y(0) + v)dx - 2(yStart * dx + ((x(0) + u) - xStart) * dy) - 2 tx dy + (ty1 + ty2)dx
 		// = 2((y(0) + v) - yStart)dx - 2((x(0) + u) - xStart)dy - 2 tx dy + (ty1 + ty2) dx
-		// 
-		// Notice that if xStart = x(0) + u and yStart = y(0) + v (the 
+		//
+		// Notice that if xStart = x(0) + u and yStart = y(0) + v (the
 		// start point is at a sample point), then
 		// s(0) = -2 tx dy + (ty1 + ty2) dx
 		// If in addition (xEnd, yEnd) is at a sample point,
@@ -209,9 +209,9 @@ namespace Pastel
 		// Summary
 		// -------
 		//
-		// sNormal = 
+		// sNormal =
 		// 2((y(0) + v) - yStart)dx - 2((x(0) + u) - xStart)dy - 2 tx dy + (ty1 + ty2) dx
-		// sReflected = 
+		// sReflected =
 		// 2((x(0) + u) - xStart)dy - 2((y(0) + v) - yStart)dx - 2 ty dx + (tx1 + tx2) dy
 		//
 		// Octant 0:
@@ -255,7 +255,7 @@ namespace Pastel
 		// s(0) = sReflected + (-2 dx - dy)
 
 		Segment2 clippedSegment;
-		if (!intersect(AlignedBox2(0, 0, image.width(), image.height()), segment, 
+		if (!intersect(AlignedBox2(0, 0, image.width(), image.height()), segment,
 			clippedSegment))
 		{
 			return;
@@ -276,13 +276,13 @@ namespace Pastel
 		integer y = std::floor(yStart);
 
 		const integer steps = std::max(
-			std::abs(std::floor(xEnd) - x), 
+			std::abs(std::floor(xEnd) - x),
 			std::abs(std::floor(yEnd) - y)) + 1;
 
 		if (std::abs(dx) >= std::abs(dy))
 		{
-			real s = 
-				2 * (((real)y + (real)0.5) - yStart) * dx - 
+			real s =
+				2 * (((real)y + (real)0.5) - yStart) * dx -
 				2 * (((real)x + (real)0.5) - xStart) * dy;
 
 			if (dx >= 0)
@@ -394,8 +394,8 @@ namespace Pastel
 		}
 		else
 		{
-			real s = 
-				2 * (((real)x + (real)0.5) - xStart) * dy - 
+			real s =
+				2 * (((real)x + (real)0.5) - xStart) * dy -
 				2 * (((real)y + (real)0.5) - yStart) * dx;
 
 			if (dx >= 0)
@@ -510,13 +510,13 @@ namespace Pastel
 	template <typename Type, typename Image_View>
 	void drawSegment(
 		const Segment2& segment,
-		const PASTEL_NO_DEDUCTION(Type)& color, 
+		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image)
 	{
 		// See the implementation documentation for drawSegmentOld.
 
 		Segment2 clippedSegment;
-		if (!intersect(AlignedBox2(0, 0, image.width(), image.height()), segment, 
+		if (!intersect(AlignedBox2(0, 0, image.width(), image.height()), segment,
 			clippedSegment))
 		{
 			return;
@@ -544,13 +544,13 @@ namespace Pastel
 		integer y = std::floor(yStart);
 
 		const integer steps = std::max(
-			std::abs(std::floor(xEnd) - x), 
+			std::abs(std::floor(xEnd) - x),
 			std::abs(std::floor(yEnd) - y)) + 1;
 
 		if (std::abs(dx) >= std::abs(dy))
 		{
-			real s = 
-				2 * (((real)y + (real)0.5) - yStart) * dx - 
+			real s =
+				2 * (((real)y + (real)0.5) - yStart) * dx -
 				2 * (((real)x + (real)0.5) - xStart) * dy;
 
 			if (dx >= 0)
@@ -678,8 +678,8 @@ namespace Pastel
 		}
 		else
 		{
-			real s = 
-				2 * (((real)x + (real)0.5) - xStart) * dy - 
+			real s =
+				2 * (((real)x + (real)0.5) - xStart) * dy -
 				2 * (((real)y + (real)0.5) - yStart) * dx;
 
 			if (dx >= 0)
@@ -848,7 +848,7 @@ namespace Pastel
 		typedef typename Image_View::Cursor Cursor;
 
 		Cursor cursor = image.cursor(xLeft, y);
-		
+
 		// Draw.
 
 		for (integer x = xLeft;x < xRight;++x)
@@ -870,8 +870,8 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawBox(
-		const Rectangle2& box, 
-		const PASTEL_NO_DEDUCTION(Type)& color, 
+		const Rectangle2& box,
+		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image)
 	{
 		const integer width = image.width();
@@ -913,13 +913,13 @@ namespace Pastel
 		}
 
 		typedef typename Image_View::Cursor Cursor;
-		
+
 		Cursor yCursor = image.cursor(left, bottom);
-		
+
 		for (integer y = bottom;y < top;++y)
 		{
 			Cursor xyCursor = yCursor;
-			
+
 			for (integer x = left;x < right;++x)
 			{
 				*xyCursor = color;
@@ -1029,7 +1029,7 @@ namespace Pastel
 					{
 						lineHandled = false;
 					}
-					
+
 					xyCursor.xIncrement();
 				}
 			}
@@ -1091,7 +1091,7 @@ namespace Pastel
 
 	}
 
-	template <int N, 
+	template <int N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View,
 		typename ColorMixer>
@@ -1114,11 +1114,11 @@ namespace Pastel
 
 		Detail_DrawView::Visitor<ColorMixer> visitor(colorMixer);
 
-		visit(constSubView(texture, clippedTextureBox - asVector(position)), 
+		visit(constSubView(texture, clippedTextureBox - asVector(position)),
 			subView(image, clippedTextureBox), visitor);
 	}
 
-	template <int N, 
+	template <int N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View>
 	void drawView(
@@ -1179,9 +1179,9 @@ namespace Pastel
 
 			for (integer x = xMin; x < xMax;++x)
 			{
-				*xyCursor = colorMixer(*xyCursor, 
+				*xyCursor = colorMixer(*xyCursor,
 					textureSampler(uv, duvDx, duvDy));
-				
+
 				uv.x() += duDx;
 				xyCursor.xIncrement();
 			}

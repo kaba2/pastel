@@ -20,7 +20,7 @@ namespace Pastel
 
 	//! Draws a triangle with a solid color.
 	/*!
-	This simply calls 
+	This simply calls
 	drawTriangle(triangle, color,
 	image, assignColorMixer<Type>());
 	*/
@@ -33,7 +33,7 @@ namespace Pastel
 
 	//! Draws a textured triangle.
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View, typename ColorMixer>
 	void drawTriangle(
 		const Triangle2& triangle,
@@ -44,12 +44,12 @@ namespace Pastel
 
 	//! Draws a textured triangle.
 	/*!
-	This simply calls 
-	drawTriangle(triangle, uvTriangle, textureSampler, 
+	This simply calls
+	drawTriangle(triangle, uvTriangle, textureSampler,
 	image, assignColorMixer<Type>());
 	*/
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View>
 	void drawTriangle(
 		const Triangle2& triangle,
@@ -70,12 +70,12 @@ namespace Pastel
 
 	//! Draws a triangle in perspective.
 	/*!
-	This simply calls 
-	drawTriangle(triangle, uvTriangle, textureSampler, 
+	This simply calls
+	drawTriangle(triangle, uvTriangle, textureSampler,
 	image, assignColorMixer<Type>());
 	*/
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View>
 	void drawTriangle(
 		const Triangle3& triangle,

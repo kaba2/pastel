@@ -27,7 +27,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~GjkAlignedBox() 
+		virtual ~GjkAlignedBox()
 		{
 		}
 

@@ -44,7 +44,7 @@ namespace
 		{
 			drawPixel(shrink(point), Color(1 - (point.z() / 500)), arrayView(data_));
 		}
-	
+
 		void operator()(const Point4& point) const
 		{
 			drawPixel(shrink(shrink(point)), hsvToRgb(Color(point.w() / 100,

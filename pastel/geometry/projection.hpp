@@ -11,7 +11,7 @@ namespace Pastel
 	{
 		Point<N, Real> result(that);
 		const Real& wInv = inverse(that[N - 1]);
-		
+
 		for (integer i = 0;i < N - 1;++i)
 		{
 			result[i] *= wInv;

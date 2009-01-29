@@ -149,7 +149,7 @@ namespace Pastel
 		std::string key_;
 		integer count_;
 		integer size_;
-		LoadConfig_Echo::Enum echoPolicy_;		
+		LoadConfig_Echo::Enum echoPolicy_;
 	};
 
 	ConfigSemantic configSemantic;
@@ -162,7 +162,7 @@ namespace Pastel
 		struct definition
 		{
 			definition(ConfigGrammar const& self)
-			{ 
+			{
 				/*
 				Config file format
 				------------------
@@ -173,14 +173,14 @@ namespace Pastel
 
 				<File> := 'Pastel Config File' <VariableDeclaration>*
 				<VariableDeclaration> := <IntegerDeclaration> | <RealDeclaration> | <StringDeclaration>
-				
+
 				<IntegerDeclaration> := 'integer' [<VariableSize>] <VariableName> '=' <IntegerList>
 				<RealDeclaration> := 'real' [<VariableSize>] <VariableName> '=' <RealList>
 				<StringDeclaration> := 'string' [<VariableSize>] <VariableName> '=' <StringList>
-				
+
 				<VariableSize> := <PositiveInteger> | '*'
 				<VariableName> := <String>
-				
+
 				<IntegerList> := <Integer> | <IntegerList> ',' <Integer>
 				<RealList> := <Real> | <RealList> ',' <Real>
 				<StringList> := <String> | <StringList> ',' <String>
@@ -189,7 +189,7 @@ namespace Pastel
 				headerRule = str_p("Pastel Config File");
 
 				variableSizeRule =
-					uint_p[boost::bind(&ConfigSemantic::declareSize, boost::ref(configSemantic), _1)] | 
+					uint_p[boost::bind(&ConfigSemantic::declareSize, boost::ref(configSemantic), _1)] |
 					ch_p('*')[boost::bind(&ConfigSemantic::declareSize, boost::ref(configSemantic), -1)];
 
 				variableNameRule =
@@ -199,33 +199,33 @@ namespace Pastel
 					lexeme_d['"' >> *(anychar_p - '"') >> '"'];
 
 				integerListRule =
-					int_p[boost::bind(&ConfigSemantic::defineInteger, boost::ref(configSemantic), _1)] >> 
+					int_p[boost::bind(&ConfigSemantic::defineInteger, boost::ref(configSemantic), _1)] >>
 					*(',' >> int_p[boost::bind(&ConfigSemantic::defineInteger, boost::ref(configSemantic), _1)]);
 
 				realListRule =
-					real_p[boost::bind(&ConfigSemantic::defineReal, boost::ref(configSemantic), _1)] >> 
+					real_p[boost::bind(&ConfigSemantic::defineReal, boost::ref(configSemantic), _1)] >>
 					*(',' >> real_p[boost::bind(&ConfigSemantic::defineReal, boost::ref(configSemantic), _1)]);
 
 				stringListRule =
-					stringRule[boost::bind(&ConfigSemantic::defineString, boost::ref(configSemantic), _1, _2)] >> 
+					stringRule[boost::bind(&ConfigSemantic::defineString, boost::ref(configSemantic), _1, _2)] >>
 					*(',' >> stringRule[boost::bind(&ConfigSemantic::defineString, boost::ref(configSemantic), _1, _2)]);
 
 				integerDeclarationRule =
-					str_p("integer")[boost::bind(&ConfigSemantic::startDeclare, boost::ref(configSemantic))] >> 
+					str_p("integer")[boost::bind(&ConfigSemantic::startDeclare, boost::ref(configSemantic))] >>
 					!variableSizeRule >>
 					variableNameRule[boost::bind(&ConfigSemantic::declare, boost::ref(configSemantic), _1, _2)] >>
 					'=' >> integerListRule;
 
 				realDeclarationRule =
-					str_p("real")[boost::bind(&ConfigSemantic::startDeclare, boost::ref(configSemantic))] >> 
+					str_p("real")[boost::bind(&ConfigSemantic::startDeclare, boost::ref(configSemantic))] >>
 					!variableSizeRule >>
-					variableNameRule[boost::bind(&ConfigSemantic::declare, boost::ref(configSemantic), _1, _2)] >> 
+					variableNameRule[boost::bind(&ConfigSemantic::declare, boost::ref(configSemantic), _1, _2)] >>
 					'=' >> realListRule;
 
 				stringDeclarationRule =
-					str_p("string")[boost::bind(&ConfigSemantic::startDeclare, boost::ref(configSemantic))] >> 
+					str_p("string")[boost::bind(&ConfigSemantic::startDeclare, boost::ref(configSemantic))] >>
 					!variableSizeRule >>
-					variableNameRule[boost::bind(&ConfigSemantic::declare, boost::ref(configSemantic), _1, _2)] >> 
+					variableNameRule[boost::bind(&ConfigSemantic::declare, boost::ref(configSemantic), _1, _2)] >>
 					'=' >> stringListRule;
 
 				declarationRule =
@@ -233,15 +233,15 @@ namespace Pastel
 					realDeclarationRule |
 					stringDeclarationRule;
 
-				configFileRule = 
+				configFileRule =
 					headerRule >>
 					*(declarationRule[boost::bind(&ConfigSemantic::endDeclare, boost::ref(configSemantic))]) >>
 					end_p;
 			}
 
-            rule<Scanner> const& start() const 
-			{ 
-				return configFileRule; 
+			rule<Scanner> const& start() const
+			{
+				return configFileRule;
 			}
 
 		private:
@@ -262,7 +262,7 @@ namespace Pastel
 
 	PASTELSYS bool loadConfig(
 		const std::string& fileName,
-		Config& config, 
+		Config& config,
 		LoadConfig_Echo::Enum echoPolicy)
 	{
 		log() << "Loading config file " << fileName << "..." << logNewLine;
@@ -270,7 +270,7 @@ namespace Pastel
 		std::ifstream file(fileName.c_str());
 		if (!file)
 		{
-			log() << "Could not open config file " 
+			log() << "Could not open config file "
 				<< fileName << "." << logNewLine;
 			return false;
 		}
@@ -298,9 +298,9 @@ namespace Pastel
 
 		ConfigGrammar configGrammar;
 
-		if (!parse(fileContents.c_str(), configGrammar, 
-			space_p 
-			| ((ch_p('%') | "//") >> *(anychar_p - eol_p) >> eol_p) 
+		if (!parse(fileContents.c_str(), configGrammar,
+			space_p
+			| ((ch_p('%') | "//") >> *(anychar_p - eol_p) >> eol_p)
 			| ("/*" >> *(anychar_p - "*/") >> "*/")
 			).full)
 		{
@@ -335,7 +335,7 @@ namespace Pastel
 			file << std::endl;
 		}
 
-		const bool isString = 
+		const bool isString =
 			config.ofType<std::string>(iter);
 
 		integer valuesPerRow = 0;
@@ -355,7 +355,7 @@ namespace Pastel
 			{
 				file << ", ";
 			}
-			
+
 			++valuesPerRow;
 			if (valuesPerRow >= maxValuesPerRow)
 			{
@@ -363,7 +363,7 @@ namespace Pastel
 				valuesPerRow = 0;
 			}
 		}
-		
+
 		if (valuesPerRow > 0)
 		{
 			file << std::endl;
@@ -426,4 +426,3 @@ namespace Pastel
 	}
 
 }
-

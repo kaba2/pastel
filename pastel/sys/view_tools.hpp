@@ -113,7 +113,7 @@ namespace Pastel
 		const View<N, Output_Element, Output_View>& output,
 		const TransformFunctor& transform)
 	{
-		Detail_Transform::Visitor<Input_Element, Output_Element, TransformFunctor> 
+		Detail_Transform::Visitor<Input_Element, Output_Element, TransformFunctor>
 			visitor(transform);
 		visit(input, output, visitor);
 	}

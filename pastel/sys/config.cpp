@@ -43,12 +43,12 @@ namespace Pastel
 	{
 		return data_.begin();
 	}
-	
+
 	Config::ConstIterator Config::end() const
 	{
 		return data_.end();
 	}
-	
+
 	bool Config::created(const std::string& key) const
 	{
 		return data_.find(key) != data_.end();

@@ -43,7 +43,7 @@ namespace Pastel
 namespace Pastel
 {
 
-    template class Matrix<Unbounded, Unbounded, real>;
+	template class Matrix<Unbounded, Unbounded, real>;
 	template class Matrix<1, 1, real>;
 	template class Matrix<2, 2, real>;
 	template class Matrix<3, 3, real>;

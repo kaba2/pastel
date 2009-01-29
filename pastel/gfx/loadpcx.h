@@ -43,12 +43,12 @@ namespace Pastel
 
 	Binary images do not have
 	a palette, but one will be returned for
-	consistency, where zero is set to black 
+	consistency, where zero is set to black
 	and one is set to white.
 	The palette for bit depths 2 and 4 is retrieved
-	from the pcx header ("ega palette"). 
-	For bit depth 8, the palette 
-	is retrieved from the optional vga palette, 
+	from the pcx header ("ega palette").
+	For bit depth 8, the palette
+	is retrieved from the optional vga palette,
 	if present. If it is not present,
 	the palette is set to the default palette
 	as defined by the vga standard.
@@ -60,7 +60,7 @@ namespace Pastel
 	* It is of wrong format (more color planes)
 	*/
 
-    PASTELGFX bool loadIndexedPcx(
+	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
 		AbstractArray<2, uint8>& image,
 		std::vector<Color>* colorPalette = 0);
@@ -133,7 +133,7 @@ namespace Pastel
 	//! Loads a pcx image into a Color array.
 	/*!
 	This is a convenience function that
-	uses Color_ColorByte_Adapter 
+	uses Color_ColorByte_Adapter
 	as the adapter.
 	*/
 
@@ -144,7 +144,7 @@ namespace Pastel
 	//! Loads a pcx image into a ByteColor array.
 	/*!
 	This is a convenience function that
-	uses Identity_Adapter<ByteColor> 
+	uses Identity_Adapter<ByteColor>
 	as the adapter.
 	*/
 
@@ -155,7 +155,7 @@ namespace Pastel
 	//! Loads a pcx image into an rgb888 array.
 	/*!
 	This is a convenience function that
-	uses ColorByte_Integer_Adapter<uint32, 8, 8, 8> 
+	uses ColorByte_Integer_Adapter<uint32, 8, 8, 8>
 	as the adapter.
 	*/
 
@@ -166,7 +166,7 @@ namespace Pastel
 	//! Loads a pcx image into an rgb565 array.
 	/*!
 	This is a convenience function that
-	uses ColorByte_Integer_Adapter<uint16, 5, 6, 5> 
+	uses ColorByte_Integer_Adapter<uint16, 5, 6, 5>
 	as the adapter.
 	*/
 

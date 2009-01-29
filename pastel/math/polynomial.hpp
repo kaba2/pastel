@@ -44,7 +44,7 @@ namespace Pastel
 		integer index, const Real& that)
 	{
 		PENSURE1(index >= 0, index);
-		
+
 		if (index >= data_.size())
 		{
 			data_.resize(index + 1, Real(0));
@@ -84,7 +84,7 @@ namespace Pastel
 		PENSURE2(index >= 0 && index < size(), index, size());
 		return data_[index];
 	}
-	
+
 	template <typename Real>
 	Polynomial<Real>& Polynomial<Real>::operator+=(
 		const Real& that)
@@ -164,7 +164,7 @@ namespace Pastel
 		const Polynomial& that)
 	{
 		Polynomial result(size() + that.size());
-		
+
 		const integer n = size();
 		const integer m = that.size();
 
@@ -231,7 +231,7 @@ namespace Pastel
 	{
 		const integer n = degree();
 		const integer m = that.degree();
-		
+
 		if (n != m)
 		{
 			return false;
@@ -244,7 +244,7 @@ namespace Pastel
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -271,7 +271,7 @@ namespace Pastel
 				return i;
 			}
 		}
-		
+
 		return 0;
 	}
 

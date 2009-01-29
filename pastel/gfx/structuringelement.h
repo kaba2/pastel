@@ -43,7 +43,7 @@ namespace Pastel
 	interpolates between the two surfaces.
 	As power -> oo, the shape approaches
 	the boxElement().
-	
+
 	To be more precise, the resulting structuring elements
 	are those that are bounded by the level sets
 	of p-norms.

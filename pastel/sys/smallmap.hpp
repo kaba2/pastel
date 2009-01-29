@@ -12,30 +12,30 @@ namespace Pastel
 
 	template <typename KeyType, typename ValueType, typename Compare>
 	SmallMap<KeyType, ValueType, Compare>::SmallMap(
-        const Compare& compare)
+		const Compare& compare)
 		: data_()
-        , compare_(compare)
+		, compare_(compare)
 	{
 	}
 
 	template <typename KeyType, typename ValueType, typename Compare>
 	SmallMap<KeyType, ValueType, Compare>::SmallMap(
-        const SmallMap& that)
+		const SmallMap& that)
 		: data_(that.data_)
-        , compare_(that.compare_)
+		, compare_(that.compare_)
 	{
 	}
 
 	template <typename KeyType, typename ValueType, typename Compare>
 	SmallMap<KeyType, ValueType, Compare>::SmallMap(
-        const SmallMap& that,
-        const Compare& compare)
+		const SmallMap& that,
+		const Compare& compare)
 		: data_(that.data_)
-        , compare_(compare)
+		, compare_(compare)
 	{
 	}
 
-    template <typename KeyType, typename ValueType, typename Compare>
+	template <typename KeyType, typename ValueType, typename Compare>
 	SmallMap<KeyType, ValueType, Compare>::~SmallMap()
 	{
 	}
@@ -53,10 +53,10 @@ namespace Pastel
 	template <typename KeyType, typename ValueType, typename Compare>
 	void SmallMap<KeyType, ValueType, Compare>::swap(SmallMap& that)
 	{
-        using NameLookUpTrick::swap;
-		
-        data_.swap(that.data_);
-        swap(compare_, that.compare_);
+		using NameLookUpTrick::swap;
+
+		data_.swap(that.data_);
+		swap(compare_, that.compare_);
 	}
 
 	template <typename KeyType, typename ValueType, typename Compare>

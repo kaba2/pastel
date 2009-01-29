@@ -33,7 +33,7 @@ namespace Pastel
 				const Vector<N, real> delta
 					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
 
-				image = dot(delta) < 1; 
+				image = dot(delta) < 1;
 			}
 
 		private:
@@ -50,7 +50,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
 	{
 		Detail_EllipsoidElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2), 
+			asPoint(Vector<N, real>(image.extent()) / 2),
 			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
@@ -85,7 +85,7 @@ namespace Pastel
 				const Vector<N, real> delta
 					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
 
-				image = normManhattan(delta) < 1; 
+				image = normManhattan(delta) < 1;
 			}
 
 		private:
@@ -102,7 +102,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
 	{
 		Detail_DiamondElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2), 
+			asPoint(Vector<N, real>(image.extent()) / 2),
 			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
@@ -139,7 +139,7 @@ namespace Pastel
 				const Vector<N, real> delta
 					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
 
-				image = powerSum(delta, power_) < 1; 
+				image = powerSum(delta, power_) < 1;
 			}
 
 		private:
@@ -160,7 +160,7 @@ namespace Pastel
 		ENSURE1(power > 0, power);
 
 		Detail_pEllipsoidElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2), 
+			asPoint(Vector<N, real>(image.extent()) / 2),
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
 	}
@@ -196,7 +196,7 @@ namespace Pastel
 				const Vector<N, real> delta
 					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
 
-				image = normInfinity(delta) < 1; 
+				image = normInfinity(delta) < 1;
 			}
 
 		private:
@@ -213,7 +213,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
 	{
 		Detail_BoxElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2), 
+			asPoint(Vector<N, real>(image.extent()) / 2),
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
 	}

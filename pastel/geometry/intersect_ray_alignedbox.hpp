@@ -25,7 +25,7 @@ namespace Pastel
 			hitList = t;
 			return 2;
 		}
-		
+
 		hitList[0] = t[1];
 		return 1;
 	}

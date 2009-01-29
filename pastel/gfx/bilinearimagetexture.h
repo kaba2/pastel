@@ -45,12 +45,12 @@ namespace Pastel
 		}
 
 		virtual Element operator()(
-			const Point2& p, 
-			const Vector2& dpdx, 
+			const Point2& p,
+			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{
 			return sampleBilinear(
-				asPoint(asVector(p) * extent_), 
+				asPoint(asVector(p) * extent_),
 				*image_, extender_);
 		}
 

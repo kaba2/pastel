@@ -14,12 +14,12 @@ namespace Pastel
 		Vector<Unbounded, Real> >
 	{
 	private:
-        enum
-        {
-            N = Unbounded
-        };
+		enum
+		{
+			N = Unbounded
+		};
 
-        typedef VectorExpression<N, Real, Vector<Unbounded, Real> > Base;
+		typedef VectorExpression<N, Real, Vector<Unbounded, Real> > Base;
 
 	public:
 		using Base::operator-;
@@ -49,7 +49,7 @@ namespace Pastel
 			: Base()
 			, data_()
 		{
-            *this = that;
+			*this = that;
 		}
 
 		~Vector()
@@ -66,35 +66,35 @@ namespace Pastel
 			return data_;
 		}
 
-        void setSize(integer size)
-        {
-            ENSURE1(size >= 0, size);
-            data_.setSize(size);
-        }
+		void setSize(integer size)
+		{
+			ENSURE1(size >= 0, size);
+			data_.setSize(size);
+		}
 
-        integer size() const
-        {
-            return data_.size();
-        }
+		integer size() const
+		{
+			return data_.size();
+		}
 
 		void swap(Vector& that)
 		{
-            data_.swap(that.data_);
+			data_.swap(that.data_);
 		}
 
-        void clear()
-        {
-            data_.clear();
-        }
+		void clear()
+		{
+			data_.clear();
+		}
 
 		void set(const Real& x)
 		{
-            data_ = x;
+			data_ = x;
 		}
 
 		Vector& operator=(const Real& that)
 		{
-            data_ = that;
+			data_ = that;
 
 			return *this;
 		}
@@ -103,18 +103,18 @@ namespace Pastel
 		Vector& operator=(
 			const VectorExpression<N, Real, Expression>& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] = that[i];
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] = that[i];
+			}
 
 			return *this;
 		}
 
 		bool operator==(const Vector& that) const
 		{
-            const integer n = size();
+			const integer n = size();
 
 			for (integer i = 0;i < n;++i)
 			{
@@ -139,33 +139,33 @@ namespace Pastel
 
 		Vector& operator+=(const Real& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] += that;
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] += that;
+			}
 
 			return *this;
 		}
 
 		Vector& operator-=(const Real& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] -= that;
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] -= that;
+			}
 
 			return *this;
 		}
 
 		Vector& operator*=(const Real& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] *= that;
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] *= that;
+			}
 
 			return *this;
 		}
@@ -174,11 +174,11 @@ namespace Pastel
 		{
 			Real invThat(Pastel::inverse(that));
 
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] *= invThat;
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] *= invThat;
+			}
 
 			return *this;
 		}
@@ -187,11 +187,11 @@ namespace Pastel
 		Vector& operator+=(
 			const VectorExpression<N, Real, Expression>& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] += that[i];
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] += that[i];
+			}
 
 			return *this;
 		}
@@ -200,11 +200,11 @@ namespace Pastel
 		Vector& operator-=(
 			const VectorExpression<N, Real, Expression>& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] -= that[i];
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] -= that[i];
+			}
 
 			return *this;
 		}
@@ -213,11 +213,11 @@ namespace Pastel
 		Vector& operator*=(
 			const VectorExpression<N, Real, Expression>& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] *= that[i];
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] *= that[i];
+			}
 
 			return *this;
 		}
@@ -226,11 +226,11 @@ namespace Pastel
 		Vector& operator/=(
 			const VectorExpression<N, Real, Expression>& that)
 		{
-            const integer n = size();
-            for (integer i = 0;i < n;++i)
-            {
-                data_[i] /= that[i];
-            }
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				data_[i] /= that[i];
+			}
 
 			return *this;
 		}
@@ -239,11 +239,11 @@ namespace Pastel
 		Tuple<N, Real> data_;
 	};
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	void swap(Vector<N, Real>& left,
 		Vector<N, Real>& right)
 	{
-        left.swap(right);
+		left.swap(right);
 	}
 
 	template <int N, typename Real, typename Expression>

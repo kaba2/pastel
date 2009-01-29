@@ -13,7 +13,7 @@ namespace Pastel
 	Time complexity: O(n lg n)
 	Exception safety: strong
 
-	The convex hull of a point set is the set of all 
+	The convex hull of a point set is the set of all
 	convex combinations	of the point set.
 
 	This function uses the Graham's scan algorithm for

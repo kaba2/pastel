@@ -38,7 +38,7 @@ namespace Pastel
 		// Mx = b
 		// and then reduce
 		// [M | b] to reduced row echelon form to
-		// find the 2-parameter family of 
+		// find the 2-parameter family of
 		// Mitchell-Netravali cubic splines
 		// with B and C as the parameter.
 
@@ -66,5 +66,5 @@ namespace Pastel
 	{
 		return 2;
 	}
-	
+
 }

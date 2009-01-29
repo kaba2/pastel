@@ -25,8 +25,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
-	void findNearestArray(const std::vector<typename ObjectPolicy::Object>& pointSet, 
-		integer kNearest, 
+	void findNearestArray(const std::vector<typename ObjectPolicy::Object>& pointSet,
+		integer kNearest,
 		NormFunctor distance,
 		LinearArray<N, typename ObjectPolicy::Object>& nearestArray)
 	{
@@ -47,10 +47,10 @@ namespace Pastel
 		{
 			NearestSet nearestSet;
 			nearestSet.reserve(kNearest);
-		
-			findNearest(tree, pointSet[i], infinity<Real>(), 
+
+			findNearest(tree, pointSet[i], infinity<Real>(),
 				distance, kNearest, nearestSet);
-			
+
 			for (integer m = 0;m < kNearest;++m)
 			{
 				nearestArray(m, i) = *nearestSet[m].value();
@@ -134,7 +134,7 @@ namespace Pastel
 				typename KdTree<N, Real, ObjectPolicy>::Cursor node_;
 				Real distance_;
 			};
-		
+
 		}
 
 	}
@@ -187,7 +187,7 @@ namespace Pastel
 
 			while(!cursor.leaf())
 			{
-				const Real planeDistance = 
+				const Real planeDistance =
 					point[cursor.splitAxis()] - cursor.splitPosition();
 				if (planeDistance < 0)
 				{
@@ -210,7 +210,7 @@ namespace Pastel
 
 			while(iter != iterEnd)
 			{
-				const Real currentDistance = 
+				const Real currentDistance =
 					normFunctor(tree.objectPolicy().bound(*iter).min() - point);
 
 				if (currentDistance < cullDistance)
@@ -315,7 +315,7 @@ namespace Pastel
 				{
 					StackElement stackElement = stack.back();
 					stack.pop_back();
-					
+
 					Cursor currentNode = stackElement.node_;
 					Real tMin = stackElement.tMin_;
 					Real tMax = stackElement.tMax_;
@@ -377,7 +377,7 @@ namespace Pastel
 
 						ASSERT(ray.direction()[splitAxis] != 0);
 
-						//const Real t = (splitPosition - ray.position()[splitAxis]) / 
+						//const Real t = (splitPosition - ray.position()[splitAxis]) /
 						//	ray.direction()[splitAxis];
 						const Real t = (splitPosition - ray.position()[splitAxis]) *
 							ray.inverseDirection()[splitAxis];
@@ -405,7 +405,7 @@ namespace Pastel
 						{
 							// Only accept intersection if it
 							// it is contained in this leaf node
-							// and it is closer than the previous 
+							// and it is closer than the previous
 							// intersection.
 
 							if (t < tClosest &&
@@ -432,8 +432,8 @@ namespace Pastel
 	}
 
 	template <
-		int N, 
-		typename Real, 
+		int N,
+		typename Real,
 		typename ObjectPolicy,
 		typename Intersector>
 		typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
@@ -450,7 +450,7 @@ namespace Pastel
 	{
 
 		template <
-			int N, typename Real, 
+			int N, typename Real,
 			typename ObjectPolicy>
 			void refineMidpoint(
 			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
@@ -494,13 +494,13 @@ namespace Pastel
 				AlignedBox<N, Real> negativeBound(bound);
 				negativeBound.max()[splitAxis] = splitPosition;
 
-				refineMidpoint(cursor.negative(), depth + 1, 
+				refineMidpoint(cursor.negative(), depth + 1,
 					negativeBound, maxDepth, maxObjects, tree);
 
 				AlignedBox<N, Real> positiveBound(bound);
 				positiveBound.min()[splitAxis] = splitPosition;
 
-				refineMidpoint(cursor.positive(), depth + 1, 
+				refineMidpoint(cursor.positive(), depth + 1,
 					positiveBound, maxDepth, maxObjects, tree);
 			}
 		}
@@ -508,8 +508,8 @@ namespace Pastel
 	}
 
 	template <
-		int N, 
-		typename Real, 
+		int N,
+		typename Real,
 		typename ObjectPolicy>
 		void refineMidpoint(
 		integer maxDepth,
@@ -523,7 +523,7 @@ namespace Pastel
 	{
 
 		template <
-			int N, typename Real, 
+			int N, typename Real,
 			typename ObjectPolicy>
 			void refineSlidingMidpoint(
 			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
@@ -563,9 +563,9 @@ namespace Pastel
 					{
 						const Tuple<2, Real> objectRange = tree.objectPolicy().bound(*iter, splitAxis);
 
-						objectBound = boundingAlignedBox(objectBound, 
+						objectBound = boundingAlignedBox(objectBound,
 							AlignedBox<1, Real>(
-							Point<1, Real>(objectRange[0]), 
+							Point<1, Real>(objectRange[0]),
 							Point<1, Real>(objectRange[1])));
 
 						++iter;
@@ -604,13 +604,13 @@ namespace Pastel
 				AlignedBox<N, Real> negativeBound(bound);
 				negativeBound.max()[splitAxis] = splitPosition;
 
-				refineSlidingMidpoint(cursor.negative(), depth + 1, 
+				refineSlidingMidpoint(cursor.negative(), depth + 1,
 					negativeBound, maxDepth, maxObjects, tree);
 
 				AlignedBox<N, Real> positiveBound(bound);
 				positiveBound.min()[splitAxis] = splitPosition;
 
-				refineSlidingMidpoint(cursor.positive(), depth + 1, 
+				refineSlidingMidpoint(cursor.positive(), depth + 1,
 					positiveBound, maxDepth, maxObjects, tree);
 			}
 		}
@@ -618,19 +618,19 @@ namespace Pastel
 	}
 
 	template <
-		int N, 
-		typename Real, 
+		int N,
+		typename Real,
 		typename ObjectPolicy>
 		void refineSlidingMidpoint(
 		integer maxDepth,
 		integer maxObjects,
 		KdTree<N, Real, ObjectPolicy>& tree)
 	{
-		// See "Heuristic ray shooting algorithms", 
-		// The thesis of Vlastimil Havran, 
+		// See "Heuristic ray shooting algorithms",
+		// The thesis of Vlastimil Havran,
 		// "4.5 Automatic termination criteria"
 
-		Detail::refineSlidingMidpoint(tree.root(), 
+		Detail::refineSlidingMidpoint(tree.root(),
 			0, tree.bound(), maxDepth, maxObjects, tree);
 	}
 
@@ -687,13 +687,13 @@ namespace Pastel
 		};
 
 		template <
-			int N, typename Real, 
+			int N, typename Real,
 			typename ObjectPolicy>
 			void refineSurfaceAreaHeuristic(
 			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			integer depth,
 			const AlignedBox<N, Real>& bound,
-			integer maxDepth, 
+			integer maxDepth,
 			integer maxObjects,
 			integer badRefines,
 			KdTree<N, Real, ObjectPolicy>& tree)
@@ -780,19 +780,19 @@ namespace Pastel
 								// the positive child node do not
 								// need to sum to one (and they don't).
 
-								const Real negativeProbability = 
+								const Real negativeProbability =
 									area(negativeBound) * invNodeArea;
-								const Real positiveProbability = 
+								const Real positiveProbability =
 									area(positiveBound) * invNodeArea;
 
 								Real scale = 1;
 								if (negativeObjects == 0 || positiveObjects == 0)
 								{
-									scale = emptyScale;																		
+									scale = emptyScale;
 								}
 
-								const Real totalCost = 
-									costToTraverse + 
+								const Real totalCost =
+									costToTraverse +
 									scale * (negativeProbability * negativeObjects +
 									positiveProbability * positiveObjects) * costToIntersect;
 
@@ -839,13 +839,13 @@ namespace Pastel
 				AlignedBox<N, Real> negativeBound(bound);
 				negativeBound.max()[splitAxis] = splitPosition;
 
-				refineSurfaceAreaHeuristic(cursor.negative(), depth + 1, 
+				refineSurfaceAreaHeuristic(cursor.negative(), depth + 1,
 					negativeBound, maxDepth, maxObjects, badRefines, tree);
 
 				AlignedBox<N, Real> positiveBound(bound);
 				positiveBound.min()[splitAxis] = splitPosition;
 
-				refineSurfaceAreaHeuristic(cursor.positive(), depth + 1, 
+				refineSurfaceAreaHeuristic(cursor.positive(), depth + 1,
 					positiveBound, maxDepth, maxObjects, badRefines, tree);
 			}
 		}
@@ -853,8 +853,8 @@ namespace Pastel
 	}
 
 	template <
-		int N, 
-		typename Real, 
+		int N,
+		typename Real,
 		typename ObjectPolicy>
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,
@@ -879,7 +879,7 @@ namespace Pastel
 			}
 
 			return std::max(
-				depth(tree, cursor.positive(), currentDepth + 1), 
+				depth(tree, cursor.positive(), currentDepth + 1),
 				depth(tree, cursor.negative(), currentDepth + 1));
 		}
 

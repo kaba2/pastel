@@ -24,7 +24,7 @@ namespace
 			const real angle = randomReal() * 2 * constantPi<real>();
 			const Vector2 translation(randomReal() * 2 - 1, randomReal() * 2 - 1);
 
-			const AffineTransformation2 transformation = 
+			const AffineTransformation2 transformation =
 				similarityTransformation(scale, angle, translation);
 
 			for (integer i = 0;i < points;++i)

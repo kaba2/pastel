@@ -49,19 +49,19 @@ namespace Pastel
 		const View<N, Type, Image_View>& image);
 
 	//! Draws a line segment.
-	
+
 	template <typename Type, typename Image_View>
 	void drawSegmentOld(
 		const Segment2& segment,
-		const PASTEL_NO_DEDUCTION(Type)& color, 
+		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image);
 
 	//! Draws a line segment.
-	
+
 	template <typename Type, typename Image_View>
 	void drawSegment(
 		const Segment2& segment,
-		const PASTEL_NO_DEDUCTION(Type)& color, 
+		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image);
 
 	//! Draws a horizontal line segment.
@@ -82,11 +82,11 @@ namespace Pastel
 		const View<2, Type, Image_View>& image);
 
 	//! Draws an axis aligned rectangular area.
-	
+
 	template <typename Type, typename Image_View>
 	void drawBox(
-		const Rectangle2& box, 
-		const PASTEL_NO_DEDUCTION(Type)& color, 
+		const Rectangle2& box,
+		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image);
 
 	//! Changes the color of a connected region.
@@ -104,7 +104,7 @@ namespace Pastel
 
 	//! Draws a texture in its native size.
 
-	template <int N, 
+	template <int N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View,
 		typename ColorMixer>
@@ -121,7 +121,7 @@ namespace Pastel
 	as the color mixer.
 	*/
 
-	template <int N, 
+	template <int N,
 		typename Texture_Element, typename Texture_View,
 		typename Image_Element, typename Image_View>
 	void drawView(

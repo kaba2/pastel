@@ -251,7 +251,7 @@ namespace Pastel
 			const Vertex& next = vertexList[iNext];
 
 			// Note that it is not possible
-			// that 
+			// that
 			// previous == current or
 			// next == current or
 			// previous == next
@@ -273,7 +273,7 @@ namespace Pastel
 				}
 			}
 			else if (
-				previous < current && 
+				previous < current &&
 				next < current)
 			{
 				// End-vertex or merge-vertex.
@@ -289,7 +289,7 @@ namespace Pastel
 					current.type_ = Vertex::Type::Merge;
 				}
 			}
-			else 
+			else
 			{
 				// Either previous < current && next > current
 				// or next < current && previous > current.
@@ -370,12 +370,12 @@ namespace Pastel
 					StatusIterator iter = statusSet.upper_bound(&searchEdge);
 					ASSERT(iter != statusSet.begin());
 					--iter;
-					
+
 					Edge* leftEdge = *iter;
 					ASSERT(leftEdge->helper_);
 					splitFunctor(current.index_, leftEdge->helper_->index_);
 					leftEdge->helper_ = &current;
-					
+
 					statusSet.insert(&previousEdge);
 					//log() << "Inserted edge " << iPrevious << logNewLine;
 					previousEdge.helper_ = &current;
@@ -397,7 +397,7 @@ namespace Pastel
 					StatusIterator iter = statusSet.upper_bound(&searchEdge);
 					ASSERT(iter != statusSet.begin());
 					--iter;
-					
+
 					Edge* leftEdge = *iter;
 					const Vertex* leftHelper = leftEdge->helper_;
 					if (leftHelper &&
@@ -420,7 +420,7 @@ namespace Pastel
 						}
 						statusSet.erase(&edge);
 						//log() << "Erased edge " << iCurrent << logNewLine;
-						
+
 						statusSet.insert(&previousEdge);
 						//log() << "Inserted edge " << iPrevious << logNewLine;
 						previousEdge.helper_ = &current;

@@ -22,11 +22,11 @@ namespace Pastel
 		integer width() const;
 		integer height() const;
 
-        enum
-        {
-            Palette16Size = 48,
-            Reserved2Size = 54
-        };
+		enum
+		{
+			Palette16Size = 48,
+			Reserved2Size = 54
+		};
 
 		uint8 manufacturer_;
 		uint8 version_;

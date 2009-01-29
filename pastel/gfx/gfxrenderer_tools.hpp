@@ -180,7 +180,7 @@ namespace Pastel
 	{
 		const Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
-			(alignedBox.max() - alignedBox.min()) * 0.5, 
+			(alignedBox.max() - alignedBox.min()) * 0.5,
 			Matrix2(Vector2(1, 0), Vector2(0, 1)));
 
 		drawBox(renderer, box);
@@ -194,7 +194,7 @@ namespace Pastel
 	{
 		const Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
-			(alignedBox.max() - alignedBox.min()) * 0.5, 
+			(alignedBox.max() - alignedBox.min()) * 0.5,
 			Matrix2(Vector2(1, 0), Vector2(0, 1)));
 
 		drawBox(renderer, box, textureQuad);
@@ -305,7 +305,7 @@ namespace Pastel
 		const Point2 endLeft = segment.end() + normal * radius - tangent * radius * 2;
 		const Point2 endRight = segment.end() - normal * radius - tangent * radius * 2;
 
-		drawFatSegment(renderer, Segment2(segment.start(), segment.end() - tangent * radius * 2), 
+		drawFatSegment(renderer, Segment2(segment.start(), segment.end() - tangent * radius * 2),
 			radius * 0.15, radius * 0.15);
 		drawTriangle(renderer, Triangle2(segment.end(), endLeft, endRight));
 	}

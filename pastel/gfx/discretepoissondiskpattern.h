@@ -66,7 +66,7 @@ namespace Pastel
 		const ConstView<N, bool, Element_ConstView>& element,
 		const View<N, bool, Image_View>& image)
 	{
-		Detail_DiscretePoissonDiskPattern::Visitor<N, Image_View, Element_ConstView> 
+		Detail_DiscretePoissonDiskPattern::Visitor<N, Image_View, Element_ConstView>
 			visitor(element, image);
 
 		visitPosition(image, visitor);

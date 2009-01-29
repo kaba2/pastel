@@ -158,8 +158,8 @@ namespace Pastel
 			transform(triangle[2]));
 
 		Pastel::drawTriangle(
-			screenTriangle, 
-			Triangle2(), 
+			screenTriangle,
+			Triangle2(),
 			constantColorTexture<Type>(currentColor),
 			arrayView(*image_));
 	}
@@ -175,8 +175,8 @@ namespace Pastel
 			transform(triangle[2]));
 
 		Pastel::drawTriangle(
-			screenTriangle, 
-			Triangle2(Point2(0, 0), Point2(1, 0), Point2(0, 1)), 
+			screenTriangle,
+			Triangle2(Point2(0, 0), Point2(1, 0), Point2(0, 1)),
 			bilinearTriangleTexture<Type>(colorTriangle),
 			arrayView(*image_));
 	}
@@ -209,7 +209,7 @@ namespace Pastel
 	template <typename Type>
 	void ImageGfxRenderer<Type>::updateModelView()
 	{
-		screenTransformation_ = Base::modelTransformation() * 
+		screenTransformation_ = Base::modelTransformation() *
 			inverse(Base::viewTransformation());
 	}
 

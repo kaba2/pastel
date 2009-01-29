@@ -11,12 +11,12 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const AlignedBox<N, Real>& box, 
+		const AlignedBox<N, Real>& box,
 		const Vector<N, Real>& unitAxis)
 	{
 		const Real t1 = dot(unitAxis, asVector(box.min()));
 		const Real t2 = dot(unitAxis, asVector(box.max()));
-		
+
 		return AlignedBox<1, Real>(
 			std::min(t1, t2),
 			std::max(t1, t2));
@@ -24,7 +24,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const Box<N, Real>& box, 
+		const Box<N, Real>& box,
 		const Vector<N, Real>& unitAxis)
 	{
 		const Real position = dot(unitAxis, asVector(box.position()));
@@ -42,7 +42,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const Sphere<N, Real>& sphere, 
+		const Sphere<N, Real>& sphere,
 		const Vector<N, Real>& unitAxis)
 	{
 		const Real position = dot(unitAxis, asVector(sphere.position()));
@@ -55,11 +55,11 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const Segment<N, Real>& segment, 
+		const Segment<N, Real>& segment,
 		const Vector<N, Real>& unitAxis)
 	{
 		const Vector<N, Real> delta = segment.end() - segment.start();
-		const Real position = dot(unitAxis, 
+		const Real position = dot(unitAxis,
 			linear(asVector(segment.start()), asVector(segment.end()), 0.5));
 		const Real radius = std::abs(dot(unitAxis, delta)) * 0.5;
 

@@ -15,8 +15,8 @@ namespace Pastel
 		std::ostream& stream,
 		const Matrix<Height, Width, Real>& m)
 	{
-        const integer width = m.width();
-        const integer height = m.height();
+		const integer width = m.width();
+		const integer height = m.height();
 
 		for (integer y = 0;y < height;++y)
 		{

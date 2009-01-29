@@ -9,7 +9,7 @@ namespace Pastel
 	namespace Detail_AdaptedView
 	{
 
-		template <typename Physical, typename Logical, 
+		template <typename Physical, typename Logical,
 			typename Adapter, typename ConstCursor>
 		class ConstProxy
 		{
@@ -31,7 +31,7 @@ namespace Pastel
 			ConstCursor cursor_;
 		};
 
-		template <typename Physical, typename Logical, 
+		template <typename Physical, typename Logical,
 			typename Adapter, typename Cursor>
 		class Proxy
 			: public ConstProxy<Physical, Logical, Adapter, Cursor>
@@ -133,7 +133,7 @@ namespace Pastel
 			}
 		};
 
-		template <typename Physical, typename Logical, 
+		template <typename Physical, typename Logical,
 			typename Adapter, typename Cursor, typename ThatLogical>
 		Logical operator+(const ThatLogical& that,
 			const Proxy<Physical, Logical, Adapter, Cursor>& proxy)
@@ -141,7 +141,7 @@ namespace Pastel
 			return that + (Logical)proxy;
 		}
 
-		template <typename Physical, typename Logical, 
+		template <typename Physical, typename Logical,
 			typename Adapter, typename Cursor, typename ThatLogical>
 		Logical operator-(const ThatLogical& that,
 			const Proxy<Physical, Logical, Adapter, Cursor>& proxy)
@@ -149,7 +149,7 @@ namespace Pastel
 			return that - (Logical)proxy;
 		}
 
-		template <typename Physical, typename Logical, 
+		template <typename Physical, typename Logical,
 			typename Adapter, typename Cursor, typename ThatLogical>
 		Logical operator*(const ThatLogical& that,
 			const Proxy<Physical, Logical, Adapter, Cursor>& proxy)
@@ -157,7 +157,7 @@ namespace Pastel
 			return that * (Logical)proxy;
 		}
 
-		template <typename Physical, typename Logical, 
+		template <typename Physical, typename Logical,
 			typename Adapter, typename Cursor, typename ThatLogical>
 		Logical operator/(const ThatLogical& that,
 			const Proxy<Physical, Logical, Adapter, Cursor>& proxy)
@@ -171,10 +171,10 @@ namespace Pastel
 		protected:
 			typedef typename ConstCursor::Element PhysicalElement;
 			typedef typename Adapter::Logical LogicalElement;
-		
+
 		public:
 			typedef LogicalElement Element;
-			typedef ConstProxy<PhysicalElement, LogicalElement, Adapter, ConstCursor> 
+			typedef ConstProxy<PhysicalElement, LogicalElement, Adapter, ConstCursor>
 				ConstReference;
 
 			ConstAdaptedViewCursor()
@@ -267,9 +267,9 @@ namespace Pastel
 			using Base::Element;
 			using Base::ConstReference;
 
-			typedef Proxy<PhysicalElement, LogicalElement, Adapter, Cursor> 
+			typedef Proxy<PhysicalElement, LogicalElement, Adapter, Cursor>
 				Reference;
-			
+
 			using Base::increment;
 			using Base::decrement;
 			using Base::move;

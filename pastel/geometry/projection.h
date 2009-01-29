@@ -42,7 +42,7 @@ namespace Pastel
 		const AlignedBox2& window,
 		const real& zMin,
 		const real& zMax,
-        Matrix4& matrix);
+		Matrix4& matrix);
 
 	//! Returns a homogeneous 3D orthogonal projection matrix.
 	/*!
@@ -52,12 +52,12 @@ namespace Pastel
 	PASTELGEOMETRY void setOrthogonalProjection(
 		const AlignedBox2& window,
 		const real& zMin,
-        const real& zMax,
-        Matrix4& matrix);
+		const real& zMax,
+		Matrix4& matrix);
 
 	//! Returns a projective transformation relating the given quadrilaterals.
 	/*!
-	It is assumed that the points in the 'from' point set have 
+	It is assumed that the points in the 'from' point set have
 	homogeneous coordinate 1.
 	*/
 

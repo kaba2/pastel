@@ -18,7 +18,7 @@ namespace Pastel
 			{
 				log() << "Property '" << propertyList[i] <<
 					"' not found." << logNewLine;
-				
+
 				allFound = false;
 			}
 		}

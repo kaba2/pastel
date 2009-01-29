@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename TransformFunctor>
 	void transform(
-		MipMap<N, Type>& mipMap, 
+		MipMap<N, Type>& mipMap,
 		const TransformFunctor& transform);
 
 }

@@ -112,7 +112,7 @@ namespace Pastel
 	}
 
 	template <typename Real, typename DataPolicy>
-	typename DelaunayTesselation<Real, DataPolicy>::Vertex 
+	typename DelaunayTesselation<Real, DataPolicy>::Vertex
 		DelaunayTesselation<Real, DataPolicy>::addVertex(
 		const Point<2, Real>& position)
 	{
@@ -136,7 +136,7 @@ namespace Pastel
 			{
 				if (simplexData->child(i))
 				{
-					const Tuple<3, VertexBody*>& vertex = 
+					const Tuple<3, VertexBody*>& vertex =
 						simplexData->child(i)->vertex();
 
 					if (overlaps(
@@ -236,13 +236,13 @@ namespace Pastel
 
 		aChild->setVertex(
 			makeTuple(
-			aVertex, 
+			aVertex,
 			bVertex,
 			dVertex));
 
 		SimplexBody* bChild = allocateSimplex();
 
-		bChild->setVertex( 
+		bChild->setVertex(
 			makeTuple(
 			bVertex,
 			cVertex,
@@ -283,7 +283,7 @@ namespace Pastel
 
 	template <typename Real, typename DataPolicy>
 	void DelaunayTesselation<Real, DataPolicy>::flipEdge(
-		SimplexBody* aSimplex, integer aEdge, 
+		SimplexBody* aSimplex, integer aEdge,
 		SimplexBody* bSimplex, integer bEdge)
 	{
 		ASSERT(aSimplex);
@@ -348,13 +348,13 @@ namespace Pastel
 		aSimplex->setChild(
 			makeTuple(
 			cSimplex,
-			dSimplex, 
+			dSimplex,
 			(SimplexBody*)0));
 
 		bSimplex->setChild(
 			makeTuple(
 			cSimplex,
-			dSimplex, 
+			dSimplex,
 			(SimplexBody*)0));
 
 		simplexSet_.erase(Simplex(aSimplex));
@@ -402,7 +402,7 @@ namespace Pastel
 
 
 	template <typename Real, typename DataPolicy>
-	typename DelaunayTesselation<Real, DataPolicy>::SimplexBody* 
+	typename DelaunayTesselation<Real, DataPolicy>::SimplexBody*
 		DelaunayTesselation<Real, DataPolicy>::allocateSimplex()
 	{
 		integer rollBackIndex = 0;
@@ -442,7 +442,7 @@ namespace Pastel
 				simplexAllocator_.deallocate(simplex);
 				break;
 			};
-			
+
 			throw;
 		};
 
@@ -450,7 +450,7 @@ namespace Pastel
 	}
 
 	template <typename Real, typename DataPolicy>
-	typename DelaunayTesselation<Real, DataPolicy>::VertexBody* 
+	typename DelaunayTesselation<Real, DataPolicy>::VertexBody*
 		DelaunayTesselation<Real, DataPolicy>::allocateVertex(
 		const Point<2, Real>& position)
 	{

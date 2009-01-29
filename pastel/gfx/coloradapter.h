@@ -28,7 +28,7 @@ namespace Pastel
 		{
 			return adapter_.toLogical(logical);
 		}
-	
+
 	private:
 		Adapter adapter_;
 	};
@@ -122,9 +122,9 @@ namespace Pastel
 	typedef ReverseAdapter<Color_ByteColor_Adapter> ByteColor_Color_Adapter;
 
 	template <typename Integer,
-		int RedBits, int GreenBits, int BlueBits, 
-		int RedFrom = 0, 
-		int GreenFrom = RedFrom + RedBits,	
+		int RedBits, int GreenBits, int BlueBits,
+		int RedFrom = 0,
+		int GreenFrom = RedFrom + RedBits,
 		int BlueFrom = GreenFrom + GreenBits>
 	class ByteColor_Integer_Adapter
 	{
@@ -141,7 +141,7 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(GreenBits > 0);
 			BOOST_STATIC_ASSERT(BlueBits > 0);
 		}
-		
+
 		Logical toLogical(const Physical& physical) const
 		{
 			const uint8 red = (uint8)scaleInteger<RedBits, 8>(
@@ -150,7 +150,7 @@ namespace Pastel
 				extractBits<GreenFrom, GreenBits>(physical));
 			const uint8 blue = (uint8)scaleInteger<BlueBits, 8>(
 				extractBits<BlueFrom, BlueBits>(physical));
-			
+
 			return Logical(red, green, blue);
 		}
 
@@ -165,9 +165,9 @@ namespace Pastel
 	};
 
 	template <typename Integer,
-		int RedBits, int GreenBits, int BlueBits, 
-		int RedFrom = 0, 
-		int GreenFrom = RedFrom + RedBits,	
+		int RedBits, int GreenBits, int BlueBits,
+		int RedFrom = 0,
+		int GreenFrom = RedFrom + RedBits,
 		int BlueFrom = GreenFrom + GreenBits>
 	class Color_Integer_Adapter
 	{
@@ -202,7 +202,7 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(GreenFrom + GreenBits <= 32);
 			BOOST_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
 		}
-		
+
 		Logical toLogical(const Physical& physical) const
 		{
 			return Logical(

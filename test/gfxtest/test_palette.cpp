@@ -29,14 +29,14 @@ namespace
 
 		LinearArray<2, Color> image;
 		image.setExtent(width, height);
-		
+
 		for (integer y = 0;y < 16;++y)
 		{
 			for (integer x = 0;x < 16;++x)
 			{
 				drawBox(Rectangle2(x * colorWidth, y * colorHeight,
-					(x + 1) * colorWidth, (y + 1) * colorHeight), 
-					palette[y * 16 + x], 
+					(x + 1) * colorWidth, (y + 1) * colorHeight),
+					palette[y * 16 + x],
 					arrayView(image));
 			}
 		}
@@ -51,7 +51,7 @@ namespace
 		grayscalePalette(palette, 256);
 
 		savePalette(palette, "palette_grayscale.pcx");
-		
+
 		vgaPalette(palette);
 
 		savePalette(palette, "palette_vga.pcx");

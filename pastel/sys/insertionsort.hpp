@@ -8,48 +8,48 @@
 namespace Pastel
 {
 
-    template <typename BidiIterator, typename Compare>
-    void insertionSort(BidiIterator begin, BidiIterator end,
-        Compare compare)
-    {
-        if (begin == end)
-        {
-            return;
-        }
-        
-        BidiIterator previous = begin;
-        BidiIterator iter = previous;
-        ++iter;
+	template <typename BidiIterator, typename Compare>
+	void insertionSort(BidiIterator begin, BidiIterator end,
+		Compare compare)
+	{
+		if (begin == end)
+		{
+			return;
+		}
 
-        while(iter != end)
-        {
-            BidiIterator next = iter;
-            ++next;
+		BidiIterator previous = begin;
+		BidiIterator iter = previous;
+		++iter;
 
-            // If the current element is in the
-            // wrong place, it is carried
-            // there by subsequent swaps.
-            BidiIterator left = previous;
-            BidiIterator right = iter;
-            while (!compare(*left, *right))
-            {
-                using NameLookUpTrick::swap;
-                
-                swap(*left, *right);
-                if (left == begin)
-                {
-                    break;
-                }
+		while(iter != end)
+		{
+			BidiIterator next = iter;
+			++next;
 
-                right = left;
-                --left;
-            }
+			// If the current element is in the
+			// wrong place, it is carried
+			// there by subsequent swaps.
+			BidiIterator left = previous;
+			BidiIterator right = iter;
+			while (!compare(*left, *right))
+			{
+				using NameLookUpTrick::swap;
 
-            previous = iter;
-            iter = next;
-        }
+				swap(*left, *right);
+				if (left == begin)
+				{
+					break;
+				}
 
-    }
+				right = left;
+				--left;
+			}
+
+			previous = iter;
+			iter = next;
+		}
+
+	}
 
 }
 

@@ -19,7 +19,7 @@ namespace
 		typedef Disjoint::ElementIterator ElementIterator;
 		typedef Disjoint::ConstElementIterator ConstElementIterator;
 
-		cout << "Contents (" << group.elements() << " elements in " 
+		cout << "Contents (" << group.elements() << " elements in "
 			<< group.groups() << " groups):" << endl;
 
 		ConstGroupIterator groupIter = group.groupBegin();

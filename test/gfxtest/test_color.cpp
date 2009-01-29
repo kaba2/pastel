@@ -70,11 +70,11 @@ namespace
 					const Color xyzColor =
 						xyyToXyz(
 						Color(u, v, Y));
-									
+
 					image(x, y) = fitColor(xyzToSrgb(xyzColor));
 				}
 			}
-			
+
 			savePcx(image, "testcolor_chromaticity_" + integerToString(i, 2) + ".pcx");
 		}
 	}
@@ -117,7 +117,7 @@ namespace
 
 		const TransformVisitor transformVisitor;
 		transform(arrayView(image), transformVisitor);
-		
+
 		savePcx(image, "test_color_chromatic_adaptation.pcx");
 	}
 

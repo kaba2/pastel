@@ -19,9 +19,9 @@ namespace Pastel
 		{
 			localGeometry.position_ = ray.at(hitList[0]);
 			localGeometry.normal_ = asVector(localGeometry.position_);
-			localGeometry.dpDu_ = 
+			localGeometry.dpDu_ =
 				extend(cross(shrink(asVector(localGeometry.position_))), 0);
-			localGeometry.dpDv_ = 
+			localGeometry.dpDv_ =
 				cross(localGeometry.normal_, localGeometry.dpDu_);
 
 			Vector3 ddpDuu;
@@ -35,8 +35,8 @@ namespace Pastel
 
 			return true;
 		}
-	
+
 		return false;
 	}
-	
+
 }

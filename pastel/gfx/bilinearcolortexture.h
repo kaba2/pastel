@@ -25,7 +25,7 @@ namespace Pastel
 			const Type& color00,
 			const Type& color10,
 			const Type& color11,
-			const Type& color01)			
+			const Type& color01)
 			: color00_(color00)
 			, color10_(color10)
 			, color11_(color11)
@@ -38,8 +38,8 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Point2& p, 
-			const Vector2& dpdx, 
+			const Point2& p,
+			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{
 			return linear(

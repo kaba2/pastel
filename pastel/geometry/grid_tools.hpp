@@ -64,7 +64,7 @@ namespace Pastel
 
 		private:
 			ConstObjectIterator& minIter_;
-			Real& minDistance_;						
+			Real& minDistance_;
 			Metric metric_;
 		};
 	}
@@ -84,13 +84,13 @@ namespace Pastel
 		const AlignedBox<N, Real> bound(point - radius, point + radius);
 
 		const Rectangle<N> region = grid.nodesAt(bound);
-		
+
 		ConstObjectIterator minIter = grid.end();
 		Real minDistance = infinity<Real>();
 
 		NearestFunctor<MyGrid, Metric> nearestFunctor(
 			minIter, minDistance, metric, point);
-		
+
 		visit(grid, region, nearestFunctor);
 
 		if (minDistance > radius)

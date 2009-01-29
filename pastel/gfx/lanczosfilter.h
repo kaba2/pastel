@@ -11,10 +11,10 @@ namespace Pastel
 	/*!
 	This filter is interpolatory. It is given by
 	f(x) = sinc(|x|) * sinc(|x| / radius), |x| < radius
-	                                    0, otherwise
+										0, otherwise
 	*/
 
-    class PASTELGFX LanczosFilter
+	class PASTELGFX LanczosFilter
 		: public Filter
 	{
 	public:

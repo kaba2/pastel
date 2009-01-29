@@ -67,7 +67,7 @@ namespace Pastel
 				if (processFunctor_(factor))
 				{
 					drawView(
-						constTransformedView(filterView_, 
+						constTransformedView(filterView_,
 						Transform<Filter_RingElement, Output_RingElement>(factor)),
 						position - filterView_.extent() / 2,
 						outputView_,
@@ -100,7 +100,7 @@ namespace Pastel
 		const ConvoluteProcessFunctor& processFunctor)
 	{
 		// Convolution performance:
-		// 
+		//
 		// A 5000 x 5000 float image with 100000 random pixels set to 1 and
 		// other pixels 0 with a 21 x 21 filterView.
 		//
@@ -281,7 +281,7 @@ namespace Pastel
 	{
 		Detail_Convolute::SkipZero<Input_Element> skipZero;
 
-		Pastel::generalizedConvolute(inputView, filterView, 
+		Pastel::generalizedConvolute(inputView, filterView,
 			radiusView, outputView, skipZero);
 	}
 

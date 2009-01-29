@@ -101,7 +101,7 @@ namespace
 
 		std::vector<Color> dataList;
 		dataList.reserve(points);
-		
+
 		for (integer i = 0;i < points;++i)
 		{
 			const real t = 10 * dot(asVector(positionList[i]));

@@ -40,7 +40,7 @@ namespace Pastel
 
 			const Point<N, Real> aSupport = aShape_->support(direction);
 			const Point<N, Real> bSupport = bShape_->support(direction);
-			
+
 			if (dot(asVector(aSupport)) < dot(asVector(bSupport)))
 			{
 				return bSupport;

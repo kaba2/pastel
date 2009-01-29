@@ -32,7 +32,7 @@ namespace Pastel
 	inline integer minIndex(
 		const Vector<N, Real>& that);
 
-    //! Returns the minimum of elements.
+	//! Returns the minimum of elements.
 
 	template <int N, typename Real>
 	inline Real min(
@@ -65,11 +65,11 @@ namespace Pastel
 
 	//! Returns the index of the maximum element.
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	inline integer maxIndex(
 		const Vector<N, Real>& that);
 
-    //! Returns the maximum of elements.
+	//! Returns the maximum of elements.
 
 	template <int N, typename Real>
 	inline Real max(
@@ -152,14 +152,14 @@ namespace Pastel
 			return positive(data) ? data : -data;
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 
-    private:
+	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
 
@@ -186,14 +186,14 @@ namespace Pastel
 			return std::exp(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 
-    private:
+	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
 
@@ -220,14 +220,14 @@ namespace Pastel
 			return std::log(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 
-    private:
+	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
 
@@ -258,12 +258,12 @@ namespace Pastel
 			return std::pow(left_[index], right_[index]);
 		}
 
-        integer size() const
-        {
-            const LeftExpression& expression =
-                (const LeftExpression&)left_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const LeftExpression& expression =
+				(const LeftExpression&)left_;
+			return expression.size();
+		}
 
 	private:
 		typedef typename StorageType<LeftExpression>::
@@ -295,12 +295,12 @@ namespace Pastel
 			return std::sqrt(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -328,12 +328,12 @@ namespace Pastel
 			return std::floor(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -361,12 +361,12 @@ namespace Pastel
 			return std::ceil(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -394,12 +394,12 @@ namespace Pastel
 			return std::sin(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -427,12 +427,12 @@ namespace Pastel
 			return std::cos(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -460,12 +460,12 @@ namespace Pastel
 			return std::tan(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -493,12 +493,12 @@ namespace Pastel
 			return std::asin(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -526,12 +526,12 @@ namespace Pastel
 			return std::acos(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;
@@ -563,12 +563,12 @@ namespace Pastel
 			return std::atan2(left_[index], right_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<LeftExpression>::
 			Result LeftType;
@@ -599,12 +599,12 @@ namespace Pastel
 			return inverse(data_[index]);
 		}
 
-        integer size() const
-        {
-            const Expression& expression =
-                (const Expression&)data_;
-            return expression.size();
-        }
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
 	private:
 		typedef typename StorageType<Expression>::
 			Result ExpressionType;

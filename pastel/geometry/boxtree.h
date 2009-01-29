@@ -32,7 +32,7 @@ namespace Pastel
 			// if (positiveIndex_ & LeafMask), then
 			// the positive child is a leaf node
 			// and 'positiveIndex_ - LeafMask' is an index
-			// to the 'dataList_'. 
+			// to the 'dataList_'.
 			// Otherwise 'positiveIndex_' is an
 			// index to the 'nodeList_'.
 			// Similarly for negativeIndex.
@@ -71,7 +71,7 @@ namespace Pastel
 			Cursor negative() const
 			{
 				PENSURE(!negativeLeaf());
-				
+
 				return Cursor(tree_, &(tree_->nodeList_[node_->negativeIndex_]));
 			}
 
@@ -187,7 +187,7 @@ namespace Pastel
 				// Retrieve the next set of boxes to split.
 
 				const DepthFirstEntry entry = depthFirstList.back();
-				const integer depth = entry.depth_; 
+				const integer depth = entry.depth_;
 				const integer startIndex = entry.start_;
 				const integer endIndex = entry.end_;
 				const AlignedBox<N, Real>& bound = entry.bound_;
@@ -199,10 +199,10 @@ namespace Pastel
 				const Vector<N, Real> extent = bound.max() - bound.min();
 
 				const integer splitDimension = maxIndex(extent);
-				
+
 				// Split from the center of the box.
 
-				const Real split = 
+				const Real split =
 					linear(bound.min()[splitDimension], bound.max()[splitDimension], 0.5);
 
 				// Arrange the indices on the range so
@@ -220,7 +220,7 @@ namespace Pastel
 					const AlignedBox<N, Real>& box =
 						boxList[permutation[i]];
 
-					const Real boxCenter = 
+					const Real boxCenter =
 						linear(box.min()[splitDimension], box.max()[splitDimension], 0.5);
 
 					if (boxCenter < split)
@@ -260,14 +260,14 @@ namespace Pastel
 				{
 					// The negative child is a leaf node,
 					// change the index to the userdata list.
-					
+
 					negativeIndex = permutation[negativeIndex] + LeafMask;
 				}
 				if (endIndex - positiveIndex <= 1)
 				{
 					// The positive child is a leaf node,
 					// change the index to the userdata list.
-					
+
 					positiveIndex = permutation[positiveIndex] + LeafMask;
 				}
 

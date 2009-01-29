@@ -47,7 +47,7 @@ namespace
 			assignColorMixer<Color>());
 
 		transform(arrayView(image), fitColor);
-		
+
 		savePcx(image, "test_distortion.pcx");
 
 		ImageGfxRenderer<Color> renderer;
@@ -86,7 +86,7 @@ namespace
 
 		clear(false, arrayView(image));
 
-		drawBox(Rectangle2(100, 100, 200, 200), true, 
+		drawBox(Rectangle2(100, 100, 200, 200), true,
 			arrayView(image));
 
 		drawSegment(Segment2(Point2(250, 50), Point2(300, 30)),
@@ -105,14 +105,14 @@ namespace
 		renderer.setFilled(false);
 
 		renderer.setColor(randomRgbColor());
-		drawCircle(renderer, Sphere2(Point2(0), 0.5), 20);						
+		drawCircle(renderer, Sphere2(Point2(0), 0.5), 20);
 
 		renderer.setColor(randomRgbColor());
-		drawTriangle(renderer, Triangle2(Point2(0), Point2(0, -1), Point2(0.5))); 
+		drawTriangle(renderer, Triangle2(Point2(0), Point2(0, -1), Point2(0.5)));
 
 		floodFill(0, 0, randomRgbColor(), arrayView(image));
 
-        savePcx(image, "testdrawing_floodfill.pcx");
+		savePcx(image, "testdrawing_floodfill.pcx");
 	}
 
 	template <int N, typename Real>
@@ -134,7 +134,7 @@ namespace
 		transform(mipMap, fitColor);
 
 		MipImageTexture<Color> sampler(mipMap);
-		
+
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox3 region(
@@ -202,7 +202,7 @@ namespace
 		transform(mipMap, fitColor);
 
 		MipImageTexture<Color> sampler(mipMap);
-		
+
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
@@ -289,7 +289,7 @@ namespace
 
 
 	void testBoxes()
-    {
+	{
 		LinearArray<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
@@ -297,20 +297,20 @@ namespace
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 
 		Point2 a(0, 0);
-        Point2 b(33.3, 45.6);
-        Point2 c(634.4, 200.1);
-        Point2 d(33.3, 0);
-        Point2 e(634.4, 45.6);
+		Point2 b(33.3, 45.6);
+		Point2 c(634.4, 200.1);
+		Point2 d(33.3, 0);
+		Point2 e(634.4, 45.6);
 
 		renderer.setColor(randomRgbColor());
-        drawBox(renderer, AlignedBox2(a, b));
+		drawBox(renderer, AlignedBox2(a, b));
 		renderer.setColor(randomRgbColor());
-        drawBox(renderer, AlignedBox2(b, c));
+		drawBox(renderer, AlignedBox2(b, c));
 		renderer.setColor(randomRgbColor());
-        drawBox(renderer, AlignedBox2(d, e));
+		drawBox(renderer, AlignedBox2(d, e));
 
-        savePcx(image, "testdrawing_boxes.pcx");
-    }
+		savePcx(image, "testdrawing_boxes.pcx");
+	}
 
 	void testMoreCircles()
 	{
@@ -462,10 +462,10 @@ namespace
 			for (integer x = 0;x < XLines;++x)
 			{
 				const Point2 from(
-					x * BoxWidth + Border + 0.5, 
+					x * BoxWidth + Border + 0.5,
 					y * BoxHeight + Border + (YStart + x * XYStep));
 				const Point2 to(
-					x * BoxWidth + (BoxWidth - Border) + 0.5 , 
+					x * BoxWidth + (BoxWidth - Border) + 0.5 ,
 					y * BoxHeight + (BoxHeight - Border) + (YStart + y * YYStep));
 
 				drawSegment(Segment2(from, to), Color(1), arrayView(image));

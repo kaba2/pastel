@@ -14,18 +14,18 @@
 namespace Pastel
 {
 
-    //! Calls the functor y = f(x) on each matrix element.
+	//! Calls the functor y = f(x) on each matrix element.
 
-    template <int Height, int Width, typename Real, typename Functor>
-    void modify(Matrix<Height, Width, Real>& that, Functor f);
+	template <int Height, int Width, typename Real, typename Functor>
+	void modify(Matrix<Height, Width, Real>& that, Functor f);
 
 	//! Returns the maximum value.
 
 	template <int Height, int Width, typename Real>
 	Real max(
-        const Matrix<Height, Width, Real>& that);
+		const Matrix<Height, Width, Real>& that);
 
-    //! Returns the trace of the matrix.
+	//! Returns the trace of the matrix.
 
 	template <int Height, int Width, typename Real>
 	Real trace(const Matrix<Height, Width, Real>& that);
@@ -61,7 +61,7 @@ namespace Pastel
 	template <typename Real>
 	Real determinant(const Matrix<4, 4, Real>& matrix);
 
-    //! Returns the manhattan norm of the matrix.
+	//! Returns the manhattan norm of the matrix.
 
 	template <int Height, int Width, typename Real>
 	Real normManhattan(const Matrix<Height, Width, Real>& matrix);

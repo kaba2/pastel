@@ -51,7 +51,7 @@ namespace Pastel
 				const LinearArray<N, Type>& previousImage =
 					ripMapArray_(previousPosition);
 
-				Vector<N, integer> resampleExtent = 
+				Vector<N, integer> resampleExtent =
 					ripMapArray_(Point<N, integer>(0)).extent();
 				for (integer i = 0;i < N;++i)
 				{
@@ -61,7 +61,7 @@ namespace Pastel
 				image.setExtent(resampleExtent);
 
 				resample(
-					constArrayView(previousImage), 
+					constArrayView(previousImage),
 					clampExtender(),
 					filter_,
 					arrayView(image));
@@ -84,7 +84,7 @@ namespace Pastel
 		const Vector<N, integer> originalExtent = image.extent();
 		Vector<N, integer> topExtent;
 		Vector<N, integer> levels;
-		
+
 		for (integer i = 0;i < N;++i)
 		{
 			topExtent[i] = roundUpToPowerOf2(originalExtent[i]);
@@ -100,7 +100,7 @@ namespace Pastel
 		}
 
 		imageArray(Point<N, integer>(0)).setExtent(topExtent);
-		
+
 		// Upsample to power-of-two size.
 
 		if (topExtent == originalExtent)
@@ -110,7 +110,7 @@ namespace Pastel
 		else
 		{
 			resample(
-				image, 
+				image,
 				clampExtender(),
 				filter,
 				arrayView(imageArray(Point<N, integer>(0))));
@@ -203,7 +203,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	View<N, LinearArray<N, Type>, 
+	View<N, LinearArray<N, Type>,
 		ArrayView<N, LinearArray<N, LinearArray<N, Type> > > >
 		RipMap<N, Type>::view()
 	{
@@ -211,7 +211,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	ConstView<N, LinearArray<N, Type>, 
+	ConstView<N, LinearArray<N, Type>,
 		ConstArrayView<N, LinearArray<N, LinearArray<N, Type> > > >
 		RipMap<N, Type>::constView() const
 	{

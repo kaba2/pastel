@@ -14,7 +14,7 @@ namespace Pastel
 		const AlignedBox<N, Real>& inner)
 	{
 		return allGreaterEqual(
-			inner.min(), 
+			inner.min(),
 			outer.min()) &&
 			allLessEqual(
 			inner.max(),

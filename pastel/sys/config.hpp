@@ -19,7 +19,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& value)
 	{
 		ConstIterator iter = data_.find(key);
-		
+
 		if (iter == data_.end())
 		{
 			iter = data_.insert(std::make_pair(key, boost::any(std::vector<Type>()))).first;
@@ -67,7 +67,7 @@ namespace Pastel
 	{
 		const ConstIterator iter = data_.find(key);
 		const bool propertyExists = (iter != data_.end());
-		
+
 		ENSURE(propertyExists);
 
 		return propertyList<Type>(iter);
@@ -76,7 +76,7 @@ namespace Pastel
 	template <typename Type>
 	const std::vector<Type>& Config::propertyList(const ConstIterator& iter) const
 	{
-		const std::vector<Type>* correctType = 
+		const std::vector<Type>* correctType =
 			boost::any_cast<std::vector<Type> >(&iter->second);
 		ENSURE(correctType);
 

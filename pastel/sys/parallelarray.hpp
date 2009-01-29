@@ -88,16 +88,16 @@ namespace Pastel
 
 	template <typename Key>
 	bool ParallelArray<Key>::reserve(integer size)
-    {
-        ENSURE1(size >= 0, size);
+	{
+		ENSURE1(size >= 0, size);
 
-        if (size_ >= size)
-        {
-            return false;
-        }
-        
-        return resize(size);
-    }
+		if (size_ >= size)
+		{
+			return false;
+		}
+
+		return resize(size);
+	}
 
 	template <typename Key>
 	bool ParallelArray<Key>::resize(integer size)

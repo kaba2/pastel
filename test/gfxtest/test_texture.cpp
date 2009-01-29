@@ -43,7 +43,7 @@ namespace
 
 		loadPcx("lena.pcx", textureImage);
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage), 
+		MipMap<2, Color> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
@@ -54,7 +54,7 @@ namespace
 		const AlignedBox2 box(0, 0, Width, Height);
 
 		{
-			NearestImageTexture<Color> texture(textureImage, 
+			NearestImageTexture<Color> texture(textureImage,
 				ArrayExtender<2, Color>(clampExtender()));
 
 			drawTexturedBox(
@@ -73,7 +73,7 @@ namespace
 				textureBox);
 		}
 		{
-			EwaImageTexture<Color> texture(mipMap, 
+			EwaImageTexture<Color> texture(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(1));
 
@@ -84,7 +84,7 @@ namespace
 				textureBox);
 		}
 		{
-			EwaImageTexture<Color> texture(mipMap, 
+			EwaImageTexture<Color> texture(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2));
 
@@ -136,7 +136,7 @@ namespace
 		//loadPcx("lena.pcx", textureImage);
 		*/
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage), 
+		MipMap<2, Color> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
@@ -144,22 +144,22 @@ namespace
 
 		std::vector<Texture<Color>::Ref> textureList;
 		textureList.push_back(
-			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap, 
+			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(1))));
 		textureList.push_back(
-			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap, 
+			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap, 
+			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ref(new BilinearImageTexture<Color>(textureImage, 
+			Texture<Color>::Ref(new BilinearImageTexture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 		textureList.push_back(
-			Texture<Color>::Ref(new NearestImageTexture<Color>(textureImage, 
+			Texture<Color>::Ref(new NearestImageTexture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 
 		const AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);
@@ -173,9 +173,9 @@ namespace
 				*textureList[i],
 				arrayView(image),
 				textureBox);
-	
+
 			transform(arrayView(image), fitColor);
-			savePcx(image, "test_texture_checker3_" + textureList[i]->name() + 
+			savePcx(image, "test_texture_checker3_" + textureList[i]->name() +
 				"_" + integerToString(i) + ".pcx");
 		}
 	}
@@ -187,7 +187,7 @@ namespace
 
 		loadPcx("lena.pcx", textureImage);
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage), 
+		MipMap<2, Color> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
@@ -341,7 +341,7 @@ namespace
 
 		savePcx(textureImage, "test_texture_checker.pcx");
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage), 
+		MipMap<2, Color> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(repeatExtender()), boxFilter());
 		transform(mipMap, fitColor);
 
@@ -402,7 +402,7 @@ namespace
 
 			for (integer i = 0;i < textures;++i)
 			{
-				drawTestQuad(quad, textureQuad, *textureList[i].value(), 
+				drawTestQuad(quad, textureQuad, *textureList[i].value(),
 					"checker1", textureList[i].key());
 			}
 		}
@@ -494,7 +494,7 @@ namespace
 
 			for (integer i = 0;i < textures;++i)
 			{
-				drawTestQuad(quad, textureQuad, *textureList[i].value(), 
+				drawTestQuad(quad, textureQuad, *textureList[i].value(),
 					"checker2", textureList[i].key());
 			}
 		}
@@ -562,15 +562,15 @@ namespace
 		drawTexturedBox(
 			iconBox + Vector2(0, 0),
 			combineTexture(
-			mipImageTexture(aMipMap), 
-			mipImageTexture(bMipMap), 
+			mipImageTexture(aMipMap),
+			mipImageTexture(bMipMap),
 			transparentColorMixer<Color>(0.5)),
 			arrayView(image));
 
 		drawTexturedBox(
 			iconBox + Vector2(iconSpace, 0),
 			combineTexture(
-			mipImageTexture(aMipMap), 
+			mipImageTexture(aMipMap),
 			mipImageTexture(bMipMap),
 			functorColorMixer<Color>(ret<Color>(_1 - _2))),
 			arrayView(image));
@@ -578,7 +578,7 @@ namespace
 		drawTexturedBox(
 			iconBox + Vector2(iconSpace, iconSpace),
 			combineTexture(
-			mipImageTexture(aMipMap), 
+			mipImageTexture(aMipMap),
 			mipImageTexture(bMipMap),
 			functorColorMixer<Color>(ret<Color>(_1 + _2))),
 			arrayView(image));
@@ -586,7 +586,7 @@ namespace
 		drawTexturedBox(
 			iconBox + Vector2(0, iconSpace),
 			combineTexture(
-			mipImageTexture(aMipMap), 
+			mipImageTexture(aMipMap),
 			mipImageTexture(bMipMap),
 			functorColorMixer<Color>(ret<Color>(_1 * _2))),
 			arrayView(image));

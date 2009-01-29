@@ -38,10 +38,10 @@ namespace Pastel
 			setExtender(index, IndexExtenderRef());
 		}
 
-		void setExtender(integer index, 
+		void setExtender(integer index,
 			const ConstIndexExtenderRef& extender)
 		{
-			ENSURE2(index >= 0 && index < extender_.size(), 
+			ENSURE2(index >= 0 && index < extender_.size(),
 				index, extender_.size());
 
 			extender_[index] = extender;
@@ -49,7 +49,7 @@ namespace Pastel
 
 		ConstIndexExtenderRef extender(integer index) const
 		{
-			ENSURE2(index >= 0 && index < extender_.size(), 
+			ENSURE2(index >= 0 && index < extender_.size(),
 				index, extender_.size());
 
 			return extender_[index];
@@ -70,7 +70,7 @@ namespace Pastel
 			const Point<N, integer>& position) const
 		{
 			const Vector<N, integer>& extent = image.extent();
-			
+
 			Point<N, integer> newPosition;
 			for (integer i = 0;i < N;++i)
 			{
@@ -81,7 +81,7 @@ namespace Pastel
 					{
 						return border_;
 					}
-					
+
 					newPosition[i] = position[i];
 				}
 				else

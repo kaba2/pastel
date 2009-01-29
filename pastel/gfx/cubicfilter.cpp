@@ -36,7 +36,7 @@ namespace Pastel
 		// Mx = b
 		// and then reduce
 		// [M | b] to reduced row echelon form to
-		// find the 1-parameter family of 
+		// find the 1-parameter family of
 		// cardinal cubic splines
 		// with d' as the parameter.
 
@@ -44,7 +44,7 @@ namespace Pastel
 
 		if (xAbs < 1)
 		{
-			return 
+			return
 				((2 - d_) * xAbs +
 				(-3 + d_)) * xAbs * xAbs + 1;
 		}
@@ -52,8 +52,8 @@ namespace Pastel
 		if (xAbs < 2)
 		{
 			return
-				(((-d_) * xAbs + 
-				5 * d_) * xAbs + 
+				(((-d_) * xAbs +
+				5 * d_) * xAbs +
 				(-8 * d_)) * xAbs + 4 * d_;
 		}
 
@@ -64,5 +64,5 @@ namespace Pastel
 	{
 		return 2;
 	}
-	
+
 }

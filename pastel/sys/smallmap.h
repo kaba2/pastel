@@ -41,7 +41,7 @@ namespace Pastel
 	costly operation copying the ValueType is).
 	*/
 
-    template <typename KeyType, typename ValueType, typename Compare = std::less<KeyType> >
+	template <typename KeyType, typename ValueType, typename Compare = std::less<KeyType> >
 	class SmallMap
 	{
 	private:
@@ -93,9 +93,9 @@ namespace Pastel
 		Exception safety: strong.
 		*/
 		SmallMap(const SmallMap& that,
-            const Compare& compare);
+			const Compare& compare);
 
-        /*!
+		/*!
 		Time complexity: constant.
 		Exception safety: nothrow.
 		*/
@@ -266,7 +266,7 @@ namespace Pastel
 
 	private:
 		std::vector<Element> data_;
-        Compare compare_;
+		Compare compare_;
 	};
 
 }

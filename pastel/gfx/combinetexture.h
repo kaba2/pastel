@@ -22,13 +22,13 @@ namespace Pastel
 		{
 		}
 
-		virtual ~CombineTexture() 
+		virtual ~CombineTexture()
 		{
 		}
 
 		virtual Type operator()(
-			const Point2& p, 
-			const Vector2& dpDx, 
+			const Point2& p,
+			const Vector2& dpDx,
 			const Vector2& dpDy) const
 		{
 			return colorMixer_(

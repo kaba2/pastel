@@ -65,7 +65,7 @@ namespace Pastel
 	{
 		PENSURE1(n >= 0, n);
 		PENSURE(allGreaterEqual(bases, 2));
-		
+
 		Point<N, Real> result;
 
 		for (integer i = 0;i < N;++i)
@@ -82,7 +82,7 @@ namespace Pastel
 		PENSURE1(size >= 1, size);
 		PENSURE1(n >= 0 && n < size, n);
 		PENSURE(allGreaterEqual(bases, 2));
-		
+
 		Point<N + 1, Real> result;
 
 		for (integer i = 0;i < N;++i)

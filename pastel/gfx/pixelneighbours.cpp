@@ -15,7 +15,7 @@ namespace Pastel
 			{
 				return false;
 			}
-			
+
 			return image(x, y);
 		}
 
@@ -32,7 +32,7 @@ namespace Pastel
 		ENSURE2(y >= 0 && y < height, y, height);
 
 		integer result = 0;
-		
+
 		if (check(image, x + 1, y))
 		{
 			++result;
@@ -65,7 +65,7 @@ namespace Pastel
 		{
 			++result;
 		}
-		
+
 		return result;
 	}
 
@@ -80,7 +80,7 @@ namespace Pastel
 		ENSURE2(y >= 0 && y < height, y, height);
 
 		uint32 result = 0;
-		
+
 		if (check(image, x + 1, y))
 		{
 			result += 1;
@@ -113,7 +113,7 @@ namespace Pastel
 		{
 			result += 128;
 		}
-		
+
 		return result;
 	}
 

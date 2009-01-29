@@ -28,14 +28,14 @@ namespace
 
 		savePcx(image, "test_adaptedview1.pcx");
 
-		resample(constRgb888View(image), clampExtender(), lanczosFilter(2), 
+		resample(constRgb888View(image), clampExtender(), lanczosFilter(2),
 			rgb888View(smallerImage));
 
 		savePcx(smallerImage, "test_adaptedview2.pcx");
 
 		LinearArray<2, uint32> copySmallerImage(smallerImage.extent());
 
-		copy(constArrayView(smallerImage), 
+		copy(constArrayView(smallerImage),
 			arrayView(copySmallerImage));
 
 		savePcx(copySmallerImage, "test_adaptedview3.pcx");

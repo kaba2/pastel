@@ -17,21 +17,21 @@ namespace Pastel
 
 	//! Generates a random palette.
 
-    PASTELGFX void randomPalette(std::vector<Color>& palette, integer count = 256);
+	PASTELGFX void randomPalette(std::vector<Color>& palette, integer count = 256);
 
-    //! Generates a grayscale palette.
+	//! Generates a grayscale palette.
 
-    PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count = 256);
-
-    //! Generates a palette good for false color images.
-
-    PASTELGFX void smoothFalseColorPalette(std::vector<Color>& palette, 
-        integer count = 256);
+	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count = 256);
 
 	//! Generates a palette good for false color images.
 
-    PASTELGFX void falseColorPalette(std::vector<Color>& palette, 
-        integer count = 256, integer seed = 42);
+	PASTELGFX void smoothFalseColorPalette(std::vector<Color>& palette,
+		integer count = 256);
+
+	//! Generates a palette good for false color images.
+
+	PASTELGFX void falseColorPalette(std::vector<Color>& palette,
+		integer count = 256, integer seed = 42);
 
 }
 

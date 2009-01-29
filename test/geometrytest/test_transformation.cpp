@@ -19,7 +19,7 @@ namespace
 				randomReal() * 2 - 1,
 				randomReal() * 2 - 1);
 
-			const AffineTransformation2 transformation = 
+			const AffineTransformation2 transformation =
 				similarityTransformation(parameter);
 
 			const Point2 aFrom(randomReal(), randomReal());
@@ -54,12 +54,12 @@ namespace
 				randomReal() * 2 - 1,
 				randomReal() * 2 - 1);
 
-			const AffineTransformation2 transformation = 
+			const AffineTransformation2 transformation =
 				similarityTransformation(parameter);
 
 			std::vector<Point2> pattern;
 			std::vector<Point2> transformedPattern;
-			
+
 			for (integer i = 0;i < 1000;++i)
 			{
 				pattern.push_back(asPoint(randomVector<2, real>()));

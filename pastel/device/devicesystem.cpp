@@ -122,7 +122,7 @@ namespace Pastel
 				}
 
 				timer.store();
-				
+
 				if (logicHandler_ && timer.seconds() >= frameDelay)
 				{
 					timer.setStart();

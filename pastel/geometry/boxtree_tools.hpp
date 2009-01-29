@@ -7,7 +7,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename UserData, typename Intersector>
-	void intersect(const Line<N, Real>& ray, 
+	void intersect(const Line<N, Real>& ray,
 		const BoxTree<N, Real, UserData>::Cursor& cursor,
 		Intersector intersector)
 	{
@@ -36,7 +36,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename UserData, typename Intersector>
-	void intersect(const Line<N, Real>& ray, 
+	void intersect(const Line<N, Real>& ray,
 		const BoxTree<N, Real, UserData>& boxTree,
 		Intersector intersector)
 	{

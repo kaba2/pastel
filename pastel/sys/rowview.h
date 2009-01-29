@@ -52,7 +52,7 @@ namespace Pastel
 	};
 
 	template <int FreeIndex, int N, typename Input_Element, typename Input_ConstView>
-	ConstView<1, Input_Element, ConstRowView<N, FreeIndex, Input_ConstView> > 
+	ConstView<1, Input_Element, ConstRowView<N, FreeIndex, Input_ConstView> >
 		constRowView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const Point<N, integer>& pivot)
@@ -70,7 +70,7 @@ namespace Pastel
 
 		using Base::view_;
 		using Base::pivot_;
-	
+
 	public:
 		//using Base::Dimension;
 		using typename Base::ConstCursor;

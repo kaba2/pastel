@@ -96,20 +96,20 @@ namespace
 		/*
 		loadPcx("grid.pcx", image);
 
-        resample(image, BigWidth, BigHeight, wrapper,
-            lanczosFilter, bigImage);
+		resample(image, BigWidth, BigHeight, wrapper,
+			lanczosFilter, bigImage);
 		transform(arrayView(bigImage), fitColor);
-        savePcx(bigImage, "testresample_grid_up_lanczos.pcx");
+		savePcx(bigImage, "testresample_grid_up_lanczos.pcx");
 
-        for (integer i = 1;i < 100;++i)
-        {
-            resample(image, i, i, wrapper,
-                lanczosFilter, bigImage);
+		for (integer i = 1;i < 100;++i)
+		{
+			resample(image, i, i, wrapper,
+				lanczosFilter, bigImage);
 			transform(arrayView(bigImage), fitColor);
-            savePcx(bigImage, "testresample_grid_down_" + integerToString(i, 2) + "_lanczos.pcx");
-        }
+			savePcx(bigImage, "testresample_grid_down_" + integerToString(i, 2) + "_lanczos.pcx");
+		}
 		*/
-    }
+	}
 
 	void testBegin()
 	{

@@ -8,7 +8,7 @@ using namespace Pastel;
 
 namespace
 {
-	
+
 	typedef real Real;
 	typedef Polynomial<Real> Poly;
 
@@ -21,11 +21,11 @@ namespace
 
 		a[0] = 1;
 		REPORT1(a.degree() != 0, a.degree());
-		
+
 		a.set(1, 0);
 		REPORT1(a.size() != 2, a.size());
 		REPORT1(a.degree() != 0, a.degree());
-		
+
 		a.set(5, 0);
 		REPORT1(a.size() != 6, a.size());
 		REPORT1(a.degree() != 0, a.degree());
@@ -150,19 +150,19 @@ namespace
 			{
 				Poly poly = randomPolynomial<Real>(randomInteger() % (maxDegree + 1));
 				Poly divider = randomPolynomial<Real>(randomInteger() % (maxDegree + 1));
-				
+
 				Poly quotient;
 				Poly remainder;
 				divide(poly, divider, quotient, remainder);
 
 				Poly error = poly - (quotient * divider + remainder);
-				
+
 				if (error.degree() != 0)
 				{
 					++failings;
 				}
 			}
-			
+
 			REPORT1(failings > 200, failings);
 		}
 	}

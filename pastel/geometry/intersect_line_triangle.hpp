@@ -27,7 +27,7 @@ namespace Pastel
 
 		// Note: line-plane intersections
 		// do not require normalized plane normals.
-		
+
 		// Side a.
 
 		const Plane<2, Real> aPlane(a, cross(b - a))

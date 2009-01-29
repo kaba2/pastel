@@ -11,8 +11,8 @@ namespace Pastel
 
 	template <typename Type>
 	Type EwaImageTexture<Type>::operator()(
-		const Point2& p_, 
-		const Vector2& dpDx_, 
+		const Point2& p_,
+		const Vector2& dpDx_,
 		const Vector2& dpDy_) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
@@ -26,7 +26,7 @@ namespace Pastel
 
 		const Vector2 imageExtent(mostDetailedImage.extent());
 
-		// The derivative vectors along with 'uv' represent an affine 
+		// The derivative vectors along with 'uv' represent an affine
 		// transformation from the image plane to the texture plane.
 
 		const Point2 p(asVector(p_) * imageExtent);
@@ -39,11 +39,11 @@ namespace Pastel
 		const Matrix2 basis(
 			dpDx, dpDy);
 
-		Matrix2 quadraticForm = 
+		Matrix2 quadraticForm =
 			ellipsoidQuadraticForm(basis);
 
 		// We do not use the coefficients as computed.
-		// These small modifications make sure that 
+		// These small modifications make sure that
 		// the filter always intersects at least one pixel.
 		// This way the filter can also be used for
 		// reconstruction.
@@ -106,11 +106,11 @@ namespace Pastel
 				quadraticForm(1, 0), eigenValue[0] - quadraticForm(0, 0));
 			const Vector2 bMajorAxisCandidate(
 				eigenValue[0] - quadraticForm(1, 1), quadraticForm(1, 0));
-			
+
 			Vector2 majorAxis;
 
-			if (normManhattan(aMajorAxisCandidate) < 
-				normManhattan(bMajorAxisCandidate)) 
+			if (normManhattan(aMajorAxisCandidate) <
+				normManhattan(bMajorAxisCandidate))
 			{
 				majorAxis = bMajorAxisCandidate;
 			}
@@ -118,9 +118,9 @@ namespace Pastel
 			{
 				majorAxis = aMajorAxisCandidate;
 			}
-			
+
 			majorAxis /= norm(majorAxis);
-			
+
 			Vector2 minorAxis = cross(majorAxis);
 
 			minorAxisLength2 *= (eccentricity2 / MaxEccentricity2);
@@ -136,7 +136,7 @@ namespace Pastel
 		}
 
 		// Select an appropriate mipmap level.
-		// We want the minor axis to cover at least 'pixelsPerMinorAxis' pixels per 'minorAxis' length 
+		// We want the minor axis to cover at least 'pixelsPerMinorAxis' pixels per 'minorAxis' length
 		// in the more detailed image (note that it is half of the minor diameter).
 
 		const real invLn2 = inverse(constantLn2<real>());
@@ -161,7 +161,7 @@ namespace Pastel
 		const real transitionEnd = 0.15;
 		const real transitionWidth = transitionEnd - transitionBegin;
 		const real normalizedLevel = level / (real)(mipMap_->levels() - 1);
-		const real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth, 
+		const real tTransition = clamp((normalizedLevel - transitionBegin) / transitionWidth,
 			(real)0, (real)1);
 
 		//return Type(tTransition);
@@ -190,13 +190,13 @@ namespace Pastel
 
 		const integer detailLevel = std::floor(level);
 		const LinearArray<2, Type>& detailImage = (*mipMap_)(detailLevel);
-		const Type detailSample = 
+		const Type detailSample =
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << detailLevel), tTransition,
 			detailImage);
 
 		const integer coarseLevel = detailLevel + 1;
 		const LinearArray<2, Type>& coarseImage = (*mipMap_)(coarseLevel);
-		const Type coarseSample = 
+		const Type coarseSample =
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << coarseLevel), tTransition,
 			coarseImage);
 
@@ -239,12 +239,12 @@ namespace Pastel
 			for (integer j = window.min().x();j < window.max().x();++j)
 			{
 				const real fClamped = f < 0 ? 0 : f;
-				
+
 				if (fClamped < filterTableSize_)
 				{
-					const real weight = linear(maxFilterTable_[fClamped], 
+					const real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
-				
+
 					imageSum += weight * extender_(image, IPoint2(j, i));
 					weightSum += weight;
 				}

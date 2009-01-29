@@ -39,7 +39,7 @@ namespace Pastel
 		return tangent_[index];
 	}
 
-    template <int N, typename Real, int M>
+	template <int N, typename Real, int M>
 	const Vector<N, Real>&
 		Flat<N, Real, M>::operator[](integer index) const
 	{

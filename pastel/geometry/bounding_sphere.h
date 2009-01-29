@@ -15,85 +15,85 @@
 namespace Pastel
 {
 
-    //! Finds the minimum volume bounding sphere of an aligned box.
+	//! Finds the minimum volume bounding sphere of an aligned box.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const AlignedBox<N, Real>& alignedBox);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const AlignedBox<N, Real>& alignedBox);
 
-    //! Finds the minimum volume bounding sphere of a box.
+	//! Finds the minimum volume bounding sphere of a box.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const Box<N, Real>& box);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const Box<N, Real>& box);
 
-    //! Finds the minimum volume bounding sphere of a point.
+	//! Finds the minimum volume bounding sphere of a point.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const Point<N, Real>& aPoint);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const Point<N, Real>& aPoint);
 
-    //! Finds the minimum volume bounding sphere of a line segment.
+	//! Finds the minimum volume bounding sphere of a line segment.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const Segment<N, Real>& segment);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const Segment<N, Real>& segment);
 
-    //! Finds the minimum volume bounding sphere of two points.
+	//! Finds the minimum volume bounding sphere of two points.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const Point<N, Real>& aPoint,
-        const Point<N, Real>& bPoint);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const Point<N, Real>& aPoint,
+		const Point<N, Real>& bPoint);
 
-    //! Finds the minimum volume bounding sphere of a 0-simplex.
+	//! Finds the minimum volume bounding sphere of a 0-simplex.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const Simplex<N, Real, 0>& simplex);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const Simplex<N, Real, 0>& simplex);
 
-    //! Finds the minimum volume bounding sphere of a 1-simplex.
+	//! Finds the minimum volume bounding sphere of a 1-simplex.
 
-    template <int N, typename Real>
-    Sphere<N, Real> boundingSphere(
-        const Simplex<N, Real, 1>& simplex);
+	template <int N, typename Real>
+	Sphere<N, Real> boundingSphere(
+		const Simplex<N, Real, 1>& simplex);
 
-    //! Finds the minimum volume bounding sphere of an M-simplex.
+	//! Finds the minimum volume bounding sphere of an M-simplex.
 
-    template <int N, typename Real, int M>
-    Sphere<N, Real> boundingSphere(
-        const Simplex<N, Real, M>& simplex);
+	template <int N, typename Real, int M>
+	Sphere<N, Real> boundingSphere(
+		const Simplex<N, Real, M>& simplex);
 
-    //! Finds the circumscribed sphere of a point.
+	//! Finds the circumscribed sphere of a point.
 
-    template <int N, typename Real>
-    Sphere<N, Real> circumscribedSphere(
-        const Point<N, Real>& aPoint);
+	template <int N, typename Real>
+	Sphere<N, Real> circumscribedSphere(
+		const Point<N, Real>& aPoint);
 
-    //! Finds the circumscribed sphere of two points.
+	//! Finds the circumscribed sphere of two points.
 
-    template <int N, typename Real>
-    Sphere<N, Real> circumscribedSphere(
-        const Point<N, Real>& aPoint,
-        const Point<N, Real>& bPoint);
+	template <int N, typename Real>
+	Sphere<N, Real> circumscribedSphere(
+		const Point<N, Real>& aPoint,
+		const Point<N, Real>& bPoint);
 
-    //! Finds the circumscribed sphere of a 0-simplex.
+	//! Finds the circumscribed sphere of a 0-simplex.
 
-    template <int N, typename Real>
-    Sphere<N, Real> circumscribedSphere(
-        const Simplex<N, Real, 0>& simplex);
+	template <int N, typename Real>
+	Sphere<N, Real> circumscribedSphere(
+		const Simplex<N, Real, 0>& simplex);
 
-    //! Finds the circumscribed sphere of a 1-simplex.
+	//! Finds the circumscribed sphere of a 1-simplex.
 
-    template <int N, typename Real>
-    Sphere<N, Real> circumscribedSphere(
-        const Simplex<N, Real, 1>& simplex);
+	template <int N, typename Real>
+	Sphere<N, Real> circumscribedSphere(
+		const Simplex<N, Real, 1>& simplex);
 
-    //! Finds the circumscribed sphere of an M-simplex.
+	//! Finds the circumscribed sphere of an M-simplex.
 
-    template <int N, typename Real, int M>
-    Sphere<N, Real> circumscribedSphere(
-        const Simplex<N, Real, M>& simplex);
+	template <int N, typename Real, int M>
+	Sphere<N, Real> circumscribedSphere(
+		const Simplex<N, Real, M>& simplex);
 
 	//! Finds a bounding sphere of a point set.
 	/*!

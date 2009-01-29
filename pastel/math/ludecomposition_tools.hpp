@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void solveLinearSystem(
-		const LuDecomposition<N, Real>& lu, 
+		const LuDecomposition<N, Real>& lu,
 		const Vector<N, Real>& b,
 		Vector<N, Real>& result)
 	{
@@ -41,7 +41,7 @@ namespace Pastel
 				yi -= packedLu(i, j) * y[j];
 			}
 			y[i] = yi;
-			
+
 			// No need to divide since the divisor is 1.
 		}
 

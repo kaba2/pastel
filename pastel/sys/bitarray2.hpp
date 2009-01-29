@@ -125,31 +125,31 @@ namespace Pastel
 	}
 
 	template <template <typename> class Array2>
-    integer BitArray2<Array2>::blockWidth() const
-    {
-        return data_.width();
-    }
+	integer BitArray2<Array2>::blockWidth() const
+	{
+		return data_.width();
+	}
 
 	template <template <typename> class Array2>
-    integer BitArray2<Array2>::blockHeight() const
-    {
-        return data_.height();
-    }
+	integer BitArray2<Array2>::blockHeight() const
+	{
+		return data_.height();
+	}
 
 	template <template <typename> class Array2>
-    uint32& BitArray2<Array2>::block(integer x, integer y)
-    {
-        return (uint32&)(((const BitArray2&)*this).block(x, y));
-    }
+	uint32& BitArray2<Array2>::block(integer x, integer y)
+	{
+		return (uint32&)(((const BitArray2&)*this).block(x, y));
+	}
 
 	template <template <typename> class Array2>
-    const uint32& BitArray2<Array2>::block(integer x, integer y) const
-    {
+	const uint32& BitArray2<Array2>::block(integer x, integer y) const
+	{
 		PENSURE2(x >= 0 && x < data_.width(), x, data_.width());
-        PENSURE2(y >= 0 && y < data_.height(), y, data_.height());
+		PENSURE2(y >= 0 && y < data_.height(), y, data_.height());
 
-        return data_(x, y);
-    }
+		return data_(x, y);
+	}
 
 }
 

@@ -18,7 +18,7 @@ namespace Pastel
 
 		LuDecomposition();
 		explicit LuDecomposition(const Matrix<N, N, Real>& matrix);
-		
+
 		void swap(LuDecomposition& that);
 
 		LuDecomposition<N, Real>& operator=(const LuDecomposition& that);
@@ -30,7 +30,7 @@ namespace Pastel
 		bool evenPermutation() const;
 		bool singular() const;
 
-	private:		
+	private:
 		Matrix<N, N, Real> packedLu_;
 		Tuple<N, integer> rowPermutation_;
 		bool evenRowPermutation_;

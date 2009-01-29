@@ -36,7 +36,7 @@ namespace Pastel
 
 				visitDimension<Index - 1>(
 					extent, cursor, visitor, Tag());
-				
+
 				cursor.increment<Index>();
 			}
 		}
@@ -64,7 +64,7 @@ namespace Pastel
 
 		// Two-view parallel traversal
 
-		template <int Index, int N, 
+		template <int Index, int N,
 			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitFunctor>
@@ -91,14 +91,14 @@ namespace Pastel
 
 				visitDimension<Index - 1>(
 					extent, leftCursor, rightCursor, visitor, Tag());
-				
+
 				leftCursor.increment<Index>();
 				rightCursor.increment<Index>();
 			}
 		}
 
-		template <int Index, int N, 
-			typename Left_Cursor, 
+		template <int Index, int N,
+			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitFunctor>
 		void visitDimension(
@@ -137,8 +137,8 @@ namespace Pastel
 			Detail_Visit::TerminateTag>::type Tag;
 
 		Detail_Visit::visitDimension<N - 1>(
-			input.extent(), 
-			input.constCursor(Point<N, integer>(0)), 
+			input.extent(),
+			input.constCursor(Point<N, integer>(0)),
 			visitor,
 			Tag());
 	}
@@ -154,14 +154,14 @@ namespace Pastel
 			Detail_Visit::TerminateTag>::type Tag;
 
 		Detail_Visit::visitDimension<N - 1>(
-			input.extent(), 
-			input.cursor(Point<N, integer>(0)), 
+			input.extent(),
+			input.cursor(Point<N, integer>(0)),
 			visitor,
 			Tag());
 	}
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitFunctor>
 	void visit(
@@ -184,8 +184,8 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N, 
-		typename Left_Element, typename Left_View, 
+	template <int N,
+		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitFunctor>
 	void visit(
@@ -208,8 +208,8 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitFunctor>
 	void visit(
@@ -264,7 +264,7 @@ namespace Pastel
 
 				visitPositionDimension<Index - 1>(
 					extent, position, cursor, visitPosition, Tag());
-				
+
 				cursor.increment<Index>();
 				++position[Index];
 			}
@@ -296,7 +296,7 @@ namespace Pastel
 
 		// Two-view parallel traversal
 
-		template <int Index, int N, 
+		template <int Index, int N,
 			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitPositionFunctor>
@@ -325,15 +325,15 @@ namespace Pastel
 
 				visitPositionDimension<Index - 1>(
 					extent, position, leftCursor, rightCursor, visitPosition, Tag());
-				
+
 				leftCursor.increment<Index>();
 				rightCursor.increment<Index>();
 				++position[Index];
 			}
 		}
 
-		template <int Index, int N, 
-			typename Left_Cursor, 
+		template <int Index, int N,
+			typename Left_Cursor,
 			typename Right_Cursor,
 			typename VisitPositionFunctor>
 		void visitPositionDimension(
@@ -375,9 +375,9 @@ namespace Pastel
 			Detail_VisitPosition::TerminateTag>::type Tag;
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
-			input.extent(), 
+			input.extent(),
 			Point<N, integer>(0),
-			input.constCursor(Point<N, integer>(0)), 
+			input.constCursor(Point<N, integer>(0)),
 			visitPosition,
 			Tag());
 	}
@@ -393,15 +393,15 @@ namespace Pastel
 			Detail_VisitPosition::TerminateTag>::type Tag;
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
-			input.extent(), 
+			input.extent(),
 			Point<N, integer>(0),
-			input.cursor(Point<N, integer>(0)), 
+			input.cursor(Point<N, integer>(0)),
 			visitPosition,
 			Tag());
 	}
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitPositionFunctor>
 	void visitPosition(
@@ -425,8 +425,8 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N, 
-		typename Left_Element, typename Left_View, 
+	template <int N,
+		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitPositionFunctor>
 	void visitPosition(
@@ -450,8 +450,8 @@ namespace Pastel
 			Tag());
 	}
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitPositionFunctor>
 	void visitPosition(

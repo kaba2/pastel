@@ -25,14 +25,14 @@ namespace Pastel
 		, vss_(0)
 		, reserved2_()
 	{
-        for (integer i = 0;i < Palette16Size;++i)
-        {
-            palette16_[i] = 0;
-        }
-        for (integer i = 0;i < Reserved2Size;++i)
-        {
-            reserved2_[i] = 0;
-        }
+		for (integer i = 0;i < Palette16Size;++i)
+		{
+			palette16_[i] = 0;
+		}
+		for (integer i = 0;i < Reserved2Size;++i)
+		{
+			reserved2_[i] = 0;
+		}
 	}
 
 	void PcxHeader::read(BinaryFile& input)

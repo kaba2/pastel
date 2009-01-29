@@ -12,7 +12,7 @@ namespace Pastel
 	public:
 		typedef VertexData_ VertexData;
 		typedef SimplexData_ SimplexData;
-		
+
 		void swap(SimplexMesh_DefaultDataPolicy& that)
 		{
 		}
@@ -24,7 +24,7 @@ namespace Pastel
 		void constructVertex(VertexData* vertex)
 		{
 		}
-		
+
 		void constructSimplex(SimplexData* simplex)
 		{
 		}
@@ -32,13 +32,13 @@ namespace Pastel
 		void destructVertex(VertexData* vertex)
 		{
 		}
-		
+
 		void destructSimplex(SimplexData* simplex)
 		{
 		}
 	};
 
-	typedef SimplexMesh_DefaultDataPolicy<EmptyClass, EmptyClass> 
+	typedef SimplexMesh_DefaultDataPolicy<EmptyClass, EmptyClass>
 		SimplexMesh_EmptyDataPolicy;
 
 }

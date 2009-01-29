@@ -33,7 +33,7 @@ namespace Pastel
 		// the perimeter.
 
 		return 2 * (
-			width[0] + 
+			width[0] +
 			width[1]);
 	}
 
@@ -41,8 +41,8 @@ namespace Pastel
 	Real boxArea(const Vector<3, Real>& width)
 	{
 		return 2 * (
-			width[1] * width[2] + 
-			width[0] * width[2] + 
+			width[1] * width[2] +
+			width[0] * width[2] +
 			width[0] * width[1]);
 	}
 
@@ -50,8 +50,8 @@ namespace Pastel
 	Real boxArea(const Vector<4, Real>& width)
 	{
 		return 2 * (
-			width[1] * width[2] * width[3] + 
-			width[0] * width[2] * width[3] + 
+			width[1] * width[2] * width[3] +
+			width[0] * width[2] * width[3] +
 			width[0] * width[1] * width[3] +
 			width[0] * width[1] * width[2]);
 	}
@@ -77,7 +77,7 @@ namespace Pastel
 			{
 				faceArea *= width[k];
 			}
-			
+
 			result += faceArea;
 		}
 

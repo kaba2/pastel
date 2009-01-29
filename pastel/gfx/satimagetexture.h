@@ -17,7 +17,7 @@ namespace Pastel
 	{
 	public:
 		SatImageTexture();
-		
+
 		template <typename Image_ConstView>
 		explicit SatImageTexture(
 			const ConstView<2, Type, Image_ConstView>& image);

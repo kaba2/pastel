@@ -480,7 +480,7 @@ namespace Pastel
 	typedef Vector<3, real> Vector3;
 	typedef Vector<4, real> Vector4;
 
-    typedef Vector<Unbounded, integer> UnboundedIVector;
+	typedef Vector<Unbounded, integer> UnboundedIVector;
 	typedef Vector<1, integer> IVector1;
 	typedef Vector<2, integer> IVector2;
 	typedef Vector<3, integer> IVector3;

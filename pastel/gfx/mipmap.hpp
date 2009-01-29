@@ -39,7 +39,7 @@ namespace Pastel
 		std::vector<LinearArray<N, Type> > mipMapArray(images);
 
 		mipMapArray.front().setExtent(topExtent);
-		
+
 		// Upsample to power-of-two size.
 
 		if (topExtent == originalExtent)
@@ -49,7 +49,7 @@ namespace Pastel
 		else
 		{
 			resample(
-				image, 
+				image,
 				extender,
 				filter,
 				arrayView(mipMapArray.front()));
@@ -69,7 +69,7 @@ namespace Pastel
 			mipMapArray[i].setExtent(resampleExtent);
 
 			resample(
-				constArrayView(mipMapArray[i - 1]), 
+				constArrayView(mipMapArray[i - 1]),
 				extender,
 				filter,
 				arrayView(mipMapArray[i]));

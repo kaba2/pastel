@@ -10,7 +10,7 @@ namespace Pastel
 	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, LinearArray<N, uint32> > > >
 		constRgb888View(const LinearArray<N, uint32>& image)
 	{
-		return constAdaptedView(constArrayView(image), 
+		return constAdaptedView(constArrayView(image),
 			Rgb888Adapter());
 	}
 
@@ -81,7 +81,7 @@ namespace Pastel
 			Type min_;
 			Type max_;
 		};
-	
+
 	}
 
 	template <int N, typename Image_View>
@@ -96,7 +96,7 @@ namespace Pastel
 		visit(image, minMaxVisitor);
 
 		Detail_ScaleGrayScaleImage::ScaleVisitor<real32> scaleVisitor(min, max);
-		
+
 		visit(image, scaleVisitor);
 	}
 

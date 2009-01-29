@@ -14,147 +14,147 @@
 namespace Pastel
 {
 
-    template <typename Real>
-    bool overlaps(
-        const Triangle<1, Real>& aTriangle,
-        const Triangle<1, Real>& bTriangle)
-    {
-        Real aMin(0);
-        Real aMax(0);
+	template <typename Real>
+	bool overlaps(
+		const Triangle<1, Real>& aTriangle,
+		const Triangle<1, Real>& bTriangle)
+	{
+		Real aMin(0);
+		Real aMax(0);
 
-        minMax(
-            aTriangle[0][0],
-            aTriangle[1][0],
-            aTriangle[2][0], aMin, aMax);
+		minMax(
+			aTriangle[0][0],
+			aTriangle[1][0],
+			aTriangle[2][0], aMin, aMax);
 
-        Real bMin(0);
-        Real bMax(0);
+		Real bMin(0);
+		Real bMax(0);
 
-        minMax(
-            bTriangle[0][0],
-            bTriangle[1][0],
-            bTriangle[2][0], bMin, bMax);
+		minMax(
+			bTriangle[0][0],
+			bTriangle[1][0],
+			bTriangle[2][0], bMin, bMax);
 
-        return (aMin <= bMin && bMin <= aMax) ||
-            (aMin <= bMax && bMax <= aMax);
-    }
+		return (aMin <= bMin && bMin <= aMax) ||
+			(aMin <= bMax && bMax <= aMax);
+	}
 
-    template <typename Real>
-    bool overlaps(
-        const Triangle<2, Real>& aTriangle,
-        const Triangle<2, Real>& bTriangle)
-    {
-        // Using separating axis theorem.
-        // There are six edge normals to
-        // test, 3 from each triangle.
+	template <typename Real>
+	bool overlaps(
+		const Triangle<2, Real>& aTriangle,
+		const Triangle<2, Real>& bTriangle)
+	{
+		// Using separating axis theorem.
+		// There are six edge normals to
+		// test, 3 from each triangle.
 
-        // Test for triangle 'a' edge normals
+		// Test for triangle 'a' edge normals
 
-        for (integer i = 0;i < 3;++i)
-        {
-            integer i2 = (i + 1) % 3;
-            integer i3 = (i + 2) % 3;
+		for (integer i = 0;i < 3;++i)
+		{
+			integer i2 = (i + 1) % 3;
+			integer i3 = (i + 2) % 3;
 
-            const Vector<2, Real> edge(
-                cross(aTriangle[i2] - aTriangle[i]));
+			const Vector<2, Real> edge(
+				cross(aTriangle[i2] - aTriangle[i]));
 
-            const Real a(
-                dot(edge, aTriangle[i3] - aTriangle[i]));
+			const Real a(
+				dot(edge, aTriangle[i3] - aTriangle[i]));
 
-            Real aMin(0);
-            Real aMax(0);
+			Real aMin(0);
+			Real aMax(0);
 
-            if (a > 0)
-            {
-                aMin = 0;
-                aMax = a;
-            }
-            else
-            {
-                aMin = a;
-                aMax = 0;
-            }
+			if (a > 0)
+			{
+				aMin = 0;
+				aMax = a;
+			}
+			else
+			{
+				aMin = a;
+				aMax = 0;
+			}
 
-            const Real b1(
-                dot(edge, bTriangle[0] - aTriangle[i]));
-            const Real b2(
-                dot(edge, bTriangle[1] - aTriangle[i]));
-            const Real b3(
-                dot(edge, bTriangle[2] - aTriangle[i]));
+			const Real b1(
+				dot(edge, bTriangle[0] - aTriangle[i]));
+			const Real b2(
+				dot(edge, bTriangle[1] - aTriangle[i]));
+			const Real b3(
+				dot(edge, bTriangle[2] - aTriangle[i]));
 
-            Real bMin(0);
-            Real bMax(0);
+			Real bMin(0);
+			Real bMax(0);
 
-            minMax(b1, b2, b3, bMin, bMax);
+			minMax(b1, b2, b3, bMin, bMax);
 
-            if (bMin > aMax || aMin > bMax)
-            {
-                // Found separating axis
+			if (bMin > aMax || aMin > bMax)
+			{
+				// Found separating axis
 
-                return false;
-            }
-        }
+				return false;
+			}
+		}
 
-        // Test for triangle 'b' edge normals
+		// Test for triangle 'b' edge normals
 
-        for (integer i = 0;i < 3;++i)
-        {
-            integer i2 = (i + 1) % 3;
-            integer i3 = (i + 2) % 3;
+		for (integer i = 0;i < 3;++i)
+		{
+			integer i2 = (i + 1) % 3;
+			integer i3 = (i + 2) % 3;
 
-            const Vector<2, Real> edge(
-                cross(bTriangle[i2] - bTriangle[i]));
+			const Vector<2, Real> edge(
+				cross(bTriangle[i2] - bTriangle[i]));
 
-            const Real a(
-                dot(edge, bTriangle[i3] - bTriangle[i]));
+			const Real a(
+				dot(edge, bTriangle[i3] - bTriangle[i]));
 
-            Real aMin(0);
-            Real aMax(0);
+			Real aMin(0);
+			Real aMax(0);
 
-            if (a > 0)
-            {
-                aMin = 0;
-                aMax = a;
-            }
-            else
-            {
-                aMin = a;
-                aMax = 0;
-            }
+			if (a > 0)
+			{
+				aMin = 0;
+				aMax = a;
+			}
+			else
+			{
+				aMin = a;
+				aMax = 0;
+			}
 
-            const Real b1(
-                dot(edge, aTriangle[0] - bTriangle[i]));
-            const Real b2(
-                dot(edge, aTriangle[1] - bTriangle[i]));
-            const Real b3(
-                dot(edge, aTriangle[2] - bTriangle[i]));
+			const Real b1(
+				dot(edge, aTriangle[0] - bTriangle[i]));
+			const Real b2(
+				dot(edge, aTriangle[1] - bTriangle[i]));
+			const Real b3(
+				dot(edge, aTriangle[2] - bTriangle[i]));
 
-            Real bMin(0);
-            Real bMax(0);
+			Real bMin(0);
+			Real bMax(0);
 
-            minMax(b1, b2, b3, bMin, bMax);
+			minMax(b1, b2, b3, bMin, bMax);
 
-            if (bMin > aMax || aMin > bMax)
-            {
-                // Found separating axis
+			if (bMin > aMax || aMin > bMax)
+			{
+				// Found separating axis
 
-                return false;
-            }
-        }
+				return false;
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    template <typename Real>
-    bool overlaps(
-        const Triangle<3, Real>& aTriangle,
-        const Triangle<3, Real>& bTriangle)
-    {
-        Segment<3, Real> intersection;
-        return Pastel::intersect(
-            aTriangle, bTriangle,
-            intersection);
-    }
+	template <typename Real>
+	bool overlaps(
+		const Triangle<3, Real>& aTriangle,
+		const Triangle<3, Real>& bTriangle)
+	{
+		Segment<3, Real> intersection;
+		return Pastel::intersect(
+			aTriangle, bTriangle,
+			intersection);
+	}
 
 }
 

@@ -25,11 +25,11 @@ namespace Pastel
 		const Point<N, Real>& startPoint,
 		const Point<N, Real>& endPoint,
 		const PASTEL_NO_DEDUCTION(Real)& time)
-    {
-        return Point<N, Real>(
-            asVector(startPoint) * (1 - time) +
-            asVector(endPoint) * time);
-    }
+	{
+		return Point<N, Real>(
+			asVector(startPoint) * (1 - time) +
+			asVector(endPoint) * time);
+	}
 
 }
 

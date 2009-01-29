@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-    //! A kd-tree
+	//! A kd-tree
 	/*!
 	class ObjectPolicy
 	{
@@ -24,24 +24,24 @@ namespace Pastel
 	};
 	*/
 
-	template <int N, typename Real, 
+	template <int N, typename Real,
 		typename ObjectPolicy>
 	class KdTree
-    {
+	{
 	public:
 		typedef typename ObjectPolicy::Object Object;
 
 	private:
 		typedef ArenaAllocator Allocator;
 
-        typedef FastList<Object, Allocator> ObjectContainer;
-        typedef typename ObjectContainer::iterator ObjectIterator;
+		typedef FastList<Object, Allocator> ObjectContainer;
+		typedef typename ObjectContainer::iterator ObjectIterator;
 
-        class Node;
-        class LeafNode;
-        class IntermediateNode;
+		class Node;
+		class LeafNode;
+		class IntermediateNode;
 
-    public:
+	public:
 		enum
 		{
 			N_ = N
@@ -49,27 +49,27 @@ namespace Pastel
 		typedef Real Real_;
 		typedef ObjectPolicy ObjectPolicy_;
 
-        typedef typename ObjectContainer::const_iterator ConstObjectIterator;
+		typedef typename ObjectContainer::const_iterator ConstObjectIterator;
 
 		class Cursor;
 
 		KdTree();
 
-        //! Constructs an empty tree.
-        explicit KdTree(
+		//! Constructs an empty tree.
+		explicit KdTree(
 			const ObjectPolicy& objectPolicy);
 
 		//! Constructs a copy from another tree.
-        KdTree(const KdTree& that);
+		KdTree(const KdTree& that);
 
-        //! Destructs the tree.
-        ~KdTree();
+		//! Destructs the tree.
+		~KdTree();
 
-        //! Assigns another tree.
-        KdTree& operator=(const KdTree& that);
+		//! Assigns another tree.
+		KdTree& operator=(const KdTree& that);
 
-        //! Swaps two trees.
-        void swap(KdTree& that);
+		//! Swaps two trees.
+		void swap(KdTree& that);
 
 		//! Returns the object policy.
 		const ObjectPolicy& objectPolicy() const;
@@ -80,11 +80,11 @@ namespace Pastel
 		//! Returns the bounding box of the tree.
 		const AlignedBox<N, Real>& bound() const;
 
-        //! Returns true if there are no objects in the tree.
-        bool empty() const;
+		//! Returns true if there are no objects in the tree.
+		bool empty() const;
 
-        //! Returns the root node of the tree.
-        Cursor root() const;
+		//! Returns the root node of the tree.
+		Cursor root() const;
 
 		//! Returns an iterator to the beginning of the object list.
 		/*!
@@ -98,14 +98,14 @@ namespace Pastel
 		//! Returns an iterator to the end of the object list.
 		ConstObjectIterator end() const;
 
-        //! Returns the number of nodes in the tree.
-        integer nodes() const;
+		//! Returns the number of nodes in the tree.
+		integer nodes() const;
 
 		//! Returns the number of leaf nodes in the tree.
 		integer leaves() const;
 
-        //! Returns the number of objects in the tree.
-        integer objects() const;
+		//! Returns the number of objects in the tree.
+		integer objects() const;
 
 		//! Subdivides a leaf node with the given plane.
 		/*!
@@ -122,9 +122,9 @@ namespace Pastel
 		splitAxis:
 		The axis of the splitting plane normal.
 		*/
-        void subdivide(
-            const Cursor& cursor, 
-			const Real& splitPosition, 
+		void subdivide(
+			const Cursor& cursor,
+			const Real& splitPosition,
 			integer splitAxis);
 
 		//! Insert objects in the tree.
@@ -142,12 +142,12 @@ namespace Pastel
 			const Object& object);
 
 		//! Clears off subdivision and objects.
-        void clear();
+		void clear();
 
-        //! Clears the objects but leaves the subdivision intact.
-        void clearObjects();
+		//! Clears the objects but leaves the subdivision intact.
+		void clearObjects();
 
-    private:
+	private:
 		class SplitPredicate
 		{
 		public:
@@ -199,8 +199,8 @@ namespace Pastel
 			integer count);
 
 		ObjectContainer objectList_;
-        Allocator nodeAllocator_;
-        Node* root_;
+		Allocator nodeAllocator_;
+		Node* root_;
 		AlignedBox<N, Real> bound_;
 		integer leaves_;
 
@@ -210,7 +210,7 @@ namespace Pastel
 		integer objects_;
 
 		ObjectPolicy objectPolicy_;
-    };
+	};
 
 }
 

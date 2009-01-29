@@ -14,7 +14,7 @@ namespace Pastel
 	The branching number of a pixel is the
 	number of 4-connected 1-components in its
 	8-neighbourhood (the pixel itself does not
-	take part of any component). 
+	take part of any component).
 
 	Example:
 	0 1 0

@@ -41,7 +41,7 @@ namespace Pastel
 
 	template <int N, typename Real, int M>
 	bool orthonormalize(
-	    Flat<N, Real, M>& flat)
+		Flat<N, Real, M>& flat)
 	{
 		return orthonormalize(flat, flat);
 	}

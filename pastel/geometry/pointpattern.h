@@ -26,14 +26,14 @@ namespace Pastel
 	matchingDistance >= 0
 	If matchingDistanceType == PatternMatch::RelativeDistance, then
 	matchingDistance is in [0, 1]
-	
+
 	matchinDistanceType:
 	If 'matchingDistanceType' == PatternMatch::AbsoluteDistance, then
 	the 'matchingDistance' directly represents the distance that
 	is tolerated for points to match.
 	If 'matchingDistanceType' == PatternMatch::RelativeDistance, then
 	the absolute matching distance is determined from
-	the average distance of a point to its nearest neighbour in the 
+	the average distance of a point to its nearest neighbour in the
 	scene point set multiplied by 'matchingDistance'.
 
 	More precisely, this functions finds a similarity transformation

@@ -21,7 +21,7 @@ namespace Pastel
 
 	template <typename Type>
 	inline Type clamp(const Type& x,
-		const PASTEL_NO_DEDUCTION(Type)& xMin, 
+		const PASTEL_NO_DEDUCTION(Type)& xMin,
 		const PASTEL_NO_DEDUCTION(Type)& xMax)
 	{
 		PENSURE(xMin <= xMax);
@@ -158,7 +158,7 @@ namespace Pastel
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
 		BOOST_STATIC_ASSERT(FromBits > 0);
@@ -173,14 +173,14 @@ namespace Pastel
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits == FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits == FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
 		return number;
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
 		BOOST_STATIC_ASSERT(FromBits > 0);
@@ -193,12 +193,12 @@ namespace Pastel
 
 		BOOST_STATIC_ASSERT(DeltaBits >= 0);
 
-		return (number << DeltaBits) + 
+		return (number << DeltaBits) +
 			(number >> (FromBits - DeltaBits));
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
 		BOOST_STATIC_ASSERT(FromBits > 0);
@@ -211,13 +211,13 @@ namespace Pastel
 
 		BOOST_STATIC_ASSERT(DeltaBits >= 0);
 
-		return (number << DeltaBits) + 
+		return (number << DeltaBits) +
 			(number << (DeltaBits - FromBits)) +
 			(number >> (2 * FromBits - DeltaBits));
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
 		BOOST_STATIC_ASSERT(FromBits > 0);
@@ -230,7 +230,7 @@ namespace Pastel
 
 		BOOST_STATIC_ASSERT(DeltaBits >= 0);
 
-		return (number << DeltaBits) + 
+		return (number << DeltaBits) +
 			(number << (DeltaBits - FromBits)) +
 			(number << (DeltaBits - 2 * FromBits)) +
 			(number >> (3 * FromBits - DeltaBits)) +;

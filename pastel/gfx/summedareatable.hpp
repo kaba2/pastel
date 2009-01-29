@@ -59,7 +59,7 @@ namespace Pastel
 		const ConstView<N, Type, Image_ConstView>& image,
 		const View<N, Type, Sum_View>& sumImage)
 	{
-		Detail_ComputeSummedAreaTable::Visitor<N, Type, Image_ConstView, Sum_View> 
+		Detail_ComputeSummedAreaTable::Visitor<N, Type, Image_ConstView, Sum_View>
 			visitor(image, sumImage);
 		visitPosition(image, sumImage, visitor);
 	}

@@ -46,10 +46,10 @@ namespace Pastel
 			bBoxTransformed);
 	}
 
-    template <int N, typename Real>
-    bool overlaps(
-        const Box<N, Real>& aBox,
-        const Box<N, Real>& bBox,
+	template <int N, typename Real>
+	bool overlaps(
+		const Box<N, Real>& aBox,
+		const Box<N, Real>& bBox,
 		const Vector<N, Real>& bVelocity,
 		Tuple<2, Real>& intersectionRange)
 	{
@@ -84,8 +84,8 @@ namespace Pastel
 	bool overlaps(
 		const Box<N, Real>& aBox,
 		const Box<N, Real>& bBox,
-        Vector<N, Real>& projection,
-        Point<N, Real>& commonPoint)
+		Vector<N, Real>& projection,
+		Point<N, Real>& commonPoint)
 	{
 		// Transform boxes such that the
 		// aBox becomes an aligned box. Then
@@ -107,23 +107,23 @@ namespace Pastel
 			Point<N, Real>(-aBox.width()),
 			Point<N, Real>(aBox.width()));
 
-        Vector<N, Real> transformedProjection;
-        Point<N, Real> transformedCommonPoint;
+		Vector<N, Real> transformedProjection;
+		Point<N, Real> transformedCommonPoint;
 		if (overlaps(
 			aBoxTransformed,
-			bBoxTransformed, 
-            transformedProjection,
-            transformedCommonPoint))
-        {
-            projection = 
-                transformedProjection * aBox.rotation();
-            commonPoint =
-                transformedCommonPoint * aBox.rotation() + asVector(aBox.position());
+			bBoxTransformed,
+			transformedProjection,
+			transformedCommonPoint))
+		{
+			projection =
+				transformedProjection * aBox.rotation();
+			commonPoint =
+				transformedCommonPoint * aBox.rotation() + asVector(aBox.position());
 
-            return true;
-        }
+			return true;
+		}
 
-        return false;
+		return false;
 	}
 
 }

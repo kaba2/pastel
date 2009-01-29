@@ -19,7 +19,7 @@ namespace Pastel
 		{
 			m[i] = extend(asVector(simplex[i]), 1);
 		}
-		
+
 		return solveLinearSystem(m, extend(asVector(point), 1));
 	}
 

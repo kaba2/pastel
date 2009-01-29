@@ -40,7 +40,7 @@ namespace Pastel
 	The function is not symmetric: it does not hold that
 	h(x) = 1 - h(1 - x)
 
-	Why would you use this function instead of the 
+	Why would you use this function instead of the
 	'cubicSmoothStep()' function which is symmetric and
 	of lower order?
 

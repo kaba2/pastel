@@ -13,18 +13,18 @@ namespace Pastel
 	template <typename Type, typename Compare>
 	SmallSet<Type, Compare>::SmallSet(const Compare& compare)
 		: data_()
-        , compare_(compare)
+		, compare_(compare)
 	{
 	}
 
 	template <typename Type, typename Compare>
 	SmallSet<Type, Compare>::SmallSet(const SmallSet& that)
 		: data_(that.data_)
-        , compare_(that.compare_)
+		, compare_(that.compare_)
 	{
 	}
 
-    template <typename Type, typename Compare>
+	template <typename Type, typename Compare>
 	SmallSet<Type, Compare>::~SmallSet()
 	{
 	}
@@ -41,10 +41,10 @@ namespace Pastel
 	template <typename Type, typename Compare>
 	void SmallSet<Type, Compare>::swap(SmallSet& that)
 	{
-        using NameLookUpTrick::swap;
+		using NameLookUpTrick::swap;
 
 		data_.swap(that.data_);
-        swap(compare_, that.compare_);
+		swap(compare_, that.compare_);
 	}
 
 	template <typename Type, typename Compare>
@@ -61,85 +61,85 @@ namespace Pastel
 		data_.reserve(count);
 	}
 
-    template <typename Type, typename Compare>
-    integer SmallSet<Type, Compare>::set(integer index, const Type& that)
-    {
-        PENSURE2(index >= 0 && index < size(), index, size());
+	template <typename Type, typename Compare>
+	integer SmallSet<Type, Compare>::set(integer index, const Type& that)
+	{
+		PENSURE2(index >= 0 && index < size(), index, size());
 
-        // Assign.
-        data_[index] = that;
+		// Assign.
+		data_[index] = that;
 
-        const integer elements = size();
+		const integer elements = size();
 
-        if (elements == 1)
-        {
-            return 0;
-        }
+		if (elements == 1)
+		{
+			return 0;
+		}
 
-        // Move to the right position
-        // by repeated swaps.
+		// Move to the right position
+		// by repeated swaps.
 
-        if (index > 0 && !compare_(data_[index - 1], data_[index]))
-        {
-            integer left = index - 1;
-            integer right = index;
-            while(left >= 0 && !compare_(data_[left], data_[right]))
-            {
-                using NameLookUpTrick::swap;
-                std::swap(data_[left], data_[right]);
-                
-                if (!compare_(data_[left], data_[right]))
-                {
+		if (index > 0 && !compare_(data_[index - 1], data_[index]))
+		{
+			integer left = index - 1;
+			integer right = index;
+			while(left >= 0 && !compare_(data_[left], data_[right]))
+			{
+				using NameLookUpTrick::swap;
+				std::swap(data_[left], data_[right]);
+
+				if (!compare_(data_[left], data_[right]))
+				{
 					// Equivalent elements.
-                    break;
-                }
+					break;
+				}
 
-                --left;
-                --right;
-            }
+				--left;
+				--right;
+			}
 
-            if (!(compare_(data_[left], data_[right]) || 
-                compare_(data_[right], data_[left])))
-            {
-                // Equivalent elements not allowed.
-                data_.erase(data_.begin() + left);
-                return -1;
-            }
+			if (!(compare_(data_[left], data_[right]) ||
+				compare_(data_[right], data_[left])))
+			{
+				// Equivalent elements not allowed.
+				data_.erase(data_.begin() + left);
+				return -1;
+			}
 
-            return left + 1;
-        }
-        else if (index < elements - 1 && !compare_(data_[index], data_[index + 1]))
-        {
-            integer left = index;
-            integer right = index + 1;
-            while(right < elements && !compare_(data_[left], data_[right]))
-            {
-                using NameLookUpTrick::swap;
-                std::swap(data_[left], data_[right]);
+			return left + 1;
+		}
+		else if (index < elements - 1 && !compare_(data_[index], data_[index + 1]))
+		{
+			integer left = index;
+			integer right = index + 1;
+			while(right < elements && !compare_(data_[left], data_[right]))
+			{
+				using NameLookUpTrick::swap;
+				std::swap(data_[left], data_[right]);
 
-                if (!compare_(data_[left], data_[right]))
-                {
+				if (!compare_(data_[left], data_[right]))
+				{
 					// Equivalent elements.
-                    break;
-                }
+					break;
+				}
 
-                ++left;
-                ++right;
-            }
+				++left;
+				++right;
+			}
 
-            if (!(compare_(data_[left], data_[right]) || 
-                compare_(data_[right], data_[left])))
-            {
-                // Equivalent elements not allowed.
-                data_.erase(data_.begin() + right);
-                return -1;
-            }
-            
-            return right - 1;
-        }
-        
-        return index;
-    }
+			if (!(compare_(data_[left], data_[right]) ||
+				compare_(data_[right], data_[left])))
+			{
+				// Equivalent elements not allowed.
+				data_.erase(data_.begin() + right);
+				return -1;
+			}
+
+			return right - 1;
+		}
+
+		return index;
+	}
 
 	template <typename Type, typename Compare>
 	integer SmallSet<Type, Compare>::insert(const Type& that)
@@ -310,7 +310,7 @@ namespace Pastel
 		return data_[index];
 	}
 
-    template <typename Type, typename Compare>
+	template <typename Type, typename Compare>
 	const Type& SmallSet<Type, Compare>::operator[](integer index) const
 	{
 		PENSURE2(index >= 0 && index < data_.size(),

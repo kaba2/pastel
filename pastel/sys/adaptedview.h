@@ -48,8 +48,8 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView, typename Adapter>
-	ConstView<N, typename ConstAdaptedView<N, Adapter, Input_ConstView>::Element, 
-		ConstAdaptedView<N, Adapter, Input_ConstView> > 
+	ConstView<N, typename ConstAdaptedView<N, Adapter, Input_ConstView>::Element,
+		ConstAdaptedView<N, Adapter, Input_ConstView> >
 		constAdaptedView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const Adapter& adapter)
@@ -78,7 +78,7 @@ namespace Pastel
 
 		using Base::view_;
 		using Base::adapter_;
-	
+
 	public:
 		//using Base::Dimension;
 		using typename Base::ConstCursor;
@@ -104,7 +104,7 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_View, typename Adapter>
-	View<N, typename AdaptedView<N, Adapter, Input_View>::Element, 
+	View<N, typename AdaptedView<N, Adapter, Input_View>::Element,
 		AdaptedView<N, Adapter, Input_View> > adaptedView(
 		const View<N, Input_Element, Input_View>& view,
 		const Adapter& adapter)

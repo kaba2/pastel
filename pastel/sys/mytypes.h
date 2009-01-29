@@ -71,9 +71,9 @@ namespace Pastel
 	};
 
 	enum
-    {
-        Unbounded = -1
-    };
+	{
+		Unbounded = -1
+	};
 
 	class PASTELSYS EmptyClass
 	{

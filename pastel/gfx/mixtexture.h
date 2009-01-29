@@ -22,19 +22,19 @@ namespace Pastel
 		{
 		}
 
-		virtual ~MixTexture() 
+		virtual ~MixTexture()
 		{
 		}
 
 		virtual Type operator()(
-			const Point2& p, 
-			const Vector2& dpDx, 
+			const Point2& p,
+			const Vector2& dpDx,
 			const Vector2& dpDy) const
 		{
-			const Inter_Type t = 
+			const Inter_Type t =
 				tTexture_(p, dpDx, dpDy);
 
-			return 
+			return
 				aTexture_(p, dpDx, dpDy) * (1 - t) +
 				bTexture_(p, dpDx, dpDy) * t;
 		}

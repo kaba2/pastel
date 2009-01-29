@@ -39,12 +39,12 @@ namespace Pastel
 		}
 
 		virtual Element operator()(
-			const Point2& p, 
-			const Vector2& dpdx, 
+			const Point2& p,
+			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{
 			const Point<2, integer> x(asVector(p) * extent_);
-			
+
 			return extender_(*image_, x);
 		}
 

@@ -18,8 +18,8 @@ namespace Pastel
 	integer computeKdTreeMaxDepth(integer objects);
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
-	void findNearestArray(const std::vector<typename ObjectPolicy::Object>& pointSet, 
-		integer kNearest, 
+	void findNearestArray(const std::vector<typename ObjectPolicy::Object>& pointSet,
+		integer kNearest,
 		NormFunctor normFunctor,
 		LinearArray<N, typename ObjectPolicy::Object>& nearestArray);
 
@@ -54,8 +54,8 @@ namespace Pastel
 		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result);
 
 	template <
-		int N, 
-		typename Real, 
+		int N,
+		typename Real,
 		typename ObjectPolicy,
 		typename Intersector>
 	typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
@@ -64,36 +64,36 @@ namespace Pastel
 		const Line<N, Real>& ray,
 		Intersector intersector);
 
-    template <int N, typename Real, 
+	template <int N, typename Real,
 		typename ObjectPolicy>
-    void refineMidpoint(
+	void refineMidpoint(
 		integer maxDepth,
-        integer maxObjects,
-        KdTree<N, Real, ObjectPolicy>& tree);
+		integer maxObjects,
+		KdTree<N, Real, ObjectPolicy>& tree);
 
-    template <int N, typename Real, 
+	template <int N, typename Real,
 		typename ObjectPolicy>
-    void refineSlidingMidpoint(
+	void refineSlidingMidpoint(
 		integer maxDepth,
-        integer maxObjects,
-        KdTree<N, Real, ObjectPolicy>& tree);
+		integer maxObjects,
+		KdTree<N, Real, ObjectPolicy>& tree);
 
 	template <
-		int N, 
-		typename Real, 
+		int N,
+		typename Real,
 		typename ObjectPolicy>
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,
 		integer maxObjects,
 		KdTree<N, Real, ObjectPolicy>& tree);
 
-	template <int N, typename Real, 
+	template <int N, typename Real,
 		typename ObjectPolicy>
 	integer depth(const KdTree<N, Real, ObjectPolicy>& tree);
 
-	template <int N, typename Real, 
+	template <int N, typename Real,
 		typename ObjectPolicy>
-    bool check(const KdTree<N, Real, ObjectPolicy>& tree);
+	bool check(const KdTree<N, Real, ObjectPolicy>& tree);
 
 }
 

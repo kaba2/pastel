@@ -18,13 +18,13 @@ namespace Pastel
 
 	- The reconstruction is radial.
 	- Performance scales quadratically in filter radius.
-	- Performance is not affected by the complexity of the 
+	- Performance is not affected by the complexity of the
 	used filter since the filter is stored in a look-up table.
 
 	Here's a table that summarizes the quality of
 	each filter:
 
-	            Minification	Magnification
+				Minification	Magnification
 	Box         bad				very blocky
 	Triangle	excellent		blocky
 	Gaussian(1) excellent		blurry, clamping step visible
@@ -33,10 +33,10 @@ namespace Pastel
 	Lanczos(2)	aliasing		excellent
 
 	- Prefer TriangleFilter to GaussianFilter for minification.
-	It has a smaller radius, no visible clamping step, 
+	It has a smaller radius, no visible clamping step,
 	and performs equivalently to the eye.
 	- The combination of a TriangleFilter for minification
-	and a LanczosFilter(2) for magnification seems to deliver 
+	and a LanczosFilter(2) for magnification seems to deliver
 	the best results of all combinations. These are
 	the defaults.
 	*/
@@ -70,7 +70,7 @@ namespace Pastel
 		{
 			ENSURE(!maxFilter.empty() && !minFilter.empty());
 
-			const real filterRadius = 
+			const real filterRadius =
 				std::max(minFilter->radius(), maxFilter->radius());
 
 			const integer tableSize = filterRadius * 1024;
@@ -94,8 +94,8 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Point2& p, 
-			const Vector2& dpDx, 
+			const Point2& p,
+			const Vector2& dpDx,
 			const Vector2& dpDy) const;
 
 		void setMipMap(const MipMap<2, Type>& mipMap)
