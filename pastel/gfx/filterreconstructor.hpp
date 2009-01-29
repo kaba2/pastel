@@ -11,7 +11,7 @@
 
 namespace Pastel
 {
-	
+
 	namespace Detail_FilterReconstructor
 	{
 
@@ -94,11 +94,11 @@ namespace Pastel
 
 				real weightSum = 0;
 				typename Data::Data_ valueSum(0);
-				
+
 				for (integer i = 0;i < points;++i)
 				{
 					const real weight = filter_(pointSet[i].key() * filterScaling_);
-					
+
 					valueSum += pointSet[i].value()->data_ * weight;
 					weightSum += weight;
 				}
@@ -107,7 +107,7 @@ namespace Pastel
 				{
 					valueSum /= weightSum;
 				}
-					
+
 				data = valueSum;
 			}
 
@@ -154,7 +154,7 @@ namespace Pastel
 
 		refineSlidingMidpoint(computeKdTreeMaxDepth(kdtree.objects()), 4, kdtree);
 
-		Detail_FilterReconstructor::ReconstructFunctor<N, Real, DataPolicy, Filter> 
+		Detail_FilterReconstructor::ReconstructFunctor<N, Real, DataPolicy, Filter>
 			reconstructFunctor(kdtree, filter, filterRadius);
 
 		visitPosition(

@@ -35,7 +35,7 @@ namespace Pastel
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;
 
-		typedef Detail_TransformedView::ConstTransformedViewCursor<N, TransformFunctor, 
+		typedef Detail_TransformedView::ConstTransformedViewCursor<N, TransformFunctor,
 			typename Contained_ConstView::ConstCursor> ConstCursor;
 
 		explicit ConstTransformedView(
@@ -63,7 +63,7 @@ namespace Pastel
 	};
 
 	template <typename TransformFunctor, int N, typename Input_Element, typename Input_ConstView>
-	ConstView<N, Input_Element, ConstTransformedView<N, TransformFunctor, Input_ConstView> > 
+	ConstView<N, Input_Element, ConstTransformedView<N, TransformFunctor, Input_ConstView> >
 		constTransformedView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const TransformFunctor& transform)

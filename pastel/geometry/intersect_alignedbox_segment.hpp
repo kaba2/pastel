@@ -13,13 +13,13 @@ namespace Pastel
 	template <int N, typename Real>
 	bool intersect(
 		const AlignedBox<N, Real>& alignedBox,
-		const Segment<N, Real>& segment, 
+		const Segment<N, Real>& segment,
 		Segment<N, Real>& result)
 	{
 		const Line<N, Real> line(
 			segment.start(),
 			segment.end() - segment.start());
-		
+
 		Vector<2, Real> tRange;
 		if (!intersect(line, alignedBox, tRange))
 		{
@@ -36,7 +36,7 @@ namespace Pastel
 
 		result.set(
 			segment.at(tMin), segment.at(tMax));
-		
+
 		return true;
 	}
 

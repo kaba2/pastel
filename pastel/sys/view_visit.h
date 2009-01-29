@@ -27,8 +27,8 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
 	void visit(
@@ -43,8 +43,8 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <int N, 
-		typename Left_Element, typename Left_View, 
+	template <int N,
+		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
 	void visit(
@@ -59,8 +59,8 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitorFunctor>
 	void visit(
@@ -90,8 +90,8 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
 	void visitPosition(
@@ -106,8 +106,8 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <int N, 
-		typename Left_Element, typename Left_View, 
+	template <int N,
+		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
 	void visitPosition(
@@ -122,8 +122,8 @@ namespace Pastel
 	left.extent() == right.extent();
 	*/
 
-	template <int N, 
-		typename Left_Element, typename Left_ConstView, 
+	template <int N,
+		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitorFunctor>
 	void visitPosition(

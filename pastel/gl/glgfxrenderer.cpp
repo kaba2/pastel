@@ -96,12 +96,12 @@ namespace Pastel
 
 	void GlGfxRenderer::onSetViewWindow()
 	{
-        Matrix4 projection;
+		Matrix4 projection;
 
-        setOrthogonalProjection(
-			viewWindow(), 
+		setOrthogonalProjection(
+			viewWindow(),
 			-1, 1,
-            projection);
+			projection);
 
 		float glProjection[16];
 		convert(projection, glProjection);
@@ -113,19 +113,19 @@ namespace Pastel
 	void GlGfxRenderer::onSetResamplingMode()
 	{
 		glBindTexture(GL_TEXTURE_2D, texture());
-		
+
 		switch(resamplingMode())
 		{
 		case ResamplingMode::Nearest:
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 				GL_NEAREST);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, 
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
 				GL_NEAREST);
 			break;
 		case ResamplingMode::Bilinear:
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 				GL_LINEAR);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, 
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
 				GL_LINEAR);
 			break;
 		};
@@ -151,7 +151,7 @@ namespace Pastel
 		glBindTexture(GL_TEXTURE_2D, textureId);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		
+
 		// Bilinear filtering for minification
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 						GL_LINEAR);
@@ -165,13 +165,13 @@ namespace Pastel
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-		
+
 		integer width = image.width();
 		integer height = image.height();
 
 		LinearArray<2, uint8> loadImage;
 
-		if (!GLEW_ARB_texture_non_power_of_two && 
+		if (!GLEW_ARB_texture_non_power_of_two &&
 			(!isPowerOfTwo(width) ||
 			!isPowerOfTwo(height)))
 		{
@@ -186,13 +186,13 @@ namespace Pastel
 			{
 				height2 = 2048;
 			}
-			
+
 			log() << "Resampling a texture for opengl consumption..."
 				<< width << " x " << height << " -> "
 				<< width2 << " x " << height2 << logNewLine;
 
 			LinearArray<2, Color> resampledImage(width2, height2);
-			resample(constArrayView(image), clampExtender(), 
+			resample(constArrayView(image), clampExtender(),
 				gaussianFilter(2), arrayView(resampledImage));
 			transform(arrayView(resampledImage), fitColor);
 
@@ -212,7 +212,7 @@ namespace Pastel
 
 			void* data = (void*)&loadImage(0, 0);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width2, height2, 
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width2, height2,
 				0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		}
 		else
@@ -233,7 +233,7 @@ namespace Pastel
 
 			void* data = (void*)&loadImage(0, 0);
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
 				0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		}
 
@@ -333,7 +333,7 @@ namespace Pastel
 		const Color& currentColor = color();
 
 		glEnable(GL_TEXTURE_2D);
-			
+
 		glBegin(GL_TRIANGLES);
 		glColor3f(currentColor[0], currentColor[1], currentColor[2]);
 		glTexCoord2f(textureTriangle[0].x(), textureTriangle[0].y());
@@ -346,7 +346,7 @@ namespace Pastel
 		glColor3f(currentColor[0], currentColor[1], currentColor[2]);
 		glTexCoord2f(textureTriangle[2].x(), textureTriangle[2].y());
 		glVertex2f(triangle[2].x(), triangle[2].y());
-		
+
 		glEnd();
 
 		glDisable(GL_TEXTURE_2D);

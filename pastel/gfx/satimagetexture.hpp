@@ -49,10 +49,10 @@ namespace Pastel
 
 		bound +=
 			asVector(uv) * Vector2(sumImage_.width(), sumImage_.height());
-	
+
 		const Type sum = summedAreaTable(
 			clampedConstView(constArrayView(sumImage_)), bound);
-		
+
 		return sum / product(bound.extent());
 	}
 

@@ -387,16 +387,16 @@ namespace Pastel
 		for (integer i = 0;i < 8;++i)
 		{
 			const uint32 bitMask = 1 << i;
-			const bool currentBit = 
+			const bool currentBit =
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
 			{
 				++result;
 			}
-			
+
 			previousBit = currentBit;
 		}
-		
+
 		return result;
 	}
 
@@ -419,33 +419,33 @@ namespace Pastel
 		for (integer i = 0;i < 8;++i)
 		{
 			const uint32 bitMask = 1 << i;
-			const bool currentBit = 
+			const bool currentBit =
 				(neighbourMask & bitMask) != 0;
 			if (currentBit && !previousBit)
 			{
 				resultMask |= bitMask;
 			}
-			
+
 			previousBit = currentBit;
 		}
-		
+
 		// We prefer 4-neighbours to
 		// 8-neighbours.
-		
+
 		for (integer i = 0;i < 8;++i)
 		{
 			const uint32 bitMask = 1 << i;
-			const bool currentBit = 
+			const bool currentBit =
 				(resultMask & bitMask) != 0;
 			const uint32 nextMask = 1 << ((i + 1) & 7);
 			const bool nextBit =
 				(neighbourMask & nextMask) != 0;
 			const bool corner = (i & 1) != 0;
-			
+
 			if (corner && nextBit)
 			{
 				resultMask &= ~bitMask;
-				
+
 				resultMask |= nextMask;
 			}
 		}

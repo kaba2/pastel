@@ -29,21 +29,21 @@ namespace Pastel
 		{
 		}
 
-		virtual ~GjkSphere() 
+		virtual ~GjkSphere()
 		{
 		}
 
 		virtual Point<N, Real> support(const Vector<N, Real>& direction) const
 		{
 			const Real normDirection = norm(direction);
-			
+
 			// EPSILON
 			if (normDirection == 0)
 			{
 				return Point<N, Real>(unitAxis(0) * sphere_.radius());
 			}
 
-			return sphere_.position() + 
+			return sphere_.position() +
 				sphere_.radius() * direction / normDirection;
 		}
 

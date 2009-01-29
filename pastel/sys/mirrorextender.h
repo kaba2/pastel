@@ -20,14 +20,14 @@ namespace Pastel
 		{
 			const integer doubleExtent = 2 * extent;
 
-			integer newIndex = 
+			integer newIndex =
 				mod(index, doubleExtent - 1);
 
 			if (newIndex >= extent)
 			{
 				newIndex = doubleExtent - newIndex;
 			}
-			
+
 			return newIndex;
 		}
 	};

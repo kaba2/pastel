@@ -20,7 +20,7 @@ namespace Pastel
 
 	The default	values comes from the
 	experiments of Mitchell and Netravali where they
-	concluded that the (subjectively) best filters lie 
+	concluded that the (subjectively) best filters lie
 	on the line 2C + B = 1. They further deemed
 	(B = 1/3, C = 1/3) as the best from this line.
 	*/

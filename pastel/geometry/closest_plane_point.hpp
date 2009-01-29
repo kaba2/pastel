@@ -28,8 +28,8 @@ namespace Pastel
 		// Because the plane normal is of unit length
 		// => t' = -dot(N, (P - D)) = dot(N, (D - P))
 
-		return dot(plane.normal(), 
-            plane.position() - point);
+		return dot(plane.normal(),
+			plane.position() - point);
 	}
 
 }

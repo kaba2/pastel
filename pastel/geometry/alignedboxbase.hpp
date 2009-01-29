@@ -114,7 +114,7 @@ namespace Pastel
 	Point<N, Real> AlignedBoxBase<N, Real, Derived>::at(
 		const Vector<N, Real>& coordinates) const
 	{
-		return Point<N, Real>((1 - coordinates) * asVector(min_) + 
+		return Point<N, Real>((1 - coordinates) * asVector(min_) +
 			coordinates * asVector(max_));
 	}
 

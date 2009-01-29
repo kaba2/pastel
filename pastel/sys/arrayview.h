@@ -33,7 +33,7 @@ namespace Pastel
 		{
 			return (*array_)(position);
 		}
-		
+
 		ConstCursor constCursor(const Point<N, integer>& position) const
 		{
 			return const_cast<Contained_Array*>(array_)->constCursor(position);
@@ -71,7 +71,7 @@ namespace Pastel
 		{
 			return (*array_)(position);
 		}
-		
+
 		Cursor cursor(const Point<N, integer>& position) const
 		{
 			return const_cast<Contained_Array*>(array_)->cursor(position);
@@ -79,14 +79,14 @@ namespace Pastel
 	};
 
 	template <typename Array>
-	View<Array::Dimension, typename Array::Element, ArrayView<Array::Dimension, Array> > 
+	View<Array::Dimension, typename Array::Element, ArrayView<Array::Dimension, Array> >
 		arrayView(Array& that)
 	{
 		return wrapView(ArrayView<Array::Dimension, Array>(that));
 	}
 
 	template <typename Array>
-	ConstView<Array::Dimension, typename Array::Element, ConstArrayView<Array::Dimension, Array> > 
+	ConstView<Array::Dimension, typename Array::Element, ConstArrayView<Array::Dimension, Array> >
 		constArrayView(const Array& that)
 	{
 		return wrapConstView(ConstArrayView<Array::Dimension, Array>(that));

@@ -43,7 +43,7 @@ namespace Pastel
 	{
 		return segment_.start();
 	}
-	
+
 	template <int N, typename Real>
 	Point<N, Real>& Capsule<N, Real>::end()
 	{

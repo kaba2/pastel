@@ -27,7 +27,7 @@ namespace Pastel
 				closestDistance = distance;
 				closestIter = iter;
 			}
-				
+
 			++iter;
 		}
 

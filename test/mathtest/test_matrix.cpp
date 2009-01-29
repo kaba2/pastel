@@ -29,7 +29,7 @@ namespace
 
 				const Vector<N, real> residual = m * x - b;
 				const real normResidual = norm(residual);
-				
+
 				if (normResidual > 0.0001)
 				{
 					++bad;
@@ -197,11 +197,11 @@ namespace
 		for (integer i = 0;i < matrices;++i)
 		{
 			Matrix<N, N, real> m;
-            setRandomMatrix(m);
+			setRandomMatrix(m);
 			const Matrix<N, N, real> mInv(inverse(m));
 
-            Matrix<N, N, real> result = m * mInv - Matrix<N, N, real>();
-            modify(result, (real (*)(real))std::abs);
+			Matrix<N, N, real> result = m * mInv - Matrix<N, N, real>();
+			modify(result, (real (*)(real))std::abs);
 			if (max(result) < 0.0001)
 			{
 				++count;
@@ -221,7 +221,7 @@ namespace
 		for (integer i = 0;i < iterations;++i)
 		{
 			Matrix<N, N, real> a;
-            setRandomMatrix(a);
+			setRandomMatrix(a);
 
 			const Vector<N, real> b(randomVectorCube<N, real>());
 
@@ -229,7 +229,7 @@ namespace
 
 			const Vector<N, real> result(
 				abs(x * a - b));
-			
+
 			bool ok = true;
 			for (integer j = 0;j < N;++j)
 			{

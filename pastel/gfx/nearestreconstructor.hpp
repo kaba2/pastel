@@ -11,7 +11,7 @@
 
 namespace Pastel
 {
-	
+
 	namespace Detail_NearestReconstructor
 	{
 
@@ -79,7 +79,7 @@ namespace Pastel
 
 				KeyValue<real, ConstIterator> result =
 					findNearest(kdtree_, Point<N, real>(position) + 0.5);
-					
+
 				if (result.value() != kdtree_.end())
 				{
 					data = result.value()->data_;
@@ -124,7 +124,7 @@ namespace Pastel
 
 		refineSlidingMidpoint(computeKdTreeMaxDepth(kdtree.objects()), 4, kdtree);
 
-		Detail_NearestReconstructor::ReconstructFunctor<N, Real, DataPolicy> 
+		Detail_NearestReconstructor::ReconstructFunctor<N, Real, DataPolicy>
 			reconstructFunctor(kdtree);
 
 		visitPosition(

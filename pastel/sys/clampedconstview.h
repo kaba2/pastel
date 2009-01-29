@@ -38,7 +38,7 @@ namespace Pastel
 		const Element& operator()(
 			const Point<N, integer>& position) const
 		{
-			return view_(Point<N, integer>(clamp(asVector(position), 
+			return view_(Point<N, integer>(clamp(asVector(position),
 				Vector<N, integer>(0), evaluate(view_.extent() - 1))));
 		}
 
@@ -47,7 +47,7 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
-	ExtendedConstView<N, Input_Element, ClampedConstView<N, ConstView<N, Input_Element, Input_ConstView> > > 
+	ExtendedConstView<N, Input_Element, ClampedConstView<N, ConstView<N, Input_Element, Input_ConstView> > >
 		clampedConstView(const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
 		return extendedConstView<N>(ClampedConstView<N,

@@ -9,29 +9,29 @@
 namespace Pastel
 {
 
-    class PASTELSYS Subset
-    {
-    public:
-        Subset();
-        Subset(integer size, integer elements);
+	class PASTELSYS Subset
+	{
+	public:
+		Subset();
+		Subset(integer size, integer elements);
 
-        void swap(Subset& that);
+		void swap(Subset& that);
 
-        void first();
-        bool next();
+		void first();
+		bool next();
 
-        void setSize(integer size);
-        void setSize(integer size, integer elements);
+		void setSize(integer size);
+		void setSize(integer size, integer elements);
 
-        integer size() const;
-        integer elements() const;
+		integer size() const;
+		integer elements() const;
 
-        integer operator[](integer index) const;
+		integer operator[](integer index) const;
 
-    private:
-        std::vector<integer> data_;
-        integer elements_;
-    };
+	private:
+		std::vector<integer> data_;
+		integer elements_;
+	};
 
 }
 

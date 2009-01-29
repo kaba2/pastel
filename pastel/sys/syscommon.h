@@ -22,7 +22,7 @@ namespace Pastel
 	uint32 reverseBits(uint32 input);
 
 	//! Squares the given variable.
-	
+
 	template <typename Type>
 	Type square(const Type& that);
 
@@ -34,7 +34,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type clamp(const Type& x,
-		const PASTEL_NO_DEDUCTION(Type)& xMin, 
+		const PASTEL_NO_DEDUCTION(Type)& xMin,
 		const PASTEL_NO_DEDUCTION(Type)& xMax);
 
 	//! Computes the remainder
@@ -146,23 +146,23 @@ namespace Pastel
 	*/
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits == FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits == FromBits), Integer>::type
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type 
+	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type
 		scaleInteger(const Integer& number);
 
 	//! Returns the bits at range [FromBit, FromBit + Bits[.

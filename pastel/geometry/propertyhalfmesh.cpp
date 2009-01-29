@@ -67,12 +67,12 @@ namespace Pastel
 		polygonData_.clear();
 	}
 
-    void PropertyHalfMesh_Policy::reserveVertices(integer vertices)
-    {
-        vertexData_.resize(vertices);
-    }
+	void PropertyHalfMesh_Policy::reserveVertices(integer vertices)
+	{
+		vertexData_.resize(vertices);
+	}
 
-    // Private
+	// Private
 
 	void PropertyHalfMesh_Policy::constructVertex(EntityData* data)
 	{

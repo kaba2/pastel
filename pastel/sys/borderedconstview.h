@@ -55,8 +55,8 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
-	ExtendedConstView<N, Input_Element, 
-		BorderedConstView<N, ConstView<N, Input_Element, Input_ConstView> > > 
+	ExtendedConstView<N, Input_Element,
+		BorderedConstView<N, ConstView<N, Input_Element, Input_ConstView> > >
 		borderedConstView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const PASTEL_NO_DEDUCTION(Input_Element)& border)

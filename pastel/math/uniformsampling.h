@@ -55,11 +55,11 @@ namespace Pastel
 
 	//! Uniformly samples a point from an annulus
 	/*!
-    Preconditions:
+	Preconditions:
 	'uv' is in [0, 1]^N.
-    minRadius >= 0
-    maxRadius >= 0
-    minRadius < maxRadius
+	minRadius >= 0
+	maxRadius >= 0
+	minRadius < maxRadius
 
 	The annulus is considered as the set:
 	{x | minRadius <= norm(x) <= minRadius}
@@ -70,25 +70,25 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv, 
-        const PASTEL_NO_DEDUCTION(Real)& minRadius, 
-        const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const Vector<N, Real>& uv,
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv, 
-        const PASTEL_NO_DEDUCTION(Real)& minRadius, 
-        const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const Vector<N, Real>& uv,
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv, 
-        const PASTEL_NO_DEDUCTION(Real)& minRadius, 
-        const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+		const Vector<N, Real>& uv,
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	// TODO: provide functions for 4d and up?
 
@@ -105,17 +105,17 @@ namespace Pastel
 	variables uniformly distributed on the simplex.
 	*/
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv);
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv);
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	typename boost::enable_if_c<(N >= 3), Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv);
@@ -133,17 +133,17 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv);
 
@@ -162,12 +162,12 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type
 		uniformlySampleSphere(
 		const Vector<N, Real>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type
 		uniformlySampleSphere(
 		const Vector<N, Real>& uv);
 
@@ -186,12 +186,12 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type
 		uniformlySampleHemisphere(
 		const Vector<N, Real>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type
 		uniformlySampleHemisphere(
 		const Vector<N, Real>& uv);
 

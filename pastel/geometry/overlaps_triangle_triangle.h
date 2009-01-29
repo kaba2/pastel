@@ -16,7 +16,7 @@ namespace Pastel
 
 	/*!
 	The triangles are considered to be closed
-	and solid. 
+	and solid.
 	*/
 
 	template <typename Real>
@@ -28,7 +28,7 @@ namespace Pastel
 
 	/*!
 	The triangles are considered to be closed
-	and solid. 
+	and solid.
 	*/
 
 	template <typename Real>
@@ -40,7 +40,7 @@ namespace Pastel
 
 	/*!
 	The triangles are considered to be closed
-	and solid. 
+	and solid.
 	*/
 
 	template <typename Real>

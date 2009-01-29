@@ -17,7 +17,7 @@ namespace Pastel
 	/*!
 	DataPolicy:
 	See the documentation for SimplexMesh's DataPolicy concept.
-	Predefined data policies can be found from 
+	Predefined data policies can be found from
 	'pastel/geometry/simplexmesh_datapolicies.h'.
 	*/
 
@@ -168,7 +168,7 @@ namespace Pastel
 		The root simplex contains a hierarchy of simplices such
 		that each simplex contains its children. The hierarchy
 		can then be traversed by following the children
-		simplices. The simplices at the leaf nodes are given 
+		simplices. The simplices at the leaf nodes are given
 		access through the simplexBegin() and simplexEnd() functions.
 		*/
 		Simplex root() const;
@@ -211,7 +211,7 @@ namespace Pastel
 			VertexBody* vertex);
 
 		void flipEdge(
-			SimplexBody* aSimplex, integer aEdge, 
+			SimplexBody* aSimplex, integer aEdge,
 			SimplexBody* bSimplex, integer bEdge);
 
 		void legalizeEdge(
@@ -391,7 +391,7 @@ namespace Pastel
 		{
 			return position_;
 		}
-	
+
 	private:
 		Point<2, Real> position_;
 	};
@@ -409,21 +409,21 @@ namespace Pastel
 	public:
 		/*
 		The data has been packed for better memory usage.
-		
+
 		* Because nowadays data is aligned on 4-byte
 		boundaries, the 2 lowest bits of pointers are left
 		unused and can be used for data storage.
-		
+
 		* Because pair-pointers are only needed at
 		leaf nodes, and the child-pointers are
 		only needed at intermediate nodes, these
 		data can be stored in a common memory space
 		which we call 'link_'.
-		
+
 		* We also need pair-indices which range [0, 2].
 		These can be stored to the 2 lowest bits
-		of the pair-pointers. 
-		
+		of the pair-pointers.
+
 		* To distinguish leaf-nodes from intermediate
 		nodes, we store a constant '3' to the 2 lowest bits
 		of the child-pointers.
@@ -500,7 +500,7 @@ namespace Pastel
 
 		friend void link(
 			SimplexBody* aSimplex,
-			integer aIndex, 
+			integer aIndex,
 			SimplexBody* bSimplex,
 			integer bIndex)
 		{
@@ -524,8 +524,8 @@ namespace Pastel
 		friend SimplexBody* pack(SimplexBody* simplex, integer index)
 		{
 			ASSERT1(index >= 0 && index <= 3, index);
-			
-			const pointer_integer simplexInteger = 
+
+			const pointer_integer simplexInteger =
 				((pointer_integer)simplex) + index;
 
 			return (SimplexBody*)simplexInteger;
@@ -533,7 +533,7 @@ namespace Pastel
 
 		friend SimplexBody* unpack(SimplexBody* simplex)
 		{
-			const pointer_integer simplexInteger = 
+			const pointer_integer simplexInteger =
 				((pointer_integer)simplex) & ~0x3;
 
 			return (SimplexBody*)simplexInteger;
@@ -550,7 +550,7 @@ namespace Pastel
 		std::size_t operator()(const Vertex& vertex) const
 		{
 			const hash<VertexBody*> hash_;
-			return hash_(vertex.data_); 
+			return hash_(vertex.data_);
 		}
 	};
 
@@ -561,7 +561,7 @@ namespace Pastel
 		std::size_t operator()(const Simplex& simplex) const
 		{
 			const hash<SimplexBody*> hash_;
-			return hash_(simplex.data_); 
+			return hash_(simplex.data_);
 		}
 	};
 

@@ -41,7 +41,7 @@ namespace Pastel
 	costly operation copying the Type is).
 	*/
 
-    template <typename Type, typename Compare = std::less<Type> >
+	template <typename Type, typename Compare = std::less<Type> >
 	class SmallSet
 	{
 	private:
@@ -49,13 +49,13 @@ namespace Pastel
 		typedef typename Container::iterator Iterator;
 		typedef typename Container::const_iterator ConstIterator;
 
-        class EmptyAction
-        {
-        public:
-            void operator()(const Type& left, const Type& right) const
-            {
-            }
-        };
+		class EmptyAction
+		{
+		public:
+			void operator()(const Type& left, const Type& right) const
+			{
+			}
+		};
 
 	public:
 		//! Constructs an empty set.
@@ -72,7 +72,7 @@ namespace Pastel
 		*/
 		SmallSet(const SmallSet& that);
 
-        //! Destructs the set.
+		//! Destructs the set.
 		/*!
 		Time complexity: constant.
 		Exception safety: nothrow.
@@ -107,12 +107,12 @@ namespace Pastel
 		*/
 		void reserve(integer count);
 
-        //! Changes the value of an element.
+		//! Changes the value of an element.
 		/*!
 		Time complexity: linear in the number of moves needed.
 		Exception safety: strong.
 		*/
-        integer set(integer index, const Type& that);
+		integer set(integer index, const Type& that);
 
 		//! Insert an element into the set.
 		/*!
@@ -170,7 +170,7 @@ namespace Pastel
 		*/
 		Type& operator[](integer index);
 
-        //! Returns the index:th smallest element of the set.
+		//! Returns the index:th smallest element of the set.
 		/*!
 		Time complexity: constant.
 		Exception safety: nothrow.
@@ -214,7 +214,7 @@ namespace Pastel
 
 	private:
 		std::vector<Type> data_;
-        Compare compare_;
+		Compare compare_;
 	};
 
 	template <typename Type, typename Compare>

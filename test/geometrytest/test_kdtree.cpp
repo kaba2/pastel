@@ -43,11 +43,11 @@ namespace
 	{
 		PointPolicy pointPolicy;
 		KdTree<2, real, PointPolicy> tree(pointPolicy);
-		
+
 		const integer points = 100000;
 		std::vector<Point2> pointList;
 		pointList.reserve(points);
-		
+
 		for (integer i = 0;i < points;++i)
 		{
 			pointList.push_back(Point2(randomVectorBall<2, real>()));
@@ -58,7 +58,7 @@ namespace
 		log() << "The tree has " << logNewLine;
 		log() << tree.nodes() << " nodes" << logNewLine;
 		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references (" 
+		log() << tree.objects() << " object references ("
 			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
 		refineMidpoint(computeKdTreeMaxDepth(tree.objects()), 4, tree);
@@ -69,7 +69,7 @@ namespace
 		log() << tree.nodes() << " nodes" << logNewLine;
 		log() << "Of which " << tree.leaves() << " are leaf nodes." << logNewLine;
 		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references (" 
+		log() << tree.objects() << " object references ("
 			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 	}
 
@@ -95,7 +95,7 @@ namespace
 		}
 	};
 
-	bool sphereIntersector(const Sphere3* object, 
+	bool sphereIntersector(const Sphere3* object,
 		const Line3& ray, real& t)
 	{
 		const AlignedBox3 box = boundingAlignedBox(*object);
@@ -157,7 +157,7 @@ namespace
 		log() << "The tree has " << logNewLine;
 		log() << tree.nodes() << " nodes" << logNewLine;
 		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references (" 
+		log() << tree.objects() << " object references ("
 			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
 		//refineSlidingMidpoint(computeKdTreeMaxDepth(tree.objects()), 4, tree);
@@ -168,11 +168,11 @@ namespace
 
 		REPORT(!check(tree));
 
-        log() << "The tree has " << logNewLine;
+		log() << "The tree has " << logNewLine;
 		log() << tree.nodes() << " nodes" << logNewLine;
 		log() << "Of which " << tree.leaves() << " are leaf nodes." << logNewLine;
 		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references (" 
+		log() << tree.objects() << " object references ("
 			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
 		std::vector<Color> palette;
@@ -198,11 +198,11 @@ namespace
 				const Line3 ray(
 					Point3(
 					2 * ((real)(x + 0.5) / (width - 1)) - 1,
-					2 * ((real)(y + 0.5) / (height - 1)) - 1,  
+					2 * ((real)(y + 0.5) / (height - 1)) - 1,
 					-2),
 					Vector3(0, 0, 1));
 
-				const ConstObjectIterator iter = 
+				const ConstObjectIterator iter =
 					recursiveRayTraversal(tree, ray, sphereIntersector);
 				if (iter != tree.end())
 				{

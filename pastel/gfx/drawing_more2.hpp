@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View, typename ColorMixer>
 	void drawProjectiveQuad(
 		const Tuple<4, Point2>& quad,
@@ -47,8 +47,8 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const Tuple<4, Point2>& textureQuad)
 	{
-		Pastel::drawProjectiveQuad(quad, 
-			texture, image, textureQuad, 
+		Pastel::drawProjectiveQuad(quad,
+			texture, image, textureQuad,
 			assignColorMixer<Type>());
 	}
 
@@ -58,8 +58,8 @@ namespace Pastel
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image)
 	{
-		Pastel::drawProjectiveQuad(quad,  
-			texture, image, 
+		Pastel::drawProjectiveQuad(quad,
+			texture, image,
 			Tuple<4, Point2>(
 			Point2(0, 0),
 			Point2(1, 0),
@@ -75,7 +75,7 @@ namespace Pastel
 		real annulusStartRadius,
 		real annulusEndRadius,
 		real annulusStartAngle,
-		real annulusEndAngle, 
+		real annulusEndAngle,
 		const View<2, Type, Image_View>& image,
 		const AlignedBox2& box,
 		const ColorMixer& colorMixer)
@@ -132,14 +132,14 @@ namespace Pastel
 			const real daDx = deltaAngle / clippedBox.extent().x();
 			const real drDy = deltaRadius / clippedBox.extent().y();
 
-			const real aMin = annulusStartAngle + 
+			const real aMin = annulusStartAngle +
 				((clippedBox.min().x() + 0.5) - box.min().x()) * daDx;
-			const real rMin = annulusStartRadius + 
+			const real rMin = annulusStartRadius +
 				((clippedBox.min().y() + 0.5) - box.min().y()) * drDy;
 
 			Cursor yCursor(image.cursor(clippedBox.min()));
 
-			const Vector<2, integer> clippedBoxExtent = 
+			const Vector<2, integer> clippedBoxExtent =
 				clippedBox.extent();
 
 			real r = rMin;
@@ -148,7 +148,7 @@ namespace Pastel
 			{
 				Cursor xyCursor(yCursor);
 				real a = aMin;
-				
+
 				for (integer x = 0;x < clippedBoxExtent.x();++x)
 				{
 					const real aCos = std::cos(a);
@@ -160,7 +160,7 @@ namespace Pastel
 					const Vector2 duvDx(
 						-r * aSin * daDx,
 						r * aCos * daDx);
-					
+
 					const Vector2 duvDy(
 						drDy * aCos,
 						drDy * aSin);

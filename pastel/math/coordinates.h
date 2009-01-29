@@ -79,42 +79,42 @@ namespace Pastel
 	//! Converts cartesian coordinates to spherical coordinates.
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		cartesianToSpherical(
 		const Vector<N, Real>& cartesian);
 
 	//! Converts cartesian coordinates to spherical coordinates.
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type 
+	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type
 		cartesianToSpherical(
 		const Vector<N, Real>& cartesian);
 
 	//! Converts spherical coordinates to cartesian coordinates.
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		sphericalToCartesian(
 		const Vector<N, Real>& spherical);
 
 	//! Converts spherical coordinates to cartesian coordinates.
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type 
+	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type
 		sphericalToCartesian(
 		const Vector<N, Real>& spherical);
 
 	//! Converts a vector to a spherical coordinate direction.
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<1, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<1, Real> >::type
 		cartesianToDirection(
 		const Vector<N, Real>& cartesian);
 
 	//! Converts a vector to a spherical coordinate direction.
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 2), Vector<N - 1, Real> >::type 
+	typename boost::enable_if_c<(N > 2), Vector<N - 1, Real> >::type
 		cartesianToDirection(
 		const Vector<N, Real>& cartesian);
 

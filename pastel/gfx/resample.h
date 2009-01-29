@@ -146,7 +146,7 @@ namespace Pastel
 		void resample(
 		const ConstView<2, Input_Element, Input_View>& input,
 		const ArrayExtender<2, PASTEL_NO_DEDUCTION(Input_Element)> & arrayExtender,
-		const ConstFilterRef& xFilter, 
+		const ConstFilterRef& xFilter,
 		const ConstFilterRef& yFilter,
 		const View<2, Output_Element, Output_View>& output);
 

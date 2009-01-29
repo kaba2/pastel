@@ -53,7 +53,7 @@ namespace Pastel
 				++iter;
 			}
 		}
-		
+
 		// Construct edges.
 		{
 			ConstEdgeIterator iter = that.edgeBegin();
@@ -66,7 +66,7 @@ namespace Pastel
 					vertexMap[thatEdge.half().origin()],
 					vertexMap[thatEdge.half().destination()]);
 				*edge = *thatEdge;
-				
+
 				++iter;
 			}
 		}
@@ -595,7 +595,7 @@ namespace Pastel
 	{
 		std::vector<Vertex> vertexList;
 		vertexList.reserve(4);
-		
+
 		vertexList.push_back(aVertex);
 		vertexList.push_back(bVertex);
 		vertexList.push_back(cVertex);

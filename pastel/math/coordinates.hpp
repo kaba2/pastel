@@ -31,7 +31,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		cartesianToSpherical(
 		const Vector<N, Real>& cartesian)
 	{
@@ -39,7 +39,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type 
+	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type
 		cartesianToSpherical(
 		const Vector<N, Real>& cartesian)
 	{
@@ -60,7 +60,7 @@ namespace Pastel
 			squareSum += cartesian[i] * cartesian[i];
 			result[i] = std::atan(std::sqrt(squareSum) / cartesian[i - 1]);
 		}
-		
+
 		squareSum += cartesian[0] * cartesian[0];
 		result[0] = std::sqrt(squareSum);
 
@@ -81,7 +81,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		sphericalToCartesian(
 		const Vector<N, Real>& spherical)
 	{
@@ -89,7 +89,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type 
+	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type
 		sphericalToCartesian(
 		const Vector<N, Real>& spherical)
 	{
@@ -102,7 +102,7 @@ namespace Pastel
 
 		Vector<N, Real> cartesian;
 		Real product = spherical[0];
-		
+
 		cartesian[0] = product * std::cos(spherical[1]);
 		for (integer i = 1;i < N - 1;++i)
 		{
@@ -134,7 +134,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<1, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<1, Real> >::type
 		cartesianToDirection(
 		const Vector<N, Real>& cartesian)
 	{
@@ -142,7 +142,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 2), Vector<N - 1, Real> >::type 
+	typename boost::enable_if_c<(N > 2), Vector<N - 1, Real> >::type
 		cartesianToDirection(
 		const Vector<N, Real>& cartesian)
 	{

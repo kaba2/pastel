@@ -120,7 +120,7 @@ namespace Pastel
 	{
 		const Vector2 ba = b - a;
 		const Vector2 ca = c - a;
-		
+
 		return ba[0] * ca[1] - ba[1] * ca[0];
 	}
 

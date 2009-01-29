@@ -52,7 +52,7 @@ namespace Pastel
 		// by projection to two moving 1d intervals.
 		// These intervals are of course the projections
 		// on a separating axis.
-		
+
 		// The separating axes that need to be considered
 		// are the standard basis vectors.
 

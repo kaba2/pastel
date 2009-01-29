@@ -53,7 +53,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -69,7 +69,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -101,7 +101,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -117,7 +117,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -149,7 +149,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -165,7 +165,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -181,7 +181,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -197,7 +197,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		return anyLess(right, left);
@@ -205,7 +205,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		return anyLess(right, left);
@@ -213,7 +213,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return anyLess(right, left);
@@ -221,7 +221,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(allLess(right, left));
@@ -229,7 +229,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(allLess(right, left));
@@ -237,7 +237,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(allLess(right, left));
@@ -245,7 +245,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(allLess(left, right));
@@ -253,7 +253,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(allLess(left, right));
@@ -261,7 +261,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(allLess(left, right));
@@ -269,7 +269,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -285,7 +285,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -301,7 +301,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		for (integer i = 0;i < N;++i)
@@ -317,7 +317,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		return allLess(right, left);
@@ -325,7 +325,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		return allLess(right, left);
@@ -333,7 +333,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return allLess(right, left);
@@ -341,7 +341,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(anyLess(right, left));
@@ -349,7 +349,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(anyLess(right, left));
@@ -357,7 +357,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(anyLess(right, left));
@@ -365,7 +365,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(anyLess(left, right));
@@ -373,7 +373,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
 		return !(anyLess(left, right));
@@ -381,7 +381,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Tuple<N, Real>& left, 
+		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return !(anyLess(left, right));

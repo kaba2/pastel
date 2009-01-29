@@ -20,7 +20,7 @@ namespace Pastel
 	by a normalized direction vector.
 	The line is then parametrized by
 	L(t) = Point<N, Real>(0) + t * unitAxis
-	
+
 	returns:
 	The interval [tMin, tMax] on line L
 	that the aligned box projects to.
@@ -28,7 +28,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const AlignedBox<N, Real>& box, 
+		const AlignedBox<N, Real>& box,
 		const Vector<N, Real>& unitAxis);
 
 	//! Orthogonally projects a box on an origin passing line.
@@ -41,7 +41,7 @@ namespace Pastel
 	by a normalized direction vector.
 	The line is then parametrized by
 	L(t) = Point<N, Real>(0) + t * unitAxis
-	
+
 	returns:
 	The interval [tMin, tMax] on line L
 	that the box projects to.
@@ -49,7 +49,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const Box<N, Real>& box, 
+		const Box<N, Real>& box,
 		const Vector<N, Real>& unitAxis);
 
 	//! Orthogonally projects a sphere on an origin passing line.
@@ -62,7 +62,7 @@ namespace Pastel
 	by a normalized direction vector.
 	The line is then parametrized by
 	L(t) = Point<N, Real>(0) + t * unitAxis
-	
+
 	returns:
 	The interval [tMin, tMax] on line L
 	that the sphere projects to.
@@ -70,7 +70,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const Sphere<N, Real>& sphere, 
+		const Sphere<N, Real>& sphere,
 		const Vector<N, Real>& unitAxis);
 
 	//! Orthogonally projects a line segment on an origin passing line.
@@ -83,7 +83,7 @@ namespace Pastel
 	by a normalized direction vector.
 	The line is then parametrized by
 	L(t) = Point<N, Real>(0) + t * unitAxis
-	
+
 	returns:
 	The interval [tMin, tMax] on line L
 	that the line segment projects to.
@@ -91,7 +91,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
-		const Segment<N, Real>& segment, 
+		const Segment<N, Real>& segment,
 		const Vector<N, Real>& unitAxis);
 
 }

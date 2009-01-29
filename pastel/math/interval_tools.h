@@ -8,12 +8,12 @@ namespace Pastel
 
 	template <typename Real>
 	Interval<Real> intersect(
-		const Interval<Real>& aInterval, 
+		const Interval<Real>& aInterval,
 		const Interval<Real>& bInterval);
 
 	template <typename Real>
 	Interval<Real> boundingInterval(
-		const Interval<Real>& aInterval, 
+		const Interval<Real>& aInterval,
 		const Interval<Real>& bInterval);
 
 }

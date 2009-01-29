@@ -4,9 +4,9 @@
 namespace Pastel
 {
 
-    template <typename BidiIterator, typename Compare>
-    void insertionSort(BidiIterator begin, BidiIterator end,
-        Compare compare);
+	template <typename BidiIterator, typename Compare>
+	void insertionSort(BidiIterator begin, BidiIterator end,
+		Compare compare);
 
 }
 

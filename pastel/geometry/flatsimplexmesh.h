@@ -40,7 +40,7 @@ namespace Pastel
 				{
 					return position_;
 				}
-				
+
 				NewVertexData& data()
 				{
 					return *Base::data();

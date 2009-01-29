@@ -53,9 +53,9 @@ namespace Pastel
 	};
 
 	template <int N, typename ViewConstCursor>
-	ConstView<N, typename ViewConstCursor::Element, ConstCursorView<N, ViewConstCursor> > 
+	ConstView<N, typename ViewConstCursor::Element, ConstCursorView<N, ViewConstCursor> >
 		constCursorView(
-		const ViewConstCursor& cursor, 
+		const ViewConstCursor& cursor,
 		const Vector<N, integer>& extent)
 	{
 		return wrapConstView(ConstCursorView<ViewConstCursor>(cursor, extent));
@@ -103,7 +103,7 @@ namespace Pastel
 
 	template <int N, typename ViewCursor>
 	View<N, typename ViewCursor::Element, CursorView<N, ViewCursor> > cursorView(
-		const ViewCursor& cursor, 
+		const ViewCursor& cursor,
 		const Vector<N, integer>& extent)
 	{
 		return wrapView(CursorView<N, ViewCursor>(cursor, extent));

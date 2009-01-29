@@ -60,34 +60,34 @@ namespace Pastel
 
 				// The algorithm we use here is from the paper:
 				// "A fast expected time algorithm for the 2-D point pattern
-				// matching problem", P.B. Van Wamelen et al., 
+				// matching problem", P.B. Van Wamelen et al.,
 				// Pattern Recognition 37 (2004), 1699-1711.
 
 				const ScenePositionFunctor scenePositionFunctor(sceneTree);
 				const Sphere<2, Real> sceneSphere = boundingSphere<2, Real>(
 					sceneTree.begin(), sceneTree.end(), scenePositionFunctor);
 
-			
+
 				if (matchingDistanceType == PatternMatch::AbsoluteDistance)
 				{
 					matchingThreshold_ = matchingDistance;
-					matchingFactor_ = 
+					matchingFactor_ =
 						2 * matchingThreshold_ * std::sqrt((Real)scenePoints_) /
 						sceneSphere.radius();
 				}
-				else 
-				{					
+				else
+				{
 					//matchingFactor_ = std::min(matchingDistance, matchingFactorUpperBound);
 					matchingFactor_ = matchingDistance;
-					matchingThreshold_ = 
-						matchingFactor_ * sceneSphere.radius() / 
+					matchingThreshold_ =
+						matchingFactor_ * sceneSphere.radius() /
 						(2 * std::sqrt((Real)scenePoints_));
 				}
 
 				// An upper bound for matching factor.
 
 				const Real matchingFactorUpperBound =
-					std::sqrt(minMatchRatio_ / 
+					std::sqrt(minMatchRatio_ /
 					(minMatchRatio_ + (std::sqrt((Real)5) - 1)));
 
 				if (matchingFactor_ > matchingFactorUpperBound)
@@ -96,12 +96,12 @@ namespace Pastel
 						<< " to guarantee optimal asymptotic performance." << logNewLine;
 				}
 
-				const Real kConstant = 
-					std::log((Real)modelPoints_) / 
+				const Real kConstant =
+					std::log((Real)modelPoints_) /
 					(2 * square(minMatchRatio - square(matchingFactor_) / 4));
-				const Real k2Constant = 
+				const Real k2Constant =
 					std::log(0.05) / std::log(1 - minMatchRatio);
-				const Real k3Constant = 
+				const Real k3Constant =
 					2 * matchingFactor_ * std::sqrt(kConstant / constantPi<Real>());
 
 				kPoints_ = std::min((integer)std::ceil(kConstant), modelPoints_ - 1);
@@ -120,7 +120,7 @@ namespace Pastel
 
 			integer bestGlobalTry() const
 			{
-				return bestGlobalTry_;				
+				return bestGlobalTry_;
 			}
 
 			integer globalTries() const
@@ -156,7 +156,7 @@ namespace Pastel
 				// object list.
 				{
 					modelIndexList.reserve(modelPoints_);
-	
+
 					ModelIterator modelIter = modelTree_.begin();
 					const ModelIterator modelEnd = modelTree_.end();
 					while(modelIter != modelEnd)
@@ -169,7 +169,7 @@ namespace Pastel
 				// Permute the index list.
 				for (integer i = 0;i < modelPoints_;++i)
 				{
-					std::swap(modelIndexList[i], 
+					std::swap(modelIndexList[i],
 						modelIndexList[randomInteger() % modelPoints_]);
 				}
 
@@ -177,7 +177,7 @@ namespace Pastel
 				{
 					++modelPointTries_;
 
-					const ModelObject& modelObject = 
+					const ModelObject& modelObject =
 						*modelIndexList[i];
 					const Point<2, Real> modelPoint =
 						modelTree_.objectPolicy().bound(modelObject).min();
@@ -205,7 +205,7 @@ namespace Pastel
 
 						SmallSet<KeyValue<Real, SceneIterator> > sceneSet;
 						findNearest(
-							sceneTree_, 
+							sceneTree_,
 							scenePoint,
 							infinity<Real>(),
 							(Real (*) (const Vector<2, Real>&))norm,
@@ -226,7 +226,7 @@ namespace Pastel
 						// transform to a global result.
 
 						if (matchLocal(
-							modelSet, sceneSet, 
+							modelSet, sceneSet,
 							similarityResult))
 						{
 							return true;
@@ -283,7 +283,7 @@ namespace Pastel
 				const SmallSet<KeyValue<Real, SceneIterator> >& sceneSet,
 				Tuple<4, Real>& resultSimilarity) const
 			{
-				ASSERT2(modelSet.size() == sceneSet.size(), 
+				ASSERT2(modelSet.size() == sceneSet.size(),
 					modelSet.size(), sceneSet.size());
 
 				// Note the modelSet and sceneSet contain
@@ -300,7 +300,7 @@ namespace Pastel
 				{
 					for (integer j = 0;j < k3Points_;++j)
 					{
-						const Tuple<4, Real> similarityParameters = 
+						const Tuple<4, Real> similarityParameters =
 							similarityTransformation(
 							modelPoint, modelPosition(modelSet[i - k3Points_ / 2].value()),
 							scenePoint, scenePosition(sceneSet[i - j].value()));
@@ -308,7 +308,7 @@ namespace Pastel
 						const AffineTransformation<2, Real> similarity =
 							similarityTransformation(similarityParameters);
 
-						// Count the number of points this similarity transform 
+						// Count the number of points this similarity transform
 						// matches between the local point sets.
 
 						std::vector<Point<2, Real> > modelMatch;
@@ -318,7 +318,7 @@ namespace Pastel
 
 						for (integer m = 1;m < kPoints_ + 1;++m)
 						{
-							const Point<2, Real> transformedModelPoint = 
+							const Point<2, Real> transformedModelPoint =
 								modelPosition(modelSet[m].value()) * similarity;
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
@@ -349,7 +349,7 @@ namespace Pastel
 							// A local match found.
 							// Try to improve to a global match.
 
-							if (improveGlobal(modelMatch, sceneMatch, 
+							if (improveGlobal(modelMatch, sceneMatch,
 								resultSimilarity))
 							{
 								return true;
@@ -421,10 +421,10 @@ namespace Pastel
 						// See if the model point maps near to some
 						// scene point.
 
-						const KeyValue<Real, SceneIterator> closestScenePoint = 
+						const KeyValue<Real, SceneIterator> closestScenePoint =
 							findNearest(sceneTree_, transformedModelPoint);
 
-						if (closestScenePoint.key() <= matchingThreshold_ && 
+						if (closestScenePoint.key() <= matchingThreshold_ &&
 							usedSet.find(closestScenePoint.value()) == usedSet.end())
 						{
 							const Point<2, Real> scenePoint =
@@ -474,7 +474,7 @@ namespace Pastel
 			integer k3Points_;
 			Real matchingThreshold_;
 			Real matchingFactor_;
-			
+
 			mutable integer bestGlobalTry_;
 			mutable integer bestLocalTry_;
 			mutable integer globalTries_;
@@ -505,10 +505,10 @@ namespace Pastel
 				matchingDistance >= 0 && matchingDistance <= 1, matchingDistance);
 		}
 
-		Detail_PointPatternMatch::PatternMatcher<Real, ScenePolicy, ModelPolicy> 
+		Detail_PointPatternMatch::PatternMatcher<Real, ScenePolicy, ModelPolicy>
 			patternMatcher(
 			sceneTree, modelTree,
-			minMatchRatio, 
+			minMatchRatio,
 			matchingDistance,
 			matchingDistanceType);
 
@@ -542,7 +542,7 @@ namespace Pastel
 				return AlignedBox<2, Real>(object);
 			}
 		};
-		
+
 	}
 
 	template <typename Real, typename SceneIterator, typename ModelIterator>
@@ -572,7 +572,7 @@ namespace Pastel
 		refineSlidingMidpoint(computeKdTreeMaxDepth(modelTree.objects()), 4, modelTree);
 
 		return Pastel::pointPatternMatch(
-			sceneTree, modelTree, minMatchRatio,  matchingDistance, 
+			sceneTree, modelTree, minMatchRatio,  matchingDistance,
 			matchingDistanceType, similarityResult);
 	}
 

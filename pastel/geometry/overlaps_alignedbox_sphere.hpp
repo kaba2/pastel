@@ -52,13 +52,13 @@ namespace Pastel
 		Real tMinEnd = tRange[1];
 
 		const Vector<N, Real> velocity = bVelocity - aVelocity;
-		
+
 		ENSURE(false);
 		// What is the axis to test??
 		const Vector<N, Real> unitAxis;
-		
+
 		const Real projectedVelocity = dot(velocity, unitAxis);
-		
+
 		const AlignedBox<1, Real> boxInterval = projectAxis(aBox, unitAxis);
 		const AlignedBox<1, Real> sphereInterval = projectAxis(bSphere, unitAxis);
 
@@ -66,7 +66,7 @@ namespace Pastel
 		{
 			return false;
 		}
-		
+
 		return Tuple<2, Real>(
 			std::max(tMaxStart, tRange[0]),
 			std::min(tMinEnd, tRange[1]));

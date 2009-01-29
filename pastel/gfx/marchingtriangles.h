@@ -34,9 +34,9 @@ namespace Pastel
 			break;
 		case 1:
 			{
-				const Point2 abPosition = 
+				const Point2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 acPosition = 
+				const Point2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -47,9 +47,9 @@ namespace Pastel
 			break;
 		case 2:
 			{
-				const Point2 bcPosition = 
+				const Point2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
-				const Point2 acPosition = 
+				const Point2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -60,9 +60,9 @@ namespace Pastel
 			break;
 		case 3:
 			{
-				const Point2 abPosition = 
+				const Point2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 acPosition = 
+				const Point2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 
 				renderer.drawTriangle(
@@ -79,9 +79,9 @@ namespace Pastel
 			break;
 		case 4:
 			{
-				const Point2 abPosition = 
+				const Point2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 bcPosition = 
+				const Point2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -92,9 +92,9 @@ namespace Pastel
 			break;
 		case 5:
 			{
-				const Point2 bcPosition = 
+				const Point2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
-				const Point2 acPosition = 
+				const Point2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -110,9 +110,9 @@ namespace Pastel
 			break;
 		case 6:
 			{
-				const Point2 abPosition = 
+				const Point2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 acPosition = 
+				const Point2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(

@@ -30,7 +30,7 @@ namespace Pastel
 				: view_()
 			{
 			}
-			
+
 			explicit ConstViewBase(const Contained_ConstView& view)
 				: view_(view)
 			{
@@ -83,7 +83,7 @@ namespace Pastel
 			: Base()
 		{
 		}
-		
+
 		explicit ConstView(const Contained_ConstView& view)
 			: Base(view)
 		{
@@ -106,7 +106,7 @@ namespace Pastel
 		typedef typename Contained_ConstView::ConstCursor ConstCursor;
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;
-	
+
 		using Base::operator();
 		using Base::constCursor;
 
@@ -114,7 +114,7 @@ namespace Pastel
 			: Base()
 		{
 		}
-		
+
 		explicit ConstView(const Contained_ConstView& view)
 			: Base(view)
 		{
@@ -160,7 +160,7 @@ namespace Pastel
 			: Base()
 		{
 		}
-		
+
 		explicit ConstView(const Contained_ConstView& view)
 			: Base(view)
 		{
@@ -211,7 +211,7 @@ namespace Pastel
 			: Base()
 		{
 		}
-		
+
 		explicit ConstView(const Contained_ConstView& view)
 			: Base(view)
 		{
@@ -249,7 +249,7 @@ namespace Pastel
 	};
 
 	template <typename Contained_ConstView>
-	ConstView<Contained_ConstView::Dimension, typename Contained_ConstView::Element, Contained_ConstView> 
+	ConstView<Contained_ConstView::Dimension, typename Contained_ConstView::Element, Contained_ConstView>
 		wrapConstView(const Contained_ConstView& view)
 	{
 		return ConstView<Contained_ConstView::Dimension, typename Contained_ConstView::Element, Contained_ConstView>(view);
@@ -271,7 +271,7 @@ namespace Pastel
 			typedef typename Contained_View::Cursor Cursor;
 			typedef typename Contained_View::Reference Reference;
 
-			// Needed because base class is dependent on 
+			// Needed because base class is dependent on
 			// template parameters.
 			//using Base::Dimension;
 			using typename Base::Element;
@@ -318,7 +318,7 @@ namespace Pastel
 		typedef Detail_View::ViewBase<N, Type, Contained_View> Base;
 
 	public:
-		// Needed because base class is dependent on 
+		// Needed because base class is dependent on
 		// template parameters.
 		using typename Base::Element;
 		using typename Base::ConstReference;
@@ -355,7 +355,7 @@ namespace Pastel
 		typedef Detail_View::ViewBase<1, Type, Contained_View> Base;
 
 	public:
-		// Needed because base class is dependent on 
+		// Needed because base class is dependent on
 		// template parameters.
 		using typename Base::Element;
 		using typename Base::ConstReference;
@@ -407,7 +407,7 @@ namespace Pastel
 		typedef Detail_View::ViewBase<2, Type, Contained_View> Base;
 
 	public:
-		// Needed because base class is dependent on 
+		// Needed because base class is dependent on
 		// template parameters.
 		using typename Base::Element;
 		using typename Base::ConstReference;
@@ -464,7 +464,7 @@ namespace Pastel
 		typedef Detail_View::ViewBase<3, Type, Contained_View> Base;
 
 	public:
-		// Needed because base class is dependent on 
+		// Needed because base class is dependent on
 		// template parameters.
 		using typename Base::Element;
 		using typename Base::ConstReference;
@@ -519,7 +519,7 @@ namespace Pastel
 	};
 
 	template <typename Contained_View>
-	View<Contained_View::Dimension, typename Contained_View::Element, Contained_View> 
+	View<Contained_View::Dimension, typename Contained_View::Element, Contained_View>
 		wrapView(const Contained_View& view)
 	{
 		return View<Contained_View::Dimension, typename Contained_View::Element, Contained_View>(view);

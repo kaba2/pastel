@@ -187,7 +187,7 @@ namespace Pastel
 		+oo|	+oo	NaN	+oo
 		-oo|	-oo	NaN	NaN	-oo
 		+0 |	Num	NaN	+oo	-oo	+0
-		-0 |    Num NaN +oo -oo 
+		-0 |    Num NaN +oo -oo
 		*/
 
 		NumberType::Enum thisType = classify();

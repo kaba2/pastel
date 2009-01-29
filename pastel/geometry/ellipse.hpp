@@ -31,12 +31,12 @@ namespace Pastel
 		// Thus we see that to transform an ellipsoid by a linear
 		// transformation we just need to multiply its
 		// coefficient matrix with proper matrices from both sides.
-		//		
+		//
 		// Clearly L^-T S L^-1 is symmetric:
 		// (L^-T S L^-1)^T = L^-T S^T L^-1 = L^-T S L^-1
 		// To see it is positive semi-definite, let
 		// the spectral decomposition of S = M^T A M. Now:
-		// (for all x:) 
+		// (for all x:)
 		// x^T L^-T S L^-1 x
 		// = x^T L^-T M^T A M L^-1 x
 		// = x^T L^-T M^T sqrt(A^T) sqrt(A) M L^-1 x
@@ -49,7 +49,7 @@ namespace Pastel
 		// The unit sphere is given by S = I. Thus if we are given
 		// a linear transformation of this sphere then
 		// the resulting quadric has S' = L^-T L^-1.
-		
+
 		// Of course, we work with row vectors
 		// and thus the correct matrix to return is
 		// ((L^T)^-T (L^T)^-1)^T = L^-1 L^-T.
@@ -69,7 +69,7 @@ namespace Pastel
 		// the solution of this problem. Discussions
 		// with Dave Eberly for comp.graphics.algorithms
 		// were also helpful.
-		// 
+		//
 		// Let
 		// f(x) = x^T S x
 		// S symmetric and positive semi-definite
@@ -82,11 +82,11 @@ namespace Pastel
 		// Lagrange multipliers to solve a constrained
 		// maximization problem.
 		//
-		// We wish to maximize the length of the 
+		// We wish to maximize the length of the
 		// projection to n:
 		//
 		// f(x) = n^T x
-		// 
+		//
 		// with the constraint that the vector
 		// lies on the ellipsoid:
 		//
@@ -125,7 +125,7 @@ namespace Pastel
 		// (2) => (1)
 		// x = +/- S^-1 n / sqrt(n^T S^-1 n)
 		//
-		// We are only interested in the length along 
+		// We are only interested in the length along
 		// the vector n:
 		//
 		// n^T x = +/- n^T S^-1 n / sqrt(n^T S^-1 n)
@@ -143,7 +143,7 @@ namespace Pastel
 		// Actually, being positive semi-definite
 		// implies that the diagonal elements
 		// are non-negative. We are just being
-		// careful for rounding errors 
+		// careful for rounding errors
 		// here with the abs().
 
 		const Vector<N, Real> radius = sqrt(abs(

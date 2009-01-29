@@ -64,15 +64,15 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(N > 0);
 			}
 
-            void swap(Derived& that)
-            {
+			void swap(Derived& that)
+			{
 				using std::swap;
 
 				for (integer i = 0;i < N;++i)
 				{
-                    swap(data_[i], that.data_[i]);
+					swap(data_[i], that.data_[i]);
 				}
-            }
+			}
 
 			void set(const Type& that)
 			{

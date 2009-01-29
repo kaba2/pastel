@@ -10,7 +10,7 @@ namespace Pastel
 	/*!
 	More specifically:
 
-	mirrorView(x_1, ..., x_k, ..., x_n) = 
+	mirrorView(x_1, ..., x_k, ..., x_n) =
 	view(x_1, ..., (extent(k) - 1) - x_k, ..., x_n)
 	*/
 
@@ -25,7 +25,7 @@ namespace Pastel
 
 		typedef typename Contained_ConstView::Element Element;
 		typedef typename Contained_ConstView::ConstReference ConstReference;
-		typedef Detail_MirrorView::ConstMirrorViewCursor<N, MirrorIndex, 
+		typedef Detail_MirrorView::ConstMirrorViewCursor<N, MirrorIndex,
 			typename Contained_ConstView::ConstCursor> ConstCursor;
 
 		explicit ConstMirrorView(
@@ -52,7 +52,7 @@ namespace Pastel
 	};
 
 	template <int MirrorIndex, int N, typename Input_Element, typename Input_ConstView>
-	ConstView<N, Input_Element, ConstMirrorView<N, MirrorIndex, Input_ConstView> > 
+	ConstView<N, Input_Element, ConstMirrorView<N, MirrorIndex, Input_ConstView> >
 		constMirrorView(
 		const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
@@ -63,7 +63,7 @@ namespace Pastel
 	/*!
 	More specifically:
 
-	mirrorView(x_1, ..., x_k, ..., x_n) = 
+	mirrorView(x_1, ..., x_k, ..., x_n) =
 	view(x_1, ..., (extent(k) - 1) - x_k, ..., x_n)
 	*/
 

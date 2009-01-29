@@ -62,10 +62,10 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
-	ExtendedConstView<N, Input_Element, MirroredConstView<N, Input_ConstView> > 
+	ExtendedConstView<N, Input_Element, MirroredConstView<N, Input_ConstView> >
 		mirroredConstView(const ConstView<N, Input_Element, Input_ConstView>& view)
 	{
-		return extendedConstView<N>(MirroredConstView<N, 
+		return extendedConstView<N>(MirroredConstView<N,
 			Input_ConstView>(view.contained()));
 	}
 

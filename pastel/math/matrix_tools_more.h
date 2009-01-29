@@ -66,11 +66,11 @@ namespace Pastel
 
 	//! Transponates a matrix in-place.
 
-    template <int Height, int Width, typename Real>
+	template <int Height, int Width, typename Real>
 	void transponate(
 		Matrix<Height, Width, Real>& matrix);
 
-    // Square-matrix algorithms
+	// Square-matrix algorithms
 
 	//! Returns the inverse of the given matrix.
 	/*!
@@ -135,12 +135,12 @@ namespace Pastel
 		const Matrix<2, 2, Real>& a,
 		const Vector<2, Real>& b);
 
-    //! Solves a banded system of linear equations xA = b.
+	//! Solves a banded system of linear equations xA = b.
 
-    template <int N, int M, typename Real>
-    Vector<N, Real> solveBandedLinearSystem(
-        const Matrix<N, M, Real>& a,
-        const Vector<N, Real>& b);
+	template <int N, int M, typename Real>
+	Vector<N, Real> solveBandedLinearSystem(
+		const Matrix<N, M, Real>& a,
+		const Vector<N, Real>& b);
 
 }
 

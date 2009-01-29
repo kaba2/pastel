@@ -22,7 +22,7 @@ namespace Pastel
 		const Real g = dot(normal, ddpDvv);
 
 		const Real factor = inverse(E * G - F * F);
-		
+
 		dnDu = (f * F - e * G) * factor * dpDu + (e * F - f * E) * factor * dpDv;
 		dnDv = (g * F - f * G) * factor * dpDu + (f * F - g * E) * factor * dpDv;
 	}

@@ -74,7 +74,7 @@ namespace Pastel
 	If the integer is longer than allowed digits, the
 	digits from the left end are thrown away.
 	*/
-    PASTELSYS std::string integerToString(integer number, 
+	PASTELSYS std::string integerToString(integer number,
 		integer digits = -1, char padding = '0');
 
 }

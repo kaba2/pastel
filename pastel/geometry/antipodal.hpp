@@ -135,7 +135,7 @@ namespace Pastel
 		const std::vector<Point<2, Real> >& pointSet)
 	{
 		Detail::ConvexDiameter::DiameterFunctor<Real> diameterFunctor(pointSet);
-		
+
 		reportConvexPolygonAntipodal(pointSet, diameterFunctor);
 
 		return diameterFunctor.antipodal();
@@ -221,7 +221,7 @@ namespace Pastel
 						reportFunctor(p, q);
 					}
 				}
-				if (std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) == 
+				if (std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) ==
 					std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
 				{
 					if (p == q0 && q == p0)

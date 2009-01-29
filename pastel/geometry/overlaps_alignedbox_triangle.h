@@ -32,7 +32,7 @@ namespace Pastel
 	and solid.
 	*/
 
-    template <typename Real>
+	template <typename Real>
 	bool overlaps(
 		const AlignedBox<2, Real>& alignedBox,
 		const Triangle<3, Real>& triangle);

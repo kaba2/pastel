@@ -40,11 +40,11 @@ namespace Pastel
 					max_ = *cursor;
 				}
 			}
-			
-		private:		
+
+		private:
 			Element& min_;
 			Element& max_;
-		};		
+		};
 
 		MinMaxFunctor minMaxFunctor(min, max);
 
@@ -130,7 +130,7 @@ namespace Pastel
 	{
 		typedef typename View::Element Element;
 		Detail::SetView::Functor<Element> functor(data);
-		
+
 		viewVisit(view, functor);
 	}
 
@@ -172,7 +172,7 @@ namespace Pastel
 			const Real scale = newValueDelta / valueDelta;
 
 			Cursor yCursor = image.cursor(0, 0);
-			
+
 			for (integer y = 0;y < height;++y)
 			{
 				Cursor xCursor = yCursor;

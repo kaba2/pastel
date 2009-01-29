@@ -20,7 +20,7 @@ namespace Pastel
 	{
 	private:
 		typedef GfxRenderer<Type> Base;
-	
+
 	public:
 		explicit ImageGfxRenderer(LinearArray<2, Type>* image = 0);
 		virtual ~ImageGfxRenderer();

@@ -146,49 +146,49 @@ namespace Pastel
 		*/
 		bool operator()(integer x, integer y) const;
 
-        //! Returns the width in the number of 32-bits blocks.
-        /*!
+		//! Returns the width in the number of 32-bits blocks.
+		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 
-        The returned value is equal to 'ceil(width() / 32)'.
-        */
-        integer blockWidth() const;
+		The returned value is equal to 'ceil(width() / 32)'.
+		*/
+		integer blockWidth() const;
 
-        //! Returns the height of the array.
-        /*!
+		//! Returns the height of the array.
+		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 
-        The returned value is equal to 'height()'.
-        This function is provided for symmetry, when
-        the 'blockWidth()' function is used.
-        */
-        integer blockHeight() const;
+		The returned value is equal to 'height()'.
+		This function is provided for symmetry, when
+		the 'blockWidth()' function is used.
+		*/
+		integer blockHeight() const;
 
-        //! Returns the 'x':th 32-bit block at the row 'y'.
-        /*!
+		//! Returns the 'x':th 32-bit block at the row 'y'.
+		/*!
 		Preconditions:
 		x >= 0 && x < blockWidth()
 		y >= 0 && y < blockHeight()
 
 		Time complexity: constant
 		Exception safety: nothrow
-        */
-        uint32& block(integer x, integer y);
+		*/
+		uint32& block(integer x, integer y);
 
-        //! Returns the 'x':th 32-bit block at the row 'y'.
-        /*!
+		//! Returns the 'x':th 32-bit block at the row 'y'.
+		/*!
 		Preconditions:
 		x >= 0 && x < blockWidth()
 		y >= 0 && y < blockHeight()
 
 		Time complexity: constant
 		Exception safety: nothrow
-        */
-        const uint32& block(integer x, integer y) const;
+		*/
+		const uint32& block(integer x, integer y) const;
 
-    private:
+	private:
 		integer width_;
 		integer height_;
 		Array2<uint32> data_;

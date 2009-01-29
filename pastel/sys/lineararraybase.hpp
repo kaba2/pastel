@@ -299,7 +299,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		typename LinearArrayBase<N, Type, Derived>::Cursor 
+		typename LinearArrayBase<N, Type, Derived>::Cursor
 			LinearArrayBase<N, Type, Derived>::cursor(
 			const Point<N, integer>& position)
 		{
@@ -307,7 +307,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		typename LinearArrayBase<N, Type, Derived>::ConstCursor 
+		typename LinearArrayBase<N, Type, Derived>::ConstCursor
 			LinearArrayBase<N, Type, Derived>::constCursor(
 			const Point<N, integer>& position) const
 		{

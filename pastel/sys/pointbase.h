@@ -69,10 +69,10 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(N > 0);
 			}
 
-            integer size() const
-            {
-                return N;
-            }
+			integer size() const
+			{
+				return N;
+			}
 
 			//! Swaps two points.
 			void swap(Derived& that)

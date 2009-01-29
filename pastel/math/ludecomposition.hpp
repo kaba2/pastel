@@ -64,14 +64,14 @@ namespace Pastel
 		//
 		// We take the LUP-decomposition of a square matrix A as
 		// A = P^-1 LU,
-		// where 
+		// where
 		// P is a permutation matrix
 		// L is a unit lower triangular matrix
 		// U is an upper triangular matrix
 		//
 		// See the books "Introduction to algorithms" and
 		// "Numerical recipes, 3rd edition".
-		// The algorithm assumes (without loss of generality) 
+		// The algorithm assumes (without loss of generality)
 		// that the diagonal elements of L are 1. Then all the data
 		// can be stored in the same amount of space
 		// than the original matrix, for example:
@@ -121,10 +121,10 @@ namespace Pastel
 				singular_ = true;
 				return false;
 			}
-			
+
 			invLargestInRow_[i] = inverse(largestAbsValue);
 		}
-		
+
 		for (integer k = 0;k < width;++k)
 		{
 			// Find the relatively largest element
@@ -158,14 +158,14 @@ namespace Pastel
 				packedLu_[largestIndex].swap(packedLu_[k]);
 				std::swap(invLargestInRow_[largestIndex], invLargestInRow_[k]);
 				evenRowPermutation_ = !evenRowPermutation_;
-				
+
 				std::swap(rowPermutation_[largestIndex], rowPermutation_[k]);
 			}
 
 			for (integer i = k + 1;i < height;++i)
 			{
 				// Rather than make the rest of the column k
-				// zero, like in normal Gaussian elimination, 
+				// zero, like in normal Gaussian elimination,
 				// we divide it by lu(k, k) so
 				// that it ends up containing the element
 				// of the L matrix.

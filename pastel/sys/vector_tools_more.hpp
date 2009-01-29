@@ -14,12 +14,12 @@ namespace Pastel
 		const Tuple<N, integer>& permutation)
 	{
 		Vector<N, Real> result;
-		
+
 		for (integer i = 0;i < N;++i)
 		{
 			result[i] = that[permutation[i]];
 		}
-		
+
 		return result;
 	}
 
@@ -45,7 +45,7 @@ namespace Pastel
 		return index;
 	}
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	Real min(
 		const Vector<N, Real>& that)
 	{
@@ -116,7 +116,7 @@ namespace Pastel
 		return index;
 	}
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	Real max(
 		const Vector<N, Real>& that)
 	{

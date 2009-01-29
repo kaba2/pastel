@@ -142,39 +142,39 @@ namespace Pastel
 			const PropertyId<integer, Type>& key,
 			ConstMemoryView<Type>& view) const;
 
-        //! Pre-allocates the given number of vertex data.
-        /*!
-        References to vertex data are invalidated every time
-        an internal data reallocation happens. By pre-allocating
-        memory, you are able to avoid the reallocation.
-        */
-        void reserveVertices(integer vertices);
+		//! Pre-allocates the given number of vertex data.
+		/*!
+		References to vertex data are invalidated every time
+		an internal data reallocation happens. By pre-allocating
+		memory, you are able to avoid the reallocation.
+		*/
+		void reserveVertices(integer vertices);
 
-        //! Pre-allocates the given number of half-edge data.
-        /*!
-        References to half-edge data are invalidated every time
-        an internal data reallocation happens. By pre-allocating
-        memory, you are able to avoid the reallocation.
-        */
-        void reserveHalfs(integer halfs);
+		//! Pre-allocates the given number of half-edge data.
+		/*!
+		References to half-edge data are invalidated every time
+		an internal data reallocation happens. By pre-allocating
+		memory, you are able to avoid the reallocation.
+		*/
+		void reserveHalfs(integer halfs);
 
-        //! Pre-allocates the given number of edge data.
-        /*!
-        References to edge data are invalidated every time
-        an internal data reallocation happens. By pre-allocating
-        memory, you are able to avoid the reallocation.
-        */
-        void reserveEdges(integer edges);
+		//! Pre-allocates the given number of edge data.
+		/*!
+		References to edge data are invalidated every time
+		an internal data reallocation happens. By pre-allocating
+		memory, you are able to avoid the reallocation.
+		*/
+		void reserveEdges(integer edges);
 
-        //! Pre-allocates the given number of polygon data.
-        /*!
-        References to polygon data are invalidated every time
-        an internal data reallocation happens. By pre-allocating
-        memory, you are able to avoid the reallocation.
-        */
-        void reservePolygons(integer polygons);
+		//! Pre-allocates the given number of polygon data.
+		/*!
+		References to polygon data are invalidated every time
+		an internal data reallocation happens. By pre-allocating
+		memory, you are able to avoid the reallocation.
+		*/
+		void reservePolygons(integer polygons);
 
-    protected:
+	protected:
 		void constructVertex(EntityData* data);
 		void destructVertex(EntityData* data);
 		void constructHalf(EntityData* data);
@@ -183,7 +183,7 @@ namespace Pastel
 		void destructEdge(EntityData* data);
 		void constructPolygon(EntityData* data);
 		void destructPolygon(EntityData* data);
-	
+
 	private:
 		IndexAllocator vertexIndices_;
 		IndexAllocator halfIndices_;

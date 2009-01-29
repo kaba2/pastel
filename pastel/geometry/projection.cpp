@@ -9,12 +9,12 @@ namespace Pastel
 		const AlignedBox2& window,
 		const real& zMin,
 		const real& zMax,
-        Matrix4& matrix)
+		Matrix4& matrix)
 	{
 		/*
 		To find the transformation to the
 		space [-1, 1]^3 we proceed as follows.
-		
+
 		First, the space has to be sheared in
 		the x-direction along z such that the
 		ray from the origin to window center
@@ -25,7 +25,7 @@ namespace Pastel
 		k_x zMin = -(xMax + xMin) / 2
 		=>
 		k_x = -(xMax + xMin) / (2 zMin)
-	
+
 		Similarly for x-direction:
 
 		k_y = -(yMax + yMin) / (2 zMin)
@@ -33,10 +33,10 @@ namespace Pastel
 		These two shears can be combined
 		into the same matrix:
 
-		      [1,     0, 0, 0]
+			  [1,     0, 0, 0]
 		V_1 = [0,     1, 0, 0]
-		      [k_x, k_y, 1, 0]
-		      [0,     0, 0, 1]
+			  [k_x, k_y, 1, 0]
+			  [0,     0, 0, 1]
 
 		Next, we want to scale the view window
 		to the [-1, 1]^2 range. Let
@@ -44,27 +44,27 @@ namespace Pastel
 		s_y = 2 / (yMax - yMin)
 		Then that matrix would be:
 
-		    [s_x,   0, 0, 0]
+			[s_x,   0, 0, 0]
 		S = [  0, s_y, 0, 0]
-		    [  0,   0, 1, 0]
-		    [  0,   0, 0, 1]
+			[  0,   0, 1, 0]
+			[  0,   0, 0, 1]
 
 		Combining with the previous matrix we have:
 
 		V_2 = K S = [    s_x,       0, 0, 0]
-		            [      0,     s_y, 0, 0]
-			        [k_x s_x, k_y s_y, 1, 0]
-			        [      0,       0, 0, 1]
+					[      0,     s_y, 0, 0]
+					[k_x s_x, k_y s_y, 1, 0]
+					[      0,       0, 0, 1]
 
-		We want the homogeneous screen z, z_h, 
+		We want the homogeneous screen z, z_h,
 		to be related to the world z, z_w by:
 		z_h = a / z_w + b
 		(since this gives a quantity that can be
 		used for hidden surface removal and which
-		can be linearly interpolated in screen 
+		can be linearly interpolated in screen
 		space without perspective correction).
-		
-		In this mapping, we want that 
+
+		In this mapping, we want that
 		zMin maps to -1 and zMax maps to 1:
 		a / zMin + b = -1
 		a / zMax + b = 1
@@ -78,26 +78,26 @@ namespace Pastel
 		b = 1 + 2 zMin / (zMax - zMin)
 		  = (zMax + zMin) / (zMax - zMin)
 
-	    However, we can't model the z transformation
+		However, we can't model the z transformation
 		with just affine transformations because
 		of the division. So first we must multiply
 		the points with the z, we get:
 
 		V_3 = [    s_x zMin,            0,      0, 0]
-		      [           0,     s_y zMin,      0, 0]
+			  [           0,     s_y zMin,      0, 0]
 			  [k_x s_x zMin, k_y s_y zMin,      1, 1]
 			  [           0,            0,      0, 0]
 
-	    Now we can apply the z transform:
+		Now we can apply the z transform:
 
 		V_3 = [    s_x zMin,            0,      0, 0]
-		      [           0,     s_y zMin,      0, 0]
+			  [           0,     s_y zMin,      0, 0]
 			  [k_x s_x zMin, k_y s_y zMin,      b, 1]
 			  [           0,            0,      a, 0]
 
-	    Which expands into:
+		Which expands into:
 
-		    = [      (2 zMin) / (xMax - xMin),                              0,                              0, 0]
+			= [      (2 zMin) / (xMax - xMin),                              0,                              0, 0]
 			  [                             0,       (2 zMin) / (yMax - yMin),                              0, 0]
 			  [-(xMax + xMin) / (xMax - xMin), -(yMax + yMin) / (yMax - yMin),  (zMax + zMin) / (zMax - zMin), 1]
 			  [                             0,                              0, (-2 zMin zMax) / (zMax - zMin), 0]
@@ -129,8 +129,8 @@ namespace Pastel
 	PASTELGEOMETRY void setOrthogonalProjection(
 		const AlignedBox2& window,
 		const real& zMin,
-        const real& zMax,
-        Matrix4& matrix)
+		const real& zMax,
+		Matrix4& matrix)
 	{
 		ENSURE2(zMin < zMax, zMax, zMin);
 
@@ -162,16 +162,16 @@ namespace Pastel
 		given by:
 
 		[u, v, 1] [A D G] = [x, y, w]
-		          [B E H]
+				  [B E H]
 				  [C F 1]
 
-	    That is:
+		That is:
 
 		x = uA + vB + C
 		y = uD + vE + F
 		w = uG + vH + 1
 
-	    The projected points are then given by:
+		The projected points are then given by:
 
 		x' = x / w = (uA + vB + C) / (uG + vH + 1)
 		y' = y / w = (uD + vE + F) / (uG + vH + 1)
@@ -179,7 +179,7 @@ namespace Pastel
 		If he have four transformation point pairs, then
 		we can deduce the 8 variables in the transformation.
 		We get 4 linear equations of the form:
-		
+
 		x' = (uA + vB + C) / (uG + vH + 1)
 		<=>
 		uA + vB + C - u x' G - v x' H = x'
@@ -187,7 +187,7 @@ namespace Pastel
 		And 4 linear equations of the form:
 
 		y' = (uD + vE + F) / (uG + vH + 1)
-		<=> 
+		<=>
 		uD + vE + F - u y' G - v y' H = y'
 
 		These can be arranged in a matrix form as:

@@ -44,7 +44,7 @@ namespace Pastel
 		real annulusStartRadius,
 		real annulusEndRadius,
 		real annulusStartAngle,
-		real annulusEndAngle, 
+		real annulusEndAngle,
 		const View<2, Type, Image_View>& image,
 		const AlignedBox2& box,
 		const ColorMixer& colorMixer);

@@ -27,7 +27,7 @@ namespace
 
 		LinearArray<2, Color> input(extent, Color(0));
 		LinearArray<2, real32> filter(filterExtent, 1);
-		
+
 		setFilter(bartlettWindow<real32>, arrayView(filter));
 
 		saveGrayscalePcx(filter, "testconvolute_filter.pcx");
@@ -44,7 +44,7 @@ namespace
 
 		LinearArray<2, Color> output(extent);
 
-		convolute(constArrayView(input), 
+		convolute(constArrayView(input),
 			constArrayView(filter),
 			arrayView(output));
 
@@ -62,7 +62,7 @@ namespace
 
 		LinearArray<3, Color> input(extent, Color(0));
 		LinearArray<3, real32> filter(filterExtent, 1);
-		
+
 		//setFilter(bartlettWindow<real32>, arrayView(filter));
 
 		const integer points = 1000;
@@ -75,7 +75,7 @@ namespace
 
 		LinearArray<3, Color> output(extent);
 
-		convolute(constArrayView(input), 
+		convolute(constArrayView(input),
 			constArrayView(filter),
 			arrayView(output));
 

@@ -123,9 +123,9 @@ namespace
 		std::vector<Point2> modelSet;
 		modelSet.reserve(modelPoints);
 
-		AffineTransformation2 transformation = 
-			similarityTransformation(2 * randomReal(), 
-			randomReal() * 2 * constantPi<real>(), 
+		AffineTransformation2 transformation =
+			similarityTransformation(2 * randomReal(),
+			randomReal() * 2 * constantPi<real>(),
 			evaluate(randomVectorCube<2, real>() * 0.1));
 
 		std::vector<Point2> correctSet;
@@ -139,7 +139,7 @@ namespace
 				Point2(randomReal(), randomReal()));
 
 			const Point2 transformedModelPoint =
-				modelSet.back() * transformation + 
+				modelSet.back() * transformation +
 				randomVectorSphere<2, real>() * noise;
 
 			correctSet.push_back(transformedModelPoint);
@@ -194,7 +194,7 @@ namespace
 		timer.store();
 
 		log() << "Matching took " << timer.seconds() << " seconds." << logNewLine;
-		
+
 		if (success)
 		{
 			log() << "Found the model from the scene!" << logNewLine;
@@ -223,7 +223,7 @@ namespace
 
 		for (integer i = 0;i < EdgePoints;++i)
 		{
-			const real x = 
+			const real x =
 				(real)i / (EdgePoints - 1);
 
 			modelSet.push_back(
@@ -260,7 +260,7 @@ namespace
 		log() << "Angle = " << radiansToDegrees<real>(angle) << " degrees." << logNewLine;
 		log() << "Translation = (" << translation.x() << ", " << translation.y() << ")" << logNewLine;
 
-		const AffineTransformation2 transform = 
+		const AffineTransformation2 transform =
 			similarityTransformation(scaling, angle, translation);
 
 		std::vector<Point2> sceneSet;
@@ -276,21 +276,21 @@ namespace
 		{
 			sceneSet.pop_back();
 		}
-		
+
 		Timer timer;
 		timer.setStart();
 
 		Tuple<4, real> parameter;
 		const bool success = pointPatternMatch(
 			sceneSet.begin(), sceneSet.end(),
-			modelSet.begin(), modelSet.end(), 
+			modelSet.begin(), modelSet.end(),
 			1,  minDistance, PatternMatch::AbsoluteDistance,
 			parameter);
 
 		timer.store();
 
 		log() << "Matching took " << timer.seconds() << " seconds." << logNewLine;
-		
+
 		if (success)
 		{
 			log() << "Found the model from the scene!" << logNewLine;

@@ -25,7 +25,7 @@ namespace Pastel
 			{
 				Pastel::transform(arrayView(image), transform_);
 			}
-		
+
 		private:
 			const TransformFunctor& transform_;
 		};
@@ -34,7 +34,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename TransformFunctor>
 	void transform(
-		RipMap<N, Type>& ripMap, 
+		RipMap<N, Type>& ripMap,
 		const TransformFunctor& transform)
 	{
 		Detail_RipMapTransform::Visitor<N, Type, TransformFunctor> visitor(transform);

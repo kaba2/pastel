@@ -14,15 +14,15 @@ namespace Pastel
 	in the range [0, 1]. However, we don't restrict the
 	usage. This filter is interpolatory. It is equivalent to
 	MitchellFilter(0, negativeLobeness * (3 / 2)). However,
-	this implementation is more efficient. 
-	
+	this implementation is more efficient.
+
 	The default	value for 'negativeLobeness' comes from the
 	experiments of Mitchell and Netravali where they
-	concluded that the (subjectively) best filters lie 
+	concluded that the (subjectively) best filters lie
 	on the line 2C + B = 1.	Here B = 0 and C = negativeLobeness * (3 / 2),
-	from which the result follows. Coincidentally, this default 
+	from which the result follows. Coincidentally, this default
 	parameter gives a filter that is almost identical to LanczosFilter(2).
-	*/	
+	*/
 	class PASTELGFX CubicFilter
 		: public Filter
 	{

@@ -10,13 +10,13 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real closest(
-        const Segment<N, Real>& segment,
+		const Segment<N, Real>& segment,
 		const Point<N, Real>& point)
 	{
 		const Vector<N, Real> delta(segment.end() - segment.start());
 
-        Real t = dot(point - segment.start(), delta) / 
-            dot(delta, delta);
+		Real t = dot(point - segment.start(), delta) /
+			dot(delta, delta);
 
 		if (t < 0)
 		{

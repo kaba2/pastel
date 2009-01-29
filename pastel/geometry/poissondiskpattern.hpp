@@ -93,7 +93,7 @@ namespace Pastel
 		const Real invDiagonal = std::sqrt((Real)N / minDistance2);
 
 		const Vector<N, Real> windowDelta = window.max() - window.min();
-		const Vector<N, integer> extent = 
+		const Vector<N, integer> extent =
 			ceil(windowDelta * invDiagonal);
 
 		const Vector<N, Real> invVoxelDelta = Vector<N, Real>(extent) / windowDelta;
@@ -150,8 +150,8 @@ namespace Pastel
 					// Generate a new point from the annulus
 					// around the active point.
 
-					const Point<N, Real> newPoint = 
-						activePoint + 
+					const Point<N, Real> newPoint =
+						activePoint +
 						randomVectorAnnulus<N, Real>(
 						minDistance, 2 * minDistance);
 

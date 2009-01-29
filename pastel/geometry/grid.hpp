@@ -51,7 +51,7 @@ namespace Pastel
 			Cell(data_.end(), data_.end()));
 	}
 
-    template <int N, typename Real, typename Object>
+	template <int N, typename Real, typename Object>
 	Grid<N, Real, Object>& Grid<N, Real, Object>::operator=(
 		const Grid& that)
 	{
@@ -73,7 +73,7 @@ namespace Pastel
 	void Grid<N, Real, Object>::clear()
 	{
 		data_.clear();
-        cellArray_.clear();
+		cellArray_.clear();
 		bound_ = AlignedBox<N, Real>();
 		inverseBucketDimensions_.set(0);
 	}
@@ -99,7 +99,7 @@ namespace Pastel
 	template <int N, typename Real, typename Object>
 	template <typename BoundFunctor>
 	void Grid<N, Real, Object>::insert(
-		const Object& object, 
+		const Object& object,
 		const BoundFunctor& boundFunctor)
 	{
 		insert(object, boundFunctor(object));
@@ -107,10 +107,10 @@ namespace Pastel
 
 	template <int N, typename Real, typename Object>
 	void Grid<N, Real, Object>::insert(
-		const Object& object, 
+		const Object& object,
 		const AlignedBox<N, Real>& objectBound)
 	{
-		const Rectangle<N> objectRegion = 
+		const Rectangle<N> objectRegion =
 			nodesAt(objectBound);
 
 		InsertFunctor insertFunctor(data_, object);
@@ -180,9 +180,9 @@ namespace Pastel
 	{
 		if (anyLess(index, 0) ||
 			anyGreaterEqual(asVector(index), extent()))
-        {
-            return data_.end();
-        }
+		{
+			return data_.end();
+		}
 
 		const Cell& bucket = cellArray_(index);
 		return bucket.first_;
@@ -194,9 +194,9 @@ namespace Pastel
 	{
 		if (anyLess(index, 0) ||
 			anyGreaterEqual(asVector(index), extent()))
-        {
-            return data_.end();
-        }
+		{
+			return data_.end();
+		}
 
 		const Cell& bucket = cellArray_(index);
 		if (bucket.count_ == 0)

@@ -23,39 +23,39 @@ namespace Pastel
 
 	template <int Height, int Width, typename Real>
 	void setRandomMatrix(
-        Matrix<Height, Width, Real>& matrix);
+		Matrix<Height, Width, Real>& matrix);
 
 	//! Returns a diagonal matrix with the given value.
-    /*!
-    Preconditions:
-    matrix.width() == matrix.height()
-    */
+	/*!
+	Preconditions:
+	matrix.width() == matrix.height()
+	*/
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	void setDiagonal(
-        Matrix<N, N, Real>& matrix,
+		Matrix<N, N, Real>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value);
 
 	//! Returns a diagonal matrix with elements from a vector.
-    /*!
-    Preconditions:
-    matrix.width() == matrix.height() == values.size()
-    */
+	/*!
+	Preconditions:
+	matrix.width() == matrix.height() == values.size()
+	*/
 
 	template <int N, typename Real>
 	void setDiagonal(
-        Matrix<N, N, Real>& matrix,
+		Matrix<N, N, Real>& matrix,
 		const Vector<N, Real>& values);
 
 	//! Returns a Householder matrix with v as the vector.
-    /*!
-    Preconditions:
-    matrix.width() == matrix.height() == v.size()
-    */
+	/*!
+	Preconditions:
+	matrix.width() == matrix.height() == v.size()
+	*/
 
 	template <int N, typename Real>
 	void setHouseHolder(
-        Matrix<N, N, Real>& matrix,
+		Matrix<N, N, Real>& matrix,
 		const Vector<N, Real>& v);
 
 }

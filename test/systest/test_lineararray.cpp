@@ -32,7 +32,7 @@ namespace
 
 				visitDimension<Index - 1>(
 					extent, cursor, Tag());
-				
+
 				cursor.increment<Index>();
 			}
 		}
@@ -49,7 +49,7 @@ namespace
 
 			for (integer i = 0;i < width;++i)
 			{
-				*cursor = 0;								
+				*cursor = 0;
 
 				cursor.increment<Index>();
 			}
@@ -102,7 +102,7 @@ namespace
 		REPORT1(b.depth() != 100, b.depth());
 
 		b.setExtent(0, 100, 200);
-		
+
 		REPORT1(b.width() != 0, b.width());
 		REPORT1(b.height() != 0, b.height());
 		REPORT1(b.depth() != 0, b.depth());

@@ -62,7 +62,7 @@ namespace Pastel
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
-	ConstView<N, Input_Element, ConstPermutedView<N, Input_ConstView> > 
+	ConstView<N, Input_Element, ConstPermutedView<N, Input_ConstView> >
 		constPermutedView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		const Tuple<N, integer>& permutation)
@@ -91,7 +91,7 @@ namespace Pastel
 
 		using Base::view_;
 		using Base::permutation_;
-	
+
 	public:
 		//using Base::Dimension;
 		using typename Base::ConstCursor;
@@ -114,7 +114,7 @@ namespace Pastel
 		Cursor cursor(const Point<N, integer>& position) const
 		{
 			return Cursor(view_.cursor(
-				asPoint(permute(asVector(position), permutation_))), 
+				asPoint(permute(asVector(position), permutation_))),
 				permutation_);
 		}
 	};

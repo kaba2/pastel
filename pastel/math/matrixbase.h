@@ -54,15 +54,15 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(Height > 0);
 			}
 
-            integer width() const
-            {
-                return Width;
-            }
+			integer width() const
+			{
+				return Width;
+			}
 
-            integer height() const
-            {
-                return Height;
-            }
+			integer height() const
+			{
+				return Height;
+			}
 
 			void swap(Derived& that)
 			{
@@ -115,80 +115,80 @@ namespace Pastel
 				return data_[y];
 			}
 
-            Derived& operator*=(
-                const DerivedT<Width, Width, Real>& right)
-            {
-                Derived& left = (Derived&)*this;
-                Derived copyLeft(left);
-                for (integer i = 0;i < Height;++i)
-                {
-                    for (integer j = 0;j < Width;++j)
-                    {
-                        left[i][j] = copyLeft[i][0] * right[0][j];
-                        for (integer k = 1;k < Width;++k)
-                        {
-                            left[i][j] += copyLeft[i][k] * right[k][j];
-                        }
-                    }
-                }
+			Derived& operator*=(
+				const DerivedT<Width, Width, Real>& right)
+			{
+				Derived& left = (Derived&)*this;
+				Derived copyLeft(left);
+				for (integer i = 0;i < Height;++i)
+				{
+					for (integer j = 0;j < Width;++j)
+					{
+						left[i][j] = copyLeft[i][0] * right[0][j];
+						for (integer k = 1;k < Width;++k)
+						{
+							left[i][j] += copyLeft[i][k] * right[k][j];
+						}
+					}
+				}
 
-                return left;
-            }
+				return left;
+			}
 
-            Derived& operator+=(
-                const Derived& right)
-            {
-                for (integer y = 0;y < Height;++y)
-                {
-                    data_[y] += right.data_[y];
-                }
+			Derived& operator+=(
+				const Derived& right)
+			{
+				for (integer y = 0;y < Height;++y)
+				{
+					data_[y] += right.data_[y];
+				}
 
-                return (Derived&)*this;
-            }
+				return (Derived&)*this;
+			}
 
-            Derived& operator-=(
-                const Derived& right)
-            {
-                for (integer y = 0;y < Height;++y)
-                {
-                    data_[y] -= right.data_[y];
-                }
+			Derived& operator-=(
+				const Derived& right)
+			{
+				for (integer y = 0;y < Height;++y)
+				{
+					data_[y] -= right.data_[y];
+				}
 
-                return (Derived&)*this;
-            }
+				return (Derived&)*this;
+			}
 
-            // Matrices vs scalars
+			// Matrices vs scalars
 
-            // Matrix += scalar and Matrix -= scalar are not
-            // supported because of the possibly ambiguity:
-            // it is not clear whether it should mean
-            // "add / subtract element-wise" or
-            // "add / subtract by multiples of identity matrix".
-            // For *= and /= these interpretations are equivalent.
+			// Matrix += scalar and Matrix -= scalar are not
+			// supported because of the possibly ambiguity:
+			// it is not clear whether it should mean
+			// "add / subtract element-wise" or
+			// "add / subtract by multiples of identity matrix".
+			// For *= and /= these interpretations are equivalent.
 
-            Derived& operator*=(
-                const Real& right)
-            {
-                for (integer i = 0;i < Height;++i)
-                {
-                    data_[i] *= right;
-                }
+			Derived& operator*=(
+				const Real& right)
+			{
+				for (integer i = 0;i < Height;++i)
+				{
+					data_[i] *= right;
+				}
 
-                return (Derived&)*this;
-            }
+				return (Derived&)*this;
+			}
 
-            Derived& operator/=(
-                const Real& right)
-            {
-                Real invRight(Pastel::inverse(right));
+			Derived& operator/=(
+				const Real& right)
+			{
+				Real invRight(Pastel::inverse(right));
 
-                for (integer i = 0;i < Height;++i)
-                {
-                    data_[i] *= invRight;
-                }
+				for (integer i = 0;i < Height;++i)
+				{
+					data_[i] *= invRight;
+				}
 
-                return (Derived&)*this;
-            }
+				return (Derived&)*this;
+			}
 		private:
 			// In case Height <= 0,
 			// we want to give the error message

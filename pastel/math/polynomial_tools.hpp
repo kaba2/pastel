@@ -12,13 +12,13 @@ namespace Pastel
 	void differentiate(Polynomial<Real>& that)
 	{
 		const integer n = that.size();
-		
+
 		for (integer i = 0;i < n - 1;++i)
 		{
 			that[i] = that[i + 1] * (i + 1);
 		}
 		that[n - 1] = 0;
-		
+
 		that.setSize(n - 1);
 	}
 
@@ -97,7 +97,7 @@ namespace Pastel
 		while(!result.back().zero())
 		{
 			result.push_back(
-				-remainder(result[result.size() - 2], 
+				-remainder(result[result.size() - 2],
 				result.back()));
 		}
 	}
@@ -115,13 +115,13 @@ namespace Pastel
 		integer signChanges = 0;
 		const integer n = sturm.size();
 		bool previousSign = sturm[0](max) > 0;
-		
+
 		for (integer i = 1;i < n;++i)
 		{
 			const bool sign = sturm[i](max) > 0;
 			if (sign != previousSign)
 			{
-				++signChanges;				
+				++signChanges;
 			}
 			previousSign = sign;
 		}
@@ -148,7 +148,7 @@ namespace Pastel
 		{
 			result[i] = randomReal();
 		}
-		
+
 		return result;
 	}
 
@@ -158,7 +158,7 @@ namespace Pastel
 		const Polynomial<Real>& that)
 	{
 		const integer n = that.degree();
-		
+
 		stream << "[";
 		stream << that[n];
 		for (integer i = n - 1;i >= 0;--i)

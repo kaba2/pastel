@@ -417,7 +417,7 @@ void logicHandler()
 		sprayPoints(worldMouse, SPRAY_RADIUS, SprayPoints);
 	}
 
-	findNearest(tree__, worldMouse, searchRadius__, 
+	findNearest(tree__, worldMouse, searchRadius__,
 		(real (*)(const Vector2&))norm, nearestPoints__, nearestPointSet__);
 
 	{
@@ -512,8 +512,8 @@ void timing()
 	while (iter != iterEnd)
 	{
 		findNearest(tree__, *iter,
-			infinity<real>(), 
-			(real (*)(const Vector2&))norm, 
+			infinity<real>(),
+			(real (*)(const Vector2&))norm,
 			NearestPoints, nearestPointSet__);
 		++iter;
 	}

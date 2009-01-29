@@ -148,7 +148,7 @@ namespace Pastel
 		using Base::min;
 		using Base::max;
 
-		void set(integer xMin, integer yMin, 
+		void set(integer xMin, integer yMin,
 			integer xMax, integer yMax)
 		{
 			set(IPoint2(xMin, yMin),
@@ -229,7 +229,7 @@ namespace Pastel
 		{
 		}
 
-		Rectangle(integer xMin, integer yMin, integer zMin, 
+		Rectangle(integer xMin, integer yMin, integer zMin,
 			integer xMax, integer yMax, integer zMax)
 			: Base(Point<N, integer>(xMin, yMin, zMin),
 			Point<N, integer>(xMax, yMax, zMax))
@@ -246,7 +246,7 @@ namespace Pastel
 		using Base::min;
 		using Base::max;
 
-		void set(integer xMin, integer yMin, integer zMin, 
+		void set(integer xMin, integer yMin, integer zMin,
 			integer xMax, integer yMax, integer zMax)
 		{
 			set(IPoint3(xMin, yMin, zMin),

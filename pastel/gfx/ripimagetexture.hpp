@@ -50,7 +50,7 @@ namespace Pastel
 			// Magnification: just do bilinear interpolation.
 
 			return sampleBilinear(
-				asPoint(asVector(uv) * Vector2(mostDetailedImage.extent())), 
+				asPoint(asVector(uv) * Vector2(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
@@ -85,24 +85,24 @@ namespace Pastel
 		const LinearArray<2, Type>& image11 = (*ripMap_)(level11);
 		const LinearArray<2, Type>& image01 = (*ripMap_)(level01);
 
-		const Type sample00 = 
+		const Type sample00 =
 			sampleBilinear(
 			asPoint(asVector(uv) * Vector2(image00.extent())),
 			image00, extender_);
 
-		const Type sample10 = 
+		const Type sample10 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image10.extent())), 
+			asPoint(asVector(uv) * Vector2(image10.extent())),
 			image10, extender_);
 
-		const Type sample11 = 
+		const Type sample11 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image11.extent())), 
+			asPoint(asVector(uv) * Vector2(image11.extent())),
 			image11, extender_);
 
-		const Type sample01 = 
+		const Type sample01 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image01.extent())), 
+			asPoint(asVector(uv) * Vector2(image01.extent())),
 			image01, extender_);
 
 		return linear(

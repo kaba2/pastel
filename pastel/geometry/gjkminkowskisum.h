@@ -38,7 +38,7 @@ namespace Pastel
 		{
 			PENSURE(!aShape_->empty() && !bShape_->empty());
 
-			return aShape_->support(direction) + 
+			return aShape_->support(direction) +
 				asVector(bShape_->support(direction));
 		}
 

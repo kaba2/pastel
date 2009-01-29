@@ -17,7 +17,7 @@ namespace Pastel
 	{
 		const Integer2 antiPodal = convexPolygonAntipodal(pointSet);
 
-		return std::sqrt(distance2(pointSet[antiPodal[0]], 
+		return std::sqrt(distance2(pointSet[antiPodal[0]],
 			pointSet[antiPodal[1]]));
 	}
 
@@ -27,7 +27,7 @@ namespace Pastel
 	{
 		const Integer2 antiPodal = antipodal(pointSet);
 
-		return std::sqrt(distance2(pointSet[antiPodal[0]], 
+		return std::sqrt(distance2(pointSet[antiPodal[0]],
 			pointSet[antiPodal[1]]));
 	}
 

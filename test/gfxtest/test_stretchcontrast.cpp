@@ -107,7 +107,7 @@ namespace
 
 		transform(arrayView(image), srgbToXyz);
 		transform(arrayView(image), xyzToLab);
-		
+
 		real minLightness = infinity<real>();
 		LightnessVisitor lightnessVisitor(
 			minLightness);

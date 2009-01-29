@@ -46,8 +46,8 @@ namespace Pastel
 		const Rectangle<N>& discreteRange,
 		const Point<N, integer>& discretePoint)
 	{
-		return continuousRange.min() + 
-			(Vector<N, Real>(discretePoint - discreteRange.min()) / 
+		return continuousRange.min() +
+			(Vector<N, Real>(discretePoint - discreteRange.min()) /
 			Vector<N, Real>(discreteRange.extent())) *
 			continuousRange.extent();
 	}
@@ -69,7 +69,7 @@ namespace Pastel
 		const Rectangle<N>& discreteRange,
 		const Point<N, Real>& continuousPoint)
 	{
-		return 
+		return
 			discreteRange.min() +
 			Vector<N, integer>(floor(
 			((continuousPoint - continuousRange.min()) / continuousRange.extent()) *

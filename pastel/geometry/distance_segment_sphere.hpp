@@ -12,11 +12,11 @@ namespace Pastel
 		const Segment<N, Real>& segment,
 		const Sphere<N, Real>& sphere)
 	{
-		const Real centerDistance2 = 
+		const Real centerDistance2 =
 			Pastel::distance2(segment, sphere.position());
-		const Real radius2 = 
+		const Real radius2 =
 			sphere.radius() * sphere.radius();
-		
+
 		if (centerDistance2 < radius2)
 		{
 			return 0;

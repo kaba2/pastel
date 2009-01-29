@@ -29,7 +29,7 @@ namespace Pastel
 
 		Mesh meshCopy;
 
-		UnorderedMap<DelaunayVertex, MeshVertex, 
+		UnorderedMap<DelaunayVertex, MeshVertex,
 			DelaunayVertexHash> vertexMap;
 
 		// Copy vertices and build the vertex map.
@@ -46,7 +46,7 @@ namespace Pastel
 
 				++iter;
 			}
-		}		
+		}
 
 		// Copy simplices.
 		{

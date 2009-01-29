@@ -60,7 +60,7 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& to);
 
 	//! Returns the least squares similarity transformation relating two point sets.
-	
+
 	template <typename Real>
 	Tuple<4, Real> similarityTransformation(
 		const std::vector<Point<2, Real> >& from,

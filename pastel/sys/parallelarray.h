@@ -192,21 +192,21 @@ namespace Pastel
 			const PropertyId<Key, Type>& key,
 			ConstMemoryView<Type>& view) const;
 
-        //! Expands all of the property arrays if needed.
-        /*!
-        Preconditions:
-        size >= 0
+		//! Expands all of the property arrays if needed.
+		/*!
+		Preconditions:
+		size >= 0
 
-        Time complexity: linear
-        Exception safety: basic
+		Time complexity: linear
+		Exception safety: basic
 
 		If the reservation causes a reallocation even
 		in one property array, returns true, otherwise
 		returns false.
 
-        If the requested size is smaller than the current
-        size, does nothing. Otherwise resizes to the requested size.
-        */
+		If the requested size is smaller than the current
+		size, does nothing. Otherwise resizes to the requested size.
+		*/
 		bool reserve(integer size);
 
 		//! Resizes all of the property arrays.

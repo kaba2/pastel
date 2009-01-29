@@ -20,7 +20,7 @@ namespace Pastel
 			const ConstView<N, Real, Image_ConstView>& image);
 
 		Point<N, integer> operator()() const;
-	
+
 	private:
 		class CdfElement
 		{
@@ -70,7 +70,7 @@ namespace Pastel
 				if (imageValue > 0)
 				{
 					imageSum_ += imageValue;
-					
+
 					cdf_.push_back(CdfElement(imageSum_, position));
 				}
 			}

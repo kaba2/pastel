@@ -266,7 +266,7 @@ namespace Pastel
 
 	}
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View, typename ColorMixer>
 	void drawTriangle(
 		const Triangle2& triangle,
@@ -352,12 +352,12 @@ namespace Pastel
 		real yRightDelta = 0;
 		Vector2 uvRightDelta;
 
-		const bool longLeftEdge = 
+		const bool longLeftEdge =
 			side(
 			Point2(yMidVertex.x_, yMidVertex.y_),
 			Plane2(
 			Point2(yMinVertex.x_, yMinVertex.y_),
-			cross(Point2(yMaxVertex.x_, yMaxVertex.y_) - 
+			cross(Point2(yMaxVertex.x_, yMaxVertex.y_) -
 			Point2(yMinVertex.x_, yMinVertex.y_)))) < 0;
 
 		if (longLeftEdge)
@@ -391,12 +391,12 @@ namespace Pastel
 		real xTopDelta = 0;
 		Vector2 uvTopDelta;
 
-		const bool longBottomEdge = 
+		const bool longBottomEdge =
 			side(
 			Point2(xMidVertex.x_, xMidVertex.y_),
 			Plane2(
 			Point2(xMinVertex.x_, xMinVertex.y_),
-			cross(Point2(xMaxVertex.x_, xMaxVertex.y_) - 
+			cross(Point2(xMaxVertex.x_, xMaxVertex.y_) -
 			Point2(xMinVertex.x_, xMinVertex.y_)))) < 0;
 
 		if (longBottomEdge)
@@ -431,7 +431,7 @@ namespace Pastel
 			dxLeftDy *= yLeftDeltaInv;
 			dUvLeftDy *= yLeftDeltaInv;
 		}
-		
+
 		real dxRightDy = xRightDelta;
 		Vector2 dUvRightDy = uvRightDelta;
 		if (yRightDelta != 0)
@@ -453,7 +453,7 @@ namespace Pastel
 			dyBottomDx *= xBottomDeltaInv;
 			dUvBottomDx *= xBottomDeltaInv;
 		}
-		
+
 		real dyTopDx = yTopDelta;
 		Vector2 dUvTopDx = uvTopDelta;
 		if (xTopDelta != 0)
@@ -481,11 +481,11 @@ namespace Pastel
 		{
 			const real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			const real dx = 
-				yMidVertex.x_ - 
+			const real dx =
+				yMidVertex.x_ -
 				(yMinVertex.x_ + dxLeftDy * yDelta);
-			const Vector2 dUv = 
-				yMidVertex.uv_ - 
+			const Vector2 dUv =
+				yMidVertex.uv_ -
 				(yMinVertex.uv_ + dUvLeftDy * yDelta);
 
 			const real invDx = inverse(dx);
@@ -496,10 +496,10 @@ namespace Pastel
 		{
 			const real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			const real dx = 
+			const real dx =
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
-			const Vector2 dUv = 
+			const Vector2 dUv =
 				(yMinVertex.uv_ + dUvRightDy * yDelta) -
 				yMidVertex.uv_;
 
@@ -515,11 +515,11 @@ namespace Pastel
 		{
 			const real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			const real dy = 
-				xMidVertex.y_ - 
+			const real dy =
+				xMidVertex.y_ -
 				(xMinVertex.y_ + dyBottomDx * xDelta);
-			const Vector2 dUv = 
-				xMidVertex.uv_ - 
+			const Vector2 dUv =
+				xMidVertex.uv_ -
 				(xMinVertex.uv_ + dUvBottomDx * xDelta);
 
 			const real invDy = inverse(dy);
@@ -530,10 +530,10 @@ namespace Pastel
 		{
 			const real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			const real dy = 
+			const real dy =
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
-			const Vector2 dUv = 
+			const Vector2 dUv =
 				(xMinVertex.uv_ + dUvTopDx * xDelta) -
 				xMidVertex.uv_;
 
@@ -557,7 +557,7 @@ namespace Pastel
 
 				for (integer x = xBegin;x < xEnd;++x)
 				{
-					image(x, y) = 
+					image(x, y) =
 						colorMixer(image(x, y),
 						textureSampler(uv, dUvDx, dUvDy));
 
@@ -591,7 +591,7 @@ namespace Pastel
 				dxRightDy *= yRightDeltaInv;
 				dUvRightDy *= yRightDeltaInv;
 			}
-			
+
 			// Offset the scanline to pixel rows.
 
 			const real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
@@ -615,7 +615,7 @@ namespace Pastel
 				dxLeftDy *= yLeftDeltaInv;
 				dUvLeftDy *= yLeftDeltaInv;
 			}
-			
+
 			// Offset the scanline to pixel rows.
 
 			const real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
@@ -639,7 +639,7 @@ namespace Pastel
 
 				for (integer x = xBegin;x < xEnd;++x)
 				{
-					image(x, y) = 
+					image(x, y) =
 						colorMixer(image(x, y),
 						textureSampler(uv, dUvDx, dUvDy));
 
@@ -655,7 +655,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View>
 	void drawTriangle(
 		const Triangle2& triangle,
@@ -698,7 +698,7 @@ namespace Pastel
 
 			typedef Point1 tPoint;
 			typedef Vector1 tVector;
-			
+
 			tPoint t_;
 			Point2 uv_;
 			integer index_;
@@ -748,7 +748,7 @@ namespace Pastel
 
 	}
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View, typename ColorMixer>
 	void drawTriangle(
 		const Triangle3& triangle,
@@ -764,7 +764,7 @@ namespace Pastel
 		// Except for x,y, and z, the data on the triangle
 		// must be interpolated taking perspective into account.
 		// This means that you must interpolate in the
-		// homogeneous space (u / w, v / w , 1 / w) rather 
+		// homogeneous space (u / w, v / w , 1 / w) rather
 		// than in (u, v).
 
 		// The sampling points of pixels
@@ -876,12 +876,12 @@ namespace Pastel
 		Vector2 uvRightDelta;
 		tVector tRightDelta;
 
-		const bool longLeftEdge = 
+		const bool longLeftEdge =
 			side(
 			Point2(yMidVertex.x_, yMidVertex.y_),
 			Plane2(
 			Point2(yMinVertex.x_, yMinVertex.y_),
-			cross(Point2(yMaxVertex.x_, yMaxVertex.y_) - 
+			cross(Point2(yMaxVertex.x_, yMaxVertex.y_) -
 			Point2(yMinVertex.x_, yMinVertex.y_)))) < 0;
 
 		if (longLeftEdge)
@@ -921,12 +921,12 @@ namespace Pastel
 		Vector2 uvTopDelta;
 		tVector tTopDelta;
 
-		const bool longBottomEdge = 
+		const bool longBottomEdge =
 			side(
 			Point2(xMidVertex.x_, xMidVertex.y_),
 			Plane2(
 			Point2(xMinVertex.x_, xMinVertex.y_),
-			cross(Point2(xMaxVertex.x_, xMaxVertex.y_) - 
+			cross(Point2(xMaxVertex.x_, xMaxVertex.y_) -
 			Point2(xMinVertex.x_, xMinVertex.y_)))) < 0;
 
 		if (longBottomEdge)
@@ -967,7 +967,7 @@ namespace Pastel
 			dUvLeftDy *= yLeftDeltaInv;
 			dtLeftDy *= yLeftDeltaInv;
 		}
-		
+
 		real dxRightDy = xRightDelta;
 		Vector2 dUvRightDy = uvRightDelta;
 		tVector dtRightDy = tRightDelta;
@@ -993,7 +993,7 @@ namespace Pastel
 			dUvBottomDx *= xBottomDeltaInv;
 			dtBottomDx *= xBottomDeltaInv;
 		}
-		
+
 		real dyTopDx = yTopDelta;
 		Vector2 dUvTopDx = uvTopDelta;
 		tVector dtTopDx = tTopDelta;
@@ -1026,14 +1026,14 @@ namespace Pastel
 		{
 			const real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			const real dx = 
-				yMidVertex.x_ - 
+			const real dx =
+				yMidVertex.x_ -
 				(yMinVertex.x_ + dxLeftDy * yDelta);
-			const Vector2 dUv = 
-				yMidVertex.uv_ - 
+			const Vector2 dUv =
+				yMidVertex.uv_ -
 				(yMinVertex.uv_ + dUvLeftDy * yDelta);
-			const tVector dt = 
-				yMidVertex.t_ - 
+			const tVector dt =
+				yMidVertex.t_ -
 				(yMinVertex.t_ + dtLeftDy * yDelta);
 
 			const real invDx = inverse(dx);
@@ -1045,13 +1045,13 @@ namespace Pastel
 		{
 			const real yDelta = yMidVertex.y_ - yMinVertex.y_;
 
-			const real dx = 
+			const real dx =
 				(yMinVertex.x_ + dxRightDy * yDelta) -
 				yMidVertex.x_;
-			const Vector2 dUv = 
+			const Vector2 dUv =
 				(yMinVertex.uv_ + dUvRightDy * yDelta) -
 				yMidVertex.uv_;
-			const tVector dt = 
+			const tVector dt =
 				(yMinVertex.t_ + dtRightDy * yDelta) -
 				yMidVertex.t_;
 
@@ -1069,14 +1069,14 @@ namespace Pastel
 		{
 			const real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			const real dy = 
-				xMidVertex.y_ - 
+			const real dy =
+				xMidVertex.y_ -
 				(xMinVertex.y_ + dyBottomDx * xDelta);
-			const Vector2 dUv = 
-				xMidVertex.uv_ - 
+			const Vector2 dUv =
+				xMidVertex.uv_ -
 				(xMinVertex.uv_ + dUvBottomDx * xDelta);
-			const tVector dt = 
-				xMidVertex.t_ - 
+			const tVector dt =
+				xMidVertex.t_ -
 				(xMinVertex.t_ + dtBottomDx * xDelta);
 
 			const real invDy = inverse(dy);
@@ -1088,13 +1088,13 @@ namespace Pastel
 		{
 			const real xDelta = xMidVertex.x_ - xMinVertex.x_;
 
-			const real dy = 
+			const real dy =
 				(xMinVertex.y_ + dyTopDx * xDelta) -
 				xMidVertex.y_;
-			const Vector2 dUv = 
+			const Vector2 dUv =
 				(xMinVertex.uv_ + dUvTopDx * xDelta) -
 				xMidVertex.uv_;
-			const tVector dt = 
+			const tVector dt =
 				(xMinVertex.t_ + dtTopDx * xDelta) -
 				xMidVertex.t_;
 
@@ -1111,7 +1111,7 @@ namespace Pastel
 		const Vector2 d2sDxDx = dUvDx * (dUvDx + dtDx[0]);
 		// d2sDyDx = (d/dx)(d/dy)s = d^2s/(dx dy)
 		const Vector2 d2sDyDx = dUvDy * (dUvDy + dtDy[0]);
-		
+
 		// Scan convert the bottom part.
 
 		for (integer y = yMin;y < yMid;++y)
@@ -1146,7 +1146,7 @@ namespace Pastel
 					Vector2 dsDx = dUvDx * w + asVector(uv) * dwDx;
 					Vector2 dsDy = dUvDy * w + asVector(uv) * dwDy;
 
-					image(x, y) = 
+					image(x, y) =
 						colorMixer(image(x, y),
 						textureSampler(Point2(asVector(uv) * w), dsDx, dsDy));
 
@@ -1189,7 +1189,7 @@ namespace Pastel
 				dUvRightDy *= yRightDeltaInv;
 				dtRightDy *= yRightDeltaInv;
 			}
-			
+
 			// Offset the scanline to pixel rows.
 
 			const real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
@@ -1217,7 +1217,7 @@ namespace Pastel
 				dUvLeftDy *= yLeftDeltaInv;
 				dtLeftDy *= yLeftDeltaInv;
 			}
-			
+
 			// Offset the scanline to pixel rows.
 
 			const real yOffset = ((real)yMid + 0.5) - yMidVertex.y_;
@@ -1249,7 +1249,7 @@ namespace Pastel
 				// = (d/dx) (u(x, y) / w(x, y)) * w(x, y)
 				// = [(d/dx) (u(x, y) / w(x, y))] * w(x, y) + (u(x, y) / w(x, y)) * [(d/dx) w(x, y)]
 
-				// (d/dx) w(x, y) 
+				// (d/dx) w(x, y)
 				// = (d/dx) (1 / w(x, y)) w^2(x, y)
 				// = [(d/dx) (1 / w(x, y))] w^2(x, y) + (1 / w(x, y)) (d/dx) w^2(x, y)
 				// = [(d/dx) (1 / w(x, y))] w^2(x, y) + (1 / w(x, y)) 2 w(x, y) (d/dx) w(x, y)
@@ -1267,7 +1267,7 @@ namespace Pastel
 					Vector2 dsDx = dUvDx * w + asVector(uv) * dwDx;
 					Vector2 dsDy = dUvDy * w + asVector(uv) * dwDy;
 
-					image(x, y) = 
+					image(x, y) =
 						colorMixer(image(x, y),
 						textureSampler(Point2(asVector(uv) * w), dsDx, dsDy));
 
@@ -1289,7 +1289,7 @@ namespace Pastel
 		}
 	}
 
-	template <typename Type, 
+	template <typename Type,
 		typename Image_View>
 	void drawTriangle(
 		const Triangle3& triangle,

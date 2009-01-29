@@ -78,7 +78,7 @@ namespace
 
 		log() << "Computing mipmaps..." << logNewLine;
 
-		MipMap<2, real32> mipMap(constArrayView(image), 
+		MipMap<2, real32> mipMap(constArrayView(image),
 			ArrayExtender<2, real32>(), boxFilter());
 
 		const integer images = mipMap.levels();
@@ -91,7 +91,7 @@ namespace
 		log() << "Generating points..." << logNewLine;
 
 		if (images > 1)
-		{		
+		{
 			image.setExtent(mipMap.extent());
 			clear(0, arrayView(image));
 
@@ -144,7 +144,7 @@ namespace
 
 				log() << "Computation took " << timer.seconds() << " seconds." << logNewLine;
 				saveGrayscalePcx(image, std::string("test_imagepdf2_output_") + integerToString(points) + std::string(".pcx"));
-	
+
 				stepPoints *= 10;
 			}
 		}
@@ -177,11 +177,11 @@ namespace
 				Rectangle2 bRegion = region;
 				bRegion.min()[axis] = midPoint;
 
-				const real32 aSum = 
-					summedAreaTable(clampedConstView(arrayView(summedAreaImage)), 
+				const real32 aSum =
+					summedAreaTable(clampedConstView(arrayView(summedAreaImage)),
 					AlignedBox2(aRegion.min(), aRegion.max()));
 				const real32 bSum =
-					summedAreaTable(clampedConstView(arrayView(summedAreaImage)), 
+					summedAreaTable(clampedConstView(arrayView(summedAreaImage)),
 					AlignedBox2(bRegion.min(), bRegion.max()));
 
 				const real32 aProbability = aSum / (aSum + bSum);
@@ -248,9 +248,9 @@ namespace
 				{
 					const integer axis = maxIndex(delta);
 					const real32 aProbability = probabilityTree[node];
-	
+
 					delta[axis] /= 2;
-					
+
 					if (randomReal() < aProbability)
 					{
 						node = node * 2 + 1;
@@ -281,7 +281,7 @@ namespace
 		// 48 s
 		// 176 s
 		// 27 s
-		
+
 		testTechnique1();
 		//testTechnique2();
 		//testTechnique4();

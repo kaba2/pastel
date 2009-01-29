@@ -58,7 +58,7 @@ namespace Pastel
 
 		Vector<N, Real> result;
 		Real dotResult = 0;
-		
+
 		do
 		{
 			for (integer i = 0;i < N;++i)
@@ -77,8 +77,8 @@ namespace Pastel
 	{
 		const Vector<N, Real> sphere(
 			randomVectorSphere<N, Real>());
-		
-		return sphere * std::pow(randomReal(), inverse((Real)N)); 
+
+		return sphere * std::pow(randomReal(), inverse((Real)N));
 	}
 
 	template <int N, typename Real>
@@ -90,18 +90,18 @@ namespace Pastel
 			randomVectorSphere<N, Real>());
 
 		const Real u = randomReal();
-		
+
 		return sphere * std::pow(
-			linear(std::pow(minRadius, (Real)N), std::pow(maxRadius, (Real)N), u), 
-			inverse((Real)N)); 
+			linear(std::pow(minRadius, (Real)N), std::pow(maxRadius, (Real)N), u),
+			inverse((Real)N));
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv, 
-        const PASTEL_NO_DEDUCTION(Real)& minRadius, 
-        const PASTEL_NO_DEDUCTION(Real)& maxRadius)
+		const Vector<N, Real>& uv,
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
 		PENSURE1(minRadius >= 0, minRadius);
 		PENSURE1(maxRadius >= 0, maxRadius);
@@ -125,11 +125,11 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv, 
-        const PASTEL_NO_DEDUCTION(Real)& minRadius, 
-        const PASTEL_NO_DEDUCTION(Real)& maxRadius)
+		const Vector<N, Real>& uv,
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
 		PENSURE1(minRadius >= 0, minRadius);
 		PENSURE1(maxRadius >= 0, maxRadius);
@@ -139,12 +139,12 @@ namespace Pastel
 		// for derivation.
 
 		const Real r =
-            std::sqrt(
+			std::sqrt(
 			linear(
 			minRadius * minRadius,
 			maxRadius * maxRadius,
 			uv[1]));
-		const Real theta = 
+		const Real theta =
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
@@ -152,11 +152,11 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv, 
-        const PASTEL_NO_DEDUCTION(Real)& minRadius, 
-        const PASTEL_NO_DEDUCTION(Real)& maxRadius)
+		const Vector<N, Real>& uv,
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
 		PENSURE1(minRadius >= 0, minRadius);
 		PENSURE1(maxRadius >= 0, maxRadius);
@@ -164,18 +164,18 @@ namespace Pastel
 
 		// Uniform sampling of a hyperannulus
 		// ==================================
-		// 
+		//
 		// Problem
 		// -------
-		// 
+		//
 		// Given is a uniformly distributed random variable
 		// in [0, 1]^N. Distort the random variable such
 		// that it becomes a uniformly distributed
 		// in the (r_min, r_max)-hyperannulus.
-		// 
+		//
 		// Solution
 		// --------
-		// 
+		//
 		// We will first outline the strategy. The points
 		// of the hyperannulus are best described
 		// via hyperspherical coordinates. Thus our
@@ -184,39 +184,39 @@ namespace Pastel
 		// with the range [r_min, r_max] x [0, pi]^(N - 2) x [0, 2pi].
 		// The corresponding cartesian coordinates are then get via
 		// coordinate conversion.
-		// 
+		//
 		// Here are some important definite integrals that
 		// we will be needing:
-		// 
-		// int[0..X] sin^0(x) dx 
+		//
+		// int[0..X] sin^0(x) dx
 		// = [0..X] 1
 		// = X
-		// 
-		// int[0..X] sin^1(x) dx 
-		// = [0..X] -cos(x) 
+		//
+		// int[0..X] sin^1(x) dx
+		// = [0..X] -cos(x)
 		// = 1 - cos(X)
-		// 
+		//
 		// int[0..X] sin^2(x) dx
 		// = int[0..X] 1/2 + 1/2 cos(2x) dx
 		// = (1/2)X + (1/4) int[0..X] 2 cos(2x) dx
 		// = (1/2)X + (1/4) [0..X] sin(2x)
 		// = (1/2)X + (1/4) sin(2X)
-		// 
+		//
 		// ...
-		// 
+		//
 		// int[0..X] sin^10(x) dx
 		// = -(193/256) sin(X) cos(X) + (149/128) sin(X) cos(X)^3 - (171/160) sin(X) cos(X)^5
 		// + (41/80) sin(X) cos(X)^7 - (1/10) sin(X) cos(X)^9 + (63/256) X
-		// 
+		//
 		// We begin by computing the partial volume V(R, A_1, A_2, ..., A_(N - 1)) of the hyperannulus,
 		// where (R, A_1, ..., A_(N - 1)) is a hyperspherical coordinate.
 		// Substituting R = r_max, A_1 = pi, A_2 = pi, ..., A_(N - 2) = pi, A_(N - 1) = 2 pi
 		// will give the volume of the hyperannulus. Ultimately, our main problem is to find
 		// out how the uniform random variable u_k (and u_r) must be transformed to the A_k (and R)
 		// such that the volume changes linearly with u_k (and u_r).
-		// 
+		//
 		// The partial volume is given by integrating the hyperspherical volume element:
-		// 
+		//
 		// V(R, A_1, A_2, ..., A_(N - 1))
 		// =
 		// int[r = r_min..R] r^(N - 1) *
@@ -231,56 +231,56 @@ namespace Pastel
 		// int[a_2 = 0..A_2] sin^(N - 3)(a_2) da_2 *
 		// ...
 		// int[a_(N - 2) = 0..A_(N - 2)] sin(a_(N - 2)) da_(N - 2)
-		// 
+		//
 		// Unfortunately computing V for arbitrary dimensions
-		// is hard. You can get the answer in nice form for any specific dimension, 
+		// is hard. You can get the answer in nice form for any specific dimension,
 		// however, there seems to be no structure to aid in the construction
 		// of the expression: just look at the integral for the sin^10(x) above.
 		// However, before rushing to solve this problem, note that there
 		// will be another more serious problem with higher dimensions (which
 		// can not be solved). Let us compute V for dimensions 1, 2, and 3:
-		// 
+		//
 		// V(R)
 		// = 2 (R - r_min)
-		// 
+		//
 		// V(R, A_1)
 		// = (1/2) (R^2 - r_min^2) A_1
-		// 
+		//
 		// =>
 		// V(r_max, 2pi)
 		// = pi (r_max^2 - r_min^2)
-		// 
+		//
 		// V(R, A_1, A_2)
 		// = (1/3) (R^3 - r_min^3) (1 - cos(A_1)) A_2
-		// 
+		//
 		// =>
 		// V(r_max, pi, 2pi)
 		// = (4pi/3) (r_max^3 - r_min^3)
-		// 
+		//
 		// Encouraged by the success in these dimensions, we shall
 		// try the 4-dimensional case:
-		// 
+		//
 		// V(R, A_1, A_2, A_3)
 		// = (1/4) (R^4 - r_min^4) ((1/2)A_1 + (1/4)sin(2 A_1)) (1 - cos(A_2)) A_3
-		// 
+		//
 		// We again get a closed form solution. Actually, we can get a closed form
 		// solution for any dimension, although with substantial trouble.
 		// However, note that in this 4d case A_1 is not solvable in closed form from the equation.
 		// Because higher dimensional formulas contain a similar term (and yet more complex
-		// terms), it will be the case that with higher dimensional some parameter is 
+		// terms), it will be the case that with higher dimensional some parameter is
 		// not solvable in closed form. We then conclude that
 		// this technique is not applicable to dimensions higher than 3.
-		// 
+		//
 		// Let us now proceed with the dimensions 1, 2, and 3.
 		// The technique is to substitute all parameters in V
-		// with their maximums except for one parameter. 
+		// with their maximums except for one parameter.
 		// The idea is to find out how that
 		// single parameter must be varied in order for the partial
-		// volume to change linearly. This will gives us the 
+		// volume to change linearly. This will gives us the
 		// perturbation from the hypercube to the hyperannulus.
-		// 
+		//
 		// 2d:
-		// 
+		//
 		// u_r V(r_max, 2pi) = V(R, 2pi) = pi (R^2 - r_min^2)
 		// =>
 		// u_r pi (r_max^2 - r_min^2) = pi (R^2 - r_min^2)
@@ -288,17 +288,17 @@ namespace Pastel
 		// u_r (r_max^2 - r_min^2) = (R^2 - r_min^2)
 		// =>
 		// R = sqrt(u_r (r_max^2 - r_min^2) + r_min^2)
-		// 
+		//
 		// u_1 V(r_max, 2pi) = V(r_max, A_1) = (1/2) (r_max^2 - r_min^2) A_1
 		// =>
 		// u_1 pi (r_max^2 - r_min^2) = (1/2) (r_max^2 - r_min^2) A_1
 		// =>
 		// u_1 pi = (1/2) A_1
 		// =>
-		// A_1 = 2 pi u_1 
-		// 
+		// A_1 = 2 pi u_1
+		//
 		// 3d:
-		// 
+		//
 		// u_r V(r_max, pi, 2pi) = V(R, pi, 2pi) = (4pi/3) (R^3 - r_min^3)
 		// =>
 		// u_r (4pi/3) (r_max^3 - r_min^3) = (4pi/3) (R^3 - r_min^3)
@@ -306,7 +306,7 @@ namespace Pastel
 		// u_r (r_max^3 - r_min^3) = (R^3 - r_min^3)
 		// =>
 		// R = (u_r (r_max^3 - r_min^3) + r_min^3)^(1/3)
-		// 
+		//
 		// u_1 V(r_max, pi, 2pi) = V(r_max, A_1, 2pi) = (2pi/3) (r_max^3 - r_min^3) (1 - cos(A_1))
 		// =>
 		// u_1 (4pi/3) (r_max^3 - r_min^3) = (2pi/3) (r_max^3 - r_min^3) (1 - cos(A_1))
@@ -316,50 +316,50 @@ namespace Pastel
 		// cos(A_1) = 1 - 2 u_1
 		// =>
 		// A_1 = acos(1 - 2 u_1)
-		// 
+		//
 		// u_2 V(r_max, pi, 2pi) = V(r_max, pi, A_2) = (2/3) (r_max^3 - r_min^3) A_2
 		// =>
 		// u_2 (4pi/3) (r_max^3 - r_min^3) = (2/3) (r_max^3 - r_min^3) A_2
 		// =>
 		// A_2 = 2 pi u_2
-		// 
+		//
 		// Summary
 		// -------
-		// 
-		// To distort a uniform distribution in [0, 1]^N to a 
+		//
+		// To distort a uniform distribution in [0, 1]^N to a
 		// uniform distribution in a (r_min, r_max)-hyperannulus described
 		// by hyperspherical coordinates, use the following
 		// formulas:
-		// 
+		//
 		// 2d:
-		// 
+		//
 		// Let [u_r, u_1] in [0, 1]^2.
-		// 
+		//
 		// R = sqrt(u_r (r_max^2 - r_min^2) + r_min^2)
 		// A_1 = 2 pi u_1
-		// 
+		//
 		// 3d:
-		// 
+		//
 		// Let [u_r, u_1, u_2] in [0, 1]^3.
-		// 
+		//
 		// R = (u_r (r_max^3 - r_min^3) + r_min^3)^(1/3)
 		// A_1 = acos(1 - 2 u_1)
 		// A_2 = 2 pi u_2
-		// 
+		//
 		// Higher dimensions:
-		// 
+		//
 		// There is no closed form solution.
 
-		const Real r = 
+		const Real r =
 			std::pow(
 			linear(
 			minRadius * minRadius * minRadius,
 			maxRadius * maxRadius * maxRadius,
 			uv[0]),
 			(Real)1/3);
-		const Real phi = 
+		const Real phi =
 			std::acos(1 - 2 * uv[1]);
-		const Real theta = 
+		const Real theta =
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
@@ -368,7 +368,7 @@ namespace Pastel
 
 	// uniformlySampleSimplex
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv)
@@ -376,7 +376,7 @@ namespace Pastel
 		return uv;
 	}
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv)
@@ -422,19 +422,19 @@ namespace Pastel
 			1 - uSqrt, uSqrt * uv[1]);
 	}
 
-    template <int N, typename Real>
+	template <int N, typename Real>
 	typename boost::enable_if_c<(N >= 3), Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv)
 	{
 		SmallSet<Real> uv;
 		uv.reserve(N);
-		
+
 		for (integer i = 0;i < N;++i)
 		{
 			uv.insert(uv[i]);
 		}
-		
+
 		Real previous = 0;
 
 		Vector<N, Real> simplex;
@@ -451,7 +451,7 @@ namespace Pastel
 	// uniformlySampleBall
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv)
 	{
@@ -459,7 +459,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv)
 	{
@@ -532,7 +532,7 @@ namespace Pastel
 
 	/*
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv)
 	{
@@ -540,12 +540,12 @@ namespace Pastel
 		// uniform sampling from a ball.
 		// Sampling uniformly from a ball is a special case of
 		// sampling from an annulus: the unit-ball is a
-		// (0, 1)-annulus. See the documentation for 
+		// (0, 1)-annulus. See the documentation for
 		// uniformlySampleAnnulus() for derivation.
 
 		const Real r =
-            std::sqrt(uv[1]);
-		const Real theta = 
+			std::sqrt(uv[1]);
+		const Real theta =
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
@@ -554,7 +554,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type 
+	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
 		uniformlySampleBall(
 		const Vector<N, Real>& uv)
 	{
@@ -562,17 +562,17 @@ namespace Pastel
 		// uniform sampling from a ball.
 		// Sampling uniformly from a ball is a special case of
 		// sampling from an annulus: the unit-ball is a
-		// (0, 1)-annulus. See the documentation for 
+		// (0, 1)-annulus. See the documentation for
 		// uniformlySampleAnnulus() for derivation.
 
 		// TODO: Replace this function with a generalization
 		// of the 2d low-distortion map.
 
-		const Real r = 
+		const Real r =
 			std::pow(uv[0], (Real)1/3);
-		const Real phi = 
+		const Real phi =
 			std::acos(1 - 2 * uv[1]);
-		const Real theta = 
+		const Real theta =
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
@@ -636,7 +636,7 @@ namespace Pastel
 	// uniformlySampleSphere
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type 
+	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type
 		uniformlySampleSphere(
 		const Vector<N, Real>& uv)
 	{
@@ -648,13 +648,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type 
+	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type
 		uniformlySampleSphere(
 		const Vector<N, Real>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
 		const Real z(1 - 2 * uv[1]);
-        const Real r(std::sqrt(1 - z * z));
+		const Real r(std::sqrt(1 - z * z));
 
 		const Real x(r * std::cos(phi));
 		const Real y(r * std::sin(phi));
@@ -682,7 +682,7 @@ namespace Pastel
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
 		const Real z(uv[1]);
-        const Real r(std::sqrt(1 - z * z));
+		const Real r(std::sqrt(1 - z * z));
 		const Real x(r * std::cos(phi));
 		const Real y(r * std::sin(phi));
 

@@ -20,7 +20,7 @@ namespace Pastel
 	a starting point p0,
 	an ending point p1, and
 	a radius r.
-	Then 
+	Then
 	C = {x | exists t in [0, 1]: |(p0 + t(p1 - p0)) - x| <= r}
 	Intuitively, it is the Minkowski sum of a line segment
 	and an origin centered r-radius sphere.
@@ -45,7 +45,7 @@ namespace Pastel
 
 		Point<N, Real>& start();
 		const Point<N, Real>& start() const;
-		
+
 		Point<N, Real>& end();
 		const Point<N, Real>& end() const;
 

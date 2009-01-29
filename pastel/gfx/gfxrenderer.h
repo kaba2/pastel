@@ -75,15 +75,15 @@ namespace Pastel
 		void setFilled(bool filled);
 		bool filled() const;
 		virtual void onSetFilled() {}
-		
+
 		void setColor(const Type& color);
 		Type color() const;
 		virtual void onSetColor() {}
-		
+
 		void setTexture(integer textureId);
 		integer texture() const;
 		virtual void onSetTexture() {}
-		
+
 		void setResamplingMode(ResamplingMode::Enum resamplingMode);
 		ResamplingMode::Enum resamplingMode() const;
 		virtual void onSetResamplingMode() {}

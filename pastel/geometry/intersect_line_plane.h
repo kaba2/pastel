@@ -14,10 +14,10 @@ namespace Pastel
 {
 
 	//! Finds the intersection between a line and a plane.
-    /*!
-    This algorithm works also with non-unit line direction and
-    plane normal.
-    */
+	/*!
+	This algorithm works also with non-unit line direction and
+	plane normal.
+	*/
 
 	template <int N, typename Real>
 		bool intersect(

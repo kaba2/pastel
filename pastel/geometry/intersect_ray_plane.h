@@ -14,10 +14,10 @@ namespace Pastel
 {
 
 	//! Finds the intersection between a ray and a plane.
-    /*!
-    This algorithm works also with non-unit ray direction and
-    plane normal.
-    */
+	/*!
+	This algorithm works also with non-unit ray direction and
+	plane normal.
+	*/
 
 	template <int N, typename Real>
 		bool intersect(

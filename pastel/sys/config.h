@@ -23,7 +23,7 @@ namespace Pastel
 		// Using default constructor.
 		// Using default copy constructor.
 		// Using default destructor.
-		
+
 		Config& operator=(const Config& that);
 
 		Config& operator+=(const Config& that);
@@ -55,13 +55,13 @@ namespace Pastel
 
 		template <typename Type>
 		const Type& property(const std::string& key) const;
-		
+
 		template <typename Type>
 		const Type& property(const ConstIterator& iter) const;
 
 		template <typename Type>
 		const std::vector<Type>& propertyList(const std::string& key) const;
-	
+
 		template <typename Type>
 		const std::vector<Type>& propertyList(const ConstIterator& iter) const;
 

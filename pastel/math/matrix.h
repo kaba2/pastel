@@ -32,14 +32,14 @@ namespace Pastel
 	//! A matrix.
 
 	/*!
-    You can create two kinds of matrices:
-    statically and dynamically sized.
-    Matrix<3, 4, real> is an example of
-    a statically sized matrix, while
-    Matrix<Unbounded, Unbounded, real> is
-    a dynamically sized matrix.
-    Matrices use the same algorithms independent
-    of whether they are static or dynamic sized.
+	You can create two kinds of matrices:
+	statically and dynamically sized.
+	Matrix<3, 4, real> is an example of
+	a statically sized matrix, while
+	Matrix<Unbounded, Unbounded, real> is
+	a dynamically sized matrix.
+	Matrices use the same algorithms independent
+	of whether they are static or dynamic sized.
 	*/
 
 	template <int Height, int Width, typename Real>
@@ -57,12 +57,12 @@ namespace Pastel
 		{
 		}
 
-        Matrix(integer height, integer width)
-            : Base()
-        {
-            ENSURE2(width == Width, width, Width);
-            ENSURE2(height == Height, height, Height);
-        }
+		Matrix(integer height, integer width)
+			: Base()
+		{
+			ENSURE2(width == Width, width, Width);
+			ENSURE2(height == Height, height, Height);
+		}
 
 		//! Constructs with the transpose of the given matrix.
 		Matrix(const Matrix<Width, Height, Real>& that,
@@ -76,57 +76,57 @@ namespace Pastel
 		{
 			BOOST_STATIC_ASSERT(Height > 0 || Height == Unbounded);
 			BOOST_STATIC_ASSERT(Width > 0 || Width == Unbounded);
-            BOOST_STATIC_ASSERT((Width == Unbounded && Height == Unbounded) ||
-                (Width != Unbounded && Height != Unbounded));
+			BOOST_STATIC_ASSERT((Width == Unbounded && Height == Unbounded) ||
+				(Width != Unbounded && Height != Unbounded));
 		}
 	};
 
-    template <typename Real>
+	template <typename Real>
 	class Matrix<Unbounded, Unbounded, Real>
-    {
-    public:
-        // Using default copy constructor.
-        // Using default assignment.
-        // Using default destructor.
+	{
+	public:
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
 
-        Matrix();
-        Matrix(const Matrix& that, MatrixTransposeTag);
+		Matrix();
+		Matrix(const Matrix& that, MatrixTransposeTag);
 
-        void swap(Matrix& that);
-        void clear();
+		void swap(Matrix& that);
+		void clear();
 
-        void setSize(integer height, integer width);
-        integer width() const;
-        integer height() const;
-        
-        Real& operator()(integer y, integer x);
-        const Real& operator()(integer y, integer x) const;
+		void setSize(integer height, integer width);
+		integer width() const;
+		integer height() const;
 
-        Matrix<Unbounded, Unbounded, Real>& operator*=(
-            const PASTEL_NO_DEDUCTION(Real)& that);
-        Matrix<Unbounded, Unbounded, Real>& operator/=(
-            const PASTEL_NO_DEDUCTION(Real)& that);
+		Real& operator()(integer y, integer x);
+		const Real& operator()(integer y, integer x) const;
 
-        Matrix<Unbounded, Unbounded, Real>& operator*=(const Matrix& that);
-        Matrix<Unbounded, Unbounded, Real>& operator+=(const Matrix& that);
-        Matrix<Unbounded, Unbounded, Real>& operator-=(const Matrix& that);
-              
-    private:
-        LinearArray<2, Real> data_;
-    };
+		Matrix<Unbounded, Unbounded, Real>& operator*=(
+			const PASTEL_NO_DEDUCTION(Real)& that);
+		Matrix<Unbounded, Unbounded, Real>& operator/=(
+			const PASTEL_NO_DEDUCTION(Real)& that);
 
-    template <typename Real>
+		Matrix<Unbounded, Unbounded, Real>& operator*=(const Matrix& that);
+		Matrix<Unbounded, Unbounded, Real>& operator+=(const Matrix& that);
+		Matrix<Unbounded, Unbounded, Real>& operator-=(const Matrix& that);
+
+	private:
+		LinearArray<2, Real> data_;
+	};
+
+	template <typename Real>
 	class Matrix<1, 1, Real>
 		: public Detail::MatrixBase<1, 1, Real, Matrix>
 	{
 	private:
-        enum
-        {
-            Height = 1,
-            Width = 1
-        };
+		enum
+		{
+			Height = 1,
+			Width = 1
+		};
 
-        typedef Detail::MatrixBase<Height, Width, Real,
+		typedef Detail::MatrixBase<Height, Width, Real,
 			Pastel::Matrix> Base;
 
 	public:
@@ -136,12 +136,12 @@ namespace Pastel
 		{
 		}
 
-        Matrix(integer height, integer width)
-            : Base()
-        {
-            ENSURE1(width == Width, width);
-            ENSURE1(height == Height, height);
-        }
+		Matrix(integer height, integer width)
+			: Base()
+		{
+			ENSURE1(width == Width, width);
+			ENSURE1(height == Height, height);
+		}
 
 		//! Constructs with the transpose of the given matrix.
 		Matrix(const Matrix<Height, Width, Real>& that,
@@ -181,13 +181,13 @@ namespace Pastel
 		: public Detail::MatrixBase<2, 2, Real, Matrix>
 	{
 	private:
-        enum
-        {
-            Height = 2,
-            Width = 2
-        };
+		enum
+		{
+			Height = 2,
+			Width = 2
+		};
 
-        typedef Detail::MatrixBase<Height, Width, Real,
+		typedef Detail::MatrixBase<Height, Width, Real,
 			Pastel::Matrix> Base;
 
 	public:
@@ -197,14 +197,14 @@ namespace Pastel
 		{
 		}
 
-        Matrix(integer height, integer width)
-            : Base()
-        {
-            ENSURE1(width == Width, width);
-            ENSURE1(height == Height, height);
-        }
+		Matrix(integer height, integer width)
+			: Base()
+		{
+			ENSURE1(width == Width, width);
+			ENSURE1(height == Height, height);
+		}
 
-        //! Constructs with the transpose of the given matrix.
+		//! Constructs with the transpose of the given matrix.
 		Matrix(const Matrix<2, 2, Real>& that,
 			MatrixTransposeTag tag)
 			: Base(that, tag)
@@ -252,13 +252,13 @@ namespace Pastel
 		: public Detail::MatrixBase<3, 3, Real, Matrix>
 	{
 	private:
-        enum
-        {
-            Height = 3,
-            Width = 3
-        };
+		enum
+		{
+			Height = 3,
+			Width = 3
+		};
 
-        typedef Detail::MatrixBase<Height, Width, Real,
+		typedef Detail::MatrixBase<Height, Width, Real,
 			Pastel::Matrix> Base;
 
 	public:
@@ -268,14 +268,14 @@ namespace Pastel
 		{
 		}
 
-        Matrix(integer height, integer width)
-            : Base()
-        {
-            ENSURE1(width == Width, width);
-            ENSURE1(height == Height, height);
-        }
+		Matrix(integer height, integer width)
+			: Base()
+		{
+			ENSURE1(width == Width, width);
+			ENSURE1(height == Height, height);
+		}
 
-        //! Constructs with the transpose of the given matrix.
+		//! Constructs with the transpose of the given matrix.
 		Matrix(const Matrix<3, 3, Real>& that,
 			MatrixTransposeTag tag)
 			: Base(that, tag)
@@ -337,13 +337,13 @@ namespace Pastel
 		: public Detail::MatrixBase<4, 4, Real, Matrix>
 	{
 	private:
-        enum
-        {
-            Height = 4,
-            Width = 4
-        };
+		enum
+		{
+			Height = 4,
+			Width = 4
+		};
 
-        typedef Detail::MatrixBase<Height, Width, Real,
+		typedef Detail::MatrixBase<Height, Width, Real,
 			Pastel::Matrix> Base;
 
 	public:
@@ -353,14 +353,14 @@ namespace Pastel
 		{
 		}
 
-        Matrix(integer height, integer width)
-            : Base()
-        {
-            ENSURE1(width == Width, width);
-            ENSURE1(height == Height, height);
-        }
+		Matrix(integer height, integer width)
+			: Base()
+		{
+			ENSURE1(width == Width, width);
+			ENSURE1(height == Height, height);
+		}
 
-        //! Constructs with the transpose of the given matrix.
+		//! Constructs with the transpose of the given matrix.
 		Matrix(const Matrix<4, 4, Real>& that,
 			MatrixTransposeTag tag)
 			: Base(that, tag)
@@ -443,75 +443,75 @@ namespace Pastel
 		}
 	};
 
-    typedef Matrix<Unbounded, Unbounded, real> UnboundedMatrix;
+	typedef Matrix<Unbounded, Unbounded, real> UnboundedMatrix;
 	typedef Matrix<1, 1, real> Matrix1;
 	typedef Matrix<2, 2, real> Matrix2;
 	typedef Matrix<3, 3, real> Matrix3;
 	typedef Matrix<4, 4, real> Matrix4;
 
-    // Matrices vs matrices
+	// Matrices vs matrices
 
-    template <int LeftHeight, int LeftWidth,
-        int RightWidth, typename Real>
-        Matrix<LeftHeight, RightWidth, Real> operator*(
-        const Matrix<LeftHeight, LeftWidth, Real>& left,
-        const Matrix<LeftWidth, RightWidth, Real>& right);
+	template <int LeftHeight, int LeftWidth,
+		int RightWidth, typename Real>
+		Matrix<LeftHeight, RightWidth, Real> operator*(
+		const Matrix<LeftHeight, LeftWidth, Real>& left,
+		const Matrix<LeftWidth, RightWidth, Real>& right);
 
-    template <int Height, int Width, typename Real>
-    Matrix<Height, Width, Real> operator+(
-        const Matrix<Height, Width, Real>& left,
-        const Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Matrix<Height, Width, Real> operator+(
+		const Matrix<Height, Width, Real>& left,
+		const Matrix<Height, Width, Real>& right);
 
-    template <int Height, int Width, typename Real>
-    Matrix<Height, Width, Real> operator-(
-        const Matrix<Height, Width, Real>& left,
-        const Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Matrix<Height, Width, Real> operator-(
+		const Matrix<Height, Width, Real>& left,
+		const Matrix<Height, Width, Real>& right);
 
-    // Vectors vs matrices
+	// Vectors vs matrices
 
-    template <int Height, int Width, typename Real>
-    Vector<Height, Real> operator*(
-        const Matrix<Height, Width, Real>& left,
-        const Vector<Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Vector<Height, Real> operator*(
+		const Matrix<Height, Width, Real>& left,
+		const Vector<Width, Real>& right);
 
-    template <int Height, int Width, typename Real>
-    Vector<Width, Real> operator *(
-        const Vector<Height, Real>& left,
-        const Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Vector<Width, Real> operator *(
+		const Vector<Height, Real>& left,
+		const Matrix<Height, Width, Real>& right);
 
-    // Points vs matrices
+	// Points vs matrices
 
-    template <int Height, int Width, typename Real>
-    Point<Height, Real> operator*(
-        const Matrix<Height, Width, Real>& left,
-        const Point<Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Point<Height, Real> operator*(
+		const Matrix<Height, Width, Real>& left,
+		const Point<Width, Real>& right);
 
-    template <int Height, int Width, typename Real>
-    Point<Width, Real> operator *(
-        const Point<Height, Real>& left,
-        const Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Point<Width, Real> operator *(
+		const Point<Height, Real>& left,
+		const Matrix<Height, Width, Real>& right);
 
-    // Matrices and scalars
+	// Matrices and scalars
 
-    template <int Height, int Width, typename Real>
-    Matrix<Height, Width, Real> operator*(
-        const Matrix<Height, Width, Real>& left,
-        const PASTEL_NO_DEDUCTION(Real)& right);
+	template <int Height, int Width, typename Real>
+	Matrix<Height, Width, Real> operator*(
+		const Matrix<Height, Width, Real>& left,
+		const PASTEL_NO_DEDUCTION(Real)& right);
 
-    template <int Height, int Width, typename Real>
-    Matrix<Height, Width, Real> operator/(
-        const Matrix<Height, Width, Real>& left,
-        const PASTEL_NO_DEDUCTION(Real)& right);
-    
-    template <int Height, int Width, typename Real>
-    Matrix<Height, Width, Real> operator*(
-        const PASTEL_NO_DEDUCTION(Real)& left,
-        const Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Matrix<Height, Width, Real> operator/(
+		const Matrix<Height, Width, Real>& left,
+		const PASTEL_NO_DEDUCTION(Real)& right);
 
-    template <int Height, int Width, typename Real>
-    void swap(
-        Matrix<Height, Width, Real>& left,
-        Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real>
+	Matrix<Height, Width, Real> operator*(
+		const PASTEL_NO_DEDUCTION(Real)& left,
+		const Matrix<Height, Width, Real>& right);
+
+	template <int Height, int Width, typename Real>
+	void swap(
+		Matrix<Height, Width, Real>& left,
+		Matrix<Height, Width, Real>& right);
 
 }
 

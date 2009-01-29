@@ -143,21 +143,21 @@ namespace Pastel
 		return number;
 	}
 
-    PASTELSYS std::string integerToString(integer number, 
+	PASTELSYS std::string integerToString(integer number,
 		integer digits, char padding)
-    {
+	{
 		std::stringstream stream;
 		stream << number;
-        
+
 		std::string text;
 		stream >> text;
 
-        if (!stream)
+		if (!stream)
 		{
 			log() << "integerToString: could not convert to a string"
-                << logNewLine;
+				<< logNewLine;
 		}
-		        
+
 		std::string padText;
 		if (digits > 0)
 		{
@@ -179,6 +179,6 @@ namespace Pastel
 		}
 
 		return padText + text;
-    }
+	}
 
 }

@@ -18,11 +18,11 @@ namespace Pastel
 	A mipmap is simply a collection of downsampled
 	versions of an image. As an overload of terminology,
 	the individual downsampled images are also called mipmaps.
-	
+
 	The result is an array of mipmaps, such that
 	mipMapList[0] contains the original image upsampled
-	to a square to the next power-of-two extents. 
-	Subsequently, for i > 0 mipMapList[i] contains a half-extent 
+	to a square to the next power-of-two extents.
+	Subsequently, for i > 0 mipMapList[i] contains a half-extent
 	(downsampled to half in all dimensions) version of mipMapList[i - 1].
 
 	You can choose the reconstruction filter to use
@@ -33,7 +33,7 @@ namespace Pastel
 	call 'transform(mipMap, fitColor)'.
 
 	The memory footprint of the mipmaps can be computed as follows.
-	Assume the dimensions is n and the original image is a 
+	Assume the dimensions is n and the original image is a
 	cube with side length 2^m. The memory footprint is
 
 	M(n) = sum[i = 0..m] (2^n)^i / 2^mn

@@ -29,7 +29,7 @@ namespace Pastel
 		};
 		typedef Real Real_;
 		typedef Object Object_;
-		
+
 		typedef typename ObjectContainer::const_iterator ConstObjectIterator;
 		typedef typename LinearArray<N, Cell>::ConstCursor ConstCellCursor;
 
@@ -107,7 +107,7 @@ namespace Pastel
 		*/
 		template <typename BoundFunctor>
 		void insert(
-			const Object& object, 
+			const Object& object,
 			const BoundFunctor& boundFunctor);
 
 		//! Inserts an object into the grid.
@@ -116,7 +116,7 @@ namespace Pastel
 		Time complexity: constant
 		*/
 		void insert(
-			const Object& object, 
+			const Object& object,
 			const AlignedBox<N, Real>& objectBound);
 
 		//! Inserts the points in the grid.
@@ -126,7 +126,7 @@ namespace Pastel
 		*/
 		template <typename InputIterator, typename BoundFunctor>
 		void insert(
-            const InputIterator& from,
+			const InputIterator& from,
 			const InputIterator& to,
 			const BoundFunctor& boundFunctor);
 
@@ -151,21 +151,21 @@ namespace Pastel
 		public:
 			friend class InsertFunctor;
 
-            Cell()
-                : first_()
-                , last_()
+			Cell()
+				: first_()
+				, last_()
 				, count_(0)
-            {
-            }
+			{
+			}
 
 			/*
-            Cell(const ObjectIterator& begin,
-                const ObjectIterator& end)
-                : begin_(begin)
-                , end_(end)
+			Cell(const ObjectIterator& begin,
+				const ObjectIterator& end)
+				: begin_(begin)
+				, end_(end)
 				, count_(0)
-            {
-            }
+			{
+			}
 			*/
 
 			ObjectIterator first_;
@@ -210,7 +210,7 @@ namespace Pastel
 		ObjectContainer data_;
 		LinearArray<N, Cell> cellArray_;
 		AlignedBox<N, Real> bound_;
-        Vector<N, Real> inverseBucketDimensions_;
+		Vector<N, Real> inverseBucketDimensions_;
 	};
 
 }

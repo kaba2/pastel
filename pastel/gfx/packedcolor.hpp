@@ -15,13 +15,13 @@ namespace Pastel
 		return (red << 16) + (green << 8) + blue;
 	}
 
-    inline Color colorFromX8R8G8B8(uint32 packedColor)
-    {
-        return Color(
-            (real32)((packedColor >> 16) & 0xFF) / 255,
-            (real32)((packedColor >> 8) & 0xFF) / 255,
-            (real32)((packedColor >> 0) & 0xFF) / 255);
-    }
+	inline Color colorFromX8R8G8B8(uint32 packedColor)
+	{
+		return Color(
+			(real32)((packedColor >> 16) & 0xFF) / 255,
+			(real32)((packedColor >> 8) & 0xFF) / 255,
+			(real32)((packedColor >> 0) & 0xFF) / 255);
+	}
 
 	inline uint32 colorToR5G6B5(const Color& color)
 	{

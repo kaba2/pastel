@@ -72,7 +72,7 @@ namespace Pastel
 		inline Real dot(
 		const VectorExpression<N, Real, Expression>& that);
 
-    //! Returns the dot product between vectors.
+	//! Returns the dot product between vectors.
 	/*!
 	The dot product is given by:
 	dot(left, right) = sum(left[i] * right[i])
@@ -91,7 +91,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Real>::type 
+	typename boost::enable_if_c<(N > 1), Real>::type
 		norm(const Vector<N, Real>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.
@@ -101,7 +101,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N == 1), Real>::type 
+	typename boost::enable_if_c<(N == 1), Real>::type
 		norm(const Vector<1, Real>& that);
 
 	//! Returns the Manhattan (L1) norm of a vector.
@@ -168,7 +168,7 @@ namespace Pastel
 		const Vector<3, Real>& y);
 
 	// Comparison functions
-	
+
 	//! Returns 'for all i: that[i] == that[0]'.
 
 	template <int N, typename Real>
@@ -179,14 +179,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left[i] == right'.
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left == right[i]'.
@@ -200,14 +200,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left[i] == right'.
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left == right[i]'.
@@ -221,168 +221,168 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left < right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left[i] < right'.
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left[i] > right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left > right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left[i] > right'.
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left[i] <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left[i] <= right'.
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left[i] >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'exists i: left[i] >= right'.
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] < right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left < right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left[i] < right'.
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] > right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left > right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left[i] > right'.
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left[i] <= right'.
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const PASTEL_NO_DEDUCTION(Real)& left, 
+		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Vector<N, Real>& right);
 
 	//! Returns 'for all i: left[i] >= right'.
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Vector<N, Real>& left, 
+		const Vector<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 }

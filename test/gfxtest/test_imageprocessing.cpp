@@ -130,7 +130,7 @@ namespace
 		const integer height = 500;
 
 		LinearArray<2, bool> image(width, height, false);
-		
+
 		ImageGfxRenderer<bool> renderer(&image);
 
 		renderer.setColor(true);
@@ -139,9 +139,9 @@ namespace
 		drawCircle(renderer, Sphere2(Point2(0), 0.5), 50);
 
 		LinearArray<2, bool> element(31, 21, false);
-		
+
 		ImageGfxRenderer<bool> elementRenderer(&element);
-		
+
 		elementRenderer.setColor(true);
 		elementRenderer.setFilled(true);
 

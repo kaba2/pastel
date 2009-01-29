@@ -34,7 +34,7 @@ namespace Pastel
 		//! Returns the degree of the polynomial.
 		/*!
 		The degree of the polynomial is defined
-		as the greatest index such that 
+		as the greatest index such that
 		abs(that[i]) > epsilon.
 		If no such index is found, the degree of the
 		polynomial is 0.

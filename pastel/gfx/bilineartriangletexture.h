@@ -29,12 +29,12 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Point2& p, 
-			const Vector2& dpdx, 
+			const Point2& p,
+			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{
 			const Vector3 bary = barycentric(p);
-			
+
 			Type result(0);
 
 			for (integer i = 0;i < 3;++i)

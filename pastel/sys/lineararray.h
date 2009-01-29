@@ -116,7 +116,7 @@ namespace Pastel
 
 		LinearArray(
 			const LinearArray<N, Type>& that,
-			integer width, 
+			integer width,
 			const Type& defaultData = Type())
 			: Base(that, Vector<N, integer>(width), defaultData)
 		{

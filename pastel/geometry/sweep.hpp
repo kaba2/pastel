@@ -60,7 +60,7 @@ namespace Pastel
 
 		std::vector<Point<2, Real> > sweepResult;
 		sweepResult.reserve(points + 2);
-				
+
 		integer i = breakPoint[0];
 		while(i != breakPoint[1])
 		{
@@ -77,7 +77,7 @@ namespace Pastel
 
 		while(i != breakPoint[0])
 		{
-			sweepResult.push_back(segment.end() + asVector(pen[i]));			
+			sweepResult.push_back(segment.end() + asVector(pen[i]));
 
 			++i;
 			if (i == points)

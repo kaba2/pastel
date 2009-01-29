@@ -18,7 +18,7 @@ namespace Pastel
 	{
 		AdaptedArray<2, Color, Type, Adapter> abstractImage(
 			image, adapter);
-		
+
 		return loadPcx(fileName, abstractImage);
 	}
 
@@ -31,7 +31,7 @@ namespace Pastel
 	{
 		AdaptedArray<2, uint8, Type, Adapter> abstractImage(
 			image, adapter);
-		
+
 		return loadIndexedPcx(fileName, abstractImage, colorPalette);
 	}
 

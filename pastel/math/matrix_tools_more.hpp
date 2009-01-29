@@ -100,12 +100,12 @@ namespace Pastel
 			return;
 		}
 
-        const integer width = matrix.width();
+		const integer width = matrix.width();
 
-        for (integer i = 0;i < width;++i)
-        {
-            std::swap(matrix(aRow, i), matrix(bRow, i));
-        }
+		for (integer i = 0;i < width;++i)
+		{
+			std::swap(matrix(aRow, i), matrix(bRow, i));
+		}
 	}
 
 	template <int Height, int Width, typename Real>
@@ -121,7 +121,7 @@ namespace Pastel
 			return;
 		}
 
-        const integer height = matrix.height();
+		const integer height = matrix.height();
 
 		for (integer i = 0;i < height;++i)
 		{
@@ -141,37 +141,37 @@ namespace Pastel
 	void transponate(
 		Matrix<Height, Width, Real>& matrix)
 	{
-        const integer width = matrix.width();
-        const integer height = matrix.height();
+		const integer width = matrix.width();
+		const integer height = matrix.height();
 
 		using std::swap;
 
-        for (integer y = 0;y < height;++y)
-        {
-            for (integer x = y + 1;x < width;++x)
-            {
-                swap(matrix(y, x), matrix(x, y));
-            }
-        }
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = y + 1;x < width;++x)
+			{
+				swap(matrix(y, x), matrix(x, y));
+			}
+		}
 	}
 
-    // General inversion algorithm for NxN matrices.
+	// General inversion algorithm for NxN matrices.
 
 	template <int N, typename Real>
 	Matrix<N, N, Real> inverse(
 		const Matrix<N, N, Real>& a)
 	{
-		// The linear system is solved by 
+		// The linear system is solved by
 		// Gaussian elimination with back-substitution
 		// and partial pivoting.
 
-        const integer width = a.width();
-        const integer height = a.height();
+		const integer width = a.width();
+		const integer height = a.height();
 
-        if (width != height)
-        {
-            return Matrix<N, N, Real>();
-        }
+		if (width != height)
+		{
+			return Matrix<N, N, Real>();
+		}
 
 		Matrix<N, N, Real> a2(a);
 		Matrix<N, N, Real> b2(height, width);
@@ -395,106 +395,106 @@ namespace Pastel
 		const Matrix<N, N, Real>& a,
 		const Vector<N, Real>& b)
 	{
-        // The linear system is solved by 
-        // Gaussian elimination with back-substitution
-        // and partial pivoting.
+		// The linear system is solved by
+		// Gaussian elimination with back-substitution
+		// and partial pivoting.
 
-        const integer width = a.width();
-        const integer height = a.height();
+		const integer width = a.width();
+		const integer height = a.height();
 
-        Matrix<N, N, Real> a2(a);
-        Vector<N, Real> b2(b);
+		Matrix<N, N, Real> a2(a);
+		Vector<N, Real> b2(b);
 
-        // Reduce the system
-        // ax = b
-        // to the system
-        // a'x = b'
-        // where a' is lower triangular
+		// Reduce the system
+		// ax = b
+		// to the system
+		// a'x = b'
+		// where a' is lower triangular
 		// (and 1's on the diagonal).
 
-        for (integer row = 0;row < height;++row)
-        {
-            // From this row, find the element with
-            // the maximum absolute value (with column >= row).
+		for (integer row = 0;row < height;++row)
+		{
+			// From this row, find the element with
+			// the maximum absolute value (with column >= row).
 
-            const integer currentColumn = row;
+			const integer currentColumn = row;
 
-            integer maxAbsColumn = currentColumn;
-            Real maxAbsValue = std::abs(a2(row, currentColumn));
-            for (integer column = currentColumn + 1;column < width;++column)
-            {
-                const Real currentAbsValue = std::abs(a2(row, column));
-                if (currentAbsValue > maxAbsValue)
-                {
-                    maxAbsColumn = column;
-                    maxAbsValue = currentAbsValue;
-                }
-            }
+			integer maxAbsColumn = currentColumn;
+			Real maxAbsValue = std::abs(a2(row, currentColumn));
+			for (integer column = currentColumn + 1;column < width;++column)
+			{
+				const Real currentAbsValue = std::abs(a2(row, column));
+				if (currentAbsValue > maxAbsValue)
+				{
+					maxAbsColumn = column;
+					maxAbsValue = currentAbsValue;
+				}
+			}
 
-            // Now swap columns (if necessary) so that the maximum
-            // absolute value will be at (row, row).
+			// Now swap columns (if necessary) so that the maximum
+			// absolute value will be at (row, row).
 
-            if (maxAbsColumn != currentColumn)
-            {
-                using std::swap;
+			if (maxAbsColumn != currentColumn)
+			{
+				using std::swap;
 
-                for (integer i = row;i < height;++i)
-                {
-                    swap(a2(i, currentColumn), a2(i, maxAbsColumn));
-                }
+				for (integer i = row;i < height;++i)
+				{
+					swap(a2(i, currentColumn), a2(i, maxAbsColumn));
+				}
 
-                swap(b2[currentColumn], b2[maxAbsColumn]);
-            }
+				swap(b2[currentColumn], b2[maxAbsColumn]);
+			}
 
-            // Scale the column 'currentColumn'
-            // such that the value at (row, currentColumn) becomes 1.
+			// Scale the column 'currentColumn'
+			// such that the value at (row, currentColumn) becomes 1.
 
-            const Real invValue = inverse(a2(row, currentColumn));
+			const Real invValue = inverse(a2(row, currentColumn));
 
-            a2(row, currentColumn) = 1;
-            for (integer j = row + 1;j < height;++j)
-            {
-                a2(j, currentColumn) *= invValue;
-            }
+			a2(row, currentColumn) = 1;
+			for (integer j = row + 1;j < height;++j)
+			{
+				a2(j, currentColumn) *= invValue;
+			}
 
-            b2[currentColumn] *= invValue;
+			b2[currentColumn] *= invValue;
 
-            // Use the column 'currentColumn' to clear out the
-            // matrix to zero for the rest of the row.
+			// Use the column 'currentColumn' to clear out the
+			// matrix to zero for the rest of the row.
 
-            for (integer column = row + 1;column < width;++column)
-            {
-                const Real value = a2(row, column);
-                a2(row, column) = 0;
-                for (integer j = row + 1;j < N;++j)
-                {
-                    a2(j, column) -= a2(j, currentColumn) * value;
-                }
+			for (integer column = row + 1;column < width;++column)
+			{
+				const Real value = a2(row, column);
+				a2(row, column) = 0;
+				for (integer j = row + 1;j < N;++j)
+				{
+					a2(j, column) -= a2(j, currentColumn) * value;
+				}
 
-                b2[column] -= b2[currentColumn] * value;
-            }
-        }
+				b2[column] -= b2[currentColumn] * value;
+			}
+		}
 
-        // Now the system is of the form:
-        // a'x = b'
-        // Where a' is lower triangular
+		// Now the system is of the form:
+		// a'x = b'
+		// Where a' is lower triangular
 		// (and 1's on the diagonal).
 
-        // Use back substitution to solve for x.
+		// Use back substitution to solve for x.
 
-        for (integer row = height - 1;row >= 1;--row)
-        {
-            const integer currentColumn = row;
+		for (integer row = height - 1;row >= 1;--row)
+		{
+			const integer currentColumn = row;
 
-            const Real value = b2[currentColumn];
+			const Real value = b2[currentColumn];
 
-            for (integer column = currentColumn - 1; column >= 0;--column)
-            {
-                b2[column] -= a2(row, column) * value;
-            }
-        }
+			for (integer column = currentColumn - 1; column >= 0;--column)
+			{
+				b2[column] -= a2(row, column) * value;
+			}
+		}
 
-        return b2;
+		return b2;
 	}
 
 	template <typename Real>
@@ -502,7 +502,7 @@ namespace Pastel
 		const Matrix<1, 1, Real>& a,
 		const Vector<1, Real>& b)
 	{
-        return b * inverse(a(0, 0));
+		return b * inverse(a(0, 0));
 	}
 
 	template <typename Real>
@@ -510,37 +510,37 @@ namespace Pastel
 		const Matrix<2, 2, Real>& a,
 		const Vector<2, Real>& b)
 	{
-        // Using Cramers rule
-        
-        const Real det = a(0, 0) * a(1, 1) - a(0, 1) * a(1, 0);
-        const Real invDet = inverse(det);
+		// Using Cramers rule
 
-        const Real det0 = b[0] * a(1, 1) - b[1] * a(1, 0);
-        const Real det1 = a(0, 0) * b[1] - a(0, 1) * b[0];
+		const Real det = a(0, 0) * a(1, 1) - a(0, 1) * a(1, 0);
+		const Real invDet = inverse(det);
 
-        return Vector<2, Real>(det0 * invDet, det1 * invDet);
+		const Real det0 = b[0] * a(1, 1) - b[1] * a(1, 0);
+		const Real det1 = a(0, 0) * b[1] - a(0, 1) * b[0];
+
+		return Vector<2, Real>(det0 * invDet, det1 * invDet);
 	}
 
-    template <int N, int M, typename Real>
-    Vector<N, Real> solveBandedLinearSystem(
-        const Matrix<N, M, Real>& a,
-        integer leftBandWidth,
-        integer rightBandWidth,
-        const Vector<N, Real>& b)
-    {
-        ENSURE1(leftBandWidth >= 0, leftBandWidth);
-        ENSURE1(rightBandWidth >= 0, rightBandWidth);
+	template <int N, int M, typename Real>
+	Vector<N, Real> solveBandedLinearSystem(
+		const Matrix<N, M, Real>& a,
+		integer leftBandWidth,
+		integer rightBandWidth,
+		const Vector<N, Real>& b)
+	{
+		ENSURE1(leftBandWidth >= 0, leftBandWidth);
+		ENSURE1(rightBandWidth >= 0, rightBandWidth);
 
-        const integer width = a.width();
-        const integer height = a.height();
+		const integer width = a.width();
+		const integer height = a.height();
 
-        const integer bandWidth = 
-            leftBandWidth + rightBandWidth + 1;
+		const integer bandWidth =
+			leftBandWidth + rightBandWidth + 1;
 
-        ENSURE2(bandWidth == width, bandWidth, width);
+		ENSURE2(bandWidth == width, bandWidth, width);
 
-        return Vector<N, Real>();
-    }
+		return Vector<N, Real>();
+	}
 
 }
 

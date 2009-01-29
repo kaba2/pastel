@@ -19,13 +19,13 @@ namespace Pastel
 		integer operator()(integer index,
 			integer width) const
 		{
-            /*
+			/*
 			const integer periodicIndex = mod(index, 2 * width);
 			if (periodicIndex >= width)
 			{
 				return (2 * width - 1) - periodicIndex;
 			}
-            */
+			*/
 
 			const integer periodicIndex = mod(index, 2 * (width - 1));
 			if (periodicIndex >= width)
@@ -33,7 +33,7 @@ namespace Pastel
 				return (2 * (width - 1)) - periodicIndex;
 			}
 
-            return periodicIndex;
+			return periodicIndex;
 		}
 	};
 

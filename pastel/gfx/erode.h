@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-    //! Erodes the given image with another image.
+	//! Erodes the given image with another image.
 
 	template <
 		typename Input_ConstView,

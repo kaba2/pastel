@@ -1,4 +1,4 @@
-/*! 
+/*!
 \file
 \brief A function for testing overlap between two alignedBoxs.
 */
@@ -25,11 +25,11 @@ namespace Pastel
 	//! Tests if two moving aligned boxes overlap.
 	/*!
 	The boxes move linearly with a constant velocity.
-	
+
 	intersectionRange:
 	In case the aligned boxes will overlap at some instants,
 	the first and last time of intersection
-	
+
 	returns:
 	if the aligned boxes will overlap
 	*/

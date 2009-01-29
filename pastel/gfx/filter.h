@@ -18,10 +18,10 @@ namespace Pastel
 	/*!
 	This class represents different kinds of 1-dimensional
 	reconstruction filters. The usage of this class is extended
-	to higher dimensions by giving it a radial distance instead 
+	to higher dimensions by giving it a radial distance instead
 	(for radially symmetric filters) or using it for each
 	dimension separately (for separable filters). This class
-	would be more properly named a 'ReconstructionFilter'. 
+	would be more properly named a 'ReconstructionFilter'.
 	However, this leads to too long names and thus I decided
 	to leave this semantic information in the documentation.
 	*/

@@ -32,7 +32,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~GjkAffineTransformation() 
+		virtual ~GjkAffineTransformation()
 		{
 		}
 

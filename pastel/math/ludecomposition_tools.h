@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void solveLinearSystem(
-		const LuDecomposition<N, Real>& lu, 
+		const LuDecomposition<N, Real>& lu,
 		const Vector<N, Real>& b,
 		Vector<N, Real>& result);
 

@@ -19,7 +19,7 @@ namespace Pastel
 
 	An element can report it's group in constant time,
 	but taking the union of two groups takes linear time.
-	
+
 	Disjoint-set forests seem to offer more efficient
 	operations. However, it can't
 	1) remove elements
@@ -48,7 +48,7 @@ namespace Pastel
 
 		typedef typename ElementContainer::iterator ElementIterator;
 		typedef typename ElementContainer::const_iterator ConstElementIterator;
-		
+
 		// Elements
 
 		//! Constructs an empty structure.
@@ -92,7 +92,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		ElementIterator elementBegin();
-		
+
 		//! Returns an iterator to the beginning of the element list.
 		/*!
 		Time complexity: constant
@@ -198,9 +198,9 @@ namespace Pastel
 		destroyed in the process.
 		It is not specified which one.
 
-		Time complexity: 
+		Time complexity:
 		linear in the number of elements of the smaller group
-		Exception safety: 
+		Exception safety:
 		nothrow
 		*/
 		GroupIterator merge(
@@ -320,7 +320,7 @@ namespace Pastel
 			{
 				return first_;
 			}
-			
+
 			ConstElementIterator begin() const
 			{
 				return first_;

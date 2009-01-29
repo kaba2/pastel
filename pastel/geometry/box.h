@@ -17,7 +17,7 @@ namespace Pastel
 	//! An oriented box.
 
 	/*!
-	An oriented box B is described by a position p, 
+	An oriented box B is described by a position p,
 	an orthonormal n-tuple of vectors n_i and an n-tuple of
 	half-widths h_i:
 	B = {p + sum(i)(x_i * n_i) | -h_i <= x_i <= h_i for all i}

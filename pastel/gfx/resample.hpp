@@ -62,8 +62,8 @@ namespace Pastel
 		for (integer x = 0;x < outputWidth;++x)
 		{
 			// Compute the filter extent.
-            // For justification, 
-            // read proof.txt: "active pixels"
+			// For justification,
+			// read proof.txt: "active pixels"
 
 			const integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
@@ -140,7 +140,7 @@ namespace Pastel
 	{
 		resample(
 			input,
-			arrayExtender, 
+			arrayExtender,
 			filter, filter,
 			output);
 	}
@@ -168,22 +168,22 @@ namespace Pastel
 		const integer xRadius = std::ceil(xFilter->radius());
 		const integer yRadius = std::ceil(yFilter->radius());
 
-		// The n-dimensional resampling is done as 
+		// The n-dimensional resampling is done as
 		// n subsequent 1-dimensional resamplings.
-		// If the filter radii are equal, 
+		// If the filter radii are equal,
 		// then it can be shown (as in proof.txt), that the order
 		// which maximizes performance is
 		// ascending order in (radius[i] * newExtent[i] / oldExtent[i]).
 		// If the filter radii are not equal,
 		// then it can be shown that in many cases the same
 		// heuristic gives an optimal order but
-		// not in all cases. 
+		// not in all cases.
 		// I suspect that computing an optimal order in this
 		// more generalized case is np-hard (and thus
 		// needs to be solved by brute force by choosing
 		// the minimum of all n! permutations).
 
-		if (xRadius * ((real)outputWidth / inputWidth) < 
+		if (xRadius * ((real)outputWidth / inputWidth) <
 			yRadius * ((real)outputHeight / inputHeight))
 		{
 			// Resample in x.
@@ -193,15 +193,15 @@ namespace Pastel
 			resampleHorizontal(
 				input,
 				arrayExtender.extender(0),
-				xFilter, 
+				xFilter,
 				arrayView(xResult));
 
 			// Resample in y.
 
 			resampleHorizontal(
-				constPermutedView(constArrayView(xResult), Integer2(1, 0)), 
-				arrayExtender.extender(1), 
-				yFilter, 
+				constPermutedView(constArrayView(xResult), Integer2(1, 0)),
+				arrayExtender.extender(1),
+				yFilter,
 				permutedView(output, Integer2(1, 0)));
 		}
 		else
@@ -211,17 +211,17 @@ namespace Pastel
 			LinearArray<2, Output_Element> yResult(inputWidth, outputHeight);
 
 			resampleHorizontal(
-				constPermutedView(input, Integer2(1, 0)), 
-				arrayExtender.extender(1), 
-				yFilter, 
+				constPermutedView(input, Integer2(1, 0)),
+				arrayExtender.extender(1),
+				yFilter,
 				permutedView(arrayView(yResult), Integer2(1, 0)));
 
 			// Resample in x.
 
 			resampleHorizontal(
-				constArrayView(yResult), 
-				arrayExtender.extender(0), 
-				xFilter, 
+				constArrayView(yResult),
+				arrayExtender.extender(0),
+				xFilter,
 				output);
 		}
 	}

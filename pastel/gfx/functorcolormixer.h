@@ -29,7 +29,7 @@ namespace Pastel
 		{
 			return functor_(background, texture);
 		}
-	
+
 	private:
 		const Functor functor_;
 	};

@@ -18,10 +18,10 @@
 namespace Pastel
 {
 
-    inline Color randomRgbColor()
-    {
-        return Color(randomReal32(), randomReal32(), randomReal32());
-    }
+	inline Color randomRgbColor()
+	{
+		return Color(randomReal32(), randomReal32(), randomReal32());
+	}
 
 	// Standard illuminants (CIE 1931)
 
@@ -157,7 +157,7 @@ namespace Pastel
 		const real32 rgbMin = rgb[indexMin];
 		const real32 rgbMax = rgb[indexMax];
 
-        const real32 scale = (real32)1 / 6;
+		const real32 scale = (real32)1 / 6;
 
 		const real32 delta = rgbMax - rgbMin;
 
@@ -185,22 +185,22 @@ namespace Pastel
 					scale * 4;
 			}
 		}
-        else
-        {
-            result[0] = 0;
-        }
+		else
+		{
+			result[0] = 0;
+		}
 
 		// Compute saturation s.
 
-        // EPSILON
+		// EPSILON
 		if (rgbMax != 0)
 		{
 			result[1] = 1 - rgbMin / rgbMax;
 		}
-        else
-        {
-            result[1] = 0;
-        }
+		else
+		{
+			result[1] = 0;
+		}
 
 		// Compute value v.
 
@@ -296,8 +296,8 @@ namespace Pastel
 		// From the first three conditions we get the
 		// equation:
 		// [R, G, B] [xyzRed * r]   = [X, Y, Z]
-		//           [xyzGreen * g] 
-		//           [xyzBlue * b]  
+		//           [xyzGreen * g]
+		//           [xyzBlue * b]
 		//
 		// To solve for [r, g, b], we use the fourth
 		// condition:
@@ -454,7 +454,7 @@ namespace Pastel
 		// x' = X / (X + Y + Z)
 		// y' = Y / (X + Y + Z)
 		// Y' = Y
-		
+
 		const real32 s = sum(xyz);
 
 		return Color
@@ -486,7 +486,7 @@ namespace Pastel
 			 0.4296,  1.6975, 0.0136,
 			-0.1624,  0.0061, 0.9834);
 
-		return Conversion;		
+		return Conversion;
 	}
 
 	inline Matrix<3, 3, real32> lmsToXyzTransform()
@@ -494,7 +494,7 @@ namespace Pastel
 		static const Matrix<3, 3, real32> Conversion(
 			inverse(xyzToLmsTransform()));
 
-		return Conversion;		
+		return Conversion;
 	}
 
 	inline Color xyzToLms(const Color& xyz)

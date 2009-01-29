@@ -44,75 +44,75 @@ namespace Pastel
 namespace Pastel
 {
 
-    template
-    AlignedBox<1, TestReal> boundingAlignedBox(
-        const Sphere<1, TestReal>& sphere);
+	template
+	AlignedBox<1, TestReal> boundingAlignedBox(
+		const Sphere<1, TestReal>& sphere);
 
-    template
-    AlignedBox<2, TestReal> boundingAlignedBox(
-        const Sphere<2, TestReal>& sphere);
+	template
+	AlignedBox<2, TestReal> boundingAlignedBox(
+		const Sphere<2, TestReal>& sphere);
 
-    template
-    AlignedBox<3, TestReal> boundingAlignedBox(
-        const Sphere<3, TestReal>& sphere);
+	template
+	AlignedBox<3, TestReal> boundingAlignedBox(
+		const Sphere<3, TestReal>& sphere);
 
-    template
-    AlignedBox<4, TestReal> boundingAlignedBox(
-        const Sphere<4, TestReal>& sphere);
+	template
+	AlignedBox<4, TestReal> boundingAlignedBox(
+		const Sphere<4, TestReal>& sphere);
 
-    template
-    AlignedBox<5, TestReal> boundingAlignedBox(
-        const Sphere<5, TestReal>& sphere);
-
-}
-
-namespace Pastel
-{
-
-    template 
-    AlignedBox<1, TestReal> boundingAlignedBox(
-        const Box<1, TestReal>& box);
-
-    template 
-    AlignedBox<2, TestReal> boundingAlignedBox(
-        const Box<2, TestReal>& box);
-
-    template 
-    AlignedBox<3, TestReal> boundingAlignedBox(
-        const Box<3, TestReal>& box);
-
-    template 
-    AlignedBox<4, TestReal> boundingAlignedBox(
-        const Box<4, TestReal>& box);
-
-    template 
-    AlignedBox<5, TestReal> boundingAlignedBox(
-        const Box<5, TestReal>& box);
+	template
+	AlignedBox<5, TestReal> boundingAlignedBox(
+		const Sphere<5, TestReal>& sphere);
 
 }
 
 namespace Pastel
 {
 
-    template
-    AlignedBox<1, TestReal> boundingAlignedBox(
-        const Segment<1, TestReal>& segment);
+	template
+	AlignedBox<1, TestReal> boundingAlignedBox(
+		const Box<1, TestReal>& box);
 
-    template
-    AlignedBox<2, TestReal> boundingAlignedBox(
-        const Segment<2, TestReal>& segment);
+	template
+	AlignedBox<2, TestReal> boundingAlignedBox(
+		const Box<2, TestReal>& box);
 
-    template
-    AlignedBox<3, TestReal> boundingAlignedBox(
-        const Segment<3, TestReal>& segment);
+	template
+	AlignedBox<3, TestReal> boundingAlignedBox(
+		const Box<3, TestReal>& box);
 
-    template
-    AlignedBox<4, TestReal> boundingAlignedBox(
-        const Segment<4, TestReal>& segment);
+	template
+	AlignedBox<4, TestReal> boundingAlignedBox(
+		const Box<4, TestReal>& box);
 
-    template
-    AlignedBox<5, TestReal> boundingAlignedBox(
-        const Segment<5, TestReal>& segment);
+	template
+	AlignedBox<5, TestReal> boundingAlignedBox(
+		const Box<5, TestReal>& box);
+
+}
+
+namespace Pastel
+{
+
+	template
+	AlignedBox<1, TestReal> boundingAlignedBox(
+		const Segment<1, TestReal>& segment);
+
+	template
+	AlignedBox<2, TestReal> boundingAlignedBox(
+		const Segment<2, TestReal>& segment);
+
+	template
+	AlignedBox<3, TestReal> boundingAlignedBox(
+		const Segment<3, TestReal>& segment);
+
+	template
+	AlignedBox<4, TestReal> boundingAlignedBox(
+		const Segment<4, TestReal>& segment);
+
+	template
+	AlignedBox<5, TestReal> boundingAlignedBox(
+		const Segment<5, TestReal>& segment);
 
 }
 
