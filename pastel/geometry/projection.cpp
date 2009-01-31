@@ -26,7 +26,7 @@ namespace Pastel
 		=>
 		k_x = -(xMax + xMin) / (2 zMin)
 
-		Similarly for x-direction:
+		Similarly for y-direction:
 
 		k_y = -(yMax + yMin) / (2 zMin)
 
@@ -90,7 +90,7 @@ namespace Pastel
 
 		Now we can apply the z transform:
 
-		V_3 = [    s_x zMin,            0,      0, 0]
+		V_4 = [    s_x zMin,            0,      0, 0]
 			  [           0,     s_y zMin,      0, 0]
 			  [k_x s_x zMin, k_y s_y zMin,      b, 1]
 			  [           0,            0,      a, 0]
