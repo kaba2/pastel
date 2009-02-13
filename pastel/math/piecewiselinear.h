@@ -1,7 +1,7 @@
 #ifndef PASTELMATH_PIECEWISELINEAR_H
 #define PASTELMATH_PIECEWISELINEAR_H
 
-#include <map>
+#include "pastel/sys/smallmap.h"
 
 namespace Pastel
 {
@@ -23,11 +23,9 @@ namespace Pastel
 		Point operator()(const Real& time) const;
 
 	private:
-		typedef std::map<Real, Point> Container;
-		typedef typename Container::iterator Iterator;
-		typedef typename Container::const_iterator ConstIterator;
+		typedef SmallMap<Real, Point> Container;
 
-		std::map<Real, Point> map_;
+		Container map_;
 	};
 
 }

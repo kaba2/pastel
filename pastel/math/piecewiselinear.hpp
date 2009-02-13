@@ -11,7 +11,7 @@ namespace Pastel
 	void PiecewiseLinear<Real, Point>::insert(
 		const Real& time, const Point& value)
 	{
-		map_.insert(std::make_pair(time, value));
+		map_.insert(time, value);
 	}
 
 	template <typename Real, typename Point>
@@ -29,7 +29,27 @@ namespace Pastel
 			return Point();
 		}
 
-		const ConstIterator iter(map_.lower_bound(time));
+		const integer index = map_.lower_bound(time);
+
+		if (index >= map_.size() - 1)
+		{
+			return map_.valueBack();
+		}
+
+		// The time value is in the range,
+		// interpolate linearly between the
+		// surrounding values.
+
+		const Real deltaInterval(
+			map_.keyAt(index + 1) -  map_.keyAt(index));
+		const Real deltaTime(
+			time - map_.keyAt(index));
+		const Real t(deltaTime / deltaInterval);
+
+		return linear(map_.valueAt(index), map_.valueAt(index + 1), t);
+
+		/*
+		const ConstIterator iter();
 		const ConstIterator iterBegin(map_.begin());
 		const ConstIterator iterEnd(map_.end());
 		ConstIterator iterLast(iterEnd);
@@ -64,6 +84,7 @@ namespace Pastel
 		const Real t(localTime / localDelta);
 
 		return linear(iter->second, iterNext->second, t);
+		*/
 	}
 
 }

@@ -3,11 +3,11 @@
 
 #include "pastel/sys/prototypefactory.h"
 
-namespace Tune
+namespace Pastel
 {
 
 	template <typename Type>
-	PrototypeFactory<Type>& PrototypeFactor<Type>::operator=(
+	PrototypeFactory<Type>& PrototypeFactory<Type>::operator=(
 		const PrototypeFactory& that)
 	{
 		PrototypeFactory copy(that);
@@ -16,19 +16,19 @@ namespace Tune
 	}
 
 	template <typename Type>
-	void PrototypeFactor<Type>::swap(PrototypeFactory& that)
+	void PrototypeFactory<Type>::swap(PrototypeFactory& that)
 	{
 		prototypeMap_.swap(that.prototypeMap_);
 	}
 
 	template <typename Type>
-	void PrototypeFactor<Type>::clear()
+	void PrototypeFactory<Type>::clear()
 	{
 		prototypeMap_.clear();
 	}
 
 	template <typename Type>
-	CountedPtr<Type> PrototypeFactor<Type>::create(
+	CountedPtr<Type> PrototypeFactory<Type>::create(
 		const ConstIterator& iter) const
 	{
 		if (iter == prototypeMap_.end())
@@ -40,14 +40,14 @@ namespace Tune
 	}
 
 	template <typename Type>
-	CountedPtr<Type> PrototypeFactor<Type>::create(
+	CountedPtr<Type> PrototypeFactory<Type>::create(
 		const std::string& name) const
 	{
 		return create(prototypeMap_.find(name));
 	}
 
 	template <typename Type>
-	void PrototypeFactor<Type>::insert(
+	void PrototypeFactory<Type>::insert(
 		const std::string& name,
 		const CountedPtr<Type>& prototype)
 	{
@@ -55,28 +55,28 @@ namespace Tune
 	}
 
 	template <typename Type>
-	void PrototypeFactor<Type>::erase(
+	void PrototypeFactory<Type>::erase(
 		const std::string& name)
 	{
 		prototypeMap_.erase(name);
 	}
 
 	template <typename Type>
-	integer PrototypeFactor<Type>::size() const
+	integer PrototypeFactory<Type>::size() const
 	{
 		return prototypeMap_.size();
 	}
 	
 	template <typename Type>
-	typename PrototypeFactor<Type>::ConstIterator
-		PrototypeFactor<Type>::begin() const
+	typename PrototypeFactory<Type>::ConstIterator
+		PrototypeFactory<Type>::begin() const
 	{
 		return prototypeMap_.begin();
 	}
 
 	template <typename Type>
-	typename PrototypeFactor<Type>::ConstIterator 
-		PrototypeFactor<Type>::end() const
+	typename PrototypeFactory<Type>::ConstIterator 
+		PrototypeFactory<Type>::end() const
 	{
 		return prototypeMap_.end();
 	}

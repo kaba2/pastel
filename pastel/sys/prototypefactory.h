@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace Tune
+namespace Pastel
 {
 
 	/*!
