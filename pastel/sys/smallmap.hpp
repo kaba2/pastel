@@ -206,18 +206,29 @@ namespace Pastel
 			return -1;
 		}
 
-		integer lowerBound = 0;
-		integer upperBound = data_.size() - 1;
-		while (lowerBound <= upperBound)
+		if (compare_(data_.back().key_, that))
 		{
-			integer middle = (lowerBound + upperBound) / 2;
+			return data_.back().value_;
+		}
+
+		if (compare_(that, data_.front().key_))
+		{
+			return data_.front().value_;
+		}
+
+		integer lowerBound = 0;
+		integer upperBound = data_.size();
+		while (lowerBound + 1 < upperBound)
+		{
+			const integer middle = (lowerBound + upperBound) / 2;
+
 			if (compare_(that, data_[middle].key_))
 			{
-				upperBound = middle - 1;
+				upperBound = middle;
 			}
 			else if (compare_(data_[middle].key_, that))
 			{
-				lowerBound = middle + 1;
+				lowerBound = middle;
 			}
 			else
 			{

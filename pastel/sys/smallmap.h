@@ -64,6 +64,12 @@ namespace Pastel
 			{
 			}
 
+			bool operator<(const Element& that) const
+			{
+				Compare compare_;
+				return compare_(key_, that.key_);
+			}
+
 			KeyType key_;
 			ValueType value_;
 		};

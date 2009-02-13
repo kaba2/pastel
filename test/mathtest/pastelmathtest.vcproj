@@ -221,6 +221,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_piecewiselinear.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_polynomial.cpp"
 			>
 		</File>

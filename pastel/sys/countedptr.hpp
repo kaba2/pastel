@@ -11,32 +11,6 @@
 namespace Pastel
 {
 
-	inline ReferenceCounted::ReferenceCounted()
-		: count_(0)
-	{
-	}
-
-	inline ReferenceCounted::ReferenceCounted(
-		const ReferenceCounted& that)
-		: count_(0)
-	{
-		// See countedptr.h for rationale.
-		unused(that);
-	}
-
-	inline ReferenceCounted& ReferenceCounted::operator=(
-		const ReferenceCounted& that)
-	{
-		// See countedptr.h for rationale.
-		unused(that);
-		return *this;
-	}
-
-	inline ReferenceCounted::~ReferenceCounted()
-	{
-		ASSERT1(count_ == 0, count_);
-	}
-
 	template <typename Type>
 	CountedPtr<Type>::CountedPtr()
 		: data_(0)
@@ -46,6 +20,17 @@ namespace Pastel
 	template <typename Type>
 	CountedPtr<Type>::CountedPtr(const CountedPtr<Type>& that)
 		: data_(that.data_)
+	{
+		if (data_)
+		{
+			increaseCount();
+		}
+	}
+
+	template <typename Type>
+	template <typename ThatType>
+	CountedPtr<Type>::CountedPtr(const WeakPtr<ThatType>& that)
+		: data_(that.get())
 	{
 		if (data_)
 		{
@@ -121,13 +106,6 @@ namespace Pastel
 	template <typename Type>
 	CountedPtr<Type>::~CountedPtr()
 	{
-		enum
-		{
-			IsBase = boost::is_base_of<ReferenceCounted, Type>::value
-		};
-
-		BOOST_STATIC_ASSERT(IsBase);
-
 		clear();
 	}
 
@@ -183,6 +161,13 @@ namespace Pastel
 	template <typename Type>
 	integer CountedPtr<Type>::count() const
 	{
+		enum
+		{
+			IsBase = boost::is_base_of<ReferenceCounted, Type>::value
+		};
+
+		BOOST_STATIC_ASSERT(IsBase);
+
 		if (!data_)
 		{
 			return 0;
@@ -204,6 +189,13 @@ namespace Pastel
 	template <typename Type>
 	void CountedPtr<Type>::increaseCount() const
 	{
+		enum
+		{
+			IsBase = boost::is_base_of<ReferenceCounted, Type>::value
+		};
+
+		BOOST_STATIC_ASSERT(IsBase);
+
 		PENSURE(data_);
 
 		const ReferenceCounted* counter =
@@ -214,6 +206,13 @@ namespace Pastel
 	template <typename Type>
 	void CountedPtr<Type>::decreaseCount() const
 	{
+		enum
+		{
+			IsBase = boost::is_base_of<ReferenceCounted, Type>::value
+		};
+
+		BOOST_STATIC_ASSERT(IsBase);
+
 		PENSURE(data_);
 		ENSURE(count() > 0);
 

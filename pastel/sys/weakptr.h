@@ -3,66 +3,68 @@
 \brief A class for a reference counting smart-pointer.
 */
 
-#ifndef PASTELSYS_COUNTEDPTR_H
-#define PASTELSYS_COUNTEDPTR_H
+#ifndef PASTELSYS_WEAKPTR_H
+#define PASTELSYS_WEAKPTR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/functional.h"
 #include "pastel/sys/referencecounted.h"
-#include "pastel/sys/weakptr.h"
 
 #include <boost/operators.hpp>
 
 namespace Pastel
 {
 
-	//! A base class for CountedPtr reference counted objects.
+	//! A base class for WeakPtr reference counted objects.
 
 	/*!
-	Any class wishing to use CountedPtr for reference counting
+	Any class wishing to use WeakPtr for reference counting
 	must derive from ReferenceCounted. This base class
-	simply includes a counter that the CountedPtr implementation
+	simply includes a counter that the WeakPtr implementation
 	increases and decreases.
 	*/
 
 	//! A reference counting smart-pointer
 
 	/*!
-	Any class wishing to use CountedPtr for reference counting
-	must derive from ReferenceCounted. CountedPtr can't be
+	Any class wishing to use WeakPtr for reference counting
+	must derive from ReferenceCounted. WeakPtr can't be
 	used to reference count non-class types. See boost::shared_ptr
-	for this capability. CountedPtr can't handle cyclic
+	for this capability. WeakPtr can't handle cyclic
 	references: if A references B and B references A, the
 	A and B will never be destructed. This is a common problem
 	in reference counting, which you must take care of.
 	*/
 
 	template <typename Type>
-	class CountedPtr
+	class CountedPtr;
+
+	template <typename Type>
+	class WeakPtr
 		: boost::less_than_comparable<
-		CountedPtr<Type>
+		WeakPtr<Type>
 		, boost::equality_comparable<
-		CountedPtr<Type>
+		WeakPtr<Type>
 		> >
 	{
 	public:
 		template <typename ThatType>
-		friend class CountedPtr;
+		friend class WeakPtr;
 
 		//! Constructs an empty pointer.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		CountedPtr();
+		WeakPtr();
 
 		//! Constructs a copy of the given pointer.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		CountedPtr(const CountedPtr<Type>& that);
+		WeakPtr(const WeakPtr<Type>& that);
 
 		//! Constructs a copy of the given pointer.
 		/*!
@@ -72,32 +74,32 @@ namespace Pastel
 		Note implicit conversion is allowed.
 		*/
 		template <typename ThatType>
-		CountedPtr(const CountedPtr<ThatType>& that);
+		WeakPtr(const WeakPtr<ThatType>& that);
 
 		template <typename ThatType>
-		CountedPtr(const WeakPtr<ThatType>& that);
+		WeakPtr(const CountedPtr<ThatType>& that);
 
 		//! Constructs a copy of the given pointer.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		explicit CountedPtr(Type* that);
+		explicit WeakPtr(Type* that);
 
 		//! Destructs the pointer.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		~CountedPtr();
+		~WeakPtr();
 
 		//! Copies the given pointer.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		CountedPtr<Type>& operator=(
-			const CountedPtr<Type>& that);
+		WeakPtr<Type>& operator=(
+			const WeakPtr<Type>& that);
 
 		//! Copies the given pointer.
 		/*!
@@ -105,15 +107,15 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <typename ThatType>
-		CountedPtr<Type>& operator=(
-			const CountedPtr<ThatType>& that);
+		WeakPtr<Type>& operator=(
+			const WeakPtr<ThatType>& that);
 
 		//! Copies the given pointer.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		CountedPtr<Type>& operator=(Type* that);
+		WeakPtr<Type>& operator=(Type* that);
 
 		//! Compares two pointers.
 		/*!
@@ -121,7 +123,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <typename ThatType>
-		bool operator==(const CountedPtr<ThatType>& that) const;
+		bool operator==(const WeakPtr<ThatType>& that) const;
 
 		//! Compares two pointers.
 		/*!
@@ -129,7 +131,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		template <typename ThatType>
-		bool operator<(const CountedPtr<ThatType>& that) const;
+		bool operator<(const WeakPtr<ThatType>& that) const;
 
 		//! Returns the contained pointer.
 		/*!
@@ -163,7 +165,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		void swap(CountedPtr<Type>& that);
+		void swap(WeakPtr<Type>& that);
 
 		//! Sets the current pointer to null pointer.
 		/*!
@@ -172,7 +174,7 @@ namespace Pastel
 		*/
 		void clear();
 
-		//! Returns the number of active CountedPtr's to the current pointee.
+		//! Returns the number of active WeakPtr's to the current pointee.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
@@ -187,27 +189,24 @@ namespace Pastel
 		bool empty() const;
 
 	private:
-		void increaseCount() const;
-		void decreaseCount() const;
-
 		Type* data_;
 	};
 
 	template <typename Type>
-	void swap(CountedPtr<Type>& left,
-		CountedPtr<Type>& right);
+	void swap(WeakPtr<Type>& left,
+		WeakPtr<Type>& right);
 
 	// Hash function for unordered containers
 	template <typename Type>
-	struct hash<CountedPtr<Type> >
+	struct hash<WeakPtr<Type> >
 	{
-		std::size_t operator()(const CountedPtr<Type>& that) const
+		std::size_t operator()(const WeakPtr<Type>& that) const
 		{
 			return (std::size_t)(that.get());
 		}
 	};
 }
 
-#include "pastel/sys/countedptr.hpp"
+#include "pastel/sys/weakptr.hpp"
 
 #endif

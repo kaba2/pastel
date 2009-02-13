@@ -578,6 +578,22 @@
 				RelativePath=".\destruct.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\referencecounted.h"
+				>
+			</File>
+			<File
+				RelativePath=".\referencecounted.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\weakptr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\weakptr.hpp"
+				>
+			</File>
 			<Filter
 				Name="Allocators"
 				>
