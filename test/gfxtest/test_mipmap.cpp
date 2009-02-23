@@ -39,12 +39,10 @@ namespace
 		const integer images = mipMap.levels();
 		for (integer i = 0;i < images;++i)
 		{
-			Array<2, Color>& image = mipMap(i);
-
-			drawView(constArrayView(image),
+			drawView(constArrayView(mipMap.view(i)),
 				position, arrayView(outputImage));
 
-			position += image.extent();
+			position += mipMap.view(i).extent();
 		}
 
 		savePcx(outputImage, "test_mipmap.pcx");

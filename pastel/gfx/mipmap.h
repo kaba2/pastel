@@ -7,6 +7,7 @@
 #include "pastel/sys/clampextender.h"
 #include "pastel/sys/arrayextender.h"
 #include "pastel/sys/view.h"
+#include "pastel/sys/arrayview.h"
 
 #include <vector>
 
@@ -56,6 +57,11 @@ namespace Pastel
 	class MipMap
 	{
 	public:
+		typedef View<N, Type, ArrayView<N, Array<N, Type> > >
+			MipView;
+		typedef ConstView<N, Type, ConstArrayView<N, Array<N, Type> > >
+			ConstMipView;		
+
 		// Using default copy constructor.
 		// Using default destructor.
 
@@ -78,14 +84,18 @@ namespace Pastel
 
 		MipMap<N, Type>& operator=(const MipMap& that);
 
-		Array<N, Type>& operator()(integer level);
 		const Array<N, Type>& operator()(integer level) const;
-
-		Array<N, Type>& mostDetailed();
 		const Array<N, Type>& mostDetailed() const;
-
-		Array<N, Type>& coarsest();
 		const Array<N, Type>& coarsest() const;
+
+		MipView view(integer level);
+		ConstMipView view(integer level) const;
+
+		MipView mostDetailedView();
+		ConstMipView mostDetailedView() const;
+
+		MipView coarsestView();
+		ConstMipView coarsestView() const;
 
 		Vector<N, integer> extent() const;
 

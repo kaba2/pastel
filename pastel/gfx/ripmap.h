@@ -71,10 +71,8 @@ namespace Pastel
 
 		bool empty() const;
 
-		Array<N, Type>& mostDetailed();
 		const Array<N, Type>& mostDetailed() const;
 
-		Array<N, Type>& coarsest();
 		const Array<N, Type>& coarsest() const;
 
 		View<N, Array<N, Type>,

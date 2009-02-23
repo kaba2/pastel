@@ -112,16 +112,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	Array<N, Type>& MipMap<N, Type>::operator()(
-		integer level)
-	{
-		PENSURE2(level >= 0 && level < levels(), level, levels());
-
-		return mipMapArray_[level];
-	}
-
-	template <int N, typename Type>
-	const Array<N, Type>& MipMap<N, Type>::operator()(
+	const Array<N, Type>&
+		MipMap<N, Type>::operator()(
 		integer level) const
 	{
 		PENSURE2(level >= 0 && level < levels(), level, levels());
@@ -130,27 +122,65 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	Array<N, Type>& MipMap<N, Type>::mostDetailed()
+	const Array<N, Type>&
+		MipMap<N, Type>::mostDetailed() const
 	{
 		return (*this)(0);
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>& MipMap<N, Type>::mostDetailed() const
-	{
-		return (*this)(0);
-	}
-
-	template <int N, typename Type>
-	Array<N, Type>& MipMap<N, Type>::coarsest()
+	const Array<N, Type>&
+		MipMap<N, Type>::coarsest() const
 	{
 		return (*this)(levels() - 1);
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>& MipMap<N, Type>::coarsest() const
+	typename MipMap<N, Type>::MipView 
+		MipMap<N, Type>::view(
+		integer level)
 	{
-		return (*this)(levels() - 1);
+		PENSURE2(level >= 0 && level < levels(), level, levels());
+
+		return arrayView(mipMapArray_[level]);
+	}
+
+	template <int N, typename Type>
+	typename MipMap<N, Type>::ConstMipView 
+		MipMap<N, Type>::view(
+		integer level) const
+	{
+		PENSURE2(level >= 0 && level < levels(), level, levels());
+
+		return constArrayView(mipMapArray_[level]);
+	}
+
+	template <int N, typename Type>
+	typename MipMap<N, Type>::MipView 
+		MipMap<N, Type>::mostDetailedView()
+	{
+		return view(0);
+	}
+
+	template <int N, typename Type>
+	typename MipMap<N, Type>::ConstMipView 
+		MipMap<N, Type>::mostDetailedView() const
+	{
+		return view(0);
+	}
+
+	template <int N, typename Type>
+	typename MipMap<N, Type>::MipView 
+		MipMap<N, Type>::coarsestView()
+	{
+		return view(levels() - 1);
+	}
+
+	template <int N, typename Type>
+	typename MipMap<N, Type>::ConstMipView 
+		MipMap<N, Type>::coarsestView() const
+	{
+		return view(levels() - 1);
 	}
 
 	template <int N, typename Type>
