@@ -167,21 +167,9 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	Array<N, Type>& RipMap<N, Type>::mostDetailed()
-	{
-		return ripMapArray_(Point<N, integer>(0));
-	}
-
-	template <int N, typename Type>
 	const Array<N, Type>& RipMap<N, Type>::mostDetailed() const
 	{
 		return ripMapArray_(Point<N, integer>(0));
-	}
-
-	template <int N, typename Type>
-	Array<N, Type>& RipMap<N, Type>::coarsest()
-	{
-		return ripMapArray_(asPoint(ripMapArray_.extent() - 1));
 	}
 
 	template <int N, typename Type>

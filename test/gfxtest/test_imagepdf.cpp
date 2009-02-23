@@ -85,7 +85,7 @@ namespace
 
 		for (integer i = 0;i < images;++i)
 		{
-			visit(arrayView(mipMap(i)), bind(clamp<real32>, _1, 0, 1));
+			visit(mipMap.view(i), bind(clamp<real32>, _1, 0, 1));
 		}
 
 		log() << "Generating points..." << logNewLine;

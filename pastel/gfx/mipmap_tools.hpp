@@ -16,7 +16,7 @@ namespace Pastel
 		const integer images = mipMap.levels();
 		for (integer i = 0;i < images;++i)
 		{
-			Pastel::transform(arrayView(mipMap(i)), transform);
+			Pastel::transform(mipMap.view(i), transform);
 		}
 	}
 
