@@ -1,4 +1,4 @@
-#include "pastel/gfx/lanczosfilter.h"
+#include "pastel/gfx/lanczos_filter.h"
 
 #include "pastel/sys/mathfunctions.h"
 

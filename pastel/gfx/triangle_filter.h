@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_TRIANGLEFILTER_H
-#define PASTELGFX_TRIANGLEFILTER_H
+#ifndef PASTELGFX_TRIANGLE_FILTER_H
+#define PASTELGFX_TRIANGLE_FILTER_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"

@@ -504,19 +504,19 @@
 			Name="Filters"
 			>
 			<File
-				RelativePath=".\boxfilter.cpp"
+				RelativePath=".\box_filter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\boxfilter.h"
+				RelativePath=".\box_filter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\cubicfilter.cpp"
+				RelativePath=".\cubic_filter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\cubicfilter.h"
+				RelativePath=".\cubic_filter.h"
 				>
 			</File>
 			<File
@@ -548,35 +548,35 @@
 				>
 			</File>
 			<File
-				RelativePath=".\gaussianfilter.cpp"
+				RelativePath=".\gaussian_filter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\gaussianfilter.h"
+				RelativePath=".\gaussian_filter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\lanczosfilter.cpp"
+				RelativePath=".\lanczos_filter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\lanczosfilter.h"
+				RelativePath=".\lanczos_filter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\mitchellfilter.cpp"
+				RelativePath=".\mitchell_filter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mitchellfilter.h"
+				RelativePath=".\mitchell_filter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\trianglefilter.cpp"
+				RelativePath=".\triangle_filter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\trianglefilter.h"
+				RelativePath=".\triangle_filter.h"
 				>
 			</File>
 		</Filter>

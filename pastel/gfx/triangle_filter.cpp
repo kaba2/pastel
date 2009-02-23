@@ -1,4 +1,4 @@
-#include "pastel/gfx/trianglefilter.h"
+#include "pastel/gfx/triangle_filter.h"
 
 #include <cmath>
 

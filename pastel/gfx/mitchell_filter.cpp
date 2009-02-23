@@ -1,4 +1,4 @@
-#include "pastel/gfx/mitchellfilter.h"
+#include "pastel/gfx/mitchell_filter.h"
 
 #include <cmath>
 

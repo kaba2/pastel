@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_LANCZOSFILTER_H
-#define PASTELGFX_LANCZOSFILTER_H
+#ifndef PASTELGFX_LANCZOS_FILTER_H
+#define PASTELGFX_LANCZOS_FILTER_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"

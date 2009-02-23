@@ -5,7 +5,7 @@
 #include "pastel/math/affinetransformation_tools.h"
 
 #include "pastel/gfx/resample.h"
-#include "pastel/gfx/gaussianfilter.h"
+#include "pastel/gfx/gaussian_filter.h"
 #include "pastel/gfx/indexwrapper.h"
 #include "pastel/gfx/color_tools.h"
 

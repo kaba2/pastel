@@ -2,7 +2,7 @@
 #define PASTELGFX_MIPMAP_H
 
 #include "pastel/gfx/filter.h"
-#include "pastel/gfx/gaussianfilter.h"
+#include "pastel/gfx/gaussian_filter.h"
 
 #include "pastel/sys/clampextender.h"
 #include "pastel/sys/arrayextender.h"

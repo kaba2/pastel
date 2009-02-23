@@ -5,8 +5,8 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/clampextender.h"
 
-#include "pastel/gfx/trianglefilter.h"
-#include "pastel/gfx/lanczosfilter.h"
+#include "pastel/gfx/triangle_filter.h"
+#include "pastel/gfx/lanczos_filter.h"
 #include "pastel/gfx/mipmap.h"
 
 namespace Pastel
