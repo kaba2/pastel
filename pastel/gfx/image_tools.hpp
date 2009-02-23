@@ -7,16 +7,16 @@ namespace Pastel
 {
 
 	template <int N>
-	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, LinearArray<N, uint32> > > >
-		constRgb888View(const LinearArray<N, uint32>& image)
+	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<N, uint32> > > >
+		constRgb888View(const Array<N, uint32>& image)
 	{
 		return constAdaptedView(constArrayView(image),
 			Rgb888Adapter());
 	}
 
 	template <int N>
-	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, LinearArray<N, uint32> > > >
-		rgb888View(LinearArray<N, uint32>& image)
+	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, Array<N, uint32> > > >
+		rgb888View(Array<N, uint32>& image)
 	{
 		return adaptedView(arrayView(image), Rgb888Adapter());
 	}

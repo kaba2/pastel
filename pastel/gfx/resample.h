@@ -16,6 +16,17 @@
 namespace Pastel
 {
 
+	template <
+		typename Input_Element,
+		typename Input_View,
+		typename Output_Element,
+		typename Output_View>
+	void resample(
+		const ConstView<1, Input_Element, Input_View>& input,
+		const ArrayExtender<1, Input_Element>& arrayExtender,
+		const ConstFilterRef& filter,
+		const View<1, Output_Element, Output_View>& output);
+
 	//! Resamples an image horizontally to a different width.
 	/*!
 	See the documentation for the more general resample()

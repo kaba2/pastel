@@ -25,7 +25,7 @@ namespace
 	class PoissonDiskReporter
 	{
 	public:
-		explicit PoissonDiskReporter(LinearArray<2, Color>& data)
+		explicit PoissonDiskReporter(Array<2, Color>& data)
 			: data_(data)
 		{
 		}
@@ -52,7 +52,7 @@ namespace
 		}
 
 	private:
-		LinearArray<2, Color>& data_;
+		Array<2, Color>& data_;
 	};
 
 	void testPoissonDiskPattern()
@@ -60,7 +60,7 @@ namespace
 		const integer width = 500;
 		const integer height = 500;
 
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 
 		PoissonDiskReporter poissonDiskReporter(image);
 

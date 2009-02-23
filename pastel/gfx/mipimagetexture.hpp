@@ -40,7 +40,7 @@ namespace Pastel
 			return Type();
 		}
 
-		const LinearArray<2, Type>& mostDetailedImage = (*mipMap_).mostDetailed();
+		const Array<2, Type>& mostDetailedImage = (*mipMap_).mostDetailed();
 
 		const Vector2 dx = dUvDx * Vector2(mostDetailedImage.extent());
 		const Vector2 dy = dUvDy * Vector2(mostDetailedImage.extent());
@@ -72,8 +72,8 @@ namespace Pastel
 
 		const real tDetail = level - detailLevel;
 
-		const LinearArray<2, Type>& detailImage = (*mipMap_)(detailLevel);
-		const LinearArray<2, Type>& coarseImage = (*mipMap_)(coarseLevel);
+		const Array<2, Type>& detailImage = (*mipMap_)(detailLevel);
+		const Array<2, Type>& coarseImage = (*mipMap_)(coarseLevel);
 
 		const Type detailSample =
 			sampleBilinear(

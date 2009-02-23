@@ -5,7 +5,7 @@
 #include "pastel/gfx/color.h"
 
 #include "pastel/sys/abstractarray.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include <string>
 
@@ -18,12 +18,12 @@ namespace Pastel
 
 	template <typename Type, typename Adapter>
 	bool saveBinaryPcx(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const std::string& fileName,
 		const Adapter& adapter);
 
 	PASTELGFX bool saveBinaryPcx(
-		const LinearArray<2, bool>& image,
+		const Array<2, bool>& image,
 		const std::string& fileName);
 
 	PASTELGFX bool saveIndexedPcx(
@@ -33,13 +33,13 @@ namespace Pastel
 
 	template <typename Type, typename Adapter>
 	bool saveIndexedPcx(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName,
 		const Adapter& adapter);
 
 	PASTELGFX bool saveIndexedPcx(
-		const LinearArray<2, uint8>& image,
+		const Array<2, uint8>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName);
 
@@ -49,28 +49,28 @@ namespace Pastel
 
 	template <typename Type, typename Adapter>
 	bool savePcx(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const std::string& fileName,
 		const Adapter& adapter);
 
 	PASTELGFX bool savePcx(
-		const LinearArray<2, uint32>& image,
+		const Array<2, uint32>& image,
 		const std::string& fileName);
 
 	PASTELGFX bool savePcx(
-		const LinearArray<2, uint16>& image,
+		const Array<2, uint16>& image,
 		const std::string& fileName);
 
 	PASTELGFX bool savePcx(
-		const LinearArray<2, ByteColor>& image,
+		const Array<2, ByteColor>& image,
 		const std::string& fileName);
 
 	PASTELGFX bool savePcx(
-		const LinearArray<2, Color>& image,
+		const Array<2, Color>& image,
 		const std::string& fileName);
 
 	PASTELGFX bool saveGrayscalePcx(
-		const LinearArray<2, real32>& image,
+		const Array<2, real32>& image,
 		const std::string& fileName);
 
 }

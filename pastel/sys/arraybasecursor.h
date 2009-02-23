@@ -1,16 +1,16 @@
-#ifndef PASTELSYS_LINEARARRAYBASECURSOR_H
-#define PASTELSYS_LINEARARRAYBASECURSOR_H
+#ifndef PASTELSYS_ARRAYBASECURSOR_H
+#define PASTELSYS_ARRAYBASECURSOR_H
 
-#include "pastel/sys/lineararraybase.h"
+#include "pastel/sys/arraybase.h"
 
 namespace Pastel
 {
 
-	namespace Detail_LinearArray
+	namespace Detail_Array
 	{
 
 		template <int N, typename Type, typename Derived>
-		class LinearArrayBase;
+		class ArrayBase;
 
 		template <int N, typename Type, typename Derived>
 		class ConstCursorBase
@@ -117,7 +117,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef ConstCursorBase<N, Type, ConstCursor<N, Type> > Base;
 
@@ -141,7 +141,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef ConstCursorBase<1, Type, ConstCursor<1, Type> > Base;
 
@@ -187,7 +187,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef ConstCursorBase<2, Type, ConstCursor<2, Type> > Base;
 
@@ -248,7 +248,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef ConstCursorBase<3, Type, ConstCursor<3, Type> > Base;
 
@@ -367,7 +367,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef CursorBase<N, Type, Cursor<N, Type> > Base;
 
@@ -391,7 +391,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef CursorBase<1, Type, Cursor<1, Type> > Base;
 
@@ -437,7 +437,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef CursorBase<2, Type, Cursor<2, Type> > Base;
 
@@ -498,7 +498,7 @@ namespace Pastel
 		{
 		private:
 			template <int N, typename Type, typename Derived>
-			friend class LinearArrayBase;
+			friend class ArrayBase;
 
 			typedef CursorBase<3, Type, Cursor<3, Type> > Base;
 

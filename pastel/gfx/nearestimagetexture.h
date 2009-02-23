@@ -26,7 +26,7 @@ namespace Pastel
 		}
 
 		explicit NearestImageTexture(
-			const LinearArray<2, Type>& image,
+			const Array<2, Type>& image,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>())
 			: image_(&image)
 			, extender_(extender)
@@ -48,7 +48,7 @@ namespace Pastel
 			return extender_(*image_, x);
 		}
 
-		void setImage(const LinearArray<2, Type>& image)
+		void setImage(const Array<2, Type>& image)
 		{
 			image_ = &image;
 			extent_ = Vector2(image.extent());
@@ -65,14 +65,14 @@ namespace Pastel
 		}
 
 	private:
-		const LinearArray<2, Type>* image_;
+		const Array<2, Type>* image_;
 		ArrayExtender<2, Type> extender_;
 		Vector2 extent_;
 	};
 
 	template <typename Type>
 	NearestImageTexture<Type> nearestImageTexture(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const ArrayExtender<2, PASTEL_NO_DEDUCTION(Type)>& extender = ArrayExtender<2, Type>())
 	{
 		return NearestImageTexture<Type>(image, extender);

@@ -491,26 +491,26 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="LinearArray"
+				Name="Array"
 				>
 				<File
-					RelativePath=".\lineararray.h"
+					RelativePath=".\array.h"
 					>
 				</File>
 				<File
-					RelativePath=".\lineararray.hpp"
+					RelativePath=".\array.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\lineararraybase.h"
+					RelativePath=".\arraybase.h"
 					>
 				</File>
 				<File
-					RelativePath=".\lineararraybase.hpp"
+					RelativePath=".\arraybase.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\lineararraybasecursor.h"
+					RelativePath=".\arraybasecursor.h"
 					>
 				</File>
 			</Filter>

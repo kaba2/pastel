@@ -6,7 +6,7 @@
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/math/complex_tools.h"
 
 #include <vector>

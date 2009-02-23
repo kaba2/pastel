@@ -644,7 +644,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		LinearArray<2, bool>& image,
+		Array<2, bool>& image,
 		std::vector<Color>* colorPalette)
 	{
 		Bool_Integer_Adapter<uint8> adapter;
@@ -653,7 +653,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		LinearArray<2, uint8>& image,
+		Array<2, uint8>& image,
 		std::vector<Color>* colorPalette)
 	{
 		IdentityAdapter<uint8> adapter;
@@ -662,7 +662,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, Color>& image)
+		Array<2, Color>& image)
 	{
 		IdentityAdapter<Color> adapter;
 		return loadPcx(fileName, image, adapter);
@@ -670,7 +670,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, ByteColor>& image)
+		Array<2, ByteColor>& image)
 	{
 		Color_ByteColor_Adapter adapter;
 		return loadPcx(fileName, image, adapter);
@@ -678,7 +678,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, uint32>& image)
+		Array<2, uint32>& image)
 	{
 		Color_Integer_Adapter<uint32, 8, 8, 8> adapter;
 		return loadPcx(fileName, image, adapter);
@@ -686,7 +686,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, uint16>& image)
+		Array<2, uint16>& image)
 	{
 		Color_Integer_Adapter<uint16, 5, 6, 5> adapter;
 		return loadPcx(fileName, image, adapter);

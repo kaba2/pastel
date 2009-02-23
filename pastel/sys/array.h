@@ -3,20 +3,20 @@
 \brief A class for an n-dimensional array.
 */
 
-#ifndef PASTELSYS_LINEARARRAY_H
-#define PASTELSYS_LINEARARRAY_H
+#ifndef PASTELSYS_ARRAY_H
+#define PASTELSYS_ARRAY_H
 
-#include "pastel/sys/lineararraybase.h"
+#include "pastel/sys/arraybase.h"
 
 namespace Pastel
 {
 
 	template <int N, typename Type>
-	class LinearArray
-		: public Detail_LinearArray::LinearArrayBase<N, Type, LinearArray<N, Type> >
+	class Array
+		: public Detail_Array::ArrayBase<N, Type, Array<N, Type> >
 	{
 	private:
-		typedef Detail_LinearArray::LinearArrayBase<N, Type, LinearArray<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
 
 	public:
 		// Using default assignment.
@@ -29,25 +29,25 @@ namespace Pastel
 		using typename Base::Cursor;
 		using typename Base::ConstCursor;
 
-		LinearArray()
+		Array()
 			: Base()
 		{
 		}
 
-		LinearArray(const LinearArray& that)
+		Array(const Array& that)
 			: Base(that)
 		{
 		}
 
-		LinearArray(
+		Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
@@ -56,8 +56,8 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class LinearArray<1, Type>
-		: public Detail_LinearArray::LinearArrayBase<1, Type, LinearArray<1, Type> >
+	class Array<1, Type>
+		: public Detail_Array::ArrayBase<1, Type, Array<1, Type> >
 	{
 	private:
 		enum
@@ -65,7 +65,7 @@ namespace Pastel
 			N = 1
 		};
 
-		typedef Detail_LinearArray::LinearArrayBase<N, Type, LinearArray<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
 
 	public:
 		// Using default assignment.
@@ -82,40 +82,40 @@ namespace Pastel
 		using Base::operator();
 		using Base::setExtent;
 
-		LinearArray()
+		Array()
 			: Base()
 		{
 		}
 
-		LinearArray(const LinearArray& that)
+		Array(const Array& that)
 			: Base(that)
 		{
 		}
 
-		LinearArray(
+		Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
 		}
 
-		LinearArray(
+		Array(
 			integer width,
 			const Type& defaultData = Type())
 			: Base(Vector<N, integer>(width), defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			integer width,
 			const Type& defaultData = Type())
 			: Base(that, Vector<N, integer>(width), defaultData)
@@ -155,8 +155,8 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class LinearArray<2, Type>
-		: public Detail_LinearArray::LinearArrayBase<2, Type, LinearArray<2, Type> >
+	class Array<2, Type>
+		: public Detail_Array::ArrayBase<2, Type, Array<2, Type> >
 	{
 	private:
 		enum
@@ -164,7 +164,7 @@ namespace Pastel
 			N = 2
 		};
 
-		typedef Detail_LinearArray::LinearArrayBase<N, Type, LinearArray<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
 
 	public:
 		// Using default assignment.
@@ -181,40 +181,40 @@ namespace Pastel
 		using Base::operator();
 		using Base::setExtent;
 
-		LinearArray()
+		Array()
 			: Base()
 		{
 		}
 
-		LinearArray(const LinearArray& that)
+		Array(const Array& that)
 			: Base(that)
 		{
 		}
 
-		LinearArray(
+		Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
 		}
 
-		LinearArray(
+		Array(
 			integer width, integer height,
 			const Type& defaultData = Type())
 			: Base(Vector<N, integer>(width, height), defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			integer width, integer height,
 			const Type& defaultData = Type())
 			: Base(that, Vector<N, integer>(width, height), defaultData)
@@ -259,8 +259,8 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class LinearArray<3, Type>
-		: public Detail_LinearArray::LinearArrayBase<3, Type, LinearArray<3, Type> >
+	class Array<3, Type>
+		: public Detail_Array::ArrayBase<3, Type, Array<3, Type> >
 	{
 	private:
 		enum
@@ -268,7 +268,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef Detail_LinearArray::LinearArrayBase<N, Type, LinearArray<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
 
 	public:
 		// Using default assignment.
@@ -285,40 +285,40 @@ namespace Pastel
 		using Base::operator();
 		using Base::setExtent;
 
-		LinearArray()
+		Array()
 			: Base()
 		{
 		}
 
-		LinearArray(const LinearArray& that)
+		Array(const Array& that)
 			: Base(that)
 		{
 		}
 
-		LinearArray(
+		Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
 		}
 
-		LinearArray(
+		Array(
 			integer width, integer height, integer depth,
 			const Type& defaultData = Type())
 			: Base(Vector<N, integer>(width, height, depth), defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
 		}
 
-		LinearArray(
-			const LinearArray<N, Type>& that,
+		Array(
+			const Array<N, Type>& that,
 			integer width, integer height, integer depth,
 			const Type& defaultData = Type())
 			: Base(that, Vector<N, integer>(width, height, depth), defaultData)
@@ -368,10 +368,10 @@ namespace Pastel
 	};
 
 	template <int N, typename Type>
-	void swap(LinearArray<N, Type>& left, LinearArray<N, Type>& right);
+	void swap(Array<N, Type>& left, Array<N, Type>& right);
 
 }
 
-#include "pastel/sys/lineararray.hpp"
+#include "pastel/sys/array.hpp"
 
 #endif

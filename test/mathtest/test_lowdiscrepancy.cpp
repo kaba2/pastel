@@ -19,7 +19,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		Color color;
 		Color aColor(1, 0, 0);
@@ -97,7 +97,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		Color color;
 		Color aColor(1, 0, 0);

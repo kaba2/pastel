@@ -1,6 +1,6 @@
 #include "pastelgfxtest.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/extendedconstview_all.h"
 #include "pastel/sys/view_tools.h"
@@ -39,7 +39,7 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		LinearArray<2, Color> textureImage;
+		Array<2, Color> textureImage;
 
 		loadPcx("lena.pcx", textureImage);
 
@@ -47,7 +47,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		LinearArray<2, Color> image(Width * 2, Height * 2);
+		Array<2, Color> image(Width * 2, Height * 2);
 
 		const AlignedBox2 textureBox(0.4, 0.45, 0.55, 0.60);
 
@@ -105,7 +105,7 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		LinearArray<2, Color> textureImage(40, 40);
+		Array<2, Color> textureImage(40, 40);
 
 		const integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
@@ -130,7 +130,7 @@ namespace
 		}
 
 		/*
-		LinearArray<2, Color> textureImage;
+		Array<2, Color> textureImage;
 
 		loadPcx("test_texture_checker.pcx", textureImage);
 		//loadPcx("lena.pcx", textureImage);
@@ -140,7 +140,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		std::vector<Texture<Color>::Ref> textureList;
 		textureList.push_back(
@@ -182,8 +182,8 @@ namespace
 
 	void testSamplers()
 	{
-		LinearArray<2, Color> image(750, 500);
-		LinearArray<2, Color> textureImage;
+		Array<2, Color> image(750, 500);
+		Array<2, Color> textureImage;
 
 		loadPcx("lena.pcx", textureImage);
 
@@ -301,7 +301,7 @@ namespace
 			}
 		}
 
-		LinearArray<2, Color> image(500, ceil(yMax));
+		Array<2, Color> image(500, ceil(yMax));
 
 		drawProjectiveQuad(
 			quad,
@@ -314,8 +314,8 @@ namespace
 
 	void testChecker()
 	{
-		LinearArray<2, Color> image(500, 500);
-		LinearArray<2, Color> textureImage(40, 40);
+		Array<2, Color> image(500, 500);
+		Array<2, Color> textureImage(40, 40);
 
 		const integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
@@ -348,7 +348,7 @@ namespace
 		RipMap<2, Color> ripMap(constArrayView(textureImage));
 		transform(ripMap, fitColor);
 
-		LinearArray<2, Color> lenaTextureImage;
+		Array<2, Color> lenaTextureImage;
 		loadPcx("lena.pcx", lenaTextureImage);
 
 		MipMap<2, Color> lenaMipMap(constArrayView(lenaTextureImage));
@@ -540,13 +540,13 @@ namespace
 
 	void testMix()
 	{
-		LinearArray<2, Color> aTexture;
+		Array<2, Color> aTexture;
 		loadPcx("lena.pcx", aTexture);
 
-		LinearArray<2, Color> bTexture;
+		Array<2, Color> bTexture;
 		loadPcx("kodak_test_images/kodim19.pcx", bTexture);
 
-		LinearArray<2, Color> image(750, 750, Color(0));
+		Array<2, Color> image(750, 750, Color(0));
 
 		MipMap<2, Color> aMipMap(constArrayView(aTexture));
 		transform(aMipMap, fitColor);

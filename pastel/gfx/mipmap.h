@@ -78,14 +78,14 @@ namespace Pastel
 
 		MipMap<N, Type>& operator=(const MipMap& that);
 
-		LinearArray<N, Type>& operator()(integer level);
-		const LinearArray<N, Type>& operator()(integer level) const;
+		Array<N, Type>& operator()(integer level);
+		const Array<N, Type>& operator()(integer level) const;
 
-		LinearArray<N, Type>& mostDetailed();
-		const LinearArray<N, Type>& mostDetailed() const;
+		Array<N, Type>& mostDetailed();
+		const Array<N, Type>& mostDetailed() const;
 
-		LinearArray<N, Type>& coarsest();
-		const LinearArray<N, Type>& coarsest() const;
+		Array<N, Type>& coarsest();
+		const Array<N, Type>& coarsest() const;
 
 		Vector<N, integer> extent() const;
 
@@ -93,7 +93,7 @@ namespace Pastel
 		bool empty() const;
 
 	private:
-		std::vector<LinearArray<N, Type> > mipMapArray_;
+		std::vector<Array<N, Type> > mipMapArray_;
 		ArrayExtender<N, Type> extender_;
 	};
 

@@ -9,7 +9,7 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/abstractarray.h"
 
 #include <string>
@@ -68,7 +68,7 @@ namespace Pastel
 	template <typename Type, typename Adapter>
 	bool loadIndexedPcx(
 		const std::string& fileName,
-		LinearArray<2, Type>& image,
+		Array<2, Type>& image,
 		const Adapter& adapter,
 		std::vector<Color>* colorPalette = 0);
 
@@ -81,7 +81,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		LinearArray<2, bool>& image,
+		Array<2, bool>& image,
 		std::vector<Color>* colorPalette = 0);
 
 	//! Loads an indexed pcx image into an uint8 array.
@@ -93,7 +93,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		LinearArray<2, uint8>& image,
+		Array<2, uint8>& image,
 		std::vector<Color>* colorPalette = 0);
 
 	//! Loads any pcx to an image array.
@@ -127,7 +127,7 @@ namespace Pastel
 	template <typename Type, typename Adapter>
 	bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, Type>& image,
+		Array<2, Type>& image,
 		const Adapter& adapter);
 
 	//! Loads a pcx image into a Color array.
@@ -139,7 +139,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, Color>& image);
+		Array<2, Color>& image);
 
 	//! Loads a pcx image into a ByteColor array.
 	/*!
@@ -150,7 +150,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, ByteColor>& image);
+		Array<2, ByteColor>& image);
 
 	//! Loads a pcx image into an rgb888 array.
 	/*!
@@ -161,7 +161,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, uint32>& image);
+		Array<2, uint32>& image);
 
 	//! Loads a pcx image into an rgb565 array.
 	/*!
@@ -172,7 +172,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		LinearArray<2, uint16>& image);
+		Array<2, uint16>& image);
 
 }
 

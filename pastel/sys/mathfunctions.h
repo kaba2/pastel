@@ -42,6 +42,9 @@ namespace Pastel
 	template <typename Real>
 	integer floorLog2(const Real& x);
 
+	template <typename Real>
+	Real log2(const Real& x);
+
 	//! Computes the cardinal sine sinc(x) = sin(PI * x) / (PI * x).
 
 	template <typename Real>

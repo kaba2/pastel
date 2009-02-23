@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_LABELTOIMAGE_H
 #define PASTELGFX_LABELTOIMAGE_H
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
@@ -20,8 +20,8 @@ namespace Pastel
 	*/
 
 	PASTELGFX void labelToImage(
-		const LinearArray<2, int32>& labelImage,
-		LinearArray<2, uint8>& image);
+		const Array<2, int32>& labelImage,
+		Array<2, uint8>& image);
 
 }
 

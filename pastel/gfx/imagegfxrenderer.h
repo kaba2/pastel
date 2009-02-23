@@ -9,7 +9,7 @@
 #include "pastel/gfx/mipimagetexture.h"
 #include "pastel/gfx/ewaimagetexture.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 namespace Pastel
 {
@@ -22,11 +22,11 @@ namespace Pastel
 		typedef GfxRenderer<Type> Base;
 
 	public:
-		explicit ImageGfxRenderer(LinearArray<2, Type>* image = 0);
+		explicit ImageGfxRenderer(Array<2, Type>* image = 0);
 		virtual ~ImageGfxRenderer();
 
-		void setImage(LinearArray<2, Type>* image);
-		LinearArray<2, Type>* image() const;
+		void setImage(Array<2, Type>* image);
+		Array<2, Type>* image() const;
 
 		void onSetViewTransformation();
 		void onSetModelTransformation();
@@ -38,7 +38,7 @@ namespace Pastel
 
 		// Drawing
 
-		virtual integer uploadTexture(const LinearArray<2, Type>& image);
+		virtual integer uploadTexture(const Array<2, Type>& image);
 
 		virtual void clear();
 
@@ -71,8 +71,8 @@ namespace Pastel
 		Point2 transform(const Point2& point) const;
 
 		AffineTransformation2 screenTransformation_;
-		LinearArray<2, Type>* image_;
-		std::vector<const LinearArray<2, Type>*> textureImage_;
+		Array<2, Type>* image_;
+		std::vector<const Array<2, Type>*> textureImage_;
 		std::vector<const MipMap<2, Type>*> mipMap_;
 
 		NearestImageTexture<Type> nearestTexture_;

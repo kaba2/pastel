@@ -27,7 +27,7 @@ namespace
 		const integer width = colorWidth * 16;
 		const integer height = colorHeight * 16;
 
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 		image.setExtent(width, height);
 
 		for (integer y = 0;y < 16;++y)

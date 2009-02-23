@@ -24,9 +24,9 @@ namespace
 		const integer BigWidth = 512;
 		const integer BigHeight = 512;
 
-		LinearArray<2, Color> image;
-		LinearArray<2, Color> smallImage(SmallWidth, SmallHeight);
-		LinearArray<2, Color> bigImage(BigWidth, BigHeight);
+		Array<2, Color> image;
+		Array<2, Color> smallImage(SmallWidth, SmallHeight);
+		Array<2, Color> bigImage(BigWidth, BigHeight);
 		ArrayExtender<2, Color> wrapper(mirrorExtender());
 
 		loadPcx("lena.pcx", image);

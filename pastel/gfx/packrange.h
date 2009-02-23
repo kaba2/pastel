@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_PACKRANGE_H
 #define PASTELGFX_PACKRANGE_H
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/constants.h"
 

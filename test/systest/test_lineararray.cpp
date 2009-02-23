@@ -1,6 +1,6 @@
 #include "pastelsystest.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 using namespace Pastel;
 
@@ -59,7 +59,7 @@ namespace
 
 	template <int N, typename Type>
 	void visit(
-		LinearArray<N, Type>& image)
+		Array<N, Type>& image)
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
@@ -71,7 +71,7 @@ namespace
 
 	void testTrivial()
 	{
-		LinearArray<3, int> b(100, 200, 300);
+		Array<3, int> b(100, 200, 300);
 
 		for (integer x = 0;x < 100;++x)
 		{
@@ -115,7 +115,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("LinearArray", testBegin);
+		sysTestList().add("Array", testBegin);
 	}
 
 	CallFunction run(addTest);

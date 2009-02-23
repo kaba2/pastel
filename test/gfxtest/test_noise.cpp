@@ -13,7 +13,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 80;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 		Color fromColor(0, 0, 0);
 		Color toColor(0, 0, 1);
 		Color deltaColor(toColor - fromColor);
@@ -35,7 +35,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 400;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 		Color fromColor(0, 0, 0);
 		Color toColor(0, 0, 1);
 		Color deltaColor(toColor - fromColor);
@@ -74,7 +74,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 400;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 		Color fromColor(0, 0, 0);
 		Color toColor(0, 0, 1);
 		Color deltaColor(toColor - fromColor);

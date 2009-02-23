@@ -5,7 +5,7 @@
 #include "pastel/gfx/drawing.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/permutedview.h"
 #include "pastel/sys/view_tools.h"
 
@@ -15,6 +15,98 @@
 
 namespace Pastel
 {
+
+	template <
+		typename Input_Element,
+		typename Input_View,
+		typename Output_Element,
+		typename Output_View>
+	void resample(
+		const ConstView<1, Input_Element, Input_View>& input,
+		const ArrayExtender<1, Input_Element>& arrayExtender,
+		const ConstFilterRef& filter,
+		const View<1, Output_Element, Output_View>& output)
+	{
+		const integer inputWidth = input.width();
+		const integer outputWidth = output.width();
+
+		if (inputWidth == 0 ||
+			outputWidth == 0)
+		{
+			return;
+		}
+
+		if (outputWidth == inputWidth)
+		{
+			copy(input, output);
+			return;
+		}
+
+		const real xStep = (real)inputWidth / outputWidth;
+		const real filterFactor = (xStep > 1) ? xStep : 1;
+		const real invFilterFactor = inverse(filterFactor);
+
+		const real filterRadius = filter->radius() * filterFactor;
+
+		std::vector<real> weight;
+		weight.reserve((integer)filterRadius * 2 + 1);
+
+		real xFilter = 0.5 * xStep;
+
+		for (integer x = 0;x < outputWidth;++x)
+		{
+			// Compute the filter extent.
+			// For justification,
+			// read proof.txt: "active pixels"
+
+			const integer rangeBegin =
+				toPixelSpanPoint(xFilter - filterRadius);
+			const integer rangeEnd =
+				toPixelSpanPoint(xFilter + filterRadius);
+			const integer rangeWidth = rangeEnd - rangeBegin;
+
+			// Compute the filter weights.
+
+			weight.clear();
+
+			real sumWeights(0);
+			for (integer i = rangeBegin;i < rangeEnd;++i)
+			{
+				// Each pixel is surrounded with
+				// a reconstruction filter function.
+				// We add up all contributions
+				// that cross our current sampling
+				// position.
+
+				const real value(
+					(*filter)((xFilter - (i + 0.5)) *
+					invFilterFactor));
+				sumWeights += value;
+				weight.push_back(value);
+			}
+
+			// Normalize the weights to sum to one.
+
+			const real invSumWeights = inverse(sumWeights);
+			for (integer i = 0;i < rangeWidth;++i)
+			{
+				weight[i] *= invSumWeights;
+			}
+
+			// Resample the current column.
+
+			Output_Element result(0);
+			for (integer i = 0; i < rangeWidth;++i)
+			{
+				result += weight[i] *
+					arrayExtender(input, i + rangeBegin);
+			}
+
+			output(x) = result;
+
+			xFilter += xStep;
+		}
+	}
 
 	template <
 		typename Input_Element,
@@ -188,7 +280,7 @@ namespace Pastel
 		{
 			// Resample in x.
 
-			LinearArray<2, Output_Element> xResult(outputWidth, inputHeight);
+			Array<2, Output_Element> xResult(outputWidth, inputHeight);
 
 			resampleHorizontal(
 				input,
@@ -208,7 +300,7 @@ namespace Pastel
 		{
 			// Resample in y.
 
-			LinearArray<2, Output_Element> yResult(inputWidth, outputHeight);
+			Array<2, Output_Element> yResult(inputWidth, outputHeight);
 
 			resampleHorizontal(
 				constPermutedView(input, Integer2(1, 0)),

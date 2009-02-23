@@ -8,7 +8,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
@@ -112,7 +112,7 @@ namespace Pastel
 		Matrix<Unbounded, Unbounded, Real>& operator-=(const Matrix& that);
 
 	private:
-		LinearArray<2, Real> data_;
+		Array<2, Real> data_;
 	};
 
 	template <typename Real>

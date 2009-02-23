@@ -28,7 +28,7 @@ namespace Pastel
 	void findNearestArray(const std::vector<typename ObjectPolicy::Object>& pointSet,
 		integer kNearest,
 		NormFunctor distance,
-		LinearArray<N, typename ObjectPolicy::Object>& nearestArray)
+		Array<N, typename ObjectPolicy::Object>& nearestArray)
 	{
 		typedef KdTree<N, real, ObjectPolicy> Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
@@ -41,7 +41,7 @@ namespace Pastel
 			computeKdTreeMaxDepth(tree.objects()), 4, tree);
 
 		const integer points = pointSet.size();
-		LinearArray<N, typename ObjectPolicy::Object> result(points, kNearest);
+		Array<N, typename ObjectPolicy::Object> result(points, kNearest);
 
 		for (integer i = 0;i < points;++i)
 		{

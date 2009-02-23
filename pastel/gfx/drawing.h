@@ -6,7 +6,7 @@
 #ifndef PASTELGFX_DRAWING_H
 #define PASTELGFX_DRAWING_H
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
 #include "pastel/sys/rectangle.h"
 

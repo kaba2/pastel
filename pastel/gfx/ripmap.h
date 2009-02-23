@@ -61,32 +61,32 @@ namespace Pastel
 			const ConstView<N, Type, Image_ConstView>& image,
 			const FilterRef& filter = gaussianFilter(2));
 
-		LinearArray<N, Type>& operator()(
+		Array<N, Type>& operator()(
 			const Point<N, integer>& level);
 
-		const LinearArray<N, Type>& operator()(
+		const Array<N, Type>& operator()(
 			const Point<N, integer>& level) const;
 
 		const Vector<N, integer>& levels() const;
 
 		bool empty() const;
 
-		LinearArray<N, Type>& mostDetailed();
-		const LinearArray<N, Type>& mostDetailed() const;
+		Array<N, Type>& mostDetailed();
+		const Array<N, Type>& mostDetailed() const;
 
-		LinearArray<N, Type>& coarsest();
-		const LinearArray<N, Type>& coarsest() const;
+		Array<N, Type>& coarsest();
+		const Array<N, Type>& coarsest() const;
 
-		View<N, LinearArray<N, Type>,
-			ArrayView<N, LinearArray<N, LinearArray<N, Type> > > >
+		View<N, Array<N, Type>,
+			ArrayView<N, Array<N, Array<N, Type> > > >
 			RipMap<N, Type>::view();
 
-		ConstView<N, LinearArray<N, Type>,
-			ConstArrayView<N, LinearArray<N, LinearArray<N, Type> > > >
+		ConstView<N, Array<N, Type>,
+			ConstArrayView<N, Array<N, Array<N, Type> > > >
 			RipMap<N, Type>::constView() const;
 
 	private:
-		LinearArray<N, LinearArray<N, Type> > ripMapArray_;
+		Array<N, Array<N, Type> > ripMapArray_;
 	};
 
 }

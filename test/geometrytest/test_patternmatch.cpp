@@ -57,7 +57,7 @@ namespace
 
 		const integer modelPoints = modelSet.size();
 
-		LinearArray<2, Color> image(width, height);
+		Array<2, Color> image(width, height);
 
 		AlignedBox2 viewWindow = boundingAlignedBox<2, real>(sceneSet.begin(), sceneSet.end());
 

@@ -2,7 +2,7 @@
 #define PASTELGFX_RECONSTRUCTIMAGE_H
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 namespace Pastel
 {
@@ -11,10 +11,10 @@ namespace Pastel
 		typename FilterType,
 		typename ResultType>
 		void reconstructImage(
-		const LinearArray<2, ImageType>& image,
-		const LinearArray<2, bool>& reconstructArea,
-		const LinearArray<2, FilterType>& filter,
-		LinearArray<2, ResultType>& result);
+		const Array<2, ImageType>& image,
+		const Array<2, bool>& reconstructArea,
+		const Array<2, FilterType>& filter,
+		Array<2, ResultType>& result);
 
 }
 

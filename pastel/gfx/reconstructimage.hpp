@@ -10,10 +10,10 @@ namespace Pastel
 		typename FilterType,
 		typename ResultType>
 		void reconstructImage(
-		const LinearArray<2, ImageType>& image,
-		const LinearArray<2, bool>& reconstructArea,
-		const LinearArray<2, FilterType>& filter,
-		LinearArray<2, ResultType>& result)
+		const Array<2, ImageType>& image,
+		const Array<2, bool>& reconstructArea,
+		const Array<2, FilterType>& filter,
+		Array<2, ResultType>& result)
 	{
 		ENSURE(addressOf(image) != addressOf(result));
 		ENSURE(addressOf(filter) != addressOf(result));
@@ -25,7 +25,7 @@ namespace Pastel
 		const integer imageWidth = image.width();
 		const integer imageHeight = image.height();
 
-		LinearArray<2, FilterType> weightImage(
+		Array<2, FilterType> weightImage(
 			imageWidth, imageHeight, 0);
 
 		result = image;

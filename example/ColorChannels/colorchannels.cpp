@@ -38,7 +38,7 @@ int main()
 	string inputFileName;
 	cin >> inputFileName;
 
-	LinearArray<2, Color> image;
+	Array<2, Color> image;
 	if (!loadPcx(inputFileName, image))
 	{
 		cout << "Error in image loading. Aborting." << endl;
@@ -47,7 +47,7 @@ int main()
 
 	transform(arrayView(image), rgbToHsv);
 
-	LinearArray<2, Color> component;
+	Array<2, Color> component;
 
 	transform(constArrayView(image), arrayView(component), hue);
 	savePcx(component, "hue.pcx");

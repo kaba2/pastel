@@ -17,7 +17,7 @@ namespace
 
 	void testPcx()
 	{
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 		std::vector<Color> palette;
 
 		loadPcx("testpcx_rgb.pcx", image);
@@ -35,7 +35,7 @@ namespace
 		loadPcx("testpcx_1bit.pcx", image);
 		savePcx(image, "testpcx_1bit_output_rgb.pcx");
 
-		LinearArray<2, uint8> indexedImage;
+		Array<2, uint8> indexedImage;
 
 		loadIndexedPcx("testpcx_8bit.pcx", indexedImage, &palette);
 		saveIndexedPcx(indexedImage, palette, "testpcx_8bit_output_8bit.pcx");
@@ -67,7 +67,7 @@ namespace
 		}
 		*/
 
-		LinearArray<2, bool> binaryImage(indexedImage.width(), indexedImage.height());
+		Array<2, bool> binaryImage(indexedImage.width(), indexedImage.height());
 
 		//copy(constArrayView(indexedImage), arrayView(binaryImage));
 

@@ -6,7 +6,7 @@
 #include "pastel/gfx/resample.h"
 
 #include "pastel/sys/clampextender.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/vector.h"
@@ -22,7 +22,7 @@ namespace Pastel
 		{
 		public:
 			explicit Visitor(
-				LinearArray<N, LinearArray<N, Type> >& imageArray,
+				Array<N, Array<N, Type> >& imageArray,
 				const FilterRef& filter)
 				: ripMapArray_(imageArray)
 				, filter_(filter)
@@ -31,7 +31,7 @@ namespace Pastel
 
 			void operator()(
 				const Point<N, integer>& position,
-				LinearArray<N, Type>& image) const
+				Array<N, Type>& image) const
 			{
 				if (allEqual(position, 0))
 				{
@@ -48,7 +48,7 @@ namespace Pastel
 					}
 				}
 
-				const LinearArray<N, Type>& previousImage =
+				const Array<N, Type>& previousImage =
 					ripMapArray_(previousPosition);
 
 				Vector<N, integer> resampleExtent =
@@ -68,7 +68,7 @@ namespace Pastel
 			}
 
 		private:
-			LinearArray<N, LinearArray<N, Type> >& ripMapArray_;
+			Array<N, Array<N, Type> >& ripMapArray_;
 			const FilterRef& filter_;
 		};
 
@@ -91,7 +91,7 @@ namespace Pastel
 			levels[i] = integerLog2(topExtent[i]) + 1;
 		}
 
-		LinearArray<N, LinearArray<N, Type> > imageArray(levels);
+		Array<N, Array<N, Type> > imageArray(levels);
 
 		if (imageArray.empty())
 		{
@@ -153,39 +153,39 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	LinearArray<N, Type>& RipMap<N, Type>::operator()(
+	Array<N, Type>& RipMap<N, Type>::operator()(
 		const Point<N, integer>& level)
 	{
 		return ripMapArray_(level);
 	}
 
 	template <int N, typename Type>
-	const LinearArray<N, Type>& RipMap<N, Type>::operator()(
+	const Array<N, Type>& RipMap<N, Type>::operator()(
 		const Point<N, integer>& level) const
 	{
 		return ripMapArray_(level);
 	}
 
 	template <int N, typename Type>
-	LinearArray<N, Type>& RipMap<N, Type>::mostDetailed()
+	Array<N, Type>& RipMap<N, Type>::mostDetailed()
 	{
 		return ripMapArray_(Point<N, integer>(0));
 	}
 
 	template <int N, typename Type>
-	const LinearArray<N, Type>& RipMap<N, Type>::mostDetailed() const
+	const Array<N, Type>& RipMap<N, Type>::mostDetailed() const
 	{
 		return ripMapArray_(Point<N, integer>(0));
 	}
 
 	template <int N, typename Type>
-	LinearArray<N, Type>& RipMap<N, Type>::coarsest()
+	Array<N, Type>& RipMap<N, Type>::coarsest()
 	{
 		return ripMapArray_(asPoint(ripMapArray_.extent() - 1));
 	}
 
 	template <int N, typename Type>
-	const LinearArray<N, Type>& RipMap<N, Type>::coarsest() const
+	const Array<N, Type>& RipMap<N, Type>::coarsest() const
 	{
 		return ripMapArray_(asPoint(ripMapArray_.extent() - 1));
 	}
@@ -203,16 +203,16 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	View<N, LinearArray<N, Type>,
-		ArrayView<N, LinearArray<N, LinearArray<N, Type> > > >
+	View<N, Array<N, Type>,
+		ArrayView<N, Array<N, Array<N, Type> > > >
 		RipMap<N, Type>::view()
 	{
 		return arrayView(ripMapArray_);
 	}
 
 	template <int N, typename Type>
-	ConstView<N, LinearArray<N, Type>,
-		ConstArrayView<N, LinearArray<N, LinearArray<N, Type> > > >
+	ConstView<N, Array<N, Type>,
+		ConstArrayView<N, Array<N, Array<N, Type> > > >
 		RipMap<N, Type>::constView() const
 	{
 		return constArrayView(ripMapArray_);

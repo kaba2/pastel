@@ -6,7 +6,7 @@
 #include <pastel/gfx/filter_all.h>
 
 #include <pastel/sys/view_all.h>
-#include <pastel/sys/lineararray.h>
+#include <pastel/sys/array.h>
 
 using namespace Pastel;
 
@@ -16,7 +16,7 @@ namespace
 	void drawFilter(
 		const Filter& filter,
 		const Color& color,
-		LinearArray<2, Color>& image)
+		Array<2, Color>& image)
 	{
 		const integer Samples = 100;
 
@@ -45,7 +45,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		/*
 		drawFilter(GaussianFilter(1), randomRgbColor(), image);
@@ -70,7 +70,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		const real Range = 3;
 		const integer Steps = 20;
@@ -88,7 +88,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		const real bMin = 0;
 		const real bMax = 0.65;

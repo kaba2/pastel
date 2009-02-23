@@ -8,7 +8,7 @@
 
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/smallset.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include <set>
 
@@ -21,7 +21,7 @@ namespace Pastel
 	void findNearestArray(const std::vector<typename ObjectPolicy::Object>& pointSet,
 		integer kNearest,
 		NormFunctor normFunctor,
-		LinearArray<N, typename ObjectPolicy::Object>& nearestArray);
+		Array<N, typename ObjectPolicy::Object>& nearestArray);
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>

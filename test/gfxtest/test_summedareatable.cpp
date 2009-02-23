@@ -1,6 +1,6 @@
 #include "pastelgfxtest.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/extendedconstview_all.h"
 #include "pastel/sys/vector_tools.h"
@@ -24,11 +24,11 @@ namespace
 
 	void testSummedAreaTable()
 	{
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 
 		loadPcx("lena.pcx", image);
 
-		LinearArray<2, Color> sumImage(image.extent());
+		Array<2, Color> sumImage(image.extent());
 		computeSummedAreaTable(constArrayView(image), arrayView(sumImage));
 
 		const Color sum = sumImage(asPoint(image.extent() - 1));

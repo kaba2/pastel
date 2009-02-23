@@ -4,7 +4,7 @@
 
 #include "pastel/gfx/pcx.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 using namespace Pastel;
 
@@ -15,7 +15,7 @@ namespace
 	{
 		const integer Width = 500;
 		const integer Height = 100;
-		LinearArray<2, bool> image(Width, Height, false);
+		Array<2, bool> image(Width, Height, false);
 		
 		PiecewiseLinear<real> f;
 
