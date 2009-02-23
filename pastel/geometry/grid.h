@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_GRID_H
 
 #include "pastel/sys/fastlist.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/poolallocator.h"
 #include "pastel/sys/rectangle.h"
@@ -31,7 +31,7 @@ namespace Pastel
 		typedef Object Object_;
 
 		typedef typename ObjectContainer::const_iterator ConstObjectIterator;
-		typedef typename LinearArray<N, Cell>::ConstCursor ConstCellCursor;
+		typedef typename Array<N, Cell>::ConstCursor ConstCellCursor;
 
 		// Using default destructor.
 
@@ -208,7 +208,7 @@ namespace Pastel
 		};
 
 		ObjectContainer data_;
-		LinearArray<N, Cell> cellArray_;
+		Array<N, Cell> cellArray_;
 		AlignedBox<N, Real> bound_;
 		Vector<N, Real> inverseBucketDimensions_;
 	};

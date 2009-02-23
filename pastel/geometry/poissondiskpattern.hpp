@@ -5,7 +5,7 @@
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/point.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/rectangle_tools.h"
 #include "pastel/sys/subview.h"
 #include "pastel/sys/arrayview.h"
@@ -100,7 +100,7 @@ namespace Pastel
 
 		//const Point<N, integer> voxels = ceil(windowDelta * invDiagonal);
 
-		LinearArray<N, Point<N, Real> > grid(extent + 1, Point<N, Real>(infinity<Real>()));
+		Array<N, Point<N, Real> > grid(extent + 1, Point<N, Real>(infinity<Real>()));
 		const Rectangle<N> gridWindow(Point<N, integer>(0), asPoint(extent));
 
 		std::vector<Point<N, integer> > activeSet;

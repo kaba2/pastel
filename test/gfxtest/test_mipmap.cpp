@@ -13,9 +13,20 @@ using namespace Pastel;
 namespace
 {
 
+	void test1d()
+	{
+		Array<1, real> sound;
+
+		sound.setExtent(10);
+		
+		MipMap<1, real> mipMap(arrayView(sound));
+		
+		sound(4) = 2;
+	}
+
 	void testResample()
 	{
-		LinearArray<2, Color> texture;
+		Array<2, Color> texture;
 		loadPcx("lena.pcx", texture);
 
 		MipMap<2, Color> mipMap(arrayView(texture));
@@ -23,12 +34,12 @@ namespace
 
 		Point<2, integer> position;
 
-		LinearArray<2, Color> outputImage(texture.extent() * 2);
+		Array<2, Color> outputImage(texture.extent() * 2);
 
 		const integer images = mipMap.levels();
 		for (integer i = 0;i < images;++i)
 		{
-			LinearArray<2, Color>& image = mipMap(i);
+			Array<2, Color>& image = mipMap(i);
 
 			drawView(constArrayView(image),
 				position, arrayView(outputImage));

@@ -12,7 +12,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		const real32 Step = (real32)1 / Width;
 

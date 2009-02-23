@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <typename Type, typename Adapter>
 	bool saveBinaryPcx(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const std::string& fileName,
 		const Adapter& adapter)
 	{
@@ -22,7 +22,7 @@ namespace Pastel
 
 	template <typename Type, typename Adapter>
 	bool saveIndexedPcx(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName,
 		const Adapter& adapter)
@@ -35,7 +35,7 @@ namespace Pastel
 
 	template <typename Type, typename Adapter>
 	bool savePcx(
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const std::string& fileName,
 		const Adapter& adapter)
 	{

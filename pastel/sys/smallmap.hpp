@@ -208,12 +208,12 @@ namespace Pastel
 
 		if (compare_(data_.back().key_, that))
 		{
-			return data_.back().value_;
+			return data_.size();
 		}
 
 		if (compare_(that, data_.front().key_))
 		{
-			return data_.front().value_;
+			return 0;
 		}
 
 		integer lowerBound = 0;

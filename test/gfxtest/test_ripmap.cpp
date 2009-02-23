@@ -15,14 +15,14 @@ namespace
 
 	void testResample()
 	{
-		LinearArray<2, Color> texture;
+		Array<2, Color> texture;
 		loadPcx("lena.pcx", texture);
 
 		RipMap<2, Color> ripMap(arrayView(texture));
 
 		Point<2, integer> position;
 
-		LinearArray<2, Color> outputImage(texture.extent() * 2);
+		Array<2, Color> outputImage(texture.extent() * 2);
 
 		integer yPosition = 0;
 
@@ -33,7 +33,7 @@ namespace
 
 			for (integer x = 0;x < textures.x();++x)
 			{
-				LinearArray<2, Color>& image = ripMap(Point<2, integer>(x, y));
+				Array<2, Color>& image = ripMap(Point<2, integer>(x, y));
 
 				transform(arrayView(image), fitColor);
 

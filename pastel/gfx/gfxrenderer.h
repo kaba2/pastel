@@ -9,7 +9,7 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 namespace Pastel
 {
@@ -107,7 +107,7 @@ namespace Pastel
 
 		// Drawing
 
-		virtual integer uploadTexture(const LinearArray<2, Type>& image) = 0;
+		virtual integer uploadTexture(const Array<2, Type>& image) = 0;
 
 		virtual void clear() = 0;
 

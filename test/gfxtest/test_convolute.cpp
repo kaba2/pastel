@@ -25,8 +25,8 @@ namespace
 		Vector<2, integer> extent(500);
 		Vector<2, integer> filterExtent(31);
 
-		LinearArray<2, Color> input(extent, Color(0));
-		LinearArray<2, real32> filter(filterExtent, 1);
+		Array<2, Color> input(extent, Color(0));
+		Array<2, real32> filter(filterExtent, 1);
 
 		setFilter(bartlettWindow<real32>, arrayView(filter));
 
@@ -42,7 +42,7 @@ namespace
 
 		savePcx(input, "testconvolute_input.pcx");
 
-		LinearArray<2, Color> output(extent);
+		Array<2, Color> output(extent);
 
 		convolute(constArrayView(input),
 			constArrayView(filter),
@@ -60,8 +60,8 @@ namespace
 		Vector<3, integer> extent(500);
 		Vector<3, integer> filterExtent(31);
 
-		LinearArray<3, Color> input(extent, Color(0));
-		LinearArray<3, real32> filter(filterExtent, 1);
+		Array<3, Color> input(extent, Color(0));
+		Array<3, real32> filter(filterExtent, 1);
 
 		//setFilter(bartlettWindow<real32>, arrayView(filter));
 
@@ -73,7 +73,7 @@ namespace
 				asPoint(randomVector<3, real>() * Vector<3, real>((extent - 1)))) = randomRgbColor();
 		}
 
-		LinearArray<3, Color> output(extent);
+		Array<3, Color> output(extent);
 
 		convolute(constArrayView(input),
 			constArrayView(filter),

@@ -7,7 +7,7 @@
 #define PASTELGFX_BOXLABEL_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/gfx/gfxlibrary.h"
 
@@ -50,11 +50,11 @@ namespace Pastel
 	*/
 
 	PASTELGFX integer boxLabel(
-		const LinearArray<2, bool>& image,
+		const Array<2, bool>& image,
 		integer maxWidth,
 		integer maxHeight,
 		real maxRatio,
-		LinearArray<2, int32>& labelImage);
+		Array<2, int32>& labelImage);
 
 }
 

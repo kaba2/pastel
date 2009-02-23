@@ -1,6 +1,6 @@
 #include "pastelsystest.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 using namespace Pastel;
 
@@ -9,8 +9,8 @@ namespace
 
 	void testTrivial()
 	{
-		LinearArray<2, int> a(1024, 1024);
-		LinearArray<2, int> b(a);
+		Array<2, int> a(1024, 1024);
+		Array<2, int> b(a);
 		a = b;
 		b.clear();
 		b = a;
@@ -25,7 +25,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("LinearArray", testBegin);
+		sysTestList().add("Array", testBegin);
 	}
 
 	CallFunction run(addTest);

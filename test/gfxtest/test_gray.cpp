@@ -27,10 +27,10 @@ namespace
 
 	void testGray()
 	{
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 		loadPcx("lena.pcx", image);
 
-		LinearArray<2, Color> transformed;
+		Array<2, Color> transformed;
 
 		transform(constArrayView(image),
 			arrayView(transformed), luma);

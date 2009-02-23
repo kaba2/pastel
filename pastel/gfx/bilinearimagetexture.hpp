@@ -11,7 +11,7 @@ namespace Pastel
 	template <typename Type>
 	Type sampleBilinear(
 		const Point2& uv,
-		const LinearArray<2, Type>& image,
+		const Array<2, Type>& image,
 		const ArrayExtender<2, Type>& extender)
 	{
 		if (image.empty())

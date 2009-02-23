@@ -22,7 +22,7 @@ namespace Pastel
 			return Type(0.5);
 		}
 
-		const LinearArray<2, Type>& mostDetailedImage = mipMap_->mostDetailed();
+		const Array<2, Type>& mostDetailedImage = mipMap_->mostDetailed();
 
 		const Vector2 imageExtent(mostDetailedImage.extent());
 
@@ -189,13 +189,13 @@ namespace Pastel
 		// image levels.
 
 		const integer detailLevel = std::floor(level);
-		const LinearArray<2, Type>& detailImage = (*mipMap_)(detailLevel);
+		const Array<2, Type>& detailImage = (*mipMap_)(detailLevel);
 		const Type detailSample =
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << detailLevel), tTransition,
 			detailImage);
 
 		const integer coarseLevel = detailLevel + 1;
-		const LinearArray<2, Type>& coarseImage = (*mipMap_)(coarseLevel);
+		const Array<2, Type>& coarseImage = (*mipMap_)(coarseLevel);
 		const Type coarseSample =
 			sampleEwa(p, quadraticForm, bound, (real)1 / (1 << coarseLevel), tTransition,
 			coarseImage);
@@ -210,7 +210,7 @@ namespace Pastel
 		const AlignedBox2& bound,
 		real scaling,
 		real tTransition,
-		const LinearArray<2, Type>& image) const
+		const Array<2, Type>& image) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 

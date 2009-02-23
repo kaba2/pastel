@@ -5,7 +5,7 @@
 #include "pastel/gfx/mipmap.h"
 
 #include "pastel/sys/point.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/sys/arrayextender.h"
 

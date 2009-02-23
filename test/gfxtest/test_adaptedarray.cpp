@@ -1,6 +1,6 @@
 #include "pastelgfxtest.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/view_all.h"
 #include "pastel/sys/indexextender_all.h"
@@ -20,11 +20,11 @@ namespace
 
 	void testBegin()
 	{
-		LinearArray<2, uint32> image;
+		Array<2, uint32> image;
 
 		loadPcx("lena.pcx", image);
 
-		LinearArray<2, uint32> smallerImage(200, 200);
+		Array<2, uint32> smallerImage(200, 200);
 
 		savePcx(image, "test_adaptedview1.pcx");
 
@@ -33,7 +33,7 @@ namespace
 
 		savePcx(smallerImage, "test_adaptedview2.pcx");
 
-		LinearArray<2, uint32> copySmallerImage(smallerImage.extent());
+		Array<2, uint32> copySmallerImage(smallerImage.extent());
 
 		copy(constArrayView(smallerImage),
 			arrayView(copySmallerImage));

@@ -1,20 +1,20 @@
-#ifndef PASTELSYS_LINEARARRAYBASE_H
-#define PASTELSYS_LINEARARRAYBASE_H
+#ifndef PASTELSYS_ARRAYBASE_H
+#define PASTELSYS_ARRAYBASE_H
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
-#include "pastel/sys/lineararraybasecursor.h"
+#include "pastel/sys/arraybasecursor.h"
 
 namespace Pastel
 {
 
-	namespace Detail_LinearArray
+	namespace Detail_Array
 	{
 
 		template <int N, typename Type, typename Derived>
-		class LinearArrayBase
+		class ArrayBase
 		{
 		public:
 			enum
@@ -26,21 +26,21 @@ namespace Pastel
 			typedef Type& Reference;
 			typedef const Type& ConstReference;
 
-			typedef Detail_LinearArray::Cursor<N, Type> Cursor;
-			typedef Detail_LinearArray::ConstCursor<N, Type> ConstCursor;
+			typedef Detail_Array::Cursor<N, Type> Cursor;
+			typedef Detail_Array::ConstCursor<N, Type> ConstCursor;
 
-			LinearArrayBase();
-			LinearArrayBase(
+			ArrayBase();
+			ArrayBase(
 				const Vector<N, integer>& extent,
 				const Type& defaultData = Type());
-			LinearArrayBase(const LinearArrayBase<N, Type, Derived>& that);
-			LinearArrayBase(const LinearArrayBase<N, Type, Derived>& that,
+			ArrayBase(const ArrayBase<N, Type, Derived>& that);
+			ArrayBase(const ArrayBase<N, Type, Derived>& that,
 				const Vector<N, integer>& extent,
 				const Type& defaultData = Type());
-			~LinearArrayBase();
+			~ArrayBase();
 
 			void clear();
-			void swap(LinearArrayBase<N, Type, Derived>& that);
+			void swap(ArrayBase<N, Type, Derived>& that);
 
 			//! Sets the extent and height of the array.
 			/*!
@@ -65,7 +65,7 @@ namespace Pastel
 			integer size() const;
 
 			//! Copies from another array.
-			LinearArrayBase<N, Type, Derived>& operator=(const LinearArrayBase<N, Type, Derived>& that);
+			ArrayBase<N, Type, Derived>& operator=(const ArrayBase<N, Type, Derived>& that);
 
 			//! Returns a reference to the element with the given index.
 			Type& operator()(integer index);
@@ -89,7 +89,7 @@ namespace Pastel
 			void construct(
 				const Vector<N, integer>& extent,
 				const Type& defaultData);
-			void copy(const LinearArrayBase<N, Type, Derived>& that,
+			void copy(const ArrayBase<N, Type, Derived>& that,
 				const Vector<N, integer>& extent,
 				const Type& defaultData);
 
@@ -103,6 +103,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/lineararraybase.hpp"
+#include "pastel/sys/arraybase.hpp"
 
 #endif

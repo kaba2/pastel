@@ -236,13 +236,13 @@ a submonoid of affine transformations). Let A and B be matrices and
 A' and B' their corresponding affine transformations. For analogy you need: 
 x * A * B = x * A' * B'. B'(A'(x)) would again be confusing.
 
-Transponation in LinearArray
+Transponation in Array
 -----------------------
 
-To solve for the problem of reusing horizontal 2d resampling for vertical resampling, I made a transponate() function to the LinearArray class. This function toggled an inner flag. If the flag was on, width() would return the height of the array, and height() would return the width of the array. Similarly data access indexing was changed. In effect this was a constant time transponation.
+To solve for the problem of reusing horizontal 2d resampling for vertical resampling, I made a transponate() function to the Array class. This function toggled an inner flag. If the flag was on, width() would return the height of the array, and height() would return the width of the array. Similarly data access indexing was changed. In effect this was a constant time transponation.
 
 Lesson to be learned: 
-While it works nicely for non-const LinearArray's, it doesn't work for the const ones (reading from an array in a transposed manner).
+While it works nicely for non-const Array's, it doesn't work for the const ones (reading from an array in a transposed manner).
 
 Complex concepts
 ----------------

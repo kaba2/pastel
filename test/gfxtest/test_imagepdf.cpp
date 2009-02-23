@@ -9,7 +9,7 @@
 #include "pastel/gfx/imagepdf.h"
 #include "pastel/gfx/filter_all.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/view_all.h"
 #include "pastel/sys/string_tools.h"
 #include "pastel/sys/extendedconstview_all.h"
@@ -33,10 +33,10 @@ namespace
 
 	void testTechnique1()
 	{
-		LinearArray<2, Color> colorImage;
+		Array<2, Color> colorImage;
 		loadPcx("test_imagepdf_input.pcx", colorImage);
 
-		LinearArray<2, real32> image(colorImage.extent());
+		Array<2, real32> image(colorImage.extent());
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(rgbLuma, _1));
 
@@ -69,10 +69,10 @@ namespace
 
 	void testTechnique2()
 	{
-		LinearArray<2, Color> colorImage;
+		Array<2, Color> colorImage;
 		loadPcx("test_imagepdf2_input.pcx", colorImage);
 
-		LinearArray<2, real32> image(colorImage.extent());
+		Array<2, real32> image(colorImage.extent());
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(rgbLuma, _1));
 
@@ -110,7 +110,7 @@ namespace
 					for (integer level = images - 2;level >= 0;--level)
 					{
 						asVector(position) *= 2;
-						const LinearArray<2, real32>& mipmap = mipMap(level);
+						const Array<2, real32>& mipmap = mipMap(level);
 
 						const real32 sum1 = mipmap(position);
 						const real32 sum2 = sum1 + mipmap(position + Vector<2, integer>(1, 0));
@@ -152,7 +152,7 @@ namespace
 
 	void computeProbabilityTree(
 		std::vector<real32>& probabilityTree,
-		const LinearArray<2, real32>& summedAreaImage,
+		const Array<2, real32>& summedAreaImage,
 		const Rectangle2& wholeRegion)
 	{
 		probabilityTree.push_back(1);
@@ -198,16 +198,16 @@ namespace
 
 	void testTechnique4()
 	{
-		LinearArray<2, Color> colorImage;
+		Array<2, Color> colorImage;
 		loadPcx("test_imagepdf4_input.pcx", colorImage);
 
-		LinearArray<2, real32> image(colorImage.extent());
+		Array<2, real32> image(colorImage.extent());
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(rgbLuma, _1));
 
 		log() << "Computing summed area table..." << logNewLine;
 
-		LinearArray<2, real32> summedAreaImage(image.extent());
+		Array<2, real32> summedAreaImage(image.extent());
 
 		const integer width = image.width();
 		const integer height = image.height();

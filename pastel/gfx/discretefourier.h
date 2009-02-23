@@ -3,7 +3,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/memoryview.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/math/complex.h"
 
 namespace Pastel

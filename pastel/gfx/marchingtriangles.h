@@ -1,7 +1,7 @@
 #ifndef PASTELGFX_MARCHINGTRIANGLES_H
 #define PASTELGFX_MARCHINGTRIANGLES_H
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/math/linear.h"
 #include "pastel/sys/point.h"
@@ -140,7 +140,7 @@ namespace Pastel
 
 	template <typename Real, typename Type>
 	void marchingTriangles(
-		const LinearArray<2, Real>& value,
+		const Array<2, Real>& value,
 		const AlignedBox2& window,
 		GfxRenderer<Type>& renderer)
 	{

@@ -18,7 +18,7 @@ namespace
 
 	void draw(const std::vector<Vector2>& sample,
 		integer x, integer y, const Color& color,
-		LinearArray<2, Color>& image)
+		Array<2, Color>& image)
 	{
 		const integer samples = sample.size();
 		for (integer i = 0;i < samples;++i)
@@ -39,7 +39,7 @@ namespace
 		const integer Width = 600;
 		const integer Height = 600;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		std::vector<Vector2> square;
 
@@ -242,7 +242,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 250;
 
-		LinearArray<2, Color> image(Width, Height);
+		Array<2, Color> image(Width, Height);
 
 		std::vector<Vector2> square;
 		PushBack pushBack(square);

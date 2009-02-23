@@ -59,6 +59,12 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	Real log2(const Real& x)
+	{
+		return std::log(x) / constantLn2<Real>();
+	}
+
+	template <typename Real>
 	Real sinc(const Real& xInput)
 	{
 		// Let

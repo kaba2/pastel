@@ -26,14 +26,14 @@ namespace
 
 	void testDistortion()
 	{
-		LinearArray<2, Color> textureImage;
+		Array<2, Color> textureImage;
 		loadPcx("lena.pcx", textureImage);
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage));
 		EwaImageTexture<Color> texture(mipMap);
 		transform(mipMap, fitColor);
 
-		LinearArray<2, Color> image(500, 100);
+		Array<2, Color> image(500, 100);
 
 		distortAnnulusToAlignedBox(
 			texture,
@@ -66,7 +66,7 @@ namespace
 
 	void testView()
 	{
-		LinearArray<2, Color> image(500, 500, Color(0));
+		Array<2, Color> image(500, 500, Color(0));
 
 		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
 		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), IVector2(2, 2)));
@@ -82,7 +82,7 @@ namespace
 
 	void testBinary()
 	{
-		LinearArray<2, bool> image(500, 500, false);
+		Array<2, bool> image(500, 500, false);
 
 		clear(false, arrayView(image));
 
@@ -97,7 +97,7 @@ namespace
 
 	void testFloodFill()
 	{
-		LinearArray<2, Color> image(500, 500, Color(0));
+		Array<2, Color> image(500, 500, Color(0));
 
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -124,9 +124,9 @@ namespace
 
 	void testPerspectiveTriangle()
 	{
-		LinearArray<2, Color> image(500, 500);
+		Array<2, Color> image(500, 500);
 
-		LinearArray<2, Color> texture;
+		Array<2, Color> texture;
 		loadPcx("lena.pcx", texture);
 
 		log() << "Computing mipmaps.." << logNewLine;
@@ -159,9 +159,9 @@ namespace
 
 	void testEwaPerspectiveTriangle()
 	{
-		LinearArray<2, Color> image(500, 500);
+		Array<2, Color> image(500, 500);
 
-		LinearArray<2, Color> textureImage;
+		Array<2, Color> textureImage;
 		loadPcx("lena.pcx", textureImage);
 
 		log() << "Rendering.." << logNewLine;
@@ -192,9 +192,9 @@ namespace
 
 	void testTextureTriangle()
 	{
-		LinearArray<2, Color> image(500, 500);
+		Array<2, Color> image(500, 500);
 
-		LinearArray<2, Color> texture;
+		Array<2, Color> texture;
 		loadPcx("lena.pcx", texture);
 
 		log() << "Computing mipmaps.." << logNewLine;
@@ -227,9 +227,9 @@ namespace
 
 	void testEwaTriangle()
 	{
-		LinearArray<2, Color> image(500, 500);
+		Array<2, Color> image(500, 500);
 
-		LinearArray<2, Color> textureImage;
+		Array<2, Color> textureImage;
 		loadPcx("lena.pcx", textureImage);
 
 		log() << "Rendering.." << logNewLine;
@@ -261,9 +261,9 @@ namespace
 
 	void testSolidTriangle()
 	{
-		LinearArray<2, Color> image(500, 500);
+		Array<2, Color> image(500, 500);
 
-		LinearArray<2, Color> texture;
+		Array<2, Color> texture;
 		loadPcx("lena.pcx", texture);
 
 		log() << "Rendering.." << logNewLine;
@@ -290,7 +290,7 @@ namespace
 
 	void testBoxes()
 	{
-		LinearArray<2, Color> image(640, 480);
+		Array<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -314,7 +314,7 @@ namespace
 
 	void testMoreCircles()
 	{
-		LinearArray<2, Color> image(640, 480);
+		Array<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -334,7 +334,7 @@ namespace
 
 	void testCircles()
 	{
-		LinearArray<2, Color> image(640, 480);
+		Array<2, Color> image(640, 480);
 
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -401,7 +401,7 @@ namespace
 
 	void testLines()
 	{
-		LinearArray<2, Color> image(640, 480);
+		Array<2, Color> image(640, 480);
 
 		const integer steps = 128;
 
@@ -429,7 +429,7 @@ namespace
 
 	void testMoreLines()
 	{
-		LinearArray<2, Color> image(640, 480);
+		Array<2, Color> image(640, 480);
 
 		const integer lines = 500;
 
@@ -455,7 +455,7 @@ namespace
 		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);
 		const real YYStep = (real)(YEnd - YStart) / (YLines - 1);
 
-		LinearArray<2, Color> image(XLines* BoxWidth, YLines * BoxHeight);
+		Array<2, Color> image(XLines* BoxWidth, YLines * BoxHeight);
 
 		for (integer y = 0;y < YLines;++y)
 		{

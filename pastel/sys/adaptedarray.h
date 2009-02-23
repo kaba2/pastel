@@ -18,7 +18,7 @@ namespace Pastel
 		}
 
 		ConstAdaptedArray(
-			const LinearArray<N, ToType>& image,
+			const Array<N, ToType>& image,
 			const Adapter& adapter)
 			: image_(&image)
 			, adapter_(adapter)
@@ -41,7 +41,7 @@ namespace Pastel
 		}
 
 	protected:
-		const LinearArray<N, ToType>* image_;
+		const Array<N, ToType>* image_;
 		Adapter adapter_;
 	};
 
@@ -57,7 +57,7 @@ namespace Pastel
 		}
 
 		AdaptedArray(
-			LinearArray<N, ToType>& image,
+			Array<N, ToType>& image,
 			const Adapter& adapter)
 			: image_(&image)
 			, adapter_(adapter)
@@ -93,7 +93,7 @@ namespace Pastel
 		}
 
 	private:
-		LinearArray<N, ToType>* image_;
+		Array<N, ToType>* image_;
 		Adapter adapter_;
 	};
 

@@ -25,14 +25,14 @@ namespace
 
 	void testReconstructionOld()
 	{
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 
 		loadPcx("ScMod_Tiff_Veeco.pcx", image);
 
 		const integer width = image.width();
 		const integer height = image.height();
 
-		LinearArray<2, bool> mask(
+		Array<2, bool> mask(
 			width, height, false);
 
 		for (integer y = 0;y < height;++y)
@@ -47,7 +47,7 @@ namespace
 			}
 		}
 
-		LinearArray<2, Color> maskImage(width, height);
+		Array<2, Color> maskImage(width, height);
 		for (integer y = 0;y < height;++y)
 		{
 			for (integer x = 0;x < width;++x)
@@ -60,11 +60,11 @@ namespace
 		savePcx(maskImage, "reconstructionmask.pcx");
 
 		const integer HoleWidth = 33;
-		LinearArray<2, real> filter(
+		Array<2, real> filter(
 			HoleWidth, HoleWidth);
 		setFilter(boost::bind(gaussian<real>, _1, (real)0.1), arrayView(filter));
 
-		LinearArray<2, Color> result;
+		Array<2, Color> result;
 		reconstructImage(image, mask, filter, result);
 
 		savePcx(result, "reconstructionresult.pcx");
@@ -111,7 +111,7 @@ namespace
 				hsvToRgb(Color(t * t * t / 20, 1, value)));
 		}
 
-		LinearArray<2, Color> image(500, 500);
+		Array<2, Color> image(500, 500);
 
 		reconstructNearest(positionList,
 			dataList,

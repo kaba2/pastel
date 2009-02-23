@@ -15,7 +15,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/smallset.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/subview.h"
 #include "pastel/sys/rectangle_tools.h"

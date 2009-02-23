@@ -2,7 +2,7 @@
 #define PASTELGFX_BRANCHINGNUMBER_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/gfx/gfxlibrary.h"
 
@@ -26,15 +26,15 @@ namespace Pastel
 	Exception safety: strong
 	*/
 	PASTELGFX void branchingNumber(
-		const LinearArray<2, bool>& image,
-		LinearArray<2, int32>& numberImage);
+		const Array<2, bool>& image,
+		Array<2, int32>& numberImage);
 
 	PASTELGFX integer branchingNumber(
-		const LinearArray<2, bool>& image,
+		const Array<2, bool>& image,
 		integer x, integer y);
 
 	PASTELGFX uint32 branchingMask(
-		const LinearArray<2, bool>& image,
+		const Array<2, bool>& image,
 		integer x, integer y);
 
 }

@@ -3,7 +3,7 @@
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 
 namespace Pastel
 {
@@ -70,7 +70,7 @@ namespace Pastel
 			return right * left;
 		}
 
-		typedef LinearArray<2, Spectrum> SpectrumImage;
+		typedef Array<2, Spectrum> SpectrumImage;
 
 	}
 

@@ -11,7 +11,7 @@
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/palette.h"
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/poolallocator.h"
 
@@ -181,7 +181,7 @@ namespace
 		const integer width = 800;
 		const integer height = 800;
 
-		LinearArray<2, Color> image(width, height, Color(0));
+		Array<2, Color> image(width, height, Color(0));
 
 		integer reportedProgress = -1;
 

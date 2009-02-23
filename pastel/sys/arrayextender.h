@@ -1,9 +1,10 @@
 #ifndef PASTELSYS_ARRAYEXTENDER_H
 #define PASTELSYS_ARRAYEXTENDER_H
 
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/indexextender.h"
 #include "pastel/sys/point.h"
+#include "pastel/sys/view.h"
 
 namespace Pastel
 {
@@ -66,7 +67,15 @@ namespace Pastel
 		}
 
 		Type operator()(
-			const LinearArray<N, Type>& image,
+			const Array<N, Type>& image,
+			const Point<N, integer>& position) const
+		{
+			return (*this)(constArrayView(image), position);
+		}
+
+		template <typename Image_ConstView>
+		Type operator()(
+			const ConstView<N, Type, Image_ConstView>& image,
 			const Point<N, integer>& position) const
 		{
 			const Vector<N, integer>& extent = image.extent();

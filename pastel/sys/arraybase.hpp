@@ -1,7 +1,7 @@
-#ifndef PASTELSYS_LINEARARRAYBASE_HPP
-#define PASTELSYS_LINEARARRAYBASE_HPP
+#ifndef PASTELSYS_ARRAYBASE_HPP
+#define PASTELSYS_ARRAYBASE_HPP
 
-#include "pastel/sys/lineararraybase.h"
+#include "pastel/sys/arraybase.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/syscommon.h"
@@ -13,11 +13,11 @@
 namespace Pastel
 {
 
-	namespace Detail_LinearArray
+	namespace Detail_Array
 	{
 
 		template <int N, typename Type, typename Derived>
-		LinearArrayBase<N, Type, Derived>::LinearArrayBase()
+		ArrayBase<N, Type, Derived>::ArrayBase()
 			: extent_(0)
 			, factor_(0)
 			, size_(0)
@@ -26,7 +26,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		LinearArrayBase<N, Type, Derived>::LinearArrayBase(
+		ArrayBase<N, Type, Derived>::ArrayBase(
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 			: extent_(0)
@@ -38,8 +38,8 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		LinearArrayBase<N, Type, Derived>::LinearArrayBase(
-			const LinearArrayBase<N, Type, Derived>& that)
+		ArrayBase<N, Type, Derived>::ArrayBase(
+			const ArrayBase<N, Type, Derived>& that)
 			: extent_(0)
 			, factor_(0)
 			, size_(0)
@@ -50,8 +50,8 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		LinearArrayBase<N, Type, Derived>::LinearArrayBase(
-			const LinearArrayBase<N, Type, Derived>& that,
+		ArrayBase<N, Type, Derived>::ArrayBase(
+			const ArrayBase<N, Type, Derived>& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 			: extent_(0)
@@ -64,13 +64,13 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		LinearArrayBase<N, Type, Derived>::~LinearArrayBase()
+		ArrayBase<N, Type, Derived>::~ArrayBase()
 		{
 			clear();
 		}
 
 		template <int N, typename Type, typename Derived>
-		void LinearArrayBase<N, Type, Derived>::clear()
+		void ArrayBase<N, Type, Derived>::clear()
 		{
 			if (data_)
 			{
@@ -85,7 +85,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		void LinearArrayBase<N, Type, Derived>::swap(LinearArrayBase<N, Type, Derived>& that)
+		void ArrayBase<N, Type, Derived>::swap(ArrayBase<N, Type, Derived>& that)
 		{
 			extent_.swap(that.extent_);
 			factor_.swap(that.factor_);
@@ -94,7 +94,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		void LinearArrayBase<N, Type, Derived>::setExtent(
+		void ArrayBase<N, Type, Derived>::setExtent(
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 		{
@@ -112,7 +112,7 @@ namespace Pastel
 			{
 				if (extent != extent_)
 				{
-					LinearArrayBase<N, Type, Derived> copy(*this, extent,
+					ArrayBase<N, Type, Derived> copy(*this, extent,
 						defaultData);
 					swap(copy);
 				}
@@ -120,42 +120,42 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		const Vector<N, integer>& LinearArrayBase<N, Type, Derived>::extent() const
+		const Vector<N, integer>& ArrayBase<N, Type, Derived>::extent() const
 		{
 			return extent_;
 		}
 
 		template <int N, typename Type, typename Derived>
-		bool LinearArrayBase<N, Type, Derived>::empty() const
+		bool ArrayBase<N, Type, Derived>::empty() const
 		{
 			return allEqual(extent(), 0);
 		}
 
 		template <int N, typename Type, typename Derived>
-		integer LinearArrayBase<N, Type, Derived>::size() const
+		integer ArrayBase<N, Type, Derived>::size() const
 		{
 			return size_;
 		}
 
 		template <int N, typename Type, typename Derived>
-		LinearArrayBase<N, Type, Derived>& LinearArrayBase<N, Type, Derived>::operator=(
-			const LinearArrayBase<N, Type, Derived>& that)
+		ArrayBase<N, Type, Derived>& ArrayBase<N, Type, Derived>::operator=(
+			const ArrayBase<N, Type, Derived>& that)
 		{
-			LinearArrayBase<N, Type, Derived> copy(that);
+			ArrayBase<N, Type, Derived> copy(that);
 			swap(copy);
 
 			return *this;
 		}
 
 		template <int N, typename Type, typename Derived>
-		Type& LinearArrayBase<N, Type, Derived>::operator()(
+		Type& ArrayBase<N, Type, Derived>::operator()(
 			integer index)
 		{
-			return (Type&)((const LinearArrayBase&)*this)(index);
+			return (Type&)((const ArrayBase&)*this)(index);
 		}
 
 		template <int N, typename Type, typename Derived>
-		const Type& LinearArrayBase<N, Type, Derived>::operator()(
+		const Type& ArrayBase<N, Type, Derived>::operator()(
 			integer index) const
 		{
 			PENSURE2(index >= 0 && index < size_, index, size_);
@@ -164,14 +164,14 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		Type& LinearArrayBase<N, Type, Derived>::operator()(
+		Type& ArrayBase<N, Type, Derived>::operator()(
 			const Point<N, integer>& position)
 		{
-			return (Type&)((const LinearArrayBase&)*this)(position);
+			return (Type&)((const ArrayBase&)*this)(position);
 		}
 
 		template <int N, typename Type, typename Derived>
-		const Type& LinearArrayBase<N, Type, Derived>::operator()(
+		const Type& ArrayBase<N, Type, Derived>::operator()(
 			const Point<N, integer>& position) const
 		{
 			for (integer i = 0;i < N;++i)
@@ -192,7 +192,7 @@ namespace Pastel
 		// Private
 
 		template <int N, typename Type, typename Derived>
-		void LinearArrayBase<N, Type, Derived>::construct(
+		void ArrayBase<N, Type, Derived>::construct(
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 		{
@@ -232,8 +232,8 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		void LinearArrayBase<N, Type, Derived>::copy(
-			const LinearArrayBase<N, Type, Derived>& that,
+		void ArrayBase<N, Type, Derived>::copy(
+			const ArrayBase<N, Type, Derived>& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 		{
@@ -299,16 +299,16 @@ namespace Pastel
 		}
 
 		template <int N, typename Type, typename Derived>
-		typename LinearArrayBase<N, Type, Derived>::Cursor
-			LinearArrayBase<N, Type, Derived>::cursor(
+		typename ArrayBase<N, Type, Derived>::Cursor
+			ArrayBase<N, Type, Derived>::cursor(
 			const Point<N, integer>& position)
 		{
 			return Cursor(&(*this)(position), factor_);
 		}
 
 		template <int N, typename Type, typename Derived>
-		typename LinearArrayBase<N, Type, Derived>::ConstCursor
-			LinearArrayBase<N, Type, Derived>::constCursor(
+		typename ArrayBase<N, Type, Derived>::ConstCursor
+			ArrayBase<N, Type, Derived>::constCursor(
 			const Point<N, integer>& position) const
 		{
 			return ConstCursor(&(*this)(position), factor_);

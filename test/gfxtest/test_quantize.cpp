@@ -16,7 +16,7 @@ namespace
 
 	void testErrorDiffusion()
 	{
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 
 		loadPcx("quantizeinput.pcx", image);
 
@@ -27,7 +27,7 @@ namespace
 
 	void testRounding()
 	{
-		LinearArray<2, Color> image;
+		Array<2, Color> image;
 
 		loadPcx("quantizeinput.pcx", image);
 

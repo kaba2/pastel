@@ -7,8 +7,8 @@ namespace Pastel
 {
 
 	PASTELGFX void branchingNumber(
-		const LinearArray<2, bool>& image,
-		LinearArray<2, int32>& numberImage)
+		const Array<2, bool>& image,
+		Array<2, int32>& numberImage)
 	{
 		// Let the 8-neighbourhood
 		// of a binary pixel be enumerated as
@@ -66,7 +66,7 @@ namespace Pastel
 		const integer width = image.width();
 		const integer height = image.height();
 
-		LinearArray<2, int32> result(width, height, -1);
+		Array<2, int32> result(width, height, -1);
 
 		uint8 content = 0;
 
@@ -369,7 +369,7 @@ namespace Pastel
 	}
 
 	PASTELGFX integer branchingNumber(
-		const LinearArray<2, bool>& image,
+		const Array<2, bool>& image,
 		integer x, integer y)
 	{
 		const integer width = image.width();
@@ -401,7 +401,7 @@ namespace Pastel
 	}
 
 	PASTELGFX uint32 branchingMask(
-		const LinearArray<2, bool>& image,
+		const Array<2, bool>& image,
 		integer x, integer y)
 	{
 		const integer width = image.width();

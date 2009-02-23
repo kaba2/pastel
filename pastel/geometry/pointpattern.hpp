@@ -9,7 +9,7 @@
 #include "pastel/math/affinetransformation_tools.h"
 
 #include "pastel/sys/unorderedset.h"
-#include "pastel/sys/lineararray.h"
+#include "pastel/sys/array.h"
 #include "pastel/sys/smallset.h"
 
 namespace Pastel

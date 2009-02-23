@@ -32,7 +32,7 @@ namespace Pastel
 
 		// Drawing
 
-		virtual integer uploadTexture(const LinearArray<2, Color>& image);
+		virtual integer uploadTexture(const Array<2, Color>& image);
 
 		virtual void clear();
 
