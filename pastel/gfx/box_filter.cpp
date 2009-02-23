@@ -1,4 +1,4 @@
-#include "pastel/gfx/boxfilter.h"
+#include "pastel/gfx/box_filter.h"
 
 namespace Pastel
 {

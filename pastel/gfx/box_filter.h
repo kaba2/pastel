@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_BOXFILTER_H
-#define PASTELGFX_BOXFILTER_H
+#ifndef PASTELGFX_BOX_FILTER_H
+#define PASTELGFX_BOX_FILTER_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"

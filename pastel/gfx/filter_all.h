@@ -1,11 +1,11 @@
 #ifndef PASTELGFX_FILTER_ALL_H
 #define PASTELGFX_FILTER_ALL_H
 
-#include "pastel/gfx/boxfilter.h"
-#include "pastel/gfx/trianglefilter.h"
-#include "pastel/gfx/mitchellfilter.h"
-#include "pastel/gfx/gaussianfilter.h"
-#include "pastel/gfx/lanczosfilter.h"
-#include "pastel/gfx/cubicfilter.h"
+#include "pastel/gfx/box_filter.h"
+#include "pastel/gfx/triangle_filter.h"
+#include "pastel/gfx/mitchell_filter.h"
+#include "pastel/gfx/gaussian_filter.h"
+#include "pastel/gfx/lanczos_filter.h"
+#include "pastel/gfx/cubic_filter.h"
 
 #endif

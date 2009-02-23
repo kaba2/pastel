@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_GAUSSIANFILTER_H
-#define PASTELGFX_GAUSSIANFILTER_H
+#ifndef PASTELGFX_GAUSSIAN_FILTER_H
+#define PASTELGFX_GAUSSIAN_FILTER_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"

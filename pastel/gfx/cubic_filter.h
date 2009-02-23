@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_CUBICFILTER_H
-#define PASTELGFX_CUBICFILTER_H
+#ifndef PASTELGFX_CUBIC_FILTER_H
+#define PASTELGFX_CUBIC_FILTER_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/filter.h"

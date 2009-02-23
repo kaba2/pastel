@@ -1,4 +1,4 @@
-#include "pastel/gfx/cubicfilter.h"
+#include "pastel/gfx/cubic_filter.h"
 
 #include <cmath>
 

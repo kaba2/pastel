@@ -1,4 +1,4 @@
-#include "pastel/gfx/gaussianfilter.h"
+#include "pastel/gfx/gaussian_filter.h"
 
 #include <cmath>
 
