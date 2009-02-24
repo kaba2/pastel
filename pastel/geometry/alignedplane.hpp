@@ -32,7 +32,7 @@ namespace Pastel
 	void AlignedPlane<N, Real>::swap(AlignedPlane<N, Real>& that)
 	{
 		using std::swap;
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		swap(position_, that.position_);
 		swap(axis_, that.axis_);

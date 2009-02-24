@@ -41,7 +41,7 @@ namespace Pastel
 	template <typename Type, typename Compare>
 	void SmallSet<Type, Compare>::swap(SmallSet& that)
 	{
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		data_.swap(that.data_);
 		swap(compare_, that.compare_);
@@ -85,8 +85,8 @@ namespace Pastel
 			integer right = index;
 			while(left >= 0 && !compare_(data_[left], data_[right]))
 			{
-				using NameLookUpTrick::swap;
-				std::swap(data_[left], data_[right]);
+				using std::swap;
+				swap(data_[left], data_[right]);
 
 				if (!compare_(data_[left], data_[right]))
 				{
@@ -114,8 +114,8 @@ namespace Pastel
 			integer right = index + 1;
 			while(right < elements && !compare_(data_[left], data_[right]))
 			{
-				using NameLookUpTrick::swap;
-				std::swap(data_[left], data_[right]);
+				using std::swap;
+				swap(data_[left], data_[right]);
 
 				if (!compare_(data_[left], data_[right]))
 				{
@@ -268,18 +268,29 @@ namespace Pastel
 			return -1;
 		}
 
+		if (compare_(data_.back(), that))
+		{
+			return data_.size();
+		}
+
+		if (compare_(that, data_.front()))
+		{
+			return 0;
+		}
+
 		integer lowerBound = 0;
-		integer upperBound = data_.size() - 1;
-		while (lowerBound <= upperBound)
+		integer upperBound = data_.size();
+		while (lowerBound + 1 < upperBound)
 		{
 			const integer middle = (lowerBound + upperBound) / 2;
+
 			if (compare_(that, data_[middle]))
 			{
-				upperBound = middle - 1;
+				upperBound = middle;
 			}
 			else if (compare_(data_[middle], that))
 			{
-				lowerBound = middle + 1;
+				lowerBound = middle;
 			}
 			else
 			{
