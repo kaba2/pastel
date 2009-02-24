@@ -148,7 +148,7 @@ namespace Pastel
 		Rational<Integer>& that)
 	{
 		using std::swap;
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		swap(numerator_, that.numerator_);
 		swap(denominator_, that.denominator_);

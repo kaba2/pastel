@@ -15,30 +15,21 @@ namespace Pastel
 {
 
 	//! A random-access contiguous memory set.
-
 	/*!
-	Requirements for Type:
-	* Type is default-constructible
-
-	This class is meant to handle the need for a set
-	which can still be handled like an array.
-	The elements of the set are stored in contiguous
-	memory in ascending order. The ordering is given
+	The elements of the set are stored in an array
+	in ascending order, with the ordering given
 	by the < operator of the Type.
-	These properties come at a price:
-	insert and erase operations have linear complexity.
-	However the largest element can be inserted and
-	erased (via pop_back()) in constant time.
-	The find operations are logarithmic which
-	make for fast membership testing. Because of
-	the asymptotically slow insert and erase operations,
-	this class should only be used with a small amount of
-	elements to avoid	performance problems. On the other
-	hand, because the operations are simple and the memory
-	contiguous, the constant and linear factors are
-	very low. Thus with small sets this class is likely
-	to outperform link-based trees (depending on how
-	costly operation copying the Type is).
+	Because of the ordering, the find operations 
+	can be performed in logarithmic time which makes 
+	for fast membership testing. 
+	The use of an array makes for a very compact
+	memory footprint, and with a small number of objects
+	this class is likely to outperform link-based trees
+	(depending on how costly an operation copying the Type is).
+	This is the intended usage of this class.
+	It should not be used with large number
+	of objects, because insert and erase operations 
+	have linear complexities.
 	*/
 
 	template <typename Type, typename Compare = std::less<Type> >
@@ -100,7 +91,7 @@ namespace Pastel
 		*/
 		void clear();
 
-		//! Reserves memory in advantage to avoid reallocation.
+		//! Reserves memory in advance to avoid reallocation.
 		/*!
 		Time complexity: linear, constant if capacity() >= count.
 		Exception safety: strong.

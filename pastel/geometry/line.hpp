@@ -40,7 +40,7 @@ namespace Pastel
 	void Line<N, Real>::swap(Line<N, Real>& that)
 	{
 		using std::swap;
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		swap(position_, that.position_);
 		swap(direction_, that.direction_);

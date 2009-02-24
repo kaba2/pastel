@@ -21,7 +21,7 @@ namespace Pastel
 	template <typename Type>
 	void GfxState<Type>::swap(GfxState& that)
 	{
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		std::swap(filled_, that.filled_);
 		swap(color_, that.color_);

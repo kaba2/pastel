@@ -45,7 +45,7 @@ namespace Pastel
 	void Transformation<N, Real>::swap(Transformation<N, Real>& that)
 	{
 		using std::swap;
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		swap(transform_, that.transform_);
 		swap(inverse_, that.inverse_);

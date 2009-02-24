@@ -91,13 +91,6 @@ namespace Pastel
 	template <typename Type>
 	void unused(const Type&);
 
-	namespace NameLookUpTrick
-	{
-
-		void swap();
-
-	}
-
 }
 
 #include "pastel/sys/mytypes.hpp"

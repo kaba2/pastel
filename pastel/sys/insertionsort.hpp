@@ -33,7 +33,7 @@ namespace Pastel
 			BidiIterator right = iter;
 			while (!compare(*left, *right))
 			{
-				using NameLookUpTrick::swap;
+				using std::swap;
 
 				swap(*left, *right);
 				if (left == begin)

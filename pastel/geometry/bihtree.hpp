@@ -66,7 +66,7 @@ namespace Pastel
 	void BihTree<N, Real, Shape>::swap(BihTree<N, Real, Shape>& that)
 	{
 		using std::swap;
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		nodeAllocator_.swap(that.nodeAllocator_);
 		swap(root_, that.root_);
@@ -284,7 +284,7 @@ namespace Pastel
 	{
 		++nodes_;
 
-		using NameLookUpTrick::swap;
+		using std::swap;
 		using std::swap;
 
 		ASSERT2(shapeIndexFrom <= shapeIndexTo,

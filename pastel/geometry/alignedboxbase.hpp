@@ -51,7 +51,7 @@ namespace Pastel
 	template <int N, typename Real, typename Derived>
 	void AlignedBoxBase<N, Real, Derived>::swap(Derived& that)
 	{
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		swap(min_, that.min_);
 		swap(max_, that.max_);

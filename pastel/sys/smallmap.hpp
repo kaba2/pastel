@@ -53,7 +53,7 @@ namespace Pastel
 	template <typename KeyType, typename ValueType, typename Compare>
 	void SmallMap<KeyType, ValueType, Compare>::swap(SmallMap& that)
 	{
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		data_.swap(that.data_);
 		swap(compare_, that.compare_);

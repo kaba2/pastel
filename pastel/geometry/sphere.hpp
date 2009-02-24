@@ -37,7 +37,7 @@ namespace Pastel
 	void Sphere<N, Real>::swap(Sphere<N, Real>& that)
 	{
 		using std::swap;
-		using NameLookUpTrick::swap;
+		using std::swap;
 
 		position_.swap(that.position_);
 		swap(radius_, that.radius_);
