@@ -16,8 +16,8 @@ namespace Pastel
 	{
 		for (integer i = 0;i < N;++i)
 		{
-			if (aBox.max()[i] < bBox.min()[i] ||
-				bBox.max()[i] < aBox.min()[i])
+			if (aBox.max()[i] <= bBox.min()[i] ||
+				bBox.max()[i] <= aBox.min()[i])
 			{
 				return false;
 			}

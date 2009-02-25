@@ -34,7 +34,7 @@ namespace
 		{
 			for (integer x = 0;x < 16;++x)
 			{
-				drawBox(Rectangle2(x * colorWidth, y * colorHeight,
+				drawBox(AlignedBox2(x * colorWidth, y * colorHeight,
 					(x + 1) * colorWidth, (y + 1) * colorHeight),
 					palette[y * 16 + x],
 					arrayView(image));

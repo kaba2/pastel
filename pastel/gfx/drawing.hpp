@@ -32,6 +32,19 @@ namespace Pastel
 		return std::ceil(t - (real)0.5);
 	}
 
+	template <int N>
+	inline Point<N, integer> toPixelSpanPoint(
+		const Point<N, real>& that)
+	{
+		Point<N, integer> result;
+		for (integer i = 0;i < N;++i)
+		{
+			result[i] = Pastel::toPixelSpanPoint(that[i]);
+		}
+
+		return result;
+	}
+
 	template <int N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
 		const PASTEL_NO_DEDUCTION((Point<N, integer>))& position,
@@ -870,59 +883,46 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawBox(
-		const Rectangle2& box,
+		const AlignedBox2& box,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image)
 	{
-		const integer width = image.width();
-		const integer height = image.height();
+		Pastel::drawBox(box, color, image, assignColorMixer<Type>());
+	}
 
-		integer left = box.xMin();
-		integer right = box.xMax();
+	template <typename Type, typename Image_View, typename ColorMixer>
+	void drawBox(
+		const AlignedBox2& box,
+		const PASTEL_NO_DEDUCTION(Type)& color,
+		const View<2, Type, Image_View>& image,
+		const ColorMixer& colorMixer)
+	{
+		const Rectangle2 discreteBox(
+			toPixelSpanPoint(box.min()), 
+			toPixelSpanPoint(box.max()));
 
-		if (right < left)
+		Rectangle2 clippedBox;
+		if (!intersect(discreteBox, 
+			Rectangle2(IPoint2(0), asPoint(image.extent())), 
+			clippedBox))
 		{
-			std::swap(left, right);
-		}
-
-		integer bottom = box.yMin();
-		integer top = box.yMax();
-
-		if (top < bottom)
-		{
-			std::swap(bottom, top);
-		}
-
-		// Clip to viewport.
-
-		if (left < 0)
-		{
-			left = 0;
-		}
-		if (right > width)
-		{
-			right = width;
-		}
-		if (bottom < 0)
-		{
-			bottom = 0;
-		}
-		if (top > height)
-		{
-			top = height;
+			return;
 		}
 
 		typedef typename Image_View::Cursor Cursor;
 
-		Cursor yCursor = image.cursor(left, bottom);
+		Cursor yCursor = image.cursor(clippedBox.min());
 
-		for (integer y = bottom;y < top;++y)
+		const integer width = clippedBox.extent().x();
+		const integer height = clippedBox.extent().y();
+
+		for (integer y = 0;y < height;++y)
 		{
 			Cursor xyCursor = yCursor;
 
-			for (integer x = left;x < right;++x)
+			for (integer x = 0;x < width;++x)
 			{
-				*xyCursor = color;
+				*xyCursor = colorMixer(*xyCursor, color);
 				xyCursor.xIncrement();
 			}
 
@@ -1140,53 +1140,54 @@ namespace Pastel
 		const AlignedBox2& textureBox,
 		const ColorMixer& colorMixer)
 	{
-		const Vector2 delta = box.max() - box.min();
+		const Vector2 delta = box.extent();
 
-		const AlignedBox2 window(0, 0, image.width(), image.height());
+		const Rectangle2 discreteBox(
+			toPixelSpanPoint(box.min()), 
+			toPixelSpanPoint(box.max()));
 
-		AlignedBox2 clippedBox;
-		if (!intersect(box, window, clippedBox))
+		const Rectangle2 window(
+			IPoint2(0), 
+			asPoint(image.extent()));
+
+		Rectangle2 clippedBox;
+		if (!intersect(discreteBox, window, clippedBox))
 		{
 			return;
 		}
 
-		const integer xMin = toPixelSpanPoint(clippedBox.min().x());
-		const integer yMin = toPixelSpanPoint(clippedBox.min().y());
-		const integer xMax = toPixelSpanPoint(clippedBox.max().x());
-		const integer yMax = toPixelSpanPoint(clippedBox.max().y());
+		const Vector2 textureDelta = textureBox.extent();
+		const Vector2 duvDxy = textureDelta / delta;
+		const Point2 uvMin = textureBox.min() + 
+			((Point2(discreteBox.min()) + 0.5) - box.min()) * duvDxy;
 
-		const Vector2 textureDelta = textureBox.max() - textureBox.min();
-
-		const real duDx = (real)textureDelta.x() / delta.x();
-		const real dvDy = (real)textureDelta.y() / delta.y();
-
-		const real uMin = textureBox.min().x() + ((xMin + (real)0.5) - box.min().x()) * duDx;
-		const real vMin = textureBox.min().y() + ((yMin + (real)0.5) - box.min().y()) * dvDy;
-
-		Point2 uv(uMin, vMin);
-		Vector2 duvDx(duDx, 0);
-		Vector2 duvDy(0, dvDy);
+		Point2 uv(uvMin);
+		Vector2 duvDx(duvDxy.x(), 0);
+		Vector2 duvDy(0, duvDxy.y());
 
 		typedef typename Image_View::Cursor Cursor;
 
-		Cursor yCursor = image.cursor(xMin, yMin);
+		Cursor yCursor = image.cursor(clippedBox.min());
 
-		for (integer y = yMin; y < yMax;++y)
+		const integer width = clippedBox.extent().x();
+		const integer height = clippedBox.extent().y();
+
+		for (integer y = 0; y < height;++y)
 		{
 			Cursor xyCursor = yCursor;
 
-			uv.x() = uMin;
+			uv.x() = uvMin.x();
 
-			for (integer x = xMin; x < xMax;++x)
+			for (integer x = 0; x < width;++x)
 			{
 				*xyCursor = colorMixer(*xyCursor,
 					textureSampler(uv, duvDx, duvDy));
 
-				uv.x() += duDx;
+				uv.x() += duvDxy.x();
 				xyCursor.xIncrement();
 			}
 
-			uv.y() += dvDy;
+			uv.y() += duvDxy.y();
 			yCursor.yIncrement();
 		}
 	}

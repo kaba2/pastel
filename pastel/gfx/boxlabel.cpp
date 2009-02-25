@@ -50,7 +50,7 @@ namespace Pastel
 		const integer width = image.width();
 		const integer height = image.height();
 
-		drawBox(Rectangle2(0, 0, width, height), 0, arrayView(labelImage));
+		drawBox(AlignedBox2(0, 0, width, height), 0, arrayView(labelImage));
 
 		integer labelCounter = 1;
 		integer roundCounter = 1;
@@ -173,14 +173,14 @@ namespace Pastel
 							{
 								maxAcceptedDimension = minDimension;
 							}
-							drawBox(Rectangle2(x, y, x + boxWidth, y + boxHeight), labelCounter,
+							drawBox(AlignedBox2(x, y, x + boxWidth, y + boxHeight), labelCounter,
 								arrayView(labelImage));
 							++labelCounter;
 						}
 						else
 						{
 							// Mark as todo
-							drawBox(Rectangle2(x, y, x + boxWidth, y + boxHeight), -roundCounter,
+							drawBox(AlignedBox2(x, y, x + boxWidth, y + boxHeight), -roundCounter,
 								arrayView(labelImage));
 							stillWorkTodo = true;
 						}

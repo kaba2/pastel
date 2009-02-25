@@ -31,6 +31,10 @@ namespace Pastel
 	*/
 	integer toPixelSpanPoint(real t);
 
+	template <int N>
+	Point<N, integer> toPixelSpanPoint(
+		const Point<N, real>& that);
+
 	//! Draws a pixel.
 
 	template <int N, typename Type, typename Image_View, typename ColorMixer>
@@ -85,9 +89,18 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawBox(
-		const Rectangle2& box,
+		const AlignedBox2& box,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image);
+
+	//! Draws an axis aligned rectangular area.
+
+	template <typename Type, typename Image_View, typename ColorMixer>
+	void drawBox(
+		const AlignedBox2& box,
+		const PASTEL_NO_DEDUCTION(Type)& color,
+		const View<2, Type, Image_View>& image,
+		const ColorMixer& colorMixer);
 
 	//! Changes the color of a connected region.
 	/*!
