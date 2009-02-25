@@ -86,7 +86,7 @@ namespace
 
 		clear(false, arrayView(image));
 
-		drawBox(Rectangle2(100, 100, 200, 200), true,
+		drawBox(AlignedBox2(100, 100, 200, 200), true,
 			arrayView(image));
 
 		drawSegment(Segment2(Point2(250, 50), Point2(300, 30)),

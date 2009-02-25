@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="PastelGfxTest"
 	ProjectGUID="{987B3F80-4945-4FCA-A60B-56D19FDE4624}"
 	RootNamespace="PastelGfxTest"
@@ -255,6 +255,10 @@
 		</File>
 		<File
 			RelativePath=".\test_quantize.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_range.cpp"
 			>
 		</File>
 		<File
