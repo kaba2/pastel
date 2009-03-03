@@ -35,7 +35,7 @@ namespace
 		{
 			const real t = (real)x / (Width - 1);
 			
-			image(x, realToInteger(f(t), Height - 1)) = true;
+			image(x, quantizeUnsigned(f(t), Height - 1)) = true;
 		}
 
 		saveBinaryPcx(image, "test_piecewiselinear.pcx");

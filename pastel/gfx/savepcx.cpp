@@ -215,9 +215,9 @@ namespace Pastel
 		{
 			const Color color = fitColor(colorPalette[i]);
 
-			pcxHeader.palette16_[i * 3 + 0] = realToInteger(color[0], 255);
-			pcxHeader.palette16_[i * 3 + 1] = realToInteger(color[1], 255);
-			pcxHeader.palette16_[i * 3 + 2] = realToInteger(color[2], 255);
+			pcxHeader.palette16_[i * 3 + 0] = quantizeUnsigned(color[0], 255);
+			pcxHeader.palette16_[i * 3 + 1] = quantizeUnsigned(color[1], 255);
+			pcxHeader.palette16_[i * 3 + 2] = quantizeUnsigned(color[2], 255);
 		}
 
 		for (integer i = colors;i < 16;++i)
@@ -256,9 +256,9 @@ namespace Pastel
 		{
 			const Color color = fitColor(colorPalette[i]);
 
-			const uint8 red = realToInteger(color[0], 255);
-			const uint8 green = realToInteger(color[1], 255);
-			const uint8 blue = realToInteger(color[2], 255);
+			const uint8 red = quantizeUnsigned(color[0], 255);
+			const uint8 green = quantizeUnsigned(color[1], 255);
+			const uint8 blue = quantizeUnsigned(color[2], 255);
 
 			file << red << green << blue;
 		}
@@ -344,11 +344,11 @@ namespace Pastel
 				const Color color = image(IPoint2(xPos, yPos));
 
 				scanline[xPos] =
-					realToInteger(color[0], 255);
+					quantizeUnsigned(color[0], 255);
 				scanline[xPos + pcxHeader.bytesPerScanlinePerPlane_] =
-					realToInteger(color[1], 255);
+					quantizeUnsigned(color[1], 255);
 				scanline[xPos + pcxHeader.bytesPerScanlinePerPlane_ * 2] =
-					realToInteger(color[2], 255);
+					quantizeUnsigned(color[2], 255);
 			}
 
 			saveScanline(file, scanline, bytesPerScanline);
