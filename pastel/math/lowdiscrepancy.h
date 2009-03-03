@@ -7,6 +7,9 @@
 namespace Pastel
 {
 
+	//! Reverses the order of bits.
+	uint32 reverseBits(uint32 input);
+
 	//! Returns the n:th element of the base-2 Van Der Corput sequence.
 	/*!
 	Preconditions:

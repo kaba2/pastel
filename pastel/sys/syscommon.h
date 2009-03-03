@@ -17,10 +17,6 @@
 namespace Pastel
 {
 
-	//! Reverses the order of bits.
-
-	uint32 reverseBits(uint32 input);
-
 	//! Squares the given variable.
 
 	template <typename Type>
@@ -119,13 +115,43 @@ namespace Pastel
 	*/
 	bool isPowerOfTwo(integer that);
 
+	template <typename Real>
+	void realToReal(
+		const Real& x,
+		const PASTEL_NO_DEDUCTION(Real)& fromMin, 
+		const PASTEL_NO_DEDUCTION(Real)& fromMax,
+		const PASTEL_NO_DEDUCTION(Real)& toMin, 
+		const PASTEL_NO_DEDUCTION(Real)& toMax);
+
 	//! Converts a real in [0, 1] to integer in [0, max].
 	/*!
 	Numbers < 0 will be converted to 0.
 	Numbers > 1 will be converted to 'max'.
 	*/
 
-	integer realToInteger(real number, integer max);
+	integer quantizeUnsigned(real64 number, integer max);
+	real64 dequantizeUnsigned(integer number, integer max);
+
+	real64 ditheredQuantize(integer i,
+		integer minInteger, integer maxInteger,
+		real64 minReal, real64 maxReal);
+
+	real64 dequantize(integer i,
+		integer minInteger, integer maxInteger,
+		real64 minReal, real64 maxReal);
+
+	integer quantize(real64 r,
+		real64 minReal, real64 maxReal,
+		integer minInteger, integer maxInteger);
+
+	template <int N>
+	real64 dequantizeSigned(integer i);
+
+	template <int N>
+	real64 ditheredQuantizeSigned(integer i);
+
+	template <int N>
+	integer quantizeSigned(real64 r);
 
 	//! Scales an integer from [0, 2^FromBits - 1] to [0, 2^ToBits - 1].
 	/*!

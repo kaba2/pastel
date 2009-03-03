@@ -66,12 +66,12 @@ namespace Pastel
 
 		Physical toPhysical(const Real& logical) const
 		{
-			return realToInteger(logical, max_);
+			return quantizeUnsigned(logical, max_);
 		}
 
 		Logical toLogical(const Real& physical) const
 		{
-			return ((Real)physical) / max_;
+			return dequantizeUnsigned(physical, max_);
 		}
 
 	private:
@@ -105,17 +105,17 @@ namespace Pastel
 		Logical toLogical(const Physical& physical) const
 		{
 			return Logical(
-				(real32)physical[0] / 255,
-				(real32)physical[1] / 255,
-				(real32)physical[2] / 255);
+				dequantizeUnsigned(physical[0], 255),
+				dequantizeUnsigned(physical[1], 255),
+				dequantizeUnsigned(physical[2], 255));
 		}
 
 		Physical toPhysical(const Logical& logical) const
 		{
 			return Physical(
-				realToInteger(logical[0], 255),
-				realToInteger(logical[1], 255),
-				realToInteger(logical[2], 255));
+				quantizeUnsigned(logical[0], 255),
+				quantizeUnsigned(logical[1], 255),
+				quantizeUnsigned(logical[2], 255));
 		}
 	};
 
@@ -213,9 +213,9 @@ namespace Pastel
 
 		Physical toPhysical(const Logical& logical) const
 		{
-			const Integer red = realToInteger(logical[0], RedMax);
-			const Integer green = realToInteger(logical[1], GreenMax);
-			const Integer blue = realToInteger(logical[2], BlueMax);
+			const Integer red = quantizeUnsigned(logical[0], RedMax);
+			const Integer green = quantizeUnsigned(logical[1], GreenMax);
+			const Integer blue = quantizeUnsigned(logical[2], BlueMax);
 
 			return (red << RedFrom) + (green << GreenFrom) + (blue << BlueFrom);
 		}

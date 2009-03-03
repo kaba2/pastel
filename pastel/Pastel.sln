@@ -102,6 +102,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NearestNeighbour", "..\exam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LeastSquares", "..\example\LeastSquares\LeastSquares.vcproj", "{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDsp", "dsp\PastelDsp.vcproj", "{785939E7-58E3-4E5D-9215-1BA393315CDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -172,6 +174,10 @@ Global
 		{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}.Debug|Win32.Build.0 = Debug|Win32
 		{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}.Release|Win32.ActiveCfg = Release|Win32
 		{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}.Release|Win32.Build.0 = Release|Win32
+		{785939E7-58E3-4E5D-9215-1BA393315CDB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{785939E7-58E3-4E5D-9215-1BA393315CDB}.Debug|Win32.Build.0 = Debug|Win32
+		{785939E7-58E3-4E5D-9215-1BA393315CDB}.Release|Win32.ActiveCfg = Release|Win32
+		{785939E7-58E3-4E5D-9215-1BA393315CDB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

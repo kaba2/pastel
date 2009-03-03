@@ -6,6 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
+#include "pastel/sys/random.h"
 
 #include <sstream>
 #include <string>
@@ -152,9 +153,110 @@ namespace Pastel
 		return (that & (that - 1)) == 0;
 	}
 
-	inline integer realToInteger(real number, integer max)
+	template <typename Real>
+	inline void realToReal(
+		const Real& x,
+		const PASTEL_NO_DEDUCTION(Real)& fromMin, 
+		const PASTEL_NO_DEDUCTION(Real)& fromMax,
+		const PASTEL_NO_DEDUCTION(Real)& toMin, 
+		const PASTEL_NO_DEDUCTION(Real)& toMax)
 	{
-		return clamp((integer)(number * (max + 1)), 0, max);
+		const Real fromDelta = fromMax - fromMin;
+		const Real toDelta = toMax - toMin;
+		return toMin + ((x - fromMin) / fromDelta) * toDelta;
+	}
+
+	inline integer quantizeUnsigned(real64 number, integer max)
+	{
+		return (integer)clamp((number * (max + 1)), 0, max);
+	}
+
+	inline real64 dequantizeUnsigned(integer number, integer max)
+	{
+		return (integer)clamp((real64)number / max, 0, 1);
+	}
+
+	inline real64 dequantize(integer i,
+					   integer minInteger, integer maxInteger,
+					   real64 minReal, real64 maxReal)
+	{
+		const integer deltaInteger = maxInteger - minInteger;
+		const real64 deltaReal = maxReal - minReal;
+		const integer iClamped = clamp(i, minInteger, maxInteger);
+
+		return minReal + ((real64)(iClamped - minInteger) / deltaInteger) * deltaReal;
+	}
+
+	inline real64 ditheredQuantize(integer i,
+					   integer minInteger, integer maxInteger,
+					   real64 minReal, real64 maxReal)
+	{
+		const integer deltaInteger = maxInteger - minInteger;
+		const real64 deltaReal = maxReal - minReal;
+		const integer iClamped = clamp(i, minInteger, maxInteger);
+		const real64 dither = randomReal64();
+
+		return minReal + (((real64)(iClamped - minInteger) + dither) / ((real64)deltaInteger + 1)) * deltaReal;
+	}
+
+	inline integer quantize(real64 r,
+						  real64 minReal, real64 maxReal,
+						  integer minInteger, integer maxInteger)
+	{
+		const integer deltaInteger = maxInteger - minInteger;
+		const real64 deltaReal = maxReal - minReal;
+
+		return (integer)clamp(std::floor(minInteger + 
+			((r - minReal) / deltaReal) * (deltaInteger + 1)), minInteger, maxInteger);
+	}
+
+	template <int N>
+	inline real64 dequantizeSigned(integer i)
+	{
+		BOOST_STATIC_ASSERT(N >= 2 && N <= 32);
+
+		enum
+		{
+			Half = (1 << (N - 1)) - 1
+		};
+		
+		return clamp((real64)i / Half, -1, 1);
+	}
+
+	template <int N>
+	inline real64 ditheredQuantizeSigned(integer i)
+	{
+		BOOST_STATIC_ASSERT(N >= 2 && N <= 32);
+
+		enum
+		{
+			Half = (1 << (N - 1)) - 1
+		};
+		
+		real64 dither = randomReal64();
+		if (i <= -Half)
+		{
+			dither = 0;
+		}
+		if (i >= Half)
+		{
+			dither = 1;
+		}
+		
+		return clamp((real64)(i + dither) / (Half + 1), -1, 1);
+	}
+
+	template <int N>
+	inline integer quantizeSigned(real64 r)
+	{
+		BOOST_STATIC_ASSERT(N >= 2 && N <= 32);
+
+		enum
+		{
+			Half = (1 << (N - 1)) - 1
+		};
+
+		return (integer)clamp(std::floor(r * Half + (r + 1) / 2), -Half, Half);
 	}
 
 	template <int FromBits, int ToBits, typename Integer>

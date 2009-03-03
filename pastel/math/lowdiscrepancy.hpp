@@ -34,7 +34,7 @@ namespace Pastel
 	{
 		PENSURE1(n >= 0, n);
 
-		return (Real)reverseBits((uint32)n) / (1 << 32);
+		return (Real)reverseBits((uint32)n) / (Real)0xFFFFFFFF;
 	}
 
 	template <typename Real>
