@@ -131,31 +131,31 @@ namespace Pastel
 			const ConstFilterRef& filter_;
 		};
 
-		class CostId
+		class AxisValue
 		{
 		public:
-			CostId(real cost,
+			AxisValue(real value,
 				integer id)
-				: cost_(cost)
-				, id_(id)
+				: value_(value)
+				, axis_(id)
 			{
 			}
 
-			bool operator<(const CostId& that) const
+			bool operator<(const AxisValue& that) const
 			{
-				if (cost_ < that.cost_)
+				if (value_ < that.value_)
 				{
 					return true;
 				}
-				if (cost_ > that.cost_)
+				if (value_ > that.value_)
 				{
 					return false;
 				}
-				return id_ < that.id_;
+				return axis_ < that.axis_;
 			}
 
-			real cost_;
-			integer id_;
+			real value_;
+			integer axis_;
 		};
 
 	}
@@ -192,11 +192,11 @@ namespace Pastel
 
 		// Find out the mostly-optimal order.
 
-		SmallSet<Detail_Resample::CostId> orderSet;
+		SmallSet<Detail_Resample::AxisValue> axisSet;
 		for (integer i = 0;i < N;++i)
 		{
-			orderSet.insert(
-				Detail_Resample::CostId((filter->radius() * output.extent()[i]) 
+			axisSet.insert(
+				Detail_Resample::AxisValue((filter->radius() * output.extent()[i]) 
 				/ input.extent()[i], i));
 		}
 
@@ -204,7 +204,7 @@ namespace Pastel
 		// a temporary array.
 
 		Vector<N, integer> extent = input.extent();
-		extent[orderSet[0].id_] = output.extent()[orderSet[0].id_];
+		extent[axisSet[0].axis_] = output.extent()[axisSet[0].axis_];
 		Array<N, Computation_Element> tempArray(extent);
 
 		{
@@ -212,7 +212,7 @@ namespace Pastel
 				arrayExtender.extender(0), arrayExtender.border());
 			const Detail_Resample::ResampleFunctor<Input_Element> resampleFunctor(
 				arrayExtender1D, filter);
-			visitRows(input, arrayView(tempArray), orderSet[0].id_, resampleFunctor);
+			visitRows(input, arrayView(tempArray), axisSet[0].axis_, resampleFunctor);
 		}
 
 		// The second resampling to the previous-to-last resampling
@@ -220,7 +220,7 @@ namespace Pastel
 
 		for (integer i = 1;i < N - 1;++i)
 		{
-			extent[orderSet[i].id_] = output.extent()[orderSet[i].id_];
+			extent[axisSet[i].axis_] = output.extent()[axisSet[i].axis_];
 			Array<N, Computation_Element> tempArray2(extent);
 
 			const ArrayExtender<1, Computation_Element> arrayExtender1D(
@@ -229,7 +229,7 @@ namespace Pastel
 				arrayExtender1D, filter);
 
 			visitRows(constArrayView(tempArray), arrayView(tempArray2), 
-				orderSet[i].id_, resampleFunctor);
+				axisSet[i].axis_, resampleFunctor);
 
 			tempArray.swap(tempArray2);
 		}
@@ -242,7 +242,7 @@ namespace Pastel
 			const Detail_Resample::ResampleFunctor<Computation_Element> resampleFunctor(
 				arrayExtender1D, filter);
 
-			visitRows(constArrayView(tempArray), output, orderSet[N - 1].id_, resampleFunctor);
+			visitRows(constArrayView(tempArray), output, axisSet[N - 1].axis_, resampleFunctor);
 		}
 	}
 
