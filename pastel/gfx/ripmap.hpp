@@ -60,7 +60,7 @@ namespace Pastel
 
 				image.setExtent(resampleExtent);
 
-				resample(
+				resample<Type>(
 					constArrayView(previousImage),
 					clampExtender(),
 					filter_,
@@ -109,7 +109,7 @@ namespace Pastel
 		}
 		else
 		{
-			resample(
+			resample<Type>(
 				image,
 				clampExtender(),
 				filter,

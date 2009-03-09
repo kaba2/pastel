@@ -1,34 +1,26 @@
-#ifndef PASTELSYS_VIEW_VISIT_H
-#define PASTELSYS_VIEW_VISIT_H
+#ifndef PASTELSYS_VIEW_VISIT_MORE_H
+#define PASTELSYS_VIEW_VISIT_MORE_H
 
-#include "pastel/sys/view.h"
-#include "pastel/sys/rectangle.h"
+#include "pastel/sys/view_visit.h"
 
 namespace Pastel
 {
 
-	//! Applies a functor to all positions: visitor(x).
-
-	template <int N, typename VisitorFunctor>
-	void visit(
-		const Rectangle<N>& rectangle,
-		const VisitorFunctor& visitor);
-
-	//! Applies a functor to elements of view: visitor(input(x)).
+	//! Applies a functor to elements of view: visitPosition(position, input(x)).
 
 	template <int N, typename Type, typename Input_ConstView, typename VisitorFunctor>
-	void visit(
+	void visitPosition(
 		const ConstView<N, Type, Input_ConstView>& input,
-		const VisitorFunctor& visitor);
+		const VisitorFunctor& visitPosition);
 
-	//! Applies a functor to elements of view: visitor(input(x)).
+	//! Applies a functor to elements of view: visitPosition(position, input(x)).
 
 	template <int N, typename Type, typename Input_View, typename VisitorFunctor>
-	void visit(
+	void visitPosition(
 		const View<N, Type, Input_View>& input,
-		const VisitorFunctor& visitor);
+		const VisitorFunctor& visitPosition);
 
-	//! Applies a functor to elements of views: visitor(left(x), right(x)).
+	//! Applies a functor to elements of views: visitPosition(position, left(x), right(x)).
 
 	/*!
 	Preconditions:
@@ -39,12 +31,12 @@ namespace Pastel
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
-	void visit(
+	void visitPosition(
 		const ConstView<N, Left_Element, Left_ConstView>& left,
 		const View<N, Right_Element, Right_View>& right,
-		const VisitorFunctor& visitor);
+		const VisitorFunctor& visitPosition);
 
-	//! Applies a functor to elements of views: visitor(left(x), right(x)).
+	//! Applies a functor to elements of views: visitPosition(position, left(x), right(x)).
 
 	/*!
 	Preconditions:
@@ -55,12 +47,12 @@ namespace Pastel
 		typename Left_Element, typename Left_View,
 		typename Right_Element, typename Right_View,
 		typename VisitorFunctor>
-	void visit(
+	void visitPosition(
 		const View<N, Left_Element, Left_View>& left,
 		const View<N, Right_Element, Right_View>& right,
-		const VisitorFunctor& visitor);
+		const VisitorFunctor& visitPosition);
 
-	//! Applies a functor to elements of views: visitor(left(x), right(x)).
+	//! Applies a functor to elements of views: visitPosition(position, left(x), right(x)).
 
 	/*!
 	Preconditions:
@@ -71,18 +63,11 @@ namespace Pastel
 		typename Left_Element, typename Left_ConstView,
 		typename Right_Element, typename Right_ConstView,
 		typename VisitorFunctor>
-	void visit(
+	void visitPosition(
 		const ConstView<N, Left_Element, Left_ConstView>& left,
 		const ConstView<N, Right_Element, Right_ConstView>& right,
-		const VisitorFunctor& visitor);
+		const VisitorFunctor& visitPosition);
 
 }
-
-#include "pastel/sys/view_visit_more.h"
-#include "pastel/sys/view_visit_more2.h"
-
-#include "pastel/sys/view_visit.hpp"
-#include "pastel/sys/view_visit_more.hpp"
-#include "pastel/sys/view_visit_more2.hpp"
 
 #endif

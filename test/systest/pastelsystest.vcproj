@@ -261,6 +261,10 @@
 			RelativePath=".\test_unordered_set.cpp"
 			>
 		</File>
+		<File
+			RelativePath=".\test_view.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
