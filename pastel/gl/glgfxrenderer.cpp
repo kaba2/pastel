@@ -192,7 +192,7 @@ namespace Pastel
 				<< width2 << " x " << height2 << logNewLine;
 
 			Array<2, Color> resampledImage(width2, height2);
-			resample(constArrayView(image), clampExtender(),
+			resample<Color>(constArrayView(image), clampExtender(),
 				gaussianFilter(2), arrayView(resampledImage));
 			transform(arrayView(resampledImage), fitColor);
 

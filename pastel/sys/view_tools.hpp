@@ -90,7 +90,7 @@ namespace Pastel
 
 			void operator()(
 				Input_ConstReference input,
-				Output_Reference& output) const
+				Output_Reference output) const
 			{
 				output = transform_(input);
 			}
@@ -113,7 +113,9 @@ namespace Pastel
 		const View<N, Output_Element, Output_View>& output,
 		const TransformFunctor& transform)
 	{
-		Detail_Transform::Visitor<Input_Element, Output_Element, TransformFunctor>
+		Detail_Transform::Visitor<
+			typename Input_ConstView::ConstReference,
+			typename Output_View::Reference, TransformFunctor>
 			visitor(transform);
 		visit(input, output, visitor);
 	}

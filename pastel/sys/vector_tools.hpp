@@ -103,6 +103,32 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
+	inline Vector<N - 1, Real> shrink(
+		const VectorExpression<N, Real, Expression>& that,
+		integer index)
+	{
+		BOOST_STATIC_ASSERT(N > 1 || N == Unbounded);
+
+		enum
+		{
+			NResult = (N == Unbounded) ? Unbounded : N - 1
+		};
+
+		const integer size = that.size();
+
+		Vector<NResult, Real> result(size - 1);
+		for (integer i = 0;i < index;++i)
+		{
+			result[i] = that[i];
+		}
+		for  (integer i = index;i < size - 1;++i)
+		{
+			result[i] = that[i + 1];
+		}
+		return result;
+	}
+
+	template <int N, typename Real, typename Expression>
 	inline Vector<N + 1, Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
@@ -144,6 +170,35 @@ namespace Pastel
 			result[i] = left[i];
 		}
 		result[size] = right;
+
+		return result;
+	}
+
+	template <int N, typename Real, typename Expression>
+	inline Vector<N + 1, Real> extend(
+		const VectorExpression<N, Real, Expression>& left,
+		const PASTEL_NO_DEDUCTION(Real)& right,
+		integer index)
+	{
+		const integer size = left.size();
+
+		PENSURE2(index >= 0 && index < size, index, size);
+
+		enum
+		{
+			NResult = (N == Unbounded) ? Unbounded : N + 1
+		};
+
+		Vector<N + 1, Real> result(size + 1);
+		for (integer i = 0;i < index;++i)
+		{
+			result[i] = left[i];
+		}
+		result[index] = right;
+		for (integer i = index + 1;i < size;++i)
+		{
+			result[i] = left[i - 1];
+		}
 
 		return result;
 	}

@@ -2,8 +2,8 @@
 #define PASTELSYS_RECTANGLEBASE_HPP
 
 #include "pastel/sys/rectanglebase.h"
-#include "pastel/sys/point.h"
-#include "pastel/sys/vector.h"
+#include "pastel/sys/point_tools.h"
+#include "pastel/sys/vector_tools.h"
 
 #include <boost/static_assert.hpp>
 

@@ -48,7 +48,7 @@ namespace Pastel
 		}
 		else
 		{
-			resample(
+			resample<Type>(
 				image,
 				extender,
 				filter,
@@ -68,7 +68,7 @@ namespace Pastel
 
 			mipMapArray[i].setExtent(resampleExtent);
 
-			resample(
+			resample<Type>(
 				constArrayView(mipMapArray[i - 1]),
 				extender,
 				filter,

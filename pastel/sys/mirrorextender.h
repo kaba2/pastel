@@ -18,6 +18,9 @@ namespace Pastel
 		virtual integer operator()(
 			integer index, integer extent) const
 		{
+			// -1 => 1
+			// extent => extent - 2
+
 			const integer doubleExtent = 2 * extent;
 
 			integer newIndex =
@@ -25,7 +28,7 @@ namespace Pastel
 
 			if (newIndex >= extent)
 			{
-				newIndex = doubleExtent - newIndex;
+				newIndex = (doubleExtent - 1) - newIndex;
 			}
 
 			return newIndex;

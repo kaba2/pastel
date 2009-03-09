@@ -378,6 +378,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\sliceview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sliceviewcursor.h"
+					>
+				</File>
+				<File
 					RelativePath=".\sparseview.h"
 					>
 				</File>
@@ -419,6 +427,22 @@
 				</File>
 				<File
 					RelativePath=".\view_visit.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more2.hpp"
 					>
 				</File>
 				<Filter

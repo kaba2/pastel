@@ -23,7 +23,7 @@ namespace Pastel
 		typename Output_View>
 	void resample(
 		const ConstView<1, Input_Element, Input_View>& input,
-		const ArrayExtender<1, Input_Element>& arrayExtender,
+		const PASTEL_NO_DEDUCTION((ArrayExtender<1, Input_Element>))& arrayExtender,
 		const ConstFilterRef& filter,
 		const View<1, Output_Element, Output_View>& output)
 	{
@@ -55,10 +55,6 @@ namespace Pastel
 
 		for (integer x = 0;x < outputWidth;++x)
 		{
-			// Compute the filter extent.
-			// For justification,
-			// read proof.txt: "active pixels"
-
 			const integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
@@ -93,7 +89,7 @@ namespace Pastel
 				weight[i] *= invSumWeights;
 			}
 
-			// Resample the current column.
+			// Compute the resampled value.
 
 			Output_Element result(0);
 			for (integer i = 0; i < rangeWidth;++i)
@@ -108,158 +104,76 @@ namespace Pastel
 		}
 	}
 
-	template <
-		typename Input_Element,
-		typename Input_View,
-		typename Output_Element,
-		typename Output_View>
-	void resampleHorizontal(
-		const ConstView<2, Input_Element, Input_View>& input,
-		const ConstIndexExtenderRef& indexExtender,
-		const ConstFilterRef& filter,
-		const View<2, Output_Element, Output_View>& output)
+	namespace Detail_Resample
 	{
-		const integer inputWidth = input.width();
-		const integer inputHeight = input.height();
-		const integer outputWidth = output.width();
-		const integer outputHeight = output.height();
 
-		ENSURE2(outputHeight == inputHeight, outputHeight, inputHeight);
-
-		if (inputWidth == 0 || inputHeight == 0 ||
-			outputWidth == 0 || outputHeight == 0)
+		template <typename Input_Element>
+		class ResampleFunctor
 		{
-			return;
-		}
-
-		if (outputWidth == inputWidth)
-		{
-			copy(input, output);
-			return;
-		}
-
-		const real xStep = (real)inputWidth / outputWidth;
-		const real filterFactor = (xStep > 1) ? xStep : 1;
-		const real invFilterFactor = inverse(filterFactor);
-
-		const real filterRadius = filter->radius() * filterFactor;
-
-		std::vector<real> weight;
-		weight.reserve((integer)filterRadius * 2 + 1);
-		std::vector<real> wrappedIndex;
-		wrappedIndex.reserve((integer)filterRadius * 2 + 1);
-
-		real xFilter = 0.5 * xStep;
-
-		for (integer x = 0;x < outputWidth;++x)
-		{
-			// Compute the filter extent.
-			// For justification,
-			// read proof.txt: "active pixels"
-
-			const integer rangeBegin =
-				toPixelSpanPoint(xFilter - filterRadius);
-			const integer rangeEnd =
-				toPixelSpanPoint(xFilter + filterRadius);
-			const integer rangeWidth = rangeEnd - rangeBegin;
-
-			// Compute the filter weights.
-
-			weight.clear();
-
-			real sumWeights(0);
-			for (integer i = rangeBegin;i < rangeEnd;++i)
+		public:
+			ResampleFunctor(
+				const ArrayExtender<1, Input_Element>& arrayExtender,
+				const ConstFilterRef& filter)
+			: arrayExtender_(arrayExtender)
+			, filter_(filter)
 			{
-				// Each pixel is surrounded with
-				// a reconstruction filter function.
-				// We add up all contributions
-				// that cross our current sampling
-				// position.
-
-				const real value(
-					(*filter)((xFilter - (i + 0.5)) *
-					invFilterFactor));
-				sumWeights += value;
-				weight.push_back(value);
 			}
 
-			// Normalize the weights to sum to one.
-
-			const real invSumWeights = inverse(sumWeights);
-			for (integer i = 0;i < rangeWidth;++i)
+			template <typename Left_View, typename Right_View>
+			void operator()(const Left_View& left,
+				const Right_View& right) const
 			{
-				weight[i] *= invSumWeights;
+				resample(left, arrayExtender_, filter_, right);
 			}
 
-			// Compute wrapped indices.
+		private:
+			const ArrayExtender<1, Input_Element>& arrayExtender_;
+			const ConstFilterRef& filter_;
+		};
 
-			wrappedIndex.clear();
-
-			for (integer i = rangeBegin;i < rangeEnd;++i)
+		class CostId
+		{
+		public:
+			CostId(real cost,
+				integer id)
+				: cost_(cost)
+				, id_(id)
 			{
-				wrappedIndex.push_back(
-					(*indexExtender)(i, inputWidth));
 			}
 
-			// Resample the current column.
-
-			for (integer y = 0;y < inputHeight;++y)
+			bool operator<(const CostId& that) const
 			{
-				Output_Element result(0);
-				for (integer i = 0; i < rangeWidth;++i)
+				if (cost_ < that.cost_)
 				{
-					result += weight[i] *
-						*input.constCursor(wrappedIndex[i], y);
+					return true;
 				}
-
-				*output.cursor(x, y) = result;
+				if (cost_ > that.cost_)
+				{
+					return false;
+				}
+				return id_ < that.id_;
 			}
 
-			xFilter += xStep;
-		}
+			real cost_;
+			integer id_;
+		};
+
 	}
 
 	template <
+		typename Computation_Element,
+		int N,
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View>
-		void resample(
-		const ConstView<2, Input_Element, Input_View>& input,
-		const ArrayExtender<2, PASTEL_NO_DEDUCTION(Input_Element)>& arrayExtender,
-		const ConstFilterRef& filter,
-		const View<2, Output_Element, Output_View>& output)
-	{
+		typename boost::enable_if_c<(N > 1), void>::type
 		resample(
-			input,
-			arrayExtender,
-			filter, filter,
-			output);
-	}
-
-	template <
-		typename Input_Element,
-		typename Input_View,
-		typename Output_Element,
-		typename Output_View>
-		void resample(
-		const ConstView<2, Input_Element, Input_View>& input,
-		const ArrayExtender<2, PASTEL_NO_DEDUCTION(Input_Element)>& arrayExtender,
-		const ConstFilterRef& xFilter,
-		const ConstFilterRef& yFilter,
-		const View<2, Output_Element, Output_View>& output)
+		const ConstView<N, Input_Element, Input_View>& input,
+		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
+		const ConstFilterRef& filter,
+		const View<N, Output_Element, Output_View>& output)
 	{
-		const integer inputWidth = input.width();
-		const integer inputHeight = input.height();
-		const integer outputWidth = output.width();
-		const integer outputHeight = output.height();
-
-		const integer widthDelta = inputWidth - outputWidth;
-		const integer heightDelta = inputHeight - outputHeight;
-
-		const integer xRadius = std::ceil(xFilter->radius());
-		const integer yRadius = std::ceil(yFilter->radius());
-
 		// The n-dimensional resampling is done as
 		// n subsequent 1-dimensional resamplings.
 		// If the filter radii are equal,
@@ -267,54 +181,68 @@ namespace Pastel
 		// which maximizes performance is
 		// ascending order in (radius[i] * newExtent[i] / oldExtent[i]).
 		// If the filter radii are not equal,
-		// then it can be shown that in many cases the same
-		// heuristic gives an optimal order but
-		// not in all cases.
+		// then it can be shown that the same
+		// heuristic gives an optimal order in many, but not all, cases.
 		// I suspect that computing an optimal order in this
 		// more generalized case is np-hard (and thus
 		// needs to be solved by brute force by choosing
-		// the minimum of all n! permutations).
+		// the minimum of all N! permutations).
 
-		if (xRadius * ((real)outputWidth / inputWidth) <
-			yRadius * ((real)outputHeight / inputHeight))
+		BOOST_STATIC_ASSERT(N != 1);
+
+		// Find out the mostly-optimal order.
+
+		SmallSet<Detail_Resample::CostId> orderSet;
+		for (integer i = 0;i < N;++i)
 		{
-			// Resample in x.
-
-			Array<2, Output_Element> xResult(outputWidth, inputHeight);
-
-			resampleHorizontal(
-				input,
-				arrayExtender.extender(0),
-				xFilter,
-				arrayView(xResult));
-
-			// Resample in y.
-
-			resampleHorizontal(
-				constPermutedView(constArrayView(xResult), Integer2(1, 0)),
-				arrayExtender.extender(1),
-				yFilter,
-				permutedView(output, Integer2(1, 0)));
+			orderSet.insert(
+				Detail_Resample::CostId((filter->radius() * output.extent()[i]) 
+				/ input.extent()[i], i));
 		}
-		else
+
+		// The first resampling is from the input view to
+		// a temporary array.
+
+		Vector<N, integer> extent = input.extent();
+		extent[orderSet[0].id_] = output.extent()[orderSet[0].id_];
+		Array<N, Computation_Element> tempArray(extent);
+
 		{
-			// Resample in y.
+			const ArrayExtender<1, Input_Element> arrayExtender1D(
+				arrayExtender.extender(0), arrayExtender.border());
+			const Detail_Resample::ResampleFunctor<Input_Element> resampleFunctor(
+				arrayExtender1D, filter);
+			visitRows(input, arrayView(tempArray), orderSet[0].id_, resampleFunctor);
+		}
 
-			Array<2, Output_Element> yResult(inputWidth, outputHeight);
+		// The second resampling to the previous-to-last resampling
+		// is done between temporary arrays.
 
-			resampleHorizontal(
-				constPermutedView(input, Integer2(1, 0)),
-				arrayExtender.extender(1),
-				yFilter,
-				permutedView(arrayView(yResult), Integer2(1, 0)));
+		for (integer i = 1;i < N - 1;++i)
+		{
+			extent[orderSet[i].id_] = output.extent()[orderSet[i].id_];
+			Array<N, Computation_Element> tempArray2(extent);
 
-			// Resample in x.
+			const ArrayExtender<1, Computation_Element> arrayExtender1D(
+				arrayExtender.extender(i), arrayExtender.border());
+			const Detail_Resample::ResampleFunctor<Computation_Element> resampleFunctor(
+				arrayExtender1D, filter);
 
-			resampleHorizontal(
-				constArrayView(yResult),
-				arrayExtender.extender(0),
-				xFilter,
-				output);
+			visitRows(constArrayView(tempArray), arrayView(tempArray2), 
+				orderSet[i].id_, resampleFunctor);
+
+			tempArray.swap(tempArray2);
+		}
+
+		// The last resampling is done to the output view.
+
+		{
+			const ArrayExtender<1, Computation_Element> arrayExtender1D(
+				arrayExtender.extender(N - 1), arrayExtender.border());
+			const Detail_Resample::ResampleFunctor<Computation_Element> resampleFunctor(
+				arrayExtender1D, filter);
+
+			visitRows(constArrayView(tempArray), output, orderSet[N - 1].id_, resampleFunctor);
 		}
 	}
 

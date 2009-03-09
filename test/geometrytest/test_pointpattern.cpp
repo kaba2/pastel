@@ -32,7 +32,7 @@ namespace
 
 		void operator()(const Point1& point) const
 		{
-			clear(Color(1), rowView<1>(arrayView(data_), Point<2, integer>(point[0], 0)));
+			clear(Color(1), rowView(arrayView(data_), 1, Point<2, integer>(point[0], 0)));
 		}
 
 		void operator()(const Point2& point) const
