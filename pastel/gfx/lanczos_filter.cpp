@@ -40,4 +40,9 @@ namespace Pastel
 		return radius_;
 	}
 
+	std::string LanczosFilter::name() const
+	{
+		return std::string("lanczos");
+	}
+
 }

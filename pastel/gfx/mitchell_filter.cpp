@@ -67,4 +67,9 @@ namespace Pastel
 		return 2;
 	}
 
+	std::string MitchellFilter::name() const
+	{
+		return std::string("mitchell");
+	}
+
 }

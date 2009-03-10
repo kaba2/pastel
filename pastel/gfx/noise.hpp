@@ -60,10 +60,16 @@ namespace Pastel
 			: permutation_()
 			, gradients_()
 		{
-			gradients_.reserve(2);
+			gradients_.reserve(8);
 
-			gradients_.push_back(1);
-			gradients_.push_back(-1);
+			gradients_.push_back(0.875);
+			gradients_.push_back(0.625);
+			gradients_.push_back(0.375);
+			gradients_.push_back(0.125);
+			gradients_.push_back(-0.125);
+			gradients_.push_back(-0.375);
+			gradients_.push_back(-0.625);
+			gradients_.push_back(-0.875);
 
 			// Generate random permutation table
 
@@ -102,7 +108,7 @@ namespace Pastel
 			const Real vx0(latticeValue(xFloor, xDeltaMin));
 			const Real vx1(latticeValue(xFloor + 1, xDeltaMax));
 
-			return (linear(vx0, vx1, xWeight) + 1) * Real(0.5);
+			return linear(vx0, vx1, xWeight) + 0.5;
 		}
 
 		// Private
@@ -111,7 +117,7 @@ namespace Pastel
 		Real Noise1<Real>::latticeValue(
 			integer x, const Real& xDeltaMin) const
 		{
-			const integer index = permutation_[x & 0xFF] & 0x1;
+			const integer index = permutation_[x & 0xFF] & 0x7;
 
 			return gradients_[index] * xDeltaMin;
 		}

@@ -11,6 +11,8 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/countedptr.h"
 
+#include <string>
+
 namespace Pastel
 {
 
@@ -38,6 +40,7 @@ namespace Pastel
 
 		virtual real operator()(real position) const = 0;
 		virtual real radius() const = 0;
+		virtual std::string name() const = 0;
 	};
 
 	typedef CountedPtr<Filter> FilterRef;

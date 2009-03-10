@@ -27,4 +27,9 @@ namespace Pastel
 		return 1;
 	}
 
+	std::string BoxFilter::name() const
+	{
+		return std::string("box");
+	}
+
 }

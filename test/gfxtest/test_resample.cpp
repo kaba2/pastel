@@ -39,81 +39,85 @@ namespace
 		saveGrayscalePcx(imageSlice, "testresample_3.pcx");
 	}
 
-	void testResample2()
+	void testResample2(
+		const std::string& testName,
+		const Array<2, uint32>& image,
+		const ConstFilterRef& filter)
 	{
 		const integer SmallWidth = 100;
 		const integer SmallHeight = 100;
 		const integer BigWidth = 512;
 		const integer BigHeight = 512;
 
-		Array<2, uint32> image;
 		Array<2, uint32> smallImage(SmallWidth, SmallHeight);
 		Array<2, uint32> bigImage(BigWidth, BigHeight);
 		ArrayExtender<2, Color> wrapper(mirrorExtender());
 
+		resample<Color>(constRgb888View(image), wrapper,
+			filter, rgb888View(smallImage));
+		transform(rgb888View(smallImage), fitColor);
+		savePcx(smallImage, "test_resample_" + testName + "_down_" + filter->name() + ".pcx");
+
+		resample<Color>(constRgb888View(smallImage), wrapper,
+			filter, rgb888View(bigImage));
+		transform(rgb888View(bigImage), fitColor);
+		savePcx(bigImage, "test_resample_" + testName + "_up_" + filter->name() + ".pcx");
+
+	}
+
+	void testResample2Text()
+	{
+		Array<2, uint32> image;
+		loadPcx("test_resample_text.pcx", image);
+
+		const integer VerySmallWidth = 100;
+		const integer VerySmallHeight = 100;
+		const integer SmallWidth = 200;
+		const integer SmallHeight = 200;
+		const integer BigWidth = 800;
+		const integer BigHeight = 800;
+
+		const ConstFilterRef filter = lanczosFilter();
+
+		Array<2, uint32> verySmallImage(VerySmallWidth, VerySmallHeight);
+		Array<2, uint32> smallImage(SmallWidth, SmallHeight);
+		Array<2, uint32> bigImage(BigWidth, BigHeight);
+		ArrayExtender<2, Color> wrapper(mirrorExtender());
+
+		resample<Color>(constRgb888View(image), wrapper,
+			filter, rgb888View(smallImage));
+		transform(rgb888View(smallImage), fitColor);
+		savePcx(smallImage, "test_resample_text_sample.pcx");
+
+		resample<Color>(constRgb888View(image), wrapper,
+			filter, rgb888View(verySmallImage));
+		resample<Color>(constRgb888View(verySmallImage), wrapper,
+			filter, rgb888View(smallImage));
+		transform(rgb888View(smallImage), fitColor);
+		savePcx(smallImage, "test_resample_text_blurry.pcx");
+
+		resample<Color>(constRgb888View(image), wrapper,
+			filter, rgb888View(bigImage));
+		transform(rgb888View(bigImage), fitColor);
+		savePcx(bigImage, "test_resample_text_reconstruct.pcx");
+
+		resample<Color>(constRgb888View(smallImage), wrapper,
+			filter, rgb888View(bigImage));
+		transform(rgb888View(bigImage), fitColor);
+		savePcx(bigImage, "test_resample_text_filter.pcx");
+	}
+
+	void testResample2()
+	{
+		Array<2, uint32> image;
 		loadPcx("lena.pcx", image);
 
-		MitchellFilterRef mitchellFilter(mitchellFilter());
-		BoxFilterRef boxFilter(boxFilter());
-		TriangleFilterRef triangleFilter(triangleFilter());
-		LanczosFilterRef lanczosFilter(lanczosFilter());
+		std::string testName = "lena";
 
-		resample<Color>(constRgb888View(image), wrapper,
-			mitchellFilter, rgb888View(smallImage));
-		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "testresample_down_cubic.pcx");
-
-		resample<Color>(constRgb888View(smallImage), wrapper,
-			mitchellFilter, rgb888View(bigImage));
-		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_up_cubic.pcx");
-
-		resample<Color>(constRgb888View(image), wrapper,
-			boxFilter, rgb888View(smallImage));
-		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "testresample_down_box.pcx");
-
-		resample<Color>(constRgb888View(smallImage), wrapper,
-			boxFilter, rgb888View(bigImage));
-		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_up_box.pcx");
-
-		resample<Color>(constRgb888View(image), wrapper,
-			triangleFilter, rgb888View(smallImage));
-		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "testresample_down_triangle.pcx");
-
-		resample<Color>(constRgb888View(smallImage), wrapper,
-			triangleFilter, rgb888View(bigImage));
-		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_up_triangle.pcx");
-
-		resample<Color>(constRgb888View(image), wrapper,
-			lanczosFilter, rgb888View(smallImage));
-		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "testresample_down_lanczos.pcx");
-
-		resample<Color>(constRgb888View(image), wrapper,
-			lanczosFilter, rgb888View(bigImage));
-		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_non_lanczos.pcx");
-
-		resample<Color>(constRgb888View(smallImage), wrapper,
-			lanczosFilter, rgb888View(bigImage));
-		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_up_lanczos.pcx");
-
-		GaussianFilterRef gaussianFilter(gaussianFilter());
-
-		resample<Color>(constRgb888View(image), wrapper,
-			gaussianFilter, rgb888View(smallImage));
-		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "testresample_down_gaussian.pcx");
-
-		resample<Color>(constRgb888View(smallImage), wrapper,
-			gaussianFilter, rgb888View(bigImage));
-		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_up_gaussian.pcx");
+		testResample2(testName, image, mitchellFilter());
+		testResample2(testName, image, boxFilter());
+		testResample2(testName, image, triangleFilter());
+		testResample2(testName, image, lanczosFilter());
 
 		/*
 		loadPcx("grid.pcx", image);
@@ -136,6 +140,7 @@ namespace
 	void testAdd()
 	{
 		gfxTestList().add("Resample.2D", testResample2);
+		gfxTestList().add("Resample.2D.Text", testResample2Text);
 		gfxTestList().add("Resample.3D", testResample3);
 	}
 

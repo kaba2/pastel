@@ -22,6 +22,7 @@ namespace Pastel
 
 		void setRadius(real radius);
 		virtual real radius() const;
+		virtual std::string name() const;
 
 	private:
 		real radius_;
