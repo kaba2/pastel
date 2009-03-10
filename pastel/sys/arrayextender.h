@@ -13,8 +13,22 @@ namespace Pastel
 	class ArrayExtender
 	{
 	public:
+		ArrayExtender()
+			: extender_()
+			, border_()
+		{
+		}
+
+		explicit ArrayExtender(
+			const Type& border)
+			: extender_()
+			, border_(border)
+		{
+		}
+
+		// Implicit conversion
 		ArrayExtender(
-			const ConstIndexExtenderRef& uniformExtender = IndexExtenderRef(),
+			const ConstIndexExtenderRef& uniformExtender,
 			const Type& border = Type())
 			: extender_(uniformExtender)
 			, border_(border)

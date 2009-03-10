@@ -48,9 +48,6 @@ namespace Pastel
 
 		const real filterRadius = filter->radius() * filterFactor;
 
-		std::vector<real> weight;
-		weight.reserve((integer)filterRadius * 2 + 1);
-
 		real xFilter = 0.5 * xStep;
 
 		for (integer x = 0;x < outputWidth;++x)
@@ -59,46 +56,29 @@ namespace Pastel
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
-			const integer rangeWidth = rangeEnd - rangeBegin;
-
-			// Compute the filter weights.
-
-			weight.clear();
-
-			real sumWeights(0);
-			for (integer i = rangeBegin;i < rangeEnd;++i)
-			{
-				// Each pixel is surrounded with
-				// a reconstruction filter function.
-				// We add up all contributions
-				// that cross our current sampling
-				// position.
-
-				const real value(
-					(*filter)((xFilter - (i + 0.5)) *
-					invFilterFactor));
-				sumWeights += value;
-				weight.push_back(value);
-			}
-
-			// Normalize the weights to sum to one.
-
-			const real invSumWeights = inverse(sumWeights);
-			for (integer i = 0;i < rangeWidth;++i)
-			{
-				weight[i] *= invSumWeights;
-			}
 
 			// Compute the resampled value.
 
 			Output_Element result(0);
-			for (integer i = 0; i < rangeWidth;++i)
+			real sumWeights(0);
+			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				result += weight[i] *
-					arrayExtender(input, i + rangeBegin);
+				// Each pixel is surrounded with
+				// a reconstruction filter function.
+				// Add up all contributions
+				// that cross our current sampling
+				// position.
+
+				const real weight =
+					(*filter)((xFilter - (i + 0.5)) *
+					invFilterFactor);
+
+				result += weight *
+					arrayExtender(input, i);
+				sumWeights += weight;
 			}
 
-			output(x) = result;
+			output(x) = result / sumWeights;
 
 			xFilter += xStep;
 		}

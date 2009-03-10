@@ -836,35 +836,35 @@ namespace Pastel
 
 		// Convert to integer coordinates.
 
-		integer xLeft = toPixelSpanPoint(x);
-		integer xRight = toPixelSpanPoint(x2);
+		integer xMin = toPixelSpanPoint(x);
+		integer xMax = toPixelSpanPoint(x2);
 
 		// Cull by x.
 
-		if (xLeft >= image.width() || xRight <= 0)
+		if (xMin >= image.width() || xMax <= 0)
 		{
 			return;
 		}
 
 		// Clip.
 
-		if (xLeft < 0)
+		if (xMin < 0)
 		{
-			xLeft = 0;
+			xMin = 0;
 		}
 
-		if (xRight > image.width())
+		if (xMax > image.width())
 		{
-			xRight = image.width();
+			xMax = image.width();
 		}
 
 		typedef typename Image_View::Cursor Cursor;
 
-		Cursor cursor = image.cursor(xLeft, y);
+		Cursor cursor = image.cursor(xMin, y);
 
 		// Draw.
 
-		for (integer x = xLeft;x < xRight;++x)
+		for (integer x = xMin;x < xMax;++x)
 		{
 			*cursor = colorMixer(*cursor, color);
 			cursor.xIncrement();
@@ -879,6 +879,68 @@ namespace Pastel
 	{
 		drawHorizontalLine(
 			x, y, x2, color, image, assignColorMixer<Type>());
+	}
+
+	template <typename Type, typename Image_View, typename ColorMixer>
+	void drawVerticalLine(
+		real x, integer y, real y2,
+		const PASTEL_NO_DEDUCTION(Type)& color,
+		const View<2, Type, Image_View>& image,
+		const ColorMixer& colorMixer)
+	{
+		// Cull by x.
+
+		if (x < 0 || x >= image.width())
+		{
+			return;
+		}
+
+		// Convert to integer coordinates.
+
+		integer yMin = toPixelSpanPoint(y);
+		integer yMax = toPixelSpanPoint(y2);
+
+		// Cull by x.
+
+		if (yMin >= image.height() || yMax <= 0)
+		{
+			return;
+		}
+
+		// Clip.
+
+		if (yMin < 0)
+		{
+			yMin = 0;
+		}
+
+		if (yMax > image.height())
+		{
+			yMax = image.height();
+		}
+
+		typedef typename Image_View::Cursor Cursor;
+
+		Cursor cursor = image.cursor(x, yMin);
+
+		// Draw.
+
+		for (integer y = yMin;y < yMax;++y)
+		{
+			*cursor = colorMixer(*cursor, color);
+			cursor.yIncrement();
+		}
+	}
+
+	template <typename Type, typename Image_View>
+	void drawVerticalLine(
+		real x, integer y, real y2,
+		const PASTEL_NO_DEDUCTION(Type)& color,
+		const View<2, Type, Image_View>& image)
+	{
+		drawVerticalLine(
+			x, y, y2, color, image, 
+			assignColorMixer<Type>());
 	}
 
 	template <typename Type, typename Image_View>

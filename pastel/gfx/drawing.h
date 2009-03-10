@@ -85,6 +85,23 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image);
 
+	//! Draws a vertical line segment.
+
+	template <typename Type, typename Image_View, typename ColorMixer>
+	void drawVerticalLine(
+		real x, integer y, real y2,
+		const PASTEL_NO_DEDUCTION(Type)& color,
+		const View<2, Type, Image_View>& image,
+		const ColorMixer& colorMixer);
+
+	//! Draws a horizontal line segment.
+
+	template <typename Type, typename Image_View>
+	void drawVerticalLine(
+		real x, integer y, real y2,
+		const PASTEL_NO_DEDUCTION(Type)& color,
+		const View<2, Type, Image_View>& image);
+
 	//! Draws an axis aligned rectangular area.
 
 	template <typename Type, typename Image_View>

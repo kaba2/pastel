@@ -26,4 +26,9 @@ namespace Pastel
 		return 1;
 	}
 
+	std::string TriangleFilter::name() const
+	{
+		return std::string("triangle");
+	}
+
 }

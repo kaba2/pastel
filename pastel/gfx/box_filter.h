@@ -20,6 +20,7 @@ namespace Pastel
 		virtual real operator()(real position) const;
 		virtual real radius() const;
 		virtual real max() const;
+		virtual std::string name() const;
 	};
 
 	typedef CountedPtr<BoxFilter> BoxFilterRef;

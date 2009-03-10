@@ -41,4 +41,9 @@ namespace Pastel
 		return radius_;
 	}
 
+	std::string GaussianFilter::name() const
+	{
+		return std::string("gaussian");
+	}
+
 }

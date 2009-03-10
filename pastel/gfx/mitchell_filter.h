@@ -38,6 +38,7 @@ namespace Pastel
 
 		virtual real operator()(real position) const;
 		virtual real radius() const;
+		virtual std::string name() const;
 
 	private:
 		real b_;

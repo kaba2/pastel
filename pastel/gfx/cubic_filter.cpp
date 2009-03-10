@@ -65,4 +65,9 @@ namespace Pastel
 		return 2;
 	}
 
+	std::string CubicFilter::name() const
+	{
+		return std::string("cubic");
+	}
+
 }
