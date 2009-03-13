@@ -7,7 +7,6 @@
 #define PASTELGFX_RESAMPLE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/memoryview.h"
 #include "pastel/sys/view.h"
 #include "pastel/sys/arrayextender.h"
 
@@ -23,7 +22,7 @@ namespace Pastel
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View>
-	void resample(
+		void resample(
 		const ConstView<1, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<1, Input_Element>))& arrayExtender,
 		const ConstFilterRef& filter,
