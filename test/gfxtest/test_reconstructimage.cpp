@@ -7,9 +7,9 @@
 #include "pastel/geometry/poissondiskpattern.h"
 
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/filter_all.h"
-#include "pastel/gfx/filterform.h"
-#include "pastel/gfx/reconstructimage.h"
+#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/filterform.h"
+#include "pastel/dsp/reconstructimage.h"
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/image_tools.h"

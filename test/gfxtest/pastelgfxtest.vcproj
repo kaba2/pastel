@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsysd.lib pastelmathd.lib pastelgfxd.lib pastelgeometryd.lib pasteldeviced.lib"
+				AdditionalDependencies="pastelsysd.lib pastelmathd.lib pastelgfxd.lib pastelgeometryd.lib pasteldeviced.lib pasteldspd.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
@@ -148,7 +148,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys.lib pastelmath.lib pastelgfx.lib pastelgeometry.lib pasteldevice.lib"
+				AdditionalDependencies="pastelsys.lib pastelmath.lib pastelgfx.lib pastelgeometry.lib pasteldevice.lib pasteldsp.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
@@ -215,6 +215,10 @@
 		</File>
 		<File
 			RelativePath=".\test_filter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_fourier.cpp"
 			>
 		</File>
 		<File

@@ -4,10 +4,12 @@
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/noise.h"
-#include "pastel/gfx/mipmap.h"
 #include "pastel/gfx/summedareatable.h"
 #include "pastel/gfx/imagepdf.h"
-#include "pastel/gfx/filter_all.h"
+#include "pastel/gfx/drawing.h"
+
+#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_all.h"

@@ -8,8 +8,8 @@
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/imagegfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/mipmap_tools.h"
-#include "pastel/gfx/filter_all.h"
+#include "pastel/dsp/mipmap_tools.h"
+#include "pastel/dsp/filter_all.h"
 
 #include "pastel/math/uniformsampling.h"
 
@@ -69,7 +69,7 @@ namespace
 		Array<2, Color> image(500, 500, Color(0));
 
 		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
-		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), IVector2(2, 2)));
+		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), IPoint2(0), IVector2(2, 2)));
 
 		clear(Color(0, 0, 1), rowView(arrayView(image), 0, IPoint2(10, 10)));
 		clear(Color(0, 0, 1), rowView(arrayView(image), 1, IPoint2(10, 10)));

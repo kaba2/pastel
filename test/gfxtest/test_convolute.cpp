@@ -10,7 +10,7 @@
 #include "pastel/gfx/imagegfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/mipimagetexture.h"
-#include "pastel/gfx/filterform.h"
+#include "pastel/dsp/filterform.h"
 #include "pastel/gfx/convolute.h"
 #include "pastel/gfx/packrange.h"
 #include "pastel/gfx/noise.h"
