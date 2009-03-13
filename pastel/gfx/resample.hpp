@@ -6,9 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/permutedview.h"
 #include "pastel/sys/view_tools.h"
-
 #include "pastel/sys/mathfunctions.h"
 
 #include <vector>
