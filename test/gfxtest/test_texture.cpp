@@ -11,9 +11,9 @@
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/mipmap_tools.h"
-#include "pastel/gfx/ripmap_tools.h"
-#include "pastel/gfx/filter_all.h"
+#include "pastel/dsp/mipmap_tools.h"
+#include "pastel/dsp/ripmap_tools.h"
+#include "pastel/dsp/filter_all.h"
 
 #include "pastel/sys/string_tools.h"
 #include "pastel/sys/keyvalue.h"

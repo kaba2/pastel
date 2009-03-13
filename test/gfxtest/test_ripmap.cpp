@@ -6,7 +6,9 @@
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/ripmap.h"
+#include "pastel/gfx/drawing.h"
+
+#include "pastel/dsp/ripmap.h"
 
 using namespace Pastel;
 

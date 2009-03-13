@@ -11,8 +11,8 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/image_tools.h"
 
-#include "pastel/gfx/resample.h"
-#include "pastel/gfx/filter_all.h"
+#include "pastel/dsp/resample.h"
+#include "pastel/dsp/filter_all.h"
 
 using namespace Pastel;
 
