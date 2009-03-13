@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/ripimagetexture.h"
 #include "pastel/gfx/bilinearimagetexture.h"
-#include "pastel/gfx/ripmap.h"
+#include "pastel/dsp/ripmap.h"
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/vector_tools.h"

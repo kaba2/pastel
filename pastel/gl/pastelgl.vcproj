@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="PastelGl"
 	ProjectGUID="{B4DA9D81-D551-43C4-9EDF-2AE58A678DE3}"
 	RootNamespace="PastelGl"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsysd.lib pastelmathd.lib glew32.lib opengl32.lib pastelgeometryd.lib"
+				AdditionalDependencies="pastelsysd.lib pastelmathd.lib glew32.lib opengl32.lib pastelgeometryd.lib pastelgfxd.lib pasteldspd.lib"
 				OutputFile="$(OutDir)\$(ProjectName)d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
@@ -147,7 +147,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys.lib pastelmath.lib glew32.lib opengl32.lib pastelgeometry.lib"
+				AdditionalDependencies="pastelsys.lib pastelmath.lib glew32.lib opengl32.lib pastelgeometry.lib pastelgfx.lib pasteldsp.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"

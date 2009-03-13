@@ -9,6 +9,7 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
 #include "pastel/sys/rectangle.h"
+#include "pastel/sys/syscommon.h"
 
 #include "pastel/gfx/color.h"
 #include "pastel/gfx/texture.h"
@@ -20,20 +21,6 @@
 
 namespace Pastel
 {
-
-	/*!
-	Example:
-	Given a 2d horizontal line segment [xMin, xMax[ on row y,
-	xMin, xMax real numbers, y an integer.
-	Which pixels should be set? Answer:
-	[toPixelSpanPoint(xMin), toPixelSpanPoint(xMax)[
-	on row y.
-	*/
-	integer toPixelSpanPoint(real t);
-
-	template <int N>
-	Point<N, integer> toPixelSpanPoint(
-		const Point<N, real>& that);
 
 	//! Draws a pixel.
 

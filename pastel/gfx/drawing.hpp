@@ -27,24 +27,6 @@
 namespace Pastel
 {
 
-	inline integer toPixelSpanPoint(real t)
-	{
-		return std::ceil(t - (real)0.5);
-	}
-
-	template <int N>
-	inline Point<N, integer> toPixelSpanPoint(
-		const Point<N, real>& that)
-	{
-		Point<N, integer> result;
-		for (integer i = 0;i < N;++i)
-		{
-			result[i] = Pastel::toPixelSpanPoint(that[i]);
-		}
-
-		return result;
-	}
-
 	template <int N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
 		const PASTEL_NO_DEDUCTION((Point<N, integer>))& position,

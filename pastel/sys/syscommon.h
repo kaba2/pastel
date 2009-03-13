@@ -8,6 +8,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/point.h"
 
 #include <vector>
 #include <string>
@@ -16,6 +17,20 @@
 
 namespace Pastel
 {
+
+	/*!
+	Example:
+	Given a 2d horizontal line segment [xMin, xMax[ on row y,
+	xMin, xMax real numbers, y an integer.
+	Which pixels should be set? Answer:
+	[toPixelSpanPoint(xMin), toPixelSpanPoint(xMax)[
+	on row y.
+	*/
+	integer toPixelSpanPoint(real t);
+
+	template <int N>
+	Point<N, integer> toPixelSpanPoint(
+		const Point<N, real>& that);
 
 	//! Squares the given variable.
 

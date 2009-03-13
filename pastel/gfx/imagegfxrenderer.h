@@ -2,7 +2,7 @@
 #define PASTELGFX_IMAGEGFXRENDERER_H
 
 #include "pastel/gfx/gfxrenderer.h"
-#include "pastel/gfx/mipmap.h"
+#include "pastel/dsp/mipmap.h"
 
 #include "pastel/gfx/nearestimagetexture.h"
 #include "pastel/gfx/bilinearimagetexture.h"
