@@ -64,6 +64,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="pastelsysd.lib"
+				OutputFile="$(OutDir)\$(ProjectName)d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
@@ -141,6 +143,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="pastelsys.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
@@ -175,12 +178,148 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Filters"
+			>
+			<File
+				RelativePath=".\box_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\box_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\cubic_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\cubic_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filter_all.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filterdesign.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\filterdesign.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filterform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filterform.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\gaussian_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\gaussian_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lanczos_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lanczos_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\mitchell_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\mitchell_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\triangle_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\triangle_filter.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\discretefourier.h"
+			>
+		</File>
+		<File
+			RelativePath=".\discretefourier.hpp"
+			>
+		</File>
 		<File
 			RelativePath=".\dsplibrary.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\dsplibrary.h"
+			>
+		</File>
+		<File
+			RelativePath=".\mipmap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\mipmap.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\mipmap_tools.h"
+			>
+		</File>
+		<File
+			RelativePath=".\mipmap_tools.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\reconstructimage.h"
+			>
+		</File>
+		<File
+			RelativePath=".\reconstructimage.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\resample.h"
+			>
+		</File>
+		<File
+			RelativePath=".\resample.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ripmap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ripmap.hpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ripmap_tools.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ripmap_tools.hpp"
 			>
 		</File>
 	</Files>

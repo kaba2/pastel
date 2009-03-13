@@ -2,7 +2,7 @@
 #define PASTELGFX_RIPIMAGETEXTURE_H
 
 #include "pastel/gfx/texture.h"
-#include "pastel/gfx/ripmap.h"
+#include "pastel/dsp/ripmap.h"
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"

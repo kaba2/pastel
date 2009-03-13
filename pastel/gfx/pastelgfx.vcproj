@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsysd.lib pastelmathd.lib pastelgeometryd.lib"
+				AdditionalDependencies="pastelsysd.lib pastelmathd.lib pastelgeometryd.lib pasteldspd.lib"
 				OutputFile="$(OutDir)\$(ProjectName)d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
@@ -147,7 +147,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys.lib pastelmath.lib pastelgeometry.lib"
+				AdditionalDependencies="pastelsys.lib pastelmath.lib pastelgeometry.lib pasteldsp.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
@@ -276,26 +276,6 @@
 			Name="Image processing"
 			>
 			<Filter
-				Name="Resampling"
-				>
-				<File
-					RelativePath=".\reconstructimage.h"
-					>
-				</File>
-				<File
-					RelativePath=".\reconstructimage.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\resample.h"
-					>
-				</File>
-				<File
-					RelativePath=".\resample.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Labeling"
 				>
 				<File
@@ -359,23 +339,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\discretefourier.h"
-					>
-				</File>
-				<File
-					RelativePath=".\discretefourier.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\gfxresource.h"
-					>
-				</File>
-				<File
-					RelativePath=".\indexwrapper.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\indexwrapper.h"
 					>
 				</File>
 				<File
@@ -497,86 +461,6 @@
 			</File>
 			<File
 				RelativePath=".\image_tools.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Filters"
-			>
-			<File
-				RelativePath=".\box_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\box_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cubic_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\cubic_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filter_all.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterdesign.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\filterdesign.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\gaussian_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\gaussian_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\lanczos_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\lanczos_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mitchell_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mitchell_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle_filter.h"
 				>
 			</File>
 		</Filter>
@@ -741,50 +625,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Prefiltered images"
-			>
-			<File
-				RelativePath=".\mipmap.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mipmap.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mipmap_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mipmap_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ripmap.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ripmap.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ripmap_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ripmap_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\summedareatable.h"
-				>
-			</File>
-			<File
-				RelativePath=".\summedareatable.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Rendering"
 			>
 			<File
@@ -828,6 +668,14 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\summedareatable.h"
+			>
+		</File>
+		<File
+			RelativePath=".\summedareatable.hpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

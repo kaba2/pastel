@@ -51,6 +51,38 @@ namespace Pastel
 		}
 	};
 
+	class PASTELGFX Color_Component_Adapter
+	{
+	public:
+		typedef real32 Logical;
+		typedef Color Physical;
+
+		Color_Component_Adapter()
+			: component_(0)
+		{
+		}
+
+		explicit Color_Component_Adapter(
+			integer component)
+			: component_(component)
+		{
+			ENSURE1(component >= 0 && component < 3, component);
+		}
+
+		Logical toLogical(const Physical& physical) const
+		{
+			return physical[component_];
+		}
+
+		Physical toPhysical(const Logical& logical) const
+		{
+			return Physical(logical);
+		}
+
+	private:
+		integer component_;
+	};
+
 	template <typename Real, typename Integer>
 	class Real_Integer_Adapter
 	{

@@ -2,7 +2,7 @@
 #define PASTELGFX_MIPIMAGETEXTURE_H
 
 #include "pastel/gfx/texture.h"
-#include "pastel/gfx/mipmap.h"
+#include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"

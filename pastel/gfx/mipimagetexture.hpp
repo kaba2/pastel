@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/mipimagetexture.h"
 #include "pastel/gfx/bilinearimagetexture.h"
-#include "pastel/gfx/mipmap.h"
+#include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/arrayview.h"
