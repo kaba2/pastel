@@ -39,7 +39,7 @@ namespace Pastel
 		{
 		}
 
-		Array(
+		explicit Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
@@ -92,19 +92,21 @@ namespace Pastel
 		{
 		}
 
-		Array(
+		explicit Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
 		}
 
+		/*
 		Array(
 			integer width,
 			const Type& defaultData = Type())
 			: Base(Vector<N, integer>(width), defaultData)
 		{
 		}
+		*/
 
 		Array(
 			const Array<N, Type>& that,
@@ -191,7 +193,7 @@ namespace Pastel
 		{
 		}
 
-		Array(
+		explicit Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
@@ -295,7 +297,7 @@ namespace Pastel
 		{
 		}
 
-		Array(
+		explicit Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)

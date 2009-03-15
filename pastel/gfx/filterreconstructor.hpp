@@ -97,7 +97,7 @@ namespace Pastel
 
 				for (integer i = 0;i < points;++i)
 				{
-					const real weight = filter_(pointSet[i].key() * filterScaling_);
+					const real weight = filter_.evaluate(pointSet[i].key() * filterScaling_);
 
 					valueSum += pointSet[i].value()->data_ * weight;
 					weightSum += weight;

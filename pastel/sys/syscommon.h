@@ -48,6 +48,16 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& xMin,
 		const PASTEL_NO_DEDUCTION(Type)& xMax);
 
+	//! Returns true on an odd integer, false otherwise.
+
+	template <typename Integer>
+	inline bool odd(const Integer& x);
+
+	//! Returns true on an even integer, false otherwise.
+
+	template <typename Integer>
+	inline bool even(const Integer& x);
+
 	//! Computes the remainder
 	/*!
 	Preconditions:
@@ -81,23 +91,21 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next odd number.
 	/*!
-	Preconditions:
-	to >= 0
-
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
 	integer roundUpToOdd(integer that);
+	
+	integer roundUpToOdd(real that);
 
 	//! Rounds up 'that' to the next even number.
 	/*!
-	Preconditions:
-	to >= 0
-
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
 	integer roundUpToEven(integer that);
+
+	integer roundUpToEven(real that);
 
 	//! Rounds up 'that' to the next power of 2.
 	/*!

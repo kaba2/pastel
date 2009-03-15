@@ -1,5 +1,7 @@
 #include "pastel/dsp/filterdesign.h"
 
+#include "pastel/sys/syscommon.h"
+
 namespace Pastel
 {
 
@@ -10,7 +12,7 @@ namespace Pastel
 		++filterWidth;
 
 		// Round filterWidth to an odd number.
-		filterWidth += ((filterWidth + 1) & 1);
+		filterWidth = roundUpToOdd(filterWidth);
 
 		return filterWidth;
 	}

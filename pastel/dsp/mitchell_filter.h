@@ -36,11 +36,14 @@ namespace Pastel
 			real c = (real)1 / 3);
 		virtual ~MitchellFilter();
 
-		virtual real operator()(real position) const;
-		virtual real radius() const;
-		virtual std::string name() const;
+		virtual real evaluateInRange(real x) const;
 
 	private:
+		// Prohibited
+		MitchellFilter(const MitchellFilter& that);
+		// Prohibited
+		MitchellFilter& operator=(const MitchellFilter& that);
+
 		real b_;
 		real c_;
 	};

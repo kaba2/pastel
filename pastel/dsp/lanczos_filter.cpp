@@ -8,7 +8,7 @@ namespace Pastel
 {
 
 	LanczosFilter::LanczosFilter(real radius)
-		: radius_(radius)
+		: Filter(radius, "lanczos")
 		, invRadius_(inverse(radius))
 	{
 	}
@@ -17,32 +17,14 @@ namespace Pastel
 	{
 	}
 
-	real LanczosFilter::operator()(real x) const
+	real LanczosFilter::evaluateInRange(real x) const
 	{
-		const real xAbs = std::abs(x);
-
-		if (xAbs < radius_)
-		{
-			return sinc(xAbs) * sinc(xAbs * invRadius_);
-		}
-
-		return 0;
+		return sinc(x) * sinc(x * invRadius_);
 	}
 
-	void LanczosFilter::setRadius(real radius)
+	void LanczosFilter::onSetRadius()
 	{
-		radius_ = radius;
-		invRadius_ = inverse(radius);
-	}
-
-	real LanczosFilter::radius() const
-	{
-		return radius_;
-	}
-
-	std::string LanczosFilter::name() const
-	{
-		return std::string("lanczos");
+		invRadius_ = inverse(radius());
 	}
 
 }

@@ -17,8 +17,8 @@ namespace Pastel
 	{
 		ENSURE(addressOf(image) != addressOf(result));
 		ENSURE(addressOf(filter) != addressOf(result));
-		ENSURE((filter.width() & 1) != 0);
-		ENSURE((filter.height() & 1) != 0);
+		ENSURE(odd(filter.width()));
+		ENSURE(odd(filter.height()));
 
 		result.setExtent(image.width(), image.height());
 

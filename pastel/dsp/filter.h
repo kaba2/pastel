@@ -1,6 +1,6 @@
 /*!
 \file
-\brief Functions for convolution.
+\brief A reconstruction filter.
 */
 
 #ifndef PASTELDSP_FILTER_H
@@ -36,11 +36,36 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
+		Filter(real radius,
+			const std::string& name);
 		virtual ~Filter();
 
-		virtual real operator()(real position) const = 0;
-		virtual real radius() const = 0;
-		virtual std::string name() const = 0;
+		//! Evaluates the filter inside the radius.
+		/*!
+		Preconditions:
+		-radius <= position <= radius
+
+		This function performs faster because
+		it can leave out range checking.
+		*/
+		virtual real evaluateInRange(real position) const = 0;
+
+		void setRadius(real radius);
+		real radius() const;
+
+		real evaluate(real position) const;
+		const std::string& name() const;
+
+	private:
+		// Prohibited
+		Filter(const Filter& that);
+		// Prohibited
+		Filter& operator=(const Filter& that);
+
+		virtual void onSetRadius();
+
+		real radius_;
+		std::string name_;
 	};
 
 	typedef CountedPtr<Filter> FilterRef;

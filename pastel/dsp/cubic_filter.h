@@ -33,11 +33,14 @@ namespace Pastel
 		explicit CubicFilter(real negativeLobeness = (real)1 / 3);
 		virtual ~CubicFilter();
 
-		virtual real operator()(real position) const;
-		virtual real radius() const;
-		virtual std::string name() const;
+		virtual real evaluateInRange(real x) const;
 
 	private:
+		// Prohibited
+		CubicFilter(const CubicFilter& that);
+		// Prohibited
+		CubicFilter& operator=(const CubicFilter& that);
+
 		real d_;
 	};
 

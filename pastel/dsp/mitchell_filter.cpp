@@ -8,7 +8,8 @@ namespace Pastel
 	// MitchellFilter
 
 	MitchellFilter::MitchellFilter(real b, real c)
-		: b_(b)
+		: Filter(2, "mitchell")
+		, b_(b)
 		, c_(c)
 	{
 	}
@@ -17,7 +18,7 @@ namespace Pastel
 	{
 	}
 
-	real MitchellFilter::operator()(real x) const
+	real MitchellFilter::evaluateInRange(real x) const
 	{
 		// Let
 		// f(x) = ax^3 + bx^2 + cx + d
@@ -51,25 +52,10 @@ namespace Pastel
 				(6 - 2 * b_);
 		}
 
-		if (xAbs < 2)
-		{
-			return (((-b_ - 6 * c_) * xAbs +
-				(6 * b_ + 30 * c_)) * xAbs +
-				(-12 * b_ - 48 * c_)) * xAbs +
-				(8 * b_ + 24 * c_);
-		}
-
-		return 0;
-	}
-
-	real MitchellFilter::radius() const
-	{
-		return 2;
-	}
-
-	std::string MitchellFilter::name() const
-	{
-		return std::string("mitchell");
+		return (((-b_ - 6 * c_) * xAbs +
+			(6 * b_ + 30 * c_)) * xAbs +
+			(-12 * b_ - 48 * c_)) * xAbs +
+			(8 * b_ + 24 * c_);
 	}
 
 }

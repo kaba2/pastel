@@ -25,7 +25,7 @@ namespace Pastel
 		const integer width = out.size();
 
 		ENSURE1(width > 0, width);
-		ENSURE1((width & 1) != 0, width);
+		ENSURE1(odd(width), width);
 
 		const integer half = (width - 1) / 2;
 		const Real scaleSincFreq = 2 * cutOff;
@@ -59,7 +59,7 @@ namespace Pastel
 		const integer width = out.size();
 
 		ENSURE1(width > 0, width);
-		ENSURE1((width & 1) != 0, width);
+		ENSURE1(odd(width), width);
 
 		const integer half = (width - 1) / 2;
 		const Real scaleSincFreq = 2 * cutOff;
@@ -100,8 +100,8 @@ namespace Pastel
 			return;
 		}
 
-		ENSURE1((width & 1) != 0, width);
-		ENSURE1((height & 1) != 0, height);
+		ENSURE1(odd(width), width);
+		ENSURE1(odd(height), height);
 		ENSURE2(width == height, width, height);
 
 		const Vector<2, Real> half(
@@ -150,8 +150,8 @@ namespace Pastel
 			return;
 		}
 
-		ENSURE1((width & 1) != 0, width);
-		ENSURE1((height & 1) != 0, height);
+		ENSURE1(odd(width), width);
+		ENSURE1(odd(height), height);
 		ENSURE2(width == height, width, height);
 
 		const Vector<2, Real> half(
@@ -200,8 +200,8 @@ namespace Pastel
 			return;
 		}
 
-		ENSURE1((width & 1) != 0, width);
-		ENSURE1((height & 1) != 0, height);
+		ENSURE1(odd(width), width);
+		ENSURE1(odd(height), height);
 		ENSURE2(width == height, width, height);
 
 		const Vector<2, Real> half(

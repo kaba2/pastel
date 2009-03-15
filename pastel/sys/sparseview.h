@@ -28,9 +28,11 @@ namespace Pastel
 			: view_(view)
 			, pivot_(pivot)
 			, step_(step)
-			, extent_(view.extent() / step)
+			, extent_((view.extent() - asVector(pivot) + (step - 1)) / step)
 		{
 			ENSURE(allGreater(step, 0));
+			ENSURE(allGreaterEqual(pivot, 0));
+			ENSURE(allLess(asVector(pivot), view.extent()));
 		}
 
 		const Vector<N, integer>& extent() const

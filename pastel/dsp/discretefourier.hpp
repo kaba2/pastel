@@ -44,8 +44,13 @@ namespace Pastel
 	{
 		const integer n = input.width();
 
-		ENSURE1(n >= 1, n);
 		ENSURE2(n == output.width(), n, output.width());
+
+		if (n == 0)
+		{
+			return;
+		}
+
 		ENSURE1(isPowerOfTwo(n), n);
 
 		if (n == 1)
@@ -61,8 +66,14 @@ namespace Pastel
 		// of the even-index subsequence.
 
 		Array<1, Complex<Real> > evenFourier(nHalf);
+		for (integer i = 0;i < nHalf;++i)
+		{
+			evenFourier(i) = input(i * 2);
+		}
+		/*
 		copy(constSparseView(input, 0, 2), 
 			arrayView(evenFourier));
+		*/
 		discreteFourier(constArrayView(evenFourier), 
 			arrayView(evenFourier));
 
@@ -70,8 +81,14 @@ namespace Pastel
 		// of the odd-index subsequence.
 
 		Array<1, Complex<Real> > oddFourier(nHalf);
+		for (integer i = 0;i < nHalf;++i)
+		{
+			oddFourier(i) = input(i * 2 + 1);
+		}
+		/*
 		copy(constSparseView(input, 1, 2), 
 			arrayView(oddFourier));
+		*/
 		discreteFourier(constArrayView(oddFourier), 
 			arrayView(oddFourier));
 
@@ -107,8 +124,13 @@ namespace Pastel
 	{
 		const integer n = input.width();
 
-		ENSURE1(n >= 1, n);
 		ENSURE2(n == output.width(), n, output.width());
+
+		if (n == 0)
+		{
+			return;
+		}
+
 		ENSURE1(isPowerOfTwo(n), n);
 
 		if (n == 1)
