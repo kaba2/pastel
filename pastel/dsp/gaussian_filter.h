@@ -18,14 +18,13 @@ namespace Pastel
 
 		virtual ~GaussianFilter();
 
-		virtual real operator()(real position) const;
-
-		void setRadius(real radius);
-		virtual real radius() const;
-		virtual std::string name() const;
+		virtual real evaluateInRange(real x) const;
 
 	private:
-		real radius_;
+		// Prohibited
+		GaussianFilter(const GaussianFilter& that);
+		// Prohibited
+		GaussianFilter& operator=(const GaussianFilter& that);
 	};
 
 	typedef CountedPtr<GaussianFilter> GaussianFilterRef;

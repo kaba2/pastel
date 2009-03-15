@@ -3,6 +3,8 @@
 
 #include "pastel/math/integer_tools.h"
 
+#include "pastel/sys/syscommon.h"
+
 namespace Pastel
 {
 
@@ -46,7 +48,7 @@ namespace Pastel
 
 		integer shift = 0;
 
-		while (((u | v) & 1) == 0)
+		while (even(u | v))
 		{
 			u >>= 1;
 			v >>= 1;
@@ -58,7 +60,7 @@ namespace Pastel
 		// If u is even and v is odd:
 		// GCD(u / 2, v) = GCD(u, v)
 
-		while ((u & 1) == 0)
+		while (even(u))
 		{
 			u >>= 1;
 		}
@@ -70,7 +72,7 @@ namespace Pastel
 			// If u is odd and v is even:
 			// GCD(u, v / 2) = GCD(u, v)
 
-			while ((v & 1) == 0)
+			while (even(v))
 			{
 				v >>= 1;
 			}

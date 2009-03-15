@@ -5,30 +5,18 @@
 namespace Pastel
 {
 
+	TriangleFilter::TriangleFilter()
+		: Filter(1, "triangle")
+	{
+	}
+
 	TriangleFilter::~TriangleFilter()
 	{
 	}
 
-	real TriangleFilter::operator()(real x) const
+	real TriangleFilter::evaluateInRange(real x) const
 	{
-		const real xAbs = std::abs(x);
-
-		if (xAbs < 1)
-		{
-			return 1 - xAbs;
-		}
-
-		return 0;
-	}
-
-	real TriangleFilter::radius() const
-	{
-		return 1;
-	}
-
-	std::string TriangleFilter::name() const
-	{
-		return std::string("triangle");
+		return 1 - std::abs(x);
 	}
 
 }

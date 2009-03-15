@@ -3,33 +3,18 @@
 namespace Pastel
 {
 
+	BoxFilter::BoxFilter()
+		: Filter(0.5, "box")
+	{
+	}
+
 	BoxFilter::~BoxFilter()
 	{
 	}
 
-	real BoxFilter::operator()(real x) const
-	{
-		if (-0.5 <= x && x < 0.5)
-		{
-			return 1;
-		}
-
-		return 0;
-	}
-
-	real BoxFilter::radius() const
-	{
-		return 0.5;
-	}
-
-	real BoxFilter::max() const
+	real BoxFilter::evaluateInRange(real x) const
 	{
 		return 1;
-	}
-
-	std::string BoxFilter::name() const
-	{
-		return std::string("box");
 	}
 
 }

@@ -83,12 +83,8 @@ namespace Pastel
 		const integer width = image.extent().x();
 		const integer height = image.extent().y();
 
-		integer bytesPerScanlinePerPlane =
-			((width + 7) / 8);
-		if (bytesPerScanlinePerPlane & 1)
-		{
-			++bytesPerScanlinePerPlane;
-		}
+		const integer bytesPerScanlinePerPlane =
+			roundUpToEven((width + 7) / 8);
 
 		PcxHeader pcxHeader;
 
@@ -205,7 +201,7 @@ namespace Pastel
 		pcxHeader.vss_ = 72;
 		pcxHeader.colorPlanes_ = 1;
 		pcxHeader.bytesPerScanlinePerPlane_ =
-			(width & 1) ?
+			odd(width) ?
 			(int16)(width + 1) : (int16)width;
 		pcxHeader.paletteInfo_ = 1;
 
@@ -325,7 +321,7 @@ namespace Pastel
 		pcxHeader.vss_ = 72;
 		pcxHeader.colorPlanes_ = 3;
 		pcxHeader.bytesPerScanlinePerPlane_ =
-			(width & 1) ?
+			odd(width) ?
 			(int16)(width + 1) : (int16)width;
 		pcxHeader.paletteInfo_ = 1;
 

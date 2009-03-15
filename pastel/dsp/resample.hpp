@@ -10,22 +10,28 @@
 #include "pastel/sys/mathfunctions.h"
 #include "pastel/sys/smallset.h"
 
+#include "pastel/math/linear.h"
+
 #include <vector>
 
 namespace Pastel
 {
 
 	template <
+		typename Computation_Element,
 		typename Input_Element,
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View>
-	void resample(
+	void resampleTable(
 		const ConstView<1, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<1, Input_Element>))& arrayExtender,
-		const ConstFilterRef& filter,
-		const View<1, Output_Element, Output_View>& output)
+		const ConstTableFilterRef& filter,
+		const View<1, Output_Element, Output_View>& output,
+		real blurFactor)
 	{
+		ENSURE1(blurFactor >= 1, blurFactor);
+
 		const integer inputWidth = input.width();
 		const integer outputWidth = output.width();
 
@@ -42,38 +48,112 @@ namespace Pastel
 		}
 
 		const real xStep = (real)inputWidth / outputWidth;
-		const real filterFactor = (xStep > 1) ? xStep : 1;
+		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);
 		const real invFilterFactor = inverse(filterFactor);
 
 		const real filterRadius = filter->radius() * filterFactor;
 
 		real xFilter = 0.5 * xStep;
 
-		for (integer x = 0;x < outputWidth;++x)
+		// xFilter + xStep * marginWidth > filterRadius
+		// =>
+		// xStep * marginWidth > filterRadius - xFilter
+		// => 
+		// marginWidth > (filterRadius - xFilter) / xStep
+
+		const integer introEnd = 
+			clamp(
+			(integer)std::ceil((filterRadius - xFilter) / xStep) + 1,
+			0, outputWidth);
+		const integer mainEnd =
+			clamp(outputWidth - introEnd, 
+			introEnd, outputWidth);
+
+		for (integer x = 0;x < introEnd;++x)
 		{
 			const integer rangeBegin =
 				toPixelSpanPoint(xFilter - filterRadius);
 			const integer rangeEnd =
 				toPixelSpanPoint(xFilter + filterRadius);
 
+			real xLocalFilter = 
+				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
+
 			// Compute the resampled value.
 
-			Output_Element result(0);
-			real sumWeights(0);
+			Computation_Element result(0);
+			real sumWeights = 0;
 			for (integer i = rangeBegin; i < rangeEnd;++i)
 			{
-				// Each pixel is surrounded with
-				// a reconstruction filter function.
-				// Add up all contributions
-				// that cross our current sampling
-				// position.
-
 				const real weight =
-					(*filter)((xFilter - (i + 0.5)) *
-					invFilterFactor);
-
+					filter->evaluateInRange(xLocalFilter);
+				
 				result += weight *
 					arrayExtender(input, i);
+
+				xLocalFilter -= invFilterFactor;
+				sumWeights += weight;
+			}
+
+			output(x) = result / sumWeights;
+
+			xFilter += xStep;
+		}
+
+		for (integer x = introEnd;x < mainEnd;++x)
+		{
+			const integer rangeBegin =
+				toPixelSpanPoint(xFilter - filterRadius);
+			const integer rangeEnd =
+				toPixelSpanPoint(xFilter + filterRadius);
+
+			real xLocalFilter = 
+				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
+
+			// Compute the resampled value.
+
+			Computation_Element result(0);
+			real sumWeights = 0;
+			for (integer i = rangeBegin; i < rangeEnd;++i)
+			{
+				const real weight =
+					filter->evaluateInRange(xLocalFilter);
+				
+				Computation_Element in = input(i);
+				result += weight * in;
+
+				xLocalFilter -= invFilterFactor;
+				sumWeights += weight;
+			}
+
+			output(x) = result / sumWeights;
+
+			xFilter += xStep;
+		}
+
+		for (integer x = mainEnd;x < outputWidth;++x)
+		{
+			const integer rangeBegin =
+				toPixelSpanPoint(xFilter - filterRadius);
+			const integer rangeEnd =
+				toPixelSpanPoint(xFilter + filterRadius);
+
+			real xLocalFilter = 
+				(xFilter - (rangeBegin + 0.5)) * invFilterFactor;
+
+			// Compute the resampled value.
+
+			Computation_Element result(0);
+			real sumWeights = 0;
+			for (integer i = rangeBegin; i < rangeEnd;++i)
+			{
+				const real weight =
+					filter->evaluateInRange(xLocalFilter);
+				
+				result += weight *
+					arrayExtender(input, i);
+
+				xLocalFilter -= invFilterFactor;
 				sumWeights += weight;
 			}
 
@@ -83,18 +163,41 @@ namespace Pastel
 		}
 	}
 
+	template <
+		typename Computation_Element,
+		typename Input_Element,
+		typename Input_View,
+		typename Output_Element,
+		typename Output_View>
+		void resample(
+		const ConstView<1, Input_Element, Input_View>& input,
+		const PASTEL_NO_DEDUCTION((ArrayExtender<1, Input_Element>))& arrayExtender,
+		const ConstFilterRef& filter,
+		const View<1, Output_Element, Output_View>& output,
+		real blurFactor)
+	{
+		ENSURE1(blurFactor >= 1, blurFactor);
+
+		Pastel::resampleTable<Computation_Element>(
+			input, arrayExtender, 
+			tableFilter(filter), output,
+			blurFactor);
+	}
+
 	namespace Detail_Resample
 	{
 
-		template <typename Input_Element>
+		template <typename Computation_Element, typename Input_Element>
 		class ResampleFunctor
 		{
 		public:
 			ResampleFunctor(
 				const ArrayExtender<1, Input_Element>& arrayExtender,
-				const ConstFilterRef& filter)
+				const ConstTableFilterRef& filter,
+				real blurFactor)
 			: arrayExtender_(arrayExtender)
 			, filter_(filter)
+			, blurFactor_(blurFactor)
 			{
 			}
 
@@ -102,12 +205,14 @@ namespace Pastel
 			void operator()(const Left_View& left,
 				const Right_View& right) const
 			{
-				resample(left, arrayExtender_, filter_, right);
+				resample<Computation_Element>(left, arrayExtender_, 
+					filter_, right, blurFactor_);
 			}
 
 		private:
 			const ArrayExtender<1, Input_Element>& arrayExtender_;
-			const ConstFilterRef& filter_;
+			const ConstTableFilterRef& filter_;
+			const real blurFactor_;
 		};
 
 		class AxisValue
@@ -147,12 +252,15 @@ namespace Pastel
 		typename Output_Element,
 		typename Output_View>
 		typename boost::enable_if_c<(N > 1), void>::type
-		resample(
+		resampleTable(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		const ConstFilterRef& filter,
-		const View<N, Output_Element, Output_View>& output)
+		const ConstTableFilterRef& filter,
+		const View<N, Output_Element, Output_View>& output,
+		real blurFactor)
 	{
+		ENSURE1(blurFactor >= 1, blurFactor);
+
 		// The n-dimensional resampling is done as
 		// n subsequent 1-dimensional resamplings.
 		// If the filter radii are equal,
@@ -189,8 +297,8 @@ namespace Pastel
 		{
 			const ArrayExtender<1, Input_Element> arrayExtender1D(
 				arrayExtender.extender(0), arrayExtender.border());
-			const Detail_Resample::ResampleFunctor<Input_Element> resampleFunctor(
-				arrayExtender1D, filter);
+			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
+				resampleFunctor(arrayExtender1D, filter, blurFactor);
 			visitRows(input, arrayView(tempArray), axisSet[0].axis_, resampleFunctor);
 		}
 
@@ -204,8 +312,8 @@ namespace Pastel
 
 			const ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(i), arrayExtender.border());
-			const Detail_Resample::ResampleFunctor<Computation_Element> resampleFunctor(
-				arrayExtender1D, filter);
+			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
+				resampleFunctor(arrayExtender1D, filter, blurFactor);
 
 			visitRows(constArrayView(tempArray), arrayView(tempArray2), 
 				axisSet[i].axis_, resampleFunctor);
@@ -218,11 +326,34 @@ namespace Pastel
 		{
 			const ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(N - 1), arrayExtender.border());
-			const Detail_Resample::ResampleFunctor<Computation_Element> resampleFunctor(
-				arrayExtender1D, filter);
+			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
+				resampleFunctor(arrayExtender1D, filter, blurFactor);
 
 			visitRows(constArrayView(tempArray), output, axisSet[N - 1].axis_, resampleFunctor);
 		}
+	}
+
+	template <
+		typename Computation_Element,
+		int N,
+		typename Input_Element,
+		typename Input_View,
+		typename Output_Element,
+		typename Output_View>
+		typename boost::enable_if_c<(N > 1), void>::type
+		resample(
+		const ConstView<N, Input_Element, Input_View>& input,
+		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
+		const ConstFilterRef& filter,
+		const View<N, Output_Element, Output_View>& output,
+		real blurFactor)
+	{
+		ENSURE1(blurFactor >= 1, blurFactor);
+
+		Pastel::resampleTable<Computation_Element>(
+			input, arrayExtender, 
+			tableFilter(filter), output,
+			blurFactor);
 	}
 
 }

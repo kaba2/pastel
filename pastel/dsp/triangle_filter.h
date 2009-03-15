@@ -15,11 +15,17 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
+		TriangleFilter();
+
 		virtual ~TriangleFilter();
 
-		virtual real operator()(real position) const;
-		virtual real radius() const;
-		virtual std::string name() const;
+		virtual real evaluateInRange(real position) const;
+
+	private:
+		// Prohibited
+		TriangleFilter(const TriangleFilter& that);
+		// Prohibited
+		TriangleFilter& operator=(const TriangleFilter& that);
 	};
 
 	typedef CountedPtr<TriangleFilter> TriangleFilterRef;

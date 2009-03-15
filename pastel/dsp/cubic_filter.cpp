@@ -8,7 +8,8 @@ namespace Pastel
 	// CubicFilter
 
 	CubicFilter::CubicFilter(real negativeLobeness)
-		: d_((negativeLobeness * 3) / 2)
+		: Filter(2, "cubic")
+		, d_((negativeLobeness * 3) / 2)
 	{
 	}
 
@@ -16,7 +17,7 @@ namespace Pastel
 	{
 	}
 
-	real CubicFilter::operator()(real x) const
+	real CubicFilter::evaluateInRange(real x) const
 	{
 		// Let
 		// f(x) = ax^3 + bx^2 + cx + d
@@ -49,25 +50,10 @@ namespace Pastel
 				(-3 + d_)) * xAbs * xAbs + 1;
 		}
 
-		if (xAbs < 2)
-		{
-			return
-				(((-d_) * xAbs +
-				5 * d_) * xAbs +
-				(-8 * d_)) * xAbs + 4 * d_;
-		}
-
-		return 0;
-	}
-
-	real CubicFilter::radius() const
-	{
-		return 2;
-	}
-
-	std::string CubicFilter::name() const
-	{
-		return std::string("cubic");
+		return
+			(((-d_) * xAbs +
+			5 * d_) * xAbs +
+			(-8 * d_)) * xAbs + 4 * d_;
 	}
 
 }

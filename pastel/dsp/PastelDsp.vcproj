@@ -250,6 +250,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\table_filter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\table_filter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\triangle_filter.cpp"
 				>
 			</File>

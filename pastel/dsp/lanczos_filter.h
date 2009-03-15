@@ -24,14 +24,16 @@ namespace Pastel
 		explicit LanczosFilter(real radius = 2);
 		virtual ~LanczosFilter();
 
-		virtual real operator()(real position) const;
-
-		void setRadius(real radius);
-		virtual real radius() const;
-		virtual std::string name() const;
+		virtual real evaluateInRange(real x) const;
 
 	private:
-		real radius_;
+		// Prohibited
+		LanczosFilter(const LanczosFilter& that);
+		// Prohibited
+		LanczosFilter& operator=(const LanczosFilter& that);
+
+		virtual void onSetRadius();
+
 		real invRadius_;
 	};
 

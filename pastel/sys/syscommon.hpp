@@ -58,6 +58,18 @@ namespace Pastel
 		return x;
 	}
 
+	template <typename Integer>
+	inline bool odd(const Integer& x)
+	{
+		return (x & 1) == 1;
+	}
+
+	template <typename Integer>
+	inline bool even(const Integer& x)
+	{
+		return (x & 1) == 0;
+	}
+
 	inline integer mod(integer x, integer n)
 	{
 		PENSURE1(n > 0, n);
@@ -109,9 +121,7 @@ namespace Pastel
 
 	inline integer roundUpToOdd(integer that)
 	{
-		PENSURE1(that >= 0, that);
-
-		if (that & 1)
+		if (odd(that))
 		{
 			return that;
 		}
@@ -119,16 +129,24 @@ namespace Pastel
 		return that + 1;
 	}
 
+	inline integer roundUpToOdd(real that)
+	{
+		return Pastel::roundUpToOdd((integer)std::ceil(that));
+	}
+
 	inline integer roundUpToEven(integer that)
 	{
-		PENSURE1(that >= 0, that);
-
-		if (that & 1)
+		if (odd(that))
 		{
 			return that + 1;
 		}
 
 		return that;
+	}
+
+	inline integer roundUpToEven(real that)
+	{
+		return Pastel::roundUpToEven((integer)std::ceil(that));
 	}
 
 	inline integer roundUpToPowerOf2(integer that, integer power)
@@ -198,7 +216,15 @@ namespace Pastel
 					   integer minInteger, integer maxInteger,
 					   real64 minReal, real64 maxReal)
 	{
+		PENSURE3(i >= minInteger && i <= maxInteger, i, minInteger, maxInteger);
+
 		const integer deltaInteger = maxInteger - minInteger;
+
+		if (deltaInteger == 0)
+		{
+			return (minReal + maxReal) / 2;
+		}
+
 		const real64 deltaReal = maxReal - minReal;
 		const integer iClamped = clamp(i, minInteger, maxInteger);
 

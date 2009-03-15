@@ -171,7 +171,7 @@ namespace Pastel
 		{
 			const Real scale = newValueDelta / valueDelta;
 
-			Cursor yCursor = image.cursor(0, 0);
+			Cursor yCursor = image.cursor(IPoint2(0));
 
 			for (integer y = 0;y < height;++y)
 			{

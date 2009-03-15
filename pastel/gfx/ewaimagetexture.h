@@ -87,8 +87,8 @@ namespace Pastel
 			{
 				const real t = std::sqrt(i * scaling);
 
-				minFilterTable[i] = (*minFilter)(t);
-				maxFilterTable[i] = (*maxFilter)(t);
+				minFilterTable[i] = minFilter->evaluate(t);
+				maxFilterTable[i] = maxFilter->evaluate(t);
 			}
 
 			minFilterTable_.swap(minFilterTable);

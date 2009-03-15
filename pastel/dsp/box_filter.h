@@ -15,12 +15,17 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
+		BoxFilter();
+
 		virtual ~BoxFilter();
 
-		virtual real operator()(real position) const;
-		virtual real radius() const;
-		virtual real max() const;
-		virtual std::string name() const;
+		virtual real evaluateInRange(real x) const;
+
+	private:
+		// Prohibited
+		BoxFilter(const BoxFilter& that);
+		// Prohibited
+		BoxFilter& operator=(const BoxFilter& that);
 	};
 
 	typedef CountedPtr<BoxFilter> BoxFilterRef;
