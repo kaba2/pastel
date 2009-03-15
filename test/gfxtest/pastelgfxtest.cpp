@@ -27,7 +27,7 @@ int main()
 	{
 		for (integer x = 0;x < width;++x)
 		{
-			image(x, y) = (((x + y) & 1) == 0) ? Color(1) : Color(0);
+			image(x, y) = even(x + y) ? Color(1) : Color(0);
 		}
 	}
 
