@@ -3,10 +3,12 @@
 #include <pastel/gfx/pcx.h>
 #include <pastel/gfx/color_tools.h>
 #include <pastel/gfx/drawing.h>
-#include <pastel/dsp/filter_all.h>
 #include <pastel/gfx/noise.h>
-#include <pastel/dsp/resample.h>
 #include <pastel/gfx/colormixers.h>
+
+#include <pastel/dsp/resample.h>
+#include <pastel/dsp/filter_all.h>
+#include <pastel/dsp/table_filter.h>
 
 #include <pastel/sys/view_all.h>
 #include <pastel/sys/array.h>
@@ -18,21 +20,21 @@ namespace
 {
 
 	void drawFilter(
-		const Filter& filter,
+		const ConstFilterRef& filter,
 		const Color& color,
-		Array<2, Color>& image)
+		Array<2, Color>& image,
+		real maxFilterRadius = 2)
 	{
 		const integer Samples = 100;
 
 		const integer width = image.width();
 		const integer height = image.height();
-		const real maxFilterRadius = 2;
 
 		Point2 previous;
 		for (integer i = 0;i < width;++i)
 		{
 			const real t = (((real)i / (width - 1)) - 0.5) * 2 * maxFilterRadius;
-			const Point2 current(i, ((filter(t) / filter(0) + 1) / 2) * (height * 0.75));
+			const Point2 current(i, ((filter->evaluate(t) / filter->evaluate(0) + 1) / 2) * (height * 0.75));
 
 			if (i != 0)
 			{
@@ -52,7 +54,7 @@ namespace
 		const Color& color)
 	{
 		Array<1, real> resampledSignal(image.width());
-		resample(constArrayView(signal), 
+		resample<real>(constArrayView(signal), 
 			ArrayExtender<1, real>(0),
 			filter, arrayView(resampledSignal));
 
@@ -92,7 +94,7 @@ namespace
 			clear(Color(0), arrayView(image));
 
 			Array<1, real> resampledSignal(i);
-			resample(constArrayView(signal), 
+			resample<real>(constArrayView(signal), 
 				ArrayExtender<1, real>(0),
 				filter, 
 				arrayView(resampledSignal));
@@ -118,29 +120,41 @@ namespace
 		testSignal(lanczosFilter());
 	}
 
-	void testFilters()
+	void testTableFilter()
 	{
 		const integer Width = 500;
 		const integer Height = 500;
 
 		Array<2, Color> image(Width, Height);
 
-		//drawFilter(GaussianFilter(1), hsvToRgb(Color(randomReal(), 1, 1)), image);
-		drawFilter(GaussianFilter(2), hsvToRgb(Color(randomReal(), 1, 1)), image);
-		drawFilter(TriangleFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
-		drawFilter(BoxFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
-		//drawFilter(MitchellFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		FilterRef filter = lanczosFilter(3);
+
+		drawFilter(tableFilter(filter, 0), 
+			hsvToRgb(Color(randomReal(), 1, 1)), image, 4);
+		drawFilter(tableFilter(filter, 1), 
+			hsvToRgb(Color(randomReal(), 1, 1)), image, 4);
+		drawFilter(tableFilter(filter, 4), 
+			hsvToRgb(Color(randomReal(), 1, 1)), image, 4);
+		drawFilter(tableFilter(filter, 16), 
+			hsvToRgb(Color(randomReal(), 1, 1)), image, 4);
+
+		savePcx(image, "test_filter_table.pcx");
+	}
+
+	void testFilterShape()
+	{
+		const integer Width = 500;
+		const integer Height = 500;
+
+		Array<2, Color> image(Width, Height);
+
+		drawFilter(gaussianFilter(2), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		drawFilter(triangleFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		drawFilter(boxFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		drawFilter(mitchellFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
 		//drawFilter(CubicFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
-		drawFilter(LanczosFilter(2), hsvToRgb(Color(randomReal(), 1, 1)), image);
 
-		/*
-		const real b = 0.65;
-		const real c = (1 - b) / 2;
-		drawFilter(MitchellFilter(b, c), randomRgbColor(), image);
-		drawFilter(GaussianFilter(2), Color(1), image);
-		*/
-
-		savePcx(image, "test_filter.pcx");
+		savePcx(image, "test_filter_shape.pcx");
 	}
 
 	void testCubicFilter()
@@ -154,7 +168,7 @@ namespace
 		const integer Steps = 20;
 		for (integer i = 0;i < Steps;++i)
 		{
-			drawFilter(CubicFilter(
+			drawFilter(cubicFilter(
 				linear((real)-Range, (real)(1 + Range), (real)i / (Steps - 1))), randomRgbColor(), image);
 		}
 
@@ -177,22 +191,18 @@ namespace
 			const real b = linear(bMin, bMax, (real)i / (Steps - 1));
 			const real c = (1 - b) / 2;
 
-			drawFilter(MitchellFilter(b, c), randomRgbColor(), image);
+			drawFilter(mitchellFilter(b, c), randomRgbColor(), image);
 		}
 
 		savePcx(image, "test_filter_mitchell.pcx");
 	}
 
-	void testBegin()
-	{
-		testFilters();
-		testCubicFilter();
-		testMitchellFilter();
-	}
-
 	void testAdd()
 	{
-		gfxTestList().add("Filter", testBegin);
+		gfxTestList().add("Filter.Shape", testFilterShape);
+		gfxTestList().add("Filter.Cubic", testCubicFilter);
+		gfxTestList().add("Filter.Mitchell", testMitchellFilter);
+		gfxTestList().add("Filter.Table", testTableFilter);
 		gfxTestList().add("Filter.Signal", testSignal);
 	}
 

@@ -14,10 +14,34 @@
 #include "pastel/dsp/resample.h"
 #include "pastel/dsp/filter_all.h"
 
+#include "pastel/device/timer.h"
+
 using namespace Pastel;
 
 namespace
 {
+
+	void testPerformance()
+	{
+		Array<2, Color> image;
+		loadPcx("lena.pcx", image);
+
+		Array<2, Color> largeImage(2500, 2500);
+
+		Timer timer;
+		timer.setStart();
+
+		resample<Color>(constArrayView(image), 
+			clampExtender(),
+			lanczosFilter(3),
+			arrayView(largeImage));
+
+		timer.store();
+
+		log() << timer.seconds() << logNewLine;
+
+		savePcx(largeImage, "test_resample_performance.pcx");
+	}
 
 	void testResample3()
 	{
@@ -77,7 +101,7 @@ namespace
 		const integer BigWidth = 800;
 		const integer BigHeight = 800;
 
-		const ConstFilterRef filter = lanczosFilter();
+		const ConstFilterRef filter = lanczosFilter(3);
 
 		Array<2, uint32> verySmallImage(VerySmallWidth, VerySmallHeight);
 		Array<2, uint32> smallImage(SmallWidth, SmallHeight);
@@ -142,6 +166,7 @@ namespace
 		gfxTestList().add("Resample.2D", testResample2);
 		gfxTestList().add("Resample.2D.Text", testResample2Text);
 		gfxTestList().add("Resample.3D", testResample3);
+		gfxTestList().add("Resample.Performance", testPerformance);
 	}
 
 	CallFunction run(testAdd);
