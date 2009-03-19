@@ -97,7 +97,7 @@ namespace
 
 		transform(arrayView(image), fitColor);
 
-		savePcx(image, "test_texture_ewa_magnification.pcx");
+		savePcx(image, "output/texture_ewa_magnification.pcx");
 	}
 
 	void testEwaMagnification2()
@@ -132,7 +132,7 @@ namespace
 		/*
 		Array<2, Color> textureImage;
 
-		loadPcx("test_texture_checker.pcx", textureImage);
+		loadPcx("texture_checker.pcx", textureImage);
 		//loadPcx("lena.pcx", textureImage);
 		*/
 
@@ -175,7 +175,7 @@ namespace
 				textureBox);
 
 			transform(arrayView(image), fitColor);
-			savePcx(image, "test_texture_checker3_" + textureList[i]->name() +
+			savePcx(image, "output/texture_checker3_" + textureList[i]->name() +
 				"_" + integerToString(i) + ".pcx");
 		}
 	}
@@ -248,7 +248,7 @@ namespace
 			IPoint2(300, 400),
 			arrayView(image));
 
-		savePcx(image, "test_textures_texturebox.pcx");
+		savePcx(image, "output/textures_texturebox.pcx");
 
 		clear(Color(0), arrayView(image));
 
@@ -258,7 +258,7 @@ namespace
 			arrayView(image),
 			AlignedBox2(0.5, 0.5, 5.0, 5.0));
 
-		savePcx(image, "test_textures_clampedtexturebox.pcx");
+		savePcx(image, "output/textures_clampedtexturebox.pcx");
 
 		drawTexturedBox(
 			AlignedBox2(0, 0, 500, 500),
@@ -266,7 +266,7 @@ namespace
 			arrayView(image),
 			AlignedBox2(0.5, 0.5, 5.0, 5.0));
 
-		savePcx(image, "test_textures_repeatedtexturebox.pcx");
+		savePcx(image, "output/textures_repeatedtexturebox.pcx");
 
 		drawTexturedBox(
 			AlignedBox2(0, 0, 500, 500),
@@ -274,7 +274,7 @@ namespace
 			arrayView(image),
 			AlignedBox2(0.5, 0.5, 5.0, 5.0));
 
-		savePcx(image, "test_textures_mirroredtexturebox.pcx");
+		savePcx(image, "output/textures_mirroredtexturebox.pcx");
 
 		drawTexturedBox(
 			AlignedBox2(0, 0, 500, 500),
@@ -282,7 +282,7 @@ namespace
 			arrayView(image),
 			AlignedBox2(0.5, 0.5, 5.0, 5.0));
 
-		savePcx(image, "test_textures_borderedtexturebox.pcx");
+		savePcx(image, "output/textures_borderedtexturebox.pcx");
 	}
 
 	void drawTestQuad(
@@ -309,7 +309,7 @@ namespace
 			arrayView(image),
 			textureQuad);
 
-		savePcx(image, "test_texture_" + testName + "_" + name + ".pcx");
+		savePcx(image, "output/texture_" + testName + "_" + name + ".pcx");
 	}
 
 	void testChecker()
@@ -339,7 +339,7 @@ namespace
 			}
 		}
 
-		savePcx(textureImage, "test_texture_checker.pcx");
+		savePcx(textureImage, "texture_checker.pcx");
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(repeatExtender()), boxFilter());
@@ -428,7 +428,7 @@ namespace
 			Point2(0.5, (real)175 / 500),
 			Point2(0, (real)150 / 500)));
 
-		savePcx(image, "test_texture_checker1_distorted2x.pcx");
+		savePcx(image, "output/texture_checker1_distorted2x.pcx");
 		*/
 
 		mipMap.swap(lenaMipMap);
@@ -473,7 +473,7 @@ namespace
 				Point2(0.5, (real)175 / 500),
 				Point2(0, (real)150 / 500)));
 
-			savePcx(image, "test_texture_lena1_ewa_distorted2x.pcx");
+			savePcx(image, "output/texture_lena1_ewa_distorted2x.pcx");
 		*/
 
 		mipMap.swap(lenaMipMap);
@@ -533,7 +533,7 @@ namespace
 				arrayView(image),
 				textureQuad);
 
-			savePcx(image, "test_texture_texture_mix.pcx");
+			savePcx(image, "output/texture_texture_mix.pcx");
 		}
 		*/
 	}
@@ -601,7 +601,7 @@ namespace
 			mipImageTexture(bMipMap),
 			arrayView(image));
 
-		savePcx(image, "test_texture_mix.pcx");
+		savePcx(image, "output/texture_mix.pcx");
 	}
 
 	void testBegin()

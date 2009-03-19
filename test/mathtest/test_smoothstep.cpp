@@ -61,7 +61,7 @@ namespace
 				Segment2(from, to), Color(0, 0, 1), arrayView(image));
 		}
 
-		savePcx(image, "test_smoothstep.pcx");
+		savePcx(image, "smoothstep.pcx");
 	}
 
 	void testBegin()

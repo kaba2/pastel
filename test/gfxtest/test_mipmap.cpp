@@ -47,7 +47,7 @@ namespace
 			position += mipMap.view(i).extent();
 		}
 
-		savePcx(outputImage, "test_mipmap.pcx");
+		savePcx(outputImage, "output/mipmap.pcx");
 	}
 
 	void testBegin()

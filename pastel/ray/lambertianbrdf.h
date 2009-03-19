@@ -8,37 +8,32 @@
 namespace Pastel
 {
 
-	namespace Yun
+	class PASTELRAY LambertianBrdf
+		: public Brdf
 	{
+	public:
+		LambertianBrdf();
+		virtual ~LambertianBrdf();
 
-		class PASTELRAY LambertianBrdf
-			: public Brdf
-		{
-		public:
-			LambertianBrdf();
-			virtual ~LambertianBrdf();
+		virtual Spectrum evaluate(
+			const Vector3& from,
+			const Vector3& to) const;
 
-			virtual Spectrum compute(
-				const Vector3& from,
-				const Vector3& to) const;
+		void setReflectance(
+			const Spectrum& reflectance);
 
-			void setReflectance(
-				const Spectrum& reflectance);
+		Spectrum reflectance() const;
 
-			Spectrum reflectance() const;
+		Vector3 sampleDirection() const;
 
-			Vector3 sampleDirection() const;
+	private:
+		// Prohibited
+		LambertianBrdf(const LambertianBrdf&);
+		// Prohibited
+		LambertianBrdf& operator=(const LambertianBrdf&);
 
-		private:
-			// Prohibited
-			LambertianBrdf(const LambertianBrdf&);
-			// Prohibited
-			LambertianBrdf& operator=(const LambertianBrdf&);
-
-			Spectrum reflectance_;
-		};
-
-	}
+		Spectrum reflectance_;
+	};
 
 }
 

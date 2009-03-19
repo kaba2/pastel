@@ -8,19 +8,27 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/drawing.h"
 
-#include "pastel/dsp/ripmap.h"
+#include "pastel/dsp/ripmap_tools.h"
 
 using namespace Pastel;
 
 namespace
 {
 
-	void testResample()
+	void testRipMap()
 	{
+		/*
+		This test computes a ripmap from the
+		input image. It then combines all the
+		individual ripmaps to a single image.
+		*/
+
 		Array<2, Color> texture;
 		loadPcx("lena.pcx", texture);
 
 		RipMap<2, Color> ripMap(arrayView(texture));
+
+		transform(ripMap, fitColor);
 
 		Point<2, integer> position;
 
@@ -37,8 +45,6 @@ namespace
 			{
 				Array<2, Color>& image = ripMap(Point<2, integer>(x, y));
 
-				transform(arrayView(image), fitColor);
-
 				drawView(constArrayView(image),
 					position, arrayView(outputImage));
 
@@ -48,17 +54,12 @@ namespace
 			yPosition += ripMap(Point<2, integer>(0, y)).extent().y();
 		}
 
-		savePcx(outputImage, "test_ripmap.pcx");
-	}
-
-	void testBegin()
-	{
-		testResample();
+		savePcx(outputImage, "output/ripmap.pcx");
 	}
 
 	void testAdd()
 	{
-		gfxTestList().add("RipMap", testBegin);
+		gfxTestList().add("RipMap", testRipMap);
 	}
 
 	CallFunction run(testAdd);

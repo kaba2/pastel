@@ -10,9 +10,9 @@ namespace
 	void testRead()
 	{
 		Config config;
-		loadConfig("test_config.txt", config);
+		loadConfig("config.txt", config);
 
-		saveConfig(config, "test_config_output.txt");
+		saveConfig(config, "config_output.txt");
 	}
 
 	void testBegin()

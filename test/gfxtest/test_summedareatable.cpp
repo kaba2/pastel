@@ -34,7 +34,7 @@ namespace
 		const Color sum = sumImage(asPoint(image.extent() - 1));
 		visit(arrayView(sumImage), _1 /= sum);
 
-		savePcx(sumImage, "test_summedareatable.pcx");
+		savePcx(sumImage, "output/summedareatable.pcx");
 	}
 
 	void testBegin()

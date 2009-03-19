@@ -14,6 +14,8 @@
 #include <pastel/sys/array.h>
 #include <pastel/sys/string_tools.h>
 
+#include <pastel/sys/vector_tools.h>
+
 using namespace Pastel;
 
 namespace
@@ -43,6 +45,68 @@ namespace
 			}
 
 			previous = current;
+		}
+	}
+
+	void drawFilter2D(
+		const ConstFilterRef& xFilter,
+		const ConstFilterRef& yFilter,
+		const Color& color,
+		Array<2, Color>& image,
+		real xMaxFilterRadius = 2,
+		real yMaxFilterRadius = 2)
+	{
+		const integer width = image.width();
+		const integer height = image.height();
+		
+		const real normalization =
+			inverse(xFilter->evaluate(0) * 
+			yFilter->evaluate(0));
+
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = 0;x < width;++x)
+			{
+				const Point2 uv(
+					dequantizeUnsigned(x, width - 1), 
+					dequantizeUnsigned(y, height - 1));
+				
+				const real value = 
+					xFilter->evaluate(2 * (uv.x() - 0.5) * xMaxFilterRadius) * 
+					yFilter->evaluate(2 * (uv.y() - 0.5) * yMaxFilterRadius);
+
+				image(x, y) = color * value * normalization;
+			}
+		}
+	}
+
+	void drawRadialFilter2D(
+		const ConstFilterRef& filter,
+		const Color& color,
+		Array<2, Color>& image,
+		real xMaxFilterRadius = 2)
+	{
+		const integer width = image.width();
+		const integer height = image.height();
+		
+		const real normalization =
+			inverse(filter->evaluate(0));
+
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = 0;x < width;++x)
+			{
+				const Vector2 uv(
+					dequantizeUnsigned(x, width - 1), 
+					dequantizeUnsigned(y, height - 1));
+
+				const real distance = norm(evaluate(2 * (uv - 0.5)));
+				
+				const real value = 
+					filter->evaluate(distance * xMaxFilterRadius);
+
+				image(x, y) = color * value * normalization;
+			}
 		}
 	}
 
@@ -108,7 +172,7 @@ namespace
 					TransparentColorMixer<Color>(0.5));
 			}
 
-			savePcx(image, "test_filter_" + filter->name() + "_" + integerToString(i, 3) + ".pcx");
+			savePcx(image, "output/filter_" + filter->name() + "_" + integerToString(i, 3) + ".pcx");
 		}
 	}
 
@@ -138,10 +202,10 @@ namespace
 		drawFilter(tableFilter(filter, 16), 
 			hsvToRgb(Color(randomReal(), 1, 1)), image, 4);
 
-		savePcx(image, "test_filter_table.pcx");
+		savePcx(image, "output/filter_table.pcx");
 	}
 
-	void testFilterShape()
+	void testShape1D()
 	{
 		const integer Width = 500;
 		const integer Height = 500;
@@ -154,7 +218,53 @@ namespace
 		drawFilter(mitchellFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
 		//drawFilter(CubicFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
 
-		savePcx(image, "test_filter_shape.pcx");
+		savePcx(image, "output/filter_shape.pcx");
+	}
+
+	void testSeparableShape2D()
+	{
+		const integer Width = 500;
+		const integer Height = 500;
+
+		Array<2, Color> image(Width, Height);
+
+		drawFilter2D(gaussianFilter(2), gaussianFilter(2), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_shape_gaussian.pcx");
+
+		drawFilter2D(triangleFilter(), triangleFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_shape_triangle.pcx");
+
+		drawFilter2D(boxFilter(), boxFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_shape_box.pcx");
+
+		drawFilter2D(mitchellFilter(), mitchellFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_shape_mitchell.pcx");
+
+		drawFilter2D(cubicFilter(), cubicFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_shape_cubic.pcx");
+	}
+
+	void testRadialShape2D()
+	{
+		const integer Width = 500;
+		const integer Height = 500;
+
+		Array<2, Color> image(Width, Height);
+
+		drawRadialFilter2D(gaussianFilter(2), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_radial_shape_gaussian.pcx");
+
+		drawRadialFilter2D(triangleFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_radial_shape_triangle.pcx");
+
+		drawRadialFilter2D(boxFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_radial_shape_box.pcx");
+
+		drawRadialFilter2D(mitchellFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_radial_shape_mitchell.pcx");
+
+		drawRadialFilter2D(cubicFilter(), hsvToRgb(Color(randomReal(), 1, 1)), image);
+		savePcx(image, "output/filter_radial_shape_cubic.pcx");
 	}
 
 	void testCubicFilter()
@@ -172,7 +282,7 @@ namespace
 				linear((real)-Range, (real)(1 + Range), (real)i / (Steps - 1))), randomRgbColor(), image);
 		}
 
-		savePcx(image, "test_filter_cubic.pcx");
+		savePcx(image, "output/filter_cubic.pcx");
 	}
 
 	void testMitchellFilter()
@@ -194,12 +304,14 @@ namespace
 			drawFilter(mitchellFilter(b, c), randomRgbColor(), image);
 		}
 
-		savePcx(image, "test_filter_mitchell.pcx");
+		savePcx(image, "output/filter_mitchell.pcx");
 	}
 
 	void testAdd()
 	{
-		gfxTestList().add("Filter.Shape", testFilterShape);
+		gfxTestList().add("Filter.Shape1D", testShape1D);
+		gfxTestList().add("Filter.SeparableShape2D", testSeparableShape2D);
+		gfxTestList().add("Filter.RadialShape2D", testRadialShape2D);
 		gfxTestList().add("Filter.Cubic", testCubicFilter);
 		gfxTestList().add("Filter.Mitchell", testMitchellFilter);
 		gfxTestList().add("Filter.Table", testTableFilter);

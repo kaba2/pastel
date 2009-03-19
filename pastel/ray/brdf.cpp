@@ -3,17 +3,12 @@
 namespace Pastel
 {
 
-	namespace Yun
+	Brdf::Brdf()
 	{
+	}
 
-		Brdf::Brdf()
-		{
-		}
-
-		Brdf::~Brdf()
-		{
-		}
-
+	Brdf::~Brdf()
+	{
 	}
 
 }

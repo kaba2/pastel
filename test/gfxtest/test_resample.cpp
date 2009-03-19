@@ -40,7 +40,7 @@ namespace
 
 		log() << timer.seconds() << logNewLine;
 
-		savePcx(largeImage, "test_resample_performance.pcx");
+		savePcx(largeImage, "output/resample_performance.pcx");
 	}
 
 	void testResample3()
@@ -60,7 +60,7 @@ namespace
 		copy(constSliceView(constArrayView(smallImage), 0, 0),
 			arrayView(imageSlice));
 
-		saveGrayscalePcx(imageSlice, "testresample_3.pcx");
+		saveGrayscalePcx(imageSlice, "output/resample_3.pcx");
 	}
 
 	void testResample2(
@@ -80,19 +80,19 @@ namespace
 		resample<Color>(constRgb888View(image), wrapper,
 			filter, rgb888View(smallImage));
 		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "test_resample_" + testName + "_down_" + filter->name() + ".pcx");
+		savePcx(smallImage, "output/resample_" + testName + "_down_" + filter->name() + ".pcx");
 
 		resample<Color>(constRgb888View(smallImage), wrapper,
 			filter, rgb888View(bigImage));
 		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "test_resample_" + testName + "_up_" + filter->name() + ".pcx");
+		savePcx(bigImage, "output/resample_" + testName + "_up_" + filter->name() + ".pcx");
 
 	}
 
 	void testResample2Text()
 	{
 		Array<2, uint32> image;
-		loadPcx("test_resample_text.pcx", image);
+		loadPcx("resample_text.pcx", image);
 
 		const integer VerySmallWidth = 100;
 		const integer VerySmallHeight = 100;
@@ -111,24 +111,24 @@ namespace
 		resample<Color>(constRgb888View(image), wrapper,
 			filter, rgb888View(smallImage));
 		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "test_resample_text_sample.pcx");
+		savePcx(smallImage, "output/resample_text_sample.pcx");
 
 		resample<Color>(constRgb888View(image), wrapper,
 			filter, rgb888View(verySmallImage));
 		resample<Color>(constRgb888View(verySmallImage), wrapper,
 			filter, rgb888View(smallImage));
 		transform(rgb888View(smallImage), fitColor);
-		savePcx(smallImage, "test_resample_text_blurry.pcx");
+		savePcx(smallImage, "output/resample_text_blurry.pcx");
 
 		resample<Color>(constRgb888View(image), wrapper,
 			filter, rgb888View(bigImage));
 		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "test_resample_text_reconstruct.pcx");
+		savePcx(bigImage, "output/resample_text_reconstruct.pcx");
 
 		resample<Color>(constRgb888View(smallImage), wrapper,
 			filter, rgb888View(bigImage));
 		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "test_resample_text_filter.pcx");
+		savePcx(bigImage, "output/resample_text_filter.pcx");
 	}
 
 	void testResample2()
@@ -149,14 +149,14 @@ namespace
 		resample<Color>(image, BigWidth, BigHeight, wrapper,
 			lanczosFilter, bigImage);
 		transform(rgb888View(bigImage), fitColor);
-		savePcx(bigImage, "testresample_grid_up_lanczos.pcx");
+		savePcx(bigImage, "resample_grid_up_lanczos.pcx");
 
 		for (integer i = 1;i < 100;++i)
 		{
 			resample<Color>(image, i, i, wrapper,
 				lanczosFilter, bigImage);
 			transform(rgb888View(bigImage), fitColor);
-			savePcx(bigImage, "testresample_grid_down_" + integerToString(i, 2) + "_lanczos.pcx");
+			savePcx(bigImage, "resample_grid_down_" + integerToString(i, 2) + "_lanczos.pcx");
 		}
 		*/
 	}

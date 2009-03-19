@@ -30,27 +30,89 @@ namespace
 		Array<2, Color> image;
 		loadPcx("lena.pcx", image);
 
-		Array<2, Color> transformed;
+		Array<2, Color> transformed(image.extent());
 
 		transform(constArrayView(image),
 			arrayView(transformed), luma);
 
-		savePcx(transformed, "testgray_luma.pcx");
+		savePcx(transformed, "output/gray_luma.pcx");
 
 		transform(constArrayView(image),
 			arrayView(transformed), lightness);
 
-		savePcx(transformed, "testgray_lightness.pcx");
+		savePcx(transformed, "output/gray_lightness.pcx");
 	}
 
-	void testBegin()
+	void testLinearLuminance()
 	{
-		testGray();
+		const real Width = 400;
+		const real Height = 100;
+		Array<2, Color> image(Width, Height);
+
+		const real32 Step = 1 / Width;
+
+		for (integer x = 0;x < Width;++x)
+		{
+			const Color color(
+				linearSrgbToGammaSrgb(
+				Color(Step * x)));
+			for (integer y = 0;y < Height;++y)
+			{
+				image(x, y) = color;
+			}
+		}
+
+		savePcx(image, "output/gray_linear_luminance.pcx");
+	}
+
+	void testLinearLuma()
+	{
+		const real Width = 400;
+		const real Height = 100;
+		Array<2, Color> image(Width, Height);
+
+		const real32 Step = 1 / Width;
+
+		for (integer x = 0;x < Width;++x)
+		{
+			const Color color(
+				Color(Step * x));
+			for (integer y = 0;y < Height;++y)
+			{
+				image(x, y) = color;
+			}
+		}
+
+		savePcx(image, "output/gray_linear_luma.pcx");
+	}
+
+	void testLinearLightness()
+	{
+		const real Width = 400;
+		const real Height = 100;
+		Array<2, Color> image(Width, Height);
+
+		const real32 Step = 100 / Width;
+
+		for (integer x = 0;x < Width;++x)
+		{
+			const Color color(
+				xyzToSrgb(labToXyz(Color(Step * x, 0, 0))));
+			for (integer y = 0;y < Height;++y)
+			{
+				image(x, y) = color;
+			}
+		}
+
+		savePcx(image, "output/gray_linear_lightness.pcx");
 	}
 
 	void testAdd()
 	{
-		gfxTestList().add("Gray", testBegin);
+		gfxTestList().add("Gray.Image", testGray);
+		gfxTestList().add("Gray.Scale.Luma", testLinearLuma);
+		gfxTestList().add("Gray.Scale.Lightness", testLinearLightness);
+		gfxTestList().add("Gray.Scale.Luminance", testLinearLuminance);
 	}
 
 	CallFunction run(testAdd);

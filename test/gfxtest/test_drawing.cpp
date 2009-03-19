@@ -48,7 +48,7 @@ namespace
 
 		transform(arrayView(image), fitColor);
 
-		savePcx(image, "test_distortion.pcx");
+		savePcx(image, "output/distortion.pcx");
 
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&textureImage);
@@ -61,7 +61,7 @@ namespace
 		drawCircle(renderer, Sphere2(Point2(0.5), 0.5), 40);
 		drawSegment(renderer, Segment2(Point2(0.6, 0.5), Point2(0.7, 0.5)));
 
-		savePcx(textureImage, "test_distortion_texture.pcx");
+		savePcx(textureImage, "output/distortion_texture.pcx");
 	}
 
 	void testView()
@@ -77,7 +77,7 @@ namespace
 		copy(constSubView(constArrayView(image), Rectangle2(0, 0, 200, 200)),
 			subView(arrayView(image), Rectangle2(300, 300, 500, 500)));
 
-		savePcx(image, "testdrawing_view.pcx");
+		savePcx(image, "output/drawing_view.pcx");
 	}
 
 	void testBinary()
@@ -92,7 +92,7 @@ namespace
 		drawSegment(Segment2(Point2(250, 50), Point2(300, 30)),
 			true, arrayView(image));
 
-		saveBinaryPcx(image, "testdrawing_binary.pcx");
+		saveBinaryPcx(image, "output/drawing_binary.pcx");
 	}
 
 	void testFloodFill()
@@ -112,7 +112,7 @@ namespace
 
 		floodFill(0, 0, randomRgbColor(), arrayView(image));
 
-		savePcx(image, "testdrawing_floodfill.pcx");
+		savePcx(image, "output/drawing_floodfill.pcx");
 	}
 
 	template <int N, typename Real>
@@ -154,7 +154,7 @@ namespace
 				arrayView(image));
 		}
 
-		savePcx(image, "testdrawing_perspectivetriangle.pcx");
+		savePcx(image, "output/drawing_perspectivetriangle.pcx");
 	}
 
 	void testEwaPerspectiveTriangle()
@@ -187,7 +187,7 @@ namespace
 				arrayView(image));
 		}
 
-		savePcx(image, "testdrawing_ewaperspectivetriangle.pcx");
+		savePcx(image, "output/drawing_ewaperspectivetriangle.pcx");
 	}
 
 	void testTextureTriangle()
@@ -222,7 +222,7 @@ namespace
 				arrayView(image));
 		}
 
-		savePcx(image, "testdrawing_texturetriangle.pcx");
+		savePcx(image, "output/drawing_texturetriangle.pcx");
 	}
 
 	void testEwaTriangle()
@@ -256,7 +256,7 @@ namespace
 				arrayView(image));
 		}
 
-		savePcx(image, "testdrawing_ewaimagetexturetriangle.pcx");
+		savePcx(image, "output/drawing_ewaimagetexturetriangle.pcx");
 	}
 
 	void testSolidTriangle()
@@ -284,7 +284,7 @@ namespace
 				transparentColorMixer<Color>(0.75));
 		}
 
-		savePcx(image, "testdrawing_solidtriangle.pcx");
+		savePcx(image, "output/drawing_solidtriangle.pcx");
 	}
 
 
@@ -309,7 +309,7 @@ namespace
 		renderer.setColor(randomRgbColor());
 		drawBox(renderer, AlignedBox2(d, e));
 
-		savePcx(image, "testdrawing_boxes.pcx");
+		savePcx(image, "output/drawing_boxes.pcx");
 	}
 
 	void testMoreCircles()
@@ -329,7 +329,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "testdrawing_morecircles.pcx");
+		savePcx(image, "output/drawing_morecircles.pcx");
 	}
 
 	void testCircles()
@@ -396,7 +396,7 @@ namespace
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(c, 45));
 
-		savePcx(image, "testdrawing_circles.pcx");
+		savePcx(image, "output/drawing_circles.pcx");
 	}
 
 	void testLines()
@@ -424,7 +424,7 @@ namespace
 			drawSegment(Segment2(center, to), Color(1), arrayView(image));
 		}
 
-		savePcx(image, "testdrawing_lines.pcx");
+		savePcx(image, "output/drawing_lines.pcx");
 	}
 
 	void testMoreLines()
@@ -440,7 +440,7 @@ namespace
 			drawSegment(Segment2(from, to), randomRgbColor(), arrayView(image));
 		}
 
-		savePcx(image, "testdrawing_morelines.pcx");
+		savePcx(image, "output/drawing_morelines.pcx");
 	}
 
 	void testEvenMoreLines()
@@ -472,7 +472,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "testdrawing_evenmorelines.pcx");
+		savePcx(image, "output/drawing_evenmorelines.pcx");
 	}
 
 	void testAdd()
