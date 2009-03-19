@@ -217,7 +217,7 @@ namespace
 			draw(pointList, 300, 450, myRandomColor(), image);
 		}
 
-		savePcx(image, "test_uniformsampling.pcx");
+		savePcx(image, "uniformsampling.pcx");
 	}
 
 	class PushBack
@@ -292,7 +292,7 @@ namespace
 			draw(pointList, 300, 150, myRandomColor(), image);
 		}
 
-		savePcx(image, "test_uniformsampling_distortion.pcx");
+		savePcx(image, "uniformsampling_distortion.pcx");
 	}
 
 	void testBegin()

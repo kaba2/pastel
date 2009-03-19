@@ -209,7 +209,7 @@ namespace Pastel
 
 	inline real64 dequantizeUnsigned(integer number, integer max)
 	{
-		return (integer)clamp((real64)number / max, 0, 1);
+		return clamp((real64)number / max, 0, 1);
 	}
 
 	inline real64 dequantize(integer i,

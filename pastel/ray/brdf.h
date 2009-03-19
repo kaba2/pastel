@@ -11,31 +11,26 @@
 namespace Pastel
 {
 
-	namespace Yun
+	class PASTELRAY Brdf
+		: public ReferenceCounted
 	{
+	public:
+		// Using default destructor.
 
-		class PASTELRAY Brdf
-			: public ReferenceCounted
-		{
-		public:
-			// Using default destructor.
+		Brdf();
 
-			Brdf();
+		virtual ~Brdf();
 
-			virtual ~Brdf();
+		virtual Spectrum evaluate(
+			const Vector3& from,
+			const Vector3& to) const = 0;
 
-			virtual Spectrum compute(
-				const Vector3& from,
-				const Vector3& to) const = 0;
-
-		private:
-			// Prohibited
-			Brdf(const Brdf&);
-			// Prohibited
-			Brdf& operator=(const Brdf&);
-		};
-
-	}
+	private:
+		// Prohibited
+		Brdf(const Brdf&);
+		// Prohibited
+		Brdf& operator=(const Brdf&);
+	};
 
 }
 

@@ -21,33 +21,33 @@ namespace
 		std::vector<Color> palette;
 
 		loadPcx("testpcx_rgb.pcx", image);
-		savePcx(image, "testpcx_rgb_output_rgb.pcx");
+		savePcx(image, "output/pcx_rgb_output_rgb.pcx");
 
 		loadPcx("testpcx_8bit.pcx", image);
-		savePcx(image, "testpcx_8bit_output_rgb.pcx");
+		savePcx(image, "output/pcx_8bit_output_rgb.pcx");
 
 		loadPcx("testpcx_4bit.pcx", image);
-		savePcx(image, "testpcx_4bit_output_rgb.pcx");
+		savePcx(image, "output/pcx_4bit_output_rgb.pcx");
 
-		//loadPcx("testpcx_2bit.pcx", image);
-		//savePcx(image, "testpcx_2bit_output_rgb.pcx");
+		//loadPcx("pcx_2bit.pcx", image);
+		//savePcx(image, "output/pcx_2bit_output_rgb.pcx");
 
 		loadPcx("testpcx_1bit.pcx", image);
-		savePcx(image, "testpcx_1bit_output_rgb.pcx");
+		savePcx(image, "output/pcx_1bit_output_rgb.pcx");
 
 		Array<2, uint8> indexedImage;
 
 		loadIndexedPcx("testpcx_8bit.pcx", indexedImage, &palette);
-		saveIndexedPcx(indexedImage, palette, "testpcx_8bit_output_8bit.pcx");
+		saveIndexedPcx(indexedImage, palette, "output/pcx_8bit_output_8bit.pcx");
 
 		loadIndexedPcx("testpcx_4bit.pcx", indexedImage, &palette);
-		saveIndexedPcx(indexedImage, palette, "testpcx_4bit_output_8bit.pcx");
+		saveIndexedPcx(indexedImage, palette, "output/pcx_4bit_output_8bit.pcx");
 
 		//loadIndexedPcx("testpcx_2bit.pcx", indexedImage);
-		//saveIndexedPcx(indexedImage, "testpcx_2bit_output.pcx");
+		//saveIndexedPcx(indexedImage, "output/pcx_2bit_output.pcx");
 
 		loadIndexedPcx("testpcx_1bit.pcx", indexedImage, &palette);
-		saveIndexedPcx(indexedImage, palette, "testpcx_1bit_output_8bit.pcx");
+		saveIndexedPcx(indexedImage, palette, "output/pcx_1bit_output_8bit.pcx");
 
 		/*
 		for (integer y = indexedImage.height() - 1;y >= 0;--y)
@@ -91,7 +91,7 @@ namespace
 		}
 		*/
 
-		saveBinaryPcx(binaryImage, "testpcx_1bit_output_1bit.pcx");
+		saveBinaryPcx(binaryImage, "output/pcx_1bit_output_1bit.pcx");
 	}
 
 	void testBegin()

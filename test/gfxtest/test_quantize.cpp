@@ -22,7 +22,7 @@ namespace
 
 		quantizeErrorDiffusion(image, Quantization);
 
-		savePcx(image, "quantizediffusionoutput.pcx");
+		savePcx(image, "output/quantizediffusionoutput.pcx");
 	}
 
 	void testRounding()
@@ -33,7 +33,7 @@ namespace
 
 		quantizeRounding(image, Quantization);
 
-		savePcx(image, "quantizeroundedoutput.pcx");
+		savePcx(image, "output/quantizeroundedoutput.pcx");
 	}
 
 	void quantizeTests()

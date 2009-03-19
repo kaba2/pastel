@@ -30,7 +30,7 @@ namespace
 
 		setFilter(bartlettWindow<real32>, arrayView(filter));
 
-		saveGrayscalePcx(filter, "testconvolute_filter.pcx");
+		saveGrayscalePcx(filter, "output/convolution_filter.pcx");
 
 		const integer points = 1000;
 
@@ -40,7 +40,7 @@ namespace
 				asPoint(randomVector<2, real>() * Vector<2, real>((extent - 1)))) = randomRgbColor();
 		}
 
-		savePcx(input, "testconvolute_input.pcx");
+		savePcx(input, "output/convolution_input.pcx");
 
 		Array<2, Color> output(extent);
 
@@ -52,12 +52,12 @@ namespace
 			arrayView(output),
 			fitColor);
 
-		savePcx(output, "testconvolute_output.pcx");
+		savePcx(output, "output/convolution_output.pcx");
 	}
 
 	void testConvolute3()
 	{
-		Vector<3, integer> extent(500);
+		Vector<3, integer> extent(200);
 		Vector<3, integer> filterExtent(31);
 
 		Array<3, Color> input(extent, Color(0));
@@ -84,15 +84,10 @@ namespace
 			fitColor);
 	}
 
-	void testBegin()
-	{
-		testConvolute2();
-		testConvolute3();
-	}
-
 	void testAdd()
 	{
-		gfxTestList().add("Convolution", testBegin);
+		gfxTestList().add("Convolution.2D", testConvolute2);
+		gfxTestList().add("Convolution.3D", testConvolute3);
 	}
 
 	CallFunction run(testAdd);

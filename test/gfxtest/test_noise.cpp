@@ -27,7 +27,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "testnoise_1d.pcx");
+		savePcx(image, "output/noise_1d.pcx");
 	}
 
 	void test2d()
@@ -50,7 +50,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "testnoise_2d.pcx");
+		savePcx(image, "output/noise_2d.pcx");
 	}
 
 	void testSome()
@@ -89,7 +89,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "testnoise_3d.pcx");
+		savePcx(image, "output/noise_3d.pcx");
 	}
 
 	void testBegin()

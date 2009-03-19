@@ -58,7 +58,7 @@ namespace
 
 		//packRange(arrayView(fourierReal), 0, 1);
 
-		saveGrayscalePcx(fourierReal, "testfourier_lena_real.pcx");
+		saveGrayscalePcx(fourierReal, "fourier_lena_real.pcx");
 	}
 
 	void testAdd()

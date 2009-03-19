@@ -5,13 +5,8 @@
 namespace Pastel
 {
 
-	namespace Yun
+	Lens::~Lens()
 	{
-
-		Lens::~Lens()
-		{
-		}
-
 	}
 
 }

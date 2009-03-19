@@ -26,19 +26,19 @@ namespace
 
 		Array<2, uint32> smallerImage(200, 200);
 
-		savePcx(image, "test_adaptedview1.pcx");
+		savePcx(image, "output/adaptedview1.pcx");
 
 		resample<Color>(constRgb888View(image), clampExtender(), lanczosFilter(2),
 			rgb888View(smallerImage));
 
-		savePcx(smallerImage, "test_adaptedview2.pcx");
+		savePcx(smallerImage, "output/adaptedview2.pcx");
 
 		Array<2, uint32> copySmallerImage(smallerImage.extent());
 
 		copy(constArrayView(smallerImage),
 			arrayView(copySmallerImage));
 
-		savePcx(copySmallerImage, "test_adaptedview3.pcx");
+		savePcx(copySmallerImage, "output/adaptedview3.pcx");
 	}
 
 	void testAdd()

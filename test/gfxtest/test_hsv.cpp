@@ -26,7 +26,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "testhsv_scale.pcx");
+		savePcx(image, "output/hsv_scale.pcx");
 	}
 
 	void testBegin()

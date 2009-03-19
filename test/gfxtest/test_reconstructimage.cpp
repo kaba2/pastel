@@ -23,53 +23,6 @@ using namespace Pastel;
 namespace
 {
 
-	void testReconstructionOld()
-	{
-		Array<2, Color> image;
-
-		loadPcx("ScMod_Tiff_Veeco.pcx", image);
-
-		const integer width = image.width();
-		const integer height = image.height();
-
-		Array<2, bool> mask(
-			width, height, false);
-
-		for (integer y = 0;y < height;++y)
-		{
-			for (integer x = 0;x < width;++x)
-			{
-				const bool black =
-					(image(x, y)[0] == 0) &&
-					(image(x, y)[1] == 0) &&
-					(image(x, y)[2] == 0);
-				mask(x, y) = black;
-			}
-		}
-
-		Array<2, Color> maskImage(width, height);
-		for (integer y = 0;y < height;++y)
-		{
-			for (integer x = 0;x < width;++x)
-			{
-				maskImage(x, y) =
-					mask(x, y) ? Color(1) : Color(0);
-			}
-		}
-
-		savePcx(maskImage, "reconstructionmask.pcx");
-
-		const integer HoleWidth = 33;
-		Array<2, real> filter(
-			HoleWidth, HoleWidth);
-		setFilter(boost::bind(gaussian<real>, _1, (real)0.1), arrayView(filter));
-
-		Array<2, Color> result;
-		reconstructImage(image, mask, filter, result);
-
-		savePcx(result, "reconstructionresult.pcx");
-	}
-
 	class ReportFunctor
 	{
 	public:
@@ -118,7 +71,7 @@ namespace
 			AlignedBox2(0, 0, 1, 1),
 			arrayView(image));
 
-		savePcx(image, "testreconstruct_nearest.pcx");
+		savePcx(image, "output/reconstruct_nearest.pcx");
 
 		TriangleFilter filter;
 
@@ -129,20 +82,61 @@ namespace
 			10,
 			arrayView(image));
 
-		savePcx(image, "testreconstruct_filter.pcx");
-	}
-
-	void testBegin()
-	{
-		//testReconstructionOld();
-		testReconstruction();
+		savePcx(image, "output/reconstruct_filter.pcx");
 	}
 
 	void testAdd()
 	{
-		gfxTestList().add("Reconstruct", testBegin);
+		gfxTestList().add("Reconstruction", testReconstruction);
 	}
 
 	CallFunction run(testAdd);
+
+	void testReconstructionOld()
+	{
+		Array<2, Color> image;
+
+		loadPcx("ScMod_Tiff_Veeco.pcx", image);
+
+		const integer width = image.width();
+		const integer height = image.height();
+
+		Array<2, bool> mask(
+			width, height, false);
+
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = 0;x < width;++x)
+			{
+				const bool black =
+					(image(x, y)[0] == 0) &&
+					(image(x, y)[1] == 0) &&
+					(image(x, y)[2] == 0);
+				mask(x, y) = black;
+			}
+		}
+
+		Array<2, Color> maskImage(width, height);
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = 0;x < width;++x)
+			{
+				maskImage(x, y) =
+					mask(x, y) ? Color(1) : Color(0);
+			}
+		}
+
+		savePcx(maskImage, "output/reconstructionmask.pcx");
+
+		const integer HoleWidth = 33;
+		Array<2, real> filter(
+			HoleWidth, HoleWidth);
+		setFilter(boost::bind(gaussian<real>, _1, (real)0.1), arrayView(filter));
+
+		Array<2, Color> result;
+		reconstructImage(image, mask, filter, result);
+
+		savePcx(result, "output/reconstructionresult.pcx");
+	}
 
 }

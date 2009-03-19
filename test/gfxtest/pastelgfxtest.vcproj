@@ -222,10 +222,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_gamma.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_gray.cpp"
 			>
 		</File>
@@ -259,10 +255,6 @@
 		</File>
 		<File
 			RelativePath=".\test_quantize.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_range.cpp"
 			>
 		</File>
 		<File

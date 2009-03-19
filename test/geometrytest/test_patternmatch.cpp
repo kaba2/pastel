@@ -209,7 +209,7 @@ namespace
 
 		AffineTransformation2 matchedTransform = similarityTransformation(parameter);
 
-		render(modelSet, sceneSet, correctSet, matchedTransform, "test_patternmatch.pcx");
+		render(modelSet, sceneSet, correctSet, matchedTransform, "patternmatch.pcx");
 	}
 
 	void testBoxPatternMatch()
@@ -305,7 +305,7 @@ namespace
 
 		AffineTransformation2 matchedTransform = similarityTransformation(parameter);
 
-		render(modelSet, sceneSet, correctSet, matchedTransform, "test_boxpatternmatch.pcx");
+		render(modelSet, sceneSet, correctSet, matchedTransform, "boxpatternmatch.pcx");
 	}
 
 	void testBegin()

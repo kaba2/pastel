@@ -10,29 +10,24 @@
 namespace Pastel
 {
 
-	namespace Yun
+	class PASTELRAY Light
+		: public ReferenceCounted
 	{
+	public:
+		Light();
+		Light(const Light& that);
+		virtual ~Light();
+		Light& operator=(const Light& that);
 
-		class PASTELRAY Light
-			: public ReferenceCounted
-		{
-		public:
-			Light();
-			Light(const Light& that);
-			virtual ~Light();
-			Light& operator=(const Light& that);
+		virtual void setPosition(const Point3& position) = 0;
+		virtual Point3 getPosition() const = 0;
 
-			virtual void setPosition(const Point3& position) = 0;
-			virtual Point3 getPosition() const = 0;
+		virtual Vector3 sampleDirection() const = 0;
+		virtual Spectrum radiance(const Vector3& direction) const = 0;
+	};
 
-			virtual Vector3 sampleDirection() const = 0;
-			virtual Spectrum radiance(const Vector3& direction) const = 0;
-		};
-
-		typedef CountedPtr<Light> LightRef;
-		typedef CountedPtr<const Light> ConstLightRef;
-
-	}
+	typedef CountedPtr<Light> LightRef;
+	typedef CountedPtr<const Light> ConstLightRef;
 
 }
 

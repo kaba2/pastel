@@ -13,10 +13,15 @@ using namespace Pastel;
 
 using namespace std;
 
+#include <boost/filesystem.hpp>
+using namespace boost::filesystem;
+
 int main()
 {
 	log().addObserver(LogObserverRef(new StreamLogObserver(&cout)));
 	log().addObserver(LogObserverRef(new FileLogObserver("log.txt")));
+
+	create_directory("output");
 
 	/*
 	integer width = 100;
@@ -31,7 +36,7 @@ int main()
 		}
 	}
 
-	savePcx(image, "grid.pcx");
+	savePcx(image, "output/grid.pcx");
 	*/
 
 	gfxTestList().console();

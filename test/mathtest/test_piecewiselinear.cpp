@@ -38,7 +38,7 @@ namespace
 			image(x, quantizeUnsigned(f(t), Height - 1)) = true;
 		}
 
-		saveBinaryPcx(image, "test_piecewiselinear.pcx");
+		saveBinaryPcx(image, "piecewiselinear.pcx");
 	}
 
 	void testAdd()

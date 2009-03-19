@@ -159,7 +159,7 @@ namespace
 		transform(arrayView(image), xyzToSrgb);
 		transform(arrayView(image), fitColor);
 
-		savePcx(image, "test_stretchcontrast.pcx");
+		savePcx(image, "output/stretch_contrast.pcx");
 	}
 
 	void testAdd()

@@ -10,28 +10,23 @@
 namespace Pastel
 {
 
-	namespace Yun
+	class PASTELRAY Lens
+		: public ReferenceCounted
 	{
+	public:
+		// Using default constructor.
+		// Using default copy constructor.
+		// Using default assignment.
 
-		class PASTELRAY Lens
-			: public ReferenceCounted
-		{
-		public:
-			// Using default constructor.
-			// Using default copy constructor.
-			// Using default assignment.
+		virtual ~Lens();
 
-			virtual ~Lens();
+		virtual CountedPtr<Lens> clone() const = 0;
 
-			virtual CountedPtr<Lens> clone() const = 0;
+		virtual Line3 getLine(const Point2& uv) const = 0;
+	};
 
-			virtual Line3 getLine(const Point2& uv) const = 0;
-		};
-
-		typedef CountedPtr<Lens> LensRef;
-		typedef CountedPtr<const Lens> ConstLensRef;
-
-	}
+	typedef CountedPtr<Lens> LensRef;
+	typedef CountedPtr<const Lens> ConstLensRef;
 
 }
 

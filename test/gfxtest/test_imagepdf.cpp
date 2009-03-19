@@ -36,7 +36,7 @@ namespace
 	void testTechnique1()
 	{
 		Array<2, Color> colorImage;
-		loadPcx("test_imagepdf_input.pcx", colorImage);
+		loadPcx("imagepdf_input.pcx", colorImage);
 
 		Array<2, real32> image(colorImage.extent());
 
@@ -63,7 +63,7 @@ namespace
 
 			log() << "Computation took " << timer.seconds() << " seconds." << logNewLine;
 
-			saveGrayscalePcx(image, std::string("test_imagepdf_output_") + integerToString(points) + std::string(".pcx"));
+			saveGrayscalePcx(image, std::string("imagepdf_output_") + integerToString(points) + std::string(".pcx"));
 
 			stepPoints *= 10;
 		}
@@ -72,7 +72,7 @@ namespace
 	void testTechnique2()
 	{
 		Array<2, Color> colorImage;
-		loadPcx("test_imagepdf2_input.pcx", colorImage);
+		loadPcx("imagepdf2_input.pcx", colorImage);
 
 		Array<2, real32> image(colorImage.extent());
 
@@ -145,7 +145,7 @@ namespace
 				timer.store();
 
 				log() << "Computation took " << timer.seconds() << " seconds." << logNewLine;
-				saveGrayscalePcx(image, std::string("test_imagepdf2_output_") + integerToString(points) + std::string(".pcx"));
+				saveGrayscalePcx(image, std::string("imagepdf2_output_") + integerToString(points) + std::string(".pcx"));
 
 				stepPoints *= 10;
 			}
@@ -201,7 +201,7 @@ namespace
 	void testTechnique4()
 	{
 		Array<2, Color> colorImage;
-		loadPcx("test_imagepdf4_input.pcx", colorImage);
+		loadPcx("imagepdf4_input.pcx", colorImage);
 
 		Array<2, real32> image(colorImage.extent());
 
@@ -217,7 +217,7 @@ namespace
 		computeSummedAreaTable(
 			constArrayView(image), arrayView(summedAreaImage));
 
-		saveGrayscalePcx(summedAreaImage, "test_imagepdf4_summedarea.pcx");
+		saveGrayscalePcx(summedAreaImage, "imagepdf4_summedarea.pcx");
 
 		// Compute a balanced binary tree.
 
@@ -271,7 +271,7 @@ namespace
 
 			log() << "Computation took " << timer.seconds() << " seconds." << logNewLine;
 
-			saveGrayscalePcx(image, std::string("test_imagepdf4_output_") + integerToString(points) + std::string(".pcx"));
+			saveGrayscalePcx(image, std::string("imagepdf4_output_") + integerToString(points) + std::string(".pcx"));
 
 			stepPoints *= 10;
 		}

@@ -5,9 +5,9 @@
 using std::istream;
 using std::ostream;
 
-#include <boost/spirit.hpp>
+#include <boost/spirit/include/classic.hpp>
 #include <boost/bind.hpp>
-using namespace boost::spirit;
+using namespace boost::spirit::classic;
 
 namespace Pastel
 {
