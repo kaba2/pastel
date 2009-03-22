@@ -16,6 +16,11 @@
 #include "pastel/gfx/nearestreconstructor.h"
 #include "pastel/gfx/filterreconstructor.h"
 
+#include "pastel/dsp/resample.h"
+
+#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/string_tools.h"
+
 #include <boost/bind.hpp>
 
 using namespace Pastel;
@@ -40,16 +45,50 @@ namespace
 		std::vector<Point2>& positionList_;
 	};
 
-	void testReconstruction()
+	void generatePoisson(
+			std::vector<Point2>& positionList,
+			real poissonRadius)
 	{
-		std::vector<Point2> positionList;
+		std::vector<Point2> sampleList;
 
 		ReportFunctor reportFunctor(
-			positionList);
-
+			sampleList);
 		poissonDiskPattern(AlignedBox2(0, 0, 1, 1),
-			0.01, reportFunctor);
+			poissonRadius, reportFunctor);
 
+		sampleList.swap(positionList);
+	}
+
+	void generateGrid(
+		std::vector<Point2>& positionList,
+		integer xPoints,
+		integer yPoints)
+	{
+		ENSURE1(xPoints > 0, xPoints);
+		ENSURE1(yPoints > 0, yPoints);
+
+		std::vector<Point2> sampleList;
+
+		for (integer y = 0;y < yPoints;++y)
+		{
+			for (integer x = 0;x < xPoints;++x)
+			{
+				sampleList.push_back(
+					Point2(dequantizeUnsigned(x, xPoints),
+					dequantizeUnsigned(y, yPoints)));
+			}
+		}
+
+		sampleList.swap(positionList);
+	}
+
+	void testReconstruction(
+		const Array<2, Color>& blurTexture,
+		const std::vector<Point2>& positionList,
+		const std::string& name,
+		real sampleDistance,
+		integer k)
+	{
 		const integer points = positionList.size();
 
 		std::vector<Color> dataList;
@@ -57,32 +96,75 @@ namespace
 
 		for (integer i = 0;i < points;++i)
 		{
-			const real t = 10 * dot(asVector(positionList[i]));
-			const real value = (std::sin(t * t * t) + 1) / 2;
+			const Color color = blurTexture(
+				quantizeUnsigned(positionList[i].x(), blurTexture.width()),
+				quantizeUnsigned(positionList[i].y(), blurTexture.height()));
 
-			dataList.push_back(
-				hsvToRgb(Color(t * t * t / 20, 1, value)));
+			dataList.push_back(color);
 		}
 
-		Array<2, Color> image(500, 500);
+		Array<2, Color> image(blurTexture);
+		for (integer i = 0;i < points;++i)
+		{
+			image(
+				quantizeUnsigned(positionList[i].x(), image.width()),
+				quantizeUnsigned(positionList[i].y(), image.height())) = 
+				Color(1);
+		}
+
+		savePcx(image, "output/reconstruct_samples_" + integerToString(k, 2) +  "_" + name + ".pcx");
 
 		reconstructNearest(positionList,
 			dataList,
 			AlignedBox2(0, 0, 1, 1),
 			arrayView(image));
 
-		savePcx(image, "output/reconstruct_nearest.pcx");
+		savePcx(image, "output/reconstruct_nearest_" + integerToString(k, 2) + "_" + name + ".pcx");
 
-		TriangleFilter filter;
+		FilterRef filter = tableFilter(gaussianFilter());
 
 		reconstructFilter(positionList,
 			dataList,
 			AlignedBox2(0, 0, 1, 1),
-			filter,
-			10,
+			*filter,
+			sampleDistance * (image.width() + 1),
 			arrayView(image));
 
-		savePcx(image, "output/reconstruct_filter.pcx");
+		savePcx(image, "output/reconstruct_filter_" + integerToString(k, 2) + "_" + name + ".pcx");
+	}
+
+	void testReconstruction()
+	{
+		Array<2, Color> texture;
+		loadPcx("lena.pcx", texture);
+
+		for (integer k = 4;k <= 9;++k)
+		{
+			const integer xPoints = 1 << k;
+			const real sampleDistance = (real)1 / (xPoints + 1);
+
+			Array<2, Color> blurTexture(texture.extent());
+			std::vector<Point2> positionList;
+
+			resample<Color>(
+				constArrayView(texture),
+				clampExtender(),
+				lanczosFilter(),
+				arrayView(blurTexture), 
+				(texture.width() + 1) * sampleDistance);
+
+			generatePoisson(positionList, sampleDistance);
+
+			testReconstruction(
+				blurTexture, positionList, "poisson",
+				sampleDistance, k);
+
+			generateGrid(positionList, xPoints, xPoints);
+
+			testReconstruction(
+				blurTexture, positionList, "grid",
+				sampleDistance, k);
+		}
 	}
 
 	void testAdd()

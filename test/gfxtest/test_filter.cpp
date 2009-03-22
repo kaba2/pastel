@@ -68,8 +68,8 @@ namespace
 			for (integer x = 0;x < width;++x)
 			{
 				const Point2 uv(
-					dequantizeUnsigned(x, width - 1), 
-					dequantizeUnsigned(y, height - 1));
+					dequantizeUnsigned(x, width), 
+					dequantizeUnsigned(y, height));
 				
 				const real value = 
 					xFilter->evaluate(2 * (uv.x() - 0.5) * xMaxFilterRadius) * 
@@ -97,10 +97,10 @@ namespace
 			for (integer x = 0;x < width;++x)
 			{
 				const Vector2 uv(
-					dequantizeUnsigned(x, width - 1), 
-					dequantizeUnsigned(y, height - 1));
+					dequantizeUnsigned(x, width), 
+					dequantizeUnsigned(y, height));
 
-				const real distance = norm(evaluate(2 * (uv - 0.5)));
+				const real distance = norm(evaluate(2 * uv - 1));
 				
 				const real value = 
 					filter->evaluate(distance * xMaxFilterRadius);
