@@ -146,7 +146,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	inline Real norm(const Vector<N, Real>& that,
+	inline Real pNorm(const Vector<N, Real>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
 	//! Returns the infinity norm of a vector.

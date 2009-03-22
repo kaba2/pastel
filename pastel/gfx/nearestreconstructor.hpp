@@ -7,6 +7,8 @@
 #include "pastel/geometry/kdtree_tools.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 
+#include "pastel/sys/vector_tools.h"
+
 #include "pastel/sys/view_visit.h"
 
 namespace Pastel
@@ -78,7 +80,8 @@ namespace Pastel
 					ConstIterator;
 
 				KeyValue<real, ConstIterator> result =
-					findNearest(kdtree_, Point<N, real>(position) + 0.5);
+					findNearest(kdtree_, Point<N, Real>(position) + 0.5, 
+					infinity<Real>(), norm<N, Real>);
 
 				if (result.value() != kdtree_.end())
 				{

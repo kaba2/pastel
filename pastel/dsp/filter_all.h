@@ -7,5 +7,6 @@
 #include "pastel/dsp/gaussian_filter.h"
 #include "pastel/dsp/lanczos_filter.h"
 #include "pastel/dsp/cubic_filter.h"
+#include "pastel/dsp/table_filter.h"
 
 #endif

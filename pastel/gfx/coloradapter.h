@@ -90,24 +90,24 @@ namespace Pastel
 		typedef Real Logical;
 		typedef Integer Physical;
 
-		Real_Integer_Adapter(
-			const Integer& max)
-			: max_(max)
+		explicit Real_Integer_Adapter(
+			integer numbers)
+			: numbers_(numbers)
 		{
 		}
 
 		Physical toPhysical(const Real& logical) const
 		{
-			return quantizeUnsigned(logical, max_);
+			return quantizeUnsigned(logical, numbers_);
 		}
 
 		Logical toLogical(const Real& physical) const
 		{
-			return dequantizeUnsigned(physical, max_);
+			return dequantizeUnsigned(physical, numbers_);
 		}
 
 	private:
-		Integer max_;
+		integer numbers_;
 	};
 
 	template <typename Integer>
@@ -137,17 +137,17 @@ namespace Pastel
 		Logical toLogical(const Physical& physical) const
 		{
 			return Logical(
-				dequantizeUnsigned(physical[0], 255),
-				dequantizeUnsigned(physical[1], 255),
-				dequantizeUnsigned(physical[2], 255));
+				dequantizeUnsigned(physical[0], 256),
+				dequantizeUnsigned(physical[1], 256),
+				dequantizeUnsigned(physical[2], 256));
 		}
 
 		Physical toPhysical(const Logical& logical) const
 		{
 			return Physical(
-				quantizeUnsigned(logical[0], 255),
-				quantizeUnsigned(logical[1], 255),
-				quantizeUnsigned(logical[2], 255));
+				quantizeUnsigned(logical[0], 256),
+				quantizeUnsigned(logical[1], 256),
+				quantizeUnsigned(logical[2], 256));
 		}
 	};
 
@@ -206,9 +206,9 @@ namespace Pastel
 	private:
 		enum
 		{
-			RedMax = (1 << RedBits) - 1,
-			GreenMax = (1 << GreenBits) - 1,
-			BlueMax = (1 << BlueBits) - 1
+			RedNumbers = 1 << RedBits,
+			GreenNumbers = 1 << GreenBits,
+			BlueNumbers = 1 << BlueBits
 		};
 
 	public:
@@ -216,9 +216,6 @@ namespace Pastel
 		typedef Integer Physical;
 
 		Color_Integer_Adapter()
-			: redScaling_((real32)1 / RedMax)
-			, greenScaling_((real32)1 / GreenMax)
-			, blueScaling_((real32)1 / BlueMax)
 		{
 		}
 
@@ -238,24 +235,19 @@ namespace Pastel
 		Logical toLogical(const Physical& physical) const
 		{
 			return Logical(
-				extractBits<RedFrom, RedBits>(physical) * redScaling_,
-				extractBits<GreenFrom, GreenBits>(physical) * greenScaling_,
-				extractBits<BlueFrom, BlueBits>(physical) * blueScaling_);
+				dequantizeUnsigned(extractBits<RedFrom, RedBits>(physical), RedNumbers),
+				dequantizeUnsigned(extractBits<GreenFrom, GreenBits>(physical), GreenNumbers),
+				dequantizeUnsigned(extractBits<BlueFrom, BlueBits>(physical), BlueNumbers));
 		}
 
 		Physical toPhysical(const Logical& logical) const
 		{
-			const Integer red = quantizeUnsigned(logical[0], RedMax);
-			const Integer green = quantizeUnsigned(logical[1], GreenMax);
-			const Integer blue = quantizeUnsigned(logical[2], BlueMax);
+			const Integer red = quantizeUnsigned(logical[0], RedNumbers);
+			const Integer green = quantizeUnsigned(logical[1], GreenNumbers);
+			const Integer blue = quantizeUnsigned(logical[2], BlueNumbers);
 
 			return (red << RedFrom) + (green << GreenFrom) + (blue << BlueFrom);
 		}
-
-	private:
-		real32 redScaling_;
-		real32 greenScaling_;
-		real32 blueScaling_;
 	};
 
 }

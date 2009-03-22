@@ -286,7 +286,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Real norm(const Vector<N, Real>& that,
+	Real pNorm(const Vector<N, Real>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		PENSURE1(metric >= 1, metric);

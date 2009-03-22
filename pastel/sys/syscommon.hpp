@@ -202,56 +202,19 @@ namespace Pastel
 		return toMin + ((x - fromMin) / fromDelta) * toDelta;
 	}
 
-	inline integer quantizeUnsigned(real64 number, integer max)
+	inline integer quantizeUnsigned(real64 x, integer numbers)
 	{
-		return (integer)clamp((number * (max + 1)), 0, max);
+		return (integer)clamp((integer)(x * numbers), 0, numbers - 1);
 	}
 
-	inline real64 dequantizeUnsigned(integer number, integer max)
+	inline real64 dequantizeUnsignedMatchEnds(integer x, integer numbers)
 	{
-		return clamp((real64)number / max, 0, 1);
+		return clamp((real64)x / (numbers - 1), 0, 1);
 	}
 
-	inline real64 dequantize(integer i,
-					   integer minInteger, integer maxInteger,
-					   real64 minReal, real64 maxReal)
+	inline real64 dequantizeUnsigned(integer x, integer numbers)
 	{
-		PENSURE3(i >= minInteger && i <= maxInteger, i, minInteger, maxInteger);
-
-		const integer deltaInteger = maxInteger - minInteger;
-
-		if (deltaInteger == 0)
-		{
-			return (minReal + maxReal) / 2;
-		}
-
-		const real64 deltaReal = maxReal - minReal;
-		const integer iClamped = clamp(i, minInteger, maxInteger);
-
-		return minReal + ((real64)(iClamped - minInteger) / deltaInteger) * deltaReal;
-	}
-
-	inline real64 ditheredQuantize(integer i,
-					   integer minInteger, integer maxInteger,
-					   real64 minReal, real64 maxReal)
-	{
-		const integer deltaInteger = maxInteger - minInteger;
-		const real64 deltaReal = maxReal - minReal;
-		const integer iClamped = clamp(i, minInteger, maxInteger);
-		const real64 dither = randomReal64();
-
-		return minReal + (((real64)(iClamped - minInteger) + dither) / ((real64)deltaInteger + 1)) * deltaReal;
-	}
-
-	inline integer quantize(real64 r,
-						  real64 minReal, real64 maxReal,
-						  integer minInteger, integer maxInteger)
-	{
-		const integer deltaInteger = maxInteger - minInteger;
-		const real64 deltaReal = maxReal - minReal;
-
-		return (integer)clamp(std::floor(minInteger + 
-			((r - minReal) / deltaReal) * (deltaInteger + 1)), minInteger, maxInteger);
+		return clamp((((real64)x) + 0.5) / numbers, 0, 1);
 	}
 
 	template <int N>
