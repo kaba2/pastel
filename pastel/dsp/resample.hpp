@@ -41,11 +41,13 @@ namespace Pastel
 			return;
 		}
 
+		/*
 		if (outputWidth == inputWidth)
 		{
 			copy(input, output);
 			return;
 		}
+		*/
 
 		const real xStep = (real)inputWidth / outputWidth;
 		const real filterFactor = blurFactor * ((xStep > 1) ? xStep : 1);

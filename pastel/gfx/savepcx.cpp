@@ -211,9 +211,9 @@ namespace Pastel
 		{
 			const Color color = fitColor(colorPalette[i]);
 
-			pcxHeader.palette16_[i * 3 + 0] = quantizeUnsigned(color[0], 255);
-			pcxHeader.palette16_[i * 3 + 1] = quantizeUnsigned(color[1], 255);
-			pcxHeader.palette16_[i * 3 + 2] = quantizeUnsigned(color[2], 255);
+			pcxHeader.palette16_[i * 3 + 0] = quantizeUnsigned(color[0], 256);
+			pcxHeader.palette16_[i * 3 + 1] = quantizeUnsigned(color[1], 256);
+			pcxHeader.palette16_[i * 3 + 2] = quantizeUnsigned(color[2], 256);
 		}
 
 		for (integer i = colors;i < 16;++i)
@@ -252,9 +252,9 @@ namespace Pastel
 		{
 			const Color color = fitColor(colorPalette[i]);
 
-			const uint8 red = quantizeUnsigned(color[0], 255);
-			const uint8 green = quantizeUnsigned(color[1], 255);
-			const uint8 blue = quantizeUnsigned(color[2], 255);
+			const uint8 red = quantizeUnsigned(color[0], 256);
+			const uint8 green = quantizeUnsigned(color[1], 256);
+			const uint8 blue = quantizeUnsigned(color[2], 256);
 
 			file << red << green << blue;
 		}
@@ -340,11 +340,11 @@ namespace Pastel
 				const Color color = image(IPoint2(xPos, yPos));
 
 				scanline[xPos] =
-					quantizeUnsigned(color[0], 255);
+					quantizeUnsigned(color[0], 256);
 				scanline[xPos + pcxHeader.bytesPerScanlinePerPlane_] =
-					quantizeUnsigned(color[1], 255);
+					quantizeUnsigned(color[1], 256);
 				scanline[xPos + pcxHeader.bytesPerScanlinePerPlane_ * 2] =
-					quantizeUnsigned(color[2], 255);
+					quantizeUnsigned(color[2], 256);
 			}
 
 			saveScanline(file, scanline, bytesPerScanline);
@@ -393,7 +393,7 @@ namespace Pastel
 		const Array<2, real32>& image,
 		const std::string& fileName)
 	{
-		Real_Integer_Adapter<real32, uint8> adapter(255);
+		Real_Integer_Adapter<real32, uint8> adapter(256);
 
 		std::vector<Color> palette;
 		grayscalePalette(palette, 256);

@@ -65,11 +65,11 @@ namespace Pastel
 			explicit ReconstructFunctor(
 				const KdTree<N, Real, ObjectPolicy>& kdtree,
 				const Filter& filter,
-				const Real& filterRadius)
+				const Real& filterStretch)
 				: kdtree_(kdtree)
 				, filter_(filter)
-				, filterRadius_(filterRadius)
-				, filterScaling_(inverse(filterRadius * filter.radius()))
+				, filterStretch_(filterStretch)
+				, invFilterStretch_(inverse(filterStretch))
 			{
 			}
 
@@ -85,8 +85,8 @@ namespace Pastel
 				SmallSet<KeyValue<real, ConstIterator> > pointSet;
 
 				findNearest(kdtree_, Point<N, real>(position) + 0.5,
-					filter_.radius() * filterRadius_,
-					(Real (*)(const Vector<N, Real>&))norm,
+					filter_.radius() * filterStretch_,
+					normInfinity<N, Real>,
 					-1,
 					pointSet);
 
@@ -97,7 +97,14 @@ namespace Pastel
 
 				for (integer i = 0;i < points;++i)
 				{
-					const real weight = filter_.evaluate(pointSet[i].key() * filterScaling_);
+					//const real weight = filter_.evaluate(pointSet[i].key() * invFilterStretch_);
+
+					const Vector<N, real> delta = pointSet[i].value()->position_ - (Point<N, real>(position) + 0.5);
+					real weight = 1;
+					for (integer k = 0;k < N;++k)
+					{
+						weight *= filter_.evaluate(delta[k] * invFilterStretch_);
+					}
 
 					valueSum += pointSet[i].value()->data_ * weight;
 					weightSum += weight;
@@ -114,8 +121,8 @@ namespace Pastel
 		private:
 			const KdTree<N, Real, ObjectPolicy>& kdtree_;
 			const Filter& filter_;
-			const Real& filterRadius_;
-			const Real filterScaling_;
+			const Real& filterStretch_;
+			const Real invFilterStretch_;
 		};
 	}
 
@@ -125,7 +132,7 @@ namespace Pastel
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const Filter& filter,
-		const PASTEL_NO_DEDUCTION(Real)& filterRadius,
+		const PASTEL_NO_DEDUCTION(Real)& filterStretch,
 		const View<N, Data, Output_View>& view)
 	{
 		const integer points = positionList.size();
@@ -155,7 +162,7 @@ namespace Pastel
 		refineSlidingMidpoint(computeKdTreeMaxDepth(kdtree.objects()), 4, kdtree);
 
 		Detail_FilterReconstructor::ReconstructFunctor<N, Real, DataPolicy, Filter>
-			reconstructFunctor(kdtree, filter, filterRadius);
+			reconstructFunctor(kdtree, filter, filterStretch);
 
 		visitPosition(
 			view, reconstructFunctor);
