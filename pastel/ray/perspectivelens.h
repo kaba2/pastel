@@ -19,7 +19,7 @@ namespace Pastel
 		PerspectiveLens();
 		virtual ~PerspectiveLens();
 
-		virtual LensRef clone() const;
+		virtual LensPtr clone() const;
 
 		virtual Line3 getLine(const Point2& imagePosition) const;
 

@@ -10,8 +10,8 @@ namespace Pastel
 	class Pred, class UniformAllocator>
 		UnorderedSet<Value, Hash, Pred, UniformAllocator>::
 		UnorderedSet(
-		const allocator_ref& allocatorRef)
-		: Base(allocatorRef)
+		const allocator_ptr& allocatorPtr)
+		: Base(allocatorPtr)
 	{
 	}
 
@@ -22,8 +22,8 @@ namespace Pastel
 		size_type bucketCount,
 		const hasher& pHasher,
 		const key_equal& keyEqual,
-		const allocator_ref& allocatorRef)
-		: Base(bucketCount, pHasher, keyEqual, allocatorRef)
+		const allocator_ptr& allocatorPtr)
+		: Base(bucketCount, pHasher, keyEqual, allocatorPtr)
 	{
 	}
 
@@ -37,8 +37,8 @@ namespace Pastel
 		size_type bucketCount,
 		const hasher& pHasher,
 		const key_equal& keyEqual,
-		const allocator_ref& allocatorRef)
-		: Base(f, l, bucketCount, pHasher, keyEqual, allocatorRef)
+		const allocator_ptr& allocatorPtr)
+		: Base(f, l, bucketCount, pHasher, keyEqual, allocatorPtr)
 	{
 	}
 
@@ -46,8 +46,8 @@ namespace Pastel
 	class Pred, class UniformAllocator>
 		UnorderedSet<Value, Hash, Pred, UniformAllocator>::
 		UnorderedSet(const UnorderedSet& that,
-		const allocator_ref& allocatorRef)
-		: Base(that, allocatorRef)
+		const allocator_ptr& allocatorPtr)
+		: Base(that, allocatorPtr)
 	{
 	}
 

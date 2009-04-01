@@ -48,14 +48,14 @@ namespace Pastel
 		real c_;
 	};
 
-	typedef CountedPtr<MitchellFilter> MitchellFilterRef;
-	typedef CountedPtr<const MitchellFilter> ConstMitchellFilterRef;
+	typedef CountedPtr<MitchellFilter> MitchellFilterPtr;
+	typedef CountedPtr<const MitchellFilter> ConstMitchellFilterPtr;
 
-	inline MitchellFilterRef mitchellFilter(
+	inline MitchellFilterPtr mitchellFilter(
 		real b = (real)1 / 3,
 		real c = (real)1 / 3)
 	{
-		return MitchellFilterRef(new MitchellFilter(b, c));
+		return MitchellFilterPtr(new MitchellFilter(b, c));
 	}
 
 }

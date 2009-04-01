@@ -10,8 +10,8 @@ namespace Pastel
 	class Hash,	class Pred,
 	class UniformAllocator>
 		UnorderedMap<Key, T, Hash, Pred, UniformAllocator>::
-		UnorderedMap(const allocator_ref& allocatorRef)
-		: Base(allocatorRef)
+		UnorderedMap(const allocator_ptr& allocatorPtr)
+		: Base(allocatorPtr)
 	{
 	}
 
@@ -20,8 +20,8 @@ namespace Pastel
 	class UniformAllocator>
 		UnorderedMap<Key, T, Hash, Pred, UniformAllocator>::
 		UnorderedMap(size_type bucketCount, const hasher& pHasher,
-		const key_equal& keyEqual, const allocator_ref& allocatorRef)
-		: Base(bucketCount, pHasher, keyEqual, allocatorRef)
+		const key_equal& keyEqual, const allocator_ptr& allocatorPtr)
+		: Base(bucketCount, pHasher, keyEqual, allocatorPtr)
 	{
 	}
 
@@ -36,8 +36,8 @@ namespace Pastel
 		size_type bucketCount,
 		const hasher& pHasher,
 		const key_equal& keyEqual,
-		const allocator_ref& allocatorRef)
-		: Base(f, l, bucketCount, pHasher, keyEqual, allocatorRef)
+		const allocator_ptr& allocatorPtr)
+		: Base(f, l, bucketCount, pHasher, keyEqual, allocatorPtr)
 	{
 	}
 
@@ -46,8 +46,8 @@ namespace Pastel
 	class UniformAllocator>
 		UnorderedMap<Key, T, Hash, Pred, UniformAllocator>::
 		UnorderedMap(const UnorderedMap& that,
-		const allocator_ref& allocatorRef)
-		: Base(that, allocatorRef)
+		const allocator_ptr& allocatorPtr)
+		: Base(that, allocatorPtr)
 	{
 	}
 

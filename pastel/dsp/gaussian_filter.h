@@ -27,12 +27,12 @@ namespace Pastel
 		GaussianFilter& operator=(const GaussianFilter& that);
 	};
 
-	typedef CountedPtr<GaussianFilter> GaussianFilterRef;
-	typedef CountedPtr<const GaussianFilter> ConstGaussianFilterRef;
+	typedef CountedPtr<GaussianFilter> GaussianFilterPtr;
+	typedef CountedPtr<const GaussianFilter> ConstGaussianFilterPtr;
 
-	inline GaussianFilterRef gaussianFilter(real radius = 2)
+	inline GaussianFilterPtr gaussianFilter(real radius = 2)
 	{
-		return GaussianFilterRef(new GaussianFilter(radius));
+		return GaussianFilterPtr(new GaussianFilter(radius));
 	}
 
 }

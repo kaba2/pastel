@@ -25,7 +25,7 @@ namespace Pastel
 	MipMap<N, Type>::MipMap(
 		const ConstView<N, Type, Image_ConstView>& image,
 		const ArrayExtender<N, Type>& extender,
-		const FilterRef& filter)
+		const FilterPtr& filter)
 		: mipMapArray_()
 		, extender_(extender)
 	{
@@ -105,7 +105,7 @@ namespace Pastel
 	void MipMap<N, Type>::setImage(
 		const ConstView<N, Type, Image_ConstView>& image,
 		const ArrayExtender<N, Type>& extender,
-		const FilterRef& filter)
+		const FilterPtr& filter)
 	{
 		MipMap<N, Type> copy(image, extender, filter);
 		swap(copy);

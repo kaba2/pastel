@@ -19,8 +19,8 @@ namespace Pastel
 			integer index, integer extent) const = 0;
 	};
 
-	typedef CountedPtr<IndexExtender> IndexExtenderRef;
-	typedef CountedPtr<const IndexExtender> ConstIndexExtenderRef;
+	typedef CountedPtr<IndexExtender> IndexExtenderPtr;
+	typedef CountedPtr<const IndexExtender> ConstIndexExtenderPtr;
 
 }
 

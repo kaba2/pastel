@@ -15,8 +15,8 @@ namespace Pastel
 		: public ReferenceCounted
 	{
 	public:
-		typedef CountedPtr<Texture> Ref;
-		typedef CountedPtr<const Texture> ConstRef;
+		typedef CountedPtr<Texture> Ptr;
+		typedef CountedPtr<const Texture> ConstPtr;
 		typedef Type Element;
 
 		virtual ~Texture() {}

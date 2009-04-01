@@ -66,7 +66,7 @@ namespace
 	void testResample2(
 		const std::string& testName,
 		const Array<2, uint32>& image,
-		const ConstFilterRef& filter)
+		const ConstFilterPtr& filter)
 	{
 		const integer SmallWidth = 100;
 		const integer SmallHeight = 100;
@@ -101,7 +101,7 @@ namespace
 		const integer BigWidth = 800;
 		const integer BigHeight = 800;
 
-		const ConstFilterRef filter = lanczosFilter(3);
+		const ConstFilterPtr filter = lanczosFilter(3);
 
 		Array<2, uint32> verySmallImage(VerySmallWidth, VerySmallHeight);
 		Array<2, uint32> smallImage(SmallWidth, SmallHeight);

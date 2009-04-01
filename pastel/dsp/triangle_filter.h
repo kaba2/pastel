@@ -28,12 +28,12 @@ namespace Pastel
 		TriangleFilter& operator=(const TriangleFilter& that);
 	};
 
-	typedef CountedPtr<TriangleFilter> TriangleFilterRef;
-	typedef CountedPtr<const TriangleFilter> ConstTriangleFilterRef;
+	typedef CountedPtr<TriangleFilter> TriangleFilterPtr;
+	typedef CountedPtr<const TriangleFilter> ConstTriangleFilterPtr;
 
-	inline TriangleFilterRef triangleFilter()
+	inline TriangleFilterPtr triangleFilter()
 	{
-		return TriangleFilterRef(new TriangleFilter);
+		return TriangleFilterPtr(new TriangleFilter);
 	}
 
 }

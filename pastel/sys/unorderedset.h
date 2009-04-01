@@ -23,8 +23,8 @@ namespace Pastel
 			Base;
 
 	public:
-		typedef typename Base::allocator_ref allocator_ref;
-		typedef typename Base::const_allocator_ref const_allocator_ref;
+		typedef typename Base::allocator_ptr allocator_ptr;
+		typedef typename Base::const_allocator_ptr const_allocator_ptr;
 
 		typedef typename Base::key_type key_type;
 		typedef typename Base::value_type value_type;
@@ -44,13 +44,13 @@ namespace Pastel
 		typedef	typename Base::const_local_iterator const_local_iterator;
 
 		explicit UnorderedSet(
-			const allocator_ref& allocatorRef);
+			const allocator_ptr& allocatorPtr);
 
 		explicit UnorderedSet(
 			size_type bucketCount = 1,
 			const hasher& pHasher = hasher(),
 			const key_equal& keyEqual = key_equal(),
-			const allocator_ref& allocatorRef = allocator_ref());
+			const allocator_ptr& allocatorPtr = allocator_ptr());
 
 		template <class InputIterator>
 		UnorderedSet(
@@ -59,9 +59,9 @@ namespace Pastel
 			size_type bucketCount = 1,
 			const hasher& pHasher = hasher(),
 			const key_equal& keyEqual = key_equal(),
-			const allocator_ref& allocatorRef = allocator_ref());
+			const allocator_ptr& allocatorPtr = allocator_ptr());
 		UnorderedSet(const UnorderedSet& that,
-			const allocator_ref& allocatorRef = allocator_ref());
+			const allocator_ptr& allocatorPtr = allocator_ptr());
 	};
 
 }

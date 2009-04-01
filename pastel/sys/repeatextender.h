@@ -22,12 +22,12 @@ namespace Pastel
 		}
 	};
 
-	typedef CountedPtr<RepeatExtender> RepeatExtenderRef;
-	typedef CountedPtr<const RepeatExtender> ConstRepeatExtenderRef;
+	typedef CountedPtr<RepeatExtender> RepeatExtenderPtr;
+	typedef CountedPtr<const RepeatExtender> ConstRepeatExtenderPtr;
 
-	inline RepeatExtenderRef repeatExtender()
+	inline RepeatExtenderPtr repeatExtender()
 	{
-		return RepeatExtenderRef(new RepeatExtender);
+		return RepeatExtenderPtr(new RepeatExtender);
 	}
 
 }

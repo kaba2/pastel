@@ -21,9 +21,9 @@ namespace Pastel
 		typedef typename FirstList::const_iterator
 			ConstFirstListIterator;
 		typedef boost::shared_ptr<FirstList>
-			FirstListRef;
+			FirstListPtr;
 		typedef boost::shared_ptr<const FirstList>
-			ConstFirstListRef;
+			ConstFirstListPtr;
 
 		typedef UnorderedSet<Second>
 			SecondList;
@@ -32,19 +32,19 @@ namespace Pastel
 		typedef typename SecondList::const_iterator
 			ConstSecondListIterator;
 		typedef boost::shared_ptr<SecondList>
-			SecondListRef;
+			SecondListPtr;
 		typedef boost::shared_ptr<const SecondList>
-			ConstSecondListRef;
+			ConstSecondListPtr;
 
 	private:
 		typedef UnorderedMap<
-			First, SecondListRef>
+			First, SecondListPtr>
 			FirstContainer;
 		typedef typename FirstContainer::iterator
 			FirstIterator;
 
 		typedef UnorderedMap<
-			Second, FirstListRef>
+			Second, FirstListPtr>
 			SecondContainer;
 		typedef typename SecondContainer::iterator
 			SecondIterator;

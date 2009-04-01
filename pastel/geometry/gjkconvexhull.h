@@ -22,8 +22,8 @@ namespace Pastel
 		}
 
 		GjkConvexHull(
-			const Ref& aShape,
-			const Ref& bShape)
+			const Ptr& aShape,
+			const Ptr& bShape)
 			: GjkShape<N, Real>()
 			, aShape_(aShape)
 			, bShape_(bShape)
@@ -50,8 +50,8 @@ namespace Pastel
 		}
 
 	private:
-		GjkShape<N, Real>::Ref aShape_;
-		GjkShape<N, Real>::Ref bShape_;
+		GjkShape<N, Real>::Ptr aShape_;
+		GjkShape<N, Real>::Ptr bShape_;
 	};
 
 }

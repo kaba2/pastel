@@ -27,8 +27,8 @@ int main()
 	simplex = triangle;
 	triangle = simplex;
 
-	log().addObserver(LogObserverRef(new StreamLogObserver(&cout)));
-	log().addObserver(LogObserverRef(new FileLogObserver("log.txt")));
+	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
+	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
 
 	geometryTestList().console();
 

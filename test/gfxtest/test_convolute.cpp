@@ -22,7 +22,7 @@ namespace
 
 	void testConvolute2()
 	{
-		Vector<2, integer> extent(500);
+		Vector<2, integer> extent(512);
 		Vector<2, integer> filterExtent(31);
 
 		Array<2, Color> input(extent, Color(0));

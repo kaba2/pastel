@@ -83,9 +83,9 @@ namespace Pastel
 		*/
 
 		typedef boost::shared_ptr<UniformAllocator>
-			allocator_ref;
+			allocator_ptr;
 		typedef boost::shared_ptr<const UniformAllocator>
-			const_allocator_ref;
+			const_allocator_ptr;
 
 		class iterator;
 		class const_iterator;
@@ -107,19 +107,19 @@ namespace Pastel
 		//! Constructs an empty list.
 		/*!
 		Preconditions:
-		allocatorRef.get() == 0 || allocatorRef->unitSize() >= sizeof(Node)
+		allocatorPtr.get() == 0 || allocatorPtr->unitSize() >= sizeof(Node)
 
 		Time complexity: constant
 		Exception safety: strong
 		*/
 		explicit FastList(
-			const allocator_ref& allocatorRef =
-			allocator_ref());
+			const allocator_ptr& allocatorPtr =
+			allocator_ptr());
 
 		//! Constructs a list with 'count' occurences of 'that'.
 		/*!
 		Preconditions:
-		allocatorRef.get() == 0 || allocatorRef->unitSize() >= sizeof(Node)
+		allocatorPtr.get() == 0 || allocatorPtr->unitSize() >= sizeof(Node)
 		'count' >= 0
 
 		Time complexity: linear
@@ -127,13 +127,13 @@ namespace Pastel
 		*/
 		explicit FastList(size_type count,
 			const value_type& that = value_type(),
-			const allocator_ref& allocatorRef =
-			allocator_ref());
+			const allocator_ptr& allocatorPtr =
+			allocator_ptr());
 
 		//! Constructs a list from the given values in the range.
 		/*!
 		Preconditions:
-		allocatorRef.get() == 0 || allocatorRef->unitSize() >= sizeof(Node)
+		allocatorPtr.get() == 0 || allocatorPtr->unitSize() >= sizeof(Node)
 
 		Time complexity: linear
 		Exception safety: strong
@@ -141,20 +141,20 @@ namespace Pastel
 		template <typename InputIterator>
 		FastList(InputIterator first,
 			InputIterator last,
-			const allocator_ref& allocatorRef =
-			allocator_ref());
+			const allocator_ptr& allocatorPtr =
+			allocator_ptr());
 
 		//! Constructs with the values of another list.
 		/*!
 		Preconditions:
-		allocatorRef.get() == 0 || allocatorRef->unitSize() >= sizeof(Node)
+		allocatorPtr.get() == 0 || allocatorPtr->unitSize() >= sizeof(Node)
 
 		Time complexity: linear
 		Exception safety: strong
 		*/
 		FastList(const FastList& that,
-			const allocator_ref& allocatorRef =
-			allocator_ref());
+			const allocator_ptr& allocatorPtr =
+			allocator_ptr());
 
 		//! Destructs the list.
 		/*!
@@ -313,14 +313,14 @@ namespace Pastel
 		Time complexity: linear
 		Exception safety: nothrow
 		*/
-		void set_allocator(const allocator_ref& allocatorRef);
+		void set_allocator(const allocator_ptr& allocatorPtr);
 
-		//! Returns the allocatorRef.
+		//! Returns the allocatorPtr.
 		/*!
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		typename FastList<Type, UniformAllocator>::allocator_ref
+		typename FastList<Type, UniformAllocator>::allocator_ptr
 			get_allocator() const;
 
 		//! Resizes the list to contain 'newSize' elements.
@@ -667,7 +667,7 @@ namespace Pastel
 
 		Node* head_;
 		mutable size_type size_;
-		allocator_ref allocator_;
+		allocator_ptr allocator_;
 	};
 
 }

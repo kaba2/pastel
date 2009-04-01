@@ -142,24 +142,24 @@ namespace
 
 		Array<2, Color> image(Width, Height);
 
-		std::vector<Texture<Color>::Ref> textureList;
+		std::vector<Texture<Color>::Ptr> textureList;
 		textureList.push_back(
-			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap,
+			Texture<Color>::Ptr(new EwaImageTexture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(1))));
 		textureList.push_back(
-			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap,
+			Texture<Color>::Ptr(new EwaImageTexture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ref(new EwaImageTexture<Color>(mipMap,
+			Texture<Color>::Ptr(new EwaImageTexture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ref(new BilinearImageTexture<Color>(textureImage,
+			Texture<Color>::Ptr(new BilinearImageTexture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 		textureList.push_back(
-			Texture<Color>::Ref(new NearestImageTexture<Color>(textureImage,
+			Texture<Color>::Ptr(new NearestImageTexture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 
 		const AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);
@@ -357,7 +357,7 @@ namespace
 		RipMap<2, Color> lenaRipMap(constArrayView(lenaTextureImage));
 		transform(lenaRipMap, fitColor);
 
-		ConstIndexExtenderRef extender = repeatExtender();
+		ConstIndexExtenderPtr extender = repeatExtender();
 
 		EwaImageTexture<Color> textureEwaGaussian1(
 			mipMap, ArrayExtender<2, Color>(extender), gaussianFilter(1));

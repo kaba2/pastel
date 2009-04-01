@@ -28,7 +28,7 @@ namespace Pastel
 
 		// Implicit conversion
 		ArrayExtender(
-			const ConstIndexExtenderRef& uniformExtender,
+			const ConstIndexExtenderPtr& uniformExtender,
 			const Type& border = Type())
 			: extender_(uniformExtender)
 			, border_(border)
@@ -45,16 +45,16 @@ namespace Pastel
 
 		void clear()
 		{
-			extender_.set(IndexExtenderRef());
+			extender_.set(IndexExtenderPtr());
 		}
 
 		void clearExtender(integer index)
 		{
-			setExtender(index, IndexExtenderRef());
+			setExtender(index, IndexExtenderPtr());
 		}
 
 		void setExtender(integer index,
-			const ConstIndexExtenderRef& extender)
+			const ConstIndexExtenderPtr& extender)
 		{
 			ENSURE2(index >= 0 && index < extender_.size(),
 				index, extender_.size());
@@ -62,7 +62,7 @@ namespace Pastel
 			extender_[index] = extender;
 		}
 
-		ConstIndexExtenderRef extender(integer index) const
+		ConstIndexExtenderPtr extender(integer index) const
 		{
 			ENSURE2(index >= 0 && index < extender_.size(),
 				index, extender_.size());
@@ -97,7 +97,7 @@ namespace Pastel
 			Point<N, integer> newPosition;
 			for (integer i = 0;i < N;++i)
 			{
-				const ConstIndexExtenderRef& extender = extender_[i];
+				const ConstIndexExtenderPtr& extender = extender_[i];
 				if (extender.empty())
 				{
 					if (position[i] < 0 || position[i] >= extent[i])
@@ -117,7 +117,7 @@ namespace Pastel
 		}
 
 	private:
-		Tuple<N, ConstIndexExtenderRef> extender_;
+		Tuple<N, ConstIndexExtenderPtr> extender_;
 		Type border_;
 	};
 

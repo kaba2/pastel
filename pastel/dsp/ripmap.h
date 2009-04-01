@@ -49,7 +49,7 @@ namespace Pastel
 		template <typename Image_ConstView>
 		explicit RipMap(
 			const ConstView<N, Type, Image_ConstView>& image,
-			const FilterRef& filter = gaussianFilter(2));
+			const FilterPtr& filter = gaussianFilter(2));
 
 		void swap(RipMap& that);
 		void clear();
@@ -59,7 +59,7 @@ namespace Pastel
 		template <typename Image_ConstView>
 		void setImage(
 			const ConstView<N, Type, Image_ConstView>& image,
-			const FilterRef& filter = gaussianFilter(2));
+			const FilterPtr& filter = gaussianFilter(2));
 
 		Array<N, Type>& operator()(
 			const Point<N, integer>& level);

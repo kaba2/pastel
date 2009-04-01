@@ -33,13 +33,13 @@ namespace Pastel
 		}
 	};
 
-	typedef CountedPtr<ClampExtender> ClampExtenderRef;
-	typedef CountedPtr<const ClampExtender> ConstClampExtenderRef;
+	typedef CountedPtr<ClampExtender> ClampExtenderPtr;
+	typedef CountedPtr<const ClampExtender> ConstClampExtenderPtr;
 
-	//inline ClampExtenderRef clampExtender()
-	inline ConstIndexExtenderRef clampExtender()
+	//inline ClampExtenderPtr clampExtender()
+	inline ConstIndexExtenderPtr clampExtender()
 	{
-		return ClampExtenderRef(new ClampExtender);
+		return ClampExtenderPtr(new ClampExtender);
 	}
 
 }

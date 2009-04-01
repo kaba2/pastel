@@ -20,12 +20,12 @@ namespace Pastel
 		class Hash, class Pred, class UniformAllocator>
 			UnorderedBase<Key, Value, ExtractKey, Hash, Pred, UniformAllocator>::
 			UnorderedBase(
-			const allocator_ref& allocatorRef)
+			const allocator_ptr& allocatorPtr)
 			: extractKey_()
 			, hasher_()
 			, keyEqual_()
 			, size_(0)
-			, values_(allocatorRef)
+			, values_(allocatorPtr)
 			, buckets_()
 			, maxLoadFactor_(1)
 		{
@@ -40,12 +40,12 @@ namespace Pastel
 			size_type bucketCount,
 			const hasher& pHasher,
 			const key_equal& keyEqual,
-			const allocator_ref& allocatorRef)
+			const allocator_ptr& allocatorPtr)
 			: extractKey_()
 			, hasher_(pHasher)
 			, keyEqual_(keyEqual)
 			, size_(0)
-			, values_(allocatorRef)
+			, values_(allocatorPtr)
 			, buckets_()
 			, maxLoadFactor_(1)
 		{
@@ -65,12 +65,12 @@ namespace Pastel
 			size_type bucketCount,
 			const hasher& pHasher,
 			const key_equal& keyEqual,
-			const allocator_ref& allocatorRef)
+			const allocator_ptr& allocatorPtr)
 			: extractKey_()
 			, hasher_(pHasher)
 			, keyEqual_(keyEqual)
 			, size_(0)
-			, values_(allocatorRef)
+			, values_(allocatorPtr)
 			, buckets_()
 			, maxLoadFactor_(1)
 		{
@@ -87,12 +87,12 @@ namespace Pastel
 			UnorderedBase<Key, Value, ExtractKey, Hash, Pred, UniformAllocator>::
 			UnorderedBase(
 			const UnorderedBase& that,
-			const allocator_ref& allocatorRef)
+			const allocator_ptr& allocatorPtr)
 			: extractKey_(that.extractKey_)
 			, hasher_(that.hasher_)
 			, keyEqual_(that.keyEqual_)
 			, size_(0)
-			, values_(allocatorRef)
+			, values_(allocatorPtr)
 			, buckets_()
 			, maxLoadFactor_(that.maxLoadFactor_)
 		{
@@ -125,16 +125,16 @@ namespace Pastel
 		class Hash, class Pred, class UniformAllocator>
 			void
 			UnorderedBase<Key, Value, ExtractKey, Hash, Pred, UniformAllocator>::
-			set_allocator(const allocator_ref& allocatorRef)
+			set_allocator(const allocator_ptr& allocatorPtr)
 		{
-			UnorderedBase copy(*this, allocatorRef);
+			UnorderedBase copy(*this, allocatorPtr);
 			swap(copy);
 		}
 
 		template <class Key, class Value, class ExtractKey,
 		class Hash, class Pred, class UniformAllocator>
 			typename UnorderedBase<Key, Value, ExtractKey, Hash, Pred, UniformAllocator>::
-			allocator_ref
+			allocator_ptr
 			UnorderedBase<Key, Value, ExtractKey, Hash, Pred, UniformAllocator>::
 			get_allocator() const
 		{

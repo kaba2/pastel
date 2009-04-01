@@ -53,8 +53,8 @@ namespace Pastel
 		explicit EwaImageTexture(
 			const MipMap<2, Type>& mipMap,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>(),
-			const FilterRef& maxFilter = lanczosFilter(2),
-			const FilterRef& minFilter = triangleFilter())
+			const FilterPtr& maxFilter = lanczosFilter(2),
+			const FilterPtr& minFilter = triangleFilter())
 			: mipMap_(&mipMap)
 			, extender_(extender)
 			, minFilterTable_()
@@ -69,8 +69,8 @@ namespace Pastel
 		}
 
 		void setFilter(
-			const FilterRef& maxFilter,
-			const FilterRef& minFilter = triangleFilter())
+			const FilterPtr& maxFilter,
+			const FilterPtr& minFilter = triangleFilter())
 		{
 			ENSURE(!maxFilter.empty() && !minFilter.empty());
 

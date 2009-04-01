@@ -121,7 +121,7 @@ namespace
 
 		savePcx(image, "output/reconstruct_nearest_" + integerToString(k, 2) + "_" + name + ".pcx");
 
-		FilterRef filter = tableFilter(gaussianFilter());
+		FilterPtr filter = tableFilter(gaussianFilter());
 
 		reconstructFilter(positionList,
 			dataList,

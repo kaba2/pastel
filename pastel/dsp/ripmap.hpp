@@ -23,7 +23,7 @@ namespace Pastel
 		public:
 			explicit Visitor(
 				Array<N, Array<N, Type> >& imageArray,
-				const FilterRef& filter)
+				const FilterPtr& filter)
 				: ripMapArray_(imageArray)
 				, filter_(filter)
 			{
@@ -69,7 +69,7 @@ namespace Pastel
 
 		private:
 			Array<N, Array<N, Type> >& ripMapArray_;
-			const FilterRef& filter_;
+			const FilterPtr& filter_;
 		};
 
 	}
@@ -78,7 +78,7 @@ namespace Pastel
 	template <typename Image_ConstView>
 	RipMap<N, Type>::RipMap(
 		const ConstView<N, Type, Image_ConstView>& image,
-		const FilterRef& filter)
+		const FilterPtr& filter)
 		: ripMapArray_()
 	{
 		const Vector<N, integer> originalExtent = image.extent();
@@ -146,7 +146,7 @@ namespace Pastel
 	template <typename Image_ConstView>
 	void RipMap<N, Type>::setImage(
 		const ConstView<N, Type, Image_ConstView>& image,
-		const FilterRef& filter)
+		const FilterPtr& filter)
 	{
 		RipMap<N, Type> copy(image, filter);
 		swap(copy);

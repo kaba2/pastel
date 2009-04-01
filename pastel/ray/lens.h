@@ -25,8 +25,8 @@ namespace Pastel
 		virtual Line3 getLine(const Point2& uv) const = 0;
 	};
 
-	typedef CountedPtr<Lens> LensRef;
-	typedef CountedPtr<const Lens> ConstLensRef;
+	typedef CountedPtr<Lens> LensPtr;
+	typedef CountedPtr<const Lens> ConstLensPtr;
 
 }
 
