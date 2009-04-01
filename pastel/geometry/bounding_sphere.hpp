@@ -289,48 +289,55 @@ namespace Pastel
 		// given the following requirements:
 		//
 		// * For all i e [0, M]: ||p[i] - c|| = r
-		// * minimize r
+		// * Minimize r.
 		//
 		// ||p[i] - c|| = r
 		// <=>
-		// dot(p[i] - c, p[i] - c) = r^2
+		// dot(p[i] - c) = r^2
+		// <=>
+		// dot((p[i] - p[0]) - (c - p[0])) = r^2
+		// <=>
+		// dot(d[i] - (c - p[0])) = r^2
 		//
-		// From the book 'Geometric tools for computer graphics',
-		// the equations can be rewritten as:
+		// where d[i] = p[i] - p[0]
 		//
-		// Let d[i] = p[i] - p[0]
+		// Eliminate r^2 from all but the first equation:
+		// <=>
+		// { dot(d[0] - (c - p[0])) = r^2
+		// { dot(d[i] - (c - p[0])) - dot(d[0] - (c - p[0])) = 0
+		// <=>
+		// { dot(c - p[0]) = r^2
+		// { dot(d[i] - (c - p[0])) - dot(c - p[0]) = 0
 		//
-		// For all i e [1, M]:
-		// dot(d[i], c - p[0]) = 0.5 * dot(d[i], d[i])
+		// dot(d[i] - (c - p[0])) - dot(c - p[0]) = 0
+		// <=>
+		// dot(d[i]) - 2 dot(d[i], c - p[0]) + dot(c - p[0]) -
+		// dot(c - p[0]) = 0
+		// <=>
+		// dot(d[i]) - 2 dot(d[i], c - p[0]) = 0
+		// <=>
+		// dot(d[i], c - p[0]) = (1/2) dot(d[i])
 		//
-		// If M = n, (c - p[0]) can be computed from this linear equation.
-		// If M < n, the system is underdetermined for (c - p[0]).
-		//
-		// Instead of that, express c in barycentric coordinates:
-		//
-		// c - p[0]
-		// = sum(u[j] * p[j], j e [0, M]) - p[0]
-		// = sum(u[j] * (p[j] - p[0]), j e [1, M])
-		// = sum(u[j] * d[j], j e [1, M])
-		//
-		// =>
-		// For all i e [1, M]:
-		// sum(dot(d[i], d[j]) * u[j], j e [1, M]) = 0.5 * dot(d[i], d[i])
+		// Give c via barycentric coordinates w.r.t. p[i]:
+		// <=>
+		// dot(d[i], sum[j = 1..m](u[j] p[i]) - p[0]) = (1/2) dot(d[i])
+		// <=>
+		// dot(d[i], sum[j = 1..m](u[j] (p[j] - p[0]))) = (1/2) dot(d[i])
+		// <=>
+		// dot(d[i], sum[j = 1..m](u[j] d[j])) = (1/2) dot(d[i])
+		// <=>
+		// sum[j = 1..m](dot(d[i], d[j]) u_j) = (1/2) dot(d[i])
 		//
 		// This can be given by matrices as:
-		// DD^Tu = b
+		// D^T D u = b
 		// with
-		// D = [d[1], ..., d[M]]^T
+		// D = [d[1], ..., d[M]]
 		// b = 0.5 * [dot(d[1], d[1]), ... dot(d[M], d[M])]^T
 		//
-		// DD^T is an MxM matrix, b is an M-vector.
-		// DD^T is invertible iff D has full rank, that is,
+		// D^T D is an MxM matrix, b is an M-vector.
+		// D^T D is invertible iff D has full rank, that is,
 		// the d[i] are linearly independent.
-		// DD^T is obviously symmetric.
-		//
-		// Thus we have a generalization of the
-		// circumscribed sphere problem
-		// for any M-simplex in N-d space.
+		// D^T D is obviously symmetric.
 
 		Matrix<M, N, Real> d;
 		Vector<M, Real> b;
@@ -353,9 +360,9 @@ namespace Pastel
 			}
 		}
 
-		// DD^Tu = b
+		// D^T D u = b
 		// <=>
-		// u^T D D^T = b^T
+		// u^T D^T D = b^T
 
 		const Vector<M, Real> u(
 			solveLinearSystem(ddt, b));

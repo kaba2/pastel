@@ -170,7 +170,7 @@ namespace Pastel
 		//
 		// Given is a uniformly distributed random variable
 		// in [0, 1]^N. Distort the random variable such
-		// that it becomes a uniformly distributed
+		// that it becomes uniformly distributed
 		// in the (r_min, r_max)-hyperannulus.
 		//
 		// Solution
@@ -267,13 +267,13 @@ namespace Pastel
 		// solution for any dimension, although with substantial trouble.
 		// However, note that in this 4d case A_1 is not solvable in closed form from the equation.
 		// Because higher dimensional formulas contain a similar term (and yet more complex
-		// terms), it will be the case that with higher dimensional some parameter is
+		// terms), it will be the case that with higher dimensions some parameter is
 		// not solvable in closed form. We then conclude that
 		// this technique is not applicable to dimensions higher than 3.
 		//
 		// Let us now proceed with the dimensions 1, 2, and 3.
 		// The technique is to substitute all parameters in V
-		// with their maximums except for one parameter.
+		// with their maxima except for one parameter.
 		// The idea is to find out how that
 		// single parameter must be varied in order for the partial
 		// volume to change linearly. This will gives us the
