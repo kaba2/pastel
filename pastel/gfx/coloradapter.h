@@ -19,6 +19,17 @@ namespace Pastel
 		typedef typename Adapter::Physical Logical;
 		typedef typename Adapter::Logical Physical;
 
+		ReverseAdapter()
+			: adapter_()
+		{
+		}
+
+		explicit ReverseAdapter(
+			const Adapter& adapter)
+			: adapter_(adapter)
+		{
+		}
+
 		Logical toLogical(const Physical& physical) const
 		{
 			return adapter_.toPhysical(physical);
@@ -96,12 +107,12 @@ namespace Pastel
 		{
 		}
 
-		Physical toPhysical(const Real& logical) const
+		Physical toPhysical(const Logical& logical) const
 		{
 			return quantizeUnsigned(logical, numbers_);
 		}
 
-		Logical toLogical(const Real& physical) const
+		Logical toLogical(const Physical& physical) const
 		{
 			return dequantizeUnsigned(physical, numbers_);
 		}

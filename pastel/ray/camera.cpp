@@ -45,7 +45,7 @@ namespace Pastel
 			objectToWorld_.translation());
 	}
 
-	void Camera::setLens(const LensRef& lens)
+	void Camera::setLens(const LensPtr& lens)
 	{
 		lens_ = lens;
 	}

@@ -37,12 +37,12 @@ namespace Pastel
 		real invRadius_;
 	};
 
-	typedef CountedPtr<LanczosFilter> LanczosFilterRef;
-	typedef CountedPtr<const LanczosFilter> ConstLanczosFilterRef;
+	typedef CountedPtr<LanczosFilter> LanczosFilterPtr;
+	typedef CountedPtr<const LanczosFilter> ConstLanczosFilterPtr;
 
-	inline LanczosFilterRef lanczosFilter(real radius = 2)
+	inline LanczosFilterPtr lanczosFilter(real radius = 2)
 	{
-		return LanczosFilterRef(new LanczosFilter(radius));
+		return LanczosFilterPtr(new LanczosFilter(radius));
 	}
 
 }

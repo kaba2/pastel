@@ -24,9 +24,9 @@ namespace Pastel
 		public:
 			// types
 			typedef boost::shared_ptr<UniformAllocator>
-				allocator_ref;
+				allocator_ptr;
 			typedef boost::shared_ptr<const UniformAllocator>
-				const_allocator_ref;
+				const_allocator_ptr;
 
 			typedef Key key_type;
 			typedef Value value_type;
@@ -51,13 +51,13 @@ namespace Pastel
 			// construct/destroy/copy
 
 			explicit UnorderedBase(
-				const allocator_ref& allocatorRef);
+				const allocator_ptr& allocatorPtr);
 
 			explicit UnorderedBase(
 				size_type bucketCount = 1,
 				const hasher& pHasher = hasher(),
 				const key_equal& keyEqual = key_equal(),
-				const allocator_ref& allocatorRef = allocator_ref());
+				const allocator_ptr& allocatorPtr = allocator_ptr());
 
 			template <class InputIterator>
 			UnorderedBase(
@@ -66,16 +66,16 @@ namespace Pastel
 				size_type bucketCount = 1,
 				const hasher& pHasher = hasher(),
 				const key_equal& keyEqual = key_equal(),
-				const allocator_ref& allocatorRef = allocator_ref());
+				const allocator_ptr& allocatorPtr = allocator_ptr());
 			UnorderedBase(const UnorderedBase& that,
-				const allocator_ref& allocatorRef = allocator_ref());
+				const allocator_ptr& allocatorPtr = allocator_ptr());
 
 			~UnorderedBase();
 			UnorderedBase& operator=(const UnorderedBase& that);
 
 		public:
-			void set_allocator(const allocator_ref& allocatorRef);
-			allocator_ref get_allocator() const;
+			void set_allocator(const allocator_ptr& allocatorPtr);
+			allocator_ptr get_allocator() const;
 
 			// size and capacity
 			bool empty() const;

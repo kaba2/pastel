@@ -71,13 +71,13 @@ namespace Pastel
 		explicit MipMap(
 			const ConstView<N, Type, Image_ConstView>& image,
 			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(clampExtender()),
-			const FilterRef& filter = gaussianFilter(2));
+			const FilterPtr& filter = gaussianFilter(2));
 
 		template <typename Image_ConstView>
 		void setImage(
 			const ConstView<N, Type, Image_ConstView>& image,
 			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(clampExtender()),
-			const FilterRef& filter = gaussianFilter(2));
+			const FilterPtr& filter = gaussianFilter(2));
 
 		void swap(MipMap& that);
 		void clear();

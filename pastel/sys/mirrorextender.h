@@ -35,12 +35,12 @@ namespace Pastel
 		}
 	};
 
-	typedef CountedPtr<MirrorExtender> MirrorExtenderRef;
-	typedef CountedPtr<const MirrorExtender> ConstMirrorExtenderRef;
+	typedef CountedPtr<MirrorExtender> MirrorExtenderPtr;
+	typedef CountedPtr<const MirrorExtender> ConstMirrorExtenderPtr;
 
-	inline MirrorExtenderRef mirrorExtender()
+	inline MirrorExtenderPtr mirrorExtender()
 	{
-		return MirrorExtenderRef(new MirrorExtender);
+		return MirrorExtenderPtr(new MirrorExtender);
 	}
 
 }

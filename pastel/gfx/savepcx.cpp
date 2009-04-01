@@ -393,7 +393,8 @@ namespace Pastel
 		const Array<2, real32>& image,
 		const std::string& fileName)
 	{
-		Real_Integer_Adapter<real32, uint8> adapter(256);
+		ReverseAdapter<Real_Integer_Adapter<real32, uint8> > adapter(
+			Real_Integer_Adapter<real32, uint8>(256));
 
 		std::vector<Color> palette;
 		grayscalePalette(palette, 256);

@@ -19,9 +19,9 @@ namespace Pastel
 	{
 	}
 
-	LensRef PerspectiveLens::clone() const
+	LensPtr PerspectiveLens::clone() const
 	{
-		return LensRef(new PerspectiveLens);
+		return LensPtr(new PerspectiveLens);
 	}
 
 	Line3 PerspectiveLens::getLine(

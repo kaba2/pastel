@@ -30,7 +30,7 @@ namespace Pastel
 		void resampleTable(
 		const ConstView<1, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<1, Input_Element>))& arrayExtender,
-		const ConstTableFilterRef& filter,
+		const ConstTableFilterPtr& filter,
 		const View<1, Output_Element, Output_View>& output,
 		real blurFactor = 1);
 
@@ -43,7 +43,7 @@ namespace Pastel
 		void resample(
 		const ConstView<1, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<1, Input_Element>))& arrayExtender,
-		const ConstFilterRef& filter,
+		const ConstFilterPtr& filter,
 		const View<1, Output_Element, Output_View>& output,
 		real blurFactor = 1);
 
@@ -67,7 +67,7 @@ namespace Pastel
 		resampleTable(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		const ConstTableFilterRef& filter,
+		const ConstTableFilterPtr& filter,
 		const View<N, Output_Element, Output_View>& output,
 		real blurFactor = 1);
 
@@ -92,7 +92,7 @@ namespace Pastel
 		resample(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		const ConstFilterRef& filter,
+		const ConstFilterPtr& filter,
 		const View<N, Output_Element, Output_View>& output,
 		real blurFactor = 1);
 

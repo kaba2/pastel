@@ -28,12 +28,12 @@ namespace Pastel
 		BoxFilter& operator=(const BoxFilter& that);
 	};
 
-	typedef CountedPtr<BoxFilter> BoxFilterRef;
-	typedef CountedPtr<const BoxFilter> ConstBoxFilterRef;
+	typedef CountedPtr<BoxFilter> BoxFilterPtr;
+	typedef CountedPtr<const BoxFilter> ConstBoxFilterPtr;
 
-	inline BoxFilterRef boxFilter()
+	inline BoxFilterPtr boxFilter()
 	{
-		return BoxFilterRef(new BoxFilter);
+		return BoxFilterPtr(new BoxFilter);
 	}
 
 }

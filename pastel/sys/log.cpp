@@ -18,12 +18,12 @@ namespace Pastel
 		return *this;
 	}
 
-	void Log::addObserver(const LogObserverRef& observer)
+	void Log::addObserver(const LogObserverPtr& observer)
 	{
 		observer_.insert(observer);
 	}
 
-	void Log::removeObserver(const LogObserverRef& observer)
+	void Log::removeObserver(const LogObserverPtr& observer)
 	{
 		observer_.erase(observer);
 	}

@@ -43,8 +43,8 @@ namespace Pastel
 	{
 		integer rollBackIndex = 0;
 
-		SecondListRef secondList;
-		FirstListRef firstList;
+		SecondListPtr secondList;
+		FirstListPtr firstList;
 
 		bool createdFirstList = false;
 		bool createdSecondList = false;

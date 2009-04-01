@@ -23,8 +23,8 @@ namespace Pastel
 		virtual LogObserver& operator<<(const std::string& value) = 0;
 	};
 
-	typedef CountedPtr<LogObserver> LogObserverRef;
-	typedef CountedPtr<const LogObserver> ConstLogObserverRef;
+	typedef CountedPtr<LogObserver> LogObserverPtr;
+	typedef CountedPtr<const LogObserver> ConstLogObserverPtr;
 
 }
 

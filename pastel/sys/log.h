@@ -25,8 +25,8 @@ namespace Pastel
 		void swap(Log& that);
 		Log& operator=(const Log& that);
 
-		void addObserver(const LogObserverRef& observer);
-		void removeObserver(const LogObserverRef& observer);
+		void addObserver(const LogObserverPtr& observer);
+		void removeObserver(const LogObserverPtr& observer);
 
 		Log& operator<<(const std::string& value);
 		Log& operator<<(char value);
@@ -40,7 +40,7 @@ namespace Pastel
 		Log& operator<<(void (*function)(Log&));
 
 	private:
-		typedef std::set<LogObserverRef> ObserverContainer;
+		typedef std::set<LogObserverPtr> ObserverContainer;
 		typedef ObserverContainer::iterator ObserverIterator;
 		typedef ObserverContainer::const_iterator ConstObserverIterator;
 

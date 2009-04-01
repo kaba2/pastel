@@ -30,8 +30,8 @@ namespace Pastel
 		typedef Key key_type;
 		typedef T mapped_type;
 
-		typedef typename Base::allocator_ref allocator_ref;
-		typedef typename Base::const_allocator_ref const_allocator_ref;
+		typedef typename Base::allocator_ptr allocator_ptr;
+		typedef typename Base::const_allocator_ptr const_allocator_ptr;
 
 		typedef typename Base::value_type value_type;
 		typedef typename Base::hasher hasher;
@@ -50,13 +50,13 @@ namespace Pastel
 		typedef typename Base::const_local_iterator const_local_iterator;
 
 		explicit UnorderedMap(
-			const allocator_ref& allocatorRef);
+			const allocator_ptr& allocatorPtr);
 
 		explicit UnorderedMap(
 			size_type bucketCount = 1,
 			const hasher& pHasher = hasher(),
 			const key_equal& keyEqual = key_equal(),
-			const allocator_ref& allocatorRef = allocator_ref());
+			const allocator_ptr& allocatorPtr = allocator_ptr());
 
 		template <class InputIterator>
 		UnorderedMap(
@@ -65,10 +65,10 @@ namespace Pastel
 			size_type bucketCount = 1,
 			const hasher& pHasher = hasher(),
 			const key_equal& keyEqual = key_equal(),
-			const allocator_ref& allocatorRef = allocator_ref());
+			const allocator_ptr& allocatorPtr = allocator_ptr());
 
 		UnorderedMap(const UnorderedMap&,
-			const allocator_ref& allocatorRef = allocator_ref());
+			const allocator_ptr& allocatorPtr = allocator_ptr());
 
 		mapped_type& operator[](const key_type& k);
 	};

@@ -22,8 +22,8 @@ namespace Pastel
 			LocalGeometry& localGeometry) const = 0;
 	};
 
-	typedef CountedPtr<Shape> ShapeRef;
-	typedef CountedPtr<const Shape> ConstShapeRef;
+	typedef CountedPtr<Shape> ShapePtr;
+	typedef CountedPtr<const Shape> ConstShapePtr;
 
 }
 

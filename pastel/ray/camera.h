@@ -26,17 +26,17 @@ namespace Pastel
 		void setPosition(const Point3& position);
 		Point3 position() const;
 
-		void setLens(const LensRef& lens);
+		void setLens(const LensPtr& lens);
 
 		Line3 getLine(const Point2& uv) const;
 
 	private:
-		LensRef lens_;
+		LensPtr lens_;
 		Transformation3 objectToWorld_;
 	};
 
-	typedef CountedPtr<Camera> CameraRef;
-	typedef CountedPtr<const Camera> ConstCameraRef;
+	typedef CountedPtr<Camera> CameraPtr;
+	typedef CountedPtr<const Camera> ConstCameraPtr;
 
 }
 

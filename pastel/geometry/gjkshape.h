@@ -20,7 +20,7 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		typedef CountedPtr<GjkShape> Ref;
+		typedef CountedPtr<GjkShape> Ptr;
 
 		virtual ~GjkShape() {};
 

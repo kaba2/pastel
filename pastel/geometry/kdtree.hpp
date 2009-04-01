@@ -299,7 +299,7 @@ namespace Pastel
 		, objects_(0)
 		, objectPolicy_()
 	{
-		objectList_.set_allocator(ObjectContainer::allocator_ref(
+		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
 		root_ = (Node*)nodeAllocator_.allocate();
 		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
@@ -317,7 +317,7 @@ namespace Pastel
 		, objects_(0)
 		, objectPolicy_(objectPolicy)
 	{
-		objectList_.set_allocator(ObjectContainer::allocator_ref(
+		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
 		root_ = (Node*)nodeAllocator_.allocate();
 		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);

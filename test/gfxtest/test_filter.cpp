@@ -22,7 +22,7 @@ namespace
 {
 
 	void drawFilter(
-		const ConstFilterRef& filter,
+		const ConstFilterPtr& filter,
 		const Color& color,
 		Array<2, Color>& image,
 		real maxFilterRadius = 2)
@@ -49,8 +49,8 @@ namespace
 	}
 
 	void drawFilter2D(
-		const ConstFilterRef& xFilter,
-		const ConstFilterRef& yFilter,
+		const ConstFilterPtr& xFilter,
+		const ConstFilterPtr& yFilter,
 		const Color& color,
 		Array<2, Color>& image,
 		real xMaxFilterRadius = 2,
@@ -81,7 +81,7 @@ namespace
 	}
 
 	void drawRadialFilter2D(
-		const ConstFilterRef& filter,
+		const ConstFilterPtr& filter,
 		const Color& color,
 		Array<2, Color>& image,
 		real xMaxFilterRadius = 2)
@@ -113,7 +113,7 @@ namespace
 	template <typename Image_View>
 	void drawSignal(
 		const Array<1, real>& signal,
-		const ConstFilterRef& filter,
+		const ConstFilterPtr& filter,
 		const View<2, Color, Image_View>& image,
 		const Color& color)
 	{
@@ -137,7 +137,7 @@ namespace
 		}
 	}
 
-	void testSignal(const ConstFilterRef& filter)
+	void testSignal(const ConstFilterPtr& filter)
 	{
 		const integer Width = 512;
 		const integer Height = 256;
@@ -191,7 +191,7 @@ namespace
 
 		Array<2, Color> image(Width, Height);
 
-		FilterRef filter = lanczosFilter(3);
+		FilterPtr filter = lanczosFilter(3);
 
 		drawFilter(tableFilter(filter, 0), 
 			hsvToRgb(Color(randomReal(), 1, 1)), image, 4);

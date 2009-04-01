@@ -24,7 +24,7 @@ namespace Pastel
 		}
 
 		explicit GjkAffineTransformation(
-			const GjkShape<N, Real>::Ref& shape,
+			const GjkShape<N, Real>::Ptr& shape,
 			const AffineTransformation<N, Real>& transformation)
 			: GjkShape<N, Real>()
 			, shape_(shape)
@@ -42,7 +42,7 @@ namespace Pastel
 		}
 
 	private:
-		GjkShape<N, Real>::Ref shape_;
+		GjkShape<N, Real>::Ptr shape_;
 		AffineTransformation<N, Real> transformation_;
 	};
 

@@ -249,12 +249,12 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		FastList<Type, UniformAllocator>::FastList(
-		const allocator_ref& allocatorRef)
+		const allocator_ptr& allocatorPtr)
 		: head_(0)
 		, size_(0)
 		, allocator_(
-		allocatorRef.get() == 0 ?
-		allocator_ref(new UniformAllocator(sizeof(DataNode))) : allocatorRef)
+		allocatorPtr.get() == 0 ?
+		allocator_ptr(new UniformAllocator(sizeof(DataNode))) : allocatorPtr)
 	{
 		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
 			allocator_->unitSize(), sizeof(DataNode));
@@ -267,12 +267,12 @@ namespace Pastel
 		typename UniformAllocator>
 		FastList<Type, UniformAllocator>::FastList(
 		size_type count, const value_type& value,
-		const allocator_ref& allocatorRef)
+		const allocator_ptr& allocatorPtr)
 		: head_(0)
 		, size_(0)
 		, allocator_(
-		allocatorRef.get() == 0 ?
-		allocator_ref(new UniformAllocator(sizeof(DataNode))) : allocatorRef)
+		allocatorPtr.get() == 0 ?
+		allocator_ptr(new UniformAllocator(sizeof(DataNode))) : allocatorPtr)
 	{
 		ENSURE1(count >= 0, count);
 		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
@@ -290,12 +290,12 @@ namespace Pastel
 	FastList<Type, UniformAllocator>::FastList(
 		InputIterator first,
 		InputIterator last,
-		const allocator_ref& allocatorRef)
+		const allocator_ptr& allocatorPtr)
 		: head_(0)
 		, size_(0)
 		, allocator_(
-		allocatorRef.get() == 0 ?
-		allocator_ref(new UniformAllocator(sizeof(DataNode))) : allocatorRef)
+		allocatorPtr.get() == 0 ?
+		allocator_ptr(new UniformAllocator(sizeof(DataNode))) : allocatorPtr)
 	{
 		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
 			allocator_->unitSize(), sizeof(DataNode));
@@ -310,12 +310,12 @@ namespace Pastel
 		typename UniformAllocator>
 		FastList<Type, UniformAllocator>::FastList(
 		const FastList& that,
-		const allocator_ref& allocatorRef)
+		const allocator_ptr& allocatorPtr)
 		: head_(0)
 		, size_(0)
 		, allocator_(
-		allocatorRef.get() == 0 ?
-		that.allocator_ : allocatorRef)
+		allocatorPtr.get() == 0 ?
+		that.allocator_ : allocatorPtr)
 	{
 		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
 			allocator_->unitSize(), sizeof(DataNode));
@@ -512,16 +512,16 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::
-		set_allocator(const allocator_ref& allocatorRef)
+		set_allocator(const allocator_ptr& allocatorPtr)
 	{
-		FastList copy(*this, allocatorRef);
+		FastList copy(*this, allocatorPtr);
 		swap(copy);
 	}
 
 	template <
 		typename Type,
 		typename UniformAllocator>
-		typename FastList<Type, UniformAllocator>::allocator_ref
+		typename FastList<Type, UniformAllocator>::allocator_ptr
 		FastList<Type, UniformAllocator>::get_allocator() const
 	{
 		return allocator_;

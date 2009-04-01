@@ -26,8 +26,8 @@ namespace Pastel
 		virtual Spectrum radiance(const Vector3& direction) const = 0;
 	};
 
-	typedef CountedPtr<Light> LightRef;
-	typedef CountedPtr<const Light> ConstLightRef;
+	typedef CountedPtr<Light> LightPtr;
+	typedef CountedPtr<const Light> ConstLightPtr;
 
 }
 

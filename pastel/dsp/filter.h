@@ -68,8 +68,8 @@ namespace Pastel
 		std::string name_;
 	};
 
-	typedef CountedPtr<Filter> FilterRef;
-	typedef CountedPtr<const Filter> ConstFilterRef;
+	typedef CountedPtr<Filter> FilterPtr;
+	typedef CountedPtr<const Filter> ConstFilterPtr;
 
 }
 

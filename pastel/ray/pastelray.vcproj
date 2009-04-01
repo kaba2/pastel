@@ -249,6 +249,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\integrator.h"
+			>
+		</File>
+		<File
 			RelativePath=".\light.cpp"
 			>
 		</File>
@@ -274,6 +278,10 @@
 		</File>
 		<File
 			RelativePath=".\raylibrary.h"
+			>
+		</File>
+		<File
+			RelativePath=".\render.cpp"
 			>
 		</File>
 		<File

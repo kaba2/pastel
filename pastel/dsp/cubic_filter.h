@@ -44,12 +44,12 @@ namespace Pastel
 		real d_;
 	};
 
-	typedef CountedPtr<CubicFilter> CubicFilterRef;
-	typedef CountedPtr<const CubicFilter> ConstCubicFilterRef;
+	typedef CountedPtr<CubicFilter> CubicFilterPtr;
+	typedef CountedPtr<const CubicFilter> ConstCubicFilterPtr;
 
-	inline CubicFilterRef cubicFilter(real negativeLobeness = (real)1 / 3)
+	inline CubicFilterPtr cubicFilter(real negativeLobeness = (real)1 / 3)
 	{
-		return CubicFilterRef(new CubicFilter(negativeLobeness));
+		return CubicFilterPtr(new CubicFilter(negativeLobeness));
 	}
 
 }
