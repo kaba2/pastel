@@ -277,74 +277,115 @@ namespace Pastel
 	Sphere<N, Real> circumscribedSphere(
 		const Simplex<N, Real, M>& simplex)
 	{
-		// Let p be the (M+1)-tuple of vertices
-		// of an M-simplex.
-		// Let the circumscribed sphere S of
-		// the simplex be
-		// S = (c, r)
-		// with c the center
-		// and r the radius.
-		//
-		// The problem is to solve c and r
+		// Let p be the (m+1)-tuple of vertices
+		// of an m-simplex.
+		// The problem is to solve c in R^n and r in R
 		// given the following requirements:
 		//
-		// * For all i e [0, M]: ||p[i] - c|| = r
+		// * For all i e [0, m]: ||p[i] - c|| = r
 		// * Minimize r.
 		//
-		// ||p[i] - c|| = r
-		// <=>
-		// dot(p[i] - c) = r^2
-		// <=>
-		// dot((p[i] - p[0]) - (c - p[0])) = r^2
-		// <=>
-		// dot(d[i] - (c - p[0])) = r^2
+		// Or equivalently:
+		// 
+		// { dot(p_0 - c) = r^2
+		// { dot(p_i - c) = dot(p_0 - c), for i in [1, m]
+		// 
+		// And we wish to minimize r^2.
+		// 
+		// So we set up a minimization problem using Lagrange multipliers:
+		// 
+		// e(c, u_1, ..., u_m) = 
+		// dot(p_0 - c) + sum[i = 1..m] u_i (dot(p_i - c) - dot(p_0 - c))
+		// 
+		// Now the unconstrained minimum of e corresponds to the constrained 
+		// minimum of r. Next we shall use calculus of variations to find the 
+		// minimum while avoiding component notation.
+		// 
+		// Taking the variations of e w.r.t. u_i when equated with zero gives n 
+		// equations which recover the constraint equations. That's trivial so we 
+		// leave that out.
+		// 
+		// The (first) variation of e w.r.t. c equated to zero gives:
+		// 
+		// de(c, u_1, ..., u_m; h)
+		// = 2 dot(p_0 - c, h) + 
+		// sum[i = 1..m] u_i (2 dot(p_i - c, h) - 2 dot(p_0 - c, h))
+		// = 2 dot(p_0 - c, h) + 
+		// 2 sum[i = 1..m] u_i dot(p_i - p_0, h)
+		// = 0
+		// 
+		// which holds for any variation vector h.
+		// 
+		// =>
+		// dot(c - p_0, h) = sum[i = 1..m] u_i dot(p_i - p_0, h)
 		//
-		// where d[i] = p[i] - p[0]
+		// So plug in the standard basis e_i to h:
+		// 
+		// dot(c - p_0, e_i) = sum[i = 1..m] u_i dot(p_i - p_0, e_i), i in [1, n]
+		//  =>
+		//  c - p_0 = sum[i = 1..m] u_i (p_i - p_0)
+		// =>
+		// c = p_0 + sum[i = 1..m] u_i (p_i - p_0)
+		//
+		// Which tells us that the center point lies on
+		// the affine hyperplane set by the points p_i.
+		// This gives us the idea to represent c by
+		// barycentric coordinates w.r.t. to points p_i.
+		//
+		// ||p_i - c|| = r
+		// <=>
+		// dot(p_i - c) = r^2
+		// <=>
+		// dot((p_i - p_0) - (c - p_0)) = r^2
+		// <=>
+		// dot(d_i - (c - p_0)) = r^2
+		//
+		// where d_i = p_i - p_0
 		//
 		// Eliminate r^2 from all but the first equation:
 		// <=>
-		// { dot(d[0] - (c - p[0])) = r^2
-		// { dot(d[i] - (c - p[0])) - dot(d[0] - (c - p[0])) = 0
+		// { dot(d_0 - (c - p_0)) = r^2
+		// { dot(d_i - (c - p_0)) - dot(d_0 - (c - p_0)) = 0
 		// <=>
-		// { dot(c - p[0]) = r^2
-		// { dot(d[i] - (c - p[0])) - dot(c - p[0]) = 0
+		// { dot(c - p_0) = r^2
+		// { dot(d_i - (c - p_0)) - dot(c - p_0) = 0
 		//
-		// dot(d[i] - (c - p[0])) - dot(c - p[0]) = 0
+		// dot(d_i - (c - p_0)) - dot(c - p_0) = 0
 		// <=>
-		// dot(d[i]) - 2 dot(d[i], c - p[0]) + dot(c - p[0]) -
-		// dot(c - p[0]) = 0
+		// dot(d_i) - 2 dot(d_i, c - p_0) + dot(c - p_0) -
+		// dot(c - p_0) = 0
 		// <=>
-		// dot(d[i]) - 2 dot(d[i], c - p[0]) = 0
+		// dot(d_i) - 2 dot(d_i, c - p_0) = 0
 		// <=>
-		// dot(d[i], c - p[0]) = (1/2) dot(d[i])
+		// dot(d_i, c - p_0) = (1/2) dot(d_i)
 		//
-		// Give c via barycentric coordinates w.r.t. p[i]:
+		// Give c via barycentric coordinates w.r.t. p_i:
 		// <=>
-		// dot(d[i], sum[j = 1..m](u[j] p[i]) - p[0]) = (1/2) dot(d[i])
+		// dot(d_i, sum[j = 0..m](u_j p_i) - p_0) = (1/2) dot(d_i)
 		// <=>
-		// dot(d[i], sum[j = 1..m](u[j] (p[j] - p[0]))) = (1/2) dot(d[i])
+		// dot(d_i, sum[j = 0..m](u_j (p_j - p_0))) = (1/2) dot(d_i)
 		// <=>
-		// dot(d[i], sum[j = 1..m](u[j] d[j])) = (1/2) dot(d[i])
+		// dot(d_i, sum[j = 1..m](u_j d_j)) = (1/2) dot(d_i)
 		// <=>
-		// sum[j = 1..m](dot(d[i], d[j]) u_j) = (1/2) dot(d[i])
+		// sum[j = 1..m](dot(d_i, d_j) u_j) = (1/2) dot(d_i)
 		//
 		// This can be given by matrices as:
 		// D^T D u = b
 		// with
-		// D = [d[1], ..., d[M]]
-		// b = 0.5 * [dot(d[1], d[1]), ... dot(d[M], d[M])]^T
+		// D = [d_1, ..., d_m]
+		// b = 0.5 * [dot(d_1, d_1), ... dot(d_m, d_m)]^T
 		//
-		// D^T D is an MxM matrix, b is an M-vector.
+		// D^T D is an m x m matrix, b is an m-vector.
 		// D^T D is invertible iff D has full rank, that is,
-		// the d[i] are linearly independent.
-		// D^T D is obviously symmetric.
+		// the d_i are linearly independent.
 
 		Matrix<M, N, Real> d;
 		Vector<M, Real> b;
 
 		for (integer i = 0;i < M;++i)
 		{
-			const Vector<N, Real> delta(simplex[i + 1] - simplex[0]);
+			const Vector<N, Real> delta = 
+				simplex[i + 1] - simplex[0];
 
 			d[i] = delta;
 			b[i] = dot(delta) * 0.5;
@@ -364,10 +405,11 @@ namespace Pastel
 		// <=>
 		// u^T D^T D = b^T
 
-		const Vector<M, Real> u(
-			solveLinearSystem(ddt, b));
+		const Vector<M, Real> u = 
+			solveLinearSystem(ddt, b);
 
-		const Vector<N, Real> translation(u * d);
+		const Vector<N, Real> translation = 
+			u * d;
 
 		return Sphere<N, Real>(
 			simplex[0] + translation,
