@@ -91,6 +91,15 @@ namespace Pastel
 			simplex.begin(), simplex.end());
 	}
 
+	template <int N, typename Real>
+	AlignedBox<N, Real> boundingAlignedCube(
+		const AlignedBox<N, Real>& box)
+	{
+		const Real maxRadius = max(box.extent()) * 0.5;
+		const Point<N, Real> center = linear(box.min(), box.max(), 0.5);
+		return AlignedBox<N, Real>(center - maxRadius, center + maxRadius);
+	}
+
 }
 
 #endif

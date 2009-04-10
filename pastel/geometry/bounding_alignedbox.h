@@ -20,13 +20,6 @@ namespace Pastel
 
 	/*!
 	The InputIterator must dereference to Point<N, Real>.
-	The third parameter 'iteratorValueType' simulates
-	the use of "concept based overloading", which will
-	find its way to the next C++ standard. Eventually
-	it will be replaced by the concept approach. The
-	problem is to tell the compiler that this function
-	is to be executed only for those iterators that
-	dereference to Point<N, Real>.
 	*/
 
 	template <int N, typename Real, typename InputIterator>
@@ -64,6 +57,12 @@ namespace Pastel
 	template <int N, typename Real, int M>
 	AlignedBox<N, Real> boundingAlignedBox(
 		const Simplex<N, Real, M>& simplex);
+
+	//! Finds the minimum volume bounding aligned cube of an aligned box.
+
+	template <int N, typename Real>
+	AlignedBox<N, Real> boundingAlignedCube(
+		const AlignedBox<N, Real>& box);
 
 }
 
