@@ -7,6 +7,7 @@
 #define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_POINT_H
 
 #include "pastel/geometry/alignedbox.h"
+
 #include "pastel/sys/point.h"
 
 namespace Pastel
@@ -15,9 +16,16 @@ namespace Pastel
 	//! Calculates the squared distance between an aligned box and a point.
 
 	template <int N, typename Real>
-		Real distance2(
-			const AlignedBox<N, Real>& alignedBox,
-			const Point<N, Real>& point);
+	Real distance2(
+		const AlignedBox<N, Real>& alignedBox,
+		const Point<N, Real>& point);
+
+	//! Calculates farthest squared distance between an aligned box and a point.
+
+	template <int N, typename Real>
+	Real farthestDistance2(
+		const AlignedBox<N, Real>& alignedBox,
+		const Point<N, Real>& point);
 
 }
 

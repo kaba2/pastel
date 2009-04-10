@@ -38,6 +38,16 @@ namespace Pastel
 		return result;
 	}
 
+	template <int N, typename Real>
+	Real farthestDistance2(
+		const AlignedBox<N, Real>& aBox,
+		const AlignedBox<N, Real>& bBox)
+	{
+		return std::max(
+			dot(aBox.max() - bBox.min()),
+			dot(aBox.min() - bBox.max()));
+	}
+
 }
 
 #endif

@@ -12,25 +12,52 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Real convexPolygonDiameter(
+	Real convexPolygonDiameter2(
 		const std::vector<Point<2, Real> >& pointSet)
 	{
 		const Integer2 antiPodal = convexPolygonAntipodal(pointSet);
 
-		return std::sqrt(distance2(pointSet[antiPodal[0]],
-			pointSet[antiPodal[1]]));
+		return distance2(pointSet[antiPodal[0]],
+			pointSet[antiPodal[1]]);
 	}
 
 	template <typename Real>
-	Real diameter(
+	Real diameter2(
 		const std::vector<Point<2, Real> >& pointSet)
 	{
 		const Integer2 antiPodal = antipodal(pointSet);
 
-		return std::sqrt(distance2(pointSet[antiPodal[0]],
-			pointSet[antiPodal[1]]));
+		return distance2(pointSet[antiPodal[0]],
+			pointSet[antiPodal[1]]);
 	}
 
+	template <int N, typename Real>
+	Real diameter2(
+		const AlignedBox<N, Real>& box)
+	{
+		return dot(box.extent());
+	}
+
+	template <int N, typename Real>
+	Real diameter(
+		const Sphere<N, Real>& sphere)
+	{
+		return 2 * sphere.radius();
+	}
+
+	template <int N, typename Real>
+	Real diameter2(
+		const Sphere<N, Real>& sphere)
+	{
+		return 4 * sphere.radius() * sphere.radius();
+	}
+
+	template <int N, typename Real>
+	Real diameter2(
+		const Box<N, Real>& box)
+	{
+		return 2 * dot(box.width());
+	}
 
 }
 

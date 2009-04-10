@@ -11,6 +11,11 @@ namespace Pastel
 		const AlignedBox<N, Real>& aBox,
 		const AlignedBox<N, Real>& bBox);
 
+	template <int N, typename Real>
+	Real farthestDistance2(
+		const AlignedBox<N, Real>& aBox,
+		const AlignedBox<N, Real>& bBox);
+
 }
 
 #include "pastel/geometry/distance_alignedbox_alignedbox.hpp"

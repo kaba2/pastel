@@ -1364,6 +1364,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="All nearest neighbours"
+			>
+			<File
+				RelativePath=".\all_nearest_neighbors.h"
+				>
+			</File>
+			<File
+				RelativePath=".\all_nearest_neighbors.hpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
