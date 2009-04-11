@@ -13,6 +13,7 @@
 #include "pastel/sys/unorderedset.h"
 
 #include <iostream>
+#include <map>
 
 namespace Pastel
 {
@@ -513,6 +514,8 @@ namespace Pastel
 			{
 				const NeighborhoodPtr box = singularSet_[i];
 
+				const integer pointIndex = box->partitionBegin_;
+
 				ASSERT(box->points() == 1);
 
 				/*
@@ -526,10 +529,15 @@ namespace Pastel
 
 				if (box->neighborSet_.empty())
 				{
+					nearestSet_(pointIndex, 0) = -1;
 					++emptyOnes;
 				}
+				else
+				{
+					nearestSet_(pointIndex, 0) = (*box->neighborSet_.begin())->partitionBegin_;
+				}
 				//ASSERT(!box->neighborSet_.empty());
-				//nearestSet_(i, 0) = (*box->neighborSet_.begin())->partitionBegin_;
+				//nearestSet_(pointIndex, 0) = (*box->neighborSet_.begin())->partitionBegin_;
 			}
 			log() << "Empty neighbor sets = " << emptyOnes << logNewLine;
 		}
@@ -550,6 +558,111 @@ namespace Pastel
 			pointSet, kNearest, nearestSet);
 		
 		computation.work();
+	}
+
+	namespace Detail_AllNearestNeighborsNaive
+	{
+
+		template <typename Real>
+		class Entry
+		{
+		public:
+			Entry(const Real& distance2,
+				integer index)
+				: distance2_(distance2)
+				, index_(index)
+			{
+			}
+
+			bool operator<(const Entry& that) const
+			{
+				if (distance2_ < that.distance2_)
+				{
+					return true;
+				}
+				if (that.distance2_ < distance2_)
+				{
+					return false;
+				}
+				return index_ < that.index_;
+			}
+
+			Real distance2_;
+			integer index_;
+		};
+
+	}
+
+	template <int N, typename Real>
+	void allNearestNeighborsNaive(
+		const std::vector<Point<N, Real> >& pointSet,
+		integer kNearest,
+		Matrix<Unbounded, Unbounded, integer>& nearestSet)
+	{
+		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
+		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
+
+		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
+
+		const integer points = pointSet.size();
+		for (integer i = 0;i < points;++i)
+		{
+			const Point<N, Real>& iPoint = pointSet[i];
+			
+			typedef std::set<Entry> NearestSet;
+			typedef typename NearestSet::iterator NearestIterator;
+
+			NearestSet nearest;
+
+			integer j = 0;
+
+			while(nearest.size() < kNearest)
+			{
+				if (j != i)
+				{
+					const real distance2 = dot(pointSet[j] - iPoint);
+					nearest.insert(Entry(distance2, j));
+				}
+				++j;
+			}
+
+			ASSERT2(nearest.size() == kNearest, nearest.size(), kNearest);
+
+			NearestIterator lastIter = nearest.end();
+			--lastIter;
+
+			real maxDistance2 = lastIter->distance2_;
+
+			while(j < points)
+			{
+				if (j != i)
+				{
+					const real distance2 = dot(pointSet[j] - iPoint);
+					if (distance2 < maxDistance2)
+					{
+						nearest.erase(lastIter);
+						nearest.insert(Entry(distance2, j));
+						lastIter = nearest.end();
+						--lastIter;
+						maxDistance2 = lastIter->distance2_;
+					}
+				}
+				++j;
+			}
+
+			ASSERT2(nearest.size() == kNearest, nearest.size(), kNearest);
+
+			integer nearestIndex = 0;
+			NearestIterator iter = nearest.begin();
+			const NearestIterator iterEnd = nearest.end();
+			while(iter != iterEnd)
+			{
+				nearestSet(i, nearestIndex) = iter->index_;
+				++nearestIndex;
+				++iter;
+			}
+		}
 	}
 
 }
