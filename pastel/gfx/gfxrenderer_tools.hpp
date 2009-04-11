@@ -7,6 +7,7 @@
 #include "pastel/geometry/sweep.h"
 
 #include "pastel/math/linear.h"
+#include "pastel/math/coordinates.h"
 
 namespace Pastel
 {
@@ -144,9 +145,9 @@ namespace Pastel
 					renderer,
 					Segment2(
 					circle.position() +
-					circle.radius() * Vector2(std::cos(angle), std::sin(angle)),
+					sphericalToCartesian(Vector2(circle.radius(), angle)),
 					circle.position() +
-					circle.radius() * Vector2(std::cos(nextAngle), std::sin(nextAngle))));
+					sphericalToCartesian(Vector2(circle.radius(), nextAngle))));
 
 				angle = nextAngle;
 				nextAngle += angleAdd;
@@ -163,9 +164,9 @@ namespace Pastel
 					Triangle2(
 					circle.position(),
 					circle.position() +
-					circle.radius() * Vector2(std::cos(angle), std::sin(angle)),
+					sphericalToCartesian(Vector2(circle.radius(), angle)),
 					circle.position() +
-					circle.radius() * Vector2(std::cos(nextAngle), std::sin(nextAngle))));
+					sphericalToCartesian(Vector2(circle.radius(), nextAngle))));
 
 				angle = nextAngle;
 				nextAngle += angleAdd;

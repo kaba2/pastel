@@ -14,36 +14,6 @@
 namespace Pastel
 {
 
-	//! Converts cartesian coordinates to polar coordinates.
-
-	/*!
-	Polar coordinates are of the form '(radius, angle)', where
-	'angle' is the angle from the x-axis ([0, 2pi[) and
-	'radius' is the distance from the origin ([0, infinity[).
-
-	cartesianToPolar(x, y) =
-	(sqrt(x^2 + y^2), positiveRadians(atan2(y, x)))
-	*/
-
-	template <typename Real>
-	Vector<2, Real> cartesianToPolar(
-		const Vector<2, Real>& cartesian);
-
-	//! Converts polar coordinates to cartesian coordinates.
-
-	/*!
-	Polar coordinates are of the form '(radius, angle)', where
-	'angle' is the angle from the x-axis (]-infinity, infinity[) and
-	'radius' is the distance from the origin ([0, infinity[).
-
-	polarToCartesian(radius, angle) =
-	(cos(angle) * radius, sin(angle) * radius)
-	*/
-
-	template <typename Real>
-	Vector<2, Real> polarToCartesian(
-		const Vector<2, Real>& polar);
-
 	//! Converts cartesian coordinates to cylinder coordinates.
 
 	/*!

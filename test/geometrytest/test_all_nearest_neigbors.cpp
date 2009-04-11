@@ -34,7 +34,7 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				asPoint(randomVectorSphere<N, Real>()));
+				asPoint(randomVectorBall<N, Real>()));
 		}
 
 		pointSet.swap(result);
@@ -43,8 +43,8 @@ namespace
 	template <int N, typename Real>
 	void test()
 	{
-		const integer points = 7500;
-		const integer kNearest = 1;
+		const integer points = 3000;
+		const integer kNearest = 3;
 
 		log() << "Creating point set with " << points << " points." << logNewLine;
 		std::vector<Point<N, Real> > pointSet;
@@ -55,10 +55,34 @@ namespace
 
 		log() << "Starting algorithm..." << logNewLine;
 
-		allNearestNeighbors(
+		allNearestNeighborsNaive(
 			pointSet,
 			kNearest,
 			neighborSet);
+
+		Array<N, Color> image(768, 768);
+		ImageGfxRenderer<Color> renderer;
+		renderer.setImage(&image);
+		renderer.setColor(Color(1));
+		renderer.setViewWindow(AlignedBox2(-1, -1, 1, 1));
+		renderer.setFilled(false);
+
+		for (integer i = 0;i < points;++i)
+		{
+			renderer.setColor(Color(1));
+			drawCircle(renderer, Sphere2(pointSet[i], 0.02));
+			for (integer j = 0;j < kNearest;++j)
+			{
+				const integer neighbor = neighborSet(i, j);
+				if (neighbor >= 0)
+				{
+					renderer.setColor(hsvToRgb(Color((real)j / kNearest, 1, 1)));
+					drawArrow(renderer, Segment2(pointSet[i], pointSet[neighbor]), 0.04 / (j + 1));
+				}
+			}
+		}
+
+		savePcx(image, "all_nearest.pcx");
 
 		log() << "Done." << logNewLine;
 	}
