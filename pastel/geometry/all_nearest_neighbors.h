@@ -1,7 +1,7 @@
 #ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBOURS_H
 #define PASTELGEOMETRY_ALL_NEAREST_NEIGHBOURS_H
 
-#include "pastel/math/matrix.h"
+#include "pastel/sys/array.h"
 
 #include "pastel/sys/point.h"
 
@@ -32,7 +32,7 @@ namespace Pastel
 	void allNearestNeighbors(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		Matrix<Unbounded, Unbounded, integer>& nearestSet);
+		Array<2, integer>& nearestSet);
 
 	//! Finds all-k-nearest-neighbours of a point set.
 	/*!
@@ -54,7 +54,7 @@ namespace Pastel
 	void allNearestNeighborsNaive(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		Matrix<Unbounded, Unbounded, integer>& nearestSet);
+		Array<2, integer>& nearestSet);
 
 	//! Finds all-k-nearest-neighbours of a point set.
 	/*!
@@ -74,12 +74,34 @@ namespace Pastel
 	void allNearestNeighborsOwn(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		Matrix<Unbounded, Unbounded, integer>& nearestSet);
+		Array<2, integer>& nearestSet);
+
+	//! Finds all-k-nearest-neighbours of a point set.
+	/*!
+	Preconditions:
+	kNearest >= 1
+	kNearest <= pointSet.size()
+
+	Time complexity:
+	Unknown
+	Could it be O(d^2 log(d) n sqrt(n))?
+
+	Algorithm:
+	kd-tree
+	*/
+
+	template <int N, typename Real, typename NormFunctor>
+	void allNearestNeighborsKdTree(
+		const std::vector<Point<N, Real> >& pointSet,
+		integer kNearest,
+		const NormFunctor& normFunctor,
+		Array<2, integer>& nearestSet);
 
 }
 
 #include "pastel/geometry/all_nearest_neighbors.hpp"
 #include "pastel/geometry/all_nearest_neighbors_more.hpp"
 #include "pastel/geometry/all_nearest_neighbors_more2.hpp"
+#include "pastel/geometry/all_nearest_neighbors_more3.hpp"
 
 #endif
