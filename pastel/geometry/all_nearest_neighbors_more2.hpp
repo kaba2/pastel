@@ -5,8 +5,6 @@
 
 #include "pastel/sys/unorderedmap.h"
 
-#include "pastel/math/matrix.h"
-
 #include <vector>
 
 namespace Pastel
@@ -22,7 +20,7 @@ namespace Pastel
 			AllNearestNeighborsOwn(
 				const std::vector<Point<N, Real> >& pointSet,
 				integer kNearest,
-				Matrix<Unbounded, Unbounded, integer>& nearestSet)
+				Array<2, integer>& nearestSet)
 				: pointSet_(pointSet)
 				, kNearest_(kNearest)
 				, nearestSet_(nearestSet)
@@ -123,7 +121,7 @@ namespace Pastel
 
 			const std::vector<Point<N, Real> >& pointSet_;
 			integer kNearest_;
-			Matrix<Unbounded, Unbounded, integer>& nearestSet_;
+			Array<2, integer>& nearestSet_;
 
 			integer searchSum_;
 		};
@@ -194,6 +192,7 @@ namespace Pastel
 						hitMap.insert(std::make_pair(entry.index_, 0)).first;
 
 					integer& hitCount = hitIter->second;
+					ASSERT2(hitCount >= 0 && hitCount < N, hitCount, N);
 					++hitCount;
 
 					if (hitCount == N)
@@ -286,7 +285,7 @@ namespace Pastel
 	void allNearestNeighborsOwn(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		Matrix<Unbounded, Unbounded, integer>& nearestSet)
+		Array<2, integer>& nearestSet)
 	{
 		Detail_AllNearestNeighborsOwn::AllNearestNeighborsOwn<N, Real>
 			computation(pointSet, kNearest, nearestSet);

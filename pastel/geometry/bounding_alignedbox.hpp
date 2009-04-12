@@ -97,7 +97,12 @@ namespace Pastel
 	{
 		const Real maxRadius = max(box.extent()) * 0.5;
 		const Point<N, Real> center = linear(box.min(), box.max(), 0.5);
-		return AlignedBox<N, Real>(center - maxRadius, center + maxRadius);
+		Point<N, Real> minPoint = center - maxRadius;
+		Point<N, Real> maxPoint = center + maxRadius;
+
+		return AlignedBox<N, Real>(
+			min(minPoint, box.min()),
+			max(maxPoint, box.max()));
 	}
 
 }

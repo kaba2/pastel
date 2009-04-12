@@ -23,26 +23,9 @@ using namespace Pastel;
 namespace
 {
 
-	class PointPolicy
-	{
-	public:
-		typedef Point2 Object;
-
-		AlignedBox2 bound(const Point2& object) const
-		{
-			return AlignedBox2(object);
-		}
-
-		Tuple<2, real> bound(const Point2& object, integer axis) const
-		{
-			return Tuple<2, real>(object[axis]);
-		}
-	};
-
 	void testPointConstruction()
 	{
-		PointPolicy pointPolicy;
-		KdTree<2, real, PointPolicy> tree(pointPolicy);
+		KdTree<2, real> tree;
 
 		const integer points = 100000;
 		std::vector<Point2> pointList;

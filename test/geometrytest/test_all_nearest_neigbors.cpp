@@ -44,39 +44,41 @@ namespace
 	template <int N, typename Real>
 	void test()
 	{
-		const integer points = 50000;
+		const integer points = 100;
 		const integer kNearest = 1;
 
 		log() << "Creating point set with " << points << " points." << logNewLine;
 		std::vector<Point<N, Real> > pointSet;
 		generateSpherePointSet(points, pointSet);
 
-		Matrix<Unbounded, Unbounded, integer> neighborSet;
-		neighborSet.setSize(points, kNearest);
+		Array<2, integer> neighborSet(kNearest, points);
 
 		Timer timer;
 
-		log() << "Computing brute force..." << logNewLine;
+		log() << "Computing with a brute force algorithm..." << logNewLine;
 
 		timer.setStart();
 
+		/*
 		allNearestNeighborsNaive(
 			pointSet,
 			kNearest,
 			neighborSet);
+		*/
 
 		timer.store();
 
 		log() << "Computation took " << timer.seconds() 
 			<< " seconds." << logNewLine;
 
-		log() << "Starting algorithm..." << logNewLine;
+		log() << "Computing with a more complex algorithm..." << logNewLine;
 
 		timer.setStart();
 
-		allNearestNeighborsOwn(
+		allNearestNeighborsKdTree(
 			pointSet,
 			kNearest,
+			norm<N, Real>,
 			neighborSet);
 
 		timer.store();
@@ -84,7 +86,6 @@ namespace
 		log() << "Computation took " << timer.seconds() 
 			<< " seconds." << logNewLine;
 
-		/*
 		Array<N, Color> image(768, 768);
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -108,14 +109,13 @@ namespace
 		}
 
 		savePcx(image, "all_nearest.pcx");
-		*/
 
 		log() << "Done." << logNewLine;
 	}
 
 	void testAllNearest()
 	{
-		test<3, float>();
+		test<2, float>();
 	}
 
 	void testAdd()

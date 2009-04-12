@@ -12,6 +12,23 @@
 namespace Pastel
 {
 
+	template <int N, typename Real>
+	class PointPolicy
+	{
+	public:
+		typedef Point<N, Real> Object;
+
+		AlignedBox<N, Real> bound(const Point<N, Real>& object) const
+		{
+			return AlignedBox<N, Real>(object);
+		}
+
+		Tuple<2, real> bound(const Point<N, Real>& object, integer axis) const
+		{
+			return Tuple<2, real>(object[axis]);
+		}
+	};
+
 	//! A kd-tree
 	/*!
 	class ObjectPolicy
@@ -25,7 +42,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real,
-		typename ObjectPolicy>
+		typename ObjectPolicy = PointPolicy<N, Real> >
 	class KdTree
 	{
 	public:

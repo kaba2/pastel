@@ -1383,6 +1383,10 @@
 				RelativePath=".\all_nearest_neighbors_more2.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\all_nearest_neighbors_more3.hpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

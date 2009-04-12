@@ -49,26 +49,9 @@ real searchRadius__ = SearchRadius;
 
 GlGfxRenderer* renderer__;
 
-class PointPolicy
-{
-public:
-	typedef Point2 Object;
+typedef KdTree<2, real> MyTree;
 
-	Tuple<2, real> bound(const Point2& object, integer axis) const
-	{
-		return Tuple<2, real>(object[axis]);
-	}
-
-	AlignedBox2 bound(const Point2& object) const
-	{
-		return AlignedBox2(object);
-	}
-};
-
-typedef KdTree<2, real, PointPolicy> MyTree;
-
-PointPolicy pointPolicy;
-MyTree tree__(pointPolicy);
+MyTree tree__;
 
 typedef SmallSet<KeyValue<real, MyTree::ConstObjectIterator> > NearestPointSet;
 

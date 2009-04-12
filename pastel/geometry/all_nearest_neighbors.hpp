@@ -51,7 +51,7 @@ namespace Pastel
 					integer partitionEnd)
 					: neighborSet_()
 					, attractorSet_()
-					, estimate_(0)
+					, estimate_(infinity<Real>())
 					, bound_(bound)
 					, partitionBegin_(partitionBegin)
 					, partitionEnd_(partitionEnd)
@@ -88,8 +88,7 @@ namespace Pastel
 				const NeighborhoodPtr& box);
 			
 			void createEstimate(
-				const NeighborhoodPtr& box,
-				const std::vector<NeighborhoodPtr>& childSet);
+				const NeighborhoodPtr& box);
 			
 			void updateEstimate(
 				const NeighborhoodPtr& box,
@@ -168,15 +167,25 @@ namespace Pastel
 
 					// Update estimates of the subnodes.
 
-					createEstimate(child, childSet);
+					createEstimate(child);
 
 					// Queue the subnodes for further
 					// processing.
 
-					if (child->points() > 1)
+					const Real childVolume = volume(child->bound_);
+
+					// We use the non-zero volume instead of
+					// the number of points to determine the
+					// need for further processing.
+					// This is because there might
+					// be multiple points at the same location,
+					// which leads to infinite recursion.
+
+					//if (child->points() > 1)
+					if (childVolume > 0)
 					{
 						boxSet_.insert(std::make_pair(
-							volume(child->bound_), child));
+							childVolume, child));
 					}
 					else
 					{
@@ -372,7 +381,7 @@ namespace Pastel
 					}
 					if (newMax > originalMax[i])
 					{
-						newMin -= originalMax[i] - newMax;
+						newMin -= newMax - originalMax[i];
 						newMax = originalMax[i];
 					}
 
@@ -381,8 +390,12 @@ namespace Pastel
 					// some points outside of it.
 					// We make sure this does not happen.
 
-					minPoint[i] = std::min(minPoint[i], newMin);
-					maxPoint[i] = std::max(maxPoint[i], newMax);
+					minPoint[i] = std::max(
+						std::min(minPoint[i], newMin),
+						originalMin[i]);
+					maxPoint[i] = std::min(
+						std::max(maxPoint[i], newMax),
+						originalMax[i]);
 				}
 			}
 
@@ -394,30 +407,16 @@ namespace Pastel
 
 		template <int N, typename Real>
 		void AllNearestNeighbors<N, Real>::createEstimate(
-			const NeighborhoodPtr& box,
-			const std::vector<NeighborhoodPtr>& childSet)
+			const NeighborhoodPtr& box)
 		{
 			ASSERT(box->points() > 0);
 
 			if (box->points() == 1)
 			{
-				const Real neighborEstimate = 
-					estimate(
+				box->estimate_ = estimate(
 					box,
 					box->neighborSet_.begin(),
 					box->neighborSet_.end());
-
-				/*
-				const Real childEstimate = 
-					estimate(
-					box, 
-					childSet.begin(), 
-					childSet.end());
-
-				box->estimate_ = std::min(
-					neighborEstimate, childEstimate);
-				*/
-				box->estimate_ = neighborEstimate;
 			}
 			else
 			{
@@ -513,7 +512,7 @@ namespace Pastel
 			{
 				const NeighborhoodPtr box = singularSet_[i];
 
-				const integer pointIndex = box->partitionBegin_;
+				const integer pointIndex = pointPartition_[box->partitionBegin_];
 
 				ASSERT(box->points() == 1);
 
@@ -533,7 +532,8 @@ namespace Pastel
 				}
 				else
 				{
-					nearestSet_(pointIndex, 0) = (*box->neighborSet_.begin())->partitionBegin_;
+					const integer neighborIndex = (*box->neighborSet_.begin())->partitionBegin_;
+					nearestSet_(pointIndex, 0) = pointPartition_[neighborIndex];
 				}
 				//ASSERT(!box->neighborSet_.empty());
 				//nearestSet_(pointIndex, 0) = (*box->neighborSet_.begin())->partitionBegin_;

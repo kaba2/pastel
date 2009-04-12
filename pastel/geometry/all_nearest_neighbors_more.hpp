@@ -45,7 +45,7 @@ namespace Pastel
 	void allNearestNeighborsNaive(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		Matrix<Unbounded, Unbounded, integer>& nearestSet)
+		Array<2, integer>& nearestSet)
 	{
 		ENSURE1(kNearest >= 1, kNearest);
 		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
