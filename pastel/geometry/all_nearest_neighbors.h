@@ -49,8 +49,29 @@ namespace Pastel
 	Algorithm:
 	Linear scan (brute force).
 	*/
+
 	template <int N, typename Real>
 	void allNearestNeighborsNaive(
+		const std::vector<Point<N, Real> >& pointSet,
+		integer kNearest,
+		Matrix<Unbounded, Unbounded, integer>& nearestSet);
+
+	//! Finds all-k-nearest-neighbours of a point set.
+	/*!
+	Preconditions:
+	kNearest >= 1
+	kNearest <= pointSet.size()
+
+	Time complexity:
+	Unknown
+	Could it be O(d^2 log(d) n sqrt(n))?
+
+	Algorithm:
+	Expanding neighborhood via sorted axis projections.
+	*/
+
+	template <int N, typename Real>
+	void allNearestNeighborsOwn(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		Matrix<Unbounded, Unbounded, integer>& nearestSet);
@@ -58,5 +79,7 @@ namespace Pastel
 }
 
 #include "pastel/geometry/all_nearest_neighbors.hpp"
+#include "pastel/geometry/all_nearest_neighbors_more.hpp"
+#include "pastel/geometry/all_nearest_neighbors_more2.hpp"
 
 #endif
