@@ -13,8 +13,9 @@
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/view_all.h"
-
 #include "pastel/sys/vector_tools.h"
+
+#include "pastel/device/timer.h"
 
 using namespace Pastel;
 
@@ -43,8 +44,8 @@ namespace
 	template <int N, typename Real>
 	void test()
 	{
-		const integer points = 3000;
-		const integer kNearest = 3;
+		const integer points = 50000;
+		const integer kNearest = 1;
 
 		log() << "Creating point set with " << points << " points." << logNewLine;
 		std::vector<Point<N, Real> > pointSet;
@@ -53,13 +54,37 @@ namespace
 		Matrix<Unbounded, Unbounded, integer> neighborSet;
 		neighborSet.setSize(points, kNearest);
 
-		log() << "Starting algorithm..." << logNewLine;
+		Timer timer;
+
+		log() << "Computing brute force..." << logNewLine;
+
+		timer.setStart();
 
 		allNearestNeighborsNaive(
 			pointSet,
 			kNearest,
 			neighborSet);
 
+		timer.store();
+
+		log() << "Computation took " << timer.seconds() 
+			<< " seconds." << logNewLine;
+
+		log() << "Starting algorithm..." << logNewLine;
+
+		timer.setStart();
+
+		allNearestNeighborsOwn(
+			pointSet,
+			kNearest,
+			neighborSet);
+
+		timer.store();
+
+		log() << "Computation took " << timer.seconds() 
+			<< " seconds." << logNewLine;
+
+		/*
 		Array<N, Color> image(768, 768);
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -83,13 +108,14 @@ namespace
 		}
 
 		savePcx(image, "all_nearest.pcx");
+		*/
 
 		log() << "Done." << logNewLine;
 	}
 
 	void testAllNearest()
 	{
-		test<2, float>();
+		test<3, float>();
 	}
 
 	void testAdd()
