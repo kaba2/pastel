@@ -37,7 +37,8 @@ namespace Pastel
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		const NormFunctor& distance,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const NormFunctor& normFunctor,
 		Array<2, integer>& nearestArray)
 	{
 		ENSURE2(kNearest > 0 && kNearest < pointSet.size(), 
@@ -53,6 +54,7 @@ namespace Pastel
 
 		PointListPolicy<N, Real> policy(pointSet);
 		Tree tree(policy);
+
 		std::vector<integer> indexList;
 		indexList.reserve(pointSet.size());
 		for (integer i = 0;i < pointSet.size();++i)
@@ -64,24 +66,40 @@ namespace Pastel
 		refineSlidingMidpoint(
 			computeKdTreeMaxDepth(tree.objects()), 4, tree);
 
+		log() << tree.nodes() << " nodes, "
+			<< tree.leaves() << " leaves, " 
+			<< tree.objects() << " objects, "
+			<< depth(tree) << " depth."
+			<< logNewLine;
+
 		const integer points = pointSet.size();
-		Array<2, integer> result(points, kNearest);
 
 		for (integer i = 0;i < points;++i)
 		{
+			// The query point itself will probably
+			// be in the nearest neighbor set
+			// (but not necessarily if there
+			// are many points at the same location).
+			// We have to exclude that and thus
+			// we must search for k + 1 points.
+
 			NearestSet nearestSet;
-			nearestSet.reserve(kNearest);
+			nearestSet.reserve(kNearest + 1);
 
-			findNearest(tree, pointSet[i], infinity<Real>(),
-				distance, kNearest, nearestSet);
+			findNearest(tree, pointSet[i], maxDistance,
+				normFunctor, kNearest + 1, nearestSet);
 
-			for (integer j = 0;j < kNearest;++j)
+			integer nearestIndex = 0;
+			for (integer j = 0;j < kNearest + 1 && nearestIndex < kNearest;++j)
 			{
-				nearestArray(j, i) = *nearestSet[j].value();
+				const integer neighborIndex = *nearestSet[j].value();
+				if (neighborIndex != i)
+				{
+					nearestArray(nearestIndex, i) = neighborIndex;
+					++nearestIndex;
+				}
 			}
 		}
-
-		result.swap(nearestArray);
 	}
 
 

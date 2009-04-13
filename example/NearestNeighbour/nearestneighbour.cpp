@@ -38,10 +38,10 @@ const real SearchRadius = 0.2;
 const integer NearestPoints = 15;
 const integer Points = 10000;
 const real TranslationSpeed = 0.02;
-const real ZOOM_Factor = 1.05;
+const real ZoomFactor = 1.05;
 const real RotationSpeed = 0.02;
 const integer SprayPoints = 20;
-const real SPRAY_RADIUS = 0.05;
+const real SprayRadius = 0.05;
 const real PointRange = 0.9;
 
 integer nearestPoints__ = NearestPoints;
@@ -335,14 +335,14 @@ void handleKeyboard()
 	if (deviceSystem().keyDown(SDLK_r))
 	{
 		AffineTransformation2 transformation(renderer__->viewTransformation());
-		transformation.transformation() /= ZOOM_Factor;
+		transformation.transformation() /= ZoomFactor;
 		renderer__->setViewTransformation(transformation);
 	}
 
 	if (deviceSystem().keyDown(SDLK_f))
 	{
 		AffineTransformation2 transformation(renderer__->viewTransformation());
-		transformation.transformation() *= ZOOM_Factor;
+		transformation.transformation() *= ZoomFactor;
 		renderer__->setViewTransformation(transformation);
 	}
 }
@@ -397,7 +397,7 @@ void logicHandler()
 
 	if (leftButton)
 	{
-		sprayPoints(worldMouse, SPRAY_RADIUS, SprayPoints);
+		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
 	findNearest(tree__, worldMouse, searchRadius__,
@@ -540,7 +540,7 @@ int myMain()
 		AlignedBox2(Point2(0.4, 0.0), Point2(0.6, 0.2)), Points / 4);
 
 	computeTree(24);
-	//timing();
+	timing();
 
 	deviceSystem().startEventLoop(LogicFps);
 

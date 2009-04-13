@@ -45,6 +45,7 @@ namespace Pastel
 	void allNearestNeighborsNaive(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		Array<2, integer>& nearestSet)
 	{
 		ENSURE1(kNearest >= 1, kNearest);
@@ -52,6 +53,8 @@ namespace Pastel
 		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
 
 		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
+
+		const Real maxDistance2 = square(maxDistance);
 
 		const integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)
@@ -65,12 +68,15 @@ namespace Pastel
 
 			integer j = 0;
 
-			while(nearest.size() < kNearest)
+			while(nearest.size() < kNearest && j < points)
 			{
 				if (j != i)
 				{
 					const real distance2 = dot(pointSet[j] - iPoint);
-					nearest.insert(Entry(distance2, j));
+					if (distance2 <= maxDistance2)
+					{
+						nearest.insert(Entry(distance2, j));
+					}
 				}
 				++j;
 			}
@@ -80,20 +86,20 @@ namespace Pastel
 			NearestIterator lastIter = nearest.end();
 			--lastIter;
 
-			real maxDistance2 = lastIter->distance2_;
+			real cullDistance2 = lastIter->distance2_;
 
 			while(j < points)
 			{
 				if (j != i)
 				{
 					const real distance2 = dot(pointSet[j] - iPoint);
-					if (distance2 < maxDistance2)
+					if (distance2 <= cullDistance2)
 					{
 						nearest.erase(lastIter);
 						nearest.insert(Entry(distance2, j));
 						lastIter = nearest.end();
 						--lastIter;
-						maxDistance2 = lastIter->distance2_;
+						cullDistance2 = lastIter->distance2_;
 					}
 				}
 				++j;
@@ -106,7 +112,7 @@ namespace Pastel
 			const NearestIterator iterEnd = nearest.end();
 			while(iter != iterEnd)
 			{
-				nearestSet(i, nearestIndex) = iter->index_;
+				nearestSet(nearestIndex, i) = iter->index_;
 				++nearestIndex;
 				++iter;
 			}
