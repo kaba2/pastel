@@ -93,14 +93,15 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::IntermediateNode
+	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_Low
 		: public Node
 	{
-	public:
+	private:
 		// TODO: possible compiler bug: doesn't work without this.
 		using Node::unknown_;
 
-		IntermediateNode(
+	public:
+		IntermediateNode_Low(
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
@@ -139,8 +140,7 @@ namespace Pastel
 			return (Node*)(nodeId ^ (nodeId & 0x3));
 		}
 
-	// FIX: make private
-	//private:
+	private:
 		Node* encodeNegative(Node* node, integer splitAxis)
 		{
 			pointer_integer nodeId = (pointer_integer)node;
@@ -183,6 +183,53 @@ namespace Pastel
 
 		Node* negative_;
 		Real splitPosition_;
+	};
+
+	template <int N, typename Real, typename ObjectPolicy>
+	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_High
+		: public Node
+	{
+	private:
+		// TODO: possible compiler bug: doesn't work without this.
+		using Node::unknown_;
+
+	public:
+		IntermediateNode_High(
+			Node* positive,
+			Node* negative,
+			const Real& splitPosition,
+			integer splitAxis)
+			: Node((pointer_integer)positive)
+			, negative_(negative)
+			, splitPosition_(splitPosition)
+			, splitAxis_(splitAxis)
+		{
+		}
+
+		const Real& splitPosition() const
+		{
+			return splitPosition_;
+		}
+
+		integer splitAxis() const
+		{
+			return splitAxis_;
+		}
+
+		Node* positive() const
+		{
+			return (Node*)unknown_;
+		}
+
+		Node* negative() const
+		{
+			return negative_;
+		}
+
+	private:
+		Node* negative_;
+		Real splitPosition_;
+		uint8 splitAxis_;
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -341,10 +388,6 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	KdTree<N, Real, ObjectPolicy>::~KdTree()
 	{
-		// The bit-level tricks rely on the dimension
-		// to be at most 8.
-		BOOST_STATIC_ASSERT(N <= 8);
-
 		// This is what we assume for memory allocation.
 		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(IntermediateNode));
 

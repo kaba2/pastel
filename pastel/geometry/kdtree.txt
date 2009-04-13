@@ -202,25 +202,18 @@ Normal node:
 
 Leaf bit differentiates between leaf nodes and normal nodes.
 Because memory is allocated on at least 4 byte alignment,
-you can store data in the two less significant bits of
+you can store data in the two least significant bits of
 the pointers. For normal nodes, use this storage for
 the splitting axis and the leaf bit. For leaf nodes, you
 can store the leaf bit along with the element count.
+For dimensions higher than 8 you must allocate an additional
+byte for the splitting axis.
 
-This amounts to 12bytes per node.
+This amounts to 12bytes per node for dimensions <= 8,
+and 13 bytes (padded to 16?) per node for dimensions > 8.
 
 => Packing data this way is very significant since in general there will 
 be lots of nodes.
-
-Should you use indices or pointers inside the data structure?
--------------------------------------------------------------
-
-- indices lead to increased indirection, however, their referenced memory is not required to be persistent.
-thus arrays can be used, which have excellent locality of reference.
-=> cursors then need to include both a pointer to the tree as well as the index
-
-- pointers require persistent memory, but they avoid indirection. pointers are going to be 64-bit
-in the future, which can be a bit too much. it is not a bad assumption to restrict to 32-bit object counts.
 
 Should the kd-tree know its bounding box?
 -----------------------------------------

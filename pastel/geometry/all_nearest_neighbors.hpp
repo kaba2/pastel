@@ -27,7 +27,7 @@ namespace Pastel
 			explicit AllNearestNeighbors(
 				const std::vector<Point<N, Real> >& pointSet,
 				integer kNearest,
-				Matrix<Unbounded, Unbounded, integer>& nearestSet)
+				Array<2, integer>& nearestSet)
 				: pointSet_(pointSet)
 				, kNearest_(kNearest)
 				, nearestSet_(nearestSet)
@@ -111,7 +111,7 @@ namespace Pastel
 			integer kNearest_;
 			std::vector<integer> pointPartition_;
 			std::multimap<Real, NeighborhoodPtr, std::greater<Real> > boxSet_;
-			Matrix<Unbounded, Unbounded, integer>& nearestSet_;
+			Array<2, integer>& nearestSet_;
 			std::vector<NeighborhoodPtr> singularSet_;
 		};
 
@@ -411,7 +411,8 @@ namespace Pastel
 		{
 			ASSERT(box->points() > 0);
 
-			if (box->points() == 1)
+			//if (box->points() == 1)
+			if (volume(box->bound_) == 0)
 			{
 				box->estimate_ = estimate(
 					box,
@@ -504,7 +505,7 @@ namespace Pastel
 		void AllNearestNeighbors<N, Real>::extractNearest()
 		{
 			const integer points = singularSet_.size();
-			ASSERT2(points == nearestSet_.height(), points, nearestSet_.height());
+			ASSERT2(points == pointSet_.size(), points, pointSet_.size());
 
 			integer emptyOnes = 0;
 
@@ -512,9 +513,9 @@ namespace Pastel
 			{
 				const NeighborhoodPtr box = singularSet_[i];
 
-				const integer pointIndex = pointPartition_[box->partitionBegin_];
-
 				ASSERT(box->points() == 1);
+
+				const integer pointIndex = pointPartition_[box->partitionBegin_];
 
 				/*
 				log() << "(" << box->estimate_ << ", " << box->neighborSet_.size() << ", "
@@ -527,17 +528,18 @@ namespace Pastel
 
 				if (box->neighborSet_.empty())
 				{
-					nearestSet_(pointIndex, 0) = -1;
+					nearestSet_(0, pointIndex) = -1;
 					++emptyOnes;
 				}
 				else
 				{
 					const integer neighborIndex = (*box->neighborSet_.begin())->partitionBegin_;
-					nearestSet_(pointIndex, 0) = pointPartition_[neighborIndex];
+					nearestSet_(0, pointIndex) = pointPartition_[neighborIndex];
 				}
 				//ASSERT(!box->neighborSet_.empty());
-				//nearestSet_(pointIndex, 0) = (*box->neighborSet_.begin())->partitionBegin_;
+				//nearestSet_(0, pointIndex) = (*box->neighborSet_.begin())->partitionBegin_;
 			}
+
 			log() << "Empty neighbor sets = " << emptyOnes << logNewLine;
 		}
 
@@ -547,7 +549,7 @@ namespace Pastel
 	void allNearestNeighbors(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
-		Matrix<Unbounded, Unbounded, integer>& nearestSet)
+		Array<2, integer>& nearestSet)
 	{
 		ENSURE1(kNearest >= 1, kNearest);
 		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);

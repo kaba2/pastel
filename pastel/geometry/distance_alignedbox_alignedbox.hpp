@@ -3,6 +3,8 @@
 
 #include "pastel/geometry/distance_alignedbox_alignedbox.h"
 
+#include "pastel/sys/syscommon.h"
+
 namespace Pastel
 {
 
@@ -22,15 +24,11 @@ namespace Pastel
 
 			if (aMin > bMax)
 			{
-				const Real delta = aMin - bMax;
-
-				result += delta * delta;
+				result += square(aMin - bMax);
 			}
 			else if (bMin > aMax)
 			{
-				const Real delta = bMin - aMax;
-
-				result += delta * delta;
+				result += square(bMin - aMax);
 			}
 			// else the projection intervals overlap.
 		}

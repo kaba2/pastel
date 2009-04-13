@@ -9,6 +9,8 @@
 
 #include "pastel/geometry/alignedbox.h"
 
+#include <boost/mpl/if.hpp>
+
 namespace Pastel
 {
 
@@ -56,7 +58,21 @@ namespace Pastel
 
 		class Node;
 		class LeafNode;
-		class IntermediateNode;
+		class IntermediateNode_Low;
+		class IntermediateNode_High;
+
+		// There are two versions of the intermediate node class.
+		// The first one uses bit tricks to pack the node
+		// for compact storage. This trick only
+		// works for dimension <= 8. For higher dimensions
+		// one needs an additional byte per node (which
+		// can mean still additional storage because
+		// of padding).
+
+		typedef typename boost::mpl::if_c<
+			(N <= 8),
+			IntermediateNode_Low,
+			IntermediateNode_High>::type IntermediateNode;
 
 	public:
 		enum

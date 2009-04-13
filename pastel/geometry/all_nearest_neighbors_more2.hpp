@@ -197,7 +197,7 @@ namespace Pastel
 
 					if (hitCount == N)
 					{
-						nearestSet_(i, nearestFound) = entry.index_;
+						nearestSet_(nearestFound, i) = entry.index_;
 						++nearestFound;
 						if (nearestFound == kNearest_)
 						{

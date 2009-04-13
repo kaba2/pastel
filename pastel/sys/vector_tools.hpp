@@ -224,8 +224,9 @@ namespace Pastel
 	typename boost::enable_if_c<(N > 1), Real>::type
 		norm(const Vector<N, Real>& that)
 	{
-		//return std::sqrt(dot(that, that));
+		return std::sqrt(dot(that, that));
 
+		/*
 		// If v[0] != 0,
 		// then
 		// sqrt(v[0]^2 + ... v[N - 1]^2) =
@@ -262,6 +263,7 @@ namespace Pastel
 		}
 
 		return pivot * std::sqrt(sum);
+		*/
 	}
 
 	template <int N, typename Real>
@@ -291,8 +293,9 @@ namespace Pastel
 	{
 		PENSURE1(metric >= 1, metric);
 
-		//return pow(powerSum(that, metric), inverse(metric));
+		return pow(powerSum(that, metric), inverse(metric));
 
+		/*
 		// If v[0] != 0,
 		// then
 		// root_p(v[0]^p + ... v[N - 1]^p) =
@@ -327,6 +330,7 @@ namespace Pastel
 		}
 
 		return pivot * std::pow(sum, inverse(metric));
+		*/
 	}
 
 	template <int N, typename Real>

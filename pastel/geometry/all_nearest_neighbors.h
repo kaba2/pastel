@@ -54,6 +54,7 @@ namespace Pastel
 	void allNearestNeighborsNaive(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		Array<2, integer>& nearestSet);
 
 	//! Finds all-k-nearest-neighbours of a point set.
@@ -94,6 +95,7 @@ namespace Pastel
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormFunctor& normFunctor,
 		Array<2, integer>& nearestSet);
 

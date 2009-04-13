@@ -52,6 +52,7 @@ namespace
 		generateSpherePointSet(points, pointSet);
 
 		Array<2, integer> neighborSet(kNearest, points);
+		Array<2, integer> naiveNeighborSet(kNearest, points);
 
 		Timer timer;
 
@@ -59,34 +60,76 @@ namespace
 
 		timer.setStart();
 
-		/*
 		allNearestNeighborsNaive(
 			pointSet,
 			kNearest,
-			neighborSet);
-		*/
+			infinity<Real>(),
+			naiveNeighborSet);
 
 		timer.store();
 
 		log() << "Computation took " << timer.seconds() 
 			<< " seconds." << logNewLine;
+
+		drawNearest("brute", pointSet, naiveNeighborSet);
 
 		log() << "Computing with a more complex algorithm..." << logNewLine;
 
 		timer.setStart();
 
+		/*
+		allNearestNeighbors(
+			pointSet,
+			kNearest,
+			neighborSet);
+		*/
+
+		/*
+		allNearestNeighborsOwn(
+			pointSet,
+			kNearest,
+			neighborSet);
+		*/
+
 		allNearestNeighborsKdTree(
 			pointSet,
 			kNearest,
+			infinity<Real>(),
 			norm<N, Real>,
 			neighborSet);
+
+		drawNearest("kdtree", pointSet, neighborSet);
 
 		timer.store();
 
 		log() << "Computation took " << timer.seconds() 
 			<< " seconds." << logNewLine;
 
-		Array<N, Color> image(768, 768);
+		integer noMatches = 0;
+		for (integer i = 0;i < points;++i)
+		{
+			for (integer j = 0;j < kNearest;++j)
+			{
+				if (naiveNeighborSet(j, i) != neighborSet(j, i))
+				{
+					++noMatches;
+				}
+			}
+		}
+
+		log() << "No matches = " << noMatches << logNewLine;
+
+		log() << "Done." << logNewLine;
+	}
+
+	void drawNearest(const std::string& name,
+		const std::vector<Point2>& pointSet,
+		const Array<2, integer>& neighborSet)
+	{
+		const integer points = neighborSet.height();
+		const integer kNearest = neighborSet.width();
+
+		Array<2, Color> image(768, 768);
 		ImageGfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setColor(Color(1));
@@ -95,11 +138,18 @@ namespace
 
 		for (integer i = 0;i < points;++i)
 		{
-			renderer.setColor(Color(1));
+			if (neighborSet(0, i) >= 0 && neighborSet(0, i) < pointSet.size())
+			{
+				renderer.setColor(Color(1));
+			}
+			else
+			{
+				renderer.setColor(Color(0, 1, 0));
+			}
 			drawCircle(renderer, Sphere2(pointSet[i], 0.02));
 			for (integer j = 0;j < kNearest;++j)
 			{
-				const integer neighbor = neighborSet(i, j);
+				const integer neighbor = neighborSet(j, i);
 				if (neighbor >= 0)
 				{
 					renderer.setColor(hsvToRgb(Color((real)j / kNearest, 1, 1)));
@@ -108,9 +158,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "all_nearest.pcx");
-
-		log() << "Done." << logNewLine;
+		savePcx(image, "test_all_nearest_" + name + ".pcx");
 	}
 
 	void testAllNearest()
