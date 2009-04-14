@@ -4,6 +4,7 @@
 #include "pastel/sys/smallset.h"
 
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/syscommon.h"
 
 #include <algorithm>
 
@@ -62,142 +63,19 @@ namespace Pastel
 	}
 
 	template <typename Type, typename Compare>
-	integer SmallSet<Type, Compare>::set(integer index, const Type& that)
-	{
-		PENSURE2(index >= 0 && index < size(), index, size());
-
-		// Assign.
-		data_[index] = that;
-
-		const integer elements = size();
-
-		if (elements == 1)
-		{
-			return 0;
-		}
-
-		// Move to the right position
-		// by repeated swaps.
-
-		if (index > 0 && !compare_(data_[index - 1], data_[index]))
-		{
-			integer left = index - 1;
-			integer right = index;
-			while(left >= 0 && !compare_(data_[left], data_[right]))
-			{
-				using std::swap;
-				swap(data_[left], data_[right]);
-
-				if (!compare_(data_[left], data_[right]))
-				{
-					// Equivalent elements.
-					break;
-				}
-
-				--left;
-				--right;
-			}
-
-			if (!(compare_(data_[left], data_[right]) ||
-				compare_(data_[right], data_[left])))
-			{
-				// Equivalent elements not allowed.
-				data_.erase(data_.begin() + left);
-				return -1;
-			}
-
-			return left + 1;
-		}
-		else if (index < elements - 1 && !compare_(data_[index], data_[index + 1]))
-		{
-			integer left = index;
-			integer right = index + 1;
-			while(right < elements && !compare_(data_[left], data_[right]))
-			{
-				using std::swap;
-				swap(data_[left], data_[right]);
-
-				if (!compare_(data_[left], data_[right]))
-				{
-					// Equivalent elements.
-					break;
-				}
-
-				++left;
-				++right;
-			}
-
-			if (!(compare_(data_[left], data_[right]) ||
-				compare_(data_[right], data_[left])))
-			{
-				// Equivalent elements not allowed.
-				data_.erase(data_.begin() + right);
-				return -1;
-			}
-
-			return right - 1;
-		}
-
-		return index;
-	}
-
-	template <typename Type, typename Compare>
 	integer SmallSet<Type, Compare>::insert(const Type& that)
 	{
-		integer index = -1;
+		const integer index = lower_bound(that);
 
-		if (empty())
+		if (index == data_.size() ||
+			compare_(that, data_[index]))
 		{
-			// If the set is empty, just
-			// insert 'that' in the list.
-
-			data_.push_back(that);
-			index = 0;
-		}
-		else if (compare_(that, back()))
-		{
-			// If 'that' will not be the largest
-			// element, find a place to insert it.
-
-			index = lower_bound(that);
-
-			// Since the set is not empty,
-			// the lower bound must be found.
-			ASSERT2(index >= 0 && index <= data_.size(),
-				index, data_.size());
-
-			if (index < data_.size())
-			{
-				if (!(compare_(that, data_[index]) || compare_(data_[index], that)))
-				{
-					// Equivalent objects are not allowed
-					// in a set.
-					return -1;
-				}
-			}
-
-			data_.insert(data_.begin() + index, that);
-		}
-		else if (compare_(back(), that))
-		{
-			// If 'that' will be the largest element,
-			// just append it at the back of the list,
-			// making this a constant time operation.
-
-			index = data_.size();
-			data_.push_back(that);
+			data_.insert(
+				data_.begin() + index, that);
 		}
 
-		// The default value for 'index' handles the
-		// following (thus the commenting):
-
-		//else
-		//{
-			// 'that' is equivalent to back().
-			// Equivalent objects are not allowed
-			// in a set.
-			//index = -1;
-		//}
+		ASSERT(index == 0 || compare_(data_[index - 1], that));
+		ASSERT(index == data_.size() - 1 || compare_(that, data_[index + 1]));
 
 		return index;
 	}
@@ -206,10 +84,11 @@ namespace Pastel
 	void SmallSet<Type, Compare>::erase(const Type& that)
 	{
 		const integer index = find(that);
-		if (index < 0)
+		if (index == data_.size())
 		{
 			return;
 		}
+		ASSERT(equivalent(data_[index], that, compare_));
 
 		data_.erase(data_.begin() + index);
 	}
@@ -233,39 +112,23 @@ namespace Pastel
 	template <typename Type, typename Compare>
 	integer SmallSet<Type, Compare>::find(const Type& that) const
 	{
-		if (empty())
-		{
-			return -1;
-		}
+		const integer lowerBound = lower_bound(that);
 
-		integer lowerBound = 0;
-		integer upperBound = data_.size() - 1;
-		while (lowerBound <= upperBound)
+		if (lowerBound == data_.size() ||
+			equivalent(that, data_[lowerBound], compare_))
 		{
-			const integer middle = (lowerBound + upperBound) / 2;
-			if (compare_(that, data_[middle]))
-			{
-				upperBound = middle - 1;
-			}
-			else if (compare_(data_[middle], that))
-			{
-				lowerBound = middle + 1;
-			}
-			else
-			{
-				return middle;
-			}
+			return lowerBound;
 		}
-
-		return -1;
+		
+		return data_.size();
 	}
 
 	template <typename Type, typename Compare>
 	integer SmallSet<Type, Compare>::lower_bound(const Type& that) const
 	{
-		if (empty())
+		if (data_.empty())
 		{
-			return -1;
+			return 0;
 		}
 
 		if (compare_(data_.back(), that))
@@ -273,30 +136,39 @@ namespace Pastel
 			return data_.size();
 		}
 
-		if (compare_(that, data_.front()))
+		/*
+		if (!compare_(data_.front(), that))
 		{
 			return 0;
 		}
+		*/
 
 		integer lowerBound = 0;
-		integer upperBound = data_.size();
-		while (lowerBound + 1 < upperBound)
+		integer upperBound = data_.size() - 1;
+		while (lowerBound < upperBound)
 		{
 			const integer middle = (lowerBound + upperBound) / 2;
 
-			if (compare_(that, data_[middle]))
+			if (compare_(data_[middle], that))
 			{
-				upperBound = middle;
-			}
-			else if (compare_(data_[middle], that))
-			{
-				lowerBound = middle;
+				lowerBound = middle + 1;
 			}
 			else
 			{
-				return middle;
+				if (!compare_(that, data_[middle]))
+				{
+					// Equivalent object at middle.
+					return middle;
+				}
+
+				upperBound = middle;
 			}
+
+			ASSERT(lowerBound <= upperBound);
 		}
+
+		ASSERT(lowerBound == 0 || compare_(data_[lowerBound - 1], that));
+		ASSERT(!compare_(data_[lowerBound], that));
 
 		return lowerBound;
 	}
@@ -304,12 +176,13 @@ namespace Pastel
 	template <typename Type, typename Compare>
 	integer SmallSet<Type, Compare>::upper_bound(const Type& that) const
 	{
-		if (empty())
+		const integer lowerBound = lower_bound(that);
+		if (lowerBound < data_.size())
 		{
-			return -1;
+			return lowerBound + 1;
 		}
 
-		return lower_bound(that) + 1;
+		return lowerBound;
 	}
 
 	template <typename Type, typename Compare>

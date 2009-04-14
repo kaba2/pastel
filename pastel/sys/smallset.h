@@ -98,13 +98,6 @@ namespace Pastel
 		*/
 		void reserve(integer count);
 
-		//! Changes the value of an element.
-		/*!
-		Time complexity: linear in the number of moves needed.
-		Exception safety: strong.
-		*/
-		integer set(integer index, const Type& that);
-
 		//! Insert an element into the set.
 		/*!
 		Time complexity: linear, constant if the greatest element.

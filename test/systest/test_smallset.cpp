@@ -212,6 +212,7 @@ namespace
 		}
 	}
 
+	/*
 	void testSet()
 	{
 		SmallSet<int> a;
@@ -310,6 +311,7 @@ namespace
 		print(a);
 		// -10 0 3 20
 	}
+	*/
 
 	void testBegin()
 	{
@@ -325,7 +327,7 @@ namespace
 		testTwoEraseAfter();
 		testThreeEraseMiddle();
 		testEraseNotFound();
-		testSet();
+		//testSet();
 	}
 
 	void testAdd()

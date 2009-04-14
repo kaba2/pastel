@@ -44,7 +44,7 @@ namespace
 	template <int N, typename Real>
 	void test()
 	{
-		const integer points = 100;
+		const integer points = 5000;
 		const integer kNearest = 1;
 
 		log() << "Creating point set with " << points << " points." << logNewLine;
@@ -65,6 +65,13 @@ namespace
 			kNearest,
 			infinity<Real>(),
 			naiveNeighborSet);
+
+		/*
+		allNearestNeighbors(
+			pointSet,
+			kNearest,
+			naiveNeighborSet);
+		*/
 
 		timer.store();
 
@@ -98,32 +105,42 @@ namespace
 			norm<N, Real>,
 			neighborSet);
 
-		drawNearest("kdtree", pointSet, neighborSet);
-
 		timer.store();
 
 		log() << "Computation took " << timer.seconds() 
 			<< " seconds." << logNewLine;
 
-		integer noMatches = 0;
+		drawNearest("kdtree", pointSet, neighborSet);
+
+		integer differ = 0;
 		for (integer i = 0;i < points;++i)
 		{
 			for (integer j = 0;j < kNearest;++j)
 			{
 				if (naiveNeighborSet(j, i) != neighborSet(j, i))
 				{
-					++noMatches;
+					++differ;
 				}
 			}
 		}
 
-		log() << "No matches = " << noMatches << logNewLine;
+		log() << "Differ = " << differ << logNewLine;
 
 		log() << "Done." << logNewLine;
 	}
 
-	void drawNearest(const std::string& name,
-		const std::vector<Point2>& pointSet,
+	template <int N, typename Real>
+	typename boost::disable_if_c<(N == 2)>::type
+		drawNearest(const std::string& name,
+		const std::vector<Point<N, Real> >& pointSet,
+		const Array<2, integer>& neighborSet)
+	{
+	}
+
+	template <int N, typename Real>
+	typename boost::enable_if_c<(N == 2)>::type
+		drawNearest(const std::string& name,
+		const std::vector<Point<N, Real> >& pointSet,
 		const Array<2, integer>& neighborSet)
 	{
 		const integer points = neighborSet.height();
@@ -163,7 +180,7 @@ namespace
 
 	void testAllNearest()
 	{
-		test<2, float>();
+		test<12, float>();
 	}
 
 	void testAdd()

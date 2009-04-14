@@ -14,6 +14,19 @@
 namespace Pastel
 {
 
+	template <typename Type, typename Compare>
+	bool equivalent(const Type& left, const Type& right,
+		const Compare& compare)
+	{
+		return !(compare(left, right) || compare(right, left));
+	}
+
+	template <typename Type>
+	bool equivalent(const Type& left, const Type& right)
+	{
+		return Pastel::equivalent(left, right, std::less<Type>());
+	}
+
 	inline integer toPixelSpanPoint(real t)
 	{
 		return std::ceil(t - (real)0.5);
