@@ -39,6 +39,7 @@ namespace Pastel
 	Preconditions:
 	kNearest >= 1
 	kNearest <= pointSet.size()
+	maxDistance >= 0
 
 	Time complexity:
 	O(d n^2 log k)
@@ -50,11 +51,12 @@ namespace Pastel
 	Linear scan (brute force).
 	*/
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsNaive(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const NormBijection& normBijection,
 		Array<2, integer>& nearestSet);
 
 	//! Finds all-k-nearest-neighbours of a point set.
@@ -91,12 +93,12 @@ namespace Pastel
 	kd-tree
 	*/
 
-	template <int N, typename Real, typename NormFunctor>
+	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormFunctor& normFunctor,
+		const NormBijection& normBijection,
 		Array<2, integer>& nearestSet);
 
 }

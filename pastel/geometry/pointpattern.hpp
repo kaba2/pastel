@@ -208,7 +208,7 @@ namespace Pastel
 							sceneTree_,
 							scenePoint,
 							infinity<Real>(),
-							(Real (*) (const Vector<2, Real>&))norm,
+							EuclideanNormBijection<2, Real>(),
 							kPoints_ + 1,
 							sceneSet);
 
@@ -217,7 +217,7 @@ namespace Pastel
 							modelTree_,
 							modelPoint,
 							infinity<Real>(),
-							(Real (*) (const Vector<2, Real>&))norm,
+							EuclideanNormBijection<2, Real>(),
 							kPoints_ + 1,
 							modelSet);
 

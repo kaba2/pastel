@@ -37,12 +37,12 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
+	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	void findNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormFunctor& normFunctor,
+		const NormBijection& normBijection,
 		integer kNearest,
 		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result)
 	{
@@ -101,7 +101,8 @@ namespace Pastel
 			while(!cursor.leaf())
 			{
 				const Real planeDistance =
-					std::abs(searchPoint[cursor.splitAxis()] - cursor.splitPosition());
+					normBijection(cursor.splitAxis(),
+					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
 
 				Cursor otherBranch;
 
@@ -137,7 +138,7 @@ namespace Pastel
 					tree.objectPolicy().bound(*iter).min();
 
 				const Real currentDistance =
-					normFunctor(objectPoint - searchPoint);
+					normBijection(objectPoint - searchPoint);
 
 				// It is essential that this is <= rather
 				// than <, because of the possibility
@@ -165,13 +166,13 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
+	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		findNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormFunctor& normFunctor)
+		const NormBijection& normBijection)
 	{
 		ENSURE1(maxDistance >= 0, maxDistance);
 
@@ -181,7 +182,7 @@ namespace Pastel
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
 		SmallSet<KeyVal> result;
-		findNearest(tree, point, maxDistance, normFunctor, 1, result);
+		findNearest(tree, point, maxDistance, normBijection, 1, result);
 
 		if (result.empty())
 		{
@@ -201,7 +202,7 @@ namespace Pastel
 		ENSURE1(maxDistance >= 0, maxDistance);
 
 		return Pastel::findNearest(
-			tree, point, maxDistance, norm<N, Real>);
+			tree, point, maxDistance, EuclideanNormBijection<N, Real>());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -211,7 +212,7 @@ namespace Pastel
 		const Point<N, Real>& point)
 	{
 		return Pastel::findNearest(
-			tree, point, infinity<Real>(), norm<N, Real>);
+			tree, point, infinity<Real>(), EuclideanNormBijection<N, Real>());
 	}
 
 }
