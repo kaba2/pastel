@@ -400,7 +400,7 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
-	findNearest(tree__, worldMouse, searchRadius__,
+	findNearest(tree__, worldMouse, searchRadius__ * searchRadius__,
 		EuclideanNormBijection<2, real>(), nearestPoints__, nearestPointSet__);
 
 	{

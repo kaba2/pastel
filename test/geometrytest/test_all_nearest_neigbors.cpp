@@ -181,7 +181,7 @@ namespace
 
 	void testAllNearest()
 	{
-		test<20, float>();
+		test<2, float>();
 	}
 
 	void testAdd()
