@@ -89,6 +89,8 @@ namespace Pastel
 			findNearest(tree, pointSet[i], maxDistance,
 				normFunctor, kNearest + 1, nearestSet);
 
+			ASSERT(nearestSet.size() == kNearest + 1);
+
 			integer nearestIndex = 0;
 			for (integer j = 0;j < kNearest + 1 && nearestIndex < kNearest;++j)
 			{

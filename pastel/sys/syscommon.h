@@ -18,6 +18,27 @@
 namespace Pastel
 {
 
+	//! Tests two variables for equivalence.
+	/*!
+	'left' and 'right' are equivalent under
+	a comparison 'compare' if it holds that
+	!compare(left, right) && !compare(right, left).
+	*/
+
+	template <typename Type, typename Compare>
+	bool equivalent(const Type& left, const Type& right,
+		const Compare& compare);
+
+	//! Tests two variables for equivalence.
+	/*!
+	This is a convenience function that uses
+	std::less<Type> as the comparison functor
+	for the more general equivalent() function.
+	See the documentation for that.
+	*/
+	template <typename Type>
+	bool equivalent(const Type& left, const Type& right);
+
 	/*!
 	Example:
 	Given a 2d horizontal line segment [xMin, xMax[ on row y,

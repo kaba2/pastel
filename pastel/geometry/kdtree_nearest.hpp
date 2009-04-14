@@ -101,34 +101,40 @@ namespace Pastel
 			while(!cursor.leaf())
 			{
 				const Real planeDistance =
-					searchPoint[cursor.splitAxis()] - cursor.splitPosition();
+					std::abs(searchPoint[cursor.splitAxis()] - cursor.splitPosition());
+
+				Cursor otherBranch;
 
 				if (searchPoint[cursor.splitAxis()] < cursor.splitPosition())
 				{
 					// The search point is closer to the left branch so follow that.
-					// Place right branch into the stack.
-					stack.push_back(StackEntry(cursor.positive(), -planeDistance));
+					otherBranch = cursor.positive();
 					cursor = cursor.negative();
 				}
 				else
 				{
 					// The search point is closer to the right branch so follow that.
-					// Place left branch into the stack.
-					stack.push_back(StackEntry(cursor.negative(), planeDistance));
+					otherBranch = cursor.negative();
 					cursor = cursor.positive();
 				}
+
+				// Possibly push the other branch to the stack.
+				if (planeDistance <= cullDistance)
+				{
+					stack.push_back(StackEntry(otherBranch, planeDistance));
+				}
 			}
-			
-			// Beginning from the node which contains the search
-			// point, start expanding the neighborhood
-			// to search for nearest neighbors.
+
+			// We are now in a leaf node.
+			// Search through the objects in this node.
 
 			ConstObjectIterator iter = cursor.begin();
 			ConstObjectIterator iterEnd = cursor.end();
 
 			while(iter != iterEnd)
 			{
-				const Point<N, Real> objectPoint = tree.objectPolicy().bound(*iter).min();
+				const Point<N, Real> objectPoint = 
+					tree.objectPolicy().bound(*iter).min();
 
 				const Real currentDistance =
 					normFunctor(objectPoint - searchPoint);
