@@ -81,7 +81,7 @@ namespace Pastel
 
 				KeyValue<real, ConstIterator> result =
 					findNearest(kdtree_, Point<N, Real>(position) + 0.5, 
-					infinity<Real>(), norm<N, Real>);
+					infinity<Real>(), EuclideanNormBijection<N, Real>());
 
 				if (result.value() != kdtree_.end())
 				{

@@ -33,12 +33,12 @@ namespace Pastel
 		const std::vector<Point<N, Real> >* pointSet_;
 	};
 
-	template <int N, typename Real, typename NormFunctor>
+	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormFunctor& normFunctor,
+		const NormBijection& normBijection,
 		Array<2, integer>& nearestArray)
 	{
 		ENSURE2(kNearest > 0 && kNearest < pointSet.size(), 
@@ -87,7 +87,7 @@ namespace Pastel
 			nearestSet.reserve(kNearest + 1);
 
 			findNearest(tree, pointSet[i], maxDistance,
-				normFunctor, kNearest + 1, nearestSet);
+				normBijection, kNearest + 1, nearestSet);
 
 			ASSERT(nearestSet.size() == kNearest + 1);
 

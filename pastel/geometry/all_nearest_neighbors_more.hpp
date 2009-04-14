@@ -15,46 +15,46 @@ namespace Pastel
 		class Entry
 		{
 		public:
-			Entry(const Real& distance2,
+			Entry(const Real& distance,
 				integer index)
-				: distance2_(distance2)
+				: distance_(distance)
 				, index_(index)
 			{
 			}
 
 			bool operator<(const Entry& that) const
 			{
-				if (distance2_ < that.distance2_)
+				if (distance_ < that.distance_)
 				{
 					return true;
 				}
-				if (that.distance2_ < distance2_)
+				if (that.distance_ < distance_)
 				{
 					return false;
 				}
 				return index_ < that.index_;
 			}
 
-			Real distance2_;
+			Real distance_;
 			integer index_;
 		};
 
 	}
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsNaive(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const NormBijection& normBijection,
 		Array<2, integer>& nearestSet)
 	{
 		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE(maxDistance >= 0);
 		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
 		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
 
 		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
-
-		const Real maxDistance2 = square(maxDistance);
 
 		const integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)
@@ -72,10 +72,10 @@ namespace Pastel
 			{
 				if (j != i)
 				{
-					const real distance2 = dot(pointSet[j] - iPoint);
-					if (distance2 <= maxDistance2)
+					const real distance = normBijection(pointSet[j] - iPoint);
+					if (distance <= maxDistance)
 					{
-						nearest.insert(Entry(distance2, j));
+						nearest.insert(Entry(distance, j));
 					}
 				}
 				++j;
@@ -86,20 +86,20 @@ namespace Pastel
 			NearestIterator lastIter = nearest.end();
 			--lastIter;
 
-			real cullDistance2 = lastIter->distance2_;
+			real cullDistance = lastIter->distance_;
 
 			while(j < points)
 			{
 				if (j != i)
 				{
-					const real distance2 = dot(pointSet[j] - iPoint);
-					if (distance2 <= cullDistance2)
+					const real distance = normBijection(pointSet[j] - iPoint);
+					if (distance <= cullDistance)
 					{
 						nearest.erase(lastIter);
-						nearest.insert(Entry(distance2, j));
+						nearest.insert(Entry(distance, j));
 						lastIter = nearest.end();
 						--lastIter;
-						cullDistance2 = lastIter->distance2_;
+						cullDistance = lastIter->distance_;
 					}
 				}
 				++j;

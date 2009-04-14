@@ -44,7 +44,7 @@ namespace
 	template <int N, typename Real>
 	void test()
 	{
-		const integer points = 5000;
+		const integer points = 10000;
 		const integer kNearest = 1;
 
 		log() << "Creating point set with " << points << " points." << logNewLine;
@@ -64,6 +64,7 @@ namespace
 			pointSet,
 			kNearest,
 			infinity<Real>(),
+			EuclideanNormBijection<N, Real>(),
 			naiveNeighborSet);
 
 		/*
@@ -102,7 +103,7 @@ namespace
 			pointSet,
 			kNearest,
 			infinity<Real>(),
-			norm<N, Real>,
+			EuclideanNormBijection<N, Real>(),
 			neighborSet);
 
 		timer.store();
@@ -180,7 +181,7 @@ namespace
 
 	void testAllNearest()
 	{
-		test<12, float>();
+		test<20, float>();
 	}
 
 	void testAdd()

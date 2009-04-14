@@ -6,6 +6,8 @@
 #include "pastel/sys/smallset.h"
 #include "pastel/sys/keyvalue.h"
 
+#include "pastel/math/normbijection.h"
+
 namespace Pastel
 {
 
@@ -28,20 +30,24 @@ namespace Pastel
 	are returned sorted with their distance from 
 	the query point.
 
-	class NormFunctor
+	class NormBijection
 	{
 	public:
-		// Returns the norm of the given vector.
 		Real operator()(const Vector<N, Real>& that) const;
+
+		// Returns normBijection(0, 0, ..., that, ..., 0, 0).
+		Real operator()(integer axis, const Real& that) const;
 	};
+
+	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
+	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	void findNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormFunctor& normFunctor,
+		const NormBijection& normBijection,
 		integer kNearest,
 		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result);
 
@@ -59,13 +65,13 @@ namespace Pastel
 	general findNearest() function.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormFunctor>
+	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		findNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormFunctor& normFunctor);
+		const NormBijection& normBijection);
 
 	//! Finds nearest neighbors for a point in a kd-tree.
 	/*!

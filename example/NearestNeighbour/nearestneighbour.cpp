@@ -401,7 +401,7 @@ void logicHandler()
 	}
 
 	findNearest(tree__, worldMouse, searchRadius__,
-		(real (*)(const Vector2&))norm, nearestPoints__, nearestPointSet__);
+		EuclideanNormBijection<2, real>(), nearestPoints__, nearestPointSet__);
 
 	{
 		const integer Fps = 100;
@@ -496,7 +496,7 @@ void timing()
 	{
 		findNearest(tree__, *iter,
 			infinity<real>(),
-			(real (*)(const Vector2&))norm,
+			EuclideanNormBijection<2, real>(),
 			NearestPoints, nearestPointSet__);
 		++iter;
 	}

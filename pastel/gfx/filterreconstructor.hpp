@@ -86,7 +86,7 @@ namespace Pastel
 
 				findNearest(kdtree_, Point<N, real>(position) + 0.5,
 					filter_.radius() * filterStretch_,
-					normInfinity<N, Real>,
+					InfinityNormBijection<N, Real>(),
 					-1,
 					pointSet);
 
