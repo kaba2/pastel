@@ -110,7 +110,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDsp", "dsp\PastelDsp.
 		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDeviceTest", "PastelDeviceTest\PastelDeviceTest.vcproj", "{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDeviceTest", "..\test\devicetest\pasteldevicetest.vcproj", "{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
