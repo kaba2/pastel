@@ -68,15 +68,23 @@ namespace
 		REPORT1(failings > 10, failings);
 	}
 
-	void testBegin()
+	void testHarmonic()
 	{
-		testQuadratic();
-		testCcwAngle();
+		for (integer i = 51200;i < 51250;++i)
+		{
+			log() << harmonicNumber(i) << ", ";
+			if ((i % 4) == 3)
+			{
+				log() << logNewLine;
+			}
+		}
 	}
 
 	void testAdd()
 	{
-		mathTestList().add("Common", testBegin);
+		mathTestList().add("Quadratic", testQuadratic);
+		mathTestList().add("CcwAngle", testCcwAngle);
+		mathTestList().add("Harmonic", testHarmonic);
 	}
 
 	CallFunction run(testAdd);

@@ -10,6 +10,7 @@
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/view_all.h"
+#include "pastel/sys/string_tools.h"
 
 using namespace Pastel;
 
@@ -295,15 +296,55 @@ namespace
 		savePcx(image, "uniformsampling_distortion.pcx");
 	}
 
-	void testBegin()
+	template <int N, typename Real>
+	void testDistance()
 	{
-		test();
-		test2();
+		const integer Samples = 100000;
+		std::vector<Vector<N, Real> > pointList;
+		pointList.reserve(Samples);
+
+		const integer Width = 512;
+		const integer Height = 512;
+
+		std::vector<integer> histogram(Width, 0);
+
+		for (integer i = 0;i < Samples;++i)
+		{
+			const Vector<N, Real> sample
+				= randomVectorBall<N, Real>();
+			const Real distance = 
+				norm(sample);
+			++histogram[quantizeUnsigned(distance, Width)];
+		}
+
+		integer maxBin = 0;
+		for (integer i = 0;i < Width;++i)
+		{
+			if (histogram[i] > maxBin)
+			{
+				maxBin = histogram[i];
+			}
+		}
+
+		Array<2, Color> image(Width, Height, Color(1));
+		for (integer x = 0;x < Width;++x)
+		{
+			const real t = dequantizeUnsigned(x, Width);
+			drawVerticalLine(x, 0, 
+				dequantizeUnsigned(histogram[x], maxBin + 1) * Height,
+				linear(Color(0), Color(0, 0, 0.2), t), 
+				arrayView(image));
+		}
+
+		savePcx(image, "test_uniformsampling_distance_" + integerToString(N, 2) + ".pcx");
 	}
 
 	void testAdd()
 	{
-		mathTestList().add("UniformSampling", testBegin);
+		mathTestList().add("UniformSampling_1", test);
+		mathTestList().add("UniformSampling_2", test2);
+		mathTestList().add("UniformSampling_Distance_2", testDistance<2, real>);
+		mathTestList().add("UniformSampling_Distance_10", testDistance<10, real>);
 	}
 
 	CallFunction run(testAdd);

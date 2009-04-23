@@ -384,6 +384,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\mathcommon.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\mathcommon.h"
 				>
 			</File>

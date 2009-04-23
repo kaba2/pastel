@@ -10,7 +10,7 @@ parametrized with dimension and number type:
 template <int N, typename NumberType>
 class Vector;
 
-This enables using the vector genericly
+This enables using the vector generically
 in algorithms that are independent of
 the dimensions or the number type.
 
@@ -59,7 +59,7 @@ Vector<3, float> b = 2 * sin(a) * cos(a);
 Computes:
 b = (2 * sin(1) * cos(1), 2 * sin(2) * cos(2), 2 * sin(3) * sin(3))
 
-This expands the amount of legal vector expression. These
+This expands the amount of legal vector expressions. These
 expressions should also be evaluated with performance equal
 to the expanded versions.
 
@@ -83,7 +83,7 @@ must not change in the conversions.
 Achieving requirement 2
 -----------------------
 
-The problem is to compute vector expressions breath-first, not depth first.
+The problem is to compute vector expressions breadth-first, not depth first.
 To achieve this, we use expression templates.
 
 There is some trade-off in usability: expressions yield expression objects

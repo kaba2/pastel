@@ -68,6 +68,28 @@ namespace Pastel
 		Real &t0, Real &t1,
 		bool solutionsMustExist = false);
 
+	//! Computes the harmonic number H_n
+	/*!
+	Preconditions:
+	n >= 0
+
+	H_0 = 0
+	H_n = 1/1 + 1/2 + ... + 1/n
+	*/
+
+	PASTELMATH real harmonicNumber(integer n);
+
+	//! Computes the digamma function for an integer argument.
+	/*!
+	Preconditions:
+	x >= 1
+
+	digamma(n) = harmonicNumber(n - 1) - constantEulerMascheroni
+	*/
+
+	template <typename Real>
+	Real digamma(integer n);
+
 }
 
 #include "pastel/math/mathcommon.hpp"

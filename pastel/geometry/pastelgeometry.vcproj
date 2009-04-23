@@ -1095,6 +1095,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\sphere_area.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\spherearea.h"
 					>
 				</File>
@@ -1136,6 +1140,18 @@
 				</File>
 				<File
 					RelativePath=".\boxvolume.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sphere_volume.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sphere_volume.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sphere_volume.hpp"
 					>
 				</File>
 			</Filter>

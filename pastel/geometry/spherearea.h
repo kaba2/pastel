@@ -1,26 +1,22 @@
 #ifndef PASTELGEOMETRY_SPHEREAREA_H
 #define PASTELGEOMETRY_SPHEREAREA_H
 
+#include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/sphere.h"
-
-#include <boost/utility/enable_if.hpp>
 
 namespace Pastel
 {
 
-	template <typename Real>
-	Real area(const Sphere<2, Real>& sphere);
+	// Note that we define area as the (n-1)-dimensional volume
+	// of the boundary.
 
-	template <typename Real>
-	Real area(const Sphere<3, Real>& sphere);
-
-	template <int N, typename Real>
-	typename boost::enable_if_c<(N & 1) == 0 && (N > 3), Real>::type
-		area(const Sphere<N, Real>& sphere);
+	PASTELGEOMETRY real areaUnitSphere(integer dimension);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N & 1) != 0 && (N > 3), Real>::type
-		area(const Sphere<N, Real>& sphere);
+	Real areaUnitSphere();
+
+	template <int N, typename Real>
+	Real area(const Sphere<N, Real>& sphere);
 
 }
 

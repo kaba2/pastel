@@ -198,7 +198,6 @@ Problem: how do you do const matrices with reference semantics?
 => You need "ConstMatrix".
 => Then you need to generalize matrix functions
 
-
 Matrix indexing
 ---------------
 
@@ -239,15 +238,23 @@ x * A * B = x * A' * B'. B'(A'(x)) would again be confusing.
 Transponation in Array
 -----------------------
 
-To solve for the problem of reusing horizontal 2d resampling for vertical resampling, I made a transponate() function to the Array class. This function toggled an inner flag. If the flag was on, width() would return the height of the array, and height() would return the width of the array. Similarly data access indexing was changed. In effect this was a constant time transponation.
+To solve for the problem of reusing horizontal 2d resampling for vertical resampling, 
+I made a transponate() function to the Array class. This function toggled an inner flag. 
+If the flag was on, width() would return the height of the array, and height() would return 
+the width of the array. Similarly data access indexing was changed. In effect this was a 
+constant time transponation.
 
 Lesson to be learned: 
-While it works nicely for non-const Array's, it doesn't work for the const ones (reading from an array in a transposed manner).
+While it works nicely for non-const Array's, it doesn't work for the const ones 
+(reading from an array in a transposed manner).
 
 Complex concepts
 ----------------
 
-Concepts will be an immersive addition to the C++0x, but currently implementing and using such code is a pain. The most important thing contributing to this is that there is no concept based overloading. Another is that defining and checking the concept requirements via Boost is quite cumbersome.
+Concepts will be an impressive addition to the C++0x, but currently implementing and using 
+such code is a pain. The most important thing contributing to this is that there is no 
+concept based overloading. Another is that defining and checking the concept requirements 
+via Boost is quite cumbersome.
 
 Lesson to be learned:
 In C++03, do not create complex concepts.
@@ -283,25 +290,16 @@ from destructing a derived object through a base object reference.
 _SECURE_SCL
 -----------
 
-I spent a week hunting a bug which had something to do with memory. I had access violations and plain illogical behaviour. The symptoms occurred only in release mode, not debug mode. The bug was in Visual Studio and caused by the feature _SECURE_SCL which can be turned off. I already had this done with other projects, but I forgot to turn the feature off in one project.
+I spent a week hunting a bug which had something to do with memory. I had access 
+violations and plain illogical behaviour. The symptoms occurred only in release mode, 
+not debug mode. The bug was in Visual Studio and caused by the feature _SECURE_SCL 
+which can be turned off. I already had this done with other projects, but I forgot 
+to turn the feature off in one project.
 
 Lesson to be learned:
-Remember to turn off _SECURE_SCL and (checked iterators) in every project. In project properties -> C++ -> Command line, write
+Remember to turn off _SECURE_SCL and (checked iterators) in every project. 
+In project properties -> C++ -> Command line, write
 /D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0"
-
-Frame rates to expect
----------------------
-
-These are from MeshLab:
-
-Low bunny, 1000 kolmiota, 63 fps, 34 megaa
-Bunny, 70000 kolmiota, 58fps, 37 megaa
-Armadillo, 345000 kolmiota, 9fps, 25megaa
-Happy buddha, 1 miljoonaa kolmiota, 5fps, muistia 93 megaa
-Manuscript, 4,3 miljoonaa kolmiota, 1fps, muistia 278 megaa
-Dragon, 7,2 miljoonaa kolmiota, 1fps, muistia 429 megaa
-Statuette, 10 miljoonaa kolmiota, 0.7 fps, muistia 582megaa
-Lucy, muisti loppu kesken
 
 Entertaining bug
 ----------------
