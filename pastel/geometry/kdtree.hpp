@@ -7,6 +7,8 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
 
+#include <boost/operators.hpp>
+
 namespace Pastel
 {
 
@@ -234,6 +236,9 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	class KdTree<N, Real, ObjectPolicy>::Cursor
+		: boost::less_than_comparable<Cursor
+		, boost::equality_comparable<Cursor
+		> >
 	{
 	public:
 		// Using default copy constructor.
@@ -243,6 +248,16 @@ namespace Pastel
 		Cursor()
 			: node_(0)
 		{
+		}
+
+		bool operator<(const Cursor& that) const
+		{
+			return node_ < that.node_;
+		}
+
+		bool operator==(const Cursor& that) const
+		{
+			return node_ == that.node_;
 		}
 
 		bool empty() const

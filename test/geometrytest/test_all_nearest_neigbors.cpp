@@ -42,12 +42,10 @@ namespace
 	}
 
 	template <int N, typename Real>
-	void test()
+	void test(integer points, integer kNearest)
 	{
-		const integer points = 10000;
-		const integer kNearest = 1;
+		log() << N << "-D, " << points << " points, " << kNearest << " neighbors." << logNewLine;
 
-		log() << "Creating point set with " << points << " points." << logNewLine;
 		std::vector<Point<N, Real> > pointSet;
 		generateSpherePointSet(points, pointSet);
 
@@ -56,7 +54,7 @@ namespace
 
 		Timer timer;
 
-		log() << "Computing with a brute force algorithm..." << logNewLine;
+		log() << "Brute force..." << logNewLine;
 
 		timer.setStart();
 
@@ -76,12 +74,11 @@ namespace
 
 		timer.store();
 
-		log() << "Computation took " << timer.seconds() 
-			<< " seconds." << logNewLine;
+		log() << timer.seconds() << " seconds." << logNewLine;
 
 		drawNearest("brute", pointSet, naiveNeighborSet);
 
-		log() << "Computing with a more complex algorithm..." << logNewLine;
+		log() << "Kd-tree..." << logNewLine;
 
 		timer.setStart();
 
@@ -108,8 +105,7 @@ namespace
 
 		timer.store();
 
-		log() << "Computation took " << timer.seconds() 
-			<< " seconds." << logNewLine;
+		log() << timer.seconds() << " seconds." << logNewLine;
 
 		drawNearest("kdtree", pointSet, neighborSet);
 
@@ -181,7 +177,25 @@ namespace
 
 	void testAllNearest()
 	{
-		test<2, float>();
+		test<5, float>(5000, 1);
+		test<10, float>(5000, 1);
+		test<20, float>(5000, 1);
+
+		test<5, float>(10000, 1);
+		test<10, float>(10000, 1);
+		test<20, float>(10000, 1);
+
+		test<5, float>(20000, 1);
+		test<10, float>(20000, 1);
+		test<20, float>(20000, 1);
+
+		test<5, float>(10000, 4);
+		test<10, float>(10000, 4);
+		test<20, float>(10000, 4);
+
+		test<5, float>(10000, 8);
+		test<10, float>(10000, 8);
+		test<20, float>(10000, 8);
 	}
 
 	void testAdd()

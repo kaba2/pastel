@@ -40,6 +40,11 @@ namespace Pastel
 	template <typename Real>
 	inline Real constantLn2();
 
+	//! Returns Euler-Mascheroni constant.
+
+	template <typename Real>
+	inline Real constantEulerMascheroni();
+
 }
 
 #include "pastel/sys/constants.hpp"

@@ -141,6 +141,12 @@ namespace Pastel
 		return true;
 	}
 
+	template <typename Real>
+	Real digamma(integer n)
+	{
+		return Pastel::harmonicNumber(n - 1) - constantEulerMascheroni<Real>();
+	}
+
 }
 
 #endif

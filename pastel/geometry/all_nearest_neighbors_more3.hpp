@@ -66,11 +66,13 @@ namespace Pastel
 		refineSlidingMidpoint(
 			computeKdTreeMaxDepth(tree.objects()), 4, tree);
 
+		/*
 		log() << tree.nodes() << " nodes, "
 			<< tree.leaves() << " leaves, " 
 			<< tree.objects() << " objects, "
 			<< depth(tree) << " depth."
 			<< logNewLine;
+		*/
 
 		const integer points = pointSet.size();
 

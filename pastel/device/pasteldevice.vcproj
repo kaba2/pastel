@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="PastelDevice"
 	ProjectGUID="{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}"
 	RootNamespace="PastelDevice"
@@ -221,6 +221,14 @@
 			</File>
 			<File
 				RelativePath=".\mutex.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\thread.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\thread.h"
 				>
 			</File>
 		</Filter>
