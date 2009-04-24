@@ -565,8 +565,8 @@ namespace Pastel
 
 		integer size() const
 		{
-			const Expression& expression =
-				(const Expression&)data_;
+			const LeftExpression& expression =
+				(const LeftExpression&)left_;
 			return expression.size();
 		}
 	private:

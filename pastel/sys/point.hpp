@@ -30,11 +30,13 @@ namespace Pastel
 		{
 		}
 
+		/*
 		//! Constructs with all elements set to the given value.
 		explicit Point(const Real& that)
 			: data_(that)
 		{
 		}
+		*/
 
 		//! Constructs from a vector.
 		template <typename Expression>

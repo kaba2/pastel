@@ -44,30 +44,30 @@ namespace Pastel
 	//! Returns a subsequence of a vector.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N - 1, Real> shrink(
+	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that);
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N - 1, Real> shrink(
+	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index);
 
 	//! Returns an N + 1 vector appended from the left.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N + 1, Real> extend(
+	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N + 1, Real> extend(
+	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N + 1, Real> extend(
+	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index);
@@ -164,7 +164,7 @@ namespace Pastel
 	norm(that) > 0
 	*/
 	template <int N, typename Real>
-	inline Vector<N, Real> normalize(const Vector<N, Real>& that);
+	inline TemporaryVector<N, Real> normalize(const Vector<N, Real>& that);
 
 	//! Returns a clockwise perpendicular to the given vector.
 
