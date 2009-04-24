@@ -32,7 +32,6 @@ namespace
 		a = 3;
 		REPORT(a[0] != 3 || a[1] != 3 || a[2] != 3);
 
-		// A vector is-a tuple.
 		someFunction(asTuple(a));
 	}
 
@@ -309,6 +308,98 @@ namespace
 			b[2] != inverse(a[2]));
 	}
 
+	void testVectorUnbounded()
+	{
+		const integer Size = 100;
+
+		Vector<Unbounded, real> a;
+		a.setSize(Size);
+		
+		for (integer i = 0;i < Size;++i)
+		{
+			a[i] = i;
+		}
+
+		Vector<Unbounded, real> b = a.asTemporary();
+
+		// Test move construction.
+		{
+			REPORT1(a.size() != 0, a.size());
+			REPORT1(b.size() != Size, b.size());
+			
+			bool contentsMatch = true;
+			for (integer i = 0;i < Size;++i)
+			{
+				if (b[i] != i)
+				{
+					contentsMatch = false;
+					break;
+				}
+			}
+			REPORT(!contentsMatch);
+		}
+
+		// Test addition.
+		{
+			Vector<Unbounded, real> c = b + b;
+			bool contentsMatch = true;
+			for (integer i = 0;i < Size;++i)
+			{
+				if (c[i] != i + i)
+				{
+					contentsMatch = false;
+				}
+			}
+			REPORT(!contentsMatch);
+		}
+
+		// Test subtraction.
+		{
+			Vector<Unbounded, real> c = b - b;
+			bool contentsMatch = true;
+			for (integer i = 0;i < Size;++i)
+			{
+				if (c[i] != i - i)
+				{
+					contentsMatch = false;
+				}
+			}
+			REPORT(!contentsMatch);
+		}
+
+		// Test multiplication.
+		{
+			Vector<Unbounded, real> c = b * b;
+			bool contentsMatch = true;
+			for (integer i = 0;i < Size;++i)
+			{
+				if (c[i] != i * i)
+				{
+					contentsMatch = false;
+				}
+			}
+			REPORT(!contentsMatch);
+		}
+
+		// Test division.
+		{
+			Vector<Unbounded, real> c = b / b;
+			bool contentsMatch = true;
+			for (integer i = 1;i < Size;++i)
+			{
+				if (c[i] != (real)i / i)
+				{
+					contentsMatch = false;
+				}
+			}
+			REPORT(!contentsMatch);
+		}
+
+		Tuple<Unbounded, real> c = b.asTuple();
+		Tuple<Unbounded, real> d = c;
+		d = c;
+	}
+
 	void testBegin()
 	{
 		testVectorBasic();
@@ -320,6 +411,7 @@ namespace
 
 	void testAdd()
 	{
+		mathTestList().add("Vector.Unbounded", testVectorUnbounded);
 		mathTestList().add("Vector", testBegin);
 	}
 
