@@ -817,6 +817,10 @@
 					RelativePath=".\vectorbase.h"
 					>
 				</File>
+				<File
+					RelativePath=".\vectorexpression.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Rectangle"

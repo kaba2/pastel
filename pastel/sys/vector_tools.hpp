@@ -82,7 +82,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N - 1, Real> shrink(
+	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Unbounded);
@@ -103,7 +103,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N - 1, Real> shrink(
+	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index)
 	{
@@ -129,7 +129,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N + 1, Real> extend(
+	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
 	{
@@ -152,7 +152,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N + 1, Real> extend(
+	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
@@ -163,7 +163,7 @@ namespace Pastel
 			NResult = (N == Unbounded) ? Unbounded : N + 1
 		};
 
-		Vector<N + 1, Real> result(size + 1);
+		Vector<NResult, Real> result(size + 1);
 
 		for (int i = 0;i < size;++i)
 		{
@@ -175,7 +175,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<N + 1, Real> extend(
+	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
@@ -189,7 +189,7 @@ namespace Pastel
 			NResult = (N == Unbounded) ? Unbounded : N + 1
 		};
 
-		Vector<N + 1, Real> result(size + 1);
+		Vector<NResult, Real> result(size + 1);
 		for (integer i = 0;i < index;++i)
 		{
 			result[i] = left[i];
