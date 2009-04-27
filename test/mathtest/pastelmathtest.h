@@ -6,7 +6,6 @@
 #include "pastel/sys/log.h"
 
 #include <iostream>
-using namespace std;
 
 inline Pastel::TestRunner& mathTestList()
 {

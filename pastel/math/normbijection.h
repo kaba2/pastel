@@ -48,7 +48,7 @@ namespace Pastel
 
 		Real operator()(integer axis, const Real& that) const
 		{
-			return std::abs(that);
+			return mabs(that);
 		}
 	};
 
@@ -63,7 +63,7 @@ namespace Pastel
 
 		Real operator()(integer axis, const Real& that) const
 		{
-			return std::abs(that);
+			return mabs(that);
 		}
 	};
 

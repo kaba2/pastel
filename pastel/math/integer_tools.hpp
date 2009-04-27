@@ -13,7 +13,7 @@ namespace Pastel
 	{
 		// This is the binary gcd algorithm.
 		// For integers 'left' and 'right' this function
-		// actually computes GCD(abs(left), abs(right)).
+		// actually computes GCD(mabs(left), mabs(right)).
 		// GCD(0, 0) is not defined and results in an error.
 
 		// The binary gcd algorithm works by applying
@@ -48,7 +48,7 @@ namespace Pastel
 
 		integer shift = 0;
 
-		while (even(u | v))
+		while (even(u) && even(v))
 		{
 			u >>= 1;
 			v >>= 1;

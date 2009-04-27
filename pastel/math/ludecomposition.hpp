@@ -107,7 +107,7 @@ namespace Pastel
 			Real largestAbsValue = 0;
 			for (integer j = 0;j < width;++j)
 			{
-				const Real absValue = std::abs(packedLu_(i, j));
+				const Real absValue = mabs(packedLu_(i, j));
 				if (absValue > largestAbsValue)
 				{
 					largestAbsValue = absValue;
@@ -134,7 +134,7 @@ namespace Pastel
 			integer largestIndex = k;
 			for (integer i = k;i < height;++i)
 			{
-				const Real absValue = invLargestInRow_[i] * std::abs(packedLu_(i, k));
+				const Real absValue = invLargestInRow_[i] * mabs(packedLu_(i, k));
 				if (absValue > largestAbsValue)
 				{
 					largestAbsValue = absValue;

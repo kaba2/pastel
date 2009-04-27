@@ -44,7 +44,7 @@ namespace Pastel
 		// Calculate alignedBox widths
 
 		const Vector<2, Real> halfWidths(
-			abs(evaluate((alignedBox.max() - alignedBox.min()) * Real(0.5))));
+			mabs(evaluate((alignedBox.max() - alignedBox.min()) * Real(0.5))));
 		const Point<2, Real> alignedBoxCenter(
 			alignedBox.min() + halfWidths);
 
@@ -119,8 +119,8 @@ namespace Pastel
 			// (the alignedBox is centered on the origin).
 
 			const Real alignedBoxRadius(
-				halfWidths[0] * std::abs(normal[0]) +
-				halfWidths[1] * std::abs(normal[1]));
+				halfWidths[0] * mabs(normal[0]) +
+				halfWidths[1] * mabs(normal[1]));
 
 			// Is this a separating axis?
 
@@ -172,7 +172,7 @@ namespace Pastel
 		// of the alignedBox.
 
 		const Vector<3, Real> alignedBoxHalfWidths(
-			abs((alignedBox.max() - alignedBox.min()) * 0.5));
+			mabs((alignedBox.max() - alignedBox.min()) * 0.5));
 
 		// Calculate the alignedBox center.
 
@@ -277,9 +277,9 @@ namespace Pastel
 			// of the alignedBoxs projection (remember the
 			// alignedBox is centered on origin).
 
-			// r = dot(alignedBoxHalfWidths, abs(C))
-			r = alignedBoxHalfWidths[1] * std::abs(edges[i][2]) +
-				alignedBoxHalfWidths[2] * std::abs(edges[i][1]);
+			// r = dot(alignedBoxHalfWidths, mabs(C))
+			r = alignedBoxHalfWidths[1] * mabs(edges[i][2]) +
+				alignedBoxHalfWidths[2] * mabs(edges[i][1]);
 
 			// Check if this is a separating axis.
 			if (triangleMin > r || triangleMax < -r)
@@ -300,9 +300,9 @@ namespace Pastel
 			Pastel::minMax(triangleProj1, triangleProj2,
 				triangleMin, triangleMax);
 
-			// r = dot(alignedBoxHalfWidths, abs(C))
-			r = alignedBoxHalfWidths[0] * std::abs(edges[i][2]) +
-				alignedBoxHalfWidths[2] * std::abs(edges[i][0]);
+			// r = dot(alignedBoxHalfWidths, mabs(C))
+			r = alignedBoxHalfWidths[0] * mabs(edges[i][2]) +
+				alignedBoxHalfWidths[2] * mabs(edges[i][0]);
 
 			// Check if this is a separating axis.
 			if (triangleMin > r || triangleMax < -r)
@@ -323,9 +323,9 @@ namespace Pastel
 			Pastel::minMax(triangleProj1, triangleProj2,
 				triangleMin, triangleMax);
 
-			// r = dot(alignedBoxHalfWidths, abs(C))
-			r = alignedBoxHalfWidths[0] * std::abs(edges[i][1]) +
-				alignedBoxHalfWidths[1] * std::abs(edges[i][0]);
+			// r = dot(alignedBoxHalfWidths, mabs(C))
+			r = alignedBoxHalfWidths[0] * mabs(edges[i][1]) +
+				alignedBoxHalfWidths[1] * mabs(edges[i][0]);
 
 			// Check if this is a separating axis.
 			if (triangleMin > r || triangleMax < -r)

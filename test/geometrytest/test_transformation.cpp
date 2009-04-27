@@ -31,10 +31,10 @@ namespace
 			const Tuple<4, real> matchedParameter =
 				similarityTransformation(aFrom, bFrom, aTo, bTo);
 
-			const real scalingDelta = std::abs(matchedParameter[0] - parameter[0]);
-			const real angleDelta = std::abs(matchedParameter[1] - parameter[1]);
-			const real xDelta = std::abs(matchedParameter[2] - parameter[2]);
-			const real yDelta = std::abs(matchedParameter[3] - parameter[3]);
+			const real scalingDelta = mabs(matchedParameter[0] - parameter[0]);
+			const real angleDelta = mabs(matchedParameter[1] - parameter[1]);
+			const real xDelta = mabs(matchedParameter[2] - parameter[2]);
+			const real yDelta = mabs(matchedParameter[3] - parameter[3]);
 
 			REPORT1(scalingDelta > 0.001, scalingDelta);
 			REPORT1(angleDelta > 0.001, angleDelta);
@@ -71,10 +71,10 @@ namespace
 				similarityTransformation(
 				pattern, transformedPattern);
 
-			const real scalingDelta = std::abs(matchedParameter[0] - parameter[0]);
-			const real angleDelta = std::abs(matchedParameter[1] - parameter[1]);
-			const real xDelta = std::abs(matchedParameter[2] - parameter[2]);
-			const real yDelta = std::abs(matchedParameter[3] - parameter[3]);
+			const real scalingDelta = mabs(matchedParameter[0] - parameter[0]);
+			const real angleDelta = mabs(matchedParameter[1] - parameter[1]);
+			const real xDelta = mabs(matchedParameter[2] - parameter[2]);
+			const real yDelta = mabs(matchedParameter[3] - parameter[3]);
 
 			REPORT1(scalingDelta > 0.001, scalingDelta);
 			REPORT1(angleDelta > 0.001, angleDelta);

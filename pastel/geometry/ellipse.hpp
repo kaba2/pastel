@@ -144,9 +144,9 @@ namespace Pastel
 		// implies that the diagonal elements
 		// are non-negative. We are just being
 		// careful for rounding errors
-		// here with the abs().
+		// here with the mabs().
 
-		const Vector<N, Real> radius = sqrt(abs(
+		const Vector<N, Real> radius = sqrt(mabs(
 			diagonal(invQuadraticForm)));
 
 		const AlignedBox<N, Real> bound(

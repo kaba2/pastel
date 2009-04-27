@@ -73,6 +73,9 @@ namespace Pastel
 	template <typename Integer>
 	float toFloat(const Rational<Integer>& that);
 
+	template <typename Integer>
+	Rational<Integer> mabs(const Rational<Integer>& that);
+
 }
 
 #include "pastel/math/rational_more.hpp"

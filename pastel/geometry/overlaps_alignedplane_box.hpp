@@ -30,10 +30,10 @@ namespace Pastel
 			// w.r.t its axes, the minimal point
 			// is also found in -radius.
 
-			radius += std::abs(box.rotation()[i][alignedPlane.axis()]);
+			radius += mabs(box.rotation()[i][alignedPlane.axis()]);
 		}
 
-		if (std::abs(box.position()[alignedPlane.axis()] -
+		if (mabs(box.position()[alignedPlane.axis()] -
 			alignedPlane.position()) > radius)
 		{
 			// alignedPlane and box do not intersect

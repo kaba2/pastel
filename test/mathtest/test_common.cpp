@@ -56,8 +56,8 @@ namespace
 
 			quadratic(aCoeff, bCoeff, cCoeff, t0, t1);
 
-			const real aDelta = std::abs(aRoot - t0);
-			const real bDelta = std::abs(bRoot - t1);
+			const real aDelta = mabs(aRoot - t0);
+			const real bDelta = mabs(bRoot - t1);
 
 			if (aDelta >= 0.1 || bDelta >= 0.1)
 			{

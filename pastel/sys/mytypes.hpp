@@ -11,6 +11,26 @@ namespace Pastel
 	{
 	}
 
+	inline float mabs(float that)
+	{
+		if (that < 0)
+		{
+			return -that;
+		}
+
+		return that;
+	}
+
+	inline double mabs(double that)
+	{
+		if (that < 0)
+		{
+			return -that;
+		}
+
+		return that;
+	}
+
 }
 
 #endif

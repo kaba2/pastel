@@ -38,7 +38,7 @@ namespace Pastel
 		const Matrix<2, 2, Real>& boxRotation = box.rotation();
 		const Vector<2, Real>& boxWidth = box.width();
 		Matrix<2, 2, Real> absRotation(box.rotation());
-		modify(absRotation, (real(*)(real))std::abs);
+		modify(absRotation, (real(*)(real))mabs);
 
 		// Project to the aligned box's normals
 		// (the natural basis vectors).
@@ -72,7 +72,7 @@ namespace Pastel
 
 			const Real depth =
 				(aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -110,7 +110,7 @@ namespace Pastel
 
 			const Real depth =
 				(aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -213,7 +213,7 @@ namespace Pastel
 		const Vector<2, Real>& boxWidth = box.width();
 
 		Matrix<2, 2, Real> absRotation(box.rotation());
-		modify(absRotation, (real(*)(real))std::abs);
+		modify(absRotation, (real(*)(real))mabs);
 
 		Point<2, Real> someCommonPoint;
 
@@ -249,7 +249,7 @@ namespace Pastel
 
 			const Real signedProjectedDistance = delta[i];
 			const Real projectedDistance =
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (projectedRadiusSum < projectedDistance)
 			{
@@ -329,7 +329,7 @@ namespace Pastel
 			const Real signedProjectedDistance =
 				dot(box.rotation()[i], delta);
 			const Real projectedDistance =
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (projectedRadiusSum < projectedDistance)
 			{
@@ -395,7 +395,7 @@ namespace Pastel
 		const Matrix<3, 3, Real>& boxRotation = box.rotation();
 		const Vector<3, Real>& boxWidth = box.width();
 		Matrix<3, 3, Real> absRotation(box.rotation());
-		modify(absRotation, (real(*)(real))std::abs);
+		modify(absRotation, (real(*)(real))mabs);
 
 		// Test for projection axes from alignedBox
 
@@ -411,7 +411,7 @@ namespace Pastel
 				delta[i];
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -432,7 +432,7 @@ namespace Pastel
 				dot(delta, boxRotation[i]);
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -453,7 +453,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -472,7 +472,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -491,7 +491,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -510,7 +510,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -530,7 +530,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -549,7 +549,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -568,7 +568,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -587,7 +587,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -606,7 +606,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -647,7 +647,7 @@ namespace Pastel
 		const Matrix<3, 3, Real>& boxRotation = box.rotation();
 		const Vector<3, Real>& boxWidth = box.width();
 		Matrix<3, 3, Real> absRotation(box.rotation());
-		modify(absRotation, (real(*)(real))std::abs);
+		modify(absRotation, (real(*)(real))mabs);
 
 		// Test for projection axes from alignedBox
 
@@ -663,7 +663,7 @@ namespace Pastel
 				delta[i];
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -697,7 +697,7 @@ namespace Pastel
 				dot(delta, boxRotation[i]);
 
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -731,7 +731,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][0] +
 				boxWidth[1] * absRotation[2][0];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -763,7 +763,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][1] +
 				boxWidth[1] * absRotation[2][1];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -795,7 +795,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[1][2] +
 				boxWidth[1] * absRotation[2][2];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -827,7 +827,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][0] +
 				boxWidth[0] * absRotation[2][0];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -859,7 +859,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][1] +
 				boxWidth[0] * absRotation[2][1];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -891,7 +891,7 @@ namespace Pastel
 				boxWidth[2] * absRotation[0][2] +
 				boxWidth[0] * absRotation[2][2];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -923,7 +923,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][0] +
 				boxWidth[0] * absRotation[1][0];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -955,7 +955,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][1] +
 				boxWidth[0] * absRotation[1][1];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{
@@ -987,7 +987,7 @@ namespace Pastel
 				boxWidth[1] * absRotation[0][2] +
 				boxWidth[0] * absRotation[1][2];
 			const Real depth = (aProjectedRadius + bProjectedRadius) -
-				std::abs(signedProjectedDistance);
+				mabs(signedProjectedDistance);
 
 			if (depth < 0)
 			{

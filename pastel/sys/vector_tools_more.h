@@ -624,7 +624,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline const VectorAbs<N, Real, Expression>
-		abs(const VectorExpression<N, Real, Expression>& x);
+		mabs(const VectorExpression<N, Real, Expression>& x);
 
 	//! Returns e^x[i], elementwise.
 

@@ -43,7 +43,7 @@ namespace Pastel
 		const Vector2 dx = dUvDx * Vector2(mostDetailedImage.extent());
 		const Vector2 dy = dUvDy * Vector2(mostDetailedImage.extent());
 
-		const Vector2 radius = max(evaluate(abs(dx)), evaluate(abs(dy)));
+		const Vector2 radius = max(evaluate(mabs(dx)), evaluate(mabs(dy)));
 
 		if (allLessEqual(radius, 1))
 		{

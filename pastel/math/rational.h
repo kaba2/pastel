@@ -7,6 +7,8 @@
 #define PASTELMATH_RATIONAL_H
 
 #include <boost/operators.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace Pastel
 {
@@ -53,20 +55,42 @@ namespace Pastel
 		//! Constructs with the value (0 / 1).
 		Rational();
 
+		// Note in the following the different
+		// kinds of constructors. The intent is
+		// to identify literals such as 1, 2.3f,
+		// 2.3 with Rational numbers. This is
+		// why we provide
+		// Rational(integer wholes);
+		// Rational(real32_ieee that);
+		// Rational(real64_ieee that);
+
 		//! Constructs with the value (wholes / 1).
 		// Implicit conversion allowed.
 		Rational(integer wholes);
 
 		//! Constructs with the value (wholes / 1).
-		// Implicit conversion allowed.
-		Rational(const Integer& wholes);
+		/*! 
+		Implicit conversion allowed.
+		This constructor causes an amgiguity
+		if integer == Integer. Thus we "remove"
+		this constructor in that case by changing
+		it to take an EmptyClass which we mean
+		to never be used.
+		*/
+		Rational(const typename boost::mpl::if_<
+			boost::is_same<integer, Integer>, EmptyClass, Integer>::type& wholes);
 
 		//! Constructs with the value (numerator / denominator).
 		Rational(const Integer& numerator,
 				 const Integer& denominator);
 
-		//! Constructs with the value of the ieee floating point.
+		//! Constructs with the value of the ieee single floating point.
+		// Implicit conversion allowed.
 		Rational(real32_ieee that);
+
+		//! Constructs with the value of the ieee double floating point.
+		// Implicit conversion allowed.
+		Rational(real64_ieee that);
 
 		//! Assigns another rational number.
 		Rational<Integer>& operator=(const Rational<Integer>& that);

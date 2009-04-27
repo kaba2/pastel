@@ -41,7 +41,7 @@ namespace Pastel
 		// cardinal cubic splines
 		// with d' as the parameter.
 
-		const real xAbs = std::abs(x);
+		const real xAbs = mabs(x);
 
 		if (xAbs < 1)
 		{

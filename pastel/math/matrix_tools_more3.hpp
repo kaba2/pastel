@@ -112,10 +112,10 @@ namespace Pastel
 			const integer currentColumn = row;
 
 			integer maxAbsColumn = currentColumn;
-			Real maxAbsValue = std::abs(a2(row, currentColumn));
+			Real maxAbsValue = mabs(a2(row, currentColumn));
 			for (integer column = currentColumn + 1;column < width;++column)
 			{
-				const Real currentAbsValue = std::abs(a2(row, column));
+				const Real currentAbsValue = mabs(a2(row, column));
 				if (currentAbsValue > maxAbsValue)
 				{
 					maxAbsColumn = column;

@@ -39,10 +39,10 @@ namespace
 			const Tuple<4, real> parameters =
 				similarityTransformation(from, to);
 
-			REPORT(std::abs(parameters[0] - scale) > 0.001);
-			REPORT(std::abs(parameters[1] - angle) > 0.001);
-			REPORT(std::abs(parameters[2] - translation[0]) > 0.001);
-			REPORT(std::abs(parameters[3] - translation[1]) > 0.001);
+			REPORT(mabs(parameters[0] - scale) > 0.001);
+			REPORT(mabs(parameters[1] - angle) > 0.001);
+			REPORT(mabs(parameters[2] - translation[0]) > 0.001);
+			REPORT(mabs(parameters[3] - translation[1]) > 0.001);
 		}
 	}
 

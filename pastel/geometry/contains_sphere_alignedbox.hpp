@@ -18,7 +18,7 @@ namespace Pastel
 			innerBox.extent() / 2;
 
 		const Real cornerDistance2 =
-			dot(abs(innerSphere.position() - boxCenter) + boxRadius);
+			dot(mabs(innerSphere.position() - boxCenter) + boxRadius);
 
 		return cornerDistance2 <= innerSphere.radius() * innerSphere.radius();
 	}

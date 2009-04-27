@@ -184,8 +184,8 @@ namespace Pastel
 			qNext = 0;
 		}
 
-		while(std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) >
-			std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
+		while(mabs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) >
+			mabs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
 		{
 			q = qNext;
 			++qNext;
@@ -203,8 +203,8 @@ namespace Pastel
 					pNext = 0;
 				}
 				reportFunctor(p, q);
-				while(std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) >
-					std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
+				while(mabs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) >
+					mabs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
 				{
 					q = qNext;
 					++qNext;
@@ -221,8 +221,8 @@ namespace Pastel
 						reportFunctor(p, q);
 					}
 				}
-				if (std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) ==
-					std::abs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
+				if (mabs(signedArea(pointSet[p], pointSet[pNext], pointSet[qNext])) ==
+					mabs(signedArea(pointSet[p], pointSet[pNext], pointSet[q])))
 				{
 					if (p == q0 && q == p0)
 					{

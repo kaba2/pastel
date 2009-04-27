@@ -17,7 +17,7 @@ namespace Pastel
 		const Real delta(sphere.position()[alignedPlane.axis()] -
 			alignedPlane.position());
 
-		return (std::abs(delta) <= sphere.radius());
+		return (mabs(delta) <= sphere.radius());
 	}
 
 	template <int N, typename Real>
@@ -30,7 +30,7 @@ namespace Pastel
 
 		sphereOnPositiveSide = delta > 0;
 
-		return std::abs(delta) <= sphere.radius();
+		return mabs(delta) <= sphere.radius();
 	}
 
 }

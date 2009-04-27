@@ -120,6 +120,17 @@ namespace Pastel
 		return 0;
 	}
 
+	template <typename Integer>
+	Rational<Integer> mabs(const Rational<Integer>& that)
+	{
+		if (negative(that))
+		{
+			return -that;
+		}
+
+		return that;
+	}
+
 }
 
 #endif

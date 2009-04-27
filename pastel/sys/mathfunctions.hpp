@@ -47,7 +47,7 @@ namespace Pastel
 	integer floorLog2(const Real& x)
 	{
 		integer power = 0;
-		Real y(abs(x));
+		Real y(mabs(x));
 
 		while (y >= 2)
 		{
@@ -75,7 +75,7 @@ namespace Pastel
 
 		// sinc(-x) = sinc(x) = sinc(|x|)
 
-		const Real x(std::abs(xInput * constantPi<Real>()));
+		const Real x(mabs(xInput * constantPi<Real>()));
 
 		static const Real APPROXIMATION_BOUND(0.1);
 

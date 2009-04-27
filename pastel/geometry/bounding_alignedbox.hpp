@@ -62,9 +62,9 @@ namespace Pastel
 			for (integer k = 0;k < N;++k)
 			{
 				// Actually, this is
-				// std::abs(dot(box.rotation()[k] * width[k], e_i))
+				// mabs(dot(box.rotation()[k] * width[k], e_i))
 				// where e_i is the i:th standard basis vector.
-				axisRadius += std::abs(box.rotation()(k, i) * width[k]);
+				axisRadius += mabs(box.rotation()(k, i) * width[k]);
 			}
 
 			radius[i] = axisRadius;
