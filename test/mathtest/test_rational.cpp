@@ -16,6 +16,7 @@ namespace
 	using namespace std;
 
 	typedef BigInteger Integer;
+	//typedef NativeInteger<integer> Integer;
 	typedef Rational<Integer> Rat;
 
 	void testSimple()

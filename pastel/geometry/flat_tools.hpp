@@ -69,7 +69,7 @@ namespace Pastel
 			Real maxDot(0);
 			for (integer j = 0;j < vectorCount;++j)
 			{
-				const Real absDot(std::abs(flat[j][i]));
+				const Real absDot(mabs(flat[j][i]));
 				if (absDot > maxDot)
 				{
 					maxDot = absDot;

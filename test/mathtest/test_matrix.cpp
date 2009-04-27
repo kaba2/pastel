@@ -201,7 +201,7 @@ namespace
 			const Matrix<N, N, real> mInv(inverse(m));
 
 			Matrix<N, N, real> result = m * mInv - Matrix<N, N, real>();
-			modify(result, (real (*)(real))std::abs);
+			modify(result, (real (*)(real))mabs);
 			if (max(result) < 0.0001)
 			{
 				++count;
@@ -228,7 +228,7 @@ namespace
 			const Vector<N, real> x(solveLinearSystem(a, b));
 
 			const Vector<N, real> result(
-				abs(x * a - b));
+				mabs(x * a - b));
 
 			bool ok = true;
 			for (integer j = 0;j < N;++j)

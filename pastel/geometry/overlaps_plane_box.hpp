@@ -47,12 +47,12 @@ namespace Pastel
 		// either -axis[i] or axis[i] depending
 		// on which has the effect of increasing
 		// the distance to the plane (this is
-		// handled by the abs()).
+		// handled by the mabs()).
 
 		Real d(0);
 		for (integer i = 0;i < N;++i)
 		{
-			d += std::abs(dot(axes[i], planeNormal));
+			d += mabs(dot(axes[i], planeNormal));
 		}
 
 		// Calculate the distance of the center

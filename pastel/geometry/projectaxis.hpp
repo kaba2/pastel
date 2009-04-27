@@ -32,7 +32,7 @@ namespace Pastel
 		Real radius = 0;
 		for (integer i = 0;i < N;++i)
 		{
-			radius += std::abs(dot(box.rotation()[i] * box.width()[i], unitAxis));
+			radius += mabs(dot(box.rotation()[i] * box.width()[i], unitAxis));
 		}
 
 		return AlignedBox<1, Real>(
@@ -61,7 +61,7 @@ namespace Pastel
 		const Vector<N, Real> delta = segment.end() - segment.start();
 		const Real position = dot(unitAxis,
 			linear(asVector(segment.start()), asVector(segment.end()), 0.5));
-		const Real radius = std::abs(dot(unitAxis, delta)) * 0.5;
+		const Real radius = mabs(dot(unitAxis, delta)) * 0.5;
 
 		return AlignedBox<1, Real>(
 			position - radius,

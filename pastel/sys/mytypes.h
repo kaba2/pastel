@@ -91,6 +91,9 @@ namespace Pastel
 	template <typename Type>
 	void unused(const Type&);
 
+	float mabs(float that);
+	double mabs(double that);
+
 }
 
 #include "pastel/sys/mytypes.hpp"

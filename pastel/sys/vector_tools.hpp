@@ -76,13 +76,30 @@ namespace Pastel
 	template <int N, typename Real>
 	Vector<N, Real> unitAxis(integer index)
 	{
-		Vector<N, Real> result((Real)0);
-		result[index] = (Real)1;
+		BOOST_STATIC_ASSERT(N > 0);
+		PENSURE2(index >= 0 && index < N, index, N);
+
+		Vector<N, Real> result(0);
+		result[index] = 1;
 		return result;
 	}
 
+	template <int N, typename Real>
+	TemporaryVector<Unbounded, Real> unitAxis(
+		integer index, integer dimension)
+	{
+		PENSURE1(dimension > 0, dimension);
+		PENSURE2(index >= 0 && index < dimension, index, dimension);
+
+		Vector<Unbounded, Real> result;
+		result.setSize(dimension, 0);
+		result[index] = 1;
+
+		return result.asTemporary();
+	}
+
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Unbounded);
@@ -99,11 +116,12 @@ namespace Pastel
 		{
 			result[i] = that[i];
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index)
 	{
@@ -125,11 +143,12 @@ namespace Pastel
 		{
 			result[i] = that[i + 1];
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
 	{
@@ -148,11 +167,11 @@ namespace Pastel
 			result[i] = right[i - 1];
 		}
 
-		return result;
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
@@ -171,11 +190,11 @@ namespace Pastel
 		}
 		result[size] = right;
 
-		return result;
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
@@ -200,7 +219,7 @@ namespace Pastel
 			result[i] = left[i - 1];
 		}
 
-		return result;
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real,
@@ -236,7 +255,7 @@ namespace Pastel
 		// pick the one with the maximum absolute value.
 		// This is done to avoid overflow.
 
-		const Vector<N, Real> absThat = abs(that);
+		const Vector<N, Real> absThat = mabs(that);
 
 		const integer m = maxIndex(absThat);
 
@@ -270,13 +289,13 @@ namespace Pastel
 	typename boost::enable_if_c<(N == 1), Real>::type
 		norm(const Vector<N, Real>& that)
 	{
-		return std::abs(that[0]);
+		return mabs(that[0]);
 	}
 
 	template <int N, typename Real>
 	Real normManhattan(const Vector<N, Real>& that)
 	{
-		return sum(abs(that));
+		return sum(mabs(that));
 	}
 
 	template <int N, typename Real>
@@ -284,7 +303,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		PENSURE(metric >= 1);
-		return sum(pow(abs(that), metric));
+		return sum(pow(mabs(that), metric));
 	}
 
 	template <int N, typename Real>
@@ -305,7 +324,7 @@ namespace Pastel
 		// pick the one with the maximum absolute value.
 		// This is done to avoid overflow.
 
-		const Vector<N, Real> absThat = abs(that);
+		const Vector<N, Real> absThat = mabs(that);
 
 		const integer m = maxIndex(absThat);
 
@@ -336,13 +355,21 @@ namespace Pastel
 	template <int N, typename Real>
 	Real normInfinity(const Vector<N, Real>& that)
 	{
-		return max(evaluate(abs(that)));
+		return max(evaluate(mabs(that)));
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> normalize(const Vector<N, Real>& that)
+	TemporaryVector<N, Real> normalize(const TemporaryVector<N, Real>& that)
 	{
-		return that / norm(that);
+		Vector<N, Real> result = that;
+		result /= norm(result);
+		return result.asTemporary();
+	}
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> normalize(const Vector<N, Real>& that)
+	{
+		return evaluate(that / norm(that));
 	}
 
 	template <typename Real>

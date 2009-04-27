@@ -37,37 +37,51 @@ namespace Pastel
 	inline Real product(const VectorExpression<N, Real, Expression>& x);
 
 	//! Returns the 'index'th natural basis axis.
+	/*!
+	N != Unbounded
+	index >= 0 && index < N
+	*/
 
 	template <int N, typename Real>
 	inline Vector<N, Real> unitAxis(integer index);
 
+	//! Returns the 'index'th natural basis axis.
+	/*!
+	index >= 0 && index < dimension
+	dimension > 0
+	*/
+
+	template <int N, typename Real>
+	inline TemporaryVector<Unbounded, Real> unitAxis(
+		integer index, integer dimension);
+
 	//! Returns a subsequence of a vector.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that);
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index);
 
 	//! Returns an N + 1 vector appended from the left.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index);
@@ -118,7 +132,7 @@ namespace Pastel
 	//! Returns the Manhattan (L1) norm of a vector.
 	/*!
 	The Manhattan (L1) norm is:
-	norm_1(that) := sum(abs(that[i]))
+	norm_1(that) := sum(mabs(that[i]))
 	*/
 
 	template <int N, typename Real>
@@ -126,7 +140,7 @@ namespace Pastel
 
 	//! Returns the p:th-power of the Lp norm of a vector.
 	/*!
-	powerSum(that) := sum(abs(that[i])^p)
+	powerSum(that) := sum(mabs(that[i])^p)
 	*/
 
 	template <int N, typename Real>
@@ -152,11 +166,19 @@ namespace Pastel
 	//! Returns the infinity norm of a vector.
 	/*!
 	The infinity norm is
-	norm_inf(that) := max(abs(that[i])).
+	norm_inf(that) := max(mabs(that[i])).
 	*/
 
 	template <int N, typename Real>
 	inline Real normInfinity(const Vector<N, Real>& that);
+
+	//! Returns the corresponding unit vector (Euclidean norm).
+	/*!
+	Preconditions:
+	norm(that) > 0
+	*/
+	template <int N, typename Real>
+	inline TemporaryVector<N, Real> normalize(const TemporaryVector<N, Real>& that);
 
 	//! Returns the corresponding unit vector (Euclidean norm).
 	/*!

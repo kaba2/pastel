@@ -14,10 +14,11 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	Vector<N, Real> evaluate(
+	TemporaryVector<N, Real> evaluate(
 		const VectorExpression<N, Real, Expression>& that)
 	{
-		return Vector<N, Real>(that);
+		Vector<N, Real> result(that);
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real>

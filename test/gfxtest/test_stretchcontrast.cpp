@@ -140,7 +140,7 @@ namespace
 
 			log() << "Max rgb " << maxRgb << logNewLine;
 
-			if (std::abs(maxRgb - 1) < 0.01)
+			if (mabs(maxRgb - 1) < 0.01)
 			{
 				break;
 			}

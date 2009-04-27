@@ -271,10 +271,10 @@ namespace Pastel
 		integer y = std::floor(yStart);
 
 		const integer steps = std::max(
-			std::abs(std::floor(xEnd) - x),
-			std::abs(std::floor(yEnd) - y)) + 1;
+			mabs(std::floor(xEnd) - x),
+			mabs(std::floor(yEnd) - y)) + 1;
 
-		if (std::abs(dx) >= std::abs(dy))
+		if (mabs(dx) >= mabs(dy))
 		{
 			real s =
 				2 * (((real)y + (real)0.5) - yStart) * dx -
@@ -539,10 +539,10 @@ namespace Pastel
 		integer y = std::floor(yStart);
 
 		const integer steps = std::max(
-			std::abs(std::floor(xEnd) - x),
-			std::abs(std::floor(yEnd) - y)) + 1;
+			mabs(std::floor(xEnd) - x),
+			mabs(std::floor(yEnd) - y)) + 1;
 
-		if (std::abs(dx) >= std::abs(dy))
+		if (mabs(dx) >= mabs(dy))
 		{
 			real s =
 				2 * (((real)y + (real)0.5) - yStart) * dx -

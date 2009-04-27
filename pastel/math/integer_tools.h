@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	//! Returns the greatest common dividor of 'abs(left)' and 'abs(right)'.
+	//! Returns the greatest common dividor of 'mabs(left)' and 'mabs(right)'.
 
 	/*!
 	Time complexity: (log2(left) + log2(right))^2

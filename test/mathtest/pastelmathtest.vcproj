@@ -53,6 +53,7 @@
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
+				ShowIncludes="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

@@ -16,7 +16,7 @@ namespace Pastel
 
 	real TriangleFilter::evaluateInRange(real x) const
 	{
-		return 1 - std::abs(x);
+		return 1 - mabs(x);
 	}
 
 }

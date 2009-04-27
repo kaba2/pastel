@@ -9,18 +9,17 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
 using namespace Pastel;
 
 int main()
 {
-	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
+	log().addObserver(LogObserverPtr(new StreamLogObserver(&std::cout)));
 	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
 
 	mathTestList().console();
 
-	string tmp;
-	getline(cin, tmp);
+	std::string tmp;
+	std::getline(std::cin, tmp);
 
 	return 0;
 }

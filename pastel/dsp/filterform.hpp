@@ -35,7 +35,7 @@ namespace Pastel
 		Real sum(0);
 		for (integer i = 0;i < width;++i)
 		{
-			const Real distance(abs(Real(i - half)));
+			const Real distance(mabs(Real(i - half)));
 			out[i] = sinc(distance * scaleSincFreq) *
 				filterWindow(distance * scaleWindowFreq);
 			sum += out[i];
@@ -69,7 +69,7 @@ namespace Pastel
 		Real sum(0);
 		for (integer i = 0;i < width;++i)
 		{
-			const Real distance(abs(Real(i - half)));
+			const Real distance(mabs(Real(i - half)));
 			out[i] = -sinc(distance * scaleSincFreq) *
 				filterWindow(distance * scaleWindowFreq);
 

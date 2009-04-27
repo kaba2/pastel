@@ -119,7 +119,11 @@ namespace Pastel
 				*this = x;
 			}
 
-			Vector<N, Real>& operator=(const Real& that)
+			// The parameter to this function
+			// is deliberately not a reference,
+			// because the reference could point
+			// to this vector.
+			Vector<N, Real>& operator=(const Real that)
 			{
 				const integer n = size();
 				
