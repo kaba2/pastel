@@ -17,12 +17,30 @@ namespace Pastel
 	//! Returns a random vector uniformly distributed in [0, 1]^N.
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVector();
+	TemporaryVector<N, Real> randomVector();
+
+	//! Returns a random vector uniformly distributed in [0, 1]^N.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVector(integer dimension);
 
 	//! Returns a random vector uniformly distributed in [-1, 1]^N.
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorCube();
+	TemporaryVector<N, Real> randomVectorCube();
+
+	//! Returns a random vector uniformly distributed in [-1, 1]^N.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorCube(integer dimension);
 
 	//! Returns a random vector uniformly distributed on the unit sphere.
 	/*!
@@ -31,7 +49,19 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorSphere();
+	TemporaryVector<N, Real> randomVectorSphere();
+
+	//! Returns a random vector uniformly distributed on the unit sphere.
+	/*!
+	Preconditions:
+	dimension >= 0
+
+	Returns:
+	A vector x such that norm(x) = 1.
+	*/
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorSphere(integer dimension);
 
 	//! Returns a random vector uniformly distributed in the unit ball.
 	/*!
@@ -40,7 +70,19 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorBall();
+	TemporaryVector<N, Real> randomVectorBall();
+
+	//! Returns a random vector uniformly distributed in the unit ball.
+	/*!
+	Preconditions:
+	dimension >= 0
+
+	Returns:
+	A vector x such that norm(x) <= 1.
+	*/
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorBall(integer dimension);
 
 	//! Returns a random vector uniformly distributed on the annulus.
 	/*!
@@ -49,9 +91,24 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorAnnulus(
+	TemporaryVector<N, Real> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
+
+	//! Returns a random vector uniformly distributed on the annulus.
+	/*!
+	Preconditions:
+	dimension >= 0
+
+	Returns:
+	A vector x such that minRadius <= norm(x) <= maxRadius.
+	*/
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorAnnulus(
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
+		integer dimension);
 
 	//! Uniformly samples a point from an annulus
 	/*!

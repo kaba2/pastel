@@ -102,7 +102,7 @@ namespace Pastel
 
 			void setSize(integer size, const Type& that = Type())
 			{
-				ENSURE2(size == N, size, N);
+				ENSURE2(size >= 0 && size <= N, size, N);
 				// Do nothing.
 			}
 
