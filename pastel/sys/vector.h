@@ -112,17 +112,6 @@ namespace Pastel
 		{
 		}
 
-		// We want to force giving the initialization value.
-		// This is because the size alone could be mixed
-		// with single-value initialization with
-		// finite dimensional vectors (which does not
-		// make sense for unbounded vectors).
-		explicit Vector(integer size, const Real& that)
-			: Base()
-		{
-			setSize(size, that);
-		}
-
 		template <typename ThatReal>
 		explicit Vector(const Tuple<Unbounded, ThatReal>& that)
 			: Base(that)
@@ -571,12 +560,6 @@ namespace Pastel
 		{
 		}
 
-		TemporaryVector(integer size, const Real& that)
-			: Base(that)
-		{
-			PENSURE1(size == N, size);
-		}
-
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -636,12 +619,6 @@ namespace Pastel
 		TemporaryVector()
 			: Base()
 		{
-		}
-
-		TemporaryVector(integer size, const Real& that)
-			: Base(that)
-		{
-			PENSURE1(size == 1, size);
 		}
 
 		TemporaryVector(const TemporaryVector& that)
@@ -706,12 +683,6 @@ namespace Pastel
 		TemporaryVector()
 			: Base()
 		{
-		}
-
-		TemporaryVector(integer size, const Real& that)
-			: Base(that)
-		{
-			PENSURE1(size == 2, size);
 		}
 
 		TemporaryVector(const TemporaryVector& that)
@@ -782,12 +753,6 @@ namespace Pastel
 		{
 		}
 
-		TemporaryVector(integer size, const Real& that)
-			: Base(that)
-		{
-			PENSURE1(size == 3, size);
-		}
-
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -854,12 +819,6 @@ namespace Pastel
 		TemporaryVector()
 			: Base()
 		{
-		}
-
-		TemporaryVector(integer size, const Real& that)
-			: Base(that)
-		{
-			PENSURE1(size == 4, size);
 		}
 
 		TemporaryVector(const TemporaryVector& that)

@@ -13,40 +13,64 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVector()
+	TemporaryVector<N, Real> randomVector()
 	{
-		Vector<N, Real> direction;
+		return Pastel::randomVector<N, Real>(N);
+	}
 
-		for (integer i = 0;i < N;++i)
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVector(integer dimension)
+	{
+		PENSURE1(dimension >= 0, dimension);
+
+		Vector<N, Real> direction;
+		direction.setSize(dimension);
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			direction[i] = randomReal();
 		}
 
-		return direction;
+		return direction.asTemporary();
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorCube()
+	TemporaryVector<N, Real> randomVectorCube()
 	{
-		Vector<N, Real> direction;
+		return Pastel::randomVectorCube<N, Real>(N);
+	}
 
-		for (integer i = 0;i < N;++i)
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorCube(integer dimension)
+	{
+		PENSURE1(dimension >= 0, dimension);
+
+		Vector<N, Real> direction;
+		direction.setSize(dimension);
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			direction[i] = 2 * randomReal() - 1;
 		}
 
-		return direction;
+		return direction.asTemporary();
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorSphere()
+	TemporaryVector<N, Real> randomVectorSphere()
+	{
+		return Pastel::randomVectorSphere<N, Real>(N);
+	}
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorSphere(integer dimension)
 	{
 		// A randomly distributed vector on the
 		// unit sphere can be generated as follows.
 		// A (0, v)-normal distribution is given by
 		// f(x) = (1 / sqrt(v^2 2pi)) e^(-x^2/(2 v^2))
 		// Pick n random variables from such a
-		// distribution, Now
+		// distribution. Now
 		// g(x_1, ..., x_n)
 		// = f(x_1) ... f(x_n)
 		// = (1 / sqrt(v^2 2pi))^n e^(-(x_1^2 + ... + x_n^2)/(2 v^2))
@@ -56,44 +80,79 @@ namespace Pastel
 		// on its direction, and thus the normalization of X
 		// yields a uniformly distributed vector on the unit sphere.
 
+		PENSURE1(dimension >= 0, dimension);
+
 		Vector<N, Real> result;
-		Real dotResult = 0;
+		result.setSize(dimension);
 
-		do
+		if (dimension > 0)
 		{
-			for (integer i = 0;i < N;++i)
+			Real dotResult = 0;
+			do
 			{
-				result[i] = randomNormalReal();
+				for (integer i = 0;i < dimension;++i)
+				{
+					result[i] = randomNormalReal();
+				}
+				dotResult = dot(result);
 			}
-			dotResult = dot(result);
+			while(dotResult == 0);
+
+			result /= std::sqrt(dotResult);
 		}
-		while(dotResult == 0);
 
-		return result / std::sqrt(dotResult);
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorBall()
+	TemporaryVector<N, Real> randomVectorBall()
 	{
-		const Vector<N, Real> sphere(
-			randomVectorSphere<N, Real>());
-
-		return sphere * std::pow(randomReal(), inverse((Real)N));
+		return Pastel::randomVectorBall<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> randomVectorAnnulus(
+	TemporaryVector<N, Real> randomVectorBall(
+		integer dimension)
+	{
+		PENSURE1(dimension >= 0, dimension);
+
+		Vector<N, Real> sphere = 
+			randomVectorSphere<N, Real>(dimension);
+
+		sphere *= std::pow(randomReal(), inverse((Real)dimension));
+
+		return sphere.asTemporary();
+	}
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
-		const Vector<N, Real> sphere(
-			randomVectorSphere<N, Real>());
+		return Pastel::randomVectorAnnulus<N, Real>(
+			minRadius, maxRadius, N);
+	}
 
-		const Real u = randomReal();
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorAnnulus(
+		const PASTEL_NO_DEDUCTION(Real)& minRadius,
+		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
+		integer dimension)
+	{
+		PENSURE1(dimension >= 0, dimension);
 
-		return sphere * std::pow(
-			linear(std::pow(minRadius, (Real)N), std::pow(maxRadius, (Real)N), u),
-			inverse((Real)N));
+		Vector<N, Real> sphere = 
+			randomVectorSphere<N, Real>(dimension);
+
+		sphere *= 
+			std::pow(
+			linear(
+			std::pow(minRadius, (Real)dimension), 
+			std::pow(maxRadius, (Real)dimension), 
+			randomReal()),
+			inverse((Real)dimension));
+
+		return sphere.asTemporary();
 	}
 
 	template <int N, typename Real>
