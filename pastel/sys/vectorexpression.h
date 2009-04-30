@@ -70,10 +70,21 @@ namespace Pastel
 		typename Expression>
 	class VectorExpression
 	{
-	public:
+	protected:
 		VectorExpression()
 		{
 		}
+
+		VectorExpression(const VectorExpression& that)
+		{
+		}
+
+		VectorExpression& operator=(const VectorExpression& that)
+		{
+			return *this;
+		}
+
+	public:
 
 		Real operator[](integer index) const
 		{
