@@ -165,14 +165,11 @@ namespace Pastel
 			}
 
 			//! Returns the difference vector between two points.
-			/*
-			VectorExpression<N, Real, 
-				VectorSubtraction<N, Real, 
+			const VectorSubtraction<N, Real, 
 				VectorBase<N, Real>,
 				VectorBase<N, Real>
-				> > operator-(const Point<N, Real>& that) const
-			*/
-			TemporaryVector<N, Real> operator-(const Point<N, Real>& that) const
+				> operator-(const Point<N, Real>& that) const
+			//TemporaryVector<N, Real> operator-(const Point<N, Real>& that) const
 			{
 				return data_ - that.data_;
 			}
