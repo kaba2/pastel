@@ -23,17 +23,18 @@ using namespace Pastel;
 namespace
 {
 
-	void testPointConstruction()
+	template <int N, typename Real>
+	void testNearest2(integer dimension)
 	{
-		KdTree<2, real> tree;
+		KdTree<N, Real> tree(dimension);
 
 		const integer points = 100000;
-		std::vector<Point2> pointList;
+		std::vector<Point<N, Real> > pointList;
 		pointList.reserve(points);
 
 		for (integer i = 0;i < points;++i)
 		{
-			pointList.push_back(Point2(randomVectorBall<2, real>()));
+			pointList.push_back(asPoint(randomVectorBall<N, Real>(dimension)));
 		}
 
 		tree.insert(pointList.begin(), pointList.end());
@@ -42,7 +43,7 @@ namespace
 		log() << tree.nodes() << " nodes" << logNewLine;
 		log() << "Depth of " << depth(tree) << logNewLine;
 		log() << tree.objects() << " object references ("
-			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
 		refineMidpoint(computeKdTreeMaxDepth(tree.objects()), 4, tree);
 
@@ -53,7 +54,13 @@ namespace
 		log() << "Of which " << tree.leaves() << " are leaf nodes." << logNewLine;
 		log() << "Depth of " << depth(tree) << logNewLine;
 		log() << tree.objects() << " object references ("
-			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+	}
+
+	void testNearest()
+	{
+		testNearest2<2, float>(2);
+		testNearest2<Unbounded, float>(10);
 	}
 
 	class SpherePolicy
@@ -117,7 +124,7 @@ namespace
 		typedef Tree::ConstObjectIterator ConstObjectIterator;
 
 		SpherePolicy spherePolicy;
-		Tree tree(spherePolicy);
+		Tree tree(3, spherePolicy);
 		const integer spheres = 10000;
 
 		PoolAllocator allocator(sizeof(Sphere3));
@@ -202,15 +209,10 @@ namespace
 		savePcx(image, "spheretracing.pcx");
 	}
 
-	void testBegin()
-	{
-		//testPointConstruction();
-		testSphereTracing();
-	}
-
 	void testAdd()
 	{
-		geometryTestList().add("KdTree", testBegin);
+		geometryTestList().add("KdTree.RayTracing", testSphereTracing);
+		geometryTestList().add("KdTree.Nearest", testNearest);
 	}
 
 	CallFunction run(testAdd);

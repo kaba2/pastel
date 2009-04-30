@@ -23,7 +23,7 @@ namespace Pastel
 		{
 			for (integer j = 0;j < width;++j)
 			{
-				matrix(i, j) = randomReal() * 2 - 1;
+				matrix(i, j) = random<Real>() * 2 - 1;
 			}
 		}
 	}

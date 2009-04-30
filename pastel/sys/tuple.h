@@ -41,6 +41,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
 			: Base(that)
 		{
@@ -63,7 +70,12 @@ namespace Pastel
 		: public Detail::TupleBase<1, Type>
 	{
 	private:
-		typedef Detail::TupleBase<1, Type> Base;
+		enum
+		{
+			N  = 1
+		};
+
+		typedef Detail::TupleBase<N, Type> Base;
 
 	public:
 		// Using default copy constructor.
@@ -77,18 +89,25 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
 			: Base(that)
 		{
 		}
 
-		Tuple(const TemporaryTuple<1, Type>& that)
+		Tuple(const TemporaryTuple<N, Type>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<1, OtherType>& that)
+		Tuple(const Tuple<N, OtherType>& that)
 			: Base(that)
 		{
 		}
@@ -109,7 +128,12 @@ namespace Pastel
 		: public Detail::TupleBase<2, Type>
 	{
 	private:
-		typedef Detail::TupleBase<2, Type> Base;
+		enum
+		{
+			N  = 2
+		};
+
+		typedef Detail::TupleBase<N, Type> Base;
 
 	public:
 		// Using default copy constructor.
@@ -123,18 +147,25 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
 			: Base(that)
 		{
 		}
 
-		Tuple(const TemporaryTuple<2, Type>& that)
+		Tuple(const TemporaryTuple<N, Type>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<2, OtherType>& that)
+		Tuple(const Tuple<N, OtherType>& that)
 			: Base(that)
 		{
 		}
@@ -177,7 +208,12 @@ namespace Pastel
 		: public Detail::TupleBase<3, Type>
 	{
 	private:
-		typedef Detail::TupleBase<3, Type> Base;
+		enum
+		{
+			N = 3
+		};
+
+		typedef Detail::TupleBase<N, Type> Base;
 
 	public:
 		// Using default copy constructor.
@@ -191,18 +227,25 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
 			: Base(that)
 		{
 		}
 
-		Tuple(const TemporaryTuple<3, Type>& that)
+		Tuple(const TemporaryTuple<N, Type>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<3, OtherType>& that)
+		Tuple(const Tuple<N, OtherType>& that)
 			: Base(that)
 		{
 		}
@@ -257,7 +300,12 @@ namespace Pastel
 		: public Detail::TupleBase<4, Type>
 	{
 	private:
-		typedef Detail::TupleBase<4, Type> Base;
+		enum
+		{
+			N = 4
+		};
+
+		typedef Detail::TupleBase<N, Type> Base;
 
 	public:
 		// Using default copy constructor.
@@ -271,18 +319,25 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
 			: Base(that)
 		{
 		}
 
-		Tuple(const TemporaryTuple<4, Type>& that)
+		Tuple(const TemporaryTuple<N, Type>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<4, OtherType>& that)
+		Tuple(const Tuple<N, OtherType>& that)
 			: Base(that)
 		{
 		}
@@ -344,6 +399,64 @@ namespace Pastel
 		}
 	};
 
+	template <typename Type>
+	class Tuple<Unbounded, Type>
+		: public Detail::TupleBase<Unbounded, Type>
+	{
+	private:
+		enum
+		{
+			N = Unbounded
+		};
+
+		typedef Detail::TupleBase<N, Type> Base;
+
+	public:
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
+
+		using Base::set;
+
+		// We prohibit default construction
+		// to force specifying the dimension
+		// for unbounded tuples.
+		/*
+		Tuple()
+			: Base()
+		{
+		}
+		*/
+
+		explicit Tuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
+		// This function makes no sense
+		// for unbounded tuples, and thus
+		// we prohibit it.
+		/*
+		explicit Tuple(const Type& that)
+			: Base(that)
+		{
+		}
+		*/
+
+		Tuple(const TemporaryTuple<N, Type>& that)
+			: Base(that)
+		{
+		}
+
+		template <typename OtherType>
+		Tuple(const Tuple<N, OtherType>& that)
+			: Base(that)
+		{
+		}
+	};
+
 	typedef Tuple<1, integer> Integer1;
 	typedef Tuple<1, real> Real1;
 
@@ -370,6 +483,13 @@ namespace Pastel
 
 		TemporaryTuple()
 			: Base()
+		{
+		}
+
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
 		{
 		}
 
@@ -402,6 +522,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
 			: Base(that)
 		{
@@ -428,6 +555,13 @@ namespace Pastel
 
 		TemporaryTuple()
 			: Base()
+		{
+		}
+
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
 		{
 		}
 
@@ -465,6 +599,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
 			: Base(that)
 		{
@@ -497,6 +638,13 @@ namespace Pastel
 
 		TemporaryTuple()
 			: Base()
+		{
+		}
+
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Type& that = Type())
+			: Base(dimension, that)
 		{
 		}
 

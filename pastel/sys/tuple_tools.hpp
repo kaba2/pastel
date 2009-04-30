@@ -40,7 +40,9 @@ namespace Pastel
 	inline bool allEqual(
 		const Tuple<N, Real>& that)
 	{
-		for (integer i = 1;i < N;++i)
+		const integer size = that.size();
+
+		for (integer i = 1;i < size;++i)
 		{
 			if (!(that[i] == that[0]))
 			{
@@ -56,7 +58,12 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(left.size() == right.size(), 
+			left.size(), right.size());
+
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (!(left[i] == right[i]))
 			{
@@ -72,7 +79,9 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (!(left[i] == right))
 			{
@@ -88,7 +97,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (!(left == right[i]))
 			{
@@ -104,7 +115,12 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(left.size() == right.size(), 
+			left.size(), right.size());
+
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (left[i] == right[i])
 			{
@@ -120,7 +136,9 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (left[i] == right)
 			{
@@ -136,7 +154,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = right.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (left == right[i])
 			{
@@ -152,7 +172,12 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(left.size() == right.size(), 
+			left.size(), right.size());
+
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (left[i] < right[i])
 			{
@@ -168,7 +193,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = right.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (left < right[i])
 			{
@@ -184,7 +211,9 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (left[i] < right)
 			{
@@ -272,7 +301,12 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(left.size() == right.size(), 
+			left.size(), right.size());
+
+		const integer size = left.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (!(left[i] < right[i]))
 			{
@@ -288,7 +322,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Tuple<N, Real>& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = right.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (!(left < right[i]))
 			{
@@ -304,7 +340,9 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = right.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			if (!(left[i] < right))
 			{

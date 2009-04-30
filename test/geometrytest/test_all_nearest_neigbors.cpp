@@ -24,6 +24,7 @@ namespace
 
 	template <int N, typename Real>
 	void generateSpherePointSet(
+		integer dimension,
 		integer points,
 		std::vector<Point<N, Real> >& pointSet)
 	{
@@ -35,19 +36,20 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				asPoint(randomVectorBall<N, Real>()));
+				asPoint(randomVectorBall<N, Real>(dimension)));
 		}
 
 		pointSet.swap(result);
 	}
 
 	template <int N, typename Real>
-	void test(integer points, integer kNearest)
+	void test(integer dimension, integer points, integer kNearest)
 	{
-		log() << N << "-D, " << points << " points, " << kNearest << " neighbors." << logNewLine;
+		log() << dimension << "-D, " << points << " points, " 
+			<< kNearest << " neighbors." << logNewLine;
 
 		std::vector<Point<N, Real> > pointSet;
-		generateSpherePointSet(points, pointSet);
+		generateSpherePointSet(dimension, points, pointSet);
 
 		Array<2, integer> neighborSet(kNearest, points);
 		Array<2, integer> naiveNeighborSet(kNearest, points);
@@ -66,7 +68,7 @@ namespace
 			naiveNeighborSet);
 
 		/*
-		allNearestNeighbors(
+		allNearestNeighborsVaidya(
 			pointSet,
 			kNearest,
 			naiveNeighborSet);
@@ -177,25 +179,26 @@ namespace
 
 	void testAllNearest()
 	{
-		test<5, float>(5000, 1);
-		test<10, float>(5000, 1);
-		test<20, float>(5000, 1);
+		//test<5, float>(5, 5000, 1);
+		test<2, float>(2, 5000, 1);
+		test<Unbounded, float>(2, 5000, 1);
+		test<Unbounded, float>(20, 5000, 1);
 
-		test<5, float>(10000, 1);
-		test<10, float>(10000, 1);
-		test<20, float>(10000, 1);
+		test<5, float>(5, 10000, 1);
+		test<Unbounded, float>(10, 10000, 1);
+		test<Unbounded, float>(20, 10000, 1);
 
-		test<5, float>(20000, 1);
-		test<10, float>(20000, 1);
-		test<20, float>(20000, 1);
+		test<5, float>(5, 20000, 1);
+		test<Unbounded, float>(10, 20000, 1);
+		test<Unbounded, float>(20, 20000, 1);
 
-		test<5, float>(10000, 4);
-		test<10, float>(10000, 4);
-		test<20, float>(10000, 4);
+		test<5, float>(5, 10000, 4);
+		test<Unbounded, float>(10, 10000, 4);
+		test<Unbounded, float>(20, 10000, 4);
 
-		test<5, float>(10000, 8);
-		test<10, float>(10000, 8);
-		test<20, float>(10000, 8);
+		test<5, float>(5, 10000, 8);
+		test<Unbounded, float>(10, 10000, 8);
+		test<Unbounded, float>(20, 10000, 8);
 	}
 
 	void testAdd()

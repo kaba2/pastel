@@ -59,6 +59,11 @@ namespace Pastel
 		const integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)
 		{
+			if ((i % 100) == 99)
+			{
+				log() << i << ", ";
+			}
+
 			const Point<N, Real>& iPoint = pointSet[i];
 			
 			typedef std::set<Entry> NearestSet;
@@ -105,8 +110,6 @@ namespace Pastel
 				++j;
 			}
 
-			ASSERT2(nearest.size() == kNearest, nearest.size(), kNearest);
-
 			integer nearestIndex = 0;
 			NearestIterator iter = nearest.begin();
 			const NearestIterator iterEnd = nearest.end();
@@ -115,6 +118,11 @@ namespace Pastel
 				nearestSet(nearestIndex, i) = iter->index_;
 				++nearestIndex;
 				++iter;
+			}
+
+			for (;nearestIndex < kNearest;++nearestIndex)
+			{
+				nearestSet(nearestIndex, i) = -1;
 			}
 		}
 	}

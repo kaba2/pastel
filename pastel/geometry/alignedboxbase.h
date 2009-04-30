@@ -3,8 +3,17 @@
 
 #include "pastel/geometry/alignedbox.h"
 
+#include "pastel/sys/constants.h"
+#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
+
+#include <boost/static_assert.hpp>
+
 namespace Pastel
 {
+
+	template <int N, typename Real>
+	class AlignedBox;
 
 	//! An axis-aligned box
 
@@ -19,7 +28,7 @@ namespace Pastel
 	not enforced by the system but assumed by the algorithms.
 	*/
 
-	template <int N, typename Real, typename Derived>
+	template <int N, typename Real>
 	class AlignedBoxBase
 	{
 	public:
@@ -27,65 +36,150 @@ namespace Pastel
 		// Using default assignment.
 
 		//! Constructs a unit box centered at the origin.
-		AlignedBoxBase();
+		explicit AlignedBoxBase(integer dimension = N)
+			: min_(Dimension(dimension), infinity<Real>())
+			, max_(Dimension(dimension), -infinity<Real>())
+		{
+			PENSURE2((N == Unbounded && dimension > 0) || 
+				(N != Unbounded && dimension == N), dimension, N);
+		}
 
 		//! Constructs a singular box (min = max = that).
-		explicit AlignedBoxBase(const Point<N, Real>& that);
+		explicit AlignedBoxBase(const Point<N, Real>& that)
+			: min_(that)
+			, max_(that)
+		{
+		}
 
 		//! Constructs a box using the given points.
-		AlignedBoxBase(Point<N, Real> const &nMin,
-			Point<N, Real> const &nMax);
+		AlignedBoxBase(
+			const Point<N, Real>& min,
+			const Point<N, Real>& max)
+			: min_(min)
+			, max_(max)
+		{
+		}
 
 		// Used for concept checking.
-		~AlignedBoxBase();
+		~AlignedBoxBase()
+		{
+			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		}
 
 		//! Returns (exist i: min()[i] >= max()[i])
-		bool empty() const;
+		bool empty() const
+		{
+			return anyGreaterEqual(min_, max_);
+		}
 
 		//! Swaps two alignedBoxs.
-		void swap(Derived& that);
+		void swap(AlignedBox<N, Real>& that)
+		{
+			using std::swap;
+
+			swap(min_, that.min_);
+			swap(max_, that.max_);
+		}
+
+		integer dimension() const
+		{
+			return min_.size();
+		}
 
 		//! Sets the corner points of the box.
-		void set(const Point<N, Real>& nMin,
-			const Point<N, Real>& nMax);
+		void set(
+			const Point<N, Real>& min,
+			const Point<N, Real>& max)
+		{
+			min_ = min;
+			max_ = max;
+		}
 
 		//! Sets the minimum point of the box.
-		void setMin(const Point<N, Real>& min);
+		void setMin(const Point<N, Real>& min)
+		{
+			min_ = point;
+		}
 
 		//! Returns the minimum point of the box.
-		Point<N, Real>& min();
+		Point<N, Real>& min()
+		{
+			return min_;
+		}
 
 		//! Returns the minimum point of the box.
-		const Point<N, Real>& min() const;
+		const Point<N, Real>& min() const
+		{
+			return min_;
+		}
 
 		//! Sets the maximum point of the box.
-		void setMax(const Point<N, Real>& max);
+		void setMax(const Point<N, Real>& max)
+		{
+			max_ = point;
+		}
 
 		//! Returns the maximum point of the box.
-		Point<N, Real>& max();
+		Point<N, Real>& max()
+		{
+			return max_;
+		}
 
 		//! Returns the maximum point of the box.
-		const Point<N, Real>& max() const;
+		const Point<N, Real>& max() const
+		{
+			return max_;
+		}
 
 		//! Returns max() - min().
-		Vector<N, Real> extent() const;
+		TemporaryVector<N, Real> extent() const
+		{
+			return max_ - min_;
+		}
 
-		Point<N, Real> at(
-			const Vector<N, Real>& coordinates) const;
+		TemporaryPoint<N, Real> at(
+			const Vector<N, Real>& coordinates) const
+		{
+			return TemporaryPoint<N, Real>(
+				(1 - coordinates) * asVector(min_) +
+				coordinates * asVector(max_));
+		}
 
 		//! Translates the box by the given vector.
-		Derived& operator+=(
-			const Vector<N, Real>& right);
+		AlignedBox<N, Real>& operator+=(
+			const Vector<N, Real>& right)
+		{
+			min_ += right;
+			max_ += right;
 
-		Derived operator+(
-			const Vector<N, Real>& right) const;
+			return (AlignedBox<N, Real>&)*this;
+		}
+
+		AlignedBox<N, Real> operator+(
+			const Vector<N, Real>& right) const
+		{
+			AlignedBox<N, Real> result((const AlignedBox<N, Real>&)*this);
+			result += right;
+			return result;
+		}
 
 		//! Translates the box backwards by the given vector.
-		Derived& operator-=(
-			Vector<N, Real> const& right);
+		AlignedBox<N, Real>& operator-=(
+			const Vector<N, Real>& right)
+		{
+			min_ -= right;
+			max_ -= right;
 
-		Derived operator-(
-			const Vector<N, Real>& right) const;
+			return (AlignedBox<N, Real>&)*this;
+		}
+
+		AlignedBox<N, Real> operator-(
+			const Vector<N, Real>& right) const
+		{
+			AlignedBox<N, Real> result((const AlignedBox<N, Real>&)*this);
+			result -= right;
+			return result;
+		}
 
 	private:
 		Point<N, Real> min_;
@@ -93,7 +187,5 @@ namespace Pastel
 	};
 
 }
-
-#include "pastel/geometry/alignedboxbase.hpp"
 
 #endif

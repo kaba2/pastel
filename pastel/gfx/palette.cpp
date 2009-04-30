@@ -111,7 +111,7 @@ namespace Pastel
 		if (count > 0)
 		{
 			resultPalette.reserve(count);
-			resultPalette.push_back(Color(0));
+			resultPalette.push_back(Color(0, 0, 0));
 
 			for (integer i = 1;i < count;++i)
 			{

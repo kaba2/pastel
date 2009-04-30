@@ -41,6 +41,13 @@ namespace Pastel
 		const NormBijection& normBijection,
 		Array<2, integer>& nearestArray)
 	{
+		const integer points = pointSet.size();
+
+		if (kNearest == 0 || points == 0)
+		{
+			return;
+		}
+
 		ENSURE2(kNearest > 0 && kNearest < pointSet.size(), 
 			kNearest, pointSet.size());
 		ENSURE2(nearestArray.width() == kNearest, 
@@ -52,8 +59,10 @@ namespace Pastel
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef typename SmallSet<KeyValue<Real, ConstTreeIterator> > NearestSet;
 
+		const integer dimension = pointSet.front().size();
+
 		PointListPolicy<N, Real> policy(pointSet);
-		Tree tree(policy);
+		Tree tree(dimension, policy);
 
 		std::vector<integer> indexList;
 		indexList.reserve(pointSet.size());
@@ -73,8 +82,6 @@ namespace Pastel
 			<< depth(tree) << " depth."
 			<< logNewLine;
 		*/
-
-		const integer points = pointSet.size();
 
 		for (integer i = 0;i < points;++i)
 		{

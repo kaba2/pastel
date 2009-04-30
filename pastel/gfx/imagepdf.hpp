@@ -42,7 +42,7 @@ namespace Pastel
 			return Point<N, integer>(0);
 		}
 
-		const Real value = randomReal() * cdf_.back().cdf();
+		const Real value = random<Real>() * cdf_.back().cdf();
 
 		return std::lower_bound(cdf_.begin(), cdf_.end(),
 			CdfElement(value, Point<N, integer>(0)))->position();

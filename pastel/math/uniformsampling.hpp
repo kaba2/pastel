@@ -9,12 +9,15 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/smallset.h"
 
+#include <boost/static_assert.hpp>
+
 namespace Pastel
 {
 
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVector()
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
 		return Pastel::randomVector<N, Real>(N);
 	}
 
@@ -23,12 +26,11 @@ namespace Pastel
 	{
 		PENSURE1(dimension >= 0, dimension);
 
-		Vector<N, Real> direction;
-		direction.setSize(dimension);
+		Vector<N, Real> direction(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
 		{
-			direction[i] = randomReal();
+			direction[i] = random<Real>();
 		}
 
 		return direction.asTemporary();
@@ -37,6 +39,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorCube()
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
 		return Pastel::randomVectorCube<N, Real>(N);
 	}
 
@@ -45,12 +48,11 @@ namespace Pastel
 	{
 		PENSURE1(dimension >= 0, dimension);
 
-		Vector<N, Real> direction;
-		direction.setSize(dimension);
+		Vector<N, Real> direction(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
 		{
-			direction[i] = 2 * randomReal() - 1;
+			direction[i] = 2 * random<Real>() - 1;
 		}
 
 		return direction.asTemporary();
@@ -59,6 +61,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorSphere()
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
 		return Pastel::randomVectorSphere<N, Real>(N);
 	}
 
@@ -82,8 +85,7 @@ namespace Pastel
 
 		PENSURE1(dimension >= 0, dimension);
 
-		Vector<N, Real> result;
-		result.setSize(dimension);
+		Vector<N, Real> result(ofDimension(dimension));
 
 		if (dimension > 0)
 		{
@@ -107,6 +109,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorBall()
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
 		return Pastel::randomVectorBall<N, Real>(N);
 	}
 
@@ -119,7 +122,7 @@ namespace Pastel
 		Vector<N, Real> sphere = 
 			randomVectorSphere<N, Real>(dimension);
 
-		sphere *= std::pow(randomReal(), inverse((Real)dimension));
+		sphere *= std::pow(random<Real>(), inverse((Real)dimension));
 
 		return sphere.asTemporary();
 	}
@@ -129,6 +132,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
 		return Pastel::randomVectorAnnulus<N, Real>(
 			minRadius, maxRadius, N);
 	}
@@ -149,7 +153,7 @@ namespace Pastel
 			linear(
 			std::pow(minRadius, (Real)dimension), 
 			std::pow(maxRadius, (Real)dimension), 
-			randomReal()),
+			random<Real>()),
 			inverse((Real)dimension));
 
 		return sphere.asTemporary();

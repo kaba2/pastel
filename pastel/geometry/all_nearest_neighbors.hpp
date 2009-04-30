@@ -17,14 +17,14 @@
 namespace Pastel
 {
 
-	namespace Detail_AllNearestNeighbors
+	namespace Detail_AllNearestNeighborsVaidya
 	{
 
 		template <int N, typename Real>
-		class AllNearestNeighbors
+		class AllNearestNeighborsVaidya
 		{
 		public:
-			explicit AllNearestNeighbors(
+			explicit AllNearestNeighborsVaidya(
 				const std::vector<Point<N, Real> >& pointSet,
 				integer kNearest,
 				Array<2, integer>& nearestSet)
@@ -116,7 +116,7 @@ namespace Pastel
 		};
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::work()
+		void AllNearestNeighborsVaidya<N, Real>::work()
 		{
 			initialize();
 		
@@ -244,7 +244,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::initialize()
+		void AllNearestNeighborsVaidya<N, Real>::initialize()
 		{
 			const AlignedBox<N, Real> cubeBound =
 				boundingAlignedCube(
@@ -266,7 +266,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::splitBox(
+		void AllNearestNeighborsVaidya<N, Real>::splitBox(
 			const AlignedBox<N, Real>& bound,
 			integer dimension,
 			integer partitionBegin,
@@ -333,7 +333,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::shrinkBox(
+		void AllNearestNeighborsVaidya<N, Real>::shrinkBox(
 			const NeighborhoodPtr& box)
 		{
 			ASSERT(box->points() > 0);
@@ -406,7 +406,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::createEstimate(
+		void AllNearestNeighborsVaidya<N, Real>::createEstimate(
 			const NeighborhoodPtr& box)
 		{
 			ASSERT(box->points() > 0);
@@ -426,7 +426,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::updateEstimate(
+		void AllNearestNeighborsVaidya<N, Real>::updateEstimate(
 			const NeighborhoodPtr& box,
 			const std::vector<NeighborhoodPtr>& childSet)
 		{
@@ -437,7 +437,7 @@ namespace Pastel
 
 		template <int N, typename Real>
 		template <typename InputIterator>
-		Real AllNearestNeighbors<N, Real>::estimate(
+		Real AllNearestNeighborsVaidya<N, Real>::estimate(
 			const NeighborhoodPtr& box,
 			const InputIterator& begin,
 			const InputIterator& end)
@@ -468,7 +468,7 @@ namespace Pastel
 
 		template <int N, typename Real>
 		template <typename InputIterator>
-		void AllNearestNeighbors<N, Real>::removeUnderEstimate(
+		void AllNearestNeighborsVaidya<N, Real>::removeUnderEstimate(
 			const InputIterator& iterBegin,
 			const InputIterator& iterEnd)
 		{
@@ -502,7 +502,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Real>
-		void AllNearestNeighbors<N, Real>::extractNearest()
+		void AllNearestNeighborsVaidya<N, Real>::extractNearest()
 		{
 			const integer points = singularSet_.size();
 			ASSERT2(points == pointSet_.size(), points, pointSet_.size());
@@ -546,7 +546,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	void allNearestNeighbors(
+	void allNearestNeighborsVaidya(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		Array<2, integer>& nearestSet)
@@ -555,7 +555,7 @@ namespace Pastel
 		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
 		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
 
-		Detail_AllNearestNeighbors::AllNearestNeighbors<N, Real> computation(
+		Detail_AllNearestNeighborsVaidya::AllNearestNeighborsVaidya<N, Real> computation(
 			pointSet, kNearest, nearestSet);
 		
 		computation.work();

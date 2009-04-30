@@ -43,7 +43,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	inline Vector<N, Real> unitAxis(integer index);
+	inline TemporaryVector<N, Real> unitAxis(integer index);
 
 	//! Returns the 'index'th natural basis axis.
 	/*!
@@ -115,9 +115,9 @@ namespace Pastel
 	norm_2(that) := sqrt(sum(that[i]^2))
 	*/
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N > 1), Real>::type
-		norm(const Vector<N, Real>& that);
+		norm(const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.
 	/*!
@@ -125,9 +125,9 @@ namespace Pastel
 	norm_2(that) := sqrt(sum(that[i]^2))
 	*/
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N == 1), Real>::type
-		norm(const Vector<1, Real>& that);
+		norm(const VectorExpression<1, Real, Expression>& that);
 
 	//! Returns the Manhattan (L1) norm of a vector.
 	/*!
@@ -135,16 +135,18 @@ namespace Pastel
 	norm_1(that) := sum(mabs(that[i]))
 	*/
 
-	template <int N, typename Real>
-	inline Real normManhattan(const Vector<N, Real>& that);
+	template <int N, typename Real, typename Expression>
+	inline Real normManhattan(
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the p:th-power of the Lp norm of a vector.
 	/*!
 	powerSum(that) := sum(mabs(that[i])^p)
 	*/
 
-	template <int N, typename Real>
-	inline Real powerSum(const Vector<N, Real>& that,
+	template <int N, typename Real, typename Expression>
+	inline Real powerSum(
+		const VectorExpression<N, Real, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
 	//! Returns the Lp norm of a vector.
@@ -159,8 +161,9 @@ namespace Pastel
 	for p e ]0, 1[.
 	*/
 
-	template <int N, typename Real>
-	inline Real pNorm(const Vector<N, Real>& that,
+	template <int N, typename Real, typename Expression>
+	inline Real pNorm(
+		const VectorExpression<N, Real, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
 	//! Returns the infinity norm of a vector.
@@ -169,8 +172,9 @@ namespace Pastel
 	norm_inf(that) := max(mabs(that[i])).
 	*/
 
-	template <int N, typename Real>
-	inline Real normInfinity(const Vector<N, Real>& that);
+	template <int N, typename Real, typename Expression>
+	inline Real normInfinity(
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the corresponding unit vector (Euclidean norm).
 	/*!
@@ -178,7 +182,8 @@ namespace Pastel
 	norm(that) > 0
 	*/
 	template <int N, typename Real>
-	inline TemporaryVector<N, Real> normalize(const TemporaryVector<N, Real>& that);
+	inline TemporaryVector<N, Real> normalize(
+		const TemporaryVector<N, Real>& that);
 
 	//! Returns the corresponding unit vector (Euclidean norm).
 	/*!
@@ -186,19 +191,22 @@ namespace Pastel
 	norm(that) > 0
 	*/
 	template <int N, typename Real>
-	inline TemporaryVector<N, Real> normalize(const Vector<N, Real>& that);
+	inline TemporaryVector<N, Real> normalize(
+		const Vector<N, Real>& that);
 
 	//! Returns a clockwise perpendicular to the given vector.
 
-	template <typename Real>
-	inline Vector<2, Real> cross(const Vector<2, Real>& that);
+	template <typename Real, typename Expression>
+	TemporaryVector<2, Real> cross(
+		const VectorExpression<2, Real, Expression>& that);
 
 	//! Returns the cross product of two vectors.
 
-	template <typename Real>
-	inline Vector<3, Real> cross(
-		const Vector<3, Real>& x,
-		const Vector<3, Real>& y);
+	template <typename Real, typename ExpressionX,
+	typename ExpressionY>
+	TemporaryVector<3, Real> cross(
+		const VectorExpression<3, Real, ExpressionX>& x,
+		const VectorExpression<3, Real, ExpressionY>& y);
 
 	// Comparison functions
 

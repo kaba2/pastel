@@ -147,7 +147,7 @@ namespace Pastel
 
 		Logical toLogical(const Physical& physical) const
 		{
-			return Logical(
+			return Color(
 				dequantizeUnsigned(physical[0], 256),
 				dequantizeUnsigned(physical[1], 256),
 				dequantizeUnsigned(physical[2], 256));
@@ -155,7 +155,7 @@ namespace Pastel
 
 		Physical toPhysical(const Logical& logical) const
 		{
-			return Physical(
+			return ByteColor(
 				quantizeUnsigned(logical[0], 256),
 				quantizeUnsigned(logical[1], 256),
 				quantizeUnsigned(logical[2], 256));
@@ -245,7 +245,7 @@ namespace Pastel
 
 		Logical toLogical(const Physical& physical) const
 		{
-			return Logical(
+			return Color(
 				dequantizeUnsigned(extractBits<RedFrom, RedBits>(physical), RedNumbers),
 				dequantizeUnsigned(extractBits<GreenFrom, GreenBits>(physical), GreenNumbers),
 				dequantizeUnsigned(extractBits<BlueFrom, BlueBits>(physical), BlueNumbers));

@@ -146,7 +146,7 @@ namespace Pastel
 		Polynomial<Real> result(degree + 1);
 		for (integer i = 0;i < degree + 1;++i)
 		{
-			result[i] = randomReal();
+			result[i] = random<Real>();
 		}
 
 		return result;

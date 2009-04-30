@@ -26,10 +26,16 @@ namespace Pastel
 	Algorithm:
 	"An O(n log n) Algorithm for the All-Nearest-Neighbors Problem",
 	Pravion M. Vaidya, Discrete Comput Geom 4:101-115, 1989.
+
+	Note:
+	This is a very slow algorithm for dimensions beyond 3.
+	In dimensions 1, 2, and 3 the kd-tree outperforms this algorithm by far.
+	Thus this algorithm should not be used at all for anything
+	other than comparison of runtimes.
 	*/
 
 	template <int N, typename Real>
-	void allNearestNeighbors(
+	void allNearestNeighborsVaidya(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		Array<2, integer>& nearestSet);
@@ -86,8 +92,7 @@ namespace Pastel
 	kNearest <= pointSet.size()
 
 	Time complexity:
-	Unknown
-	Could it be O(d^2 log(d) n sqrt(n))?
+	?
 
 	Algorithm:
 	kd-tree

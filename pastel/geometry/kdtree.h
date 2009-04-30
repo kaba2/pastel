@@ -86,11 +86,13 @@ namespace Pastel
 
 		class Cursor;
 
+		//! Constructs an empty tree.
 		KdTree();
 
 		//! Constructs an empty tree.
 		explicit KdTree(
-			const ObjectPolicy& objectPolicy);
+			integer dimension,
+			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs a copy from another tree.
 		KdTree(const KdTree& that);
@@ -139,6 +141,9 @@ namespace Pastel
 
 		//! Returns the number of objects in the tree.
 		integer objects() const;
+
+		//! Returns the dimension of the tree.
+		integer dimension() const;
 
 		//! Subdivides a leaf node with the given plane.
 		/*!
@@ -243,6 +248,7 @@ namespace Pastel
 		integer objects_;
 
 		ObjectPolicy objectPolicy_;
+		integer dimension_;
 	};
 
 }

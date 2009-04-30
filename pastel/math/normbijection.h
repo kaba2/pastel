@@ -26,7 +26,8 @@ namespace Pastel
 	class EuclideanNormBijection
 	{
 	public:
-		Real operator()(const Vector<N, Real>& that) const
+		template <typename Expression>
+		Real operator()(const VectorExpression<N, Real, Expression>& that) const
 		{
 			return dot(that);
 		}
@@ -41,7 +42,8 @@ namespace Pastel
 	class InfinityNormBijection
 	{
 	public:
-		Real operator()(const Vector<N, Real>& that) const
+		template <typename Expression>
+		Real operator()(const VectorExpression<N, Real, Expression>& that) const
 		{
 			return normInfinity(that);
 		}

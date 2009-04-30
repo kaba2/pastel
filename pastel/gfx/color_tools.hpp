@@ -116,7 +116,7 @@ namespace Pastel
 	{
 		if (anyLess(rgb, 0))
 		{
-			return Color(0);
+			return Color(0, 0, 0);
 		}
 
 		return fitColor(rgb);
@@ -443,8 +443,8 @@ namespace Pastel
 		// = Z
 
 		const real32 yRatio(xyy[2] / xyy[1]);
-		return Color
-			(yRatio * xyy[0],
+		return Color(
+			yRatio * xyy[0],
 			xyy[2],
 			yRatio * (1 - xyy[0] - xyy[1]));
 	}
@@ -457,15 +457,15 @@ namespace Pastel
 
 		const real32 s = sum(xyz);
 
-		return Color
-			(xyz[0] / s,
+		return Color(
+			xyz[0] / s,
 			xyz[1] / s,
 			xyz[1]);
 	}
 
 	inline Color labToLch(const Color& lab)
 	{
-		const Color shuffled(lab[1], lab[2], lab[0]);
+		const Color shuffled = Color(lab[1], lab[2], lab[0]);
 
 		const Color cylinder(cartesianToCylinder(shuffled));
 		return Color(cylinder[2], cylinder[0], cylinder[1]);
@@ -473,7 +473,7 @@ namespace Pastel
 
 	inline Color lchToLab(const Color& lch)
 	{
-		const Color cylinder(lch[1], lch[2], lch[0]);
+		const Color cylinder = Color(lch[1], lch[2], lch[0]);
 		const Color shuffled(cylinderToCartesian(cylinder));
 
 		return Color(shuffled[2], shuffled[0], shuffled[1]);

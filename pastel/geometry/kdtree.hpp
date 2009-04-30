@@ -356,11 +356,13 @@ namespace Pastel
 		: objectList_()
 		, nodeAllocator_(sizeof(IntermediateNode), 1024)
 		, root_(0)
-		, bound_()
+		, bound_(N == Unbounded ? 1 : N)
 		, leaves_(0)
 		, objects_(0)
 		, objectPolicy_()
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
+
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
 		root_ = (Node*)nodeAllocator_.allocate();
@@ -370,15 +372,19 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KdTree<N, Real, ObjectPolicy>::KdTree(
+		integer dimension,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(IntermediateNode), 1024)
 		, root_(0)
-		, bound_()
+		, bound_(dimension)
 		, leaves_(0)
 		, objects_(0)
 		, objectPolicy_(objectPolicy)
 	{
+		ENSURE2((N != Unbounded && dimension == N) || 
+			(N == Unbounded && dimension > 0), dimension, N);
+
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
 		root_ = (Node*)nodeAllocator_.allocate();
@@ -391,7 +397,7 @@ namespace Pastel
 		: objectList_()
 		, nodeAllocator_(sizeof(IntermediateNode), 1024)
 		, root_(0)
-		, bound_()
+		, bound_(that.dimension_)
 		, leaves_(0)
 		, objects_(0)
 		, objectPolicy_(that.objectPolicy_)
@@ -405,6 +411,7 @@ namespace Pastel
 	{
 		// This is what we assume for memory allocation.
 		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(IntermediateNode));
+		BOOST_STATIC_ASSERT(N > 0 || N == Unbounded);
 
 		nodeAllocator_.clear();
 	}
@@ -496,11 +503,17 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
+	integer KdTree<N, Real, ObjectPolicy>::dimension() const
+	{
+		return bound_.dimension();
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
 	void KdTree<N, Real, ObjectPolicy>::subdivide(
 		const Cursor& cursor,
 		const Real& splitPosition, integer splitAxis)
 	{
-		ENSURE2(splitAxis >= 0 && splitAxis < N, splitAxis, N);
+		ENSURE2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 		ENSURE(cursor.leaf());
 
 		LeafNode* node = (LeafNode*)cursor.node_;

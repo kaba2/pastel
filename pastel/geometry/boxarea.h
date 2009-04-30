@@ -13,20 +13,20 @@ namespace Pastel
 	template <int N, typename Real>
 	Real area(const Box<N, Real>& box);
 
-	template <typename Real>
-	Real boxArea(const Vector<1, Real>& width);
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<1, Real, Expression>& width);
 
-	template <typename Real>
-	Real boxArea(const Vector<2, Real>& width);
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<2, Real, Expression>& width);
 
-	template <typename Real>
-	Real boxArea(const Vector<3, Real>& width);
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<3, Real, Expression>& width);
 
-	template <typename Real>
-	Real boxArea(const Vector<4, Real>& width);
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<4, Real, Expression>& width);
 
-	template <int N, typename Real>
-	Real boxArea(const Vector<N, Real>& width);
+	template <int N, typename Real, typename Expression>
+	Real boxArea(const VectorExpression<N, Real, Expression>& width);
 
 }
 

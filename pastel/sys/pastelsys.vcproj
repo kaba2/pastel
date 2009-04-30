@@ -1150,6 +1150,10 @@
 				RelativePath=".\random.h"
 				>
 			</File>
+			<File
+				RelativePath=".\random.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="AbstractArray"

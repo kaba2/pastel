@@ -29,7 +29,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Segment<N, Real>::~Segment()
 	{
-		BOOST_STATIC_ASSERT(N > 0);
+		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
 	}
 
 	template <int N, typename Real>

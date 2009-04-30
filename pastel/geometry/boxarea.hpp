@@ -20,14 +20,14 @@ namespace Pastel
 		return boxArea(2 * box.width());
 	}
 
-	template <typename Real>
-	Real boxArea(const Vector<1, Real>& width)
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<1, Real, Expression>& width)
 	{
 		return 0;
 	}
 
-	template <typename Real>
-	Real boxArea(const Vector<2, Real>& width)
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<2, Real, Expression>& width)
 	{
 		// Yes, this is the right specialization of area for 2 dimensions:
 		// the perimeter.
@@ -37,8 +37,8 @@ namespace Pastel
 			width[1]);
 	}
 
-	template <typename Real>
-	Real boxArea(const Vector<3, Real>& width)
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<3, Real, Expression>& width)
 	{
 		return 2 * (
 			width[1] * width[2] +
@@ -46,8 +46,8 @@ namespace Pastel
 			width[0] * width[1]);
 	}
 
-	template <typename Real>
-	Real boxArea(const Vector<4, Real>& width)
+	template <typename Real, typename Expression>
+	Real boxArea(const VectorExpression<4, Real, Expression>& width)
 	{
 		return 2 * (
 			width[1] * width[2] * width[3] +
@@ -56,8 +56,8 @@ namespace Pastel
 			width[0] * width[1] * width[2]);
 	}
 
-	template <int N, typename Real>
-	Real boxArea(const Vector<N, Real>& width)
+	template <int N, typename Real, typename Expression>
+	Real boxArea(const VectorExpression<N, Real, Expression>& width)
 	{
 		// area = 2 * sum_i(width[0] * ... * width[i - 1] * width[i + 1] * ... * width[N])
 		//

@@ -10,6 +10,7 @@
 #include "pastel/sys/syslibrary.h"
 
 #include <boost/random.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace Pastel
 {
@@ -43,7 +44,39 @@ namespace Pastel
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	PASTELSYS real randomReal(real minValue, real maxValue);
+	PASTELSYS real randomReal(
+		real minValue, 
+		real maxValue);
+
+	//! Returns a uniformly distributed random real in [0, 1].
+	/*!
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+
+	template <typename Real>
+	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
+		random();
+
+	//! Returns a uniformly distributed random real in [0, 1].
+	/*!
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+
+	template <typename Real>
+	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
+		random();
+
+	//! Returns a uniformly distributed random real in [minValue, maxValue].
+	/*!
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+	template <typename Real>
+	Real random(
+		const PASTEL_NO_DEDUCTION(Real)& minValue, 
+		const PASTEL_NO_DEDUCTION(Real)& maxValue);
 
 	//! Returns a (0, 1)-normal distributed random real.
 	/*!
@@ -148,5 +181,7 @@ namespace Pastel
 	};
 
 }
+
+#include "pastel/sys/random.hpp"
 
 #endif

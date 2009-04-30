@@ -56,7 +56,7 @@ namespace Pastel
 			integer i3 = (i + 2) % 3;
 
 			const Vector<2, Real> edge(
-				cross(aTriangle[i2] - aTriangle[i]));
+				cross(evaluate(aTriangle[i2] - aTriangle[i])));
 
 			const Real a(
 				dot(edge, aTriangle[i3] - aTriangle[i]));

@@ -17,13 +17,19 @@ namespace Pastel
 
 	template <int N, typename Real>
 	class AlignedBox
-		: public AlignedBoxBase<N, Real, AlignedBox<N, Real> >
+		: public AlignedBoxBase<N, Real>
 	{
-	public:
-		typedef AlignedBoxBase<N, Real, AlignedBox<N, Real> > Base;
+	private:
+		typedef AlignedBoxBase<N, Real> Base;
 
+	public:
 		AlignedBox()
 			: Base()
+		{
+		}
+
+		explicit AlignedBox(integer dimension)
+			: Base(dimension)
 		{
 		}
 
@@ -41,7 +47,7 @@ namespace Pastel
 
 	template <typename Real>
 	class AlignedBox<1, Real>
-		: public AlignedBoxBase<1, Real, AlignedBox<1, Real> >
+		: public AlignedBoxBase<1, Real>
 	{
 	private:
 		enum
@@ -49,11 +55,16 @@ namespace Pastel
 			N = 1
 		};
 
-	public:
-		typedef AlignedBoxBase<N, Real, AlignedBox<N, Real> > Base;
+		typedef AlignedBoxBase<N, Real> Base;
 
+	public:
 		AlignedBox()
 			: Base()
+		{
+		}
+
+		explicit AlignedBox(integer dimension)
+			: Base(dimension)
 		{
 		}
 
@@ -78,13 +89,13 @@ namespace Pastel
 
 		void set(const Real& xMin, const Real& xMax)
 		{
-			set(Point1(xMin), Point1(xMax));
+			set(Point<N, Real>(xMin), Point<N, Real>(xMax));
 		}
 	};
 
 	template <typename Real>
 	class AlignedBox<2, Real>
-		: public AlignedBoxBase<2, Real, AlignedBox<2, Real> >
+		: public AlignedBoxBase<2, Real>
 	{
 	private:
 		enum
@@ -92,11 +103,16 @@ namespace Pastel
 			N = 2
 		};
 
-	public:
-		typedef AlignedBoxBase<N, Real, AlignedBox<N, Real> > Base;
+		typedef AlignedBoxBase<N, Real> Base;
 
+	public:
 		AlignedBox()
 			: Base()
+		{
+		}
+
+		explicit AlignedBox(integer dimension)
+			: Base(dimension)
 		{
 		}
 
@@ -122,14 +138,14 @@ namespace Pastel
 		void set(const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
 		{
-			set(Point2(xMin, yMin),
-				Point2(xMax, yMax));
+			set(Point<N, Real>(xMin, yMin),
+				Point<N, Real>(xMax, yMax));
 		}
 	};
 
 	template <typename Real>
 	class AlignedBox<3, Real>
-		: public AlignedBoxBase<3, Real, AlignedBox<3, Real> >
+		: public AlignedBoxBase<3, Real>
 	{
 	private:
 		enum
@@ -137,11 +153,16 @@ namespace Pastel
 			N = 3
 		};
 
-	public:
-		typedef AlignedBoxBase<N, Real, AlignedBox<N, Real> > Base;
+		typedef AlignedBoxBase<N, Real> Base;
 
+	public:
 		AlignedBox()
 			: Base()
+		{
+		}
+
+		explicit AlignedBox(integer dimension)
+			: Base(dimension)
 		{
 		}
 
@@ -168,8 +189,95 @@ namespace Pastel
 		void set(const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 		{
-			set(Point3(xMin, yMin, zMin),
-				Point3(xMax, yMax, zMax));
+			set(Point<N, Real>(xMin, yMin, zMin),
+				Point<N, Real>(xMax, yMax, zMax));
+		}
+	};
+
+	template <typename Real>
+	class AlignedBox<4, Real>
+		: public AlignedBoxBase<4, Real>
+	{
+	private:
+		enum
+		{
+			N = 4
+		};
+
+		typedef AlignedBoxBase<N, Real> Base;
+
+	public:
+		AlignedBox()
+			: Base()
+		{
+		}
+
+		explicit AlignedBox(integer dimension)
+			: Base(dimension)
+		{
+		}
+
+		explicit AlignedBox(const Point<N, Real>& that)
+			: Base(that)
+		{
+		}
+
+		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
+			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
+			: Base(Point<N, Real>(xMin, yMin, zMin, wMin),
+			Point<N, Real>(xMax, yMax, zMax, wMax))
+		{
+		}
+
+		AlignedBox(const Point<N, Real>& min,
+			const Point<N, Real>& max)
+			: Base(min, max)
+		{
+		}
+
+		using Base::set;
+
+		void set(const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
+			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
+		{
+			set(Point<N, Real>(xMin, yMin, zMin, wMin),
+				Point<N, Real>(xMax, yMax, zMax, wMax));
+		}
+	};
+
+	template <typename Real>
+	class AlignedBox<Unbounded, Real>
+		: public AlignedBoxBase<Unbounded, Real>
+	{
+	private:
+		enum
+		{
+			N = Unbounded
+		};
+
+		typedef AlignedBoxBase<N, Real> Base;
+
+		// We require the dimension to be
+		// specified at construction for
+		// unbounded vectors.
+		// Prohibited
+		AlignedBox();
+	public:
+
+		explicit AlignedBox(integer dimension)
+			: Base(dimension)
+		{
+		}
+
+		explicit AlignedBox(const Point<N, Real>& that)
+			: Base(that)
+		{
+		}
+
+		AlignedBox(const Point<N, Real>& min,
+			const Point<N, Real>& max)
+			: Base(min, max)
+		{
 		}
 	};
 
