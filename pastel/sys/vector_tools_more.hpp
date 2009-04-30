@@ -8,9 +8,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	inline Vector<N, Real> permute(
-		const Vector<N, Real>& that,
+	template <int N, typename Real, typename Expression>
+	inline TemporaryVector<N, Real> permute(
+		const VectorExpression<N, Real, Expression>& that,
 		const Tuple<N, integer>& permutation)
 	{
 		Vector<N, Real> result;
@@ -20,24 +20,24 @@ namespace Pastel
 			result[i] = that[permutation[i]];
 		}
 
-		return result;
+		return result.asTemporary();
 	}
 
 	// Minimum functions
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	integer minIndex(
-		const Vector<N, Real>& that)
+		const VectorExpression<N, Real, Expression>& that)
 	{
 		integer index = 0;
-		const Real* currentMin = &that[0];
+		Real minValue = that[0];
 
 		for (integer i = 1;i < N;++i)
 		{
-			const Real* current = &that[i];
-			if (*current < *currentMin)
+			const Real value = that[i];
+			if (value < minValue)
 			{
-				currentMin = current;
+				minValue = value;
 				index = i;
 			}
 		}
@@ -45,70 +45,81 @@ namespace Pastel
 		return index;
 	}
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Real min(
-		const Vector<N, Real>& that)
+		const VectorExpression<N, Real, Expression>& that)
 	{
 		return that[minIndex(that)];
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> min(
-		const Vector<N, Real>& left,
-		const Vector<N, Real>& right)
+	template <int N, typename Real,
+	typename LeftExpression, typename RightExpression>
+	TemporaryVector<N, Real> min(
+		const VectorExpression<N, Real, LeftExpression>& left,
+		const VectorExpression<N, Real, RightExpression>& right)
 	{
-		Vector<N, Real> result;
-		for (integer i = 0;i <  N;++i)
+		PENSURE2(left.size() == right.size(), left.size(), right.size());
+
+		const integer size = left.size();
+	
+		Vector<N, Real> result(ofDimension(size));
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::min(left[i], right[i]);
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> min(
+	template <int N, typename Real, typename Expression>
+	TemporaryVector<N, Real> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Vector<N, Real>& right)
+		const VectorExpression<N, Real, Expression>& right)
 	{
-		Vector<N, Real> result;
-		for (integer i = 0;i <  N;++i)
+		const integer size = right.size();
+
+		Vector<N, Real> result(ofDimension(size));
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::min(left, right[i]);
 		}
 
-		return result;
+		return result.asTemporary();
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> min(
-		const Vector<N, Real>& left,
+	template <int N, typename Real, typename Expression>
+	TemporaryVector<N, Real> min(
+		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		Vector<N, Real> result;
-		for (integer i = 0;i <  N;++i)
+		const integer size = left.size();
+
+		Vector<N, Real> result(ofDimension(size));
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::min(left[i], right);
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
 
 
 	// Maximum functions
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	integer maxIndex(
-		const Vector<N, Real>& that)
+		const VectorExpression<N, Real, Expression>& that)
 	{
 		integer index = 0;
-		const Real* currentMax = &that[0];
+		Real maxValue = that[0];
 
 		for (integer i = 1;i < N;++i)
 		{
-			const Real* current = &that[i];
-			if (*currentMax < *current)
+			const Real value = that[i];
+			if (maxValue < value)
 			{
-				currentMax = current;
+				maxValue = value;
 				index = i;
 			}
 		}
@@ -116,105 +127,145 @@ namespace Pastel
 		return index;
 	}
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Real max(
-		const Vector<N, Real>& that)
+		const VectorExpression<N, Real, Expression>& that)
 	{
 		return that[maxIndex(that)];
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> max(
-		const Vector<N, Real>& left,
-		const Vector<N, Real>& right)
+	template <int N, typename Real,
+	typename LeftExpression,
+	typename RightExpression>
+	TemporaryVector<N, Real> max(
+		const VectorExpression<N, Real, LeftExpression>& left,
+		const VectorExpression<N, Real, RightExpression>& right)
 	{
-		Vector<N, Real> result;
-		for (integer i = 0;i <  N;++i)
+		PENSURE2(left.size() == right.size(), left.size(), right.size());
+
+		const integer size = left.size();
+		Vector<N, Real> result(ofDimension(size));
+		
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::max(left[i], right[i]);
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> max(
+	template <int N, typename Real, typename Expression>
+	TemporaryVector<N, Real> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Vector<N, Real>& right)
+		const VectorExpression<N, Real, Expression>& right)
 	{
-		Vector<N, Real> result;
-		for (integer i = 0;i <  N;++i)
+		const integer size = right.size();
+		Vector<N, Real> result(ofDimension(size));
+
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::max(left, right[i]);
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> max(
-		const Vector<N, Real>& left,
+	template <int N, typename Real, typename Expression>
+	TemporaryVector<N, Real> max(
+		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		Vector<N, Real> result;
-		for (integer i = 0;i <  N;++i)
+		const integer size = left.size();
+		Vector<N, Real> result(ofDimension(size));
+
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::max(left[i], right);
 		}
-		return result;
+
+		return result.asTemporary();
 	}
 
-	template <int N, typename Real>
-	inline Vector<N, Real> clamp(
-		const Vector<N, Real>& that,
-		const Vector<N, Real>& minimum,
-		const Vector<N, Real>& maximum)
+	template <int N, typename Real,
+	typename ThatExpression,
+	typename MinExpression,
+	typename MaxExpression>
+	inline TemporaryVector<N, Real> clamp(
+		const VectorExpression<N, Real, ThatExpression>& that,
+		const VectorExpression<N, Real, MinExpression>& minimum,
+		const VectorExpression<N, Real, MaxExpression>& maximum)
 	{
-		Vector<N, Real> result;
+		PENSURE2(that.size() == minimum.size(), that.size(), minimum.size());
+		PENSURE2(that.size() == maximum.size(), that.size(), maximum.size());
 
-		for (integer i = 0;i < N;++i)
+		const integer size = that.size();
+		Vector<N, Real> result(ofDimension(size));
+
+		for (integer i = 0;i < size;++i)
 		{
 			result[i] = Pastel::clamp(that[i], minimum[i], maximum[i]);
 		}
 
-		return result;
+		return result.asTemporary();
 	}
 
 	// Optimization functions
 
 	template <int N, typename Real>
-	void multiplyByPowerOf2(Vector<N, Real>& x,
+	void multiplyByPowerOf2(
+		Vector<N, Real>& x,
 		const Vector<N, Real>& power)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(x.size() == power.size(), x.size(), power.size());
+
+		const integer size = x.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			Pastel::multiplyByPowerOf2(x[i], power[i]);
 		}
 	}
 
 	template <int N, typename Real>
-	void multiplyByPowerOf2(Vector<N, Real>& x,
+	void multiplyByPowerOf2(
+		Vector<N, Real>& x,
 		const Real& power)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(x.size() == power.size(), x.size(), power.size());
+
+		const integer size = x.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			Pastel::multiplyByPowerOf2(x[i], power);
 		}
 	}
 
 	template <int N, typename Real>
-	void divideByPowerOf2(Vector<N, Real>& x,
+	void divideByPowerOf2(
+		Vector<N, Real>& x,
 		const Vector<N, Real>& power)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(x.size() == power.size(), x.size(), power.size());
+
+		const integer size = x.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			Pastel::divideByPowerOf2(x[i], power[i]);
 		}
 	}
 
 	template <int N, typename Real>
-	void divideByPowerOf2(Vector<N, Real>& x,
+	void divideByPowerOf2(
+		Vector<N, Real>& x,
 		const Real& power)
 	{
-		for (integer i = 0;i < N;++i)
+		PENSURE2(x.size() == power.size(), x.size(), power.size());
+
+		const integer size = x.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			Pastel::divideByPowerOf2(x[i], power);
 		}

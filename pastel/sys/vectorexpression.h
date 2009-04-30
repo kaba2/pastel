@@ -323,6 +323,8 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
+			PENSURE2(N != Unbounded || left.size() == right.size(), 
+				left.size(), right.size());
 		}
 
 		Real operator[](integer index) const
@@ -364,6 +366,8 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
+			PENSURE2(N != Unbounded || left.size() == right.size(), 
+				left.size(), right.size());
 		}
 
 		Real operator[](integer index) const
@@ -405,6 +409,8 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
+			PENSURE2(N != Unbounded || left.size() == right.size(), 
+				left.size(), right.size());
 		}
 
 		Real operator[](integer index) const
@@ -446,6 +452,8 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
+			PENSURE2(N != Unbounded || left.size() == right.size(), 
+				left.size(), right.size());
 		}
 
 		Real operator[](integer index) const

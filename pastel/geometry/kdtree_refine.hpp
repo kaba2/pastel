@@ -301,7 +301,9 @@ namespace Pastel
 					Real minCost = infinity<Real>();
 					integer minAxis = 0;
 
-					for (integer axis = 0;axis < N;++axis)
+					const integer n = tree.dimension();
+
+					for (integer axis = 0;axis < n;++axis)
 					{
 						std::vector<BoundPoint<N, Real, ObjectPolicy> > pointList;
 						const integer boundPoints = 2 * cursor.objects();

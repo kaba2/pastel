@@ -137,7 +137,7 @@ namespace Pastel
 			{
 				// If the vertex normal is degenerate,
 				// use the vertex centroid.
-				normals[i] = Vector3(asVector(positions[i]));
+				normals[i] = asVector(positions[i]);
 				normalNorm = norm(normals[i]);
 				if (normalNorm == 0)
 				{

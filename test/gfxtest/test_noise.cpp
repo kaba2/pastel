@@ -14,15 +14,15 @@ namespace
 		const integer Height = 80;
 
 		Array<2, Color> image(Width, Height);
-		Color fromColor(0, 0, 0);
-		Color toColor(0, 0, 1);
-		Color deltaColor(toColor - fromColor);
+		Color froColor = Color(0, 0, 0);
+		Color toColor = Color(0, 0, 1);
+		Color deltaColor(toColor - froColor);
 
 		for (integer y = 0;y < Height;++y)
 		{
 			for (integer x = 0;x < Width;++x)
 			{
-				image(x, y) = fromColor +
+				image(x, y) = froColor +
 					noise((real)x / 5) * deltaColor;
 			}
 		}
@@ -36,15 +36,15 @@ namespace
 		const integer Height = 400;
 
 		Array<2, Color> image(Width, Height);
-		Color fromColor(0, 0, 0);
-		Color toColor(0, 0, 1);
-		Color deltaColor(toColor - fromColor);
+		Color froColor = Color(0, 0, 0);
+		Color toColor = Color(0, 0, 1);
+		Color deltaColor(toColor - froColor);
 
 		for (integer y = 0;y < Height;++y)
 		{
 			for (integer x = 0;x < Width;++x)
 			{
-				image(x, y) = fromColor +
+				image(x, y) = froColor +
 					noise(Point2((real)x / 5,
 					(real)y / 5)) * deltaColor;
 			}
@@ -75,15 +75,15 @@ namespace
 		const integer Height = 400;
 
 		Array<2, Color> image(Width, Height);
-		Color fromColor(0, 0, 0);
-		Color toColor(0, 0, 1);
-		Color deltaColor(toColor - fromColor);
+		Color froColor = Color(0, 0, 0);
+		Color toColor = Color(0, 0, 1);
+		Color deltaColor(toColor - froColor);
 
 		for (integer y = 0;y < Height;++y)
 		{
 			for (integer x = 0;x < Width;++x)
 			{
-				image(x, y) = fromColor +
+				image(x, y) = froColor +
 					noise(Point3((real)x / 5,
 					(real)y / 5, 0)) * deltaColor;
 			}

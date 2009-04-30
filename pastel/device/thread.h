@@ -28,7 +28,8 @@ namespace Pastel
 		static int launchHelper(void* data);
 
 		SDL_Thread* volatile thread_;
-		mutable Mutex mutex_;
+		Mutex* mutex_;
+		bool waitForWait_;
 	};
 
 	typedef CountedPtr<Thread> ThreadPtr;

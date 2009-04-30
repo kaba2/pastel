@@ -22,8 +22,8 @@ namespace
 		Array<2, Color> image(Width, Height);
 
 		Color color;
-		Color aColor(1, 0, 0);
-		Color bColor(0, 0, 1);
+		Color aColor = Color(1, 0, 0);
+		Color bColor = Color(0, 0, 1);
 
 		for (integer i = 0;i < 100;++i)
 		{
@@ -100,8 +100,8 @@ namespace
 		Array<2, Color> image(Width, Height);
 
 		Color color;
-		Color aColor(1, 0, 0);
-		Color bColor(0, 0, 1);
+		Color aColor = Color(1, 0, 0);
+		Color bColor = Color(0, 0, 1);
 
 		for (integer i = 0;i < 100;++i)
 		{

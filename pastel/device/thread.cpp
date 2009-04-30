@@ -7,18 +7,19 @@ namespace Pastel
 
 	Thread::Thread()
 		: thread_(0)
-		, mutex_()
+		, mutex_(new Mutex)
 	{
 	}
 
 	Thread::~Thread()
 	{
+		delete mutex_;
 	}
 
 	void Thread::launch()
 	{
 		{
-			MutexLock lock(&mutex_);
+			MutexLock lock(mutex_);
 			if (REPORT(running()))
 			{
 				return;
@@ -29,9 +30,14 @@ namespace Pastel
 
 	void Thread::wait()
 	{
-		if (thread_)
+		SDL_Thread* thread = 0;
 		{
-			SDL_WaitThread(thread_, 0);
+			MutexLock lock(mutex_);
+			thread = thread_;
+		}
+		if (thread)
+		{
+			SDL_WaitThread(thread, 0);
 		}
 	}
 
@@ -39,7 +45,7 @@ namespace Pastel
 	{
 		bool result = false;
 		{
-			MutexLock lock(&mutex_);
+			MutexLock lock(mutex_);
 			result = (thread_ != 0);
 		}
 		return result;
@@ -53,10 +59,12 @@ namespace Pastel
 		
 		thread->run();
 
+		/*
 		{
-			MutexLock lock(&thread->mutex_);
+			MutexLock lock(thread->mutex_);
 			thread->thread_ = 0;
 		}
+		*/
 
 		return 0;
 	}

@@ -23,7 +23,7 @@ namespace
 
 		const integer Points = 100;
 
-		drawSegment(Segment2(Point2(0, 0), Point2(Width, Height)), Color(1), arrayView(image));
+		drawSegment(Segment2(Point2(0, 0), Point2(Width, Height)), Color(1, 1, 1), arrayView(image));
 
 		for (integer i = 0;i < Points;++i)
 		{

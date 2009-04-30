@@ -74,14 +74,15 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> unitAxis(integer index)
+	TemporaryVector<N, Real> unitAxis(integer index)
 	{
-		BOOST_STATIC_ASSERT(N > 0);
+		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
 		PENSURE2(index >= 0 && index < N, index, N);
 
 		Vector<N, Real> result(0);
 		result[index] = 1;
-		return result;
+
+		return result.asTemporary();
 	}
 
 	template <int N, typename Real>
@@ -91,8 +92,7 @@ namespace Pastel
 		PENSURE1(dimension > 0, dimension);
 		PENSURE2(index >= 0 && index < dimension, index, dimension);
 
-		Vector<Unbounded, Real> result;
-		result.setSize(dimension, 0);
+		Vector<Unbounded, Real> result(ofDimension(dimension), 0);
 		result[index] = 1;
 
 		return result.asTemporary();
@@ -239,9 +239,9 @@ namespace Pastel
 		return sum(left * right);
 	}
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N > 1), Real>::type
-		norm(const Vector<N, Real>& that)
+		norm(const VectorExpression<N, Real, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
 
@@ -285,29 +285,31 @@ namespace Pastel
 		*/
 	}
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N == 1), Real>::type
-		norm(const Vector<N, Real>& that)
+		norm(const VectorExpression<N, Real, Expression>& that)
 	{
 		return mabs(that[0]);
 	}
 
-	template <int N, typename Real>
-	Real normManhattan(const Vector<N, Real>& that)
+	template <int N, typename Real, typename Expression>
+	Real normManhattan(const VectorExpression<N, Real, Expression>& that)
 	{
 		return sum(mabs(that));
 	}
 
-	template <int N, typename Real>
-	Real powerSum(const Vector<N, Real>& that,
+	template <int N, typename Real, typename Expression>
+	Real powerSum(
+		const VectorExpression<N, Real, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		PENSURE(metric >= 1);
 		return sum(pow(mabs(that), metric));
 	}
 
-	template <int N, typename Real>
-	Real pNorm(const Vector<N, Real>& that,
+	template <int N, typename Real, typename Expression>
+	Real pNorm(
+		const VectorExpression<N, Real, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		PENSURE1(metric >= 1, metric);
@@ -352,10 +354,10 @@ namespace Pastel
 		*/
 	}
 
-	template <int N, typename Real>
-	Real normInfinity(const Vector<N, Real>& that)
+	template <int N, typename Real, typename Expression>
+	Real normInfinity(const VectorExpression<N, Real, Expression>& that)
 	{
-		return max(evaluate(mabs(that)));
+		return max(mabs(that));
 	}
 
 	template <int N, typename Real>
@@ -369,24 +371,29 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> normalize(const Vector<N, Real>& that)
 	{
-		return evaluate(that / norm(that));
+		return that / norm(that);
 	}
 
-	template <typename Real>
-	Vector<2, Real> cross(const Vector<2, Real>& that)
+	template <typename Real, typename Expression>
+	TemporaryVector<2, Real> cross(
+		const VectorExpression<2, Real, Expression>& that)
 	{
-		return Vector<2, Real>(-that[1], that[0]);
+		Vector<2, Real> result(-that[1], that[0]);
+		return result.asTemporary();
 	}
 
-	template <typename Real>
-	Vector<3, Real> cross(
-		const Vector<3, Real>& x,
-		const Vector<3, Real>& y)
+	template <typename Real, typename ExpressionX,
+	typename ExpressionY>
+	TemporaryVector<3, Real> cross(
+		const VectorExpression<3, Real, ExpressionX>& x,
+		const VectorExpression<3, Real, ExpressionY>& y)
 	{
-		return Vector<3, Real>(
+		Vector<3, Real> result(
 			x[1] * y[2] - x[2] * y[1],
 			x[2] * y[0] - x[0] * y[2],
 			x[0] * y[1] - x[1] * y[0]);
+
+		return result.asTemporary();
 	}
 
 	// Comparison functions

@@ -101,6 +101,8 @@ namespace Pastel
 		const AlignedBox<N, Real>& region,
 		const View<N, Data, Output_View>& view)
 	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
+
 		const integer points = positionList.size();
 
 		ENSURE2(points == dataList.size(), points, dataList.size());
@@ -109,7 +111,7 @@ namespace Pastel
 		typedef Detail_NearestReconstructor::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
-		KdTree<N, Real, DataPolicy> kdtree(dataPolicy);
+		KdTree<N, Real, DataPolicy> kdtree(N, dataPolicy);
 
 		const Vector<N, Real> scaling = inverse(region.extent()) * Vector<N, Real>(view.extent());
 

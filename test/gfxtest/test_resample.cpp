@@ -45,16 +45,16 @@ namespace
 
 	void testResample3()
 	{
-		Array<3, real> image(20, 30, 40, 0);
-		Array<3, real> smallImage(40, 30, 20, 0);
+		Array<3, real32> image(20, 30, 40, 0);
+		Array<3, real32> smallImage(40, 30, 20, 0);
 
-		resample<real>(
+		resample<real32>(
 			constArrayView(image), 
-			ArrayExtender<3, real>(mirrorExtender()),
+			ArrayExtender<3, real32>(mirrorExtender()),
 			boxFilter(),
 			arrayView(smallImage));
 
-		Array<2, real> imageSlice(
+		Array<2, real32> imageSlice(
 			shrink(smallImage.extent(), 0));
 
 		copy(constSliceView(constArrayView(smallImage), 0, 0),

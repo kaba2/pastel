@@ -118,7 +118,7 @@ namespace
 						const real32 sum2 = sum1 + mipmap(position + Vector<2, integer>(1, 0));
 						const real32 sum3 = sum2 + mipmap(position + Vector<2, integer>(1, 1));
 						const real32 sum4 = sum3 + mipmap(position + Vector<2, integer>(0, 1));
-						const real32 value = randomReal() * sum4;
+						const real32 value = randomReal32() * sum4;
 
 						if (value < sum1)
 						{
@@ -253,7 +253,7 @@ namespace
 
 					delta[axis] /= 2;
 
-					if (randomReal() < aProbability)
+					if (randomReal32() < aProbability)
 					{
 						node = node * 2 + 1;
 					}

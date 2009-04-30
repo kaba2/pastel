@@ -30,9 +30,9 @@ namespace
 		}
 	}
 
-	Color myRandomColor()
+	Color myRandoColor()
 	{
-		return hsvToRgb(randomRgbColor() * Vector3(1, 1, 0.1) + Vector3(0, 0, 0.9));
+		return hsvToRgb(randomRgbColor() * Color(1, 1, 0.1) + Color(0, 0, 0.9));
 	}
 
 	void test()
@@ -84,7 +84,7 @@ namespace
 			}
 		}
 
-		draw(square, 0, 0, myRandomColor(), image);
+		draw(square, 0, 0, myRandoColor(), image);
 
 		const integer Samples = square.size();
 
@@ -98,7 +98,7 @@ namespace
 					(uniformlySampleBall(square[i]) + 1) / 2);
 			}
 
-			draw(pointList, 150, 0, myRandomColor(), image);
+			draw(pointList, 150, 0, myRandoColor(), image);
 		}
 
 		{
@@ -110,7 +110,7 @@ namespace
 				pointList.push_back(
 					uniformlySampleSimplex(square[i]));
 			}
-			draw(pointList, 300, 0, myRandomColor(), image);
+			draw(pointList, 300, 0, myRandoColor(), image);
 		}
 
 		{
@@ -122,7 +122,7 @@ namespace
 				pointList.push_back(
 					(uniformlySampleAnnulus(square[i], 0.5, 1) + 1) / 2);
 			}
-			draw(pointList, 300, 150, myRandomColor(), image);
+			draw(pointList, 300, 150, myRandoColor(), image);
 		}
 
 		{
@@ -134,7 +134,7 @@ namespace
 				pointList.push_back(
 					(uniformlySampleSphere(Vector1((real)i / (points - 1))) + 1) / 2);
 			}
-			draw(pointList, 150, 150, myRandomColor(), image);
+			draw(pointList, 150, 150, myRandoColor(), image);
 		}
 
 		{
@@ -146,7 +146,7 @@ namespace
 				pointList.push_back(
 					(uniformlySampleHemisphere(Vector1((real)i / (points - 1))) + 1) / 2);
 			}
-			draw(pointList, 0, 150, myRandomColor(), image);
+			draw(pointList, 0, 150, myRandoColor(), image);
 		}
 
 		{
@@ -158,7 +158,7 @@ namespace
 				pointList.push_back(
 					(cosineSampleHemisphere(Vector1((real)i / (points - 1))) + 1) / 2);
 			}
-			draw(pointList, 0, 300, myRandomColor(), image);
+			draw(pointList, 0, 300, myRandoColor(), image);
 		}
 
 		{
@@ -170,7 +170,7 @@ namespace
 				pointList.push_back(
 					shrink((randomVectorBall<3, real>() + 1) / 2));
 			}
-			draw(pointList, 150, 300, myRandomColor(), image);
+			draw(pointList, 150, 300, myRandoColor(), image);
 		}
 
 		{
@@ -181,7 +181,7 @@ namespace
 				pointList.push_back(
 					shrink((uniformlySampleSphere(square[i]) + 1) / 2));
 			}
-			draw(pointList, 300, 300, myRandomColor(), image);
+			draw(pointList, 300, 300, myRandoColor(), image);
 		}
 
 		{
@@ -192,7 +192,7 @@ namespace
 				pointList.push_back(
 					shrink((uniformlySampleHemisphere(square[i]) + 1) / 2));
 			}
-			draw(pointList, 0, 450, myRandomColor(), image);
+			draw(pointList, 0, 450, myRandoColor(), image);
 		}
 
 		{
@@ -203,7 +203,7 @@ namespace
 				pointList.push_back(
 					shrink((cosineSampleHemisphere(square[i]) + 1) / 2));
 			}
-			draw(pointList, 150, 450, myRandomColor(), image);
+			draw(pointList, 150, 450, myRandoColor(), image);
 		}
 
 		{
@@ -215,7 +215,7 @@ namespace
 				pointList.push_back(
 					(randomVectorBall<2, real>() + 1) / 2);
 			}
-			draw(pointList, 300, 450, myRandomColor(), image);
+			draw(pointList, 300, 450, myRandoColor(), image);
 		}
 
 		savePcx(image, "uniformsampling.pcx");
@@ -252,7 +252,7 @@ namespace
 			AlignedBox2(0, 0, 1, 1),
 			0.05, pushBack);
 
-		draw(square, 0, 0, myRandomColor(), image);
+		draw(square, 0, 0, myRandoColor(), image);
 
 		const integer Samples = square.size();
 
@@ -266,7 +266,7 @@ namespace
 					(uniformlySampleBall(square[i]) + 1) / 2);
 			}
 
-			draw(pointList, 150, 0, myRandomColor(), image);
+			draw(pointList, 150, 0, myRandoColor(), image);
 		}
 
 		{
@@ -278,7 +278,7 @@ namespace
 				pointList.push_back(
 					uniformlySampleSimplex(square[i]));
 			}
-			draw(pointList, 300, 0, myRandomColor(), image);
+			draw(pointList, 300, 0, myRandoColor(), image);
 		}
 
 		{
@@ -290,7 +290,7 @@ namespace
 				pointList.push_back(
 					(uniformlySampleAnnulus(square[i], 0.5, 1) + 1) / 2);
 			}
-			draw(pointList, 300, 150, myRandomColor(), image);
+			draw(pointList, 300, 150, myRandoColor(), image);
 		}
 
 		savePcx(image, "uniformsampling_distortion.pcx");
@@ -326,13 +326,13 @@ namespace
 			}
 		}
 
-		Array<2, Color> image(Width, Height, Color(1));
+		Array<2, Color> image(Width, Height, Color(1, 1, 1));
 		for (integer x = 0;x < Width;++x)
 		{
 			const real t = dequantizeUnsigned(x, Width);
 			drawVerticalLine(x, 0, 
 				dequantizeUnsigned(histogram[x], maxBin + 1) * Height,
-				linear(Color(0), Color(0, 0, 0.2), t), 
+				linear(Color(0, 0, 0), Color(0, 0, 0.2), t), 
 				arrayView(image));
 		}
 
@@ -344,7 +344,7 @@ namespace
 		mathTestList().add("UniformSampling_1", test);
 		mathTestList().add("UniformSampling_2", test2);
 		mathTestList().add("UniformSampling_Distance_2", testDistance<2, real>);
-		mathTestList().add("UniformSampling_Distance_10", testDistance<10, real>);
+		mathTestList().add("UniformSampling_Distance_8", testDistance<8, real>);
 	}
 
 	CallFunction run(testAdd);

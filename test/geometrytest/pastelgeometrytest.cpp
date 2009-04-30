@@ -21,11 +21,7 @@ using namespace std;
 
 int main()
 {
-	Simplex2 simplex;
-	Triangle2 triangle(simplex);
-	Triangle2 triangle2 = simplex;
-	simplex = triangle;
-	triangle = simplex;
+	Vector<Unbounded, float> v(Dimension(4));
 
 	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
 	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));

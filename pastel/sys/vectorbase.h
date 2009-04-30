@@ -44,6 +44,13 @@ namespace Pastel
 			{
 			}
 
+			explicit VectorBase(
+				const Dimension& dimension,
+				const Real& that = Real())
+				: data_(dimension, that)
+			{
+			}
+
 			template <typename ThatReal>
 			explicit VectorBase(const Tuple<N, ThatReal>& that)
 				: data_(that)
@@ -61,9 +68,8 @@ namespace Pastel
 			{
 			}
 
-			template <typename ThatReal>
 			explicit VectorBase(
-				const TemporaryVector<N, ThatReal>& that)
+				const TemporaryVector<N, Real>& that)
 				: data_(that.asTemporaryTuple())
 			{
 			}
@@ -77,12 +83,10 @@ namespace Pastel
 			explicit VectorBase(
 				const VectorExpression
 				<N, ThatReal, Expression>& that)
-				: data_()
+				: data_(ofDimension(that.size()))
 			{
 				const integer n = that.size();
-
-				data_.setSize(n);
-				
+			
 				for (integer i = 0;i < n;++i)
 				{
 					data_[i] = that[i];
@@ -97,6 +101,7 @@ namespace Pastel
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
+				BOOST_STATIC_ASSERT(N == Unbounded || (N > 0 && N <= 8));
 			}
 
 			void setSize(integer size, const Real& that = Real())

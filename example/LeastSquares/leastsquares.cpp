@@ -101,7 +101,7 @@ void logicHandler()
 	bool leftButton = false;
 	iMouse = deviceSystem().mouse(&leftButton);
 
-	const Vector2 currentMouse(
+	const Vector2 currentMouse = Vector2(
 		2 * ((real)iMouse[0] / ScreenWidth) - 1,
 		-(2 * ((real)iMouse[1] / ScreenHeight) - 1));
 

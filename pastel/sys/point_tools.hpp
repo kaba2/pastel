@@ -8,10 +8,13 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	std::ostream& operator<<(std::ostream& stream,
+	std::ostream& operator<<(
+		std::ostream& stream,
 		const Point<N, Real>& point)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = point.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			stream << point[i] << " ";
 		}
@@ -20,10 +23,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	std::istream& operator>>(std::istream& stream,
+	std::istream& operator>>(
+		std::istream& stream,
 		Point<N, Real>& point)
 	{
-		for (integer i = 0;i < N;++i)
+		const integer size = point.size();
+
+		for (integer i = 0;i < size;++i)
 		{
 			stream >> point[i];
 		}

@@ -23,10 +23,10 @@ namespace
 		REPORT1(sizeof(Vector<3, Real>) != 3 * sizeof(Real), sizeof(Vector<3, Real>));
 		REPORT1(sizeof(Vector<3, integer>) != 3 * sizeof(integer), sizeof(Vector<3, integer>));
 
-		Vector<3, Real> a(1, 2, 3);
+		Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
 		REPORT(a[0] != 1 || a[1] != 2 || a[2] != 3);
 
-		Vector<3, Real> b(4, 5, 6);
+		Vector<3, Real> b = Vector<3, Real>(4, 5, 6);
 		REPORT(b[0] != 4 || b[1] != 5 || b[2] != 6);
 
 		Vector<3, Real> c(b);
@@ -47,7 +47,7 @@ namespace
 		// member functions.
 
 		{
-			Vector<1, Real> a(1);
+			Vector<1, Real> a = Vector<1, Real>(1);
 			REPORT(a[0] != 1);
 
 			a.set(4);
@@ -63,7 +63,7 @@ namespace
 			REPORT(b[0] != 9);
 		}
 		{
-			Vector<2, Real> a(1, 2);
+			Vector<2, Real> a = Vector<2, Real>(1, 2);
 			REPORT(a[0] != 1 || a[1] != 2);
 
 			a.set(4, 5);
@@ -79,7 +79,7 @@ namespace
 			REPORT(b[0] != 9 || b[1] != 9);
 		}
 		{
-			Vector<3, Real> a(1, 2, 3);
+			Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
 			REPORT(a[0] != 1 || a[1] != 2 || a[2] != 3);
 
 			a.set(4, 5, 6);
@@ -95,7 +95,7 @@ namespace
 			REPORT(b[0] != 9 || b[1] != 9 || b[2] != 9);
 		}
 		{
-			Vector<4, Real> a(1, 2, 3, 4);
+			Vector<4, Real> a = Vector<4, Real>(1, 2, 3, 4);
 			REPORT(a[0] != 1 || a[1] != 2 ||
 				 a[2] != 3 || a[3] != 4);
 
@@ -119,8 +119,8 @@ namespace
 
 	void testVectorSimpleArithmetic()
 	{
-		Vector<3, Real> a(1, 2, 3);
-		Vector<3, Real> b(4, 5, 6);
+		Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
+		Vector<3, Real> b = Vector<3, Real>(4, 5, 6);
 
 		// Vector op Vector
 
@@ -175,8 +175,8 @@ namespace
 	{
 		// Test the expression templates
 
-		Vector<3, Real> a(1, 2, 3);
-		Vector<3, Real> b(4, 5, 6);
+		Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
+		Vector<3, Real> b = Vector<3, Real>(4, 5, 6);
 
 		Vector<3, Real> c(a - b);
 		REPORT(c[0] != -3 || c[1] != -3 || c[2] != -3);
@@ -211,7 +211,7 @@ namespace
 	{
 		typedef float Real;
 
-		Vector<3, Real> a(-1, -2, 3);
+		Vector<3, Real> a = Vector<3, Real>(-1, -2, 3);
 
 		Vector<3, Real> b;
 
@@ -321,8 +321,7 @@ namespace
 	{
 		const integer size = (N == Unbounded) ? 100 : N;
 
-		Vector<N, Real> a;
-		a.setSize(size);
+		Vector<N, Real> a(ofDimension(size));
 		
 		for (integer i = 0;i < size;++i)
 		{
@@ -650,10 +649,23 @@ namespace
 			}
 			REPORT1(contentsDiffer != 0, contentsDiffer);
 		}
+	}
+
+	template <int N>
+	void testCollaboration()
+	{
+		const integer size = (N == Unbounded) ? 100 : N;
+
+		Point<N, Real> a(ofDimension(size));
+
+		Vector<N, Real> b = a.asVector();
+
+		Point<N, Real> e = a.asTemporary();
 
 		Tuple<N, Real> c = b.asTuple();
 		Tuple<N, Real> d = c;
 		d = c;
+
 	}
 
 	void testBegin()
@@ -669,6 +681,12 @@ namespace
 		testVectorArithmetic2<3>();
 		testVectorArithmetic2<4>();
 		testVectorArithmetic2<Unbounded>();
+
+		testCollaboration<1>();
+		testCollaboration<2>();
+		testCollaboration<3>();
+		testCollaboration<4>();
+		testCollaboration<Unbounded>();
 	}
 
 	void testAdd()

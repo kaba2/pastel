@@ -19,44 +19,45 @@ namespace Pastel
 
 	// Permutation
 
-	template <int N, typename Real>
-	inline Vector<N, Real> permute(
-		const Vector<N, Real>& that,
+	template <int N, typename Real, typename Expression>
+	inline TemporaryVector<N, Real> permute(
+		const VectorExpression<N, Real, Expression>& that,
 		const Tuple<N, integer>& permutation);
 
 	// Minimum functions
 
 	//! Returns the index of the minimum element.
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	inline integer minIndex(
-		const Vector<N, Real>& that);
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the minimum of elements.
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	inline Real min(
-		const Vector<N, Real>& that);
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the minimum of (left[i], right[i]), elementwise.
 
-	template <int N, typename Real>
-	inline Vector<N, Real> min(
-		const Vector<N, Real>& left,
-		const Vector<N, Real>& right);
+	template <int N, typename Real, 
+		typename LeftExpression, typename RightExpression>
+	inline TemporaryVector<N, Real> min(
+		const VectorExpression<N, Real, LeftExpression>& left,
+		const VectorExpression<N, Real, RightExpression>& right);
 
 	//! Returns the minimum of (left, right[i]), elementwise.
 
-	template <int N, typename Real>
-	inline Vector<N, Real> min(
+	template <int N, typename Real, typename Expression>
+	inline TemporaryVector<N, Real> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Vector<N, Real>& right);
+		const VectorExpression<N, Real, Expression>& right);
 
 	//! Returns the minimum of (left[i], right), elementwise.
 
-	template <int N, typename Real>
-	inline Vector<N, Real> min(
-		const Vector<N, Real>& left,
+	template <int N, typename Real, typename Expression>
+	inline TemporaryVector<N, Real> min(
+		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 
@@ -65,68 +66,75 @@ namespace Pastel
 
 	//! Returns the index of the maximum element.
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	inline integer maxIndex(
-		const Vector<N, Real>& that);
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the maximum of elements.
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	inline Real max(
-		const Vector<N, Real>& that);
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the maximum of (left[i], right[i]), elementwise.
 
-	template <int N, typename Real>
-	inline Vector<N, Real> max(
-		const Vector<N, Real>& left,
-		const Vector<N, Real>& right);
+	template <int N, typename Real,
+	typename LeftExpression, typename RightExpression>
+	inline TemporaryVector<N, Real> max(
+		const VectorExpression<N, Real, LeftExpression>& left,
+		const VectorExpression<N, Real, RightExpression>& right);
 
 	//! Returns the maximum of (left, right[i]), elementwise.
 
-	template <int N, typename Real>
-	inline Vector<N, Real> max(
+	template <int N, typename Real, typename Expression>
+	inline TemporaryVector<N, Real> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Vector<N, Real>& right);
+		const VectorExpression<N, Real, Expression>& right);
 
 	//! Returns the maximum of (left[i], right), elementwise.
 
-	template <int N, typename Real>
-	inline Vector<N, Real> max(
-		const Vector<N, Real>& left,
+	template <int N, typename Real, typename Expression>
+	inline TemporaryVector<N, Real> max(
+		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 
-	template <int N, typename Real>
-	inline Vector<N, Real> clamp(
-		const Vector<N, Real>& that,
-		const Vector<N, Real>& minimum,
-		const Vector<N, Real>& maximum);
+	template <int N, typename Real,
+	typename ThatExpression, typename MinExpression,
+	typename MaxExpression>
+	inline TemporaryVector<N, Real> clamp(
+		const VectorExpression<N, Real, ThatExpression>& that,
+		const VectorExpression<N, Real, MinExpression>& minimum,
+		const VectorExpression<N, Real, MaxExpression>& maximum);
 
 	// Optimization functions
 
 	//! Returns x[i] * 2^power[i], elementwise.
 
 	template <int N, typename Real>
-	inline void multiplyByPowerOf2(Vector<N, Real>& x,
+	inline void multiplyByPowerOf2(
+		Vector<N, Real>& x,
 		const Vector<N, Real>& power);
 
 	//! Returns x[i] * 2^power, elementwise.
 
 	template <int N, typename Real>
-	inline void multiplyByPowerOf2(Vector<N, Real>& x,
+	inline void multiplyByPowerOf2(
+		Vector<N, Real>& x,
 		const Real& power);
 
 	//! Returns x[i] / 2^power[i], elementwise.
 
 	template <int N, typename Real>
-	inline void divideByPowerOf2(Vector<N, Real>& x,
+	inline void divideByPowerOf2(
+		Vector<N, Real>& x,
 		const Vector<N, Real>& power);
 
 	//! Returns x[i] / 2^power, elementwise.
 
 	template <int N, typename Real>
-	inline void divideByPowerOf2(Vector<N, Real>& x,
+	inline void divideByPowerOf2(
+		Vector<N, Real>& x,
 		const Real& power);
 
 	// Expression templates for array computation

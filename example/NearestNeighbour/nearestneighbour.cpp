@@ -203,8 +203,8 @@ void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
 
 void redrawPointSet()
 {
-	Color red(1, 0, 0);
-	Color yellow(0, 0, 1);
+	Color red = Color(1, 0, 0);
+	Color yellow = Color(0, 0, 1);
 
 	{
 		integer i = 0;
@@ -228,14 +228,14 @@ void redrawPointSet()
 
 void redrawNearest()
 {
-	Color aColor(1, 0, 0);
-	Color bColor(1, 1, 0);
+	Color aColor = Color(1, 0, 0);
+	Color bColor = Color(1, 1, 0);
 
 	Integer2 iMouse;
 	bool leftButton = false;
 	iMouse = deviceSystem().mouse(&leftButton);
 
-	const Vector2 currentMouse(
+	const Vector2 currentMouse = Vector2(
 		2 * ((real)iMouse[0] / ScreenWidth) - 1,
 		-(2 * ((real)iMouse[1] / ScreenHeight) - 1));
 
@@ -384,7 +384,7 @@ void logicHandler()
 	bool leftButton = false;
 	iMouse = deviceSystem().mouse(&leftButton);
 
-	const Vector2 currentMouse(
+	const Vector2 currentMouse = Vector2(
 		2 * ((real)iMouse[0] / ScreenWidth) - 1,
 		-(2 * ((real)iMouse[1] / ScreenHeight) - 1));
 

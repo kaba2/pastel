@@ -13,6 +13,29 @@
 namespace Pastel
 {
 
+	class Dimension
+	{
+	public:
+		explicit Dimension(integer dimension)
+			: dimension_(dimension)
+		{
+			PENSURE1(dimension >= 0, dimension);
+		}
+
+		operator integer() const
+		{
+			return dimension_;
+		}
+
+	private:
+		integer dimension_;
+	};
+
+	inline Dimension ofDimension(integer dimension)
+	{
+		return Dimension(dimension);
+	}
+
 	template <int N, typename Type>
 	class Tuple;
 
@@ -58,6 +81,16 @@ namespace Pastel
 				set(that);
 			}
 
+			explicit TupleBase(
+				const Dimension& dimension,
+				const Type& that)
+				: data_()
+			{
+				PENSURE2(dimension == N, dimension, N);
+
+				set(that);
+			}
+
 			template <typename ThatType>
 			TupleBase(const TupleBase& that)
 				: data_()
@@ -80,7 +113,7 @@ namespace Pastel
 
 			~TupleBase()
 			{
-				BOOST_STATIC_ASSERT(N > 0);
+				BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
 
 				enum
 				{
@@ -258,6 +291,13 @@ namespace Pastel
 				set(that);
 			}
 
+			explicit TupleBase(
+				const Dimension& dimension,
+				const Type& that)
+				: data_(dimension, that)
+			{
+			}
+
 			template <typename ThatType>
 			TupleBase(const TupleBase& that)
 				: data_(that.data_)
@@ -314,14 +354,15 @@ namespace Pastel
 				data_.swap(that.data_);
 			}
 
-			Tuple<Unbounded, Type>& operator=(const Tuple<Unbounded, Type>& that)
+			Tuple<Unbounded, Type>& operator=(
+				const Tuple<Unbounded, Type>& that)
 			{
 				Tuple<Unbounded, Type> copy(that);
 				swap(copy);
 				return (Tuple<Unbounded, Type>&)*this;
 			}
 
-			TemporaryTuple<Unbounded, Type>& operator=(
+			Tuple<Unbounded, Type>& operator=(
 				const TemporaryTuple<Unbounded, Type>& that)
 			{
 				Tuple<Unbounded, Type> copy(that);
