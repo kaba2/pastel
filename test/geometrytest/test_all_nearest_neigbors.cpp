@@ -179,8 +179,9 @@ namespace
 
 	void testAllNearest()
 	{
-		test<8, float>(8, 5000, 1);
+		//test<8, float>(8, 5000, 1);
 		test<Unbounded, float>(8, 5000, 1);
+		/*
 		test<Unbounded, float>(20, 5000, 1);
 
 		test<5, float>(5, 10000, 1);
@@ -198,6 +199,7 @@ namespace
 		test<5, float>(5, 10000, 8);
 		test<Unbounded, float>(10, 10000, 8);
 		test<Unbounded, float>(20, 10000, 8);
+		*/
 	}
 
 	void testAdd()
