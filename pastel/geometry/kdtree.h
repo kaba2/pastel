@@ -29,6 +29,11 @@ namespace Pastel
 		{
 			return Tuple<2, real>(object[axis]);
 		}
+
+		const Point<N, Real>& point(const Point<N, Real>& object) const
+		{
+			return object;
+		}
 	};
 
 	//! A kd-tree

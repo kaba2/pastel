@@ -40,7 +40,7 @@ namespace
 
 		Array<2, real32> image(colorImage.extent());
 
-		visit(constArrayView(colorImage), arrayView(image), _2 = bind(rgbLuma, _1));
+		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
 		ImagePdf<2, real32> imagePdf(constArrayView(image));
 
@@ -76,7 +76,7 @@ namespace
 
 		Array<2, real32> image(colorImage.extent());
 
-		visit(constArrayView(colorImage), arrayView(image), _2 = bind(rgbLuma, _1));
+		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
 		log() << "Computing mipmaps..." << logNewLine;
 
@@ -205,7 +205,7 @@ namespace
 
 		Array<2, real32> image(colorImage.extent());
 
-		visit(constArrayView(colorImage), arrayView(image), _2 = bind(rgbLuma, _1));
+		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
 		log() << "Computing summed area table..." << logNewLine;
 

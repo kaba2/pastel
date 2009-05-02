@@ -56,6 +56,12 @@ namespace Pastel
 			{
 				return Tuple<2, Real>(dataPoint.position_[index]);
 			}
+
+			const Point<N, Real>& point(
+				const DataPoint<N, Real, Data>& dataPoint) const
+			{
+				return dataPoint.position_;
+			}
 		};
 
 		template <int N, typename Real, typename ObjectPolicy, typename Filter>

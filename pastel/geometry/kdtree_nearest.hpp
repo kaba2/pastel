@@ -139,11 +139,8 @@ namespace Pastel
 
 			while(iter != iterEnd)
 			{
-				const Point<N, Real> objectPoint = 
-					tree.objectPolicy().bound(*iter).min();
-
 				const Real currentDistance =
-					normBijection(objectPoint - searchPoint);
+					normBijection(tree.objectPolicy().point(*iter) - searchPoint);
 
 				// It is essential that this is <= rather
 				// than <, because of the possibility

@@ -26,22 +26,6 @@ using namespace Pastel;
 namespace
 {
 
-	class PointPolicy
-	{
-	public:
-		typedef Point2 Object;
-
-		Tuple<2, real> bound(const Point2& object, integer axis) const
-		{
-			return Tuple<2, real>(object[axis]);
-		}
-
-		AlignedBox2 bound(const Point2& object) const
-		{
-			return AlignedBox2(object);
-		}
-	};
-
 	void render(
 		const std::vector<Point2>& modelSet,
 		const std::vector<Point2>& sceneSet,
@@ -166,10 +150,10 @@ namespace
 
 		log() << "Computing kd-trees..." << logNewLine;
 
-		typedef KdTree<2, real, PointPolicy> SceneTree;
+		typedef KdTree<2, real> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef KdTree<2, real, PointPolicy> ModelTree;
+		typedef KdTree<2, real> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;
@@ -188,7 +172,7 @@ namespace
 
 		Tuple<4, real> parameter;
 		const bool success = pointPatternMatch(
-			sceneTree, modelTree, 0.7,  0.01, PatternMatch::AbsoluteDistance,
+			sceneTree, modelTree, 0.7,  0.01, PatternMatch::RelativeDistance,
 			parameter);
 
 		timer.store();
@@ -310,8 +294,8 @@ namespace
 
 	void testBegin()
 	{
-		testBoxPatternMatch();
-		//testPatternMatch();
+		//testBoxPatternMatch();
+		testPatternMatch();
 	}
 
 	void testAdd()

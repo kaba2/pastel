@@ -12,9 +12,9 @@ using namespace Pastel;
 namespace
 {
 
-	Color luma(const Color& rgb)
+	Color lumaColor(const Color& rgb)
 	{
-		return Color(rgbLuma(rgb));
+		return Color(luma(rgb));
 	}
 
 	Color lightness(const Color& rgb)
@@ -33,7 +33,7 @@ namespace
 		Array<2, Color> transformed(image.extent());
 
 		transform(constArrayView(image),
-			arrayView(transformed), luma);
+			arrayView(transformed), lumaColor);
 
 		savePcx(transformed, "output/gray_luma.pcx");
 

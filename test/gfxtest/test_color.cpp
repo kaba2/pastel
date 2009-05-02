@@ -35,7 +35,7 @@ namespace
 		std::cout << std::endl;
 
 		std::cout << "Rgb-to-luma weights: " << std::endl
-			<< rgbLumaWeights() << std::endl;
+			<< lumaWeights() << std::endl;
 		std::cout << std::endl;
 
 		const integer Width = 500;

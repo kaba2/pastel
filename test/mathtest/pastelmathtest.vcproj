@@ -206,6 +206,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_complex.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_gcd.cpp"
 			>
 		</File>

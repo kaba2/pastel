@@ -3,6 +3,7 @@
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"
+#include "pastel/gfx/coloradapter.h"
 
 #include "pastel/math/matrix.h"
 
@@ -45,7 +46,7 @@ namespace Pastel
 
 	//! Returns the weights of the rgb-to-luma conversion.
 
-	Color rgbLumaWeights();
+	Color lumaWeights();
 
 	//! Computes the luma of an rgb color.
 	/*!
@@ -56,7 +57,7 @@ namespace Pastel
 	operation and for many applications luma does good enough.
 	*/
 
-	real32 rgbLuma(const Color& rgb);
+	real32 luma(const Color& rgb);
 
 
 
@@ -159,6 +160,25 @@ namespace Pastel
 	//! Converts LMS color XYZ color.
 
 	Color lmsToXyz(const Color& lms);
+
+	class PASTELGFX Color_Luma_Adapter
+	{
+	public:
+		typedef Color Logical;
+		typedef real32 Physical;
+
+		Logical toLogical(const Physical& physical) const
+		{
+			return Color(physical);
+		}
+
+		Physical toPhysical(const Logical& logical) const
+		{
+			return luma(logical);
+		}
+	};
+
+	typedef ReverseAdapter<Color_Luma_Adapter> Luma_Color_Adapter;
 
 }
 

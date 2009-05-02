@@ -3,188 +3,111 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
+#include "pastel/sys/view_tools.h"
 #include "pastel/sys/constants.h"
 
 namespace Pastel
 {
 
-	/*
-	template <typename ConstView>
-	void minMaxView(
-		const ConstView& view,
-		typename ConstView::Element& min,
-		typename ConstView::Element& max)
+	namespace Detail_PackRange
 	{
-		typedef typename ConstView::Element Element;
-		typedef typename ConstView::ConstCursor ConstCursor;
 
+		template <typename Real>
 		class MinMaxFunctor
 		{
 		public:
 			MinMaxFunctor(
-				Element& min,
-				Element& max)
+				Real& min,
+				Real& max)
 				: min_(min)
 				, max_(max)
 			{
 			}
 
-			void operator()(const ConstCursor& cursor) const
+			void operator()(const Real& that) const
 			{
-				if (*cursor < min_)
+				if (that < min_)
 				{
-					min_ = *cursor;
+					min_ = that;
 				}
-				if (*cursor > max_)
+				if (that > max_)
 				{
-					max_ = *cursor;
+					max_ = that;
 				}
 			}
 
 		private:
-			Element& min_;
-			Element& max_;
+			Real& min_;
+			Real& max_;
 		};
 
-		MinMaxFunctor minMaxFunctor(min, max);
-
-		constViewVisit(view, minMaxFunctor);
-	}
-	*/
-
-	template <typename ConstView>
-	void minMaxView(
-		const ConstView& view,
-		typename ConstView::Element& min,
-		typename ConstView::Element& max)
-	{
-		typedef typename ConstView::ConstCursor ConstCursor;
-		typedef typename ConstView::Element Element;
-
-		const integer width = view.width();
-		const integer height = view.height();
-
-		ConstCursor yCursor = view.cursor(0, 0);
-
-		Element minValue = *yCursor;
-		Element maxValue = minValue;
-
-		for (integer y = 0;y < height;++y)
+		template <typename Real>
+		class ScalingFunctor
 		{
-			ConstCursor xCursor = yCursor;
+		public:
+			ScalingFunctor(
+				const Real& min,
+				const Real& newMin,
+				const Real& scale)
+				: min_(min)
+				, newMin_(newMin)
+				, scale_(scale)
 
-			for (integer x = 0;x < width;++x)
 			{
-				if (*xCursor < minValue)
-				{
-					minValue = *xCursor;
-				}
-				else if (*xCursor > maxValue)
-				{
-					maxValue = *xCursor;
-				}
-
-				xCursor.xIncrement();
 			}
 
-			yCursor.yIncrement();
-		}
-
-		min = minValue;
-		max = maxValue;
-	}
-
-	namespace Detail
-	{
-
-		namespace SetView
-		{
-
-			template <typename Type>
-			class Functor
+			void operator()(Real& that) const
 			{
-			public:
-				explicit Functor(const Type& data)
-					: data_(data)
-				{
-				}
+				that = (that - min_) * scale_ + newMin_;
+			}
 
-				template <typename Cursor>
-				void operator()(const Cursor& cursor)
-				{
-					*cursor = data_;
-				}
-
-			private:
-				const Type& data_;
-			};
-
-		}
-
+		private:
+			const Real& min_;
+			const Real& newMin_;
+			const Real& scale_;
+		};
 	}
 
-	template <typename View>
-	void setView(
-		const View& view,
-		const typename View::Element& data)
+	template <int N, typename Real, typename Image_View>
+	void minMax(
+		const ConstView<N, Real, Image_View>& image,
+		Real& min,
+		Real& max)
 	{
-		typedef typename View::Element Element;
-		Detail::SetView::Functor<Element> functor(data);
+		min = infinity<Real>();
+		max = -infinity<Real>();
 
-		viewVisit(view, functor);
+		Detail_PackRange::MinMaxFunctor<Real> minMaxFunctor(min, max);
+		visit(image, minMaxFunctor);
 	}
 
-	/*!
-	Requirements:
-	View models ViewConcept
-	View::Element models RealConcept
-	*/
-
-	template <typename View>
+	template <int N, typename Real, typename Image_View>
 	void packRange(
-		const View& image,
-		const typename View::Element& newMin,
-		const typename View::Element& newMax)
+		const View<N, Real, Image_View>& image,
+		const PASTEL_NO_DEDUCTION(Real)& newMin,
+		const PASTEL_NO_DEDUCTION(Real)& newMax)
 	{
-		typedef typename View::Cursor Cursor;
-
 		ENSURE2(newMin <= newMax, newMin, newMax);
 
-		typedef typename View::Element Real;
+		Real minValue = 0;
+		Real maxValue = 0;
 
-		const Real newValueDelta = newMax - newMin;
-
-		const integer width = image.width();
-		const integer height = image.height();
-
-		Real minValue = infinity<Real>();
-		Real maxValue = -infinity<Real>();
-
-		minMaxView(image, minValue, maxValue);
+		minMax(image, minValue, maxValue);
 
 		const Real valueDelta = maxValue - minValue;
+		const Real newValueDelta = newMax - newMin;
 		if (valueDelta == 0 || newValueDelta == 0)
 		{
-			setView(image, newMax);
+			clear(newMax, image);
 		}
 		else
 		{
 			const Real scale = newValueDelta / valueDelta;
 
-			Cursor yCursor = image.cursor(IPoint2(0));
+			Detail_PackRange::ScalingFunctor<Real> scalingFunctor(
+				minValue, newMin, scale);
 
-			for (integer y = 0;y < height;++y)
-			{
-				Cursor xCursor = yCursor;
-
-				for (integer x = 0;x < width;++x)
-				{
-					*xCursor = (*xCursor - minValue) * scale + newMin;
-					xCursor.xIncrement();
-				}
-
-				yCursor.yIncrement();
-			}
+			visit(image, scalingFunctor);
 		}
 	}
 

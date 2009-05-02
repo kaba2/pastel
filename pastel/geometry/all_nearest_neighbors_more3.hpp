@@ -29,6 +29,11 @@ namespace Pastel
 			return Tuple<2, real>((*pointSet_)[object][axis]);
 		}
 
+		const Point<N, Real>& point(
+			integer object) const
+		{
+			return (*pointSet_)[object];
+		}
 	private:		
 		const std::vector<Point<N, Real> >* pointSet_;
 	};
