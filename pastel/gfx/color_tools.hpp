@@ -100,14 +100,14 @@ namespace Pastel
 
 	// Grayscale conversion
 
-	inline Color rgbLumaWeights()
+	inline Color lumaWeights()
 	{
 		return Color(0.299, 0.587, 0.114);
 	}
 
-	inline real32 rgbLuma(const Color& rgb)
+	inline real32 luma(const Color& rgb)
 	{
-		return dot(rgb, rgbLumaWeights());
+		return dot(rgb, lumaWeights());
 	}
 
 	// Gamut compression

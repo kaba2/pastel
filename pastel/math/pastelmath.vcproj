@@ -448,26 +448,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\complex.h"
-				>
-			</File>
-			<File
-				RelativePath=".\complex.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\complex_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\complex_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\complexnumber.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\integer_tools.h"
 				>
 			</File>

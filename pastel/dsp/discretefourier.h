@@ -6,7 +6,7 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
 
-#include "pastel/math/complex.h"
+#include <complex>
 
 namespace Pastel
 {
@@ -16,16 +16,16 @@ namespace Pastel
 	template <typename Real, typename Input_View,
 		typename Output_View>
 		void discreteFourier(
-		const ConstView<1, Complex<Real>, Input_View>& input,
-		const View<1, Complex<Real>, Output_View>& output);
+		const ConstView<1, std::complex<Real>, Input_View>& input,
+		const View<1, std::complex<Real>, Output_View>& output);
 
 	//! Computes a discrete fourier inverse transformation.
 
 	template <typename Real, typename Input_View,
 		typename Output_View>
 		void discreteFourierInverse(
-		const ConstView<1, Complex<Real>, Input_View>& input,
-		const View<1, Complex<Real>, Output_View>& output);
+		const ConstView<1, std::complex<Real>, Input_View>& input,
+		const View<1, std::complex<Real>, Output_View>& output);
 
 	//! Computes a discrete fourier transformation.
 	/*!
@@ -40,8 +40,8 @@ namespace Pastel
 		typename Output_View>
 		typename boost::enable_if_c<(N > 1), void>::type
 		discreteFourier(
-		const ConstView<N, Complex<Real>, Input_View>& input,
-		const View<N, Complex<Real>, Output_View>& output);
+		const ConstView<N, std::complex<Real>, Input_View>& input,
+		const View<N, std::complex<Real>, Output_View>& output);
 
 	//! Computes a discrete fourier inverse transformation.
 	/*!
@@ -56,8 +56,8 @@ namespace Pastel
 		typename Output_View>
 		typename boost::enable_if_c<(N > 1), void>::type
 		discreteFourierInverse(
-		const ConstView<N, Complex<Real>, Input_View>& input,
-		const View<N, Complex<Real>, Output_View>& output);
+		const ConstView<N, std::complex<Real>, Input_View>& input,
+		const View<N, std::complex<Real>, Output_View>& output);
 
 }
 

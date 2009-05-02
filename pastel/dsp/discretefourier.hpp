@@ -39,8 +39,8 @@ namespace Pastel
 	template <typename Real, typename Input_View,
 		typename Output_View>
 		void discreteFourier(
-		const ConstView<1, Complex<Real>, Input_View>& input,
-		const View<1, Complex<Real>, Output_View>& output)
+		const ConstView<1, std::complex<Real>, Input_View>& input,
+		const View<1, std::complex<Real>, Output_View>& output)
 	{
 		const integer n = input.width();
 
@@ -65,7 +65,7 @@ namespace Pastel
 		// Find out the fourier transformation
 		// of the even-index subsequence.
 
-		Array<1, Complex<Real> > evenFourier(nHalf);
+		Array<1, std::complex<Real> > evenFourier(nHalf);
 		for (integer i = 0;i < nHalf;++i)
 		{
 			evenFourier(i) = input(i * 2);
@@ -80,7 +80,7 @@ namespace Pastel
 		// Find out the fourier transformation
 		// of the odd-index subsequence.
 
-		Array<1, Complex<Real> > oddFourier(nHalf);
+		Array<1, std::complex<Real> > oddFourier(nHalf);
 		for (integer i = 0;i < nHalf;++i)
 		{
 			oddFourier(i) = input(i * 2 + 1);
@@ -94,33 +94,30 @@ namespace Pastel
 
 		// Combine the results
 
-		static const Real NthRootAngle = -2 *
-			constantPi<Real>() / n;
+		static const Real NthRootAngle = 
+			2 * constantPi<Real>() / n;
+
+		const std::complex<Real> NthRoot =
+			std::polar((Real)1, NthRootAngle);
+
+		std::complex<Real> oddFactor(1);
 
 		for (integer i = 0;i < nHalf;++i)
 		{
-			const Complex<Real> oddFactor(
-				polar((Real)1, (Real)i * NthRootAngle));
-
 			output(i) = evenFourier(i) +
 				oddFactor * oddFourier(i);
-		}
+			output(i + nHalf) = evenFourier(i) -
+				oddFactor * oddFourier(i);
 
-		for (integer i = nHalf;i < n;++i)
-		{
-			const Complex<Real> oddFactor(
-				polar((Real)1, (Real)i * NthRootAngle));
-
-			output(i) = evenFourier(i - nHalf) +
-				oddFactor * oddFourier(i - nHalf);
+			oddFactor *= NthRoot;
 		}
 	}
 
 	template <typename Real, typename Input_View,
 		typename Output_View>
 		void discreteFourierInverse(
-		const ConstView<1, Complex<Real>, Input_View>& input,
-		const View<1, Complex<Real>, Output_View>& output)
+		const ConstView<1, std::complex<Real>, Input_View>& input,
+		const View<1, std::complex<Real>, Output_View>& output)
 	{
 		const integer n = input.width();
 
@@ -145,7 +142,7 @@ namespace Pastel
 		// Find out the inverse fourier transformation
 		// of the even-index subsequence.
 
-		Array<1, Complex<Real> > evenFourier(nHalf);
+		Array<1, std::complex<Real> > evenFourier(nHalf);
 		copy(constSparseView(input, 0, 2), 
 			arrayView(evenFourier));
 		discreteFourierInverse(
@@ -155,7 +152,7 @@ namespace Pastel
 		// Find out the inverse fourier transformation
 		// of the odd-index subsequence.
 
-		Array<1, Complex<Real> > oddFourier(nHalf);
+		Array<1, std::complex<Real> > oddFourier(nHalf);
 		copy(constSparseView(input, 1, 2), 
 			arrayView(oddFourier));
 		discreteFourierInverse(
@@ -164,27 +161,18 @@ namespace Pastel
 
 		// Combine the results
 
-		static const Real NthRootAngle = 2 *
-			constantPi<Real>() / n;
+		static const Real NthRootAngle = 
+			-2 * constantPi<Real>() / n;
 
 		for (integer i = 0;i < nHalf;++i)
 		{
-			const Complex<Real> oddFactor(
+			const std::complex<Real> oddFactor(
 				polar((Real)1, (Real)i * NthRootAngle));
 
-			output(i) = evenFourier(i) +
-				oddFactor * oddFourier(i);
-			output(i) *= (Real)0.5;
-		}
-
-		for (integer i = nHalf;i < n;++i)
-		{
-			const Complex<Real> oddFactor(
-				polar((Real)1, (Real)i * NthRootAngle));
-
-			output(i) = evenFourier(i - nHalf) +
-				oddFactor * oddFourier(i - nHalf);
-			output(i) *= (Real)0.5;
+			output(i) = (evenFourier(i) +
+				oddFactor * oddFourier(i)) / 2;
+			output(i + nHalf) = (evenFourier(i) -
+				oddFactor * oddFourier(i)) / 2;
 		}
 	}
 
@@ -212,17 +200,24 @@ namespace Pastel
 		typename Output_View>
 		typename boost::enable_if_c<(N > 1), void>::type
 		discreteFourier(
-		const ConstView<N, Complex<Real>, Input_View>& input,
-		const View<N, Complex<Real>, Output_View>& output)
+		const ConstView<N, std::complex<Real>, Input_View>& input,
+		const View<N, std::complex<Real>, Output_View>& output)
 	{
 		BOOST_STATIC_ASSERT(N > 1);
 
 		Detail_DiscreteFourier::FourierFunctor fourierFunctor;
 
-		for (integer i = 0;i < N;++i)
+		Array<N, std::complex<Real> > temp(input.extent());
+
+		visitRows(input, arrayView(temp), 0, fourierFunctor);
+		
+		for (integer i = 1;i < N - 1;++i)
 		{
-			visitRows(input, output, i, fourierFunctor);
+			visitRows(constArrayView(temp), 
+				arrayView(temp), i, fourierFunctor);
 		}
+
+		visitRows(constArrayView(temp), output, N - 1, fourierFunctor);
 	}
 
 	namespace Detail_DiscreteFourierInverse
@@ -249,8 +244,8 @@ namespace Pastel
 		typename Output_View>
 		typename boost::enable_if_c<(N > 1), void>::type
 		discreteFourierInverse(
-		const ConstView<N, Complex<Real>, Input_View>& input,
-		const View<N, Complex<Real>, Output_View>& output)
+		const ConstView<N, std::complex<Real>, Input_View>& input,
+		const View<N, std::complex<Real>, Output_View>& output)
 	{
 		BOOST_STATIC_ASSERT(N > 1);
 

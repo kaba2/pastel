@@ -523,28 +523,6 @@ namespace Pastel
 		return succeeded;
 	}
 
-	namespace Detail_PointPatternMatch
-	{
-
-		template <typename Real>
-		class PointPolicy
-		{
-		public:
-			typedef Point<2, Real> Object;
-
-			Tuple<2, Real> bound(const Point<2, Real>& object, integer axis) const
-			{
-				return Tuple<2, Real>(object[axis]);
-			}
-
-			AlignedBox<2, Real> bound(const Point<2, Real>& object) const
-			{
-				return AlignedBox<2, Real>(object);
-			}
-		};
-
-	}
-
 	template <typename Real, typename SceneIterator, typename ModelIterator>
 	bool pointPatternMatch(
 		const SceneIterator& sceneBegin,
@@ -556,10 +534,10 @@ namespace Pastel
 		const PatternMatch::Enum& matchingDistanceType,
 		Tuple<4, Real>& similarityResult)
 	{
-		typedef KdTree<2, Real, Detail_PointPatternMatch::PointPolicy<Real> > SceneTree;
+		typedef KdTree<2, Real> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef KdTree<2, Real, Detail_PointPatternMatch::PointPolicy<Real> > ModelTree;
+		typedef KdTree<2, Real> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;
