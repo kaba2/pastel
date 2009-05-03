@@ -3,6 +3,8 @@
 
 #include "pastel/geometry/all_nearest_neighbors.h"
 
+#include <omp.h>
+
 #include <set>
 
 namespace Pastel
@@ -55,59 +57,44 @@ namespace Pastel
 		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
 
 		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
+		typedef std::set<Entry> NearestSet;
+		typedef typename NearestSet::iterator NearestIterator;
 
 		const integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)
 		{
-			if ((i % 100) == 99)
-			{
-				log() << i << ", ";
-			}
-
 			const Point<N, Real>& iPoint = pointSet[i];
-			
-			typedef std::set<Entry> NearestSet;
-			typedef typename NearestSet::iterator NearestIterator;
 
 			NearestSet nearest;
 
-			integer j = 0;
+			real cullDistance = maxDistance;
 
-			while(nearest.size() < kNearest && j < points)
+#pragma omp parallel for
+			for (integer j = 0;j < points;++j)
 			{
 				if (j != i)
 				{
-					const real distance = normBijection(pointSet[j] - iPoint);
-					if (distance <= maxDistance)
-					{
-						nearest.insert(Entry(distance, j));
-					}
-				}
-				++j;
-			}
-
-			ASSERT2(nearest.size() == kNearest, nearest.size(), kNearest);
-
-			NearestIterator lastIter = nearest.end();
-			--lastIter;
-
-			real cullDistance = lastIter->distance_;
-
-			while(j < points)
-			{
-				if (j != i)
-				{
-					const real distance = normBijection(pointSet[j] - iPoint);
+					//const real distance = normBijection(pointSet[j] - iPoint);
+					const real distance = normBijection(pointSet[j] - iPoint, cullDistance);
 					if (distance <= cullDistance)
 					{
-						nearest.erase(lastIter);
-						nearest.insert(Entry(distance, j));
-						lastIter = nearest.end();
-						--lastIter;
-						cullDistance = lastIter->distance_;
+#pragma omp critical
+						{
+							nearest.insert(Entry(distance, j));
+
+							NearestIterator lastIter = nearest.end();
+							--lastIter;
+							if (nearest.size() > kNearest)
+							{
+								nearest.erase(lastIter);
+							}
+
+							lastIter = nearest.end();
+							--lastIter;
+							cullDistance = lastIter->distance_;
+						}
 					}
 				}
-				++j;
 			}
 
 			integer nearestIndex = 0;

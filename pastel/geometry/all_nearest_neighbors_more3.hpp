@@ -4,6 +4,8 @@
 #include "pastel/geometry/all_nearest_neighbors.h"
 #include "pastel/geometry/kdtree_tools.h"
 
+#include "pastel/device/timer.h"
+
 namespace Pastel
 {
 
@@ -88,6 +90,7 @@ namespace Pastel
 			<< logNewLine;
 		*/
 
+#pragma omp parallel for
 		for (integer i = 0;i < points;++i)
 		{
 			// The query point itself will probably

@@ -48,6 +48,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
+				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -130,6 +131,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELGEOMETRY_EXPORTS"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="true"
+				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -190,6 +192,14 @@
 			<Filter
 				Name="Closest points"
 				>
+				<File
+					RelativePath=".\closest_alignedbox_point.h"
+					>
+				</File>
+				<File
+					RelativePath=".\closest_alignedbox_point.hpp"
+					>
+				</File>
 				<File
 					RelativePath=".\closest_line_line.h"
 					>
