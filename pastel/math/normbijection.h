@@ -11,7 +11,7 @@ namespace Pastel
 
 	// Let |x| : R^n -> R+ be a norm and
 	// f an order-preserving bijection R+ -> R+.
-	// Then <x> : R^n -> R+ : <x> = f(|x|).
+	// Then <x> : R^n -> R+ : <x> = f(|x|)
 	// is called a norm bijection.
 	// Example:
 	// |(x, y)| = sqrt(x^2 + y^2)
@@ -32,6 +32,25 @@ namespace Pastel
 			return dot(that);
 		}
 
+		template <typename Expression>
+		Real operator()(const VectorExpression<N, Real, Expression>& that,
+			const PASTEL_NO_DEDUCTION(Real)& threshold) const
+		{
+			const integer dimension = that.size();
+			
+			Real result = 0;
+			for (integer i = 0;i < dimension;++i)
+			{
+				result += square(that[i]);
+				if (result > threshold)
+				{
+					return infinity<Real>();
+				}
+			}
+
+			return result;
+		}
+
 		Real operator()(integer axis, const Real& that) const
 		{
 			return square(that);
@@ -48,6 +67,29 @@ namespace Pastel
 			return normInfinity(that);
 		}
 
+		template <typename Expression>
+		Real operator()(const VectorExpression<N, Real, Expression>& that,
+			const PASTEL_NO_DEDUCTION(Real)& threshold) const
+		{
+			const integer dimension = that.size();
+			
+			Real result = 0;
+			for (integer i = 0;i < dimension;++i)
+			{
+				Real current = mabs(that[i]);
+				if (current > result)
+				{
+					if (result > threshold)
+					{
+						return infinity<Real>();
+					}
+					result = current;
+				}
+			}
+
+			return result;
+		}
+
 		Real operator()(integer axis, const Real& that) const
 		{
 			return mabs(that);
@@ -58,9 +100,29 @@ namespace Pastel
 	class ManhattanNormBijection
 	{
 	public:
-		Real operator()(const Vector<N, Real>& that) const
+		template <typename Expression>
+		Real operator()(const VectorExpression<N, Real, Expression>& that) const
 		{
 			return normManhattan(that);
+		}
+
+		template <typename Expression>
+		Real operator()(const VectorExpression<N, Real, Expression>& that,
+			const PASTEL_NO_DEDUCTION(Real)& threshold) const
+		{
+			const integer dimension = that.size();
+			
+			Real result = 0;
+			for (integer i = 0;i < dimension;++i)
+			{
+				result += mabs(that[i]);
+				if (result > threshold)
+				{
+					return infinity<Real>();
+				}
+			}
+
+			return result;
 		}
 
 		Real operator()(integer axis, const Real& that) const

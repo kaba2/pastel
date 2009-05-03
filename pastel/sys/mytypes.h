@@ -55,7 +55,7 @@ namespace Pastel
 	numbers as a 32-bit signed native integer.
 	*/
 	typedef int                integer;
-	typedef double	           real;
+	typedef float	           real;
 	typedef uint32             pointer_integer;
 
 	template <typename T>

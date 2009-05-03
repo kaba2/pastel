@@ -67,36 +67,33 @@ namespace
 			EuclideanNormBijection<N, Real>(),
 			naiveNeighborSet);
 
-		/*
-		allNearestNeighborsVaidya(
-			pointSet,
-			kNearest,
-			naiveNeighborSet);
-		*/
-
 		timer.store();
 
 		log() << timer.seconds() << " seconds." << logNewLine;
 
 		drawNearest("brute", pointSet, naiveNeighborSet);
 
-		log() << "Kd-tree..." << logNewLine;
-
-		timer.setStart();
-
 		/*
+		allNearestNeighborsVaidya(
+			pointSet,
+			kNearest,
+			naiveNeighborSet);
+
 		allNearestNeighbors(
 			pointSet,
 			kNearest,
 			neighborSet);
-		*/
-
-		/*
+	
 		allNearestNeighborsOwn(
 			pointSet,
 			kNearest,
 			neighborSet);
 		*/
+
+
+		log() << "Kd-tree..." << logNewLine;
+
+		timer.setStart();
 
 		allNearestNeighborsKdTree(
 			pointSet,
@@ -179,26 +176,38 @@ namespace
 
 	void testAllNearest()
 	{
-		//test<8, float>(8, 5000, 1);
-		test<Unbounded, float>(8, 5000, 1);
+		test<8, real>(8, 20000, 1);
+		test<Unbounded, real>(8, 20000, 1);
 		/*
-		test<Unbounded, float>(20, 5000, 1);
+		test<8, real>(8, 5000, 1);
+		test<8, real>(8, 10000, 1);
+		test<8, real>(8, 20000, 1);
+		test<Unbounded, real>(8, 5000, 1);
+		test<Unbounded, real>(8, 10000, 1);
+		*/
+		//test<8, real>(8, 10000, 1);
+		//test<Unbounded, real>(8, 1000, 1);
+		//test<8, real>(8, 20000, 1);
+		//test<Unbounded, real>(8, 20000, 1);
 
-		test<5, float>(5, 10000, 1);
-		test<Unbounded, float>(10, 10000, 1);
-		test<Unbounded, float>(20, 10000, 1);
+		/*
+		test<Unbounded, real>(20, 5000, 1);
 
-		test<5, float>(5, 20000, 1);
-		test<Unbounded, float>(10, 20000, 1);
-		test<Unbounded, float>(20, 20000, 1);
+		test<5, real>(5, 10000, 1);
+		test<Unbounded, real>(10, 10000, 1);
+		test<Unbounded, real>(20, 10000, 1);
 
-		test<5, float>(5, 10000, 4);
-		test<Unbounded, float>(10, 10000, 4);
-		test<Unbounded, float>(20, 10000, 4);
+		test<5, real>(5, 20000, 1);
+		test<Unbounded, real>(10, 20000, 1);
+		test<Unbounded, real>(20, 20000, 1);
 
-		test<5, float>(5, 10000, 8);
-		test<Unbounded, float>(10, 10000, 8);
-		test<Unbounded, float>(20, 10000, 8);
+		test<5, real>(5, 10000, 4);
+		test<Unbounded, real>(10, 10000, 4);
+		test<Unbounded, real>(20, 10000, 4);
+
+		test<5, real>(5, 10000, 8);
+		test<Unbounded, real>(10, 10000, 8);
+		test<Unbounded, real>(20, 10000, 8);
 		*/
 	}
 

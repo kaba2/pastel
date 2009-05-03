@@ -6,10 +6,17 @@
 namespace Pastel
 {
 
-	template <int N, typename Real,
-		template <int, typename> class DerivedT>
+	template <int N, typename Real>
 	class VectorBase;
 
+	template <typename Type>
+	class StorageType
+	{
+	public:
+		typedef const Type& Result;
+	};
+
+	/*
 	template <typename Type>
 	class StorageType
 	{
@@ -17,13 +24,13 @@ namespace Pastel
 		typedef const Type Result;
 	};
 
-	template <int N, typename Real,
-		template <int, typename> class DerivedT>
-	class StorageType<VectorBase<N, Real, DerivedT> >
+	template <int N, typename Real>
+	class StorageType<VectorBase<N, Real> >
 	{
 	public:
-		typedef const VectorBase<N, Real, DerivedT>& Result;
+		typedef const VectorBase<N, Real>& Result;
 	};
+	*/
 
 	template <
 		int N,

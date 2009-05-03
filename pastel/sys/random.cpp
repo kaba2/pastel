@@ -33,7 +33,7 @@ namespace Pastel
 		return generator();
 	}
 
-	PASTELSYS real64 randomReal()
+	PASTELSYS real randomReal()
 	{
 		typedef boost::mt19937 EngineType;
 		typedef boost::uniform_real<real> DistributionType;

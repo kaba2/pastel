@@ -12,6 +12,8 @@
 #include "pastel/sys/countedptr.h"
 #include "pastel/sys/unorderedset.h"
 
+#include <map>
+#include <functional>
 #include <iostream>
 
 namespace Pastel

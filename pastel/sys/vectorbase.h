@@ -101,7 +101,7 @@ namespace Pastel
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
-				BOOST_STATIC_ASSERT(N == Unbounded || (N > 0 && N <= 8));
+				BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
 			}
 
 			void setSize(integer size, const Real& that = Real())

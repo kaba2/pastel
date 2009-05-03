@@ -474,7 +474,8 @@ void computeTree(integer maxDepth)
 
 	tree__.insert(pointSet__.begin(), pointSet__.end());
 
-	refineSlidingMidpoint(computeKdTreeMaxDepth(tree__.objects()), 4, tree__);
+	//refineSlidingMidpoint(computeKdTreeMaxDepth(tree__.objects()), 4, tree__);
+	refineSlidingMidpoint(maxDepth, 4, tree__);
 	//refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
 
 	log() << "The constructed kd-tree has depth " << depth(tree__) << "." << logNewLine;
