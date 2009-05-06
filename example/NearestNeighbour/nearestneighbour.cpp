@@ -54,6 +54,7 @@ typedef KdTree<2, real> MyTree;
 MyTree tree__;
 
 typedef SmallSet<KeyValue<real, MyTree::ConstObjectIterator> > NearestPointSet;
+std::vector<MyTree::ConstObjectIterator> rangePointSet__;
 
 NearestPointSet nearestPointSet__;
 real renderTimeAccumulator = 0;
@@ -267,7 +268,29 @@ void redrawNearest()
 	{
 		renderer__->setColor(Color(1));
 		renderer__->setFilled(false);
+
 		drawCircle(*renderer__, Sphere2(worldMouse, searchRadius__), 20);
+	}
+}
+
+void redrawRange()
+{
+	if (searchRadius__ == infinity<real>())
+	{
+		return;
+	}
+
+	const integer points = rangePointSet__.size();
+	for (integer i = 0;i < points;++i)
+	{
+		Color color(1, 1, 0);
+
+		MyTree::ConstObjectIterator dataIter(
+			rangePointSet__[i]);
+		renderer__->setColor(color);
+		renderer__->setFilled(false);
+		drawCircle(*renderer__, Sphere2(*dataIter, 0.01), 20);
+		//drawSegment(*renderer__, Segment2(worldMouse, *dataIter));
 	}
 }
 
@@ -282,6 +305,7 @@ void redraw()
 	}
 
 	redrawTree(tree__.root(), tree__.bound(), 0);
+	redrawRange();
 	redrawNearest();
 
 	gfxDevice().swapBuffers();
@@ -402,6 +426,13 @@ void logicHandler()
 
 	searchNearest(tree__, worldMouse, searchRadius__ * searchRadius__, 0,
 		EuclideanNormBijection<2, real>(), nearestPoints__, nearestPointSet__);
+	if (searchRadius__ != infinity<real>())
+	{
+		searchRange(tree__, 
+			AlignedBox2(worldMouse - searchRadius__, 
+			worldMouse + searchRadius__),
+			rangePointSet__);
+	}
 
 	{
 		const integer Fps = 100;

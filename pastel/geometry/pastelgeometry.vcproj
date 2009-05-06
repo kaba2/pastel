@@ -821,14 +821,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\kdtree_nearest.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_nearest.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\kdtree_raytraversal.h"
 					>
 				</File>
