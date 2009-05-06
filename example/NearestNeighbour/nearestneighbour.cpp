@@ -400,7 +400,7 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
-	findNearest(tree__, worldMouse, searchRadius__ * searchRadius__,
+	findNearest(tree__, worldMouse, searchRadius__ * searchRadius__, 0,
 		EuclideanNormBijection<2, real>(), nearestPoints__, nearestPointSet__);
 
 	{
@@ -474,8 +474,8 @@ void computeTree(integer maxDepth)
 
 	tree__.insert(pointSet__.begin(), pointSet__.end());
 
-	//refineSlidingMidpoint(computeKdTreeMaxDepth(tree__.objects()), 4, tree__);
-	refineSlidingMidpoint(maxDepth, 4, tree__);
+	//tree__.refine(computeKdTreeMaxDepth(tree__.objects()), 4, SlidingMidpointRule());
+	tree__.refine(maxDepth, 4, SlidingMidpointRule());
 	//refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
 
 	log() << "The constructed kd-tree has depth " << depth(tree__) << "." << logNewLine;
@@ -497,6 +497,7 @@ void timing()
 	{
 		findNearest(tree__, *iter,
 			infinity<real>(),
+			0,
 			EuclideanNormBijection<2, real>(),
 			NearestPoints, nearestPointSet__);
 		++iter;

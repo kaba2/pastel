@@ -19,6 +19,7 @@ namespace Pastel
 	{
 	public:
 		typedef Point<N, Real> Object;
+		typedef TrueType UseBounds;
 
 		AlignedBox<N, Real> bound(const Point<N, Real>& object) const
 		{
@@ -42,6 +43,7 @@ namespace Pastel
 	{
 	public:
 		typedef UnspecifiedType Object;
+		typedef (TrueType | FalseType) UseBounds;
 
 		Tuple<2, Real> projection(const Object& that, index);
 		AlignedBox<N, Real> bound(const Object& that);
@@ -54,6 +56,7 @@ namespace Pastel
 	{
 	public:
 		typedef typename ObjectPolicy::Object Object;
+		typedef typename ObjectPolicy::UseBounds UseBounds;
 
 	private:
 		typedef ArenaAllocator Allocator;
@@ -78,6 +81,14 @@ namespace Pastel
 			(N <= 8),
 			IntermediateNode_Low,
 			IntermediateNode_High>::type IntermediateNode;
+
+		class Bounds_None;
+		class Bounds;
+
+		typedef typename boost::mpl::if_<
+			boost::is_same<UseBounds, TrueType>,
+			Bounds,
+			Bounds_None>::type IntermediateBase;
 
 	public:
 		enum
@@ -170,6 +181,27 @@ namespace Pastel
 			const Real& splitPosition,
 			integer splitAxis);
 
+		/*!
+		Preconditions:
+		maxDepth >= 0
+		maxObjects > 0
+
+		class SubdivisionRule
+		{
+		public:
+			std::pair<Real, integer> operator()(
+				const AlignedBox<N, Real>& bound,
+				const ObjectPolicy& objectPolicy,
+				const ConstObjectIterator& objectBegin,
+				const ConstObjectIterator& objectEnd) const;
+		};
+		*/
+		template <typename SubdivisionRule>
+		void refine(
+			integer maxDepth,
+			integer maxObjects,
+			const SubdivisionRule& subdivisionRule);
+
 		//! Insert objects in the tree.
 		/*!
 		begin, end:
@@ -191,6 +223,31 @@ namespace Pastel
 		void clearObjects();
 
 	private:
+		class RefineEntry
+		{
+		public:
+			RefineEntry()
+				: cursor_()
+				, depth_(0)
+				, bound_()
+			{
+			}
+
+			RefineEntry(
+				const Cursor& cursor,
+				integer depth,
+				const AlignedBox<N, Real>& bound)
+				: cursor_(cursor)
+				, depth_(depth)
+				, bound_(bound)
+			{
+			}
+
+			Cursor cursor_;
+			integer depth_;
+			AlignedBox<N, Real> bound_;
+		};
+
 		class SplitPredicate
 		{
 		public:
@@ -227,6 +284,13 @@ namespace Pastel
 			integer splitAxis_;
 			ObjectPolicy objectPolicy_;
 		};
+
+		void subdivide(
+			const Cursor& cursor,
+			const Real& splitPosition,
+			integer splitAxis,
+			const Real& boundMin,
+			const Real& boundMax);
 
 		template <typename InputIterator>
 		void insert(

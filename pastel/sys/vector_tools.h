@@ -116,7 +116,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real, typename Expression>
-	typename boost::enable_if_c<(N > 1), Real>::type
+	typename boost::enable_if_c<(N > 1 || N == Unbounded), Real>::type
 		norm(const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.

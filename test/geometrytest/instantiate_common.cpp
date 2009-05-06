@@ -74,6 +74,7 @@ namespace Pastel
 		{
 		public:
 			typedef int Object;
+			typedef TrueType UseBounds;
 
 			Tuple<2, TestReal> bound(
 				const Object& object, integer index) const

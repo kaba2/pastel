@@ -44,6 +44,7 @@ namespace Pastel
 		{
 		public:
 			typedef DataPoint<N, Real, Data> Object;
+			typedef TrueType UseBounds;
 
 			AlignedBox<N, Real> bound(
 				const DataPoint<N, Real, Data>& dataPoint) const
@@ -92,6 +93,7 @@ namespace Pastel
 
 				findNearest(kdtree_, Point<N, real>(position) + 0.5,
 					filter_.radius() * filterStretch_,
+					0,
 					InfinityNormBijection<N, Real>(),
 					-1,
 					pointSet);
@@ -167,7 +169,8 @@ namespace Pastel
 
 		kdtree.insert(dataPointList.begin(), dataPointList.end());
 
-		refineSlidingMidpoint(computeKdTreeMaxDepth(kdtree.objects()), 4, kdtree);
+		kdtree.refine(
+			computeKdTreeMaxDepth(kdtree.objects()), 4, SlidingMidpointRule());
 
 		Detail_FilterReconstructor::ReconstructFunctor<N, Real, DataPolicy, Filter>
 			reconstructFunctor(kdtree, filter, filterStretch);

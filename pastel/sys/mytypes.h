@@ -55,7 +55,7 @@ namespace Pastel
 	numbers as a 32-bit signed native integer.
 	*/
 	typedef int                integer;
-	typedef float	           real;
+	typedef double	           real;
 	typedef uint32             pointer_integer;
 
 	template <typename T>
@@ -75,9 +75,9 @@ namespace Pastel
 		Unbounded = -1
 	};
 
-	class PASTELSYS EmptyClass
-	{
-	};
+	class PASTELSYS EmptyClass {};
+	class PASTELSYS TrueType {};
+	class PASTELSYS FalseType {};
 
 	//! A no-op function taking a variable.
 

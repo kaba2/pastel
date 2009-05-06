@@ -162,8 +162,10 @@ namespace
 		ModelTree modelTree;
 		modelTree.insert(modelSet.begin(), modelSet.end());
 
-		refineSlidingMidpoint(computeKdTreeMaxDepth(sceneTree.objects()), 4, sceneTree);
-		refineSlidingMidpoint(computeKdTreeMaxDepth(modelTree.objects()), 4, modelTree);
+		sceneTree.refine(
+			computeKdTreeMaxDepth(sceneTree.objects()), 4, SlidingMidpointRule());
+		modelTree.refine(
+			computeKdTreeMaxDepth(modelTree.objects()), 4, SlidingMidpointRule());
 
 		log() << "Computing point pattern match..." << logNewLine;
 

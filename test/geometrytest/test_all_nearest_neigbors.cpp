@@ -99,6 +99,7 @@ namespace
 			pointSet,
 			kNearest,
 			infinity<Real>(),
+			0,
 			EuclideanNormBijection<N, Real>(),
 			neighborSet);
 

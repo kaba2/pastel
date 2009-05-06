@@ -49,12 +49,13 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,
-		Array<2, integer>& nearestSet)
+		Array<2, integer>& nearestArray)
 	{
 		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE2(kNearest < pointSet.size(), kNearest, pointSet.size());
 		ENSURE(maxDistance >= 0);
-		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
-		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
+		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
+		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
 		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
 		typedef std::set<Entry> NearestSet;
@@ -65,7 +66,7 @@ namespace Pastel
 		{
 			const Point<N, Real>& iPoint = pointSet[i];
 
-			NearestSet nearest;
+			NearestSet nearestSet;
 
 			real cullDistance = maxDistance;
 
@@ -74,42 +75,50 @@ namespace Pastel
 			{
 				if (j != i)
 				{
-					//const real distance = normBijection(pointSet[j] - iPoint);
-					const real distance = normBijection(pointSet[j] - iPoint, cullDistance);
+					const real distance = 
+						normBijection(pointSet[j] - iPoint, cullDistance);
 					if (distance <= cullDistance)
 					{
 #pragma omp critical
 						{
-							nearest.insert(Entry(distance, j));
+							nearestSet.insert(Entry(distance, j));
 
-							NearestIterator lastIter = nearest.end();
-							--lastIter;
-							if (nearest.size() > kNearest)
+							if (nearestSet.size() > kNearest)
 							{
-								nearest.erase(lastIter);
-							}
+								NearestIterator lastIter = nearestSet.end();
+								--lastIter;
+								nearestSet.erase(lastIter);
 
-							lastIter = nearest.end();
-							--lastIter;
-							cullDistance = lastIter->distance_;
+								// Since we now know k neighboring points,
+								// we can bound the search radius
+								// by the distance to the currently farthest
+								// neighbor.
+
+								lastIter = nearestSet.end();
+								--lastIter;
+								cullDistance = lastIter->distance_;
+							}
 						}
 					}
 				}
 			}
 
 			integer nearestIndex = 0;
-			NearestIterator iter = nearest.begin();
-			const NearestIterator iterEnd = nearest.end();
+			NearestIterator iter = nearestSet.begin();
+			const NearestIterator iterEnd = nearestSet.end();
 			while(iter != iterEnd)
 			{
-				nearestSet(nearestIndex, i) = iter->index_;
+				nearestArray(nearestIndex, i) = iter->index_;
 				++nearestIndex;
 				++iter;
 			}
 
+			ASSERT2(maxDistance != infinity<Real>() ||
+				nearestIndex == kNearest, nearestIndex, kNearest);
+
 			for (;nearestIndex < kNearest;++nearestIndex)
 			{
-				nearestSet(nearestIndex, i) = -1;
+				nearestArray(nearestIndex, i) = -1;
 			}
 		}
 	}
