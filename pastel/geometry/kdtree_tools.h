@@ -4,7 +4,7 @@
 #include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/kdtree_refine.h"
 #include "pastel/geometry/kdtree_raytraversal.h"
-#include "pastel/geometry/kdtree_nearest.h"
+#include "pastel/geometry/kdtree_search_nearest.h"
 
 namespace Pastel
 {

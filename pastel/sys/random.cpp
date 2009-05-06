@@ -5,67 +5,65 @@
 namespace Pastel
 {
 
-	PASTELSYS real32 randomReal32()
+	namespace Detail_Random
 	{
-		typedef boost::mt19937 EngineType;
-		typedef boost::uniform_real<real32> DistributionType;
-		typedef boost::variate_generator<EngineType&,
-			DistributionType> GeneratorType;
 
-		static EngineType engine(42);
-		static DistributionType distribution(0, 1);
-		static GeneratorType generator(engine, distribution);
+		PASTELSYS real32 randomReal32()
+		{
+			typedef boost::mt19937 EngineType;
+			typedef boost::uniform_real<real32> DistributionType;
+			typedef boost::variate_generator<EngineType&,
+				DistributionType> GeneratorType;
 
-		return generator();
-	}
+			static EngineType engine(42);
+			static DistributionType distribution(0, 1);
+			static GeneratorType generator(engine, distribution);
 
-	PASTELSYS real64 randomReal64()
-	{
-		typedef boost::mt19937 EngineType;
-		typedef boost::uniform_real<real64> DistributionType;
-		typedef boost::variate_generator<EngineType&,
-			DistributionType> GeneratorType;
+			return generator();
+		}
 
-		static EngineType engine(42);
-		static DistributionType distribution(0, 1);
-		static GeneratorType generator(engine, distribution);
+		PASTELSYS real64 randomReal64()
+		{
+			typedef boost::mt19937 EngineType;
+			typedef boost::uniform_real<real64> DistributionType;
+			typedef boost::variate_generator<EngineType&,
+				DistributionType> GeneratorType;
 
-		return generator();
-	}
+			static EngineType engine(42);
+			static DistributionType distribution(0, 1);
+			static GeneratorType generator(engine, distribution);
 
-	PASTELSYS real randomReal()
-	{
-		typedef boost::mt19937 EngineType;
-		typedef boost::uniform_real<real> DistributionType;
-		typedef boost::variate_generator<EngineType&,
-			DistributionType> GeneratorType;
+			return generator();
+		}
 
-		static EngineType engine(42);
-		static DistributionType distribution(0, 1);
-		static GeneratorType generator(engine, distribution);
+		PASTELSYS real randomNormalReal32()
+		{
+			typedef boost::mt19937 EngineType;
+			typedef boost::normal_distribution<real32> DistributionType;
+			typedef boost::variate_generator<EngineType&,
+				DistributionType> GeneratorType;
 
-		return generator();
-	}
+			static EngineType engine(42);
+			static DistributionType distribution(0, 1);
+			static GeneratorType generator(engine, distribution);
 
-	PASTELSYS real randomReal(
-		real minValue, 
-		real maxValue)
-	{
-		return minValue + Pastel::randomReal() * (maxValue - minValue);
-	}
+			return generator();
+		}
 
-	PASTELSYS real randomNormalReal()
-	{
-		typedef boost::mt19937 EngineType;
-		typedef boost::normal_distribution<real> DistributionType;
-		typedef boost::variate_generator<EngineType&,
-			DistributionType> GeneratorType;
+		PASTELSYS real randomNormalReal64()
+		{
+			typedef boost::mt19937 EngineType;
+			typedef boost::normal_distribution<real64> DistributionType;
+			typedef boost::variate_generator<EngineType&,
+				DistributionType> GeneratorType;
 
-		static EngineType engine(42);
-		static DistributionType distribution(0, 1);
-		static GeneratorType generator(engine, distribution);
+			static EngineType engine(42);
+			static DistributionType distribution(0, 1);
+			static GeneratorType generator(engine, distribution);
 
-		return generator();
+			return generator();
+		}
+
 	}
 
 	PASTELSYS integer randomInteger()

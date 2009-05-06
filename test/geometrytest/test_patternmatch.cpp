@@ -108,8 +108,8 @@ namespace
 		modelSet.reserve(modelPoints);
 
 		AffineTransformation2 transformation =
-			similarityTransformation(2 * randomReal(),
-			randomReal() * 2 * constantPi<real>(),
+			similarityTransformation(2 * random<real>(),
+			random<real>() * 2 * constantPi<real>(),
 			evaluate(randomVectorCube<2, real>() * 0.1));
 
 		std::vector<Point2> correctSet;
@@ -120,7 +120,7 @@ namespace
 		for (integer i = 0;i < modelPoints;++i)
 		{
 			modelSet.push_back(
-				Point2(randomReal(), randomReal()));
+				Point2(random<real>(), random<real>()));
 
 			const Point2 transformedModelPoint =
 				modelSet.back() * transformation +
@@ -238,9 +238,9 @@ namespace
 
 		const integer modelPoints = modelSet.size();
 
-		const real scaling = randomReal(1, 2);
-		const real angle = randomReal(0, constantPi<real>());
-		const Vector2 translation = randomVectorSphere<2, real>() * randomReal(0, 3);
+		const real scaling = random<real>(1, 2);
+		const real angle = random<real>(0, constantPi<real>());
+		const Vector2 translation = randomVectorSphere<2, real>() * random<real>(0, 3);
 
 		log() << "Scaling = " << scaling << logNewLine;
 		log() << "Angle = " << radiansToDegrees<real>(angle) << " degrees." << logNewLine;

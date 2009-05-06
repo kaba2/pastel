@@ -14,16 +14,16 @@ namespace
 		for (integer i = 0;i < 10000;++i)
 		{
 			const Tuple<4, real> parameter(
-				randomReal() * 2 + 1,
-				randomReal() * 2 * constantPi<real>(),
-				randomReal() * 2 - 1,
-				randomReal() * 2 - 1);
+				random<real>() * 2 + 1,
+				random<real>() * 2 * constantPi<real>(),
+				random<real>() * 2 - 1,
+				random<real>() * 2 - 1);
 
 			const AffineTransformation2 transformation =
 				similarityTransformation(parameter);
 
-			const Point2 aFrom(randomReal(), randomReal());
-			const Point2 bFrom(randomReal(), randomReal());
+			const Point2 aFrom(random<real>(), random<real>());
+			const Point2 bFrom(random<real>(), random<real>());
 
 			const Point2 aTo(aFrom * transformation);
 			const Point2 bTo(bFrom * transformation);
@@ -49,10 +49,10 @@ namespace
 		for (integer i = 0;i < 10000;++i)
 		{
 			const Tuple<4, real> parameter(
-				randomReal() * 2 + 1,
-				randomReal() * 2 * constantPi<real>(),
-				randomReal() * 2 - 1,
-				randomReal() * 2 - 1);
+				random<real>() * 2 + 1,
+				random<real>() * 2 * constantPi<real>(),
+				random<real>() * 2 - 1,
+				random<real>() * 2 - 1);
 
 			const AffineTransformation2 transformation =
 				similarityTransformation(parameter);

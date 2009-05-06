@@ -15,39 +15,6 @@
 namespace Pastel
 {
 
-	//! Returns a uniformly distributed random real32 in [0, 1].
-	/*!
-	Time complexity: constant
-	Exception safety: nothrow
-	*/
-
-	PASTELSYS real32 randomReal32();
-
-	//! Returns a uniformly distributed random real64 in [0, 1].
-	/*!
-	Time complexity: constant
-	Exception safety: nothrow
-	*/
-
-	PASTELSYS real64 randomReal64();
-
-	//! Returns a uniformly distributed random real in [0, 1].
-	/*!
-	Time complexity: constant
-	Exception safety: nothrow
-	*/
-
-	PASTELSYS real randomReal();
-
-	//! Returns a uniformly distributed random real in [minValue, maxValue].
-	/*!
-	Time complexity: constant
-	Exception safety: nothrow
-	*/
-	PASTELSYS real randomReal(
-		real minValue, 
-		real maxValue);
-
 	//! Returns a uniformly distributed random real in [0, 1].
 	/*!
 	Time complexity: constant
@@ -84,7 +51,19 @@ namespace Pastel
 	Exception safety: nothrow
 	*/
 
-	PASTELSYS real randomNormalReal();
+	template <typename Real>
+	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
+		randomNormal();
+
+	//! Returns a (0, 1)-normal distributed random real.
+	/*!
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+
+	template <typename Real>
+	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
+		randomNormal();
 
 	//! Returns a uniformly distributed random integer in [0, 0x7FFFFFFF].
 

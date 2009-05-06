@@ -194,13 +194,13 @@ namespace
 		FilterPtr filter = lanczosFilter(3);
 
 		drawFilter(tableFilter(filter, 0), 
-			hsvToRgb(Color(randomReal32(), 1, 1)), image, 4);
+			hsvToRgb(Color(random<real32>(), 1, 1)), image, 4);
 		drawFilter(tableFilter(filter, 1), 
-			hsvToRgb(Color(randomReal32(), 1, 1)), image, 4);
+			hsvToRgb(Color(random<real32>(), 1, 1)), image, 4);
 		drawFilter(tableFilter(filter, 4), 
-			hsvToRgb(Color(randomReal32(), 1, 1)), image, 4);
+			hsvToRgb(Color(random<real32>(), 1, 1)), image, 4);
 		drawFilter(tableFilter(filter, 16), 
-			hsvToRgb(Color(randomReal32(), 1, 1)), image, 4);
+			hsvToRgb(Color(random<real32>(), 1, 1)), image, 4);
 
 		savePcx(image, "output/filter_table.pcx");
 	}
@@ -212,11 +212,11 @@ namespace
 
 		Array<2, Color> image(Width, Height);
 
-		drawFilter(gaussianFilter(2), hsvToRgb(Color(randomReal32(), 1, 1)), image);
-		drawFilter(triangleFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
-		drawFilter(boxFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
-		drawFilter(mitchellFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
-		//drawFilter(CubicFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawFilter(gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
+		drawFilter(triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
+		drawFilter(boxFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
+		drawFilter(mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
+		//drawFilter(CubicFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 
 		savePcx(image, "output/filter_shape.pcx");
 	}
@@ -228,19 +228,19 @@ namespace
 
 		Array<2, Color> image(Width, Height);
 
-		drawFilter2D(gaussianFilter(2), gaussianFilter(2), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawFilter2D(gaussianFilter(2), gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_shape_gaussian.pcx");
 
-		drawFilter2D(triangleFilter(), triangleFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawFilter2D(triangleFilter(), triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_shape_triangle.pcx");
 
-		drawFilter2D(boxFilter(), boxFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawFilter2D(boxFilter(), boxFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_shape_box.pcx");
 
-		drawFilter2D(mitchellFilter(), mitchellFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawFilter2D(mitchellFilter(), mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_shape_mitchell.pcx");
 
-		drawFilter2D(cubicFilter(), cubicFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawFilter2D(cubicFilter(), cubicFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_shape_cubic.pcx");
 	}
 
@@ -251,19 +251,19 @@ namespace
 
 		Array<2, Color> image(Width, Height);
 
-		drawRadialFilter2D(gaussianFilter(2), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawRadialFilter2D(gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_radial_shape_gaussian.pcx");
 
-		drawRadialFilter2D(triangleFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawRadialFilter2D(triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_radial_shape_triangle.pcx");
 
-		drawRadialFilter2D(boxFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawRadialFilter2D(boxFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_radial_shape_box.pcx");
 
-		drawRadialFilter2D(mitchellFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawRadialFilter2D(mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_radial_shape_mitchell.pcx");
 
-		drawRadialFilter2D(cubicFilter(), hsvToRgb(Color(randomReal32(), 1, 1)), image);
+		drawRadialFilter2D(cubicFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_radial_shape_cubic.pcx");
 	}
 

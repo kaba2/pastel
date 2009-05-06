@@ -49,8 +49,8 @@ namespace
 		for (integer i = 0;i < Samples;++i)
 		{
 			square.push_back(Vector2(
-				randomReal(),
-				randomReal()));
+				random<real>(),
+				random<real>()));
 		}
 		*/
 

@@ -91,7 +91,7 @@ namespace Pastel
 
 				SmallSet<KeyValue<real, ConstIterator> > pointSet;
 
-				findNearest(kdtree_, Point<N, real>(position) + 0.5,
+				searchNearest(kdtree_, Point<N, real>(position) + 0.5,
 					filter_.radius() * filterStretch_,
 					0,
 					InfinityNormBijection<N, Real>(),

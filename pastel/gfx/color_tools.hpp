@@ -20,7 +20,7 @@ namespace Pastel
 
 	inline Color randomRgbColor()
 	{
-		return Color(randomReal32(), randomReal32(), randomReal32());
+		return Color(random<real32>(), random<real32>(), random<real32>());
 	}
 
 	// Standard illuminants (CIE 1931)

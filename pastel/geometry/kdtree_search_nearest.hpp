@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_KDTREE_NEAREST_HPP
-#define PASTELGEOMETRY_KDTREE_NEAREST_HPP
+#ifndef PASTELGEOMETRY_KDTREE_SEARCH_NEAREST_HPP
+#define PASTELGEOMETRY_KDTREE_SEARCH_NEAREST_HPP
 
-#include "pastel/geometry/kdtree_nearest.h"
+#include "pastel/geometry/kdtree_search_nearest.h"
 #include "pastel/geometry/closest_alignedbox_point.h"
 
 #include "pastel/sys/smallset.h"
@@ -14,7 +14,7 @@ namespace Pastel
 
 	// Depth-first approximate search
 
-	namespace Detail_FindNearest
+	namespace Detail_SearchNearest
 	{
 
 		template <int N, typename Real, typename ObjectPolicy>
@@ -50,7 +50,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void findNearest(
+	void searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -76,7 +76,7 @@ namespace Pastel
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
 		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_FindNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
+		typedef Detail_SearchNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
 
 		const bool kFinite = (kNearest > 0);
 		const Real errorScaling = 
@@ -213,7 +213,7 @@ namespace Pastel
 	// Best-first search.
 	// All non-leaf nodes to priority queue.
 
-	namespace Detail_FindNearestBestFirst
+	namespace Detail_SearchNearestBestFirst
 	{
 
 		template <int N, typename Real, typename ObjectPolicy>
@@ -252,7 +252,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void findNearestBestFirst(
+	void searchNearestBestFirst(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -280,7 +280,7 @@ namespace Pastel
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
 		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_FindNearestBestFirst::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
+		typedef Detail_SearchNearestBestFirst::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
 
 		const bool kFinite = (kNearest > 0);
 		Real cullDistance = maxDistance;
@@ -401,7 +401,7 @@ namespace Pastel
 	// depth first.
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void findNearestBestFirst3(
+	void searchNearestBestFirst3(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -429,7 +429,7 @@ namespace Pastel
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
 		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_FindNearestBestFirst::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
+		typedef Detail_SearchNearestBestFirst::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
 
 		const bool kFinite = (kNearest > 0);
 		Real cullDistance = maxDistance;
@@ -541,7 +541,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void findNearestBestFirst2(
+	void searchNearestBestFirst2(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -569,7 +569,7 @@ namespace Pastel
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
 		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_FindNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
+		typedef Detail_SearchNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
 
 		const bool kFinite = (kNearest > 0);
 		Real cullDistance = maxDistance;
@@ -668,7 +668,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
-		findNearest(
+		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -684,7 +684,7 @@ namespace Pastel
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
 		SmallSet<KeyVal> result;
-		findNearest(tree, point, maxDistance, maxRelativeError,
+		searchNearest(tree, point, maxDistance, maxRelativeError,
 			normBijection, 1, result);
 
 		if (result.empty())
@@ -697,7 +697,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
-		findNearest(
+		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -706,32 +706,32 @@ namespace Pastel
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
 
-		return Pastel::findNearest(
+		return Pastel::searchNearest(
 			tree, point, maxDistance, maxRelativeError,
 			EuclideanNormBijection<N, Real>());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
-		findNearest(
+		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
 		ENSURE1(maxDistance >= 0, maxDistance);
 
-		return Pastel::findNearest(
+		return Pastel::searchNearest(
 			tree, point, maxDistance, 0,
 			EuclideanNormBijection<N, Real>());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
-		findNearest(
+		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point)
 	{
-		return Pastel::findNearest(
+		return Pastel::searchNearest(
 			tree, point, infinity<Real>(), 0,
 			EuclideanNormBijection<N, Real>());
 	}

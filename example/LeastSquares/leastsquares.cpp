@@ -167,7 +167,7 @@ void generatePoints(std::vector<Point2>& pointSet, integer points)
 	std::vector<Point2> result;
 	for (integer i = 0;i < points;++i)
 	{
-		result.push_back(Point2(2 * randomReal() - 1, 2 * randomReal() - 1));
+		result.push_back(Point2(2 * random<real>() - 1, 2 * random<real>() - 1));
 	}
 	result.swap(pointSet);
 }

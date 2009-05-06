@@ -34,7 +34,7 @@ namespace Pastel
 
 		/*
 		const Point2 lensCoordinates(
-		randomReal(), randomReal());
+		random<real>(), random<real>());
 		const Vector2 lensPosition(
 		asVector(sampleDisk(lensCoordinates)));
 

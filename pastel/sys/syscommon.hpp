@@ -253,7 +253,7 @@ namespace Pastel
 			Half = (1 << (N - 1)) - 1
 		};
 		
-		real64 dither = randomReal64();
+		real64 dither = random<real64>();
 		if (i <= -Half)
 		{
 			dither = 0;
