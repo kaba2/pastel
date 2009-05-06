@@ -20,9 +20,9 @@ namespace
 			std::vector<Point2> to;
 			to.reserve(points);
 
-			const real scale = randomReal() * 0.9 + 0.1;
-			const real angle = randomReal() * 2 * constantPi<real>();
-			const Vector2 translation(randomReal() * 2 - 1, randomReal() * 2 - 1);
+			const real scale = random<real>() * 0.9 + 0.1;
+			const real angle = random<real>() * 2 * constantPi<real>();
+			const Vector2 translation(random<real>() * 2 - 1, random<real>() * 2 - 1);
 
 			const AffineTransformation2 transformation =
 				similarityTransformation(scale, angle, translation);

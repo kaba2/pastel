@@ -18,11 +18,11 @@ namespace Pastel
 		visit(cursorView(grid.nodeAt(region.min()), region.extent()), visitor);
 	}
 
-	namespace Detail_FindNearest
+	namespace Detail_SearchNearest
 	{
 
 		template <typename Grid, typename Metric>
-		class FindNearest
+		class SearchNearest
 		{
 		public:
 			enum
@@ -33,7 +33,7 @@ namespace Pastel
 			typedef typename Grid::Cursor Cursor;
 			typedef typename Grid::ConstObjectIterator ConstObjectIterator;
 
-			FindNearest(
+			SearchNearest(
 				ConstObjectIterator& minIter,
 				Real& minDistance,
 				Metric metric,
@@ -71,7 +71,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Object, typename PositionFunctor, typename Metric>
 	std::pair<typename Grid<N, Real, Object>::ConstObjectIterator, Real>
-		findNearest(
+		searchNearest(
 		const Grid<N, Real, Object>& grid,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& radius,

@@ -204,7 +204,7 @@ namespace Pastel
 						// the pivot point will be part of the result.
 
 						SmallSet<KeyValue<Real, SceneIterator> > sceneSet;
-						findNearest(
+						searchNearest(
 							sceneTree_,
 							scenePoint,
 							infinity<Real>(),
@@ -214,7 +214,7 @@ namespace Pastel
 							sceneSet);
 
 						SmallSet<KeyValue<Real, ModelIterator> > modelSet;
-						findNearest(
+						searchNearest(
 							modelTree_,
 							modelPoint,
 							infinity<Real>(),
@@ -324,7 +324,7 @@ namespace Pastel
 								modelPosition(modelSet[m].value()) * similarity;
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
-								findNearest(sceneTree_, transformedModelPoint);
+								searchNearest(sceneTree_, transformedModelPoint);
 
 							// A transformed model point M' matches a scene point S
 							// if the distance between M' and S is below
@@ -424,7 +424,7 @@ namespace Pastel
 						// scene point.
 
 						const KeyValue<Real, SceneIterator> closestScenePoint =
-							findNearest(sceneTree_, transformedModelPoint);
+							searchNearest(sceneTree_, transformedModelPoint);
 
 						if (closestScenePoint.key() <= matchingThreshold_ &&
 							usedSet.find(closestScenePoint.value()) == usedSet.end())

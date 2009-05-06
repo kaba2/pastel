@@ -845,6 +845,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\kdtree_search_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_search_range.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\kdtree_tools.h"
 					>
 				</File>

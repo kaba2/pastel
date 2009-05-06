@@ -15,6 +15,27 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorGaussian()
+	{
+		BOOST_STATIC_ASSERT(N != Unbounded);
+		return Pastel::randomVectorGaussian<N, Real>(N);
+	}
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVectorGaussian(integer dimension)
+	{
+		PENSURE1(dimension >= 0, dimension);
+		Vector<N, Real> direction(ofDimension(dimension));
+
+		for (integer i = 0;i < dimension;++i)
+		{
+			direction[i] = randomNormal<Real>();			
+		}
+
+		return direction.asTemporary();
+	}
+
+	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVector()
 	{
 		BOOST_STATIC_ASSERT(N != Unbounded);
@@ -94,7 +115,7 @@ namespace Pastel
 			{
 				for (integer i = 0;i < dimension;++i)
 				{
-					result[i] = randomNormalReal();
+					result[i] = randomNormal<Real>();
 				}
 				dotResult = dot(result);
 			}

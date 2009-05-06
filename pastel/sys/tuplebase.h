@@ -99,6 +99,7 @@ namespace Pastel
 				{
 					data_[i] = that.data_[i];
 				}
+				++globalVariable(0);
 			}
 
 			template <typename ThatType>
@@ -109,6 +110,7 @@ namespace Pastel
 				{
 					data_[i] = that.data_[i];
 				}
+				++globalVariable(0);
 			}
 
 			~TupleBase()
@@ -302,6 +304,7 @@ namespace Pastel
 			TupleBase(const TupleBase& that)
 				: data_(that.data_)
 			{
+				++globalVariable(0);
 			}
 
 			template <typename ThatType>
@@ -315,6 +318,7 @@ namespace Pastel
 				{
 					data_.push_back(that.data_[i]);
 				}
+				++globalVariable(0);
 			}
 
 			TupleBase(const TemporaryTuple<Unbounded, Type>& that)
@@ -323,6 +327,8 @@ namespace Pastel
 				TemporaryTuple<Unbounded, Type>& moveThat = 
 					const_cast<TemporaryTuple<Unbounded, Type>&>(that);
 				data_.swap(moveThat.data_);
+				++globalVariable(0);
+				++globalVariable(1);
 			}
 
 			~TupleBase()

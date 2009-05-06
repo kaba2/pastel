@@ -18,7 +18,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Object, typename PositionFunctor, typename Metric>
 	std::pair<typename Grid<N, Real, Object>::ConstObjectIterator, Real>
-		findNearest(
+		searchNearest(
 		const Grid<N, Real, Object>& grid,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& radius,

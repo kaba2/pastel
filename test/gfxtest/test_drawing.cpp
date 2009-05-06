@@ -435,8 +435,8 @@ namespace
 
 		for (integer i = 0;i < lines;++i)
 		{
-			const Point2 from(randomReal() * 1000 - 180, randomReal() * 740 - 180);
-			const Point2 to(randomReal() * 1000 - 180, randomReal() * 740 - 180);
+			const Point2 from(random<real>() * 1000 - 180, random<real>() * 740 - 180);
+			const Point2 to(random<real>() * 1000 - 180, random<real>() * 740 - 180);
 			drawSegment(Segment2(from, to), randomRgbColor(), arrayView(image));
 		}
 

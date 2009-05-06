@@ -400,7 +400,7 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
-	findNearest(tree__, worldMouse, searchRadius__ * searchRadius__, 0,
+	searchNearest(tree__, worldMouse, searchRadius__ * searchRadius__, 0,
 		EuclideanNormBijection<2, real>(), nearestPoints__, nearestPointSet__);
 
 	{
@@ -427,8 +427,8 @@ void sprayPoints(const Point2& center, real radius, integer points)
 	std::vector<Point2> pointSet;
 	for (integer i = 0;i < points;++i)
 	{
-		const real randomAngle = randomReal() * 2 * constantPi<real>();
-		const real randomRadius = randomReal() * radius;
+		const real randomAngle = random<real>() * 2 * constantPi<real>();
+		const real randomRadius = random<real>() * radius;
 
 		Point2 point(
 			center +
@@ -448,7 +448,7 @@ void generatePointSet(const AlignedBox2& region,
 	for (integer i = 0;i < points;++i)
 	{
 		pointSet__.push_back(
-			region.at(Vector2(randomReal(), randomReal())));
+			region.at(Vector2(random<real>(), random<real>())));
 	}
 
 	log() << "Generated " << points << " points. " << logNewLine;
@@ -495,7 +495,7 @@ void timing()
 	MyTree::ConstObjectIterator iterEnd(tree__.end());
 	while (iter != iterEnd)
 	{
-		findNearest(tree__, *iter,
+		searchNearest(tree__, *iter,
 			infinity<real>(),
 			0,
 			EuclideanNormBijection<2, real>(),

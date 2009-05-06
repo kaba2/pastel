@@ -123,7 +123,7 @@ namespace Pastel
 			NearestSet nearestSet;
 			nearestSet.reserve(kNearest + 1);
 
-			findNearest(tree, pointSet[i], maxDistance, maxRelativeError,
+			searchNearest(tree, pointSet[i], maxDistance, maxRelativeError,
 				normBijection, kNearest + 1, nearestSet);
 
 			ASSERT(nearestSet.size() == kNearest + 1);

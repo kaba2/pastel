@@ -39,15 +39,15 @@ namespace
 
 		for (integer i = 0;i < 10000;++i)
 		{
-			real aRoot = randomReal() * 100 - 50;
-			real bRoot = randomReal() * 100 - 50;
+			real aRoot = random<real>() * 100 - 50;
+			real bRoot = random<real>() * 100 - 50;
 
 			if (bRoot < aRoot)
 			{
 				std::swap(aRoot, bRoot);
 			}
 
-			const real aCoeff = randomReal() * 100 + 2;
+			const real aCoeff = random<real>() * 100 + 2;
 			const real bCoeff = (-aRoot - bRoot) * aCoeff;
 			const real cCoeff = (aRoot * bRoot) * aCoeff;
 
