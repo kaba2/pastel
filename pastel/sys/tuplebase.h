@@ -3,6 +3,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/log.h"
 
 #include <vector>
 

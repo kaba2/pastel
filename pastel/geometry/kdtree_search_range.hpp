@@ -13,7 +13,7 @@ namespace Pastel
 		const AlignedBox<N, Real>& range,
 		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result)
 	{
-		ENSURE(range.dimension() == kdTree.dimension, 
+		ENSURE2(range.dimension() == kdTree.dimension(), 
 			range.dimension(), kdTree.dimension());
 
 		typedef typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
@@ -24,11 +24,19 @@ namespace Pastel
 			Object;
 
 		std::vector<ConstObjectIterator> rangeSet;
+
+		if (!overlaps(range, kdTree.bound()))
+		{
+			rangeSet.swap(result);
+			return;
+		}
+
 		std::vector<Cursor> nodeSet;
+		nodeSet.push_back(kdTree.root());
 
 		while(!nodeSet.empty())
 		{
-			const Cursor cursor = nodeSet.back();
+			Cursor cursor = nodeSet.back();
 			nodeSet.pop_back();
 			
 			while(!cursor.leaf())
@@ -78,11 +86,13 @@ namespace Pastel
 				const Object& object = *iter;
 				if (overlaps(objectPolicy.bound(object), range))
 				{
-					result.push_back(object);
+					rangeSet.push_back(iter);
 				}
 				++iter;
 			}
 		}
+
+		rangeSet.swap(result);
 	}
 
 }
