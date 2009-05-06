@@ -208,6 +208,7 @@ namespace Pastel
 							sceneTree_,
 							scenePoint,
 							infinity<Real>(),
+							0,
 							EuclideanNormBijection<2, Real>(),
 							kPoints_ + 1,
 							sceneSet);
@@ -217,6 +218,7 @@ namespace Pastel
 							modelTree_,
 							modelPoint,
 							infinity<Real>(),
+							0,
 							EuclideanNormBijection<2, Real>(),
 							kPoints_ + 1,
 							modelSet);
@@ -546,8 +548,10 @@ namespace Pastel
 		ModelTree modelTree;
 		modelTree.insert(modelBegin, modelEnd);
 
-		refineSlidingMidpoint(computeKdTreeMaxDepth(sceneTree.objects()), 4, sceneTree);
-		refineSlidingMidpoint(computeKdTreeMaxDepth(modelTree.objects()), 4, modelTree);
+		sceneTree.refine(
+			computeKdTreeMaxDepth(sceneTree.objects()), 4, SlidingMidpointRule());
+		modelTree.refine(
+			computeKdTreeMaxDepth(modelTree.objects()), 4, SlidingMidpointRule());
 
 		return Pastel::pointPatternMatch(
 			sceneTree, modelTree, minMatchRatio,  matchingDistance,

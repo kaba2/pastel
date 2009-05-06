@@ -20,6 +20,7 @@ namespace Pastel
 		}
 
 		typedef integer Object;
+		typedef TrueType UseBounds;
 
 		AlignedBox<N, Real> bound(integer object) const
 		{
@@ -45,9 +46,17 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		Array<2, integer>& nearestArray)
 	{
+		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE2(kNearest < pointSet.size(), kNearest, pointSet.size());
+		ENSURE1(maxDistance >= 0, maxDistance);
+		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
+		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
+
 		const integer points = pointSet.size();
 
 		if (kNearest == 0 || points == 0)
@@ -68,6 +77,12 @@ namespace Pastel
 
 		const integer dimension = pointSet.front().size();
 
+		/*
+		Timer timer;
+
+		timer.setStart();
+		*/
+
 		PointListPolicy<N, Real> policy(pointSet);
 		Tree tree(dimension, policy);
 
@@ -79,8 +94,13 @@ namespace Pastel
 		}
 		tree.insert(indexList.begin(), indexList.end());
 
-		refineSlidingMidpoint(
-			computeKdTreeMaxDepth(tree.objects()), 4, tree);
+		tree.refine(
+			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
+
+		/*
+		timer.store();
+		log() << "Construction: " << timer.seconds() << logNewLine;
+		*/
 
 		/*
 		log() << tree.nodes() << " nodes, "
@@ -103,7 +123,7 @@ namespace Pastel
 			NearestSet nearestSet;
 			nearestSet.reserve(kNearest + 1);
 
-			findNearest(tree, pointSet[i], maxDistance,
+			findNearest(tree, pointSet[i], maxDistance, maxRelativeError,
 				normBijection, kNearest + 1, nearestSet);
 
 			ASSERT(nearestSet.size() == kNearest + 1);

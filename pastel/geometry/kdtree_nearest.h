@@ -15,6 +15,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	maxDistance >= 0
+	maxRelativeError >= 0
 
 	Each object in the kd-tree is considered as the
 	minimum point of its bounding box.
@@ -47,6 +48,7 @@ namespace Pastel
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		integer kNearest,
 		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result);
@@ -55,6 +57,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	maxDistance >= 0
+	maxRelativeError >= 0
 
 	This is a convenience function which calls the
 	more general findNearest() function with the
@@ -71,12 +74,14 @@ namespace Pastel
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection);
 
 	//! Finds nearest neighbors for a point in a kd-tree.
 	/*!
 	Preconditions:
 	maxDistance >= 0
+	maxRelativeError >= 0
 
 	This is a convenience function which calls the
 	more general findNearest() function with the
@@ -93,23 +98,15 @@ namespace Pastel
 		findNearest(
 		const KdTree<N, Real, ObjectPolicy>& tree,
 		const Point<N, Real>& point,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
+
+	template <int N, typename Real, typename ObjectPolicy>
+	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+		findNearest(
+		const KdTree<N, Real, ObjectPolicy>& tree,
+		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
-
-	//! Finds nearest neighbors for a point in a kd-tree.
-	/*!
-	Preconditions:
-	maxDistance >= 0
-
-	This is a convenience function which calls the
-	more general findNearest() function with the
-	assumptions that:
-	- only one nearest neighbor is sought
-	- the norm is the euclidean norm
-	- the search radius is infinite
-
-	See the documentation for the more
-	general findNearest() function.
-	*/
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>

@@ -6,199 +6,81 @@
 namespace Pastel
 {
 
-	namespace Detail
+	class MidpointRule
 	{
-
+	public:
 		template <
 			int N, typename Real,
 			typename ObjectPolicy>
-			void refineMidpoint(
-			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			integer depth,
+			std::pair<Real, integer> operator()(
 			const AlignedBox<N, Real>& bound,
-			integer maxDepth,
-			integer maxObjects,
-			KdTree<N, Real, ObjectPolicy>& tree)
+			const ObjectPolicy& objectPolicy,
+			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
+			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
 		{
-			if (depth >= maxDepth)
-			{
-				return;
-			}
+			// Split along the longest dimension.
 
-			Real splitPosition = 0;
-			integer splitAxis = 0;
+			const integer splitAxis = maxIndex(bound.extent());
+			const Real splitPosition = linear(bound.min()[splitAxis], 
+				bound.max()[splitAxis], 0.5);
 
-			if (cursor.leaf())
-			{
-				if (cursor.objects() > maxObjects)
-				{
-					// Split along the longest dimension.
-
-					const Vector<N, Real> extent(bound.max() - bound.min());
-					splitAxis = maxIndex(extent);
-					splitPosition = linear(bound.min()[splitAxis], bound.max()[splitAxis], 0.5);
-
-					tree.subdivide(cursor, splitPosition, splitAxis);
-				}
-			}
-			else
-			{
-				splitPosition = cursor.splitPosition();
-				splitAxis = cursor.splitAxis();
-			}
-
-			// A leaf node might or might not have been turned
-			// into an intermediate node.
-			if (!cursor.leaf())
-			{
-				AlignedBox<N, Real> negativeBound(bound);
-				negativeBound.max()[splitAxis] = splitPosition;
-
-				refineMidpoint(cursor.negative(), depth + 1,
-					negativeBound, maxDepth, maxObjects, tree);
-
-				AlignedBox<N, Real> positiveBound(bound);
-				positiveBound.min()[splitAxis] = splitPosition;
-
-				refineMidpoint(cursor.positive(), depth + 1,
-					positiveBound, maxDepth, maxObjects, tree);
-			}
+			return std::make_pair(splitPosition, splitAxis);
 		}
+	};
 
-	}
-
-	template <
-		int N,
-		typename Real,
-		typename ObjectPolicy>
-		void refineMidpoint(
-		integer maxDepth,
-		integer maxObjects,
-		KdTree<N, Real, ObjectPolicy>& tree)
+	class SlidingMidpointRule
 	{
-		ENSURE1(maxDepth >= 0, maxDepth);
-		ENSURE1(maxObjects >= 1, maxObjects);
-
-		Detail::refineMidpoint(tree.root(), 0, tree.bound(), maxDepth, maxObjects, tree);
-	}
-
-	namespace Detail
-	{
-
+	public:
 		template <
 			int N, typename Real,
 			typename ObjectPolicy>
-			void refineSlidingMidpoint(
-			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			integer depth,
+			std::pair<Real, integer> operator()(
 			const AlignedBox<N, Real>& bound,
-			integer maxDepth, integer maxObjects,
-			KdTree<N, Real, ObjectPolicy>& tree)
+			const ObjectPolicy& objectPolicy,
+			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
+			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
 		{
-			typedef KdTree<N, Real, ObjectPolicy> Tree;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			typedef typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
+				ConstObjectIterator;
 
-			if (depth >= maxDepth)
+			// Split along the longest dimension.
+
+			const integer splitAxis = maxIndex(bound.extent());
+			Real splitPosition = linear(bound.min()[splitAxis], 
+				bound.max()[splitAxis], 0.5);
+
+			// Sliding midpoint
+
+			AlignedBox<1, Real> objectBound;
+
+			ConstObjectIterator iter = objectBegin;
+			ConstObjectIterator iterEnd = objectEnd;
+			while(iter != iterEnd)
 			{
-				return;
+				const Tuple<2, Real> objectRange = objectPolicy.bound(*iter, splitAxis);
+
+				objectBound = boundingAlignedBox(objectBound,
+					AlignedBox<1, Real>(
+					Point<1, Real>(objectRange[0]),
+					Point<1, Real>(objectRange[1])));
+
+				++iter;
 			}
 
-			Real splitPosition = 0;
-			integer splitAxis = 0;
-
-			if (cursor.leaf())
+			if (splitPosition < objectBound.min()[0] &&
+				objectBound.min()[0] < bound.max()[splitAxis])
 			{
-				if (cursor.objects() > maxObjects)
-				{
-					// Split along the longest dimension.
-
-					const Vector<N, Real> extent(bound.max() - bound.min());
-					splitAxis = maxIndex(extent);
-					splitPosition = linear(bound.min()[splitAxis], bound.max()[splitAxis], 0.5);
-
-					// Sliding midpoint
-
-					AlignedBox<1, Real> objectBound;
-
-					ConstObjectIterator iter = cursor.begin();
-					ConstObjectIterator iterEnd = cursor.end();
-					while(iter != iterEnd)
-					{
-						const Tuple<2, Real> objectRange = tree.objectPolicy().bound(*iter, splitAxis);
-
-						objectBound = boundingAlignedBox(objectBound,
-							AlignedBox<1, Real>(
-							Point<1, Real>(objectRange[0]),
-							Point<1, Real>(objectRange[1])));
-
-						++iter;
-					}
-
-					if (splitPosition < objectBound.min()[0] &&
-						objectBound.min()[0] < bound.max()[splitAxis])
-					{
-						splitPosition = objectBound.min()[0];
-					}
-					if (splitPosition > objectBound.max()[0] &&
-						objectBound.max()[0] > bound.min()[splitAxis])
-					{
-						splitPosition = objectBound.max()[0];
-					}
-
-					/*
-					log() << "Subdividing at depth " << depth << " at "
-					<< 100 * ((splitPosition - bound.min()[splitAxis]) / extent[splitAxis])
-					<< logNewLine;
-					*/
-
-					tree.subdivide(cursor, splitPosition, splitAxis);
-				}
+				splitPosition = objectBound.min()[0];
 			}
-			else
+			if (splitPosition > objectBound.max()[0] &&
+				objectBound.max()[0] > bound.min()[splitAxis])
 			{
-				splitPosition = cursor.splitPosition();
-				splitAxis = cursor.splitAxis();
+				splitPosition = objectBound.max()[0];
 			}
 
-			// A leaf node might or might not have been turned
-			// into an intermediate node.
-			if (!cursor.leaf())
-			{
-				AlignedBox<N, Real> negativeBound(bound);
-				negativeBound.max()[splitAxis] = splitPosition;
-
-				refineSlidingMidpoint(cursor.negative(), depth + 1,
-					negativeBound, maxDepth, maxObjects, tree);
-
-				AlignedBox<N, Real> positiveBound(bound);
-				positiveBound.min()[splitAxis] = splitPosition;
-
-				refineSlidingMidpoint(cursor.positive(), depth + 1,
-					positiveBound, maxDepth, maxObjects, tree);
-			}
+			return std::make_pair(splitPosition, splitAxis);
 		}
-
-	}
-
-	template <
-		int N,
-		typename Real,
-		typename ObjectPolicy>
-		void refineSlidingMidpoint(
-		integer maxDepth,
-		integer maxObjects,
-		KdTree<N, Real, ObjectPolicy>& tree)
-	{
-		ENSURE1(maxDepth >= 0, maxDepth);
-		ENSURE1(maxObjects >= 1, maxObjects);
-
-		// See "Heuristic ray shooting algorithms",
-		// The thesis of Vlastimil Havran,
-		// "4.5 Automatic termination criteria"
-
-		Detail::refineSlidingMidpoint(tree.root(),
-			0, tree.bound(), maxDepth, maxObjects, tree);
-	}
+	};
 
 	namespace Detail
 	{

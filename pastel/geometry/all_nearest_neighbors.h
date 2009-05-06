@@ -63,7 +63,7 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,
-		Array<2, integer>& nearestSet);
+		Array<2, integer>& nearestArray);
 
 	//! Finds all-k-nearest-neighbours of a point set.
 	/*!
@@ -103,6 +103,7 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		Array<2, integer>& nearestSet);
 

@@ -45,7 +45,8 @@ namespace
 		log() << tree.objects() << " object references ("
 			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
-		refineMidpoint(computeKdTreeMaxDepth(tree.objects()), 4, tree);
+		tree.refine(
+			computeKdTreeMaxDepth(tree.objects()), 4, MidpointRule());
 
 		REPORT(!check(tree));
 
@@ -67,6 +68,7 @@ namespace
 	{
 	public:
 		typedef Sphere3* Object;
+		typedef FalseType UseBounds;
 
 		AlignedBox3 bound(const Sphere3* object) const
 		{
@@ -150,7 +152,7 @@ namespace
 		log() << tree.objects() << " object references ("
 			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
-		//refineSlidingMidpoint(computeKdTreeMaxDepth(tree.objects()), 4, tree);
+		//tree.refine(computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
 		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(tree.objects()), 2, tree);
 		//refineSurfaceAreaHeuristic(0, 2, tree);
 

@@ -21,12 +21,7 @@ namespace Pastel
 	checking and performance comparison purposes.
 	*/
 
-	template <int N, typename Real,
-		typename ObjectPolicy>
-	void refineMidpoint(
-		integer maxDepth,
-		integer maxObjects,
-		KdTree<N, Real, ObjectPolicy>& tree);
+	class MidpointRule;
 
 	//! Refines a kd-tree using the sliding midpoint rule.
 	/*!
@@ -45,12 +40,7 @@ namespace Pastel
 	nearest neighbors for points.
 	*/
 
-	template <int N, typename Real,
-		typename ObjectPolicy>
-	void refineSlidingMidpoint(
-		integer maxDepth,
-		integer maxObjects,
-		KdTree<N, Real, ObjectPolicy>& tree);
+	class SlidingMidpointRule;
 
 	//! Refines a kd-tree using the surface area heuristic.
 	/*!

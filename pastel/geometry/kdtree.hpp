@@ -26,7 +26,7 @@ namespace Pastel
 			return ((unknown_ & 1) != 0);
 		}
 
-	//protected:
+		//protected:
 
 		// The first bit of 'unknown_' tells
 		// if the node is a LeafNode (1) or an
@@ -95,8 +95,70 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_Low
+	class KdTree<N, Real, ObjectPolicy>::Bounds
 		: public Node
+	{
+	public:
+		// TODO: possible compiler bug: doesn't work without this.
+		using Node::unknown_;
+
+		Bounds(
+			pointer_integer unknown,
+			const Real& min,
+			const Real& max)
+			: Node(unknown)
+			, min_(min)
+			, max_(max)
+		{
+		}
+
+		const Real& min() const
+		{
+			return min_;
+		}
+
+		const Real& max() const
+		{
+			return max_;
+		}
+
+	private:
+		Real min_;
+		Real max_;
+	};
+
+	template <int N, typename Real, typename ObjectPolicy>
+	class KdTree<N, Real, ObjectPolicy>::Bounds_None
+		: public Node
+	{
+	public:
+		// TODO: possible compiler bug: doesn't work without this.
+		using Node::unknown_;
+
+		Bounds_None(
+			pointer_integer unknown,
+			const Real& min,
+			const Real& max)
+			: Node(unknown)
+		{
+		}
+
+		Real min() const
+		{
+			ENSURE(false);
+			return nan<Real>();
+		}
+
+		Real max() const
+		{
+			ENSURE(false);
+			return nan<Real>();
+		}
+	};
+
+	template <int N, typename Real, typename ObjectPolicy>
+	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_Low
+		: public IntermediateBase
 	{
 	private:
 		// TODO: possible compiler bug: doesn't work without this.
@@ -107,8 +169,10 @@ namespace Pastel
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
-			integer splitAxis)
-			: Node(0)
+			integer splitAxis,
+			const Real& min,
+			const Real& max)
+			: IntermediateBase(0, min, max)
 			, negative_(0)
 			, splitPosition_(splitPosition)
 		{
@@ -189,7 +253,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_High
-		: public Node
+		: public IntermediateBase
 	{
 	private:
 		// TODO: possible compiler bug: doesn't work without this.
@@ -200,8 +264,10 @@ namespace Pastel
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
-			integer splitAxis)
-			: Node((pointer_integer)positive)
+			integer splitAxis,
+			const Real& min,
+			const Real& max)
+			: IntermediateBase((pointer_integer)positive, min, max)
 			, negative_(negative)
 			, splitPosition_(splitPosition)
 			, splitAxis_(splitAxis)
@@ -299,6 +365,22 @@ namespace Pastel
 			LeafNode* leafNode = (LeafNode*)node_;
 
 			return leafNode->objects();
+		}
+
+		Real min() const
+		{
+			PENSURE(node_);
+			PENSURE(!leaf());
+
+			return ((IntermediateNode*)node_)->min();
+		}
+
+		Real max() const
+		{
+			PENSURE(node_);
+			PENSURE(!leaf());
+
+			return ((IntermediateNode*)node_)->max();
 		}
 
 		Real splitPosition() const
@@ -509,9 +591,134 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
+	template <typename SubdivisionRule>
+	void KdTree<N, Real, ObjectPolicy>::refine(
+		integer maxDepth,
+		integer maxObjects,
+		const SubdivisionRule& subdivisionRule)
+	{
+		ENSURE1(maxDepth >= 0, maxDepth);
+		ENSURE1(maxObjects > 0, maxObjects);
+
+		if (maxDepth == 0)
+		{
+			// Nothing to be done.
+			return;
+		}
+
+		std::vector<RefineEntry> nodeStack;
+
+		nodeStack.push_back(RefineEntry(root(), 0, bound()));
+
+		while(!nodeStack.empty())
+		{
+			const RefineEntry entry = nodeStack.back();
+			nodeStack.pop_back();
+
+			const integer depth = entry.depth_;
+			const Cursor& cursor = entry.cursor_;
+			const AlignedBox<N, Real>& bound = entry.bound_;
+
+			Real splitPosition = 0;
+			integer splitAxis = 0;
+
+			if (cursor.leaf())
+			{
+				if (depth < maxDepth && cursor.objects() > maxObjects)
+				{
+					std::pair<Real, integer> result =
+						subdivisionRule(
+						bound,
+						objectPolicy(),
+						cursor.begin(),
+						cursor.end());
+
+					splitPosition = result.first;
+					splitAxis = result.second;
+					subdivide(cursor, splitPosition, splitAxis, 
+						bound.min()[splitAxis], bound.max()[splitAxis]);
+				}
+			}
+			else
+			{
+				splitPosition = cursor.splitPosition();
+				splitAxis = cursor.splitAxis();
+			}
+
+			// A leaf node might or might not have been turned
+			// into an intermediate node.
+			if (!cursor.leaf())
+			{
+				AlignedBox<N, Real> negativeBound(bound);
+				negativeBound.max()[splitAxis] = splitPosition;
+
+				nodeStack.push_back(
+					RefineEntry(cursor.negative(), depth + 1, negativeBound));
+
+				AlignedBox<N, Real> positiveBound(bound);
+				positiveBound.min()[splitAxis] = splitPosition;
+
+				nodeStack.push_back(
+					RefineEntry(cursor.positive(), depth + 1, positiveBound));
+			}
+		}
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
 	void KdTree<N, Real, ObjectPolicy>::subdivide(
 		const Cursor& cursor,
 		const Real& splitPosition, integer splitAxis)
+	{
+		subdivide(cursor, splitPosition, splitAxis,
+			0, 0);
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	template <typename InputIterator>
+	void KdTree<N, Real, ObjectPolicy>::insert(
+		InputIterator begin, InputIterator end)
+	{
+		insert(root(), begin, end);
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	void KdTree<N, Real, ObjectPolicy>::erase(
+		const Object& object)
+	{
+		// TODO
+		ENSURE(false);
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	void KdTree<N, Real, ObjectPolicy>::clear()
+	{
+		objectList_.clear();
+		nodeAllocator_.clear();
+		root_ = 0;
+		bound_ = AlignedBox<N, Real>();
+		leaves_ = 0;
+		objects_ = 0;
+
+		root_ = (Node*)nodeAllocator_.allocate();
+		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
+		++leaves_;
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	void KdTree<N, Real, ObjectPolicy>::clearObjects()
+	{
+		clearObjects(root());
+
+		objectList_.clear();
+	}
+
+	// Private
+
+	template <int N, typename Real, typename ObjectPolicy>
+	void KdTree<N, Real, ObjectPolicy>::subdivide(
+		const Cursor& cursor,
+		const Real& splitPosition, integer splitAxis,
+		const Real& boundMin, const Real& boundMax)
 	{
 		ENSURE2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 		ENSURE(cursor.leaf());
@@ -574,53 +781,14 @@ namespace Pastel
 			positiveLeaf,
 			negativeLeaf,
 			splitPosition,
-			splitAxis);
+			splitAxis,
+			boundMin,
+			boundMax);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.
 		++leaves_;
 	}
-
-	template <int N, typename Real, typename ObjectPolicy>
-	template <typename InputIterator>
-	void KdTree<N, Real, ObjectPolicy>::insert(
-		InputIterator begin, InputIterator end)
-	{
-		insert(root(), begin, end);
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::erase(
-		const Object& object)
-	{
-		// TODO
-		ENSURE(false);
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::clear()
-	{
-		objectList_.clear();
-		nodeAllocator_.clear();
-		root_ = 0;
-		bound_ = AlignedBox<N, Real>();
-		leaves_ = 0;
-		objects_ = 0;
-
-		root_ = (Node*)nodeAllocator_.allocate();
-		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
-		++leaves_;
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::clearObjects()
-	{
-		clearObjects(root());
-
-		objectList_.clear();
-	}
-
-	// Private
 
 	template <int N, typename Real, typename ObjectPolicy>
 	template <typename InputIterator>

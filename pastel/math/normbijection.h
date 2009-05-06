@@ -55,6 +55,20 @@ namespace Pastel
 		{
 			return square(that);
 		}
+
+		Real replaceAxisDistance(
+			const Real& distance, 
+			const Real& currentAxisDistance,
+			const Real& newAxisDistance) const
+		{
+			return (distance - currentAxisDistance) + newAxisDistance;
+		}
+
+		Real scalingFactor(
+			const Real& factor) const
+		{
+			return square(factor);
+		}
 	};
 
 	template <int N, typename Real>
@@ -94,6 +108,25 @@ namespace Pastel
 		{
 			return mabs(that);
 		}
+
+		Real replaceAxisDistance(
+			const Real& distance, 
+			const Real& currentAxisDistance,
+			const Real& newAxisDistance) const
+		{
+			if (distance < newAxisDistance)
+			{
+				return newAxisDistance;
+			}
+			
+			return distance;
+		}
+
+		Real scalingFactor(
+			const Real& factor) const
+		{
+			return mabs(factor);
+		}
 	};
 
 	template <int N, typename Real>
@@ -128,6 +161,20 @@ namespace Pastel
 		Real operator()(integer axis, const Real& that) const
 		{
 			return mabs(that);
+		}
+
+		Real replaceAxisDistance(
+			const Real& distance, 
+			const Real& currentAxisDistance,
+			const Real& newAxisDistance) const
+		{
+			return (distance - currentAxisDistance) + newAxisDistance;
+		}
+
+		Real scalingFactor(
+			const Real& factor) const
+		{
+			return mabs(factor);
 		}
 	};
 
