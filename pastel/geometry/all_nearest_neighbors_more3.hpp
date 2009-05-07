@@ -16,70 +16,65 @@ namespace Pastel
 		class PointListPolicy
 		{
 		public:
-			explicit PointListPolicy(
-				const std::vector<Point<N, Real> >& pointSet)
-				: pointSet_(&pointSet)
-			{
-			}
-
-			typedef integer Object;
+			typedef const Point<N, Real>* Object;
 			typedef TrueType UseBounds;
 
-			AlignedBox<N, Real> bound(integer object) const
+			AlignedBox<N, Real> bound(
+				const Object& object) const
 			{
-				return AlignedBox<N, Real>((*pointSet_)[object]);
+				return AlignedBox<N, Real>(*object);
 			}
 
-			Tuple<2, real> bound(integer object, integer axis) const
+			Tuple<2, real> bound(
+				const Object& object, integer axis) const
 			{
-				return Tuple<2, real>((*pointSet_)[object][axis]);
+				return Tuple<2, real>((*object)[axis]);
 			}
 
 			const Point<N, Real>& point(
-				integer object) const
+				const Object& object) const
 			{
-				return (*pointSet_)[object];
+				return *object;
 			}
-		private:		
-			const std::vector<Point<N, Real> >* pointSet_;
 		};
 
+		template <typename Type>
 		class SequenceIterator
 		{
 		public:
 			SequenceIterator()
-				: index_(0)
+				: data_()
 			{
 			}
 
-			explicit SequenceIterator(integer index)
-				: index_(index)
+			explicit SequenceIterator(const Type& data)
+				: data_(data)
 			{
 			}
 
-			integer operator*() const
+			const Type& operator*() const
 			{
-				return index_;
+				return data_;
 			}
 
 			SequenceIterator& operator++()
 			{
-				++index_;
+				++data_;
 				return *this;
 			}
 
 			bool operator==(const SequenceIterator& that) const
 			{
-				return index_ == that.index_;
+				return data_ == that.data_;
 			}
 
 			bool operator!=(const SequenceIterator& that) const
 			{
-				return index_ != that.index_;
+				return data_ != that.data_;
 			}
 		
 		private:
-			integer index_;
+			Type data_;
 		};
 
 	}
@@ -107,19 +102,11 @@ namespace Pastel
 			return;
 		}
 
-		ENSURE2(kNearest > 0 && kNearest < pointSet.size(), 
-			kNearest, pointSet.size());
-		ENSURE2(nearestArray.width() == kNearest, 
-			nearestArray.width(), kNearest);
-		ENSURE2(nearestArray.height() == pointSet.size(), 
-			nearestArray.height(), pointSet.size());
-
-		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator 
-			SequenceIterator;
-
 		typedef KdTree<N, Real, 
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
+		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
+			SequenceIterator;
 		typedef std::vector<ConstTreeIterator> NearestSet;
 
 		const integer dimension = pointSet.front().size();
@@ -128,11 +115,10 @@ namespace Pastel
 
 		timer.setStart();
 
-		Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> policy(pointSet);
-		Tree tree(dimension, policy);
+		Tree tree(dimension);
 
-		tree.insert(SequenceIterator(0), 
-			SequenceIterator(pointSet.size()));
+		tree.insert(SequenceIterator(&pointSet[0]), 
+			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
@@ -167,7 +153,7 @@ namespace Pastel
 			integer nearestIndex = 0;
 			for (integer j = 0;j < kNearest + 1 && nearestIndex < kNearest;++j)
 			{
-				const integer neighborIndex = *nearestSet[j];
+				const integer neighborIndex = *nearestSet[j] - &pointSet[0];
 				if (neighborIndex != i)
 				{
 					nearestArray(nearestIndex, i) = neighborIndex;
@@ -176,7 +162,6 @@ namespace Pastel
 			}
 		}
 	}
-
 
 }
 
