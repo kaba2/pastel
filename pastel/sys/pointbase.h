@@ -43,7 +43,13 @@ namespace Pastel
 			}
 
 			template <typename ThatReal>
-			PointBase(const Tuple<N, ThatReal>& that)
+			explicit PointBase(const TemporaryVector<N, ThatReal>& that)
+				: data_(that)
+			{
+			}
+
+			template <typename ThatReal>
+			explicit PointBase(const Tuple<N, ThatReal>& that)
 				: data_(that)
 			{
 			}
@@ -194,6 +200,18 @@ namespace Pastel
 				TemporaryPoint<N, Real> result((const Point<N, Real>&)*this);
 				result -= that;
 				return result;
+			}
+
+			//! Interprets the point as a tuple.
+			Tuple<N, Real>& asTuple()
+			{
+				return data_.asTuple();
+			}
+
+			//! Interprets the point as a Tuple.
+			const Tuple<N, Real>& asTuple() const
+			{
+				return data_.asTuple();
 			}
 
 			//! Interprets the point as a position vector.

@@ -89,7 +89,7 @@ namespace Pastel
 		if (data_)
 		{
 			destruct(data_, data_ + realWidth_ * realHeight_);
-			delete[] ((int8*)data_);
+			deleteRaw((void*)data_);
 			data_ = 0;
 		}
 
@@ -224,24 +224,24 @@ namespace Pastel
 
 			// Allocate raw memory.
 			const integer units = newRealWidth * newRealHeight;
-			int8* newData = new int8[units * sizeof(Type)];
+			Type* newData = (Type*)allocateRaw(units * sizeof(Type));
 
 			try
 			{
 				// Construct the objects in the array.
-				std::uninitialized_fill_n((Type*)newData,
+				std::uninitialized_fill_n(newData,
 					units, defaultData);
 			}
 			catch(...)
 			{
-				delete[] newData;
+				deallocateRaw((void*)newData);
 				newData = 0;
 				throw;
 			}
 
 			// Commit
 
-			data_ = (Type*)newData;
+			data_ = newData;
 			realWidth_ = newRealWidth;
 			realHeight_ = newRealHeight;
 			width_ = width;

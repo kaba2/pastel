@@ -185,7 +185,7 @@ namespace Pastel
 		ASSERT2((block_.empty() && lastBlockSize_ == 0) ||
 			lastBlockSize_ == BlockSize, lastBlockSize_, BlockSize);
 
-		void* newBlock = ::operator new(sizeof(Type) * BlockSize);
+		void* newBlock = allocateRaw(sizeof(Type) * BlockSize);
 		Type* typedNewBlock = (Type*)newBlock;
 
 		try
@@ -194,7 +194,7 @@ namespace Pastel
 		}
 		catch(...)
 		{
-			::operator delete(newBlock);
+			deallocateRaw(newBlock);
 			throw;
 		}
 
@@ -208,7 +208,7 @@ namespace Pastel
 
 		Type* block = block_.back();
 
-		::operator delete((void*)block);
+		deallocateRaw((void*)block);
 
 		block_.pop_back();
 

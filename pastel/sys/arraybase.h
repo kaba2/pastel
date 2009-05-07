@@ -86,11 +86,11 @@ namespace Pastel
 			ConstCursor constCursor(const Point<N, integer>& position) const;
 
 		private:
-			void construct(
-				const Vector<N, integer>& extent,
-				const Type& defaultData);
-			void copy(const ArrayBase<N, Type, Derived>& that,
-				const Vector<N, integer>& extent,
+			void allocate(
+				const Vector<N, integer>& extent);
+			void deallocate();
+			void copyConstruct(
+				const ArrayBase<N, Type, Derived>& that,
 				const Type& defaultData);
 
 			Vector<N, integer> extent_;

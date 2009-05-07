@@ -133,7 +133,7 @@ namespace Pastel
 		// block.
 		Block block;
 
-		block.data_= new uint8[blockSize * unitSize_];
+		block.data_= (uint8*)allocateRaw(blockSize * unitSize_);
 		block.unitsAllocated_ = 0;
 		block.unitsReserved_ = blockSize;
 
@@ -143,7 +143,7 @@ namespace Pastel
 		}
 		catch(...)
 		{
-			delete[] block.data_;
+			deallocateRaw((void*)block.data_);
 			throw;
 		}
 
@@ -160,7 +160,7 @@ namespace Pastel
 		unitsReserved_ -= block->unitsReserved_;
 
 		// Delete block's raw memory.
-		delete[] block->data_;
+		deallocateRaw((void*)block->data_);
 	}
 
 }

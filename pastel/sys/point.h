@@ -64,13 +64,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit Point(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit Point(const Real& that)
 			: Base(that)
@@ -137,13 +135,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit Point(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		// Implicit conversion allowed
 		// only for 1d points.
@@ -216,13 +212,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit Point(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit Point(const Real& that)
 			: Base(that)
@@ -317,13 +311,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit Point(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit Point(const Real& that)
 			: Base(that)
@@ -429,13 +421,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit Point(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit Point(const Real& that)
 			: Base(that)
@@ -559,13 +549,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit Point(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		// This function has no meaning for an unbounded
 		// vector since it does not tell the number
@@ -588,11 +576,28 @@ namespace Pastel
 		{
 		}
 
+		Point(const TemporaryPoint<N, Real>& that)
+			: Base(that.asVector())
+		{
+		}
+
+		explicit Point(const TemporaryVector<N, Real>& that)
+			: Base(that)
+		{
+		}
+
 		template <typename ThatReal, typename Expression>
 		explicit Point(const VectorExpression
 			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
+		}
+
+		Point<N, Real>& operator=(const TemporaryPoint<N, Real>& that)
+		{
+			Point<N, Real> copy(that);
+			swap(copy);
+			return *this;
 		}
 	};
 
@@ -650,13 +655,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit TemporaryPoint(const Real& that)
 			: Base(that)
@@ -685,6 +688,26 @@ namespace Pastel
 		~TemporaryPoint()
 		{
 			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		}
+
+		TemporaryTuple<N, Real>& asTuple()
+		{
+			return Base::asTuple().asTemporary();
+		}
+
+		const TemporaryTuple<N, Real>& asTuple() const
+		{
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
+		}
+
+		TemporaryVector<N, Real>& asVector()
+		{
+			return Base::asVector().asTemporary();
+		}
+
+		const TemporaryVector<N, Real>& asVector() const
+		{
+			return ((Vector<N, Real>&)Base::asVector()).asTemporary();
 		}
 	};
 
@@ -720,13 +743,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit TemporaryPoint(const Real& that)
 			: Base(that)
@@ -749,6 +770,26 @@ namespace Pastel
 			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
+		}
+
+		TemporaryTuple<N, Real>& asTuple()
+		{
+			return Base::asTuple().asTemporary();
+		}
+
+		const TemporaryTuple<N, Real>& asTuple() const
+		{
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
+		}
+
+		TemporaryVector<N, Real>& asVector()
+		{
+			return Base::asVector().asTemporary();
+		}
+
+		const TemporaryVector<N, Real>& asVector() const
+		{
+			return ((Vector<N, Real>&)Base::asVector()).asTemporary();
 		}
 	};
 
@@ -784,13 +825,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit TemporaryPoint(const Real& that)
 			: Base(that)
@@ -819,6 +858,26 @@ namespace Pastel
 			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
+		}
+
+		TemporaryTuple<N, Real>& asTuple()
+		{
+			return Base::asTuple().asTemporary();
+		}
+
+		const TemporaryTuple<N, Real>& asTuple() const
+		{
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
+		}
+
+		TemporaryVector<N, Real>& asVector()
+		{
+			return Base::asVector().asTemporary();
+		}
+
+		const TemporaryVector<N, Real>& asVector() const
+		{
+			return ((Vector<N, Real>&)Base::asVector()).asTemporary();
 		}
 	};
 
@@ -854,13 +913,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit TemporaryPoint(const Real& that)
 			: Base(that)
@@ -889,6 +946,26 @@ namespace Pastel
 			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
+		}
+
+		TemporaryTuple<N, Real>& asTuple()
+		{
+			return Base::asTuple().asTemporary();
+		}
+
+		const TemporaryTuple<N, Real>& asTuple() const
+		{
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
+		}
+
+		TemporaryVector<N, Real>& asVector()
+		{
+			return Base::asVector().asTemporary();
+		}
+
+		const TemporaryVector<N, Real>& asVector() const
+		{
+			return ((Vector<N, Real>&)Base::asVector()).asTemporary();
 		}
 	};
 
@@ -924,13 +1001,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		explicit TemporaryPoint(const Real& that)
 			: Base(that)
@@ -960,6 +1035,26 @@ namespace Pastel
 			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
+		}
+
+		TemporaryTuple<N, Real>& asTuple()
+		{
+			return Base::asTuple().asTemporary();
+		}
+
+		const TemporaryTuple<N, Real>& asTuple() const
+		{
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
+		}
+
+		TemporaryVector<N, Real>& asVector()
+		{
+			return Base::asVector().asTemporary();
+		}
+
+		const TemporaryVector<N, Real>& asVector() const
+		{
+			return ((Vector<N, Real>&)Base::asVector()).asTemporary();
 		}
 	};
 
@@ -1000,13 +1095,11 @@ namespace Pastel
 		{
 		}
 
-		/*
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
-		*/
 
 		// This function has no meaning for an unbounded
 		// vector since it does not tell the number
@@ -1019,6 +1112,11 @@ namespace Pastel
 		*/
 
 		TemporaryPoint(const TemporaryPoint<N, Real>& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryPoint(const TemporaryVector<N, Real>& that)
 			: Base(that)
 		{
 		}
@@ -1040,6 +1138,33 @@ namespace Pastel
 		~TemporaryPoint()
 		{
 			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		}
+
+		TemporaryPoint<N, Real>& operator=(const TemporaryPoint<N, Real>& that)
+		{
+			TemporaryPoint<N, Real> copy(that);
+			swap(copy);
+			return *this;
+		}
+
+		TemporaryTuple<N, Real>& asTuple()
+		{
+			return Base::asTuple().asTemporary();
+		}
+
+		const TemporaryTuple<N, Real>& asTuple() const
+		{
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
+		}
+
+		TemporaryVector<N, Real>& asVector()
+		{
+			return Base::asVector().asTemporary();
+		}
+
+		const TemporaryVector<N, Real>& asVector() const
+		{
+			return ((Vector<N, Real>&)Base::asVector()).asTemporary();
 		}
 	};
 

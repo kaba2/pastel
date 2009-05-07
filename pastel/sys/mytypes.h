@@ -94,6 +94,9 @@ namespace Pastel
 	float mabs(float that);
 	double mabs(double that);
 
+	void deallocateRaw(void* data);
+	void* allocateRaw(integer size);
+
 }
 
 #include "pastel/sys/mytypes.hpp"

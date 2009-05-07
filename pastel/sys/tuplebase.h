@@ -4,6 +4,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
+#include "pastel/sys/destruct.h"
 
 #include <vector>
 
@@ -29,6 +30,9 @@ namespace Pastel
 		}
 
 	private:
+		// Prohibited.
+		Dimension();
+
 		integer dimension_;
 	};
 
@@ -51,11 +55,6 @@ namespace Pastel
 			: boost::equality_comparable<Tuple<N, Type> >
 		{
 		public:
-			// Using default constructor.
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
 			template <int N, typename Type>
 			friend class TupleBase;
 
@@ -92,7 +91,6 @@ namespace Pastel
 				set(that);
 			}
 
-			template <typename ThatType>
 			TupleBase(const TupleBase& that)
 				: data_()
 			{
@@ -100,7 +98,6 @@ namespace Pastel
 				{
 					data_[i] = that.data_[i];
 				}
-				++globalVariable(0);
 			}
 
 			template <typename ThatType>
@@ -111,8 +108,9 @@ namespace Pastel
 				{
 					data_[i] = that.data_[i];
 				}
-				++globalVariable(0);
 			}
+
+			// Using default operator=.
 
 			~TupleBase()
 			{
@@ -251,6 +249,11 @@ namespace Pastel
 				return true;
 			}
 
+			TemporaryTuple<N, Type>& asTemporary()
+			{
+				return (TemporaryTuple<N, Type>&)*this;
+			}
+
 		private:
 			Type data_[N];
 		};
@@ -260,22 +263,19 @@ namespace Pastel
 			: boost::equality_comparable<Tuple<Unbounded, Type> >
 		{
 		private:
-			typedef std::vector<Type> Container;
-
+			enum
+			{
+				N = Unbounded
+			};
 		public:
-			// Using default constructor.
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
 			template <int N, typename Type>
 			friend class TupleBase;
 
 			typedef Type value_type;
-			typedef typename Container::iterator iterator;
-			typedef typename Container::const_iterator const_iterator;
-			typedef typename Container::reverse_iterator reverse_iterator;
-			typedef typename Container::const_reverse_iterator const_reverse_iterator;
+			typedef Type* iterator;
+			typedef Type const* const_iterator;
+			typedef std::reverse_iterator<iterator> reverse_iterator;
+			typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 			typedef Type* pointer;
 			typedef const Type* const_pointer;
 			typedef Type& reference;
@@ -283,60 +283,142 @@ namespace Pastel
 			typedef integer difference_type;
 			typedef integer size_type;
 
-			TupleBase()
-				: data_()
-			{
-			}
-
-			explicit TupleBase(const Type& that)
-				: data_()
-			{
-				set(that);
-			}
-
 			explicit TupleBase(
 				const Dimension& dimension,
-				const Type& that)
-				: data_(dimension, that)
+				const Type& that = Type())
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
 			{
-			}
-
-			template <typename ThatType>
-			TupleBase(const TupleBase& that)
-				: data_(that.data_)
-			{
-				++globalVariable(0);
-			}
-
-			template <typename ThatType>
-			TupleBase(const TupleBase<Unbounded, ThatType>& that)
-				: data_()
-			{
-				const integer n = that.size();
-				data_.reserve(n);
-
-				for (integer i = 0;i < n;++i)
+				const integer size = dimension;
+				allocate(size);
+				
+				try
 				{
-					data_.push_back(that.data_[i]);
+					std::uninitialized_fill_n(data_, size, that);
 				}
-				++globalVariable(0);
+				catch(...)
+				{
+					deallocate();
+					throw;
+				};
 			}
 
-			TupleBase(const TemporaryTuple<Unbounded, Type>& that)
-				: data_()
+			TupleBase(
+				const TupleBase& that)
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
 			{
-				TemporaryTuple<Unbounded, Type>& moveThat = 
-					const_cast<TemporaryTuple<Unbounded, Type>&>(that);
-				data_.swap(moveThat.data_);
-				++globalVariable(0);
-				++globalVariable(1);
+				allocate(that.size());
+				
+				try
+				{
+					copyConstruct(that);
+				}
+				catch(...)
+				{
+					deallocate();
+					throw;
+				};
+			}
+
+			TupleBase(
+				const TupleBase& that,
+				const Dimension& dimension,
+				const Type& defaultData = Type())
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
+			{
+				const integer size = dimension;
+				allocate(size);
+				
+				try
+				{
+					copyConstruct(that, size, defaultData);
+				}
+				catch(...)
+				{
+					deallocate();
+					throw;
+				};
+			}
+
+			template <typename ThatType>
+			TupleBase(
+				const TupleBase<N, ThatType>& that)
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
+			{
+				allocate(that.size());
+				
+				try
+				{
+					copyConstruct(that);
+				}
+				catch(...)
+				{
+					deallocate();
+					throw;
+				};
+			}
+
+			template <typename ThatType>
+			TupleBase(
+				const TupleBase<N, ThatType>& that,
+				const Dimension& dimension,
+				const Type& defaultData = Type())
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
+			{
+				const integer size = dimension;
+				allocate(size);
+				
+				try
+				{
+					copyConstruct(that, size, defaultData);
+				}
+				catch(...)
+				{
+					deallocate();
+					throw;
+				};
+			}
+
+			TupleBase(const TemporaryTuple<N, Type>& that)
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
+			{
+				TemporaryTuple<N, Type>& moveThat =
+					const_cast<TemporaryTuple<N, Type>&>(that);
+
+				swap(moveThat);
+			}
+
+			TupleBase(
+				const Dimension& dimension,
+				Type* dataAlias)
+				: data_(dataAlias)
+				, size_(dimension)
+				, deleteData_(false)
+			{
 			}
 
 			~TupleBase()
 			{
+				if (deleteData_)
+				{
+					destruct(data_, data_ + size_);
+					deallocate();
+				}
+
 				enum
 				{
-					IsBase = boost::is_base_of<TupleBase, Tuple<Unbounded, Type> >::value
+					IsBase = boost::is_base_of<TupleBase, Tuple<N, Type> >::value
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
@@ -353,28 +435,15 @@ namespace Pastel
 			{
 				ENSURE1(size >= 0, size);
 
-				data_.resize(size, that);
-			}
-
-			void swap(Tuple<Unbounded, Type>& that)
-			{
-				data_.swap(that.data_);
-			}
-
-			Tuple<Unbounded, Type>& operator=(
-				const Tuple<Unbounded, Type>& that)
-			{
-				Tuple<Unbounded, Type> copy(that);
+				TupleBase copy(*this, size, that);
 				swap(copy);
-				return (Tuple<Unbounded, Type>&)*this;
 			}
 
-			Tuple<Unbounded, Type>& operator=(
-				const TemporaryTuple<Unbounded, Type>& that)
+			void swap(Tuple<N, Type>& that)
 			{
-				Tuple<Unbounded, Type> copy(that);
-				swap(copy);
-				return (Tuple<Unbounded, Type>&)*this;
+				std::swap(data_, that.data_);
+				std::swap(size_, that.size_);
+				std::swap(deleteData_, that.deleteData_);
 			}
 
 			void set(const Type& that)
@@ -389,62 +458,66 @@ namespace Pastel
 
 			Type& front()
 			{
-				return data_.front();
+				PENSURE(!empty());
+				return *data_;
 			}
 
 			const Type& front() const
 			{
-				return data_.front();
+				PENSURE(!empty());
+				return *data_;
 			}
 
 			Type& back()
 			{
-				return data_.back();
+				PENSURE(!empty());
+				return *(data_ + size_ - 1);
 			}
 
 			const Type& back() const
 			{
-				return data_.back();
+				PENSURE(!empty());
+				return *(data_ + size_ - 1);
 			}
 
 			iterator begin()
 			{
-				return data.begin();
+				return data_;
 			}
 
 			const_iterator begin() const
 			{
-				return data.begin();
+				return data_;
 			}
 
 			iterator end()
 			{
-				return data.end();
+				return data_ + size_;
 			}
 
 			const_iterator end() const
 			{
-				return data.end();
+				return data_ + size_;
 			}
 
 			size_type capacity() const
 			{
-				return data_.capacity();
+				return size_;
 			}
 
 			size_type size() const
 			{
-				return data_.size();
+				return size_;
 			}
 
 			size_type max_size() const
 			{
-				return data_.max_size();
+				return size_;
 			}
 
 			bool empty() const
 			{
-				return data_.empty();
+				return size_ == 0;
 			}
 
 			Type& at(integer index)
@@ -474,7 +547,7 @@ namespace Pastel
 				return data_[index];
 			}
 
-			bool operator==(const Tuple<Unbounded, Type> & that) const
+			bool operator==(const Tuple<N, Type> & that) const
 			{
 				PENSURE2(size() == that.size(), size(), that.size());
 
@@ -490,8 +563,106 @@ namespace Pastel
 				return true;
 			}
 
+			TemporaryTuple<N, Type>& asTemporary()
+			{
+				return (TemporaryTuple<N, Type>&)*this;
+			}
+
 		private:
-			Container data_;
+			// Prohibited
+			TupleBase<N, Type>& operator=(
+				const TupleBase& that);
+
+			void allocate(integer size)
+			{
+				PENSURE1(size >= 0, size);
+				ASSERT(data_ == 0);
+				ASSERT1(size_ == 0, size_);
+
+				data_ = (Type*)allocateRaw(sizeof(Type) * size);
+				size_ = size;
+			}
+
+			void deallocate()
+			{
+				if (data_)
+				{
+					deallocateRaw((void*)data_);
+				}
+				data_ = 0;
+				size_ = 0;
+			}
+
+			template <typename ThatType>
+			void copyConstruct(
+				const TupleBase<N, ThatType>& that)
+			{
+				const integer size = that.size();
+				ASSERT(size == size_);
+
+				try
+				{
+					std::uninitialized_copy(
+						that.data_, 
+						that.data_ + size, 
+						data_);
+				}
+				catch(...)
+				{
+					deallocate();
+					throw;
+				};
+			}
+
+			template <typename ThatType>
+			void copyConstruct(
+				const TupleBase<N, ThatType>& that,
+				const Dimension& dimension,
+				const Type& defaultData)
+			{
+				const integer size = dimension;
+
+				const integer minSize = std::min(
+					that.size(), size);
+				
+				integer rollBackIndex = 0;
+				try
+				{
+					std::uninitialized_copy(
+						that.data_, 
+						that.data_ + minSize, 
+						data_);
+					++rollBackIndex;
+
+					if (size > minSize)
+					{
+						std::uninitialized_fill_n(
+							data_ + minSize,
+							size - minSize,
+							defaultData);
+					}
+				}
+				catch(...)
+				{
+					switch(rollBackIndex)
+					{
+					case 1:
+						destruct(data_, data_ + minSize);
+						// Fall-through.
+					case 0:
+						deallocate();
+						break;
+					};
+					throw;
+				};
+			}
+
+			// Prohibited
+			TupleBase();
+
+			Type* data_;
+			integer size_;
+			bool deleteData_;
 		};
 
 	}

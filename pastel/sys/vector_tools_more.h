@@ -148,6 +148,8 @@ namespace Pastel
 		VectorAbs<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorAbs& StorageType;
+
 		explicit VectorAbs(
 			const Expression& data)
 			: data_(data)
@@ -168,10 +170,7 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -183,6 +182,8 @@ namespace Pastel
 		VectorExp<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorExp& StorageType;
+
 		explicit VectorExp(
 			const Expression& data)
 			: data_(data)
@@ -202,10 +203,7 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -217,6 +215,8 @@ namespace Pastel
 		VectorLog<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorLog& StorageType;
+
 		explicit VectorLog(
 			const Expression& data)
 			: data_(data)
@@ -236,10 +236,7 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -253,6 +250,8 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+		typedef const VectorPow& StorageType;
+
 		VectorPow(
 			const LeftExpression& left,
 			const RightExpression& right)
@@ -274,13 +273,8 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<LeftExpression>::
-			Result LeftType;
-		typedef typename StorageType<RightExpression>::
-			Result RightType;
-
-		LeftType left_;
-		RightType right_;
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
 	};
 
 	template <
@@ -292,6 +286,8 @@ namespace Pastel
 		VectorSqrt<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorSqrt& StorageType;
+
 		explicit VectorSqrt(
 			const Expression& data)
 			: data_(data)
@@ -310,10 +306,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -325,6 +318,8 @@ namespace Pastel
 		VectorFloor<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorFloor& StorageType;
+
 		explicit VectorFloor(
 			const Expression& data)
 			: data_(data)
@@ -343,10 +338,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -358,6 +350,8 @@ namespace Pastel
 		VectorCeil<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorCeil& StorageType;
+
 		explicit VectorCeil(
 			const Expression& data)
 			: data_(data)
@@ -376,10 +370,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -391,6 +382,8 @@ namespace Pastel
 		VectorSin<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorSin& StorageType;
+
 		explicit VectorSin(
 			const Expression& data)
 			: data_(data)
@@ -409,10 +402,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -424,6 +414,8 @@ namespace Pastel
 		VectorCos<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorCos& StorageType;
+
 		explicit VectorCos(
 			const Expression& data)
 			: data_(data)
@@ -442,10 +434,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -457,6 +446,8 @@ namespace Pastel
 		VectorTan<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorTan& StorageType;
+
 		explicit VectorTan(
 			const Expression& data)
 			: data_(data)
@@ -475,10 +466,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -490,6 +478,8 @@ namespace Pastel
 		VectorAsin<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorAsin& StorageType;
+
 		explicit VectorAsin(
 			const Expression& data)
 			: data_(data)
@@ -508,10 +498,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -523,6 +510,8 @@ namespace Pastel
 		VectorAcos<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorAcos& StorageType;
+
 		explicit VectorAcos(
 			const Expression& data)
 			: data_(data)
@@ -541,10 +530,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -558,6 +544,8 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+		typedef const VectorAtan2& StorageType;
+
 		VectorAtan2(
 			const LeftExpression& left,
 			const RightExpression& right)
@@ -578,13 +566,8 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<LeftExpression>::
-			Result LeftType;
-		typedef typename StorageType<RightExpression>::
-			Result RightType;
-
-		LeftType left_;
-		RightType right_;
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
 	};
 
 	template <
@@ -596,6 +579,8 @@ namespace Pastel
 		VectorInverse<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorInverse& StorageType;
+
 		explicit VectorInverse(
 			const Expression& data)
 			: data_(data)
@@ -614,10 +599,7 @@ namespace Pastel
 			return expression.size();
 		}
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	// Arithmetic functions

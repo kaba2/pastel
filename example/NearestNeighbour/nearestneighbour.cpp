@@ -97,7 +97,7 @@ void keyHandler(bool pressed, SDLKey key)
 			}
 			else
 			{
-				if (nearestPoints__ == -1)
+				if (nearestPoints__ > NearestPoints)
 				{
 					nearestPoints__ = NearestPoints;
 					log() << "Automatically set nearest point count to " << nearestPoints__ << logNewLine;
@@ -109,13 +109,13 @@ void keyHandler(bool pressed, SDLKey key)
 		}
 		if (key == SDLK_F6)
 		{
-			if (nearestPoints__ == -1)
+			if (nearestPoints__ > NearestPoints)
 			{
 				nearestPoints__ = NearestPoints;
 			}
 			else
 			{
-				nearestPoints__ = -1;
+				nearestPoints__ = Points - 1;
 				if (searchRadius__ == infinity<real>())
 				{
 					searchRadius__ = SearchRadius;

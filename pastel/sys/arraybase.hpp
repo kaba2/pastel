@@ -34,7 +34,18 @@ namespace Pastel
 			, size_(0)
 			, data_(0)
 		{
-			construct(extent, defaultData);
+			allocate(extent);
+
+			try
+			{
+				std::uninitialized_fill_n(data_,
+					size_, defaultData);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
 		template <int N, typename Type, typename Derived>
@@ -45,8 +56,18 @@ namespace Pastel
 			, size_(0)
 			, data_(0)
 		{
-			construct(that.extent_, Type());
-			copy(that, extent_, Type());
+			allocate(that.extent_);
+
+			try
+			{
+				std::uninitialized_copy(
+					that.data_, that.data_ + size_, data_);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
 		template <int N, typename Type, typename Derived>
@@ -59,8 +80,36 @@ namespace Pastel
 			, size_(0)
 			, data_(0)
 		{
-			construct(extent, defaultData);
-			copy(that, extent_, defaultData);
+			allocate(extent);
+
+			try
+			{
+				if (that.size() == 0)
+				{
+					// Nothing to copy, pure
+					// default initialization.
+					std::uninitialized_fill_n(data_,
+						size_, defaultData);
+				}
+				else if (extent_ == that.extent_)
+				{
+					// Nothing to default initialize,
+					// pure copy construction.
+					std::uninitialized_copy(
+						that.data_, that.data_ + size_, data_);
+				}
+				else
+				{
+					// Both copy construction and
+					// default initialization needed.
+					copyConstruct(that, defaultData);
+				}
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
 		}
 
 		template <int N, typename Type, typename Derived>
@@ -74,9 +123,8 @@ namespace Pastel
 		{
 			if (data_)
 			{
-				destruct(data_, data_ + product(extent_));
-				delete[] ((int8*)data_);
-				data_ = 0;
+				destruct(data_, data_ + size_);
+				deallocate();
 			}
 
 			extent_.set(0);
@@ -192,11 +240,22 @@ namespace Pastel
 		// Private
 
 		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::construct(
-			const Vector<N, integer>& extent,
-			const Type& defaultData)
+		void ArrayBase<N, Type, Derived>::allocate(
+			const Vector<N, integer>& extent)
 		{
-			// Allocate raw memory.
+			ASSERT(data_ == 0);
+			ASSERT(size_ == 0);
+
+			const integer units = product(extent);
+			if (units == 0)
+			{
+				return;
+			}
+
+			Type* newData = (Type*)allocateRaw(units * sizeof(Type));
+
+			// Compute steps between consecutive
+			// elements on each axis.
 
 			Vector<N, integer> newFactor;
 
@@ -207,95 +266,96 @@ namespace Pastel
 				newFactor[i] = newFactor[i - 1] * extent[i - 1];
 			}
 
-			const integer units = product(extent);
-			int8* newData = new int8[units * sizeof(Type)];
-
-			try
-			{
-				// Construct the objects in the array.
-				std::uninitialized_fill_n((Type*)newData,
-					units, defaultData);
-			}
-			catch(...)
-			{
-				delete[] newData;
-				newData = 0;
-				throw;
-			}
-
-			// Commit
-
 			factor_ = newFactor;
 			extent_ = extent;
-			size_ = product(extent);
-			data_ = (Type*)newData;
+			size_ = units;
+			data_ = newData;
 		}
 
 		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::copy(
+		void ArrayBase<N, Type, Derived>::deallocate()
+		{
+			deallocateRaw((void*)data_);
+			data_ = 0;
+			size_ = 0;
+			factor_.set(0);
+			extent_.set(0);
+		}
+
+		template <int N, typename Type, typename Derived>
+		void ArrayBase<N, Type, Derived>::copyConstruct(
 			const ArrayBase<N, Type, Derived>& that,
-			const Vector<N, integer>& extent,
 			const Type& defaultData)
 		{
-			for (integer i = 0;i < N;++i)
-			{
-				ASSERT2(0 <= extent[i] && extent[i] <= extent_[i], extent[i], extent_[i]);
-			}
-
-			const integer units = product(extent);
-
-			if (units == 0)
+			if (size_ == 0)
 			{
 				return;
 			}
 
-			const Vector<N, integer> minExtent = min(extent, that.extent_);
+			const Vector<N, integer> minExtent = min(extent_, that.extent_);
 
 			integer outOfCopyZone = 0;
 			integer traversed = 0;
 			Point<N, integer> position(0);
 
-			while(traversed < units)
+			try
 			{
-				if (outOfCopyZone == 0)
+				while(traversed < size_)
 				{
-					for (position[0] = 0;position[0] < minExtent[0];++position[0])
+					if (outOfCopyZone == 0)
 					{
-						(*this)(position) = that(position);
-					}
-					for (position[0] = minExtent[0];position[0] < extent[0];++position[0])
-					{
-						(*this)(position) = defaultData;
-					}
-				}
-				else
-				{
-					for (position[0] = 0;position[0] < extent[0];++position[0])
-					{
-						(*this)(position) = defaultData;
-					}
-				}
+						std::uninitialized_copy(
+							&that(position),
+							&that(position) + minExtent[0],
+							&(*this)(position));
+						
+						traversed += minExtent[0];
 
-				for (integer i = 1;i < N;++i)
-				{
-					++position[i];
-					if (position[i] == minExtent[i])
-					{
-						++outOfCopyZone;
-					}
-					if (position[i] == extent[i])
-					{
-						position[i] = 0;
-						--outOfCopyZone;
+						if (extent_[0] > minExtent[0])
+						{
+							std::uninitialized_fill_n(
+								&(*this)(position) + minExtent[0],
+								extent_[0] - minExtent[0],
+								defaultData);
+							
+							traversed -= minExtent[0];
+							traversed += extent_[0];
+						}
 					}
 					else
 					{
-						break;
+						std::uninitialized_fill_n(
+							&(*this)(position),
+							extent_[0],
+							defaultData);
+
+						traversed += extent_[0];
+					}
+
+					for (integer i = 1;i < N;++i)
+					{
+						++position[i];
+						if (position[i] == minExtent[i])
+						{
+							++outOfCopyZone;
+						}
+						if (position[i] == extent_[i])
+						{
+							position[i] = 0;
+							--outOfCopyZone;
+						}
+						else
+						{
+							break;
+						}
 					}
 				}
-
-				traversed += extent[0];
 			}
+			catch(...)
+			{
+				destruct(data_, data_ + traversed);
+				throw;
+			};
 		}
 
 		template <int N, typename Type, typename Derived>

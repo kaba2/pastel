@@ -37,6 +37,7 @@ namespace Pastel
 			friend class VectorBase;
 
 		public:
+			typedef const VectorBase& StorageType;
 			//using ExpressionBase::operator-;
 
 			VectorBase()
@@ -70,7 +71,7 @@ namespace Pastel
 
 			explicit VectorBase(
 				const TemporaryVector<N, Real>& that)
-				: data_(that.asTemporaryTuple())
+				: data_(that.asTuple())
 			{
 			}
 
