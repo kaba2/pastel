@@ -277,7 +277,8 @@ void redrawNearest()
 
 void redrawRange()
 {
-	if (searchRadius__ == infinity<real>())
+	if (searchRadius__ == infinity<real>() ||
+		!drawNearest__)
 	{
 		return;
 	}

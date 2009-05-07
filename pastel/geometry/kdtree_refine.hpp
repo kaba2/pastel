@@ -82,6 +82,89 @@ namespace Pastel
 		}
 	};
 
+	class SlidingMidpointRule2
+	{
+	public:
+		template <
+			int N, typename Real,
+			typename ObjectPolicy>
+			std::pair<Real, integer> operator()(
+			const AlignedBox<N, Real>& bound,
+			const ObjectPolicy& objectPolicy,
+			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
+			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
+		{
+			typedef typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
+				ConstObjectIterator;
+
+			// Find object spread.
+
+			const integer dimension = bound.dimension();
+
+			AlignedBox<N, Real> objectBound(dimension);
+
+			ConstObjectIterator iter = objectBegin;
+			ConstObjectIterator iterEnd = objectEnd;
+			while(iter != iterEnd)
+			{
+				objectBound = boundingAlignedBox(
+					objectBound,
+					objectPolicy.bound(*iter));
+
+				++iter;
+			}
+
+			// Find the longest dimension.
+
+			const Vector<N, Real> extent = bound.extent();
+
+			const integer maxExtentAxis = maxIndex(extent);
+			const Real maxExtent = extent[maxExtentAxis];
+
+			integer maxLegalSpreadAxis = 0;
+			Real maxLegalSpread = 0;
+
+			const Vector<N, Real> spread = objectBound.extent();
+
+			for (integer i = 0;i < dimension;++i)
+			{
+				if (extent[i] >= 0.8 * maxExtent)
+				{
+					if (spread[i] >= maxLegalSpread)
+					{
+						maxLegalSpreadAxis = i;
+						maxLegalSpread = spread[i];
+					}
+				}
+			}
+
+			const integer splitAxis = maxLegalSpreadAxis;
+
+			Real splitPosition = linear(bound.min()[splitAxis], 
+				bound.max()[splitAxis], 0.5);
+
+			if (splitPosition < objectBound.min()[splitAxis])
+			{
+				splitPosition = objectBound.min()[splitAxis];
+			}
+			if (splitPosition > objectBound.max()[splitAxis])
+			{
+				splitPosition = objectBound.max()[splitAxis];
+			}
+
+			if (splitPosition < bound.min()[splitAxis])
+			{
+				splitPosition = bound.min()[splitAxis];
+			}
+			if (splitPosition > bound.max()[splitAxis])
+			{
+				splitPosition = bound.max()[splitAxis];
+			}
+
+			return std::make_pair(splitPosition, splitAxis);
+		}
+	};
+
 	namespace Detail
 	{
 
