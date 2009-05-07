@@ -86,6 +86,12 @@ namespace Pastel
 				const Point<N, integer>& position,
 				typename Data::Data_& data) const
 			{
+				if (kdtree_.empty())
+				{
+					data = 0;
+					return;
+				}
+
 				typedef KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 					ConstIterator;
 
@@ -95,7 +101,7 @@ namespace Pastel
 					filter_.radius() * filterStretch_,
 					0,
 					InfinityNormBijection<N, Real>(),
-					-1,
+					kdtree_.objects() - 1,
 					pointSet);
 
 				const integer points = pointSet.size();

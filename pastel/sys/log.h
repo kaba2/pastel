@@ -54,8 +54,6 @@ namespace Pastel
 		log << "\n";
 	}
 
-	PASTELSYS integer& globalVariable(integer index);
-
 }
 
 #endif

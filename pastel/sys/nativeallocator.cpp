@@ -62,7 +62,7 @@ namespace Pastel
 
 	void* NativeAllocator::allocate()
 	{
-		void* memory = ::operator new(unitSize_);
+		void* memory = allocateRaw(unitSize_);
 
 		++unitsAllocated_;
 
@@ -76,7 +76,7 @@ namespace Pastel
 
 		ENSURE(memAddress);
 
-		::operator delete(memAddress);
+		deallocateRaw(memAddress);
 
 		--unitsAllocated_;
 	}

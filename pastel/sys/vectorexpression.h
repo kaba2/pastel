@@ -9,29 +9,6 @@ namespace Pastel
 	template <int N, typename Real>
 	class VectorBase;
 
-	template <typename Type>
-	class StorageType
-	{
-	public:
-		typedef const Type& Result;
-	};
-
-	/*
-	template <typename Type>
-	class StorageType
-	{
-	public:
-		typedef const Type Result;
-	};
-
-	template <int N, typename Real>
-	class StorageType<VectorBase<N, Real> >
-	{
-	public:
-		typedef const VectorBase<N, Real>& Result;
-	};
-	*/
-
 	template <
 		int N,
 		typename Real>
@@ -265,6 +242,8 @@ namespace Pastel
 		VectorConstant<N, Real> >
 	{
 	public:
+		typedef const VectorConstant StorageType;
+
 		VectorConstant(
 			const Real& that,
 			integer size)
@@ -298,6 +277,8 @@ namespace Pastel
 		VectorNegation<N, Real, Expression> >
 	{
 	public:
+		typedef const VectorNegation& StorageType;
+
 		explicit VectorNegation(
 			const Expression& data)
 			: data_(data)
@@ -318,10 +299,7 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<Expression>::
-			Result ExpressionType;
-
-		ExpressionType data_;
+		typename Expression::StorageType data_;
 	};
 
 	template <
@@ -335,6 +313,8 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+		typedef const VectorAddition& StorageType;
+
 		VectorAddition(
 			const LeftExpression& left,
 			const RightExpression& right)
@@ -358,13 +338,8 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<LeftExpression>::
-			Result LeftType;
-		typedef typename StorageType<RightExpression>::
-			Result RightType;
-
-		LeftType left_;
-		RightType right_;
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
 	};
 
 	template <
@@ -378,6 +353,8 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+		typedef const VectorSubtraction& StorageType;
+
 		VectorSubtraction(
 			const LeftExpression& left,
 			const RightExpression& right)
@@ -401,13 +378,8 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<LeftExpression>::
-			Result LeftType;
-		typedef typename StorageType<RightExpression>::
-			Result RightType;
-
-		LeftType left_;
-		RightType right_;
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
 	};
 
 	template <
@@ -421,6 +393,8 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+		typedef const VectorMultiplication& StorageType;
+
 		VectorMultiplication(
 			const LeftExpression& left,
 			const RightExpression& right)
@@ -444,13 +418,8 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<LeftExpression>::
-			Result LeftType;
-		typedef typename StorageType<RightExpression>::
-			Result RightType;
-
-		LeftType left_;
-		RightType right_;
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
 	};
 
 	template <
@@ -464,6 +433,8 @@ namespace Pastel
 		LeftExpression, RightExpression> >
 	{
 	public:
+		typedef const VectorDivision& StorageType;
+
 		VectorDivision(
 			const LeftExpression& left,
 			const RightExpression& right)
@@ -487,13 +458,8 @@ namespace Pastel
 		}
 
 	private:
-		typedef typename StorageType<LeftExpression>::
-			Result LeftType;
-		typedef typename StorageType<RightExpression>::
-			Result RightType;
-
-		LeftType left_;
-		RightType right_;
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
 	};
 
 }

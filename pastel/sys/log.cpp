@@ -7,13 +7,6 @@
 namespace Pastel
 {
 
-	PASTELSYS integer& globalVariable(integer index)
-	{
-		static std::vector<integer> data;
-		data.resize(index + 1, 0);
-		return data[index];
-	}
-
 	void Log::swap(Log& that)
 	{
 		observer_.swap(that.observer_);

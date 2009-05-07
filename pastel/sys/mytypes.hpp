@@ -31,6 +31,16 @@ namespace Pastel
 		return that;
 	}
 
+	inline void* allocateRaw(integer size)
+	{
+		return ::operator new(size);		
+	}
+
+	inline void deallocateRaw(void* data)
+	{
+		::operator delete(data);
+	}
+
 }
 
 #endif

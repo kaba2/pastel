@@ -60,7 +60,7 @@ namespace Pastel
 		while (iter != iterEnd)
 		{
 			Block* block = *iter;
-			::operator delete((uint8*)block);
+			deallocateRaw((void*)block);
 			++iter;
 		}
 
@@ -240,7 +240,7 @@ namespace Pastel
 		blockSize = std::max(blockSize, MinBlockSize);
 		blockSize = std::min(blockSize, MaxBlockSize);
 
-		Block* block = (Block*)::operator new(
+		Block* block = (Block*)allocateRaw(
 			sizeof(Block) + unitSize_ * blockSize);
 
 		block->firstFreeUnit_ = 0;
@@ -261,7 +261,7 @@ namespace Pastel
 		}
 		catch(...)
 		{
-			::operator delete((uint8*)block);
+			deallocateRaw((void*)block);
 			throw;
 		}
 
@@ -306,7 +306,7 @@ namespace Pastel
 			removeFreeBlock(block);
 		}
 
-		::operator delete((uint8*)block);
+		deallocateRaw((void*)block);
 
 		Iterator result = that;
 		++result;

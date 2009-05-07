@@ -12,6 +12,7 @@ namespace
 {
 
 	typedef Rational<NativeInteger<integer> > Real;
+	//typedef real Real;
 
 	template <int N, typename Type>
 	void someFunction(const Tuple<N, Type>& jorma)
@@ -661,11 +662,53 @@ namespace
 		Vector<N, Real> b = a.asVector();
 
 		Point<N, Real> e = a.asTemporary();
+		if (N == Unbounded)
+		{
+			REPORT1(a.size() != 0, a.size());
+			REPORT2(e.size() != size, e.size(), size);
+		}
 
-		Tuple<N, Real> c = b.asTuple();
+		Tuple<N, Real> c = b.asTuple().asTemporary();
+		if (N == Unbounded)
+		{
+			REPORT1(b.size() != 0, b.size());
+			REPORT2(c.size() != size, c.size(), size);
+		}
+
 		Tuple<N, Real> d = c;
-		d = c;
+		if (N == Unbounded)
+		{
+			REPORT2(d.size() != size, d.size(), size);
+			REPORT2(c.size() != size, c.size(), size);
+		}
 
+		d = c;
+		if (N == Unbounded)
+		{
+			REPORT2(d.size() != size, d.size(), size);
+			REPORT2(c.size() != size, c.size(), size);
+		}
+
+		TemporaryTuple<N, Real> f = d.asTemporary();
+		if (N == Unbounded)
+		{
+			REPORT2(f.size() != size, f.size(), size);
+			REPORT1(d.size() != 0, d.size());
+		}
+
+		Tuple<N, Real> g(ofDimension(size));
+		Vector<N, Real> j(g);
+		Point<N, Real> h(g);
+		Point<N, Real> k(j);
+
+		j.asTuple();
+		j.asTemporary().asTuple();
+
+		h.asTuple();
+		h.asTemporary().asTuple();
+
+		h.asVector();
+		h.asTemporary().asVector();
 	}
 
 	void testBegin()

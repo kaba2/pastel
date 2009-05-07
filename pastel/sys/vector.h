@@ -106,7 +106,12 @@ namespace Pastel
 		: public Detail::VectorBase<1, Real>
 	{
 	private:
-		typedef Detail::VectorBase<1, Real> Base;
+		enum
+		{
+			N = 1
+		};
+
+		typedef Detail::VectorBase<N, Real> Base;
 
 	public:
 		// Using default copy constructor
@@ -127,30 +132,30 @@ namespace Pastel
 		{
 		}
 
-		Vector(const TemporaryVector<1, Real>& that)
+		Vector(const TemporaryVector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		explicit Vector(const Tuple<1, ThatReal>& that)
+		explicit Vector(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
 
-		Vector(const Vector<1, Real>& that)
+		Vector(const Vector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		Vector(const Vector<1, ThatReal>& that)
+		Vector(const Vector<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
 
 		// Implicit conversion allowed
-		// only for 1d version.
+		// only for Nd version.
 		Vector(const Real& x)
 			: Base(x)
 		{
@@ -159,7 +164,7 @@ namespace Pastel
 		template <typename ThatReal, typename Expression>
 		Vector(
 			const VectorExpression
-			<1, ThatReal, Expression>& that)
+			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -182,7 +187,12 @@ namespace Pastel
 		: public Detail::VectorBase<2, Real>
 	{
 	private:
-		typedef Detail::VectorBase<2, Real> Base;
+		enum
+		{
+			N = 2
+		};
+
+		typedef Detail::VectorBase<N, Real> Base;
 
 	public:
 		// Using default copy constructor
@@ -204,24 +214,24 @@ namespace Pastel
 		{
 		}
 
-		Vector(const TemporaryVector<2, Real>& that)
+		Vector(const TemporaryVector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		explicit Vector(const Tuple<2, ThatReal>& that)
+		explicit Vector(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
 
-		Vector(const Vector<2, Real>& that)
+		Vector(const Vector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		Vector(const Vector<2, ThatReal>& that)
+		Vector(const Vector<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
@@ -240,7 +250,7 @@ namespace Pastel
 		template <typename ThatReal, typename Expression>
 		Vector(
 			const VectorExpression
-			<2, ThatReal, Expression>& that)
+			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -280,7 +290,12 @@ namespace Pastel
 		: public Detail::VectorBase<3, Real>
 	{
 	private:
-		typedef Detail::VectorBase<3, Real> Base;
+		enum
+		{
+			N = 3
+		};
+
+		typedef Detail::VectorBase<N, Real> Base;
 
 	public:
 		// Using default copy constructor
@@ -302,24 +317,24 @@ namespace Pastel
 		{
 		}
 
-		Vector(const TemporaryVector<3, Real>& that)
+		Vector(const TemporaryVector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		explicit Vector(const Tuple<3, ThatReal>& that)
+		explicit Vector(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
 
-		Vector(const Vector<3, Real>& that)
+		Vector(const Vector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		Vector(const Vector<3, ThatReal>& that)
+		Vector(const Vector<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
@@ -339,7 +354,7 @@ namespace Pastel
 		template <typename ThatReal, typename Expression>
 		Vector(
 			const VectorExpression
-			<3, ThatReal, Expression>& that)
+			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -390,7 +405,12 @@ namespace Pastel
 		: public Detail::VectorBase<4, Real>
 	{
 	private:
-		typedef Detail::VectorBase<4, Real> Base;
+		enum
+		{
+			N = 4
+		};
+
+		typedef Detail::VectorBase<N, Real> Base;
 
 	public:
 		// Using default copy constructor
@@ -412,24 +432,24 @@ namespace Pastel
 		{
 		}
 
-		Vector(const TemporaryVector<4, Real>& that)
+		Vector(const TemporaryVector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		explicit Vector(const Tuple<4, ThatReal>& that)
+		explicit Vector(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
 
-		Vector(const Vector<4, Real>& that)
+		Vector(const Vector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		Vector(const Vector<4, ThatReal>& that)
+		Vector(const Vector<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
@@ -449,7 +469,7 @@ namespace Pastel
 		template <typename ThatReal, typename Expression>
 		Vector(
 			const VectorExpression
-			<4, ThatReal, Expression>& that)
+			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -512,7 +532,12 @@ namespace Pastel
 		: public Detail::VectorBase<Unbounded, Real>
 	{
 	private:
-		typedef Detail::VectorBase<Unbounded, Real> Base;
+		enum
+		{
+			N = Unbounded
+		};
+
+		typedef Detail::VectorBase<N, Real> Base;
 		using Base::data_;
 
 	public:
@@ -539,24 +564,24 @@ namespace Pastel
 		{
 		}
 
-		Vector(const TemporaryVector<Unbounded, Real>& that)
+		Vector(const TemporaryVector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		explicit Vector(const Tuple<Unbounded, ThatReal>& that)
+		explicit Vector(const Tuple<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
 
-		Vector(const Vector<Unbounded, Real>& that)
+		Vector(const Vector<N, Real>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename ThatReal>
-		Vector(const Vector<Unbounded, ThatReal>& that)
+		Vector(const Vector<N, ThatReal>& that)
 			: Base(that)
 		{
 		}
@@ -575,7 +600,7 @@ namespace Pastel
 		template <typename ThatReal, typename Expression>
 		Vector(
 			const VectorExpression
-			<Unbounded, ThatReal, Expression>& that)
+			<N, ThatReal, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -669,14 +694,14 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Real>& asTemporaryTuple()
+		TemporaryTuple<N, Real>& asTuple()
 		{
-			return asTuple().asTemporary();
+			return Base::asTuple().asTemporary();
 		}
 
-		const TemporaryTuple<N, Real>& asTemporaryTuple() const
+		const TemporaryTuple<N, Real>& asTuple() const
 		{
-			return (const TemporaryTuple<N, Real>&)asTuple();
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
 		}
 	};
 
@@ -743,14 +768,14 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Real>& asTemporaryTuple()
+		TemporaryTuple<N, Real>& asTuple()
 		{
-			return asTuple().asTemporary();
+			return Base::asTuple().asTemporary();
 		}
 
-		const TemporaryTuple<N, Real>& asTemporaryTuple() const
+		const TemporaryTuple<N, Real>& asTuple() const
 		{
-			return (const TemporaryTuple<N, Real>&)asTuple();
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
 		}
 	};
 
@@ -823,14 +848,14 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Real>& asTemporaryTuple()
+		TemporaryTuple<N, Real>& asTuple()
 		{
-			return asTuple().asTemporary();
+			return Base::asTuple().asTemporary();
 		}
 
-		const TemporaryTuple<N, Real>& asTemporaryTuple() const
+		const TemporaryTuple<N, Real>& asTuple() const
 		{
-			return (const TemporaryTuple<N, Real>&)asTuple();
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
 		}
 	};
 
@@ -904,14 +929,14 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Real>& asTemporaryTuple()
+		TemporaryTuple<N, Real>& asTuple()
 		{
-			return asTuple().asTemporary();
+			return Base::asTuple().asTemporary();
 		}
 
-		const TemporaryTuple<N, Real>& asTemporaryTuple() const
+		const TemporaryTuple<N, Real>& asTuple() const
 		{
-			return (const TemporaryTuple<N, Real>&)asTuple();
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
 		}
 	};
 
@@ -985,14 +1010,14 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Real>& asTemporaryTuple()
+		TemporaryTuple<N, Real>& asTuple()
 		{
-			return asTuple().asTemporary();
+			return Base::asTuple().asTemporary();
 		}
 
-		const TemporaryTuple<N, Real>& asTemporaryTuple() const
+		const TemporaryTuple<N, Real>& asTuple() const
 		{
-			return (const TemporaryTuple<N, Real>&)asTuple();
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
 		}
 	};
 
@@ -1071,14 +1096,14 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Real>& asTemporaryTuple()
+		TemporaryTuple<N, Real>& asTuple()
 		{
-			return asTuple().asTemporary();
+			return Base::asTuple().asTemporary();
 		}
 
-		const TemporaryTuple<N, Real>& asTemporaryTuple() const
+		const TemporaryTuple<N, Real>& asTuple() const
 		{
-			return (const TemporaryTuple<N, Real>&)asTuple();
+			return ((Tuple<N, Real>&)Base::asTuple()).asTemporary();
 		}
 	};
 
