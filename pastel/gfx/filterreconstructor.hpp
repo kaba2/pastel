@@ -3,8 +3,8 @@
 
 #include "pastel/gfx/filterreconstructor.h"
 
-#include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/kdTree.h"
+#include "pastel/geometry/kdTree_tools.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/view_visit.h"
@@ -70,10 +70,10 @@ namespace Pastel
 		{
 		public:
 			explicit ReconstructFunctor(
-				const KdTree<N, Real, ObjectPolicy>& kdtree,
+				const KdTree<N, Real, ObjectPolicy>& kdTree,
 				const Filter& filter,
 				const Real& filterStretch)
-				: kdtree_(kdtree)
+				: kdTree_(kdTree)
 				, filter_(filter)
 				, filterStretch_(filterStretch)
 				, invFilterStretch_(inverse(filterStretch))
@@ -86,7 +86,7 @@ namespace Pastel
 				const Point<N, integer>& position,
 				typename Data::Data_& data) const
 			{
-				if (kdtree_.empty())
+				if (kdTree_.empty())
 				{
 					data = 0;
 					return;
@@ -95,32 +95,32 @@ namespace Pastel
 				typedef KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 					ConstIterator;
 
-				SmallSet<KeyValue<real, ConstIterator> > pointSet;
+				std::vector<ConstIterator> nearestSet;
 
-				searchNearest(kdtree_, Point<N, real>(position) + 0.5,
+				searchNearest(kdTree_, Point<N, real>(position) + 0.5,
 					filter_.radius() * filterStretch_,
 					0,
 					InfinityNormBijection<N, Real>(),
-					kdtree_.objects() - 1,
-					pointSet);
+					kdTree_.objects() - 1,
+					&nearestSet);
 
-				const integer points = pointSet.size();
+				const integer points = nearestSet.size();
 
 				real weightSum = 0;
 				typename Data::Data_ valueSum(0);
 
 				for (integer i = 0;i < points;++i)
 				{
-					//const real weight = filter_.evaluate(pointSet[i].key() * invFilterStretch_);
+					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
 
-					const Vector<N, real> delta = pointSet[i].value()->position_ - (Point<N, real>(position) + 0.5);
+					const Vector<N, real> delta = nearestSet[i]->position_ - (Point<N, real>(position) + 0.5);
 					real weight = 1;
 					for (integer k = 0;k < N;++k)
 					{
 						weight *= filter_.evaluate(delta[k] * invFilterStretch_);
 					}
 
-					valueSum += pointSet[i].value()->data_ * weight;
+					valueSum += nearestSet[i]->data_ * weight;
 					weightSum += weight;
 				}
 
@@ -133,7 +133,7 @@ namespace Pastel
 			}
 
 		private:
-			const KdTree<N, Real, ObjectPolicy>& kdtree_;
+			const KdTree<N, Real, ObjectPolicy>& kdTree_;
 			const Filter& filter_;
 			const Real& filterStretch_;
 			const Real invFilterStretch_;
@@ -159,7 +159,7 @@ namespace Pastel
 		typedef Detail_FilterReconstructor::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
-		KdTree<N, Real, DataPolicy> kdtree(N, dataPolicy);
+		KdTree<N, Real, DataPolicy> kdTree(N, dataPolicy);
 
 		const Vector<N, Real> scaling = inverse(region.extent()) * Vector<N, Real>(view.extent());
 
@@ -173,13 +173,13 @@ namespace Pastel
 			}
 		}
 
-		kdtree.insert(dataPointList.begin(), dataPointList.end());
+		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
-		kdtree.refine(
-			computeKdTreeMaxDepth(kdtree.objects()), 4, SlidingMidpointRule());
+		kdTree.refine(
+			computeKdTreeMaxDepth(kdTree.objects()), 4, SlidingMidpointRule());
 
 		Detail_FilterReconstructor::ReconstructFunctor<N, Real, DataPolicy, Filter>
-			reconstructFunctor(kdtree, filter, filterStretch);
+			reconstructFunctor(kdTree, filter, filterStretch);
 
 		visitPosition(
 			view, reconstructFunctor);

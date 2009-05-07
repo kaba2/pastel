@@ -23,6 +23,8 @@
 
 #include "pastel/geometry/overlaps_segments.h"
 
+#include <vector>
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -53,7 +55,7 @@ typedef KdTree<2, real> MyTree;
 
 MyTree tree__;
 
-typedef SmallSet<KeyValue<real, MyTree::ConstObjectIterator> > NearestPointSet;
+typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
 std::vector<MyTree::ConstObjectIterator> rangePointSet__;
 
 NearestPointSet nearestPointSet__;
@@ -255,8 +257,8 @@ void redrawNearest()
 			const real alpha = (real)i / points;
 			Color color = aColor * (1 - alpha) + bColor * alpha;
 
-			MyTree::ConstObjectIterator dataIter(
-				nearestPointSet__[i].value());
+			MyTree::ConstObjectIterator dataIter = 
+				nearestPointSet__[i];
 			renderer__->setColor(color);
 			renderer__->setFilled(false);
 			//drawCircle(renderer__, Sphere2(dataIter->key(), 0.01), 20);
@@ -425,7 +427,7 @@ void logicHandler()
 	}
 
 	searchNearest(tree__, worldMouse, searchRadius__ * searchRadius__, 0,
-		EuclideanNormBijection<2, real>(), nearestPoints__, nearestPointSet__);
+		EuclideanNormBijection<2, real>(), nearestPoints__, &nearestPointSet__, 0);
 	if (searchRadius__ != infinity<real>())
 	{
 		searchRange(tree__, 
@@ -530,7 +532,7 @@ void timing()
 			infinity<real>(),
 			0,
 			EuclideanNormBijection<2, real>(),
-			NearestPoints, nearestPointSet__);
+			NearestPoints, &nearestPointSet__);
 		++iter;
 	}
 

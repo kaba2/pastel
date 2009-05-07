@@ -203,7 +203,7 @@ namespace Pastel
 						// Note: we search for k + 1 points because
 						// the pivot point will be part of the result.
 
-						SmallSet<KeyValue<Real, SceneIterator> > sceneSet;
+						std::vector<SceneIterator> sceneSet;
 						searchNearest(
 							sceneTree_,
 							scenePoint,
@@ -211,9 +211,9 @@ namespace Pastel
 							0,
 							EuclideanNormBijection<2, Real>(),
 							kPoints_ + 1,
-							sceneSet);
+							&sceneSet);
 
-						SmallSet<KeyValue<Real, ModelIterator> > modelSet;
+						std::vector<ModelIterator> modelSet;
 						searchNearest(
 							modelTree_,
 							modelPoint,
@@ -221,7 +221,7 @@ namespace Pastel
 							0,
 							EuclideanNormBijection<2, Real>(),
 							kPoints_ + 1,
-							modelSet);
+							&modelSet);
 
 						// Try to match the nearest neighbours.
 						// If they match, then try to improve the
@@ -281,8 +281,8 @@ namespace Pastel
 			}
 
 			bool matchLocal(
-				const SmallSet<KeyValue<Real, ModelIterator> >& modelSet,
-				const SmallSet<KeyValue<Real, SceneIterator> >& sceneSet,
+				const std::vector<ModelIterator>& modelSet,
+				const std::vector<SceneIterator>& sceneSet,
 				Tuple<4, Real>& resultSimilarity) const
 			{
 				ASSERT2(modelSet.size() == sceneSet.size(),
@@ -294,9 +294,9 @@ namespace Pastel
 				// neighbour, one uses modelSet[k] and sceneSet[k].
 
 				const Point<2, Real> modelPoint =
-					modelPosition(modelSet[0].value());
+					modelPosition(modelSet[0]);
 				const Point<2, Real> scenePoint =
-					scenePosition(sceneSet[0].value());
+					scenePosition(sceneSet[0]);
 
 				for (integer i = kPoints_ - k2Points_ + 1;i < kPoints_ + 1;++i)
 				{
@@ -304,8 +304,8 @@ namespace Pastel
 					{
 						const Tuple<4, Real> similarityParameters =
 							similarityTransformation(
-							modelPoint, modelPosition(modelSet[i - k3Points_ / 2].value()),
-							scenePoint, scenePosition(sceneSet[i - j].value()));
+							modelPoint, modelPosition(modelSet[i - k3Points_ / 2]),
+							scenePoint, scenePosition(sceneSet[i - j]));
 
 						const AffineTransformation<2, Real> similarity =
 							similarityTransformation(similarityParameters);
@@ -321,7 +321,7 @@ namespace Pastel
 						for (integer m = 1;m < kPoints_ + 1;++m)
 						{
 							const Point<2, Real> transformedModelPoint =
-								modelPosition(modelSet[m].value()) * similarity;
+								modelPosition(modelSet[m]) * similarity;
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
 								searchNearest(sceneTree_, transformedModelPoint);
@@ -333,7 +333,7 @@ namespace Pastel
 							// 2 * matchingThreshold.
 							if (closestScenePoint.key() <= 2 * matchingThreshold_)
 							{
-								modelMatch.push_back(modelPosition(modelSet[m].value()));
+								modelMatch.push_back(modelPosition(modelSet[m]));
 								sceneMatch.push_back(scenePosition(closestScenePoint.value()));
 							}
 						}

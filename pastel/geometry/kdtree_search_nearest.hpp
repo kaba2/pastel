@@ -4,9 +4,10 @@
 #include "pastel/geometry/kdtree_search_nearest.h"
 #include "pastel/geometry/closest_alignedbox_point.h"
 
-#include "pastel/sys/smallset.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/smallfixedset.h"
 
+#include <set>
 #include <vector>
 
 namespace Pastel
@@ -57,16 +58,16 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		integer kNearest,
-		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result)
+		PASTEL_NO_DEDUCTION((std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>))* nearestSet,
+		PASTEL_NO_DEDUCTION(std::vector<Real>)* distanceSet)
 	{
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
 		ENSURE1(kNearest >= 0, kNearest);
 		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
 
-		result.clear();
-
-		if (kdTree.empty() || kNearest == 0)
+		if (kdTree.empty() || kNearest == 0 ||
+			(!nearestSet && !distanceSet))
 		{
 			return;
 		}
@@ -76,15 +77,20 @@ namespace Pastel
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
-		typedef SmallSet<KeyVal> ResultContainer;
+		//typedef std::set<KeyVal> CandidateSet;
+		typedef SmallFixedSet<KeyVal> CandidateSet;
+		typedef typename CandidateSet::iterator CandidateIterator;
 		typedef Detail_SearchNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
 
+		CandidateSet candidateSet(kNearest);
+		//CandidateSet candidateSet;
+
 		const Real errorScaling = 
-			normBijection.scalingFactor(1 + maxRelativeError);
+			normBijection.toBijection(1 + maxRelativeError);
 
 		std::vector<NodeEntry> nodeStack;
 		nodeStack.push_back(NodeEntry(kdTree.root(), 
-			normBijection(closest(kdTree.bound(), searchPoint) - searchPoint)));
+			normBijection.compute(closest(kdTree.bound(), searchPoint) - searchPoint)));
 
 		Real cullDistance = maxDistance;
 
@@ -135,7 +141,7 @@ namespace Pastel
 				// of the search point to the splitting plane.
 
 				const Real planeDistance =
-					normBijection(splitAxis,
+					normBijection.computeAxis(splitAxis,
 					searchPosition - splitPosition);
 
 				if (planeDistance * errorScaling <= cullDistance)
@@ -147,16 +153,18 @@ namespace Pastel
 					if (searchPosition < cursor.min())
 					{
 						oldAxisDistance = 
-							normBijection(splitAxis, cursor.min() - searchPosition);
+							normBijection.computeAxis(
+							splitAxis, cursor.min() - searchPosition);
 					}
 					else if (searchPosition > cursor.max())
 					{
 						oldAxisDistance = 
-							normBijection(splitAxis, searchPosition - cursor.max());
+							normBijection.computeAxis(
+							splitAxis, searchPosition - cursor.max());
 					}
 
 					const Real childDistance = 
-						normBijection.replaceAxisDistance(
+						normBijection.replaceAxis(
 						nodeEntry.distance_, oldAxisDistance,
 						planeDistance);
 					
@@ -181,7 +189,8 @@ namespace Pastel
 			while(iter != iterEnd)
 			{
 				const Real currentDistance =
-					normBijection(kdTree.objectPolicy().point(*iter) - searchPoint,
+					normBijection.compute(
+					kdTree.objectPolicy().point(*iter) - searchPoint,
 					cullDistance);
 
 				// It is essential that this is <= rather
@@ -189,27 +198,83 @@ namespace Pastel
 				// of multiple points at same location.
 				if (currentDistance <= cullDistance)
 				{
-					result.insert(
+					candidateSet.insert(
 						KeyVal(currentDistance, iter));
 
-					if (result.size() > kNearest)
+					if (candidateSet.full())
 					{
-						result.pop_back();
+						cullDistance = candidateSet.back().key();
+					}
+					/*
+					if (candidateSet.size() > kNearest)
+					{
+						{
+							CandidateIterator lastIter = candidateSet.end();
+							--lastIter;
+							candidateSet.erase(lastIter);
+						}
 
 						// Since we now know k neighboring points,
 						// we can bound the search radius
 						// by the distance to the currently farthest
 						// neighbor.
 
-						cullDistance = result.back().key();
+						{
+							CandidateIterator lastIter = candidateSet.end();
+							--lastIter;
+							cullDistance = lastIter->key();
+						}
 					}
+					*/
 				}
 
 				++iter;
 			}
 		}
+
+		const integer foundNearest = candidateSet.size();
+
+		// We allocate the memory in advance
+		// to guarantee strong exception safety.
+
+		std::vector<ConstObjectIterator> resultNearestSet;
+		if (nearestSet)
+		{
+			resultNearestSet.reserve(foundNearest);
+		}
+
+		std::vector<Real> resultDistanceSet;
+		if (distanceSet)
+		{
+			resultDistanceSet.reserve(foundNearest);
+		}
+
+		if (nearestSet)
+		{
+			CandidateIterator iter = candidateSet.begin();
+			const CandidateIterator iterEnd = candidateSet.end();
+			while(iter != iterEnd)
+			{
+				resultNearestSet.push_back(iter->value());
+				++iter;
+			}
+			resultNearestSet.swap(*nearestSet);
+		}
+
+		if (distanceSet)
+		{
+			CandidateIterator iter = candidateSet.begin();
+			const CandidateIterator iterEnd = candidateSet.end();
+			while(iter != iterEnd)
+			{
+				resultDistanceSet.push_back(iter->key());
+				++iter;
+			}
+			resultDistanceSet.swap(*distanceSet);
+		}
 	}
 
+	/*
 	// Best-first search.
 	// All non-leaf nodes to priority queue.
 
@@ -295,7 +360,7 @@ namespace Pastel
 		
 		for (integer i = 0;i < dimension;++i)
 		{
-			boundTranslation[i] = normBijection(i, boundTranslation[i]);
+			boundTranslation[i] = normBijection.computeAxis(i, boundTranslation[i]);
 		}
 		
 		Stack nodeStack;
@@ -323,7 +388,7 @@ namespace Pastel
 			if (!cursor.leaf())
 			{
 				const Real planeDistance =
-					normBijection(cursor.splitAxis(),
+					normBijection.computeAxis(cursor.splitAxis(),
 					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
 
 				Cursor nearBranch;
@@ -368,7 +433,8 @@ namespace Pastel
 				while(iter != iterEnd)
 				{
 					const Real currentDistance =
-						normBijection(kdTree.objectPolicy().point(*iter) - searchPoint);
+						normBijection.compute(
+						kdTree.objectPolicy().point(*iter) - searchPoint);
 
 					// It is essential that this is <= rather
 					// than <, because of the possibility
@@ -445,7 +511,7 @@ namespace Pastel
 		
 		for (integer i = 0;i < dimension;++i)
 		{
-			boundTranslation[i] = normBijection(i, boundTranslation[i]);
+			boundTranslation[i] = normBijection.computeAxis(i, boundTranslation[i]);
 		}
 		
 		Stack nodeStack;
@@ -473,7 +539,7 @@ namespace Pastel
 			while(!cursor.leaf())
 			{
 				const Real planeDistance =
-					normBijection(cursor.splitAxis(),
+					normBijection.computeAxis(cursor.splitAxis(),
 					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
 
 				Cursor nearBranch;
@@ -514,7 +580,8 @@ namespace Pastel
 			while(iter != iterEnd)
 			{
 				const Real currentDistance =
-					normBijection(kdTree.objectPolicy().point(*iter) - searchPoint);
+					normBijection.compute(
+					kdTree.objectPolicy().point(*iter) - searchPoint);
 
 				// It is essential that this is <= rather
 				// than <, because of the possibility
@@ -604,7 +671,7 @@ namespace Pastel
 			while(!cursor.leaf())
 			{
 				const Real planeDistance =
-					normBijection(cursor.splitAxis(),
+					normBijection.computeAxis(cursor.splitAxis(),
 					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
 
 				Cursor nearBranch;
@@ -641,7 +708,8 @@ namespace Pastel
 			while(iter != iterEnd)
 			{
 				const Real currentDistance =
-					normBijection(kdTree.objectPolicy().point(*iter) - searchPoint);
+					normBijection.compute(
+					kdTree.objectPolicy().point(*iter) - searchPoint);
 
 				// It is essential that this is <= rather
 				// than <, because of the possibility
@@ -668,9 +736,10 @@ namespace Pastel
 			}
 		}
 	}
+	*/
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> 
 		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
@@ -681,21 +750,27 @@ namespace Pastel
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
 
-		typedef KdTree<N, Real, ObjectPolicy> Tree;
-		typedef typename Tree::Cursor Cursor;
-		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
-		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
-
-		SmallSet<KeyVal> result;
-		searchNearest(kdTree, point, maxDistance, maxRelativeError,
-			normBijection, 1, result);
-
-		if (result.empty())
+		if (kdTree.empty())
 		{
 			return keyValue(infinity<Real>(), kdTree.end());
 		}
 
-		return keyValue(result.front().key(), result.front().value());
+		typedef KdTree<N, Real, ObjectPolicy> Tree;
+		typedef typename Tree::Cursor Cursor;
+		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+
+		std::vector<Real> distanceSet;
+		std::vector<ConstObjectIterator> nearestSet;
+
+		searchNearest(kdTree, point, maxDistance, maxRelativeError,
+			normBijection, 1, &nearestSet, &distanceSet);
+
+		if (nearestSet.empty())
+		{
+			return keyValue(infinity<Real>(), kdTree.end());
+		}
+
+		return keyValue(distanceSet.front(), nearestSet.front());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
