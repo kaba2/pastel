@@ -26,14 +26,24 @@ namespace Pastel
 	class EuclideanNormBijection
 	{
 	public:
+		Real toNorm(const Real& normBijection) const
+		{
+			return std::sqrt(normBijection);
+		}
+
+		Real toBijection(const Real& norm) const
+		{
+			return square(norm);
+		}
+
 		template <typename Expression>
-		Real operator()(const VectorExpression<N, Real, Expression>& that) const
+		Real compute(const VectorExpression<N, Real, Expression>& that) const
 		{
 			return dot(that);
 		}
 
 		template <typename Expression>
-		Real operator()(const VectorExpression<N, Real, Expression>& that,
+		Real compute(const VectorExpression<N, Real, Expression>& that,
 			const PASTEL_NO_DEDUCTION(Real)& threshold) const
 		{
 			const integer dimension = that.size();
@@ -51,23 +61,17 @@ namespace Pastel
 			return result;
 		}
 
-		Real operator()(integer axis, const Real& that) const
+		Real computeAxis(integer axis, const Real& that) const
 		{
 			return square(that);
 		}
 
-		Real replaceAxisDistance(
+		Real replaceAxis(
 			const Real& distance, 
 			const Real& currentAxisDistance,
 			const Real& newAxisDistance) const
 		{
 			return (distance - currentAxisDistance) + newAxisDistance;
-		}
-
-		Real scalingFactor(
-			const Real& factor) const
-		{
-			return square(factor);
 		}
 	};
 
@@ -75,14 +79,24 @@ namespace Pastel
 	class InfinityNormBijection
 	{
 	public:
+		Real toNorm(const Real& normBijection) const
+		{
+			return normBijection;
+		}
+
+		Real toBijection(const Real& norm) const
+		{
+			return norm;
+		}
+
 		template <typename Expression>
-		Real operator()(const VectorExpression<N, Real, Expression>& that) const
+		Real compute(const VectorExpression<N, Real, Expression>& that) const
 		{
 			return normInfinity(that);
 		}
 
 		template <typename Expression>
-		Real operator()(const VectorExpression<N, Real, Expression>& that,
+		Real compute(const VectorExpression<N, Real, Expression>& that,
 			const PASTEL_NO_DEDUCTION(Real)& threshold) const
 		{
 			const integer dimension = that.size();
@@ -104,12 +118,12 @@ namespace Pastel
 			return result;
 		}
 
-		Real operator()(integer axis, const Real& that) const
+		Real computeAxis(integer axis, const Real& that) const
 		{
 			return mabs(that);
 		}
 
-		Real replaceAxisDistance(
+		Real replaceAxis(
 			const Real& distance, 
 			const Real& currentAxisDistance,
 			const Real& newAxisDistance) const
@@ -121,26 +135,31 @@ namespace Pastel
 			
 			return distance;
 		}
-
-		Real scalingFactor(
-			const Real& factor) const
-		{
-			return mabs(factor);
-		}
 	};
 
 	template <int N, typename Real>
 	class ManhattanNormBijection
 	{
 	public:
+		Real toNorm(const Real& normBijection) const
+		{
+			return normBijection;
+		}
+
+		Real toBijection(const Real& norm) const
+		{
+			return norm;
+		}
+
 		template <typename Expression>
-		Real operator()(const VectorExpression<N, Real, Expression>& that) const
+		Real compute(const VectorExpression<N, Real, Expression>& that) const
 		{
 			return normManhattan(that);
 		}
 
 		template <typename Expression>
-		Real operator()(const VectorExpression<N, Real, Expression>& that,
+		Real compute(
+			const VectorExpression<N, Real, Expression>& that,
 			const PASTEL_NO_DEDUCTION(Real)& threshold) const
 		{
 			const integer dimension = that.size();
@@ -158,23 +177,17 @@ namespace Pastel
 			return result;
 		}
 
-		Real operator()(integer axis, const Real& that) const
+		Real computeAxis(integer axis, const Real& that) const
 		{
 			return mabs(that);
 		}
 
-		Real replaceAxisDistance(
+		Real replaceAxis(
 			const Real& distance, 
 			const Real& currentAxisDistance,
 			const Real& newAxisDistance) const
 		{
 			return (distance - currentAxisDistance) + newAxisDistance;
-		}
-
-		Real scalingFactor(
-			const Real& factor) const
-		{
-			return mabs(factor);
 		}
 	};
 

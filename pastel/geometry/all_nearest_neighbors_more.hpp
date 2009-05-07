@@ -58,7 +58,8 @@ namespace Pastel
 		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
 		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
-		typedef std::set<Entry> NearestSet;
+		//typedef std::set<Entry> NearestSet;
+		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
 
 		const integer points = pointSet.size();
@@ -66,7 +67,8 @@ namespace Pastel
 		{
 			const Point<N, Real>& iPoint = pointSet[i];
 
-			NearestSet nearestSet;
+			//NearestSet nearestSet;
+			NearestSet nearestSet(kNearest);
 
 			real cullDistance = maxDistance;
 
@@ -76,13 +78,18 @@ namespace Pastel
 				if (j != i)
 				{
 					const real distance = 
-						normBijection(pointSet[j] - iPoint, cullDistance);
+						normBijection.compute(pointSet[j] - iPoint, cullDistance);
 					if (distance <= cullDistance)
 					{
 #pragma omp critical
 						{
 							nearestSet.insert(Entry(distance, j));
+							if (nearestSet.full())
+							{
+								cullDistance = nearestSet.back().distance_;
+							}
 
+							/*
 							if (nearestSet.size() > kNearest)
 							{
 								NearestIterator lastIter = nearestSet.end();
@@ -98,6 +105,7 @@ namespace Pastel
 								--lastIter;
 								cullDistance = lastIter->distance_;
 							}
+							*/
 						}
 					}
 				}

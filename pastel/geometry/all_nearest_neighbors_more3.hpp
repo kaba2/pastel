@@ -9,37 +9,80 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	class PointListPolicy
+	namespace Detail_AllNearestNeighborsKdTree
 	{
-	public:
-		explicit PointListPolicy(
-			const std::vector<Point<N, Real> >& pointSet)
-			: pointSet_(&pointSet)
-		{
-		}
 
-		typedef integer Object;
-		typedef TrueType UseBounds;
-
-		AlignedBox<N, Real> bound(integer object) const
+		template <int N, typename Real>
+		class PointListPolicy
 		{
-			return AlignedBox<N, Real>((*pointSet_)[object]);
-		}
+		public:
+			explicit PointListPolicy(
+				const std::vector<Point<N, Real> >& pointSet)
+				: pointSet_(&pointSet)
+			{
+			}
 
-		Tuple<2, real> bound(integer object, integer axis) const
-		{
-			return Tuple<2, real>((*pointSet_)[object][axis]);
-		}
+			typedef integer Object;
+			typedef TrueType UseBounds;
 
-		const Point<N, Real>& point(
-			integer object) const
+			AlignedBox<N, Real> bound(integer object) const
+			{
+				return AlignedBox<N, Real>((*pointSet_)[object]);
+			}
+
+			Tuple<2, real> bound(integer object, integer axis) const
+			{
+				return Tuple<2, real>((*pointSet_)[object][axis]);
+			}
+
+			const Point<N, Real>& point(
+				integer object) const
+			{
+				return (*pointSet_)[object];
+			}
+		private:		
+			const std::vector<Point<N, Real> >* pointSet_;
+		};
+
+		class SequenceIterator
 		{
-			return (*pointSet_)[object];
-		}
-	private:		
-		const std::vector<Point<N, Real> >* pointSet_;
-	};
+		public:
+			SequenceIterator()
+				: index_(0)
+			{
+			}
+
+			explicit SequenceIterator(integer index)
+				: index_(index)
+			{
+			}
+
+			integer operator*() const
+			{
+				return index_;
+			}
+
+			SequenceIterator& operator++()
+			{
+				++index_;
+				return *this;
+			}
+
+			bool operator==(const SequenceIterator& that) const
+			{
+				return index_ == that.index_;
+			}
+
+			bool operator!=(const SequenceIterator& that) const
+			{
+				return index_ != that.index_;
+			}
+		
+		private:
+			integer index_;
+		};
+
+	}
 
 	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsKdTree(
@@ -50,7 +93,7 @@ namespace Pastel
 		const NormBijection& normBijection,
 		Array<2, integer>& nearestArray)
 	{
-		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE1(kNearest >= 0, kNearest);
 		ENSURE2(kNearest < pointSet.size(), kNearest, pointSet.size());
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
@@ -71,36 +114,31 @@ namespace Pastel
 		ENSURE2(nearestArray.height() == pointSet.size(), 
 			nearestArray.height(), pointSet.size());
 
-		typedef KdTree<N, Real, PointListPolicy<N, Real> > Tree;
+		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator 
+			SequenceIterator;
+
+		typedef KdTree<N, Real, 
+			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef typename SmallSet<KeyValue<Real, ConstTreeIterator> > NearestSet;
+		typedef std::vector<ConstTreeIterator> NearestSet;
 
 		const integer dimension = pointSet.front().size();
 
-		/*
 		Timer timer;
 
 		timer.setStart();
-		*/
 
-		PointListPolicy<N, Real> policy(pointSet);
+		Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> policy(pointSet);
 		Tree tree(dimension, policy);
 
-		std::vector<integer> indexList;
-		indexList.reserve(pointSet.size());
-		for (integer i = 0;i < pointSet.size();++i)
-		{
-			indexList.push_back(i);
-		}
-		tree.insert(indexList.begin(), indexList.end());
+		tree.insert(SequenceIterator(0), 
+			SequenceIterator(pointSet.size()));
 
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
 
-		/*
 		timer.store();
 		log() << "Construction: " << timer.seconds() << logNewLine;
-		*/
 
 		/*
 		log() << tree.nodes() << " nodes, "
@@ -121,17 +159,15 @@ namespace Pastel
 			// we must search for k + 1 points.
 
 			NearestSet nearestSet;
-			nearestSet.reserve(kNearest + 1);
-
 			searchNearest(tree, pointSet[i], maxDistance, maxRelativeError,
-				normBijection, kNearest + 1, nearestSet);
+				normBijection, kNearest + 1, &nearestSet);
 
 			ASSERT(nearestSet.size() == kNearest + 1);
 
 			integer nearestIndex = 0;
 			for (integer j = 0;j < kNearest + 1 && nearestIndex < kNearest;++j)
 			{
-				const integer neighborIndex = *nearestSet[j].value();
+				const integer neighborIndex = *nearestSet[j];
 				if (neighborIndex != i)
 				{
 					nearestArray(nearestIndex, i) = neighborIndex;

@@ -3,21 +3,22 @@
 
 #include "pastel/geometry/kdtree.h"
 
-#include "pastel/sys/smallset.h"
 #include "pastel/sys/keyvalue.h"
 
 #include "pastel/math/normbijection.h"
 
+#include <vector>
+
 namespace Pastel
 {
 
-	//! Finds nearest neighbors for a point in a kd-tree.
+	//! Finds nearest neighbors for a point in a kdTree.
 	/*!
 	Preconditions:
 	maxDistance >= 0
 	maxRelativeError >= 0
 
-	Each object in the kd-tree is considered as the
+	Each object in the kdTree is considered as the
 	minimum point of its bounding box.
 
 	The search radius can be bounded by 'maxDistance'
@@ -45,15 +46,16 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	void searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		integer kNearest,
-		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result);
+		PASTEL_NO_DEDUCTION((std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>))* nearestSet,
+		PASTEL_NO_DEDUCTION(std::vector<Real>)* distanceSet = 0);
 
-	//! Finds nearest neighbors for a point in a kd-tree.
+	//! Finds nearest neighbors for a point in a kdTree.
 	/*!
 	Preconditions:
 	maxDistance >= 0
@@ -71,13 +73,13 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection);
 
-	//! Finds nearest neighbors for a point in a kd-tree.
+	//! Finds nearest neighbors for a point in a kdTree.
 	/*!
 	Preconditions:
 	maxDistance >= 0
@@ -96,7 +98,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
@@ -104,14 +106,14 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point);
 
 }
