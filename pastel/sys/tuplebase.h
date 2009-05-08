@@ -36,9 +36,36 @@ namespace Pastel
 		integer dimension_;
 	};
 
+	template <typename Type>
+	class Alias
+	{
+	public:
+		explicit Alias(Type data)
+			: data_(data)
+		{
+		}
+
+		operator Type() const
+		{
+			return data_;
+		}
+
+	private:
+		// Prohibited.
+		Alias();
+
+		Type data_;
+	};
+
 	inline Dimension ofDimension(integer dimension)
 	{
 		return Dimension(dimension);
+	}
+
+	template <typename Type>
+	inline Alias<Type*> withAliasing(Type* data)
+	{
+		return Alias<Type*>(data);
 	}
 
 	template <int N, typename Type>
@@ -401,7 +428,7 @@ namespace Pastel
 
 			TupleBase(
 				const Dimension& dimension,
-				Type* dataAlias)
+				const Alias<Type*> dataAlias)
 				: data_(dataAlias)
 				, size_(dimension)
 				, deleteData_(false)

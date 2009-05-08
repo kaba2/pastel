@@ -52,6 +52,13 @@ namespace Pastel
 			{
 			}
 
+			explicit VectorBase(
+				const Dimension& dimension,
+				const Alias<Real*> alias)
+				: data_(dimension, alias)
+			{
+			}
+
 			template <typename ThatReal>
 			explicit VectorBase(const Tuple<N, ThatReal>& that)
 				: data_(that)
@@ -115,7 +122,7 @@ namespace Pastel
 				return data_.size();
 			}
 
-			void swap(Vector<N, Real>& that)
+			void swap(VectorBase<N, Real>& that)
 			{
 				data_.swap(that.data_);
 			}

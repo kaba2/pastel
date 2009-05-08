@@ -22,13 +22,29 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Tuple<N, Real> asTuple(Vector<N, Real>& that)
+	Tuple<N, Real>& asTuple(
+		Vector<N, Real>& that)
 	{
 		return that.asTuple();
 	}
 
 	template <int N, typename Real>
-	const Tuple<N, Real> asTuple(const Vector<N, Real>& that)
+	const Tuple<N, Real>& asTuple(
+		const Vector<N, Real>& that)
+	{
+		return that.asTuple();
+	}
+
+	template <int N, typename Real>
+	TemporaryTuple<N, Real>& asTuple(
+		TemporaryVector<N, Real>& that)
+	{
+		return that.asTuple();
+	}
+
+	template <int N, typename Real>
+	const TemporaryTuple<N, Real>& asTuple(
+		const TemporaryVector<N, Real>& that)
 	{
 		return that.asTuple();
 	}

@@ -530,6 +530,7 @@ namespace Pastel
 		// Using default destructor
 
 		using Base::set;
+		using Base::swap;
 
 		// We force the specification
 		// of dimension by prohibiting
@@ -545,6 +546,14 @@ namespace Pastel
 		explicit Point(
 			const Dimension& dimension,
 			const Real& that = Real())
+			: Base(dimension, that)
+		{
+		}
+
+		// See note 1 in this file.
+		explicit Point(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
 			: Base(dimension, that)
 		{
 		}
@@ -586,6 +595,11 @@ namespace Pastel
 		{
 		}
 
+		explicit Point(const TemporaryTuple<N, Real>& that)
+			: Base(that)
+		{
+		}
+
 		template <typename ThatReal, typename Expression>
 		explicit Point(const VectorExpression
 			<N, ThatReal, Expression>& that)
@@ -610,16 +624,36 @@ namespace Pastel
 		const VectorExpression<N, Real, Expression>& that);
 
 	template <int N, typename Real>
-	Vector<N, Real>& asVector(Point<N, Real>& that);
+	Vector<N, Real>& asVector(
+		Point<N, Real>& that);
 
 	template <int N, typename Real>
-	const Vector<N, Real>& asVector(const Point<N, Real>& that);
+	const Vector<N, Real>& asVector(
+		const Point<N, Real>& that);
 
 	template <int N, typename Real>
-	Tuple<N, Real>& asTuple(Point<N, Real>& that);
+	TemporaryVector<N, Real>& asVector(
+		TemporaryPoint<N, Real>& that);
 
 	template <int N, typename Real>
-	const Tuple<N, Real>& asTuple(const Point<N, Real>& that);
+	const TemporaryVector<N, Real>& asVector(
+		const TemporaryPoint<N, Real>& that);
+
+	template <int N, typename Real>
+	Tuple<N, Real>& asTuple(
+		Point<N, Real>& that);
+
+	template <int N, typename Real>
+	const Tuple<N, Real>& asTuple(
+		const Point<N, Real>& that);
+
+	template <int N, typename Real>
+	TemporaryTuple<N, Real>& asTuple(
+		TemporaryPoint<N, Real>& that);
+
+	template <int N, typename Real>
+	const TemporaryTuple<N, Real>& asTuple(
+		const TemporaryPoint<N, Real>& that);
 
 	typedef Point<1, integer> IPoint1;
 	typedef Point<2, integer> IPoint2;
@@ -1077,6 +1111,8 @@ namespace Pastel
 		// Using default assignment
 		// Using default destructor
 
+		using Base::swap;
+
 		// We force to specify the dimension
 		// of an unbounded vector by
 		// not allowing default construction.
@@ -1091,6 +1127,14 @@ namespace Pastel
 		explicit TemporaryPoint(
 			const Dimension& dimension,
 			const Real& that = Real())
+			: Base(dimension, that)
+		{
+		}
+
+		// See note 1 in this file.
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
 			: Base(dimension, that)
 		{
 		}
@@ -1121,6 +1165,11 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryPoint(const TemporaryTuple<N, Real>& that)
+			: Base(that)
+		{
+		}
+
 		template <typename ThatReal>
 		TemporaryPoint(const Point<N, ThatReal>& that)
 			: Base(that)
@@ -1140,7 +1189,8 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
 		}
 
-		TemporaryPoint<N, Real>& operator=(const TemporaryPoint<N, Real>& that)
+		TemporaryPoint<N, Real>& operator=(
+			const TemporaryPoint<N, Real>& that)
 		{
 			TemporaryPoint<N, Real> copy(that);
 			swap(copy);
