@@ -37,6 +37,13 @@ namespace Pastel
 			}
 
 			explicit PointBase(
+				const Dimension& dimension, 
+				const Alias<Real*>& alias)
+				: data_(dimension, alias)
+			{
+			}
+
+			explicit PointBase(
 				const Real& that)
 				: data_(that)
 			{

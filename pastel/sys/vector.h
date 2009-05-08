@@ -564,7 +564,19 @@ namespace Pastel
 		{
 		}
 
+		explicit Vector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		Vector(const TemporaryVector<N, Real>& that)
+			: Base(that)
+		{
+		}
+
+		explicit Vector(const TemporaryTuple<N, Real>& that)
 			: Base(that)
 		{
 		}
@@ -632,10 +644,20 @@ namespace Pastel
 		const VectorExpression<N, Real, Expression>& that);
 
 	template <int N, typename Real>
-	Tuple<N, Real> asTuple(Vector<N, Real>& that);
+	Tuple<N, Real>& asTuple(
+		Vector<N, Real>& that);
 
 	template <int N, typename Real>
-	const Tuple<N, Real> asTuple(const Vector<N, Real>& that);
+	const Tuple<N, Real>& asTuple(
+		const Vector<N, Real>& that);
+
+	template <int N, typename Real>
+	TemporaryTuple<N, Real>& asTuple(
+		TemporaryVector<N, Real>& that);
+
+	template <int N, typename Real>
+	const TemporaryTuple<N, Real>& asTuple(
+		const TemporaryVector<N, Real>& that);
 
 	template <int N, typename Real>
 	class TemporaryVector
@@ -1060,7 +1082,19 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		TemporaryVector(const TemporaryVector& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryVector(const TemporaryTuple<N, Real>& that)
 			: Base(that)
 		{
 		}

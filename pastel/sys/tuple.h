@@ -484,7 +484,7 @@ namespace Pastel
 
 		Tuple(
 			const Dimension& dimension,
-			Type* dataAlias)
+			const Alias<Type*>& dataAlias)
 			: Base(dimension, dataAlias)
 		{
 		}

@@ -695,7 +695,7 @@ namespace Pastel
 		objectList_.clear();
 		nodeAllocator_.clear();
 		root_ = 0;
-		bound_ = AlignedBox<N, Real>();
+		bound_ = AlignedBox<N, Real>(dimension_);
 		leaves_ = 0;
 		objects_ = 0;
 

@@ -21,27 +21,59 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real>& asVector(Point<N, Real>& that)
+	Vector<N, Real>& asVector(
+		Point<N, Real>& that)
 	{
 		return that.asVector();
 	}
 
 	template <int N, typename Real>
-	const Vector<N, Real>& asVector(const Point<N, Real>& that)
+	const Vector<N, Real>& asVector(
+		const Point<N, Real>& that)
 	{
 		return that.asVector();
 	}
 
 	template <int N, typename Real>
-	Tuple<N, Real>& asTuple(Point<N, Real>& that)
+	TemporaryVector<N, Real>& asVector(
+		TemporaryPoint<N, Real>& that)
 	{
-		return that.asVector().asTuple();
+		return that.asVector();
 	}
 
 	template <int N, typename Real>
-	const Tuple<N, Real>& asTuple(const Point<N, Real>& that)
+	const TemporaryVector<N, Real>& asVector(
+		const TemporaryPoint<N, Real>& that)
 	{
-		return that.asVector().asTuple();
+		return that.asVector();
+	}
+
+	template <int N, typename Real>
+	Tuple<N, Real>& asTuple(
+		Point<N, Real>& that)
+	{
+		return that.asTuple();
+	}
+
+	template <int N, typename Real>
+	const Tuple<N, Real>& asTuple(
+		const Point<N, Real>& that)
+	{
+		return that.asTuple();
+	}
+
+	template <int N, typename Real>
+	TemporaryTuple<N, Real>& asTuple(
+		TemporaryPoint<N, Real>& that)
+	{
+		return that.asTuple();
+	}
+
+	template <int N, typename Real>
+	const TemporaryTuple<N, Real>& asTuple(
+		const TemporaryPoint<N, Real>& that)
+	{
+		return that.asTuple();
 	}
 
 }
