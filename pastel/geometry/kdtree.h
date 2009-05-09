@@ -305,6 +305,16 @@ namespace Pastel
 			ObjectIterator begin, ObjectIterator last,
 			integer count);
 
+		template <typename SubdivisionRule>
+		void refine(
+			integer maxDepth,
+			integer maxObjects,
+			const SubdivisionRule& subdivisionRule,
+			const Cursor& cursor,
+			integer depth,
+			const Point<N, Real>& minBound,
+			const Point<N, Real>& maxBound);
+
 		ObjectContainer objectList_;
 		Allocator nodeAllocator_;
 		Node* root_;

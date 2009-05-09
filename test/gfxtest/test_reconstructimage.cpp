@@ -15,6 +15,7 @@
 #include "pastel/gfx/image_tools.h"
 #include "pastel/gfx/nearestreconstructor.h"
 #include "pastel/gfx/filterreconstructor.h"
+#include "pastel/gfx/reconstruct_adaptive.h"
 
 #include "pastel/dsp/resample.h"
 
@@ -114,16 +115,66 @@ namespace
 
 		savePcx(image, "output/reconstruct_samples_" + integerToString(k, 2) +  "_" + name + ".pcx");
 
-		reconstructNearest(positionList,
-			dataList,
-			AlignedBox2(0, 0, 1, 1),
-			arrayView(image));
+		/*
+		for (integer kNearest = 1;kNearest <= 3;++kNearest)
+		{
+			reconstructNearest(
+				positionList,
+				dataList,
+				AlignedBox2(0, 0, 1, 1),
+				arrayView(image),
+				kNearest);
+		}
 
-		savePcx(image, "output/reconstruct_nearest_" + integerToString(k, 2) + "_" + name + ".pcx");
+		for (integer kNearest = 1;kNearest <= 3;++kNearest)
+		{
+			reconstructNearest(
+				positionList,
+				dataList,
+				AlignedBox2(0, 0, 1, 1),
+				arrayView(image),
+				kNearest, 
+				0);
+
+			savePcx(image, "output/reconstruct_nearest_" + integerToString(kNearest) + "_"
+				+ integerToString(k, 2) + "_" + name + ".pcx");
+		}
+		*/
+
+		for (integer kNearest = 1;kNearest <= 16;kNearest *= 2)
+		{
+			reconstructAdaptive(
+				positionList,
+				dataList,
+				AlignedBox2(0, 0, 1, 1),
+				arrayView(image),
+				kNearest, 
+				0);
+
+			savePcx(image, "output/reconstruct_adaptive_" + integerToString(kNearest) + "_"
+				+ integerToString(k, 2) + "_" + name + ".pcx");
+		}
+
+		/*
+		for (integer maxRelativeError = 0;maxRelativeError <= 2;++maxRelativeError)
+		{
+			reconstructNearest(
+				positionList,
+				dataList,
+				AlignedBox2(0, 0, 1, 1),
+				arrayView(image),
+				1,
+				maxRelativeError);
+
+			savePcx(image, "output/reconstruct_nearest_1_"
+				+ integerToString(maxRelativeError) + "_"
+				+ integerToString(k, 2) + "_" + name + ".pcx");
+		}
 
 		FilterPtr filter = tableFilter(gaussianFilter());
 
-		reconstructFilter(positionList,
+		reconstructFilter(
+			positionList,
 			dataList,
 			AlignedBox2(0, 0, 1, 1),
 			*filter,
@@ -131,6 +182,7 @@ namespace
 			arrayView(image));
 
 		savePcx(image, "output/reconstruct_filter_" + integerToString(k, 2) + "_" + name + ".pcx");
+		*/
 	}
 
 	void testReconstruction()

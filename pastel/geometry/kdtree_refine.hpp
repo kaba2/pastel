@@ -13,16 +13,17 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const AlignedBox<N, Real>& bound,
+			const Point<N, Real>& minBound,
+			const Point<N, Real>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
 		{
 			// Split along the longest dimension.
 
-			const integer splitAxis = maxIndex(bound.extent());
-			const Real splitPosition = linear(bound.min()[splitAxis], 
-				bound.max()[splitAxis], 0.5);
+			const integer splitAxis = maxIndex(maxBound - minBound);
+			const Real splitPosition = linear(minBound[splitAxis], 
+				maxBound[splitAxis], 0.5);
 
 			return std::make_pair(splitPosition, splitAxis);
 		}
@@ -35,7 +36,8 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const AlignedBox<N, Real>& bound,
+			const Point<N, Real>& minBound,
+			const Point<N, Real>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -45,9 +47,9 @@ namespace Pastel
 
 			// Split along the longest dimension.
 
-			const integer splitAxis = maxIndex(bound.extent());
-			Real splitPosition = linear(bound.min()[splitAxis], 
-				bound.max()[splitAxis], 0.5);
+			const integer splitAxis = maxIndex(maxBound - minBound);
+			Real splitPosition = linear(minBound[splitAxis], 
+				maxBound[splitAxis], 0.5);
 
 			// Sliding midpoint
 
@@ -68,12 +70,12 @@ namespace Pastel
 			}
 
 			if (splitPosition < objectBound.min()[0] &&
-				objectBound.min()[0] < bound.max()[splitAxis])
+				objectBound.min()[0] < maxBound[splitAxis])
 			{
 				splitPosition = objectBound.min()[0];
 			}
 			if (splitPosition > objectBound.max()[0] &&
-				objectBound.max()[0] > bound.min()[splitAxis])
+				objectBound.max()[0] > minBound[splitAxis])
 			{
 				splitPosition = objectBound.max()[0];
 			}
@@ -89,7 +91,8 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const AlignedBox<N, Real>& bound,
+			const Point<N, Real>& minBound,
+			const Point<N, Real>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -116,7 +119,7 @@ namespace Pastel
 
 			// Find the longest dimension.
 
-			const Vector<N, Real> extent = bound.extent();
+			const Vector<N, Real> extent = maxBound - minBound;
 
 			const integer maxExtentAxis = maxIndex(extent);
 			const Real maxExtent = extent[maxExtentAxis];
@@ -140,8 +143,8 @@ namespace Pastel
 
 			const integer splitAxis = maxLegalSpreadAxis;
 
-			Real splitPosition = linear(bound.min()[splitAxis], 
-				bound.max()[splitAxis], 0.5);
+			Real splitPosition = linear(minBound[splitAxis], 
+				maxBound[splitAxis], 0.5);
 
 			if (splitPosition < objectBound.min()[splitAxis])
 			{
@@ -152,13 +155,13 @@ namespace Pastel
 				splitPosition = objectBound.max()[splitAxis];
 			}
 
-			if (splitPosition < bound.min()[splitAxis])
+			if (splitPosition < minBound[splitAxis])
 			{
-				splitPosition = bound.min()[splitAxis];
+				splitPosition = minBound[splitAxis];
 			}
-			if (splitPosition > bound.max()[splitAxis])
+			if (splitPosition > maxBound[splitAxis])
 			{
-				splitPosition = bound.max()[splitAxis];
+				splitPosition = maxBound[splitAxis];
 			}
 
 			return std::make_pair(splitPosition, splitAxis);

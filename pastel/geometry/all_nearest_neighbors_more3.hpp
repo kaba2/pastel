@@ -123,6 +123,8 @@ namespace Pastel
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
 
+		//check(tree);
+
 		timer.store();
 		log() << "Construction: " << timer.seconds() << logNewLine;
 
@@ -146,7 +148,7 @@ namespace Pastel
 
 			NearestSet nearestSet;
 			searchNearest(tree, pointSet[i], maxDistance, maxRelativeError,
-				normBijection, kNearest + 1, &nearestSet);
+				normBijection, kNearest + 1, &nearestSet, 0);
 
 			ASSERT(nearestSet.size() == kNearest + 1);
 

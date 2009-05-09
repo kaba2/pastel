@@ -61,9 +61,9 @@ namespace Pastel
 			return result;
 		}
 
-		Real computeAxis(integer axis, const Real& that) const
+		Real addAxis(const Real& distance, const Real& axisDistance) const
 		{
-			return square(that);
+			return distance + axisDistance;
 		}
 
 		Real replaceAxis(
@@ -118,9 +118,14 @@ namespace Pastel
 			return result;
 		}
 
-		Real computeAxis(integer axis, const Real& that) const
+		Real addAxis(const Real& distance, const Real& axisDistance) const
 		{
-			return mabs(that);
+			if (distance < axisDistance)
+			{
+				return axisDistance;
+			}
+			
+			return distance;
 		}
 
 		Real replaceAxis(
@@ -177,9 +182,9 @@ namespace Pastel
 			return result;
 		}
 
-		Real computeAxis(integer axis, const Real& that) const
+		Real addAxis(const Real& distance, const Real& axisDistance) const
 		{
-			return mabs(that);
+			return distance + axisDistance;
 		}
 
 		Real replaceAxis(

@@ -602,6 +602,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\reconstruct_adaptive.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_adaptive.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\reconstructor.h"
 				>
 			</File>

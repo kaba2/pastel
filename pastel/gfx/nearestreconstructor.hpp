@@ -72,8 +72,12 @@ namespace Pastel
 		{
 		public:
 			explicit ReconstructFunctor(
-				const KdTree<N, Real, ObjectPolicy>& kdtree)
-				: kdtree_(kdtree)
+				const KdTree<N, Real, ObjectPolicy>& kdTree,
+				integer kNearest,
+				integer maxRelativeError)
+				: kdtree_(kdTree)
+				, kNearest_(kNearest)
+				, maxRelativeError_(maxRelativeError)
 			{
 			}
 
@@ -86,18 +90,19 @@ namespace Pastel
 				typedef KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 					ConstIterator;
 
-				KeyValue<real, ConstIterator> result =
-					searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
-					infinity<Real>(), 0, EuclideanNormBijection<N, Real>());
+				std::vector<ConstIterator> nearestSet;
 
-				if (result.value() != kdtree_.end())
-				{
-					data = result.value()->data_;
-				}
+				searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
+					infinity<Real>(), maxRelativeError_, EuclideanNormBijection<N, Real>(),
+					kNearest_, &nearestSet);
+
+				data = nearestSet.back()->data_;
 			}
 
 		private:
 			const KdTree<N, Real, ObjectPolicy>& kdtree_;
+			integer kNearest_;
+			Real maxRelativeError_;
 		};
 	}
 
@@ -106,21 +111,26 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
-		const View<N, Data, Output_View>& view)
+		const View<N, Data, Output_View>& view,
+		integer kNearest,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
 		BOOST_STATIC_ASSERT(N != Unbounded);
-
+		
 		const integer points = positionList.size();
 
+		ENSURE1(kNearest > 0, kNearest);
+		ENSURE2(kNearest < points, kNearest, points);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
 		typedef Detail_NearestReconstructor::DataPoint<N, Real, Data> DataPoint;
 		typedef Detail_NearestReconstructor::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
-		KdTree<N, Real, DataPolicy> kdtree(N, dataPolicy);
+		KdTree<N, Real, DataPolicy> kdTree(N, dataPolicy);
 
-		const Vector<N, Real> scaling = inverse(region.extent()) * Vector<N, Real>(view.extent());
+		const Vector<N, Real> scaling = 
+			inverse(region.extent()) * Vector<N, Real>(view.extent());
 
 		std::vector<DataPoint> dataPointList;
 		for (integer i = 0;i < points;++i)
@@ -132,16 +142,41 @@ namespace Pastel
 			}
 		}
 
-		kdtree.insert(dataPointList.begin(), dataPointList.end());
+		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
-		kdtree.refine(
-			computeKdTreeMaxDepth(kdtree.objects()), 4, SlidingMidpointRule());
+		kdTree.refine(
+			computeKdTreeMaxDepth(kdTree.objects()), 4, SlidingMidpointRule());
 
 		Detail_NearestReconstructor::ReconstructFunctor<N, Real, DataPolicy>
-			reconstructFunctor(kdtree);
+			reconstructFunctor(kdTree, kNearest, maxRelativeError);
 
 		visitPosition(
 			view, reconstructFunctor);
+	}
+
+	template <int N, typename Real, typename Data, typename Output_View>
+	void reconstructNearest(
+		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Data>& dataList,
+		const AlignedBox<N, Real>& region,
+		const View<N, Data, Output_View>& view,
+		integer kNearest)
+	{
+		Pastel::reconstructNearest(
+			positionList, dataList,
+			region, view, kNearest, 0);
+	}
+
+	template <int N, typename Real, typename Data, typename Output_View>
+	void reconstructNearest(
+		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Data>& dataList,
+		const AlignedBox<N, Real>& region,
+		const View<N, Data, Output_View>& view)
+	{
+		Pastel::reconstructNearest(
+			positionList, dataList,
+			region, view, 1, 0);
 	}
 
 }
