@@ -2,7 +2,7 @@
 #define PASTELGEOMETRY_KDTREE_SEARCH_NEAREST_HPP
 
 #include "pastel/geometry/kdtree_search_nearest.h"
-#include "pastel/geometry/closest_alignedbox_point.h"
+#include "pastel/geometry/distance_alignedbox_point.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/smallfixedset.h"
@@ -15,109 +15,115 @@ namespace Pastel
 
 	// Depth-first approximate search
 
-	namespace Detail_SearchNearest
-	{
-
-		template <int N, typename Real, typename ObjectPolicy>
-		class NodeEntry
-		{
-		public:
-			NodeEntry(
-				const typename KdTree<N, Real, ObjectPolicy>::Cursor& node,
-				const Real& distance)
-				: node_(node)
-				, distance_(distance)
-			{
-			}
-
-			bool operator<(const NodeEntry& that) const
-			{
-				if (distance_ < that.distance_)
-				{
-					return true;
-				}
-				if (that.distance_ < distance_)
-				{
-					return false;
-				}
-				
-				return node_ < that.node_;
-			}
-
-			typename KdTree<N, Real, ObjectPolicy>::Cursor node_;
-			Real distance_;
-		};
-
-	}
-
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
-		const Point<N, Real>& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const NormBijection& normBijection,
-		integer kNearest,
-		PASTEL_NO_DEDUCTION((std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>))* nearestSet,
-		PASTEL_NO_DEDUCTION(std::vector<Real>)* distanceSet)
+	class SearchNearest
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
-		ENSURE1(kNearest >= 0, kNearest);
-		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
-
-		if (kdTree.empty() || kNearest == 0 ||
-			(!nearestSet && !distanceSet))
-		{
-			return;
-		}
-
+	private:
 		typedef KdTree<N, Real, ObjectPolicy> Tree;
 		typedef typename Tree::Cursor Cursor;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
-		//typedef std::set<KeyVal> CandidateSet;
-		typedef SmallFixedSet<KeyVal> CandidateSet;
-		typedef typename CandidateSet::iterator CandidateIterator;
-		typedef Detail_SearchNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
-
-		CandidateSet candidateSet(kNearest);
-		//CandidateSet candidateSet;
-
-		const Real errorScaling = 
-			normBijection.toBijection(1 + maxRelativeError);
-
-		std::vector<NodeEntry> nodeStack;
-		nodeStack.push_back(NodeEntry(kdTree.root(), 
-			normBijection.compute(closest(kdTree.bound(), searchPoint) - searchPoint)));
-
-		Real cullDistance = maxDistance;
-
-		while(!nodeStack.empty())
+	public:
+		SearchNearest(
+			const KdTree<N, Real, ObjectPolicy>& kdTree_,
+			const Point<N, Real>& searchPoint_,
+			const Real& maxDistance_,
+			const Real& maxRelativeError_,
+			const NormBijection& normBijection_,
+			integer kNearest_,
+			std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet_,
+			std::vector<Real>* distanceSet_)
+			: kdTree(kdTree_)
+			, searchPoint(searchPoint_)
+			, maxDistance(maxDistance_)
+			, maxRelativeError(maxRelativeError_)
+			, normBijection(normBijection_)
+			, kNearest(kNearest_)
+			, nearestSet(nearestSet_)
+			, distanceSet(distanceSet_)
+			, errorScaling(normBijection.toBijection(1 + maxRelativeError))
+			, cullDistance(maxDistance_)
+			, candidateSet(kNearest_)
 		{
-			NodeEntry nodeEntry = nodeStack.back();
-			nodeStack.pop_back();
+			ENSURE1(maxDistance_ >= 0, maxDistance_);
+			ENSURE1(maxRelativeError_ >= 0, maxRelativeError_);
+			ENSURE1(kNearest_ >= 0, kNearest_);
+			ENSURE2(kNearest_ < kdTree_.objects(), kNearest_, kdTree_.objects());
+		}
 
-			if (nodeEntry.distance_ * errorScaling > cullDistance)
+		void work()
+		{
+			if (kdTree.empty() || kNearest == 0 ||
+				(!nearestSet && !distanceSet))
+			{
+				return;
+			}
+
+			work(kdTree.root(), 
+				distance2(kdTree.bound(), searchPoint, normBijection));
+
+			const integer foundNearest = candidateSet.size();
+
+			// We allocate the memory in advance
+			// to guarantee strong exception safety.
+
+			std::vector<ConstObjectIterator> resultNearestSet;
+			if (nearestSet)
+			{
+				resultNearestSet.reserve(foundNearest);
+			}
+
+			std::vector<Real> resultDistanceSet;
+			if (distanceSet)
+			{
+				resultDistanceSet.reserve(foundNearest);
+			}
+
+			if (nearestSet)
+			{
+				CandidateIterator iter = candidateSet.begin();
+				const CandidateIterator iterEnd = candidateSet.end();
+				while(iter != iterEnd)
+				{
+					resultNearestSet.push_back(iter->value());
+					++iter;
+				}
+				resultNearestSet.swap(*nearestSet);
+			}
+
+			if (distanceSet)
+			{
+				CandidateIterator iter = candidateSet.begin();
+				const CandidateIterator iterEnd = candidateSet.end();
+				while(iter != iterEnd)
+				{
+					resultDistanceSet.push_back(iter->key());
+					++iter;
+				}
+				resultDistanceSet.swap(*distanceSet);
+			}
+		}
+
+		void work(const Cursor& cursor, const Real& distance)
+		{
+			if (distance * errorScaling > cullDistance)
 			{
 				// The node is beyond cull distance, skip it.
-				continue;
+				return;
 			}
 
 			// Find the leaf node that is closest
 			// to the search searchPoint in this current branch.
 			// Place all the alternative branching nodes into
 			// a nodeStack.
-
-			Cursor cursor(nodeEntry.node_);
-			while(!cursor.leaf())
+			if (!cursor.leaf())
 			{
 				const integer splitAxis = cursor.splitAxis();
-				
+
 				const Real searchPosition =
 					searchPoint[splitAxis];
-				
+
 				const Real splitPosition = 
 					cursor.splitPosition();
 
@@ -137,11 +143,14 @@ namespace Pastel
 					nearBranch = cursor.positive();
 				}
 
+				// Follow downwards the kdTree with the nearer node.
+				work(nearBranch, distance);
+
 				// Try to cull the farther node off based on the distance 
 				// of the search point to the splitting plane.
 
 				const Real planeDistance =
-					normBijection.computeAxis(splitAxis,
+					normBijection.toBijection(
 					searchPosition - splitPosition);
 
 				if (planeDistance * errorScaling <= cullDistance)
@@ -153,145 +162,72 @@ namespace Pastel
 					if (searchPosition < cursor.min())
 					{
 						oldAxisDistance = 
-							normBijection.computeAxis(
-							splitAxis, cursor.min() - searchPosition);
+							normBijection.toBijection(
+							cursor.min() - searchPosition);
 					}
 					else if (searchPosition > cursor.max())
 					{
 						oldAxisDistance = 
-							normBijection.computeAxis(
-							splitAxis, searchPosition - cursor.max());
+							normBijection.toBijection(
+							searchPosition - cursor.max());
 					}
 
 					const Real childDistance = 
 						normBijection.replaceAxis(
-						nodeEntry.distance_, oldAxisDistance,
+						distance, oldAxisDistance,
 						planeDistance);
-					
+
 					if (childDistance * errorScaling <= cullDistance)
 					{
 						// No culling could be done, visit the farther node
 						// later.
-						nodeStack.push_back(NodeEntry(farBranch, childDistance));
+						work(farBranch, childDistance);
 					}
 				}
-
-				// Follow downwards the kdTree with the nearer node.
-				cursor = nearBranch;
 			}
-
-			// We are now in a leaf node.
-			// Search through the objects in this node.
-
-			ConstObjectIterator iter = cursor.begin();
-			ConstObjectIterator iterEnd = cursor.end();
-
-			while(iter != iterEnd)
+			else
 			{
-				const Real currentDistance =
-					normBijection.compute(
-					kdTree.objectPolicy().point(*iter) - searchPoint,
-					cullDistance);
+				// We are now in a leaf node.
+				// Search through the objects in this node.
 
-				// It is essential that this is <= rather
-				// than <, because of the possibility
-				// of multiple points at same location.
-				if (currentDistance <= cullDistance)
+				ConstObjectIterator iter = cursor.begin();
+				ConstObjectIterator iterEnd = cursor.end();
+
+				while(iter != iterEnd)
 				{
-					candidateSet.insert(
-						KeyVal(currentDistance, iter));
+					const Real currentDistance =
+						normBijection.compute(
+						kdTree.objectPolicy().point(*iter) - searchPoint,
+						cullDistance);
 
-					if (candidateSet.full())
+					// It is essential that this is <= rather
+					// than <, because of the possibility
+					// of multiple points at same location.
+					if (currentDistance <= cullDistance)
 					{
-						cullDistance = candidateSet.back().key();
-					}
-					/*
-					if (candidateSet.size() > kNearest)
-					{
-						{
-							CandidateIterator lastIter = candidateSet.end();
-							--lastIter;
-							candidateSet.erase(lastIter);
-						}
+						candidateSet.insert(
+							KeyVal(currentDistance, iter));
 
-						// Since we now know k neighboring points,
-						// we can bound the search radius
-						// by the distance to the currently farthest
-						// neighbor.
-
+						if (candidateSet.full())
 						{
-							CandidateIterator lastIter = candidateSet.end();
-							--lastIter;
-							cullDistance = lastIter->key();
+							cullDistance = candidateSet.back().key();
 						}
 					}
-					*/
+
+					++iter;
 				}
-
-				++iter;
 			}
 		}
 
-		const integer foundNearest = candidateSet.size();
-
-		// We allocate the memory in advance
-		// to guarantee strong exception safety.
-
-		std::vector<ConstObjectIterator> resultNearestSet;
-		if (nearestSet)
-		{
-			resultNearestSet.reserve(foundNearest);
-		}
-
-		std::vector<Real> resultDistanceSet;
-		if (distanceSet)
-		{
-			resultDistanceSet.reserve(foundNearest);
-		}
-
-		if (nearestSet)
-		{
-			CandidateIterator iter = candidateSet.begin();
-			const CandidateIterator iterEnd = candidateSet.end();
-			while(iter != iterEnd)
-			{
-				resultNearestSet.push_back(iter->value());
-				++iter;
-			}
-			resultNearestSet.swap(*nearestSet);
-		}
-
-		if (distanceSet)
-		{
-			CandidateIterator iter = candidateSet.begin();
-			const CandidateIterator iterEnd = candidateSet.end();
-			while(iter != iterEnd)
-			{
-				resultDistanceSet.push_back(iter->key());
-				++iter;
-			}
-			resultDistanceSet.swap(*distanceSet);
-		}
-	}
-
-	/*
-	// Best-first search.
-	// All non-leaf nodes to priority queue.
-
-	namespace Detail_SearchNearestBestFirst
-	{
-
-		template <int N, typename Real, typename ObjectPolicy>
+	private:
 		class NodeEntry
 		{
 		public:
 			NodeEntry(
-				const typename KdTree<N, Real, ObjectPolicy>::Cursor& node,
-				const Real& distance,
-				const TemporaryVector<N, Real>& distances)
+				const typename Cursor& node,
+				const Real& distance)
 				: node_(node)
 				, distance_(distance)
-				, distances_(distances)
 			{
 			}
 
@@ -305,438 +241,49 @@ namespace Pastel
 				{
 					return false;
 				}
-				
+
 				return node_ < that.node_;
 			}
 
 			typename KdTree<N, Real, ObjectPolicy>::Cursor node_;
 			Real distance_;
-			Vector<N, Real> distances_;
 		};
 
-	}
+		const KdTree<N, Real, ObjectPolicy>& kdTree;
+		const Point<N, Real>& searchPoint;
+		const Real& maxDistance;
+		const Real& maxRelativeError;
+		const NormBijection& normBijection;
+		integer kNearest;
+		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet;
+		std::vector<Real>* distanceSet;
+
+		Real errorScaling;
+		Real cullDistance;
+
+		typedef SmallFixedSet<KeyVal> CandidateSet;
+		typedef typename CandidateSet::iterator CandidateIterator;
+
+		CandidateSet candidateSet;
+	};
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void searchNearestBestFirst(
+	void searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		integer kNearest,
-		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result)
+		PASTEL_NO_DEDUCTION((std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>))* nearestSet,
+		PASTEL_NO_DEDUCTION(std::vector<Real>)* distanceSet)
 	{
-		ENSURE2(kdTree.dimension() == searchPoint.size(), 
-			kdTree.dimension(), searchPoint.size());
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(kNearest >= 0, kNearest);
-		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
+		SearchNearest<N, Real, ObjectPolicy, NormBijection> searchFunctor(
+			kdTree, searchPoint, maxDistance, maxRelativeError,
+			normBijection, kNearest, nearestSet, distanceSet);
 
-		result.clear();
-
-		if (kdTree.empty() || kNearest == 0)
-		{
-			return;
-		}
-
-		const integer dimension = kdTree.dimension();
-
-		typedef KdTree<N, Real, ObjectPolicy> Tree;
-		typedef typename Tree::Cursor Cursor;
-		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
-		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
-
-		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_SearchNearestBestFirst::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
-
-		const bool kFinite = (kNearest > 0);
-		Real cullDistance = maxDistance;
-
-		typedef std::set<NodeEntry> Stack;
-		typedef typename Stack::iterator StackIterator;
-		
-		Vector<N, Real> boundTranslation = 
-			closest(kdTree.bound(), searchPoint) - searchPoint;
-		ASSERT(boundTranslation.size() == dimension);
-		
-		for (integer i = 0;i < dimension;++i)
-		{
-			boundTranslation[i] = normBijection.computeAxis(i, boundTranslation[i]);
-		}
-		
-		Stack nodeStack;
-		nodeStack.insert(NodeEntry(kdTree.root(), 
-			sum(boundTranslation), boundTranslation));
-
-		while(!nodeStack.empty())
-		{
-			NodeEntry nodeEntry = *nodeStack.begin();
-			nodeStack.erase(nodeStack.begin());
-
-			if (nodeEntry.distance_ > cullDistance)
-			{
-				// All of the nodes that are to follow
-				// are beyond the cull distance, we are done.
-				return;
-			}
-
-			// Find the leaf node that is closest
-			// to the search searchPoint in this current branch.
-			// Place all the alternative branching nodes into
-			// a nodeStack.
-
-			Cursor cursor(nodeEntry.node_);
-			if (!cursor.leaf())
-			{
-				const Real planeDistance =
-					normBijection.computeAxis(cursor.splitAxis(),
-					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
-
-				Cursor nearBranch;
-				Cursor farBranch;
-
-				if (searchPoint[cursor.splitAxis()] < cursor.splitPosition())
-				{
-					// The search point is closer to the left branch so follow that.
-					nearBranch = cursor.negative();
-					farBranch = cursor.positive();
-				}
-				else
-				{
-					// The search point is closer to the right branch so follow that.
-					nearBranch = cursor.positive();
-					farBranch = cursor.negative();
-				}
-				
-				{
-					nodeStack.insert(NodeEntry(nearBranch, 
-						nodeEntry.distance_, nodeEntry.distances_));
-				}
-
-				// Possibly push the other branch to the nodeStack.
-				if (planeDistance <= cullDistance)
-				{
-					Vector<N, Real> distances = nodeEntry.distances_.asTemporary();
-					distances[cursor.splitAxis()] = planeDistance;
-
-					nodeStack.insert(NodeEntry(farBranch, 
-						sum(distances), distances));
-				}
-			}
-			else
-			{
-				// We are in a leaf node.
-				// Search through the objects in this node.
-
-				ConstObjectIterator iter = cursor.begin();
-				ConstObjectIterator iterEnd = cursor.end();
-
-				while(iter != iterEnd)
-				{
-					const Real currentDistance =
-						normBijection.compute(
-						kdTree.objectPolicy().point(*iter) - searchPoint);
-
-					// It is essential that this is <= rather
-					// than <, because of the possibility
-					// of multiple points at same location.
-					if (currentDistance <= cullDistance)
-					{
-						result.insert(
-							KeyVal(currentDistance, iter));
-
-						if (kFinite && result.size() > kNearest)
-						{
-							result.pop_back();
-
-							// Since we now know k neighboring points,
-							// we can bound the search radius
-							// by the distance to the currently farthest
-							// neighbor.
-
-							cullDistance = result.back().key();
-						}
-					}
-
-					++iter;
-				}
-			}
-		}
+		searchFunctor.work();
 	}
-
-	// Best-first search.
-	// Only the other non-leaf node to the priority queue,
-	// depth first.
-
-	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void searchNearestBestFirst3(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
-		const Point<N, Real>& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormBijection& normBijection,
-		integer kNearest,
-		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result)
-	{
-		ENSURE2(kdTree.dimension() == searchPoint.size(), 
-			kdTree.dimension(), searchPoint.size());
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(kNearest >= 0, kNearest);
-		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
-
-		result.clear();
-
-		if (kdTree.empty() || kNearest == 0)
-		{
-			return;
-		}
-
-		const integer dimension = kdTree.dimension();
-
-		typedef KdTree<N, Real, ObjectPolicy> Tree;
-		typedef typename Tree::Cursor Cursor;
-		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
-		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
-
-		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_SearchNearestBestFirst::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
-
-		const bool kFinite = (kNearest > 0);
-		Real cullDistance = maxDistance;
-
-		typedef std::set<NodeEntry> Stack;
-		typedef typename Stack::iterator StackIterator;
-		
-		Vector<N, Real> boundTranslation = 
-			closest(kdTree.bound(), searchPoint) - searchPoint;
-		ASSERT(boundTranslation.size() == dimension);
-		
-		for (integer i = 0;i < dimension;++i)
-		{
-			boundTranslation[i] = normBijection.computeAxis(i, boundTranslation[i]);
-		}
-		
-		Stack nodeStack;
-		nodeStack.insert(NodeEntry(kdTree.root(), 
-			sum(boundTranslation), boundTranslation));
-
-		while(!nodeStack.empty())
-		{
-			NodeEntry nodeEntry = *nodeStack.begin();
-			nodeStack.erase(nodeStack.begin());
-
-			if (nodeEntry.distance_ > cullDistance)
-			{
-				// All of the nodes that are to follow
-				// are beyond the cull distance, we are done.
-				return;
-			}
-
-			// Find the leaf node that is closest
-			// to the search searchPoint in this current branch.
-			// Place all the alternative branching nodes into
-			// a nodeStack.
-
-			Cursor cursor(nodeEntry.node_);
-			while(!cursor.leaf())
-			{
-				const Real planeDistance =
-					normBijection.computeAxis(cursor.splitAxis(),
-					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
-
-				Cursor nearBranch;
-				Cursor farBranch;
-
-				if (searchPoint[cursor.splitAxis()] < cursor.splitPosition())
-				{
-					// The search point is closer to the left branch so follow that.
-					nearBranch = cursor.negative();
-					farBranch = cursor.positive();
-				}
-				else
-				{
-					// The search point is closer to the right branch so follow that.
-					nearBranch = cursor.positive();
-					farBranch = cursor.negative();
-				}
-
-				// Possibly push the other branch to the nodeStack.
-				if (planeDistance <= cullDistance)
-				{
-					Vector<N, Real> distances = nodeEntry.distances_.asTemporary();
-					distances[cursor.splitAxis()] = planeDistance;
-
-					nodeStack.insert(NodeEntry(farBranch, 
-						sum(distances), distances));
-				}
-				
-				cursor = nearBranch;
-			}
-
-			// We are in a leaf node.
-			// Search through the objects in this node.
-
-			ConstObjectIterator iter = cursor.begin();
-			ConstObjectIterator iterEnd = cursor.end();
-
-			while(iter != iterEnd)
-			{
-				const Real currentDistance =
-					normBijection.compute(
-					kdTree.objectPolicy().point(*iter) - searchPoint);
-
-				// It is essential that this is <= rather
-				// than <, because of the possibility
-				// of multiple points at same location.
-				if (currentDistance <= cullDistance)
-				{
-					result.insert(
-						KeyVal(currentDistance, iter));
-
-					if (kFinite && result.size() > kNearest)
-					{
-						result.pop_back();
-
-						// Since we now know k neighboring points,
-						// we can bound the search radius
-						// by the distance to the currently farthest
-						// neighbor.
-
-						cullDistance = result.back().key();
-					}
-				}
-
-				++iter;
-			}
-		}
-	}
-
-	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
-	void searchNearestBestFirst2(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
-		const Point<N, Real>& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormBijection& normBijection,
-		integer kNearest,
-		SmallSet<KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> >& result)
-	{
-		ENSURE2(kdTree.dimension() == searchPoint.size(), 
-			kdTree.dimension(), searchPoint.size());
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(kNearest >= 0, kNearest);
-		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
-
-		result.clear();
-
-		if (kdTree.empty() || kNearest == 0)
-		{
-			return;
-		}
-
-		const integer dimension = kdTree.dimension();
-
-		typedef KdTree<N, Real, ObjectPolicy> Tree;
-		typedef typename Tree::Cursor Cursor;
-		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
-		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
-
-		typedef SmallSet<KeyVal> ResultContainer;
-		typedef Detail_SearchNearest::NodeEntry<N, Real, ObjectPolicy> NodeEntry;
-
-		const bool kFinite = (kNearest > 0);
-		Real cullDistance = maxDistance;
-
-		typedef std::set<NodeEntry> Stack;
-		typedef typename Stack::iterator StackIterator;
-		
-		Stack nodeStack;
-		nodeStack.insert(NodeEntry(kdTree.root(), 0));
-
-		while(!nodeStack.empty())
-		{
-			NodeEntry nodeEntry = *nodeStack.begin();
-			nodeStack.erase(nodeStack.begin());
-
-			if (nodeEntry.distance_ > cullDistance)
-			{
-				// All of the nodes that are to follow
-				// are beyond the cull distance, we are done.
-				return;
-			}
-
-			// Find the leaf node that is closest
-			// to the search searchPoint in this current branch.
-			// Place all the alternative branching nodes into
-			// a nodeStack.
-
-			Cursor cursor(nodeEntry.node_);
-			while(!cursor.leaf())
-			{
-				const Real planeDistance =
-					normBijection.computeAxis(cursor.splitAxis(),
-					searchPoint[cursor.splitAxis()] - cursor.splitPosition());
-
-				Cursor nearBranch;
-				Cursor farBranch;
-
-				if (searchPoint[cursor.splitAxis()] < cursor.splitPosition())
-				{
-					// The search point is closer to the left branch so follow that.
-					nearBranch = cursor.negative();
-					farBranch = cursor.positive();
-				}
-				else
-				{
-					// The search point is closer to the right branch so follow that.
-					nearBranch = cursor.positive();
-					farBranch = cursor.negative();
-				}
-
-				// Possibly push the other branch to the nodeStack.
-				if (planeDistance <= cullDistance)
-				{
-					nodeStack.insert(NodeEntry(farBranch, planeDistance));
-				}
-
-				cursor = nearBranch;
-			}
-
-			// We are in a leaf node.
-			// Search through the objects in this node.
-
-			ConstObjectIterator iter = cursor.begin();
-			ConstObjectIterator iterEnd = cursor.end();
-
-			while(iter != iterEnd)
-			{
-				const Real currentDistance =
-					normBijection.compute(
-					kdTree.objectPolicy().point(*iter) - searchPoint);
-
-				// It is essential that this is <= rather
-				// than <, because of the possibility
-				// of multiple points at same location.
-				if (currentDistance <= cullDistance)
-				{
-					result.insert(
-						KeyVal(currentDistance, iter));
-
-					if (kFinite && result.size() > kNearest)
-					{
-						result.pop_back();
-
-						// Since we now know k neighboring points,
-						// we can bound the search radius
-						// by the distance to the currently farthest
-						// neighbor.
-
-						cullDistance = result.back().key();
-					}
-				}
-
-				++iter;
-			}
-		}
-	}
-	*/
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator> 

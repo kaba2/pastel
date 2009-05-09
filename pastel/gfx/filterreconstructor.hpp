@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/filterreconstructor.h"
 
-#include "pastel/geometry/kdTree.h"
+#include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/kdTree_tools.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 

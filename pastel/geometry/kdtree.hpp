@@ -589,7 +589,7 @@ namespace Pastel
 	{
 		return bound_.dimension();
 	}
-
+	
 	template <int N, typename Real, typename ObjectPolicy>
 	template <typename SubdivisionRule>
 	void KdTree<N, Real, ObjectPolicy>::refine(
@@ -606,61 +606,68 @@ namespace Pastel
 			return;
 		}
 
-		std::vector<RefineEntry> nodeStack;
+		refine(maxDepth, maxObjects,
+			subdivisionRule, root(),
+			0, bound().min(), bound().max());
+	}
 
-		nodeStack.push_back(RefineEntry(root(), 0, bound()));
+	template <int N, typename Real, typename ObjectPolicy>
+	template <typename SubdivisionRule>
+	void KdTree<N, Real, ObjectPolicy>::refine(
+		integer maxDepth,
+		integer maxObjects,
+		const SubdivisionRule& subdivisionRule,
+		const Cursor& cursor,
+		integer depth,
+		const Point<N, Real>& minBound,
+		const Point<N, Real>& maxBound)
+	{
+		Real splitPosition = 0;
+		integer splitAxis = 0;
 
-		while(!nodeStack.empty())
+		if (cursor.leaf())
 		{
-			const RefineEntry entry = nodeStack.back();
-			nodeStack.pop_back();
-
-			const integer depth = entry.depth_;
-			const Cursor& cursor = entry.cursor_;
-			const AlignedBox<N, Real>& bound = entry.bound_;
-
-			Real splitPosition = 0;
-			integer splitAxis = 0;
-
-			if (cursor.leaf())
+			if (depth < maxDepth && cursor.objects() > maxObjects)
 			{
-				if (depth < maxDepth && cursor.objects() > maxObjects)
-				{
-					std::pair<Real, integer> result =
-						subdivisionRule(
-						bound,
-						objectPolicy(),
-						cursor.begin(),
-						cursor.end());
+				std::pair<Real, integer> result =
+					subdivisionRule(
+					minBound,
+					maxBound,
+					objectPolicy(),
+					cursor.begin(),
+					cursor.end());
 
-					splitPosition = result.first;
-					splitAxis = result.second;
-					subdivide(cursor, splitPosition, splitAxis, 
-						bound.min()[splitAxis], bound.max()[splitAxis]);
-				}
+				splitPosition = result.first;
+				splitAxis = result.second;
+				subdivide(cursor, splitPosition, splitAxis, 
+					minBound[splitAxis], maxBound[splitAxis]);
 			}
-			else
-			{
-				splitPosition = cursor.splitPosition();
-				splitAxis = cursor.splitAxis();
-			}
+		}
+		else
+		{
+			splitPosition = cursor.splitPosition();
+			splitAxis = cursor.splitAxis();
+		}
 
-			// A leaf node might or might not have been turned
-			// into an intermediate node.
-			if (!cursor.leaf())
-			{
-				AlignedBox<N, Real> negativeBound(bound);
-				negativeBound.max()[splitAxis] = splitPosition;
+		// A leaf node might or might not have been turned
+		// into an intermediate node.
+		if (!cursor.leaf())
+		{
+			Point<N, Real> negativeMax(maxBound);
+			negativeMax[splitAxis] = splitPosition;
 
-				nodeStack.push_back(
-					RefineEntry(cursor.negative(), depth + 1, negativeBound));
+			refine(maxDepth, maxObjects, subdivisionRule,
+				cursor.negative(), depth + 1,
+				minBound,
+				negativeMax.asTemporary());
 
-				AlignedBox<N, Real> positiveBound(bound);
-				positiveBound.min()[splitAxis] = splitPosition;
+			Point<N, Real> positiveMin(minBound);
+			positiveMin[splitAxis] = splitPosition;
 
-				nodeStack.push_back(
-					RefineEntry(cursor.positive(), depth + 1, positiveBound));
-			}
+			refine(maxDepth, maxObjects, subdivisionRule,
+				cursor.positive(), depth + 1, 
+				positiveMin.asTemporary(),
+				maxBound);
 		}
 	}
 
