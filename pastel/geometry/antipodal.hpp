@@ -55,7 +55,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Integer2 antipodalNaive(
+	Integer2 antipodalBruteForce(
 		const std::vector<Point<N, Real> >& pointSet)
 	{
 		Real maxDistance = 0;

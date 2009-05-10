@@ -42,7 +42,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Integer2 antipodalNaive(
+	Integer2 antipodalBruteForce(
 		const std::vector<Point<N, Real> >& pointSet);
 
 	//! Returns a maximally separated point pair on a convex polygon.

@@ -1,7 +1,9 @@
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/all_nearest_neighbors.h"
+
 #include "pastel/math/uniformsampling.h"
+#include "pastel/math/normbijection.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/drawing.h"
@@ -60,7 +62,7 @@ namespace
 
 		timer.setStart();
 
-		allNearestNeighborsNaive(
+		allNearestNeighborsBruteForce(
 			pointSet,
 			kNearest,
 			infinity<Real>(),

@@ -1,10 +1,12 @@
-#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_MORE3_HPP
-#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_MORE3_HPP
+#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
+#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
 
-#include "pastel/geometry/all_nearest_neighbors.h"
+#include "pastel/geometry/all_nearest_neighbors_kdtree.h"
 #include "pastel/geometry/kdtree_tools.h"
 
 #include "pastel/device/timer.h"
+
+#include <omp.h>
 
 namespace Pastel
 {

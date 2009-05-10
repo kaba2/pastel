@@ -1,16 +1,16 @@
-#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_MORE_HPP
-#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_MORE_HPP
+#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
+#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
 
-#include "pastel/geometry/all_nearest_neighbors.h"
+#include "pastel/geometry/all_nearest_neighbors_bruteforce.h"
+
+#include "pastel/sys/smallfixedset.h"
 
 #include <omp.h>
-
-#include <set>
 
 namespace Pastel
 {
 
-	namespace Detail_AllNearestNeighborsNaive
+	namespace Detail_AllNearestNeighborsBruteForce
 	{
 
 		template <typename Real>
@@ -44,7 +44,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection>
-	void allNearestNeighborsNaive(
+	void allNearestNeighborsBruteForce(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -57,22 +57,28 @@ namespace Pastel
 		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
 		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
-		typedef Detail_AllNearestNeighborsNaive::Entry<Real> Entry;
-		//typedef std::set<Entry> NearestSet;
+		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
 		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
 
+		// The commented OpenMp pragmas represent
+		// another way to parallelize the searching.
+		// I timed the performances and noted that
+		// parallelizing the outer loop is much faster
+		// (presumably because it does not need a critical
+		// section and also parallelizes writing the results).
+
 		const integer points = pointSet.size();
+#pragma omp parallel for
 		for (integer i = 0;i < points;++i)
 		{
 			const Point<N, Real>& iPoint = pointSet[i];
 
-			//NearestSet nearestSet;
 			NearestSet nearestSet(kNearest);
 
 			real cullDistance = maxDistance;
 
-#pragma omp parallel for
+//#pragma omp parallel for
 			for (integer j = 0;j < points;++j)
 			{
 				if (j != i)
@@ -81,31 +87,13 @@ namespace Pastel
 						normBijection.compute(pointSet[j] - iPoint, cullDistance);
 					if (distance <= cullDistance)
 					{
-#pragma omp critical
+//#pragma omp critical
 						{
 							nearestSet.insert(Entry(distance, j));
 							if (nearestSet.full())
 							{
 								cullDistance = nearestSet.back().distance_;
 							}
-
-							/*
-							if (nearestSet.size() > kNearest)
-							{
-								NearestIterator lastIter = nearestSet.end();
-								--lastIter;
-								nearestSet.erase(lastIter);
-
-								// Since we now know k neighboring points,
-								// we can bound the search radius
-								// by the distance to the currently farthest
-								// neighbor.
-
-								lastIter = nearestSet.end();
-								--lastIter;
-								cullDistance = lastIter->distance_;
-							}
-							*/
 						}
 					}
 				}

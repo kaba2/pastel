@@ -8,7 +8,7 @@ namespace Pastel
 {
 
 	template <typename Object, typename InputIterator, typename Metric>
-	InputIterator closestPointNaive(
+	InputIterator closestPointBruteForce(
 		const Object& reference,
 		InputIterator begin,
 		InputIterator end,

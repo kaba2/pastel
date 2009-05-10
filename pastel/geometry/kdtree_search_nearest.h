@@ -32,15 +32,6 @@ namespace Pastel
 	are returned sorted with their distance from 
 	the query point.
 
-	class NormBijection
-	{
-	public:
-		Real operator()(const Vector<N, Real>& that) const;
-
-		// Returns normBijection(0, 0, ..., that, ..., 0, 0).
-		Real operator()(integer axis, const Real& that) const;
-	};
-
 	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
 

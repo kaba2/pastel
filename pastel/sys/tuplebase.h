@@ -7,6 +7,7 @@
 #include "pastel/sys/destruct.h"
 
 #include <vector>
+#include <algorithm>
 
 #include <boost/static_assert.hpp>
 #include <boost/operators.hpp>
@@ -149,6 +150,15 @@ namespace Pastel
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
+			}
+
+			TupleBase<N, Type>& operator=(const TupleBase& that)
+			{
+				// We settle for basic exception safety rather than strong
+				// for performance (no element swapping).
+				std::copy(that.data_, that.data_ + N, data_);
+				
+				return *this;
 			}
 
 			void swap(Tuple<N, Type> & that)
@@ -451,6 +461,17 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(IsBase);
 			}
 
+			TupleBase<N, Type>& operator=(const TupleBase& that)
+			{
+				// We settle for basic exception safety rather than strong
+				// for performance (no memory reallocation).
+				PENSURE2(size_ == that.size_, size_, that.size_);
+
+				std::copy(that.data_, that.data_ + that.size_, data_);
+				
+				return *this;
+			}
+
 			void setSize(integer size, const Type& that = Type())
 			{
 				ENSURE1(size >= 0, size);
@@ -596,10 +617,6 @@ namespace Pastel
 			}
 
 		private:
-			// Prohibited
-			TupleBase<N, Type>& operator=(
-				const TupleBase& that);
-
 			void allocate(integer size)
 			{
 				PENSURE1(size >= 0, size);
