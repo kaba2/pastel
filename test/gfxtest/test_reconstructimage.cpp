@@ -13,8 +13,8 @@
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/image_tools.h"
-#include "pastel/gfx/nearestreconstructor.h"
-#include "pastel/gfx/filterreconstructor.h"
+#include "pastel/gfx/reconstruct_nearest.h"
+#include "pastel/gfx/reconstruct_filter.h"
 #include "pastel/gfx/reconstruct_adaptive.h"
 
 #include "pastel/dsp/resample.h"
