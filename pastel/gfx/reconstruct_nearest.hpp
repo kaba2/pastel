@@ -1,18 +1,20 @@
-#ifndef PASTELGFX_FILTERRECONSTRUCTOR_HPP
-#define PASTELGFX_FILTERRECONSTRUCTOR_HPP
+#ifndef PASTELGFX_RECONSTRUCT_NEAREST_HPP
+#define PASTELGFX_RECONSTRUCT_NEAREST_HPP
 
-#include "pastel/gfx/filterreconstructor.h"
+#include "pastel/gfx/reconstruct_nearest.h"
 
 #include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdTree_tools.h"
+#include "pastel/geometry/kdtree_tools.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"
+
+#include "pastel/sys/vector_tools.h"
 
 #include "pastel/sys/view_visit.h"
 
 namespace Pastel
 {
 
-	namespace Detail_FilterReconstructor
+	namespace Detail_ReconstructNearest
 	{
 
 		template <int N, typename Real, typename Data>
@@ -65,18 +67,17 @@ namespace Pastel
 			}
 		};
 
-		template <int N, typename Real, typename ObjectPolicy, typename Filter>
+		template <int N, typename Real, typename ObjectPolicy>
 		class ReconstructFunctor
 		{
 		public:
 			explicit ReconstructFunctor(
 				const KdTree<N, Real, ObjectPolicy>& kdTree,
-				const Filter& filter,
-				const Real& filterStretch)
-				: kdTree_(kdTree)
-				, filter_(filter)
-				, filterStretch_(filterStretch)
-				, invFilterStretch_(inverse(filterStretch))
+				integer kNearest,
+				integer maxRelativeError)
+				: kdtree_(kdTree)
+				, kNearest_(kNearest)
+				, maxRelativeError_(maxRelativeError)
 			{
 			}
 
@@ -86,82 +87,50 @@ namespace Pastel
 				const Point<N, integer>& position,
 				typename Data::Data_& data) const
 			{
-				if (kdTree_.empty())
-				{
-					data = 0;
-					return;
-				}
-
 				typedef KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
 
-				searchNearest(kdTree_, Point<N, real>(position) + 0.5,
-					filter_.radius() * filterStretch_,
-					0,
-					InfinityNormBijection<N, Real>(),
-					kdTree_.objects() - 1,
-					&nearestSet);
+				searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
+					infinity<Real>(), maxRelativeError_, EuclideanNormBijection<N, Real>(),
+					kNearest_, &nearestSet);
 
-				const integer points = nearestSet.size();
-
-				real weightSum = 0;
-				typename Data::Data_ valueSum(0);
-
-				for (integer i = 0;i < points;++i)
-				{
-					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
-
-					const Vector<N, real> delta = nearestSet[i]->position_ - (Point<N, real>(position) + 0.5);
-					real weight = 1;
-					for (integer k = 0;k < N;++k)
-					{
-						weight *= filter_.evaluate(delta[k] * invFilterStretch_);
-					}
-
-					valueSum += nearestSet[i]->data_ * weight;
-					weightSum += weight;
-				}
-
-				if (weightSum != 0)
-				{
-					valueSum /= weightSum;
-				}
-
-				data = valueSum;
+				data = nearestSet.back()->data_;
 			}
 
 		private:
-			const KdTree<N, Real, ObjectPolicy>& kdTree_;
-			const Filter& filter_;
-			const Real& filterStretch_;
-			const Real invFilterStretch_;
+			const KdTree<N, Real, ObjectPolicy>& kdtree_;
+			integer kNearest_;
+			Real maxRelativeError_;
 		};
 	}
 
-	template <int N, typename Real, typename Data, typename Filter, typename Output_View>
-	void reconstructFilter(
+	template <int N, typename Real, typename Data, typename Output_View>
+	void reconstructNearest(
 		const std::vector<Point<N, Real> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
-		const Filter& filter,
-		const PASTEL_NO_DEDUCTION(Real)& filterStretch,
-		const View<N, Data, Output_View>& view)
+		const View<N, Data, Output_View>& view,
+		integer kNearest,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
 		BOOST_STATIC_ASSERT(N != Unbounded);
-
+		
 		const integer points = positionList.size();
 
+		ENSURE1(kNearest > 0, kNearest);
+		ENSURE2(kNearest < points, kNearest, points);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
-		typedef Detail_FilterReconstructor::DataPoint<N, Real, Data> DataPoint;
-		typedef Detail_FilterReconstructor::DataPolicy<N, Real, Data> DataPolicy;
+		typedef Detail_ReconstructNearest::DataPoint<N, Real, Data> DataPoint;
+		typedef Detail_ReconstructNearest::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
 		KdTree<N, Real, DataPolicy> kdTree(N, dataPolicy);
 
-		const Vector<N, Real> scaling = inverse(region.extent()) * Vector<N, Real>(view.extent());
+		const Vector<N, Real> scaling = 
+			inverse(region.extent()) * Vector<N, Real>(view.extent());
 
 		std::vector<DataPoint> dataPointList;
 		for (integer i = 0;i < points;++i)
@@ -178,11 +147,36 @@ namespace Pastel
 		kdTree.refine(
 			computeKdTreeMaxDepth(kdTree.objects()), 4, SlidingMidpointRule());
 
-		Detail_FilterReconstructor::ReconstructFunctor<N, Real, DataPolicy, Filter>
-			reconstructFunctor(kdTree, filter, filterStretch);
+		Detail_ReconstructNearest::ReconstructFunctor<N, Real, DataPolicy>
+			reconstructFunctor(kdTree, kNearest, maxRelativeError);
 
 		visitPosition(
 			view, reconstructFunctor);
+	}
+
+	template <int N, typename Real, typename Data, typename Output_View>
+	void reconstructNearest(
+		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Data>& dataList,
+		const AlignedBox<N, Real>& region,
+		const View<N, Data, Output_View>& view,
+		integer kNearest)
+	{
+		Pastel::reconstructNearest(
+			positionList, dataList,
+			region, view, kNearest, 0);
+	}
+
+	template <int N, typename Real, typename Data, typename Output_View>
+	void reconstructNearest(
+		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Data>& dataList,
+		const AlignedBox<N, Real>& region,
+		const View<N, Data, Output_View>& view)
+	{
+		Pastel::reconstructNearest(
+			positionList, dataList,
+			region, view, 1, 0);
 	}
 
 }

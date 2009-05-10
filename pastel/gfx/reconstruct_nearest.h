@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_NEARESTRECONSTRUCTOR_H
-#define PASTELGFX_NEARESTRECONSTRUCTOR_H
+#ifndef PASTELGFX_RECONSTRUCT_NEAREST_H
+#define PASTELGFX_RECONSTRUCT_NEAREST_H
 
 #include "pastel/geometry/alignedbox.h"
 
@@ -42,6 +42,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/nearestreconstructor.hpp"
+#include "pastel/gfx/reconstruct_nearest.hpp"
 
 #endif

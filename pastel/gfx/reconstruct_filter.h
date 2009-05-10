@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_FILTERRECONSTRUCTOR_H
-#define PASTELGFX_FILTERRECONSTRUCTOR_H
+#ifndef PASTELGFX_RECONSTRUCT_FILTER_H
+#define PASTELGFX_RECONSTRUCT_FILTER_H
 
 #include "pastel/sys/view.h"
 
@@ -21,6 +21,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/filterreconstructor.hpp"
+#include "pastel/gfx/reconstruct_filter.hpp"
 
 #endif
