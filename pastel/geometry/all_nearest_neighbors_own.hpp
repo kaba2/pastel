@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_MORE2_HPP
-#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_MORE2_HPP
+#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_OWN_HPP
+#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_OWN_HPP
 
-#include "pastel/geometry/all_nearest_neighbors.h"
+#include "pastel/geometry/all_nearest_neighbors_own.h"
 
 #include "pastel/sys/unorderedmap.h"
 

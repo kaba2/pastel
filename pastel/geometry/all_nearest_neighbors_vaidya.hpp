@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_HPP
-#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_HPP
+#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_VAIDYA_HPP
+#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_VAIDYA_HPP
 
-#include "pastel/geometry/all_nearest_neighbors.h"
+#include "pastel/geometry/all_nearest_neighbors_vaidya.h"
 
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/boxvolume.h"

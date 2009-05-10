@@ -541,7 +541,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	bool overlapsNaive(
+	bool overlapsBruteForce(
 		const std::vector<Point<2, Real> >& vertex,
 		const std::vector<Integer2>& segment)
 	{

@@ -33,7 +33,6 @@ namespace Pastel
 
 	public:
 		// Using default copy constructor.
-		// Using default assignment.
 		// Using default destructor.
 
 		Tuple()
@@ -63,6 +62,11 @@ namespace Pastel
 			: Base(that)
 		{
 		}
+
+		Tuple<N, Type>& operator=(const Tuple& that)
+		{
+			return (Tuple<N, Type>&)Base::operator=(that);
+		}
 	};
 
 	template <typename Type>
@@ -79,7 +83,6 @@ namespace Pastel
 
 	public:
 		// Using default copy constructor.
-		// Using default assignment.
 		// Using default destructor.
 
 		using Base::set;
@@ -112,6 +115,11 @@ namespace Pastel
 		{
 		}
 
+		Tuple<N, Type>& operator=(const Tuple& that)
+		{
+			return (Tuple<N, Type>&)Base::operator=(that);
+		}
+
 		const Type& x() const
 		{
 			return (*this)[0];
@@ -137,7 +145,6 @@ namespace Pastel
 
 	public:
 		// Using default copy constructor.
-		// Using default assignment.
 		// Using default destructor.
 
 		using Base::set;
@@ -174,6 +181,11 @@ namespace Pastel
 			: Base()
 		{
 			set(a, b);
+		}
+
+		Tuple<N, Type>& operator=(const Tuple& that)
+		{
+			return (Tuple<N, Type>&)Base::operator=(that);
 		}
 
 		void set(const Type& a, const Type& b)
@@ -217,7 +229,6 @@ namespace Pastel
 
 	public:
 		// Using default copy constructor.
-		// Using default assignment.
 		// Using default destructor.
 
 		using Base::set;
@@ -255,6 +266,11 @@ namespace Pastel
 			: Base()
 		{
 			set(a, b, c);
+		}
+
+		Tuple<N, Type>& operator=(const Tuple& that)
+		{
+			return (Tuple<N, Type>&)Base::operator=(that);
 		}
 
 		void set(const Type& a, const Type& b, const Type& c)
@@ -309,7 +325,6 @@ namespace Pastel
 
 	public:
 		// Using default copy constructor.
-		// Using default assignment.
 		// Using default destructor.
 
 		using Base::set;
@@ -347,6 +362,11 @@ namespace Pastel
 			: Base()
 		{
 			set(a, b, c, d);
+		}
+
+		Tuple<N, Type>& operator=(const Tuple& that)
+		{
+			return (Tuple<N, Type>&)Base::operator=(that);
 		}
 
 		void set(const Type& a, const Type& b,
@@ -489,12 +509,9 @@ namespace Pastel
 		{
 		}
 
-		Tuple<N, Type>& operator=(
-			const Tuple<N, Type>& that)
+		Tuple<N, Type>& operator=(const Tuple& that)
 		{
-			Tuple<N, Type> copy(that);
-			swap(copy);
-			return *this;
+			return (Tuple<N, Type>&)Base::operator=(that);
 		}
 
 		Tuple<N, Type>& operator=(
@@ -800,9 +817,9 @@ namespace Pastel
 		}
 
 		TemporaryTuple<N, Type>& operator=(
-			const TemporaryTuple<N, Type>& that)
+			const TemporaryTuple& that)
 		{
-			TemporaryTuple<N, Type> copy(that);
+			TemporaryTuple copy(that);
 			swap(copy);
 			return *this;
 		}
