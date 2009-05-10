@@ -96,7 +96,7 @@ namespace Pastel
 		// Used for concept checking.
 		~Point()
 		{
-			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+			BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 	};
 
@@ -512,13 +512,13 @@ namespace Pastel
 	// Specialization for unbounded dimension.
 
 	template <typename Real>
-	class Point<Unbounded, Real>
-		: public Detail::PointBase<Unbounded, Real>
+	class Point<Dynamic, Real>
+		: public Detail::PointBase<Dynamic, Real>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef Detail::PointBase<N, Real>
@@ -721,7 +721,7 @@ namespace Pastel
 		// Used for concept checking.
 		~TemporaryPoint()
 		{
-			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+			BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 
 		TemporaryTuple<N, Real>& asTuple()
@@ -1095,13 +1095,13 @@ namespace Pastel
 	// Specialization for unbounded dimensions.
 
 	template <typename Real>
-	class TemporaryPoint<Unbounded, Real>
-		: public Point<Unbounded, Real>
+	class TemporaryPoint<Dynamic, Real>
+		: public Point<Dynamic, Real>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef Point<N, Real> Base;
@@ -1186,7 +1186,7 @@ namespace Pastel
 		// Used for concept checking.
 		~TemporaryPoint()
 		{
-			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+			BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 
 		TemporaryPoint<N, Real>& operator=(

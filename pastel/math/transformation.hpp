@@ -38,7 +38,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Transformation<N, Real>::~Transformation()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <int N, typename Real>

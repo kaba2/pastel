@@ -25,6 +25,14 @@ namespace Pastel
 		: position_()
 		, normal_(unitAxis<N, Real>(0))
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Plane<N, Real>::Plane(integer dimension)
+		: position_(ofDimension(dimension))
+		, normal_(unitAxis<N, Real>(dimension, 0))
+	{
 	}
 
 	template <int N, typename Real>
@@ -34,12 +42,27 @@ namespace Pastel
 		: position_(position)
 		, normal_(unitNormal)
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Plane<N, Real>::Plane(
+		integer dimension,
+		const Point<N, Real>& position,
+		const Vector<N, Real>& unitNormal)
+		: position_(position)
+		, normal_(unitNormal)
+	{
+		PENSURE2(dimension == position.dimension(),
+			dimension, position.dimension());
+		PENSURE2(dimension == unitNormal.dimension(),
+			dimension, unitNormal.dimension());
 	}
 
 	template <int N, typename Real>
 	Plane<N, Real>::~Plane()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <int N, typename Real>
@@ -48,6 +71,12 @@ namespace Pastel
 	{
 		position_.swap(that.position_);
 		normal_.swap(that.normal_);
+	}
+
+	template <int N, typename Real>
+	integer Plane<N, Real>::dimension() const
+	{
+		return position_.dimension();
 	}
 
 	template <int N, typename Real>

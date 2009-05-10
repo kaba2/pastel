@@ -47,8 +47,16 @@ namespace Pastel
 		//! Constructs an x-orthogonal plane at the origin.
 		Plane();
 
+		//! Constructs an x-orthogonal plane at the origin.
+		explicit Plane(integer dimension);
+
 		//! Constructs a plane given a position and a normal.
 		Plane(const Point<N, Real>& position,
+			const Vector<N, Real>& unitNormal);
+
+		//! Constructs a plane given a position and a normal.
+		Plane(integer dimension,
+			const Point<N, Real>& position,
 			const Vector<N, Real>& unitNormal);
 
 		//! Used for concept checking.
@@ -56,6 +64,9 @@ namespace Pastel
 
 		//! Swaps two planes.
 		void swap(Plane<N, Real>& that);
+
+		//! Returns the dimension of the plane.
+		integer dimension() const;
 
 		//! Sets the position and normal of the plane.
 		void set(const Point<N, Real>& position,

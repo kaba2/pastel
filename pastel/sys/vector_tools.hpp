@@ -76,7 +76,8 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> unitAxis(integer index)
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N > 0);
+
 		PENSURE2(index >= 0 && index < N, index, N);
 
 		Vector<N, Real> result(0);
@@ -86,27 +87,28 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Unbounded, Real> unitAxis(
-		integer index, integer dimension)
+	TemporaryVector<N, Real> unitAxis(
+		integer dimension, integer index)
 	{
 		PENSURE1(dimension > 0, dimension);
+		PENSURE(dimension == Dynamic || dimension == N);
 		PENSURE2(index >= 0 && index < dimension, index, dimension);
 
-		Vector<Unbounded, Real> result(ofDimension(dimension), 0);
+		Vector<N, Real> result(ofDimension(dimension), 0);
 		result[index] = 1;
 
 		return result.asTemporary();
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that)
 	{
-		BOOST_STATIC_ASSERT(N > 1 || N == Unbounded);
+		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		enum
 		{
-			NResult = (N == Unbounded) ? Unbounded : N - 1
+			NResult = (N == Dynamic) ? Dynamic : N - 1
 		};
 
 		const integer size = that.size();
@@ -121,15 +123,15 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index)
 	{
-		BOOST_STATIC_ASSERT(N > 1 || N == Unbounded);
+		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		enum
 		{
-			NResult = (N == Unbounded) ? Unbounded : N - 1
+			NResult = (N == Dynamic) ? Dynamic : N - 1
 		};
 
 		const integer size = that.size();
@@ -148,7 +150,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
 	{
@@ -156,7 +158,7 @@ namespace Pastel
 
 		enum
 		{
-			NResult = (N == Unbounded) ? Unbounded : N + 1
+			NResult = (N == Dynamic) ? Dynamic : N + 1
 		};
 
 		Vector<NResult, Real> result(size + 1);
@@ -171,7 +173,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
@@ -179,7 +181,7 @@ namespace Pastel
 
 		enum
 		{
-			NResult = (N == Unbounded) ? Unbounded : N + 1
+			NResult = (N == Dynamic) ? Dynamic : N + 1
 		};
 
 		Vector<NResult, Real> result(size + 1);
@@ -194,7 +196,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
@@ -205,7 +207,7 @@ namespace Pastel
 
 		enum
 		{
-			NResult = (N == Unbounded) ? Unbounded : N + 1
+			NResult = (N == Dynamic) ? Dynamic : N + 1
 		};
 
 		Vector<NResult, Real> result(size + 1);
@@ -240,7 +242,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	typename boost::enable_if_c<(N > 1 || N == Unbounded), Real>::type
+	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
 		norm(const VectorExpression<N, Real, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));

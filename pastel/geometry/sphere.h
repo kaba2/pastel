@@ -30,15 +30,26 @@ namespace Pastel
 		//! Construct an origin centered unit sphere.
 		Sphere();
 
+		//! Construct an origin centered unit sphere.
+		explicit Sphere(integer dimension);
+
 		//! Construct a sphere using given position and radius.
 		Sphere(const Point<N, Real>& position,
+			const Real& radius);
+
+		//! Construct a sphere using given position and radius.
+		Sphere(integer dimension,
+			const Point<N, Real>& position,
 			const Real& radius);
 
 		// Used for concept checking.
 		~Sphere();
 
 		//! Swaps two Sphere's.
-		void swap(Sphere<N, Real>& that);
+		void swap(Sphere& that);
+
+		//! Returns the dimension of the sphere.
+		integer dimension() const;
 
 		//! Sets the position of the sphere.
 		void setPosition(const Point<N, Real>& position);
@@ -72,6 +83,7 @@ namespace Pastel
 	typedef Sphere<2, real> Sphere2;
 	typedef Sphere<3, real> Sphere3;
 	typedef Sphere<4, real> Sphere4;
+	typedef Sphere<Dynamic, real> DynamicSphere;
 
 }
 

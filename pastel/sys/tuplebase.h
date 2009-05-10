@@ -142,7 +142,7 @@ namespace Pastel
 
 			~TupleBase()
 			{
-				BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+				BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 
 				enum
 				{
@@ -235,6 +235,11 @@ namespace Pastel
 				return N;
 			}
 
+			size_type dimension() const
+			{
+				return N;
+			}
+
 			size_type max_size() const
 			{
 				return N;
@@ -296,13 +301,13 @@ namespace Pastel
 		};
 
 		template <typename Type>
-		class TupleBase<Unbounded, Type>
-			: boost::equality_comparable<Tuple<Unbounded, Type> >
+		class TupleBase<Dynamic, Type>
+			: boost::equality_comparable<Tuple<Dynamic, Type> >
 		{
 		private:
 			enum
 			{
-				N = Unbounded
+				N = Dynamic
 			};
 		public:
 			template <int N, typename Type>
@@ -554,6 +559,11 @@ namespace Pastel
 			}
 
 			size_type size() const
+			{
+				return size_;
+			}
+
+			size_type dimension() const
 			{
 				return size_;
 			}

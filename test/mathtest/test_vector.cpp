@@ -320,7 +320,7 @@ namespace
 	template <int N>
 	void testVectorArithmetic2()
 	{
-		const integer size = (N == Unbounded) ? 100 : N;
+		const integer size = (N == Dynamic) ? 100 : N;
 
 		Vector<N, Real> a(ofDimension(size));
 		
@@ -333,8 +333,8 @@ namespace
 
 		// Move construction.
 		{
-			REPORT1(N == Unbounded && a.size() != 0, a.size());
-			REPORT1(N == Unbounded && b.size() != size, b.size());
+			REPORT1(N == Dynamic && a.size() != 0, a.size());
+			REPORT1(N == Dynamic && b.size() != size, b.size());
 			
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -655,42 +655,42 @@ namespace
 	template <int N>
 	void testCollaboration()
 	{
-		const integer size = (N == Unbounded) ? 100 : N;
+		const integer size = (N == Dynamic) ? 100 : N;
 
 		Point<N, Real> a(ofDimension(size));
 
 		Vector<N, Real> b = a.asVector();
 
 		Point<N, Real> e = a.asTemporary();
-		if (N == Unbounded)
+		if (N == Dynamic)
 		{
 			REPORT1(a.size() != 0, a.size());
 			REPORT2(e.size() != size, e.size(), size);
 		}
 
 		Tuple<N, Real> c = b.asTuple().asTemporary();
-		if (N == Unbounded)
+		if (N == Dynamic)
 		{
 			REPORT1(b.size() != 0, b.size());
 			REPORT2(c.size() != size, c.size(), size);
 		}
 
 		Tuple<N, Real> d = c;
-		if (N == Unbounded)
+		if (N == Dynamic)
 		{
 			REPORT2(d.size() != size, d.size(), size);
 			REPORT2(c.size() != size, c.size(), size);
 		}
 
 		d = c;
-		if (N == Unbounded)
+		if (N == Dynamic)
 		{
 			REPORT2(d.size() != size, d.size(), size);
 			REPORT2(c.size() != size, c.size(), size);
 		}
 
 		TemporaryTuple<N, Real> f = d.asTemporary();
-		if (N == Unbounded)
+		if (N == Dynamic)
 		{
 			REPORT2(f.size() != size, f.size(), size);
 			REPORT1(d.size() != 0, d.size());
@@ -723,13 +723,13 @@ namespace
 		testVectorArithmetic2<2>();
 		testVectorArithmetic2<3>();
 		testVectorArithmetic2<4>();
-		testVectorArithmetic2<Unbounded>();
+		testVectorArithmetic2<Dynamic>();
 
 		testCollaboration<1>();
 		testCollaboration<2>();
 		testCollaboration<3>();
 		testCollaboration<4>();
-		testCollaboration<Unbounded>();
+		testCollaboration<Dynamic>();
 	}
 
 	void testAdd()

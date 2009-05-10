@@ -42,13 +42,25 @@ namespace Pastel
 		//! Constructs an axis-aligned, origin centered 1-halfwidth box.
 		Box();
 
+		//! Constructs an axis-aligned, origin centered 1-halfwidth box.
+		explicit Box(integer dimension);
+
 		//! Constructs using the given information.
 		Box(const Point<N, Real>& position,
 			const Vector<N, Real>& width,
 			const Matrix<N, N, Real>& rotation);
 
+		//! Constructs using the given information.
+		Box(integer dimension,
+			const Point<N, Real>& position,
+			const Vector<N, Real>& width,
+			const Matrix<N, N, Real>& rotation);
+
 		// Used for concept checking.
 		~Box();
+
+		//! Returns the dimensions of the box.
+		integer dimension() const;
 
 		//! Sets the dimensions of the box.
 		void setWidth(const Vector<N, Real>& width);

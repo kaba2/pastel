@@ -1,6 +1,18 @@
 Remarks
 =======
 
+Todo
+----
+
+- Remove Simplex and Flat.
+- Replace "pastel/sys/file.h" inclusion with "pastel/file.h":
+the user should not forced to remember on which sublibrary
+the files exist. This also helps when files are moved from
+one sublibrary to other.
+=> Need to generate forwarding files to pastel/.
+=> You can create a program to do this automatically.
+- Do the same with include guards: PASTELSYS_ -> PASTEL_
+
 Qt installation
 ---------------
 

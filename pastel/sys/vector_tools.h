@@ -38,7 +38,7 @@ namespace Pastel
 
 	//! Returns the 'index'th natural basis axis.
 	/*!
-	N != Unbounded
+	N != Dynamic
 	index >= 0 && index < N
 	*/
 
@@ -52,36 +52,36 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	inline TemporaryVector<Unbounded, Real> unitAxis(
-		integer index, integer dimension);
+	inline TemporaryVector<N, Real> unitAxis(
+		integer dimension, integer index);
 
 	//! Returns a subsequence of a vector.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that);
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N - 1), Real> shrink(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N - 1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index);
 
 	//! Returns an N + 1 vector appended from the left.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Unbounded) ? Unbounded : N + 1), Real> extend(
+	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index);
@@ -116,7 +116,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real, typename Expression>
-	typename boost::enable_if_c<(N > 1 || N == Unbounded), Real>::type
+	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
 		norm(const VectorExpression<N, Real, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.

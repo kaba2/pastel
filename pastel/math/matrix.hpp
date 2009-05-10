@@ -12,13 +12,13 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>::Matrix()
+	Matrix<Dynamic, Dynamic, Real>::Matrix()
 		: data_()
 	{
 	}
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>::Matrix(
+	Matrix<Dynamic, Dynamic, Real>::Matrix(
 		const Matrix& that, MatrixTransposeTag)
 		: data_()
 	{
@@ -37,20 +37,20 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	void Matrix<Unbounded, Unbounded, Real>::swap(
+	void Matrix<Dynamic, Dynamic, Real>::swap(
 		Matrix& that)
 	{
 		data_.swap(that.data_);
 	}
 
 	template <typename Real>
-	void Matrix<Unbounded, Unbounded, Real>::clear()
+	void Matrix<Dynamic, Dynamic, Real>::clear()
 	{
 		data_.clear();
 	}
 
 	template <typename Real>
-	void Matrix<Unbounded, Unbounded, Real>::setSize(integer height, integer width)
+	void Matrix<Dynamic, Dynamic, Real>::setSize(integer height, integer width)
 	{
 		data_.setExtent(width, height);
 
@@ -63,32 +63,32 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	integer Matrix<Unbounded, Unbounded, Real>::width() const
+	integer Matrix<Dynamic, Dynamic, Real>::width() const
 	{
 		return data_.width();
 	}
 
 	template <typename Real>
-	integer Matrix<Unbounded, Unbounded, Real>::height() const
+	integer Matrix<Dynamic, Dynamic, Real>::height() const
 	{
 		return data_.height();
 	}
 
 	template <typename Real>
-	Real& Matrix<Unbounded, Unbounded, Real>::operator()(integer y, integer x)
+	Real& Matrix<Dynamic, Dynamic, Real>::operator()(integer y, integer x)
 	{
 		return data_(x, y);
 	}
 
 	template <typename Real>
-	const Real& Matrix<Unbounded, Unbounded, Real>::operator()(integer y, integer x) const
+	const Real& Matrix<Dynamic, Dynamic, Real>::operator()(integer y, integer x) const
 	{
 		return data_(x, y);
 	}
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>&
-		Matrix<Unbounded, Unbounded, Real>::operator*=(
+	Matrix<Dynamic, Dynamic, Real>&
+		Matrix<Dynamic, Dynamic, Real>::operator*=(
 		const PASTEL_NO_DEDUCTION(Real)& that)
 	{
 		const integer nWidth = width();
@@ -106,8 +106,8 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>&
-		Matrix<Unbounded, Unbounded, Real>::operator/=(
+	Matrix<Dynamic, Dynamic, Real>&
+		Matrix<Dynamic, Dynamic, Real>::operator/=(
 		const PASTEL_NO_DEDUCTION(Real)& that)
 	{
 		*this *= 1 / that;
@@ -116,8 +116,8 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>&
-		Matrix<Unbounded, Unbounded, Real>::operator+=(
+	Matrix<Dynamic, Dynamic, Real>&
+		Matrix<Dynamic, Dynamic, Real>::operator+=(
 		const Matrix& that)
 	{
 		const integer nWidth = width();
@@ -138,8 +138,8 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>&
-		Matrix<Unbounded, Unbounded, Real>::operator-=(
+	Matrix<Dynamic, Dynamic, Real>&
+		Matrix<Dynamic, Dynamic, Real>::operator-=(
 		const Matrix& that)
 	{
 		const integer nWidth = width();
@@ -160,8 +160,8 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Matrix<Unbounded, Unbounded, Real>&
-		Matrix<Unbounded, Unbounded, Real>::operator*=(
+	Matrix<Dynamic, Dynamic, Real>&
+		Matrix<Dynamic, Dynamic, Real>::operator*=(
 		const Matrix& right)
 	{
 		const integer nWidth = width();

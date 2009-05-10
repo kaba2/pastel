@@ -321,7 +321,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Unbounded || left.size() == right.size(), 
+			PENSURE2(N != Dynamic || left.size() == right.size(), 
 				left.size(), right.size());
 		}
 
@@ -361,7 +361,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Unbounded || left.size() == right.size(), 
+			PENSURE2(N != Dynamic || left.size() == right.size(), 
 				left.size(), right.size());
 		}
 
@@ -401,7 +401,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Unbounded || left.size() == right.size(), 
+			PENSURE2(N != Dynamic || left.size() == right.size(), 
 				left.size(), right.size());
 		}
 
@@ -441,7 +441,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Unbounded || left.size() == right.size(), 
+			PENSURE2(N != Dynamic || left.size() == right.size(), 
 				left.size(), right.size());
 		}
 

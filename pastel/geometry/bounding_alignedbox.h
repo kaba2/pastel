@@ -19,11 +19,16 @@ namespace Pastel
 	//! Finds the minimum volume bounding aligned box of a point set.
 
 	/*!
+	Preconditions:
+	dimension > 0
+	dimension == N || N == Dynamic
+
 	The InputIterator must dereference to Point<N, Real>.
 	*/
 
 	template <int N, typename Real, typename InputIterator>
 	AlignedBox<N, Real> boundingAlignedBox(
+		integer dimension,
 		const InputIterator& from,
 		const InputIterator& to);
 
@@ -63,6 +68,18 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<N, Real> boundingAlignedCube(
 		const AlignedBox<N, Real>& box);
+
+	//! Finds the minimum volume bounding aligned box of two aligned boxes.
+
+	template <int N, typename Real>
+	void extendToCover(
+		const AlignedBox<N, Real>& boxToCover,
+		AlignedBox<N, Real>& boxToExtend);
+
+	template <int N, typename Real>
+	void extendToCover(
+		const Point<N, Real>& pointToCover,
+		AlignedBox<N, Real>& boxToExtend);
 
 }
 

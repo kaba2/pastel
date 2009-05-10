@@ -30,7 +30,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Ray<N, Real>::~Ray()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <int N, typename Real>

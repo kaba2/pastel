@@ -179,38 +179,38 @@ namespace
 
 	void testAllNearest()
 	{
-		test<8, real>(8, 20000, 1);
-		test<Unbounded, real>(8, 20000, 1);
+		//test<8, real>(8, 20000, 1);
+		test<Dynamic, real>(8, 20000, 1);
 		/*
 		test<8, real>(8, 5000, 1);
 		test<8, real>(8, 10000, 1);
 		test<8, real>(8, 20000, 1);
-		test<Unbounded, real>(8, 5000, 1);
-		test<Unbounded, real>(8, 10000, 1);
+		test<Dynamic, real>(8, 5000, 1);
+		test<Dynamic, real>(8, 10000, 1);
 		*/
 		//test<8, real>(8, 10000, 1);
-		//test<Unbounded, real>(8, 1000, 1);
+		//test<Dynamic, real>(8, 1000, 1);
 		//test<8, real>(8, 20000, 1);
-		//test<Unbounded, real>(8, 20000, 1);
+		//test<Dynamic, real>(8, 20000, 1);
 
 		/*
-		test<Unbounded, real>(20, 5000, 1);
+		test<Dynamic, real>(20, 5000, 1);
 
 		test<5, real>(5, 10000, 1);
-		test<Unbounded, real>(10, 10000, 1);
-		test<Unbounded, real>(20, 10000, 1);
+		test<Dynamic, real>(10, 10000, 1);
+		test<Dynamic, real>(20, 10000, 1);
 
 		test<5, real>(5, 20000, 1);
-		test<Unbounded, real>(10, 20000, 1);
-		test<Unbounded, real>(20, 20000, 1);
+		test<Dynamic, real>(10, 20000, 1);
+		test<Dynamic, real>(20, 20000, 1);
 
 		test<5, real>(5, 10000, 4);
-		test<Unbounded, real>(10, 10000, 4);
-		test<Unbounded, real>(20, 10000, 4);
+		test<Dynamic, real>(10, 10000, 4);
+		test<Dynamic, real>(20, 10000, 4);
 
 		test<5, real>(5, 10000, 8);
-		test<Unbounded, real>(10, 10000, 8);
-		test<Unbounded, real>(20, 10000, 8);
+		test<Dynamic, real>(10, 10000, 8);
+		test<Dynamic, real>(20, 10000, 8);
 		*/
 	}
 

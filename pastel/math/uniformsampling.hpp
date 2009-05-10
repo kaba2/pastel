@@ -17,7 +17,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorGaussian()
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorGaussian<N, Real>(N);
 	}
 
@@ -38,7 +38,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVector()
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVector<N, Real>(N);
 	}
 
@@ -60,7 +60,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorCube()
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorCube<N, Real>(N);
 	}
 
@@ -82,7 +82,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorSphere()
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorSphere<N, Real>(N);
 	}
 
@@ -130,7 +130,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorBall()
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorBall<N, Real>(N);
 	}
 
@@ -153,7 +153,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorAnnulus<N, Real>(
 			minRadius, maxRadius, N);
 	}

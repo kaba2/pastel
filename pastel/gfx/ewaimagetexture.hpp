@@ -4,7 +4,7 @@
 #include "pastel/gfx/ewaimagetexture.h"
 #include "pastel/gfx/bilinearimagetexture.h"
 
-#include "pastel/geometry/ellipse.h"
+#include "pastel/geometry/ellipsoid.h"
 
 namespace Pastel
 {

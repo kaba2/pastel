@@ -24,13 +24,10 @@ int main()
 	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
 	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
 
-	geometryTestList().run("AllNearest");
-	/*
 	geometryTestList().console();
 
 	string tmp;
 	getline(cin, tmp);
-	*/
 
 	return 0;
 }

@@ -45,8 +45,9 @@ namespace Pastel
 		typedef UnspecifiedType Object;
 		typedef (TrueType | FalseType) UseBounds;
 
-		Tuple<2, Real> projection(const Object& that, index);
-		AlignedBox<N, Real> bound(const Object& that);
+		AlignedBox<N, Real> bound(const Object& that) const;
+		Tuple<2, Real> bound(const Object& that, index) const;
+		Point<2, Real> point(const Object& that) const;
 	};
 	*/
 
@@ -70,17 +71,21 @@ namespace Pastel
 		class IntermediateNode_High;
 
 		// There are two versions of the intermediate node class.
-		// The first one uses bit tricks to pack the node
+		// IntermediateNode_Low uses bit tricks to pack the split axis
 		// for compact storage. This trick only
-		// works for dimension <= 8. For higher dimensions
-		// one needs an additional byte per node (which
-		// can mean still additional storage because
-		// of padding).
+		// works for dimension <= 8. Although saving memory,
+		// the packing and unpacking degrades performance slightly.
+		// For higher dimensions one needs to store the split axis 
+		// in its own variable, as is done in IntermediateNode_High.
 
+		/*
 		typedef typename boost::mpl::if_c<
-			(N <= 8),
+			(N != Dynamic && N <= 8),
 			IntermediateNode_Low,
 			IntermediateNode_High>::type IntermediateNode;
+		*/
+
+		typedef IntermediateNode_High IntermediateNode;
 
 		class Bounds_None;
 		class Bounds;
@@ -98,47 +103,135 @@ namespace Pastel
 		typedef Real Real_;
 		typedef ObjectPolicy ObjectPolicy_;
 
-		typedef typename ObjectContainer::const_iterator ConstObjectIterator;
+		typedef typename ObjectContainer::const_iterator 
+			ConstObjectIterator;
 
 		class Cursor;
 
 		//! Constructs an empty tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		strong
+		*/
 		KdTree();
 
 		//! Constructs an empty tree.
+		/*!
+		Preconditions:
+		dimension > 0
+		dimension == N || N == Dynamic
+		
+		Time complexity:
+		Constant
+
+		Exception safety:
+		strong
+		*/
 		explicit KdTree(
 			integer dimension,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs a copy from another tree.
+		/*!
+		Time complexity:
+		?
+
+		Exception safety:
+		?
+		*/
 		KdTree(const KdTree& that);
 
 		//! Destructs the tree.
+		/*!
+		Time complexity:
+		Linear on nodes().
+
+		Exception safety:
+		nothrow
+		*/
 		~KdTree();
 
 		//! Assigns another tree.
+		/*!
+		Time complexity:
+		?
+
+		Exception safety:
+		strong
+		*/
 		KdTree& operator=(const KdTree& that);
 
 		//! Swaps two trees.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		void swap(KdTree& that);
 
 		//! Returns the object policy.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		const ObjectPolicy& objectPolicy() const;
 
 		//! Extends the bounding box of the tree to cover the given box.
+		/*!
+		Time complexity:
+		O(dimension())
+
+		Exception safety:
+		strong (FIX: make it nothrow)
+		*/
 		void reserveBound(const AlignedBox<N, Real>& boxToCover);
 
 		//! Returns the bounding box of the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		const AlignedBox<N, Real>& bound() const;
 
 		//! Returns true if there are no objects in the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		bool empty() const;
 
 		//! Returns the root node of the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		Cursor root() const;
 
 		//! Returns an iterator to the beginning of the object list.
 		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+
 		Note that some objects might be listed multiple times
 		if they pass over multiple leaf nodes. Points
 		are the only kinds of objects that are never
@@ -147,44 +240,69 @@ namespace Pastel
 		ConstObjectIterator begin() const;
 
 		//! Returns an iterator to the end of the object list.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		ConstObjectIterator end() const;
 
 		//! Returns the number of nodes in the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+
+		This number includes both intermediate nodes
+		and leaf nodes.
+		*/
 		integer nodes() const;
 
 		//! Returns the number of leaf nodes in the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		integer leaves() const;
 
 		//! Returns the number of objects in the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		integer objects() const;
 
 		//! Returns the dimension of the tree.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
 		integer dimension() const;
 
-		//! Subdivides a leaf node with the given plane.
-		/*!
-		Preconditions:
-		cursor.leaf() == true
-		'cursor' points to a node in this tree.
-
-		cursor:
-		A cursor to a leaf node of the tree to subdivide.
-
-		splitPosition:
-		The position of the splitting plane on the splitting axis.
-
-		splitAxis:
-		The axis of the splitting plane normal.
-		*/
-		void subdivide(
-			const Cursor& cursor,
-			const Real& splitPosition,
-			integer splitAxis);
-
+		//! Refines the tree using the given splitting rule.
 		/*!
 		Preconditions:
 		maxDepth >= 0
 		maxObjects > 0
+
+		Time complexity:
+		?
+
+		Exception safety:
+		Basic
 
 		class SubdivisionRule
 		{
@@ -202,24 +320,79 @@ namespace Pastel
 			integer maxObjects,
 			const SubdivisionRule& subdivisionRule);
 
+		//! Subdivides a leaf node with the given plane.
+		/*!
+		Preconditions:
+		cursor.leaf() == true
+		'cursor' points to a node in this tree.
+		0 <= splitAxis < dimension()
+
+		Time complexity:
+		Linear on cursor.objects().
+
+		Exception safety:
+		strong
+
+		cursor:
+		A cursor to a leaf node of the tree to subdivide.
+
+		splitPosition:
+		The position of the splitting plane on the splitting axis.
+
+		splitAxis:
+		The axis of the splitting plane normal.
+
+		FIX: Make this private.
+		*/
+		void subdivide(
+			const Cursor& cursor,
+			const Real& splitPosition,
+			integer splitAxis);
+
 		//! Insert objects in the tree.
 		/*!
+		Time complexity:
+		O(objects * depth).
+
+		Exception safety:
+		strong
+
 		begin, end:
 		An iterator range consisting of objects to insert.
 		*/
-
 		template <typename InputIterator>
 		void insert(
 			InputIterator begin, InputIterator end);
 
 		//! Remove an object from the tree.
+		/*!
+		Time complexity:
+		?
+
+		Exception safety:
+		nothrow
+		*/
 		void erase(
 			const Object& object);
 
 		//! Clears off subdivision and objects.
+		/*!
+		Time complexity:
+		O(nodes() + objects())
+
+		Exception safety:
+		nothrow
+		*/
 		void clear();
 
 		//! Clears the objects but leaves the subdivision intact.
+		/*!
+		Time complexity:
+		O(objects())
+
+		Exception safety:
+		nothrow
+		*/
 		void clearObjects();
 
 	private:

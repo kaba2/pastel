@@ -131,6 +131,71 @@ namespace Pastel
 		return Detail::check(tree, tree.root(), tree.bound());
 	}
 
+	namespace Detail_EquivalentKdTree
+	{
+
+		template <typename CursorA, 
+			typename CursorB>
+			bool equivalentKdTree(
+			const CursorA& aTree,
+			const CursorB& bTree)
+		{
+			if (aTree.leaf() != bTree.leaf())
+			{
+				return false;
+			}
+
+			if (aTree.leaf())
+			{
+				if (aTree.objects() != bTree.objects())
+				{
+					return false;
+				}
+			}
+			else
+			{
+				if (aTree.min() != bTree.min() ||
+					aTree.max() != bTree.max() ||
+					aTree.splitAxis() != bTree.splitAxis() ||
+					aTree.splitPosition() != bTree.splitPosition())
+				{
+					return false;
+				}
+
+				if (!equivalentKdTree(aTree.negative(), bTree.negative()))
+				{
+					return false;
+				}
+				if (!equivalentKdTree(aTree.positive(), bTree.positive()))
+				{
+					return false;
+				}
+			}			
+
+			return true;
+		}
+
+	}
+	template <int N_A, typename Real, typename ObjectPolicy_A, 
+		int N_B, typename ObjectPolicy_B>
+	bool equivalentKdTree(const KdTree<N_A, Real, ObjectPolicy_A>& aTree,
+	const KdTree<N_B, Real, ObjectPolicy_B>& bTree)
+	{
+		if (aTree.nodes() != bTree.nodes() ||
+			aTree.objects() != bTree.objects() ||
+			aTree.leaves() != bTree.leaves() ||
+			aTree.dimension() != bTree.dimension())
+		{
+			return false;
+		}
+		/*
+			!allEqual(aTree.bound().min(), bTree.bound().min()) ||
+			!allEqual(aTree.bound().max(), bTree.bound().max()))
+		*/
+
+		return Detail_EquivalentKdTree::equivalentKdTree(
+			aTree.root(), bTree.root());
+	}
 }
 
 #endif

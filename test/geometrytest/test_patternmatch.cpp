@@ -43,7 +43,8 @@ namespace
 
 		Array<2, Color> image(width, height);
 
-		AlignedBox2 viewWindow = boundingAlignedBox<2, real>(sceneSet.begin(), sceneSet.end());
+		AlignedBox2 viewWindow = 
+			boundingAlignedBox<2, real>(2, sceneSet.begin(), sceneSet.end());
 
 		/*
 		if (viewWindow.extent().x() < viewWindow.extent().y())

@@ -40,8 +40,8 @@ namespace Pastel
 			: min_(Dimension(dimension), infinity<Real>())
 			, max_(Dimension(dimension), -infinity<Real>())
 		{
-			PENSURE2((N == Unbounded && dimension > 0) || 
-				(N != Unbounded && dimension == N), dimension, N);
+			PENSURE2((N == Dynamic && dimension > 0) || 
+				(N != Dynamic && dimension == N), dimension, N);
 		}
 
 		//! Constructs a singular box (min = max = that).
@@ -63,7 +63,7 @@ namespace Pastel
 		// Used for concept checking.
 		~AlignedBoxBase()
 		{
-			BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+			BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 
 		//! Returns (exist i: min()[i] >= max()[i])

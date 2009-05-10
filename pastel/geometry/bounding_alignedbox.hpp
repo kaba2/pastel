@@ -13,27 +13,36 @@ namespace Pastel
 
 	template <int N, typename Real, typename InputIterator>
 	AlignedBox<N, Real> boundingAlignedBox(
+		integer dimension,
 		const InputIterator& from,
 		const InputIterator& to)
 	{
-		Point<N, Real> currentMin(infinity<Real>());
-		Point<N, Real> currentMax(-infinity<Real>());
+		PENSURE1((N == Dynamic && dimension > 0) ||
+			(N != Dynamic && dimension == N), dimension);
 
-		InputIterator iter(from);
-		while (iter != to)
+		AlignedBox<N, Real> result(dimension);
+
+		if (from != to)
 		{
-			currentMin = asPoint(min(asVector(*iter), asVector(currentMin)));
-			currentMax = asPoint(max(asVector(*iter), asVector(currentMax)));
+			PENSURE2(dimension == from->dimension(),
+				dimension, from->dimension());
 
-			++iter;
+			InputIterator iter(from);
+			while (iter != to)
+			{
+				extendToCover(*iter, result);
+
+				++iter;
+			}
 		}
 
-		return AlignedBox<N, Real>(currentMin, currentMax);
+		return result;
 	}
 
 	template <int N, typename Real>
 	AlignedBox<N, Real> boundingAlignedBox(
-		const AlignedBox<N, Real>& aAlignedBox, const AlignedBox<N, Real>& bAlignedBox)
+		const AlignedBox<N, Real>& aAlignedBox, 
+		const AlignedBox<N, Real>& bAlignedBox)
 	{
 		return AlignedBox<N, Real>(
 			min(aAlignedBox.min(), bAlignedBox.min()),
@@ -103,6 +112,42 @@ namespace Pastel
 		return AlignedBox<N, Real>(
 			min(minPoint, box.min()),
 			max(maxPoint, box.max()));
+	}
+
+	template <int N, typename Real>
+	void extendToCover(
+		const AlignedBox<N, Real>& boxToCover,
+		AlignedBox<N, Real>& boxToExtend)
+	{
+		Pastel::extendToCover(boxToCover.min(),
+			boxToExtend);
+		Pastel::extendToCover(boxToCover.max(),
+			boxToExtend);
+	}
+
+	template <int N, typename Real>
+	void extendToCover(
+		const Point<N, Real>& pointToCover,
+		AlignedBox<N, Real>& boxToExtend)
+	{
+		const integer dimension = pointToCover.size();
+		PENSURE2(dimension == boxToExtend.dimension(),
+			dimension, boxToExtend.dimension());
+
+		Point<N, Real>& min = boxToExtend.min();
+		Point<N, Real>& max = boxToExtend.max();
+
+		for (integer i = 0;i < dimension;++i)
+		{
+			if (pointToCover[i] < min[i])
+			{
+				min[i] = pointToCover[i];
+			}
+			else if (pointToCover[i] > max[i])
+			{
+				max[i] = pointToCover[i];
+			}
+		}
 	}
 
 }

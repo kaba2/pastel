@@ -28,7 +28,7 @@ namespace
 	{
 		KdTree<N, Real> tree(dimension);
 
-		const integer points = 100000;
+		const integer points = 10000;
 		std::vector<Point<N, Real> > pointList;
 		pointList.reserve(points);
 
@@ -56,12 +56,44 @@ namespace
 		log() << "Depth of " << depth(tree) << logNewLine;
 		log() << tree.objects() << " object references ("
 			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+
+		{
+			KdTree<Dynamic, Real> bTree(dimension);
+
+			std::vector<Point<Dynamic, Real> > bPointList;
+			bPointList.reserve(points);
+
+			for (integer i = 0;i < points;++i)
+			{
+				Point<Dynamic, Real> p(ofDimension(dimension));
+				for (integer j = 0;j < dimension;++j)
+				{
+					p[j] = pointList[i][j];
+				}
+
+				bPointList.push_back(p);
+				ENSURE(allEqual(bPointList.back(),
+					p));
+			}
+
+			bTree.insert(bPointList.begin(), bPointList.end());
+
+			bTree.refine(
+				computeKdTreeMaxDepth(bTree.objects()), 4, MidpointRule());
+
+			REPORT(!check(bTree));
+
+			log() << "Checking equivalence..." << logNewLine;
+			//REPORT(!equivalentKdTree(tree, tree));
+			//REPORT(!equivalentKdTree(bTree, bTree));
+			REPORT(!equivalentKdTree(tree, bTree));
+		}
 	}
 
 	void testNearest()
 	{
 		testNearest2<2, float>(2);
-		testNearest2<Unbounded, float>(10);
+		//testNearest2<Dynamic, float>(10);
 	}
 
 	class SpherePolicy

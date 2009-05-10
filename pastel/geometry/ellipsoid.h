@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ELLIPSE_H
-#define PASTELGEOMETRY_ELLIPSE_H
+#ifndef PASTELGEOMETRY_ELLIPSOID_H
+#define PASTELGEOMETRY_ELLIPSOID_H
 
 #include "pastel/math/matrix.h"
 
@@ -32,6 +32,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/ellipse.hpp"
+#include "pastel/geometry/ellipsoid.hpp"
 
 #endif

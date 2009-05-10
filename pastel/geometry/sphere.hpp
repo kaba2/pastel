@@ -15,6 +15,15 @@ namespace Pastel
 		, radius_(0)
 		, inverseRadius_(infinity<Real>())
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Sphere<N, Real>::Sphere(integer dimension)
+		: position_(ofDimension(dimension), 0)
+		, radius_(0)
+		, inverseRadius_(infinity<Real>())
+	{
 	}
 
 	template <int N, typename Real>
@@ -25,12 +34,26 @@ namespace Pastel
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Sphere<N, Real>::Sphere(
+		integer dimension,
+		const Point<N, Real>& position,
+		const Real& radius)
+		: position_(position)
+		, radius_(radius)
+		, inverseRadius_(inverse(radius))
+	{
+		PENSURE2(dimension == position.dimension(),
+			dimension, position.dimension());
 	}
 
 	template <int N, typename Real>
 	Sphere<N, Real>::~Sphere()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <int N, typename Real>
@@ -45,9 +68,18 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
+	integer Sphere<N, Real>::dimension() const
+	{
+		return position_.dimension();
+	}
+
+	template <int N, typename Real>
 	void Sphere<N, Real>::setPosition(
 		const Point<N, Real>& position)
 	{
+		PENSURE2(position_.dimension() == position.dimension(),
+			position_.dimension(), position.dimension());
+
 		position_ = position;
 	}
 

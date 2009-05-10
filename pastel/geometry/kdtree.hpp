@@ -52,7 +52,7 @@ namespace Pastel
 		LeafNode(
 			const ObjectIterator& begin,
 			const ObjectIterator& last,
-			int32 objects)
+			integer objects)
 			: Node((objects << 1) + 1)
 			, begin_(begin)
 			, last_(last)
@@ -210,7 +210,11 @@ namespace Pastel
 		Node* encodeNegative(Node* node, integer splitAxis)
 		{
 			pointer_integer nodeId = (pointer_integer)node;
+			// We rely on that the pointer is aligned
+			// to at least four-byte boundaries.
 			ASSERT((nodeId & 0x3) == 0);
+			// The two lowest bits of 'splitAxis' are stored
+			// at the two lowest bits of 'nodeId'.
 			nodeId += (splitAxis & 0x3);
 
 			return (Node*)nodeId;
@@ -219,7 +223,11 @@ namespace Pastel
 		pointer_integer encodePositive(Node* node, integer splitAxis)
 		{
 			pointer_integer nodeId = (pointer_integer)node;
+			// We rely on that the pointer is aligned
+			// to at least four-byte boundaries.
 			ASSERT((nodeId & 0x3) == 0);
+			// The third bit of 'splitAxis' is stored
+			// at the second bit of 'nodeId'.
 			nodeId += (splitAxis & 0x4) >> 1;
 
 			return nodeId;
@@ -237,10 +245,8 @@ namespace Pastel
 		For an intermediate node, y = 0 thus
 		identifying it.
 		The splitting plane is given by xwz.
-		This bounds the maximum dimension by 8,
-		which is ok, because the tree gets more
-		and more inefficient with increasing
-		dimensions.
+		Thus this packing scheme can only be
+		used for dimensions <= 8.
 		The pointer to the positive child is
 		obtained by zeroing the two lowest bits
 		of unknown_.
@@ -297,7 +303,7 @@ namespace Pastel
 	private:
 		Node* negative_;
 		Real splitPosition_;
-		uint8 splitAxis_;
+		int32 splitAxis_;
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -438,12 +444,13 @@ namespace Pastel
 		: objectList_()
 		, nodeAllocator_(sizeof(IntermediateNode), 1024)
 		, root_(0)
-		, bound_(N == Unbounded ? 1 : N)
+		, bound_(N)
 		, leaves_(0)
 		, objects_(0)
 		, objectPolicy_()
+		, dimension_(N)
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
@@ -463,9 +470,10 @@ namespace Pastel
 		, leaves_(0)
 		, objects_(0)
 		, objectPolicy_(objectPolicy)
+		, dimension_(dimension)
 	{
-		ENSURE2((N != Unbounded && dimension == N) || 
-			(N == Unbounded && dimension > 0), dimension, N);
+		ENSURE2((N != Dynamic && dimension == N) || 
+			(N == Dynamic && dimension > 0), dimension, N);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
@@ -483,6 +491,7 @@ namespace Pastel
 		, leaves_(0)
 		, objects_(0)
 		, objectPolicy_(that.objectPolicy_)
+		, dimension_(0)
 	{
 		// TODO
 		ENSURE(false);
@@ -493,7 +502,7 @@ namespace Pastel
 	{
 		// This is what we assume for memory allocation.
 		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(IntermediateNode));
-		BOOST_STATIC_ASSERT(N > 0 || N == Unbounded);
+		BOOST_STATIC_ASSERT(N > 0 || N == Dynamic);
 
 		nodeAllocator_.clear();
 	}
@@ -519,6 +528,7 @@ namespace Pastel
 		std::swap(leaves_, that.leaves_);
 		std::swap(objects_, that.objects_);
 		std::swap(objectPolicy_, that.objectPolicy_);
+		std::swap(dimension_, that.dimension_);
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -528,9 +538,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::reserveBound(const AlignedBox<N, Real>& boxToCover)
+	void KdTree<N, Real, ObjectPolicy>::reserveBound(
+		const AlignedBox<N, Real>& boxToCover)
 	{
-		bound_ = boundingAlignedBox(bound_, boxToCover);
+		extendToCover(
+			boxToCover, bound_);
+
+		//bound_ = boundingAlignedBox(bound_, boxToCover);
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -587,7 +601,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	integer KdTree<N, Real, ObjectPolicy>::dimension() const
 	{
-		return bound_.dimension();
+		return dimension_;
 	}
 	
 	template <int N, typename Real, typename ObjectPolicy>
@@ -612,70 +626,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	template <typename SubdivisionRule>
-	void KdTree<N, Real, ObjectPolicy>::refine(
-		integer maxDepth,
-		integer maxObjects,
-		const SubdivisionRule& subdivisionRule,
-		const Cursor& cursor,
-		integer depth,
-		const Point<N, Real>& minBound,
-		const Point<N, Real>& maxBound)
-	{
-		Real splitPosition = 0;
-		integer splitAxis = 0;
-
-		if (cursor.leaf())
-		{
-			if (depth < maxDepth && cursor.objects() > maxObjects)
-			{
-				std::pair<Real, integer> result =
-					subdivisionRule(
-					minBound,
-					maxBound,
-					objectPolicy(),
-					cursor.begin(),
-					cursor.end());
-
-				splitPosition = result.first;
-				splitAxis = result.second;
-				subdivide(cursor, splitPosition, splitAxis, 
-					minBound[splitAxis], maxBound[splitAxis]);
-			}
-		}
-		else
-		{
-			splitPosition = cursor.splitPosition();
-			splitAxis = cursor.splitAxis();
-		}
-
-		// A leaf node might or might not have been turned
-		// into an intermediate node.
-		if (!cursor.leaf())
-		{
-			Point<N, Real> negativeMax(maxBound);
-			negativeMax[splitAxis] = splitPosition;
-
-			refine(maxDepth, maxObjects, subdivisionRule,
-				cursor.negative(), depth + 1,
-				minBound,
-				negativeMax.asTemporary());
-
-			Point<N, Real> positiveMin(minBound);
-			positiveMin[splitAxis] = splitPosition;
-
-			refine(maxDepth, maxObjects, subdivisionRule,
-				cursor.positive(), depth + 1, 
-				positiveMin.asTemporary(),
-				maxBound);
-		}
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
 	void KdTree<N, Real, ObjectPolicy>::subdivide(
 		const Cursor& cursor,
-		const Real& splitPosition, integer splitAxis)
+		const Real& splitPosition, 
+		integer splitAxis)
 	{
+		ENSURE1(splitAxis >= 0, splitAxis);
+		ENSURE2(splitAxis < dimension_, splitAxis, dimension_);
+
 		subdivide(cursor, splitPosition, splitAxis,
 			0, 0);
 	}
@@ -692,7 +650,7 @@ namespace Pastel
 	void KdTree<N, Real, ObjectPolicy>::erase(
 		const Object& object)
 	{
-		// TODO
+		// FIX: TODO
 		ENSURE(false);
 	}
 
@@ -933,6 +891,66 @@ namespace Pastel
 				spliceInsert(cursor.positive(),
 					list, positiveBegin, end, positiveObjects);
 			}
+		}
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	template <typename SubdivisionRule>
+	void KdTree<N, Real, ObjectPolicy>::refine(
+		integer maxDepth,
+		integer maxObjects,
+		const SubdivisionRule& subdivisionRule,
+		const Cursor& cursor,
+		integer depth,
+		const Point<N, Real>& minBound,
+		const Point<N, Real>& maxBound)
+	{
+		Real splitPosition = 0;
+		integer splitAxis = 0;
+
+		if (cursor.leaf())
+		{
+			if (depth < maxDepth && cursor.objects() > maxObjects)
+			{
+				std::pair<Real, integer> result =
+					subdivisionRule(
+					minBound,
+					maxBound,
+					objectPolicy(),
+					cursor.begin(),
+					cursor.end());
+
+				splitPosition = result.first;
+				splitAxis = result.second;
+				subdivide(cursor, splitPosition, splitAxis, 
+					minBound[splitAxis], maxBound[splitAxis]);
+			}
+		}
+		else
+		{
+			splitPosition = cursor.splitPosition();
+			splitAxis = cursor.splitAxis();
+		}
+
+		// A leaf node might or might not have been turned
+		// into an intermediate node.
+		if (!cursor.leaf())
+		{
+			Point<N, Real> negativeMax(maxBound);
+			negativeMax[splitAxis] = splitPosition;
+
+			refine(maxDepth, maxObjects, subdivisionRule,
+				cursor.negative(), depth + 1,
+				minBound,
+				negativeMax.asTemporary());
+
+			Point<N, Real> positiveMin(minBound);
+			positiveMin[splitAxis] = splitPosition;
+
+			refine(maxDepth, maxObjects, subdivisionRule,
+				cursor.positive(), depth + 1, 
+				positiveMin.asTemporary(),
+				maxBound);
 		}
 	}
 

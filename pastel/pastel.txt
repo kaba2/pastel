@@ -28,6 +28,7 @@ Technical requirements
  * Const-correct
  * Style-consistent
  * Generic
+ * Thread-safe (re-entrant)
 
 External libraries
 ------------------
