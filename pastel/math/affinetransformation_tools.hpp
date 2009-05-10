@@ -93,14 +93,30 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& from,
 		const std::vector<Point<N, Real> >& to)
 	{
+		BOOST_STATIC_ASSERT(N > 0);
+		return Pastel::leastSquaresAffineTransformation(
+			N, from, to);
+	}
+
+	template <int N, typename Real>
+	AffineTransformation<N, Real> leastSquaresAffineTransformation(
+		integer dimension,
+		const std::vector<Point<N, Real> >& from,
+		const std::vector<Point<N, Real> >& to)
+	{
 		ENSURE2(from.size() == to.size(), from.size(), to.size());
 
 		const integer points = from.size();
 
+		if (points == 0)
+		{
+			return AffineTransformation<N, Real>(dimension);
+		}
+
 		// Compute centroids
 
-		Point<N, Real> fromCentroid;
-		Point<N, Real> toCentroid;
+		Point<N, Real> fromCentroid(ofDimension(dimension));
+		Point<N, Real> toCentroid(ofDimension(dimension));
 
 		for (integer i = 0;i < points;++i)
 		{
@@ -111,22 +127,22 @@ namespace Pastel
 		asVector(fromCentroid) /= points;
 		asVector(toCentroid) /= points;
 
-		Matrix<N, N, Real> c;
+		Matrix<N, N, Real> c(dimension, dimension);
 		for (integer i = 0;i < points;++i)
 		{
 			const Vector<N, Real> v = from[i] - fromCentroid;
-			for (integer k = 0;k < N;++k)
+			for (integer k = 0;k < dimension;++k)
 			{
 				c[k] += v * v[k];
 			}
 		}
 
-		Matrix<N, N, Real> d;
+		Matrix<N, N, Real> d(dimension, dimension);
 		for (integer i = 0;i < points;++i)
 		{
 			const Vector<N, Real> v = to[i] - toCentroid;
 			const Vector<N, Real> w = from[i] - fromCentroid;
-			for (integer k = 0;k < N;++k)
+			for (integer k = 0;k < dimension;++k)
 			{
 				d[k] += v * w[k];
 			}

@@ -14,12 +14,16 @@ namespace Pastel
 		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
 			Box<N, Real> const &box)
 	{
+		PENSURE(alignedPlane.dimension() == box.dimension());
+
 		// Compute the radius of the projection
 		// of box into the axis determined by the alignedplane
 
+		const integer dimension = alignedPlane.dimension();
+
 		Real radius(0);
 
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
 			// Move on the edges of the box
 			// so that the positive axis direction

@@ -720,7 +720,7 @@ namespace Pastel
 	// uniformlySampleSphere
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<PASTEL_ADD_N(N, 1), Real> >::type
 		uniformlySampleSphere(
 		const Vector<N, Real>& uv)
 	{
@@ -732,7 +732,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<PASTEL_ADD_N(N, 1), Real> >::type
 		uniformlySampleSphere(
 		const Vector<N, Real>& uv)
 	{
@@ -749,7 +749,7 @@ namespace Pastel
 	// uniformlySampleHemisphere
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N + 1, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<PASTEL_ADD_N(N, 1), Real> >::type
 		uniformlySampleHemisphere(
 		const Vector<N, Real>& uv)
 	{
@@ -760,7 +760,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N + 1, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<PASTEL_ADD_N(N, 1), Real> >::type
 		uniformlySampleHemisphere(
 		const Vector<N, Real>& uv)
 	{
@@ -776,7 +776,7 @@ namespace Pastel
 	// cosineSampleHemisphere
 
 	template <int N, typename Real>
-	Vector<N + 1, Real> cosineSampleHemisphere(
+	Vector<PASTEL_ADD_N(N, 1), Real> cosineSampleHemisphere(
 		const Vector<N, Real>& uv)
 	{
 		// Malley's method:

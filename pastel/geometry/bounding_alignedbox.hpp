@@ -62,13 +62,15 @@ namespace Pastel
 	AlignedBox<N, Real> boundingAlignedBox(
 		const Box<N, Real>& box)
 	{
-		const Vector<N, Real>& width = box.width();
-		Vector<N, Real> radius;
+		const integer dimension = box.dimension();
 
-		for (integer i = 0;i < N;++i)
+		const Vector<N, Real>& width = box.width();
+		Vector<N, Real> radius(ofDimension(dimension));
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			Real axisRadius = 0;
-			for (integer k = 0;k < N;++k)
+			for (integer k = 0;k < dimension;++k)
 			{
 				// Actually, this is
 				// mabs(dot(box.rotation()[k] * width[k], e_i))
@@ -80,7 +82,8 @@ namespace Pastel
 		}
 
 		return AlignedBox<N, Real>(
-			box.position() - radius, box.position() + radius);
+			box.position() - radius, 
+			box.position() + radius);
 	}
 
 	template <int N, typename Real>

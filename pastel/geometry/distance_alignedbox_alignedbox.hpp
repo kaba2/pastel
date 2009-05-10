@@ -13,9 +13,13 @@ namespace Pastel
 		const AlignedBox<N, Real>& aBox,
 		const AlignedBox<N, Real>& bBox)
 	{
+		PENSURE(aBox.dimension() == bBox.dimension());
+
+		const integer dimension = aBox.dimension();
+
 		Real result = 0;
 
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
 			const Real& aMin = aBox.min()[i];
 			const Real& aMax = aBox.max()[i];

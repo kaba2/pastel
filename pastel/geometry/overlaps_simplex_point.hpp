@@ -16,7 +16,7 @@ namespace Pastel
 		const Simplex<N, Real, N>& simplex,
 		const Point<N, Real>& point)
 	{
-		const Vector<N + 1, Real> bary =
+		const Vector<PASTEL_ADD_N(N, 1), Real> bary =
 			barycentric(point, simplex);
 
 		return allGreaterEqual(bary, 0) &&

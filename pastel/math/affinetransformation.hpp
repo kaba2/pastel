@@ -31,20 +31,24 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Matrix<N + 1, N + 1, Real> asMatrix(
+	Matrix<PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1), Real> asMatrix(
 		const AffineTransformation<N, Real>& that)
 	{
-		Matrix<N + 1, N + 1, Real> result;
+		const integer dimension = that.dimension();
+
+		Matrix<PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1), Real> result(
+			dimension + 1, dimension + 1);
+		
 		const Matrix<N, N, Real>& transformation =
 			that.transformation();
 		const Vector<N, Real>& translation =
 			that.translation();
 
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
 			result[i] = extend(transformation[i], 0);
 		}
-		result[N] = extend(translation, 1);
+		result[dimension] = extend(translation, 1);
 
 		return result;
 	}

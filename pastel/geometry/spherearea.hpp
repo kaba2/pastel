@@ -13,14 +13,21 @@ namespace Pastel
 	template <int N, typename Real>
 	Real areaUnitSphere()
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::areaUnitSphere(N);
+	}
+
+	template <int N, typename Real>
+	Real areaUnitSphere(integer dimension)
+	{
+		return Pastel::areaUnitSphere(dimension);
 	}
 
 	template <int N, typename Real>
 	Real area(const Sphere<N, Real>& sphere)
 	{
-		return areaUnitSphere<N, Real>() * 
-			std::pow(sphere.radius(), N - 1);
+		return areaUnitSphere<N, Real>(sphere.dimension()) * 
+			std::pow(sphere.radius(), (Real)(sphere.dimension() - 1));
 	}
 
 }

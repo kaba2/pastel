@@ -8,6 +8,8 @@
 
 #include "pastel/sys/tuplebase.h"
 
+#define PASTEL_ADD_N(N, amount) (((N) == Dynamic) ? Dynamic : ((N) + amount))
+
 namespace Pastel
 {
 

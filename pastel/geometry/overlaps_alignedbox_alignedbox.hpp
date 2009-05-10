@@ -14,6 +14,8 @@ namespace Pastel
 			const AlignedBox<N, Real>& aAlignedBox,
 			const AlignedBox<N, Real>& bAlignedBox)
 	{
+		PENSURE(aAlignedBox.dimension() == bAlignedBox.dimension());
+
 		// Using the separating axis theorem.
 
 		// Because the normals of the aligned boxes are
@@ -21,7 +23,9 @@ namespace Pastel
 		// down to simply comparing the ranges of the
 		// individual components.
 
-		for (integer i = 0;i < N;++i)
+		const integer dimension = aAlignedBox.dimension();
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			// Test for range-range overlap
 			// on the i:th coordinate axis.
@@ -43,6 +47,9 @@ namespace Pastel
 		const Vector<N, Real>& bVelocity,
 		Tuple<2, Real>& intersectionRange)
 	{
+		PENSURE(aBox.dimension() == bBox.dimension());
+		PENSURE(aBox.dimension() == bVelocity.dimension());
+
 		// We want to find out two points in time.
 		// tStart, the first time instant the boxes
 		// start intersecting.
@@ -56,10 +63,12 @@ namespace Pastel
 		// The separating axes that need to be considered
 		// are the standard basis vectors.
 
+		const integer dimension = aBox.dimension();
+
 		Real tMaxStart = -infinity<Real>();
 		Real tMinEnd = infinity<Real>();
 
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
 			const Real aMin = aBox.min()[i];
 			const Real aMax = aBox.max()[i];

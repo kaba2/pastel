@@ -17,13 +17,17 @@ namespace Pastel
 		const AlignedBox<N, Real>& alignedBox,
 		Vector<2, Real>& hitList)
 	{
+		PENSURE(line.dimension() == alignedBox.dimension());
+
 		Real tMin(-infinity<Real>());
 		Real tMax(infinity<Real>());
 
 		const AlignedBox<N, Real> testAlignedBox(alignedBox -
 			asVector(line.position()));
 
-		for (integer i = 0;i < N;++i)
+		const integer dimension = line.dimension();
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			// There are some algorithms that
 			// do not check the direction for zero

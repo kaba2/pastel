@@ -84,6 +84,13 @@ namespace Pastel
 			return expression.size();
 		}
 
+		integer dimension() const
+		{
+			const Expression& expression =
+				(const Expression&)*this;
+			return expression.size();
+		}
+
 		// Negation
 
 		const VectorNegation<N, Real, Expression> operator-() const

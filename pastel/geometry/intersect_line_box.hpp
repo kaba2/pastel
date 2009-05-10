@@ -17,6 +17,8 @@ namespace Pastel
 			const Box<N, Real>& box,
 			Vector<2, Real>& hitList)
 	{
+		PENSURE(line.dimension() == box.dimension());
+
 		Real tMin(-infinity<Real>());
 		Real tMax(infinity<Real>());
 
@@ -27,7 +29,9 @@ namespace Pastel
 			box.position() -
 			line.position());
 
-		for (integer i = 0;i < N;++i)
+		const integer dimension = line.dimension();
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			const Real e(dot(axes[i], p));
 			const Real f(dot(axes[i], line.direction()));
