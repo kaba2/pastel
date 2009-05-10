@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Point<N, Real> wDivide(const Point<N, Real>& that);
+	TemporaryPoint<N, Real> wDivide(const Point<N, Real>& that);
 
 	//! Returns a homogeneous 3D perspective projection matrix.
 	/*!

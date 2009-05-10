@@ -50,7 +50,7 @@ namespace Pastel
 	integer toPixelSpanPoint(real t);
 
 	template <int N>
-	Point<N, integer> toPixelSpanPoint(
+	TemporaryPoint<N, integer> toPixelSpanPoint(
 		const Point<N, real>& that);
 
 	//! Squares the given variable.

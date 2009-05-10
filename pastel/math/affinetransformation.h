@@ -77,6 +77,16 @@ namespace Pastel
 				: transform_()
 				, translation_(0)
 			{
+				BOOST_STATIC_ASSERT(N > 0);
+			}
+
+			//! Constructs an identity transformation.
+			explicit AffineTransformation(integer dimension)
+				: transform_(dimension, dimension)
+				, translation_(ofDimension(dimension), 0)
+			{
+				PENSURE(dimension > 0);
+				PENSURE(dimension == N || N == Dynamic);
 			}
 
 			//! Constructs using the given transformation and translation.
@@ -86,6 +96,23 @@ namespace Pastel
 				: transform_(transformation)
 				, translation_(translation)
 			{
+				BOOST_STATIC_ASSERT(N > 0);
+			}
+
+			//! Constructs using the given transformation and translation.
+			AffineTransformation(
+				integer dimension,
+				const Matrix<N, N, Real>& transformation,
+				const Vector<N, Real>& translation)
+				: transform_(transformation)
+				, translation_(translation)
+			{
+				PENSURE(dimension > 0);
+				PENSURE(dimension == N || N == Dynamic);
+
+				PENSURE(translation.dimension() == dimension);
+				PENSURE(transformation.width() == dimension);
+				PENSURE(transformation.height() == dimension);
 			}
 
 			void swap(AffineTransformation& that)
@@ -118,8 +145,20 @@ namespace Pastel
 			void set(const Matrix<N, N, Real>& transformation,
 				const Vector<N, Real>& translation)
 			{
+				PENSURE(transform_.width() ==
+					transformation.width());
+				PENSURE(transform_.height() ==
+					transformation.height());
+				PENSURE(translation_.dimension() ==
+					translation.dimension());
+
 				transform_ = transformation;
 				translation_ = translation;
+			}
+
+			integer dimension() const
+			{
+				return translation_.dimension();
 			}
 
 			//! Returns the transformation.
@@ -139,6 +178,7 @@ namespace Pastel
 			{
 				return translation_;
 			}
+
 			//! Returns the translation.
 			const Vector<N, Real>& translation() const
 			{
@@ -169,7 +209,7 @@ namespace Pastel
 		const AffineTransformation<N, Real>& right);
 
 	template <int N, typename Real>
-	Matrix<N + 1, N + 1, Real> asMatrix(
+	Matrix<PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1), Real> asMatrix(
 		const AffineTransformation<N, Real>& that);
 
 }

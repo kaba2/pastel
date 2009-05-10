@@ -24,10 +24,14 @@ namespace Pastel
 
 		// See "Geometric tools for computer graphics".
 
-		Point<N, Real> minimal;
-		Point<N, Real> maximal;
+		PENSURE(alignedBox.dimension() == plane.dimension());
 
-		for (integer i = 0;i < N - 1;++i)
+		const integer dimension = alignedBox.dimension();
+
+		Point<N, Real> minimal(ofDimension(dimension));
+		Point<N, Real> maximal(ofDimension(dimension));
+
+		for (integer i = 0;i < dimension - 1;++i)
 		{
 			if (positive(plane.normal()[i]))
 			{
@@ -46,13 +50,13 @@ namespace Pastel
 
 		if (positive(d))
 		{
-			minimal[N - 1] = alignedBox.min()[N - 1];
-			maximal[N - 1] = alignedBox.max()[N - 1];
+			minimal[dimension - 1] = alignedBox.min()[dimension - 1];
+			maximal[dimension - 1] = alignedBox.max()[dimension - 1];
 		}
 		else
 		{
-			minimal[N - 1] = alignedBox.max()[N - 1];
-			maximal[N - 1] = alignedBox.min()[N - 1];
+			minimal[dimension - 1] = alignedBox.max()[dimension - 1];
+			maximal[dimension - 1] = alignedBox.min()[dimension - 1];
 		}
 
 		// Are the extremal points on different sides

@@ -27,12 +27,17 @@ namespace Pastel
 		{
 		public:
 			explicit AllNearestNeighborsVaidya(
+				integer dimension,
 				const std::vector<Point<N, Real> >& pointSet,
 				integer kNearest,
 				Array<2, integer>& nearestSet)
 				: pointSet_(pointSet)
 				, kNearest_(kNearest)
+				, pointPartition_()
+				, boxSet_()
 				, nearestSet_(nearestSet)
+				, singularSet_()
+				, dimension_(dimension)
 			{
 			}
 
@@ -81,7 +86,7 @@ namespace Pastel
 			
 			void splitBox(
 				const AlignedBox<N, Real>& bound,
-				integer dimension,
+				integer axis,
 				integer partitionBegin,
 				integer partitionEnd,
 				std::vector<NeighborhoodPtr>& childSet);
@@ -115,6 +120,7 @@ namespace Pastel
 			std::multimap<Real, NeighborhoodPtr, std::greater<Real> > boxSet_;
 			Array<2, integer>& nearestSet_;
 			std::vector<NeighborhoodPtr> singularSet_;
+			integer dimension_;
 		};
 
 		template <int N, typename Real>
@@ -270,28 +276,28 @@ namespace Pastel
 		template <int N, typename Real>
 		void AllNearestNeighborsVaidya<N, Real>::splitBox(
 			const AlignedBox<N, Real>& bound,
-			integer dimension,
+			integer axis,
 			integer partitionBegin,
 			integer partitionEnd,
 			std::vector<NeighborhoodPtr>& childSet)
 		{
-			ASSERT2(dimension >= 0 && dimension < N, dimension, N);
+			ASSERT2(axis >= 0 && axis < dimension_, axis, dimension_);
 			ASSERT2(partitionBegin < partitionEnd, partitionBegin, partitionEnd);
 			ASSERT1(partitionBegin >= 0, partitionBegin);
 			ASSERT2(partitionEnd <= pointPartition_.size(), partitionEnd, pointPartition_.size());
 
 			const Real center = linear(
-				bound.min()[dimension], 
-				bound.max()[dimension], 0.5);
+				bound.min()[axis], 
+				bound.max()[axis], 0.5);
 			
 			integer leftEnd = partitionBegin;
 			for (integer i = partitionBegin;i < partitionEnd;++i)
 			{
 				const integer pointIndex = pointPartition_[i];
-				const Real position = pointSet_[pointIndex][dimension];
+				const Real position = pointSet_[pointIndex][axis];
 
-				ASSERT2(position >= bound.min()[dimension], position, bound.min()[dimension]);
-				ASSERT2(position <= bound.max()[dimension], position, bound.max()[dimension]);
+				ASSERT2(position >= bound.min()[axis], position, bound.min()[axis]);
+				ASSERT2(position <= bound.max()[axis], position, bound.max()[axis]);
 
 				if (position < center)
 				{
@@ -303,11 +309,11 @@ namespace Pastel
 			if (leftEnd > partitionBegin)
 			{
 				AlignedBox<N, Real> leftBound = bound;
-				leftBound.max()[dimension] = center;
+				leftBound.max()[axis] = center;
 				
-				if (dimension < N - 1)
+				if (axis < dimension_ - 1)
 				{
-					splitBox(leftBound, dimension + 1, partitionBegin, leftEnd, childSet);
+					splitBox(leftBound, axis + 1, partitionBegin, leftEnd, childSet);
 				}
 				else
 				{
@@ -319,11 +325,11 @@ namespace Pastel
 			if (leftEnd < partitionEnd)
 			{
 				AlignedBox<N, Real> rightBound = bound;
-				rightBound.min()[dimension] = center;
+				rightBound.min()[axis] = center;
 
-				if (dimension < N - 1)
+				if (axis < dimension_ - 1)
 				{
-					splitBox(rightBound, dimension + 1, leftEnd, partitionEnd, childSet);
+					splitBox(rightBound, axis + 1, leftEnd, partitionEnd, childSet);
 				}
 				else
 				{
@@ -368,7 +374,7 @@ namespace Pastel
 
 			const integer maxSide = maxIndex(extent);
 			const Real maxSideLength = extent[maxSide];
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < dimension_;++i)
 			{
 				if (i != maxSide)
 				{
@@ -557,8 +563,15 @@ namespace Pastel
 		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
 		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
 
+		if (pointSet.empty())
+		{
+			return;
+		}
+
+		const integer dimension = pointSet.front().dimension();
+
 		Detail_AllNearestNeighborsVaidya::AllNearestNeighborsVaidya<N, Real> computation(
-			pointSet, kNearest, nearestSet);
+			dimension, pointSet, kNearest, nearestSet);
 		
 		computation.work();
 	}

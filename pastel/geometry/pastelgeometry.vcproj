@@ -1338,14 +1338,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ellipse.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ellipse.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\flat.h"
 				>
 			</File>

@@ -13,9 +13,14 @@ namespace Pastel
 		const VectorExpression<N, Real, Expression>& that,
 		const Tuple<N, integer>& permutation)
 	{
-		Vector<N, Real> result;
+		const integer dimension = that.size();
+		PENSURE2(dimension == permutation.dimension(),
+			dimension, permutation.dimension());
 
-		for (integer i = 0;i < N;++i)
+		Vector<N, Real> result(
+			ofDimension(dimensions));
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			result[i] = that[permutation[i]];
 		}
@@ -29,10 +34,12 @@ namespace Pastel
 	integer minIndex(
 		const VectorExpression<N, Real, Expression>& that)
 	{
+		const integer dimension = that.dimension();
+
 		integer index = 0;
 		Real minValue = that[0];
 
-		for (integer i = 1;i < N;++i)
+		for (integer i = 1;i < dimension;++i)
 		{
 			const Real value = that[i];
 			if (value < minValue)
@@ -58,7 +65,8 @@ namespace Pastel
 		const VectorExpression<N, Real, LeftExpression>& left,
 		const VectorExpression<N, Real, RightExpression>& right)
 	{
-		PENSURE2(left.size() == right.size(), left.size(), right.size());
+		PENSURE2(left.size() == right.size(), 
+			left.size(), right.size());
 
 		const integer size = left.size();
 	
@@ -111,10 +119,12 @@ namespace Pastel
 	integer maxIndex(
 		const VectorExpression<N, Real, Expression>& that)
 	{
+		const integer dimension = that.dimension();
+
 		integer index = 0;
 		Real maxValue = that[0];
 
-		for (integer i = 1;i < N;++i)
+		for (integer i = 1;i < dimension;++i)
 		{
 			const Real value = that[i];
 			if (maxValue < value)

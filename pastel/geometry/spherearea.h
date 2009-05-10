@@ -16,6 +16,9 @@ namespace Pastel
 	Real areaUnitSphere();
 
 	template <int N, typename Real>
+	Real areaUnitSphere(integer dimension);
+
+	template <int N, typename Real>
 	Real area(const Sphere<N, Real>& sphere);
 
 }

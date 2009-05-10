@@ -33,16 +33,17 @@ namespace Pastel
 	}
 
 	template <int N>
-	inline Point<N, integer> toPixelSpanPoint(
+	inline TemporaryPoint<N, integer> toPixelSpanPoint(
 		const Point<N, real>& that)
 	{
-		Point<N, integer> result;
-		for (integer i = 0;i < N;++i)
+		const integer dimension = that.dimension();
+		Point<N, integer> result(ofDimension(dimension));
+		for (integer i = 0;i < dimension;++i)
 		{
 			result[i] = Pastel::toPixelSpanPoint(that[i]);
 		}
 
-		return result;
+		return result.asTemporary();
 	}
 
 	template <typename Type>

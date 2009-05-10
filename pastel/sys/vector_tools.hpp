@@ -76,6 +76,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> unitAxis(integer index)
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
 		BOOST_STATIC_ASSERT(N > 0);
 
 		PENSURE2(index >= 0 && index < N, index, N);
@@ -101,19 +102,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Dynamic) ? Dynamic : N - 1), Real> shrink(
+	inline TemporaryVector<PASTEL_ADD_N(N, -1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
 
-		enum
-		{
-			NResult = (N == Dynamic) ? Dynamic : N - 1
-		};
-
 		const integer size = that.size();
 
-		Vector<NResult, Real> result(size - 1);
+		Vector<PASTEL_ADD_N(N, -1), Real> result(size - 1);
 		for (int i = 0;i < size - 1;++i)
 		{
 			result[i] = that[i];
@@ -123,20 +119,15 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Dynamic) ? Dynamic : N - 1), Real> shrink(
+	inline TemporaryVector<PASTEL_ADD_N(N, -1), Real> shrink(
 		const VectorExpression<N, Real, Expression>& that,
 		integer index)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
 
-		enum
-		{
-			NResult = (N == Dynamic) ? Dynamic : N - 1
-		};
-
 		const integer size = that.size();
 
-		Vector<NResult, Real> result(size - 1);
+		Vector<PASTEL_ADD_N(N, -1), Real> result(size - 1);
 		for (integer i = 0;i < index;++i)
 		{
 			result[i] = that[i];
@@ -150,18 +141,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
+	inline TemporaryVector<PASTEL_ADD_N(N, 1), Real> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
 	{
 		const integer size = right.size();
 
-		enum
-		{
-			NResult = (N == Dynamic) ? Dynamic : N + 1
-		};
-
-		Vector<NResult, Real> result(size + 1);
+		Vector<PASTEL_ADD_N(N, 1), Real> result(size + 1);
 
 		result[0] = left;
 		for (int i = 1;i < size + 1;++i)
@@ -173,18 +159,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
+	inline TemporaryVector<PASTEL_ADD_N(N, 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		const integer size = left.size();
 
-		enum
-		{
-			NResult = (N == Dynamic) ? Dynamic : N + 1
-		};
-
-		Vector<NResult, Real> result(size + 1);
+		Vector<PASTEL_ADD_N(N, 1), Real> result(size + 1);
 
 		for (int i = 0;i < size;++i)
 		{
@@ -196,7 +177,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<((N == Dynamic) ? Dynamic : N + 1), Real> extend(
+	inline TemporaryVector<PASTEL_ADD_N(N, 1), Real> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
@@ -205,12 +186,7 @@ namespace Pastel
 
 		PENSURE2(index >= 0 && index < size, index, size);
 
-		enum
-		{
-			NResult = (N == Dynamic) ? Dynamic : N + 1
-		};
-
-		Vector<NResult, Real> result(size + 1);
+		Vector<PASTEL_ADD_N(N, 1), Real> result(size + 1);
 		for (integer i = 0;i < index;++i)
 		{
 			result[i] = left[i];
@@ -246,45 +222,6 @@ namespace Pastel
 		norm(const VectorExpression<N, Real, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
-
-		/*
-		// If v[0] != 0,
-		// then
-		// sqrt(v[0]^2 + ... v[N - 1]^2) =
-		// |v[0]| sqrt(1 + (v[1] / v[0])^2 + ... + (v[N - 1] / v[0])^2))
-		//
-		// This works for any component, so
-		// pick the one with the maximum absolute value.
-		// This is done to avoid overflow.
-
-		const Vector<N, Real> absThat = mabs(that);
-
-		const integer m = maxIndex(absThat);
-
-		const Real pivot = absThat[m];
-
-		// EPSILON
-		if (pivot == 0)
-		{
-			return 0;
-		}
-
-		const Real invPivot = inverse(pivot);
-
-		Real sum = 1;
-		for (integer i = 0;i < m;++i)
-		{
-			const Real value = absThat[i] * invPivot;
-			sum += value * value;
-		}
-		for (integer i = m + 1;i < N;++i)
-		{
-			const Real value = absThat[i] * invPivot;
-			sum += value * value;
-		}
-
-		return pivot * std::sqrt(sum);
-		*/
 	}
 
 	template <int N, typename Real, typename Expression>
@@ -317,43 +254,6 @@ namespace Pastel
 		PENSURE1(metric >= 1, metric);
 
 		return pow(powerSum(that, metric), inverse(metric));
-
-		/*
-		// If v[0] != 0,
-		// then
-		// root_p(v[0]^p + ... v[N - 1]^p) =
-		// |v[0]| root_p(1 + (v[1] / v[0])^p + ... + (v[N - 1] / v[0])^p))
-		//
-		// This works for any component, so
-		// pick the one with the maximum absolute value.
-		// This is done to avoid overflow.
-
-		const Vector<N, Real> absThat = mabs(that);
-
-		const integer m = maxIndex(absThat);
-
-		const Real pivot = absThat[m];
-
-		// EPSILON
-		if (pivot == 0)
-		{
-			return 0;
-		}
-
-		const Real invPivot = inverse(pivot);
-
-		Real sum = 1;
-		for (integer i = 0;i < m;++i)
-		{
-			sum += std::pow(absThat[i] * invPivot, metric);
-		}
-		for (integer i = m + 1;i < N;++i)
-		{
-			sum += std::pow(absThat[i] * invPivot, metric);
-		}
-
-		return pivot * std::pow(sum, inverse(metric));
-		*/
 	}
 
 	template <int N, typename Real, typename Expression>

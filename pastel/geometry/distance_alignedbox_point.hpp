@@ -24,6 +24,8 @@ namespace Pastel
 		const Point<N, Real>& point,
 		const NormBijection& normBijection)
 	{
+		PENSURE(alignedBox.dimension() == point.dimension());
+		
 		// The distance calculation between an AlignedBox and a Point can
 		// be decomposed into separate calculations on each
 		// coordinate axis. In this 1-dimensional world, the AlignedBox
@@ -36,9 +38,11 @@ namespace Pastel
 		// are added together to obtain the real N-dimensional
 		// squared distance.
 
+		const integer dimension = alignedBox.dimension();
+
 		Real result = 0;
 
-		for (int i = 0;i < N;++i)
+		for (int i = 0;i < dimension;++i)
 		{
 			if (point[i] < alignedBox.min()[i])
 			{

@@ -59,6 +59,14 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& from,
 		const std::vector<Point<N, Real> >& to);
 
+	//! Returns the least squares affine transformation relating two point sets.
+
+	template <int N, typename Real>
+	AffineTransformation<N, Real> leastSquaresAffineTransformation(
+		integer dimension,
+		const std::vector<Point<N, Real> >& from,
+		const std::vector<Point<N, Real> >& to);
+
 	//! Returns the least squares similarity transformation relating two point sets.
 
 	template <typename Real>

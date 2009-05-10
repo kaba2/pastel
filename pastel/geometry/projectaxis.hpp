@@ -27,10 +27,14 @@ namespace Pastel
 		const Box<N, Real>& box,
 		const Vector<N, Real>& unitAxis)
 	{
+		PENSURE(box.dimension() == unitAxis.dimension());
+
+		const integer dimension = box.dimension();
+
 		const Real position = dot(unitAxis, asVector(box.position()));
 
 		Real radius = 0;
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
 			radius += mabs(dot(box.rotation()[i] * box.width()[i], unitAxis));
 		}

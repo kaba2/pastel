@@ -134,12 +134,7 @@ namespace Pastel
 	{
 		// Using the separating axis theorem.
 
-		enum
-		{
-			N = 2
-		};
-
-		const AlignedBox<N, Real> bAlignedBox = boundingAlignedBox(bBox);
+		const AlignedBox<2, Real> bAlignedBox = boundingAlignedBox(bBox);
 
 		// Test for the standard basis vectors.
 
@@ -154,7 +149,7 @@ namespace Pastel
 
 		// Test for the 'bBox' vectors.
 
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < 2;++i)
 		{
 			const Vector<N, Real>& unitAxis = bBox.rotation()[i];
 			const AlignedBox<1, Real> aInterval = projectAxis(aAlignedBox, unitAxis);

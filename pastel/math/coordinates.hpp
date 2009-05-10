@@ -39,7 +39,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type
+	typename boost::enable_if_c<(N == Dynamic || N > 1), Vector<N, Real> >::type
 		cartesianToSpherical(
 		const Vector<N, Real>& cartesian)
 	{
@@ -50,12 +50,14 @@ namespace Pastel
 		// ...
 		// tan(alpha_1) = sqrt((x_n)^2 + ... + (x_2)^2) / x_1
 
-		Vector<N, Real> result;
-		result[N - 1] = std::atan(cartesian[N - 1] / cartesian[N - 2]);
+		const integer dimension = cartesian.dimension();
 
-		Real squareSum = cartesian[N - 1] * cartesian[N - 1];
+		Vector<N, Real> result(ofDimension(dimension));
+		result[dimension - 1] = std::atan(cartesian[dimension - 1] / cartesian[dimension - 2]);
 
-		for (integer i = N - 2;i >= 1;--i)
+		Real squareSum = cartesian[dimension - 1] * cartesian[dimension - 1];
+
+		for (integer i = dimension - 2;i >= 1;--i)
 		{
 			squareSum += cartesian[i] * cartesian[i];
 			result[i] = std::atan(std::sqrt(squareSum) / cartesian[i - 1]);
@@ -89,7 +91,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 1), Vector<N, Real> >::type
+	typename boost::enable_if_c<(N == Dynamic || N > 1), Vector<N, Real> >::type
 		sphericalToCartesian(
 		const Vector<N, Real>& spherical)
 	{
@@ -100,17 +102,19 @@ namespace Pastel
 		// ...
 		// x_n = r sin(alpha_1) ... sin(alpha_(n - 1)) sin(alpha_n)
 
+		const integer dimension = spherical.dimension();
+
 		Vector<N, Real> cartesian;
 		Real product = spherical[0];
 
 		cartesian[0] = product * std::cos(spherical[1]);
-		for (integer i = 1;i < N - 1;++i)
+		for (integer i = 1;i < dimension - 1;++i)
 		{
 			product *= std::sin(spherical[i]);
 			cartesian[i] = product * std::cos(spherical[i + 1]);
 		}
 
-		cartesian[N - 1] = product * std::sin(spherical[N - 1]);
+		cartesian[dimension - 1] = product * std::sin(spherical[dimension - 1]);
 
 		return cartesian;
 	}
@@ -142,7 +146,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N > 2), Vector<N - 1, Real> >::type
+	typename boost::enable_if_c<(N == Dynamic || N > 2), 
+		Vector<PASTEL_ADD_N(N, -1), Real> >::type
 		cartesianToDirection(
 		const Vector<N, Real>& cartesian)
 	{
@@ -153,12 +158,14 @@ namespace Pastel
 		// ...
 		// tan(alpha_1) = sqrt((x_n)^2 + ... + (x_2)^2) / x_1
 
-		Vector<N - 1, Real> direction;
-		direction[N - 2] = std::atan(cartesian[N - 1] / cartesian[N - 2]);
+		const integer dimension = cartesian.dimension();
 
-		Real squareSum = cartesian[N - 1] * cartesian[N - 1];
+		Vector<PASTEL_ADD_N(N, -1), Real> direction(ofDimension(dimension - 1));
+		direction[dimension - 2] = std::atan(cartesian[dimension - 1] / cartesian[dimension - 2]);
 
-		for (integer i = N - 2;i >= 1;--i)
+		Real squareSum = cartesian[dimension - 1] * cartesian[dimension - 1];
+
+		for (integer i = dimension - 2;i >= 1;--i)
 		{
 			squareSum += cartesian[i] * cartesian[i];
 			direction[i - 1] = std::atan(std::sqrt(squareSum) / cartesian[i - 1]);

@@ -18,12 +18,14 @@ namespace Pastel
 		{
 		public:
 			AllNearestNeighborsOwn(
+				integer dimension,
 				const std::vector<Point<N, Real> >& pointSet,
 				integer kNearest,
 				Array<2, integer>& nearestSet)
 				: pointSet_(pointSet)
 				, kNearest_(kNearest)
 				, nearestSet_(nearestSet)
+				, dimension_(dimension)
 			{
 			}
 
@@ -124,6 +126,7 @@ namespace Pastel
 			Array<2, integer>& nearestSet_;
 
 			integer searchSum_;
+			integer dimension_;
 		};
 
 		template <int N, typename Real>
@@ -133,8 +136,8 @@ namespace Pastel
 
 			searchSum_ = 0;
 
-			std::vector<IndexSet> indexSetList(N);
-			RangeList rangeList(N);
+			std::vector<IndexSet> indexSetList(dimension_);
+			RangeList rangeList(dimension_);
 
 			// Sort the point projections
 			// on each axis.
@@ -144,12 +147,12 @@ namespace Pastel
 				indexSetList.front().push_back(i);
 			}
 
-			for (integer j = 1;j < N;++j)
+			for (integer j = 1;j < dimension_;++j)
 			{
 				indexSetList[j] = indexSetList.front();
 			}
 
-			for (integer j = 0;j < N;++j)
+			for (integer j = 0;j < dimension_;++j)
 			{
 				std::sort(
 					indexSetList[j].begin(),
@@ -166,7 +169,7 @@ namespace Pastel
 
 				const Point<N, Real>& pivot = pointSet_[i];
 
-				for (integer j = 0;j < N;++j)
+				for (integer j = 0;j < dimension_;++j)
 				{
 					const IndexIterator iter = 
 						std::lower_bound(indexSetList[j].begin(), indexSetList[j].end(),
@@ -179,7 +182,7 @@ namespace Pastel
 					updateAxisNearestSet(j, pivot[j], axisNearestSet, rangeList, indexSetList[j]);
 				}
 
-				ASSERT(axisNearestSet.size() == N);
+				ASSERT(axisNearestSet.size() == dimension_);
 
 				integer nearestFound = 0;
 				while(!axisNearestSet.empty())
@@ -192,10 +195,11 @@ namespace Pastel
 						hitMap.insert(std::make_pair(entry.index_, 0)).first;
 
 					integer& hitCount = hitIter->second;
-					ASSERT2(hitCount >= 0 && hitCount < N, hitCount, N);
+					ASSERT2(hitCount >= 0 && hitCount < dimension_, 
+						hitCount, dimension_);
 					++hitCount;
 
-					if (hitCount == N)
+					if (hitCount == dimension_)
 					{
 						nearestSet_(nearestFound, i) = entry.index_;
 						++nearestFound;
@@ -212,7 +216,8 @@ namespace Pastel
 				ASSERT2(nearestFound == kNearest_, nearestFound, kNearest_);
 			}
 
-			log() << "Search average = " << (real)searchSum_ / (points * N) << logNewLine;
+			log() << "Search average = " 
+				<< (real)searchSum_ / (points * dimension_) << logNewLine;
 		}	
 
 		template <int N, typename Real>
@@ -287,8 +292,15 @@ namespace Pastel
 		integer kNearest,
 		Array<2, integer>& nearestSet)
 	{
+		if (pointSet.empty())
+		{
+			return;
+		}
+
+		const integer dimension = pointSet.front().dimension();
+
 		Detail_AllNearestNeighborsOwn::AllNearestNeighborsOwn<N, Real>
-			computation(pointSet, kNearest, nearestSet);
+			computation(dimension, pointSet, kNearest, nearestSet);
 
 		computation.work();
 	}

@@ -50,7 +50,7 @@ namespace Pastel
 
 			integer object() const
 			{
-				return index_ / (2 * N);
+				return index_ / (2 * dimension_);
 			}
 
 			const Real& position() const
@@ -119,9 +119,20 @@ namespace Pastel
 	public:
 		typedef typename CollisionContainer::const_iterator ConstCollisionIterator;
 
+		BoxCollider()
+			: dimension_(N)
+		{
+			BOOST_STATIC_ASSERT(N != Dynamic);
+		}
+
+		explicit BoxCollider(integer dimension)
+			: dimension_(dimension)
+		{
+		}
+
 		void clear()
 		{
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < dimension_;++i)
 			{
 				vertexList_[i].clear();
 			}
@@ -139,6 +150,7 @@ namespace Pastel
 			indexList_.swap(that.indexList_);
 			counterSet_.swap(that.counterSet_);
 			collisionSet_.swap(that.collisionSet_);
+			std::swap(dimension_, that.dimension_);
 		}
 
 		ConstCollisionIterator collisionBegin() const
@@ -167,11 +179,11 @@ namespace Pastel
 			const integer objectIndex = objectList_.size();
 			objectList_.push_back(object);
 
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < dimension_;++i)
 			{
 				VertexContainer& vertexList = vertexList_[i];
 
-				const integer vertexIndex = 2 * N * objectIndex + 2 * i;
+				const integer vertexIndex = 2 * dimension_ * objectIndex + 2 * i;
 
 				const integer startIndex =
 					vertexList.insert(
@@ -267,14 +279,14 @@ namespace Pastel
 		void update(integer objectIndex, BoundCallback bound)
 		{
 			const Object& object = objectList_[objectIndex];
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < dimension_;++i)
 			{
 				VertexContainer& vertexList = vertexList_[i];
 
 				const Real newMinPosition = bound(i, true, object);
 				const Real newMaxPosition = bound(i, false, object);
 
-				const integer startIndex = indexList_[objectIndex * 2 * N + 2 * i];
+				const integer startIndex = indexList_[objectIndex * 2 * dimension_ + 2 * i];
 
 				const Real oldMinPosition = vertexList[startIndex].position();
 
@@ -282,15 +294,15 @@ namespace Pastel
 				{
 					updateVertex(i, startIndex, newMinPosition);
 
-					const integer newEndIndex = indexList_[objectIndex * 2 * N + 2 * i + 1];
+					const integer newEndIndex = indexList_[objectIndex * 2 * dimension_ + 2 * i + 1];
 					updateVertex(i, newEndIndex, newMaxPosition);
 				}
 				else
 				{
-					const integer endIndex = indexList_[objectIndex * 2 * N + 2 * i + 1];
+					const integer endIndex = indexList_[objectIndex * 2 * dimension_ + 2 * i + 1];
 					updateVertex(i, endIndex, newMaxPosition);
 
-					integer newStartIndex = indexList_[objectIndex * 2 * N + 2 * i];
+					integer newStartIndex = indexList_[objectIndex * 2 * dimension_ + 2 * i];
 					updateVertex(i, newStartIndex, newMinPosition);
 				}
 			}
@@ -342,7 +354,7 @@ namespace Pastel
 
 		void check()
 		{
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < dimension_;++i)
 			{
 				VertexContainer& vertexList = vertexList_[i];
 				for (integer k = 1;k < vertexList.size();++k)
@@ -364,8 +376,8 @@ namespace Pastel
 				}
 				for (integer k = 0;k < objectList_.size();++k)
 				{
-					const integer startIndex = indexList_[k * 2 * N + 2 * i];
-					const integer endIndex = indexList_[k * 2 * N + 2 * i + 1];
+					const integer startIndex = indexList_[k * 2 * dimension_ + 2 * i];
+					const integer endIndex = indexList_[k * 2 * dimension_ + 2 * i + 1];
 
 					ASSERT(vertexList[startIndex] < vertexList[endIndex]);
 				}
@@ -432,9 +444,9 @@ namespace Pastel
 			CounterIterator iter = counterSet_.find(overlap);
 			if (iter != counterSet_.end())
 			{
-				REPORT(iter->second == N);
+				REPORT(iter->second == dimension_);
 				++(iter->second);
-				if (iter->second == N)
+				if (iter->second == dimension_)
 				{
 					collisionSet_.insert(overlap);
 				}
@@ -456,7 +468,7 @@ namespace Pastel
 			CounterIterator iter = counterSet_.find(overlap);
 			ASSERT(iter != counterSet_.end());
 
-			if (iter->second == N)
+			if (iter->second == dimension_)
 			{
 				collisionSet_.erase(overlap);
 			}

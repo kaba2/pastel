@@ -23,7 +23,11 @@ namespace Pastel
 		// guaranteed not to overlap, and we can exit early.
 		// If all the tests pass, the objects overlap.
 
-		for (integer i = 0;i < N;++i)
+		PENSURE(alignedBox.dimension() == point.dimension());
+
+		const integer dimension = alignedBox.dimension();
+
+		for (integer i = 0;i < dimension;++i)
 		{
 			// Test if the i:th coordinate of the point
 			// lies beyond the closed i:th coordinate range
