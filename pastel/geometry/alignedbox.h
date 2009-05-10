@@ -246,13 +246,13 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedBox<Unbounded, Real>
-		: public AlignedBoxBase<Unbounded, Real>
+	class AlignedBox<Dynamic, Real>
+		: public AlignedBoxBase<Dynamic, Real>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef AlignedBoxBase<N, Real> Base;
@@ -289,6 +289,7 @@ namespace Pastel
 	typedef AlignedBox<2, real> AlignedBox2;
 	typedef AlignedBox<3, real> AlignedBox3;
 	typedef AlignedBox<4, real> AlignedBox4;
+	typedef AlignedBox<Dynamic, real> DynamicAlignedBox;
 
 }
 

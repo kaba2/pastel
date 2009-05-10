@@ -14,6 +14,15 @@ namespace Pastel
 		, width_(1)
 		, rotation_()
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Box<N, Real>::Box(integer dimension)
+		: position_(ofDimension(dimension), 0)
+		, width_(ofDimension(dimension), 1)
+		, rotation_()
+	{
 	}
 
 	template <int N, typename Real>
@@ -25,12 +34,39 @@ namespace Pastel
 		, width_(width)
 		, rotation_(rotation)
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Box<N, Real>::Box(
+		integer dimension,
+		const Point<N, Real>& position,
+		const Vector<N, Real>& width,
+		const Matrix<N, N, Real>& rotation)
+		: position_(position)
+		, width_(width)
+		, rotation_(rotation)
+	{
+		PENSURE2(dimension == position.size(), 
+			dimension, position.size());
+		PENSURE2(dimension == width.size(),
+			dimension, width.size());
+		PENSURE2(dimension == rotation.width(),
+			dimension, rotation.width());
+		PENSURE2(dimension == rotation.height(),
+			dimension, rotation.height());
 	}
 
 	template <int N, typename Real>
 	Box<N, Real>::~Box()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+	}
+
+	template <int N, typename Real>
+	integer Box<N, Real>::dimension() const
+	{
+		return position_.dimension();
 	}
 
 	template <int N, typename Real>

@@ -35,6 +35,11 @@ namespace Pastel
 		typename ObjectPolicy>
 	bool check(const KdTree<N, Real, ObjectPolicy>& tree);
 
+	template <int N_A, typename Real, typename ObjectPolicy_A, 
+		int N_B, typename ObjectPolicy_B>
+	bool equivalentKdTree(const KdTree<N_A, Real, ObjectPolicy_A>& aTree,
+	const KdTree<N_B, Real, ObjectPolicy_B>& bTree);
+
 }
 
 #include "pastel/geometry/kdtree_tools.hpp"

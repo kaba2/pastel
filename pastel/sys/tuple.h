@@ -420,13 +420,13 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Tuple<Unbounded, Type>
-		: public Detail::TupleBase<Unbounded, Type>
+	class Tuple<Dynamic, Type>
+		: public Detail::TupleBase<Dynamic, Type>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef Detail::TupleBase<N, Type> Base;
@@ -758,13 +758,13 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class TemporaryTuple<Unbounded, Type>
-		: public Tuple<Unbounded, Type>
+	class TemporaryTuple<Dynamic, Type>
+		: public Tuple<Dynamic, Type>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef Tuple<N, Type> Base;

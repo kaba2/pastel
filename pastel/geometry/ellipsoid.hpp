@@ -1,7 +1,7 @@
-#ifndef PASTELGEOMETRY_ELLIPSE_HPP
-#define PASTELGEOMETRY_ELLIPSE_HPP
+#ifndef PASTELGEOMETRY_ELLIPSOID_HPP
+#define PASTELGEOMETRY_ELLIPSOID_HPP
 
-#include "pastel/geometry/ellipse.h"
+#include "pastel/geometry/ellipsoid.h"
 
 #include "pastel/math/matrix_tools.h"
 

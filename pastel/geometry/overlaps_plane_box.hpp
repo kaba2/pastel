@@ -19,13 +19,16 @@ namespace Pastel
 			const Plane<N, Real>& plane,
 			const Box<N, Real>& box)
 	{
+		const integer dimension = plane.dimension();
+		PENSURE(plane.dimension() == box.dimension());
+
 		// A plane and an box intersect if
 		// the distance between an extremal
 		// point of the box and the plane
 		// is less or equal than the
 		// distance between the center point
 		// of the box and the plane.
-		// An extremal point of an box
+		// An extremal point of a box
 		// is such a point on the box that
 		// it has the maximum distance to
 		// the plane. It can be shown
@@ -33,10 +36,10 @@ namespace Pastel
 		// of the box is always an extremal
 		// point.
 
-		const Vector<N, Real> planeNormal(
-			plane.normal());
+		const Vector<N, Real>& planeNormal = 
+			plane.normal();
 
-		const Matrix<N, N, Real>& axes(box.rotation());
+		const Matrix<N, N, Real>& axes = box.rotation();
 
 		// Find the distance between the center point
 		// and an extremal point.
@@ -50,7 +53,7 @@ namespace Pastel
 		// handled by the mabs()).
 
 		Real d(0);
-		for (integer i = 0;i < N;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
 			d += mabs(dot(axes[i], planeNormal));
 		}
@@ -58,8 +61,8 @@ namespace Pastel
 		// Calculate the distance of the center
 		// point and the plane.
 
-		const Real planeDistanceSquared(
-			distance2(plane, box.position()));
+		const Real planeDistanceSquared = 
+			distance2(plane, box.position());
 
 		// If the distance of the center to the
 		// plane is less than or equal to the distance

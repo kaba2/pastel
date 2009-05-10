@@ -50,6 +50,7 @@ namespace Pastel
 	typedef Triangle<2, real> Triangle2;
 	typedef Triangle<3, real> Triangle3;
 	typedef Triangle<4, real> Triangle4;
+	typedef Triangle<Dynamic, real> DynamicTriangle;
 
 /*
 	template <int N, typename Real>

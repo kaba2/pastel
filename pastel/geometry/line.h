@@ -33,8 +33,16 @@ namespace Pastel
 		//! Construct a line parallel to x-axis.
 		Line();
 
+		//! Construct a line parallel to x-axis.
+		explicit Line(integer dimension);
+
 		//! Construct a line given position and direction.
 		Line(const Point<N, Real>& position,
+			const Vector<N, Real>& unitDirection);
+
+		//! Construct a line given position and direction.
+		Line(integer dimension, 
+			const Point<N, Real>& position,
 			const Vector<N, Real>& unitDirection);
 
 		// Used for concept checking.
@@ -62,6 +70,9 @@ namespace Pastel
 		//! Sets the position and direction of the line.
 		void set(const Point<N, Real>& position,
 			const Vector<N, Real>& unitDirection);
+
+		//! Returns the dimension of the line.
+		integer dimension() const;
 
 		//! Sets the position of the line.
 		void setPosition(const Point<N, Real>& position);

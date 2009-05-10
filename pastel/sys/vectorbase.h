@@ -109,7 +109,7 @@ namespace Pastel
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
-				BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+				BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 			}
 
 			void setSize(integer size, const Real& that = Real())
@@ -118,6 +118,11 @@ namespace Pastel
 			}
 
 			integer size() const
+			{
+				return data_.size();
+			}
+
+			integer dimension() const
 			{
 				return data_.size();
 			}
@@ -307,7 +312,7 @@ namespace Pastel
 			}
 
 		// Need to be protected instead of private
-		// so that Vector<Unbounded, Real> can access
+		// so that Vector<Dynamic, Real> can access
 		// data_ to implement setSize().
 		protected:
 			Tuple<N, Real> data_;

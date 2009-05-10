@@ -19,21 +19,47 @@ namespace Pastel
 		, direction_(unitAxis<N, Real>(0))
 		, inverseDirection_(inverse(direction_))
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <int N, typename Real>
-	Line<N, Real>::Line(const Point<N, Real>& position,
+	Line<N, Real>::Line(integer dimension)
+		: position_(ofDimension(dimension), 0)
+		, direction_(unitAxis<N, Real>(dimension, 0))
+		, inverseDirection_(inverse(direction_))
+	{
+	}
+
+	template <int N, typename Real>
+	Line<N, Real>::Line(
+		const Point<N, Real>& position,
 		const Vector<N, Real>& unitDirection)
 		: position_(position)
 		, direction_(unitDirection)
 		, inverseDirection_(inverse(unitDirection))
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+	}
+
+	template <int N, typename Real>
+	Line<N, Real>::Line(
+		integer dimension,
+		const Point<N, Real>& position,
+		const Vector<N, Real>& unitDirection)
+		: position_(position)
+		, direction_(unitDirection)
+		, inverseDirection_(inverse(unitDirection))
+	{
+		PENSURE2(dimension == position.dimension(),
+			dimension, position.dimension());
+		PENSURE2(dimension == unitDirection.dimension(),
+			dimension, unitDirection.dimension());
 	}
 
 	template <int N, typename Real>
 	Line<N, Real>::~Line()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <int N, typename Real>
@@ -82,6 +108,12 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
+	integer Line<N, Real>::dimension() const
+	{
+		return position_.dimension();
+	}
+
+	template <int N, typename Real>
 	void Line<N, Real>::set(
 		const Point<N, Real>& position,
 		const Vector<N, Real>& unitDirection)
@@ -94,6 +126,9 @@ namespace Pastel
 	void Line<N, Real>::setPosition(
 		const Point<N, Real>& position)
 	{
+		PENSURE2(position_.dimension() == position.dimension(),
+			position_.dimension(), position.dimension());
+
 		position_ = position;
 	}
 
@@ -107,6 +142,9 @@ namespace Pastel
 	void Line<N, Real>::setDirection(
 		const Vector<N, Real>& unitDirection)
 	{
+		PENSURE2(direction_.dimension() == unitDirection.dimension(),
+			direction_.dimension(), unitDirection.dimension());
+
 		direction_ = unitDirection;
 
 		inverseDirection_ =

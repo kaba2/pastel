@@ -13,7 +13,7 @@ namespace Pastel
 	template <int N, typename Real, int M>
 	Flat<N, Real, M>::~Flat()
 	{
-		BOOST_STATIC_ASSERT(N == Unbounded || N > 0);
+		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 		BOOST_STATIC_ASSERT(M <= N);
 	}
 

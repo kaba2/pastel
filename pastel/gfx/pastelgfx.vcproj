@@ -585,6 +585,34 @@
 		<Filter
 			Name="Reconstruction"
 			>
+			<File
+				RelativePath=".\reconstruct_adaptive.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_adaptive.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_all.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_filter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_filter.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_nearest.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruct_nearest.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Discrete poisson disk pattern"

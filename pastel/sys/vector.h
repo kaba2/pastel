@@ -528,13 +528,13 @@ namespace Pastel
 	// Specialization for unbounded dimensions
 
 	template <typename Real>
-	class Vector<Unbounded, Real>
-		: public Detail::VectorBase<Unbounded, Real>
+	class Vector<Dynamic, Real>
+		: public Detail::VectorBase<Dynamic, Real>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef Detail::VectorBase<N, Real> Base;
@@ -618,13 +618,13 @@ namespace Pastel
 		}
 	};
 
-	typedef Vector<Unbounded, real> UnboundedVector;
+	typedef Vector<Dynamic, real> DynamicVector;
 	typedef Vector<1, real> Vector1;
 	typedef Vector<2, real> Vector2;
 	typedef Vector<3, real> Vector3;
 	typedef Vector<4, real> Vector4;
 
-	typedef Vector<Unbounded, integer> UnboundedIVector;
+	typedef Vector<Dynamic, integer> DynamicIVector;
 	typedef Vector<1, integer> IVector1;
 	typedef Vector<2, integer> IVector2;
 	typedef Vector<3, integer> IVector3;
@@ -1046,13 +1046,13 @@ namespace Pastel
 	// Specialization for unbounded vectors.
 
 	template <typename Real>
-	class TemporaryVector<Unbounded, Real>
-		: public Vector<Unbounded, Real>
+	class TemporaryVector<Dynamic, Real>
+		: public Vector<Dynamic, Real>
 	{
 	private:
 		enum
 		{
-			N = Unbounded
+			N = Dynamic
 		};
 
 		typedef Vector<N, Real> Base;

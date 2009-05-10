@@ -36,7 +36,7 @@ namespace Pastel
 	statically and dynamically sized.
 	Matrix<3, 4, real> is an example of
 	a statically sized matrix, while
-	Matrix<Unbounded, Unbounded, real> is
+	Matrix<Dynamic, Dynamic, real> is
 	a dynamically sized matrix.
 	Matrices use the same algorithms independent
 	of whether they are static or dynamic sized.
@@ -74,15 +74,15 @@ namespace Pastel
 		// Used for concept checking.
 		~Matrix()
 		{
-			BOOST_STATIC_ASSERT(Height > 0 || Height == Unbounded);
-			BOOST_STATIC_ASSERT(Width > 0 || Width == Unbounded);
-			BOOST_STATIC_ASSERT((Width == Unbounded && Height == Unbounded) ||
-				(Width != Unbounded && Height != Unbounded));
+			BOOST_STATIC_ASSERT(Height > 0 || Height == Dynamic);
+			BOOST_STATIC_ASSERT(Width > 0 || Width == Dynamic);
+			BOOST_STATIC_ASSERT((Width == Dynamic && Height == Dynamic) ||
+				(Width != Dynamic && Height != Dynamic));
 		}
 	};
 
 	template <typename Real>
-	class Matrix<Unbounded, Unbounded, Real>
+	class Matrix<Dynamic, Dynamic, Real>
 	{
 	public:
 		// Using default copy constructor.
@@ -102,14 +102,14 @@ namespace Pastel
 		Real& operator()(integer y, integer x);
 		const Real& operator()(integer y, integer x) const;
 
-		Matrix<Unbounded, Unbounded, Real>& operator*=(
+		Matrix<Dynamic, Dynamic, Real>& operator*=(
 			const PASTEL_NO_DEDUCTION(Real)& that);
-		Matrix<Unbounded, Unbounded, Real>& operator/=(
+		Matrix<Dynamic, Dynamic, Real>& operator/=(
 			const PASTEL_NO_DEDUCTION(Real)& that);
 
-		Matrix<Unbounded, Unbounded, Real>& operator*=(const Matrix& that);
-		Matrix<Unbounded, Unbounded, Real>& operator+=(const Matrix& that);
-		Matrix<Unbounded, Unbounded, Real>& operator-=(const Matrix& that);
+		Matrix<Dynamic, Dynamic, Real>& operator*=(const Matrix& that);
+		Matrix<Dynamic, Dynamic, Real>& operator+=(const Matrix& that);
+		Matrix<Dynamic, Dynamic, Real>& operator-=(const Matrix& that);
 
 	private:
 		Array<2, Real> data_;
@@ -443,7 +443,7 @@ namespace Pastel
 		}
 	};
 
-	typedef Matrix<Unbounded, Unbounded, real> UnboundedMatrix;
+	typedef Matrix<Dynamic, Dynamic, real> DynamicMatrix;
 	typedef Matrix<1, 1, real> Matrix1;
 	typedef Matrix<2, 2, real> Matrix2;
 	typedef Matrix<3, 3, real> Matrix3;

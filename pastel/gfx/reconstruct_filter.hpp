@@ -149,7 +149,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& filterStretch,
 		const View<N, Data, Output_View>& view)
 	{
-		BOOST_STATIC_ASSERT(N != Unbounded);
+		BOOST_STATIC_ASSERT(N != Dynamic);
 
 		const integer points = positionList.size();
 

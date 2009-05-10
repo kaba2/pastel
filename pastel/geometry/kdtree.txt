@@ -226,4 +226,27 @@ Should the kd-tree know its bounding box?
 => make it possible to enlarge the bounding box but not shrink it
 => inserted objects enlarge the bounding box automatically
 
+Implementation experience
+-------------------------
+
+- The packing of nodes induces some performance degradation.
+- Efficient approximate nearest neighbors requires to store
+intermediate node bounds in the split dimension.
+- Storing the node bounds in the split dimension implies
+that the user can't be allowed to subdivide a node through
+a cursor since the node bounds can not be found out
+efficiently. 
+- Instead, you implement a member function
+that refines the kd-tree with a user-defined splitting rule.
+This way you keep the kd-tree nodes having the correct
+node bounds.
+- In nearest neighbor searching and refinement, recursive 
+function calls are faster than iteration based on a stack.
+- In nearest neighbor searching, performance is enhanced
+by computing partial distances: whenever the distance
+computation exceeds the current culling distance, the
+computation can be aborted.
+- In nearest neighbor searching, performance is enhanced
+by computing with norm bijections rather than norms
+(for example, squared L2-norm).
 

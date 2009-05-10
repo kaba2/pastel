@@ -72,7 +72,7 @@ namespace Pastel
 
 	enum
 	{
-		Unbounded = -1
+		Dynamic = -1
 	};
 
 	class PASTELSYS EmptyClass {};
