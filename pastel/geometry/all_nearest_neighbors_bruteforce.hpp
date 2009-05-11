@@ -2,6 +2,7 @@
 #define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
 
 #include "pastel/geometry/all_nearest_neighbors_bruteforce.h"
+#include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/smallfixedset.h"
 
@@ -68,6 +69,7 @@ namespace Pastel
 		// (presumably because it does not need a critical
 		// section and also parallelizes writing the results).
 
+		const integer dimension = pointSet.front().dimension();
 		const integer points = pointSet.size();
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)
@@ -83,8 +85,9 @@ namespace Pastel
 			{
 				if (j != i)
 				{
-					const real distance = 
-						normBijection.compute(pointSet[j] - iPoint, cullDistance);
+					const real distance = distance2(pointSet[j], iPoint, 
+						normBijection, cullDistance);
+
 					if (distance <= cullDistance)
 					{
 //#pragma omp critical

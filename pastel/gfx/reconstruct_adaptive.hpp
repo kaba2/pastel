@@ -103,10 +103,10 @@ namespace Pastel
 				Real weightSum = 0;
 				Data::Data_ dataSum(0);
 				FilterPtr filter = triangleFilter();
-				const Real scaling = filter->radius() / distanceSet.back();
+				const Real scaling = filter->radius() / normBijection.toNorm(distanceSet.back());
 				for (integer i = 0;i < kNearest_;++i)
 				{
-					const Real t = normBijection.toNorm(distanceSet[i] * scaling);
+					const Real t = normBijection.toNorm(distanceSet[i]) * scaling;
 					const Real weight = filter->evaluate(t);
 
 					weightSum += weight;

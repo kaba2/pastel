@@ -33,46 +33,104 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
+			PENSURE(norm >= 0);
 			return square(norm);
 		}
 
-		template <typename Expression>
-		Real compute(const VectorExpression<N, Real, Expression>& that) const
+		Real scalingFactor(
+			const Real& scaling) const
 		{
-			return dot(that);
+			return square(scaling);
 		}
 
-		template <typename Expression>
-		Real compute(const VectorExpression<N, Real, Expression>& that,
-			const PASTEL_NO_DEDUCTION(Real)& threshold) const
+		Real axis(
+			const Real& axisDistance) const
 		{
-			const integer dimension = that.size();
-			
-			Real result = 0;
-			for (integer i = 0;i < dimension;++i)
-			{
-				result += square(that[i]);
-				if (result > threshold)
-				{
-					return infinity<Real>();
-				}
-			}
-
-			return result;
+			return square(axisDistance);
 		}
 
-		Real addAxis(const Real& distance, const Real& axisDistance) const
+		Real addAxis(
+			const Real& distanceBijection, 
+			const Real& newAxisDistance) const
 		{
-			return distance + axisDistance;
+			PENSURE(newAxisDistance >= 0);
+
+			return distanceBijection + 
+				newAxisDistance;
 		}
 
 		Real replaceAxis(
-			const Real& distance, 
-			const Real& currentAxisDistance,
+			const Real& distanceBijection, 
+			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			return (distance - currentAxisDistance) + newAxisDistance;
+			PENSURE(oldAxisDistance >= 0);
+			PENSURE(newAxisDistance >= 0);
+
+			return (distanceBijection - oldAxisDistance) + 
+				newAxisDistance;
 		}
+	};
+
+	template <int N, typename Real>
+	class MinkowskiNormBijection
+	{
+	public:
+		explicit MinkowskiNormBijection(const Real& power)
+			: power_(power)
+			, invPower_(inverse(power))
+		{
+			PENSURE(power >= 1);
+		}
+
+		Real toNorm(const Real& normBijection) const
+		{
+			return std::pow(normBijection, invPower_);
+		}
+
+		Real toBijection(const Real& norm) const
+		{
+			PENSURE(norm >= 0);
+			return std::pow(norm, power_);
+		}
+
+		Real scalingFactor(
+			const Real& scaling) const
+		{
+			return std::pow(scaling, power_);
+		}
+
+		Real axis(
+			const Real& axisDistance) const
+		{
+			return std::pow(mabs(axisDistance), power_);
+		}
+
+		Real addAxis(
+			const Real& distanceBijection, 
+			const Real& newAxisDistance) const
+		{
+			PENSURE(newAxisDistance >= 0);
+
+			return distanceBijection + 
+				newAxisDistance;
+		}
+
+		Real replaceAxis(
+			const Real& distanceBijection, 
+			const Real& oldAxisDistance,
+			const Real& newAxisDistance) const
+		{
+			PENSURE(oldAxisDistance >= 0);
+			PENSURE(newAxisDistance >= 0);
+
+			return (distanceBijection - oldAxisDistance) + 
+				newAxisDistance;
+		}
+
+	private:
+		Real power_;
+		Real invPower_;
 	};
 
 	template <int N, typename Real>
@@ -86,59 +144,44 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
+			PENSURE(norm >= 0);
 			return norm;
 		}
 
-		template <typename Expression>
-		Real compute(const VectorExpression<N, Real, Expression>& that) const
+		Real scalingFactor(
+			const Real& scaling) const
 		{
-			return normInfinity(that);
+			return mabs(scaling);
 		}
 
-		template <typename Expression>
-		Real compute(const VectorExpression<N, Real, Expression>& that,
-			const PASTEL_NO_DEDUCTION(Real)& threshold) const
+		Real axis(
+			const Real& axisDistance) const
 		{
-			const integer dimension = that.size();
-			
-			Real result = 0;
-			for (integer i = 0;i < dimension;++i)
-			{
-				Real current = mabs(that[i]);
-				if (current > result)
-				{
-					if (result > threshold)
-					{
-						return infinity<Real>();
-					}
-					result = current;
-				}
-			}
-
-			return result;
+			return mabs(axisDistance);
 		}
 
-		Real addAxis(const Real& distance, const Real& axisDistance) const
+		Real addAxis(
+			const Real& distanceBijection, 
+			const Real& newAxisDistance) const
 		{
-			if (distance < axisDistance)
-			{
-				return axisDistance;
-			}
-			
-			return distance;
+			PENSURE(newAxisDistance >= 0);
+
+			return std::max(
+				distanceBijection,
+				newAxisDistance);
 		}
 
 		Real replaceAxis(
-			const Real& distance, 
-			const Real& currentAxisDistance,
+			const Real& distanceBijection, 
+			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			if (distance < newAxisDistance)
-			{
-				return newAxisDistance;
-			}
-			
-			return distance;
+			PENSURE(oldAxisDistance >= 0);
+			PENSURE(newAxisDistance >= 0);
+
+			return std::max(
+				distanceBijection, 
+				newAxisDistance);
 		}
 	};
 
@@ -153,46 +196,41 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
+			PENSURE(norm >= 0);
 			return norm;
 		}
 
-		template <typename Expression>
-		Real compute(const VectorExpression<N, Real, Expression>& that) const
+		Real scalingFactor(
+			const Real& scaling) const
 		{
-			return normManhattan(that);
+			return mabs(scaling);
 		}
 
-		template <typename Expression>
-		Real compute(
-			const VectorExpression<N, Real, Expression>& that,
-			const PASTEL_NO_DEDUCTION(Real)& threshold) const
+		Real axis(
+			const Real& axisDistance) const
 		{
-			const integer dimension = that.size();
-			
-			Real result = 0;
-			for (integer i = 0;i < dimension;++i)
-			{
-				result += mabs(that[i]);
-				if (result > threshold)
-				{
-					return infinity<Real>();
-				}
-			}
-
-			return result;
+			return mabs(axisDistance);
 		}
 
-		Real addAxis(const Real& distance, const Real& axisDistance) const
+		Real addAxis(
+			const Real& distanceBijection, 
+			const Real& newAxisDistance) const
 		{
-			return distance + axisDistance;
+			PENSURE(newAxisDistance >= 0);
+
+			return distanceBijection + newAxisDistance;
 		}
 
 		Real replaceAxis(
-			const Real& distance, 
-			const Real& currentAxisDistance,
+			const Real& distanceBijection, 
+			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			return (distance - currentAxisDistance) + newAxisDistance;
+			PENSURE(oldAxisDistance >= 0);
+			PENSURE(newAxisDistance >= 0);
+
+			return (distanceBijection - oldAxisDistance) + 
+				newAxisDistance;
 		}
 	};
 
