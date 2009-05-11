@@ -83,9 +83,6 @@ namespace
 
 			REPORT(!check(bTree));
 
-			log() << "Checking equivalence..." << logNewLine;
-			//REPORT(!equivalentKdTree(tree, tree));
-			//REPORT(!equivalentKdTree(bTree, bTree));
 			REPORT(!equivalentKdTree(tree, bTree));
 		}
 	}

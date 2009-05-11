@@ -53,7 +53,7 @@ namespace Pastel
 
 				result = normBijection.addAxis(
 					result,
-					normBijection.toBijection(alignedBox.min()[i] - point[i]));
+					normBijection.axis(alignedBox.min()[i] - point[i]));
 			}
 			else if (point[i] > alignedBox.max()[i])
 			{
@@ -64,7 +64,7 @@ namespace Pastel
 
 				result = normBijection.addAxis(
 					result,
-					normBijection.toBijection(point[i] - alignedBox.max()[i]));
+					normBijection.axis(point[i] - alignedBox.max()[i]));
 			}
 		}
 
@@ -88,8 +88,8 @@ namespace Pastel
 		const NormBijection& normBijection)
 	{
 		return std::max(
-			normBijection.compute(alignedBox.min() - point),
-			normBijection.compute(alignedBox.max() - point));
+			distance2(alignedBox.min(), point, normBijection),
+			distance2(alignedBox.max(), point, normBijection));
 	}
 
 }

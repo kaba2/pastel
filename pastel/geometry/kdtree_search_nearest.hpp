@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/kdtree_search_nearest.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
+#include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/smallfixedset.h"
@@ -42,7 +43,8 @@ namespace Pastel
 			, kNearest(kNearest_)
 			, nearestSet(nearestSet_)
 			, distanceSet(distanceSet_)
-			, errorScaling(normBijection.toBijection(1 + maxRelativeError))
+			, objectPolicy(kdTree_.objectPolicy())
+			, errorScaling(normBijection.scalingFactor(1 + maxRelativeError))
 			, cullDistance(maxDistance_)
 			, candidateSet(kNearest_)
 		{
@@ -130,6 +132,10 @@ namespace Pastel
 				Cursor nearBranch;
 				Cursor farBranch;
 
+				// We want to compute the absolute distance here,
+				// but for optimization we do this later,
+				// since this way we save a comparison.
+
 				if (searchPosition < splitPosition)
 				{
 					// The search point is closer to the left branch so follow that.
@@ -148,10 +154,8 @@ namespace Pastel
 
 				// Try to cull the farther node off based on the distance 
 				// of the search point to the splitting plane.
-
-				const Real planeDistance =
-					normBijection.toBijection(
-					searchPosition - splitPosition);
+				const Real planeDistance = normBijection.axis(
+					splitPosition - searchPosition);
 
 				if (planeDistance * errorScaling <= cullDistance)
 				{
@@ -161,20 +165,17 @@ namespace Pastel
 					Real oldAxisDistance = 0;
 					if (searchPosition < cursor.min())
 					{
-						oldAxisDistance = 
-							normBijection.toBijection(
-							cursor.min() - searchPosition);
+						oldAxisDistance = cursor.min() - searchPosition;
 					}
 					else if (searchPosition > cursor.max())
 					{
-						oldAxisDistance = 
-							normBijection.toBijection(
-							searchPosition - cursor.max());
+						oldAxisDistance = searchPosition - cursor.max();
 					}
 
 					const Real childDistance = 
 						normBijection.replaceAxis(
-						distance, oldAxisDistance,
+						distance, 
+						normBijection.axis(oldAxisDistance),
 						planeDistance);
 
 					if (childDistance * errorScaling <= cullDistance)
@@ -195,10 +196,9 @@ namespace Pastel
 
 				while(iter != iterEnd)
 				{
-					const Real currentDistance =
-						normBijection.compute(
-						kdTree.objectPolicy().point(*iter) - searchPoint,
-						cullDistance);
+					const real currentDistance = 
+						distance2(objectPolicy.point(*iter), searchPoint, 
+						normBijection, cullDistance);
 
 					// It is essential that this is <= rather
 					// than <, because of the possibility
@@ -257,7 +257,8 @@ namespace Pastel
 		integer kNearest;
 		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet;
 		std::vector<Real>* distanceSet;
-
+		const ObjectPolicy& objectPolicy;
+		
 		Real errorScaling;
 		Real cullDistance;
 

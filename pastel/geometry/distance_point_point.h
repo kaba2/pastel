@@ -27,6 +27,19 @@ namespace Pastel
 		const Point<N, Real>& aPoint,
 		const Point<N, Real>& bPoint);
 
+	template <int N, typename Real, typename NormBijection>
+	Real distance2(
+		const Point<N, Real>& aPoint,
+		const Point<N, Real>& bPoint,
+		const NormBijection& normBijection);
+
+	template <int N, typename Real, typename NormBijection>
+	Real distance2(
+		const Point<N, Real>& aPoint,
+		const Point<N, Real>& bPoint,
+		const NormBijection& normBijection,
+		const PASTEL_NO_DEDUCTION(Real)& cullDistance);
+
 }
 
 #include "pastel/geometry/distance_point_point.hpp"
