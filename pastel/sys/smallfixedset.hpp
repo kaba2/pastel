@@ -160,7 +160,7 @@ namespace Pastel
 	{
 		if (empty() || back() < that)
 		{
-			if (full())
+			if (full())  
 			{
 				return end();
 			}

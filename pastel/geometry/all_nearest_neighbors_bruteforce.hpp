@@ -6,6 +6,8 @@
 
 #include "pastel/sys/smallfixedset.h"
 
+#include <algorithm>
+
 #include <omp.h>
 
 namespace Pastel
@@ -62,42 +64,60 @@ namespace Pastel
 		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
 
-		// The commented OpenMp pragmas represent
-		// another way to parallelize the searching.
-		// I timed the performances and noted that
-		// parallelizing the outer loop is much faster
-		// (presumably because it does not need a critical
-		// section and also parallelizes writing the results).
+		// Due to rounding errors exact comparisons can miss
+		// reporting some of the points, giving incorrect results.
+		// For example, consider n > k points on a 2d circle and make a 
+		// k-nearest query to its center. With bad luck the algorithm
+		// can report less than k points. We avoid this behaviour
+		// by scaling the culling radius up by a protective factor.
+		const Real protectiveFactor = 
+			normBijection.scalingFactor(1.001);
 
 		const integer dimension = pointSet.front().dimension();
 		const integer points = pointSet.size();
-#pragma omp parallel for
+#pragma omp parallel
+		{
+			NearestSet nearestSet(kNearest);
+
+#pragma omp for
 		for (integer i = 0;i < points;++i)
 		{
 			const Point<N, Real>& iPoint = pointSet[i];
 
-			NearestSet nearestSet(kNearest);
+			Real cullDistance = maxDistance;
+			nearestSet.clear();
 
-			real cullDistance = maxDistance;
-
-//#pragma omp parallel for
-			for (integer j = 0;j < points;++j)
+			for (integer j = 0;j < i;++j)
 			{
-				if (j != i)
-				{
-					const real distance = distance2(pointSet[j], iPoint, 
-						normBijection, cullDistance);
+				const Real distance = distance2(pointSet[j], iPoint, 
+					normBijection, cullDistance);
 
-					if (distance <= cullDistance)
+				if (distance <= cullDistance)
+				{
+					nearestSet.insert(Entry(distance, j));
+					if (nearestSet.full())
 					{
-//#pragma omp critical
-						{
-							nearestSet.insert(Entry(distance, j));
-							if (nearestSet.full())
-							{
-								cullDistance = nearestSet.back().distance_;
-							}
-						}
+						cullDistance = std::min(
+							nearestSet.back().distance_ * protectiveFactor,
+							maxDistance);
+					}
+				}
+			}
+
+			for (integer j = i + 1;j < points;++j)
+			{
+				const Real distance = distance2(pointSet[j], iPoint, 
+					normBijection, cullDistance);
+
+				if (distance <= cullDistance)
+				{
+					nearestSet.insert(Entry(distance, j));
+					if (nearestSet.full())
+					{
+						cullDistance = 
+							std::min(
+							nearestSet.back().distance_ * protectiveFactor,
+							maxDistance);
 					}
 				}
 			}
@@ -119,6 +139,7 @@ namespace Pastel
 			{
 				nearestArray(nearestIndex, i) = -1;
 			}
+		}
 		}
 	}
 

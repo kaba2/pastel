@@ -44,14 +44,26 @@ namespace Pastel
 			, nearestSet(nearestSet_)
 			, distanceSet(distanceSet_)
 			, objectPolicy(kdTree_.objectPolicy())
-			, errorScaling(normBijection.scalingFactor(1 + maxRelativeError))
+			, protectiveFactor(normBijection.scalingFactor(1.001))
 			, cullDistance(maxDistance_)
+			, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
+			, nodeCullDistance(maxDistance_)
 			, candidateSet(kNearest_)
 		{
 			ENSURE1(maxDistance_ >= 0, maxDistance_);
 			ENSURE1(maxRelativeError_ >= 0, maxRelativeError_);
 			ENSURE1(kNearest_ >= 0, kNearest_);
 			ENSURE2(kNearest_ < kdTree_.objects(), kNearest_, kdTree_.objects());
+
+			// Due to rounding errors exact comparisons can miss
+			// reporting some of the points, giving incorrect results.
+			// For example, consider n > k points on a 2d circle and make a 
+			// k-nearest query to its center. With bad luck the algorithm
+			// can report less than k points. We avoid this behaviour
+			// by scaling the culling radius up by a protective factor.
+			// However, when doing this one must not allow for points
+			// that have distance more than maxDistance to creep
+			// into results.
 		}
 
 		void work()
@@ -109,7 +121,7 @@ namespace Pastel
 
 		void work(const Cursor& cursor, const Real& distance)
 		{
-			if (distance * errorScaling > cullDistance)
+			if (distance > nodeCullDistance)
 			{
 				// The node is beyond cull distance, skip it.
 				return;
@@ -154,10 +166,10 @@ namespace Pastel
 
 				// Try to cull the farther node off based on the distance 
 				// of the search point to the splitting plane.
-				const Real planeDistance = normBijection.axis(
+				const Real planeDistance = normBijection.signedAxis(
 					splitPosition - searchPosition);
 
-				if (planeDistance * errorScaling <= cullDistance)
+				if (planeDistance <= nodeCullDistance)
 				{
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther child node.
@@ -178,7 +190,7 @@ namespace Pastel
 						normBijection.axis(oldAxisDistance),
 						planeDistance);
 
-					if (childDistance * errorScaling <= cullDistance)
+					if (childDistance <= nodeCullDistance)
 					{
 						// No culling could be done, visit the farther node
 						// later.
@@ -210,7 +222,10 @@ namespace Pastel
 
 						if (candidateSet.full())
 						{
-							cullDistance = candidateSet.back().key();
+							cullDistance = std::min(
+								candidateSet.back().key() * protectiveFactor,
+								maxDistance);
+							nodeCullDistance = cullDistance * errorFactor;
 						}
 					}
 
@@ -259,8 +274,10 @@ namespace Pastel
 		std::vector<Real>* distanceSet;
 		const ObjectPolicy& objectPolicy;
 		
-		Real errorScaling;
+		Real protectiveFactor;
 		Real cullDistance;
+		Real errorFactor;
+		Real nodeCullDistance;
 
 		typedef SmallFixedSet<KeyVal> CandidateSet;
 		typedef typename CandidateSet::iterator CandidateIterator;

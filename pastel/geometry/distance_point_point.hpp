@@ -66,7 +66,7 @@ namespace Pastel
 		{
 			result = normBijection.addAxis(
 				result, 
-				normBijection.axis(*aData - *bData));
+				normBijection.signedAxis(*aData - *bData));
 
 			++aData;
 			++bData;
@@ -93,7 +93,7 @@ namespace Pastel
 		{
 			result = normBijection.addAxis(
 				result, 
-				normBijection.axis(*aData - *bData));
+				normBijection.signedAxis(*aData - *bData));
 
 			if (result > cullDistance)
 			{
