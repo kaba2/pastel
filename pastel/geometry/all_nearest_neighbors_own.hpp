@@ -292,7 +292,10 @@ namespace Pastel
 		integer kNearest,
 		Array<2, integer>& nearestSet)
 	{
-		if (pointSet.empty())
+		ENSURE1(kNearest >= 0, kNearest);
+
+		if (pointSet.empty() ||
+			kNearest == 0)
 		{
 			return;
 		}

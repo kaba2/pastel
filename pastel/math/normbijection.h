@@ -49,6 +49,12 @@ namespace Pastel
 			return square(axisDistance);
 		}
 
+		Real signedAxis(
+			const Real& axisDistance) const
+		{
+			return square(axisDistance);
+		}
+
 		Real addAxis(
 			const Real& distanceBijection, 
 			const Real& newAxisDistance) const
@@ -101,6 +107,12 @@ namespace Pastel
 		}
 
 		Real axis(
+			const Real& axisDistance) const
+		{
+			return std::pow(axisDistance, power_);
+		}
+
+		Real signedAxis(
 			const Real& axisDistance) const
 		{
 			return std::pow(mabs(axisDistance), power_);
@@ -157,6 +169,12 @@ namespace Pastel
 		Real axis(
 			const Real& axisDistance) const
 		{
+			return axisDistance;
+		}
+
+		Real signedAxis(
+			const Real& axisDistance) const
+		{
 			return mabs(axisDistance);
 		}
 
@@ -207,6 +225,12 @@ namespace Pastel
 		}
 
 		Real axis(
+			const Real& axisDistance) const
+		{
+			return axisDistance;
+		}
+
+		Real signedAxis(
 			const Real& axisDistance) const
 		{
 			return mabs(axisDistance);
