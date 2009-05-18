@@ -85,6 +85,8 @@ namespace Pastel
 
 	PASTELMATH real harmonicNumber(integer n)
 	{
+		// FIX: Implement in terms of digamma!
+
 		// The n:th harmonic number H_n is given by:
 		// H_0 = 0
 		// H_n = 1/1 + 1/2 + 1/3 + ... + 1/n

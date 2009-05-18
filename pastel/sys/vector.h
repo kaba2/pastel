@@ -618,17 +618,17 @@ namespace Pastel
 		}
 	};
 
-	typedef Vector<Dynamic, real> DynamicVector;
 	typedef Vector<1, real> Vector1;
 	typedef Vector<2, real> Vector2;
 	typedef Vector<3, real> Vector3;
 	typedef Vector<4, real> Vector4;
+	typedef Vector<Dynamic, real> DynamicVector;
 
-	typedef Vector<Dynamic, integer> DynamicIVector;
 	typedef Vector<1, integer> IVector1;
 	typedef Vector<2, integer> IVector2;
 	typedef Vector<3, integer> IVector3;
 	typedef Vector<4, integer> IVector4;
+	typedef Vector<Dynamic, integer> DynamicIVector;
 
 	typedef Vector1 UnitVector1;
 	typedef Vector2 UnitVector2;

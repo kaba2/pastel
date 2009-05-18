@@ -12,9 +12,12 @@ namespace Pastel
 	//! Finds all-k-nearest-neighbours of a point set.
 	/*!
 	Preconditions:
-	kNearest >= 1
-	kNearest <= pointSet.size()
-
+	kNearestBegin >= 0
+	kNearestEnd < pointSet.size()
+	kNearestBegin <= kNearestEnd
+	maxDistance >= 0
+	maxRelativeError >= 0
+	
 	Time complexity:
 	?
 
@@ -25,11 +28,13 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
-		integer kNearest,
+		integer kNearestBegin,
+		integer kNearestEnd,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		Array<2, integer>& nearestSet);
+		Array<2, integer>* nearestArray,
+		Array<2, Real>* distanceArray = 0);
 
 }
 

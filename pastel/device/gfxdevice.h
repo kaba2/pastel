@@ -20,12 +20,25 @@ namespace Pastel
 	public:
 		//! Initializes the graphics device.
 		/*!
+		width, height > 0
+		bitsPerPixel >= 0
+
 		You must call this function before doing
 		anything else with the GfxDevice.
 		This will set the resolution and bit depth
-		of the used video mode, as well as if
+		of the used video mode, as well if
 		a fullscreen mode is to be used.
-		Returns true on success, false otherwise.
+
+		width, height:
+		The resolution of the video mode.
+
+		bitsPerPixel:
+		The number of bits to use for color specification.
+		Setting this to zero gives the currently active
+		bit depth.
+				
+		returns: 
+		true on success, false otherwise.
 		*/
 		bool initialize(
 		integer width, integer height,

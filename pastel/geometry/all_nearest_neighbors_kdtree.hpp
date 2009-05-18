@@ -6,7 +6,7 @@
 
 #include "pastel/device/timer.h"
 
-#include <omp.h>
+#include "pastel/sys/pastelomp.h"
 
 namespace Pastel
 {
@@ -84,23 +84,36 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection>
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
-		integer kNearest,
+		integer kNearestBegin,
+		integer kNearestEnd,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		Array<2, integer>& nearestArray)
+		Array<2, integer>* nearestArray,
+		Array<2, Real>* distanceArray)
 	{
-		ENSURE1(kNearest >= 0, kNearest);
-		ENSURE2(kNearest < pointSet.size(), kNearest, pointSet.size());
+		ENSURE1(kNearestBegin >= 0, kNearestBegin);
+		ENSURE2(kNearestEnd < pointSet.size(), kNearestEnd, pointSet.size());
+		ENSURE2(kNearestBegin <= kNearestEnd, kNearestBegin, kNearestEnd);
+
+		const integer kNearest = kNearestEnd - kNearestBegin;
+
+		ENSURE2(nearestArray && nearestArray.width() == kNearest, 
+			nearestArray.width(), kNearest);
+		ENSURE2(nearestArray && nearestArray.height() == pointSet.size(), 
+			nearestArray.height(), pointSet.size());
+		ENSURE(nearestArray && distanceArray &&
+			allEqual(nearestArray->extent(), distanceArray.extent()));
+
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
-		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
-		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
 		const integer points = pointSet.size();
 
-		if (kNearest == 0 || points == 0)
+		if (kNearest == 0 || points == 0 ||
+			(!nearestArray && !distanceArray))
 		{
+			// Nothing to compute.
 			return;
 		}
 
@@ -109,7 +122,6 @@ namespace Pastel
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
 			SequenceIterator;
-		typedef std::vector<ConstTreeIterator> NearestSet;
 
 		const integer dimension = pointSet.front().size();
 
@@ -124,7 +136,7 @@ namespace Pastel
 
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
-
+ 
 		//check(tree);
 
 		timer.store();
@@ -138,7 +150,12 @@ namespace Pastel
 			<< logNewLine;
 		*/
 
-#pragma omp parallel for
+#pragma omp parallel
+		{
+		NearestSet nearestSet(kNearest + 1);
+		DistanceSet distanceSet(kNearest + 1);
+
+#pragma omp for
 		for (integer i = 0;i < points;++i)
 		{
 			// The query point itself will probably
@@ -148,22 +165,34 @@ namespace Pastel
 			// We have to exclude that and thus
 			// we must search for k + 1 points.
 
-			NearestSet nearestSet;
+			typedef std::vector<ConstTreeIterator> NearestSet;
+			typedef std::vector<Real> DistanceSet;
+
 			searchNearest(tree, pointSet[i], maxDistance, maxRelativeError,
-				normBijection, kNearest + 1, &nearestSet, 0);
+				normBijection, kNearest + 1, &nearestSet, &distanceSet);
 
 			ASSERT(nearestSet.size() == kNearest + 1);
 
 			integer nearestIndex = 0;
 			for (integer j = 0;j < kNearest + 1 && nearestIndex < kNearest;++j)
 			{
-				const integer neighborIndex = *nearestSet[j] - &pointSet[0];
+				const integer neighborIndex = 
+					*nearestSet[j + kNearestBegin] - &pointSet[0];
 				if (neighborIndex != i)
 				{
-					nearestArray(nearestIndex, i) = neighborIndex;
+					if (nearestArray)
+					{
+						(*nearestArray)(nearestIndex, i) = neighborIndex;
+					}
+					if (distanceArray)
+					{
+						(*distanceArray)(nearestIndex, i) = 
+							distanceSet[j + kNearestBegin];
+					}
 					++nearestIndex;
 				}
 			}
+		}
 		}
 	}
 
