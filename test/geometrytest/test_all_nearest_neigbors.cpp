@@ -99,6 +99,7 @@ namespace
 
 		allNearestNeighborsKdTree(
 			pointSet,
+			0,
 			kNearest,
 			infinity<Real>(),
 			0,

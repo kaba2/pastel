@@ -19,7 +19,7 @@ namespace Pastel
 
 		ENSURE1(width > 0, width);
 		ENSURE1(height > 0, height);
-		ENSURE1(bitsPerPixel > 0, bitsPerPixel);
+		ENSURE1(bitsPerPixel >= 0, bitsPerPixel);
 		ENSURE(!initialized_);
 		ENSURE(deviceSystem().initialize());
 
@@ -63,14 +63,14 @@ namespace Pastel
 		GLenum glewError = glewInit();
 		ENSURE1(glewError == GLEW_OK, glewError);
 
-		log() << "GlGfxRenderer: non-power of two textures ";
+		log() << "GfxDevice: non-power-of-two textures ";
 		if (GLEW_ARB_texture_non_power_of_two)
 		{
-			log() << "supported" << logNewLine;
+			log() << "supported." << logNewLine;
 		}
 		else
 		{
-			log() << "not supported" << logNewLine;
+			log() << "not supported." << logNewLine;
 		}
 
 		initialized_ = true;

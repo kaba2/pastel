@@ -552,7 +552,7 @@ int myMain()
 	deviceSystem().setKeyHandler(keyHandler);
 	deviceSystem().setLogicHandler(logicHandler);
 
-	gfxDevice().initialize(ScreenWidth, ScreenHeight, 32, false);
+	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
 	deviceSystem().setCaption("Pastel's nearest neighbours example");
 
 	renderer__ = new GlGfxRenderer();

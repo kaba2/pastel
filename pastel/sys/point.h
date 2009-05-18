@@ -659,11 +659,13 @@ namespace Pastel
 	typedef Point<2, integer> IPoint2;
 	typedef Point<3, integer> IPoint3;
 	typedef Point<4, integer> IPoint4;
+	typedef Point<Dynamic, integer> DynamicIPoint;
 
 	typedef Point<1, real> Point1;
 	typedef Point<2, real> Point2;
 	typedef Point<3, real> Point3;
 	typedef Point<4, real> Point4;
+	typedef Point<Dynamic, real> DynamicPoint;
 
 	template <int N, typename Real>
 	class TemporaryPoint

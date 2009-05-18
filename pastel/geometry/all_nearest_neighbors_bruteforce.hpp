@@ -5,10 +5,9 @@
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/smallfixedset.h"
+#include "pastel/sys/pastelomp.h"
 
 #include <algorithm>
-
-#include <omp.h>
 
 namespace Pastel
 {

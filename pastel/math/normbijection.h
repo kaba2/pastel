@@ -103,7 +103,7 @@ namespace Pastel
 		Real scalingFactor(
 			const Real& scaling) const
 		{
-			return std::pow(scaling, power_);
+			return std::pow(mabs(scaling), power_);
 		}
 
 		Real axis(

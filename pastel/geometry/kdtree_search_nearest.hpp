@@ -50,11 +50,6 @@ namespace Pastel
 			, nodeCullDistance(maxDistance_)
 			, candidateSet(kNearest_)
 		{
-			ENSURE1(maxDistance_ >= 0, maxDistance_);
-			ENSURE1(maxRelativeError_ >= 0, maxRelativeError_);
-			ENSURE1(kNearest_ >= 0, kNearest_);
-			ENSURE2(kNearest_ < kdTree_.objects(), kNearest_, kdTree_.objects());
-
 			// Due to rounding errors exact comparisons can miss
 			// reporting some of the points, giving incorrect results.
 			// For example, consider n > k points on a 2d circle and make a 
@@ -79,43 +74,29 @@ namespace Pastel
 
 			const integer foundNearest = candidateSet.size();
 
-			// We allocate the memory in advance
-			// to guarantee strong exception safety.
-
-			std::vector<ConstObjectIterator> resultNearestSet;
-			if (nearestSet)
-			{
-				resultNearestSet.reserve(foundNearest);
-			}
-
-			std::vector<Real> resultDistanceSet;
-			if (distanceSet)
-			{
-				resultDistanceSet.reserve(foundNearest);
-			}
-
 			if (nearestSet)
 			{
 				CandidateIterator iter = candidateSet.begin();
 				const CandidateIterator iterEnd = candidateSet.end();
+				integer i = 0;
 				while(iter != iterEnd)
 				{
-					resultNearestSet.push_back(iter->value());
+					(*nearestSet)[i] = iter->value();
 					++iter;
+					++i;
 				}
-				resultNearestSet.swap(*nearestSet);
 			}
 
 			if (distanceSet)
 			{
 				CandidateIterator iter = candidateSet.begin();
 				const CandidateIterator iterEnd = candidateSet.end();
+				integer i = 0;
 				while(iter != iterEnd)
 				{
-					resultDistanceSet.push_back(iter->key());
+					(*distanceSet)[i] = iter->key();
 					++iter;
 				}
-				resultDistanceSet.swap(*distanceSet);
 			}
 		}
 
@@ -143,10 +124,6 @@ namespace Pastel
 
 				Cursor nearBranch;
 				Cursor farBranch;
-
-				// We want to compute the absolute distance here,
-				// but for optimization we do this later,
-				// since this way we save a comparison.
 
 				if (searchPosition < splitPosition)
 				{
@@ -296,6 +273,15 @@ namespace Pastel
 		PASTEL_NO_DEDUCTION((std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>))* nearestSet,
 		PASTEL_NO_DEDUCTION(std::vector<Real>)* distanceSet)
 	{
+		ENSURE1(maxDistance >= 0, maxDistance);
+		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE1(kNearest >= 0, kNearest);
+		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
+		ENSURE2(!distanceSet || distanceSet->size() == kNearest,
+			distanceSet->size(), kNearest);
+		ENSURE2(!nearestSet || nearestSet->size() == kNearest,
+			nearestSet->size(), kNearest);
+
 		SearchNearest<N, Real, ObjectPolicy, NormBijection> searchFunctor(
 			kdTree, searchPoint, maxDistance, maxRelativeError,
 			normBijection, kNearest, nearestSet, distanceSet);
@@ -324,8 +310,8 @@ namespace Pastel
 		typedef typename Tree::Cursor Cursor;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
-		std::vector<Real> distanceSet;
-		std::vector<ConstObjectIterator> nearestSet;
+		std::vector<Real> distanceSet(1);
+		std::vector<ConstObjectIterator> nearestSet(1);
 
 		searchNearest(kdTree, point, maxDistance, maxRelativeError,
 			normBijection, 1, &nearestSet, &distanceSet);

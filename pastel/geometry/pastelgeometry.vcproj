@@ -48,7 +48,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="true"
+				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -131,7 +131,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELGEOMETRY_EXPORTS"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="true"
-				OpenMP="true"
+				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -1031,6 +1031,10 @@
 			</File>
 			<File
 				RelativePath=".\meshcomputation.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\nearest_axis.h"
 				>
 			</File>
 			<File
