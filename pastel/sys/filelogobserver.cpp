@@ -3,6 +3,11 @@
 namespace Pastel
 {
 
+	PASTELSYS FileLogObserverPtr fileLogObserver(const std::string& fileName)
+	{
+		return FileLogObserverPtr(new FileLogObserver(fileName));
+	}
+
 	FileLogObserver::FileLogObserver(const std::string& fileName)
 		: file_(fileName.c_str())
 	{

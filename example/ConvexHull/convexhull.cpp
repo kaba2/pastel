@@ -1,9 +1,7 @@
 #include "pastel/device/devicesystem.h"
 #include "pastel/device/gfxdevice.h"
 
-#include "pastel/sys/log.h"
-#include "pastel/sys/streamlogobserver.h"
-#include "pastel/sys/filelogobserver.h"
+#include "pastel/sys/log_all.h"
 
 #include "pastel/sys/point_tools.h"
 #include "pastel/math/matrix_tools.h"
@@ -160,8 +158,8 @@ void logicHandler()
 
 int myMain()
 {
-	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
-	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
+	log().addObserver(streamLogObserver(&std::cout));
+	log().addObserver(fileLogObserver("log.txt"));
 
 	deviceSystem().initialize();
 	deviceSystem().setKeyHandler(keyHandler);

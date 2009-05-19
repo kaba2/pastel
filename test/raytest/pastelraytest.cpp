@@ -1,8 +1,6 @@
 #include "pastelraytest.h"
 
-#include "pastel/sys/log.h"
-#include "pastel/sys/streamlogobserver.h"
-#include "pastel/sys/filelogobserver.h"
+#include "pastel/sys/log_all.h"
 
 #include <iostream>
 #include <string>
@@ -12,8 +10,8 @@ using namespace Pastel;
 
 int main()
 {
-	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
-	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
+	log().addObserver(streamLogObserver(&cout));
+	log().addObserver(fileLogObserver("log.txt"));
 
 	rayTestList().console();
 

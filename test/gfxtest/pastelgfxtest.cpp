@@ -1,8 +1,6 @@
 #include "pastelgfxtest.h"
 
-#include "pastel/sys/log.h"
-#include "pastel/sys/streamlogobserver.h"
-#include "pastel/sys/filelogobserver.h"
+#include "pastel/sys/log_all.h"
 
 using namespace Pastel;
 
@@ -18,8 +16,8 @@ using namespace boost::filesystem;
 
 int main()
 {
-	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
-	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
+	log().addObserver(streamLogObserver(&std::cout));
+	log().addObserver(fileLogObserver("log.txt"));
 
 	create_directory("output");
 
