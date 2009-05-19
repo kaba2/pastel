@@ -3,6 +3,11 @@
 namespace Pastel
 {
 
+	PASTELSYS StreamLogObserverPtr streamLogObserver(std::ostream* stream)
+	{
+		return StreamLogObserverPtr(new StreamLogObserver(stream));
+	}
+
 	StreamLogObserver::StreamLogObserver(std::ostream* stream)
 		: stream_(stream)
 	{

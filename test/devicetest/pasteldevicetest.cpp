@@ -1,6 +1,4 @@
-#include "pastel/sys/log.h"
-#include "pastel/sys/streamlogobserver.h"
-#include "pastel/sys/filelogobserver.h"
+#include "pastel/sys/log_all.h"
 
 #include <iostream>
 using std::cin;
@@ -16,8 +14,8 @@ using namespace std;
 
 int main()
 {
-	log().addObserver(LogObserverPtr(new StreamLogObserver(&cout)));
-	log().addObserver(LogObserverPtr(new FileLogObserver("log.txt")));
+	log().addObserver(streamLogObserver(&std::cout));
+	log().addObserver(fileLogObserver("log.txt"));
 
 	deviceTestList().console();
 
