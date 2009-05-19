@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ADDRESSOF_HPP
-#define PASTELSYS_ADDRESSOF_HPP
+#ifndef PASTEL_ADDRESSOF_HPP
+#define PASTEL_ADDRESSOF_HPP
 
 #include "pastel/sys/addressof.h"
 

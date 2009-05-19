@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_DISCRETEFOURIER_H
-#define PASTELDSP_DISCRETEFOURIER_H
+#ifndef PASTEL_DISCRETEFOURIER_H
+#define PASTEL_DISCRETEFOURIER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/memoryview.h"

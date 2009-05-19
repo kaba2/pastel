@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_NOISE_H
-#define PASTELGFX_NOISE_H
+#ifndef PASTEL_NOISE_H
+#define PASTEL_NOISE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

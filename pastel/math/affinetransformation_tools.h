@@ -3,8 +3,8 @@
 \brief Functions for working with affine transforms.
 */
 
-#ifndef PASTELMATH_AFFINETRANSFORMATION_TOOLS_H
-#define PASTELMATH_AFFINETRANSFORMATION_TOOLS_H
+#ifndef PASTEL_AFFINETRANSFORMATION_TOOLS_H
+#define PASTEL_AFFINETRANSFORMATION_TOOLS_H
 
 #include "pastel/sys/mytypes.h"
 

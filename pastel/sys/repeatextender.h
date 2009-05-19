@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_REPEATEXTENDER_H
-#define PASTELSYS_REPEATEXTENDER_H
+#ifndef PASTEL_REPEATEXTENDER_H
+#define PASTEL_REPEATEXTENDER_H
 
 #include "pastel/sys/indexextender.h"
 #include "pastel/sys/syscommon.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_LOADPCX_HPP
-#define PASTELGFX_LOADPCX_HPP
+#ifndef PASTEL_LOADPCX_HPP
+#define PASTEL_LOADPCX_HPP
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/abstractarray.h"

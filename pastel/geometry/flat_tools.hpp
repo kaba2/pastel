@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_FLATTOOLS_HPP
-#define PASTELGEOMETRY_FLATTOOLS_HPP
+#ifndef PASTEL_FLATTOOLS_HPP
+#define PASTEL_FLATTOOLS_HPP
 
 #include "pastel/geometry/flat_tools.h"
 #include "pastel/sys/vector_tools.h"

@@ -3,8 +3,8 @@
 \brief A function for testing overlap between an alignedBox and a plane.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_PLANE_H
-#define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_PLANE_H
+#ifndef PASTEL_OVERLAPS_ALIGNEDBOX_PLANE_H
+#define PASTEL_OVERLAPS_ALIGNEDBOX_PLANE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/alignedbox.h"

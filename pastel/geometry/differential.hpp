@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DIFFERENTIAL_HPP
-#define PASTELGEOMETRY_DIFFERENTIAL_HPP
+#ifndef PASTEL_DIFFERENTIAL_HPP
+#define PASTEL_DIFFERENTIAL_HPP
 
 #include "pastel/geometry/differential.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_COUNTEDPTR_HPP
-#define PASTELSYS_COUNTEDPTR_HPP
+#ifndef PASTEL_COUNTEDPTR_HPP
+#define PASTEL_COUNTEDPTR_HPP
 
 #include "pastel/sys/countedptr.h"
 

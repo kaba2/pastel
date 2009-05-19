@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_LUDECOMPOSITION_H
-#define PASTELMATH_LUDECOMPOSITION_H
+#ifndef PASTEL_LUDECOMPOSITION_H
+#define PASTEL_LUDECOMPOSITION_H
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/mathlibrary.h"

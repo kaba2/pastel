@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_IMAGEGFXRENDERER_H
-#define PASTELGFX_IMAGEGFXRENDERER_H
+#ifndef PASTEL_IMAGEGFXRENDERER_H
+#define PASTEL_IMAGEGFXRENDERER_H
 
 #include "pastel/gfx/gfxrenderer.h"
 #include "pastel/dsp/mipmap.h"

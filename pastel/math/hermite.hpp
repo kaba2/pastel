@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_HERMITE_HPP
-#define PASTELMATH_HERMITE_HPP
+#ifndef PASTEL_HERMITE_HPP
+#define PASTEL_HERMITE_HPP
 
 #include "pastel/math/hermite.h"
 

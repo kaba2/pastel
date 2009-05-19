@@ -3,8 +3,8 @@
 \brief A class for a point in R^N.
 */
 
-#ifndef PASTELSYS_POINT_H
-#define PASTELSYS_POINT_H
+#ifndef PASTEL_POINT_H
+#define PASTEL_POINT_H
 
 #include "pastel/sys/mytypes.h"
 

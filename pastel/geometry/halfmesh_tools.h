@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_HALFMESH_TOOLS_H
-#define PASTELGEOMETRY_HALFMESH_TOOLS_H
+#ifndef PASTEL_HALFMESH_TOOLS_H
+#define PASTEL_HALFMESH_TOOLS_H
 
 #include "pastel/geometry/halfmesh.h"
 #include "pastel/sys/unorderedmap.h"

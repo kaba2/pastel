@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_SPHERE_VOLUME_HPP
-#define PASTELGEOMETRY_SPHERE_VOLUME_HPP
+#ifndef PASTEL_SPHERE_VOLUME_HPP
+#define PASTEL_SPHERE_VOLUME_HPP
 
 #include "pastel/geometry/sphere_volume.h"
 #include "pastel/geometry/spherearea.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_GRID_H
-#define PASTELGEOMETRY_GRID_H
+#ifndef PASTEL_GRID_H
+#define PASTEL_GRID_H
 
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/array.h"

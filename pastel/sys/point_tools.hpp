@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_POINT_TOOLS_HPP
-#define PASTELSYS_POINT_TOOLS_HPP
+#ifndef PASTEL_POINT_TOOLS_HPP
+#define PASTEL_POINT_TOOLS_HPP
 
 #include "pastel/sys/point_tools.h"
 #include "pastel/sys/vector_tools.h"

@@ -3,8 +3,8 @@
 \brief A class for controlling the audio device.
 */
 
-#ifndef PASTELDEVICE_FXDEVICE_H
-#define PASTELDEVICE_FXDEVICE_H
+#ifndef PASTEL_FXDEVICE_H
+#define PASTEL_FXDEVICE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

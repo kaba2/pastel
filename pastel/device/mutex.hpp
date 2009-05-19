@@ -1,5 +1,5 @@
-#ifndef PASTELDEVICE_MUTEX_HPP
-#define PASTELDEVICE_MUTEX_HPP
+#ifndef PASTEL_MUTEX_HPP
+#define PASTEL_MUTEX_HPP
 
 #include "pastel/device/mutex.h"
 

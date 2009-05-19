@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_SWEEP_HPP
-#define PASTELGEOMETRY_SWEEP_HPP
+#ifndef PASTEL_SWEEP_HPP
+#define PASTEL_SWEEP_HPP
 
 #include "pastel/geometry/sweep.h"
 #include "pastel/geometry/antipodal.h"

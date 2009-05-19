@@ -3,8 +3,8 @@
 \brief A class for a capsule.
 */
 
-#ifndef PASTELGEOMETRY_CAPSULE_H
-#define PASTELGEOMETRY_CAPSULE_H
+#ifndef PASTEL_CAPSULE_H
+#define PASTEL_CAPSULE_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"

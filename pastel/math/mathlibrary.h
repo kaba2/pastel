@@ -3,8 +3,8 @@
 \brief A dll-configuration file for the math library.
 */
 
-#ifndef PASTELMATH_MATHLIBRARY_H
-#define PASTELMATH_MATHLIBRARY_H
+#ifndef PASTEL_MATHLIBRARY_H
+#define PASTEL_MATHLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

@@ -3,8 +3,8 @@
 \brief A class for allocating integer identifiers.
 */
 
-#ifndef PASTELSYS_INDEXALLOCATOR_H
-#define PASTELSYS_INDEXALLOCATOR_H
+#ifndef PASTEL_INDEXALLOCATOR_H
+#define PASTEL_INDEXALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

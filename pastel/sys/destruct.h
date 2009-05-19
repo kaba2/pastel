@@ -3,8 +3,8 @@
 \brief A function for destructing a range of objects.
 */
 
-#ifndef PASTELSYS_DESTRUCT_H
-#define PASTELSYS_DESTRUCT_H
+#ifndef PASTEL_DESTRUCT_H
+#define PASTEL_DESTRUCT_H
 
 namespace Pastel
 {

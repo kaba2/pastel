@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
-#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
+#ifndef PASTEL_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
+#define PASTEL_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
 
 #include "pastel/geometry/all_nearest_neighbors_bruteforce.h"
 #include "pastel/geometry/distance_point_point.h"

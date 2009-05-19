@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_TRIANGLE_H
-#define PASTELGEOMETRY_TRIANGLE_H
+#ifndef PASTEL_TRIANGLE_H
+#define PASTEL_TRIANGLE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

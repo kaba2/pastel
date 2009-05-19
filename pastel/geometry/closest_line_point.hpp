@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_CLOSEST_LINE_POINT_HPP
-#define PASTELGEOMETRY_CLOSEST_LINE_POINT_HPP
+#ifndef PASTEL_CLOSEST_LINE_POINT_HPP
+#define PASTEL_CLOSEST_LINE_POINT_HPP
 
 #include "pastel/geometry/closest_line_point.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DELAUNAYTESSELATION_H
-#define PASTELGEOMETRY_DELAUNAYTESSELATION_H
+#ifndef PASTEL_DELAUNAYTESSELATION_H
+#define PASTEL_DELAUNAYTESSELATION_H
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/poolallocator.h"

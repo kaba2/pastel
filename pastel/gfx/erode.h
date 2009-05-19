@@ -3,8 +3,8 @@
 \brief A function for eroding a binary image with another image.
 */
 
-#ifndef PASTELGFX_ERODE_H
-#define PASTELGFX_ERODE_H
+#ifndef PASTEL_ERODE_H
+#define PASTEL_ERODE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

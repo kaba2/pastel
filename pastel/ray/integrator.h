@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_INTEGRATOR_H
-#define PASTELRAY_INTEGRATOR_H
+#ifndef PASTEL_INTEGRATOR_H
+#define PASTEL_INTEGRATOR_H
 
 #include "pastel/ray/spectrum.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_COORDINATES_HPP
-#define PASTELMATH_COORDINATES_HPP
+#ifndef PASTEL_COORDINATES_HPP
+#define PASTEL_COORDINATES_HPP
 
 #include "pastel/math/coordinates.h"
 #include "pastel/sys/vector_tools.h"

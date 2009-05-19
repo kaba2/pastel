@@ -3,8 +3,8 @@
 \brief A function for segmentation of a binary image into boxes.
 */
 
-#ifndef PASTELGFX_BOXLABEL_H
-#define PASTELGFX_BOXLABEL_H
+#ifndef PASTEL_BOXLABEL_H
+#define PASTEL_BOXLABEL_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"

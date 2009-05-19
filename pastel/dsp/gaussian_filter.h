@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_GAUSSIAN_FILTER_H
-#define PASTELDSP_GAUSSIAN_FILTER_H
+#ifndef PASTEL_GAUSSIAN_FILTER_H
+#define PASTEL_GAUSSIAN_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

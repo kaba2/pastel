@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_OVERLAPS_BOX_POINT_HPP
-#define PASTELGEOMETRY_OVERLAPS_BOX_POINT_HPP
+#ifndef PASTEL_OVERLAPS_BOX_POINT_HPP
+#define PASTEL_OVERLAPS_BOX_POINT_HPP
 
 #include "pastel/geometry/overlaps_box_point.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"

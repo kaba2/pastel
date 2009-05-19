@@ -3,8 +3,8 @@
 \brief A class for device and event handling.
 */
 
-#ifndef PASTELDEVICE_DEVICESYSTEM_H
-#define PASTELDEVICE_DEVICESYSTEM_H
+#ifndef PASTEL_DEVICESYSTEM_H
+#define PASTEL_DEVICESYSTEM_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"

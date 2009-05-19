@@ -3,8 +3,8 @@
 \brief A function for testing overlap between an alignedBox and a point.
 */
 
-#ifndef PASTELGEOMETRY_ALIGNEDBOXPOINT_H
-#define PASTELGEOMETRY_ALIGNEDBOXPOINT_H
+#ifndef PASTEL_ALIGNEDBOXPOINT_H
+#define PASTEL_ALIGNEDBOXPOINT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/alignedbox.h"

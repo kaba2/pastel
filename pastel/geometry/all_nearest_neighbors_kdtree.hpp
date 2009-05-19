@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
-#define PASTELGEOMETRY_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
+#ifndef PASTEL_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
+#define PASTEL_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
 
 #include "pastel/geometry/all_nearest_neighbors_kdtree.h"
 #include "pastel/geometry/kdtree_tools.h"
@@ -98,12 +98,12 @@ namespace Pastel
 
 		const integer kNearest = kNearestEnd - kNearestBegin;
 
-		ENSURE2(nearestArray && nearestArray.width() == kNearest, 
-			nearestArray.width(), kNearest);
-		ENSURE2(nearestArray && nearestArray.height() == pointSet.size(), 
-			nearestArray.height(), pointSet.size());
-		ENSURE(nearestArray && distanceArray &&
-			allEqual(nearestArray->extent(), distanceArray.extent()));
+		ENSURE2(nearestArray && nearestArray->width() == kNearest, 
+			nearestArray->width(), kNearest);
+		ENSURE2(nearestArray && nearestArray->height() == pointSet.size(), 
+			nearestArray->height(), pointSet.size());
+		ENSURE(!nearestArray || !distanceArray ||
+			allEqual(nearestArray->extent(), distanceArray->extent()));
 
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
@@ -152,8 +152,11 @@ namespace Pastel
 
 #pragma omp parallel
 		{
-		NearestSet nearestSet(kNearest + 1);
-		DistanceSet distanceSet(kNearest + 1);
+		typedef std::vector<ConstTreeIterator> NearestSet;
+		typedef std::vector<Real> DistanceSet;
+		NearestSet nearestSet;
+		DistanceSet distanceSet;
+		DistanceSet* distanceSetPtr = distanceArray ? &distanceSet : 0;
 
 #pragma omp for
 		for (integer i = 0;i < points;++i)
@@ -165,31 +168,75 @@ namespace Pastel
 			// We have to exclude that and thus
 			// we must search for k + 1 points.
 
-			typedef std::vector<ConstTreeIterator> NearestSet;
-			typedef std::vector<Real> DistanceSet;
-
 			searchNearest(tree, pointSet[i], maxDistance, maxRelativeError,
-				normBijection, kNearest + 1, &nearestSet, &distanceSet);
+				normBijection, kNearest + 1, &nearestSet, distanceSetPtr);
 
 			ASSERT(nearestSet.size() == kNearest + 1);
 
+			const Point<N, Real>* firstAddress = &pointSet.front();
+
 			integer nearestIndex = 0;
-			for (integer j = 0;j < kNearest + 1 && nearestIndex < kNearest;++j)
+
+			if (nearestArray)
 			{
-				const integer neighborIndex = 
-					*nearestSet[j + kNearestBegin] - &pointSet[0];
-				if (neighborIndex != i)
+				if (distanceArray)
 				{
-					if (nearestArray)
+					typename NearestSet::iterator nearestIter = 
+						nearestSet.begin() + kNearestBegin;
+					typename NearestSet::iterator nearestEnd = 
+						nearestSet.end();
+					typename DistanceSet::iterator distanceIter = 
+						distanceSet.begin() + kNearestBegin;
+
+					while(nearestIter != nearestEnd && nearestIndex < kNearest)
 					{
-						(*nearestArray)(nearestIndex, i) = neighborIndex;
+						const integer neighborIndex = 
+							**nearestIter - firstAddress;
+						if (neighborIndex != i)
+						{
+							(*nearestArray)(nearestIndex, i) = neighborIndex;
+							(*distanceArray)(nearestIndex, i) = *distanceIter;
+							++nearestIndex;
+						}
+						++nearestIter;
+						++distanceIter;
 					}
-					if (distanceArray)
+				}
+				else
+				{
+					typename NearestSet::iterator nearestIter = nearestSet.begin() + kNearestBegin;
+					typename NearestSet::iterator nearestEnd = nearestSet.end();
+
+					while(nearestIter != nearestEnd && nearestIndex < kNearest)
 					{
-						(*distanceArray)(nearestIndex, i) = 
-							distanceSet[j + kNearestBegin];
+						const integer neighborIndex = 
+							**nearestIter - firstAddress;
+						if (neighborIndex != i)
+						{
+							(*nearestArray)(nearestIndex, i) = neighborIndex;
+							++nearestIndex;
+						}
+						++nearestIter;
 					}
-					++nearestIndex;
+				}
+			}
+			else
+			{
+				typename NearestSet::iterator nearestIter = nearestSet.begin() + kNearestBegin;
+				typename NearestSet::iterator nearestEnd = nearestSet.end();
+				typename DistanceSet::iterator distanceIter = distanceSet.begin() + kNearestBegin;
+
+				while(nearestIter != nearestEnd && nearestIndex < kNearest)
+				{
+					const integer neighborIndex = 
+						**nearestIter - firstAddress;
+					if (neighborIndex != i)
+					{
+						(*distanceArray)(nearestIndex, i) = *distanceIter;
+						++nearestIndex;
+					}
+					++nearestIter;
+					++distanceIter;
 				}
 			}
 		}

@@ -1,5 +1,5 @@
-#ifndef PASTELGL_GLLIBRARY_H
-#define PASTELGL_GLLIBRARY_H
+#ifndef PASTEL_GLLIBRARY_H
+#define PASTEL_GLLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

@@ -1,9 +1,42 @@
 Remarks
 =======
 
+Output from a function
+----------------------
+
+1) Container
+=> User has to allocate the needed memory.
+=> Sometimes the needed memory is not known.
+=> Basic exception safety.
+
+2) Container + swap()
+=> The function allocates the needed memory.
+=> Need to dynamically allocate memory
+at each function call.
+=> Strong exception safety.
+
+3) Container + clear() + reserve().
+=> The function allocates the needed memory.
+=> Possible to avoid memory reallocation.
+=> Basic exception safety.
+
+4) Iterator range
+=> User has to allocate the needed memory.
+=> Sometimes the needed memory is not known.
+=> Basic exception safety.
+=> The user can directly write to the target
+storage, avoiding one copy step.
+=> How to communicate that an output parameter
+should be ignored?
+
+5) Reporting functor
+=> A functor is called with an iterator
+range giving the nearest neighbor-distance pairs.
+
 Todo
 ----
 
+- Turn self-reference returning functions to void.
 - Remove Simplex and Flat.
 - Replace "pastel/sys/file.h" inclusion with "pastel/file.h":
 the user should not forced to remember on which sublibrary
@@ -11,7 +44,17 @@ the files exist. This also helps when files are moved from
 one sublibrary to other.
 => Need to generate forwarding files to pastel/.
 => You can create a program to do this automatically.
-- Do the same with include guards: PASTELSYS_ -> PASTEL_
+- Do the same with include guards: PASTEL_ -> PASTEL_
+
+
+Need:
+- clean excess whitespace
+- check that include guards equal file name
+- a test file for each source file
+- better testing utilities
+=> need to return success/failure of tests
+=> if it fails, need to know why
+
 
 Qt installation
 ---------------

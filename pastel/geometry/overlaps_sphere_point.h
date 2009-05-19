@@ -3,8 +3,8 @@
 \brief A function for testing overlap between a sphere and a point.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_H
-#define PASTELGEOMETRY_OVERLAPS_SPHERE_POINT_H
+#ifndef PASTEL_OVERLAPS_SPHERE_POINT_H
+#define PASTEL_OVERLAPS_SPHERE_POINT_H
 
 #include "pastel/geometry/sphere.h"
 #include "pastel/sys/point.h"

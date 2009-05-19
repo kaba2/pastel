@@ -3,8 +3,8 @@
 \brief A class for a parallel array.
 */
 
-#ifndef PASTELSYS_PARALLELARRAY_H
-#define PASTELSYS_PARALLELARRAY_H
+#ifndef PASTEL_PARALLELARRAY_H
+#define PASTEL_PARALLELARRAY_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/memoryview.h"

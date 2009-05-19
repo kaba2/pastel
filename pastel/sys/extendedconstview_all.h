@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_EXTENDEDCONSTVIEW_ALL_H
-#define PASTELSYS_EXTENDEDCONSTVIEW_ALL_H
+#ifndef PASTEL_EXTENDEDCONSTVIEW_ALL_H
+#define PASTEL_EXTENDEDCONSTVIEW_ALL_H
 
 #include "borderedconstview.h"
 #include "clampedconstview.h"

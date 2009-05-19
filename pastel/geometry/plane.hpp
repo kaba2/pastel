@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PLANE_HPP
-#define PASTELGEOMETRY_PLANE_HPP
+#ifndef PASTEL_PLANE_HPP
+#define PASTEL_PLANE_HPP
 
 #include "pastel/geometry/plane.h"
 

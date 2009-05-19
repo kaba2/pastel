@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ARRAYVIEW_H
-#define PASTELSYS_ARRAYVIEW_H
+#ifndef PASTEL_ARRAYVIEW_H
+#define PASTEL_ARRAYVIEW_H
 
 #include "pastel/sys/view.h"
 

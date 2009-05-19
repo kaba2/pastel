@@ -3,8 +3,8 @@
 \brief A class for an axis-aligned bounding box.
 */
 
-#ifndef PASTELSYS_RECTANGLE_H
-#define PASTELSYS_RECTANGLE_H
+#ifndef PASTEL_RECTANGLE_H
+#define PASTEL_RECTANGLE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

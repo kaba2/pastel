@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_NATIVEINTEGER_H
-#define PASTELSYS_NATIVEINTEGER_H
+#ifndef PASTEL_NATIVEINTEGER_H
+#define PASTEL_NATIVEINTEGER_H
 
 #include "pastel/sys/mytypes.h"
 

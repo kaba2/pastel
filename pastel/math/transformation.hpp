@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_TRANSFORMATION_HPP
-#define PASTELMATH_TRANSFORMATION_HPP
+#ifndef PASTEL_TRANSFORMATION_HPP
+#define PASTEL_TRANSFORMATION_HPP
 
 #include "pastel/math/transformation.h"
 

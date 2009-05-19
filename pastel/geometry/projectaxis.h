@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PROJECTAXIS_H
-#define PASTELGEOMETRY_PROJECTAXIS_H
+#ifndef PASTEL_PROJECTAXIS_H
+#define PASTEL_PROJECTAXIS_H
 
 #include "pastel/sys/tuple.h"
 

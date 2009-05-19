@@ -3,8 +3,8 @@
 \brief Functions for drawing on 2d arrays.
 */
 
-#ifndef PASTELGFX_DRAWING_H
-#define PASTELGFX_DRAWING_H
+#ifndef PASTEL_DRAWING_H
+#define PASTEL_DRAWING_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"

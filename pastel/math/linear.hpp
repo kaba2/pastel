@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_LINEAR_HPP
-#define PASTELMATH_LINEAR_HPP
+#ifndef PASTEL_LINEAR_HPP
+#define PASTEL_LINEAR_HPP
 
 #include "pastel/math/linear.h"
 

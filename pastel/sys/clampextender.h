@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_CLAMPEXTENDER_H
-#define PASTELSYS_CLAMPEXTENDER_H
+#ifndef PASTEL_CLAMPEXTENDER_H
+#define PASTEL_CLAMPEXTENDER_H
 
 #include "pastel/sys/indexextender.h"
 

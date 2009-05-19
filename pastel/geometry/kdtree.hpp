@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREE_HPP
-#define PASTELGEOMETRY_KDTREE_HPP
+#ifndef PASTEL_KDTREE_HPP
+#define PASTEL_KDTREE_HPP
 
 #include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/bounding_alignedbox.h"

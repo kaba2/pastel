@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_POLYGONKERNEL_HPP
-#define PASTELGEOMETRY_POLYGONKERNEL_HPP
+#ifndef PASTEL_POLYGONKERNEL_HPP
+#define PASTEL_POLYGONKERNEL_HPP
 
 #include "pastel/geometry/polygonkernel.h"
 

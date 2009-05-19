@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_TRISTATE_H
-#define PASTELSYS_TRISTATE_H
+#ifndef PASTEL_TRISTATE_H
+#define PASTEL_TRISTATE_H
 
 namespace Pastel
 {

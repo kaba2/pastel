@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_TRIANGLEMESH_HPP
-#define PASTELGEOMETRY_TRIANGLEMESH_HPP
+#ifndef PASTEL_TRIANGLEMESH_HPP
+#define PASTEL_TRIANGLEMESH_HPP
 
 #include "pastel/geometry/trianglemesh.h"
 

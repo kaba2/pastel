@@ -3,8 +3,8 @@
 \brief A function for computing the closest point on a plane w.r.t a point.
 */
 
-#ifndef PASTELGEOMETRY_CLOSEST_PLANE_POINT_H
-#define PASTELGEOMETRY_CLOSEST_PLANE_POINT_H
+#ifndef PASTEL_CLOSEST_PLANE_POINT_H
+#define PASTEL_CLOSEST_PLANE_POINT_H
 
 #include "pastel/geometry/plane.h"
 #include "pastel/sys/point.h"

@@ -3,8 +3,8 @@
 \brief A dll-configuration file for the ray library.
 */
 
-#ifndef PASTELRAY_RAYLIBRARY_H
-#define PASTELRAY_RAYLIBRARY_H
+#ifndef PASTEL_RAYLIBRARY_H
+#define PASTEL_RAYLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

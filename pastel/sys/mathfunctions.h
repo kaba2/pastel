@@ -3,8 +3,8 @@
 \brief Mathematical functions.
 */
 
-#ifndef PASTELSYS_MATHFUNCTIONS_H
-#define PASTELSYS_MATHFUNCTIONS_H
+#ifndef PASTEL_MATHFUNCTIONS_H
+#define PASTEL_MATHFUNCTIONS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

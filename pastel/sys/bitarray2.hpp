@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_BITARRAY2_HPP
-#define PASTELSYS_BITARRAY2_HPP
+#ifndef PASTEL_BITARRAY2_HPP
+#define PASTEL_BITARRAY2_HPP
 
 #include "pastel/sys/bitarray2.h"
 

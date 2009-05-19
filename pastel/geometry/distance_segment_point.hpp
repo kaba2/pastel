@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DISTANCE_SEGMENT_POINT_HPP
-#define PASTELGEOMETRY_DISTANCE_SEGMENT_POINT_HPP
+#ifndef PASTEL_DISTANCE_SEGMENT_POINT_HPP
+#define PASTEL_DISTANCE_SEGMENT_POINT_HPP
 
 #include "pastel/geometry/distance_segment_point.h"
 #include "pastel/geometry/closest_segment_point.h"

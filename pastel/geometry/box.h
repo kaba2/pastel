@@ -3,8 +3,8 @@
 \brief A class for an oriented bounding box.
 */
 
-#ifndef PASTELGEOMETRY_BOX_H
-#define PASTELGEOMETRY_BOX_H
+#ifndef PASTEL_BOX_H
+#define PASTEL_BOX_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"

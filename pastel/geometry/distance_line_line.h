@@ -3,8 +3,8 @@
 \brief A function for computing the distance between two lines.
 */
 
-#ifndef PASTELGEOMETRY_DISTANCE_LINE_LINE_H
-#define PASTELGEOMETRY_DISTANCE_LINE_LINE_H
+#ifndef PASTEL_DISTANCE_LINE_LINE_H
+#define PASTEL_DISTANCE_LINE_LINE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/line.h"

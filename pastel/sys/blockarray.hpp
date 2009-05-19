@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_BLOCKARRAY_HPP
-#define PASTELSYS_BLOCKARRAY_HPP
+#ifndef PASTEL_BLOCKARRAY_HPP
+#define PASTEL_BLOCKARRAY_HPP
 
 #include "pastel/sys/blockarray.h"
 #include "pastel/sys/destruct.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGL_GLGFXRENDERER_H
-#define PASTELGL_GLGFXRENDERER_H
+#ifndef PASTEL_GLGFXRENDERER_H
+#define PASTEL_GLGFXRENDERER_H
 
 #include "pastel/gl/gllibrary.h"
 

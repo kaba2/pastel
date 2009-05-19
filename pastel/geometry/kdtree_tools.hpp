@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREETOOLS_HPP
-#define PASTELGEOMETRY_KDTREETOOLS_HPP
+#ifndef PASTEL_KDTREETOOLS_HPP
+#define PASTEL_KDTREETOOLS_HPP
 
 #include "pastel/geometry/kdtree_tools.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"

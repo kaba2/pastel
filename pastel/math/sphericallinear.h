@@ -3,8 +3,8 @@
 \brief A function for performing spherical linear interpolation.
 */
 
-#ifndef PASTELMATH_SPHERICALLINEAR_H
-#define PASTELMATH_SPHERICALLINEAR_H
+#ifndef PASTEL_SPHERICALLINEAR_H
+#define PASTEL_SPHERICALLINEAR_H
 
 namespace Pastel
 {

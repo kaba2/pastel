@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_EWAIMAGETEXTURE_HPP
-#define PASTELGFX_EWAIMAGETEXTURE_HPP
+#ifndef PASTEL_EWAIMAGETEXTURE_HPP
+#define PASTEL_EWAIMAGETEXTURE_HPP
 
 #include "pastel/gfx/ewaimagetexture.h"
 #include "pastel/gfx/bilinearimagetexture.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_INDEXEXTENDER_H
-#define PASTELSYS_INDEXEXTENDER_H
+#ifndef PASTEL_INDEXEXTENDER_H
+#define PASTEL_INDEXEXTENDER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/countedptr.h"

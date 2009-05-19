@@ -3,8 +3,8 @@
 \brief Functions for testing overlap between a plane and a sphere.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_PLANE_SPHERE_H
-#define PASTELGEOMETRY_OVERLAPS_PLANE_SPHERE_H
+#ifndef PASTEL_OVERLAPS_PLANE_SPHERE_H
+#define PASTEL_OVERLAPS_PLANE_SPHERE_H
 
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/sphere.h"

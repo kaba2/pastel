@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BOXTREETOOLS_H
-#define PASTELGEOMETRY_BOXTREETOOLS_H
+#ifndef PASTEL_BOXTREETOOLS_H
+#define PASTEL_BOXTREETOOLS_H
 
 #include "pastel/geometry/line.h"
 

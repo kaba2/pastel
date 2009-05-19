@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_LOWDISCREPANCY_H
-#define PASTELMATH_LOWDISCREPANCY_H
+#ifndef PASTEL_LOWDISCREPANCY_H
+#define PASTEL_LOWDISCREPANCY_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/mytypes.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_UNORDEREDBASE_H
-#define PASTELSYS_UNORDEREDBASE_H
+#ifndef PASTEL_UNORDEREDBASE_H
+#define PASTEL_UNORDEREDBASE_H
 
 #include "pastel/sys/fastlist.h"
 

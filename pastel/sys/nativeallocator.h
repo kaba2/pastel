@@ -3,8 +3,8 @@
 \brief A class for a uniform allocator wrapper for new and delete.
 */
 
-#ifndef PASTELSYS_NATIVEALLOCATOR_H
-#define PASTELSYS_NATIVEALLOCATOR_H
+#ifndef PASTEL_NATIVEALLOCATOR_H
+#define PASTEL_NATIVEALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

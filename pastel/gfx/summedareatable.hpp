@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_SUMMEDAREATABLE_HPP
-#define PASTELGFX_SUMMEDAREATABLE_HPP
+#ifndef PASTEL_SUMMEDAREATABLE_HPP
+#define PASTEL_SUMMEDAREATABLE_HPP
 
 #include "pastel/gfx/summedareatable.h"
 #include "pastel/gfx/bilinearimagetexture.h"

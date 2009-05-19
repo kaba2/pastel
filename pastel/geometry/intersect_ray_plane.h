@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between a ray and a plane.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_RAY_PLANE_H
-#define PASTELGEOMETRY_INTERSECT_RAY_PLANE_H
+#ifndef PASTEL_INTERSECT_RAY_PLANE_H
+#define PASTEL_INTERSECT_RAY_PLANE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/ray.h"

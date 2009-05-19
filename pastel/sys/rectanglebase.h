@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_RECTANGLEBASE_H
-#define PASTELSYS_RECTANGLEBASE_H
+#ifndef PASTEL_RECTANGLEBASE_H
+#define PASTEL_RECTANGLEBASE_H
 
 #include "pastel/sys/rectangle.h"
 

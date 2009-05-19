@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_LENS_H
-#define PASTELRAY_LENS_H
+#ifndef PASTEL_LENS_H
+#define PASTEL_LENS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/ray/raylibrary.h"

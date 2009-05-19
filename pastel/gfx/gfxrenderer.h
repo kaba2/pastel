@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_GFXRENDERER_H
-#define PASTELGFX_GFXRENDERER_H
+#ifndef PASTEL_GFXRENDERER_H
+#define PASTEL_GFXRENDERER_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/math/affinetransformation.h"

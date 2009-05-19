@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_POLYNOMIAL_H
-#define PASTELMATH_POLYNOMIAL_H
+#ifndef PASTEL_POLYNOMIAL_H
+#define PASTEL_POLYNOMIAL_H
 
 #include "pastel/sys/mytypes.h"
 

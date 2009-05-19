@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_NOISE_HPP
-#define PASTELGFX_NOISE_HPP
+#ifndef PASTEL_NOISE_HPP
+#define PASTEL_NOISE_HPP
 
 #include "pastel/gfx/noise.h"
 

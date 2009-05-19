@@ -3,8 +3,8 @@
 \brief A class for loading Ply files.
 */
 
-#ifndef PASTELGEOMETRY_PLYLOADER_H
-#define PASTELGEOMETRY_PLYLOADER_H
+#ifndef PASTEL_PLYLOADER_H
+#define PASTEL_PLYLOADER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/geometrylibrary.h"

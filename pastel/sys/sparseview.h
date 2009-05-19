@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SPARSEVIEW_H
-#define PASTELSYS_SPARSEVIEW_H
+#ifndef PASTEL_SPARSEVIEW_H
+#define PASTEL_SPARSEVIEW_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/sparseviewcursor.h"

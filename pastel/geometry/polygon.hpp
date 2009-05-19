@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_POLYGON_HPP
-#define PASTELGEOMETRY_POLYGON_HPP
+#ifndef PASTEL_POLYGON_HPP
+#define PASTEL_POLYGON_HPP
 
 #include "pastel/geometry/polygon.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_FUNCTIONAL_H
-#define PASTELSYS_FUNCTIONAL_H
+#ifndef PASTEL_FUNCTIONAL_H
+#define PASTEL_FUNCTIONAL_H
 
 #include <utility>
 #include <functional>

@@ -58,7 +58,7 @@ Naming rules
 
 * Libraries -> `PastelSys`
 
-* Header file guards -> `PASTELSYS_LIKETHIS_H`
+* Header file guards -> `PASTEL_LIKETHIS_H`
 
 * Setters -> 'setRadius()'
 

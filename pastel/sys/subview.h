@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SUBVIEW_H
-#define PASTELSYS_SUBVIEW_H
+#ifndef PASTEL_SUBVIEW_H
+#define PASTEL_SUBVIEW_H
 
 #include "pastel/sys/rectangle.h"
 

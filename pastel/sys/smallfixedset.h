@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SMALLFIXEDSET_H
-#define PASTELSYS_SMALLFIXEDSET_H
+#ifndef PASTEL_SMALLFIXEDSET_H
+#define PASTEL_SMALLFIXEDSET_H
 
 #include "pastel/sys/mytypes.h"
 

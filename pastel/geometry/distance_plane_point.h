@@ -3,8 +3,8 @@
 \brief A function for computing the distance between a plane and a point.
 */
 
-#ifndef PASTELGEOMETRY_DISTANCE_PLANE_POINT_H
-#define PASTELGEOMETRY_DISTANCE_PLANE_POINT_H
+#ifndef PASTEL_DISTANCE_PLANE_POINT_H
+#define PASTEL_DISTANCE_PLANE_POINT_H
 
 #include "pastel/geometry/plane.h"
 #include "pastel/sys/point.h"

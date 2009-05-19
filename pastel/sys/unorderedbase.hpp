@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_UNORDEREDBASE_HPP
-#define PASTELSYS_UNORDEREDBASE_HPP
+#ifndef PASTEL_UNORDEREDBASE_HPP
+#define PASTEL_UNORDEREDBASE_HPP
 
 #include "pastel/sys/unorderedbase.h"
 

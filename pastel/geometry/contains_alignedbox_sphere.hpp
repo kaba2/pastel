@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_SPHERE_H
-#define PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_SPHERE_H
+#ifndef PASTEL_CONTAINS_ALIGNEDBOX_SPHERE_H
+#define PASTEL_CONTAINS_ALIGNEDBOX_SPHERE_H
 
 #include "pastel/geometry/contains_alignedbox_sphere.h"
 #include "pastel/geometry/contains_alignedbox_alignedbox.h"

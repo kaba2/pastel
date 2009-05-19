@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_SPECTRUM_H
-#define PASTELRAY_SPECTRUM_H
+#ifndef PASTEL_SPECTRUM_H
+#define PASTEL_SPECTRUM_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/sys/vector.h"

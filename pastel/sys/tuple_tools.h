@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_TUPLE_TOOLS_H
-#define PASTELSYS_TUPLE_TOOLS_H
+#ifndef PASTEL_TUPLE_TOOLS_H
+#define PASTEL_TUPLE_TOOLS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"

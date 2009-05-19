@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_DRAWING_MORE2_HPP
-#define PASTELGFX_DRAWING_MORE2_HPP
+#ifndef PASTEL_DRAWING_MORE2_HPP
+#define PASTEL_DRAWING_MORE2_HPP
 
 #include "pastel/gfx/drawing_more2.h"
 #include "pastel/gfx/assigncolormixer.h"

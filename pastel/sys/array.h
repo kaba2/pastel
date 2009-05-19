@@ -3,8 +3,8 @@
 \brief A class for an n-dimensional array.
 */
 
-#ifndef PASTELSYS_ARRAY_H
-#define PASTELSYS_ARRAY_H
+#ifndef PASTEL_ARRAY_H
+#define PASTEL_ARRAY_H
 
 #include "pastel/sys/arraybase.h"
 

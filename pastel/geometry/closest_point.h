@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_CLOSEST_POINT_H
-#define PASTELGEOMETRY_CLOSEST_POINT_H
+#ifndef PASTEL_CLOSEST_POINT_H
+#define PASTEL_CLOSEST_POINT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/constants.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DISTANCE_PLANE_POINT_HPP
-#define PASTELGEOMETRY_DISTANCE_PLANE_POINT_HPP
+#ifndef PASTEL_DISTANCE_PLANE_POINT_HPP
+#define PASTEL_DISTANCE_PLANE_POINT_HPP
 
 #include "pastel/geometry/distance_plane_point.h"
 #include "pastel/geometry/closest_plane_point.h"

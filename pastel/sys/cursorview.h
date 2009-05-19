@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_CURSORVIEW_H
-#define PASTELSYS_CURSORVIEW_H
+#ifndef PASTEL_CURSORVIEW_H
+#define PASTEL_CURSORVIEW_H
 
 #include "pastel/sys/view.h"
 

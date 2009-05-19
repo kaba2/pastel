@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_EWAIMAGETEXTURE_H
-#define PASTELGFX_EWAIMAGETEXTURE_H
+#ifndef PASTEL_EWAIMAGETEXTURE_H
+#define PASTEL_EWAIMAGETEXTURE_H
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/vector_tools.h"

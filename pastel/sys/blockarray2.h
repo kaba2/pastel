@@ -3,8 +3,8 @@
 \brief A class for a 2-dimensional blocked array.
 */
 
-#ifndef PASTELSYS_BLOCKARRAY2_H
-#define PASTELSYS_BLOCKARRAY2_H
+#ifndef PASTEL_BLOCKARRAY2_H
+#define PASTEL_BLOCKARRAY2_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"

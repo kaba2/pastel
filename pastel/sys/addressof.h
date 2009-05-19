@@ -3,8 +3,8 @@
 \brief Functions for obtaining the memory address of an object.
 */
 
-#ifndef PASTELSYS_ADDRESSOF_H
-#define PASTELSYS_ADDRESSOF_H
+#ifndef PASTEL_ADDRESSOF_H
+#define PASTEL_ADDRESSOF_H
 
 namespace Pastel
 {

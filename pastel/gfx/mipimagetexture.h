@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_MIPIMAGETEXTURE_H
-#define PASTELGFX_MIPIMAGETEXTURE_H
+#ifndef PASTEL_MIPIMAGETEXTURE_H
+#define PASTEL_MIPIMAGETEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/dsp/mipmap.h"

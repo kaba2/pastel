@@ -3,8 +3,8 @@
 \brief A singleton class for logging.
 */
 
-#ifndef PASTELSYS_LOG_H
-#define PASTELSYS_LOG_H
+#ifndef PASTEL_LOG_H
+#define PASTEL_LOG_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/countedptr.h"

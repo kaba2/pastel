@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_INSERTIONSORT_HPP
-#define PASTELSYS_INSERTIONSORT_HPP
+#ifndef PASTEL_INSERTIONSORT_HPP
+#define PASTEL_INSERTIONSORT_HPP
 
 #include "pastel/sys/insertionsort.h"
 

@@ -3,8 +3,8 @@
 \brief Dll-related keywords for the sys-library.
 */
 
-#ifndef PASTELSYS_SYSLIBRARY_H
-#define PASTELSYS_SYSLIBRARY_H
+#ifndef PASTEL_SYSLIBRARY_H
+#define PASTEL_SYSLIBRARY_H
 
 #include "pastel/sys/environment.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_TRANSFORMEDVIEW_H
-#define PASTELSYS_TRANSFORMEDVIEW_H
+#ifndef PASTEL_TRANSFORMEDVIEW_H
+#define PASTEL_TRANSFORMEDVIEW_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/transformedviewcursor.h"

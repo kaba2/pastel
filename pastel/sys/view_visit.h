@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_VIEW_VISIT_H
-#define PASTELSYS_VIEW_VISIT_H
+#ifndef PASTEL_VIEW_VISIT_H
+#define PASTEL_VIEW_VISIT_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/rectangle.h"

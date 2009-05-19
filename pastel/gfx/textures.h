@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_TEXTURES_H
-#define PASTELGFX_TEXTURES_H
+#ifndef PASTEL_TEXTURES_H
+#define PASTEL_TEXTURES_H
 
 // Synthetic textures
 

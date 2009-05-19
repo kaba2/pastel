@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_DRAWING_MORE_HPP
-#define PASTELGFX_DRAWING_MORE_HPP
+#ifndef PASTEL_DRAWING_MORE_HPP
+#define PASTEL_DRAWING_MORE_HPP
 
 #include "pastel/gfx/drawing.hpp"
 

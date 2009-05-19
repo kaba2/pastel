@@ -3,8 +3,8 @@
 \brief Algorithms for the BihTree.
 */
 
-#ifndef PASTELGEOMETRY_BIHTREETOOLS_H
-#define PASTELGEOMETRY_BIHTREETOOLS_H
+#ifndef PASTEL_BIHTREETOOLS_H
+#define PASTEL_BIHTREETOOLS_H
 
 #include "pastel/geometry/bihtree.h"
 #include "pastel/geometry/line.h"

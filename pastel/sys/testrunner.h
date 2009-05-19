@@ -3,8 +3,8 @@
 \brief A class for accumulating calls to simple functions and running them.
 */
 
-#ifndef PASTELSYS_TESTRUNNER_H
-#define PASTELSYS_TESTRUNNER_H
+#ifndef PASTEL_TESTRUNNER_H
+#define PASTEL_TESTRUNNER_H
 
 #include "pastel/sys/syslibrary.h"
 

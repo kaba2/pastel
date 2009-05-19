@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_FUNCTIONAL_HPP
-#define PASTELSYS_FUNCTIONAL_HPP
+#ifndef PASTEL_FUNCTIONAL_HPP
+#define PASTEL_FUNCTIONAL_HPP
 
 #include "pastel/sys/functional.h"
 

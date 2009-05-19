@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_TUPLEBASE_H
-#define PASTELSYS_TUPLEBASE_H
+#ifndef PASTEL_TUPLEBASE_H
+#define PASTEL_TUPLEBASE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

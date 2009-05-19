@@ -3,8 +3,8 @@
 \brief A function for testing overlap between an box and a triangle.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_BOX_TRIANGLE_H
-#define PASTELGEOMETRY_OVERLAPS_BOX_TRIANGLE_H
+#ifndef PASTEL_OVERLAPS_BOX_TRIANGLE_H
+#define PASTEL_OVERLAPS_BOX_TRIANGLE_H
 
 #include "pastel/geometry/box.h"
 #include "pastel/geometry/triangle.h"

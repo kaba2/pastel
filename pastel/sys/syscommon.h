@@ -3,8 +3,8 @@
 \brief Miscellaneous commonly needed tools.
 */
 
-#ifndef PASTELSYS_SYSCOMMON_H
-#define PASTELSYS_SYSCOMMON_H
+#ifndef PASTEL_SYSCOMMON_H
+#define PASTEL_SYSCOMMON_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

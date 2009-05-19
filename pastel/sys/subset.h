@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SUBSET_H
-#define PASTELSYS_SUBSET_H
+#ifndef PASTEL_SUBSET_H
+#define PASTEL_SUBSET_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"

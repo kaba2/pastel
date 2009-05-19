@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_SMOOTHSTEP_HPP
-#define PASTELMATH_SMOOTHSTEP_HPP
+#ifndef PASTEL_SMOOTHSTEP_HPP
+#define PASTEL_SMOOTHSTEP_HPP
 
 #include "pastel/math/smoothstep.h"
 #include "pastel/math/linear.h"

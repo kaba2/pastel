@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PROJECTION_HPP
-#define PASTELGEOMETRY_PROJECTION_HPP
+#ifndef PASTEL_PROJECTION_HPP
+#define PASTEL_PROJECTION_HPP
 
 #include "pastel/geometry/projection.h"
 

@@ -3,8 +3,8 @@
 \brief A class for a deallocate-once, arbitrary size memory allocator.
 */
 
-#ifndef PASTELSYS_ARENAALLOCATOR_H
-#define PASTELSYS_ARENAALLOCATOR_H
+#ifndef PASTEL_ARENAALLOCATOR_H
+#define PASTEL_ARENAALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

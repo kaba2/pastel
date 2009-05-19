@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_NURBS_HPP
-#define PASTELMATH_NURBS_HPP
+#ifndef PASTEL_NURBS_HPP
+#define PASTEL_NURBS_HPP
 
 #include "pastel/math/nurbs.h"
 

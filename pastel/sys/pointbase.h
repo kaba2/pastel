@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_POINTBASE_H
-#define PASTELSYS_POINTBASE_H
+#ifndef PASTEL_POINTBASE_H
+#define PASTEL_POINTBASE_H
 
 #include "pastel/sys/point.h"
 

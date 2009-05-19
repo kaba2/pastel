@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BOXTREE_H
-#define PASTELGEOMETRY_BOXTREE_H
+#ifndef PASTEL_BOXTREE_H
+#define PASTEL_BOXTREE_H
 
 namespace Pastel
 {

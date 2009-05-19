@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BIHTREETOOLS_HPP
-#define PASTELGEOMETRY_BIHTREETOOLS_HPP
+#ifndef PASTEL_BIHTREETOOLS_HPP
+#define PASTEL_BIHTREETOOLS_HPP
 
 #include "pastel/geometry/bihtree_tools.h"
 #include "pastel/geometry/contains_alignedbox_alignedbox.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_BIGINTEGER_H
-#define PASTELMATH_BIGINTEGER_H
+#ifndef PASTEL_BIGINTEGER_H
+#define PASTEL_BIGINTEGER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/math/mathlibrary.h"

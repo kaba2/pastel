@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SMALLMAP_HPP
-#define PASTELSYS_SMALLMAP_HPP
+#ifndef PASTEL_SMALLMAP_HPP
+#define PASTEL_SMALLMAP_HPP
 
 #include "pastel/sys/smallmap.h"
 

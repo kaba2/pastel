@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_NURBS_H
-#define PASTELMATH_NURBS_H
+#ifndef PASTEL_NURBS_H
+#define PASTEL_NURBS_H
 
 #include "pastel/sys/point.h"
 

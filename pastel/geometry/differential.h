@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DIFFERENTIAL_H
-#define PASTELGEOMETRY_DIFFERENTIAL_H
+#ifndef PASTEL_DIFFERENTIAL_H
+#define PASTEL_DIFFERENTIAL_H
 
 #include "pastel/sys/vector.h"
 

@@ -3,8 +3,8 @@
 \brief A class for a hyperplane.
 */
 
-#ifndef PASTELGEOMETRY_PLANE_H
-#define PASTELGEOMETRY_PLANE_H
+#ifndef PASTEL_PLANE_H
+#define PASTEL_PLANE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

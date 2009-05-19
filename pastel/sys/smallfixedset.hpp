@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SMALLFIXEDSET_HPP
-#define PASTELSYS_SMALLFIXEDSET_HPP
+#ifndef PASTEL_SMALLFIXEDSET_HPP
+#define PASTEL_SMALLFIXEDSET_HPP
 
 #include "pastel/sys/smallfixedset.h"
 

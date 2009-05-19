@@ -3,8 +3,8 @@
 \brief A class for turning initialization into a function call.
 */
 
-#ifndef PASTELSYS_CALLFUNCTION_H
-#define PASTELSYS_CALLFUNCTION_H
+#ifndef PASTEL_CALLFUNCTION_H
+#define PASTEL_CALLFUNCTION_H
 
 namespace Pastel
 {

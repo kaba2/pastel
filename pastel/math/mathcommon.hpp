@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_MATHCOMMON_HPP
-#define PASTELMATH_MATHCOMMON_HPP
+#ifndef PASTEL_MATHCOMMON_HPP
+#define PASTEL_MATHCOMMON_HPP
 
 #include "pastel/math/mathcommon.h"
 

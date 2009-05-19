@@ -3,8 +3,8 @@
 \brief A class for a line segment.
 */
 
-#ifndef PASTELGEOMETRY_SEGMENT_H
-#define PASTELGEOMETRY_SEGMENT_H
+#ifndef PASTEL_SEGMENT_H
+#define PASTEL_SEGMENT_H
 
 #include "pastel/sys/point.h"
 

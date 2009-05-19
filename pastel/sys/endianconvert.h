@@ -3,8 +3,8 @@
 \brief Functions for converting from one endianness to another.
 */
 
-#ifndef PASTELSYS_ENDIANCONVERT_H
-#define PASTELSYS_ENDIANCONVERT_H
+#ifndef PASTEL_ENDIANCONVERT_H
+#define PASTEL_ENDIANCONVERT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

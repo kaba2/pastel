@@ -1,5 +1,5 @@
-#ifndef PASTELDEVICE_THREAD_H
-#define PASTELDEVICE_THREAD_H
+#ifndef PASTEL_THREAD_H
+#define PASTEL_THREAD_H
 
 #include "pastel/device/mutex.h"
 #include "pastel/sys/countedptr.h"

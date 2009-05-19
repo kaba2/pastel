@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ANTIPODAL_HPP
-#define PASTELGEOMETRY_ANTIPODAL_HPP
+#ifndef PASTEL_ANTIPODAL_HPP
+#define PASTEL_ANTIPODAL_HPP
 
 #include "pastel/geometry/antipodal.h"
 

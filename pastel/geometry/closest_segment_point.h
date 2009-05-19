@@ -3,8 +3,8 @@
 \brief Computation of the closest point on the segment w.r.t a point.
 */
 
-#ifndef PASTELGEOMETRY_CLOSEST_SEGMENT_POINT_H
-#define PASTELGEOMETRY_CLOSEST_SEGMENT_POINT_H
+#ifndef PASTEL_CLOSEST_SEGMENT_POINT_H
+#define PASTEL_CLOSEST_SEGMENT_POINT_H
 
 #include "pastel/geometry/segment.h"
 #include "pastel/sys/point.h"

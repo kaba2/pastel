@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_CLOSEST_SEGMENT_SEGMENT_HPP
-#define PASTELGEOMETRY_CLOSEST_SEGMENT_SEGMENT_HPP
+#ifndef PASTEL_CLOSEST_SEGMENT_SEGMENT_HPP
+#define PASTEL_CLOSEST_SEGMENT_SEGMENT_HPP
 
 #include "pastel/geometry/closest_segment_segment.h"
 #include "pastel/geometry/closest_line_line.h"

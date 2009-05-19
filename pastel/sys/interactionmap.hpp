@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_INTERACTIONMAP_HPP
-#define PASTELSYS_INTERACTIONMAP_HPP
+#ifndef PASTEL_INTERACTIONMAP_HPP
+#define PASTEL_INTERACTIONMAP_HPP
 
 #include "pastel/sys/interactionmap.h"
 

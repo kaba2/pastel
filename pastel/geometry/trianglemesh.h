@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_TRIANGLEMESH_H
-#define PASTELGEOMETRY_TRIANGLEMESH_H
+#ifndef PASTEL_TRIANGLEMESH_H
+#define PASTEL_TRIANGLEMESH_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/parallelarray.h"

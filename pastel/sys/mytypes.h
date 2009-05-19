@@ -3,8 +3,8 @@
 \brief Typedefs for types used in PastelEngine.
 */
 
-#ifndef PASTELSYS_MYTYPES_H
-#define PASTELSYS_MYTYPES_H
+#ifndef PASTEL_MYTYPES_H
+#define PASTEL_MYTYPES_H
 
 #include "pastel/sys/environment.h"
 #include "pastel/sys/syslibrary.h"

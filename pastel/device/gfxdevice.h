@@ -3,8 +3,8 @@
 \brief A class controlling the graphics device.
 */
 
-#ifndef PASTELDEVICE_GFXDEVICE_H
-#define PASTELDEVICE_GFXDEVICE_H
+#ifndef PASTEL_GFXDEVICE_H
+#define PASTEL_GFXDEVICE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

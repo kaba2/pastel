@@ -3,8 +3,8 @@
 \brief Functions for array programming with vectors.
 */
 
-#ifndef PASTELSYS_VECTOR_TOOLS_MORE_H
-#define PASTELSYS_VECTOR_TOOLS_MORE_H
+#ifndef PASTEL_VECTOR_TOOLS_MORE_H
+#define PASTEL_VECTOR_TOOLS_MORE_H
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/vector.h"

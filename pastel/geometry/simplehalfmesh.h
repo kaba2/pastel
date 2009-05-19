@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_SIMPLEHALFMESH_H
-#define PASTELGEOMETRY_SIMPLEHALFMESH_H
+#ifndef PASTEL_SIMPLEHALFMESH_H
+#define PASTEL_SIMPLEHALFMESH_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/parallelarray.h"

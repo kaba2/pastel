@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_AGGREGATE_H
-#define PASTELSYS_AGGREGATE_H
+#ifndef PASTEL_AGGREGATE_H
+#define PASTEL_AGGREGATE_H
 
 #include <map>
 #include <memory>

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DIAMETER_H
-#define PASTELGEOMETRY_DIAMETER_H
+#ifndef PASTEL_DIAMETER_H
+#define PASTEL_DIAMETER_H
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/point.h"

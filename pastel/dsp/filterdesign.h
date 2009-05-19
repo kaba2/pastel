@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_FILTERDESIGN_H
-#define PASTELDSP_FILTERDESIGN_H
+#ifndef PASTEL_FILTERDESIGN_H
+#define PASTEL_FILTERDESIGN_H
 
 #include "pastel/dsp/dsplibrary.h"
 

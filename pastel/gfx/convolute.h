@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_CONVOLUTE_H
-#define PASTELGFX_CONVOLUTE_H
+#ifndef PASTEL_CONVOLUTE_H
+#define PASTEL_CONVOLUTE_H
 
 #include "pastel/sys/view.h"
 

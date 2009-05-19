@@ -3,8 +3,8 @@
 \brief A class for storing a half-edge structure polygon mesh.
 */
 
-#ifndef PASTELGEOMETRY_HALFMESH_H
-#define PASTELGEOMETRY_HALFMESH_H
+#ifndef PASTEL_HALFMESH_H
+#define PASTEL_HALFMESH_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/poolallocator.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_GRIDTOOLS_H
-#define PASTELGEOMETRY_GRIDTOOLS_H
+#ifndef PASTEL_GRIDTOOLS_H
+#define PASTEL_GRIDTOOLS_H
 
 #include "pastel/sys/mytypes.h"
 

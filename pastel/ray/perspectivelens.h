@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_PERPSPECTIVELENS_H
-#define PASTELRAY_PERPSPECTIVELENS_H
+#ifndef PASTEL_PERPSPECTIVELENS_H
+#define PASTEL_PERPSPECTIVELENS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/ray/raylibrary.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_INTERSECT_LINE_POLYGON_HPP
-#define PASTELGEOMETRY_INTERSECT_LINE_POLYGON_HPP
+#ifndef PASTEL_INTERSECT_LINE_POLYGON_HPP
+#define PASTEL_INTERSECT_LINE_POLYGON_HPP
 
 #include "pastel/geometry/intersect_line_polygon.h"
 #include "pastel/geometry/intersect_line_plane.h"

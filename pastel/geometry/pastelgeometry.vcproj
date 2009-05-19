@@ -821,6 +821,22 @@
 					>
 				</File>
 				<File
+					RelativePath=".\kdtree_count_nearest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_count_nearest.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_depth_first.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_depth_first.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\kdtree_raytraversal.h"
 					>
 				</File>
@@ -1271,8 +1287,12 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Axis projection"
+			Name="Axes"
 			>
+			<File
+				RelativePath=".\diagonal_axis.h"
+				>
+			</File>
 			<File
 				RelativePath=".\projectaxis.h"
 				>

@@ -3,8 +3,8 @@
 \brief A class for a real vector in R^N.
 */
 
-#ifndef PASTELSYS_VECTOR_H
-#define PASTELSYS_VECTOR_H
+#ifndef PASTEL_VECTOR_H
+#define PASTEL_VECTOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vectorbase.h"

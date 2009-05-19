@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ALIGNEDBOX_HPP
-#define PASTELGEOMETRY_ALIGNEDBOX_HPP
+#ifndef PASTEL_ALIGNEDBOX_HPP
+#define PASTEL_ALIGNEDBOX_HPP
 
 #include "pastel/geometry/alignedbox.h"
 

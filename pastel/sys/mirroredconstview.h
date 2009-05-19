@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_MIRROREDCONSTVIEW_H
-#define PASTELSYS_MIRROREDCONSTVIEW_H
+#ifndef PASTEL_MIRROREDCONSTVIEW_H
+#define PASTEL_MIRROREDCONSTVIEW_H
 
 #include "pastel/sys/extendedconstview.h"
 #include "pastel/sys/view.h"

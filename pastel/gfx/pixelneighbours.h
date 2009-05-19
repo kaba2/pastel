@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_PIXELNEIGHBOURS_H
-#define PASTELGFX_PIXELNEIGHBOURS_H
+#ifndef PASTEL_PIXELNEIGHBOURS_H
+#define PASTEL_PIXELNEIGHBOURS_H
 
 #include "pastel/gfx/gfxlibrary.h"
 

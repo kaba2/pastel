@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_PCXHEADER_H
-#define PASTELGFX_PCXHEADER_H
+#ifndef PASTEL_PCXHEADER_H
+#define PASTEL_PCXHEADER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/binaryfile.h"

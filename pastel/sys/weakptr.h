@@ -3,8 +3,8 @@
 \brief A class for a reference counting smart-pointer.
 */
 
-#ifndef PASTELSYS_WEAKPTR_H
-#define PASTELSYS_WEAKPTR_H
+#ifndef PASTEL_WEAKPTR_H
+#define PASTEL_WEAKPTR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

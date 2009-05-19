@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_POLYGON_H
-#define PASTELGEOMETRY_POLYGON_H
+#ifndef PASTEL_POLYGON_H
+#define PASTEL_POLYGON_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"

@@ -3,8 +3,8 @@
 \brief Functions for founding bounding aligned boxes for objects.
 */
 
-#ifndef PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_H
-#define PASTELGEOMETRY_BOUNDING_ALIGNEDBOX_H
+#ifndef PASTEL_BOUNDING_ALIGNEDBOX_H
+#define PASTEL_BOUNDING_ALIGNEDBOX_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/sys/point.h"

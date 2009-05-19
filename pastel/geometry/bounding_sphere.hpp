@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BOUNDING_SPHERE_HPP
-#define PASTELGEOMETRY_BOUNDING_SPHERE_HPP
+#ifndef PASTEL_BOUNDING_SPHERE_HPP
+#define PASTEL_BOUNDING_SPHERE_HPP
 
 #include "pastel/geometry/bounding_sphere.h"
 

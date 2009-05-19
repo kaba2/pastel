@@ -3,8 +3,8 @@
 \brief A class for a real matrix.
 */
 
-#ifndef PASTELMATH_MATRIX_H
-#define PASTELMATH_MATRIX_H
+#ifndef PASTEL_MATRIX_H
+#define PASTEL_MATRIX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

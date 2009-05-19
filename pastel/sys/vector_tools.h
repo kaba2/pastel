@@ -3,8 +3,8 @@
 \brief Functions for working with vectors.
 */
 
-#ifndef PASTELSYS_VECTOR_TOOLS_H
-#define PASTELSYS_VECTOR_TOOLS_H
+#ifndef PASTEL_VECTOR_TOOLS_H
+#define PASTEL_VECTOR_TOOLS_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

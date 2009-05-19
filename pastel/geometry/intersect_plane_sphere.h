@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between a plane and a sphere.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_PLANE_SPHERE_H
-#define PASTELGEOMETRY_INTERSECT_PLANE_SPHERE_H
+#ifndef PASTEL_INTERSECT_PLANE_SPHERE_H
+#define PASTEL_INTERSECT_PLANE_SPHERE_H
 
 namespace Pastel
 {
