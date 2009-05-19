@@ -1439,7 +1439,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="All nearest neighbours"
+			Name="All nearest neighbours searching"
 			>
 			<File
 				RelativePath=".\all_nearest_neighbors.h"
@@ -1475,6 +1475,18 @@
 			</File>
 			<File
 				RelativePath=".\all_nearest_neighbors_vaidya.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="All nearest neighbors counting"
+			>
+			<File
+				RelativePath=".\count_all_nearest_neighbors_kdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\count_all_nearest_neighbors_kdtree.hpp"
 				>
 			</File>
 		</Filter>
