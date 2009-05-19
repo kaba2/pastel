@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PROJECTION_H
-#define PASTELGEOMETRY_PROJECTION_H
+#ifndef PASTEL_PROJECTION_H
+#define PASTEL_PROJECTION_H
 
 #include "pastel/sys/mytypes.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SLICEVIEWCURSOR_H
-#define PASTELSYS_SLICEVIEWCURSOR_H
+#ifndef PASTEL_SLICEVIEWCURSOR_H
+#define PASTEL_SLICEVIEWCURSOR_H
 
 #include "pastel/sys/sliceview.h"
 

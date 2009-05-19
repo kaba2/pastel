@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_FILELOGOBSERVER_H
-#define PASTELSYS_FILELOGOBSERVER_H
+#ifndef PASTEL_FILELOGOBSERVER_H
+#define PASTEL_FILELOGOBSERVER_H
 
 #include "pastel/sys/logobserver.h"
 

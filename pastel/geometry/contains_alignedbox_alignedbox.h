@@ -3,8 +3,8 @@
 \brief A function for computing if one aligned box is contained in another.
 */
 
-#ifndef PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
-#define PASTELGEOMETRY_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
+#ifndef PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
+#define PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
 
 #include "pastel/geometry/alignedbox.h"
 

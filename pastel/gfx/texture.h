@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_TEXTURE_H
-#define PASTELGFX_TEXTURE_H
+#ifndef PASTEL_TEXTURE_H
+#define PASTEL_TEXTURE_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"

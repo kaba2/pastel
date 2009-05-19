@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_GRIDTOOLS_HPP
-#define PASTELGEOMETRY_GRIDTOOLS_HPP
+#ifndef PASTEL_GRIDTOOLS_HPP
+#define PASTEL_GRIDTOOLS_HPP
 
 #include "pastel/geometry/grid_tools.h"
 

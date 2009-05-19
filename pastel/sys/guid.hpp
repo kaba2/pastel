@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_GUID_HPP
-#define PASTELSYS_GUID_HPP
+#ifndef PASTEL_GUID_HPP
+#define PASTEL_GUID_HPP
 
 #include "pastel/sys/guid.h"
 

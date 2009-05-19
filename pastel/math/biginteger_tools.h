@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_BIGINTEGER_TOOLS_H
-#define PASTELMATH_BIGINTEGER_TOOLS_H
+#ifndef PASTEL_BIGINTEGER_TOOLS_H
+#define PASTEL_BIGINTEGER_TOOLS_H
 
 #include "pastel/math/biginteger.h"
 

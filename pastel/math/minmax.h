@@ -3,8 +3,8 @@
 \brief Functions for parallel min-max computations.
 */
 
-#ifndef PASTELMATH_MINMAX_H
-#define PASTELMATH_MINMAX_H
+#ifndef PASTEL_MINMAX_H
+#define PASTEL_MINMAX_H
 
 #include "pastel/sys/mytypes.h"
 

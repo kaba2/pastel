@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_PACKEDCOLOR_HPP
-#define PASTELGFX_PACKEDCOLOR_HPP
+#ifndef PASTEL_PACKEDCOLOR_HPP
+#define PASTEL_PACKEDCOLOR_HPP
 
 #include "pastel/gfx/packedcolor.h"
 

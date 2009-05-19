@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PROJECTAXIS_HPP
-#define PASTELGEOMETRY_PROJECTAXIS_HPP
+#ifndef PASTEL_PROJECTAXIS_HPP
+#define PASTEL_PROJECTAXIS_HPP
 
 #include "pastel/geometry/projectaxis.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DELAUNAYTESSELATION_TOOLS_H
-#define PASTELGEOMETRY_DELAUNAYTESSELATION_TOOLS_H
+#ifndef PASTEL_DELAUNAYTESSELATION_TOOLS_H
+#define PASTEL_DELAUNAYTESSELATION_TOOLS_H
 
 #include "pastel/geometry/delaunaytesselation.h"
 #include "pastel/geometry/flatsimplexmesh.h"

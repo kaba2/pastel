@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between a line and an aligned plane.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_LINE_ALIGNEDPLANE_H
-#define PASTELGEOMETRY_INTERSECT_LINE_ALIGNEDPLANE_H
+#ifndef PASTEL_INTERSECT_LINE_ALIGNEDPLANE_H
+#define PASTEL_INTERSECT_LINE_ALIGNEDPLANE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/line.h"

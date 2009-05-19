@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_QUANTIZE_HPP
-#define PASTELGFX_QUANTIZE_HPP
+#ifndef PASTEL_QUANTIZE_HPP
+#define PASTEL_QUANTIZE_HPP
 
 #include "pastel/gfx/quantize.h"
 

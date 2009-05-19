@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_INTERSECT_LINE_SPHERE_HPP
-#define PASTELGEOMETRY_INTERSECT_LINE_SPHERE_HPP
+#ifndef PASTEL_INTERSECT_LINE_SPHERE_HPP
+#define PASTEL_INTERSECT_LINE_SPHERE_HPP
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"

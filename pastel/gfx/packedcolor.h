@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_PACKEDCOLOR_H
-#define PASTELGFX_PACKEDCOLOR_H
+#ifndef PASTEL_PACKEDCOLOR_H
+#define PASTEL_PACKEDCOLOR_H
 
 #include "pastel/sys/mytypes.h"
 

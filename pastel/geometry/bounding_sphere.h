@@ -3,8 +3,8 @@
 \brief Functions for computing bounding spheres for objects.
 */
 
-#ifndef PASTELGEOMETRY_BOUNDING_SPHERE_H
-#define PASTELGEOMETRY_BOUNDING_SPHERE_H
+#ifndef PASTEL_BOUNDING_SPHERE_H
+#define PASTEL_BOUNDING_SPHERE_H
 
 #include "pastel/geometry/sphere.h"
 #include "pastel/sys/point.h"

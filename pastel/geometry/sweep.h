@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_SWEEP_H
-#define PASTELGEOMETRY_SWEEP_H
+#ifndef PASTEL_SWEEP_H
+#define PASTEL_SWEEP_H
 
 #include "pastel/geometry/segment.h"
 #include "pastel/sys/point.h"

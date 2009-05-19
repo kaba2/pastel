@@ -3,8 +3,8 @@
 \brief A function for testing overlap between an alignedBox and a triangle.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
-#define PASTELGEOMETRY_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
+#ifndef PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
+#define PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
 
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/alignedbox.h"

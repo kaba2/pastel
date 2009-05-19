@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_BORDEREDCONSTVIEW_H
-#define PASTELSYS_BORDEREDCONSTVIEW_H
+#ifndef PASTEL_BORDEREDCONSTVIEW_H
+#define PASTEL_BORDEREDCONSTVIEW_H
 
 #include "pastel/sys/extendedconstview.h"
 #include "pastel/sys/view.h"

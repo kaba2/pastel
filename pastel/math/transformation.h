@@ -3,8 +3,8 @@
 \brief A class for a transformation-inverse pair.
 */
 
-#ifndef PASTELMATH_TRANSFORMATION_H
-#define PASTELMATH_TRANSFORMATION_H
+#ifndef PASTEL_TRANSFORMATION_H
+#define PASTEL_TRANSFORMATION_H
 
 #include "pastel/math/affinetransformation.h"
 

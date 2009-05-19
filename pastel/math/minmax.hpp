@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_MINMAX_HPP
-#define PASTELMATH_MINMAX_HPP
+#ifndef PASTEL_MINMAX_HPP
+#define PASTEL_MINMAX_HPP
 
 #include "pastel/math/minmax.h"
 

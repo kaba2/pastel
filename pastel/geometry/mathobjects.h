@@ -3,8 +3,8 @@
 \brief An aggregate include file for geometric objects.
 */
 
-#ifndef PASTELGEOMETRY_MATHOBJECTS_H
-#define PASTELGEOMETRY_MATHOBJECTS_H
+#ifndef PASTEL_MATHOBJECTS_H
+#define PASTEL_MATHOBJECTS_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/box.h"

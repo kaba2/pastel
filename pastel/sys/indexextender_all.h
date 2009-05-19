@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_INDEXEXTENDER_ALL_H
-#define PASTELSYS_INDEXEXTENDER_ALL_H
+#ifndef PASTEL_INDEXEXTENDER_ALL_H
+#define PASTEL_INDEXEXTENDER_ALL_H
 
 #include "pastel/sys/clampextender.h"
 #include "pastel/sys/mirrorextender.h"

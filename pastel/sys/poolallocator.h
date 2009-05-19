@@ -3,8 +3,8 @@
 \brief A class for a uniform sized memory allocator.
 */
 
-#ifndef PASTELSYS_POOLALLOCATOR_H
-#define PASTELSYS_POOLALLOCATOR_H
+#ifndef PASTEL_POOLALLOCATOR_H
+#define PASTEL_POOLALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

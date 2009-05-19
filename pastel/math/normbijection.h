@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_NORMBIJECTION_H
-#define PASTELMATH_NORMBIJECTION_H
+#ifndef PASTEL_NORMBIJECTION_H
+#define PASTEL_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/syscommon.h"

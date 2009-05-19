@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_PIECEWISELINEAR_HPP
-#define PASTELMATH_PIECEWISELINEAR_HPP
+#ifndef PASTEL_PIECEWISELINEAR_HPP
+#define PASTEL_PIECEWISELINEAR_HPP
 
 #include "pastel/math/piecewiselinear.h"
 #include "pastel/math/linear.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_DRAWING_MORE2_H
-#define PASTELGFX_DRAWING_MORE2_H
+#ifndef PASTEL_DRAWING_MORE2_H
+#define PASTEL_DRAWING_MORE2_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/sys/view.h"

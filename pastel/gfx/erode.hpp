@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_ERODE_HPP
-#define PASTELGFX_ERODE_HPP
+#ifndef PASTEL_ERODE_HPP
+#define PASTEL_ERODE_HPP
 
 #include "pastel/gfx/erode.h"
 

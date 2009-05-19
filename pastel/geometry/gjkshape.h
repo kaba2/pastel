@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_GJKSHAPE_H
-#define PASTELGEOMETRY_GJKSHAPE_H
+#ifndef PASTEL_GJKSHAPE_H
+#define PASTEL_GJKSHAPE_H
 
 #include "pastel/geometry/geometrylibrary.h"
 

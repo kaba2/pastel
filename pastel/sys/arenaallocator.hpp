@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ARENAALLOCATOR_HPP
-#define PASTELSYS_ARENAALLOCATOR_HPP
+#ifndef PASTEL_ARENAALLOCATOR_HPP
+#define PASTEL_ARENAALLOCATOR_HPP
 
 #include "pastel/sys/arenaallocator.h"
 

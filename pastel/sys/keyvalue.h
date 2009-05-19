@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_KEYVALUE_H
-#define PASTELSYS_KEYVALUE_H
+#ifndef PASTEL_KEYVALUE_H
+#define PASTEL_KEYVALUE_H
 
 #include <boost/operators.hpp>
 

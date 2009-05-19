@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_MATRIXBASE_H
-#define PASTELMATH_MATRIXBASE_H
+#ifndef PASTEL_MATRIXBASE_H
+#define PASTEL_MATRIXBASE_H
 
 #include "pastel/math/matrix.h"
 

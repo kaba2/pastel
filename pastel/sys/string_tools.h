@@ -3,8 +3,8 @@
 \brief Tools for working with strings.
 */
 
-#ifndef PASTELSYS_STRING_TOOLS_H
-#define PASTELSYS_STRING_TOOLS_H
+#ifndef PASTEL_STRING_TOOLS_H
+#define PASTEL_STRING_TOOLS_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREE_RAYTRAVERSAL_H
-#define PASTELGEOMETRY_KDTREE_RAYTRAVERSAL_H
+#ifndef PASTEL_KDTREE_RAYTRAVERSAL_H
+#define PASTEL_KDTREE_RAYTRAVERSAL_H
 
 #include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/line.h"

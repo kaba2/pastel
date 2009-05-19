@@ -3,8 +3,8 @@
 \brief Tools for working with rational numbers.
 */
 
-#ifndef PASTELMATH_RATIONAL_TOOLS_H
-#define PASTELMATH_RATIONAL_TOOLS_H
+#ifndef PASTEL_RATIONAL_TOOLS_H
+#define PASTEL_RATIONAL_TOOLS_H
 
 #include "pastel/math/rational.h"
 

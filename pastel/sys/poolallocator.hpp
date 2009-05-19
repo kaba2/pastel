@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_POOLALLOCATOR_HPP
-#define PASTELSYS_POOLALLOCATOR_HPP
+#ifndef PASTEL_POOLALLOCATOR_HPP
+#define PASTEL_POOLALLOCATOR_HPP
 
 #include "pastel/sys/poolallocator.h"
 

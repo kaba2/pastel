@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_SIMPLEXMESH_HPP
-#define PASTELGEOMETRY_SIMPLEXMESH_HPP
+#ifndef PASTEL_SIMPLEXMESH_HPP
+#define PASTEL_SIMPLEXMESH_HPP
 
 #include "pastel/geometry/simplexmesh.h"
 

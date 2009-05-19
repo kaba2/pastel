@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between two triangles.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
-#define PASTELGEOMETRY_INTERSECT_TRIANGLE_TRIANGLE_H
+#ifndef PASTEL_INTERSECT_TRIANGLE_TRIANGLE_H
+#define PASTEL_INTERSECT_TRIANGLE_TRIANGLE_H
 
 #include "pastel/geometry/triangle.h"
 #include "pastel/geometry/segment.h"

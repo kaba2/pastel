@@ -3,8 +3,8 @@
 \brief A function for finding the connected components of a binary image.
 */
 
-#ifndef PASTELGFX_CONNECTEDCOMPONENTS_H
-#define PASTELGFX_CONNECTEDCOMPONENTS_H
+#ifndef PASTEL_CONNECTEDCOMPONENTS_H
+#define PASTEL_CONNECTEDCOMPONENTS_H
 
 #include "pastel/sys/view.h"
 

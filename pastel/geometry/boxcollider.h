@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BOXCOLLIDER_H
-#define PASTELGEOMETRY_BOXCOLLIDER_H
+#ifndef PASTEL_BOXCOLLIDER_H
+#define PASTEL_BOXCOLLIDER_H
 
 #include "pastel/sys/primes.h"
 #include "pastel/sys/smallset.h"

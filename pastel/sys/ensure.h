@@ -3,8 +3,8 @@
 \brief Tools for inconsistency checking
 */
 
-#ifndef PASTELSYS_ENSURE_H
-#define PASTELSYS_ENSURE_H
+#ifndef PASTEL_ENSURE_H
+#define PASTEL_ENSURE_H
 
 #include "pastel/sys/syslibrary.h"
 

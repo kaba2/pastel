@@ -3,8 +3,8 @@
 \brief A class for mutual exclusion in a concurrent program.
 */
 
-#ifndef PASTELDEVICE_MUTEX_H
-#define PASTELDEVICE_MUTEX_H
+#ifndef PASTEL_MUTEX_H
+#define PASTEL_MUTEX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"

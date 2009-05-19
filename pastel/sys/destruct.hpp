@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_DESTRUCT_HPP
-#define PASTELSYS_DESTRUCT_HPP
+#ifndef PASTEL_DESTRUCT_HPP
+#define PASTEL_DESTRUCT_HPP
 
 #include "pastel/sys/destruct.h"
 #include <boost/type_traits/is_pod.hpp>

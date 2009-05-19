@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_DISJOINTGROUPS_HPP
-#define PASTELSYS_DISJOINTGROUPS_HPP
+#ifndef PASTEL_DISJOINTGROUPS_HPP
+#define PASTEL_DISJOINTGROUPS_HPP
 
 #include "pastel/sys/disjointgroups.h"
 

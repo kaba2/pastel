@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_CONVOLUTE_HPP
-#define PASTELGFX_CONVOLUTE_HPP
+#ifndef PASTEL_CONVOLUTE_HPP
+#define PASTEL_CONVOLUTE_HPP
 
 #include "pastel/gfx/convolute.h"
 #include "pastel/gfx/nearestimagetexture.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_IMAGEGFXRENDERER_HPP
-#define PASTELGFX_IMAGEGFXRENDERER_HPP
+#ifndef PASTEL_IMAGEGFXRENDERER_HPP
+#define PASTEL_IMAGEGFXRENDERER_HPP
 
 #include "pastel/gfx/imagegfxrenderer.h"
 #include "pastel/gfx/drawing.h"

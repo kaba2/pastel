@@ -3,8 +3,8 @@
 \brief Functions for loading pcx images.
 */
 
-#ifndef PASTELGFX_LOADPCX_H
-#define PASTELGFX_LOADPCX_H
+#ifndef PASTEL_LOADPCX_H
+#define PASTEL_LOADPCX_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

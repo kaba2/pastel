@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_PROPERTYID_H
-#define PASTELSYS_PROPERTYID_H
+#ifndef PASTEL_PROPERTYID_H
+#define PASTEL_PROPERTYID_H
 
 #include <boost/operators.hpp>
 

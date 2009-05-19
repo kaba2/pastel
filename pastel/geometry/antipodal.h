@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ANTIPODAL_H
-#define PASTELGEOMETRY_ANTIPODAL_H
+#ifndef PASTEL_ANTIPODAL_H
+#define PASTEL_ANTIPODAL_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"

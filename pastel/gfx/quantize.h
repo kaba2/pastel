@@ -3,8 +3,8 @@
 \brief Quantization algorithms.
 */
 
-#ifndef PASTELGFX_QUANTIZE_H
-#define PASTELGFX_QUANTIZE_H
+#ifndef PASTEL_QUANTIZE_H
+#define PASTEL_QUANTIZE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"

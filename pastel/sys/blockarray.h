@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_BLOCKARRAY_H
-#define PASTELSYS_BLOCKARRAY_H
+#ifndef PASTEL_BLOCKARRAY_H
+#define PASTEL_BLOCKARRAY_H
 
 #include "pastel/sys/mytypes.h"
 

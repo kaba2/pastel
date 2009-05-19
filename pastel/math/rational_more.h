@@ -3,8 +3,8 @@
 \brief Free function interface of the Rational class.
 */
 
-#ifndef PASTELMATH_RATIONAL_MORE_H
-#define PASTELMATH_RATIONAL_MORE_H
+#ifndef PASTEL_RATIONAL_MORE_H
+#define PASTEL_RATIONAL_MORE_H
 
 #include "pastel/math/rational.h"
 

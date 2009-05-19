@@ -3,8 +3,8 @@
 \brief A reconstruction filter.
 */
 
-#ifndef PASTELDSP_FILTER_H
-#define PASTELDSP_FILTER_H
+#ifndef PASTEL_FILTER_H
+#define PASTEL_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 

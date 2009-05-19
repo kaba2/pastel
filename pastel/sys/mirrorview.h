@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_MIRRORVIEW_H
-#define PASTELSYS_MIRRORVIEW_H
+#ifndef PASTEL_MIRRORVIEW_H
+#define PASTEL_MIRRORVIEW_H
 
 #include "pastel/sys/mirrorviewcursor.h"
 

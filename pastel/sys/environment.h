@@ -3,8 +3,8 @@
 \brief PastelEngine-wide configuration options.
 */
 
-#ifndef PASTELSYS_ENVIRONMENT_H
-#define PASTELSYS_ENVIRONMENT_H
+#ifndef PASTEL_ENVIRONMENT_H
+#define PASTEL_ENVIRONMENT_H
 
 // PASTEL_DEBUG_MODE == 0 => ASSERT:s will be removed.
 #define PASTEL_DEBUG_MODE 0

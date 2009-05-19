@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_COLORMIXERS_H
-#define PASTELGFX_COLORMIXERS_H
+#ifndef PASTEL_COLORMIXERS_H
+#define PASTEL_COLORMIXERS_H
 
 #include "pastel/gfx/transparentcolormixer.h"
 #include "pastel/gfx/assigncolormixer.h"

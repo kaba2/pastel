@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_INTERVAL_H
-#define PASTELMATH_INTERVAL_H
+#ifndef PASTEL_INTERVAL_H
+#define PASTEL_INTERVAL_H
 
 namespace Pastel
 {

@@ -3,8 +3,8 @@
 \brief A class for an affine transformation.
 */
 
-#ifndef PASTELMATH_AFFINETRANSFORMATION_H
-#define PASTELMATH_AFFINETRANSFORMATION_H
+#ifndef PASTEL_AFFINETRANSFORMATION_H
+#define PASTEL_AFFINETRANSFORMATION_H
 
 #include "pastel/math/matrix.h"
 #include "pastel/sys/vector.h"

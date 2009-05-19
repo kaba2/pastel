@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_VIEW_H
-#define PASTELSYS_VIEW_H
+#ifndef PASTEL_VIEW_H
+#define PASTEL_VIEW_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

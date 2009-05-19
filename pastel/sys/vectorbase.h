@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_VECTORBASE_H
-#define PASTELSYS_VECTORBASE_H
+#ifndef PASTEL_VECTORBASE_H
+#define PASTEL_VECTORBASE_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vectorexpression.h"

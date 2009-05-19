@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_CUBIC_FILTER_H
-#define PASTELDSP_CUBIC_FILTER_H
+#ifndef PASTEL_CUBIC_FILTER_H
+#define PASTEL_CUBIC_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_SMOOTHSTEP_H
-#define PASTELMATH_SMOOTHSTEP_H
+#ifndef PASTEL_SMOOTHSTEP_H
+#define PASTEL_SMOOTHSTEP_H
 
 namespace Pastel
 {

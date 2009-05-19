@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DIAMETER_HPP
-#define PASTELGEOMETRY_DIAMETER_HPP
+#ifndef PASTEL_DIAMETER_HPP
+#define PASTEL_DIAMETER_HPP
 
 #include "pastel/geometry/diameter.h"
 #include "pastel/geometry/distance_point_point.h"

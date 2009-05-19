@@ -3,8 +3,8 @@
 \brief A class for a 2-dimensional bit array.
 */
 
-#ifndef PASTELSYS_BITARRAY2_H
-#define PASTELSYS_BITARRAY2_H
+#ifndef PASTEL_BITARRAY2_H
+#define PASTEL_BITARRAY2_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

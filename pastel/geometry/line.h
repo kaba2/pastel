@@ -3,8 +3,8 @@
 \brief A class for a straight line.
 */
 
-#ifndef PASTELGEOMETRY_LINE_H
-#define PASTELGEOMETRY_LINE_H
+#ifndef PASTEL_LINE_H
+#define PASTEL_LINE_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"

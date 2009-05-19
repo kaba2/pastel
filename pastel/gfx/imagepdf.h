@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_IMAGEPDF_H
-#define PASTELGFX_IMAGEPDF_H
+#ifndef PASTEL_IMAGEPDF_H
+#define PASTEL_IMAGEPDF_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/point.h"

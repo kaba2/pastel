@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_TABLEMODIFY_H
-#define PASTELSYS_TABLEMODIFY_H
+#ifndef PASTEL_TABLEMODIFY_H
+#define PASTEL_TABLEMODIFY_H
 
 // TableModify is used to unroll loops when modifying
 // constant-length tables for example in vector member functions.

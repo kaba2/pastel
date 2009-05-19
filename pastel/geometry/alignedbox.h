@@ -3,8 +3,8 @@
 \brief A class for an axis-aligned bounding box.
 */
 
-#ifndef PASTELGEOMETRY_ALIGNEDBOX_H
-#define PASTELGEOMETRY_ALIGNEDBOX_H
+#ifndef PASTEL_ALIGNEDBOX_H
+#define PASTEL_ALIGNEDBOX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

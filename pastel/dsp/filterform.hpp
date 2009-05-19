@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_FILTERFORM_HPP
-#define PASTELDSP_FILTERFORM_HPP
+#ifndef PASTEL_FILTERFORM_HPP
+#define PASTEL_FILTERFORM_HPP
 
 #include "pastel/dsp/filterform.h"
 

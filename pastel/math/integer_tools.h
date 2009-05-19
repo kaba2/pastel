@@ -3,8 +3,8 @@
 \brief Tools for working with integers.
 */
 
-#ifndef PASTELMATH_INTEGER_TOOLS_H
-#define PASTELMATH_INTEGER_TOOLS_H
+#ifndef PASTEL_INTEGER_TOOLS_H
+#define PASTEL_INTEGER_TOOLS_H
 
 namespace Pastel
 {

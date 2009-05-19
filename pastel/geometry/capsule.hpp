@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_CAPSULE_HPP
-#define PASTELGEOMETRY_CAPSULE_HPP
+#ifndef PASTEL_CAPSULE_HPP
+#define PASTEL_CAPSULE_HPP
 
 #include "pastel/geometry/capsule.h"
 

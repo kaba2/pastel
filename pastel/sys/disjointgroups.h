@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_DISJOINTGROUPS_H
-#define PASTELSYS_DISJOINTGROUPS_H
+#ifndef PASTEL_DISJOINTGROUPS_H
+#define PASTEL_DISJOINTGROUPS_H
 
 #include "pastel/sys/unorderedset.h"
 

@@ -3,8 +3,8 @@
 \brief Functions for computing barycentric coordinates.
 */
 
-#ifndef PASTELGEOMETRY_BARYCENTRIC_H
-#define PASTELGEOMETRY_BARYCENTRIC_H
+#ifndef PASTEL_BARYCENTRIC_H
+#define PASTEL_BARYCENTRIC_H
 
 #include "pastel/geometry/simplex.h"
 

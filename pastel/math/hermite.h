@@ -3,8 +3,8 @@
 \brief Functions for evaluating Hermite curves.
 */
 
-#ifndef PASTELMATH_HERMITE_H
-#define PASTELMATH_HERMITE_H
+#ifndef PASTEL_HERMITE_H
+#define PASTEL_HERMITE_H
 
 #include "pastel/sys/mytypes.h"
 

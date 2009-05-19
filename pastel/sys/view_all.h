@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_VIEW_ALL_H
-#define PASTELSYS_VIEW_ALL_H
+#ifndef PASTEL_VIEW_ALL_H
+#define PASTEL_VIEW_ALL_H
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/cursorview.h"

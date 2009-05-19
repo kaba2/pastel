@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_LAMBERTIANBRDF_H
-#define PASTELRAY_LAMBERTIANBRDF_H
+#ifndef PASTEL_LAMBERTIANBRDF_H
+#define PASTEL_LAMBERTIANBRDF_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/brdf.h"

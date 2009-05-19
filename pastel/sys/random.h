@@ -3,8 +3,8 @@
 \brief Tools for random number generation.
 */
 
-#ifndef PASTELSYS_RANDOM_H
-#define PASTELSYS_RANDOM_H
+#ifndef PASTEL_RANDOM_H
+#define PASTEL_RANDOM_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

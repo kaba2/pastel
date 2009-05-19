@@ -3,8 +3,8 @@
 \brief Functions for testing overlap between an aligned plane and a triangle.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
-#define PASTELGEOMETRY_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
+#ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
+#define PASTEL_OVERLAPS_ALIGNEDPLANE_TRIANGLE_H
 
 #include "pastel/geometry/alignedplane.h"
 #include "pastel/geometry/triangle.h"

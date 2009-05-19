@@ -3,8 +3,8 @@
 \brief Dll-related keywords for the device-library.
 */
 
-#ifndef PASTELDEVICE_DEVICELIBRARY_H
-#define PASTELDEVICE_DEVICELIBRARY_H
+#ifndef PASTEL_DEVICELIBRARY_H
+#define PASTEL_DEVICELIBRARY_H
 
 #include "pastel/sys/environment.h"
 

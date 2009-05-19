@@ -3,8 +3,8 @@
 \brief A class for a hypersphere.
 */
 
-#ifndef PASTELGEOMETRY_SPHERE_H
-#define PASTELGEOMETRY_SPHERE_H
+#ifndef PASTEL_SPHERE_H
+#define PASTEL_SPHERE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/point.h"

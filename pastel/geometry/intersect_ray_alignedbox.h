@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between a ray and an aligned box.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDBOX_H
-#define PASTELGEOMETRY_INTERSECT_RAY_ALIGNEDBOX_H
+#ifndef PASTEL_INTERSECT_RAY_ALIGNEDBOX_H
+#define PASTEL_INTERSECT_RAY_ALIGNEDBOX_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/ray.h"

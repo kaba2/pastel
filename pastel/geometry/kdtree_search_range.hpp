@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREE_SEARCH_RANGE_HPP
-#define PASTELGEOMETRY_KDTREE_SEARCH_RANGE_HPP
+#ifndef PASTEL_KDTREE_SEARCH_RANGE_HPP
+#define PASTEL_KDTREE_SEARCH_RANGE_HPP
 
 #include "pastel/geometry/kdtree_search_range.h"
 #include "pastel/geometry/overlaps_alignedbox_alignedbox.h"

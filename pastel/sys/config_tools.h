@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_CONFIG_TOOLS_H
-#define PASTELSYS_CONFIG_TOOLS_H
+#ifndef PASTEL_CONFIG_TOOLS_H
+#define PASTEL_CONFIG_TOOLS_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/config.h"

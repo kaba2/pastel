@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_SYSCOMMON_HPP
-#define PASTELSYS_SYSCOMMON_HPP
+#ifndef PASTEL_SYSCOMMON_HPP
+#define PASTEL_SYSCOMMON_HPP
 
 #include "pastel/sys/syscommon.h"
 

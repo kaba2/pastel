@@ -3,8 +3,8 @@
 \brief A function for computing the distance between a line and a point.
 */
 
-#ifndef PASTELGEOMETRY_DISTANCE_LINE_POINT_H
-#define PASTELGEOMETRY_DISTANCE_LINE_POINT_H
+#ifndef PASTEL_DISTANCE_LINE_POINT_H
+#define PASTEL_DISTANCE_LINE_POINT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/line.h"

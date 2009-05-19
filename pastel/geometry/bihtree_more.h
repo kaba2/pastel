@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BIHTREE_MORE_H
-#define PASTELGEOMETRY_BIHTREE_MORE_H
+#ifndef PASTEL_BIHTREE_MORE_H
+#define PASTEL_BIHTREE_MORE_H
 
 #include "pastel/geometry/bihtree.h"
 

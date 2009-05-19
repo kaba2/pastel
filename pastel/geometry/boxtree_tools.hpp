@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BOXTREETOOLS_HPP
-#define PASTELGEOMETRY_BOXTREETOOLS_HPP
+#ifndef PASTEL_BOXTREETOOLS_HPP
+#define PASTEL_BOXTREETOOLS_HPP
 
 #include "pastel/geometry/boxtree_tools.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_OVERLAPS_SIMPLEX_POINT_HPP
-#define PASTELGEOMETRY_OVERLAPS_SIMPLEX_POINT_HPP
+#ifndef PASTEL_OVERLAPS_SIMPLEX_POINT_HPP
+#define PASTEL_OVERLAPS_SIMPLEX_POINT_HPP
 
 #include "pastel/geometry/overlaps_simplex_point.h"
 #include "pastel/geometry/barycentric.h"

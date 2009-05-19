@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_INTERACTIONMAP_H
-#define PASTELSYS_INTERACTIONMAP_H
+#ifndef PASTEL_INTERACTIONMAP_H
+#define PASTEL_INTERACTIONMAP_H
 
 #include <pastel/sys/poolallocator.h>
 #include <pastel/sys/unorderedmap.h>

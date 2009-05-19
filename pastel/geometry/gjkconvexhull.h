@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_GJKCONVEXHULL_H
-#define PASTELGEOMETRY_GJKCONVEXHULL_H
+#ifndef PASTEL_GJKCONVEXHULL_H
+#define PASTEL_GJKCONVEXHULL_H
 
 #include "pastel/geometry/gjkshape.h"
 

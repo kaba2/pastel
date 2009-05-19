@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_PROTOTYPEFACTORY_H
-#define PASTELSYS_PROTOTYPEFACTORY_H
+#ifndef PASTEL_PROTOTYPEFACTORY_H
+#define PASTEL_PROTOTYPEFACTORY_H
 
 #include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/countedptr.h"

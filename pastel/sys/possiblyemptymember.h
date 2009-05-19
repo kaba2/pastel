@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_POSSIBLYEMPTYMEMBER_H
-#define PASTELSYS_POSSIBLYEMPTYMEMBER_H
+#ifndef PASTEL_POSSIBLYEMPTYMEMBER_H
+#define PASTEL_POSSIBLYEMPTYMEMBER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

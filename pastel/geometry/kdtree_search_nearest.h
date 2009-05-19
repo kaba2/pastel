@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREE_SEARCH_NEAREST_H
-#define PASTELGEOMETRY_KDTREE_SEARCH_NEAREST_H
+#ifndef PASTEL_KDTREE_SEARCH_NEAREST_H
+#define PASTEL_KDTREE_SEARCH_NEAREST_H
 
 #include "pastel/geometry/kdtree.h"
 
@@ -17,20 +17,12 @@ namespace Pastel
 	Preconditions:
 	maxDistance >= 0
 	maxRelativeError >= 0
-
-	Each object in the kdTree is considered as the
-	minimum point of its bounding box.
+	kNearest >= 0
 
 	The search radius can be bounded by 'maxDistance'
-	for better performance and when that makes sense. 
+	for better performance when that makes sense. 
 	If no bound is desired,	the value should be 
 	set to infinity.
-
-	Negative 'kNearest' is considered to
-	represent infinity. In this case
-	all objects inside 'maxDistance' distance
-	are returned sorted with their distance from 
-	the query point.
 
 	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
@@ -43,8 +35,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		integer kNearest,
-		PASTEL_NO_DEDUCTION((std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>))* nearestSet,
-		PASTEL_NO_DEDUCTION(std::vector<Real>)* distanceSet = 0);
+		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet = 0,
+		std::vector<PASTEL_NO_DEDUCTION(Real)>* distanceSet = 0);
 
 	//! Finds nearest neighbors for a point in a kdTree.
 	/*!

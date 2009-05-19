@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREE_REFINE_H
-#define PASTELGEOMETRY_KDTREE_REFINE_H
+#ifndef PASTEL_KDTREE_REFINE_H
+#define PASTEL_KDTREE_REFINE_H
 
 #include "pastel/geometry/kdtree.h"
 

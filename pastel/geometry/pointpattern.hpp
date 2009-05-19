@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_POINTPATTERN_HPP
-#define PASTELGEOMETRY_POINTPATTERN_HPP
+#ifndef PASTEL_POINTPATTERN_HPP
+#define PASTEL_POINTPATTERN_HPP
 
 #include "pastel/geometry/pointpattern.h"
 #include "pastel/geometry/kdtree.h"

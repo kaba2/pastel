@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_UNIFORMSAMPLING_HPP
-#define PASTELMATH_UNIFORMSAMPLING_HPP
+#ifndef PASTEL_UNIFORMSAMPLING_HPP
+#define PASTEL_UNIFORMSAMPLING_HPP
 
 #include "pastel/math/uniformsampling.h"
 #include "pastel/math/linear.h"

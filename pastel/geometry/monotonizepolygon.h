@@ -3,8 +3,8 @@
 \brief A function for y-monotonizing a simple polygon.
 */
 
-#ifndef PASTELGEOMETRY_MONOTONIZEPOLYGON_H
-#define PASTELGEOMETRY_MONOTONIZEPOLYGON_H
+#ifndef PASTEL_MONOTONIZEPOLYGON_H
+#define PASTEL_MONOTONIZEPOLYGON_H
 
 #include "pastel/sys/point.h"
 

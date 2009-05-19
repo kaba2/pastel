@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PREDICATES_H
-#define PASTELGEOMETRY_PREDICATES_H
+#ifndef PASTEL_PREDICATES_H
+#define PASTEL_PREDICATES_H
 
 #include "pastel/sys/point.h"
 #include "pastel/geometry/plane.h"

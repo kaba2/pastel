@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BARYCENTRIC_HPP
-#define PASTELGEOMETRY_BARYCENTRIC_HPP
+#ifndef PASTEL_BARYCENTRIC_HPP
+#define PASTEL_BARYCENTRIC_HPP
 
 #include "pastel/geometry/barycentric.h"
 

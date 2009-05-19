@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_CONVEXHULL_H
-#define PASTELGEOMETRY_CONVEXHULL_H
+#ifndef PASTEL_CONVEXHULL_H
+#define PASTEL_CONVEXHULL_H
 
 #include "pastel/sys/point.h"
 

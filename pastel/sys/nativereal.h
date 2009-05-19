@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_NATIVEREAL_H
-#define PASTELSYS_NATIVEREAL_H
+#ifndef PASTEL_NATIVEREAL_H
+#define PASTEL_NATIVEREAL_H
 
 namespace Pastel
 {

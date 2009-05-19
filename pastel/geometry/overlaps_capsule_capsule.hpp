@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_OVERLAPS_CAPSULE_CAPSULE_HPP
-#define PASTELGEOMETRY_OVERLAPS_CAPSULE_CAPSULE_HPP
+#ifndef PASTEL_OVERLAPS_CAPSULE_CAPSULE_HPP
+#define PASTEL_OVERLAPS_CAPSULE_CAPSULE_HPP
 
 #include "pastel/geometry/overlaps_capsule_capsule.h"
 #include "pastel/geometry/distance_segment_segment.h"

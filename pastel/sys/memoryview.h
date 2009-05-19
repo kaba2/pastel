@@ -3,8 +3,8 @@
 \brief A class for an View interface to a memory range.
 */
 
-#ifndef PASTELSYS_MEMORYVIEW_H
-#define PASTELSYS_MEMORYVIEW_H
+#ifndef PASTEL_MEMORYVIEW_H
+#define PASTEL_MEMORYVIEW_H
 
 #include "pastel/sys/mytypes.h"
 

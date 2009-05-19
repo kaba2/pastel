@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_CONSTANTS_HPP
-#define PASTELSYS_CONSTANTS_HPP
+#ifndef PASTEL_CONSTANTS_HPP
+#define PASTEL_CONSTANTS_HPP
 
 #include "pastel/sys/constants.h"
 #include "pastel/sys/ensure.h"

@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between a line and a sphere.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_LINE_SPHERE_H
-#define PASTELGEOMETRY_INTERSECT_LINE_SPHERE_H
+#ifndef PASTEL_INTERSECT_LINE_SPHERE_H
+#define PASTEL_INTERSECT_LINE_SPHERE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/line.h"

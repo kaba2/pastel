@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_BOUNDING_BOX_HPP
-#define PASTELGEOMETRY_BOUNDING_BOX_HPP
+#ifndef PASTEL_BOUNDING_BOX_HPP
+#define PASTEL_BOUNDING_BOX_HPP
 
 #include "pastel/geometry/bounding_box.h"
 #include "pastel/math/linear.h"

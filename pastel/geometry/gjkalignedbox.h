@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_GJKALIGNEDBOX_H
-#define PASTELGEOMETRY_GJKALIGNEDBOX_H
+#ifndef PASTEL_GJKALIGNEDBOX_H
+#define PASTEL_GJKALIGNEDBOX_H
 
 #include "pastel/geometry/gjkshape.h"
 

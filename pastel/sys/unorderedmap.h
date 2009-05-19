@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_UNORDEREDMAP_H
-#define PASTELSYS_UNORDEREDMAP_H
+#ifndef PASTEL_UNORDEREDMAP_H
+#define PASTEL_UNORDEREDMAP_H
 
 #include "pastel/sys/unorderedbase.h"
 #include "pastel/sys/functional.h"

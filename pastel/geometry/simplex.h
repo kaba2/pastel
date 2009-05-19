@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_SIMPLEX_H
-#define PASTELGEOMETRY_SIMPLEX_H
+#ifndef PASTEL_SIMPLEX_H
+#define PASTEL_SIMPLEX_H
 
 #include "pastel/sys/tuple.h"
 

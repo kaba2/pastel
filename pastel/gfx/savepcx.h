@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_SAVEPCX_H
-#define PASTELGFX_SAVEPCX_H
+#ifndef PASTEL_SAVEPCX_H
+#define PASTEL_SAVEPCX_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

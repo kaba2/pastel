@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ARRAY_HPP
-#define PASTELSYS_ARRAY_HPP
+#ifndef PASTEL_ARRAY_HPP
+#define PASTEL_ARRAY_HPP
 
 #include "pastel/sys/array.h"
 

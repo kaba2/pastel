@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ARRAYBASECURSOR_H
-#define PASTELSYS_ARRAYBASECURSOR_H
+#ifndef PASTEL_ARRAYBASECURSOR_H
+#define PASTEL_ARRAYBASECURSOR_H
 
 #include "pastel/sys/arraybase.h"
 

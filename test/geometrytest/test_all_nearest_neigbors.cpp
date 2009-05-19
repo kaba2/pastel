@@ -104,7 +104,7 @@ namespace
 			infinity<Real>(),
 			0,
 			EuclideanNormBijection<N, Real>(),
-			neighborSet);
+			&neighborSet);
 
 		timer.store();
 

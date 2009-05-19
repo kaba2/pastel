@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_FILTER_ALL_H
-#define PASTELDSP_FILTER_ALL_H
+#ifndef PASTEL_FILTER_ALL_H
+#define PASTEL_FILTER_ALL_H
 
 #include "pastel/dsp/box_filter.h"
 #include "pastel/dsp/triangle_filter.h"

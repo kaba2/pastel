@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_PLYLOADER_HPP
-#define PASTELGEOMETRY_PLYLOADER_HPP
+#ifndef PASTEL_PLYLOADER_HPP
+#define PASTEL_PLYLOADER_HPP
 
 #include "pastel/geometry/plyloader.h"
 

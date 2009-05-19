@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_KDTREE_H
-#define PASTELGEOMETRY_KDTREE_H
+#ifndef PASTEL_KDTREE_H
+#define PASTEL_KDTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"

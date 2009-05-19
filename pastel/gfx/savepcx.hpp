@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_SAVEPCX_HPP
-#define PASTELGFX_SAVEPCX_HPP
+#ifndef PASTEL_SAVEPCX_HPP
+#define PASTEL_SAVEPCX_HPP
 
 #include "pastel/gfx/savepcx.h"
 

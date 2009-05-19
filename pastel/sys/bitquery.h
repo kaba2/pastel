@@ -3,8 +3,8 @@
 \brief Functions for obtaining the index of the highest/lowest bit.
 */
 
-#ifndef PASTELSYS_BITQUERY_H
-#define PASTELSYS_BITQUERY_H
+#ifndef PASTEL_BITQUERY_H
+#define PASTEL_BITQUERY_H
 
 #include "pastel/sys/mytypes.h"
 

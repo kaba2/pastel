@@ -3,8 +3,8 @@
 \brief Functions for computing matrix properties.
 */
 
-#ifndef PASTELMATH_MATRIX_TOOLS_MORE3_H
-#define PASTELMATH_MATRIX_TOOLS_MORE3_H
+#ifndef PASTEL_MATRIX_TOOLS_MORE3_H
+#define PASTEL_MATRIX_TOOLS_MORE3_H
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/mathlibrary.h"

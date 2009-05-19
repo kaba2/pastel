@@ -3,8 +3,8 @@
 \brief A function for dilating a binary image with another image.
 */
 
-#ifndef PASTELGFX_DILATE_H
-#define PASTELGFX_DILATE_H
+#ifndef PASTEL_DILATE_H
+#define PASTEL_DILATE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"

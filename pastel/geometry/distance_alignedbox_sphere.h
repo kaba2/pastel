@@ -3,8 +3,8 @@
 \brief A function for computing the distance between an aligned box and a sphere.
 */
 
-#ifndef PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_SPHERE_H
-#define PASTELGEOMETRY_DISTANCE_ALIGNEDBOX_SPHERE_H
+#ifndef PASTEL_DISTANCE_ALIGNEDBOX_SPHERE_H
+#define PASTEL_DISTANCE_ALIGNEDBOX_SPHERE_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/sphere.h"

@@ -3,8 +3,8 @@
 \brief Functions for converting between coordinate systems.
 */
 
-#ifndef PASTELMATH_COORDINATES_H
-#define PASTELMATH_COORDINATES_H
+#ifndef PASTEL_COORDINATES_H
+#define PASTEL_COORDINATES_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

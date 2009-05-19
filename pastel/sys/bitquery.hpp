@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_BITQUERY_HPP
-#define PASTELSYS_BITQUERY_HPP
+#ifndef PASTEL_BITQUERY_HPP
+#define PASTEL_BITQUERY_HPP
 
 #include "pastel/sys/bitquery.h"
 

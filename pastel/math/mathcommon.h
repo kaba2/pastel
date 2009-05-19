@@ -3,8 +3,8 @@
 \brief Various functions for common mathematical needs.
 */
 
-#ifndef PASTELMATH_MATHCOMMON_H
-#define PASTELMATH_MATHCOMMON_H
+#ifndef PASTEL_MATHCOMMON_H
+#define PASTEL_MATHCOMMON_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/math/mathlibrary.h"

@@ -3,8 +3,8 @@
 \brief A function for finding the intersection between a flat and a hyperplane.
 */
 
-#ifndef PASTELGEOMETRY_INTERSECT_FLAT_PLANE_H
-#define PASTELGEOMETRY_INTERSECT_FLAT_PLANE_H
+#ifndef PASTEL_INTERSECT_FLAT_PLANE_H
+#define PASTEL_INTERSECT_FLAT_PLANE_H
 
 #include "pastel/geometry/flat.h"
 #include "pastel/geometry/plane.h"

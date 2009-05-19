@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_SPHERESHAPE_H
-#define PASTELRAY_SPHERESHAPE_H
+#ifndef PASTEL_SPHERESHAPE_H
+#define PASTEL_SPHERESHAPE_H
 
 #include "pastel/ray/shape.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_LISTARRAY_HPP
-#define PASTELSYS_LISTARRAY_HPP
+#ifndef PASTEL_LISTARRAY_HPP
+#define PASTEL_LISTARRAY_HPP
 
 #include "pastel/sys/listarray.h"
 #include "pastel/sys/ensure.h"

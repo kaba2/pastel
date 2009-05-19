@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_MIXTEXTURE_H
-#define PASTELGFX_MIXTEXTURE_H
+#ifndef PASTEL_MIXTEXTURE_H
+#define PASTEL_MIXTEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/colormixer.h"

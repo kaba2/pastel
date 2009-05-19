@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_MATHFUNCTIONS_HPP
-#define PASTELSYS_MATHFUNCTIONS_HPP
+#ifndef PASTEL_MATHFUNCTIONS_HPP
+#define PASTEL_MATHFUNCTIONS_HPP
 
 #include "pastel/sys/mathfunctions.h"
 #include "pastel/sys/constants.h"

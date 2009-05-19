@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ABSTRACTARRAY_H
-#define PASTELSYS_ABSTRACTARRAY_H
+#ifndef PASTEL_ABSTRACTARRAY_H
+#define PASTEL_ABSTRACTARRAY_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"

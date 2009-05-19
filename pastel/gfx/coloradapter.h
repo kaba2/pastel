@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_COLORADAPTER_H
-#define PASTELGFX_COLORADAPTER_H
+#ifndef PASTEL_COLORADAPTER_H
+#define PASTEL_COLORADAPTER_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

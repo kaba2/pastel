@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_MIRROREXTENDER_H
-#define PASTELSYS_MIRROREXTENDER_H
+#ifndef PASTEL_MIRROREXTENDER_H
+#define PASTEL_MIRROREXTENDER_H
 
 #include "pastel/sys/indexextender.h"
 #include "pastel/sys/syscommon.h"

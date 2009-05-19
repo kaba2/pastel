@@ -3,8 +3,8 @@
 \brief A functions for testing overlap between an box and a sphere.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPBOXSPHERE_H
-#define PASTELGEOMETRY_OVERLAPBOXSPHERE_H
+#ifndef PASTEL_OVERLAPBOXSPHERE_H
+#define PASTEL_OVERLAPBOXSPHERE_H
 
 #include "pastel/geometry/box.h"
 #include "pastel/geometry/sphere.h"

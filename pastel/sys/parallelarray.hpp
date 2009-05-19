@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_PARALLELARRAY_HPP
-#define PASTELSYS_PARALLELARRAY_HPP
+#ifndef PASTEL_PARALLELARRAY_HPP
+#define PASTEL_PARALLELARRAY_HPP
 
 #include "pastel/sys/parallelarray.h"
 

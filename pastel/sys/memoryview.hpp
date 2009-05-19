@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_MEMORYVIEW_HPP
-#define PASTELSYS_MEMORYVIEW_HPP
+#ifndef PASTEL_MEMORYVIEW_HPP
+#define PASTEL_MEMORYVIEW_HPP
 
 #include "pastel/sys/memoryview.h"
 

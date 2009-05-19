@@ -3,8 +3,8 @@
 \brief A class for a rational number.
 */
 
-#ifndef PASTELMATH_RATIONAL_H
-#define PASTELMATH_RATIONAL_H
+#ifndef PASTEL_RATIONAL_H
+#define PASTEL_RATIONAL_H
 
 #include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>

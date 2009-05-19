@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_REALMESHPLYLOADER_H
-#define PASTELGEOMETRY_REALMESHPLYLOADER_H
+#ifndef PASTEL_REALMESHPLYLOADER_H
+#define PASTEL_REALMESHPLYLOADER_H
 
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/trianglemesh.h"

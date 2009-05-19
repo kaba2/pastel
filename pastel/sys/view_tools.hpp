@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_VIEW_TOOLS_HPP
-#define PASTELSYS_VIEW_TOOLS_HPP
+#ifndef PASTEL_VIEW_TOOLS_HPP
+#define PASTEL_VIEW_TOOLS_HPP
 
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/ensure.h"

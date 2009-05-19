@@ -3,8 +3,8 @@
 \brief A class for an axis-aligned plane.
 */
 
-#ifndef PASTELGEOMETRY_ALIGNEDPLANE_H
-#define PASTELGEOMETRY_ALIGNEDPLANE_H
+#ifndef PASTEL_ALIGNEDPLANE_H
+#define PASTEL_ALIGNEDPLANE_H
 
 #include "pastel/sys/mytypes.h"
 

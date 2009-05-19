@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_BRANCHINGNUMBER_H
-#define PASTELGFX_BRANCHINGNUMBER_H
+#ifndef PASTEL_BRANCHINGNUMBER_H
+#define PASTEL_BRANCHINGNUMBER_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"

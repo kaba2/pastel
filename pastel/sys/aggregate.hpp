@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_AGGREGATE_HPP
-#define PASTELSYS_AGGREGATE_HPP
+#ifndef PASTEL_AGGREGATE_HPP
+#define PASTEL_AGGREGATE_HPP
 
 #include "pastel/sys/aggregate.h"
 #include "pastel/sys/ensure.h"

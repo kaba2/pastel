@@ -3,8 +3,8 @@
 \brief A function to perform linear interpolation between points.
 */
 
-#ifndef PASTELMATH_LINEAR_H
-#define PASTELMATH_LINEAR_H
+#ifndef PASTEL_LINEAR_H
+#define PASTEL_LINEAR_H
 
 #include "pastel/sys/mytypes.h"
 

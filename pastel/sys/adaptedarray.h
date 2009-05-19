@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ADAPTEDARRAY_H
-#define PASTELSYS_ADAPTEDARRAY_H
+#ifndef PASTEL_ADAPTEDARRAY_H
+#define PASTEL_ADAPTEDARRAY_H
 
 #include "pastel/sys/abstractarray.h"
 

@@ -3,8 +3,8 @@
 \brief A class for an M-flat.
 */
 
-#ifndef PASTELGEOMETRY_FLAT_H
-#define PASTELGEOMETRY_FLAT_H
+#ifndef PASTEL_FLAT_H
+#define PASTEL_FLAT_H
 
 #include "pastel/sys/tuple.h"
 

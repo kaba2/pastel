@@ -3,8 +3,8 @@
 \brief A class for a small random-access set.
 */
 
-#ifndef PASTELSYS_SMALLSET_H
-#define PASTELSYS_SMALLSET_H
+#ifndef PASTEL_SMALLSET_H
+#define PASTEL_SMALLSET_H
 
 #include "pastel/sys/mytypes.h"
 

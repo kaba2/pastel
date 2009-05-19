@@ -1,5 +1,5 @@
-#ifndef PASTELRAY_BRDF_H
-#define PASTELRAY_BRDF_H
+#ifndef PASTEL_BRDF_H
+#define PASTEL_BRDF_H
 
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/spectrum.h"

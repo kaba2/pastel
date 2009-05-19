@@ -3,8 +3,8 @@
 \brief Functions for working with matrices.
 */
 
-#ifndef PASTELMATH_MATRIX_TOOLS_H
-#define PASTELMATH_MATRIX_TOOLS_H
+#ifndef PASTEL_MATRIX_TOOLS_H
+#define PASTEL_MATRIX_TOOLS_H
 
 #include "pastel/math/matrix.h"
 

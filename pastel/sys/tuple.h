@@ -3,8 +3,8 @@
 \brief A class for a fixed tuple of elements.
 */
 
-#ifndef PASTELSYS_TUPLE_H
-#define PASTELSYS_TUPLE_H
+#ifndef PASTEL_TUPLE_H
+#define PASTEL_TUPLE_H
 
 #include "pastel/sys/tuplebase.h"
 

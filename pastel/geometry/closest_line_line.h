@@ -3,8 +3,8 @@
 \brief A function for computing the closest points between two lines.
 */
 
-#ifndef PASTELGEOMETRY_CLOSEST_LINE_LINE_H
-#define PASTELGEOMETRY_CLOSEST_LINE_LINE_H
+#ifndef PASTEL_CLOSEST_LINE_LINE_H
+#define PASTEL_CLOSEST_LINE_LINE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"

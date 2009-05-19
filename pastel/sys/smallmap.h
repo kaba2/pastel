@@ -3,8 +3,8 @@
 \brief A class for an associative array.
 */
 
-#ifndef PASTELSYS_SMALLMAP_H
-#define PASTELSYS_SMALLMAP_H
+#ifndef PASTEL_SMALLMAP_H
+#define PASTEL_SMALLMAP_H
 
 #include "pastel/sys/mytypes.h"
 

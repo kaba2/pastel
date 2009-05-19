@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_SUMMEDAREATABLE_H
-#define PASTELGFX_SUMMEDAREATABLE_H
+#ifndef PASTEL_SUMMEDAREATABLE_H
+#define PASTEL_SUMMEDAREATABLE_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/rectangle.h"

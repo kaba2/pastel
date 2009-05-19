@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_LABELTOIMAGE_H
-#define PASTELGFX_LABELTOIMAGE_H
+#ifndef PASTEL_LABELTOIMAGE_H
+#define PASTEL_LABELTOIMAGE_H
 
 #include "pastel/sys/array.h"
 

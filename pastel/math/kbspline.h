@@ -3,8 +3,8 @@
 \brief A function for evaluating a Kochanek-Bartels spline.
 */
 
-#ifndef PASTELMATH_KBSPLINE_H
-#define PASTELMATH_KBSPLINE_H
+#ifndef PASTEL_KBSPLINE_H
+#define PASTEL_KBSPLINE_H
 
 #include "pastel/sys/mytypes.h"
 

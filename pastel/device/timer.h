@@ -1,5 +1,5 @@
-#ifndef PASTELDEVICE_TIMER_H
-#define PASTELDEVICE_TIMER_H
+#ifndef PASTEL_TIMER_H
+#define PASTEL_TIMER_H
 
 #include "pastel/device/devicelibrary.h"
 

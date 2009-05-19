@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_BLOCKARRAY2_HPP
-#define PASTELSYS_BLOCKARRAY2_HPP
+#ifndef PASTEL_BLOCKARRAY2_HPP
+#define PASTEL_BLOCKARRAY2_HPP
 
 #include "pastel/sys/blockarray2.h"
 #include "pastel/sys/ensure.h"

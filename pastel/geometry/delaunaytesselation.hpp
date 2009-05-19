@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DELAUNAYTESSELATION_HPP
-#define PASTELGEOMETRY_DELAUNAYTESSELATION_HPP
+#ifndef PASTEL_DELAUNAYTESSELATION_HPP
+#define PASTEL_DELAUNAYTESSELATION_HPP
 
 #include "pastel/geometry/delaunaytesselation.h"
 #include "pastel/geometry/bounding_sphere.h"

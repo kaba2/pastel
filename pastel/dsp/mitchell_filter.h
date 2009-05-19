@@ -1,5 +1,5 @@
-#ifndef PASTELDSP_MITCHELL_FILTER_H
-#define PASTELDSP_MITCHELL_FILTER_H
+#ifndef PASTEL_MITCHELL_FILTER_H
+#define PASTEL_MITCHELL_FILTER_H
 
 #include "pastel/dsp/dsplibrary.h"
 #include "pastel/dsp/filter.h"

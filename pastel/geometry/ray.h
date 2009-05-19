@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_RAY_H
-#define PASTELGEOMETRY_RAY_H
+#ifndef PASTEL_RAY_H
+#define PASTEL_RAY_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"

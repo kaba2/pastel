@@ -1,5 +1,5 @@
-#ifndef PASTELMATH_RATIONAL_MORE_HPP
-#define PASTELMATH_RATIONAL_MORE_HPP
+#ifndef PASTEL_RATIONAL_MORE_HPP
+#define PASTEL_RATIONAL_MORE_HPP
 
 #include "pastel/math/rational_more.h"
 

@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_DISTANCE_SEGMENT_SPHERE_H
-#define PASTELGEOMETRY_DISTANCE_SEGMENT_SPHERE_H
+#ifndef PASTEL_DISTANCE_SEGMENT_SPHERE_H
+#define PASTEL_DISTANCE_SEGMENT_SPHERE_H
 
 #include "pastel/geometry/segment.h"
 #include "pastel/geometry/sphere.h"

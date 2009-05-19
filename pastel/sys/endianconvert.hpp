@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ENDIANCONVERT_HPP
-#define PASTELSYS_ENDIANCONVERT_HPP
+#ifndef PASTEL_ENDIANCONVERT_HPP
+#define PASTEL_ENDIANCONVERT_HPP
 
 #include "pastel/sys/endianconvert.h"
 

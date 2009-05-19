@@ -1,5 +1,5 @@
-#ifndef PASTELGFX_COLORTOOLS_HPP
-#define PASTELGFX_COLORTOOLS_HPP
+#ifndef PASTEL_COLORTOOLS_HPP
+#define PASTEL_COLORTOOLS_HPP
 
 #include "pastel/gfx/color_tools.h"
 
@@ -116,16 +116,27 @@ namespace Pastel
 	{
 		if (anyLess(rgb, 0))
 		{
-			return Color(0, 0, 0);
+			return Color(0);
 		}
 
-		return fitColor(rgb);
+		const real32 maxComponent = max(rgb);
+
+		if (maxComponent > 1)
+		{
+			// If the max component is greater
+			// than 1, scale the rgb such
+			// that max component becomes 1.
+
+			return rgb / maxComponent;
+		}
+
+		return rgb;
 	}
 
 	inline Color fitColor(const Color& rgb)
 	{
-		const Color clampedZero(max(rgb, 0));
-		const real32 maxComponent(max(clampedZero));
+		const Color clampedZero = max(rgb, 0);
+		const real32 maxComponent = max(clampedZero);
 
 		if (maxComponent > 1)
 		{

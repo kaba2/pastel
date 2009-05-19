@@ -3,8 +3,8 @@
 \brief A functions for testing overlap between two boxs.
 */
 
-#ifndef PASTELGEOMETRY_OVERLAPS_BOX_BOX_H
-#define PASTELGEOMETRY_OVERLAPS_BOX_BOX_H
+#ifndef PASTEL_OVERLAPS_BOX_BOX_H
+#define PASTEL_OVERLAPS_BOX_BOX_H
 
 #include "pastel/geometry/box.h"
 

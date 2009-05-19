@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_ARRAYBASE_H
-#define PASTELSYS_ARRAYBASE_H
+#ifndef PASTEL_ARRAYBASE_H
+#define PASTEL_ARRAYBASE_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/mytypes.h"

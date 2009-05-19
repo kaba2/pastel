@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_REPEATEDCONSTVIEW_H
-#define PASTELSYS_REPEATEDCONSTVIEW_H
+#ifndef PASTEL_REPEATEDCONSTVIEW_H
+#define PASTEL_REPEATEDCONSTVIEW_H
 
 #include "pastel/sys/extendedconstview.h"
 #include "pastel/sys/view.h"

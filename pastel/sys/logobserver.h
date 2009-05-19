@@ -1,5 +1,5 @@
-#ifndef PASTELSYS_LOGOBSERVER_H
-#define PASTELSYS_LOGOBSERVER_H
+#ifndef PASTEL_LOGOBSERVER_H
+#define PASTEL_LOGOBSERVER_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/countedptr.h"

@@ -3,8 +3,8 @@
 \brief A class for a doubly linked list using Pastel's allocators.
 */
 
-#ifndef PASTELSYS_FASTLIST_H
-#define PASTELSYS_FASTLIST_H
+#ifndef PASTEL_FASTLIST_H
+#define PASTEL_FASTLIST_H
 
 #include <iterator>
 #include <functional>
