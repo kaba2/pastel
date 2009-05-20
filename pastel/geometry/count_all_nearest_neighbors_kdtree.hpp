@@ -14,6 +14,45 @@ namespace Pastel
 	namespace Detail_CountAllNearestNeighborsKdTree
 	{
 
+		class Total_CountFunctor
+		{
+		public:
+			explicit Total_CountFunctor(integer& totalCount)
+				: totalCount_(totalCount)
+			{
+			}
+
+			void operator()(integer index, integer count) const
+			{
+				totalCount_ += count;
+			}
+		private:
+			integer& totalCount_;
+		};
+
+		class Vector_CountFunctor
+		{
+		public:
+			explicit Vector_CountFunctor(
+				std::vector<integer>& countSet)
+				: countSet_(countSet)
+			{
+			}
+
+			void operator()(integer index, integer count) const
+			{
+				countSet_[index] = count;
+			}
+
+		private:
+			std::vector<integer>& countSet_;
+		};
+
+	}
+
+	namespace Detail_CountAllNearestNeighborsKdTree
+	{
+
 		template <int N, typename Real>
 		class PointListPolicy
 		{
@@ -81,13 +120,13 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection, typename CountFunctor>
 	void countAllNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		std::vector<integer>& countSet)
+		const CountFunctor& countFunctor)
 	{
 		ENSURE1(maxDistance >= 0, maxDistance);
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
@@ -124,9 +163,75 @@ namespace Pastel
 			// The query point itself is in the count,
 			// thus we decrement it off.
 
-			countSet[i] = countNearest(tree, pointSet[i], 
-				maxDistance, maxRelativeError, normBijection) - 1;
+			countFunctor(i, countNearest(tree, pointSet[i], 
+				maxDistance, maxRelativeError, normBijection) - 1);
 		}
+	}
+
+	template <int N, typename Real, typename NormBijection, typename CountFunctor>
+	void countAllNearestNeighborsKdTree(
+		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
+		const CountFunctor& countFunctor)
+	{
+		ENSURE1(maxDistance >= 0, maxDistance);
+		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+
+		const integer points = pointSet.size();
+
+		if (kNearest == 0 || points == 0)
+		{
+			// Nothing to compute.
+			return;
+		}
+
+		typedef KdTree<N, Real, 
+			Detail_CountAllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
+		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
+		typedef Detail_CountAllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
+			SequenceIterator;
+
+		const integer dimension = pointSet.front().size();
+
+		Tree tree(dimension);
+
+		tree.insert(SequenceIterator(&pointSet[0]), 
+			SequenceIterator(&pointSet[0] + pointSet.size()));
+
+		tree.refine(
+			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
+
+		countSet.resize(points);
+
+#pragma omp parallel for
+		for (integer i = 0;i < points;++i)
+		{
+			// The query point itself is in the count,
+			// thus we decrement it off.
+
+			countFunctor(i, countNearest(tree, pointSet[i], 
+				maxDistanceSet[i], maxRelativeError, normBijection) - 1);
+		}
+	}
+
+	template <int N, typename Real, typename NormBijection>
+	integer countAllNearestNeighborsKdTree(
+		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection)
+	{
+		integer result = 0;
+		const Detail_CountAllNearestNeighborsKdTree::Total_CountFunctor 
+			countFunctor(result);
+
+		Pastel::countAllNearestNeighborsKdTree(
+			pointSet, maxDistanceSet, maxRelativeError,
+			normBijection, countFunctor);
+
+		return result;
 	}
 
 	template <int N, typename Real, typename NormBijection>
@@ -137,44 +242,16 @@ namespace Pastel
 		const NormBijection& normBijection,
 		std::vector<integer>& countSet)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		countSet.setSize(pointSet.size());
 
-		const integer points = pointSet.size();
+		const Detail_CountAllNearestNeighborsKdTree::Vector_CountFunctor 
+			countFunctor(countSet);
 
-		if (kNearest == 0 || points == 0)
-		{
-			// Nothing to compute.
-			return;
-		}
+		Pastel::countAllNearestNeighborsKdTree(
+			pointSet, maxDistanceSet, maxRelativeError,
+			normBijection, countFunctor);
 
-		typedef KdTree<N, Real, 
-			Detail_CountAllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
-		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef Detail_CountAllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
-			SequenceIterator;
-
-		const integer dimension = pointSet.front().size();
-
-		Tree tree(dimension);
-
-		tree.insert(SequenceIterator(&pointSet[0]), 
-			SequenceIterator(&pointSet[0] + pointSet.size()));
-
-		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
-
-		countSet.resize(points);
-
-#pragma omp parallel for
-		for (integer i = 0;i < points;++i)
-		{
-			// The query point itself is in the count,
-			// thus we decrement it off.
-
-			countSet[i] = countNearest(tree, pointSet[i], 
-				maxDistanceSet[i], maxRelativeError, normBijection) - 1;
-		}
+		return result;
 	}
 
 }

@@ -22,13 +22,13 @@ namespace Pastel
 	kd-tree
 	*/
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection, typename CountFunctor>
 	void countAllNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		std::vector<integer>& countSet);
+		const CountFunctor& countFunctor);
 
 	//! Counts nearest neighbours of a point set.
 	/*!
@@ -42,6 +42,21 @@ namespace Pastel
 	Algorithm:
 	kd-tree
 	*/
+
+	template <int N, typename Real, typename NormBijection, typename CountFunctor>
+	void countAllNearestNeighborsKdTree(
+		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
+		const CountFunctor& countFunctor);
+
+	template <int N, typename Real, typename NormBijection>
+	integer countAllNearestNeighborsKdTree(
+		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection);
 
 	template <int N, typename Real, typename NormBijection>
 	void countAllNearestNeighborsKdTree(
