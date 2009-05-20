@@ -2,8 +2,6 @@
 
 #include "pastel/sys/log_all.h"
 
-#include "pastel/sys/vector.h"
-
 #include <iostream>
 #include <string>
 

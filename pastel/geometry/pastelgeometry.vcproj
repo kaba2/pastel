@@ -1294,11 +1294,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\projectaxis.h"
+				RelativePath=".\diagonal_axis.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\projectaxis.hpp"
+				RelativePath=".\project_axis.h"
+				>
+			</File>
+			<File
+				RelativePath=".\project_axis.hpp"
 				>
 			</File>
 		</Filter>

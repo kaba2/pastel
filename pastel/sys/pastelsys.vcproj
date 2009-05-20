@@ -812,6 +812,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\vector_compare.h"
+					>
+				</File>
+				<File
+					RelativePath=".\vector_compare.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\vector_tools.h"
 					>
 				</File>

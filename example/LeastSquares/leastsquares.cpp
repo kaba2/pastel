@@ -14,6 +14,7 @@
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/diameter.h"
 #include "pastel/geometry/monotonizepolygon.h"
+#include "pastel/geometry/diagonal_axis.h"
 
 #include <iostream>
 
@@ -80,6 +81,14 @@ void redraw()
 	{
 		drawSegment(*renderer__, Segment2(targetSet__[i], fittedSet__[i]));
 	}
+
+	renderer__->setColor(Color(1));
+	const Point2 meanPoint = mean(targetSet__);
+	const Vector2 diagonalVariance = 
+		cross(diagonalAxis<2, real>(2, maximalDiagonalVariance(targetSet__)) * 0.1);
+	drawSegment(*renderer__, 
+		Segment2(meanPoint - diagonalVariance, 
+		meanPoint + diagonalVariance));
 
 	gfxDevice().swapBuffers();
 }

@@ -177,6 +177,39 @@ namespace Pastel
 		int N,
 		typename Real,
 		typename Expression>
+	class VectorSquare
+		: public VectorExpression<N, Real,
+		VectorSquare<N, Real, Expression> >
+	{
+	public:
+		typedef const VectorSquare& StorageType;
+
+		explicit VectorSquare(
+			const Expression& data)
+			: data_(data)
+		{
+		}
+
+		Real operator[](integer index) const
+		{
+			return Pastel::square(data_[index]);
+		}
+
+		integer size() const
+		{
+			const Expression& expression =
+				(const Expression&)data_;
+			return expression.size();
+		}
+
+	private:
+		typename Expression::StorageType data_;
+	};
+
+	template <
+		int N,
+		typename Real,
+		typename Expression>
 	class VectorExp
 		: public VectorExpression<N, Real,
 		VectorExp<N, Real, Expression> >
@@ -615,6 +648,12 @@ namespace Pastel
 	template <int N, typename Real, typename Expression>
 	inline const VectorAbs<N, Real, Expression>
 		mabs(const VectorExpression<N, Real, Expression>& x);
+
+	//! Returns the square of x[i], elementwise.
+
+	template <int N, typename Real, typename Expression>
+	inline const VectorSquare<N, Real, Expression>
+		squarev(const VectorExpression<N, Real, Expression>& x);
 
 	//! Returns e^x[i], elementwise.
 

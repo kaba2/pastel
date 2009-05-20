@@ -300,6 +300,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
+	const VectorSquare<N, Real, Expression>
+		squarev(const VectorExpression<N, Real, Expression>& x)
+	{
+		return VectorSquare<N, Real, Expression>(
+			(const Expression&)x);
+	}
+
+	template <int N, typename Real, typename Expression>
 	const VectorExp<N, Real, Expression>
 		exp(const VectorExpression<N, Real, Expression>& x)
 	{

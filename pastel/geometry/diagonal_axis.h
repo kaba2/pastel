@@ -3,81 +3,34 @@
 
 namespace Pastel
 {
-
 	typedef uint32 DiagonalAxis;
 
-	namespace Detail_NearestDiagonalAxis
-	{
+	//! Returns the variance along each axis.
 
-		template <int N, typename Real>
-		class Predicate
-		{
-		public:
-			explicit Predicate(
-				const Vector<N, Real>& data)
-				: data_(data)
-			{
-			}
+	template <int N, typename Real>
+	TemporaryPoint<N, Real> mean(
+		const std::vector<Point<N, Real> >& pointSet);
 
-			bool operator()(integer left, integer right) const
-			{
-				return data_[right] < data_[left];
-			}
+	template <int N, typename Real>
+	TemporaryVector<N, Real> axisAlignedVariance(
+		const std::vector<Point<N, Real> >& pointSet,
+		const Point<N, Real>& mean);
 
-		private:
-			const Vector<N, Real>& data_;
-		};
-
-	}
+	template <int N, typename Real>
+	DiagonalAxis maximalDiagonalVariance(
+		const std::vector<Point<N, Real> >& pointSet);
 
 	template <int N, typename Real>
 	DiagonalAxis nearestDiagonalAxis(
-		const Vector<N, Real>& that)
-	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N <= 32);
+		const Vector<N, Real>& that);
 
-		const integer dimension = that.dimension();
-
-		PENSURE1(dimension <= 32, dimension);
-		PENSURE(allGreaterEqual(that, 0));
-
-		std::vector<integer> permutation;
-		permutation.reserve(dimension);
-		for (integer i = 0;i < dimension;++i)
-		{
-			permutation.push_back(i);
-		}
-
-		const Detail_NearestDiagonalAxis::Predicate<N, Real> 
-			predicate(that);
-
-		std::sort(permutation.begin(),
-			permutation.end(), predicate);
-
-		Real sum = that[permutation.front()];
-		Real minimumCandidate2 = square(sum);
-		integer minimumCandidate2Index = 0;
-
-		for (integer i = 1;i < dimension;++i)
-		{
-			sum += that[permutation[i]];
-			Real candidate2 = square(sum) / (i + 1);
-			if (candidate2 < minimumCandidate2)
-			{
-				minimumCandidate2 = candidate2;
-				minimumCandidateIndex = i;
-			}
-		}
-		
-		DiagonalAxis result = 0;
-		for (integer i = 0;i < minimumCandidateIndex + 1;++i)
-		{
-			result |= (1 << permutation[i]);
-		}
-
-		return result;
-	}
+	template <int N, typename Real>
+	TemporaryVector<N, Real> diagonalAxis(
+		integer dimension,
+		DiagonalAxis diagonal);
 
 }
+
+#include "pastel/geometry/diagonal_axis.hpp"
 
 #endif
