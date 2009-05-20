@@ -619,6 +619,13 @@ namespace Pastel
 	void swap(Point<N, Real>& left,
 		Point<N, Real>& right);
 
+	template <int N, typename Real>
+	TemporaryPoint<N, Real> nullPoint();
+
+	template <int N, typename Real>
+	TemporaryPoint<N, Real> aliasPoint(integer dimension,
+		PASTEL_NO_DEDUCTION(Real)* data);
+
 	template <int N, typename Real, typename Expression>
 	TemporaryPoint<N, Real> asPoint(
 		const VectorExpression<N, Real, Expression>& that);

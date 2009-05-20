@@ -537,6 +537,13 @@ namespace Pastel
 	typedef Tuple<4, integer> Integer4;
 	typedef Tuple<4, real> Real4;
 
+	template <int N, typename Real>
+	TemporaryTuple<N, Real> nullTuple();
+
+	template <int N, typename Real>
+	TemporaryTuple<N, Real> aliasTuple(integer dimension,
+		PASTEL_NO_DEDUCTION(Real)* data);
+
 	template <int N, typename Type>
 	class TemporaryTuple
 		: public Tuple<N, Type>

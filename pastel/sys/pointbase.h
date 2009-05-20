@@ -198,9 +198,9 @@ namespace Pastel
 				const VectorExpression
 				<N, Real, Expression>& that) const
 			{
-				TemporaryPoint<N, Real> result((const Point<N, Real>&)*this);
+				Point<N, Real> result((const Point<N, Real>&)*this);
 				result += that;
-				return result;
+				return result.asTemporary();
 			}
 
 			//! Returns the point translated backwards by 'that'.
@@ -209,9 +209,9 @@ namespace Pastel
 				const VectorExpression
 				<N, Real, Expression>& that) const
 			{
-				TemporaryPoint<N, Real> result((const Point<N, Real>&)*this);
+				Point<N, Real> result((const Point<N, Real>&)*this);
 				result -= that;
-				return result;
+				return result.asTemporary();
 			}
 
 			//! Interprets the point as a tuple.

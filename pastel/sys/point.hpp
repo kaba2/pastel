@@ -13,6 +13,27 @@ namespace Pastel
 		std::swap(left, right);
 	}
 
+	template <int N, typename Real>
+	TemporaryPoint<N, Real> nullPoint()
+	{
+		BOOST_STATIC_ASSERT(N == Dynamic);
+
+		Point<N, Real> result(ofDimension(0),
+				withAliasing<Real>(0));
+
+		return result.asTemporary();
+	}
+
+	template <int N, typename Real>
+	TemporaryPoint<N, Real> aliasPoint(integer dimension,
+		PASTEL_NO_DEDUCTION(Real)* data)
+	{
+		Point<N, Real> result(ofDimension(dimension),
+				withAliasing<Real>(data));
+
+		return result.asTemporary();
+	}
+
 	template <int N, typename Real, typename Expression>
 	TemporaryPoint<N, Real> asPoint(
 		const VectorExpression<N, Real, Expression>& that)

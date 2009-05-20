@@ -13,6 +13,27 @@ namespace Pastel
 		left.swap(right);
 	}
 
+	template <int N, typename Real>
+	TemporaryVector<N, Real> nullVector()
+	{
+		BOOST_STATIC_ASSERT(N == Dynamic);
+
+		Vector<N, Real> result(ofDimension(0),
+				withAliasing<Real>(0));
+
+		return result.asTemporary();
+	}
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> aliasVector(integer dimension,
+		PASTEL_NO_DEDUCTION(Real)* data)
+	{
+		Vector<N, Real> result(ofDimension(dimension),
+				withAliasing<Real>(data));
+
+		return result.asTemporary();
+	}
+
 	template <int N, typename Real, typename Expression>
 	TemporaryVector<N, Real> evaluate(
 		const VectorExpression<N, Real, Expression>& that)
