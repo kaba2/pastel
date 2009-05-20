@@ -1,5 +1,5 @@
-#ifndef PASTEL_PROJECTAXIS_H
-#define PASTEL_PROJECTAXIS_H
+#ifndef PASTEL_PROJECT_AXIS_H
+#define PASTEL_PROJECT_AXIS_H
 
 #include "pastel/sys/tuple.h"
 
@@ -96,6 +96,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/projectaxis.hpp"
+#include "pastel/geometry/project_axis.hpp"
 
 #endif
