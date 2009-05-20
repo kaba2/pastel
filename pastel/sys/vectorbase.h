@@ -145,6 +145,7 @@ namespace Pastel
 			{
 				const integer n = size();
 				
+				// We accept basic exception safety for performance.
 				for (integer i = 0;i < n;++i)
 				{
 					data_[i] = that;
@@ -153,12 +154,68 @@ namespace Pastel
 				return (Vector<N, Real>&)*this;
 			}
 
+			// This function can't be included because
+			// then assignment of a vector expression would
+			// be ambiguous. This is because TemporaryVector
+			// has an implicit conversion from a vector
+			// expression.
+			/*
+			Vector<N, Real>& operator=(
+				const TemporaryVector<N, Real>& that)
+			{
+				// We allow the size of the vector to be
+				// changed by an assignment.
+
+				if (N == Dynamic)
+				{
+					Vector<N, Real> copy(that);
+					swap(copy);
+				}
+				else
+				{				
+					// We accept basic exception safety for performance.
+
+					const integer n = size();
+					for (integer i = 0;i < n;++i)
+					{
+						data_[i] = that[i];
+					}
+				}
+
+				return (Vector<N, Real>&)*this;
+			}
+			*/
+
 			template <typename ThatReal, typename Expression>
 			Vector<N, Real>& operator=(
 				const VectorExpression<N, ThatReal, Expression>& that)
 			{
-				Vector<N, Real> copy(that);
-				swap(copy);
+				// We allow the size of the vector to be
+				// changed by an assignment.
+
+				const integer n = that.size();
+				if (N == Dynamic && n != size())
+				{
+					// Since we must reallocate, we can
+					// as well copy construct, so that there
+					// is no redundant initialization.
+					// With fixed N the swap is slow
+					// because it must swap all elements.
+					// Thus this is done only for
+					// N == Dynamic.
+					Vector<N, Real> copy(that);
+					swap(copy);
+				}
+				else
+				{				
+					// We accept basic exception safety for performance.
+
+					for (integer i = 0;i < n;++i)
+					{
+						data_[i] = that[i];
+					}
+				}
+
 				return (Vector<N, Real>&)*this;
 			}
 

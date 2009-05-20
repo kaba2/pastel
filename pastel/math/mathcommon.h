@@ -37,6 +37,8 @@ namespace Pastel
 	template <typename Real>
 	Real factorial(integer i);
 
+	PASTELMATH real lnFactorial(integer n);
+
 	//! Computes the i:th n-degree Bernstein polynomial at t.
 	/*!
 	Preconditions:

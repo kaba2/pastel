@@ -616,6 +616,19 @@ namespace Pastel
 			: Base(that)
 		{
 		}
+
+		// This function can't be included because
+		// then assignment of a vector expression would
+		// be ambiguous. This is because TemporaryVector
+		// has an implicit conversion from a vector
+		// expression.
+		/*
+		Vector<N, Real>& operator=(
+			const TemporaryVector<N, Real>& that)
+		{
+			return Base::operator=(that);
+		}
+		*/
 	};
 
 	typedef Vector<1, real> Vector1;
@@ -638,6 +651,13 @@ namespace Pastel
 	template <int N, typename Real>
 	void swap(Vector<N, Real>& left,
 		Vector<N, Real>& right);
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> nullVector();
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> aliasVector(integer dimension,
+		PASTEL_NO_DEDUCTION(Real)* data);
 
 	template <int N, typename Real, typename Expression>
 	TemporaryVector<N, Real> evaluate(

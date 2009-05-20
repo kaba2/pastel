@@ -4,6 +4,8 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/syscommon.h"
 
+#include "pastel/geometry/sphere_volume.h"
+
 #include <cmath>
 
 namespace Pastel
@@ -26,6 +28,29 @@ namespace Pastel
 	class EuclideanNormBijection
 	{
 	public:
+		EuclideanNormBijection()
+			: dimension_(N)
+		{
+			ENSURE(N != Dynamic);
+		}
+
+		explicit EuclideanNormBijection(
+			integer dimension)
+			: dimension_(dimension)
+		{
+			ENSURE2(N == Dynamic || N == dimension, dimension, N);
+		}
+
+		integer dimension() const
+		{
+			return dimension_;
+		}
+
+		Real lnVolumeUnitSphere() const
+		{
+			return Pastel::lnVolumeUnitSphereEuclidean<N, Real>(dimension_);
+		}
+
 		Real toNorm(const Real& normBijection) const
 		{
 			return std::sqrt(normBijection);
@@ -76,18 +101,48 @@ namespace Pastel
 			return (distanceBijection - oldAxisDistance) + 
 				newAxisDistance;
 		}
+
+	private:
+		integer dimension_;
 	};
 
 	template <int N, typename Real>
 	class MinkowskiNormBijection
 	{
 	public:
-		explicit MinkowskiNormBijection(const Real& power)
-			: power_(power)
+		explicit MinkowskiNormBijection(
+			const Real& power)
+			: dimension_(N)
+			, power_(power)
 			, invPower_(inverse(power))
 		{
-			PENSURE(power >= 1);
+			ENSURE(N != Dynamic);
+			ENSURE(power >= 1);
 		}
+
+		MinkowskiNormBijection(
+			integer dimension,
+			const Real& power)
+			: dimension_(dimension)
+			, power_(power)
+			, invPower_(inverse(power))
+		{
+			ENSURE2(N == Dynamic || N == dimension, dimension, N);
+			ENSURE(power >= 1);
+		}
+
+		integer dimension() const
+		{
+			return dimension_;
+		}
+
+		// No idea how to compute this one!
+		/*
+		Real lnVolumeUnitSphere() const
+		{
+			// FIX: TODO
+		}
+		*/
 
 		Real toNorm(const Real& normBijection) const
 		{
@@ -141,6 +196,7 @@ namespace Pastel
 		}
 
 	private:
+		integer dimension_;
 		Real power_;
 		Real invPower_;
 	};
@@ -149,6 +205,29 @@ namespace Pastel
 	class InfinityNormBijection
 	{
 	public:
+		InfinityNormBijection()
+			: dimension_(N)
+		{
+			ENSURE(N != Dynamic);
+		}
+
+		explicit InfinityNormBijection(
+			integer dimension)
+			: dimension_(dimension)
+		{
+			ENSURE2(N == Dynamic || N == dimension, dimension, N);
+		}
+
+		integer dimension() const
+		{
+			return dimension_;
+		}
+
+		Real lnVolumeUnitSphere() const
+		{
+			return lnVolumeUnitSphereInfinity<N, Real>(dimension_);
+		}
+
 		Real toNorm(const Real& normBijection) const
 		{
 			return normBijection;
@@ -201,12 +280,38 @@ namespace Pastel
 				distanceBijection, 
 				newAxisDistance);
 		}
+	
+	private:
+		integer dimension_;
 	};
 
 	template <int N, typename Real>
 	class ManhattanNormBijection
 	{
 	public:
+		ManhattanNormBijection()
+			: dimension_(N)
+		{
+			ENSURE(N != Dynamic);
+		}
+
+		explicit ManhattanNormBijection(
+			integer dimension)
+			: dimension_(dimension)
+		{
+			ENSURE2(N == Dynamic || N == dimension, dimension, N);
+		}
+
+		integer dimension() const
+		{
+			return dimension_;
+		}
+
+		Real lnVolumeUnitSphere() const
+		{
+			return Pastel::lnVolumeUnitSphereManhattan<N, Real>(dimension_);
+		}
+
 		Real toNorm(const Real& normBijection) const
 		{
 			return normBijection;
@@ -256,6 +361,9 @@ namespace Pastel
 			return (distanceBijection - oldAxisDistance) + 
 				newAxisDistance;
 		}
+
+	private:
+		integer dimension_;
 	};
 
 }

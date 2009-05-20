@@ -9,10 +9,9 @@
 namespace Pastel
 {
 
-	PASTELGEOMETRY real lnVolumeUnitSphere(integer dimension);
-
 	/*
-	The area of a unit hypersphere in dimension n
+	The area of a unit hypersphere given by
+	the Euclidean norm in dimension n
 	is given by:
 	S_n = 2 pi^(n/2) / Gamma(n / 2)
 
@@ -32,6 +31,54 @@ namespace Pastel
 	these constants, we will use Maple to
 	compute them accurately enough. 
 	*/
+
+	//! Returns the natural logarithm of the volume of a unit sphere.
+	/*!
+	Preconditions:
+	0 <= dimension <= 256
+
+	Returns:
+	The natural logarithm of the volume of
+	a unit sphere in the given dimension.
+	*/
+
+	PASTELGEOMETRY real lnVolumeUnitSphere(integer dimension);
+
+	//! Returns the natural logarithm of the volume of Euclidean unit sphere.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	Real lnVolumeUnitSphereEuclidean();
+
+	template <int N, typename Real>
+	Real lnVolumeUnitSphereEuclidean(integer dimension);
+
+	//! Returns the natural logarithm of the volume of Manhattan unit sphere.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	Real lnVolumeUnitSphereManhattan();
+
+	template <int N, typename Real>
+	Real lnVolumeUnitSphereManhattan(integer dimension);
+
+	//! Returns the natural logarithm of the volume of Infinity unit sphere.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	Real lnVolumeUnitSphereInfinity();
+
+	template <int N, typename Real>
+	Real lnVolumeUnitSphereInfinity(integer dimension);
 
 	template <int N, typename Real>
 	typename boost::enable_if_c<(N == 1), Real>::type
