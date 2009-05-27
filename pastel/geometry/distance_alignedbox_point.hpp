@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		return Pastel::distance2(
 			alignedBox, point,
-			EuclideanNormBijection<N, Real>());
+			EuclideanNormBijection<Real>());
 	}
 
 	template <int N, typename Real, typename NormBijection>
@@ -78,7 +78,7 @@ namespace Pastel
 	{
 		return Pastel::farthestDistance2(
 			alignedBox, point,
-			EuclideanNormBijection<N, Real>());
+			EuclideanNormBijection<Real>());
 	}
 
 	template <int N, typename Real, typename NormBijection>

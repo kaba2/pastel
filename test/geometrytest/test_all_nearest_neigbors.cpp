@@ -66,7 +66,7 @@ namespace
 			pointSet,
 			kNearest,
 			infinity<Real>(),
-			EuclideanNormBijection<N, Real>(dimension),
+			EuclideanNormBijection<Real>(),
 			naiveNeighborSet);
 
 		timer.store();
@@ -103,7 +103,7 @@ namespace
 			kNearest,
 			infinity<Real>(),
 			0,
-			EuclideanNormBijection<N, Real>(),
+			EuclideanNormBijection<Real>(),
 			&neighborSet);
 
 		timer.store();
