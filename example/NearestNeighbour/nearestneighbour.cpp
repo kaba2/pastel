@@ -425,8 +425,10 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
-	searchNearest(tree__, worldMouse, searchRadius__ * searchRadius__, 0,
-		EuclideanNormBijection<2, real>(), nearestPoints__, &nearestPointSet__, 0);
+	searchNearest(tree__, worldMouse, 
+		Accept_Always(), 
+		searchRadius__ * searchRadius__, 0,
+		EuclideanNormBijection<real>(), nearestPoints__, &nearestPointSet__, 0);
 	if (searchRadius__ != infinity<real>())
 	{
 		searchRange(tree__, 
@@ -528,9 +530,10 @@ void timing()
 	while (iter != iterEnd)
 	{
 		searchNearest(tree__, *iter,
+			Accept_Always(),
 			infinity<real>(),
 			0,
-			EuclideanNormBijection<2, real>(),
+			EuclideanNormBijection<real>(),
 			NearestPoints, &nearestPointSet__);
 		++iter;
 	}

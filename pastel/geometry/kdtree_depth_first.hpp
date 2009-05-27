@@ -143,7 +143,7 @@ namespace Pastel
 
 				while(iter != iterEnd)
 				{
-					const real currentDistance = 
+					const Real currentDistance = 
 						distance2(objectPolicy.point(*iter), searchPoint, 
 						normBijection, cullDistance);
 

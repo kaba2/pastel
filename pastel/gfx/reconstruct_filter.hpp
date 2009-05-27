@@ -100,7 +100,7 @@ namespace Pastel
 				searchNearest(kdTree_, Point<N, real>(position) + 0.5,
 					filter_.radius() * filterStretch_,
 					0,
-					InfinityNormBijection<N, Real>(),
+					InfinityNormBijection<Real>(),
 					kdTree_.objects() - 1,
 					&nearestSet);
 

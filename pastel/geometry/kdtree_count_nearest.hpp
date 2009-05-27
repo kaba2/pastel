@@ -84,7 +84,7 @@ namespace Pastel
 
 		return Pastel::countNearest(
 			kdTree, point, maxDistance, maxRelativeError,
-			EuclideanNormBijection<N, Real>());
+			EuclideanNormBijection<Real>());
 	}
 
 }

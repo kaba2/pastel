@@ -24,36 +24,28 @@ namespace Pastel
 	// in algorithms.
 	// This can be used to enhance performance.
 
-	template <int N, typename Real>
+	template <typename Real>
 	class EuclideanNormBijection
 	{
 	public:
-		EuclideanNormBijection()
-			: dimension_(N)
-		{
-			ENSURE(N != Dynamic);
-		}
+		// Using default constructor.
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
 
-		explicit EuclideanNormBijection(
-			integer dimension)
-			: dimension_(dimension)
+		Real lnVolumeUnitSphere(integer dimension) const
 		{
-			ENSURE2(N == Dynamic || N == dimension, dimension, N);
-		}
-
-		integer dimension() const
-		{
-			return dimension_;
-		}
-
-		Real lnVolumeUnitSphere() const
-		{
-			return Pastel::lnVolumeUnitSphereEuclidean<N, Real>(dimension_);
+			return Pastel::lnVolumeUnitSphereEuclidean<Dynamic, Real>(dimension);
 		}
 
 		Real toNorm(const Real& normBijection) const
 		{
 			return std::sqrt(normBijection);
+		}
+
+		Real toLnNorm(const Real& normBijection) const
+		{
+			return 0.5 * std::log(normBijection);
 		}
 
 		Real toBijection(const Real& norm) const
@@ -81,64 +73,48 @@ namespace Pastel
 		}
 
 		Real addAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
 			PENSURE(newAxisDistance >= 0);
 
-			return distanceBijection + 
+			return distance + 
 				newAxisDistance;
 		}
 
 		Real replaceAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
 			PENSURE(oldAxisDistance >= 0);
 			PENSURE(newAxisDistance >= 0);
 
-			return (distanceBijection - oldAxisDistance) + 
+			return (distance - oldAxisDistance) + 
 				newAxisDistance;
 		}
-
-	private:
-		integer dimension_;
 	};
 
-	template <int N, typename Real>
+	template <typename Real>
 	class MinkowskiNormBijection
 	{
 	public:
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
+
 		explicit MinkowskiNormBijection(
 			const Real& power)
-			: dimension_(N)
-			, power_(power)
+			: power_(power)
 			, invPower_(inverse(power))
 		{
 			ENSURE(N != Dynamic);
 			ENSURE(power >= 1);
 		}
 
-		MinkowskiNormBijection(
-			integer dimension,
-			const Real& power)
-			: dimension_(dimension)
-			, power_(power)
-			, invPower_(inverse(power))
-		{
-			ENSURE2(N == Dynamic || N == dimension, dimension, N);
-			ENSURE(power >= 1);
-		}
-
-		integer dimension() const
-		{
-			return dimension_;
-		}
-
 		// No idea how to compute this one!
 		/*
-		Real lnVolumeUnitSphere() const
+		Real lnVolumeUnitSphere(integer dimension) const
 		{
 			// FIX: TODO
 		}
@@ -147,6 +123,11 @@ namespace Pastel
 		Real toNorm(const Real& normBijection) const
 		{
 			return std::pow(normBijection, invPower_);
+		}
+
+		Real toLnNorm(const Real& normBijection) const
+		{
+			return invPower_ * std::log(normBijection);
 		}
 
 		Real toBijection(const Real& norm) const
@@ -174,63 +155,54 @@ namespace Pastel
 		}
 
 		Real addAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
 			PENSURE(newAxisDistance >= 0);
 
-			return distanceBijection + 
+			return distance + 
 				newAxisDistance;
 		}
 
 		Real replaceAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
 			PENSURE(oldAxisDistance >= 0);
 			PENSURE(newAxisDistance >= 0);
 
-			return (distanceBijection - oldAxisDistance) + 
+			return (distance - oldAxisDistance) + 
 				newAxisDistance;
 		}
 
 	private:
-		integer dimension_;
 		Real power_;
 		Real invPower_;
 	};
 
-	template <int N, typename Real>
+	template <typename Real>
 	class InfinityNormBijection
 	{
 	public:
-		InfinityNormBijection()
-			: dimension_(N)
-		{
-			ENSURE(N != Dynamic);
-		}
+		// Using default constructor.
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
 
-		explicit InfinityNormBijection(
-			integer dimension)
-			: dimension_(dimension)
+		Real lnVolumeUnitSphere(integer dimension) const
 		{
-			ENSURE2(N == Dynamic || N == dimension, dimension, N);
-		}
-
-		integer dimension() const
-		{
-			return dimension_;
-		}
-
-		Real lnVolumeUnitSphere() const
-		{
-			return lnVolumeUnitSphereInfinity<N, Real>(dimension_);
+			return lnVolumeUnitSphereInfinity<Dynamic, Real>(dimension);
 		}
 
 		Real toNorm(const Real& normBijection) const
 		{
 			return normBijection;
+		}
+
+		Real toLnNorm(const Real& normBijection) const
+		{
+			return std::log(normBijection);
 		}
 
 		Real toBijection(const Real& norm) const
@@ -258,18 +230,18 @@ namespace Pastel
 		}
 
 		Real addAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
 			PENSURE(newAxisDistance >= 0);
 
 			return std::max(
-				distanceBijection,
+				distance,
 				newAxisDistance);
 		}
 
 		Real replaceAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
@@ -277,44 +249,33 @@ namespace Pastel
 			PENSURE(newAxisDistance >= 0);
 
 			return std::max(
-				distanceBijection, 
+				distance, 
 				newAxisDistance);
 		}
-	
-	private:
-		integer dimension_;
 	};
 
-	template <int N, typename Real>
+	template <typename Real>
 	class ManhattanNormBijection
 	{
 	public:
-		ManhattanNormBijection()
-			: dimension_(N)
-		{
-			ENSURE(N != Dynamic);
-		}
+		// Using default constructor.
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
 
-		explicit ManhattanNormBijection(
-			integer dimension)
-			: dimension_(dimension)
+		Real lnVolumeUnitSphere(integer dimension) const
 		{
-			ENSURE2(N == Dynamic || N == dimension, dimension, N);
-		}
-
-		integer dimension() const
-		{
-			return dimension_;
-		}
-
-		Real lnVolumeUnitSphere() const
-		{
-			return Pastel::lnVolumeUnitSphereManhattan<N, Real>(dimension_);
+			return Pastel::lnVolumeUnitSphereManhattan<Dynamic, Real>(dimension);
 		}
 
 		Real toNorm(const Real& normBijection) const
 		{
 			return normBijection;
+		}
+
+		Real toLnNorm(const Real& normBijection) const
+		{
+			return std::log(normBijection);
 		}
 
 		Real toBijection(const Real& norm) const
@@ -342,28 +303,25 @@ namespace Pastel
 		}
 
 		Real addAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
 			PENSURE(newAxisDistance >= 0);
 
-			return distanceBijection + newAxisDistance;
+			return distance + newAxisDistance;
 		}
 
 		Real replaceAxis(
-			const Real& distanceBijection, 
+			const Real& distance, 
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
 			PENSURE(oldAxisDistance >= 0);
 			PENSURE(newAxisDistance >= 0);
 
-			return (distanceBijection - oldAxisDistance) + 
+			return (distance - oldAxisDistance) + 
 				newAxisDistance;
 		}
-
-	private:
-		integer dimension_;
 	};
 
 }

@@ -12,6 +12,57 @@
 namespace Pastel
 {
 
+	class Accept_Always
+	{
+	public:
+		template <typename Type>
+		bool operator()(
+			const Type&) const
+		{
+			return true;
+		}
+	};
+
+	template <typename Type>
+	class Accept_Except
+	{
+	public:
+		explicit Accept_Except(
+			const Type& exception)
+			: exception_(exception)
+		{
+		}
+
+		bool operator()(
+			const Type& that) const
+		{
+			return that != exception_;
+		}
+
+	private:
+		const Type& exception_;
+	};
+
+	template <typename Type, typename DerefType>
+	class Accept_ExceptDeref
+	{
+	public:
+		explicit Accept_ExceptDeref(
+			const DerefType& exception)
+			: exception_(exception)
+		{
+		}
+
+		bool operator()(
+			const Type& that) const
+		{
+			return *that != exception_;
+		}
+
+	private:
+		const DerefType& exception_;
+	};
+
 	//! Finds nearest neighbors for a point in a kdTree.
 	/*!
 	Preconditions:
@@ -27,10 +78,12 @@ namespace Pastel
 	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename NormBijection, typename AcceptFunctor>
 	void searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
+		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
@@ -53,11 +106,13 @@ namespace Pastel
 	general searchNearest() function.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename NormBijection, typename AcceptFunctor>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
+		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection);
@@ -78,20 +133,32 @@ namespace Pastel
 	general searchNearest() function.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename AcceptFunctor>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
+		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename AcceptFunctor>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
 		const KdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
+		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
+
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename AcceptFunctor>
+	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+		searchNearest(
+		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const Point<N, Real>& point,
+		const AcceptFunctor& acceptFunctor);
 
 	template <int N, typename Real, typename ObjectPolicy>
 	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>

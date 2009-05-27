@@ -177,8 +177,9 @@ namespace Pastel
 				{
 					++modelPointTries_;
 
+					const ModelIterator modelIter = modelIndexList[i];
 					const ModelObject& modelObject =
-						*modelIndexList[i];
+						*modelIter;
 					const Point<2, Real> modelPoint =
 						modelTree_.objectPolicy().bound(modelObject).min();
 
@@ -200,27 +201,27 @@ namespace Pastel
 						// points in either point set and the search radius
 						// is infinite, both searches should return exactly
 						// k result points.
-						// Note: we search for k + 1 points because
-						// the pivot point will be part of the result.
 
 						std::vector<SceneIterator> sceneSet;
 						searchNearest(
 							sceneTree_,
 							scenePoint,
+							Accept_Except<SceneIterator>(sceneIter),
 							infinity<Real>(),
 							0,
-							EuclideanNormBijection<2, Real>(),
-							kPoints_ + 1,
+							EuclideanNormBijection<Real>(),
+							kPoints_,
 							&sceneSet);
 
 						std::vector<ModelIterator> modelSet;
 						searchNearest(
 							modelTree_,
 							modelPoint,
+							Accept_Except<ModelIterator>(modelIter),
 							infinity<Real>(),
 							0,
-							EuclideanNormBijection<2, Real>(),
-							kPoints_ + 1,
+							EuclideanNormBijection<Real>(),
+							kPoints_,
 							&modelSet);
 
 						// Try to match the nearest neighbours.
