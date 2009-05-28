@@ -7,20 +7,21 @@
 #include "pastel/sys/vector_tools.h"
 
 #include <boost/static_assert.hpp>
+#include <boost/operators.hpp>
 
 namespace Pastel
 {
 
+	template <int Height, int Width, typename Real>
+	class Matrix;
+
 	namespace Detail
 	{
 
-		template <int Height, int Width, typename Real,
-			template <int, int, typename> class DerivedT>
+		template <int Height, int Width, typename Real>
 		class MatrixBase
+			: boost::equality_comparable<MatrixBase<Height, Width, Real> >
 		{
-		private:
-			typedef DerivedT<Height, Width, Real> Derived;
-
 		public:
 			MatrixBase()
 				: data_()
@@ -29,15 +30,12 @@ namespace Pastel
 				{
 					for (integer j = 0;j < Width;++j)
 					{
-						(*this)(i, j) = (i == j) ?
-							Real(1) : Real(0);
+						(*this)(i, j) = (i == j) ? 1 : 0;
 					}
 				}
 			}
 
-			MatrixBase(const MatrixBase<Width, Height,
-				Real,	DerivedT>& that,
-				MatrixTransposeTag)
+			MatrixBase(const MatrixBase<Width, Height, Real>& that, MatrixTransposeTag)
 			{
 				for (integer y = 0;y < Height;++y)
 				{
@@ -64,7 +62,7 @@ namespace Pastel
 				return Height;
 			}
 
-			void swap(Derived& that)
+			void swap(Matrix<Width, Height, Real>& that)
 			{
 				for (integer i = 0;i < Height;++i)
 				{
@@ -73,8 +71,7 @@ namespace Pastel
 			}
 
 			void setTranspose(
-				const MatrixBase<Width, Height,
-				Real,	DerivedT>& that)
+				const Matrix<Width, Height, Real>& that)
 			{
 				for (integer i = 0;i < Height;++i)
 				{
@@ -115,11 +112,13 @@ namespace Pastel
 				return data_[y];
 			}
 
-			Derived& operator*=(
-				const DerivedT<Width, Width, Real>& right)
+			Matrix<Width, Height, Real>& operator*=(
+				const Matrix<Width, Height, Real>& right)
 			{
-				Derived& left = (Derived&)*this;
-				Derived copyLeft(left);
+				Matrix<Width, Height, Real>& left = 
+					(Matrix<Width, Height, Real>&)*this;
+
+				Matrix<Width, Height, Real> copyLeft(left);
 				for (integer i = 0;i < Height;++i)
 				{
 					for (integer j = 0;j < Width;++j)
@@ -135,26 +134,26 @@ namespace Pastel
 				return left;
 			}
 
-			Derived& operator+=(
-				const Derived& right)
+			Matrix<Width, Height, Real>& operator+=(
+				const Matrix<Width, Height, Real>& right)
 			{
 				for (integer y = 0;y < Height;++y)
 				{
 					data_[y] += right.data_[y];
 				}
 
-				return (Derived&)*this;
+				return (Matrix<Width, Height, Real>&)*this;
 			}
 
-			Derived& operator-=(
-				const Derived& right)
+			Matrix<Width, Height, Real>& operator-=(
+				const Matrix<Width, Height, Real>& right)
 			{
 				for (integer y = 0;y < Height;++y)
 				{
 					data_[y] -= right.data_[y];
 				}
 
-				return (Derived&)*this;
+				return (Matrix<Width, Height, Real>&)*this;
 			}
 
 			// Matrices vs scalars
@@ -166,7 +165,7 @@ namespace Pastel
 			// "add / subtract by multiples of identity matrix".
 			// For *= and /= these interpretations are equivalent.
 
-			Derived& operator*=(
+			Matrix<Width, Height, Real>& operator*=(
 				const Real& right)
 			{
 				for (integer i = 0;i < Height;++i)
@@ -174,10 +173,10 @@ namespace Pastel
 					data_[i] *= right;
 				}
 
-				return (Derived&)*this;
+				return (Matrix<Width, Height, Real>&)*this;
 			}
 
-			Derived& operator/=(
+			Matrix<Width, Height, Real>& operator/=(
 				const Real& right)
 			{
 				Real invRight(Pastel::inverse(right));
@@ -187,8 +186,23 @@ namespace Pastel
 					data_[i] *= invRight;
 				}
 
-				return (Derived&)*this;
+				return (Matrix<Width, Height, Real>&)*this;
 			}
+
+			bool operator==(
+				const MatrixBase<Width, Height, Real>& right) const
+			{
+				for (integer i = 0;i < Height;++i)
+				{
+					if (data_[i] != right.data_[i])
+					{
+						return false;
+					}
+				}
+
+				return true;
+			}
+
 		private:
 			// In case Height <= 0,
 			// we want to give the error message

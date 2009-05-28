@@ -18,6 +18,18 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	Matrix<Dynamic, Dynamic, Real>::Matrix(integer height, integer width)
+		: data_(width, height, 0)
+	{
+		const integer minSize = std::min(width, height);
+
+		for (integer i = 0;i < minSize;++i)
+		{
+			data_(i, i) = 1;
+		}
+	}
+
+	template <typename Real>
 	Matrix<Dynamic, Dynamic, Real>::Matrix(
 		const Matrix& that, MatrixTransposeTag)
 		: data_()
@@ -52,7 +64,7 @@ namespace Pastel
 	template <typename Real>
 	void Matrix<Dynamic, Dynamic, Real>::setSize(integer height, integer width)
 	{
-		data_.setExtent(width, height);
+		data_.setExtent(width, height, 0);
 
 		const integer minSize = std::min(width, height);
 
@@ -84,6 +96,26 @@ namespace Pastel
 	const Real& Matrix<Dynamic, Dynamic, Real>::operator()(integer y, integer x) const
 	{
 		return data_(x, y);
+	}
+
+	template <typename Real>
+	TemporaryVector<Dynamic, Real> Matrix<Dynamic, Dynamic, Real>::operator[](integer y)
+	{
+		Vector<Dynamic, Real> result(
+			ofDimension(width()), 
+			withAliasing(&data_(0, y)));
+		
+		return result.asTemporary();
+	}
+
+	template <typename Real>
+	const TemporaryVector<Dynamic, Real> Matrix<Dynamic, Dynamic, Real>::operator[](integer y) const
+	{
+		Vector<Dynamic, Real> result(
+			ofDimension(width()), 
+			withAliasing(const_cast<Real*>(&data_(0, y))));
+		
+		return result.asTemporary();
 	}
 
 	template <typename Real>
@@ -253,7 +285,7 @@ namespace Pastel
 
 		ENSURE2(width == right.size(), width, right.size());
 
-		Vector<Height, Real> result(height);
+		Vector<Height, Real> result(ofDimension(height));
 
 		for (integer i = 0;i < height;++i)
 		{
@@ -277,7 +309,7 @@ namespace Pastel
 
 		ENSURE2(height == left.size(), height, left.size());
 
-		Vector<Width, Real> result(width);
+		Vector<Width, Real> result(ofDimension(width));
 
 		for (integer i = 0;i < width;++i)
 		{
@@ -303,7 +335,7 @@ namespace Pastel
 
 		ENSURE2(width == right.size(), width, right.size());
 
-		Point<Height, Real> result(height);
+		Point<Height, Real> result(ofDimension(height));
 
 		const integer width = left.width();
 		const integer height = left.height();
@@ -330,7 +362,7 @@ namespace Pastel
 
 		ENSURE2(height == left.size(), height, left.size());
 
-		Point<Width, Real> result(width);
+		Point<Width, Real> result(ofDimension(width));
 
 		for (integer i = 0;i < width;++i)
 		{

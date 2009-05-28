@@ -64,6 +64,21 @@ namespace Pastel
 		x.swap(result);
 	}
 
+	template <int N, typename Real>
+	Real determinant(
+		const LuDecomposition<N, Real>& lu)
+	{
+		const integer size = lu.packedLu().width();
+		Real result = lu.evenPermutation() ? 1 : -1;
+		
+		for (integer i = 0;i < size;++i)
+		{
+			result *= lu.packedLu()(i, i);
+		}
+
+		return result;
+	}
+
 }
 
 #endif

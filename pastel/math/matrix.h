@@ -44,11 +44,10 @@ namespace Pastel
 
 	template <int Height, int Width, typename Real>
 	class Matrix
-		: public Detail::MatrixBase<Height, Width, Real, Matrix>
+		: public Detail::MatrixBase<Height, Width, Real>
 	{
 	private:
-		typedef Detail::MatrixBase<Height, Width, Real,
-			Pastel::Matrix> Base;
+		typedef Detail::MatrixBase<Height, Width, Real> Base;
 	public:
 
 		//! Constructs an identity matrix.
@@ -90,6 +89,7 @@ namespace Pastel
 		// Using default destructor.
 
 		Matrix();
+		Matrix(integer height, integer width);
 		Matrix(const Matrix& that, MatrixTransposeTag);
 
 		void swap(Matrix& that);
@@ -101,6 +101,9 @@ namespace Pastel
 
 		Real& operator()(integer y, integer x);
 		const Real& operator()(integer y, integer x) const;
+
+		TemporaryVector<Dynamic, Real> operator[](integer y);
+		const TemporaryVector<Dynamic, Real> operator[](integer y) const;
 
 		Matrix<Dynamic, Dynamic, Real>& operator*=(
 			const PASTEL_NO_DEDUCTION(Real)& that);
@@ -117,7 +120,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Matrix<1, 1, Real>
-		: public Detail::MatrixBase<1, 1, Real, Matrix>
+		: public Detail::MatrixBase<1, 1, Real>
 	{
 	private:
 		enum
@@ -126,8 +129,7 @@ namespace Pastel
 			Width = 1
 		};
 
-		typedef Detail::MatrixBase<Height, Width, Real,
-			Pastel::Matrix> Base;
+		typedef Detail::MatrixBase<Height, Width, Real> Base;
 
 	public:
 		//! Constructs an identity matrix.
@@ -178,7 +180,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Matrix<2, 2, Real>
-		: public Detail::MatrixBase<2, 2, Real, Matrix>
+		: public Detail::MatrixBase<2, 2, Real>
 	{
 	private:
 		enum
@@ -187,8 +189,7 @@ namespace Pastel
 			Width = 2
 		};
 
-		typedef Detail::MatrixBase<Height, Width, Real,
-			Pastel::Matrix> Base;
+		typedef Detail::MatrixBase<Height, Width, Real> Base;
 
 	public:
 		//! Constructs an identity matrix.
@@ -249,7 +250,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Matrix<3, 3, Real>
-		: public Detail::MatrixBase<3, 3, Real, Matrix>
+		: public Detail::MatrixBase<3, 3, Real>
 	{
 	private:
 		enum
@@ -258,8 +259,7 @@ namespace Pastel
 			Width = 3
 		};
 
-		typedef Detail::MatrixBase<Height, Width, Real,
-			Pastel::Matrix> Base;
+		typedef Detail::MatrixBase<Height, Width, Real> Base;
 
 	public:
 		//! Constructs an identity matrix.
@@ -334,7 +334,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Matrix<4, 4, Real>
-		: public Detail::MatrixBase<4, 4, Real, Matrix>
+		: public Detail::MatrixBase<4, 4, Real>
 	{
 	private:
 		enum
@@ -343,8 +343,7 @@ namespace Pastel
 			Width = 4
 		};
 
-		typedef Detail::MatrixBase<Height, Width, Real,
-			Pastel::Matrix> Base;
+		typedef Detail::MatrixBase<Height, Width, Real> Base;
 
 	public:
 		//! Constructs an identity matrix.

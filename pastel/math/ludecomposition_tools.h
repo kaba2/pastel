@@ -12,6 +12,10 @@ namespace Pastel
 		const Vector<N, Real>& b,
 		Vector<N, Real>& result);
 
+	template <int N, typename Real>
+	Real determinant(
+		const LuDecomposition<N, Real>& lu);
+
 }
 
 #include "pastel/math/ludecomposition_tools.hpp"

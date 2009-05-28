@@ -16,23 +16,49 @@ namespace Pastel
 	namespace Detail_Array
 	{
 
-		template <int N, typename Type, typename Derived>
-		ArrayBase<N, Type, Derived>::ArrayBase()
+		template <int N, typename Type>
+		ArrayBase<N, Type>::ArrayBase()
 			: extent_(0)
 			, factor_(0)
 			, size_(0)
 			, data_(0)
+			, deleteData_(true)
 		{
 		}
 
-		template <int N, typename Type, typename Derived>
-		ArrayBase<N, Type, Derived>::ArrayBase(
+		template <int N, typename Type>
+		ArrayBase<N, Type>::ArrayBase(
+			const Vector<N, integer>& extent,
+			const Alias<Type*>& dataAlias)
+			: extent_(extent)
+			, factor_(0)
+			, size_(product(extent))
+			, data_(dataAlias)
+			, deleteData_(false)
+		{
+			ENSURE(allGreaterEqual(extent, 0));
+
+			Vector<N, integer> newFactor;
+
+			newFactor[0] = 1;
+
+			for (integer i = 1;i < N;++i)
+			{
+				newFactor[i] = newFactor[i - 1] * extent[i - 1];
+			}
+
+			factor_ = newFactor;
+		}
+
+		template <int N, typename Type>
+		ArrayBase<N, Type>::ArrayBase(
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 			: extent_(0)
 			, factor_(0)
 			, size_(0)
 			, data_(0)
+			, deleteData_(true)
 		{
 			allocate(extent);
 
@@ -48,13 +74,14 @@ namespace Pastel
 			};
 		}
 
-		template <int N, typename Type, typename Derived>
-		ArrayBase<N, Type, Derived>::ArrayBase(
-			const ArrayBase<N, Type, Derived>& that)
+		template <int N, typename Type>
+		ArrayBase<N, Type>::ArrayBase(
+			const ArrayBase& that)
 			: extent_(0)
 			, factor_(0)
 			, size_(0)
 			, data_(0)
+			, deleteData_(true)
 		{
 			allocate(that.extent_);
 
@@ -70,15 +97,16 @@ namespace Pastel
 			};
 		}
 
-		template <int N, typename Type, typename Derived>
-		ArrayBase<N, Type, Derived>::ArrayBase(
-			const ArrayBase<N, Type, Derived>& that,
+		template <int N, typename Type>
+		ArrayBase<N, Type>::ArrayBase(
+			const ArrayBase& that,
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 			: extent_(0)
 			, factor_(0)
 			, size_(0)
 			, data_(0)
+			, deleteData_(true)
 		{
 			allocate(extent);
 
@@ -112,14 +140,14 @@ namespace Pastel
 			};
 		}
 
-		template <int N, typename Type, typename Derived>
-		ArrayBase<N, Type, Derived>::~ArrayBase()
+		template <int N, typename Type>
+		ArrayBase<N, Type>::~ArrayBase()
 		{
 			clear();
 		}
 
-		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::clear()
+		template <int N, typename Type>
+		void ArrayBase<N, Type>::clear()
 		{
 			if (data_)
 			{
@@ -130,19 +158,21 @@ namespace Pastel
 			extent_.set(0);
 			factor_.set(0);
 			size_ = 0;
+			deleteData_ = true;
 		}
 
-		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::swap(ArrayBase<N, Type, Derived>& that)
+		template <int N, typename Type>
+		void ArrayBase<N, Type>::swap(ArrayBase& that)
 		{
 			extent_.swap(that.extent_);
 			factor_.swap(that.factor_);
 			std::swap(size_, that.size_);
 			std::swap(data_, that.data_);
+			std::swap(deleteData_, that.deleteData_);
 		}
 
-		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::setExtent(
+		template <int N, typename Type>
+		void ArrayBase<N, Type>::setExtent(
 			const Vector<N, integer>& extent,
 			const Type& defaultData)
 		{
@@ -160,50 +190,50 @@ namespace Pastel
 			{
 				if (extent != extent_)
 				{
-					ArrayBase<N, Type, Derived> copy(*this, extent,
+					ArrayBase<N, Type> copy(*this, extent,
 						defaultData);
 					swap(copy);
 				}
 			}
 		}
 
-		template <int N, typename Type, typename Derived>
-		const Vector<N, integer>& ArrayBase<N, Type, Derived>::extent() const
+		template <int N, typename Type>
+		const Vector<N, integer>& ArrayBase<N, Type>::extent() const
 		{
 			return extent_;
 		}
 
-		template <int N, typename Type, typename Derived>
-		bool ArrayBase<N, Type, Derived>::empty() const
+		template <int N, typename Type>
+		bool ArrayBase<N, Type>::empty() const
 		{
 			return allEqual(extent(), 0);
 		}
 
-		template <int N, typename Type, typename Derived>
-		integer ArrayBase<N, Type, Derived>::size() const
+		template <int N, typename Type>
+		integer ArrayBase<N, Type>::size() const
 		{
 			return size_;
 		}
 
-		template <int N, typename Type, typename Derived>
-		ArrayBase<N, Type, Derived>& ArrayBase<N, Type, Derived>::operator=(
-			const ArrayBase<N, Type, Derived>& that)
+		template <int N, typename Type>
+		ArrayBase<N, Type>& ArrayBase<N, Type>::operator=(
+			const ArrayBase& that)
 		{
-			ArrayBase<N, Type, Derived> copy(that);
+			ArrayBase<N, Type> copy(that);
 			swap(copy);
 
 			return *this;
 		}
 
-		template <int N, typename Type, typename Derived>
-		Type& ArrayBase<N, Type, Derived>::operator()(
+		template <int N, typename Type>
+		Type& ArrayBase<N, Type>::operator()(
 			integer index)
 		{
 			return (Type&)((const ArrayBase&)*this)(index);
 		}
 
-		template <int N, typename Type, typename Derived>
-		const Type& ArrayBase<N, Type, Derived>::operator()(
+		template <int N, typename Type>
+		const Type& ArrayBase<N, Type>::operator()(
 			integer index) const
 		{
 			PENSURE2(index >= 0 && index < size_, index, size_);
@@ -211,15 +241,15 @@ namespace Pastel
 			return *((const Type*)data_ + index);
 		}
 
-		template <int N, typename Type, typename Derived>
-		Type& ArrayBase<N, Type, Derived>::operator()(
+		template <int N, typename Type>
+		Type& ArrayBase<N, Type>::operator()(
 			const Point<N, integer>& position)
 		{
 			return (Type&)((const ArrayBase&)*this)(position);
 		}
 
-		template <int N, typename Type, typename Derived>
-		const Type& ArrayBase<N, Type, Derived>::operator()(
+		template <int N, typename Type>
+		const Type& ArrayBase<N, Type>::operator()(
 			const Point<N, integer>& position) const
 		{
 			for (integer i = 0;i < N;++i)
@@ -239,8 +269,8 @@ namespace Pastel
 
 		// Private
 
-		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::allocate(
+		template <int N, typename Type>
+		void ArrayBase<N, Type>::allocate(
 			const Vector<N, integer>& extent)
 		{
 			ASSERT(data_ == 0);
@@ -270,21 +300,23 @@ namespace Pastel
 			extent_ = extent;
 			size_ = units;
 			data_ = newData;
+			deleteData_ = true;
 		}
 
-		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::deallocate()
+		template <int N, typename Type>
+		void ArrayBase<N, Type>::deallocate()
 		{
 			deallocateRaw((void*)data_);
 			data_ = 0;
 			size_ = 0;
 			factor_.set(0);
 			extent_.set(0);
+			deleteData_ = true;
 		}
 
-		template <int N, typename Type, typename Derived>
-		void ArrayBase<N, Type, Derived>::copyConstruct(
-			const ArrayBase<N, Type, Derived>& that,
+		template <int N, typename Type>
+		void ArrayBase<N, Type>::copyConstruct(
+			const ArrayBase& that,
 			const Type& defaultData)
 		{
 			if (size_ == 0)
@@ -358,17 +390,17 @@ namespace Pastel
 			};
 		}
 
-		template <int N, typename Type, typename Derived>
-		typename ArrayBase<N, Type, Derived>::Cursor
-			ArrayBase<N, Type, Derived>::cursor(
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::Cursor
+			ArrayBase<N, Type>::cursor(
 			const Point<N, integer>& position)
 		{
 			return Cursor(&(*this)(position), factor_);
 		}
 
-		template <int N, typename Type, typename Derived>
-		typename ArrayBase<N, Type, Derived>::ConstCursor
-			ArrayBase<N, Type, Derived>::constCursor(
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::ConstCursor
+			ArrayBase<N, Type>::constCursor(
 			const Point<N, integer>& position) const
 		{
 			return ConstCursor(&(*this)(position), factor_);

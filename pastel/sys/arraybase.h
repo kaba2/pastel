@@ -10,10 +10,13 @@
 namespace Pastel
 {
 
+	template <int N, typename Type>
+	class Array;
+
 	namespace Detail_Array
 	{
 
-		template <int N, typename Type, typename Derived>
+		template <int N, typename Type>
 		class ArrayBase
 		{
 		public:
@@ -32,15 +35,18 @@ namespace Pastel
 			ArrayBase();
 			ArrayBase(
 				const Vector<N, integer>& extent,
+				const Alias<Type*>& dataAlias);
+			ArrayBase(
+				const Vector<N, integer>& extent,
 				const Type& defaultData = Type());
-			ArrayBase(const ArrayBase<N, Type, Derived>& that);
-			ArrayBase(const ArrayBase<N, Type, Derived>& that,
+			ArrayBase(const ArrayBase& that);
+			ArrayBase(const ArrayBase& that,
 				const Vector<N, integer>& extent,
 				const Type& defaultData = Type());
 			~ArrayBase();
 
 			void clear();
-			void swap(ArrayBase<N, Type, Derived>& that);
+			void swap(ArrayBase& that);
 
 			//! Sets the extent and height of the array.
 			/*!
@@ -65,7 +71,7 @@ namespace Pastel
 			integer size() const;
 
 			//! Copies from another array.
-			ArrayBase<N, Type, Derived>& operator=(const ArrayBase<N, Type, Derived>& that);
+			ArrayBase<N, Type>& operator=(const ArrayBase& that);
 
 			//! Returns a reference to the element with the given index.
 			Type& operator()(integer index);
@@ -90,13 +96,14 @@ namespace Pastel
 				const Vector<N, integer>& extent);
 			void deallocate();
 			void copyConstruct(
-				const ArrayBase<N, Type, Derived>& that,
+				const ArrayBase& that,
 				const Type& defaultData);
 
 			Vector<N, integer> extent_;
 			Vector<N, integer> factor_;
 			integer size_;
 			Type* data_;
+			bool deleteData_;
 		};
 
 	}

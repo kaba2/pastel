@@ -373,6 +373,26 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Cholesky decomposition"
+				>
+				<File
+					RelativePath=".\cholesky_decomposition.h"
+					>
+				</File>
+				<File
+					RelativePath=".\cholesky_decomposition.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\cholesky_decomposition_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\cholesky_decomposition_tools.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"

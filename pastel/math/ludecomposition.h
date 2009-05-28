@@ -9,6 +9,16 @@
 namespace Pastel
 {
 
+	/*!
+	Let M be a nxn matrix. Then M
+	can be decomposed into
+	M = PLU
+	where
+	P is an nxn permutation matrix
+	L is an nxn lower triangular matrix
+	U is an nxn upper triangular matrix
+	*/
+
 	template <int N, typename Real>
 	class LuDecomposition
 	{
@@ -17,6 +27,7 @@ namespace Pastel
 		// Using default destructor.
 
 		LuDecomposition();
+		explicit LuDecomposition(integer dimension);
 		explicit LuDecomposition(const Matrix<N, N, Real>& matrix);
 
 		void swap(LuDecomposition& that);

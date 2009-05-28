@@ -204,6 +204,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_cholesky_decomposition.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_common.cpp"
 			>
 		</File>
@@ -217,6 +221,10 @@
 		</File>
 		<File
 			RelativePath=".\test_lowdiscrepancy.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_ludecomposition.cpp"
 			>
 		</File>
 		<File

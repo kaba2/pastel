@@ -6,6 +6,26 @@
 namespace Pastel
 {
 
+	template <int N, typename Type>
+	std::ostream& operator<<(std::ostream& stream, const Tuple<N, Type>& that)
+	{
+		if (that.empty())
+		{
+			return stream;
+		}
+
+		const integer size = that.size();
+
+		stream << that.front();
+
+		for (integer i = 1;i < size;++i)
+		{
+			stream << ", " << that[i];
+		}
+		
+		return stream;
+	}
+
 	template <typename Type>
 	Tuple<1, Type> makeTuple(
 		const Type& a)
