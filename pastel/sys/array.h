@@ -13,10 +13,10 @@ namespace Pastel
 
 	template <int N, typename Type>
 	class Array
-		: public Detail_Array::ArrayBase<N, Type, Array<N, Type> >
+		: public Detail_Array::ArrayBase<N, Type>
 	{
 	private:
-		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type> Base;
 
 	public:
 		// Using default assignment.
@@ -39,6 +39,13 @@ namespace Pastel
 		{
 		}
 
+		Array(
+			const Vector<N, integer>& extent,
+			const Alias<Type*>& dataAlias)
+			: Base(extent, dataAlias)
+		{
+		}
+
 		explicit Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
@@ -57,7 +64,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Array<1, Type>
-		: public Detail_Array::ArrayBase<1, Type, Array<1, Type> >
+		: public Detail_Array::ArrayBase<1, Type>
 	{
 	private:
 		enum
@@ -65,7 +72,7 @@ namespace Pastel
 			N = 1
 		};
 
-		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type> Base;
 
 	public:
 		// Using default assignment.
@@ -89,6 +96,13 @@ namespace Pastel
 
 		Array(const Array& that)
 			: Base(that)
+		{
+		}
+
+		Array(
+			const Vector<N, integer>& extent,
+			const Alias<Type*>& dataAlias)
+			: Base(extent, dataAlias)
 		{
 		}
 
@@ -121,6 +135,13 @@ namespace Pastel
 			integer width,
 			const Type& defaultData = Type())
 			: Base(that, Vector<N, integer>(width), defaultData)
+		{
+		}
+
+		Array(
+			integer width,
+			const Alias<Type*> dataAlias)
+			: Base(Vector<N, integer>(width), dataAlias)
 		{
 		}
 
@@ -158,7 +179,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Array<2, Type>
-		: public Detail_Array::ArrayBase<2, Type, Array<2, Type> >
+		: public Detail_Array::ArrayBase<2, Type>
 	{
 	private:
 		enum
@@ -166,7 +187,7 @@ namespace Pastel
 			N = 2
 		};
 
-		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type> Base;
 
 	public:
 		// Using default assignment.
@@ -193,6 +214,13 @@ namespace Pastel
 		{
 		}
 
+		Array(
+			const Vector<N, integer>& extent,
+			const Alias<Type*>& dataAlias)
+			: Base(extent, dataAlias)
+		{
+		}
+
 		explicit Array(
 			const Vector<N, integer>& extent,
 			const Type& defaultData = Type())
@@ -204,6 +232,13 @@ namespace Pastel
 			integer width, integer height,
 			const Type& defaultData = Type())
 			: Base(Vector<N, integer>(width, height), defaultData)
+		{
+		}
+
+		Array(
+			integer width, integer height,
+			const Alias<Type*> dataAlias)
+			: Base(Vector<N, integer>(width, height), dataAlias)
 		{
 		}
 
@@ -262,7 +297,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Array<3, Type>
-		: public Detail_Array::ArrayBase<3, Type, Array<3, Type> >
+		: public Detail_Array::ArrayBase<3, Type>
 	{
 	private:
 		enum
@@ -270,7 +305,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef Detail_Array::ArrayBase<N, Type, Array<N, Type> > Base;
+		typedef Detail_Array::ArrayBase<N, Type> Base;
 
 	public:
 		// Using default assignment.
@@ -294,6 +329,13 @@ namespace Pastel
 
 		Array(const Array& that)
 			: Base(that)
+		{
+		}
+
+		Array(
+			const Vector<N, integer>& extent,
+			const Alias<Type*>& dataAlias)
+			: Base(extent, dataAlias)
 		{
 		}
 
@@ -324,6 +366,13 @@ namespace Pastel
 			integer width, integer height, integer depth,
 			const Type& defaultData = Type())
 			: Base(that, Vector<N, integer>(width, height, depth), defaultData)
+		{
+		}
+
+		Array(
+			integer width, integer height, integer depth,
+			const Alias<Type*> dataAlias)
+			: Base(Vector<N, integer>(width, height, depth), dataAlias)
 		{
 		}
 

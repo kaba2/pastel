@@ -4,8 +4,13 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"
 
+#include <ostream>
+
 namespace Pastel
 {
+
+	template <int N, typename Type>
+	std::ostream& operator<<(std::ostream& stream, const Tuple<N, Type>& that);
 
 	template <typename Type>
 	Tuple<1, Type> makeTuple(

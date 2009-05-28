@@ -9,10 +9,13 @@ namespace Pastel
 	namespace Detail_Array
 	{
 
-		template <int N, typename Type, typename Derived>
+		template <int N, typename Type>
 		class ArrayBase;
 
-		template <int N, typename Type, typename Derived>
+		template <int N, typename Type>
+		class ConstCursor;
+
+		template <int N, typename Type>
 		class ConstCursorBase
 		{
 		public:
@@ -25,7 +28,7 @@ namespace Pastel
 			{
 			}
 
-			void swap(Derived& that)
+			void swap(ConstCursor<N, Type>& that)
 			{
 				std::swap(data_, that.data_);
 				std::swap(factor_, that.factor_);
@@ -113,13 +116,13 @@ namespace Pastel
 
 		template <int N, typename Type>
 		class ConstCursor
-			: public ConstCursorBase<N, Type, ConstCursor<N, Type> >
+			: public ConstCursorBase<N, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef ConstCursorBase<N, Type, ConstCursor<N, Type> > Base;
+			typedef ConstCursorBase<N, Type> Base;
 
 		public:
 			ConstCursor()
@@ -137,13 +140,13 @@ namespace Pastel
 
 		template <typename Type>
 		class ConstCursor<1, Type>
-			: public ConstCursorBase<1, Type, ConstCursor<1, Type> >
+			: public ConstCursorBase<1, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef ConstCursorBase<1, Type, ConstCursor<1, Type> > Base;
+			typedef ConstCursorBase<1, Type> Base;
 
 		public:
 			using Base::move;
@@ -183,13 +186,13 @@ namespace Pastel
 
 		template <typename Type>
 		class ConstCursor<2, Type>
-			: public ConstCursorBase<2, Type, ConstCursor<2, Type> >
+			: public ConstCursorBase<2, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef ConstCursorBase<2, Type, ConstCursor<2, Type> > Base;
+			typedef ConstCursorBase<2, Type> Base;
 
 		public:
 			using Base::move;
@@ -244,13 +247,13 @@ namespace Pastel
 
 		template <typename Type>
 		class ConstCursor<3, Type>
-			: public ConstCursorBase<3, Type, ConstCursor<3, Type> >
+			: public ConstCursorBase<3, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef ConstCursorBase<3, Type, ConstCursor<3, Type> > Base;
+			typedef ConstCursorBase<3, Type> Base;
 
 		public:
 			using Base::move;
@@ -318,7 +321,10 @@ namespace Pastel
 			}
 		};
 
-		template <int N, typename Type, typename Derived>
+		template <int N, typename Type>
+		class Cursor;
+
+		template <int N, typename Type>
 		class CursorBase
 			: public ConstCursor<N, Type>
 		{
@@ -336,7 +342,7 @@ namespace Pastel
 			{
 			}
 
-			void swap(Derived& that)
+			void swap(Cursor<N, Type>& that)
 			{
 				Base::swap(that);
 			}
@@ -363,13 +369,13 @@ namespace Pastel
 
 		template <int N, typename Type>
 		class Cursor
-			: public CursorBase<N, Type, Cursor<N, Type> >
+			: public CursorBase<N, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef CursorBase<N, Type, Cursor<N, Type> > Base;
+			typedef CursorBase<N, Type> Base;
 
 		public:
 			Cursor()
@@ -387,13 +393,13 @@ namespace Pastel
 
 		template <typename Type>
 		class Cursor<1, Type>
-			: public CursorBase<1, Type, Cursor<1, Type> >
+			: public CursorBase<1, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef CursorBase<1, Type, Cursor<1, Type> > Base;
+			typedef CursorBase<1, Type> Base;
 
 		public:
 			using Base::move;
@@ -433,13 +439,13 @@ namespace Pastel
 
 		template <typename Type>
 		class Cursor<2, Type>
-			: public CursorBase<2, Type, Cursor<2, Type> >
+			: public CursorBase<2, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef CursorBase<2, Type, Cursor<2, Type> > Base;
+			typedef CursorBase<2, Type> Base;
 
 		public:
 			using Base::move;
@@ -494,13 +500,13 @@ namespace Pastel
 
 		template <typename Type>
 		class Cursor<3, Type>
-			: public CursorBase<3, Type, Cursor<3, Type> >
+			: public CursorBase<3, Type>
 		{
 		private:
-			template <int N, typename Type, typename Derived>
+			template <int N, typename Type>
 			friend class ArrayBase;
 
-			typedef CursorBase<3, Type, Cursor<3, Type> > Base;
+			typedef CursorBase<3, Type> Base;
 
 		public:
 			using Base::move;

@@ -162,6 +162,30 @@ namespace Pastel
 		return *this;
 	}
 
+	template <typename Type>
+	void swap(NativeInteger<Type>& left, NativeInteger<Type>& right)
+	{
+		left.swap(right);
+	}
+
+	template <typename Type>
+	bool zero(const NativeInteger<Type>& that)
+	{
+		return that.zero();
+	}
+	
+	template <typename Type>
+	bool negative(const NativeInteger<Type>& that)
+	{
+		return that.negative();
+	}
+
+	template <typename Type>
+	bool positive(const NativeInteger<Type>& that)
+	{
+		return that.positive();
+	}
+
 }
 
 #endif

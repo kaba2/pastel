@@ -64,6 +64,18 @@ namespace Pastel
 		Type data_;
 	};
 
+	template <typename Type>
+	void swap(NativeInteger<Type>& left, NativeInteger<Type>& right);
+
+	template <typename Type>
+	bool zero(const NativeInteger<Type>& that);
+
+	template <typename Type>
+	bool negative(const NativeInteger<Type>& that);
+
+	template <typename Type>
+	bool positive(const NativeInteger<Type>& that);
+
 }
 
 #include "pastel/sys/nativeinteger.hpp"

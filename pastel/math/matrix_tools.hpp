@@ -4,6 +4,7 @@
 #include "pastel/math/matrix_tools.h"
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/tuple_tools.h"
 
 #include <iostream>
 
@@ -20,11 +21,7 @@ namespace Pastel
 
 		for (integer y = 0;y < height;++y)
 		{
-			for (integer x = 0;x < width;++x)
-			{
-				stream << m(y, x) << ", ";
-			}
-			stream << std::endl;
+			stream << m[y].asTuple() << std::endl;
 		}
 
 		return stream;

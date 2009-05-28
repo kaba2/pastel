@@ -16,8 +16,27 @@ namespace Pastel
 		, invLargestInRow_(1)
 		, singular_(false)
 	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+
 		setDiagonal(packedLu_, 0);
-		const integer size = rowPermutation.size();
+		const integer size = rowPermutation_.size();
+
+		for (integer i = 0;i < size;++i)
+		{
+			rowPermutation_[i] = i;
+		}
+	}
+
+	template <int N, typename Real>
+	LuDecomposition<N, Real>::LuDecomposition(integer dimension)
+		: packedLu_(dimension, dimension)
+		, rowPermutation_(ofDimension(dimension))
+		, evenRowPermutation_(true)
+		, invLargestInRow_(ofDimension(dimension), 1)
+		, singular_(false)
+	{
+		setDiagonal(packedLu_, 0);
+		const integer size = rowPermutation_.size();
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -28,10 +47,10 @@ namespace Pastel
 	template <int N, typename Real>
 	LuDecomposition<N, Real>::LuDecomposition(
 		const Matrix<N, N, Real>& matrix)
-		: packedLu_()
-		, rowPermutation_()
+		: packedLu_(matrix.width(), matrix.height())
+		, rowPermutation_(ofDimension(matrix.width()))
 		, evenRowPermutation_(true)
-		, invLargestInRow_()
+		, invLargestInRow_(ofDimension(matrix.width()), 1)
 		, singular_(false)
 	{
 		decompose(matrix);
