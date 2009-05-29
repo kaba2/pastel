@@ -60,7 +60,7 @@ namespace Pastel
 		// =>
 		// ln(volume(S)) = n log(2)
 
-		return dimension_ * constantLn2<Real>();
+		return dimension * constantLn2<Real>();
 	}
 
 	template <int N, typename Real>

@@ -176,12 +176,13 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CountFunctor& countFunctor)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
+		ENSURE2(pointSet.size() == maxDistanceSet.size(),
+			pointSet.size(), maxDistanceSet.size());
 		ENSURE1(maxRelativeError >= 0, maxRelativeError);
 
 		const integer points = pointSet.size();
 
-		if (kNearest == 0 || points == 0)
+		if (pointSet.empty())
 		{
 			// Nothing to compute.
 			return;
@@ -202,8 +203,6 @@ namespace Pastel
 
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
-
-		countSet.resize(points);
 
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)
