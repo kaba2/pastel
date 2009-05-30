@@ -79,6 +79,12 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	Real lnFactorial(integer i)
+	{
+		return Pastel::lnFactorialReal64(i);
+	}
+
+	template <typename Real>
 	Real bernstein(integer n, integer i, const Real& t)
 	{
 		PENSURE1(n >= 0, n);
@@ -142,9 +148,87 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	Real harmonicNumber(integer n)
+	{
+		ENSURE1(n >= 0, n);
+
+		return digamma<Real>(n + 1) + constantEulerMascheroni<real>();
+	}
+
+	template <typename Real>
 	Real digamma(integer n)
 	{
-		return Pastel::harmonicNumber(n - 1) - constantEulerMascheroni<Real>();
+		return Pastel::digammaReal64(n);
+	}
+
+	template <typename Real>
+	Real gamma(PASTEL_NO_DEDUCTION(Real) z)
+	{
+		// From Wikipedia, "Lanczos approximation".
+
+		const integer g = 7;
+		Real p[9] = {
+			0.99999999999980993, 
+			676.5203681218851, 
+			-1259.1392167224028,
+			 771.32342877765313, 
+			 -176.61502916214059, 
+			 12.507343278686905,
+			 -0.13857109526572012, 
+			 9.9843695780195716e-6, 
+			 1.5056327351493116e-7};
+		
+		if (z < 0.5)
+		{
+			return constantPi<Real>() / 
+				(std::sin(constantPi<Real>() * z) * gamma<Real>(1 - z));
+		}
+
+		z -= 1;
+		Real x = p[0];
+		for (integer i = 1;i < g + 2;++i)
+		{
+			x += p[i] / (z + i);
+		}
+		const Real t = z + g + 0.5;
+
+		return std::sqrt(2 * constantPi<Real>()) * 
+			std::pow(t, z + 0.5) * std::exp(-t) * x;
+	}
+
+	template <typename Real>
+	Real lnGamma(PASTEL_NO_DEDUCTION(Real) z)
+	{
+		// From Wikipedia, "Lanczos approximation".
+
+		const integer g = 7;
+		Real p[9] = {
+			0.99999999999980993, 
+			676.5203681218851, 
+			-1259.1392167224028,
+			 771.32342877765313, 
+			 -176.61502916214059, 
+			 12.507343278686905,
+			 -0.13857109526572012, 
+			 9.9843695780195716e-6, 
+			 1.5056327351493116e-7};
+		
+		if (z < 0.5)
+		{
+			return constantPi<Real>() / 
+				(std::sin(constantPi<Real>() * z) * gamma<Real>(1 - z));
+		}
+
+		z -= 1;
+		Real x = p[0];
+		for (integer i = 1;i < g + 2;++i)
+		{
+			x += p[i] / (z + i);
+		}
+		const Real t = z + g + 0.5;
+
+		return 0.5 * std::log(2 * constantPi<Real>()) + 
+			(z + 0.5) * std::log(t) - t + std::log(x);
 	}
 
 }

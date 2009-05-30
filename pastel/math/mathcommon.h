@@ -37,7 +37,10 @@ namespace Pastel
 	template <typename Real>
 	Real factorial(integer i);
 
-	PASTELMATH real lnFactorial(integer n);
+	PASTELMATH real64 lnFactorialReal64(integer n);
+
+	template <typename Real>
+	Real lnFactorial(integer i);
 
 	//! Computes the i:th n-degree Bernstein polynomial at t.
 	/*!
@@ -79,8 +82,9 @@ namespace Pastel
 	H_n = 1/1 + 1/2 + ... + 1/n
 	*/
 
-	PASTELMATH real harmonicNumber(integer n);
-
+	template <typename Real>
+	Real harmonicNumber(integer n);
+	
 	//! Computes the digamma function for an integer argument.
 	/*!
 	Preconditions:
@@ -89,8 +93,16 @@ namespace Pastel
 	digamma(n) = harmonicNumber(n - 1) - constantEulerMascheroni
 	*/
 
+	PASTELMATH real64 digammaReal64(integer n);
+
 	template <typename Real>
 	Real digamma(integer n);
+
+	template <typename Real>
+	Real gamma(PASTEL_NO_DEDUCTION(Real) z);
+
+	template <typename Real>
+	Real lnGamma(PASTEL_NO_DEDUCTION(Real) z);
 
 }
 

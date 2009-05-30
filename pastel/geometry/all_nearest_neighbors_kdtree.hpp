@@ -127,9 +127,9 @@ namespace Pastel
 
 		const integer dimension = pointSet.front().size();
 
-		Timer timer;
+		//Timer timer;
 
-		timer.setStart();
+		//timer.setStart();
 
 		Tree tree(dimension);
 
@@ -141,8 +141,8 @@ namespace Pastel
  
 		//check(tree);
 
-		timer.store();
-		log() << "Construction: " << timer.seconds() << logNewLine;
+		//timer.store();
+		//log() << "Construction: " << timer.seconds() << logNewLine;
 
 		/*
 		log() << tree.nodes() << " nodes, "

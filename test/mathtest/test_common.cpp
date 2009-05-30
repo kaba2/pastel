@@ -72,7 +72,7 @@ namespace
 	{
 		for (integer i = 51200;i < 51250;++i)
 		{
-			log() << harmonicNumber(i) << ", ";
+			log() << harmonicNumber<real>(i) << ", ";
 			if ((i % 4) == 3)
 			{
 				log() << logNewLine;
@@ -80,8 +80,25 @@ namespace
 		}
 	}
 
+	void testSpecial()
+	{
+		log() << "Gamma function from 1 to 9" << logNewLine;
+		for (real i = 1;i < 10;i += 0.5)
+		{
+			log() << gamma<real>(i) << ", ";
+		}
+		log() << logNewLine;
+		log() << "Digamma function from 1 to 9" << logNewLine;
+		for (integer i = 1;i < 10;++i)
+		{
+			log() << digamma<real>(i) << ", ";
+		}
+		log() << logNewLine;
+	}
+
 	void testAdd()
 	{
+		mathTestList().add("Special", testSpecial);
 		mathTestList().add("Quadratic", testQuadratic);
 		mathTestList().add("CcwAngle", testCcwAngle);
 		mathTestList().add("Harmonic", testHarmonic);

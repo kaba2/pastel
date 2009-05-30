@@ -8,6 +8,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/vector.h"
 
 #include <boost/random.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -45,6 +46,20 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minValue, 
 		const PASTEL_NO_DEDUCTION(Real)& maxValue);
 
+	//! Returns a random vector uniformly distributed in [0, 1]^N.
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVector();
+
+	//! Returns a random vector uniformly distributed in [0, 1]^N.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomVector(integer dimension);
+
 	//! Returns a (0, 1)-normal distributed random real.
 	/*!
 	Time complexity: constant
@@ -53,7 +68,7 @@ namespace Pastel
 
 	template <typename Real>
 	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
-		randomNormal();
+		randomGaussian();
 
 	//! Returns a (0, 1)-normal distributed random real.
 	/*!
@@ -63,15 +78,87 @@ namespace Pastel
 
 	template <typename Real>
 	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
-		randomNormal();
+		randomGaussian();
 
-	//! Returns a uniformly distributed random integer in [0, 0x7FFFFFFF].
+	//! Returns a random vector standard-normally distributed in a hyperball.
+	
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomGaussianVector();
 
-	PASTELSYS integer randomInteger();
+	//! Returns a random vector standard-normally distributed in a hyperball.
+	
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomGaussianVector(integer dimension);
+
+	//! Returns an exponentially distributed random real.
 	/*!
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
+
+	template <typename Real>
+	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
+		randomExponential();
+
+	//! Returns an exponentially distributed random real.
+	/*!
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+
+	template <typename Real>
+	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
+		randomExponential();
+
+	//! Returns a random vector exponentially distributed in each component.
+	
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomExponentialVector();
+
+	//! Returns a random vector exponentially distributed in each component.
+	
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomExponentialVector(integer dimension);
+
+	//! Returns a gamma distributed random real.
+
+	template <typename Real>
+	Real randomGamma(PASTEL_NO_DEDUCTION(Real) alpha);
+
+	//! Returns a random vector gamma distributed in each component.
+	
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomGammaVector();
+
+	//! Returns a random vector gamma distributed in each component.
+	
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomGammaVector(integer dimension);
+
+	//! Returns a generalized normal distributed random real.
+	/*!
+	Shape = 2 corresponds to normal distribution.
+	*/
+
+	template <typename Real>
+	Real randomGeneralizedGaussian(
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	template <int N, typename Real>
+	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
+		integer dimension,
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	//! Returns a uniformly distributed random integer in [0, 0x7FFFFFFF].
+
+	PASTELSYS integer randomInteger();
 
 	//! A class for generating uniformly distributed random reals.
 
