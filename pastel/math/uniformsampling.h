@@ -14,30 +14,6 @@
 namespace Pastel
 {
 
-	//! Returns a random vector standard-normally distributed in a hyperball.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorGaussian();
-
-	//! Returns a random vector standard-normally distributed in a hyperball.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorGaussian(integer dimension);
-
-	//! Returns a random vector uniformly distributed in [0, 1]^N.
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector();
-
-	//! Returns a random vector uniformly distributed in [0, 1]^N.
-	/*!
-	Preconditions:
-	dimension >= 0
-	*/
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector(integer dimension);
-
 	//! Returns a random vector uniformly distributed in [-1, 1]^N.
 
 	template <int N, typename Real>

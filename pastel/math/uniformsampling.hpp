@@ -8,54 +8,12 @@
 #include "pastel/sys/constants.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/smallset.h"
+#include "pastel/sys/random.h"
 
 #include <boost/static_assert.hpp>
 
 namespace Pastel
 {
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorGaussian()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVectorGaussian<N, Real>(N);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorGaussian(integer dimension)
-	{
-		PENSURE1(dimension >= 0, dimension);
-		Vector<N, Real> direction(ofDimension(dimension));
-
-		for (integer i = 0;i < dimension;++i)
-		{
-			direction[i] = randomNormal<Real>();			
-		}
-
-		return direction.asTemporary();
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVector<N, Real>(N);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector(integer dimension)
-	{
-		PENSURE1(dimension >= 0, dimension);
-
-		Vector<N, Real> direction(ofDimension(dimension));
-
-		for (integer i = 0;i < dimension;++i)
-		{
-			direction[i] = random<Real>();
-		}
-
-		return direction.asTemporary();
-	}
 
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorCube()
@@ -115,7 +73,7 @@ namespace Pastel
 			{
 				for (integer i = 0;i < dimension;++i)
 				{
-					result[i] = randomNormal<Real>();
+					result[i] = randomGaussian<Real>();
 				}
 				dotResult = dot(result);
 			}
