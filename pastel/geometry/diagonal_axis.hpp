@@ -23,55 +23,13 @@ namespace Pastel
 
 			bool operator()(integer left, integer right) const
 			{
-				return data_[right] < data_[left];
+				return square(data_[right]) < square(data_[left]);
 			}
 
 		private:
 			const Vector<N, Real>& data_;
 		};
 
-	}
-
-	template <int N, typename Real>
-	TemporaryPoint<N, Real> mean(
-		const std::vector<Point<N, Real> >& pointSet)
-	{
-		const integer points = pointSet.size();
-
-		if (points == 0)
-		{
-			Point<N, Real> result(ofDimension(0));
-			return result.asTemporary();
-		}
-
-		const integer dimension = pointSet.front().dimension();
-
-		Point<N, Real> result(ofDimension(dimension), 0);
-		for (integer i = 0;i < points;++i)
-		{
-			result += asVector(pointSet[i]);
-		}
-
-		asVector(result) /= points;
-		
-		return result.asTemporary();
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> axisAlignedVariance(
-		const std::vector<Point<N, Real> >& pointSet,
-		const Point<N, Real>& mean)
-	{
-		const integer points = pointSet.size();
-		const integer dimension = pointSet.front().dimension();
-
-		Vector<N, Real> result(ofDimension(dimension));
-		for (integer i = 0;i < points;++i)
-		{
-			result += squarev(pointSet[i] - mean);
-		}
-		
-		return result.asTemporary();
 	}
 
 	template <int N, typename Real>
@@ -171,7 +129,6 @@ namespace Pastel
 		const integer dimension = that.dimension();
 
 		PENSURE1(dimension <= 32, dimension);
-		PENSURE(allGreaterEqual(that, 0));
 
 		std::vector<integer> permutation;
 		permutation.reserve(dimension);
@@ -186,28 +143,36 @@ namespace Pastel
 		std::sort(permutation.begin(),
 			permutation.end(), predicate);
 
-		Real sum = that[permutation.front()];
-		Real minimumCandidate2 = square(sum);
-		integer minimumCandidate2Index = 0;
+		Real sum = 0;
+		Real maximumFit = -infinity<Real>();
+		DiagonalAxis currentAxis = 0;
+		DiagonalAxis bestAxis = 0;
 
-		for (integer i = 1;i < dimension;++i)
+		for (integer i = 0;i < dimension;++i)
 		{
-			sum += that[permutation[i]];
-			Real candidate2 = square(sum) / (i + 1);
-			if (candidate2 < minimumCandidate2)
+			const integer index = permutation[i];
+			const Real value = that[index];
+
+			if (value >= 0)
 			{
-				minimumCandidate2 = candidate2;
-				minimumCandidateIndex = i;
+				currentAxis += 1 << (2 * index);
+				sum += value;
+			}
+			else
+			{
+				currentAxis += 3 << (2 * index);
+				sum -= value;
+			}
+
+			const Real fit = square(sum) / (i + 1);
+			if (fit > maximumFit)
+			{
+				maximumFit = fit;
+				bestAxis = currentAxis;
 			}
 		}
-		
-		DiagonalAxis result = 0;
-		for (integer i = 0;i < minimumCandidateIndex + 1;++i)
-		{
-			result |= (1 << permutation[i]);
-		}
 
-		return result;
+		return bestAxis;
 	}
 
 	template <int N, typename Real>
