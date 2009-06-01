@@ -2,11 +2,12 @@
 #include "pastel/device/gfxdevice.h"
 
 #include "pastel/sys/log_all.h"
-
 #include "pastel/sys/point_tools.h"
+
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
 #include "pastel/math/uniformsampling.h"
+#include "pastel/math/largest_eigenvector.h"
 
 #include "pastel/gl/glgfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
@@ -84,11 +85,21 @@ void redraw()
 
 	renderer__->setColor(Color(1));
 	const Point2 meanPoint = mean(targetSet__);
+	const Vector2 maximalVariance = largestEigenVector(targetSet__) * 0.2;
 	const Vector2 diagonalVariance = 
-		cross(diagonalAxis<2, real>(2, maximalDiagonalVariance(targetSet__)) * 0.1);
-	drawSegment(*renderer__, 
-		Segment2(meanPoint - diagonalVariance, 
-		meanPoint + diagonalVariance));
+		diagonalAxis<2, real>(2, maximalDiagonalVariance(targetSet__)) * 0.1;
+	/*
+	const Vector2 diagonalVariance = 
+		diagonalAxis<2, real>(2, nearestDiagonalAxis(maximalVariance)) * 0.1;
+	*/
+	renderer__->setFilled(true);
+	drawFatSegment(*renderer__, 
+		Segment2(meanPoint - cross(diagonalVariance), 
+		meanPoint + cross(diagonalVariance)), 0.01, 0.01);
+	renderer__->setColor(Color(1, 0, 0));
+	drawFatSegment(*renderer__, 
+		Segment2(meanPoint - cross(maximalVariance), 
+		meanPoint + cross(maximalVariance)), 0.01, 0.01);
 
 	gfxDevice().swapBuffers();
 }

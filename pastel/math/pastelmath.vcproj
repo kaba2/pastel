@@ -429,6 +429,14 @@
 				RelativePath=".\normbijection.h"
 				>
 			</File>
+			<File
+				RelativePath=".\statistics.h"
+				>
+			</File>
+			<File
+				RelativePath=".\statistics.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Uniform sampling"
@@ -443,7 +451,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Numeric"
+			Name="Numbers"
 			>
 			<File
 				RelativePath=".\biginteger.cpp"
@@ -502,22 +510,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\polynomial.h"
-				>
-			</File>
-			<File
-				RelativePath=".\polynomial.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\polynomial_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\polynomial_tools.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\rational.h"
 				>
 			</File>
@@ -561,6 +553,38 @@
 				Name="Latin hypercube"
 				>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Eigenvectors"
+			>
+			<File
+				RelativePath=".\largest_eigenvector.h"
+				>
+			</File>
+			<File
+				RelativePath=".\largest_eigenvector.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Polynomials"
+			>
+			<File
+				RelativePath=".\polynomial.h"
+				>
+			</File>
+			<File
+				RelativePath=".\polynomial.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\polynomial_tools.h"
+				>
+			</File>
+			<File
+				RelativePath=".\polynomial_tools.hpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
