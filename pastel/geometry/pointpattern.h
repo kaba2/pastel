@@ -3,7 +3,7 @@
 
 #include "pastel/sys/tuple.h"
 
-#include "pastel/geometry/kdtree.h"
+#include "pastel/geometry/pointkdtree.h"
 
 namespace Pastel
 {
@@ -45,8 +45,8 @@ namespace Pastel
 
 	template <typename Real, typename ScenePolicy, typename ModelPolicy>
 	bool pointPatternMatch(
-		const KdTree<2, Real, ScenePolicy>& sceneTree,
-		const KdTree<2, Real, ModelPolicy>& modelTree,
+		const PointKdTree<2, Real, ScenePolicy>& sceneTree,
+		const PointKdTree<2, Real, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,

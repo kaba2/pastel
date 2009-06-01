@@ -821,22 +821,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\kdtree_count_nearest.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_count_nearest.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_depth_first.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_depth_first.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\kdtree_raytraversal.h"
 					>
 				</File>
@@ -850,22 +834,6 @@
 				</File>
 				<File
 					RelativePath=".\kdtree_refine.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_search_nearest.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_search_nearest.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_search_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_search_range.hpp"
 					>
 				</File>
 				<File
@@ -1010,6 +978,66 @@
 				</File>
 				<File
 					RelativePath=".\delaunaytesselation_tools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="PointKdTree"
+				>
+				<File
+					RelativePath=".\pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_count_nearest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_count_nearest.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_depth_first.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_depth_first.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_refine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_refine.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_search_nearest.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_search_nearest.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_search_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_search_range.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_tools.hpp"
 					>
 				</File>
 			</Filter>

@@ -1,6 +1,6 @@
 #include "pastelgeometrytest.h"
 
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/pointpattern.h"
 #include "pastel/geometry/bounding_alignedbox.h"
 
@@ -151,10 +151,10 @@ namespace
 
 		log() << "Computing kd-trees..." << logNewLine;
 
-		typedef KdTree<2, real> SceneTree;
+		typedef PointKdTree<2, real> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef KdTree<2, real> ModelTree;
+		typedef PointKdTree<2, real> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;

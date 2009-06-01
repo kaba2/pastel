@@ -3,8 +3,8 @@
 
 #include "pastel/gfx/reconstruct_adaptive.h"
 
-#include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 
 #include "pastel/dsp/box_filter.h"
@@ -47,24 +47,18 @@ namespace Pastel
 		{
 		public:
 			typedef DataPoint<N, Real, Data> Object;
-			typedef TrueType UseBounds;
-
-			AlignedBox<N, Real> bound(
-				const DataPoint<N, Real, Data>& dataPoint) const
-			{
-				return AlignedBox<N, Real>(dataPoint.position_);
-			}
-
-			Tuple<2, Real> bound(
-				const DataPoint<N, Real, Data>& dataPoint, integer index) const
-			{
-				return Tuple<2, Real>(dataPoint.position_[index]);
-			}
 
 			const Point<N, Real>& point(
 				const DataPoint<N, Real, Data>& dataPoint) const
 			{
 				return dataPoint.position_;
+			}
+
+			Real point(
+				const DataPoint<N, Real, Data>& dataPoint,
+				integer axis) const
+			{
+				return dataPoint.position_[axis];
 			}
 		};
 
@@ -73,7 +67,7 @@ namespace Pastel
 		{
 		public:
 			explicit ReconstructFunctor(
-				const KdTree<N, Real, ObjectPolicy>& kdTree,
+				const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 				integer kNearest,
 				integer maxRelativeError)
 				: kdtree_(kdTree)
@@ -88,7 +82,7 @@ namespace Pastel
 				const Point<N, integer>& position,
 				typename Data::Data_& data) const
 			{
-				typedef KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+				typedef PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
@@ -125,7 +119,7 @@ namespace Pastel
 			}
 
 		private:
-			const KdTree<N, Real, ObjectPolicy>& kdtree_;
+			const PointKdTree<N, Real, ObjectPolicy>& kdtree_;
 			integer kNearest_;
 			Real maxRelativeError_;
 		};
@@ -152,7 +146,7 @@ namespace Pastel
 		typedef Detail_ReconstructAdaptive::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
-		KdTree<N, Real, DataPolicy> kdTree(N, dataPolicy);
+		PointKdTree<N, Real, DataPolicy> kdTree(N, dataPolicy);
 
 		const Vector<N, Real> scaling = 
 			inverse(region.extent()) * Vector<N, Real>(view.extent());

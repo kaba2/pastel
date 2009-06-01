@@ -2,8 +2,8 @@
 #define PASTEL_POINTPATTERN_HPP
 
 #include "pastel/geometry/pointpattern.h"
-#include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/bounding_sphere.h"
 
 #include "pastel/math/affinetransformation_tools.h"
@@ -22,18 +22,18 @@ namespace Pastel
 		class PatternMatcher
 		{
 		private:
-			typedef KdTree<2, Real, ScenePolicy> SceneTree;
+			typedef PointKdTree<2, Real, ScenePolicy> SceneTree;
 			typedef typename SceneTree::ConstObjectIterator SceneIterator;
 			typedef typename SceneTree::Object SceneObject;
 
-			typedef KdTree<2, Real, ModelPolicy> ModelTree;
+			typedef PointKdTree<2, Real, ModelPolicy> ModelTree;
 			typedef typename ModelTree::ConstObjectIterator ModelIterator;
 			typedef typename ModelTree::Object ModelObject;
 
 		public:
 			PatternMatcher(
-				const KdTree<2, Real, ScenePolicy>& sceneTree,
-				const KdTree<2, Real, ModelPolicy>& modelTree,
+				const PointKdTree<2, Real, ScenePolicy>& sceneTree,
+				const PointKdTree<2, Real, ModelPolicy>& modelTree,
 				const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 				const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 				const PatternMatch::Enum& matchingDistanceType)
@@ -181,7 +181,7 @@ namespace Pastel
 					const ModelObject& modelObject =
 						*modelIter;
 					const Point<2, Real> modelPoint =
-						modelTree_.objectPolicy().bound(modelObject).min();
+						modelTree_.objectPolicy().point(modelObject);
 
 					SceneIterator sceneIter = sceneTree_.begin();
 					const SceneIterator sceneEnd = sceneTree_.end();
@@ -193,7 +193,7 @@ namespace Pastel
 						const SceneObject& sceneObject =
 							*sceneIter;
 						const Point<2, Real> scenePoint =
-							sceneTree_.objectPolicy().bound(sceneObject).min();
+							sceneTree_.objectPolicy().point(sceneObject);
 
 						// Find the k nearest neighbours
 						// for both points in their respective point sets.
@@ -247,18 +247,18 @@ namespace Pastel
 			{
 			public:
 				explicit ScenePositionFunctor(
-					const KdTree<2, Real, ScenePolicy>& sceneTree)
+					const PointKdTree<2, Real, ScenePolicy>& sceneTree)
 					: sceneTree_(sceneTree)
 				{
 				}
 
 				Point<2, Real> operator()(const SceneObject& sceneObject) const
 				{
-					return sceneTree_.objectPolicy().bound(sceneObject).min();
+					return sceneTree_.objectPolicy().point(sceneObject);
 				}
 
 			private:
-				const KdTree<2, Real, ScenePolicy>& sceneTree_;
+				const PointKdTree<2, Real, ScenePolicy>& sceneTree_;
 			};
 
 			class SceneIteratorHash
@@ -273,12 +273,12 @@ namespace Pastel
 
 			Point<2, Real> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return sceneTree_.objectPolicy().bound(*sceneIter).min();
+				return sceneTree_.objectPolicy().point(*sceneIter);
 			}
 
 			Point<2, Real> modelPosition(const ModelIterator& modelIter) const
 			{
-				return modelTree_.objectPolicy().bound(*modelIter).min();
+				return modelTree_.objectPolicy().point(*modelIter);
 			}
 
 			bool matchLocal(
@@ -467,8 +467,8 @@ namespace Pastel
 			}
 
 		private:
-			const KdTree<2, Real, ScenePolicy>& sceneTree_;
-			const KdTree<2, Real, ModelPolicy>& modelTree_;
+			const PointKdTree<2, Real, ScenePolicy>& sceneTree_;
+			const PointKdTree<2, Real, ModelPolicy>& modelTree_;
 			const Real minMatchRatio_;
 			const integer scenePoints_;
 			const integer modelPoints_;
@@ -489,8 +489,8 @@ namespace Pastel
 
 	template <typename Real, typename ScenePolicy, typename ModelPolicy>
 	bool pointPatternMatch(
-		const KdTree<2, Real, ScenePolicy>& sceneTree,
-		const KdTree<2, Real, ModelPolicy>& modelTree,
+		const PointKdTree<2, Real, ScenePolicy>& sceneTree,
+		const PointKdTree<2, Real, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
@@ -537,10 +537,10 @@ namespace Pastel
 		const PatternMatch::Enum& matchingDistanceType,
 		Tuple<4, Real>& similarityResult)
 	{
-		typedef KdTree<2, Real> SceneTree;
+		typedef PointKdTree<2, Real> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef KdTree<2, Real> ModelTree;
+		typedef PointKdTree<2, Real> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;

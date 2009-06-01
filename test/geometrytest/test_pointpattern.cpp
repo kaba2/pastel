@@ -1,6 +1,6 @@
 #include "pastelgeometrytest.h"
 
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/poissondiskpattern.h"
 

@@ -1,5 +1,5 @@
-#include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
@@ -49,7 +49,7 @@ real searchRadius__ = SearchRadius;
 
 GlGfxRenderer* renderer__;
 
-typedef KdTree<2, real> MyTree;
+typedef PointKdTree<2, real> MyTree;
 
 MyTree tree__;
 

@@ -1,7 +1,7 @@
-#ifndef PASTEL_KDTREE_COUNT_NEAREST_H
-#define PASTEL_KDTREE_COUNT_NEAREST_H
+#ifndef PASTEL_POINTKDTREE_COUNT_NEAREST_H
+#define PASTEL_POINTKDTREE_COUNT_NEAREST_H
 
-#include "pastel/geometry/kdtree.h"
+#include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/keyvalue.h"
 
@@ -23,7 +23,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	integer countNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -46,13 +46,13 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	integer countNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
 
 }
 
-#include "pastel/geometry/kdtree_count_nearest.hpp"
+#include "pastel/geometry/pointkdtree_count_nearest.hpp"
 
 #endif

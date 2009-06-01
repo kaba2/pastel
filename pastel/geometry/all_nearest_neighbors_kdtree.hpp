@@ -2,7 +2,7 @@
 #define PASTEL_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
 
 #include "pastel/geometry/all_nearest_neighbors_kdtree.h"
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/device/timer.h"
 
@@ -19,24 +19,17 @@ namespace Pastel
 		{
 		public:
 			typedef const Point<N, Real>* Object;
-			typedef TrueType UseBounds;
-
-			AlignedBox<N, Real> bound(
-				const Object& object) const
-			{
-				return AlignedBox<N, Real>(*object);
-			}
-
-			Tuple<2, real> bound(
-				const Object& object, integer axis) const
-			{
-				return Tuple<2, real>((*object)[axis]);
-			}
 
 			const Point<N, Real>& point(
 				const Object& object) const
 			{
 				return *object;
+			}
+
+			Real point(
+				const Object& object, integer axis) const
+			{
+				return (*object)[axis];
 			}
 		};
 
@@ -118,7 +111,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef KdTree<N, Real, 
+		typedef PointKdTree<N, Real, 
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef typename Tree::Object Object;

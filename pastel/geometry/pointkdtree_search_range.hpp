@@ -1,7 +1,8 @@
-#ifndef PASTEL_KDTREE_SEARCH_RANGE_HPP
-#define PASTEL_KDTREE_SEARCH_RANGE_HPP
+#ifndef PASTEL_POINTKDTREE_SEARCH_RANGE_HPP
+#define PASTEL_POINTKDTREE_SEARCH_RANGE_HPP
 
-#include "pastel/geometry/kdtree_search_range.h"
+#include "pastel/geometry/pointkdtree_search_range.h"
+#include "pastel/geometry/overlaps_alignedbox_point.h"
 #include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
 
 namespace Pastel
@@ -9,18 +10,18 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void searchRange(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const AlignedBox<N, Real>& range,
-		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result)
+		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result)
 	{
 		ENSURE2(range.dimension() == kdTree.dimension(), 
 			range.dimension(), kdTree.dimension());
 
-		typedef typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 			ConstObjectIterator;
-		typedef typename KdTree<N, Real, ObjectPolicy>::Cursor
+		typedef typename PointKdTree<N, Real, ObjectPolicy>::Cursor
 			Cursor;
-		typedef typename KdTree<N, Real, ObjectPolicy>::Object
+		typedef typename PointKdTree<N, Real, ObjectPolicy>::Object
 			Object;
 
 		std::vector<ConstObjectIterator> rangeSet;
@@ -84,7 +85,7 @@ namespace Pastel
 			while(iter != iterEnd)
 			{
 				const Object& object = *iter;
-				if (overlaps(objectPolicy.bound(object), range))
+				if (overlaps(range, objectPolicy.point(object)))
 				{
 					rangeSet.push_back(iter);
 				}
