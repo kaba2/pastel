@@ -1,7 +1,7 @@
-#ifndef PASTEL_KDTREE_SEARCH_NEAREST_H
-#define PASTEL_KDTREE_SEARCH_NEAREST_H
+#ifndef PASTEL_POINTKDTREE_SEARCH_NEAREST_H
+#define PASTEL_POINTKDTREE_SEARCH_NEAREST_H
 
-#include "pastel/geometry/kdtree.h"
+#include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/keyvalue.h"
 
@@ -81,14 +81,14 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename NormBijection, typename AcceptFunctor>
 	void searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		integer kNearest,
-		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet = 0,
+		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet = 0,
 		std::vector<PASTEL_NO_DEDUCTION(Real)>* distanceSet = 0);
 
 	//! Finds nearest neighbors for a point in a kdTree.
@@ -108,9 +108,9 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename NormBijection, typename AcceptFunctor>
-	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -135,9 +135,9 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename AcceptFunctor>
-	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -145,29 +145,29 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename AcceptFunctor>
-	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename AcceptFunctor>
-	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const AcceptFunctor& acceptFunctor);
 
 	template <int N, typename Real, typename ObjectPolicy>
-	KeyValue<Real, typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point);
 
 }
 
-#include "pastel/geometry/kdtree_search_nearest.hpp"
+#include "pastel/geometry/pointkdtree_search_nearest.hpp"
 
 #endif

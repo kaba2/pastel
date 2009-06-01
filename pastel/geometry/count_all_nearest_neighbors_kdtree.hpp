@@ -58,24 +58,17 @@ namespace Pastel
 		{
 		public:
 			typedef const Point<N, Real>* Object;
-			typedef TrueType UseBounds;
-
-			AlignedBox<N, Real> bound(
-				const Object& object) const
-			{
-				return AlignedBox<N, Real>(*object);
-			}
-
-			Tuple<2, real> bound(
-				const Object& object, integer axis) const
-			{
-				return Tuple<2, real>((*object)[axis]);
-			}
 
 			const Point<N, Real>& point(
 				const Object& object) const
 			{
 				return *object;
+			}
+
+			Real point(
+				const Object& object, integer axis) const
+			{
+				return (*object)[axis];
 			}
 		};
 

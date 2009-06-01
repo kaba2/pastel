@@ -1,7 +1,7 @@
-#ifndef PASTEL_KDTREETOOLS_HPP
-#define PASTEL_KDTREETOOLS_HPP
+#ifndef PASTEL_POINTKDTREETOOLS_HPP
+#define PASTEL_POINTKDTREETOOLS_HPP
 
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/boxarea.h"
@@ -29,8 +29,8 @@ namespace Pastel
 	{
 
 		template <int N, typename Real, typename ObjectPolicy>
-		integer depth(const KdTree<N, Real, ObjectPolicy>& tree,
-			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+		integer depth(const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			integer currentDepth)
 		{
 			if (cursor.leaf())
@@ -46,7 +46,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	integer depth(const KdTree<N, Real, ObjectPolicy>& tree)
+	integer depth(const PointKdTree<N, Real, ObjectPolicy>& tree)
 	{
 		return Detail::depth(tree, tree.root(), 0);
 	}
@@ -55,8 +55,8 @@ namespace Pastel
 	{
 
 		template <int N, typename Real, typename ObjectPolicy>
-		bool check(const KdTree<N, Real, ObjectPolicy>& tree,
-			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+		bool check(const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const AlignedBox<N, Real>& bound)
 		{
 			if (cursor.leaf())
@@ -93,6 +93,16 @@ namespace Pastel
 					return false;
 				}
 
+				if (REPORT(cursor.min() != bound.min()[cursor.splitAxis()]))
+				{
+					return false;
+				}
+
+				if (REPORT(cursor.max() != bound.max()[cursor.splitAxis()]))
+				{
+					return false;
+				}
+
 				AlignedBox<N, Real> positiveBound(bound);
 				positiveBound.min()[cursor.splitAxis()] = cursor.splitPosition();
 
@@ -116,7 +126,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	bool check(const KdTree<N, Real, ObjectPolicy>& tree)
+	bool check(const PointKdTree<N, Real, ObjectPolicy>& tree)
 	{
 		return Detail::check(tree, tree.root(), tree.bound());
 	}
@@ -144,7 +154,9 @@ namespace Pastel
 			}
 			else
 			{
-				if (aTree.splitAxis() != bTree.splitAxis() ||
+				if (aTree.min() != bTree.min() ||
+					aTree.max() != bTree.max() ||
+					aTree.splitAxis() != bTree.splitAxis() ||
 					aTree.splitPosition() != bTree.splitPosition())
 				{
 					return false;
@@ -166,8 +178,8 @@ namespace Pastel
 	}
 	template <int N_A, typename Real, typename ObjectPolicy_A, 
 		int N_B, typename ObjectPolicy_B>
-	bool equivalentKdTree(const KdTree<N_A, Real, ObjectPolicy_A>& aTree,
-	const KdTree<N_B, Real, ObjectPolicy_B>& bTree)
+	bool equivalentKdTree(const PointKdTree<N_A, Real, ObjectPolicy_A>& aTree,
+	const PointKdTree<N_B, Real, ObjectPolicy_B>& bTree)
 	{
 		if (aTree.nodes() != bTree.nodes() ||
 			aTree.objects() != bTree.objects() ||

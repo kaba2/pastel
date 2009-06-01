@@ -1058,18 +1058,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="File access"
-			>
-			<File
-				RelativePath=".\binaryfile.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\binaryfile.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Deprecated"
 			>
 			<File
@@ -1198,6 +1186,18 @@
 			</File>
 			<File
 				RelativePath=".\adaptedarray.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="File access"
+			>
+			<File
+				RelativePath=".\binaryfile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\binaryfile.h"
 				>
 			</File>
 		</Filter>

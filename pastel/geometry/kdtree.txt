@@ -226,6 +226,28 @@ Should the kd-tree know its bounding box?
 => make it possible to enlarge the bounding box but not shrink it
 => inserted objects enlarge the bounding box automatically
 
+Should you use the same data structure for points and arbitrary shapes?
+-----------------------------------------------------------------------
+
+This is possible. However:
+1) The shapes have to be abstracted by their bounding aligned boxes.
+=> Point based implementation suffer some abstraction penalty.
+2) The splitting bounds in the nodes are needed by nearest neighbor
+searching with points but are not needed in ray tracing.
+3) The splitting bounds imply that one can't refine per node
+(but per tree, see 'implementation experience').
+
+It seems a better alternative is to create:
+* a kd-tree that is designed for ray tracing (KdTree)
+* a kd-tree that is designed for point sets (PointKdTree)
+
+With PointKdTree, should we actually implement
+PointBspTree, which can be customized to either kd-tree or 
+diagonal bsp tree? No, again node bounds do not make sense for 
+diagonal bsp tree.
+
+PointDbspTree
+
 Implementation experience
 -------------------------
 

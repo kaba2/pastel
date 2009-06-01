@@ -1,9 +1,11 @@
 #ifndef PASTEL_KDTREE_TOOLS_H
 #define PASTEL_KDTREE_TOOLS_H
 
-#include "pastel/geometry/kdtree.h"
-#include "pastel/geometry/kdtree_refine.h"
-#include "pastel/geometry/kdtree_raytraversal.h"
+#include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/pointkdtree_refine.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
+#include "pastel/geometry/pointkdtree_search_range.h"
 
 namespace Pastel
 {
@@ -20,7 +22,7 @@ namespace Pastel
 
 	template <int N, typename Real,
 		typename ObjectPolicy>
-	integer depth(const KdTree<N, Real, ObjectPolicy>& tree);
+	integer depth(const PointKdTree<N, Real, ObjectPolicy>& tree);
 
 	//! Checks the invariants of the kd-tree.
 	/*!
@@ -31,15 +33,15 @@ namespace Pastel
 
 	template <int N, typename Real,
 		typename ObjectPolicy>
-	bool check(const KdTree<N, Real, ObjectPolicy>& tree);
+	bool check(const PointKdTree<N, Real, ObjectPolicy>& tree);
 
 	template <int N_A, typename Real, typename ObjectPolicy_A, 
 		int N_B, typename ObjectPolicy_B>
-	bool equivalentKdTree(const KdTree<N_A, Real, ObjectPolicy_A>& aTree,
-	const KdTree<N_B, Real, ObjectPolicy_B>& bTree);
+	bool equivalentKdTree(const PointKdTree<N_A, Real, ObjectPolicy_A>& aTree,
+	const PointKdTree<N_B, Real, ObjectPolicy_B>& bTree);
 
 }
 
-#include "pastel/geometry/kdtree_tools.hpp"
+#include "pastel/geometry/pointkdtree_tools.hpp"
 
 #endif

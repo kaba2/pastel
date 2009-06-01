@@ -1,7 +1,7 @@
-#ifndef PASTEL_KDTREE_DEPTH_FIRST_HPP
-#define PASTEL_KDTREE_DEPTH_FIRST_HPP
+#ifndef PASTEL_POINTKDTREE_DEPTH_FIRST_HPP
+#define PASTEL_POINTKDTREE_DEPTH_FIRST_HPP
 
-#include "pastel/geometry/kdtree_depth_first.h"
+#include "pastel/geometry/pointkdtree_depth_first.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/distance_point_point.h"
 
@@ -17,13 +17,13 @@ namespace Pastel
 	class DepthFirst
 	{
 	private:
-		typedef KdTree<N, Real, ObjectPolicy> Tree;
+		typedef PointKdTree<N, Real, ObjectPolicy> Tree;
 		typedef typename Tree::Cursor Cursor;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 	public:
 		DepthFirst(
-			const KdTree<N, Real, ObjectPolicy>& kdTree_,
+			const PointKdTree<N, Real, ObjectPolicy>& kdTree_,
 			const Point<N, Real>& searchPoint_,
 			const Real& maxDistance_,
 			const Real& maxRelativeError_,
@@ -192,11 +192,11 @@ namespace Pastel
 				return node_ < that.node_;
 			}
 
-			typename KdTree<N, Real, ObjectPolicy>::Cursor node_;
+			typename PointKdTree<N, Real, ObjectPolicy>::Cursor node_;
 			Real distance_;
 		};
 
-		const KdTree<N, Real, ObjectPolicy>& kdTree;
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree;
 		const Point<N, Real>& searchPoint;
 		const Real& maxDistance;
 		const Real& maxRelativeError;

@@ -1,7 +1,7 @@
-#ifndef PASTEL_KDTREE_SEARCH_RANGE_H
-#define PASTEL_KDTREE_SEARCH_RANGE_H
+#ifndef PASTEL_POINTKDTREE_SEARCH_RANGE_H
+#define PASTEL_POINTKDTREE_SEARCH_RANGE_H
 
-#include "pastel/geometry/kdtree.h"
+#include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
 
 #include <vector>
@@ -20,12 +20,12 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void searchRange(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const AlignedBox<N, Real>& range,
-		std::vector<typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result);
+		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result);
 
 }
 
-#include "pastel/geometry/kdtree_search_range.hpp"
+#include "pastel/geometry/pointkdtree_search_range.hpp"
 
 #endif

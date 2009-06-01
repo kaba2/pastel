@@ -97,7 +97,6 @@ namespace
 	{
 	public:
 		typedef Sphere3* Object;
-		typedef FalseType UseBounds;
 
 		AlignedBox3 bound(const Sphere3* object) const
 		{

@@ -1,8 +1,8 @@
-#ifndef PASTEL_KDTREE_COUNT_NEAREST_HPP
-#define PASTEL_KDTREE_COUNT_NEAREST_HPP
+#ifndef PASTEL_POINTKDTREE_COUNT_NEAREST_HPP
+#define PASTEL_POINTKDTREE_COUNT_NEAREST_HPP
 
-#include "pastel/geometry/kdtree_count_nearest.h"
-#include "pastel/geometry/kdtree_depth_first.h"
+#include "pastel/geometry/pointkdtree_count_nearest.h"
+#include "pastel/geometry/pointkdtree_depth_first.h"
 
 namespace Pastel
 {
@@ -14,7 +14,7 @@ namespace Pastel
 		class CandidateFunctor
 		{
 		private:
-			typedef KdTree<N, Real, ObjectPolicy> Tree;
+			typedef PointKdTree<N, Real, ObjectPolicy> Tree;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 		public:
@@ -42,7 +42,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
 	integer countNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -74,7 +74,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	integer countNearest(
-		const KdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)

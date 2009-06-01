@@ -1,5 +1,5 @@
-#ifndef PASTEL_KDTREE_H
-#define PASTEL_KDTREE_H
+#ifndef PASTEL_POINTKDTREE_H
+#define PASTEL_POINTKDTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"
@@ -18,14 +18,14 @@ namespace Pastel
 	public:
 		typedef Point<N, Real> Object;
 
-		AlignedBox<N, Real> bound(const Point<N, Real>& object) const
+		const Point<N, Real>& point(const Object& object) const
 		{
-			return AlignedBox<N, Real>(object);
+			return object;
 		}
 
-		Tuple<2, real> bound(const Point<N, Real>& object, integer axis) const
+		Real point(const Object& object, integer axis) const
 		{
-			return Tuple<2, real>(object[axis]);
+			return object[axis];
 		}
 	};
 
@@ -36,14 +36,14 @@ namespace Pastel
 	public:
 		typedef UnspecifiedType Object;
 
-		AlignedBox<N, Real> bound(const Object& that) const;
-		Tuple<2, Real> bound(const Object& that, index) const;
+		Point<2, Real> point(const Object& that) const;
+		Real point(const Object& that, integer axis) const;
 	};
 	*/
 
 	template <int N, typename Real,
 		typename ObjectPolicy = PointPolicy<N, Real> >
-	class KdTree
+	class PointKdTree
 	{
 	public:
 		typedef typename ObjectPolicy::Object Object;
@@ -58,6 +58,7 @@ namespace Pastel
 		class LeafNode;
 		class IntermediateNode_Low;
 		class IntermediateNode_High;
+		class Bounds;
 
 		// There are two versions of the intermediate node class.
 		// IntermediateNode_Low uses bit tricks to pack the split axis
@@ -97,7 +98,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		KdTree();
+		PointKdTree();
 
 		//! Constructs an empty tree.
 		/*!
@@ -111,7 +112,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		explicit KdTree(
+		explicit PointKdTree(
 			integer dimension,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
@@ -123,7 +124,7 @@ namespace Pastel
 		Exception safety:
 		?
 		*/
-		KdTree(const KdTree& that);
+		PointKdTree(const PointKdTree& that);
 
 		//! Destructs the tree.
 		/*!
@@ -133,7 +134,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		~KdTree();
+		~PointKdTree();
 
 		//! Assigns another tree.
 		/*!
@@ -143,7 +144,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		KdTree& operator=(const KdTree& that);
+		PointKdTree& operator=(const PointKdTree& that);
 
 		//! Swaps two trees.
 		/*!
@@ -153,7 +154,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void swap(KdTree& that);
+		void swap(PointKdTree& that);
 
 		//! Returns the object policy.
 		/*!
@@ -289,8 +290,7 @@ namespace Pastel
 		{
 		public:
 			std::pair<Real, integer> operator()(
-				const Point<N, Real>& minBound,
-				const Point<N, Real>& maxBound,
+				const AlignedBox<N, Real>& bound,
 				const ObjectPolicy& objectPolicy,
 				const ConstObjectIterator& objectBegin,
 				const ConstObjectIterator& objectEnd) const;
@@ -415,23 +415,14 @@ namespace Pastel
 				, objectPolicy_(objectPolicy)
 			{
 			}
-
-			TriState::Enum operator()(const Object& object) const
+			
+			bool operator()(const Object& object) const
 			{
 				// The kd-tree nodes are
 				// half-open boxes of the form [min, max[.
 
-				const Tuple<2, Real> bound = objectPolicy_.bound(object, splitAxis_);
-				if (bound[1] < splitPosition_)
-				{
-					return TriState::True;
-				}
-				if (bound[0] >= splitPosition_)
-				{
-					return TriState::False;
-				}
-
-				return TriState::Both;
+				return objectPolicy_.point(object, splitAxis_) < 
+					splitPosition_;
 			}
 
 		private:
@@ -439,6 +430,13 @@ namespace Pastel
 			integer splitAxis_;
 			ObjectPolicy objectPolicy_;
 		};
+
+		void subdivide(
+			const Cursor& cursor,
+			const Real& splitPosition,
+			integer splitAxis,
+			const Real& boundMin,
+			const Real& boundMax);
 
 		template <typename InputIterator>
 		void insert(
@@ -480,6 +478,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/kdtree.hpp"
+#include "pastel/geometry/pointkdtree.hpp"
 
 #endif
