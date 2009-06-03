@@ -132,7 +132,10 @@ namespace Pastel
 		}
 
 		//! Returns max() - min().
-		TemporaryVector<N, Real> extent() const
+		const VectorSubtraction<N, Real, 
+			VectorBase<N, Real>,
+			VectorBase<N, Real> >
+			extent() const
 		{
 			return max_ - min_;
 		}
