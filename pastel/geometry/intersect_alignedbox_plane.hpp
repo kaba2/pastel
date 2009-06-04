@@ -160,56 +160,27 @@ namespace Pastel
 			// The plane does not intersect the box.
 			return false;
 		}
+
+		// Choose a standard basis axis
+		// on which to solve the bound extents.
+		// We will choose the axis which
+		// has minimal angle (maximal cosine) 
+		// to the plane normal.
 		
 		integer k = 0;
-		integer kFits = 0;
+		Real maxCosAngle = -infinity<Real>();
 		for (integer i = 0;i < dimension;++i)
 		{
-			const Real& deltaAxisDistance = std::abs(planeNormal[i]);
-			if (minDistance > -deltaAxisDistance &&
-				maxDistance < deltaAxisDistance)
+			const Real cosAngle = std::abs(planeNormal[i]);
+			if (cosAngle > maxCosAngle)
 			{
-				++kFits;
+				maxCosAngle = cosAngle;
 				k = i;
 			}
 		}
 
-		if (kFits == 0)
-		{
-			// The plane intersects the box
-			// but not in the way required
-			// by the condition.
-
-			return false;
-		}
-
-		/*
-		if (kFits > 1)
-		{
-			// The plane does intersect the box,
-			// but in a way that does not affect
-			// the end-result.
-
-			clipDimension = k;
-			minBoxMax = box.max()[k];
-			maxBoxMin = box.min()[k];
-			
-			return true;
-		}
-		*/
-
-		// Exactly one k fits the bill.
-		// That's our clipping dimension.
-		// The plane intersects the box
-		// in the way given in the condition.
-
 		// Now find out the extents of the
 		// sub-boxes.
-
-		// Note that the distances we have measured
-		// thus far are from the plane along
-		// the plane normal. They can't be
-		// used to give bounds for the sub-boxes.
 
 		// This correction factor allows us to 
 		// measure the distance along e_k,
@@ -263,6 +234,16 @@ namespace Pastel
 			{
 				maxAxisDistance += deltaAxisDistance;
 			}
+		}
+
+		if (maxAxisDistance > 1)
+		{
+			maxAxisDistance = 1;
+		}
+
+		if (minAxisDistance < 0)
+		{
+			minAxisDistance = 0;
 		}
 
 		// Map the result back to the original
