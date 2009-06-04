@@ -8,9 +8,12 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> intersect(
+	bool intersect(
 		const AlignedBox<N, Real>& box,
-		const Plane<N, Real>& plane);
+		const Plane<N, Real>& plane, 
+		integer& clipDimension,
+		PASTEL_NO_DEDUCTION(Real)& minBoxMax,
+		PASTEL_NO_DEDUCTION(Real)& maxBoxMin);
 
 }
 

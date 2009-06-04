@@ -16,6 +16,7 @@
 #include "pastel/geometry/diameter.h"
 #include "pastel/geometry/monotonizepolygon.h"
 #include "pastel/geometry/diagonal_axis.h"
+#include "pastel/geometry/intersect_alignedbox_plane.h"
 
 #include <iostream>
 
@@ -85,12 +86,12 @@ void redraw()
 
 	renderer__->setColor(Color(1));
 	const Point2 meanPoint = mean(targetSet__);
-	const Vector2 maximalVariance = largestEigenVector(targetSet__) * 0.2;
+	const Vector2 maximalVariance = largestEigenVector(targetSet__) * 0.4;
 	const Vector2 diagonalVariance = 
-		diagonalAxis<2, real>(2, maximalDiagonalVariance(targetSet__)) * 0.1;
+		diagonalAxis<2, real>(2, maximalDiagonalVariance(targetSet__)) * 0.4;
 	/*
 	const Vector2 diagonalVariance = 
-		diagonalAxis<2, real>(2, nearestDiagonalAxis(maximalVariance)) * 0.1;
+		diagonalAxis<2, real>(2, nearestDiagonalAxis(maximalVariance)) * 0.4;
 	*/
 	renderer__->setFilled(true);
 	drawFatSegment(*renderer__, 
@@ -100,6 +101,33 @@ void redraw()
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - cross(maximalVariance), 
 		meanPoint + cross(maximalVariance)), 0.01, 0.01);
+
+	const AlignedBox2 box(-0.3, -0.3, 0.3, 0.3);
+
+	renderer__->setFilled(false);
+	drawBox(*renderer__, box);
+
+	const Plane2 plane(meanPoint, maximalVariance);
+
+	integer clipDimension = 0;
+	real minBoxMax = 0;
+	real maxBoxMin = 0;
+	if (intersect(box, plane, clipDimension, minBoxMax, maxBoxMin))
+	{
+		renderer__->setColor(Color(1, 1, 0));
+		AlignedBox2 minBox(box);
+		minBox.min() += 0.02;
+		minBox.max() -= 0.02;
+		minBox.max()[clipDimension] = minBoxMax;
+		drawBox(*renderer__, minBox);
+
+		renderer__->setColor(Color(1, 0, 1));
+		AlignedBox2 maxBox(box);
+		maxBox.min() += 0.04;
+		maxBox.max() -= 0.04;
+		maxBox.min()[clipDimension] = maxBoxMin;
+		drawBox(*renderer__, maxBox);
+	}
 
 	gfxDevice().swapBuffers();
 }
