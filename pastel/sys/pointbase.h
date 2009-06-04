@@ -184,8 +184,8 @@ namespace Pastel
 
 			//! Returns the difference vector between two points.
 			const VectorSubtraction<N, Real, 
-				VectorBase<N, Real>,
-				VectorBase<N, Real>
+				Detail::VectorBase<N, Real>,
+				Detail::VectorBase<N, Real>
 				> operator-(const Point<N, Real>& that) const
 			//TemporaryVector<N, Real> operator-(const Point<N, Real>& that) const
 			{

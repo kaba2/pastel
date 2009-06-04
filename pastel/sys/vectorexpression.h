@@ -6,9 +6,6 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	class VectorBase;
-
 	template <
 		int N,
 		typename Real>

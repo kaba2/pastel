@@ -9,10 +9,12 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	AlignedBox<1, Real> intersect(
+	bool intersect(
 		const AlignedBox<N, Real>& box,
 		const Plane<N, Real>& plane, 
-		integer k)
+		integer& clipDimension,
+		PASTEL_NO_DEDUCTION(Real)& minBoxMax,
+		PASTEL_NO_DEDUCTION(Real)& maxBoxMin)
 	{
 		// Let B = [0, 1]^n subset R^n and call it a box.
 		// Denote the vertices of this box
@@ -111,7 +113,6 @@ namespace Pastel
 		
 		ENSURE2(dimension == plane.dimension(),
 			dimension, plane.dimension());
-		ENSURE2(k >= 0 && k < dimension, k, dimension);
 
 		// Map the points so that the box
 		// maps to [0, 1]^n.
@@ -124,16 +125,120 @@ namespace Pastel
 
 		Vector<N, Real> planeNormal =
 			plane.normal() * boxExtent;
-		planeNormal /= -planeNormal[k];
+
+		// The signed distance of the plane from (0, 0, ..., 0) is
+		// <0 - q, n>
+		// = -<q, n>
+
+		const Real planeDistance = -dot(asVector(planePosition), planeNormal);
+
+		// Find maximal and minimal signed distances
+		// of the vertices in V along the normal vector.
+
+		Real minDistance = planeDistance;
+		Real maxDistance = planeDistance;
+		for (integer i = 0;i < dimension;++i)
+		{
+			// dt = <p + e_i - q, n> - <p - q, n>
+			// = <e_i, n>
+			// = n_i
+
+			const Real& deltaAxisDistance = planeNormal[i];
+			if (deltaAxisDistance < 0)
+			{
+				minDistance += deltaAxisDistance;
+			}
+			else
+			{
+				maxDistance += deltaAxisDistance;
+			}
+		}
+
+		if (minDistance >= 0 ||
+			maxDistance <= 0)
+		{
+			// The plane does not intersect the box.
+			return false;
+		}
+		
+		integer k = 0;
+		integer kFits = 0;
+		for (integer i = 0;i < dimension;++i)
+		{
+			const Real& deltaAxisDistance = std::abs(planeNormal[i]);
+			if (minDistance > -deltaAxisDistance &&
+				maxDistance < deltaAxisDistance)
+			{
+				++kFits;
+				k = i;
+			}
+		}
+
+		if (kFits == 0)
+		{
+			// The plane intersects the box
+			// but not in the way required
+			// by the condition.
+
+			return false;
+		}
+
+		/*
+		if (kFits > 1)
+		{
+			// The plane does intersect the box,
+			// but in a way that does not affect
+			// the end-result.
+
+			clipDimension = k;
+			minBoxMax = box.max()[k];
+			maxBoxMin = box.min()[k];
+			
+			return true;
+		}
+		*/
+
+		// Exactly one k fits the bill.
+		// That's our clipping dimension.
+		// The plane intersects the box
+		// in the way given in the condition.
+
+		// Now find out the extents of the
+		// sub-boxes.
+
+		// Note that the distances we have measured
+		// thus far are from the plane along
+		// the plane normal. They can't be
+		// used to give bounds for the sub-boxes.
+
+		// This correction factor allows us to 
+		// measure the distance along e_k,
+		// rather than along plane normal.
+		const Real axisCorrection = -inverse(planeNormal[k]);
+		planeNormal *= axisCorrection;
 
 		// Find the minimum and maximum distances along e_k
 		// between intersection(V, H) and P.
 
-		Real maxAxisDistance = -dot(asVector(planePosition), planeNormal);
-		Real minAxisDistance = maxAxisDistance;
+		// The distance to the
+		// plane along e_k is given by:
+		// <p + te_k - q, n> = 0
+		// => t<e_k, n> + <p - q, n> = 0
+		// => t = <q - p, n> / <e_k, n>
+		// => t = <q - p, n> / n_k
+		// We start from p = (0, 0, ..., 0), so
+		// t = <q, n> / n_k
+		//   = -<q, n> / (-n_k)
+
+		Real maxAxisDistance = planeDistance * axisCorrection;
+		Real minAxisDistance = planeDistance * axisCorrection;
 
 		for (integer i = 0;i < k;++i)
 		{
+			// dt = <q - (p + e_i), n / n_k> - <q - p, n / n_k>
+			// = <-e_i, n / n_k>
+			// = n_i / (-n_k)
+
 			const Real& deltaAxisDistance = planeNormal[i];
 
 			if (deltaAxisDistance < 0)
@@ -163,11 +268,11 @@ namespace Pastel
 		// Map the result back to the original
 		// problem domain.
 
-		const AlignedBox<1, Real> result(
-			box.min()[k] + minAxisDistance * boxExtent[k],
-			box.min()[k] + maxAxisDistance * boxExtent[k]);
+		clipDimension = k;
+		maxBoxMin = box.min()[k] + minAxisDistance * boxExtent[k];
+		minBoxMax = box.min()[k] + maxAxisDistance * boxExtent[k];
 		
-		return result;
+		return true;
 	}
 
 
