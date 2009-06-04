@@ -140,6 +140,11 @@ namespace Pastel
 			return max_ - min_;
 		}
 
+		Real extent(integer index) const
+		{
+			return max_[index] - min_[index];
+		}
+
 		TemporaryPoint<N, Real> at(
 			const Vector<N, Real>& coordinates) const
 		{

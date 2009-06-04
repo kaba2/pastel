@@ -16,63 +16,101 @@ namespace Pastel
 			const AlignedBox<N, Real>& alignedBox,
 			const Plane<N, Real>& plane)
 	{
-		// For this test we first obtain the two corner points that
-		// are maximally apart from each other w.r.t the plane
-		// normal direction. Once we acquire these, the AlignedBox and
-		// the Plane overlap iff these points are located on
-		// different sides of the plane.
-
-		// See "Geometric tools for computer graphics".
+		// Notation
+		// --------
+		//
+		// Let B = {x in R^n : b_min <= x < b_max} and call it a box.
+		// Denote the vertices of this box
+		// by V = {v_1, ..., v_(2^n)}.
+		// Let a plane P be given by a normal n and a 
+		// position q on the plane:
+		// P = {x in R^n: <x - q, n> = 0}
+		// Let e_i denote the i:th standard basis axis.
+		//
+		// Problem
+		// -------
+		//
+		// Find out if B and P intersect. 
+		//
+		// Solution
+		// --------
+		//
+		// B and P intersect
+		// <=>
+		// exists v_min, v_max in V: dot(v_min - q, n) dot(v_max - q, n) <= 0
+		//
+		// The distance t from a point p to the plane is 
+		// solved by:
+		//
+		// <p + tn - q, n> = 0
+		// =>
+		// <p - q, n> + t<n, n> = 0
+		// =>
+		// t = <q - p, n> / <n, n>
+		//
+		// Because we are only interested in the sign
+		// of this value, we shall denote:
+		//
+		// d(p) = <p - q, n>
+		//
+		// Find out 
+		// d_min = min {d(p) : p in V}
+		// d_max = max {d(p) : p in V}
+		//
+		// This is easy to do incrementally by 
+		// starting from b_min,
+		// and then moving along standard basis axes to
+		// minimize (or maximize) d(p):
+		//
+		// p(b_min) = <b_min - q, n>
+		//
+		// delta_d(p, h) 
+		// = d(p + h) - d(p) 
+		// = <(p + h) - q, n> - <p - q, n>
+		// = <h, n>
+		//
+		// Particularly:
+		// 
+		// delta(p, w_i e_i)
+		// = <w_i e_i, n>
+		// = w_i n_i
+		//
+		// Notice: you can find d_min and d_max in parallel,
+		// since if delta_d is negative, then d_min should follow
+		// the direction (and d_max not). Otherwise d_max
+		// should follow the direction (and d_min not).
+		//
+		// Thus determining d_min and d_max takes O(d) time.
+		//
+		// The plane overlaps the box if and only if
+		// d_min <= 0 and d_max >= 0.
 
 		PENSURE(alignedBox.dimension() == plane.dimension());
 
 		const integer dimension = alignedBox.dimension();
 
-		Point<N, Real> minimal(ofDimension(dimension));
-		Point<N, Real> maximal(ofDimension(dimension));
+		// Find maximal and minimal signed distances
+		// of the vertices in V along the normal vector
+		// of the plane.
 
-		for (integer i = 0;i < dimension - 1;++i)
+		Real minDistance = 
+			dot(alignedBox.min() - plane.position(), plane.normal());
+		Real maxDistance = minDistance;
+		for (integer i = 0;i < dimension;++i)
 		{
-			if (positive(plane.normal()[i]))
+			const Real deltaAxisDistance = 
+				alignedBox.extent(i) * plane.normal()[i];
+			if (deltaAxisDistance < 0)
 			{
-				minimal[i] = alignedBox.min()[i];
-				maximal[i] = alignedBox.max()[i];
+				minDistance += deltaAxisDistance;
 			}
 			else
 			{
-				minimal[i] = alignedBox.max()[i];
-				maximal[i] = alignedBox.min()[i];
+				maxDistance += deltaAxisDistance;
 			}
 		}
 
-		const Real d(-dot(asVector(plane.position()),
-			plane.normal()));
-
-		if (positive(d))
-		{
-			minimal[dimension - 1] = alignedBox.min()[dimension - 1];
-			maximal[dimension - 1] = alignedBox.max()[dimension - 1];
-		}
-		else
-		{
-			minimal[dimension - 1] = alignedBox.max()[dimension - 1];
-			maximal[dimension - 1] = alignedBox.min()[dimension - 1];
-		}
-
-		// Are the extremal points on different sides
-		// of the plane?
-
-		if (positive(
-			dot(minimal - plane.position(),
-			plane.normal())) ^
-			positive(
-			dot(maximal - plane.position(),
-			plane.normal())))
-		{
-			return false;
-		}
-
-		return true;
+		return (minDistance <= 0 && maxDistance >= 0);
 	}
 
 }
