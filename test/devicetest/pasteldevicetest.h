@@ -7,7 +7,7 @@
 
 inline Pastel::TestRunner& deviceTestList()
 {
-	static Pastel::TestRunner deviceTestRunner;
+	static Pastel::TestRunner deviceTestRunner("PastelDevice");
 	return deviceTestRunner;
 }
 

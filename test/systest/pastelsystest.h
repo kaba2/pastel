@@ -7,7 +7,7 @@
 
 inline Pastel::TestRunner& sysTestList()
 {
-	static Pastel::TestRunner sysTestRunner;
+	static Pastel::TestRunner sysTestRunner("PastelSys");
 	return sysTestRunner;
 }
 

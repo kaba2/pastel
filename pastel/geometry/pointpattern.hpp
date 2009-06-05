@@ -550,9 +550,9 @@ namespace Pastel
 		modelTree.insert(modelBegin, modelEnd);
 
 		sceneTree.refine(
-			computeKdTreeMaxDepth(sceneTree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(sceneTree.objects()), 4, SlidingMidpoint_SplitRule());
 		modelTree.refine(
-			computeKdTreeMaxDepth(modelTree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(modelTree.objects()), 4, SlidingMidpoint_SplitRule());
 
 		return Pastel::pointPatternMatch(
 			sceneTree, modelTree, minMatchRatio,  matchingDistance,

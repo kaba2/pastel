@@ -7,7 +7,7 @@
 
 inline Pastel::TestRunner& rayTestList()
 {
-	static Pastel::TestRunner rayTestRunner;
+	static Pastel::TestRunner rayTestRunner("PastelRay");
 	return rayTestRunner;
 }
 

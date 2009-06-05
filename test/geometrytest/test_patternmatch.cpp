@@ -164,9 +164,9 @@ namespace
 		modelTree.insert(modelSet.begin(), modelSet.end());
 
 		sceneTree.refine(
-			computeKdTreeMaxDepth(sceneTree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(sceneTree.objects()), 4, SlidingMidpoint_SplitRule());
 		modelTree.refine(
-			computeKdTreeMaxDepth(modelTree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(modelTree.objects()), 4, SlidingMidpoint_SplitRule());
 
 		log() << "Computing point pattern match..." << logNewLine;
 

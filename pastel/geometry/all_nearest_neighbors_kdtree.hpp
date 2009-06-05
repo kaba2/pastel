@@ -130,7 +130,7 @@ namespace Pastel
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
  
 		//check(tree);
 

@@ -139,7 +139,7 @@ namespace Pastel
 		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
 		kdTree.refine(
-			computeKdTreeMaxDepth(kdTree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(kdTree.objects()), 4, SlidingMidpoint_SplitRule());
 
 		Detail_ReconstructNearest::ReconstructFunctor<N, Real, DataPolicy>
 			reconstructFunctor(kdTree, kNearest, maxRelativeError);

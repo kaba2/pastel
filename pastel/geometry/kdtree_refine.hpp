@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	class MidpointRule
+	class Midpoint_SplitRule
 	{
 	public:
 		template <
@@ -29,7 +29,7 @@ namespace Pastel
 		}
 	};
 
-	class SlidingMidpointRule
+	class SlidingMidpoint_SplitRule
 	{
 	public:
 		template <
@@ -84,7 +84,7 @@ namespace Pastel
 		}
 	};
 
-	class SlidingMidpointRule2
+	class SlidingMidpoint_SplitRule2
 	{
 	public:
 		template <

@@ -15,6 +15,33 @@ namespace Pastel
 		const std::vector<std::string>& propertyList,
 		bool reportMissing = true);
 
+	void createPropertyList(
+		const char** propertyArray,
+		integer properties,
+		std::vector<std::string>& propertyList);
+
+}
+
+namespace Pastel
+{
+
+	void createPropertyList(
+		const char** propertyArray,
+		integer properties,
+		std::vector<std::string>& propertyList)
+	{
+		std::vector<std::string> result;
+		result.reserve(properties);
+		
+		for (integer i = 0;i < properties;++i)
+		{
+			result.push_back(
+				std::string(propertyArray[i]));
+		}
+		
+		result.swap(propertyList);
+	}
+
 }
 
 #endif

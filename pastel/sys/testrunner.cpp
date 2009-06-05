@@ -13,34 +13,46 @@ using std::endl;
 namespace Pastel
 {
 
+	TestRunner::TestRunner()
+		: functionSet_()
+		, name_("Unnamed")
+	{
+	}
+
+	TestRunner::TestRunner(const std::string& name)
+		: functionSet_()
+		, name_(name)
+	{
+	}
+
 	void TestRunner::add(
 		const std::string& key,
 		Function function)
 	{
-		functions_.insert(std::make_pair(key, function));
+		functionSet_.insert(std::make_pair(key, function));
 	}
 
 	void TestRunner::run() const
 	{
-		log() << "TestRunner: Starting a test suite"
+		log() << "Running " << name_ << " test suite..."
 			<< logNewLine << logNewLine;
 
-		ConstIterator iter(functions_.begin());
-		ConstIterator iterEnd(functions_.end());
+		ConstIterator iter(functionSet_.begin());
+		ConstIterator iterEnd(functionSet_.end());
 		while (iter != iterEnd)
 		{
 			run(iter);
 			++iter;
 		}
 
-		log() << "TestRunner: Test suite complete."
+		log() << name_ << " test suite complete."
 			<< logNewLine << logNewLine;
 	}
 
 	void TestRunner::run(
 		const ConstIterator& iter) const
 	{
-		if (iter == functions_.end())
+		if (iter == functionSet_.end())
 		{
 			return;
 		}
@@ -69,8 +81,8 @@ namespace Pastel
 	{
 		bool result = false;
 
-		ConstIterator iter(functions_.find(key));
-		if (iter != functions_.end())
+		ConstIterator iter(functionSet_.find(key));
+		if (iter != functionSet_.end())
 		{
 			run(iter);
 			result = true;
@@ -84,8 +96,8 @@ namespace Pastel
 	{
 		bool result = false;
 
-		ConstIterator iter(functions_.begin());
-		while (iter != functions_.end())
+		ConstIterator iter(functionSet_.begin());
+		while (iter != functionSet_.end())
 		{
 			if (iter->first.substr(0, key.size()) == key)
 			{
@@ -101,17 +113,24 @@ namespace Pastel
 
 	void TestRunner::clear()
 	{
-		functions_.clear();
+		functionSet_.clear();
 	}
 
-	void TestRunner::console() const
+	void TestRunner::help() const
 	{
-		cout << "Pastel TestRunner console" << endl;
+		cout << name_ << " test suite" << endl;
+		cout << endl;
 		cout << "'quit' to quit." << endl;
+		cout << "'help' to print this text." << endl;
 		cout << "'all' to run all tests." << endl;
 		cout << "'prefix' to add a prefix to typed names." << endl;
 		cout << "'' to list available tests." << endl;
 		cout << "Specifying a name runs all the tests that have that name as a prefix." << endl;
+	}
+
+	void TestRunner::console() const
+	{
+		help();
 
 		std::string prefix;
 
@@ -136,6 +155,10 @@ namespace Pastel
 			{
 				runPrefix(prefix);
 			}
+			else if (trimmedInput == "help")
+			{
+				help();
+			}
 			else if (trimmedInput.substr(0, 6) == "prefix")
 			{
 				prefix = trim(trimmedInput.substr(6));
@@ -157,8 +180,8 @@ namespace Pastel
 
 	void TestRunner::printTests() const
 	{
-		ConstIterator iter(functions_.begin());
-		ConstIterator iterEnd(functions_.end());
+		ConstIterator iter(functionSet_.begin());
+		ConstIterator iterEnd(functionSet_.end());
 		while (iter != iterEnd)
 		{
 			cout << iter->first << endl;
