@@ -132,7 +132,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef KdTree<N, Real, 
+		typedef PointKdTree<N, Real, 
 			Detail_CountAllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef Detail_CountAllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
@@ -146,7 +146,7 @@ namespace Pastel
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
 
 		countSet.resize(points);
 
@@ -181,7 +181,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef KdTree<N, Real, 
+		typedef PointKdTree<N, Real, 
 			Detail_CountAllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef Detail_CountAllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
@@ -195,7 +195,7 @@ namespace Pastel
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpointRule());
+			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
 
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)

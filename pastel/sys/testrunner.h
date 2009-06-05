@@ -28,10 +28,12 @@ namespace Pastel
 	public:
 		typedef Container::const_iterator ConstIterator;
 
-		// Using default constructor.
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
+
+		TestRunner();
+		explicit TestRunner(const std::string& name);
 
 		//! Adds a function to the queue.
 		void add(const std::string& key,
@@ -52,11 +54,13 @@ namespace Pastel
 		//! Removes all functions calls from the queue.
 		void clear();
 
+		void help() const;
 		void console() const;
 		void printTests() const;
 
 	private:
-		Container functions_;
+		Container functionSet_;
+		std::string name_;
 	};
 
 }

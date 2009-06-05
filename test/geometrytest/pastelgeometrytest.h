@@ -7,7 +7,7 @@
 
 inline Pastel::TestRunner& geometryTestList()
 {
-	static Pastel::TestRunner geometryTestRunner;
+	static Pastel::TestRunner geometryTestRunner("PastelGeometry");
 	return geometryTestRunner;
 }
 

@@ -193,7 +193,7 @@ namespace Pastel
 					ch_p('*')[boost::bind(&ConfigSemantic::declareSize, boost::ref(configSemantic), -1)];
 
 				variableNameRule =
-					(alpha_p | '_') >> *alnum_p;
+					(alpha_p | '_') >> *(alnum_p | '_');
 
 				stringRule =
 					lexeme_d['"' >> *(anychar_p - '"') >> '"'];

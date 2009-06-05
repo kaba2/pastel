@@ -9,7 +9,7 @@
 
 inline Pastel::TestRunner& mathTestList()
 {
-	static Pastel::TestRunner mathTestRunner;
+	static Pastel::TestRunner mathTestRunner("PastelMath");
 	return mathTestRunner;
 }
 

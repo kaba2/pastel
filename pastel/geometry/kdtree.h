@@ -378,31 +378,6 @@ namespace Pastel
 		void clearObjects();
 
 	private:
-		class RefineEntry
-		{
-		public:
-			RefineEntry()
-				: cursor_()
-				, depth_(0)
-				, bound_()
-			{
-			}
-
-			RefineEntry(
-				const Cursor& cursor,
-				integer depth,
-				const AlignedBox<N, Real>& bound)
-				: cursor_(cursor)
-				, depth_(depth)
-				, bound_(bound)
-			{
-			}
-
-			Cursor cursor_;
-			integer depth_;
-			AlignedBox<N, Real> bound_;
-		};
-
 		class SplitPredicate
 		{
 		public:

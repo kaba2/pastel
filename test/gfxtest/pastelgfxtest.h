@@ -7,7 +7,7 @@
 
 inline Pastel::TestRunner& gfxTestList()
 {
-	static Pastel::TestRunner gfxTestRunner;
+	static Pastel::TestRunner gfxTestRunner("PastelGfx");
 	return gfxTestRunner;
 }
 
