@@ -58,6 +58,7 @@ namespace Pastel
 		{
 		public:
 			typedef const Point<N, Real>* Object;
+			typedef FalseType ArbitrarySplits;
 
 			const Point<N, Real>& point(
 				const Object& object) const

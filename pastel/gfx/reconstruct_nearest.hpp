@@ -46,6 +46,7 @@ namespace Pastel
 		{
 		public:
 			typedef DataPoint<N, Real, Data> Object;
+			typedef FalseType ArbitrarySplits;
 
 			const Point<N, Real>& point(
 				const DataPoint<N, Real, Data>& dataPoint) const

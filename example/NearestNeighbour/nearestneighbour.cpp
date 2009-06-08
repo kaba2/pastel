@@ -1,6 +1,7 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
+#include "pastel/geometry/intersect_segment_halfspace.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 
@@ -182,6 +183,100 @@ void keyHandler(bool pressed, SDLKey key)
 	}
 }
 
+void drawBspTree(MyTree::Cursor cursor, 
+				 std::vector<Plane2>& planeSet, 
+				 const AlignedBox2& treeBound,
+				 const AlignedBox2& bound,
+				 integer depth)
+{
+	if (!cursor.leaf() && drawTree__)
+	{
+		const integer splitAxis = cursor.splitAxis();
+		
+		Vector2 basisDirection = unitAxis<2, real>(splitAxis);
+		const Vector2* splitDirection = cursor.splitDirection();
+		if (!splitDirection)
+		{
+			splitDirection = &basisDirection;
+		}
+		
+		const Line2 line(
+			asPoint(*splitDirection * cursor.splitPosition()),
+			cross(*splitDirection));
+		
+		planeSet.push_back(
+			Plane2(line.position(), *splitDirection));
+
+		AlignedBox2 positiveBound(bound);
+		positiveBound.min()[splitAxis] = cursor.positiveMin();
+
+		drawBspTree(
+			cursor.positive(), 
+			planeSet,
+			treeBound,
+			positiveBound,
+			depth + 1);
+
+		planeSet.back().setNormal(-(*splitDirection));
+
+		AlignedBox2 negativeBound(bound);
+		negativeBound.max()[splitAxis] = cursor.negativeMax();
+
+		drawBspTree(
+			cursor.negative(), 
+			planeSet,
+			treeBound,
+			negativeBound,
+			depth + 1);
+
+		planeSet.pop_back();
+
+		Vector2 hitList;
+		if (intersect(line, bound, hitList))
+		{
+			// Clip the segment against the planeSet.
+
+			Segment2 segment(
+				line.at(hitList[0]),
+				line.at(hitList[1]));
+
+			const integer planes = planeSet.size();
+			for (integer i = 0;i < planes;++i)
+			{
+				const Plane2& plane = planeSet[i];
+
+				if (intersect(segment, planeSet[i], hitList))
+				{
+					segment.set(
+						segment.at(hitList[0]),
+						segment.at(hitList[1]));
+				}
+				else
+				{
+					return;
+				}
+			}
+
+			renderer__->setColor(Color(0, 1, 0) / std::pow((real)(depth + 1), (real)0.5));
+			renderer__->setFilled(false);
+			drawSegment(*renderer__, segment);
+		}
+	}
+
+	renderer__->setColor(Color(1, 0, 1) / std::pow((real)(depth + 1), (real)0.5));
+	//drawBox(*renderer__, bound);
+}
+
+void drawBspTree(const MyTree& tree)
+{
+	std::vector<Plane2> planeSet;
+	drawBspTree(tree.root(), planeSet, tree.bound(), tree.bound(), 0);
+
+	renderer__->setColor(Color(0, 1, 0));
+	drawBox(*renderer__, tree.bound());
+}
+
+/*
 void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
 {
 	if (!cursor.leaf() && drawTree__)
@@ -201,6 +296,7 @@ void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
 	renderer__->setFilled(false);
 	drawBox(*renderer__, bound);
 }
+*/
 
 void redrawPointSet()
 {
@@ -305,8 +401,8 @@ void redraw()
 		redrawPointSet();
 	}
 
-	redrawTree(tree__.root(), tree__.bound(), 0);
-	redrawRange();
+	drawBspTree(tree__);
+	//redrawRange();
 	redrawNearest();
 
 	gfxDevice().swapBuffers();
@@ -510,6 +606,9 @@ void computeTree(integer maxDepth)
 
 	//tree__.refine(computeKdTreeMaxDepth(tree__.objects()), 4, SlidingMidpoint_SplitRule());
 	tree__.refine(maxDepth, 4, SlidingMidpoint_SplitRule());
+	//tree__.refine(maxDepth, 4, MaxVariance_SplitRule());
+	//tree__.refine(maxDepth, 4, SlidingMaxVariance_SplitRule());
+	//tree__.refine(maxDepth, 4, SlidingMinSpread_SplitRule());
 	//refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
 
 	log() << "The constructed kd-tree has depth " << depth(tree__) << "." << logNewLine;

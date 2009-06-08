@@ -598,6 +598,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\nearest_main_axis.h"
+				>
+			</File>
+			<File
+				RelativePath=".\nearest_main_axis.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\project_axis.h"
 				>
 			</File>
@@ -1415,6 +1423,14 @@
 			</File>
 			<File
 				RelativePath=".\intersect_ray_sphere.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\intersect_segment_halfspace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\intersect_segment_halfspace.hpp"
 				>
 			</File>
 			<File

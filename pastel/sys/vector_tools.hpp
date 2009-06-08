@@ -92,7 +92,8 @@ namespace Pastel
 		integer dimension, integer index)
 	{
 		PENSURE1(dimension > 0, dimension);
-		PENSURE(dimension == Dynamic || dimension == N);
+		PENSURE2(N == Dynamic || dimension == N,
+			dimension, N);
 		PENSURE2(index >= 0 && index < dimension, index, dimension);
 
 		Vector<N, Real> result(ofDimension(dimension), 0);

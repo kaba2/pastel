@@ -9,6 +9,8 @@
 
 #include "pastel/geometry/alignedbox.h"
 
+#include <boost/mpl/if.hpp>
+
 namespace Pastel
 {
 
@@ -17,6 +19,8 @@ namespace Pastel
 	{
 	public:
 		typedef Point<N, Real> Object;
+		//typedef TrueType ArbitrarySplits;
+		typedef FalseType ArbitrarySplits;
 
 		const Point<N, Real>& point(const Object& object) const
 		{
@@ -35,6 +39,7 @@ namespace Pastel
 	{
 	public:
 		typedef UnspecifiedType Object;
+		typedef (TrueType | FalseType) ArbitrarySplits;
 
 		Point<2, Real> point(const Object& that) const;
 		Real point(const Object& that, integer axis) const;
@@ -47,6 +52,7 @@ namespace Pastel
 	{
 	public:
 		typedef typename ObjectPolicy::Object Object;
+		typedef typename ObjectPolicy::ArbitrarySplits ArbitrarySplits;
 
 	private:
 		typedef ArenaAllocator Allocator;
@@ -56,26 +62,16 @@ namespace Pastel
 
 		class Node;
 		class LeafNode;
-		class IntermediateNode_Low;
-		class IntermediateNode_High;
-		class Bounds;
+		class IntermediateNode_BspTree;
+		class IntermediateNode_KdTree;
 
-		// There are two versions of the intermediate node class.
-		// IntermediateNode_Low uses bit tricks to pack the split axis
-		// for compact storage. This trick only
-		// works for dimension <= 8. Although saving memory,
-		// the packing and unpacking degrades performance slightly.
-		// For higher dimensions one needs to store the split axis 
-		// in its own variable, as is done in IntermediateNode_High.
+		typedef boost::is_same<TrueType, typename ObjectPolicy::ArbitrarySplits>
+			UseArbitrarySplits;
 
-		/*
-		typedef typename boost::mpl::if_c<
-			(N != Dynamic && N <= 8),
-			IntermediateNode_Low,
-			IntermediateNode_High>::type IntermediateNode;
-		*/
-
-		typedef IntermediateNode_High IntermediateNode;
+		typedef typename boost::mpl::if_<
+			UseArbitrarySplits,
+			IntermediateNode_BspTree,
+			IntermediateNode_KdTree>::type IntermediateNode;
 
 	public:
 		enum
@@ -302,35 +298,6 @@ namespace Pastel
 			integer maxObjects,
 			const SubdivisionRule& subdivisionRule);
 
-		//! Subdivides a leaf node with the given plane.
-		/*!
-		Preconditions:
-		cursor.leaf() == true
-		'cursor' points to a node in this tree.
-		0 <= splitAxis < dimension()
-
-		Time complexity:
-		Linear on cursor.objects().
-
-		Exception safety:
-		strong
-
-		cursor:
-		A cursor to a leaf node of the tree to subdivide.
-
-		splitPosition:
-		The position of the splitting plane on the splitting axis.
-
-		splitAxis:
-		The axis of the splitting plane normal.
-
-		FIX: Make this private.
-		*/
-		void subdivide(
-			const Cursor& cursor,
-			const Real& splitPosition,
-			integer splitAxis);
-
 		//! Insert objects in the tree.
 		/*!
 		Time complexity:
@@ -378,54 +345,165 @@ namespace Pastel
 		void clearObjects();
 
 	private:
-		class SplitPredicate
+		class SplitPredicate_KdTree
 		{
 		public:
-			SplitPredicate(
+			SplitPredicate_KdTree(
 				const Real& splitPosition,
 				integer splitAxis,
+				const Vector<N, Real>* splitDirection,
 				const ObjectPolicy& objectPolicy)
 				: splitPosition_(splitPosition)
 				, splitAxis_(splitAxis)
 				, objectPolicy_(objectPolicy)
 			{
+				// splitDirection is not used.
 			}
 			
-			bool operator()(const Object& object) const
+			TriState::Enum operator()(const Object& object) const
 			{
-				// The kd-tree nodes are
-				// half-open boxes of the form [min, max[.
-
-				return objectPolicy_.point(object, splitAxis_) < 
-					splitPosition_;
+				return triLess(objectPolicy_.point(object, splitAxis_),
+					splitPosition_);
 			}
 
 		private:
 			Real splitPosition_;
 			integer splitAxis_;
-			ObjectPolicy objectPolicy_;
+			const ObjectPolicy& objectPolicy_;
 		};
 
+		class SplitPredicate_BspTree
+		{
+		public:
+			SplitPredicate_BspTree(
+				const Real& splitPosition,
+				integer splitAxis,
+				const Vector<N, Real>* splitDirection,
+				const ObjectPolicy& objectPolicy)
+				: splitPosition_(splitPosition)
+				, splitDirection_(*splitDirection)
+				, objectPolicy_(objectPolicy)
+			{
+				ASSERT(splitDirection);
+				// splitAxis is not used.
+			}
+			
+			TriState::Enum operator()(const Object& object) const
+			{
+				return triLess(
+					dot(asVector(objectPolicy_.point(object)), splitDirection_), 
+					splitPosition_);
+			}
+
+		private:
+			Real splitPosition_;
+			const Vector<N, Real>& splitDirection_;
+			const ObjectPolicy& objectPolicy_;
+		};
+
+		typedef typename boost::mpl::if_<
+			UseArbitrarySplits,
+			SplitPredicate_BspTree, 
+			SplitPredicate_KdTree>::type SplitPredicate;
+
+		//! Subdivides a leaf node with the given plane.
+		/*!
+		Preconditions:
+		1) cursor.leaf() == true
+		2) 'cursor' points to a node in this tree.
+		3) 0 <= splitAxis < dimension()
+		4) If splitDirection != 0, then 
+		splitAxis is the standard basis axis which 
+		has minimal angle with *splitDirection.
+		5) If splitDirection != 0, then
+		splitPosition = dot(asVector(planePosition), splitDirection)
+
+		Time complexity:
+		Linear on cursor.objects().
+
+		Exception safety:
+		strong
+
+		cursor:
+		A cursor to a leaf node of the tree to subdivide.
+
+		splitPosition:
+		Signed distance of the splitting plane from the origin.
+
+		splitAxis:
+		Index of the standard basis axis which is closest
+		(in angle) to the splitting plane normal.
+
+		splitDirection:
+		If not 0, denotes the normal of the splitting
+		plane normal. If 0, the splitting plane normal
+		is the standard basis axis given by 'splitAxis'.
+		*/
 		void subdivide(
 			const Cursor& cursor,
 			const Real& splitPosition,
 			integer splitAxis,
+			const Vector<N, Real>* splitDirection,
 			const Real& boundMin,
-			const Real& boundMax);
+			const Real& boundMax,
+			const Real& positiveMin,
+			const Real& negativeMax);
+
+		//! Inserts objects into a specific leaf node.
+		/*!
+		Preconditions:
+		1) cursor.leaf() == true
+		*/
 
 		template <typename InputIterator>
 		void insert(
 			const Cursor& cursor,
 			InputIterator begin, InputIterator end);
 
+		//! Removes all objects, but retains nodes.
 		void clearObjects(const Cursor& cursor);
 
+		//! Propagates objects by reordering object list.
+		/*!
+		Preconditions:
+		1) [begin, end] is an iterator range in 'list'.
+		2) count >= 0
+		3) 'list' shares the same allocator with
+		'objectList_'.
+		
+		Note that the 'list' given to this function
+		is not the internal 'objectList_'.
+
+		If the node is an intermediate node,
+		this function reorders 'list'
+		in the given range so that the objects
+		going to the negative node are listed
+		before those going to the positive node.
+		This reordering is done by splicing a
+		linked list so no copying of objects is 
+		involved. The function then recurses to both 
+		nodes.
+
+		If the node is a leaf node,
+		the object range is spliced to the internal
+		'objectList_'. This is possible because
+		both lists use a shared allocator.
+		*/
 		void spliceInsert(
 			const Cursor& cursor,
 			ObjectContainer& list,
 			ObjectIterator begin, ObjectIterator last,
 			integer count);
 
+		//! Subdivides the tree using the given subdivision rule.
+		/*!
+		Preconditions:
+		1) maxDepth >= 0
+		2) maxObjects >= 0
+		3) depth >= 0
+		4) depth <= maxDepth
+		5) allLessEqual(minBound, maxBound)
+		*/
 		template <typename SubdivisionRule>
 		void refine(
 			integer maxDepth,
@@ -439,14 +517,11 @@ namespace Pastel
 		ObjectContainer objectList_;
 		Allocator nodeAllocator_;
 		Node* root_;
+		// It always holds that the
+		// objects are located inside
+		// the 'bound_'.
 		AlignedBox<N, Real> bound_;
 		integer leaves_;
-
-		// Note: this is not the same as
-		// objectList_.size(), since objectList_ can
-		// contain the same object multiple times.
-		integer objects_;
-
 		ObjectPolicy objectPolicy_;
 		integer dimension_;
 	};
