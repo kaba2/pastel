@@ -4,6 +4,8 @@
 #include "pastel/geometry/intersect_alignedbox_plane.h"
 #include "pastel/geometry/overlaps_alignedbox_plane.h"
 
+#include "pastel/geometry/nearest_main_axis.h"
+
 #include "pastel/sys/vector_tools.h"
 
 namespace Pastel
@@ -118,17 +120,12 @@ namespace Pastel
 		// Choose a standard basis axis e_k
 		// which has minimal angle with the plane normal.
 		
-		integer k = 0;
-		Real maxCosAngle = -infinity<Real>();
-		for (integer i = 0;i < dimension;++i)
-		{
-			const Real cosAngle = mabs(plane.normal()[i]);
-			if (cosAngle > maxCosAngle)
-			{
-				maxCosAngle = cosAngle;
-				k = i;
-			}
-		}
+		const integer k = nearestMainAxis(plane.normal());
+
+		// Otherwise we need to calculate the 
+		// projected ranges of the sub-pieces
+		// [box.min()[k], minBoxMax] and
+		// [maxBoxMin, box.max()[k]].
 
 		// Find the minimum and maximum distances along e_k 
 		// between {v in V : v[k] = 0} and P.

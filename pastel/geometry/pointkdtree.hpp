@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/bounding_alignedbox.h"
+#include "pastel/geometry/intersect_alignedbox_plane.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
@@ -95,159 +96,33 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::Bounds
+	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_BspTree
 		: public Node
 	{
-	public:
-		// TODO: possible compiler bug: doesn't work without this.
-		using Node::unknown_;
-
-		Bounds(
-			pointer_integer unknown,
-			const Real& min,
-			const Real& max)
-			: Node(unknown)
-			, min_(min)
-			, max_(max)
-		{
-		}
-
-		const Real& min() const
-		{
-			return min_;
-		}
-
-		const Real& max() const
-		{
-			return max_;
-		}
-
-	private:
-		Real min_;
-		Real max_;
-	};
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_Low
-		: public Bounds
-	{
 	private:
 		// TODO: possible compiler bug: doesn't work without this.
 		using Node::unknown_;
 
 	public:
-		IntermediateNode_Low(
+		IntermediateNode_BspTree(
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
 			integer splitAxis,
+			const Vector<N, Real>* splitDirection,
 			const Real& min,
-			const Real& max)
-			: Bounds(0, min, max)
-			, negative_(0)
-			, splitPosition_(splitPosition)
-		{
-			unknown_ = encodePositive(positive, splitAxis);
-			negative_ = encodeNegative(negative, splitAxis);
-		}
-
-		const Real& splitPosition() const
-		{
-			return splitPosition_;
-		}
-
-		integer splitAxis() const
-		{
-			const pointer_integer high =
-				(unknown_ & 0x2) << 1;
-			const pointer_integer low =
-				(pointer_integer)(negative_) & 0x3;
-
-			return (integer)(high + low);
-		}
-
-		Node* positive() const
-		{
-			return (Node*)(unknown_ ^ (unknown_ & 0x3));
-		}
-
-		Node* negative() const
-		{
-			const pointer_integer nodeId = (pointer_integer)negative_;
-			return (Node*)(nodeId ^ (nodeId & 0x3));
-		}
-
-	private:
-		Node* encodeNegative(Node* node, integer splitAxis)
-		{
-			pointer_integer nodeId = (pointer_integer)node;
-			// We rely on that the pointer is aligned
-			// to at least four-byte boundaries.
-			ASSERT((nodeId & 0x3) == 0);
-			// The two lowest bits of 'splitAxis' are stored
-			// at the two lowest bits of 'nodeId'.
-			nodeId += (splitAxis & 0x3);
-
-			return (Node*)nodeId;
-		}
-
-		pointer_integer encodePositive(Node* node, integer splitAxis)
-		{
-			pointer_integer nodeId = (pointer_integer)node;
-			// We rely on that the pointer is aligned
-			// to at least four-byte boundaries.
-			ASSERT((nodeId & 0x3) == 0);
-			// The third bit of 'splitAxis' is stored
-			// at the second bit of 'nodeId'.
-			nodeId += (splitAxis & 0x4) >> 1;
-
-			return nodeId;
-		}
-
-		/*
-		It is assumed that the memory for the
-		nodes is aligned by at least 4 bytes.
-		Then we can store information to the
-		lowest bits of the pointers.
-
-		The 2 lowest bits of 'unknown_' are xy.
-		The 2 lowest bits of 'negative_' are wz.
-
-		For an intermediate node, y = 0 thus
-		identifying it.
-		The splitting plane is given by xwz.
-		Thus this packing scheme can only be
-		used for dimensions <= 8.
-		The pointer to the positive child is
-		obtained by zeroing the two lowest bits
-		of unknown_.
-		Likewise for negative child and negative_.
-		*/
-
-		Node* negative_;
-		Real splitPosition_;
-	};
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_High
-		: public Bounds
-	{
-	private:
-		// TODO: possible compiler bug: doesn't work without this.
-		using Node::unknown_;
-
-	public:
-		IntermediateNode_High(
-			Node* positive,
-			Node* negative,
-			const Real& splitPosition,
-			integer splitAxis,
-			const Real& min,
-			const Real& max)
-			: Bounds((pointer_integer)positive, min, max)
+			const Real& max,
+			const Real& positiveMin,
+			const Real& negativeMax)
+			: Node((pointer_integer)positive)
 			, negative_(negative)
 			, splitPosition_(splitPosition)
 			, splitAxis_(splitAxis)
+			, splitDirection_(*splitDirection)
+			, min_(min)
+			, max_(max)
+			, positiveMin_(positiveMin)
+			, negativeMax_(negativeMax)
 		{
 		}
 
@@ -271,10 +146,135 @@ namespace Pastel
 			return negative_;
 		}
 
+		const Real& min() const
+		{
+			return min_;
+		}
+
+		const Real& max() const
+		{
+			return max_;
+		}
+
+		Real positiveMin() const
+		{
+			return positiveMin_;
+		}
+
+		Real negativeMax() const
+		{
+			return negativeMax_;
+		}
+
+		const Vector<N, Real>* splitDirection() const
+		{
+			return &splitDirection_;
+		}
+
+		Real projectedPosition(
+			const Point<N, Real>& point) const
+		{
+			return dot(asVector(point), splitDirection_);
+		}
+
 	private:
 		Node* negative_;
 		Real splitPosition_;
 		int32 splitAxis_;
+		Real min_;
+		Real max_;
+		Real positiveMin_;
+		Real negativeMax_;
+		Vector<N, Real> splitDirection_;
+	};
+
+	template <int N, typename Real, typename ObjectPolicy>
+	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_KdTree
+		: public Node
+	{
+	private:
+		// TODO: possible compiler bug: doesn't work without this.
+		using Node::unknown_;
+
+	public:
+		IntermediateNode_KdTree(
+			Node* positive,
+			Node* negative,
+			const Real& splitPosition,
+			integer splitAxis,
+			const Vector<N, Real>* splitDirection,
+			const Real& min,
+			const Real& max,
+			const Real& positiveMin,
+			const Real& negativeMax)
+			: Node((pointer_integer)positive)
+			, negative_(negative)
+			, splitPosition_(splitPosition)
+			, splitAxis_(splitAxis)
+			, min_(min)
+			, max_(max)
+		{
+			ASSERT(positiveMin == splitPosition);
+			ASSERT(negativeMax == splitPosition);
+		}
+
+		const Real& splitPosition() const
+		{
+			return splitPosition_;
+		}
+
+		integer splitAxis() const
+		{
+			return splitAxis_;
+		}
+
+		Node* positive() const
+		{
+			return (Node*)unknown_;
+		}
+
+		Node* negative() const
+		{
+			return negative_;
+		}
+
+		Real min() const
+		{
+			return min_;
+		}
+
+		Real max() const
+		{
+			return max_;
+		}
+
+		Real positiveMin() const
+		{
+			return splitPosition_;
+		}
+
+		Real negativeMax() const
+		{
+			return splitPosition_;
+		}
+
+		const Vector<N, Real>* splitDirection() const
+		{
+			return 0;
+		}
+
+		Real projectedPosition(
+			const Point<N, Real>& point) const
+		{
+			return point[splitAxis_];
+		}
+
+	private:
+		Node* negative_;
+		Real splitPosition_;
+		int32 splitAxis_;
+		Real min_;
+		Real max_;
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -360,6 +360,22 @@ namespace Pastel
 			return ((IntermediateNode*)node_)->max();
 		}
 
+		Real positiveMin() const
+		{
+			PENSURE(node_);
+			PENSURE(!leaf());
+
+			return ((IntermediateNode*)node_)->positiveMin();
+		}
+
+		Real negativeMax() const
+		{
+			PENSURE(node_);
+			PENSURE(!leaf());
+
+			return ((IntermediateNode*)node_)->negativeMax();
+		}
+
 		Real splitPosition() const
 		{
 			PENSURE(node_);
@@ -374,6 +390,14 @@ namespace Pastel
 			PENSURE(!leaf());
 
 			return ((IntermediateNode*)node_)->splitAxis();
+		}
+
+		const Vector<N, Real>* splitDirection() const
+		{
+			PENSURE(node_);
+			PENSURE(!leaf());
+			
+			return ((IntermediateNode*)node_)->splitDirection();
 		}
 
 		bool leaf() const
@@ -399,6 +423,15 @@ namespace Pastel
 			return Cursor(((IntermediateNode*)node_)->negative());
 		}
 
+		Real projectedPosition(
+			const Point<N, Real>& point) const
+		{
+			PENSURE(node_);
+			PENSURE(!leaf());
+
+			return ((IntermediateNode*)node_)->projectedPosition(point);
+		}
+
 	private:
 		friend class PointKdTree<N, Real, ObjectPolicy>;
 
@@ -417,7 +450,6 @@ namespace Pastel
 		, root_(0)
 		, bound_(N)
 		, leaves_(0)
-		, objects_(0)
 		, objectPolicy_()
 		, dimension_(N)
 	{
@@ -439,7 +471,6 @@ namespace Pastel
 		, root_(0)
 		, bound_(dimension)
 		, leaves_(0)
-		, objects_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(dimension)
 	{
@@ -460,7 +491,6 @@ namespace Pastel
 		, root_(0)
 		, bound_(that.dimension_)
 		, leaves_(0)
-		, objects_(0)
 		, objectPolicy_(that.objectPolicy_)
 		, dimension_(0)
 	{
@@ -497,7 +527,6 @@ namespace Pastel
 		std::swap(root_, that.root_);
 		bound_.swap(that.bound_);
 		std::swap(leaves_, that.leaves_);
-		std::swap(objects_, that.objects_);
 		std::swap(objectPolicy_, that.objectPolicy_);
 		std::swap(dimension_, that.dimension_);
 	}
@@ -566,7 +595,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	integer PointKdTree<N, Real, ObjectPolicy>::objects() const
 	{
-		return objects_;
+		return objectList_.size();
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -597,19 +626,6 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	void PointKdTree<N, Real, ObjectPolicy>::subdivide(
-		const Cursor& cursor,
-		const Real& splitPosition, 
-		integer splitAxis)
-	{
-		ENSURE1(splitAxis >= 0, splitAxis);
-		ENSURE2(splitAxis < dimension_, splitAxis, dimension_);
-
-		subdivide(cursor, splitPosition, splitAxis,
-			0, 0);
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
 	template <typename InputIterator>
 	void PointKdTree<N, Real, ObjectPolicy>::insert(
 		InputIterator begin, InputIterator end)
@@ -633,7 +649,6 @@ namespace Pastel
 		root_ = 0;
 		bound_ = AlignedBox<N, Real>(dimension_);
 		leaves_ = 0;
-		objects_ = 0;
 
 		root_ = (Node*)nodeAllocator_.allocate();
 		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
@@ -654,10 +669,12 @@ namespace Pastel
 	void PointKdTree<N, Real, ObjectPolicy>::subdivide(
 		const Cursor& cursor,
 		const Real& splitPosition, integer splitAxis,
-		const Real& boundMin, const Real& boundMax)
+		const Vector<N, Real>* splitDirection,
+		const Real& boundMin, const Real& boundMax,
+		const Real& positiveMin, const Real& negativeMax)
 	{
-		ENSURE2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
-		ENSURE(cursor.leaf());
+		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
+		ASSERT(cursor.leaf());
 
 		LeafNode* node = (LeafNode*)cursor.node_;
 
@@ -669,8 +686,10 @@ namespace Pastel
 
 		// Reorder the objects along the split position.
 
-		SplitPredicate splitPredicate(
-			splitPosition, splitAxis, objectPolicy_);
+		const SplitPredicate splitPredicate(
+			splitPosition, splitAxis, 
+			splitDirection,
+			objectPolicy_);
 
 		const std::pair<std::pair<ObjectIterator, integer>,
 			std::pair<ObjectIterator, integer> > result =
@@ -709,7 +728,7 @@ namespace Pastel
 
 		// Reuse the memory space of the node to be subdivided.
 		// This is ok, because the memory block is of the size
-		// sizeof(IntermediateNode) >= sizeof(LeafNode).
+		// of the node class that takes more memory.
 
 		node->~LeafNode();
 
@@ -718,8 +737,11 @@ namespace Pastel
 			negativeLeaf,
 			splitPosition,
 			splitAxis,
+			splitDirection,
 			boundMin,
-			boundMax);
+			boundMax,
+			positiveMin,
+			negativeMax);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.
@@ -761,8 +783,6 @@ namespace Pastel
 		// get the objects to the leaf nodes.
 
 		spliceInsert(cursor, list, list.begin(), list.end(), objects);
-
-		objects_ += objects;
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -830,7 +850,8 @@ namespace Pastel
 			// Otherwise carry out a partitioning of the objects.
 
 			const SplitPredicate splitPredicate(
-				cursor.splitPosition(), cursor.splitAxis(), objectPolicy_);
+				cursor.splitPosition(), cursor.splitAxis(), 
+				cursor.splitDirection(), objectPolicy_);
 
 			const std::pair<
 				std::pair<ObjectIterator, integer>,
@@ -876,6 +897,8 @@ namespace Pastel
 		const Point<N, Real>& minBound,
 		const Point<N, Real>& maxBound)
 	{
+		Real negativeSplitMax = 0;
+		Real positiveSplitMin = 0;
 		Real splitPosition = 0;
 		integer splitAxis = 0;
 
@@ -883,24 +906,57 @@ namespace Pastel
 		{
 			if (depth < maxDepth && cursor.objects() > maxObjects)
 			{
-				std::pair<Real, integer> result =
+				Vector<N, Real> splitDirection(ofDimension(
+					UseArbitrarySplits::value ? dimension_ : 0));
+
+				Vector<N, Real>* splitDirectionPtr =
+					UseArbitrarySplits::value ? &splitDirection : 0;
+
+				const std::pair<Real, integer> result = 
 					subdivisionRule(
 					minBound,
 					maxBound,
 					objectPolicy(),
 					cursor.begin(),
-					cursor.end());
+					cursor.end(),
+					splitDirectionPtr);
 
 				splitPosition = result.first;
 				splitAxis = result.second;
+				negativeSplitMax = splitPosition;
+				positiveSplitMin = splitPosition;
+
+				if (UseArbitrarySplits::value)
+				{
+					integer computedSplitAxis = 0;
+					const bool overlapped = intersect(
+						AlignedBox<N, Real>(minBound, maxBound),
+						Plane<N, Real>(asPoint(splitDirection * splitPosition), 
+						splitDirection),
+						computedSplitAxis,
+						negativeSplitMax,
+						positiveSplitMin);
+					//ASSERT(overlapped);
+					//ASSERT(computedSplitAxis == splitAxis);
+					if (!overlapped)
+					{
+						negativeSplitMax = maxBound[splitAxis];
+						positiveSplitMin = negativeSplitMax;
+					}
+				}
+
 				subdivide(cursor, splitPosition, splitAxis, 
-					minBound[splitAxis], maxBound[splitAxis]);
+					splitDirectionPtr,
+					minBound[splitAxis], maxBound[splitAxis],
+					positiveSplitMin, negativeSplitMax);
 			}
 		}
 		else
 		{
 			splitPosition = cursor.splitPosition();
 			splitAxis = cursor.splitAxis();
+			negativeSplitMax = cursor.negativeMax();
+			positiveSplitMin = cursor.positiveMin();
 		}
 
 		// A leaf node might or might not have been turned
@@ -908,19 +964,19 @@ namespace Pastel
 		if (!cursor.leaf())
 		{
 			Point<N, Real> negativeMax(maxBound);
-			negativeMax[splitAxis] = splitPosition;
+			negativeMax[splitAxis] = negativeSplitMax;
 
 			refine(maxDepth, maxObjects, subdivisionRule,
 				cursor.negative(), depth + 1,
 				minBound,
-				negativeMax.asTemporary());
+				negativeMax);
 
 			Point<N, Real> positiveMin(minBound);
-			positiveMin[splitAxis] = splitPosition;
+			positiveMin[splitAxis] = positiveSplitMin;
 
 			refine(maxDepth, maxObjects, subdivisionRule,
 				cursor.positive(), depth + 1, 
-				positiveMin.asTemporary(),
+				positiveMin,
 				maxBound);
 		}
 	}

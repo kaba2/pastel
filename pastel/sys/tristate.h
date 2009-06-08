@@ -43,6 +43,10 @@ namespace Pastel
 	TriState::Enum triOr(TriState::Enum left, TriState::Enum right);
 	TriState::Enum triXor(TriState::Enum left, TriState::Enum right);
 
+	template <typename Type>
+	TriState::Enum triLess(
+		const Type& left, const Type& right);
+
 }
 
 #include "pastel/sys/tristate.hpp"

@@ -19,6 +19,8 @@ namespace Pastel
 		{
 		public:
 			typedef const Point<N, Real>* Object;
+			//typedef TrueType ArbitrarySplits;
+			typedef FalseType ArbitrarySplits;
 
 			const Point<N, Real>& point(
 				const Object& object) const
@@ -120,9 +122,9 @@ namespace Pastel
 
 		const integer dimension = pointSet.front().size();
 
-		//Timer timer;
+		Timer timer;
 
-		//timer.setStart();
+		timer.setStart();
 
 		Tree tree(dimension);
 
@@ -131,10 +133,18 @@ namespace Pastel
 
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
- 
+
+		/*
+		tree.refine(
+			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMinSpread_SplitRule());
+		*/
+		/*
+		tree.refine(
+			computeKdTreeMaxDepth(tree.objects()), 4, MaxVariance_SplitRule());
+		*/
 		//check(tree);
 
-		//timer.store();
+		timer.store();
 		//log() << "Construction: " << timer.seconds() << logNewLine;
 
 		/*

@@ -133,6 +133,23 @@ namespace Pastel
 		return result;
 	}
 
+	template <typename Type>
+	TriState::Enum triLess(
+		const Type& left, const Type& right)
+	{
+		if (left < right)
+		{
+			return TriState::True;
+		}
+
+		if (right < left)
+		{
+			return TriState::False;
+		}
+
+		return TriState::Both;
+	}
+
 }
 
 #endif

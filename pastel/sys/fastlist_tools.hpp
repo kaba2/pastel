@@ -29,9 +29,13 @@ namespace Pastel
 
 		List trueList(list.get_allocator());
 		List falseList(list.get_allocator());
+		List trueBothList(list.get_allocator());
+		List falseBothList(list.get_allocator());
 
 		integer trueCount = 0;
 		integer falseCount = 0;
+		integer trueBothCount = 0;
+		integer falseBothCount = 0;
 
 		Iterator iter(from);
 		while(iter != to)
@@ -39,19 +43,44 @@ namespace Pastel
 			Iterator next = iter;
 			++next;
 
-			const bool side = predicate(*iter);
-			if (side)
+			TriState::Enum side = predicate(*iter);
+			if (side == TriState::True)
 			{
 				trueList.splice(trueList.end(), list, iter);
 				++trueCount;
 			}
-			else
+			else if (side == TriState::False)
 			{
 				falseList.splice(falseList.end(), list, iter);
 				++falseCount;
 			}
+			else
+			{
+				if (trueBothCount < falseBothCount)
+				{
+					trueBothList.splice(trueBothList.end(), list, iter);
+					++trueBothCount;
+				}
+				else
+				{
+					falseBothList.splice(falseBothList.end(), list, iter);
+					++falseBothCount;
+				}
+			}
 
 			iter = next;
+		}
+
+		if (trueCount < falseCount)
+		{
+			trueList.splice(trueList.end(), falseBothList);
+			falseList.splice(falseList.end(), trueBothList);
+			std::swap(trueBothCount, falseBothCount);
+		}
+		else
+		{
+			trueList.splice(trueList.end(), trueBothList);
+			falseList.splice(falseList.end(), falseBothList);
 		}
 
 		// Splice back to the original list.
@@ -72,8 +101,8 @@ namespace Pastel
 		list.splice(to, falseList);
 
 		return std::make_pair(
-			std::make_pair(trueStart, trueCount),
-			std::make_pair(falseStart, falseCount));
+			std::make_pair(trueStart, trueCount + trueBothCount),
+			std::make_pair(falseStart, falseCount + falseBothCount));
 	}
 
 	template <typename Type, typename UniformAllocator, typename Predicate>

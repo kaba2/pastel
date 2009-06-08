@@ -42,7 +42,6 @@ namespace Pastel
 		: position_(position)
 		, normal_(unitNormal)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <int N, typename Real>

@@ -86,7 +86,7 @@ void redraw()
 
 	renderer__->setColor(Color(1));
 	const Point2 meanPoint = mean(targetSet__);
-	const Vector2 maximalVariance = largestEigenVector(targetSet__) * 0.4;
+	const Vector2 maximalVariance = largestEigenVector(targetSet__) * -0.4;
 	const Vector2 diagonalVariance = 
 		diagonalAxis<2, real>(2, maximalDiagonalVariance(targetSet__)) * 0.4;
 	/*
@@ -94,15 +94,18 @@ void redraw()
 		diagonalAxis<2, real>(2, nearestDiagonalAxis(maximalVariance)) * 0.4;
 	*/
 	renderer__->setFilled(true);
+	/*
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - cross(diagonalVariance), 
 		meanPoint + cross(diagonalVariance)), 0.01, 0.01);
+	*/
 	renderer__->setColor(Color(1, 0, 0));
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - cross(maximalVariance), 
 		meanPoint + cross(maximalVariance)), 0.01, 0.01);
 
-	const AlignedBox2 box(-0.3, -0.3, 0.3, 0.3);
+	AlignedBox2 box(-0.3, -0.5, 0.3, 0.5);
+	box += Vector2(0.2);
 
 	renderer__->setFilled(false);
 	drawBox(*renderer__, box);
@@ -112,6 +115,7 @@ void redraw()
 	integer clipDimension = 0;
 	real minBoxMax = 0;
 	real maxBoxMin = 0;
+
 	if (intersect(box, plane, clipDimension, minBoxMax, maxBoxMin))
 	{
 		renderer__->setColor(Color(1, 1, 0));

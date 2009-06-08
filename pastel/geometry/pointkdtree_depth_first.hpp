@@ -66,45 +66,62 @@ namespace Pastel
 				return;
 			}
 
-			// Find the leaf node that is closest
-			// to the search searchPoint in this current branch.
-			// Place all the alternative branching nodes into
-			// a nodeStack.
 			if (!cursor.leaf())
 			{
-				const integer splitAxis = cursor.splitAxis();
+				// For an intermediate node our task is to
+				// recurse to child nodes while updating
+				// incrementally the distance 
+				// to the  current node. This distance
+				// is exact for the kdtree nodes, but
+				// only approximate for arbitrary
+				// directed splitting planes (note
+				// however that also in this case we trace 
+				// the distance to rectangular nodes rather than
+				// just to planes).
 
-				const Real searchPosition =
-					searchPoint[splitAxis];
-
-				const Real splitPosition = 
-					cursor.splitPosition();
+				const Real searchPosition = 
+					searchPoint[cursor.splitAxis()];
 
 				Cursor nearBranch;
 				Cursor farBranch;
+				Real farBoundDistance = 0;
 
-				if (searchPosition < splitPosition)
+				// Note: it is essential for numerical
+				// precision to use comparison of two values
+				// here, rather than comparing the result
+				// of a subtraction to zero.
+
+				if (cursor.projectedPosition(searchPoint) < 
+					cursor.splitPosition())
 				{
 					// The search point is closer to the left branch so follow that.
 					farBranch = cursor.positive();
 					nearBranch = cursor.negative();
+					if (searchPosition < cursor.positiveMin())
+					{
+						farBoundDistance = normBijection.axis(
+							cursor.positiveMin() - searchPosition);
+					}
 				}
 				else
 				{
 					// The search point is closer to the right branch so follow that.
 					farBranch = cursor.negative();
 					nearBranch = cursor.positive();
+					if (searchPosition > cursor.negativeMax())
+					{
+						farBoundDistance = normBijection.axis(
+							searchPosition - cursor.negativeMax());
+					}
 				}
 
 				// Follow downwards the kdTree with the nearer node.
 				work(nearBranch, distance);
 
 				// Try to cull the farther node off based on the distance 
-				// of the search point to the splitting plane.
-				const Real planeDistance = normBijection.signedAxis(
-					splitPosition - searchPosition);
+				// of the search point to the farther bound.
 
-				if (planeDistance <= nodeCullDistance)
+				if (farBoundDistance <= nodeCullDistance)
 				{
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther child node.
@@ -123,7 +140,7 @@ namespace Pastel
 						normBijection.replaceAxis(
 						distance, 
 						normBijection.axis(oldAxisDistance),
-						planeDistance);
+						farBoundDistance);
 
 					if (childDistance <= nodeCullDistance)
 					{
@@ -167,35 +184,6 @@ namespace Pastel
 		}
 
 	private:
-		class NodeEntry
-		{
-		public:
-			NodeEntry(
-				const typename Cursor& node,
-				const Real& distance)
-				: node_(node)
-				, distance_(distance)
-			{
-			}
-
-			bool operator<(const NodeEntry& that) const
-			{
-				if (distance_ < that.distance_)
-				{
-					return true;
-				}
-				if (that.distance_ < distance_)
-				{
-					return false;
-				}
-
-				return node_ < that.node_;
-			}
-
-			typename PointKdTree<N, Real, ObjectPolicy>::Cursor node_;
-			Real distance_;
-		};
-
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree;
 		const Point<N, Real>& searchPoint;
 		const Real& maxDistance;
