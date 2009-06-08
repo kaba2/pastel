@@ -24,14 +24,16 @@ namespace Pastel
 			{
 			}
 
-			Real operator()(
+			void operator()(
 				const Real& distance,
-				const Real& cullDistance,
 				const ConstObjectIterator& iter) const
 			{
 				++nearestCount_;
+			}
 
-				return cullDistance;
+			Real suggestCullDistance() const
+			{
+				return infinity<Real>();
 			}
 
 		private:

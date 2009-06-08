@@ -17,6 +17,7 @@ namespace Pastel
 	kNearestBegin <= kNearestEnd
 	maxDistance >= 0
 	maxRelativeError >= 0
+	maxPointsPerNode >= 1
 	
 	Time complexity:
 	?
@@ -25,7 +26,7 @@ namespace Pastel
 	kd-tree
 	*/
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection, typename SplitRule>
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearestBegin,
@@ -33,6 +34,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
+		integer maxPointsPerNode,
+		const SplitRule& splitRule,
 		Array<2, integer>* nearestArray,
 		Array<2, Real>* distanceArray = 0);
 

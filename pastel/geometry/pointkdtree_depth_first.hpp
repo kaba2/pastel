@@ -60,13 +60,36 @@ namespace Pastel
 
 		void work(const Cursor& cursor, const Real& distance)
 		{
-			if (distance > nodeCullDistance)
+			if (cursor.leaf())
 			{
-				// The node is beyond cull distance, skip it.
-				return;
-			}
+				// We are now in a leaf node.
+				// Search through the objects in this node.
 
-			if (!cursor.leaf())
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
+
+				while(iter != iterEnd)
+				{
+					const Real currentDistance = 
+						distance2(objectPolicy.point(*iter), searchPoint, 
+						normBijection, cullDistance);
+
+					// It is essential that this is <= rather
+					// than <, because of the possibility
+					// of multiple points at same location.
+					if (currentDistance <= cullDistance)
+					{
+						candidateFunctor(currentDistance, iter);
+						cullDistance = std::min(
+							candidateFunctor.suggestCullDistance() * protectiveFactor,
+							cullDistance);
+						nodeCullDistance = cullDistance * errorFactor;
+					}
+
+					++iter;
+				}
+			}
+			else
 			{
 				// For an intermediate node our task is to
 				// recurse to child nodes while updating
@@ -148,37 +171,6 @@ namespace Pastel
 						// later.
 						work(farBranch, childDistance);
 					}
-				}
-			}
-			else
-			{
-				// We are now in a leaf node.
-				// Search through the objects in this node.
-
-				ConstObjectIterator iter = cursor.begin();
-				ConstObjectIterator iterEnd = cursor.end();
-
-				while(iter != iterEnd)
-				{
-					const Real currentDistance = 
-						distance2(objectPolicy.point(*iter), searchPoint, 
-						normBijection, cullDistance);
-
-					// It is essential that this is <= rather
-					// than <, because of the possibility
-					// of multiple points at same location.
-					if (currentDistance <= cullDistance)
-					{
-						const Real cullDistanceSuggestion = 
-							candidateFunctor(currentDistance, cullDistance, iter);
-						
-						cullDistance = std::min(
-							cullDistanceSuggestion * protectiveFactor,
-							cullDistance);
-						nodeCullDistance = cullDistance * errorFactor;
-					}
-
-					++iter;
 				}
 			}
 		}

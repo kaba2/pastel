@@ -521,10 +521,14 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
+	EuclideanNormBijection<real> normBijection;
+	//ManhattanNormBijection<real> normBijection;
+	//InfinityNormBijection<real> normBijection;
+
 	searchNearest(tree__, worldMouse, 
 		Accept_Always(), 
-		searchRadius__ * searchRadius__, 0,
-		EuclideanNormBijection<real>(), nearestPoints__, &nearestPointSet__, 0);
+		normBijection.axis(searchRadius__), 0,
+		normBijection, nearestPoints__, &nearestPointSet__, 0);
 	if (searchRadius__ != infinity<real>())
 	{
 		searchRange(tree__, 
@@ -604,14 +608,17 @@ void computeTree(integer maxDepth)
 
 	tree__.insert(pointSet__.begin(), pointSet__.end());
 
-	//tree__.refine(computeKdTreeMaxDepth(tree__.objects()), 4, SlidingMidpoint_SplitRule());
-	tree__.refine(maxDepth, 4, SlidingMidpoint_SplitRule());
-	//tree__.refine(maxDepth, 4, MaxVariance_SplitRule());
-	//tree__.refine(maxDepth, 4, SlidingMaxVariance_SplitRule());
-	//tree__.refine(maxDepth, 4, SlidingMinSpread_SplitRule());
+	//tree__.refine(computeKdTreeMaxDepth(tree__.objects()), 16, SlidingMidpoint2_SplitRule());
+	//tree__.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
+	tree__.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
+	//tree__.refine(maxDepth, 16, MaxVariance_SplitRule());
+	//tree__.refine(maxDepth, 16, SlidingMaxVariance_SplitRule());
+	//tree__.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
 	//refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
 
-	log() << "The constructed kd-tree has depth " << depth(tree__) << "." << logNewLine;
+	log() << "The constructed kd-tree has " << logNewLine;
+	log() << "depth " << depth(tree__) << "." << logNewLine;
+	log() << tree__.nodes() << " nodes." << logNewLine;
 
 	timer.store();
 

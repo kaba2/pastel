@@ -914,11 +914,10 @@ namespace Pastel
 
 				const std::pair<Real, integer> result = 
 					subdivisionRule(
+					*this,
+					cursor,
 					minBound,
 					maxBound,
-					objectPolicy(),
-					cursor.begin(),
-					cursor.end(),
 					splitDirectionPtr);
 
 				splitPosition = result.first;

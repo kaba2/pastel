@@ -122,20 +122,14 @@ namespace Pastel
 			TupleBase(const TupleBase& that)
 				: data_()
 			{
-				for (integer i = 0;i < N;++i)
-				{
-					data_[i] = that.data_[i];
-				}
+				std::copy(that.begin(), that.end(), begin());
 			}
 
 			template <typename ThatType>
 			TupleBase(const TupleBase<N, ThatType>& that)
 				: data_()
 			{
-				for (integer i = 0;i < N;++i)
-				{
-					data_[i] = that.data_[i];
-				}
+				std::copy(that.begin(), that.end(), begin());
 			}
 
 			// Using default operator=.
@@ -156,7 +150,7 @@ namespace Pastel
 			{
 				// We settle for basic exception safety rather than strong
 				// for performance (no element swapping).
-				std::copy(that.data_, that.data_ + N, data_);
+				std::copy(that.begin(), that.end(), begin());
 				
 				return *this;
 			}
@@ -179,10 +173,7 @@ namespace Pastel
 
 			void set(const Type& that)
 			{
-				for (integer i = 0;i < N;++i)
-				{
-					data_[i] = that;
-				}
+				std::fill(begin(), end(), that);
 			}
 
 			Type& front()
@@ -472,7 +463,7 @@ namespace Pastel
 				// for performance (no memory reallocation).
 				PENSURE2(size_ == that.size_, size_, that.size_);
 
-				std::copy(that.data_, that.data_ + that.size_, data_);
+				std::copy(that.begin(), that.end(), begin());
 				
 				return *this;
 			}
@@ -501,12 +492,7 @@ namespace Pastel
 
 			void set(const Type& that)
 			{
-				const integer n = size();
-
-				for (integer i = 0;i < n;++i)
-				{
-					data_[i] = that;
-				}
+				std::fill(begin(), end(), that);
 			}
 
 			Type& front()

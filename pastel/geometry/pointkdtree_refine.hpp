@@ -15,13 +15,14 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
+			const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound,
-			const ObjectPolicy& objectPolicy,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd,
 			Vector<N, Real>* splitDirection) const
 		{
+			const integer dimension = tree.dimension();
+
 			// Split along the longest dimension.
 
 			const integer splitAxis = maxIndex(maxBound - minBound);
@@ -30,7 +31,7 @@ namespace Pastel
 
 			if (splitDirection)
 			{
-				*splitDirection = unitAxis<N, Real>(minBound.dimension(), splitAxis);
+				*splitDirection = unitAxis<N, Real>(dimension, splitAxis);
 			}
 
 			return std::make_pair(splitPosition, splitAxis);
@@ -44,20 +45,22 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
+			const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound,
-			const ObjectPolicy& objectPolicy,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd,
 			Vector<N, Real>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 				Iterator;
 
+			const integer dimension = tree.dimension();
+			const ObjectPolicy& objectPolicy = tree.objectPolicy();
+
 			std::vector<Point<N, Real> > pointSet;
 
-			Iterator iter = objectBegin;
-			const Iterator iterEnd = objectEnd;
+			Iterator iter = cursor.begin();
+			const Iterator iterEnd = cursor.end();
 			while(iter != iterEnd)
 			{
 				pointSet.push_back(objectPolicy.point(*iter));
@@ -110,21 +113,23 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
+			const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound,
-			const ObjectPolicy& objectPolicy,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd,
 			Vector<N, Real>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
 
+			const integer dimension = tree.dimension();
+			const ObjectPolicy& objectPolicy = tree.objectPolicy();
+
 			std::vector<Point<N, Real> > pointSet;
 
 			{
-				ConstObjectIterator iter = objectBegin;
-				const ConstObjectIterator iterEnd = objectEnd;
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					pointSet.push_back(objectPolicy.point(*iter));
@@ -154,8 +159,8 @@ namespace Pastel
 					largestEigenVector(pointSet);
 
 				const Point<N, Real> meanPoint = 
-					//mean(pointSet);
-					linear(minBound, maxBound, 0.5);
+					mean(pointSet);
+					//linear(minBound, maxBound, 0.5);
 
 				splitAxis = nearestMainAxis(maxVariance);
 				splitPosition = meanPoint[splitAxis];
@@ -167,8 +172,8 @@ namespace Pastel
 					splitPosition = dot(asVector(meanPoint), maxVariance);
 					*splitDirection = maxVariance;
 
-					ConstObjectIterator iter = objectBegin;
-					ConstObjectIterator iterEnd = objectEnd;
+					ConstObjectIterator iter = cursor.begin();
+					const ConstObjectIterator iterEnd = cursor.end();
 					while(iter != iterEnd)
 					{
 						extendToCover(
@@ -181,8 +186,8 @@ namespace Pastel
 				}
 				else
 				{
-					ConstObjectIterator iter = objectBegin;
-					ConstObjectIterator iterEnd = objectEnd;
+					ConstObjectIterator iter = cursor.begin();
+					const ConstObjectIterator iterEnd = cursor.end();
 					while(iter != iterEnd)
 					{
 						extendToCover(
@@ -208,80 +213,74 @@ namespace Pastel
 		}
 	};
 
-	class SlidingMinSpread_SplitRule
+	class SlidingMidpoint_SplitRule
 	{
 	public:
 		template <
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
+			const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound,
-			const ObjectPolicy& objectPolicy,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd,
 			Vector<N, Real>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
-			const integer dimension = minBound.dimension();
+			const integer dimension = tree.dimension();
+			const ObjectPolicy& objectPolicy = tree.objectPolicy();
 
-			AlignedBox<N, Real> objectBound(dimension);
+			// Split along the longest dimension.
 
-			ConstObjectIterator iter = objectBegin;
-			ConstObjectIterator iterEnd = objectEnd;
-			while(iter != iterEnd)
+			const integer splitAxis = maxIndex(maxBound - minBound);
+			Real splitPosition = linear(minBound[splitAxis], 
+				maxBound[splitAxis], 0.5);
+
+			// Sliding midpoint
+
+			if (cursor.objects() > 0)
 			{
-				extendToCover(
-					objectPolicy.point(*iter),
-					objectBound);
+				Real leftMax = -infinity<Real>();
+				Real rightMin = infinity<Real>();
+				integer leftCount = 0;
+				integer rightCount = 0;
 
-				++iter;
-			}
-
-			const Vector<N, Real> boundExtent = maxBound - minBound;
-
-			const Vector<N, Real> relativeSpread(
-				objectBound.extent() / boundExtent);
-
-			// Split along the dimension which has minimal
-			// relative spread.
-
-			integer splitAxis = minIndex(relativeSpread);
-			if (relativeSpread[splitAxis] > 0.5)
-			{
-				splitAxis = maxIndex(boundExtent);
-			}
-
-			Real splitPosition = 
-				linear(minBound[splitAxis], maxBound[splitAxis], 0.5);
-
-			AlignedBox<1, Real> leftBound;
-			AlignedBox<1, Real> rightBound;
-
-			{
-				ConstObjectIterator iter = objectBegin;
-				ConstObjectIterator iterEnd = objectEnd;
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					const Real position = objectPolicy.point(*iter, splitAxis);
 					if (position < splitPosition)
 					{
-						extendToCover(Point<1, Real>(position), leftBound);
+						if (position > leftMax)
+						{
+							leftMax = position;
+						}
+						++leftCount;
 					}
 					else
 					{
-						extendToCover(Point<1, Real>(position), rightBound);
+						if (position < rightMin)
+						{
+							rightMin = position;
+						}
+						++rightCount;
 					}
 
 					++iter;
 				}
-			}
 
-			splitPosition = (splitPosition - leftBound.max()[0]) < 
-				(rightBound.min()[0] - splitPosition) ?
-				leftBound.max()[0] : rightBound.min()[0];
+				if (leftCount == 0)
+				{
+					splitPosition = rightMin;
+				}
+				else if (rightCount == 0)
+				{
+					splitPosition = leftMax;
+				}
+			}
 
 			if (splitDirection)
 			{
@@ -292,24 +291,24 @@ namespace Pastel
 		}
 	};
 
-	class SlidingMidpoint_SplitRule
+	class SlidingMidpoint2_SplitRule
 	{
 	public:
 		template <
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
+			const PointKdTree<N, Real, ObjectPolicy>& tree,
+			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound,
-			const ObjectPolicy& objectPolicy,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd,
 			Vector<N, Real>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
-			const integer dimension = minBound.dimension();
+			const integer dimension = tree.dimension();
+			const ObjectPolicy& objectPolicy = tree.objectPolicy();
 
 			// Split along the longest dimension.
 
@@ -319,15 +318,15 @@ namespace Pastel
 
 			// Sliding midpoint
 
-			if (objectBegin != objectEnd)
+			if (cursor.objects() > 0)
 			{
 				Real leftMax = -infinity<Real>();
 				Real rightMin = infinity<Real>();
 				integer leftCount = 0;
 				integer rightCount = 0;
 
-				ConstObjectIterator iter = objectBegin;
-				ConstObjectIterator iterEnd = objectEnd;
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					const Real position = objectPolicy.point(*iter, splitAxis);
@@ -385,96 +384,6 @@ namespace Pastel
 			if (splitDirection)
 			{
 				*splitDirection = unitAxis<N, Real>(dimension, splitAxis);
-			}
-
-			return std::make_pair(splitPosition, splitAxis);
-		}
-	};
-
-	class SlidingMidpoint_SplitRule2
-	{
-	public:
-		template <
-			int N, typename Real,
-			typename ObjectPolicy>
-			std::pair<Real, integer> operator()(
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
-			const ObjectPolicy& objectPolicy,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd,
-			Vector<N, Real>* splitDirection) const
-		{
-			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
-				ConstObjectIterator;
-
-			// Find object spread.
-
-			const integer dimension = bound.dimension();
-
-			AlignedBox<N, Real> objectBound(dimension);
-
-			ConstObjectIterator iter = objectBegin;
-			ConstObjectIterator iterEnd = objectEnd;
-			while(iter != iterEnd)
-			{
-				objectBound = boundingAlignedBox(
-					objectBound,
-					objectPolicy.bound(*iter));
-
-				++iter;
-			}
-
-			// Find the longest dimension.
-
-			const Vector<N, Real> extent = maxBound - minBound;
-
-			const integer maxExtentAxis = maxIndex(extent);
-			const Real maxExtent = extent[maxExtentAxis];
-
-			integer maxLegalSpreadAxis = 0;
-			Real maxLegalSpread = 0;
-
-			const Vector<N, Real> spread = objectBound.extent();
-
-			for (integer i = 0;i < dimension;++i)
-			{
-				if (extent[i] >= 0.8 * maxExtent)
-				{
-					if (spread[i] >= maxLegalSpread)
-					{
-						maxLegalSpreadAxis = i;
-						maxLegalSpread = spread[i];
-					}
-				}
-			}
-
-			const integer splitAxis = maxLegalSpreadAxis;
-
-			Real splitPosition = linear(minBound[splitAxis], 
-				maxBound[splitAxis], 0.5);
-
-			if (splitPosition < objectBound.min()[splitAxis])
-			{
-				splitPosition = objectBound.min()[splitAxis];
-			}
-			if (splitPosition > objectBound.max()[splitAxis])
-			{
-				splitPosition = objectBound.max()[splitAxis];
-			}
-
-			if (splitPosition < minBound[splitAxis])
-			{
-				splitPosition = minBound[splitAxis];
-			}
-			if (splitPosition > maxBound[splitAxis])
-			{
-				splitPosition = maxBound[splitAxis];
-			}
-
-			if (splitDirection)
-			{
-				*splitDirection = unitAxis<N, Real>(minBound.dimension(), splitAxis);
 			}
 
 			return std::make_pair(splitPosition, splitAxis);

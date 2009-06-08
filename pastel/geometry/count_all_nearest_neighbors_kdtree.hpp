@@ -147,7 +147,7 @@ namespace Pastel
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
+			computeKdTreeMaxDepth(tree.objects()), 16, SlidingMidpoint2_SplitRule());
 
 		countSet.resize(points);
 
@@ -196,7 +196,7 @@ namespace Pastel
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
+			computeKdTreeMaxDepth(tree.objects()), 16, SlidingMidpoint2_SplitRule());
 
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)
