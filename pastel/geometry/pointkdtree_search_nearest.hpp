@@ -34,23 +34,25 @@ namespace Pastel
 			{
 			}
 
-			Real operator()(
+			void operator()(
 				const Real& distance,
-				const Real& cullDistance,
 				const ConstObjectIterator& iter) const
 			{
 				if (acceptFunctor_(iter))
 				{
 					candidateSet_.insert(
 						KeyVal(distance, iter));
+				}
+			}
 
-					if (candidateSet_.full())
-					{
-						return candidateSet_.back().key();
-					}
+			Real suggestCullDistance() const
+			{
+				if (candidateSet_.full())
+				{
+					return candidateSet_.back().key();
 				}
 
-				return cullDistance;
+				return infinity<Real>();
 			}
 
 		private:

@@ -46,7 +46,7 @@ namespace
 			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, Midpoint_SplitRule());
+			computeKdTreeMaxDepth(tree.objects()), 16, Midpoint_SplitRule());
 
 		REPORT(!check(tree));
 
@@ -79,7 +79,7 @@ namespace
 			bTree.insert(bPointList.begin(), bPointList.end());
 
 			bTree.refine(
-				computeKdTreeMaxDepth(bTree.objects()), 4, Midpoint_SplitRule());
+				computeKdTreeMaxDepth(bTree.objects()), 16, Midpoint_SplitRule());
 
 			REPORT(!check(bTree));
 
@@ -180,7 +180,7 @@ namespace
 		log() << tree.objects() << " object references ("
 			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
 
-		//tree.refine(computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
+		//tree.refine(computeKdTreeMaxDepth(tree.objects()), 16, SlidingMidpoint2_SplitRule());
 		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(tree.objects()), 2, tree);
 		//refineSurfaceAreaHeuristic(0, 2, tree);
 

@@ -104,6 +104,8 @@ namespace
 			infinity<Real>(),
 			0,
 			EuclideanNormBijection<Real>(),
+			16,
+			SlidingMidpoint2_SplitRule(),
 			&neighborSet);
 
 		timer.store();

@@ -143,13 +143,8 @@ namespace Pastel
 			// to this vector.
 			Vector<N, Real>& operator=(const Real that)
 			{
-				const integer n = size();
-				
 				// We accept basic exception safety for performance.
-				for (integer i = 0;i < n;++i)
-				{
-					data_[i] = that;
-				}
+				data_.set(that);
 
 				return (Vector<N, Real>&)*this;
 			}
@@ -163,11 +158,26 @@ namespace Pastel
 			Vector<N, Real>& operator=(
 				const TemporaryVector<N, Real>& that)
 			{
+				//...
+			}
+			*/
+
+			Vector<N, Real>& operator=(
+				const VectorBase<N, Real>& that)
+			{
 				// We allow the size of the vector to be
 				// changed by an assignment.
 
-				if (N == Dynamic)
+				const integer n = that.size();
+				if (N == Dynamic && n != size())
 				{
+					// Since we must reallocate, we can
+					// as well copy construct, so that there
+					// is no redundant initialization.
+					// With fixed N the swap is slow
+					// because it must swap all elements.
+					// Thus this is done only for
+					// N == Dynamic.
 					Vector<N, Real> copy(that);
 					swap(copy);
 				}
@@ -175,17 +185,19 @@ namespace Pastel
 				{				
 					// We accept basic exception safety for performance.
 
-					const integer n = size();
-					for (integer i = 0;i < n;++i)
-					{
-						data_[i] = that[i];
-					}
+					data_ = that.data_;
 				}
 
 				return (Vector<N, Real>&)*this;
 			}
-			*/
 
+			/*
+			template <typename ThatReal, typename Expression>
+			typename boost::disable_if<
+				boost::is_same<Expression, VectorBase<N, Real> >,
+				Vector<N, Real>&>::type operator=(
+				const VectorExpression<N, ThatReal, Expression>& that)
+			*/
 			template <typename ThatReal, typename Expression>
 			Vector<N, Real>& operator=(
 				const VectorExpression<N, ThatReal, Expression>& that)

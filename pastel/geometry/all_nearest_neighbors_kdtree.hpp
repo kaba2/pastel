@@ -76,7 +76,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection, typename SplitRule>
 	void allNearestNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearestBegin,
@@ -84,12 +84,15 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
+		integer maxPointsPerNode,
+		const SplitRule& splitRule,
 		Array<2, integer>* nearestArray,
 		Array<2, Real>* distanceArray)
 	{
 		ENSURE1(kNearestBegin >= 0, kNearestBegin);
 		ENSURE2(kNearestEnd < pointSet.size(), kNearestEnd, pointSet.size());
 		ENSURE2(kNearestBegin <= kNearestEnd, kNearestBegin, kNearestEnd);
+		ENSURE1(maxPointsPerNode >= 1, maxPointsPerNode);
 
 		const integer kNearest = kNearestEnd - kNearestBegin;
 
@@ -132,16 +135,8 @@ namespace Pastel
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMidpoint_SplitRule());
+			computeKdTreeMaxDepth(tree.objects()), maxPointsPerNode, splitRule);
 
-		/*
-		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, SlidingMinSpread_SplitRule());
-		*/
-		/*
-		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 4, MaxVariance_SplitRule());
-		*/
 		//check(tree);
 
 		timer.store();
