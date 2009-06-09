@@ -687,7 +687,11 @@ int myMain()
 		AlignedBox2(Point2(0.4, 0.0), Point2(0.6, 0.2)), Points / 4);
 	*/
 
-	generateClusteredPointSet(10000, 2, 10, pointSet__);
+	//generateClusteredPointSet(10000, 2, 10, pointSet__);
+	//generateUniformBallPointSet(10000, 2, pointSet__);
+	generateGaussianEllipsoidPointSet(10000, 2, pointSet__);
+	//generateUniformCubePointSet(10000, 2, pointSet__);
+	//generateGaussianPointSet(10000, 2, pointSet__);
 
 	computeTree(24);
 	timing();

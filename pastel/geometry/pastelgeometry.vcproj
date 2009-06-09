@@ -694,14 +694,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\flat_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\flat_tools.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\line.h"
 				>
 			</File>
