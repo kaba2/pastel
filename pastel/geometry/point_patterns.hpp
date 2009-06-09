@@ -140,7 +140,7 @@ namespace Pastel
 		for (integer i = 1;i < height;++i)
 		{
 			orthonormalSet.push_back(
-				perpendicular(orthonormalSet));
+				perpendicular(width, orthonormalSet));
 			result[i] = orthonormalSet.back();
 		}
 	}
