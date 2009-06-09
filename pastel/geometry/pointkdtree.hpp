@@ -551,8 +551,8 @@ namespace Pastel
 
 			if (depth < maxDepth && node->objects() > maxObjects)
 			{
-				Vector<N, Real> splitDirection(ofDimension(
-					UseArbitrarySplits::value ? dimension_ : 0));
+				Vector<N, Real> splitDirection(
+					ofDimension(dimension_));
 
 				Vector<N, Real>* splitDirectionPtr =
 					UseArbitrarySplits::value ? &splitDirection : 0;

@@ -206,22 +206,24 @@ namespace Pastel
 						searchNearest(
 							sceneTree_,
 							scenePoint,
-							Accept_Except<SceneIterator>(sceneIter),
+							Accept_Always(),
+							//Accept_Except<SceneIterator>(sceneIter),
 							infinity<Real>(),
 							0,
 							EuclideanNormBijection<Real>(),
-							kPoints_,
+							kPoints_ + 1,
 							&sceneSet);
 
 						std::vector<ModelIterator> modelSet;
 						searchNearest(
 							modelTree_,
 							modelPoint,
-							Accept_Except<ModelIterator>(modelIter),
+							Accept_Always(),
+							//Accept_Except<ModelIterator>(modelIter),
 							infinity<Real>(),
 							0,
 							EuclideanNormBijection<Real>(),
-							kPoints_,
+							kPoints_ + 1,
 							&modelSet);
 
 						// Try to match the nearest neighbours.

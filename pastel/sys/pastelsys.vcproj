@@ -1172,6 +1172,10 @@
 				RelativePath=".\random.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\randomdistribution.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="AbstractArray"
