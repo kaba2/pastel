@@ -119,12 +119,19 @@ namespace Pastel
 				set(that);
 			}
 
+			// Using default copy constructor.
+			// Maybe this is more efficient than doing
+			// what's below, since 'data_' need not
+			// be default initialized.
+			/*
 			TupleBase(const TupleBase& that)
 				: data_()
 			{
 				std::copy(that.begin(), that.end(), begin());
 			}
+			*/
 
+			// Note copy constructor won't match this function.
 			template <typename ThatType>
 			TupleBase(const TupleBase<N, ThatType>& that)
 				: data_()
@@ -146,14 +153,17 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(IsBase);
 			}
 
+			// The assignment need not be implemented, since
+			// we settle for basic exception safety rather than strong
+			// for performance (no element swapping).
+			/*
 			TupleBase<N, Type>& operator=(const TupleBase& that)
 			{
-				// We settle for basic exception safety rather than strong
-				// for performance (no element swapping).
 				std::copy(that.begin(), that.end(), begin());
 				
 				return *this;
 			}
+			*/
 
 			void swap(Tuple<N, Type> & that)
 			{

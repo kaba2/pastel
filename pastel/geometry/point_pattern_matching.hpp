@@ -1,7 +1,7 @@
-#ifndef PASTEL_POINTPATTERN_HPP
-#define PASTEL_POINTPATTERN_HPP
+#ifndef PASTEL_POINT_PATTERN_MATCHING_HPP
+#define PASTEL_POINT_PATTERN_MATCHING_HPP
 
-#include "pastel/geometry/pointpattern.h"
+#include "pastel/geometry/point_pattern_matching.h"
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/bounding_sphere.h"

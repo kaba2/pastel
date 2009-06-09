@@ -1,7 +1,7 @@
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/pointkdtree_tools.h"
-#include "pastel/geometry/pointpattern.h"
+#include "pastel/geometry/point_pattern_matching.h"
 #include "pastel/geometry/bounding_alignedbox.h"
 
 #include "pastel/gfx/savepcx.h"
