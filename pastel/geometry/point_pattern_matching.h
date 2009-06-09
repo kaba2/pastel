@@ -1,5 +1,5 @@
-#ifndef PASTEL_POINTPATTERN_H
-#define PASTEL_POINTPATTERN_H
+#ifndef PASTEL_POINT_PATTERN_MATCHING_H
+#define PASTEL_POINT_PATTERN_MATCHING_H
 
 #include "pastel/sys/tuple.h"
 
@@ -72,6 +72,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/pointpattern.hpp"
+#include "pastel/geometry/point_pattern_matching.hpp"
 
 #endif

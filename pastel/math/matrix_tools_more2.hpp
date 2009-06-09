@@ -83,6 +83,30 @@ namespace Pastel
 		}
 	}
 
+	template <int Height, int Width, typename Real>
+	void setRandomRotation(
+		Matrix<Height, Width, Real>& result)
+	{
+		const integer height = result.height();
+		const integer width = result.width();
+
+		ENSURE2(height <= width, height, width);
+
+		std::vector<Vector<Width, Real> > orthonormalSet;
+		orthonormalSet.reserve(height);
+
+		orthonormalSet.push_back(
+			randomVectorSphere<Width, Real>(width));
+		result[0] = orthonormalSet.back();
+
+		for (integer i = 1;i < height;++i)
+		{
+			orthonormalSet.push_back(
+				perpendicular(width, orthonormalSet));
+			result[i] = orthonormalSet.back();
+		}
+	}
+
 }
 
 

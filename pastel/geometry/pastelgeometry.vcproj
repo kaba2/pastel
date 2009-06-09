@@ -583,18 +583,18 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Pattern matching"
+			Name="Point pattern matching"
 			>
 			<File
-				RelativePath=".\pointpattern.h"
+				RelativePath=".\point_pattern_matching.h"
 				>
 			</File>
 			<File
-				RelativePath=".\pointpattern.hpp"
+				RelativePath=".\point_pattern_matching.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\pointpattern.txt"
+				RelativePath=".\point_pattern_matching.txt"
 				>
 			</File>
 		</Filter>

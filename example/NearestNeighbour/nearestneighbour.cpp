@@ -609,7 +609,7 @@ void computeTree(integer maxDepth)
 
 	//tree__.refine(computeKdTreeMaxDepth(tree__.objects()), 16, SlidingMidpoint2_SplitRule());
 	//tree__.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
-	tree__.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
+	tree__.refine(maxDepth, 16, SlidingMidpoint_SplitRule());
 	//tree__.refine(maxDepth, 16, MaxVariance_SplitRule());
 	//tree__.refine(maxDepth, 16, SlidingMaxVariance_SplitRule());
 	//tree__.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
@@ -664,14 +664,6 @@ int myMain()
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
 	deviceSystem().setCaption("Pastel's nearest neighbours example");
 
-	renderer__ = new GlGfxRenderer();
-	renderer__->setViewWindow(
-		AlignedBox2(Point2((real)-4 / 3, -1),
-		Point2((real)4 / 3, 1)));
-	renderer__->setColor(Color(0));
-	renderer__->clear();
-	gfxDevice().swapBuffers();
-
 	/*
 	const integer Points = 10000;
 	generatePointSet(
@@ -689,12 +681,43 @@ int myMain()
 
 	//generateClusteredPointSet(10000, 2, 10, pointSet__);
 	//generateUniformBallPointSet(10000, 2, pointSet__);
-	generateGaussianEllipsoidPointSet(10000, 2, pointSet__);
 	//generateUniformCubePointSet(10000, 2, pointSet__);
-	//generateGaussianPointSet(10000, 2, pointSet__);
+	generateGaussianPointSet(10000, 2, pointSet__);
+	scale(randomVector<2, real>(), pointSet__);
+	randomlyReduceDimensionality(1, pointSet__);
+	randomlyRotate(pointSet__);
 
 	computeTree(24);
 	timing();
+
+	AlignedBox2 viewWindow(tree__.bound());
+	viewWindow.min() -= viewWindow.extent() * 0.05;
+	viewWindow.max() += viewWindow.extent() * 0.05;
+	const Vector2 viewExtent = viewWindow.extent();
+
+	const real aspectRatio = (real)4 / 3;
+	if (viewExtent.x() < aspectRatio * viewExtent.y())
+	{
+		const real xExtentDelta = 
+			aspectRatio * viewExtent.y() - viewExtent.x();
+
+		viewWindow.min().x() -= xExtentDelta / 2;
+		viewWindow.max().x() += xExtentDelta / 2;
+	}
+	else
+	{
+		const real yExtentDelta = 
+			viewExtent.x() - aspectRatio * viewExtent.y();
+
+		viewWindow.min().y() -= yExtentDelta / 2;
+		viewWindow.max().y() += yExtentDelta / 2;
+	}
+
+	renderer__ = new GlGfxRenderer();
+	renderer__->setViewWindow(viewWindow);
+	renderer__->setColor(Color(0));
+	renderer__->clear();
+	gfxDevice().swapBuffers();
 
 	deviceSystem().startEventLoop(LogicFps);
 

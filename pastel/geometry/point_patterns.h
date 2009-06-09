@@ -9,25 +9,43 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	void generateUniformBallPointSet(integer points,
-						 integer dimension,
-						 std::vector<Point<N, Real> >& pointSet);
+	void generateUniformBallPointSet(
+		integer points,
+		integer dimension,
+		std::vector<Point<N, Real> >& pointSet);
 
 	template <int N, typename Real>
-	void generateClusteredPointSet(integer points,
-						 integer dimension,
-						 integer clusters,
-						 std::vector<Point<N, Real> >& pointSet);
+	void generateClusteredPointSet(
+		integer points,
+		integer dimension,
+		integer clusters,
+		std::vector<Point<N, Real> >& pointSet);
 
 	template <int N, typename Real>
-	void generateUniformCubePointSet(integer points,
-						 integer dimension,
-						 std::vector<Point<N, Real> >& pointSet);
+	void generateUniformCubePointSet(
+		integer points,
+		integer dimension,
+		std::vector<Point<N, Real> >& pointSet);
 
 	template <int N, typename Real>
-	void generateGaussianPointSet(integer points,
-						 integer dimension,
-						 std::vector<Point<N, Real> >& pointSet);
+	void generateGaussianPointSet(
+		integer points,
+		integer dimension,
+		std::vector<Point<N, Real> >& pointSet);
+
+	template <int N, typename Real>
+	void scale(
+		const Vector<N, Real>& scaling,
+		std::vector<Point<N, Real> >& pointSet);
+
+	template <int N, typename Real>
+	void randomlyRotate(
+		std::vector<Point<N, Real> >& pointSet);
+
+	template <int N, typename Real>
+	void randomlyReduceDimensionality(
+		integer dimensionality,
+		std::vector<Point<N, Real> >& pointSet);
 
 }
 

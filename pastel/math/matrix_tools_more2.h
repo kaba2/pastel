@@ -58,6 +58,10 @@ namespace Pastel
 		Matrix<N, N, Real>& matrix,
 		const Vector<N, Real>& v);
 
+	template <int Height, int Width, typename Real>
+	void setRandomRotation(
+		Matrix<Height, Width, Real>& result);
+
 }
 
 #endif
