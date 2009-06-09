@@ -552,14 +552,6 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::erase(
-		const Object& object)
-	{
-		// FIX: TODO
-		ENSURE(false);
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
 	void KdTree<N, Real, ObjectPolicy>::clear()
 	{
 		objectList_.clear();

@@ -132,9 +132,9 @@ namespace Pastel
 				data_.swap(that.data_);
 			}
 
-			void set(const Real& x)
+			void set(const Real& that)
 			{
-				*this = x;
+				data_.set(that);
 			}
 
 			// The parameter to this function

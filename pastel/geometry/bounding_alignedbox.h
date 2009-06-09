@@ -69,15 +69,23 @@ namespace Pastel
 	AlignedBox<N, Real> boundingAlignedCube(
 		const AlignedBox<N, Real>& box);
 
-	//! Finds the minimum volume bounding aligned box of two aligned boxes.
-
+	//! Extends an aligned box minimally to cover another aligned box.
+	/*!
+	Returns:
+	If the box needed to be extended.
+	*/
 	template <int N, typename Real>
-	void extendToCover(
+	bool extendToCover(
 		const AlignedBox<N, Real>& boxToCover,
 		AlignedBox<N, Real>& boxToExtend);
 
+	//! Extends an aligned box minimally to cover a point.
+	/*!
+	Returns:
+	If the box needed to be extended.
+	*/
 	template <int N, typename Real>
-	void extendToCover(
+	bool extendToCover(
 		const Point<N, Real>& pointToCover,
 		AlignedBox<N, Real>& boxToExtend);
 

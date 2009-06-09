@@ -118,18 +118,20 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	void extendToCover(
+	bool extendToCover(
 		const AlignedBox<N, Real>& boxToCover,
 		AlignedBox<N, Real>& boxToExtend)
 	{
-		Pastel::extendToCover(boxToCover.min(),
+		bool neededToExtend = Pastel::extendToCover(boxToCover.min(),
 			boxToExtend);
-		Pastel::extendToCover(boxToCover.max(),
+		neededToExtend |= Pastel::extendToCover(boxToCover.max(),
 			boxToExtend);
+
+		return neededToExtend;
 	}
 
 	template <int N, typename Real>
-	void extendToCover(
+	bool extendToCover(
 		const Point<N, Real>& pointToCover,
 		AlignedBox<N, Real>& boxToExtend)
 	{
@@ -140,17 +142,23 @@ namespace Pastel
 		Point<N, Real>& min = boxToExtend.min();
 		Point<N, Real>& max = boxToExtend.max();
 
+		bool neededToExtend = false;
+
 		for (integer i = 0;i < dimension;++i)
 		{
 			if (pointToCover[i] < min[i])
 			{
 				min[i] = pointToCover[i];
+				neededToExtend = true;
 			}
 			else if (pointToCover[i] > max[i])
 			{
 				max[i] = pointToCover[i];
+				neededToExtend = true;
 			}
 		}
+
+		return neededToExtend;
 	}
 
 }

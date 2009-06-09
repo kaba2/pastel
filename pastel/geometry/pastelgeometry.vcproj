@@ -453,11 +453,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\pointkdtree_cursor.h"
+					>
+				</File>
+				<File
 					RelativePath=".\pointkdtree_depth_first.h"
 					>
 				</File>
 				<File
 					RelativePath=".\pointkdtree_depth_first.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_node.h"
 					>
 				</File>
 				<File
@@ -482,6 +490,10 @@
 				</File>
 				<File
 					RelativePath=".\pointkdtree_search_range.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointkdtree_splitpredicate.h"
 					>
 				</File>
 				<File
@@ -1513,6 +1525,14 @@
 		<Filter
 			Name="Point patterns"
 			>
+			<File
+				RelativePath=".\point_patterns.h"
+				>
+			</File>
+			<File
+				RelativePath=".\point_patterns.hpp"
+				>
+			</File>
 			<File
 				RelativePath=".\poissondiskpattern.h"
 				>

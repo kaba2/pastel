@@ -10,438 +10,12 @@
 
 #include <boost/operators.hpp>
 
+#include "pastel/geometry/pointkdtree_splitpredicate.h"
+#include "pastel/geometry/pointkdtree_node.h"
+#include "pastel/geometry/pointkdtree_cursor.h"
+
 namespace Pastel
 {
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::Node
-	{
-	public:
-		explicit Node(pointer_integer unknown)
-			: unknown_(unknown)
-		{
-		}
-
-		bool leaf() const
-		{
-			return ((unknown_ & 1) != 0);
-		}
-
-		//protected:
-
-		// The first bit of 'unknown_' tells
-		// if the node is a LeafNode (1) or an
-		// IntermediateNode (0).
-		// If the node is a LeafNode, then
-		// the number of objects is encoded in
-		// (unknown_ >> 1).
-		// Otherwise unknown_ ^ (unknown_ & 0x3)
-		// contains a pointer to the positive child node.
-		// This trick relies on 4 byte alignment of nodes.
-
-		pointer_integer unknown_;
-	};
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::LeafNode
-		: public Node
-	{
-	public:
-		// TODO: possible compiler bug: doesn't work without this.
-		using Node::unknown_;
-
-		LeafNode(
-			const ObjectIterator& begin,
-			const ObjectIterator& last,
-			integer objects)
-			: Node((objects << 1) + 1)
-			, begin_(begin)
-			, last_(last)
-		{
-		}
-
-		void setBegin(const ObjectIterator& begin)
-		{
-			begin_ = begin;
-		}
-
-		ObjectIterator begin() const
-		{
-			return begin_;
-		}
-
-		void setLast(const ObjectIterator& last)
-		{
-			last_ = last;
-		}
-
-		ObjectIterator last() const
-		{
-			return last_;
-		}
-
-		void setObjects(integer objects)
-		{
-			unknown_ = (objects << 1) + 1;
-		}
-
-		integer objects() const
-		{
-			return unknown_ >> 1;
-		}
-
-	private:
-		ObjectIterator begin_;
-		ObjectIterator last_;
-	};
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_BspTree
-		: public Node
-	{
-	private:
-		// TODO: possible compiler bug: doesn't work without this.
-		using Node::unknown_;
-
-	public:
-		IntermediateNode_BspTree(
-			Node* positive,
-			Node* negative,
-			const Real& splitPosition,
-			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
-			const Real& min,
-			const Real& max,
-			const Real& positiveMin,
-			const Real& negativeMax)
-			: Node((pointer_integer)positive)
-			, negative_(negative)
-			, splitPosition_(splitPosition)
-			, splitAxis_(splitAxis)
-			, splitDirection_(*splitDirection)
-			, min_(min)
-			, max_(max)
-			, positiveMin_(positiveMin)
-			, negativeMax_(negativeMax)
-		{
-		}
-
-		const Real& splitPosition() const
-		{
-			return splitPosition_;
-		}
-
-		integer splitAxis() const
-		{
-			return splitAxis_;
-		}
-
-		Node* positive() const
-		{
-			return (Node*)unknown_;
-		}
-
-		Node* negative() const
-		{
-			return negative_;
-		}
-
-		const Real& min() const
-		{
-			return min_;
-		}
-
-		const Real& max() const
-		{
-			return max_;
-		}
-
-		Real positiveMin() const
-		{
-			return positiveMin_;
-		}
-
-		Real negativeMax() const
-		{
-			return negativeMax_;
-		}
-
-		const Vector<N, Real>* splitDirection() const
-		{
-			return &splitDirection_;
-		}
-
-		Real projectedPosition(
-			const Point<N, Real>& point) const
-		{
-			return dot(asVector(point), splitDirection_);
-		}
-
-	private:
-		Node* negative_;
-		Real splitPosition_;
-		int32 splitAxis_;
-		Real min_;
-		Real max_;
-		Real positiveMin_;
-		Real negativeMax_;
-		Vector<N, Real> splitDirection_;
-	};
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_KdTree
-		: public Node
-	{
-	private:
-		// TODO: possible compiler bug: doesn't work without this.
-		using Node::unknown_;
-
-	public:
-		IntermediateNode_KdTree(
-			Node* positive,
-			Node* negative,
-			const Real& splitPosition,
-			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
-			const Real& min,
-			const Real& max,
-			const Real& positiveMin,
-			const Real& negativeMax)
-			: Node((pointer_integer)positive)
-			, negative_(negative)
-			, splitPosition_(splitPosition)
-			, splitAxis_(splitAxis)
-			, min_(min)
-			, max_(max)
-		{
-			ASSERT(positiveMin == splitPosition);
-			ASSERT(negativeMax == splitPosition);
-		}
-
-		const Real& splitPosition() const
-		{
-			return splitPosition_;
-		}
-
-		integer splitAxis() const
-		{
-			return splitAxis_;
-		}
-
-		Node* positive() const
-		{
-			return (Node*)unknown_;
-		}
-
-		Node* negative() const
-		{
-			return negative_;
-		}
-
-		Real min() const
-		{
-			return min_;
-		}
-
-		Real max() const
-		{
-			return max_;
-		}
-
-		Real positiveMin() const
-		{
-			return splitPosition_;
-		}
-
-		Real negativeMax() const
-		{
-			return splitPosition_;
-		}
-
-		const Vector<N, Real>* splitDirection() const
-		{
-			return 0;
-		}
-
-		Real projectedPosition(
-			const Point<N, Real>& point) const
-		{
-			return point[splitAxis_];
-		}
-
-	private:
-		Node* negative_;
-		Real splitPosition_;
-		int32 splitAxis_;
-		Real min_;
-		Real max_;
-	};
-
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::Cursor
-		: boost::less_than_comparable<Cursor
-		, boost::equality_comparable<Cursor
-		> >
-	{
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		Cursor()
-			: node_(0)
-		{
-		}
-
-		bool operator<(const Cursor& that) const
-		{
-			return node_ < that.node_;
-		}
-
-		bool operator==(const Cursor& that) const
-		{
-			return node_ == that.node_;
-		}
-
-		bool empty() const
-		{
-			return node_ == 0;
-		}
-
-		ConstObjectIterator begin() const
-		{
-			PENSURE(node_);
-			PENSURE(leaf());
-
-			LeafNode* leafNode = (LeafNode*)node_;
-
-			return leafNode->begin();
-		}
-
-		ConstObjectIterator end() const
-		{
-			PENSURE(node_);
-			PENSURE(leaf());
-
-			LeafNode* leafNode = (LeafNode*)node_;
-
-			ObjectIterator iterEnd = leafNode->last();
-			if (leafNode->objects() > 0)
-			{
-				++iterEnd;
-			}
-
-			return iterEnd;
-		}
-
-		integer objects() const
-		{
-			PENSURE(node_);
-			PENSURE(leaf());
-
-			LeafNode* leafNode = (LeafNode*)node_;
-
-			return leafNode->objects();
-		}
-
-		Real min() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->min();
-		}
-
-		Real max() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->max();
-		}
-
-		Real positiveMin() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->positiveMin();
-		}
-
-		Real negativeMax() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->negativeMax();
-		}
-
-		Real splitPosition() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->splitPosition();
-		}
-
-		integer splitAxis() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->splitAxis();
-		}
-
-		const Vector<N, Real>* splitDirection() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-			
-			return ((IntermediateNode*)node_)->splitDirection();
-		}
-
-		bool leaf() const
-		{
-			PENSURE(node_);
-
-			return node_->leaf();
-		}
-
-		Cursor positive() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return Cursor(((IntermediateNode*)node_)->positive());
-		}
-
-		Cursor negative() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return Cursor(((IntermediateNode*)node_)->negative());
-		}
-
-		Real projectedPosition(
-			const Point<N, Real>& point) const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((IntermediateNode*)node_)->projectedPosition(point);
-		}
-
-	private:
-		friend class PointKdTree<N, Real, ObjectPolicy>;
-
-		explicit Cursor(Node* node)
-			: node_(node)
-		{
-		}
-
-		Node* node_;
-	};
 
 	template <int N, typename Real, typename ObjectPolicy>
 	PointKdTree<N, Real, ObjectPolicy>::PointKdTree()
@@ -492,10 +66,21 @@ namespace Pastel
 		, bound_(that.dimension_)
 		, leaves_(0)
 		, objectPolicy_(that.objectPolicy_)
-		, dimension_(0)
+		, dimension_(that.dimension_)
 	{
-		// TODO
-		ENSURE(false);
+		objectList_.set_allocator(ObjectContainer::allocator_ptr(
+			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
+		root_ = (Node*)nodeAllocator_.allocate();
+		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
+		++leaves_;
+
+		// First copy the structure of the tree.
+
+		copyConstruct(root_, that.root_);
+
+		// Then insert the objects to the nodes.
+
+		insert(that.begin(), that.end());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -541,10 +126,11 @@ namespace Pastel
 	void PointKdTree<N, Real, ObjectPolicy>::reserveBound(
 		const AlignedBox<N, Real>& boxToCover)
 	{
-		extendToCover(
-			boxToCover, bound_);
-
-		//bound_ = boundingAlignedBox(bound_, boxToCover);
+		if (extendToCover(
+			boxToCover, bound_))
+		{
+			updateBound(root_, bound_.min(), bound_.max());
+		}
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -620,8 +206,8 @@ namespace Pastel
 			return;
 		}
 
-		refine(maxDepth, maxObjects,
-			subdivisionRule, root(),
+		refine(root_, maxDepth, maxObjects,
+			subdivisionRule,
 			0, bound().min(), bound().max());
 	}
 
@@ -630,15 +216,41 @@ namespace Pastel
 	void PointKdTree<N, Real, ObjectPolicy>::insert(
 		InputIterator begin, InputIterator end)
 	{
-		insert(root(), begin, end);
-	}
+		if (begin == end)
+		{
+			// Nothing to do.
+			return;
+		}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void PointKdTree<N, Real, ObjectPolicy>::erase(
-		const Object& object)
-	{
-		// FIX: TODO
-		ENSURE(false);
+		// Copy objects to a list which shares
+		// an allocator with the objectList_.
+		ObjectContainer list(begin, end, objectList_.get_allocator());
+
+		// Possibly extend the bounding box.
+
+		integer objects = 0;
+
+		bool neededToExtend = false;
+		ObjectIterator iter = list.begin();
+		const ObjectIterator iterEnd = list.end();
+		while(iter != iterEnd)
+		{
+			neededToExtend |= extendToCover(
+				objectPolicy_.point(*iter), bound_);
+
+			++objects;
+			++iter;
+		}
+
+		if (neededToExtend)
+		{
+			updateBound(root_, bound_.min(), bound_.max());
+		}
+
+		// Use a combination of splicing and insertion to
+		// get the objects to the leaf nodes.
+
+		spliceInsert(root_, list, list.begin(), list.end(), objects);
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -658,7 +270,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::clearObjects()
 	{
-		clearObjects(root());
+		clearObjects(root_);
 
 		objectList_.clear();
 	}
@@ -666,17 +278,49 @@ namespace Pastel
 	// Private
 
 	template <int N, typename Real, typename ObjectPolicy>
+	void PointKdTree<N, Real, ObjectPolicy>::copyConstruct(
+		Node* thisSomeNode, Node* thatSomeNode)
+	{
+		if (!thatSomeNode->leaf())
+		{
+			IntermediateNode* thatNode = 
+				(IntermediateNode*)thatSomeNode;
+
+			ASSERT(thisSomeNode->leaf());
+
+			subdivide(
+				(LeafNode*)thisSomeNode, 
+				thatNode->splitPosition(),
+				thatNode->splitAxis(), 
+				thatNode->splitDirection(),
+				thatNode->min(),
+				thatNode->max(),
+				thatNode->positiveMin(),
+				thatNode->negativeMax());
+
+			IntermediateNode* thisNode = 
+				(IntermediateNode*)thisSomeNode;
+			
+			copyConstruct(
+				thisNode->negative(),
+				thatNode->negative());
+
+			copyConstruct(
+				thisNode->positive(),
+				thatNode->positive());
+		}
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::subdivide(
-		const Cursor& cursor,
+		LeafNode* node,
 		const Real& splitPosition, integer splitAxis,
 		const Vector<N, Real>* splitDirection,
 		const Real& boundMin, const Real& boundMax,
 		const Real& positiveMin, const Real& negativeMax)
 	{
 		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
-		ASSERT(cursor.leaf());
-
-		LeafNode* node = (LeafNode*)cursor.node_;
+		ASSERT(node->leaf());
 
 		ObjectIterator nodeEnd = node->last();
 		if (node->objects() > 0)
@@ -749,67 +393,63 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	template <typename InputIterator>
-	void PointKdTree<N, Real, ObjectPolicy>::insert(
-		const Cursor& cursor,
-		InputIterator begin, InputIterator end)
+	void PointKdTree<N, Real, ObjectPolicy>::updateBound(
+		Node* someNode,
+		const Point<N, Real>& minBound,
+		const Point<N, Real>& maxBound)
 	{
-		if (begin == end)
+		if (!someNode->leaf())
 		{
-			// Nothing to do.
-			return;
+			IntermediateNode* node = (IntermediateNode*)someNode;
+			const integer splitAxis = node->splitAxis();
+
+			node->setMin(minBound[splitAxis]);
+			node->setMax(maxBound[splitAxis]);
+
+			Point<N, Real> negativeMax = maxBound;
+			negativeMax[splitAxis] = node->negativeMax();
+
+			updateBound(
+				node->negative(),
+				minBound,
+				negativeMax);
+
+			Point<N, Real> positiveMin = minBound;
+			positiveMin[splitAxis] = node->positiveMin();
+
+			updateBound(
+				node->positive(),
+				positiveMin,
+				maxBound);
 		}
-
-		// Copy objects to a list which shares
-		// an allocator with the objectList_.
-		ObjectContainer list(begin, end, objectList_.get_allocator());
-
-		// Possibly extend the bounding box.
-
-		integer objects = 0;
-
-		ObjectIterator iter(list.begin());
-		ObjectIterator iterEnd(list.end());
-		while(iter != iterEnd)
-		{
-			extendToCover(
-				objectPolicy_.point(*iter), bound_);
-
-			++objects;
-			++iter;
-		}
-
-		// Use a combination of splicing and insertion to
-		// get the objects to the leaf nodes.
-
-		spliceInsert(cursor, list, list.begin(), list.end(), objects);
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::clearObjects(
-		const Cursor& cursor)
+		Node* someNode)
 	{
-		if (cursor.leaf())
+		if (someNode->leaf())
 		{
 			// Clear the object references.
 
-			LeafNode* leafNode = (LeafNode*)cursor.node_;
-			leafNode->setBegin(objectList_.end());
-			leafNode->setLast(objectList_.end());
-			leafNode->setObjects(0);
+			LeafNode* node = (LeafNode*)someNode;
+			node->setBegin(objectList_.end());
+			node->setLast(objectList_.end());
+			node->setObjects(0);
 		}
 		else
 		{
 			// Recurse deeper.
-
-			clearObjects(cursor.positive());
-			clearObjects(cursor.negative());
+			
+			IntermediateNode* node = (IntermediateNode*)someNode;
+			clearObjects(node->positive());
+			clearObjects(node->negative());
 		}
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::spliceInsert(
-		const Cursor& cursor,
+		Node* someNode,
 		ObjectContainer& list,
 		ObjectIterator begin, ObjectIterator end,
 		integer objects)
@@ -822,15 +462,16 @@ namespace Pastel
 			return;
 		}
 
-		if (cursor.leaf())
+		if (someNode->leaf())
 		{
 			// If this is a leaf node, splice the objects
 			// to this node.
 
+			LeafNode* node = (LeafNode*)someNode;
+
 			ObjectIterator last = end;
 			--last;
 
-			LeafNode* node = (LeafNode*)cursor.node_;
 			objectList_.splice(node->begin(), list, begin, end);
 
 			node->setBegin(begin);
@@ -849,9 +490,11 @@ namespace Pastel
 		{
 			// Otherwise carry out a partitioning of the objects.
 
+			IntermediateNode* node = (IntermediateNode*)someNode;
+
 			const SplitPredicate splitPredicate(
-				cursor.splitPosition(), cursor.splitAxis(), 
-				cursor.splitDirection(), objectPolicy_);
+				node->splitPosition(), node->splitAxis(), 
+				node->splitDirection(), objectPolicy_);
 
 			const std::pair<
 				std::pair<ObjectIterator, integer>,
@@ -872,7 +515,7 @@ namespace Pastel
 				// If there are objects going to the negative node,
 				// recurse deeper.
 
-				spliceInsert(cursor.negative(),
+				spliceInsert(node->negative(),
 					list, negativeBegin, positiveBegin, negativeObjects);
 			}
 			if (positiveObjects > 0)
@@ -880,7 +523,7 @@ namespace Pastel
 				// If there are objects going to the positive node,
 				// recurse deeper.
 
-				spliceInsert(cursor.positive(),
+				spliceInsert(node->positive(),
 					list, positiveBegin, end, positiveObjects);
 			}
 		}
@@ -889,10 +532,10 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	template <typename SubdivisionRule>
 	void PointKdTree<N, Real, ObjectPolicy>::refine(
+		Node* someNode,
 		integer maxDepth,
 		integer maxObjects,
 		const SubdivisionRule& subdivisionRule,
-		const Cursor& cursor,
 		integer depth,
 		const Point<N, Real>& minBound,
 		const Point<N, Real>& maxBound)
@@ -902,9 +545,11 @@ namespace Pastel
 		Real splitPosition = 0;
 		integer splitAxis = 0;
 
-		if (cursor.leaf())
+		if (someNode->leaf())
 		{
-			if (depth < maxDepth && cursor.objects() > maxObjects)
+			LeafNode* node = (LeafNode*)someNode;
+
+			if (depth < maxDepth && node->objects() > maxObjects)
 			{
 				Vector<N, Real> splitDirection(ofDimension(
 					UseArbitrarySplits::value ? dimension_ : 0));
@@ -915,7 +560,7 @@ namespace Pastel
 				const std::pair<Real, integer> result = 
 					subdivisionRule(
 					*this,
-					cursor,
+					Cursor(node),
 					minBound,
 					maxBound,
 					splitDirectionPtr);
@@ -944,7 +589,7 @@ namespace Pastel
 					}
 				}
 
-				subdivide(cursor, splitPosition, splitAxis, 
+				subdivide(node, splitPosition, splitAxis, 
 					splitDirectionPtr,
 					minBound[splitAxis], maxBound[splitAxis],
 					positiveSplitMin, negativeSplitMax);
@@ -952,29 +597,36 @@ namespace Pastel
 		}
 		else
 		{
-			splitPosition = cursor.splitPosition();
-			splitAxis = cursor.splitAxis();
-			negativeSplitMax = cursor.negativeMax();
-			positiveSplitMin = cursor.positiveMin();
+			IntermediateNode* node = 
+				(IntermediateNode*)someNode;
+
+			splitPosition = node->splitPosition();
+			splitAxis = node->splitAxis();
+			negativeSplitMax = node->negativeMax();
+			positiveSplitMin = node->positiveMin();
 		}
 
 		// A leaf node might or might not have been turned
 		// into an intermediate node.
-		if (!cursor.leaf())
+		if (!someNode->leaf())
 		{
+			IntermediateNode* node = 
+				(IntermediateNode*)someNode;
+
 			Point<N, Real> negativeMax(maxBound);
 			negativeMax[splitAxis] = negativeSplitMax;
 
-			refine(maxDepth, maxObjects, subdivisionRule,
-				cursor.negative(), depth + 1,
+			refine(node->negative(), 
+				maxDepth, maxObjects, subdivisionRule,
+				depth + 1,
 				minBound,
 				negativeMax);
 
 			Point<N, Real> positiveMin(minBound);
 			positiveMin[splitAxis] = positiveSplitMin;
 
-			refine(maxDepth, maxObjects, subdivisionRule,
-				cursor.positive(), depth + 1, 
+			refine(node->positive(), maxDepth, maxObjects, subdivisionRule,
+				depth + 1, 
 				positiveMin,
 				maxBound);
 		}
