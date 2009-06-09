@@ -15,6 +15,7 @@
 #include "pastel/math/affinetransformation_tools.h"
 
 #include "pastel/sys/random.h"
+#include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/log_all.h"
 #include "pastel/sys/point_tools.h"
 #include "pastel/sys/vector_tools.h"
@@ -682,10 +683,49 @@ int myMain()
 	//generateClusteredPointSet(10000, 2, 10, pointSet__);
 	//generateUniformBallPointSet(10000, 2, pointSet__);
 	//generateUniformCubePointSet(10000, 2, pointSet__);
+
+	CountedPtr<Clustered_RandomDistribution<2, real> >
+		clusteredDistribution = clusteredRandomDistribution<2, real>();
+
+	const integer clusters = 10;
+	for (integer i = 0;i < clusters;++i)
+	{
+		Matrix2 rotation;
+		setRandomRotation(rotation);
+
+		clusteredDistribution->add(
+			translate(
+			transform(
+			scale(
+			gaussianRandomDistribution<2, real>(), 
+			evaluate(randomVector<2, real>() * 0.05)),
+			rotation),
+			randomVector<2, real>()));
+	}
+
+	CountedPtr<RandomDistribution<2, real> >
+		randomDistribution = clusteredDistribution;
+
+	/*
+	CountedPtr<RandomDistribution<2, real> >
+		randomDistribution = 
+		scale(
+		gaussianDistribution<2, real>(), 
+		randomVector<2, real>());
+	*/
+
+	for (integer i = 0;i < 10000;++i)
+	{
+		pointSet__.push_back(
+			randomDistribution->sample());
+	}
+
+	/*
 	generateGaussianPointSet(10000, 2, pointSet__);
 	scale(randomVector<2, real>(), pointSet__);
 	randomlyReduceDimensionality(1, pointSet__);
 	randomlyRotate(pointSet__);
+	*/
 
 	computeTree(24);
 	timing();
