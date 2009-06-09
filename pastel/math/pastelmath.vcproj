@@ -430,6 +430,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\orthonormal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\orthonormal.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\statistics.h"
 				>
 			</File>

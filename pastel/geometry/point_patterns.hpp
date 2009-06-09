@@ -6,6 +6,8 @@
 #include "pastel/sys/random.h"
 
 #include "pastel/math/uniformsampling.h"
+#include "pastel/math/matrix.h"
+#include "pastel/math/orthonormal.h"
 
 namespace Pastel
 {
@@ -114,6 +116,58 @@ namespace Pastel
 		{
 			result.push_back(
 				asPoint(randomGaussianVector<N, Real>(dimension)));
+		}
+
+		result.swap(pointSet);
+	}
+
+	template <int Width, int Height, typename Real>
+	void setRandomRotation(
+		Matrix<Height, Width, Real>& result)
+	{
+		const integer height = result.height();
+		const integer width = result.width();
+
+		ENSURE2(height <= width, height, width);
+
+		std::vector<Vector<Width, Real> > orthonormalSet;
+		orthonormalSet.reserve(height);
+		
+		orthonormalSet.push_back(
+			randomVectorBall<Width, Real>(width));
+		result[0] = orthonormalSet.back();
+		
+		for (integer i = 1;i < height;++i)
+		{
+			orthonormalSet.push_back(
+				perpendicular(orthonormalSet));
+			result[i] = orthonormalSet.back();
+		}
+	}
+
+	template <int N, typename Real>
+	void generateGaussianEllipsoidPointSet(
+		integer points,
+		integer dimension,
+		std::vector<Point<N, Real> >& pointSet)
+	{
+		ENSURE1(points > 0, points);
+		ENSURE1(dimension > 0, dimension);
+		ENSURE2(N == Dynamic || N == dimension, N, dimension);
+
+		Vector<N, Real> scaling = randomVector<N, Real>(dimension);
+
+		Matrix<N, N, Real> rotation(dimension, dimension);
+		setRandomRotation(rotation);
+
+		std::vector<Point<N, Real> > result;
+		result.reserve(points);
+
+		for (integer i = 0;i < points;++i)
+		{
+			result.push_back(
+				asPoint(
+				evaluate(randomGaussianVector<N, Real>(dimension) * scaling) * rotation));
 		}
 
 		result.swap(pointSet);
