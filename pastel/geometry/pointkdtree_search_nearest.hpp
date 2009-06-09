@@ -94,13 +94,10 @@ namespace Pastel
 		CandidateSet candidateSet(kNearest);
 		const CandidateFunctor candidateFunctor(candidateSet, acceptFunctor);
 
-		DepthFirst<N, Real, ObjectPolicy, NormBijection, CandidateFunctor> 
-			depthFirst(
+		searchDepthFirst(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
-
-		depthFirst.work();
 		
 		const integer foundNearest = candidateSet.size();
 

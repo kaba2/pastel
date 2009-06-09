@@ -323,8 +323,6 @@ namespace Pastel
 
 		splitAxis:
 		The axis of the splitting plane normal.
-
-		FIX: Make this private.
 		*/
 		void subdivide(
 			const Cursor& cursor,
@@ -345,17 +343,6 @@ namespace Pastel
 		template <typename InputIterator>
 		void insert(
 			InputIterator begin, InputIterator end);
-
-		//! Remove an object from the tree.
-		/*!
-		Time complexity:
-		?
-
-		Exception safety:
-		nothrow
-		*/
-		void erase(
-			const Object& object);
 
 		//! Clears off subdivision and objects.
 		/*!

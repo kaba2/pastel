@@ -64,12 +64,9 @@ namespace Pastel
 		integer nearestCount = 0;
 		const CandidateFunctor candidateFunctor(nearestCount);
 
-		DepthFirst<N, Real, ObjectPolicy, NormBijection, CandidateFunctor> 
-			depthFirst(
+		searchDepthFirst(
 			kdTree, searchPoint, maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
-
-		depthFirst.work();
 
 		return nearestCount;
 	}

@@ -2,6 +2,7 @@
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/intersect_segment_halfspace.h"
+#include "pastel/geometry/point_patterns.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 
@@ -37,7 +38,6 @@ const integer ScreenHeight = 600;
 const integer LogicFps = 100;
 const real SearchRadius = 0.2;
 const integer NearestPoints = 15;
-const integer Points = 10000;
 const real TranslationSpeed = 0.02;
 const real ZoomFactor = 1.05;
 const real RotationSpeed = 0.02;
@@ -71,6 +71,7 @@ bool firstPoint__ = true;
 integer firstPointIndex__ = 0;
 
 bool mouseLeftPressed__ = false;
+std::vector<Point2> pointSet__;
 
 void computeTree(integer maxDepth);
 void sprayPoints(const Point2& center, real radius, integer points);
@@ -116,7 +117,7 @@ void keyHandler(bool pressed, SDLKey key)
 			}
 			else
 			{
-				nearestPoints__ = Points - 1;
+				nearestPoints__ = pointSet__.size() - 1;
 				if (searchRadius__ == infinity<real>())
 				{
 					searchRadius__ = SearchRadius;
@@ -554,26 +555,24 @@ void logicHandler()
 	}
 }
 
-FastList<Point2, PoolAllocator> pointSet__;
-
 void sprayPoints(const Point2& center, real radius, integer points)
 {
-	std::vector<Point2> pointSet;
+	std::vector<Point2> newPointSet;
 	for (integer i = 0;i < points;++i)
 	{
 		const real randomAngle = random<real>() * 2 * constantPi<real>();
 		const real randomRadius = random<real>() * radius;
 
-		Point2 point(
+		const Point2 point(
 			center +
 			Vector2(
 			cos(randomAngle) * randomRadius,
 			sin(randomAngle) * randomRadius));
-		pointSet.push_back(point);
+		newPointSet.push_back(point);
+		pointSet__.push_back(point);
 	}
 
-	pointSet__.insert(pointSet__.end(), pointSet.begin(), pointSet.end());
-	tree__.insert(pointSet.begin(), pointSet.end());
+	tree__.insert(newPointSet.begin(), newPointSet.end());
 }
 
 void generatePointSet(const AlignedBox2& region,
@@ -615,6 +614,9 @@ void computeTree(integer maxDepth)
 	//tree__.refine(maxDepth, 16, SlidingMaxVariance_SplitRule());
 	//tree__.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
 	//refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
+
+	MyTree copyTree(tree__);
+	tree__.swap(copyTree);
 
 	log() << "The constructed kd-tree has " << logNewLine;
 	log() << "depth " << depth(tree__) << "." << logNewLine;
@@ -670,6 +672,8 @@ int myMain()
 	renderer__->clear();
 	gfxDevice().swapBuffers();
 
+	/*
+	const integer Points = 10000;
 	generatePointSet(
 		AlignedBox2(Point2(-1, -1), Point2(1, 1)), Points / 2);
 
@@ -681,6 +685,9 @@ int myMain()
 
 	generatePointSet(
 		AlignedBox2(Point2(0.4, 0.0), Point2(0.6, 0.2)), Points / 4);
+	*/
+
+	generateClusteredPointSet(10000, 2, 10, pointSet__);
 
 	computeTree(24);
 	timing();

@@ -313,17 +313,6 @@ namespace Pastel
 		void insert(
 			InputIterator begin, InputIterator end);
 
-		//! Remove an object from the tree.
-		/*!
-		Time complexity:
-		?
-
-		Exception safety:
-		nothrow
-		*/
-		void erase(
-			const Object& object);
-
 		//! Clears off subdivision and objects.
 		/*!
 		Time complexity:
@@ -345,67 +334,18 @@ namespace Pastel
 		void clearObjects();
 
 	private:
-		class SplitPredicate_KdTree
-		{
-		public:
-			SplitPredicate_KdTree(
-				const Real& splitPosition,
-				integer splitAxis,
-				const Vector<N, Real>* splitDirection,
-				const ObjectPolicy& objectPolicy)
-				: splitPosition_(splitPosition)
-				, splitAxis_(splitAxis)
-				, objectPolicy_(objectPolicy)
-			{
-				// splitDirection is not used.
-			}
-			
-			TriState::Enum operator()(const Object& object) const
-			{
-				return triLess(objectPolicy_.point(object, splitAxis_),
-					splitPosition_);
-			}
-
-		private:
-			Real splitPosition_;
-			integer splitAxis_;
-			const ObjectPolicy& objectPolicy_;
-		};
-
-		class SplitPredicate_BspTree
-		{
-		public:
-			SplitPredicate_BspTree(
-				const Real& splitPosition,
-				integer splitAxis,
-				const Vector<N, Real>* splitDirection,
-				const ObjectPolicy& objectPolicy)
-				: splitPosition_(splitPosition)
-				, splitDirection_(*splitDirection)
-				, objectPolicy_(objectPolicy)
-			{
-				ASSERT(splitDirection);
-				// splitAxis is not used.
-			}
-			
-			TriState::Enum operator()(const Object& object) const
-			{
-				return triLess(
-					dot(asVector(objectPolicy_.point(object)), splitDirection_), 
-					splitPosition_);
-			}
-
-		private:
-			Real splitPosition_;
-			const Vector<N, Real>& splitDirection_;
-			const ObjectPolicy& objectPolicy_;
-		};
+		class SplitPredicate_KdTree;
+		class SplitPredicate_BspTree;
 
 		typedef typename boost::mpl::if_<
 			UseArbitrarySplits,
 			SplitPredicate_BspTree, 
 			SplitPredicate_KdTree>::type SplitPredicate;
 
+		void copyConstruct(
+			Node* thisNode,
+			Node* thatSomeNode);
+		
 		//! Subdivides a leaf node with the given plane.
 		/*!
 		Preconditions:
@@ -440,7 +380,7 @@ namespace Pastel
 		is the standard basis axis given by 'splitAxis'.
 		*/
 		void subdivide(
-			const Cursor& cursor,
+			LeafNode* node,
 			const Real& splitPosition,
 			integer splitAxis,
 			const Vector<N, Real>* splitDirection,
@@ -449,19 +389,13 @@ namespace Pastel
 			const Real& positiveMin,
 			const Real& negativeMax);
 
-		//! Inserts objects into a specific leaf node.
-		/*!
-		Preconditions:
-		1) cursor.leaf() == true
-		*/
-
-		template <typename InputIterator>
-		void insert(
-			const Cursor& cursor,
-			InputIterator begin, InputIterator end);
+		void updateBound(
+			Node* someNode,
+			const Point<N, Real>& minBound,
+			const Point<N, Real>& maxBound);
 
 		//! Removes all objects, but retains nodes.
-		void clearObjects(const Cursor& cursor);
+		void clearObjects(Node* someNode);
 
 		//! Propagates objects by reordering object list.
 		/*!
@@ -490,7 +424,7 @@ namespace Pastel
 		both lists use a shared allocator.
 		*/
 		void spliceInsert(
-			const Cursor& cursor,
+			Node* someNode,
 			ObjectContainer& list,
 			ObjectIterator begin, ObjectIterator last,
 			integer count);
@@ -506,20 +440,49 @@ namespace Pastel
 		*/
 		template <typename SubdivisionRule>
 		void refine(
+			Node* someNode,
 			integer maxDepth,
 			integer maxObjects,
 			const SubdivisionRule& subdivisionRule,
-			const Cursor& cursor,
 			integer depth,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound);
 
+		/*
+		objectList_:
+		Contains all objects in the tree ordered
+		in such a way that the objects of each leaf node 
+		are positioned sequantially in a range.
+
+		nodeAllocator_:
+		Allocates memory for the nodes of the tree.
+		Because all nodes are deallocated at the same
+		time, we can provide for extremely fast
+		node allocation via an arena allocator.
+
+		root_:
+		The root node of the tree.
+
+		bound_:
+		An axis aligned box containing all
+		points in the tree.
+
+		leaves_:
+		The number of leaf nodes in the tree.
+
+		objectPolicy_:
+		A functor that maps the users Object's
+		into geometric points. This allows
+		to abstract the representation
+		of points.
+
+		dimension_:
+		The dimension of the tree.
+		*/
+
 		ObjectContainer objectList_;
 		Allocator nodeAllocator_;
 		Node* root_;
-		// It always holds that the
-		// objects are located inside
-		// the 'bound_'.
 		AlignedBox<N, Real> bound_;
 		integer leaves_;
 		ObjectPolicy objectPolicy_;
