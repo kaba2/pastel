@@ -273,7 +273,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("generalizedGaussian");
+			return std::string("generalized_gaussian");
 		}
 
 	private:
@@ -500,7 +500,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("scaled");
+			return std::string("scaled_") + distribution_->name();
 		}
 
 	private:
@@ -561,7 +561,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("transformed");
+			return std::string("transformed_") + distribution_->name();
 		}
 
 	private:
@@ -619,7 +619,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("translated");
+			return std::string("translated_") + distribution_->name();
 		}
 
 	private:

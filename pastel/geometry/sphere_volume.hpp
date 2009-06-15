@@ -37,7 +37,7 @@ namespace Pastel
 		PENSURE1(dimension >= 0, dimension);
 		PENSURE2(N == Dynamic || dimension == N, dimension, N);
 
-		return dimension * constantLn2<Real>() - lnFactorial(dimension);
+		return dimension * constantLn2<Real>() - lnFactorial<Real>(dimension);
 	}
 
 	template <int N, typename Real>
