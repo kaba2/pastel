@@ -6,7 +6,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
-#include "pastel/sys/random.h"
 
 #include <sstream>
 #include <string>
@@ -244,6 +243,7 @@ namespace Pastel
 		return clamp((real64)i / Half, -1, 1);
 	}
 
+	/*
 	template <int N>
 	inline real64 ditheredQuantizeSigned(integer i)
 	{
@@ -266,6 +266,7 @@ namespace Pastel
 		
 		return clamp((real64)(i + dither) / (Half + 1), -1, 1);
 	}
+	*/
 
 	template <int N>
 	inline integer quantizeSigned(real64 r)
