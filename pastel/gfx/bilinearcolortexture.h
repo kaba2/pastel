@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/texture.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 namespace Pastel
 {

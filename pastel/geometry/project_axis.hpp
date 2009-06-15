@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/project_axis.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 #include "pastel/sys/vector_tools.h"
 
 namespace Pastel

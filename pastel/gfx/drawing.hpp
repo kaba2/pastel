@@ -4,7 +4,7 @@
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/assigncolormixer.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 #include "pastel/geometry/predicates.h"
 #include "pastel/geometry/intersect_alignedbox_segment.h"

@@ -2,7 +2,7 @@
 #define PASTEL_BOUNDING_BOX_HPP
 
 #include "pastel/geometry/bounding_box.h"
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 namespace Pastel
 {

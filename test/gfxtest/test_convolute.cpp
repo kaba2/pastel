@@ -2,7 +2,7 @@
 
 #include "pastel/sys/arrayview.h"
 
-#include "pastel/math/uniformsampling.h"
+#include "pastel/sys/random_vector.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"

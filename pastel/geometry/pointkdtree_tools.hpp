@@ -7,7 +7,7 @@
 #include "pastel/geometry/boxarea.h"
 #include "pastel/geometry/distance_point_point.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/syscommon.h"

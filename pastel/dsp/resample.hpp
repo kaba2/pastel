@@ -10,7 +10,7 @@
 #include "pastel/sys/mathfunctions.h"
 #include "pastel/sys/smallset.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 #include <vector>
 

@@ -2,7 +2,7 @@
 
 #include "pastel/math/affinetransformation_tools.h"
 #include "pastel/sys/vector_tools.h"
-#include "pastel/math/uniformsampling.h"
+#include "pastel/sys/random_vector.h"
 
 using namespace Pastel;
 

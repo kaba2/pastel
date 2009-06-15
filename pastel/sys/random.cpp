@@ -35,54 +35,6 @@ namespace Pastel
 			return generator();
 		}
 
-		PASTELSYS real32 randomGaussianReal32()
-		{
-			typedef boost::normal_distribution<real32> DistributionType;
-			typedef boost::variate_generator<EngineType&,
-				DistributionType> GeneratorType;
-
-			static DistributionType distribution(0, 1);
-			static GeneratorType generator(engine, distribution);
-
-			return generator();
-		}
-
-		PASTELSYS real64 randomGaussianReal64()
-		{
-			typedef boost::normal_distribution<real64> DistributionType;
-			typedef boost::variate_generator<EngineType&,
-				DistributionType> GeneratorType;
-
-			static DistributionType distribution(0, 1);
-			static GeneratorType generator(engine, distribution);
-
-			return generator();
-		}
-
-		PASTELSYS real32 randomExponentialReal32()
-		{
-			typedef boost::exponential_distribution<real32> DistributionType;
-			typedef boost::variate_generator<EngineType&,
-				DistributionType> GeneratorType;
-
-			static DistributionType distribution(1);
-			static GeneratorType generator(engine, distribution);
-
-			return generator();
-		}
-
-		PASTELSYS real64 randomExponentialReal64()
-		{
-			typedef boost::exponential_distribution<real64> DistributionType;
-			typedef boost::variate_generator<EngineType&,
-				DistributionType> GeneratorType;
-
-			static DistributionType distribution(1);
-			static GeneratorType generator(engine, distribution);
-
-			return generator();
-		}
-
 	}
 
 	PASTELSYS integer randomInteger()

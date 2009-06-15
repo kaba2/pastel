@@ -1,6 +1,6 @@
 #include "pastelmathtest.h"
 #include "pastel/math/matrix_tools.h"
-#include "pastel/math/uniformsampling.h"
+#include "pastel/sys/random_vector.h"
 #include "pastel/math/ludecomposition_tools.h"
 
 using namespace Pastel;
