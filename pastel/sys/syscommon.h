@@ -215,8 +215,10 @@ namespace Pastel
 	Random dithering is applied to the result.
 	*/
 
+	/*
 	template <int N>
 	real64 ditheredDequantizeSigned(integer i);
+	*/
 
 	//! Converts a real [-1, 1] to integer [-(2^(N - 1) - 1) , 2^(N - 1) - 1].
 	/*!

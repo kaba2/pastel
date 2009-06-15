@@ -5,26 +5,62 @@
 #include "pastel/gfx/color_tools.h"
 
 #include "pastel/sys/randomdistribution.h"
+#include "pastel/sys/random_pdf.h"
 #include "pastel/sys/view_all.h"
+
+#include <boost/bind.hpp>
 
 using namespace Pastel;
 
 namespace
 {
 
+	template <typename OutputView, typename Function>
+	void drawGraph(
+		const AlignedBox2& region,
+		const Function& function,
+		const Color& color,
+		const View<2, Color, OutputView>& image)
+	{
+		const integer width = image.width();
+		const integer height = image.height();
+
+		const Vector2 extent = region.extent();
+		const real yScaling = (height - 1) / extent.y();
+
+		real yPrevious = 0;
+		for (integer x = 0;x < width;++x)
+		{
+			const real t = 
+				region.min().x() + extent.x() * dequantizeUnsigned(x, width - 1);
+
+			const real y =
+				(function(t) - region.min().y()) * yScaling;
+
+			if (x > 0)
+			{
+				drawSegment(
+					Segment2(Point2(x - 1 + 0.5, yPrevious),
+					Point2(x + 0.5, y)),
+					color,
+					image);
+			}
+
+			yPrevious = y;
+		}
+	}
+
 	template <typename OutputView>
 	void drawHistogram(
 		const std::vector<real>& histogram,
 		real yMax,
+		const Color& color,
 		const View<2, Color, OutputView>& image)
 	{
 		const integer width = image.width();
 		const integer height = image.height();
 
 		const real scaling = (real)(height - 1) / yMax;
-
-		Color color = hsvToRgb(
-			Color(random<real32>(), 1, 1));
 
 		for (integer x = 0;x < width;++x)
 		{
@@ -79,27 +115,12 @@ namespace
 		return maxBinValue;
 	}
 
-	template <typename OutputView>
+	template <typename OutputView, typename RandomGenerator, typename RandomPdf>
 	void drawDistribution(
-		const View<2, Color, OutputView>& image,
-		const std::string& name,
-		const std::vector<real>& sampleSet,
-		real min, real max,
-		real yMax)
-	{
-		std::vector<real> histogram;
-
-		const integer maxBinValue = 
-			createHistogram(sampleSet, histogram, min, max, image.width());
-		drawHistogram(histogram, yMax, image);
-	}
-
-	template <typename OutputView>
-	void drawDistribution(
-		const View<2, Color, OutputView>& image,
-		const CountedPtr<RandomDistribution<1, real> >& randomDistribution,
-		real min, real max,
-		real yMax)
+		const AlignedBox2& region,
+		const RandomGenerator& randomGenerator,
+		const RandomPdf& randomPdf,
+		const View<2, Color, OutputView>& image)
 	{
 		const integer samples = 1000000;
 
@@ -109,57 +130,192 @@ namespace
 		for (integer i = 0;i < samples;++i)
 		{
 			sampleSet.push_back(
-				randomDistribution->sample()[0]);
+				randomGenerator());
 		}
 
-		drawDistribution(
-			image,
-			randomDistribution->name(),
-			sampleSet,
-			min, max, yMax);
+		std::vector<real> histogram;
+
+		const integer maxBinValue = 
+			createHistogram(sampleSet, histogram, 
+			region.min().x(), region.max().x(), image.width());
+
+		Color color = hsvToRgb(
+			Color(random<real32>(), 1, 1));
+
+		drawHistogram(histogram, region.max().y(), color, image);
+		drawGraph(region, randomPdf, color, image);
 	}
 
 	void drawDistributions()
 	{
 		Array<2, Color> image(800, 600);
 
-		clear(Color(0), arrayView(image));
-		drawDistribution(arrayView(image), 
-			scale(gaussianRandomDistribution<1, real>(), Vector1(1)), -5, 5, 1);
-		drawDistribution(arrayView(image), 
-			scale(gaussianRandomDistribution<1, real>(), Vector1(std::sqrt(0.2))), -5, 5, 1);
-		drawDistribution(arrayView(image), 
-			scale(gaussianRandomDistribution<1, real>(), Vector1(std::sqrt(5.0))), -5, 5, 1);
-		savePcx(image, "random_gaussian.pcx");
+		{
+			AlignedBox2 region(-5, 0, 5, 1);
 
-		clear(Color(0), arrayView(image));
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGaussian<real>, 0, 1),
+				boost::bind(gaussianPdf<real>, _1, 0, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGaussian<real>, 0, std::sqrt(0.2)),
+				boost::bind(gaussianPdf<real>, _1, 0, std::sqrt(0.2)),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGaussian<real>, 0, std::sqrt(5.0)),
+				boost::bind(gaussianPdf<real>, _1, 0, std::sqrt(5.0)),
+				arrayView(image));
+			savePcx(image, "random_gaussian.pcx");
+		}
+
+		{
+			AlignedBox2 region(-3, 0, 3, 0.6);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 0.5, 1),
+				boost::bind(generalizedGaussianPdf<real>, _1, 0.5, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 1, 1),
+				boost::bind(generalizedGaussianPdf<real>, _1, 1, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 1.5, 1),
+				boost::bind(generalizedGaussianPdf<real>, _1, 1.5, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 2, 1),
+				boost::bind(generalizedGaussianPdf<real>, _1, 2, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 3, 1),
+				boost::bind(generalizedGaussianPdf<real>, _1, 3, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 8, 1),
+				boost::bind(generalizedGaussianPdf<real>, _1, 8, 1),
+				arrayView(image));
+			savePcx(image, "random_generalized_gaussian.pcx");
+		}
+
+		{
+			AlignedBox2 region(-3, 0, 3, 1);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 0.5, 
+				varianceToGeneralizedGaussianScale<real>(0.5, 1)),
+				boost::bind(generalizedGaussianPdf<real>, _1, 0.5, 
+				varianceToGeneralizedGaussianScale<real>(0.5, 1)),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 1, 
+				varianceToGeneralizedGaussianScale<real>(1, 1)),
+				boost::bind(generalizedGaussianPdf<real>, _1, 1, 
+				varianceToGeneralizedGaussianScale<real>(1, 1)),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 1.5, 
+				varianceToGeneralizedGaussianScale<real>(1.5, 1)),
+				boost::bind(generalizedGaussianPdf<real>, _1, 1.5, 
+				varianceToGeneralizedGaussianScale<real>(1.5, 1)),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 2, 
+				varianceToGeneralizedGaussianScale<real>(2, 1)),
+				boost::bind(generalizedGaussianPdf<real>, _1, 2, 
+				varianceToGeneralizedGaussianScale<real>(2, 1)),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 3, 
+				varianceToGeneralizedGaussianScale<real>(3, 1)),
+				boost::bind(generalizedGaussianPdf<real>, _1, 3, 
+				varianceToGeneralizedGaussianScale<real>(3, 1)),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGeneralizedGaussian<real>, 8, 
+				varianceToGeneralizedGaussianScale<real>(8, 1)),
+				boost::bind(generalizedGaussianPdf<real>, _1, 8, 
+				varianceToGeneralizedGaussianScale<real>(8, 1)),
+				arrayView(image));
+			savePcx(image, "random_generalized_gaussian2.pcx");
+		}
+
+		{
+			AlignedBox2 region(0, 0, 5, 1.5);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomExponential<real>, 0.5),
+				boost::bind(exponentialPdf<real>, _1, 0.5),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomExponential<real>, 1),
+				boost::bind(exponentialPdf<real>, _1, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomExponential<real>, 1.5),
+				boost::bind(exponentialPdf<real>, _1, 1.5),
+				arrayView(image));
+			savePcx(image, "random_exponential.pcx");
+		}
+		
+		{
+			AlignedBox2 region(0, 0, 20, 0.5);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGamma<real>, 1, 2),
+				boost::bind(gammaPdf<real>, _1, 1, 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGamma<real>, 2, 2),
+				boost::bind(gammaPdf<real>, _1, 2, 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGamma<real>, 3, 2),
+				boost::bind(gammaPdf<real>, _1, 3, 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGamma<real>, 5, 1),
+				boost::bind(gammaPdf<real>, _1, 5, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomGamma<real>, 9, 0.5),
+				boost::bind(gammaPdf<real>, _1, 9, 0.5),
+				arrayView(image));
+			savePcx(image, "random_gamma.pcx");
+		}
+
+		/*
 		drawDistribution(arrayView(image), 
 			uniformRandomDistribution<1, real>(), -3, 3, 1);
 		savePcx(image, "random_uniform.pcx");
-
-		clear(Color(0), arrayView(image));
-		drawDistribution(arrayView(image), 
-			generalizedGaussianRandomDistribution<1, real>(0.5, 1), -3, 3, 0.6);
-		drawDistribution(arrayView(image), 
-			generalizedGaussianRandomDistribution<1, real>(1, 1), -3, 3, 0.6);
-		drawDistribution(arrayView(image), 
-			generalizedGaussianRandomDistribution<1, real>(1.5, 1), -3, 3, 0.6);
-		drawDistribution(arrayView(image), 
-			generalizedGaussianRandomDistribution<1, real>(2, 1), -3, 3, 0.6);
-		drawDistribution(arrayView(image), 
-			generalizedGaussianRandomDistribution<1, real>(3, 1), -3, 3, 0.6);
-		drawDistribution(arrayView(image), 
-			generalizedGaussianRandomDistribution<1, real>(8, 1), -3, 3, 0.6);
-		savePcx(image, "random_generalized_gaussian.pcx");
-
-		clear(Color(0), arrayView(image));
-		drawDistribution(arrayView(image), 
-			scale(exponentialRandomDistribution<1, real>(), Vector1(2)), 0, 5, 1.5);
-		drawDistribution(arrayView(image), 
-			scale(exponentialRandomDistribution<1, real>(), Vector1(1)), 0, 5, 1.5);
-		drawDistribution(arrayView(image), 
-			scale(exponentialRandomDistribution<1, real>(), Vector1((real)2 / 3)), 0, 5, 1.5);
-		savePcx(image, "random_exponential.pcx");
 
 		clear(Color(0), arrayView(image));
 		drawDistribution(arrayView(image), 
@@ -173,6 +329,7 @@ namespace
 		drawDistribution(arrayView(image), 
 			scale(gammaRandomDistribution<1, real>(9), Vector1(0.5)), 0, 20, 0.5);
 		savePcx(image, "random_gamma.pcx");
+		*/
 	}
 
 	void testGamma()
@@ -180,30 +337,18 @@ namespace
 		const integer width = 800;
 		const integer height = 600;
 		Array<2, Color> image(width, height);
-		
-		const real xMin = -5;
-		const real xMax = 5;
-		const real xDelta = xMax - xMin;
-		const real yMin = -5;
-		const real yMax = 5;
-		const real yDelta = yMax - yMin;
-		const real yScaling = (height - 1) / yDelta;
 
-		real yPrevious = 1;
-		for (integer x = 0;x < width;++x)
-		{
-			const real y =
-				(gamma<real>(
-				xMin + xDelta * dequantizeUnsigned(x, width - 1)) - yMin) * yScaling;
-			
-			drawSegment(
-				Segment2(Point2(x - 1 + 0.5, yPrevious),
-				Point2(x + 0.5, y)),
-				Color(0, 1, 0),
-				arrayView(image));
+		drawGraph(
+			AlignedBox2(-5, -5, 5, 5),
+			gamma<real>,
+			Color(0, 1, 0),
+			arrayView(image));
 
-			yPrevious = y;
-		}
+		drawGraph(
+			AlignedBox2(-5, -5, 5, 5),
+			lnGamma<real>,
+			Color(0, 0, 1),
+			arrayView(image));
 
 		savePcx(image, "gamma.pcx");
 	}

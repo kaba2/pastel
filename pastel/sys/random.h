@@ -55,6 +55,11 @@ namespace Pastel
 	template <typename Real>
 	Real randomGaussian();
 
+	template <typename Real>
+	Real randomGaussian(
+		const PASTEL_NO_DEDUCTION(Real)& mean,
+		const PASTEL_NO_DEDUCTION(Real)& deviation);
+
 	//! Returns an exponentially distributed random real.
 	/*!
 	Time complexity: constant
@@ -64,20 +69,46 @@ namespace Pastel
 	template <typename Real>
 	Real randomExponential();
 
+	template <typename Real>
+	Real randomExponential(
+		const PASTEL_NO_DEDUCTION(Real)& mean);
+
 	//! Returns a gamma distributed random real.
 
 	template <typename Real>
-	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha);
+	Real randomGamma(
+		const PASTEL_NO_DEDUCTION(Real)& alpha);
+
+	template <typename Real>
+	Real randomGamma(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	template <typename Real>
+	Real varianceToGammaScale(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& variance);
 
 	//! Returns a generalized normal distributed random real.
 	/*!
-	Shape = 2 corresponds to normal distribution.
+	shape = 1: Laplace distribution.
+	shape = 2: Standard normal distribution.
+	shape -> oo: Uniform distribution in [-scale, scale] in limit.
 	*/
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	template <typename Real>
+	Real randomGeneralizedGaussian(
+		const PASTEL_NO_DEDUCTION(Real)& shape);
+
+	template <typename Real>
+	Real varianceToGeneralizedGaussianScale(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& variance);
 
 	//! Returns a uniformly distributed random integer in [0, 0x7FFFFFFF].
 

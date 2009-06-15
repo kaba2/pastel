@@ -78,6 +78,16 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	Real randomGaussian(
+		const PASTEL_NO_DEDUCTION(Real)& mean,
+		const PASTEL_NO_DEDUCTION(Real)& deviation)
+	{
+		PENSURE(deviation >= 0);
+
+		return Pastel::randomGaussian<Real>() * deviation + mean;
+	}
+
+	template <typename Real>
 	Real randomExponential()
 	{
 		/*
@@ -126,6 +136,13 @@ namespace Pastel
 		return -std::log(random<Real>());
 	}
 
+	template <typename Real>
+	Real randomExponential(
+		const PASTEL_NO_DEDUCTION(Real)& mean)
+	{
+		return Pastel::randomExponential<Real>() / mean;
+	}
+
 	// This version does not seem to always work
 	// (very large number of iterations never pass the 
 	// rejection loop). 
@@ -157,10 +174,13 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha)
+	Real randomGamma(
+		const PASTEL_NO_DEDUCTION(Real)& alpha)
 	{
-		// See "Numerical Recipes, The art of scientific computing", 
-		// 3rd. ed, page 370.
+		// See "A simple method for generating gamma variables",
+		// George Marsaglia, Wai Wan Tsang,
+		// ACM Transactions on Mathematical Software (TOMS)
+		// Volume 26, Issue 3 (September 2000).
 
 		// We assume beta = 1 without loss of generality.
 		// This is a simple scaling of the random deviate,
@@ -171,26 +191,31 @@ namespace Pastel
 		
 		const Real modifiedAlpha = (alpha < 1) ? alpha + 1 : alpha;
 
-		const Real a1 = modifiedAlpha - (Real)1 / 3;
-		const Real a2 = 1 / std::sqrt(9 * a1);
+		const Real d = modifiedAlpha - (Real)1 / 3;
+		const Real c = 1 / std::sqrt(9 * d);
 
-		Real u = 0;
 		Real v = 0;
-		Real x = 0;
-		do
+		while(true)
 		{
+			Real x = 0;
 			do
 			{
 				x = randomGaussian<Real>();
-				v = 1 + a2 * x;
+				v = 1 + c * x;
 			}
 			while(v <= 0);
 
 			v *= v * v;
-			u = random<Real>();
+			x *= x;
+
+			Real u = random<Real>();
+
+			if (u < 1 - 0.331 * square(x) ||
+				std::log(u) < 0.5 * x + d * (1 - v + std::log(v)))
+			{
+				break;
+			}
 		}
-		while(u > 1 - 0.331 * std::sqrt(std::sqrt(x)) &&
-			std::log(u) > 0.5 * std::sqrt(x) + a1 * (1 - v + std::log(v)));
 		
 		if (alpha < 1)
 		{
@@ -206,31 +231,56 @@ namespace Pastel
 			//
 			// y u^(1 / alpha) ~ gamma(alpha, 1)
 
+			Real u = 0;
 			do
 			{
 				u = random<Real>();
 			}
 			while(u == 0);
 
-			return std::pow(u, 1 / alpha) * a1 * v;
+			return std::pow(u, 1 / alpha) * d * v;
 		}
 		
-		return a1 * v;
+		return d * v;
+	}
+
+	template <typename Real>
+	Real randomGamma(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& scale)
+	{
+		return Pastel::randomGamma<Real>(shape) * scale;
+	}
+
+	template <typename Real>
+	Real varianceToGammaScale(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& variance)
+	{
+		return std::sqrt(variance / shape);
 	}
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
+	{
+		return Pastel::randomGeneralizedGaussian<Real>(
+			shape) * scale;
+	}
+
+	template <typename Real>
+	Real randomGeneralizedGaussian(
+		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
 		// See "Computer generation of the exponential power
 		// distributions", Johnson, M. E., 
 		// Journal of Statistical Computation and Simulation, 9,
 		// pp. 239--240, 1979
 
-		const Real invShape = 1 / shape;
-		const Real x = std::pow(std::abs(
-			randomGamma<Real>(invShape) * scale), invShape);
+		const Real invShape = inverse(shape);
+		const Real x = std::pow(
+			randomGamma<Real>(invShape), invShape);
 		
 		if (random<Real>() < 0.5)
 		{
@@ -238,6 +288,16 @@ namespace Pastel
 		}
 
 		return x;
+	}
+
+	template <typename Real>
+	Real varianceToGeneralizedGaussianScale(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& variance)
+	{
+		const Real invShape = inverse(shape);
+		return std::sqrt(variance * gamma<Real>(invShape) / 
+			gamma<Real>(invShape * 3));
 	}
 
 }
