@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsysd.lib"
+				AdditionalDependencies="pastelsysd.lib pastelgfxd.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
@@ -149,7 +149,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys.lib"
+				AdditionalDependencies="pastelsys.lib pastelgfx.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
@@ -249,6 +249,10 @@
 		</File>
 		<File
 			RelativePath=".\test_poolallocator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_random.cpp"
 			>
 		</File>
 		<File

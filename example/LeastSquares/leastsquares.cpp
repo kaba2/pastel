@@ -6,7 +6,7 @@
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
-#include "pastel/math/uniformsampling.h"
+#include "pastel/sys/random_vector.h"
 #include "pastel/math/largest_eigenvector.h"
 
 #include "pastel/gl/glgfxrenderer.h"

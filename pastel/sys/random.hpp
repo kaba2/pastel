@@ -12,9 +12,6 @@ namespace Pastel
 		PASTELSYS real32 randomReal32();
 		PASTELSYS real64 randomReal64();
 
-		PASTELSYS real32 randomGaussianReal32();
-		PASTELSYS real64 randomGaussianReal64();
-
 		PASTELSYS real32 randomExponentialReal32();
 		PASTELSYS real64 randomExponentialReal64();
 
@@ -42,112 +39,99 @@ namespace Pastel
 		return minValue + Pastel::random<Real>() * (maxValue - minValue);
 	}
 
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVector<N, Real>(N);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector(integer dimension)
-	{
-		PENSURE1(dimension >= 0, dimension);
-
-		Vector<N, Real> direction(ofDimension(dimension));
-
-		for (integer i = 0;i < dimension;++i)
-		{
-			direction[i] = random<Real>();
-		}
-
-		return direction.asTemporary();
-	}
-
 	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
-		randomGaussian()
+	Real randomGaussian()
 	{
-		return Detail_Random::randomGaussianReal32();
-	}
+		/*
+		The probability density distribution of the
+		gaussian distribution is
 
-	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
-		randomGaussian()
-	{
-		return Detail_Random::randomGaussianReal64();
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGaussianVector()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomGaussianVector<N, Real>(N);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGaussianVector(integer dimension)
-	{
-		PENSURE1(dimension >= 0, dimension);
-		Vector<N, Real> direction(ofDimension(dimension));
-
-		for (integer i = 0;i < dimension;++i)
-		{
-			direction[i] = randomGaussian<Real>();			
-		}
-
-		return direction.asTemporary();
-	}
-
-	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
-		randomExponential()
-	{
-		return Detail_Random::randomExponentialReal32();
-	}
-
-	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
-		randomExponential()
-	{
-		return Detail_Random::randomExponentialReal64();
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomExponentialVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-
-		return Pastel::randomExponentialVector<N, Real>(
-			N, shape, scale);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomExponentialVector(
-		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		PENSURE1(dimension >= 0, dimension);
-
-		Vector<N, Real> result(ofDimension(dimension));
-		for (integer i = 0;i < dimension;++i)
-		{
-			result[i] = randomExponential<Real>(shape, scale);
-		}
+		p(x) = (1 / sqrt(d^2 2 pi)) e^(-(x - m)^2 / (2d^2))
 		
-		return result.asTemporary();
+		where d is the standard deviation
+		and m is the mean.
+
+		Without loss of generality, we take
+		d = 1 and m = 0, and let the user transform the
+		variable to the desired parameters.
+		Then the pdf is given by:
+
+		p(x) = (1 / sqrt(2 pi)) e^(-x^2 / 2)
+
+		We use Box-Muller transform in polar form.
+		*/
+
+		Real u = 0;
+		Real v = 0;
+		Real s = 0;
+		
+		do
+		{
+			u = 2 * random<Real>() - 1;
+			v = 2 * random<Real>() - 1;
+			s = u * u + v * v;
+		}
+		while(s <= 0 || s >= 1);
+
+		return u * std::sqrt(-2 * std::log(s) / s);
 	}
 
 	template <typename Real>
-	Real randomGamma(PASTEL_NO_DEDUCTION(Real) alpha)
+	Real randomExponential()
+	{
+		/*
+		The probability density distribution of the
+		exponential distribution is
+
+		p(x) = a e^(-ax), for x >= 0
+		     = 0        , for x <  0
+
+		where a > 0.
+
+		Its cumulative distribution is easy to derive:
+
+		for x < 0:
+		c(x) = 0
+
+		for x >= 0:
+		c(x) = int[t = 0..x] p(t) dt
+		     = int[t = 0..x] a e^(-at) dt
+			 = -[t = 0..x] e^(-at) dt
+			 = -(e^(-ax) - 1)
+			 = 1 - e^(-ax)
+	    
+		(For a check, c(oo) = 1)
+		
+		Thus, the inverse of the cdf (for x >= 0) is
+		derived by:
+
+		t = 1 - e^(-ax)
+		<=>
+		1 - t = e^(-ax)
+		<=>
+		ln(1 - t) = -ax
+		<=>
+		x = -ln(1 - t) / a
+
+		So if we pick t a uniform random number in [0, 1],
+		then -ln(1 - t) / a is exponentially distributed.
+		We simplify this further as follows. First, if t is 
+		uniformly distributed in [0, 1], then so is
+		1 - t. Second, we can assume a = 1 without loss of
+		generality and let the user do the scaling
+		if needed. This improves performance.
+		*/
+
+		return -std::log(random<Real>());
+	}
+
+	template <typename Real>
+	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha)
 	{
 		// See "Sampling from the Gamma Distribution on a Computer",
 		// George F. Fishman, 1976.
 
-		const integer maxIterations = 100;
+		const integer maxIterations = 1000;
 
 		for (integer i = 0;i < maxIterations;++i)
 		{
@@ -161,37 +145,9 @@ namespace Pastel
 		}
 
 		const bool gammaDistributionSamplingFailed = true;
-		REPORT(gammaDistributionSamplingFailed);
+		//REPORT(gammaDistributionSamplingFailed);
 		
 		return 0;
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGammaVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-
-		return Pastel::randomGammaVector<N, Real>(
-			N, shape, scale);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGammaVector(
-		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		PENSURE1(dimension >= 0, dimension);
-
-		Vector<N, Real> result(ofDimension(dimension));
-		for (integer i = 0;i < dimension;++i)
-		{
-			result[i] = randomGamma<Real>(shape, scale);
-		}
-		
-		return result.asTemporary();
 	}
 
 	template <typename Real>
@@ -215,35 +171,6 @@ namespace Pastel
 
 		return x;
 	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-
-		return Pastel::randomGeneralizedGaussianVector<N, Real>(
-			N, shape, scale);
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
-		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		PENSURE1(dimension >= 0, dimension);
-
-		Vector<N, Real> result(ofDimension(dimension));
-		for (integer i = 0;i < dimension;++i)
-		{
-			result[i] = randomGeneralizedGaussian<Real>(shape, scale);
-		}
-		
-		return result.asTemporary();
-	}
-
 
 }
 

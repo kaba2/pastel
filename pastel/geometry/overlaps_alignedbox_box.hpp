@@ -8,7 +8,7 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 #include "pastel/sys/mathfunctions.h"
 

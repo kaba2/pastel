@@ -36,7 +36,7 @@ namespace Pastel
 			return CountedPtr<Type>();
 		}
 
-		return (*iter)->clone();
+		return (*iter).second->clone();
 	}
 
 	template <typename Type>

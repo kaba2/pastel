@@ -721,6 +721,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\linear.h"
+				>
+			</File>
+			<File
+				RelativePath=".\linear.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\mathfunctions.h"
 				>
 			</File>
@@ -1170,6 +1178,14 @@
 			</File>
 			<File
 				RelativePath=".\random.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_vector.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_vector.hpp"
 				>
 			</File>
 			<File

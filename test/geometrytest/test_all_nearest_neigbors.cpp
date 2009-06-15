@@ -2,7 +2,7 @@
 
 #include "pastel/geometry/all_nearest_neighbors.h"
 
-#include "pastel/math/uniformsampling.h"
+#include "pastel/sys/random_vector.h"
 #include "pastel/math/normbijection.h"
 
 #include "pastel/gfx/savepcx.h"

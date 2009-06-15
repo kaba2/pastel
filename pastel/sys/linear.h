@@ -36,6 +36,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/linear.hpp"
+#include "pastel/sys/linear.hpp"
 
 #endif

@@ -6,7 +6,7 @@
 #include "pastel/geometry/antipodal.h"
 #include "pastel/geometry/sweep.h"
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 #include "pastel/math/coordinates.h"
 
 namespace Pastel

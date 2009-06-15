@@ -1,7 +1,7 @@
 #ifndef PASTEL_LINEAR_HPP
 #define PASTEL_LINEAR_HPP
 
-#include "pastel/math/linear.h"
+#include "pastel/sys/linear.h"
 
 #include "pastel/sys/mytypes.h"
 

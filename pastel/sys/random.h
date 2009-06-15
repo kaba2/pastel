@@ -46,20 +46,6 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minValue, 
 		const PASTEL_NO_DEDUCTION(Real)& maxValue);
 
-	//! Returns a random vector uniformly distributed in [0, 1]^N.
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector();
-
-	//! Returns a random vector uniformly distributed in [0, 1]^N.
-	/*!
-	Preconditions:
-	dimension >= 0
-	*/
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector(integer dimension);
-
 	//! Returns a (0, 1)-normal distributed random real.
 	/*!
 	Time complexity: constant
@@ -67,28 +53,7 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
-		randomGaussian();
-
-	//! Returns a (0, 1)-normal distributed random real.
-	/*!
-	Time complexity: constant
-	Exception safety: nothrow
-	*/
-
-	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
-		randomGaussian();
-
-	//! Returns a random vector standard-normally distributed in a hyperball.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGaussianVector();
-
-	//! Returns a random vector standard-normally distributed in a hyperball.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGaussianVector(integer dimension);
+	Real randomGaussian();
 
 	//! Returns an exponentially distributed random real.
 	/*!
@@ -97,43 +62,12 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
-		randomExponential();
-
-	//! Returns an exponentially distributed random real.
-	/*!
-	Time complexity: constant
-	Exception safety: nothrow
-	*/
-
-	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
-		randomExponential();
-
-	//! Returns a random vector exponentially distributed in each component.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomExponentialVector();
-
-	//! Returns a random vector exponentially distributed in each component.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomExponentialVector(integer dimension);
+	Real randomExponential();
 
 	//! Returns a gamma distributed random real.
 
 	template <typename Real>
-	Real randomGamma(PASTEL_NO_DEDUCTION(Real) alpha);
-
-	//! Returns a random vector gamma distributed in each component.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGammaVector();
-
-	//! Returns a random vector gamma distributed in each component.
-	
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGammaVector(integer dimension);
+	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha);
 
 	//! Returns a generalized normal distributed random real.
 	/*!
@@ -142,17 +76,6 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
-	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
-		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale);
 
