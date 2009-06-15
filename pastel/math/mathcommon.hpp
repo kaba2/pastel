@@ -215,8 +215,9 @@ namespace Pastel
 		
 		if (z < 0.5)
 		{
-			return constantPi<Real>() / 
-				(std::sin(constantPi<Real>() * z) * gamma<Real>(1 - z));
+			return std::log(constantPi<Real>()) -
+				(std::log(std::sin(constantPi<Real>() * z))
+				+ lnGamma<Real>(1 - z));
 		}
 
 		z -= 1;

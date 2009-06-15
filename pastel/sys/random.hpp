@@ -58,7 +58,8 @@ namespace Pastel
 
 		p(x) = (1 / sqrt(2 pi)) e^(-x^2 / 2)
 
-		We use Box-Muller transform in polar form.
+		See the Box-Muller transform for the
+		generation algorithm.
 		*/
 
 		Real u = 0;
@@ -68,7 +69,7 @@ namespace Pastel
 		do
 		{
 			u = 2 * random<Real>() - 1;
-			v = 2 * random<Real>() - 1;
+			v = random<Real>();
 			s = u * u + v * v;
 		}
 		while(s <= 0 || s >= 1);
@@ -125,6 +126,10 @@ namespace Pastel
 		return -std::log(random<Real>());
 	}
 
+	// This version does not seem to always work
+	// (very large number of iterations never pass the 
+	// rejection loop). 
+	/*
 	template <typename Real>
 	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha)
 	{
@@ -145,9 +150,72 @@ namespace Pastel
 		}
 
 		const bool gammaDistributionSamplingFailed = true;
-		//REPORT(gammaDistributionSamplingFailed);
+		REPORT(gammaDistributionSamplingFailed);
 		
 		return 0;
+	}
+	*/
+
+	template <typename Real>
+	Real randomGamma(const PASTEL_NO_DEDUCTION(Real)& alpha)
+	{
+		// See "Numerical Recipes, The art of scientific computing", 
+		// 3rd. ed, page 370.
+
+		// We assume beta = 1 without loss of generality.
+		// This is a simple scaling of the random deviate,
+		// which we leave for the user. This improves
+		// performance.
+
+		PENSURE(alpha > 0);
+		
+		const Real modifiedAlpha = (alpha < 1) ? alpha + 1 : alpha;
+
+		const Real a1 = modifiedAlpha - (Real)1 / 3;
+		const Real a2 = 1 / std::sqrt(9 * a1);
+
+		Real u = 0;
+		Real v = 0;
+		Real x = 0;
+		do
+		{
+			do
+			{
+				x = randomGaussian<Real>();
+				v = 1 + a2 * x;
+			}
+			while(v <= 0);
+
+			v *= v * v;
+			u = random<Real>();
+		}
+		while(u > 1 - 0.331 * std::sqrt(std::sqrt(x)) &&
+			std::log(u) > 0.5 * std::sqrt(x) + a1 * (1 - v + std::log(v)));
+		
+		if (alpha < 1)
+		{
+			// alpha < 1 is problematic
+			// because the density function of the
+			// gamma distribution is not bounded.
+			// This is handled by noticing that if
+			//
+			// y ~ gamma(alpha + 1, 1)
+			// u ~ uniform(0, 1)
+			//
+			// then
+			//
+			// y u^(1 / alpha) ~ gamma(alpha, 1)
+
+			do
+			{
+				u = random<Real>();
+			}
+			while(u == 0);
+
+			return std::pow(u, 1 / alpha) * a1 * v;
+		}
+		
+		return a1 * v;
 	}
 
 	template <typename Real>
