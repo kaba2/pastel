@@ -1,6 +1,6 @@
 #include "pastelmathtest.h"
 
-#include "pastel/math/uniformsampling.h"
+#include "pastel/math/uniform_sampling.h"
 
 #include "pastel/geometry/poissondiskpattern.h"
 
@@ -218,7 +218,7 @@ namespace
 			draw(pointList, 300, 450, myRandoColor(), image);
 		}
 
-		savePcx(image, "uniformsampling.pcx");
+		savePcx(image, "uniform_sampling.pcx");
 	}
 
 	class PushBack
@@ -293,7 +293,7 @@ namespace
 			draw(pointList, 300, 150, myRandoColor(), image);
 		}
 
-		savePcx(image, "uniformsampling_distortion.pcx");
+		savePcx(image, "uniform_sampling_distortion.pcx");
 	}
 
 	template <int N, typename Real>
@@ -336,7 +336,7 @@ namespace
 				arrayView(image));
 		}
 
-		savePcx(image, "test_uniformsampling_distance_" + integerToString(N, 2) + ".pcx");
+		savePcx(image, "test_uniform_sampling_distance_" + integerToString(N, 2) + ".pcx");
 	}
 
 	void testAdd()

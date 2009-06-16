@@ -1,7 +1,7 @@
-#ifndef PASTEL_UNIFORMSAMPLING_HPP
-#define PASTEL_UNIFORMSAMPLING_HPP
+#ifndef PASTEL_UNIFORM_SAMPLING_HPP
+#define PASTEL_UNIFORM_SAMPLING_HPP
 
-#include "pastel/math/uniformsampling.h"
+#include "pastel/math/uniform_sampling.h"
 #include "pastel/sys/math_functions.h"
 #include "pastel/math/coordinates.h"
 
