@@ -1,6 +1,6 @@
 #include "pastel/dsp/lanczos_filter.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 #include <cmath>
 
@@ -19,7 +19,7 @@ namespace Pastel
 
 	real LanczosFilter::evaluateInRange(real x) const
 	{
-		return sinc(x) * sinc(x * invRadius_);
+		return sinc<real>(x) * sinc<real>(x * invRadius_);
 	}
 
 	void LanczosFilter::onSetRadius()

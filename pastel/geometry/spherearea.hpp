@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/spherearea.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 #include "pastel/sys/compiletime.h"
 

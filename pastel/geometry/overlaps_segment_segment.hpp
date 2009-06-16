@@ -5,7 +5,7 @@
 #include "pastel/geometry/predicates.h"
 #include "pastel/geometry/segment.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/math/minmax.h"

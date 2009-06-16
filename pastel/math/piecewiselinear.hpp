@@ -2,7 +2,8 @@
 #define PASTEL_PIECEWISELINEAR_HPP
 
 #include "pastel/math/piecewiselinear.h"
-#include "pastel/sys/linear.h"
+
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

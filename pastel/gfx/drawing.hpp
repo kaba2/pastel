@@ -4,13 +4,13 @@
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/assigncolormixer.h"
 
-#include "pastel/sys/linear.h"
+#include "pastel/sys/math_functions.h"
 
 #include "pastel/geometry/predicates.h"
 #include "pastel/geometry/intersect_alignedbox_segment.h"
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/tuple.h"

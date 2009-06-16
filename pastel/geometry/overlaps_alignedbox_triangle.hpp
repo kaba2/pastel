@@ -13,7 +13,7 @@
 #include "pastel/geometry/plane.h"
 
 #include "pastel/math/minmax.h"
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

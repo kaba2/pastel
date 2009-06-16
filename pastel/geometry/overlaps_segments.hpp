@@ -5,7 +5,7 @@
 #include "pastel/geometry/overlaps_segment_segment.h"
 #include "pastel/geometry/predicates.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 #include "pastel/sys/listarray.h"
 #include "pastel/sys/log.h"
 

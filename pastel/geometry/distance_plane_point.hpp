@@ -4,7 +4,7 @@
 #include "pastel/geometry/distance_plane_point.h"
 #include "pastel/geometry/closest_plane_point.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

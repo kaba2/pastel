@@ -1,6 +1,6 @@
 #include "pastel/dsp/filterdesign.h"
 
-#include "pastel/sys/syscommon.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

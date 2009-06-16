@@ -4,7 +4,7 @@
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/arrayview.h"
 
-#include "pastel/sys/linear.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

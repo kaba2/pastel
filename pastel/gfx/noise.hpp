@@ -9,7 +9,7 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/math/smoothstep.h"
-#include "pastel/sys/linear.h"
+#include "pastel/sys/math_functions.h"
 
 #include <vector>
 

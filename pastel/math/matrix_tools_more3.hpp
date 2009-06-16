@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include "pastel/math/mathcommon.h"
+#include "pastel/sys/math_functions.h"
 #include "pastel/math/matrix.h"
 
 #include <boost/static_assert.hpp>
