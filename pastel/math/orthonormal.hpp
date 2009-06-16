@@ -58,7 +58,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> perpendicular(
+	TemporaryVector<N, Real> perpendicular(
 		const std::vector<Vector<N, Real> >& orthonormalSet)
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
@@ -67,7 +67,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> perpendicular(
+	TemporaryVector<N, Real> perpendicular(
 		integer dimension,
 		const std::vector<Vector<N, Real> >& orthonormalSet)
 	{
@@ -87,7 +87,7 @@ namespace Pastel
 
 		if (vectors >= dimension)
 		{
-			return Vector<N, Real>(ofDimension(dimension), 0);
+			return TemporaryVector<N, Real>(ofDimension(dimension), 0);
 		}
 
 		// Find the positive axis-aligned vector e_i
@@ -131,7 +131,7 @@ namespace Pastel
 
 		result /= norm(result);
 
-		return result;
+		return result.asTemporary();
 	}
 
 }

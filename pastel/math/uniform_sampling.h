@@ -3,8 +3,8 @@
 \brief Functions for sampling uniformly from different regions.
 */
 
-#ifndef PASTEL_UNIFORMSAMPLING_H
-#define PASTEL_UNIFORMSAMPLING_H
+#ifndef PASTEL_UNIFORM_SAMPLING_H
+#define PASTEL_UNIFORM_SAMPLING_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
@@ -177,6 +177,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/uniformsampling.hpp"
+#include "pastel/math/uniform_sampling.hpp"
 
 #endif

@@ -62,6 +62,10 @@ namespace Pastel
 	void setRandomRotation(
 		Matrix<Height, Width, Real>& result);
 
+	template <int Height, int Width, typename Real>
+	void setRandomSymmetricPositiveDefinite(
+		Matrix<Height, Width, Real>& result);
+
 }
 
 #endif

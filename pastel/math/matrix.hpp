@@ -34,8 +34,8 @@ namespace Pastel
 		const Matrix& that, MatrixTransposeTag)
 		: data_()
 	{
-		const integer width = that.width();
-		const integer height = that.height();
+		const integer height = that.width();
+		const integer width = that.height();
 
 		data_.setExtent(width, height);
 
@@ -43,7 +43,7 @@ namespace Pastel
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				data_(y, x) = that(x, y);
+				data_(x, y) = that(y, x);
 			}
 		}
 	}
