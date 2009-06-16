@@ -5,7 +5,7 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/geometry/line.h"
 #include "pastel/geometry/sphere.h"
-#include "pastel/math/mathcommon.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

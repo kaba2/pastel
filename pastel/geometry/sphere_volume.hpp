@@ -3,7 +3,8 @@
 
 #include "pastel/geometry/sphere_volume.h"
 #include "pastel/geometry/spherearea.h"
-#include "pastel/math/mathcommon.h"
+
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

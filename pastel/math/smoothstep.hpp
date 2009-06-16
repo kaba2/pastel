@@ -2,7 +2,8 @@
 #define PASTEL_SMOOTHSTEP_HPP
 
 #include "pastel/math/smoothstep.h"
-#include "pastel/sys/linear.h"
+
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

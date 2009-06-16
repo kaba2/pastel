@@ -1,9 +1,7 @@
 #include "pastelmathtest.h"
 
 #include "pastel/sys/random.h"
-#include "pastel/sys/mathfunctions.h"
-
-#include "pastel/math/mathcommon.h"
+#include "pastel/sys/math_functions.h"
 
 #include "pastel/geometry/predicates.h"
 

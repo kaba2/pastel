@@ -721,19 +721,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\linear.h"
+				RelativePath=".\math_functions.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\linear.hpp"
+				RelativePath=".\math_functions.h"
 				>
 			</File>
 			<File
-				RelativePath=".\mathfunctions.h"
+				RelativePath=".\math_functions.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mathfunctions.hpp"
+				RelativePath=".\math_functions_more.h"
+				>
+			</File>
+			<File
+				RelativePath=".\math_functions_more.hpp"
 				>
 			</File>
 			<File

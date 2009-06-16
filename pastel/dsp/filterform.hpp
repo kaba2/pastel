@@ -6,7 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/constants.h"
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 

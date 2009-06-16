@@ -1,5 +1,4 @@
-#include "pastel/math/mathcommon.h"
-#include "pastel/sys/syscommon.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {
@@ -81,7 +80,7 @@ namespace Pastel
 
 	}
 
-	PASTELMATH real64 digammaReal64(integer n)
+	PASTELSYS real64 digammaReal64(integer n)
 	{
 		// It holds that for integer parameters,
 		// digamma(n) = H(n - 1) - y
@@ -204,11 +203,11 @@ namespace Pastel
 	
 	}
 
-	PASTELMATH real64 lnFactorialReal64(integer n)
+	PASTELSYS real64 lnFactorialReal64(integer n)
 	{
 		PENSURE1(n >= 0 && n <= 256, n);
 		
 		return lnFactorial_[n];
 	}
-	
+
 }

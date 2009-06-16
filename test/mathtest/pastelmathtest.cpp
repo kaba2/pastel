@@ -1,6 +1,6 @@
 #include "pastelmathtest.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 #include "pastel/sys/log_all.h"
 

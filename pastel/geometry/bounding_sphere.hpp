@@ -10,7 +10,7 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/math/matrix_tools.h"
-#include "pastel/sys/linear.h"
+#include "pastel/sys/math_functions.h"
 
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/overlaps_sphere_point.h"

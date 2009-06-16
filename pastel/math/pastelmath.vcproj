@@ -398,18 +398,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\mathcommon.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mathcommon.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mathcommon.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\mathlibrary.cpp"
 				>
 			</File>

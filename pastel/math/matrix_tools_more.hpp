@@ -9,7 +9,7 @@
 #include "pastel/math/matrix.h"
 #include "pastel/sys/vector_tools.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 #include <boost/static_assert.hpp>
 #include <boost/mpl/if.hpp>

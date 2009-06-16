@@ -7,7 +7,7 @@
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/predicates.h"
 
-#include "pastel/sys/mathfunctions.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {
