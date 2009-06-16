@@ -254,54 +254,6 @@
 			Name="Transformations"
 			>
 			<Filter
-				Name="Matrix"
-				>
-				<File
-					RelativePath=".\matrix.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more2.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more2.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more3.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more3.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrixbase.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Affine transformation"
 				>
 				<File
@@ -342,46 +294,6 @@
 				</File>
 				<File
 					RelativePath=".\transformation.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Lu decomposition"
-				>
-				<File
-					RelativePath=".\ludecomposition.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ludecomposition.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ludecomposition_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ludecomposition_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Cholesky decomposition"
-				>
-				<File
-					RelativePath=".\cholesky_decomposition.h"
-					>
-				</File>
-				<File
-					RelativePath=".\cholesky_decomposition.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\cholesky_decomposition_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\cholesky_decomposition_tools.hpp"
 					>
 				</File>
 			</Filter>
@@ -430,11 +342,11 @@
 			Name="Uniform sampling"
 			>
 			<File
-				RelativePath=".\uniformsampling.h"
+				RelativePath=".\uniform_sampling.h"
 				>
 			</File>
 			<File
-				RelativePath=".\uniformsampling.hpp"
+				RelativePath=".\uniform_sampling.hpp"
 				>
 			</File>
 		</Filter>
@@ -543,18 +455,6 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Eigenvectors"
-			>
-			<File
-				RelativePath=".\largest_eigenvector.h"
-				>
-			</File>
-			<File
-				RelativePath=".\largest_eigenvector.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Polynomials"
 			>
 			<File
@@ -573,6 +473,114 @@
 				RelativePath=".\polynomial_tools.hpp"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Linear algebra"
+			>
+			<Filter
+				Name="Matrix"
+				>
+				<File
+					RelativePath=".\matrix.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more2.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more3.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more3.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrixbase.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Matrix decompositions"
+				>
+				<Filter
+					Name="Cholesky decomposition"
+					>
+					<File
+						RelativePath=".\cholesky_decomposition.h"
+						>
+					</File>
+					<File
+						RelativePath=".\cholesky_decomposition.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\cholesky_decomposition_tools.h"
+						>
+					</File>
+					<File
+						RelativePath=".\cholesky_decomposition_tools.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Lu decomposition"
+					>
+					<File
+						RelativePath=".\ludecomposition.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ludecomposition.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ludecomposition_tools.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ludecomposition_tools.hpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Eigenvectors"
+				>
+				<File
+					RelativePath=".\largest_eigenvector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\largest_eigenvector.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
