@@ -18,6 +18,24 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	template <int Height, int Width, typename Expression>
+	Matrix<Dynamic, Dynamic, Real>::Matrix(
+		const MatrixExpression<Height, Width, Real, Expression>& that)
+		: data_(that.width(), that.height())
+	{
+		const integer leftWidth = width();
+		const integer leftHeight = height();
+
+		for (integer y = 0;y < leftHeight;++y)
+		{
+			for (integer x = 0;x < leftWidth;++x)
+			{
+				(*this)(y, x) = that(y, x);
+			}
+		}
+	}
+
+	template <typename Real>
 	Matrix<Dynamic, Dynamic, Real>::Matrix(integer height, integer width)
 		: data_(width, height, 0)
 	{
@@ -26,25 +44,6 @@ namespace Pastel
 		for (integer i = 0;i < minSize;++i)
 		{
 			data_(i, i) = 1;
-		}
-	}
-
-	template <typename Real>
-	Matrix<Dynamic, Dynamic, Real>::Matrix(
-		const Matrix& that, MatrixTransposeTag)
-		: data_()
-	{
-		const integer height = that.width();
-		const integer width = that.height();
-
-		data_.setExtent(width, height);
-
-		for (integer y = 0;y < height;++y)
-		{
-			for (integer x = 0;x < width;++x)
-			{
-				data_(x, y) = that(y, x);
-			}
 		}
 	}
 
@@ -62,13 +61,15 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	void Matrix<Dynamic, Dynamic, Real>::setSize(integer height, integer width)
+	void Matrix<Dynamic, Dynamic, Real>::setSize(integer newHeight, integer newWidth)
 	{
-		data_.setExtent(width, height, 0);
+		const integer oldMinSize = std::min(width(), height());
 
-		const integer minSize = std::min(width, height);
+		data_.setExtent(newWidth, newHeight, 0);
 
-		for (integer i = 0;i < minSize;++i)
+		const integer newMinSize = std::min(newWidth, newHeight);
+
+		for (integer i = oldMinSize;i < newMinSize;++i)
 		{
 			data_(i, i) = 1;
 		}
@@ -84,6 +85,13 @@ namespace Pastel
 	integer Matrix<Dynamic, Dynamic, Real>::height() const
 	{
 		return data_.height();
+	}
+
+	template <typename Real>
+	template <typename Type>
+	bool Matrix<Dynamic, Dynamic, Real>::involves(const Type* address) const
+	{
+		return (this == address);
 	}
 
 	template <typename Real>
@@ -119,20 +127,45 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	template <typename Expression>
 	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator*=(
-		const PASTEL_NO_DEDUCTION(Real)& that)
+		Matrix<Dynamic, Dynamic, Real>::operator=(
+		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& right)
 	{
-		const integer nWidth = width();
-		const integer nHeight = height();
-
-		for (integer y = 0;y < nHeight;++y)
+		if (right.involves(this))
 		{
-			for (integer x = 0;x < nWidth;++x)
+			// The right expression contains this matrix
+			// as a subexpression. We thus need to evaluate
+			// the expression first.
+			
+			Matrix<Dynamic, Dynamic, Real> copyRight(right);
+			*this = copyRight;
+		}
+		else
+		{
+			Matrix<Dynamic, Dynamic, Real>& left = *this;
+
+			const integer leftWidth = width();
+			const integer leftHeight = height();
+
+			for (integer i = 0;i < leftHeight;++i)
 			{
-				data_(x, y) *= that;
+				for (integer j = 0;j < leftWidth;++j)
+				{
+					left(i, j) = right(i, j);
+				}
 			}
 		}
+
+		return *this;
+	}
+
+	template <typename Real>
+	Matrix<Dynamic, Dynamic, Real>&
+		Matrix<Dynamic, Dynamic, Real>::operator*=(
+		const Real& that)
+	{
+		*this = *this * that;
 
 		return *this;
 	}
@@ -140,187 +173,160 @@ namespace Pastel
 	template <typename Real>
 	Matrix<Dynamic, Dynamic, Real>&
 		Matrix<Dynamic, Dynamic, Real>::operator/=(
-		const PASTEL_NO_DEDUCTION(Real)& that)
+		const Real& that)
 	{
-		*this *= 1 / that;
+		*this = *this * inverse(that);
 
 		return *this;
 	}
 
 	template <typename Real>
+	template <typename Expression>
 	Matrix<Dynamic, Dynamic, Real>&
 		Matrix<Dynamic, Dynamic, Real>::operator+=(
-		const Matrix& that)
+		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that)
 	{
-		const integer nWidth = width();
-		const integer nHeight = height();
-
-		ENSURE2(nWidth == that.width(), nWidth, that.width());
-		ENSURE2(nHeight == that.height(), nHeight, that.height());
-
-		for (integer y = 0;y < nHeight;++y)
-		{
-			for (integer x = 0;x < nWidth;++x)
-			{
-				data_(x, y) += that.data_(x, y);
-			}
-		}
+		*this = *this + that;
 
 		return *this;
 	}
 
 	template <typename Real>
+	template <typename Expression>
 	Matrix<Dynamic, Dynamic, Real>&
 		Matrix<Dynamic, Dynamic, Real>::operator-=(
-		const Matrix& that)
+		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that)
 	{
-		const integer nWidth = width();
-		const integer nHeight = height();
-
-		ENSURE2(nWidth == that.width(), nWidth, that.width());
-		ENSURE2(nHeight == that.height(), nHeight, that.height());
-
-		for (integer y = 0;y < nHeight;++y)
-		{
-			for (integer x = 0;x < nWidth;++x)
-			{
-				data_(x, y) -= that.data_(x, y);
-			}
-		}
+		*this = *this - that;
 
 		return *this;
 	}
 
 	template <typename Real>
+	template <typename Expression>
 	Matrix<Dynamic, Dynamic, Real>&
 		Matrix<Dynamic, Dynamic, Real>::operator*=(
-		const Matrix& right)
+		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that)
 	{
-		const integer nWidth = width();
-		const integer nHeight = height();
+		*this = *this * that;
 
-		ENSURE2(nWidth == right.height(), nWidth, right.height());
-		ENSURE2(right.height() == right.width(), right.height(), right.width());
-
-		Matrix& left = *this;
-		Matrix copyLeft(left);
-
-		for (integer i = 0;i < nHeight;++i)
-		{
-			for (integer j = 0;j < nWidth;++j)
-			{
-				left(i, j) = copyLeft(i, 0) * right(0, j);
-				for (integer k = 1;k < nWidth;++k)
-				{
-					left(i, j) += copyLeft(i, k) * right(k, j);
-				}
-			}
-		}
-
-		return left;
-	}
-
-	// Binary operators
-
-	// Matrices vs matrices
-
-	template <int LeftHeight, int LeftWidth,
-		int RightWidth, typename Real>
-		Matrix<LeftHeight, RightWidth, Real> operator*(
-		const Matrix<LeftHeight, LeftWidth, Real>& left,
-		const Matrix<LeftWidth, RightWidth, Real>& right)
-	{
-		const integer leftWidth = left.width();
-		const integer leftHeight = left.height();
-		const integer rightWidth = right.width();
-		const integer rightHeight = right.height();
-
-		Matrix<LeftHeight, RightWidth, Real> result(leftHeight, rightWidth);
-
-		for (integer i = 0;i < leftHeight;++i)
-		{
-			for (integer j = 0;j < rightWidth;++j)
-			{
-				Real value(0);
-				for (integer k = 0;k < rightHeight;++k)
-				{
-					value += left[i][k] * right[k][j];
-				}
-				result[i][j] = value;
-			}
-		}
-
-		return result;
-	}
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator+(
-		const Matrix<Height, Width, Real>& left,
-		const Matrix<Height, Width, Real>& right)
-	{
-		Matrix<Height, Width, Real> result(left);
-		result += right;
-		return result;
-	}
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator-(
-		const Matrix<Height, Width, Real>& left,
-		const Matrix<Height, Width, Real>& right)
-	{
-		Matrix<Height, Width, Real> result(left);
-		result -= right;
-		return result;
+		return *this;
 	}
 
 	// Matrices vs vectors
 
-	template <int Height, int Width, typename Real>
-	Vector<Height, Real> operator*(
-		const Matrix<Height, Width, Real>& left,
-		const Vector<Width, Real>& right)
+	template <
+		int N,
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixVectorMultiplication
+		: public VectorExpression<N, Real,
+		MatrixVectorMultiplication<N, Real,
+		LeftExpression, RightExpression> >
 	{
-		const integer width = left.width();
-		const integer height = left.height();
+	public:
+		typedef const MatrixVectorMultiplication& StorageType;
 
-		ENSURE2(width == right.size(), width, right.size());
-
-		Vector<Height, Real> result(ofDimension(height));
-
-		for (integer i = 0;i < height;++i)
+		MatrixVectorMultiplication(
+			const LeftExpression& left,
+			const RightExpression& right)
+			: left_(left)
+			, right_(right)
 		{
-			result[i] = left[i][0] * right[0];
-			for (integer j = 1;j < width;++j)
-			{
-				result[i] += left[i][j] * right[j];
-			}
+			PENSURE2(left.width() == right.size(), 
+				left.width(), right.size());
 		}
 
-		return result;
+		Real operator[](integer index) const
+		{
+			const integer n = left_.width();
+			
+			Real sum = 0;
+			for (integer x = 0;x < n;++x)
+			{
+				sum += left_(index, x) * right_[x];
+			}
+
+			return sum;
+		}
+
+		integer size() const
+		{
+			return left_.height();
+		}
+
+	private:
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
+	};
+
+	template <int Height, int Width, typename Real,
+	typename LeftExpression, typename RightExpression>
+	const MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression> operator *(
+		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
+		const VectorExpression<Width, Real, RightExpression>& right)
+	{
+		return MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression>(
+			(const LeftExpression&)left, 
+			(const RightExpression&)right);
 	}
 
-	template <int Height, int Width, typename Real>
-	Vector<Width, Real> operator *(
-		const Vector<Height, Real>& left,
-		const Matrix<Height, Width, Real>& right)
+	template <
+		int N,
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class VectorMatrixMultiplication
+		: public VectorExpression<N, Real,
+		VectorMatrixMultiplication<N, Real,
+		LeftExpression, RightExpression> >
 	{
-		const integer width = right.width();
-		const integer height = right.height();
+	public:
+		typedef const VectorMatrixMultiplication& StorageType;
 
-		ENSURE2(height == left.size(), height, left.size());
-
-		Vector<Width, Real> result(ofDimension(width));
-
-		for (integer i = 0;i < width;++i)
+		VectorMatrixMultiplication(
+			const LeftExpression& left,
+			const RightExpression& right)
+			: left_(left)
+			, right_(right)
 		{
-			result[i] = left[0] * right[0][i];
-			for (integer j = 1;j < height;++j)
-			{
-				result[i] += left[j] * right[j][i];
-			}
+			PENSURE2(left.size() == right.height(), 
+				left.size(), right.height());
 		}
 
-		return result;
+		Real operator[](integer index) const
+		{
+			const integer n = right_.height();
+			
+			Real sum = 0;
+			for (integer y = 0;y < n;++y)
+			{
+				sum += left_[y] * right_(y, index);
+			}
+
+			return sum;
+		}
+
+		integer size() const
+		{
+			return right_.width();
+		}
+
+	private:
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
+	};
+
+	template <int Height, int Width, typename Real,
+	typename LeftExpression, typename RightExpression>
+	const VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression> operator *(
+		const VectorExpression<Height, Real, LeftExpression>& left,
+		const MatrixExpression<Height, Width, Real, RightExpression>& right)
+	{
+		return VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression>(
+			(const LeftExpression&)left, 
+			(const RightExpression&)right);
 	}
 
 	// Matrices vs points
@@ -373,38 +379,6 @@ namespace Pastel
 			}
 		}
 
-		return result;
-	}
-
-	// Matrices and scalars
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator*(
-		const Matrix<Height, Width, Real>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right)
-	{
-		Matrix<Height, Width, Real> result(left);
-		result *= right;
-		return result;
-	}
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator/(
-		const Matrix<Height, Width, Real>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right)
-	{
-		Matrix<Height, Width, Real> result(left);
-		result /= right;
-		return result;
-	}
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator*(
-		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Matrix<Height, Width, Real>& right)
-	{
-		Matrix<Height, Width, Real> result(right);
-		result *= left;
 		return result;
 	}
 

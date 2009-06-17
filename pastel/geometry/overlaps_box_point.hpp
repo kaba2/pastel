@@ -29,7 +29,7 @@ namespace Pastel
 		// is its transpose.
 
 		const Matrix<N, N, Real> boxRotationInverse(
-			box.rotation(), MatrixTransposeTag());
+			transpose(box.rotation()));
 
 		const Point<N, Real> transformedPoint(
 			(point - asVector(box.position())) *

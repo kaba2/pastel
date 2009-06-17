@@ -26,7 +26,7 @@ namespace Pastel
 		// is used.
 
 		const Matrix<N, N, Real> boxRotationInverse(
-			box.rotation(), MatrixTransposeTag());
+			transpose(box.rotation()));
 
 		const Triangle<N, Real> transformedTriangle(
 			(triangle[0] - asVector(box.position())) *

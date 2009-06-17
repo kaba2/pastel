@@ -72,22 +72,57 @@ namespace Pastel
 		return result;
 	}
 
+	template <
+		int N,
+		typename Real>
+	class VectorUnitAxis
+		: public VectorExpression<N, Real,
+		VectorUnitAxis<N, Real> >
+	{
+	public:
+		typedef const VectorUnitAxis StorageType;
+
+		VectorUnitAxis(
+			integer axis,
+			integer size)
+			: axis_(axis)
+			, size_(size)
+		{
+		}
+
+		Real operator[](integer index) const
+		{
+			if (index == axis_)
+			{
+				return 1;
+			}
+
+			return 0;
+		}
+
+		integer size() const
+		{
+			return size_;
+		}
+
+	private:
+		const integer axis_;
+		const integer size_;
+	};
+
 	template <int N, typename Real>
-	TemporaryVector<N, Real> unitAxis(integer index)
+	VectorUnitAxis<N, Real> unitAxis(integer index)
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		BOOST_STATIC_ASSERT(N > 0);
 
 		PENSURE2(index >= 0 && index < N, index, N);
 
-		Vector<N, Real> result(0);
-		result[index] = 1;
-
-		return result.asTemporary();
+		return Pastel::unitAxis<N, Real>(N, index);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> unitAxis(
+	VectorUnitAxis<N, Real> unitAxis(
 		integer dimension, integer index)
 	{
 		PENSURE1(dimension > 0, dimension);
@@ -95,10 +130,7 @@ namespace Pastel
 			dimension, N);
 		PENSURE2(index >= 0 && index < dimension, index, dimension);
 
-		Vector<N, Real> result(ofDimension(dimension), 0);
-		result[index] = 1;
-
-		return result.asTemporary();
+		return VectorUnitAxis<N, Real>(index, dimension);
 	}
 
 	template <int N, typename Real, typename Expression>
@@ -140,64 +172,81 @@ namespace Pastel
 		return result.asTemporary();
 	}
 
+	template <
+		int N,
+		typename Real,
+		typename Expression>
+	class VectorExtend
+		: public VectorExpression<PASTEL_ADD_N(N, 1), Real,
+		VectorExtend<N, Real, Expression> >
+	{
+	public:
+		typedef const VectorExtend& StorageType;
+
+		VectorExtend(
+			const Expression& expression,
+			integer dataIndex,
+			const Real& data)
+			: expression_(expression)
+			, dataIndex_(dataIndex)
+			, data_(data)
+		{
+			PENSURE2(dataIndex >= 0 && dataIndex <= expression.size(),
+				dataIndex, expression.size());
+		}
+
+		Real operator[](integer index) const
+		{
+			if (index < dataIndex_)
+			{
+				return expression_[index];
+			}
+
+			if (dataIndex_ < index)
+			{
+				return expression_[index - 1];
+			}
+
+			return data_;
+		}
+
+		integer size() const
+		{
+			return expression_.size() + 1;
+		}
+
+	private:
+		typename Expression::StorageType expression_;
+		const integer dataIndex_;
+		const Real data_;
+	};
+
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, 1), Real> extend(
+	inline VectorExtend<N, Real, Expression> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<N, Real, Expression>& right)
 	{
-		const integer size = right.size();
-
-		Vector<PASTEL_ADD_N(N, 1), Real> result(size + 1);
-
-		result[0] = left;
-		for (int i = 1;i < size + 1;++i)
-		{
-			result[i] = right[i - 1];
-		}
-
-		return result.asTemporary();
+		return VectorExtend<N, Real, Expression>(
+			(const Expression&)right, 0, left);
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, 1), Real> extend(
+	inline VectorExtend<N, Real, Expression> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		const integer size = left.size();
-
-		Vector<PASTEL_ADD_N(N, 1), Real> result(size + 1);
-
-		for (int i = 0;i < size;++i)
-		{
-			result[i] = left[i];
-		}
-		result[size] = right;
-
-		return result.asTemporary();
+		return VectorExtend<N, Real, Expression>(
+			(const Expression&)left, left.size(), right);
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, 1), Real> extend(
+	inline VectorExtend<N, Real, Expression> extend(
 		const VectorExpression<N, Real, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
 	{
-		const integer size = left.size();
-
-		PENSURE2(index >= 0 && index < size, index, size);
-
-		Vector<PASTEL_ADD_N(N, 1), Real> result(size + 1);
-		for (integer i = 0;i < index;++i)
-		{
-			result[i] = left[i];
-		}
-		result[index] = right;
-		for (integer i = index + 1;i < size;++i)
-		{
-			result[i] = left[i - 1];
-		}
-
-		return result.asTemporary();
+		return VectorExtend<N, Real, Expression>(
+			(const Expression&)left, index, right);
 	}
 
 	template <int N, typename Real,

@@ -13,18 +13,9 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
 
-#include <boost/static_assert.hpp>
-
-namespace Pastel
-{
-
-	//! A Matrix constructor tag for transposition.
-
-	class MatrixTransposeTag {};
-
-}
-
 #include "pastel/math/matrixbase.h"
+
+#include <boost/static_assert.hpp>
 
 namespace Pastel
 {
@@ -56,18 +47,17 @@ namespace Pastel
 		{
 		}
 
+		template <typename Expression>
+		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+			: Base(that)
+		{
+		}
+
 		Matrix(integer height, integer width)
 			: Base()
 		{
 			ENSURE2(width == Width, width, Width);
 			ENSURE2(height == Height, height, Height);
-		}
-
-		//! Constructs with the transpose of the given matrix.
-		Matrix(const Matrix<Width, Height, Real>& that,
-			MatrixTransposeTag tag)
-			: Base(that, tag)
-		{
 		}
 
 		// Used for concept checking.
@@ -82,15 +72,22 @@ namespace Pastel
 
 	template <typename Real>
 	class Matrix<Dynamic, Dynamic, Real>
+		: public MatrixExpression<Dynamic, Dynamic, Real, 
+		Matrix<Dynamic, Dynamic, Real> >
 	{
 	public:
+		typedef const Matrix& StorageType;
+
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
 
 		Matrix();
+
+		template <int Height, int Width, typename Expression>
+		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that);
+
 		Matrix(integer height, integer width);
-		Matrix(const Matrix& that, MatrixTransposeTag);
 
 		void swap(Matrix& that);
 		void clear();
@@ -99,20 +96,35 @@ namespace Pastel
 		integer width() const;
 		integer height() const;
 
+		template <typename Type>
+		bool involves(const Type* address) const;
+
 		Real& operator()(integer y, integer x);
 		const Real& operator()(integer y, integer x) const;
 
 		TemporaryVector<Dynamic, Real> operator[](integer y);
 		const TemporaryVector<Dynamic, Real> operator[](integer y) const;
 
-		Matrix<Dynamic, Dynamic, Real>& operator*=(
-			const PASTEL_NO_DEDUCTION(Real)& that);
-		Matrix<Dynamic, Dynamic, Real>& operator/=(
-			const PASTEL_NO_DEDUCTION(Real)& that);
+		template <typename Expression>
+		Matrix<Dynamic, Dynamic, Real>& operator=(
+			const MatrixExpression<Dynamic, Dynamic, Real, Expression>& right);
 
-		Matrix<Dynamic, Dynamic, Real>& operator*=(const Matrix& that);
-		Matrix<Dynamic, Dynamic, Real>& operator+=(const Matrix& that);
-		Matrix<Dynamic, Dynamic, Real>& operator-=(const Matrix& that);
+		Matrix<Dynamic, Dynamic, Real>& operator*=(
+			const Real& that);
+		Matrix<Dynamic, Dynamic, Real>& operator/=(
+			const Real& that);
+
+		template <typename Expression>
+		Matrix<Dynamic, Dynamic, Real>& operator*=(
+			const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that);
+
+		template <typename Expression>
+		Matrix<Dynamic, Dynamic, Real>& operator+=(
+			const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that);
+
+		template <typename Expression>
+		Matrix<Dynamic, Dynamic, Real>& operator-=(
+			const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that);
 
 	private:
 		Array<2, Real> data_;
@@ -138,18 +150,17 @@ namespace Pastel
 		{
 		}
 
+		template <typename Expression>
+		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+			: Base(that)
+		{
+		}
+
 		Matrix(integer height, integer width)
 			: Base()
 		{
 			ENSURE1(width == Width, width);
 			ENSURE1(height == Height, height);
-		}
-
-		//! Constructs with the transpose of the given matrix.
-		Matrix(const Matrix<Height, Width, Real>& that,
-			MatrixTransposeTag tag)
-			: Base(that, tag)
-		{
 		}
 
 		//! Constructs with the given row vector.
@@ -198,18 +209,17 @@ namespace Pastel
 		{
 		}
 
+		template <typename Expression>
+		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+			: Base(that)
+		{
+		}
+
 		Matrix(integer height, integer width)
 			: Base()
 		{
 			ENSURE1(width == Width, width);
 			ENSURE1(height == Height, height);
-		}
-
-		//! Constructs with the transpose of the given matrix.
-		Matrix(const Matrix<2, 2, Real>& that,
-			MatrixTransposeTag tag)
-			: Base(that, tag)
-		{
 		}
 
 		//! Constructs with the given row vectors.
@@ -268,18 +278,17 @@ namespace Pastel
 		{
 		}
 
+		template <typename Expression>
+		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+			: Base(that)
+		{
+		}
+
 		Matrix(integer height, integer width)
 			: Base()
 		{
 			ENSURE1(width == Width, width);
 			ENSURE1(height == Height, height);
-		}
-
-		//! Constructs with the transpose of the given matrix.
-		Matrix(const Matrix<3, 3, Real>& that,
-			MatrixTransposeTag tag)
-			: Base(that, tag)
-		{
 		}
 
 		//! Constructs with the given row vectors.
@@ -352,18 +361,17 @@ namespace Pastel
 		{
 		}
 
+		template <typename Expression>
+		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+			: Base(that)
+		{
+		}
+
 		Matrix(integer height, integer width)
 			: Base()
 		{
 			ENSURE1(width == Width, width);
 			ENSURE1(height == Height, height);
-		}
-
-		//! Constructs with the transpose of the given matrix.
-		Matrix(const Matrix<4, 4, Real>& that,
-			MatrixTransposeTag tag)
-			: Base(that, tag)
-		{
 		}
 
 		//! Constructs with the given row vectors.
@@ -448,35 +456,33 @@ namespace Pastel
 	typedef Matrix<3, 3, real> Matrix3;
 	typedef Matrix<4, 4, real> Matrix4;
 
-	// Matrices vs matrices
-
-	template <int LeftHeight, int LeftWidth,
-		int RightWidth, typename Real>
-		Matrix<LeftHeight, RightWidth, Real> operator*(
-		const Matrix<LeftHeight, LeftWidth, Real>& left,
-		const Matrix<LeftWidth, RightWidth, Real>& right);
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator+(
-		const Matrix<Height, Width, Real>& left,
-		const Matrix<Height, Width, Real>& right);
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator-(
-		const Matrix<Height, Width, Real>& left,
-		const Matrix<Height, Width, Real>& right);
-
 	// Vectors vs matrices
 
-	template <int Height, int Width, typename Real>
-	Vector<Height, Real> operator*(
-		const Matrix<Height, Width, Real>& left,
-		const Vector<Width, Real>& right);
+	template <
+		int N,
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class MatrixVectorMultiplication;
 
-	template <int Height, int Width, typename Real>
-	Vector<Width, Real> operator *(
-		const Vector<Height, Real>& left,
-		const Matrix<Height, Width, Real>& right);
+	template <int Height, int Width, typename Real,
+	typename LeftExpression, typename RightExpression>
+	const MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression> operator *(
+		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
+		const VectorExpression<Width, Real, RightExpression>& right);
+
+	template <
+		int N,
+		typename Real,
+		typename VectorExpression,
+		typename MatrixExpression>
+	class VectorMatrixMultiplication;
+
+	template <int Height, int Width, typename Real,
+	typename LeftExpression, typename RightExpression>
+	const VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression> operator *(
+		const VectorExpression<Height, Real, LeftExpression>& left,
+		const MatrixExpression<Height, Width, Real, RightExpression>& right);
 
 	// Points vs matrices
 
@@ -488,23 +494,6 @@ namespace Pastel
 	template <int Height, int Width, typename Real>
 	Point<Width, Real> operator *(
 		const Point<Height, Real>& left,
-		const Matrix<Height, Width, Real>& right);
-
-	// Matrices and scalars
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator*(
-		const Matrix<Height, Width, Real>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right);
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator/(
-		const Matrix<Height, Width, Real>& left,
-		const PASTEL_NO_DEDUCTION(Real)& right);
-
-	template <int Height, int Width, typename Real>
-	Matrix<Height, Width, Real> operator*(
-		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Matrix<Height, Width, Real>& right);
 
 	template <int Height, int Width, typename Real>

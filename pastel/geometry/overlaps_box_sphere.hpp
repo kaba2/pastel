@@ -26,7 +26,7 @@ namespace Pastel
 		// is its inverse..
 
 		const Matrix<N, N, Real> boxRotationInverse(
-			box.rotation(), MatrixTransposeTag());
+			transpose(box.rotation()));
 
 		// The radius is not affected by a
 		// rotation.

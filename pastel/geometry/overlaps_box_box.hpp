@@ -29,7 +29,7 @@ namespace Pastel
 		// is its inverse..
 
 		const Matrix<N, N, Real> aRotationInverse(
-			aBox.rotation(), MatrixTransposeTag());
+			transpose(aBox.rotation()));
 
 		const Box<N, Real> bBoxTransformed(
 			(bBox.position() - asVector(aBox.position())) *
@@ -61,7 +61,7 @@ namespace Pastel
 		// is its inverse..
 
 		const Matrix<N, N, Real> aRotationInverse(
-			aBox.rotation(), MatrixTransposeTag());
+			transpose(aBox.rotation()));
 
 		const Box<N, Real> bBoxTransformed(
 			(bBox.position() - asVector(aBox.position())) *
@@ -95,7 +95,7 @@ namespace Pastel
 		// is its inverse..
 
 		const Matrix<N, N, Real> aRotationInverse(
-			aBox.rotation(), MatrixTransposeTag());
+			transpose(aBox.rotation()));
 
 		const Box<N, Real> bBoxTransformed(
 			(bBox.position() - asVector(aBox.position())) *

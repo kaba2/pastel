@@ -36,15 +36,20 @@ namespace Pastel
 
 	// Vectors and matrices
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Vector<N, Real> diagonal(
-		const Matrix<N, N, Real>& matrix)
+		const MatrixExpression<N, N, Real, Expression>& matrix)
 	{
-		Vector<N, Real> result;
+		ENSURE2(matrix.width() == matrix.height(),
+			matrix.width(), matrix.height());
 
-		for (int i = 0;i < N;++i)
+		const integer n = matrix.width();
+
+		Vector<N, Real> result(ofDimension(n));
+
+		for (int i = 0;i < n;++i)
 		{
-			result[i] = matrix[i][i];
+			result[i] = matrix(i, i);
 		}
 
 		return result;
@@ -75,17 +80,62 @@ namespace Pastel
 	}
 	*/
 
-	template <int N, typename Real>
-	Matrix<N, N, Real> diagonal(const Vector<N, Real>& that)
+	template <
+		int Height, int Width,
+		typename Real,
+		typename VectorExpression>
+	class MatrixVectorDiagonal
+		: public MatrixExpression<Height, Width, Real,
+		MatrixVectorDiagonal<Height, Width, Real, VectorExpression> >
 	{
-		Matrix<N, N, Real> result;
+	public:
+		typedef const MatrixVectorDiagonal& StorageType;
 
-		for (integer i = 0;i < N;++i)
+		explicit MatrixVectorDiagonal(
+			const VectorExpression& data)
+			: data_(data)
 		{
-			result(i, i) = that[i];
 		}
 
-		return result;
+		Real operator()(integer y, integer x) const
+		{
+			if (x == y)
+			{
+				return data_[x];
+			}
+
+			return 0;
+		}
+
+		integer width() const
+		{
+			return data_.size();
+		}
+
+		integer height() const
+		{
+			return data_.size();
+		}
+
+		template <typename Type>
+		bool involves(
+			const Type* address) const
+		{
+			// FIX: The vector expression should be checked
+			// for the presence of the given address.
+			return false;
+		}
+
+	private:
+		typename VectorExpression::StorageType data_;
+	};
+
+	template <int N, typename Real, typename Expression>
+	MatrixVectorDiagonal<N, N, Real, Expression> diagonal(
+		const VectorExpression<N, Real, Expression>& that)
+	{
+		return MatrixVectorDiagonal<N, N, Real, Expression>(
+			(const Expression&)that);
 	}
 
 	template <int Height, int Width, typename Real>
@@ -129,12 +179,55 @@ namespace Pastel
 		}
 	}
 
-	template <int Height, int Width, typename Real>
-	Matrix<Width, Height, Real> transpose(
-		const Matrix<Height, Width, Real>& matrix)
+	template <
+		int Height, int Width,
+		typename Real,
+		typename Expression>
+	class MatrixTranspose
+		: public MatrixExpression<Width, Height, Real,
+		MatrixTranspose<Height, Width, Real, Expression> >
 	{
-		return Matrix<Width, Height, Real>(matrix,
-			MatrixTransposeTag());
+	public:
+		typedef const MatrixTranspose& StorageType;
+
+		explicit MatrixTranspose(
+			const Expression& data)
+			: data_(data)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return data_(x, y);
+		}
+
+		integer width() const
+		{
+			return data_.height();
+		}
+
+		integer height() const
+		{
+			return data_.width();
+		}
+
+		template <typename Type>
+		bool involves(
+			const Type* address) const
+		{
+			return data_.involves(address);
+		}
+
+	private:
+		typename Expression::StorageType data_;
+	};
+
+	template <int Height, int Width, typename Real, typename Expression>
+	MatrixTranspose<Height, Width, Real, Expression> transpose(
+		const MatrixExpression<Height, Width, Real, Expression>& that)
+	{
+		return MatrixTranspose<Height, Width, Real, Expression>(
+			(const Expression&)that);
 	}
 
 	template <int Height, int Width, typename Real>

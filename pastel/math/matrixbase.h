@@ -2,6 +2,7 @@
 #define PASTEL_MATRIXBASE_H
 
 #include "pastel/math/matrix.h"
+#include "pastel/math/matrixexpression.h"
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
@@ -20,9 +21,11 @@ namespace Pastel
 
 		template <int Height, int Width, typename Real>
 		class MatrixBase
-			: boost::equality_comparable<MatrixBase<Height, Width, Real> >
+			: public MatrixExpression<Height, Width, Real, MatrixBase<Height, Width, Real> >
 		{
 		public:
+			typedef const MatrixBase& StorageType;
+
 			MatrixBase()
 				: data_()
 			{
@@ -35,13 +38,16 @@ namespace Pastel
 				}
 			}
 
-			MatrixBase(const MatrixBase<Width, Height, Real>& that, MatrixTransposeTag)
+			template <typename Expression>
+			explicit MatrixBase(
+				const MatrixExpression<Height, Width, Real, Expression>& that)
+				: data_()
 			{
-				for (integer y = 0;y < Height;++y)
+				for (integer i = 0;i < Height;++i)
 				{
-					for (integer x = 0;x < Width;++x)
+					for (integer j = 0;j < Width;++j)
 					{
-						data_[y][x] = that[x][y];
+						(*this)(i, j) = that(i, j);
 					}
 				}
 			}
@@ -62,23 +68,17 @@ namespace Pastel
 				return Height;
 			}
 
-			void swap(Matrix<Width, Height, Real>& that)
+			template <typename Type>
+			bool involves(const Type* address) const
+			{
+				return (this == address);
+			}
+
+			void swap(Matrix<Height, Width, Real>& that)
 			{
 				for (integer i = 0;i < Height;++i)
 				{
 					data_[i].swap(that.data_[i]);
-				}
-			}
-
-			void setTranspose(
-				const Matrix<Width, Height, Real>& that)
-			{
-				for (integer i = 0;i < Height;++i)
-				{
-					for (integer j = 0;j < Width;++j)
-					{
-						data_[i][j] = that.data_[j][i];
-					}
 				}
 			}
 
@@ -112,48 +112,70 @@ namespace Pastel
 				return data_[y];
 			}
 
-			Matrix<Width, Height, Real>& operator*=(
-				const Matrix<Width, Height, Real>& right)
+			template <int RightWidth, typename RightExpression>
+			Matrix<Height, Width, Real>& operator=(
+				const MatrixExpression<Width, RightWidth, Real, RightExpression>& right)
 			{
-				Matrix<Width, Height, Real>& left = 
-					(Matrix<Width, Height, Real>&)*this;
-
-				Matrix<Width, Height, Real> copyLeft(left);
-				for (integer i = 0;i < Height;++i)
+				if (right.involves(this))
 				{
-					for (integer j = 0;j < Width;++j)
+					// The right expression contains this matrix
+					// as a subexpression. We thus need to evaluate
+					// the expression first.
+					
+					Matrix<Width, RightWidth, Real> copyRight(right);
+					*this = copyRight;
+				}
+				else
+				{
+					Matrix<Height, Width, Real>& left = 
+						(Matrix<Height, Width, Real>&)*this;
+
+					for (integer i = 0;i < Height;++i)
 					{
-						left[i][j] = copyLeft[i][0] * right[0][j];
-						for (integer k = 1;k < Width;++k)
+						for (integer j = 0;j < Width;++j)
 						{
-							left[i][j] += copyLeft[i][k] * right[k][j];
+							left[i][j] = right(i, j);
 						}
 					}
 				}
 
+				return (Matrix<Height, Width, Real>&)*this;
+			}
+
+			template <int RightWidth, typename RightExpression>
+			Matrix<Height, Width, Real>& operator*=(
+				const MatrixExpression<Width, RightWidth, Real, RightExpression>& right)
+			{
+				Matrix<Height, Width, Real>& left = 
+					(Matrix<Height, Width, Real>&)*this;
+
+				left = left * right;
+
 				return left;
 			}
 
-			Matrix<Width, Height, Real>& operator+=(
-				const Matrix<Width, Height, Real>& right)
+			template <typename RightExpression>
+			Matrix<Height, Width, Real>& operator+=(
+				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				for (integer y = 0;y < Height;++y)
-				{
-					data_[y] += right.data_[y];
-				}
+				Matrix<Height, Width, Real>& left = 
+					(Matrix<Height, Width, Real>&)*this;
 
-				return (Matrix<Width, Height, Real>&)*this;
+				left = left + right;
+
+				return left;
 			}
 
-			Matrix<Width, Height, Real>& operator-=(
-				const Matrix<Width, Height, Real>& right)
+			template <typename RightExpression>
+			Matrix<Height, Width, Real>& operator-=(
+				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				for (integer y = 0;y < Height;++y)
-				{
-					data_[y] -= right.data_[y];
-				}
+				Matrix<Height, Width, Real>& left = 
+					(Matrix<Height, Width, Real>&)*this;
 
-				return (Matrix<Width, Height, Real>&)*this;
+				left = left - right;
+
+				return left;
 			}
 
 			// Matrices vs scalars
@@ -165,42 +187,26 @@ namespace Pastel
 			// "add / subtract by multiples of identity matrix".
 			// For *= and /= these interpretations are equivalent.
 
-			Matrix<Width, Height, Real>& operator*=(
+			Matrix<Height, Width, Real>& operator*=(
 				const Real& right)
 			{
-				for (integer i = 0;i < Height;++i)
-				{
-					data_[i] *= right;
-				}
+				Matrix<Height, Width, Real>& left = 
+					(Matrix<Height, Width, Real>&)*this;
 
-				return (Matrix<Width, Height, Real>&)*this;
+				left = left * right;
+
+				return left;
 			}
 
-			Matrix<Width, Height, Real>& operator/=(
+			Matrix<Height, Width, Real>& operator/=(
 				const Real& right)
 			{
-				Real invRight(Pastel::inverse(right));
+				Matrix<Height, Width, Real>& left = 
+					(Matrix<Height, Width, Real>&)*this;
 
-				for (integer i = 0;i < Height;++i)
-				{
-					data_[i] *= invRight;
-				}
+				left = left * inverse(right);
 
-				return (Matrix<Width, Height, Real>&)*this;
-			}
-
-			bool operator==(
-				const MatrixBase<Width, Height, Real>& right) const
-			{
-				for (integer i = 0;i < Height;++i)
-				{
-					if (data_[i] != right.data_[i])
-					{
-						return false;
-					}
-				}
-
-				return true;
+				return left;
 			}
 
 		private:

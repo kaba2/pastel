@@ -66,26 +66,44 @@ namespace Pastel
 		}
 
 	public:
-
 		Real operator[](integer index) const
 		{
-			const Expression& expression =
-				(const Expression&)*this;
-			return expression[index];
+			return ((const Expression&)*this)[index];
 		}
 
 		integer size() const
 		{
-			const Expression& expression =
-				(const Expression&)*this;
-			return expression.size();
+			return ((const Expression&)*this).size();
 		}
 
 		integer dimension() const
 		{
-			const Expression& expression =
-				(const Expression&)*this;
-			return expression.size();
+			return ((const Expression&)*this).size();
+		}
+
+		template <typename RightExpression>
+		bool operator==(const VectorExpression<N, Real, RightExpression>& right) const
+		{
+			const Expression& left = (const Expression&)*this;
+
+			PENSURE2(left.size() == right.size(), left.size(), right.size());
+
+			const integer n = size();
+			for (integer i = 0;i < n;++i)
+			{
+				if (!(left[i] == right[i]))
+				{
+					return false;
+				}
+			}
+			
+			return true;
+		}
+
+		template <typename RightExpression>
+		bool operator!=(const VectorExpression<N, Real, RightExpression>& right) const
+		{
+			return !(*this == right);
 		}
 
 		// Negation
@@ -219,6 +237,11 @@ namespace Pastel
 			<N, Real, Expression, VectorConstant<N, Real> >
 			operator/(const Real& right) const
 		{
+			// You should not optimize here to use
+			// VectorMultiplication with the reciprocal.
+			// This is because we also want to support
+			// the case where Real is an integer.
+
 			return VectorDivision
 				<N, Real, Expression, VectorConstant<N, Real> >
 				((const Expression&)*this,
@@ -296,9 +319,6 @@ namespace Pastel
 
 		integer size() const
 		{
-			const Expression& expression =
-				(Expression&)data_;
-
 			return data_.size();
 		}
 
@@ -336,9 +356,7 @@ namespace Pastel
 
 		integer size() const
 		{
-			const LeftExpression& expression =
-				(LeftExpression&)left_;
-			return expression.size();
+			return left_.size();
 		}
 
 	private:
@@ -376,9 +394,7 @@ namespace Pastel
 
 		integer size() const
 		{
-			const LeftExpression& expression =
-				(LeftExpression&)left_;
-			return expression.size();
+			return left_.size();
 		}
 
 	private:
@@ -416,9 +432,7 @@ namespace Pastel
 
 		integer size() const
 		{
-			const LeftExpression& expression =
-				(LeftExpression&)left_;
-			return expression.size();
+			return left_.size();
 		}
 
 	private:
@@ -456,9 +470,7 @@ namespace Pastel
 
 		integer size() const
 		{
-			const LeftExpression& expression =
-				(LeftExpression&)left_;
-			return expression.size();
+			return left_.size();
 		}
 
 	private:
