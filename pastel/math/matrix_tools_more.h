@@ -31,9 +31,9 @@ namespace Pastel
 
 	// Vectors and matrices
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Vector<N, Real> diagonal(
-		const Matrix<N, N, Real>& matrix);
+		const MatrixExpression<N, N, Real, Expression>& matrix);
 
 	/*
 	template <int Height, int Width, typename Real>
@@ -43,8 +43,15 @@ namespace Pastel
 		diagonal(const Matrix<Height, Width, Real>& matrix);
 	*/
 
-	template <int N, typename Real>
-	Matrix<N, N, Real> diagonal(const Vector<N, Real>& that);
+	template <
+		int Height, int Width,
+		typename Real,
+		typename VectorExpression>
+	class MatrixVectorDiagonal;
+
+	template <int N, typename Real, typename Expression>
+	MatrixVectorDiagonal<N, N, Real, Expression> diagonal(
+		const VectorExpression<N, Real, Expression>& that);
 
 	//! Swaps two rows in the given matrix.
 
@@ -58,11 +65,17 @@ namespace Pastel
 	void swapColumns(Matrix<Height, Width, Real>& matrix,
 		integer aColumn, integer bColumn);
 
+	template <
+		int Height, int Width,
+		typename Real,
+		typename Expression>
+	class MatrixTranspose;
+
 	//! Returns the transpose of the given matrix.
 
-	template <int Height, int Width, typename Real>
-	Matrix<Width, Height, Real> transpose(
-		const Matrix<Height, Width, Real>& matrix);
+	template <int Height, int Width, typename Real, typename Expression>
+	MatrixTranspose<Height, Width, Real, Expression> transpose(
+		const MatrixExpression<Height, Width, Real, Expression>& that);
 
 	//! Transponates a matrix in-place.
 
