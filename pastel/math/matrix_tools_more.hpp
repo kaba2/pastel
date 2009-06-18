@@ -80,6 +80,25 @@ namespace Pastel
 	}
 	*/
 
+	//! Returns the identity matrix.
+
+	template <int Height, int Width, typename Real>
+	MatrixDiagonal<Height, Width, Real> identityMatrix()
+	{
+		BOOST_STATIC_ASSERT(Width != Dynamic && Height != Dynamic);
+
+		return Pastel::identityMatrix<Height, Width, Real>(Height, Width);
+	}
+
+	//! Returns the identity matrix.
+
+	template <int Height, int Width, typename Real>
+	MatrixDiagonal<Height, Width, Real> identityMatrix(
+		integer height, integer width)
+	{
+		return MatrixDiagonal<Height, Width, Real>(height, width, 1);
+	}
+
 	template <
 		int Height, int Width,
 		typename Real,
@@ -250,9 +269,9 @@ namespace Pastel
 
 	// General inversion algorithm for NxN matrices.
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Matrix<N, N, Real> inverse(
-		const Matrix<N, N, Real>& a)
+		const MatrixExpression<N, N, Real, Expression>& a)
 	{
 		// The linear system is solved by
 		// Gaussian elimination with back-substitution
@@ -269,27 +288,27 @@ namespace Pastel
 		Matrix<N, N, Real> a2(a);
 		Matrix<N, N, Real> b2(height, width);
 
-		for (integer column = 0;column < width;++column)
+		for (integer k = 0;k < width;++k)
 		{
-			// From this column, find the element with
-			// the maximum absolute value (with row >= column).
+			// From this k, find the element with
+			// the maximum absolute value (with i >= k).
 
-			const integer currentRow = column;
+			const integer currentRow = k;
 
 			integer maxAbsRow = currentRow;
-			Real maxAbsValue = mabs(a2(currentRow, column));
-			for (integer row = currentRow + 1;row < height;++row)
+			Real maxAbsValue = mabs(a2(currentRow, k));
+			for (integer i = currentRow + 1;i < height;++i)
 			{
-				const Real currentAbsValue = mabs(a2(row, column));
+				const Real currentAbsValue = mabs(a2(i, k));
 				if (currentAbsValue > maxAbsValue)
 				{
-					maxAbsRow = row;
+					maxAbsRow = i;
 					maxAbsValue = currentAbsValue;
 				}
 			}
 
-			// Now swap rows (if necessary) so that the maximum
-			// absolute value will be at (column, column).
+			// Now swap is (if necessary) so that the maximum
+			// absolute value will be at (k, k).
 
 			if (maxAbsRow != currentRow)
 			{
@@ -303,10 +322,10 @@ namespace Pastel
 
 			}
 
-			// Scale the row 'currentRow'
-			// such that the value at (currentRow, column) becomes 1.
+			// Scale the i 'currentRow'
+			// such that the value at (currentRow, k) becomes 1.
 
-			const Real invValue = 1 / a2(currentRow, column);
+			const Real invValue = 1 / a2(currentRow, k);
 
 			for (integer j = 0;j < width;++j)
 			{
@@ -314,28 +333,28 @@ namespace Pastel
 				b2(currentRow, j) *= invValue;
 			}
 
-			// Use the row 'currentRow' to clear out the
-			// matrix to zero for the rest of the column.
+			// Use the i 'currentRow' to clear out the
+			// matrix to zero for the rest of the k.
 
-			for (integer row = 0;row < currentRow;++row)
+			for (integer i = 0;i < currentRow;++i)
 			{
-				const Real value = a2(row, column);
+				const Real value = a2(i, k);
 				for (integer j = 0;j < width;++j)
 				{
-					a2(row, j) -= a2(currentRow, j) * value;
-					b2(row, j) -= b2(currentRow, j) * value;
+					a2(i, j) -= a2(currentRow, j) * value;
+					b2(i, j) -= b2(currentRow, j) * value;
 				}
 			}
 
-			// Skip the row 'currentRow'.
+			// Skip the i 'currentRow'.
 
-			for (integer row = currentRow + 1;row < height;++row)
+			for (integer i = currentRow + 1;i < height;++i)
 			{
-				const Real value = a2(row, column);
+				const Real value = a2(i, k);
 				for (integer j = 0;j < width;++j)
 				{
-					a2(row, j) -= a2(currentRow, j) * value;
-					b2(row, j) -= b2(currentRow, j) * value;
+					a2(i, j) -= a2(currentRow, j) * value;
+					b2(i, j) -= b2(currentRow, j) * value;
 				}
 			}
 		}
@@ -483,10 +502,11 @@ namespace Pastel
 			positive(scalar(matrix)) ? 1 : -1);
 	}
 
-	template <int N, typename Real>
-	Vector<N, Real> solveLinearSystem(
-		const Matrix<N, N, Real>& a,
-		const Vector<N, Real>& b)
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveLinear(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b)
 	{
 		// The linear system is solved by
 		// Gaussian elimination with back-substitution
@@ -505,66 +525,64 @@ namespace Pastel
 		// where a' is lower triangular
 		// (and 1's on the diagonal).
 
-		for (integer row = 0;row < height;++row)
+		for (integer k = 0;k < height;++k)
 		{
 			// From this row, find the element with
-			// the maximum absolute value (with column >= row).
+			// the maximum absolute value (with column >= k).
 
-			const integer currentColumn = row;
-
-			integer maxAbsColumn = currentColumn;
-			Real maxAbsValue = mabs(a2(row, currentColumn));
-			for (integer column = currentColumn + 1;column < width;++column)
+			integer maxAbsColumn = k;
+			Real maxAbsValue = mabs(a2(k, k));
+			for (integer j = k + 1;j < width;++j)
 			{
-				const Real currentAbsValue = mabs(a2(row, column));
+				const Real currentAbsValue = mabs(a2(k, j));
 				if (currentAbsValue > maxAbsValue)
 				{
-					maxAbsColumn = column;
+					maxAbsColumn = j;
 					maxAbsValue = currentAbsValue;
 				}
 			}
 
 			// Now swap columns (if necessary) so that the maximum
-			// absolute value will be at (row, row).
+			// absolute value will be at (k, k).
 
-			if (maxAbsColumn != currentColumn)
+			if (maxAbsColumn != k)
 			{
 				using std::swap;
 
-				for (integer i = row;i < height;++i)
+				for (integer i = k;i < height;++i)
 				{
-					swap(a2(i, currentColumn), a2(i, maxAbsColumn));
+					swap(a2(i, k), a2(i, maxAbsColumn));
 				}
 
-				swap(b2[currentColumn], b2[maxAbsColumn]);
+				swap(b2[k], b2[maxAbsColumn]);
 			}
 
-			// Scale the column 'currentColumn'
-			// such that the value at (row, currentColumn) becomes 1.
+			// Scale the column 'k'
+			// such that the value at (k, k) becomes 1.
 
-			const Real invValue = inverse(a2(row, currentColumn));
+			const Real invValue = inverse(a2(k, k));
 
-			a2(row, currentColumn) = 1;
-			for (integer j = row + 1;j < height;++j)
+			a2(k, k) = 1;
+			for (integer j = k + 1;j < height;++j)
 			{
-				a2(j, currentColumn) *= invValue;
+				a2(j, k) *= invValue;
 			}
 
-			b2[currentColumn] *= invValue;
+			b2[k] *= invValue;
 
-			// Use the column 'currentColumn' to clear out the
-			// matrix to zero for the rest of the row.
+			// Use the column 'k' to clear out the
+			// matrix to zero for the rest of the k.
 
-			for (integer column = row + 1;column < width;++column)
+			for (integer j = k + 1;j < width;++j)
 			{
-				const Real value = a2(row, column);
-				a2(row, column) = 0;
-				for (integer j = row + 1;j < N;++j)
+				const Real value = a2(k, j);
+				a2(k, j) = 0;
+				for (integer i = k + 1;i < height;++i)
 				{
-					a2(j, column) -= a2(j, currentColumn) * value;
+					a2(i, j) -= a2(i, k) * value;
 				}
 
-				b2[column] -= b2[currentColumn] * value;
+				b2[j] -= b2[k] * value;
 			}
 		}
 
@@ -573,35 +591,23 @@ namespace Pastel
 		// Where a' is lower triangular
 		// (and 1's on the diagonal).
 
-		// Use back substitution to solve for x.
-
-		for (integer row = height - 1;row >= 1;--row)
-		{
-			const integer currentColumn = row;
-
-			const Real value = b2[currentColumn];
-
-			for (integer column = currentColumn - 1; column >= 0;--column)
-			{
-				b2[column] -= a2(row, column) * value;
-			}
-		}
-
-		return b2;
+		return solveUnitLowerTriangular(a2, b2);
 	}
 
-	template <typename Real>
-	Vector<1, Real> solveLinearSystem(
-		const Matrix<1, 1, Real>& a,
-		const Vector<1, Real>& b)
+	template <typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<1, Real> solveLinear(
+		const MatrixExpression<1, 1, Real, Expression_A>& a,
+		const VectorExpression<1, Real, Expression_B>& b)
 	{
 		return b * inverse(a(0, 0));
 	}
 
-	template <typename Real>
-	Vector<2, Real> solveLinearSystem(
-		const Matrix<2, 2, Real>& a,
-		const Vector<2, Real>& b)
+	template <typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<2, Real> solveLinear(
+		const MatrixExpression<2, 2, Real, Expression_A>& a,
+		const VectorExpression<2, Real, Expression_B>& b)
 	{
 		// Using Cramers rule
 
@@ -614,25 +620,154 @@ namespace Pastel
 		return Vector<2, Real>(det0 * invDet, det1 * invDet);
 	}
 
-	template <int N, int M, typename Real>
-	Vector<N, Real> solveBandedLinearSystem(
-		const Matrix<N, M, Real>& a,
-		integer leftBandWidth,
-		integer rightBandWidth,
-		const Vector<N, Real>& b)
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveLowerTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b)
 	{
-		ENSURE1(leftBandWidth >= 0, leftBandWidth);
-		ENSURE1(rightBandWidth >= 0, rightBandWidth);
+		ENSURE2(a.width() == a.height(), 
+			a.width(), a.height());
+		ENSURE2(b.size() == a.width(), 
+			b.size(), a.width());
 
-		const integer width = a.width();
-		const integer height = a.height();
+		const integer n = a.height();
 
-		const integer bandWidth =
-			leftBandWidth + rightBandWidth + 1;
+		Vector<N, Real> b2 = b;
+		
+		// We want to solve the system
+		// x^T A = b^T
+		// where A is lower triangular.
 
-		ENSURE2(bandWidth == width, bandWidth, width);
+		// Use back substitution to solve for x.
 
-		return Vector<N, Real>();
+		for (integer i = n - 1;i >= 0;--i)
+		{
+			b2[i] /= a(i, i);
+			
+			const Real factor = b2[i];
+
+			for (integer j = 0;j < i;++j)
+			{
+				b2[j] -= a(i, j) * factor;
+			}
+		}
+
+		return b2;
+	}
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveUnitLowerTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b)
+	{
+		ENSURE2(a.width() == a.height(), 
+			a.width(), a.height());
+		ENSURE2(b.size() == a.width(), 
+			b.size(), a.width());
+
+		const integer n = a.height();
+
+		Vector<N, Real> b2 = b;
+		
+		// We want to solve the system
+		// x^T A = b^T
+		// where A is unit lower triangular
+		// (1' on the diagonal).
+
+		// Use back substitution to solve for x.
+
+		for (integer i = n - 1;i > 0;--i)
+		{
+			const Real factor = b2[i];
+
+			for (integer j = 0;j < i;++j)
+			{
+				b2[j] -= a(i, j) * factor;
+			}
+		}
+
+		return b2;
+	}
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveUpperTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b)
+	{
+		ENSURE2(a.width() == a.height(), 
+			a.width(), a.height());
+		ENSURE2(b.size() == a.width(), 
+			b.size(), a.width());
+
+		const integer n = a.height();
+
+		Vector<N, Real> b2 = b;
+		
+		// We want to solve the system
+		// x^T A = b^T
+		// where A is unit upper triangular
+		// (1' on the diagonal).
+
+		// Use forward substitution to solve for x.
+
+		for (integer i = 0;i < n;++i)
+		{
+			b2[i] /= a(i, i);
+
+			const Real factor = b2[i];
+
+			for (integer j = i + 1;j < n;++j)
+			{
+				b2[j] -= a(i, j) * factor;
+			}
+		}
+
+		return b2;
+	}
+
+	//! Solves a unit upper triangular linear system A^T x = b <=> x^T A = b^T.
+	/*!
+	A unit upper triangular matrix is one which has
+	1's on the diagonal. This makes for somewhat faster
+	computation than the more general 'solveUpperTriangular'.
+	*/
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveUnitUpperTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b)
+	{
+		ENSURE2(a.width() == a.height(), 
+			a.width(), a.height());
+		ENSURE2(b.size() == a.width(), 
+			b.size(), a.width());
+
+		const integer n = a.height();
+
+		Vector<N, Real> b2 = b;
+		
+		// We want to solve the system
+		// x^T A = b^T
+		// where A is unit upper triangular
+		// (1' on the diagonal).
+
+		// Use forward substitution to solve for x.
+
+		for (integer i = 0;i < n - 1;++i)
+		{
+			const Real factor = b2[i];
+
+			for (integer j = i + 1;j < n;++j)
+			{
+				b2[j] -= a(i, j) * factor;
+			}
+		}
+
+		return b2;
 	}
 
 }

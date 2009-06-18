@@ -8,38 +8,6 @@ using namespace Pastel;
 namespace
 {
 
-	template <int N>
-	void testLu()
-	{
-		integer bad = 0;
-
-		for (integer i = 0;i < 10000;++i)
-		{
-			Matrix<N, N, real> m;
-			setRandomMatrix(m);
-
-			LuDecomposition<N, real> lu(m);
-
-			if (!lu.singular())
-			{
-				Vector<N, real> b = randomVectorCube<N, real>();
-
-				Vector<N, real> x;
-				solveLinearSystem(lu, b, x);
-
-				const Vector<N, real> residual = m * x - b;
-				const real normResidual = norm(residual);
-
-				if (normResidual > 0.0001)
-				{
-					++bad;
-				}
-			}
-		}
-
-		REPORT1(bad >= 100, bad);
-	}
-
 	void testMatrixLowDimensional()
 	{
 		{
@@ -225,21 +193,12 @@ namespace
 
 			const Vector<N, real> b(randomVectorCube<N, real>());
 
-			const Vector<N, real> x(solveLinearSystem(a, b));
+			const Vector<N, real> x(solveLinear(a, b));
 
-			const Vector<N, real> result(
-				mabs(x * a - b));
+			const real error =
+				norm(x * a - b);
 
-			bool ok = true;
-			for (integer j = 0;j < N;++j)
-			{
-				if (result[j] >= 0.0001)
-				{
-					ok = false;
-					break;
-				}
-			}
-			if (ok)
+			if (error < 0.001)
 			{
 				++count;
 			}
@@ -262,11 +221,6 @@ namespace
 		testMatrixInverse<3>();
 		testMatrixInverse<4>();
 		testMatrixInverse<5>();
-		testLu<1>();
-		testLu<2>();
-		testLu<3>();
-		testLu<4>();
-		testLu<5>();
 	}
 
 	void testAdd()

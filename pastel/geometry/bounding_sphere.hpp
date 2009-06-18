@@ -406,7 +406,7 @@ namespace Pastel
 		// u^T D^T D = b^T
 
 		const Vector<M, Real> u = 
-			solveLinearSystem(ddt, b);
+			solveLinear(ddt, b);
 
 		const Vector<N, Real> translation = 
 			u * d;

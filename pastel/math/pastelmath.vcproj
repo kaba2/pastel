@@ -572,6 +572,26 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Qr decomposition"
+					>
+					<File
+						RelativePath=".\qr_decomposition.h"
+						>
+					</File>
+					<File
+						RelativePath=".\qr_decomposition.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\qr_decomposition_tools.h"
+						>
+					</File>
+					<File
+						RelativePath=".\qr_decomposition_tools.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Eigenvectors"

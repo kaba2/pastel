@@ -65,6 +65,17 @@ namespace Pastel
 	void swapColumns(Matrix<Height, Width, Real>& matrix,
 		integer aColumn, integer bColumn);
 
+	//! Returns the identity matrix.
+
+	template <int Height, int Width, typename Real>
+	MatrixDiagonal<Height, Width, Real> identityMatrix();
+
+	//! Returns the identity matrix.
+
+	template <int Height, int Width, typename Real>
+	MatrixDiagonal<Height, Width, Real> identityMatrix(
+		integer height, integer width);
+
 	template <
 		int Height, int Width,
 		typename Real,
@@ -91,9 +102,9 @@ namespace Pastel
 	the identity matrix is returned.
 	*/
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Matrix<N, N, Real> inverse(
-		const Matrix<N, N, Real>& input);
+		const MatrixExpression<N, N, Real, Expression>& a);
 
 	//! Returns the adjugate matrix of the given matrix.
 
@@ -131,29 +142,79 @@ namespace Pastel
 	Matrix<1, 1, Real> cofactor(
 		const Matrix<1, 1, Real>& matrix);
 
-	//! Solves a system of linear equations xA = b.
+	//! Solves a linear system x^T A = b^T.
 
-	template <int N, typename Real>
-	Vector<N, Real> solveLinearSystem(
-		const Matrix<N, N, Real>& a,
-		const Vector<N, Real>& b);
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveLinear(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b);
 
-	template <typename Real>
-	Vector<1, Real> solveLinearSystem(
-		const Matrix<1, 1, Real>& a,
-		const Vector<1, Real>& b);
+	//! Solves a linear system x^T A = b^T.
 
-	template <typename Real>
-	Vector<2, Real> solveLinearSystem(
-		const Matrix<2, 2, Real>& a,
-		const Vector<2, Real>& b);
+	template <typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<1, Real> solveLinear(
+		const MatrixExpression<1, 1, Real, Expression_A>& a,
+		const VectorExpression<1, Real, Expression_B>& b);
 
-	//! Solves a banded system of linear equations xA = b.
+	//! Solves a linear system x^T A = b^T.
 
-	template <int N, int M, typename Real>
-	Vector<N, Real> solveBandedLinearSystem(
-		const Matrix<N, M, Real>& a,
-		const Vector<N, Real>& b);
+	template <typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<2, Real> solveLinear(
+		const MatrixExpression<2, 2, Real, Expression_A>& a,
+		const VectorExpression<2, Real, Expression_B>& b);
+
+	//! Solves a lower triangular linear system x^T A = b^T.
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveLowerTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b);
+
+	//! Solves a unit lower triangular linear system x^T A = b^T.
+	/*!
+	A unit lower triangular matrix is one which has
+	1's on the diagonal. This makes for somewhat faster
+	computation than the more general 'solveLowerTriangular'.
+	More importantly however, the diagonal values are never used.
+	This fact makes it possible to use this function with packed lu
+	decompositions (in which both matrices are packed into the same
+	matrix with implicit 1's on the diagonal of either one).
+	*/
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveUnitLowerTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b);
+
+	//! Solves an upper triangular linear system x^T A = b^T.
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveUpperTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b);
+
+	//! Solves a unit upper triangular linear system x^T A = b^T.
+	/*!
+	A unit upper triangular matrix is one which has
+	1's on the diagonal. This makes for somewhat faster
+	computation than the more general 'solveUpperTriangular'.
+	More importantly however, the diagonal values are never used.
+	This fact makes it possible to use this function with packed lu
+	decompositions (in which both matrices are packed into the same
+	matrix with implicit 1's on the diagonal of either one).
+	*/
+
+	template <int N, typename Real, 
+		typename Expression_A, typename Expression_B>
+	Vector<N, Real> solveUnitUpperTriangular(
+		const MatrixExpression<N, N, Real, Expression_A>& a,
+		const VectorExpression<N, Real, Expression_B>& b);
 
 }
 

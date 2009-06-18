@@ -216,6 +216,16 @@ namespace Pastel
 		}
 
 		template <int N, typename Type>
+		void ArrayBase<N, Type>::set(
+			const Type& that)
+		{
+			if (data_)
+			{
+				std::fill(data_, data_ + size_, that);
+			}
+		}
+
+		template <int N, typename Type>
 		ArrayBase<N, Type>& ArrayBase<N, Type>::operator=(
 			const ArrayBase& that)
 		{
