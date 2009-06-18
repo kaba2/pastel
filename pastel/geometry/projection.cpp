@@ -239,7 +239,7 @@ namespace Pastel
 		target[6] = to[2][1];
 		target[7] = to[3][1];
 
-		const Vector<8, real> solution = solveLinearSystem(matrix, target);
+		const Vector<8, real> solution = solveLinear(matrix, target);
 
 		return Matrix3(
 			solution[0], solution[3], solution[6],

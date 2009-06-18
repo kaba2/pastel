@@ -2,81 +2,72 @@
 #define PASTEL_LUDECOMPOSITION_TOOLS_HPP
 
 #include "pastel/math/ludecomposition_tools.h"
+#include "pastel/math/matrix_tools.h"
 
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	void solveLinearSystem(
+	template <int N, typename Real, typename Expression>
+	Vector<N, Real> solveLinear(
 		const LuDecomposition<N, Real>& lu,
-		const Vector<N, Real>& b,
-		Vector<N, Real>& result)
+		const VectorExpression<N, Real, Expression>& b)
 	{
 		const Matrix<N, N, Real>& packedLu = lu.packedLu();
 
-		const integer width = packedLu.width();
-		const integer height = packedLu.height();
+		const integer n = packedLu.width();
 
-		ENSURE2(width == height, width, height);
-		ENSURE2(b.size() == width, b.size(), width);
+		ENSURE2(b.size() == n, b.size(), n);
 
 		if (lu.singular())
 		{
-			return;
+			return Vector<N, Real>(ofDimension(n));
 		}
+
+		/*
+		x^T PLU = b^T
+
+		First solve for z:
+		z^T U = b^T
+		
+		Then solve for y:
+		y^T L = z^T
+
+		Then solve for x:
+		x^T P = y^T
+		*/
+
+		const Vector<N, Real> y = 
+			solveUnitLowerTriangular(lu.packedLu(),
+			solveUpperTriangular(lu.packedLu(), b));
+
+		Vector<N, Real> x(ofDimension(n));
 
 		const Tuple<N, integer>& rowPermutation = lu.rowPermutation();
-
-		// First solve for y:
-		// Ly = Pb
-
-		// Forward substitution.
-
-		Vector<N, Real> y;
-		for (integer i = 0;i < height;++i)
+		for (integer i = 0;i < n;++i)
 		{
-			Real yi = b[rowPermutation[i]];
-			for (integer j = 0;j < i;++j)
-			{
-				yi -= packedLu(i, j) * y[j];
-			}
-			y[i] = yi;
-
-			// No need to divide since the divisor is 1.
+			x[rowPermutation[i]] = y[i];
 		}
-
-		// Then solve for x:
-		// Ux = y
-
-		// Back substitution.
-
-		Vector<N, Real> x;
-		for (integer i = height - 1;i >= 0;--i)
-		{
-			Real xi = y[i];
-			for (integer j = i + 1;j < width;++j)
-			{
-				xi -= packedLu(i, j) * x[j];
-			}
-			x[i] = xi / packedLu(i, i);
-		}
-
-		x.swap(result);
+		
+		return x;
 	}
 
 	template <int N, typename Real>
 	Real determinant(
 		const LuDecomposition<N, Real>& lu)
 	{
-		const integer size = lu.packedLu().width();
-		Real result = lu.evenPermutation() ? 1 : -1;
-		
-		for (integer i = 0;i < size;++i)
+		if (lu.singular())
 		{
-			result *= lu.packedLu()(i, i);
+			return 0;
 		}
 
-		return result;
+		const Real value = diagonalProduct(lu.packedLu());
+
+		if (lu.evenPermutation())
+		{
+			return value;
+		}
+
+		return -value;
 	}
 
 }

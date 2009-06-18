@@ -96,6 +96,8 @@ namespace Pastel
 		integer width() const;
 		integer height() const;
 
+		void set(const Real& that);
+
 		template <typename Type>
 		bool involves(const Type* address) const;
 

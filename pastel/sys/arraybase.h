@@ -70,6 +70,9 @@ namespace Pastel
 			//! Returns the number of elements in the array.
 			integer size() const;
 
+			//! Sets all the elements to the given value.
+			void set(const Type& that);
+
 			//! Copies from another array.
 			ArrayBase<N, Type>& operator=(const ArrayBase& that);
 

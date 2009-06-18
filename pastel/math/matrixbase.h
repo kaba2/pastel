@@ -82,6 +82,14 @@ namespace Pastel
 				}
 			}
 
+			void set(const Real& that)
+			{
+				for (integer y = 0;y < Height;++y)
+				{
+					data_[y].set(that);
+				}
+			}
+
 			Real& operator()(integer y, integer x)
 			{
 				PENSURE2(y >= 0 && y < Height, y, Height);

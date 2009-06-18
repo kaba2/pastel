@@ -5,7 +5,7 @@
 #include "pastel/sys/tuple_tools.h"
 
 #include "pastel/math/rational_tools.h"
-#include "pastel/math/ludecomposition.h"
+#include "pastel/math/ludecomposition_tools.h"
 
 using namespace Pastel;
 
@@ -14,6 +14,37 @@ namespace
 
 	typedef NativeInteger<integer> Integer;
 	typedef Rational<Integer> Real;
+
+	template <int N>
+	void testLuCase()
+	{
+		integer bad = 0;
+
+		for (integer i = 0;i < 10000;++i)
+		{
+			Matrix<N, N, real> m;
+			setRandomMatrix(m);
+
+			LuDecomposition<N, real> lu(m);
+
+			if (!lu.singular())
+			{
+				const Vector<N, real> b = randomVectorCube<N, real>();
+
+				const Vector<N, real> x = solveLinear(lu, b);
+
+				const Vector<N, real> residual = x * m - b;
+				const real normResidual = norm(residual);
+
+				if (normResidual > 0.0001)
+				{
+					++bad;
+				}
+			}
+		}
+
+		REPORT1(bad >= 100, bad);
+	}
 
 	void testLu()
 	{
@@ -51,11 +82,17 @@ namespace
 			//std::cout << lu.packedLu() << std::endl;
 			//std::cout << lu.rowPermutation() << std::endl;
 		}
+
+		testLuCase<1>();
+		testLuCase<2>();
+		testLuCase<3>();
+		testLuCase<4>();
+		testLuCase<5>();
 	}
 
 	void testAdd()
 	{
-		mathTestList().add("ludecomposition", testLu);
+		mathTestList().add("lu_decomposition", testLu);
 	}
 
 	CallFunction run(testAdd);

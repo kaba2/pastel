@@ -88,6 +88,12 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	void Matrix<Dynamic, Dynamic, Real>::set(const Real& that)
+	{
+		data_.set(that);
+	}
+
+	template <typename Real>
 	template <typename Type>
 	bool Matrix<Dynamic, Dynamic, Real>::involves(const Type* address) const
 	{

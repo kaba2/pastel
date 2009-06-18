@@ -13,10 +13,10 @@
 namespace Pastel
 {
 
-	template <int Height, int Width, typename Real>
+	template <int Height, int Width, typename Real, typename Expression>
 	std::ostream& operator<<(
 		std::ostream& stream,
-		const Matrix<Height, Width, Real>& m);
+		const MatrixExpression<Height, Width, Real, Expression>& m);
 
 }
 

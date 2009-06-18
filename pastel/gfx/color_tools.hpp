@@ -329,7 +329,7 @@ namespace Pastel
 			xyzBlue);
 
 		const Color primaryWeights(
-			solveLinearSystem(primaryMatrix, xyzWhite));
+			solveLinear(primaryMatrix, xyzWhite));
 
 		// Use the weights to form the final transformation
 		// matrix.
