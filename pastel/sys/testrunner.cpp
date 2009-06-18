@@ -57,17 +57,7 @@ namespace Pastel
 			return;
 		}
 
-		log() << logNewLine;
 		log() << iter->first << logNewLine;
-
-		std::string underline;
-		for (integer i = 0;i < iter->first.size();++i)
-		{
-			underline += '-';
-		}
-
-		log() << underline << logNewLine;
-		log() << logNewLine;
 
 		Function function = iter->second;
 		if (!REPORT(!function))

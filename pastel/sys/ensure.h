@@ -7,6 +7,7 @@
 #define PASTEL_ENSURE_H
 
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/mytypes.h"
 
 // Reports
 
@@ -14,16 +15,16 @@
 	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__), true))
 
 #define REPORT1(expr, a)\
-	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (double)(a)), true))
+	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (real64)(a)), true))
 
 #define REPORT2(expr, a, b)\
-	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b)), true))
+	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b)), true))
 
 #define REPORT3(expr, a, b, c)\
-	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b), #c, (double)(c)), true))
+	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c)), true))
 
 #define REPORT4(expr, a, b, c, d)\
-	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b), #c, (double)(c), #d, (double)(d)), true))
+	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d)), true))
 
 // Errors
 
@@ -31,16 +32,16 @@
 {if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__);}}
 
 #define ENSURE1(expr, a)\
-{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (double)(a));}}
+{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (real64)(a));}}
 
 #define ENSURE2(expr, a, b)\
-{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b));}}
+{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
 
 #define ENSURE3(expr, a, b, c)\
-{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b), #c, (double)(c));}}
+{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
 
 #define ENSURE4(expr, a, b, c, d)\
-{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b), #c, (double)(c), #d, (double)(d));}}
+{if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
 // PENSURES
 
@@ -78,16 +79,16 @@
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__);}}
 
 #define ASSERT1(expr, a)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (double)(a));}}
+{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a));}}
 
 #define ASSERT2(expr, a, b)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b));}}
+{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b));}}
 
 #define ASSERT3(expr, a, b, c)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b), #c, (double)(c));}}
+{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c));}}
 
 #define ASSERT4(expr, a, b, c, d)\
-{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (double)(a), #b, (double)(b), #c, (double)(c), #d, (double)(d));}}
+{if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
 #endif
 
@@ -102,30 +103,30 @@ namespace Pastel
 		PASTELSYS void report(
 			const char* testText = 0,
 			const char* fileName = 0, int lineNumber = -1,
-			const char* info1Name = 0, double info1 = 0,
-			const char* info2Name = 0, double info2 = 0,
-			const char* info3Name = 0, double info3 = 0,
-			const char* info4Name = 0, double info4 = 0);
+			const char* info1Name = 0, real64 info1 = 0,
+			const char* info2Name = 0, real64 info2 = 0,
+			const char* info3Name = 0, real64 info3 = 0,
+			const char* info4Name = 0, real64 info4 = 0);
 
 		// Prints an error message and aborts the program.
 
 		PASTELSYS void error(
 			const char* testText = 0,
 			const char* fileName = 0, int lineNumber = -1,
-			const char* info1Name = 0, double info1 = 0,
-			const char* info2Name = 0, double info2 = 0,
-			const char* info3Name = 0, double info3 = 0,
-			const char* info4Name = 0, double info4 = 0);
+			const char* info1Name = 0, real64 info1 = 0,
+			const char* info2Name = 0, real64 info2 = 0,
+			const char* info3Name = 0, real64 info3 = 0,
+			const char* info4Name = 0, real64 info4 = 0);
 
 		// Prints an error message and aborts the program.
 
 		PASTELSYS void assertionError(
 			const char* testText = 0,
 			const char* fileName = 0, int lineNumber = -1,
-			const char* info1Name = 0, double info1 = 0,
-			const char* info2Name = 0, double info2 = 0,
-			const char* info3Name = 0, double info3 = 0,
-			const char* info4Name = 0, double info4 = 0);
+			const char* info1Name = 0, real64 info1 = 0,
+			const char* info2Name = 0, real64 info2 = 0,
+			const char* info3Name = 0, real64 info3 = 0,
+			const char* info4Name = 0, real64 info4 = 0);
 
 	}
 

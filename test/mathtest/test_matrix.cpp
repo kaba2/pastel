@@ -156,55 +156,95 @@ namespace
 	template <int N>
 	void testMatrixInverse()
 	{
-		log() << "Inverting 10000 " << N << " x " << N << " matrices." << logNewLine;
+		const integer n = (N == Dynamic) ? 10 : N;
 
-		const integer matrices = 10000;
+		const integer matrices = 1000;
 
 		integer count = 0;
 
 		for (integer i = 0;i < matrices;++i)
 		{
-			Matrix<N, N, real> m;
+			Matrix<N, N, real> m(n, n);
 			setRandomMatrix(m);
 			const Matrix<N, N, real> mInv(inverse(m));
 
-			Matrix<N, N, real> result = m * mInv - Matrix<N, N, real>();
+			Matrix<N, N, real> result = m * mInv - Matrix<N, N, real>(n, n);
 			modify(result, (real (*)(real))mabs);
-			if (max(result) < 0.0001)
+			if (max(result) > 0.001)
 			{
 				++count;
 			}
 		}
 
-		REPORT1(count < 9950, count);
+		REPORT1(count > 10, count);
+	}
+
+	template <int N>
+	void testMatrixMultiply()
+	{
+		const integer n = (N == Dynamic) ? 10 : N;
+
+		const integer matrices = 1000;
+
+		integer count = 0;
+
+		for (integer i = 0;i < matrices;++i)
+		{
+			Matrix<N, N, real> a(n, n);
+			setRandomMatrix(a);
+
+			Matrix<N, N, real> b(n, n);
+			setRandomMatrix(b);
+
+			Vector<N, real> v = randomVectorCube<N, real>(n);
+
+			Vector<N, real> result1 = v * (a * b);
+			Vector<N, real> result2 = (v * a) * b;
+
+			a *= b;
+
+			Vector<N, real> result3 = v * a;
+
+			const real error1 = norm(result1 - result2);
+			const real error2 = norm(result3 - result2);
+			if (error1 > 0.001 ||
+				error2 > 0.001)
+			{
+				++count;
+			}
+		}
+
+		REPORT1(count > 10, count);
 	}
 
 	template <int N>
 	void testMatrixSolve()
 	{
-		const integer iterations = 10000;
+		const integer iterations = 1000;
+
+		const integer n = (N == Dynamic) ? 10 : N;
 
 		integer count = 0;
 
 		for (integer i = 0;i < iterations;++i)
 		{
-			Matrix<N, N, real> a;
+			Matrix<N, N, real> a(n, n);
 			setRandomMatrix(a);
 
-			const Vector<N, real> b(randomVectorCube<N, real>());
+			const Vector<N, real> b(randomVectorCube<N, real>(n));
 
 			const Vector<N, real> x(solveLinear(a, b));
 
 			const real error =
 				norm(x * a - b);
 
-			if (error < 0.001)
+			if (error > 0.001)
 			{
 				++count;
 			}
 		}
 
-		REPORT1(count < 9950, count);
+		REPORT1(count > 10, count);
 	}
 
 	void testBegin()
@@ -216,11 +256,19 @@ namespace
 		testMatrixSolve<3>();
 		testMatrixSolve<4>();
 		testMatrixSolve<5>();
+		testMatrixSolve<Dynamic>();
 		testMatrixInverse<1>();
 		testMatrixInverse<2>();
 		testMatrixInverse<3>();
 		testMatrixInverse<4>();
 		testMatrixInverse<5>();
+		testMatrixInverse<Dynamic>();
+		testMatrixMultiply<1>();
+		testMatrixMultiply<2>();
+		testMatrixMultiply<3>();
+		testMatrixMultiply<4>();
+		testMatrixMultiply<5>();
+		testMatrixMultiply<Dynamic>();
 	}
 
 	void testAdd()

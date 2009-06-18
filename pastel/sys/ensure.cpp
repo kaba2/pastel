@@ -12,10 +12,10 @@ namespace Pastel
 		PASTELSYS void report(
 			const char* testText,
 			const char* fileName, int lineNumber,
-			const char* info1Name, double info1,
-			const char* info2Name, double info2,
-			const char* info3Name, double info3,
-			const char* info4Name, double info4)
+			const char* info1Name, real64 info1,
+			const char* info2Name, real64 info2,
+			const char* info3Name, real64 info3,
+			const char* info4Name, real64 info4)
 		{
 			log() << "Report:" << logNewLine;
 
@@ -93,10 +93,10 @@ namespace Pastel
 		PASTELSYS void error(
 			const char* testText,
 			const char* fileName, int lineNumber,
-			const char* info1Name, double info1,
-			const char* info2Name, double info2,
-			const char* info3Name, double info3,
-			const char* info4Name, double info4)
+			const char* info1Name, real64 info1,
+			const char* info2Name, real64 info2,
+			const char* info3Name, real64 info3,
+			const char* info4Name, real64 info4)
 		{
 			log() << logNewLine;
 			log() << "Precondition check failed."
@@ -119,10 +119,10 @@ namespace Pastel
 		PASTELSYS void assertionError(
 			const char* testText,
 			const char* fileName, int lineNumber,
-			const char* info1Name, double info1,
-			const char* info2Name, double info2,
-			const char* info3Name, double info3,
-			const char* info4Name, double info4)
+			const char* info1Name, real64 info1,
+			const char* info2Name, real64 info2,
+			const char* info3Name, real64 info3,
+			const char* info4Name, real64 info4)
 		{
 			log() << logNewLine;
 			log() << "Internal check failed." << logNewLine;
