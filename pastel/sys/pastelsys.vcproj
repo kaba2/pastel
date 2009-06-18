@@ -701,11 +701,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\testreport.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\testreport.h"
+				>
+			</File>
+			<File
 				RelativePath=".\testrunner.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\testrunner.h"
+				>
+			</File>
+			<File
+				RelativePath=".\testsuite.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\testsuite.h"
 				>
 			</File>
 		</Filter>

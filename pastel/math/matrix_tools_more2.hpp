@@ -109,7 +109,7 @@ namespace Pastel
 			}
 		}
 		
-		result = qr.qTransposed() * diagonal(rSign) * qr.qTransposed();
+		result = diagonal(rSign) * qr.qTransposed();
 	}
 
 	template <int Height, int Width, typename Real>
