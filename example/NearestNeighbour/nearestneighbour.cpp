@@ -416,15 +416,13 @@ void handleKeyboard()
 	{
 		const AffineTransformation2 transformation(renderer__->viewTransformation());
 		renderer__->setViewTransformation(
-			rotation2<real>(RotationSpeed) *
-			transformation);
+			rotation2<real>(RotationSpeed) * transformation);
 	}
 	if (deviceSystem().keyDown(SDLK_e))
 	{
 		const AffineTransformation2 transformation(renderer__->viewTransformation());
 		renderer__->setViewTransformation(
-			rotation2<real>(-RotationSpeed) *
-			transformation);
+			rotation2<real>(-RotationSpeed) * transformation);
 	}
 	if (deviceSystem().keyDown(SDLK_a))
 	{

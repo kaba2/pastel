@@ -99,64 +99,6 @@ namespace Pastel
 		return MatrixDiagonal<Height, Width, Real>(height, width, 1);
 	}
 
-	template <
-		int Height, int Width,
-		typename Real,
-		typename VectorExpression>
-	class MatrixVectorDiagonal
-		: public MatrixExpression<Height, Width, Real,
-		MatrixVectorDiagonal<Height, Width, Real, VectorExpression> >
-	{
-	public:
-		typedef const MatrixVectorDiagonal& StorageType;
-
-		explicit MatrixVectorDiagonal(
-			const VectorExpression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator()(integer y, integer x) const
-		{
-			if (x == y)
-			{
-				return data_[x];
-			}
-
-			return 0;
-		}
-
-		integer width() const
-		{
-			return data_.size();
-		}
-
-		integer height() const
-		{
-			return data_.size();
-		}
-
-		template <typename Type>
-		bool involves(
-			const Type* address) const
-		{
-			// FIX: The vector expression should be checked
-			// for the presence of the given address.
-			return false;
-		}
-
-	private:
-		typename VectorExpression::StorageType data_;
-	};
-
-	template <int N, typename Real, typename Expression>
-	MatrixVectorDiagonal<N, N, Real, Expression> diagonal(
-		const VectorExpression<N, Real, Expression>& that)
-	{
-		return MatrixVectorDiagonal<N, N, Real, Expression>(
-			(const Expression&)that);
-	}
-
 	template <int Height, int Width, typename Real>
 	void swapRows(Matrix<Height, Width, Real>& matrix,
 		integer aRow, integer bRow)
@@ -230,10 +172,21 @@ namespace Pastel
 			return data_.width();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
+			return 
+				this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			// With transpose the involvement
+			// of a subexpression becomes non-trivial,
+			// so any occurence will do.
+
 			return data_.involves(address);
 		}
 

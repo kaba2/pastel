@@ -60,6 +60,13 @@ namespace Pastel
 			ENSURE2(height == Height, height, Height);
 		}
 
+		template <typename Expression>
+		Matrix<Height, Width, Real>& operator=(
+			const MatrixExpression<Height, Width, Real, Expression>& that)
+		{
+			return Base::operator=(that);
+		}
+
 		// Used for concept checking.
 		~Matrix()
 		{
@@ -98,8 +105,8 @@ namespace Pastel
 
 		void set(const Real& that);
 
-		template <typename Type>
-		bool involves(const Type* address) const;
+		bool involves(void* address) const;
+		bool involvesNonTrivially(void* address) const;
 
 		Real& operator()(integer y, integer x);
 		const Real& operator()(integer y, integer x) const;
@@ -182,6 +189,13 @@ namespace Pastel
 			m(0, 0) = m00;
 		}
 
+		template <typename Expression>
+		Matrix<Height, Width, Real>& operator=(
+			const MatrixExpression<Height, Width, Real, Expression>& that)
+		{
+			return Base::operator=(that);
+		}
+
 		//! Sets the element of the matrix.
 		void set(
 			const Real& m00)
@@ -245,6 +259,13 @@ namespace Pastel
 			m(0, 1) = m01;
 			m(1, 0) = m10;
 			m(1, 1) = m11;
+		}
+
+		template <typename Expression>
+		Matrix<Height, Width, Real>& operator=(
+			const MatrixExpression<Height, Width, Real, Expression>& that)
+		{
+			return Base::operator=(that);
 		}
 
 		//! Sets the elements of the matrix.
@@ -322,6 +343,13 @@ namespace Pastel
 			m(2, 0) = m20;
 			m(2, 1) = m21;
 			m(2, 2) = m22;
+		}
+
+		template <typename Expression>
+		Matrix<Height, Width, Real>& operator=(
+			const MatrixExpression<Height, Width, Real, Expression>& that)
+		{
+			return Base::operator=(that);
 		}
 
 		//! Sets the elements of the matrix.
@@ -419,6 +447,13 @@ namespace Pastel
 			m(3, 1) = m31;
 			m(3, 2) = m32;
 			m(3, 3) = m33;
+		}
+
+		template <typename Expression>
+		Matrix<Height, Width, Real>& operator=(
+			const MatrixExpression<Height, Width, Real, Expression>& that)
+		{
+			return Base::operator=(that);
 		}
 
 		//! Sets the elements of the matrix.

@@ -478,58 +478,6 @@
 			Name="Linear algebra"
 			>
 			<Filter
-				Name="Matrix"
-				>
-				<File
-					RelativePath=".\matrix.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more2.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more2.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more3.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrix_tools_more3.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrixbase.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrixexpression.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Matrix decompositions"
 				>
 				<Filter
@@ -602,6 +550,58 @@
 				</File>
 				<File
 					RelativePath=".\largest_eigenvector.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Matrix"
+				>
+				<File
+					RelativePath=".\matrix.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more2.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more3.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more3.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrixbase.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrixexpression.h"
 					>
 				</File>
 			</Filter>

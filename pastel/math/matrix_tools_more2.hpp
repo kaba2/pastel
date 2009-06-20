@@ -96,20 +96,15 @@ namespace Pastel
 
 		const QrDecomposition<N, Real> qr(result);
 
-		Vector<N, Real> rSign = diagonal(qr.r());
+		result = qr.qTransposed();
+
 		for (integer i = 0;i < n;++i)
 		{
-			if (rSign[i] < 0)
+			if (qr.r()(i, i)  < 0)
 			{
-				rSign[i] = -1;
-			}
-			else
-			{
-				rSign[i] = 1;
+				result[i] = -result[i];
 			}
 		}
-		
-		result = diagonal(rSign) * qr.qTransposed();
 	}
 
 	template <int Height, int Width, typename Real>
