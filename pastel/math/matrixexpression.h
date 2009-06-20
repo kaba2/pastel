@@ -74,11 +74,16 @@ namespace Pastel
 			return ((const Expression&)*this).height();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
 			return ((const Expression&)*this).involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return ((const Expression&)*this).involvesNonTrivially(address);
 		}
 
 		template <typename RightExpression>
@@ -231,11 +236,17 @@ namespace Pastel
 			return data_.height();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
-			return data_.involves(address);
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 
 	private:
@@ -282,12 +293,19 @@ namespace Pastel
 			return left_.height();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
-			return left_.involves(address) ||
+			return this == address ||
+				left_.involves(address) ||
 				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return left_.involvesNonTrivially(address) ||
+				right_.involvesNonTrivially(address);
 		}
 
 	private:
@@ -335,12 +353,19 @@ namespace Pastel
 			return left_.height();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
-			return left_.involves(address) ||
+			return this == address ||
+				left_.involves(address) ||
 				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return left_.involvesNonTrivially(address) ||
+				right_.involvesNonTrivially(address);
 		}
 
 	private:
@@ -394,10 +419,22 @@ namespace Pastel
 			return left_.height();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
+			return this == address ||
+				left_.involves(address) ||
+				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			// With multiplication, the involvement
+			// of a given subexpression becomes
+			// non-trivial. From now on we accept
+			// any occurence.
+
 			return left_.involves(address) ||
 				right_.involves(address);
 		}
@@ -441,11 +478,17 @@ namespace Pastel
 			return data_.height();
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
 		{
-			return data_.involves(address);
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 
 	private:
@@ -495,9 +538,14 @@ namespace Pastel
 			return height_;
 		}
 
-		template <typename Type>
 		bool involves(
-			const Type* address) const
+			void* address) const
+		{
+			return this == address;
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
 		{
 			return false;
 		}

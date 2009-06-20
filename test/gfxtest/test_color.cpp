@@ -92,8 +92,17 @@ namespace
 				xyzToLms(srgbToXyz(Color(1, 1, 1))));
 
 			transform_ =
-				linearSrgbToXyzTransform() * xyzToLmsTransform() *
-				diagonal(evaluate(0.1 * lmsDesired / lmsObserved)) *
+				linearSrgbToXyzTransform() * xyzToLmsTransform();
+
+			for (integer j = 0;j < 3;++j)
+			{
+				for (integer i = 0;i < 3;++i)
+				{
+					transform_(i, j) *= 0.1 * lmsDesired[j] / lmsObserved[j];
+				}
+			}
+
+			transform_ *= 
 				lmsToXyzTransform() * xyzToLinearSrgbTransform();
 
 			std::cout << transform_ << std::endl;

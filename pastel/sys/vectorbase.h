@@ -127,6 +127,16 @@ namespace Pastel
 				return data_.size();
 			}
 
+			bool involves(void* address) const
+			{
+				return this == address;
+			}
+
+			bool involvesNonTrivially(void* address) const
+			{
+				return false;
+			}
+
 			void swap(VectorBase<N, Real>& that)
 			{
 				data_.swap(that.data_);
@@ -169,15 +179,12 @@ namespace Pastel
 				// changed by an assignment.
 
 				const integer n = that.size();
-				if (N == Dynamic && n != size())
+				if (n != size())
 				{
-					// Since we must reallocate, we can
+					// In the case we must reallocate, we can
 					// as well copy construct, so that there
 					// is no redundant initialization.
-					// With fixed N the swap is slow
-					// because it must swap all elements.
-					// Thus this is done only for
-					// N == Dynamic.
+
 					Vector<N, Real> copy(that);
 					swap(copy);
 				}
@@ -206,15 +213,17 @@ namespace Pastel
 				// changed by an assignment.
 
 				const integer n = that.size();
-				if (N == Dynamic && n != size())
+				if (n != size() ||
+					that.involvesNonTrivially(this))
 				{
-					// Since we must reallocate, we can
+					// In the case we must reallocate, we can
 					// as well copy construct, so that there
 					// is no redundant initialization.
-					// With fixed N the swap is slow
-					// because it must swap all elements.
-					// Thus this is done only for
-					// N == Dynamic.
+					
+					// Of course, if the expression involves
+					// this vector as a non-trivial subexpression,
+					// we must copy construct anyway.
+
 					Vector<N, Real> copy(that);
 					swap(copy);
 				}
@@ -307,11 +316,17 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				if (that.involvesNonTrivially(this))
 				{
-					data_[i] += that[i];
+					*this += Vector<N, Real>(that);
+				}
+				else
+				{
+					const integer n = size();
+					for (integer i = 0;i < n;++i)
+					{
+						data_[i] += that[i];
+					}
 				}
 
 				return (Vector<N, Real>&)*this;
@@ -323,11 +338,17 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				if (that.involvesNonTrivially(this))
 				{
-					data_[i] -= that[i];
+					*this -= Vector<N, Real>(that);
+				}
+				else
+				{
+					const integer n = size();
+					for (integer i = 0;i < n;++i)
+					{
+						data_[i] -= that[i];
+					}
 				}
 
 				return (Vector<N, Real>&)*this;
@@ -339,11 +360,17 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				if (that.involvesNonTrivially(this))
 				{
-					data_[i] *= that[i];
+					*this *= Vector<N, Real>(that);
+				}
+				else
+				{
+					const integer n = size();
+					for (integer i = 0;i < n;++i)
+					{
+						data_[i] *= that[i];
+					}
 				}
 
 				return (Vector<N, Real>&)*this;
@@ -355,11 +382,17 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				if (that.involvesNonTrivially(this))
 				{
-					data_[i] /= that[i];
+					*this /= Vector<N, Real>(that);
+				}
+				else
+				{
+					const integer n = size();
+					for (integer i = 0;i < n;++i)
+					{
+						data_[i] /= that[i];
+					}
 				}
 
 				return (Vector<N, Real>&)*this;

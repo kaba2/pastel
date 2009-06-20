@@ -169,6 +169,19 @@ namespace Pastel
 			return expression.size();
 		}
 
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -200,6 +213,19 @@ namespace Pastel
 			const Expression& expression =
 				(const Expression&)data_;
 			return expression.size();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 
 	private:
@@ -235,6 +261,19 @@ namespace Pastel
 			return expression.size();
 		}
 
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -266,6 +305,19 @@ namespace Pastel
 			const Expression& expression =
 				(const Expression&)data_;
 			return expression.size();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 
 	private:
@@ -305,6 +357,21 @@ namespace Pastel
 			return expression.size();
 		}
 
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				left_.involves(address) ||
+				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return left_.involvesNonTrivially(address) ||
+				right_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename LeftExpression::StorageType left_;
 		typename RightExpression::StorageType right_;
@@ -338,6 +405,20 @@ namespace Pastel
 				(const Expression&)data_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -370,6 +451,20 @@ namespace Pastel
 				(const Expression&)data_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -402,6 +497,20 @@ namespace Pastel
 				(const Expression&)data_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -433,6 +542,19 @@ namespace Pastel
 			const Expression& expression =
 				(const Expression&)data_;
 			return expression.size();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 	private:
 		typename Expression::StorageType data_;
@@ -466,6 +588,19 @@ namespace Pastel
 				(const Expression&)data_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -497,6 +632,19 @@ namespace Pastel
 			const Expression& expression =
 				(const Expression&)data_;
 			return expression.size();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 	private:
 		typename Expression::StorageType data_;
@@ -530,6 +678,19 @@ namespace Pastel
 				(const Expression&)data_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
 	private:
 		typename Expression::StorageType data_;
 	};
@@ -561,6 +722,19 @@ namespace Pastel
 			const Expression& expression =
 				(const Expression&)data_;
 			return expression.size();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
 		}
 	private:
 		typename Expression::StorageType data_;
@@ -598,6 +772,21 @@ namespace Pastel
 				(const LeftExpression&)left_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				left_.involves(address) ||
+				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return left_.involvesNonTrivially(address) ||
+				right_.involvesNonTrivially(address); 
+		}
 	private:
 		typename LeftExpression::StorageType left_;
 		typename RightExpression::StorageType right_;
@@ -631,6 +820,20 @@ namespace Pastel
 				(const Expression&)data_;
 			return expression.size();
 		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				data_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return data_.involvesNonTrivially(address);
+		}
+
 	private:
 		typename Expression::StorageType data_;
 	};

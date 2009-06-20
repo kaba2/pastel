@@ -218,6 +218,53 @@ namespace
 	}
 
 	template <int N>
+	void testMatrixAssigns()
+	{
+		// The idea here is to test
+		// for an assignment with an expression
+		// which involves the matrix itself.
+
+		const integer n = (N == Dynamic) ? 10 : N;
+
+		const integer matrices = 1000;
+		for (integer i = 0;i < matrices;++i)
+		{
+			Matrix<N, N, real> a(n, n);
+			setRandomMatrix(a);
+
+			Matrix<N, N, real> b(n, n);
+			b = a;
+
+			ENSURE(b == a);
+
+			a += b;
+			b += b;
+			
+			ENSURE(a == b);
+
+			a -= b;
+			b -= b;
+			
+			ENSURE(a == b);
+
+			a *= b;
+			b *= b;
+			
+			ENSURE(a == b);
+
+			a += identityMatrix<N, N, real>(n, n) + (5 * b);
+			b += identityMatrix<N, N, real>(n, n) + (5 * b);
+			
+			ENSURE(a == b);
+
+			a += identityMatrix<N, N, real>(n, n) + (b * b);
+			b += identityMatrix<N, N, real>(n, n) + (b * b);
+
+			ENSURE(a == b);
+		}
+	}
+
+	template <int N>
 	void testMatrixSolve()
 	{
 		const integer iterations = 1000;
@@ -269,6 +316,12 @@ namespace
 		testMatrixMultiply<4>();
 		testMatrixMultiply<5>();
 		testMatrixMultiply<Dynamic>();
+		testMatrixAssigns<1>();
+		testMatrixAssigns<2>();
+		testMatrixAssigns<3>();
+		testMatrixAssigns<4>();
+		testMatrixAssigns<5>();
+		testMatrixAssigns<Dynamic>();
 	}
 
 	void testAdd()

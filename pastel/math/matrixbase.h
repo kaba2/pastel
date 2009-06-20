@@ -68,10 +68,14 @@ namespace Pastel
 				return Height;
 			}
 
-			template <typename Type>
-			bool involves(const Type* address) const
+			bool involves(void* address) const
 			{
-				return (this == address);
+				return this == address;
+			}
+
+			bool involvesNonTrivially(void* address) const
+			{
+				return false;
 			}
 
 			void swap(Matrix<Height, Width, Real>& that)
@@ -120,18 +124,17 @@ namespace Pastel
 				return data_[y];
 			}
 
-			template <int RightWidth, typename RightExpression>
+			template <typename RightExpression>
 			Matrix<Height, Width, Real>& operator=(
-				const MatrixExpression<Width, RightWidth, Real, RightExpression>& right)
+				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				if (right.involves(this))
+				if (right.involvesNonTrivially(this))
 				{
 					// The right expression contains this matrix
 					// as a subexpression. We thus need to evaluate
 					// the expression first.
 					
-					Matrix<Width, RightWidth, Real> copyRight(right);
-					*this = copyRight;
+					*this = Matrix<Height, Width, Real>(right);
 				}
 				else
 				{
@@ -150,9 +153,9 @@ namespace Pastel
 				return (Matrix<Height, Width, Real>&)*this;
 			}
 
-			template <int RightWidth, typename RightExpression>
+			template <typename RightExpression>
 			Matrix<Height, Width, Real>& operator*=(
-				const MatrixExpression<Width, RightWidth, Real, RightExpression>& right)
+				const MatrixExpression<Width, Width, Real, RightExpression>& right)
 			{
 				Matrix<Height, Width, Real>& left = 
 					(Matrix<Height, Width, Real>&)*this;
@@ -166,24 +169,50 @@ namespace Pastel
 			Matrix<Height, Width, Real>& operator+=(
 				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				Matrix<Height, Width, Real>& left = 
-					(Matrix<Height, Width, Real>&)*this;
+				if (right.involvesNonTrivially(this))
+				{
+					*this += Matrix<Height, Width, Real>(right);
+				}
+				else
+				{
+					Matrix<Height, Width, Real>& left = 
+						(Matrix<Height, Width, Real>&)*this;
 
-				left = left + right;
+					for (integer i = 0;i < Height;++i)
+					{
+						for (integer j = 0;j < Width;++j)
+						{
+							left[i][j] += right(i, j);
+						}
+					}
+				}
 
-				return left;
+				return (Matrix<Height, Width, Real>&)*this;
 			}
 
 			template <typename RightExpression>
 			Matrix<Height, Width, Real>& operator-=(
 				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				Matrix<Height, Width, Real>& left = 
-					(Matrix<Height, Width, Real>&)*this;
+				if (right.involvesNonTrivially(this))
+				{
+					*this -= Matrix<Height, Width, Real>(right);
+				}
+				else
+				{
+					Matrix<Height, Width, Real>& left = 
+						(Matrix<Height, Width, Real>&)*this;
 
-				left = left - right;
+					for (integer i = 0;i < Height;++i)
+					{
+						for (integer j = 0;j < Width;++j)
+						{
+							left[i][j] -= right(i, j);
+						}
+					}
+				}
 
-				return left;
+				return (Matrix<Height, Width, Real>&)*this;
 			}
 
 			// Matrices vs scalars
@@ -201,7 +230,10 @@ namespace Pastel
 				Matrix<Height, Width, Real>& left = 
 					(Matrix<Height, Width, Real>&)*this;
 
-				left = left * right;
+				for (integer i = 0;i < Height;++i)
+				{
+					data_[i] *= right;
+				}
 
 				return left;
 			}
@@ -212,7 +244,7 @@ namespace Pastel
 				Matrix<Height, Width, Real>& left = 
 					(Matrix<Height, Width, Real>&)*this;
 
-				left = left * inverse(right);
+				left *= inverse(right);
 
 				return left;
 			}

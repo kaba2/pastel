@@ -43,16 +43,6 @@ namespace Pastel
 		diagonal(const Matrix<Height, Width, Real>& matrix);
 	*/
 
-	template <
-		int Height, int Width,
-		typename Real,
-		typename VectorExpression>
-	class MatrixVectorDiagonal;
-
-	template <int N, typename Real, typename Expression>
-	MatrixVectorDiagonal<N, N, Real, Expression> diagonal(
-		const VectorExpression<N, Real, Expression>& that);
-
 	//! Swaps two rows in the given matrix.
 
 	template <int Height, int Width, typename Real>

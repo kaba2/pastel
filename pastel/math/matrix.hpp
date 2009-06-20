@@ -94,10 +94,15 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	template <typename Type>
-	bool Matrix<Dynamic, Dynamic, Real>::involves(const Type* address) const
+	bool Matrix<Dynamic, Dynamic, Real>::involves(void* address) const
 	{
-		return (this == address);
+		return this == address;
+	}
+
+	template <typename Real>
+	bool Matrix<Dynamic, Dynamic, Real>::involvesNonTrivially(void* address) const
+	{
+		return false;
 	}
 
 	template <typename Real>
@@ -138,10 +143,10 @@ namespace Pastel
 		Matrix<Dynamic, Dynamic, Real>::operator=(
 		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& right)
 	{
-		if (right.involves(this))
+		if (right.involvesNonTrivially(this))
 		{
 			// The right expression contains this matrix
-			// as a subexpression. We thus need to evaluate
+			// as a non-trivial subexpression. We thus need to evaluate
 			// the expression first.
 			
 			Matrix<Dynamic, Dynamic, Real> copyRight(right);
@@ -149,6 +154,8 @@ namespace Pastel
 		}
 		else
 		{
+			// Else simply copy.
+
 			Matrix<Dynamic, Dynamic, Real>& left = *this;
 
 			const integer leftWidth = width();
@@ -262,6 +269,22 @@ namespace Pastel
 			return left_.height();
 		}
 
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				left_.involves(address) ||
+				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			// This is a non-trivial expression.
+			return left_.involves(address) ||
+				right_.involves(address);
+		}
+
 	private:
 		typename LeftExpression::StorageType left_;
 		typename RightExpression::StorageType right_;
@@ -317,6 +340,22 @@ namespace Pastel
 		integer size() const
 		{
 			return right_.width();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				left_.involves(address) ||
+				right_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			// This is a non-trivial expression.
+			return left_.involves(address) ||
+				right_.involves(address);
 		}
 
 	private:

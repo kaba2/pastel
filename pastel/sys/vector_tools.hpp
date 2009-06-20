@@ -105,6 +105,18 @@ namespace Pastel
 			return size_;
 		}
 
+		bool involves(
+			void* address) const
+		{
+			return this == address;
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			return false;
+		}
+
 	private:
 		const integer axis_;
 		const integer size_;
@@ -213,6 +225,20 @@ namespace Pastel
 		integer size() const
 		{
 			return expression_.size() + 1;
+		}
+
+		bool involves(
+			void* address) const
+		{
+			return this == address ||
+				expression_.involves(address);
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			// This is a non-trivial expression.
+			return expression_.involves(address);
 		}
 
 	private:
