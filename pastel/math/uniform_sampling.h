@@ -77,7 +77,7 @@ namespace Pastel
 		const Vector<N, Real>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N >= 3), Vector<N, Real> >::type
+	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv);
 

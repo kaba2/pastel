@@ -143,7 +143,9 @@ namespace Pastel
 		Matrix<Dynamic, Dynamic, Real>::operator=(
 		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& right)
 	{
-		if (right.involvesNonTrivially(this))
+		if (width() != right.width() ||
+			height() != right.height() || 
+			right.involvesNonTrivially(this))
 		{
 			// The right expression contains this matrix
 			// as a non-trivial subexpression. We thus need to evaluate

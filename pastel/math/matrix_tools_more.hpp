@@ -99,47 +99,6 @@ namespace Pastel
 		return MatrixDiagonal<Height, Width, Real>(height, width, 1);
 	}
 
-	template <int Height, int Width, typename Real>
-	void swapRows(Matrix<Height, Width, Real>& matrix,
-		integer aRow, integer bRow)
-	{
-		PENSURE2(aRow >= 0 && aRow < Height, aRow, Height);
-		PENSURE2(bRow >= 0 && bRow < Height, bRow, Height);
-
-		if (aRow == bRow)
-		{
-			return;
-		}
-
-		const integer width = matrix.width();
-
-		for (integer i = 0;i < width;++i)
-		{
-			std::swap(matrix(aRow, i), matrix(bRow, i));
-		}
-	}
-
-	template <int Height, int Width, typename Real>
-	void swapColumns(Matrix<Height, Width, Real>& matrix,
-		integer aColumn, integer bColumn)
-	{
-		PENSURE2(aColumn >= 0 && aColumn < Width,
-			aColumn, Width);
-		PENSURE2(bColumn >= 0 && bColumn < Width,
-			bColumn, Width);
-		if (aColumn == bColumn)
-		{
-			return;
-		}
-
-		const integer height = matrix.height();
-
-		for (integer i = 0;i < height;++i)
-		{
-			std::swap(matrix[i][aColumn], matrix[i][bColumn]);
-		}
-	}
-
 	template <
 		int Height, int Width,
 		typename Real,

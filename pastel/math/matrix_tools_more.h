@@ -43,18 +43,6 @@ namespace Pastel
 		diagonal(const Matrix<Height, Width, Real>& matrix);
 	*/
 
-	//! Swaps two rows in the given matrix.
-
-	template <int Height, int Width, typename Real>
-	void swapRows(Matrix<Height, Width, Real>& matrix,
-		integer aRow, integer bRow);
-
-	//! Swaps two columns in the given matrix.
-
-	template <int Height, int Width, typename Real>
-	void swapColumns(Matrix<Height, Width, Real>& matrix,
-		integer aColumn, integer bColumn);
-
 	//! Returns the identity matrix.
 
 	template <int Height, int Width, typename Real>

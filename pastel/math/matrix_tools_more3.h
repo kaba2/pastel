@@ -38,28 +38,33 @@ namespace Pastel
 
 	//! Returns the determinant of the matrix.
 
-	template <int N, typename Real>
-	Real determinant(const Matrix<N, N, Real>& matrix);
+	template <int N, typename Real, typename Expression>
+	Real determinant(
+		const MatrixExpression<N, N, Real, Expression>& that);
 
 	//! Returns the determinant of the matrix.
 
-	template <typename Real>
-	Real determinant(const Matrix<1, 1, Real>& matrix);
+	template <typename Real, typename Expression>
+	Real determinant(
+		const MatrixExpression<1, 1, Real, Expression>& that);
 
 	//! Returns the determinant of the matrix.
 
-	template <typename Real>
-	Real determinant(const Matrix<2, 2, Real>& matrix);
+	template <typename Real, typename Expression>
+	Real determinant(
+		const MatrixExpression<2, 2, Real, Expression>& that);
 
 	//! Returns the determinant of the matrix.
 
-	template <typename Real>
-	Real determinant(const Matrix<3, 3, Real>& matrix);
+	template <typename Real, typename Expression>
+	Real determinant(
+		const MatrixExpression<3, 3, Real, Expression>& that);
 
 	//! Returns the determinant of the matrix.
 
-	template <typename Real>
-	Real determinant(const Matrix<4, 4, Real>& matrix);
+	template <typename Real, typename Expression>
+	Real determinant(
+		const MatrixExpression<4, 4, Real, Expression>& that);
 
 	//! Returns the manhattan norm of the matrix.
 

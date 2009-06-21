@@ -342,26 +342,28 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N >= 3), Vector<N, Real> >::type
+	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<N, Real> >::type
 		uniformlySampleSimplex(
 		const Vector<N, Real>& uv)
 	{
-		SmallSet<Real> uv;
-		uv.reserve(N);
+		const integer n = uv.dimension();
 
-		for (integer i = 0;i < N;++i)
+		std::vector<Real> partition;
+		partition.reserve(n + 2);
+		partition.push_back(0);
+		for (integer i = 0;i < n;++i)
 		{
-			uv.insert(uv[i]);
+			partition.push_back(uv[i]);
 		}
+		partition.push_back(1);
 
-		Real previous = 0;
+		std::sort(partition.begin(), partition.end());
 
-		Vector<N, Real> simplex;
-		for (integer i = 0;i < N;++i)
+		Vector<N, Real> simplex(ofDimension(n));
+
+		for (integer i = 0;i < n;++i)
 		{
-			const Real current = uv[i];
-			simplex[i] = current - previous;
-			previous = current;
+			simplex[i] = partition[i + 1] - partition[i];
 		}
 
 		return simplex;

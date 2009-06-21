@@ -168,8 +168,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE1(width == Width, width);
-			ENSURE1(height == Height, height);
+			ENSURE2(width == Width, width, Width);
+			ENSURE2(height == Height, height, Height);
 		}
 
 		//! Constructs with the given row vector.
@@ -234,8 +234,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE1(width == Width, width);
-			ENSURE1(height == Height, height);
+			ENSURE2(width == Width, width, Width);
+			ENSURE2(height == Height, height, Height);
 		}
 
 		//! Constructs with the given row vectors.
@@ -310,8 +310,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE1(width == Width, width);
-			ENSURE1(height == Height, height);
+			ENSURE2(width == Width, width, Width);
+			ENSURE2(height == Height, height, Height);
 		}
 
 		//! Constructs with the given row vectors.
@@ -400,8 +400,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE1(width == Width, width);
-			ENSURE1(height == Height, height);
+			ENSURE2(width == Width, width, Width);
+			ENSURE2(height == Height, height, Height);
 		}
 
 		//! Constructs with the given row vectors.
