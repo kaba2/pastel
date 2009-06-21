@@ -368,7 +368,7 @@ namespace Pastel
 			std::log(determinant)) / n;
 		
 		const Real b =
-			a - std::log(c);
+			a - std::log(condition);
 
 		setRandomRotation(result);
 

@@ -89,176 +89,180 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	Real determinant(
-		const Matrix<N, N, Real>& a)
+		const MatrixExpression<N, N, Real, Expression>& that)
 	{
+		ENSURE2(that.width() == that.height(),
+			that.width(), that.height());
+
 		// Convert to lower triangular
 		// using column operations.
 		// Gaussian elimination with back-substitution.
 
-		const integer width = a.width();
-		const integer height = a.height();
+		const integer n = that.width();
 
-		Real det = 1;
+		Real detChange = 1;
 
-		Matrix<N, N, Real> a2(a);
+		Matrix<N, N, Real> a2(that);
 
-		for (integer row = 0;row < height;++row)
+		for (integer k = 0;k < n;++k)
 		{
 			// From this row, find the element with
-			// the maximum absolute value (with column >= row).
+			// the maximum absolute value (with column >= k).
 
-			const integer currentColumn = row;
-
-			integer maxAbsColumn = currentColumn;
-			Real maxAbsValue = mabs(a2(row, currentColumn));
-			for (integer column = currentColumn + 1;column < width;++column)
+			integer maxAbsColumn = k;
+			Real maxAbsValue = mabs(a2(k, k));
+			for (integer i = k + 1;i < n;++i)
 			{
-				const Real currentAbsValue = mabs(a2(row, column));
+				const Real currentAbsValue = mabs(a2(k, i));
 				if (currentAbsValue > maxAbsValue)
 				{
-					maxAbsColumn = column;
+					maxAbsColumn = i;
 					maxAbsValue = currentAbsValue;
 				}
 			}
 
 			// Now swap columns (if necessary) so that the maximum
-			// absolute value will be at (row, row).
+			// absolute value will be at (k, k).
 
-			if (maxAbsColumn != currentColumn)
+			if (maxAbsColumn != k)
 			{
 				using std::swap;
 
-				for (integer i = row;i < height;++i)
+				for (integer i = k;i < n;++i)
 				{
-					swap(a2(i, currentColumn), a2(i, maxAbsColumn));
+					swap(a2(i, k), a2(i, maxAbsColumn));
 				}
 
 				// Swapping columns reverses the determinant
 
-				det = -det;
+				detChange = -detChange;
 			}
 
-			// Scale the column 'currentColumn'
-			// such that the value at (row, currentColumn) becomes 1.
+			// Scale the column 'k'
+			// such that the value at (k, k) becomes 1.
 
-			const Real invValue = inverse(a2(row, currentColumn));
+			const Real invValue = inverse(a2(k, k));
 
-			a2(row, currentColumn) = 1;
-			for (integer j = row + 1;j < height;++j)
+			a2(k, k) = 1;
+			for (integer j = k + 1;j < n;++j)
 			{
-				a2(j, currentColumn) *= invValue;
+				a2(j, k) *= invValue;
 			}
 
-			// Scaling a row scales the determinant.
+			// Scaling a k scales the determinant.
 
-			det *= invValue;
+			detChange *= invValue;
 
-			// Use the column 'currentColumn' to clear out the
-			// matrix to zero for the rest of the row.
+			// Use the column 'k' to clear out the
+			// matrix to zero for the rest of the k.
 
 			// This has no effect on the determinant.
 
-			for (integer column = row + 1;column < width;++column)
+			for (integer i = k + 1;i < n;++i)
 			{
-				const Real value = a2(row, column);
-				a2(row, column) = 0;
-				for (integer j = row + 1;j < N;++j)
+				const Real value = a2(k, i);
+				a2(k, i) = 0;
+				for (integer j = k + 1;j < n;++j)
 				{
-					a2(j, column) -= a2(j, currentColumn) * value;
+					a2(j, i) -= a2(j, k) * value;
 				}
 			}
 		}
 
-		return det;
+		// The determinant of a triangular
+		// matrix is the product of its diagonal
+		// elements.
+
+		return diagonalProduct(a2) / detChange;
 	}
 
-	template <typename Real>
+	template <typename Real, typename Expression>
 	Real determinant(
-		const Matrix<1, 1, Real>& matrix)
+		const MatrixExpression<1, 1, Real, Expression>& that)
 	{
-		return matrix(0, 0);
+		return that(0, 0);
 	}
 
-	template <typename Real>
+	template <typename Real, typename Expression>
 	Real determinant(
-		const Matrix<2, 2, Real>& matrix)
+		const MatrixExpression<2, 2, Real, Expression>& that)
 	{
-		return matrix[0][0] * matrix[1][1] -
-			matrix[0][1] * matrix[1][0];
+		return that(0, 0) * that(1, 1) -
+			that(0, 1) * that(1, 0);
 	}
 
-	template <typename Real>
+	template <typename Real, typename Expression>
 	Real determinant(
-		const Matrix<3, 3, Real>& matrix)
+		const MatrixExpression<3, 3, Real, Expression>& that)
 	{
 		Real cofactor00(
-			matrix[1][1] * matrix[2][2] -
-			matrix[1][2] * matrix[2][1]);
+			that(1, 1) * that(2, 2) -
+			that(1, 2) * that(2, 1));
 		Real cofactor10(
-			-matrix[0][1] * matrix[2][2] +
-			matrix[0][2] * matrix[2][1]);
+			-that(0, 1) * that(2, 2) +
+			that(0, 2) * that(2, 1));
 		Real cofactor20(
-			matrix[0][1] * matrix[1][2] -
-			matrix[0][2] * matrix[1][1]);
+			that(0, 1) * that(1, 2) -
+			that(0, 2) * that(1, 1));
 
 		Real result(
-			matrix[0][0] * cofactor00 +
-			matrix[1][0] * cofactor10 +
-			matrix[2][0] * cofactor20);
+			that(0, 0) * cofactor00 +
+			that(1, 0) * cofactor10 +
+			that(2, 0) * cofactor20);
 
 		return result;
 	}
 
-	template <typename Real>
+	template <typename Real, typename Expression>
 	Real determinant(
-		const Matrix<4, 4, Real>& matrix)
+		const MatrixExpression<4, 4, Real, Expression>& that)
 	{
 		Real sub2Det1(
-			matrix[2][1] * matrix[3][2] -
-			matrix[2][2] * matrix[3][1]);
+			that(2, 1) * that(3, 2) -
+			that(2, 2) * that(3, 1));
 		Real sub2Det2(
-			matrix[2][2] * matrix[3][3] -
-			matrix[2][3] * matrix[3][2]);
+			that(2, 2) * that(3, 3) -
+			that(2, 3) * that(3, 2));
 		Real sub2Det3(
-			matrix[2][1] * matrix[3][3] -
-			matrix[2][3] * matrix[3][1]);
+			that(2, 1) * that(3, 3) -
+			that(2, 3) * that(3, 1));
 
 		Real sub3Det1(
-			matrix[1][0] * sub2Det2 -
-			matrix[1][1] * sub2Det1 +
-			matrix[1][2] * sub2Det3);
+			that(1, 0) * sub2Det2 -
+			that(1, 1) * sub2Det1 +
+			that(1, 2) * sub2Det3);
 		Real sub3Det2(
-			matrix[0][0] * sub2Det2 -
-			matrix[0][1] * sub2Det1 +
-			matrix[0][2] * sub2Det3);
+			that(0, 0) * sub2Det2 -
+			that(0, 1) * sub2Det1 +
+			that(0, 2) * sub2Det3);
 
 		Real sub2Det4(
-			matrix[0][1] * matrix[1][2] -
-			matrix[0][2] * matrix[1][1]);
+			that(0, 1) * that(1, 2) -
+			that(0, 2) * that(1, 1));
 		Real sub2Det5(
-			matrix[0][2] * matrix[1][3] -
-			matrix[0][3] * matrix[1][2]);
+			that(0, 2) * that(1, 3) -
+			that(0, 3) * that(1, 2));
 		Real sub2Det6(
-			matrix[0][1] * matrix[1][3] -
-			matrix[0][3] * matrix[1][1]);
+			that(0, 1) * that(1, 3) -
+			that(0, 3) * that(1, 1));
 
 		Real sub3Det3(
-			matrix[3][1] * sub2Det4 -
-			matrix[3][2] * sub2Det5 +
-			matrix[3][3] * sub2Det6);
+			that(3, 1) * sub2Det4 -
+			that(3, 2) * sub2Det5 +
+			that(3, 3) * sub2Det6);
 
 		Real sub3Det4(
-			matrix[2][1] * sub2Det4 -
-			matrix[2][2] * sub2Det5 +
-			matrix[2][3] * sub2Det6);
+			that(2, 1) * sub2Det4 -
+			that(2, 2) * sub2Det5 +
+			that(2, 3) * sub2Det6);
 
 		Real result(
-			matrix[0][0] * sub3Det1 -
-			matrix[1][0] * sub3Det2 +
-			matrix[2][0] * sub3Det3 -
-			matrix[3][0] * sub3Det4);
+			that(0, 0) * sub3Det1 -
+			that(1, 0) * sub3Det2 +
+			that(2, 0) * sub3Det3 -
+			that(3, 0) * sub3Det4);
 
 		return result;
 	}
@@ -266,11 +270,13 @@ namespace Pastel
 	template <int Height, int Width, typename Real>
 	Real normManhattan(const Matrix<Height, Width, Real>& matrix)
 	{
-		Real maxRowSum(normManhattan(matrix[0]));
+		const integer height = matrix.height();
 
-		for (integer i = 1;i < Height;++i)
+		Real maxRowSum = 0;
+
+		for (integer i = 0;i < height;++i)
 		{
-			Real rowSum(normManhattan(matrix[i]));
+			const Real rowSum = normManhattan(matrix[i]);
 			if (rowSum > maxRowSum)
 			{
 				maxRowSum = rowSum;
@@ -283,11 +289,12 @@ namespace Pastel
 	template <int Height, int Width, typename Real>
 	Real norm(const Matrix<Height, Width, Real>& matrix)
 	{
-		Real maxRowSum(dot(matrix[0], matrix[0]));
+		const integer height = matrix.height();
+		Real maxRowSum = 0;
 
-		for (integer i = 1;i < Height;++i)
+		for (integer i = 0;i < height;++i)
 		{
-			Real rowSum(dot(matrix[i], matrix[i]));
+			const Real rowSum = dot(matrix[i], matrix[i]);
 			if (rowSum > maxRowSum)
 			{
 				maxRowSum = rowSum;
@@ -300,11 +307,12 @@ namespace Pastel
 	template <int Height, int Width, typename Real>
 	Real normInfinity(const Matrix<Height, Width, Real>& matrix)
 	{
-		Real maxRowSum(normInfinity(matrix[0]));
+		const integer height = matrix.height();
+		Real maxRowSum = 0;
 
-		for (integer i = 1;i < Height;++i)
+		for (integer i = 0;i < height;++i)
 		{
-			Real rowSum(normInfinity(matrix[i]));
+			const Real rowSum = normInfinity(matrix[i]);
 			if (rowSum > maxRowSum)
 			{
 				maxRowSum = rowSum;

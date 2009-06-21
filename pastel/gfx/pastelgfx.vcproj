@@ -613,6 +613,10 @@
 				RelativePath=".\reconstruct_nearest.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\reconstruct_rbf.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Discrete poisson disk pattern"
