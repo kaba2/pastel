@@ -2,16 +2,16 @@
 #define PASTEL_INTERSECT_TRIANGLE_TRIANGLE_HPP
 
 #include "pastel/geometry/intersect_triangle_triangle.h"
-
-#include "pastel/sys/ensure.h"
-
 #include "pastel/geometry/segment.h"
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/flat.h"
-#include "pastel/sys/vector_tools.h"
-
 #include "pastel/geometry/overlaps_plane_triangle.h"
 #include "pastel/geometry/intersect_flat_plane.h"
+#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+#include "pastel/geometry/project_axis.h"
+
+#include "pastel/sys/ensure.h"
+#include "pastel/sys/vector_tools.h"
 
 #include "pastel/math/minmax.h"
 
@@ -22,7 +22,8 @@ namespace Pastel
 	bool intersect(
 		const Triangle<3, Real>& aTriangle,
 		const Triangle<3, Real>& bTriangle,
-		Segment<3, Real>& segment)
+		Line<3, Real>& intersectionLine,
+		AlignedBox<1, Real>& intersectionRange)
 	{
 		const Plane<3, Real> aPlane(
 			aTriangle[0],
@@ -59,61 +60,30 @@ namespace Pastel
 			Pastel::intersect(aFlat, bPlane, line);
 		ASSERT(intersected);
 
-		// Project the a vertices on the intersection line.
+		// Project the vertices on the intersection line.
 		// See what their parametric position
 		// is on that line..
 
-		const Real a1(dot(line.direction(),
-			aTriangle[0] - line.position()));
-		const Real a2(dot(line.direction(),
-			aTriangle[1] - line.position()));
-		const Real a3(dot(line.direction(),
-			aTriangle[2] - line.position()));
-
-		// Find out the min-max range of the
-		// a parameters.
-
-		Real aMin(0);
-		Real aMax(0);
-
-		minMax(a1, a2, a3, aMin, aMax);
-
-		// Project the b vertices on the intersection line.
-		// See what their parametric position
-		// is on that line..
-
-		const Real b1(dot(line.direction(),
-			bTriangle[0] - line.position()));
-		const Real b2(dot(line.direction(),
-			bTriangle[1] - line.position()));
-		const Real b3(dot(line.direction(),
-			bTriangle[2] - line.position()));
-
-		// Find out the min-max range of the
-		// b parameters.
-
-		Real bMin(0);
-		Real bMax(0);
-
-		minMax(b1, b2, b3, bMin, bMax);
+		const AlignedBox<1, Real> aInterval = 
+			projectAxis(aTriangle, line.direction());
+		const AlignedBox<1, Real> bInterval = 
+			projectAxis(bTriangle, line.direction());
 
 		// If the parameter ranges intersect
 		// then the triangles also intersect,
 		// otherwise they don't.
 
-		bool rangesIntersect =
-			(aMin <= bMin && bMin <= aMax) ||
-			(aMin <= bMax && bMax <= aMax);
-
-		if (rangesIntersect)
+		AlignedBox<1, Real> sharedInterval;
+		if (!intersect(aInterval, bInterval, sharedInterval))
 		{
-			// Find out the intersection range.
-			// TODO!!!
+			return false;
 		}
 
-		ENSURE(false);
+		intersectionLine = line;
+		intersectionRange = sharedInterval - 
+			Vector<1, Real>(dot(asVector(line.position()), line.direction()));
 
-		return rangesIntersect;
+		return true;
 	}
 
 }

@@ -24,7 +24,8 @@ namespace Pastel
 	bool intersect(
 		const Triangle<3, Real>& aTriangle,
 		const Triangle<3, Real>& bTriangle,
-		Segment<3, Real>& segment);
+		Line<3, Real>& intersectionLine,
+		AlignedBox<1, Real>& intersectionRange);
 
 }
 
