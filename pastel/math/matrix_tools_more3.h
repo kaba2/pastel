@@ -19,82 +19,110 @@ namespace Pastel
 	template <int Height, int Width, typename Real, typename Functor>
 	void modify(Matrix<Height, Width, Real>& that, Functor f);
 
-	//! Returns the maximum value.
-
-	template <int Height, int Width, typename Real>
-	Real max(
-		const Matrix<Height, Width, Real>& that);
-
 	//! Returns the trace of the matrix.
 
-	template <int Height, int Width, typename Real>
-	Real trace(const Matrix<Height, Width, Real>& that);
+	template <int Height, int Width, typename Real, typename Expression>
+	Real trace(
+		const MatrixExpression<Height, Width, Real, Expression>& that);
 
 	//! Returns the product of the diagonal elements.
 
-	template <int Height, int Width, typename Real>
+	template <int Height, int Width, typename Real, typename Expression>
 	Real diagonalProduct(
-		const Matrix<Height, Width, Real>& that);
+		const MatrixExpression<Height, Width, Real, Expression>& that);
 
-	//! Returns the determinant of the matrix.
+	//! Returns the determinant of a matrix.
 
 	template <int N, typename Real, typename Expression>
 	Real determinant(
 		const MatrixExpression<N, N, Real, Expression>& that);
 
-	//! Returns the determinant of the matrix.
+	//! Returns the determinant of a 1 x 1 matrix.
 
 	template <typename Real, typename Expression>
 	Real determinant(
 		const MatrixExpression<1, 1, Real, Expression>& that);
 
-	//! Returns the determinant of the matrix.
+	//! Returns the determinant of a 2 x 2 matrix.
 
 	template <typename Real, typename Expression>
 	Real determinant(
 		const MatrixExpression<2, 2, Real, Expression>& that);
 
-	//! Returns the determinant of the matrix.
+	//! Returns the determinant of a 3 x 3 matrix.
 
 	template <typename Real, typename Expression>
 	Real determinant(
 		const MatrixExpression<3, 3, Real, Expression>& that);
 
-	//! Returns the determinant of the matrix.
+	//! Returns a pointwise matrix norm given by the norm bijection.
+	/*!
+	This function considers the matrix as a long vector, and
+	computes a vector norm for it. In particular, a euclidean norm 
+	bijection gives the Frobenius norm (without the square root).
+	See 'pastel/math/normbijection.h" for predefined norm bijections.
+	*/
 
-	template <typename Real, typename Expression>
-	Real determinant(
-		const MatrixExpression<4, 4, Real, Expression>& that);
+	template <int Height, int Width, typename Real, 
+		typename Expression, typename NormBijection>
+	Real norm2(const MatrixExpression<Height, Width, Real, Expression>& matrix,
+		const NormBijection& normBijection);
 
-	//! Returns the manhattan norm of the matrix.
+	//! Returns the induced manhattan matrix norm.
+	/*!
+	This matrix norm is given by the maximum absolute
+	column sum:
+	max(sum(abs(matrix)))
 
-	template <int Height, int Width, typename Real>
-	Real normManhattan(const Matrix<Height, Width, Real>& matrix);
+	A matrix norm is a vector space norm with two
+	additional requirements for
+	1) |AB| <= |A||B| (sub-multiplicativity)
+	2) |A| = |A*| (norm unchanged by (conjugate) transpose)
+	A vector norm |x| induces a matrix norm by:
+	|A| = max{|Ax|/|x| : x != 0}
+	Induced matrix norms are by definition consistent
+	with their inducing vector norm:
+	for all x: |Ax| <= |A||x|
+	See 'norm2' for pointwise matrix norms.
+	*/
 
-	//! Returns the Euclidean norm of the matrix.
+	template <int Height, int Width, typename Real, typename Expression>
+	Real normManhattan(
+		const MatrixExpression<Height, Width, Real, Expression>& matrix);
 
-	template <int Height, int Width, typename Real>
-	Real norm(const Matrix<Height, Width, Real>& matrix);
+	//! Returns the induced infinity matrix norm.
+	/*!
+	This matrix norm is given by the maximum absolute
+	row sum:
+	max(sum(abs(transpose(matrix))))
+	See the documentation for 'normManhattan'
+	for more information. See 'norm2' for pointwise
+	matrix norms.
+	*/
 
-	//! Returns the infinity norm of the matrix.
+	template <int Height, int Width, typename Real, typename Expression>
+	Real normInfinity(
+		const MatrixExpression<Height, Width, Real, Expression>& matrix);
 
-	template <int Height, int Width, typename Real>
-	Real normInfinity(const Matrix<Height, Width, Real>& matrix);
+	//! Returns the condition number of a matrix using a pointwise norm.
 
-	//! Returns the manhattan condition of the matrix.
+	template <int N, typename Real, 
+		typename Expression, typename NormBijection>
+		Real condition2(
+		const MatrixExpression<N, N, Real, Expression>& matrix,
+		const NormBijection& normBijection);
 
-	template <int N, typename Real>
-	Real conditionManhattan(const Matrix<N, N, Real>& matrix);
+	//! Returns the condition number of a matrix using manhattan norm.
 
-	//! Returns the Euclidean condition of the matrix.
+	template <int N, typename Real, typename Expression>
+	Real conditionManhattan(
+		const MatrixExpression<N, N, Real, Expression>& matrix);
 
-	template <int N, typename Real>
-	Real condition(const Matrix<N, N, Real>& matrix);
+	//! Returns the condition number of a matrix using infinity norm.
 
-	//! Returns the infinity condition of the matrix.
-
-	template <int N, typename Real>
-	Real conditionInfinity(const Matrix<N, N, Real>& matrix);
+	template <int N, typename Real, typename Expression>
+	Real conditionInfinity(
+		const MatrixExpression<N, N, Real, Expression>& matrix);
 
 	template <typename Real>
 	Vector<2, Real> symmetricEigenValues(

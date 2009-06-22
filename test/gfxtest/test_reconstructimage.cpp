@@ -16,6 +16,7 @@
 #include "pastel/gfx/reconstruct_nearest.h"
 #include "pastel/gfx/reconstruct_filter.h"
 #include "pastel/gfx/reconstruct_adaptive.h"
+#include "pastel/gfx/reconstruct_rbf.h"
 
 #include "pastel/dsp/resample.h"
 
@@ -48,13 +49,14 @@ namespace
 
 	void generatePoisson(
 			std::vector<Point2>& positionList,
+			const AlignedBox2& region,
 			real poissonRadius)
 	{
 		std::vector<Point2> sampleList;
 
 		ReportFunctor reportFunctor(
 			sampleList);
-		poissonDiskPattern(AlignedBox2(0, 0, 1, 1),
+		poissonDiskPattern(region,
 			poissonRadius, reportFunctor);
 
 		sampleList.swap(positionList);
@@ -205,7 +207,7 @@ namespace
 				arrayView(blurTexture), 
 				(texture.width() + 1) * sampleDistance);
 
-			generatePoisson(positionList, sampleDistance);
+			generatePoisson(positionList, AlignedBox2(0, 0, 1, 1), sampleDistance);
 
 			testReconstruction(
 				blurTexture, positionList, "poisson",
@@ -219,9 +221,141 @@ namespace
 		}
 	}
 
+	template <int N, typename Data>
+	class Shepard_Interpolator
+	{
+	public:
+		Shepard_Interpolator(
+			const std::vector<Point<N, real> >& positionList,
+			const std::vector<Data>& dataList)
+			: positionList_(positionList)
+			, dataList_(dataList)
+		{
+		}
+
+		Data operator()(const Point<N, real>& position) const
+		{
+			const integer n = positionList_.size();
+
+			const real radius = 16;
+			const real radius2 = square(radius);
+
+			real weightSum = 0;
+			Data dataSum(0);
+			for (integer i = 0;i < n;++i)
+			{
+				const real distance2 = dot(positionList_[i] - position);
+				if (distance2 == 0)
+				{
+					return dataList_[i];
+				}
+
+				//const real weight = inverse(distance2 * std::sqrt(distance2));
+
+				if (distance2 > radius2)
+				{
+					continue;
+				}
+
+				const real r2 = distance2 / radius2;
+				const real a = -1;
+				const real weight = std::sqrt(std::sqrt(inverse(a * radius2) * (inverse(r2 - 2 * sqrt(r2)) + 1)));
+				
+				dataSum += dataList_[i] * weight;
+				weightSum += weight;
+			}
+
+			return dataSum / weightSum;
+		}
+
+	private:
+		const std::vector<Point<N, real> >& positionList_;
+		const std::vector<Data>& dataList_;
+	};
+
+	void testRbf()
+	{
+		Array<2, Color> colorTexture;
+		loadPcx("lena.pcx", colorTexture);
+
+		Array<2, real32> texture(colorTexture.extent());
+		transform(constArrayView(colorTexture), arrayView(texture), luma);
+
+		saveGrayscalePcx(texture, "test_rbf_input.pcx");
+
+		const integer xPoints = texture.width() / 16;
+		const real sampleDistance = (real)texture.width() / (xPoints + 1);
+
+		std::vector<Point2> positionList;
+		generatePoisson(positionList, 
+			AlignedBox2(Point2(0), Point2(texture.extent())), sampleDistance);
+
+		const integer n = positionList.size();
+		std::vector<real32> dataList;
+		dataList.reserve(n);
+
+		for (integer i = 0;i < n;++i)
+		{
+			dataList[i] = texture(
+				IPoint2(positionList[i]));
+		}
+
+		FilterPtr filter(new MultiQuadric_Rbf(sampleDistance));
+
+		reconstructRbf(
+			positionList,
+			dataList,
+			AlignedBox2(Point2(0), Point2(texture.extent())),
+			filter,
+			arrayView(texture));
+
+		saveGrayscalePcx(texture, "test_rbf_output.pcx");
+	}
+
+	void testShepard()
+	{
+		Array<2, Color> texture;
+		loadPcx("lena.pcx", texture);
+
+		const integer xPoints = texture.width() / 8;
+		const real sampleDistance = (real)texture.width() / (xPoints + 1);
+
+		std::vector<Point2> positionList;
+		generatePoisson(positionList, 
+			AlignedBox2(Point2(0), Point2(texture.extent())), sampleDistance);
+
+		const integer n = positionList.size();
+		std::vector<Color> dataList;
+		dataList.reserve(n);
+
+		for (integer i = 0;i < n;++i)
+		{
+			dataList[i] = texture(
+				IPoint2(positionList[i]));
+		}
+
+		const Shepard_Interpolator<2, Color> interpolator(
+			positionList, dataList);
+
+		const integer width = texture.width();
+		const integer height = texture.height();
+
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = 0;x < width;++x)
+			{
+				texture(x, y) = interpolator(Point2(x + 0.5, y + 0.5));
+			}
+		}
+
+		savePcx(texture, "test_shepard.pcx");
+	}
+
 	void testAdd()
 	{
 		gfxTestList().add("Reconstruction", testReconstruction);
+		gfxTestList().add("Rbf", testRbf);
+		gfxTestList().add("Shepard", testShepard);
 	}
 
 	CallFunction run(testAdd);

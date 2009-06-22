@@ -166,11 +166,15 @@ namespace
 		{
 			Matrix<N, N, real> m(n, n);
 			setRandomMatrix(m);
-			const Matrix<N, N, real> mInv(inverse(m));
 
-			Matrix<N, N, real> result = m * mInv - Matrix<N, N, real>(n, n);
-			modify(result, (real (*)(real))mabs);
-			if (max(result) > 0.001)
+			const Matrix<N, N, real> mInv = inverse(m);
+
+			const real leftError = 
+				normManhattan(m * mInv - identityMatrix<N, N, real>(n, n));
+			const real rightError = 
+				normManhattan(mInv * m - identityMatrix<N, N, real>(n, n));
+			if (leftError > 0.001 ||
+				rightError > 0.001)
 			{
 				++count;
 			}
@@ -294,6 +298,41 @@ namespace
 		REPORT1(count > 10, count);
 	}
 
+	template <int N>
+	void testMatrixCondition()
+	{
+		const integer iterations = 1000;
+
+		const integer n = (N == Dynamic) ? 10 : N;
+
+		integer count = 0;
+
+		for (integer i = 0;i < iterations;++i)
+		{
+			const real cond = 1 + random<real>() * 9;
+			const real det = 1 + random<real>() * 9;
+
+			Matrix<N, N, real> a(n, n);
+			setRandomSymmetricPositiveDefinite(det, cond, a);
+
+			const real detError = 
+				mabs(determinant(a) - det);
+			const real condError =
+				mabs(conditionManhattan(a) - cond);
+
+			REPORT1(detError > 0.01, detError);
+			REPORT1(condError > 0.01, condError);
+
+			if (detError > 0.01 ||
+				condError > 0.01)
+			{
+				++count;
+			}
+		}
+
+		REPORT2(count > 10, count, N);
+	}
+
 	void testBegin()
 	{
 		testMatrixLowDimensional();
@@ -322,6 +361,11 @@ namespace
 		testMatrixAssigns<4>();
 		testMatrixAssigns<5>();
 		testMatrixAssigns<Dynamic>();
+		testMatrixCondition<2>();
+		testMatrixCondition<3>();
+		testMatrixCondition<4>();
+		testMatrixCondition<5>();
+		testMatrixCondition<Dynamic>();
 	}
 
 	void testAdd()

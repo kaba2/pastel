@@ -31,59 +31,35 @@ namespace Pastel
 		}
 	}
 
-	template <int Height, int Width, typename Real>
-	Real max(
-		const Matrix<Height, Width, Real>& that)
+	template <int Height, int Width, typename Real, typename Expression>
+	Real trace(
+		const MatrixExpression<Height, Width, Real, Expression>& that)
 	{
 		const integer width = that.width();
 		const integer height = that.height();
-
-		Real currentMax = -infinity<Real>();
-
-		for (integer y = 0;y < height;++y)
-		{
-			for (integer x = 0;x < width;++x)
-			{
-				if (that(y, x) > currentMax)
-				{
-					currentMax = that(y, x);
-				}
-			}
-		}
-
-		return currentMax;
-	}
-
-	template <int Height, int Width, typename Real>
-	Real trace(const Matrix<Height, Width, Real>& that)
-	{
-		const integer width = that.width();
-		const integer height = that.height();
-
 		const integer minSize = std::min(width, height);
 
-		Real result(that[0][0]);
+		Real result(that(0, 0));
 		for (integer i = 1;i < minSize;++i)
 		{
-			result += that[i][i];
+			result += that(i, i);
 		}
 
 		return result;
 	}
 
-	template <int Height, int Width, typename Real>
+	template <int Height, int Width, typename Real, typename Expression>
 	Real diagonalProduct(
-		const Matrix<Height, Width, Real>& that)
+		const MatrixExpression<Height, Width, Real, Expression>& that)
 	{
 		const integer width = that.width();
 		const integer height = that.height();
-
 		const integer minSize = std::min(width, height);
 
-		Real result(that[0][0]);
+		Real result(that(0, 0));
 		for (integer i = 1;i < minSize;++i)
 		{
-			result *= that[i][i];
+			result *= that(i, i);
 		}
 
 		return result;
@@ -215,135 +191,63 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, typename Expression>
-	Real determinant(
-		const MatrixExpression<4, 4, Real, Expression>& that)
+	template <int Height, int Width, typename Real, 
+		typename Expression, typename NormBijection>
+	Real norm2(const MatrixExpression<Height, Width, Real, Expression>& matrix,
+		const NormBijection& normBijection)
 	{
-		Real sub2Det1(
-			that(2, 1) * that(3, 2) -
-			that(2, 2) * that(3, 1));
-		Real sub2Det2(
-			that(2, 2) * that(3, 3) -
-			that(2, 3) * that(3, 2));
-		Real sub2Det3(
-			that(2, 1) * that(3, 3) -
-			that(2, 3) * that(3, 1));
+		const integer width = matrix.width();
+		const integer height = matrix.height();
 
-		Real sub3Det1(
-			that(1, 0) * sub2Det2 -
-			that(1, 1) * sub2Det1 +
-			that(1, 2) * sub2Det3);
-		Real sub3Det2(
-			that(0, 0) * sub2Det2 -
-			that(0, 1) * sub2Det1 +
-			that(0, 2) * sub2Det3);
-
-		Real sub2Det4(
-			that(0, 1) * that(1, 2) -
-			that(0, 2) * that(1, 1));
-		Real sub2Det5(
-			that(0, 2) * that(1, 3) -
-			that(0, 3) * that(1, 2));
-		Real sub2Det6(
-			that(0, 1) * that(1, 3) -
-			that(0, 3) * that(1, 1));
-
-		Real sub3Det3(
-			that(3, 1) * sub2Det4 -
-			that(3, 2) * sub2Det5 +
-			that(3, 3) * sub2Det6);
-
-		Real sub3Det4(
-			that(2, 1) * sub2Det4 -
-			that(2, 2) * sub2Det5 +
-			that(2, 3) * sub2Det6);
-
-		Real result(
-			that(0, 0) * sub3Det1 -
-			that(1, 0) * sub3Det2 +
-			that(2, 0) * sub3Det3 -
-			that(3, 0) * sub3Det4);
+		Real result = 0;
+		for (integer i = 0;i < height;++i)
+		{
+			for (integer j = 0;j < width;++j)
+			{
+				result = normBijection.addAxis(result, 
+					normBijection.signedAxis(matrix(i, j)));
+			}
+		}
 
 		return result;
 	}
 
-	template <int Height, int Width, typename Real>
-	Real normManhattan(const Matrix<Height, Width, Real>& matrix)
+	template <int Height, int Width, typename Real, typename Expression>
+	Real normManhattan(
+		const MatrixExpression<Height, Width, Real, Expression>& matrix)
 	{
-		const integer height = matrix.height();
-
-		Real maxRowSum = 0;
-
-		for (integer i = 0;i < height;++i)
-		{
-			const Real rowSum = normManhattan(matrix[i]);
-			if (rowSum > maxRowSum)
-			{
-				maxRowSum = rowSum;
-			}
-		}
-
-		return maxRowSum;
+		return max(sum(abs(matrix)));
 	}
 
-	template <int Height, int Width, typename Real>
-	Real norm(const Matrix<Height, Width, Real>& matrix)
+	template <int Height, int Width, typename Real, typename Expression>
+	Real normInfinity(
+		const MatrixExpression<Height, Width, Real, Expression>& matrix)
 	{
-		const integer height = matrix.height();
-		Real maxRowSum = 0;
-
-		for (integer i = 0;i < height;++i)
-		{
-			const Real rowSum = dot(matrix[i], matrix[i]);
-			if (rowSum > maxRowSum)
-			{
-				maxRowSum = rowSum;
-			}
-		}
-
-		return (Real)std::sqrt(maxRowSum);
+		return max(sum(abs(transpose(matrix))));
 	}
 
-	template <int Height, int Width, typename Real>
-	Real normInfinity(const Matrix<Height, Width, Real>& matrix)
+	template <int N, typename Real, 
+		typename Expression, typename NormBijection>
+		Real condition2(
+		const MatrixExpression<N, N, Real, Expression>& matrix,
+		const NormBijection& normBijection)
 	{
-		const integer height = matrix.height();
-		Real maxRowSum = 0;
-
-		for (integer i = 0;i < height;++i)
-		{
-			const Real rowSum = normInfinity(matrix[i]);
-			if (rowSum > maxRowSum)
-			{
-				maxRowSum = rowSum;
-			}
-		}
-
-		return maxRowSum;
+		return norm2(matrix, normBijection) * 
+			norm2(inverse(matrix), normBijection);
 	}
 
-	template <int N, typename Real>
-	Real conditionManhattan(const Matrix<N, N, Real>& matrix)
+	template <int N, typename Real, typename Expression>
+	Real conditionManhattan(
+		const MatrixExpression<N, N, Real, Expression>& matrix)
 	{
-		const Matrix<N, N, Real> inverseMatrix(inverse(matrix));
-
-		return normManhattan(matrix) * normManhattan(inverseMatrix);
+		return normManhattan(matrix) * normManhattan(inverse(matrix));
 	}
 
-	template <int N, typename Real>
-	Real condition(const Matrix<N, N, Real>& matrix)
+	template <int N, typename Real, typename Expression>
+	Real conditionInfinity(
+		const MatrixExpression<N, N, Real, Expression>& matrix)
 	{
-		const Matrix<N, N, Real> inverseMatrix(inverse(matrix));
-
-		return norm(matrix) * norm(inverseMatrix);
-	}
-
-	template <int N, typename Real>
-	Real conditionInfinity(const Matrix<N, N, Real>& matrix)
-	{
-		const Matrix<N, N, Real> inverseMatrix(inverse(matrix));
-
-		return normInfinity(matrix) * normInfinity(inverseMatrix);
+		return normInfinity(matrix) * normInfinity(inverse(matrix));
 	}
 
 	template <typename Real>

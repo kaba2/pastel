@@ -75,6 +75,12 @@ namespace Pastel
 	void setRandomReducedRotation(
 		Matrix<N, N, Real>& result);
 
+	//! Generates random sym.pos.def. matrix S with given det(S).
+	/*!
+	Preconditions:
+	determinant > 0
+	*/
+
 	template <int N, typename Real>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,

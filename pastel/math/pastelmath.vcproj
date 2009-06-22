@@ -597,6 +597,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\matrix_tools_more4.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix_tools_more4.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\matrixbase.h"
 					>
 				</File>
