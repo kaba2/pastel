@@ -150,10 +150,13 @@ namespace Pastel
 		const Triangle<3, Real>& aTriangle,
 		const Triangle<3, Real>& bTriangle)
 	{
-		Segment<3, Real> intersection;
+		Line<3, Real> intersectionLine;
+		AlignedBox<1, Real> intersectionRange;
+
 		return Pastel::intersect(
 			aTriangle, bTriangle,
-			intersection);
+			intersectionLine,
+			intersectionRange);
 	}
 
 }

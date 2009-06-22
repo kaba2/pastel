@@ -72,6 +72,25 @@ namespace Pastel
 			position + radius);
 	}
 
+	template <int N, typename Real>
+	AlignedBox<1, Real> projectAxis(
+		const Triangle<N, Real>& triangle,
+		const Vector<N, Real>& unitAxis)
+	{
+		const Real d0 = dot(asVector(triangle[0]), unitAxis);
+		const Real d1 = dot(asVector(triangle[1]), unitAxis);
+		const Real d2 = dot(asVector(triangle[2]), unitAxis);
+
+		// Find out the min-max range of the
+		// parameters.
+
+		AlignedBox<1, Real> dBound;
+
+		minMax(d0, d1, d2, dBound.min()[0], dBound.max()[0]);
+
+		return dBound;
+	}
+
 }
 
 #endif
