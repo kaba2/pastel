@@ -729,6 +729,12 @@ int myMain()
 	timing();
 
 	AlignedBox2 viewWindow(tree__.bound());
+
+	const Point2 cameraCenter = 
+		linear(viewWindow.min(), viewWindow.max(), 0.5);
+
+	viewWindow -= asVector(cameraCenter);
+
 	viewWindow.min() -= viewWindow.extent() * 0.05;
 	viewWindow.max() += viewWindow.extent() * 0.05;
 	const Vector2 viewExtent = viewWindow.extent();
@@ -752,6 +758,8 @@ int myMain()
 	}
 
 	renderer__ = new GlGfxRenderer();
+	renderer__->setViewTransformation(
+		translation2<real>(asVector(cameraCenter)));
 	renderer__->setViewWindow(viewWindow);
 	renderer__->setColor(Color(0));
 	renderer__->clear();
