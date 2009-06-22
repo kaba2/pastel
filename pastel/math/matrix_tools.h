@@ -23,10 +23,12 @@ namespace Pastel
 #include "pastel/math/matrix_tools_more.h"
 #include "pastel/math/matrix_tools_more2.h"
 #include "pastel/math/matrix_tools_more3.h"
+#include "pastel/math/matrix_tools_more4.h"
 
 #include "pastel/math/matrix_tools.hpp"
 #include "pastel/math/matrix_tools_more.hpp"
 #include "pastel/math/matrix_tools_more2.hpp"
 #include "pastel/math/matrix_tools_more3.hpp"
+#include "pastel/math/matrix_tools_more4.hpp"
 
 #endif

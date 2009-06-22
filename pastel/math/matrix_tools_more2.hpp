@@ -253,6 +253,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& condition,
 		Matrix<N, N, Real>& result)
 	{
+		BOOST_STATIC_ASSERT(N != 1);
+
 		/*
 		Problem:
 		Generate a random symmetric positive 
@@ -359,9 +361,12 @@ namespace Pastel
 
 		ENSURE2(result.width() == result.height(),
 			result.width(), result.height());
-		ENSURE(condition >= 1);
+		ENSURE1(condition >= 1, condition);
+		ENSURE1(determinant > 0, determinant);
 
 		const integer n = result.width();
+
+		ENSURE1(n > 1, n);
 
 		const Real a = 
 			((n - 1) * std::log(condition) - 
