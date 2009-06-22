@@ -3,6 +3,7 @@
 #include "pastel/sys/log.h"
 
 #include <sstream>
+#include <iomanip>
 
 namespace Pastel
 {
@@ -179,6 +180,22 @@ namespace Pastel
 		}
 
 		return padText + text;
+	}
+
+	PASTELSYS std::string realToString(real number,
+		integer digits)
+	{
+		std::stringstream stream;
+		if (digits > 0)
+		{
+			stream << std::setprecision(digits);
+		}
+		stream << number;
+
+		std::string text;
+		stream >> text;
+
+		return text;
 	}
 
 }
