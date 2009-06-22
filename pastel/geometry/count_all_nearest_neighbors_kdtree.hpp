@@ -149,8 +149,6 @@ namespace Pastel
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), 16, SlidingMidpoint2_SplitRule());
 
-		countSet.resize(points);
-
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)
 		{

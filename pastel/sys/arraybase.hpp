@@ -149,7 +149,7 @@ namespace Pastel
 		template <int N, typename Type>
 		void ArrayBase<N, Type>::clear()
 		{
-			if (data_)
+			if (deleteData_ && data_)
 			{
 				destruct(data_, data_ + size_);
 				deallocate();

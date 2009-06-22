@@ -77,6 +77,8 @@ namespace Pastel
 	PASTELSYS std::string integerToString(integer number,
 		integer digits = -1, char padding = '0');
 
+	PASTELSYS std::string realToString(real number, integer digits = -1);
+
 }
 
 #include "pastel/sys/string_tools.hpp"
