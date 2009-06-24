@@ -84,10 +84,19 @@ namespace Pastel
 						if (currentDistance <= cullDistance)
 						{
 							candidateFunctor(currentDistance, iter);
+							const Real cullSuggestion = 
+								candidateFunctor.suggestCullDistance() * protectiveFactor;
+							if (cullSuggestion < cullDistance)
+							{
+								cullDistance = cullSuggestion;
+								nodeCullDistance = cullDistance * errorFactor;
+							}
+							/*
 							cullDistance = std::min(
 								candidateFunctor.suggestCullDistance() * protectiveFactor,
 								cullDistance);
 							nodeCullDistance = cullDistance * errorFactor;
+							*/
 						}
 
 						++iter;
