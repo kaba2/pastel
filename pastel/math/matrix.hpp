@@ -88,6 +88,54 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	integer Matrix<Dynamic, Dynamic, Real>::size() const
+	{
+		return data_.size();
+	}
+
+	template <typename Real>
+	typename Matrix<Dynamic, Dynamic, Real>::View 
+		Matrix<Dynamic, Dynamic, Real>::view()
+	{
+		return arrayView(data_);
+	}
+
+	template <typename Real>
+	typename Matrix<Dynamic, Dynamic, Real>::ConstView 
+		Matrix<Dynamic, Dynamic, Real>::constView() const
+	{
+		return constArrayView(data_);
+	}
+
+	template <typename Real>
+	typename Matrix<Dynamic, Dynamic, Real>::Iterator 
+		Matrix<Dynamic, Dynamic, Real>::begin()
+	{
+		return data_.begin();
+	}
+
+	template <typename Real>
+	typename Matrix<Dynamic, Dynamic, Real>::ConstIterator 
+		Matrix<Dynamic, Dynamic, Real>::begin() const
+	{
+		return data_.begin();
+	}
+
+	template <typename Real>
+	typename Matrix<Dynamic, Dynamic, Real>::Iterator 
+		Matrix<Dynamic, Dynamic, Real>::end()
+	{
+		return data_.end();
+	}
+
+	template <typename Real>
+	typename Matrix<Dynamic, Dynamic, Real>::ConstIterator 
+		Matrix<Dynamic, Dynamic, Real>::end() const
+	{
+		return data_.end();
+	}
+
+	template <typename Real>
 	void Matrix<Dynamic, Dynamic, Real>::set(const Real& that)
 	{
 		data_.set(that);

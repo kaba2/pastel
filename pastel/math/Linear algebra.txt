@@ -1,0 +1,48 @@
+Linear algebra
+==============
+
+Theory
+------
+
+Every finite n-dimensional vector space over the reals is isomorphic to R^n.
+Thus to solve problems in all such spaces, one only needs to develop
+computational tools to handle problems in R^n. 
+For brevity, let us abbreviate a finite m-dimensional vector space over
+the real numbers simply as an m-vector space. For general n-vector spaces, 
+the problem is first mapped to R^n (by choosing a suitable basis), 
+solved there, and then mapped back to the original domain. 
+
+Of special interest are linear functions between an n-vector space V 
+and an m-vector space W. A linear function is simply a function from 
+V to W which preserves linear combinations of vectors.
+Choosing a basis in V can be used to fix an isomorphism between 
+vectors of V and vectors of R^n. Similarly between W and R^m.
+However, having fixed both isomorphism we have come to fix
+an isomorphism between linear functions from V to W and
+R^(m x n) matrices.
+
+Matrix algebra is linear algebra in (in our case) R^n. 
+Because of the isomorphism results, it is a machinery sufficiently powerful 
+to answer questions in the theory of linear functions over 
+finite dimensional vector spaces. Generalizing, one can allow arbitrary fields
+to be used instead of the field of real numbers. Useful alternative 
+fields include finite fields, complex numbers, and rational numbers.
+
+Practice
+--------
+
+Pastel implements a matrix algebra component where matrices assume
+elements from an ordered field. Most importantly, this abstraction 
+includes real numbers (modeled with floating point numbers), and rational numbers 
+(modeled as a ratio of two integers, allowing exact arithmetic).
+For geometric problems and computer graphics, this covers most of the needs.
+
+Learn more
+----------
+
+Matrix class
+
+Matrix decompositions
+
+Matrix eigenvectors
+

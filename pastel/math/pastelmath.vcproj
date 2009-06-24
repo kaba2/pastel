@@ -477,6 +477,10 @@
 		<Filter
 			Name="Linear algebra"
 			>
+			<File
+				RelativePath=".\Linear algebra.txt"
+				>
+			</File>
 			<Filter
 				Name="Matrix decompositions"
 				>
@@ -562,6 +566,10 @@
 				</File>
 				<File
 					RelativePath=".\matrix.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\matrix.txt"
 					>
 				</File>
 				<File

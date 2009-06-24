@@ -1,0 +1,212 @@
+Matrix class
+============
+
+[Back to Linear algebra]
+
+Vector embedding convention
+---------------------------
+
+We choose the convention of embedding vectors to matrices
+by identifying vectors with row vectors. This is the opposite
+of the convention used in mathematics. The reason for
+doing this originates from the following dilemma.
+
+First, it is standard to index a matrix A as A[y, x], where y gives the row and x the column.
+Also, it is standard to identify vectors with column vectors, because then the matrix-vector multiplication
+Ax resembles function evaluation A(x). Given the column vector convention, the
+column vectors of the matrix are the ones of importance because they represent
+the images of the standard basis vectors. For a programmer it is very convenient to refer to the
+column vectors as a whole. A natural notation for this is A[x], where x gives
+the column. However, now A[x][y] and A[y, x] refer to the same element
+which is likely to cause confusion because the indices come at a different order.
+This discrepancy can be corrected by either:
+
+1) indexing matrices as A[x, y] 
+2) prohibiting column vector references
+3) switching to row vector convention
+
+The option 1 will not do because it would create more confusion 
+than it corrects by diverging from a world-wide standard.
+The option 2 will not do because it is of too great importance 
+for the usability of the library.
+The option 3 will create some confusion because most have
+been used to work with column vectors. However, the connection
+between using column or row vectors is trivial.
+In this library we will use the row vector convention.
+
+Operator overloading
+--------------------
+
+Operator overloading is essential in being able to imitate
+the brief and coincise notation of mathematics. Using operator
+overloading, one gets to write A * B in infix notation rather 
+than multiply(A, B) in functional notation. Pastel overloads
+the operators for the matrix class in a way that resembles
+mathematical notation.
+
+Data views
+-----------
+
+There are several useful ways to view the data in matrices. 
+We enumerate them as follows:
+
+1) Matrix is a 2d-array of numbers. Thus an individual
+element (i, j) of the matrix can be referenced.
+
+2) Matrix is a 1d-array of numbers (in row-major order). 
+Via iterator abstraction, standard library algorithms 
+can be used to read and modify matrix elements.
+
+3) Matrix is a collection of row vectors. One
+can handle a matrix row as a vector.
+
+4) Matrix is a collection of column vectors. One
+can handle a matrix column as a vector.
+
+5) Matrix is a a matrix expression. This makes it automatically
+work with whatever new matrix expression are introduced in
+the future.
+
+6) Matrix can be adapted to an array view. This makes
+it possible to concentrate on subsets of a
+matrix without creating a temporary copy. This
+functionality is similar to the subsetting functionality 
+in Matlab.
+
+In addition we also include the following possibility
+which completes the set of tools for manipulating
+matrices:
+
+7) An array view can be adapted into a matrix expression. 
+This makes it possible to masquerade a complex subset view
+of a regular array as a matrix expression. The idea is
+to start from a matrix, choose some complex submatrix
+from it, and adapt the resulting view to a matrix expression
+to use in matrix computations.
+
+Efficiency
+----------
+
+The main technique in making matrix computations efficient in both space and time
+is the use of expression templates. Consider a matrix expression such as
+
+	A := A * (B + D)
+
+Using a naive implementation the result of B + D is computed
+in its entirety, requiring a temporary matrix E to hold the result.
+Next the product A * E is computed whose result again requires a new
+temporary matrix F. Finally F is assigned to A. Because the matrices
+can be of considerable size in memory, such a strategy is
+wasteful in memory space. There is also a problem with efficiency.
+First, the dynamic memory allocations can be slow. Second,
+some computations could be computed much faster if they could
+be combined (inlined) into same place.
+
+These problems can be solved elegantly by so-called expression templates.
+Rather than actually carrying out the computation, one
+constructs an expression tree describing the computation.
+Every expression then represents an abstract matrix which
+exists only as a computational description. Such a description
+allows, for each element (i, j), to compute the value of the expression.
+Specifically, an expression tree allows to evaluate
+an expression breadth-first rather than depth-first.
+This lazy evaluation approach to computation
+allows one to avoid the temporary matrix E. Moreover,
+the expression tree is a compile-time construct which
+after code generation is for the most part removed by the 
+compiler's optimizer.
+
+Because both sides of our example assignment contains A,
+the expression on the right necessarily needs to be evaluated
+to a temporary matrix before being assigned to A: otherwise
+the assigned values could possibly affect the computation on the right.
+Pastel automatically takes care of this temporary evaluation problem 
+by inspecting the expression tree of the assignment parameters for
+self-references. However, even if there is a self-reference
+in the assigned expression, creation of a temporary can be avoided
+if the reference is trivial (i.e. to compute value for (i, j),
+it only uses the element (i, j) of itself). For example, the
+following assignment does not generate temporaries at all:
+
+	A := A + B + (2 * A)
+
+Synthetic matrices
+------------------
+
+Matrix expressions can also be used other things than
+to implement fast operations between matrices. For example,
+the identity matrix is implemented as an expression 
+which returns value 1 for the diagonal positions and 0
+for the other positions. Assigning such an expression
+to a matrix allows to initialize the matrix to an identity
+matrix without actually creating a temporary one in memory.
+	
+Storage convention
+------------------
+
+The matrix data is stored as a continuous array of numbers with
+the row-major convention. This means that the rows are
+stored one after each other in ascending order, and the
+elements in each row are stored in ascending order in
+column position. For example, the elements of
+a 2x2 matrix are stored in the order 
+(0, 0); (0, 1); (1, 0); (1, 1).
+This convention corresponds to the convention that
+programming language C (and C++) uses with its
+multi-dimensional tables. 
+
+Aliasing
+--------
+
+Two matrix classes can share the same data. This is
+called aliasing. Because we know the storage convention,
+an aliasing matrix can also reshape its view of the data area
+somewhat. Specifically, the aliasing matrix can choose
+to skip some rows from the start and from the end. However,
+the aliasing matrix can not choose to skip any columns.
+The aliasing matrix will not attempt to free the memory
+after it is destroyed. On the other hand, if the
+aliased matrix is destroyed before the aliasing matrix,
+there is a danger of accessing unallocated memory.
+One must be wary for this not to happen.
+
+Static and dynamic sized matrices
+---------------------------------
+
+Pastel implements both static (compile-time) and dynamic sized
+matrices. In dimensions <= 4 (known in compile-time), 
+memory use and efficiency can be boosted by storing the matrix elements directly
+in the matrix class, rather than accessible through
+a pointer to dynamically allocated memory. Compilers
+can possibly produce faster code because the length
+of the loops become known in advance. Both types
+of matrices fall under a generic template class, which
+makes it possible to use the same algorithms for both.
+However, it is necessary to drop some substantial features 
+for the static matrices. These are:
+
+1) No array view support.
+
+2) No iterator support.
+
+3) Sequential row-major memory ordering cannot be guaranteed.
+
+This lack of features for static matrices has to do with supporting
+row vector access. This is in conflict with the requirement 3) 
+which implies conflicts also for features 1) and 2). However,
+in the case of static sized matrices the support
+for row-vector access is valued stronger than these
+other features (in practice, we have had no use
+for these features with static sized matrices).
+
+Static sized matrices are useful in those geometric and computer
+graphics applications which stay in the same (low) 
+dimension all the time. In contrast, dynamic sized matrices 
+offer a full range of features, which is useful when
+solving larger linear equation systems or systems
+whose dimension is only known at run-time.
+
+Use case
+--------
+
+test_matrix.cpp

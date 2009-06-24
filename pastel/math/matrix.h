@@ -12,6 +12,7 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
+#include "pastel/sys/arrayview.h"
 
 #include "pastel/math/matrixbase.h"
 
@@ -82,8 +83,17 @@ namespace Pastel
 		: public MatrixExpression<Dynamic, Dynamic, Real, 
 		Matrix<Dynamic, Dynamic, Real> >
 	{
+	private:
+		typedef Array<2, Real> Container;
+
 	public:
 		typedef const Matrix& StorageType;
+
+		typedef Pastel::View<2, real, ArrayView<2, Array<2, real> > > View;
+		typedef Pastel::ConstView<2, real, ConstArrayView<2, Array<2, real> > > ConstView;
+
+		typedef typename Container::Iterator Iterator;
+		typedef typename Container::ConstIterator ConstIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -102,6 +112,16 @@ namespace Pastel
 		void setSize(integer height, integer width);
 		integer width() const;
 		integer height() const;
+		integer size() const;
+
+		View view();
+		ConstView constView() const;
+
+		Iterator begin();
+		ConstIterator begin() const;
+
+		Iterator end();
+		ConstIterator end() const;
 
 		void set(const Real& that);
 
@@ -136,7 +156,7 @@ namespace Pastel
 			const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that);
 
 	private:
-		Array<2, Real> data_;
+		Container data_;
 	};
 
 	template <typename Real>

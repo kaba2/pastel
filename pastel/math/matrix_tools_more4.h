@@ -3,9 +3,10 @@
 
 #include "pastel/math/matrix_tools.h"
 
+#include "pastel/sys/view.h"
+
 namespace Pastel
 {
-
 	template <
 		int Height, int Width,
 		typename Real,
@@ -41,6 +42,17 @@ namespace Pastel
 	template <int Height, int Width, typename Real, typename Expression>
 	MatrixAbs<Height, Width, Real, Expression> abs(
 		const MatrixExpression<Height, Width, Real, Expression>& that);
+
+	template <
+		typename Real,
+		typename Input_ConstView>
+	class ConstViewMatrix;
+
+	//! Adapts a const view to a matrix expression.
+
+	template <typename Real, typename Input_ConstView>
+	ConstViewMatrix<Real, Input_ConstView> asMatrix(
+		const ConstView<2, Real, Input_ConstView>& that);
 
 }
 

@@ -1227,6 +1227,18 @@ namespace Pastel
 		}
 	};
 
+	typedef TemporaryPoint<1, integer> TemporaryIPoint1;
+	typedef TemporaryPoint<2, integer> TemporaryIPoint2;
+	typedef TemporaryPoint<3, integer> TemporaryIPoint3;
+	typedef TemporaryPoint<4, integer> TemporaryIPoint4;
+	typedef TemporaryPoint<Dynamic, integer> TemporaryDynamicIPoint;
+
+	typedef TemporaryPoint<1, real> TemporaryPoint1;
+	typedef TemporaryPoint<2, real> TemporaryPoint2;
+	typedef TemporaryPoint<3, real> TemporaryPoint3;
+	typedef TemporaryPoint<4, real> TemporaryPoint4;
+	typedef TemporaryPoint<Dynamic, real> TemporaryDynamicPoint;
+
 }
 
 #include "pastel/sys/point.hpp"

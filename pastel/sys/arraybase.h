@@ -29,6 +29,9 @@ namespace Pastel
 			typedef Type& Reference;
 			typedef const Type& ConstReference;
 
+			typedef Type* Iterator;
+			typedef const Type* ConstIterator;
+
 			typedef Detail_Array::Cursor<N, Type> Cursor;
 			typedef Detail_Array::ConstCursor<N, Type> ConstCursor;
 
@@ -93,6 +96,18 @@ namespace Pastel
 
 			//! Returns a cursor to the given position.
 			ConstCursor constCursor(const Point<N, integer>& position) const;
+
+			//! Returns an iterator to the first element.
+			Iterator begin();
+
+			//! Returns an iterator to the first element.
+			ConstIterator begin() const;
+
+			//! Returns an iterator to one-past-end element.
+			Iterator end();
+
+			//! Returns an iterator to one-past-end element.
+			ConstIterator end() const;
 
 		private:
 			void allocate(
