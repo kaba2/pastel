@@ -155,16 +155,18 @@ namespace Pastel
 		typedef std::vector<ConstTreeIterator> NearestSet;
 		typedef std::vector<Real> DistanceSet;
 		NearestSet nearestSet;
+		nearestSet.reserve(kNearestEnd);
 		DistanceSet distanceSet;
+		distanceSet.reserve(kNearestEnd);
 		DistanceSet* distanceSetPtr = distanceArray ? &distanceSet : 0;
 
-#pragma omp for
+#pragma omp for schedule(dynamic, 100)
 		for (integer i = 0;i < points;++i)
 		{
 			searchNearest(tree, pointSet[i], 
 				Accept_ExceptDeref<ConstTreeIterator, Object>(&pointSet[i]), 
 				maxDistance, maxRelativeError,
-				normBijection, kNearest, &nearestSet, distanceSetPtr);
+				normBijection, kNearestEnd, &nearestSet, distanceSetPtr);
 
 			ASSERT(nearestSet.size() == kNearest);
 
