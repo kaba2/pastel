@@ -416,6 +416,34 @@ namespace Pastel
 			return ConstCursor(&(*this)(position), factor_);
 		}
 
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::Iterator
+			ArrayBase<N, Type>::begin()
+		{
+			return data_;
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::ConstIterator
+			ArrayBase<N, Type>::begin() const
+		{
+			return data_;
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::Iterator
+			ArrayBase<N, Type>::end()
+		{
+			return data_ + size_;
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::ConstIterator
+			ArrayBase<N, Type>::end() const
+		{
+			return data_ + size_;
+		}
+
 	}
 
 }

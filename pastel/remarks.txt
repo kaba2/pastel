@@ -1,6 +1,60 @@
 Remarks
 =======
 
+Accessing a matrix
+------------------
+
+Different kinds of access methods are useful when
+accessing a general array. This has been succesfully
+solved with the use of array views. Matrix is a
+special kind of a 2-dimensional array. Matrix
+and vector expressions can also be thought of 
+as views. The only difference between views and
+expressions is that while the former are both
+readable and writable, the latter are only
+readable. We recognize the following useful
+ways to access a matrix:
+
+1) Matrix element (i, j) by reference.
+2) Matrix as a matrix expression.
+- explicitly adaptable to a const view?
+=> Maybe can't do because requires cursors.
+3) Matrix as an array view 
+- explicitly adaptable to a matrix expression.
+4) Matrix row i as a vector.
+5) Matrix as a contiguous sequence of
+numbers in row-major order using iterators.
+
+Dynamic sized matrices will offer all of
+these access methods. Feature 4) is problematic
+to implement. In particular, one can't
+return mutable references to row vectors stored
+in the matrix because their size and possible aliasing
+could be changed from outside, thus breaking matrix 
+class invariants. The options are as follows:
+
+Option 1) Store for each row an aliasing vector for
+row data. Return only readable references to these.
+Make it possible to assign a vector expression to a 
+row (and column) of a matrix via a member function.
+
+Option 2) Return copies of row aliasing
+vectors. Caveat: one can't store references
+to matrix row vectors. We will implement this
+option.
+
+For small fixed size matrices small memory
+footprint is important. Because not all of 
+the above access methods can be reliably
+produced, we shall implement only the
+options 1), 2) without adaptation to array views,
+and 4). The feature 4) is valued more important
+than feature 5). Satisfying both would need
+extra memory to be implemented portably.
+With fixed size matrices there is no fear
+of breaking class invariants by offering
+a direct mutable reference to row vectors.
+
 Output from a function
 ----------------------
 
@@ -44,8 +98,6 @@ the files exist. This also helps when files are moved from
 one sublibrary to other.
 => Need to generate forwarding files to pastel/.
 => You can create a program to do this automatically.
-- Do the same with include guards: PASTEL_ -> PASTEL_
-
 
 Need:
 - clean excess whitespace
@@ -54,7 +106,6 @@ Need:
 - better testing utilities
 => need to return success/failure of tests
 => if it fails, need to know why
-
 
 Qt installation
 ---------------
@@ -229,7 +280,7 @@ is stored in stack, there is only one way to transmit the temporary
 information to m: copying, which is very slow for big matrices.
 
 Solution 1: reference semantics. 
-=> implies using dynamic allocation and
+=> Implies using dynamic allocation and
 this is inefficient for small matrices, vectors etc.
 
 Solution 2: Use value semantics for small objects, but reference semantics for large objects.
@@ -240,18 +291,11 @@ is the essential efficiency requirement for returning from functions.
 
 Solution 3: Use move semantics..
 => Large objects act similar to auto_ptr
-=> Now it is possible for a function to hijack a matrix: Matrix inverse(Matrix m)
-=> But so what, the user knows what he's calling.
-=> Constness of the matrix then does not mean that its contents can't be changed.
-=> For that you need to create ConstMatrix
-=> And now you have two kinds of matrices, Matrix and Constmatrix
-=> So you need to create unbounded template functions, which isn't nice in C++03 
-(but with concepts it will be in C++09).
-That is, value semantics for small objects, but large matrices move the ownerships.
-
-Problem: how do you do const matrices with reference semantics?
-=> You need "ConstMatrix".
-=> Then you need to generalize matrix functions
+=> Subclass Matrix with TemporaryMatrix. TemporaryMatrix's allow
+move semantics when assigned. Return TemporaryMatrix's from functions.
+=> Nice solution for one class alone, but does not layer nicely.
+E.g. take a Box, which contains a Matrix. Move semantics for the Box
+again needs TemporaryBox etc: its hard work.
 
 Matrix indexing
 ---------------

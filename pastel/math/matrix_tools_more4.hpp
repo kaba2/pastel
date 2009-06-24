@@ -262,6 +262,74 @@ namespace Pastel
 			(const Expression&)that);
 	}
 
+	template <
+		typename Real,
+		typename Input_ConstView>
+	class ConstViewMatrix
+		: public MatrixExpression<Dynamic, Dynamic, Real,
+		ConstViewMatrix<Real, Input_ConstView> >
+	{
+	public:
+		typedef const ConstViewMatrix& StorageType;
+
+		explicit ConstViewMatrix(
+			const ConstView<2, Real, Input_ConstView>& data)
+			: data_(data)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return mabs(data_(y, x));
+		}
+
+		integer width() const
+		{
+			return data_.width();
+		}
+
+		integer height() const
+		{
+			return data_.height();
+		}
+
+		bool involves(
+			void* address) const
+		{
+			// TODO: FIX:
+			// It is possible that the
+			// view is from a matrix 
+			// in which case we should 
+			// have a check for the views
+			// also!
+
+			return this == address;
+		}
+
+		bool involvesNonTrivially(
+			void* address) const
+		{
+			// TODO: FIX:
+			// It is possible that the
+			// view is from a matrix 
+			// in which case we should 
+			// have a check for the views
+			// also!
+
+			return false;
+		}
+
+	private:
+		const ConstView<2, Real, Input_ConstView>& data_;
+	};
+
+	template <typename Real, typename Input_ConstView>
+	ConstViewMatrix<Real, Input_ConstView> asMatrix(
+		const ConstView<2, Real, Input_ConstView>& that)
+	{
+		return ConstViewMatrix<Real, Input_ConstView>(that);
+	}
+
 }
 
 #endif

@@ -1,12 +1,99 @@
 #include "pastelmathtest.h"
+
 #include "pastel/math/matrix_tools.h"
-#include "pastel/sys/random_vector.h"
 #include "pastel/math/ludecomposition_tools.h"
+
+#include "pastel/sys/random_vector.h"
+#include "pastel/sys/view_all.h"
+
+#include <algorithm>
 
 using namespace Pastel;
 
 namespace
 {
+
+	void testMatrixView()
+	{
+		const integer width = 4;
+		const integer height = 4;
+
+		// A matrix can be accessed through
+		// a view interface. The convention
+		// for index ordering is opposite
+		// for the views.
+
+		Matrix<Dynamic, Dynamic, real> a(height, width);
+		for (integer y = 0;y < height;++y)
+		{
+			for (integer x = 0;x < width;++x)
+			{
+				const real value = x * y;
+				a.view()(x, y) = value;
+		
+				// The matrix can also be indexed
+				// directly.
+
+				REPORT(a(y, x) != value);
+			}
+		}
+		
+		// Demonstrating the modification of a matrix
+		// via view interface.
+
+		copy(constSubView(a.constView(), Rectangle2(0, 0, 2, 2)),
+			subView(a.view(), Rectangle2(2, 2, 4, 4)));
+		
+		REPORT(a(2, 2) != a(0, 0));
+		REPORT(a(3, 2) != a(1, 0));
+		REPORT(a(3, 3) != a(1, 1));
+		REPORT(a(2, 3) != a(0, 1));
+
+		// The matrix can also be viewed as a sequence
+		// of values, so that algorithms from the
+		// standard library can be used at will.
+
+		Matrix<Dynamic, Dynamic, real>::Iterator iter = a.begin();
+		const Matrix<Dynamic, Dynamic, real>::Iterator iterEnd = a.end();
+
+		integer i = 0;
+		while(iter != iterEnd)
+		{
+			*iter = i;
+			++iter;
+			++i;
+			ENSURE(i <= a.size());
+		}
+
+		std::random_shuffle(a.begin(), a.end());
+		std::sort(a.begin(), a.end());
+
+		i = 0;
+		iter = a.begin();
+		while(iter != iterEnd)
+		{
+			REPORT(*iter != i);
+			++iter;
+			++i;
+		}
+
+		// Finally, a matrix can be viewed as
+		// a collection of row vectors.
+
+		for (integer j = 0;j < height;++j)
+		{
+			a[j] = unitAxis<Dynamic, real>(width, j) * 2;
+			REPORT(a[j][j] != 2);
+			a[j] = evaluate(unitAxis<Dynamic, real>(width, j) * 3);
+			REPORT(a[j][j] != 3);
+		}
+
+		// A const view can be adapted to a matrix expression:
+
+		Array<2, real> b(height, width);
+		
+		a *= asMatrix(constArrayView(b));
+	}
 
 	void testMatrixLowDimensional()
 	{
@@ -336,36 +423,44 @@ namespace
 	void testBegin()
 	{
 		testMatrixLowDimensional();
+
 		testMatrixSimpleArithmetic();
+
 		testMatrixSolve<1>();
 		testMatrixSolve<2>();
 		testMatrixSolve<3>();
 		testMatrixSolve<4>();
 		testMatrixSolve<5>();
 		testMatrixSolve<Dynamic>();
+
 		testMatrixInverse<1>();
 		testMatrixInverse<2>();
 		testMatrixInverse<3>();
 		testMatrixInverse<4>();
 		testMatrixInverse<5>();
 		testMatrixInverse<Dynamic>();
+
 		testMatrixMultiply<1>();
 		testMatrixMultiply<2>();
 		testMatrixMultiply<3>();
 		testMatrixMultiply<4>();
 		testMatrixMultiply<5>();
 		testMatrixMultiply<Dynamic>();
+
 		testMatrixAssigns<1>();
 		testMatrixAssigns<2>();
 		testMatrixAssigns<3>();
 		testMatrixAssigns<4>();
 		testMatrixAssigns<5>();
 		testMatrixAssigns<Dynamic>();
+
 		testMatrixCondition<2>();
 		testMatrixCondition<3>();
 		testMatrixCondition<4>();
 		testMatrixCondition<5>();
 		testMatrixCondition<Dynamic>();
+
+		testMatrixView();
 	}
 
 	void testAdd()
