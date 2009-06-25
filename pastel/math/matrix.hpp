@@ -94,6 +94,13 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	void Matrix<Dynamic, Dynamic, Real>::reshape(
+		integer height, integer width)
+	{
+		data_.reshape(IVector2(width, height));
+	}
+
+	template <typename Real>
 	typename Matrix<Dynamic, Dynamic, Real>::View 
 		Matrix<Dynamic, Dynamic, Real>::view()
 	{

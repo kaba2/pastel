@@ -484,6 +484,10 @@
 			<Filter
 				Name="Matrix decompositions"
 				>
+				<File
+					RelativePath=".\Matrix decompositions.txt"
+					>
+				</File>
 				<Filter
 					Name="Cholesky decomposition"
 					>
@@ -516,11 +520,19 @@
 						>
 					</File>
 					<File
+						RelativePath=".\ludecomposition.txt"
+						>
+					</File>
+					<File
 						RelativePath=".\ludecomposition_tools.h"
 						>
 					</File>
 					<File
 						RelativePath=".\ludecomposition_tools.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ludecomposition_tools.txt"
 						>
 					</File>
 				</Filter>
@@ -573,6 +585,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\matrixbase.h"
+					>
+				</File>
+				<File
+					RelativePath=".\matrixexpression.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Matrix tools"
+				>
+				<File
 					RelativePath=".\matrix_tools.h"
 					>
 				</File>
@@ -610,14 +634,6 @@
 				</File>
 				<File
 					RelativePath=".\matrix_tools_more4.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\matrixbase.h"
-					>
-				</File>
-				<File
-					RelativePath=".\matrixexpression.h"
 					>
 				</File>
 			</Filter>

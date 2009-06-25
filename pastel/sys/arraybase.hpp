@@ -204,9 +204,36 @@ namespace Pastel
 		}
 
 		template <int N, typename Type>
+		void ArrayBase<N, Type>::reshape(
+			const Vector<N, integer>& extent)
+		{
+			ENSURE(allGreaterEqual(extent, 0));
+
+			const integer newSize = product(extent);
+			
+			ENSURE2(newSize == size_, newSize, size_);
+
+			if (newSize > 0)
+			{
+				Vector<N, integer> newFactor;
+
+				newFactor[0] = 1;
+
+				for (integer i = 1;i < N;++i)
+				{
+					newFactor[i] = newFactor[i - 1] * extent[i - 1];
+				}
+
+				factor_ = newFactor;
+				extent_ = extent;
+				size_ = newSize;
+			}
+		}
+
+		template <int N, typename Type>
 		bool ArrayBase<N, Type>::empty() const
 		{
-			return allEqual(extent(), 0);
+			return size_ == 0;
 		}
 
 		template <int N, typename Type>

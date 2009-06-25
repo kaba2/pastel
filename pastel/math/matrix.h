@@ -114,6 +114,8 @@ namespace Pastel
 		integer height() const;
 		integer size() const;
 
+		void reshape(integer height, integer width);
+
 		View view();
 		ConstView constView() const;
 

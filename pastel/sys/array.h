@@ -119,6 +119,7 @@ namespace Pastel
 		using Base::constCursor;
 		using Base::operator();
 		using Base::setExtent;
+		using Base::reshape;
 
 		Array()
 			: Base()
@@ -187,6 +188,11 @@ namespace Pastel
 			return Base::extent()[0];
 		}
 
+		void reshape(integer width)
+		{
+			Base::reshape(Vector<N, integer>(width));
+		}
+
 		Type& operator()(integer x)
 		{
 			return Base::operator()(Point<N, integer>(x));
@@ -234,6 +240,7 @@ namespace Pastel
 		using Base::constCursor;
 		using Base::operator();
 		using Base::setExtent;
+		using Base::reshape;
 
 		Array()
 			: Base()
@@ -305,6 +312,11 @@ namespace Pastel
 			return Base::extent()[1];
 		}
 
+		void reshape(integer width, integer height)
+		{
+			Base::reshape(Vector<N, integer>(width, height));
+		}
+
 		Type& operator()(integer x, integer y)
 		{
 			return Base::operator()(Point<N, integer>(x, y));
@@ -352,6 +364,7 @@ namespace Pastel
 		using Base::constCursor;
 		using Base::operator();
 		using Base::setExtent;
+		using Base::reshape;
 
 		Array()
 			: Base()
@@ -426,6 +439,11 @@ namespace Pastel
 		integer depth() const
 		{
 			return Base::extent()[2];
+		}
+
+		void reshape(integer width, integer height, integer depth)
+		{
+			Base::reshape(Vector<N, integer>(width, height, depth));
 		}
 
 		Type& operator()(integer x, integer y, integer z)
