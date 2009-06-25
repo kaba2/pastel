@@ -93,6 +93,14 @@ namespace
 		Array<2, real> b(height, width);
 		
 		a *= asMatrix(constArrayView(b));
+
+		// Because of the way the matrix is stored,
+		// it's width and height can be varied
+		// without reallocation given that the
+		// number of elements stays the same.
+		// The data retains its row-major ordering.
+
+		a.reshape(8, 2);
 	}
 
 	void testMatrixLowDimensional()

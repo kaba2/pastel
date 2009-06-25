@@ -51,7 +51,7 @@ namespace Pastel
 			void clear();
 			void swap(ArrayBase& that);
 
-			//! Sets the extent and height of the array.
+			//! Sets the extents of the array.
 			/*!
 			If extent or height is negative, a warning is generated.
 			If extent or height is zero, the effect is identical to
@@ -67,7 +67,25 @@ namespace Pastel
 			//! Returns the extent of the array.
 			const Vector<N, integer>& extent() const;
 
-			//! Returns allEqual(extent(), 0).
+			//! Sets the extents of the array using the existing data.
+			/*!
+			Preconditions:
+			allGreaterEqual(extent, 0)
+			product(extent) == product(extent())
+
+			Time complexity:
+			O(d) where d is the dimension.
+
+			Because the data is stored sequentially in row-major
+			order, it is possible without reallocation to change
+			the extents of the array in such a way that the
+			total number of elements stays constant. The data
+			retains its row-major storage convention.
+			*/
+			void reshape(
+				const Vector<N, integer>& extent);
+
+			//! Returns (size() == 0).
 			bool empty() const;
 
 			//! Returns the number of elements in the array.

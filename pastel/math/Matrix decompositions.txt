@@ -1,0 +1,42 @@
+Matrix decompositions
+=====================
+
+Theory
+------
+
+Matrix decompositions factorize a matrix into a product of 
+several matrices. While important theoretically when
+deriving results, they are also important from the
+computational point of view. 
+
+Practice
+--------
+
+Pastel implements the PLU, QR, Cholesky,
+and singular value decompositions.
+
+Learn more
+----------
+
+Cholesky decomposition
+
+PLU decomposition
+
+QR decomposition
+
+Singular value decomposition (SVD)
+
+Other decompositions
+--------------------
+
+Eigendecomposition is a commonly needed matrix decomposition.
+However, it is tricky to implement from the numerical point of view 
+and many books thus warn against implementing your own versions for serious
+use because of the plethora of possible pitfalls.
+The same arguments also goes for the SVD.
+We take this advice in two forms. First, we simply copy the
+code for SVD from the book "Numerical Recipes" and trust
+the authors in its robustness. Second, we do not implement eigendecomposition 
+at all. Fortunately, eigendecomposition is needed quite
+rarely in computer graphics and geometry compared to the 
+other four decompositions.

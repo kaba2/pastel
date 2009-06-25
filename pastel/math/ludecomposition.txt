@@ -1,0 +1,84 @@
+PLU decomposition
+=================
+
+Files
+-----
+
+ludecomposition.h
+ludecomposition.hpp
+ludecomposition_tools.h
+ludecomposition_tools.hpp
+
+Use case
+--------
+
+test_ludecomposition.cpp
+test_ludecomposition_tools.cpp
+
+Theory
+------
+
+An arbitrary mxn matrix A can be decomposed into
+A = PLU
+where
+P is an mxm permutation matrix.
+L is an mxm unit lower triangular matrix (has 1's on the diagonal).
+U is an mxn upper triangular matrix.
+
+Practice
+--------
+
+Pastel implements an algorithm to compute the PLU
+decomposition of a square matrix (if it exists)
+The decomposition is encapsulated into a class because 
+the decomposition results are tightly connected to each others.
+
+Applications
+------------
+
+Consider solving a linear system
+
+	Ax = b
+	
+Where A is invertible and has a PLU decomposition.
+The problem can be solved in O(n^3) operations using gaussian
+elimination and back substitution (let us exclude
+the faster algorithms). This is ok if the matrix
+A is involved only once in such an equation. However,
+if b is varied and A stays constant, then there
+is a much faster ways to solve the problems.
+One can decompose A = PLU, taking O(n^3) time. However,
+after the decomposition has been computed, solutions to varying b's
+can be obtained in O(n^2) time. 
+
+If A is also positive definite, the linear system can be
+solved even faster, although only by a factor,
+by the Cholesky decomposition.
+
+Storage convention
+------------------
+
+Because L contains 1's on the diagonal, one can pack
+L and U to the same packed matrix E by throwing the 
+diagonal of L out:
+
+E = (L - I) + U
+
+This packing scheme saves memory. The packed matrix
+is what the decomposition object computes.
+This packed matrix can be used in solving linear
+equations by using the functions 'solveUpperTriangular'
+and 'solveUnitLowerTriangular'. However, to make this even
+easier, Pastel provides an overload for 'solveLinear'
+which takes an LuDecomposition object instead of
+a matrix.
+
+Learn more
+----------
+
+LuDecomposition tools
+
+Future work
+-----------
+
+Generalize to handle non-square matrices.
