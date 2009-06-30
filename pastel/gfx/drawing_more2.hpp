@@ -124,7 +124,7 @@ namespace Pastel
 			toPixelSpanPoint(box.max().x()),
 			toPixelSpanPoint(box.max().y()));
 		const Rectangle2 imageWindow(
-			IPoint2(0), asPoint(image.extent()));
+			Point2i(0), asPoint(image.extent()));
 
 		Rectangle2 clippedBox;
 		if (intersect(imageBox, imageWindow, clippedBox))

@@ -91,6 +91,11 @@ namespace
 		{
 			log() << digamma<real>(i) << ", ";
 		}
+		log() << "Digamma function from 301 to 309" << logNewLine;
+		for (integer i = 301;i < 310;++i)
+		{
+			log() << digamma<real>(i) << ", ";
+		}
 		log() << logNewLine;
 	}
 

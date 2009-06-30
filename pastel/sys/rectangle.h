@@ -80,7 +80,7 @@ namespace Pastel
 
 		void set(integer xMin, integer xMax)
 		{
-			set(IPoint1(xMin), IPoint1(xMax));
+			set(Point1i(xMin), Point1i(xMax));
 		}
 
 		integer& xMin()
@@ -151,8 +151,8 @@ namespace Pastel
 		void set(integer xMin, integer yMin,
 			integer xMax, integer yMax)
 		{
-			set(IPoint2(xMin, yMin),
-				IPoint2(xMax, yMax));
+			set(Point2i(xMin, yMin),
+				Point2i(xMax, yMax));
 		}
 
 		integer& xMin()
@@ -249,8 +249,8 @@ namespace Pastel
 		void set(integer xMin, integer yMin, integer zMin,
 			integer xMax, integer yMax, integer zMax)
 		{
-			set(IPoint3(xMin, yMin, zMin),
-				IPoint3(xMax, yMax, zMax));
+			set(Point3i(xMin, yMin, zMin),
+				Point3i(xMax, yMax, zMax));
 		}
 
 		integer& xMin()

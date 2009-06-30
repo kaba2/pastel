@@ -20,15 +20,15 @@ namespace Pastel
 	void setRandomMatrix(
 		Matrix<Height, Width, Real>& matrix)
 	{
-		const integer width = matrix.width();
-		const integer height = matrix.height();
+		typedef typename Matrix<Height, Width, Real>::Iterator
+			Iterator;
 
-		for (integer i = 0;i < height;++i)
+		Iterator iter = matrix.begin();
+		const Iterator iterEnd = matrix.end();
+		while(iter != iterEnd)
 		{
-			for (integer j = 0;j < width;++j)
-			{
-				matrix(i, j) = random<Real>() * 2 - 1;
-			}
+			*iter = random<Real>() * 2 - 1;
+			++iter;
 		}
 	}
 
@@ -86,12 +86,16 @@ namespace Pastel
 		const Real scaling = 
 			inverse(std::sqrt((Real)2));
 
-		for (integer y = 0;y < n;++y)
+		Matrix<N, N, Real>::Iterator iter = 
+			result.begin();
+
+		const Matrix<N, N, Real>::Iterator iterEnd = 
+			result.end();
+
+		while(iter != iterEnd)
 		{
-			for (integer x = 0;x < n;++x)
-			{
-				result(y, x) = randomGaussian<Real>() * scaling;
-			}
+			*iter = randomGaussian<Real>() * scaling;
+			++iter;
 		}
 
 		const QrDecomposition<N, Real> qr(result);
@@ -235,13 +239,16 @@ namespace Pastel
 
 		setRandomRotation(result);
 
-		// Multiply the rows of the rotation matrix
+		// Multiply the columns of the rotation matrix
 		// with square root of the diagonal element of D.
 
-		for (integer i = 0;i < n;++i)
+		for (integer j = 0;j < n;++j)
 		{
-			const Real b = partitionSet[i + 1] - partitionSet[i];
-			result[i] *= std::exp(-b / 2);
+			const Real b = partitionSet[j + 1] - partitionSet[j];
+			for (integer i = 0;i < n;++i)
+			{
+				result(i, j) *= std::exp(-b / 2);
+			}
 		}
 
 		result *= transpose(result);
@@ -375,12 +382,24 @@ namespace Pastel
 		const Real b =
 			a - std::log(condition);
 
+		// Generate a random rotation matrix.
+
 		setRandomRotation(result);
 
-		result[0] *= std::exp(-a / 2);
-		for (integer i = 1;i < n;++i)
+		// Multiply the columns of the rotation matrix
+		// with square root of the diagonal element of D.
+
+		for (integer i = 0;i < n;++i)
 		{
-			result[i] *= std::exp(-b / 2);
+			result(i, 0) *= std::exp(-a / 2);
+		}
+
+		for (integer j = 1;j < n;++j)
+		{
+			for (integer i = 0;i < n;++i)
+			{
+				result(i, j) *= std::exp(-b / 2);
+			}
 		}
 
 		result *= transpose(result);

@@ -23,9 +23,9 @@ namespace Pastel
 			return AlignedBox<N, Real>(object);
 		}
 
-		Tuple<2, real> bound(const Point<N, Real>& object, integer axis) const
+		Tuple<2, Real> bound(const Point<N, Real>& object, integer axis) const
 		{
-			return Tuple<2, real>(object[axis]);
+			return Tuple<2, Real>(object[axis]);
 		}
 	};
 

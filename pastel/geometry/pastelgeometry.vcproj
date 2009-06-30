@@ -48,7 +48,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
+				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -131,7 +131,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELGEOMETRY_EXPORTS"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
+				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -797,6 +797,10 @@
 		<Filter
 			Name="All nearest neighbors counting"
 			>
+			<File
+				RelativePath=".\count_all_nearest_neighbors_bruteforce.h"
+				>
+			</File>
 			<File
 				RelativePath=".\count_all_nearest_neighbors_kdtree.h"
 				>

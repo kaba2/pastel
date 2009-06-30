@@ -11,278 +11,6 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	Matrix<Dynamic, Dynamic, Real>::Matrix()
-		: data_()
-	{
-	}
-
-	template <typename Real>
-	template <int Height, int Width, typename Expression>
-	Matrix<Dynamic, Dynamic, Real>::Matrix(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
-		: data_(that.width(), that.height())
-	{
-		const integer leftWidth = width();
-		const integer leftHeight = height();
-
-		for (integer y = 0;y < leftHeight;++y)
-		{
-			for (integer x = 0;x < leftWidth;++x)
-			{
-				(*this)(y, x) = that(y, x);
-			}
-		}
-	}
-
-	template <typename Real>
-	Matrix<Dynamic, Dynamic, Real>::Matrix(integer height, integer width)
-		: data_(width, height, 0)
-	{
-		const integer minSize = std::min(width, height);
-
-		for (integer i = 0;i < minSize;++i)
-		{
-			data_(i, i) = 1;
-		}
-	}
-
-	template <typename Real>
-	void Matrix<Dynamic, Dynamic, Real>::swap(
-		Matrix& that)
-	{
-		data_.swap(that.data_);
-	}
-
-	template <typename Real>
-	void Matrix<Dynamic, Dynamic, Real>::clear()
-	{
-		data_.clear();
-	}
-
-	template <typename Real>
-	void Matrix<Dynamic, Dynamic, Real>::setSize(integer newHeight, integer newWidth)
-	{
-		const integer oldMinSize = std::min(width(), height());
-
-		data_.setExtent(newWidth, newHeight, 0);
-
-		const integer newMinSize = std::min(newWidth, newHeight);
-
-		for (integer i = oldMinSize;i < newMinSize;++i)
-		{
-			data_(i, i) = 1;
-		}
-	}
-
-	template <typename Real>
-	integer Matrix<Dynamic, Dynamic, Real>::width() const
-	{
-		return data_.width();
-	}
-
-	template <typename Real>
-	integer Matrix<Dynamic, Dynamic, Real>::height() const
-	{
-		return data_.height();
-	}
-
-	template <typename Real>
-	integer Matrix<Dynamic, Dynamic, Real>::size() const
-	{
-		return data_.size();
-	}
-
-	template <typename Real>
-	void Matrix<Dynamic, Dynamic, Real>::reshape(
-		integer height, integer width)
-	{
-		data_.reshape(IVector2(width, height));
-	}
-
-	template <typename Real>
-	typename Matrix<Dynamic, Dynamic, Real>::View 
-		Matrix<Dynamic, Dynamic, Real>::view()
-	{
-		return arrayView(data_);
-	}
-
-	template <typename Real>
-	typename Matrix<Dynamic, Dynamic, Real>::ConstView 
-		Matrix<Dynamic, Dynamic, Real>::constView() const
-	{
-		return constArrayView(data_);
-	}
-
-	template <typename Real>
-	typename Matrix<Dynamic, Dynamic, Real>::Iterator 
-		Matrix<Dynamic, Dynamic, Real>::begin()
-	{
-		return data_.begin();
-	}
-
-	template <typename Real>
-	typename Matrix<Dynamic, Dynamic, Real>::ConstIterator 
-		Matrix<Dynamic, Dynamic, Real>::begin() const
-	{
-		return data_.begin();
-	}
-
-	template <typename Real>
-	typename Matrix<Dynamic, Dynamic, Real>::Iterator 
-		Matrix<Dynamic, Dynamic, Real>::end()
-	{
-		return data_.end();
-	}
-
-	template <typename Real>
-	typename Matrix<Dynamic, Dynamic, Real>::ConstIterator 
-		Matrix<Dynamic, Dynamic, Real>::end() const
-	{
-		return data_.end();
-	}
-
-	template <typename Real>
-	void Matrix<Dynamic, Dynamic, Real>::set(const Real& that)
-	{
-		data_.set(that);
-	}
-
-	template <typename Real>
-	bool Matrix<Dynamic, Dynamic, Real>::involves(void* address) const
-	{
-		return this == address;
-	}
-
-	template <typename Real>
-	bool Matrix<Dynamic, Dynamic, Real>::involvesNonTrivially(void* address) const
-	{
-		return false;
-	}
-
-	template <typename Real>
-	Real& Matrix<Dynamic, Dynamic, Real>::operator()(integer y, integer x)
-	{
-		return data_(x, y);
-	}
-
-	template <typename Real>
-	const Real& Matrix<Dynamic, Dynamic, Real>::operator()(integer y, integer x) const
-	{
-		return data_(x, y);
-	}
-
-	template <typename Real>
-	TemporaryVector<Dynamic, Real> Matrix<Dynamic, Dynamic, Real>::operator[](integer y)
-	{
-		Vector<Dynamic, Real> result(
-			ofDimension(width()), 
-			withAliasing(&data_(0, y)));
-		
-		return result.asTemporary();
-	}
-
-	template <typename Real>
-	const TemporaryVector<Dynamic, Real> Matrix<Dynamic, Dynamic, Real>::operator[](integer y) const
-	{
-		Vector<Dynamic, Real> result(
-			ofDimension(width()), 
-			withAliasing(const_cast<Real*>(&data_(0, y))));
-		
-		return result.asTemporary();
-	}
-
-	template <typename Real>
-	template <typename Expression>
-	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator=(
-		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& right)
-	{
-		if (width() != right.width() ||
-			height() != right.height() || 
-			right.involvesNonTrivially(this))
-		{
-			// The right expression contains this matrix
-			// as a non-trivial subexpression. We thus need to evaluate
-			// the expression first.
-			
-			Matrix<Dynamic, Dynamic, Real> copyRight(right);
-			*this = copyRight;
-		}
-		else
-		{
-			// Else simply copy.
-
-			Matrix<Dynamic, Dynamic, Real>& left = *this;
-
-			const integer leftWidth = width();
-			const integer leftHeight = height();
-
-			for (integer i = 0;i < leftHeight;++i)
-			{
-				for (integer j = 0;j < leftWidth;++j)
-				{
-					left(i, j) = right(i, j);
-				}
-			}
-		}
-
-		return *this;
-	}
-
-	template <typename Real>
-	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator*=(
-		const Real& that)
-	{
-		*this = *this * that;
-
-		return *this;
-	}
-
-	template <typename Real>
-	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator/=(
-		const Real& that)
-	{
-		*this = *this * inverse(that);
-
-		return *this;
-	}
-
-	template <typename Real>
-	template <typename Expression>
-	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator+=(
-		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that)
-	{
-		*this = *this + that;
-
-		return *this;
-	}
-
-	template <typename Real>
-	template <typename Expression>
-	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator-=(
-		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that)
-	{
-		*this = *this - that;
-
-		return *this;
-	}
-
-	template <typename Real>
-	template <typename Expression>
-	Matrix<Dynamic, Dynamic, Real>&
-		Matrix<Dynamic, Dynamic, Real>::operator*=(
-		const MatrixExpression<Dynamic, Dynamic, Real, Expression>& that)
-	{
-		*this = *this * that;
-
-		return *this;
-	}
-
 	// Matrices vs vectors
 
 	template <
@@ -327,19 +55,18 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// This is a non-trivial expression.
-			return left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -400,19 +127,18 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// This is a non-trivial expression.
-			return left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:

@@ -48,7 +48,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
+				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -130,7 +130,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELSYS_EXPORTS"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
+				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -617,6 +617,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\memory_overlaps.h"
+				>
+			</File>
+			<File
 				RelativePath=".\referencecounted.h"
 				>
 			</File>
@@ -734,6 +738,10 @@
 			</File>
 			<File
 				RelativePath=".\constants.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\histogram.h"
 				>
 			</File>
 			<File
@@ -957,6 +965,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\commafiller.h"
+				>
+			</File>
+			<File
 				RelativePath=".\indexallocator.cpp"
 				>
 			</File>
@@ -986,6 +998,10 @@
 			</File>
 			<File
 				RelativePath=".\prototypefactory.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\sparseiterator.h"
 				>
 			</File>
 			<File

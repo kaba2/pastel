@@ -39,6 +39,7 @@ namespace Pastel
 	typedef CholeskyDecomposition<2, real> CholeskyDecomposition2;
 	typedef CholeskyDecomposition<3, real> CholeskyDecomposition3;
 	typedef CholeskyDecomposition<4, real> CholeskyDecomposition4;
+	typedef CholeskyDecomposition<Dynamic, real> CholeskyDecompositionD;
 
 }
 

@@ -34,6 +34,9 @@ namespace Pastel
 		typedef Detail::TupleBase<N, Type> Base;
 
 	public:
+		using typename Base::Iterator;
+		using typename Base::ConstIterator;
+
 		// Using default copy constructor.
 		// Using default destructor.
 
@@ -88,6 +91,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
+		using typename Base::Iterator;
+		using typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -150,6 +155,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
+		using typename Base::Iterator;
+		using typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -234,6 +241,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
+		using typename Base::Iterator;
+		using typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -330,6 +339,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
+		using typename Base::Iterator;
+		using typename Base::ConstIterator;
 
 		Tuple()
 			: Base()
@@ -439,6 +450,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::swap;
+		using typename Base::Iterator;
+		using typename Base::ConstIterator;
 
 		// We prohibit default construction
 		// to force specifying the dimension

@@ -25,8 +25,8 @@ namespace Pastel
 		const real v = (uv[1] - 0.5) - x.y();
 
 		return linear(
-			linear(extender(image, x), extender(image, x + IVector2(1, 0)), u),
-			linear(extender(image, x + IVector2(0, 1)), extender(image, x + IVector2(1)), u),
+			linear(extender(image, x), extender(image, x + Vector2i(1, 0)), u),
+			linear(extender(image, x + Vector2i(0, 1)), extender(image, x + Vector2i(1)), u),
 			v);
 	}
 

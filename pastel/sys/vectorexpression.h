@@ -82,15 +82,15 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return ((const Expression&)*this).involves(address);
+			return ((const Expression&)*this).involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return ((const Expression&)*this).involvesNonTrivially(address);
+			return ((const Expression&)*this).involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 		template <typename RightExpression>
@@ -303,13 +303,13 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address;
+			return false;
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			return false;
 		}
@@ -347,16 +347,15 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(address);
+			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -397,18 +396,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(address) ||
-				right_.involvesNonTrivially(address);
+			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
+				right_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -450,18 +448,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(address) ||
-				right_.involvesNonTrivially(address);
+			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
+				right_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -503,18 +500,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(address) ||
-				right_.involvesNonTrivially(address);
+			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
+				right_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -556,23 +552,401 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(address) ||
-				right_.involvesNonTrivially(address);
+			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
+				right_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
 		typename LeftExpression::StorageType left_;
 		typename RightExpression::StorageType right_;
+	};
+
+	template <int N, typename Real>
+	class ConstVectorView
+		: public VectorExpression<N, Real,
+		ConstVectorView<N, Real> >
+	{
+	public:
+		typedef const ConstVectorView StorageType;
+
+		typedef const Real* ConstIterator;
+
+		ConstVectorView()
+			: data_(0)
+			, size_(0)
+		{
+		}
+
+		ConstVectorView(
+			const Real* data,
+			integer size)
+			: data_(data)
+			, size_(size)
+		{
+			PENSURE1(size >= 0, size);
+			PENSURE2(N == Dynamic || size == N, N, size);
+		}
+
+		integer size() const
+		{
+			return size_;
+		}
+
+		bool involves(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return Pastel::memoryOverlaps(
+				memoryBegin, memoryEnd,
+				data_, data_ + size_);
+		}
+
+		bool involvesNonTrivially(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return false;
+		}
+
+		integer dimension() const
+		{
+			return size_;
+		}
+
+		void swap(ConstVectorView<N, Real>& that)
+		{
+			std::swap(data_, that.data_);
+			std::swap(size_, that.size_);
+		}
+
+		bool operator==(const ConstVectorView& that) const
+		{
+			return std::equal(
+				begin(), end(), that.begin());
+		}
+
+		const Real& operator[](integer index) const
+		{
+			PENSURE2(index >= 0 && index < size_, 
+				index, size_);
+
+			return data_[index];
+		}
+
+		ConstIterator begin() const
+		{
+			return data_;
+		}
+
+		ConstIterator end() const
+		{
+			return data_ + size_;
+		}
+
+	protected:
+		// Must be protected for
+		// VectorView to access
+
+		const Real* data_;
+		integer size_;
+	};
+
+	template <int N, typename Real>
+	class VectorView
+		: public ConstVectorView<N, Real>
+	{
+	private:
+		typedef ConstVectorView<N, Real> Base;
+		using Base::data_;
+		using Base::size_;
+
+	public:
+		typedef const VectorView StorageType;
+		typedef Real* Iterator;
+
+		using Base::size;
+
+		VectorView()
+			: Base()
+		{
+		}
+
+		VectorView(
+			const Real* data,
+			integer size)
+			: Base(data, size)
+		{
+			PENSURE1(size >= 0, size);
+			PENSURE2(N == Dynamic || size == N, N, size);
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		void set(const Real that) const
+		{
+			std::fill(begin(), end(), that);
+		}
+
+		Iterator begin() const
+		{
+			return (Iterator)data_;
+		}
+
+		Iterator end() const
+		{
+			return (Iterator)(data_ + size_);
+		}
+
+		const VectorView& operator=(const Real& that) const
+		{
+			// We accept basic exception safety for performance.
+			set(that);
+
+			return *this;
+		}
+
+		// This function can't be included because
+		// then assignment of a vector expression would
+		// be ambiguous. This is because TemporaryVector
+		// has an implicit conversion from a vector
+		// expression.
+		/*
+		VectorView& operator=(
+			const TemporaryVectorView& that)
+		{
+			//...
+		}
+		*/
+
+		const VectorView& operator=(
+			const VectorView& that) const
+		{
+			ENSURE2(size() == that.size(),
+				size(), that.size());
+
+			std::copy(begin(), end(), data_);
+
+			return *this;
+		}
+
+		template <typename ThatReal, typename Expression>
+		const VectorView& operator=(
+			const VectorExpression<N, ThatReal, Expression>& that) const
+		{
+			ENSURE2(size() == that.size(),
+				size(), that.size());
+
+			if (that.involvesNonTrivially(
+				data_, data_ + size_))
+			{
+				// In the case we must reallocate, we can
+				// as well copy construct, so that there
+				// is no redundant initialization.
+				
+				// Of course, if the expression involves
+				// this vector as a non-trivial subexpression,
+				// we must copy construct anyway.
+
+				*this = Vector<N, Real>(that);
+			}
+			else
+			{				
+				// We accept basic exception safety for performance.
+
+				Iterator iter = begin();
+				const integer n = size();
+
+				for (integer i = 0;i < n;++i)
+				{
+					*iter = that[i];
+					++iter;
+				}
+			}
+
+			return *this;
+		}
+
+		Real& operator[](integer index) const
+		{
+			PENSURE2(index >= 0 && index < size_, 
+				index, size_);
+
+			return (Real&)data_[index];
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		const VectorView& operator+=(const Real that) const
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				*iter += that;
+				++iter;
+			}
+
+			return *this;
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		const VectorView& operator-=(const Real that) const
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				*iter -= that;
+				++iter;
+			}
+
+			return *this;
+		}
+
+		// The parameter to this function
+		// is deliberately not a reference,
+		// because the reference could point
+		// to this vector.
+		const VectorView& operator*=(const Real that) const
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				*iter *= that;
+				++iter;
+			}
+
+			return *this;
+		}
+
+		// Here the reference is ok because we actually
+		// use the parameter's inverse.
+		const VectorView& operator/=(const Real& that) const
+		{
+			return (*this *= Pastel::inverse(that));
+		}
+
+		template <typename ThatReal, typename Expression>
+		const VectorView& operator+=(
+			const VectorExpression<N, ThatReal, Expression>& that) const
+		{
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.involvesNonTrivially(
+				data_, data_ + size_))
+			{
+				*this += Vector<N, Real>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+
+				for (integer i = 0;i < n;++i)
+				{
+					*iter += that[i];
+					++iter;
+				}
+			}
+
+			return *this;
+		}
+
+		template <typename ThatReal, typename Expression>
+		const VectorView& operator-=(
+			const VectorExpression<N, ThatReal, Expression>& that) const
+		{
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.involvesNonTrivially(
+				data_, data_ + size_))
+			{
+				*this -= Vector<N, Real>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+
+				for (integer i = 0;i < n;++i)
+				{
+					*iter -= that[i];
+					++iter;
+				}
+			}
+
+			return *this;
+		}
+
+		template <typename ThatReal, typename Expression>
+		const VectorView& operator*=(
+			const VectorExpression<N, ThatReal, Expression>& that) const
+		{
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.involvesNonTrivially(
+				data_, data_ + size_))
+			{
+				*this *= Vector<N, Real>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+
+				for (integer i = 0;i < n;++i)
+				{
+					*iter *= that[i];
+					++iter;
+				}
+			}
+
+			return *this;
+		}
+
+		template <typename ThatReal, typename Expression>
+		const VectorView& operator/=(
+			const VectorExpression<N, ThatReal, Expression>& that) const
+		{
+			PENSURE2(that.size() == size(), that.size(), size());
+
+			if (that.involvesNonTrivially(
+				data_, data_ + size_))
+			{
+				*this /= Vector<N, Real>(that);
+			}
+			else
+			{
+				Iterator iter = begin();
+				const integer n = size();
+
+				for (integer i = 0;i < n;++i)
+				{
+					*iter /= that[i];
+					++iter;
+				}
+			}
+
+			return *this;
+		}
 	};
 
 }

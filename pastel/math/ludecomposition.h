@@ -50,6 +50,12 @@ namespace Pastel
 		Vector<N, Real> invLargestInRow_;
 	};
 
+	typedef LuDecomposition<1, real> LuDecomposition1;
+	typedef LuDecomposition<2, real> LuDecomposition2;
+	typedef LuDecomposition<3, real> LuDecomposition3;
+	typedef LuDecomposition<4, real> LuDecomposition4;
+	typedef LuDecomposition<Dynamic, real> LuDecompositionD;
+
 }
 
 #include "pastel/math/ludecomposition.hpp"

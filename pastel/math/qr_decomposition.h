@@ -99,6 +99,12 @@ namespace Pastel
 		Matrix<N, N, Real> r_;
 	};
 
+	typedef QrDecomposition<1, real> QrDecomposition1;
+	typedef QrDecomposition<2, real> QrDecomposition2;
+	typedef QrDecomposition<3, real> QrDecomposition3;
+	typedef QrDecomposition<4, real> QrDecomposition4;
+	typedef QrDecomposition<Dynamic, real> QrDecompositionD;
+
 }
 
 #include "pastel/math/qr_decomposition.hpp"

@@ -289,7 +289,7 @@ namespace Pastel
 	typedef AlignedBox<2, real> AlignedBox2;
 	typedef AlignedBox<3, real> AlignedBox3;
 	typedef AlignedBox<4, real> AlignedBox4;
-	typedef AlignedBox<Dynamic, real> DynamicAlignedBox;
+	typedef AlignedBox<Dynamic, real> AlignedBoxD;
 
 }
 

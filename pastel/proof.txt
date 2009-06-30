@@ -1,6 +1,128 @@
 Proofs about everything
 =======================
 
+Theory of views
+===============
+
+Given is a class C. We need to give the user 
+a way to inspect and modify internal structure, 
+but only in a manner which guarantees that no
+class invariants are broken.
+
+This does not mean that the user can't be allowed
+direct references to an object's inner data.
+Actually, more than often with basic data structures
+this is essential to achieve good performance.
+As an example, think of array objects, such as std::vector.
+However, what the direct reference should not
+make possible is the ability to break class invariants.
+
+A user of an object is most often interested in
+more than one part of the data structure. In addition,
+several different users can be interested in
+the same data structure. This means that in however
+the inner structure of an object is referred to, it
+must be possible to create somekind of an
+object to represent that reference.
+Iterators are an example of such classes of objects.
+However, they are very specific such objects, because
+the concept of iterator usually implies the traversal of a 
+linear sequence, per how this concept is used in the
+C++ standard library. Iterators also include
+a possibility to move along the linear structure.
+
+A view is a concept that embodies only the ability
+to refer to some subpart of an object and then
+some set of inspection and modification functions.
+A view is always specified by the class C.
+Iterators are a refinement of a view. These
+views are usually quite simple since the iterators
+always refer to a single element of a sequential container.
+However, let us now concentrate on the implementation
+of a 2-dimensional array class Array. What kind of views
+should Array offer? The simplest one is arguably
+to offer a view for a single element specified
+by a 2-d coordinate. Here it would make sense
+to offer a direct reference to the array element.
+Another view could be given by considering the
+array as a sequential 1-d array when considering
+the 2d array elements in row-major order. Here
+we would offer iterators to pass through the
+elements of an array. However, iterators are
+again an example of a trivial view.
+
+To give an example of a more complex view,
+consider we offer an array view to all of the
+data. This view offers an interface very
+similar to the array itself. However, the
+difference is that it omits any ways which
+could modify the essential state of an 
+Array object. By essential state we mean
+the width and height of the array, as
+well as the pointer that points to the
+dynamically allocated memory for the data.
+By inessential state we mean that data
+whose modification does not allow to
+break the invariants of the class.
+_Views are devices to affect the inessential
+state of an object_.
+
+Of course, our view point is on the side
+of the class. What is inessential state for
+the class is essential state for the user,
+and what is essential state for the class
+is inessential state for the user.
+
+A common mistake in object oriented programming
+is to create a class for a data structure and
+then implement algorithms that use that 
+data structure as its member functions. Most often,
+the set of possible algorithms for using
+the data structure are unbounded, and this
+leads to the class interface changing
+constantly. Probably the number one cause
+this is so common is that the programmer concludes
+that there is no way to implement the 
+algorithm outside the class since there
+is no way to refer to the internal data structures
+of the class. Here the wrong conclusion is to
+implement the algorithm as a member function using 
+implementation details of the data structure.
+This results in massive classes which contains
+algorithms not necessarily so strongly related
+to either the data structure or each others.
+What this situation is actually manifesting is
+that the author of the class hasn't provided
+proper views to the internal data to actually
+be able to use the data structure _from the outside_.
+The number two cause for this mistake is that
+while the class actually offers the needed views,
+the programmer still somehow feels that it is part of the
+object oriented way to include everything as a 
+member function of some class. A specific example is given
+by a square matrix class for which one implements
+a member function to compute the determinant,
+while the function could as well be implemented
+outside the class. This is unfortunate for the following
+reasons:
+
+1) The class interface is never completed. I.e.
+it changes everytime a new algorithm needs to be
+implemented.
+2) The algorithms are not encapsulated from the
+changes to the internal workings of the class.
+An innocuous change can mean rewriting all
+of the algorithms.
+3) There is no natural class for placing
+a function which involves two classes
+with equal importance.
+4) Those users that do not need the new algorithms
+get them anyway, resulting in increased
+physical dependencies and thus increased
+compilation and link times.
+
+
+
 Number of degrees of freedom for a rotation
 ===========================================
 

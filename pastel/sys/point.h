@@ -662,17 +662,17 @@ namespace Pastel
 	const TemporaryTuple<N, Real>& asTuple(
 		const TemporaryPoint<N, Real>& that);
 
-	typedef Point<1, integer> IPoint1;
-	typedef Point<2, integer> IPoint2;
-	typedef Point<3, integer> IPoint3;
-	typedef Point<4, integer> IPoint4;
-	typedef Point<Dynamic, integer> DynamicIPoint;
+	typedef Point<1, integer> Point1i;
+	typedef Point<2, integer> Point2i;
+	typedef Point<3, integer> Point3i;
+	typedef Point<4, integer> Point4i;
+	typedef Point<Dynamic, integer> PointDi;
 
 	typedef Point<1, real> Point1;
 	typedef Point<2, real> Point2;
 	typedef Point<3, real> Point3;
 	typedef Point<4, real> Point4;
-	typedef Point<Dynamic, real> DynamicPoint;
+	typedef Point<Dynamic, real> PointD;
 
 	template <int N, typename Real>
 	class TemporaryPoint
@@ -1227,17 +1227,17 @@ namespace Pastel
 		}
 	};
 
-	typedef TemporaryPoint<1, integer> TemporaryIPoint1;
-	typedef TemporaryPoint<2, integer> TemporaryIPoint2;
-	typedef TemporaryPoint<3, integer> TemporaryIPoint3;
-	typedef TemporaryPoint<4, integer> TemporaryIPoint4;
-	typedef TemporaryPoint<Dynamic, integer> TemporaryDynamicIPoint;
+	typedef TemporaryPoint<1, integer> TemporaryPoint1i;
+	typedef TemporaryPoint<2, integer> TemporaryPoint2i;
+	typedef TemporaryPoint<3, integer> TemporaryPoint3i;
+	typedef TemporaryPoint<4, integer> TemporaryPoint4i;
+	typedef TemporaryPoint<Dynamic, integer> TemporaryPointDi;
 
 	typedef TemporaryPoint<1, real> TemporaryPoint1;
 	typedef TemporaryPoint<2, real> TemporaryPoint2;
 	typedef TemporaryPoint<3, real> TemporaryPoint3;
 	typedef TemporaryPoint<4, real> TemporaryPoint4;
-	typedef TemporaryPoint<Dynamic, real> TemporaryDynamicPoint;
+	typedef TemporaryPoint<Dynamic, real> TemporaryPointD;
 
 }
 

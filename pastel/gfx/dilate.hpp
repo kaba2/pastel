@@ -34,8 +34,8 @@ namespace Pastel
 
 		if (intersect(elementWindow, imageWindow, clippedWindow))
 		{
-			clippedWindow.min() -= IVector2(x, y);
-			clippedWindow.max() -= IVector2(x, y);
+			clippedWindow.min() -= Vector2i(x, y);
+			clippedWindow.max() -= Vector2i(x, y);
 
 			const integer clippedWidth = clippedWindow.width();
 			const integer clippedHeight = clippedWindow.height();

@@ -265,63 +265,63 @@ namespace Pastel
 					{
 						const uint8 data = scanline[i];
 
-						image.write(IPoint2(xPos, yPos), (data >> 7) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 7) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 6) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 6) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 5) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 5) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 4) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 4) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 3) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 3) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 2) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 2) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 1) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 1) & 1);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 0) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 0) & 1);
 						++xPos;
 					}
 
 					const uint8 data = scanline[bytesToRead - 1];
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 7) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 7) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 6) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 6) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 5) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 5) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 4) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 4) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 3) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 3) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 2) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 2) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 1) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 1) & 1);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 0) & 1);
+						image.write(Point2i(xPos, yPos), (data >> 0) & 1);
 						++xPos;
 					}
 				}
@@ -335,35 +335,35 @@ namespace Pastel
 					{
 						const uint8 data = scanline[i];
 
-						image.write(IPoint2(xPos, yPos), (data >> 6) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 6) & 3);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 4) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 4) & 3);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 2) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 2) & 3);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 0) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 0) & 3);
 						++xPos;
 					}
 
 					const uint8 data = scanline[bytesToRead - 1];
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 6) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 6) & 3);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 4) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 4) & 3);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 2) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 2) & 3);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 0) & 3);
+						image.write(Point2i(xPos, yPos), (data >> 0) & 3);
 						++xPos;
 					}
 				}
@@ -377,21 +377,21 @@ namespace Pastel
 					{
 						const uint8 data = scanline[i];
 
-						image.write(IPoint2(xPos, yPos), (data >> 4) & 15);
+						image.write(Point2i(xPos, yPos), (data >> 4) & 15);
 						++xPos;
-						image.write(IPoint2(xPos, yPos), (data >> 0) & 15);
+						image.write(Point2i(xPos, yPos), (data >> 0) & 15);
 						++xPos;
 					}
 
 					const uint8 data = scanline[bytesToRead - 1];
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 4) & 15);
+						image.write(Point2i(xPos, yPos), (data >> 4) & 15);
 						++xPos;
 					}
 					if (xPos < width)
 					{
-						image.write(IPoint2(xPos, yPos), (data >> 0) & 15);
+						image.write(Point2i(xPos, yPos), (data >> 0) & 15);
 						++xPos;
 					}
 				}
@@ -405,7 +405,7 @@ namespace Pastel
 					{
 						const uint8 data = scanline[i];
 
-						image.write(IPoint2(xPos, yPos), data);
+						image.write(Point2i(xPos, yPos), data);
 						++xPos;
 					}
 				}
@@ -470,63 +470,63 @@ namespace Pastel
 						{
 							const uint8 data = scanline[i];
 
-							image.write(IPoint2(xPos, yPos), palette[(data >> 7) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 7) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 6) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 6) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 5) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 5) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 4) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 4) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 3) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 3) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 2) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 2) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 1) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 1) & 1]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 0) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 0) & 1]);
 							++xPos;
 						}
 
 						const uint8 data = scanline[bytesToRead - 1];
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 7) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 7) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 6) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 6) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 5) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 5) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 4) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 4) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 3) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 3) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 2) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 2) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 1) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 1) & 1]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 0) & 1]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 0) & 1]);
 							++xPos;
 						}
 					}
@@ -540,35 +540,35 @@ namespace Pastel
 						{
 							const uint8 data = scanline[i];
 
-							image.write(IPoint2(xPos, yPos), palette[(data >> 6) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 6) & 3]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 4) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 4) & 3]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 2) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 2) & 3]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 0) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 0) & 3]);
 							++xPos;
 						}
 
 						const uint8 data = scanline[bytesToRead - 1];
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 6) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 6) & 3]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 4) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 4) & 3]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 2) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 2) & 3]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 0) & 3]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 0) & 3]);
 							++xPos;
 						}
 					}
@@ -582,21 +582,21 @@ namespace Pastel
 						{
 							const uint8 data = scanline[i];
 
-							image.write(IPoint2(xPos, yPos), palette[(data >> 4) & 15]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 4) & 15]);
 							++xPos;
-							image.write(IPoint2(xPos, yPos), palette[(data >> 0) & 15]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 0) & 15]);
 							++xPos;
 						}
 
 						const uint8 data = scanline[bytesToRead - 1];
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 4) & 15]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 4) & 15]);
 							++xPos;
 						}
 						if (xPos < width)
 						{
-							image.write(IPoint2(xPos, yPos), palette[(data >> 0) & 15]);
+							image.write(Point2i(xPos, yPos), palette[(data >> 0) & 15]);
 							++xPos;
 						}
 					}
@@ -610,7 +610,7 @@ namespace Pastel
 						{
 							const uint8 data = scanline[i];
 
-							image.write(IPoint2(xPos, yPos), palette[data]);
+							image.write(Point2i(xPos, yPos), palette[data]);
 							++xPos;
 						}
 					}
@@ -627,7 +627,7 @@ namespace Pastel
 
 				for (integer xPos = 0;xPos < width;++xPos)
 				{
-					image.write(IPoint2(xPos, yPos),
+					image.write(Point2i(xPos, yPos),
 						Color(scanlineRed[xPos],
 						scanlineGreen[xPos],
 						scanlineBlue[xPos]) / 255);

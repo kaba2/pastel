@@ -174,7 +174,14 @@ namespace Pastel
 			{
 				// Swap rows.
 
-				packedLu_[largestIndex].swap(packedLu_[k]);
+				for (integer j = 0;j < width;++j)
+				{
+					using std::swap;
+
+					swap(packedLu_(largestIndex, j),
+						packedLu_(k, j));
+				}
+
 				std::swap(invLargestInRow_[largestIndex], invLargestInRow_[k]);
 				evenRowPermutation_ = !evenRowPermutation_;
 

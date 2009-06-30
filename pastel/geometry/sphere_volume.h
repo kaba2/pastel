@@ -50,10 +50,7 @@ namespace Pastel
 	dimension >= 0
 	*/
 
-	template <int N, typename Real>
-	Real lnVolumeUnitSphereEuclidean();
-
-	template <int N, typename Real>
+	template <typename Real>
 	Real lnVolumeUnitSphereEuclidean(integer dimension);
 
 	//! Returns the natural logarithm of the volume of Manhattan unit sphere.
@@ -62,10 +59,7 @@ namespace Pastel
 	dimension >= 0
 	*/
 
-	template <int N, typename Real>
-	Real lnVolumeUnitSphereManhattan();
-
-	template <int N, typename Real>
+	template <typename Real>
 	Real lnVolumeUnitSphereManhattan(integer dimension);
 
 	//! Returns the natural logarithm of the volume of Infinity unit sphere.
@@ -74,10 +68,7 @@ namespace Pastel
 	dimension >= 0
 	*/
 
-	template <int N, typename Real>
-	Real lnVolumeUnitSphereInfinity();
-
-	template <int N, typename Real>
+	template <typename Real>
 	Real lnVolumeUnitSphereInfinity(integer dimension);
 
 	template <int N, typename Real>

@@ -168,7 +168,8 @@ namespace Pastel
 				maxDistance, maxRelativeError,
 				normBijection, kNearestEnd, &nearestSet, distanceSetPtr);
 
-			ASSERT(nearestSet.size() == kNearest);
+			ASSERT2(nearestSet.size() == kNearestEnd,
+				nearestSet.size(), kNearestEnd);
 
 			const Point<N, Real>* firstAddress = &pointSet.front();
 

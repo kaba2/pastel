@@ -40,6 +40,8 @@ namespace
 		REPORT(a[0] != 3 || a[1] != 3 || a[2] != 3);
 
 		someFunction(asTuple(a));
+
+		a |= 1, 2, 3;
 	}
 
 	void testVectorLowDimensional()

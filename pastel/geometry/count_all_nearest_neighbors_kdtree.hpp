@@ -202,8 +202,12 @@ namespace Pastel
 			// The query point itself is in the count,
 			// thus we decrement it off.
 
-			countFunctor(i, countNearest(tree, pointSet[i], 
-				maxDistanceSet[i], maxRelativeError, normBijection) - 1);
+			const integer count = 
+				countNearest(tree, pointSet[i], 
+				maxDistanceSet[i], maxRelativeError, normBijection);
+			ASSERT1(count >= 1, count);
+
+			countFunctor(i, count - 1);
 		}
 	}
 
@@ -233,7 +237,8 @@ namespace Pastel
 		const NormBijection& normBijection,
 		std::vector<integer>& countSet)
 	{
-		countSet.setSize(pointSet.size());
+		countSet.resize(pointSet.size());
+		std::fill(countSet.begin(), countSet.end(), 0);
 
 		const Detail_CountAllNearestNeighborsKdTree::Vector_CountFunctor 
 			countFunctor(countSet);
@@ -241,8 +246,6 @@ namespace Pastel
 		Pastel::countAllNearestNeighborsKdTree(
 			pointSet, maxDistanceSet, maxRelativeError,
 			normBijection, countFunctor);
-
-		return result;
 	}
 
 }

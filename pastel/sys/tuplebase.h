@@ -5,6 +5,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
 #include "pastel/sys/destruct.h"
+#include "pastel/sys/commafiller.h"
 
 #include <vector>
 #include <algorithm>
@@ -98,6 +99,9 @@ namespace Pastel
 			typedef integer difference_type;
 			typedef integer size_type;
 
+			typedef iterator Iterator;
+			typedef const_iterator ConstIterator;
+
 			TupleBase()
 				: data_()
 			{
@@ -184,6 +188,12 @@ namespace Pastel
 			void set(const Type& that)
 			{
 				std::fill(begin(), end(), that);
+			}
+
+			CommaFiller<Type, Iterator> operator|=(
+				const Type& that)
+			{
+				return commaFiller<Type, Iterator>(begin(), end(), that);
 			}
 
 			Type& front()
@@ -280,16 +290,8 @@ namespace Pastel
 
 			bool operator==(const Tuple<N, Type> & that) const
 			{
-				const integer n = size();
-				for (integer i = 0;i < n;++i)
-				{
-					if (!(data_[i] == that.data_[i]))
-					{
-						return false;
-					}
-				}
-
-				return true;
+				return std::equal(
+					begin(), end(), that.begin());
 			}
 
 			TemporaryTuple<N, Type>& asTemporary()
@@ -325,6 +327,8 @@ namespace Pastel
 			typedef const Type& const_reference;
 			typedef integer difference_type;
 			typedef integer size_type;
+			typedef iterator Iterator;
+			typedef const_iterator ConstIterator;
 
 			explicit TupleBase(
 				const Dimension& dimension,
@@ -505,6 +509,12 @@ namespace Pastel
 				std::fill(begin(), end(), that);
 			}
 
+			CommaFiller<Type, Iterator> operator|=(
+				const Type& that)
+			{
+				return commaFiller<Type>(begin(), end(), that);
+			}
+
 			Type& front()
 			{
 				PENSURE(!empty());
@@ -605,16 +615,8 @@ namespace Pastel
 			{
 				PENSURE2(size() == that.size(), size(), that.size());
 
-				const integer n = size();
-				for (integer i = 0;i < n;++i)
-				{
-					if (!(data_[i] == that.data_[i]))
-					{
-						return false;
-					}
-				}
-
-				return true;
+				return std::equal(
+					begin(), end(), that.begin());
 			}
 
 			TemporaryTuple<N, Type>& asTemporary()
