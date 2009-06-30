@@ -47,18 +47,19 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
 			// This is a non-trivial vector
 			// expression.
-			return data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -92,7 +93,7 @@ namespace Pastel
 
 		Real operator[](integer index) const
 		{
-			Real minValue = -infinity<Real>();
+			Real minValue = infinity<Real>();
 			const integer n = data_.height();
 			
 			for (integer i = 0;i < n;++i)
@@ -113,18 +114,19 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
 			// This is a non-trivial vector
 			// expression.
-			return data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -179,18 +181,19 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
 			// This is a non-trivial vector
 			// expression.
-			return data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -238,16 +241,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(address);
+			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -270,7 +274,7 @@ namespace Pastel
 		ConstViewMatrix<Real, Input_ConstView> >
 	{
 	public:
-		typedef const ConstViewMatrix& StorageType;
+		typedef const ConstViewMatrix StorageType;
 
 		explicit ConstViewMatrix(
 			const ConstView<2, Real, Input_ConstView>& data)
@@ -280,7 +284,7 @@ namespace Pastel
 
 		Real operator()(integer y, integer x) const
 		{
-			return mabs(data_(y, x));
+			return data_(x, y);
 		}
 
 		integer width() const
@@ -294,7 +298,7 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// TODO: FIX:
 			// It is possible that the
@@ -303,11 +307,11 @@ namespace Pastel
 			// have a check for the views
 			// also!
 
-			return this == address;
+			return false;
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// TODO: FIX:
 			// It is possible that the
@@ -320,7 +324,7 @@ namespace Pastel
 		}
 
 	private:
-		const ConstView<2, Real, Input_ConstView>& data_;
+		const ConstView<2, Real, Input_ConstView> data_;
 	};
 
 	template <typename Real, typename Input_ConstView>
@@ -328,6 +332,74 @@ namespace Pastel
 		const ConstView<2, Real, Input_ConstView>& that)
 	{
 		return ConstViewMatrix<Real, Input_ConstView>(that);
+	}
+
+	template <
+		int Height, int Width,
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class OuterProduct
+		: public MatrixExpression<Height, Width, Real,
+		OuterProduct<Height, Width, Real,
+		LeftExpression, RightExpression> >
+	{
+	public:
+		typedef const OuterProduct& StorageType;
+
+		OuterProduct(
+			const LeftExpression& left,
+			const RightExpression& right)
+			: left_(left)
+			, right_(right)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return left_[y] * right_[x];
+		}
+
+		integer width() const
+		{
+			return right_.size();
+		}
+
+		integer height() const
+		{
+			return left_.size();
+		}
+
+		bool involves(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool involvesNonTrivially(
+			const void* memoryBegin, const void* memoryEnd) const
+		{
+			// This is a non-trivial combination.
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
+		}
+
+	private:
+		typename LeftExpression::StorageType left_;
+		typename RightExpression::StorageType right_;
+	};
+
+	template <int Height, int Width, typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+		OuterProduct<Height, Width, Real, LeftExpression, RightExpression>
+		outerProduct(
+		const VectorExpression<Height, Real, LeftExpression>& left,
+		const VectorExpression<Width, Real, RightExpression>& right)
+	{
+		return OuterProduct<Height, Width, Real, LeftExpression, RightExpression>(
+			(const LeftExpression&)left, (const RightExpression&)right);
 	}
 
 }

@@ -6,6 +6,8 @@
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/tablemodify.h"
+#include "pastel/sys/commafiller.h"
+#include "pastel/sys/memory_overlaps.h"
 
 #include <algorithm>
 
@@ -39,6 +41,9 @@ namespace Pastel
 		public:
 			typedef const VectorBase& StorageType;
 			//using ExpressionBase::operator-;
+
+			typedef typename Tuple<N, Real>::Iterator Iterator;
+			typedef typename Tuple<N, Real>::ConstIterator ConstIterator;
 
 			VectorBase()
 				: data_(0)
@@ -93,12 +98,7 @@ namespace Pastel
 				<N, ThatReal, Expression>& that)
 				: data_(ofDimension(that.size()))
 			{
-				const integer n = that.size();
-			
-				for (integer i = 0;i < n;++i)
-				{
-					data_[i] = that[i];
-				}
+				*this = that;
 			}
 
 			~VectorBase()
@@ -127,12 +127,38 @@ namespace Pastel
 				return data_.size();
 			}
 
-			bool involves(void* address) const
+			Iterator begin()
 			{
-				return this == address;
+				return data_.begin();
 			}
 
-			bool involvesNonTrivially(void* address) const
+			ConstIterator begin() const
+			{
+				return data_.begin();
+			}
+
+			Iterator end()
+			{
+				return data_.end();
+			}
+
+			ConstIterator end() const
+			{
+				return data_.end();
+			}
+
+			bool involves(
+				const void* memoryBegin,
+				const void* memoryEnd) const
+			{
+				return Pastel::memoryOverlaps(
+					memoryBegin, memoryEnd,
+					&*begin(), &*end());
+			}
+
+			bool involvesNonTrivially(
+				const void* memoryBegin,
+				const void* memoryEnd) const
 			{
 				return false;
 			}
@@ -157,6 +183,12 @@ namespace Pastel
 				data_.set(that);
 
 				return (Vector<N, Real>&)*this;
+			}
+
+			CommaFiller<Real, Iterator> operator|=(
+				const Real& that)
+			{
+				return data_ |= that;
 			}
 
 			// This function can't be included because
@@ -214,7 +246,8 @@ namespace Pastel
 
 				const integer n = that.size();
 				if (n != size() ||
-					that.involvesNonTrivially(this))
+					that.involvesNonTrivially(
+					&*data_.begin(), &*data_.end()))
 				{
 					// In the case we must reallocate, we can
 					// as well copy construct, so that there
@@ -231,9 +264,11 @@ namespace Pastel
 				{				
 					// We accept basic exception safety for performance.
 
+					Iterator iter = begin();
 					for (integer i = 0;i < n;++i)
 					{
-						data_[i] = that[i];
+						*iter = that[i];
+						++iter;
 					}
 				}
 
@@ -261,11 +296,13 @@ namespace Pastel
 			// to this vector.
 			Vector<N, Real>& operator+=(const Real that)
 			{
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				Iterator iter = begin();
+				const Iterator iterEnd = end();
+
+				while(iter != iterEnd)
 				{
-					data_[i] += that;
+					*iter += that;
+					++iter;
 				}
 
 				return (Vector<N, Real>&)*this;
@@ -277,11 +314,13 @@ namespace Pastel
 			// to this vector.
 			Vector<N, Real>& operator-=(const Real that)
 			{
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				Iterator iter = begin();
+				const Iterator iterEnd = end();
+
+				while(iter != iterEnd)
 				{
-					data_[i] -= that;
+					*iter -= that;
+					++iter;
 				}
 
 				return (Vector<N, Real>&)*this;
@@ -293,11 +332,13 @@ namespace Pastel
 			// to this vector.
 			Vector<N, Real>& operator*=(const Real that)
 			{
-				const integer n = size();
-				
-				for (integer i = 0;i < n;++i)
+				Iterator iter = begin();
+				const Iterator iterEnd = end();
+
+				while(iter != iterEnd)
 				{
-					data_[i] *= that;
+					*iter *= that;
+					++iter;
 				}
 
 				return (Vector<N, Real>&)*this;
@@ -316,16 +357,18 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(this))
+				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
 					*this += Vector<N, Real>(that);
 				}
 				else
 				{
+					Iterator iter = begin();
 					const integer n = size();
 					for (integer i = 0;i < n;++i)
 					{
-						data_[i] += that[i];
+						*iter += that[i];
+						++iter;
 					}
 				}
 
@@ -338,16 +381,18 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(this))
+				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
 					*this -= Vector<N, Real>(that);
 				}
 				else
 				{
+					Iterator iter = begin();
 					const integer n = size();
 					for (integer i = 0;i < n;++i)
 					{
-						data_[i] -= that[i];
+						*iter -= that[i];
+						++iter;
 					}
 				}
 
@@ -360,16 +405,18 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(this))
+				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
 					*this *= Vector<N, Real>(that);
 				}
 				else
 				{
+					Iterator iter = begin();
 					const integer n = size();
 					for (integer i = 0;i < n;++i)
 					{
-						data_[i] *= that[i];
+						*iter *= that[i];
+						++iter;
 					}
 				}
 
@@ -382,16 +429,18 @@ namespace Pastel
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(this))
+				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
 					*this /= Vector<N, Real>(that);
 				}
 				else
 				{
+					Iterator iter = begin();
 					const integer n = size();
 					for (integer i = 0;i < n;++i)
 					{
-						data_[i] /= that[i];
+						*iter /= that[i];
+						++iter;
 					}
 				}
 

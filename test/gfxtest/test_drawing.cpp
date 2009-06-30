@@ -69,10 +69,10 @@ namespace
 		Array<2, Color> image(500, 500, Color(0));
 
 		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
-		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), IPoint2(0), IVector2(2, 2)));
+		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), Point2i(0), Vector2i(2, 2)));
 
-		clear(Color(0, 0, 1), rowView(arrayView(image), 0, IPoint2(10, 10)));
-		clear(Color(0, 0, 1), rowView(arrayView(image), 1, IPoint2(10, 10)));
+		clear(Color(0, 0, 1), rowView(arrayView(image), 0, Point2i(10, 10)));
+		clear(Color(0, 0, 1), rowView(arrayView(image), 1, Point2i(10, 10)));
 
 		copy(constSubView(constArrayView(image), Rectangle2(0, 0, 200, 200)),
 			subView(arrayView(image), Rectangle2(300, 300, 500, 500)));

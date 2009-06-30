@@ -207,7 +207,7 @@ namespace Pastel
 	typedef AlignedPlane<2, real> AlignedPlane2;
 	typedef AlignedPlane<3, real> AlignedPlane3;
 	typedef AlignedPlane<4, real> AlignedPlane4;
-	typedef AlignedPlane<Dynamic, real> DynamicAlignedPlane;
+	typedef AlignedPlane<Dynamic, real> AlignedPlaneD;
 
 }
 

@@ -83,7 +83,7 @@ namespace Pastel
 	typedef Sphere<2, real> Sphere2;
 	typedef Sphere<3, real> Sphere3;
 	typedef Sphere<4, real> Sphere4;
-	typedef Sphere<Dynamic, real> DynamicSphere;
+	typedef Sphere<Dynamic, real> SphereD;
 
 }
 

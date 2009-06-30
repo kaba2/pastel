@@ -9,50 +9,26 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Real lnVolumeUnitSphereEuclidean()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::lnVolumeUnitSphereEuclidean<N, Real>(N);
-	}
-
-	template <int N, typename Real>
+	template <typename Real>
 	Real lnVolumeUnitSphereEuclidean(integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
-		PENSURE2(N == Dynamic || dimension == N, dimension, N);
+		PENSURE1(dimension > 0, dimension);
 
 		return Pastel::lnVolumeUnitSphere(dimension);
 	}
 
-	template <int N, typename Real>
-	Real lnVolumeUnitSphereManhattan()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::lnVolumeUnitSphereManhattan<N, Real>(N);
-	}
-
-	template <int N, typename Real>
+	template <typename Real>
 	Real lnVolumeUnitSphereManhattan(integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
-		PENSURE2(N == Dynamic || dimension == N, dimension, N);
+		PENSURE1(dimension > 0, dimension);
 
 		return dimension * constantLn2<Real>() - lnFactorial<Real>(dimension);
 	}
 
-	template <int N, typename Real>
-	Real lnVolumeUnitSphereInfinity()
-	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::lnVolumeUnitSphereInfinity<N, Real>(N);
-	}
-
-	template <int N, typename Real>
+	template <typename Real>
 	Real lnVolumeUnitSphereInfinity(integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
-		PENSURE2(N == Dynamic || dimension == N, dimension, N);
+		PENSURE1(dimension > 0, dimension);
 
 		// S = {x in R^n : max(|x_1|, ..., |x_n|) <= 1}
 		//   = [-1, 1]^n

@@ -3,6 +3,19 @@ Matrix class
 
 [Back to Linear algebra]
 
+Files
+-----
+
+matrix.h
+matrix.hpp
+matrixbase.h
+matrixexpression.h
+
+Use case
+--------
+
+test_matrix.cpp
+
 Vector embedding convention
 ---------------------------
 
@@ -44,30 +57,34 @@ than multiply(A, B) in functional notation. Pastel overloads
 the operators for the matrix class in a way that resembles
 mathematical notation.
 
-Data views
------------
+Different ways of viewing the data
+----------------------------------
 
 There are several useful ways to view the data in matrices. 
 We enumerate them as follows:
 
-1) Matrix is a 2d-array of numbers. Thus an individual
-element (i, j) of the matrix can be referenced.
+1) Matrix as a 2d-array of numbers. Thus an individual
+element (i, j) of the matrix can be referenced. Also, 
+the underlying Array object can be accessed as a
+non-mutable reference when that is needed for
+a function interface.
 
-2) Matrix is a 1d-array of numbers (in row-major order). 
-Via iterator abstraction, standard library algorithms 
+2) Matrix as a 1d-array of numbers (in row-major order). 
+Via iterator abstraction, elements can be accessed as a
+sequence of values. Specifically, standard library algorithms 
 can be used to read and modify matrix elements.
 
-3) Matrix is a collection of row vectors. One
+3) Matrix as a collection of row vectors. One
 can handle a matrix row as a vector.
 
-4) Matrix is a collection of column vectors. One
+4) Matrix as a collection of column vectors. One
 can handle a matrix column as a vector.
 
-5) Matrix is a a matrix expression. This makes it automatically
+5) Matrix is a matrix expression. This makes it automatically
 work with whatever new matrix expression are introduced in
 the future.
 
-6) Matrix can be adapted to an array view. This makes
+6) Matrix as an array view (both mutable and non-mutable). This makes
 it possible to concentrate on subsets of a
 matrix without creating a temporary copy. This
 functionality is similar to the subsetting functionality 
@@ -174,39 +191,19 @@ Static and dynamic sized matrices
 ---------------------------------
 
 Pastel implements both static (compile-time) and dynamic sized
-matrices. In dimensions <= 4 (known in compile-time), 
-memory use and efficiency can be boosted by storing the matrix elements directly
+matrices. When the dimensions of the matrix are known
+in compile-time (and are small), memory use and efficiency can be boosted 
+by storing the matrix elements directly
 in the matrix class, rather than accessible through
 a pointer to dynamically allocated memory. Compilers
 can possibly produce faster code because the length
 of the loops become known in advance. Both types
 of matrices fall under a generic template class, which
 makes it possible to use the same algorithms for both.
-However, it is necessary to drop some substantial features 
-for the static matrices. These are:
-
-1) No array view support.
-
-2) No iterator support.
-
-3) Sequential row-major memory ordering cannot be guaranteed.
-
-This lack of features for static matrices has to do with supporting
-row vector access. This is in conflict with the requirement 3) 
-which implies conflicts also for features 1) and 2). However,
-in the case of static sized matrices the support
-for row-vector access is valued stronger than these
-other features (in practice, we have had no use
-for these features with static sized matrices).
 
 Static sized matrices are useful in those geometric and computer
-graphics applications which stay in the same (low) 
-dimension all the time. In contrast, dynamic sized matrices 
-offer a full range of features, which is useful when
+graphics applications, where the dimension stays constant
+and is low (<= 4). In contrast, dynamic sized matrices are useful when
 solving larger linear equation systems or systems
 whose dimension is only known at run-time.
 
-Use case
---------
-
-test_matrix.cpp

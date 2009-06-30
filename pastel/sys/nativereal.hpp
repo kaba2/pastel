@@ -20,27 +20,6 @@ namespace Pastel
 		return std::numeric_limits<double>::quiet_NaN();
 	}
 
-	inline double epsilon(double*)
-	{
-		static double theEpsilon = 1e-6;
-
-		return theEpsilon;
-	}
-
-	inline double epsilon2(double*)
-	{
-		static double theEpsilon2 = 1e-12;
-
-		return theEpsilon2;
-	}
-
-	inline double epsilon3(double*)
-	{
-		static double theEpsilon3 = 1e-18;
-
-		return theEpsilon3;
-	}
-
 	template <typename Integer>
 	Integer integerCast(double x)
 	{
@@ -89,27 +68,6 @@ namespace Pastel
 	inline float nan(float*)
 	{
 		return std::numeric_limits<float>::quiet_NaN();
-	}
-
-	inline float epsilon(float*)
-	{
-		static float theEpsilon = 1e-3;
-
-		return theEpsilon;
-	}
-
-	inline float epsilon2(float*)
-	{
-		static float theEpsilon2 = 1e-6;
-
-		return theEpsilon2;
-	}
-
-	inline float epsilon3(float*)
-	{
-		static float theEpsilon3 = 1e-9;
-
-		return theEpsilon3;
 	}
 
 	template <typename Integer>

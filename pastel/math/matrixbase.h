@@ -6,6 +6,9 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/commafiller.h"
+#include "pastel/sys/sparseiterator.h"
+#include "pastel/sys/memory_overlaps.h"
 
 #include <boost/static_assert.hpp>
 #include <boost/operators.hpp>
@@ -19,146 +22,228 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int Height, int Width, typename Real>
+		template <int Height, int Width, typename Real, typename Derived>
 		class MatrixBase
-			: public MatrixExpression<Height, Width, Real, MatrixBase<Height, Width, Real> >
+			: public MatrixExpression<Height, Width, Real, Derived>
 		{
 		public:
 			typedef const MatrixBase& StorageType;
-
-			MatrixBase()
-				: data_()
-			{
-				for (integer i = 0;i < Height;++i)
-				{
-					for (integer j = 0;j < Width;++j)
-					{
-						(*this)(i, j) = (i == j) ? 1 : 0;
-					}
-				}
-			}
-
-			template <typename Expression>
-			explicit MatrixBase(
-				const MatrixExpression<Height, Width, Real, Expression>& that)
-				: data_()
-			{
-				for (integer i = 0;i < Height;++i)
-				{
-					for (integer j = 0;j < Width;++j)
-					{
-						(*this)(i, j) = that(i, j);
-					}
-				}
-			}
+			typedef Real* Iterator;
+			typedef const Real* ConstIterator;
+			typedef VectorView<Width, Real> Row;
+			typedef ConstVectorView<Width, Real> ConstRow;
+			typedef Iterator RowIterator;
+			typedef ConstIterator ConstRowIterator;
+			typedef SparseIterator<Real> ColumnIterator;
+			typedef ConstSparseIterator<Real> ConstColumnIterator;
 
 			~MatrixBase()
 			{
-				BOOST_STATIC_ASSERT(Width > 0);
-				BOOST_STATIC_ASSERT(Height > 0);
+				BOOST_STATIC_ASSERT((Width > 0 && Height > 0) 
+					|| (Width == Dynamic && Height == Dynamic));
+			}
+
+			Iterator begin()
+			{
+				return data();
+			}
+
+			ConstIterator begin() const
+			{
+				return data();
+			}
+
+			Iterator end()
+			{
+				return data() + size();
+			}
+
+			ConstIterator end() const
+			{
+				return data() + size();
+			}
+
+			RowIterator rowBegin(integer y)
+			{
+				return data() + y * width();
+			}
+
+			ConstRowIterator rowBegin(integer y) const
+			{
+				return data() + y * width();
+			}
+
+			RowIterator rowEnd(integer y)
+			{
+				return data() + (y + 1) * width();
+			}
+
+			ConstRowIterator rowEnd(integer y) const
+			{
+				return data() + (y + 1) * width();
+			}
+
+			ColumnIterator columnBegin(integer x)
+			{
+				return ColumnIterator(data() + x, width());
+			}
+
+			ConstColumnIterator columnBegin(integer x) const
+			{
+				return ConstColumnIterator(data() + x, width());
+			}
+
+			ColumnIterator columnEnd(integer x)
+			{
+				return ColumnIterator(data() + x + width() * height(), width());
+			}
+
+			ConstColumnIterator columnEnd(integer x) const
+			{
+				return ConstColumnIterator(data() + x + width() * height(), width());
 			}
 
 			integer width() const
 			{
-				return Width;
+				return ((Derived&)*this).width();
 			}
 
 			integer height() const
 			{
-				return Height;
+				return ((Derived&)*this).height();
 			}
 
-			bool involves(void* address) const
+			integer size() const
 			{
-				return this == address;
+				return ((Derived&)*this).size();
 			}
 
-			bool involvesNonTrivially(void* address) const
+			Real* data()
+			{
+				return ((Derived&)*this).data();
+			}
+
+			const Real* data() const
+			{
+				return ((const Derived&)*this).data();
+			}
+
+			bool involves(const void* memoryBegin, const void* memoryEnd) const
+			{
+				return Pastel::memoryOverlaps(
+					memoryBegin, memoryEnd,
+					data(), data() + size());
+			}
+
+			bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
 			{
 				return false;
 			}
 
-			void swap(Matrix<Height, Width, Real>& that)
+			// The parameter is deliberately taken by value because
+			// a reference could be from this matrix.
+			void set(const Real that)
 			{
-				for (integer i = 0;i < Height;++i)
-				{
-					data_[i].swap(that.data_[i]);
-				}
+				std::fill(begin(), end(), that);
 			}
 
-			void set(const Real& that)
+			CommaFiller<Real, Iterator> operator|=(
+				const Real& that)
 			{
-				for (integer y = 0;y < Height;++y)
-				{
-					data_[y].set(that);
-				}
+				return commaFiller<Real>(begin(), end(), that);
+			}
+
+			Real& operator()(integer i)
+			{
+				PENSURE2(i >= 0 && i < size(), i, size());
+
+				return data()[i];
+			}
+
+			const Real& operator()(integer i) const
+			{
+				PENSURE2(i >= 0 && i < size(), i, size());
+
+				return data()[i];
 			}
 
 			Real& operator()(integer y, integer x)
 			{
-				PENSURE2(y >= 0 && y < Height, y, Height);
-				PENSURE2(x >= 0 && x < Width, x, Width);
+				PENSURE2(y >= 0 && y < height(), y, height());
+				PENSURE2(x >= 0 && x < width(), x, width());
 
-				return data_[y][x];
+				return data()[y * width() + x];
 			}
 
 			const Real& operator()(integer y, integer x) const
 			{
-				PENSURE2(y >= 0 && y < Height, y, Height);
-				PENSURE2(x >= 0 && x < Width, x, Width);
+				PENSURE2(y >= 0 && y < height(), y, height());
+				PENSURE2(x >= 0 && x < width(), x, width());
 
-				return data_[y][x];
+				return data()[y * width() + x];
 			}
 
-			Vector<Width, Real>& operator[](integer y)
+			Row operator[](integer y)
 			{
-				PENSURE2(y >= 0 && y < Height, y, Height);
+				PENSURE2(y >= 0 && y < height(), y, height());
 
-				return data_[y];
+				return Row(
+					data() + y * width(), width());
 			}
 
-			const Vector<Width, Real>& operator[](integer y) const
+			ConstRow operator[](integer y) const
 			{
-				PENSURE2(y >= 0 && y < Height, y, Height);
+				PENSURE2(y >= 0 && y < height(), y, height());
 
-				return data_[y];
+				return ConstRow(
+					data() + y * width(), width());
 			}
 
 			template <typename RightExpression>
-			Matrix<Height, Width, Real>& operator=(
+			Derived& operator=(
 				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				if (right.involvesNonTrivially(this))
+				// We allow the size of the matrix to
+				// change in assignment.
+
+				if (right.involvesNonTrivially(&*begin(), &*end()) ||
+					width() != right.width() ||
+					height() != right.height())
 				{
 					// The right expression contains this matrix
 					// as a subexpression. We thus need to evaluate
 					// the expression first.
 					
-					*this = Matrix<Height, Width, Real>(right);
+					((Derived&)*this) = Derived(right);
 				}
 				else
 				{
-					Matrix<Height, Width, Real>& left = 
-						(Matrix<Height, Width, Real>&)*this;
+					const integer m = height();
+					const integer n = width();
+					Iterator iter = begin();
+					const Iterator iterEnd = end();
 
-					for (integer i = 0;i < Height;++i)
+					for (integer i = 0;i < m;++i)
 					{
-						for (integer j = 0;j < Width;++j)
+						for (integer j = 0;j < n;++j)
 						{
-							left[i][j] = right(i, j);
+							*iter = right(i, j);
+							++iter;
 						}
 					}
 				}
 
-				return (Matrix<Height, Width, Real>&)*this;
+				return (Derived&)*this;
 			}
 
 			template <typename RightExpression>
-			Matrix<Height, Width, Real>& operator*=(
+			Derived& operator*=(
 				const MatrixExpression<Width, Width, Real, RightExpression>& right)
 			{
-				Matrix<Height, Width, Real>& left = 
-					(Matrix<Height, Width, Real>&)*this;
+				PENSURE2(width() == right.height(), width(), right.height());
+
+				Derived& left = 
+					(Derived&)*this;
 
 				left = left * right;
 
@@ -166,53 +251,65 @@ namespace Pastel
 			}
 
 			template <typename RightExpression>
-			Matrix<Height, Width, Real>& operator+=(
+			Derived& operator+=(
 				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				if (right.involvesNonTrivially(this))
+				PENSURE2(width() == right.width(), width(), right.width());
+				PENSURE2(height() == right.height(), height(), right.height());
+
+				if (right.involvesNonTrivially(&*begin(), &*end()))
 				{
-					*this += Matrix<Height, Width, Real>(right);
+					*this += Derived(right);
 				}
 				else
 				{
-					Matrix<Height, Width, Real>& left = 
-						(Matrix<Height, Width, Real>&)*this;
+					const integer m = height();
+					const integer n = width();
+					Iterator iter = begin();
+					const Iterator iterEnd = end();
 
-					for (integer i = 0;i < Height;++i)
+					for (integer i = 0;i < m;++i)
 					{
-						for (integer j = 0;j < Width;++j)
+						for (integer j = 0;j < n;++j)
 						{
-							left[i][j] += right(i, j);
+							*iter += right(i, j);
+							++iter;
 						}
 					}
 				}
 
-				return (Matrix<Height, Width, Real>&)*this;
+				return (Derived&)*this;
 			}
 
 			template <typename RightExpression>
-			Matrix<Height, Width, Real>& operator-=(
+			Derived& operator-=(
 				const MatrixExpression<Height, Width, Real, RightExpression>& right)
 			{
-				if (right.involvesNonTrivially(this))
+				PENSURE2(width() == right.width(), width(), right.width());
+				PENSURE2(height() == right.height(), height(), right.height());
+
+				if (right.involvesNonTrivially(&*begin(), &*end()))
 				{
-					*this -= Matrix<Height, Width, Real>(right);
+					*this -= Derived(right);
 				}
 				else
 				{
-					Matrix<Height, Width, Real>& left = 
-						(Matrix<Height, Width, Real>&)*this;
+					const integer m = height();
+					const integer n = width();
+					Iterator iter = begin();
+					const Iterator iterEnd = end();
 
-					for (integer i = 0;i < Height;++i)
+					for (integer i = 0;i < m;++i)
 					{
-						for (integer j = 0;j < Width;++j)
+						for (integer j = 0;j < n;++j)
 						{
-							left[i][j] -= right(i, j);
+							*iter -= right(i, j);
+							++iter;
 						}
 					}
 				}
 
-				return (Matrix<Height, Width, Real>&)*this;
+				return (Derived&)*this;
 			}
 
 			// Matrices vs scalars
@@ -224,40 +321,30 @@ namespace Pastel
 			// "add / subtract by multiples of identity matrix".
 			// For *= and /= these interpretations are equivalent.
 
-			Matrix<Height, Width, Real>& operator*=(
-				const Real& right)
+			// The parameter is deliberately taken by value because
+			// a reference could be from this matrix.
+			Derived& operator*=(
+				const Real right)
 			{
-				Matrix<Height, Width, Real>& left = 
-					(Matrix<Height, Width, Real>&)*this;
+				Iterator iter = begin();
+				const Iterator iterEnd = end();
 
-				for (integer i = 0;i < Height;++i)
+				while(iter != iterEnd)
 				{
-					data_[i] *= right;
+					(*iter) *= right;
+					++iter;
 				}
 
-				return left;
+				return (Derived&)*this;
 			}
 
-			Matrix<Height, Width, Real>& operator/=(
+			// No need to take the parameter by value,
+			// because we construct the inverse.
+			Derived& operator/=(
 				const Real& right)
 			{
-				Matrix<Height, Width, Real>& left = 
-					(Matrix<Height, Width, Real>&)*this;
-
-				left *= inverse(right);
-
-				return left;
+				return (*this) *= inverse(right);
 			}
-
-		private:
-			// In case Height <= 0,
-			// we want to give the error message
-			// from BOOST_STATIC_ASSERT in
-			// the destructor, rather than
-			// negative subscript from here.
-
-			Vector<Width, Real> data_[
-				Height > 0 ? Height : 1];
 		};
 
 	}

@@ -18,9 +18,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
-		const Vector<N, Real>& vector);
+		const VectorExpression<N, Real, Expression>& vector);
 
 	template <int N, typename Real>
 	std::istream& operator>>(std::istream& stream,

@@ -245,7 +245,7 @@ namespace
 
 		drawView(
 			constSubView(constArrayView(textureImage), Rectangle2(200, 200, 300, 300)),
-			IPoint2(300, 400),
+			Point2i(300, 400),
 			arrayView(image));
 
 		savePcx(image, "output/textures_texturebox.pcx");

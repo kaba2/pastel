@@ -245,7 +245,7 @@ namespace Pastel
 					const real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
 
-					imageSum += weight * extender_(image, IPoint2(j, i));
+					imageSum += weight * extender_(image, Point2i(j, i));
 					weightSum += weight;
 				}
 

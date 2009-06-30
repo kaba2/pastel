@@ -7,6 +7,7 @@
 #include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/random_pdf.h"
 #include "pastel/sys/view_all.h"
+#include "pastel/sys/histogram.h"
 
 #include <boost/bind.hpp>
 
@@ -133,11 +134,17 @@ namespace
 				randomGenerator());
 		}
 
-		std::vector<real> histogram;
+		std::vector<real> histogram(image.width());
+		computeHistogram(
+			sampleSet.begin(), sampleSet.end(),
+			region.min().x(), region.max().x(), image.width(),
+			histogram.begin());
 
+		/*
 		const integer maxBinValue = 
 			createHistogram(sampleSet, histogram, 
 			region.min().x(), region.max().x(), image.width());
+		*/
 
 		Color color = hsvToRgb(
 			Color(random<real32>(), 1, 1));

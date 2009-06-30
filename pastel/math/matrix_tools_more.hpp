@@ -132,21 +132,21 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return 
-				this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
 			// With transpose the involvement
 			// of a subexpression becomes non-trivial,
 			// so any occurence will do.
 
-			return data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:

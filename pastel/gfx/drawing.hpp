@@ -293,7 +293,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++x;
 
 						if (s >= 0)
@@ -318,7 +318,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++x;
 
 						if (s >= 0)
@@ -346,7 +346,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--x;
 
 						if (s >= 0)
@@ -371,7 +371,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--x;
 
 						if (s >= 0)
@@ -406,7 +406,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++y;
 
 						if (s >= 0)
@@ -431,7 +431,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--y;
 
 						if (s >= 0)
@@ -459,7 +459,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++y;
 
 						if (s >= 0)
@@ -484,7 +484,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--y;
 
 						if (s >= 0)
@@ -565,7 +565,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++x;
 
 						if (sFixed >= 0)
@@ -594,7 +594,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++x;
 
 						if (sFixed >= 0)
@@ -626,7 +626,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--x;
 
 						if (sFixed >= 0)
@@ -655,7 +655,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--x;
 
 						if (sFixed >= 0)
@@ -694,7 +694,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++y;
 
 						if (sFixed >= 0)
@@ -723,7 +723,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--y;
 
 						if (sFixed >= 0)
@@ -755,7 +755,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						++y;
 
 						if (sFixed >= 0)
@@ -784,7 +784,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(IPoint2(x, y), color, image);
+						drawPixel(Point2i(x, y), color, image);
 						--y;
 
 						if (sFixed >= 0)
@@ -947,7 +947,7 @@ namespace Pastel
 
 		Rectangle2 clippedBox;
 		if (!intersect(discreteBox, 
-			Rectangle2(IPoint2(0), asPoint(image.extent())), 
+			Rectangle2(Point2i(0), asPoint(image.extent())), 
 			clippedBox))
 		{
 			return;
@@ -1191,7 +1191,7 @@ namespace Pastel
 			toPixelSpanPoint(box.max()));
 
 		const Rectangle2 window(
-			IPoint2(0), 
+			Point2i(0), 
 			asPoint(image.extent()));
 
 		Rectangle2 clippedBox;

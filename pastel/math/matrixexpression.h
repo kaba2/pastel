@@ -75,15 +75,15 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return ((const Expression&)*this).involves(address);
+			return ((const Expression&)*this).involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return ((const Expression&)*this).involvesNonTrivially(address);
+			return ((const Expression&)*this).involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 		template <typename RightExpression>
@@ -237,16 +237,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(address);
+			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -294,18 +295,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(address) ||
-				right_.involvesNonTrivially(address);
+			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
+				right_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -354,18 +354,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(address) ||
-				right_.involvesNonTrivially(address);
+			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
+				right_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -420,23 +419,22 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address ||
-				left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// With multiplication, the involvement
 			// of a given subexpression becomes
 			// non-trivial. From now on we accept
 			// any occurence.
 
-			return left_.involves(address) ||
-				right_.involves(address);
+			return left_.involves(memoryBegin, memoryEnd) ||
+				right_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -479,16 +477,17 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				data_.involves(address);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(address);
+			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -539,13 +538,13 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return this == address;
+			return false;
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin, const void* memoryEnd) const
 		{
 			return false;
 		}

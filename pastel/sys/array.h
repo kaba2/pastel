@@ -241,6 +241,8 @@ namespace Pastel
 		using Base::operator();
 		using Base::setExtent;
 		using Base::reshape;
+		using typename Base::RowIterator;
+		using typename Base::ConstRowIterator;
 
 		Array()
 			: Base()
@@ -335,6 +337,46 @@ namespace Pastel
 		ConstCursor constCursor(integer x, integer y) const
 		{
 			return Base::constCursor(Point<N, integer>(x, y));
+		}
+
+		RowIterator rowBegin(integer y)
+		{
+			return Base::rowBegin(Point<N, integer>(0, y), 0);
+		}
+
+		ConstRowIterator rowBegin(integer y) const
+		{
+			return Base::rowBegin(Point<N, integer>(0, y), 0);
+		}
+
+		RowIterator rowEnd(integer y)
+		{
+			return Base::rowEnd(Point<N, integer>(0, y), 0);
+		}
+
+		ConstRowIterator rowEnd(integer y) const
+		{
+			return Base::rowEnd(Point<N, integer>(0, y), 0);
+		}
+
+		RowIterator columnBegin(integer x)
+		{
+			return Base::rowBegin(Point<N, integer>(x, 0), 1);
+		}
+
+		ConstRowIterator columnBegin(integer x) const
+		{
+			return Base::rowBegin(Point<N, integer>(x, 0), 1);
+		}
+
+		RowIterator columnEnd(integer x)
+		{
+			return Base::rowEnd(Point<N, integer>(x, 0), 1);
+		}
+
+		ConstRowIterator columnEnd(integer x) const
+		{
+			return Base::rowEnd(Point<N, integer>(x, 0), 1);
 		}
 	};
 

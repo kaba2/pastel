@@ -5,6 +5,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
+#include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/arraybasecursor.h"
 
 namespace Pastel
@@ -24,6 +25,9 @@ namespace Pastel
 			{
 				Dimension = N
 			};
+
+			typedef SparseIterator<Type> RowIterator;
+			typedef ConstSparseIterator<Type> ConstRowIterator;
 
 			typedef Type Element;
 			typedef Type& Reference;
@@ -92,7 +96,11 @@ namespace Pastel
 			integer size() const;
 
 			//! Sets all the elements to the given value.
-			void set(const Type& that);
+			/*!
+			The element is deliberately taken by value,
+			because a reference could be from this array.
+			*/
+			void set(const Type that);
 
 			//! Copies from another array.
 			ArrayBase<N, Type>& operator=(const ArrayBase& that);
@@ -115,6 +123,8 @@ namespace Pastel
 			//! Returns a cursor to the given position.
 			ConstCursor constCursor(const Point<N, integer>& position) const;
 
+			// Iterators
+
 			//! Returns an iterator to the first element.
 			Iterator begin();
 
@@ -126,6 +136,20 @@ namespace Pastel
 
 			//! Returns an iterator to one-past-end element.
 			ConstIterator end() const;
+
+			RowIterator rowBegin(
+				const Point<N, integer>& position, 
+				integer axis);
+			ConstRowIterator rowBegin(
+				const Point<N, integer>& position, 
+				integer axis) const;
+
+			RowIterator rowEnd(
+				const Point<N, integer>& position, 
+				integer axis);
+			ConstRowIterator rowEnd(
+				const Point<N, integer>& position, 
+				integer axis) const;
 
 		private:
 			void allocate(

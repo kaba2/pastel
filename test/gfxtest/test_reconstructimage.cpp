@@ -297,7 +297,7 @@ namespace
 		for (integer i = 0;i < n;++i)
 		{
 			dataList[i] = texture(
-				IPoint2(positionList[i]));
+				Point2i(positionList[i]));
 		}
 
 		FilterPtr filter(new MultiQuadric_Rbf(sampleDistance));
@@ -331,7 +331,7 @@ namespace
 		for (integer i = 0;i < n;++i)
 		{
 			dataList[i] = texture(
-				IPoint2(positionList[i]));
+				Point2i(positionList[i]));
 		}
 
 		const Shepard_Interpolator<2, Color> interpolator(

@@ -28,7 +28,7 @@ namespace Pastel
 
 			toTransformation[0] = extend(fromTransformation[0], 0);
 			toTransformation[1] = extend(fromTransformation[1], 0);
-			toTransformation[2].set(0, 0, 1);
+			toTransformation[2] = Vector3(0, 0, 1);
 			to.translation() = extend(from.translation(), 0);
 		}
 

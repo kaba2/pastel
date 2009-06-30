@@ -14,9 +14,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <int N, typename Real, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
-		const Vector<N, Real>& vector)
+		const VectorExpression<N, Real, Expression>& vector)
 	{
 		const integer size = vector.size();
 
@@ -106,13 +106,15 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address;
+			return false;
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
 			return false;
 		}
@@ -228,17 +230,18 @@ namespace Pastel
 		}
 
 		bool involves(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
-			return this == address ||
-				expression_.involves(address);
+			return expression_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(
-			void* address) const
+			const void* memoryBegin,
+			const void* memoryEnd) const
 		{
 			// This is a non-trivial expression.
-			return expression_.involves(address);
+			return expression_.involves(memoryBegin, memoryEnd);
 		}
 
 	private:

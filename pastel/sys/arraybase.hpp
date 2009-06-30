@@ -242,9 +242,13 @@ namespace Pastel
 			return size_;
 		}
 
+		/*
+		The element is deliberately taken by value,
+		because a reference could be from this array.
+		*/
 		template <int N, typename Type>
 		void ArrayBase<N, Type>::set(
-			const Type& that)
+			const Type that)
 		{
 			if (data_)
 			{
@@ -256,8 +260,16 @@ namespace Pastel
 		ArrayBase<N, Type>& ArrayBase<N, Type>::operator=(
 			const ArrayBase& that)
 		{
-			ArrayBase<N, Type> copy(that);
-			swap(copy);
+			if (extent() != that.extent())
+			{
+				ArrayBase<N, Type> copy(that);
+				swap(copy);
+			}
+			else
+			{
+				std::copy(that.begin(), that.end(), 
+					begin());
+			}
 
 			return *this;
 		}
@@ -469,6 +481,55 @@ namespace Pastel
 			ArrayBase<N, Type>::end() const
 		{
 			return data_ + size_;
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::RowIterator 
+			ArrayBase<N, Type>::rowBegin(
+			const Point<N, integer>& position, 
+			integer axis)
+		{
+			integer index = position[0];
+			for (integer i = 1;i < axis;++i)
+			{
+				index += position[i] * factor_[i];
+			}
+			for (integer i = axis + 1;i < N;++i)
+			{
+				index += position[i] * factor_[i];
+			}
+
+			return RowIterator(
+				data_ + index, factor_[axis]);
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::ConstRowIterator 
+			ArrayBase<N, Type>::rowBegin(
+			const Point<N, integer>& position, 
+			integer axis) const
+		{
+			return ((ArrayBase&)*this).rowBegin(
+				position, axis);
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::RowIterator 
+			ArrayBase<N, Type>::rowEnd(
+			const Point<N, integer>& position, 
+			integer axis)
+		{
+			return rowBegin(position, axis) + extent_[axis];
+		}
+
+		template <int N, typename Type>
+		typename ArrayBase<N, Type>::ConstRowIterator 
+			ArrayBase<N, Type>::rowEnd(
+			const Point<N, integer>& position, 
+			integer axis) const
+		{
+			return ((ArrayBase&)*this).rowEnd(
+				position, axis);
 		}
 
 	}
