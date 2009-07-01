@@ -2,6 +2,7 @@
 #define PASTEL_SEARCH_ALL_NEIGHBORS_BRUTEFORCE_HPP
 
 #include "pastel/geometry/search_all_neighbors_bruteforce.h"
+#include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/smallfixedset.h"
@@ -59,6 +60,27 @@ namespace Pastel
 		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
 		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
+		const integer points = pointSet.size();
+
+		if (points == 0 || kNearest == 0)
+		{
+			return;
+		}
+		
+		const integer dimension = pointSet.front().dimension();
+
+		if (dimension == 1)
+		{
+			searchAllNeighbors1d(
+				pointSet,
+				kNearest,
+				maxDistance,
+				normBijection,
+				nearestArray);
+			
+			return;
+		}
+
 		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
 		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
@@ -72,8 +94,6 @@ namespace Pastel
 		const Real protectiveFactor = 
 			normBijection.scalingFactor(1.001);
 
-		const integer dimension = pointSet.front().dimension();
-		const integer points = pointSet.size();
 #pragma omp parallel
 		{
 			NearestSet nearestSet(kNearest);

@@ -2,6 +2,7 @@
 #define PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_HPP
 
 #include "pastel/geometry/search_all_neighbors_kdtree.h"
+#include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/device/timer.h"
@@ -116,14 +117,26 @@ namespace Pastel
 			return;
 		}
 
+		const integer dimension = pointSet.front().size();
+
+		if (dimension == 1)
+		{
+			searchAllNeighbors1d(
+				pointSet,
+				kNearest,
+				maxDistance,
+				normBijection,
+				*nearestArray);
+			
+			return;
+		}
+
 		typedef PointKdTree<N, Real, 
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef typename Tree::Object Object;
 		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
 			SequenceIterator;
-
-		const integer dimension = pointSet.front().size();
 
 		Timer timer;
 
