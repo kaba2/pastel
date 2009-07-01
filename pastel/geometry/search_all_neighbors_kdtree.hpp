@@ -1,7 +1,7 @@
-#ifndef PASTEL_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
-#define PASTEL_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
+#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_HPP
+#define PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_HPP
 
-#include "pastel/geometry/all_nearest_neighbors_kdtree.h"
+#include "pastel/geometry/search_all_neighbors_kdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/device/timer.h"
@@ -77,7 +77,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection, typename SplitRule>
-	void allNearestNeighborsKdTree(
+	void searchAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearestBegin,
 		integer kNearestEnd,

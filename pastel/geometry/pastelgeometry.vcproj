@@ -758,39 +758,39 @@
 			Name="All nearest neighbours searching"
 			>
 			<File
-				RelativePath=".\all_nearest_neighbors.h"
+				RelativePath=".\search_all_neighbors.h"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_bruteforce.h"
+				RelativePath=".\search_all_neighbors_bruteforce.h"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_bruteforce.hpp"
+				RelativePath=".\search_all_neighbors_bruteforce.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_kdtree.h"
+				RelativePath=".\search_all_neighbors_kdtree.h"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_kdtree.hpp"
+				RelativePath=".\search_all_neighbors_kdtree.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_own.h"
+				RelativePath=".\search_all_neighbors_own.h"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_own.hpp"
+				RelativePath=".\search_all_neighbors_own.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_vaidya.h"
+				RelativePath=".\search_all_neighbors_vaidya.h"
 				>
 			</File>
 			<File
-				RelativePath=".\all_nearest_neighbors_vaidya.hpp"
+				RelativePath=".\search_all_neighbors_vaidya.hpp"
 				>
 			</File>
 		</Filter>
@@ -798,15 +798,23 @@
 			Name="All nearest neighbors counting"
 			>
 			<File
-				RelativePath=".\count_all_nearest_neighbors_bruteforce.h"
+				RelativePath=".\count_all_neighbors_1d.h"
 				>
 			</File>
 			<File
-				RelativePath=".\count_all_nearest_neighbors_kdtree.h"
+				RelativePath=".\count_all_neighbors_1d.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\count_all_nearest_neighbors_kdtree.hpp"
+				RelativePath=".\count_all_neighbors_bruteforce.h"
+				>
+			</File>
+			<File
+				RelativePath=".\count_all_neighbors_kdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\count_all_neighbors_kdtree.hpp"
 				>
 			</File>
 		</Filter>

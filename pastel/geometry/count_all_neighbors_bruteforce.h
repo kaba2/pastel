@@ -1,5 +1,5 @@
-#ifndef PASTEL_COUNT_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_H
-#define PASTEL_COUNT_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_H
+#ifndef PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
+#define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
 
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/mytypes.h"
@@ -13,7 +13,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename NormBijection>
-	void countAllNearestNeighborsBruteForce(
+	void countAllNeighborsBruteForce(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const NormBijection& normBijection,

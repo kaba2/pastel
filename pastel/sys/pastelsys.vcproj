@@ -1265,6 +1265,26 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="MeasureTable"
+			>
+			<File
+				RelativePath=".\measuretable.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\measuretable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\measuretable_tools.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\measuretable_tools.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\installation.txt"
 			>

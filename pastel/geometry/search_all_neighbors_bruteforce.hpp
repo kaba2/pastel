@@ -1,7 +1,7 @@
-#ifndef PASTEL_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
-#define PASTEL_ALL_NEAREST_NEIGHBORS_BRUTEFORCE_HPP
+#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_BRUTEFORCE_HPP
+#define PASTEL_SEARCH_ALL_NEIGHBORS_BRUTEFORCE_HPP
 
-#include "pastel/geometry/all_nearest_neighbors_bruteforce.h"
+#include "pastel/geometry/search_all_neighbors_bruteforce.h"
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/smallfixedset.h"
@@ -46,7 +46,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection>
-	void allNearestNeighborsBruteForce(
+	void searchAllNeighborsBruteForce(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,

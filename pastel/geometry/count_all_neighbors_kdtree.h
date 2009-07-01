@@ -1,5 +1,5 @@
-#ifndef PASTEL_COUNT_ALL_NEAREST_NEIGHBORS_KDTREE_H
-#define PASTEL_COUNT_ALL_NEAREST_NEIGHBORS_KDTREE_H
+#ifndef PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_H
+#define PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/mytypes.h"
@@ -23,7 +23,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real, typename NormBijection, typename CountFunctor>
-	void countAllNearestNeighborsKdTree(
+	void countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -44,7 +44,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real, typename NormBijection, typename CountFunctor>
-	void countAllNearestNeighborsKdTree(
+	void countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -52,14 +52,14 @@ namespace Pastel
 		const CountFunctor& countFunctor);
 
 	template <int N, typename Real, typename NormBijection>
-	integer countAllNearestNeighborsKdTree(
+	integer countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection);
 
 	template <int N, typename Real, typename NormBijection>
-	void countAllNearestNeighborsKdTree(
+	void countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -68,6 +68,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/count_all_nearest_neighbors_kdtree.hpp"
+#include "pastel/geometry/count_all_neighbors_kdtree.hpp"
 
 #endif

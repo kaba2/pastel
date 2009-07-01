@@ -1,5 +1,5 @@
-#ifndef PASTEL_ALL_NEAREST_NEIGHBORS_OWN_H
-#define PASTEL_ALL_NEAREST_NEIGHBORS_OWN_H
+#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_OWN_H
+#define PASTEL_SEARCH_ALL_NEIGHBORS_OWN_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"
@@ -24,13 +24,13 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	void allNearestNeighborsOwn(
+	void searchAllNeighborsOwn(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		Array<2, integer>& nearestSet);
 
 }
 
-#include "pastel/geometry/all_nearest_neighbors_own.hpp"
+#include "pastel/geometry/search_all_neighbors_own.hpp"
 
 #endif
