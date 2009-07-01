@@ -1,13 +1,10 @@
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
 
-#include "pastel/sys/pastelomp.h"
 #include "pastel/sys/mytypes.h"
-
-#include "pastel/geometry/distance_point_point.h"
+#include "pastel/sys/point.h"
 
 #include <vector>
-#include <algorithm>
 
 namespace Pastel
 {
@@ -17,34 +14,10 @@ namespace Pastel
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const NormBijection& normBijection,
-		std::vector<integer>& countSet)
-	{
-		ENSURE2(pointSet.size() == maxDistanceSet.size(),
-			pointSet.size(), maxDistanceSet.size());
-
-		const integer points = pointSet.size();
-				
-		countSet.resize(points);
-		std::fill(countSet.begin(), countSet.end(), 0);
-
-#pragma omp parallel for
-		for (integer i = 0;i < points;++i)
-		{
-			const Real maxDistance = maxDistanceSet[i];
-			for (integer j = 0;j < points;++j)
-			{
-				if (distance2(pointSet[i], pointSet[j], normBijection) <= maxDistance)
-				{
-					if (i != j)
-					{
-						++countSet[i];
-					}
-				}
-			}
-		}
-	}
-
+		std::vector<integer>& countSet);
 
 }
+
+#include "pastel/geometry/count_all_neighbors_bruteforce.hpp"
 
 #endif

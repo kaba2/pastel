@@ -5,6 +5,9 @@
 
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/pastelomp.h"
+#include "pastel/sys/ensure.h"
+
+#include <boost/static_assert.hpp>
 
 #include <algorithm>
 

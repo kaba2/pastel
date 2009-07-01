@@ -267,6 +267,76 @@ namespace Pastel
 	}
 
 	template <
+		int Height, int Width,
+		typename Real,
+		typename Expression>
+	class MatrixRepeat
+		: public MatrixExpression<Height, Width, Real,
+		MatrixRepeat<Height, Width, Real, Expression> >
+	{
+	public:
+		typedef const MatrixRepeat StorageType;
+
+		explicit MatrixRepeat(
+			const Expression& data,
+			integer yBlocks,
+			integer xBlocks)
+			: data_(data)
+			, dataWidth_(data.width())
+			, dataHeight_(data.height())
+			, width_(data.width() * xBlocks)
+			, height_(data.height() * yBlocks)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return data_(y % dataHeight_, x % dataWidth_);
+		}
+
+		integer width() const
+		{
+			return width_;
+		}
+
+		integer height() const
+		{
+			return height_;
+		}
+
+		bool involves(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return data_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool involvesNonTrivially(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
+		}
+
+	private:
+		typename Expression::StorageType data_;
+		const integer dataWidth_;
+		const integer dataHeight_;
+		const integer width_;
+		const integer height_;
+	};
+
+	template <int Height, int Width, typename Real, typename Expression>
+	MatrixRepeat<Height, Width, Real, Expression> repeat(
+		const MatrixExpression<Height, Width, Real, Expression>& that,
+		integer yBlocks, integer xBlocks)
+	{
+		return MatrixRepeat<Height, Width, Real, Expression>(
+			(const Expression&)that, yBlocks, xBlocks);
+	}
+
+
+	template <
 		typename Real,
 		typename Input_ConstView>
 	class ConstViewMatrix
