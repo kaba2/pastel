@@ -44,6 +44,19 @@ namespace Pastel
 		const MatrixExpression<Height, Width, Real, Expression>& that);
 
 	template <
+		int Height, int Width,
+		typename Real,
+		typename Expression>
+	class MatrixRepeat;
+
+	//! Repeats a matrix expression to form a bigger matrix expression.
+
+	template <int Height, int Width, typename Real, typename Expression>
+	MatrixRepeat<Height, Width, Real, Expression> repeat(
+		const MatrixExpression<Height, Width, Real, Expression>& that,
+		integer yBlocks, integer xBlocks);
+
+	template <
 		typename Real,
 		typename Input_ConstView>
 	class ConstViewMatrix;
@@ -53,6 +66,21 @@ namespace Pastel
 	template <typename Real, typename Input_ConstView>
 	ConstViewMatrix<Real, Input_ConstView> asMatrix(
 		const ConstView<2, Real, Input_ConstView>& that);
+
+	template <
+		int Height, int Width,
+		typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+	class OuterProduct;
+
+	template <int Height, int Width, typename Real,
+		typename LeftExpression,
+		typename RightExpression>
+		OuterProduct<Height, Width, Real, LeftExpression, RightExpression>
+		outerProduct(
+		const VectorExpression<Height, Real, LeftExpression>& left,
+		const VectorExpression<Width, Real, RightExpression>& right);
 
 }
 

@@ -66,6 +66,22 @@ namespace
 
 			testMatrixView();
 			testMatrixArray();
+			testMatrixExpressions();
+		}
+
+		void testMatrixExpressions()
+		{
+			MatrixD a(4, 6);
+			a |= 1, 0, 1, 0, 1, 0,
+				0, 1, 0, 1, 0, 1,
+				1, 0, 1, 0, 1, 0,
+				0, 1, 0, 1, 0, 1;
+			
+			const MatrixD b = repeat(
+				identityMatrix<Dynamic, Dynamic, real>(2, 2),
+				2, 3);
+
+			TEST_ENSURE(a == b);
 		}
 
 		void testMatrixView()

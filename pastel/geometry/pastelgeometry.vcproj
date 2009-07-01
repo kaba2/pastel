@@ -762,6 +762,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\search_all_neighbors_1d.h"
+				>
+			</File>
+			<File
+				RelativePath=".\search_all_neighbors_1d.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\search_all_neighbors_bruteforce.h"
 				>
 			</File>
@@ -798,6 +806,10 @@
 			Name="All nearest neighbors counting"
 			>
 			<File
+				RelativePath=".\count_all_neighbors.h"
+				>
+			</File>
+			<File
 				RelativePath=".\count_all_neighbors_1d.h"
 				>
 			</File>
@@ -807,6 +819,10 @@
 			</File>
 			<File
 				RelativePath=".\count_all_neighbors_bruteforce.h"
+				>
+			</File>
+			<File
+				RelativePath=".\count_all_neighbors_bruteforce.hpp"
 				>
 			</File>
 			<File
