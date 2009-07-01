@@ -1,5 +1,5 @@
-#ifndef PASTEL_ALL_NEAREST_NEIGHBORS_VAIDYA_H
-#define PASTEL_ALL_NEAREST_NEIGHBORS_VAIDYA_H
+#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_VAIDYA_H
+#define PASTEL_SEARCH_ALL_NEIGHBORS_VAIDYA_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"
@@ -34,13 +34,13 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	void allNearestNeighborsVaidya(
+	void searchAllNeighborsVaidya(
 		const std::vector<Point<N, Real> >& pointSet,
 		integer kNearest,
 		Array<2, integer>& nearestSet);
 
 }
 
-#include "pastel/geometry/all_nearest_neighbors_vaidya.hpp"
+#include "pastel/geometry/search_all_neighbors_vaidya.hpp"
 
 #endif

@@ -8,6 +8,19 @@
 namespace Pastel
 {
 
+	PASTELSYS std::string repeat(const std::string& that, integer times)
+	{
+		std::string result;
+		result.reserve(that.length() * times);
+
+		for (integer i = 0;i < times;++i)
+		{
+			result += that;
+		}
+
+		return result;
+	}
+
 	PASTELSYS std::string trim(const std::string& that)
 	{
 		const integer begin = that.find_first_not_of(" \t\n");

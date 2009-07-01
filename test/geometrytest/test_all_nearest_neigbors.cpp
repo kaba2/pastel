@@ -1,6 +1,6 @@
 #include "pastelgeometrytest.h"
 
-#include "pastel/geometry/all_nearest_neighbors.h"
+#include "pastel/geometry/search_all_neighbors.h"
 
 #include "pastel/sys/random_vector.h"
 #include "pastel/math/normbijection.h"
@@ -62,7 +62,7 @@ namespace
 
 		timer.setStart();
 
-		allNearestNeighborsBruteForce(
+		searchAllNeighborsBruteForce(
 			pointSet,
 			kNearest,
 			infinity<Real>(),
@@ -76,17 +76,17 @@ namespace
 		drawNearest("brute", pointSet, naiveNeighborSet);
 
 		/*
-		allNearestNeighborsVaidya(
+		searchAllNeighborsVaidya(
 			pointSet,
 			kNearest,
 			naiveNeighborSet);
 
-		allNearestNeighbors(
+		searchAllNeighbors(
 			pointSet,
 			kNearest,
 			neighborSet);
 	
-		allNearestNeighborsOwn(
+		searchAllNeighborsOwn(
 			pointSet,
 			kNearest,
 			neighborSet);
@@ -97,7 +97,7 @@ namespace
 
 		timer.setStart();
 
-		allNearestNeighborsKdTree(
+		searchAllNeighborsKdTree(
 			pointSet,
 			0,
 			kNearest,

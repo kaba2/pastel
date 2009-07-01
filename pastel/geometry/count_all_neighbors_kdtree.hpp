@@ -1,7 +1,8 @@
-#ifndef PASTEL_COUNT_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
-#define PASTEL_COUNT_ALL_NEAREST_NEIGHBORS_KDTREE_HPP
+#ifndef PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_HPP
+#define PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_HPP
 
-#include "pastel/geometry/count_all_nearest_neighbors_kdtree.h"
+#include "pastel/geometry/count_all_neighbors_kdtree.h"
+#include "pastel/geometry/count_all_neighbors_1d.h"
 #include "pastel/geometry/kdtree_tools.h"
 
 #include "pastel/device/timer.h"
@@ -11,7 +12,7 @@
 namespace Pastel
 {
 
-	namespace Detail_CountAllNearestNeighborsKdTree
+	namespace Detail_CountAllNeighborsKdTree
 	{
 
 		class Total_CountFunctor
@@ -50,7 +51,7 @@ namespace Pastel
 
 	}
 
-	namespace Detail_CountAllNearestNeighborsKdTree
+	namespace Detail_CountAllNeighborsKdTree
 	{
 
 		template <int N, typename Real>
@@ -115,7 +116,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection, typename CountFunctor>
-	void countAllNearestNeighborsKdTree(
+	void countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -133,13 +134,13 @@ namespace Pastel
 			return;
 		}
 
-		typedef PointKdTree<N, Real, 
-			Detail_CountAllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
-		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef Detail_CountAllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
-			SequenceIterator;
-
 		const integer dimension = pointSet.front().size();
+
+		typedef PointKdTree<N, Real, 
+			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > Tree;
+		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
+		typedef Detail_CountAllNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
+			SequenceIterator;
 
 		Tree tree(dimension);
 
@@ -161,7 +162,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection, typename CountFunctor>
-	void countAllNearestNeighborsKdTree(
+	void countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -180,13 +181,13 @@ namespace Pastel
 			return;
 		}
 
-		typedef PointKdTree<N, Real, 
-			Detail_CountAllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
-		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef Detail_CountAllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
-			SequenceIterator;
-
 		const integer dimension = pointSet.front().size();
+
+		typedef PointKdTree<N, Real, 
+			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > Tree;
+		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
+		typedef Detail_CountAllNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
+			SequenceIterator;
 
 		Tree tree(dimension);
 
@@ -212,17 +213,17 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection>
-	integer countAllNearestNeighborsKdTree(
+	integer countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection)
 	{
 		integer result = 0;
-		const Detail_CountAllNearestNeighborsKdTree::Total_CountFunctor 
+		const Detail_CountAllNeighborsKdTree::Total_CountFunctor 
 			countFunctor(result);
 
-		Pastel::countAllNearestNeighborsKdTree(
+		Pastel::countAllNeighborsKdTree(
 			pointSet, maxDistanceSet, maxRelativeError,
 			normBijection, countFunctor);
 
@@ -230,20 +231,36 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename NormBijection>
-	void countAllNearestNeighborsKdTree(
+	void countAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
 		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		std::vector<integer>& countSet)
 	{
+		const integer points = pointSet.size();
 		countSet.resize(pointSet.size());
+
+		if (points == 0)
+		{
+			return;
+		}
+
+		const integer dimension = pointSet.front().dimension();
+
+		if (dimension == 1)
+		{
+			countAllNeighbors1d(pointSet, maxDistanceSet,
+				normBijection, countSet);
+			return;
+		}
+
 		std::fill(countSet.begin(), countSet.end(), 0);
 
-		const Detail_CountAllNearestNeighborsKdTree::Vector_CountFunctor 
+		const Detail_CountAllNeighborsKdTree::Vector_CountFunctor 
 			countFunctor(countSet);
 
-		Pastel::countAllNearestNeighborsKdTree(
+		Pastel::countAllNeighborsKdTree(
 			pointSet, maxDistanceSet, maxRelativeError,
 			normBijection, countFunctor);
 	}

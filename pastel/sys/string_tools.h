@@ -15,6 +15,13 @@
 namespace Pastel
 {
 
+	//! Concatenates a string with itself 'times' times.
+	/*!
+	Preconditions:
+	times >= 0
+	*/
+	PASTELSYS std::string repeat(const std::string& that, integer times);
+
 	//! Removes white-space from the ends.
 	PASTELSYS std::string trim(const std::string& that);
 
