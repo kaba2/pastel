@@ -14,7 +14,7 @@
 
 #include <boost/static_assert.hpp>
 
-#include "pastel/math/matrixbase.h"
+#include "pastel/math/matrixexpression.h"
 #include "pastel/math/matrix_static.h"
 #include "pastel/math/matrix_dynamic.h"
 
