@@ -1,7 +1,7 @@
 #ifndef PASTEL_MATRIXEXPRESSION_H
 #define PASTEL_MATRIXEXPRESSION_H
 
-#include "pastel/math/matrixbase.h"
+#include "pastel/math/matrix.h"
 
 #include "pastel/sys/ensure.h"
 

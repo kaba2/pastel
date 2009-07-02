@@ -151,6 +151,16 @@ namespace Pastel
 				const Point<N, integer>& position, 
 				integer axis) const;
 
+			Type* data()
+			{
+				return data_;
+			}
+
+			const Type* data() const
+			{
+				return data_;
+			}
+
 		private:
 			void allocate(
 				const Vector<N, integer>& extent);

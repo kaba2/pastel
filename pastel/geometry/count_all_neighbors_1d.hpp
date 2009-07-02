@@ -64,10 +64,7 @@ namespace Pastel
 			const ConstIterator rightIter = std::upper_bound(
 				searchSet.begin(), searchSet.end(), keyValue(right, index));
 
-			// The search point is itself in the set, so
-			// we need to subtract that.
-			countSet[index] = (rightIter - leftIter) - 1;
-			ASSERT1(countSet[index] >= 0, countSet[index]);
+			countSet[index] = rightIter - leftIter;
 		}
 	}
 

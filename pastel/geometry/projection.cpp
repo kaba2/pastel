@@ -119,11 +119,11 @@ namespace Pastel
 		const real m32 = -(yMax + yMin) / (yMax - yMin);
 		const real m43 = -(2 * zMax * zMin) / (zMax - zMin);
 
-		matrix.set(
+		matrix |=
 			m11,   0,    0, 0,
 			0,   m22,    0, 0,
 			m31, m32,  m33, 1,
-			0,   0,    m43, 0);
+			0,   0,    m43, 0;
 	}
 
 	PASTELGEOMETRY void setOrthogonalProjection(
@@ -146,11 +146,11 @@ namespace Pastel
 		const real m42 = -(yMax + yMin) / (yMax - yMin);
 		const real m43 = -(zMax + zMin) / (zMax - zMin);
 
-		matrix.set(
+		matrix |=
 			m11,   0,    0, 0,
 			0,   m22,    0, 0,
 			0,     0,  m33, 0,
-			m41, m42,  m43, 1);
+			m41, m42,  m43, 1;
 	}
 
 	PASTELGEOMETRY Matrix3 projectiveTransformation(

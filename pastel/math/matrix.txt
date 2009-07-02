@@ -8,7 +8,9 @@ Files
 
 matrix.h
 matrix.hpp
-matrixbase.h
+matrix_dynamic.h
+matrix_static.h
+matrixview.h
 matrixexpression.h
 
 Use case

@@ -3,6 +3,12 @@
 
 #include "pastel/math/matrix.h"
 
+#include "pastel/sys/sparseiterator.h"
+#include "pastel/sys/commafiller.h"
+#include "pastel/sys/memory_overlaps.h"
+
+#include <boost/static_assert.hpp>
+
 namespace Pastel
 {
 
@@ -11,14 +17,21 @@ namespace Pastel
 
 		template <int Height, int Width, typename Real, typename Derived>
 		class MatrixStaticBase
-			: public Detail::MatrixBase<Height, Width, Real, Derived>
+			: public MatrixExpression<Height, Width, Real, Derived>
 		{
-		private:
-			typedef Detail::MatrixBase<Height, Width, Real, Derived> Base;
-
 		public:
+			typedef const Derived& StorageType;
+
+			typedef Real* Iterator;
+			typedef const Real* ConstIterator;
+			typedef VectorView<Width, Real> Row;
+			typedef ConstVectorView<Width, Real> ConstRow;
+			typedef Iterator RowIterator;
+			typedef ConstIterator ConstRowIterator;
+			typedef SparseIterator<Real> ColumnIterator;
+			typedef ConstSparseIterator<Real> ConstColumnIterator;
+
 			MatrixStaticBase()
-				: Base()
 			{
 				// Initialize to an identity matrix.
 				set(0);
@@ -32,16 +45,8 @@ namespace Pastel
 
 			template <typename Expression>
 			MatrixStaticBase(const MatrixExpression<Height, Width, Real, Expression>& that)
-				: Base()
 			{
 				*this = that;
-			}
-
-			template <typename Expression>
-			MatrixStaticBase& operator=(
-				const MatrixExpression<Height, Width, Real, Expression>& that)
-			{
-				return Base::operator=(that);
 			}
 
 			// Used for concept checking.
@@ -58,8 +63,8 @@ namespace Pastel
 				ENSURE2(height() == that.height(),
 					height(), that.height());
 
-				std::copy(that.data(), that.data() + that.size(),
-					data());
+				std::copy(that.data_, that.data_ + that.size(),
+					data_);
 
 				return *this;
 			}
@@ -89,14 +94,215 @@ namespace Pastel
 				return Width * Height;
 			}
 
-			Real* data()
+			bool involves(const void* memoryBegin, const void* memoryEnd) const
 			{
-				return data_;
+				return Pastel::memoryOverlaps(
+					memoryBegin, memoryEnd,
+					data_, data_ + size());
 			}
 
-			const Real* data() const
+			bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
 			{
-				return data_;
+				return false;
+			}
+
+			CommaFiller<Real, Iterator> operator|=(
+				const Real& that)
+			{
+				return commaFiller<Real>(begin(), end(), that);
+			}
+
+			Real& operator()(integer i)
+			{
+				PENSURE2(i >= 0 && i < size(), i, size());
+
+				return data_[i];
+			}
+
+			const Real& operator()(integer i) const
+			{
+				PENSURE2(i >= 0 && i < size(), i, size());
+
+				return data_[i];
+			}
+
+			Real& operator()(integer y, integer x)
+			{
+				PENSURE2(y >= 0 && y < Height, y, Height);
+				PENSURE2(x >= 0 && x < Width, x, Width);
+
+				return data_[y * Width + x];
+			}
+
+			const Real& operator()(integer y, integer x) const
+			{
+				PENSURE2(y >= 0 && y < Height, y, Height);
+				PENSURE2(x >= 0 && x < Width, x, Width);
+
+				return data_[y * Width + x];
+			}
+
+			Row operator[](integer y)
+			{
+				PENSURE2(y >= 0 && y < Height, y, Height);
+
+				return Row(
+					data_ + y * Width, Width);
+			}
+
+			ConstRow operator[](integer y) const
+			{
+				PENSURE2(y >= 0 && y < Height, y, Height);
+
+				return ConstRow(
+					data_ + y * Width, Width);
+			}
+
+			template <typename RightExpression>
+			Derived& operator=(
+				const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			{
+				// We allow the size of the matrix to
+				// change in assignment.
+
+				if (right.involvesNonTrivially(&*begin(), &*end()) ||
+					width() != right.width() ||
+					height() != right.height())
+				{
+					// The right expression contains this matrix
+					// as a subexpression. We thus need to evaluate
+					// the expression first.
+					
+					((Derived&)*this) = Derived(right);
+				}
+				else
+				{
+					const integer m = height();
+					const integer n = width();
+					Iterator iter = begin();
+					const Iterator iterEnd = end();
+
+					for (integer i = 0;i < m;++i)
+					{
+						for (integer j = 0;j < n;++j)
+						{
+							*iter = right(i, j);
+							++iter;
+						}
+					}
+				}
+
+				return (Derived&)*this;
+			}
+
+			template <typename RightExpression>
+			Derived& operator*=(
+				const MatrixExpression<Width, Width, Real, RightExpression>& right)
+			{
+				PENSURE2(width() == right.height(), width(), right.height());
+
+				Derived& left = 
+					(Derived&)*this;
+
+				left = left * right;
+
+				return left;
+			}
+
+			template <typename RightExpression>
+			Derived& operator+=(
+				const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			{
+				PENSURE2(width() == right.width(), width(), right.width());
+				PENSURE2(height() == right.height(), height(), right.height());
+
+				if (right.involvesNonTrivially(&*begin(), &*end()))
+				{
+					*this += Derived(right);
+				}
+				else
+				{
+					const integer m = height();
+					const integer n = width();
+					Iterator iter = begin();
+					const Iterator iterEnd = end();
+
+					for (integer i = 0;i < m;++i)
+					{
+						for (integer j = 0;j < n;++j)
+						{
+							*iter += right(i, j);
+							++iter;
+						}
+					}
+				}
+
+				return (Derived&)*this;
+			}
+
+			template <typename RightExpression>
+			Derived& operator-=(
+				const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			{
+				PENSURE2(width() == right.width(), width(), right.width());
+				PENSURE2(height() == right.height(), height(), right.height());
+
+				if (right.involvesNonTrivially(&*begin(), &*end()))
+				{
+					*this -= Derived(right);
+				}
+				else
+				{
+					const integer m = height();
+					const integer n = width();
+					Iterator iter = begin();
+					const Iterator iterEnd = end();
+
+					for (integer i = 0;i < m;++i)
+					{
+						for (integer j = 0;j < n;++j)
+						{
+							*iter -= right(i, j);
+							++iter;
+						}
+					}
+				}
+
+				return (Derived&)*this;
+			}
+
+			// Matrices vs scalars
+
+			// Matrix += scalar and Matrix -= scalar are not
+			// supported because of the possibly ambiguity:
+			// it is not clear whether it should mean
+			// "add / subtract element-wise" or
+			// "add / subtract by multiples of identity matrix".
+			// For *= and /= these interpretations are equivalent.
+
+			// The parameter is deliberately taken by value because
+			// a reference could be from this matrix.
+			Derived& operator*=(
+				const Real right)
+			{
+				Iterator iter = begin();
+				const Iterator iterEnd = end();
+
+				while(iter != iterEnd)
+				{
+					(*iter) *= right;
+					++iter;
+				}
+
+				return (Derived&)*this;
+			}
+
+			// No need to take the parameter by value,
+			// because we construct the inverse.
+			Derived& operator/=(
+				const Real& right)
+			{
+				return (*this) *= inverse(right);
 			}
 
 			// The parameter is passed by value
@@ -105,6 +311,70 @@ namespace Pastel
 			{
 				std::fill(
 					data_, data_ + size(), that);
+			}
+
+			Iterator begin()
+			{
+				return data_;
+			}
+
+			ConstIterator begin() const
+			{
+				return data_;
+			}
+
+			Iterator end()
+			{
+				return data_ + Width * Height;
+			}
+
+			ConstIterator end() const
+			{
+				return data_ + Width * Height;
+			}
+
+			RowIterator rowBegin(integer y)
+			{
+				return data_ + y * Width;
+			}
+
+			ConstRowIterator rowBegin(integer y) const
+			{
+				return data_ + y * Width;
+			}
+
+			RowIterator rowEnd(integer y)
+			{
+				return data_ + (y + 1) * Width;
+			}
+
+			ConstRowIterator rowEnd(integer y) const
+			{
+				return data_ + (y + 1) * Width;
+			}
+
+			ColumnIterator columnBegin(integer x)
+			{
+				return ColumnIterator(
+					data_ + x, Width);
+			}
+
+			ConstColumnIterator columnBegin(integer x) const
+			{
+				return ConstColumnIterator(
+					data_ + x, Width);
+			}
+
+			ColumnIterator columnEnd(integer x)
+			{
+				return ColumnIterator(
+					data_ + x + Height * Width, Width);
+			}
+
+			ConstColumnIterator columnEnd(integer x) const
+			{
+				return ConstColumnIterator(
+					data_ + x + Height * Width, Width);
 			}
 
 		private:
@@ -265,7 +535,8 @@ namespace Pastel
 			const VectorExpression<2, Real, SecondExpression>& secondRow)
 			: Base()
 		{
-			set(firstRow, secondRow);
+			Base::operator[](0) = firstRow;
+			Base::operator[](1) = secondRow;
 		}
 
 		//! Constructs with the given elements.
@@ -274,10 +545,10 @@ namespace Pastel
 			const Real& m10, const Real& m11)
 			: Base()
 		{
-			Base::data()[0] = m00;
-			Base::data()[1] = m01;
-			Base::data()[2] = m10;
-			Base::data()[3] = m11;
+			Base::operator()(0) = m00;
+			Base::operator()(1) = m01;
+			Base::operator()(2) = m10;
+			Base::operator()(3) = m11;
 		}
 
 		Matrix& operator=(
@@ -291,30 +562,6 @@ namespace Pastel
 			const MatrixExpression<Height, Width, Real, Expression>& that)
 		{
 			return (Matrix<Height, Width, Real>&)Base::operator=(that);
-		}
-
-		//! Sets the elements of the matrix.
-		void set(
-			const Real& m00, const Real& m01,
-			const Real& m10, const Real& m11)
-		{
-			Base::data()[0] = m00;
-			Base::data()[1] = m01;
-			Base::data()[2] = m10;
-			Base::data()[3] = m11;
-		}
-
-		template <
-			typename FirstExpression, 
-			typename SecondExpression>
-		void set(
-			const VectorExpression<2, Real, FirstExpression>& firstRow,
-			const VectorExpression<2, Real, SecondExpression>& secondRow)
-		{
-			Base::data()[0] = firstRow[0];
-			Base::data()[1] = firstRow[1];
-			Base::data()[2] = secondRow[0];
-			Base::data()[3] = secondRow[1];
 		}
 	};
 
@@ -364,7 +611,9 @@ namespace Pastel
 			const VectorExpression<3, Real, ThirdExpression>& thirdRow)
 			: Base()
 		{
-			set(firstRow, secondRow, thirdRow);
+			Base::operator[](0) = firstRow;
+			Base::operator[](1) = secondRow;
+			Base::operator[](2) = thirdRow;
 		}
 
 		//! Constructs with the given elements.
@@ -374,17 +623,17 @@ namespace Pastel
 			const Real& m20, const Real& m21, const Real& m22)
 			: Base()
 		{
-			Base::data()[0] = m00;
-			Base::data()[1] = m01;
-			Base::data()[2] = m02;
+			Base::operator()(0) = m00;
+			Base::operator()(1) = m01;
+			Base::operator()(2) = m02;
 			
-			Base::data()[3] = m10;
-			Base::data()[4] = m11;
-			Base::data()[5] = m12;
+			Base::operator()(3) = m10;
+			Base::operator()(4) = m11;
+			Base::operator()(5) = m12;
 			
-			Base::data()[6] = m20;
-			Base::data()[7] = m21;
-			Base::data()[8] = m22;
+			Base::operator()(6) = m20;
+			Base::operator()(7) = m21;
+			Base::operator()(8) = m22;
 		}
 
 		Matrix& operator=(
@@ -398,47 +647,6 @@ namespace Pastel
 			const MatrixExpression<Height, Width, Real, Expression>& that)
 		{
 			return (Matrix<Height, Width, Real>&)Base::operator=(that);
-		}
-
-		//! Sets the elements of the matrix.
-		void set(
-			const Real& m00, const Real& m01, const Real& m02,
-			const Real& m10, const Real& m11, const Real& m12,
-			const Real& m20, const Real& m21, const Real& m22)
-		{
-			Base::data()[0] = m00;
-			Base::data()[1] = m01;
-			Base::data()[2] = m02;
-			
-			Base::data()[3] = m10;
-			Base::data()[4] = m11;
-			Base::data()[5] = m12;
-			
-			Base::data()[6] = m20;
-			Base::data()[7] = m21;
-			Base::data()[8] = m22;
-		}
-
-		template <
-			typename FirstExpression, 
-			typename SecondExpression,
-			typename ThirdExpression>
-		void set(
-			const VectorExpression<3, Real, FirstExpression>& firstRow,
-			const VectorExpression<3, Real, SecondExpression>& secondRow,
-			const VectorExpression<3, Real, ThirdExpression>& thirdRow)
-		{
-			Base::data()[0] = firstRow[0];
-			Base::data()[1] = firstRow[1];
-			Base::data()[2] = firstRow[2];
-			
-			Base::data()[3] = secondRow[0];
-			Base::data()[4] = secondRow[1];
-			Base::data()[5] = secondRow[2];
-			
-			Base::data()[6] = thirdRow[0];
-			Base::data()[7] = thirdRow[1];
-			Base::data()[8] = thirdRow[2];
 		}
 	};
 
@@ -490,7 +698,10 @@ namespace Pastel
 			const VectorExpression<4, Real, FourthExpression>& fourthRow)
 			: Base()
 		{
-			set(firstRow, secondRow, thirdRow, fourthRow);
+			Base::operator[](0) = firstRow;
+			Base::operator[](1) = secondRow;
+			Base::operator[](2) = thirdRow;
+			Base::operator[](3) = fourthRow;
 		}
 
 		//! Constructs with the given elements.
@@ -505,25 +716,25 @@ namespace Pastel
 			const Real& m32, const Real& m33)
 			: Base()
 		{
-			Base::data()[0] = m00;
-			Base::data()[1] = m01;
-			Base::data()[2] = m02;
-			Base::data()[3] = m03;
+			Base::operator()(0) = m00;
+			Base::operator()(1) = m01;
+			Base::operator()(2) = m02;
+			Base::operator()(3) = m03;
 
-			Base::data()[4] = m10;
-			Base::data()[5] = m11;
-			Base::data()[6] = m12;
-			Base::data()[7] = m13;
+			Base::operator()(4) = m10;
+			Base::operator()(5) = m11;
+			Base::operator()(6) = m12;
+			Base::operator()(7) = m13;
 
-			Base::data()[8] = m20;
-			Base::data()[9] = m21;
-			Base::data()[10] = m22;
-			Base::data()[11] = m23;
+			Base::operator()(8) = m20;
+			Base::operator()(9) = m21;
+			Base::operator()(10) = m22;
+			Base::operator()(11) = m23;
 
-			Base::data()[12] = m30;
-			Base::data()[13] = m31;
-			Base::data()[14] = m32;
-			Base::data()[15] = m33;
+			Base::operator()(12) = m30;
+			Base::operator()(13) = m31;
+			Base::operator()(14) = m32;
+			Base::operator()(15) = m33;
 		}
 
 		Matrix& operator=(
@@ -537,70 +748,6 @@ namespace Pastel
 			const MatrixExpression<Height, Width, Real, Expression>& that)
 		{
 			return (Matrix<Height, Width, Real>&)Base::operator=(that);
-		}
-
-		//! Sets the elements of the matrix.
-		void set(
-			const Real& m00, const Real& m01,
-			const Real& m02, const Real& m03,
-			const Real& m10, const Real& m11,
-			const Real& m12, const Real& m13,
-			const Real& m20, const Real& m21,
-			const Real& m22, const Real& m23,
-			const Real& m30, const Real& m31,
-			const Real& m32, const Real& m33)
-		{
-			Base::data()[0] = m00;
-			Base::data()[1] = m01;
-			Base::data()[2] = m02;
-			Base::data()[3] = m03;
-
-			Base::data()[4] = m10;
-			Base::data()[5] = m11;
-			Base::data()[6] = m12;
-			Base::data()[7] = m13;
-
-			Base::data()[8] = m20;
-			Base::data()[9] = m21;
-			Base::data()[10] = m22;
-			Base::data()[11] = m23;
-
-			Base::data()[12] = m30;
-			Base::data()[13] = m31;
-			Base::data()[14] = m32;
-			Base::data()[15] = m33;
-		}
-
-		template <
-			typename FirstExpression, 
-			typename SecondExpression,
-			typename ThirdExpression,
-			typename FourthExpression>
-		void set(
-			const VectorExpression<4, Real, FirstExpression>& firstRow,
-			const VectorExpression<4, Real, SecondExpression>& secondRow,
-			const VectorExpression<4, Real, ThirdExpression>& thirdRow,
-			const VectorExpression<4, Real, FourthExpression>& fourthRow)
-		{
-			Base::data()[0] = firstRow[0];
-			Base::data()[1] = firstRow[1];
-			Base::data()[2] = firstRow[2];
-			Base::data()[3] = firstRow[3];
-			
-			Base::data()[4] = secondRow[0];
-			Base::data()[5] = secondRow[1];
-			Base::data()[6] = secondRow[2];
-			Base::data()[7] = secondRow[3];
-			
-			Base::data()[8] = thirdRow[0];
-			Base::data()[9] = thirdRow[1];
-			Base::data()[10] = thirdRow[2];
-			Base::data()[11] = thirdRow[3];
-
-			Base::data()[12] = fourthRow[0];
-			Base::data()[13] = fourthRow[1];
-			Base::data()[14] = fourthRow[2];
-			Base::data()[15] = fourthRow[3];
 		}
 	};
 

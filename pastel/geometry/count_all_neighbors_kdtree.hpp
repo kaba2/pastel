@@ -153,11 +153,8 @@ namespace Pastel
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)
 		{
-			// The query point itself is in the count,
-			// thus we decrement it off.
-
 			countFunctor(i, countNearest(tree, pointSet[i], 
-				maxDistance, maxRelativeError, normBijection) - 1);
+				maxDistance, maxRelativeError, normBijection));
 		}
 	}
 
@@ -200,15 +197,11 @@ namespace Pastel
 #pragma omp parallel for
 		for (integer i = 0;i < points;++i)
 		{
-			// The query point itself is in the count,
-			// thus we decrement it off.
-
 			const integer count = 
 				countNearest(tree, pointSet[i], 
 				maxDistanceSet[i], maxRelativeError, normBijection);
-			ASSERT1(count >= 1, count);
 
-			countFunctor(i, count - 1);
+			countFunctor(i, count);
 		}
 	}
 

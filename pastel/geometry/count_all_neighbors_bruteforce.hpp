@@ -2,6 +2,7 @@
 #define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_HPP
 
 #include "pastel/geometry/count_all_neighbors_bruteforce.h"
+#include "pastel/geometry/count_all_neighbors_1d.h"
 
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/ensure.h"
@@ -24,8 +25,23 @@ namespace Pastel
 			pointSet.size(), maxDistanceSet.size());
 
 		const integer points = pointSet.size();
-				
+
 		countSet.resize(points);
+
+		if (points == 0)
+		{
+			return;
+		}
+
+		const integer dimension = pointSet.front().dimension();
+
+		if (dimension == 1)
+		{
+			countAllNeighbors1d(pointSet, maxDistanceSet,
+				normBijection, countSet);
+			return;
+		}
+
 		std::fill(countSet.begin(), countSet.end(), 0);
 
 #pragma omp parallel for
@@ -36,10 +52,7 @@ namespace Pastel
 			{
 				if (distance2(pointSet[i], pointSet[j], normBijection) <= maxDistance)
 				{
-					if (i != j)
-					{
-						++countSet[i];
-					}
+					++countSet[i];
 				}
 			}
 		}
