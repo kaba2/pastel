@@ -14,9 +14,18 @@
 
 #include <boost/static_assert.hpp>
 
+namespace Pastel
+{
+
+	template <typename Real>
+	class MatrixView;
+
+}
+
 #include "pastel/math/matrixexpression.h"
 #include "pastel/math/matrix_static.h"
 #include "pastel/math/matrix_dynamic.h"
+#include "pastel/math/matrixview.h"
 
 namespace Pastel
 {

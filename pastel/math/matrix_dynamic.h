@@ -8,6 +8,7 @@
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
+#include "pastel/sys/range.h"
 
 namespace Pastel
 {
@@ -104,6 +105,30 @@ namespace Pastel
 			PENSURE2(i >= 0 && i < size(), i, size());
 
 			return data_(i);
+		}
+
+		MatrixView<Real> operator()(
+			const Range& yRange,
+			const Range& xRange)
+		{
+			return MatrixView<Real>(
+				MatrixView<Real>(
+				data_.data(), 
+				Range(0, height() - 1), 
+				Range(0, width() - 1)),
+				yRange, xRange);
+		}
+
+		const MatrixView<Real> operator()(
+			const Range& yRange,
+			const Range& xRange) const
+		{
+			return MatrixView<Real>(
+				MatrixView<Real>(
+				(Real*)data_.data(), 
+				Range(0, height() - 1), 
+				Range(0, width() - 1)),
+				yRange, xRange);
 		}
 
 		Real& operator()(integer y, integer x)

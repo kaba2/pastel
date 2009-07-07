@@ -8,6 +8,38 @@
 namespace Pastel
 {
 
+	inline integer extendedGcd(
+		integer a, integer b,
+		integer& x, integer& y)
+	{
+		x = 0;
+		y = 1;
+		integer xLast = 1;
+		integer yLast = 0;
+
+		while (b != 0)
+		{
+			const integer quotient = a / b;
+	        
+			integer temp = b;
+			b = a % b;
+			a = temp;
+	        
+			temp = x;
+			x = xLast - quotient * x;
+			xLast = temp;
+	        
+			temp = y;
+			y = yLast - quotient * y;
+			yLast = temp;
+		}
+
+		x = xLast;
+		y = yLast;
+
+		return a;
+	}
+
 	template <typename Integer>
 	Integer gcd(const Integer& left, const Integer& right)
 	{
