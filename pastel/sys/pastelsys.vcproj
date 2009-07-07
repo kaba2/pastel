@@ -1001,6 +1001,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\range.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\range.h"
+				>
+			</File>
+			<File
 				RelativePath=".\sparseiterator.h"
 				>
 			</File>

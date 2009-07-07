@@ -26,6 +26,7 @@ namespace
 
 		virtual void run()
 		{
+			testMatrixExpressions();
 			testMatrixLowDimensional();
 
 			testMatrixSimpleArithmetic();
@@ -66,22 +67,71 @@ namespace
 
 			testMatrixView();
 			testMatrixArray();
-			testMatrixExpressions();
 		}
 
 		void testMatrixExpressions()
 		{
+			// A matrix can be filled manually in row-major 
+			// order with the combination of |= and comma 
+			// operators. Extraneous values are ignored.
+
 			MatrixD a(4, 6);
 			a |= 1, 0, 1, 0, 1, 0,
 				0, 1, 0, 1, 0, 1,
-				1, 0, 1, 0, 1, 0,
-				0, 1, 0, 1, 0, 1;
+				2, 0, 1, 0, 1, 0,
+				0, 2, 0, 1, 0, 1;
 			
-			const MatrixD b = repeat(
+			MatrixD b = repeat(
 				identityMatrix<Dynamic, Dynamic, real>(2, 2),
 				2, 3);
 
+			// You can refer to a submatrix of a matrix
+			// in Matlab style.
+
+			b(Range(2, 3), Range(0, 1)) = 
+				identityMatrix<Dynamic, Dynamic, real>(2, 2) * 2;
+
 			TEST_ENSURE(a == b);
+
+			MatrixD c(2, 9);
+			c |= 1, 2, 3, 4, 5, 6, 7, 8, 9,
+				 10, 11, 12, 13, 14, 15, 16, 17, 18;
+
+			// You can assign a submatrix to a submatrix
+			// inside the same matrix.
+
+			c(Range(0, 1), Range(7, 8)) =
+				c(Range(0, 1), Range(5, 6));
+
+			MatrixD d(2, 9);
+			d |= 1, 2, 3, 4, 5, 6, 7, 6, 7,
+				 10, 11, 12, 13, 14, 15, 16, 15, 16;
+
+			TEST_ENSURE(c == d);
+
+			/*
+			c(Range(0, 1), Range(0, 2)) =
+				c(Range(0, 1), Range(5, 3));
+			*/
+
+			// You can assign a submatrix to a submatrix
+			// inside the same matrix, even if the data
+			// ranges overlap. In this case a temporary
+			// is created behind the scenes to guarantee
+			// correct behaviour.
+			// Note also that you can view the subranges
+			// in a reversed manner by reversing the range
+			// values.
+
+			MatrixView<real> v = c(Range(0, 1), Range(2, 0));
+			MatrixView<real> v2 = c(Range(0, 1), Range(0, 2));
+
+			v2 = v;
+
+			d |= 3, 2, 1, 4, 5, 6, 7, 6, 7,
+				 12, 11, 10, 13, 14, 15, 16, 15, 16;
+
+			TEST_ENSURE(c == d);
 		}
 
 		void testMatrixView()

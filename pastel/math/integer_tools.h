@@ -9,8 +9,18 @@
 namespace Pastel
 {
 
-	//! Returns the greatest common dividor of 'mabs(left)' and 'mabs(right)'.
+	//! Returns the greatest common divisor of a and b.
+	/*!
+	This function also returns the Bezout coefficients x and y
+	such that 
+	x a + y b = gcd(a, b)
+	*/
 
+	integer extendedGcd(
+		integer a, integer b,
+		integer& x, integer& y);
+
+	//! Returns the greatest common divisor of 'mabs(left)' and 'mabs(right)'.
 	/*!
 	Time complexity: (log2(left) + log2(right))^2
 	*/

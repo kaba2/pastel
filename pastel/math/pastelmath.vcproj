@@ -596,6 +596,10 @@
 					RelativePath=".\matrixexpression.h"
 					>
 				</File>
+				<File
+					RelativePath=".\matrixview.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Matrix tools"
