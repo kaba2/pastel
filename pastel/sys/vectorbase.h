@@ -46,7 +46,7 @@ namespace Pastel
 			typedef typename Tuple<N, Real>::ConstIterator ConstIterator;
 
 			VectorBase()
-				: data_(0)
+				: data_(ofDimension((N == Dynamic) ? 0 : N), 0)
 			{
 			}
 

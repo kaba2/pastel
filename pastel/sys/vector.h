@@ -547,15 +547,10 @@ namespace Pastel
 		// Using default assignment
 		// Using default destructor
 
-		// We force the specification of
-		// dimension by not allowing
-		// default construction.
-		/*
 		Vector()
 			: Base()
 		{
 		}
-		*/
 
 		explicit Vector(
 			const Dimension& dimension,

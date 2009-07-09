@@ -453,15 +453,10 @@ namespace Pastel
 		using typename Base::Iterator;
 		using typename Base::ConstIterator;
 
-		// We prohibit default construction
-		// to force specifying the dimension
-		// for unbounded tuples.
-		/*
 		Tuple()
 			: Base()
 		{
 		}
-		*/
 
 		explicit Tuple(
 			const Dimension& dimension,

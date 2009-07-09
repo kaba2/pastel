@@ -532,15 +532,10 @@ namespace Pastel
 		using Base::set;
 		using Base::swap;
 
-		// We force the specification
-		// of dimension by prohibiting
-		// default construction.
-		/*
 		Point()
 			: Base()
 		{
 		}
-		*/
 
 		// See note 1 in this file.
 		explicit Point(
