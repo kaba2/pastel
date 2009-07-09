@@ -16,9 +16,7 @@ int main()
 
 	mathTestList().console();
 
-	generateTestReport(
-		mathTestReport(),
-		log());
+	generateTestReport(mathTestReport(), log());
 
 	std::string tmp;
 	std::getline(std::cin, tmp);

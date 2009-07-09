@@ -95,9 +95,9 @@ namespace Pastel
 		//       (1/120) n^-4 + O(n^-6)
 		//
 		// Thus the digamma function can be approximated
-		// with:
+		// with (note that the y is cancelled away):
 		// digamma(n) = ln(n - 1) + (1/2) (n - 1)^-1 - (1/12) (n - 1)^-2 + 
-		//       (1/120) (n - 1)^-4 + O((n - 1)^-6)
+		//       (1/120) (n - 1)^-4 + O(n^-6)
 		//
 		// Comparing the practical error of this formula with Maple,
 		// It seems that that there is non-negligible

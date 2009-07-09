@@ -5,8 +5,6 @@
 #include "pastel/geometry/count_all_neighbors_1d.h"
 #include "pastel/geometry/kdtree_tools.h"
 
-#include "pastel/device/timer.h"
-
 #include "pastel/sys/pastelomp.h"
 
 namespace Pastel
