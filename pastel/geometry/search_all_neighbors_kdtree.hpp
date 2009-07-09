@@ -5,8 +5,6 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
-#include "pastel/device/timer.h"
-
 #include "pastel/sys/pastelomp.h"
 
 namespace Pastel
@@ -138,10 +136,6 @@ namespace Pastel
 		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
 			SequenceIterator;
 
-		Timer timer;
-
-		timer.setStart();
-
 		Tree tree(dimension);
 
 		tree.insert(SequenceIterator(&pointSet[0]), 
@@ -151,9 +145,6 @@ namespace Pastel
 			computeKdTreeMaxDepth(tree.objects()), maxPointsPerNode, splitRule);
 
 		//check(tree);
-
-		timer.store();
-		//log() << "Construction: " << timer.seconds() << logNewLine;
 
 		/*
 		log() << tree.nodes() << " nodes, "
