@@ -29,6 +29,11 @@ namespace Pastel
 			friend class PointBase;
 
 		public:
+			PointBase()
+				: data_()
+			{
+			}
+
 			explicit PointBase(
 				const Dimension& dimension, 
 				const Real& that)
