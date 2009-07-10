@@ -15,7 +15,8 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,
-		Array<2, integer>& nearestArray);
+		Array<2, integer>* nearestArray,
+		Array<2, PASTEL_NO_DEDUCTION(Real)>* distanceArray);
 
 }
 
