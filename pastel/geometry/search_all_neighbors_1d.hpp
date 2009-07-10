@@ -14,13 +14,15 @@ namespace Pastel
 	namespace Detail_SearchAllNeighbors1d
 	{
 
-		template <typename Real, typename ConstIterator>
+		template <typename Real, typename ConstIterator, typename NormBijection>
 		void assignNearest(
 			const ConstIterator& begin,
 			const ConstIterator& end,
 			const ConstIterator& iter,
 			integer searchIndex,
-			Array<2, integer>& nearestArray)
+			const NormBijection& normBijection,
+			Array<2, integer>* nearestArray,
+			Array<2, Real>* distanceArray)
 		{
 			ConstIterator leftIter = iter;
 			ConstIterator rightIter = iter;
@@ -40,15 +42,31 @@ namespace Pastel
 				if (leftDistance < rightDistance)
 				{
 					--leftIter;
-					nearestArray(nearestIndex, searchIndex) =
-						leftIter->value();
+					if (nearestArray)
+					{
+						(*nearestArray)(nearestIndex, searchIndex) =
+							leftIter->value();
+					}
+					if (distanceArray)
+					{
+						(*distanceArray)(nearestIndex, searchIndex) =
+							normBijection.toBijection(leftDistance);
+					}
 					++nearestIndex;
 				}
 				else
 				{
 					++rightIter;
-					nearestArray(nearestIndex, searchIndex) =
-						rightIter->value();
+					if (nearestArray)
+					{
+						(*nearestArray)(nearestIndex, searchIndex) =
+							rightIter->value();
+					}
+					if (distanceArray)
+					{
+						(*distanceArray)(nearestIndex, searchIndex) =
+							normBijection.toBijection(rightDistance);
+					}
 					++nearestIndex;
 				}
 			}
@@ -56,16 +74,32 @@ namespace Pastel
 			while(leftIter != begin)
 			{
 				--leftIter;
-				nearestArray(nearestIndex, searchIndex) =
-					leftIter->value();
+				if (nearestArray)
+				{
+					(*nearestArray)(nearestIndex, searchIndex) =
+						leftIter->value();
+				}
+				if (distanceArray)
+				{
+					(*distanceArray)(nearestIndex, searchIndex) =
+						normBijection.toBijection(position - leftIter->key());
+				}
 				++nearestIndex;
 			}
 
 			while(rightIter + 1 != end)
 			{
 				++rightIter;
-				nearestArray(nearestIndex, searchIndex) =
-					rightIter->value();
+				if (nearestArray)
+				{
+					(*nearestArray)(nearestIndex, searchIndex) =
+						rightIter->value();
+				}
+				if (distanceArray)
+				{
+					(*distanceArray)(nearestIndex, searchIndex) =
+						normBijection.toBijection(rightIter->key() - position);
+				}
 				++nearestIndex;
 			}
 		}
@@ -78,7 +112,8 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,
-		Array<2, integer>& nearestArray)
+		Array<2, integer>* nearestArray,
+		Array<2, PASTEL_NO_DEDUCTION(Real)>* distanceArray)
 	{
 		const integer points = pointSet.size();
 
@@ -166,7 +201,8 @@ namespace Pastel
 
 				Detail_SearchAllNeighbors1d::assignNearest<Real>(
 					leftIter, rightIter, iter, iter->value(),
-					nearestArray);
+					normBijection,
+					nearestArray, distanceArray);
 				
 				if (rightIter != end)
 				{
@@ -200,7 +236,8 @@ namespace Pastel
 
 				Detail_SearchAllNeighbors1d::assignNearest<Real>(
 					leftIter, rightIter, iter, iter->value(),
-					nearestArray);
+					normBijection,
+					nearestArray, distanceArray);
 			}
 		}
 	}

@@ -124,7 +124,8 @@ namespace Pastel
 				kNearest,
 				maxDistance,
 				normBijection,
-				*nearestArray);
+				nearestArray,
+				distanceArray);
 			
 			return;
 		}
