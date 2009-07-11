@@ -1,0 +1,55 @@
+Uniform sampling
+================
+
+[Back to Random variables](./random.txt.htm)
+
+Files
+-----
+
+[random_vector.h](./random_vector.h)
+
+[random_vector.hpp](./random_vector.hpp)
+
+Theory
+------
+
+Let V be a subset of R^n. Uniform sampling of V
+means to generate random samples from V such that
+the distribution of the random samples is uniform on V.
+
+Practice
+--------
+
+A general algorithm to uniformly sample any
+set V is to bound it with an axis aligned box B,
+draw samples from a uniform distribution on B,
+and accept only those samples which are also
+in V. This is called _rejection sampling_. The
+probability that a sample drawn from B is also
+in V is the ratio of the measures of V and B.
+Thus the efficiency is highly dependent on this
+ratio. Unfortunately, this ratio is often low,
+or even zero. For example, uniformly sampling
+the surface of a sphere in R^3 would not succeed
+using rejection sampling in the described manner.
+
+Thus, more than often it is either necessary,
+or much more efficient to generate uniform
+samplings via slightly more complex algorithms.
+Pastel implements efficient algorithms to
+uniform sample from:
+
+ * box in R^n
+ * sphere (surface) in R^n
+ * ball in R^n
+ * annulus in R^n
+
+If instead you need to distort an existing sample
+set uniformly on some object to another object
+of different shape, see the link at the 'See also'
+at the bottom.
+  
+See also
+--------
+
+[Distortion of a uniform distribution to another one](../math/uniform_sampling.txt.htm)

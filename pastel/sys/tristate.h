@@ -9,7 +9,7 @@ namespace Pastel
 	/*!
 	Sometimes it is required to answer a question with not only
 	true or false, but also with 'both' or 'neither' or
-	some other choice. The sign of a variable is a tristate:
+	some other choice. The sign of a variable is a TriState:
 	the sign might be negative, positive, or the variable
 	might be zero, that is, not negative nor positive.
 	The logic functions are generalized to these tristates,

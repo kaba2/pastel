@@ -345,6 +345,10 @@
 				RelativePath=".\uniform_sampling.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\uniform_sampling.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Numbers"

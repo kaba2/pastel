@@ -58,3 +58,5 @@ See also
 --------
 
 [Poisson disk pattern](../geometry/poissondiskpattern.txt.htm)
+
+[Uniform sampling](./uniform_sampling.txt.htm)
