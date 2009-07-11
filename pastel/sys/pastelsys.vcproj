@@ -705,6 +705,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\testing.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\testreport.cpp"
 				>
 			</File>
@@ -730,7 +734,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Math"
+			Name="Basic math"
 			>
 			<File
 				RelativePath=".\constants.h"
@@ -742,6 +746,14 @@
 			</File>
 			<File
 				RelativePath=".\histogram.h"
+				>
+			</File>
+			<File
+				RelativePath=".\histogram.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\math.txt"
 				>
 			</File>
 			<File
@@ -1241,6 +1253,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_vector.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\randomdistribution.h"
 				>
 			</File>
@@ -1299,6 +1315,10 @@
 		</File>
 		<File
 			RelativePath="..\pastel.txt"
+			>
+		</File>
+		<File
+			RelativePath=".\pastelsys.txt"
 			>
 		</File>
 		<File

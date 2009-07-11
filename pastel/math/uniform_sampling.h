@@ -51,8 +51,6 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
-	// TODO: provide functions for 4d and up?
-
 	//! Uniformly samples a point from a simplex.
 	/*!
 	Preconditions:

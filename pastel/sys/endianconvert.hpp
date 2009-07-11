@@ -16,6 +16,7 @@ namespace Pastel
 
 	namespace Detail
 	{
+
 		template <integer Size>
 		void swapByteOrder(const char* data, char* result)
 		{
