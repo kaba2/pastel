@@ -1,0 +1,60 @@
+Low-discrepancy sequences
+=========================
+
+[Back to PastelMath](./pastelmath.txt.htm)
+
+Files
+-----
+
+[lowdiscrepancy.h](./lowdiscrepancy.h.htm)
+
+[lowdiscrepancy.hpp](./lowdiscrepancy.hpp.htm)
+
+Theory
+------
+
+Let V be a measure space with measure m. Let A be some subset of V
+with finite measure. Let S = {s_1, s_2, s_3, ...} be a sequence in A.
+Let B be a subset of A. The discrepancy of S is defined as
+D(N) = sup[B subset A] (intersection({s_1, ..., s_N}, B) / N - m(B) / m(A)).
+
+Most often, one sets V = R^n, A = [0, 1]^n, and restricts the B to sets of 
+the form [0, w_1] x [0, w_2] x ... x [0, w_n]. The resulting discrepancy
+is then called _star discrepancy_.
+
+Low discrepancy sequences aim for a low discrepancy. It is conjectured
+that for any finite sequence of length N the star-discrepancy has a lower
+bound f(N) = C_n (log N)^(n-1) / N, with the constant C_n only depending
+on the dimension n of the space. This conjecture has been proved for
+n = 2, but is an open problem for n > 2.
+
+It can be proved that the error of integrating a given function using 
+Monte-Carlo integration depends solely on the discrepancy of the point samples.
+This makes low-discrepancy sequences an important tool in applications
+requiring Monte-Carlo integration.
+
+Practice
+--------
+
+The role of low-discrepancy sequences is to replace random numbers
+in certain tasks. Given any finite sequence of a low-discrepancy
+sequence, it has the desirable property of not forming clusters
+of points (contrary to random numbers). That is, it fills a subset 
+(most often a box) with points that distribute evenly. Apart from
+reducing errors in Monte-Carlo integration, low-discrepancy
+sequences are useful also in other situations where one needs to
+cover an area evenly with points.
+
+One should note that a uniform grid of points has the lowest 
+possible star-discrepancy. However, there are several problems
+with using uniform grids. First, the number of samples to form
+a grid in higher dimension grows exponentially. For example,
+if one uses 100 points per side, then in 4 dimensional space one
+needs to generate 100^4 points. This is one example of the curse of
+dimensionality. Second, the points can't be generated incrementally.
+Third, the number of points must be a product of the grid sides.
+
+See also
+--------
+
+[Poisson disk pattern](../geometry/poissondiskpattern.txt.htm)
