@@ -174,12 +174,14 @@ namespace Pastel
 			mesh.vertexProperty(vertexUvId, uvs);
 		}
 
-		Vector<2, Real> normalization(1 / (2 * constantPi<Real>()),
+		const Vector<2, Real> normalization(1 / (2 * constantPi<Real>()),
 			1 / constantPi<Real>());
 		for (integer i = 0;i < positions.size();++i)
 		{
-			uvs[i] = Point<2, Real>(cartesianToDirection(
-				asVector(positions[i])) * normalization);
+			const Vector<3, Real> uv = cartesianToSpherical(
+				asVector(positions[i]) * normalization);
+
+			uvs[i] = asPoint(shrink(uv, 0));
 		}
 	}
 

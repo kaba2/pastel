@@ -1,0 +1,125 @@
+Norm bijections
+===============
+
+Files
+-----
+
+### Defines Euclidean, Infinity, Manhattan, and Minkowski norm bijections.
+
+[normbijection.h](./normbijection.h)
+
+Theory
+------
+
+Let |x| : R^n -> R+ be a norm and f an order-preserving bijection R+ -> R+.
+Then <x> : R^n -> R+ : <x> = f(|x|) is called a norm bijection.
+Example:
+|[x, y]| = sqrt(x^2 + y^2)
+f(r) = r^2
+<[x, y]> = f([x, y]) = x^2 + y^2
+
+The motivation for the definition of a norm bijection is efficiency.
+The efficiency follows from the observation that the 
+norm value is rarely of interest itself. Rather, it is the ordering of 
+norms that is of interest. In particular, the p-norms (also called 
+Minkowski norms) compute a p:th root for each evaluation, which is a 
+rather slow operation. However, if all you have is an inequality 
+x^p < y^p, then this is equivalent to x < y and you can avoid 
+the root computation. 
+
+A norm bijection allows you, in particular, to move between
+the norm bijection value and the norm value. However, we have noticed
+that to really produce efficient code with norm bijections, it is
+essential to restrict them further. 
+
+A _restricted norm bijection_ is any function g : R^n -> R+, which can expressed
+in the form g(x) = (+)[i = 1..n] f(|x_i|) with the functions 
+f and (+) defined below (redundant conditions in parentheses).
+
+f : R+ -> R+, such that:
+ * f is continuous
+ * x < y => f(x) < f(y)
+ * for all a in R+: f(ax) = f(a) f(x)
+ * (f is invertible)
+ * (for all a in R+: f^-1(ax) = f^-1(a) f^-1(x))
+
+(+) : R+^2 -> R+, such that
+ * (x (+) y) (+) z = x (+) (y (+) z)
+ * x (+) y = y (+) x
+ * x (+) 0 = x
+ * for all a in R+: (ax) (+) (ay) = a(x (+) y)
+ * x <= x (+) y
+ * (y <= x (+) y)
+ 
+In particular, (f^-1 o g) is a norm and f is the order-preserving
+bijection in the definition of norm bijection.
+
+Practice
+--------
+
+When talking about norm bijections, in Pastel this always means
+a restricted norm bijection as defined above. Pastel implements 
+the following norm bijections:
+
+ * Euclidean: <x> = sum x_i^2 ((+)(x, y) = x + y, f(x) = x^2)
+ * Manhattan: <x> = sum |x_i| ((+)(x, y) = x + y, f(x) = |x|)
+ * Infinity: <x> = max |x_i| ((+)(x, y) = max(x, y), f(x) = |x|)
+ * Minkowski: <x> = sum |x_i|^p ((+)(x, y) = x + y, f(x) = |x|^p)
+ 
+Concept
+-------
+
+	:::cpp
+	template <typename Real>
+	class NormBijection_Concept
+	{
+	public:
+		//! Computes the logarithm of the volume of the unit norm sphere.
+		Real lnVolumeUnitSphere(integer dimension) const;
+		
+		//! Maps a norm bijection value to a norm value.
+		Real toNorm(const Real& normBijection) const;
+
+		//! Maps a norm bijection value to a logarithm of the norm value.
+		Real toLnNorm(const Real& normBijection) const;
+
+		//! Maps a norm value to a norm bijection value.
+		Real toBijection(const Real& norm) const;
+
+		//! Returns a scaling value for norm bijection for scaling the norm value.
+		Real scalingFactor(const Real& scaling) const;
+		
+		//! Returns the norm bijection value along a standard basis axis.
+		/*!
+		Here it is assumed that 'axisDistance' is non-negative.
+		*/
+		Real axis(const Real& axisDistance) const;
+
+		//! Returns the norm bijection value along a standard basis axis.
+		/*!
+		Here the 'axisDistance' can also be negative.
+		*/
+		Real signedAxis(const Real& axisDistance) const;
+		
+		//! Adds distance along some standard basis axis.
+		/*!
+		These distances must be norm bijection values.
+		Before this addition, the distance along the
+		particular standard basis axis must be zero.
+		*/
+		Real addAxis(
+			const Real& distance, 
+			const Real& newAxisDistance) const;
+
+		//! Replace distance along some standard basis axis.
+		/*!
+		Replaces a distance along some standard basis axis
+		by a new one.
+		*/
+		Real replaceAxis(
+			const Real& distance, 
+			const Real& oldAxisDistance,
+			const Real& newAxisDistance) const;
+	};
+
+

@@ -1,0 +1,66 @@
+Coordinate conversions
+======================
+
+[Back to PastelMath](/)
+
+Files
+-----
+
+### Conversions between Cartesian, spherical, and cylinder coordinates.
+
+[coordinates.h](/coordinates.h)
+
+[coordinates.hpp](/coordinates.hpp)
+
+Theory
+------
+
+Coordinate conversions are conversions between different kinds of 
+coordinate systems. We shall define a coordinate system 
+in R^n as a function f : R^n -> R^n, such that f is a homeomorphism
+almost everywhere (f is a continuous bijection, and so is f^-1, 
+except maybe at a finite number of points). 
+Some commonly used coordinate systems include:
+
+ * Cartesian (R^n): f_cartesian(x_1, ..., x_n) = [x_1, ..., x_n]
+ * Polar (R^2): f_polar(r, alpha) = [r cos(alpha), r sin(alpha)]
+ * Cylinder (R^3): f_cylinder(r, alpha, z) = [r cos(alpha), r sin(alpha), z]
+ * Spherical (R^3): f_spherical(r, alpha_1, alpha_2) = [r cos(alpha_1), r sin(alpha_1) cos(alpha_2), r sin(alpha_1) sin(alpha_2)]
+ 
+To be more general, the polar and spherical coordinate systems are 
+simply special cases of the spherical coordinate system in R^n:
+ 
+ * Spherical (R^n): f_hyperspherical(r, alpha_1, ..., alpha_n) = 
+ (r cos(alpha_1), 
+ r sin(alpha_1) cos(alpha_2), ..., 
+ r sin(alpha_1) ... sin(alpha_(n - 2)) cos(alpha_(n - 1)),
+ r sin(alpha_1) ... sin(alpha_(n - 1)) sin(alpha_n))
+ 
+To see where the spherical coordinate system gets its name, notice 
+that the Euclidean norm of the vector f_spherical(r, alpha_1, ..., alpha_n) is r
+and thus independent of alpha_i. 
+
+All of the mentioned coordinate systems can be united under a single generalization. 
+This is done by computing spherical coordinates only for the k <= n first components 
+of v in R^n, and leaving the other n - k components as they were. We call this the 
+generalized cylinder coordinate system. The spherical coordinate system
+is obtained by setting k = n. The cylinder coordinate system is obtained
+by setting k = n - 1. The Cartesian coordinate system is obtained
+by setting k = 0 (this is of course interesting only theoretically, 
+since for k = 0, the conversion is just the identity function).
+
+Practice
+--------
+
+Pastel implements coordinate conversions so that the Cartesian 
+coordinate system is thought of as the most natural coordinate system.
+For all other coordinate system Pastel offers functions to convert to Cartesian
+coordinates and back. This way, if there are n coordinate systems,
+we need only O(n) conversion functions instead of O(n^2) for conversions
+between all systems.
+
+Pastel offers conversion functions for the generalized cylinder coordinate system. 
+However, because most people are more familiar with the spherical (k = n) and cylinder 
+(k = n - 1) coordinate systems as terms, Pastel also offers appropriately named 
+redirection functions for them.
+

@@ -1,22 +1,27 @@
 Matrix class
 ============
 
-[Back to Linear algebra]
+[Back to Linear algebra](./linear_algebra.txt)
 
 Files
 -----
 
-matrix.h
-matrix.hpp
-matrix_dynamic.h
-matrix_static.h
-matrixview.h
-matrixexpression.h
+[matrix.h](./matrix.h)
+
+[matrix.hpp](./matrix.hpp)
+
+[matrix_dynamic.h](./matrix_dynamic.h)
+
+[matrix_static.h](./matrix_static.h)
+
+[matrixexpression.h](./matrixexpression.h)
+
+[matrixview.h](./matrixview.h)
 
 Use case
 --------
 
-test_matrix.cpp
+[test_matrix.cpp](/test-list/test/mathtest/test_matrix.cpp)
 
 Vector embedding convention
 ---------------------------
