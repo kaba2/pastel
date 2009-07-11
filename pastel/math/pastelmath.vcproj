@@ -444,10 +444,10 @@
 					RelativePath=".\lowdiscrepancy.hpp"
 					>
 				</File>
-			</Filter>
-			<Filter
-				Name="Latin hypercube"
-				>
+				<File
+					RelativePath=".\lowdiscrepancy.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -642,6 +642,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\pastelmath.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
