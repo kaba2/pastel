@@ -11,19 +11,6 @@
 namespace Pastel
 {
 
-	// Let |x| : R^n -> R+ be a norm and
-	// f an order-preserving bijection R+ -> R+.
-	// Then <x> : R^n -> R+ : <x> = f(|x|)
-	// is called a norm bijection.
-	// Example:
-	// |(x, y)| = sqrt(x^2 + y^2)
-	// f(r) = r^2
-	// <(x, y)> = x^2 + y^2
-	// It is usually enough to use
-	// norm bijections rather than norms
-	// in algorithms.
-	// This can be used to enhance performance.
-
 	template <typename Real>
 	class EuclideanNormBijection
 	{

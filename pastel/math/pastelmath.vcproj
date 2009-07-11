@@ -210,19 +210,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\interpolation.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\kbspline.h"
 				>
 			</File>
 			<File
 				RelativePath=".\kbspline.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\nurbs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\nurbs.hpp"
 				>
 			</File>
 			<File
@@ -239,14 +235,6 @@
 			</File>
 			<File
 				RelativePath=".\smoothstep.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\sphericallinear.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sphericallinear.hpp"
 				>
 			</File>
 		</Filter>
@@ -310,6 +298,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\coordinates.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\mathlibrary.cpp"
 				>
 			</File>
@@ -319,6 +311,10 @@
 			</File>
 			<File
 				RelativePath=".\normbijection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\normbijection.txt"
 				>
 			</File>
 			<File
@@ -478,14 +474,14 @@
 			Name="Linear algebra"
 			>
 			<File
-				RelativePath=".\Linear algebra.txt"
+				RelativePath=".\linear_algebra.txt"
 				>
 			</File>
 			<Filter
 				Name="Matrix decompositions"
 				>
 				<File
-					RelativePath=".\Matrix decompositions.txt"
+					RelativePath=".\matrix_decompositions.txt"
 					>
 				</File>
 				<Filter

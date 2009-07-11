@@ -9,120 +9,83 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
-	//! Converts cartesian coordinates to cylinder coordinates.
-
+	//! Converts cartesian coordinates to generalized cylinder coordinates.
 	/*!
-	Cylinder coordinates are of the form '(radius, angle, z)', where
-	'angle' is the angle from the x-axis towards y-axis ([0, 2pi[),
-	'radius' is the distance from the origin in the xy-plane ([0, infinity[) and
-	'z' is the distance from the xy-plane.
+	Preconditions:
+	k >= 0
+	k <= cartesian.dimension()
 
-	cartesianToCylinder(x, y, z) =
-	(positiveRadians(atan2(y, x)), sqrt(x^2 + y^2), z)
+	The generalized cylinder coordinates are computed as follows.
+	Given a Cartesian coordinate vector	(x, y) in R^n, with 
+	x in R^k, and z in R^(n - k), the generalized cylinder coordinates 
+	are given by (s, y), where s = spherical coordinates of x:
+	
+	s_1 = sqrt((x_1)^2 + ... + (x_k)^2)
+	s_i = atan(sqrt((x_i)^2 + ... + (x_k)^2) / x_(i - 1)), for i in ]1, k[.
+	s_k = atan(x_k / x_(k - 1))
+	*/
+	template <int N, typename Real>
+	TemporaryVector<N, Real> cartesianToCylinder(
+		const Vector<N, Real>& cartesian, integer k);
+
+	//! Converts generalized cylinder coordinates to cartesian coordinates.
+	/*!
+	Preconditions:
+	k >= 0
+	k <= cylinder.dimension()
+
+	Given generalized cylinder coordinates (s, y) in R^n
+	(s in R^k), the Cartesian coordinates (x, y) in R^n
+	(x in R^k) are computed by converting s from spherical 
+	coordinates to Cartesian coordinates:
+
+	x_1 = s_1 cos(s_2)
+	x_i = s_1 sin(s_2) ... sin(s_i) cos(s_(i + 1)), for i in ]1, k[.
+	x_k = s_1 sin(s_2) ... sin(s_(k - 1)) sin(s_(k))
 	*/
 
-	template <typename Real>
-	Vector<3, Real> cartesianToCylinder(
-		const Vector<3, Real>& cartesian);
+	template <int N, typename Real>
+	TemporaryVector<N, Real> cylinderToCartesian(
+		const Vector<N, Real>& cylinder, integer k);
+
+	//! Converts cartesian coordinates to cylinder coordinates.
+	/*!
+	This is a convenience function that calls
+	cartesianToCylinder(cartesian, dimension - 1).
+	*/
+	template <int N, typename Real>
+	TemporaryVector<N, Real> cartesianToCylinder(
+		const Vector<N, Real>& cartesian);
 
 	//! Converts cylinder coordinates to cartesian coordinates.
-
 	/*!
-	Cylinder coordinates are of the form '(radius, angle, z)', where
-	'angle' is the angle from the x-axis towards y-axis (]-infinity, infinity[),
-	'radius' is the distance from the origin in the xy-plane (]-infinity, infinity[) and
-	'z' is the distance from the xy-plane (]-infinity, infinity[).
-
-	cylinderToCartesian(angle, radius, z) =
-	(cos(angle) * radius, sin(angle) * radius, z)
+	This is a convenience function that calls
+	cylinderToCartesian(cartesian, dimension - 1).
 	*/
-
-	template <typename Real>
-	Vector<3, Real> cylinderToCartesian(
-		const Vector<3, Real>& cylinder);
+	template <int N, typename Real>
+	TemporaryVector<N, Real> cylinderToCartesian(
+		const Vector<N, Real>& cylinder);
 
 	//! Converts cartesian coordinates to spherical coordinates.
-
+	/*!
+	This is a convenience function that calls
+	cartesianToCylinder(cartesian, dimension).
+	*/
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
-		cartesianToSpherical(
-		const Vector<N, Real>& cartesian);
-
-	//! Converts cartesian coordinates to spherical coordinates.
-
-	template <int N, typename Real>
-	typename boost::enable_if_c<(N == Dynamic || N > 1), Vector<N, Real> >::type
-		cartesianToSpherical(
+	TemporaryVector<N, Real> cartesianToSpherical(
 		const Vector<N, Real>& cartesian);
 
 	//! Converts spherical coordinates to cartesian coordinates.
-
+	/*!
+	This is a convenience function that calls
+	cylinderToCartesian(cartesian, dimension).
+	*/
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
-		sphericalToCartesian(
+	TemporaryVector<N, Real> sphericalToCartesian(
 		const Vector<N, Real>& spherical);
-
-	//! Converts spherical coordinates to cartesian coordinates.
-
-	template <int N, typename Real>
-	typename boost::enable_if_c<(N == Dynamic || N > 1), Vector<N, Real> >::type
-		sphericalToCartesian(
-		const Vector<N, Real>& spherical);
-
-	//! Converts a vector to a spherical coordinate direction.
-
-	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<1, Real> >::type
-		cartesianToDirection(
-		const Vector<N, Real>& cartesian);
-
-	//! Converts a vector to a spherical coordinate direction.
-
-	template <int N, typename Real>
-	typename boost::enable_if_c<(N == Dynamic || N > 2), 
-		Vector<PASTEL_ADD_N(N, -1), Real> >::type
-		cartesianToDirection(
-		const Vector<N, Real>& cartesian);
-
-	//! Converts a vector to its spherical direction.
-	/*!
-	A direction in 3d can be given by the spherical coordinates
-	where the radius information is redundant. See
-	cartesianToSpherical() for more info.
-
-	cartesianToDirection(x, y, z) =
-	(positiveRadians(atan2(y, x)), acos(z / sqrt(x^2 + y^2 + z^2)))
-	*/
-
-	template <typename Real>
-	Vector<2, Real> cartesianToDirection(
-		const Vector<3, Real>& cartesian);
-
-	//! Converts an angle from x-axis into a unit vector.
-	/*!
-	directionToCartesian(angle) = (cos(angle), sin(angle))
-	*/
-
-	template <typename Real>
-	Vector<2, Real> directionToCartesian(
-		const Vector<1, Real>& direction);
-
-	//! Converts a spherical direction into a unit vector.
-	/*!
-	sphericalToCartesian(theta, phi) =
-	(cos(theta) * sin(phi),
-	sin(theta) * sin(phi),
-	cos(phi))
-	*/
-
-	template <typename Real>
-	Vector<3, Real> directionToCartesian(
-		const Vector<2, Real>& direction);
 
 }
 
