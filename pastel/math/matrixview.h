@@ -141,8 +141,10 @@ namespace Pastel
 		MatrixView& operator=(
 			const MatrixView& that)
 		{
-			ENSURE(width_ == that.width_);
-			ENSURE(height_ == that.height_);
+			ENSURE2(width_ == that.width_, 
+				width_, that.width_);
+			ENSURE2(height_ == that.height_,
+				height_, that.height_);
 
 			if (that.involvesNonTrivially(dataBegin_, dataEnd_))
 			{

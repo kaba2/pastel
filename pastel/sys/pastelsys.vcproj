@@ -705,6 +705,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ensure.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\testing.txt"
 				>
 			</File>
