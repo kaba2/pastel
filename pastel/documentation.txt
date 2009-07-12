@@ -1,0 +1,110 @@
+Documentation system
+====================
+
+[Back to Pastel](./pastel.htm)
+
+Markdown syntax
+---------------
+
+Pastel uses Markdown for documentation. Markdown
+is both a syntax and a program to convert files from text
+files to .html files. The appealing idea behind Markdown is
+that these source text files should also be readable by themself. 
+For an example, try removing the .htm postfix from the link
+to see the Markdown source for this page.
+
+Implicit documentation naming
+-----------------------------
+
+Every source code file in Pastel is implicitly associated with 
+that .txt file in the same directory which has the longest prefix 
+of the file name. For example, if we have the file 'memory_overlaps.h', 
+'memory_overlaps.txt', and 'memory.txt', then the documentation for 
+'memory_overlaps.h' matches 'memory_overlaps.txt'. However, if this 
+file weren't available, then the documentation would match 'memory.txt'. 
+There is possibly no matching implicit documentation. 
+Documentation files associate documentation to themselves.
+
+Tags
+----
+
+The implicit documentation naming can be overridden in a file by 
+using a special "Documentation:" tag. This tag allows to specify the
+associated documentation explicitly as follows:
+
+	// Documentation: counted_pointers.txt
+
+With the "Description:" tag one can associate a small description
+with each file. For example:
+
+	// Description A reference-counted pointer
+
+These tags, if present, must be placed before anything 
+else in a file.
+
+File link listings
+------------------
+
+The Markdown syntax has been extended to make the following 
+kind of syntax possible:
+
+	[countedptr.h, countedptr.hpp, weakptr.h, weakptr.hpp, 
+	referencecounted.h, referencecounted.hpp]
+
+This expands to a list of links for the files, with the
+possible description printed before each file.
+The links are positioned below each other in the order given by 
+the list. Here is an example expansion:
+
+	### Counted pointers
+
+	[countedptr.h](./countedptr.h.htm)
+
+	[countedptr.hpp](./countedptr.hpp.htm)
+
+	### Weak pointers
+
+	[weakptr.h](./weakptr.h.htm)
+
+	[weakptr.hpp](./weakptr.hpp.htm)
+
+	### A base-class for reference-counted objects
+
+	[referencecounted.h](./referencecounted.h.htm)
+
+	[referencecounted.hpp](./referencecounted.hpp.htm)
+
+Implicit grouping of files
+--------------------------
+
+Each documentation file acts as a group. Every 
+source code file which associates that documentation file 
+as their documentation, belongs to the group.
+In the directory tree view this grouping is reflected
+by virtual directories named with the first headline
+of the documentation file. The group members are listed
+in this virtual directory. These group directories are
+always shown expanded. The documentation file itself
+also belongs to the group. For example:
+
+	math
+		Linear algebra
+			Matrix class
+				matrix.h
+				matrix.hpp
+				matrix_dynamic.h
+				matrix_static.h
+				matrixexpression.h
+				matrixview.h
+				matrix.txt
+			Matrix decompositions
+				Lu decomposition
+					...
+				...
+				matrix_decompositions.txt
+			...
+			linear_algebra.txt
+		...
+
+	
+
