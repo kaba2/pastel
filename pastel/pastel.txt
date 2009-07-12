@@ -1,12 +1,10 @@
 Pastel
 ======
 
-[Back to the homepage of Kalle Rutanen](../index.htm)
-
 Description
 -----------
 
-Pastel is a library for geometry and computer graphics.
+Pastel is a C++ library for geometry and computer graphics.
 
 Philosophy
 ----------
@@ -17,10 +15,11 @@ algorithms and other obvious by-a-factor optimizations as
 part of the design requirements. Only implement what you need. 
 Optimize only if need for such is recognized by profiling.
 
-Technical features (and requirements)
--------------------------------------
+Technical features
+------------------
 
- * Works on Windows and Linux
+ * Standard C++03
+ * Cross-platform (in particular, Windows and Linux)
  * Compiler independent
  * Processor independent
  * Endianness independent
@@ -28,8 +27,8 @@ Technical features (and requirements)
  * Type-safe
  * Const-correct
  * Style-consistent
- * Generic
  * Thread-safe (re-entrant)
+ * Generic
 
 Publishing
 ----------
@@ -48,6 +47,31 @@ this allows you to integrate it with your own projects,
 I don't recommend you to do so. This is because I can't guarantee
 stable interfaces. I'll be improving the library,
 and sometimes this means breaking backward compatibility.
+
+Sublibraries
+------------
+
+Pastel divides into a number of sub-libraries. These are:
+
+ * [PastelSys], for core functionality
+ * [PastelMath], for math primitives
+ * [PastelGeometry], for geometric problems
+ * [PastelDsp], for signal processing tasks
+ * [PastelGfx], for 2d graphics tasks
+ * [PastelDevice], for access to hardware
+ * [PastelGl], for OpenGl related stuff
+ * (PastelRay, for photorealistic 3d rendering, not published)
+
+The dependencies between the sub-libraries form a directed acyclic graph. This means
+that it is possible to exclude those sub-libraries that aren't needed.
+
+[PastelSys]: ./sys/pastelsys.htm
+[PastelMath]: ./math/pastelmath.htm
+[PastelGeometry]: ./geometry/pastelgeometry.htm
+[PastelDsp]: ./dsp/pasteldsp.htm
+[PastelGfx]: ./gfx/pastelgfx.htm
+[PastelDevice]: ./device/pasteldevice.htm
+[PastelGl]: ./gl/pastelgl.htm
 
 Learn more
 ----------
