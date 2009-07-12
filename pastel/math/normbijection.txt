@@ -1,12 +1,14 @@
 Norm bijections
 ===============
 
+[Back to PastelMath](./pastelmath.htm)
+
 Files
 -----
 
 ### Defines Euclidean, Infinity, Manhattan, and Minkowski norm bijections.
 
-[normbijection.h](./normbijection.h)
+[normbijection.h](./normbijection.h.htm)
 
 Theory
 ------
@@ -17,20 +19,6 @@ Example:
 |[x, y]| = sqrt(x^2 + y^2)
 f(r) = r^2
 <[x, y]> = f([x, y]) = x^2 + y^2
-
-The motivation for the definition of a norm bijection is efficiency.
-The efficiency follows from the observation that the 
-norm value is rarely of interest itself. Rather, it is the ordering of 
-norms that is of interest. In particular, the p-norms (also called 
-Minkowski norms) compute a p:th root for each evaluation, which is a 
-rather slow operation. However, if all you have is an inequality 
-x^p < y^p, then this is equivalent to x < y and you can avoid 
-the root computation. 
-
-A norm bijection allows you, in particular, to move between
-the norm bijection value and the norm value. However, we have noticed
-that to really produce efficient code with norm bijections, it is
-essential to restrict them further. 
 
 A _restricted norm bijection_ is any function g : R^n -> R+, which can expressed
 in the form g(x) = (+)[i = 1..n] f(|x_i|) with the functions 
@@ -57,9 +45,22 @@ bijection in the definition of norm bijection.
 Practice
 --------
 
-When talking about norm bijections, in Pastel this always means
-a restricted norm bijection as defined above. Pastel implements 
-the following norm bijections:
+The motivation for the definition of a norm bijection is efficiency.
+The efficiency follows from the observation that the 
+norm value is rarely of interest itself. Rather, it is the ordering of 
+norms that is of interest. In particular, the p-norms (also called 
+Minkowski norms) compute a p:th root for each evaluation, which is a 
+rather slow operation. However, if all you have is an inequality 
+x^p < y^p, then this is equivalent to x < y and you can avoid 
+the root computation. 
+
+A norm bijection allows you, in particular, to move between
+the norm bijection value and the norm value. However, we have noticed
+that to really produce efficient code with norm bijections, it is
+essential to restrict them further. Therefore, when talking about 
+norm bijections, in Pastel this always means a restricted norm 
+bijection as defined above. Pastel implements the following 
+restricted norm bijections:
 
  * Euclidean: <x> = sum x_i^2 ((+)(x, y) = x + y, f(x) = x^2)
  * Manhattan: <x> = sum |x_i| ((+)(x, y) = x + y, f(x) = |x|)

@@ -86,4 +86,4 @@ Learn more
 
 [Author](../index.htm)
 
-[Browse the source code](./pastel-list/)
+[Browse the source code](../)
