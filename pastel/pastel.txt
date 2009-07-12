@@ -48,18 +48,18 @@ I don't recommend you to do so. This is because I can't guarantee
 stable interfaces. I'll be improving the library,
 and sometimes this means breaking backward compatibility.
 
-Sublibraries
+Sub-libraries
 ------------
 
 Pastel divides into a number of sub-libraries. These are:
 
- * [PastelSys], for core functionality
- * [PastelMath], for math primitives
- * [PastelGeometry], for geometric problems
- * [PastelDsp], for signal processing tasks
- * [PastelGfx], for 2d graphics tasks
- * [PastelDevice], for access to hardware
- * [PastelGl], for OpenGl related stuff
+ * [PastelSys][], for core functionality
+ * [PastelMath][], for math primitives
+ * [PastelGeometry][], for geometric problems
+ * [PastelDsp][], for signal processing tasks
+ * [PastelGfx][], for 2d graphics tasks
+ * [PastelDevice][], for access to hardware
+ * [PastelGl][], for OpenGl related stuff
  * (PastelRay, for photorealistic 3d rendering, not published)
 
 The dependencies between the sub-libraries form a directed acyclic graph. This means

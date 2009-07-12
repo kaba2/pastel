@@ -1,0 +1,82 @@
+Memory allocators
+=================
+
+[Back to Memory management](./memory.htm)
+
+Files
+-----
+
+### Arena allocator
+
+This allocator assumes that memory is allocated
+in arbitrarily sized pieces at arbitrary times,
+but deallocated all at the same time.
+
+[arenaallocator.cpp](./arenaallocator.cpp.htm)
+
+[arenaallocator.h](./arenaallocator.h.htm)
+
+[arenaallocator.hpp](./arenaallocator.hpp.htm)
+
+### Pool allocator
+
+This allocator assumes that memory is allocated
+in fixed-sized pieces at arbitrary times,
+and also deallocated at arbitrary times.
+
+[poolallocator.cpp](./poolallocator.cpp.htm)
+
+[poolallocator.h](./poolallocator.h.htm)
+
+[poolallocator.hpp](./poolallocator.hpp.htm)
+
+### Native allocator
+
+This allocator is simply an adapter for
+the native allocator.
+
+[nativeallocator.cpp](./nativeallocator.cpp.htm)
+
+[nativeallocator.h](./nativeallocator.h.htm)
+
+[nativeallocator.hpp](./nativeallocator.hpp.htm)
+
+Theory
+------
+
+In general, creating custom allocators to speed-up efficiency
+as compared to the default allocator is a bad idea.
+However, in some very specialized situations we can 
+do much better, both in space and time. 
+
+One such specialized situation is when the memory is allocated at 
+arbitrary times, but is deallocated all at once. This leads to 
+the idea of arena allocation: allocates big chunks of memory at a 
+time, and share memory from this chunk with an almost trivial 
+algorithm (just incrementing a pointer). When one wants to deallocate
+the memory, simply deallocate all the chunks that have been
+allocated.
+
+Another situation is when the allocated memory is of fixed
+size. This assumption allows to create very efficient allocation
+and deallocation algorithms, and with minimal book-keeping.
+This leads to the so-called pool allocation.
+
+Practice
+--------
+
+Pastel implements allocators for arena and pool allocation.
+In addition Pastel has an adapter for the native allocator.
+These allocators can be used by themselves, but they are also
+used by some data structures in Pastel, see the links below.
+
+See also
+--------
+
+### Data structures in Pastel that use these allocators
+
+[FastList](./fastlist.htm)
+
+[UnorderedMap](./unorderedmap.htm)
+
+[UnorderedSet](./unorderedset.htm)

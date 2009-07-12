@@ -81,11 +81,11 @@ class `MyClass`, name the super class as `MyClassBase`
 
 * When prohibiting the use of implicitly generated class
 members, declare them private, with no implementation and
-comment them "Prohibited".
+comment them `Prohibited`.
 
-* In a "switch" structure, if one case is meant to slip
+* In a switch structure, if one case is meant to slip
 through to the handler of the next case, comment it
-with a "Fall-through".
+with a `Fall-through`.
 
 Clause related rules
 --------------------
@@ -214,10 +214,10 @@ into the variable name. For example "iSize" for variable
 named `size` of int type.
 
 * Using `get` prefix in getters. It is much clearer to read
-"if (cow.weight() > 5)" than "if (cow.getWeight() > 5)".
+`if (cow.weight() > 5)` than `if (cow.getWeight() > 5)`.
 
 * Using `is` prefix in boolean getters (except for the exception).
 This prefix leads to long and heavy inflections.
 For example, it is much more comfortable to read
-"if (overlaps(sphere, alignedBox))" than
-"if (isOverlapping(sphere, alignedBox))"
+`if (overlaps(sphere, alignedBox))` than
+`if (isOverlapping(sphere, alignedBox))`.

@@ -586,7 +586,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Memory"
+			Name="Memory management"
 			>
 			<File
 				RelativePath=".\addressof.h"
@@ -594,18 +594,6 @@
 			</File>
 			<File
 				RelativePath=".\addressof.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\countedptr.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\countedptr.h"
-				>
-			</File>
-			<File
-				RelativePath=".\countedptr.hpp"
 				>
 			</File>
 			<File
@@ -617,28 +605,20 @@
 				>
 			</File>
 			<File
+				RelativePath=".\memory.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\memory_overlaps.h"
-				>
-			</File>
-			<File
-				RelativePath=".\referencecounted.h"
-				>
-			</File>
-			<File
-				RelativePath=".\referencecounted.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\weakptr.h"
-				>
-			</File>
-			<File
-				RelativePath=".\weakptr.hpp"
 				>
 			</File>
 			<Filter
 				Name="Allocators"
 				>
+				<File
+					RelativePath=".\allocators.txt"
+					>
+				</File>
 				<Filter
 					Name="Arena allocator"
 					>
@@ -688,26 +668,46 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Reference counted pointers"
+				>
+				<File
+					RelativePath=".\countedptr.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\countedptr.h"
+					>
+				</File>
+				<File
+					RelativePath=".\countedptr.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\countedptr.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\referencecounted.h"
+					>
+				</File>
+				<File
+					RelativePath=".\referencecounted.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\weakptr.h"
+					>
+				</File>
+				<File
+					RelativePath=".\weakptr.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Testing and reporting"
 			>
-			<File
-				RelativePath=".\ensure.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ensure.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ensure.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ensure.txt"
-				>
-			</File>
 			<File
 				RelativePath=".\testing.txt"
 				>
@@ -736,6 +736,26 @@
 				RelativePath=".\testsuite.h"
 				>
 			</File>
+			<Filter
+				Name="Invariant checking"
+				>
+				<File
+					RelativePath=".\ensure.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ensure.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ensure.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ensure.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Basic math"

@@ -1,0 +1,25 @@
+Memory management
+=================
+
+[Back to PastelSys](./pastelsys.htm)
+
+Files
+-----
+
+[addressof.h](./addressof.h.htm)
+
+[addressof.hpp](./addressof.hpp.htm)
+
+[destruct.h](./destruct.h.htm)
+
+[destruct.hpp](./destruct.hpp.htm)
+
+[memory_overlaps.h](./memory_overlaps.h.htm)
+
+Learn more
+----------
+
+[Reference counted pointers](./countedptr.htm)
+
+[Memory allocators](./allocators.htm)
+
