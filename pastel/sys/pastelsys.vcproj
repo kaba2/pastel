@@ -1310,6 +1310,10 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="..\download.txt"
+			>
+		</File>
+		<File
 			RelativePath="..\installation.txt"
 			>
 		</File>
@@ -1330,7 +1334,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\styleconventions.txt"
+			RelativePath="..\some_points.txt"
+			>
+		</File>
+		<File
+			RelativePath="..\style_conventions.txt"
 			>
 		</File>
 	</Files>

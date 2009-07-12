@@ -1,7 +1,7 @@
 Low-discrepancy sequences
 =========================
 
-[Back to PastelMath](./pastelmath.txt.htm)
+[Back to PastelMath](./pastelmath.htm)
 
 Files
 -----
@@ -57,6 +57,6 @@ Third, the number of points must be a product of the grid sides.
 See also
 --------
 
-[Poisson disk pattern](../geometry/poissondiskpattern.txt.htm)
+[Poisson disk pattern](../geometry/poissondiskpattern.htm)
 
-[Uniform sampling](./uniform_sampling.txt.htm)
+[Uniform sampling](./uniform_sampling.htm)

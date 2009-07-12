@@ -1,0 +1,26 @@
+My educational points
+=====================
+
+[Back to Pastel](./pastel.htm)
+
+There are some educational points that I would like to
+transmit with the publishing of the Pastel library.
+Here they are:
+
+ * Geometric problems are best solved using coordinate-free
+ derivations, i.e. in arbitrary dimensions. Given
+ one succeeds in deriving the results, it means
+ that the solution is essentially the same for all
+ dimensions. Using coordinate-free techniques you
+ implement an algorithm only once, saving you from
+ synchronizing versions for different dimensions.
+ Coordinate-free code is also highly intuitive and
+ readable.
+
+ * A programmer should write code to be read by others.
+ This means two things. Foremost, it means that the 
+ abstraction level must be raised to the point that it 
+ coincides with the mental concepts used by the people in a 
+ given field. But almost as importantly, it means that
+ the style and naming must be such that the code is easy 
+ to read.
