@@ -1,19 +1,18 @@
 PLU decomposition
 =================
 
+[Back to Matrix decompositions](./matrix_decompositions.htm)
+
 Files
 -----
 
-ludecomposition.h
-ludecomposition.hpp
-ludecomposition_tools.h
-ludecomposition_tools.hpp
+[ludecomposition.h](./ludecomposition.h.htm)
 
-Use case
---------
+[ludecomposition.hpp](./ludecomposition.hpp.htm)
 
-test_ludecomposition.cpp
-test_ludecomposition_tools.cpp
+[ludecomposition_tools.h](./ludecomposition_tools.h.htm)
+
+[ludecomposition_tools.hpp](./ludecomposition_tools.hpp.htm)
 
 Theory
 ------
@@ -73,12 +72,4 @@ easier, Pastel provides an overload for 'solveLinear'
 which takes an LuDecomposition object instead of
 a matrix.
 
-Learn more
-----------
 
-LuDecomposition tools
-
-Future work
------------
-
-Generalize to handle non-square matrices.

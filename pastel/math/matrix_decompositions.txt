@@ -1,6 +1,8 @@
 Matrix decompositions
 =====================
 
+[Back to Linear algebra](./linear_algebra.htm)
+
 Theory
 ------
 
@@ -18,13 +20,13 @@ and singular value decompositions.
 Learn more
 ----------
 
-Cholesky decomposition
+[Cholesky decomposition](./choleskydecomposition.htm)
 
-PLU decomposition
+[PLU decomposition](./ludecomposition.htm)
 
-QR decomposition
+[QR decomposition](./qrdecomposition.htm)
 
-Singular value decomposition (SVD)
+[Singular value decomposition (SVD)](./svddecomposition.htm)
 
 Other decompositions
 --------------------

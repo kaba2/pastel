@@ -1,7 +1,7 @@
 Curve interpolation
 ===================
 
-[Back to PastelMath](./)
+[Back to PastelMath](./pastelmath.htm)
 
 Files
 -----
@@ -39,7 +39,7 @@ f(x) = 0 for x <= 0, f(x) = 1 for x >= 1.
 
 [smoothstep.hpp](./smoothstep.hpp.htm)
 
-### An aggregate file for all things curve interpolation.
+### An aggregate file for curve interpolation.
 
 [interpolation.h](./interpolation.h.htm)
 

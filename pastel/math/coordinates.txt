@@ -1,16 +1,16 @@
 Coordinate conversions
 ======================
 
-[Back to PastelMath](/)
+[Back to PastelMath](./pastelmath.htm)
 
 Files
 -----
 
 ### Conversions between Cartesian, spherical, and cylinder coordinates.
 
-[coordinates.h](/coordinates.h)
+[coordinates.h](./coordinates.h.htm)
 
-[coordinates.hpp](/coordinates.hpp)
+[coordinates.hpp](./coordinates.hpp.htm)
 
 Theory
 ------

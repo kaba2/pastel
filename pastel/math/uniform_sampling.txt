@@ -6,9 +6,9 @@ Distortion of a uniform distribution to another one
 Files
 -----
 
-[uniform_sampling.h](./uniform_sampling.h)
+[uniform_sampling.h](./uniform_sampling.h.htm)
 
-[uniform_sampling.hpp](./uniform_sampling.hpp)
+[uniform_sampling.hpp](./uniform_sampling.hpp.htm)
 
 Theory
 ------
@@ -17,7 +17,6 @@ Let V be a subset of R^n. Strictly speaking, uniform sampling of V
 means to generate random samples from V such that
 the distribution of the random samples is uniform on V.
 See the link at 'See also' at the bottom for more information.
-
 Here our goal is to distort (in a continuous manner) 
 an existing uniform distribution on a cube to a uniform 
 distribution on some other kind of object.
@@ -53,4 +52,4 @@ at the bottom for more information.
 See also
 --------
 
-[Uniformly distributed vectors][../sys/random_vector.htm]
+[Uniformly distributed vectors](../sys/random_vector.htm)

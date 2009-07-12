@@ -26,35 +26,7 @@ R^(m x n) matrices.
 Matrix algebra is linear algebra in R^n (in our case). 
 Because of the isomorphism results, it is a machinery sufficiently powerful 
 to answer questions in the theory of linear functions over 
-finite dimensional vector spaces. Generalizing, one can allow arbitrary fields
-to be used instead of the field of real numbers. Useful alternative 
-fields include finite fields, complex numbers, and rational numbers.
-
-Practice
---------
-
-Pastel implements a matrix algebra component where matrices assume
-elements from an ordered field. Most importantly, this abstraction 
-includes real numbers (modeled with floating point numbers), and rational numbers 
-(modeled as a ratio of two integers, allowing exact arithmetic).
-For geometric problems and computer graphics, this covers most of the needs.
-
-Learn more
-----------
-
-[Matrix class](./matrix.htm)
-
-[Matrix tools](./matrix_tools.htm)
-
-[Matrix decompositions](./matrix_decompositions.htm)
-
-[Eigenvectors](./eigenvectors.htm)
-
-Generalizations
----------------
-
-Linear algebra deals with linear functions in a vector space. 
-One can generalization to several directions. Notably:
+finite dimensional vector spaces. One can generalize to several directions. Notably:
 
 1. One can allow general fields for underlying scalars.
 
@@ -71,6 +43,15 @@ if the underlying vector space is of dimension n.
 This gives tensor algebra. Computationally, tensors are represented
 by n-dimensional arrays of values compared to the 2-dimensional
 representation of matrices. 
+
+Practice
+--------
+
+Pastel implements a matrix algebra component where matrices assume
+elements from an ordered field. Most importantly, this abstraction 
+includes real numbers (modeled with floating point numbers), and rational numbers 
+(modeled as a ratio of two integers, allowing exact arithmetic).
+For geometric problems and computer graphics, this covers most of the needs.
 
 We do not generalize to arbitrary fields because
 that is rarely needed in computer graphics and geometric
@@ -92,10 +73,22 @@ Tensors are rarely needed in our applications, so we do not
 implement matrices as a special case of tensors. 
 
 However, support for geometric algebra is something 
-that we consider adding to Pastel in the future.
+we consider adding to Pastel in the future.
 The advantage of geometric algebra is that it is
 very intuitive for geometric problems and can
 express more analytical solutions that linear algebra
 (for example, 'give the intersection of two 2-dimensional
 planes in R^4'). Particularly interesting would be
 the geometric algebras of R^2 and R^3.
+
+Learn more
+----------
+
+[Matrix class](./matrix.htm)
+
+[Matrix tools](./matrix_tools.htm)
+
+[Matrix decompositions](./matrix_decompositions.htm)
+
+[Eigenvectors](./eigenvectors.htm)
+

@@ -3,6 +3,14 @@ Remarks
 
 *.cpp *.h *.hpp *.txt *.sln *.vcproj *.py SConscript*.* SConstruct*.* license*.htm
 
+Pastelin kotisivut TODO
+-----------------------
+
+ * Tapa kirjoittaa matikkaa
+ * Hakemistot ei saa olla expandattuna alussa
+ * Miten linkitt‰‰ sellaiset tiedostot dokumentointiin, jotka ei t‰sm‰‰ implisiittisesti?
+ * V‰ritetyt reunat
+
 What are the disabled Visual Studio warnings?
 ---------------------------------------------
 
