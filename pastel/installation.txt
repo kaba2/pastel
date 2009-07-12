@@ -1,6 +1,8 @@
 Installing the Pastel library
 =============================
 
+[Back to Pastel](./pastel.htm)
+
 The Pastel library is cross-platform, but here we will only
 detail the installation for Windows and Visual Studio.
 However, based on this document you should be able

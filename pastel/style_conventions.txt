@@ -1,6 +1,8 @@
 Style conventions
 =================
 
+[Back to Pastel](./pastel.htm)
+
 Principles
 ----------
 

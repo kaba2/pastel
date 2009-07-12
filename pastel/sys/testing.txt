@@ -1,0 +1,47 @@
+Testing
+=======
+
+[Back to PastelSys](./)
+
+Files
+-----
+
+### ENSURE, ASSERT, and REPORT
+
+These are runtime checks to check for invariants.
+ENSURE's catch precondition violations
+(e.g. user passes a parameter that is out of range).
+ASSERT's catch bugs in the inner implementations.
+REPORT is simply used to generate report with
+the same kind of output as with ENSURE and ASSERT
+but without aborting the program.
+
+[ensure.cpp](./ensure.cpp.htm)
+
+[ensure.h](./ensure.h.htm)
+
+[ensure.hpp](./ensure.hpp.htm)
+
+### Reporting of unit test results
+
+[testreport.cpp](./testreport.cpp.htm)
+
+[testreport.h](./testreport.h.htm)
+
+### A class to run unit tests
+
+[testrunner.cpp](./testrunner.cpp.htm)
+
+[testrunner.h](./testrunner.h.htm)
+
+### An environment to run unit tests
+
+[testsuite.cpp](./testsuite.cpp.htm)
+
+[testsuite.h](./testsuite.h.htm)
+
+Learn more
+----------
+
+[Precondition checking]
+

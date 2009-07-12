@@ -1,7 +1,7 @@
 Uniform sampling
 ================
 
-[Back to Random variables](./random.txt.htm)
+[Back to Random variables](./random.htm)
 
 Files
 -----
@@ -52,4 +52,4 @@ at the bottom.
 See also
 --------
 
-[Distortion of a uniform distribution to another one](../math/uniform_sampling.txt.htm)
+[Distortion of a uniform distribution to another one](../math/uniform_sampling.htm)

@@ -17,11 +17,11 @@ and an m-vector space W. A linear function is simply a function from
 V to W which preserves linear combinations of vectors.
 Choosing a basis in V can be used to fix an isomorphism between 
 vectors of V and vectors of R^n. Similarly between W and R^m.
-However, having fixed both isomorphism we have come to fix
+However, having fixed both isomorphisms, we have come to fix
 an isomorphism between linear functions from V to W and
 R^(m x n) matrices.
 
-Matrix algebra is linear algebra in (in our case) R^n. 
+Matrix algebra is linear algebra in R^n (in our case). 
 Because of the isomorphism results, it is a machinery sufficiently powerful 
 to answer questions in the theory of linear functions over 
 finite dimensional vector spaces. Generalizing, one can allow arbitrary fields
@@ -40,9 +40,11 @@ For geometric problems and computer graphics, this covers most of the needs.
 Learn more
 ----------
 
-Matrix class
+[Matrix class](./matrix.htm)
 
-Matrix tools
+[Matrix tools](./matrix_tools.htm)
+
+[
 
 Matrix decompositions
 

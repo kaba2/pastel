@@ -54,13 +54,13 @@ Contains functions to work with fuzzy 3-state logic.
 Learn more
 ----------
 
-[Tuples](./tuple.txt.htm)
+[Tuples](./tuple.htm)
 
-[Vectors](./vector.txt.htm)
+[Vectors](./vector.htm)
 
-[Points](./point.txt.htm)
+[Points](./point.htm)
 
-[Rectangle]./rectangle.txt.htm)
+[Rectangle]./rectangle.htm)
 
 
 

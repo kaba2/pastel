@@ -1,6 +1,11 @@
 PastelMath
 ==========
 
+[Back to Pastel](../pastel.htm)
+
+Theory
+------
+
 The purpose of PastelMath is to provide general purpose 
 mathematical tools. Algorithms and tools for geometry can 
 be found from the PastelGeometry sublibrary.
@@ -8,23 +13,23 @@ be found from the PastelGeometry sublibrary.
 Learn more
 ----------
 
-[Linear algebra](./linear_algebra.txt.htm)
+[Linear algebra](./linear_algebra.htm)
 
-[Affine transformations](./affine_transformation.txt.htm)
+[Affine transformations](./affine_transformation.htm)
 
-[Quaternions](./quaternion.txt.htm)
+[Quaternions](./quaternion.htm)
 
-[Curve interpolation](./interpolation.txt.htm)
+[Curve interpolation](./interpolation.htm)
 
-[Uniform sampling](./uniform_sampling.txt.htm)
+[Uniform sampling](./uniform_sampling.htm)
 
-[Low-discrepancy sequences](./lowdiscrepancy.txt.htm)
+[Low-discrepancy sequences](./lowdiscrepancy.htm)
 
-[Polynomials](./polynomial.txt.htm)
+[Polynomials](./polynomial.htm)
 
-[Numbers](./numbers.txt.htm)
+[Numbers](./numbers.htm)
 
-[Coordinate systems](./coordinates.txt.htm)
+[Coordinate systems](./coordinates.htm)
 
-[Norm bijections](./normbijection.txt.htm)
+[Norm bijections](./normbijection.htm)
 

@@ -1,7 +1,7 @@
 Distortion of a uniform distribution to another one
 ===================================================
 
-[Back to PastelMath](./pastelmath.txt.htm)
+[Back to PastelMath](./pastelmath.htm)
 
 Files
 -----
@@ -53,4 +53,4 @@ at the bottom for more information.
 See also
 --------
 
-[Uniformly distributed vectors][../sys/random_vector.txt.htm]
+[Uniformly distributed vectors][../sys/random_vector.htm]
