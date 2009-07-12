@@ -47,9 +47,9 @@ used for hash-tables.
 
 Contains functions to work with fuzzy 3-state logic.
 
-[tristate.h](./tristate.h)
+[tristate.h](./tristate.h.htm)
 
-[tristate.hpp](./tristate.hpp)
+[tristate.hpp](./tristate.hpp.htm)
 
 Learn more
 ----------

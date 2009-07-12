@@ -1334,6 +1334,10 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="..\documentation.txt"
+			>
+		</File>
+		<File
 			RelativePath="..\download.txt"
 			>
 		</File>
