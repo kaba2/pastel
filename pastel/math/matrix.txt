@@ -1,7 +1,7 @@
 Matrix class
 ============
 
-[Back to Linear algebra](./linear_algebra.txt)
+[Back to Linear algebra](./linear_algebra.htm)
 
 Files
 -----
@@ -21,7 +21,7 @@ Files
 Use case
 --------
 
-[test_matrix.cpp](/test-list/test/mathtest/test_matrix.cpp)
+[test_matrix.cpp](/test-list/test/mathtest/test_matrix.cpp.htm)
 
 Vector embedding convention
 ---------------------------
@@ -44,11 +44,11 @@ to the same element which is likely to cause confusion because
 the indices come at a different order.
 This discrepancy can be corrected by either:
 
- 1) indexing matrices as A[x, y]
-  
- 2) prohibiting column vector references
- 
- 3) switching to row vector convention
+1. indexing matrices as A[x, y]
+
+2. prohibiting column vector references
+
+3. switching to row vector convention
 
 The option 1 will not do because it would create more confusion 
 than it corrects by diverging from a world-wide standard.
@@ -75,43 +75,43 @@ Different ways of viewing the data
 There are several useful ways to view the data in matrices. 
 We enumerate them as follows:
 
-	1) Matrix as a 2d-array of numbers. Thus an individual
-	element (i, j) of the matrix can be referenced. Also, 
-	the underlying Array object can be accessed as a
-	non-mutable reference when that is needed for
-	a function interface.
+1. Matrix as a 2d-array of numbers. Thus an individual
+element (i, j) of the matrix can be referenced. Also, 
+the underlying Array object can be accessed as a
+non-mutable reference when that is needed for
+a function interface.
 
-	2) Matrix as a 1d-array of numbers (in row-major order). 
-	Via iterator abstraction, elements can be accessed as a
-	sequence of values. Specifically, standard library algorithms 
-	can be used to read and modify matrix elements.
+2. Matrix as a 1d-array of numbers (in row-major order). 
+Via iterator abstraction, elements can be accessed as a
+sequence of values. Specifically, standard library algorithms 
+can be used to read and modify matrix elements.
 
-	3) Matrix as a collection of row vectors. One
-	can handle a matrix row as a vector.
+3. Matrix as a collection of row vectors. One
+can handle a matrix row as a vector.
 
-	4) Matrix as a collection of column vectors. One
-	can handle a matrix column as a vector.
+4. Matrix as a collection of column vectors. One
+can handle a matrix column as a vector.
 
-	5) Matrix is a matrix expression. This makes it automatically
-	work with whatever new matrix expression are introduced in
-	the future.
+5. Matrix is a matrix expression. This makes it automatically
+work with whatever new matrix expression are introduced in
+the future.
 
-	6) Matrix as an array view (both mutable and non-mutable). This makes
-	it possible to concentrate on subsets of a
-	matrix without creating a temporary copy. This
-	functionality is similar to the subsetting functionality 
-	in Matlab.
+6. Matrix as an array view (both mutable and non-mutable). This makes
+it possible to concentrate on subsets of a
+matrix without creating a temporary copy. This
+functionality is similar to the subsetting functionality 
+in Matlab.
 
 In addition we also include the following possibility
 which completes the set of tools for manipulating
 matrices:
 
-	7) An array view can be adapted into a matrix expression. 
-	This makes it possible to masquerade a complex subset view
-	of a regular array as a matrix expression. The idea is
-	to start from a matrix, choose some complex submatrix
-	from it, and adapt the resulting view to a matrix expression
-	to use in matrix computations.
+7. An array view can be adapted into a matrix expression. 
+This makes it possible to masquerade a complex subset view
+of a regular array as a matrix expression. The idea is
+to start from a matrix, choose some complex submatrix
+from it, and adapt the resulting view to a matrix expression
+to use in matrix computations.
 
 Efficiency
 ----------

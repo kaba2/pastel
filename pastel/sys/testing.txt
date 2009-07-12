@@ -6,22 +6,6 @@ Testing
 Files
 -----
 
-### ENSURE, ASSERT, and REPORT
-
-These are runtime checks to check for invariants.
-ENSURE's catch precondition violations
-(e.g. user passes a parameter that is out of range).
-ASSERT's catch bugs in the inner implementations.
-REPORT is simply used to generate report with
-the same kind of output as with ENSURE and ASSERT
-but without aborting the program.
-
-[ensure.cpp](./ensure.cpp.htm)
-
-[ensure.h](./ensure.h.htm)
-
-[ensure.hpp](./ensure.hpp.htm)
-
 ### Reporting of unit test results
 
 [testreport.cpp](./testreport.cpp.htm)
@@ -43,5 +27,5 @@ but without aborting the program.
 Learn more
 ----------
 
-[Precondition checking]
+[Invariant checking](./ensure.htm)
 

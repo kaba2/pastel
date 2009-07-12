@@ -1,0 +1,118 @@
+Invariant checking
+==================
+
+[Back to Testing](./testing.htm)
+
+Files
+-----
+
+[ensure.cpp](./ensure.cpp.htm)
+
+[ensure.h](./ensure.h.htm)
+
+[ensure.hpp](./ensure.hpp.htm)
+
+Theory
+------
+
+In programming, an _invariant_ is a condition that must hold 
+everytime the program executes through a specific position. 
+In general, we can think of splitting up a program into
+small blocks of functionality. Each such block promises to
+do something, described by a set of _postconditions_, on the 
+condition that the data it uses fulfills certain _preconditions_.
+Here is a small example of computing the logarithm of 
+a floating point number x:
+
+	Precondition: x >= 0, y = x
+	// Do a lot of numerical stuff to
+	// obtain an approximation to log(x).
+	Postcondition: x ~= log(y)
+
+Most often, these blocks of code correspond to functions.
+Then the preconditions are a set of requirements for the arguments
+that are passed in, and the postconditions are a set of
+effects that the function results in. However, more fine grained
+checking is appropriate when the algorithm is complex.
+While preconditions concern checking the arguments that the
+user of the function passed in, those invariants internal
+to a function concerns the correctness of the implementation.
+
+Practice
+--------
+
+One important technique in lowering the number of bugs in a program 
+is to establish and check invariants frequently. In less
+fancy terms, this means to check that the program does what 
+it promises to do. Arguably the most important invariants
+to check are the preconditions to functions.
+
+Pastel provides three macros, ENSURE, PENSURE, and ASSERT, to help with
+enforcing invariants. All of the three macros work in exactly the same way,
+so we will demonstrate their functionality by taking ENSURE as an example.
+The following demonstrates the use of ENSURE in an actual situation. 
+
+	MatrixView& operator=(const MatrixView& that)
+	{
+		ENSURE2(width_ == that.width_, width_, that.width_);
+		ENSURE2(height_ == that.height_, height_, that.height_);
+		//...
+	}	
+
+ENSURE takes in a condition that must hold for the program to continue
+execution beyond that point. The number 2 denotes that in case the
+condition is not satisfied, we want to report the values of two variables
+that are listed after the condition. Corresponding to the number of 
+reported parameters, there are also ENSURE, ENSURE1, ENSURE2, ENSURE3, 
+and ENSURE4. Triggering an ENSURE means that there is a bug at the _user's 
+side_ (or a bug at the condition itself). To check for 
+invariants inside an algorithm, see the ASSERT macro below.
+	
+Here our precondition is that the MatrixView's must have equal width and 
+height when one is assigned into another. In case that
+the conditions are satisfied, the program flow simply goes on
+to execute the rest of the function. But if the the conditions
+are _not_ satisfied, then the following happens:
+
+ 1. The violated condition, file name, line number, and the parameters
+ are printed into a log.
+ 
+ 2. The program is terminated via abort().
+
+The reason for using a macro, which are well known for their 
+disadvantages, is to be able to report the file name and 
+line number, as well as the condition. Only the preprocessor can do
+this, so the use of a macro is necessary. This is one of those rare
+conditions where the use of a macro is justified.
+
+ENSURE's are always present in the program and can't be removed
+by conditional compilation from the program. This is to stress
+the point that precondition checking is always important, also in
+release versions. This is because in the case that a bug occurs, it is 
+important to know about it. Furthermore, there is nothing you can 
+do to save the situation after a bug has been detected because the
+program state is corrupted.
+
+This does bring up a problem with very short functions where the
+invariant checking can induce a relative big performance degradation
+(for example, in checking the index for bounds when accessing an array).
+To solve this problem, Pastel offers the macro PENSURE, which stands
+for "Performance ENSURE". This macro can be removed from the release
+version of the program by conditional compilation.
+It is intended to be used only in those rare situations where the 
+cost of invariant checking is relatively too big. As a rule of thumb, 
+I use PENSURE for functions that are of order O(log n) or less, and 
+ENSURE for all others.
+
+ASSERT is meant to be used to check invariants _inside_
+an algorithm. Triggering an ASSERT means that there is a bug 
+in the _implementation_ of the algorithm (or a bug
+at the condition itself). ASSERT's, as PENSURE's, can be removed
+by conditional compilation from the release version of the product.
+
+See also
+--------
+
+### Conditional compilation for PENSUREs and ASSERTs
+
+[environment.h](./environment.h.htm)

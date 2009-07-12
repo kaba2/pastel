@@ -1,6 +1,8 @@
 Linear algebra
 ==============
 
+[Back to PastelMath](./pastelmath.htm)
+
 Theory
 ------
 
@@ -44,11 +46,9 @@ Learn more
 
 [Matrix tools](./matrix_tools.htm)
 
-[
+[Matrix decompositions](./matrix_decompositions.htm)
 
-Matrix decompositions
-
-Matrix eigenvectors
+[Eigenvectors](./eigenvectors.htm)
 
 Generalizations
 ---------------
@@ -56,18 +56,18 @@ Generalizations
 Linear algebra deals with linear functions in a vector space. 
 One can generalization to several directions. Notably:
 
-1) One can allow general fields for underlying scalars.
+1. One can allow general fields for underlying scalars.
 
-2) One can make the condition of preserving linear combinations weaker.
+2. One can make the condition of preserving linear combinations weaker.
 This allows for more general underlying spaces such as the affine space
 (see affine transformation class), and the projective space.
 
-3) One can allow subspaces of more than 1 dimensions to be used as primitive.
+3. One can allow subspaces of more than 1 dimensions to be used as primitive.
 This gives Grassmann algebra and even more importantly geometric algebra.
 The multivectors of geometric algebra are represented by 2^n components 
 if the underlying vector space is of dimension n.
 
-4) One can consider linear functions between linear functions.
+4. One can consider linear functions between linear functions.
 This gives tensor algebra. Computationally, tensors are represented
 by n-dimensional arrays of values compared to the 2-dimensional
 representation of matrices. 

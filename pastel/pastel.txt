@@ -49,21 +49,6 @@ I don't recommend you to do so. This is because I can't guarantee
 stable interfaces. I'll be improving the library,
 and sometimes this means breaking backward compatibility.
 
-External libraries
-------------------
-
-Pastel uses the following 3rd party libraries.
-The dependence to the last three libraries depends on which
-sublibraries of Pastel you use.
-
-[Boost](http://www.boost.org/)
-
-[Glew](http://glew.sourceforge.net/)
-
-[SDL](http://www.libsdl.org/)
-
-[Rply](http://www.tecgraf.puc-rio.br/~diego/professional/rply/)
-
 Learn more
 ----------
 
