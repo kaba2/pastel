@@ -17,27 +17,16 @@
 namespace Pastel
 {
 
-	//! A base class for CountedPtr reference counted objects.
-
-	/*!
-	Any class wishing to use CountedPtr for reference counting
-	must derive from ReferenceCounted. This base class
-	simply includes a counter that the CountedPtr implementation
-	increases and decreases.
-	*/
-
 	//! A reference counting smart-pointer
-
 	/*!
 	Any class wishing to use CountedPtr for reference counting
 	must derive from ReferenceCounted. CountedPtr can't be
 	used to reference count non-class types. See boost::shared_ptr
 	for this capability. CountedPtr can't handle cyclic
-	references: if A references B and B references A, the
+	references: if A references B and B references A, then
 	A and B will never be destructed. This is a common problem
-	in reference counting, which you must take care of.
+	in reference counting which you must take care of.
 	*/
-
 	template <typename Type>
 	class CountedPtr
 		: boost::less_than_comparable<

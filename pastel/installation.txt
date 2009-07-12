@@ -12,16 +12,16 @@ Unix-based environments.
 Windows and Visual Studio
 -------------------------
 
-1. Add the Pastel's source code directory
+ * Add the Pastel's source code directory
 to the compiler's include search paths.
 
-2. Add the 'pastel/lib' directory to the compiler's 
+ * Add the 'pastel/lib' directory to the compiler's 
 library search paths.
 
 In Visual Studio, the search paths can be altered from
 Tools->Options...->[+] Projects and Solutions->VC++ Directories.
 
-3. Add the 'pastel/lib' directory to the operating system's
+ * Add the 'pastel/lib' directory to the operating system's
 dll search paths.
 
 In Windows XP, the dll search paths can be altered from
@@ -40,8 +40,8 @@ External dependencies
 
 Pastel uses a few external third-party libraries which 
 must be installed in order to compile and link all
-Pastel libraries succesfully. The following
-diagram summarizes these dependencies:
+Pastel libraries succesfully. The following list summarizes 
+these dependencies:
 
  * Boost: All of Pastel
  * SDL: PastelDevice
@@ -53,12 +53,9 @@ you add their corresponding directories for the
 include files (.h, .hpp, etc) and libraries (.lib, etc) 
 to the search paths of your compiler. 
 
-The way Pastel refers to the include and library files is 
-given below for each library. 
-
 ### Boost
 
-http://www.boost.org/
+<http://www.boost.org/>
 
 Pastel refers to Boost's include files in the form
 '#include \<boost/operators.hpp\>'.
@@ -68,7 +65,7 @@ Boost is licensed under the Boost license.
 
 ### SDL (Simple DirectMedia Layer)
 
-http://www.libsdl.org/
+<http://www.libsdl.org/>
 
 Pastel refers to SDL's include files in the form 
 '#include \<SDL.h\>'. 
@@ -78,7 +75,7 @@ SDL is licensed under the GNU LGPL.
 
 ### Glew (Gl Extension Wrangler)
 
-http://glew.sourceforge.net/
+<http://glew.sourceforge.net/>
 
 Pastel refers to Glew's include files in the form 
 '#include \<GL/glew.h\>'. 
@@ -88,7 +85,7 @@ Glew is licensed under a modified BSD license.
 
 ### RPly
 
-http://www.tecgraf.puc-rio.br/~diego/professional/rply/
+<http://www.tecgraf.puc-rio.br/~diego/professional/rply/>
 
 Pastel refers to RPly's include files in the form
 '#include \<rply.h\>'.

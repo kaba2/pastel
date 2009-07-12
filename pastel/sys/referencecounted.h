@@ -6,6 +6,13 @@
 namespace Pastel
 {
 
+	//! A base class for CountedPtr reference counted objects.
+	/*!
+	Any class wishing to use CountedPtr for reference counting
+	must derive from ReferenceCounted. This base class
+	simply includes a counter that the CountedPtr implementation
+	increases and decreases.
+	*/
 	class PASTELSYS ReferenceCounted
 	{
 	private:

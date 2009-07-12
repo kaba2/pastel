@@ -44,7 +44,7 @@ Practice
 One important technique in lowering the number of bugs in a program 
 is to establish and check invariants frequently. In less
 fancy terms, this means to check that the program does what 
-it promises to do. Arguably the most important invariants
+it promises to do. Arguably, the most important invariants
 to check are the preconditions to functions.
 
 Pastel provides three macros, ENSURE, PENSURE, and ASSERT, to help with
@@ -71,7 +71,7 @@ invariants inside an algorithm, see the ASSERT macro below.
 Here our precondition is that the MatrixView's must have equal width and 
 height when one is assigned into another. In case that
 the conditions are satisfied, the program flow simply goes on
-to execute the rest of the function. But if the the conditions
+to execute the rest of the function. But if the conditions
 are _not_ satisfied, then the following happens:
 
  1. The violated condition, file name, line number, and the parameters
@@ -94,8 +94,8 @@ do to save the situation after a bug has been detected because the
 program state is corrupted.
 
 This does bring up a problem with very short functions where the
-invariant checking can induce a relative big performance degradation
-(for example, in checking the index for bounds when accessing an array).
+invariant checking can induce a relatively big performance degradation
+(for example, in checking the index bounds when accessing an array).
 To solve this problem, Pastel offers the macro PENSURE, which stands
 for "Performance ENSURE". This macro can be removed from the release
 version of the program by conditional compilation.
