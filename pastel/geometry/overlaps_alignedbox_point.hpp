@@ -23,7 +23,7 @@ namespace Pastel
 		// guaranteed not to overlap, and we can exit early.
 		// If all the tests pass, the objects overlap.
 
-		PENSURE(alignedBox.dimension() == point.dimension());
+		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
 
 		const integer dimension = alignedBox.dimension();
 

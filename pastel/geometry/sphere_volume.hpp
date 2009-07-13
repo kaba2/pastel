@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphereEuclidean(integer dimension)
 	{
-		PENSURE1(dimension > 0, dimension);
+		PENSURE_OP(dimension, >, 0);
 
 		return Pastel::lnVolumeUnitSphere(dimension);
 	}
@@ -20,7 +20,7 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphereManhattan(integer dimension)
 	{
-		PENSURE1(dimension > 0, dimension);
+		PENSURE_OP(dimension, >, 0);
 
 		return dimension * constantLn2<Real>() - lnFactorial<Real>(dimension);
 	}
@@ -28,7 +28,7 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphereInfinity(integer dimension)
 	{
-		PENSURE1(dimension > 0, dimension);
+		PENSURE_OP(dimension, >, 0);
 
 		// S = {x in R^n : max(|x_1|, ..., |x_n|) <= 1}
 		//   = [-1, 1]^n

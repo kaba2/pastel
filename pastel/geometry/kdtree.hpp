@@ -529,8 +529,8 @@ namespace Pastel
 		integer maxObjects,
 		const SubdivisionRule& subdivisionRule)
 	{
-		ENSURE1(maxDepth >= 0, maxDepth);
-		ENSURE1(maxObjects > 0, maxObjects);
+		ENSURE_OP(maxDepth, >=, 0);
+		ENSURE_OP(maxObjects, >, 0);
 
 		if (maxDepth == 0)
 		{

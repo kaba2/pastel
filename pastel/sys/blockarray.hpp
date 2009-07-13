@@ -87,8 +87,8 @@ namespace Pastel
 	template <typename Type, int Log2BlockSize>
 	const Type& BlockArray<Type, Log2BlockSize>::operator[](integer index) const
 	{
-		PENSURE1(index >= 0, index);
-		PENSURE2(index < size_, index, size_);
+		PENSURE_OP(index, >=, 0);
+		PENSURE_OP(index, <, size_);
 
 		const integer blockIndex = index >> BlockShift;
 		const integer inBlockIndex = index & BlockMask;
@@ -107,7 +107,7 @@ namespace Pastel
 		integer size,
 		const Type& data)
 	{
-		ENSURE1(size >= 0, size);
+		ENSURE_OP(size, >=, 0);
 
 		if (size == 0)
 		{
@@ -136,7 +136,7 @@ namespace Pastel
 	template <typename Type, int Log2BlockSize>
 	void BlockArray<Type, Log2BlockSize>::pop_back()
 	{
-		PENSURE1(size_ >= 1, size_);
+		PENSURE_OP(size_, >=, 1);
 
 		destructElements(1);
 	}

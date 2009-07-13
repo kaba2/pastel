@@ -85,8 +85,8 @@ namespace Pastel
 				: transform_(dimension, dimension)
 				, translation_(ofDimension(dimension), 0)
 			{
-				PENSURE(dimension > 0);
-				PENSURE(dimension == N || N == Dynamic);
+				PENSURE_OP(dimension, >, 0);
+				PENSURE2(dimension == N || N == Dynamic, dimension, N);
 			}
 
 			//! Constructs using the given transformation and translation.
@@ -107,12 +107,12 @@ namespace Pastel
 				: transform_(transformation)
 				, translation_(translation)
 			{
-				PENSURE(dimension > 0);
-				PENSURE(dimension == N || N == Dynamic);
+				PENSURE_OP(dimension, >, 0);
+				PENSURE2(dimension == N || N == Dynamic, dimension, N);
 
-				PENSURE(translation.dimension() == dimension);
-				PENSURE(transformation.width() == dimension);
-				PENSURE(transformation.height() == dimension);
+				PENSURE_OP(translation.dimension(), ==, dimension);
+				PENSURE_OP(transformation.width(), ==, dimension);
+				PENSURE_OP(transformation.height(), ==, dimension);
 			}
 
 			void swap(AffineTransformation& that)
@@ -145,12 +145,9 @@ namespace Pastel
 			void set(const Matrix<N, N, Real>& transformation,
 				const Vector<N, Real>& translation)
 			{
-				PENSURE(transform_.width() ==
-					transformation.width());
-				PENSURE(transform_.height() ==
-					transformation.height());
-				PENSURE(translation_.dimension() ==
-					translation.dimension());
+				PENSURE_OP(transform_.width(), ==, transformation.width());
+				PENSURE_OP(transform_.height(), ==, transformation.height());
+				PENSURE_OP(translation_.dimension(), ==, translation.dimension());
 
 				transform_ = transformation;
 				translation_ = translation;

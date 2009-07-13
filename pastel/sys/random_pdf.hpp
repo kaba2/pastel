@@ -20,7 +20,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation)
 	{
-		PENSURE(deviation >= 0);
+		PENSURE_OP(deviation, >=, 0);
 
 		return inverse(deviation * std::sqrt(2 * constantPi<Real>())) * 
 			std::exp(-square(x / deviation) / 2);
@@ -62,7 +62,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& mean)
 	{
-		PENSURE(mean > 0);
+		PENSURE_OP(mean, >, 0);
 
 		if (x < 0)
 		{
@@ -77,7 +77,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
-		PENSURE(shape > 0);
+		PENSURE_OP(shape, >, 0);
 
 		return std::pow(x, shape - 1) * 
 			std::exp(-x) / gamma<Real>(shape);
@@ -89,8 +89,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
-		PENSURE(shape > 0);
-		PENSURE(scale > 0);
+		PENSURE_OP(shape, >, 0);
+		PENSURE_OP(scale, >, 0);
 
 		return std::pow(x, shape - 1) * 
 			std::exp(-x / scale) / 

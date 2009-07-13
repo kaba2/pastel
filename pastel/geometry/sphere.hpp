@@ -46,8 +46,7 @@ namespace Pastel
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
 	{
-		PENSURE2(dimension == position.dimension(),
-			dimension, position.dimension());
+		PENSURE_OP(dimension, ==, position.dimension());
 	}
 
 	template <int N, typename Real>
@@ -77,8 +76,7 @@ namespace Pastel
 	void Sphere<N, Real>::setPosition(
 		const Point<N, Real>& position)
 	{
-		PENSURE2(position_.dimension() == position.dimension(),
-			position_.dimension(), position.dimension());
+		PENSURE_OP(position_.dimension(), ==, position.dimension());
 
 		position_ = position;
 	}

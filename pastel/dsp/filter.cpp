@@ -9,7 +9,7 @@ namespace Pastel
 		: radius_(radius)
 		, name_(name)
 	{
-		ENSURE1(radius > 0, radius);
+		ENSURE_OP(radius, >, 0);
 	}
 
 	Filter::~Filter()
@@ -18,7 +18,7 @@ namespace Pastel
 
 	void Filter::setRadius(real radius)
 	{
-		ENSURE1(radius > 0, radius);
+		ENSURE_OP(radius, >, 0);
 		radius_ = radius;
 		onSetRadius();
 	}

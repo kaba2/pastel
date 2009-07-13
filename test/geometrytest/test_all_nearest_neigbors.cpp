@@ -30,7 +30,7 @@ namespace
 		integer points,
 		std::vector<Point<N, Real> >& pointSet)
 	{
-		ENSURE1(points >= 0, points);
+		ENSURE_OP(points, >=, 0);
 
 		std::vector<Point<N, Real> > result;
 		result.reserve(points);

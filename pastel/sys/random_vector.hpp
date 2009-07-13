@@ -23,7 +23,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVectorCube(integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> direction(ofDimension(dimension));
 
@@ -60,7 +60,7 @@ namespace Pastel
 		// on its direction, and thus the normalization of X
 		// yields a uniformly distributed vector on the unit sphere.
 
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> result(ofDimension(dimension));
 
@@ -94,7 +94,7 @@ namespace Pastel
 	TemporaryVector<N, Real> randomVectorBall(
 		integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> sphere = 
 			randomVectorSphere<N, Real>(dimension);
@@ -120,7 +120,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
 		integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> sphere = 
 			randomVectorSphere<N, Real>(dimension);
@@ -146,7 +146,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomVector(integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> direction(ofDimension(dimension));
 
@@ -168,7 +168,7 @@ namespace Pastel
 	template <int N, typename Real>
 	TemporaryVector<N, Real> randomGaussianVector(integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 		Vector<N, Real> direction(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
@@ -191,7 +191,7 @@ namespace Pastel
 	TemporaryVector<N, Real> randomExponentialVector(
 		integer dimension)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)
@@ -217,7 +217,7 @@ namespace Pastel
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)
@@ -245,7 +245,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
-		PENSURE1(dimension >= 0, dimension);
+		PENSURE_OP(dimension, >=, 0);
 
 		Vector<N, Real> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)

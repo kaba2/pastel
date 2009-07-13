@@ -110,7 +110,7 @@ namespace Pastel
 		const integer width = packedLu_.width();
 		const integer height = packedLu_.height();
 
-		ENSURE2(width == height, width, height);
+		ENSURE_OP(width, ==, height);
 
 		//rowPermutation_.setSize(width);
 		for (integer i = 0 ;i < width;++i)

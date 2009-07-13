@@ -61,7 +61,7 @@ namespace Pastel
 		const ConstFilterPtr& filter,
 		integer samplesPerRadius)
 	{
-		ENSURE1(samplesPerRadius >= 0, samplesPerRadius);
+		ENSURE_OP(samplesPerRadius, >=, 0);
 
 		const real filterRadius = filter->radius();
 		const integer filterTableRadius = 

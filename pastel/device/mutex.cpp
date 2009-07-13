@@ -23,7 +23,7 @@ namespace Pastel
 		SDL_mutex* mutex = (SDL_mutex*)data_;
 
 		int sdlError = SDL_mutexP(mutex);
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 	}
 
 	void Mutex::unlock()
@@ -31,7 +31,7 @@ namespace Pastel
 		SDL_mutex* mutex = (SDL_mutex*)data_;
 
 		int sdlError = SDL_mutexV(mutex);
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 	}
 
 }

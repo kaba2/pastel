@@ -24,7 +24,7 @@ namespace Pastel
 	{
 		const integer width = out.size();
 
-		ENSURE1(width > 0, width);
+		ENSURE_OP(width, >, 0);
 		ENSURE1(odd(width), width);
 
 		const integer half = (width - 1) / 2;
@@ -58,7 +58,7 @@ namespace Pastel
 	{
 		const integer width = out.size();
 
-		ENSURE1(width > 0, width);
+		ENSURE_OP(width, >, 0);
 		ENSURE1(odd(width), width);
 
 		const integer half = (width - 1) / 2;
@@ -102,7 +102,7 @@ namespace Pastel
 
 		ENSURE1(odd(width), width);
 		ENSURE1(odd(height), height);
-		ENSURE2(width == height, width, height);
+		ENSURE_OP(width, ==, height);
 
 		const Vector<2, Real> half(
 			(width - 1) / 2, (height - 1) / 2);
@@ -152,7 +152,7 @@ namespace Pastel
 
 		ENSURE1(odd(width), width);
 		ENSURE1(odd(height), height);
-		ENSURE2(width == height, width, height);
+		ENSURE_OP(width, ==, height);
 
 		const Vector<2, Real> half(
 			(width - 1) / 2, (height - 1) / 2);
@@ -202,7 +202,7 @@ namespace Pastel
 
 		ENSURE1(odd(width), width);
 		ENSURE1(odd(height), height);
-		ENSURE2(width == height, width, height);
+		ENSURE_OP(width, ==, height);
 
 		const Vector<2, Real> half(
 			(width - 1) / 2, (height - 1) / 2);
@@ -237,7 +237,7 @@ namespace Pastel
 	template <typename Real>
 	Real boxWindow(const Real& distance)
 	{
-		PENSURE1(distance >= 0, distance);
+		PENSURE_OP(distance, >=, 0);
 		if (distance > 1)
 		{
 			return 0;
@@ -249,7 +249,7 @@ namespace Pastel
 	template <typename Real>
 	Real bartlettWindow(const Real& distance)
 	{
-		PENSURE1(distance >= 0, distance);
+		PENSURE_OP(distance, >=, 0);
 		if (distance > 1)
 		{
 			return 0;
@@ -261,7 +261,7 @@ namespace Pastel
 	template <typename Real>
 	Real hanningWindow(const Real& distance)
 	{
-		PENSURE1(distance >= 0, distance);
+		PENSURE_OP(distance, >=, 0);
 		if (distance > 1)
 		{
 			return 0;
@@ -274,7 +274,7 @@ namespace Pastel
 	template <typename Real>
 	Real hammingWindow(const Real& distance)
 	{
-		PENSURE1(distance >= 0, distance);
+		PENSURE_OP(distance, >=, 0);
 		if (distance > 1)
 		{
 			return 0;
@@ -287,7 +287,7 @@ namespace Pastel
 	template <typename Real>
 	Real blackmanWindow(const Real& distance)
 	{
-		PENSURE1(distance >= 0, distance);
+		PENSURE_OP(distance, >=, 0);
 		if (distance > 1)
 		{
 			return 0;
@@ -302,7 +302,7 @@ namespace Pastel
 	template <typename Real>
 	Real mitchellNetravali(const Real& distance)
 	{
-		PENSURE1(distance >= 0, distance);
+		PENSURE_OP(distance, >=, 0);
 		if (distance > 1)
 		{
 			return 0;
@@ -329,8 +329,8 @@ namespace Pastel
 	Real gaussian(const Real& distance,
 		const PASTEL_NO_DEDUCTION(Real)& deviation)
 	{
-		PENSURE1(distance >= 0, distance);
-		PENSURE1(deviation > 0, deviation);
+		PENSURE_OP(distance, >=, 0);
+		PENSURE_OP(deviation, >, 0);
 		if (distance > 1)
 		{
 			return 0;

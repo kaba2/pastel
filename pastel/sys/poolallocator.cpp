@@ -17,7 +17,7 @@ namespace Pastel
 		, deallocationBlock_()
 		, blockList_()
 	{
-		ENSURE1(unitSize > 0, unitSize);
+		ENSURE_OP(unitSize, >, 0);
 
 		deallocationBlock_ = blockList_.end();
 	}

@@ -32,7 +32,7 @@ namespace Pastel
 	template <typename Real>
 	Real vanDerCorputSequence(integer n)
 	{
-		PENSURE1(n >= 0, n);
+		PENSURE_OP(n, >=, 0);
 
 		return (Real)reverseBits((uint32)n) / (Real)0xFFFFFFFF;
 	}
@@ -40,8 +40,8 @@ namespace Pastel
 	template <typename Real>
 	Real vanDerCorputSequence(integer n, integer base)
 	{
-		PENSURE1(n >= 0, n);
-		PENSURE1(base >= 2, base);
+		PENSURE_OP(n, >=, 0);
+		PENSURE_OP(base, >=, 2);
 
 		Real result = 0;
 		const Real invBase = Real(1) / base;
@@ -64,7 +64,7 @@ namespace Pastel
 	TemporaryPoint<N, Real> haltonSequence(integer n, 
 		const Point<N, integer>& bases)
 	{
-		PENSURE1(n >= 0, n);
+		PENSURE_OP(n, >=, 0);
 		PENSURE(allGreaterEqual(bases, 2));
 
 		const integer dimension = 
@@ -84,7 +84,7 @@ namespace Pastel
 	TemporaryPoint<PASTEL_ADD_N(N, 1), Real> hammersleySequence(
 		integer n, const Point<N, integer>& bases, integer size)
 	{
-		PENSURE1(size >= 1, size);
+		PENSURE_OP(size, >=, 1);
 		PENSURE1(n >= 0 && n < size, n);
 		PENSURE(allGreaterEqual(bases, 2));
 

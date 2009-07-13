@@ -78,8 +78,7 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		PENSURE2(left.size() == right.size(), 
-			left.size(), right.size());
+		PENSURE_OP(left.size(), ==, right.size());
 
 		const integer size = left.size();
 
@@ -135,8 +134,7 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		PENSURE2(left.size() == right.size(), 
-			left.size(), right.size());
+		PENSURE_OP(left.size(), ==, right.size());
 
 		const integer size = left.size();
 
@@ -192,8 +190,7 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		PENSURE2(left.size() == right.size(), 
-			left.size(), right.size());
+		PENSURE_OP(left.size(), ==, right.size());
 
 		const integer size = left.size();
 
@@ -321,8 +318,7 @@ namespace Pastel
 		const Tuple<N, Real>& left,
 		const Tuple<N, Real>& right)
 	{
-		PENSURE2(left.size() == right.size(), 
-			left.size(), right.size());
+		PENSURE_OP(left.size(), ==, right.size());
 
 		const integer size = left.size();
 

@@ -21,8 +21,7 @@ namespace Pastel
 		const NormBijection& normBijection,
 		std::vector<integer>& countSet)
 	{
-		ENSURE2(pointSet.size() == maxDistanceSet.size(),
-			pointSet.size(), maxDistanceSet.size());
+		ENSURE_OP(pointSet.size(), ==, maxDistanceSet.size());
 
 		const integer points = pointSet.size();
 

@@ -22,7 +22,7 @@ namespace Pastel
 	template <typename Real>
 	void Polynomial<Real>::setSize(integer size)
 	{
-		ENSURE1(size >= 1, size);
+		ENSURE_OP(size, >=, 1);
 
 		data_.resize(size, Real(0));
 	}
@@ -43,7 +43,7 @@ namespace Pastel
 	void Polynomial<Real>::set(
 		integer index, const Real& that)
 	{
-		PENSURE1(index >= 0, index);
+		PENSURE_OP(index, >=, 0);
 
 		if (index >= data_.size())
 		{
@@ -185,7 +185,7 @@ namespace Pastel
 	Polynomial<Real>& Polynomial<Real>::operator<<=(
 		integer index)
 	{
-		PENSURE1(index >= 0, index);
+		PENSURE_OP(index, >=, 0);
 
 		const integer n = degree();
 		if (n + index >= size())
@@ -209,7 +209,7 @@ namespace Pastel
 	Polynomial<Real>& Polynomial<Real>::operator>>=(
 		integer index)
 	{
-		PENSURE1(index >= 0, index);
+		PENSURE_OP(index, >=, 0);
 
 		const integer n = size();
 

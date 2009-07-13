@@ -19,6 +19,8 @@
 #define TEST_ENSURE4(expr, a, b, c, d)\
 {if (!(expr)) {reportError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
+#define TEST_ENSURE_OP(x, op, y) TEST_ENSURE2(x op y, x, y)
+
 namespace Pastel
 {
 

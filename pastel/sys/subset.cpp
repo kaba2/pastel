@@ -14,9 +14,9 @@ namespace Pastel
 		: data_()
 		, elements_(elements)
 	{
-		ENSURE1(size >= 0, size);
-		ENSURE1(elements >= 0, elements);
-		ENSURE2(size <= elements, size, elements);
+		ENSURE_OP(size, >=, 0);
+		ENSURE_OP(elements, >=, 0);
+		ENSURE_OP(size, <=, elements);
 
 		setSize(size);
 	}
@@ -82,7 +82,7 @@ namespace Pastel
 
 	void Subset::setSize(integer size)
 	{
-		ENSURE2(size <= elements_, size, elements_);
+		ENSURE_OP(size, <=, elements_);
 
 		data_.clear();
 		data_.reserve(size);
@@ -95,9 +95,9 @@ namespace Pastel
 
 	void Subset::setSize(integer size, integer elements)
 	{
-		ENSURE1(size >= 0, size);
-		ENSURE1(elements >= 0, elements);
-		ENSURE2(size <= elements, size, elements);
+		ENSURE_OP(size, >=, 0);
+		ENSURE_OP(elements, >=, 0);
+		ENSURE_OP(size, <=, elements);
 
 		elements_ = elements;
 		setSize(size);

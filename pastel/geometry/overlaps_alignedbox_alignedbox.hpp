@@ -14,7 +14,7 @@ namespace Pastel
 			const AlignedBox<N, Real>& aAlignedBox,
 			const AlignedBox<N, Real>& bAlignedBox)
 	{
-		PENSURE(aAlignedBox.dimension() == bAlignedBox.dimension());
+		PENSURE_OP(aAlignedBox.dimension(), ==, bAlignedBox.dimension());
 
 		// Using the separating axis theorem.
 
@@ -47,8 +47,8 @@ namespace Pastel
 		const Vector<N, Real>& bVelocity,
 		Tuple<2, Real>& intersectionRange)
 	{
-		PENSURE(aBox.dimension() == bBox.dimension());
-		PENSURE(aBox.dimension() == bVelocity.dimension());
+		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
+		PENSURE_OP(aBox.dimension(), ==, bVelocity.dimension());
 
 		// We want to find out two points in time.
 		// tStart, the first time instant the boxes

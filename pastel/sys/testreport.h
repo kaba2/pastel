@@ -149,7 +149,8 @@ namespace Pastel
 
 		const ErrorInfo& error(integer index) const
 		{
-			ENSURE(index >= 0 && index < errorSet_.size());
+			ENSURE_OP(index, >=, 0);
+			ENSURE_OP(index, <, errorSet_.size());
 
 			return errorSet_[index];
 		}

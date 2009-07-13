@@ -14,8 +14,7 @@ namespace Pastel
 		const Tuple<N, integer>& permutation)
 	{
 		const integer dimension = that.size();
-		PENSURE2(dimension == permutation.dimension(),
-			dimension, permutation.dimension());
+		PENSURE_OP(dimension, ==, permutation.dimension());
 
 		Vector<N, Real> result(
 			ofDimension(dimensions));
@@ -65,8 +64,7 @@ namespace Pastel
 		const VectorExpression<N, Real, LeftExpression>& left,
 		const VectorExpression<N, Real, RightExpression>& right)
 	{
-		PENSURE2(left.size() == right.size(), 
-			left.size(), right.size());
+		PENSURE_OP(left.size(), ==, right.size());
 
 		const integer size = left.size();
 	

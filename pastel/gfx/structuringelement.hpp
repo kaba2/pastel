@@ -157,7 +157,7 @@ namespace Pastel
 		real power,
 		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
 	{
-		ENSURE1(power > 0, power);
+		ENSURE_OP(power, >, 0);
 
 		Detail_pEllipsoidElement::VisitFunctor<N> visitFunctor(
 			asPoint(Vector<N, real>(image.extent()) / 2),

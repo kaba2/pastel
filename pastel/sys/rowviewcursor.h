@@ -53,7 +53,7 @@ namespace Pastel
 
 			void increment(integer index)
 			{
-				PENSURE1(index == 0, index);
+				PENSURE_OP(index, ==, 0);
 
 				cursor_.increment(freeIndex_);
 			}
@@ -69,7 +69,7 @@ namespace Pastel
 
 			void decrement(integer index)
 			{
-				PENSURE1(index == 0, index);
+				PENSURE_OP(index, ==, 0);
 
 				cursor_.decrement(freeIndex_);
 			}
@@ -85,7 +85,7 @@ namespace Pastel
 
 			void move(integer index, integer amount)
 			{
-				PENSURE(index == 0);
+				PENSURE_OP(index, ==, 0);
 				cursor_.move(freeIndex_, amount);
 			}
 

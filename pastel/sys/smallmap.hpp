@@ -68,7 +68,7 @@ namespace Pastel
 	template <typename KeyType, typename ValueType, typename Compare>
 	void SmallMap<KeyType, ValueType, Compare>::reserve(integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		data_.reserve(count);
 	}

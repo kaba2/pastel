@@ -19,7 +19,7 @@ namespace Pastel
 		explicit RandomDistribution(integer dimension)
 			: dimension_(dimension)
 		{
-			ENSURE1(dimension > 0, dimension);
+			ENSURE_OP(dimension, >, 0);
 		}
 
 		virtual ~RandomDistribution()
@@ -483,8 +483,7 @@ namespace Pastel
 			, distribution_(distribution)
 			, scaling_(scaling)
 		{
-			ENSURE2(distribution->dimension() == scaling.dimension(),
-				distribution->dimension(), scaling.dimension());
+			ENSURE_OP(distribution->dimension(), ==, scaling.dimension());
 		}
 
 		virtual ~Scaled_RandomDistribution()
@@ -541,10 +540,8 @@ namespace Pastel
 			, distribution_(distribution)
 			, transform_(transform)
 		{
-			ENSURE2(transform.width() == transform.height(),
-				transform.width(), transform.height());
-			ENSURE2(distribution->dimension() == transform.width(),
-				distribution->dimension(), transform.width());
+			ENSURE_OP(transform.width(), ==, transform.height());
+			ENSURE_OP(distribution->dimension(), ==, transform.width());
 		}
 
 		virtual ~Transformed_RandomDistribution()
@@ -602,8 +599,7 @@ namespace Pastel
 			, distribution_(distribution)
 			, translation_(translation)
 		{
-			ENSURE2(distribution->dimension() == translation.dimension(),
-				distribution->dimension(), translation.dimension());
+			ENSURE_OP(distribution->dimension(), ==, translation.dimension());
 		}
 
 		virtual ~Translated_RandomDistribution()

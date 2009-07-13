@@ -12,8 +12,8 @@ namespace Pastel
 		, unitSize_(unitSize)
 		, blockSize_(blockSize)
 	{
-		ENSURE1(unitSize >= 1, unitSize);
-		ENSURE1(blockSize >= 1, blockSize);
+		ENSURE_OP(unitSize, >=, 1);
+		ENSURE_OP(blockSize, >=, 1);
 	}
 
 	ArenaAllocator::~ArenaAllocator()
@@ -73,7 +73,7 @@ namespace Pastel
 
 	void* ArenaAllocator::allocate(integer units)
 	{
-		ENSURE1(units > 0, units);
+		ENSURE_OP(units, >, 0);
 
 		Block* block = 0;
 		if (!blocks_.empty())

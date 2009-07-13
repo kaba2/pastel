@@ -128,7 +128,7 @@ namespace Pastel
 
 		const integer dimension = that.dimension();
 
-		PENSURE1(dimension <= 32, dimension);
+		PENSURE_OP(dimension, <=, 32);
 
 		std::vector<integer> permutation;
 		permutation.reserve(dimension);

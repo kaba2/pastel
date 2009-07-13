@@ -22,9 +22,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
-		PENSURE1(minRadius >= 0, minRadius);
-		PENSURE1(maxRadius >= 0, maxRadius);
-		PENSURE2(minRadius < maxRadius, minRadius, maxRadius);
+		PENSURE_OP(minRadius, >=, 0);
+		PENSURE_OP(maxRadius, >=, 0);
+		PENSURE_OP(minRadius, <, maxRadius);
 
 		// See the implementation for the 3d version
 		// for derivation.
@@ -50,9 +50,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
-		PENSURE1(minRadius >= 0, minRadius);
-		PENSURE1(maxRadius >= 0, maxRadius);
-		PENSURE2(minRadius < maxRadius, minRadius, maxRadius);
+		PENSURE_OP(minRadius, >=, 0);
+		PENSURE_OP(maxRadius, >=, 0);
+		PENSURE_OP(minRadius, <, maxRadius);
 
 		// See the implementation for the 3d version
 		// for derivation.
@@ -77,9 +77,9 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
-		PENSURE1(minRadius >= 0, minRadius);
-		PENSURE1(maxRadius >= 0, maxRadius);
-		PENSURE2(minRadius < maxRadius, minRadius, maxRadius);
+		PENSURE_OP(minRadius, >=, 0);
+		PENSURE_OP(maxRadius, >=, 0);
+		PENSURE_OP(minRadius, <, maxRadius);
 
 		// Uniform sampling of a hyperannulus
 		// ==================================

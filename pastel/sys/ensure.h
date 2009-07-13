@@ -43,6 +43,8 @@
 #define ENSURE4(expr, a, b, c, d)\
 {if (!(expr)) {Pastel::Detail::error(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
+#define ENSURE_OP(x, op, y) ENSURE2(x op y, x, y)
+
 // PENSURES
 
 #if (PASTEL_ENABLE_PENSURES != 0)
@@ -52,6 +54,7 @@
 #define PENSURE2(expr, a, b) ENSURE2(expr, a, b)
 #define PENSURE3(expr, a, b, c) ENSURE3(expr, a, b, c)
 #define PENSURE4(expr, a, b, c, d) ENSURE4(expr, a, b, c, d)
+#define PENSURE_OP(x, op, y) ENSURE_OP(x, op, y)
 
 #else
 
@@ -60,6 +63,7 @@
 #define PENSURE2(expr, a, b)
 #define PENSURE3(expr, a, b, c)
 #define PENSURE4(expr, a, b, c, d)
+#define PENSURE_OP(x, op, y)
 
 #endif
 

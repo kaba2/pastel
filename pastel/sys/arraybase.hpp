@@ -178,7 +178,7 @@ namespace Pastel
 		{
 			for (integer i = 0;i < N;++i)
 			{
-				ENSURE1(extent[i] >= 0, extent[i]);
+				ENSURE_OP(extent[i], >=, 0);
 			}
 
 			const integer units = product(extent);
@@ -211,7 +211,7 @@ namespace Pastel
 
 			const integer newSize = product(extent);
 			
-			ENSURE2(newSize == size_, newSize, size_);
+			ENSURE_OP(newSize, ==, size_);
 
 			if (newSize > 0)
 			{

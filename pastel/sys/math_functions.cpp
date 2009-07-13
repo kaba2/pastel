@@ -107,7 +107,7 @@ namespace Pastel
 		// After this we use the approximation,
 		// which is very accurate after this initial range.
 
-		ENSURE1(n > 0, n);
+		ENSURE_OP(n, >, 0);
 
 		if (n < 257)
 		{

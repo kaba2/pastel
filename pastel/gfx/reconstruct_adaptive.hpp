@@ -139,8 +139,8 @@ namespace Pastel
 		
 		const integer points = positionList.size();
 
-		ENSURE1(kNearest > 0, kNearest);
-		ENSURE2(kNearest < points, kNearest, points);
+		ENSURE_OP(kNearest, >, 0);
+		ENSURE_OP(kNearest, <, points);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
 		typedef Detail_ReconstructAdaptive::DataPoint<N, Real, Data> DataPoint;

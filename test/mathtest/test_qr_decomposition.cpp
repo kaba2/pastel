@@ -60,8 +60,7 @@ namespace
 				}
 			}
 			
-			TEST_ENSURE2(errorCount < attempts - 100,
-				errorCount, attempts);
+			TEST_ENSURE_OP(errorCount, <, attempts - 100);
 		}
 	};
 

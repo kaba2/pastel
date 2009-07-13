@@ -37,7 +37,7 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
-			PENSURE(norm >= 0);
+			PENSURE_OP(norm, >=, 0);
 			return square(norm);
 		}
 
@@ -63,7 +63,7 @@ namespace Pastel
 			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return distance + 
 				newAxisDistance;
@@ -74,8 +74,8 @@ namespace Pastel
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			PENSURE(oldAxisDistance >= 0);
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(oldAxisDistance, >=, 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return (distance - oldAxisDistance) + 
 				newAxisDistance;
@@ -96,7 +96,7 @@ namespace Pastel
 			, invPower_(inverse(power))
 		{
 			ENSURE(N != Dynamic);
-			ENSURE(power >= 1);
+			ENSURE_OP(power, >=, 1);
 		}
 
 		// No idea how to compute this one!
@@ -119,7 +119,7 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
-			PENSURE(norm >= 0);
+			PENSURE_OP(norm, >=, 0);
 			return std::pow(norm, power_);
 		}
 
@@ -145,7 +145,7 @@ namespace Pastel
 			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return distance + 
 				newAxisDistance;
@@ -156,8 +156,8 @@ namespace Pastel
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			PENSURE(oldAxisDistance >= 0);
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(oldAxisDistance, >=, 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return (distance - oldAxisDistance) + 
 				newAxisDistance;
@@ -194,7 +194,7 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
-			PENSURE(norm >= 0);
+			PENSURE_OP(norm, >=, 0);
 			return norm;
 		}
 
@@ -220,7 +220,7 @@ namespace Pastel
 			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return std::max(
 				distance,
@@ -232,8 +232,8 @@ namespace Pastel
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			PENSURE(oldAxisDistance >= 0);
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(oldAxisDistance, >=, 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return std::max(
 				distance, 
@@ -267,7 +267,7 @@ namespace Pastel
 
 		Real toBijection(const Real& norm) const
 		{
-			PENSURE(norm >= 0);
+			PENSURE_OP(norm, >=, 0);
 			return norm;
 		}
 
@@ -293,7 +293,7 @@ namespace Pastel
 			const Real& distance, 
 			const Real& newAxisDistance) const
 		{
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return distance + newAxisDistance;
 		}
@@ -303,8 +303,8 @@ namespace Pastel
 			const Real& oldAxisDistance,
 			const Real& newAxisDistance) const
 		{
-			PENSURE(oldAxisDistance >= 0);
-			PENSURE(newAxisDistance >= 0);
+			PENSURE_OP(oldAxisDistance, >=, 0);
+			PENSURE_OP(newAxisDistance, >=, 0);
 
 			return (distance - oldAxisDistance) + 
 				newAxisDistance;

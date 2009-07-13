@@ -42,7 +42,7 @@ namespace Pastel
 			: position_(0)
 			, axis_(0)
 		{
-			PENSURE2(dimension == N, dimension, N);
+			PENSURE_OP(dimension, ==, N);
 		}
 
 		//! Constructs an 'axis'-orthogonal plane at 'position'.
@@ -122,7 +122,7 @@ namespace Pastel
 			, position_(0)
 			, axis_(0)
 		{
-			PENSURE1(dimension > 0, dimension);
+			PENSURE_OP(dimension, >, 0);
 		}
 
 		//! Constructs an 'axis'-orthogonal plane at 'position'.
@@ -140,8 +140,7 @@ namespace Pastel
 			// This is why we define the assignment
 			// operator: to check for equal dimensions.
 
-			PENSURE2(dimension_ == that.dimension_,
-				dimension_, that.dimension_);
+			PENSURE_OP(dimension_, ==, that.dimension_);
 
 			// We settle for basic exception safety
 			// for performance.

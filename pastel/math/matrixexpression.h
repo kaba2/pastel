@@ -92,10 +92,8 @@ namespace Pastel
 		{
 			const Expression& left = (const Expression&)*this;
 
-			PENSURE2(left.width() == right.width(), 
-				left.width(), right.width());
-			PENSURE2(left.height() == right.height(), 
-				left.height(), right.height());
+			PENSURE_OP(left.width(), ==, right.width());
+			PENSURE_OP(left.height(), ==, right.height());
 
 			const integer leftWidth = width();
 			const integer leftHeight = height();
@@ -273,10 +271,8 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(left.width() == right.width(), 
-				left.width(), right.width());
-			PENSURE2(left.height() == right.height(), 
-				left.height(), right.height());
+			PENSURE_OP(left.width(), ==, right.width());
+			PENSURE_OP(left.height(), ==, right.height());
 		}
 
 		Real operator()(integer y, integer x) const
@@ -332,10 +328,8 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(left.width() == right.width(), 
-				left.width(), right.width());
-			PENSURE2(left.height() == right.height(), 
-				left.height(), right.height());
+			PENSURE_OP(left.width(), ==, right.width());
+			PENSURE_OP(left.height(), ==, right.height());
 		}
 
 		Real operator()(integer y, integer x) const
@@ -391,8 +385,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(left.width() == right.height(), 
-				left.width(), right.height());
+			PENSURE_OP(left.width(), ==, right.height());
 		}
 
 		Real operator()(integer y, integer x) const

@@ -23,7 +23,7 @@ namespace Pastel
 		explicit Dimension(integer dimension)
 			: dimension_(dimension)
 		{
-			PENSURE1(dimension >= 0, dimension);
+			PENSURE_OP(dimension, >=, 0);
 		}
 
 		operator integer() const
@@ -118,7 +118,7 @@ namespace Pastel
 				const Type& that)
 				: data_()
 			{
-				PENSURE2(dimension == N, dimension, N);
+				PENSURE_OP(dimension, ==, N);
 
 				set(that);
 			}
@@ -475,7 +475,7 @@ namespace Pastel
 			{
 				// We settle for basic exception safety rather than strong
 				// for performance (no memory reallocation).
-				PENSURE2(size_ == that.size_, size_, that.size_);
+				PENSURE_OP(size_, ==, that.size_);
 
 				std::copy(that.begin(), that.end(), begin());
 				
@@ -484,14 +484,14 @@ namespace Pastel
 
 			void setSize(integer size, const Type& that = Type())
 			{
-				ENSURE1(size >= 0, size);
+				ENSURE_OP(size, >=, 0);
 
 				resize(size, that);
 			}
 
 			void resize(integer size, const Type& that = Type())
 			{
-				ENSURE1(size >= 0, size);
+				ENSURE_OP(size, >=, 0);
 
 				TupleBase copy(*this, size, that);
 				swap(copy);
@@ -627,7 +627,7 @@ namespace Pastel
 		private:
 			void allocate(integer size)
 			{
-				PENSURE1(size >= 0, size);
+				PENSURE_OP(size, >=, 0);
 				ASSERT(data_ == 0);
 				ASSERT1(size_ == 0, size_);
 

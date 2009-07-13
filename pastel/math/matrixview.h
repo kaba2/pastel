@@ -114,8 +114,8 @@ namespace Pastel
 			, dataBegin_(0)
 			, dataEnd_(0)
 		{
-			PENSURE1(width_ > 0, width_);
-			PENSURE1(height_ > 0, height_);
+			PENSURE_OP(width_, >, 0);
+			PENSURE_OP(height_, >, 0);
 
 			computeDataRange();
 		}
@@ -132,8 +132,8 @@ namespace Pastel
 			, dataBegin_(0)
 			, dataEnd_(0)
 		{
-			PENSURE1(width_ > 0, width_);
-			PENSURE1(height_ > 0, height_);
+			PENSURE_OP(width_, >, 0);
+			PENSURE_OP(height_, >, 0);
 
 			computeDataRange();
 		}
@@ -141,10 +141,8 @@ namespace Pastel
 		MatrixView& operator=(
 			const MatrixView& that)
 		{
-			ENSURE2(width_ == that.width_, 
-				width_, that.width_);
-			ENSURE2(height_ == that.height_,
-				height_, that.height_);
+			ENSURE_OP(width_, ==, that.width_);
+			ENSURE_OP(height_, ==, that.height_);
 
 			if (that.involvesNonTrivially(dataBegin_, dataEnd_))
 			{

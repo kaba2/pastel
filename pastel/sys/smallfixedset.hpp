@@ -17,7 +17,7 @@ namespace Pastel
 		, capacity_(capacity)
 		, size_(0)
 	{
-		ENSURE1(capacity > 0, capacity);
+		ENSURE_OP(capacity, >, 0);
 
 		data_ = (Type*)allocateRaw(capacity * sizeof(Type));
 	}

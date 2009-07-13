@@ -559,7 +559,7 @@ namespace Pastel
 		integer kNearest,
 		Array<2, integer>& nearestSet)
 	{
-		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE_OP(kNearest, >=, 1);
 		ENSURE2(nearestSet.width() == kNearest, nearestSet.width(), kNearest);
 		ENSURE2(nearestSet.height() == pointSet.size(), nearestSet.height(), pointSet.size());
 

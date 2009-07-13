@@ -141,7 +141,7 @@ namespace Pastel
 	Polynomial<Real> randomPolynomial(
 		integer degree)
 	{
-		ENSURE1(degree >= 0, degree);
+		ENSURE_OP(degree, >=, 0);
 
 		Polynomial<Real> result(degree + 1);
 		for (integer i = 0;i < degree + 1;++i)

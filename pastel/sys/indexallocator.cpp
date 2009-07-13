@@ -57,7 +57,7 @@ namespace Pastel
 
 	void IndexAllocator::reserve(integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		// Only if a reallocation is needed...
 		if (count > capacity())

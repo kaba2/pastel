@@ -18,7 +18,7 @@ namespace Pastel
 		template <typename Real>
 		Real cosCriticalAngle2(const Real& fromIndex, const Real& toIndex)
 		{
-			PENSURE(fromIndex >= toIndex);
+			PENSURE_OP(fromIndex, >=, toIndex);
 
 			const Real indexRatio(toIndex / fromIndex);
 

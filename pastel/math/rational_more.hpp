@@ -60,7 +60,7 @@ namespace Pastel
 		const Rational<Integer>& x,
 		integer power)
 	{
-		ENSURE1(power >= 0, power);
+		ENSURE_OP(power, >=, 0);
 		if (power == 0)
 		{
 			return x;
@@ -76,7 +76,7 @@ namespace Pastel
 		const Rational<Integer>& x,
 		integer power)
 	{
-		ENSURE1(power >= 0, power);
+		ENSURE_OP(power, >=, 0);
 		if (power == 0)
 		{
 			return x;

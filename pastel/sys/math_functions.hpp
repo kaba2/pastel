@@ -52,7 +52,7 @@ namespace Pastel
 	integer floorLog2(
 		const PASTEL_NO_DEDUCTION(Real)& x)
 	{
-		PENSURE(x >= 1);
+		PENSURE_OP(x, >=, 1);
 
 		Real y = x;
 
@@ -229,7 +229,7 @@ namespace Pastel
 		// For accuracy, interleave the multiplications and
 		// divisions.
 
-		PENSURE1(n >= 0, n);
+		PENSURE_OP(n, >=, 0);
 
 		if (i < 0 || i > n)
 		{
@@ -264,7 +264,7 @@ namespace Pastel
 	template <typename Real>
 	Real factorial(integer i)
 	{
-		PENSURE1(i >= 0, i);
+		PENSURE_OP(i, >=, 0);
 
 		// factorial(i) = i!
 		// factorial(0) = 0! = 1
@@ -288,7 +288,7 @@ namespace Pastel
 	template <typename Real>
 	Real bernstein(integer n, integer i, const Real& t)
 	{
-		PENSURE1(n >= 0, n);
+		PENSURE_OP(n, >=, 0);
 		PENSURE2(i >= 0 && i <= n, i, n);
 
 		// bernstein(n,i,t) = choose(n,i) *
@@ -354,7 +354,7 @@ namespace Pastel
 	template <typename Real>
 	Real harmonicNumber(integer n)
 	{
-		ENSURE1(n >= 0, n);
+		ENSURE_OP(n, >=, 0);
 
 		return digamma<Real>(n + 1) + constantEulerMascheroni<real>();
 	}

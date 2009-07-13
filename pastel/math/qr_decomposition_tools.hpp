@@ -19,8 +19,7 @@ namespace Pastel
 		const QrDecomposition<N, Real>& qr,
 		const VectorExpression<N, Real, Expression>& b)
 	{
-		ENSURE2(qr.width() == b.size(),
-			qr.width(), b.size());
+		ENSURE_OP(qr.width(), ==, b.size());
 
 		// x^T QR = b^T
 		//

@@ -58,10 +58,8 @@ namespace Pastel
 			MatrixStaticBase& operator=(
 				const MatrixStaticBase& that)
 			{
-				ENSURE2(width() == that.width(),
-					width(), that.width());
-				ENSURE2(height() == that.height(),
-					height(), that.height());
+				ENSURE_OP(width(), ==, that.width());
+				ENSURE_OP(height(), ==, that.height());
 
 				std::copy(that.data_, that.data_ + that.size(),
 					data_);
@@ -407,8 +405,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE2(width == Width, width, Width);
-			ENSURE2(height == Height, height, Height);
+			ENSURE_OP(width, ==, Width);
+			ENSURE_OP(height, ==, Height);
 		}
 
 		Matrix& operator=(
@@ -455,8 +453,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE2(width == Width, width, Width);
-			ENSURE2(height == Height, height, Height);
+			ENSURE_OP(width, ==, Width);
+			ENSURE_OP(height, ==, Height);
 		}
 
 		//! Constructs with the given row vector.
@@ -522,8 +520,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE2(width == Width, width, Width);
-			ENSURE2(height == Height, height, Height);
+			ENSURE_OP(width, ==, Width);
+			ENSURE_OP(height, ==, Height);
 		}
 
 		//! Constructs with the given row vectors.
@@ -596,8 +594,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE2(width == Width, width, Width);
-			ENSURE2(height == Height, height, Height);
+			ENSURE_OP(width, ==, Width);
+			ENSURE_OP(height, ==, Height);
 		}
 
 		//! Constructs with the given row vectors.
@@ -681,8 +679,8 @@ namespace Pastel
 		Matrix(integer height, integer width)
 			: Base()
 		{
-			ENSURE2(width == Width, width, Width);
-			ENSURE2(height == Height, height, Height);
+			ENSURE_OP(width, ==, Width);
+			ENSURE_OP(height, ==, Height);
 		}
 
 		//! Constructs with the given row vectors.

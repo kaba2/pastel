@@ -12,7 +12,7 @@ namespace Pastel
 		const std::vector<Color>& palette,
 		Array<2, Color>& result)
 	{
-		ENSURE1(palette.size() == 256, palette.size());
+		ENSURE_OP(palette.size(), ==, 256);
 
 		const integer width = indexedImage.width();
 		const integer height = indexedImage.height();

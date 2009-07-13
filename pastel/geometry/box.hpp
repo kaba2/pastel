@@ -47,14 +47,10 @@ namespace Pastel
 		, width_(width)
 		, rotation_(rotation)
 	{
-		PENSURE2(dimension == position.size(), 
-			dimension, position.size());
-		PENSURE2(dimension == width.size(),
-			dimension, width.size());
-		PENSURE2(dimension == rotation.width(),
-			dimension, rotation.width());
-		PENSURE2(dimension == rotation.height(),
-			dimension, rotation.height());
+		PENSURE_OP(dimension, ==, position.size());
+		PENSURE_OP(dimension, ==, width.size());
+		PENSURE_OP(dimension, ==, rotation.width());
+		PENSURE_OP(dimension, ==, rotation.height());
 	}
 
 	template <int N, typename Real>

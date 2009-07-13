@@ -32,8 +32,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(left.width() == right.size(), 
-				left.width(), right.size());
+			PENSURE_OP(left.width(), ==, right.size());
 		}
 
 		Real operator[](integer index) const
@@ -104,8 +103,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(left.size() == right.height(), 
-				left.size(), right.height());
+			PENSURE_OP(left.size(), ==, right.height());
 		}
 
 		Real operator[](integer index) const

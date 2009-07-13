@@ -49,7 +49,7 @@ namespace Pastel
 			, buckets_()
 			, maxLoadFactor_(1)
 		{
-			ENSURE1(bucketCount > 0, bucketCount);
+			ENSURE_OP(bucketCount, >, 0);
 
 			buckets_.resize(followingPrime(bucketCount),
 				Bucket(values_.end(), values_.end()));
@@ -74,7 +74,7 @@ namespace Pastel
 			, buckets_()
 			, maxLoadFactor_(1)
 		{
-			ENSURE1(bucketCount > 0, bucketCount);
+			ENSURE_OP(bucketCount, >, 0);
 
 			buckets_.resize(followingPrime(bucketCount),
 				Bucket(values_.end(), values_.end()));
@@ -779,7 +779,7 @@ namespace Pastel
 		void UnorderedBase<Key, Value, ExtractKey, Hash, Pred, UniformAllocator>::
 		rehash(size_type bucketCount)
 		{
-			ENSURE1(bucketCount > 0, bucketCount);
+			ENSURE_OP(bucketCount, >, 0);
 
 			integer newBucketCount = followingPrime((integer)std::max(
 				(float)bucketCount,

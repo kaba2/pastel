@@ -155,7 +155,7 @@ namespace
 					// The matrix can also be indexed
 					// directly.
 
-					TEST_ENSURE(a(y, x) == value);
+					TEST_ENSURE_OP(a(y, x), ==, value);
 				}
 			}
 			
@@ -165,10 +165,10 @@ namespace
 			copy(constSubView(a.constView(), Rectangle2(0, 0, 2, 2)),
 				subView(a.view(), Rectangle2(2, 2, 4, 4)));
 			
-			TEST_ENSURE(a(2, 2) == a(0, 0));
-			TEST_ENSURE(a(3, 2) == a(1, 0));
-			TEST_ENSURE(a(3, 3) == a(1, 1));
-			TEST_ENSURE(a(2, 3) == a(0, 1));
+			TEST_ENSURE_OP(a(2, 2), ==, a(0, 0));
+			TEST_ENSURE_OP(a(3, 2), ==, a(1, 0));
+			TEST_ENSURE_OP(a(3, 3), ==, a(1, 1));
+			TEST_ENSURE_OP(a(2, 3), ==, a(0, 1));
 
 			// The matrix can also be viewed as a sequence
 			// of values, so that algorithms from the
@@ -183,7 +183,7 @@ namespace
 				*iter = i;
 				++iter;
 				++i;
-				TEST_ENSURE(i <= a.size());
+				TEST_ENSURE_OP(i, <=, a.size());
 			}
 
 			std::random_shuffle(a.begin(), a.end());
@@ -193,7 +193,7 @@ namespace
 			iter = a.begin();
 			while(iter != iterEnd)
 			{
-				TEST_ENSURE(*iter == i);
+				TEST_ENSURE_OP(*iter, ==, i);
 				++iter;
 				++i;
 			}
@@ -204,9 +204,9 @@ namespace
 			for (integer j = 0;j < height;++j)
 			{
 				a[j] = unitAxis<Dynamic, real32>(width, j) * 2;
-				TEST_ENSURE(a[j][j] == 2);
+				TEST_ENSURE_OP(a[j][j], ==, 2);
 				a[j] = evaluate(unitAxis<Dynamic, real32>(width, j) * 3);
-				TEST_ENSURE(a[j][j] == 3);
+				TEST_ENSURE_OP(a[j][j], ==, 3);
 			}
 
 			// A const view can be adapted to a matrix expression:
@@ -237,14 +237,14 @@ namespace
 				 7, -3, 2;
 
 			Vector3 b = max(a);
-			TEST_ENSURE(b[0] == 7);
-			TEST_ENSURE(b[1] == 3);
-			TEST_ENSURE(b[2] == 3);
+			TEST_ENSURE_OP(b[0], ==, 7);
+			TEST_ENSURE_OP(b[1], ==, 3);
+			TEST_ENSURE_OP(b[2], ==, 3);
 
 			Vector3 c = min(a);
-			TEST_ENSURE(c[0] == -2);
-			TEST_ENSURE(c[1] == -3);
-			TEST_ENSURE(c[2] == -4);
+			TEST_ENSURE_OP(c[0], ==, -2);
+			TEST_ENSURE_OP(c[1], ==, -3);
+			TEST_ENSURE_OP(c[2], ==, -4);
 		}
 
 		void testMatrixLowDimensional()
@@ -370,7 +370,7 @@ namespace
 			e(2, 0) = -4;
 			Matrix<1, 1, real> f(d * e);
 
-			TEST_ENSURE(f(0, 0) == 5 * -3 + 2 * 6 + 6 * -4);
+			TEST_ENSURE_OP(f(0, 0), ==, 5 * -3 + 2 * 6 + 6 * -4);
 
 			Matrix<2, 2, real> g(
 				1, 2,
@@ -420,7 +420,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE1(count < 10, count);
+			TEST_ENSURE_OP(count, <, 10);
 		}
 
 		template <int N>
@@ -458,7 +458,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE1(count < 10, count);
+			TEST_ENSURE_OP(count, <, 10);
 		}
 
 		template <int N>
@@ -535,7 +535,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE1(count < 10, count);
+			TEST_ENSURE_OP(count, <, 10);
 		}
 
 		template <int N>
@@ -557,12 +557,12 @@ namespace
 
 				const real detError = 
 					mabs(determinant(a) - det);
-				TEST_ENSURE1(detError < 0.01, detError);
+				TEST_ENSURE_OP(detError, <, 0.01);
 
 				/*
 				const real condError =
 					mabs(conditionManhattan(a) - cond);
-				TEST_ENSURE1(condError < 0.01, condError);
+				TEST_ENSURE_OP(condError, <, 0.01);
 				*/
 
 				if (detError > 0.01)
@@ -571,7 +571,7 @@ namespace
 				}
 			}
 
-			TEST_ENSURE2(count < 10, count, N);
+			TEST_ENSURE_OP(count, <, 10);
 		}
 	};
 

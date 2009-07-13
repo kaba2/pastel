@@ -18,8 +18,8 @@ namespace Pastel
 		integer dimension,
 		std::vector<Point<N, Real> >& pointSet)
 	{
-		ENSURE1(points > 0, points);
-		ENSURE1(dimension > 0, dimension);
+		ENSURE_OP(points, >, 0);
+		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
 		std::vector<Point<N, Real> > result;
@@ -41,9 +41,9 @@ namespace Pastel
 		integer clusters,
 		std::vector<Point<N, Real> >& pointSet)
 	{
-		ENSURE1(points > 0, points);
-		ENSURE1(dimension > 0, dimension);
-		ENSURE1(clusters > 0, clusters);
+		ENSURE_OP(points, >, 0);
+		ENSURE_OP(dimension, >, 0);
+		ENSURE_OP(clusters, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
 		std::vector<Point<N, Real> > result;
@@ -87,8 +87,8 @@ namespace Pastel
 		integer dimension,
 		std::vector<Point<N, Real> >& pointSet)
 	{
-		ENSURE1(points > 0, points);
-		ENSURE1(dimension > 0, dimension);
+		ENSURE_OP(points, >, 0);
+		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
 		std::vector<Point<N, Real> > result;
@@ -109,8 +109,8 @@ namespace Pastel
 		integer dimension,
 		std::vector<Point<N, Real> >& pointSet)
 	{
-		ENSURE1(points > 0, points);
-		ENSURE1(dimension > 0, dimension);
+		ENSURE_OP(points, >, 0);
+		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
 		std::vector<Point<N, Real> > result;
@@ -169,12 +169,11 @@ namespace Pastel
 		integer dimensionality,
 		std::vector<Point<N, Real> >& pointSet)
 	{
-		ENSURE1(dimensionality > 0, dimensionality);
+		ENSURE_OP(dimensionality, >, 0);
 
 		const integer dimension = pointSet.front().dimension();
 
-		ENSURE2(dimensionality <= dimension, 
-			dimensionality, dimension);
+		ENSURE_OP(dimensionality, <=, dimension);
 
 		if (pointSet.empty() || dimensionality == dimension)
 		{

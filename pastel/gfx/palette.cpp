@@ -104,7 +104,7 @@ namespace Pastel
 
 	PASTELGFX void randomPalette(std::vector<Color>& palette, integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		std::vector<Color> resultPalette;
 
@@ -124,7 +124,7 @@ namespace Pastel
 
 	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		std::vector<Color> resultPalette;
 		resultPalette.reserve(count);
@@ -139,7 +139,7 @@ namespace Pastel
 
 	PASTELGFX void smoothFalseColorPalette(std::vector<Color>& palette, integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		std::vector<Color> resultPalette;
 
@@ -169,7 +169,7 @@ namespace Pastel
 
 	PASTELGFX void falseColorPalette(std::vector<Color>& palette, integer count, integer seed)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		RandomIntegerGenerator generator(seed);
 

@@ -27,7 +27,7 @@ namespace Pastel
 		const Box<N, Real>& box,
 		const Vector<N, Real>& unitAxis)
 	{
-		PENSURE(box.dimension() == unitAxis.dimension());
+		PENSURE_OP(box.dimension(), ==, unitAxis.dimension());
 
 		const integer dimension = box.dimension();
 

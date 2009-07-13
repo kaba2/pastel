@@ -397,8 +397,8 @@ namespace Pastel
 		integer maxObjects,
 		KdTree<N, Real, ObjectPolicy>& tree)
 	{
-		ENSURE1(maxDepth >= 0, maxDepth);
-		ENSURE1(maxObjects >= 1, maxObjects);
+		ENSURE_OP(maxDepth, >=, 0);
+		ENSURE_OP(maxObjects, >=, 1);
 
 		Detail::refineSurfaceAreaHeuristic(
 			tree.root(), 0, tree.bound(), maxDepth, maxObjects, 0, tree);

@@ -13,7 +13,7 @@ namespace Pastel
 		const AlignedBox<N, Real>& aBox,
 		const AlignedBox<N, Real>& bBox)
 	{
-		PENSURE(aBox.dimension() == bBox.dimension());
+		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
 
 		const integer dimension = aBox.dimension();
 

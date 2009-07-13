@@ -17,7 +17,7 @@ namespace Pastel
 		integer bins,
 		const OutputIterator& outputBegin)
 	{
-		ENSURE1(bins > 0, bins);
+		ENSURE_OP(bins, >, 0);
 
 		const Real rangeDelta = max - min;
 
@@ -72,8 +72,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& yMax,
 		const View<2, Real, OutputView>& output)
 	{
-		ENSURE1(output.width() > 0, output.width());
-		ENSURE1(output.height() > 0, output.height());
+		ENSURE_OP(output.width(), >, 0);
+		ENSURE_OP(output.height(), >, 0);
 
 		const Real xRangeDelta = xMax - xMin;
 		const Real yRangeDelta = yMax - yMin;

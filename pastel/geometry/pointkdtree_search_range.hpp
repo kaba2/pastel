@@ -14,8 +14,7 @@ namespace Pastel
 		const AlignedBox<N, Real>& range,
 		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result)
 	{
-		ENSURE2(range.dimension() == kdTree.dimension(), 
-			range.dimension(), kdTree.dimension());
+		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
 
 		typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 			ConstObjectIterator;

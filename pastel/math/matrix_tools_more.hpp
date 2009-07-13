@@ -40,8 +40,7 @@ namespace Pastel
 	Vector<N, Real> diagonal(
 		const MatrixExpression<N, N, Real, Expression>& matrix)
 	{
-		ENSURE2(matrix.width() == matrix.height(),
-			matrix.width(), matrix.height());
+		ENSURE_OP(matrix.width(), ==, matrix.height());
 
 		const integer n = matrix.width();
 
@@ -538,10 +537,8 @@ namespace Pastel
 		const MatrixExpression<N, N, Real, Expression_A>& a,
 		const VectorExpression<N, Real, Expression_B>& b)
 	{
-		ENSURE2(a.width() == a.height(), 
-			a.width(), a.height());
-		ENSURE2(b.size() == a.width(), 
-			b.size(), a.width());
+		ENSURE_OP(a.width(), ==, a.height());
+		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
@@ -574,10 +571,8 @@ namespace Pastel
 		const MatrixExpression<N, N, Real, Expression_A>& a,
 		const VectorExpression<N, Real, Expression_B>& b)
 	{
-		ENSURE2(a.width() == a.height(), 
-			a.width(), a.height());
-		ENSURE2(b.size() == a.width(), 
-			b.size(), a.width());
+		ENSURE_OP(a.width(), ==, a.height());
+		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
@@ -609,10 +604,8 @@ namespace Pastel
 		const MatrixExpression<N, N, Real, Expression_A>& a,
 		const VectorExpression<N, Real, Expression_B>& b)
 	{
-		ENSURE2(a.width() == a.height(), 
-			a.width(), a.height());
-		ENSURE2(b.size() == a.width(), 
-			b.size(), a.width());
+		ENSURE_OP(a.width(), ==, a.height());
+		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
@@ -653,10 +646,8 @@ namespace Pastel
 		const MatrixExpression<N, N, Real, Expression_A>& a,
 		const VectorExpression<N, Real, Expression_B>& b)
 	{
-		ENSURE2(a.width() == a.height(), 
-			a.width(), a.height());
-		ENSURE2(b.size() == a.width(), 
-			b.size(), a.width());
+		ENSURE_OP(a.width(), ==, a.height());
+		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 

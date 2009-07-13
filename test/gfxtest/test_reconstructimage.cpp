@@ -67,8 +67,8 @@ namespace
 		integer xPoints,
 		integer yPoints)
 	{
-		ENSURE1(xPoints > 0, xPoints);
-		ENSURE1(yPoints > 0, yPoints);
+		ENSURE_OP(xPoints, >, 0);
+		ENSURE_OP(yPoints, >, 0);
 
 		std::vector<Point2> sampleList;
 

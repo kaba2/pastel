@@ -124,7 +124,7 @@ namespace Pastel
 		const value_type& that,
 		ValueTag)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		if (count == 0)
 		{

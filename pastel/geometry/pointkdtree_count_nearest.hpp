@@ -50,8 +50,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		if (maxDistance == infinity<Real>())
 		{
@@ -78,8 +78,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		return Pastel::countNearest(
 			kdTree, point, maxDistance, maxRelativeError,

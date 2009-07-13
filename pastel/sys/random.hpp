@@ -82,7 +82,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation)
 	{
-		PENSURE(deviation >= 0);
+		PENSURE_OP(deviation, >=, 0);
 
 		return Pastel::randomGaussian<Real>() * deviation + mean;
 	}
@@ -187,7 +187,7 @@ namespace Pastel
 		// which we leave for the user. This improves
 		// performance.
 
-		PENSURE(alpha > 0);
+		PENSURE_OP(alpha, >, 0);
 		
 		const Real modifiedAlpha = (alpha < 1) ? alpha + 1 : alpha;
 

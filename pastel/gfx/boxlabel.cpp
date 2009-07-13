@@ -27,12 +27,10 @@ namespace Pastel
 		// Note that the 'maximal' includes the possible limitations
 		// from 'maxWidth' and 'maxHeight'.
 
-		ENSURE1(maxWidth > 0, maxWidth);
-		ENSURE1(maxHeight > 0, maxHeight);
-		ENSURE2(image.width() <= labelImage.width(),
-			image.width(), labelImage.width());
-		ENSURE2(image.height() <= labelImage.height(),
-			image.height(), labelImage.height());
+		ENSURE_OP(maxWidth, >, 0);
+		ENSURE_OP(maxHeight, >, 0);
+		ENSURE_OP(image.width(), <=, labelImage.width());
+		ENSURE_OP(image.height(), <=, labelImage.height());
 
 		if (maxWidth > image.width())
 		{
