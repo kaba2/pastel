@@ -1,6 +1,9 @@
+// Description: CallFunction class
+// Detail: Turns initialization into a function call
+
 /*!
 \file
-\brief A class for turning initialization into a function call.
+\brief A class for turning an initialization into a function call
 */
 
 #ifndef PASTEL_CALLFUNCTION_H
@@ -10,7 +13,6 @@ namespace Pastel
 {
 
 	//! Turns initialization into a function call.
-
 	/*!
 	Sometimes it is required to call functions in
 	the time when global variables are initialized.
@@ -18,7 +20,6 @@ namespace Pastel
 	and calls it if it is non-zero. The given function
 	pointer must be of the type 'void(*)()';
 	*/
-
 	class CallFunction
 	{
 	public:

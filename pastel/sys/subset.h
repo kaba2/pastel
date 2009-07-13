@@ -1,3 +1,7 @@
+// Description: Subset class
+// Detail: Iterates through all fixed-sized subsets of an integer interval.
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_SUBSET_H
 #define PASTEL_SUBSET_H
 
@@ -9,6 +13,7 @@
 namespace Pastel
 {
 
+	//! Iterates through all fixed-sized subsets of an integer interval.
 	class PASTELSYS Subset
 	{
 	public:

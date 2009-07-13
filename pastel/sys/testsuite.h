@@ -1,3 +1,7 @@
+// Description: TestSuite class
+// Detail: Gathers the results of a unit test into a TestReport.
+// Documentation: testing.txt
+
 #ifndef PASTEL_TESTSUITE_H
 #define PASTEL_TESTSUITE_H
 
@@ -24,6 +28,7 @@
 namespace Pastel
 {
 
+	//! Gathers the results of a unit test into a TestReport.
 	class PASTELSYS TestSuite
 	{
 	public:

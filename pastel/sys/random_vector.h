@@ -1,3 +1,5 @@
+// Description: Generation of random vectors in R^n
+
 #ifndef PASTEL_RANDOM_VECTOR_H
 #define PASTEL_RANDOM_VECTOR_H
 

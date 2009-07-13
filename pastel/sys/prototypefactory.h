@@ -1,3 +1,6 @@
+// Description: PrototypeFactory class
+// Detail: Stores cloneable prototypes to implement the Prototype pattern.
+
 #ifndef PASTEL_PROTOTYPEFACTORY_H
 #define PASTEL_PROTOTYPEFACTORY_H
 

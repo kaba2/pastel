@@ -44,14 +44,14 @@ the native allocator.
 Theory
 ------
 
-In general, creating custom allocators to speed-up efficiency
-as compared to the default allocator is a bad idea.
-However, in some very specialized situations we can 
+In general, creating custom allocators to gain efficiency
+compared to the default allocator is a bad idea.
+However, in some very specialized situations one can 
 do much better, both in space and time. 
 
-One such specialized situation is when the memory is allocated at 
+One such situation is when the memory is allocated at 
 arbitrary times, but is deallocated all at once. This leads to 
-the idea of arena allocation: allocates big chunks of memory at a 
+the idea of arena allocation: allocate big chunks of memory at a 
 time, and share memory from this chunk with an almost trivial 
 algorithm (just incrementing a pointer). When one wants to deallocate
 the memory, simply deallocate all the chunks that have been

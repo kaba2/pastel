@@ -1,3 +1,7 @@
+// Description: TestReport class
+// Detail: Stores error reports from unit tests.
+// Documentation: testing.txt
+
 #ifndef PASTEL_TESTREPORT_H
 #define PASTEL_TESTREPORT_H
 
@@ -10,6 +14,7 @@
 namespace Pastel
 {
 
+	//! Stores error reports from unit tests.
 	class PASTELSYS TestReport
 	{
 	public:

@@ -1,6 +1,8 @@
+// Description: Tools for converting between little- and big-endian data
+
 /*!
 \file
-\brief Functions for converting from one endianness to another.
+\brief Tools for converting between little- and big-endian data
 */
 
 #ifndef PASTEL_ENDIANCONVERT_H

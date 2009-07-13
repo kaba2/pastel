@@ -897,14 +897,6 @@
 				RelativePath=".\sphere_area.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\spherearea.h"
-				>
-			</File>
-			<File
-				RelativePath=".\spherearea.hpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Diameter"

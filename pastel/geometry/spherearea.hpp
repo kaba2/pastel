@@ -1,11 +1,9 @@
-#ifndef PASTEL_SPHEREAREA_HPP
-#define PASTEL_SPHEREAREA_HPP
+#ifndef PASTEL_SPHERE_AREA_HPP
+#define PASTEL_SPHERE_AREA_HPP
 
-#include "pastel/geometry/spherearea.h"
+#include "pastel/geometry/sphere_area.h"
 
 #include "pastel/sys/math_functions.h"
-
-#include "pastel/sys/compiletime.h"
 
 namespace Pastel
 {

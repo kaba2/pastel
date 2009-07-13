@@ -1,3 +1,7 @@
+// Description: Range class
+// Detail: Stores an integer interval with a step size (e.g. 1, 4, 7, 10).
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_RANGE_H
 #define PASTEL_RANGE_H
 

@@ -31,14 +31,14 @@ Theory
 ------
 
 C++, as defined in the 2003 standard, does not have
-garbage collection. This means that all dynamical memory
-that is allocated must properly be taken care of
-and deallocated when no longer needed. When using plain
-pointers, maybe the most problematic thing is that it
-is easy to forget to deallocate memory, which leads to
-resources being wasted. In addition, failing to destruct
-some objects might end-up locking some other resources
-than memory, for example a file, from other processes.
+garbage collection. This means that all dynamically
+allocated memory must be properly taken care of
+and deallocated when no longer needed. Unfortunately, when
+using plain pointers, it is easy to forget to deallocate 
+memory, which leads to resources being wasted. In addition, 
+failing to destruct some objects might end-up locking some 
+other resources than memory, for example a file, from other 
+processes.
 
 The solution to this problem is called RAII, which is
 an abbreviation for `Resource Acquisation Is Initialization`.
@@ -49,33 +49,32 @@ to take care of the resource. When the object is destroyed
 at the end of its scope, the object automatically frees the 
 resource in its destructor. This way the burden of freeing 
 a resource is removed from the programmer, leading to code 
-that is much more robust. RAII is one of the basic tools
-in the production of high quality software in C++.
+that is much more robust. 
 
 The RAII technique can be generalized to what
 are called _reference-counted pointers_. We shall 
 abbreviate these simply as _counted pointers_. The idea is again
 to create an object to take care of dynamically allocated 
 memory. However, one now allows multiple objects to take care
-of the same block of memory. When such an object acquires
+of the same memory block. When such an object acquires
 a memory block, it increments a unique count that is associated
 with the memory block. In turn, when the object is destroyed,
 it decrements the count, and if it becomes zero, also
 frees the memory block. This way counted pointers 
 implement a simplified garbage collection system.
 Strictly speaking, it is an abuse of terminology to call these objects 
-pointers since they are not. However, the terminology is justified 
-somewhat by noticing that these objects work exactly in the same way 
+pointers since they are not. However, the terminology is somewhat
+justified by noticing that these objects work in the same way 
 as pointers do.
 
 There is one general problem with counted pointers that
 you should be aware of. If inside a memory block A, you have
 a counted pointer that counts references to a memory block B,
 and inside the memory block B, you have a counted pointer that
-counts references to memory block A, the memory blocks will
+counts references to a memory block A, the memory blocks will
 never be deallocated automatically. This is called a 
 _cyclic reference_. A cyclic reference can also form from 
-a bigger chain of references which in the end forms a loop.
+a bigger chain of references which form a loop.
 This cyclic reference problem can be solved by using a 
 so-called weak pointer in some position of the loop.
 This simply means that one of the directions is not counted 
@@ -87,22 +86,21 @@ Practice
 Pastel provides an invasive technique for reference counting.
 This means that any class wishing to use CountedPtr or WeakPtr 
 for reference counting must derive from ReferenceCounted.
-This implies that the counted pointers Pastel provides can't
-be used to count references to native types or to objects
-whose class is not in your control. If you want a non-invasive
-counted pointer instead, which stores the reference count in
-the reference, and thus is usable for native types also, see the 
-boost::shared_ptr in the Boost library. 
+This also means that Pastel's counted pointers can't used
+with native types or with objects whose class you can't modify. 
+If you want a non-invasive counted pointer instead, 
+usable for native types also, see the boost::shared_ptr in 
+the Boost library. 
 
 While the technique Pastel uses is a bit restrictive, we
 decided to go with it anyway. This is because the technique has
 some specific advantages over the non-invasive techniques. 
 These include:
 
- * The non-invasive technique requires dynamic allocation for
+ * The non-invasive technique requires dynamic allocation of
  the reference count for each memory block that is counted.
  With lots of small objects this can affect performance.
- The invasive technique Pastel uses avoids this.
+ The invasive technique avoids this.
 
  * At any time instant, you can construct a counted pointer
  from a raw pointer to an object derived from ReferenceCounted,

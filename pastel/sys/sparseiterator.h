@@ -1,3 +1,7 @@
+// Description: SparseIterator class
+// Detail: A random-access iterator adapter for a larger step size.
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_SPARSEITERATOR_H
 #define PASTEL_SPARSEITERATOR_H
 
