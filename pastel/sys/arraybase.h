@@ -1,3 +1,6 @@
+// Description: ArrayBase class
+// Detail: CRTP base class for Array
+
 #ifndef PASTEL_ARRAYBASE_H
 #define PASTEL_ARRAYBASE_H
 

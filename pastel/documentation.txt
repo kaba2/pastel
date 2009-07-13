@@ -28,51 +28,24 @@ Documentation files associate documentation to themselves.
 Tags
 ----
 
-The implicit documentation naming can be overridden in a file by 
-using a special "Documentation:" tag. This tag allows to specify the
+The implicit documentation naming can be overridden in a source code
+file by using a special 'Documentation:' tag. This tag allows to specify the
 associated documentation explicitly as follows:
 
 	// Documentation: counted_pointers.txt
 
-With the "Description:" tag one can associate a small description
+With the 'Description:' tag one can associate a small description
 with each file. For example:
 
-	// Description A reference-counted pointer
+	// Description: CountedPtr class 
+	
+With the 'Detail:' tag one can transmit an additional line of information
+about the purpose of the file. For example:
+
+	// Detail: A reference-counted pointer
 
 These tags, if present, must be placed before anything 
-else in a file.
-
-File link listings
-------------------
-
-The Markdown syntax has been extended to make the following 
-kind of syntax possible:
-
-	[countedptr.h, countedptr.hpp, weakptr.h, weakptr.hpp, 
-	referencecounted.h, referencecounted.hpp]
-
-This expands to a list of links for the files, with the
-possible description printed before each file.
-The links are positioned below each other in the order given by 
-the list. Here is an example expansion:
-
-	### Counted pointers
-
-	[countedptr.h](./countedptr.h.htm)
-
-	[countedptr.hpp](./countedptr.hpp.htm)
-
-	### Weak pointers
-
-	[weakptr.h](./weakptr.h.htm)
-
-	[weakptr.hpp](./weakptr.hpp.htm)
-
-	### A base-class for reference-counted objects
-
-	[referencecounted.h](./referencecounted.h.htm)
-
-	[referencecounted.hpp](./referencecounted.hpp.htm)
+else in a file to make parsing easy.
 
 Implicit grouping of files
 --------------------------
@@ -106,5 +79,31 @@ also belongs to the group. For example:
 			linear_algebra.txt
 		...
 
-	
+The grouping also reflects to the documentation page,
+where all the source code files under the group are 
+listed together with their descriptions:
 
+	### Matrix class
+	
+	[matrix.h](./matrix.h.htm)
+	
+	[matrix.hpp](./matrix.hpp.htm)
+
+	[matrix_dynamic.h](./matrix_dynamic.h.htm)
+	
+	...
+	
+If another documentation file links back to
+the current documentation file, then these are
+linked in the section 'Learn more':
+
+	Learn more
+	----------
+	
+	[Matrix decompositions]	
+
+The intent of such an implicit system is to minimize the
+work of the document writer, as well as to minimize 
+errors that would occur when manually typing links.
+The documentation also stays up to date even if
+files are added or removed.

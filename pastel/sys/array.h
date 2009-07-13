@@ -1,3 +1,6 @@
+// Description: Array class
+// Detail: An n-dimensional array
+
 /*!
 \file
 \brief A class for an n-dimensional array.

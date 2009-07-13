@@ -1,3 +1,6 @@
+// Description: BinaryFile class
+// Detail: Allows to conveniently handle binary files
+
 #ifndef PASTEL_BINARYFILE_H
 #define PASTEL_BINARYFILE_H
 

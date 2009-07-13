@@ -1,6 +1,9 @@
+// Description: Dll-related keywords for PastelSys
+// Documentation: pastelsys.txt
+
 /*!
 \file
-\brief Dll-related keywords for the sys-library.
+\brief Dll-related keywords for PastelSys
 */
 
 #ifndef PASTEL_SYSLIBRARY_H
