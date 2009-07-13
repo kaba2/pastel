@@ -85,7 +85,7 @@ namespace Pastel
 		// The plane overlaps the box if and only if
 		// d_min <= 0 and d_max >= 0.
 
-		PENSURE(alignedBox.dimension() == plane.dimension());
+		PENSURE_OP(alignedBox.dimension(), ==, plane.dimension());
 
 		const integer dimension = alignedBox.dimension();
 

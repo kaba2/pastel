@@ -21,7 +21,7 @@ namespace Pastel
 
 	void TimeDevice::delay(integer milliSeconds)
 	{
-		ENSURE1(milliSeconds >= 0, milliSeconds);
+		ENSURE_OP(milliSeconds, >=, 0);
 
 		SDL_Delay((Uint32)milliSeconds);
 	}

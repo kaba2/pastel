@@ -52,10 +52,8 @@ namespace Pastel
 		: position_(position)
 		, normal_(unitNormal)
 	{
-		PENSURE2(dimension == position.dimension(),
-			dimension, position.dimension());
-		PENSURE2(dimension == unitNormal.dimension(),
-			dimension, unitNormal.dimension());
+		PENSURE_OP(dimension, ==, position.dimension());
+		PENSURE_OP(dimension, ==, unitNormal.dimension());
 	}
 
 	template <int N, typename Real>

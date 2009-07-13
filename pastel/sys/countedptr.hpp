@@ -214,7 +214,7 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(IsBase);
 
 		PENSURE(data_);
-		ENSURE(count() > 0);
+		ENSURE_OP(count(), >, 0);
 
 		const ReferenceCounted* counter =
 			(const ReferenceCounted*)data_;

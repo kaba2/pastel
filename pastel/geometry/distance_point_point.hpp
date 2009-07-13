@@ -55,7 +55,7 @@ namespace Pastel
 		const Point<N, Real>& bPoint,
 		const NormBijection& normBijection)
 	{
-		PENSURE(aPoint.dimension() == bPoint.dimension());
+		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
 
 		Tuple<N, Real>::const_iterator aData = aPoint.asTuple().begin();
 		const Tuple<N, Real>::const_iterator aEnd = aPoint.asTuple().end();
@@ -82,7 +82,7 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const PASTEL_NO_DEDUCTION(Real)& cullDistance)
 	{
-		PENSURE(aPoint.dimension() == bPoint.dimension());
+		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
 
 		Tuple<N, Real>::const_iterator aData = aPoint.asTuple().begin();
 		const Tuple<N, Real>::const_iterator aEnd = aPoint.asTuple().end();

@@ -40,7 +40,7 @@ namespace Pastel
 		const integer width = matrix.width();
 		const integer height = matrix.height();
 
-		ENSURE2(width == height, width, height);
+		ENSURE_OP(width, ==, height);
 
 		matrix.set(0);
 
@@ -78,8 +78,7 @@ namespace Pastel
 		// Notices of the ACM,
 		// Volume 54, Number 5.
 
-		ENSURE2(result.width() == result.height(),
-			result.width(), result.height());
+		ENSURE_OP(result.width(), ==, result.height());
 
 		const integer n = result.width();
 		
@@ -118,7 +117,7 @@ namespace Pastel
 		const integer height = result.height();
 		const integer width = result.width();
 
-		ENSURE2(height <= width, height, width);
+		ENSURE_OP(height, <=, width);
 
 		std::vector<Vector<Width, Real> > orthonormalSet;
 		orthonormalSet.reserve(height);
@@ -214,8 +213,7 @@ namespace Pastel
 
 		const integer n = result.width();
 
-		ENSURE2(result.width() == result.height(),
-			result.width(), result.height());
+		ENSURE_OP(result.width(), ==, result.height());
 
 		// Generate a random partition of the
 		// interval [0, -ln(d)] to n subintervals
@@ -366,14 +364,13 @@ namespace Pastel
 		This is the only restriction.
 		*/
 
-		ENSURE2(result.width() == result.height(),
-			result.width(), result.height());
-		ENSURE1(condition >= 1, condition);
-		ENSURE1(determinant > 0, determinant);
+		ENSURE_OP(result.width(), ==, result.height());
+		ENSURE_OP(condition, >=, 1);
+		ENSURE_OP(determinant, >, 0);
 
 		const integer n = result.width();
 
-		ENSURE1(n > 1, n);
+		ENSURE_OP(n, >, 1);
 
 		const Real a = 
 			((n - 1) * std::log(condition) - 

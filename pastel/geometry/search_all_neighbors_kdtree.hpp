@@ -88,10 +88,10 @@ namespace Pastel
 		Array<2, integer>* nearestArray,
 		Array<2, Real>* distanceArray)
 	{
-		ENSURE1(kNearestBegin >= 0, kNearestBegin);
+		ENSURE_OP(kNearestBegin, >=, 0);
 		ENSURE2(kNearestEnd < pointSet.size(), kNearestEnd, pointSet.size());
-		ENSURE2(kNearestBegin <= kNearestEnd, kNearestBegin, kNearestEnd);
-		ENSURE1(maxPointsPerNode >= 1, maxPointsPerNode);
+		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
+		ENSURE_OP(maxPointsPerNode, >=, 1);
 
 		const integer kNearest = kNearestEnd - kNearestBegin;
 
@@ -103,8 +103,8 @@ namespace Pastel
 		ENSURE(!nearestArray || !distanceArray ||
 			allEqual(nearestArray->extent(), distanceArray->extent()));
 
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		const integer points = pointSet.size();
 

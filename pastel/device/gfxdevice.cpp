@@ -17,33 +17,33 @@ namespace Pastel
 	{
 		log() << "Initializing SDL video..." << logNewLine;
 
-		ENSURE1(width > 0, width);
-		ENSURE1(height > 0, height);
-		ENSURE1(bitsPerPixel >= 0, bitsPerPixel);
+		ENSURE_OP(width, >, 0);
+		ENSURE_OP(height, >, 0);
+		ENSURE_OP(bitsPerPixel, >=, 0);
 		ENSURE(!initialized_);
 		ENSURE(deviceSystem().initialize());
 
 		int sdlError = 0;
 
 		sdlError = SDL_InitSubSystem(SDL_INIT_VIDEO);
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		// Initialize SDL's OpenGl device
 
 		sdlError = SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 8 );
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		sdlError = SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 8 );
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		sdlError = SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 8 );
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		sdlError = SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		sdlError = SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		int flags = SDL_OPENGL;
 
@@ -61,7 +61,7 @@ namespace Pastel
 		log() << "Initializing Glew..." << logNewLine;
 
 		GLenum glewError = glewInit();
-		ENSURE1(glewError == GLEW_OK, glewError);
+		ENSURE_OP(glewError, ==, GLEW_OK);
 
 		log() << "GfxDevice: non-power-of-two textures ";
 		if (GLEW_ARB_texture_non_power_of_two)

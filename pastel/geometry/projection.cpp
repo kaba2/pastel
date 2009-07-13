@@ -103,9 +103,9 @@ namespace Pastel
 			  [                             0,                              0, (-2 zMin zMax) / (zMax - zMin), 0]
 		*/
 
-		ENSURE1(zMin > 0, zMin);
-		ENSURE1(zMax > 0, zMax);
-		ENSURE2(zMin < zMax, zMax, zMin);
+		ENSURE_OP(zMin, >, 0);
+		ENSURE_OP(zMax, >, 0);
+		ENSURE_OP(zMin, <, zMax);
 
 		const real& xMin = window.min().x();
 		const real& xMax = window.max().x();
@@ -132,7 +132,7 @@ namespace Pastel
 		const real& zMax,
 		Matrix4& matrix)
 	{
-		ENSURE2(zMin < zMax, zMax, zMin);
+		ENSURE_OP(zMin, <, zMax);
 
 		const real& xMin = window.min().x();
 		const real& xMax = window.max().x();

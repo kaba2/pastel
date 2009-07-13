@@ -61,8 +61,8 @@ namespace Pastel
 		integer width, integer height,
 		bool defaultData)
 	{
-		ENSURE1(width >= 0, width);
-		ENSURE1(height >= 0, height);
+		ENSURE_OP(width, >=, 0);
+		ENSURE_OP(height, >=, 0);
 
 		if (width != width_ || height != height_)
 		{

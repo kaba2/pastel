@@ -124,7 +124,7 @@ namespace Pastel
 
 		const integer dimension = pointSet.front().dimension();
 
-		ENSURE1(dimension == 1, dimension);
+		ENSURE_OP(dimension, ==, 1);
 
 		typedef std::vector<KeyValue<Real, integer> > SearchSet;
 		typedef typename SearchSet::iterator Iterator;

@@ -139,7 +139,7 @@ namespace Pastel
 	VectorUnitAxis<N, Real> unitAxis(
 		integer dimension, integer index)
 	{
-		PENSURE1(dimension > 0, dimension);
+		PENSURE_OP(dimension, >, 0);
 		PENSURE2(N == Dynamic || dimension == N,
 			dimension, N);
 		PENSURE2(index >= 0 && index < dimension, index, dimension);
@@ -320,7 +320,7 @@ namespace Pastel
 		const VectorExpression<N, Real, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
-		PENSURE(metric >= 1);
+		PENSURE_OP(metric, >=, 1);
 		return sum(pow(mabs(that), metric));
 	}
 
@@ -329,7 +329,7 @@ namespace Pastel
 		const VectorExpression<N, Real, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
-		PENSURE1(metric >= 1, metric);
+		PENSURE_OP(metric, >=, 1);
 
 		return pow(powerSum(that, metric), inverse(metric));
 	}

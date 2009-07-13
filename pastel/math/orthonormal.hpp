@@ -71,7 +71,7 @@ namespace Pastel
 		integer dimension,
 		const std::vector<Vector<N, Real> >& orthonormalSet)
 	{
-		ENSURE1(dimension > 0, dimension);
+		ENSURE_OP(dimension, >, 0);
 
 		// 'orthonormalSet' is assumed to be an orthonormal set of vectors
 
@@ -80,8 +80,7 @@ namespace Pastel
 			return unitAxis<N, Real>(dimension, 0);
 		}
 
-		ENSURE2(orthonormalSet.front().dimension() == dimension,
-			orthonormalSet.front().dimension(), dimension);
+		ENSURE_OP(orthonormalSet.front().dimension(), ==, dimension);
 		
 		const integer vectors = orthonormalSet.size();
 

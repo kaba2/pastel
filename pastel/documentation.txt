@@ -10,7 +10,7 @@ Pastel uses Markdown for documentation. Markdown
 is both a syntax and a program to convert files from text
 files to .html files. The appealing idea behind Markdown is
 that these source text files should also be readable by themself. 
-For an example, try removing the .htm postfix from the link
+For an example, try replacing the .htm postfix from the link with .txt 
 to see the Markdown source for this page.
 
 Implicit documentation naming

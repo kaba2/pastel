@@ -63,8 +63,7 @@ namespace Pastel
 	void QrDecomposition<N, Real>::decompose(
 		const MatrixExpression<N, N, Real, Expression>& that)
 	{
-		ENSURE2(that.width() == that.height(),
-			that.width(), that.height());
+		ENSURE_OP(that.width(), ==, that.height());
 
 		/*
 		QR decomposition

@@ -87,7 +87,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& newMin,
 		const PASTEL_NO_DEDUCTION(Real)& newMax)
 	{
-		ENSURE2(newMin <= newMax, newMin, newMax);
+		ENSURE_OP(newMin, <=, newMax);
 
 		Real minValue = 0;
 		Real maxValue = 0;

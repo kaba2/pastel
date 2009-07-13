@@ -30,7 +30,7 @@ namespace Pastel
 		const View<1, Output_Element, Output_View>& output,
 		real blurFactor)
 	{
-		ENSURE1(blurFactor >= 1, blurFactor);
+		ENSURE_OP(blurFactor, >=, 1);
 
 		const integer inputWidth = input.width();
 		const integer outputWidth = output.width();
@@ -178,7 +178,7 @@ namespace Pastel
 		const View<1, Output_Element, Output_View>& output,
 		real blurFactor)
 	{
-		ENSURE1(blurFactor >= 1, blurFactor);
+		ENSURE_OP(blurFactor, >=, 1);
 
 		Pastel::resampleTable<Computation_Element>(
 			input, arrayExtender, 
@@ -261,7 +261,7 @@ namespace Pastel
 		const View<N, Output_Element, Output_View>& output,
 		real blurFactor)
 	{
-		ENSURE1(blurFactor >= 1, blurFactor);
+		ENSURE_OP(blurFactor, >=, 1);
 
 		// The n-dimensional resampling is done as
 		// n subsequent 1-dimensional resamplings.
@@ -591,7 +591,7 @@ namespace Pastel
 		const View<N, Output_Element, Output_View>& output,
 		real blurFactor)
 	{
-		ENSURE1(blurFactor >= 1, blurFactor);
+		ENSURE_OP(blurFactor, >=, 1);
 
 		Pastel::resampleTable<Computation_Element>(
 			input, arrayExtender, 

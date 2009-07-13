@@ -20,7 +20,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& xMin,
 		const PASTEL_NO_DEDUCTION(Type)& xMax)
 	{
-		PENSURE(xMin <= xMax);
+		PENSURE_OP(xMin, <=, xMax);
 
 		if (x < xMin)
 		{
@@ -49,7 +49,7 @@ namespace Pastel
 
 	inline integer mod(integer x, integer n)
 	{
-		PENSURE1(n > 0, n);
+		PENSURE_OP(n, >, 0);
 
 		const bool isNegative = x < 0;
 
@@ -69,7 +69,7 @@ namespace Pastel
 
 	inline integer integerLog2(integer that)
 	{
-		ENSURE1(that > 0, that);
+		ENSURE_OP(that, >, 0);
 
 		integer current = that;
 		integer exponent = 0;
@@ -85,7 +85,7 @@ namespace Pastel
 
 	inline integer roundUpTo(integer that, integer to)
 	{
-		PENSURE1(to >= 0, to);
+		PENSURE_OP(to, >=, 0);
 
 		const integer remainder = mod(that, to);
 		if (remainder > 0)
@@ -128,8 +128,8 @@ namespace Pastel
 
 	inline integer roundUpToPowerOf2(integer that, integer power)
 	{
-		PENSURE1(that >= 0, that);
-		PENSURE1(power >= 0, power);
+		PENSURE_OP(that, >=, 0);
+		PENSURE_OP(power, >=, 0);
 
 		const integer to = (1 << power);
 		const integer remainder = that & (to - 1);
@@ -146,7 +146,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(sizeof(integer) == sizeof(int32));
 
-		PENSURE1(that >= 0, that);
+		PENSURE_OP(that, >=, 0);
 
 		// NOTE: Works only for 32 bit integer.
 
@@ -163,7 +163,7 @@ namespace Pastel
 
 	inline bool isPowerOfTwo(integer that)
 	{
-		PENSURE1(that >= 0, that);
+		PENSURE_OP(that, >=, 0);
 
 		return (that & (that - 1)) == 0;
 	}

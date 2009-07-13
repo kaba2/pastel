@@ -54,9 +54,9 @@ namespace Pastel
 		const NormBijection& normBijection,
 		Array<2, integer>& nearestArray)
 	{
-		ENSURE1(kNearest >= 1, kNearest);
+		ENSURE_OP(kNearest, >=, 1);
 		ENSURE2(kNearest < pointSet.size(), kNearest, pointSet.size());
-		ENSURE(maxDistance >= 0);
+		ENSURE_OP(maxDistance, >=, 0);
 		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
 		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 

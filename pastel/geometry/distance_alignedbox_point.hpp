@@ -24,7 +24,7 @@ namespace Pastel
 		const Point<N, Real>& point,
 		const NormBijection& normBijection)
 	{
-		PENSURE(alignedBox.dimension() == point.dimension());
+		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
 		
 		// The distance calculation between an AlignedBox and a Point can
 		// be decomposed into separate calculations on each

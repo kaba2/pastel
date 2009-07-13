@@ -33,8 +33,7 @@ namespace Pastel
 
 		ENSURE1(pointSet.front().dimension() == 1,
 			pointSet.front().dimension());
-		ENSURE2(maxDistanceSet.size() == pointSet.size(),
-			maxDistanceSet.size(), pointSet.size());
+		ENSURE_OP(maxDistanceSet.size(), ==, pointSet.size());
 
 		typedef std::vector<KeyValue<Real, integer> > SearchSet;
 		typedef typename SearchSet::iterator Iterator;

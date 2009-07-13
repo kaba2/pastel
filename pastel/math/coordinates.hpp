@@ -15,8 +15,8 @@ namespace Pastel
 	{
 		const integer dimension = cartesian.dimension();
 
-		PENSURE1(k >= 0, k);
-		PENSURE2(k <= dimension, k, dimension);
+		PENSURE_OP(k, >=, 0);
+		PENSURE_OP(k, <=, dimension);
 
 		Vector<N, Real> cylinder(ofDimension(dimension));
 
@@ -55,8 +55,8 @@ namespace Pastel
 	{
 		const integer dimension = cylinder.dimension();
 
-		PENSURE1(k >= 0, k);
-		PENSURE2(k <= dimension, k, dimension);
+		PENSURE_OP(k, >=, 0);
+		PENSURE_OP(k, <=, dimension);
 
 		Vector<N, Real> cartesian(ofDimension(dimension));
 

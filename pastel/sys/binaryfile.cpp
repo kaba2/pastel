@@ -337,7 +337,7 @@ namespace Pastel
 
 	void BinaryFile::ignore(integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		stream_.ignore(count);
 	}
@@ -349,7 +349,7 @@ namespace Pastel
 
 	void BinaryFile::write(const char* str, integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		if (!str)
 		{
@@ -361,7 +361,7 @@ namespace Pastel
 
 	void BinaryFile::read(char* str, integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 		if (!str)
 		{
 			return;

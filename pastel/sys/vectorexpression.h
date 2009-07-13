@@ -592,7 +592,7 @@ namespace Pastel
 			: data_(data)
 			, size_(size)
 		{
-			PENSURE1(size >= 0, size);
+			PENSURE_OP(size, >=, 0);
 			PENSURE2(N == Dynamic || size == N, N, size);
 		}
 
@@ -683,7 +683,7 @@ namespace Pastel
 			integer size)
 			: Base(data, size)
 		{
-			PENSURE1(size >= 0, size);
+			PENSURE_OP(size, >=, 0);
 			PENSURE2(N == Dynamic || size == N, N, size);
 		}
 
@@ -730,8 +730,7 @@ namespace Pastel
 		const VectorView& operator=(
 			const VectorView& that) const
 		{
-			ENSURE2(size() == that.size(),
-				size(), that.size());
+			ENSURE_OP(size(), ==, that.size());
 
 			std::copy(begin(), end(), data_);
 
@@ -742,8 +741,7 @@ namespace Pastel
 		const VectorView& operator=(
 			const VectorExpression<N, ThatReal, Expression>& that) const
 		{
-			ENSURE2(size() == that.size(),
-				size(), that.size());
+			ENSURE_OP(size(), ==, that.size());
 
 			if (that.involvesNonTrivially(
 				data_, data_ + size_))

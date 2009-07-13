@@ -88,8 +88,8 @@ namespace Pastel
 		real startRadius,
 		real endRadius)
 	{
-		ENSURE1(startRadius >= 0, startRadius);
-		ENSURE1(endRadius >= 0, endRadius);
+		ENSURE_OP(startRadius, >=, 0);
+		ENSURE_OP(endRadius, >=, 0);
 
 		const Vector2 delta = segment.end() - segment.start();
 		const real normDelta = norm(delta);
@@ -126,7 +126,7 @@ namespace Pastel
 		const Sphere2& circle,
 		integer segments)
 	{
-		ENSURE1(segments >= 0, segments);
+		ENSURE_OP(segments, >=, 0);
 
 		if (segments <= 1)
 		{
@@ -290,7 +290,7 @@ namespace Pastel
 		const Segment2& segment,
 		const real radius)
 	{
-		ENSURE1(radius >= 0, radius);
+		ENSURE_OP(radius, >=, 0);
 
 		const Vector2 delta = segment.end() - segment.start();
 		const real normDelta = norm(delta);

@@ -20,7 +20,7 @@ namespace Pastel
 			const Box<N, Real>& box)
 	{
 		const integer dimension = plane.dimension();
-		PENSURE(plane.dimension() == box.dimension());
+		PENSURE_OP(plane.dimension(), ==, box.dimension());
 
 		// A plane and an box intersect if
 		// the distance between an extremal

@@ -75,9 +75,9 @@ namespace Pastel
 		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>* nearestSet,
 		std::vector<PASTEL_NO_DEDUCTION(Real)>* distanceSet)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
-		ENSURE1(kNearest >= 0, kNearest);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
+		ENSURE_OP(kNearest, >=, 0);
 		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
 
 		typedef Detail_Search_Nearest::CandidateFunctor<N, Real, ObjectPolicy, AcceptFunctor>
@@ -173,8 +173,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		if (kdTree.empty())
 		{
@@ -209,8 +209,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		return Pastel::searchNearest(
 			kdTree, point, acceptFunctor, maxDistance, maxRelativeError,
@@ -226,7 +226,7 @@ namespace Pastel
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
+		ENSURE_OP(maxDistance, >=, 0);
 
 		return Pastel::searchNearest(
 			kdTree, point, acceptFunctor, maxDistance, 0,

@@ -109,8 +109,7 @@ namespace Pastel
 
 		const integer dimension = box.dimension();
 		
-		ENSURE2(dimension == plane.dimension(),
-			dimension, plane.dimension());
+		ENSURE_OP(dimension, ==, plane.dimension());
 
 		if (!overlaps(box, plane))
 		{

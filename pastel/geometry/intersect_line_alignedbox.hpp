@@ -17,7 +17,7 @@ namespace Pastel
 		const AlignedBox<N, Real>& alignedBox,
 		Vector<2, Real>& hitList)
 	{
-		PENSURE(line.dimension() == alignedBox.dimension());
+		PENSURE_OP(line.dimension(), ==, alignedBox.dimension());
 
 		Real tMin(-infinity<Real>());
 		Real tMax(infinity<Real>());

@@ -256,8 +256,7 @@ namespace Pastel
 		allocatorPtr.get() == 0 ?
 		allocator_ptr(new UniformAllocator(sizeof(DataNode))) : allocatorPtr)
 	{
-		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
-			allocator_->unitSize(), sizeof(DataNode));
+		ENSURE_OP(allocator_->unitSize(), >=, sizeof(DataNode));
 
 		initialize();
 	}
@@ -274,9 +273,8 @@ namespace Pastel
 		allocatorPtr.get() == 0 ?
 		allocator_ptr(new UniformAllocator(sizeof(DataNode))) : allocatorPtr)
 	{
-		ENSURE1(count >= 0, count);
-		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
-			allocator_->unitSize(), sizeof(DataNode));
+		ENSURE_OP(count, >=, 0);
+		ENSURE_OP(allocator_->unitSize(), >=, sizeof(DataNode));
 
 		initialize();
 
@@ -297,8 +295,7 @@ namespace Pastel
 		allocatorPtr.get() == 0 ?
 		allocator_ptr(new UniformAllocator(sizeof(DataNode))) : allocatorPtr)
 	{
-		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
-			allocator_->unitSize(), sizeof(DataNode));
+		ENSURE_OP(allocator_->unitSize(), >=, sizeof(DataNode));
 
 		initialize();
 
@@ -317,8 +314,7 @@ namespace Pastel
 		allocatorPtr.get() == 0 ?
 		that.allocator_ : allocatorPtr)
 	{
-		ENSURE2(allocator_->unitSize() >= sizeof(DataNode),
-			allocator_->unitSize(), sizeof(DataNode));
+		ENSURE_OP(allocator_->unitSize(), >=, sizeof(DataNode));
 
 		initialize();
 
@@ -533,7 +529,7 @@ namespace Pastel
 		void FastList<Type, UniformAllocator>::resize(
 		size_type newSize, Type value)
 	{
-		ENSURE1(newSize >= 0, newSize);
+		ENSURE_OP(newSize, >=, 0);
 
 		if (newSize < size_)
 		{

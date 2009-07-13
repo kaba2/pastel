@@ -79,8 +79,8 @@ namespace Pastel
 		const integer DefaultChannels = 1;
 
 		ENSURE(callBack);
-		ENSURE1(bufferSamples > 0, bufferSamples);
-		ENSURE1(sampleRate > 0, sampleRate);
+		ENSURE_OP(bufferSamples, >, 0);
+		ENSURE_OP(sampleRate, >, 0);
 		ENSURE1(channels == 1 || channels == 2, channels);
 		ENSURE(!initialized_);
 		ENSURE(deviceSystem().initialize());
@@ -89,7 +89,7 @@ namespace Pastel
 
 		sdlError = SDL_InitSubSystem(SDL_INIT_AUDIO);
 
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		SDL_AudioSpec audioSpec;
 		audioSpec.freq = sampleRate;
@@ -105,7 +105,7 @@ namespace Pastel
 
 		sdlError = SDL_OpenAudio(&audioSpec, 0);
 
-		ENSURE1(sdlError >= 0, sdlError);
+		ENSURE_OP(sdlError, >=, 0);
 
 		initialized_ = true;
 

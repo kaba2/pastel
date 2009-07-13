@@ -11,7 +11,7 @@ namespace Pastel
 		Array<2, Real>& image,
 		const Real& interval)
 	{
-		ENSURE1(interval > 0, interval);
+		ENSURE_OP(interval, >, 0);
 
 		const integer width = image.width();
 		const integer height = image.height();
@@ -42,7 +42,7 @@ namespace Pastel
 		Array<2, Real>& image,
 		const Real& interval)
 	{
-		ENSURE1(interval > 0, interval);
+		ENSURE_OP(interval, >, 0);
 
 		const integer width = image.width();
 		const integer height = image.height();

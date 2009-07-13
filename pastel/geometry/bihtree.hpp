@@ -154,11 +154,10 @@ namespace Pastel
 		integer maxShapesPerNode,
 		const ShapeBoundQuery& shapeQuery)
 	{
-		ENSURE1(minDepth >= 0, minDepth);
-		ENSURE1(maxDepth >= 0, maxDepth);
-		ENSURE2(minDepth <= maxDepth,
-			minDepth, maxDepth);
-		ENSURE1(maxShapesPerNode > 0, maxShapesPerNode);
+		ENSURE_OP(minDepth, >=, 0);
+		ENSURE_OP(maxDepth, >=, 0);
+		ENSURE_OP(minDepth, <=, maxDepth);
+		ENSURE_OP(maxShapesPerNode, >, 0);
 
 		clear();
 

@@ -24,8 +24,7 @@ namespace Pastel
 
 		if (from != to)
 		{
-			PENSURE2(dimension == from->dimension(),
-				dimension, from->dimension());
+			PENSURE_OP(dimension, ==, from->dimension());
 
 			InputIterator iter(from);
 			while (iter != to)
@@ -136,8 +135,7 @@ namespace Pastel
 		AlignedBox<N, Real>& boxToExtend)
 	{
 		const integer dimension = pointToCover.size();
-		PENSURE2(dimension == boxToExtend.dimension(),
-			dimension, boxToExtend.dimension());
+		PENSURE_OP(dimension, ==, boxToExtend.dimension());
 
 		Point<N, Real>& min = boxToExtend.min();
 		Point<N, Real>& max = boxToExtend.max();

@@ -121,8 +121,8 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CountFunctor& countFunctor)
 	{
-		ENSURE1(maxDistance >= 0, maxDistance);
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		const integer points = pointSet.size();
 
@@ -164,9 +164,8 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CountFunctor& countFunctor)
 	{
-		ENSURE2(pointSet.size() == maxDistanceSet.size(),
-			pointSet.size(), maxDistanceSet.size());
-		ENSURE1(maxRelativeError >= 0, maxRelativeError);
+		ENSURE_OP(pointSet.size(), ==, maxDistanceSet.size());
+		ENSURE_OP(maxRelativeError, >=, 0);
 
 		const integer points = pointSet.size();
 

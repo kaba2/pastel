@@ -534,7 +534,7 @@ namespace Pastel
 
 	BigInteger& BigInteger::operator<<=(integer byBits)
 	{
-		ENSURE1(byBits >= 0, byBits);
+		ENSURE_OP(byBits, >=, 0);
 
 		if (byBits == 0 ||
 			zero())
@@ -581,7 +581,7 @@ namespace Pastel
 
 	BigInteger& BigInteger::operator>>=(integer byBits)
 	{
-		ENSURE1(byBits >= 0, byBits);
+		ENSURE_OP(byBits, >=, 0);
 
 		if (byBits == 0 ||
 			zero())
@@ -819,7 +819,7 @@ namespace Pastel
 
 	void BigInteger::shiftDigitsLeft(integer byDigits)
 	{
-		ENSURE1(byDigits >= 0, byDigits);
+		ENSURE_OP(byDigits, >=, 0);
 
 		if (byDigits == 0 ||
 			zero())
@@ -843,7 +843,7 @@ namespace Pastel
 
 	void BigInteger::shiftDigitsRight(integer byDigits)
 	{
-		ENSURE1(byDigits >= 0, byDigits);
+		ENSURE_OP(byDigits, >=, 0);
 
 		if (byDigits == 0 ||
 			zero())

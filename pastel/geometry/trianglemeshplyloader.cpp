@@ -50,7 +50,7 @@ namespace Pastel
 				integer element,
 				const std::vector<double>& values)
 			{
-				ENSURE(values.size() >= 3);
+				ENSURE_OP(values.size(), >=, 3);
 
 				mesh_.addTriangle(
 					(integer)values[0],

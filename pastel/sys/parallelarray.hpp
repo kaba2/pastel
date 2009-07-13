@@ -89,7 +89,7 @@ namespace Pastel
 	template <typename Key>
 	bool ParallelArray<Key>::reserve(integer size)
 	{
-		ENSURE1(size >= 0, size);
+		ENSURE_OP(size, >=, 0);
 
 		if (size_ >= size)
 		{
@@ -102,7 +102,7 @@ namespace Pastel
 	template <typename Key>
 	bool ParallelArray<Key>::resize(integer size)
 	{
-		ENSURE1(size >= 0, size);
+		ENSURE_OP(size, >=, 0);
 
 		// Resize each of the arrays.
 

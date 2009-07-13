@@ -14,7 +14,7 @@ namespace Pastel
 		const Point<N, Real>& point,
 		const Simplex<N, Real, N>& simplex)
 	{
-		PENSURE(point.dimension() == simplex.dimension());
+		PENSURE_OP(point.dimension(), ==, simplex.dimension());
 
 		const integer dimension = point.dimension();
 

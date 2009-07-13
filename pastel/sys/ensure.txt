@@ -47,15 +47,15 @@ fancy terms, this means to check that the program does what
 it promises to do. Arguably, the most important invariants
 to check are the preconditions to functions.
 
-Pastel provides three macros, ENSURE, PENSURE, and ASSERT, to help with
+Pastel provides the macros ENSURE, PENSURE, and ASSERT, to help with
 enforcing invariants. All of the three macros work in exactly the same way,
 so we will demonstrate their functionality by taking ENSURE as an example.
 The following demonstrates the use of ENSURE in an actual situation. 
 
 	MatrixView& operator=(const MatrixView& that)
 	{
-		ENSURE2(width_ == that.width_, width_, that.width_);
-		ENSURE2(height_ == that.height_, height_, that.height_);
+		ENSURE_OP(width_, ==, that.width_);
+		ENSURE_OP(height_, ==, that.height_);
 		//...
 	}	
 

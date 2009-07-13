@@ -14,7 +14,7 @@ namespace Pastel
 	{
 		unused(isPodDataIgnored);
 
-		ENSURE1(unitSize >= 0, unitSize);
+		ENSURE_OP(unitSize, >=, 0);
 	}
 
 	NativeAllocator::~NativeAllocator()

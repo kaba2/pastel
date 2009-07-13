@@ -57,7 +57,7 @@ namespace Pastel
 	template <typename Type, typename Compare>
 	void SmallSet<Type, Compare>::reserve(integer count)
 	{
-		ENSURE1(count >= 0, count);
+		ENSURE_OP(count, >=, 0);
 
 		data_.reserve(count);
 	}
