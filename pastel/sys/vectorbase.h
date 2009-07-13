@@ -1,3 +1,6 @@
+// Description: VectorBase class
+// Detail: CRTP base class for Vector
+
 #ifndef PASTEL_VECTORBASE_H
 #define PASTEL_VECTORBASE_H
 

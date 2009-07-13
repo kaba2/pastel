@@ -1,3 +1,6 @@
+// Description: Rectangle class
+// Detail: Allows to work with rectangles on integer coordinates
+
 /*!
 \file
 \brief A class for an axis-aligned bounding box.

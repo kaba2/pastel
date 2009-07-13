@@ -1,3 +1,6 @@
+// Description: AbstractArray class
+// Detail: Allows to work with multidimensional arrays abstractly
+
 #ifndef PASTEL_ABSTRACTARRAY_H
 #define PASTEL_ABSTRACTARRAY_H
 

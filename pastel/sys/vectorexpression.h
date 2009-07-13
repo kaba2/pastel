@@ -1,3 +1,6 @@
+// Description: Basic vector expressions
+// Detail: addition, subtraction, multiplication, etc.
+
 #ifndef PASTEL_VECTOREXPRESSION_H
 #define PASTEL_VECTOREXPRESSION_H
 

@@ -1,3 +1,6 @@
+// Description: Tools to compare vectors
+// Detail: allLess, anyLess, allEqual, anyEqual, etc.
+
 #ifndef PASTEL_VECTOR_COMPARE_H
 #define PASTEL_VECTOR_COMPARE_H
 

@@ -1,3 +1,6 @@
+// Description: Tools related to prime numbers.
+// Documentation: math.txt
+
 #ifndef PASTEL_PRIMES_H
 #define PASTEL_PRIMES_H
 

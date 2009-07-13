@@ -1,3 +1,6 @@
+// Description: Vector class
+// Detail: Allows to compute with vectors in R^n
+
 /*!
 \file
 \brief A class for a real vector in R^N.

@@ -1,3 +1,6 @@
+// Description: PointBase class
+// Detail: CRTP base class for Point
+
 #ifndef PASTEL_POINTBASE_H
 #define PASTEL_POINTBASE_H
 

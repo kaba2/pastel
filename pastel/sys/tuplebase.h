@@ -1,3 +1,6 @@
+// Description: TupleBase class
+// Detail: CRTP base class for Tuple
+
 #ifndef PASTEL_TUPLEBASE_H
 #define PASTEL_TUPLEBASE_H
 

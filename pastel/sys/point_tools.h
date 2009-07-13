@@ -1,3 +1,6 @@
+// Description: Tools for working with points
+// Detail: min, max, comparison functions, etc.
+
 /*!
 \file
 \brief Functions for dealing with points.
