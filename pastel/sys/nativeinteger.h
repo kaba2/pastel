@@ -1,3 +1,5 @@
+// Documentation: math.txt
+
 #ifndef PASTEL_NATIVEINTEGER_H
 #define PASTEL_NATIVEINTEGER_H
 

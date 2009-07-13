@@ -1,3 +1,6 @@
+// Description: Point class
+// Detail: Allows to work with points in affine n-space
+
 /*!
 \file
 \brief A class for a point in R^N.

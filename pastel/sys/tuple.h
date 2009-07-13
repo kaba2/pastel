@@ -1,3 +1,6 @@
+// Description: Tuple class
+// Detail: Allows to work with n-tuples
+
 /*!
 \file
 \brief A class for a fixed tuple of elements.

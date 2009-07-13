@@ -1,3 +1,6 @@
+// Description: Tools for working with rectangles
+// Detail: intersect, etc.
+
 /*!
 \file
 \brief Tools for working with rectangles.

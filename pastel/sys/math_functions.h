@@ -1,3 +1,7 @@
+// Description: Some commonly needed math functions
+// Detail: log2, floorLog2, sinc, ccwAngle, choose, factorial, etc.
+// Documentation: math.txt
+
 /*!
 \file
 \brief Mathematical functions.
