@@ -1,3 +1,6 @@
+// Description: ArrayBaseCursor class
+// Detail: Cursor for the ArrayBase class
+
 #ifndef PASTEL_ARRAYBASECURSOR_H
 #define PASTEL_ARRAYBASECURSOR_H
 

@@ -186,38 +186,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Deprecated?"
-			>
-			<Filter
-				Name="Interaction map"
-				>
-				<File
-					RelativePath=".\interactionmap.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\interactionmap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\interactionmap.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Aggregate"
-				>
-				<File
-					RelativePath=".\aggregate.h"
-					>
-				</File>
-				<File
-					RelativePath=".\aggregate.hpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
 			Name="Data structures"
 			>
 			<Filter
@@ -1005,6 +973,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\indexallocator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\indexallocator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\indexallocator.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\insertionsort.h"
 				>
 			</File>
@@ -1014,6 +994,10 @@
 			</File>
 			<File
 				RelativePath=".\keyvalue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\possiblyemptymember.h"
 				>
 			</File>
 			<File
@@ -1068,6 +1052,10 @@
 				RelativePath=".\syscommon.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\tablemodify.h"
+				>
+			</File>
 			<Filter
 				Name="Guid"
 				>
@@ -1083,39 +1071,11 @@
 					RelativePath=".\guid.hpp"
 					>
 				</File>
-				<File
-					RelativePath=".\guid.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="IndexAllocator"
-				>
-				<File
-					RelativePath=".\indexallocator.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\indexallocator.h"
-					>
-				</File>
-				<File
-					RelativePath=".\indexallocator.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\indexallocator.txt"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="Meta"
 			>
-			<File
-				RelativePath=".\compiletime.h"
-				>
-			</File>
 			<File
 				RelativePath=".\environment.h"
 				>
@@ -1141,39 +1101,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\possiblyemptymember.h"
-				>
-			</File>
-			<File
 				RelativePath=".\syslibrary.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\syslibrary.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Deprecated"
-			>
-			<File
-				RelativePath=".\bitarray2.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\bitarray2.h"
-				>
-			</File>
-			<File
-				RelativePath=".\bitarray2.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\blockarray2.h"
-				>
-			</File>
-			<File
-				RelativePath=".\blockarray2.hpp"
 				>
 			</File>
 		</Filter>

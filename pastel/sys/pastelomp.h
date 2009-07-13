@@ -1,3 +1,6 @@
+// Description: Conditionally includes omp.h
+// Documentation: pastelsys.txt
+
 #ifndef PASTEL_PASTELOMP_H
 #define PASTEL_PASTELOMP_H
 

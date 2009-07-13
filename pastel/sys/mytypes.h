@@ -1,6 +1,9 @@
+// Description: Typedefs for types used in Pastel
+// Documentation: pastelsys.txt
+
 /*!
 \file
-\brief Typedefs for types used in PastelEngine.
+\brief Typedefs for types used in Pastel.
 */
 
 #ifndef PASTEL_MYTYPES_H

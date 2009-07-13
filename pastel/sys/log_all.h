@@ -1,3 +1,5 @@
+// Description: An aggregate file for logging
+
 #ifndef PASTEL_LOG_ALL_H
 #define PASTEL_LOG_ALL_H
 

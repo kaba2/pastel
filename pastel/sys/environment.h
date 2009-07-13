@@ -1,6 +1,9 @@
+// Description: Pastel's configuration file
+// Documentation: pastelsys.txt
+
 /*!
 \file
-\brief PastelEngine-wide configuration options.
+\brief Pastel's configuration file.
 */
 
 #ifndef PASTEL_ENVIRONMENT_H

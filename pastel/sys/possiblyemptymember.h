@@ -1,3 +1,7 @@
+// Description: PossiblyEmptyMember class
+// Detail: Allows to take advantage of the empty-member optimization.
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_POSSIBLYEMPTYMEMBER_H
 #define PASTEL_POSSIBLYEMPTYMEMBER_H
 
