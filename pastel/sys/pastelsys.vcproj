@@ -1005,18 +1005,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\indexallocator.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\indexallocator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\indexallocator.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\insertionsort.h"
 				>
 			</File>
@@ -1080,10 +1068,6 @@
 				RelativePath=".\syscommon.hpp"
 				>
 			</File>
-			<File
-				RelativePath=".\tablemodify.h"
-				>
-			</File>
 			<Filter
 				Name="Guid"
 				>
@@ -1097,6 +1081,30 @@
 				</File>
 				<File
 					RelativePath=".\guid.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\guid.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="IndexAllocator"
+				>
+				<File
+					RelativePath=".\indexallocator.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\indexallocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\indexallocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\indexallocator.txt"
 					>
 				</File>
 			</Filter>

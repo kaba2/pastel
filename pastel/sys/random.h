@@ -1,3 +1,5 @@
+// Description: Tools for random number generation
+
 /*!
 \file
 \brief Tools for random number generation.

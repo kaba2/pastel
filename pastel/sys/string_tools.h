@@ -1,3 +1,6 @@
+// Description: Tools for working with strings
+// Documentation: miscellaneuous.txt
+
 /*!
 \file
 \brief Tools for working with strings.

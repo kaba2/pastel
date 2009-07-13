@@ -1,3 +1,7 @@
+// Description: Miscellaneous commonly needed tools.
+// Detail: equivalent, toPixelSpanPoint, scaleInteger, extractBits
+// Documentation: miscellaneous.txt
+
 /*!
 \file
 \brief Miscellaneous commonly needed tools.

@@ -1,4 +1,4 @@
-#include "pastel/geometry/spherearea.h"
+#include "pastel/geometry/sphere_area.h"
 
 namespace Pastel
 {

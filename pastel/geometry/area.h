@@ -5,7 +5,7 @@
 // volume of the boundary of an object.
 
 #include "pastel/geometry/boxarea.h"
-#include "pastel/geometry/spherearea.h"
+#include "pastel/geometry/sphere_area.h"
 #include "pastel/geometry/polygonarea.h"
 
 #endif

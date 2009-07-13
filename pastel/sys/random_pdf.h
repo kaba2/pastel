@@ -1,3 +1,5 @@
+// Description: Some probability distribution functions
+
 #ifndef PASTEL_RANDOM_PDF_H
 #define PASTEL_RANDOM_PDF_H
 

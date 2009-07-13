@@ -1,3 +1,6 @@
+// Description: Guid class
+// Detail: Stores a unique 128-bit identifier
+
 /*!
 \file
 \brief A class for a unique 128-bit identifier.
@@ -14,26 +17,7 @@
 namespace Pastel
 {
 
-	//! Manages a unique 128-bit identifier.
-
-	/*!
-	This class stores a 128-bit identifier along with some
-	modifying and comparison operations . It is often the case
-	that some things may need to be given truly global identifiers,
-	from which they can be safely identified later. In this case
-	a need for an identifier allocation policy also rises.
-	If this identifier allocation process is distributed,
-	it is impossible without coordination to avoid duplicate
-	identifiers. This is
-	solved by using a statistical approach where a long
-	identifier is gathered together from time, place and
-	environment dependent variables. For example, a network
-	mac address should itself be a universally unique identifier.
-	If we further pack with this information the current date
-	and time and some random number we are pretty sure to never
-	have any colliding identifiers.
-	*/
-
+	//! Stores a unique 128-bit identifier.
 	class PASTELSYS Guid
 		: boost::less_than_comparable<
 		Guid

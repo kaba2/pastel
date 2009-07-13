@@ -1,5 +1,5 @@
-#ifndef PASTEL_SPHEREAREA_H
-#define PASTEL_SPHEREAREA_H
+#ifndef PASTEL_SPHERE_AREA_H
+#define PASTEL_SPHERE_AREA_H
 
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/sphere.h"
@@ -23,6 +23,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/spherearea.hpp"
+#include "pastel/geometry/sphere_area.hpp"
 
 #endif

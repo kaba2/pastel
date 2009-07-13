@@ -1,3 +1,7 @@
+// Description: KeyValue class
+// Detail: Stores a key-value pair, which orders lexicographically.
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_KEYVALUE_H
 #define PASTEL_KEYVALUE_H
 

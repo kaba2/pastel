@@ -1,7 +1,6 @@
-/*!
-\file
-\brief A class for accumulating calls to simple functions and running them.
-*/
+// Description: TestRunner class
+// Detail: Stores test functions to be run as a batch or from a console.
+// Documentation: testing.txt
 
 #ifndef PASTEL_TESTRUNNER_H
 #define PASTEL_TESTRUNNER_H
@@ -14,7 +13,7 @@
 namespace Pastel
 {
 
-	//! Accumulate calls to simple functions and run them.
+	//! Stores test functions to be run as a batch or from a console.
 
 	class PASTELSYS TestRunner
 	{

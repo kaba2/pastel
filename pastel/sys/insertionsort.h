@@ -1,3 +1,6 @@
+// Description: Insertion sort algorithm
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_INSERTIONSORT_H
 #define PASTEL_INSERTIONSORT_H
 

@@ -1,6 +1,9 @@
+// Description: Tools for invariant checking
+// Detail: Contains ENSURE, PENSURE, and ASSERT macros.
+
 /*!
 \file
-\brief Tools for inconsistency checking
+\brief Tools for invariant checking
 */
 
 #ifndef PASTEL_ENSURE_H
