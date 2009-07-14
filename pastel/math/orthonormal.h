@@ -1,3 +1,7 @@
+// Description: Tools to form perpendicular vectors
+// Detail: orthonormalize, perpendicular, etc.
+// Documentation: pastelmath.txt
+
 #ifndef PASTEL_ORTHONORMAL_H
 #define PASTEL_ORTHONORMAL_H
 

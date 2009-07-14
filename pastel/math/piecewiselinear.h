@@ -1,3 +1,7 @@
+// Description: PiecewiseLinear class
+// Detail: Allows to work with piecewise linear functions
+// Documentation: interpolation.txt
+
 #ifndef PASTEL_PIECEWISELINEAR_H
 #define PASTEL_PIECEWISELINEAR_H
 

@@ -88,7 +88,7 @@ namespace Pastel
 				std::vector<ConstIterator> nearestSet;
 
 				searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
-					infinity<Real>(), maxRelativeError_, EuclideanNormBijection<Real>(),
+					infinity<Real>(), maxRelativeError_, Euclidean_NormBijection<Real>(),
 					kNearest_, &nearestSet);
 
 				data = nearestSet.back()->data_;

@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
-			ManhattanNormBijection<Real>());
+			Manhattan_NormBijection<Real>());
 	}
 
 	template <int N, typename Real>
@@ -25,7 +25,7 @@ namespace Pastel
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
-			EuclideanNormBijection<Real>());
+			Euclidean_NormBijection<Real>());
 	}
 
 	template <int N, typename Real>
@@ -36,7 +36,7 @@ namespace Pastel
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
-			MinkowskiNormBijection<Real>(metric));
+			Minkowski_NormBijection<Real>(metric));
 	}
 
 	template <int N, typename Real>
@@ -46,7 +46,7 @@ namespace Pastel
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
-			InfinityNormBijection<Real>());
+			Infinity_NormBijection<Real>());
 	}
 
 	template <int N, typename Real, typename NormBijection>

@@ -210,7 +210,7 @@ namespace Pastel
 							//Accept_Except<SceneIterator>(sceneIter),
 							infinity<Real>(),
 							0,
-							EuclideanNormBijection<Real>(),
+							Euclidean_NormBijection<Real>(),
 							kPoints_ + 1,
 							&sceneSet);
 
@@ -222,7 +222,7 @@ namespace Pastel
 							//Accept_Except<ModelIterator>(modelIter),
 							infinity<Real>(),
 							0,
-							EuclideanNormBijection<Real>(),
+							Euclidean_NormBijection<Real>(),
 							kPoints_ + 1,
 							&modelSet);
 

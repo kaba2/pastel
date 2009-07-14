@@ -290,31 +290,11 @@
 			Name="Common"
 			>
 			<File
-				RelativePath=".\coordinates.h"
-				>
-			</File>
-			<File
-				RelativePath=".\coordinates.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\coordinates.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\mathlibrary.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\mathlibrary.h"
-				>
-			</File>
-			<File
-				RelativePath=".\normbijection.h"
-				>
-			</File>
-			<File
-				RelativePath=".\normbijection.txt"
 				>
 			</File>
 			<File
@@ -645,6 +625,50 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Coordinate conversions"
+			>
+			<File
+				RelativePath=".\coordinates.h"
+				>
+			</File>
+			<File
+				RelativePath=".\coordinates.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\coordinates.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Norm bijections"
+			>
+			<File
+				RelativePath=".\euclidean_normbijection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\infinity_normbijection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\manhattan_normbijection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\minkowski_normbijection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\normbijection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\normbijection.txt"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\pastelmath.txt"

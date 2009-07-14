@@ -1,3 +1,7 @@
+// Description: Tools to compute statistics from samples
+// Detail: mean, axisAlignedVariance, etc.
+// Documentation: pastelmath.txt
+
 #ifndef PASTELMATH_STATISTICS_H
 #define PASTELMATH_STATISTICS_H
 

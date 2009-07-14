@@ -214,7 +214,7 @@ namespace Pastel
 
 		return Pastel::searchNearest(
 			kdTree, point, acceptFunctor, maxDistance, maxRelativeError,
-			EuclideanNormBijection<Real>());
+			Euclidean_NormBijection<Real>());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, 
@@ -230,7 +230,7 @@ namespace Pastel
 
 		return Pastel::searchNearest(
 			kdTree, point, acceptFunctor, maxDistance, 0,
-			EuclideanNormBijection<Real>());
+			Euclidean_NormBijection<Real>());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, 
@@ -243,7 +243,7 @@ namespace Pastel
 	{
 		return Pastel::searchNearest(
 			kdTree, point, acceptFunctor, infinity<Real>(), 0,
-			EuclideanNormBijection<Real>());
+			Euclidean_NormBijection<Real>());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -254,7 +254,7 @@ namespace Pastel
 	{
 		return Pastel::searchNearest(
 			kdTree, point, Accept_Always(), infinity<Real>(), 0,
-			EuclideanNormBijection<Real>());
+			Euclidean_NormBijection<Real>());
 	}
 
 }
