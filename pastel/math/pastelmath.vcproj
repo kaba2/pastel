@@ -415,26 +415,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Sampling patterns"
-			>
-			<Filter
-				Name="Low discrepancy sequences"
-				>
-				<File
-					RelativePath=".\lowdiscrepancy.h"
-					>
-				</File>
-				<File
-					RelativePath=".\lowdiscrepancy.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\lowdiscrepancy.txt"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
 			Name="Polynomials"
 			>
 			<File
@@ -667,6 +647,22 @@
 			</File>
 			<File
 				RelativePath=".\normbijection.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Low discrepancy sequences"
+			>
+			<File
+				RelativePath=".\lowdiscrepancy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lowdiscrepancy.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lowdiscrepancy.txt"
 				>
 			</File>
 		</Filter>

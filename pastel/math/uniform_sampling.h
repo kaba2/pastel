@@ -1,3 +1,6 @@
+// Description: Tools for distorting a uniform distribution to another one
+// Detail: As an example, distortion of [0, 1]^3 to a unit ball.
+
 /*!
 \file
 \brief Functions for sampling uniformly from different regions.

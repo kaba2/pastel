@@ -1,3 +1,6 @@
+// Description: Tools for producing low discrepancy sequences
+// Detail: Allows to produce van Der Corput, Halton, Hammersley etc sequences.
+
 #ifndef PASTEL_LOWDISCREPANCY_H
 #define PASTEL_LOWDISCREPANCY_H
 

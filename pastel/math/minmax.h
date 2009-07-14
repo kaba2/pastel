@@ -1,6 +1,8 @@
+// Description: Tools for efficient min-max computations
+
 /*!
 \file
-\brief Functions for parallel min-max computations.
+\brief Tools for efficient min-max computations
 */
 
 #ifndef PASTEL_MINMAX_H

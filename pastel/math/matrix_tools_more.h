@@ -1,3 +1,6 @@
+// Description: More tools for working with matrices.
+// Detail: transpose, inverse, solveLinear, solveLowerTriangular, etc.
+
 /*!
 \file
 \brief More functions for working with matrices.

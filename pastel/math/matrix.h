@@ -1,6 +1,9 @@
+// Description: Matrix class
+// Detail: Allows to work with matrices over an ordered field
+
 /*!
 \file
-\brief A class for a real matrix.
+\brief A class for a matrix over an ordered field.
 */
 
 #ifndef PASTEL_MATRIX_H

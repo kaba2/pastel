@@ -1,6 +1,9 @@
+// Description: Tools for computing matrix properties
+// Detail: trace, determinant, normManhattan, norm2, conditionManhattan, etc.
+
 /*!
 \file
-\brief Functions for computing matrix properties.
+\brief Tools for computing matrix properties.
 */
 
 #ifndef PASTEL_MATRIX_TOOLS_MORE3_H

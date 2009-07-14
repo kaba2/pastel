@@ -1,3 +1,6 @@
+// Description: Some matrix expressions
+// Detail: min, max, abs, repeat, outerProduct, asMatrix, etc.
+
 #ifndef PASTEL_MATRIX_TOOLS_MORE4_H
 #define PASTEL_MATRIX_TOOLS_MORE4_H
 

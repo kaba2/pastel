@@ -1,3 +1,5 @@
+// Description: Transformation class
+
 /*!
 \file
 \brief A class for a transformation-inverse pair.

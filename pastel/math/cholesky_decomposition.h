@@ -1,3 +1,6 @@
+// Description: CholeskyDecomposition class
+// Detail: Computes the Cholesky decomposition of matrix
+
 #ifndef PASTEL_CHOLESKY_DECOMPOSITION_H
 #define PASTEL_CHOLESKY_DECOMPOSITION_H
 

@@ -1,3 +1,7 @@
+// Description: Tools to compute an eigenvector for a point set
+// Detail: Computes largest eigenvector of the covariance matrix of points
+// Documentation: linear_algebra.txt
+
 #ifndef PASTEL_LARGEST_EIGENVECTOR_H
 #define PASTEL_LARGEST_EIGENVECTOR_H
 

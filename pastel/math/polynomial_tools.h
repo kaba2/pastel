@@ -1,3 +1,6 @@
+// Description: Tools for working with polynomials
+// Detail: differentiate, derivative, trim, divide, randomPolynomial, etc.
+
 #ifndef PASTEL_POLYNOMIAL_TOOLS_H
 #define PASTEL_POLYNOMIAL_TOOLS_H
 
