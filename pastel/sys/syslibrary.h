@@ -1,4 +1,4 @@
-// Description: Dll-related keywords for PastelSys
+// Description: Dll-keywords for PastelSys
 // Documentation: pastelsys.txt
 
 /*!

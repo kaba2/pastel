@@ -1,6 +1,9 @@
+// Description: Dll-keywords for PastelMath
+// Documentation: pastelmath.txt
+
 /*!
 \file
-\brief A dll-configuration file for the math library.
+\brief Dll-keyword file for PastelMath
 */
 
 #ifndef PASTEL_MATHLIBRARY_H

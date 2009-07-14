@@ -1,3 +1,6 @@
+// Description: Cubic and quintic Hermite polynomials
+// Documentation: interpolation.txt
+
 /*!
 \file
 \brief Functions for evaluating Hermite curves.

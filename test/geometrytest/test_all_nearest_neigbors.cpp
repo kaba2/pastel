@@ -66,7 +66,7 @@ namespace
 			pointSet,
 			kNearest,
 			infinity<Real>(),
-			EuclideanNormBijection<Real>(),
+			Euclidean_NormBijection<Real>(),
 			naiveNeighborSet);
 
 		timer.store();
@@ -103,7 +103,7 @@ namespace
 			kNearest,
 			infinity<Real>(),
 			0,
-			EuclideanNormBijection<Real>(),
+			Euclidean_NormBijection<Real>(),
 			16,
 			SlidingMidpoint2_SplitRule(),
 			&neighborSet);

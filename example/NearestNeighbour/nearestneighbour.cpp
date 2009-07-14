@@ -521,9 +521,9 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
-	EuclideanNormBijection<real> normBijection;
-	//ManhattanNormBijection<real> normBijection;
-	//InfinityNormBijection<real> normBijection;
+	Euclidean_NormBijection<real> normBijection;
+	//Manhattan_NormBijection<real> normBijection;
+	//Infinity_NormBijection<real> normBijection;
 
 	searchNearest(tree__, worldMouse, 
 		Accept_Always(), 
@@ -640,7 +640,7 @@ void timing()
 			Accept_Always(),
 			infinity<real>(),
 			0,
-			EuclideanNormBijection<real>(),
+			Euclidean_NormBijection<real>(),
 			NearestPoints, &nearestPointSet__);
 		++iter;
 	}

@@ -1,3 +1,7 @@
+// Description: Smoothstep functions
+// Detail: Cubic, quartic, and quintic smoothstep functions
+// Documentation: interpolation.txt
+
 #ifndef PASTEL_SMOOTHSTEP_H
 #define PASTEL_SMOOTHSTEP_H
 

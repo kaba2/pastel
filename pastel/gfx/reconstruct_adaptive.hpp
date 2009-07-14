@@ -89,7 +89,7 @@ namespace Pastel
 				std::vector<ConstIterator> nearestSet;
 				std::vector<Real> distanceSet;
 
-				EuclideanNormBijection<Real> normBijection;
+				Euclidean_NormBijection<Real> normBijection;
 
 				searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
 					Accept_Always(),
