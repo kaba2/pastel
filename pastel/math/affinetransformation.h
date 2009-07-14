@@ -1,3 +1,6 @@
+// Description: AffineTransformation class
+// Detail: Allows to work with affine transformations in R^n
+
 /*!
 \file
 \brief A class for an affine transformation.

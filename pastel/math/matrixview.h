@@ -1,3 +1,6 @@
+// Description: MatrixView class
+// Detail: Allows to refer to submatrices in a Matlab style
+
 #ifndef PASTEL_MATRIXVIEW_H
 #define PASTEL_MATRIXVIEW_H
 

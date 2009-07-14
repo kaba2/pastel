@@ -1,6 +1,9 @@
+// Description: Tools for working with affine transformations.
+// Detail: inverse, similarityTransformation, rotation2, etc. 
+
 /*!
 \file
-\brief Functions for working with affine transforms.
+\brief Tools for working with affine transformations.
 */
 
 #ifndef PASTEL_AFFINETRANSFORMATION_TOOLS_H

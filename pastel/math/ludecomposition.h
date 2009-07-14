@@ -1,3 +1,6 @@
+// Description: LuDecomposition class
+// Detail: Computes the PLU-decomposition of a matrix
+
 #ifndef PASTEL_LUDECOMPOSITION_H
 #define PASTEL_LUDECOMPOSITION_H
 

@@ -1,3 +1,6 @@
+// Description: Tools for working with integers
+// Detail: gcd, extendedGcd, etc.
+
 /*!
 \file
 \brief Tools for working with integers.

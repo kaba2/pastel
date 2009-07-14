@@ -1,6 +1,9 @@
+// Description: Tools for working with matrices
+// Detail: pretty printing to a stream
+
 /*!
 \file
-\brief Functions for working with matrices.
+\brief Tools for working with matrices.
 */
 
 #ifndef PASTEL_MATRIX_TOOLS_H

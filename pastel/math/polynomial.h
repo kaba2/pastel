@@ -1,3 +1,6 @@
+// Description: Polynomial class
+// Detail: Allows to work with polynomials over a field
+
 #ifndef PASTEL_POLYNOMIAL_H
 #define PASTEL_POLYNOMIAL_H
 

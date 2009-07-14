@@ -1,3 +1,6 @@
+// Description: Basic matrix expressions
+// Detail: negation, addition, subtraction, multiplication etc.
+
 #ifndef PASTEL_MATRIXEXPRESSION_H
 #define PASTEL_MATRIXEXPRESSION_H
 

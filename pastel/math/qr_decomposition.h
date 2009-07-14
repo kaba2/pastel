@@ -1,3 +1,6 @@
+// Description: QrDecomposition class
+// Detail: Computes the QR-decomposition of a matrix
+
 #ifndef PASTEL_QR_DECOMPOSITION_H
 #define PASTEL_QR_DECOMPOSITION_H
 

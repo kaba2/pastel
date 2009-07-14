@@ -1,3 +1,6 @@
+// Description: Rational class
+// Detail: Allows to work with rational numbers
+
 /*!
 \file
 \brief A class for a rational number.

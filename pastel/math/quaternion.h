@@ -1,3 +1,6 @@
+// Description: Quaternion class
+// Detail: Allows to work with quaternions
+
 /*!
 \file
 \brief A class for a quaternion.
