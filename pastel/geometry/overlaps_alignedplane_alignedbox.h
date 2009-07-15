@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for testing overlap between an aligned plane and an aligned box.
-*/
+// Description: Overlap tests between an aligned plane and an aligned box
 
 #ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_ALIGNEDBOX_H
 #define PASTEL_OVERLAPS_ALIGNEDPLANE_ALIGNEDBOX_H
@@ -15,7 +12,7 @@ namespace Pastel
 	//! Tests if an aligned plane and an aligned box overlap.
 
 	/*!
-	The alignedBox is considered to be closed and solid.
+	The aligned box is considered to be closed and solid.
 	*/
 
 	template <int N, typename Real>

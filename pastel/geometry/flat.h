@@ -1,7 +1,6 @@
-/*!
-\file
-\brief A class for an M-flat.
-*/
+// Description: Flat class
+// Detail: Allows to work with m-flats
+// Documentation: shapes.txt
 
 #ifndef PASTEL_FLAT_H
 #define PASTEL_FLAT_H

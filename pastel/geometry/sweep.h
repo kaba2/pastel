@@ -1,3 +1,6 @@
+// Description: Tools for sweeping a given shape along a line segment
+// Documentation: pastelgeometry.txt
+
 #ifndef PASTEL_SWEEP_H
 #define PASTEL_SWEEP_H
 

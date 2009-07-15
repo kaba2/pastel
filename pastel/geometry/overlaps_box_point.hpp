@@ -21,8 +21,8 @@ namespace Pastel
 	{
 		// Change coordinates so
 		// that the box becomes an origin
-		// centered alignedBox and
-		// then use the alignedBox-point
+		// centered aligned box and
+		// then use the aligned box-point
 		// overlap test.
 
 		// Inverse of an orthogonal matrix

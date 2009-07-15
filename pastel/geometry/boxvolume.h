@@ -1,3 +1,6 @@
+// Description: Tools for computing the volume of a box
+// Documentation: volume.txt
+
 #ifndef PASTEL_BOXVOLUME_H
 #define PASTEL_BOXVOLUME_H
 

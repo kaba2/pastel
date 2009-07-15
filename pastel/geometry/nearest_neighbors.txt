@@ -1,0 +1,14 @@
+Nearest neighbors
+=================
+
+[Back to PastelGeometry](./pastelgeometry.htm)
+
+Theory
+------
+
+Given a point set P in R^n, and a query point q in R^n, not necessarily in P, 
+the exact nearest neighbor problem asks for the k nearest points in P for q.
+The approximate nearest neighbor problem in turn asks for k points in P
+that have no more than an (1 + epsilon) amount of relative error when
+comparing the distances to the found neighbors and the distances to the 
+exact neighbors.

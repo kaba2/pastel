@@ -1,3 +1,6 @@
+// Description: Tools for computing the area of a box
+// Documentation: area.txt
+
 #ifndef PASTEL_BOXAREA_H
 #define PASTEL_BOXAREA_H
 

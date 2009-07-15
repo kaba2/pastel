@@ -1,3 +1,7 @@
+// Description: AlignedBoxBase class
+// Detail: CRTP base class for AlignedBox
+// Documentation: shapes.txt
+
 #ifndef PASTEL_ALIGNEDBOXBASE_H
 #define PASTEL_ALIGNEDBOXBASE_H
 
@@ -72,7 +76,7 @@ namespace Pastel
 			return anyGreaterEqual(min_, max_);
 		}
 
-		//! Swaps two alignedBoxs.
+		//! Swaps two aligned boxes.
 		void swap(AlignedBox<N, Real>& that)
 		{
 			using std::swap;

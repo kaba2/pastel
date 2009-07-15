@@ -1,3 +1,7 @@
+// Description: Ray class
+// Detail: Allows to work with rays
+// Documentation: shapes.txt
+
 #ifndef PASTEL_RAY_H
 #define PASTEL_RAY_H
 

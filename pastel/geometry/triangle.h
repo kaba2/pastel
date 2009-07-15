@@ -1,3 +1,7 @@
+// Description: Triangle class
+// Detail: Allows to work with triangles
+// Documentation: shapes.txt
+
 #ifndef PASTEL_TRIANGLE_H
 #define PASTEL_TRIANGLE_H
 

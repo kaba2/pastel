@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for testing overlap between a sphere and a point.
-*/
+// Description: Overlap tests between a sphere and a point
 
 #ifndef PASTEL_OVERLAPS_SPHERE_POINT_H
 #define PASTEL_OVERLAPS_SPHERE_POINT_H

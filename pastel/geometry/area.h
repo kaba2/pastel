@@ -1,3 +1,5 @@
+// Description: An aggregate file for area computations
+
 #ifndef PASTEL_AREA_H
 #define PASTEL_AREA_H
 

@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for testing overlap between an aligned plane and an box.
-*/
+// Description: Overlap tests between an aligned plane an a box
 
 #ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_BOX_H
 #define PASTEL_OVERLAPS_ALIGNEDPLANE_BOX_H

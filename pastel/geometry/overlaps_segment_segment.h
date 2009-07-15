@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for testing overlap between two line segments.
-*/
+// Description: Overlap tests between two line segments
 
 #ifndef PASTEL_OVERLAPS_SEGMENT_SEGMENT_H
 #define PASTEL_OVERLAPS_SEGMENT_SEGMENT_H

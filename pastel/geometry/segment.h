@@ -1,7 +1,6 @@
-/*!
-\file
-\brief A class for a line segment.
-*/
+// Description: Segment class
+// Detail: Allows to work with line segments
+// Documentation: shapes.txt
 
 #ifndef PASTEL_SEGMENT_H
 #define PASTEL_SEGMENT_H

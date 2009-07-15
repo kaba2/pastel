@@ -21,8 +21,8 @@ namespace Pastel
 			const Triangle<N, Real>& triangle)
 	{
 		// The coordinates are transformed such that
-		// the box becomes an origin centered alignedBox.
-		// Then the test for alignedBox-triangle overlap
+		// the box becomes an origin centered aligned box.
+		// Then the test for aligned box-triangle overlap
 		// is used.
 
 		const Matrix<N, N, Real> boxRotationInverse(

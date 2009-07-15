@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for testing overlap between an alignedBox and a triangle.
-*/
+// Description: Overlap tests between an aligned box and a triangle
 
 #ifndef PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
 #define PASTEL_OVERLAPS_ALIGNEDBOX_TRIANGLE_H
@@ -13,10 +10,10 @@
 namespace Pastel
 {
 
-	//! Tests if an alignedBox and a triangle overlap.
+	//! Tests if an aligned box and a triangle overlap.
 
 	/*!
-	The alignedBox and the triangle is considered closed
+	The aligned box and the triangle is considered closed
 	and solid.
 	*/
 
@@ -25,10 +22,10 @@ namespace Pastel
 		const AlignedBox<2, Real>& alignedBox,
 		const Triangle<3, Real>& triangle);
 
-	//! Tests if an alignedBox and a triangle overlap.
+	//! Tests if an aligned box and a triangle overlap.
 
 	/*!
-	The alignedBox and the triangle is considered closed
+	The aligned box and the triangle is considered closed
 	and solid.
 	*/
 

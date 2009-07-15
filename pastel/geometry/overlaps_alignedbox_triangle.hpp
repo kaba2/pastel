@@ -29,7 +29,7 @@ namespace Pastel
 		// * AlignedBox edge normals (2)
 		// * Triangle edge normals (3)
 
-		// Center geometry on alignedBox min.
+		// Center geometry on aligned box min.
 
 		const Triangle<2, Real> workTriangle(
 			triangle[0] - asVector(alignedBox.min()),
@@ -41,7 +41,7 @@ namespace Pastel
 			triangle[2] - triangle[1],
 			triangle[0] - triangle[2]);
 
-		// Calculate alignedBox widths
+		// Calculate aligned box widths
 
 		const Vector<2, Real> halfWidths(
 			mabs(evaluate((alignedBox.max() - alignedBox.min()) * Real(0.5))));
@@ -115,8 +115,8 @@ namespace Pastel
 				triangleProj1, triangleProj2,
 				triangleProjMin, triangleProjMax);
 
-			// Calculate the radius of the alignedBox projection
-			// (the alignedBox is centered on the origin).
+			// Calculate the radius of the aligned box projection
+			// (the aligned box is centered on the origin).
 
 			const Real alignedBoxRadius(
 				halfWidths[0] * mabs(normal[0]) +
@@ -132,7 +132,7 @@ namespace Pastel
 		}
 
 		// No separating axis found. Thus
-		// the alignedBox and the triangle must intersect.
+		// the aligned box and the triangle must intersect.
 
 		return true;
 	}
@@ -166,21 +166,21 @@ namespace Pastel
 			return false;
 		}
 
-		// Calculate the half widths of the alignedBox.
+		// Calculate the half widths of the aligned box.
 		// We will be calculating with the halfwidths
 		// from now on, rather than with min and max
-		// of the alignedBox.
+		// of the aligned box.
 
 		const Vector<3, Real> alignedBoxHalfWidths(
 			mabs((alignedBox.max() - alignedBox.min()) * 0.5));
 
-		// Calculate the alignedBox center.
+		// Calculate the aligned box center.
 
 		const Point<3, Real> alignedBoxCenter(
 			alignedBox.min() + alignedBoxHalfWidths);
 
 		// The algorithm transforms
-		// the problem such that the alignedBox is centered
+		// the problem such that the aligned box is centered
 		// on the origin. This simplifies calculations.
 
 		const Triangle<3, Real> workTriangle(
@@ -195,7 +195,7 @@ namespace Pastel
 			workTriangle[2] - workTriangle[1],
 			workTriangle[0] - workTriangle[2]);
 
-		// Test for alignedBox's normals, that is, the axes
+		// Test for aligned box's normals, that is, the axes
 		// [1, 0, 0], [0, 1, 0], [0, 0, 1].
 
 		Real triangleMin(0);
@@ -274,8 +274,8 @@ namespace Pastel
 				triangleMin, triangleMax);
 
 			// An elegant way of computing the radius
-			// of the alignedBoxs projection (remember the
-			// alignedBox is centered on origin).
+			// of the aligned boxs projection (remember the
+			// aligned box is centered on origin).
 
 			// r = dot(alignedBoxHalfWidths, mabs(C))
 			r = alignedBoxHalfWidths[1] * mabs(edges[i][2]) +

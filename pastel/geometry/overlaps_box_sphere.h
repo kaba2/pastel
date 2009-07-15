@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A functions for testing overlap between an box and a sphere.
-*/
+// Description: Overlap tests between a box and a sphere
 
 #ifndef PASTEL_OVERLAPBOXSPHERE_H
 #define PASTEL_OVERLAPBOXSPHERE_H

@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for testing overlap between an alignedBox and a sphere.
-*/
+// Description: Overlap tests between an aligned box and a sphere
 
 #ifndef PASTEL_OVERLAPS_ALIGNEDBOX_SPHERE_H
 #define PASTEL_OVERLAPS_ALIGNEDBOX_SPHERE_H
@@ -13,10 +10,10 @@
 namespace Pastel
 {
 
-	//! Tests if an alignedBox and a sphere overlap.
+	//! Tests if an aligned box and a sphere overlap.
 
 	/*!
-	The alignedBox and the sphere are considered closed and
+	The aligned box and the sphere are considered closed and
 	solid.
 	*/
 

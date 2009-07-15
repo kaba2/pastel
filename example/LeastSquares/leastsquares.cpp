@@ -59,7 +59,7 @@ void redrawPointSet(const std::vector<Point2>& pointSet)
 
 void redraw()
 {
-	renderer__->setColor(Color(0, 0, 0));
+	renderer__->setColor(Color(0));
 	renderer__->clear();
 
 	renderer__->setColor(Color(1, 0, 0));

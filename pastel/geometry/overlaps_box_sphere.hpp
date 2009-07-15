@@ -18,8 +18,8 @@ namespace Pastel
 		const Sphere<N, Real>& sphere)
 	{
 		// The coordinates are transformed such that
-		// the box becomes an origin centered alignedBox.
-		// Then the test for alignedBox-sphere overlap
+		// the box becomes an origin centered aligned box.
+		// Then the test for aligned box-sphere overlap
 		// is used.
 
 		// Transpose of an orthogonal matrix

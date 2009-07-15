@@ -26,8 +26,7 @@ of a kdtree.
 How to support different kinds of objects (genericity)?
 -------------------------------------------------------
 
-Solution 1: an object oriented interface
-----------------------------------------
+### Solution 1: an object oriented interface
 
 class KdtreeObject
 {
@@ -42,8 +41,7 @@ public:
 => can result in performance losses for single concrete types because of
 dynamic binding
 
-Solution 2: by generic programming
-----------------------------------
+### Solution 2: by generic programming
 
 Store arbitrary data and require to supply functors
 that return the bounding box and the projection to an axis.
@@ -60,8 +58,7 @@ class Kdtree
 => you can still use polymorphic objects (for example Object = KdTreeObject*)
 => A bit too many parameters
 
-Solution 2: generic programming with a policy
----------------------------------------------
+### Solution 3: generic programming with a policy
 
 template <int N, typename Real, typename ObjectPolicy>
 class KdTree
@@ -243,10 +240,8 @@ It seems a better alternative is to create:
 
 With PointKdTree, should we actually implement
 PointBspTree, which can be customized to either kd-tree or 
-diagonal bsp tree? No, again node bounds do not make sense for 
-diagonal bsp tree.
-
-PointDbspTree
+a general bsp tree? No, again node bounds do not make sense for 
+a general bsp tree.
 
 Implementation experience
 -------------------------

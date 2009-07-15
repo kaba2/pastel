@@ -29,7 +29,7 @@ namespace Pastel
 
 		// The following might seem messy. This is because
 		// we want to take advantage of the zeros and ones
-		// in the alignedBox normals.
+		// in the aligned box normals.
 
 		const Vector<2, Real> alignedBoxWidth(
 			(alignedBox.max() - alignedBox.min()) * 0.5);
@@ -381,7 +381,7 @@ namespace Pastel
 
 		// The following might seem messy. This is because
 		// we want to take advantage of the zeros and ones
-		// in the alignedBox normals.
+		// in the aligned box normals.
 
 		const Vector<3, Real> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
 
@@ -392,7 +392,7 @@ namespace Pastel
 		Matrix<3, 3, Real> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
-		// Test for projection axes from alignedBox
+		// Test for projection axes from aligned box
 
 		for (integer i = 0;i < 3;++i)
 		{
@@ -622,13 +622,13 @@ namespace Pastel
 		Vector<3, Real>& projection)
 	{
 		// Use separating axis theorem to
-		// test for alignedBox-box overlap.
+		// test for aligned box-box overlap.
 
 		Real minDepth = infinity<Real>();
 		Vector<3, Real> minProjection;
 
 		// In dimension 3, there are 15 axes to test:
-		// 3 from box alignedBox, 3 from box box, and 9 from
+		// 3 from box aligned box, 3 from box box, and 9 from
 		// cross product axes.
 
 		// The following might seem messy. This is because
@@ -644,7 +644,7 @@ namespace Pastel
 		Matrix<3, 3, Real> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
-		// Test for projection axes from alignedBox
+		// Test for projection axes from aligned box
 
 		for (integer i = 0;i < 3;++i)
 		{

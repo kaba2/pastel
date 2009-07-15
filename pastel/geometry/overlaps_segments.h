@@ -1,3 +1,5 @@
+// Description: Tests whether there is an intersection in a line segment set
+
 #ifndef PASTEL_OVERLAPS_SEGMENTS_H
 #define PASTEL_OVERLAPS_SEGMENTS_H
 
@@ -7,10 +9,9 @@
 namespace Pastel
 {
 
+	//! Tests whether there is an intersection in a line segment set.
 	/*!
-	Finds the intersections of a segment set.
-	Segments sharing a vertex will never
-	intersect.
+	Segments sharing a vertex will never intersect.
 	*/
 
 	template <typename Real>

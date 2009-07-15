@@ -1,7 +1,5 @@
-/*!
-\file
-\brief An aggregate include file for geometric objects.
-*/
+// Description: An aggregate file for geometric shapes
+// Documentation: shapes.txt
 
 #ifndef PASTEL_MATHOBJECTS_H
 #define PASTEL_MATHOBJECTS_H

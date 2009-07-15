@@ -1,3 +1,6 @@
+// Description: Tools to orthogonally project shapes onto a line
+// Documentation: pastelgeometry.txt
+
 #ifndef PASTEL_PROJECT_AXIS_H
 #define PASTEL_PROJECT_AXIS_H
 

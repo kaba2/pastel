@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for testing overlap between an aligned plane and a sphere.
-*/
+// Description: Overlap tests between an aligned plane and a sphere
 
 #ifndef PASTEL_OVERLAPS_ALIGNEDPLANE_SPHERE_H
 #define PASTEL_OVERLAPS_ALIGNEDPLANE_SPHERE_H

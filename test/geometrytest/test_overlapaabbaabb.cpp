@@ -22,13 +22,13 @@ namespace
 
 	void testNegative()
 	{
-		// Nine non-intersecting alignedBoxs have been placed
+		// Nine non-intersecting aligned boxes have been placed
 		// in a square grid like this:
 		// g h i
 		// d e f
 		// a b c
 		// Make sure the algorithm agrees that e
-		// does not intersect any other alignedBox.
+		// does not intersect any other aligned box.
 
 		AlignedBox<2, Real> a(
 			Point<2, Real>(0, 0),
