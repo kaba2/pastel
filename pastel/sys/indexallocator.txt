@@ -1,0 +1,27 @@
+IndexAllocator class
+====================
+
+[Back to Miscellaneous](./miscellaneuos.htm)
+
+Files
+-----
+
+indexallocator.cpp, indexallocator.h, indexallocator.hpp
+
+Theory
+------
+
+Sometimes one needs to allocate integer identifiers in a
+conservative manner. I.e. the identifiers are resources
+which can be allocated and deallocated, and, if on allocation
+there are two free identifiers, then the smaller of them
+is returned. With a proper data structure, this can be
+done quite efficiently.
+
+Practice
+--------
+
+Pastel implements the IndexAllocator class to allocate and 
+deallocate integer identifiers conservatively. This 
+allows to perform allocations in amortized logarithmic time,
+and deallocations in logarithmic time.

@@ -1,0 +1,33 @@
+Guid class
+==========
+
+[Back to Miscellaneuos](./miscellaneous.htm)
+
+Files
+-----
+
+guid.h, guid.cpp, guid.hpp
+
+Theory
+------
+
+It is often the case that some things may need to be given truly 
+global identifiers, from which they can be safely identified later. 
+In this case a need for an identifier allocation policy also arises.
+If this identifier allocation process is distributed,
+it is impossible without coordination to avoid duplicate
+identifiers. This is solved by using a statistical approach where 
+a long identifier is combined together from time, place and
+environment dependent variables. For example, a network
+mac address should itself be a universally unique identifier.
+If we further pack with this information the current date
+and time and some random number we are pretty sure to never
+have any colliding identifiers. Such identifiers are called
+`Globally Unique IDentifiers`.
+
+Practice
+--------
+
+Pastel implements a class to store a 128-bit identifier along with some
+modification and comparison functions.
+

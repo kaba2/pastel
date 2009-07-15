@@ -1,0 +1,18 @@
+Area computation
+================
+
+[Back to PastelGeometry](./pastelgeometry.txt)
+
+Theory
+------
+
+We define the area of a point set in R^n as the 
+(n-1)-dimensional Lebesgue measure of the boundary 
+of the point set. Note that this definition might
+be a bit surprising for those who have not accustomed
+to it: the area of a sphere of radius r in R^2 is 2 pi r
+(and its volume is pi r^2). But it is the correct
+generalization when considering geometric applications. 
+One example is given by the surface area heuristic 
+when building kd-trees for ray tracing.
+

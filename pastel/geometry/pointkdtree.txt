@@ -1,0 +1,64 @@
+PointKdTree class
+=================
+
+[Back to Data structures](./data_structures.htm)
+
+Theory
+------
+
+A _binary space partitioning tree_ or a BSP-tree, is a recursive
+binary subdivision of some convex region of R^n using planes.
+A _kd-tree_ is a special kind of a BSP-tree, which requires
+each splitting plane to be orthogonal to some standard basis axis.
+A BSP-tree makes it possible to design efficient algorithms for several 
+geometric problems. Such problems include ray casting, nearest
+neighbor searching, and range searching. The efficiency of these
+algorithms rely on the ability to not having to consider that part 
+of the space which is known not to affect the result. The BSP-tree
+is effectively a multi-dimensional generalization of the binary tree.
+
+Practice
+--------
+
+Pastel implements the PointKdTree class to handle kd-trees containing
+points. In particular, this data structure can be used for efficient 
+nearest neighbor searching. In Pastel, this is the main use for the
+PointKdTree. For a kd-tree suitable for ray casting, see the links below.
+The region of the of the kd-tree is chosen an axis-aligned box, which
+has some numerical advantages compared to other shapes.
+
+Kd-tree vs BSP-tree
+-------------------
+
+Restricting the splitting planes to be orthogonal with the standard
+basis axes has a number of advantages. Some of these are:
+
+ * A plane can be described by one integer 
+ (the splitting axis), and one real number 
+ (distance of the plane from the origin).
+ In contrast, arbitrary planes require O(n)
+ storage in R^n.
+
+ * It can be tested with a single comparison on which
+ side of the splitting plane a point is. Because there
+ is no arithmetic involved, there are no numerical 
+ problems with rounding: the result is exact.
+ In contrast, arbitrary planes require O(n) time in R^n,
+ and the result might be wrong due numerical problems.
+
+ * For nearest neighbor searching, there are
+ splitting rules which are easy to compute and result
+ in excellent performance for the nearest neighbor
+ searching. In contrast, with arbitrary planes, to the
+ best of our knowledge, there is currently no known 
+ splitting rule that would have both of these properties.
+ 
+ * When doing nearest neighbor searching,
+ with orthogonal splitting planes and an axis-aligned 
+ box as the region, there is a technique to incrementally 
+ compute the exact distance from the search point to the 
+ partition cells. This allows for more efficient culling 
+ of space which in turn increases performance. In contrast, 
+ this is very hard to achieve with arbitrary splitting planes.
+
+
