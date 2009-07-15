@@ -209,8 +209,8 @@ namespace Pastel
 	void searchDepthFirst(
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& searchPoint,
-		const Real& maxDistance,
-		const Real& maxRelativeError,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{

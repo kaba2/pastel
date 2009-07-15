@@ -1273,6 +1273,10 @@
 			Name="Iterators"
 			>
 			<File
+				RelativePath=".\constantiterator.h"
+				>
+			</File>
+			<File
 				RelativePath=".\countingiterator.h"
 				>
 			</File>

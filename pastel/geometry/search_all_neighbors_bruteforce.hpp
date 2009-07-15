@@ -46,33 +46,42 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection,
+	typename ConstIndexIterator>
 	void searchAllNeighborsBruteForce(
 		const std::vector<Point<N, Real> >& pointSet,
+		const ConstIndexIterator& indexSetBegin,
+		const ConstIndexIterator& indexSetEnd,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,
 		Array<2, integer>& nearestArray)
 	{
-		ENSURE_OP(kNearest, >=, 1);
-		ENSURE2(kNearest < pointSet.size(), kNearest, pointSet.size());
+		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance, >=, 0);
 		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
 		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
 		const integer points = pointSet.size();
+		const integer indices = indexSetEnd - indexSetBegin;
 
-		if (points == 0 || kNearest == 0)
+		if (points == 0 || kNearest == 0 || indices == 0)
 		{
 			return;
 		}
 		
+		if (kNearest >= pointSet.size())
+		{
+			kNearest = pointSet.size() - 1;
+		}
+
 		const integer dimension = pointSet.front().dimension();
 
 		if (dimension == 1)
 		{
 			searchAllNeighbors1d(
 				pointSet,
+				indexSetBegin, indexSetEnd,
 				kNearest,
 				maxDistance,
 				normBijection,
@@ -95,21 +104,22 @@ namespace Pastel
 		const Real protectiveFactor = 
 			normBijection.scalingFactor(1.001);
 
-#pragma omp parallel
+#		pragma omp parallel
 		{
 			NearestSet nearestSet(kNearest);
 
-#pragma omp for
-		for (integer i = 0;i < points;++i)
+#		pragma omp for
+		for (integer i = 0;i < indices;++i)
 		{
-			const Point<N, Real>& iPoint = pointSet[i];
+			const Point<N, Real>& iPoint = pointSet[indexSetBegin[i]];
 
 			Real cullDistance = maxDistance;
 			nearestSet.clear();
 
 			for (integer j = 0;j < i;++j)
 			{
-				const Real distance = distance2(pointSet[j], iPoint, 
+				const Real distance = 
+					distance2(pointSet[indexSetBegin[j]], iPoint, 
 					normBijection, cullDistance);
 
 				if (distance <= cullDistance)
@@ -126,7 +136,8 @@ namespace Pastel
 
 			for (integer j = i + 1;j < points;++j)
 			{
-				const Real distance = distance2(pointSet[j], iPoint, 
+				const Real distance = 
+					distance2(pointSet[indexSetBegin[j]], iPoint, 
 					normBijection, cullDistance);
 
 				if (distance <= cullDistance)

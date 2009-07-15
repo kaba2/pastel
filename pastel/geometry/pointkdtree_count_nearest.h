@@ -16,7 +16,6 @@ namespace Pastel
 	/*!
 	Preconditions:
 	maxDistance >= 0
-	maxRelativeError >= 0
 
 	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
@@ -26,19 +25,16 @@ namespace Pastel
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection);
 
 	//! Counts nearest neighbors for a point in a kd-tree.
 	/*!
 	Preconditions:
 	maxDistance >= 0
-	maxRelativeError >= 0
 
-	This is a convenience function which calls the
-	more general countNearest() function with the
-	assumption that:
-	- the norm bijection is the euclidean norm bijection
+	Calls:
+	countNearest(kdTree, point, maxDistance, 
+		Euclidean_NormBijection<Real>());
 
 	See the documentation for the more
 	general countNearest() function.
@@ -48,8 +44,7 @@ namespace Pastel
 	integer countNearest(
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 
 }
 

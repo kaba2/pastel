@@ -14,26 +14,29 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection,
+	typename ConstIndexIterator, typename ConstDistanceIterator,
+	typename CountIterator>
 	void countAllNeighbors1d(
 		const std::vector<Point<N, Real> >& pointSet,
-		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
+		const ConstIndexIterator& indexBegin,
+		const ConstIndexIterator& indexEnd,
+		const ConstDistanceIterator& maxDistanceBegin,
 		const NormBijection& normBijection,
-		std::vector<integer>& countSet)
+		const CountIterator& neighborsBegin)
 	{
 		BOOST_STATIC_ASSERT(N == 1 || N == Dynamic);
 		
 		const integer points = pointSet.size();
-		countSet.resize(points);
+		const integer indices = indexEnd - indexBegin;
 
-		if (points == 0)
+		if (points == 0 || indices == 0)
 		{
 			return;
 		}
 
 		ENSURE1(pointSet.front().dimension() == 1,
 			pointSet.front().dimension());
-		ENSURE_OP(maxDistanceSet.size(), ==, pointSet.size());
 
 		typedef std::vector<KeyValue<Real, integer> > SearchSet;
 		typedef typename SearchSet::iterator Iterator;
@@ -50,20 +53,26 @@ namespace Pastel
 
 		std::sort(searchSet.begin(), searchSet.end());
 
-#pragma omp parallel for
-		for (integer i = 0;i < points;++i)
+		const ConstIterator begin = searchSet.begin();
+		const ConstIterator end = searchSet.end();
+
+#		pragma omp parallel for
+		for (integer i = 0;i < indices;++i)
 		{
-			const integer index = searchSet[i].value();
-			const Real radius = normBijection.toNorm(maxDistanceSet[index]);
-			const Real left = searchSet[i].key() - radius;
-			const Real right = searchSet[i].key() + radius;
+			PENSURE_OP(maxDistanceBegin[i], >=, 0);
+
+			const integer index = indexBegin[i];
+			const Real position = pointSet[index][0];
+			const Real radius = normBijection.toNorm(maxDistanceBegin[i]);
 			
 			const ConstIterator leftIter = std::lower_bound(
-				searchSet.begin(), searchSet.end(), keyValue(left, index));
+				begin, end, 
+				keyValue(position - radius, index));
 			const ConstIterator rightIter = std::upper_bound(
-				searchSet.begin(), searchSet.end(), keyValue(right, index));
+				begin, end,
+				keyValue(position + radius, index));
 
-			countSet[index] = rightIter - leftIter;
+			neighborsBegin[i] = rightIter - leftIter;
 		}
 	}
 

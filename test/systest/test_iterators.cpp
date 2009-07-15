@@ -33,7 +33,7 @@ namespace
 
 			TEST_ENSURE(
 				std::equal(a.begin(), a.end(), 
-				ConstCountingIterator<integer>(1)));
+				CountingIterator<integer>(1)));
 		}
 	};
 

@@ -14,20 +14,21 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection,
+	typename ConstIndexIterator, typename ConstDistanceIterator,
+	typename CountIterator>
 	void countAllNeighborsBruteForce(
 		const std::vector<Point<N, Real> >& pointSet,
-		const std::vector<PASTEL_NO_DEDUCTION(Real)>& maxDistanceSet,
+		const ConstIndexIterator& indexBegin,
+		const ConstIndexIterator& indexEnd,
+		const ConstDistanceIterator& maxDistanceBegin,
 		const NormBijection& normBijection,
-		std::vector<integer>& countSet)
+		const CountIterator& neighborsBegin)
 	{
-		ENSURE_OP(pointSet.size(), ==, maxDistanceSet.size());
-
 		const integer points = pointSet.size();
+		const integer indices = indexEnd - indexBegin;
 
-		countSet.resize(points);
-
-		if (points == 0)
+		if (points == 0 || indices == 0)
 		{
 			return;
 		}
@@ -36,22 +37,30 @@ namespace Pastel
 
 		if (dimension == 1)
 		{
-			countAllNeighbors1d(pointSet, maxDistanceSet,
-				normBijection, countSet);
+			countAllNeighbors1d(
+				pointSet, 
+				indexBegin, 
+				indexEnd,
+				maxDistanceBegin,
+				normBijection, 
+				neighborsBegin);
+
 			return;
 		}
 
-		std::fill(countSet.begin(), countSet.end(), 0);
+		std::fill(neighborsBegin, neighborsBegin + indices, 0);
 
-#pragma omp parallel for
-		for (integer i = 0;i < points;++i)
+#		pragma omp parallel for
+		for (integer i = 0;i < indices;++i)
 		{
-			const Real maxDistance = maxDistanceSet[i];
+			const integer index = indexBegin[i];
+			const Point<N, Real>& iPoint = pointSet[index];
+			const Real maxDistance = maxDistanceBegin[i];
 			for (integer j = 0;j < points;++j)
 			{
-				if (distance2(pointSet[i], pointSet[j], normBijection) <= maxDistance)
+				if (distance2(iPoint, pointSet[j], normBijection) <= maxDistance)
 				{
-					++countSet[i];
+					++neighborsBegin[i];
 				}
 			}
 		}
