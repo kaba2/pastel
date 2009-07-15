@@ -1017,10 +1017,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\sparseiterator.h"
-				>
-			</File>
-			<File
 				RelativePath=".\string_tools.cpp"
 				>
 			</File>
@@ -1270,6 +1266,18 @@
 			</File>
 			<File
 				RelativePath=".\measuretable_tools.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Iterators"
+			>
+			<File
+				RelativePath=".\countingiterator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sparseiterator.h"
 				>
 			</File>
 		</Filter>

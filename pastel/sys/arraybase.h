@@ -29,8 +29,8 @@ namespace Pastel
 				Dimension = N
 			};
 
-			typedef SparseIterator<Type> RowIterator;
-			typedef ConstSparseIterator<Type> ConstRowIterator;
+			typedef SparseIterator<Type*> RowIterator;
+			typedef ConstSparseIterator<Type*> ConstRowIterator;
 
 			typedef Type Element;
 			typedef Type& Reference;

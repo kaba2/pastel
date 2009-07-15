@@ -208,10 +208,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_blockarray.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_config.cpp"
 			>
 		</File>
@@ -237,6 +233,10 @@
 		</File>
 		<File
 			RelativePath=".\test_indexallocator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_iterators.cpp"
 			>
 		</File>
 		<File

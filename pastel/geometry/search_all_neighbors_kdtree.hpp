@@ -6,6 +6,7 @@
 #include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/sys/pastelomp.h"
+#include "pastel/sys/countingiterator.h"
 
 namespace Pastel
 {
@@ -32,45 +33,6 @@ namespace Pastel
 			{
 				return (*object)[axis];
 			}
-		};
-
-		template <typename Type>
-		class SequenceIterator
-		{
-		public:
-			SequenceIterator()
-				: data_()
-			{
-			}
-
-			explicit SequenceIterator(const Type& data)
-				: data_(data)
-			{
-			}
-
-			const Type& operator*() const
-			{
-				return data_;
-			}
-
-			SequenceIterator& operator++()
-			{
-				++data_;
-				return *this;
-			}
-
-			bool operator==(const SequenceIterator& that) const
-			{
-				return data_ == that.data_;
-			}
-
-			bool operator!=(const SequenceIterator& that) const
-			{
-				return data_ != that.data_;
-			}
-		
-		private:
-			Type data_;
 		};
 
 	}
@@ -134,8 +96,7 @@ namespace Pastel
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef typename Tree::Object Object;
-		typedef Detail_AllNearestNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
-			SequenceIterator;
+		typedef ConstCountingIterator<const Point<N, Real>*> SequenceIterator;
 
 		Tree tree(dimension);
 
