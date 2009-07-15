@@ -1,0 +1,37 @@
+Overlap testing
+===============
+
+[Back to PastelGeometry](./pastelgeometry.txt)
+
+Theory
+------
+
+Testing for any two point sets in R^n for overlap means
+to check if their intersection is empty. This is an easier 
+problem than actually finding the intersection set and can
+in many cases be solved much faster.
+
+To actually implement an algorithm, the point sets must be
+restricted in some way. A particularly easy class of point
+sets are those of convex sets.
+
+Practice
+--------
+
+Pastel allows to represent several kinds of simple convex
+point sets. These include aligned boxes, boxes, spheres, 
+capsules, planes, line segments, lines, and simplices.
+
+GJK vs specialized algorithms
+-----------------------------
+
+Given n types of objects, one needs to implement O(n^2)
+algorithms to cover for all pairwise combinations.
+While there exists an iterative algorithm (the GJK algorithm) 
+to perform overlap testing between arbitrary convex sets 
+(for which a so-called support mapping can be implemented),
+the advantage of these hand-tuned tests include that they
+can be implemented very efficiently and that their result
+is exact (rather than the result of cutting a convergent 
+sequence epsilon away from the correct answer).
+

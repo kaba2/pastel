@@ -1,0 +1,10 @@
+Volume computation
+==================
+
+[Back to PastelGeometry](./pastelgeometry.txt)
+
+Theory
+------
+
+We define the volume of a point set in R^n as its
+Lebesgue measure.
