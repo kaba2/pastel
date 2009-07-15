@@ -1,3 +1,5 @@
+// Description: Closest points between an aligned box and a point
+
 #ifndef PASTEL_CLOSEST_ALIGNEDBOX_POINT_H
 #define PASTEL_CLOSEST_ALIGNEDBOX_POINT_H
 
@@ -6,6 +8,11 @@
 namespace Pastel
 {
 
+	//! Computes closest points between an aligned box and a point.
+	/*!
+	Returns:
+	A point C on the box such that C and 'point' are closest points.
+	*/
 	template <int N, typename Real>
 	TemporaryPoint<N, Real> closest(
 		const AlignedBox<N, Real>& box,

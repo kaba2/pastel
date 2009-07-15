@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Computation of the closest point on the segment w.r.t a point.
-*/
+// Description: Closest points between a line segment and a point
 
 #ifndef PASTEL_CLOSEST_SEGMENT_POINT_H
 #define PASTEL_CLOSEST_SEGMENT_POINT_H
@@ -12,10 +9,10 @@
 namespace Pastel
 {
 
-	//! Returns the parameter of the closest point on the segment w.r.t a point.
+	//! Computes closest points between a line segment and a point.
 	/*!
-	If the returned parameter is t, the closest point C is given by:
-	C = segment.at(t);
+	Returns:
+	A parameter t such that 'segment.at(t)' and 'point' are closest points;
 	*/
 
 	template <int N, typename Real>

@@ -1,3 +1,5 @@
+// Description: Containment tests between a sphere and an aligned box
+
 #ifndef PASTEL_CONTAINS_SPHERE_ALIGNEDBOX_H
 #define PASTEL_CONTAINS_SPHERE_ALIGNEDBOX_H
 
@@ -7,6 +9,7 @@
 namespace Pastel
 {
 
+	//! Finds out if an aligned box is contained in a sphere.
 	template <int N, typename Real>
 	bool contains(
 		const Sphere<N, Real>& outerSphere,

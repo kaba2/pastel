@@ -1,3 +1,6 @@
+// Description: Tools for differential geometry
+// Documentation: common.txt
+
 #ifndef PASTEL_DIFFERENTIAL_H
 #define PASTEL_DIFFERENTIAL_H
 

@@ -1,0 +1,10 @@
+Closest points computation
+==========================
+
+Theory
+------
+
+Given is a shape of type A and a shape of type B.
+The problem is to find a point on each shape such
+that the distance between these points is minimal.
+Such points are called _closest points_.

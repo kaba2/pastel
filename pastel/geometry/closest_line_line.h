@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing the closest points between two lines.
-*/
+// Description: Closest points between two lines
 
 #ifndef PASTEL_CLOSEST_LINE_LINE_H
 #define PASTEL_CLOSEST_LINE_LINE_H
@@ -14,8 +11,12 @@
 namespace Pastel
 {
 
-	//! Computes the closest points between two lines.
-
+	//! Computes closest points between two lines.
+	/*!
+	Returns:
+	Parameters (s, t) such that 'aLine.at(s)' and
+	'bLine.at(t)' are closest points.
+	*/
 	template <int N, typename Real>
 	Tuple<2, Real> closest(
 		const Line<N, Real>& aLine,

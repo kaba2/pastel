@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for founding bounding aligned boxes for objects.
-*/
+// Description: Tools for computing bounding aligned boxes for shapes.
 
 #ifndef PASTEL_BOUNDING_ALIGNEDBOX_H
 #define PASTEL_BOUNDING_ALIGNEDBOX_H
