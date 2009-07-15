@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/pointkdtree_search_nearest.h"
 #include "pastel/geometry/pointkdtree_depth_first.h"
+#include "pastel/geometry/distance_alignedbox_point.h"
 
 #include "pastel/sys/smallfixedset.h"
 
@@ -79,6 +80,21 @@ namespace Pastel
 		ENSURE_OP(maxRelativeError, >=, 0);
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE2(kNearest < kdTree.objects(), kNearest, kdTree.objects());
+
+		if (maxDistance < infinity<Real>() &&
+			distance2(kdTree.bound(), searchPoint, normBijection) > maxDistance)
+		{
+			if (nearestSet)
+			{
+				nearestSet->clear();
+			}
+			if (distanceSet)
+			{
+				distanceSet->clear();
+			}
+			
+			return;
+		}
 
 		typedef Detail_Search_Nearest::CandidateFunctor<N, Real, ObjectPolicy, AcceptFunctor>
 			CandidateFunctor;
