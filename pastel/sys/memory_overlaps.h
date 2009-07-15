@@ -8,8 +8,8 @@ namespace Pastel
 		const void* aMemoryBegin, const void* aMemoryEnd,
 		const void* bMemoryBegin, const void* bMemoryEnd)
 	{
-		PENSURE_OP(aMemoryBegin, <=, aMemoryEnd);
-		PENSURE_OP(bMemoryBegin, <=, bMemoryEnd);
+		PENSURE(aMemoryBegin <= aMemoryEnd);
+		PENSURE(bMemoryBegin <= bMemoryEnd);
 
 		return aMemoryEnd > bMemoryBegin &&
 			aMemoryBegin < bMemoryEnd;

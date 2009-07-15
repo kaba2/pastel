@@ -11,6 +11,7 @@
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_tools.h"
 
+#include "pastel/sys/countingiterator.h"
 #include "pastel/sys/random.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
@@ -64,6 +65,8 @@ namespace
 
 		searchAllNeighborsBruteForce(
 			pointSet,
+			CountingIterator<integer>(0),
+			CountingIterator<integer>(points),
 			kNearest,
 			infinity<Real>(),
 			Euclidean_NormBijection<Real>(),
@@ -99,6 +102,8 @@ namespace
 
 		searchAllNeighborsKdTree(
 			pointSet,
+			CountingIterator<integer>(0),
+			CountingIterator<integer>(points),
 			0,
 			kNearest,
 			infinity<Real>(),

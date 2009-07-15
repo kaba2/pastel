@@ -37,9 +37,12 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection, typename SplitRule>
+	template <int N, typename Real, typename NormBijection, 
+		typename ConstIndexIterator, typename SplitRule>
 	void searchAllNeighborsKdTree(
 		const std::vector<Point<N, Real> >& pointSet,
+		const ConstIndexIterator& indexSetBegin,
+		const ConstIndexIterator& indexSetEnd,
 		integer kNearestBegin,
 		integer kNearestEnd,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -69,8 +72,9 @@ namespace Pastel
 		ENSURE_OP(maxRelativeError, >=, 0);
 
 		const integer points = pointSet.size();
+		const integer indices = indexSetEnd - indexSetBegin;
 
-		if (kNearest == 0 || points == 0 ||
+		if (kNearest == 0 || points == 0 || indices == 0 ||
 			(!nearestArray && !distanceArray))
 		{
 			// Nothing to compute.
@@ -83,6 +87,7 @@ namespace Pastel
 		{
 			searchAllNeighbors1d(
 				pointSet,
+				indexSetBegin, indexSetEnd,
 				kNearest,
 				maxDistance,
 				normBijection,
@@ -96,27 +101,18 @@ namespace Pastel
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
 		typedef typename Tree::Object Object;
-		typedef ConstCountingIterator<const Point<N, Real>*> SequenceIterator;
+		typedef CountingIterator<const Point<N, Real>*> SequenceIterator;
 
 		Tree tree(dimension);
 
-		tree.insert(SequenceIterator(&pointSet[0]), 
+		tree.insert(
+			SequenceIterator(&pointSet[0]), 
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		tree.refine(
 			computeKdTreeMaxDepth(tree.objects()), maxPointsPerNode, splitRule);
 
-		//check(tree);
-
-		/*
-		log() << tree.nodes() << " nodes, "
-			<< tree.leaves() << " leaves, " 
-			<< tree.objects() << " objects, "
-			<< depth(tree) << " depth."
-			<< logNewLine;
-		*/
-
-#pragma omp parallel
+#		pragma omp parallel
 		{
 		typedef std::vector<ConstTreeIterator> NearestSet;
 		typedef std::vector<Real> DistanceSet;
@@ -126,11 +122,16 @@ namespace Pastel
 		distanceSet.reserve(kNearestEnd);
 		DistanceSet* distanceSetPtr = distanceArray ? &distanceSet : 0;
 
-#pragma omp for schedule(dynamic, 100)
-		for (integer i = 0;i < points;++i)
+//#		pragma omp for schedule(dynamic, 100)
+#		pragma omp for
+		for (integer i = 0;i < indices;++i)
 		{
-			searchNearest(tree, pointSet[i], 
-				Accept_ExceptDeref<ConstTreeIterator, Object>(&pointSet[i]), 
+			const integer index = indexSetBegin[i];
+			PENSURE_OP(index, >=, 0);
+			PENSURE_OP(index, <, points);
+
+			searchNearest(tree, pointSet[index], 
+				Accept_ExceptDeref<ConstTreeIterator, Object>(&pointSet[index]), 
 				maxDistance, maxRelativeError,
 				normBijection, kNearestEnd, &nearestSet, distanceSetPtr);
 

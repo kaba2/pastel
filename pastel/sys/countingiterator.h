@@ -11,60 +11,72 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class ConstCountingIterator
+	class CountingIterator
 		: public boost::random_access_iterator_helper<
-		ConstCountingIterator<Type>, Type, integer>
+		CountingIterator<Type>, Type, integer>
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
 
-		ConstCountingIterator()
+		CountingIterator()
 			: data_()
 		{
 		}
 
-		explicit ConstCountingIterator(const Type& data)
+		explicit CountingIterator(const Type& data)
 			: data_(data)
 		{
 		}
 
-		ConstCountingIterator& operator++()
+		CountingIterator& operator++()
 		{
 			++data_;
 			return *this;
 		}
 		
-		ConstCountingIterator& operator--()
+		CountingIterator& operator--()
 		{
 			--data_;
 			return *this;
 		}
 
-		ConstCountingIterator& operator+=(integer that)
+		CountingIterator& operator+=(integer that)
 		{
 			data_ += that;
 			return *this;
 		}
 
-		ConstCountingIterator& operator-=(integer that)
+		CountingIterator& operator-=(integer that)
 		{
 			data_ -= that;
 			return *this;
 		}
 
-		Type operator*() const
+		integer operator-(const CountingIterator& that) const
+		{
+			return data_ - that.data_;
+		}
+
+		// FIX: This doesn't make sense at all.
+		// However, the boost::operators needs it.
+		Type& operator*()
 		{
 			return data_;
 		}
 
-		bool operator==(const ConstCountingIterator& that) const
+		const Type& operator*() const
+		{
+			return data_;
+		}
+
+		bool operator==(const CountingIterator& that) const
 		{
 			return data_ == that.data_;
 		}
 
-		bool operator<(const ConstCountingIterator& that) const
+		bool operator<(const CountingIterator& that) const
 		{
 			return data_ < that.data_;
 		}

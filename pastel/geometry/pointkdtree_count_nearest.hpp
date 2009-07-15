@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/pointkdtree_count_nearest.h"
 #include "pastel/geometry/pointkdtree_depth_first.h"
+#include "pastel/geometry/distance_alignedbox_point.h"
 
 namespace Pastel
 {
@@ -47,15 +48,18 @@ namespace Pastel
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection)
 	{
 		ENSURE_OP(maxDistance, >=, 0);
-		ENSURE_OP(maxRelativeError, >=, 0);
 
 		if (maxDistance == infinity<Real>())
 		{
 			return kdTree.objects();
+		}
+
+		if (distance2(kdTree.bound(), searchPoint, normBijection) > maxDistance)
+		{
+			return 0;
 		}
 
 		typedef Detail_Count_Nearest::CandidateFunctor<N, Real, ObjectPolicy>
@@ -65,7 +69,7 @@ namespace Pastel
 		const CandidateFunctor candidateFunctor(nearestCount);
 
 		searchDepthFirst(
-			kdTree, searchPoint, maxDistance, maxRelativeError,
+			kdTree, searchPoint, maxDistance, 0,
 			normBijection, candidateFunctor);
 
 		return nearestCount;
@@ -75,14 +79,12 @@ namespace Pastel
 	integer countNearest(
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
 		const Point<N, Real>& point,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
 		ENSURE_OP(maxDistance, >=, 0);
-		ENSURE_OP(maxRelativeError, >=, 0);
 
 		return Pastel::countNearest(
-			kdTree, point, maxDistance, maxRelativeError,
+			kdTree, point, maxDistance, 
 			Euclidean_NormBijection<Real>());
 	}
 

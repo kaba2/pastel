@@ -20,6 +20,7 @@ namespace Pastel
 			const ConstIterator& end,
 			const ConstIterator& iter,
 			integer searchIndex,
+			integer kNearest,
 			const NormBijection& normBijection,
 			Array<2, integer>* nearestArray,
 			Array<2, Real>* distanceArray)
@@ -31,7 +32,7 @@ namespace Pastel
 
 			const Real position = iter->key();
 
-			while(leftIter != begin && rightIter + 1 != end)
+			while(leftIter != begin && rightIter + 1 != end && nearestIndex < kNearest)
 			{
 				const Real leftDistance = 
 					position - (leftIter - 1)->key();
@@ -71,7 +72,7 @@ namespace Pastel
 				}
 			}
 
-			while(leftIter != begin)
+			while(leftIter != begin && nearestIndex < kNearest)
 			{
 				--leftIter;
 				if (nearestArray)
@@ -87,7 +88,7 @@ namespace Pastel
 				++nearestIndex;
 			}
 
-			while(rightIter + 1 != end)
+			while(rightIter + 1 != end && nearestIndex < kNearest)
 			{
 				++rightIter;
 				if (nearestArray)
@@ -106,20 +107,33 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection,
+	typename ConstIndexIterator>
 	void searchAllNeighbors1d(
 		const std::vector<Point<N, Real> >& pointSet,
+		const ConstIndexIterator& indexSetBegin,
+		const ConstIndexIterator& indexSetEnd,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,
 		Array<2, integer>* nearestArray,
 		Array<2, PASTEL_NO_DEDUCTION(Real)>* distanceArray)
 	{
-		const integer points = pointSet.size();
+		ENSURE_OP(kNearest, >=, 0);
+		ENSURE_OP(maxDistance, >=, 0);
 
-		if (points == 0)
+		const integer points = pointSet.size();
+		const integer indices = indexSetEnd - indexSetBegin;
+
+		if (indices == 0 || kNearest == 0 || indices == 0 ||
+			(!nearestArray && !distanceArray))
 		{
 			return;
+		}
+
+		if (kNearest >= pointSet.size())
+		{
+			kNearest = pointSet.size() - 1;
 		}
 
 		const integer dimension = pointSet.front().dimension();
@@ -135,8 +149,7 @@ namespace Pastel
 		
 		for (integer i = 0;i < points;++i)
 		{
-			searchSet.push_back(
-				keyValue(pointSet[i][0], i));
+			searchSet.push_back(keyValue(pointSet[i][0], i));
 		}
 
 		std::sort(searchSet.begin(), searchSet.end());
@@ -144,103 +157,164 @@ namespace Pastel
 		const ConstIterator begin = searchSet.begin();
 		const ConstIterator end = searchSet.end();
 
-		if (maxDistance == infinity<Real>())
+		if (maxDistance < infinity<Real>())
 		{
-			SmallFixedSet<KeyValue<Real, integer> > neighborSet(kNearest);
-
-			ConstIterator iter = begin;
-			ConstIterator leftIter = begin;
-			ConstIterator rightIter = leftIter + kNearest + 1;
-
-			while(iter != end)
+			const Real radius = normBijection.toNorm(maxDistance);
+#			pragma omp parallel for
+			for (integer i = 0;i < indices;++i)
 			{
-				const Real position = iter->key();
-
-				Real farthestDistance = 
-					std::max(
-					(rightIter - 1)->key() - position,
-					position - leftIter->key());
-
-				// Slide left.
-				while(leftIter != begin && rightIter - 1 != iter)
-				{
-					const Real distance = 
-						position - (leftIter - 1)->key();
-					if (distance >= farthestDistance)
-					{
-						break;
-					}
-
-					--leftIter;
-					--rightIter;
-
-					farthestDistance = 
-						std::max(
-						(rightIter - 1)->key() - position,
-						distance);
-				}
-
-				// Slide right.
-				while(leftIter != iter && rightIter != end)
-				{
-					const Real distance = 
-						rightIter->key() - position;
-					if (distance >= farthestDistance)
-					{
-						break;
-					}
-
-					++leftIter;
-					++rightIter;
-
-					farthestDistance = 
-						std::max(
-						distance,
-						position - leftIter->key());
-				}
+				const integer index = indexSetBegin[i];
+				const Real position = pointSet[index][0];
+		
+				const ConstIterator leftIter = std::lower_bound(
+					begin, end, keyValue(position - radius, index));
+				const ConstIterator rightIter = std::upper_bound(
+					begin, end, keyValue(position + radius, index));
+				const ConstIterator iter = std::find(
+					leftIter, rightIter, keyValue(position, index));
+				ASSERT(iter != rightIter);
 
 				Detail_SearchAllNeighbors1d::assignNearest<Real>(
-					leftIter, rightIter, iter, iter->value(),
+					leftIter, rightIter, iter, i, kNearest,
 					normBijection,
 					nearestArray, distanceArray);
-				
-				if (rightIter != end)
-				{
-					++leftIter;
-					++rightIter;
-				}
-				++iter;
 			}
 		}
 		else
 		{
-			SmallFixedSet<KeyValue<Real, integer> > neighborSet(kNearest);
-
-			ConstIterator iter = begin;
-			const Real radius = normBijection.toNorm(maxDistance);
-#pragma omp parallel for
-			for (integer i = 0;i < points;++i)
+#			pragma omp parallel for
+			for (integer i = 0;i < indices;++i)
 			{
-				const ConstIterator iter = begin + i;
-
-				const integer index = iter->value();
-				const Real position = iter->key();
-
-				const Real left = position - radius;
-				const Real right = position + radius;
-			
-				const ConstIterator leftIter = std::lower_bound(
-					searchSet.begin(), searchSet.end(), keyValue(left, index));
-				const ConstIterator rightIter = std::upper_bound(
-					searchSet.begin(), searchSet.end(), keyValue(right, index));
+				const integer index = indexSetBegin[i];
+				const Real position = pointSet[index][0];
+		
+				const ConstIterator iter = std::find(
+					begin, end, keyValue(position, index));
+				ASSERT(iter != end);
 
 				Detail_SearchAllNeighbors1d::assignNearest<Real>(
-					leftIter, rightIter, iter, iter->value(),
+					begin, end, iter, i, kNearest,
 					normBijection,
 					nearestArray, distanceArray);
 			}
 		}
 	}
+
+	/*
+	template <int N, typename Real, typename NormBijection>
+	void searchAllNeighbors1d(
+		const std::vector<Point<N, Real> >& pointSet,
+		integer kNearest,
+		const NormBijection& normBijection,
+		Array<2, integer>* nearestArray,
+		Array<2, PASTEL_NO_DEDUCTION(Real)>* distanceArray)
+	{
+		ENSURE_OP(kNearest, >=, 0);
+
+		// This function assumes that the neighbors are sought
+		// for all points in the set, and with no culling.
+		// This is a very fast algorithm, but it does not
+		// parallelize.
+
+		const integer points = pointSet.size();
+
+		if (indices == 0 || kNearest == 0 ||
+			(!nearestArray && !distanceArray))
+		{
+			return;
+		}
+
+		if (kNearest >= pointSet.size())
+		{
+			kNearest = pointSet.size() - 1;
+		}
+
+		const integer dimension = pointSet.front().dimension();
+
+		ENSURE_OP(dimension, ==, 1);
+
+		typedef std::vector<KeyValue<Real, integer> > SearchSet;
+		typedef typename SearchSet::iterator Iterator;
+		typedef typename SearchSet::const_iterator ConstIterator;
+		
+		SearchSet searchSet;
+		searchSet.reserve(points);
+		
+		for (integer i = 0;i < points;++i)
+		{
+			searchSet.push_back(keyValue(pointSet[i][0], i));
+		}
+
+		std::sort(searchSet.begin(), searchSet.end());
+
+		const ConstIterator begin = searchSet.begin();
+		const ConstIterator end = searchSet.end();
+
+		ConstIterator iter = begin;
+		ConstIterator leftIter = begin;
+		ConstIterator rightIter = leftIter + kNearest + 1;
+
+		while(iter != end)
+		{
+			const Real position = iter->key();
+
+			Real farthestDistance = 
+				std::max(
+				(rightIter - 1)->key() - position,
+				position - leftIter->key());
+
+			// Slide left.
+			while(leftIter != begin && rightIter - 1 != iter)
+			{
+				const Real distance = 
+					position - (leftIter - 1)->key();
+				if (distance >= farthestDistance)
+				{
+					break;
+				}
+
+				--leftIter;
+				--rightIter;
+
+				farthestDistance = 
+					std::max(
+					(rightIter - 1)->key() - position,
+					distance);
+			}
+
+			// Slide right.
+			while(leftIter != iter && rightIter != end)
+			{
+				const Real distance = 
+					rightIter->key() - position;
+				if (distance >= farthestDistance)
+				{
+					break;
+				}
+
+				++leftIter;
+				++rightIter;
+
+				farthestDistance = 
+					std::max(
+					distance,
+					position - leftIter->key());
+			}
+
+			Detail_SearchAllNeighbors1d::assignNearest<Real>(
+				leftIter, rightIter, iter, iter->value(),
+				normBijection,
+				nearestArray, distanceArray);
+			
+			if (rightIter != end)
+			{
+				++leftIter;
+				++rightIter;
+			}
+			++iter;
+		}
+	}
+	*/
 
 }
 

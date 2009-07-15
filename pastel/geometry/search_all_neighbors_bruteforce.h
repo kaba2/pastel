@@ -15,8 +15,7 @@ namespace Pastel
 	//! Finds all-k-nearest-neighbours of a point set.
 	/*!
 	Preconditions:
-	kNearest >= 1
-	kNearest <= pointSet.size()
+	kNearest >= 0
 	maxDistance >= 0
 
 	Time complexity:
@@ -25,13 +24,38 @@ namespace Pastel
 	d is the dimension
 	n = pointSet.size()
 
-	Algorithm:
-	Linear scan (brute force).
+	pointSet:
+	The set of points to do the searching in.
+
+	indexSetBegin, indexSetEnd:
+	A sequence of integers denoting indices of those
+	points in the 'pointSet' for which the neighbors
+	are sought for. Note: use the CountingIterator 
+	class for generating a range of integer values 
+	without using any additional storage.
+
+	kNearest:
+	The number of nearest neighbors to seek for.
+
+	maxDistance:
+	A distance after which points aren't considered
+	neighbors. This distance is in terms of the
+	norm bijection. Note: Can be set to infinity.
+
+	normBijection:
+	The norm bijection to use to define distance.
+
+	nearestArray (output):
+	An array of indices such that a(i, j) contains
+	the j:th neighbor of the i:th point in the index set.
 	*/
 
-	template <int N, typename Real, typename NormBijection>
+	template <int N, typename Real, typename NormBijection,
+	typename ConstIndexIterator>
 	void searchAllNeighborsBruteForce(
 		const std::vector<Point<N, Real> >& pointSet,
+		const ConstIndexIterator& indexSetBegin,
+		const ConstIndexIterator& indexSetEnd,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection,

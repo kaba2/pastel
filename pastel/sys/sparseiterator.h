@@ -71,6 +71,11 @@ namespace Pastel
 			return *this;
 		}
 
+		integer operator-(const SparseIterator& that) const
+		{
+			return (iter_ - that.iter_) / delta_;
+		}
+
 		typename std::iterator_traits<Iterator>::value_type& operator*() const
 		{
 			return *iter_;
@@ -154,6 +159,18 @@ namespace Pastel
 			return *this;
 		}
 
+		integer operator-(const ConstSparseIterator& that) const
+		{
+			return (iter_ - that.iter_) / delta_;
+		}
+
+		// FIX: This doesn't make sense at all.
+		// However, the boost::operators needs it.
+		typename std::iterator_traits<ConstIterator>::value_type& operator*()
+		{
+			return *iter_;
+		}
+
 		const typename std::iterator_traits<ConstIterator>::value_type& operator*() const
 		{
 			return *iter_;
@@ -173,6 +190,25 @@ namespace Pastel
 		ConstIterator iter_;
 		integer delta_;
 	};
+
+	template <typename ConstIterator>
+	ConstIterator sparseEnd(
+		const ConstIterator& begin, const ConstIterator& end,
+		integer delta)
+	{
+		PENSURE_OP(delta, >= , 1);
+
+		const integer elements = end - begin;
+		const integer remainder = elements % delta;
+
+		ConstIterator result = end;
+		if (remainder > 0)
+		{
+			result += delta - remainder;
+		}
+		
+		return result;
+	}
 
 }
 
