@@ -10,14 +10,13 @@ using namespace Pastel;
 
 int main()
 {
-	// ENSURE2\({:i} > {:i}, :i, :i\);
-	// ENSURE2\({:i} == {:i},:Wh*\n:Wh*:i, :i\);
-	// ENSURE_OP(\1, >, \2);
 	log().addObserver(streamLogObserver(&cout));
 	log().addObserver(fileLogObserver("log.txt"));
 
 	//sysTestList().run();
 	sysTestList().console();
+
+	generateTestReport(sysTestReport(), log());
 
 	string tmp;
 	getline(cin, tmp);

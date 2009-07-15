@@ -6,6 +6,7 @@
 #include "pastel/geometry/kdtree_tools.h"
 
 #include "pastel/sys/pastelomp.h"
+#include "pastel/sys/countingiterator.h"
 
 namespace Pastel
 {
@@ -72,45 +73,6 @@ namespace Pastel
 			}
 		};
 
-		template <typename Type>
-		class SequenceIterator
-		{
-		public:
-			SequenceIterator()
-				: data_()
-			{
-			}
-
-			explicit SequenceIterator(const Type& data)
-				: data_(data)
-			{
-			}
-
-			const Type& operator*() const
-			{
-				return data_;
-			}
-
-			SequenceIterator& operator++()
-			{
-				++data_;
-				return *this;
-			}
-
-			bool operator==(const SequenceIterator& that) const
-			{
-				return data_ == that.data_;
-			}
-
-			bool operator!=(const SequenceIterator& that) const
-			{
-				return data_ != that.data_;
-			}
-		
-		private:
-			Type data_;
-		};
-
 	}
 
 	template <int N, typename Real, typename NormBijection, typename CountFunctor>
@@ -137,8 +99,7 @@ namespace Pastel
 		typedef PointKdTree<N, Real, 
 			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef Detail_CountAllNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
-			SequenceIterator;
+		typedef ConstCountingIterator<const Point<N, Real>*> SequenceIterator;
 
 		Tree tree(dimension);
 
@@ -180,7 +141,7 @@ namespace Pastel
 		typedef PointKdTree<N, Real, 
 			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > Tree;
 		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef Detail_CountAllNeighborsKdTree::SequenceIterator<const Point<N, Real>*>
+		typedef Detail_CountAllNeighborsKdTree::CountingIterator<const Point<N, Real>*>
 			SequenceIterator;
 
 		Tree tree(dimension);
