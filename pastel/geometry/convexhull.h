@@ -1,3 +1,5 @@
+// Description: Tools for computing the convex hull of a point set
+
 #ifndef PASTEL_CONVEXHULL_H
 #define PASTEL_CONVEXHULL_H
 

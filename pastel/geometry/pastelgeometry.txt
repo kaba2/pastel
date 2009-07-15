@@ -1,0 +1,6 @@
+PastelGeometry
+==============
+
+[Back to Pastel](../pastel.htm)
+
+PastelGeometry is a library of geometric algorithms.

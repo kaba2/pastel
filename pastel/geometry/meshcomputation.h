@@ -1,3 +1,6 @@
+// Description: Some tools for triangle meshes
+// Documentation: common.txt
+
 #ifndef PASTEL_MESHCOMPUTATION_H
 #define PASTEL_MESHCOMPUTATION_H
 

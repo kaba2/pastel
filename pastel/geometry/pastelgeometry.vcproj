@@ -522,6 +522,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\common.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\differential.h"
 				>
 			</File>
@@ -546,7 +550,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\nearest_axis.h"
+				RelativePath=".\pastelgeometry.txt"
 				>
 			</File>
 			<File
@@ -1062,6 +1066,10 @@
 			Name="Closest points"
 			>
 			<File
+				RelativePath=".\closest.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\closest_alignedbox_point.h"
 				>
 			</File>
@@ -1115,8 +1123,12 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Containment"
+			Name="Containment testing"
 			>
+			<File
+				RelativePath=".\containment.txt"
+				>
+			</File>
 			<File
 				RelativePath=".\contains_alignedbox_alignedbox.h"
 				>
@@ -1418,6 +1430,10 @@
 			Name="Bounding"
 			>
 			<File
+				RelativePath=".\bounding.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\bounding_alignedbox.h"
 				>
 			</File>
@@ -1463,6 +1479,10 @@
 			</File>
 			<File
 				RelativePath=".\convexhull.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\convexhull.txt"
 				>
 			</File>
 		</Filter>

@@ -1,3 +1,5 @@
+// Description: Closest points between a line and a point
+
 #ifndef PASTEL_CLOSEST_LINE_POINT_H
 #define PASTEL_CLOSEST_LINE_POINT_H
 
@@ -7,8 +9,11 @@
 namespace Pastel
 {
 
-	//! Returns the parameter of the closest point on the line w.r.t a point.
-
+	//! Computes closest points between a line and a point.
+	/*!
+	Returns:
+	A parameter t such that 'line.at(t)' and 'point' are closest points.
+	*/
 	template <int N, typename Real>
 	Real closest(
 		const Line<N, Real>& line,

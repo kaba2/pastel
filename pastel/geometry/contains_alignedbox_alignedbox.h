@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing if one aligned box is contained in another.
-*/
+// Description: Containment tests between aligned boxes
 
 #ifndef PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
@@ -11,8 +8,7 @@
 namespace Pastel
 {
 
-	//! Returns true if the 'inner' is contained in the 'outer'.
-
+	//! Finds out if an aligned box is contained in another one.
 	template <int N, typename Real>
 	bool contains(
 		const AlignedBox<N, Real>& outer,

@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for computing bounding spheres for objects.
-*/
+// Description: Tools for computing bounding sphere for shapes
 
 #ifndef PASTEL_BOUNDING_SPHERE_H
 #define PASTEL_BOUNDING_SPHERE_H

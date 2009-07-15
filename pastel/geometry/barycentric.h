@@ -1,7 +1,5 @@
-/*!
-\file
-\brief Functions for computing barycentric coordinates.
-*/
+// Description: Tools for working with barycentric coordinates
+// Documentation: common.txt
 
 #ifndef PASTEL_BARYCENTRIC_H
 #define PASTEL_BARYCENTRIC_H

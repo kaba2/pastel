@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing the closest point on a plane w.r.t a point.
-*/
+// Description: Closest points between a plane and a point
 
 #ifndef PASTEL_CLOSEST_PLANE_POINT_H
 #define PASTEL_CLOSEST_PLANE_POINT_H
@@ -12,10 +9,11 @@
 namespace Pastel
 {
 
-	//! Computes the parameter of the closest point on a plane w.r.t a point.
+	//! Computes closest points between a plane and a point.
 	/*!
-	If the returned value is t, then the closest point C is:
-	C = point + t * plane.normal()
+	Returns:
+	A parameter t such that 'point + t * plane.normal()' and
+	'point' are closest points.
 	*/
 
 	template <int N, typename Real>
