@@ -45,7 +45,7 @@ namespace Pastel
 		//! Returns (exist i: min()[i] >= max()[i])
 		bool empty() const;
 
-		//! Swaps two alignedBoxs.
+		//! Swaps two aligned boxes.
 		void swap(Derived& that);
 
 		//! Sets the corner points of the box.

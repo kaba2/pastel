@@ -1,3 +1,6 @@
+// Description: Nearest neighbor searching using a kd-tree
+// Documentation: nearest_neighbors.txt
+
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_H
 #define PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_H
 

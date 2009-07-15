@@ -1,7 +1,5 @@
-/*!
-\file
-\brief Functions for dealing with oriented bounding boxes.
-*/
+// Description: Tools for working with boxes
+// Documentation: shapes.txt
 
 #ifndef PASTEL_BOX_TOOLS_H
 #define PASTEL_BOX_TOOLS_H

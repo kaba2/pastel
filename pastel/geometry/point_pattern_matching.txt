@@ -1,20 +1,10 @@
-Point pattern matching design decisions
----------------------------------------
+Point pattern matching
+======================
 
-* We will use the algorithm in
+[Back to PastelGeometry](./pastelgeometry.txt)
+
+References
+----------
 
 "A fast expected time 2d point pattern matching algorithm",
 Van Wamelen et al., 2004.
-
-* Need to compute k-nearest neighbours of a given point
-=> Store a kd-tree along with the point set.
-
-* Need to see if there is some point in a given delta neighbourhood
-=> A grid could give constant complexity for this problem.
-=> However, we have already computed the kd-tree. We could
-use it to this problem too with some time penalty (however,
-we save on memory).
-
-* Only the scene points need the delta-neighbourhood query.
-
-* We could store point patterns simply as kd-trees.

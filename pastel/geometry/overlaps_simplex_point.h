@@ -1,3 +1,5 @@
+// Description: Overlap tests between a simplex and a point
+
 #ifndef PASTEL_OVERLAPS_SIMPLEX_POINT_H
 #define PASTEL_OVERLAPS_SIMPLEX_POINT_H
 

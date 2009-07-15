@@ -1,3 +1,7 @@
+// Description: Tools for computing the volume of a sphere
+// Detail: Some different norms are included to define a sphere
+// Documentation: volume.txt
+
 #ifndef PASTEL_SPHERE_VOLUME_H
 #define PASTEL_SPHERE_VOLUME_H
 

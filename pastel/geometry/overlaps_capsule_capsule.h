@@ -1,3 +1,5 @@
+// Description: Overlap tests between two capsules
+
 #ifndef PASTEL_OVERLAPS_CAPSULE_CAPSULE_H
 #define PASTEL_OVERLAPS_CAPSULE_CAPSULE_H
 

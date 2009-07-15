@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for testing overlap between an alignedBox and a point.
-*/
+// Description: Overlap tests between an aligned box and a point
 
 #ifndef PASTEL_ALIGNEDBOXPOINT_H
 #define PASTEL_ALIGNEDBOXPOINT_H
@@ -13,10 +10,10 @@
 namespace Pastel
 {
 
-	//! Tests if an alignedBox and a point overlap.
+	//! Tests if an aligned box and a point overlap.
 
 	/*!
-	The alignedBox is considered to be closed and solid.
+	The aligned box is considered to be closed and solid.
 	*/
 
 	template <int N, typename Real>

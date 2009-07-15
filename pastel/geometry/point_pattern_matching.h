@@ -1,3 +1,5 @@
+// Description: Point pattern matching between unordered point sets
+
 #ifndef PASTEL_POINT_PATTERN_MATCHING_H
 #define PASTEL_POINT_PATTERN_MATCHING_H
 

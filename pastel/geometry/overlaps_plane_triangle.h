@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for testing overlap between a plane and a triangle.
-*/
+// Description: Overlap tests between a plane and a triangle
 
 #ifndef PASTEL_OVERLAPS_PLANE_TRIANGLE_H
 #define PASTEL_OVERLAPS_PLANE_TRIANGLE_H

@@ -1,7 +1,6 @@
-/*!
-\file
-\brief A class for a straight line.
-*/
+// Description: Line class
+// Detail: Allows to work with lines
+// Documentation: shapes.txt
 
 #ifndef PASTEL_LINE_H
 #define PASTEL_LINE_H

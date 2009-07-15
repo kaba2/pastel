@@ -1,3 +1,7 @@
+// Description: Simplex class
+// Detail: Allows to work with simplices
+// Documentation: shapes.txt
+
 #ifndef PASTEL_SIMPLEX_H
 #define PASTEL_SIMPLEX_H
 

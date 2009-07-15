@@ -1,7 +1,6 @@
-/*!
-\file
-\brief A class for a hyperplane.
-*/
+// Description: Plane class
+// Detail: Allows to work with planes
+// Documentation: shapes.txt
 
 #ifndef PASTEL_PLANE_H
 #define PASTEL_PLANE_H

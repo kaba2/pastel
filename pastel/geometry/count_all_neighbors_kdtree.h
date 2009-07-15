@@ -1,3 +1,6 @@
+// Description: Nearest neighbor counting using a kd-tree
+// Documentation: nearest_neighbors.txt
+
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_H
 

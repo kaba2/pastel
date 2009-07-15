@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for testing overlap between an box and a point.
-*/
+// Description: Overlap tests between a box and a point
 
 #ifndef PASTEL_OVERLAPS_BOX_POINT_H
 #define PASTEL_OVERLAPS_BOX_POINT_H

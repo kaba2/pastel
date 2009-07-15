@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a flat and a hyperplane.
-*/
+// Description: Overlap tests between a 2-flat and a plane
 
 #ifndef PASTEL_OVERLAPS_FLAT_PLANE_H
 #define PASTEL_OVERLAPS_FLAT_PLANE_H

@@ -31,7 +31,7 @@ namespace Pastel
 		{
 			// Test if the i:th coordinate of the point
 			// lies beyond the closed i:th coordinate range
-			// of the alignedBox.
+			// of the aligned box.
 
 			if (point[i] < alignedBox.min()[i] ||
 				point[i] > alignedBox.max()[i])

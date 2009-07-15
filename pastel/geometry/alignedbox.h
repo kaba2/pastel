@@ -1,7 +1,6 @@
-/*!
-\file
-\brief A class for an axis-aligned bounding box.
-*/
+// Description: AlignedBox class
+// Detail: Allows to work with axis aligned boxes
+// Documentation: shapes.txt
 
 #ifndef PASTEL_ALIGNEDBOX_H
 #define PASTEL_ALIGNEDBOX_H

@@ -150,7 +150,7 @@ namespace
 			REPORT(hitList[0] != 0);
 			REPORT(hitList[1] != 1);
 		}
-		// These rays have origin outside the alignedBoxs,
+		// These rays have origin outside the aligned boxes,
 		// but still intersect the aligned box.
 		{
 			const AlignedBox<2, Real> alignedBox(
