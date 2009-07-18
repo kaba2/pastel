@@ -507,6 +507,10 @@
 					RelativePath=".\arraybasecursor.h"
 					>
 				</File>
+				<File
+					RelativePath=".\subarray.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="IndexExtender"

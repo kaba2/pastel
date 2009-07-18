@@ -62,6 +62,7 @@ namespace Pastel
 		using typename Base::ConstReference;
 		using typename Base::Cursor;
 		using typename Base::ConstCursor;
+		using Base::operator=;
 
 		Array()
 			: Base()
@@ -121,6 +122,7 @@ namespace Pastel
 		using Base::cursor;
 		using Base::constCursor;
 		using Base::operator();
+		using Base::operator=;
 		using Base::setExtent;
 		using Base::reshape;
 
@@ -242,6 +244,7 @@ namespace Pastel
 		using Base::cursor;
 		using Base::constCursor;
 		using Base::operator();
+		using Base::operator=;
 		using Base::setExtent;
 		using Base::reshape;
 		using typename Base::RowIterator;
@@ -408,6 +411,7 @@ namespace Pastel
 		using Base::cursor;
 		using Base::constCursor;
 		using Base::operator();
+		using Base::operator=;
 		using Base::setExtent;
 		using Base::reshape;
 

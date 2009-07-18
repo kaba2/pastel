@@ -4,6 +4,27 @@ Pastelin kotisivut TODO
  * Tapa kirjoittaa matikkaa
  * Väritetyt reunat
 
+Views
+-----
+
+Let SubArray denote a subset of an Array. While an Array
+represents the data itself, the intent of the SubArray is to
+describe the subset.
+
+Solutions:
+
+1) Make it impossible to change the state of a view
+after construction.
+=> For example, swap not possible.
+=> Can't include the view as a member variable
+for a swapping class.
+
+2) Make the static data mutating functions const
+=> Thus the const only concerns the handle data.
+=> You would then need a ConstView and a View.
+
+
+
 Remarks
 =======
 
