@@ -162,7 +162,7 @@ namespace Pastel
 		Real operator[](integer index) const
 		{
 			const Real data(data_[index]);
-			return positive(data) ? data : -data;
+			return data > 0 ? data : -data;
 		}
 
 		integer size() const

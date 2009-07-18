@@ -37,7 +37,7 @@ namespace Pastel
 			MatrixStaticBase()
 			{
 				// Initialize to an identity matrix.
-				set(0);
+				*this = 0;
 				
 				const integer minExtent = std::min(width(), height());
 				for (integer i = 0;i < minExtent;++i)
@@ -306,12 +306,12 @@ namespace Pastel
 				return (*this) *= inverse(right);
 			}
 
-			// The parameter is passed by value
-			// because it could refer to this matrix.
-			void set(const Real that)
+			// The parameter is deliberately taken by value because
+			// a reference could be from this matrix.
+			Derived& operator=(const Real that)
 			{
-				std::fill(
-					data_, data_ + size(), that);
+				std::fill(data_, data_ + size(), that);
+				return (Derived&)*this;
 			}
 
 			Iterator begin()

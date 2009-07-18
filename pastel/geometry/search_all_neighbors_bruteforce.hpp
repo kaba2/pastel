@@ -111,44 +111,29 @@ namespace Pastel
 #		pragma omp for
 		for (integer i = 0;i < indices;++i)
 		{
-			const Point<N, Real>& iPoint = pointSet[indexSetBegin[i]];
+			const integer index = indexSetBegin[i];
+			const Point<N, Real>& iPoint = pointSet[index];
 
 			Real cullDistance = maxDistance;
 			nearestSet.clear();
 
-			for (integer j = 0;j < i;++j)
+			for (integer j = 0;j < points;++j)
 			{
-				const Real distance = 
-					distance2(pointSet[indexSetBegin[j]], iPoint, 
-					normBijection, cullDistance);
-
-				if (distance <= cullDistance)
+				if (j != index)
 				{
-					nearestSet.insert(Entry(distance, j));
-					if (nearestSet.full())
-					{
-						cullDistance = std::min(
-							nearestSet.back().distance_ * protectiveFactor,
-							maxDistance);
-					}
-				}
-			}
+					const Real distance = 
+						distance2(pointSet[j], iPoint, 
+						normBijection, cullDistance);
 
-			for (integer j = i + 1;j < points;++j)
-			{
-				const Real distance = 
-					distance2(pointSet[indexSetBegin[j]], iPoint, 
-					normBijection, cullDistance);
-
-				if (distance <= cullDistance)
-				{
-					nearestSet.insert(Entry(distance, j));
-					if (nearestSet.full())
+					if (distance <= cullDistance)
 					{
-						cullDistance = 
-							std::min(
-							nearestSet.back().distance_ * protectiveFactor,
-							maxDistance);
+						nearestSet.insert(Entry(distance, j));
+						if (nearestSet.full())
+						{
+							cullDistance = std::min(
+								nearestSet.back().distance_ * protectiveFactor,
+								maxDistance);
+						}
 					}
 				}
 			}

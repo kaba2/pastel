@@ -352,7 +352,7 @@ namespace Pastel
 
 		void set(const Real& that)
 		{
-			data_.set(that);
+			data_ = that;
 		}
 
 		void reshape(integer height, integer width)
@@ -373,6 +373,14 @@ namespace Pastel
 		const Array<2, Real>& asArray() const
 		{
 			return data_;
+		}
+
+		// The parameter is deliberately taken by value because
+		// a reference could be from this matrix.
+		Matrix& operator=(const Real that)
+		{
+			data_ = that;
+			return *this;
 		}
 
 		Iterator begin()

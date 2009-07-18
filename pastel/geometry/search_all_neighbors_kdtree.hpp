@@ -157,7 +157,7 @@ namespace Pastel
 					{
 						const integer neighborIndex = 
 							**nearestIter - firstAddress;
-						ASSERT(neighborIndex != i);
+						ASSERT(neighborIndex != index);
 
 						(*nearestArray)(nearestIndex, i) = neighborIndex;
 						(*distanceArray)(nearestIndex, i) = *distanceIter;
@@ -178,7 +178,7 @@ namespace Pastel
 					{
 						const integer neighborIndex = 
 							**nearestIter - firstAddress;
-						ASSERT(neighborIndex != i);
+						ASSERT(neighborIndex != index);
 
 						(*nearestArray)(nearestIndex, i) = neighborIndex;
 
@@ -200,7 +200,7 @@ namespace Pastel
 				{
 					const integer neighborIndex = 
 						**nearestIter - firstAddress;
-					ASSERT(neighborIndex != i);
+					ASSERT(neighborIndex != index);
 
 					(*distanceArray)(nearestIndex, i) = *distanceIter;
 

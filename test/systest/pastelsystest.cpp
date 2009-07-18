@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include "pastel/sys/subarray.h"
+
 using namespace std;
 using namespace Pastel;
 
