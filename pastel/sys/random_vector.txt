@@ -34,7 +34,7 @@ the surface of a sphere in R^3 would not succeed
 using rejection sampling in the described manner.
 
 Thus, more than often it is either necessary,
-or much more efficient to generate uniform
+or much more efficient, to generate uniform
 samplings via slightly more complex algorithms.
 Pastel implements efficient algorithms to
 uniform sample from:
@@ -44,10 +44,8 @@ uniform sample from:
  * ball in R^n
  * annulus in R^n
 
-If instead you need to distort an existing sample
-set uniformly on some object to another object
-of different shape, see the link at the 'See also'
-at the bottom.
+If instead you need to distort an existing uniform sampling
+from one shape to another, see the link at the bottom.
   
 See also
 --------

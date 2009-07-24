@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Type>
 	class CountingIterator
 		: public boost::random_access_iterator_helper<
-		CountingIterator<Type>, Type, integer>
+		CountingIterator<Type>, Type, integer, const Type*, const Type&>
 	{
 	public:
 		// Using default copy constructor.
@@ -57,13 +57,6 @@ namespace Pastel
 		integer operator-(const CountingIterator& that) const
 		{
 			return data_ - that.data_;
-		}
-
-		// FIX: This doesn't make sense at all.
-		// However, the boost::operators needs it.
-		Type& operator*()
-		{
-			return data_;
 		}
 
 		const Type& operator*() const

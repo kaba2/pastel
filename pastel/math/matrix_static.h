@@ -31,8 +31,8 @@ namespace Pastel
 			typedef ConstVectorView<Width, Real> ConstRow;
 			typedef Iterator RowIterator;
 			typedef ConstIterator ConstRowIterator;
-			typedef SparseIterator<Real> ColumnIterator;
-			typedef ConstSparseIterator<Real> ConstColumnIterator;
+			typedef SparseIterator<Real*> ColumnIterator;
+			typedef ConstSparseIterator<const Real*> ConstColumnIterator;
 
 			MatrixStaticBase()
 			{

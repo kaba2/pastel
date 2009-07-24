@@ -31,7 +31,7 @@ namespace Pastel
 			};
 
 			typedef SparseIterator<Type*> RowIterator;
-			typedef ConstSparseIterator<Type*> ConstRowIterator;
+			typedef ConstSparseIterator<const Type*> ConstRowIterator;
 
 			typedef Type Element;
 			typedef Type& Reference;
@@ -130,7 +130,7 @@ namespace Pastel
 				const Point<N, integer>& max);
 
 			//! Returns the sub-array in the range [min, max].
-			const SubArray<N, Type> operator()(
+			ConstSubArray<N, Type> operator()(
 				const Point<N, integer>& min,
 				const Point<N, integer>& max) const;
 
@@ -141,10 +141,14 @@ namespace Pastel
 				const Vector<N, integer>& delta);
 
 			//! Returns a sparse sub-array in the range [min, max].
-			const SubArray<N, Type> operator()(
+			ConstSubArray<N, Type> operator()(
 				const Point<N, integer>& min,
 				const Point<N, integer>& max,
 				const Vector<N, integer>& delta) const;
+
+			SubArray<N, Type> operator()();
+
+			ConstSubArray<N, Type> operator()() const;
 
 			//! Returns a cursor to the given position.
 			Cursor cursor(const Point<N, integer>& position);
@@ -186,14 +190,24 @@ namespace Pastel
 				const Point<N, integer>& position, 
 				integer axis) const;
 
-			Type* data()
+			Type* dataBegin()
 			{
 				return data_;
 			}
 
-			const Type* data() const
+			const Type* dataBegin() const
 			{
 				return data_;
+			}
+
+			Type* dataEnd()
+			{
+				return data_ + size_;
+			}
+
+			const Type* dataEnd() const
+			{
+				return data_ + size_;
 			}
 
 			//! Memory address of the given position.

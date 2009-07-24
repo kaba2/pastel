@@ -112,6 +112,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDsp", "dsp\PastelDsp.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDeviceTest", "..\test\devicetest\pasteldevicetest.vcproj", "{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDspTest", "..\test\dsptest\PastelDspTest.vcproj", "{C356F7A8-C86A-462C-A9E2-BF38D918A1AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -190,6 +192,10 @@ Global
 		{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}.Debug|Win32.Build.0 = Debug|Win32
 		{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}.Release|Win32.ActiveCfg = Release|Win32
 		{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}.Release|Win32.Build.0 = Release|Win32
+		{C356F7A8-C86A-462C-A9E2-BF38D918A1AE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C356F7A8-C86A-462C-A9E2-BF38D918A1AE}.Debug|Win32.Build.0 = Debug|Win32
+		{C356F7A8-C86A-462C-A9E2-BF38D918A1AE}.Release|Win32.ActiveCfg = Release|Win32
+		{C356F7A8-C86A-462C-A9E2-BF38D918A1AE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

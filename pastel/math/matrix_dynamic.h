@@ -82,7 +82,7 @@ namespace Pastel
 		{
 			return Pastel::memoryOverlaps(
 				memoryBegin, memoryEnd,
-				data_.data(), data_.data() + size());
+				data_.dataBegin(), data_.dataEnd());
 		}
 
 		bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
@@ -110,28 +110,52 @@ namespace Pastel
 			return data_(i);
 		}
 
-		MatrixView<Real> operator()(
-			const Range& yRange,
-			const Range& xRange)
+		SubMatrix<Real> operator()(
+			const Point2i& min,
+			const Point2i& max)
 		{
-			return MatrixView<Real>(
-				MatrixView<Real>(
-				data_.data(), 
-				Range(0, height() - 1), 
-				Range(0, width() - 1)),
-				yRange, xRange);
+			const SubMatrix<Real> result(
+				data_(Point2i(min.y(), min.x()),
+				Point2i(max.y(), max.x())));
+
+			return result;
 		}
 
-		const MatrixView<Real> operator()(
-			const Range& yRange,
-			const Range& xRange) const
+		ConstSubMatrix<Real> operator()(
+			const Point2i& min,
+			const Point2i& max) const
 		{
-			return MatrixView<Real>(
-				MatrixView<Real>(
-				(Real*)data_.data(), 
-				Range(0, height() - 1), 
-				Range(0, width() - 1)),
-				yRange, xRange);
+			const ConstSubMatrix<Real> result(
+				data_(Point2i(min.y(), min.x()),
+				Point2i(max.y(), max.x())));
+
+			return result;
+		}
+
+		SubMatrix<Real> operator()(
+			const Point2i& min,
+			const Point2i& max,
+			const Vector2i& delta)
+		{
+			const SubMatrix<Real> result(
+				data_(Point2i(min.y(), min.x()),
+				Point2i(max.y(), max.x()),
+				Vector2i(delta.y(), delta.x())));
+
+			return result;
+		}
+
+		ConstSubMatrix<Real> operator()(
+			const Point2i& min,
+			const Point2i& max,
+			const Vector2i& delta) const
+		{
+			const ConstSubMatrix<Real> result(
+				data_(Point2i(min.y(), min.x()),
+				Point2i(max.y(), max.x()),
+				Vector2i(delta.y(), delta.x())));
+
+			return result;
 		}
 
 		Real& operator()(integer y, integer x)

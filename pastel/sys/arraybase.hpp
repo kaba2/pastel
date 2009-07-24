@@ -303,14 +303,23 @@ namespace Pastel
 			PENSURE(allLessEqual(asVector(max), extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
-			SubArray<N, Type> result(
-				address(min), stride_, mabs(max - min));
+			Vector<N, integer> newStride(stride_);
+			for (integer i = 0;i < N;++i)
+			{
+				if (max[i] < min[i])
+				{
+					newStride[i] = -newStride[i];
+				}
+			}
+
+			const SubArray<N, Type> result(
+				address(min), newStride, mabs(max - min));
 
 			return result;
 		}
 
 		template <int N, typename Type>
-		const SubArray<N, Type> ArrayBase<N, Type>::operator()(
+		ConstSubArray<N, Type> ArrayBase<N, Type>::operator()(
 			const Point<N, integer>& min,
 			const Point<N, integer>& max) const
 		{
@@ -319,8 +328,17 @@ namespace Pastel
 			PENSURE(allLessEqual(asVector(max), extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
-			const SubArray<N, Type> result(
-				address(min), stride_, extent_);
+			Vector<N, integer> newStride(stride_);
+			for (integer i = 0;i < N;++i)
+			{
+				if (max[i] < min[i])
+				{
+					newStride[i] = -newStride[i];
+				}
+			}
+
+			const ConstSubArray<N, Type> result(
+				address(min), newStride, mabs(max - min));
 
 			return result;
 		}
@@ -337,7 +355,12 @@ namespace Pastel
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
-			SubArray<N, Type> result(
+			for (integer i = 0;i < N;++i)
+			{
+				PENSURE((min[i] < max[i]) == (delta[i] > 0));
+			}
+
+			const SubArray<N, Type> result(
 				address(min), stride_ * delta, 
 				numbers(mabs(max - min), delta));
 
@@ -345,7 +368,7 @@ namespace Pastel
 		}
 
 		template <int N, typename Type>
-		const SubArray<N, Type> ArrayBase<N, Type>::operator()(
+		ConstSubArray<N, Type> ArrayBase<N, Type>::operator()(
 			const Point<N, integer>& min,
 			const Point<N, integer>& max,
 			const Vector<N, integer>& delta) const
@@ -356,9 +379,32 @@ namespace Pastel
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
-			const SubArray<N, Type> result(
+			for (integer i = 0;i < N;++i)
+			{
+				PENSURE((min[i] < max[i]) == (delta[i] > 0));
+			}
+
+			const ConstSubArray<N, Type> result(
 				address(min), stride_ * delta, 
 				numbers(mabs(max - min), delta));
+
+			return result;
+		}
+
+		template <int N, typename Type>
+		SubArray<N, Type> ArrayBase<N, Type>::operator()()
+		{
+			const SubArray<N, Type> result(
+				data_, stride_, extent_);
+
+			return result;
+		}
+
+		template <int N, typename Type>
+		ConstSubArray<N, Type> ArrayBase<N, Type>::operator()() const
+		{
+			const ConstSubArray<N, Type> result(
+				data_, stride_, extent_);
 
 			return result;
 		}

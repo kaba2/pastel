@@ -21,7 +21,10 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class MatrixView;
+	class SubMatrix;
+
+	template <typename Real>
+	class ConstSubMatrix;
 
 }
 

@@ -24,7 +24,7 @@ Pastel implements the PointKdTree class to handle kd-trees containing
 points. In particular, this data structure can be used for efficient 
 nearest neighbor searching. In Pastel, this is the main use for the
 PointKdTree. For a kd-tree suitable for ray casting, see the links below.
-The region of the of the kd-tree is chosen an axis-aligned box, which
+The region of the kd-tree is chosen an axis-aligned box: this shape
 has some numerical advantages compared to other shapes.
 
 Kd-tree vs BSP-tree

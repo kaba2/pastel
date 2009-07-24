@@ -52,7 +52,7 @@ enforcing invariants. All of the three macros work in exactly the same way,
 so we will demonstrate their functionality by taking ENSURE as an example.
 The following demonstrates the use of ENSURE in an actual situation. 
 
-	MatrixView& operator=(const MatrixView& that)
+	SubMatrix& operator=(const SubMatrix& that)
 	{
 		ENSURE2(width_ == that.width_,
 			width_, that.width_);
@@ -68,7 +68,7 @@ that are listed after the condition. Corresponding to the number of
 reported parameters, there are also ENSURE, ENSURE1, ENSURE2, ENSURE3, 
 and ENSURE4. 
 
-In our example, the precondition is that the MatrixView's must have 
+In our example, the precondition is that the SubMatrix's must have 
 equal width and height when one is assigned into another. In case that
 the conditions are satisfied, the program continues
 to execute the rest of the function. But if the conditions
@@ -92,7 +92,7 @@ variables with a binary predicate, Pastel implements
 ENSURE_OP, PENSURE_OP, and ASSERT_OP macros. They allow to avoid the
 redundant duplication of the testing parameters:
 
-	MatrixView& operator=(const MatrixView& that)
+	SubMatrix& operator=(const SubMatrix& that)
 	{
 		ENSURE_OP(width_, ==, that.width_);
 		ENSURE_OP(height_, ==, that.height_);
