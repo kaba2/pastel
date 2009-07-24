@@ -146,11 +146,10 @@ namespace
 				b.begin()));
 		}
 
-		void f(const SubArray_Ref<2, integer>& that,
+		void f(const SubArray<2, integer>& that,
 			integer value)
 		{
-			SubArray<2, integer> a(that);
-			a = value;
+			that = value;
 		}
 	};
 

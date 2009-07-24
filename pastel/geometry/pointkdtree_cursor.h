@@ -1,3 +1,6 @@
+// Description: PointKdTree::Cursor class
+// Detail: A cursor to traverse the nodes of a PointKdTree
+
 #ifndef PASTEL_POINTKDTREE_CURSOR_H
 #define PASTEL_POINTKDTREE_CURSOR_H
 

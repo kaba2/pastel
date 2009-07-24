@@ -65,7 +65,7 @@ namespace
 			testMatrixCondition<5>();
 			testMatrixCondition<Dynamic>();
 
-			testMatrixView();
+			testSubMatrix();
 			testMatrixArray();
 		}
 
@@ -85,10 +85,9 @@ namespace
 				identityMatrix<Dynamic, Dynamic, real>(2, 2),
 				2, 3);
 
-			// You can refer to a submatrix of a matrix
-			// in Matlab style.
+			// You can refer to a submatrix of a matrix.
 
-			b(Range(2, 3), Range(0, 1)) = 
+			b(Point2i(2, 0), Point2i(4, 2)) = 
 				identityMatrix<Dynamic, Dynamic, real>(2, 2) * 2;
 
 			TEST_ENSURE(a == b);
@@ -100,8 +99,8 @@ namespace
 			// You can assign a submatrix to a submatrix
 			// inside the same matrix.
 
-			c(Range(0, 1), Range(7, 8)) =
-				c(Range(0, 1), Range(5, 6));
+			c(Point2i(0, 7), Point2i(2, 9)) =
+				c(Point2i(0, 5), Point2i(2, 7));
 
 			MatrixD d(2, 9);
 			d |= 1, 2, 3, 4, 5, 6, 7, 6, 7,
@@ -123,18 +122,20 @@ namespace
 			// in a reversed manner by reversing the range
 			// values.
 
-			MatrixView<real> v = c(Range(0, 1), Range(2, 0));
-			MatrixView<real> v2 = c(Range(0, 1), Range(0, 2));
+			SubMatrix<real> v = c(Point2i(0, 2), Point2i(2, -1));
+			SubMatrix<real> v2 = c(Point2i(0, 0), Point2i(2, 3));
 
 			v2 = v;
 
 			d |= 3, 2, 1, 4, 5, 6, 7, 6, 7,
 				 12, 11, 10, 13, 14, 15, 16, 15, 16;
 
+			std::cout << c << std::endl;
+
 			TEST_ENSURE(c == d);
 		}
 
-		void testMatrixView()
+		void testSubMatrix()
 		{
 			const integer width = 4;
 			const integer height = 4;

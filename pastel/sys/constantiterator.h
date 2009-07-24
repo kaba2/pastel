@@ -1,5 +1,5 @@
 #ifndef PASTEL_CONSTANTITERATOR_H
-#define PASTEL_COUNTINGITERATOR_H
+#define PASTEL_CONSTANTITERATOR_H
 
 #include "pastel/sys/mytypes.h"
 
@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Type>
 	class ConstantIterator
 		: public boost::random_access_iterator_helper<
-		ConstantIterator<Type>, Type, integer>
+		ConstantIterator<Type>, Type, integer, const Type*, const Type&>
 	{
 	public:
 		// Using default copy constructor.
@@ -61,19 +61,7 @@ namespace Pastel
 			return index_ - that.index_;
 		}
 
-		// FIX: This doesn't make sense at all.
-		// However, the boost::operators needs it.
-		Type& operator*()
-		{
-			return data_;
-		}
-
 		const Type& operator*() const
-		{
-			return data_;
-		}
-
-		const Type& operator[](integer index) const
 		{
 			return data_;
 		}

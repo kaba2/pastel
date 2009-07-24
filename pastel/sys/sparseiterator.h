@@ -14,181 +14,160 @@
 namespace Pastel
 {
 
+	namespace Detail_SparseIterator
+	{
+
+		template <typename Derived, typename Iterator>
+		class SparseIteratorHelperBase
+			: public boost::random_access_iterator_helper<
+			Derived, 
+			typename std::iterator_traits<Iterator>::value_type,
+			typename std::iterator_traits<Iterator>::difference_type,
+			typename std::iterator_traits<Iterator>::pointer,
+			typename std::iterator_traits<Iterator>::reference>
+		{
+		};
+
+		template <typename Derived, typename Iterator>
+		class SparseIteratorBase
+			: public Detail_SparseIterator::SparseIteratorHelperBase<Derived, Iterator>
+		{
+		private:
+			typedef Detail_SparseIterator::SparseIteratorHelperBase<Derived, Iterator>
+				Base;
+
+		public:
+			// Using default copy constructor.
+			// Using default assignment.
+			// Using default destructor.
+
+			SparseIteratorBase()
+				: iter_()
+				, delta_(0)
+			{
+			}
+
+			explicit SparseIteratorBase(
+				const Iterator& iter,
+				integer delta = 1)
+				: iter_(iter)
+				, delta_(delta)
+			{
+			}
+
+			Derived& operator++()
+			{
+				iter_ += delta_;
+				return (Derived&)*this;
+			}
+			
+			Derived& operator--()
+			{
+				iter_ -= delta_;
+				return (Derived&)*this;
+			}
+
+			Derived& operator+=(
+				integer that)
+			{
+				iter_ += delta_ * that;
+				return (Derived&)*this;
+			}
+
+			Derived& operator-=(
+				integer that)
+			{
+				iter_ -= delta_ * that;
+				return (Derived&)*this;
+			}
+
+			friend typename Base::difference_type operator-(
+				const Derived& left, const Derived& right)
+			{
+				PENSURE_OP(left.delta_, ==, right.delta_);
+
+				return (left.iter_ - right.iter_) / left.delta_;
+			}
+
+			typename Base::reference operator*() const
+			{
+				return *iter_;
+			}
+
+			friend bool operator==(
+				const Derived& left, const Derived& right)
+			{
+				return left.iter_ == right.iter_;
+			}
+
+			friend bool operator<(
+				const Derived& left, const Derived& right)
+			{
+				return left.iter_ < right.iter_;
+			}
+
+		protected:
+			Iterator iter_;
+			integer delta_;
+		};
+
+	}
+
+	template <typename ConstIterator>
+	class ConstSparseIterator;
+
 	template <typename Iterator>
 	class SparseIterator
-		: public boost::random_access_iterator_helper<
-		SparseIterator<Iterator>, 
-		typename std::iterator_traits<Iterator>::value_type,
-		typename std::iterator_traits<Iterator>::difference_type,
-		typename std::iterator_traits<Iterator>::pointer,
-		typename std::iterator_traits<Iterator>::reference>
+		: public Detail_SparseIterator::SparseIteratorBase<SparseIterator<Iterator>, Iterator>
 	{
-	public:
+	private:
+		typedef Detail_SparseIterator::SparseIteratorBase<SparseIterator<Iterator>, Iterator>
+			Base;
+
 		template <typename ConstIterator>
 		friend class ConstSparseIterator;
 
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
+	public:
 		SparseIterator()
-			: iter_()
-			, delta_(0)
+			: Base()
 		{
 		}
 
-		SparseIterator(
+		explicit SparseIterator(
 			const Iterator& iter,
 			integer delta = 1)
-			: iter_(iter)
-			, delta_(delta)
+			: Base(iter, delta)
 		{
 		}
-
-		SparseIterator& operator++()
-		{
-			iter_ += delta_;
-			return *this;
-		}
-		
-		SparseIterator& operator--()
-		{
-			iter_ -= delta_;
-			return *this;
-		}
-
-		SparseIterator& operator+=(
-			integer that)
-		{
-			iter_ += delta_ * that;
-			return *this;
-		}
-
-		SparseIterator& operator-=(
-			integer that)
-		{
-			iter_ -= delta_ * that;
-			return *this;
-		}
-
-		integer operator-(const SparseIterator& that) const
-		{
-			return (iter_ - that.iter_) / delta_;
-		}
-
-		typename std::iterator_traits<Iterator>::value_type& operator*() const
-		{
-			return *iter_;
-		}
-
-		bool operator==(const SparseIterator& that) const
-		{
-			return iter_ == that.iter_;
-		}
-
-		bool operator<(const SparseIterator& that) const
-		{
-			return iter_ < that.iter_;
-		}
-
-	private:
-		Iterator iter_;
-		integer delta_;
 	};
 
 	template <typename ConstIterator>
 	class ConstSparseIterator
-		: public boost::random_access_iterator_helper<
-		ConstSparseIterator<ConstIterator>, 
-		typename std::iterator_traits<ConstIterator>::value_type,
-		typename std::iterator_traits<ConstIterator>::difference_type,
-		typename std::iterator_traits<ConstIterator>::pointer,
-		typename std::iterator_traits<ConstIterator>::reference>
+		: public Detail_SparseIterator::SparseIteratorBase<ConstSparseIterator<ConstIterator>, ConstIterator>
 	{
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
+	private:
+		typedef Detail_SparseIterator::SparseIteratorBase<ConstSparseIterator<ConstIterator>, ConstIterator>
+			Base;
 
+	public:
 		ConstSparseIterator()
-			: iter_()
-			, delta_(0)
+			: Base()
+		{
+		}
+
+		template <typename Iterator>
+		ConstSparseIterator(
+			const SparseIterator<Iterator>& that)
+			: Base(that.iter_, that.delta_)
 		{
 		}
 
 		explicit ConstSparseIterator(
 			const ConstIterator& iter,
 			integer delta = 1)
-			: iter_(iter)
-			, delta_(delta)
+			: Base(iter, delta)
 		{
 		}
-
-		template <typename Iterator>
-		ConstSparseIterator(
-			const SparseIterator<Iterator>& that,
-			integer delta = 1)
-			: iter_(that.iter_)
-			, delta_(delta)
-		{
-		}
-
-		ConstSparseIterator& operator++()
-		{
-			iter_ += delta_;
-			return *this;
-		}
-		
-		ConstSparseIterator& operator--()
-		{
-			iter_ -= delta_;
-			return *this;
-		}
-		
-		ConstSparseIterator& operator+=(
-			integer that)
-		{
-			iter_ += delta_ * that;
-			return *this;
-		}
-
-		ConstSparseIterator& operator-=(
-			integer that)
-		{
-			iter_ -= delta_ * that;
-			return *this;
-		}
-
-		integer operator-(const ConstSparseIterator& that) const
-		{
-			return (iter_ - that.iter_) / delta_;
-		}
-
-		// FIX: This doesn't make sense at all.
-		// However, the boost::operators needs it.
-		typename std::iterator_traits<ConstIterator>::value_type& operator*()
-		{
-			return *iter_;
-		}
-
-		const typename std::iterator_traits<ConstIterator>::value_type& operator*() const
-		{
-			return *iter_;
-		}
-
-		bool operator==(const ConstSparseIterator& that) const
-		{
-			return iter_ == that.iter_;
-		}
-
-		bool operator<(const ConstSparseIterator& that) const
-		{
-			return iter_ < that.iter_;
-		}
-
-	private:
-		ConstIterator iter_;
-		integer delta_;
 	};
 
 	template <typename ConstIterator>

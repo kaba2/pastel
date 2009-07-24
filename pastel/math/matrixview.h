@@ -1,4 +1,4 @@
-// Description: MatrixView class
+// Description: SubMatrix class
 // Detail: Allows to refer to submatrices in a Matlab style
 
 #ifndef PASTEL_MATRIXVIEW_H
@@ -71,93 +71,209 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	class MatrixView
+	class ConstSubMatrix
 		: public MatrixExpression<Dynamic, Dynamic, Real, 
-		MatrixView<Real> >
+		ConstSubMatrix<Real> >
 	{
 	public:
-		typedef const MatrixView& StorageType;
+		typedef const ConstSubMatrix& StorageType;
 
-		typedef Real* Iterator;
-		typedef const Real* ConstIterator;
-		typedef VectorView<Dynamic, Real> Row;
 		typedef ConstVectorView<Dynamic, Real> ConstRow;
-		typedef typename Array<2, Real>::RowIterator RowIterator;
-		typedef typename Array<2, Real>::ConstRowIterator ConstRowIterator;
-		typedef typename Array<2, Real>::RowIterator ColumnIterator;
-		typedef typename Array<2, Real>::ConstRowIterator ConstColumnIterator;
-
-		typedef Pastel::View<2, Real, ArrayView<2, Array<2, Real> > > View;
-		typedef Pastel::ConstView<2, Real, ConstArrayView<2, Array<2, Real> > > ConstView;
+		typedef typename ConstSubArray<2, Real>::ConstIterator ConstIterator;
+		typedef typename ConstSubArray<2, Real>::ConstRowIterator ConstRowIterator;
+		typedef typename ConstSubArray<2, Real>::ConstRowIterator ConstColumnIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
 
-		MatrixView()
-			: data_(0)
-			, width_(0)
-			, height_(0)
-			, dx_(0)
-			, dy_(0)
-			, dataBegin_(0)
-			, dataEnd_(0)
+		ConstSubMatrix()
+			: data_()
 		{
 		}
 
-		MatrixView(
-			Real* data,
-			const Range& yRange,
-			const Range& xRange)
+		ConstSubMatrix(
+			const Real* data,
+			const Vector2i& stride,
+			const Vector2i& extent)
+			: data_(data, stride, extent)
+		{
+		}
+
+		explicit ConstSubMatrix(
+			const ConstSubArray<2, Real>& data)
 			: data_(data)
-			, width_(xRange.numbers())
-			, height_(yRange.numbers())
-			, dx_(xRange.step())
-			, dy_(yRange.step() * xRange.size())
-			, dataBegin_(0)
-			, dataEnd_(0)
 		{
-			PENSURE_OP(width_, >, 0);
-			PENSURE_OP(height_, >, 0);
-
-			computeDataRange();
 		}
 
-		MatrixView(
-			const MatrixView& that,
-			const Range& yRange,
-			const Range& xRange)
-			: data_(that.address(xRange.begin(), yRange.begin()))
-			, width_(xRange.numbers())
-			, height_(yRange.numbers())
-			, dx_(that.dx_ * xRange.step())
-			, dy_(that.dy_ * yRange.step())
-			, dataBegin_(0)
-			, dataEnd_(0)
+		bool involves(const void* memoryBegin, const void* memoryEnd) const
 		{
-			PENSURE_OP(width_, >, 0);
-			PENSURE_OP(height_, >, 0);
-
-			computeDataRange();
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		MatrixView& operator=(
-			const MatrixView& that)
+		bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
 		{
-			ENSURE_OP(width_, ==, that.width_);
-			ENSURE_OP(height_, ==, that.height_);
+			return data_.involves(memoryBegin, memoryEnd);
+		}
 
-			if (that.involvesNonTrivially(dataBegin_, dataEnd_))
+		const Real& operator()(integer y, integer x) const
+		{
+			return data_(Point2(x, y));
+		}
+
+		ConstSubMatrix operator()(
+			const Point2i& min,
+			const Point2i& max) const
+		{
+			const ConstSubMatrix result(data_(min, max));
+			return result;
+		}
+
+		ConstSubMatrix operator()(
+			const Point2i& min,
+			const Point2i& max,
+			const Vector2i& delta) const
+		{
+			const ConstSubMatrix result(data_(
+				Point2i(min.y(), min.x()), 
+				Point2i(max.y(), max.x()), 
+				Vector2i(delta.y(), delta.x())));
+			return result;
+		}
+
+		ConstSubMatrix operator[](integer y) const
+		{
+			PENSURE2(y >= 0 && y < height(), y, height());
+
+			const ConstSubMatrix result(
+				data_(Point2i(0, y), Point2i(0, y + 1)));
+			return result;
+		}
+
+		ConstSubMatrix row(integer y) const
+		{
+			PENSURE2(y >= 0 && y < height(), y, height());
+
+			const ConstSubMatrix result(
+				data_(Point2i(0, y), Point2i(0, y + 1)));
+			return result;
+		}
+
+		ConstSubMatrix column(integer x) const
+		{
+			PENSURE2(x >= 0 && x < width(), x, width());
+
+			const ConstSubMatrix result(
+				data_(Point2i(x, 0), Point2i(x + 1, 0)));
+			return result;
+		}
+
+		void swap(ConstSubMatrix& that)
+		{
+			data_.swap(that.data_);
+		}
+
+		integer width() const
+		{
+			return data_.extent()[0];
+		}
+
+		integer height() const
+		{
+			return data_.extent()[1];
+		}
+
+		integer size() const
+		{
+			return data_.size();
+		}
+
+		ConstRowIterator rowBegin(integer y) const
+		{
+			return data_.rowBegin(0, Point2i(0, y));
+		}
+
+		ConstRowIterator rowEnd(integer y) const
+		{
+			return data_.rowEnd(0, Point2i(0, y));
+		}
+
+		ConstColumnIterator columnBegin(integer x) const
+		{
+			return data_.columnBegin(1, Point2i(x, 0));
+		}
+
+		ConstColumnIterator columnEnd(integer x) const
+		{
+			return data_.columnEnd(1, Point2i(x, 0));
+		}
+
+	private:
+		// Prohibited
+		ConstSubMatrix& operator=(
+			const ConstSubMatrix& that);
+
+		ConstSubArray<2, Real> data_;
+	};
+
+	template <typename Real>
+	class SubMatrix
+		: public MatrixExpression<Dynamic, Dynamic, Real, 
+		SubMatrix<Real> >
+	{
+	public:
+		typedef const SubMatrix& StorageType;
+
+		typedef VectorView<Dynamic, Real> Row;
+		typedef ConstVectorView<Dynamic, Real> ConstRow;
+		typedef typename SubArray<2, Real>::Iterator Iterator;
+		typedef typename SubArray<2, Real>::ConstIterator ConstIterator;
+		typedef typename SubArray<2, Real>::RowIterator RowIterator;
+		typedef typename SubArray<2, Real>::ConstRowIterator ConstRowIterator;
+		typedef typename SubArray<2, Real>::RowIterator ColumnIterator;
+		typedef typename SubArray<2, Real>::ConstRowIterator ConstColumnIterator;
+
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
+
+		SubMatrix()
+			: data_()
+		{
+		}
+
+		SubMatrix(
+			Real* data,
+			const Vector2i& stride,
+			const Vector2i& extent)
+			: data_(data, stride, extent)
+		{
+		}
+
+		explicit SubMatrix(
+			const SubArray<2, Real>& data)
+			: data_(data)
+		{
+		}
+
+		SubMatrix& operator=(
+			const SubMatrix& that)
+		{
+			ENSURE_OP(width(), ==, that.width());
+			ENSURE_OP(height(), ==, that.height());
+
+			if (that.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
 			{
 				// The right expression contains this matrix
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
 				
-				(*this) = Matrix<Dynamic, Dynamic, Real>(that);
+				*this = Matrix<Dynamic, Dynamic, Real>(that);
 			}
 			else
 			{
-				for (integer y = 0;y < height_;++y)
+				const integer m = height();
+				for (integer y = 0;y < m;++y)
 				{
 					std::copy(
 						that.rowBegin(y), that.rowEnd(y),
@@ -170,62 +286,136 @@ namespace Pastel
 
 		bool involves(const void* memoryBegin, const void* memoryEnd) const
 		{
-			return Pastel::memoryOverlaps(
-				memoryBegin, memoryEnd,
-				dataBegin_, dataEnd_);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
 		{
-			return Pastel::memoryOverlaps(
-				memoryBegin, memoryEnd,
-				dataBegin_, dataEnd_);
+			return data_.involves(memoryBegin, memoryEnd);
 		}
 
 		Real& operator()(integer y, integer x)
 		{
-			PENSURE2(y >= 0 && y < height(), y, height());
-			PENSURE2(x >= 0 && x < width(), x, width());
-
-			return *address(x, y);
+			return data_(Point2i(x, y));
 		}
 
 		const Real& operator()(integer y, integer x) const
 		{
+			return data_(Point2(x, y));
+		}
+
+		SubMatrix operator()(
+			const Point2i& min,
+			const Point2i& max)
+		{
+			const SubMatrix result(data_(
+				Point2i(min.y(), min.x()), 
+				Point2i(max.y(), max.y())));
+			return result;
+		}
+
+		ConstSubMatrix<Real> operator()(
+			const Point2i& min,
+			const Point2i& max) const
+		{
+			const ConstSubMatrix<Real> result(data_(
+				Point2i(min.y(), min.x()), 
+				Point2i(max.y(), max.y())));
+			return result;
+		}
+
+		SubMatrix operator()(
+			const Point2i& min,
+			const Point2i& max,
+			const Vector2i& delta)
+		{
+			const SubMatrix result(data_(
+				Point2i(min.y(), min.x()), 
+				Point2i(max.y(), max.x()), 
+				Vector2i(delta.y(), delta.x())));
+			return result;
+		}
+
+		ConstSubMatrix<Real> operator()(
+			const Point2i& min,
+			const Point2i& max,
+			const Vector2i& delta) const
+		{
+			const ConstSubMatrix<Real> result(data_(
+				Point2i(min.y(), min.x()), 
+				Point2i(max.y(), max.x()), 
+				Vector2i(delta.y(), delta.x())));
+			return result;
+		}
+
+		SubMatrix operator[](integer y)
+		{
 			PENSURE2(y >= 0 && y < height(), y, height());
+
+			const SubMatrix result(
+				data_(Point2i(0, y), Point2i(0, y + 1)));
+			return result;
+		}
+
+		ConstSubMatrix<Real> operator[](integer y) const
+		{
+			PENSURE2(y >= 0 && y < height(), y, height());
+
+			const ConstSubMatrix<Real> result(
+				data_(Point2i(0, y), Point2i(0, y + 1)));
+			return result;
+		}
+
+		SubMatrix row(integer y)
+		{
+			PENSURE2(y >= 0 && y < height(), y, height());
+
+			const SubMatrix result(
+				data_(Point2i(0, y), Point2i(0, y + 1)));
+			return result;
+		}
+
+		ConstSubMatrix<Real> row(integer y) const
+		{
+			PENSURE2(y >= 0 && y < height(), y, height());
+
+			const ConstSubMatrix<Real> result(
+				data_(Point2i(0, y), Point2i(0, y + 1)));
+			return result;
+		}
+
+		SubMatrix column(integer x)
+		{
 			PENSURE2(x >= 0 && x < width(), x, width());
 
-			return *address(x, y);
+			const SubMatrix result(
+				data_(Point2i(x, 0), Point2i(x + 1, 0)));
+			return result;
 		}
 
-		MatrixView operator[](integer y)
+		ConstSubMatrix<Real> column(integer x) const
 		{
-			PENSURE2(y >= 0 && y < height(), y, height());
+			PENSURE2(x >= 0 && x < width(), x, width());
 
-			return MatrixView(data_, Range(y, y + 1), Range(0, width_));
-		}
-
-		const MatrixView operator[](integer y) const
-		{
-			PENSURE2(y >= 0 && y < height(), y, height());
-
-			return MatrixView(data_, Range(0, width_), Range(y, y + 1));
+			const ConstSubMatrix<Real> result(
+				data_(Point2i(x, 0), Point2i(x + 1, 0)));
+			return result;
 		}
 
 		template <int Height, int Width, typename RightExpression>
-		MatrixView& operator=(
+		SubMatrix& operator=(
 			const MatrixExpression<Height, Width, Real, RightExpression>& right)
 		{
 			ENSURE(width() == right.width() &&
 				height() == right.height());
 
-			if (right.involvesNonTrivially(dataBegin_, dataEnd_))
+			if (right.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
 			{
 				// The right expression contains this matrix
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
 				
-				(*this) = Matrix<Dynamic, Dynamic, Real>(right);
+				*this = Matrix<Dynamic, Dynamic, Real>(right);
 			}
 			else
 			{
@@ -247,29 +437,26 @@ namespace Pastel
 		}
 
 		template <int N, typename RightExpression>
-		MatrixView& operator*=(
+		SubMatrix& operator*=(
 			const MatrixExpression<N, N, Real, RightExpression>& right)
 		{
 			PENSURE2(width() == right.height(), width(), right.height());
 
-			MatrixView& left = 
-				*this;
+			*this = *this * right;
 
-			left = left * right;
-
-			return left;
+			return *this;
 		}
 
 		template <int Height, int Width, typename RightExpression>
-		MatrixView& operator+=(
+		SubMatrix& operator+=(
 			const MatrixExpression<Height, Width, Real, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
-			if (right.involvesNonTrivially(dataBegin_, dataEnd_))
+			if (right.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
 			{
-				*this += MatrixView(right);
+				*this += Matrix<Dynamic, Dynamic, Real>(right);
 			}
 			else
 			{
@@ -291,15 +478,15 @@ namespace Pastel
 		}
 
 		template <int Height, int Width, typename RightExpression>
-		MatrixView& operator-=(
+		SubMatrix& operator-=(
 			const MatrixExpression<Height, Width, Real, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
-			if (right.involvesNonTrivially(dataBegin_, dataEnd_))
+			if (right.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
 			{
-				*this -= MatrixView(right);
+				*this -= Matrix<Dynamic, Dynamic, Real>(right);
 			}
 			else
 			{
@@ -322,7 +509,7 @@ namespace Pastel
 
 		// Matrices vs scalars
 
-		// MatrixView += scalar and MatrixView -= scalar are not
+		// SubMatrix += scalar and SubMatrix -= scalar are not
 		// supported because of the possibly ambiguity:
 		// it is not clear whether it should mean
 		// "add / subtract element-wise" or
@@ -331,10 +518,12 @@ namespace Pastel
 
 		// The parameter is deliberately taken by value because
 		// a reference could be from this matrix.
-		MatrixView& operator*=(
+		SubMatrix& operator*=(
 			const Real right)
 		{
-			for (integer y = 0;y < height_;++y)
+			const integer m = height();
+
+			for (integer y = 0;y < m;++y)
 			{
 				RowIterator iter = rowBegin(y);
 				const RowIterator iterEnd = rowEnd(y);
@@ -351,134 +540,74 @@ namespace Pastel
 
 		// No need to take the parameter by value,
 		// because we construct the inverse.
-		MatrixView& operator/=(
+		SubMatrix& operator/=(
 			const Real& right)
 		{
 			return (*this) *= inverse(right);
 		}
 
-		void swap(MatrixView& that)
+		void swap(SubMatrix& that)
 		{
-			std::swap(data_, that.data_);
-			std::swap(width_, that.width_);
-			std::swap(height_, that.height_);
-			std::swap(dx_, that.dx_);
-			std::swap(dy_, that.dy_);
-			std::swap(dataBegin_, that.dataBegin_);
-			std::swap(dataEnd_, that.dataEnd_);
+			data_.swap(that.data_);
 		}
 
 		integer width() const
 		{
-			return width_;
+			return data_.extent()[0];
 		}
 
 		integer height() const
 		{
-			return height_;
+			return data_.extent()[1];
 		}
 
 		integer size() const
 		{
-			return width_ * height_;
-		}
-
-		void set(const Real& that)
-		{
-			for (integer y = 0;y < height_;++y)
-			{
-				std::fill(
-					rowBegin(y), rowEnd(y), that);
-			}
+			return data_.size();
 		}
 
 		RowIterator rowBegin(integer y)
 		{
-			return RowIterator(
-				address(0, y), dx_);
+			return data_.rowBegin(0, Point2i(0, y));
 		}
 
 		ConstRowIterator rowBegin(integer y) const
 		{
-			return ConstRowIterator(
-				address(0, y), dx_);
+			return data_.rowBegin(0, Point2i(0, y));
 		}
 
 		RowIterator rowEnd(integer y)
 		{
-			return RowIterator(
-				address(width_, y), dx_);
+			return data_.rowEnd(0, Point2i(0, y));
 		}
 
 		ConstRowIterator rowEnd(integer y) const
 		{
-			return ConstRowIterator(
-				address(width_, y), dx_);
+			return data_.rowEnd(0, Point2i(0, y));
 		}
 
 		ColumnIterator columnBegin(integer x)
 		{
-			return ColumnIterator(
-				address(x, 0), dy_);
+			return data_.columnBegin(1, Point2i(x, 0));
 		}
 
 		ConstColumnIterator columnBegin(integer x) const
 		{
-			return ConstColumnIterator(
-				address(x, 0), dy_);
+			return data_.columnBegin(1, Point2i(x, 0));
 		}
 
 		ColumnIterator columnEnd(integer x)
 		{
-			return ColumnIterator(
-				address(x, height_), dy_);
+			return data_.columnEnd(1, Point2i(x, 0));
 		}
 
 		ConstColumnIterator columnEnd(integer x) const
 		{
-			return ConstColumnIterator(
-				address(x, height_), dy_);
+			return data_.columnEnd(1, Point2i(x, 0));
 		}
 
 	private:
-		Real* address(integer x, integer y) const
-		{
-			return data_ + x * dx_ + y * dy_;
-		}
-
-		void computeDataRange()
-		{
-			dataBegin_ = data_;
-			dataEnd_ = data_;
-
-			if (dx_ < 0)
-			{
-				dataBegin_ += dx_ * (width_ - 1);
-			}
-			else
-			{
-				dataEnd_ += dx_ * (width_ - 1);
-			}
-
-			if (dy_ < 0)
-			{
-				dataBegin_ += dy_ * (height_ - 1);
-			}
-			else
-			{
-				dataEnd_ += dy_ * (height_ - 1);
-			}
-			++dataEnd_;
-		}
-
-		Real* data_;
-		integer width_;
-		integer height_;
-		integer dx_;
-		integer dy_;
-
-		Real* dataBegin_;
-		Real* dataEnd_;
+		SubArray<2, Real> data_;
 	};
 
 }

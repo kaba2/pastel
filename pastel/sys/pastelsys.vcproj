@@ -457,18 +457,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="BlockArray"
-				>
-				<File
-					RelativePath=".\blockarray.h"
-					>
-				</File>
-				<File
-					RelativePath=".\blockarray.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="DisjointGroups"
 				>
 				<File
@@ -509,6 +497,18 @@
 				</File>
 				<File
 					RelativePath=".\subarray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\subarray_iterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\subarray_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\subarray_tools.hpp"
 					>
 				</File>
 			</Filter>

@@ -52,7 +52,7 @@ Implicit grouping of files
 
 Each documentation file acts as a group. Every 
 source code file which associates that documentation file 
-as their documentation, belongs to the group.
+as their documentation belongs to the group.
 In the directory tree view this grouping is reflected
 by virtual directories named with the first headline
 of the documentation file. The group members are listed

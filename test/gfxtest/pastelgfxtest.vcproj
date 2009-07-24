@@ -268,10 +268,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_resample.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_ripmap.cpp"
 			>
 		</File>

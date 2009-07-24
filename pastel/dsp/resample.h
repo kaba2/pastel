@@ -15,6 +15,58 @@
 namespace Pastel
 {
 
+	template <
+		typename Computation_Element,
+		typename Input_ConstIterator,
+		typename Output_Iterator>
+	void resample(
+		const Input_ConstIterator& inputBegin,
+		const Input_ConstIterator& inputEnd,
+		const Output_Iterator& outputBegin,
+		const Output_Iterator& outputEnd,
+		const ConstFilterPtr& filter,
+		const IndexExtenderPtr& indexExtender,
+		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
+		real blurFactor = 1);
+
+	template <
+		typename Computation_Element,
+		typename Input_ConstIterator,
+		typename Output_Iterator>
+	void resampleTable(
+		const Input_ConstIterator& inputBegin,
+		const Input_ConstIterator& inputEnd,
+		const Output_Iterator& outputBegin,
+		const Output_Iterator& outputEnd,
+		const ConstTableFilterPtr& filter,
+		const IndexExtenderPtr& indexExtender,
+		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
+		real blurFactor = 1);
+
+	template <
+		typename Computation_Element,
+		int N,
+		typename Input_Element,
+		typename Output_Element>
+	void resample(
+		const ConstSubArray<N, Input_Element>& input,
+		const SubArray<N, Output_Element>& output,
+		const ConstFilterPtr& filter,
+		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
+		real blurFactor = 1);
+
+	template <
+		typename Computation_Element,
+		int N,
+		typename Input_Element,
+		typename Output_Element>
+	void resampleTable(
+		const ConstSubArray<N, Input_Element>& input,
+		const SubArray<N, Output_Element>& output,
+		const ConstTableFilterPtr& filter,
+		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
+		real blurFactor = 1);
+
 	//! Resamples a 1-dimensional array to a different size.
 	/*!
 	Preconditions:

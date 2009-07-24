@@ -25,18 +25,29 @@ in the form g(x) = (+)[i = 1..n] f(|x_i|) with the functions
 f and (+) defined below (redundant conditions in parentheses).
 
 f : R+ -> R+, such that:
+
  * f is continuous
+ 
  * x < y => f(x) < f(y)
+ 
  * for all a in R+: f(ax) = f(a) f(x)
+ 
  * (f is invertible)
+ 
  * (for all a in R+: f^-1(ax) = f^-1(a) f^-1(x))
 
 (+) : R+^2 -> R+, such that
+
  * (x (+) y) (+) z = x (+) (y (+) z)
+ 
  * x (+) y = y (+) x
+ 
  * x (+) 0 = x
+ 
  * for all a in R+: (ax) (+) (ay) = a(x (+) y)
+ 
  * x <= x (+) y
+ 
  * (y <= x (+) y)
  
 In particular, (f^-1 o g) is a norm and f is the order-preserving
@@ -63,8 +74,11 @@ bijection as defined above. Pastel implements the following
 restricted norm bijections:
 
  * Euclidean: <x> = sum x_i^2 ((+)(x, y) = x + y, f(x) = x^2)
+ 
  * Manhattan: <x> = sum |x_i| ((+)(x, y) = x + y, f(x) = |x|)
+ 
  * Infinity: <x> = max |x_i| ((+)(x, y) = max(x, y), f(x) = |x|)
+ 
  * Minkowski: <x> = sum |x_i|^p ((+)(x, y) = x + y, f(x) = |x|^p)
  
 Concept
