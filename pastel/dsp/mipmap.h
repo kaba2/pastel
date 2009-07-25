@@ -1,3 +1,6 @@
+// Description: MipMap class
+// Detail: A set of precomputed successive downsamplings of an image
+
 #ifndef PASTEL_MIPMAP_H
 #define PASTEL_MIPMAP_H
 
@@ -28,7 +31,7 @@ namespace Pastel
 
 	You can choose the reconstruction filter to use
 	in the resamplings. Note that if your filter has
-	negative lobes it is possible, to have
+	negative lobes, it is possible to have
 	negative values in the mipmaps. If the image
 	contains color, then you will want to
 	call 'transform(mipMap, fitColor)'.

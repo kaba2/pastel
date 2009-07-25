@@ -1,11 +1,6 @@
 // Description: Tools for working with strings
 // Documentation: miscellaneuous.txt
 
-/*!
-\file
-\brief Tools for working with strings.
-*/
-
 #ifndef PASTEL_STRING_TOOLS_H
 #define PASTEL_STRING_TOOLS_H
 

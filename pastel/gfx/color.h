@@ -1,3 +1,5 @@
+// Description: Color type
+
 #ifndef PASTEL_COLOR_H
 #define PASTEL_COLOR_H
 

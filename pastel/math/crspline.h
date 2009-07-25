@@ -1,11 +1,6 @@
 // Description: Catmull-Rom spline
 // Documentation: interpolation.txt
 
-/*!
-\file
-\brief A function for Catmull-Rom spline evaluation.
-*/
-
 #ifndef PASTEL_CRSPLINE_H
 #define PASTEL_CRSPLINE_H
 

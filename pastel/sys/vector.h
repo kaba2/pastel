@@ -1,11 +1,6 @@
 // Description: Vector class
 // Detail: Allows to compute with vectors in R^n
 
-/*!
-\file
-\brief A class for a real vector in R^N.
-*/
-
 #ifndef PASTEL_VECTOR_H
 #define PASTEL_VECTOR_H
 

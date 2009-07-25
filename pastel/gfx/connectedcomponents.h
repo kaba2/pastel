@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the connected components of a binary image.
-*/
+// Description: Connected components of a binary image
 
 #ifndef PASTEL_CONNECTEDCOMPONENTS_H
 #define PASTEL_CONNECTEDCOMPONENTS_H

@@ -24,7 +24,7 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				return adapter.toLogical(*cursor_);
+				return adapter.convert(*cursor_);
 			}
 
 		protected:
@@ -51,7 +51,7 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				return adapter.toLogical(*cursor_);
+				return adapter.convert(*cursor_);
 			}
 
 			template <typename ThatLogical>
@@ -60,7 +60,7 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				*cursor_ = adapter.toPhysical(that);
+				*cursor_ = adapter.revert(that);
 				return *this;
 			}
 
@@ -70,8 +70,8 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				*cursor_ = adapter.toPhysical(
-					adapter.toLogical(*cursor_) * that);
+				*cursor_ = adapter.revert(
+					adapter.convert(*cursor_) * that);
 				return *this;
 			}
 
@@ -81,8 +81,8 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				*cursor_ = adapter.toPhysical(
-					adapter.toLogical(*cursor_) / that);
+				*cursor_ = adapter.revert(
+					adapter.convert(*cursor_) / that);
 				return *this;
 			}
 
@@ -92,8 +92,8 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				*cursor_ = adapter.toPhysical(
-					adapter.toLogical(*cursor_) + that);
+				*cursor_ = adapter.revert(
+					adapter.convert(*cursor_) + that);
 				return *this;
 			}
 
@@ -103,33 +103,33 @@ namespace Pastel
 			{
 				Adapter adapter;
 
-				*cursor_ = adapter.toPhysical(
-					adapter.toLogical(*cursor_) - that);
+				*cursor_ = adapter.revert(
+					adapter.convert(*cursor_) - that);
 				return *this;
 			}
 
 			template <typename ThatLogical>
 			Logical operator+(const ThatLogical& that) const
 			{
-				return adapter.toLogical(*cursor_) + that;
+				return adapter.convert(*cursor_) + that;
 			}
 
 			template <typename ThatLogical>
 			Logical operator-(const ThatLogical& that) const
 			{
-				return adapter.toLogical(*cursor_) - that;
+				return adapter.convert(*cursor_) - that;
 			}
 
 			template <typename ThatLogical>
 			Logical operator*(const ThatLogical& that) const
 			{
-				return adapter.toLogical(*cursor_) * that;
+				return adapter.convert(*cursor_) * that;
 			}
 
 			template <typename ThatLogical>
 			Logical operator/(const ThatLogical& that) const
 			{
-				return adapter.toLogical(*cursor_) / that;
+				return adapter.convert(*cursor_) / that;
 			}
 		};
 

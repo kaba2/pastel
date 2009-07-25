@@ -1,3 +1,6 @@
+// Description: FunctorColorMixer class
+// Detail: Combines background and texture using the supplied functor
+
 #ifndef PASTEL_FUNCTORCOLORMIXER_H
 #define PASTEL_FUNCTORCOLORMIXER_H
 

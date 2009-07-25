@@ -1,3 +1,5 @@
+// Description: Tools for working with images
+
 #ifndef PASTEL_IMAGETOOLS_H
 #define PASTEL_IMAGETOOLS_H
 
@@ -15,7 +17,7 @@
 namespace Pastel
 {
 
-	typedef Color_Integer_Adapter<uint32, 8, 8, 8> Rgb888Adapter;
+	typedef Integer_To_Color<uint32, 8, 8, 8> Rgb888Adapter;
 
 	template <int N>
 	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<N, uint32> > > >

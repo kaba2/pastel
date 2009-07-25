@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a line and an aligned plane.
-*/
+// Description: The intersection between a line and an aligned plane
 
 #ifndef PASTEL_INTERSECT_LINE_ALIGNEDPLANE_H
 #define PASTEL_INTERSECT_LINE_ALIGNEDPLANE_H

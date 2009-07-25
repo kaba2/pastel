@@ -1,3 +1,5 @@
+// Description: An aggregate file for color mixers
+
 #ifndef PASTEL_COLORMIXERS_H
 #define PASTEL_COLORMIXERS_H
 

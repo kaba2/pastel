@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a small random-access set.
-*/
+// Description: SmallSet class
+// Detail: An efficient associative array for small sets
 
 #ifndef PASTEL_SMALLSET_H
 #define PASTEL_SMALLSET_H

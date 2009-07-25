@@ -1,3 +1,5 @@
+// Description: Random draws from a pdf described by a scalar array
+
 #ifndef PASTEL_IMAGEPDF_H
 #define PASTEL_IMAGEPDF_H
 

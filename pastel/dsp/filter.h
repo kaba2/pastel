@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A reconstruction filter.
-*/
+// Description: Filter class
+// Detail: Reconstruction filter abstraction
 
 #ifndef PASTEL_FILTER_H
 #define PASTEL_FILTER_H
@@ -24,8 +22,8 @@ namespace Pastel
 	(for radially symmetric filters) or using it for each
 	dimension separately (for separable filters). This class
 	would be more properly named a 'ReconstructionFilter'.
-	However, this leads to too long names and thus I decided
-	to leave this semantic information in the documentation.
+	However, this leads to too long names. I decided
+	to leave this semantic information for the documentation.
 	*/
 
 	class PASTELDSP Filter

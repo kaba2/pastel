@@ -1,3 +1,6 @@
+// Description: GlGfxRenderer class
+// Detail: A 2d per-object renderer using OpenGl
+
 #ifndef PASTEL_GLGFXRENDERER_H
 #define PASTEL_GLGFXRENDERER_H
 

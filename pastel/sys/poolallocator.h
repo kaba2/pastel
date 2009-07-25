@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a uniform sized memory allocator.
-*/
+// Description: PoolAllocator class
+// Detail: A uniform-sized memory allocator
 
 #ifndef PASTEL_POOLALLOCATOR_H
 #define PASTEL_POOLALLOCATOR_H

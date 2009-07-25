@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A class for device and event handling.
-*/
+// Description: Devices and event loop
 
 #ifndef PASTEL_DEVICESYSTEM_H
 #define PASTEL_DEVICESYSTEM_H

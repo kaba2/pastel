@@ -1,3 +1,6 @@
+// Description: Timer class
+// Detail: Allows to measure the elapsed time between two events
+
 #ifndef PASTEL_TIMER_H
 #define PASTEL_TIMER_H
 

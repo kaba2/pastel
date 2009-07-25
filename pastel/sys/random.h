@@ -1,10 +1,5 @@
 // Description: Tools for random number generation
 
-/*!
-\file
-\brief Tools for random number generation.
-*/
-
 #ifndef PASTEL_RANDOM_H
 #define PASTEL_RANDOM_H
 

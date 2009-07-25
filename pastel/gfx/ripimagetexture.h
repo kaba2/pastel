@@ -1,3 +1,6 @@
+// Description: RipImageTexture class
+// Detail: Resampling by ripmap filtering and multilinear reconstruction
+
 #ifndef PASTEL_RIPIMAGETEXTURE_H
 #define PASTEL_RIPIMAGETEXTURE_H
 
@@ -6,6 +9,7 @@
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"
+
 #include "pastel/sys/arrayextender.h"
 
 #include <vector>

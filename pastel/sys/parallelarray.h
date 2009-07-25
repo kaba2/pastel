@@ -1,7 +1,5 @@
-/*
-\file
-\brief A class for a parallel array.
-*/
+// Description: ParallelArray class
+// Detail: A parallel array
 
 #ifndef PASTEL_PARALLELARRAY_H
 #define PASTEL_PARALLELARRAY_H

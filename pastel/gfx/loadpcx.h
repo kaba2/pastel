@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for loading pcx images.
-*/
+// Description: Loading of images in PCX format
 
 #ifndef PASTEL_LOADPCX_H
 #define PASTEL_LOADPCX_H
@@ -75,7 +72,7 @@ namespace Pastel
 	//! Loads an indexed pcx image into a bool array.
 	/*!
 	This is a convenience function that
-	uses Bool_Integer_Adapter<uint8>
+	uses Integer_To_Bool<uint8>
 	as the adapter.
 	*/
 

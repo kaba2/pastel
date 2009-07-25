@@ -1,3 +1,5 @@
+// Description: Non-uniform reconstruction using adaptive neighborhood size.
+
 #ifndef PASTEL_RECONSTRUCT_ADAPTIVE_H
 #define PASTEL_RECONSTRUCT_ADAPTIVE_H
 

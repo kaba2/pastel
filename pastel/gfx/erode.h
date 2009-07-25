@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for eroding a binary image with another image.
-*/
+// Description: Eroding of a binary image
 
 #ifndef PASTEL_ERODE_H
 #define PASTEL_ERODE_H

@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for destructing a range of objects.
-*/
+// Description: Destruction of a sequence of objects
 
 #ifndef PASTEL_DESTRUCT_H
 #define PASTEL_DESTRUCT_H

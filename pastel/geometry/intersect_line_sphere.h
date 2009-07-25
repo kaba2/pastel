@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a line and a sphere.
-*/
+// Description: The intersection between a line and a sphere
 
 #ifndef PASTEL_INTERSECT_LINE_SPHERE_H
 #define PASTEL_INTERSECT_LINE_SPHERE_H

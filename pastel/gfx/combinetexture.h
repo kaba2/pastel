@@ -1,3 +1,6 @@
+// Description: CombineTexture class
+// Detail: A texture which combines two textures with a ColorMixer.
+
 #ifndef PASTEL_COMBINETEXTURE_H
 #define PASTEL_COMBINETEXTURE_H
 

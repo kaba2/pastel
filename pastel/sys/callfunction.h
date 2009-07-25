@@ -1,11 +1,6 @@
 // Description: CallFunction class
 // Detail: Turns initialization into a function call
 
-/*!
-\file
-\brief A class for turning an initialization into a function call
-*/
-
 #ifndef PASTEL_CALLFUNCTION_H
 #define PASTEL_CALLFUNCTION_H
 

@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a line and a triangle.
-*/
+// Description: The intersection between a line and a triangle
 
 #ifndef PASTEL_INTERSECT_LINE_TRIANGLE_H
 #define PASTEL_INTERSECT_LINE_TRIANGLE_H

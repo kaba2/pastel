@@ -1,3 +1,6 @@
+// Description: Creation of commmon structuring elements
+// Detail: Especially for dilation and eroding
+
 #ifndef PASTEL_STRUCTURINGELEMENT_H
 #define PASTEL_STRUCTURINGELEMENT_H
 

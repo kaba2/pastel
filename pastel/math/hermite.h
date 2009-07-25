@@ -1,11 +1,6 @@
 // Description: Cubic and quintic Hermite polynomials
 // Documentation: interpolation.txt
 
-/*!
-\file
-\brief Functions for evaluating Hermite curves.
-*/
-
 #ifndef PASTEL_HERMITE_H
 #define PASTEL_HERMITE_H
 

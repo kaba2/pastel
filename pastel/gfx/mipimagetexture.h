@@ -1,3 +1,6 @@
+// Description: MipImageTexture class
+// Detail: Resampling by mipmap filtering and multilinear reconstruction
+
 #ifndef PASTEL_MIPIMAGETEXTURE_H
 #define PASTEL_MIPIMAGETEXTURE_H
 

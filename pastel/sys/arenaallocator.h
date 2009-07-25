@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a deallocate-once, arbitrary size memory allocator.
-*/
+// Description: ArenaAllocator class
+// Detail: A deallocate-once, arbitrary size memory allocator
 
 #ifndef PASTEL_ARENAALLOCATOR_H
 #define PASTEL_ARENAALLOCATOR_H

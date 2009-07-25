@@ -1,3 +1,6 @@
+// Description: Image_GfxRenderer
+// Detail: A 2d per-object software renderer to render to arrays.
+
 #ifndef PASTEL_IMAGEGFXRENDERER_H
 #define PASTEL_IMAGEGFXRENDERER_H
 
@@ -15,15 +18,15 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class ImageGfxRenderer
+	class Image_GfxRenderer
 		: public GfxRenderer<Type>
 	{
 	private:
 		typedef GfxRenderer<Type> Base;
 
 	public:
-		explicit ImageGfxRenderer(Array<2, Type>* image = 0);
-		virtual ~ImageGfxRenderer();
+		explicit Image_GfxRenderer(Array<2, Type>* image = 0);
+		virtual ~Image_GfxRenderer();
 
 		void setImage(Array<2, Type>* image);
 		Array<2, Type>* image() const;
@@ -61,10 +64,10 @@ namespace Pastel
 
 	private:
 		// Prohibited
-		ImageGfxRenderer(const ImageGfxRenderer&);
+		Image_GfxRenderer(const Image_GfxRenderer&);
 
 		//Prohibited
-		ImageGfxRenderer& operator=(const ImageGfxRenderer&);
+		Image_GfxRenderer& operator=(const Image_GfxRenderer&);
 
 		void updateModelView();
 

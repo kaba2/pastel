@@ -1,3 +1,5 @@
+// Description: Tools for working with ripmaps
+
 #ifndef PASTEL_RIPMAP_TOOLS_H
 #define PASTEL_RIPMAP_TOOLS_H
 

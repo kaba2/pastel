@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for loading Ply files.
-*/
+// Description: PlyLoader class
+// Detail: Loading of .ply files
 
 #ifndef PASTEL_PLYLOADER_H
 #define PASTEL_PLYLOADER_H

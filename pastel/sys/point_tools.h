@@ -1,11 +1,6 @@
 // Description: Tools for working with points
 // Detail: min, max, comparison functions, etc.
 
-/*!
-\file
-\brief Functions for dealing with points.
-*/
-
 #ifndef PASTEL_POINT_TOOLS_H
 #define PASTEL_POINT_TOOLS_H
 

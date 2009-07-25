@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for dilating a binary image with another image.
-*/
+// Description: Dilation of a binary image
 
 #ifndef PASTEL_DILATE_H
 #define PASTEL_DILATE_H

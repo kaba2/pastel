@@ -212,22 +212,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\filterdesign.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\filterdesign.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterform.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\gaussian_filter.cpp"
 				>
 			</File>
@@ -267,6 +251,26 @@
 				RelativePath=".\triangle_filter.h"
 				>
 			</File>
+			<Filter
+				Name="Deprecated"
+				>
+				<File
+					RelativePath=".\filterdesign.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\filterdesign.h"
+					>
+				</File>
+				<File
+					RelativePath=".\filterform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\filterform.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\discretefourier.h"
@@ -298,10 +302,6 @@
 		</File>
 		<File
 			RelativePath=".\mipmap_tools.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\quantile_filtering.h"
 			>
 		</File>
 		<File

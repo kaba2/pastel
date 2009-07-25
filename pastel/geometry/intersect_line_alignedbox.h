@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a line and an aligned box.
-*/
+// Description: The intersection between a line and an aligned box
 
 #ifndef PASTEL_INTERSECT_LINE_ALIGNEDBOX_H
 #define PASTEL_INTERSECT_LINE_ALIGNEDBOX_H

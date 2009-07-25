@@ -1,3 +1,5 @@
+// Description: Non-uniform reconstruction using normalized convolution
+
 #ifndef PASTEL_RECONSTRUCT_FILTER_H
 #define PASTEL_RECONSTRUCT_FILTER_H
 

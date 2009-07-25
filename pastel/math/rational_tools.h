@@ -1,11 +1,6 @@
 // Description: Tools for working with rational numbers
 // Detail: pretty printing to a stream, etc.
 
-/*!
-\file
-\brief Tools for working with rational numbers.
-*/
-
 #ifndef PASTEL_RATIONAL_TOOLS_H
 #define PASTEL_RATIONAL_TOOLS_H
 

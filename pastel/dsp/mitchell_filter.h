@@ -1,3 +1,6 @@
+// Description: MitchellFilter class
+// Detail: Mitchell-Netravali cubic spline reconstruction filter
+
 #ifndef PASTEL_MITCHELL_FILTER_H
 #define PASTEL_MITCHELL_FILTER_H
 

@@ -1,11 +1,6 @@
 // Description: Log class
 // Detail: Outputs logging information to a set of LogObserver's.
 
-/*!
-\file
-\brief A class for logging.
-*/
-
 #ifndef PASTEL_LOG_H
 #define PASTEL_LOG_H
 

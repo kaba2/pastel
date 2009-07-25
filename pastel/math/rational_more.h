@@ -1,11 +1,6 @@
 // Description: More tools for working with rational numbers
 // Detail: infinity, nan, fraction, remainder, floor, toFloat, etc.
 
-/*!
-\file
-\brief More tools for working with rational numbers
-*/
-
 #ifndef PASTEL_RATIONAL_MORE_H
 #define PASTEL_RATIONAL_MORE_H
 

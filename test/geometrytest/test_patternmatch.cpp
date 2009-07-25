@@ -61,7 +61,7 @@ namespace
 		}
 		*/
 
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setViewWindow(viewWindow);
 		renderer.setColor(Color(1));

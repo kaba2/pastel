@@ -1,3 +1,6 @@
+// Description: BilinearImageTexture class
+// Detail: Sampling of a texture reconstructed with the triangle filter
+
 #ifndef PASTEL_BILINEARIMAGETEXTURE_H
 #define PASTEL_BILINEARIMAGETEXTURE_H
 

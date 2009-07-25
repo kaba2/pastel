@@ -1,11 +1,6 @@
 // Description: Quaternion class
 // Detail: Allows to work with quaternions
 
-/*!
-\file
-\brief A class for a quaternion.
-*/
-
 #ifndef PASTEL_QUATERNION_H
 #define PASTEL_QUATERNION_H
 

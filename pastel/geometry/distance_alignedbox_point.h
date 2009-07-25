@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing the distance between an aligned box and a point.
-*/
+// Description: Distance computation between an aligned box and a point
 
 #ifndef PASTEL_DISTANCE_ALIGNEDBOX_POINT_H
 #define PASTEL_DISTANCE_ALIGNEDBOX_POINT_H

@@ -1,11 +1,6 @@
 // Description: Tools for forming common matrices
 // Detail: setRandomMatrix, setDiagonal, setRandomRotation, etc.
 
-/*!
-\file
-\brief Tools for forming common matrices.
-*/
-
 #ifndef PASTEL_MATRIX_TOOLS_MORE2_H
 #define PASTEL_MATRIX_TOOLS_MORE2_H
 

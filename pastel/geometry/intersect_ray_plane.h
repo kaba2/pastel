@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a ray and a plane.
-*/
+// Description: The intersection between a ray and a plane
 
 #ifndef PASTEL_INTERSECT_RAY_PLANE_H
 #define PASTEL_INTERSECT_RAY_PLANE_H

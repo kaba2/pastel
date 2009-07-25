@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for an associative array.
-*/
+// Description: SmallMap
+// Detail: An associative array efficient with small number of elements
 
 #ifndef PASTEL_SMALLMAP_H
 #define PASTEL_SMALLMAP_H

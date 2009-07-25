@@ -2,11 +2,6 @@
 // Detail: equivalent, toPixelSpanPoint, scaleInteger, extractBits
 // Documentation: miscellaneous.txt
 
-/*!
-\file
-\brief Miscellaneous commonly needed tools.
-*/
-
 #ifndef PASTEL_SYSCOMMON_H
 #define PASTEL_SYSCOMMON_H
 
@@ -108,6 +103,10 @@ namespace Pastel
 
 	template <int FromBit, int Bits, typename Integer>
 	Integer extractBits(const Integer& number);
+
+	template <typename Integer>
+	Integer extractBits(const Integer& number, 
+		integer fromBit, integer bits);
 
 }
 

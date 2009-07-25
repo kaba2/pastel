@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing the distance between two lines.
-*/
+// Description: Distance computation between two lines
 
 #ifndef PASTEL_DISTANCE_LINE_LINE_H
 #define PASTEL_DISTANCE_LINE_LINE_H

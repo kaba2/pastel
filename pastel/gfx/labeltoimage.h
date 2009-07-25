@@ -1,3 +1,5 @@
+// Description: Conversion of a labeled image to an indexed image
+
 #ifndef PASTEL_LABELTOIMAGE_H
 #define PASTEL_LABELTOIMAGE_H
 

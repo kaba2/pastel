@@ -133,6 +133,16 @@ namespace Pastel
 		return (number >> FromBit) & ((1 << Bits) - 1);
 	}
 
+	template <typename Integer>
+	Integer extractBits(const Integer& number, 
+		integer fromBit, integer bits)
+	{
+		PENSURE_OP(fromBit, >=, 0);
+		PENSURE_OP(bits, >, 0);
+
+		return (number >> fromBit) & ((1 << bits) - 1);
+	}
+
 }
 
 #endif

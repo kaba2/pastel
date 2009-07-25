@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for finding the intersection between a plane and a sphere.
-*/
+// Description: The intersection between a plane and a sphere
 
 #ifndef PASTEL_INTERSECT_PLANE_SPHERE_H
 #define PASTEL_INTERSECT_PLANE_SPHERE_H

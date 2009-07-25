@@ -1,3 +1,5 @@
+// Description: Even more tools for drawing 2d graphics
+
 #ifndef PASTEL_DRAWING_MORE2_H
 #define PASTEL_DRAWING_MORE2_H
 

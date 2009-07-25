@@ -1,3 +1,6 @@
+// Description: LanczosFilter class
+// Detail: Lanczos reconstruction filter
+
 #ifndef PASTEL_LANCZOS_FILTER_H
 #define PASTEL_LANCZOS_FILTER_H
 

@@ -1,3 +1,6 @@
+// Description: Texture class
+// Detail: An abstract class for textures
+
 #ifndef PASTEL_TEXTURE_H
 #define PASTEL_TEXTURE_H
 

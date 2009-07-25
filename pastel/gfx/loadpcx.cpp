@@ -647,7 +647,7 @@ namespace Pastel
 		Array<2, bool>& image,
 		std::vector<Color>* colorPalette)
 	{
-		Bool_Integer_Adapter<uint8> adapter;
+		Integer_To_Bool<uint8> adapter;
 		return loadIndexedPcx(fileName, image, adapter, colorPalette);
 	}
 
@@ -672,7 +672,7 @@ namespace Pastel
 		const std::string& fileName,
 		Array<2, ByteColor>& image)
 	{
-		Color_ByteColor_Adapter adapter;
+		ByteColor_To_Color adapter;
 		return loadPcx(fileName, image, adapter);
 	}
 
@@ -680,7 +680,7 @@ namespace Pastel
 		const std::string& fileName,
 		Array<2, uint32>& image)
 	{
-		Color_Integer_Adapter<uint32, 8, 8, 8> adapter;
+		Integer_To_Color<uint32, 8, 8, 8> adapter;
 		return loadPcx(fileName, image, adapter);
 	}
 
@@ -688,7 +688,7 @@ namespace Pastel
 		const std::string& fileName,
 		Array<2, uint16>& image)
 	{
-		Color_Integer_Adapter<uint16, 5, 6, 5> adapter;
+		Integer_To_Color<uint16, 5, 6, 5> adapter;
 		return loadPcx(fileName, image, adapter);
 	}
 

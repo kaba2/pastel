@@ -50,7 +50,7 @@ namespace
 
 		savePcx(image, "output/distortion.pcx");
 
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&textureImage);
 		renderer.setFilled(false);
 		renderer.setColor(Color(0, 1, 0));
@@ -99,7 +99,7 @@ namespace
 	{
 		Array<2, Color> image(500, 500, Color(0));
 
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(-1, -1, 1, 1));
 		renderer.setFilled(false);
@@ -292,7 +292,7 @@ namespace
 	{
 		Array<2, Color> image(640, 480);
 
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 
@@ -316,7 +316,7 @@ namespace
 	{
 		Array<2, Color> image(640, 480);
 
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 		renderer.setColor(randomRgbColor());
@@ -336,7 +336,7 @@ namespace
 	{
 		Array<2, Color> image(640, 480);
 
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 

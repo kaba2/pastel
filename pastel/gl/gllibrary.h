@@ -1,3 +1,6 @@
+// Description: Dll-keywords for PastelGl
+// Documentation: pastelgl.txt
+
 #ifndef PASTEL_GLLIBRARY_H
 #define PASTEL_GLLIBRARY_H
 

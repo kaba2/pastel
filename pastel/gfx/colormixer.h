@@ -1,3 +1,6 @@
+// Description: ColorMixer class
+// Detail: An abstract class for color mixers
+
 #ifndef PASTEL_COLORMIXER_H
 #define PASTEL_COLORMIXER_H
 

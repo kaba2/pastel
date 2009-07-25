@@ -27,12 +27,12 @@ namespace
 		typedef real32 Logical;
 		typedef std::complex<real32> Physical;
 
-		Logical toLogical(const Physical& physical) const
+		Logical convert(const Physical& physical) const
 		{
 			return physical.real();
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		Physical revert(const Logical& logical) const
 		{
 			return Physical(logical, 0);
 		}
@@ -46,12 +46,12 @@ namespace
 		typedef real32 Logical;
 		typedef std::complex<real32> Physical;
 
-		Logical toLogical(const Physical& physical) const
+		Logical convert(const Physical& physical) const
 		{
 			return std::abs(physical);
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		Physical revert(const Logical& logical) const
 		{
 			return Physical(logical, 0);
 		}

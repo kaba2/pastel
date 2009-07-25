@@ -1,3 +1,5 @@
+// Description: Reconstruction of missing pixels for an image
+
 #ifndef PASTEL_RECONSTRUCTIMAGE_H
 #define PASTEL_RECONSTRUCTIMAGE_H
 

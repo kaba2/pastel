@@ -1,3 +1,6 @@
+// Description: MixTexture
+// Detail: A texture which interpolates two textures with a third
+
 #ifndef PASTEL_MIXTEXTURE_H
 #define PASTEL_MIXTEXTURE_H
 

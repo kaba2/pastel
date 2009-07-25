@@ -1,3 +1,5 @@
+// Description: Convolution on arrays
+
 #ifndef PASTEL_CONVOLUTE_H
 #define PASTEL_CONVOLUTE_H
 

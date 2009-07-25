@@ -1,3 +1,6 @@
+// Description: NearestImageTexture class
+// Detail: Sampling of a nearest neighbor reconstruction
+
 #ifndef PASTEL_NEARESTIMAGETEXTURE_H
 #define PASTEL_NEARESTIMAGETEXTURE_H
 

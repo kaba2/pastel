@@ -1,3 +1,6 @@
+// Description: CubicFilter class
+// Detail: Cardinal cubic spline reconstruction filter
+
 #ifndef PASTEL_CUBIC_FILTER_H
 #define PASTEL_CUBIC_FILTER_H
 

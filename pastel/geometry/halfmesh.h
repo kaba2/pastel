@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for storing a half-edge structure polygon mesh.
-*/
+// Description: HalfMesh class
+// Detail: Allows topological modification of a polygon mesh
 
 #ifndef PASTEL_HALFMESH_H
 #define PASTEL_HALFMESH_H

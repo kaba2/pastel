@@ -1,11 +1,6 @@
 // Description: Tools for array programming with vectors
 // Detail: min, max, clamp, abs, sin, cos, floor, ceil, etc.
 
-/*!
-\file
-\brief Tools for array programming with vectors
-*/
-
 #ifndef PASTEL_VECTOR_TOOLS_MORE_H
 #define PASTEL_VECTOR_TOOLS_MORE_H
 

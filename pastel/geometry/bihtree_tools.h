@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Algorithms for the BihTree.
-*/
+// Description: Tools for working with BihTree
 
 #ifndef PASTEL_BIHTREETOOLS_H
 #define PASTEL_BIHTREETOOLS_H

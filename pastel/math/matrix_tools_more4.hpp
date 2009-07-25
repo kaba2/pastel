@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for array programming with matrices.
-*/
+// Description: Tools for array programming with matrices
 
 #ifndef PASTEL_MATRIX_TOOLS_MORE4_HPP
 #define PASTEL_MATRIX_TOOLS_MORE4_HPP

@@ -154,7 +154,7 @@ namespace
 		const integer kNearest = neighborSet.width();
 
 		Array<2, Color> image(768, 768);
-		ImageGfxRenderer<Color> renderer;
+		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setColor(Color(1));
 		renderer.setViewWindow(AlignedBox2(-1, -1, 1, 1));

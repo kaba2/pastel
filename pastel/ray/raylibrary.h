@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A dll-configuration file for the ray library.
-*/
+// Description: Dll-keywords for PastelRay
+// Documentation: pastelray.txt
 
 #ifndef PASTEL_RAYLIBRARY_H
 #define PASTEL_RAYLIBRARY_H

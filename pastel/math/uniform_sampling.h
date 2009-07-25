@@ -1,11 +1,6 @@
 // Description: Tools for distorting a uniform distribution to another one
 // Detail: As an example, distortion of [0, 1]^3 to a unit ball.
 
-/*!
-\file
-\brief Functions for sampling uniformly from different regions.
-*/
-
 #ifndef PASTEL_UNIFORM_SAMPLING_H
 #define PASTEL_UNIFORM_SAMPLING_H
 

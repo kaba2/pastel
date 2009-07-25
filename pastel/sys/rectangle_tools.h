@@ -1,11 +1,6 @@
 // Description: Tools for working with rectangles
 // Detail: intersect, etc.
 
-/*!
-\file
-\brief Tools for working with rectangles.
-*/
-
 #ifndef PASTEL_RECTANGLE_TOOLS_H
 #define PASTEL_RECTANGLE_TOOLS_H
 

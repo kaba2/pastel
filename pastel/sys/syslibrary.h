@@ -1,11 +1,6 @@
 // Description: Dll-keywords for PastelSys
 // Documentation: pastelsys.txt
 
-/*!
-\file
-\brief Dll-related keywords for PastelSys
-*/
-
 #ifndef PASTEL_SYSLIBRARY_H
 #define PASTEL_SYSLIBRARY_H
 
