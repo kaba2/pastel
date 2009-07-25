@@ -194,6 +194,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\color.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\color_tools.cpp"
 				>
 			</File>
@@ -214,11 +218,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\packedcolor.h"
-				>
-			</File>
-			<File
-				RelativePath=".\packedcolor.hpp"
+				RelativePath=".\coloradapter.txt"
 				>
 			</File>
 			<File
@@ -227,6 +227,10 @@
 			</File>
 			<File
 				RelativePath=".\palette.h"
+				>
+			</File>
+			<File
+				RelativePath=".\palette.txt"
 				>
 			</File>
 		</Filter>

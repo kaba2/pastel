@@ -1,3 +1,6 @@
+// Description: AssignColorMixer
+// Detail: Replaces the background with the texture
+
 #ifndef PASTEL_ASSIGNCOLORMIXER_H
 #define PASTEL_ASSIGNCOLORMIXER_H
 

@@ -1,11 +1,6 @@
 // Description: Kochanek-Bartels spline
 // Documentation: interpolation.txt
 
-/*!
-\file
-\brief A function for evaluating a Kochanek-Bartels spline.
-*/
-
 #ifndef PASTEL_KBSPLINE_H
 #define PASTEL_KBSPLINE_H
 

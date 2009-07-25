@@ -1,10 +1,5 @@
 // Description: Tools for obtaining the index of the highest/lowest bit
 
-/*!
-\file
-\brief Tools for obtaining the index of the highest/lowest bit.
-*/
-
 #ifndef PASTEL_BITQUERY_H
 #define PASTEL_BITQUERY_H
 

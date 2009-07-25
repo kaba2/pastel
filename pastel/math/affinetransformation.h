@@ -1,11 +1,6 @@
 // Description: AffineTransformation class
 // Detail: Allows to work with affine transformations in R^n
 
-/*!
-\file
-\brief A class for an affine transformation.
-*/
-
 #ifndef PASTEL_AFFINETRANSFORMATION_H
 #define PASTEL_AFFINETRANSFORMATION_H
 

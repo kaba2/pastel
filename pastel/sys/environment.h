@@ -1,11 +1,6 @@
 // Description: Pastel's configuration file
 // Documentation: pastelsys.txt
 
-/*!
-\file
-\brief Pastel's configuration file.
-*/
-
 #ifndef PASTEL_ENVIRONMENT_H
 #define PASTEL_ENVIRONMENT_H
 

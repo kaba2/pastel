@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a bounding interval hieararchy tree
-*/
+// Description: BihTree class
+// Detail: Bounding Interval Hierarchy tree
 
 #ifndef PASTEL_BIHTREE_H
 #define PASTEL_BIHTREE_H

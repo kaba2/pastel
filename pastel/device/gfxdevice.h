@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class controlling the graphics device.
-*/
+// Description: GfxDevice class
+// Detail: Allows the control of the graphics device
 
 #ifndef PASTEL_GFXDEVICE_H
 #define PASTEL_GFXDEVICE_H

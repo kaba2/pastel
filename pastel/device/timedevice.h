@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for controlling the timing device.
-*/
+// Description: TimeDevice class
+// Detail: Allows controlling timing related stuff
 
 #ifndef PASTEL_TIMEDEVICE_H
 #define PASTEL_TIMEDEVICE_H

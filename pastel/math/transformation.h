@@ -1,10 +1,5 @@
 // Description: Transformation class
 
-/*!
-\file
-\brief A class for a transformation-inverse pair.
-*/
-
 #ifndef PASTEL_TRANSFORMATION_H
 #define PASTEL_TRANSFORMATION_H
 

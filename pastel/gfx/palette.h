@@ -1,3 +1,5 @@
+// Description: Palette generation for indexed color systems
+
 #ifndef PASTEL_PALETTE_H
 #define PASTEL_PALETTE_H
 

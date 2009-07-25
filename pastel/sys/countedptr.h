@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a reference counting smart-pointer.
-*/
+// Description: CountedPtr class
+// Detail: A reference counted smart-pointer
 
 #ifndef PASTEL_COUNTEDPTR_H
 #define PASTEL_COUNTEDPTR_H

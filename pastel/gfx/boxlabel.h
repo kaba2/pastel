@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for segmentation of a binary image into boxes.
-*/
+// Description: Segmentation of a binary image into boxes
 
 #ifndef PASTEL_BOXLABEL_H
 #define PASTEL_BOXLABEL_H

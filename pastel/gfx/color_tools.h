@@ -1,3 +1,5 @@
+// Description: Tools for working with colors
+
 #ifndef PASTEL_COLORTOOLS_H
 #define PASTEL_COLORTOOLS_H
 
@@ -167,12 +169,12 @@ namespace Pastel
 		typedef Color Logical;
 		typedef real32 Physical;
 
-		Logical toLogical(const Physical& physical) const
+		Logical convert(const Physical& physical) const
 		{
 			return Color(physical);
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		Physical revert(const Logical& logical) const
 		{
 			return luma(logical);
 		}

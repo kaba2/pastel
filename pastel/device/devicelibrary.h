@@ -1,7 +1,5 @@
-/*!
-\file
-\brief Dll-related keywords for the device-library.
-*/
+// Description: Dll-keywords for PastelDevice
+// Documentation: pasteldevice.txt
 
 #ifndef PASTEL_DEVICELIBRARY_H
 #define PASTEL_DEVICELIBRARY_H

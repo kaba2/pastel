@@ -1,11 +1,6 @@
 // Description: Array class
 // Detail: An n-dimensional array
 
-/*!
-\file
-\brief A class for an n-dimensional array.
-*/
-
 #ifndef PASTEL_ARRAY_H
 #define PASTEL_ARRAY_H
 

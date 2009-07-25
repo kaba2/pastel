@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for y-monotonizing a simple polygon.
-*/
+// Description: Monotonization of a simple polygon
 
 #ifndef PASTEL_MONOTONIZEPOLYGON_H
 #define PASTEL_MONOTONIZEPOLYGON_H

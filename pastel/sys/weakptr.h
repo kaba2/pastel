@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a reference counting smart-pointer.
-*/
+// Description: WeakPtr class
+// Detail: A non-counting smart-pointer to breaking cyclic references
 
 #ifndef PASTEL_WEAKPTR_H
 #define PASTEL_WEAKPTR_H
@@ -16,30 +14,10 @@
 namespace Pastel
 {
 
-	//! A base class for WeakPtr reference counted objects.
-
-	/*!
-	Any class wishing to use WeakPtr for reference counting
-	must derive from ReferenceCounted. This base class
-	simply includes a counter that the WeakPtr implementation
-	increases and decreases.
-	*/
-
-	//! A reference counting smart-pointer
-
-	/*!
-	Any class wishing to use WeakPtr for reference counting
-	must derive from ReferenceCounted. WeakPtr can't be
-	used to reference count non-class types. See boost::shared_ptr
-	for this capability. WeakPtr can't handle cyclic
-	references: if A references B and B references A, the
-	A and B will never be destructed. This is a common problem
-	in reference counting, which you must take care of.
-	*/
-
 	template <typename Type>
 	class CountedPtr;
 
+	//! A non-counting smart-pointer
 	template <typename Type>
 	class WeakPtr
 		: boost::less_than_comparable<

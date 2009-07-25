@@ -1,3 +1,5 @@
+// Description: Branching number computation
+
 #ifndef PASTEL_BRANCHINGNUMBER_H
 #define PASTEL_BRANCHINGNUMBER_H
 

@@ -1,11 +1,6 @@
 // Description: Tools for converting between coordinate systems
 // Detail: Cartesian, cylinder, polar, and spherical coordinate systems.
 
-/*!
-\file
-\brief Functions for converting between coordinate systems.
-*/
-
 #ifndef PASTEL_COORDINATES_H
 #define PASTEL_COORDINATES_H
 

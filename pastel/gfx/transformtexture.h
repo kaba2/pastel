@@ -1,3 +1,6 @@
+// Description: TransformTexture
+// Detail: A texture which has gone through an affine transformation
+
 #ifndef PASTEL_TRANSFORMTEXTURE_H
 #define PASTEL_TRANSFORMTEXTURE_H
 

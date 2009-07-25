@@ -1,3 +1,6 @@
+// Description: TransparentColorMixer
+// Detail: Linearly interpolates between background and texture
+
 #ifndef PASTEL_TRANSPARENTCOLORMIXER_H
 #define PASTEL_TRANSPARENTCOLORMIXER_H
 

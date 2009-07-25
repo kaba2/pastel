@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a doubly linked list using Pastel's allocators.
-*/
+// Description: FastList class
+// Detail: Doubly-linked list using Pastel's allocators
 
 #ifndef PASTEL_FASTLIST_H
 #define PASTEL_FASTLIST_H

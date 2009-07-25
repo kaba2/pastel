@@ -1,3 +1,6 @@
+// Description: EwaImageTexture class
+// Detail: Resampling by EWA filtering
+
 #ifndef PASTEL_EWAIMAGETEXTURE_H
 #define PASTEL_EWAIMAGETEXTURE_H
 

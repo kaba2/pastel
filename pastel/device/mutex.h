@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for mutual exclusion in a concurrent program.
-*/
+// Description: Mutex class
+// Detail: Mutual exclusion in a concurrent program
 
 #ifndef PASTEL_MUTEX_H
 #define PASTEL_MUTEX_H

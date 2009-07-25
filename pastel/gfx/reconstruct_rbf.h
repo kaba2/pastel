@@ -1,3 +1,5 @@
+// Description: Interpolation based on Radial Basis Functions
+
 #ifndef PASTEL_RECONSTRUCT_RBF_H
 #define PASTEL_RECONSTRUCT_RBF_H
 

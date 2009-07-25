@@ -40,7 +40,7 @@ namespace Pastel
 		virtual FromType operator()(
 			const Point<N, integer>& position) const
 		{
-			return adapter_.toLogical((*image_)(position));
+			return adapter_.convert((*image_)(position));
 		}
 
 	protected:
@@ -86,13 +86,13 @@ namespace Pastel
 			const Point<N, integer>& position,
 			const FromType& data)
 		{
-			(*image_)(position) = adapter_.toPhysical(data);
+			(*image_)(position) = adapter_.revert(data);
 		}
 
 		virtual FromType operator()(
 			const Point<N, integer>& position) const
 		{
-			return adapter_.toLogical((*image_)(position));
+			return adapter_.convert((*image_)(position));
 		}
 
 	private:

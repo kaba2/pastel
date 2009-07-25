@@ -1,11 +1,6 @@
 // Description: Guid class
 // Detail: Stores a unique 128-bit identifier
 
-/*!
-\file
-\brief A class for a unique 128-bit identifier.
-*/
-
 #ifndef PASTEL_GUID_H
 #define PASTEL_GUID_H
 

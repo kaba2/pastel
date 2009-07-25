@@ -1,3 +1,5 @@
+// Description: Tools for working with mipmaps
+
 #ifndef PASTEL_MIPMAP_TOOLS_H
 #define PASTEL_MIPMAP_TOOLS_H
 

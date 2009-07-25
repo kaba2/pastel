@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for a uniform allocator wrapper for new and delete.
-*/
+// Description: NativeAllocator class
+// Detail: An allocator wrapper for new and delete
 
 #ifndef PASTEL_NATIVEALLOCATOR_H
 #define PASTEL_NATIVEALLOCATOR_H

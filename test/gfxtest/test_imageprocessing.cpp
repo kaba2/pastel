@@ -131,7 +131,7 @@ namespace
 
 		Array<2, bool> image(width, height, false);
 
-		ImageGfxRenderer<bool> renderer(&image);
+		Image_GfxRenderer<bool> renderer(&image);
 
 		renderer.setColor(true);
 		renderer.setFilled(true);
@@ -140,7 +140,7 @@ namespace
 
 		Array<2, bool> element(31, 21, false);
 
-		ImageGfxRenderer<bool> elementRenderer(&element);
+		Image_GfxRenderer<bool> elementRenderer(&element);
 
 		elementRenderer.setColor(true);
 		elementRenderer.setFilled(true);

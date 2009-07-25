@@ -1,3 +1,5 @@
+// Description: Some adapters for colors
+
 #ifndef PASTEL_COLORADAPTER_H
 #define PASTEL_COLORADAPTER_H
 
@@ -30,14 +32,14 @@ namespace Pastel
 		{
 		}
 
-		Logical toLogical(const Physical& physical) const
+		Logical convert(const Physical& physical) const
 		{
-			return adapter_.toPhysical(physical);
+			return adapter_.revert(physical);
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		Physical revert(const Logical& logical) const
 		{
-			return adapter_.toLogical(logical);
+			return adapter_.convert(logical);
 		}
 
 	private:
@@ -51,41 +53,41 @@ namespace Pastel
 		typedef Type Logical;
 		typedef Type Physical;
 
-		const Logical& toLogical(const Physical& physical) const
+		const Logical& convert(const Physical& physical) const
 		{
 			return physical;
 		}
 
-		const Physical& toPhysical(const Logical& logical) const
+		const Physical& revert(const Logical& logical) const
 		{
 			return logical;
 		}
 	};
 
-	class PASTELGFX Color_Component_Adapter
+	class PASTELGFX Color_To_Component
 	{
 	public:
 		typedef real32 Logical;
 		typedef Color Physical;
 
-		Color_Component_Adapter()
+		Color_To_Component()
 			: component_(0)
 		{
 		}
 
-		explicit Color_Component_Adapter(
+		explicit Color_To_Component(
 			integer component)
 			: component_(component)
 		{
 			ENSURE1(component >= 0 && component < 3, component);
 		}
 
-		Logical toLogical(const Physical& physical) const
+		Logical convert(const Physical& physical) const
 		{
 			return physical[component_];
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		Physical revert(const Logical& logical) const
 		{
 			return Physical(logical);
 		}
@@ -95,26 +97,26 @@ namespace Pastel
 	};
 
 	template <typename Real, typename Integer>
-	class Real_Integer_Adapter
+	class Integer_To_Real
 	{
 	public:
 		typedef Real Logical;
 		typedef Integer Physical;
 
-		explicit Real_Integer_Adapter(
+		explicit Integer_To_Real(
 			integer numbers)
 			: numbers_(numbers)
 		{
 		}
 
-		Physical toPhysical(const Logical& logical) const
-		{
-			return quantizeUnsigned(logical, numbers_);
-		}
-
-		Logical toLogical(const Physical& physical) const
+		Logical convert(const Physical& physical) const
 		{
 			return dequantizeUnsigned(physical, numbers_);
+		}
+
+		Physical revert(const Logical& logical) const
+		{
+			return quantizeUnsigned(logical, numbers_);
 		}
 
 	private:
@@ -122,30 +124,30 @@ namespace Pastel
 	};
 
 	template <typename Integer>
-	class Bool_Integer_Adapter
+	class Integer_To_Bool
 	{
 	public:
 		typedef bool Logical;
 		typedef Integer Physical;
 
-		Logical toLogical(const Physical& physical) const
+		static Logical convert(const Physical& physical) const
 		{
 			return (physical != 0);
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		static Physical revert(const Logical& logical) const
 		{
 			return logical ? 1 : 0;
 		}
 	};
 
-	class PASTELGFX Color_ByteColor_Adapter
+	class PASTELGFX ByteColor_To_Color
 	{
 	public:
 		typedef Color Logical;
 		typedef ByteColor Physical;
 
-		Logical toLogical(const Physical& physical) const
+		static Logical convert(const Physical& physical) const
 		{
 			return Color(
 				dequantizeUnsigned(physical[0], 256),
@@ -153,7 +155,7 @@ namespace Pastel
 				dequantizeUnsigned(physical[2], 256));
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		static Physical revert(const Logical& logical) const
 		{
 			return ByteColor(
 				quantizeUnsigned(logical[0], 256),
@@ -162,20 +164,20 @@ namespace Pastel
 		}
 	};
 
-	typedef ReverseAdapter<Color_ByteColor_Adapter> ByteColor_Color_Adapter;
+	typedef ReverseAdapter<ByteColor_To_Color> ByteColor_Color_Adapter;
 
 	template <typename Integer,
 		int RedBits, int GreenBits, int BlueBits,
 		int RedFrom = 0,
 		int GreenFrom = RedFrom + RedBits,
 		int BlueFrom = GreenFrom + GreenBits>
-	class ByteColor_Integer_Adapter
+	class Integer_To_ByteColor
 	{
 	public:
 		typedef ByteColor Logical;
 		typedef Integer Physical;
 
-		~ByteColor_Integer_Adapter()
+		~Integer_To_ByteColor()
 		{
 			BOOST_STATIC_ASSERT(RedFrom >= 0);
 			BOOST_STATIC_ASSERT(GreenFrom >= 0);
@@ -185,7 +187,7 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(BlueBits > 0);
 		}
 
-		Logical toLogical(const Physical& physical) const
+		static Logical convert(const Physical& physical) const
 		{
 			const uint8 red = (uint8)scaleInteger<RedBits, 8>(
 				extractBits<RedFrom, RedBits>(physical));
@@ -197,7 +199,7 @@ namespace Pastel
 			return Logical(red, green, blue);
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		static Physical revert(const Logical& logical) const
 		{
 			const Integer red = scaleInteger<8, RedBits, uint32>(logical[0]);
 			const Integer green = scaleInteger<8, GreenBits, uint32>(logical[1]);
@@ -212,7 +214,7 @@ namespace Pastel
 		int RedFrom = 0,
 		int GreenFrom = RedFrom + RedBits,
 		int BlueFrom = GreenFrom + GreenBits>
-	class Color_Integer_Adapter
+	class Integer_To_Color
 	{
 	private:
 		enum
@@ -226,11 +228,11 @@ namespace Pastel
 		typedef Color Logical;
 		typedef Integer Physical;
 
-		Color_Integer_Adapter()
+		Integer_To_Color()
 		{
 		}
 
-		~Color_Integer_Adapter()
+		~Integer_To_Color()
 		{
 			BOOST_STATIC_ASSERT(RedFrom >= 0);
 			BOOST_STATIC_ASSERT(GreenFrom >= 0);
@@ -243,15 +245,15 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
 		}
 
-		Logical toLogical(const Physical& physical) const
+		static Logical convert(const Physical& physical) const
 		{
 			return Color(
-				dequantizeUnsigned(extractBits<RedFrom, RedBits>(physical), RedNumbers),
-				dequantizeUnsigned(extractBits<GreenFrom, GreenBits>(physical), GreenNumbers),
-				dequantizeUnsigned(extractBits<BlueFrom, BlueBits>(physical), BlueNumbers));
+				dequantizeUnsigned(extractBits<RedFrom, RedBits>(packedColor), RedNumbers),
+				dequantizeUnsigned(extractBits<GreenFrom, GreenBits>(packedColor), GreenNumbers),
+				dequantizeUnsigned(extractBits<BlueFrom, BlueBits>(packedColor), BlueNumbers));
 		}
 
-		Physical toPhysical(const Logical& logical) const
+		static Physical revert(const Logical& logical) const
 		{
 			const Integer red = quantizeUnsigned(logical[0], RedNumbers);
 			const Integer green = quantizeUnsigned(logical[1], GreenNumbers);
@@ -260,6 +262,29 @@ namespace Pastel
 			return (red << RedFrom) + (green << GreenFrom) + (blue << BlueFrom);
 		}
 	};
+
+	template <typename Integer>
+	Color integerToColor(const PASTEL_NO_DEDUCTION(Integer)& packedColor,
+		integer redBits, integer greenBits, integer blueBits,
+		integer redFrom = 0, integer greenFrom = redFrom + redBits, integer blueFrom = greenFrom + greenBits)
+	{
+		return Color(
+			dequantizeUnsigned(extractBits(packedColor, redFrom, redBits), 1 << redBits),
+			dequantizeUnsigned(extractBits(packedColor, greenFrom, greenBits), 1 << greenBits),
+			dequantizeUnsigned(extractBits(packedColor, blueFrom, blueBits), 1 << blueBits));
+	}
+
+	template <typename Integer>
+	Integer colorToInteger(const Color& color,
+		integer redBits, integer greenBits, integer blueBits,
+		integer redFrom = 0, integer greenFrom = redFrom + redBits, integer blueFrom = greenFrom + greenBits)
+	{
+		const Integer red = quantizeUnsigned(color[0], 1 << redBits);
+		const Integer green = quantizeUnsigned(color[1], 1 << greenBits);
+		const Integer blue = quantizeUnsigned(color[2], 1 << blueBits);
+
+		return (red << redFrom) + (green << greenFrom) + (blue << blueFrom);
+	}
 
 }
 

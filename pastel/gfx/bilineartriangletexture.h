@@ -1,3 +1,6 @@
+// Description: BilinearTriangleTexture
+// Detail: A triangle filled with a bilinear color patch 
+
 #ifndef PASTEL_BILINEARTRIANGLETEXTURE_H
 #define PASTEL_BILINEARTRIANGLETEXTURE_H
 

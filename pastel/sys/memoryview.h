@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for an View interface to a memory range.
-*/
+// Description: MemoryView class
+// Detail: A View interface to a memory range.
 
 #ifndef PASTEL_MEMORYVIEW_H
 #define PASTEL_MEMORYVIEW_H

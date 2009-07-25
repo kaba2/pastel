@@ -1,3 +1,6 @@
+// Description: TriangleFilter class
+// Detail: Triangle reconstruction filter
+
 #ifndef PASTEL_TRIANGLE_FILTER_H
 #define PASTEL_TRIANGLE_FILTER_H
 

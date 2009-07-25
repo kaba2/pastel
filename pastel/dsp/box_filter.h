@@ -1,3 +1,6 @@
+// Description: BoxFilter class
+// Detail: Box reconstruction filter
+
 #ifndef PASTEL_BOX_FILTER_H
 #define PASTEL_BOX_FILTER_H
 

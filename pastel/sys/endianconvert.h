@@ -1,10 +1,5 @@
 // Description: Tools for converting between little- and big-endian data
 
-/*!
-\file
-\brief Tools for converting between little- and big-endian data
-*/
-
 #ifndef PASTEL_ENDIANCONVERT_H
 #define PASTEL_ENDIANCONVERT_H
 

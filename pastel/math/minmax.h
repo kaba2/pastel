@@ -1,10 +1,5 @@
 // Description: Tools for efficient min-max computations
 
-/*!
-\file
-\brief Tools for efficient min-max computations
-*/
-
 #ifndef PASTEL_MINMAX_H
 #define PASTEL_MINMAX_H
 

@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing the distance between a plane and a sphere.
-*/
+// Description: Distance computation between a plane and a sphere
 
 #ifndef PASTEL_DISTANCE_PLANE_SPHERE_H
 #define PASTEL_DISTANCE_PLANE_SPHERE_H

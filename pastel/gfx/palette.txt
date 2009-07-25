@@ -1,0 +1,31 @@
+Palette
+=======
+
+Theory
+------
+
+When only a relative few colors are needed, an effective way to save 
+on storage costs is to store the needed colors in a table, and then
+refer to them using small integers. Such a color system is called
+_indexed_, and the array holding the colors is called a _palette_
+(in reference to arts). Back in the early days of computer graphics
+memory space was in premium, necessitating the use of an indexed
+color system. While the first system allowed only 2 colors (monochrome), 
+the later systems allowed subsequentially larger palettes
+to be used: 4 (CGA standard), 16 (EGA standard), and finally 256 
+(VGA standard). These numbers of colors correspond to 2, 4, and 8 bits 
+for the size of the indexing integer.
+
+Nowadays color indexing is primarily of interest in the hopes of creating
+image files of small size when there are only a few colors. Otherwise
+direct description of colors in sRGB color space are used, both in
+image file formats and graphics hardware.
+
+Practice
+--------
+
+Pastel provides functions to create some commonly needed palettes
+when working with indexed images. These include a random palette, 
+a grayscale palette, false color palettes, and, primarily for 
+good memories, the default VGA palette:)
+

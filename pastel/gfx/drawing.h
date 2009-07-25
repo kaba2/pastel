@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for drawing on 2d arrays.
-*/
+// Description: Tools for drawing 2d graphics to 2d arrays
 
 #ifndef PASTEL_DRAWING_H
 #define PASTEL_DRAWING_H

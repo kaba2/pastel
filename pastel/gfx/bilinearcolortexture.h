@@ -1,3 +1,6 @@
+// Description: BilinearColorTexture
+// Detail: A bilinear color patch texture
+
 #ifndef PASTEL_BILINEARCOLORTEXTURE_H
 #define PASTEL_BILINEARCOLORTEXTURE_H
 

@@ -1,3 +1,6 @@
+// Description: TableFilter class
+// Detail: Piecewise-linear modifiable reconstruction filter
+
 #ifndef PASTEL_TABLE_FILTER_H
 #define PASTEL_TABLE_FILTER_H
 
@@ -9,7 +12,7 @@
 namespace Pastel
 {
 
-	//! Piecewise-linear filter.
+	//! Piecewise-linear reconstruction filter.
 	/*!
 	This class represents a piecewise-linear
 	filter whose knots are uniformly distributed

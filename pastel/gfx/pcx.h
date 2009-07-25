@@ -1,3 +1,5 @@
+// Description: An aggregate file for PCX file handling
+
 #ifndef PASTEL_PCX_H
 #define PASTEL_PCX_H
 

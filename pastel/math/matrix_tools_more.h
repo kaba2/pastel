@@ -1,11 +1,6 @@
 // Description: More tools for working with matrices.
 // Detail: transpose, inverse, solveLinear, solveLowerTriangular, etc.
 
-/*!
-\file
-\brief More functions for working with matrices.
-*/
-
 #ifndef PASTEL_MATRIX_TOOLS_MORE_H
 #define PASTEL_MATRIX_TOOLS_MORE_H
 

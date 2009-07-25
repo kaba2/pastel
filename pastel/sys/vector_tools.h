@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for working with vectors.
-*/
+// Description: Tools for working with vectors
 
 #ifndef PASTEL_VECTOR_TOOLS_H
 #define PASTEL_VECTOR_TOOLS_H

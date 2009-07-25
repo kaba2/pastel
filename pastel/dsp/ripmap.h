@@ -1,3 +1,6 @@
+// Description: RipMap class
+// Detail: A set of precomputed successive downsamplings of an image
+
 #ifndef PASTEL_RIPMAP_H
 #define PASTEL_RIPMAP_H
 

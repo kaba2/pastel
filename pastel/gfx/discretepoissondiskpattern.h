@@ -1,3 +1,6 @@
+// Description: Discrete poisson disk pattern
+// Detail: Sets those pixels for which the poisson disk condition is fulfilled
+
 #ifndef PASTEL_DISCRETEPOISSONDISKPATTERN_H
 #define PASTEL_DISCRETEPOISSONDISKPATTERN_H
 

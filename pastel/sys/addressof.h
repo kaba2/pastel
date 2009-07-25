@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for obtaining the memory address of an object.
-*/
+// Description: Tools to obtaining the real memory address of an object
 
 #ifndef PASTEL_ADDRESSOF_H
 #define PASTEL_ADDRESSOF_H

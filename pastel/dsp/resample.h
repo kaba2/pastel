@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Functions for resampling.
-*/
+// Description: Resampling of a (multi-dimensional) signal to another size
 
 #ifndef PASTEL_RESAMPLE_H
 #define PASTEL_RESAMPLE_H

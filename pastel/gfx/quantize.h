@@ -1,7 +1,4 @@
-/*!
-\file
-\brief Quantization algorithms.
-*/
+// Description: Image quantization
 
 #ifndef PASTEL_QUANTIZE_H
 #define PASTEL_QUANTIZE_H

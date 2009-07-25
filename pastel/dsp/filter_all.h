@@ -1,3 +1,5 @@
+// Description: An aggregate file for reconstruction filters
+
 #ifndef PASTEL_FILTER_ALL_H
 #define PASTEL_FILTER_ALL_H
 

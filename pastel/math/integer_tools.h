@@ -1,11 +1,6 @@
 // Description: Tools for working with integers
 // Detail: gcd, extendedGcd, etc.
 
-/*!
-\file
-\brief Tools for working with integers.
-*/
-
 #ifndef PASTEL_INTEGER_TOOLS_H
 #define PASTEL_INTEGER_TOOLS_H
 

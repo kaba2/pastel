@@ -1,7 +1,4 @@
-/*!
-\file
-\brief A function for computing the distance between an aligned box and a sphere.
-*/
+// Description: Distance computation between an aligned box and a sphere
 
 #ifndef PASTEL_DISTANCE_ALIGNEDBOX_SPHERE_H
 #define PASTEL_DISTANCE_ALIGNEDBOX_SPHERE_H

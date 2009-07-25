@@ -1,3 +1,5 @@
+// Description: Non-uniform reconstruction using the k:th nearest neighbor.
+
 #ifndef PASTEL_RECONSTRUCT_NEAREST_H
 #define PASTEL_RECONSTRUCT_NEAREST_H
 

@@ -1,7 +1,5 @@
-/*!
-\file
-\brief A class for controlling the audio device.
-*/
+// Description: FxDevice class
+// Detail: Allows the control of the audio device
 
 #ifndef PASTEL_FXDEVICE_H
 #define PASTEL_FXDEVICE_H

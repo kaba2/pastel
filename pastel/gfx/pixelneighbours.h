@@ -1,3 +1,5 @@
+// Description: Counting and examination of pixel neighbors
+
 #ifndef PASTEL_PIXELNEIGHBOURS_H
 #define PASTEL_PIXELNEIGHBOURS_H
 

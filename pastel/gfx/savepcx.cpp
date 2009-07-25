@@ -361,7 +361,7 @@ namespace Pastel
 		const Array<2, uint32>& image,
 		const std::string& fileName)
 	{
-		Color_Integer_Adapter<uint32, 8, 8, 8> adapter;
+		Integer_To_Color<uint32, 8, 8, 8> adapter;
 		return savePcx(image, fileName, adapter);
 	}
 
@@ -369,7 +369,7 @@ namespace Pastel
 		const Array<2, uint16>& image,
 		const std::string& fileName)
 	{
-		Color_Integer_Adapter<uint16, 5, 6, 5> adapter;
+		Integer_To_Color<uint16, 5, 6, 5> adapter;
 		return savePcx(image, fileName, adapter);
 	}
 
@@ -385,7 +385,7 @@ namespace Pastel
 		const Array<2, ByteColor>& image,
 		const std::string& fileName)
 	{
-		Color_ByteColor_Adapter adapter;
+		ByteColor_To_Color adapter;
 		return savePcx(image, fileName, adapter);
 	}
 
@@ -393,8 +393,8 @@ namespace Pastel
 		const Array<2, real32>& image,
 		const std::string& fileName)
 	{
-		ReverseAdapter<Real_Integer_Adapter<real32, uint8> > adapter(
-			Real_Integer_Adapter<real32, uint8>(256));
+		ReverseAdapter<Integer_To_Real<real32, uint8> > adapter(
+			Integer_To_Real<real32, uint8>(256));
 
 		std::vector<Color> palette;
 		grayscalePalette(palette, 256);

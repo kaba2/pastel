@@ -1,10 +1,5 @@
 // Description: An aggregate file for curve interpolation
 
-/*!
-\file
-\brief An aggregate file for curve interpolation.
-*/
-
 #ifndef PASTEL_INTERPOLATION_H
 #define PASTEL_INTERPOLATION_H
 

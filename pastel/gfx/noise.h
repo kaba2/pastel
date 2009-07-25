@@ -1,3 +1,5 @@
+// Description: Perlin's noise functions
+
 #ifndef PASTEL_NOISE_H
 #define PASTEL_NOISE_H
 

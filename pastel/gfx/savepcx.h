@@ -1,3 +1,5 @@
+// Description: Saving of images in PCX format
+
 #ifndef PASTEL_SAVEPCX_H
 #define PASTEL_SAVEPCX_H
 

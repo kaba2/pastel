@@ -1,3 +1,6 @@
+// Description: ConstantColorTexture
+// Detail: A texture of constant color
+
 #ifndef PASTEL_CONSTANTCOLORTEXTURE_H
 #define PASTEL_CONSTANTCOLORTEXTURE_H
 

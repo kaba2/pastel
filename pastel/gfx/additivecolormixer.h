@@ -1,3 +1,6 @@
+// Description: AdditiveColorMixer class
+// Detail: Adds the texture to the background
+
 #ifndef PASTEL_ADDITIVECOLORMIXER_H
 #define PASTEL_ADDITIVECOLORMIXER_H
 
