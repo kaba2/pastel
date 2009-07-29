@@ -120,7 +120,7 @@ namespace Pastel
 		Time complexity: logarithmic
 		Exception safety: nothrow
 		*/
-		void deallocate(void* memAddress);
+		void deallocate(const void* memAddress);
 
 	private:
 		// Prohibited

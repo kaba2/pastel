@@ -10,6 +10,7 @@
 #include "pastel/geometry/alignedbox.h"
 
 #include <boost/mpl/if.hpp>
+#include <boost/iterator/indirect_iterator.hpp>
 
 namespace Pastel
 {
@@ -56,22 +57,23 @@ namespace Pastel
 
 	private:
 		typedef ArenaAllocator Allocator;
+		class ObjectInfo;
 
-		typedef FastList<Object, Allocator> ObjectContainer;
+		typedef FastList<ObjectInfo, Allocator> ObjectContainer;
 		typedef typename ObjectContainer::iterator ObjectIterator;
 
 		class Node;
 		class LeafNode;
-		class IntermediateNode_BspTree;
-		class IntermediateNode_KdTree;
+		class SplitNode_BspTree;
+		class SplitNode_KdTree;
 
 		typedef boost::is_same<TrueType, typename ObjectPolicy::ArbitrarySplits>
 			UseArbitrarySplits;
 
 		typedef typename boost::mpl::if_<
 			UseArbitrarySplits,
-			IntermediateNode_BspTree,
-			IntermediateNode_KdTree>::type IntermediateNode;
+			SplitNode_BspTree,
+			SplitNode_KdTree>::type SplitNode;
 
 	public:
 		enum
@@ -83,6 +85,8 @@ namespace Pastel
 
 		typedef typename ObjectContainer::const_iterator 
 			ConstObjectIterator;
+		typedef boost::indirect_iterator<ConstObjectIterator, const Object> 
+			ConstObjectDataIterator;
 
 		class Cursor;
 
@@ -209,13 +213,10 @@ namespace Pastel
 
 		Exception safety:
 		nothrow
-
-		Note that some objects might be listed multiple times
-		if they pass over multiple leaf nodes. Points
-		are the only kinds of objects that are never
-		listed in more than one leaf node.
 		*/
 		ConstObjectIterator begin() const;
+
+		ConstObjectDataIterator objectBegin() const;
 
 		//! Returns an iterator to the end of the object list.
 		/*!
@@ -226,6 +227,8 @@ namespace Pastel
 		nothrow
 		*/
 		ConstObjectIterator end() const;
+
+		ConstObjectDataIterator objectEnd() const;
 
 		//! Returns the number of nodes in the tree.
 		/*!
@@ -311,7 +314,11 @@ namespace Pastel
 		*/
 		template <typename InputIterator>
 		void insert(
-			InputIterator begin, InputIterator end);
+			const InputIterator& begin, 
+			const InputIterator& end);
+
+		//! Removes a point from the tree.
+		void erase(const ConstObjectIterator& iter);
 
 		//! Clears off subdivision and objects.
 		/*!
@@ -341,6 +348,8 @@ namespace Pastel
 			UseArbitrarySplits,
 			SplitPredicate_BspTree, 
 			SplitPredicate_KdTree>::type SplitPredicate;
+
+		void initialize();
 
 		void copyConstruct(
 			Node* thisNode,
@@ -426,7 +435,8 @@ namespace Pastel
 		void spliceInsert(
 			Node* someNode,
 			ObjectContainer& list,
-			ObjectIterator begin, ObjectIterator last,
+			const ObjectIterator& begin, 
+			const ObjectIterator& end,
 			integer count);
 
 		//! Subdivides the tree using the given subdivision rule.
@@ -447,6 +457,48 @@ namespace Pastel
 			integer depth,
 			const Point<N, Real>& minBound,
 			const Point<N, Real>& maxBound);
+
+		void updateEmptyBits(
+			LeafNode* node);
+
+		class ObjectInfo
+		{
+		public:
+			friend class PointKdTree;
+
+			ObjectInfo(
+				const Object& object,
+				LeafNode* bucket)
+				: object_(object)
+				, bucket_(bucket)
+			{
+			}
+
+			const Object& operator*() const
+			{
+				return object_;
+			}
+
+			const Object& object() const
+			{
+				return object_;
+			}
+
+			Cursor bucket() const
+			{
+				return Cursor((Node*)bucket_);
+			}
+		
+		private:
+			void setBucket(
+				const LeafNode* bucket) const
+			{
+				bucket_ = bucket;
+			}
+
+			Object object_;
+			mutable const LeafNode* bucket_;
+		};
 
 		/*
 		objectList_:

@@ -69,7 +69,7 @@ namespace Pastel
 		return memory;
 	}
 
-	void NativeAllocator::deallocate(void* memAddress)
+	void NativeAllocator::deallocate(const void* memAddress)
 	{
 		// Clearly a null pointer can't
 		// be allocated from this allocator.

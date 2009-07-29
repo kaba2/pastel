@@ -13,10 +13,11 @@ Files
 Theory
 ------
 
-Let V be a measure space with measure m. Let A be some subset of V
-with finite measure. Let S = {s_1, s_2, s_3, ...} be a sequence in A.
-Let B be a subset of A. The discrepancy of S is defined as
-D(N) = sup[B subset A] (intersection({s_1, ..., s_N}, B) / N - m(B) / m(A)).
+Let `V` be a measure space with a measure `m`. Let `A sub V`
+with finite measure. Let `S = {s_1, s_2, s_3, ...} sub A`.
+Let `B sub A`. The discrepancy of `S` is defined as
+
+`D(N) = sup[B subset A] (intersection({s_1, ..., s_N}, B) / N - m(B) / m(A))`
 
 Most often, one sets V = R^n, A = [0, 1]^n, and restricts the B to sets of 
 the form [0, w_1] x [0, w_2] x ... x [0, w_n]. The resulting discrepancy

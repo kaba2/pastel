@@ -22,9 +22,9 @@ namespace Pastel
 			// splitDirection is not used.
 		}
 		
-		TriState::Enum operator()(const Object& object) const
+		TriState::Enum operator()(const ObjectInfo& object) const
 		{
-			return triLess(objectPolicy_.point(object, splitAxis_),
+			return triLess(objectPolicy_.point(*object, splitAxis_),
 				splitPosition_);
 		}
 
@@ -51,10 +51,10 @@ namespace Pastel
 			// splitAxis is not used.
 		}
 		
-		TriState::Enum operator()(const Object& object) const
+		TriState::Enum operator()(const ObjectInfo& object) const
 		{
 			return triLess(
-				dot(asVector(objectPolicy_.point(object)), splitDirection_), 
+				dot(asVector(objectPolicy_.point(*object)), splitDirection_), 
 				splitPosition_);
 		}
 

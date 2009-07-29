@@ -11,8 +11,8 @@ namespace Pastel
 		std::pair<typename FastList<Type, UniformAllocator>::iterator, integer> >
 		partition(
 		FastList<Type, UniformAllocator>& list,
-		const typename FastList<Type, UniformAllocator>::iterator& from,
-		const typename FastList<Type, UniformAllocator>::iterator& to,
+		const typename FastList<Type, UniformAllocator>::const_iterator& from,
+		const typename FastList<Type, UniformAllocator>::const_iterator& to,
 		const Predicate& predicate);
 
 	template <typename Type, typename UniformAllocator, typename Predicate>
@@ -20,8 +20,8 @@ namespace Pastel
 		std::pair<typename FastList<Type, UniformAllocator>::iterator, integer> >
 		fuzzyPartition(
 		FastList<Type, UniformAllocator>& list,
-		const typename FastList<Type, UniformAllocator>::iterator& from,
-		const typename FastList<Type, UniformAllocator>::iterator& to,
+		const typename FastList<Type, UniformAllocator>::const_iterator& from,
+		const typename FastList<Type, UniformAllocator>::const_iterator& to,
 		const Predicate& predicate);
 
 }

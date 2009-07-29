@@ -62,6 +62,11 @@ namespace Pastel
 		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
 		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
 
+		if (kNearest > pointSet.size())
+		{
+			kNearest = pointSet.size();
+		}
+
 		const integer points = pointSet.size();
 		const integer indices = indexSetEnd - indexSetBegin;
 
@@ -70,11 +75,6 @@ namespace Pastel
 			return;
 		}
 		
-		if (kNearest >= pointSet.size())
-		{
-			kNearest = pointSet.size() - 1;
-		}
-
 		const integer dimension = pointSet.front().dimension();
 
 		if (dimension == 1)

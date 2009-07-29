@@ -30,7 +30,7 @@ namespace Pastel
 
 		// The first bit of 'unknown_' tells
 		// if the node is a LeafNode (1) or an
-		// IntermediateNode (0).
+		// SplitNode (0).
 		// If the node is a LeafNode, then
 		// the number of objects is encoded in
 		// (unknown_ >> 1).
@@ -95,7 +95,7 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_Low
+	class KdTree<N, Real, ObjectPolicy>::SplitNode_Low
 		: public Node
 	{
 	private:
@@ -103,7 +103,7 @@ namespace Pastel
 		using Node::unknown_;
 
 	public:
-		IntermediateNode_Low(
+		SplitNode_Low(
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
@@ -194,7 +194,7 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::IntermediateNode_High
+	class KdTree<N, Real, ObjectPolicy>::SplitNode_High
 		: public Node
 	{
 	private:
@@ -202,7 +202,7 @@ namespace Pastel
 		using Node::unknown_;
 
 	public:
-		IntermediateNode_High(
+		SplitNode_High(
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
@@ -312,7 +312,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->splitPosition();
+			return ((SplitNode*)node_)->splitPosition();
 		}
 
 		integer splitAxis() const
@@ -320,7 +320,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->splitAxis();
+			return ((SplitNode*)node_)->splitAxis();
 		}
 
 		bool leaf() const
@@ -335,7 +335,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return Cursor(((IntermediateNode*)node_)->positive());
+			return Cursor(((SplitNode*)node_)->positive());
 		}
 
 		Cursor negative() const
@@ -343,7 +343,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return Cursor(((IntermediateNode*)node_)->negative());
+			return Cursor(((SplitNode*)node_)->negative());
 		}
 
 	private:
@@ -360,7 +360,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	KdTree<N, Real, ObjectPolicy>::KdTree()
 		: objectList_()
-		, nodeAllocator_(sizeof(IntermediateNode), 1024)
+		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(N)
 		, leaves_(0)
@@ -382,7 +382,7 @@ namespace Pastel
 		integer dimension,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
-		, nodeAllocator_(sizeof(IntermediateNode), 1024)
+		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(dimension)
 		, leaves_(0)
@@ -403,7 +403,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	KdTree<N, Real, ObjectPolicy>::KdTree(const KdTree& that)
 		: objectList_()
-		, nodeAllocator_(sizeof(IntermediateNode), 1024)
+		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(that.dimension_)
 		, leaves_(0)
@@ -419,7 +419,7 @@ namespace Pastel
 	KdTree<N, Real, ObjectPolicy>::~KdTree()
 	{
 		// This is what we assume for memory allocation.
-		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(IntermediateNode));
+		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(SplitNode));
 		BOOST_STATIC_ASSERT(N > 0 || N == Dynamic);
 
 		nodeAllocator_.clear();
@@ -634,11 +634,11 @@ namespace Pastel
 
 		// Reuse the memory space of the node to be subdivided.
 		// This is ok, because the memory block is of the size
-		// sizeof(IntermediateNode) >= sizeof(LeafNode).
+		// sizeof(SplitNode) >= sizeof(LeafNode).
 
 		node->~LeafNode();
 
-		new(node) IntermediateNode(
+		new(node) SplitNode(
 			positiveLeaf,
 			negativeLeaf,
 			splitPosition,

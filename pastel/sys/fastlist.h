@@ -422,7 +422,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: strong
 		*/
-		iterator insert(iterator there,
+		iterator insert(const_iterator there,
 			const value_type& that);
 
 		//! Inserts 'count' elements of 'that' before the given iterator.
@@ -434,7 +434,7 @@ namespace Pastel
 		Time complexity: linear
 		Exception safety: strong
 		*/
-		void insert(iterator there, size_type count,
+		void insert(const_iterator there, size_type count,
 			const value_type& that);
 
 		//! Inserts a range of values before the given iterator.
@@ -447,7 +447,7 @@ namespace Pastel
 		Exception safety: strong
 		*/
 		template <typename InputIterator>
-		void insert(iterator there,
+		void insert(const_iterator there,
 			InputIterator first,
 			InputIterator last);
 
@@ -458,8 +458,11 @@ namespace Pastel
 
 		Time complexity: constant
 		Exception safety: nothrow
+
+		Note: we deviate from the standard std::list
+		by accepting const_iterator instead of iterator.
 		*/
-		iterator erase(iterator there);
+		iterator erase(const_iterator there);
 
 		//! Removes all elements in the given iterator range.
 		/*!
@@ -468,8 +471,11 @@ namespace Pastel
 
 		Time complexity: linear
 		Exception safety: nothrow
+
+		Note: we deviate from the standard std::list
+		by accepting const_iterator instead of iterator.
 		*/
-		iterator erase(iterator first, iterator last);
+		iterator erase(const_iterator first, const_iterator last);
 
 		//! Swaps two lists.
 		/*!
@@ -536,7 +542,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		void splice(iterator there, FastList& that);
+		void splice(const_iterator there, FastList& that);
 
 		/*!
 		Preconditions:
@@ -547,8 +553,8 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		void splice(iterator there, FastList& that,
-			iterator i);
+		void splice(const_iterator there, FastList& that,
+			const_iterator i);
 
 		/*!
 		Preconditions:
@@ -560,8 +566,8 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		void splice(iterator there, FastList& that,
-			iterator first, iterator last);
+		void splice(const_iterator there, FastList& that,
+			const_iterator first, const_iterator last);
 
 		//! Merges two lists w.r.t. operator<.
 		/*!
@@ -621,23 +627,23 @@ namespace Pastel
 		*/
 		void reverse();
 
+		iterator cast(const const_iterator& that);
+
 	private:
 		void initialize();
 
-		Node* nodeBegin();
-		const Node* nodeBegin() const;
-		Node* nodeEnd();
-		const Node* nodeEnd() const;
+		Node* nodeBegin() const;
+		Node* nodeEnd() const;
 
 		iterator insert(
-			const iterator& there,
+			const const_iterator& there,
 			size_type count,
 			const value_type& data,
 			ValueTag);
 
 		template <typename InputIterator>
 		iterator insert(
-			const iterator& there,
+			const const_iterator& there,
 			const InputIterator& from,
 			const InputIterator& to,
 			RangeTag);
@@ -650,7 +656,7 @@ namespace Pastel
 			Node* thatFrom, Node* thatTo);
 
 		DataNode* nodeAllocate(const value_type& data);
-		void nodeDeAllocate(DataNode* node);
+		void nodeDeAllocate(const DataNode* node);
 
 		void linkNodes(Node* that, Node* nextThat);
 		void addSize(size_type count);

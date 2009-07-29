@@ -52,6 +52,7 @@ namespace Pastel
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,
 		const NormBijection& normBijection,
+		integer maxPointsPerNode,
 		const CountIterator& neighborsBegin);
 
 }

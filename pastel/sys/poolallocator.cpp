@@ -130,7 +130,7 @@ namespace Pastel
 		return (void*)memAddress;
 	}
 
-	void PoolAllocator::deallocate(void* memAddress)
+	void PoolAllocator::deallocate(const void* memAddress)
 	{
 		// Clearly a null pointer can't
 		// be allocated from this allocator.

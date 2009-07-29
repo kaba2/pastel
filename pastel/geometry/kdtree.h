@@ -56,25 +56,25 @@ namespace Pastel
 
 		class Node;
 		class LeafNode;
-		class IntermediateNode_Low;
-		class IntermediateNode_High;
+		class SplitNode_Low;
+		class SplitNode_High;
 
 		// There are two versions of the intermediate node class.
-		// IntermediateNode_Low uses bit tricks to pack the split axis
+		// SplitNode_Low uses bit tricks to pack the split axis
 		// for compact storage. This trick only
 		// works for dimension <= 8. Although saving memory,
 		// the packing and unpacking degrades performance slightly.
 		// For higher dimensions one needs to store the split axis 
-		// in its own variable, as is done in IntermediateNode_High.
+		// in its own variable, as is done in SplitNode_High.
 
 		/*
 		typedef typename boost::mpl::if_c<
 			(N != Dynamic && N <= 8),
-			IntermediateNode_Low,
-			IntermediateNode_High>::type IntermediateNode;
+			SplitNode_Low,
+			SplitNode_High>::type SplitNode;
 		*/
 
-		typedef IntermediateNode_High IntermediateNode;
+		typedef SplitNode_High SplitNode;
 
 	public:
 		enum

@@ -1,0 +1,497 @@
+PointKdTree design notes
+========================
+
+[Parent]: pointkdtree.txt
+
+Invariants
+----------
+
+ * Every point is contained in the bounding box of the kd-tree.
+ 
+ * A point is listed in a leaf node if and only if it is contained in
+ the bounding box of the leaf node.
+
+How to use the data structure?
+------------------------------
+
+The data structure is traversed using cursors.
+A cursor is a pointer-like object that points to a node of the
+kd-tree. As always, this allows for the separation of the
+data structure and the algorithms that use it.
+
+Should you store points at all nodes or just leaf nodes?
+--------------------------------------------------------
+
+### Proposition 1: Store one point at each split node
+
+Advantages:
+
+ * No additional memory management needed for points.
+
+Disadvantages:
+ 
+ * Not possible to remove points.
+ 
+### Proposition 2: Store multiple points at leaf nodes
+
+Advantages:
+
+ * Possible to remove points.
+
+Disadvantages:
+
+ * Additional memory management needed for points.
+
+### Decision
+
+Choose Proposition 2.
+
+How to support different kinds of objects?
+------------------------------------------
+
+### Proposition 1: an object oriented interface
+
+	:::cpp
+	class PointKdTreeObject
+	{
+	public:
+		virtual ~PointKdTreeObject()
+		{
+		}
+		
+		virtual real position(integer axis) const = 0;
+	};
+
+Disadvantages:
+
+ * Performance losses because of dynamic binding
+ 
+ * Data has to be wrapped to objects which inherit from PointKdTreeObject.
+
+### Proposition 2: generic programming
+
+Store arbitrary user objects and require to supply a functor that
+gives projection to an axis given an object.
+
+	:::cpp
+	template <int N, typename Real, typename Object,
+	typename ProjectionFunctor>
+	class PointKdtree
+	{
+	//...
+	};
+
+Advantages:
+
+ * Efficient for concrete types
+ 
+ * Supports sharing of data (for example, store indices to a vertex buffer)
+ 
+ * You can still use polymorphic objects (for example Object = PointKdTreeObject*)
+ 
+Disadvantages:
+
+ * A bit too many template parameters
+
+### Proposition 3: generic programming with a policy
+
+	:::cpp
+	template <int N, typename Real, typename ObjectPolicy>
+	class PointKdTree
+	{
+	};
+
+	class ObjectPolicy
+	{
+	public:
+		typedef int Object;
+		
+		real position(const Object& object, integer axis) const;
+	};
+
+Advantages:
+
+ * Efficient for concrete types
+ 
+ * Supports sharing of data (for example, store indices to a vertex buffer)
+ 
+ * You can still use polymorphic objects (for example Object = PointKdTreeObject*)
+
+### Decision
+
+Choose Proposition 3.
+
+Interface for adding points to the tree
+---------------------------------------
+
+### Proposition 1: Give the PointKdTree a cursor and a point to add to that node
+
+The problem with this approach is that the point might not be contained in the node
+that the cursor is pointing to. This would in turn break our invariant.
+Also, containment can't be checked without traversing the tree
+from top to bottom because nodes do not store node bounds for all dimensions.
+
+### Proposition 2: Give the PointKdTree a point to add to the tree
+
+The tree is then traversed from top to bottom searching for the correct leaf
+node to add the point to. Sounds good, however, if there are n points, then
+the traversals for each point take extra time which could probably be
+amortized by adding a set of points at the same time.
+
+### Proposition 3: Give the PointKdTree a set of points to add to the tree
+
+At each node, the set of points is partitioned into two sets, which are
+sent down the node hierarchy. This way the traversal cost is amortized among
+the set of added points.
+
+### Decision
+
+Choose Proposition 3.
+
+How to store the objects of a leaf node?
+----------------------------------------
+
+### Proposition 1: An array or a linked list for each node
+
+Advantages:
+
+ * Incremental adding or removing of points
+ possible, and reasonably efficient.
+
+Disadvantages:
+
+ * Each node requires dynamical allocation
+ of a small memory region. This might
+ waste more memory than needs to be.
+ 
+ * It is not easy to access all objects of
+ the tree as a sequence.
+ 
+### Proposition 2: An array shared by all nodes
+
+Leaf nodes would refer to objects in this
+array by integer intervals.
+
+Advantages:
+
+ * One big memory allocation instead of many
+ small ones.
+ 
+ * Random-access to (permuted) object list is possible.
+ 
+ * It is possible to hide/unhide points as per
+ semidynamic point sets.
+ 
+ * Fast because of good locality of reference.
+ 
+Disadvantages:
+
+ * Incremental adding or removing of points is not 
+ possible because the integer intervals in the nodes 
+ would be invalidated.
+ 
+ * When hiding a point, the point must be kept
+ in the tree's object list. I.e. while the point
+ is hidden in the leaf node's object list, it is not 
+ hidden in the tree's object list.
+
+### Proposition 3: A linked list shared by all nodes
+
+Leaf nodes would refer to objects in this list
+by inclusive iterator intervals. Why inclusive intervals? 
+Because the object that is pointed to by an end-iterator
+of a normal range can get removed.
+
+Advantages:
+
+ * Sequential access to (permuted) object list possible.
+ 
+ * It is possible to hide/unhide points as per
+ semidynamic point sets.
+ 
+ * When hiding, the points can actually be removed
+ from the tree's object list.
+ 
+ * It is possible to incrementally add or remove points
+ and do this fast (if one also has bucket pointers).
+
+Disadvantages:
+
+ * No random access to object list.
+ 
+ * Dynamic allocation for each linked list node, and
+ traversal of the object list by following links might 
+ not be so efficient.
+ 
+### Decision
+
+Random access to the object list is
+important when parallelizing work that is to be done for
+each point in the object list (or more properly, for each 
+object iterator in the tree). If one chooses the linked
+list approach, one can get around this problem by
+copying the iterators of the object list to a random 
+access array and then using that to carry out the task.
+One does not have this problem with an array since it
+already is random-access. However, this advantage of arrays
+is diminished when considering semidynamic point sets:
+if most of the points have been hided, then one
+still has to visit those hided points in the object list.
+Particularly because of this reason, Proposition 3 is chosen.
+
+Removal of points
+-----------------
+
+The removal of points requires an efficient way to find out
+for each point (its iterator) the leaf node that it is stored in.
+
+### Proposition 1: Do not allow removal of points
+
+This is the only choice if one decides to store the
+objects in an array.
+
+### Proposition 2: Search the tree for the point's node
+
+Advantages:
+ * No changes to the data structure
+ 
+Disadvantages:
+ * Does this have an acceptable performance?
+
+### Proposition 3: Store the associated leaf node with each point
+
+Advantages:
+
+ * Constant complexity performance for finding the leaf node.
+ 
+ * Allows for very fast bottom-top nearest neighbors
+ searches.
+ 
+Disadvantages:
+
+ * Increased memory requirements
+ 
+### Decision
+
+Choose Proposition 3. The increased memory requirement 
+is of no concern.
+
+How should you deal with changing geometry?
+-------------------------------------------
+
+Because you can actually be holding only references to the geometry data,
+it is possible for the user to change geometry without the kd-tree
+knowing about it. The end-result is that one can invalidate both invariants 
+of the kdtree by modifying point locations. We have no way to prevent this
+except for the documentation. This problem is similar to what happens
+with the std::set (for example) if one uses pointers as keys and 
+compares them by their values. We can only educate the user that whenever 
+he wishes to change geometry, he should do it by removing, changing, and 
+inserting back.
+
+However, when a lot of objects need to be removed, then there clearly
+would be use for a function that removed all objects, but which leaves
+the subdivision structure intact.
+
+### Decision
+
+Document that the user should not change geometry, but instead follow the
+remove-change-insert pattern. Implement a function to clear out the objects
+without clearing the subdivision.
+
+How should you store the nodes?
+-------------------------------
+
+### Proposition 1: Store nodes in an array
+
+ * At times the array memory will be reallocated
+ 
+ * Therefore indices must be used as children references
+ 
+ * But this increases indirection in node traversal
+ 
+ * It can be problematic if the reallocation happens in the middle
+ of a recursive function call (subdivision) invalidating node pointers at
+ previous levels. Practically, this means that this
+ technique does not work.
+
+### Proposition 2: Allocate each node dynamically
+
+You can avoid allocation overhead by using a PoolAllocator or 
+ArenaAllocator.
+
+### Decision
+
+Choose Proposition 2 as the only working one.
+
+Null references to children
+---------------------------
+
+If there are no objects in a child of an splitting node, 
+you can either create an empty leaf node or give a null reference to
+the intermediate node. However, empty leaf nodes are helpful when you 
+want to subdivide, because then you can explicitly point to the node
+you want to subdivide. With null references you have to be indirect 
+from the parent: "subdivide the negative child of this node". This
+is very impractical.
+
+### Decision
+
+A splitting node always refers to two concrete children.
+
+Should the kd-tree know its bounding box?
+-----------------------------------------
+
+The bounding box of the kd-tree (or its contained box) is often
+needed. Tracing the bounding box is easily done when adding
+points to the tree. In contrast, if the bounding box wasn't
+traced, then it would have to be recomputed manually and this
+can mean that it can be done many times redundantly.
+
+If the bounding box is traced, then it would be useful to have
+a function to enlarge it (but not shrink it).
+
+### Decision
+
+Trace the bounding box of the tree when adding points. Make it 
+possible to enlarge the bounding box but not shrink it.
+
+Empty subtrees
+--------------
+
+An empty subtree is one under which there are no points stored.
+Clearly such a subtree can be skipped in many algorithms. Therefore
+it would be useful to store with each node a bit that tells
+if the subtree under it is empty.
+
+Whenever a leaf node is created, it is marked as empty or not
+depending on the number of objects that is stored on it.
+This information can only change when adding or removing points.
+When this occurs, the empty bits can be efficiently updated by 
+starting from the leaf node, and following the parent links to 
+possibly update the status of the nodes on the path to the leaf node.
+
+There is another advantage to using parent pointers together
+with bucket pointers. This allows for an efficient implementation
+of bottom-top nearest neighbors searching, which visits the
+nodes in exactly the same order as normal depth-first searching,
+but immediately starts from the correct leaf node without the
+need to traverse there.
+
+### Decision
+
+Supply parent pointers with each node. Use them for efficiently
+updating the empty-bit information in the nodes when removing
+or adding points.
+
+Should you use the same data structure for points and arbitrary shapes?
+-----------------------------------------------------------------------
+
+This is possible. However:
+
+ * The shapes have to be abstracted by their bounding aligned boxes.
+ Point based implementations then suffer abstraction penalty.
+
+ * The splitting bounds and parent nodes are needed by nearest neighbor
+ searching with points but are not needed in ray tracing.
+ Ray tracing then suffers abstraction penalty.
+ 
+ * Nearest neighbor searching does not make sense for general shapes.
+ Or it does but would be hard to implement.
+
+### Decision
+
+Because of the abstraction penalties in both directions, a better 
+alternative is to separately create a kd-tree that is designed 
+for point sets (PointKdTree) and a kd-tree that is designed for ray 
+tracing (KdTree)
+
+What information do you need in nodes?
+--------------------------------------
+
+Both nodes:
+
+ * pointer to parent node
+ 
+ * a bit to differentiate between
+ a leaf node and a split node
+ 
+ * a bit to denote if the subtree below
+ the node is empty or not
+
+Leaf node:
+
+ * element count
+ 
+ * interval in the object list
+
+Split node:
+
+ * pointers to child nodes
+ 
+ * splitting position
+ 
+ * splitting axis
+ 
+ * node bounds on the splitting axis
+
+Summary
+-------
+
+ * The data structure is traversed using cursors allowing to
+ separate data structure and algorithms that use it.
+ 
+ * Generic programming together with policy based design is 
+ used to support different types of point objects (and point 
+ references as well).
+ 
+ * Points are added to the tree as sets, rather than
+ one by one. This is more efficient.
+ 
+ * The objects in the tree are stored in a linked list
+ which is shared between leaf nodes. The leaf nodes 
+ refer to this list by inclusive iterator intervals.
+ 
+ * Objects can be added and removed freely.
+ 
+ * Each point stores its containing leaf node to enable
+ fast removal and fast bottom-top nearest neighbor searching.
+ 
+ * Each node is allocated dynamically.
+ 
+ * Each split node refers to exactly two concrete nodes.
+ 
+ * Do not use the same data structure for points and
+ general shapes (e.g. ray tracing). Instead, create a specialized
+ data structure for both needs.
+
+Implementation experience
+-------------------------
+
+ * The packing of nodes induces some performance degradation.
+ 
+ * Efficient approximate nearest neighbors requires to store
+ intermediate node bounds in the split dimension.
+ 
+ * Storing the node bounds in the split dimension implies
+ that the user can't be allowed to subdivide a node through
+ a cursor since the node bounds can not be found out
+ efficiently. 
+ 
+ * Instead, you implement a member function
+ that refines the kd-tree with a user-defined splitting rule.
+ This way you keep the kd-tree nodes having the correct
+ node bounds.
+ 
+ * In nearest neighbor searching and refinement, recursive 
+ function calls are faster than iteration based on a stack.
+ 
+ * In nearest neighbor searching, performance is enhanced
+ by computing partial distances: whenever the distance
+ computation exceeds the current culling distance, the
+ computation can be aborted.
+ 
+ * In nearest neighbor searching, performance is enhanced
+ by computing with norm bijections rather than norms
+ (for example, squared L2-norm).
+

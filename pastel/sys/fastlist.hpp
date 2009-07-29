@@ -235,12 +235,12 @@ namespace Pastel
 		}
 
 	private:
-		explicit const_iterator(const Node* node)
+		explicit const_iterator(Node* node)
 			: node_(node)
 		{
 		}
 
-		const Node* node_;
+		Node* node_;
 	};
 
 	// Construction
@@ -626,14 +626,14 @@ namespace Pastel
 		typename UniformAllocator>
 		typename FastList<Type, UniformAllocator>::iterator
 		FastList<Type, UniformAllocator>::insert(
-		iterator there, const value_type& that)
+		const_iterator there, const value_type& that)
 	{
 		return iterator(insert(there.node_, that));
 	}
 
 	template <typename Type, typename UniformAllocator>
 	void FastList<Type, UniformAllocator>::insert(
-		iterator there,
+		const_iterator there,
 		size_type count,
 		const value_type& that)
 	{
@@ -643,7 +643,7 @@ namespace Pastel
 	template <typename Type, typename UniformAllocator>
 	template <typename InputIterator>
 	void FastList<Type, UniformAllocator>::insert(
-		iterator there,
+		const_iterator there,
 		InputIterator from,
 		InputIterator to)
 	{
@@ -660,7 +660,7 @@ namespace Pastel
 		typename UniformAllocator>
 		typename FastList<Type, UniformAllocator>::iterator
 		FastList<Type, UniformAllocator>::erase(
-		iterator that)
+		const_iterator that)
 	{
 		ENSURE(that != end());
 
@@ -672,18 +672,18 @@ namespace Pastel
 		typename UniformAllocator>
 		typename FastList<Type, UniformAllocator>::iterator
 		FastList<Type, UniformAllocator>::erase(
-		iterator first,
-		iterator last)
+		const_iterator first,
+		const_iterator last)
 	{
-		iterator current(first);
-		iterator rangeEnd(last);
+		const_iterator current(first);
+		const_iterator rangeEnd(last);
 
 		while (current != rangeEnd)
 		{
 			current = erase(current);
 		}
 
-		return last;
+		return iterator((Node*)last.node_);
 	}
 
 	template <
@@ -702,8 +702,8 @@ namespace Pastel
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::clear()
 	{
-		iterator current(begin());
-		iterator thisEnd(end());
+		const_iterator current(begin());
+		const_iterator thisEnd(end());
 
 		while (current != thisEnd)
 		{
@@ -730,8 +730,8 @@ namespace Pastel
 	void FastList<Type, UniformAllocator>::remove_if (
 		Predicate predicate)
 	{
-		iterator current(begin());
-		iterator thisEnd(end());
+		const_iterator current(begin());
+		const_iterator thisEnd(end());
 
 		while (current != thisEnd)
 		{
@@ -766,9 +766,9 @@ namespace Pastel
 			return;
 		}
 
-		iterator thisEnd(end());
-		iterator current(begin());
-		iterator next(current);
+		const_iterator thisEnd(end());
+		const_iterator current(begin());
+		const_iterator next(current);
 		++next;
 
 		while (next != thisEnd)
@@ -793,7 +793,7 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::splice(
-		iterator position, FastList& that)
+		const_iterator position, FastList& that)
 	{
 		splice(position.node_, that, that.nodeBegin(), that.nodeEnd());
 	}
@@ -802,8 +802,8 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::splice(
-		iterator position, FastList& that,
-		iterator i)
+		const_iterator position, FastList& that,
+		const_iterator i)
 	{
 		splice(position.node_, that, i.node_, i.node_->next_);
 	}
@@ -812,8 +812,8 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::splice(
-		iterator position, FastList& that,
-		iterator first, iterator last)
+		const_iterator position, FastList& that,
+		const_iterator first, const_iterator last)
 	{
 		splice(position.node_, that, first.node_, last.node_);
 	}
@@ -963,6 +963,15 @@ namespace Pastel
 			linkNodes(nodeEnd(), current);
 			current = next;
 		}
+	}
+
+	template <
+		typename Type,
+		typename UniformAllocator>
+		typename FastList<Type, UniformAllocator>::iterator 
+		FastList<Type, UniformAllocator>::cast(const const_iterator& that)
+	{
+		return iterator(that.node_);
 	}
 
 	template <

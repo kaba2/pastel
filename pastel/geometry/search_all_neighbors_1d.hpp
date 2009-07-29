@@ -122,6 +122,11 @@ namespace Pastel
 		ENSURE_OP(kNearest, >=, 0);
 		ENSURE_OP(maxDistance, >=, 0);
 
+		if (kNearest > pointSet.size())
+		{
+			kNearest = pointSet.size();
+		}
+
 		const integer points = pointSet.size();
 		const integer indices = indexSetEnd - indexSetBegin;
 
@@ -129,11 +134,6 @@ namespace Pastel
 			(!nearestArray && !distanceArray))
 		{
 			return;
-		}
-
-		if (kNearest >= pointSet.size())
-		{
-			kNearest = pointSet.size() - 1;
 		}
 
 		const integer dimension = pointSet.front().dimension();
@@ -211,6 +211,11 @@ namespace Pastel
 	{
 		ENSURE_OP(kNearest, >=, 0);
 
+		if (kNearest > pointSet.size())
+		{
+			kNearest = pointSet.size();
+		}
+
 		// This function assumes that the neighbors are sought
 		// for all points in the set, and with no culling.
 		// This is a very fast algorithm, but it does not
@@ -222,11 +227,6 @@ namespace Pastel
 			(!nearestArray && !distanceArray))
 		{
 			return;
-		}
-
-		if (kNearest >= pointSet.size())
-		{
-			kNearest = pointSet.size() - 1;
 		}
 
 		const integer dimension = pointSet.front().dimension();

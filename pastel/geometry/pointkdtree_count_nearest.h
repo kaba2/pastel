@@ -22,10 +22,11 @@ namespace Pastel
 	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy, typename NormBijection>
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename SearchPoint, typename NormBijection>
 	integer countNearest(
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
-		const Point<N, Real>& point,
+		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection);
 
@@ -35,17 +36,18 @@ namespace Pastel
 	maxDistance >= 0
 
 	Calls:
-	countNearest(kdTree, point, maxDistance, 
+	countNearest(kdTree, searchPoint, maxDistance, 
 		Euclidean_NormBijection<Real>());
 
 	See the documentation for the more
 	general countNearest() function.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <int N, typename Real, typename ObjectPolicy,
+	typename SearchPoint>
 	integer countNearest(
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
-		const Point<N, Real>& point,
+		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 
 }

@@ -46,6 +46,7 @@ namespace Pastel
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,
 		const NormBijection& normBijection,
+		integer maxPointsPerNode,
 		const CountIterator& neighborsBegin)
 	{
 		const integer points = pointSet.size();
@@ -82,9 +83,19 @@ namespace Pastel
 		tree.insert(SequenceIterator(&pointSet[0]), 
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
-		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 
-			16, SlidingMidpoint2_SplitRule());
+		std::vector<ConstTreeIterator> iteratorSet;
+		iteratorSet.reserve(tree.objects());
+		{
+			ConstTreeIterator iter = tree.begin();
+			const ConstTreeIterator iterEnd = tree.end();
+			while(iter != iterEnd)
+			{
+				iteratorSet.push_back(iter);
+				++iter;
+			}
+		}
+
+		tree.refine(128, maxPointsPerNode, SlidingMidpoint2_SplitRule());
 
 #		pragma omp parallel for
 		for (integer i = 0;i < indices;++i)
@@ -94,7 +105,7 @@ namespace Pastel
 			const integer index = indexBegin[i];
 			neighborsBegin[i] = countNearest(
 				tree, 
-				pointSet[index], 
+				iteratorSet[index], 
 				maxDistanceBegin[i], 
 				normBijection);
 		}

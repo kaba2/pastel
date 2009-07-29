@@ -103,7 +103,7 @@ namespace Pastel
 		return (void*)memAddress;
 	}
 
-	void ArenaAllocator::deallocate(void* memoryIgnored, integer units)
+	void ArenaAllocator::deallocate(const void* memoryIgnored, integer units)
 	{
 		unused(memoryIgnored);
 

@@ -40,6 +40,11 @@ namespace Pastel
 			return node_ == 0;
 		}
 
+		bool containsPoints() const
+		{
+			return !node_->empty();
+		}
+
 		ConstObjectIterator begin() const
 		{
 			PENSURE(node_);
@@ -57,13 +62,23 @@ namespace Pastel
 
 			LeafNode* leafNode = (LeafNode*)node_;
 
-			ObjectIterator iterEnd = leafNode->last();
+			ConstObjectIterator iterEnd = leafNode->last();
 			if (leafNode->objects() > 0)
 			{
 				++iterEnd;
 			}
 
 			return iterEnd;
+		}
+
+		ConstObjectDataIterator objectBegin() const
+		{
+			return ConstObjectDataIterator(begin());
+		}
+
+		ConstObjectDataIterator objectEnd() const
+		{
+			return ConstObjectDataIterator(end());
 		}
 
 		integer objects() const
@@ -81,7 +96,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->min();
+			return ((SplitNode*)node_)->min();
 		}
 
 		Real max() const
@@ -89,7 +104,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->max();
+			return ((SplitNode*)node_)->max();
 		}
 
 		Real positiveMin() const
@@ -97,7 +112,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->positiveMin();
+			return ((SplitNode*)node_)->positiveMin();
 		}
 
 		Real negativeMax() const
@@ -105,7 +120,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->negativeMax();
+			return ((SplitNode*)node_)->negativeMax();
 		}
 
 		Real splitPosition() const
@@ -113,7 +128,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->splitPosition();
+			return ((SplitNode*)node_)->splitPosition();
 		}
 
 		integer splitAxis() const
@@ -121,7 +136,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->splitAxis();
+			return ((SplitNode*)node_)->splitAxis();
 		}
 
 		const Vector<N, Real>* splitDirection() const
@@ -129,7 +144,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 			
-			return ((IntermediateNode*)node_)->splitDirection();
+			return ((SplitNode*)node_)->splitDirection();
 		}
 
 		bool leaf() const
@@ -139,12 +154,19 @@ namespace Pastel
 			return node_->leaf();
 		}
 
+		Cursor parent() const
+		{
+			PENSURE(node_);
+
+			return Cursor(node_->parent());
+		}
+
 		Cursor positive() const
 		{
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return Cursor(((IntermediateNode*)node_)->positive());
+			return Cursor(((SplitNode*)node_)->positive());
 		}
 
 		Cursor negative() const
@@ -152,7 +174,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return Cursor(((IntermediateNode*)node_)->negative());
+			return Cursor(((SplitNode*)node_)->negative());
 		}
 
 		Real projectedPosition(
@@ -161,7 +183,7 @@ namespace Pastel
 			PENSURE(node_);
 			PENSURE(!leaf());
 
-			return ((IntermediateNode*)node_)->projectedPosition(point);
+			return ((SplitNode*)node_)->projectedPosition(point);
 		}
 
 	private:

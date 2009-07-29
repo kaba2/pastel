@@ -15,8 +15,8 @@ Principles
 
 * Maximize readability of the code as English.
 
-Naming rules
-------------
+Naming
+------
 
 * Types, namespaces: `LikeThis`
 
@@ -87,8 +87,8 @@ comment them `Prohibited`.
 through to the handler of the next case, comment it
 with a `Fall-through`.
 
-Clause related rules
---------------------
+Clauses
+-------
 
 * All control structures must have their actions defined on a block.
 
@@ -113,8 +113,8 @@ no better name.
 * Separate binary operators with spaces from both sides:
 a + b, a - b, a = b, a * b, a / b, a % b, a b, ...
 
-Class related rules
--------------------
+Classes
+-------
 
 * Always use classes, never use structs.
 	There are just a few differences between classes and structs,
@@ -151,8 +151,8 @@ Class related rules
 	by value as const. This makes function declarations look odd
 	and thus harder to read because it is unconventional.
 
-Operator related rules
-----------------------
+Operators
+---------
 
 * If relational operators are needed (<,>,<=,>=), implement less-than 
 and implement the rest of the operators in terms of that.
@@ -165,8 +165,8 @@ prefix increment and implement postfix increment in terms of that.
 
 * Use the boost::operators library to accomplish these in an easy way.
 
-Text editor related rules
--------------------------
+Text editors
+------------
 
 * Do not write rows longer than 70 characters.
 	Longer rows do not necessarily fit in other text editors.
@@ -188,8 +188,8 @@ Text editor related rules
 	A hard tab can be added only if preceded by another hard tab 
 	or the beginning of a row.
 
-File name related rules
------------------------
+File names
+----------
 
 * Separate templates into two files: one for the function declarations
 (class definition) and one for the function definitions.
@@ -204,8 +204,8 @@ File name related rules
 
 * Include the .h file in its corresponding .hpp file.
 
-Rejected naming rules
----------------------
+Rejected rules
+--------------
 
 For readability, the following have been explicitly rejected:
 

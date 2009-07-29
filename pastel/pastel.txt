@@ -76,6 +76,8 @@ that it is possible to exclude those sub-libraries that aren't needed.
 Learn more
 ----------
 
+[Highlights of the library](./highlights.htm)
+
 [What I hope you to get out of this library](./some_points.htm)
 
 [Download](./download.htm)

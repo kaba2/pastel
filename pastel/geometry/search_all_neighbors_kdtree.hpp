@@ -54,7 +54,6 @@ namespace Pastel
 		Array<2, Real>* distanceArray)
 	{
 		ENSURE_OP(kNearestBegin, >=, 0);
-		ENSURE2(kNearestEnd < pointSet.size(), kNearestEnd, pointSet.size());
 		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
 		ENSURE_OP(maxPointsPerNode, >=, 1);
 
@@ -83,6 +82,7 @@ namespace Pastel
 
 		const integer dimension = pointSet.front().size();
 
+		/*
 		if (dimension == 1)
 		{
 			searchAllNeighbors1d(
@@ -96,6 +96,7 @@ namespace Pastel
 			
 			return;
 		}
+		*/
 
 		typedef PointKdTree<N, Real, 
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
@@ -109,18 +110,28 @@ namespace Pastel
 			SequenceIterator(&pointSet[0]), 
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
-		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), maxPointsPerNode, splitRule);
+		std::vector<ConstTreeIterator> iteratorSet;
+		iteratorSet.reserve(tree.objects());
+		{
+			ConstTreeIterator iter = tree.begin();
+			const ConstTreeIterator iterEnd = tree.end();
+			while(iter != iterEnd)
+			{
+				iteratorSet.push_back(iter);
+				++iter;
+			}
+		}
+
+		tree.refine(128, maxPointsPerNode, splitRule);
+
+		//ENSURE(check(tree));
 
 #		pragma omp parallel
 		{
 		typedef std::vector<ConstTreeIterator> NearestSet;
 		typedef std::vector<Real> DistanceSet;
-		NearestSet nearestSet;
-		nearestSet.reserve(kNearestEnd);
-		DistanceSet distanceSet;
-		distanceSet.reserve(kNearestEnd);
-		DistanceSet* distanceSetPtr = distanceArray ? &distanceSet : 0;
+		NearestSet nearestSet(kNearestEnd);
+		DistanceSet distanceSet(kNearestEnd);
 
 //#		pragma omp for schedule(dynamic, 100)
 #		pragma omp for
@@ -130,13 +141,23 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, points);
 
+			/*
 			searchNearest(tree, pointSet[index], 
-				Accept_ExceptDeref<ConstTreeIterator, Object>(&pointSet[index]), 
+				Accept_ExceptDeref<ConstTreeIterator, const Point<N, Real>* >(&pointSet[index]),
 				maxDistance, maxRelativeError,
-				normBijection, kNearestEnd, &nearestSet, distanceSetPtr);
+				normBijection, 
+				kNearestEnd, 
+				nearestSet.begin(), 
+				distanceSet.begin());
+			*/
 
-			ASSERT2(nearestSet.size() == kNearestEnd,
-				nearestSet.size(), kNearestEnd);
+			searchNearest(tree, iteratorSet[index], 
+				Accept_Except<ConstTreeIterator>(iteratorSet[index]),
+				maxDistance, maxRelativeError,
+				normBijection, 
+				kNearestEnd, 
+				nearestSet.begin(), 
+				distanceSet.begin());
 
 			const Point<N, Real>* firstAddress = &pointSet.front();
 
@@ -156,7 +177,7 @@ namespace Pastel
 					while(nearestIter != nearestEnd)
 					{
 						const integer neighborIndex = 
-							**nearestIter - firstAddress;
+							(*nearestIter)->object() - firstAddress;
 						ASSERT(neighborIndex != index);
 
 						(*nearestArray)(nearestIndex, i) = neighborIndex;
@@ -177,7 +198,7 @@ namespace Pastel
 					while(nearestIter != nearestEnd)
 					{
 						const integer neighborIndex = 
-							**nearestIter - firstAddress;
+							(*nearestIter)->object() - firstAddress;
 						ASSERT(neighborIndex != index);
 
 						(*nearestArray)(nearestIndex, i) = neighborIndex;
@@ -199,7 +220,7 @@ namespace Pastel
 				while(nearestIter != nearestEnd)
 				{
 					const integer neighborIndex = 
-						**nearestIter - firstAddress;
+						(*nearestIter)->object() - firstAddress;
 					ASSERT(neighborIndex != index);
 
 					(*distanceArray)(nearestIndex, i) = *distanceIter;

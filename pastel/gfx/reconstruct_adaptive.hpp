@@ -87,14 +87,18 @@ namespace Pastel
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
+				nearestSet.reserve(kNearest_ + 1);
 				std::vector<Real> distanceSet;
+				distanceSet.reserve(kNearest_ + 1);
 
 				Euclidean_NormBijection<Real> normBijection;
 
 				searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
 					Accept_Always(),
 					infinity<Real>(), maxRelativeError_, normBijection,
-					kNearest_ + 1, &nearestSet, &distanceSet);
+					kNearest_ + 1, 
+					std::back_inserter(nearestSet), 
+					std::back_inserter(distanceSet));
 
 				Real weightSum = 0;
 				Data::Data_ dataSum(0);
@@ -106,7 +110,7 @@ namespace Pastel
 					const Real weight = filter->evaluate(t);
 
 					weightSum += weight;
-					dataSum += weight * nearestSet[i]->data_;
+					dataSum += weight * nearestSet[i]->object().data_;
 				}
 
 				if (weightSum > 0)
@@ -140,7 +144,6 @@ namespace Pastel
 		const integer points = positionList.size();
 
 		ENSURE_OP(kNearest, >, 0);
-		ENSURE_OP(kNearest, <, points);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
 		typedef Detail_ReconstructAdaptive::DataPoint<N, Real, Data> DataPoint;
