@@ -5,7 +5,7 @@
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/arenaallocator.h"
 #include "pastel/sys/tristate.h"
-//#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/poolallocator.h"
 
 #include "pastel/geometry/alignedbox.h"
 
@@ -34,7 +34,7 @@ namespace Pastel
 		}
 	};
 
-	//! A kd-tree
+	//! A kd-tree for point sets
 	/*!
 	class ObjectPolicy
 	{
@@ -42,7 +42,7 @@ namespace Pastel
 		typedef UnspecifiedType Object;
 		typedef (TrueType | FalseType) ArbitrarySplits;
 
-		Point<2, Real> point(const Object& that) const;
+		Point<N, Real> point(const Object& that) const;
 		Real point(const Object& that, integer axis) const;
 	};
 	*/
@@ -56,10 +56,11 @@ namespace Pastel
 		typedef typename ObjectPolicy::ArbitrarySplits ArbitrarySplits;
 
 	private:
-		typedef ArenaAllocator Allocator;
+		typedef ArenaAllocator NodeAllocator;
+		typedef PoolAllocator ObjectAllocator;
 		class ObjectInfo;
 
-		typedef FastList<ObjectInfo, Allocator> ObjectContainer;
+		typedef FastList<ObjectInfo, ObjectAllocator> ObjectContainer;
 		typedef typename ObjectContainer::iterator ObjectIterator;
 
 		class Node;
@@ -340,6 +341,8 @@ namespace Pastel
 		*/
 		void clearObjects();
 
+		void clearObjects(const Cursor& cursor);
+
 	private:
 		class SplitPredicate_KdTree;
 		class SplitPredicate_BspTree;
@@ -533,7 +536,7 @@ namespace Pastel
 		*/
 
 		ObjectContainer objectList_;
-		Allocator nodeAllocator_;
+		NodeAllocator nodeAllocator_;
 		Node* root_;
 		AlignedBox<N, Real> bound_;
 		integer leaves_;

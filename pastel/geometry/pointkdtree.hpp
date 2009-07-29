@@ -30,7 +30,7 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
-			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
+			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
 
 		initialize();
 	}
@@ -51,7 +51,7 @@ namespace Pastel
 			(N == Dynamic && dimension > 0), dimension, N);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
-			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
+			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
 
 		initialize();
 	}
@@ -67,7 +67,7 @@ namespace Pastel
 		, dimension_(that.dimension_)
 	{
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
-			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
+			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
 
 		initialize();
 
@@ -295,9 +295,39 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::clearObjects()
 	{
-		clearObjects(root_);
+		clearObjects(root());
+	}
 
-		objectList_.clear();
+	template <int N, typename Real, typename ObjectPolicy>
+	void PointKdTree<N, Real, ObjectPolicy>::clearObjects(
+		const Cursor& cursor)
+	{
+		if (cursor.leaf())
+		{
+			// Clear the object references.
+
+			LeafNode* node = (LeafNode*)cursor.node_;
+
+			ConstObjectIterator iter = cursor.begin();
+			const ConstObjectIterator iterEnd = cursor.end();
+			while (iter != iterEnd)
+			{
+				iter = objectList_.erase(iter);
+			}
+
+			node->setBegin(objectList_.end());
+			node->setLast(objectList_.end());
+			node->setObjects(0);
+		}
+		else
+		{
+			// Recurse deeper.
+			
+			SplitNode* node = (SplitNode*)cursor.node_;
+			node->setEmpty();
+			clearObjects(cursor.positive());
+			clearObjects(cursor.negative());
+		}
 	}
 
 	// Private
@@ -480,29 +510,6 @@ namespace Pastel
 				node->positive(),
 				positiveMin,
 				maxBound);
-		}
-	}
-
-	template <int N, typename Real, typename ObjectPolicy>
-	void PointKdTree<N, Real, ObjectPolicy>::clearObjects(
-		Node* someNode)
-	{
-		if (someNode->leaf())
-		{
-			// Clear the object references.
-
-			LeafNode* node = (LeafNode*)someNode;
-			node->setBegin(objectList_.end());
-			node->setLast(objectList_.end());
-			node->setObjects(0);
-		}
-		else
-		{
-			// Recurse deeper.
-			
-			SplitNode* node = (SplitNode*)someNode;
-			clearObjects(node->positive());
-			clearObjects(node->negative());
 		}
 	}
 

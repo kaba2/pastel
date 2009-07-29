@@ -91,16 +91,12 @@ void keyHandler(bool pressed, SDLKey key)
 
 		if (key == SDLK_c)
 		{
-			log() << "Tree has " << tree__.objects() << " objects." << logNewLine;
+			tree__.clear();
+		}
 
-			if (!check(tree__))
-			{
-				log() << "Check failed!" << logNewLine;
-			}
-			else
-			{
-				log() << "Check passed!" << logNewLine;
-			}
+		if (key == SDLK_x)
+		{
+			tree__.clearObjects();
 		}
 
 		if (key == SDLK_F5)
@@ -642,10 +638,8 @@ void computeTree(integer maxDepth)
 	//newTree.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
 	//refineSurfaceAreaHeuristic(maxDepth, 4, newTree);
 
-	/*
 	MyTree copyTree(newTree);
 	newTree.swap(copyTree);
-	*/
 
 	log() << "The constructed kd-tree has " << logNewLine;
 	log() << "depth " << depth(newTree) << "." << logNewLine;
@@ -664,13 +658,13 @@ void timing()
 
 	timer.setStart();
 
-	nearestPointSet__.clear();
-	nearestPointSet__.reserve(NearestPoints);
-
 	MyTree::ConstObjectIterator iter(tree__.begin());
 	MyTree::ConstObjectIterator iterEnd(tree__.end());
 	while (iter != iterEnd)
 	{
+		nearestPointSet__.clear();
+		nearestPointSet__.reserve(NearestPoints);
+
 		searchNearest(tree__, iter->object(),
 			Accept_Always(),
 			infinity<real>(),
