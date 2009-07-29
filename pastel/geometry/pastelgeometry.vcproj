@@ -449,23 +449,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\pointkdtree_count_nearest.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_count_nearest.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\pointkdtree_cursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_depth_first.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_depth_first.hpp"
 					>
 				</File>
 				<File
@@ -482,22 +466,6 @@
 				</File>
 				<File
 					RelativePath=".\pointkdtree_refine.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_search_nearest.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_search_nearest.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_search_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_search_range.hpp"
 					>
 				</File>
 				<File
@@ -1543,6 +1511,38 @@
 			>
 			<File
 				RelativePath=".\nearest_neighbors.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_count_nearest.h"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_count_nearest.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_depth_first.h"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_depth_first.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_search_nearest.h"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_search_nearest.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_search_range.h"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_search_range.hpp"
 				>
 			</File>
 			<Filter
