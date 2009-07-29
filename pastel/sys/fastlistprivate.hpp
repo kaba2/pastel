@@ -32,8 +32,6 @@ namespace Pastel
 		// free that memory and accumulates it
 		// with disastrous memory consumption.
 
-		// sizeof(Node) < sizeof(DataNode)
-		//head_ = (Node*)allocator_->allocate();
 		head_ = new Node;
 
 		linkNodes(head_, head_);
@@ -43,57 +41,37 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		typename FastList<Type, UniformAllocator>::Node*
-		FastList<Type, UniformAllocator>::nodeEnd()
-	{
-		ASSERT(head_);
-		return head_;
-	}
-
-	template <
-		typename Type,
-		typename UniformAllocator>
-		const typename FastList<Type, UniformAllocator>::Node*
-		FastList<Type, UniformAllocator>::nodeEnd() const
-	{
-		ASSERT(head_);
-		return head_;
-	}
-
-	template <
-		typename Type,
-		typename UniformAllocator>
-		typename FastList<Type, UniformAllocator>::Node*
-		FastList<Type, UniformAllocator>::nodeBegin()
-	{
-		ASSERT(head_);
-		return head_->next_;
-	}
-
-	template <
-		typename Type,
-		typename UniformAllocator>
-		const typename FastList<Type, UniformAllocator>::Node*
 		FastList<Type, UniformAllocator>::nodeBegin() const
 	{
 		ASSERT(head_);
 		return head_->next_;
 	}
 
+	template <
+		typename Type,
+		typename UniformAllocator>
+		typename FastList<Type, UniformAllocator>::Node*
+		FastList<Type, UniformAllocator>::nodeEnd() const
+	{
+		ASSERT(head_);
+		return head_;
+	}
+
 	template <typename Type, typename UniformAllocator>
 	template <typename InputIterator>
 	typename FastList<Type, UniformAllocator>::iterator
 		FastList<Type, UniformAllocator>::insert(
-		const iterator& there,
+		const const_iterator& there,
 		const InputIterator& from,
 		const InputIterator& to,
 		RangeTag)
 	{
 		if (from == to)
 		{
-			return there;
+			return iterator((Node*)there.node_);
 		}
 
-		iterator first(insert(there, *from));
+		const_iterator first(insert(there, *from));
 
 		try
 		{
@@ -113,13 +91,13 @@ namespace Pastel
 			throw;
 		}
 
-		return first;
+		return iterator((Node*)first.node_);
 	}
 
 	template <typename Type, typename UniformAllocator>
 	typename FastList<Type, UniformAllocator>::iterator
 		FastList<Type, UniformAllocator>::insert(
-		const iterator& there,
+		const const_iterator& there,
 		size_type count,
 		const value_type& that,
 		ValueTag)
@@ -128,10 +106,10 @@ namespace Pastel
 
 		if (count == 0)
 		{
-			return there;
+			return iterator((Node*)there.node_);
 		}
 
-		iterator first(insert(there, that));
+		const_iterator first(insert(there, that));
 
 		try
 		{
@@ -146,7 +124,7 @@ namespace Pastel
 			throw;
 		}
 
-		return first;
+		return iterator((Node*)first.node_);
 	}
 
 		template <
@@ -275,7 +253,7 @@ namespace Pastel
 		typename Type,
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::nodeDeAllocate(
-		DataNode* node)
+		const DataNode* node)
 	{
 		ASSERT(node != head_);
 
@@ -292,8 +270,8 @@ namespace Pastel
 		ASSERT(that);
 		ASSERT(nextThat);
 
-		that->next_ = nextThat;
-		nextThat->previous_ = that;
+		that->next_ = (Node*)nextThat;
+		nextThat->previous_ = (Node*)that;
 	}
 
 	template <

@@ -11,8 +11,8 @@ namespace Pastel
 		std::pair<typename FastList<Type, UniformAllocator>::iterator, integer> >
 		partition(
 		FastList<Type, UniformAllocator>& list,
-		const typename FastList<Type, UniformAllocator>::iterator& from,
-		const typename FastList<Type, UniformAllocator>::iterator& to,
+		const typename FastList<Type, UniformAllocator>::const_iterator& from,
+		const typename FastList<Type, UniformAllocator>::const_iterator& to,
 		const Predicate& predicate)
 	{
 		typedef FastList<Type, UniformAllocator> List;
@@ -37,10 +37,10 @@ namespace Pastel
 		integer trueBothCount = 0;
 		integer falseBothCount = 0;
 
-		Iterator iter(from);
+		ConstIterator iter(from);
 		while(iter != to)
 		{
-			Iterator next = iter;
+			ConstIterator next = iter;
 			++next;
 
 			TriState::Enum side = predicate(*iter);
@@ -85,13 +85,13 @@ namespace Pastel
 
 		// Splice back to the original list.
 
-		Iterator falseStart = falseList.begin();
+		ConstIterator falseStart = falseList.begin();
 		if (falseList.empty())
 		{
 			falseStart = to;
 		}
 
-		Iterator trueStart = trueList.begin();
+		ConstIterator trueStart = trueList.begin();
 		if (trueList.empty())
 		{
 			trueStart = falseStart;
@@ -101,8 +101,8 @@ namespace Pastel
 		list.splice(to, falseList);
 
 		return std::make_pair(
-			std::make_pair(trueStart, trueCount + trueBothCount),
-			std::make_pair(falseStart, falseCount + falseBothCount));
+			std::make_pair(list.cast(trueStart), trueCount + trueBothCount),
+			std::make_pair(list.cast(falseStart), falseCount + falseBothCount));
 	}
 
 	template <typename Type, typename UniformAllocator, typename Predicate>
@@ -110,8 +110,8 @@ namespace Pastel
 		std::pair<typename FastList<Type, UniformAllocator>::iterator, integer> >
 		fuzzyPartition(
 		FastList<Type, UniformAllocator>& list,
-		const typename FastList<Type, UniformAllocator>::iterator& from,
-		const typename FastList<Type, UniformAllocator>::iterator& to,
+		const typename FastList<Type, UniformAllocator>::const_iterator& from,
+		const typename FastList<Type, UniformAllocator>::const_iterator& to,
 		const Predicate& predicate)
 	{
 		typedef FastList<Type, UniformAllocator> List;
@@ -147,10 +147,10 @@ namespace Pastel
 		integer trueCount = 0;
 		integer falseCount = 0;
 
-		Iterator iter(from);
+		ConstIterator iter(from);
 		while(iter != to)
 		{
-			Iterator next = iter;
+			ConstIterator next = iter;
 			++next;
 
 			const TriState::Enum side = predicate(*iter);
@@ -177,13 +177,13 @@ namespace Pastel
 
 		// Splice back to the original list.
 
-		Iterator falseStart = falseList.begin();
+		ConstIterator falseStart = falseList.begin();
 		if (falseList.empty())
 		{
 			falseStart = to;
 		}
 
-		Iterator trueStart = trueList.begin();
+		ConstIterator trueStart = trueList.begin();
 		if (trueList.empty())
 		{
 			trueStart = falseStart;
@@ -193,8 +193,8 @@ namespace Pastel
 		list.splice(to, falseList);
 
 		return std::make_pair(
-			std::make_pair(trueStart, trueCount),
-			std::make_pair(falseStart, falseCount));
+			std::make_pair(list.cast(trueStart), trueCount),
+			std::make_pair(list.cast(falseStart), falseCount));
 	}
 
 }

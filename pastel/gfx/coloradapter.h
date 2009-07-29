@@ -130,12 +130,12 @@ namespace Pastel
 		typedef bool Logical;
 		typedef Integer Physical;
 
-		static Logical convert(const Physical& physical) const
+		static Logical convert(const Physical& physical)
 		{
 			return (physical != 0);
 		}
 
-		static Physical revert(const Logical& logical) const
+		static Physical revert(const Logical& logical)
 		{
 			return logical ? 1 : 0;
 		}
@@ -147,7 +147,7 @@ namespace Pastel
 		typedef Color Logical;
 		typedef ByteColor Physical;
 
-		static Logical convert(const Physical& physical) const
+		static Logical convert(const Physical& physical)
 		{
 			return Color(
 				dequantizeUnsigned(physical[0], 256),
@@ -155,7 +155,7 @@ namespace Pastel
 				dequantizeUnsigned(physical[2], 256));
 		}
 
-		static Physical revert(const Logical& logical) const
+		static Physical revert(const Logical& logical)
 		{
 			return ByteColor(
 				quantizeUnsigned(logical[0], 256),
@@ -187,7 +187,7 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(BlueBits > 0);
 		}
 
-		static Logical convert(const Physical& physical) const
+		static Logical convert(const Physical& physical)
 		{
 			const uint8 red = (uint8)scaleInteger<RedBits, 8>(
 				extractBits<RedFrom, RedBits>(physical));
@@ -199,7 +199,7 @@ namespace Pastel
 			return Logical(red, green, blue);
 		}
 
-		static Physical revert(const Logical& logical) const
+		static Physical revert(const Logical& logical)
 		{
 			const Integer red = scaleInteger<8, RedBits, uint32>(logical[0]);
 			const Integer green = scaleInteger<8, GreenBits, uint32>(logical[1]);
@@ -245,15 +245,15 @@ namespace Pastel
 			BOOST_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
 		}
 
-		static Logical convert(const Physical& physical) const
+		static Logical convert(const Physical& physical)
 		{
 			return Color(
-				dequantizeUnsigned(extractBits<RedFrom, RedBits>(packedColor), RedNumbers),
-				dequantizeUnsigned(extractBits<GreenFrom, GreenBits>(packedColor), GreenNumbers),
-				dequantizeUnsigned(extractBits<BlueFrom, BlueBits>(packedColor), BlueNumbers));
+				dequantizeUnsigned(extractBits<RedFrom, RedBits>(physical), RedNumbers),
+				dequantizeUnsigned(extractBits<GreenFrom, GreenBits>(physical), GreenNumbers),
+				dequantizeUnsigned(extractBits<BlueFrom, BlueBits>(physical), BlueNumbers));
 		}
 
-		static Physical revert(const Logical& logical) const
+		static Physical revert(const Logical& logical)
 		{
 			const Integer red = quantizeUnsigned(logical[0], RedNumbers);
 			const Integer green = quantizeUnsigned(logical[1], GreenNumbers);

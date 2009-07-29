@@ -3,6 +3,7 @@
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/intersect_segment_halfspace.h"
 #include "pastel/geometry/point_patterns.h"
+#include "pastel/geometry/pointkdtree_search_nearest.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 
@@ -19,6 +20,7 @@
 #include "pastel/sys/log_all.h"
 #include "pastel/sys/point_tools.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/nulliterator.h"
 
 #include "pastel/gl/glgfxrenderer.h"
 
@@ -54,6 +56,7 @@ GlGfxRenderer* renderer__;
 typedef PointKdTree<2, real> MyTree;
 
 MyTree tree__;
+Euclidean_NormBijection<real> normBijection__;
 
 typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
 std::vector<MyTree::ConstObjectIterator> rangePointSet__;
@@ -72,16 +75,10 @@ bool firstPoint__ = true;
 integer firstPointIndex__ = 0;
 
 bool mouseLeftPressed__ = false;
-std::vector<Point2> pointSet__;
 
 void computeTree(integer maxDepth);
 void sprayPoints(const Point2& center, real radius, integer points);
-
-real pointDistance(const Point2& from, const Point2& to)
-{
-	return distanceManhattan(from, to);
-	//return std::sqrt(distance2(from, to));
-}
+void erasePoints(const Point2& center, real radius);
 
 void keyHandler(bool pressed, SDLKey key)
 {
@@ -90,6 +87,20 @@ void keyHandler(bool pressed, SDLKey key)
 		if (key == SDLK_ESCAPE)
 		{
 			deviceSystem().stopEventLoop();
+		}
+
+		if (key == SDLK_c)
+		{
+			log() << "Tree has " << tree__.objects() << " objects." << logNewLine;
+
+			if (!check(tree__))
+			{
+				log() << "Check failed!" << logNewLine;
+			}
+			else
+			{
+				log() << "Check passed!" << logNewLine;
+			}
 		}
 
 		if (key == SDLK_F5)
@@ -118,7 +129,7 @@ void keyHandler(bool pressed, SDLKey key)
 			}
 			else
 			{
-				nearestPoints__ = pointSet__.size() - 1;
+				nearestPoints__ = tree__.objects();
 				if (searchRadius__ == infinity<real>())
 				{
 					searchRadius__ = SearchRadius;
@@ -191,7 +202,7 @@ void drawBspTree(MyTree::Cursor cursor,
 				 const AlignedBox2& bound,
 				 integer depth)
 {
-	if (!cursor.leaf() && drawTree__)
+	if (!cursor.leaf() && drawTree__ && cursor.containsPoints())
 	{
 		const integer splitAxis = cursor.splitAxis();
 		
@@ -308,12 +319,12 @@ void redrawPointSet()
 	{
 		integer i = 0;
 		const integer points = tree__.objects();
-		MyTree::ConstObjectIterator iter(tree__.begin());
-		MyTree::ConstObjectIterator iterEnd(tree__.end());
+		MyTree::ConstObjectDataIterator iter(tree__.objectBegin());
+		MyTree::ConstObjectDataIterator iterEnd(tree__.objectEnd());
 		while (iter != iterEnd)
 		{
+			real alpha = (real)i / points;
 
-			const real alpha = (real)i / (points - 1);
 			Color color = red * (1 - alpha) + yellow * alpha;
 
 			renderer__->setColor(color);
@@ -358,7 +369,7 @@ void redrawNearest()
 			renderer__->setColor(color);
 			renderer__->setFilled(false);
 			//drawCircle(renderer__, Sphere2(dataIter->key(), 0.01), 20);
-			drawSegment(*renderer__, Segment2(worldMouse, *dataIter));
+			drawSegment(*renderer__, Segment2(worldMouse, dataIter->object()));
 		}
 	}
 
@@ -368,6 +379,7 @@ void redrawNearest()
 		renderer__->setFilled(false);
 
 		drawCircle(*renderer__, Sphere2(worldMouse, searchRadius__), 20);
+		drawCircle(*renderer__, Sphere2(worldMouse, SprayRadius), 20);
 	}
 }
 
@@ -388,8 +400,8 @@ void redrawRange()
 			rangePointSet__[i]);
 		renderer__->setColor(color);
 		renderer__->setFilled(false);
-		drawCircle(*renderer__, Sphere2(*dataIter, 0.01), 20);
-		//drawSegment(*renderer__, Segment2(worldMouse, *dataIter));
+		drawCircle(*renderer__, Sphere2(dataIter->object(), 0.01), 20);
+		//drawSegment(*renderer__, Segment2(worldMouse, dataIter->object()));
 	}
 }
 
@@ -503,7 +515,8 @@ void logicHandler()
 
 	Integer2 iMouse;
 	bool leftButton = false;
-	iMouse = deviceSystem().mouse(&leftButton);
+	bool rightButton = false;
+	iMouse = deviceSystem().mouse(&leftButton, &rightButton);
 
 	const Vector2 currentMouse = Vector2(
 		2 * ((real)iMouse[0] / ScreenWidth) - 1,
@@ -521,14 +534,19 @@ void logicHandler()
 		sprayPoints(worldMouse, SprayRadius, SprayPoints);
 	}
 
-	Euclidean_NormBijection<real> normBijection;
-	//Manhattan_NormBijection<real> normBijection;
-	//Infinity_NormBijection<real> normBijection;
+	if (rightButton)
+	{
+		erasePoints(worldMouse, SprayRadius);
+	}
+
+	nearestPointSet__.clear();
+	nearestPointSet__.reserve(nearestPoints__);
 
 	searchNearest(tree__, worldMouse, 
 		Accept_Always(), 
-		normBijection.axis(searchRadius__), 0,
-		normBijection, nearestPoints__, &nearestPointSet__, 0);
+		normBijection__.toBijection(searchRadius__), 0,
+		normBijection__, nearestPoints__, std::back_inserter(nearestPointSet__), 
+		NullIterator());
 	if (searchRadius__ != infinity<real>())
 	{
 		searchRange(tree__, 
@@ -568,33 +586,43 @@ void sprayPoints(const Point2& center, real radius, integer points)
 			cos(randomAngle) * randomRadius,
 			sin(randomAngle) * randomRadius));
 		newPointSet.push_back(point);
-		pointSet__.push_back(point);
 	}
 
 	tree__.insert(newPointSet.begin(), newPointSet.end());
 }
 
-void generatePointSet(const AlignedBox2& region,
-					  integer points)
+void erasePoints(const Point2& center, real radius)
 {
-	for (integer i = 0;i < points;++i)
+	NearestPointSet nearestSet;
+	searchNearest(
+		tree__,
+		center,
+		Accept_Always(),
+		normBijection__.toBijection(radius),
+		0, normBijection__,
+		tree__.objects(),
+		std::back_inserter(nearestSet),
+		NullIterator());
+
+	for (integer i = 0;i < nearestSet.size();++i)
 	{
-		pointSet__.push_back(
-			region.at(Vector2(random<real>(), random<real>())));
+		tree__.erase(nearestSet[i]);
 	}
 
-	log() << "Generated " << points << " points. " << logNewLine;
+	if (tree__.objects() == 1 && tree__.begin() == tree__.end())
+	{
+		log() << "karkeeta" << logNewLine;
+
+	}
 }
 
 void computeTree(integer maxDepth)
 {
+	MyTree newTree;
+
 	Timer timer;
 
-	log() << "Destructing the current kd-tree." << logNewLine;
-
 	timer.setStart();
-
-	tree__.clear();
 
 	timer.store();
 
@@ -604,26 +632,30 @@ void computeTree(integer maxDepth)
 
 	log() << "Constructing a new kd-tree with max-depth " << maxDepth << "." << logNewLine;
 
-	tree__.insert(pointSet__.begin(), pointSet__.end());
+	newTree.insert(tree__.objectBegin(), tree__.objectEnd());
 
-	//tree__.refine(computeKdTreeMaxDepth(tree__.objects()), 16, SlidingMidpoint2_SplitRule());
-	//tree__.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
-	tree__.refine(maxDepth, 16, SlidingMidpoint_SplitRule());
-	//tree__.refine(maxDepth, 16, MaxVariance_SplitRule());
-	//tree__.refine(maxDepth, 16, SlidingMaxVariance_SplitRule());
-	//tree__.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
-	//refineSurfaceAreaHeuristic(maxDepth, 4, tree__);
+	//newTree.refine(computeKdTreeMaxDepth(newTree.objects()), 16, SlidingMidpoint2_SplitRule());
+	//newTree.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
+	newTree.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
+	//newTree.refine(maxDepth, 16, MaxVariance_SplitRule());
+	//newTree.refine(maxDepth, 16, SlidingMaxVariance_SplitRule());
+	//newTree.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
+	//refineSurfaceAreaHeuristic(maxDepth, 4, newTree);
 
-	MyTree copyTree(tree__);
-	tree__.swap(copyTree);
+	/*
+	MyTree copyTree(newTree);
+	newTree.swap(copyTree);
+	*/
 
 	log() << "The constructed kd-tree has " << logNewLine;
-	log() << "depth " << depth(tree__) << "." << logNewLine;
-	log() << tree__.nodes() << " nodes." << logNewLine;
+	log() << "depth " << depth(newTree) << "." << logNewLine;
+	log() << newTree.nodes() << " nodes." << logNewLine;
 
 	timer.store();
 
 	cout << "Construction took " << timer.seconds() << " seconds." << endl;
+
+	newTree.swap(tree__);
 }
 
 void timing()
@@ -632,16 +664,21 @@ void timing()
 
 	timer.setStart();
 
+	nearestPointSet__.clear();
+	nearestPointSet__.reserve(NearestPoints);
+
 	MyTree::ConstObjectIterator iter(tree__.begin());
 	MyTree::ConstObjectIterator iterEnd(tree__.end());
 	while (iter != iterEnd)
 	{
-		searchNearest(tree__, *iter,
+		searchNearest(tree__, iter->object(),
 			Accept_Always(),
 			infinity<real>(),
 			0,
 			Euclidean_NormBijection<real>(),
-			NearestPoints, &nearestPointSet__);
+			NearestPoints, 
+			std::back_inserter(nearestPointSet__),
+			NullIterator());
 		++iter;
 	}
 
@@ -662,21 +699,6 @@ int myMain()
 
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
 	deviceSystem().setCaption("Pastel's nearest neighbours example");
-
-	/*
-	const integer Points = 10000;
-	generatePointSet(
-		AlignedBox2(Point2(-1, -1), Point2(1, 1)), Points / 2);
-
-	generatePointSet(
-		AlignedBox2(Point2(0.5, 0.5), Point2(0.75, 0.75)), Points / 8);
-
-	generatePointSet(
-		AlignedBox2(Point2(0.6, 0.4), Point2(0.90, 0.6)), Points / 8);
-
-	generatePointSet(
-		AlignedBox2(Point2(0.4, 0.0), Point2(0.6, 0.2)), Points / 4);
-	*/
 
 	//generateClusteredPointSet(10000, 2, 10, pointSet__);
 	//generateUniformBallPointSet(10000, 2, pointSet__);
@@ -712,11 +734,15 @@ int myMain()
 		randomVector<2, real>());
 	*/
 
+	std::vector<Point2> pointSet;
+
 	for (integer i = 0;i < 10000;++i)
 	{
-		pointSet__.push_back(
+		pointSet.push_back(
 			randomDistribution->sample());
 	}
+
+	tree__.insert(pointSet.begin(), pointSet.end());
 
 	/*
 	generateGaussianPointSet(10000, 2, pointSet__);

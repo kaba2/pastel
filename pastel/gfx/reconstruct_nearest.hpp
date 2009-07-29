@@ -115,7 +115,6 @@ namespace Pastel
 		const integer points = positionList.size();
 
 		ENSURE_OP(kNearest, >, 0);
-		ENSURE_OP(kNearest, <, points);
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
 		typedef Detail_ReconstructNearest::DataPoint<N, Real, Data> DataPoint;

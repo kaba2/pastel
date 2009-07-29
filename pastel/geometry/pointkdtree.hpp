@@ -20,7 +20,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	PointKdTree<N, Real, ObjectPolicy>::PointKdTree()
 		: objectList_()
-		, nodeAllocator_(sizeof(IntermediateNode), 1024)
+		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(N)
 		, leaves_(0)
@@ -31,9 +31,8 @@ namespace Pastel
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
-		root_ = (Node*)nodeAllocator_.allocate();
-		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
-		++leaves_;
+
+		initialize();
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -41,7 +40,7 @@ namespace Pastel
 		integer dimension,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
-		, nodeAllocator_(sizeof(IntermediateNode), 1024)
+		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(dimension)
 		, leaves_(0)
@@ -53,15 +52,14 @@ namespace Pastel
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
-		root_ = (Node*)nodeAllocator_.allocate();
-		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
-		++leaves_;
+
+		initialize();
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
 	PointKdTree<N, Real, ObjectPolicy>::PointKdTree(const PointKdTree& that)
 		: objectList_()
-		, nodeAllocator_(sizeof(IntermediateNode), 1024)
+		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(that.dimension_)
 		, leaves_(0)
@@ -70,9 +68,8 @@ namespace Pastel
 	{
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
-		root_ = (Node*)nodeAllocator_.allocate();
-		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
-		++leaves_;
+
+		initialize();
 
 		// First copy the structure of the tree.
 
@@ -80,14 +77,14 @@ namespace Pastel
 
 		// Then insert the objects to the nodes.
 
-		insert(that.begin(), that.end());
+		insert(that.objectBegin(), that.objectEnd());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
 	PointKdTree<N, Real, ObjectPolicy>::~PointKdTree()
 	{
 		// This is what we assume for memory allocation.
-		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(IntermediateNode));
+		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(SplitNode));
 		BOOST_STATIC_ASSERT(N > 0 || N == Dynamic);
 
 		nodeAllocator_.clear();
@@ -160,10 +157,24 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
+	typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectDataIterator
+		PointKdTree<N, Real, ObjectPolicy>::objectBegin() const
+	{
+		return ConstObjectDataIterator(objectList_.begin());
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
 	typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 		PointKdTree<N, Real, ObjectPolicy>::end() const
 	{
 		return objectList_.end();
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectDataIterator
+		PointKdTree<N, Real, ObjectPolicy>::objectEnd() const
+	{
+		return ConstObjectDataIterator(objectList_.end());
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -214,7 +225,8 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	template <typename InputIterator>
 	void PointKdTree<N, Real, ObjectPolicy>::insert(
-		InputIterator begin, InputIterator end)
+		const InputIterator& begin, 
+		const InputIterator& end)
 	{
 		if (begin == end)
 		{
@@ -224,19 +236,22 @@ namespace Pastel
 
 		// Copy objects to a list which shares
 		// an allocator with the objectList_.
-		ObjectContainer list(begin, end, objectList_.get_allocator());
+		ObjectContainer list(objectList_.get_allocator());
 
 		// Possibly extend the bounding box.
 
 		integer objects = 0;
 
 		bool neededToExtend = false;
-		ObjectIterator iter = list.begin();
-		const ObjectIterator iterEnd = list.end();
+		InputIterator iter = begin;
+		const InputIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			neededToExtend |= extendToCover(
 				objectPolicy_.point(*iter), bound_);
+
+			list.push_back(
+				ObjectInfo(*iter, (LeafNode*)0));
 
 			++objects;
 			++iter;
@@ -247,10 +262,22 @@ namespace Pastel
 			updateBound(root_, bound_.min(), bound_.max());
 		}
 
-		// Use a combination of splicing and insertion to
-		// get the objects to the leaf nodes.
+		// Splice the points to the leaf nodes.
 
 		spliceInsert(root_, list, list.begin(), list.end(), objects);
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	void PointKdTree<N, Real, ObjectPolicy>::erase(
+		const ConstObjectIterator& iter)
+	{
+		const Cursor bucket = iter->bucket();
+		
+		LeafNode* leafNode = (LeafNode*)bucket.node_;
+		leafNode->erase(iter, objectList_.end());
+		objectList_.erase(iter);
+		
+		updateEmptyBits(leafNode);
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -262,9 +289,7 @@ namespace Pastel
 		bound_ = AlignedBox<N, Real>(dimension_);
 		leaves_ = 0;
 
-		root_ = (Node*)nodeAllocator_.allocate();
-		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
-		++leaves_;
+		initialize();
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -278,13 +303,21 @@ namespace Pastel
 	// Private
 
 	template <int N, typename Real, typename ObjectPolicy>
+	void PointKdTree<N, Real, ObjectPolicy>::initialize()
+	{
+		root_ = (Node*)nodeAllocator_.allocate();
+		new(root_) LeafNode((SplitNode*)0, objectList_.end(), objectList_.end(), 0);
+		++leaves_;
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::copyConstruct(
 		Node* thisSomeNode, Node* thatSomeNode)
 	{
 		if (!thatSomeNode->leaf())
 		{
-			IntermediateNode* thatNode = 
-				(IntermediateNode*)thatSomeNode;
+			SplitNode* thatNode = 
+				(SplitNode*)thatSomeNode;
 
 			ASSERT(thisSomeNode->leaf());
 
@@ -298,8 +331,8 @@ namespace Pastel
 				thatNode->positiveMin(),
 				thatNode->negativeMax());
 
-			IntermediateNode* thisNode = 
-				(IntermediateNode*)thisSomeNode;
+			SplitNode* thisNode = 
+				(SplitNode*)thisSomeNode;
 			
 			copyConstruct(
 				thisNode->negative(),
@@ -322,11 +355,13 @@ namespace Pastel
 		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 		ASSERT(node->leaf());
 
-		ObjectIterator nodeEnd = node->last();
+		ConstObjectIterator nodeEnd = node->last();
 		if (node->objects() > 0)
 		{
 			++nodeEnd;
 		}
+
+		const integer objects = node->objects();
 
 		// Reorder the objects along the split position.
 
@@ -340,8 +375,8 @@ namespace Pastel
 			partition(objectList_, node->begin(), nodeEnd,
 			splitPredicate);
 
-		ObjectIterator negativeStart = objectList_.end();
-		ObjectIterator negativeLast = objectList_.end();
+		ConstObjectIterator negativeStart = objectList_.end();
+		ConstObjectIterator negativeLast = objectList_.end();
 
 		const integer negativeObjects = result.first.second;
 		if (negativeObjects > 0)
@@ -351,8 +386,8 @@ namespace Pastel
 			--negativeLast;
 		}
 
-		ObjectIterator positiveStart = objectList_.end();
-		ObjectIterator positiveLast = objectList_.end();
+		ConstObjectIterator positiveStart = objectList_.end();
+		ConstObjectIterator positiveLast = objectList_.end();
 
 		const integer positiveObjects = result.second.second;
 		if (positiveObjects > 0)
@@ -365,18 +400,41 @@ namespace Pastel
 		// Allocate the new leaf nodes.
 
 		LeafNode* negativeLeaf = (LeafNode*)nodeAllocator_.allocate();
-		new(negativeLeaf) LeafNode(negativeStart, negativeLast, negativeObjects);
+		new(negativeLeaf) LeafNode(
+			(SplitNode*)node, negativeStart, negativeLast, negativeObjects);
+
+		{
+			ConstObjectIterator iter = negativeStart;
+			while(iter != positiveStart)
+			{
+				iter->setBucket(negativeLeaf);
+				++iter;
+			}
+		}
 
 		LeafNode* positiveLeaf = (LeafNode*)nodeAllocator_.allocate();
-		new(positiveLeaf) LeafNode(positiveStart, positiveLast, positiveObjects);
+		new(positiveLeaf) LeafNode(
+			(SplitNode*)node, positiveStart, positiveLast, positiveObjects);
+
+		{
+			ConstObjectIterator iter = positiveStart;
+			while(iter != nodeEnd)
+			{
+				iter->setBucket(positiveLeaf);
+				++iter;
+			}
+		}
 
 		// Reuse the memory space of the node to be subdivided.
 		// This is ok, because the memory block is of the size
 		// of the node class that takes more memory.
 
+		SplitNode* parent = node->parent();
+
 		node->~LeafNode();
 
-		new(node) IntermediateNode(
+		new(node) SplitNode(
+			parent,
 			positiveLeaf,
 			negativeLeaf,
 			splitPosition,
@@ -385,7 +443,8 @@ namespace Pastel
 			boundMin,
 			boundMax,
 			positiveMin,
-			negativeMax);
+			negativeMax,
+			objects == 0);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.
@@ -400,7 +459,7 @@ namespace Pastel
 	{
 		if (!someNode->leaf())
 		{
-			IntermediateNode* node = (IntermediateNode*)someNode;
+			SplitNode* node = (SplitNode*)someNode;
 			const integer splitAxis = node->splitAxis();
 
 			node->setMin(minBound[splitAxis]);
@@ -441,7 +500,7 @@ namespace Pastel
 		{
 			// Recurse deeper.
 			
-			IntermediateNode* node = (IntermediateNode*)someNode;
+			SplitNode* node = (SplitNode*)someNode;
 			clearObjects(node->positive());
 			clearObjects(node->negative());
 		}
@@ -451,7 +510,8 @@ namespace Pastel
 	void PointKdTree<N, Real, ObjectPolicy>::spliceInsert(
 		Node* someNode,
 		ObjectContainer& list,
-		ObjectIterator begin, ObjectIterator end,
+		const ObjectIterator& begin, 
+		const ObjectIterator& end,
 		integer objects)
 	{
 		ASSERT1(objects >= 0, objects);
@@ -462,12 +522,21 @@ namespace Pastel
 			return;
 		}
 
+		someNode->setNonEmpty();
+
 		if (someNode->leaf())
 		{
 			// If this is a leaf node, splice the objects
 			// to this node.
 
 			LeafNode* node = (LeafNode*)someNode;
+
+			ObjectIterator iter = begin;
+			while(iter != end)
+			{
+				iter->setBucket(node);
+				++iter;
+			}
 
 			ObjectIterator last = end;
 			--last;
@@ -490,7 +559,7 @@ namespace Pastel
 		{
 			// Otherwise carry out a partitioning of the objects.
 
-			IntermediateNode* node = (IntermediateNode*)someNode;
+			SplitNode* node = (SplitNode*)someNode;
 
 			const SplitPredicate splitPredicate(
 				node->splitPosition(), node->splitAxis(), 
@@ -597,8 +666,8 @@ namespace Pastel
 		}
 		else
 		{
-			IntermediateNode* node = 
-				(IntermediateNode*)someNode;
+			SplitNode* node = 
+				(SplitNode*)someNode;
 
 			splitPosition = node->splitPosition();
 			splitAxis = node->splitAxis();
@@ -610,8 +679,8 @@ namespace Pastel
 		// into an intermediate node.
 		if (!someNode->leaf())
 		{
-			IntermediateNode* node = 
-				(IntermediateNode*)someNode;
+			SplitNode* node = 
+				(SplitNode*)someNode;
 
 			Point<N, Real> negativeMax(maxBound);
 			negativeMax[splitAxis] = negativeSplitMax;
@@ -629,6 +698,41 @@ namespace Pastel
 				depth + 1, 
 				positiveMin,
 				maxBound);
+		}
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
+	void PointKdTree<N, Real, ObjectPolicy>::updateEmptyBits(LeafNode* leafNode)
+	{
+		// Propagate information to parents.
+
+		SplitNode* node = leafNode->parent();
+		while(node)
+		{
+			if (node->negative()->empty() &&
+				node->positive()->empty())
+			{
+				if (node->empty())
+				{
+					break;
+				}
+				else
+				{
+					node->setEmpty();
+				}
+			}
+			else
+			{
+				if (node->empty())
+				{
+					node->setNonEmpty();
+				}
+				else
+				{
+					break;
+				}
+			}
+			node = node->parent();
 		}
 	}
 

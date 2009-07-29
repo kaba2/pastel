@@ -36,9 +36,9 @@ namespace Pastel
 		return ::operator new(size);		
 	}
 
-	inline void deallocateRaw(void* data)
+	inline void deallocateRaw(const void* data)
 	{
-		::operator delete(data);
+		::operator delete((void*)data);
 	}
 
 }

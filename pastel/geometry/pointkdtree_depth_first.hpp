@@ -55,51 +55,114 @@ namespace Pastel
 				// into results.
 			}
 
-			void work()
+			void workTopBottom()
 			{
-				work(kdTree.root(), 
+				workTopBottom(kdTree.root(), 
 					distance2(kdTree.bound(), searchPoint, normBijection));
 			}
 
+			void workBottomTop(const Cursor& startCursor)
+			{
+				ENSURE(startCursor.leaf());
+
+				if (startCursor.containsPoints())
+				{
+					visitLeaf(startCursor);
+				}
+
+				Cursor previous = startCursor;
+				Cursor cursor = startCursor.parent();
+				while(!cursor.empty())
+				{
+					const Real searchPosition = 
+						searchPoint[cursor.splitAxis()];
+
+					Cursor farBranch;
+					Real farBoundDistance = 0;
+
+					if (previous == cursor.negative())
+					{
+						farBranch = cursor.positive();
+						if (searchPosition < cursor.positiveMin())
+						{
+							farBoundDistance = normBijection.axis(
+								cursor.positiveMin() - searchPosition);
+						}
+					}
+					else
+					{
+						farBranch = cursor.negative();
+						if (searchPosition > cursor.negativeMax())
+						{
+							farBoundDistance = normBijection.axis(
+								searchPosition - cursor.negativeMax());
+						}
+					}
+
+					// Try to cull the farther node off based on the distance 
+					// of the search point to the farther bound.
+					if (farBranch.containsPoints() &&
+						farBoundDistance <= nodeCullDistance)
+					{
+						// No culling could be done, visit the farther node
+						// recursively.
+						workTopBottom(farBranch, farBoundDistance);
+					}
+					
+					previous = cursor;
+					cursor = cursor.parent();
+				}
+			}
+
 		private:
-			void work(const Cursor& cursor, const Real& distance)
+			void visitLeaf(const Cursor& cursor)
+			{
+				// We are now in a leaf node.
+				// Search through the objects in this node.
+
+				ASSERT(cursor.leaf());
+
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
+
+				while(iter != iterEnd)
+				{
+					const Real currentDistance = 
+						distance2(objectPolicy.point(iter->object()), searchPoint, 
+						normBijection, cullDistance);
+
+					// It is essential that this is <= rather
+					// than <, because of the possibility
+					// of multiple points at same location.
+					if (currentDistance <= cullDistance)
+					{
+						candidateFunctor(currentDistance, iter);
+						const Real cullSuggestion = 
+							candidateFunctor.suggestCullDistance() * protectiveFactor;
+						if (cullSuggestion < cullDistance)
+						{
+							cullDistance = cullSuggestion;
+							nodeCullDistance = cullDistance * errorFactor;
+						}
+						/*
+						cullDistance = std::min(
+							candidateFunctor.suggestCullDistance() * protectiveFactor,
+							cullDistance);
+						nodeCullDistance = cullDistance * errorFactor;
+						*/
+					}
+
+					++iter;
+				}
+			}
+
+			void workTopBottom(const Cursor& cursor, const Real& distance)
 			{
 				if (cursor.leaf())
 				{
-					// We are now in a leaf node.
-					// Search through the objects in this node.
-
-					ConstObjectIterator iter = cursor.begin();
-					const ConstObjectIterator iterEnd = cursor.end();
-
-					while(iter != iterEnd)
+					if (cursor.containsPoints())
 					{
-						const Real currentDistance = 
-							distance2(objectPolicy.point(*iter), searchPoint, 
-							normBijection, cullDistance);
-
-						// It is essential that this is <= rather
-						// than <, because of the possibility
-						// of multiple points at same location.
-						if (currentDistance <= cullDistance)
-						{
-							candidateFunctor(currentDistance, iter);
-							const Real cullSuggestion = 
-								candidateFunctor.suggestCullDistance() * protectiveFactor;
-							if (cullSuggestion < cullDistance)
-							{
-								cullDistance = cullSuggestion;
-								nodeCullDistance = cullDistance * errorFactor;
-							}
-							/*
-							cullDistance = std::min(
-								candidateFunctor.suggestCullDistance() * protectiveFactor,
-								cullDistance);
-							nodeCullDistance = cullDistance * errorFactor;
-							*/
-						}
-
-						++iter;
+						visitLeaf(cursor);
 					}
 				}
 				else
@@ -151,13 +214,17 @@ namespace Pastel
 						}
 					}
 
-					// Follow downwards the kdTree with the nearer node.
-					work(nearBranch, distance);
+					if (nearBranch.containsPoints())
+					{
+						// Follow downwards the kdTree with the nearer node.
+						workTopBottom(nearBranch, distance);
+					}
 
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
 
-					if (farBoundDistance <= nodeCullDistance)
+					if (farBranch.containsPoints() &&
+						farBoundDistance <= nodeCullDistance)
 					{
 						// Try to cull the farther node off based on the distance 
 						// of the search point to the farther child node.
@@ -180,9 +247,8 @@ namespace Pastel
 
 						if (childDistance <= nodeCullDistance)
 						{
-							// No culling could be done, visit the farther node
-							// later.
-							work(farBranch, childDistance);
+								// No culling could be done, visit the farther node.
+								workTopBottom(farBranch, childDistance);
 						}
 					}
 				}
@@ -214,11 +280,39 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{
+		if (kdTree.empty())
+		{
+			return;
+		}
+
 		Detail_DepthFirst::DepthFirst<N, Real, ObjectPolicy, NormBijection, CandidateFunctor>
 			depthFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
 
-		depthFirst.work();
+		depthFirst.workTopBottom();
+	}
+
+	template <int N, typename Real, typename ObjectPolicy, 
+		typename NormBijection, typename CandidateFunctor>
+	void searchDepthFirst(
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
+		const CandidateFunctor& candidateFunctor)
+	{
+		if (kdTree.empty())
+		{
+			return;
+		}
+
+		Detail_DepthFirst::DepthFirst<N, Real, ObjectPolicy, NormBijection, CandidateFunctor>
+			depthFirst(kdTree, kdTree.objectPolicy().point(searchPoint->object()), 
+			maxDistance, maxRelativeError,
+			normBijection, candidateFunctor);
+
+		depthFirst.workBottomTop(searchPoint->bucket());
 	}
 
 }

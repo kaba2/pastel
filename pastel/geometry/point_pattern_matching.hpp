@@ -11,6 +11,7 @@
 #include "pastel/sys/unorderedset.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/smallset.h"
+#include "pastel/sys/nulliterator.h"
 
 namespace Pastel
 {
@@ -65,8 +66,7 @@ namespace Pastel
 
 				const ScenePositionFunctor scenePositionFunctor(sceneTree);
 				const Sphere<2, Real> sceneSphere = boundingSphere<2, Real>(
-					sceneTree.begin(), sceneTree.end(), scenePositionFunctor);
-
+					sceneTree.objectBegin(), sceneTree.objectEnd(), scenePositionFunctor);
 
 				if (matchingDistanceType == PatternMatch::AbsoluteDistance)
 				{
@@ -179,7 +179,7 @@ namespace Pastel
 
 					const ModelIterator modelIter = modelIndexList[i];
 					const ModelObject& modelObject =
-						*modelIter;
+						modelIter->object();
 					const Point<2, Real> modelPoint =
 						modelTree_.objectPolicy().point(modelObject);
 
@@ -191,7 +191,7 @@ namespace Pastel
 						++localTries_;
 
 						const SceneObject& sceneObject =
-							*sceneIter;
+							sceneIter->object();
 						const Point<2, Real> scenePoint =
 							sceneTree_.objectPolicy().point(sceneObject);
 
@@ -203,6 +203,7 @@ namespace Pastel
 						// k result points.
 
 						std::vector<SceneIterator> sceneSet;
+						sceneSet.reserve(kPoints_ + 1);
 						searchNearest(
 							sceneTree_,
 							scenePoint,
@@ -212,9 +213,11 @@ namespace Pastel
 							0,
 							Euclidean_NormBijection<Real>(),
 							kPoints_ + 1,
-							&sceneSet);
+							std::back_inserter(sceneSet),
+							NullIterator());
 
 						std::vector<ModelIterator> modelSet;
+						modelSet.reserve(kPoints_ + 1);
 						searchNearest(
 							modelTree_,
 							modelPoint,
@@ -224,7 +227,8 @@ namespace Pastel
 							0,
 							Euclidean_NormBijection<Real>(),
 							kPoints_ + 1,
-							&modelSet);
+							std::back_inserter(modelSet),
+							NullIterator());
 
 						// Try to match the nearest neighbours.
 						// If they match, then try to improve the
@@ -269,18 +273,18 @@ namespace Pastel
 				std::size_t operator()(const SceneIterator& sceneIter) const
 				{
 					const hash<SceneObject*> hash;
-					return hash(&*sceneIter);
+					return hash(&sceneIter->object());
 				}
 			};
 
 			Point<2, Real> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return sceneTree_.objectPolicy().point(*sceneIter);
+				return sceneTree_.objectPolicy().point(sceneIter->object());
 			}
 
 			Point<2, Real> modelPosition(const ModelIterator& modelIter) const
 			{
-				return modelTree_.objectPolicy().point(*modelIter);
+				return modelTree_.objectPolicy().point(modelIter->object());
 			}
 
 			bool matchLocal(

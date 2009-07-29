@@ -1,20 +1,33 @@
 Documentation system
 ====================
 
-[Back to Pastel](./pastel.htm)
+[Parent]: pastel.txt
 
-Markdown syntax
----------------
+Syntax
+------
 
-Pastel uses Markdown for documentation. Markdown
-is both a syntax and a program to convert files from text
+### Readable sources via Markdown
+
+Pastel uses a slightly modified Markdown syntax for documentation. 
+Markdown is both a syntax and a program to convert files from text
 files to .html files. The appealing idea behind Markdown is
 that these source text files should also be readable by themself. 
-For an example, try replacing the .htm postfix from the link with .txt 
-to see the Markdown source for this page.
+For an example, [see the source for this page](./documentation.txt).
 
-Implicit documentation naming
------------------------------
+### Mathematical notation via AsciiMathMl
+
+The Markdown syntax has been extended to embed mathematical notation
+via the AsciiMathMl library. This extends the idea of making both 
+the document and the source itself readable.
+Like Markdown, AsciiMathMl is both a syntax and a program to convert
+that syntax into MathMl. This allows one to use mathematical notation 
+as is common when communicating through an ascii-only medium 
+(newsgroups, emails). For example, using AsciiMathMl, one can type 
+`ax^2 + bx + c = 0` and this is properly renderer. Compare this to
+other notations (especially Latex) whose sources are mostly unreadable.
+
+Automated documentation linking 
+-------------------------------
 
 Every source code file in Pastel is implicitly associated with 
 that .txt file in the same directory which has the longest prefix 
@@ -22,11 +35,35 @@ of the file name. For example, if we have the file 'memory_overlaps.h',
 'memory_overlaps.txt', and 'memory.txt', then the documentation for 
 'memory_overlaps.h' matches 'memory_overlaps.txt'. However, if this 
 file weren't available, then the documentation would match 'memory.txt'. 
-There is possibly no matching implicit documentation. 
-Documentation files associate documentation to themselves.
+There is possibly no matching implicit documentation. In this case
+the documentation has to be given explicitly by using tags.
 
-Tags
-----
+Similarly, each documentation file is associated with a parent
+documentation file. This way the documentation files and the source
+code files form a tree. This tree shows up in documentations 
+automatically as follows:
+
+ * In the directory view the files in a given directory are grouped
+ under their documentation files (the group is named after the
+ first heading of the documentation page).
+ * In the documentation view all the source code files which link to 
+ that documentation page are linked along with their descriptions under
+ the heading 'Files'.
+ * In the source code view there is a link to the corresponding
+ documentation page.
+ * In the documentation view all the documentation files which have
+ that documentation page as a parent are linked along with their
+ names under the heading 'Learn more'.
+ * In the documentation view the parent document is linked at the
+ beginning of the page with 'Back to parent', where parent is
+ replaced with the name of the parent documentation page.
+
+If a source code file or a documentation has no associated parent,
+then it is linked to a file named orphan.txt. This file is useful
+as a way to check that all the files have an associated documentation.
+
+Source code tags
+----------------
 
 The implicit documentation naming can be overridden in a source code
 file by using a special 'Documentation:' tag. This tag allows to specify the
@@ -47,63 +84,27 @@ about the purpose of the file. For example:
 These tags, if present, must be placed before anything 
 else in a file to make parsing easy.
 
-Implicit grouping of files
---------------------------
+Documentation tags
+------------------
 
-Each documentation file acts as a group. Every 
-source code file which associates that documentation file 
-as their documentation belongs to the group.
-In the directory tree view this grouping is reflected
-by virtual directories named with the first headline
-of the documentation file. The group members are listed
-in this virtual directory. These group directories are
-always shown expanded. The documentation file itself
-also belongs to the group. For example:
+For every documentation file there is an associated parent documentation 
+file. This has to be always given explicitly in the Markdown source
+by defining a link with the name 'Parent'. For example:
 
-	math
-		Linear algebra
-			Matrix class
-				matrix.h
-				matrix.hpp
-				matrix_dynamic.h
-				matrix_static.h
-				matrixexpression.h
-				matrixview.h
-				matrix.txt
-			Matrix decompositions
-				Lu decomposition
-					...
-				...
-				matrix_decompositions.txt
-			...
-			linear_algebra.txt
-		...
+	[Parent]: pastel.txt
 
-The grouping also reflects to the documentation page,
-where all the source code files under the group are 
-listed together with their descriptions:
+Automatically generated link descriptions
+-----------------------------------------
 
-	### Matrix class
-	
-	[matrix.h](./matrix.h.htm)
-	
-	[matrix.hpp](./matrix.hpp.htm)
+When there is a link to a source code file, its description and detail tags
+are generated before the link. When there is a link to a documentation
+file, the link is named after the first heading of the documentation file.
+These rules apply only to the linking form:
 
-	[matrix_dynamic.h](./matrix_dynamic.h.htm)
-	
-	...
-	
-If another documentation file links back to
-the current documentation file, then these are
-linked in the section 'Learn more':
+	<./sys/allocators.txt>
 
-	Learn more
-	----------
-	
-	[Matrix decompositions]	
+Code viewing links
+------------------
 
-The intent of such an implicit system is to minimize the
-work of the document writer, as well as to minimize 
-errors that would occur when manually typing links.
-The documentation also stays up to date even if
-files are added or removed.
+When viewing the source, all the include commands are converted into links. 
+This allows to conveniently jump between associated files.

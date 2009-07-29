@@ -10,9 +10,20 @@ namespace Pastel
 	class PointKdTree<N, Real, ObjectPolicy>::Node
 	{
 	public:
-		explicit Node(pointer_integer unknown)
-			: unknown_(unknown)
+		explicit Node(
+			SplitNode* parent,
+			pointer_integer data,
+			bool isLeaf,
+			bool isEmpty)
+			: parent_(parent)
+			, unknown_(0)
 		{
+			setUnknown(data, isLeaf, isEmpty);
+		}
+
+		SplitNode* parent() const
+		{
+			return parent_;
 		}
 
 		bool leaf() const
@@ -20,18 +31,61 @@ namespace Pastel
 			return ((unknown_ & 1) != 0);
 		}
 
-		//protected:
+		bool empty() const
+		{
+			return ((unknown_ & 2) != 0);
+		}
 
+		void setEmpty()
+		{
+			if ((unknown_ & 2) == 0)
+			{
+				unknown_ += 2;
+			}
+		}
+
+		void setNonEmpty()
+		{
+			if ((unknown_ & 2) == 2)
+			{
+				unknown_ -= 2;
+			}
+		}
+
+	protected:
 		// The first bit of 'unknown_' tells
 		// if the node is a LeafNode (1) or an
-		// IntermediateNode (0).
+		// SplitNode (0).
+		// The second bit of 'unknown_' tells
+		// if the subtree under the node is
+		// void of points (1) or not (0).
+
 		// If the node is a LeafNode, then
 		// the number of objects is encoded in
-		// (unknown_ >> 1).
+		// (unknown_ >> 2).
 		// Otherwise unknown_ ^ (unknown_ & 0x3)
 		// contains a pointer to the positive child node.
 		// This trick relies on 4 byte alignment of nodes.
 
+		void setUnknown(
+			pointer_integer data,
+			bool isLeaf,
+			bool isEmpty)
+		{
+			unknown_ = data;
+
+			if (isLeaf)
+			{
+				unknown_ += 1;
+			}
+
+			if (isEmpty)
+			{
+				unknown_ += 2;
+			}
+		}
+
+		SplitNode* parent_;
 		pointer_integer unknown_;
 	};
 
@@ -39,65 +93,96 @@ namespace Pastel
 	class PointKdTree<N, Real, ObjectPolicy>::LeafNode
 		: public Node
 	{
-	public:
-		// TODO: possible compiler bug: doesn't work without this.
+	private:
+		using Node::setUnknown;
+		// Possible compiler bug: using needed here, although
+		// there is no need.
 		using Node::unknown_;
 
+	public:
+
 		LeafNode(
-			const ObjectIterator& begin,
-			const ObjectIterator& last,
+			SplitNode* parent,
+			const ConstObjectIterator& begin,
+			const ConstObjectIterator& last,
 			integer objects)
-			: Node((objects << 1) + 1)
+			: Node(parent, objects << 2, true, objects == 0)
 			, begin_(begin)
 			, last_(last)
 		{
 		}
 
-		void setBegin(const ObjectIterator& begin)
+		void setBegin(const ConstObjectIterator& begin)
 		{
 			begin_ = begin;
 		}
 
-		ObjectIterator begin() const
+		ConstObjectIterator begin() const
 		{
 			return begin_;
 		}
 
-		void setLast(const ObjectIterator& last)
+		void setLast(const ConstObjectIterator& last)
 		{
 			last_ = last;
 		}
 
-		ObjectIterator last() const
+		ConstObjectIterator last() const
 		{
 			return last_;
 		}
 
 		void setObjects(integer objects)
 		{
-			unknown_ = (objects << 1) + 1;
+			ASSERT_OP(objects, >=, 0);
+
+			setUnknown(objects << 2, true, objects == 0);
 		}
 
 		integer objects() const
 		{
-			return unknown_ >> 1;
+			return unknown_ >> 2;
+		}
+
+		void erase(
+			const ConstObjectIterator& iter,
+			const ConstObjectIterator& end)
+		{
+			if (iter == begin_ &&
+				iter == last_)
+			{
+				begin_ = end;
+				last_ = end;
+			}
+			else if (iter == begin_)
+			{
+				++begin_;
+			}
+			else if (iter == last_)
+			{
+				--last_;
+			}
+
+			setObjects(objects() - 1);
 		}
 
 	private:
-		ObjectIterator begin_;
-		ObjectIterator last_;
+		ConstObjectIterator begin_;
+		ConstObjectIterator last_;
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_BspTree
+	class PointKdTree<N, Real, ObjectPolicy>::SplitNode_BspTree
 		: public Node
 	{
 	private:
-		// TODO: possible compiler bug: doesn't work without this.
+		// Possible compiler bug: using needed here, although
+		// there is no need.
 		using Node::unknown_;
 
 	public:
-		IntermediateNode_BspTree(
+		SplitNode_BspTree(
+			SplitNode* parent,
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
@@ -106,11 +191,12 @@ namespace Pastel
 			const Real& min,
 			const Real& max,
 			const Real& positiveMin,
-			const Real& negativeMax)
-			: Node((pointer_integer)positive)
+			const Real& negativeMax,
+			bool isEmpty)
+			: Node(parent, splitAxis_ << 2, false, isEmpty)
+			, positive_(positive)
 			, negative_(negative)
 			, splitPosition_(splitPosition)
-			, splitAxis_(splitAxis)
 			, splitDirection_(*splitDirection)
 			, min_(min)
 			, max_(max)
@@ -126,12 +212,12 @@ namespace Pastel
 
 		integer splitAxis() const
 		{
-			return splitAxis_;
+			return (unknown_ >> 2);
 		}
 
 		Node* positive() const
 		{
-			return (Node*)unknown_;
+			return positive_;
 		}
 
 		Node* negative() const
@@ -181,9 +267,9 @@ namespace Pastel
 		}
 
 	private:
+		Node* positive_;
 		Node* negative_;
 		Real splitPosition_;
-		int32 splitAxis_;
 		Real min_;
 		Real max_;
 		Real positiveMin_;
@@ -192,15 +278,17 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::IntermediateNode_KdTree
+	class PointKdTree<N, Real, ObjectPolicy>::SplitNode_KdTree
 		: public Node
 	{
 	private:
-		// TODO: possible compiler bug: doesn't work without this.
+		// Possible compiler bug: using needed here, although
+		// there is no need.
 		using Node::unknown_;
 
 	public:
-		IntermediateNode_KdTree(
+		SplitNode_KdTree(
+			SplitNode* parent,
 			Node* positive,
 			Node* negative,
 			const Real& splitPosition,
@@ -209,11 +297,12 @@ namespace Pastel
 			const Real& min,
 			const Real& max,
 			const Real& positiveMin,
-			const Real& negativeMax)
-			: Node((pointer_integer)positive)
+			const Real& negativeMax,
+			bool isEmpty)
+			: Node(parent, splitAxis << 2, false, isEmpty)
+			, positive_(positive)
 			, negative_(negative)
 			, splitPosition_(splitPosition)
-			, splitAxis_(splitAxis)
 			, min_(min)
 			, max_(max)
 		{
@@ -228,12 +317,12 @@ namespace Pastel
 
 		integer splitAxis() const
 		{
-			return splitAxis_;
+			return (unknown_ >> 2);
 		}
 
 		Node* positive() const
 		{
-			return (Node*)unknown_;
+			return positive_;
 		}
 
 		Node* negative() const
@@ -269,7 +358,7 @@ namespace Pastel
 		Real projectedPosition(
 			const Point<N, Real>& point) const
 		{
-			return point[splitAxis_];
+			return point[splitAxis()];
 		}
 
 		void setMin(const Real& min)
@@ -283,9 +372,9 @@ namespace Pastel
 		}
 
 	private:
+		Node* positive_;
 		Node* negative_;
 		Real splitPosition_;
-		int32 splitAxis_;
 		Real min_;
 		Real max_;
 	};

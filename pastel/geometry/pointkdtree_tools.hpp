@@ -59,8 +59,16 @@ namespace Pastel
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			const AlignedBox<N, Real>& bound)
 		{
+			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+				ConstObjectIterator;
+
 			if (cursor.leaf())
 			{
+				if (REPORT(std::distance(cursor.begin(), cursor.end()) != cursor.objects()))
+				{
+					return false;
+				}
+
 				if (cursor.objects() == 0)
 				{
 					if (REPORT(cursor.begin() != tree.end() ||
@@ -68,17 +76,34 @@ namespace Pastel
 					{
 						return false;
 					}
+
+					if (REPORT(cursor.containsPoints()))
+					{
+						return false;
+					}
 				}
 				else
 				{
+					if (REPORT(!cursor.containsPoints()))
+					{
+						return false;
+					}
+
 					if (REPORT(cursor.begin() == cursor.end()))
 					{
 						return false;
 					}
-					if (REPORT(std::distance(cursor.begin(), cursor.end()) != cursor.objects()))
+				}
+
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
+				while(iter != iterEnd)
+				{
+					if (REPORT(iter->bucket() != cursor))
 					{
 						return false;
 					}
+					++iter;
 				}
 			}
 			else
@@ -99,6 +124,22 @@ namespace Pastel
 				}
 
 				if (REPORT(cursor.max() != bound.max()[cursor.splitAxis()]))
+				{
+					return false;
+				}
+
+				if (REPORT((cursor.negative().containsPoints() ||
+					cursor.positive().containsPoints()) != cursor.containsPoints()))
+				{
+					return false;
+				}
+
+				if (REPORT(cursor.negative().parent() != cursor))
+				{
+					return false;
+				}
+
+				if (REPORT(cursor.positive().parent() != cursor))
 				{
 					return false;
 				}

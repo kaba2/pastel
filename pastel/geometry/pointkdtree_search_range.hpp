@@ -83,7 +83,7 @@ namespace Pastel
 			const ConstObjectIterator iterEnd = cursor.end();
 			while(iter != iterEnd)
 			{
-				const Object& object = *iter;
+				const Object& object = iter->object();
 				if (overlaps(range, objectPolicy.point(object)))
 				{
 					rangeSet.push_back(iter);

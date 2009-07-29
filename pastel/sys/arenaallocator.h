@@ -102,7 +102,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		void deallocate(void* memoryIgnored, integer units = 1);
+		void deallocate(const void* memoryIgnored, integer units = 1);
 
 	private:
 		// Prohibited

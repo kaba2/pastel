@@ -67,15 +67,7 @@
 
 // Assertions
 
-#if (PASTEL_DEBUG_MODE == 0)
-
-#define ASSERT(expr)
-#define ASSERT1(expr, a)
-#define ASSERT2(expr, a, b)
-#define ASSERT3(expr, a, b, c)
-#define ASSERT4(expr, a, b, c, d)
-
-#else
+#if (PASTEL_DEBUG_MODE != 0)
 
 #define ASSERT(expr)\
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__);}}
@@ -91,6 +83,17 @@
 
 #define ASSERT4(expr, a, b, c, d)\
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
+
+#define ASSERT_OP(x, op, y) ENSURE_OP(x, op, y)
+
+#else
+
+#define ASSERT(expr)
+#define ASSERT1(expr, a)
+#define ASSERT2(expr, a, b)
+#define ASSERT3(expr, a, b, c)
+#define ASSERT4(expr, a, b, c, d)
+#define ASSERT_OP(x, op, y)
 
 #endif
 
