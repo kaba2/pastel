@@ -1,0 +1,416 @@
+Restricting function template type deduction 
+============================================
+
+[Parent]
+
+[Parent]: techniques.txt
+
+ * 28.11.2008 Added 'Templated types through macro' text.
+ * 13.12.2007 Class/function templates, not template classes/functions.
+ * 19.03.2007 Added another solution.
+ * 28.12.2006 Corrected some typos.
+ * 03.12.2006 Reworded some statements.
+ * 10.11.2006 Original text.
+
+Problem
+-------
+
+Consider the following code:
+
+    :::cpp
+    class A
+    {
+    public:
+    	 A();
+    
+    	 A& operator+=(float value);
+    	 A operator+(float value) const;
+    
+    private:
+    	 float value_;
+    };
+    
+    A::A()
+    : value_(0)
+    {
+    }
+    
+    A& A::operator+=(float value)
+    {
+    	 value_ += value;
+    	 return *this;
+    }
+    
+    A A::operator+(float value) const
+    {
+    	 A copy(*this);
+    	 copy += value;
+    	 return copy;
+    }
+    
+    A operator+(float value, const A& that)
+    {
+    	 // Assuming symmetric addition
+    	 return that + value;
+    }
+    
+    int main()
+    {
+    	 A a;
+    
+    	 a = a + 1;
+    	 a = 1 + a;
+    
+    	 return 0;
+    }
+	
+The problem is to make a generalization of class A, a class template D<Type>, 
+that can use float, or any other type Type as the underlying type, and that 
+works for float exactly like the given class A. This is a problem I had for 
+a long time thought to be unsolvable in an elegant way, however, discussions 
+in the newsgroup comp.std.c++ revealed corners of C++ that enable solving this 
+particular problem. I credit Greg Herlihy (solution 3) and Yechezkel Mett 
+(solution 4) for the upcoming solutions.
+
+Attempt 1: Direct templatization
+---------------------------------
+
+    :::cpp
+    template <typename Type>
+    class B
+    {
+    public:
+       B();
+    
+       B<Type>& operator+=(Type value);
+       B<Type> operator+(Type value) const;
+    
+    private:
+       Type value_;
+    };
+    
+    template <typename Type>
+    B<Type>::B()
+    : value_(0)
+    {
+    }
+    
+    template <typename Type>
+    B<Type>& B<Type>::operator+=(Type value)
+    {
+       value_ += value;
+       return *this;
+    }
+    
+    template <typename Type>
+    B<Type> B<Type>::operator+(Type value) const
+    {
+       B<Type> copy(*this);
+       copy += value;
+       return copy;
+    }
+    
+    template <typename Type>
+    B<Type> operator+(Type value, const B<Type>& that)
+    {
+       // Assuming symmetric addition
+       return that + value;
+    }
+    
+    int main()
+    {
+       B<float> b;
+    
+       b = b + 1;
+       b = 1 + b;
+    
+       return 0;
+    }
+
+All well, right? Unfortunately not. This code won't compile because the 
+left hand operator+ is now a template function and the "1 + b" is ambiguous 
+w.r.t. the argument types. 1 is int and b is B<float>, but the operator+ 
+requires a combination of float + B<float>.
+
+Attempt 2: Overgeneralization
+-----------------------------
+
+To fight the problem in the first try, lets make the left hand side type a template parameter.
+
+    :::cpp
+    template <typename Type>
+    class C
+    {
+    public:
+       C();
+    
+       C<Type>& operator+=(Type value);
+       C<Type> operator+(Type value) const;
+    
+    private:
+       Type value_;
+    };
+    
+    template <typename Type>
+    C<Type>::C()
+    : value_(0)
+    {
+    }
+    
+    template <typename Type>
+    C<Type>& C<Type>::operator+=(Type value)
+    {
+       value_ += value;
+       return *this;
+    }
+    
+    template <typename Type>
+    C<Type> C<Type>::operator+(Type value) const
+    {
+       C<Type> copy(*this);
+       copy += value;
+       return copy;
+    }
+    
+    template <typename LeftType, typename Type>
+    C<Type> operator+(LeftType value, const C<Type>& that)
+    {
+       // Simulate implicit conversion
+       Type convertedValue = value;
+       
+       // Assuming symmetric addition
+       return that + convertedValue;
+    }
+    
+    int main()
+    {
+       C<float> c;
+    
+       c = c + 1;
+       c = 1 + c;
+    
+       return 0;
+    }
+
+Now the program compiles, but the overgeneralization introduces 
+another problem. Because the original class A had a non-template 
+function for operator+, it used implicit conversion to convert 1 to 
+a float. But because the function template matches the types perfectly, 
+implicit conversions are not made. Then again, using LeftType in the 
+calculations might produce different results than with Type. Therefore, 
+inside the operator we have to simulate the effect of implicit conversion. 
+Note that "Type u(v);" and "Type u = v;" have different meanings: the 
+former allows for explicit conversions while the latter does not. Function 
+call arguments are not converted with explicit conversions, so the 
+"assignment initialization" is deliberately put there.
+
+Is this a solution? Yes. But there are still impurities left. Because 
+the left hand operator is templatized, it generates function code for 
+each LeftType type. This is a shame, since we know we got away with one 
+function in the normal class implementation. In a way we have redundance. 
+This is manifested by the simulated implicit conversion whose only purpose 
+is to revert the generalization to the point as if the left parameter were 
+actually of the type Type.
+
+Attempt 3: Templates and friends
+--------------------------------
+
+    :::cpp
+    template <typename Type>
+    class D
+    {
+    public:
+       D();
+    
+       D<Type>& operator+=(Type value);
+       D<Type> operator+(Type value) const;
+    
+       friend D<Type> operator+(Type value, const D<Type>& that)
+       {
+          // Assuming symmetric addition
+          return that + value;
+       }
+    
+    private:
+       Type value_;
+    };
+    
+    template <typename Type>
+    D<Type>::D()
+    : value_(0)
+    {
+    }
+    
+    template <typename Type>
+    D<Type>& D<Type>::operator+=(Type value)
+    {
+       value_ += value;
+       return *this;
+    }
+    
+    template <typename Type>
+    D<Type> D<Type>::operator+(Type value) const
+    {
+       D<Type> copy(*this);
+       copy += value;
+       return copy;
+    }
+    
+    int main()
+    {
+       D<float> d;
+    
+       d = d + 1;
+       d = 1 + d;
+    
+       return 0;
+    }
+
+Finally a solution that is an exact match. Operator+ has been declared as a 
+friend of the class D<Type> and is a normal function (not a member function). 
+The effect of the combination of a class template and an in-class friend 
+function definition is that when an object of D<Type> is first declared, the 
+code for the friend function is generated. This feature of C++ is quite well 
+hidden and probably comes as a surprise for many. This is understandable, as 
+it is commonly good style to define functions outside class definitions, and 
+because the use of friend declarations is often discouraged.
+
+Notice that the added friend function is a normal function, but still 
+dependent on Type. Thus there is no syntax to define this function outside 
+of the class automatically for an arbitrary Type (for any particular Type 
+you can explicitly define the function, n different types requires n different 
+function definitions). In particular, the function is not describable as a 
+function template.
+
+Attempt 4: Disabling template type deduction
+--------------------------------------------
+
+    :::cpp
+    template <typename Type>
+    class Identity
+    {
+    public:
+       typedef Type Result;
+    }; 
+    
+    template <typename Type>
+    class D
+    {
+    public:
+       D();
+    
+       D<Type>& operator+=(const Type& value);
+       D<Type> operator+(const Type& value) const;
+    
+    private:
+       Type value_;
+    };
+    
+    template <typename Type>
+    D<Type>::D()
+    : value_(0)
+    {
+    }
+    
+    template <typename Type>
+    D<Type>& D<Type>::operator+=(const Type& value)
+    {
+       value_ += value;
+       return *this;
+    }
+    
+    template <typename Type>
+    D<Type> D<Type>::operator+(const Type& value) const
+    {
+       D<Type> copy(*this);
+       copy += value;
+       return copy;
+    }
+    
+    template <typename Type>
+    D<Type> operator+(const typename Identity<Type>::Result& left,
+                      const D<Type>& right)
+    {
+       // Assuming symmetric addition.
+    
+       return right + left;
+    }
+    
+    int main()
+    {
+       D<float> d;
+    
+       d = d + 1;
+       d = 1 + d;
+    
+       return 0;
+    }
+
+Here we deliberately disable the type deduction for the left hand parameter. 
+Because Identity<Type>::Result is dependent on Type, the matching of the left 
+type can't be done until the Type is known. Still Identity<Type>::Result = Type 
+and the left hand parameter type is thus right as deduced from the parameter of D. 
+This solution solves all problems in the previous solutions. Because the disabling 
+is a bit verbose, I prefer to define a macro something like this: 
+
+    :::cpp
+    #define PASTEL_NO_DEDUCTION(x) typename Identity< x >::Result
+
+An even better solution
+-----------------------
+
+However, the given macro does not work if the type contains a comma like with
+multi-parameter class templates. You can get around this limitation by
+using the following trick. We first note that the type can be passed through 
+the macro by enclosing it in parentheses:
+
+	:::cpp
+	template <typename Type>
+	void f(const PASTEL_NO_DEDUCTION((Vector<2, Type>))& left, const Type& right);
+
+This solves the problem with the comma. However, this
+introduces another problem: the macro expands into
+
+	:::cpp
+	template <typename Type>
+	void f(const typename Identity<(Vector<2, Type>)>& left, const Type& right);
+
+which is not legal C++. To make it legal, we need to get
+rid of the parentheses. We do this by the following:
+
+	:::cpp
+	template <typename Type>
+	class ParenthesesRemover
+	{
+	};
+
+	template <typename Type>
+	class ParenthesesRemover<void (Type)>
+	{
+	public:
+		typedef Type Result;
+	};
+
+	#define PASTEL_NO_DEDUCTION(x) typename ParenthesesRemover<void x>::Result
+
+That is, in the macro we expand the parenthesized type into a function type.
+We then catch it by a partial template specialization that specializes
+in just such function types. This solves our problem. 
+
+However, now we must use double parenthesis even when the type does
+not contain commas. Fortunately we can solve this last minor troubling
+by noticing that extra parenthesis do not do harm for a type.
+Thus we can rewrite the macro as:
+
+	:::cpp
+	#define PASTEL_NO_DEDUCTION(x) typename ParenthesesRemover<void (x)>::Result
+
+And everything works nice again. To demonstrate:
+
+	:::cpp
+	template <typename Type>
+	void f(const PASTEL_NO_DEDUCTION((Vector<2, Type>))& left, const Type& right);
+	
+	template <typename Type>
+	void g(const PASTEL_NO_DEDUCTION(Type)& that);
+
