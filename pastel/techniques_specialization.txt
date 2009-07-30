@@ -1,0 +1,395 @@
+Specialization without repeating all the implementation
+=======================================================
+
+[Parent]
+
+[Parent]: techniques.txt
+
+* Original text: 02.11.2008
+
+Abstract
+--------
+
+The theme of specializing a class template for certain kinds of template parameters
+is a frequently recurring one, be it partial or explicit specialization. 
+A problem with specialization is that you need to respecify the code that 
+is common to all instances of the class template in a specialization.
+The simplest approach is to use direct copy & paste in your text editor
+to give every specialization the common functionality. However, this
+leads to a maintenance problem since a change to the code requires
+to change the code in all replicates. We demonstrate a 
+technique that avoids this kind of code replication.
+
+Setting up the scene
+--------------------
+
+Let us assume we have implemented a mathematical vector class template that models
+vectors in R^n (R for the set of real numbers) and that is templated with respect to dimension and its number type:
+
+	:::cpp
+	template <int N, typename Real>
+	class Vector
+	{
+	public:
+		// ...
+		// Common functionality:
+		
+		explicit Vector(const Real& that)
+		{
+			// Set all elements to 'that'.
+		}
+		
+		Real& operator[](integer index)
+		{
+			return data_[index];
+		}
+
+		Vector<N, Real>& operator+=(const Vector& that)
+		{
+			// Add stuff together..
+			return *this;
+		}
+		
+		Vector<N, Real> operator+(Vector that) const
+		{
+			return that += *this;
+		}
+
+		// ...
+	
+	private:
+		Real data_[N];
+	};
+	
+The class template works as follows:
+
+	:::cpp
+	#include "vector.h"
+	int main()
+	{
+		Vector<3, float> v(0);
+		
+		v[0] = 1;
+		v[1] = 0;
+		v[2] = 0;
+		
+		Vector<3, float> a(v + v);
+		a += v;
+		
+		return 0;
+	}
+
+The template implementation assumes that 
+the type Real models a certain concept which defines what you
+can do with Real's. However, we don't go into further detail with
+this. Google "c++ concepts" for more information.
+
+Problem statement
+-----------------
+
+What we would like to do is to specialize Vector for dimension 3 in 
+such a way that it works exactly like this general version except
+that it has additional member functions x(), y(), and z() to access the
+first, second, and third elements of the vector, respectively. Then
+we could rewrite the program above as:
+
+	:::cpp
+	#include "vector.h"
+	
+	int main()
+	{
+		Vector<3, float> v;
+		
+		v.x() = 1;
+		v.y() = 0;
+		v.z() = 0;
+		
+		Vector<3, float> a(v + v);
+		a += v;
+		
+		return 0;
+	}
+
+Which seems much clearer in this specialized case.
+
+Copy and paste
+--------------
+
+The simplest approach is to use copy & paste. Here we replicate
+the common implementation code to each specialization.
+Let us see what this looks like:
+
+	:::cpp
+	// The general version
+
+	template <int N, typename Real>
+	class Vector
+	{
+	public:
+		// ...
+		// Common functionality:
+		
+		explicit Vector(const Real& that)
+		{
+			// Set all elements to 'that'.
+		}
+
+		Real& operator[](integer index)
+		{
+			return data_[index];
+		}
+
+		Vector<N, Real>& operator+=(const Vector& that)
+		{
+			// Add stuff together..
+			return *this;
+		}
+	
+		Vector<N, Real> operator+(Vector that) const
+		{
+			return that += *this;
+		}
+
+	private:
+		Real data_[N];
+	};
+	
+	// The three-dimensional version,
+	// partial specialization.
+
+	template <typename Real>
+	class Vector<3, Real>
+	{
+	public:
+		// Specific functionality:
+		
+		Real& x()
+		{
+			return (*this)[0];
+		}
+
+		Real& y();
+		{
+			return (*this)[1];
+		}
+
+		Real& z();
+		{
+			return (*this)[2];
+		}
+
+		// ...
+		// Common functionality:
+		
+		explicit Vector(const Real& that)
+		{
+			// Set all elements to 'that'.
+		}
+
+		Real& operator[](integer index);
+		{
+			return data_[index];
+		}
+
+		Vector<3, Real>& operator+=(const Vector& that);
+		{
+			// Add stuff together..
+			return *this;
+		}
+
+		Vector<3, Real> operator+(Vector that) const
+		{
+			return that += *this;
+		}
+
+		// ...
+	
+	private:
+		Real data_[3];
+	};
+
+The problem with this approach is that specializing n versions of the class template means
+to replicate the implementation n times. This makes code maintenance a
+nightmare. Now, one can think of tricks with the preprocessor to alleviate
+this problem. However, playing with the preprocessor is always dangerous
+as you might know, and is not particularly elegant either. We won't
+go deeper into that.
+
+Curiously Recurring Template Pattern
+------------------------------------
+
+We shall now introduce an important template trick
+called the "Curiously Recurring Template Pattern".
+The name of the technique is a bit of a mouthful and thus we
+shall abbreviate it to 'CRTP'. Here is the technique in short:
+
+	:::cpp
+	
+	template <int N, typename Real, typename Derived>
+	class VectorBase
+	{
+		// ...
+	};
+	
+	template <int N, typename Real>
+	class Vector
+	: public VectorBase<N, Real, Vector<N, Real> >
+	{
+		// ...
+	};
+	
+In words, the class Vector\<N, Real\> is derived from the
+class VectorBase\<N, Real, Vector<N, Real> \>.
+An important thing to notice here is that when
+Vector\<N, Real\> defines its base class, it is only that
+the Vector\<N, Real\> has been declared but not defined.
+Thus, what VectorBase\<N, Real, Derived\> class definition 
+sees is effectively:
+
+	:::cpp
+	class Derived;
+
+But this is less restrictive than one first thinks.
+Let's see what you can't do. You can't place Derived as 
+a member variable of VectorBase. But even if you could 
+that wouldn't make sense since it would lead to an infinite 
+recursion (Derived contains VectorBase contains Derived contains...). 
+You also can't derive VectorBase from Derived. But even if
+you could that wouldn't make sense either for the same reason.
+Finally, you can't refer to the types or constants of Derived from the
+_declaration_ of the VectorBase (a declaration does not include
+function definitions/implementations). But this you can get around
+by passing them as template parameters to VectorBase.
+
+However, in the definition of a function of
+the VectorBase the Derived class is fully defined.
+This is because the member functions of a class template
+are only instantiated when used. On the other hand,
+when the member functions are used, Derived must necessarily
+be already defined! Thus in the implementation we
+can use Derived as a fully defined class.
+After all, we are not restricted at all.
+
+Using CRTP to avoid code replication
+------------------------------------
+
+We shall now use CRTP to avoid code replication
+with specialization. Our strategy is to pack all the
+common functionality into the base class and then
+use inheritance to inject this code to the derived
+class. Nothing new? Well, the exciting thing here
+is that the Base class now knows the name of its derived
+class and thus it can use correct parameter and
+return types.
+
+Here's how we achieve that:
+
+	::::cpp
+	// Common code
+
+	template <int N, typename Real, Derived>
+	class VectorBase
+	{
+	public:
+		// ...
+		// Common functionality:
+		
+		explicit VectorBase(const Real& that)
+		{
+			// Set all elements to 'that'.
+		}
+
+		Real& operator[](integer index)
+		{
+			return data_[index];
+		}
+		
+		Derived& operator+=(const Derived& that)
+		{
+			// Add stuff together..
+			return (Derived&)*this;
+		}
+		
+		Derived operator+(Derived that) const
+		{
+			// Note we are using here the copy constructor
+			// of Derived.
+			return that += *this;
+		}
+		
+		// ...
+	
+	private:
+		Real data_[N];
+	};
+
+	// The general version.
+	
+	template <int N, typename Real>
+	class Vector
+	: public VectorBase<N, Real, Vector<N, Real> >
+	{
+	private:
+		typedef VectorBase<N, Real, Vector<N, Real> > Base;
+		
+	public:
+		explicit Vector(const Real& that)
+		: Base(that)
+		{
+		}
+	};
+
+	// The three-dimensional version,
+	// partial specialization.
+	
+	template <typename Real>
+	class Vector<3, Real>
+	: public VectorBase<3, Real, Vector<3, Real> >
+	{
+	private:
+		typedef VectorBase<3, Real, Vector<3, Real> > Base;
+
+	public:
+		using Base::operator[];
+	
+		explicit Vector(const Real& that)
+		: Base(that)
+		{
+		}
+
+		// Specific functionality:
+		
+		Real& x()
+		{
+			return (*this)[0];
+		}
+
+		Real& y();
+		{
+			return (*this)[1];
+		}
+
+		Real& z();
+		{
+			return (*this)[2];
+		}
+	};
+
+That is, we use inheritance to avoid code replication. All the common
+functionality is inherited from VectorBase and now we only need to
+add the dimension specific functions in Vector. 
+
+Note that we must write 'using Base::operator[];'.
+This is because if the base class is dependent on template parameters, then
+its contents are hidden to the derived class's implementation. Note however
+that outside the implementation you can see the base class's functions through
+the derived class as is the case normally. Thus the operator+= works although
+we do not declare 'using Base::operator+=;'.
+Constructors are special in that they must be implemented to forward to their
+corresponding base class constructors.
+
+Conclusion
+----------
+
+We presented a common template trick to avoid code replication when 
+specializing a class template.

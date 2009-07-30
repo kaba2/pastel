@@ -84,11 +84,11 @@ side_ (or a bug at the condition itself). In contrast, triggering an
 ASSERT means that there is a bug in the _implementation_ side of the 
 algorithm (or a bug at the condition itself). 
 
-The case of binary predicates
------------------------------
+The case of binary operator
+---------------------------
 
 For the common case of testing two integer or floating point
-variables with a binary predicate, Pastel implements
+variables with a binary operator, Pastel implements
 ENSURE_OP, PENSURE_OP, and ASSERT_OP macros. They allow to avoid the
 redundant duplication of the testing parameters:
 
