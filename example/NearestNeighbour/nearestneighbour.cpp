@@ -630,13 +630,7 @@ void computeTree(integer maxDepth)
 
 	newTree.insert(tree__.objectBegin(), tree__.objectEnd());
 
-	//newTree.refine(computeKdTreeMaxDepth(newTree.objects()), 16, SlidingMidpoint2_SplitRule());
-	//newTree.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
-	newTree.refine(maxDepth, 16, SlidingMidpoint2_SplitRule());
-	//newTree.refine(maxDepth, 16, MaxVariance_SplitRule());
-	//newTree.refine(maxDepth, 16, SlidingMaxVariance_SplitRule());
-	//newTree.refine(maxDepth, 16, SlidingMinSpread_SplitRule());
-	//refineSurfaceAreaHeuristic(maxDepth, 4, newTree);
+	newTree.refine(SlidingMidpoint2_SplitRule(), maxDepth);
 
 	MyTree copyTree(newTree);
 	newTree.swap(copyTree);

@@ -6,26 +6,118 @@ PointKdTree class
 Theory
 ------
 
-A _binary space partitioning tree_ or a BSP-tree, is a recursive
-binary subdivision of some convex region of R^n using planes.
-A _kd-tree_ is a special kind of a BSP-tree, which requires
-each splitting plane to be orthogonal to some standard basis axis.
-A BSP-tree makes it possible to design efficient algorithms for several 
-geometric problems. Such problems include ray casting, nearest
-neighbor searching, and range searching. The efficiency of these
-algorithms rely on the ability to not having to consider that part 
-of the space which is known not to affect the result. The BSP-tree
-is effectively a multi-dimensional generalization of the binary tree.
+### BSP-tree
+
+A _binary space partitioning tree_ or a BSP-tree, 
+is a binary tree whose nodes correspond to convex geometric 
+regions in R^n. We denote the corresponding shape of a node A
+by s(A) and extend this notation to sets by 
+s({T_1, ..., T_n}) = {s(T_1), ..., s(T_n)}.
+The terminal nodes are called _leaf nodes_, 
+while the non-terminal nodes are called _split nodes_. 
+Given a split node A, the children of the node are formed
+by dividing s(A) with a plane into two disjoint convex shapes
+(the points on the plane can be divided arbitrarily between
+the shapes). This plane is called the _splitting plane_.
+
+Let T be a BSP-tree. Denote the set of leaf nodes of T
+by {T}. Let S be a subtree of T such that S and T share
+the same root node. Then it holds that s({S}) is a partition 
+of s(T) (a partition of s(T) is a collection of disjoint sets 
+which cover s(T)). Furthermore, let S_2 be a subtree of T such
+that they share the same root_node, and let S be a subtree
+of S_2. Then s({S_2}) is a refinement of s({S}).
+
+### Point BSP-tree
+
+A _point BSP-tree_ is a pair (T, P) such that P is a finite point 
+set in R^n and T is a BSP-tree such that P subset s(T). 
+A node L in T is said to _hold_ a point q in P iff q in s(L). 
+The set of points that a node L holds is denoted by p(L).
+
+Given a bucket size M, a _bucket node_ is a node which is either
+
+ * a leaf node which holds more than M points, or
+ 
+ * a node which holds at most M points, but whose parent 
+ (if not the root node) holds greater than M number of points. 
+ 
+### Kd-tree
+
+A _kd-tree_ is a special kind of a BSP-tree, with the restriction
+that each splitting plane is orthogonal to some standard basis axis.
+We further restrict the definition so that the subdivided region
+is an axis aligned box. The advantage of this restriction is
+that the the subdivided parts of the space are also axis aligned 
+boxes.
 
 Practice
 --------
 
-Pastel implements the PointKdTree class to handle kd-trees containing
-points. In particular, this data structure can be used for efficient 
+A BSP-tree makes it possible to design efficient algorithms for several 
+geometric problems. Such problems include ray casting, nearest
+neighbor searching, and range searching. The efficiency of these
+algorithms rely on the ability to skip exploring a large part 
+of the space if that is known not to affect the result. The BSP-tree
+is effectively a multi-dimensional generalization of the binary tree.
+In practice, it is the kd-tree which offers the best properties
+of the BSP-trees, from many point of views. We will summarize these
+properties shortly.
+
+Pastel implements the PointKdTree class to handle point kd-trees. 
+In particular, this data structure can be used for efficient 
 nearest neighbor searching. In Pastel, this is the main use for the
 PointKdTree. For a kd-tree suitable for ray casting, see the links below.
-The region of the kd-tree is chosen an axis-aligned box: this shape
-has some numerical advantages compared to other shapes.
+
+Some properties of PointKdTree
+------------------------------
+
+### Insertion of points
+
+Points can be inserted into the tree at any time. The
+insertion of points is separated from refinement and
+thus at insertion they are simply stored in the tree. 
+You can perform refinement later if needed.
+
+### Removal of points
+
+Points can be removed from the tree at any time. 
+
+### Automatic tracing of bucket nodes
+
+When adding or removing points, the bucket nodes are
+traced automatically. In particular, this makes it possible 
+for the PointKdTree to adapt to semidynamic point sets
+in an advanced manner.
+
+### Constant time bucket node look-up for points
+
+Given a point stored in the tree, PointKdTree is able to return
+you the bucket node containing the point in constant time.
+Especially in nearest neighbor searching this allows to
+save the cost of one full-height down-traversal. In addition,
+because it returns the containing bucket node rather than 
+just the containing leaf node, one also saves part of the 
+cost of redundant up-traversal. Being able to do this
+look-up is a requirement for efficient removal of points.
+
+### Parent nodes for up-traversal
+
+In addition to being able to traverse the tree from the
+root to the leaves, PointKdTree allows you to move from
+a child to its parent. Particularly in nearest neighbor
+searching this allows for an efficient bottom-up approach,
+where you immediately start from the right bucket node and
+then traverse the nodes as in depth-first traversal.
+The parent nodes are also essential in being able to update
+bucket nodes efficiently when adding or removing points.
+
+### Node bounds on the splitting axis
+
+Each split node contains the bounds of the node on
+the splitting axis. Knowing these bounds is essential in
+the implementation of an efficient nearest neighbor
+searching algorithm.
 
 Kd-tree vs BSP-tree
 -------------------

@@ -5,7 +5,7 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/syscommon.h"
-#include "pastel/sys/destruct.h"
+#include "pastel/sys/stdext_destruct.h"
 #include "pastel/sys/vector_tools.h"
 
 #include <algorithm>
@@ -151,7 +151,7 @@ namespace Pastel
 		{
 			if (deleteData_ && data_)
 			{
-				destruct(data_, data_ + size_);
+				StdExt::destruct(data_, data_ + size_);
 				deallocate();
 			}
 
@@ -543,7 +543,7 @@ namespace Pastel
 			}
 			catch(...)
 			{
-				destruct(data_, data_ + traversed);
+				StdExt::destruct(data_, data_ + traversed);
 				throw;
 			};
 		}

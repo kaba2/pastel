@@ -7,6 +7,7 @@
 
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/countingiterator.h"
+#include "pastel/sys/stdext_copy_n.h"
 
 namespace Pastel
 {
@@ -48,14 +49,14 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		integer maxPointsPerNode,
+		integer bucketSize,
 		const SplitRule& splitRule,
 		Array<2, integer>* nearestArray,
 		Array<2, Real>* distanceArray)
 	{
 		ENSURE_OP(kNearestBegin, >=, 0);
 		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
-		ENSURE_OP(maxPointsPerNode, >=, 1);
+		ENSURE_OP(bucketSize, >=, 1);
 
 		const integer kNearest = kNearestEnd - kNearestBegin;
 
@@ -71,9 +72,9 @@ namespace Pastel
 		ENSURE_OP(maxRelativeError, >=, 0);
 
 		const integer points = pointSet.size();
-		const integer indices = indexSetEnd - indexSetBegin;
+		const integer queries = indexSetEnd - indexSetBegin;
 
-		if (kNearest == 0 || points == 0 || indices == 0 ||
+		if (kNearest == 0 || points == 0 || queries == 0 ||
 			(!nearestArray && !distanceArray))
 		{
 			// Nothing to compute.
@@ -99,51 +100,51 @@ namespace Pastel
 		*/
 
 		typedef PointKdTree<N, Real, 
-			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > Tree;
-		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
-		typedef typename Tree::Object Object;
+			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
+		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
+		typedef typename KdTree::Object Object;
 		typedef CountingIterator<const Point<N, Real>*> SequenceIterator;
 
-		Tree tree(dimension);
+		KdTree kdTree(ofDimension(dimension), bucketSize);
 
-		tree.insert(
+		kdTree.insert(
 			SequenceIterator(&pointSet[0]), 
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
-		std::vector<ConstTreeIterator> iteratorSet;
-		iteratorSet.reserve(tree.objects());
+		std::vector<ConstObjectIterator> querySet;
+		querySet.reserve(kdTree.objects());
 		{
-			ConstTreeIterator iter = tree.begin();
-			const ConstTreeIterator iterEnd = tree.end();
+			ConstObjectIterator iter = kdTree.begin();
+			const ConstObjectIterator iterEnd = kdTree.end();
 			while(iter != iterEnd)
 			{
-				iteratorSet.push_back(iter);
+				querySet.push_back(iter);
 				++iter;
 			}
 		}
 
-		tree.refine(128, maxPointsPerNode, splitRule);
+		kdTree.refine(splitRule);
 
-		//ENSURE(check(tree));
+		//ENSURE(check(kdTree));
 
 #		pragma omp parallel
 		{
-		typedef std::vector<ConstTreeIterator> NearestSet;
+		typedef std::vector<ConstObjectIterator> NearestSet;
 		typedef std::vector<Real> DistanceSet;
 		NearestSet nearestSet(kNearestEnd);
 		DistanceSet distanceSet(kNearestEnd);
 
 //#		pragma omp for schedule(dynamic, 100)
 #		pragma omp for
-		for (integer i = 0;i < indices;++i)
+		for (integer i = 0;i < queries;++i)
 		{
-			const integer index = indexSetBegin[i];
-			PENSURE_OP(index, >=, 0);
-			PENSURE_OP(index, <, points);
+			const integer query = indexSetBegin[i];
+			PENSURE_OP(query, >=, 0);
+			PENSURE_OP(query, <, points);
 
 			/*
-			searchNearest(tree, pointSet[index], 
-				Accept_ExceptDeref<ConstTreeIterator, const Point<N, Real>* >(&pointSet[index]),
+			searchNearest(kdTree, pointSet[query], 
+				Accept_ExceptDeref<ConstObjectIterator, const Point<N, Real>* >(&pointSet[query]),
 				maxDistance, maxRelativeError,
 				normBijection, 
 				kNearestEnd, 
@@ -151,8 +152,8 @@ namespace Pastel
 				distanceSet.begin());
 			*/
 
-			searchNearest(tree, iteratorSet[index], 
-				Accept_Except<ConstTreeIterator>(iteratorSet[index]),
+			searchNearest(kdTree, querySet[query], 
+				Accept_Except<ConstObjectIterator>(querySet[query]),
 				maxDistance, maxRelativeError,
 				normBijection, 
 				kNearestEnd, 
@@ -178,7 +179,7 @@ namespace Pastel
 					{
 						const integer neighborIndex = 
 							(*nearestIter)->object() - firstAddress;
-						ASSERT(neighborIndex != index);
+						ASSERT(neighborIndex != query);
 
 						(*nearestArray)(nearestIndex, i) = neighborIndex;
 						(*distanceArray)(nearestIndex, i) = *distanceIter;
@@ -199,7 +200,7 @@ namespace Pastel
 					{
 						const integer neighborIndex = 
 							(*nearestIter)->object() - firstAddress;
-						ASSERT(neighborIndex != index);
+						ASSERT(neighborIndex != query);
 
 						(*nearestArray)(nearestIndex, i) = neighborIndex;
 
@@ -221,7 +222,7 @@ namespace Pastel
 				{
 					const integer neighborIndex = 
 						(*nearestIter)->object() - firstAddress;
-					ASSERT(neighborIndex != index);
+					ASSERT(neighborIndex != query);
 
 					(*distanceArray)(nearestIndex, i) = *distanceIter;
 
@@ -229,6 +230,96 @@ namespace Pastel
 					++nearestIter;
 					++distanceIter;
 				}
+			}
+		}
+		}
+	}
+
+	template <int N, typename Real, typename ObjectPolicy,
+		typename ConstObjectIterator_Iterator, typename NormBijection>
+	void searchAllNeighborsKdTree(
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const ConstObjectIterator_Iterator& querySetBegin,
+		integer queries,
+		integer kNearestBegin,
+		integer kNearestEnd,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
+		Array<2, integer>* nearestArray,
+		Array<2, Real>* distanceArray)
+	{
+		ENSURE_OP(queries, >=, 0);
+		ENSURE_OP(kNearestBegin, >=, 0);
+		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(maxRelativeError, >=, 0);
+
+		const integer kNearest = kNearestEnd - kNearestBegin;
+
+		ENSURE2(!nearestArray || nearestArray->width() == kNearest, 
+			nearestArray->width(), kNearest);
+		ENSURE2(!nearestArray || nearestArray->height() == pointSet.size(), 
+			nearestArray->height(), pointSet.size());
+		
+		ENSURE(!nearestArray || !distanceArray ||
+			allEqual(nearestArray->extent(), distanceArray->extent()));
+
+		if (kNearest == 0 || kdTree.empty() || queries == 0 ||
+			(!nearestArray && !distanceArray))
+		{
+			// Nothing to compute.
+			return;
+		}
+
+		typedef PointKdTree<N, Real, 
+			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
+		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
+
+		std::vector<ConstObjectIterator> querySet;
+		querySet.reserve(queries);
+		
+		StdExt::copy_n(
+			querySetBegin, queries,
+			std::back_inserter(querySet));
+
+#		pragma omp parallel
+		{
+		typedef std::vector<ConstObjectIterator> NearestSet;
+		typedef std::vector<Real> DistanceSet;
+		NearestSet nearestSet(kNearestEnd);
+		DistanceSet distanceSet(kNearestEnd);
+
+//#		pragma omp for schedule(dynamic, 100)
+#		pragma omp for
+		for (integer i = 0;i < queries;++i)
+		{
+			const ConstObjectIterator query = querySet[i];
+
+			searchNearest(
+				kdTree, 
+				query, 
+				Accept_Except<ConstObjectIterator>(query),
+				maxDistance, 
+				maxRelativeError,
+				normBijection, 
+				kNearestEnd,
+				nearestSet.begin(), 
+				distanceSet.begin());
+
+			if (nearestArray)
+			{
+				std::copy(
+					nearestSet.begin(),
+					nearestSet.end(),
+					nearestArray->rowBegin(i));
+			}
+			if (distanceArray)
+			{
+				std::copy(
+					distanceSet.begin(),
+					distanceSet.end(),
+					distanceArray->rowBegin(i));
 			}
 		}
 		}
