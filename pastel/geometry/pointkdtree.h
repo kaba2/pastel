@@ -99,7 +99,8 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		PointKdTree();
+		explicit PointKdTree(integer bucketSize = 16,
+			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs an empty tree.
 		/*!
@@ -114,7 +115,8 @@ namespace Pastel
 		strong
 		*/
 		explicit PointKdTree(
-			integer dimension,
+			Dimension dimension,
+			integer bucketSize = 16,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs a copy from another tree.
@@ -274,6 +276,16 @@ namespace Pastel
 		*/
 		integer dimension() const;
 
+		//! Preferred number of points in a bucket node.
+		/*!
+		Time complexity:
+		Constant
+
+		Exception safety:
+		nothrow
+		*/
+		integer bucketSize() const;
+
 		//! Refines the tree using the given splitting rule.
 		/*!
 		Preconditions:
@@ -298,9 +310,8 @@ namespace Pastel
 		*/
 		template <typename SubdivisionRule>
 		void refine(
-			integer maxDepth,
-			integer maxObjects,
-			const SubdivisionRule& subdivisionRule);
+			const SubdivisionRule& subdivisionRule,
+			integer maxDepth = 128);
 
 		//! Insert objects in the tree.
 		/*!
@@ -455,7 +466,6 @@ namespace Pastel
 		void refine(
 			Node* someNode,
 			integer maxDepth,
-			integer maxObjects,
 			const SubdivisionRule& subdivisionRule,
 			integer depth,
 			const Point<N, Real>& minBound,
@@ -533,6 +543,10 @@ namespace Pastel
 
 		dimension_:
 		The dimension of the tree.
+
+		bucketSize_:
+		The maximum number of objects on a leaf node
+		such that splitting is not performed.
 		*/
 
 		ObjectContainer objectList_;
@@ -542,6 +556,7 @@ namespace Pastel
 		integer leaves_;
 		ObjectPolicy objectPolicy_;
 		integer dimension_;
+		integer bucketSize_;
 	};
 
 }

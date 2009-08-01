@@ -26,7 +26,7 @@ namespace
 	template <int N, typename Real>
 	void testNearest2(integer dimension)
 	{
-		KdTree<N, Real> tree(dimension);
+		KdTree<N, Real> kdTree(ofDimension(dimension));
 
 		const integer points = 10000;
 		std::vector<Point<N, Real> > pointList;
@@ -37,28 +37,28 @@ namespace
 			pointList.push_back(asPoint(randomVectorBall<N, Real>(dimension)));
 		}
 
-		tree.insert(pointList.begin(), pointList.end());
+		kdTree.insert(pointList.begin(), pointList.end());
 
-		log() << "The tree has " << logNewLine;
-		log() << tree.nodes() << " nodes" << logNewLine;
-		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references ("
-			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+		log() << "The kdTree has " << logNewLine;
+		log() << kdTree.nodes() << " nodes" << logNewLine;
+		log() << "Depth of " << depth(kdTree) << logNewLine;
+		log() << kdTree.objects() << " object references ("
+			<< (Real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
 
-		tree.refine(
-			computeKdTreeMaxDepth(tree.objects()), 16, Midpoint_SplitRule());
+		kdTree.refine(
+			computeKdTreeMaxDepth(kdTree.objects()), 16, Midpoint_SplitRule());
 
-		REPORT(!check(tree));
+		REPORT(!check(kdTree));
 
-		log() << "The tree has " << logNewLine;
-		log() << tree.nodes() << " nodes" << logNewLine;
-		log() << "Of which " << tree.leaves() << " are leaf nodes." << logNewLine;
-		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references ("
-			<< (Real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+		log() << "The kdTree has " << logNewLine;
+		log() << kdTree.nodes() << " nodes" << logNewLine;
+		log() << "Of which " << kdTree.leaves() << " are leaf nodes." << logNewLine;
+		log() << "Depth of " << depth(kdTree) << logNewLine;
+		log() << kdTree.objects() << " object references ("
+			<< (Real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
 
 		{
-			KdTree<Dynamic, Real> bTree(dimension);
+			KdTree<Dynamic, Real> bTree(ofDimension(dimension));
 
 			std::vector<Point<Dynamic, Real> > bPointList;
 			bPointList.reserve(points);
@@ -83,7 +83,7 @@ namespace
 
 			REPORT(!check(bTree));
 
-			REPORT(!equivalentKdTree(tree, bTree));
+			REPORT(!equivalentKdTree(kdTree, bTree));
 		}
 	}
 
@@ -154,7 +154,7 @@ namespace
 		typedef Tree::ConstObjectIterator ConstObjectIterator;
 
 		SpherePolicy spherePolicy;
-		Tree tree(3, spherePolicy);
+		Tree kdTree(3, spherePolicy);
 		const integer spheres = 10000;
 
 		PoolAllocator allocator(sizeof(Sphere3));
@@ -171,29 +171,29 @@ namespace
 			sphereList.push_back(sphere);
 		}
 
-		tree.reserveBound(AlignedBox3(Point3(-10), Point3(10)));
-		tree.insert(sphereList.begin(), sphereList.end());
+		kdTree.reserveBound(AlignedBox3(Point3(-10), Point3(10)));
+		kdTree.insert(sphereList.begin(), sphereList.end());
 
-		log() << "The tree has " << logNewLine;
-		log() << tree.nodes() << " nodes" << logNewLine;
-		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references ("
-			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+		log() << "The kdTree has " << logNewLine;
+		log() << kdTree.nodes() << " nodes" << logNewLine;
+		log() << "Depth of " << depth(kdTree) << logNewLine;
+		log() << kdTree.objects() << " object references ("
+			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
 
-		//tree.refine(computeKdTreeMaxDepth(tree.objects()), 16, SlidingMidpoint2_SplitRule());
-		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(tree.objects()), 2, tree);
-		//refineSurfaceAreaHeuristic(0, 2, tree);
+		//kdTree.refine(computeKdTreeMaxDepth(kdTree.objects()), 16, SlidingMidpoint2_SplitRule());
+		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(kdTree.objects()), 2, kdTree);
+		//refineSurfaceAreaHeuristic(0, 2, kdTree);
 
-		tree.reserveBound(AlignedBox3(tree.bound().min() - 1, tree.bound().max() + 1));
+		kdTree.reserveBound(AlignedBox3(kdTree.bound().min() - 1, kdTree.bound().max() + 1));
 
-		REPORT(!check(tree));
+		REPORT(!check(kdTree));
 
-		log() << "The tree has " << logNewLine;
-		log() << tree.nodes() << " nodes" << logNewLine;
-		log() << "Of which " << tree.leaves() << " are leaf nodes." << logNewLine;
-		log() << "Depth of " << depth(tree) << logNewLine;
-		log() << tree.objects() << " object references ("
-			<< (real)tree.objects() / tree.leaves() << " per leaf on average)." << logNewLine;
+		log() << "The kdTree has " << logNewLine;
+		log() << kdTree.nodes() << " nodes" << logNewLine;
+		log() << "Of which " << kdTree.leaves() << " are leaf nodes." << logNewLine;
+		log() << "Depth of " << depth(kdTree) << logNewLine;
+		log() << kdTree.objects() << " object references ("
+			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
 
 		std::vector<Color> palette;
 		falseColorPalette(palette, 256);
@@ -223,8 +223,8 @@ namespace
 					Vector3(0, 0, 1));
 
 				const ConstObjectIterator iter =
-					recursiveRayTraversal(tree, ray, sphereIntersector);
-				if (iter != tree.end())
+					recursiveRayTraversal(kdTree, ray, sphereIntersector);
+				if (iter != kdTree.end())
 				{
 					image(x, y) = palette[(uint8)((pointer_integer)(*iter) % 256)];
 					//image(x, y) = Color(1);

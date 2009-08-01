@@ -7,7 +7,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
-#include "pastel/sys/destruct.h"
+#include "pastel/sys/stdext_destruct.h"
 #include "pastel/sys/commafiller.h"
 
 #include <vector>
@@ -462,7 +462,7 @@ namespace Pastel
 			{
 				if (deleteData_)
 				{
-					destruct(data_, data_ + size_);
+					StdExt::destruct(data_, data_ + size_);
 					deallocate();
 				}
 
@@ -702,7 +702,7 @@ namespace Pastel
 					switch(rollBackIndex)
 					{
 					case 1:
-						destruct(data_, data_ + minSize);
+						StdExt::destruct(data_, data_ + minSize);
 						// Fall-through.
 					case 0:
 						deallocate();

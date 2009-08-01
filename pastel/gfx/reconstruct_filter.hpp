@@ -154,7 +154,8 @@ namespace Pastel
 		typedef Detail_ReconstructFilter::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
-		PointKdTree<N, Real, DataPolicy> kdTree(N, dataPolicy);
+		PointKdTree<N, Real, DataPolicy> kdTree(
+			ofDimension(N), 16, dataPolicy);
 
 		const Vector<N, Real> scaling = inverse(region.extent()) * Vector<N, Real>(view.extent());
 
@@ -170,8 +171,7 @@ namespace Pastel
 
 		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
-		kdTree.refine(
-			computeKdTreeMaxDepth(kdTree.objects()), 16, SlidingMidpoint2_SplitRule());
+		kdTree.refine(SlidingMidpoint2_SplitRule());
 
 		Detail_ReconstructFilter::ReconstructFunctor<N, Real, DataPolicy, Filter>
 			reconstructFunctor(kdTree, filter, filterStretch);

@@ -1,12 +1,16 @@
-#ifndef PASTEL_DESTRUCT_HPP
-#define PASTEL_DESTRUCT_HPP
+#ifndef PASTEL_STDEXT_DESTRUCT_HPP
+#define PASTEL_STDEXT_DESTRUCT_HPP
 
-#include "pastel/sys/destruct.h"
+#include "pastel/sys/stdext_destruct.h"
+
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/mpl/if.hpp>
 
 namespace Pastel
 {
+
+	namespace StdExt
+	{
 
 		namespace Detail
 		{
@@ -16,8 +20,8 @@ namespace Pastel
 
 			template <
 				typename Type>
-			void destructHelper(
-			Type* from, Type* to, NonPodTag)
+				void destructHelper(
+				Type* from, Type* to, NonPodTag)
 			{
 				// General version
 
@@ -31,7 +35,7 @@ namespace Pastel
 
 			template <typename Type>
 			void destructHelper(
-			Type*, Type*, PodTag)
+				Type*, Type*, PodTag)
 			{
 				// POD version
 			}
@@ -49,6 +53,8 @@ namespace Pastel
 			Detail::destructHelper(
 				from, to, Tag());
 		}
+
+	}
 
 }
 

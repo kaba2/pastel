@@ -569,14 +569,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\destruct.h"
-				>
-			</File>
-			<File
-				RelativePath=".\destruct.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\memory.txt"
 				>
 			</File>
@@ -1350,6 +1342,30 @@
 			</File>
 			<File
 				RelativePath="..\techniques_tips.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Stl extensions"
+			>
+			<File
+				RelativePath=".\stdext_algorithm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdext_copy_n.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdext_copy_n.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\stdext_destruct.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdext_destruct.hpp"
 				>
 			</File>
 		</Filter>

@@ -18,14 +18,17 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename ObjectPolicy>
-	PointKdTree<N, Real, ObjectPolicy>::PointKdTree()
+	PointKdTree<N, Real, ObjectPolicy>::PointKdTree(
+		integer bucketSize,
+		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
 		, bound_(N)
 		, leaves_(0)
-		, objectPolicy_()
+		, objectPolicy_(objectPolicy)
 		, dimension_(N)
+		, bucketSize_(bucketSize)
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
@@ -37,7 +40,8 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	PointKdTree<N, Real, ObjectPolicy>::PointKdTree(
-		integer dimension,
+		Dimension dimension,
+		integer bucketSize,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(SplitNode), 1024)
@@ -46,6 +50,7 @@ namespace Pastel
 		, leaves_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(dimension)
+		, bucketSize_(bucketSize)
 	{
 		ENSURE2((N != Dynamic && dimension == N) || 
 			(N == Dynamic && dimension > 0), dimension, N);
@@ -65,6 +70,7 @@ namespace Pastel
 		, leaves_(0)
 		, objectPolicy_(that.objectPolicy_)
 		, dimension_(that.dimension_)
+		, bucketSize_(that.bucketSize_)
 	{
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
@@ -111,6 +117,7 @@ namespace Pastel
 		std::swap(leaves_, that.leaves_);
 		std::swap(objectPolicy_, that.objectPolicy_);
 		std::swap(dimension_, that.dimension_);
+		std::swap(bucketSize_, that.bucketSize_);
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -202,14 +209,18 @@ namespace Pastel
 	}
 	
 	template <int N, typename Real, typename ObjectPolicy>
+	integer PointKdTree<N, Real, ObjectPolicy>::bucketSize() const
+	{
+		return bucketSize_;
+	}
+
+	template <int N, typename Real, typename ObjectPolicy>
 	template <typename SubdivisionRule>
 	void PointKdTree<N, Real, ObjectPolicy>::refine(
-		integer maxDepth,
-		integer maxObjects,
-		const SubdivisionRule& subdivisionRule)
+		const SubdivisionRule& subdivisionRule,
+		integer maxDepth)
 	{
 		ENSURE_OP(maxDepth, >=, 0);
-		ENSURE_OP(maxObjects, >, 0);
 
 		if (maxDepth == 0)
 		{
@@ -217,7 +228,7 @@ namespace Pastel
 			return;
 		}
 
-		refine(root_, maxDepth, maxObjects,
+		refine(root_, maxDepth,
 			subdivisionRule,
 			0, bound().min(), bound().max());
 	}
@@ -610,7 +621,6 @@ namespace Pastel
 	void PointKdTree<N, Real, ObjectPolicy>::refine(
 		Node* someNode,
 		integer maxDepth,
-		integer maxObjects,
 		const SubdivisionRule& subdivisionRule,
 		integer depth,
 		const Point<N, Real>& minBound,
@@ -625,7 +635,7 @@ namespace Pastel
 		{
 			LeafNode* node = (LeafNode*)someNode;
 
-			if (depth < maxDepth && node->objects() > maxObjects)
+			if (depth < maxDepth && node->objects() > bucketSize_)
 			{
 				Vector<N, Real> splitDirection(
 					ofDimension(dimension_));
@@ -692,8 +702,10 @@ namespace Pastel
 			Point<N, Real> negativeMax(maxBound);
 			negativeMax[splitAxis] = negativeSplitMax;
 
-			refine(node->negative(), 
-				maxDepth, maxObjects, subdivisionRule,
+			refine(
+				node->negative(), 
+				maxDepth, 
+				subdivisionRule,
 				depth + 1,
 				minBound,
 				negativeMax);
@@ -701,7 +713,10 @@ namespace Pastel
 			Point<N, Real> positiveMin(minBound);
 			positiveMin[splitAxis] = positiveSplitMin;
 
-			refine(node->positive(), maxDepth, maxObjects, subdivisionRule,
+			refine(
+				node->positive(), 
+				maxDepth, 
+				subdivisionRule,
 				depth + 1, 
 				positiveMin,
 				maxBound);

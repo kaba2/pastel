@@ -7,6 +7,8 @@
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"
 
+#include "pastel/geometry/pointkdtree.h"
+
 #include <vector>
 
 namespace Pastel
@@ -20,7 +22,7 @@ namespace Pastel
 	kNearestBegin <= kNearestEnd
 	maxDistance >= 0
 	maxRelativeError >= 0
-	maxPointsPerNode >= 1
+	bucketSize >= 1
 
 	pointSet:
 	The set of points to do the searching in.
@@ -43,7 +45,7 @@ namespace Pastel
 	normBijection:
 	The norm bijection to use to define distance.
 
-	maxPointsPerNode:
+	bucketSize:
 	The maximum number of points for a node to not
 	to be split.
 
@@ -75,8 +77,22 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		integer maxPointsPerNode,
+		integer bucketSize,
 		const SplitRule& splitRule,
+		Array<2, integer>* nearestArray,
+		Array<2, Real>* distanceArray = 0);
+
+	template <int N, typename Real, typename ObjectPolicy,
+		typename ConstObjectIterator_Iterator, typename NormBijection>
+	void searchAllNeighborsKdTree(
+		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const ConstObjectIterator_Iterator& querySetBegin,
+		integer queries,
+		integer kNearestBegin,
+		integer kNearestEnd,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
 		Array<2, integer>* nearestArray,
 		Array<2, Real>* distanceArray = 0);
 

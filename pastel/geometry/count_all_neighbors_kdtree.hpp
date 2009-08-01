@@ -46,7 +46,7 @@ namespace Pastel
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,
 		const NormBijection& normBijection,
-		integer maxPointsPerNode,
+		integer bucketSize,
 		const CountIterator& neighborsBegin)
 	{
 		const integer points = pointSet.size();
@@ -74,20 +74,20 @@ namespace Pastel
 		}
 
 		typedef PointKdTree<N, Real, 
-			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > Tree;
-		typedef typename Tree::ConstObjectIterator ConstTreeIterator;
+			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
+		typedef typename KdTree::ConstObjectIterator ConstTreeIterator;
 		typedef CountingIterator<const Point<N, Real>*> SequenceIterator;
 
-		Tree tree(dimension);
+		KdTree kdTree(ofDimension(dimension), bucketSize);
 
-		tree.insert(SequenceIterator(&pointSet[0]), 
+		kdTree.insert(SequenceIterator(&pointSet[0]), 
 			SequenceIterator(&pointSet[0] + pointSet.size()));
 
 		std::vector<ConstTreeIterator> iteratorSet;
-		iteratorSet.reserve(tree.objects());
+		iteratorSet.reserve(kdTree.objects());
 		{
-			ConstTreeIterator iter = tree.begin();
-			const ConstTreeIterator iterEnd = tree.end();
+			ConstTreeIterator iter = kdTree.begin();
+			const ConstTreeIterator iterEnd = kdTree.end();
 			while(iter != iterEnd)
 			{
 				iteratorSet.push_back(iter);
@@ -95,7 +95,7 @@ namespace Pastel
 			}
 		}
 
-		tree.refine(128, maxPointsPerNode, SlidingMidpoint2_SplitRule());
+		kdTree.refine(SlidingMidpoint2_SplitRule());
 
 #		pragma omp parallel for
 		for (integer i = 0;i < indices;++i)
@@ -104,7 +104,7 @@ namespace Pastel
 
 			const integer index = indexBegin[i];
 			neighborsBegin[i] = countNearest(
-				tree, 
+				kdTree, 
 				iteratorSet[index], 
 				maxDistanceBegin[i], 
 				normBijection);
