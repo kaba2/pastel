@@ -190,250 +190,6 @@
 			Name="Data structures"
 			>
 			<Filter
-				Name="BihTree"
-				>
-				<File
-					RelativePath=".\bihtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree_more.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\concept_shapequery.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Grid"
-				>
-				<File
-					RelativePath=".\grid.h"
-					>
-				</File>
-				<File
-					RelativePath=".\grid.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\grid.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\grid_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\grid_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="BoxTree"
-				>
-				<File
-					RelativePath=".\boxtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\boxtree_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\boxtree_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="KdTree"
-				>
-				<File
-					RelativePath=".\kdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_raytraversal.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_raytraversal.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_refine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_refine.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="BoxCollider"
-				>
-				<File
-					RelativePath=".\boxcollider.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Meshes"
-				>
-				<Filter
-					Name="Topology"
-					>
-					<File
-						RelativePath=".\meshes.txt"
-						>
-					</File>
-					<Filter
-						Name="SimplexMesh"
-						>
-						<File
-							RelativePath=".\simplexmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh.txt"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh_datapolicies.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="TriangleMesh"
-						>
-						<File
-							RelativePath=".\trianglemesh.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemeshplyloader.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemeshplyloader.h"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="HalfMesh"
-						>
-						<File
-							RelativePath=".\halfmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\halfmesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\halfmesh.txt"
-							>
-						</File>
-						<File
-							RelativePath=".\halfmesh_tools.h"
-							>
-						</File>
-						<File
-							RelativePath=".\propertyhalfmesh.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\propertyhalfmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\propertyhalfmesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\simplehalfmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\simplehalfmesh.hpp"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Embeddings"
-					>
-					<File
-						RelativePath=".\flatsimplexmesh.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Delaunay triangulation"
-				>
-				<File
-					RelativePath=".\delaunaytesselation.h"
-					>
-				</File>
-				<File
-					RelativePath=".\delaunaytesselation.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\delaunaytesselation.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\delaunaytesselation_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\delaunaytesselation_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="PointKdTree"
 				>
 				<File
@@ -486,23 +242,7 @@
 			Name="Common"
 			>
 			<File
-				RelativePath=".\barycentric.h"
-				>
-			</File>
-			<File
-				RelativePath=".\barycentric.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\common.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\differential.h"
-				>
-			</File>
-			<File
-				RelativePath=".\differential.hpp"
 				>
 			</File>
 			<File
@@ -514,51 +254,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\meshcomputation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\meshcomputation.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\pastelgeometry.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\predicates.h"
-				>
-			</File>
-			<File
-				RelativePath=".\predicates.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\projection.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\projection.h"
-				>
-			</File>
-			<File
-				RelativePath=".\projection.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="File loaders"
-			>
-			<File
-				RelativePath=".\plyloader.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\plyloader.h"
-				>
-			</File>
-			<File
-				RelativePath=".\plyloader.hpp"
 				>
 			</File>
 		</Filter>
@@ -579,16 +275,8 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Axes"
+			Name="Projection"
 			>
-			<File
-				RelativePath=".\diagonal_axis.h"
-				>
-			</File>
-			<File
-				RelativePath=".\diagonal_axis.hpp"
-				>
-			</File>
 			<File
 				RelativePath=".\nearest_main_axis.h"
 				>
@@ -603,6 +291,18 @@
 			</File>
 			<File
 				RelativePath=".\project_axis.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\projection.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\projection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\projection.hpp"
 				>
 			</File>
 		</Filter>
@@ -731,18 +431,6 @@
 			</File>
 			<File
 				RelativePath=".\triangle.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Antipodal"
-			>
-			<File
-				RelativePath=".\antipodal.h"
-				>
-			</File>
-			<File
-				RelativePath=".\antipodal.hpp"
 				>
 			</File>
 		</Filter>
@@ -1219,34 +907,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Gjk"
-			>
-			<File
-				RelativePath=".\gjkaffinetransformation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gjkalignedbox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gjkconvexhull.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gjkminkowskisum.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gjkshape.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gjksphere.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Intersection"
 			>
 			<File
@@ -1431,46 +1091,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Sweeping"
-			>
-			<File
-				RelativePath=".\sweep.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sweep.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Convex hull"
-			>
-			<File
-				RelativePath=".\convexhull.h"
-				>
-			</File>
-			<File
-				RelativePath=".\convexhull.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\convexhull.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Decomposition"
-			>
-			<File
-				RelativePath=".\monotonizepolygon.h"
-				>
-			</File>
-			<File
-				RelativePath=".\monotonizepolygon.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Point patterns"
 			>
 			<File
@@ -1491,18 +1111,6 @@
 			</File>
 			<File
 				RelativePath=".\poissondiskpattern.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Polygon kernel"
-			>
-			<File
-				RelativePath=".\polygonkernel.h"
-				>
-			</File>
-			<File
-				RelativePath=".\polygonkernel.hpp"
 				>
 			</File>
 		</Filter>
@@ -1606,6 +1214,262 @@
 				</File>
 				<File
 					RelativePath=".\search_all_neighbors_kdtree.hpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Not well though out"
+			>
+			<File
+				RelativePath=".\barycentric.h"
+				>
+			</File>
+			<File
+				RelativePath=".\barycentric.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\predicates.h"
+				>
+			</File>
+			<File
+				RelativePath=".\predicates.hpp"
+				>
+			</File>
+			<Filter
+				Name="Antipodal"
+				>
+				<File
+					RelativePath=".\antipodal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\antipodal.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Convex hull"
+				>
+				<File
+					RelativePath=".\convexhull.h"
+					>
+				</File>
+				<File
+					RelativePath=".\convexhull.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\convexhull.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="KdTree"
+				>
+				<File
+					RelativePath=".\kdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_raytraversal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_raytraversal.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_refine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_refine.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_tools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Meshes"
+				>
+				<Filter
+					Name="Topology"
+					>
+					<File
+						RelativePath=".\meshes.txt"
+						>
+					</File>
+					<Filter
+						Name="SimplexMesh"
+						>
+						<File
+							RelativePath=".\simplexmesh.h"
+							>
+						</File>
+						<File
+							RelativePath=".\simplexmesh.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\simplexmesh.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\simplexmesh_datapolicies.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="TriangleMesh"
+						>
+						<File
+							RelativePath=".\trianglemesh.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\trianglemesh.h"
+							>
+						</File>
+						<File
+							RelativePath=".\trianglemesh.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\trianglemeshplyloader.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\trianglemeshplyloader.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="HalfMesh"
+						>
+						<File
+							RelativePath=".\halfmesh.h"
+							>
+						</File>
+						<File
+							RelativePath=".\halfmesh.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\halfmesh.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\halfmesh_tools.h"
+							>
+						</File>
+						<File
+							RelativePath=".\propertyhalfmesh.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\propertyhalfmesh.h"
+							>
+						</File>
+						<File
+							RelativePath=".\propertyhalfmesh.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\simplehalfmesh.h"
+							>
+						</File>
+						<File
+							RelativePath=".\simplehalfmesh.hpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Embeddings"
+					>
+					<File
+						RelativePath=".\flatsimplexmesh.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="BihTree"
+				>
+				<File
+					RelativePath=".\bihtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\concept_shapequery.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BoxCollider"
+				>
+				<File
+					RelativePath=".\boxcollider.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="File loaders"
+				>
+				<File
+					RelativePath=".\plyloader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\plyloader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\plyloader.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sweeping"
+				>
+				<File
+					RelativePath=".\sweep.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sweep.hpp"
 					>
 				</File>
 			</Filter>

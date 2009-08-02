@@ -1,7 +1,6 @@
 #include "pastel/ray/sphereshape.h"
 
 #include "pastel/geometry/intersect_ray_sphere.h"
-#include "pastel/geometry/differential.h"
 
 namespace Pastel
 {
@@ -28,10 +27,12 @@ namespace Pastel
 			Vector3 ddpDuv;
 			Vector3 ddpDvv;
 
+			/*
 			computeNormalDerivatives(
 				localGeometry.dpDu_, localGeometry.dpDv_, localGeometry.normal_,
 				ddpDuu, ddpDuv, ddpDvv,
 				localGeometry.dnDu_, localGeometry.dnDv_);
+			*/
 
 			return true;
 		}

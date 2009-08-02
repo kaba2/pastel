@@ -3,12 +3,20 @@
 
 #include "pastel/sys/log.h"
 #include "pastel/sys/testrunner.h"
+#include "pastel/sys/testreport.h"
+#include "pastel/sys/testsuite.h"
 #include "pastel/sys/callfunction.h"
 
 inline Pastel::TestRunner& geometryTestList()
 {
 	static Pastel::TestRunner geometryTestRunner("PastelGeometry");
 	return geometryTestRunner;
+}
+
+inline Pastel::TestReport& geometryTestReport()
+{
+	static Pastel::TestReport theGeometryTestReport("PastelGeometry");
+	return theGeometryTestReport;
 }
 
 #endif

@@ -12,7 +12,6 @@
 
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/diameter.h"
-#include "pastel/geometry/monotonizepolygon.h"
 
 #include <iostream>
 
@@ -107,8 +106,6 @@ void redraw()
 	redrawPolygon();
 	redrawConvexHull();
 	redrawPointSet();
-
-	monotonizePolygon(pointSet__, drawDiagonal);
 
 	gfxDevice().swapBuffers();
 }
