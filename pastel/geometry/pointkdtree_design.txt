@@ -250,15 +250,17 @@ for each point (its iterator) the leaf node that it is stored in.
 This is the only choice if one decides to store the
 objects in an array.
 
-### Proposition 2: Search the tree for the point's node
+### Proposition 2: Search the tree for the containing leaf node
 
 Advantages:
+
  * No changes to the data structure
  
 Disadvantages:
+
  * Does this have an acceptable performance?
 
-### Proposition 3: Store the associated leaf node with each point
+### Proposition 3: Store with each point its containing leaf node
 
 Advantages:
 
@@ -289,9 +291,8 @@ compares them by their values. We can only educate the user that whenever
 he wishes to change geometry, he should do it by removing, changing, and 
 inserting back.
 
-However, when a lot of objects need to be removed, then there clearly
-would be use for a function that removed all objects, but which leaves
-the subdivision structure intact.
+When a lot of objects need to be removed, it would be useful to have a 
+function that removes all objects, but leaves the subdivision structure intact.
 
 ### Decision
 
@@ -306,7 +307,7 @@ How should you store the nodes?
 
  * At times the array memory will be reallocated
  
- * Therefore indices must be used as children references
+ * Therefore indices must be used as child references
  
  * But this increases indirection in node traversal
  
@@ -327,7 +328,7 @@ Choose Proposition 2 as the only working one.
 Null references to children
 ---------------------------
 
-If there are no objects in a child of an splitting node, 
+If there are no objects in a child of a split node, 
 you can either create an empty leaf node or give a null reference to
 the intermediate node. However, empty leaf nodes are helpful when you 
 want to subdivide, because then you can explicitly point to the node
@@ -455,7 +456,7 @@ Summary
  * Objects can be added and removed freely.
  
  * Each point stores its containing leaf node to enable
- fast removal and fast bottom-top nearest neighbor searching.
+ fast removal and fast bottom-up nearest neighbor searching.
  
  * Each node is allocated dynamically.
  

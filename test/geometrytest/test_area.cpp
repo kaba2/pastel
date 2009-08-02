@@ -10,97 +10,151 @@ typedef Rational<integer> Real;
 namespace
 {
 
-	void testPolygon()
+	class Area_Test
+		: public TestSuite
 	{
-		/*
+	public:
+		Area_Test()
+			: TestSuite(&geometryTestReport())
 		{
-			// Triangle
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(1, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(1, 1), Real(2, 1)));
-
-			REPORT(signedArea(p) != Real(1, 1));
 		}
+
+		virtual void run()
 		{
-			// Square
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(1, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(1, 1), Real(1, 1)));
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(1, 1)));
-
-			REPORT(signedArea(p) != Real(1, 1));
+			testSphereArea();
+			testBoxArea();
+			testPolygonArea();
 		}
+
+		void testSphereArea()
 		{
-			// Reversed square
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(1, 1)));
-			p.pushBack(Point<2, Real>(Real(1, 1), Real(1, 1)));
-			p.pushBack(Point<2, Real>(Real(1, 1), Real(0, 1)));
-
-			REPORT(signedArea(p) != Real(-1, 1));
 		}
+
+		void testBoxArea()
 		{
-			// Translated square
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0 + 2, 1), Real(0 - 3, 1)));
-			p.pushBack(Point<2, Real>(Real(1 + 2, 1), Real(0 - 3, 1)));
-			p.pushBack(Point<2, Real>(Real(1 + 2, 1), Real(1 - 3, 1)));
-			p.pushBack(Point<2, Real>(Real(0 + 2, 1), Real(1 - 3, 1)));
+			TEST_ENSURE_OP(
+				absoluteError<real>(boxArea(Vector1(2)), 0), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector2(2, 2)), 8), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector2(3, 6)), 18), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector2(6, 3)), 18), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector2(0, 6)), 12), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector2(6, 0)), 12), <, 0.001);
 
-			REPORT(signedArea(p) != Real(1, 1));
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector3(1, 2, 3)), 22), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector3(3, 2, 1)), 22), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector3(2, 3, 1)), 22), <, 0.001);
+			TEST_ENSURE_OP(
+				relativeError<real>(boxArea(Vector3(0, 2, 3)), 12), <, 0.001);
+			TEST_ENSURE_OP(
+				absoluteError<real>(boxArea(Vector3(3, 0, 0)), 0), <, 0.001);
+			TEST_ENSURE_OP(
+				absoluteError<real>(boxArea(Vector3(0, 3, 0)), 0), <, 0.001);
+			TEST_ENSURE_OP(
+				absoluteError<real>(boxArea(Vector3(0, 0, 3)), 0), <, 0.001);
 		}
+
+		void testPolygonArea()
 		{
-			// Six sided polygon.
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(3, 1)));
-			p.pushBack(Point<2, Real>(Real(2, 1), Real(2, 1)));
-			p.pushBack(Point<2, Real>(Real(3, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(2, 1), Real(-2, 1)));
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(-3, 1)));
-			p.pushBack(Point<2, Real>(Real(-2, 1), Real(-2, 1)));
-			p.pushBack(Point<2, Real>(Real(-3, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(-2, 1), Real(2, 1)));
+			/*
+			{
+				// Triangle
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(1, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(1, 1), Real(2, 1)));
 
-			REPORT(signedArea(p) != Real(24, 1));
-		}
-		{
-			// Half of the six sided polygon.
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(3, 1)));
-			p.pushBack(Point<2, Real>(Real(2, 1), Real(2, 1)));
-			p.pushBack(Point<2, Real>(Real(3, 1), Real(0, 1)));
-			p.pushBack(Point<2, Real>(Real(2, 1), Real(-2, 1)));
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(-3, 1)));
+				REPORT(signedArea(p) != Real(1, 1));
+			}
+			{
+				// Square
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(1, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(1, 1), Real(1, 1)));
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(1, 1)));
 
-			REPORT(signedArea(p) != Real(12, 1));
-		}
-		{
-			// Quarter of the six sided polygon.
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0, 1), Real(3, 1)));
-			p.pushBack(Point<2, Real>(Real(2, 1), Real(2, 1)));
-			p.pushBack(Point<2, Real>(Real(3, 1), Real(0, 1)));
+				REPORT(signedArea(p) != Real(1, 1));
+			}
+			{
+				// Reversed square
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(1, 1)));
+				p.pushBack(Point<2, Real>(Real(1, 1), Real(1, 1)));
+				p.pushBack(Point<2, Real>(Real(1, 1), Real(0, 1)));
 
-			REPORT(signedArea(p) != Real(6, 1));
-		}
-		{
-			// Translated quarter of the six sided polygon.
-			Polygon<2, Real> p;
-			p.pushBack(Point<2, Real>(Real(0 - 5, 1), Real(3 + 15, 1)));
-			p.pushBack(Point<2, Real>(Real(2 - 5, 1), Real(2 + 15, 1)));
-			p.pushBack(Point<2, Real>(Real(3 - 5, 1), Real(0 + 15, 1)));
+				REPORT(signedArea(p) != Real(-1, 1));
+			}
+			{
+				// Translated square
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0 + 2, 1), Real(0 - 3, 1)));
+				p.pushBack(Point<2, Real>(Real(1 + 2, 1), Real(0 - 3, 1)));
+				p.pushBack(Point<2, Real>(Real(1 + 2, 1), Real(1 - 3, 1)));
+				p.pushBack(Point<2, Real>(Real(0 + 2, 1), Real(1 - 3, 1)));
 
-			REPORT(signedArea(p) != Real(6, 1));
+				REPORT(signedArea(p) != Real(1, 1));
+			}
+			{
+				// Six sided polygon.
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(3, 1)));
+				p.pushBack(Point<2, Real>(Real(2, 1), Real(2, 1)));
+				p.pushBack(Point<2, Real>(Real(3, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(2, 1), Real(-2, 1)));
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(-3, 1)));
+				p.pushBack(Point<2, Real>(Real(-2, 1), Real(-2, 1)));
+				p.pushBack(Point<2, Real>(Real(-3, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(-2, 1), Real(2, 1)));
+
+				REPORT(signedArea(p) != Real(24, 1));
+			}
+			{
+				// Half of the six sided polygon.
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(3, 1)));
+				p.pushBack(Point<2, Real>(Real(2, 1), Real(2, 1)));
+				p.pushBack(Point<2, Real>(Real(3, 1), Real(0, 1)));
+				p.pushBack(Point<2, Real>(Real(2, 1), Real(-2, 1)));
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(-3, 1)));
+
+				REPORT(signedArea(p) != Real(12, 1));
+			}
+			{
+				// Quarter of the six sided polygon.
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0, 1), Real(3, 1)));
+				p.pushBack(Point<2, Real>(Real(2, 1), Real(2, 1)));
+				p.pushBack(Point<2, Real>(Real(3, 1), Real(0, 1)));
+
+				REPORT(signedArea(p) != Real(6, 1));
+			}
+			{
+				// Translated quarter of the six sided polygon.
+				Polygon<2, Real> p;
+				p.pushBack(Point<2, Real>(Real(0 - 5, 1), Real(3 + 15, 1)));
+				p.pushBack(Point<2, Real>(Real(2 - 5, 1), Real(2 + 15, 1)));
+				p.pushBack(Point<2, Real>(Real(3 - 5, 1), Real(0 + 15, 1)));
+
+				REPORT(signedArea(p) != Real(6, 1));
+			}
+			*/
 		}
-		*/
-	}
+	};
+
 
 	void testBegin()
 	{
-		testPolygon();
+		Area_Test test;
+		test.run();
 	}
 
 	void testAdd()

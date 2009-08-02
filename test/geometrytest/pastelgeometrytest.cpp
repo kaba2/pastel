@@ -24,6 +24,8 @@ int main()
 
 	geometryTestList().console();
 
+	generateTestReport(geometryTestReport(), log());
+
 	string tmp;
 	getline(cin, tmp);
 

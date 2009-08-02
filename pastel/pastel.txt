@@ -9,11 +9,7 @@ Pastel is a C++ library for geometry and computer graphics.
 Philosophy
 ----------
 
-Good design and documentation are the primary goals. Write programs
-and documentation to be read by others. Take asymptotic complexities of 
-algorithms and other obvious by-a-factor optimizations as
-part of the design requirements. Only implement what you need. 
-Optimize only if need for such is recognized by profiling.
+Write programs and documentation to be read by others.
 
 Technical features
 ------------------

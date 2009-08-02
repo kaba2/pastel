@@ -10,6 +10,50 @@
 namespace Pastel
 {
 
+	template <typename Type>
+	bool lexicographicLess(
+		const PASTEL_NO_DEDUCTION(Type)& leftPrimary,
+		const PASTEL_NO_DEDUCTION(Type)& leftSecondary,
+		const PASTEL_NO_DEDUCTION(Type)& rightPrimary,
+		const PASTEL_NO_DEDUCTION(Type)& rightSecondary)
+	{
+		if (leftPrimary < rightPrimary)
+		{
+			return true;
+		}
+
+		if (rightPrimary < leftPrimary)
+		{
+			return false;
+		}
+
+		return leftSecondary < rightSecondary;
+	}
+
+	template <int N, typename Real>
+	bool lexicographicLess(
+		const Vector<N, Real>& left,
+		const Vector<N, Real>& right)
+	{
+		const integer dimension = left.dimension();
+		PENSURE_OP(right.dimension(), ==, dimension);
+
+		for (integer i = 0;i < dimension;++i)
+		{
+			if (left[i] < right[i])
+			{
+				return true;
+			}
+
+			if (right[i] < left[i])
+			{
+				return false;
+			}
+		}
+
+		return false;
+	}
+
 	template <typename Real>
 	Real radiansToDegrees(
 		const PASTEL_NO_DEDUCTION(Real)& radians)

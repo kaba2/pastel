@@ -1,4 +1,4 @@
-// Description: An algorithm to finding the nearest standard basis axis.
+// Description: Find the nearest standard basis axis for a given vector.
 // Documentation: pastelgeometry.txt
 
 #ifndef PASTEL_NEAREST_MAIN_AXIS_H

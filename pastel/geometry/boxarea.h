@@ -19,15 +19,6 @@ namespace Pastel
 	template <typename Real, typename Expression>
 	Real boxArea(const VectorExpression<1, Real, Expression>& width);
 
-	template <typename Real, typename Expression>
-	Real boxArea(const VectorExpression<2, Real, Expression>& width);
-
-	template <typename Real, typename Expression>
-	Real boxArea(const VectorExpression<3, Real, Expression>& width);
-
-	template <typename Real, typename Expression>
-	Real boxArea(const VectorExpression<4, Real, Expression>& width);
-
 	template <int N, typename Real, typename Expression>
 	Real boxArea(const VectorExpression<N, Real, Expression>& width);
 

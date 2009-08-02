@@ -25,9 +25,7 @@ namespace Pastel
 				bool operator()(const Point<2, Real>& left,
 					const Point<2, Real>& right) const
 				{
-					return (left.x() < right.x()) ||
-						(left.x() == right.x() &&
-						left.y() < right.y());
+					return lexicographicLess(asVector(left), asVector(right));
 				}
 			};
 

@@ -6,8 +6,8 @@ Bounding shape computation
 Theory
 ------
 
-Given is a shape of type A that should be contained
+Given is a shape of type A that should be bounded
 by a shape of type B. There are an infinity of such
-bounding shapes, and thus ony usually adds to condition
+bounding shapes, and thus one usually adds the condition
 of finding the one with minimal volume or surface area.
 

@@ -15,6 +15,18 @@
 namespace Pastel
 {
 
+	template <typename Type>
+	bool lexicographicLess(
+		const PASTEL_NO_DEDUCTION(Type)& leftPrimary,
+		const PASTEL_NO_DEDUCTION(Type)& leftSecondary,
+		const PASTEL_NO_DEDUCTION(Type)& rightPrimary,
+		const PASTEL_NO_DEDUCTION(Type)& rightSecondary);
+
+	template <int N, typename Real>
+	bool lexicographicLess(
+		const Vector<N, Real>& left,
+		const Vector<N, Real>& right);
+
 	// Arithmetic functions
 
 	//! Converts radians to degrees.

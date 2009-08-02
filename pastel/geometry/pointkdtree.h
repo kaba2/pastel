@@ -1,3 +1,6 @@
+// Description: PointKdTree class
+// Detail: A kd-tree for points
+
 #ifndef PASTEL_POINTKDTREE_H
 #define PASTEL_POINTKDTREE_H
 
