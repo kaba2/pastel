@@ -22,7 +22,7 @@ namespace
 		const integer width = 200;
 		const integer height = 100;
 
-		Array<2, bool> image(width, height, false);
+		Array<bool, 2> image(width, height, false);
 
 		ellipsoidElement(arrayView(image), Vector2(93.734));
 
@@ -48,7 +48,7 @@ namespace
 
 		saveBinaryPcx(image, "output/structuringelement_pellipsoid2.pcx");
 
-		Array<3, bool> volumeImage(100, 200, 10, false);
+		Array<bool, 3> volumeImage(100, 200, 10, false);
 		pEllipsoidElement(arrayView(volumeImage), 1.5, Vector3(53.23, 93.734, 9.5));
 	}
 
@@ -57,7 +57,7 @@ namespace
 		const integer width = 5;
 		const integer height = 5;
 
-		Array<2, bool> image(width, height, false);
+		Array<bool, 2> image(width, height, false);
 
 		ellipsoidElement(arrayView(image), Vector2(1));
 
@@ -129,7 +129,7 @@ namespace
 		const integer width = 500;
 		const integer height = 500;
 
-		Array<2, bool> image(width, height, false);
+		Array<bool, 2> image(width, height, false);
 
 		Image_GfxRenderer<bool> renderer(&image);
 
@@ -138,7 +138,7 @@ namespace
 
 		drawCircle(renderer, Sphere2(Point2(0), 0.5), 50);
 
-		Array<2, bool> element(31, 21, false);
+		Array<bool, 2> element(31, 21, false);
 
 		Image_GfxRenderer<bool> elementRenderer(&element);
 
@@ -150,7 +150,7 @@ namespace
 		saveBinaryPcx(image, "output/erode_input.pcx");
 		saveBinaryPcx(element, "output/erode_element.pcx");
 
-		Array<2, bool> output(width, height, false);
+		Array<bool, 2> output(width, height, false);
 
 		erode(borderedConstView(constArrayView(image), false), constArrayView(element), arrayView(output));
 

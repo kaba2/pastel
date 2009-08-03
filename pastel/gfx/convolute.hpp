@@ -61,7 +61,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				const Input_RingElement& factor) const
 			{
 				if (processFunctor_(factor))

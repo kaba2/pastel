@@ -154,8 +154,8 @@ namespace Pastel
 	}
 
 	PASTELGEOMETRY Matrix3 projectiveTransformation(
-		const Tuple<4, Point2>& from,
-		const Tuple<4, Point2>& to)
+		const Tuple<Point2, 4>& from,
+		const Tuple<Point2, 4>& to)
 	{
 		/*
 		Using homogeneous coordinates, a projective 2d transformation is
@@ -229,7 +229,7 @@ namespace Pastel
 			matrix(7, 4 + i) = -from[i][1] * to[i][1];
 		}
 
-		Vector<8, real> target;
+		Vector<real, 8> target;
 		target[0] = to[0][0];
 		target[1] = to[1][0];
 		target[2] = to[2][0];
@@ -239,7 +239,7 @@ namespace Pastel
 		target[6] = to[2][1];
 		target[7] = to[3][1];
 
-		const Vector<8, real> solution = solveLinear(matrix, target);
+		const Vector<real, 8> solution = solveLinear(matrix, target);
 
 		return Matrix3(
 			solution[0], solution[3], solution[6],

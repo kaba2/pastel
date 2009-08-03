@@ -12,11 +12,11 @@ namespace Pastel
 
 	template <int N, typename Real>
 	std::ostream& operator<<(std::ostream& stream,
-		const Point<N, Real>& point);
+		const Point<Real, N>& point);
 
 	template <int N, typename Real>
 	std::istream& operator>>(std::istream& stream,
-		Point<N, Real>& point);
+		Point<Real, N>& point);
 
 	// Parallel functions
 
@@ -24,56 +24,56 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline integer minIndex(
-		const Point<N, Real>& that);
+		const Point<Real, N>& that);
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> min(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+	TemporaryPoint<Real, N> min(
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> min(
+	TemporaryPoint<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> min(
-		const Point<N, Real>& left,
+	TemporaryPoint<Real, N> min(
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns the index of the maximum element.
 
 	template <int N, typename Real>
 	inline integer maxIndex(
-		const Point<N, Real>& that);
+		const Point<Real, N>& that);
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> max(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+	TemporaryPoint<Real, N> max(
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> max(
+	TemporaryPoint<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> max(
-		const Point<N, Real>& left,
+	TemporaryPoint<Real, N> max(
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<PASTEL_ADD_N(N, -1), Real> shrink(
-		const Point<N, Real>& that);
+	TemporaryPoint<Real, PASTEL_ADD_N(N, -1)> shrink(
+		const Point<Real, N>& that);
 
 	template <int N, typename Real>
-	TemporaryPoint<PASTEL_ADD_N(N, 1), Real> extend(
+	TemporaryPoint<Real, PASTEL_ADD_N(N, 1)> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<PASTEL_ADD_N(N, 1), Real> extend(
-		const Point<N, Real>& left,
+	TemporaryPoint<Real, PASTEL_ADD_N(N, 1)> extend(
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	// Comparison functions
@@ -82,20 +82,20 @@ namespace Pastel
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Point<N, Real>& that);
+		const Point<Real, N>& that);
 
 	//! Returns 'for all i: left[i] == right[i]'.
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left[i] == right'.
 
 	template <int N, typename Real>
 	inline bool allEqual(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left == right[i]'.
@@ -103,20 +103,20 @@ namespace Pastel
 	template <int N, typename Real>
 	inline bool allEqual(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] == right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] == right'.
 
 	template <int N, typename Real>
 	inline bool anyEqual(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left == right[i]'.
@@ -124,174 +124,174 @@ namespace Pastel
 	template <int N, typename Real>
 	inline bool anyEqual(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] < right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left < right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLess(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] < right'.
 
 	template <int N, typename Real>
 	inline bool anyLess(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left[i] > right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left > right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreater(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] > right'.
 
 	template <int N, typename Real>
 	inline bool anyGreater(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left[i] <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] <= right'.
 
 	template <int N, typename Real>
 	inline bool anyLessEqual(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'exists i: left[i] >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'exists i: left[i] >= right'.
 
 	template <int N, typename Real>
 	inline bool anyGreaterEqual(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] < right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left < right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLess(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left[i] < right'.
 
 	template <int N, typename Real>
 	inline bool allLess(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] > right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left > right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreater(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left[i] > right'.
 
 	template <int N, typename Real>
 	inline bool allGreater(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left <= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left[i] <= right'.
 
 	template <int N, typename Real>
 	inline bool allLessEqual(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns 'for all i: left[i] >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Point<N, Real>& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& left,
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left >= right[i]'.
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const Point<N, Real>& right);
+		const Point<Real, N>& right);
 
 	//! Returns 'for all i: left[i] >= right'.
 
 	template <int N, typename Real>
 	inline bool allGreaterEqual(
-		const Point<N, Real>& left,
+		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 }

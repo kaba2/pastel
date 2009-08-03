@@ -24,7 +24,7 @@ namespace Pastel
 	Sphere<N, Real> boundingSphere(
 		const AlignedBox<N, Real>& alignedBox)
 	{
-		const Vector<N, Real> delta = alignedBox.max() - alignedBox.min();
+		const Vector<Real, N> delta = alignedBox.max() - alignedBox.min();
 		return Sphere<N, Real>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			std::sqrt(dot(delta)) * 0.5);
@@ -41,7 +41,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real> boundingSphere(
-		const Point<N, Real>& aPoint)
+		const Point<Real, N>& aPoint)
 	{
 		return circumscribedSphere(aPoint);
 	}
@@ -56,8 +56,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real> boundingSphere(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint)
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint)
 	{
 		return circumscribedSphere(aPoint, bPoint);
 	}
@@ -80,7 +80,7 @@ namespace Pastel
 	{
 
 		template <int SubsetSize, int Elements>
-		void firstSubset(Tuple<SubsetSize, integer>& subset)
+		void firstSubset(Tuple<integer, SubsetSize>& subset)
 		{
 			BOOST_STATIC_ASSERT(SubsetSize > 0);
 			BOOST_STATIC_ASSERT(Elements > 0);
@@ -93,7 +93,7 @@ namespace Pastel
 		}
 
 		template <int SubsetSize, int Elements>
-		bool nextSubset(Tuple<SubsetSize, integer>& subset)
+		bool nextSubset(Tuple<integer, SubsetSize>& subset)
 		{
 			BOOST_STATIC_ASSERT(SubsetSize > 0);
 			BOOST_STATIC_ASSERT(Elements > 0);
@@ -154,8 +154,8 @@ namespace Pastel
 
 			Simplex<N, Real, K> subSimplex;
 
-			Tuple<K + 1, integer> indexSubset;
-			Tuple<K + 1, integer> largestSubset;
+			Tuple<integer, K + 1> indexSubset;
+			Tuple<integer, K + 1> largestSubset;
 
 			Sphere<N, Real> largestBound;
 
@@ -242,15 +242,15 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real> circumscribedSphere(
-		const Point<N, Real>& aPoint)
+		const Point<Real, N>& aPoint)
 	{
 		return Sphere<N, Real>(aPoint, 0);
 	}
 
 	template <int N, typename Real>
 	Sphere<N, Real> circumscribedSphere(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint)
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint)
 	{
 		return Sphere<N, Real>(
 			linear(aPoint, bPoint, 0.5),
@@ -380,11 +380,11 @@ namespace Pastel
 		// the d_i are linearly independent.
 
 		Matrix<M, N, Real> d;
-		Vector<M, Real> b;
+		Vector<Real, M> b;
 
 		for (integer i = 0;i < M;++i)
 		{
-			const Vector<N, Real> delta = 
+			const Vector<Real, N> delta = 
 				simplex[i + 1] - simplex[0];
 
 			d[i] = delta;
@@ -405,10 +405,10 @@ namespace Pastel
 		// <=>
 		// u^T D^T D = b^T
 
-		const Vector<M, Real> u = 
+		const Vector<Real, M> u = 
 			solveLinear(ddt, b);
 
-		const Vector<N, Real> translation = 
+		const Vector<Real, N> translation = 
 			u * d;
 
 		return Sphere<N, Real>(
@@ -430,7 +430,7 @@ namespace Pastel
 			return Sphere<N, Real>();
 		}
 
-		Point<N, Real> midPoint(0);
+		Point<Real, N> midPoint(0);
 
 		integer points = 0;
 
@@ -475,7 +475,7 @@ namespace Pastel
 		class PositionFunctor
 		{
 		public:
-			const Point<N, Real>& operator()(const Point<N, Real>& position) const
+			const Point<Real, N>& operator()(const Point<Real, N>& position) const
 			{
 				return position;
 			}

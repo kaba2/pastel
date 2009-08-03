@@ -486,7 +486,7 @@ namespace Pastel
 		typedef std::vector<Object> ObjectContainer;
 		typedef std::vector<integer> IndexContainer;
 
-		Tuple<N, VertexContainer> vertexList_;
+		Tuple<VertexContainer, N> vertexList_;
 		IndexContainer indexList_;
 		ObjectContainer objectList_;
 		CounterContainer counterSet_;

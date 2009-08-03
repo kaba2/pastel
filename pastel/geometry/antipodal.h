@@ -21,8 +21,8 @@ namespace Pastel
 
 	template <typename Real>
 	Integer2 antipodal(
-		const std::vector<Point<2, Real> >& pointSet,
-		const Vector<2, Real>& direction);
+		const std::vector<Point<Real, 2> >& pointSet,
+		const Vector<Real, 2>& direction);
 
 	//! Returns a maximally separated point pair.
 	/*!
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <typename Real>
 	Integer2 antipodal(
-		const std::vector<Point<2, Real> >& pointSet);
+		const std::vector<Point<Real, 2> >& pointSet);
 
 	//! Returns a maximally separated point pair.
 	/*!
@@ -46,7 +46,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Integer2 antipodalBruteForce(
-		const std::vector<Point<N, Real> >& pointSet);
+		const std::vector<Point<Real, N> >& pointSet);
 
 	//! Returns a maximally separated point pair on a convex polygon.
 	/*!
@@ -55,7 +55,7 @@ namespace Pastel
 
 	template <typename Real>
 	Integer2 convexPolygonAntipodal(
-		const std::vector<Point<2, Real> >& pointSet);
+		const std::vector<Point<Real, 2> >& pointSet);
 
 	//! Reports all antipodal point pairs of a convex polygon.
 	/*!
@@ -64,7 +64,7 @@ namespace Pastel
 
 	template <typename Real, typename ReportFunctor>
 	void reportConvexPolygonAntipodal(
-		const std::vector<Point<2, Real> >& pointSet,
+		const std::vector<Point<Real, 2> >& pointSet,
 		ReportFunctor& reportFunctor);
 
 }

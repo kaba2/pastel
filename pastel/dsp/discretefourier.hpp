@@ -65,7 +65,7 @@ namespace Pastel
 		// Find out the fourier transformation
 		// of the even-index subsequence.
 
-		Array<1, std::complex<Real> > evenFourier(nHalf);
+		Array<std::complex<Real>, 1> evenFourier(nHalf);
 		for (integer i = 0;i < nHalf;++i)
 		{
 			evenFourier(i) = input(i * 2);
@@ -80,7 +80,7 @@ namespace Pastel
 		// Find out the fourier transformation
 		// of the odd-index subsequence.
 
-		Array<1, std::complex<Real> > oddFourier(nHalf);
+		Array<std::complex<Real>, 1> oddFourier(nHalf);
 		for (integer i = 0;i < nHalf;++i)
 		{
 			oddFourier(i) = input(i * 2 + 1);
@@ -142,7 +142,7 @@ namespace Pastel
 		// Find out the inverse fourier transformation
 		// of the even-index subsequence.
 
-		Array<1, std::complex<Real> > evenFourier(nHalf);
+		Array<std::complex<Real>, 1> evenFourier(nHalf);
 		copy(constSparseView(input, 0, 2), 
 			arrayView(evenFourier));
 		discreteFourierInverse(
@@ -152,7 +152,7 @@ namespace Pastel
 		// Find out the inverse fourier transformation
 		// of the odd-index subsequence.
 
-		Array<1, std::complex<Real> > oddFourier(nHalf);
+		Array<std::complex<Real>, 1> oddFourier(nHalf);
 		copy(constSparseView(input, 1, 2), 
 			arrayView(oddFourier));
 		discreteFourierInverse(
@@ -207,7 +207,7 @@ namespace Pastel
 
 		Detail_DiscreteFourier::FourierFunctor fourierFunctor;
 
-		Array<N, std::complex<Real> > temp(input.extent());
+		Array<std::complex<Real>, N> temp(input.extent());
 
 		visitRows(input, arrayView(temp), 0, fourierFunctor);
 		

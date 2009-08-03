@@ -47,7 +47,7 @@ namespace Pastel
 		typename ConstDistanceIterator, 
 		typename CountIterator>
 	void countAllNeighborsKdTree(
-		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<Point<Real, N> >& pointSet,
 		const ConstIndexIterator& indexBegin,
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,

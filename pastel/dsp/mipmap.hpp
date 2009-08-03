@@ -29,14 +29,14 @@ namespace Pastel
 		: mipMapArray_()
 		, extender_(extender)
 	{
-		const Vector<N, integer> originalExtent = image.extent();
+		const Vector<integer, N> originalExtent = image.extent();
 
 		const integer maxExtent = max(originalExtent);
 		const integer roundedExtent = roundUpToPowerOf2(maxExtent);
-		Vector<N, integer> topExtent(roundedExtent);
+		Vector<integer, N> topExtent(roundedExtent);
 		const integer images = integerLog2(roundedExtent) + 1;
 
-		std::vector<Array<N, Type> > mipMapArray(images);
+		std::vector<Array<Type, N> > mipMapArray(images);
 
 		mipMapArray.front().setExtent(topExtent);
 
@@ -57,7 +57,7 @@ namespace Pastel
 
 		// Sequentially downsample to ever smaller images.
 
-		Vector<N, integer> resampleExtent = topExtent;
+		Vector<integer, N> resampleExtent = topExtent;
 
 		for (integer i = 1;i < images;++i)
 		{
@@ -112,7 +112,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>&
+	const Array<Type, N>&
 		MipMap<N, Type>::operator()(
 		integer level) const
 	{
@@ -122,14 +122,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>&
+	const Array<Type, N>&
 		MipMap<N, Type>::mostDetailed() const
 	{
 		return (*this)(0);
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>&
+	const Array<Type, N>&
 		MipMap<N, Type>::coarsest() const
 	{
 		return (*this)(levels() - 1);
@@ -184,11 +184,11 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	Vector<N, integer> MipMap<N, Type>::extent() const
+	Vector<integer, N> MipMap<N, Type>::extent() const
 	{
 		if (empty())
 		{
-			return Vector<N, integer>(0);
+			return Vector<integer, N>(0);
 		}
 
 		return mipMapArray_.front().extent();

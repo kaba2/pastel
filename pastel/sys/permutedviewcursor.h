@@ -24,7 +24,7 @@ namespace Pastel
 
 			explicit ConstPermutedViewCursor(
 				const ConstCursor& cursor,
-				const Tuple<N, integer>& permutation)
+				const Tuple<integer, N>& permutation)
 				: cursor_(cursor)
 				, permutation_(permutation)
 			{
@@ -69,7 +69,7 @@ namespace Pastel
 				cursor_.move(permutation_[index], amount);
 			}
 
-			void move(const Vector<N, integer>& amount)
+			void move(const Vector<integer, N>& amount)
 			{
 				cursor_.move(permute(amount, permutation_));
 			}
@@ -86,7 +86,7 @@ namespace Pastel
 
 		protected:
 			ConstCursor cursor_;
-			Tuple<N, integer> permutation_;
+			Tuple<integer, N> permutation_;
 		};
 
 		template <int N, typename Cursor>
@@ -116,7 +116,7 @@ namespace Pastel
 
 			explicit PermutedViewCursor(
 				const Cursor& cursor,
-				const Tuple<N, integer>& permutation)
+				const Tuple<integer, N>& permutation)
 				: Base(cursor, permutation)
 			{
 			}

@@ -32,13 +32,13 @@ namespace Pastel
 		{
 		}
 
-		explicit AlignedBox(const Point<N, Real>& that)
+		explicit AlignedBox(const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
-		AlignedBox(const Point<N, Real>& min,
-			const Point<N, Real>& max)
+		AlignedBox(const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -67,19 +67,19 @@ namespace Pastel
 		{
 		}
 
-		explicit AlignedBox(const Point<N, Real>& that)
+		explicit AlignedBox(const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		AlignedBox(const Real& xMin, const Real& xMax)
-			: Base(Point<N, Real>(xMin),
-			Point<N, Real>(xMax))
+			: Base(Point<Real, N>(xMin),
+			Point<Real, N>(xMax))
 		{
 		}
 
-		AlignedBox(const Point<N, Real>& min,
-			const Point<N, Real>& max)
+		AlignedBox(const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -88,7 +88,7 @@ namespace Pastel
 
 		void set(const Real& xMin, const Real& xMax)
 		{
-			set(Point<N, Real>(xMin), Point<N, Real>(xMax));
+			set(Point<Real, N>(xMin), Point<Real, N>(xMax));
 		}
 	};
 
@@ -115,19 +115,19 @@ namespace Pastel
 		{
 		}
 
-		explicit AlignedBox(const Point<N, Real>& that)
+		explicit AlignedBox(const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		AlignedBox(const Real& xMin, const Real& yMin, const Real& xMax, const Real& yMax)
-			: Base(Point<N, Real>(xMin, yMin),
-			Point<N, Real>(xMax, yMax))
+			: Base(Point<Real, N>(xMin, yMin),
+			Point<Real, N>(xMax, yMax))
 		{
 		}
 
-		AlignedBox(const Point<N, Real>& min,
-			const Point<N, Real>& max)
+		AlignedBox(const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -137,8 +137,8 @@ namespace Pastel
 		void set(const Real& xMin, const Real& yMin,
 			const Real& xMax, const Real& yMax)
 		{
-			set(Point<N, Real>(xMin, yMin),
-				Point<N, Real>(xMax, yMax));
+			set(Point<Real, N>(xMin, yMin),
+				Point<Real, N>(xMax, yMax));
 		}
 	};
 
@@ -165,20 +165,20 @@ namespace Pastel
 		{
 		}
 
-		explicit AlignedBox(const Point<N, Real>& that)
+		explicit AlignedBox(const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
-			: Base(Point<N, Real>(xMin, yMin, zMin),
-			Point<N, Real>(xMax, yMax, zMax))
+			: Base(Point<Real, N>(xMin, yMin, zMin),
+			Point<Real, N>(xMax, yMax, zMax))
 		{
 		}
 
-		AlignedBox(const Point<N, Real>& min,
-			const Point<N, Real>& max)
+		AlignedBox(const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -188,8 +188,8 @@ namespace Pastel
 		void set(const Real& xMin, const Real& yMin, const Real& zMin,
 			const Real& xMax, const Real& yMax, const Real& zMax)
 		{
-			set(Point<N, Real>(xMin, yMin, zMin),
-				Point<N, Real>(xMax, yMax, zMax));
+			set(Point<Real, N>(xMin, yMin, zMin),
+				Point<Real, N>(xMax, yMax, zMax));
 		}
 	};
 
@@ -216,20 +216,20 @@ namespace Pastel
 		{
 		}
 
-		explicit AlignedBox(const Point<N, Real>& that)
+		explicit AlignedBox(const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		AlignedBox(const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
-			: Base(Point<N, Real>(xMin, yMin, zMin, wMin),
-			Point<N, Real>(xMax, yMax, zMax, wMax))
+			: Base(Point<Real, N>(xMin, yMin, zMin, wMin),
+			Point<Real, N>(xMax, yMax, zMax, wMax))
 		{
 		}
 
-		AlignedBox(const Point<N, Real>& min,
-			const Point<N, Real>& max)
+		AlignedBox(const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -239,8 +239,8 @@ namespace Pastel
 		void set(const Real& xMin, const Real& yMin, const Real& zMin, const Real& wMin,
 			const Real& xMax, const Real& yMax, const Real& zMax, const Real& wMax)
 		{
-			set(Point<N, Real>(xMin, yMin, zMin, wMin),
-				Point<N, Real>(xMax, yMax, zMax, wMax));
+			set(Point<Real, N>(xMin, yMin, zMin, wMin),
+				Point<Real, N>(xMax, yMax, zMax, wMax));
 		}
 	};
 
@@ -268,13 +268,13 @@ namespace Pastel
 		{
 		}
 
-		explicit AlignedBox(const Point<N, Real>& that)
+		explicit AlignedBox(const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
-		AlignedBox(const Point<N, Real>& min,
-			const Point<N, Real>& max)
+		AlignedBox(const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: Base(min, max)
 		{
 		}

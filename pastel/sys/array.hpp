@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Type>
-	void swap(Array<N, Type>& left, Array<N, Type>& right)
+	template <typename Type, int N>
+	void swap(Array<Type, N>& left, Array<Type, N>& right)
 	{
 		left.swap(right);
 	}

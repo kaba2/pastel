@@ -46,13 +46,13 @@ namespace Pastel
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return view_.extent();
 		}
 
 		ConstCursor constCursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(position), transform_);
 		}

@@ -14,9 +14,9 @@ namespace Pastel
 	A point C on the box such that C and 'point' are closest points.
 	*/
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> closest(
+	TemporaryPoint<Real, N> closest(
 		const AlignedBox<N, Real>& box,
-		const Point<N, Real>& point);
+		const Point<Real, N>& point);
 
 }
 

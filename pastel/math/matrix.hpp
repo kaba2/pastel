@@ -19,8 +19,7 @@ namespace Pastel
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixVectorMultiplication
-		: public VectorExpression<N, Real,
-		MatrixVectorMultiplication<N, Real,
+		: public VectorExpression<Real, N, MatrixVectorMultiplication<N, Real,
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -77,7 +76,7 @@ namespace Pastel
 	typename LeftExpression, typename RightExpression>
 	const MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression> operator *(
 		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
-		const VectorExpression<Width, Real, RightExpression>& right)
+		const VectorExpression<Real, Width, RightExpression>& right)
 	{
 		return MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, 
@@ -90,8 +89,7 @@ namespace Pastel
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMatrixMultiplication
-		: public VectorExpression<N, Real,
-		VectorMatrixMultiplication<N, Real,
+		: public VectorExpression<Real, N, VectorMatrixMultiplication<N, Real,
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -147,7 +145,7 @@ namespace Pastel
 	template <int Height, int Width, typename Real,
 	typename LeftExpression, typename RightExpression>
 	const VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression> operator *(
-		const VectorExpression<Height, Real, LeftExpression>& left,
+		const VectorExpression<Real, Height, LeftExpression>& left,
 		const MatrixExpression<Height, Width, Real, RightExpression>& right)
 	{
 		return VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression>(
@@ -158,16 +156,16 @@ namespace Pastel
 	// Matrices vs points
 
 	template <int Height, int Width, typename Real>
-	Point<Height, Real> operator*(
+	Point<Real, Height> operator*(
 		const Matrix<Height, Width, Real>& left,
-		const Point<Width, Real>& right)
+		const Point<Real, Width>& right)
 	{
 		const integer width = left.width();
 		const integer height = left.height();
 
 		ENSURE2(width == right.size(), width, right.size());
 
-		Point<Height, Real> result(ofDimension(height));
+		Point<Real, Height> result(ofDimension(height));
 
 		const integer width = left.width();
 		const integer height = left.height();
@@ -185,8 +183,8 @@ namespace Pastel
 	}
 
 	template <int Height, int Width, typename Real>
-	Point<Width, Real> operator *(
-		const Point<Height, Real>& left,
+	Point<Real, Width> operator *(
+		const Point<Real, Height>& left,
 		const Matrix<Height, Width, Real>& right)
 	{
 		const integer width = right.width();
@@ -194,7 +192,7 @@ namespace Pastel
 
 		ENSURE2(height == left.size(), height, left.size());
 
-		Point<Width, Real> result(ofDimension(width));
+		Point<Real, Width> result(ofDimension(width));
 
 		for (integer i = 0;i < width;++i)
 		{

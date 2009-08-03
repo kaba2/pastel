@@ -7,92 +7,92 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	void swap(Point<N, Real>& left,
-		Point<N, Real>& right)
+	void swap(Point<Real, N>& left,
+		Point<Real, N>& right)
 	{
 		std::swap(left, right);
 	}
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> nullPoint()
+	TemporaryPoint<Real, N> nullPoint()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic);
 
-		Point<N, Real> result(ofDimension(0),
+		Point<Real, N> result(ofDimension(0),
 				withAliasing<Real>(0));
 
 		return result.asTemporary();
 	}
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> aliasPoint(integer dimension,
+	TemporaryPoint<Real, N> aliasPoint(integer dimension,
 		PASTEL_NO_DEDUCTION(Real)* data)
 	{
-		Point<N, Real> result(ofDimension(dimension),
+		Point<Real, N> result(ofDimension(dimension),
 				withAliasing<Real>(data));
 
 		return result.asTemporary();
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryPoint<N, Real> asPoint(
-		const VectorExpression<N, Real, Expression>& that)
+	TemporaryPoint<Real, N> asPoint(
+		const VectorExpression<Real, N, Expression>& that)
 	{
-		return TemporaryPoint<N, Real>(that);
+		return TemporaryPoint<Real, N>(that);
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real>& asVector(
-		Point<N, Real>& that)
-	{
-		return that.asVector();
-	}
-
-	template <int N, typename Real>
-	const Vector<N, Real>& asVector(
-		const Point<N, Real>& that)
+	Vector<Real, N>& asVector(
+		Point<Real, N>& that)
 	{
 		return that.asVector();
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real>& asVector(
-		TemporaryPoint<N, Real>& that)
+	const Vector<Real, N>& asVector(
+		const Point<Real, N>& that)
 	{
 		return that.asVector();
 	}
 
 	template <int N, typename Real>
-	const TemporaryVector<N, Real>& asVector(
-		const TemporaryPoint<N, Real>& that)
+	TemporaryVector<Real, N>& asVector(
+		TemporaryPoint<Real, N>& that)
 	{
 		return that.asVector();
 	}
 
 	template <int N, typename Real>
-	Tuple<N, Real>& asTuple(
-		Point<N, Real>& that)
+	const TemporaryVector<Real, N>& asVector(
+		const TemporaryPoint<Real, N>& that)
+	{
+		return that.asVector();
+	}
+
+	template <int N, typename Real>
+	Tuple<Real, N>& asTuple(
+		Point<Real, N>& that)
 	{
 		return that.asTuple();
 	}
 
 	template <int N, typename Real>
-	const Tuple<N, Real>& asTuple(
-		const Point<N, Real>& that)
+	const Tuple<Real, N>& asTuple(
+		const Point<Real, N>& that)
 	{
 		return that.asTuple();
 	}
 
 	template <int N, typename Real>
-	TemporaryTuple<N, Real>& asTuple(
-		TemporaryPoint<N, Real>& that)
+	TemporaryTuple<Real, N>& asTuple(
+		TemporaryPoint<Real, N>& that)
 	{
 		return that.asTuple();
 	}
 
 	template <int N, typename Real>
-	const TemporaryTuple<N, Real>& asTuple(
-		const TemporaryPoint<N, Real>& that)
+	const TemporaryTuple<Real, N>& asTuple(
+		const TemporaryPoint<Real, N>& that)
 	{
 		return that.asTuple();
 	}

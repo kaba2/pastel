@@ -24,7 +24,7 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	Real noise(const Point<2, Real>& pos);
+	Real noise(const Point<Real, 2>& pos);
 
 	//! 3d Perlin noise.
 	/*!
@@ -32,7 +32,7 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	Real noise(const Point<3, Real>& pos);
+	Real noise(const Point<Real, 3>& pos);
 
 }
 

@@ -14,10 +14,10 @@ namespace Pastel
 
 	template <typename Real>
 	Integer2 antipodal(
-		const std::vector<Point<2, Real> >& pointSet,
-		const Vector<2, Real>& direction)
+		const std::vector<Point<Real, 2> >& pointSet,
+		const Vector<Real, 2>& direction)
 	{
-		const Vector<2, Real> normal = -cross(direction);
+		const Vector<Real, 2> normal = -cross(direction);
 
 		Integer2 result;
 		Real tMin = infinity<Real>();
@@ -26,7 +26,7 @@ namespace Pastel
 		const integer points = pointSet.size();
 		for (integer i = 0;i < points;++i)
 		{
-			const Vector<2, Real> delta = pointSet[i] - pointSet[0];
+			const Vector<Real, 2> delta = pointSet[i] - pointSet[0];
 			const Real t = dot(delta, normal);
 			if (t < tMin)
 			{
@@ -45,9 +45,9 @@ namespace Pastel
 
 	template <typename Real>
 	Integer2 antipodal(
-		const std::vector<Point<2, Real> >& pointSet)
+		const std::vector<Point<Real, 2> >& pointSet)
 	{
-		std::vector<Point<2, Real> > hull;
+		std::vector<Point<Real, 2> > hull;
 
 		convexHullGrahamsScan(pointSet, hull);
 
@@ -56,7 +56,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Integer2 antipodalBruteForce(
-		const std::vector<Point<N, Real> >& pointSet)
+		const std::vector<Point<Real, N> >& pointSet)
 	{
 		Real maxDistance = 0;
 		integer kMax = 0;
@@ -90,7 +90,7 @@ namespace Pastel
 			class DiameterFunctor
 			{
 			public:
-				DiameterFunctor(const std::vector<Point<2, Real> >& pointSet)
+				DiameterFunctor(const std::vector<Point<Real, 2> >& pointSet)
 					: pointSet_(&pointSet)
 					, maxDistance_(0)
 					, aMax_(0)
@@ -120,7 +120,7 @@ namespace Pastel
 				}
 
 			private:
-				const std::vector<Point<2, Real> >* pointSet_;
+				const std::vector<Point<Real, 2> >* pointSet_;
 				Real maxDistance_;
 				integer aMax_;
 				integer bMax_;
@@ -132,7 +132,7 @@ namespace Pastel
 
 	template <typename Real>
 	Integer2 convexPolygonAntipodal(
-		const std::vector<Point<2, Real> >& pointSet)
+		const std::vector<Point<Real, 2> >& pointSet)
 	{
 		Detail::ConvexDiameter::DiameterFunctor<Real> diameterFunctor(pointSet);
 
@@ -143,7 +143,7 @@ namespace Pastel
 
 	template <typename Real, typename ReportFunctor>
 	void reportConvexPolygonAntipodal(
-		const std::vector<Point<2, Real> >& pointSet,
+		const std::vector<Point<Real, 2> >& pointSet,
 		ReportFunctor& reportFunctor)
 	{
 		// This algorithm is by

@@ -18,7 +18,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real closest(
 		const Segment<N, Real>& segment,
-		const Point<N, Real>& point);
+		const Point<Real, N>& point);
 
 }
 

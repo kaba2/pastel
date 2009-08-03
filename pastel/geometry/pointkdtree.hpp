@@ -389,7 +389,7 @@ namespace Pastel
 	void PointKdTree<N, Real, ObjectPolicy>::subdivide(
 		LeafNode* node,
 		const Real& splitPosition, integer splitAxis,
-		const Vector<N, Real>* splitDirection,
+		const Vector<Real, N>* splitDirection,
 		const Real& boundMin, const Real& boundMax,
 		const Real& positiveMin, const Real& negativeMax)
 	{
@@ -495,8 +495,8 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::updateBound(
 		Node* someNode,
-		const Point<N, Real>& minBound,
-		const Point<N, Real>& maxBound)
+		const Point<Real, N>& minBound,
+		const Point<Real, N>& maxBound)
 	{
 		if (!someNode->leaf())
 		{
@@ -506,7 +506,7 @@ namespace Pastel
 			node->setMin(minBound[splitAxis]);
 			node->setMax(maxBound[splitAxis]);
 
-			Point<N, Real> negativeMax = maxBound;
+			Point<Real, N> negativeMax = maxBound;
 			negativeMax[splitAxis] = node->negativeMax();
 
 			updateBound(
@@ -514,7 +514,7 @@ namespace Pastel
 				minBound,
 				negativeMax);
 
-			Point<N, Real> positiveMin = minBound;
+			Point<Real, N> positiveMin = minBound;
 			positiveMin[splitAxis] = node->positiveMin();
 
 			updateBound(
@@ -623,8 +623,8 @@ namespace Pastel
 		integer maxDepth,
 		const SubdivisionRule& subdivisionRule,
 		integer depth,
-		const Point<N, Real>& minBound,
-		const Point<N, Real>& maxBound)
+		const Point<Real, N>& minBound,
+		const Point<Real, N>& maxBound)
 	{
 		Real negativeSplitMax = 0;
 		Real positiveSplitMin = 0;
@@ -637,10 +637,10 @@ namespace Pastel
 
 			if (depth < maxDepth && node->objects() > bucketSize_)
 			{
-				Vector<N, Real> splitDirection(
+				Vector<Real, N> splitDirection(
 					ofDimension(dimension_));
 
-				Vector<N, Real>* splitDirectionPtr =
+				Vector<Real, N>* splitDirectionPtr =
 					UseArbitrarySplits::value ? &splitDirection : 0;
 
 				const std::pair<Real, integer> result = 
@@ -699,7 +699,7 @@ namespace Pastel
 			SplitNode* node = 
 				(SplitNode*)someNode;
 
-			Point<N, Real> negativeMax(maxBound);
+			Point<Real, N> negativeMax(maxBound);
 			negativeMax[splitAxis] = negativeSplitMax;
 
 			refine(
@@ -710,7 +710,7 @@ namespace Pastel
 				minBound,
 				negativeMax);
 
-			Point<N, Real> positiveMin(minBound);
+			Point<Real, N> positiveMin(minBound);
 			positiveMin[splitAxis] = positiveSplitMin;
 
 			refine(

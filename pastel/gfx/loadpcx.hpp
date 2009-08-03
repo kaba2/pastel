@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Type, typename Adapter>
 	bool loadPcx(
 		const std::string& fileName,
-		Array<2, Type>& image,
+		Array<Type, 2>& image,
 		const Adapter& adapter)
 	{
 		AdaptedArray<2, Color, Type, Adapter> abstractImage(
@@ -25,7 +25,7 @@ namespace Pastel
 	template <typename Type, typename Adapter>
 	bool loadIndexedPcx(
 		const std::string& fileName,
-		Array<2, Type>& image,
+		Array<Type, 2>& image,
 		const Adapter& adapter,
 		std::vector<Color>* colorPalette)
 	{

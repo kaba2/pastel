@@ -14,11 +14,11 @@ namespace Pastel
 	template <int N, typename Real>
 		Real distance2(
 			const Line<N, Real>& line,
-			const Point<N, Real>& point)
+			const Point<Real, N>& point)
 	{
 		const Real t(closest(line, point));
 
-		const Vector<N, Real> delta(line.at(t) - point);
+		const Vector<Real, N> delta(line.at(t) - point);
 
 		return dot(delta, delta);
 	}

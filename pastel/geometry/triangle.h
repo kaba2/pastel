@@ -29,21 +29,21 @@ namespace Pastel
 		}
 
 		Triangle(
-			const Tuple<3, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 3>& that)
 			: Base(that)
 		{
 		}
 
 		Triangle(
-			const Point<N, Real>& a,
-			const Point<N, Real>& b,
-			const Point<N, Real>& c)
+			const Point<Real, N>& a,
+			const Point<Real, N>& b,
+			const Point<Real, N>& c)
 			: Base(a, b, c)
 		{
 		}
 
 		Triangle<N, Real>& operator=(
-			const Tuple<3, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 3>& that)
 		{
 			Base::operator=(that);
 			return *this;
@@ -59,10 +59,10 @@ namespace Pastel
 /*
 	template <int N, typename Real>
 	class Triangle
-		: public Tuple<3, Point<N, Real> >
+		: public Tuple<Point<Real, N>, 3>
 	{
 	private:
-		typedef Tuple<3, Point<N, Real> > Base;
+		typedef Tuple<Point<Real, N>, 3> Base;
 
 	public:
 		using Base::operator[];
@@ -73,21 +73,21 @@ namespace Pastel
 		}
 
 		Triangle(
-			const Tuple<3, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 3>& that)
 			: Base(that)
 		{
 		}
 
 		Triangle(
-			const Point<N, Real>& a,
-			const Point<N, Real>& b,
-			const Point<N, Real>& c)
+			const Point<Real, N>& a,
+			const Point<Real, N>& b,
+			const Point<Real, N>& c)
 			: Base(a, b, c)
 		{
 		}
 
 		Triangle<N, Real>& operator=(
-			const Tuple<3, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 3>& that)
 		{
 			Base::operator=(that);
 			return *this;

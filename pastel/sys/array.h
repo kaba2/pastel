@@ -40,12 +40,12 @@ namespace Pastel
 	'pastel/sys/view_all.h'.
 	*/
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class Array
-		: public Detail_Array::ArrayBase<N, Type>
+		: public Detail_Array::ArrayBase<Type, N>
 	{
 	private:
-		typedef Detail_Array::ArrayBase<N, Type> Base;
+		typedef Detail_Array::ArrayBase<Type, N> Base;
 
 	public:
 		// Using default assignment.
@@ -70,22 +70,22 @@ namespace Pastel
 		}
 
 		Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Alias<Type*>& dataAlias)
 			: Base(extent, dataAlias)
 		{
 		}
 
 		explicit Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
 		}
 
 		Array(
-			const Array<N, Type>& that,
-			const Vector<N, integer>& extent,
+			const Array<Type, N>& that,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
@@ -93,8 +93,8 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Array<1, Type>
-		: public Detail_Array::ArrayBase<1, Type>
+	class Array<Type, 1>
+		: public Detail_Array::ArrayBase<Type, 1>
 	{
 	private:
 		enum
@@ -102,7 +102,7 @@ namespace Pastel
 			N = 1
 		};
 
-		typedef Detail_Array::ArrayBase<N, Type> Base;
+		typedef Detail_Array::ArrayBase<Type, N> Base;
 
 	public:
 		// Using default assignment.
@@ -132,14 +132,14 @@ namespace Pastel
 		}
 
 		Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Alias<Type*>& dataAlias)
 			: Base(extent, dataAlias)
 		{
 		}
 
 		explicit Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
@@ -149,38 +149,38 @@ namespace Pastel
 		Array(
 			integer width,
 			const Type& defaultData = Type())
-			: Base(Vector<N, integer>(width), defaultData)
+			: Base(Vector<integer, N>(width), defaultData)
 		{
 		}
 		*/
 
 		Array(
-			const Array<N, Type>& that,
-			const Vector<N, integer>& extent,
+			const Array<Type, N>& that,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
 		}
 
 		Array(
-			const Array<N, Type>& that,
+			const Array<Type, N>& that,
 			integer width,
 			const Type& defaultData = Type())
-			: Base(that, Vector<N, integer>(width), defaultData)
+			: Base(that, Vector<integer, N>(width), defaultData)
 		{
 		}
 
 		Array(
 			integer width,
 			const Alias<Type*> dataAlias)
-			: Base(Vector<N, integer>(width), dataAlias)
+			: Base(Vector<integer, N>(width), dataAlias)
 		{
 		}
 
 		void setExtent(integer width,
 			const Type& defaultData = Type())
 		{
-			Base::setExtent(Vector<N, integer>(width), defaultData);
+			Base::setExtent(Vector<integer, N>(width), defaultData);
 		}
 
 		integer width() const
@@ -190,33 +190,33 @@ namespace Pastel
 
 		void reshape(integer width)
 		{
-			Base::reshape(Vector<N, integer>(width));
+			Base::reshape(Vector<integer, N>(width));
 		}
 
 		Type& operator()(integer x)
 		{
-			return Base::operator()(Point<N, integer>(x));
+			return Base::operator()(Point<integer, N>(x));
 		}
 
 		const Type& operator()(integer x) const
 		{
-			return Base::operator()(Point<N, integer>(x));
+			return Base::operator()(Point<integer, N>(x));
 		}
 
 		Cursor cursor(integer x)
 		{
-			return Base::cursor(Point<N, integer>(x));
+			return Base::cursor(Point<integer, N>(x));
 		}
 
 		ConstCursor constCursor(integer x) const
 		{
-			return Base::constCursor(Point<N, integer>(x));
+			return Base::constCursor(Point<integer, N>(x));
 		}
 	};
 
 	template <typename Type>
-	class Array<2, Type>
-		: public Detail_Array::ArrayBase<2, Type>
+	class Array<Type, 2>
+		: public Detail_Array::ArrayBase<Type, 2>
 	{
 	private:
 		enum
@@ -224,7 +224,7 @@ namespace Pastel
 			N = 2
 		};
 
-		typedef Detail_Array::ArrayBase<N, Type> Base;
+		typedef Detail_Array::ArrayBase<Type, N> Base;
 
 	public:
 		// Using default assignment.
@@ -256,14 +256,14 @@ namespace Pastel
 		}
 
 		Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Alias<Type*>& dataAlias)
 			: Base(extent, dataAlias)
 		{
 		}
 
 		explicit Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
@@ -272,37 +272,37 @@ namespace Pastel
 		Array(
 			integer width, integer height,
 			const Type& defaultData = Type())
-			: Base(Vector<N, integer>(width, height), defaultData)
+			: Base(Vector<integer, N>(width, height), defaultData)
 		{
 		}
 
 		Array(
 			integer width, integer height,
 			const Alias<Type*> dataAlias)
-			: Base(Vector<N, integer>(width, height), dataAlias)
+			: Base(Vector<integer, N>(width, height), dataAlias)
 		{
 		}
 
 		Array(
-			const Array<N, Type>& that,
-			const Vector<N, integer>& extent,
+			const Array<Type, N>& that,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
 		}
 
 		Array(
-			const Array<N, Type>& that,
+			const Array<Type, N>& that,
 			integer width, integer height,
 			const Type& defaultData = Type())
-			: Base(that, Vector<N, integer>(width, height), defaultData)
+			: Base(that, Vector<integer, N>(width, height), defaultData)
 		{
 		}
 
 		void setExtent(integer width, integer height,
 			const Type& defaultData = Type())
 		{
-			Base::setExtent(Vector<N, integer>(width, height), defaultData);
+			Base::setExtent(Vector<integer, N>(width, height), defaultData);
 		}
 
 		integer width() const
@@ -317,73 +317,73 @@ namespace Pastel
 
 		void reshape(integer width, integer height)
 		{
-			Base::reshape(Vector<N, integer>(width, height));
+			Base::reshape(Vector<integer, N>(width, height));
 		}
 
 		Type& operator()(integer x, integer y)
 		{
-			return Base::operator()(Point<N, integer>(x, y));
+			return Base::operator()(Point<integer, N>(x, y));
 		}
 
 		const Type& operator()(integer x, integer y) const
 		{
-			return Base::operator()(Point<N, integer>(x, y));
+			return Base::operator()(Point<integer, N>(x, y));
 		}
 
 		Cursor cursor(integer x, integer y)
 		{
-			return Base::cursor(Point<N, integer>(x, y));
+			return Base::cursor(Point<integer, N>(x, y));
 		}
 
 		ConstCursor constCursor(integer x, integer y) const
 		{
-			return Base::constCursor(Point<N, integer>(x, y));
+			return Base::constCursor(Point<integer, N>(x, y));
 		}
 
 		RowIterator rowBegin(integer y)
 		{
-			return Base::rowBegin(Point<N, integer>(0, y), 0);
+			return Base::rowBegin(Point<integer, N>(0, y), 0);
 		}
 
 		ConstRowIterator rowBegin(integer y) const
 		{
-			return Base::rowBegin(Point<N, integer>(0, y), 0);
+			return Base::rowBegin(Point<integer, N>(0, y), 0);
 		}
 
 		RowIterator rowEnd(integer y)
 		{
-			return Base::rowEnd(Point<N, integer>(0, y), 0);
+			return Base::rowEnd(Point<integer, N>(0, y), 0);
 		}
 
 		ConstRowIterator rowEnd(integer y) const
 		{
-			return Base::rowEnd(Point<N, integer>(0, y), 0);
+			return Base::rowEnd(Point<integer, N>(0, y), 0);
 		}
 
 		RowIterator columnBegin(integer x)
 		{
-			return Base::rowBegin(Point<N, integer>(x, 0), 1);
+			return Base::rowBegin(Point<integer, N>(x, 0), 1);
 		}
 
 		ConstRowIterator columnBegin(integer x) const
 		{
-			return Base::rowBegin(Point<N, integer>(x, 0), 1);
+			return Base::rowBegin(Point<integer, N>(x, 0), 1);
 		}
 
 		RowIterator columnEnd(integer x)
 		{
-			return Base::rowEnd(Point<N, integer>(x, 0), 1);
+			return Base::rowEnd(Point<integer, N>(x, 0), 1);
 		}
 
 		ConstRowIterator columnEnd(integer x) const
 		{
-			return Base::rowEnd(Point<N, integer>(x, 0), 1);
+			return Base::rowEnd(Point<integer, N>(x, 0), 1);
 		}
 	};
 
 	template <typename Type>
-	class Array<3, Type>
-		: public Detail_Array::ArrayBase<3, Type>
+	class Array<Type, 3>
+		: public Detail_Array::ArrayBase<Type, 3>
 	{
 	private:
 		enum
@@ -391,7 +391,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef Detail_Array::ArrayBase<N, Type> Base;
+		typedef Detail_Array::ArrayBase<Type, N> Base;
 
 	public:
 		// Using default assignment.
@@ -421,14 +421,14 @@ namespace Pastel
 		}
 
 		Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Alias<Type*>& dataAlias)
 			: Base(extent, dataAlias)
 		{
 		}
 
 		explicit Array(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(extent, defaultData)
 		{
@@ -437,37 +437,37 @@ namespace Pastel
 		Array(
 			integer width, integer height, integer depth,
 			const Type& defaultData = Type())
-			: Base(Vector<N, integer>(width, height, depth), defaultData)
+			: Base(Vector<integer, N>(width, height, depth), defaultData)
 		{
 		}
 
 		Array(
-			const Array<N, Type>& that,
-			const Vector<N, integer>& extent,
+			const Array<Type, N>& that,
+			const Vector<integer, N>& extent,
 			const Type& defaultData = Type())
 			: Base(that, extent, defaultData)
 		{
 		}
 
 		Array(
-			const Array<N, Type>& that,
+			const Array<Type, N>& that,
 			integer width, integer height, integer depth,
 			const Type& defaultData = Type())
-			: Base(that, Vector<N, integer>(width, height, depth), defaultData)
+			: Base(that, Vector<integer, N>(width, height, depth), defaultData)
 		{
 		}
 
 		Array(
 			integer width, integer height, integer depth,
 			const Alias<Type*> dataAlias)
-			: Base(Vector<N, integer>(width, height, depth), dataAlias)
+			: Base(Vector<integer, N>(width, height, depth), dataAlias)
 		{
 		}
 
 		void setExtent(integer width, integer height, integer depth,
 			const Type& defaultData = Type())
 		{
-			Base::setExtent(Vector<N, integer>(width, height, depth), defaultData);
+			Base::setExtent(Vector<integer, N>(width, height, depth), defaultData);
 		}
 
 		integer width() const
@@ -487,32 +487,32 @@ namespace Pastel
 
 		void reshape(integer width, integer height, integer depth)
 		{
-			Base::reshape(Vector<N, integer>(width, height, depth));
+			Base::reshape(Vector<integer, N>(width, height, depth));
 		}
 
 		Type& operator()(integer x, integer y, integer z)
 		{
-			return Base::operator()(Point<N, integer>(x, y, z));
+			return Base::operator()(Point<integer, N>(x, y, z));
 		}
 
 		const Type& operator()(integer x, integer y, integer z) const
 		{
-			return Base::operator()(Point<N, integer>(x, y, z));
+			return Base::operator()(Point<integer, N>(x, y, z));
 		}
 
 		Cursor cursor(integer x, integer y, integer z)
 		{
-			return Base::cursor(Point<N, integer>(x, y, z));
+			return Base::cursor(Point<integer, N>(x, y, z));
 		}
 
 		ConstCursor constCursor(integer x, integer y, integer z) const
 		{
-			return Base::constCursor(Point<N, integer>(x, y, z));
+			return Base::constCursor(Point<integer, N>(x, y, z));
 		}
 	};
 
-	template <int N, typename Type>
-	void swap(Array<N, Type>& left, Array<N, Type>& right);
+	template <typename Type, int N>
+	void swap(Array<Type, N>& left, Array<Type, N>& right);
 
 }
 

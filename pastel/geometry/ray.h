@@ -35,8 +35,8 @@ namespace Pastel
 		Ray();
 
 		//! Construct a ray given position and direction.
-		Ray(const Point<N, Real>& position,
-			const Vector<N, Real>& unitDirection);
+		Ray(const Point<Real, N>& position,
+			const Vector<Real, N>& unitDirection);
 
 		// Used for concept checking.
 		~Ray();
@@ -46,35 +46,35 @@ namespace Pastel
 
 		//! Translates the ray by the given vector.
 		Ray<N, Real>& operator+=(
-			const Vector<N, Real>& translation);
+			const Vector<Real, N>& translation);
 
 		//! Returns the ray translated by the given vector.
 		Ray<N, Real> operator+(
-			const Vector<N, Real>& translation) const;
+			const Vector<Real, N>& translation) const;
 
 		//! Translates the ray backwards by the given vector.
 		Ray<N, Real>& operator-=(
-			const Vector<N, Real>& translation);
+			const Vector<Real, N>& translation);
 
 		//! Returns the ray translated backwards by the given vector.
 		Ray<N, Real> operator-(
-			const Vector<N, Real>& translation) const;
+			const Vector<Real, N>& translation) const;
 
 		//! Sets the position and direction of the ray.
-		void set(const Point<N, Real>& position,
-			const Vector<N, Real>& unitDirection);
+		void set(const Point<Real, N>& position,
+			const Vector<Real, N>& unitDirection);
 
 		//! Sets the position of the ray.
-		void setPosition(const Point<N, Real>& position);
+		void setPosition(const Point<Real, N>& position);
 
 		//! Returns the position of the ray.
-		const Point<N, Real>& position() const;
+		const Point<Real, N>& position() const;
 
 		//! Sets the direction of the ray.
-		void setDirection(const Vector<N, Real>& unitDirection);
+		void setDirection(const Vector<Real, N>& unitDirection);
 
 		//! Returns the direction of the ray.
-		const Vector<N, Real>& direction() const;
+		const Vector<Real, N>& direction() const;
 
 		//! Returns the direction of the ray inverted.
 		/*!
@@ -82,13 +82,13 @@ namespace Pastel
 		is meant to enable faster algorithms since
 		division is costly to compute.
 		*/
-		const Vector<N, Real>& inverseDirection() const;
+		const Vector<Real, N>& inverseDirection() const;
 
 		Line<N, Real>& line();
 		const Line<N, Real>& line() const;
 
 		//! Returns the point (position + t * direction).
-		Point<N, Real> at(const Real& t) const;
+		Point<Real, N> at(const Real& t) const;
 
 	private:
 		Line<N, Real> line_;

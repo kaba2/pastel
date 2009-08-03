@@ -28,7 +28,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real>::Sphere(
-		const Point<N, Real>& position,
+		const Point<Real, N>& position,
 		const Real& radius)
 		: position_(position)
 		, radius_(radius)
@@ -40,7 +40,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Sphere<N, Real>::Sphere(
 		integer dimension,
-		const Point<N, Real>& position,
+		const Point<Real, N>& position,
 		const Real& radius)
 		: position_(position)
 		, radius_(radius)
@@ -74,7 +74,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Sphere<N, Real>::setPosition(
-		const Point<N, Real>& position)
+		const Point<Real, N>& position)
 	{
 		PENSURE_OP(position_.dimension(), ==, position.dimension());
 
@@ -82,7 +82,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>& Sphere<N, Real>::position() const
+	const Point<Real, N>& Sphere<N, Real>::position() const
 	{
 		return position_;
 	}

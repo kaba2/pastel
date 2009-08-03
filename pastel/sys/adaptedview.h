@@ -30,13 +30,13 @@ namespace Pastel
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(position), adapter_);
 		}
@@ -44,7 +44,7 @@ namespace Pastel
 	protected:
 		const Contained_ConstView view_;
 		const Adapter adapter_;
-		const Vector<N, integer> extent_;
+		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView, typename Adapter>
@@ -97,7 +97,7 @@ namespace Pastel
 		{
 		}
 
-		Cursor cursor(const Point<N, integer>& position) const
+		Cursor cursor(const Point<integer, N>& position) const
 		{
 			return Cursor(view_.cursor(position), adapter_);
 		}

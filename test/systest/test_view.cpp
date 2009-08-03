@@ -26,7 +26,7 @@ namespace
 
 	void testRowVisit()
 	{
-		Array<2, int> a(1000, 1000);
+		Array<int, 2> a(1000, 1000);
 		visitRows(constArrayView(a), 0, RowVisitor());
 		visitRows(arrayView(a), 0, RowVisitor());
 		visitRows(arrayView(a), arrayView(a), 0, RowVisitor());
@@ -36,8 +36,8 @@ namespace
 
 	void testTrivial()
 	{
-		Array<2, int> a(1024, 1024);
-		Array<2, int> b(a);
+		Array<int, 2> a(1024, 1024);
+		Array<int, 2> b(a);
 		a = b;
 		b.clear();
 		b = a;

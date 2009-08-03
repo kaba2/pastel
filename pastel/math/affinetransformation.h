@@ -90,7 +90,7 @@ namespace Pastel
 			//! Constructs using the given transformation and translation.
 			AffineTransformation(
 				const Matrix<N, N, Real>& transformation,
-				const Vector<N, Real>& translation)
+				const Vector<Real, N>& translation)
 				: transform_(transformation)
 				, translation_(translation)
 			{
@@ -101,7 +101,7 @@ namespace Pastel
 			AffineTransformation(
 				integer dimension,
 				const Matrix<N, N, Real>& transformation,
-				const Vector<N, Real>& translation)
+				const Vector<Real, N>& translation)
 				: transform_(transformation)
 				, translation_(translation)
 			{
@@ -141,7 +141,7 @@ namespace Pastel
 
 			//! Sets the transformation and translation.
 			void set(const Matrix<N, N, Real>& transformation,
-				const Vector<N, Real>& translation)
+				const Vector<Real, N>& translation)
 			{
 				PENSURE_OP(transform_.width(), ==, transformation.width());
 				PENSURE_OP(transform_.height(), ==, transformation.height());
@@ -169,20 +169,20 @@ namespace Pastel
 			}
 
 			//! Returns the translation.
-			Vector<N, Real>& translation()
+			Vector<Real, N>& translation()
 			{
 				return translation_;
 			}
 
 			//! Returns the translation.
-			const Vector<N, Real>& translation() const
+			const Vector<Real, N>& translation() const
 			{
 				return translation_;
 			}
 
 		private:
 			Matrix<N, N, Real> transform_;
-			Vector<N, Real> translation_;
+			Vector<Real, N> translation_;
 	};
 
 	typedef AffineTransformation<2, real> AffineTransformation2;
@@ -194,13 +194,13 @@ namespace Pastel
 		AffineTransformation<N, Real>& right);
 
 	template <int N, typename Real>
-	Vector<N, Real> operator*(
-		const Vector<N, Real>& left,
+	Vector<Real, N> operator*(
+		const Vector<Real, N>& left,
 		const AffineTransformation<N, Real>& right);
 
 	template <int N, typename Real>
-	Point<N, Real> operator*(
-		const Point<N, Real>& left,
+	Point<Real, N> operator*(
+		const Point<Real, N>& left,
 		const AffineTransformation<N, Real>& right);
 
 	template <int N, typename Real>

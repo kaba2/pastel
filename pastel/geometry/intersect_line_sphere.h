@@ -25,7 +25,7 @@ namespace Pastel
 		bool intersect(
 			const Line<N, Real>& line,
 			const Sphere<N, Real>& sphere,
-			Vector<2, Real>& hitList);
+			Vector<Real, 2>& hitList);
 
 }
 

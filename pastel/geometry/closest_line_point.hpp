@@ -11,7 +11,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real closest(
 		const Line<N, Real>& line,
-		const Point<N, Real>& point)
+		const Point<Real, N>& point)
 	{
 		// Parametrize the line by:
 		// L(t) = P + tD

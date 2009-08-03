@@ -14,10 +14,10 @@ namespace Pastel
 
 	template <int N, typename Real, int M>
 	class Simplex
-		: public Tuple<M + 1, Point<N, Real> >
+		: public Tuple<Point<Real, N>, M + 1>
 	{
 	private:
-		typedef Tuple<M + 1, Point<N, Real> > Base;
+		typedef Tuple<Point<Real, N>, M + 1> Base;
 
 	public:
 		using Base::operator[];
@@ -28,19 +28,19 @@ namespace Pastel
 		}
 
 		explicit Simplex(
-			const Point<N, Real>& that)
+			const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Tuple<M + 1, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, M + 1>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex<N, Real, M>& operator=(
-			const Tuple<M + 1, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, M + 1>& that)
 		{
 			Base::operator=(that);
 			return *this;
@@ -49,10 +49,10 @@ namespace Pastel
 
 	template <int N, typename Real>
 	class Simplex<N, Real, 1>
-		: public Tuple<2, Point<N, Real> >
+		: public Tuple<Point<Real, N>, 2>
 	{
 	private:
-		typedef Tuple<2, Point<N, Real> > Base;
+		typedef Tuple<Point<Real, N>, 2> Base;
 
 	public:
 		using Base::operator[];
@@ -63,26 +63,26 @@ namespace Pastel
 		}
 
 		explicit Simplex(
-			const Point<N, Real>& that)
+			const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Tuple<2, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 2>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Point<N, Real>& a,
-			const Point<N, Real>& b)
+			const Point<Real, N>& a,
+			const Point<Real, N>& b)
 			: Base(a, b)
 		{
 		}
 
 		Simplex<N, Real, 1>& operator=(
-		const Tuple<2, Point<N, Real> >& that)
+		const Tuple<Point<Real, N>, 2>& that)
 		{
 			Base::operator=(that);
 			return *this;
@@ -91,10 +91,10 @@ namespace Pastel
 
 	template <int N, typename Real>
 	class Simplex<N, Real, 2>
-		: public Tuple<3, Point<N, Real> >
+		: public Tuple<Point<Real, N>, 3>
 	{
 	private:
-		typedef Tuple<3, Point<N, Real> > Base;
+		typedef Tuple<Point<Real, N>, 3> Base;
 
 	public:
 		using Base::operator[];
@@ -105,27 +105,27 @@ namespace Pastel
 		}
 
 		explicit Simplex(
-			const Point<N, Real>& that)
+			const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Tuple<3, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 3>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Point<N, Real>& a,
-			const Point<N, Real>& b,
-			const Point<N, Real>& c)
+			const Point<Real, N>& a,
+			const Point<Real, N>& b,
+			const Point<Real, N>& c)
 			: Base(a, b, c)
 		{
 		}
 
 		Simplex<N, Real, 2>& operator=(
-		const Tuple<3, Point<N, Real> >& that)
+		const Tuple<Point<Real, N>, 3>& that)
 		{
 			Base::operator=(that);
 			return *this;
@@ -134,10 +134,10 @@ namespace Pastel
 
 	template <int N, typename Real>
 	class Simplex<N, Real, 3>
-		: public Tuple<4, Point<N, Real> >
+		: public Tuple<Point<Real, N>, 4>
 	{
 	private:
-		typedef Tuple<4, Point<N, Real> > Base;
+		typedef Tuple<Point<Real, N>, 4> Base;
 
 	public:
 		using Base::operator[];
@@ -148,28 +148,28 @@ namespace Pastel
 		}
 
 		explicit Simplex(
-			const Point<N, Real>& that)
+			const Point<Real, N>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Tuple<4, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 4>& that)
 			: Base(that)
 		{
 		}
 
 		Simplex(
-			const Point<N, Real>& a,
-			const Point<N, Real>& b,
-			const Point<N, Real>& c,
-			const Point<N, Real>& d)
+			const Point<Real, N>& a,
+			const Point<Real, N>& b,
+			const Point<Real, N>& c,
+			const Point<Real, N>& d)
 			: Base(a, b, c, d)
 		{
 		}
 
 		Simplex<N, Real, 3>& operator=(
-			const Tuple<4, Point<N, Real> >& that)
+			const Tuple<Point<Real, N>, 4>& that)
 		{
 			Base::operator=(that);
 			return *this;

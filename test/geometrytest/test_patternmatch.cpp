@@ -41,7 +41,7 @@ namespace
 
 		const integer modelPoints = modelSet.size();
 
-		Array<2, Color> image(width, height);
+		Array<Color, 2> image(width, height);
 
 		AlignedBox2 viewWindow = 
 			boundingAlignedBox<2, real>(2, sceneSet.begin(), sceneSet.end());
@@ -171,7 +171,7 @@ namespace
 		Timer timer;
 		timer.setStart();
 
-		Tuple<4, real> parameter;
+		Tuple<real, 4> parameter;
 		const bool success = pointPatternMatch(
 			sceneTree, modelTree, 0.7,  0.01, PatternMatch::RelativeDistance,
 			parameter);
@@ -265,7 +265,7 @@ namespace
 		Timer timer;
 		timer.setStart();
 
-		Tuple<4, real> parameter;
+		Tuple<real, 4> parameter;
 		const bool success = pointPatternMatch(
 			sceneSet.begin(), sceneSet.end(),
 			modelSet.begin(), modelSet.end(),

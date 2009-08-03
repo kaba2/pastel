@@ -81,8 +81,8 @@ namespace Pastel
 		}
 
 		Type operator()(
-			const Array<N, Type>& image,
-			const Point<N, integer>& position) const
+			const Array<Type, N>& image,
+			const Point<integer, N>& position) const
 		{
 			return (*this)(constArrayView(image), position);
 		}
@@ -90,11 +90,11 @@ namespace Pastel
 		template <typename Image_ConstView>
 		Type operator()(
 			const ConstView<N, Type, Image_ConstView>& image,
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
-			const Vector<N, integer>& extent = image.extent();
+			const Vector<integer, N>& extent = image.extent();
 
-			Point<N, integer> newPosition;
+			Point<integer, N> newPosition;
 			for (integer i = 0;i < N;++i)
 			{
 				const ConstIndexExtenderPtr& extender = extender_[i];
@@ -117,7 +117,7 @@ namespace Pastel
 		}
 
 	private:
-		Tuple<N, ConstIndexExtenderPtr> extender_;
+		Tuple<ConstIndexExtenderPtr, N> extender_;
 		Type border_;
 	};
 

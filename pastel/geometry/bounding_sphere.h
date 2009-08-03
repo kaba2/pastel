@@ -28,7 +28,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real> boundingSphere(
-		const Point<N, Real>& aPoint);
+		const Point<Real, N>& aPoint);
 
 	//! Finds the minimum volume bounding sphere of a line segment.
 
@@ -40,8 +40,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real> boundingSphere(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint);
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint);
 
 	//! Finds the minimum volume bounding sphere of a 0-simplex.
 
@@ -65,14 +65,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<N, Real> circumscribedSphere(
-		const Point<N, Real>& aPoint);
+		const Point<Real, N>& aPoint);
 
 	//! Finds the circumscribed sphere of two points.
 
 	template <int N, typename Real>
 	Sphere<N, Real> circumscribedSphere(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint);
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint);
 
 	//! Finds the circumscribed sphere of a 0-simplex.
 
@@ -94,7 +94,7 @@ namespace Pastel
 
 	//! Finds a bounding sphere of a point set.
 	/*!
-	The InputIterator must dereference to Point<N, Real>.
+	The InputIterator must dereference to Point<Real, N>.
 	*/
 
 	template <int N, typename Real, typename InputIterator, typename PositionFunctor>
@@ -105,7 +105,7 @@ namespace Pastel
 
 	//! Finds a bounding sphere of a point set.
 	/*!
-	The InputIterator must dereference to Point<N, Real>.
+	The InputIterator must dereference to Point<Real, N>.
 	*/
 
 	template <int N, typename Real, typename InputIterator>

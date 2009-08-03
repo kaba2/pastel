@@ -21,8 +21,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Ray<N, Real>::Ray(
-		const Point<N, Real>& position,
-		const Vector<N, Real>& unitDirection)
+		const Point<Real, N>& position,
+		const Vector<Real, N>& unitDirection)
 		: line_(position, unitDirection)
 	{
 	}
@@ -41,7 +41,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Ray<N, Real>& Ray<N, Real>::operator+=(
-		const Vector<N, Real>& translation)
+		const Vector<Real, N>& translation)
 	{
 		line_ += translation;
 		return *this;
@@ -49,7 +49,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Ray<N, Real> Ray<N, Real>::operator+(
-		const Vector<N, Real>& translation) const
+		const Vector<Real, N>& translation) const
 	{
 		Ray<N, Real> result(*this);
 		result += translation;
@@ -58,7 +58,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Ray<N, Real>& Ray<N, Real>::operator-=(
-		const Vector<N, Real>& translation)
+		const Vector<Real, N>& translation)
 	{
 		line_ -= translation;
 		return *this;
@@ -66,7 +66,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Ray<N, Real> Ray<N, Real>::operator-(
-		const Vector<N, Real>& translation) const
+		const Vector<Real, N>& translation) const
 	{
 		Ray<N, Real> result(*this);
 		result -= translation;
@@ -75,40 +75,40 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Ray<N, Real>::set(
-		const Point<N, Real>& position,
-		const Vector<N, Real>& unitDirection)
+		const Point<Real, N>& position,
+		const Vector<Real, N>& unitDirection)
 	{
 		line_.set(position, unitDirection);
 	}
 
 	template <int N, typename Real>
 	void Ray<N, Real>::setPosition(
-		const Point<N, Real>& position)
+		const Point<Real, N>& position)
 	{
 		line_.setPosition(position);
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>& Ray<N, Real>::position() const
+	const Point<Real, N>& Ray<N, Real>::position() const
 	{
 		return line_.position();
 	}
 
 	template <int N, typename Real>
 	void Ray<N, Real>::setDirection(
-		const Vector<N, Real>& unitDirection)
+		const Vector<Real, N>& unitDirection)
 	{
 		line_.setDirection(unitDirection);
 	}
 
 	template <int N, typename Real>
-	const Vector<N, Real>& Ray<N, Real>::direction() const
+	const Vector<Real, N>& Ray<N, Real>::direction() const
 	{
 		return line_.direction();
 	}
 
 	template <int N, typename Real>
-	const Vector<N, Real>& Ray<N, Real>::inverseDirection() const
+	const Vector<Real, N>& Ray<N, Real>::inverseDirection() const
 	{
 		return line_.inverseDirection();
 	}
@@ -126,7 +126,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, Real> Ray<N, Real>::at(const Real& t) const
+	Point<Real, N> Ray<N, Real>::at(const Real& t) const
 	{
 		return line_.at(t);
 	}

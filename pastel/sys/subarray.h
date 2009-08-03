@@ -49,8 +49,8 @@ namespace Pastel
 
 		SubArray(
 			Type* data,
-			const Vector<N, integer>& stride,
-			const Vector<N, integer>& extent)
+			const Vector<integer, N>& stride,
+			const Vector<integer, N>& extent)
 			: data_(data)
 			, stride_(stride)
 			, extent_(extent)
@@ -85,7 +85,7 @@ namespace Pastel
 				// memory region of this sub-array.
 				// Solve by making a copy.
 				
-				Array<N, Type> copy(that.extent());
+				Array<Type, N> copy(that.extent());
 				std::copy(that.begin(), that.end(),
 					copy.begin());
 				
@@ -121,12 +121,12 @@ namespace Pastel
 
 		// Properties
 
-		const Vector<N, integer>& stride() const
+		const Vector<integer, N>& stride() const
 		{
 			return stride_;
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
@@ -165,7 +165,7 @@ namespace Pastel
 
 		// Data access
 
-		Type& operator()(const Point<N, integer>& position) const
+		Type& operator()(const Point<integer, N>& position) const
 		{
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLess(asVector(position), extent_));
@@ -174,8 +174,8 @@ namespace Pastel
 		}
 
 		SubArray<N, Type> operator()(
-			const Point<N, integer>& min,
-			const Point<N, integer>& max) const
+			const Point<integer, N>& min,
+			const Point<integer, N>& max) const
 		{
 			PENSURE(allLess(asVector(min), extent_));
 			PENSURE(allGreaterEqual(min, 0));
@@ -191,9 +191,9 @@ namespace Pastel
 		}
 
 		SubArray<N, Type> operator()(
-			const Point<N, integer>& min,
-			const Point<N, integer>& max,
-			const Vector<N, integer>& delta) const
+			const Point<integer, N>& min,
+			const Point<integer, N>& max,
+			const Vector<integer, N>& delta) const
 		{
 			PENSURE(allLess(asVector(min), extent_));
 			PENSURE(allGreaterEqual(min, 0));
@@ -220,10 +220,10 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, extent_[axis]);
 
-			const Vector<Smaller, integer> sliceExtent(
+			const Vector<integer, Smaller> sliceExtent(
 				shrink(extent_, axis));
 
-			const Vector<Smaller, integer> sliceStride(
+			const Vector<integer, Smaller> sliceStride(
 				shrink(stride_, axis));
 
 			const SubArray<Smaller, Type> result(
@@ -239,7 +239,7 @@ namespace Pastel
 		{
 			return Iterator(
 				this,
-				Point<N, integer>(ofDimension(extent_.dimension()), 0));
+				Point<integer, N>(ofDimension(extent_.dimension()), 0));
 		}
 
 		Iterator end() const
@@ -247,26 +247,26 @@ namespace Pastel
 			const integer n = extent_.dimension();
 			return Iterator(
 				this,
-				Point<N, integer>(unitAxis<N, integer>(n - 1) * extent_[n - 1]));
+				Point<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
 		}
 
 		// Row iterators
 
 		RowIterator rowBegin(integer index, 
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return RowIterator(address(position), stride_[index]);
 		}
 
 		RowIterator rowEnd(integer index, 
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return RowIterator(address(position) + 
 				(extent_[index] - position[index]) * stride_[index], 
 				stride_[index]);
 		}
 
-		Type* address(const Point<N, integer>& position) const
+		Type* address(const Point<integer, N>& position) const
 		{
 			return data_ + dot(asVector(position), stride_);
 		}
@@ -293,8 +293,8 @@ namespace Pastel
 		}
 
 		Type* data_;
-		Vector<N, integer> stride_;
-		Vector<N, integer> extent_;
+		Vector<integer, N> stride_;
+		Vector<integer, N> extent_;
 		integer size_;
 		Type* dataBegin_;
 		Type* dataEnd_;
@@ -342,8 +342,8 @@ namespace Pastel
 
 		ConstSubArray(
 			const Type* data,
-			const Vector<N, integer>& stride,
-			const Vector<N, integer>& extent)
+			const Vector<integer, N>& stride,
+			const Vector<integer, N>& extent)
 			: data_(data)
 			, stride_(stride)
 			, extent_(extent)
@@ -370,12 +370,12 @@ namespace Pastel
 
 		// Properties
 
-		const Vector<N, integer>& stride() const
+		const Vector<integer, N>& stride() const
 		{
 			return stride_;
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
@@ -414,7 +414,7 @@ namespace Pastel
 
 		// Data access
 
-		const Type& operator()(const Point<N, integer>& position) const
+		const Type& operator()(const Point<integer, N>& position) const
 		{
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLess(asVector(position), extent_));
@@ -423,8 +423,8 @@ namespace Pastel
 		}
 
 		ConstSubArray<N, Type> operator()(
-			const Point<N, integer>& min,
-			const Point<N, integer>& max) const
+			const Point<integer, N>& min,
+			const Point<integer, N>& max) const
 		{
 			PENSURE(allLess(asVector(min), extent_));
 			PENSURE(allGreaterEqual(min, 0));
@@ -440,9 +440,9 @@ namespace Pastel
 		}
 
 		ConstSubArray<N, Type> operator()(
-			const Point<N, integer>& min,
-			const Point<N, integer>& max,
-			const Vector<N, integer>& delta) const
+			const Point<integer, N>& min,
+			const Point<integer, N>& max,
+			const Vector<integer, N>& delta) const
 		{
 			PENSURE(allLess(asVector(min), extent_));
 			PENSURE(allGreaterEqual(min, 0));
@@ -469,10 +469,10 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, extent_[axis]);
 
-			const Vector<Smaller, integer> sliceExtent(
+			const Vector<integer, Smaller> sliceExtent(
 				shrink(extent_, axis));
 
-			const Vector<Smaller, integer> sliceStride(
+			const Vector<integer, Smaller> sliceStride(
 				shrink(stride_, axis));
 
 			const ConstSubArray<Smaller, Type> result(
@@ -488,7 +488,7 @@ namespace Pastel
 		{
 			return ConstIterator(
 				this,
-				Point<N, integer>(ofDimension(extent_.dimension()), 0));
+				Point<integer, N>(ofDimension(extent_.dimension()), 0));
 		}
 
 		ConstIterator end() const
@@ -496,26 +496,26 @@ namespace Pastel
 			const integer n = extent_.dimension();
 			return ConstIterator(
 				this,
-				Point<N, integer>(unitAxis<N, integer>(n - 1) * extent_[n - 1]));
+				Point<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
 		}
 
 		// Row iterators
 
 		ConstRowIterator rowBegin(integer index, 
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return ConstRowIterator(address(position), stride_[index]);
 		}
 
 		ConstRowIterator rowEnd(integer index, 
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return ConstRowIterator(address(position) + 
 				(extent_[index] - position[index]) * stride_[index], 
 				stride_[index]);
 		}
 
-		const Type* address(const Point<N, integer>& position) const
+		const Type* address(const Point<integer, N>& position) const
 		{
 			return data_ + dot(asVector(position), stride_);
 		}
@@ -546,8 +546,8 @@ namespace Pastel
 		}
 
 		const Type* data_;
-		Vector<N, integer> stride_;
-		Vector<N, integer> extent_;
+		Vector<integer, N> stride_;
+		Vector<integer, N> extent_;
 		integer size_;
 		const Type* dataBegin_;
 		const Type* dataEnd_;

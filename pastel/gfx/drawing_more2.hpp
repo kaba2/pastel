@@ -14,10 +14,10 @@ namespace Pastel
 	template <typename Type,
 		typename Image_View, typename ColorMixer>
 	void drawProjectiveQuad(
-		const Tuple<4, Point2>& quad,
+		const Tuple<Point2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image,
-		const Tuple<4, Point2>& textureQuad,
+		const Tuple<Point2, 4>& textureQuad,
 		const ColorMixer& colorMixer)
 	{
 		const Matrix3 matrix = projectiveTransformation(textureQuad, quad);
@@ -42,10 +42,10 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawProjectiveQuad(
-		const Tuple<4, Point2>& quad,
+		const Tuple<Point2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image,
-		const Tuple<4, Point2>& textureQuad)
+		const Tuple<Point2, 4>& textureQuad)
 	{
 		Pastel::drawProjectiveQuad(quad,
 			texture, image, textureQuad,
@@ -54,13 +54,13 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawProjectiveQuad(
-		const Tuple<4, Point2>& quad,
+		const Tuple<Point2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image)
 	{
 		Pastel::drawProjectiveQuad(quad,
 			texture, image,
-			Tuple<4, Point2>(
+			Tuple<Point2, 4>(
 			Point2(0, 0),
 			Point2(1, 0),
 			Point2(1, 1),
@@ -139,7 +139,7 @@ namespace Pastel
 
 			Cursor yCursor(image.cursor(clippedBox.min()));
 
-			const Vector<2, integer> clippedBoxExtent =
+			const Vector<integer, 2> clippedBoxExtent =
 				clippedBox.extent();
 
 			real r = rMin;

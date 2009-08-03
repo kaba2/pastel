@@ -77,7 +77,7 @@ namespace Pastel
 		bool hasVerticalSeparator(integer x) const;
 
 	private:
-		Array<2, Entry> data_;
+		Array<Entry, 2> data_;
 		SmallSet<integer> hSeparatorSet_;
 		SmallSet<integer> vSeparatorSet_;
 		std::string caption_;

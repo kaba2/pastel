@@ -22,10 +22,10 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Vector;
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class TemporaryVector;
 
 	namespace Detail
@@ -33,8 +33,8 @@ namespace Pastel
 
 		template <int N, typename Real>
 		class VectorBase
-			: public boost::equality_comparable1<Vector<N, Real>,
-			VectorExpression<N, Real, VectorBase<N, Real> >
+			: public boost::equality_comparable1<Vector<Real, N>,
+			VectorExpression<Real, N, VectorBase<N, Real> >
 			>
 		{
 		private:
@@ -45,8 +45,8 @@ namespace Pastel
 			typedef const VectorBase& StorageType;
 			//using ExpressionBase::operator-;
 
-			typedef typename Tuple<N, Real>::Iterator Iterator;
-			typedef typename Tuple<N, Real>::ConstIterator ConstIterator;
+			typedef typename Tuple<Real, N>::Iterator Iterator;
+			typedef typename Tuple<Real, N>::ConstIterator ConstIterator;
 
 			VectorBase()
 				: data_(ofDimension((N == Dynamic) ? 0 : N), 0)
@@ -68,7 +68,7 @@ namespace Pastel
 			}
 
 			template <typename ThatReal>
-			explicit VectorBase(const Tuple<N, ThatReal>& that)
+			explicit VectorBase(const Tuple<ThatReal, N>& that)
 				: data_(that)
 			{
 			}
@@ -85,7 +85,7 @@ namespace Pastel
 			}
 
 			explicit VectorBase(
-				const TemporaryVector<N, Real>& that)
+				const TemporaryVector<Real, N>& that)
 				: data_(that.asTuple())
 			{
 			}
@@ -98,7 +98,7 @@ namespace Pastel
 			template <typename ThatReal, typename Expression>
 			explicit VectorBase(
 				const VectorExpression
-				<N, ThatReal, Expression>& that)
+				<ThatReal, N, Expression>& that)
 				: data_(ofDimension(that.size()))
 			{
 				*this = that;
@@ -108,7 +108,7 @@ namespace Pastel
 			{
 				enum
 				{
-					IsBase = boost::is_base_of<VectorBase, Vector<N, Real> >::value
+					IsBase = boost::is_base_of<VectorBase, Vector<Real, N> >::value
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
@@ -180,12 +180,12 @@ namespace Pastel
 			// is deliberately not a reference,
 			// because the reference could point
 			// to this vector.
-			Vector<N, Real>& operator=(const Real that)
+			Vector<Real, N>& operator=(const Real that)
 			{
 				// We accept basic exception safety for performance.
 				data_.set(that);
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			CommaFiller<Real, Iterator> operator|=(
@@ -200,14 +200,14 @@ namespace Pastel
 			// has an implicit conversion from a vector
 			// expression.
 			/*
-			Vector<N, Real>& operator=(
-				const TemporaryVector<N, Real>& that)
+			Vector<Real, N>& operator=(
+				const TemporaryVector<Real, N>& that)
 			{
 				//...
 			}
 			*/
 
-			Vector<N, Real>& operator=(
+			Vector<Real, N>& operator=(
 				const VectorBase<N, Real>& that)
 			{
 				// We allow the size of the vector to be
@@ -220,7 +220,7 @@ namespace Pastel
 					// as well copy construct, so that there
 					// is no redundant initialization.
 
-					Vector<N, Real> copy(that);
+					Vector<Real, N> copy(that);
 					swap(copy);
 				}
 				else
@@ -230,19 +230,19 @@ namespace Pastel
 					data_ = that.data_;
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			/*
 			template <typename ThatReal, typename Expression>
 			typename boost::disable_if<
 				boost::is_same<Expression, VectorBase<N, Real> >,
-				Vector<N, Real>&>::type operator=(
-				const VectorExpression<N, ThatReal, Expression>& that)
+				Vector<Real, N>&>::type operator=(
+				const VectorExpression<ThatReal, N, Expression>& that)
 			*/
 			template <typename ThatReal, typename Expression>
-			Vector<N, Real>& operator=(
-				const VectorExpression<N, ThatReal, Expression>& that)
+			Vector<Real, N>& operator=(
+				const VectorExpression<ThatReal, N, Expression>& that)
 			{
 				// We allow the size of the vector to be
 				// changed by an assignment.
@@ -260,7 +260,7 @@ namespace Pastel
 					// this vector as a non-trivial subexpression,
 					// we must copy construct anyway.
 
-					Vector<N, Real> copy(that);
+					Vector<Real, N> copy(that);
 					swap(copy);
 				}
 				else
@@ -275,10 +275,10 @@ namespace Pastel
 					}
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
-			bool operator==(const Vector<N, Real>& that) const
+			bool operator==(const Vector<Real, N>& that) const
 			{
 				return data_ == that.data_;
 			}
@@ -297,7 +297,7 @@ namespace Pastel
 			// is deliberately not a reference,
 			// because the reference could point
 			// to this vector.
-			Vector<N, Real>& operator+=(const Real that)
+			Vector<Real, N>& operator+=(const Real that)
 			{
 				Iterator iter = begin();
 				const Iterator iterEnd = end();
@@ -308,14 +308,14 @@ namespace Pastel
 					++iter;
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			// The parameter to this function
 			// is deliberately not a reference,
 			// because the reference could point
 			// to this vector.
-			Vector<N, Real>& operator-=(const Real that)
+			Vector<Real, N>& operator-=(const Real that)
 			{
 				Iterator iter = begin();
 				const Iterator iterEnd = end();
@@ -326,14 +326,14 @@ namespace Pastel
 					++iter;
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			// The parameter to this function
 			// is deliberately not a reference,
 			// because the reference could point
 			// to this vector.
-			Vector<N, Real>& operator*=(const Real that)
+			Vector<Real, N>& operator*=(const Real that)
 			{
 				Iterator iter = begin();
 				const Iterator iterEnd = end();
@@ -344,25 +344,25 @@ namespace Pastel
 					++iter;
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			// Here the reference is ok because we actually
 			// use the parameter's inverse.
-			Vector<N, Real>& operator/=(const Real& that)
+			Vector<Real, N>& operator/=(const Real& that)
 			{
 				return (*this *= Pastel::inverse(that));
 			}
 
 			template <typename ThatReal, typename Expression>
-			Vector<N, Real>& operator+=(
-				const VectorExpression<N, ThatReal, Expression>& that)
+			Vector<Real, N>& operator+=(
+				const VectorExpression<ThatReal, N, Expression>& that)
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
-					*this += Vector<N, Real>(that);
+					*this += Vector<Real, N>(that);
 				}
 				else
 				{
@@ -375,18 +375,18 @@ namespace Pastel
 					}
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			template <typename ThatReal, typename Expression>
-			Vector<N, Real>& operator-=(
-				const VectorExpression<N, ThatReal, Expression>& that)
+			Vector<Real, N>& operator-=(
+				const VectorExpression<ThatReal, N, Expression>& that)
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
-					*this -= Vector<N, Real>(that);
+					*this -= Vector<Real, N>(that);
 				}
 				else
 				{
@@ -399,18 +399,18 @@ namespace Pastel
 					}
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			template <typename ThatReal, typename Expression>
-			Vector<N, Real>& operator*=(
-				const VectorExpression<N, ThatReal, Expression>& that)
+			Vector<Real, N>& operator*=(
+				const VectorExpression<ThatReal, N, Expression>& that)
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
-					*this *= Vector<N, Real>(that);
+					*this *= Vector<Real, N>(that);
 				}
 				else
 				{
@@ -423,18 +423,18 @@ namespace Pastel
 					}
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
 			template <typename ThatReal, typename Expression>
-			Vector<N, Real>& operator/=(
-				const VectorExpression<N, ThatReal, Expression>& that)
+			Vector<Real, N>& operator/=(
+				const VectorExpression<ThatReal, N, Expression>& that)
 			{
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
 				{
-					*this /= Vector<N, Real>(that);
+					*this /= Vector<Real, N>(that);
 				}
 				else
 				{
@@ -447,29 +447,29 @@ namespace Pastel
 					}
 				}
 
-				return (Vector<N, Real>&)*this;
+				return (Vector<Real, N>&)*this;
 			}
 
-			TemporaryVector<N, Real>& asTemporary()
+			TemporaryVector<Real, N>& asTemporary()
 			{
-				return (TemporaryVector<N, Real>&)*this;
+				return (TemporaryVector<Real, N>&)*this;
 			}
 
-			Tuple<N, Real>& asTuple()
+			Tuple<Real, N>& asTuple()
 			{
 				return data_;
 			}
 
-			const Tuple<N, Real>& asTuple() const
+			const Tuple<Real, N>& asTuple() const
 			{
 				return data_;
 			}
 
 		// Need to be protected instead of private
-		// so that Vector<Dynamic, Real> can access
+		// so that Vector<Real, Dynamic> can access
 		// data_ to implement setSize().
 		protected:
-			Tuple<N, Real> data_;
+			Tuple<Real, N> data_;
 		};
 
 	}

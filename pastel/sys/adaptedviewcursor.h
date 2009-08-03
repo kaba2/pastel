@@ -230,7 +230,7 @@ namespace Pastel
 				cursor_.move(index, amount);
 			}
 
-			void move(const Vector<N, integer>& amount)
+			void move(const Vector<integer, N>& amount)
 			{
 				cursor_.move(amount);
 			}

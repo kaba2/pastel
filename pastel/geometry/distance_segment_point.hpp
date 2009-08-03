@@ -9,10 +9,10 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(const Segment<N, Real>& segment,
-		const Point<N, Real>& point)
+		const Point<Real, N>& point)
 	{
 		const Real t = closest(segment, point);
-		const Vector<N, Real> delta = segment.at(t) - point;
+		const Vector<Real, N> delta = segment.at(t) - point;
 
 		return dot(delta, delta);
 	}

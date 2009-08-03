@@ -14,7 +14,7 @@ namespace Pastel
 	template <typename Type>
 	Type sampleBilinear(
 		const Point2& uv,
-		const Array<2, Type>& image,
+		const Array<Type, 2>& image,
 		const ArrayExtender<2, Type>& extender);
 
 	template <typename Type>
@@ -35,7 +35,7 @@ namespace Pastel
 		}
 
 		explicit BilinearImageTexture(
-			const Array<2, Type>& image,
+			const Array<Type, 2>& image,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>())
 			: image_(&image)
 			, extender_(extender)
@@ -57,7 +57,7 @@ namespace Pastel
 				*image_, extender_);
 		}
 
-		void setImage(const Array<2, Type>& image)
+		void setImage(const Array<Type, 2>& image)
 		{
 			image_ = &image;
 			extent_ = Vector2(image.extent());
@@ -74,14 +74,14 @@ namespace Pastel
 		}
 
 	private:
-		const Array<2, Type>* image_;
+		const Array<Type, 2>* image_;
 		ArrayExtender<2, Type> extender_;
 		Vector2 extent_;
 	};
 
 	template <typename Type>
 	BilinearImageTexture<Type> bilinearImageTexture(
-		const Array<2, Type>& image,
+		const Array<Type, 2>& image,
 		const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>())
 	{
 		return BilinearImageTexture<Type>(image, extender);

@@ -15,8 +15,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Capsule<N, Real>::Capsule(
-		const Point<N, Real>& start,
-		const Point<N, Real>& end,
+		const Point<Real, N>& start,
+		const Point<Real, N>& end,
 		const Real& radius)
 		: segment_(start, end)
 		, radius_(radius)
@@ -33,25 +33,25 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, Real>& Capsule<N, Real>::start()
+	Point<Real, N>& Capsule<N, Real>::start()
 	{
 		return segment_.start();
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>& Capsule<N, Real>::start() const
+	const Point<Real, N>& Capsule<N, Real>::start() const
 	{
 		return segment_.start();
 	}
 
 	template <int N, typename Real>
-	Point<N, Real>& Capsule<N, Real>::end()
+	Point<Real, N>& Capsule<N, Real>::end()
 	{
 		return segment_.end();
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>& Capsule<N, Real>::end() const
+	const Point<Real, N>& Capsule<N, Real>::end() const
 	{
 		return segment_.end();
 	}

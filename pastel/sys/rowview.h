@@ -24,7 +24,7 @@ namespace Pastel
 		ConstRowView(
 			const Contained_ConstView& view,
 			integer freeIndex,
-			const Point<N, integer>& pivot)
+			const Point<integer, N>& pivot)
 			: view_(view)
 			, pivot_(pivot)
 			, extent_(view.extent()[freeIndex])
@@ -32,15 +32,15 @@ namespace Pastel
 		{
 		}
 
-		const Vector<1, integer>& extent() const
+		const Vector<integer, 1>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Point<1, integer>& position) const
+			const Point<integer, 1>& position) const
 		{
-			Point<N, integer> actualPosition = pivot_;
+			Point<integer, N> actualPosition = pivot_;
 			actualPosition[freeIndex_] = position[0];
 
 			return ConstCursor(view_.constCursor(
@@ -49,8 +49,8 @@ namespace Pastel
 
 	protected:
 		const Contained_ConstView view_;
-		const Point<N, integer> pivot_;
-		const Vector<1, integer> extent_;
+		const Point<integer, N> pivot_;
+		const Vector<integer, 1> extent_;
 		const integer freeIndex_;
 	};
 
@@ -59,7 +59,7 @@ namespace Pastel
 		constRowView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
 		integer freeIndex,
-		const Point<N, integer>& pivot)
+		const Point<integer, N>& pivot)
 	{
 		return wrapConstView(
 			ConstRowView<N, Input_ConstView>(view.contained(),
@@ -92,14 +92,14 @@ namespace Pastel
 		RowView(
 			const Contained_View& view,
 			integer freeIndex,
-			const Point<N, integer>& pivot)
+			const Point<integer, N>& pivot)
 			: Base(view, freeIndex, pivot)
 		{
 		}
 
-		Cursor cursor(const Point<1, integer>& position) const
+		Cursor cursor(const Point<integer, 1>& position) const
 		{
-			Point<N, integer> actualPosition = pivot_;
+			Point<integer, N> actualPosition = pivot_;
 			actualPosition[freeIndex_] = position[0];
 
 			return Cursor(view_.cursor(actualPosition), freeIndex_);
@@ -110,7 +110,7 @@ namespace Pastel
 	View<1, Input_Element, RowView<N, Input_View> > rowView(
 		const View<N, Input_Element, Input_View>& view,
 		integer freeIndex,
-		const Point<N, integer>& pivot)
+		const Point<integer, N>& pivot)
 	{
 		return wrapView(RowView<N, Input_View>(
 			view.contained(), freeIndex, pivot));

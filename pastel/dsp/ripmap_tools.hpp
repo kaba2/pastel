@@ -21,7 +21,7 @@ namespace Pastel
 			{
 			}
 
-			void operator()(Array<N, Type>& image) const
+			void operator()(Array<Type, N>& image) const
 			{
 				Pastel::transform(arrayView(image), transform_);
 			}

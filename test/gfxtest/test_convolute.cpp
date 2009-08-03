@@ -22,11 +22,11 @@ namespace
 
 	void testConvolute2()
 	{
-		Vector<2, integer> extent(512);
-		Vector<2, integer> filterExtent(31);
+		Vector<integer, 2> extent(512);
+		Vector<integer, 2> filterExtent(31);
 
-		Array<2, Color> input(extent, Color(0));
-		Array<2, real32> filter(filterExtent, 1);
+		Array<Color, 2> input(extent, Color(0));
+		Array<real32, 2> filter(filterExtent, 1);
 
 		setFilter(bartlettWindow<real32>, arrayView(filter));
 
@@ -37,12 +37,12 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			input(
-				asPoint(randomVector<2, real>() * Vector<2, real>((extent - 1)))) = randomRgbColor();
+				asPoint(randomVector<2, real>() * Vector<real, 2>((extent - 1)))) = randomRgbColor();
 		}
 
 		savePcx(input, "output/convolution_input.pcx");
 
-		Array<2, Color> output(extent);
+		Array<Color, 2> output(extent);
 
 		convolute(constArrayView(input),
 			constArrayView(filter),
@@ -57,11 +57,11 @@ namespace
 
 	void testConvolute3()
 	{
-		Vector<3, integer> extent(200);
-		Vector<3, integer> filterExtent(31);
+		Vector<integer, 3> extent(200);
+		Vector<integer, 3> filterExtent(31);
 
-		Array<3, Color> input(extent, Color(0));
-		Array<3, real32> filter(filterExtent, 1);
+		Array<Color, 3> input(extent, Color(0));
+		Array<real32, 3> filter(filterExtent, 1);
 
 		//setFilter(bartlettWindow<real32>, arrayView(filter));
 
@@ -70,10 +70,10 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			input(
-				asPoint(randomVector<3, real>() * Vector<3, real>((extent - 1)))) = randomRgbColor();
+				asPoint(randomVector<3, real>() * Vector<real, 3>((extent - 1)))) = randomRgbColor();
 		}
 
-		Array<3, Color> output(extent);
+		Array<Color, 3> output(extent);
 
 		convolute(constArrayView(input),
 			constArrayView(filter),

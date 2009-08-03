@@ -53,7 +53,7 @@ namespace Pastel
 	template <int N, typename Real>
 	void setDiagonal(
 		Matrix<N, N, Real>& matrix,
-		const Vector<N, Real>& values)
+		const Vector<Real, N>& values)
 	{
 		const integer size = values.size();
 
@@ -119,7 +119,7 @@ namespace Pastel
 
 		ENSURE_OP(height, <=, width);
 
-		std::vector<Vector<Width, Real> > orthonormalSet;
+		std::vector<Vector<Real, Width> > orthonormalSet;
 		orthonormalSet.reserve(height);
 
 		orthonormalSet.push_back(

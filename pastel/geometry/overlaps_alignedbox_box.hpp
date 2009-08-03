@@ -31,12 +31,12 @@ namespace Pastel
 		// we want to take advantage of the zeros and ones
 		// in the aligned box normals.
 
-		const Vector<2, Real> alignedBoxWidth(
+		const Vector<Real, 2> alignedBoxWidth(
 			(alignedBox.max() - alignedBox.min()) * 0.5);
-		const Vector<2, Real> delta(
+		const Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 		const Matrix<2, 2, Real>& boxRotation = box.rotation();
-		const Vector<2, Real>& boxWidth = box.width();
+		const Vector<Real, 2>& boxWidth = box.width();
 		Matrix<2, 2, Real> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
@@ -129,8 +129,8 @@ namespace Pastel
 	bool overlaps(
 		const AlignedBox<2, Real>& aAlignedBox,
 		const Box<2, Real>& bBox,
-		const Vector<2, Real>& bVelocity,
-		Tuple<2, Real>& intersectionRange)
+		const Vector<Real, 2>& bVelocity,
+		Tuple<Real, 2>& intersectionRange)
 	{
 		// Using the separating axis theorem.
 
@@ -138,7 +138,7 @@ namespace Pastel
 
 		// Test for the standard basis vectors.
 
-		Tuple<2, Real> tRange;
+		Tuple<Real, 2> tRange;
 		if (!overlaps(aAlignedBox, bAlignedBox, bVelocity, tRange))
 		{
 			return false;
@@ -151,11 +151,11 @@ namespace Pastel
 
 		for (integer i = 0;i < 2;++i)
 		{
-			const Vector<N, Real>& unitAxis = bBox.rotation()[i];
+			const Vector<Real, N>& unitAxis = bBox.rotation()[i];
 			const AlignedBox<1, Real> aInterval = projectAxis(aAlignedBox, unitAxis);
 			const AlignedBox<1, Real> bInterval = projectAxis(bBox, unitAxis);
 
-			const Vector<1, Real> bProjectedVelocity(dot(bVelocity, unitAxis));
+			const Vector<Real, 1> bProjectedVelocity(dot(bVelocity, unitAxis));
 
 			if (!overlaps(aInterval, bInterval, bProjectedVelocity, tRange))
 			{
@@ -185,13 +185,13 @@ namespace Pastel
 	bool overlaps(
 		const AlignedBox<2, Real>& alignedBox,
 		const Box<2, Real>& box,
-		Vector<2, Real>& projection,
-		Point<2, Real>& commonPoint)
+		Vector<Real, 2>& projection,
+		Point<Real, 2>& commonPoint)
 	{
 		// Using the separating axis theorem.
 
 		Real minDepth = infinity<Real>();
-		Vector<2, Real> minProjection;
+		Vector<Real, 2> minProjection;
 
 		// In dimension 2, there are only 4 axes to test,
 		// 2 from each box.
@@ -200,17 +200,17 @@ namespace Pastel
 		// we want to take advantage of the zeros and ones
 		// in the aligned box normals.
 
-		const Vector<2, Real> alignedBoxWidth(
+		const Vector<Real, 2> alignedBoxWidth(
 			(alignedBox.max() - alignedBox.min()) * 0.5);
-		const Vector<2, Real> delta(
+		const Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 		const Matrix<2, 2, Real>& boxRotation = box.rotation();
-		const Vector<2, Real>& boxWidth = box.width();
+		const Vector<Real, 2>& boxWidth = box.width();
 
 		Matrix<2, 2, Real> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
-		Point<2, Real> someCommonPoint;
+		Point<Real, 2> someCommonPoint;
 
 		// Project to the aligned box's normals
 		// (the standard basis vectors).
@@ -271,7 +271,7 @@ namespace Pastel
 				if (depth < minDepth)
 				{
 					minDepth = depth;
-					minProjection = unitAxis<2, Real>(i);
+					minProjection = unitAxis<2>(i);
 				}
 			}
 
@@ -383,12 +383,12 @@ namespace Pastel
 		// we want to take advantage of the zeros and ones
 		// in the aligned box normals.
 
-		const Vector<3, Real> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
+		const Vector<Real, 3> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
 
-		const Vector<3, Real> delta(
+		const Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 		const Matrix<3, 3, Real>& boxRotation = box.rotation();
-		const Vector<3, Real>& boxWidth = box.width();
+		const Vector<Real, 3>& boxWidth = box.width();
 		Matrix<3, 3, Real> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
@@ -619,13 +619,13 @@ namespace Pastel
 	bool overlaps(
 		const AlignedBox<3, Real>& alignedBox,
 		const Box<3, Real>& box,
-		Vector<3, Real>& projection)
+		Vector<Real, 3>& projection)
 	{
 		// Use separating axis theorem to
 		// test for aligned box-box overlap.
 
 		Real minDepth = infinity<Real>();
-		Vector<3, Real> minProjection;
+		Vector<Real, 3> minProjection;
 
 		// In dimension 3, there are 15 axes to test:
 		// 3 from box aligned box, 3 from box box, and 9 from
@@ -635,12 +635,12 @@ namespace Pastel
 		// we want to take advantage of the zeros and ones
 		// in the alignedBox normals.
 
-		const Vector<3, Real> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
+		const Vector<Real, 3> alignedBoxWidth((alignedBox.max() - alignedBox.min()) * 0.5);
 
-		const Vector<3, Real> delta(
+		const Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
 		const Matrix<3, 3, Real>& boxRotation = box.rotation();
-		const Vector<3, Real>& boxWidth = box.width();
+		const Vector<Real, 3>& boxWidth = box.width();
 		Matrix<3, 3, Real> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
@@ -670,7 +670,7 @@ namespace Pastel
 				minDepth = depth;
 				if (signedProjectedDistance > 0)
 				{
-					minProjection = unitAxis<3, Real>(i);
+					minProjection = unitAxis<3>(i);
 				}
 				else
 				{

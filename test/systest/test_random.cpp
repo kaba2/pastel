@@ -155,7 +155,7 @@ namespace
 
 	void drawDistributions()
 	{
-		Array<2, Color> image(800, 600);
+		Array<Color, 2> image(800, 600);
 
 		{
 			AlignedBox2 region(-5, 0, 5, 1);
@@ -343,7 +343,7 @@ namespace
 	{
 		const integer width = 800;
 		const integer height = 600;
-		Array<2, Color> image(width, height);
+		Array<Color, 2> image(width, height);
 
 		drawGraph(
 			AlignedBox2(-5, -5, 5, 5),

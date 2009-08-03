@@ -14,7 +14,7 @@ namespace Pastel
 {
 
 	template <typename Type>
-	Image_GfxRenderer<Type>::Image_GfxRenderer(Array<2, Type>* image)
+	Image_GfxRenderer<Type>::Image_GfxRenderer(Array<Type, 2>* image)
 		: GfxRenderer<Type>()
 		, screenTransformation_()
 		, image_(image)
@@ -33,13 +33,13 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	void Image_GfxRenderer<Type>::setImage(Array<2, Type>* image)
+	void Image_GfxRenderer<Type>::setImage(Array<Type, 2>* image)
 	{
 		image_ = image;
 	}
 
 	template <typename Type>
-	Array<2, Type>* Image_GfxRenderer<Type>::image() const
+	Array<Type, 2>* Image_GfxRenderer<Type>::image() const
 	{
 		return image_;
 	}
@@ -98,7 +98,7 @@ namespace Pastel
 	// Drawing
 
 	template <typename Type>
-	integer Image_GfxRenderer<Type>::uploadTexture(const Array<2, Type>& image)
+	integer Image_GfxRenderer<Type>::uploadTexture(const Array<Type, 2>& image)
 	{
 		textureImage_.push_back(&image);
 		mipMap_.push_back(0);
@@ -167,7 +167,7 @@ namespace Pastel
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawTriangle(
 		const Triangle2& triangle,
-		const Tuple<3, Type>& colorTriangle)
+		const Tuple<Type, 3>& colorTriangle)
 	{
 		const Triangle2 screenTriangle(
 			transform(triangle[0]),

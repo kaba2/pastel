@@ -90,8 +90,8 @@ namespace Pastel
 	{
 		nodeAllocator_.clear();
 		root_ = 0;
-		rootBound_.set(Point<N, Real>(0),
-			Point<N, Real>(0));
+		rootBound_.set(Point<Real, N>(0),
+			Point<Real, N>(0));
 		shapeArray_.clear();
 		leafArray_.clear();
 		leavesAllocated_ = 0;
@@ -321,7 +321,7 @@ namespace Pastel
 
 			// Find out the largest dimension of
 			// the bounding aligned box.
-			const Vector<N, Real> width(
+			const Vector<Real, N> width(
 				nodeBound.max() - nodeBound.min());
 
 			integer largestDimension = 0;
@@ -415,7 +415,7 @@ namespace Pastel
 			// Recurse deeper to the negative child.
 
 			AlignedBox<N, Real> negativeChildBound(nodeBound);
-			Point<N, Real> maxTmp(negativeChildBound.max());
+			Point<Real, N> maxTmp(negativeChildBound.max());
 			maxTmp[splitAxis] = negativeSplit;
 			negativeChildBound.setMax(maxTmp);
 
@@ -433,7 +433,7 @@ namespace Pastel
 			// Recurse deeper to the positive child.
 
 			AlignedBox<N, Real> positiveChildBound(nodeBound);
-			Point<N, Real> minTmp(positiveChildBound.min());
+			Point<Real, N> minTmp(positiveChildBound.min());
 			minTmp[splitAxis] = positiveSplit;
 			positiveChildBound.setMin(minTmp);
 

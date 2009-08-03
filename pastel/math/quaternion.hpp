@@ -20,7 +20,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Quaternion<Real>::Quaternion(const Vector<3, Real>& that)
+	Quaternion<Real>::Quaternion(const Vector<Real, 3>& that)
 		: x_(0)
 		, y_(that[0])
 		, z_(that[1])
@@ -29,7 +29,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Quaternion<Real>::Quaternion(const Vector<4, Real>& that)
+	Quaternion<Real>::Quaternion(const Vector<Real, 4>& that)
 		: x_(that[3])
 		, y_(that[0])
 		, z_(that[1])
@@ -159,10 +159,10 @@ namespace Pastel
 
 	template <typename Real>
 	void Quaternion<Real>::setRotation(
-		const Vector<3, Real>& axis,
+		const Vector<Real, 3>& axis,
 		const Real& angle)
 	{
-		Vector<3, Real> scaledAxis(axis);
+		Vector<Real, 3> scaledAxis(axis);
 		Real halfAngle = angle * (Real)0.5;
 
 		scaledAxis *= (Real)std::sin(halfAngle);
@@ -213,7 +213,7 @@ namespace Pastel
 
 	template <typename Real>
 	void Quaternion<Real>::mulVector(
-		Vector<3, Real>& vec) const
+		Vector<Real, 3>& vec) const
 	{
 		Quaternion q(*this);
 		Quaternion r(*this);

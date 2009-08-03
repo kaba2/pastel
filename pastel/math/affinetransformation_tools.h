@@ -48,36 +48,36 @@ namespace Pastel
 
 	template <typename Real>
 	AffineTransformation<2, Real> translation2(
-		const Vector<2, Real>& translation);
+		const Vector<Real, 2>& translation);
 
 	//! Returns the least squares affine transformation relating two point sets.
 
 	template <int N, typename Real>
 	AffineTransformation<N, Real> leastSquaresAffineTransformation(
-		const std::vector<Point<N, Real> >& from,
-		const std::vector<Point<N, Real> >& to);
+		const std::vector<Point<Real, N> >& from,
+		const std::vector<Point<Real, N> >& to);
 
 	//! Returns the least squares affine transformation relating two point sets.
 
 	template <int N, typename Real>
 	AffineTransformation<N, Real> leastSquaresAffineTransformation(
 		integer dimension,
-		const std::vector<Point<N, Real> >& from,
-		const std::vector<Point<N, Real> >& to);
+		const std::vector<Point<Real, N> >& from,
+		const std::vector<Point<Real, N> >& to);
 
 	//! Returns the least squares similarity transformation relating two point sets.
 
 	template <typename Real>
-	Tuple<4, Real> similarityTransformation(
-		const std::vector<Point<2, Real> >& from,
-		const std::vector<Point<2, Real> >& to);
+	Tuple<Real, 4> similarityTransformation(
+		const std::vector<Point<Real, 2> >& from,
+		const std::vector<Point<Real, 2> >& to);
 
 	//! Returns the similarity transformation relating two point pairs.
 
 	template <typename Real>
-	Tuple<4, Real> similarityTransformation(
-		const Point<2, Real>& aFrom, const Point<2, Real>& bFrom,
-		const Point<2, Real>& aTo, const Point<2, Real>& bTo);
+	Tuple<Real, 4> similarityTransformation(
+		const Point<Real, 2>& aFrom, const Point<Real, 2>& bFrom,
+		const Point<Real, 2>& aTo, const Point<Real, 2>& bTo);
 
 	//! Returns the similarity transformation from given parameters.
 
@@ -85,13 +85,13 @@ namespace Pastel
 	AffineTransformation<2, Real> similarityTransformation(
 		const PASTEL_NO_DEDUCTION(Real)& scaling,
 		const PASTEL_NO_DEDUCTION(Real)& ccwRotation,
-		const Vector<2, Real>& translation);
+		const Vector<Real, 2>& translation);
 
 	//! Returns the similarity transformation from given parameters (scale, angle, x, y).
 
 	template <typename Real>
 	AffineTransformation<2, Real> similarityTransformation(
-		const Tuple<4, Real>& parameter);
+		const Tuple<Real, 4>& parameter);
 
 	//! Returns the affine transformation from 'from' to 'to'.
 
@@ -104,10 +104,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool affineTransform(
-		const Point<2, Real>& aFrom, const Point<2, Real>& bFrom,
-		const Point<2, Real>& cFrom,
-		const Point<2, Real>& aTo, const Point<2, Real>& bTo,
-		const Point<2, Real>& cTo,
+		const Point<Real, 2>& aFrom, const Point<Real, 2>& bFrom,
+		const Point<Real, 2>& cFrom,
+		const Point<Real, 2>& aTo, const Point<Real, 2>& bTo,
+		const Point<Real, 2>& cTo,
 		AffineTransformation<2, Real>& matrix);
 
 	// 3D
@@ -155,7 +155,7 @@ namespace Pastel
 
 	template <typename Real>
 	AffineTransformation<3, Real> translation3(
-		const Vector<3, Real>& translation);
+		const Vector<Real, 3>& translation);
 
 	//! Returns the affine transformation from 'from' to 'to'.
 
@@ -168,10 +168,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool affineTransform(
-		const Point<3, Real>& aFrom, const Point<3, Real>& bFrom,
-		const Point<3, Real>& cFrom,
-		const Point<3, Real>& aTo, const Point<3, Real>& bTo,
-		const Point<3, Real>& cTo,
+		const Point<Real, 3>& aFrom, const Point<Real, 3>& bFrom,
+		const Point<Real, 3>& cFrom,
+		const Point<Real, 3>& aTo, const Point<Real, 3>& bTo,
+		const Point<Real, 3>& cTo,
 		AffineTransformation<3, Real>& matrix);
 
 	//! Returns the affine transformation from 'from' to 'to'.
@@ -185,10 +185,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool affineTransform(
-		const Point<3, Real>& aFrom, const Point<3, Real>& bFrom,
-		const Point<3, Real>& cFrom, const Point<3, Real>& dFrom,
-		const Point<3, Real>& aTo, const Point<3, Real>& bTo,
-		const Point<3, Real>& cTo,
+		const Point<Real, 3>& aFrom, const Point<Real, 3>& bFrom,
+		const Point<Real, 3>& cFrom, const Point<Real, 3>& dFrom,
+		const Point<Real, 3>& aTo, const Point<Real, 3>& bTo,
+		const Point<Real, 3>& cTo,
 		AffineTransformation<3, Real>& matrix);
 
 }

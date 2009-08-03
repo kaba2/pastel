@@ -12,11 +12,11 @@ namespace Pastel
 {
 
 	PASTELGFX integer pixelNeighbours(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer x, integer y);
 
 	PASTELGFX uint32 pixelNeighbourMask(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer x, integer y);
 
 }

@@ -23,8 +23,8 @@ namespace Pastel
 	bool overlaps(
 		const Box<N, Real>& aBox,
 		const Box<N, Real>& bBox,
-		const Vector<N, Real>& bVelocity,
-		Tuple<2, Real>& intersectionRange);
+		const Vector<Real, N>& bVelocity,
+		Tuple<Real, 2>& intersectionRange);
 
 	//! Tests if two box's overlap and returns the projection vector.
 
@@ -48,8 +48,8 @@ namespace Pastel
 		const Box<N, Real>& bBox,
 		bool infiniteStart,
 		bool infiniteEnd,
-		Vector<N, Real>& projection,
-		Point<N, Real>& commonPoint);
+		Vector<Real, N>& projection,
+		Point<Real, N>& commonPoint);
 
 }
 

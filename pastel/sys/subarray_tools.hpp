@@ -21,7 +21,7 @@ namespace Pastel
 		typedef typename InputSlice::Iterator 
 			InputSliceIterator;
 
-		const Vector<N, integer>& stride = subArray.stride();
+		const Vector<integer, N>& stride = subArray.stride();
 		const InputSlice slice(
 			subArray.slice(axis, 0));
 		const integer endOffset =
@@ -67,8 +67,8 @@ namespace Pastel
 		typedef typename Slice_B::Iterator 
 			SliceIterator_B;
 
-		const Vector<N, integer>& aStride = aArray.stride();
-		const Vector<N, integer>& bStride = bArray.stride();
+		const Vector<integer, N>& aStride = aArray.stride();
+		const Vector<integer, N>& bStride = bArray.stride();
 
 		const Slice_A slice(aArray.slice(axis, 0));
 		const Slice_B slice(bArray.slice(axis, 0));

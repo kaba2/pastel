@@ -41,7 +41,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	TemporaryPoint<N, Real> haltonSequence(integer n, const Point<N, integer>& bases);
+	TemporaryPoint<Real, N> haltonSequence(integer n, const Point<integer, N>& bases);
 
 	//! Returns the n:th element of the Hammersley sequence.
 	/*!
@@ -57,8 +57,8 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	TemporaryPoint<PASTEL_ADD_N(N, 1), Real> hammersleySequence(
-		integer n, const Point<N, integer>& bases, integer size);
+	TemporaryPoint<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
+		integer n, const Point<integer, N>& bases, integer size);
 
 }
 

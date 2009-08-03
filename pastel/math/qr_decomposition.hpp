@@ -163,7 +163,7 @@ namespace Pastel
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.
-		Vector<N, Real> v(ofDimension(n));
+		Vector<Real, N> v(ofDimension(n));
 
 		for (integer k = 0;k < n - 1;++k)
 		{

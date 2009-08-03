@@ -20,11 +20,11 @@ namespace
 
 	void testBegin()
 	{
-		Array<2, uint32> image;
+		Array<uint32, 2> image;
 
 		loadPcx("lena.pcx", image);
 
-		Array<2, uint32> smallerImage(200, 200);
+		Array<uint32, 2> smallerImage(200, 200);
 
 		savePcx(image, "output/adaptedview1.pcx");
 
@@ -33,7 +33,7 @@ namespace
 
 		savePcx(smallerImage, "output/adaptedview2.pcx");
 
-		Array<2, uint32> copySmallerImage(smallerImage.extent());
+		Array<uint32, 2> copySmallerImage(smallerImage.extent());
 
 		copy(constArrayView(smallerImage),
 			arrayView(copySmallerImage));

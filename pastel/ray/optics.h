@@ -26,9 +26,9 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> reflect(
-		const Vector<N, Real>& from,
-		const Vector<N, Real>& normal);
+	Vector<Real, N> reflect(
+		const Vector<Real, N>& from,
+		const Vector<Real, N>& normal);
 
 	//! Reflects a vector w.r.t. the normal of a hyperplane.
 	/*!
@@ -39,9 +39,9 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> reflect(
-		const Vector<N, Real>& from,
-		const Vector<N, Real>& normal,
+	Vector<Real, N> reflect(
+		const Vector<Real, N>& from,
+		const Vector<Real, N>& normal,
 		const PASTEL_NO_DEDUCTION(Real)& cosFromNormal);
 
 	//! Refracts a vector w.r.t. the normal of a hyperplane.
@@ -54,9 +54,9 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> refract(
-		const Vector<N, Real>& from,
-		const Vector<N, Real>& normal,
+	Vector<Real, N> refract(
+		const Vector<Real, N>& from,
+		const Vector<Real, N>& normal,
 		const PASTEL_NO_DEDUCTION(Real)& fromIndex,
 		const PASTEL_NO_DEDUCTION(Real)& toIndex);
 
@@ -71,9 +71,9 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<N, Real> refract(
-		const Vector<N, Real>& from,
-		const Vector<N, Real>& normal,
+	Vector<Real, N> refract(
+		const Vector<Real, N>& from,
+		const Vector<Real, N>& normal,
 		const PASTEL_NO_DEDUCTION(Real)& fromIndex,
 		const PASTEL_NO_DEDUCTION(Real)& toIndex,
 		const PASTEL_NO_DEDUCTION(Real)& cosFromNormal);
@@ -89,9 +89,9 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real fresnelDielectric(
-		const Vector<N, Real>& from,
-		const Vector<N, Real>& normal,
-		const Vector<N, Real>& to,
+		const Vector<Real, N>& from,
+		const Vector<Real, N>& normal,
+		const Vector<Real, N>& to,
 		const PASTEL_NO_DEDUCTION(Real)& fromIndex,
 		const PASTEL_NO_DEDUCTION(Real)& toIndex);
 

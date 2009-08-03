@@ -25,7 +25,7 @@ int main()
 	integer width = 100;
 	integer height = 100;
 
-	Array<2, Color> image(width, height);
+	Array<Color, 2> image(width, height);
 	for (integer y = 0;y < height;++y)
 	{
 		for (integer x = 0;x < width;++x)

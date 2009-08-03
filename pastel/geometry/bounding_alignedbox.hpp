@@ -53,8 +53,8 @@ namespace Pastel
 		const Sphere<N, Real>& sphere)
 	{
 		return AlignedBox<N, Real>(
-			sphere.position() - Vector<N, Real>(sphere.radius()),
-			sphere.position() + Vector<N, Real>(sphere.radius()));
+			sphere.position() - Vector<Real, N>(sphere.radius()),
+			sphere.position() + Vector<Real, N>(sphere.radius()));
 	}
 
 	template <int N, typename Real>
@@ -63,8 +63,8 @@ namespace Pastel
 	{
 		const integer dimension = box.dimension();
 
-		const Vector<N, Real>& width = box.width();
-		Vector<N, Real> radius(ofDimension(dimension));
+		const Vector<Real, N>& width = box.width();
+		Vector<Real, N> radius(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
 		{
@@ -107,9 +107,9 @@ namespace Pastel
 		const AlignedBox<N, Real>& box)
 	{
 		const Real maxRadius = max(box.extent()) * 0.5;
-		const Point<N, Real> center = linear(box.min(), box.max(), 0.5);
-		Point<N, Real> minPoint = center - maxRadius;
-		Point<N, Real> maxPoint = center + maxRadius;
+		const Point<Real, N> center = linear(box.min(), box.max(), 0.5);
+		Point<Real, N> minPoint = center - maxRadius;
+		Point<Real, N> maxPoint = center + maxRadius;
 
 		return AlignedBox<N, Real>(
 			min(minPoint, box.min()),
@@ -131,14 +131,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool extendToCover(
-		const Point<N, Real>& pointToCover,
+		const Point<Real, N>& pointToCover,
 		AlignedBox<N, Real>& boxToExtend)
 	{
 		const integer dimension = pointToCover.size();
 		PENSURE_OP(dimension, ==, boxToExtend.dimension());
 
-		Point<N, Real>& min = boxToExtend.min();
-		Point<N, Real>& max = boxToExtend.max();
+		Point<Real, N>& min = boxToExtend.min();
+		Point<Real, N>& max = boxToExtend.max();
 
 		bool neededToExtend = false;
 

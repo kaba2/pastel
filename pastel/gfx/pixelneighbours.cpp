@@ -7,7 +7,7 @@ namespace Pastel
 	namespace
 	{
 
-		bool check(const Array<2, bool>& image,
+		bool check(const Array<bool, 2>& image,
 			integer x, integer y)
 		{
 			if (x < 0 || x >= image.width() ||
@@ -22,7 +22,7 @@ namespace Pastel
 	}
 
 	PASTELGFX integer pixelNeighbours(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
 		const integer width = image.width();
@@ -70,7 +70,7 @@ namespace Pastel
 	}
 
 	PASTELGFX uint32 pixelNeighbourMask(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer x, integer y)
 	{
 		const integer width = image.width();

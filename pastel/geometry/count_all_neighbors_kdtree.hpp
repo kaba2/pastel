@@ -18,10 +18,10 @@ namespace Pastel
 		class PointListPolicy
 		{
 		public:
-			typedef const Point<N, Real>* Object;
+			typedef const Point<Real, N>* Object;
 			typedef FalseType ArbitrarySplits;
 
-			const Point<N, Real>& point(
+			const Point<Real, N>& point(
 				const Object& object) const
 			{
 				return *object;
@@ -41,7 +41,7 @@ namespace Pastel
 		typename ConstDistanceIterator, 
 		typename CountIterator>
 	void countAllNeighborsKdTree(
-		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<Point<Real, N> >& pointSet,
 		const ConstIndexIterator& indexBegin,
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,
@@ -76,7 +76,7 @@ namespace Pastel
 		typedef PointKdTree<N, Real, 
 			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstTreeIterator;
-		typedef CountingIterator<const Point<N, Real>*> SequenceIterator;
+		typedef CountingIterator<const Point<Real, N>*> SequenceIterator;
 
 		KdTree kdTree(ofDimension(dimension), bucketSize);
 

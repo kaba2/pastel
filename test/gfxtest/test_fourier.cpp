@@ -59,19 +59,19 @@ namespace
 
 	void testFourier()
 	{
-		Array<2, Color> image;
+		Array<Color, 2> image;
 		loadPcx("lena.pcx", image);
 
-		Array<2, std::complex<real32> > fourierImage(image.extent());
+		Array<std::complex<real32>, 2> fourierImage(image.extent());
 
 		/*
-		Array<2, real32> grayImage(image.extent());
+		Array<real32, 2> grayImage(image.extent());
 		copy(constAdaptedView(constArrayView(image), Luma_Color_Adapter()),
 			arrayView(grayImage));
 		packRange(arrayView(grayImage), 0, 1);
 		saveGrayscalePcx(grayImage, "fourier_lena_gray.pcx");
 
-		Array<2, std::complex<real32> > complexImage(image.extent());
+		Array<std::complex<real32>, 2> complexImage(image.extent());
 		copy(constAdaptedView(constArrayView(grayImage), Real_Complex_Adapter()),
 			arrayView(complexImage));
 
@@ -86,7 +86,7 @@ namespace
 			Real_Complex_Adapter()),
 			arrayView(fourierImage));
 
-		Array<2, real32> fourierReal(image.extent());
+		Array<real32, 2> fourierReal(image.extent());
 		copy(constAdaptedView(constArrayView(fourierImage), Complex_Mod_Adapter()),
 			arrayView(fourierReal));
 

@@ -28,8 +28,8 @@ namespace Pastel
 
 	template <typename Real>
 	void convexHullGrahamsScan(
-		const std::vector<Point<2, Real> >& pointSet,
-		std::vector<Point<2, Real> >& hull);
+		const std::vector<Point<Real, 2> >& pointSet,
+		std::vector<Point<Real, 2> >& hull);
 
 }
 

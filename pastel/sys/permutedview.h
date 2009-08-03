@@ -35,37 +35,37 @@ namespace Pastel
 
 		explicit ConstPermutedView(
 			const Contained_ConstView& view,
-			const Tuple<N, integer>& permutation)
+			const Tuple<integer, N>& permutation)
 			: view_(view)
 			, permutation_(permutation)
 			, extent_(permute(view.extent(), permutation))
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(
-				Point<N, integer>(permute(asVector(position), permutation_))),
+				Point<integer, N>(permute(asVector(position), permutation_))),
 				permutation_);
 		}
 
 	protected:
 		const Contained_ConstView view_;
-		const Tuple<N, integer> permutation_;
-		const Vector<N, integer> extent_;
+		const Tuple<integer, N> permutation_;
+		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstPermutedView<N, Input_ConstView> >
 		constPermutedView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
-		const Tuple<N, integer>& permutation)
+		const Tuple<integer, N>& permutation)
 	{
 		return wrapConstView(
 			ConstPermutedView<N, Input_ConstView>(view.contained(), permutation));
@@ -106,12 +106,12 @@ namespace Pastel
 
 		explicit PermutedView(
 			const Contained_View& view,
-			const Tuple<N, integer>& permutation)
+			const Tuple<integer, N>& permutation)
 			: Base(view, permutation)
 		{
 		}
 
-		Cursor cursor(const Point<N, integer>& position) const
+		Cursor cursor(const Point<integer, N>& position) const
 		{
 			return Cursor(view_.cursor(
 				asPoint(permute(asVector(position), permutation_))),
@@ -122,7 +122,7 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_View>
 	View<N, Input_Element, PermutedView<N, Input_View> > permutedView(
 		const View<N, Input_Element, Input_View>& view,
-		const Tuple<N, integer>& permutation)
+		const Tuple<integer, N>& permutation)
 	{
 		return wrapView(PermutedView<N, Input_View>(view.contained(), permutation));
 	}

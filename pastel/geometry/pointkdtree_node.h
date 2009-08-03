@@ -187,7 +187,7 @@ namespace Pastel
 			Node* negative,
 			const Real& splitPosition,
 			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
+			const Vector<Real, N>* splitDirection,
 			const Real& min,
 			const Real& max,
 			const Real& positiveMin,
@@ -245,13 +245,13 @@ namespace Pastel
 			return negativeMax_;
 		}
 
-		const Vector<N, Real>* splitDirection() const
+		const Vector<Real, N>* splitDirection() const
 		{
 			return &splitDirection_;
 		}
 
 		Real projectedPosition(
-			const Point<N, Real>& point) const
+			const Point<Real, N>& point) const
 		{
 			return dot(asVector(point), splitDirection_);
 		}
@@ -274,7 +274,7 @@ namespace Pastel
 		Real max_;
 		Real positiveMin_;
 		Real negativeMax_;
-		Vector<N, Real> splitDirection_;
+		Vector<Real, N> splitDirection_;
 	};
 
 	template <int N, typename Real, typename ObjectPolicy>
@@ -293,7 +293,7 @@ namespace Pastel
 			Node* negative,
 			const Real& splitPosition,
 			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
+			const Vector<Real, N>* splitDirection,
 			const Real& min,
 			const Real& max,
 			const Real& positiveMin,
@@ -350,13 +350,13 @@ namespace Pastel
 			return splitPosition_;
 		}
 
-		const Vector<N, Real>* splitDirection() const
+		const Vector<Real, N>* splitDirection() const
 		{
 			return 0;
 		}
 
 		Real projectedPosition(
-			const Point<N, Real>& point) const
+			const Point<Real, N>& point) const
 		{
 			return point[splitAxis()];
 		}

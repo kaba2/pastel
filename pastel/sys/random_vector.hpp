@@ -14,18 +14,18 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorCube()
+	TemporaryVector<Real, N> randomVectorCube()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorCube<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorCube(integer dimension)
+	TemporaryVector<Real, N> randomVectorCube(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> direction(ofDimension(dimension));
+		Vector<Real, N> direction(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
 		{
@@ -36,14 +36,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorSphere()
+	TemporaryVector<Real, N> randomVectorSphere()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorSphere<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorSphere(integer dimension)
+	TemporaryVector<Real, N> randomVectorSphere(integer dimension)
 	{
 		// A randomly distributed vector on the
 		// unit sphere can be generated as follows.
@@ -62,7 +62,7 @@ namespace Pastel
 
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> result(ofDimension(dimension));
+		Vector<Real, N> result(ofDimension(dimension));
 
 		if (dimension > 0)
 		{
@@ -84,19 +84,19 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorBall()
+	TemporaryVector<Real, N> randomVectorBall()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorBall<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorBall(
+	TemporaryVector<Real, N> randomVectorBall(
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> sphere = 
+		Vector<Real, N> sphere = 
 			randomVectorSphere<N, Real>(dimension);
 
 		sphere *= std::pow(random<Real>(), inverse((Real)dimension));
@@ -105,7 +105,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorAnnulus(
+	TemporaryVector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
@@ -115,14 +115,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVectorAnnulus(
+	TemporaryVector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> sphere = 
+		Vector<Real, N> sphere = 
 			randomVectorSphere<N, Real>(dimension);
 
 		sphere *= 
@@ -137,18 +137,18 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector()
+	TemporaryVector<Real, N> randomVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVector<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomVector(integer dimension)
+	TemporaryVector<Real, N> randomVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> direction(ofDimension(dimension));
+		Vector<Real, N> direction(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
 		{
@@ -159,17 +159,17 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGaussianVector()
+	TemporaryVector<Real, N> randomGaussianVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomGaussianVector<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGaussianVector(integer dimension)
+	TemporaryVector<Real, N> randomGaussianVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
-		Vector<N, Real> direction(ofDimension(dimension));
+		Vector<Real, N> direction(ofDimension(dimension));
 
 		for (integer i = 0;i < dimension;++i)
 		{
@@ -180,7 +180,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomExponentialVector()
+	TemporaryVector<Real, N> randomExponentialVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
@@ -188,12 +188,12 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomExponentialVector(
+	TemporaryVector<Real, N> randomExponentialVector(
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> result(ofDimension(dimension));
+		Vector<Real, N> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)
 		{
 			result[i] = randomExponential<Real>();
@@ -203,7 +203,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGammaVector(
+	TemporaryVector<Real, N> randomGammaVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{		
 		BOOST_STATIC_ASSERT(N != Dynamic);
@@ -213,13 +213,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGammaVector(
+	TemporaryVector<Real, N> randomGammaVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> result(ofDimension(dimension));
+		Vector<Real, N> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)
 		{
 			result[i] = randomGamma<Real>(shape);
@@ -229,7 +229,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
+	TemporaryVector<Real, N> randomGeneralizedGaussianVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
@@ -240,14 +240,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> randomGeneralizedGaussianVector(
+	TemporaryVector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		Vector<N, Real> result(ofDimension(dimension));
+		Vector<Real, N> result(ofDimension(dimension));
 		for (integer i = 0;i < dimension;++i)
 		{
 			result[i] = randomGeneralizedGaussian<Real>(shape, scale);

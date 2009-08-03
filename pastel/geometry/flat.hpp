@@ -19,19 +19,19 @@ namespace Pastel
 
 	template <int N, typename Real, int M>
 	void Flat<N, Real, M>::setPosition(
-		const Point<N, Real>& position)
+		const Point<Real, N>& position)
 	{
 		position_ = position;
 	}
 
 	template <int N, typename Real, int M>
-	const Point<N, Real>& Flat<N, Real, M>::position() const
+	const Point<Real, N>& Flat<N, Real, M>::position() const
 	{
 		return position_;
 	}
 
 	template <int N, typename Real, int M>
-	Vector<N, Real>&
+	Vector<Real, N>&
 		Flat<N, Real, M>::operator[](integer index)
 	{
 		PENSURE2(index >= 0 && index < M, index, M);
@@ -40,7 +40,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, int M>
-	const Vector<N, Real>&
+	const Vector<Real, N>&
 		Flat<N, Real, M>::operator[](integer index) const
 	{
 		PENSURE2(index >= 0 && index < M, index, M);

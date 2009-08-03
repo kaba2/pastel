@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class TemporaryTuple;
 
 	//! A fixed size array of the given type.
@@ -24,7 +24,7 @@ namespace Pastel
 	see Vector and Point for such tuples.
 	*/
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class Tuple
 		: public Detail::TupleBase<N, Type>
 	{
@@ -55,25 +55,25 @@ namespace Pastel
 		{
 		}
 
-		Tuple(const TemporaryTuple<N, Type>& that)
+		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<N, OtherType>& that)
+		Tuple(const Tuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
 
-		Tuple<N, Type>& operator=(const Tuple& that)
+		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<N, Type>&)Base::operator=(that);
+			return (Tuple<Type, N>&)Base::operator=(that);
 		}
 	};
 
 	template <typename Type>
-	class Tuple<1, Type>
+	class Tuple<Type, 1>
 		: public Detail::TupleBase<1, Type>
 	{
 	private:
@@ -109,20 +109,20 @@ namespace Pastel
 		{
 		}
 
-		Tuple(const TemporaryTuple<N, Type>& that)
+		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<N, OtherType>& that)
+		Tuple(const Tuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
 
-		Tuple<N, Type>& operator=(const Tuple& that)
+		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<N, Type>&)Base::operator=(that);
+			return (Tuple<Type, N>&)Base::operator=(that);
 		}
 
 		const Type& x() const
@@ -137,7 +137,7 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Tuple<2, Type>
+	class Tuple<Type, 2>
 		: public Detail::TupleBase<2, Type>
 	{
 	private:
@@ -173,13 +173,13 @@ namespace Pastel
 		{
 		}
 
-		Tuple(const TemporaryTuple<N, Type>& that)
+		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<N, OtherType>& that)
+		Tuple(const Tuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
@@ -190,9 +190,9 @@ namespace Pastel
 			set(a, b);
 		}
 
-		Tuple<N, Type>& operator=(const Tuple& that)
+		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<N, Type>&)Base::operator=(that);
+			return (Tuple<Type, N>&)Base::operator=(that);
 		}
 
 		void set(const Type& a, const Type& b)
@@ -223,7 +223,7 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Tuple<3, Type>
+	class Tuple<Type, 3>
 		: public Detail::TupleBase<3, Type>
 	{
 	private:
@@ -259,13 +259,13 @@ namespace Pastel
 		{
 		}
 
-		Tuple(const TemporaryTuple<N, Type>& that)
+		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<N, OtherType>& that)
+		Tuple(const Tuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
@@ -277,9 +277,9 @@ namespace Pastel
 			set(a, b, c);
 		}
 
-		Tuple<N, Type>& operator=(const Tuple& that)
+		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<N, Type>&)Base::operator=(that);
+			return (Tuple<Type, N>&)Base::operator=(that);
 		}
 
 		void set(const Type& a, const Type& b, const Type& c)
@@ -321,7 +321,7 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Tuple<4, Type>
+	class Tuple<Type, 4>
 		: public Detail::TupleBase<4, Type>
 	{
 	private:
@@ -357,13 +357,13 @@ namespace Pastel
 		{
 		}
 
-		Tuple(const TemporaryTuple<N, Type>& that)
+		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
 
 		template <typename OtherType>
-		Tuple(const Tuple<N, OtherType>& that)
+		Tuple(const Tuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
@@ -375,9 +375,9 @@ namespace Pastel
 			set(a, b, c, d);
 		}
 
-		Tuple<N, Type>& operator=(const Tuple& that)
+		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<N, Type>&)Base::operator=(that);
+			return (Tuple<Type, N>&)Base::operator=(that);
 		}
 
 		void set(const Type& a, const Type& b,
@@ -431,7 +431,7 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Tuple<Dynamic, Type>
+	class Tuple<Type, Dynamic>
 		: public Detail::TupleBase<Dynamic, Type>
 	{
 	private:
@@ -479,7 +479,7 @@ namespace Pastel
 		}
 
 		template <typename ThatType>
-		Tuple(const Tuple<N, ThatType>& that)
+		Tuple(const Tuple<ThatType, N>& that)
 			: Base(that)
 		{
 		}
@@ -493,7 +493,7 @@ namespace Pastel
 		}
 
 		template <typename ThatType>
-		Tuple(const Tuple<N, ThatType>& that,
+		Tuple(const Tuple<ThatType, N>& that,
 			const Dimension& dimension,
 			const Type& defaultData = Type())
 			: Base(that, dimension, defaultData)
@@ -501,13 +501,13 @@ namespace Pastel
 		}
 
 		Tuple(
-			const TemporaryTuple<N, Type>& that)
+			const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
 
 		// The TemporaryTuple's of ThatType
-		// are handled via the Tuple<N, ThatType>
+		// are handled via the Tuple<ThatType, N>
 		// constructor.
 
 		Tuple(
@@ -517,45 +517,45 @@ namespace Pastel
 		{
 		}
 
-		Tuple<N, Type>& operator=(const Tuple& that)
+		Tuple<Type, N>& operator=(const Tuple& that)
 		{
-			return (Tuple<N, Type>&)Base::operator=(that);
+			return (Tuple<Type, N>&)Base::operator=(that);
 		}
 
-		Tuple<N, Type>& operator=(
-			const TemporaryTuple<N, Type>& that)
+		Tuple<Type, N>& operator=(
+			const TemporaryTuple<Type, N>& that)
 		{
-			Tuple<N, Type> copy(that);
+			Tuple<Type, N> copy(that);
 			swap(copy);
 			return *this;
 		}
 	};
 
-	typedef Tuple<1, integer> Integer1;
-	typedef Tuple<1, real> Real1;
+	typedef Tuple<integer, 1> Integer1;
+	typedef Tuple<real, 1> Real1;
 
-	typedef Tuple<2, integer> Integer2;
-	typedef Tuple<2, real> Real2;
+	typedef Tuple<integer, 2> Integer2;
+	typedef Tuple<real, 2> Real2;
 
-	typedef Tuple<3, integer> Integer3;
-	typedef Tuple<3, real> Real3;
+	typedef Tuple<integer, 3> Integer3;
+	typedef Tuple<real, 3> Real3;
 
-	typedef Tuple<4, integer> Integer4;
-	typedef Tuple<4, real> Real4;
-
-	template <int N, typename Real>
-	TemporaryTuple<N, Real> nullTuple();
+	typedef Tuple<integer, 4> Integer4;
+	typedef Tuple<real, 4> Real4;
 
 	template <int N, typename Real>
-	TemporaryTuple<N, Real> aliasTuple(integer dimension,
+	TemporaryTuple<Real, N> nullTuple();
+
+	template <int N, typename Real>
+	TemporaryTuple<Real, N> aliasTuple(integer dimension,
 		PASTEL_NO_DEDUCTION(Real)* data);
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class TemporaryTuple
-		: public Tuple<N, Type>
+		: public Tuple<Type, N>
 	{
 	private:
-		typedef Tuple<N, Type> Base;
+		typedef Tuple<Type, N> Base;
 
 	public:
 		// Using default copy constructor.
@@ -585,18 +585,18 @@ namespace Pastel
 		}
 
 		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<N, OtherType>& that)
+		TemporaryTuple(const TemporaryTuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
 	};
 
 	template <typename Type>
-	class TemporaryTuple<1, Type>
-		: public Tuple<1, Type>
+	class TemporaryTuple<Type, 1>
+		: public Tuple<Type, 1>
 	{
 	private:
-		typedef Tuple<1, Type> Base;
+		typedef Tuple<Type, 1> Base;
 
 	public:
 		// Using default copy constructor.
@@ -626,18 +626,18 @@ namespace Pastel
 		}
 
 		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<1, OtherType>& that)
+		TemporaryTuple(const TemporaryTuple<OtherType, 1>& that)
 			: Base(that)
 		{
 		}
 	};
 
 	template <typename Type>
-	class TemporaryTuple<2, Type>
-		: public Tuple<2, Type>
+	class TemporaryTuple<Type, 2>
+		: public Tuple<Type, 2>
 	{
 	private:
-		typedef Tuple<2, Type> Base;
+		typedef Tuple<Type, 2> Base;
 
 	public:
 		// Using default copy constructor.
@@ -667,7 +667,7 @@ namespace Pastel
 		}
 
 		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<2, OtherType>& that)
+		TemporaryTuple(const TemporaryTuple<OtherType, 2>& that)
 			: Base(that)
 		{
 		}
@@ -679,11 +679,11 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class TemporaryTuple<3, Type>
-		: public Tuple<3, Type>
+	class TemporaryTuple<Type, 3>
+		: public Tuple<Type, 3>
 	{
 	private:
-		typedef Tuple<3, Type> Base;
+		typedef Tuple<Type, 3> Base;
 
 	public:
 		// Using default copy constructor.
@@ -713,7 +713,7 @@ namespace Pastel
 		}
 
 		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<3, OtherType>& that)
+		TemporaryTuple(const TemporaryTuple<OtherType, 3>& that)
 			: Base(that)
 		{
 		}
@@ -726,11 +726,11 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class TemporaryTuple<4, Type>
-		: public Tuple<4, Type>
+	class TemporaryTuple<Type, 4>
+		: public Tuple<Type, 4>
 	{
 	private:
-		typedef Tuple<4, Type> Base;
+		typedef Tuple<Type, 4> Base;
 
 	public:
 		// Using default copy constructor.
@@ -760,7 +760,7 @@ namespace Pastel
 		}
 
 		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<4, OtherType>& that)
+		TemporaryTuple(const TemporaryTuple<OtherType, 4>& that)
 			: Base(that)
 		{
 		}
@@ -773,8 +773,8 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class TemporaryTuple<Dynamic, Type>
-		: public Tuple<Dynamic, Type>
+	class TemporaryTuple<Type, Dynamic>
+		: public Tuple<Type, Dynamic>
 	{
 	private:
 		enum
@@ -782,7 +782,7 @@ namespace Pastel
 			N = Dynamic
 		};
 
-		typedef Tuple<N, Type> Base;
+		typedef Tuple<Type, N> Base;
 
 	public:
 		// Using default copy constructor.
@@ -819,7 +819,7 @@ namespace Pastel
 		}
 
 		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<N, OtherType>& that)
+		TemporaryTuple(const TemporaryTuple<OtherType, N>& that)
 			: Base(that)
 		{
 		}
@@ -831,7 +831,7 @@ namespace Pastel
 		{
 		}
 
-		TemporaryTuple<N, Type>& operator=(
+		TemporaryTuple<Type, N>& operator=(
 			const TemporaryTuple& that)
 		{
 			TemporaryTuple copy(that);

@@ -14,7 +14,7 @@ namespace Pastel
 		bool intersect(
 			const Line<N, Real>& line,
 			const Sphere<N, Real>& sphere,
-			Vector<2, Real>& hitList)
+			Vector<Real, 2>& hitList)
 	{
 		// Let
 		// P = line position
@@ -37,7 +37,7 @@ namespace Pastel
 		//
 		// D is a unit vector so a = 1.
 
-		const Vector<N, Real> delta(
+		const Vector<Real, N> delta(
 			sphere.position() - line.position());
 
 		const Real bCoeff(

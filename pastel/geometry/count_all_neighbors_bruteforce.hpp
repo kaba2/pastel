@@ -18,7 +18,7 @@ namespace Pastel
 	typename ConstIndexIterator, typename ConstDistanceIterator,
 	typename CountIterator>
 	void countAllNeighborsBruteForce(
-		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<Point<Real, N> >& pointSet,
 		const ConstIndexIterator& indexBegin,
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,
@@ -54,7 +54,7 @@ namespace Pastel
 		for (integer i = 0;i < indices;++i)
 		{
 			const integer index = indexBegin[i];
-			const Point<N, Real>& iPoint = pointSet[index];
+			const Point<Real, N>& iPoint = pointSet[index];
 			const Real maxDistance = maxDistanceBegin[i];
 			for (integer j = 0;j < points;++j)
 			{

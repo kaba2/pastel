@@ -11,9 +11,9 @@ namespace Pastel
 	integer intersect(
 		const Ray<N, Real>& ray,
 		const AlignedBox<N, Real>& alignedBox,
-		Vector<2, Real>& hitList)
+		Vector<Real, 2>& hitList)
 	{
-		Vector<2, Real> t;
+		Vector<Real, 2> t;
 		if (!intersect(ray.line(), alignedBox, t) ||
 			t[1] < 0)
 		{

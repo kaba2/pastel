@@ -30,16 +30,16 @@ namespace Pastel
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return view_.extent();
 		}
 
 		const Element& operator()(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
-			return view_(Point<N, integer>(clamp(asVector(position),
-				Vector<N, integer>(0), evaluate(view_.extent() - 1))));
+			return view_(Point<integer, N>(clamp(asVector(position),
+				Vector<integer, N>(0), evaluate(view_.extent() - 1))));
 		}
 
 	private:

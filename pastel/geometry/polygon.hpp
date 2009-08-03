@@ -20,7 +20,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, Real>&
+	Point<Real, N>&
 		Polygon<N, Real>::operator[](integer index)
 	{
 		PENSURE2(index >= 0 && index < data_.size(),
@@ -30,7 +30,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>&
+	const Point<Real, N>&
 		Polygon<N, Real>::operator[](integer index) const
 	{
 		PENSURE2(index >= 0 && index < data_.size(),
@@ -53,7 +53,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Polygon<N, Real>::pushBack(
-		const Point<N, Real>& that)
+		const Point<Real, N>& that)
 	{
 		data_.push_back(that);
 	}
@@ -67,7 +67,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Polygon<N, Real>::insert(
-		integer index, const Point<N, Real>& that)
+		integer index, const Point<Real, N>& that)
 	{
 		PENSURE2(index >= 0 && index <= data_.size(),
 			index, data_.size());

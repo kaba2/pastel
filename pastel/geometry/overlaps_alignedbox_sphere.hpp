@@ -30,11 +30,11 @@ namespace Pastel
 	template <int N, typename Real>
 	bool overlaps(
 		const AlignedBox<N, Real>& aBox,
-		const Vector<N, Real>& aVelocity,
+		const Vector<Real, N>& aVelocity,
 		const Sphere<N, Real>& bSphere,
-		const Vector<N, Real>& bVelocity,
+		const Vector<Real, N>& bVelocity,
 		const Real& maxTime,
-		Tuple<2, Real>& intersectionRange)
+		Tuple<Real, 2>& intersectionRange)
 	{
 		// For documentation, see the implementation
 		// in overlaps_alignedbox_alignedbox.hpp.
@@ -42,7 +42,7 @@ namespace Pastel
 		const AlignedBox<N, Real> bBox(
 			boundingAlignedBox(bSphere));
 
-		Tuple<2, Real> tRange;
+		Tuple<Real, 2> tRange;
 		if (!overlaps(aBox, aVelocity, bBox, bVelocity, maxTime, tRange))
 		{
 			return false;
@@ -51,11 +51,11 @@ namespace Pastel
 		Real tMaxStart = tRange[0];
 		Real tMinEnd = tRange[1];
 
-		const Vector<N, Real> velocity = bVelocity - aVelocity;
+		const Vector<Real, N> velocity = bVelocity - aVelocity;
 
 		ENSURE(false);
 		// What is the axis to test??
-		const Vector<N, Real> unitAxis;
+		const Vector<Real, N> unitAxis;
 
 		const Real projectedVelocity = dot(velocity, unitAxis);
 
@@ -67,7 +67,7 @@ namespace Pastel
 			return false;
 		}
 
-		return Tuple<2, Real>(
+		return Tuple<Real, 2>(
 			std::max(tMaxStart, tRange[0]),
 			std::min(tMinEnd, tRange[1]));
 	}

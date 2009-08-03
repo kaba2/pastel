@@ -10,7 +10,7 @@ namespace Pastel
 	bool intersect(
 		const Segment<N, Real>& segment,
 		const Plane<N, Real>& halfSpace,
-		Vector<2, Real>& hitList)
+		Vector<Real, 2>& hitList)
 	{
 		// Let P be a plane with normal n
 		// and point q on it:

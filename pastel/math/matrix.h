@@ -50,7 +50,7 @@ namespace Pastel
 	typename LeftExpression, typename RightExpression>
 	const MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression> operator *(
 		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
-		const VectorExpression<Width, Real, RightExpression>& right);
+		const VectorExpression<Real, Width, RightExpression>& right);
 
 	template <
 		int N,
@@ -62,19 +62,19 @@ namespace Pastel
 	template <int Height, int Width, typename Real,
 	typename LeftExpression, typename RightExpression>
 	const VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression> operator *(
-		const VectorExpression<Height, Real, LeftExpression>& left,
+		const VectorExpression<Real, Height, LeftExpression>& left,
 		const MatrixExpression<Height, Width, Real, RightExpression>& right);
 
 	// Points vs matrices
 
 	template <int Height, int Width, typename Real>
-	Point<Height, Real> operator*(
+	Point<Real, Height> operator*(
 		const Matrix<Height, Width, Real>& left,
-		const Point<Width, Real>& right);
+		const Point<Real, Width>& right);
 
 	template <int Height, int Width, typename Real>
-	Point<Width, Real> operator *(
-		const Point<Height, Real>& left,
+	Point<Real, Width> operator *(
+		const Point<Real, Height>& left,
 		const Matrix<Height, Width, Real>& right);
 
 	template <int Height, int Width, typename Real>

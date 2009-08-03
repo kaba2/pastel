@@ -18,7 +18,7 @@ namespace Pastel
 
 			explicit ConstSparseViewCursor(
 				const ConstCursor& cursor,
-				const Vector<N, integer>& step)
+				const Vector<integer, N>& step)
 				: cursor_(cursor)
 				, step_(step)
 			{
@@ -63,7 +63,7 @@ namespace Pastel
 				cursor_.move(index, amount * step_[Index]);
 			}
 
-			void move(const Vector<N, integer>& amount)
+			void move(const Vector<integer, N>& amount)
 			{
 				cursor_.move(amount * step_);
 			}
@@ -80,7 +80,7 @@ namespace Pastel
 
 		protected:
 			ConstCursor cursor_;
-			Vector<N, integer> step_;
+			Vector<integer, N> step_;
 		};
 
 		template <int N, typename Cursor>
@@ -102,7 +102,7 @@ namespace Pastel
 
 			explicit SparseViewCursor(
 				const Cursor& cursor,
-				const Vector<N, integer>& step)
+				const Vector<integer, N>& step)
 				: Base(cursor, step)
 			{
 			}

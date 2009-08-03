@@ -28,13 +28,13 @@ namespace Pastel
 		typedef const Real* ConstIterator;
 		typedef VectorView<Dynamic, Real> Row;
 		typedef ConstVectorView<Dynamic, Real> ConstRow;
-		typedef typename Array<2, Real>::RowIterator RowIterator;
-		typedef typename Array<2, Real>::ConstRowIterator ConstRowIterator;
-		typedef typename Array<2, Real>::RowIterator ColumnIterator;
-		typedef typename Array<2, Real>::ConstRowIterator ConstColumnIterator;
+		typedef typename Array<Real, 2>::RowIterator RowIterator;
+		typedef typename Array<Real, 2>::ConstRowIterator ConstRowIterator;
+		typedef typename Array<Real, 2>::RowIterator ColumnIterator;
+		typedef typename Array<Real, 2>::ConstRowIterator ConstColumnIterator;
 
-		typedef Pastel::View<2, Real, ArrayView<2, Array<2, Real> > > View;
-		typedef Pastel::ConstView<2, Real, ConstArrayView<2, Array<2, Real> > > ConstView;
+		typedef Pastel::View<2, Real, ArrayView<2, Array<Real, 2> > > View;
+		typedef Pastel::ConstView<2, Real, ConstArrayView<2, Array<Real, 2> > > ConstView;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -394,7 +394,7 @@ namespace Pastel
 			return constArrayView(data_);
 		}
 		
-		const Array<2, Real>& asArray() const
+		const Array<Real, 2>& asArray() const
 		{
 			return data_;
 		}
@@ -468,7 +468,7 @@ namespace Pastel
 		}
 
 	private:
-		Array<2, Real> data_;
+		Array<Real, 2> data_;
 	};
 
 }

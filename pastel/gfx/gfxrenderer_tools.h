@@ -29,7 +29,7 @@ namespace Pastel
 	void drawTriangle(
 		GfxRenderer<Type>& renderer,
 		const Triangle2& triangle,
-		const Tuple<3, Type>& colorTriangle);
+		const Tuple<Type, 3>& colorTriangle);
 
 	template <typename Type>
 	void drawTriangle(
@@ -64,7 +64,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const AlignedBox2& alignedBox,
-		const Tuple<4, Point2>& textureQuad);
+		const Tuple<Point2, 4>& textureQuad);
 
 	template <typename Type>
 	void drawBox(
@@ -75,7 +75,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const Box2& box,
-		const Tuple<4, Point2>& textureQuad);
+		const Tuple<Point2, 4>& textureQuad);
 
 	template <typename Type>
 	void drawArrow(

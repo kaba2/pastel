@@ -31,15 +31,15 @@ namespace Pastel
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
 
 		const Element& operator()(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
-			Point<N, integer> newPosition;
+			Point<integer, N> newPosition;
 			for (integer i = 0;i < N;++i)
 			{
 				newPosition[i] = mod(position[i], extent_[i]);
@@ -50,7 +50,7 @@ namespace Pastel
 
 	private:
 		const Contained_ConstView view_;
-		const Vector<N, integer> extent_;
+		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>

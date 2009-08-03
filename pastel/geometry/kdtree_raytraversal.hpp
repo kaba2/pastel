@@ -54,7 +54,7 @@ namespace Pastel
 				const Line<N, Real>& ray,
 				Intersector intersector)
 			{
-				Vector<2, Real> tHit;
+				Vector<Real, 2> tHit;
 				if (!intersect(ray, tree.bound(), tHit) ||
 					tHit[1] < 0)
 				{
@@ -88,8 +88,8 @@ namespace Pastel
 					Cursor currentNode = stackElement.node_;
 					Real tMin = stackElement.tMin_;
 					Real tMax = stackElement.tMax_;
-					Point<N, Real> minPosition = ray.position() + tMin * ray.direction();
-					Point<N, Real> maxPosition = ray.position() + tMax * ray.direction();
+					Point<Real, N> minPosition = ray.position() + tMin * ray.direction();
+					Point<Real, N> maxPosition = ray.position() + tMax * ray.direction();
 
 					while(!currentNode.leaf())
 					{

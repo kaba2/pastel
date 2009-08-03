@@ -458,9 +458,9 @@ namespace Pastel
 		// The first resampling is from the input array to
 		// a temporary array.
 
-		Vector<N, integer> extent = input.extent();
+		Vector<integer, N> extent = input.extent();
 		extent[axisSet[0].axis_] = output.extent()[axisSet[0].axis_];
-		Array<N, Computation_Element> tempArray(extent);
+		Array<Computation_Element, N> tempArray(extent);
 
 		{
 			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
@@ -477,7 +477,7 @@ namespace Pastel
 		for (integer i = 1;i < dimension - 1;++i)
 		{
 			extent[axisSet[i].axis_] = output.extent()[axisSet[i].axis_];
-			Array<N, Computation_Element> tempArray2(extent);
+			Array<Computation_Element, N> tempArray2(extent);
 
 			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
 				resampleFunctor(arrayExtender.extender(i), arrayExtender.border(),
@@ -1022,9 +1022,9 @@ namespace Pastel
 		// The first resampling is from the input view to
 		// a temporary array.
 
-		Vector<N, integer> extent = input.extent();
+		Vector<integer, N> extent = input.extent();
 		extent[axisSet[0].axis_] = output.extent()[axisSet[0].axis_];
-		Array<N, Computation_Element> tempArray(extent);
+		Array<Computation_Element, N> tempArray(extent);
 
 		{
 			const ArrayExtender<1, Input_Element> arrayExtender1D(
@@ -1040,7 +1040,7 @@ namespace Pastel
 		for (integer i = 1;i < N - 1;++i)
 		{
 			extent[axisSet[i].axis_] = output.extent()[axisSet[i].axis_];
-			Array<N, Computation_Element> tempArray2(extent);
+			Array<Computation_Element, N> tempArray2(extent);
 
 			const ArrayExtender<1, Computation_Element> arrayExtender1D(
 				arrayExtender.extender(i), arrayExtender.border());

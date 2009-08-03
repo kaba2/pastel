@@ -18,8 +18,8 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<N, real>& center,
-				const Vector<N, real>& radius)
+				const Point<real, N>& center,
+				const Vector<real, N>& radius)
 				: center_(center)
 				, radius_(radius)
 				, invRadius_(inverse(radius))
@@ -27,19 +27,19 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<N, real> delta
-					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
+				const Vector<real, N> delta
+					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = dot(delta) < 1;
 			}
 
 		private:
-			const Point<N, real> center_;
-			const Vector<N, real> radius_;
-			const Vector<N, real> invRadius_;
+			const Point<real, N> center_;
+			const Vector<real, N> radius_;
+			const Vector<real, N> invRadius_;
 		};
 
 	}
@@ -47,10 +47,10 @@ namespace Pastel
 	template <int N, typename Image_View>
 	void ellipsoidElement(
 		const View<N, bool, Image_View>& image,
-		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
+		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		Detail_EllipsoidElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2),
+			asPoint(Vector<real, N>(image.extent()) / 2),
 			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
@@ -70,8 +70,8 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<N, real>& center,
-				const Vector<N, real>& radius)
+				const Point<real, N>& center,
+				const Vector<real, N>& radius)
 				: center_(center)
 				, radius_(radius)
 				, invRadius_(inverse(radius))
@@ -79,19 +79,19 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<N, real> delta
-					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
+				const Vector<real, N> delta
+					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = normManhattan(delta) < 1;
 			}
 
 		private:
-			const Point<N, real> center_;
-			const Vector<N, real> radius_;
-			const Vector<N, real> invRadius_;
+			const Point<real, N> center_;
+			const Vector<real, N> radius_;
+			const Vector<real, N> invRadius_;
 		};
 
 	}
@@ -99,10 +99,10 @@ namespace Pastel
 	template <int N, typename Image_View>
 	void diamondElement(
 		const View<N, bool, Image_View>& image,
-		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
+		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		Detail_DiamondElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2),
+			asPoint(Vector<real, N>(image.extent()) / 2),
 			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
@@ -122,8 +122,8 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<N, real>& center,
-				const Vector<N, real>& radius,
+				const Point<real, N>& center,
+				const Vector<real, N>& radius,
 				real power)
 				: center_(center)
 				, radius_(radius)
@@ -133,19 +133,19 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<N, real> delta
-					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
+				const Vector<real, N> delta
+					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = powerSum(delta, power_) < 1;
 			}
 
 		private:
-			const Point<N, real> center_;
-			const Vector<N, real> radius_;
-			const Vector<N, real> invRadius_;
+			const Point<real, N> center_;
+			const Vector<real, N> radius_;
+			const Vector<real, N> invRadius_;
 			const real power_;
 		};
 
@@ -155,12 +155,12 @@ namespace Pastel
 	void pEllipsoidElement(
 		const View<N, bool, Image_View>& image,
 		real power,
-		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
+		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		ENSURE_OP(power, >, 0);
 
 		Detail_pEllipsoidElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2),
+			asPoint(Vector<real, N>(image.extent()) / 2),
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
 	}
@@ -181,8 +181,8 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<N, real>& center,
-				const Vector<N, real>& radius)
+				const Point<real, N>& center,
+				const Vector<real, N>& radius)
 				: center_(center)
 				, radius_(radius)
 				, invRadius_(inverse(radius))
@@ -190,19 +190,19 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				bool& image) const
 			{
-				const Vector<N, real> delta
-					= (Point<N, real>(position) + 0.5 - center_) * invRadius_;
+				const Vector<real, N> delta
+					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = normInfinity(delta) < 1;
 			}
 
 		private:
-			const Point<N, real> center_;
-			const Vector<N, real> radius_;
-			const Vector<N, real> invRadius_;
+			const Point<real, N> center_;
+			const Vector<real, N> radius_;
+			const Vector<real, N> invRadius_;
 		};
 
 	}
@@ -210,10 +210,10 @@ namespace Pastel
 	template <int N, typename Image_View>
 	void boxElement(
 		const View<N, bool, Image_View>& image,
-		const PASTEL_NO_DEDUCTION((Vector<N, real>))& diameter)
+		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		Detail_BoxElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<N, real>(image.extent()) / 2),
+			asPoint(Vector<real, N>(image.extent()) / 2),
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
 	}

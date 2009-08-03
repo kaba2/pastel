@@ -48,7 +48,7 @@ namespace Pastel
 				cursor_.move<Index>(amount);
 			}
 
-			void move(Vector<N, integer> amount)
+			void move(Vector<integer, N> amount)
 			{
 				cursor_.move(amount);
 			}

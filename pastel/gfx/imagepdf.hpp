@@ -35,17 +35,17 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, integer> ImagePdf<N, Real>::operator()() const
+	Point<integer, N> ImagePdf<N, Real>::operator()() const
 	{
 		if (cdf_.empty())
 		{
-			return Point<N, integer>(0);
+			return Point<integer, N>(0);
 		}
 
 		const Real value = random<Real>() * cdf_.back().cdf();
 
 		return std::lower_bound(cdf_.begin(), cdf_.end(),
-			CdfElement(value, Point<N, integer>(0)))->position();
+			CdfElement(value, Point<integer, N>(0)))->position();
 	}
 
 }

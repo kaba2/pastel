@@ -30,33 +30,33 @@ namespace Pastel
 		Segment();
 
 		//! Constructs a segment using the given points.
-		Segment(const Point<N, Real>& start,
-			const Point<N, Real>& end);
+		Segment(const Point<Real, N>& start,
+			const Point<Real, N>& end);
 
 		// Used for concept checking.
 		~Segment();
 
 		//! Sets the end points of the segment.
-		void set(const Point<N, Real>& start,
-			const Point<N, Real>& end);
+		void set(const Point<Real, N>& start,
+			const Point<Real, N>& end);
 
 		//! Returns the start point of the segment.
-		Point<N, Real>& start();
+		Point<Real, N>& start();
 
 		//! Returns the start point of the segment.
-		const Point<N, Real>& start() const;
+		const Point<Real, N>& start() const;
 
 		//! Returns the end point of the segment.
-		Point<N, Real>& end();
+		Point<Real, N>& end();
 
 		//! Returns the end point of the segment.
-		const Point<N, Real>& end() const;
+		const Point<Real, N>& end() const;
 
-		Point<N, Real> at(const Real& t) const;
+		Point<Real, N> at(const Real& t) const;
 
 	private:
-		Point<N, Real> start_;
-		Point<N, Real> end_;
+		Point<Real, N> start_;
+		Point<Real, N> end_;
 	};
 
 	typedef Segment<1, real> Segment1;

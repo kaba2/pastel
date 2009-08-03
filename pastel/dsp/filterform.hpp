@@ -104,7 +104,7 @@ namespace Pastel
 		ENSURE1(odd(height), height);
 		ENSURE_OP(width, ==, height);
 
-		const Vector<2, Real> half(
+		const Vector<Real, 2> half(
 			(width - 1) / 2, (height - 1) / 2);
 		const Real scaleSincFreq = 2 * cutOff;
 		const Real scaleWindowFreq = (Real)1 / half[0];
@@ -114,8 +114,8 @@ namespace Pastel
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				const Vector<2, Real> delta(
-					Vector<2, Real>(x, y) - half);
+				const Vector<Real, 2> delta(
+					Vector<Real, 2>(x, y) - half);
 				const Real distance(norm(delta));
 				*output.cursor(x, y) = sinc(distance * scaleSincFreq) *
 					filterWindow(distance * scaleWindowFreq);
@@ -154,7 +154,7 @@ namespace Pastel
 		ENSURE1(odd(height), height);
 		ENSURE_OP(width, ==, height);
 
-		const Vector<2, Real> half(
+		const Vector<Real, 2> half(
 			(width - 1) / 2, (height - 1) / 2);
 		const Real scaleSincFreq = 2 * cutOff;
 		const Real scaleWindowFreq = (Real)1 / half[0];
@@ -164,8 +164,8 @@ namespace Pastel
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				const Vector<2, Real> delta(
-					Vector<2, Real>(x, y) - half);
+				const Vector<Real, 2> delta(
+					Vector<Real, 2>(x, y) - half);
 				const Real distance(norm(delta));
 				*output.cursor(x, y) = -sinc(distance * scaleSincFreq) *
 					filterWindow(distance * scaleWindowFreq);
@@ -204,7 +204,7 @@ namespace Pastel
 		ENSURE1(odd(height), height);
 		ENSURE_OP(width, ==, height);
 
-		const Vector<2, Real> half(
+		const Vector<Real, 2> half(
 			(width - 1) / 2, (height - 1) / 2);
 		const Real scaleWindowFreq = (Real)1 / half[0];
 
@@ -213,8 +213,8 @@ namespace Pastel
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				const Vector<2, Real> delta(
-					Vector<2, Real>(x, y) - half);
+				const Vector<Real, 2> delta(
+					Vector<Real, 2>(x, y) - half);
 				const Real distance(norm(delta));
 				*output.cursor(x, y) = filterWindow(
 					distance * scaleWindowFreq);

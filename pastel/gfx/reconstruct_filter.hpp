@@ -28,14 +28,14 @@ namespace Pastel
 			}
 
 			DataPoint(
-				const Point<N, Real>& position,
+				const Point<Real, N>& position,
 				const Data& data)
 				: position_(position)
 				, data_(data)
 			{
 			}
 
-			Point<N, Real> position_;
+			Point<Real, N> position_;
 			Data data_;
 		};
 
@@ -46,7 +46,7 @@ namespace Pastel
 			typedef DataPoint<N, Real, Data> Object;
 			typedef FalseType ArbitrarySplits;
 
-			const Point<N, Real>& point(
+			const Point<Real, N>& point(
 				const DataPoint<N, Real, Data>& dataPoint) const
 			{
 				return dataPoint.position_;
@@ -78,7 +78,7 @@ namespace Pastel
 			typedef typename ObjectPolicy::Object Data;
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				typename Data::Data_& data) const
 			{
 				if (kdTree_.empty())
@@ -92,7 +92,7 @@ namespace Pastel
 
 				std::vector<ConstIterator> nearestSet;
 
-				searchNearest(kdTree_, Point<N, real>(position) + 0.5,
+				searchNearest(kdTree_, Point<real, N>(position) + 0.5,
 					filter_.radius() * filterStretch_,
 					0,
 					Infinity_NormBijection<Real>(),
@@ -108,7 +108,7 @@ namespace Pastel
 				{
 					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
 
-					const Vector<N, real> delta = nearestSet[i]->position_ - (Point<N, real>(position) + 0.5);
+					const Vector<real, N> delta = nearestSet[i]->position_ - (Point<real, N>(position) + 0.5);
 					real weight = 1;
 					for (integer k = 0;k < N;++k)
 					{
@@ -137,7 +137,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Filter, typename Output_View>
 	void reconstructFilter(
-		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const Filter& filter,
@@ -157,7 +157,7 @@ namespace Pastel
 		PointKdTree<N, Real, DataPolicy> kdTree(
 			ofDimension(N), 16, dataPolicy);
 
-		const Vector<N, Real> scaling = inverse(region.extent()) * Vector<N, Real>(view.extent());
+		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());
 
 		std::vector<DataPoint> dataPointList;
 		for (integer i = 0;i < points;++i)

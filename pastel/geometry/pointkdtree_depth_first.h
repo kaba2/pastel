@@ -36,7 +36,7 @@ namespace Pastel
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
-		const Point<N, Real>& searchPoint,
+		const Point<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,

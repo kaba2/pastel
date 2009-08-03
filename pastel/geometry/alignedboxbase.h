@@ -49,7 +49,7 @@ namespace Pastel
 		}
 
 		//! Constructs a singular box (min = max = that).
-		explicit AlignedBoxBase(const Point<N, Real>& that)
+		explicit AlignedBoxBase(const Point<Real, N>& that)
 			: min_(that)
 			, max_(that)
 		{
@@ -57,8 +57,8 @@ namespace Pastel
 
 		//! Constructs a box using the given points.
 		AlignedBoxBase(
-			const Point<N, Real>& min,
-			const Point<N, Real>& max)
+			const Point<Real, N>& min,
+			const Point<Real, N>& max)
 			: min_(min)
 			, max_(max)
 		{
@@ -92,45 +92,45 @@ namespace Pastel
 
 		//! Sets the corner points of the box.
 		void set(
-			const Point<N, Real>& min,
-			const Point<N, Real>& max)
+			const Point<Real, N>& min,
+			const Point<Real, N>& max)
 		{
 			min_ = min;
 			max_ = max;
 		}
 
 		//! Sets the minimum point of the box.
-		void setMin(const Point<N, Real>& min)
+		void setMin(const Point<Real, N>& min)
 		{
 			min_ = point;
 		}
 
 		//! Returns the minimum point of the box.
-		Point<N, Real>& min()
+		Point<Real, N>& min()
 		{
 			return min_;
 		}
 
 		//! Returns the minimum point of the box.
-		const Point<N, Real>& min() const
+		const Point<Real, N>& min() const
 		{
 			return min_;
 		}
 
 		//! Sets the maximum point of the box.
-		void setMax(const Point<N, Real>& max)
+		void setMax(const Point<Real, N>& max)
 		{
 			max_ = point;
 		}
 
 		//! Returns the maximum point of the box.
-		Point<N, Real>& max()
+		Point<Real, N>& max()
 		{
 			return max_;
 		}
 
 		//! Returns the maximum point of the box.
-		const Point<N, Real>& max() const
+		const Point<Real, N>& max() const
 		{
 			return max_;
 		}
@@ -149,17 +149,17 @@ namespace Pastel
 			return max_[index] - min_[index];
 		}
 
-		TemporaryPoint<N, Real> at(
-			const Vector<N, Real>& coordinates) const
+		TemporaryPoint<Real, N> at(
+			const Vector<Real, N>& coordinates) const
 		{
-			return TemporaryPoint<N, Real>(
+			return TemporaryPoint<Real, N>(
 				(1 - coordinates) * asVector(min_) +
 				coordinates * asVector(max_));
 		}
 
 		//! Translates the box by the given vector.
 		AlignedBox<N, Real>& operator+=(
-			const Vector<N, Real>& right)
+			const Vector<Real, N>& right)
 		{
 			min_ += right;
 			max_ += right;
@@ -168,7 +168,7 @@ namespace Pastel
 		}
 
 		AlignedBox<N, Real> operator+(
-			const Vector<N, Real>& right) const
+			const Vector<Real, N>& right) const
 		{
 			AlignedBox<N, Real> result((const AlignedBox<N, Real>&)*this);
 			result += right;
@@ -177,7 +177,7 @@ namespace Pastel
 
 		//! Translates the box backwards by the given vector.
 		AlignedBox<N, Real>& operator-=(
-			const Vector<N, Real>& right)
+			const Vector<Real, N>& right)
 		{
 			min_ -= right;
 			max_ -= right;
@@ -186,7 +186,7 @@ namespace Pastel
 		}
 
 		AlignedBox<N, Real> operator-(
-			const Vector<N, Real>& right) const
+			const Vector<Real, N>& right) const
 		{
 			AlignedBox<N, Real> result((const AlignedBox<N, Real>&)*this);
 			result -= right;
@@ -194,8 +194,8 @@ namespace Pastel
 		}
 
 	private:
-		Point<N, Real> min_;
-		Point<N, Real> max_;
+		Point<Real, N> min_;
+		Point<Real, N> max_;
 	};
 
 }

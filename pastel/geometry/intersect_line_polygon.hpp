@@ -14,7 +14,7 @@ namespace Pastel
 	template <typename Real>
 	bool intersect(const Line<2, Real>& line,
 		const Polygon<2, Real>& polygon,
-		Vector<2, Real>& t)
+		Vector<Real, 2>& t)
 	{
 		Real tMin(-infinity<Real>());
 		Real tMax(infinity<Real>());
@@ -23,7 +23,7 @@ namespace Pastel
 		for (integer i = 0;i < vertices;++i)
 		{
 			const integer next = (i == vertices - 1) ? 0 : i + 1;
-			const Vector<2, Real> normal(cross(polygon[next] - polygon[i]));
+			const Vector<Real, 2> normal(cross(polygon[next] - polygon[i]));
 			const Plane<2, Real> plane(
 				polygon[i], normal / norm(normal));
 

@@ -32,8 +32,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool lexicographicLess(
-		const Vector<N, Real>& left,
-		const Vector<N, Real>& right)
+		const Vector<Real, N>& left,
+		const Vector<Real, N>& right)
 	{
 		const integer dimension = left.dimension();
 		PENSURE_OP(right.dimension(), ==, dimension);
@@ -174,17 +174,17 @@ namespace Pastel
 
 	template <typename Real>
 	Real signedArea(
-		const Point<2, Real>& a,
-		const Point<2, Real>& b,
-		const Point<2, Real>& c)
+		const Point<Real, 2>& a,
+		const Point<Real, 2>& b,
+		const Point<Real, 2>& c)
 	{
 		return 0.5 * dot(cross(b - a), c - a);
 	}
 
 	template <typename Real>
 	bool lexicographical(
-		const Point<2, Real>& left,
-		const Point<2, Real>& right)
+		const Point<Real, 2>& left,
+		const Point<Real, 2>& right)
 	{
 		return left.x() < right.x() ||
 			(left.x() == right.x() &&
@@ -193,14 +193,14 @@ namespace Pastel
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& to)
+		const Vector<Real, 2>& to)
 	{
 		return ccwAngle(to, norm(to));
 	}
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& to,
+		const Vector<Real, 2>& to,
 		const PASTEL_NO_DEDUCTION(Real)& normTo)
 	{
 		const Real angle = std::acos(to[0] / normTo);
@@ -214,20 +214,20 @@ namespace Pastel
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& from,
-		const Vector<2, Real>& to)
+		const Vector<Real, 2>& from,
+		const Vector<Real, 2>& to)
 	{
 		return ccwAngle(from, to, norm(from), norm(to));
 	}
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& from,
-		const Vector<2, Real>& to,
+		const Vector<Real, 2>& from,
+		const Vector<Real, 2>& to,
 		const PASTEL_NO_DEDUCTION(Real)& fromNorm,
 		const PASTEL_NO_DEDUCTION(Real)& toNorm)
 	{
-		const Vector<2, Real> normalFrom(
+		const Vector<Real, 2> normalFrom(
 			cross(from));
 
 		const Real angle = std::acos(dot(from, to) /
@@ -493,12 +493,12 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, Real> linear(
-		const Point<N, Real>& startPoint,
-		const Point<N, Real>& endPoint,
+	Point<Real, N> linear(
+		const Point<Real, N>& startPoint,
+		const Point<Real, N>& endPoint,
 		const PASTEL_NO_DEDUCTION(Real)& time)
 	{
-		return Point<N, Real>(
+		return Point<Real, N>(
 			asVector(startPoint) * (1 - time) +
 			asVector(endPoint) * time);
 	}

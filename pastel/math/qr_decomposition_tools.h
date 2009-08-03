@@ -21,9 +21,9 @@ namespace Pastel
 	//! Solves the linear system QRx = b <=> x^T R^T Q^T = b^T.
 
 	template <int N, typename Real, typename Expression>
-	Vector<N, Real> solveLinear(
+	Vector<Real, N> solveLinear(
 		const QrDecomposition<N, Real>& qr,
-		const VectorExpression<N, Real, Expression>& b);
+		const VectorExpression<Real, N, Expression>& b);
 
 }
 

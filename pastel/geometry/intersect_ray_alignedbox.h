@@ -32,7 +32,7 @@ namespace Pastel
 	integer intersect(
 		const Ray<N, Real>& ray,
 		const AlignedBox<N, Real>& alignedBox,
-		Vector<2, Real>& hitList);
+		Vector<Real, 2>& hitList);
 
 }
 

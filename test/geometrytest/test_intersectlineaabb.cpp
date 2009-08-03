@@ -25,26 +25,26 @@ namespace
 		// as they should.
 		{
 			const AlignedBox<2, Real> alignedBox(
-				Point<2, Real>(-1),
-				Point<2, Real>(1));
+				Point<Real, 2>(-1),
+				Point<Real, 2>(1));
 
 			const Line<2, Real> a(
-				Point<2, Real>(0),
-				Vector<2, Real>(1, 0));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(1, 0));
 
 			const Line<2, Real> b(
-				Point<2, Real>(0),
-				Vector<2, Real>(0, 1));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(0, 1));
 
 			const Line<2, Real> c(
-				Point<2, Real>(0),
-				Vector<2, Real>(-1, 0));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(-1, 0));
 
 			const Line<2, Real> d(
-				Point<2, Real>(0),
-				Vector<2, Real>(0, -1));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(0, -1));
 
-			Vector<2, Real> hitList;
+			Vector<Real, 2> hitList;
 
 			REPORT(!intersect(a, alignedBox, hitList));
 			REPORT(hitList[0] != -1);
@@ -70,26 +70,26 @@ namespace
 		// as they should.
 		{
 			const AlignedBox<2, Real> alignedBox(
-				Point<2, Real>(-1),
-				Point<2, Real>(1));
+				Point<Real, 2>(-1),
+				Point<Real, 2>(1));
 
 			const Line<2, Real> a(
-				Point<2, Real>(0),
-				Vector<2, Real>(Real(1, 1)));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(Real(1, 1)));
 
 			const Line<2, Real> b(
-				Point<2, Real>(0),
-				Vector<2, Real>(Real(-1, 1)));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(Real(-1, 1)));
 
 			const Line<2, Real> c(
-				Point<2, Real>(0),
-				Vector<2, Real>(Real(-1, -1)));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(Real(-1, -1)));
 
 			const Line<2, Real> d(
-				Point<2, Real>(0),
-				Vector<2, Real>(Real(1, -1)));
+				Point<Real, 2>(0),
+				Vector<Real, 2>(Real(1, -1)));
 
-			Vector<2, Real> hitList;
+			Vector<Real, 2> hitList;
 
 			REPORT(!intersect(a, alignedBox, hitList));
 			REPORT(hitList[0] != -1);
@@ -115,28 +115,28 @@ namespace
 		// intersect the aligned box as they should.
 		{
 			const AlignedBox<2, Real> alignedBox(
-				Point<2, Real>(-1),
-				Point<2, Real>(1));
+				Point<Real, 2>(-1),
+				Point<Real, 2>(1));
 
 			const Line<2, Real> a(
-				Point<2, Real>(
+				Point<Real, 2>(
 				1, Real(-1, 2)),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				-2, 1));
 
 			const Line<2, Real> b(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-1, Real(1, 2)),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				2, -1));
 
 			const Line<2, Real> c(
-				Point<2, Real>(
+				Point<Real, 2>(
 				Real(-1, 2), -1),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				Real(-1, 2), 1));
 
-			Vector<2, Real> hitList;
+			Vector<Real, 2> hitList;
 
 			REPORT(!intersect(a, alignedBox, hitList));
 			REPORT(hitList[0] != 0);
@@ -154,22 +154,22 @@ namespace
 		// but still intersect the aligned box.
 		{
 			const AlignedBox<2, Real> alignedBox(
-				Point<2, Real>(-1),
-				Point<2, Real>(1));
+				Point<Real, 2>(-1),
+				Point<Real, 2>(1));
 
 			const Line<2, Real> a(
-				Point<2, Real>(
+				Point<Real, 2>(
 				0, -2),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				1, 4));
 
 			const Line<2, Real> b(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-2, 2),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				1, -1));
 
-			Vector<2, Real> hitList;
+			Vector<Real, 2> hitList;
 
 			REPORT(!intersect(a, alignedBox, hitList));
 			REPORT(hitList[0] != Real(1, 4));
@@ -182,34 +182,34 @@ namespace
 		// These rays just touch the aligned box corners.
 		{
 			const AlignedBox<2, Real> alignedBox(
-				Point<2, Real>(-1),
-				Point<2, Real>(1));
+				Point<Real, 2>(-1),
+				Point<Real, 2>(1));
 
 			const Line<2, Real> a(
-				Point<2, Real>(
+				Point<Real, 2>(
 				0, 3),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				-2, -4));
 
 			const Line<2, Real> b(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-5, 0),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				4, 1));
 
 			const Line<2, Real> c(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-2, 1),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				1, 0));
 
 			const Line<2, Real> d(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-1, -2),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				0, 1));
 
-			Vector<2, Real> hitList;
+			Vector<Real, 2> hitList;
 
 			REPORT(!intersect(a, alignedBox, hitList));
 			REPORT(hitList[0] != Real(1, 2));
@@ -233,34 +233,34 @@ namespace
 	{
 		{
 			const AlignedBox<2, Real> alignedBox(
-				Point<2, Real>(-1),
-				Point<2, Real>(1));
+				Point<Real, 2>(-1),
+				Point<Real, 2>(1));
 
 			const Line<2, Real> a(
-				Point<2, Real>(
+				Point<Real, 2>(
 				0, -2),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				2, 1));
 
 			const Line<2, Real> b(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-2, 2),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				1, 0));
 
 			const Line<2, Real> c(
-				Point<2, Real>(
+				Point<Real, 2>(
 				-1, -2),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				-1, 3));
 
 			const Line<2, Real> d(
-				Point<2, Real>(
+				Point<Real, 2>(
 				0, -5),
-				Vector<2, Real>(
+				Vector<Real, 2>(
 				2, 6));
 
-			Vector<2, Real> hitList;
+			Vector<Real, 2> hitList;
 
 			REPORT(intersect(a, alignedBox, hitList));
 			REPORT(intersect(b, alignedBox, hitList));

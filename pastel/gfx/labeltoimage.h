@@ -22,8 +22,8 @@ namespace Pastel
 	*/
 
 	PASTELGFX void labelToImage(
-		const Array<2, int32>& labelImage,
-		Array<2, uint8>& image);
+		const Array<int32, 2>& labelImage,
+		Array<uint8, 2>& image);
 
 }
 

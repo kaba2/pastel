@@ -17,7 +17,7 @@ namespace
 
 	void test1d()
 	{
-		Array<1, real> sound;
+		Array<real, 1> sound;
 
 		sound.setExtent(10);
 		
@@ -28,15 +28,15 @@ namespace
 
 	void testResample()
 	{
-		Array<2, Color> texture;
+		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
 		MipMap<2, Color> mipMap(arrayView(texture));
 		transform(mipMap, fitColor);
 
-		Point<2, integer> position;
+		Point<integer, 2> position;
 
-		Array<2, Color> outputImage(texture.extent() * 2);
+		Array<Color, 2> outputImage(texture.extent() * 2);
 
 		const integer images = mipMap.levels();
 		for (integer i = 0;i < images;++i)

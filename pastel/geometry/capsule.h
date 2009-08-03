@@ -34,18 +34,18 @@ namespace Pastel
 
 		Capsule();
 		Capsule(
-			const Point<N, Real>& start,
-			const Point<N, Real>& end,
+			const Point<Real, N>& start,
+			const Point<Real, N>& end,
 			const Real& radius);
 		Capsule(
 			const Segment<N, Real>& segment,
 			const Real& radius);
 
-		Point<N, Real>& start();
-		const Point<N, Real>& start() const;
+		Point<Real, N>& start();
+		const Point<Real, N>& start() const;
 
-		Point<N, Real>& end();
-		const Point<N, Real>& end() const;
+		Point<Real, N>& end();
+		const Point<Real, N>& end() const;
 
 		Segment<N, Real>& segment();
 		const Segment<N, Real>& segment() const;

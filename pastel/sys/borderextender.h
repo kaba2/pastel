@@ -22,7 +22,7 @@ namespace Pastel
 
 		virtual Type operator()(
 			const LinearArray<N, Type>& image,
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			if (anyLess(position, 0) ||
 				anyGreaterEqual(position, image.extent()))

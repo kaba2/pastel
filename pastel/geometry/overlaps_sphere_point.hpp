@@ -13,14 +13,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(const Sphere<N, Real>& sphere,
-			const Point<N, Real>& point)
+			const Point<Real, N>& point)
 	{
 		// A point intersects a sphere if
 		// the distance of the point from
 		// the sphere center is less or equal than
 		// the sphere's radius.
 
-		const Vector<N, Real> delta(point - sphere.position());
+		const Vector<Real, N> delta(point - sphere.position());
 
 		return dot(delta) <=
 			sphere.radius() * sphere.radius();

@@ -33,12 +33,12 @@ namespace Pastel
 		explicit Sphere(integer dimension);
 
 		//! Construct a sphere using given position and radius.
-		Sphere(const Point<N, Real>& position,
+		Sphere(const Point<Real, N>& position,
 			const Real& radius);
 
 		//! Construct a sphere using given position and radius.
 		Sphere(integer dimension,
-			const Point<N, Real>& position,
+			const Point<Real, N>& position,
 			const Real& radius);
 
 		// Used for concept checking.
@@ -51,10 +51,10 @@ namespace Pastel
 		integer dimension() const;
 
 		//! Sets the position of the sphere.
-		void setPosition(const Point<N, Real>& position);
+		void setPosition(const Point<Real, N>& position);
 
 		//! Returns the position of the sphere.
-		const Point<N, Real>& position() const;
+		const Point<Real, N>& position() const;
 
 		//! Sets the radius of the sphere.
 		void setRadius(const Real& radius);
@@ -70,7 +70,7 @@ namespace Pastel
 		const Real& inverseRadius() const;
 
 	private:
-		Point<N, Real> position_;
+		Point<Real, N> position_;
 		Real radius_;
 		Real inverseRadius_;
 	};

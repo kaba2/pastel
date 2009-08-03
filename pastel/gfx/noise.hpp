@@ -141,7 +141,7 @@ namespace Pastel
 		public:
 			static Noise2<Real>& create();
 
-			Real operator()(const Point<2, Real>& position) const;
+			Real operator()(const Point<Real, 2>& position) const;
 
 		private:
 			Noise2();
@@ -159,7 +159,7 @@ namespace Pastel
 				const Noise2<Real>& that);
 
 			std::vector<integer> permutation_;
-			std::vector<Vector<2, Real> > gradients_;
+			std::vector<Vector<Real, 2> > gradients_;
 		};
 
 		template <typename Real>
@@ -177,10 +177,10 @@ namespace Pastel
 		{
 			gradients_.reserve(4);
 
-			gradients_.push_back(Vector<2, Real>( 1, 1));
-			gradients_.push_back(Vector<2, Real>( 1,-1));
-			gradients_.push_back(Vector<2, Real>(-1, 1));
-			gradients_.push_back(Vector<2, Real>(-1,-1));
+			gradients_.push_back(Vector<Real, 2>( 1, 1));
+			gradients_.push_back(Vector<Real, 2>( 1,-1));
+			gradients_.push_back(Vector<Real, 2>(-1, 1));
+			gradients_.push_back(Vector<Real, 2>(-1,-1));
 
 			// Generate random permutation table
 
@@ -207,7 +207,7 @@ namespace Pastel
 		}
 
 		template <typename Real>
-		Real Noise2<Real>::operator()(const Point<2, Real>& pos) const
+		Real Noise2<Real>::operator()(const Point<Real, 2>& pos) const
 		{
 			const Real x(pos[0]);
 			const Real y(pos[1]);
@@ -257,7 +257,7 @@ namespace Pastel
 				permutation_[(x & 0xFF) +
 				permutation_[(y & 0xFF)]] & 0x3;
 
-			const Vector<2, Real>& gradient(gradients_[index]);
+			const Vector<Real, 2>& gradient(gradients_[index]);
 
 			return gradient[0] * xDeltaMin +
 				gradient[1] * yDeltaMin;
@@ -282,7 +282,7 @@ namespace Pastel
 		public:
 			static Noise3<Real>& create();
 
-			Real operator()(const Point<3, Real>& pos) const;
+			Real operator()(const Point<Real, 3>& pos) const;
 
 		private:
 			Real latticeValue(
@@ -301,7 +301,7 @@ namespace Pastel
 				const Noise3<Real>& that);
 
 			std::vector<integer> permutation_;
-			std::vector<Vector<3, Real> > gradients_;
+			std::vector<Vector<Real, 3> > gradients_;
 		};
 
 		template <typename Real>
@@ -319,25 +319,25 @@ namespace Pastel
 		{
 			gradients_.reserve(16);
 
-			gradients_.push_back(Vector<3, Real>(1, 1, 0));
-			gradients_.push_back(Vector<3, Real>(-1, 1, 0));
-			gradients_.push_back(Vector<3, Real>( 1,-1, 0));
-			gradients_.push_back(Vector<3, Real>(-1,-1, 0));
+			gradients_.push_back(Vector<Real, 3>(1, 1, 0));
+			gradients_.push_back(Vector<Real, 3>(-1, 1, 0));
+			gradients_.push_back(Vector<Real, 3>( 1,-1, 0));
+			gradients_.push_back(Vector<Real, 3>(-1,-1, 0));
 
-			gradients_.push_back(Vector<3, Real>( 1, 0, 1));
-			gradients_.push_back(Vector<3, Real>(-1, 0, 1));
-			gradients_.push_back(Vector<3, Real>( 1, 0,-1));
-			gradients_.push_back(Vector<3, Real>(-1, 0,-1));
+			gradients_.push_back(Vector<Real, 3>( 1, 0, 1));
+			gradients_.push_back(Vector<Real, 3>(-1, 0, 1));
+			gradients_.push_back(Vector<Real, 3>( 1, 0,-1));
+			gradients_.push_back(Vector<Real, 3>(-1, 0,-1));
 
-			gradients_.push_back(Vector<3, Real>( 0, 1, 1));
-			gradients_.push_back(Vector<3, Real>(0,-1, 1));
-			gradients_.push_back(Vector<3, Real>( 0, 1,-1));
-			gradients_.push_back(Vector<3, Real>(0,-1,-1));
+			gradients_.push_back(Vector<Real, 3>( 0, 1, 1));
+			gradients_.push_back(Vector<Real, 3>(0,-1, 1));
+			gradients_.push_back(Vector<Real, 3>( 0, 1,-1));
+			gradients_.push_back(Vector<Real, 3>(0,-1,-1));
 
-			gradients_.push_back(Vector<3, Real>( 1, 1, 0));
-			gradients_.push_back(Vector<3, Real>(-1, 1, 0));
-			gradients_.push_back(Vector<3, Real>( 0,-1, 1));
-			gradients_.push_back(Vector<3, Real>( 0,-1,-1));
+			gradients_.push_back(Vector<Real, 3>( 1, 1, 0));
+			gradients_.push_back(Vector<Real, 3>(-1, 1, 0));
+			gradients_.push_back(Vector<Real, 3>( 0,-1, 1));
+			gradients_.push_back(Vector<Real, 3>( 0,-1,-1));
 
 			// Generate random permutation table
 
@@ -364,7 +364,7 @@ namespace Pastel
 		}
 
 		template <typename Real>
-		Real Noise3<Real>::operator()(const Point<3, Real>& pos) const
+		Real Noise3<Real>::operator()(const Point<Real, 3>& pos) const
 		{
 			const Real x(pos[0]);
 			const Real y(pos[1]);
@@ -477,13 +477,13 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real noise(const Point<2, Real>& position)
+	Real noise(const Point<Real, 2>& position)
 	{
 		return Detail::noise2<Real>()(position);
 	}
 
 	template <typename Real>
-	Real noise(const Point<3, Real>& position)
+	Real noise(const Point<Real, 3>& position)
 	{
 		return Detail::noise3<Real>()(position);
 	}

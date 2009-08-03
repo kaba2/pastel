@@ -21,9 +21,9 @@ namespace Pastel
 	the individual downsampled images are also called ripmaps.
 
 	The result is an array of ripmaps, such that
-	ripMapList(Vector<N, integer>(0)) contains the original image upsampled
+	ripMapList(Vector<integer, N>(0)) contains the original image upsampled
 	to the next power-of-two extents. Subsequently, if p is an
-	array coordinate vector, then ripMapList(p + unitAxis<I, integer>())
+	array coordinate vector, then ripMapList(p + unitAxis<I>())
 	contains a half-extent version of ripMapList(p) along the I:th standard axis.
 
 	You can choose the reconstruction filter to use
@@ -64,30 +64,30 @@ namespace Pastel
 			const ConstView<N, Type, Image_ConstView>& image,
 			const FilterPtr& filter = gaussianFilter(2));
 
-		Array<N, Type>& operator()(
-			const Point<N, integer>& level);
+		Array<Type, N>& operator()(
+			const Point<integer, N>& level);
 
-		const Array<N, Type>& operator()(
-			const Point<N, integer>& level) const;
+		const Array<Type, N>& operator()(
+			const Point<integer, N>& level) const;
 
-		const Vector<N, integer>& levels() const;
+		const Vector<integer, N>& levels() const;
 
 		bool empty() const;
 
-		const Array<N, Type>& mostDetailed() const;
+		const Array<Type, N>& mostDetailed() const;
 
-		const Array<N, Type>& coarsest() const;
+		const Array<Type, N>& coarsest() const;
 
-		View<N, Array<N, Type>,
-			ArrayView<N, Array<N, Array<N, Type> > > >
+		View<N, Array<Type, N>,
+			ArrayView<N, Array<Array<Type, N>, N> > >
 			RipMap<N, Type>::view();
 
-		ConstView<N, Array<N, Type>,
-			ConstArrayView<N, Array<N, Array<N, Type> > > >
+		ConstView<N, Array<Type, N>,
+			ConstArrayView<N, Array<Array<Type, N>, N> > >
 			RipMap<N, Type>::constView() const;
 
 	private:
-		Array<N, Array<N, Type> > ripMapArray_;
+		Array<Array<Type, N>, N> ripMapArray_;
 	};
 
 }

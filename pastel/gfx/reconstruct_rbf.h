@@ -48,7 +48,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructRbf(
-		const std::vector<Point<N, Data> >& positionList,
+		const std::vector<Point<Data, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const FilterPtr& radialBasisFunction,
@@ -70,10 +70,10 @@ namespace Pastel
 		{
 		public:
 			explicit ReconstructFunctor(
-				const std::vector<Point<N, Real> >& positionList,
-				const Vector<Dynamic, Real>& w,
-				const Vector<Dynamic, Data>& b,
-				const Vector<N, Real>& scaling,
+				const std::vector<Point<Real, N> >& positionList,
+				const Vector<Real, Dynamic>& w,
+				const Vector<Data, Dynamic>& b,
+				const Vector<Real, N>& scaling,
 				const FilterPtr& radialBasisFunction)
 				: positionList_(positionList)
 				, w_(w)
@@ -84,7 +84,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				Data& data) const
 			{
 				const integer n = w_.size();
@@ -93,17 +93,17 @@ namespace Pastel
 				for (integer i = 0;i < n;++i)
 				{
 					result += w_[i] * radialBasisFunction_->evaluate(
-						dot(((Point<N, Real>(position) + 0.5) - positionList_[i]) * scaling_));
+						dot(((Point<Real, N>(position) + 0.5) - positionList_[i]) * scaling_));
 				}
 
 				data = result;
 			}
 
 		private:
-			const std::vector<Point<N, Real> >& positionList_;
-			const Vector<Dynamic, Real>& w_;
-			const Vector<Dynamic, Data>& b_;
-			const Vector<N, Real> scaling_;
+			const std::vector<Point<Real, N> >& positionList_;
+			const Vector<Real, Dynamic>& w_;
+			const Vector<Data, Dynamic>& b_;
+			const Vector<Real, N> scaling_;
 			const FilterPtr& radialBasisFunction_;
 		};
 
@@ -111,7 +111,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructRbf(
-		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const FilterPtr& radialBasisFunction,
@@ -126,7 +126,7 @@ namespace Pastel
 			a(i, i) = radialBasisFunction->evaluate(0);
 		}
 
-		Vector<N, Real> scaling = region.extent() / Vector<N, Real>(view.extent());
+		Vector<Real, N> scaling = region.extent() / Vector<Real, N>(view.extent());
 
 		for (integer i = 0;i < n;++i)
 		{
@@ -141,13 +141,13 @@ namespace Pastel
 			}
 		}
 		
-		Vector<Dynamic, Real> b(ofDimension(n));
+		Vector<Real, Dynamic> b(ofDimension(n));
 		for (integer i = 0;i < n;++i)
 		{
 			b[i] = dataList[i];
 		}
 		
-		const Vector<Dynamic, Real> w = solveLinear(a, b);
+		const Vector<Real, Dynamic> w = solveLinear(a, b);
 
 		const Detail_ReconstructRbf::ReconstructFunctor<N, Real, Data>
 			reconstructFunctor(positionList, w, b, scaling, radialBasisFunction);

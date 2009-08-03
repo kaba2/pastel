@@ -41,7 +41,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, bool> image(Width, Height);
+		Array<bool, 2> image(Width, Height);
 		for (integer x = 0;x < Width;++x)
 		{
 			const real t = (real)x / (Width - 1);
@@ -55,7 +55,7 @@ namespace
 	{
 		const real Width = 500;
 		const real Height = 500;
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		for (integer i = 0;i < 20;++i)
 		{
@@ -121,7 +121,7 @@ namespace
 
 	void testChromaticAdaptation()
 	{
-		Array<2, Color> image;
+		Array<Color, 2> image;
 		loadPcx("lena.pcx", image);
 
 		const TransformVisitor transformVisitor;

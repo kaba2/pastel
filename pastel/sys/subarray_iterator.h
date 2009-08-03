@@ -7,9 +7,9 @@ namespace Pastel
 {
 
 	template <int N, typename Extent_Expression, typename Stride_Expression>
-	Vector<N, integer> numbers(
-		const VectorExpression<N, integer, Extent_Expression>& extent,
-		const VectorExpression<N, integer, Stride_Expression>& stride)
+	Vector<integer, N> numbers(
+		const VectorExpression<integer, N, Extent_Expression>& extent,
+		const VectorExpression<integer, N, Stride_Expression>& stride)
 	{
 		return (extent + mabs(stride) - 1) / mabs(stride);
 	}
@@ -35,8 +35,8 @@ namespace Pastel
 
 		SubArray_ConstIterator& operator++()
 		{
-			const Vector<N, integer>& extent = subArray_->extent();
-			const Vector<N, integer>& stride = subArray_->stride();
+			const Vector<integer, N>& extent = subArray_->extent();
+			const Vector<integer, N>& stride = subArray_->stride();
 			const integer n = extent.dimension();
 
 			for (integer i = 0;i < n;++i)
@@ -60,8 +60,8 @@ namespace Pastel
 
 		SubArray_ConstIterator& operator--()
 		{
-			const Vector<N, integer>& extent = subArray_->extent();
-			const Vector<N, integer>& stride = subArray_->stride();
+			const Vector<integer, N>& extent = subArray_->extent();
+			const Vector<integer, N>& stride = subArray_->stride();
 			const integer n = extent.dimension();
 
 			for (integer i = 0;i < n;++i)
@@ -91,7 +91,7 @@ namespace Pastel
 	private:
 		SubArray_ConstIterator(
 			const ConstSubArray<N, Type>* subArray,
-			const Point<N, integer>& position)
+			const Point<integer, N>& position)
 			: data_(subArray->address(position))
 			, position_(position)
 			, subArray_(subArray)
@@ -99,7 +99,7 @@ namespace Pastel
 		}
 
 		const Type* data_;
-		Point<N, integer> position_;
+		Point<integer, N> position_;
 		const ConstSubArray<N, Type>* subArray_;
 	};
 
@@ -118,8 +118,8 @@ namespace Pastel
 
 		SubArray_Iterator& operator++()
 		{
-			const Vector<N, integer>& extent = subArray_->extent();
-			const Vector<N, integer>& stride = subArray_->stride();
+			const Vector<integer, N>& extent = subArray_->extent();
+			const Vector<integer, N>& stride = subArray_->stride();
 			const integer n = extent.dimension();
 
 			for (integer i = 0;i < n;++i)
@@ -143,8 +143,8 @@ namespace Pastel
 
 		SubArray_Iterator& operator--()
 		{
-			const Vector<N, integer>& extent = subArray_->extent();
-			const Vector<N, integer>& stride = subArray_->stride();
+			const Vector<integer, N>& extent = subArray_->extent();
+			const Vector<integer, N>& stride = subArray_->stride();
 			const integer n = extent.dimension();
 
 			for (integer i = 0;i < n;++i)
@@ -174,7 +174,7 @@ namespace Pastel
 	private:
 		SubArray_Iterator(
 			const SubArray<N, Type>* subArray,
-			const Point<N, integer>& position)
+			const Point<integer, N>& position)
 			: data_(subArray->address(position))
 			, position_(position)
 			, subArray_(subArray)
@@ -182,7 +182,7 @@ namespace Pastel
 		}
 
 		Type* data_;
-		Point<N, integer> position_;
+		Point<integer, N> position_;
 		const SubArray<N, Type>* subArray_;
 	};
 

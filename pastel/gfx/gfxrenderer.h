@@ -110,7 +110,7 @@ namespace Pastel
 
 		// Drawing
 
-		virtual integer uploadTexture(const Array<2, Type>& image) = 0;
+		virtual integer uploadTexture(const Array<Type, 2>& image) = 0;
 
 		virtual void clear() = 0;
 
@@ -125,7 +125,7 @@ namespace Pastel
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,
-			const Tuple<3, Type>& colorTriangle) = 0;
+			const Tuple<Type, 3>& colorTriangle) = 0;
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,

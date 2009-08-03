@@ -11,14 +11,14 @@ namespace Pastel
 		const AlignedBox<3, Real>& left,
 		const AffineTransformation<3, Real>& right)
 	{
-		Point<3, Real> aPoint(left.min());
-		Point<3, Real> bPoint(left.max());
-		Point<3, Real> cPoint(aPoint[0], aPoint[1], bPoint[2]);
-		Point<3, Real> dPoint(aPoint[0], bPoint[1], aPoint[2]);
-		Point<3, Real> ePoint(aPoint[0], bPoint[1], bPoint[2]);
-		Point<3, Real> fPoint(bPoint[0], aPoint[1], aPoint[2]);
-		Point<3, Real> gPoint(bPoint[0], aPoint[1], bPoint[2]);
-		Point<3, Real> hPoint(bPoint[0], bPoint[1], aPoint[2]);
+		Point<Real, 3> aPoint(left.min());
+		Point<Real, 3> bPoint(left.max());
+		Point<Real, 3> cPoint(aPoint[0], aPoint[1], bPoint[2]);
+		Point<Real, 3> dPoint(aPoint[0], bPoint[1], aPoint[2]);
+		Point<Real, 3> ePoint(aPoint[0], bPoint[1], bPoint[2]);
+		Point<Real, 3> fPoint(bPoint[0], aPoint[1], aPoint[2]);
+		Point<Real, 3> gPoint(bPoint[0], aPoint[1], bPoint[2]);
+		Point<Real, 3> hPoint(bPoint[0], bPoint[1], aPoint[2]);
 
 		aPoint = aPoint * right;
 		bPoint = bPoint * right;
@@ -41,14 +41,14 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, Real> discreteToContinuous(
+	Point<Real, N> discreteToContinuous(
 		const AlignedBox<N, Real>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const Point<N, integer>& discretePoint)
+		const Point<integer, N>& discretePoint)
 	{
 		return continuousRange.min() +
-			(Vector<N, Real>(discretePoint - discreteRange.min()) /
-			Vector<N, Real>(discreteRange.extent())) *
+			(Vector<Real, N>(discretePoint - discreteRange.min()) /
+			Vector<Real, N>(discreteRange.extent())) *
 			continuousRange.extent();
 	}
 
@@ -64,16 +64,16 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<N, integer> continuousToDiscrete(
+	Point<integer, N> continuousToDiscrete(
 		const AlignedBox<N, Real>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const Point<N, Real>& continuousPoint)
+		const Point<Real, N>& continuousPoint)
 	{
 		return
 			discreteRange.min() +
-			Vector<N, integer>(floor(
+			Vector<integer, N>(floor(
 			((continuousPoint - continuousRange.min()) / continuousRange.extent()) *
-			Vector<N, Real>(discreteRange.extent())));
+			Vector<Real, N>(discreteRange.extent())));
 	}
 
 	template <int N, typename Real>

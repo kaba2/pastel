@@ -28,15 +28,15 @@ namespace Pastel
 	Exception safety: strong
 	*/
 	PASTELGFX void branchingNumber(
-		const Array<2, bool>& image,
-		Array<2, int32>& numberImage);
+		const Array<bool, 2>& image,
+		Array<int32, 2>& numberImage);
 
 	PASTELGFX integer branchingNumber(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer x, integer y);
 
 	PASTELGFX uint32 branchingMask(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer x, integer y);
 
 }

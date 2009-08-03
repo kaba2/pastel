@@ -13,10 +13,10 @@ namespace Pastel
 		typename FilterType,
 		typename ResultType>
 		void reconstructImage(
-		const Array<2, ImageType>& image,
-		const Array<2, bool>& reconstructArea,
-		const Array<2, FilterType>& filter,
-		Array<2, ResultType>& result);
+		const Array<ImageType, 2>& image,
+		const Array<bool, 2>& reconstructArea,
+		const Array<FilterType, 2>& filter,
+		Array<ResultType, 2>& result);
 
 }
 

@@ -127,7 +127,7 @@ namespace Pastel
 			const AlignedBox2& bound,
 			real scaling,
 			real tTransition,
-			const Array<2, Type>& image) const;
+			const Array<Type, 2>& image) const;
 
 		const MipMap<2, Type>* mipMap_;
 		ArrayExtender<2, Type> extender_;

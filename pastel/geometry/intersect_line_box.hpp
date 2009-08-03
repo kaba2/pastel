@@ -15,7 +15,7 @@ namespace Pastel
 		bool intersect(
 			const Line<N, Real>& line,
 			const Box<N, Real>& box,
-			Vector<2, Real>& hitList)
+			Vector<Real, 2>& hitList)
 	{
 		PENSURE_OP(line.dimension(), ==, box.dimension());
 
@@ -23,9 +23,9 @@ namespace Pastel
 		Real tMax(infinity<Real>());
 
 		const Matrix<N, N, Real>& axes = box.rotation();
-		const Vector<N, Real>& width = box.width();
+		const Vector<Real, N>& width = box.width();
 
-		const Vector<N, Real> p(
+		const Vector<Real, N> p(
 			box.position() -
 			line.position());
 

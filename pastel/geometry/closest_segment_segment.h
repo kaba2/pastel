@@ -15,7 +15,7 @@ namespace Pastel
 	'bSegment.at(t)' are closest points.
 	*/
 	template <int N, typename Real>
-	Tuple<2, Real> closest(
+	Tuple<Real, 2> closest(
 		const Segment<N, Real>& aSegment,
 		const Segment<N, Real>& bSegment);
 

@@ -12,7 +12,7 @@ namespace Pastel
 	//! Finds the nearest standard basis axis for a given vector.
 	template <int N, typename Real>
 	integer nearestMainAxis(
-		const Vector<N, Real>& that);
+		const Vector<Real, N>& that);
 
 }
 

@@ -19,7 +19,7 @@ namespace
 
 	void testArray()
 	{
-		Array<2, Color> image(100, 100);
+		Array<Color, 2> image(100, 100);
 
 		std::fill(image.rowBegin(20), image.rowEnd(20), Color(0, 1, 0));
 		std::fill(image.columnBegin(30), image.columnEnd(30), Color(0, 0, 1));

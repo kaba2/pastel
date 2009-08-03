@@ -19,10 +19,10 @@ namespace Pastel
 		{
 		}
 
-		virtual Vector<N, integer> extent() const = 0;
+		virtual Vector<integer, N> extent() const = 0;
 
 		virtual Type operator()(
-			const Point<N, integer>& position) const = 0;
+			const Point<integer, N>& position) const = 0;
 	};
 
 	template <int N, typename Type>
@@ -35,10 +35,10 @@ namespace Pastel
 		}
 
 		virtual void setExtent(
-			const Vector<N, integer>& extent) = 0;
+			const Vector<integer, N>& extent) = 0;
 
 		virtual void write(
-			const Point<N, integer>& position,
+			const Point<integer, N>& position,
 			const Type& data) = 0;
 	};
 

@@ -19,7 +19,7 @@ namespace Pastel
 		// between their center points is
 		// less than or equal to the sum of their radii.
 
-		const Vector<N, Real> delta(
+		const Vector<Real, N> delta(
 			bSphere.position() - aSphere.position());
 
 		const Real centerDistance2(dot(delta, delta));

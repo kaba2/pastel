@@ -8,16 +8,16 @@ namespace Pastel
 {
 
 	PASTELGFX void indexedImageToColorImage(
-		const Array<2, uint8>& indexedImage,
+		const Array<uint8, 2>& indexedImage,
 		const std::vector<Color>& palette,
-		Array<2, Color>& result)
+		Array<Color, 2>& result)
 	{
 		ENSURE_OP(palette.size(), ==, 256);
 
 		const integer width = indexedImage.width();
 		const integer height = indexedImage.height();
 
-		Array<2, Color> colorImage(width, height);
+		Array<Color, 2> colorImage(width, height);
 		for (integer y = 0;y < height;++y)
 		{
 			for (integer x = 0;x < width;++x)

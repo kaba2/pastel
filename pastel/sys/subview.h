@@ -40,13 +40,13 @@ namespace Pastel
 			ENSURE(allLessEqual(window.min(), window.max()));
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return view_.constCursor(
 				position + asVector(window_.min()));
@@ -55,7 +55,7 @@ namespace Pastel
 	protected:
 		const Contained_ConstView view_;
 		const Rectangle<N> window_;
-		const Vector<N, integer> extent_;
+		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
@@ -101,7 +101,7 @@ namespace Pastel
 		}
 
 		Cursor cursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return view_.cursor(
 				position + asVector(window_.min()));

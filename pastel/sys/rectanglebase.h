@@ -33,11 +33,11 @@ namespace Pastel
 		RectangleBase();
 
 		//! Constructs a singular box (min = max = that).
-		explicit RectangleBase(const Point<N, integer>& that);
+		explicit RectangleBase(const Point<integer, N>& that);
 
 		//! Constructs a box using the given points.
-		RectangleBase(Point<N, integer> const &nMin,
-			Point<N, integer> const &nMax);
+		RectangleBase(Point<integer, N> const &nMin,
+			Point<integer, N> const &nMax);
 
 		// Used for concept checking.
 		~RectangleBase();
@@ -49,50 +49,50 @@ namespace Pastel
 		void swap(Derived& that);
 
 		//! Sets the corner points of the box.
-		void set(const Point<N, integer>& nMin,
-			const Point<N, integer>& nMax);
+		void set(const Point<integer, N>& nMin,
+			const Point<integer, N>& nMax);
 
 		//! Sets the minimum point of the box.
-		void setMin(const Point<N, integer>& min);
+		void setMin(const Point<integer, N>& min);
 
 		//! Returns the minimum point of the box.
-		Point<N, integer>& min();
+		Point<integer, N>& min();
 
 		//! Returns the minimum point of the box.
-		const Point<N, integer>& min() const;
+		const Point<integer, N>& min() const;
 
 		//! Sets the maximum point of the box.
-		void setMax(const Point<N, integer>& max);
+		void setMax(const Point<integer, N>& max);
 
 		//! Returns the maximum point of the box.
-		Point<N, integer>& max();
+		Point<integer, N>& max();
 
 		//! Returns the maximum point of the box.
-		const Point<N, integer>& max() const;
+		const Point<integer, N>& max() const;
 
 		//! Returns max() - min().
-		Vector<N, integer> extent() const;
+		Vector<integer, N> extent() const;
 
-		Point<N, integer> at(
-			const Vector<N, integer>& coordinates) const;
+		Point<integer, N> at(
+			const Vector<integer, N>& coordinates) const;
 
 		//! Translates the box by the given vector.
 		Derived& operator+=(
-			const Vector<N, integer>& right);
+			const Vector<integer, N>& right);
 
 		Derived operator+(
-			const Vector<N, integer>& right) const;
+			const Vector<integer, N>& right) const;
 
 		//! Translates the box backwards by the given vector.
 		Derived& operator-=(
-			Vector<N, integer> const& right);
+			Vector<integer, N> const& right);
 
 		Derived operator-(
-			const Vector<N, integer>& right) const;
+			const Vector<integer, N>& right) const;
 
 	private:
-		Point<N, integer> min_;
-		Point<N, integer> max_;
+		Point<integer, N> min_;
+		Point<integer, N> max_;
 	};
 
 }
