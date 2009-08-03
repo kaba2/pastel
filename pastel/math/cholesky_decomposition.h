@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N = Dynamic>
 	class CholeskyDecomposition
 	{
 	public:
@@ -38,11 +38,11 @@ namespace Pastel
 		bool succeeded_;
 	};
 
-	typedef CholeskyDecomposition<1, real> CholeskyDecomposition1;
-	typedef CholeskyDecomposition<2, real> CholeskyDecomposition2;
-	typedef CholeskyDecomposition<3, real> CholeskyDecomposition3;
-	typedef CholeskyDecomposition<4, real> CholeskyDecomposition4;
-	typedef CholeskyDecomposition<Dynamic, real> CholeskyDecompositionD;
+	typedef CholeskyDecomposition<real, 1> CholeskyDecomposition1;
+	typedef CholeskyDecomposition<real, 2> CholeskyDecomposition2;
+	typedef CholeskyDecomposition<real, 3> CholeskyDecomposition3;
+	typedef CholeskyDecomposition<real, 4> CholeskyDecomposition4;
+	typedef CholeskyDecomposition<real, Dynamic> CholeskyDecompositionD;
 
 }
 

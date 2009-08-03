@@ -78,7 +78,7 @@ namespace Pastel
 	public:
 		typedef const ConstSubMatrix& StorageType;
 
-		typedef ConstVectorView<Dynamic, Real> ConstRow;
+		typedef ConstVectorView<Real, Dynamic> ConstRow;
 		typedef typename ConstSubArray<2, Real>::ConstIterator ConstIterator;
 		typedef typename ConstSubArray<2, Real>::ConstRowIterator ConstRowIterator;
 		typedef typename ConstSubArray<2, Real>::ConstRowIterator ConstColumnIterator;
@@ -224,8 +224,8 @@ namespace Pastel
 	public:
 		typedef const SubMatrix& StorageType;
 
-		typedef VectorView<Dynamic, Real> Row;
-		typedef ConstVectorView<Dynamic, Real> ConstRow;
+		typedef VectorView<Real, Dynamic> Row;
+		typedef ConstVectorView<Real, Dynamic> ConstRow;
 		typedef typename SubArray<2, Real>::Iterator Iterator;
 		typedef typename SubArray<2, Real>::ConstIterator ConstIterator;
 		typedef typename SubArray<2, Real>::RowIterator RowIterator;

@@ -26,10 +26,10 @@ namespace Pastel
 
 	template <typename Type, int N>
 	class Tuple
-		: public Detail::TupleBase<N, Type>
+		: public Detail::TupleBase<Type, N>
 	{
 	private:
-		typedef Detail::TupleBase<N, Type> Base;
+		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
 		using typename Base::Iterator;
@@ -74,7 +74,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Tuple<Type, 1>
-		: public Detail::TupleBase<1, Type>
+		: public Detail::TupleBase<Type, 1>
 	{
 	private:
 		enum
@@ -82,7 +82,7 @@ namespace Pastel
 			N  = 1
 		};
 
-		typedef Detail::TupleBase<N, Type> Base;
+		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
 		// Using default copy constructor.
@@ -138,7 +138,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Tuple<Type, 2>
-		: public Detail::TupleBase<2, Type>
+		: public Detail::TupleBase<Type, 2>
 	{
 	private:
 		enum
@@ -146,7 +146,7 @@ namespace Pastel
 			N  = 2
 		};
 
-		typedef Detail::TupleBase<N, Type> Base;
+		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
 		// Using default copy constructor.
@@ -224,7 +224,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Tuple<Type, 3>
-		: public Detail::TupleBase<3, Type>
+		: public Detail::TupleBase<Type, 3>
 	{
 	private:
 		enum
@@ -232,7 +232,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef Detail::TupleBase<N, Type> Base;
+		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
 		// Using default copy constructor.
@@ -322,7 +322,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Tuple<Type, 4>
-		: public Detail::TupleBase<4, Type>
+		: public Detail::TupleBase<Type, 4>
 	{
 	private:
 		enum
@@ -330,7 +330,7 @@ namespace Pastel
 			N = 4
 		};
 
-		typedef Detail::TupleBase<N, Type> Base;
+		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
 		// Using default copy constructor.
@@ -432,7 +432,7 @@ namespace Pastel
 
 	template <typename Type>
 	class Tuple<Type, Dynamic>
-		: public Detail::TupleBase<Dynamic, Type>
+		: public Detail::TupleBase<Type, Dynamic>
 	{
 	private:
 		enum
@@ -440,7 +440,7 @@ namespace Pastel
 			N = Dynamic
 		};
 
-		typedef Detail::TupleBase<N, Type> Base;
+		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
 		// Using default copy constructor.

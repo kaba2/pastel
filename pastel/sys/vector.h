@@ -37,10 +37,10 @@ namespace Pastel
 
 	template <typename Real, int N>
 	class Vector
-		: public Detail::VectorBase<N, Real>
+		: public Detail::VectorBase<Real, N>
 	{
 	private:
-		typedef Detail::VectorBase<N, Real> Base;
+		typedef Detail::VectorBase<Real, N> Base;
 
 	public:
 		using Base::operator=;
@@ -101,7 +101,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Vector<Real, 1>
-		: public Detail::VectorBase<1, Real>
+		: public Detail::VectorBase<Real, 1>
 	{
 	private:
 		enum
@@ -109,7 +109,7 @@ namespace Pastel
 			N = 1
 		};
 
-		typedef Detail::VectorBase<N, Real> Base;
+		typedef Detail::VectorBase<Real, N> Base;
 
 	public:
 		// Using default copy constructor
@@ -182,7 +182,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Vector<Real, 2>
-		: public Detail::VectorBase<2, Real>
+		: public Detail::VectorBase<Real, 2>
 	{
 	private:
 		enum
@@ -190,7 +190,7 @@ namespace Pastel
 			N = 2
 		};
 
-		typedef Detail::VectorBase<N, Real> Base;
+		typedef Detail::VectorBase<Real, N> Base;
 
 	public:
 		// Using default copy constructor
@@ -285,7 +285,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Vector<Real, 3>
-		: public Detail::VectorBase<3, Real>
+		: public Detail::VectorBase<Real, 3>
 	{
 	private:
 		enum
@@ -293,7 +293,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef Detail::VectorBase<N, Real> Base;
+		typedef Detail::VectorBase<Real, N> Base;
 
 	public:
 		// Using default copy constructor
@@ -400,7 +400,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Vector<Real, 4>
-		: public Detail::VectorBase<4, Real>
+		: public Detail::VectorBase<Real, 4>
 	{
 	private:
 		enum
@@ -408,7 +408,7 @@ namespace Pastel
 			N = 4
 		};
 
-		typedef Detail::VectorBase<N, Real> Base;
+		typedef Detail::VectorBase<Real, N> Base;
 
 	public:
 		// Using default copy constructor
@@ -527,7 +527,7 @@ namespace Pastel
 
 	template <typename Real>
 	class Vector<Real, Dynamic>
-		: public Detail::VectorBase<Dynamic, Real>
+		: public Detail::VectorBase<Real, Dynamic>
 	{
 	private:
 		enum
@@ -535,7 +535,7 @@ namespace Pastel
 			N = Dynamic
 		};
 
-		typedef Detail::VectorBase<N, Real> Base;
+		typedef Detail::VectorBase<Real, N> Base;
 		using Base::data_;
 
 	public:

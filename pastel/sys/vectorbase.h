@@ -31,14 +31,14 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		class VectorBase
 			: public boost::equality_comparable1<Vector<Real, N>,
-			VectorExpression<Real, N, VectorBase<N, Real> >
+			VectorExpression<Real, N, VectorBase<Real, N> >
 			>
 		{
 		private:
-			template <int N, typename Real>
+			template <typename Real, int N>
 			friend class VectorBase;
 
 		public:
@@ -74,7 +74,7 @@ namespace Pastel
 			}
 
 			template <typename ThatReal>
-			VectorBase(const VectorBase<N, ThatReal>& that)
+			VectorBase(const VectorBase<ThatReal, N>& that)
 				: data_(that.data_)
 			{
 			}
@@ -166,7 +166,7 @@ namespace Pastel
 				return false;
 			}
 
-			void swap(VectorBase<N, Real>& that)
+			void swap(VectorBase<Real, N>& that)
 			{
 				data_.swap(that.data_);
 			}
@@ -208,7 +208,7 @@ namespace Pastel
 			*/
 
 			Vector<Real, N>& operator=(
-				const VectorBase<N, Real>& that)
+				const VectorBase<Real, N>& that)
 			{
 				// We allow the size of the vector to be
 				// changed by an assignment.
@@ -236,7 +236,7 @@ namespace Pastel
 			/*
 			template <typename ThatReal, typename Expression>
 			typename boost::disable_if<
-				boost::is_same<Expression, VectorBase<N, Real> >,
+				boost::is_same<Expression, VectorBase<Real, N> >,
 				Vector<Real, N>&>::type operator=(
 				const VectorExpression<ThatReal, N, Expression>& that)
 			*/

@@ -7,8 +7,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Real determinant(const CholeskyDecomposition<N, Real>& that);
+	template <typename Real, int N>
+	Real determinant(const CholeskyDecomposition<Real, N>& that);
 
 }
 

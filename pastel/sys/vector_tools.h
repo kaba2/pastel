@@ -69,29 +69,29 @@ namespace Pastel
 		integer index);
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorExtend;
 
 	//! Returns an N + 1 vector appended from the left.
 
 	template <int N, typename Real, typename Expression>
-	inline VectorExtend<N, Real, Expression> extend(
+	inline VectorExtend<Real, N, Expression> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
 	template <int N, typename Real, typename Expression>
-	inline VectorExtend<N, Real, Expression> extend(
+	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns an N + 1 vector appended from a given position.
 
 	template <int N, typename Real, typename Expression>
-	inline VectorExtend<N, Real, Expression> extend(
+	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index);

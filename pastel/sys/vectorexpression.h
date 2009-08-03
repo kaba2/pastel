@@ -10,40 +10,40 @@ namespace Pastel
 {
 
 	template <
-		int N,
-		typename Real>
+		typename Real,
+		int N>
 	class VectorConstant;
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorNegation;
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorAddition;
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorSubtraction;
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMultiplication;
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorDivision;
@@ -123,133 +123,133 @@ namespace Pastel
 
 		// Negation
 
-		const VectorNegation<N, Real, Expression> operator-() const
+		const VectorNegation<Real, N, Expression> operator-() const
 		{
-			return VectorNegation<N, Real, Expression>((const Expression&)*this);
+			return VectorNegation<Real, N, Expression>((const Expression&)*this);
 		}
 
 		// Summation
 
 		template <typename RightExpression>
-		const VectorAddition<N, Real, Expression,
+		const VectorAddition<Real, N, Expression, 
 			RightExpression>
 			operator+(const VectorExpression
 			<Real, N, RightExpression>& right) const
 		{
 			return VectorAddition
-				<N, Real, Expression,
+				<Real, N, Expression, 
 				RightExpression >
 				((const Expression&)*this,
 				(const RightExpression&)right);
 		}
 
 		const VectorAddition
-			<N, Real, Expression, VectorConstant<N, Real> >
+			<Real, N, Expression, VectorConstant<Real, N> >
 			operator+(const Real& right) const
 		{
 			return VectorAddition
-				<N, Real, Expression, VectorConstant<N, Real> >
+				<Real, N, Expression, VectorConstant<Real, N> >
 				((const Expression&)*this,
-				VectorConstant<N, Real>(right, size()));
+				VectorConstant<Real, N>(right, size()));
 		}
 
 		friend const VectorAddition
-			<N, Real, VectorConstant<N, Real>, Expression>
+			<Real, N, VectorConstant<Real, N>, Expression>
 			operator+(const Real& left, const VectorExpression& right)
 		{
 			return VectorAddition
-				<N, Real, VectorConstant<N, Real>, Expression>
-				(VectorConstant<N, Real>(left, right.size()),
+				<Real, N, VectorConstant<Real, N>, Expression>
+				(VectorConstant<Real, N>(left, right.size()),
 				(const Expression&)right);
 		}
 
 		// Subtraction
 
 		template <typename RightExpression>
-		const VectorSubtraction<N, Real, Expression,
+		const VectorSubtraction<Real, N, Expression, 
 			RightExpression>
 			operator-(const VectorExpression
 			<Real, N, RightExpression>& right) const
 		{
 			return VectorSubtraction
-				<N, Real, Expression,
+				<Real, N, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
 		}
 
 		const VectorSubtraction
-			<N, Real, Expression, VectorConstant<N, Real> >
+			<Real, N, Expression, VectorConstant<Real, N> >
 			operator-(const Real& right) const
 		{
 			return VectorSubtraction
-				<N, Real, Expression, VectorConstant<N, Real> >
+				<Real, N, Expression, VectorConstant<Real, N> >
 				((const Expression&)*this,
-				VectorConstant<N, Real>(right, size()));
+				VectorConstant<Real, N>(right, size()));
 		}
 
 		friend const VectorSubtraction
-			<N, Real, VectorConstant<N, Real>, Expression>
+			<Real, N, VectorConstant<Real, N>, Expression>
 			operator-(const Real& left, const VectorExpression& right)
 		{
 			return VectorSubtraction
-				<N, Real, VectorConstant<N, Real>, Expression>
-				(VectorConstant<N, Real>(left, right.size()),
+				<Real, N, VectorConstant<Real, N>, Expression>
+				(VectorConstant<Real, N>(left, right.size()),
 				(const Expression&)right);
 		}
 
 		// Multiplication
 
 		template <typename RightExpression>
-		const VectorMultiplication<N, Real, Expression,
+		const VectorMultiplication<Real, N, Expression, 
 			RightExpression>
 			operator*(const VectorExpression
 			<Real, N, RightExpression>& right) const
 		{
 			return VectorMultiplication
-				<N, Real, Expression,
+				<Real, N, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
 		}
 
 		const VectorMultiplication
-			<N, Real, Expression, VectorConstant<N, Real> >
+			<Real, N, Expression, VectorConstant<Real, N> >
 			operator*(const Real& right) const
 		{
 			return VectorMultiplication
-				<N, Real, Expression, VectorConstant<N, Real> >
+				<Real, N, Expression, VectorConstant<Real, N> >
 				((const Expression&)*this,
-				VectorConstant<N, Real>(right, size()));
+				VectorConstant<Real, N>(right, size()));
 		}
 
 		friend const VectorMultiplication
-			<N, Real, VectorConstant<N, Real>, Expression>
+			<Real, N, VectorConstant<Real, N>, Expression>
 			operator*(const Real& left, const VectorExpression& right)
 		{
 			return VectorMultiplication
-				<N, Real, VectorConstant<N, Real>, Expression>
-				(VectorConstant<N, Real>(left, right.size()),
+				<Real, N, VectorConstant<Real, N>, Expression>
+				(VectorConstant<Real, N>(left, right.size()),
 				(const Expression&)right);
 		}
 
 		// Division
 
 		template <typename RightExpression>
-		const VectorDivision<N, Real, Expression,
+		const VectorDivision<Real, N, Expression, 
 			RightExpression>
 			operator/(const VectorExpression
 			<Real, N, RightExpression>& right) const
 		{
 			return VectorDivision
-				<N, Real, Expression,
+				<Real, N, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
 		}
 
 		const VectorDivision
-			<N, Real, Expression, VectorConstant<N, Real> >
+			<Real, N, Expression, VectorConstant<Real, N> >
 			operator/(const Real& right) const
 		{
 			// You should not optimize here to use
@@ -258,18 +258,18 @@ namespace Pastel
 			// the case where Real is an integer.
 
 			return VectorDivision
-				<N, Real, Expression, VectorConstant<N, Real> >
+				<Real, N, Expression, VectorConstant<Real, N> >
 				((const Expression&)*this,
-				VectorConstant<N, Real>(right, size()));
+				VectorConstant<Real, N>(right, size()));
 		}
 
 		friend const VectorDivision
-			<N, Real, VectorConstant<N, Real>, Expression>
+			<Real, N, VectorConstant<Real, N>, Expression>
 			operator/(const Real& left, const VectorExpression& right)
 		{
 			return VectorDivision
-				<N, Real, VectorConstant<N, Real>, Expression>
-				(VectorConstant<N, Real>(left, right.size()),
+				<Real, N, VectorConstant<Real, N>, Expression>
+				(VectorConstant<Real, N>(left, right.size()),
 				(const Expression&)right);
 		}
 	};
@@ -277,10 +277,10 @@ namespace Pastel
 	// Concrete expressions
 
 	template <
-		int N,
-		typename Real>
+		typename Real,
+		int N>
 	class VectorConstant
-		: public VectorExpression<Real, N, VectorConstant<N, Real> >
+		: public VectorExpression<Real, N, VectorConstant<Real, N> >
 	{
 	public:
 		typedef const VectorConstant StorageType;
@@ -322,11 +322,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorNegation
-		: public VectorExpression<Real, N, VectorNegation<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorNegation<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorNegation& StorageType;
@@ -364,12 +364,12 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorAddition
-		: public VectorExpression<Real, N, VectorAddition<N, Real,
+		: public VectorExpression<Real, N, VectorAddition<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -415,12 +415,12 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorSubtraction
-		: public VectorExpression<Real, N, VectorSubtraction<N, Real,
+		: public VectorExpression<Real, N, VectorSubtraction<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -466,12 +466,12 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMultiplication
-		: public VectorExpression<Real, N, VectorMultiplication<N, Real,
+		: public VectorExpression<Real, N, VectorMultiplication<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -517,12 +517,12 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorDivision
-		: public VectorExpression<Real, N, VectorDivision<N, Real,
+		: public VectorExpression<Real, N, VectorDivision<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -567,9 +567,9 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class ConstVectorView
-		: public VectorExpression<Real, N, ConstVectorView<N, Real> >
+		: public VectorExpression<Real, N, ConstVectorView<Real, N> >
 	{
 	public:
 		typedef const ConstVectorView StorageType;
@@ -616,7 +616,7 @@ namespace Pastel
 			return size_;
 		}
 
-		void swap(ConstVectorView<N, Real>& that)
+		void swap(ConstVectorView<Real, N>& that)
 		{
 			std::swap(data_, that.data_);
 			std::swap(size_, that.size_);
@@ -654,12 +654,12 @@ namespace Pastel
 		integer size_;
 	};
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class VectorView
-		: public ConstVectorView<N, Real>
+		: public ConstVectorView<Real, N>
 	{
 	private:
-		typedef ConstVectorView<N, Real> Base;
+		typedef ConstVectorView<Real, N> Base;
 		using Base::data_;
 		using Base::size_;
 
