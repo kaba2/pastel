@@ -237,6 +237,114 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="BihTree"
+				>
+				<File
+					RelativePath=".\bihtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bihtree_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\concept_shapequery.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="KdTree"
+				>
+				<File
+					RelativePath=".\kdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_raytraversal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_raytraversal.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_refine.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_refine.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\kdtree_tools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="HalfMesh"
+				>
+				<File
+					RelativePath=".\halfmesh.h"
+					>
+				</File>
+				<File
+					RelativePath=".\halfmesh.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\halfmesh.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\halfmesh_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\propertyhalfmesh.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\propertyhalfmesh.h"
+					>
+				</File>
+				<File
+					RelativePath=".\propertyhalfmesh.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\simplehalfmesh.h"
+					>
+				</File>
+				<File
+					RelativePath=".\simplehalfmesh.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"
@@ -1130,14 +1238,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\pointkdtree_depth_first.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_depth_first.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\pointkdtree_search_nearest.h"
 				>
 			</File>
@@ -1151,6 +1251,14 @@
 			</File>
 			<File
 				RelativePath=".\pointkdtree_search_range.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\search_depth_first_pointkdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\search_depth_first_pointkdtree.hpp"
 				>
 			</File>
 			<Filter
@@ -1209,11 +1317,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\search_all_neighbors_kdtree.h"
+					RelativePath=".\search_all_neighbors_pointkdtree.h"
 					>
 				</File>
 				<File
-					RelativePath=".\search_all_neighbors_kdtree.hpp"
+					RelativePath=".\search_all_neighbors_pointkdtree.hpp"
 					>
 				</File>
 			</Filter>
@@ -1262,46 +1370,6 @@
 				</File>
 				<File
 					RelativePath=".\convexhull.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="KdTree"
-				>
-				<File
-					RelativePath=".\kdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_raytraversal.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_raytraversal.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_refine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_refine.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\kdtree_tools.hpp"
 					>
 				</File>
 			</Filter>
@@ -1359,46 +1427,6 @@
 							>
 						</File>
 					</Filter>
-					<Filter
-						Name="HalfMesh"
-						>
-						<File
-							RelativePath=".\halfmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\halfmesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\halfmesh.txt"
-							>
-						</File>
-						<File
-							RelativePath=".\halfmesh_tools.h"
-							>
-						</File>
-						<File
-							RelativePath=".\propertyhalfmesh.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\propertyhalfmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\propertyhalfmesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\simplehalfmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\simplehalfmesh.hpp"
-							>
-						</File>
-					</Filter>
 				</Filter>
 				<Filter
 					Name="Embeddings"
@@ -1408,34 +1436,6 @@
 						>
 					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="BihTree"
-				>
-				<File
-					RelativePath=".\bihtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree_more.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bihtree_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\concept_shapequery.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="BoxCollider"

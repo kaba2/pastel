@@ -2,7 +2,7 @@
 #define PASTEL_POINTKDTREE_COUNT_NEAREST_HPP
 
 #include "pastel/geometry/pointkdtree_count_nearest.h"
-#include "pastel/geometry/pointkdtree_depth_first.h"
+#include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 
 namespace Pastel

@@ -1,29 +1,15 @@
-Pastelin kotisivut TODO
------------------------
 
- * Tapa kirjoittaa matikkaa
- * Väritetyt reunat
+search_best_first_pointkdtree.h
+search_depth_first_pointkdtree.h
 
-Views
------
+search_neighbors_pointkdtree.h
+count_neighbors_pointkdtree.h
 
-Let SubArray denote a subset of an Array. While an Array
-represents the data itself, the intent of the SubArray is to
-describe the subset.
+searh_all_neighbors_pointkdtree.h
+count_all_neighbors_pointkdtree.h
 
-Solutions:
-
-1) Make it impossible to change the state of a view
-after construction.
-=> For example, swap not possible.
-=> Can't include the view as a member variable
-for a swapping class.
-
-2) Make the static data mutating functions const
-=> Thus the const only concerns the handle data.
-=> You would then need a ConstView and a View.
-
-
+BestFirst_SearchAlgorithm_PointKdTree
+DepthFirst_SearchAlgorithm_PointKdTree
 
 Remarks
 =======

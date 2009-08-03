@@ -1,8 +1,8 @@
 // Description: Nearest neighbor searching using a kd-tree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_H
-#define PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_H
+#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
+#define PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"
@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	//! Finds all-k-nearest-neighbours of a point set.
+	//! Finds k nearest-neighbours for all points.
 	/*!
 	Preconditions:
 	kNearestBegin >= 0
@@ -66,10 +66,14 @@ namespace Pastel
 	reporting this information is skipped.
 	*/
 
-	template <int N, typename Real, typename NormBijection, 
-		typename ConstIndexIterator, typename SplitRule>
+	template <int N, typename Real,  
+		typename SearchAlgorithm,
+		typename ConstIndexIterator, 
+		typename NormBijection,
+		typename SplitRule>
 	void searchAllNeighborsKdTree(
 		const std::vector<Point<Real, N> >& pointSet,
+		const SearchAlgorithm& searchAlgorithm,
 		const ConstIndexIterator& indexSetBegin,
 		const ConstIndexIterator& indexSetEnd,
 		integer kNearestBegin,
@@ -83,9 +87,12 @@ namespace Pastel
 		Array<Real, 2>* distanceArray = 0);
 
 	template <int N, typename Real, typename ObjectPolicy,
-		typename ConstObjectIterator_Iterator, typename NormBijection>
+		typename SearchAlgorithm,
+		typename ConstObjectIterator_Iterator, 
+		typename NormBijection>
 	void searchAllNeighborsKdTree(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const SearchAlgorithm& searchAlgorithm,
 		const ConstObjectIterator_Iterator& querySetBegin,
 		integer queries,
 		integer kNearestBegin,
@@ -98,6 +105,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/search_all_neighbors_kdtree.hpp"
+#include "pastel/geometry/search_all_neighbors_pointkdtree.hpp"
 
 #endif

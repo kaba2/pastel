@@ -1,7 +1,7 @@
-#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_HPP
-#define PASTEL_SEARCH_ALL_NEIGHBORS_KDTREE_HPP
+#ifndef PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_HPP
+#define PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_HPP
 
-#include "pastel/geometry/search_all_neighbors_kdtree.h"
+#include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
@@ -38,10 +38,14 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection, 
-		typename ConstIndexIterator, typename SplitRule>
+	template <int N, typename Real, 
+		typename SearchAlgorithm,
+		typename ConstIndexIterator, 
+		typename NormBijection, 
+		typename SplitRule>
 	void searchAllNeighborsKdTree(
 		const std::vector<Point<Real, N> >& pointSet,
+		const SearchAlgorithm& searchAlgorithm,
 		const ConstIndexIterator& indexSetBegin,
 		const ConstIndexIterator& indexSetEnd,
 		integer kNearestBegin,
@@ -142,17 +146,10 @@ namespace Pastel
 			PENSURE_OP(query, >=, 0);
 			PENSURE_OP(query, <, points);
 
-			/*
-			searchNearest(kdTree, pointSet[query], 
-				Accept_ExceptDeref<ConstObjectIterator, const Point<Real, N>* >(&pointSet[query]),
-				maxDistance, maxRelativeError,
-				normBijection, 
-				kNearestEnd, 
-				nearestSet.begin(), 
-				distanceSet.begin());
-			*/
-
-			searchNearest(kdTree, querySet[query], 
+			searchNearest(
+				kdTree, 
+				querySet[query], 
+				searchAlgorithm,
 				Accept_Except<ConstObjectIterator>(querySet[query]),
 				maxDistance, maxRelativeError,
 				normBijection, 
@@ -236,9 +233,12 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy,
-		typename ConstObjectIterator_Iterator, typename NormBijection>
+		typename SearchAlgorithm,
+		typename ConstObjectIterator_Iterator, 
+		typename NormBijection>
 	void searchAllNeighborsKdTree(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const SearchAlgorithm& searchAlgorithm,
 		const ConstObjectIterator_Iterator& querySetBegin,
 		integer queries,
 		integer kNearestBegin,
@@ -299,6 +299,7 @@ namespace Pastel
 			searchNearest(
 				kdTree, 
 				query, 
+				searchAlgorithm,
 				Accept_Except<ConstObjectIterator>(query),
 				maxDistance, 
 				maxRelativeError,
@@ -310,14 +311,14 @@ namespace Pastel
 			if (nearestArray)
 			{
 				std::copy(
-					nearestSet.begin(),
+					nearestSet.begin() + kNearestBegin,
 					nearestSet.end(),
 					nearestArray->rowBegin(i));
 			}
 			if (distanceArray)
 			{
 				std::copy(
-					distanceSet.begin(),
+					distanceSet.begin() + kNearestEnd,
 					distanceSet.end(),
 					distanceArray->rowBegin(i));
 			}

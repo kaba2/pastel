@@ -538,7 +538,10 @@ void logicHandler()
 	nearestPointSet__.clear();
 	nearestPointSet__.reserve(nearestPoints__);
 
-	searchNearest(tree__, worldMouse, 
+	searchNearest(
+		tree__, 
+		worldMouse, 
+		DepthFirst_SearchAlgorithm_PointKdTree(),
 		Accept_Always(), 
 		normBijection__.toBijection(searchRadius__), 0,
 		normBijection__, nearestPoints__, std::back_inserter(nearestPointSet__), 
@@ -593,6 +596,7 @@ void erasePoints(const Point2& center, real radius)
 	searchNearest(
 		tree__,
 		center,
+		DepthFirst_SearchAlgorithm_PointKdTree(),
 		Accept_Always(),
 		normBijection__.toBijection(radius),
 		0, normBijection__,
@@ -659,7 +663,10 @@ void timing()
 		nearestPointSet__.clear();
 		nearestPointSet__.reserve(NearestPoints);
 
-		searchNearest(tree__, iter->object(),
+		searchNearest(
+			tree__, 
+			iter->object(),
+			DepthFirst_SearchAlgorithm_PointKdTree(),
 			Accept_Always(),
 			infinity<real>(),
 			0,
