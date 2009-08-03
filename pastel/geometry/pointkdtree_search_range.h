@@ -20,9 +20,9 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void searchRange(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result);
+		std::vector<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>& result);
 
 }
 

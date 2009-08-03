@@ -10,14 +10,14 @@ namespace Pastel
 	{
 	public:
 		template <
-			int N, typename Real,
+			typename Real, int N, 
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
-			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
+			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectBegin,
+			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectEnd) const
 		{
 			// Split along the longest dimension.
 
@@ -33,16 +33,16 @@ namespace Pastel
 	{
 	public:
 		template <
-			int N, typename Real,
+			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
-			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
+			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectBegin,
+			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectEnd) const
 		{
-			typedef typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
+			typedef typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
 			// Split along the longest dimension.
@@ -88,16 +88,16 @@ namespace Pastel
 	{
 	public:
 		template <
-			int N, typename Real,
+			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
-			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
-			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
+			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectBegin,
+			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectEnd) const
 		{
-			typedef typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
+			typedef typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
 			// Find object spread.
@@ -171,11 +171,11 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Real, typename ObjectPolicy>
+		template <typename Real, int N, typename ObjectPolicy>
 		class BoundPoint
 		{
 		private:
-			typedef KdTree<N, Real, ObjectPolicy> Tree;
+			typedef KdTree<Real, N, ObjectPolicy> Tree;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 		public:
@@ -221,18 +221,18 @@ namespace Pastel
 		};
 
 		template <
-			int N, typename Real,
+			typename Real, int N,
 			typename ObjectPolicy>
 			void refineSurfaceAreaHeuristic(
-			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+			const typename KdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			integer depth,
 			const AlignedBox<Real, N>& bound,
 			integer maxDepth,
 			integer maxObjects,
 			integer badRefines,
-			KdTree<N, Real, ObjectPolicy>& tree)
+			KdTree<Real, N, ObjectPolicy>& tree)
 		{
-			typedef KdTree<N, Real, ObjectPolicy> Tree;
+			typedef KdTree<Real, N, ObjectPolicy> Tree;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 			if (depth >= maxDepth)
@@ -273,7 +273,7 @@ namespace Pastel
 
 					for (integer axis = 0;axis < n;++axis)
 					{
-						std::vector<BoundPoint<N, Real, ObjectPolicy> > pointList;
+						std::vector<BoundPoint<Real, N, ObjectPolicy> > pointList;
 						const integer boundPoints = 2 * cursor.objects();
 						pointList.reserve(boundPoints);
 
@@ -283,8 +283,8 @@ namespace Pastel
 						{
 							const Tuple<Real, 2> objectBound = tree.objectPolicy().bound(*iter, axis);
 
-							pointList.push_back(BoundPoint<N, Real, ObjectPolicy>(objectBound[0], true, iter));
-							pointList.push_back(BoundPoint<N, Real, ObjectPolicy>(objectBound[1], false, iter));
+							pointList.push_back(BoundPoint<Real, N, ObjectPolicy>(objectBound[0], true, iter));
+							pointList.push_back(BoundPoint<Real, N, ObjectPolicy>(objectBound[1], false, iter));
 
 							++iter;
 						}
@@ -389,13 +389,13 @@ namespace Pastel
 	}
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename ObjectPolicy>
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,
 		integer maxObjects,
-		KdTree<N, Real, ObjectPolicy>& tree)
+		KdTree<Real, N, ObjectPolicy>& tree)
 	{
 		ENSURE_OP(maxDepth, >=, 0);
 		ENSURE_OP(maxObjects, >=, 1);

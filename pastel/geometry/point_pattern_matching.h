@@ -47,8 +47,8 @@ namespace Pastel
 
 	template <typename Real, typename ScenePolicy, typename ModelPolicy>
 	bool pointPatternMatch(
-		const PointKdTree<2, Real, ScenePolicy>& sceneTree,
-		const PointKdTree<2, Real, ModelPolicy>& modelTree,
+		const PointKdTree<Real, 2, ScenePolicy>& sceneTree,
+		const PointKdTree<Real, 2, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,

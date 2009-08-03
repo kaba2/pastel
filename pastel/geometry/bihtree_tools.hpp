@@ -14,16 +14,16 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Real, typename Shape,
+		template <typename Real, int N, typename Shape,
 			typename ShapeBoundQuery>
 			bool check(
-			const BihTree<N, Real, Shape>& bihTree,
-			const typename BihTree<N, Real, Shape>::
+			const BihTree<Real, N, Shape>& bihTree,
+			const typename BihTree<Real, N, Shape>::
 			ConstCursor& cursor,
 			const AlignedBox<Real, N>& alignedBox,
 			const ShapeBoundQuery& shapeQuery)
 		{
-			typedef typename BihTree<N, Real, Shape>::
+			typedef typename BihTree<Real, N, Shape>::
 				ConstCursor ConstCursor;
 
 			if (cursor.isLeaf())
@@ -121,12 +121,12 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename Shape,
+	template <typename Real, int N, typename Shape,
 		typename ShapeAlignedBoxQuery>
-		bool check(const BihTree<N, Real, Shape>& bihTree,
+		bool check(const BihTree<Real, N, Shape>& bihTree,
 		const ShapeAlignedBoxQuery& shapeQuery)
 	{
-		typedef typename BihTree<N, Real, Shape>::ConstCursor
+		typedef typename BihTree<Real, N, Shape>::ConstCursor
 			ConstCursor;
 
 		ConstCursor node(bihTree.root());
@@ -137,12 +137,12 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Real, typename Shape>
+		template <typename Real, int N, typename Shape>
 		class NodeRange
 		{
 		public:
 			typedef typename
-				BihTree<N, Real, Shape>::ConstCursor
+				BihTree<Real, N, Shape>::ConstCursor
 				ConstCursor;
 
 			NodeRange()
@@ -169,10 +169,10 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename Shape,
+	template <typename Real, int N, typename Shape,
 		typename IntersectionQuery>
 		bool intersect(
-		const BihTree<N, Real, Shape>& bihTree,
+		const BihTree<Real, N, Shape>& bihTree,
 		const Line<Real, N>& line,
 		IntersectionQuery& shapeQuery)
 	{

@@ -10,17 +10,17 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void searchRange(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		std::vector<typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>& result)
+		std::vector<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>& result)
 	{
 		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
 
-		typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 			ConstObjectIterator;
-		typedef typename PointKdTree<N, Real, ObjectPolicy>::Cursor
+		typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor
 			Cursor;
-		typedef typename PointKdTree<N, Real, ObjectPolicy>::Object
+		typedef typename PointKdTree<Real, N, ObjectPolicy>::Object
 			Object;
 
 		std::vector<ConstObjectIterator> rangeSet;

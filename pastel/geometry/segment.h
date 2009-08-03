@@ -19,7 +19,7 @@ namespace Pastel
 	with 0 <= t <= 1
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class Segment
 	{
 	public:

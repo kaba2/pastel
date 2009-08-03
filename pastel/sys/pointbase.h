@@ -14,10 +14,10 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class Point;
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class TemporaryPoint;
 
 	namespace Detail

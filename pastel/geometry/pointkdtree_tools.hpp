@@ -28,9 +28,9 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Real, typename ObjectPolicy>
-		integer depth(const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+		template <typename Real, int N, typename ObjectPolicy>
+		integer depth(const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			integer currentDepth)
 		{
 			if (cursor.leaf())
@@ -45,8 +45,8 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	integer depth(const PointKdTree<N, Real, ObjectPolicy>& tree)
+	template <typename Real, int N, typename ObjectPolicy>
+	integer depth(const PointKdTree<Real, N, ObjectPolicy>& tree)
 	{
 		return Detail::depth(tree, tree.root(), 0);
 	}
@@ -54,12 +54,12 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Real, typename ObjectPolicy>
-		bool check(const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+		template <typename Real, int N, typename ObjectPolicy>
+		bool check(const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const AlignedBox<Real, N>& bound)
 		{
-			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
 
 			if (cursor.leaf())
@@ -166,8 +166,8 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	bool check(const PointKdTree<N, Real, ObjectPolicy>& tree)
+	template <typename Real, int N, typename ObjectPolicy>
+	bool check(const PointKdTree<Real, N, ObjectPolicy>& tree)
 	{
 		return Detail::check(tree, tree.root(), tree.bound());
 	}
@@ -219,8 +219,8 @@ namespace Pastel
 	}
 	template <int N_A, typename Real, typename ObjectPolicy_A, 
 		int N_B, typename ObjectPolicy_B>
-	bool equivalentKdTree(const PointKdTree<N_A, Real, ObjectPolicy_A>& aTree,
-	const PointKdTree<N_B, Real, ObjectPolicy_B>& bTree)
+	bool equivalentKdTree(const PointKdTree<Real, N_A, ObjectPolicy_A>& aTree,
+	const PointKdTree<Real, N_B, ObjectPolicy_B>& bTree)
 	{
 		if (aTree.nodes() != bTree.nodes() ||
 			aTree.objects() != bTree.objects() ||

@@ -856,6 +856,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\vector_design.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\vector_tools.h"
 					>
 				</File>

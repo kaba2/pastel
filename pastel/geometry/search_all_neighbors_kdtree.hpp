@@ -99,7 +99,7 @@ namespace Pastel
 		}
 		*/
 
-		typedef PointKdTree<N, Real, 
+		typedef PointKdTree<Real, N, 
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
 		typedef typename KdTree::Object Object;
@@ -238,7 +238,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, typename NormBijection>
 	void searchAllNeighborsKdTree(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const ConstObjectIterator_Iterator& querySetBegin,
 		integer queries,
 		integer kNearestBegin,
@@ -272,7 +272,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef PointKdTree<N, Real, 
+		typedef PointKdTree<Real, N, 
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
 

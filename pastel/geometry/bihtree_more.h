@@ -10,8 +10,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename Shape>
-	class BihTree<N, Real, Shape>::Node
+	template <typename Real, int N, typename Shape>
+	class BihTree<Real, N, Shape>::Node
 	{
 	public:
 		Node(
@@ -68,8 +68,8 @@ namespace Pastel
 		Real positiveSplit_;
 	};
 
-	template <int N, typename Real, typename Shape>
-	class BihTree<N, Real, Shape>::Leaf
+	template <typename Real, int N, typename Shape>
+	class BihTree<Real, N, Shape>::Leaf
 	{
 	public:
 		Leaf(integer shapeIndex,
@@ -94,16 +94,16 @@ namespace Pastel
 		integer shapes_;
 	};
 
-	template <int N, typename Real, typename Shape>
-	class BihTree<N, Real, Shape>::ConstCursor
+	template <typename Real, int N, typename Shape>
+	class BihTree<Real, N, Shape>::ConstCursor
 		: boost::less_than_comparable<
-			typename BihTree<N, Real, Shape>::ConstCursor
+			typename BihTree<Real, N, Shape>::ConstCursor
 			, boost::equality_comparable<
-			typename BihTree<N, Real, Shape>::ConstCursor
+			typename BihTree<Real, N, Shape>::ConstCursor
 			> >
 	{
 	public:
-		friend class BihTree<N, Real, Shape>;
+		friend class BihTree<Real, N, Shape>;
 
 		// Using default copy constructor
 		// Using default assignment

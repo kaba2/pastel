@@ -32,7 +32,7 @@ namespace Pastel
 	the negative or the positive child to continue to.
 	*/
 
-	template <int N, typename Real, typename Shape>
+	template <typename Real, int N, typename Shape>
 	class BihTree
 	{
 	public:
@@ -51,14 +51,14 @@ namespace Pastel
 		BihTree();
 
 		//! Constructs a copy of an existing tree.
-		BihTree(const BihTree<N, Real, Shape>& that);
+		BihTree(const BihTree<Real, N, Shape>& that);
 
 		//! Destructs the tree.
 		virtual ~BihTree();
 
 		//! Copies another tree.
-		BihTree<N, Real, Shape>& operator=(
-			const BihTree<N, Real, Shape>& that);
+		BihTree<Real, N, Shape>& operator=(
+			const BihTree<Real, N, Shape>& that);
 
 		//! Swaps two trees.
 		void swap(BihTree& that);

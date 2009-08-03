@@ -1,0 +1,115 @@
+Vector design notes
+===================
+
+[Parent]: vector.txt
+
+Redundancy between Tuple's, Vector's, and Point's
+-------------------------------------------------
+
+These objects share some of the algorithms. Namely:
+
+* all share comparison functions
+* Vector's and Point's share array computation functions
+
+How to implement these without replicating
+implementation?
+
+Solution:
+Only implement the function at the lowest level.
+Then forward to these functions from the higher levels.
+For example:
+
+	:::cpp
+	template <int N, typename Type>
+	bool anyLess(const Tuple<N, Type>& left,
+	const Tuple<N, Type>& right)
+	{
+	}
+
+	template <int N, typename Type>
+	bool anyLess(const Vector<N, Type>& left,
+	const Vector<N, Type>& right)
+	{
+		return Pastel::anyLess(asTuple(left), asTuple(right));
+	}
+
+What concept should the Type model?
+-----------------------------------
+
+### Points and vectors in Z^n
+
+First of all, we abuse terminology here. By vectors in Z^n
+we actually mean elements of a module over Z.
+If the scalars are Z, then we have module elements,
+if the scalars are R, then we have vectors.
+We don't want to implement Points and Vectors separately
+for the modules because they 
+would be identical to the Point and Vector implementations.
+Thus we embed them into the existing Point and Vector classes.
+We need to separate those functions that only require
+the scalar set to be an ordered ring and those that require
+the scalar set to be R. Note the use of an ordered ring rather Z
+to underline that the functions should work for R too.
+
+Rejected ideas
+--------------
+
+### Vector is-a Tuple 
+
+It should be possible to pass a vector to a
+function requiring a tuple:
+
+	:::cpp
+	template <int N, typename Type>
+	bool anyLess(const Tuple<N, Type>& left,
+	const Tuple<N, Type>& right)
+	{
+		// Return the comparison result
+	}
+
+	Vector<2, float> a(1, 2, 3);
+	Vector<2, float> b(3, 2, 1);
+	bool r = anyLess(a, b);
+
+The idea here is to remove redundancy.
+We will have Vector's, Point's, and Tuple's and
+some of their algorithms overlap. Specifically,
+these are the functions that do not need
+to return the specific derived type. For example:
+
+	:::cpp
+	template <int N, typename Type>
+	Type sum(const Vector<N, Type>& that);
+
+Would be such a function, while
+
+	:::cpp
+	Vector<2, float> f(const Vector<2, float>& that);
+
+would not. These functions include:
+
+* comparison functions: anyLess, anyGreater, etc.
+* minIndex, maxIndex, product, sum, unary min and max.
+
+It is essential that the tuple be a base-class
+of vector to make the template parameter
+deduction to work. However, the use of expression templates 
+also requires that a vector expression is a base class of
+vector. 
+
+If we now use the obvious multiple inheritance to achieve
+this hierarchy, then we increase the memory
+cost by 4 bytes which is unacceptable for static
+vectors.
+
+Could we convert the inheritance hierarchy to a linear one?
+Clearly the tuple can't be a base-class of
+the vector-expression because then every sub-expression
+would take the tuple's amount of extra memory
+(which most of the time is not used at all).
+So the question is if we should make
+the vector expression a base-class of the tuple?
+The answer is no because that would not make sense when 
+then tuple is used on its own.
+
+Thus it seems this requirement can't be satisfied.

@@ -73,10 +73,10 @@ namespace Pastel
 		return Alias<Type*>(data);
 	}
 
-	template <typename Type, int N>
+	template <typename Type, int N = Dynamic>
 	class Tuple;
 
-	template <typename Type, int N>
+	template <typename Type, int N = Dynamic>
 	class TemporaryTuple;
 
 	namespace Detail

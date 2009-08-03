@@ -16,8 +16,8 @@ namespace Pastel
 
 	// BihTree
 
-	template <int N, typename Real, typename Shape>
-	BihTree<N, Real, Shape>::BihTree()
+	template <typename Real, int N, typename Shape>
+	BihTree<Real, N, Shape>::BihTree()
 		: nodeAllocator_()
 		, root_(0)
 		, rootBound_()
@@ -30,9 +30,9 @@ namespace Pastel
 	{
 	}
 
-	template <int N, typename Real, typename Shape>
-	BihTree<N, Real, Shape>::BihTree(
-		const BihTree<N, Real, Shape>& that)
+	template <typename Real, int N, typename Shape>
+	BihTree<Real, N, Shape>::BihTree(
+		const BihTree<Real, N, Shape>& that)
 		: nodeAllocator_()
 		, root_(0)
 		, rootBound_()
@@ -47,23 +47,23 @@ namespace Pastel
 		ASSERT(false);
 	}
 
-	template <int N, typename Real, typename Shape>
-	BihTree<N, Real, Shape>::~BihTree()
+	template <typename Real, int N, typename Shape>
+	BihTree<Real, N, Shape>::~BihTree()
 	{
 		clear();
 	}
 
-	template <int N, typename Real, typename Shape>
-	BihTree<N, Real, Shape>& BihTree<N, Real, Shape>::operator=(
-		const BihTree<N, Real, Shape>& that)
+	template <typename Real, int N, typename Shape>
+	BihTree<Real, N, Shape>& BihTree<Real, N, Shape>::operator=(
+		const BihTree<Real, N, Shape>& that)
 	{
 		BihTree copy(that);
 		swap(copy);
 		return *this;
 	}
 
-	template <int N, typename Real, typename Shape>
-	void BihTree<N, Real, Shape>::swap(BihTree<N, Real, Shape>& that)
+	template <typename Real, int N, typename Shape>
+	void BihTree<Real, N, Shape>::swap(BihTree<Real, N, Shape>& that)
 	{
 		using std::swap;
 		using std::swap;
@@ -79,14 +79,14 @@ namespace Pastel
 		swap(actualMaxShapesPerNode_, that.actualMaxShapesPerNode_);
 	}
 
-	template <int N, typename Real, typename Shape>
-	bool BihTree<N, Real, Shape>::empty() const
+	template <typename Real, int N, typename Shape>
+	bool BihTree<Real, N, Shape>::empty() const
 	{
 		return (root_ == 0);
 	}
 
-	template <int N, typename Real, typename Shape>
-	void BihTree<N, Real, Shape>::clear()
+	template <typename Real, int N, typename Shape>
+	void BihTree<Real, N, Shape>::clear()
 	{
 		nodeAllocator_.clear();
 		root_ = 0;
@@ -100,54 +100,54 @@ namespace Pastel
 		actualMaxShapesPerNode_ = 0;
 	}
 
-	template <int N, typename Real, typename Shape>
-	typename BihTree<N, Real, Shape>::ConstCursor
-		BihTree<N, Real, Shape>::root() const
+	template <typename Real, int N, typename Shape>
+	typename BihTree<Real, N, Shape>::ConstCursor
+		BihTree<Real, N, Shape>::root() const
 	{
 		return ConstCursor(root_);
 	}
 
-	template <int N, typename Real, typename Shape>
-	integer BihTree<N, Real, Shape>::depth() const
+	template <typename Real, int N, typename Shape>
+	integer BihTree<Real, N, Shape>::depth() const
 	{
 		return depth_;
 	}
 
-	template <int N, typename Real, typename Shape>
-	integer BihTree<N, Real, Shape>::leaves() const
+	template <typename Real, int N, typename Shape>
+	integer BihTree<Real, N, Shape>::leaves() const
 	{
 		return leafArray_.size();
 	}
 
-	template <int N, typename Real, typename Shape>
-	integer BihTree<N, Real, Shape>::nodes() const
+	template <typename Real, int N, typename Shape>
+	integer BihTree<Real, N, Shape>::nodes() const
 	{
 		return nodes_;
 	}
 
-	template <int N, typename Real, typename Shape>
-	integer BihTree<N, Real, Shape>::maxShapesPerNode() const
+	template <typename Real, int N, typename Shape>
+	integer BihTree<Real, N, Shape>::maxShapesPerNode() const
 	{
 		return actualMaxShapesPerNode_;
 	}
 
-	template <int N, typename Real, typename Shape>
-	typename BihTree<N, Real, Shape>::ConstLeafIterator
-		BihTree<N, Real, Shape>::leafBegin() const
+	template <typename Real, int N, typename Shape>
+	typename BihTree<Real, N, Shape>::ConstLeafIterator
+		BihTree<Real, N, Shape>::leafBegin() const
 	{
 		return leafArray_.begin();
 	}
 
-	template <int N, typename Real, typename Shape>
-	typename BihTree<N, Real, Shape>::ConstLeafIterator
-		BihTree<N, Real, Shape>::leafEnd() const
+	template <typename Real, int N, typename Shape>
+	typename BihTree<Real, N, Shape>::ConstLeafIterator
+		BihTree<Real, N, Shape>::leafEnd() const
 	{
 		return leafArray_.end();
 	}
 
-	template <int N, typename Real, typename Shape>
+	template <typename Real, int N, typename Shape>
 	template <typename ShapeBoundQuery>
-	void BihTree<N, Real, Shape>::construct(
+	void BihTree<Real, N, Shape>::construct(
 		const std::vector<Shape>& shapes,
 		integer minDepth,
 		integer maxDepth,
@@ -198,15 +198,15 @@ namespace Pastel
 			shapeQuery);
 	}
 
-	template <int N, typename Real, typename Shape>
-	AlignedBox<Real, N> BihTree<N, Real, Shape>::boundingAlignedBox() const
+	template <typename Real, int N, typename Shape>
+	AlignedBox<Real, N> BihTree<Real, N, Shape>::boundingAlignedBox() const
 	{
 		return rootBound_;
 	}
 
-	template <int N, typename Real, typename Shape>
-	typename BihTree<N, Real, Shape>::ConstLeafIterator
-		BihTree<N, Real, Shape>::leaf(
+	template <typename Real, int N, typename Shape>
+	typename BihTree<Real, N, Shape>::ConstLeafIterator
+		BihTree<Real, N, Shape>::leaf(
 		const ConstCursor& leafNode) const
 	{
 		if (!leafNode.isLeaf())
@@ -222,8 +222,8 @@ namespace Pastel
 		return leafArray_.begin() + leafIndex;
 	}
 
-	template <int N, typename Real, typename Shape>
-	ConstMemoryView<Shape> BihTree<N, Real, Shape>::shapes(
+	template <typename Real, int N, typename Shape>
+	ConstMemoryView<Shape> BihTree<Real, N, Shape>::shapes(
 		const ConstLeafIterator& leaf) const
 	{
 		ConstMemoryView<Shape> shapes;
@@ -239,9 +239,9 @@ namespace Pastel
 		return shapes;
 	}
 
-	template <int N, typename Real, typename Shape>
+	template <typename Real, int N, typename Shape>
 	ConstMemoryView<Shape>
-		BihTree<N, Real, Shape>::shapes() const
+		BihTree<Real, N, Shape>::shapes() const
 	{
 		return ConstMemoryView<Shape>(
 			&shapeArray_[0], shapeArray_.size());
@@ -249,16 +249,16 @@ namespace Pastel
 
 	// Private
 
-	template <int N, typename Real, typename Shape>
-	typename BihTree<N, Real, Shape>::Node*
-		BihTree<N, Real, Shape>::allocateNodes(integer count)
+	template <typename Real, int N, typename Shape>
+	typename BihTree<Real, N, Shape>::Node*
+		BihTree<Real, N, Shape>::allocateNodes(integer count)
 	{
 		return (Node*)nodeAllocator_.allocate(sizeof(Node) * count);
 	}
 
-	template <int N, typename Real, typename Shape>
+	template <typename Real, int N, typename Shape>
 	integer
-		BihTree<N, Real, Shape>::allocateLeaf(
+		BihTree<Real, N, Shape>::allocateLeaf(
 		integer shapeIndexFrom,
 		integer shapeIndexTo)
 	{
@@ -268,9 +268,9 @@ namespace Pastel
 		return leafIndex;
 	}
 
-	template <int N, typename Real, typename Shape>
+	template <typename Real, int N, typename Shape>
 	template <typename ShapeBoundQuery>
-	void BihTree<N, Real, Shape>::construct(
+	void BihTree<Real, N, Shape>::construct(
 		Node* node,
 		const AlignedBox<Real, N>& nodeBound,
 		integer shapeIndexFrom,

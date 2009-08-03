@@ -18,7 +18,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class PointPolicy
 	{
 	public:
@@ -50,8 +50,8 @@ namespace Pastel
 	};
 	*/
 
-	template <int N, typename Real,
-		typename ObjectPolicy = PointPolicy<N, Real> >
+	template <typename Real, int N = Dynamic, 
+		typename ObjectPolicy = PointPolicy<Real, N> >
 	class PointKdTree
 	{
 	public:

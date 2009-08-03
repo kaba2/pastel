@@ -23,13 +23,13 @@ namespace Pastel
 	*/
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename ObjectPolicy,
 		typename Intersector>
-	typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+	typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 		recursiveRayTraversal(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<Real, N, ObjectPolicy>& tree,
 		const Line<Real, N>& ray,
 		Intersector intersector);
 

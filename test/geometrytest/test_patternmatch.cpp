@@ -151,10 +151,10 @@ namespace
 
 		log() << "Computing kd-trees..." << logNewLine;
 
-		typedef PointKdTree<2, real> SceneTree;
+		typedef PointKdTree<real, 2> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef PointKdTree<2, real> ModelTree;
+		typedef PointKdTree<real, 2> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;

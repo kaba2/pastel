@@ -20,7 +20,7 @@ namespace Pastel
 		class CandidateFunctor
 		{
 		private:
-			typedef PointKdTree<N, Real, ObjectPolicy> Tree;
+			typedef PointKdTree<Real, N, ObjectPolicy> Tree;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 			typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 
@@ -68,7 +68,7 @@ namespace Pastel
 		typename NormBijection, typename AcceptFunctor,
 		typename NearestIterator, typename DistanceIterator>
 	void searchNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -105,7 +105,7 @@ namespace Pastel
 
 		typedef Detail_Search_Nearest::CandidateFunctor<N, Real, ObjectPolicy, AcceptFunctor>
 			CandidateFunctor;
-		typedef PointKdTree<N, Real, ObjectPolicy> Tree;
+		typedef PointKdTree<Real, N, ObjectPolicy> Tree;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 		typedef KeyValue<Real, ConstObjectIterator> KeyVal;
 		typedef SmallFixedSet<KeyVal> CandidateSet;
@@ -139,9 +139,9 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename SearchPoint,
 		typename NormBijection, typename AcceptFunctor>
-	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator> 
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator> 
 		searchNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -156,7 +156,7 @@ namespace Pastel
 			return keyValue(infinity<Real>(), kdTree.end());
 		}
 
-		typedef PointKdTree<N, Real, ObjectPolicy> Tree;
+		typedef PointKdTree<Real, N, ObjectPolicy> Tree;
 		typedef typename Tree::Cursor Cursor;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
@@ -172,9 +172,9 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename SearchPoint,
 		typename AcceptFunctor>
-	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -191,9 +191,9 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename SearchPoint,
 		typename AcceptFunctor>
-	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const AcceptFunctor& acceptFunctor,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
@@ -208,9 +208,9 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename SearchPoint,
 		typename AcceptFunctor>
-	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const AcceptFunctor& acceptFunctor)
 	{
@@ -221,9 +221,9 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy,
 		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint)
 	{
 		return Pastel::searchNearest(

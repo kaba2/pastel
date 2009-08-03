@@ -85,7 +85,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, typename NormBijection>
 	void searchAllNeighborsKdTree(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const ConstObjectIterator_Iterator& querySetBegin,
 		integer queries,
 		integer kNearestBegin,
