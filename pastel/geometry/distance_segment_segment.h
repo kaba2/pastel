@@ -8,8 +8,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const Segment<N, Real>& aSegment,
-		const Segment<N, Real>& bSegment);
+		const Segment<Real, N>& aSegment,
+		const Segment<Real, N>& bSegment);
 }
 
 #include "pastel/geometry/distance_segment_segment.hpp"

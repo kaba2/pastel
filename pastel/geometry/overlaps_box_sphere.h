@@ -18,8 +18,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Box<N, Real>& box,
-		const Sphere<N, Real>& sphere);
+		const Box<Real, N>& box,
+		const Sphere<Real, N>& sphere);
 
 }
 

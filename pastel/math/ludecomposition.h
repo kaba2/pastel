@@ -22,7 +22,7 @@ namespace Pastel
 	U is an nxn upper triangular matrix
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class LuDecomposition
 	{
 	public:
@@ -35,7 +35,7 @@ namespace Pastel
 
 		void swap(LuDecomposition& that);
 
-		LuDecomposition<N, Real>& operator=(const LuDecomposition& that);
+		LuDecomposition<Real, N>& operator=(const LuDecomposition& that);
 
 		bool decompose(const Matrix<N, N, Real>& matrix);
 
@@ -53,11 +53,11 @@ namespace Pastel
 		Vector<Real, N> invLargestInRow_;
 	};
 
-	typedef LuDecomposition<1, real> LuDecomposition1;
-	typedef LuDecomposition<2, real> LuDecomposition2;
-	typedef LuDecomposition<3, real> LuDecomposition3;
-	typedef LuDecomposition<4, real> LuDecomposition4;
-	typedef LuDecomposition<Dynamic, real> LuDecompositionD;
+	typedef LuDecomposition<real, 1> LuDecomposition1;
+	typedef LuDecomposition<real, 2> LuDecomposition2;
+	typedef LuDecomposition<real, 3> LuDecomposition3;
+	typedef LuDecomposition<real, 4> LuDecomposition4;
+	typedef LuDecomposition<real, Dynamic> LuDecompositionD;
 
 }
 

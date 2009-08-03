@@ -8,25 +8,25 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Transformation<N, Real>::Transformation()
+	template <typename Real, int N>
+	Transformation<Real, N>::Transformation()
 		: transform_()
 		, inverse_()
 		, update_(false)
 	{
 	}
 
-	template <int N, typename Real>
-	Transformation<N, Real>::Transformation(
-		const AffineTransformation<N, Real>& that)
+	template <typename Real, int N>
+	Transformation<Real, N>::Transformation(
+		const AffineTransformation<Real, N>& that)
 		: transform_(that)
 		, inverse_()
 		, update_(true)
 	{
 	}
 
-	template <int N, typename Real>
-	Transformation<N, Real>::Transformation(
+	template <typename Real, int N>
+	Transformation<Real, N>::Transformation(
 		const Matrix<N, N, Real>& transformation,
 		const Vector<Real, N>& translation)
 		: transform_(transformation, translation)
@@ -35,14 +35,14 @@ namespace Pastel
 	{
 	}
 
-	template <int N, typename Real>
-	Transformation<N, Real>::~Transformation()
+	template <typename Real, int N>
+	Transformation<Real, N>::~Transformation()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <int N, typename Real>
-	void Transformation<N, Real>::swap(Transformation<N, Real>& that)
+	template <typename Real, int N>
+	void Transformation<Real, N>::swap(Transformation<Real, N>& that)
 	{
 		using std::swap;
 		using std::swap;
@@ -52,9 +52,9 @@ namespace Pastel
 		swap(update_, that.update_);
 	}
 
-	template <int N, typename Real>
-	Transformation<N, Real>& Transformation<N, Real>::operator*=(
-		const Transformation<N, Real>& that)
+	template <typename Real, int N>
+	Transformation<Real, N>& Transformation<Real, N>::operator*=(
+		const Transformation<Real, N>& that)
 	{
 		transform_ *= that.transform_;
 		update_ = true;
@@ -62,34 +62,34 @@ namespace Pastel
 		return *this;
 	}
 
-	template <int N, typename Real>
-	Transformation<N, Real> Transformation<N, Real>::operator*(
-		const Transformation<N, Real>& that) const
+	template <typename Real, int N>
+	Transformation<Real, N> Transformation<Real, N>::operator*(
+		const Transformation<Real, N>& that) const
 	{
-		Transformation<N, Real> result(*this);
+		Transformation<Real, N> result(*this);
 		result *= that;
 
 		return result;
 	}
 
-	template <int N, typename Real>
-	void Transformation<N, Real>::setTransform(
-		const AffineTransformation<N, Real>& transformation)
+	template <typename Real, int N>
+	void Transformation<Real, N>::setTransform(
+		const AffineTransformation<Real, N>& transformation)
 	{
 		transform_ = transformation;
 		update_ = true;
 	}
 
-	template <int N, typename Real>
-	const AffineTransformation<N, Real>&
-		Transformation<N, Real>::affineTransform() const
+	template <typename Real, int N>
+	const AffineTransformation<Real, N>&
+		Transformation<Real, N>::affineTransform() const
 	{
 		return transform_;
 	}
 
-	template <int N, typename Real>
-	const AffineTransformation<N, Real>&
-		Transformation<N, Real>::affineInverse() const
+	template <typename Real, int N>
+	const AffineTransformation<Real, N>&
+		Transformation<Real, N>::affineInverse() const
 	{
 		if (update_)
 		{
@@ -99,23 +99,23 @@ namespace Pastel
 		return inverse_;
 	}
 
-	template <int N, typename Real>
-	void Transformation<N, Real>::setTransform(
+	template <typename Real, int N>
+	void Transformation<Real, N>::setTransform(
 		const Matrix<N, N, Real>& transformation)
 	{
 		transform_.transformation() = transformation;
 		update_ = true;
 	}
 
-	template <int N, typename Real>
-	const Matrix<N, N, Real>& Transformation<N, Real>::transformation() const
+	template <typename Real, int N>
+	const Matrix<N, N, Real>& Transformation<Real, N>::transformation() const
 	{
 		return transform_.transformation();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	const Matrix<N, N, Real>&
-		Transformation<N, Real>::inverseTransform() const
+		Transformation<Real, N>::inverseTransform() const
 	{
 		if (update_)
 		{
@@ -125,24 +125,24 @@ namespace Pastel
 		return inverse_.transformation();
 	}
 
-	template <int N, typename Real>
-	void Transformation<N, Real>::setTranslation(
+	template <typename Real, int N>
+	void Transformation<Real, N>::setTranslation(
 		const Vector<Real, N>& translation)
 	{
 		transform_.translation() = translation;
 		update_ = true;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	const Vector<Real, N>&
-		Transformation<N, Real>::translation() const
+		Transformation<Real, N>::translation() const
 	{
 		return transform_.translation();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	const Vector<Real, N>&
-		Transformation<N, Real>::inverseTranslation() const
+		Transformation<Real, N>::inverseTranslation() const
 	{
 		if (update_)
 		{
@@ -154,8 +154,8 @@ namespace Pastel
 
 	// Private
 
-	template <int N, typename Real>
-	void Transformation<N, Real>::update() const
+	template <typename Real, int N>
+	void Transformation<Real, N>::update() const
 	{
 		inverse_ = inverse(transform_);
 		update_ = false;

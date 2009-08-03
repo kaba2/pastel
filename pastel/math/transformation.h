@@ -16,7 +16,7 @@ namespace Pastel
 	one can save himself from expensive inversions.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Transformation
 	{
 	public:
@@ -26,7 +26,7 @@ namespace Pastel
 		//! Constructs a given transformation.
 		// Implicit conversion allowed.
 		Transformation(
-			const AffineTransformation<N, Real>& that);
+			const AffineTransformation<Real, N>& that);
 
 		//! Constructs a given transformation.
 		Transformation(
@@ -40,21 +40,21 @@ namespace Pastel
 		void swap(Transformation& that);
 
 		//! Concatenates two transforms.
-		Transformation<N, Real>& operator*=(
-			const Transformation<N, Real>& that);
+		Transformation<Real, N>& operator*=(
+			const Transformation<Real, N>& that);
 
 		//! Returns the concatenation of two transforms.
-		Transformation<N, Real> operator*(
-			const Transformation<N, Real>& that) const;
+		Transformation<Real, N> operator*(
+			const Transformation<Real, N>& that) const;
 
 		//! Sets the transformation.
-		void setTransform(const AffineTransformation<N, Real>& transformation);
+		void setTransform(const AffineTransformation<Real, N>& transformation);
 
 		//! Returns the affine transformation.
-		const AffineTransformation<N, Real>& affineTransform() const;
+		const AffineTransformation<Real, N>& affineTransform() const;
 
 		//! Returns the affine inverse transformation.
-		const AffineTransformation<N, Real>& affineInverse() const;
+		const AffineTransformation<Real, N>& affineInverse() const;
 
 		//! Sets the transformation.
 		void setTransform(const Matrix<N, N, Real>& transformation);
@@ -77,14 +77,14 @@ namespace Pastel
 	private:
 		void update() const;
 
-		AffineTransformation<N, Real> transform_;
-		mutable AffineTransformation<N, Real> inverse_;
+		AffineTransformation<Real, N> transform_;
+		mutable AffineTransformation<Real, N> inverse_;
 		mutable bool update_;
 	};
 
-	typedef Transformation<2, real> Transformation2;
-	typedef Transformation<3, real> Transformation3;
-	typedef Transformation<4, real> Transformation4;
+	typedef Transformation<real, 2> Transformation2;
+	typedef Transformation<real, 3> Transformation3;
+	typedef Transformation<real, 4> Transformation4;
 
 }
 

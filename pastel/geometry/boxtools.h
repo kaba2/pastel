@@ -18,9 +18,9 @@ namespace Pastel
 	algorithms work incorrectly.
 	*/
 
-	template <int N, typename Real>
-	Box<N, Real>& operator*=(Box<N, Real>& box,
-		const AffineTransformation<N, Real>& rigidTransform);
+	template <typename Real, int N>
+	Box<Real, N>& operator*=(Box<Real, N>& box,
+		const AffineTransformation<Real, N>& rigidTransform);
 
 	//! Returns an box transformed by the given transformation.
 	/*!
@@ -30,9 +30,9 @@ namespace Pastel
 	algorithms work incorrectly.
 	*/
 
-	template <int N, typename Real>
-	Box<N, Real> operator*(const Box<N, Real>& box,
-		const AffineTransformation<N, Real>& rigidTransform);
+	template <typename Real, int N>
+	Box<Real, N> operator*(const Box<Real, N>& box,
+		const AffineTransformation<Real, N>& rigidTransform);
 
 }
 

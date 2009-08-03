@@ -19,10 +19,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(
-		const Triangle<3, Real>& aTriangle,
-		const Triangle<3, Real>& bTriangle,
-		Line<3, Real>& intersectionLine,
-		AlignedBox<1, Real>& intersectionRange);
+		const Triangle<Real, 3>& aTriangle,
+		const Triangle<Real, 3>& bTriangle,
+		Line<Real, 3>& intersectionLine,
+		AlignedBox<Real, 1>& intersectionRange);
 
 }
 

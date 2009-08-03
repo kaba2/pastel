@@ -12,8 +12,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Real distance2(const Line<N, Real>& aLine,
-		const Line<N, Real>& bLine)
+	Real distance2(const Line<Real, N>& aLine,
+		const Line<Real, N>& bLine)
 	{
 		const Tuple<Real, 2> uv(closest(aLine, bLine));
 

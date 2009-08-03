@@ -33,28 +33,28 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real diameter2(
-		const AlignedBox<N, Real>& box)
+		const AlignedBox<Real, N>& box)
 	{
 		return dot(box.extent());
 	}
 
 	template <int N, typename Real>
 	Real diameter(
-		const Sphere<N, Real>& sphere)
+		const Sphere<Real, N>& sphere)
 	{
 		return 2 * sphere.radius();
 	}
 
 	template <int N, typename Real>
 	Real diameter2(
-		const Sphere<N, Real>& sphere)
+		const Sphere<Real, N>& sphere)
 	{
 		return 4 * sphere.radius() * sphere.radius();
 	}
 
 	template <int N, typename Real>
 	Real diameter2(
-		const Box<N, Real>& box)
+		const Box<Real, N>& box)
 	{
 		return 2 * dot(box.width());
 	}

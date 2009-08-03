@@ -11,10 +11,10 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Real volume(const AlignedBox<N, Real>& box);
+	Real volume(const AlignedBox<Real, N>& box);
 
 	template <int N, typename Real>
-	Real volume(const Box<N, Real>& box);
+	Real volume(const Box<Real, N>& box);
 
 	template <int N, typename Real>
 	Real boxVolume(const Vector<Real, N>& width);

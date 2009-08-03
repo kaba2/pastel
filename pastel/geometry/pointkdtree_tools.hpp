@@ -57,7 +57,7 @@ namespace Pastel
 		template <int N, typename Real, typename ObjectPolicy>
 		bool check(const PointKdTree<N, Real, ObjectPolicy>& tree,
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			const AlignedBox<N, Real>& bound)
+			const AlignedBox<Real, N>& bound)
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
@@ -144,7 +144,7 @@ namespace Pastel
 					return false;
 				}
 
-				AlignedBox<N, Real> positiveBound(bound);
+				AlignedBox<Real, N> positiveBound(bound);
 				positiveBound.min()[cursor.splitAxis()] = cursor.splitPosition();
 
 				if (!check(tree, cursor.positive(), positiveBound))
@@ -152,7 +152,7 @@ namespace Pastel
 					return false;
 				}
 
-				AlignedBox<N, Real> negativeBound(bound);
+				AlignedBox<Real, N> negativeBound(bound);
 				negativeBound.max()[cursor.splitAxis()] = cursor.splitPosition();
 
 				if (!check(tree, cursor.negative(), negativeBound))

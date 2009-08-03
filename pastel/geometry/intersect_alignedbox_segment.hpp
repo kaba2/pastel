@@ -12,11 +12,11 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool intersect(
-		const AlignedBox<N, Real>& alignedBox,
-		const Segment<N, Real>& segment,
-		Segment<N, Real>& result)
+		const AlignedBox<Real, N>& alignedBox,
+		const Segment<Real, N>& segment,
+		Segment<Real, N>& result)
 	{
-		const Line<N, Real> line(
+		const Line<Real, N> line(
 			segment.start(),
 			segment.end() - segment.start());
 

@@ -16,8 +16,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Plane<N, Real>& plane,
-			const Box<N, Real>& box)
+			const Plane<Real, N>& plane,
+			const Box<Real, N>& box)
 	{
 		const integer dimension = plane.dimension();
 		PENSURE_OP(plane.dimension(), ==, box.dimension());
@@ -74,8 +74,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Plane<N, Real>& plane,
-			const Box<N, Real>& box,
+			const Plane<Real, N>& plane,
+			const Box<Real, N>& box,
 			bool &boxOnPositiveSide)
 	{
 		// Check if the box's center point

@@ -23,8 +23,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool intersect(
-			const Line<N, Real>& line,
-			const Sphere<N, Real>& sphere,
+			const Line<Real, N>& line,
+			const Sphere<Real, N>& sphere,
 			Vector<Real, 2>& hitList);
 
 }

@@ -180,7 +180,7 @@ namespace Pastel
 		Exception safety:
 		strong (FIX: make it nothrow)
 		*/
-		void reserveBound(const AlignedBox<N, Real>& boxToCover);
+		void reserveBound(const AlignedBox<Real, N>& boxToCover);
 
 		//! Returns the bounding box of the tree.
 		/*!
@@ -190,7 +190,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		const AlignedBox<N, Real>& bound() const;
+		const AlignedBox<Real, N>& bound() const;
 
 		//! Returns true if there are no objects in the tree.
 		/*!
@@ -305,7 +305,7 @@ namespace Pastel
 		{
 		public:
 			std::pair<Real, integer> operator()(
-				const AlignedBox<N, Real>& bound,
+				const AlignedBox<Real, N>& bound,
 				const ObjectPolicy& objectPolicy,
 				const ConstObjectIterator& objectBegin,
 				const ConstObjectIterator& objectEnd) const;
@@ -555,7 +555,7 @@ namespace Pastel
 		ObjectContainer objectList_;
 		NodeAllocator nodeAllocator_;
 		Node* root_;
-		AlignedBox<N, Real> bound_;
+		AlignedBox<Real, N> bound_;
 		integer leaves_;
 		ObjectPolicy objectPolicy_;
 		integer dimension_;

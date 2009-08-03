@@ -14,28 +14,28 @@ namespace Pastel
 
 	template
 		bool overlaps(
-		const AlignedBox<1, TestReal>& a,
-		const AlignedBox<1, TestReal>& b);
+		const AlignedBox<TestReal, 1>& a,
+		const AlignedBox<TestReal, 1>& b);
 
 	template
 		bool overlaps(
-		const AlignedBox<2, TestReal>& a,
-		const AlignedBox<2, TestReal>& b);
+		const AlignedBox<TestReal, 2>& a,
+		const AlignedBox<TestReal, 2>& b);
 
 	template
 		bool overlaps(
-		const AlignedBox<3, TestReal>& a,
-		const AlignedBox<3, TestReal>& b);
+		const AlignedBox<TestReal, 3>& a,
+		const AlignedBox<TestReal, 3>& b);
 
 	template
 		bool overlaps(
-		const AlignedBox<4, TestReal>& a,
-		const AlignedBox<4, TestReal>& b);
+		const AlignedBox<TestReal, 4>& a,
+		const AlignedBox<TestReal, 4>& b);
 
 	template
 		bool overlaps(
-		const AlignedBox<5, TestReal>& a,
-		const AlignedBox<5, TestReal>& b);
+		const AlignedBox<TestReal, 5>& a,
+		const AlignedBox<TestReal, 5>& b);
 
 }
 
@@ -47,30 +47,30 @@ namespace Pastel
 	/*
 	template
 	bool overlaps(
-		const AlignedBox<1, TestReal>& a,
-		const Box<1, TestReal>& b);
+		const AlignedBox<TestReal, 1>& a,
+		const Box<TestReal, 1>& b);
 	*/
 
 	template
 	bool overlaps(
-		const AlignedBox<2, TestReal>& a,
-		const Box<2, TestReal>& b);
+		const AlignedBox<TestReal, 2>& a,
+		const Box<TestReal, 2>& b);
 
 	template
 	bool overlaps(
-		const AlignedBox<3, TestReal>& a,
-		const Box<3, TestReal>& b);
+		const AlignedBox<TestReal, 3>& a,
+		const Box<TestReal, 3>& b);
 
 	/*
 	template
 	bool overlaps(
-		const AlignedBox<4, TestReal>& a,
-		const Box<4, TestReal>& b);
+		const AlignedBox<TestReal, 4>& a,
+		const Box<TestReal, 4>& b);
 
 	template
 	bool overlaps(
-		const AlignedBox<5, TestReal>& a,
-		const Box<5, TestReal>& b);
+		const AlignedBox<TestReal, 5>& a,
+		const Box<TestReal, 5>& b);
 	*/
 
 }
@@ -82,28 +82,28 @@ namespace Pastel
 
 	template
 		bool overlaps(
-			const AlignedBox<1, TestReal>& alignedBox,
-			const Plane<1, TestReal>& plane);
+			const AlignedBox<TestReal, 1>& alignedBox,
+			const Plane<TestReal, 1>& plane);
 
 	template
 		bool overlaps(
-			const AlignedBox<2, TestReal>& alignedBox,
-			const Plane<2, TestReal>& plane);
+			const AlignedBox<TestReal, 2>& alignedBox,
+			const Plane<TestReal, 2>& plane);
 
 	template
 		bool overlaps(
-			const AlignedBox<3, TestReal>& alignedBox,
-			const Plane<3, TestReal>& plane);
+			const AlignedBox<TestReal, 3>& alignedBox,
+			const Plane<TestReal, 3>& plane);
 
 	template
 		bool overlaps(
-			const AlignedBox<4, TestReal>& alignedBox,
-			const Plane<4, TestReal>& plane);
+			const AlignedBox<TestReal, 4>& alignedBox,
+			const Plane<TestReal, 4>& plane);
 
 	template
 		bool overlaps(
-			const AlignedBox<5, TestReal>& alignedBox,
-			const Plane<5, TestReal>& plane);
+			const AlignedBox<TestReal, 5>& alignedBox,
+			const Plane<TestReal, 5>& plane);
 
 }
 
@@ -114,27 +114,27 @@ namespace Pastel
 
 	template
 		bool overlaps(
-			const AlignedBox<1, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 1>& alignedBox,
 			const Point<TestReal, 1>& point);
 
 	template
 		bool overlaps(
-			const AlignedBox<2, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 2>& alignedBox,
 			const Point<TestReal, 2>& point);
 
 	template
 		bool overlaps(
-			const AlignedBox<3, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 3>& alignedBox,
 			const Point<TestReal, 3>& point);
 
 	template
 		bool overlaps(
-			const AlignedBox<4, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 4>& alignedBox,
 			const Point<TestReal, 4>& point);
 
 	template
 		bool overlaps(
-			const AlignedBox<5, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 5>& alignedBox,
 			const Point<TestReal, 5>& point);
 
 }
@@ -146,28 +146,28 @@ namespace Pastel
 
 	template
 	bool overlaps(
-		const AlignedBox<1, TestReal>& alignedBox,
-		const Sphere<1, TestReal>& sphere);
+		const AlignedBox<TestReal, 1>& alignedBox,
+		const Sphere<TestReal, 1>& sphere);
 
 	template
 	bool overlaps(
-		const AlignedBox<2, TestReal>& alignedBox,
-		const Sphere<2, TestReal>& sphere);
+		const AlignedBox<TestReal, 2>& alignedBox,
+		const Sphere<TestReal, 2>& sphere);
 
 	template
 	bool overlaps(
-		const AlignedBox<3, TestReal>& alignedBox,
-		const Sphere<3, TestReal>& sphere);
+		const AlignedBox<TestReal, 3>& alignedBox,
+		const Sphere<TestReal, 3>& sphere);
 
 	template
 	bool overlaps(
-		const AlignedBox<4, TestReal>& alignedBox,
-		const Sphere<4, TestReal>& sphere);
+		const AlignedBox<TestReal, 4>& alignedBox,
+		const Sphere<TestReal, 4>& sphere);
 
 	template
 	bool overlaps(
-		const AlignedBox<5, TestReal>& alignedBox,
-		const Sphere<5, TestReal>& sphere);
+		const AlignedBox<TestReal, 5>& alignedBox,
+		const Sphere<TestReal, 5>& sphere);
 
 }
 
@@ -179,30 +179,30 @@ namespace Pastel
 	/*
 	template
 	bool overlaps(
-		const AlignedBox<1, TestReal>& alignedBox,
-		const Triangle<1, TestReal>& triangle);
+		const AlignedBox<TestReal, 1>& alignedBox,
+		const Triangle<TestReal, 1>& triangle);
 	*/
 
 	template
 	bool overlaps(
-		const AlignedBox<2, TestReal>& alignedBox,
-		const Triangle<2, TestReal>& triangle);
+		const AlignedBox<TestReal, 2>& alignedBox,
+		const Triangle<TestReal, 2>& triangle);
 
 	template
 	bool overlaps(
-		const AlignedBox<3, TestReal>& alignedBox,
-		const Triangle<3, TestReal>& triangle);
+		const AlignedBox<TestReal, 3>& alignedBox,
+		const Triangle<TestReal, 3>& triangle);
 
 	/*
 	template
 	bool overlaps(
-		const AlignedBox<4, TestReal>& alignedBox,
-		const Triangle<4, TestReal>& triangle);
+		const AlignedBox<TestReal, 4>& alignedBox,
+		const Triangle<TestReal, 4>& triangle);
 
 	template
 	bool overlaps(
-		const AlignedBox<5, TestReal>& alignedBox,
-		const Triangle<5, TestReal>& triangle);
+		const AlignedBox<TestReal, 5>& alignedBox,
+		const Triangle<TestReal, 5>& triangle);
 	*/
 
 }
@@ -213,48 +213,48 @@ namespace Pastel
 {
 
 	template
-		bool overlaps(AlignedPlane<1, TestReal> const &alignedPlane,
-			AlignedBox<1, TestReal> const &alignedBox);
+		bool overlaps(AlignedPlane<TestReal, 1> const &alignedPlane,
+			AlignedBox<TestReal, 1> const &alignedBox);
 
 	template
-		bool overlaps(AlignedPlane<1, TestReal> const &alignedPlane,
-			AlignedBox<1, TestReal> const &alignedBox,
+		bool overlaps(AlignedPlane<TestReal, 1> const &alignedPlane,
+			AlignedBox<TestReal, 1> const &alignedBox,
 			bool &greater);
 
 	template
-		bool overlaps(AlignedPlane<2, TestReal> const &alignedPlane,
-			AlignedBox<2, TestReal> const &alignedBox);
+		bool overlaps(AlignedPlane<TestReal, 2> const &alignedPlane,
+			AlignedBox<TestReal, 2> const &alignedBox);
 
 	template
-		bool overlaps(AlignedPlane<2, TestReal> const &alignedPlane,
-			AlignedBox<2, TestReal> const &alignedBox,
+		bool overlaps(AlignedPlane<TestReal, 2> const &alignedPlane,
+			AlignedBox<TestReal, 2> const &alignedBox,
 			bool &greater);
 
 	template
-		bool overlaps(AlignedPlane<3, TestReal> const &alignedPlane,
-			AlignedBox<3, TestReal> const &alignedBox);
+		bool overlaps(AlignedPlane<TestReal, 3> const &alignedPlane,
+			AlignedBox<TestReal, 3> const &alignedBox);
 
 	template
-		bool overlaps(AlignedPlane<3, TestReal> const &alignedPlane,
-			AlignedBox<3, TestReal> const &alignedBox,
+		bool overlaps(AlignedPlane<TestReal, 3> const &alignedPlane,
+			AlignedBox<TestReal, 3> const &alignedBox,
 			bool &greater);
 
 	template
-		bool overlaps(AlignedPlane<4, TestReal> const &alignedPlane,
-			AlignedBox<4, TestReal> const &alignedBox);
+		bool overlaps(AlignedPlane<TestReal, 4> const &alignedPlane,
+			AlignedBox<TestReal, 4> const &alignedBox);
 
 	template
-		bool overlaps(AlignedPlane<4, TestReal> const &alignedPlane,
-			AlignedBox<4, TestReal> const &alignedBox,
+		bool overlaps(AlignedPlane<TestReal, 4> const &alignedPlane,
+			AlignedBox<TestReal, 4> const &alignedBox,
 			bool &greater);
 
 	template
-		bool overlaps(AlignedPlane<5, TestReal> const &alignedPlane,
-			AlignedBox<5, TestReal> const &alignedBox);
+		bool overlaps(AlignedPlane<TestReal, 5> const &alignedPlane,
+			AlignedBox<TestReal, 5> const &alignedBox);
 
 	template
-		bool overlaps(AlignedPlane<5, TestReal> const &alignedPlane,
-			AlignedBox<5, TestReal> const &alignedBox,
+		bool overlaps(AlignedPlane<TestReal, 5> const &alignedPlane,
+			AlignedBox<TestReal, 5> const &alignedBox,
 			bool &greater);
 
 }
@@ -265,48 +265,48 @@ namespace Pastel
 {
 
 	template
-	bool overlaps(AlignedPlane<1, TestReal> const &alignedPlane,
-		Box<1, TestReal> const &box);
+	bool overlaps(AlignedPlane<TestReal, 1> const &alignedPlane,
+		Box<TestReal, 1> const &box);
 
 	template
-		bool overlaps(AlignedPlane<1, TestReal> const &alignedPlane,
-			Box<1, TestReal> const &box,
+		bool overlaps(AlignedPlane<TestReal, 1> const &alignedPlane,
+			Box<TestReal, 1> const &box,
 			bool &);
 
 	template
-	bool overlaps(AlignedPlane<2, TestReal> const &alignedPlane,
-		Box<2, TestReal> const &box);
+	bool overlaps(AlignedPlane<TestReal, 2> const &alignedPlane,
+		Box<TestReal, 2> const &box);
 
 	template
-		bool overlaps(AlignedPlane<2, TestReal> const &alignedPlane,
-			Box<2, TestReal> const &box,
+		bool overlaps(AlignedPlane<TestReal, 2> const &alignedPlane,
+			Box<TestReal, 2> const &box,
 			bool &);
 
 	template
-	bool overlaps(AlignedPlane<3, TestReal> const &alignedPlane,
-		Box<3, TestReal> const &box);
+	bool overlaps(AlignedPlane<TestReal, 3> const &alignedPlane,
+		Box<TestReal, 3> const &box);
 
 	template
-		bool overlaps(AlignedPlane<3, TestReal> const &alignedPlane,
-			Box<3, TestReal> const &box,
+		bool overlaps(AlignedPlane<TestReal, 3> const &alignedPlane,
+			Box<TestReal, 3> const &box,
 			bool &);
 
 	template
-	bool overlaps(AlignedPlane<4, TestReal> const &alignedPlane,
-		Box<4, TestReal> const &box);
+	bool overlaps(AlignedPlane<TestReal, 4> const &alignedPlane,
+		Box<TestReal, 4> const &box);
 
 	template
-		bool overlaps(AlignedPlane<4, TestReal> const &alignedPlane,
-			Box<4, TestReal> const &box,
+		bool overlaps(AlignedPlane<TestReal, 4> const &alignedPlane,
+			Box<TestReal, 4> const &box,
 			bool &);
 
 	template
-	bool overlaps(AlignedPlane<5, TestReal> const &alignedPlane,
-		Box<5, TestReal> const &box);
+	bool overlaps(AlignedPlane<TestReal, 5> const &alignedPlane,
+		Box<TestReal, 5> const &box);
 
 	template
-		bool overlaps(AlignedPlane<5, TestReal> const &alignedPlane,
-			Box<5, TestReal> const &box,
+		bool overlaps(AlignedPlane<TestReal, 5> const &alignedPlane,
+			Box<TestReal, 5> const &box,
 			bool &);
 
 }
@@ -317,48 +317,48 @@ namespace Pastel
 {
 
 	template
-	bool overlaps(AlignedPlane<1, TestReal> const &alignedPlane,
-		Sphere<1, TestReal> const &sphere);
+	bool overlaps(AlignedPlane<TestReal, 1> const &alignedPlane,
+		Sphere<TestReal, 1> const &sphere);
 
 	template
-	bool overlaps(AlignedPlane<1, TestReal> const &alignedPlane,
-		Sphere<1, TestReal> const &sphere,
+	bool overlaps(AlignedPlane<TestReal, 1> const &alignedPlane,
+		Sphere<TestReal, 1> const &sphere,
 		bool &alignedPlaneOnPositiveSide);
 
 	template
-	bool overlaps(AlignedPlane<2, TestReal> const &alignedPlane,
-		Sphere<2, TestReal> const &sphere);
+	bool overlaps(AlignedPlane<TestReal, 2> const &alignedPlane,
+		Sphere<TestReal, 2> const &sphere);
 
 	template
-	bool overlaps(AlignedPlane<2, TestReal> const &alignedPlane,
-		Sphere<2, TestReal> const &sphere,
+	bool overlaps(AlignedPlane<TestReal, 2> const &alignedPlane,
+		Sphere<TestReal, 2> const &sphere,
 		bool &alignedPlaneOnPositiveSide);
 
 	template
-	bool overlaps(AlignedPlane<3, TestReal> const &alignedPlane,
-		Sphere<3, TestReal> const &sphere);
+	bool overlaps(AlignedPlane<TestReal, 3> const &alignedPlane,
+		Sphere<TestReal, 3> const &sphere);
 
 	template
-	bool overlaps(AlignedPlane<3, TestReal> const &alignedPlane,
-		Sphere<3, TestReal> const &sphere,
+	bool overlaps(AlignedPlane<TestReal, 3> const &alignedPlane,
+		Sphere<TestReal, 3> const &sphere,
 		bool &alignedPlaneOnPositiveSide);
 
 	template
-	bool overlaps(AlignedPlane<4, TestReal> const &alignedPlane,
-		Sphere<4, TestReal> const &sphere);
+	bool overlaps(AlignedPlane<TestReal, 4> const &alignedPlane,
+		Sphere<TestReal, 4> const &sphere);
 
 	template
-	bool overlaps(AlignedPlane<4, TestReal> const &alignedPlane,
-		Sphere<4, TestReal> const &sphere,
+	bool overlaps(AlignedPlane<TestReal, 4> const &alignedPlane,
+		Sphere<TestReal, 4> const &sphere,
 		bool &alignedPlaneOnPositiveSide);
 
 	template
-	bool overlaps(AlignedPlane<5, TestReal> const &alignedPlane,
-		Sphere<5, TestReal> const &sphere);
+	bool overlaps(AlignedPlane<TestReal, 5> const &alignedPlane,
+		Sphere<TestReal, 5> const &sphere);
 
 	template
-	bool overlaps(AlignedPlane<5, TestReal> const &alignedPlane,
-		Sphere<5, TestReal> const &sphere,
+	bool overlaps(AlignedPlane<TestReal, 5> const &alignedPlane,
+		Sphere<TestReal, 5> const &sphere,
 		bool &alignedPlaneOnPositiveSide);
 
 }
@@ -369,48 +369,48 @@ namespace Pastel
 {
 
 	template
-		bool overlaps(const AlignedPlane<1, TestReal>& alignedPlane,
-			const Triangle<1, TestReal>& triangle);
+		bool overlaps(const AlignedPlane<TestReal, 1>& alignedPlane,
+			const Triangle<TestReal, 1>& triangle);
 
 	template
-		bool overlaps(const AlignedPlane<1, TestReal>& alignedPlane,
-			const Triangle<1, TestReal>& triangle,
+		bool overlaps(const AlignedPlane<TestReal, 1>& alignedPlane,
+			const Triangle<TestReal, 1>& triangle,
 			bool& alignedPlaneOnPositiveSide);
 
 	template
-		bool overlaps(const AlignedPlane<2, TestReal>& alignedPlane,
-			const Triangle<2, TestReal>& triangle);
+		bool overlaps(const AlignedPlane<TestReal, 2>& alignedPlane,
+			const Triangle<TestReal, 2>& triangle);
 
 	template
-		bool overlaps(const AlignedPlane<2, TestReal>& alignedPlane,
-			const Triangle<2, TestReal>& triangle,
+		bool overlaps(const AlignedPlane<TestReal, 2>& alignedPlane,
+			const Triangle<TestReal, 2>& triangle,
 			bool& alignedPlaneOnPositiveSide);
 
 	template
-		bool overlaps(const AlignedPlane<3, TestReal>& alignedPlane,
-			const Triangle<3, TestReal>& triangle);
+		bool overlaps(const AlignedPlane<TestReal, 3>& alignedPlane,
+			const Triangle<TestReal, 3>& triangle);
 
 	template
-		bool overlaps(const AlignedPlane<3, TestReal>& alignedPlane,
-			const Triangle<3, TestReal>& triangle,
+		bool overlaps(const AlignedPlane<TestReal, 3>& alignedPlane,
+			const Triangle<TestReal, 3>& triangle,
 			bool& alignedPlaneOnPositiveSide);
 
 	template
-		bool overlaps(const AlignedPlane<4, TestReal>& alignedPlane,
-			const Triangle<4, TestReal>& triangle);
+		bool overlaps(const AlignedPlane<TestReal, 4>& alignedPlane,
+			const Triangle<TestReal, 4>& triangle);
 
 	template
-		bool overlaps(const AlignedPlane<4, TestReal>& alignedPlane,
-			const Triangle<4, TestReal>& triangle,
+		bool overlaps(const AlignedPlane<TestReal, 4>& alignedPlane,
+			const Triangle<TestReal, 4>& triangle,
 			bool& alignedPlaneOnPositiveSide);
 
 	template
-		bool overlaps(const AlignedPlane<5, TestReal>& alignedPlane,
-			const Triangle<5, TestReal>& triangle);
+		bool overlaps(const AlignedPlane<TestReal, 5>& alignedPlane,
+			const Triangle<TestReal, 5>& triangle);
 
 	template
-		bool overlaps(const AlignedPlane<5, TestReal>& alignedPlane,
-			const Triangle<5, TestReal>& triangle,
+		bool overlaps(const AlignedPlane<TestReal, 5>& alignedPlane,
+			const Triangle<TestReal, 5>& triangle,
 			bool& alignedPlaneOnPositiveSide);
 
 }
@@ -422,26 +422,26 @@ namespace Pastel
 
 	/*
 	template
-	bool overlaps(Box<1, TestReal> const&,
-		Box<1, TestReal> const &nb);
+	bool overlaps(Box<TestReal, 1> const&,
+		Box<TestReal, 1> const &nb);
 	*/
 
 	template
-	bool overlaps(Box<2, TestReal> const&,
-		Box<2, TestReal> const &nb);
+	bool overlaps(Box<TestReal, 2> const&,
+		Box<TestReal, 2> const &nb);
 
 	template
-	bool overlaps(Box<3, TestReal> const&,
-		Box<3, TestReal> const &nb);
+	bool overlaps(Box<TestReal, 3> const&,
+		Box<TestReal, 3> const &nb);
 
 	/*
 	template
-	bool overlaps(Box<4, TestReal> const&,
-		Box<4, TestReal> const &nb);
+	bool overlaps(Box<TestReal, 4> const&,
+		Box<TestReal, 4> const &nb);
 
 	template
-	bool overlaps(Box<5, TestReal> const&,
-		Box<5, TestReal> const &nb);
+	bool overlaps(Box<TestReal, 5> const&,
+		Box<TestReal, 5> const &nb);
 	*/
 
 }
@@ -453,27 +453,27 @@ namespace Pastel
 
 	template
 	bool overlaps(
-		const Box<1, TestReal>& a,
+		const Box<TestReal, 1>& a,
 		const Point<TestReal, 1>& nb);
 
 	template
 	bool overlaps(
-		const Box<2, TestReal>& a,
+		const Box<TestReal, 2>& a,
 		const Point<TestReal, 2>& nb);
 
 	template
 	bool overlaps(
-		const Box<3, TestReal>& a,
+		const Box<TestReal, 3>& a,
 		const Point<TestReal, 3>& nb);
 
 	template
 	bool overlaps(
-		const Box<4, TestReal>& a,
+		const Box<TestReal, 4>& a,
 		const Point<TestReal, 4>& nb);
 
 	template
 	bool overlaps(
-		const Box<5, TestReal>& a,
+		const Box<TestReal, 5>& a,
 		const Point<TestReal, 5>& nb);
 
 }
@@ -485,28 +485,28 @@ namespace Pastel
 
 	template
 	bool overlaps(
-		const Box<1, TestReal>& a,
-		const Sphere<1, TestReal>& nb);
+		const Box<TestReal, 1>& a,
+		const Sphere<TestReal, 1>& nb);
 
 	template
 	bool overlaps(
-		const Box<2, TestReal>& a,
-		const Sphere<2, TestReal>& nb);
+		const Box<TestReal, 2>& a,
+		const Sphere<TestReal, 2>& nb);
 
 	template
 	bool overlaps(
-		const Box<3, TestReal>& a,
-		const Sphere<3, TestReal>& nb);
+		const Box<TestReal, 3>& a,
+		const Sphere<TestReal, 3>& nb);
 
 	template
 	bool overlaps(
-		const Box<4, TestReal>& a,
-		const Sphere<4, TestReal>& nb);
+		const Box<TestReal, 4>& a,
+		const Sphere<TestReal, 4>& nb);
 
 	template
 	bool overlaps(
-		const Box<5, TestReal>& a,
-		const Sphere<5, TestReal>& nb);
+		const Box<TestReal, 5>& a,
+		const Sphere<TestReal, 5>& nb);
 
 }
 
@@ -518,19 +518,19 @@ namespace Pastel
 	/*
 	template
 		bool overlaps(
-			const Box<1, TestReal>& a,
-			const Triangle<1, TestReal>& nb);
+			const Box<TestReal, 1>& a,
+			const Triangle<TestReal, 1>& nb);
 	*/
 
 	template
 		bool overlaps(
-			const Box<2, TestReal>& a,
-			const Triangle<2, TestReal>& nb);
+			const Box<TestReal, 2>& a,
+			const Triangle<TestReal, 2>& nb);
 
 	template
 		bool overlaps(
-			const Box<3, TestReal>& a,
-			const Triangle<3, TestReal>& nb);
+			const Box<TestReal, 3>& a,
+			const Triangle<TestReal, 3>& nb);
 
 }
 
@@ -541,32 +541,32 @@ namespace Pastel
 
 	template
 	bool overlaps(
-		const Plane<1, TestReal>& plane,
-		const Box<1, TestReal>& box,
+		const Plane<TestReal, 1>& plane,
+		const Box<TestReal, 1>& box,
 		bool &boxOnPositiveSide);
 
 	template
 	bool overlaps(
-		const Plane<2, TestReal>& plane,
-		const Box<2, TestReal>& box,
+		const Plane<TestReal, 2>& plane,
+		const Box<TestReal, 2>& box,
 		bool &boxOnPositiveSide);
 
 	template
 	bool overlaps(
-		const Plane<3, TestReal>& plane,
-		const Box<3, TestReal>& box,
+		const Plane<TestReal, 3>& plane,
+		const Box<TestReal, 3>& box,
 		bool &boxOnPositiveSide);
 
 	template
 	bool overlaps(
-		const Plane<4, TestReal>& plane,
-		const Box<4, TestReal>& box,
+		const Plane<TestReal, 4>& plane,
+		const Box<TestReal, 4>& box,
 		bool &boxOnPositiveSide);
 
 	template
 	bool overlaps(
-		const Plane<5, TestReal>& plane,
-		const Box<5, TestReal>& box,
+		const Plane<TestReal, 5>& plane,
+		const Box<TestReal, 5>& box,
 		bool &boxOnPositiveSide);
 
 }
@@ -578,57 +578,57 @@ namespace Pastel
 
 	template
 		bool overlaps(
-			const Plane<1, TestReal>& plane,
-			const Sphere<1, TestReal>& sphere);
+			const Plane<TestReal, 1>& plane,
+			const Sphere<TestReal, 1>& sphere);
 
 	template
 		bool overlaps(
-			const Plane<1, TestReal>& plane,
-			const Sphere<1, TestReal>& sphere,
+			const Plane<TestReal, 1>& plane,
+			const Sphere<TestReal, 1>& sphere,
 			bool& sphereOnPositiveSide);
 
 	template
 		bool overlaps(
-			const Plane<2, TestReal>& plane,
-			const Sphere<2, TestReal>& sphere);
+			const Plane<TestReal, 2>& plane,
+			const Sphere<TestReal, 2>& sphere);
 
 	template
 		bool overlaps(
-			const Plane<2, TestReal>& plane,
-			const Sphere<2, TestReal>& sphere,
+			const Plane<TestReal, 2>& plane,
+			const Sphere<TestReal, 2>& sphere,
 			bool& sphereOnPositiveSide);
 
 	template
 		bool overlaps(
-			const Plane<3, TestReal>& plane,
-			const Sphere<3, TestReal>& sphere);
+			const Plane<TestReal, 3>& plane,
+			const Sphere<TestReal, 3>& sphere);
 
 	template
 		bool overlaps(
-			const Plane<3, TestReal>& plane,
-			const Sphere<3, TestReal>& sphere,
+			const Plane<TestReal, 3>& plane,
+			const Sphere<TestReal, 3>& sphere,
 			bool& sphereOnPositiveSide);
 
 	template
 		bool overlaps(
-			const Plane<4, TestReal>& plane,
-			const Sphere<4, TestReal>& sphere);
+			const Plane<TestReal, 4>& plane,
+			const Sphere<TestReal, 4>& sphere);
 
 	template
 		bool overlaps(
-			const Plane<4, TestReal>& plane,
-			const Sphere<4, TestReal>& sphere,
+			const Plane<TestReal, 4>& plane,
+			const Sphere<TestReal, 4>& sphere,
 			bool& sphereOnPositiveSide);
 
 	template
 		bool overlaps(
-			const Plane<5, TestReal>& plane,
-			const Sphere<5, TestReal>& sphere);
+			const Plane<TestReal, 5>& plane,
+			const Sphere<TestReal, 5>& sphere);
 
 	template
 		bool overlaps(
-			const Plane<5, TestReal>& plane,
-			const Sphere<5, TestReal>& sphere,
+			const Plane<TestReal, 5>& plane,
+			const Sphere<TestReal, 5>& sphere,
 			bool& sphereOnPositiveSide);
 
 }
@@ -640,28 +640,28 @@ namespace Pastel
 
 	template
 		bool overlaps(
-			const Plane<1, TestReal>& plane,
-			const Triangle<1, TestReal>& triangle);
+			const Plane<TestReal, 1>& plane,
+			const Triangle<TestReal, 1>& triangle);
 
 	template
 		bool overlaps(
-			const Plane<2, TestReal>& plane,
-			const Triangle<2, TestReal>& triangle);
+			const Plane<TestReal, 2>& plane,
+			const Triangle<TestReal, 2>& triangle);
 
 	template
 		bool overlaps(
-			const Plane<3, TestReal>& plane,
-			const Triangle<3, TestReal>& triangle);
+			const Plane<TestReal, 3>& plane,
+			const Triangle<TestReal, 3>& triangle);
 
 	template
 		bool overlaps(
-			const Plane<4, TestReal>& plane,
-			const Triangle<4, TestReal>& triangle);
+			const Plane<TestReal, 4>& plane,
+			const Triangle<TestReal, 4>& triangle);
 
 	template
 		bool overlaps(
-			const Plane<5, TestReal>& plane,
-			const Triangle<5, TestReal>& triangle);
+			const Plane<TestReal, 5>& plane,
+			const Triangle<TestReal, 5>& triangle);
 
 }
 
@@ -672,13 +672,13 @@ namespace Pastel
 
 	template
 	bool overlaps(
-		const Segment<1, TestReal>& aSegment,
-		const Segment<1, TestReal>& bSegment);
+		const Segment<TestReal, 1>& aSegment,
+		const Segment<TestReal, 1>& bSegment);
 
 	template
 	bool overlaps(
-		const Segment<2, TestReal>& aSegment,
-		const Segment<2, TestReal>& bSegment);
+		const Segment<TestReal, 2>& aSegment,
+		const Segment<TestReal, 2>& bSegment);
 
 }
 
@@ -688,23 +688,23 @@ namespace Pastel
 {
 
 	template
-	bool overlaps(const Sphere<1, TestReal>& sphere,
+	bool overlaps(const Sphere<TestReal, 1>& sphere,
 		const Point<TestReal, 1>& point);
 
 	template
-	bool overlaps(const Sphere<2, TestReal>& sphere,
+	bool overlaps(const Sphere<TestReal, 2>& sphere,
 		const Point<TestReal, 2>& point);
 
 	template
-	bool overlaps(const Sphere<3, TestReal>& sphere,
+	bool overlaps(const Sphere<TestReal, 3>& sphere,
 		const Point<TestReal, 3>& point);
 
 	template
-	bool overlaps(const Sphere<4, TestReal>& sphere,
+	bool overlaps(const Sphere<TestReal, 4>& sphere,
 		const Point<TestReal, 4>& point);
 
 	template
-	bool overlaps(const Sphere<5, TestReal>& sphere,
+	bool overlaps(const Sphere<TestReal, 5>& sphere,
 		const Point<TestReal, 5>& point);
 
 }
@@ -716,28 +716,28 @@ namespace Pastel
 
 	template
 		bool overlaps(
-			const Sphere<1, TestReal>& aSphere,
-			const Sphere<1, TestReal>& bSphere);
+			const Sphere<TestReal, 1>& aSphere,
+			const Sphere<TestReal, 1>& bSphere);
 
 	template
 		bool overlaps(
-			const Sphere<2, TestReal>& aSphere,
-			const Sphere<2, TestReal>& bSphere);
+			const Sphere<TestReal, 2>& aSphere,
+			const Sphere<TestReal, 2>& bSphere);
 
 	template
 		bool overlaps(
-			const Sphere<3, TestReal>& aSphere,
-			const Sphere<3, TestReal>& bSphere);
+			const Sphere<TestReal, 3>& aSphere,
+			const Sphere<TestReal, 3>& bSphere);
 
 	template
 		bool overlaps(
-			const Sphere<4, TestReal>& aSphere,
-			const Sphere<4, TestReal>& bSphere);
+			const Sphere<TestReal, 4>& aSphere,
+			const Sphere<TestReal, 4>& bSphere);
 
 	template
 		bool overlaps(
-			const Sphere<5, TestReal>& aSphere,
-			const Sphere<5, TestReal>& bSphere);
+			const Sphere<TestReal, 5>& aSphere,
+			const Sphere<TestReal, 5>& bSphere);
 
 }
 
@@ -748,18 +748,18 @@ namespace Pastel
 
 	template
 	bool overlaps(
-		const Triangle<1, TestReal>& aTriangle,
-		const Triangle<1, TestReal>& bTriangle);
+		const Triangle<TestReal, 1>& aTriangle,
+		const Triangle<TestReal, 1>& bTriangle);
 
 	template
 	bool overlaps(
-		const Triangle<2, TestReal>& aTriangle,
-		const Triangle<2, TestReal>& bTriangle);
+		const Triangle<TestReal, 2>& aTriangle,
+		const Triangle<TestReal, 2>& bTriangle);
 
 	template
 	bool overlaps(
-		const Triangle<3, TestReal>& aTriangle,
-		const Triangle<3, TestReal>& bTriangle);
+		const Triangle<TestReal, 3>& aTriangle,
+		const Triangle<TestReal, 3>& bTriangle);
 
 }
 
@@ -770,26 +770,26 @@ namespace Pastel
 
 	template
 		bool overlaps(
-		const Flat<1, TestReal, 2>& aPlane,
-		const Plane<1, TestReal>& bPlane);
+		const Flat<TestReal, 1, 2>& aPlane,
+		const Plane<TestReal, 1>& bPlane);
 
 	template
 		bool overlaps(
-		const Flat<2, TestReal, 2>& aPlane,
-		const Plane<2, TestReal>& bPlane);
+		const Flat<TestReal, 2, 2>& aPlane,
+		const Plane<TestReal, 2>& bPlane);
 
 	template
 		bool overlaps(
-		const Flat<3, TestReal, 2>& aPlane,
-		const Plane<3, TestReal>& bPlane);
+		const Flat<TestReal, 3, 2>& aPlane,
+		const Plane<TestReal, 3>& bPlane);
 
 	template
 		bool overlaps(
-		const Flat<4, TestReal, 2>& aPlane,
-		const Plane<4, TestReal>& bPlane);
+		const Flat<TestReal, 4, 2>& aPlane,
+		const Plane<TestReal, 4>& bPlane);
 
 	template
 		bool overlaps(
-		const Flat<5, TestReal, 2>& aPlane,
-		const Plane<5, TestReal>& bPlane);
+		const Flat<TestReal, 5, 2>& aPlane,
+		const Plane<TestReal, 5>& bPlane);
 }

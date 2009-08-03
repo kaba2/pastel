@@ -11,8 +11,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Plane<N, Real>& plane,
-			const Sphere<N, Real>& sphere)
+			const Plane<Real, N>& plane,
+			const Sphere<Real, N>& sphere)
 	{
 		// A plane intersects a sphere if
 		// the distance of the sphere's center
@@ -25,8 +25,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Plane<N, Real>& plane,
-			const Sphere<N, Real>& sphere,
+			const Plane<Real, N>& plane,
+			const Sphere<Real, N>& sphere,
 			bool& sphereOnPositiveSide)
 	{
 		// A plane intersects a sphere if

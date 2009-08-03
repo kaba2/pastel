@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class QrDecomposition
 	{
 	public:
@@ -102,11 +102,11 @@ namespace Pastel
 		Matrix<N, N, Real> r_;
 	};
 
-	typedef QrDecomposition<1, real> QrDecomposition1;
-	typedef QrDecomposition<2, real> QrDecomposition2;
-	typedef QrDecomposition<3, real> QrDecomposition3;
-	typedef QrDecomposition<4, real> QrDecomposition4;
-	typedef QrDecomposition<Dynamic, real> QrDecompositionD;
+	typedef QrDecomposition<real, 1> QrDecomposition1;
+	typedef QrDecomposition<real, 2> QrDecomposition2;
+	typedef QrDecomposition<real, 3> QrDecomposition3;
+	typedef QrDecomposition<real, 4> QrDecomposition4;
+	typedef QrDecomposition<real, Dynamic> QrDecompositionD;
 
 }
 

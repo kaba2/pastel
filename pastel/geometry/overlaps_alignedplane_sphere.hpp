@@ -11,8 +11,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			Sphere<N, Real> const &sphere)
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			Sphere<Real, N> const &sphere)
 	{
 		const Real delta(sphere.position()[alignedPlane.axis()] -
 			alignedPlane.position());
@@ -21,8 +21,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			Sphere<N, Real> const &sphere,
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			Sphere<Real, N> const &sphere,
 		bool &sphereOnPositiveSide)
 	{
 		const Real delta(sphere.position()[alignedPlane.axis()] -

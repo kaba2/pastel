@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool contains(
-		const AlignedBox<N, Real>& outerBox,
-		const Sphere<N, Real>& innerSphere)
+		const AlignedBox<Real, N>& outerBox,
+		const Sphere<Real, N>& innerSphere)
 	{
 		return Pastel::contains(
 			outerBox, boundingAlignedBox(innerSphere));

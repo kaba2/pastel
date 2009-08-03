@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool contains(
-		const AlignedBox<N, Real>& outer,
-		const AlignedBox<N, Real>& inner)
+		const AlignedBox<Real, N>& outer,
+		const AlignedBox<Real, N>& inner)
 	{
 		return allGreaterEqual(
 			inner.min(),

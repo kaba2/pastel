@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real closest(
-		const Segment<N, Real>& segment,
+		const Segment<Real, N>& segment,
 		const Point<Real, N>& point)
 	{
 		const Vector<Real, N> delta(segment.end() - segment.start());

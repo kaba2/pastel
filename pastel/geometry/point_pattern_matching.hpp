@@ -65,7 +65,7 @@ namespace Pastel
 				// Pattern Recognition 37 (2004), 1699-1711.
 
 				const ScenePositionFunctor scenePositionFunctor(sceneTree);
-				const Sphere<2, Real> sceneSphere = boundingSphere<2, Real>(
+				const Sphere<Real, 2> sceneSphere = boundingSphere<2, Real>(
 					sceneTree.objectBegin(), sceneTree.objectEnd(), scenePositionFunctor);
 
 				if (matchingDistanceType == PatternMatch::AbsoluteDistance)
@@ -314,7 +314,7 @@ namespace Pastel
 							modelPoint, modelPosition(modelSet[i - k3Points_ / 2]),
 							scenePoint, scenePosition(sceneSet[i - j]));
 
-						const AffineTransformation<2, Real> similarity =
+						const AffineTransformation<Real, 2> similarity =
 							similarityTransformation(similarityParameters);
 
 						// Count the number of points this similarity transform
@@ -399,7 +399,7 @@ namespace Pastel
 					lsSimilarityParameters =
 						similarityTransformation(modelGlobalMatch, sceneGlobalMatch);
 
-					const AffineTransformation<2, Real> lsSimilarity =
+					const AffineTransformation<Real, 2> lsSimilarity =
 						similarityTransformation(lsSimilarityParameters);
 
 					// Now see which of the mapped model points have

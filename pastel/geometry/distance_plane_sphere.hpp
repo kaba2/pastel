@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const Plane<N, Real>& plane,
-		const Sphere<N, Real>& sphere)
+		const Plane<Real, N>& plane,
+		const Sphere<Real, N>& sphere)
 	{
 		// Let
 		// s = distance from sphere's center to the plane.

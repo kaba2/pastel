@@ -9,16 +9,16 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	QrDecomposition<N, Real>::QrDecomposition()
+	template <typename Real, int N>
+	QrDecomposition<Real, N>::QrDecomposition()
 		: q_()
 		, r_()
 	{
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	template <typename Expression>
-	QrDecomposition<N, Real>::QrDecomposition(
+	QrDecomposition<Real, N>::QrDecomposition(
 		const MatrixExpression<N, N, Real, Expression>& that)
 		: q_()
 		, r_()
@@ -26,41 +26,41 @@ namespace Pastel
 		decompose(that);
 	}
 
-	template <int N, typename Real>
-	integer QrDecomposition<N, Real>::width() const
+	template <typename Real, int N>
+	integer QrDecomposition<Real, N>::width() const
 	{
 		return q_.width();
 	}
 
-	template <int N, typename Real>
-	integer QrDecomposition<N, Real>::height() const
+	template <typename Real, int N>
+	integer QrDecomposition<Real, N>::height() const
 	{
 		return q_.height();
 	}
 
-	template <int N, typename Real>
-	void QrDecomposition<N, Real>::swap(
+	template <typename Real, int N>
+	void QrDecomposition<Real, N>::swap(
 		QrDecomposition& that)
 	{
 		q_.swap(that.q_);
 		r_.swap(that.r_);
 	}
 
-	template <int N, typename Real>
-	const Matrix<N, N, Real>& QrDecomposition<N, Real>::qTransposed() const
+	template <typename Real, int N>
+	const Matrix<N, N, Real>& QrDecomposition<Real, N>::qTransposed() const
 	{
 		return q_;
 	}
 
-	template <int N, typename Real>
-	const Matrix<N, N, Real>& QrDecomposition<N, Real>::r() const
+	template <typename Real, int N>
+	const Matrix<N, N, Real>& QrDecomposition<Real, N>::r() const
 	{
 		return r_;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	template <typename Expression>
-	void QrDecomposition<N, Real>::decompose(
+	void QrDecomposition<Real, N>::decompose(
 		const MatrixExpression<N, N, Real, Expression>& that)
 	{
 		ENSURE_OP(that.width(), ==, that.height());

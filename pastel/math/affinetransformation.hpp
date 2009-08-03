@@ -6,33 +6,33 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	void swap(AffineTransformation<N, Real>& left,
-		AffineTransformation<N, Real>& right)
+	template <typename Real, int N>
+	void swap(AffineTransformation<Real, N>& left,
+		AffineTransformation<Real, N>& right)
 	{
 		left.swap(right);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> operator*(
 		const Vector<Real, N>& left,
-		const AffineTransformation<N, Real>& right)
+		const AffineTransformation<Real, N>& right)
 	{
 		return left * right.transformation();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Point<Real, N> operator*(
 		const Point<Real, N>& left,
-		const AffineTransformation<N, Real>& right)
+		const AffineTransformation<Real, N>& right)
 	{
 		return left * right.transformation() +
 			right.translation();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Matrix<PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1), Real> asMatrix(
-		const AffineTransformation<N, Real>& that)
+		const AffineTransformation<Real, N>& that)
 	{
 		const integer dimension = that.dimension();
 

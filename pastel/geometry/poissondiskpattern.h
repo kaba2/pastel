@@ -29,7 +29,7 @@ namespace Pastel
 	*/
 	template <int N, typename Real, typename ReportFunctor, typename ConstSeedIterator>
 	void poissonDiskPattern(
-		const AlignedBox<N, Real>& window,
+		const AlignedBox<Real, N>& window,
 		const PASTEL_NO_DEDUCTION(Real)& minDistance,
 		ReportFunctor& reportFunctor,
 		const ConstSeedIterator& seedSetBegin,
@@ -45,7 +45,7 @@ namespace Pastel
 	*/
 	template <int N, typename Real, typename ReportFunctor>
 	void poissonDiskPattern(
-		const AlignedBox<N, Real>& window,
+		const AlignedBox<Real, N>& window,
 		const PASTEL_NO_DEDUCTION(Real)& minDistance,
 		ReportFunctor& reportFunctor,
 		integer maxRejections = 30);

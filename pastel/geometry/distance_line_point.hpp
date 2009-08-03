@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 		Real distance2(
-			const Line<N, Real>& line,
+			const Line<Real, N>& line,
 			const Point<Real, N>& point)
 	{
 		const Real t(closest(line, point));

@@ -24,23 +24,23 @@ namespace
 		// make sure they intersect the aligned box
 		// as they should.
 		{
-			const AlignedBox<2, Real> alignedBox(
+			const AlignedBox<Real, 2> alignedBox(
 				Point<Real, 2>(-1),
 				Point<Real, 2>(1));
 
-			const Line<2, Real> a(
+			const Line<Real, 2> a(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(1, 0));
 
-			const Line<2, Real> b(
+			const Line<Real, 2> b(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(0, 1));
 
-			const Line<2, Real> c(
+			const Line<Real, 2> c(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(-1, 0));
 
-			const Line<2, Real> d(
+			const Line<Real, 2> d(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(0, -1));
 
@@ -69,23 +69,23 @@ namespace
 		// make sure they intersect the aligned box
 		// as they should.
 		{
-			const AlignedBox<2, Real> alignedBox(
+			const AlignedBox<Real, 2> alignedBox(
 				Point<Real, 2>(-1),
 				Point<Real, 2>(1));
 
-			const Line<2, Real> a(
+			const Line<Real, 2> a(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(Real(1, 1)));
 
-			const Line<2, Real> b(
+			const Line<Real, 2> b(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(Real(-1, 1)));
 
-			const Line<2, Real> c(
+			const Line<Real, 2> c(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(Real(-1, -1)));
 
-			const Line<2, Real> d(
+			const Line<Real, 2> d(
 				Point<Real, 2>(0),
 				Vector<Real, 2>(Real(1, -1)));
 
@@ -114,23 +114,23 @@ namespace
 		// Make sure the rays
 		// intersect the aligned box as they should.
 		{
-			const AlignedBox<2, Real> alignedBox(
+			const AlignedBox<Real, 2> alignedBox(
 				Point<Real, 2>(-1),
 				Point<Real, 2>(1));
 
-			const Line<2, Real> a(
+			const Line<Real, 2> a(
 				Point<Real, 2>(
 				1, Real(-1, 2)),
 				Vector<Real, 2>(
 				-2, 1));
 
-			const Line<2, Real> b(
+			const Line<Real, 2> b(
 				Point<Real, 2>(
 				-1, Real(1, 2)),
 				Vector<Real, 2>(
 				2, -1));
 
-			const Line<2, Real> c(
+			const Line<Real, 2> c(
 				Point<Real, 2>(
 				Real(-1, 2), -1),
 				Vector<Real, 2>(
@@ -153,17 +153,17 @@ namespace
 		// These rays have origin outside the aligned boxes,
 		// but still intersect the aligned box.
 		{
-			const AlignedBox<2, Real> alignedBox(
+			const AlignedBox<Real, 2> alignedBox(
 				Point<Real, 2>(-1),
 				Point<Real, 2>(1));
 
-			const Line<2, Real> a(
+			const Line<Real, 2> a(
 				Point<Real, 2>(
 				0, -2),
 				Vector<Real, 2>(
 				1, 4));
 
-			const Line<2, Real> b(
+			const Line<Real, 2> b(
 				Point<Real, 2>(
 				-2, 2),
 				Vector<Real, 2>(
@@ -181,29 +181,29 @@ namespace
 		}
 		// These rays just touch the aligned box corners.
 		{
-			const AlignedBox<2, Real> alignedBox(
+			const AlignedBox<Real, 2> alignedBox(
 				Point<Real, 2>(-1),
 				Point<Real, 2>(1));
 
-			const Line<2, Real> a(
+			const Line<Real, 2> a(
 				Point<Real, 2>(
 				0, 3),
 				Vector<Real, 2>(
 				-2, -4));
 
-			const Line<2, Real> b(
+			const Line<Real, 2> b(
 				Point<Real, 2>(
 				-5, 0),
 				Vector<Real, 2>(
 				4, 1));
 
-			const Line<2, Real> c(
+			const Line<Real, 2> c(
 				Point<Real, 2>(
 				-2, 1),
 				Vector<Real, 2>(
 				1, 0));
 
-			const Line<2, Real> d(
+			const Line<Real, 2> d(
 				Point<Real, 2>(
 				-1, -2),
 				Vector<Real, 2>(
@@ -232,29 +232,29 @@ namespace
 	void testNegative()
 	{
 		{
-			const AlignedBox<2, Real> alignedBox(
+			const AlignedBox<Real, 2> alignedBox(
 				Point<Real, 2>(-1),
 				Point<Real, 2>(1));
 
-			const Line<2, Real> a(
+			const Line<Real, 2> a(
 				Point<Real, 2>(
 				0, -2),
 				Vector<Real, 2>(
 				2, 1));
 
-			const Line<2, Real> b(
+			const Line<Real, 2> b(
 				Point<Real, 2>(
 				-2, 2),
 				Vector<Real, 2>(
 				1, 0));
 
-			const Line<2, Real> c(
+			const Line<Real, 2> c(
 				Point<Real, 2>(
 				-1, -2),
 				Vector<Real, 2>(
 				-1, 3));
 
-			const Line<2, Real> d(
+			const Line<Real, 2> d(
 				Point<Real, 2>(
 				0, -5),
 				Vector<Real, 2>(

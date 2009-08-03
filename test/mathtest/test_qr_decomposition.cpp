@@ -46,7 +46,7 @@ namespace
 
 				const Vector<Real, N> b = randomVectorCube<N, Real>(n);
 
-				const QrDecomposition<N, Real> qr(a);
+				const QrDecomposition<Real, N> qr(a);
 
 				const Vector<Real, N> qrSolution =
 					solveLinear(qr, b);

@@ -6,9 +6,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Box<N, Real>& operator*=(Box<N, Real>& box,
-		const AffineTransformation<N, Real>& rigidTransform)
+	template <typename Real, int N>
+	Box<Real, N>& operator*=(Box<Real, N>& box,
+		const AffineTransformation<Real, N>& rigidTransform)
 	{
 		box.setPosition(box.position() * rigidTransform);
 		box.setRotation(box.rotation() * rigidTransform);
@@ -16,11 +16,11 @@ namespace Pastel
 		return box;
 	}
 
-	template <int N, typename Real>
-	Box<N, Real> operator*(const Box<N, Real>& box,
-		const AffineTransformation<N, Real>& rigidTransform)
+	template <typename Real, int N>
+	Box<Real, N> operator*(const Box<Real, N>& box,
+		const AffineTransformation<Real, N>& rigidTransform)
 	{
-		return Box<N, Real>(
+		return Box<Real, N>(
 			box.position() * rigidTransform,
 			box.width(),
 			box.rotation() * rigidTransform);

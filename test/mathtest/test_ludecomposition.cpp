@@ -25,7 +25,7 @@ namespace
 			Matrix<N, N, real> m;
 			setRandomMatrix(m);
 
-			LuDecomposition<N, real> lu(m);
+			LuDecomposition<real, N> lu(m);
 
 			if (!lu.singular())
 			{
@@ -49,7 +49,7 @@ namespace
 	void testLu()
 	{
 		{
-			const LuDecomposition<2, Real> lu(
+			const LuDecomposition<Real, 2> lu(
 				Matrix<2, 2, Real>(
 				1, Real(1, 2), 
 				Real(1, 2), 1));
@@ -65,7 +65,7 @@ namespace
 			//std::cout << lu.rowPermutation() << std::endl;
 		}
 		{
-			const LuDecomposition<3, Real> lu(
+			const LuDecomposition<Real, 3> lu(
 				Matrix<3, 3, Real>(
 				1, 2, 3,
 				4, 5, 6,

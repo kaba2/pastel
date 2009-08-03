@@ -8,9 +8,9 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Box<N, Real> boundingBox(const AlignedBox<N, Real>& alignedBox)
+	Box<Real, N> boundingBox(const AlignedBox<Real, N>& alignedBox)
 	{
-		return Box<N, Real>(
+		return Box<Real, N>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			(alignedBox.max() - alignedBox.min()) * 0.5,
 			Matrix<N, N, Real>());

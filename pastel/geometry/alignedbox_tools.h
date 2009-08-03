@@ -14,33 +14,33 @@ namespace Pastel
 {
 
 	template <typename Real>
-	AlignedBox<3, Real> operator*(
-		const AlignedBox<3, Real>& left,
-		const AffineTransformation<3, Real>& right);
+	AlignedBox<Real, 3> operator*(
+		const AlignedBox<Real, 3>& left,
+		const AffineTransformation<Real, 3>& right);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Point<Real, N> discreteToContinuous(
-		const AlignedBox<N, Real>& continuousRange,
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
 		const Point<integer, N>& discretePoint);
 
-	template <int N, typename Real>
-	AlignedBox<N, Real> discreteToContinuous(
-		const AlignedBox<N, Real>& continuousRange,
+	template <typename Real, int N>
+	AlignedBox<Real, N> discreteToContinuous(
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
 		const Rectangle<N>& discreteBox);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Point<integer, N> continuousToDiscrete(
-		const AlignedBox<N, Real>& continuousRange,
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
 		const Point<Real, N>& continuousPoint);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Rectangle<N> continuousToDiscrete(
-		const AlignedBox<N, Real>& continuousRange,
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const AlignedBox<N, Real>& continuousBox);
+		const AlignedBox<Real, N>& continuousBox);
 
 }
 

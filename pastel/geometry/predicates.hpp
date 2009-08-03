@@ -14,7 +14,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real side(
 		const Point<Real, N>& point,
-		const Plane<N, Real>& plane)
+		const Plane<Real, N>& plane)
 	{
 		return dot(plane.normal(), point - plane.position());
 	}

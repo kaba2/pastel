@@ -20,8 +20,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<2, Real>& alignedBox,
-		const Triangle<2, Real>& triangle)
+		const AlignedBox<Real, 2>& alignedBox,
+		const Triangle<Real, 2>& triangle)
 	{
 		// Using separating axis theorem.
 
@@ -31,7 +31,7 @@ namespace Pastel
 
 		// Center geometry on aligned box min.
 
-		const Triangle<2, Real> workTriangle(
+		const Triangle<Real, 2> workTriangle(
 			triangle[0] - asVector(alignedBox.min()),
 			triangle[1] - asVector(alignedBox.min()),
 			triangle[2] - asVector(alignedBox.min()));
@@ -139,8 +139,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<3, Real>& alignedBox,
-		const Triangle<3, Real>& triangle)
+		const AlignedBox<Real, 3>& alignedBox,
+		const Triangle<Real, 3>& triangle)
 	{
 		// Using the separating axis theorem.
 
@@ -156,7 +156,7 @@ namespace Pastel
 
 		// Test for polygon normal
 
-		const Plane<3, Real> plane(
+		const Plane<Real, 3> plane(
 			triangle[0],
 			cross((triangle[1] - triangle[0]),
 			(triangle[2] - triangle[0])));
@@ -183,7 +183,7 @@ namespace Pastel
 		// the problem such that the aligned box is centered
 		// on the origin. This simplifies calculations.
 
-		const Triangle<3, Real> workTriangle(
+		const Triangle<Real, 3> workTriangle(
 			Point<Real, 3>(triangle[0] - alignedBoxCenter),
 			Point<Real, 3>(triangle[1] - alignedBoxCenter),
 			Point<Real, 3>(triangle[2] - alignedBoxCenter));

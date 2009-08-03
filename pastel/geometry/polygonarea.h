@@ -15,7 +15,7 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	Real signedArea(const Polygon<2, Real>& polygon);
+	Real signedArea(const Polygon<Real, 2>& polygon);
 
 }
 

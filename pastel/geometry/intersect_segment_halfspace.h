@@ -9,8 +9,8 @@ namespace Pastel
 	
 	template <int N, typename Real>
 	bool intersect(
-		const Segment<N, Real>& segment,
-		const Plane<N, Real>& halfSpace,
+		const Segment<Real, N>& segment,
+		const Plane<Real, N>& halfSpace,
 		Real& tMin,
 		Real& tMax);
 

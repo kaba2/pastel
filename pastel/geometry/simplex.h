@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	class Simplex
 		: public Tuple<Point<Real, N>, M + 1>
 	{
@@ -39,7 +39,7 @@ namespace Pastel
 		{
 		}
 
-		Simplex<N, Real, M>& operator=(
+		Simplex<Real, N, M>& operator=(
 			const Tuple<Point<Real, N>, M + 1>& that)
 		{
 			Base::operator=(that);
@@ -47,8 +47,8 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	class Simplex<N, Real, 1>
+	template <typename Real, int N>
+	class Simplex<Real, N, 1>
 		: public Tuple<Point<Real, N>, 2>
 	{
 	private:
@@ -81,7 +81,7 @@ namespace Pastel
 		{
 		}
 
-		Simplex<N, Real, 1>& operator=(
+		Simplex<Real, N, 1>& operator=(
 		const Tuple<Point<Real, N>, 2>& that)
 		{
 			Base::operator=(that);
@@ -89,8 +89,8 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	class Simplex<N, Real, 2>
+	template <typename Real, int N>
+	class Simplex<Real, N, 2>
 		: public Tuple<Point<Real, N>, 3>
 	{
 	private:
@@ -124,7 +124,7 @@ namespace Pastel
 		{
 		}
 
-		Simplex<N, Real, 2>& operator=(
+		Simplex<Real, N, 2>& operator=(
 		const Tuple<Point<Real, N>, 3>& that)
 		{
 			Base::operator=(that);
@@ -132,8 +132,8 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	class Simplex<N, Real, 3>
+	template <typename Real, int N>
+	class Simplex<Real, N, 3>
 		: public Tuple<Point<Real, N>, 4>
 	{
 	private:
@@ -168,7 +168,7 @@ namespace Pastel
 		{
 		}
 
-		Simplex<N, Real, 3>& operator=(
+		Simplex<Real, N, 3>& operator=(
 			const Tuple<Point<Real, N>, 4>& that)
 		{
 			Base::operator=(that);
@@ -176,24 +176,24 @@ namespace Pastel
 		}
 	};
 
-	typedef Simplex<1, real, 1> Simplex1;
-	typedef Simplex<2, real, 2> Simplex2;
-	typedef Simplex<3, real, 3> Simplex3;
-	typedef Simplex<4, real, 4> Simplex4;
+	typedef Simplex<real, 1, 1> Simplex1;
+	typedef Simplex<real, 2, 2> Simplex2;
+	typedef Simplex<real, 3, 3> Simplex3;
+	typedef Simplex<real, 4, 4> Simplex4;
 
-	typedef Simplex<1, real, 1> Simplex11;
-	typedef Simplex<2, real, 1> Simplex21;
-	typedef Simplex<3, real, 1> Simplex31;
-	typedef Simplex<4, real, 1> Simplex41;
+	typedef Simplex<real, 1, 1> Simplex11;
+	typedef Simplex<real, 2, 1> Simplex21;
+	typedef Simplex<real, 3, 1> Simplex31;
+	typedef Simplex<real, 4, 1> Simplex41;
 
-	typedef Simplex<2, real, 2> Simplex22;
-	typedef Simplex<3, real, 2> Simplex32;
-	typedef Simplex<4, real, 2> Simplex42;
+	typedef Simplex<real, 2, 2> Simplex22;
+	typedef Simplex<real, 3, 2> Simplex32;
+	typedef Simplex<real, 4, 2> Simplex42;
 
-	typedef Simplex<3, real, 3> Simplex33;
-	typedef Simplex<4, real, 3> Simplex43;
+	typedef Simplex<real, 3, 3> Simplex33;
+	typedef Simplex<real, 4, 3> Simplex43;
 
-	typedef Simplex<4, real, 4> Simplex44;
+	typedef Simplex<real, 4, 4> Simplex44;
 
 }
 

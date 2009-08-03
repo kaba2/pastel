@@ -165,7 +165,7 @@ namespace Pastel
 				splitAxis = nearestMainAxis(maxVariance);
 				splitPosition = meanPoint[splitAxis];
 
-				AlignedBox<1, Real> objectBound;
+				AlignedBox<Real, 1> objectBound;
 
 				if (splitDirection)
 				{

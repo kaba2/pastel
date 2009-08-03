@@ -35,25 +35,25 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real diameter2(
-		const AlignedBox<N, Real>& box);
+		const AlignedBox<Real, N>& box);
 
 	//! Returns the diameter of a sphere.
 
 	template <int N, typename Real>
 	Real diameter(
-		const Sphere<N, Real>& sphere);
+		const Sphere<Real, N>& sphere);
 
 	//! Returns the squared diameter of a sphere.
 
 	template <int N, typename Real>
 	Real diameter2(
-		const Sphere<N, Real>& sphere);
+		const Sphere<Real, N>& sphere);
 
 	//! Returns the squared diameter of a box.
 
 	template <int N, typename Real>
 	Real diameter2(
-		const Box<N, Real>& box);
+		const Box<Real, N>& box);
 
 }
 

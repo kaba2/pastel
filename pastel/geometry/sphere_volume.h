@@ -92,16 +92,16 @@ namespace Pastel
 		volumeUnitSphere();
 
 	template <typename Real>
-	Real volume(const Sphere<1, Real>& sphere);
+	Real volume(const Sphere<Real, 1>& sphere);
 
 	template <typename Real>
-	Real volume(const Sphere<2, Real>& sphere);
+	Real volume(const Sphere<Real, 2>& sphere);
 
 	template <typename Real>
-	Real volume(const Sphere<3, Real>& sphere);
+	Real volume(const Sphere<Real, 3>& sphere);
 
 	template <int N, typename Real>
-	Real volume(const Sphere<N, Real>& sphere);
+	Real volume(const Sphere<Real, N>& sphere);
 
 }
 

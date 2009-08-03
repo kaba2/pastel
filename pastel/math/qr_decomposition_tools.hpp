@@ -7,16 +7,16 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real absDeterminant(
-		const QrDecomposition<N, Real>& qr)
+		const QrDecomposition<Real, N>& qr)
 	{
 		return mabs(diagonalProduct(qr.r()));
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> solveLinear(
-		const QrDecomposition<N, Real>& qr,
+		const QrDecomposition<Real, N>& qr,
 		const VectorExpression<Real, N, Expression>& b)
 	{
 		ENSURE_OP(qr.width(), ==, b.size());

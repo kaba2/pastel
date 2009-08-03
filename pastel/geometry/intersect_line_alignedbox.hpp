@@ -13,8 +13,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool intersect(
-		const Line<N, Real>& line,
-		const AlignedBox<N, Real>& alignedBox,
+		const Line<Real, N>& line,
+		const AlignedBox<Real, N>& alignedBox,
 		Vector<Real, 2>& hitList)
 	{
 		PENSURE_OP(line.dimension(), ==, alignedBox.dimension());
@@ -22,7 +22,7 @@ namespace Pastel
 		Real tMin(-infinity<Real>());
 		Real tMax(infinity<Real>());
 
-		const AlignedBox<N, Real> testAlignedBox(alignedBox -
+		const AlignedBox<Real, N> testAlignedBox(alignedBox -
 			asVector(line.position()));
 
 		const integer dimension = line.dimension();

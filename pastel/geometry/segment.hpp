@@ -10,15 +10,15 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Segment<N, Real>::Segment()
+	template <typename Real, int N>
+	Segment<Real, N>::Segment()
 		: start_()
 		, end_()
 	{
 	}
 
-	template <int N, typename Real>
-	Segment<N, Real>::Segment(
+	template <typename Real, int N>
+	Segment<Real, N>::Segment(
 		const Point<Real, N>& start,
 		const Point<Real, N>& end)
 		: start_(start)
@@ -26,14 +26,14 @@ namespace Pastel
 	{
 	}
 
-	template <int N, typename Real>
-	Segment<N, Real>::~Segment()
+	template <typename Real, int N>
+	Segment<Real, N>::~Segment()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <int N, typename Real>
-	void Segment<N, Real>::set(
+	template <typename Real, int N>
+	void Segment<Real, N>::set(
 		const Point<Real, N>& start,
 		const Point<Real, N>& end)
 	{
@@ -41,32 +41,32 @@ namespace Pastel
 		end_ = end;
 	}
 
-	template <int N, typename Real>
-	Point<Real, N>& Segment<N, Real>::start()
+	template <typename Real, int N>
+	Point<Real, N>& Segment<Real, N>::start()
 	{
 		return start_;
 	}
 
-	template <int N, typename Real>
-	const Point<Real, N>& Segment<N, Real>::start() const
+	template <typename Real, int N>
+	const Point<Real, N>& Segment<Real, N>::start() const
 	{
 		return start_;
 	}
 
-	template <int N, typename Real>
-	Point<Real, N>& Segment<N, Real>::end()
+	template <typename Real, int N>
+	Point<Real, N>& Segment<Real, N>::end()
 	{
 		return end_;
 	}
 
-	template <int N, typename Real>
-	const Point<Real, N>& Segment<N, Real>::end() const
+	template <typename Real, int N>
+	const Point<Real, N>& Segment<Real, N>::end() const
 	{
 		return end_;
 	}
 
-	template <int N, typename Real>
-	Point<Real, N> Segment<N, Real>::at(const Real& t) const
+	template <typename Real, int N>
+	Point<Real, N> Segment<Real, N>::at(const Real& t) const
 	{
 		return start_ + (end_ - start_) * t;
 	}

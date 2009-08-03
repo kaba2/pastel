@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const AlignedBox<N, Real>& aBox,
-		const AlignedBox<N, Real>& bBox)
+		const AlignedBox<Real, N>& aBox,
+		const AlignedBox<Real, N>& bBox)
 	{
 		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
 
@@ -42,8 +42,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real farthestDistance2(
-		const AlignedBox<N, Real>& aBox,
-		const AlignedBox<N, Real>& bBox)
+		const AlignedBox<Real, N>& aBox,
+		const AlignedBox<Real, N>& bBox)
 	{
 		return std::max(
 			dot(aBox.max() - bBox.min()),

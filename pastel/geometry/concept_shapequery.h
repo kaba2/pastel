@@ -15,7 +15,7 @@ namespace Pastel
 	class ConceptShapeBoundQuery
 	{
 	public:
-		AlignedBox<N, Real> boundingAlignedBox(
+		AlignedBox<Real, N> boundingAlignedBox(
 			const ShapeHandle& handle) const;
 	};
 
@@ -25,7 +25,7 @@ namespace Pastel
 	public:
 		bool intersect(
 			const ConstMemoryView<ShapeHandle>& table,
-			const Line<N, Real>& line,
+			const Line<Real, N>& line,
 			Real& tClosest,
 			integer& indexClosest) const;
 	};

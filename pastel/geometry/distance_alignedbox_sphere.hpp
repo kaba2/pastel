@@ -12,8 +12,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const AlignedBox<N, Real>& alignedBox,
-		const Sphere<N, Real>& sphere)
+		const AlignedBox<Real, N>& alignedBox,
+		const Sphere<Real, N>& sphere)
 	{
 		// Let
 		// s = distance from sphere's center to 'alignedBox'.

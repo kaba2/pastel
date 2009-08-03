@@ -14,15 +14,15 @@ namespace Pastel
 	from the upper triangular matrix.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real absDeterminant(
-		const QrDecomposition<N, Real>& qr);
+		const QrDecomposition<Real, N>& qr);
 
 	//! Solves the linear system QRx = b <=> x^T R^T Q^T = b^T.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> solveLinear(
-		const QrDecomposition<N, Real>& qr,
+		const QrDecomposition<Real, N>& qr,
 		const VectorExpression<Real, N, Expression>& b);
 
 }

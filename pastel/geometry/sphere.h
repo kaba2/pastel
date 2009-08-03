@@ -19,7 +19,7 @@ namespace Pastel
 	S = {x | |x - c| <= r}
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Sphere
 	{
 	public:
@@ -75,14 +75,14 @@ namespace Pastel
 		Real inverseRadius_;
 	};
 
-	template <int N, typename Real>
-	void swap(Sphere<N, Real>& left, Sphere<N, Real>& right);
+	template <typename Real, int N>
+	void swap(Sphere<Real, N>& left, Sphere<Real, N>& right);
 
-	typedef Sphere<1, real> Sphere1;
-	typedef Sphere<2, real> Sphere2;
-	typedef Sphere<3, real> Sphere3;
-	typedef Sphere<4, real> Sphere4;
-	typedef Sphere<Dynamic, real> SphereD;
+	typedef Sphere<real, 1> Sphere1;
+	typedef Sphere<real, 2> Sphere2;
+	typedef Sphere<real, 3> Sphere3;
+	typedef Sphere<real, 4> Sphere4;
+	typedef Sphere<real, Dynamic> SphereD;
 
 }
 

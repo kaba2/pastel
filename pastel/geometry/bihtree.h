@@ -109,7 +109,7 @@ namespace Pastel
 
 		//! Returns an ALIGNEDBOX that bounds all contained shapes.
 
-		AlignedBox<N, Real> boundingAlignedBox() const;
+		AlignedBox<Real, N> boundingAlignedBox() const;
 
 		//! Given a leaf cursor, returns the associated leaf iterator.
 
@@ -135,7 +135,7 @@ namespace Pastel
 		template <typename ShapeBoundQuery>
 		void construct(
 			Node* node,
-			const AlignedBox<N, Real>& bound,
+			const AlignedBox<Real, N>& bound,
 			integer objectIndexFrom,
 			integer objectIndexTo,
 			integer currentDepth,
@@ -146,7 +146,7 @@ namespace Pastel
 
 		ArenaAllocator nodeAllocator_;
 		Node* root_;
-		AlignedBox<N, Real> rootBound_;
+		AlignedBox<Real, N> rootBound_;
 		ShapeContainer shapeArray_;
 		LeafContainer leafArray_;
 		integer leavesAllocated_;

@@ -13,120 +13,120 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Ray<N, Real>::Ray()
+	template <typename Real, int N>
+	Ray<Real, N>::Ray()
 		: line_()
 	{
 	}
 
-	template <int N, typename Real>
-	Ray<N, Real>::Ray(
+	template <typename Real, int N>
+	Ray<Real, N>::Ray(
 		const Point<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 		: line_(position, unitDirection)
 	{
 	}
 
-	template <int N, typename Real>
-	Ray<N, Real>::~Ray()
+	template <typename Real, int N>
+	Ray<Real, N>::~Ray()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <int N, typename Real>
-	void Ray<N, Real>::swap(Ray<N, Real>& that)
+	template <typename Real, int N>
+	void Ray<Real, N>::swap(Ray<Real, N>& that)
 	{
 		line_.swap(that.line_);
 	}
 
-	template <int N, typename Real>
-	Ray<N, Real>& Ray<N, Real>::operator+=(
+	template <typename Real, int N>
+	Ray<Real, N>& Ray<Real, N>::operator+=(
 		const Vector<Real, N>& translation)
 	{
 		line_ += translation;
 		return *this;
 	}
 
-	template <int N, typename Real>
-	Ray<N, Real> Ray<N, Real>::operator+(
+	template <typename Real, int N>
+	Ray<Real, N> Ray<Real, N>::operator+(
 		const Vector<Real, N>& translation) const
 	{
-		Ray<N, Real> result(*this);
+		Ray<Real, N> result(*this);
 		result += translation;
 		return result;
 	}
 
-	template <int N, typename Real>
-	Ray<N, Real>& Ray<N, Real>::operator-=(
+	template <typename Real, int N>
+	Ray<Real, N>& Ray<Real, N>::operator-=(
 		const Vector<Real, N>& translation)
 	{
 		line_ -= translation;
 		return *this;
 	}
 
-	template <int N, typename Real>
-	Ray<N, Real> Ray<N, Real>::operator-(
+	template <typename Real, int N>
+	Ray<Real, N> Ray<Real, N>::operator-(
 		const Vector<Real, N>& translation) const
 	{
-		Ray<N, Real> result(*this);
+		Ray<Real, N> result(*this);
 		result -= translation;
 		return result;
 	}
 
-	template <int N, typename Real>
-	void Ray<N, Real>::set(
+	template <typename Real, int N>
+	void Ray<Real, N>::set(
 		const Point<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 	{
 		line_.set(position, unitDirection);
 	}
 
-	template <int N, typename Real>
-	void Ray<N, Real>::setPosition(
+	template <typename Real, int N>
+	void Ray<Real, N>::setPosition(
 		const Point<Real, N>& position)
 	{
 		line_.setPosition(position);
 	}
 
-	template <int N, typename Real>
-	const Point<Real, N>& Ray<N, Real>::position() const
+	template <typename Real, int N>
+	const Point<Real, N>& Ray<Real, N>::position() const
 	{
 		return line_.position();
 	}
 
-	template <int N, typename Real>
-	void Ray<N, Real>::setDirection(
+	template <typename Real, int N>
+	void Ray<Real, N>::setDirection(
 		const Vector<Real, N>& unitDirection)
 	{
 		line_.setDirection(unitDirection);
 	}
 
-	template <int N, typename Real>
-	const Vector<Real, N>& Ray<N, Real>::direction() const
+	template <typename Real, int N>
+	const Vector<Real, N>& Ray<Real, N>::direction() const
 	{
 		return line_.direction();
 	}
 
-	template <int N, typename Real>
-	const Vector<Real, N>& Ray<N, Real>::inverseDirection() const
+	template <typename Real, int N>
+	const Vector<Real, N>& Ray<Real, N>::inverseDirection() const
 	{
 		return line_.inverseDirection();
 	}
 
-	template <int N, typename Real>
-	Line<N, Real>& Ray<N, Real>::line()
+	template <typename Real, int N>
+	Line<Real, N>& Ray<Real, N>::line()
 	{
 		return line_;
 	}
 
-	template <int N, typename Real>
-	const Line<N, Real>& Ray<N, Real>::line() const
+	template <typename Real, int N>
+	const Line<Real, N>& Ray<Real, N>::line() const
 	{
 		return line_;
 	}
 
-	template <int N, typename Real>
-	Point<Real, N> Ray<N, Real>::at(const Real& t) const
+	template <typename Real, int N>
+	Point<Real, N> Ray<Real, N>::at(const Real& t) const
 	{
 		return line_.at(t);
 	}

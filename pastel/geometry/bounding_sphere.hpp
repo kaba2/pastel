@@ -21,41 +21,41 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
-		const AlignedBox<N, Real>& alignedBox)
+	Sphere<Real, N> boundingSphere(
+		const AlignedBox<Real, N>& alignedBox)
 	{
 		const Vector<Real, N> delta = alignedBox.max() - alignedBox.min();
-		return Sphere<N, Real>(
+		return Sphere<Real, N>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			std::sqrt(dot(delta)) * 0.5);
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
-		const Box<N, Real>& box)
+	Sphere<Real, N> boundingSphere(
+		const Box<Real, N>& box)
 	{
-		return Sphere<N, Real>(
+		return Sphere<Real, N>(
 			box.position(),
 			std::sqrt(dot(box.width())));
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
+	Sphere<Real, N> boundingSphere(
 		const Point<Real, N>& aPoint)
 	{
 		return circumscribedSphere(aPoint);
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
-		const Segment<N, Real>& segment)
+	Sphere<Real, N> boundingSphere(
+		const Segment<Real, N>& segment)
 	{
 		return circumscribedSphere(
 			segment.start(), segment.end());
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
+	Sphere<Real, N> boundingSphere(
 		const Point<Real, N>& aPoint,
 		const Point<Real, N>& bPoint)
 	{
@@ -63,15 +63,15 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
-		const Simplex<N, Real, 0>& simplex)
+	Sphere<Real, N> boundingSphere(
+		const Simplex<Real, N, 0>& simplex)
 	{
 		return circumscribedSphere(simplex);
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> boundingSphere(
-		const Simplex<N, Real, 1>& simplex)
+	Sphere<Real, N> boundingSphere(
+		const Simplex<Real, N, 1>& simplex)
 	{
 		return circumscribedSphere(simplex);
 	}
@@ -138,26 +138,26 @@ namespace Pastel
 		struct DimensionTag {};
 
 		template <int N, typename Real, int M>
-		Sphere<N, Real> boundingSphere(
-			const Simplex<N, Real, M>& simplex,
+		Sphere<Real, N> boundingSphere(
+			const Simplex<Real, N, M>& simplex,
 			DimensionTag<M>)
 		{
 			return circumscribedSphere(simplex);
 		}
 
 		template <int N, typename Real, int M, int K>
-		Sphere<N, Real> boundingSphere(
-			const Simplex<N, Real, M>& simplex,
+		Sphere<Real, N> boundingSphere(
+			const Simplex<Real, N, M>& simplex,
 			DimensionTag<K>)
 		{
 			// Find all the K-subsimplices.
 
-			Simplex<N, Real, K> subSimplex;
+			Simplex<Real, N, K> subSimplex;
 
 			Tuple<integer, K + 1> indexSubset;
 			Tuple<integer, K + 1> largestSubset;
 
-			Sphere<N, Real> largestBound;
+			Sphere<Real, N> largestBound;
 
 			firstSubset<K + 1, M + 1>(indexSubset);
 			do
@@ -168,7 +168,7 @@ namespace Pastel
 					subSimplex[i] = simplex[indexSubset[i]];
 				}
 
-				const Sphere<N, Real> bound(circumscribedSphere(subSimplex));
+				const Sphere<Real, N> bound(circumscribedSphere(subSimplex));
 				if (bound.radius() > largestBound.radius())
 				{
 					largestBound = bound;
@@ -211,8 +211,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, int M>
-	Sphere<N, Real> boundingSphere(
-		const Simplex<N, Real, M>& simplex)
+	Sphere<Real, N> boundingSphere(
+		const Simplex<Real, N, M>& simplex)
 	{
 		// Let m(K) be the boundary K-simplex of
 		// the M-simplex S that has the largest
@@ -241,41 +241,41 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> circumscribedSphere(
+	Sphere<Real, N> circumscribedSphere(
 		const Point<Real, N>& aPoint)
 	{
-		return Sphere<N, Real>(aPoint, 0);
+		return Sphere<Real, N>(aPoint, 0);
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> circumscribedSphere(
+	Sphere<Real, N> circumscribedSphere(
 		const Point<Real, N>& aPoint,
 		const Point<Real, N>& bPoint)
 	{
-		return Sphere<N, Real>(
+		return Sphere<Real, N>(
 			linear(aPoint, bPoint, 0.5),
 			norm(evaluate(bPoint - aPoint)) * 0.5);
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> circumscribedSphere(
-		const Simplex<N, Real, 0>& simplex)
+	Sphere<Real, N> circumscribedSphere(
+		const Simplex<Real, N, 0>& simplex)
 	{
-		return Sphere<N, Real>(simplex[0], 0);
+		return Sphere<Real, N>(simplex[0], 0);
 	}
 
 	template <int N, typename Real>
-	Sphere<N, Real> circumscribedSphere(
-		const Simplex<N, Real, 1>& simplex)
+	Sphere<Real, N> circumscribedSphere(
+		const Simplex<Real, N, 1>& simplex)
 	{
-		return Sphere<N, Real>(
+		return Sphere<Real, N>(
 			linear(simplex[0], simplex[1], 0.5),
 			norm(evaluate(simplex[1] - simplex[0])) * 0.5);
 	}
 
 	template <int N, typename Real, int M>
-	Sphere<N, Real> circumscribedSphere(
-		const Simplex<N, Real, M>& simplex)
+	Sphere<Real, N> circumscribedSphere(
+		const Simplex<Real, N, M>& simplex)
 	{
 		// Let p be the (m+1)-tuple of vertices
 		// of an m-simplex.
@@ -411,13 +411,13 @@ namespace Pastel
 		const Vector<Real, N> translation = 
 			u * d;
 
-		return Sphere<N, Real>(
+		return Sphere<Real, N>(
 			simplex[0] + translation,
 			norm(translation));
 	}
 
 	template <int N, typename Real, typename InputIterator, typename PositionFunctor>
-	Sphere<N, Real> boundingSphere(
+	Sphere<Real, N> boundingSphere(
 		const InputIterator& from,
 		const InputIterator& to,
 		const PositionFunctor& positionFunctor)
@@ -427,7 +427,7 @@ namespace Pastel
 
 		if (from == to)
 		{
-			return Sphere<N, Real>();
+			return Sphere<Real, N>();
 		}
 
 		Point<Real, N> midPoint(0);
@@ -463,7 +463,7 @@ namespace Pastel
 			++iter;
 		}
 
-		return Sphere<N, Real>(
+		return Sphere<Real, N>(
 			midPoint,
 			std::sqrt(maxDistance2));
 	}
@@ -484,7 +484,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename InputIterator>
-	Sphere<N, Real> boundingSphere(
+	Sphere<Real, N> boundingSphere(
 		const InputIterator& from,
 		const InputIterator& to)
 	{

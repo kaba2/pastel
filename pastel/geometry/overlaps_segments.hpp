@@ -132,7 +132,7 @@ namespace Pastel
 							// that has the start point
 							// on the shared x-range.
 
-							const Plane<2, Real> leftPlane(
+							const Plane<Real, 2> leftPlane(
 								left.start_.position_,
 								cross(left.end_.position_ -
 								left.start_.position_));
@@ -156,7 +156,7 @@ namespace Pastel
 							// that has the start point
 							// on the shared x-range.
 
-							const Plane<2, Real> rightPlane(
+							const Plane<Real, 2> rightPlane(
 								right.start_.position_,
 								cross(right.end_.position_ -
 								right.start_.position_));
@@ -183,7 +183,7 @@ namespace Pastel
 
 					if (left.end_.id_ != right.end_.id_)
 					{
-						const Plane<2, Real> rightPlane(
+						const Plane<Real, 2> rightPlane(
 							right.start_.position_,
 							cross(right.end_.position_ - right.start_.position_));
 
@@ -406,10 +406,10 @@ namespace Pastel
 							next->start_.id_ &&
 							previous->end_.id_ !=
 							next->end_.id_ &&
-							overlaps(Segment<2, Real>(
+							overlaps(Segment<Real, 2>(
 							previous->start_.position_,
 							previous->end_.position_),
-							Segment<2, Real>(
+							Segment<Real, 2>(
 							next->start_.position_,
 							next->end_.position_)))
 						{
@@ -484,10 +484,10 @@ namespace Pastel
 						previous->end_.id_ !=
 						statusIter->end_.id_ &&
 						overlaps(
-						Segment<2, Real>(
+						Segment<Real, 2>(
 						previous->start_.position_,
 						previous->end_.position_),
-						Segment<2, Real>(
+						Segment<Real, 2>(
 						statusIter->start_.position_,
 						statusIter->end_.position_)))
 					{
@@ -513,10 +513,10 @@ namespace Pastel
 						statusIter->end_.id_ !=
 						next->end_.id_ &&
 						overlaps(
-						Segment<2, Real>(
+						Segment<Real, 2>(
 						statusIter->start_.position_,
 						statusIter->end_.position_),
-						Segment<2, Real>(
+						Segment<Real, 2>(
 						next->start_.position_,
 						next->end_.position_)))
 					{
@@ -558,9 +558,9 @@ namespace Pastel
 					iSegment[0] != jSegment[1] &&
 					iSegment[1] != jSegment[0])
 				{
-					if (overlaps(Segment<2, Real>(
+					if (overlaps(Segment<Real, 2>(
 						vertex[iSegment[0]], vertex[iSegment[1]]),
-						Segment<2, Real>(
+						Segment<Real, 2>(
 						vertex[jSegment[0]], vertex[jSegment[1]])))
 					{
 						return true;

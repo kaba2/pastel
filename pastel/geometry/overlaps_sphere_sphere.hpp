@@ -12,8 +12,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Sphere<N, Real>& aSphere,
-			const Sphere<N, Real>& bSphere)
+			const Sphere<Real, N>& aSphere,
+			const Sphere<Real, N>& bSphere)
 	{
 		// Two spheres intersect if the distance
 		// between their center points is

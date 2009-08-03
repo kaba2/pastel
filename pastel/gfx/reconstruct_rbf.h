@@ -50,7 +50,7 @@ namespace Pastel
 	void reconstructRbf(
 		const std::vector<Point<Data, N> >& positionList,
 		const std::vector<Data>& dataList,
-		const AlignedBox<N, Real>& region,
+		const AlignedBox<Real, N>& region,
 		const FilterPtr& radialBasisFunction,
 		const View<N, Data, Output_View>& view);
 
@@ -113,7 +113,7 @@ namespace Pastel
 	void reconstructRbf(
 		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
-		const AlignedBox<N, Real>& region,
+		const AlignedBox<Real, N>& region,
 		const FilterPtr& radialBasisFunction,
 		const View<N, Data, Output_View>& view)
 	{

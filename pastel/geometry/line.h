@@ -21,7 +21,7 @@ namespace Pastel
 	by the algorithms.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Line
 	{
 	public:
@@ -48,22 +48,22 @@ namespace Pastel
 		~Line();
 
 		//! Swaps two lines.
-		void swap(Line<N, Real>& that);
+		void swap(Line<Real, N>& that);
 
 		//! Translates the line by the given vector.
-		Line<N, Real>& operator+=(
+		Line<Real, N>& operator+=(
 			const Vector<Real, N>& translation);
 
 		//! Returns the line translated by the given vector.
-		Line<N, Real> operator+(
+		Line<Real, N> operator+(
 			const Vector<Real, N>& translation) const;
 
 		//! Translates the line backwards by the given vector.
-		Line<N, Real>& operator-=(
+		Line<Real, N>& operator-=(
 			const Vector<Real, N>& translation);
 
 		//! Returns the line translated backwards by the given vector.
-		Line<N, Real> operator-(
+		Line<Real, N> operator-(
 			const Vector<Real, N>& translation) const;
 
 		//! Sets the position and direction of the line.
@@ -102,10 +102,10 @@ namespace Pastel
 		Vector<Real, N> inverseDirection_;
 	};
 
-	typedef Line<1, real> Line1;
-	typedef Line<2, real> Line2;
-	typedef Line<3, real> Line3;
-	typedef Line<4, real> Line4;
+	typedef Line<real, 1> Line1;
+	typedef Line<real, 2> Line2;
+	typedef Line<real, 3> Line3;
+	typedef Line<real, 4> Line4;
 
 }
 

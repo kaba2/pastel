@@ -117,7 +117,7 @@ namespace
 
 	template <int N, typename Real>
 	Point<Real, N> randomPoint(
-		const AlignedBox<N, Real>& region)
+		const AlignedBox<Real, N>& region)
 	{
 		return region.min() + randomVector<N, Real>() * region.extent();
 	}

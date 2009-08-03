@@ -9,8 +9,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	integer intersect(
-		const Ray<N, Real>& ray,
-		const Sphere<N, Real>& sphere,
+		const Ray<Real, N>& ray,
+		const Sphere<Real, N>& sphere,
 		Vector<Real, 2>& hitList)
 	{
 		Vector<Real, 2> t;

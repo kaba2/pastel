@@ -22,8 +22,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Segment<1, Real>& aSegment,
-		const Segment<1, Real>& bSegment);
+		const Segment<Real, 1>& aSegment,
+		const Segment<Real, 1>& bSegment);
 
 	//! Tests if two segments overlap.
 
@@ -39,8 +39,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Segment<2, Real>& aSegment,
-		const Segment<2, Real>& bSegment);
+		const Segment<Real, 2>& aSegment,
+		const Segment<Real, 2>& bSegment);
 
 }
 

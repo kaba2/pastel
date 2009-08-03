@@ -30,8 +30,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	integer intersect(
-		const Ray<N, Real>& ray,
-		const AlignedBox<N, Real>& alignedBox,
+		const Ray<Real, N>& ray,
+		const AlignedBox<Real, N>& alignedBox,
 		Vector<Real, 2>& hitList);
 
 }

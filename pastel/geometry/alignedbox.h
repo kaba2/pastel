@@ -14,12 +14,12 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class AlignedBox
-		: public AlignedBoxBase<N, Real>
+		: public AlignedBoxBase<Real, N>
 	{
 	private:
-		typedef AlignedBoxBase<N, Real> Base;
+		typedef AlignedBoxBase<Real, N> Base;
 
 	public:
 		AlignedBox()
@@ -45,8 +45,8 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedBox<1, Real>
-		: public AlignedBoxBase<1, Real>
+	class AlignedBox<Real, 1>
+		: public AlignedBoxBase<Real, 1>
 	{
 	private:
 		enum
@@ -54,7 +54,7 @@ namespace Pastel
 			N = 1
 		};
 
-		typedef AlignedBoxBase<N, Real> Base;
+		typedef AlignedBoxBase<Real, N> Base;
 
 	public:
 		AlignedBox()
@@ -93,8 +93,8 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedBox<2, Real>
-		: public AlignedBoxBase<2, Real>
+	class AlignedBox<Real, 2>
+		: public AlignedBoxBase<Real, 2>
 	{
 	private:
 		enum
@@ -102,7 +102,7 @@ namespace Pastel
 			N = 2
 		};
 
-		typedef AlignedBoxBase<N, Real> Base;
+		typedef AlignedBoxBase<Real, N> Base;
 
 	public:
 		AlignedBox()
@@ -143,8 +143,8 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedBox<3, Real>
-		: public AlignedBoxBase<3, Real>
+	class AlignedBox<Real, 3>
+		: public AlignedBoxBase<Real, 3>
 	{
 	private:
 		enum
@@ -152,7 +152,7 @@ namespace Pastel
 			N = 3
 		};
 
-		typedef AlignedBoxBase<N, Real> Base;
+		typedef AlignedBoxBase<Real, N> Base;
 
 	public:
 		AlignedBox()
@@ -194,8 +194,8 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedBox<4, Real>
-		: public AlignedBoxBase<4, Real>
+	class AlignedBox<Real, 4>
+		: public AlignedBoxBase<Real, 4>
 	{
 	private:
 		enum
@@ -203,7 +203,7 @@ namespace Pastel
 			N = 4
 		};
 
-		typedef AlignedBoxBase<N, Real> Base;
+		typedef AlignedBoxBase<Real, N> Base;
 
 	public:
 		AlignedBox()
@@ -245,8 +245,8 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedBox<Dynamic, Real>
-		: public AlignedBoxBase<Dynamic, Real>
+	class AlignedBox<Real, Dynamic>
+		: public AlignedBoxBase<Real, Dynamic>
 	{
 	private:
 		enum
@@ -254,7 +254,7 @@ namespace Pastel
 			N = Dynamic
 		};
 
-		typedef AlignedBoxBase<N, Real> Base;
+		typedef AlignedBoxBase<Real, N> Base;
 
 		// We require the dimension to be
 		// specified at construction for
@@ -280,15 +280,15 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	void swap(AlignedBox<N, Real>& left,
-		AlignedBox<N, Real>& right);
+	template <typename Real, int N>
+	void swap(AlignedBox<Real, N>& left,
+		AlignedBox<Real, N>& right);
 
-	typedef AlignedBox<1, real> AlignedBox1;
-	typedef AlignedBox<2, real> AlignedBox2;
-	typedef AlignedBox<3, real> AlignedBox3;
-	typedef AlignedBox<4, real> AlignedBox4;
-	typedef AlignedBox<Dynamic, real> AlignedBoxD;
+	typedef AlignedBox<real, 1> AlignedBox1;
+	typedef AlignedBox<real, 2> AlignedBox2;
+	typedef AlignedBox<real, 3> AlignedBox3;
+	typedef AlignedBox<real, 4> AlignedBox4;
+	typedef AlignedBox<real, Dynamic> AlignedBoxD;
 
 }
 

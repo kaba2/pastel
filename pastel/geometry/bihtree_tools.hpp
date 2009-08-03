@@ -20,7 +20,7 @@ namespace Pastel
 			const BihTree<N, Real, Shape>& bihTree,
 			const typename BihTree<N, Real, Shape>::
 			ConstCursor& cursor,
-			const AlignedBox<N, Real>& alignedBox,
+			const AlignedBox<Real, N>& alignedBox,
 			const ShapeBoundQuery& shapeQuery)
 		{
 			typedef typename BihTree<N, Real, Shape>::
@@ -69,7 +69,7 @@ namespace Pastel
 
 				// Recurse to the negative child.
 
-				AlignedBox<N, Real> negativeAlignedBox(alignedBox);
+				AlignedBox<Real, N> negativeAlignedBox(alignedBox);
 
 				Point<Real, N> maxTmp(negativeAlignedBox.max());
 				maxTmp[splitAxis] = negativeSplit;
@@ -103,7 +103,7 @@ namespace Pastel
 
 				// Recurse to the positive child.
 
-				AlignedBox<N, Real> positiveAlignedBox(alignedBox);
+				AlignedBox<Real, N> positiveAlignedBox(alignedBox);
 				positiveAlignedBox.min()[splitAxis] = positiveSplit;
 
 				ConstCursor positiveChild(cursor);
@@ -173,7 +173,7 @@ namespace Pastel
 		typename IntersectionQuery>
 		bool intersect(
 		const BihTree<N, Real, Shape>& bihTree,
-		const Line<N, Real>& line,
+		const Line<Real, N>& line,
 		IntersectionQuery& shapeQuery)
 	{
 		if (bihTree.empty())
