@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::SplitPredicate_KdTree
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::SplitPredicate_KdTree
 	{
 	public:
 		SplitPredicate_KdTree(
@@ -34,8 +34,8 @@ namespace Pastel
 		const ObjectPolicy& objectPolicy_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::SplitPredicate_BspTree
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::SplitPredicate_BspTree
 	{
 	public:
 		SplitPredicate_BspTree(

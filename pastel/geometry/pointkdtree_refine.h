@@ -58,7 +58,7 @@ namespace Pastel
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,
 		integer maxObjects,
-		PointKdTree<N, Real, ObjectPolicy>& tree);
+		PointKdTree<Real, N, ObjectPolicy>& tree);
 
 }
 

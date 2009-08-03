@@ -25,7 +25,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename SearchPoint, typename NormBijection>
 	integer countNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection);
@@ -46,7 +46,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy,
 	typename SearchPoint>
 	integer countNearest(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 

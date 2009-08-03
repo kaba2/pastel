@@ -53,7 +53,7 @@ real searchRadius__ = SearchRadius;
 
 GlGfxRenderer* renderer__;
 
-typedef PointKdTree<2, real> MyTree;
+typedef PointKdTree<real, 2> MyTree;
 
 MyTree tree__;
 Euclidean_NormBijection<real> normBijection__;

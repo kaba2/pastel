@@ -31,7 +31,7 @@ namespace Pastel
 	'width()' >= 0
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class Box
 	{
 	public:

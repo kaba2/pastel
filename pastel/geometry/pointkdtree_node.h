@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::Node
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::Node
 	{
 	public:
 		explicit Node(
@@ -89,8 +89,8 @@ namespace Pastel
 		pointer_integer unknown_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::LeafNode
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::LeafNode
 		: public Node
 	{
 	private:
@@ -171,8 +171,8 @@ namespace Pastel
 		ConstObjectIterator last_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::SplitNode_BspTree
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::SplitNode_BspTree
 		: public Node
 	{
 	private:
@@ -277,8 +277,8 @@ namespace Pastel
 		Vector<Real, N> splitDirection_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::SplitNode_KdTree
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::SplitNode_KdTree
 		: public Node
 	{
 	private:

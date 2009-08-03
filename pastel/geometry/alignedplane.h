@@ -22,7 +22,7 @@ namespace Pastel
 	e = ((1, 0, 0, ...), (0, 1, 0, ...), ...).
 	*/
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class AlignedPlane
 	{
 	public:

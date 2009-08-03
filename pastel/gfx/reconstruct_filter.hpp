@@ -65,7 +65,7 @@ namespace Pastel
 		{
 		public:
 			explicit ReconstructFunctor(
-				const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+				const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 				const Filter& filter,
 				const Real& filterStretch)
 				: kdTree_(kdTree)
@@ -87,7 +87,7 @@ namespace Pastel
 					return;
 				}
 
-				typedef PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+				typedef PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
@@ -128,7 +128,7 @@ namespace Pastel
 			}
 
 		private:
-			const PointKdTree<N, Real, ObjectPolicy>& kdTree_;
+			const PointKdTree<Real, N, ObjectPolicy>& kdTree_;
 			const Filter& filter_;
 			const Real& filterStretch_;
 			const Real invFilterStretch_;
@@ -154,7 +154,7 @@ namespace Pastel
 		typedef Detail_ReconstructFilter::DataPolicy<N, Real, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
-		PointKdTree<N, Real, DataPolicy> kdTree(
+		PointKdTree<Real, N, DataPolicy> kdTree(
 			ofDimension(N), 16, dataPolicy);
 
 		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());

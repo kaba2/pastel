@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class AlignedBox
 		: public AlignedBoxBase<Real, N>
 	{

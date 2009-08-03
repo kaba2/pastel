@@ -52,13 +52,13 @@ namespace Pastel
 	the cost of traversing the kd-tree with a ray.
 	*/
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename ObjectPolicy>
 		void refineSurfaceAreaHeuristic(
 		integer maxDepth,
 		integer maxObjects,
-		KdTree<N, Real, ObjectPolicy>& tree);
+		KdTree<Real, N, ObjectPolicy>& tree);
 
 }
 

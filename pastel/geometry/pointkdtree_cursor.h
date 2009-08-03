@@ -9,8 +9,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class PointKdTree<N, Real, ObjectPolicy>::Cursor
+	template <typename Real, int N, typename ObjectPolicy>
+	class PointKdTree<Real, N, ObjectPolicy>::Cursor
 		: boost::less_than_comparable<Cursor
 		, boost::equality_comparable<Cursor
 		> >
@@ -187,7 +187,7 @@ namespace Pastel
 		}
 
 	private:
-		friend class PointKdTree<N, Real, ObjectPolicy>;
+		friend class PointKdTree<Real, N, ObjectPolicy>;
 
 		explicit Cursor(Node* node)
 			: node_(node)

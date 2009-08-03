@@ -23,18 +23,18 @@ namespace Pastel
 		class PatternMatcher
 		{
 		private:
-			typedef PointKdTree<2, Real, ScenePolicy> SceneTree;
+			typedef PointKdTree<Real, 2, ScenePolicy> SceneTree;
 			typedef typename SceneTree::ConstObjectIterator SceneIterator;
 			typedef typename SceneTree::Object SceneObject;
 
-			typedef PointKdTree<2, Real, ModelPolicy> ModelTree;
+			typedef PointKdTree<Real, 2, ModelPolicy> ModelTree;
 			typedef typename ModelTree::ConstObjectIterator ModelIterator;
 			typedef typename ModelTree::Object ModelObject;
 
 		public:
 			PatternMatcher(
-				const PointKdTree<2, Real, ScenePolicy>& sceneTree,
-				const PointKdTree<2, Real, ModelPolicy>& modelTree,
+				const PointKdTree<Real, 2, ScenePolicy>& sceneTree,
+				const PointKdTree<Real, 2, ModelPolicy>& modelTree,
 				const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 				const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 				const PatternMatch::Enum& matchingDistanceType)
@@ -253,7 +253,7 @@ namespace Pastel
 			{
 			public:
 				explicit ScenePositionFunctor(
-					const PointKdTree<2, Real, ScenePolicy>& sceneTree)
+					const PointKdTree<Real, 2, ScenePolicy>& sceneTree)
 					: sceneTree_(sceneTree)
 				{
 				}
@@ -264,7 +264,7 @@ namespace Pastel
 				}
 
 			private:
-				const PointKdTree<2, Real, ScenePolicy>& sceneTree_;
+				const PointKdTree<Real, 2, ScenePolicy>& sceneTree_;
 			};
 
 			class SceneIteratorHash
@@ -473,8 +473,8 @@ namespace Pastel
 			}
 
 		private:
-			const PointKdTree<2, Real, ScenePolicy>& sceneTree_;
-			const PointKdTree<2, Real, ModelPolicy>& modelTree_;
+			const PointKdTree<Real, 2, ScenePolicy>& sceneTree_;
+			const PointKdTree<Real, 2, ModelPolicy>& modelTree_;
 			const Real minMatchRatio_;
 			const integer scenePoints_;
 			const integer modelPoints_;
@@ -495,8 +495,8 @@ namespace Pastel
 
 	template <typename Real, typename ScenePolicy, typename ModelPolicy>
 	bool pointPatternMatch(
-		const PointKdTree<2, Real, ScenePolicy>& sceneTree,
-		const PointKdTree<2, Real, ModelPolicy>& modelTree,
+		const PointKdTree<Real, 2, ScenePolicy>& sceneTree,
+		const PointKdTree<Real, 2, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
@@ -543,10 +543,10 @@ namespace Pastel
 		const PatternMatch::Enum& matchingDistanceType,
 		Tuple<Real, 4>& similarityResult)
 	{
-		typedef PointKdTree<2, Real> SceneTree;
+		typedef PointKdTree<Real, 2> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef PointKdTree<2, Real> ModelTree;
+		typedef PointKdTree<Real, 2> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;

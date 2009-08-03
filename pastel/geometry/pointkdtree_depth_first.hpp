@@ -15,18 +15,18 @@ namespace Pastel
 
 		// Depth-first approximate search
 
-		template <int N, typename Real, typename ObjectPolicy, 
+		template <typename Real, int N, typename ObjectPolicy, 
 			typename NormBijection, typename CandidateFunctor>
 		class DepthFirst
 		{
 		private:
-			typedef PointKdTree<N, Real, ObjectPolicy> Tree;
+			typedef PointKdTree<Real, N, ObjectPolicy> Tree;
 			typedef typename Tree::Cursor Cursor;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 		public:
 			DepthFirst(
-				const PointKdTree<N, Real, ObjectPolicy>& kdTree_,
+				const PointKdTree<Real, N, ObjectPolicy>& kdTree_,
 				const Point<Real, N>& searchPoint_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
@@ -254,7 +254,7 @@ namespace Pastel
 				}
 			}
 
-			const PointKdTree<N, Real, ObjectPolicy>& kdTree;
+			const PointKdTree<Real, N, ObjectPolicy>& kdTree;
 			const Point<Real, N>& searchPoint;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
@@ -273,7 +273,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Point<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -285,7 +285,7 @@ namespace Pastel
 			return;
 		}
 
-		Detail_DepthFirst::DepthFirst<N, Real, ObjectPolicy, NormBijection, CandidateFunctor>
+		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, NormBijection, CandidateFunctor>
 			depthFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
 
@@ -295,8 +295,8 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
-		const typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator& searchPoint,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
@@ -307,7 +307,7 @@ namespace Pastel
 			return;
 		}
 
-		Detail_DepthFirst::DepthFirst<N, Real, ObjectPolicy, NormBijection, CandidateFunctor>
+		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, NormBijection, CandidateFunctor>
 			depthFirst(kdTree, kdTree.objectPolicy().point(searchPoint->object()), 
 			maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);

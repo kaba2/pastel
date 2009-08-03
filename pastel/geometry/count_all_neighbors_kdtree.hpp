@@ -73,7 +73,7 @@ namespace Pastel
 			return;
 		}
 
-		typedef PointKdTree<N, Real, 
+		typedef PointKdTree<Real, N, 
 			Detail_CountAllNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstTreeIterator;
 		typedef CountingIterator<const Point<Real, N>*> SequenceIterator;

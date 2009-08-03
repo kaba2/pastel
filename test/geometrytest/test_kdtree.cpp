@@ -26,7 +26,7 @@ namespace
 	template <int N, typename Real>
 	void testNearest2(integer dimension)
 	{
-		KdTree<N, Real> kdTree(ofDimension(dimension));
+		KdTree<Real, N> kdTree(ofDimension(dimension));
 
 		const integer points = 10000;
 		std::vector<Point<Real, N> > pointList;
@@ -58,7 +58,7 @@ namespace
 			<< (Real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
 
 		{
-			KdTree<Dynamic, Real> bTree(ofDimension(dimension));
+			KdTree<Real, Dynamic> bTree(ofDimension(dimension));
 
 			std::vector<Point<Real, Dynamic> > bPointList;
 			bPointList.reserve(points);
@@ -150,7 +150,7 @@ namespace
 
 	void testSphereTracing()
 	{
-		typedef KdTree<3, real, SpherePolicy> Tree;
+		typedef KdTree<real, 3, SpherePolicy> Tree;
 		typedef Tree::ConstObjectIterator ConstObjectIterator;
 
 		SpherePolicy spherePolicy;

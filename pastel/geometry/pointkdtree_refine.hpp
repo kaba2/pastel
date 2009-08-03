@@ -15,8 +15,8 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			Vector<Real, N>* splitDirection) const
@@ -45,13 +45,13 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			Vector<Real, N>* splitDirection) const
 		{
-			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 				Iterator;
 
 			const integer dimension = tree.dimension();
@@ -113,13 +113,13 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			Vector<Real, N>* splitDirection) const
 		{
-			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
 
 			const integer dimension = tree.dimension();
@@ -220,13 +220,13 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			Vector<Real, N>* splitDirection) const
 		{
-			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
+			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
 			const integer dimension = tree.dimension();
@@ -298,13 +298,13 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<N, Real, ObjectPolicy>& tree,
-			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, ObjectPolicy>& tree,
+			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound,
 			Vector<Real, N>* splitDirection) const
 		{
-			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
+			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
 			const integer dimension = tree.dimension();

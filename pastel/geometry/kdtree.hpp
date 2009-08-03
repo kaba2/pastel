@@ -12,8 +12,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::Node
+	template <typename Real, int N, typename ObjectPolicy>
+	class KdTree<Real, N, ObjectPolicy>::Node
 	{
 	public:
 		explicit Node(pointer_integer unknown)
@@ -41,8 +41,8 @@ namespace Pastel
 		pointer_integer unknown_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::LeafNode
+	template <typename Real, int N, typename ObjectPolicy>
+	class KdTree<Real, N, ObjectPolicy>::LeafNode
 		: public Node
 	{
 	public:
@@ -94,8 +94,8 @@ namespace Pastel
 		ObjectIterator last_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::SplitNode_Low
+	template <typename Real, int N, typename ObjectPolicy>
+	class KdTree<Real, N, ObjectPolicy>::SplitNode_Low
 		: public Node
 	{
 	private:
@@ -193,8 +193,8 @@ namespace Pastel
 		Real splitPosition_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::SplitNode_High
+	template <typename Real, int N, typename ObjectPolicy>
+	class KdTree<Real, N, ObjectPolicy>::SplitNode_High
 		: public Node
 	{
 	private:
@@ -240,8 +240,8 @@ namespace Pastel
 		int32 splitAxis_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	class KdTree<N, Real, ObjectPolicy>::Cursor
+	template <typename Real, int N, typename ObjectPolicy>
+	class KdTree<Real, N, ObjectPolicy>::Cursor
 		: boost::less_than_comparable<Cursor
 		, boost::equality_comparable<Cursor
 		> >
@@ -347,7 +347,7 @@ namespace Pastel
 		}
 
 	private:
-		friend class KdTree<N, Real, ObjectPolicy>;
+		friend class KdTree<Real, N, ObjectPolicy>;
 
 		explicit Cursor(Node* node)
 			: node_(node)
@@ -357,8 +357,8 @@ namespace Pastel
 		Node* node_;
 	};
 
-	template <int N, typename Real, typename ObjectPolicy>
-	KdTree<N, Real, ObjectPolicy>::KdTree()
+	template <typename Real, int N, typename ObjectPolicy>
+	KdTree<Real, N, ObjectPolicy>::KdTree()
 		: objectList_()
 		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
@@ -377,8 +377,8 @@ namespace Pastel
 		++leaves_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	KdTree<N, Real, ObjectPolicy>::KdTree(
+	template <typename Real, int N, typename ObjectPolicy>
+	KdTree<Real, N, ObjectPolicy>::KdTree(
 		integer dimension,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
@@ -400,8 +400,8 @@ namespace Pastel
 		++leaves_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	KdTree<N, Real, ObjectPolicy>::KdTree(const KdTree& that)
+	template <typename Real, int N, typename ObjectPolicy>
+	KdTree<Real, N, ObjectPolicy>::KdTree(const KdTree& that)
 		: objectList_()
 		, nodeAllocator_(sizeof(SplitNode), 1024)
 		, root_(0)
@@ -415,8 +415,8 @@ namespace Pastel
 		ENSURE(false);
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	KdTree<N, Real, ObjectPolicy>::~KdTree()
+	template <typename Real, int N, typename ObjectPolicy>
+	KdTree<Real, N, ObjectPolicy>::~KdTree()
 	{
 		// This is what we assume for memory allocation.
 		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(SplitNode));
@@ -425,9 +425,9 @@ namespace Pastel
 		nodeAllocator_.clear();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	KdTree<N, Real, ObjectPolicy>&
-		KdTree<N, Real, ObjectPolicy>::operator=(
+	template <typename Real, int N, typename ObjectPolicy>
+	KdTree<Real, N, ObjectPolicy>&
+		KdTree<Real, N, ObjectPolicy>::operator=(
 		const KdTree& that)
 	{
 		KdTree copy(that);
@@ -435,8 +435,8 @@ namespace Pastel
 		return *this;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::swap(
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::swap(
 		KdTree& that)
 	{
 		objectList_.swap(that.objectList_);
@@ -449,14 +449,14 @@ namespace Pastel
 		std::swap(dimension_, that.dimension_);
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	const ObjectPolicy& KdTree<N, Real, ObjectPolicy>::objectPolicy() const
+	template <typename Real, int N, typename ObjectPolicy>
+	const ObjectPolicy& KdTree<Real, N, ObjectPolicy>::objectPolicy() const
 	{
 		return objectPolicy_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::reserveBound(
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::reserveBound(
 		const AlignedBox<Real, N>& boxToCover)
 	{
 		extendToCover(
@@ -465,66 +465,66 @@ namespace Pastel
 		//bound_ = boundingAlignedBox(bound_, boxToCover);
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	const AlignedBox<Real, N>& KdTree<N, Real, ObjectPolicy>::bound() const
+	template <typename Real, int N, typename ObjectPolicy>
+	const AlignedBox<Real, N>& KdTree<Real, N, ObjectPolicy>::bound() const
 	{
 		return bound_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	bool KdTree<N, Real, ObjectPolicy>::empty() const
+	template <typename Real, int N, typename ObjectPolicy>
+	bool KdTree<Real, N, ObjectPolicy>::empty() const
 	{
 		return objectList_.empty();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	typename KdTree<N, Real, ObjectPolicy>::Cursor
-		KdTree<N, Real, ObjectPolicy>::root() const
+	template <typename Real, int N, typename ObjectPolicy>
+	typename KdTree<Real, N, ObjectPolicy>::Cursor
+		KdTree<Real, N, ObjectPolicy>::root() const
 	{
 		return Cursor(root_);
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
-		KdTree<N, Real, ObjectPolicy>::begin() const
+	template <typename Real, int N, typename ObjectPolicy>
+	typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		KdTree<Real, N, ObjectPolicy>::begin() const
 	{
 		return objectList_.begin();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
-		KdTree<N, Real, ObjectPolicy>::end() const
+	template <typename Real, int N, typename ObjectPolicy>
+	typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		KdTree<Real, N, ObjectPolicy>::end() const
 	{
 		return objectList_.end();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	integer KdTree<N, Real, ObjectPolicy>::nodes() const
+	template <typename Real, int N, typename ObjectPolicy>
+	integer KdTree<Real, N, ObjectPolicy>::nodes() const
 	{
 		return nodeAllocator_.allocated();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	integer KdTree<N, Real, ObjectPolicy>::leaves() const
+	template <typename Real, int N, typename ObjectPolicy>
+	integer KdTree<Real, N, ObjectPolicy>::leaves() const
 	{
 		return leaves_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	integer KdTree<N, Real, ObjectPolicy>::objects() const
+	template <typename Real, int N, typename ObjectPolicy>
+	integer KdTree<Real, N, ObjectPolicy>::objects() const
 	{
 		return objects_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	integer KdTree<N, Real, ObjectPolicy>::dimension() const
+	template <typename Real, int N, typename ObjectPolicy>
+	integer KdTree<Real, N, ObjectPolicy>::dimension() const
 	{
 		return dimension_;
 	}
 	
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	template <typename SubdivisionRule>
-	void KdTree<N, Real, ObjectPolicy>::refine(
+	void KdTree<Real, N, ObjectPolicy>::refine(
 		integer maxDepth,
 		integer maxObjects,
 		const SubdivisionRule& subdivisionRule)
@@ -543,16 +543,16 @@ namespace Pastel
 			0, bound().min(), bound().max());
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	template <typename InputIterator>
-	void KdTree<N, Real, ObjectPolicy>::insert(
+	void KdTree<Real, N, ObjectPolicy>::insert(
 		InputIterator begin, InputIterator end)
 	{
 		insert(root(), begin, end);
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::clear()
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::clear()
 	{
 		objectList_.clear();
 		nodeAllocator_.clear();
@@ -566,8 +566,8 @@ namespace Pastel
 		++leaves_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::clearObjects()
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::clearObjects()
 	{
 		clearObjects(root());
 
@@ -576,8 +576,8 @@ namespace Pastel
 
 	// Private
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::subdivide(
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::subdivide(
 		const Cursor& cursor,
 		const Real& splitPosition, integer splitAxis)
 	{
@@ -649,9 +649,9 @@ namespace Pastel
 		++leaves_;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	template <typename InputIterator>
-	void KdTree<N, Real, ObjectPolicy>::insert(
+	void KdTree<Real, N, ObjectPolicy>::insert(
 		const Cursor& cursor,
 		InputIterator begin, InputIterator end)
 	{
@@ -686,8 +686,8 @@ namespace Pastel
 		objects_ += objects;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::clearObjects(
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::clearObjects(
 		const Cursor& cursor)
 	{
 		if (cursor.leaf())
@@ -708,8 +708,8 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
-	void KdTree<N, Real, ObjectPolicy>::spliceInsert(
+	template <typename Real, int N, typename ObjectPolicy>
+	void KdTree<Real, N, ObjectPolicy>::spliceInsert(
 		const Cursor& cursor,
 		ObjectContainer& list,
 		ObjectIterator begin, ObjectIterator end,
@@ -788,9 +788,9 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	template <typename SubdivisionRule>
-	void KdTree<N, Real, ObjectPolicy>::refine(
+	void KdTree<Real, N, ObjectPolicy>::refine(
 		integer maxDepth,
 		integer maxObjects,
 		const SubdivisionRule& subdivisionRule,

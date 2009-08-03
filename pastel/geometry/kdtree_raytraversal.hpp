@@ -12,12 +12,12 @@ namespace Pastel
 	{
 
 		template <
-			int N, typename Real,
+			typename Real, int N,
 			typename ObjectPolicy>
 		class RecursiveRayTraversal
 		{
 		private:
-			typedef KdTree<N, Real, ObjectPolicy> Tree;
+			typedef KdTree<Real, N, ObjectPolicy> Tree;
 			typedef typename Tree::Cursor Cursor;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
@@ -50,7 +50,7 @@ namespace Pastel
 
 			template <typename Intersector>
 			ConstObjectIterator work(
-				const KdTree<N, Real, ObjectPolicy>& tree,
+				const KdTree<Real, N, ObjectPolicy>& tree,
 				const Line<Real, N>& ray,
 				Intersector intersector)
 			{
@@ -201,17 +201,17 @@ namespace Pastel
 	}
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename ObjectPolicy,
 		typename Intersector>
-		typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
+		typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 		recursiveRayTraversal(
-		const KdTree<N, Real, ObjectPolicy>& tree,
+		const KdTree<Real, N, ObjectPolicy>& tree,
 		const Line<Real, N>& ray,
 		Intersector intersector)
 	{
-		static Detail::RecursiveRayTraversal<N, Real, ObjectPolicy> rayTraversal;
+		static Detail::RecursiveRayTraversal<Real, N, ObjectPolicy> rayTraversal;
 		return rayTraversal.work(tree, ray, intersector);
 	}
 

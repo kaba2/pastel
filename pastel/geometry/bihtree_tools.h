@@ -13,10 +13,10 @@ namespace Pastel
 
 	//! Intersects a line with the bih tree.
 
-	template <int N, typename Real, typename Shape,
+	template <typename Real, int N, typename Shape,
 		typename IntersectionQuery>
 		bool intersect(
-		const BihTree<N, Real, Shape>& bihTree,
+		const BihTree<Real, N, Shape>& bihTree,
 		const Line<Real, N>& line,
 		IntersectionQuery& shapeQuery);
 
@@ -30,8 +30,8 @@ namespace Pastel
 	  parent aligned box.
 	*/
 
-	template <int N, typename Real, typename Shape>
-	bool check(const BihTree<N, Real, Shape>& bihTree);
+	template <typename Real, int N, typename Shape>
+	bool check(const BihTree<Real, N, Shape>& bihTree);
 
 }
 

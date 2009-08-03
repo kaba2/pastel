@@ -41,6 +41,8 @@ namespace
 
 		someFunction(asTuple(a));
 
+		Vector<float> cd;
+
 		a |= 1, 2, 3;
 	}
 

@@ -96,7 +96,7 @@ Disadvantages:
 ### Proposition 3: generic programming with a policy
 
 	:::cpp
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	class PointKdTree
 	{
 	};

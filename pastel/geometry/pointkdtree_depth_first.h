@@ -35,7 +35,7 @@ namespace Pastel
 	template <int N, typename Real, typename ObjectPolicy, 
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
-		const PointKdTree<N, Real, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Point<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,

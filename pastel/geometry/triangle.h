@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, int N = Dynamic>
 	class Triangle
 		: public Simplex<Real, N, 2>
 	{
