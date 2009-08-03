@@ -186,11 +186,11 @@ namespace Pastel
 	}
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorExtend
-		: public VectorExpression<Real, PASTEL_ADD_N(N, 1), VectorExtend<N, Real, Expression> >
+		: public VectorExpression<Real, PASTEL_ADD_N(N, 1), VectorExtend<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorExtend& StorageType;
@@ -249,30 +249,30 @@ namespace Pastel
 	};
 
 	template <int N, typename Real, typename Expression>
-	inline VectorExtend<N, Real, Expression> extend(
+	inline VectorExtend<Real, N, Expression> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
 	{
-		return VectorExtend<N, Real, Expression>(
+		return VectorExtend<Real, N, Expression>(
 			(const Expression&)right, 0, left);
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline VectorExtend<N, Real, Expression> extend(
+	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
-		return VectorExtend<N, Real, Expression>(
+		return VectorExtend<Real, N, Expression>(
 			(const Expression&)left, left.size(), right);
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline VectorExtend<N, Real, Expression> extend(
+	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
 	{
-		return VectorExtend<N, Real, Expression>(
+		return VectorExtend<Real, N, Expression>(
 			(const Expression&)left, index, right);
 	}
 

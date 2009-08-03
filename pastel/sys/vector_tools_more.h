@@ -138,11 +138,11 @@ namespace Pastel
 	// Expression templates for array computation
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorAbs
-		: public VectorExpression<Real, N, VectorAbs<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorAbs<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorAbs& StorageType;
@@ -185,11 +185,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorSquare
-		: public VectorExpression<Real, N, VectorSquare<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorSquare<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorSquare& StorageType;
@@ -231,11 +231,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorExp
-		: public VectorExpression<Real, N, VectorExp<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorExp<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorExp& StorageType;
@@ -277,11 +277,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorLog
-		: public VectorExpression<Real, N, VectorLog<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorLog<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorLog& StorageType;
@@ -323,12 +323,12 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorPow
-		: public VectorExpression<Real, N, VectorPow<N, Real,
+		: public VectorExpression<Real, N, VectorPow<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -376,11 +376,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorSqrt
-		: public VectorExpression<Real, N, VectorSqrt<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorSqrt<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorSqrt& StorageType;
@@ -422,11 +422,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorFloor
-		: public VectorExpression<Real, N, VectorFloor<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorFloor<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorFloor& StorageType;
@@ -468,11 +468,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorCeil
-		: public VectorExpression<Real, N, VectorCeil<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorCeil<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorCeil& StorageType;
@@ -514,11 +514,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorSin
-		: public VectorExpression<Real, N, VectorSin<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorSin<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorSin& StorageType;
@@ -560,11 +560,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorCos
-		: public VectorExpression<Real, N, VectorCos<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorCos<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorCos& StorageType;
@@ -606,11 +606,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorTan
-		: public VectorExpression<Real, N, VectorTan<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorTan<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorTan& StorageType;
@@ -652,11 +652,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorAsin
-		: public VectorExpression<Real, N, VectorAsin<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorAsin<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorAsin& StorageType;
@@ -698,11 +698,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorAcos
-		: public VectorExpression<Real, N, VectorAcos<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorAcos<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorAcos& StorageType;
@@ -744,12 +744,12 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorAtan2
-		: public VectorExpression<Real, N, VectorAtan2<N, Real,
+		: public VectorExpression<Real, N, VectorAtan2<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -794,11 +794,11 @@ namespace Pastel
 	};
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorInverse
-		: public VectorExpression<Real, N, VectorInverse<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorInverse<Real, N, Expression> >
 	{
 	public:
 		typedef const VectorInverse& StorageType;
@@ -842,38 +842,38 @@ namespace Pastel
 	//! Returns 1 / x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorInverse<N, Real, Expression>
+	inline const VectorInverse<Real, N, Expression>
 		inverse(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the absolute value of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorAbs<N, Real, Expression>
+	inline const VectorAbs<Real, N, Expression>
 		mabs(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the square of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorSquare<N, Real, Expression>
+	inline const VectorSquare<Real, N, Expression>
 		squarev(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns e^x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorExp<N, Real, Expression>
+	inline const VectorExp<Real, N, Expression>
 		exp(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the natural logarithm of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorLog<N, Real, Expression>
+	inline const VectorLog<Real, N, Expression>
 		log(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns x[i]^y[i], elementwise.
 
 	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
-		inline const VectorPow<N, Real,
+		inline const VectorPow<Real, N, 
 		LeftExpression, RightExpression>
 		pow(const VectorExpression<Real, N, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right);
@@ -882,66 +882,66 @@ namespace Pastel
 
 	template <int N, typename Real,
 		typename LeftExpression>
-		inline const VectorPow<N, Real,
-		LeftExpression,
-		VectorConstant<N, Real> >
+		inline const VectorPow<Real, N, 
+		LeftExpression, 
+		VectorConstant<Real, N> >
 		pow(const VectorExpression<Real, N, LeftExpression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns the square root of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorSqrt<N, Real, Expression>
+	inline const VectorSqrt<Real, N, Expression>
 		sqrt(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the floor of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorFloor<N, Real, Expression>
+	inline const VectorFloor<Real, N, Expression>
 		floor(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the ceiling of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorCeil<N, Real, Expression>
+	inline const VectorCeil<Real, N, Expression>
 		ceil(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the sine of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorSin<N, Real, Expression>
+	inline const VectorSin<Real, N, Expression>
 		sin(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the cosine of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorCos<N, Real, Expression>
+	inline const VectorCos<Real, N, Expression>
 		cos(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the tangent of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorTan<N, Real, Expression>
+	inline const VectorTan<Real, N, Expression>
 		tan(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the arcsine of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorAsin<N, Real, Expression>
+	inline const VectorAsin<Real, N, Expression>
 		asin(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the arccosine of x[i], elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline const VectorAcos<N, Real, Expression>
+	inline const VectorAcos<Real, N, Expression>
 		acos(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the arctangent of x[i], elementwise.
 
 	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
-		inline const VectorAtan2<N, Real,
-		LeftExpression,
+		inline const VectorAtan2<Real, N, 
+		LeftExpression, 
 		RightExpression>
 		atan2(const VectorExpression<Real, N, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right);

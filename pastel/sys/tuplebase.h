@@ -82,12 +82,12 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int N, typename Type>
+		template <typename Type, int N>
 		class TupleBase
 			: boost::equality_comparable<Tuple<Type, N> >
 		{
 		public:
-			template <int N, typename Type>
+			template <typename Type, int N>
 			friend class TupleBase;
 
 			typedef Type value_type;
@@ -140,7 +140,7 @@ namespace Pastel
 
 			// Note copy constructor won't match this function.
 			template <typename ThatType>
-			TupleBase(const TupleBase<N, ThatType>& that)
+			TupleBase(const TupleBase<ThatType, N>& that)
 				: data_()
 			{
 				std::copy(that.begin(), that.end(), begin());
@@ -164,7 +164,7 @@ namespace Pastel
 			// we settle for basic exception safety rather than strong
 			// for performance (no element swapping).
 			/*
-			TupleBase<N, Type>& operator=(const TupleBase& that)
+			TupleBase<Type, N>& operator=(const TupleBase& that)
 			{
 				std::copy(that.begin(), that.end(), begin());
 				
@@ -307,7 +307,7 @@ namespace Pastel
 		};
 
 		template <typename Type>
-		class TupleBase<Dynamic, Type>
+		class TupleBase<Type, Dynamic>
 			: boost::equality_comparable<Tuple<Type, Dynamic> >
 		{
 		private:
@@ -316,7 +316,7 @@ namespace Pastel
 				N = Dynamic
 			};
 		public:
-			template <int N, typename Type>
+			template <typename Type, int N>
 			friend class TupleBase;
 
 			typedef Type value_type;
@@ -397,7 +397,7 @@ namespace Pastel
 
 			template <typename ThatType>
 			TupleBase(
-				const TupleBase<N, ThatType>& that)
+				const TupleBase<ThatType, N>& that)
 				: data_(0)
 				, size_(0)
 				, deleteData_(true)
@@ -417,7 +417,7 @@ namespace Pastel
 
 			template <typename ThatType>
 			TupleBase(
-				const TupleBase<N, ThatType>& that,
+				const TupleBase<ThatType, N>& that,
 				const Dimension& dimension,
 				const Type& defaultData = Type())
 				: data_(0)
@@ -474,7 +474,7 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(IsBase);
 			}
 
-			TupleBase<N, Type>& operator=(const TupleBase& that)
+			TupleBase<Type, N>& operator=(const TupleBase& that)
 			{
 				// We settle for basic exception safety rather than strong
 				// for performance (no memory reallocation).
@@ -650,7 +650,7 @@ namespace Pastel
 
 			template <typename ThatType>
 			void copyConstruct(
-				const TupleBase<N, ThatType>& that)
+				const TupleBase<ThatType, N>& that)
 			{
 				const integer size = that.size();
 				ASSERT(size == size_);
@@ -671,7 +671,7 @@ namespace Pastel
 
 			template <typename ThatType>
 			void copyConstruct(
-				const TupleBase<N, ThatType>& that,
+				const TupleBase<ThatType, N>& that,
 				const Dimension& dimension,
 				const Type& defaultData)
 			{
