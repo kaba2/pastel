@@ -1,7 +1,7 @@
-#ifndef PASTEL_BOXAREA_HPP
-#define PASTEL_BOXAREA_HPP
+#ifndef PASTEL_BOX_AREA_HPP
+#define PASTEL_BOX_AREA_HPP
 
-#include "pastel/geometry/boxarea.h"
+#include "pastel/geometry/box_area.h"
 
 #include "pastel/sys/vector_tools.h"
 

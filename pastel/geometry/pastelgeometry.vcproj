@@ -474,6 +474,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ellipsoid.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ellipsoid.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\flat.h"
 				>
 			</File>
@@ -582,19 +590,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\boxarea.h"
+				RelativePath=".\box_area.h"
 				>
 			</File>
 			<File
-				RelativePath=".\boxarea.hpp"
+				RelativePath=".\box_area.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\polygonarea.h"
+				RelativePath=".\polygon_area.h"
 				>
 			</File>
 			<File
-				RelativePath=".\polygonarea.hpp"
+				RelativePath=".\polygon_area.hpp"
 				>
 			</File>
 			<File
@@ -1226,31 +1234,15 @@
 			Name="Nearest neighbors"
 			>
 			<File
+				RelativePath=".\count_nearest_pointkdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\count_nearest_pointkdtree.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\nearest_neighbors.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_count_nearest.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_count_nearest.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_search_nearest.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_search_nearest.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_search_range.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pointkdtree_search_range.hpp"
 				>
 			</File>
 			<File
@@ -1259,6 +1251,22 @@
 			</File>
 			<File
 				RelativePath=".\search_depth_first_pointkdtree.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\search_nearest_pointkdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\search_nearest_pointkdtree.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\search_range_pointkdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\search_range_pointkdtree.hpp"
 				>
 			</File>
 			<Filter

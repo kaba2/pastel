@@ -3,7 +3,7 @@
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/intersect_segment_halfspace.h"
 #include "pastel/geometry/point_patterns.h"
-#include "pastel/geometry/pointkdtree_search_nearest.h"
+#include "pastel/geometry/search_nearest_pointkdtree.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 

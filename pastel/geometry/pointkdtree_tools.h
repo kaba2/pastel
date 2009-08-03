@@ -1,11 +1,11 @@
-#ifndef PASTEL_KDTREE_TOOLS_H
-#define PASTEL_KDTREE_TOOLS_H
+#ifndef PASTEL_POINTKDTREE_TOOLS_H
+#define PASTEL_POINTKDTREE_TOOLS_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/pointkdtree_refine.h"
-#include "pastel/geometry/pointkdtree_search_nearest.h"
-#include "pastel/geometry/pointkdtree_count_nearest.h"
-#include "pastel/geometry/pointkdtree_search_range.h"
+#include "pastel/geometry/search_nearest_pointkdtree.h"
+#include "pastel/geometry/count_nearest_pointkdtree.h"
+#include "pastel/geometry/search_range_pointkdtree.h"
 
 namespace Pastel
 {

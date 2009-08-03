@@ -26,6 +26,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/pointkdtree_search_range.hpp"
+#include "pastel/geometry/search_range_pointkdtree.hpp"
 
 #endif

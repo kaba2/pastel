@@ -1,10 +1,10 @@
-#ifndef PASTEL_POINTKDTREETOOLS_HPP
-#define PASTEL_POINTKDTREETOOLS_HPP
+#ifndef PASTEL_POINTKDTREE_TOOLS_HPP
+#define PASTEL_POINTKDTREE_TOOLS_HPP
 
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"
 #include "pastel/geometry/bounding_alignedbox.h"
-#include "pastel/geometry/boxarea.h"
+#include "pastel/geometry/box_area.h"
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/math_functions.h"

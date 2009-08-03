@@ -1,5 +1,5 @@
-#ifndef PASTELGEOMETRY_ELLIPSOID_HPP
-#define PASTELGEOMETRY_ELLIPSOID_HPP
+#ifndef PASTEL_ELLIPSOID_HPP
+#define PASTEL_ELLIPSOID_HPP
 
 #include "pastel/geometry/ellipsoid.h"
 
