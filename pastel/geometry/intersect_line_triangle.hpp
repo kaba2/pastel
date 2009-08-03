@@ -14,8 +14,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(
-		const Line<2, Real>& line,
-		const Triangle<2, Real>& triangle,
+		const Line<Real, 2>& line,
+		const Triangle<Real, 2>& triangle,
 		Vector<Real, 2>& hitList)
 	{
 		const Point<Real, 2>& a = triangle[0];
@@ -30,7 +30,7 @@ namespace Pastel
 
 		// Side a.
 
-		const Plane<2, Real> aPlane(a, cross(b - a))
+		const Plane<Real, 2> aPlane(a, cross(b - a))
 
 		Real t;
 		if (intersect(line, aPlane, t))
@@ -58,7 +58,7 @@ namespace Pastel
 
 		// Side b.
 
-		const Plane<2, Real> bPlane(b, cross(c - b))
+		const Plane<Real, 2> bPlane(b, cross(c - b))
 
 		if (intersect(line, bPlane, t))
 		{
@@ -85,7 +85,7 @@ namespace Pastel
 
 		// Side c.
 
-		const Plane<2, Real> cPlane(c, cross(a - c))
+		const Plane<Real, 2> cPlane(c, cross(a - c))
 
 		if (intersect(line, cPlane, t))
 		{
@@ -117,8 +117,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(
-		const Line<3, Real>& line,
-		const Triangle<3, Real>& triangle,
+		const Line<Real, 3>& line,
+		const Triangle<Real, 3>& triangle,
 		Real& tIntersection,
 		Real& uIntersection,
 		Real& vIntersection)

@@ -18,8 +18,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Box<N, Real>& aBox,
-		const Box<N, Real>& bBox)
+		const Box<Real, N>& aBox,
+		const Box<Real, N>& bBox)
 	{
 		// Transform boxes such that the
 		// aBox becomes an aligned box. Then
@@ -31,13 +31,13 @@ namespace Pastel
 		const Matrix<N, N, Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
-		const Box<N, Real> bBoxTransformed(
+		const Box<Real, N> bBoxTransformed(
 			(bBox.position() - asVector(aBox.position())) *
 			aRotationInverse,
 			bBox.width(),
 			bBox.rotation() * aRotationInverse);
 
-		const AlignedBox<N, Real> aBoxTransformed(
+		const AlignedBox<Real, N> aBoxTransformed(
 			Point<Real, N>(-aBox.width()),
 			Point<Real, N>(aBox.width()));
 
@@ -48,8 +48,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Box<N, Real>& aBox,
-		const Box<N, Real>& bBox,
+		const Box<Real, N>& aBox,
+		const Box<Real, N>& bBox,
 		const Vector<Real, N>& bVelocity,
 		Tuple<Real, 2>& intersectionRange)
 	{
@@ -63,13 +63,13 @@ namespace Pastel
 		const Matrix<N, N, Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
-		const Box<N, Real> bBoxTransformed(
+		const Box<Real, N> bBoxTransformed(
 			(bBox.position() - asVector(aBox.position())) *
 			aRotationInverse,
 			bBox.width(),
 			bBox.rotation() * aRotationInverse);
 
-		const AlignedBox<N, Real> aBoxTransformed(
+		const AlignedBox<Real, N> aBoxTransformed(
 			Point<Real, N>(-aBox.width()),
 			Point<Real, N>(aBox.width()));
 
@@ -82,8 +82,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Box<N, Real>& aBox,
-		const Box<N, Real>& bBox,
+		const Box<Real, N>& aBox,
+		const Box<Real, N>& bBox,
 		Vector<Real, N>& projection,
 		Point<Real, N>& commonPoint)
 	{
@@ -97,13 +97,13 @@ namespace Pastel
 		const Matrix<N, N, Real> aRotationInverse(
 			transpose(aBox.rotation()));
 
-		const Box<N, Real> bBoxTransformed(
+		const Box<Real, N> bBoxTransformed(
 			(bBox.position() - asVector(aBox.position())) *
 			aRotationInverse,
 			bBox.width(),
 			bBox.rotation() * aRotationInverse);
 
-		const AlignedBox<N, Real> aBoxTransformed(
+		const AlignedBox<Real, N> aBoxTransformed(
 			Point<Real, N>(-aBox.width()),
 			Point<Real, N>(aBox.width()));
 

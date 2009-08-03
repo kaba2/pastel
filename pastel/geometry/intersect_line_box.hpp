@@ -13,8 +13,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool intersect(
-			const Line<N, Real>& line,
-			const Box<N, Real>& box,
+			const Line<Real, N>& line,
+			const Box<Real, N>& box,
 			Vector<Real, 2>& hitList)
 	{
 		PENSURE_OP(line.dimension(), ==, box.dimension());

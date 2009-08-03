@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename Real>
 	void orientedSweep(
 		const std::vector<Point<Real, 2> >& pen,
-		const Segment<2, Real>& segment,
+		const Segment<Real, 2>& segment,
 		std::vector<Point<Real, 2> >& result)
 	{
 		const integer points = pen.size();
@@ -42,7 +42,7 @@ namespace Pastel
 	template <typename Real>
 	void sweep(
 		const std::vector<Point<Real, 2> >& pen,
-		const Segment<2, Real>& segment,
+		const Segment<Real, 2>& segment,
 		std::vector<Point<Real, 2> >& result)
 	{
 		const Vector<Real, 2> delta = segment.end() - segment.start();

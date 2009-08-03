@@ -13,30 +13,30 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	void swap(Plane<N, Real>& left,
-		Plane<N, Real>& right)
+	template <typename Real, int N>
+	void swap(Plane<Real, N>& left,
+		Plane<Real, N>& right)
 	{
 		left.swap(right);
 	}
 
-	template <int N, typename Real>
-	Plane<N, Real>::Plane()
+	template <typename Real, int N>
+	Plane<Real, N>::Plane()
 		: position_()
 		, normal_(unitAxis<Real, N>(0))
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <int N, typename Real>
-	Plane<N, Real>::Plane(integer dimension)
+	template <typename Real, int N>
+	Plane<Real, N>::Plane(integer dimension)
 		: position_(ofDimension(dimension))
 		, normal_(unitAxis<Real, N>(dimension, 0))
 	{
 	}
 
-	template <int N, typename Real>
-	Plane<N, Real>::Plane(
+	template <typename Real, int N>
+	Plane<Real, N>::Plane(
 		const Point<Real, N>& position,
 		const Vector<Real, N>& unitNormal)
 		: position_(position)
@@ -44,8 +44,8 @@ namespace Pastel
 	{
 	}
 
-	template <int N, typename Real>
-	Plane<N, Real>::Plane(
+	template <typename Real, int N>
+	Plane<Real, N>::Plane(
 		integer dimension,
 		const Point<Real, N>& position,
 		const Vector<Real, N>& unitNormal)
@@ -56,28 +56,28 @@ namespace Pastel
 		PENSURE_OP(dimension, ==, unitNormal.dimension());
 	}
 
-	template <int N, typename Real>
-	Plane<N, Real>::~Plane()
+	template <typename Real, int N>
+	Plane<Real, N>::~Plane()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <int N, typename Real>
-	void Plane<N, Real>::swap(
-		Plane<N, Real>& that)
+	template <typename Real, int N>
+	void Plane<Real, N>::swap(
+		Plane<Real, N>& that)
 	{
 		position_.swap(that.position_);
 		normal_.swap(that.normal_);
 	}
 
-	template <int N, typename Real>
-	integer Plane<N, Real>::dimension() const
+	template <typename Real, int N>
+	integer Plane<Real, N>::dimension() const
 	{
 		return position_.dimension();
 	}
 
-	template <int N, typename Real>
-	void Plane<N, Real>::set(
+	template <typename Real, int N>
+	void Plane<Real, N>::set(
 		const Point<Real, N>& position,
 		const Vector<Real, N>& unitNormal)
 	{
@@ -85,28 +85,28 @@ namespace Pastel
 		setNormal(unitNormal);
 	}
 
-	template <int N, typename Real>
-	void Plane<N, Real>::setPosition(
+	template <typename Real, int N>
+	void Plane<Real, N>::setPosition(
 		const Point<Real, N>& position)
 	{
 		position_ = position;
 	}
 
-	template <int N, typename Real>
-	const Point<Real, N>& Plane<N, Real>::position() const
+	template <typename Real, int N>
+	const Point<Real, N>& Plane<Real, N>::position() const
 	{
 		return position_;
 	}
 
-	template <int N, typename Real>
-	void Plane<N, Real>::setNormal(
+	template <typename Real, int N>
+	void Plane<Real, N>::setNormal(
 		const Vector<Real, N>& unitNormal)
 	{
 		normal_ = unitNormal;
 	}
 
-	template <int N, typename Real>
-	const Vector<Real, N>& Plane<N, Real>::normal() const
+	template <typename Real, int N>
+	const Vector<Real, N>& Plane<Real, N>::normal() const
 	{
 		return normal_;
 	}

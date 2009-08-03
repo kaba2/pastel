@@ -15,8 +15,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const AlignedBox<N, Real>& alignedBox,
-		const Sphere<N, Real>& sphere)
+		const AlignedBox<Real, N>& alignedBox,
+		const Sphere<Real, N>& sphere)
 	{
 		// An aligned box and a sphere intersect if
 		// the distance of the sphere's center
@@ -29,9 +29,9 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const AlignedBox<N, Real>& aBox,
+		const AlignedBox<Real, N>& aBox,
 		const Vector<Real, N>& aVelocity,
-		const Sphere<N, Real>& bSphere,
+		const Sphere<Real, N>& bSphere,
 		const Vector<Real, N>& bVelocity,
 		const Real& maxTime,
 		Tuple<Real, 2>& intersectionRange)
@@ -39,7 +39,7 @@ namespace Pastel
 		// For documentation, see the implementation
 		// in overlaps_alignedbox_alignedbox.hpp.
 
-		const AlignedBox<N, Real> bBox(
+		const AlignedBox<Real, N> bBox(
 			boundingAlignedBox(bSphere));
 
 		Tuple<Real, 2> tRange;
@@ -59,8 +59,8 @@ namespace Pastel
 
 		const Real projectedVelocity = dot(velocity, unitAxis);
 
-		const AlignedBox<1, Real> boxInterval = projectAxis(aBox, unitAxis);
-		const AlignedBox<1, Real> sphereInterval = projectAxis(bSphere, unitAxis);
+		const AlignedBox<Real, 1> boxInterval = projectAxis(aBox, unitAxis);
+		const AlignedBox<Real, 1> sphereInterval = projectAxis(bSphere, unitAxis);
 
 		if (!overlaps(boxInterval, 0, sphereInterval, projectedVelocity, maxTime, tRange))
 		{

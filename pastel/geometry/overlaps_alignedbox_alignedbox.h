@@ -16,8 +16,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const AlignedBox<N, Real>& aAlignedBox,
-			const AlignedBox<N, Real>& bAlignedBox);
+			const AlignedBox<Real, N>& aAlignedBox,
+			const AlignedBox<Real, N>& bAlignedBox);
 
 	//! Tests if two moving aligned boxes overlap.
 	/*!
@@ -33,8 +33,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const AlignedBox<N, Real>& aBox,
-		const AlignedBox<N, Real>& bBox,
+		const AlignedBox<Real, N>& aBox,
+		const AlignedBox<Real, N>& bBox,
 		const Vector<Real, N>& bVelocity,
 		Tuple<Real, 2>& intersectionRange);
 

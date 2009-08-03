@@ -16,7 +16,7 @@ namespace Pastel
 	*/
 	template <int N, typename Real>
 	Real closest(
-		const Line<N, Real>& line,
+		const Line<Real, N>& line,
 		const Point<Real, N>& point);
 
 }

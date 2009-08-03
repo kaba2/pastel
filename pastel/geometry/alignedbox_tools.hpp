@@ -7,9 +7,9 @@ namespace Pastel
 {
 
 	template <typename Real>
-	AlignedBox<3, Real> operator*(
-		const AlignedBox<3, Real>& left,
-		const AffineTransformation<3, Real>& right)
+	AlignedBox<Real, 3> operator*(
+		const AlignedBox<Real, 3>& left,
+		const AffineTransformation<Real, 3>& right)
 	{
 		Point<Real, 3> aPoint(left.min());
 		Point<Real, 3> bPoint(left.max());
@@ -29,7 +29,7 @@ namespace Pastel
 		gPoint = gPoint * right;
 		hPoint = hPoint * right;
 
-		AlignedBox<3, Real> result(
+		AlignedBox<Real, 3> result(
 			min(min(min(min(min(min(min(aPoint,
 			bPoint), cPoint), dPoint), ePoint),
 			fPoint), gPoint), hPoint),
@@ -40,9 +40,9 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Point<Real, N> discreteToContinuous(
-		const AlignedBox<N, Real>& continuousRange,
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
 		const Point<integer, N>& discretePoint)
 	{
@@ -52,20 +52,20 @@ namespace Pastel
 			continuousRange.extent();
 	}
 
-	template <int N, typename Real>
-	AlignedBox<N, Real> discreteToContinuous(
-		const AlignedBox<N, Real>& continuousRange,
+	template <typename Real, int N>
+	AlignedBox<Real, N> discreteToContinuous(
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
 		const Rectangle<N>& discreteBox)
 	{
-		return AlignedBox<N, Real>(
+		return AlignedBox<Real, N>(
 			Pastel::discreteToContinuous(continuousRange, discreteRange, clippedBox.min()),
 			Pastel::discreteToContinuous(continuousRange, discreteRange, clippedBox.max()));
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Point<integer, N> continuousToDiscrete(
-		const AlignedBox<N, Real>& continuousRange,
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
 		const Point<Real, N>& continuousPoint)
 	{
@@ -76,11 +76,11 @@ namespace Pastel
 			Vector<Real, N>(discreteRange.extent())));
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Rectangle<N> continuousToDiscrete(
-		const AlignedBox<N, Real>& continuousRange,
+		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const AlignedBox<N, Real>& continuousBox)
+		const AlignedBox<Real, N>& continuousBox)
 	{
 		return Rectangle<N>(
 			Pastel::continuousToDiscrete(continuousRange, discreteRange, continuousBox.min()),

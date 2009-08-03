@@ -23,7 +23,7 @@ namespace Pastel
 	by the algorithms.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Ray
 	{
 	public:
@@ -42,22 +42,22 @@ namespace Pastel
 		~Ray();
 
 		//! Swaps two rays.
-		void swap(Ray<N, Real>& that);
+		void swap(Ray<Real, N>& that);
 
 		//! Translates the ray by the given vector.
-		Ray<N, Real>& operator+=(
+		Ray<Real, N>& operator+=(
 			const Vector<Real, N>& translation);
 
 		//! Returns the ray translated by the given vector.
-		Ray<N, Real> operator+(
+		Ray<Real, N> operator+(
 			const Vector<Real, N>& translation) const;
 
 		//! Translates the ray backwards by the given vector.
-		Ray<N, Real>& operator-=(
+		Ray<Real, N>& operator-=(
 			const Vector<Real, N>& translation);
 
 		//! Returns the ray translated backwards by the given vector.
-		Ray<N, Real> operator-(
+		Ray<Real, N> operator-(
 			const Vector<Real, N>& translation) const;
 
 		//! Sets the position and direction of the ray.
@@ -84,20 +84,20 @@ namespace Pastel
 		*/
 		const Vector<Real, N>& inverseDirection() const;
 
-		Line<N, Real>& line();
-		const Line<N, Real>& line() const;
+		Line<Real, N>& line();
+		const Line<Real, N>& line() const;
 
 		//! Returns the point (position + t * direction).
 		Point<Real, N> at(const Real& t) const;
 
 	private:
-		Line<N, Real> line_;
+		Line<Real, N> line_;
 	};
 
-	typedef Ray<1, real> Ray1;
-	typedef Ray<2, real> Ray2;
-	typedef Ray<3, real> Ray3;
-	typedef Ray<4, real> Ray4;
+	typedef Ray<real, 1> Ray1;
+	typedef Ray<real, 2> Ray2;
+	typedef Ray<real, 3> Ray3;
+	typedef Ray<real, 4> Ray4;
 
 }
 

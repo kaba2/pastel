@@ -25,7 +25,7 @@ namespace Pastel
 	Clearly it must be that M <= N.
 	*/
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	class Flat
 	{
 	public:

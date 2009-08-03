@@ -97,7 +97,7 @@ namespace Pastel
 			++iter;
 		}
 
-		const QrDecomposition<N, Real> qr(result);
+		const QrDecomposition<Real, N> qr(result);
 
 		result = qr.qTransposed();
 

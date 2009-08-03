@@ -9,8 +9,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Capsule<N, Real>& aCapsule,
-		const Capsule<N, Real>& bCapsule)
+		const Capsule<Real, N>& aCapsule,
+		const Capsule<Real, N>& bCapsule)
 	{
 		const Real dist2 = distance2(
 			aCapsule.segment(),

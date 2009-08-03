@@ -10,8 +10,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			AlignedBox<N, Real> const &alignedBox)
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			AlignedBox<Real, N> const &alignedBox)
 	{
 		if (alignedPlane.position() > alignedBox.max()[alignedPlane.axis()])
 		{
@@ -27,8 +27,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			AlignedBox<N, Real> const &alignedBox,
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			AlignedBox<Real, N> const &alignedBox,
 			bool &alignedBoxOnPositiveSide)
 	{
 		alignedBoxOnPositiveSide =

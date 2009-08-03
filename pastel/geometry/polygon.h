@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Polygon
 	{
 	public:
@@ -22,7 +22,7 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default destructor.
 
-		Polygon<N, Real>& operator=(
+		Polygon<Real, N>& operator=(
 			const Polygon& that);
 
 		Point<Real, N>& operator[](integer index);
@@ -44,9 +44,9 @@ namespace Pastel
 		std::vector<Point<Real, N> > data_;
 	};
 
-	typedef Polygon<2, real> Polygon2;
-	typedef Polygon<3, real> Polygon3;
-	typedef Polygon<4, real> Polygon4;
+	typedef Polygon<real, 2> Polygon2;
+	typedef Polygon<real, 3> Polygon3;
+	typedef Polygon<real, 4> Polygon4;
 
 }
 

@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const AlignedBox<N, Real>& alignedBox,
+		const AlignedBox<Real, N>& alignedBox,
 		const Point<Real, N>& point)
 	{
 		// This overlap test is broken into N 1-dimensional tests.

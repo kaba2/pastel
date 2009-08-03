@@ -19,7 +19,7 @@ namespace Pastel
 	with 0 <= t <= 1
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Segment
 	{
 	public:
@@ -59,10 +59,10 @@ namespace Pastel
 		Point<Real, N> end_;
 	};
 
-	typedef Segment<1, real> Segment1;
-	typedef Segment<2, real> Segment2;
-	typedef Segment<3, real> Segment3;
-	typedef Segment<4, real> Segment4;
+	typedef Segment<real, 1> Segment1;
+	typedef Segment<real, 2> Segment2;
+	typedef Segment<real, 3> Segment3;
+	typedef Segment<real, 4> Segment4;
 
 }
 

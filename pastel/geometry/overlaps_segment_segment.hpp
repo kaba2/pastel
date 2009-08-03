@@ -15,8 +15,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Segment<1, Real>& aSegment,
-		const Segment<1, Real>& bSegment)
+		const Segment<Real, 1>& aSegment,
+		const Segment<Real, 1>& bSegment)
 	{
 		Real aMin(0);
 		Real aMax(0);
@@ -37,8 +37,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Segment<2, Real>& aSegment,
-		const Segment<2, Real>& bSegment)
+		const Segment<Real, 2>& aSegment,
+		const Segment<Real, 2>& bSegment)
 	{
 		// The segments intersect if and only if
 		// 1) The endpoints of segment A are
@@ -49,11 +49,11 @@ namespace Pastel
 		// NOTE: endpoint exactly on the line
 		// is not considered an intersection.
 
-		const Plane<2, Real> aPlane(
+		const Plane<Real, 2> aPlane(
 			aSegment.start(),
 			cross(aSegment.end() - aSegment.start()));
 
-		const Plane<2, Real> bPlane(
+		const Plane<Real, 2> bPlane(
 			bSegment.start(),
 			cross(bSegment.end() - bSegment.start()));
 

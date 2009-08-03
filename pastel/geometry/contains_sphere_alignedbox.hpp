@@ -8,8 +8,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool contains(
-		const Sphere<N, Real>& outerSphere,
-		const AlignedBox<N, Real>& innerBox)
+		const Sphere<Real, N>& outerSphere,
+		const AlignedBox<Real, N>& innerBox)
 	{
 		const Point<Real, N> boxCenter =
 			linear(innerBox.min(), innerBox.max(), 0.5);

@@ -7,9 +7,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> solveLinear(
-		const LuDecomposition<N, Real>& lu,
+		const LuDecomposition<Real, N>& lu,
 		const VectorExpression<Real, N, Expression>& b)
 	{
 		const Matrix<N, N, Real>& packedLu = lu.packedLu();
@@ -51,9 +51,9 @@ namespace Pastel
 		return x;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real determinant(
-		const LuDecomposition<N, Real>& lu)
+		const LuDecomposition<Real, N>& lu)
 	{
 		if (lu.singular())
 		{

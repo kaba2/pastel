@@ -17,7 +17,7 @@ namespace Pastel
 		typename IntersectionQuery>
 		bool intersect(
 		const BihTree<N, Real, Shape>& bihTree,
-		const Line<N, Real>& line,
+		const Line<Real, N>& line,
 		IntersectionQuery& shapeQuery);
 
 	//! Tests the invariants in the bih tree.

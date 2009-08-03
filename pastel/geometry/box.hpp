@@ -8,8 +8,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Box<N, Real>::Box()
+	template <typename Real, int N>
+	Box<Real, N>::Box()
 		: position_(0)
 		, width_(1)
 		, rotation_()
@@ -17,16 +17,16 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <int N, typename Real>
-	Box<N, Real>::Box(integer dimension)
+	template <typename Real, int N>
+	Box<Real, N>::Box(integer dimension)
 		: position_(ofDimension(dimension), 0)
 		, width_(ofDimension(dimension), 1)
 		, rotation_()
 	{
 	}
 
-	template <int N, typename Real>
-	Box<N, Real>::Box(
+	template <typename Real, int N>
+	Box<Real, N>::Box(
 		const Point<Real, N>& position,
 		const Vector<Real, N>& width,
 		const Matrix<N, N, Real>& rotation)
@@ -37,8 +37,8 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <int N, typename Real>
-	Box<N, Real>::Box(
+	template <typename Real, int N>
+	Box<Real, N>::Box(
 		integer dimension,
 		const Point<Real, N>& position,
 		const Vector<Real, N>& width,
@@ -53,53 +53,53 @@ namespace Pastel
 		PENSURE_OP(dimension, ==, rotation.height());
 	}
 
-	template <int N, typename Real>
-	Box<N, Real>::~Box()
+	template <typename Real, int N>
+	Box<Real, N>::~Box()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <int N, typename Real>
-	integer Box<N, Real>::dimension() const
+	template <typename Real, int N>
+	integer Box<Real, N>::dimension() const
 	{
 		return position_.dimension();
 	}
 
-	template <int N, typename Real>
-	void Box<N, Real>::setPosition(
+	template <typename Real, int N>
+	void Box<Real, N>::setPosition(
 		const Point<Real, N>& position)
 	{
 		position_ = position;
 	}
 
-	template <int N, typename Real>
-	const Point<Real, N>& Box<N, Real>::position() const
+	template <typename Real, int N>
+	const Point<Real, N>& Box<Real, N>::position() const
 	{
 		return position_;
 	}
 
-	template <int N, typename Real>
-	void Box<N, Real>::setWidth(
+	template <typename Real, int N>
+	void Box<Real, N>::setWidth(
 		const Vector<Real, N>& width)
 	{
 		width_ = width;
 	}
 
-	template <int N, typename Real>
-	const Vector<Real, N>& Box<N, Real>::width() const
+	template <typename Real, int N>
+	const Vector<Real, N>& Box<Real, N>::width() const
 	{
 		return width_;
 	}
 
-	template <int N, typename Real>
-	void Box<N, Real>::setRotation(
+	template <typename Real, int N>
+	void Box<Real, N>::setRotation(
 		const Matrix<N, N, Real>& rotation)
 	{
 		rotation_ = rotation;
 	}
 
-	template <int N, typename Real>
-	const Matrix<N, N, Real>& Box<N, Real>::rotation() const
+	template <typename Real, int N>
+	const Matrix<N, N, Real>& Box<Real, N>::rotation() const
 	{
 		return rotation_;
 	}

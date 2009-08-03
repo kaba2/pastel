@@ -14,28 +14,28 @@ namespace Pastel
 
 	template
 		TestReal distance2(
-			const AlignedBox<1, TestReal>& aBox,
-			const AlignedBox<1, TestReal>& bBox);
+			const AlignedBox<TestReal, 1>& aBox,
+			const AlignedBox<TestReal, 1>& bBox);
 
 	template
 		TestReal distance2(
-			const AlignedBox<2, TestReal>& aBox,
-			const AlignedBox<2, TestReal>& bBox);
+			const AlignedBox<TestReal, 2>& aBox,
+			const AlignedBox<TestReal, 2>& bBox);
 
 	template
 		TestReal distance2(
-			const AlignedBox<3, TestReal>& aBox,
-			const AlignedBox<3, TestReal>& bBox);
+			const AlignedBox<TestReal, 3>& aBox,
+			const AlignedBox<TestReal, 3>& bBox);
 
 	template
 		TestReal distance2(
-			const AlignedBox<4, TestReal>& aBox,
-			const AlignedBox<4, TestReal>& bBox);
+			const AlignedBox<TestReal, 4>& aBox,
+			const AlignedBox<TestReal, 4>& bBox);
 
 	template
 		TestReal distance2(
-			const AlignedBox<5, TestReal>& aBox,
-			const AlignedBox<5, TestReal>& bBox);
+			const AlignedBox<TestReal, 5>& aBox,
+			const AlignedBox<TestReal, 5>& bBox);
 
 }
 
@@ -46,27 +46,27 @@ namespace Pastel
 
 	template
 		TestReal distance2(
-			const AlignedBox<1, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 1>& alignedBox,
 			const Point<TestReal, 1>& point);
 
 	template
 		TestReal distance2(
-			const AlignedBox<2, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 2>& alignedBox,
 			const Point<TestReal, 2>& point);
 
 	template
 		TestReal distance2(
-			const AlignedBox<3, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 3>& alignedBox,
 			const Point<TestReal, 3>& point);
 
 	template
 		TestReal distance2(
-			const AlignedBox<4, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 4>& alignedBox,
 			const Point<TestReal, 4>& point);
 
 	template
 		TestReal distance2(
-			const AlignedBox<5, TestReal>& alignedBox,
+			const AlignedBox<TestReal, 5>& alignedBox,
 			const Point<TestReal, 5>& point);
 
 }
@@ -78,28 +78,28 @@ namespace Pastel
 
 	template
 	TestReal distance2(
-		const AlignedBox<1, TestReal>& alignedBox,
-		const Sphere<1, TestReal>& sphere);
+		const AlignedBox<TestReal, 1>& alignedBox,
+		const Sphere<TestReal, 1>& sphere);
 
 	template
 	TestReal distance2(
-		const AlignedBox<2, TestReal>& alignedBox,
-		const Sphere<2, TestReal>& sphere);
+		const AlignedBox<TestReal, 2>& alignedBox,
+		const Sphere<TestReal, 2>& sphere);
 
 	template
 	TestReal distance2(
-		const AlignedBox<3, TestReal>& alignedBox,
-		const Sphere<3, TestReal>& sphere);
+		const AlignedBox<TestReal, 3>& alignedBox,
+		const Sphere<TestReal, 3>& sphere);
 
 	template
 	TestReal distance2(
-		const AlignedBox<4, TestReal>& alignedBox,
-		const Sphere<4, TestReal>& sphere);
+		const AlignedBox<TestReal, 4>& alignedBox,
+		const Sphere<TestReal, 4>& sphere);
 
 	template
 	TestReal distance2(
-		const AlignedBox<5, TestReal>& alignedBox,
-		const Sphere<5, TestReal>& sphere);
+		const AlignedBox<TestReal, 5>& alignedBox,
+		const Sphere<TestReal, 5>& sphere);
 
 }
 
@@ -108,20 +108,20 @@ namespace Pastel
 namespace Pastel
 {
 
-	template TestReal distance2(const Line<1, TestReal>&,
-		const Line<1, TestReal>&);
+	template TestReal distance2(const Line<TestReal, 1>&,
+		const Line<TestReal, 1>&);
 
-	template TestReal distance2(const Line<2, TestReal>&,
-		const Line<2, TestReal>&);
+	template TestReal distance2(const Line<TestReal, 2>&,
+		const Line<TestReal, 2>&);
 
-	template TestReal distance2(const Line<3, TestReal>&,
-		const Line<3, TestReal>&);
+	template TestReal distance2(const Line<TestReal, 3>&,
+		const Line<TestReal, 3>&);
 
-	template TestReal distance2(const Line<4, TestReal>&,
-		const Line<4, TestReal>&);
+	template TestReal distance2(const Line<TestReal, 4>&,
+		const Line<TestReal, 4>&);
 
-	template TestReal distance2(const Line<5, TestReal>&,
-		const Line<5, TestReal>&);
+	template TestReal distance2(const Line<TestReal, 5>&,
+		const Line<TestReal, 5>&);
 
 }
 
@@ -130,19 +130,19 @@ namespace Pastel
 namespace Pastel
 {
 
-	template TestReal distance2(const Line<1, TestReal>&,
+	template TestReal distance2(const Line<TestReal, 1>&,
 		const Point<TestReal, 1>&);
 
-	template TestReal distance2(const Line<2, TestReal>&,
+	template TestReal distance2(const Line<TestReal, 2>&,
 		const Point<TestReal, 2>&);
 
-	template TestReal distance2(const Line<3, TestReal>&,
+	template TestReal distance2(const Line<TestReal, 3>&,
 		const Point<TestReal, 3>&);
 
-	template TestReal distance2(const Line<4, TestReal>&,
+	template TestReal distance2(const Line<TestReal, 4>&,
 		const Point<TestReal, 4>&);
 
-	template TestReal distance2(const Line<5, TestReal>&,
+	template TestReal distance2(const Line<TestReal, 5>&,
 		const Point<TestReal, 5>&);
 
 }
@@ -154,27 +154,27 @@ namespace Pastel
 
 	template
 	TestReal distance2(
-		const Plane<1, TestReal>& plane,
+		const Plane<TestReal, 1>& plane,
 		const Point<TestReal, 1>& point);
 
 	template
 	TestReal distance2(
-		const Plane<2, TestReal>& plane,
+		const Plane<TestReal, 2>& plane,
 		const Point<TestReal, 2>& point);
 
 	template
 	TestReal distance2(
-		const Plane<3, TestReal>& plane,
+		const Plane<TestReal, 3>& plane,
 		const Point<TestReal, 3>& point);
 
 	template
 	TestReal distance2(
-		const Plane<4, TestReal>& plane,
+		const Plane<TestReal, 4>& plane,
 		const Point<TestReal, 4>& point);
 
 	template
 	TestReal distance2(
-		const Plane<5, TestReal>& plane,
+		const Plane<TestReal, 5>& plane,
 		const Point<TestReal, 5>& point);
 
 }

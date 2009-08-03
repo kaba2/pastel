@@ -19,8 +19,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<2, Real>& alignedBox,
-		const Box<2, Real>& box)
+		const AlignedBox<Real, 2>& alignedBox,
+		const Box<Real, 2>& box)
 	{
 		// Using the separating axis theorem.
 
@@ -127,14 +127,14 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<2, Real>& aAlignedBox,
-		const Box<2, Real>& bBox,
+		const AlignedBox<Real, 2>& aAlignedBox,
+		const Box<Real, 2>& bBox,
 		const Vector<Real, 2>& bVelocity,
 		Tuple<Real, 2>& intersectionRange)
 	{
 		// Using the separating axis theorem.
 
-		const AlignedBox<2, Real> bAlignedBox = boundingAlignedBox(bBox);
+		const AlignedBox<Real, 2> bAlignedBox = boundingAlignedBox(bBox);
 
 		// Test for the standard basis vectors.
 
@@ -152,8 +152,8 @@ namespace Pastel
 		for (integer i = 0;i < 2;++i)
 		{
 			const Vector<Real, N>& unitAxis = bBox.rotation()[i];
-			const AlignedBox<1, Real> aInterval = projectAxis(aAlignedBox, unitAxis);
-			const AlignedBox<1, Real> bInterval = projectAxis(bBox, unitAxis);
+			const AlignedBox<Real, 1> aInterval = projectAxis(aAlignedBox, unitAxis);
+			const AlignedBox<Real, 1> bInterval = projectAxis(bBox, unitAxis);
 
 			const Vector<Real, 1> bProjectedVelocity(dot(bVelocity, unitAxis));
 
@@ -183,8 +183,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<2, Real>& alignedBox,
-		const Box<2, Real>& box,
+		const AlignedBox<Real, 2>& alignedBox,
+		const Box<Real, 2>& box,
 		Vector<Real, 2>& projection,
 		Point<Real, 2>& commonPoint)
 	{
@@ -369,8 +369,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<3, Real>& alignedBox,
-		const Box<3, Real>& box)
+		const AlignedBox<Real, 3>& alignedBox,
+		const Box<Real, 3>& box)
 	{
 		// Use separating axis theorem to
 		// test for aligned box-box overlap.
@@ -617,8 +617,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<3, Real>& alignedBox,
-		const Box<3, Real>& box,
+		const AlignedBox<Real, 3>& alignedBox,
+		const Box<Real, 3>& box,
 		Vector<Real, 3>& projection)
 	{
 		// Use separating axis theorem to

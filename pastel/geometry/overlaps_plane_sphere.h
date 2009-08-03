@@ -17,8 +17,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Plane<N, Real>& plane,
-			const Sphere<N, Real>& sphere);
+			const Plane<Real, N>& plane,
+			const Sphere<Real, N>& sphere);
 
 	//! Tests if a plane and a sphere overlap.
 
@@ -30,8 +30,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool overlaps(
-			const Plane<N, Real>& plane,
-			const Sphere<N, Real>& sphere,
+			const Plane<Real, N>& plane,
+			const Sphere<Real, N>& sphere,
 			bool& sphereOnPositiveSide);
 
 }

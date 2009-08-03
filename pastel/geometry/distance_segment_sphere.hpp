@@ -9,8 +9,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const Segment<N, Real>& segment,
-		const Sphere<N, Real>& sphere)
+		const Segment<Real, N>& segment,
+		const Sphere<Real, N>& sphere)
 	{
 		const Real centerDistance2 =
 			Pastel::distance2(segment, sphere.position());

@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename InputIterator>
-	AlignedBox<N, Real> boundingAlignedBox(
+	AlignedBox<Real, N> boundingAlignedBox(
 		integer dimension,
 		const InputIterator& from,
 		const InputIterator& to)
@@ -20,7 +20,7 @@ namespace Pastel
 		PENSURE1((N == Dynamic && dimension > 0) ||
 			(N != Dynamic && dimension == N), dimension);
 
-		AlignedBox<N, Real> result(dimension);
+		AlignedBox<Real, N> result(dimension);
 
 		if (from != to)
 		{
@@ -39,27 +39,27 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const AlignedBox<N, Real>& aAlignedBox, 
-		const AlignedBox<N, Real>& bAlignedBox)
+	AlignedBox<Real, N> boundingAlignedBox(
+		const AlignedBox<Real, N>& aAlignedBox, 
+		const AlignedBox<Real, N>& bAlignedBox)
 	{
-		return AlignedBox<N, Real>(
+		return AlignedBox<Real, N>(
 			min(aAlignedBox.min(), bAlignedBox.min()),
 			max(aAlignedBox.max(), bAlignedBox.max()));
 	}
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Sphere<N, Real>& sphere)
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Sphere<Real, N>& sphere)
 	{
-		return AlignedBox<N, Real>(
+		return AlignedBox<Real, N>(
 			sphere.position() - Vector<Real, N>(sphere.radius()),
 			sphere.position() + Vector<Real, N>(sphere.radius()));
 	}
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Box<N, Real>& box)
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Box<Real, N>& box)
 	{
 		const integer dimension = box.dimension();
 
@@ -80,46 +80,46 @@ namespace Pastel
 			radius[i] = axisRadius;
 		}
 
-		return AlignedBox<N, Real>(
+		return AlignedBox<Real, N>(
 			box.position() - radius, 
 			box.position() + radius);
 	}
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Segment<N, Real>& segment)
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Segment<Real, N>& segment)
 	{
-		return AlignedBox<N, Real>(
+		return AlignedBox<Real, N>(
 			min(segment.start(), segment.end()),
 			max(segment.start(), segment.end()));
 	}
 
 	template <int N, typename Real, int M>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Simplex<N, Real, M>& simplex)
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Simplex<Real, N, M>& simplex)
 	{
 		return Pastel::boundingAlignedBox<N, Real>(
 			simplex.begin(), simplex.end());
 	}
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedCube(
-		const AlignedBox<N, Real>& box)
+	AlignedBox<Real, N> boundingAlignedCube(
+		const AlignedBox<Real, N>& box)
 	{
 		const Real maxRadius = max(box.extent()) * 0.5;
 		const Point<Real, N> center = linear(box.min(), box.max(), 0.5);
 		Point<Real, N> minPoint = center - maxRadius;
 		Point<Real, N> maxPoint = center + maxRadius;
 
-		return AlignedBox<N, Real>(
+		return AlignedBox<Real, N>(
 			min(minPoint, box.min()),
 			max(maxPoint, box.max()));
 	}
 
 	template <int N, typename Real>
 	bool extendToCover(
-		const AlignedBox<N, Real>& boxToCover,
-		AlignedBox<N, Real>& boxToExtend)
+		const AlignedBox<Real, N>& boxToCover,
+		AlignedBox<Real, N>& boxToExtend)
 	{
 		bool neededToExtend = Pastel::extendToCover(boxToCover.min(),
 			boxToExtend);
@@ -132,7 +132,7 @@ namespace Pastel
 	template <int N, typename Real>
 	bool extendToCover(
 		const Point<Real, N>& pointToCover,
-		AlignedBox<N, Real>& boxToExtend)
+		AlignedBox<Real, N>& boxToExtend)
 	{
 		const integer dimension = pointToCover.size();
 		PENSURE_OP(dimension, ==, boxToExtend.dimension());

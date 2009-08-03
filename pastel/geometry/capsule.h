@@ -24,7 +24,7 @@ namespace Pastel
 	and an origin centered r-radius sphere.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Capsule
 	{
 	public:
@@ -38,7 +38,7 @@ namespace Pastel
 			const Point<Real, N>& end,
 			const Real& radius);
 		Capsule(
-			const Segment<N, Real>& segment,
+			const Segment<Real, N>& segment,
 			const Real& radius);
 
 		Point<Real, N>& start();
@@ -47,14 +47,14 @@ namespace Pastel
 		Point<Real, N>& end();
 		const Point<Real, N>& end() const;
 
-		Segment<N, Real>& segment();
-		const Segment<N, Real>& segment() const;
+		Segment<Real, N>& segment();
+		const Segment<Real, N>& segment() const;
 
 		void setRadius(const Real& radius);
 		const Real& radius() const;
 
 	private:
-		Segment<N, Real> segment_;
+		Segment<Real, N> segment_;
 		Real radius_;
 	};
 

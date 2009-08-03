@@ -24,7 +24,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real, typename InputIterator>
-	AlignedBox<N, Real> boundingAlignedBox(
+	AlignedBox<Real, N> boundingAlignedBox(
 		integer dimension,
 		const InputIterator& from,
 		const InputIterator& to);
@@ -32,39 +32,39 @@ namespace Pastel
 	//! Finds the minimum volume bounding aligned box of two aligned boxes.
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const AlignedBox<N, Real>& aAlignedBox,
-		const AlignedBox<N, Real>& bAlignedBox);
+	AlignedBox<Real, N> boundingAlignedBox(
+		const AlignedBox<Real, N>& aAlignedBox,
+		const AlignedBox<Real, N>& bAlignedBox);
 
 	//! Finds the minimum volume bounding aligned box of a sphere.
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Sphere<N, Real>& sphere);
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Sphere<Real, N>& sphere);
 
 	//! Finds the minimum volume bounding aligned box of an oriented box.
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Box<N, Real>& box);
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Box<Real, N>& box);
 
 	//! Finds the minimum volume bounding aligned box of a line segment.
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Segment<N, Real>& segment);
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Segment<Real, N>& segment);
 
 	//! Finds the minimum volume bounding aligned box of a simplex.
 
 	template <int N, typename Real, int M>
-	AlignedBox<N, Real> boundingAlignedBox(
-		const Simplex<N, Real, M>& simplex);
+	AlignedBox<Real, N> boundingAlignedBox(
+		const Simplex<Real, N, M>& simplex);
 
 	//! Finds the minimum volume bounding aligned cube of an aligned box.
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> boundingAlignedCube(
-		const AlignedBox<N, Real>& box);
+	AlignedBox<Real, N> boundingAlignedCube(
+		const AlignedBox<Real, N>& box);
 
 	//! Extends an aligned box minimally to cover another aligned box.
 	/*!
@@ -73,8 +73,8 @@ namespace Pastel
 	*/
 	template <int N, typename Real>
 	bool extendToCover(
-		const AlignedBox<N, Real>& boxToCover,
-		AlignedBox<N, Real>& boxToExtend);
+		const AlignedBox<Real, N>& boxToCover,
+		AlignedBox<Real, N>& boxToExtend);
 
 	//! Extends an aligned box minimally to cover a point.
 	/*!
@@ -84,7 +84,7 @@ namespace Pastel
 	template <int N, typename Real>
 	bool extendToCover(
 		const Point<Real, N>& pointToCover,
-		AlignedBox<N, Real>& boxToExtend);
+		AlignedBox<Real, N>& boxToExtend);
 
 }
 

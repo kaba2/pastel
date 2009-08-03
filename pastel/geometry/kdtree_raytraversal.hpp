@@ -51,7 +51,7 @@ namespace Pastel
 			template <typename Intersector>
 			ConstObjectIterator work(
 				const KdTree<N, Real, ObjectPolicy>& tree,
-				const Line<N, Real>& ray,
+				const Line<Real, N>& ray,
 				Intersector intersector)
 			{
 				Vector<Real, 2> tHit;
@@ -208,7 +208,7 @@ namespace Pastel
 		typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 		recursiveRayTraversal(
 		const KdTree<N, Real, ObjectPolicy>& tree,
-		const Line<N, Real>& ray,
+		const Line<Real, N>& ray,
 		Intersector intersector)
 	{
 		static Detail::RecursiveRayTraversal<N, Real, ObjectPolicy> rayTraversal;

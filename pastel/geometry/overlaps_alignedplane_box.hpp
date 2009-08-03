@@ -11,8 +11,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			Box<N, Real> const &box)
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			Box<Real, N> const &box)
 	{
 		PENSURE_OP(alignedPlane.dimension(), ==, box.dimension());
 
@@ -51,8 +51,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			Box<N, Real> const &box,
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			Box<Real, N> const &box,
 			bool &boxOnPositiveSide)
 	{
 		boxOnPositiveSide =

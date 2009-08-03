@@ -19,8 +19,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<2, Real>& alignedBox,
-		const Triangle<3, Real>& triangle);
+		const AlignedBox<Real, 2>& alignedBox,
+		const Triangle<Real, 3>& triangle);
 
 	//! Tests if an aligned box and a triangle overlap.
 
@@ -31,8 +31,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<2, Real>& alignedBox,
-		const Triangle<3, Real>& triangle);
+		const AlignedBox<Real, 2>& alignedBox,
+		const Triangle<Real, 3>& triangle);
 
 }
 

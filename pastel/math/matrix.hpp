@@ -14,12 +14,12 @@ namespace Pastel
 	// Matrices vs vectors
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixVectorMultiplication
-		: public VectorExpression<Real, N, MatrixVectorMultiplication<N, Real,
+		: public VectorExpression<Real, N, MatrixVectorMultiplication<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -74,22 +74,22 @@ namespace Pastel
 
 	template <int Height, int Width, typename Real,
 	typename LeftExpression, typename RightExpression>
-	const MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression> operator *(
+	const MatrixVectorMultiplication<Real, Height, LeftExpression, RightExpression> operator *(
 		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
 		const VectorExpression<Real, Width, RightExpression>& right)
 	{
-		return MatrixVectorMultiplication<Height, Real, LeftExpression, RightExpression>(
+		return MatrixVectorMultiplication<Real, Height, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, 
 			(const RightExpression&)right);
 	}
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMatrixMultiplication
-		: public VectorExpression<Real, N, VectorMatrixMultiplication<N, Real,
+		: public VectorExpression<Real, N, VectorMatrixMultiplication<Real, N, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -144,11 +144,11 @@ namespace Pastel
 
 	template <int Height, int Width, typename Real,
 	typename LeftExpression, typename RightExpression>
-	const VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression> operator *(
+	const VectorMatrixMultiplication<Real, Width, LeftExpression, RightExpression> operator *(
 		const VectorExpression<Real, Height, LeftExpression>& left,
 		const MatrixExpression<Height, Width, Real, RightExpression>& right)
 	{
-		return VectorMatrixMultiplication<Width, Real, LeftExpression, RightExpression>(
+		return VectorMatrixMultiplication<Real, Width, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, 
 			(const RightExpression&)right);
 	}

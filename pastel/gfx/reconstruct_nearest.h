@@ -22,7 +22,7 @@ namespace Pastel
 	void reconstructNearest(
 		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
-		const AlignedBox<N, Real>& region,
+		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
@@ -31,7 +31,7 @@ namespace Pastel
 	void reconstructNearest(
 		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
-		const AlignedBox<N, Real>& region,
+		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
 		integer kNearest);
 
@@ -39,7 +39,7 @@ namespace Pastel
 	void reconstructNearest(
 		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
-		const AlignedBox<N, Real>& region,
+		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view);
 
 }

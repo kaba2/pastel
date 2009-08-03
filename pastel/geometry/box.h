@@ -31,7 +31,7 @@ namespace Pastel
 	'width()' >= 0
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Box
 	{
 	public:
@@ -85,10 +85,10 @@ namespace Pastel
 		Matrix<N, N, Real> rotation_;
 	};
 
-	typedef Box<1, real> Box1;
-	typedef Box<2, real> Box2;
-	typedef Box<3, real> Box3;
-	typedef Box<4, real> Box4;
+	typedef Box<real, 1> Box1;
+	typedef Box<real, 2> Box2;
+	typedef Box<real, 3> Box3;
+	typedef Box<real, 4> Box4;
 
 }
 

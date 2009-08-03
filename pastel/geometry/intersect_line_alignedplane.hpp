@@ -11,8 +11,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	bool intersect(const Line<N, Real>& line,
-		const AlignedPlane<N, Real>& alignedPlane, Real& t)
+	bool intersect(const Line<Real, N>& line,
+		const AlignedPlane<Real, N>& alignedPlane, Real& t)
 	{
 		const Real result(
 			alignedPlane.position() - line.position()[alignedPlane.axis()]);

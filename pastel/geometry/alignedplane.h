@@ -22,7 +22,7 @@ namespace Pastel
 	e = ((1, 0, 0, ...), (0, 1, 0, ...), ...).
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class AlignedPlane
 	{
 	public:
@@ -103,7 +103,7 @@ namespace Pastel
 	};
 
 	template <typename Real>
-	class AlignedPlane<Dynamic, Real>
+	class AlignedPlane<Real, Dynamic>
 	{
 	private:
 		enum
@@ -133,7 +133,7 @@ namespace Pastel
 		{
 		}
 
-		AlignedPlane<N, Real>& operator=(
+		AlignedPlane<Real, N>& operator=(
 			const AlignedPlane& that)
 		{
 			// This is why we define the assignment
@@ -201,11 +201,11 @@ namespace Pastel
 		integer axis_;
 	};
 
-	typedef AlignedPlane<1, real> AlignedPlane1;
-	typedef AlignedPlane<2, real> AlignedPlane2;
-	typedef AlignedPlane<3, real> AlignedPlane3;
-	typedef AlignedPlane<4, real> AlignedPlane4;
-	typedef AlignedPlane<Dynamic, real> AlignedPlaneD;
+	typedef AlignedPlane<real, 1> AlignedPlane1;
+	typedef AlignedPlane<real, 2> AlignedPlane2;
+	typedef AlignedPlane<real, 3> AlignedPlane3;
+	typedef AlignedPlane<real, 4> AlignedPlane4;
+	typedef AlignedPlane<real, Dynamic> AlignedPlaneD;
 
 }
 

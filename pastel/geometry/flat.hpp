@@ -10,38 +10,38 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, int M>
-	Flat<N, Real, M>::~Flat()
+	template <typename Real, int N, int M>
+	Flat<Real, N, M>::~Flat()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 		BOOST_STATIC_ASSERT(M <= N);
 	}
 
-	template <int N, typename Real, int M>
-	void Flat<N, Real, M>::setPosition(
+	template <typename Real, int N, int M>
+	void Flat<Real, N, M>::setPosition(
 		const Point<Real, N>& position)
 	{
 		position_ = position;
 	}
 
-	template <int N, typename Real, int M>
-	const Point<Real, N>& Flat<N, Real, M>::position() const
+	template <typename Real, int N, int M>
+	const Point<Real, N>& Flat<Real, N, M>::position() const
 	{
 		return position_;
 	}
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	Vector<Real, N>&
-		Flat<N, Real, M>::operator[](integer index)
+		Flat<Real, N, M>::operator[](integer index)
 	{
 		PENSURE2(index >= 0 && index < M, index, M);
 
 		return tangent_[index];
 	}
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	const Vector<Real, N>&
-		Flat<N, Real, M>::operator[](integer index) const
+		Flat<Real, N, M>::operator[](integer index) const
 	{
 		PENSURE2(index >= 0 && index < M, index, M);
 

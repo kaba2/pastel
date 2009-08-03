@@ -17,7 +17,7 @@ namespace Pastel
 		// and return true. Otherwise return false.
 		bool operator()(
 			const Object& object,
-			const Line<N, Real>& ray, 
+			const Line<Real, N>& ray, 
 			Real& t) const;
 	};
 	*/
@@ -30,7 +30,7 @@ namespace Pastel
 	typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 		recursiveRayTraversal(
 		const KdTree<N, Real, ObjectPolicy>& tree,
-		const Line<N, Real>& ray,
+		const Line<Real, N>& ray,
 		Intersector intersector);
 
 }

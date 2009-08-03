@@ -14,8 +14,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Box<N, Real>& box,
-		const Sphere<N, Real>& sphere)
+		const Box<Real, N>& box,
+		const Sphere<Real, N>& sphere)
 	{
 		// The coordinates are transformed such that
 		// the box becomes an origin centered aligned box.
@@ -31,12 +31,12 @@ namespace Pastel
 		// The radius is not affected by a
 		// rotation.
 
-		const Sphere<N, Real> transformedSphere(
+		const Sphere<Real, N> transformedSphere(
 			(sphere.position() - asVector(box.position())) *
 			boxRotationInverse,
 			sphere.radius());
 
-		const AlignedBox<N, Real> transformedBox(
+		const AlignedBox<Real, N> transformedBox(
 			Point<Real, N>(-box.width()),
 			Point<Real, N>(box.width()));
 

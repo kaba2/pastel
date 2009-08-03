@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Tuple<Real, 2> closest(
-		const Segment<N, Real>& aSegment,
-		const Segment<N, Real>& bSegment)
+		const Segment<Real, N>& aSegment,
+		const Segment<Real, N>& bSegment)
 	{
 		// The following ideas are from the
 		// article "Distance between Lines and Segments
@@ -63,10 +63,10 @@ namespace Pastel
 		const Real bNorm2 = dot(bDelta);
 
 		const Vector<Real, N> aUnitDelta = aDelta / std::sqrt(aNorm2);
-		const Line<N, Real> aLine(aSegment.start(), aUnitDelta);
+		const Line<Real, N> aLine(aSegment.start(), aUnitDelta);
 
 		const Vector<Real, N> bUnitDelta = bDelta / std::sqrt(aNorm2);
-		const Line<N, Real> bLine(bSegment.start(), bUnitDelta);
+		const Line<Real, N> bLine(bSegment.start(), bUnitDelta);
 
 		// Handle degenerate cases.
 

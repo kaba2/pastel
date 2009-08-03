@@ -14,8 +14,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool intersect(
-		const Ray<N, Real>& ray,
-		const AlignedPlane<N, Real>& alignedPlane,
+		const Ray<Real, N>& ray,
+		const AlignedPlane<Real, N>& alignedPlane,
 		Real& t);
 
 }

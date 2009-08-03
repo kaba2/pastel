@@ -14,7 +14,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Simplex<N, Real, N>& simplex,
+		const Simplex<Real, N, N>& simplex,
 		const Point<Real, N>& point);
 
 }

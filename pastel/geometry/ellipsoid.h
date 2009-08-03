@@ -27,7 +27,7 @@ namespace Pastel
 	//! Returns a minimum volume aligned box bounding the given ellipse.
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> ellipsoidBoundingAlignedBox(
+	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
 		const Matrix<N, N, Real>& quadraticForm);
 
 }

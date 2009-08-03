@@ -7,11 +7,11 @@
 namespace Pastel
 {
 
-	template class AlignedBox<1, real>;
-	template class AlignedBox<2, real>;
-	template class AlignedBox<3, real>;
-	template class AlignedBox<4, real>;
-	template class AlignedBox<5, real>;
+	template class AlignedBox<real, 1>;
+	template class AlignedBox<real, 2>;
+	template class AlignedBox<real, 3>;
+	template class AlignedBox<real, 4>;
+	template class AlignedBox<real, 5>;
 
 }
 
@@ -19,11 +19,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class AlignedPlane<1, real>;
-	template class AlignedPlane<2, real>;
-	template class AlignedPlane<3, real>;
-	template class AlignedPlane<4, real>;
-	template class AlignedPlane<5, real>;
+	template class AlignedPlane<real, 1>;
+	template class AlignedPlane<real, 2>;
+	template class AlignedPlane<real, 3>;
+	template class AlignedPlane<real, 4>;
+	template class AlignedPlane<real, 5>;
 
 }
 
@@ -31,11 +31,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class AffineTransformation<1, real>;
-	template class AffineTransformation<2, real>;
-	template class AffineTransformation<3, real>;
-	template class AffineTransformation<4, real>;
-	template class AffineTransformation<5, real>;
+	template class AffineTransformation<real, 1>;
+	template class AffineTransformation<real, 2>;
+	template class AffineTransformation<real, 3>;
+	template class AffineTransformation<real, 4>;
+	template class AffineTransformation<real, 5>;
 
 }
 
@@ -62,11 +62,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Transformation<1, real>;
-	template class Transformation<2, real>;
-	template class Transformation<3, real>;
-	template class Transformation<4, real>;
-	template class Transformation<5, real>;
+	template class Transformation<real, 1>;
+	template class Transformation<real, 2>;
+	template class Transformation<real, 3>;
+	template class Transformation<real, 4>;
+	template class Transformation<real, 5>;
 
 }
 
@@ -74,11 +74,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Sphere<1, real>;
-	template class Sphere<2, real>;
-	template class Sphere<3, real>;
-	template class Sphere<4, real>;
-	template class Sphere<5, real>;
+	template class Sphere<real, 1>;
+	template class Sphere<real, 2>;
+	template class Sphere<real, 3>;
+	template class Sphere<real, 4>;
+	template class Sphere<real, 5>;
 
 }
 
@@ -86,11 +86,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Segment<1, real>;
-	template class Segment<2, real>;
-	template class Segment<3, real>;
-	template class Segment<4, real>;
-	template class Segment<5, real>;
+	template class Segment<real, 1>;
+	template class Segment<real, 2>;
+	template class Segment<real, 3>;
+	template class Segment<real, 4>;
+	template class Segment<real, 5>;
 
 }
 
@@ -98,11 +98,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Line<1, real>;
-	template class Line<2, real>;
-	template class Line<3, real>;
-	template class Line<4, real>;
-	template class Line<5, real>;
+	template class Line<real, 1>;
+	template class Line<real, 2>;
+	template class Line<real, 3>;
+	template class Line<real, 4>;
+	template class Line<real, 5>;
 
 }
 
@@ -132,11 +132,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Box<1, real>;
-	template class Box<2, real>;
-	template class Box<3, real>;
-	template class Box<4, real>;
-	template class Box<5, real>;
+	template class Box<real, 1>;
+	template class Box<real, 2>;
+	template class Box<real, 3>;
+	template class Box<real, 4>;
+	template class Box<real, 5>;
 
 }
 
@@ -144,10 +144,10 @@ namespace Pastel
 namespace Pastel
 {
 
-	template class Plane<1, real>;
-	template class Plane<2, real>;
-	template class Plane<3, real>;
-	template class Plane<4, real>;
-	template class Plane<5, real>;
+	template class Plane<real, 1>;
+	template class Plane<real, 2>;
+	template class Plane<real, 3>;
+	template class Plane<real, 4>;
+	template class Plane<real, 5>;
 
 }

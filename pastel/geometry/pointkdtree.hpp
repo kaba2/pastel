@@ -128,7 +128,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void PointKdTree<N, Real, ObjectPolicy>::reserveBound(
-		const AlignedBox<N, Real>& boxToCover)
+		const AlignedBox<Real, N>& boxToCover)
 	{
 		if (extendToCover(
 			boxToCover, bound_))
@@ -138,7 +138,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	const AlignedBox<N, Real>& PointKdTree<N, Real, ObjectPolicy>::bound() const
+	const AlignedBox<Real, N>& PointKdTree<N, Real, ObjectPolicy>::bound() const
 	{
 		return bound_;
 	}
@@ -297,7 +297,7 @@ namespace Pastel
 		objectList_.clear();
 		nodeAllocator_.clear();
 		root_ = 0;
-		bound_ = AlignedBox<N, Real>(dimension_);
+		bound_ = AlignedBox<Real, N>(dimension_);
 		leaves_ = 0;
 
 		initialize();
@@ -660,8 +660,8 @@ namespace Pastel
 				{
 					integer computedSplitAxis = 0;
 					const bool overlapped = intersect(
-						AlignedBox<N, Real>(minBound, maxBound),
-						Plane<N, Real>(asPoint(splitDirection * splitPosition), 
+						AlignedBox<Real, N>(minBound, maxBound),
+						Plane<Real, N>(asPoint(splitDirection * splitPosition), 
 						splitDirection),
 						computedSplitAxis,
 						negativeSplitMax,

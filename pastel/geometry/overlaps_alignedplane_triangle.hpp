@@ -10,8 +10,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			Triangle<N, Real> const &triangle)
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			Triangle<Real, N> const &triangle)
 	{
 		// There is an intersection if two points of the triangle
 		// are located at different sides of AlignedPlane or any of
@@ -49,8 +49,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-		bool overlaps(AlignedPlane<N, Real> const &alignedPlane,
-			Triangle<N, Real> const &triangle,
+		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
+			Triangle<Real, N> const &triangle,
 			bool &triangleOnPositiveSide)
 	{
 		// There is an intersection if two points of the triangle

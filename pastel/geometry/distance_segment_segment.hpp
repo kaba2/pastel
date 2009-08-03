@@ -9,8 +9,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const Segment<N, Real>& aSegment,
-		const Segment<N, Real>& bSegment)
+		const Segment<Real, N>& aSegment,
+		const Segment<Real, N>& bSegment)
 	{
 		const Tuple<Real, 2> t = closest(aSegment, bSegment);
 		return dot(bSegment.at(t[1]) - aSegment.at(t[0]));

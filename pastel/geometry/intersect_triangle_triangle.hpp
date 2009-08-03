@@ -20,12 +20,12 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(
-		const Triangle<3, Real>& aTriangle,
-		const Triangle<3, Real>& bTriangle,
-		Line<3, Real>& intersectionLine,
-		AlignedBox<1, Real>& intersectionRange)
+		const Triangle<Real, 3>& aTriangle,
+		const Triangle<Real, 3>& bTriangle,
+		Line<Real, 3>& intersectionLine,
+		AlignedBox<Real, 1>& intersectionRange)
 	{
-		const Plane<3, Real> aPlane(
+		const Plane<Real, 3> aPlane(
 			aTriangle[0],
 			cross(aTriangle[1] - aTriangle[0],
 			aTriangle[2] - aTriangle[0]));
@@ -35,7 +35,7 @@ namespace Pastel
 			return false;
 		}
 
-		const Plane<3, Real> bPlane(
+		const Plane<Real, 3> bPlane(
 			bTriangle[0],
 			cross(bTriangle[1] - bTriangle[0],
 			bTriangle[2] - bTriangle[0]));
@@ -45,7 +45,7 @@ namespace Pastel
 			return false;
 		}
 
-		Flat<3, Real, 2> aFlat;
+		Flat<Real, 3, 2> aFlat;
 		aFlat.setPosition(aTriangle[0]);
 		aFlat[0] = aTriangle[1] - aTriangle[0];
 		aFlat[1] = aTriangle[2] - aTriangle[0];
@@ -55,7 +55,7 @@ namespace Pastel
 		// should be an intersection between the
 		// planes.
 
-		Line<3, Real> line;
+		Line<Real, 3> line;
 		bool intersected =
 			Pastel::intersect(aFlat, bPlane, line);
 		ASSERT(intersected);
@@ -64,16 +64,16 @@ namespace Pastel
 		// See what their parametric position
 		// is on that line..
 
-		const AlignedBox<1, Real> aInterval = 
+		const AlignedBox<Real, 1> aInterval = 
 			projectAxis(aTriangle, line.direction());
-		const AlignedBox<1, Real> bInterval = 
+		const AlignedBox<Real, 1> bInterval = 
 			projectAxis(bTriangle, line.direction());
 
 		// If the parameter ranges intersect
 		// then the triangles also intersect,
 		// otherwise they don't.
 
-		AlignedBox<1, Real> sharedInterval;
+		AlignedBox<Real, 1> sharedInterval;
 		if (!intersect(aInterval, bInterval, sharedInterval))
 		{
 			return false;

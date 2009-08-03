@@ -9,13 +9,13 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Real volume(const AlignedBox<N, Real>& box)
+	Real volume(const AlignedBox<Real, N>& box)
 	{
 		return boxVolume(box.max() - box.min());
 	}
 
 	template <int N, typename Real>
-	Real volume(const Box<N, Real>& box)
+	Real volume(const Box<Real, N>& box)
 	{
 		return boxVolume(2 * box.width());
 	}

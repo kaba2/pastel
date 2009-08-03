@@ -15,9 +15,9 @@ namespace Pastel
 
 	template <int N, typename Real>
 		bool intersect(
-			const Plane<N, Real>& plane,
-			const Sphere<N, Real>& sphere,
-			Sphere<N, Real>& result);
+			const Plane<Real, N>& plane,
+			const Sphere<Real, N>& sphere,
+			Sphere<Real, N>& result);
 
 }
 

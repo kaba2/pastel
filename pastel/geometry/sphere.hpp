@@ -9,8 +9,8 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
-	Sphere<N, Real>::Sphere()
+	template <typename Real, int N>
+	Sphere<Real, N>::Sphere()
 		: position_(0)
 		, radius_(0)
 		, inverseRadius_(infinity<Real>())
@@ -18,16 +18,16 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <int N, typename Real>
-	Sphere<N, Real>::Sphere(integer dimension)
+	template <typename Real, int N>
+	Sphere<Real, N>::Sphere(integer dimension)
 		: position_(ofDimension(dimension), 0)
 		, radius_(0)
 		, inverseRadius_(infinity<Real>())
 	{
 	}
 
-	template <int N, typename Real>
-	Sphere<N, Real>::Sphere(
+	template <typename Real, int N>
+	Sphere<Real, N>::Sphere(
 		const Point<Real, N>& position,
 		const Real& radius)
 		: position_(position)
@@ -37,8 +37,8 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
 
-	template <int N, typename Real>
-	Sphere<N, Real>::Sphere(
+	template <typename Real, int N>
+	Sphere<Real, N>::Sphere(
 		integer dimension,
 		const Point<Real, N>& position,
 		const Real& radius)
@@ -49,14 +49,14 @@ namespace Pastel
 		PENSURE_OP(dimension, ==, position.dimension());
 	}
 
-	template <int N, typename Real>
-	Sphere<N, Real>::~Sphere()
+	template <typename Real, int N>
+	Sphere<Real, N>::~Sphere()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
-	template <int N, typename Real>
-	void Sphere<N, Real>::swap(Sphere<N, Real>& that)
+	template <typename Real, int N>
+	void Sphere<Real, N>::swap(Sphere<Real, N>& that)
 	{
 		using std::swap;
 		using std::swap;
@@ -66,14 +66,14 @@ namespace Pastel
 		swap(inverseRadius_, that.inverseRadius_);
 	}
 
-	template <int N, typename Real>
-	integer Sphere<N, Real>::dimension() const
+	template <typename Real, int N>
+	integer Sphere<Real, N>::dimension() const
 	{
 		return position_.dimension();
 	}
 
-	template <int N, typename Real>
-	void Sphere<N, Real>::setPosition(
+	template <typename Real, int N>
+	void Sphere<Real, N>::setPosition(
 		const Point<Real, N>& position)
 	{
 		PENSURE_OP(position_.dimension(), ==, position.dimension());
@@ -81,34 +81,34 @@ namespace Pastel
 		position_ = position;
 	}
 
-	template <int N, typename Real>
-	const Point<Real, N>& Sphere<N, Real>::position() const
+	template <typename Real, int N>
+	const Point<Real, N>& Sphere<Real, N>::position() const
 	{
 		return position_;
 	}
 
-	template <int N, typename Real>
-	void Sphere<N, Real>::setRadius(const Real& radius)
+	template <typename Real, int N>
+	void Sphere<Real, N>::setRadius(const Real& radius)
 	{
 		radius_ = radius;
 		inverseRadius_ = inverse(radius_);
 	}
 
-	template <int N, typename Real>
-	const Real& Sphere<N, Real>::radius() const
+	template <typename Real, int N>
+	const Real& Sphere<Real, N>::radius() const
 	{
 		return radius_;
 	}
 
-	template <int N, typename Real>
-	const Real& Sphere<N, Real>::inverseRadius() const
+	template <typename Real, int N>
+	const Real& Sphere<Real, N>::inverseRadius() const
 	{
 		return inverseRadius_;
 	}
 
-	template <int N, typename Real>
-	void swap(Sphere<N, Real>& left,
-		Sphere<N, Real>& right)
+	template <typename Real, int N>
+	void swap(Sphere<Real, N>& left,
+		Sphere<Real, N>& right)
 	{
 		left.swap(right);
 	}

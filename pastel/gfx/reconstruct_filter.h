@@ -16,7 +16,7 @@ namespace Pastel
 	void reconstructFilter(
 		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
-		const AlignedBox<N, Real>& region,
+		const AlignedBox<Real, N>& region,
 		const Filter& filter,
 		const PASTEL_NO_DEDUCTION(Real)& filterRadius,
 		const View<N, Data, Output_View>& view);

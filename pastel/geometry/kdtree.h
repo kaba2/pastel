@@ -18,9 +18,9 @@ namespace Pastel
 	public:
 		typedef Point<Real, N> Object;
 
-		AlignedBox<N, Real> bound(const Point<Real, N>& object) const
+		AlignedBox<Real, N> bound(const Point<Real, N>& object) const
 		{
-			return AlignedBox<N, Real>(object);
+			return AlignedBox<Real, N>(object);
 		}
 
 		Tuple<Real, 2> bound(const Point<Real, N>& object, integer axis) const
@@ -36,7 +36,7 @@ namespace Pastel
 	public:
 		typedef UnspecifiedType Object;
 
-		AlignedBox<N, Real> bound(const Object& that) const;
+		AlignedBox<Real, N> bound(const Object& that) const;
 		Tuple<Real, 2> bound(const Object& that, index) const;
 	};
 	*/
@@ -173,7 +173,7 @@ namespace Pastel
 		Exception safety:
 		strong (FIX: make it nothrow)
 		*/
-		void reserveBound(const AlignedBox<N, Real>& boxToCover);
+		void reserveBound(const AlignedBox<Real, N>& boxToCover);
 
 		//! Returns the bounding box of the tree.
 		/*!
@@ -183,7 +183,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		const AlignedBox<N, Real>& bound() const;
+		const AlignedBox<Real, N>& bound() const;
 
 		//! Returns true if there are no objects in the tree.
 		/*!
@@ -428,7 +428,7 @@ namespace Pastel
 		ObjectContainer objectList_;
 		Allocator nodeAllocator_;
 		Node* root_;
-		AlignedBox<N, Real> bound_;
+		AlignedBox<Real, N> bound_;
 		integer leaves_;
 
 		// Note: this is not the same as

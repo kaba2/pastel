@@ -31,8 +31,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	AlignedBox<1, Real> projectAxis(
-		const AlignedBox<N, Real>& box,
+	AlignedBox<Real, 1> projectAxis(
+		const AlignedBox<Real, N>& box,
 		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a box to an origin passing line.
@@ -52,8 +52,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	AlignedBox<1, Real> projectAxis(
-		const Box<N, Real>& box,
+	AlignedBox<Real, 1> projectAxis(
+		const Box<Real, N>& box,
 		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a sphere to an origin passing line.
@@ -73,8 +73,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	AlignedBox<1, Real> projectAxis(
-		const Sphere<N, Real>& sphere,
+	AlignedBox<Real, 1> projectAxis(
+		const Sphere<Real, N>& sphere,
 		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a line segment to an origin passing line.
@@ -94,8 +94,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	AlignedBox<1, Real> projectAxis(
-		const Segment<N, Real>& segment,
+	AlignedBox<Real, 1> projectAxis(
+		const Segment<Real, N>& segment,
 		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a triangle to an origin passing line.
@@ -115,8 +115,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	AlignedBox<1, Real> projectAxis(
-		const Triangle<N, Real>& triangle,
+	AlignedBox<Real, 1> projectAxis(
+		const Triangle<Real, N>& triangle,
 		const Vector<Real, N>& unitAxis);
 
 }

@@ -13,12 +13,12 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Triangle
-		: public Simplex<N, Real, 2>
+		: public Simplex<Real, N, 2>
 	{
 	private:
-		typedef Simplex<N, Real, 2> Base;
+		typedef Simplex<Real, N, 2> Base;
 
 	public:
 		using Base::operator[];
@@ -42,7 +42,7 @@ namespace Pastel
 		{
 		}
 
-		Triangle<N, Real>& operator=(
+		Triangle<Real, N>& operator=(
 			const Tuple<Point<Real, N>, 3>& that)
 		{
 			Base::operator=(that);
@@ -50,14 +50,14 @@ namespace Pastel
 		}
 	};
 
-	typedef Triangle<1, real> Triangle1;
-	typedef Triangle<2, real> Triangle2;
-	typedef Triangle<3, real> Triangle3;
-	typedef Triangle<4, real> Triangle4;
-	typedef Triangle<Dynamic, real> TriangleD;
+	typedef Triangle<real, 1> Triangle1;
+	typedef Triangle<real, 2> Triangle2;
+	typedef Triangle<real, 3> Triangle3;
+	typedef Triangle<real, 4> Triangle4;
+	typedef Triangle<real, Dynamic> TriangleD;
 
 /*
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Triangle
 		: public Tuple<Point<Real, N>, 3>
 	{
@@ -86,7 +86,7 @@ namespace Pastel
 		{
 		}
 
-		Triangle<N, Real>& operator=(
+		Triangle<Real, N>& operator=(
 			const Tuple<Point<Real, N>, 3>& that)
 		{
 			Base::operator=(that);
@@ -94,10 +94,10 @@ namespace Pastel
 		}
 	};
 
-	typedef Triangle<1, real> Triangle1;
-	typedef Triangle<2, real> Triangle2;
-	typedef Triangle<3, real> Triangle3;
-	typedef Triangle<4, real> Triangle4;
+	typedef Triangle<real, 1> Triangle1;
+	typedef Triangle<real, 2> Triangle2;
+	typedef Triangle<real, 3> Triangle3;
+	typedef Triangle<real, 4> Triangle4;
 
 */
 

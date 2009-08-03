@@ -16,7 +16,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class AlignedBox;
 
 	//! An axis-aligned box
@@ -32,7 +32,7 @@ namespace Pastel
 	not enforced by the system but assumed by the algorithms.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class AlignedBoxBase
 	{
 	public:
@@ -77,7 +77,7 @@ namespace Pastel
 		}
 
 		//! Swaps two aligned boxes.
-		void swap(AlignedBox<N, Real>& that)
+		void swap(AlignedBox<Real, N>& that)
 		{
 			using std::swap;
 
@@ -158,37 +158,37 @@ namespace Pastel
 		}
 
 		//! Translates the box by the given vector.
-		AlignedBox<N, Real>& operator+=(
+		AlignedBox<Real, N>& operator+=(
 			const Vector<Real, N>& right)
 		{
 			min_ += right;
 			max_ += right;
 
-			return (AlignedBox<N, Real>&)*this;
+			return (AlignedBox<Real, N>&)*this;
 		}
 
-		AlignedBox<N, Real> operator+(
+		AlignedBox<Real, N> operator+(
 			const Vector<Real, N>& right) const
 		{
-			AlignedBox<N, Real> result((const AlignedBox<N, Real>&)*this);
+			AlignedBox<Real, N> result((const AlignedBox<Real, N>&)*this);
 			result += right;
 			return result;
 		}
 
 		//! Translates the box backwards by the given vector.
-		AlignedBox<N, Real>& operator-=(
+		AlignedBox<Real, N>& operator-=(
 			const Vector<Real, N>& right)
 		{
 			min_ -= right;
 			max_ -= right;
 
-			return (AlignedBox<N, Real>&)*this;
+			return (AlignedBox<Real, N>&)*this;
 		}
 
-		AlignedBox<N, Real> operator-(
+		AlignedBox<Real, N> operator-(
 			const Vector<Real, N>& right) const
 		{
-			AlignedBox<N, Real> result((const AlignedBox<N, Real>&)*this);
+			AlignedBox<Real, N> result((const AlignedBox<Real, N>&)*this);
 			result -= right;
 			return result;
 		}

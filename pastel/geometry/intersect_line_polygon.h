@@ -9,8 +9,8 @@ namespace Pastel
 {
 
 	template <typename Real>
-	bool intersect(const Line<2, Real>& line,
-		const Polygon<2, Real>& polygon,
+	bool intersect(const Line<Real, 2>& line,
+		const Polygon<Real, 2>& polygon,
 		Vector<Real, 2>& t);
 
 }

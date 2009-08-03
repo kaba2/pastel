@@ -14,28 +14,28 @@ namespace Pastel
 
 	template
 		bool contains(
-		const AlignedBox<1, TestReal>& outer,
-		const AlignedBox<1, TestReal>& inner);
+		const AlignedBox<TestReal, 1>& outer,
+		const AlignedBox<TestReal, 1>& inner);
 
 	template
 		bool contains(
-		const AlignedBox<2, TestReal>& outer,
-		const AlignedBox<2, TestReal>& inner);
+		const AlignedBox<TestReal, 2>& outer,
+		const AlignedBox<TestReal, 2>& inner);
 
 	template
 		bool contains(
-		const AlignedBox<3, TestReal>& outer,
-		const AlignedBox<3, TestReal>& inner);
+		const AlignedBox<TestReal, 3>& outer,
+		const AlignedBox<TestReal, 3>& inner);
 
 	template
 		bool contains(
-		const AlignedBox<4, TestReal>& outer,
-		const AlignedBox<4, TestReal>& inner);
+		const AlignedBox<TestReal, 4>& outer,
+		const AlignedBox<TestReal, 4>& inner);
 
 	template
 		bool contains(
-		const AlignedBox<5, TestReal>& outer,
-		const AlignedBox<5, TestReal>& inner);
+		const AlignedBox<TestReal, 5>& outer,
+		const AlignedBox<TestReal, 5>& inner);
 
 }
 
@@ -81,10 +81,10 @@ namespace Pastel
 				return Tuple<TestReal, 2>();
 			}
 
-			AlignedBox<N, TestReal> bound(
+			AlignedBox<TestReal, N> bound(
 				const Object& object) const
 			{
-				return AlignedBox<N, TestReal>();
+				return AlignedBox<TestReal, N>();
 			}
 		};
 

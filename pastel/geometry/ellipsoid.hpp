@@ -59,7 +59,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	AlignedBox<N, Real> ellipsoidBoundingAlignedBox(
+	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
 		const Matrix<N, N, Real>& quadraticForm)
 	{
 		// TODO: What if the 'quadraticForm'
@@ -149,7 +149,7 @@ namespace Pastel
 		const Vector<Real, N> radius = sqrt(mabs(
 			diagonal(invQuadraticForm)));
 
-		const AlignedBox<N, Real> bound(
+		const AlignedBox<Real, N> bound(
 			asPoint(-radius), asPoint(radius));
 
 		return bound;

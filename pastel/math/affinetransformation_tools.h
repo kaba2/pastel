@@ -14,53 +14,53 @@ namespace Pastel
 
 	//! Returns the inverse of the transformation.
 
-	template <int N, typename Real>
-	AffineTransformation<N, Real> inverse(
-		const AffineTransformation<N, Real>& that);
+	template <typename Real, int N>
+	AffineTransformation<Real, N> inverse(
+		const AffineTransformation<Real, N>& that);
 
 	//! Returns the inverse assuming orthogonality.
 
-	template <int N, typename Real>
-	AffineTransformation<N, Real> orthogonalInverse(
-		const AffineTransformation<N, Real>& that);
+	template <typename Real, int N>
+	AffineTransformation<Real, N> orthogonalInverse(
+		const AffineTransformation<Real, N>& that);
 
 	// 2D
 
 	//! Returns a 2D x-shear transformation.
 
 	template <typename Real>
-	AffineTransformation<2, Real> xShear2(
+	AffineTransformation<Real, 2> xShear2(
 		const PASTEL_NO_DEDUCTION(Real)& yShear);
 
 	//! Returns a 2D y-shear transformation.
 
 	template <typename Real>
-	AffineTransformation<2, Real> yShear2(
+	AffineTransformation<Real, 2> yShear2(
 		const PASTEL_NO_DEDUCTION(Real)& xShear);
 
 	//! Returns a 2D rotation transformation.
 
 	template <typename Real>
-	AffineTransformation<2, Real> rotation2(
+	AffineTransformation<Real, 2> rotation2(
 		const PASTEL_NO_DEDUCTION(Real)& angle);
 
 	//! Returns a 2D translation transformation.
 
 	template <typename Real>
-	AffineTransformation<2, Real> translation2(
+	AffineTransformation<Real, 2> translation2(
 		const Vector<Real, 2>& translation);
 
 	//! Returns the least squares affine transformation relating two point sets.
 
-	template <int N, typename Real>
-	AffineTransformation<N, Real> leastSquaresAffineTransformation(
+	template <typename Real, int N>
+	AffineTransformation<Real, N> leastSquaresAffineTransformation(
 		const std::vector<Point<Real, N> >& from,
 		const std::vector<Point<Real, N> >& to);
 
 	//! Returns the least squares affine transformation relating two point sets.
 
-	template <int N, typename Real>
-	AffineTransformation<N, Real> leastSquaresAffineTransformation(
+	template <typename Real, int N>
+	AffineTransformation<Real, N> leastSquaresAffineTransformation(
 		integer dimension,
 		const std::vector<Point<Real, N> >& from,
 		const std::vector<Point<Real, N> >& to);
@@ -82,7 +82,7 @@ namespace Pastel
 	//! Returns the similarity transformation from given parameters.
 
 	template <typename Real>
-	AffineTransformation<2, Real> similarityTransformation(
+	AffineTransformation<Real, 2> similarityTransformation(
 		const PASTEL_NO_DEDUCTION(Real)& scaling,
 		const PASTEL_NO_DEDUCTION(Real)& ccwRotation,
 		const Vector<Real, 2>& translation);
@@ -90,7 +90,7 @@ namespace Pastel
 	//! Returns the similarity transformation from given parameters (scale, angle, x, y).
 
 	template <typename Real>
-	AffineTransformation<2, Real> similarityTransformation(
+	AffineTransformation<Real, 2> similarityTransformation(
 		const Tuple<Real, 4>& parameter);
 
 	//! Returns the affine transformation from 'from' to 'to'.
@@ -108,53 +108,53 @@ namespace Pastel
 		const Point<Real, 2>& cFrom,
 		const Point<Real, 2>& aTo, const Point<Real, 2>& bTo,
 		const Point<Real, 2>& cTo,
-		AffineTransformation<2, Real>& matrix);
+		AffineTransformation<Real, 2>& matrix);
 
 	// 3D
 
 	//! Returns a 3D x-shear transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> xShear3(
+	AffineTransformation<Real, 3> xShear3(
 		const PASTEL_NO_DEDUCTION(Real)& yShear,
 		const PASTEL_NO_DEDUCTION(Real)& zShear);
 
 	//! Returns a 3D y-shear transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> yShear3(
+	AffineTransformation<Real, 3> yShear3(
 		const PASTEL_NO_DEDUCTION(Real)& xShear,
 		const PASTEL_NO_DEDUCTION(Real)& zShear);
 
 	//! Returns a 3D z-shear transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> zShear3(
+	AffineTransformation<Real, 3> zShear3(
 		const PASTEL_NO_DEDUCTION(Real)& xShear,
 		const PASTEL_NO_DEDUCTION(Real)& yShear);
 
 	//! Returns a 3D x-rotation transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> xRotation3(
+	AffineTransformation<Real, 3> xRotation3(
 		const PASTEL_NO_DEDUCTION(Real)& angle);
 
 	//! Returns a 3D y-rotation transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> yRotation3(
+	AffineTransformation<Real, 3> yRotation3(
 		const PASTEL_NO_DEDUCTION(Real)& angle);
 
 	//! Returns a 3D z-rotation transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> zRotation3(
+	AffineTransformation<Real, 3> zRotation3(
 		const PASTEL_NO_DEDUCTION(Real)& angle);
 
 	//! Returns a 3D translation transformation.
 
 	template <typename Real>
-	AffineTransformation<3, Real> translation3(
+	AffineTransformation<Real, 3> translation3(
 		const Vector<Real, 3>& translation);
 
 	//! Returns the affine transformation from 'from' to 'to'.
@@ -172,7 +172,7 @@ namespace Pastel
 		const Point<Real, 3>& cFrom,
 		const Point<Real, 3>& aTo, const Point<Real, 3>& bTo,
 		const Point<Real, 3>& cTo,
-		AffineTransformation<3, Real>& matrix);
+		AffineTransformation<Real, 3>& matrix);
 
 	//! Returns the affine transformation from 'from' to 'to'.
 
@@ -189,7 +189,7 @@ namespace Pastel
 		const Point<Real, 3>& cFrom, const Point<Real, 3>& dFrom,
 		const Point<Real, 3>& aTo, const Point<Real, 3>& bTo,
 		const Point<Real, 3>& cTo,
-		AffineTransformation<3, Real>& matrix);
+		AffineTransformation<Real, 3>& matrix);
 
 }
 

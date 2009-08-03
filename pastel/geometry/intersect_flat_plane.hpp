@@ -15,9 +15,9 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool intersect(
-		const Flat<N, Real, 2>& aPlane,
-		const Plane<N, Real>& bPlane,
-		Line<N, Real>& line)
+		const Flat<Real, N, 2>& aPlane,
+		const Plane<Real, N>& bPlane,
+		Line<Real, N>& line)
 	{
 		// Let
 		// P(u, v) = P + u * U + v * V

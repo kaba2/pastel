@@ -457,7 +457,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename ObjectPolicy>
 	void KdTree<N, Real, ObjectPolicy>::reserveBound(
-		const AlignedBox<N, Real>& boxToCover)
+		const AlignedBox<Real, N>& boxToCover)
 	{
 		extendToCover(
 			boxToCover, bound_);
@@ -466,7 +466,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename ObjectPolicy>
-	const AlignedBox<N, Real>& KdTree<N, Real, ObjectPolicy>::bound() const
+	const AlignedBox<Real, N>& KdTree<N, Real, ObjectPolicy>::bound() const
 	{
 		return bound_;
 	}
@@ -557,7 +557,7 @@ namespace Pastel
 		objectList_.clear();
 		nodeAllocator_.clear();
 		root_ = 0;
-		bound_ = AlignedBox<N, Real>(dimension_);
+		bound_ = AlignedBox<Real, N>(dimension_);
 		leaves_ = 0;
 		objects_ = 0;
 

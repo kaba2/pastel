@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool intersect(
-		const Ray<N, Real>& ray,
-		const Plane<N, Real>& plane,
+		const Ray<Real, N>& ray,
+		const Plane<Real, N>& plane,
 		Real& t)
 	{
 		// For derivation, see line-plane intersection.

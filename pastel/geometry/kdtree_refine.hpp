@@ -53,7 +53,7 @@ namespace Pastel
 
 			// Sliding midpoint
 
-			AlignedBox<1, Real> objectBound;
+			AlignedBox<Real, 1> objectBound;
 
 			ConstObjectIterator iter = objectBegin;
 			ConstObjectIterator iterEnd = objectEnd;
@@ -62,7 +62,7 @@ namespace Pastel
 				const Tuple<Real, 2> objectRange = objectPolicy.bound(*iter, splitAxis);
 
 				objectBound = boundingAlignedBox(objectBound,
-					AlignedBox<1, Real>(
+					AlignedBox<Real, 1>(
 					Point<Real, 1>(objectRange[0]),
 					Point<Real, 1>(objectRange[1])));
 
@@ -104,7 +104,7 @@ namespace Pastel
 
 			const integer dimension = bound.dimension();
 
-			AlignedBox<N, Real> objectBound(dimension);
+			AlignedBox<Real, N> objectBound(dimension);
 
 			ConstObjectIterator iter = objectBegin;
 			ConstObjectIterator iterEnd = objectEnd;
@@ -226,7 +226,7 @@ namespace Pastel
 			void refineSurfaceAreaHeuristic(
 			const typename KdTree<N, Real, ObjectPolicy>::Cursor& cursor,
 			integer depth,
-			const AlignedBox<N, Real>& bound,
+			const AlignedBox<Real, N>& bound,
 			integer maxDepth,
 			integer maxObjects,
 			integer badRefines,
@@ -291,8 +291,8 @@ namespace Pastel
 
 						std::sort(pointList.begin(), pointList.end());
 
-						AlignedBox<N, Real> positiveBound(bound);
-						AlignedBox<N, Real> negativeBound(bound);
+						AlignedBox<Real, N> positiveBound(bound);
+						AlignedBox<Real, N> negativeBound(bound);
 
 						integer negativeObjects = 0;
 						integer positiveObjects = cursor.objects();
@@ -372,13 +372,13 @@ namespace Pastel
 				const Real splitPosition = cursor.splitPosition();
 				const integer splitAxis = cursor.splitAxis();
 
-				AlignedBox<N, Real> negativeBound(bound);
+				AlignedBox<Real, N> negativeBound(bound);
 				negativeBound.max()[splitAxis] = splitPosition;
 
 				refineSurfaceAreaHeuristic(cursor.negative(), depth + 1,
 					negativeBound, maxDepth, maxObjects, badRefines, tree);
 
-				AlignedBox<N, Real> positiveBound(bound);
+				AlignedBox<Real, N> positiveBound(bound);
 				positiveBound.min()[splitAxis] = splitPosition;
 
 				refineSurfaceAreaHeuristic(cursor.positive(), depth + 1,

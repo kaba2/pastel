@@ -170,7 +170,7 @@ namespace Pastel
 
 		// Find out a bounding aligned box for the shapes
 
-		AlignedBox<N, Real> treeBound(
+		AlignedBox<Real, N> treeBound(
 			shapeQuery.boundingAlignedBox(shapes[0]));
 
 		for (integer i = 1;i < shapes.size();++i)
@@ -199,7 +199,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Shape>
-	AlignedBox<N, Real> BihTree<N, Real, Shape>::boundingAlignedBox() const
+	AlignedBox<Real, N> BihTree<N, Real, Shape>::boundingAlignedBox() const
 	{
 		return rootBound_;
 	}
@@ -272,7 +272,7 @@ namespace Pastel
 	template <typename ShapeBoundQuery>
 	void BihTree<N, Real, Shape>::construct(
 		Node* node,
-		const AlignedBox<N, Real>& nodeBound,
+		const AlignedBox<Real, N>& nodeBound,
 		integer shapeIndexFrom,
 		integer shapeIndexTo,
 		integer currentDepth,
@@ -361,7 +361,7 @@ namespace Pastel
 			for (integer i = shapeIndexFrom;
 				i < shapeIndexTo;++i)
 			{
-				AlignedBox<N, Real> alignedBox(
+				AlignedBox<Real, N> alignedBox(
 					shapeQuery.boundingAlignedBox(
 					shapeArray_[i]));
 				Real pivot(alignedBox.min()[splitAxis]);
@@ -414,7 +414,7 @@ namespace Pastel
 
 			// Recurse deeper to the negative child.
 
-			AlignedBox<N, Real> negativeChildBound(nodeBound);
+			AlignedBox<Real, N> negativeChildBound(nodeBound);
 			Point<Real, N> maxTmp(negativeChildBound.max());
 			maxTmp[splitAxis] = negativeSplit;
 			negativeChildBound.setMax(maxTmp);
@@ -432,7 +432,7 @@ namespace Pastel
 
 			// Recurse deeper to the positive child.
 
-			AlignedBox<N, Real> positiveChildBound(nodeBound);
+			AlignedBox<Real, N> positiveChildBound(nodeBound);
 			Point<Real, N> minTmp(positiveChildBound.min());
 			minTmp[splitAxis] = positiveSplit;
 			positiveChildBound.setMin(minTmp);

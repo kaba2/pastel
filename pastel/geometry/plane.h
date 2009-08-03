@@ -36,7 +36,7 @@ namespace Pastel
 	required by the algorithms.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Plane
 	{
 	public:
@@ -62,7 +62,7 @@ namespace Pastel
 		~Plane();
 
 		//! Swaps two planes.
-		void swap(Plane<N, Real>& that);
+		void swap(Plane<Real, N>& that);
 
 		//! Returns the dimension of the plane.
 		integer dimension() const;
@@ -88,14 +88,14 @@ namespace Pastel
 		Vector<Real, N> normal_;
 	};
 
-	template <int N, typename Real>
-	void swap(Plane<N, Real>& left,
-		Plane<N, Real>& right);
+	template <typename Real, int N>
+	void swap(Plane<Real, N>& left,
+		Plane<Real, N>& right);
 
-	typedef Plane<1, real> Plane1;
-	typedef Plane<2, real> Plane2;
-	typedef Plane<3, real> Plane3;
-	typedef Plane<4, real> Plane4;
+	typedef Plane<real, 1> Plane1;
+	typedef Plane<real, 2> Plane2;
+	typedef Plane<real, 3> Plane3;
+	typedef Plane<real, 4> Plane4;
 
 }
 

@@ -19,8 +19,8 @@ namespace Pastel
 	*/
 	template <int N, typename Real>
 	Tuple<Real, 2> closest(
-		const Line<N, Real>& aLine,
-		const Line<N, Real>& bLine);
+		const Line<Real, N>& aLine,
+		const Line<Real, N>& bLine);
 
 }
 

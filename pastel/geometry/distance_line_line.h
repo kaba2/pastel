@@ -13,8 +13,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance(
-		const Line<N, Real>& aLine,
-		const Line<N, Real>& bLine);
+		const Line<Real, N>& aLine,
+		const Line<Real, N>& bLine);
 
 }
 

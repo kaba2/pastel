@@ -66,7 +66,7 @@ namespace
 			/*
 			{
 				// Triangle
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(0, 1)));
 				p.pushBack(Point<Real, 2>(Real(1, 1), Real(0, 1)));
 				p.pushBack(Point<Real, 2>(Real(1, 1), Real(2, 1)));
@@ -75,7 +75,7 @@ namespace
 			}
 			{
 				// Square
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(0, 1)));
 				p.pushBack(Point<Real, 2>(Real(1, 1), Real(0, 1)));
 				p.pushBack(Point<Real, 2>(Real(1, 1), Real(1, 1)));
@@ -85,7 +85,7 @@ namespace
 			}
 			{
 				// Reversed square
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(0, 1)));
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(1, 1)));
 				p.pushBack(Point<Real, 2>(Real(1, 1), Real(1, 1)));
@@ -95,7 +95,7 @@ namespace
 			}
 			{
 				// Translated square
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0 + 2, 1), Real(0 - 3, 1)));
 				p.pushBack(Point<Real, 2>(Real(1 + 2, 1), Real(0 - 3, 1)));
 				p.pushBack(Point<Real, 2>(Real(1 + 2, 1), Real(1 - 3, 1)));
@@ -105,7 +105,7 @@ namespace
 			}
 			{
 				// Six sided polygon.
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(3, 1)));
 				p.pushBack(Point<Real, 2>(Real(2, 1), Real(2, 1)));
 				p.pushBack(Point<Real, 2>(Real(3, 1), Real(0, 1)));
@@ -119,7 +119,7 @@ namespace
 			}
 			{
 				// Half of the six sided polygon.
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(3, 1)));
 				p.pushBack(Point<Real, 2>(Real(2, 1), Real(2, 1)));
 				p.pushBack(Point<Real, 2>(Real(3, 1), Real(0, 1)));
@@ -130,7 +130,7 @@ namespace
 			}
 			{
 				// Quarter of the six sided polygon.
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0, 1), Real(3, 1)));
 				p.pushBack(Point<Real, 2>(Real(2, 1), Real(2, 1)));
 				p.pushBack(Point<Real, 2>(Real(3, 1), Real(0, 1)));
@@ -139,7 +139,7 @@ namespace
 			}
 			{
 				// Translated quarter of the six sided polygon.
-				Polygon<2, Real> p;
+				Polygon<Real, 2> p;
 				p.pushBack(Point<Real, 2>(Real(0 - 5, 1), Real(3 + 15, 1)));
 				p.pushBack(Point<Real, 2>(Real(2 - 5, 1), Real(2 + 15, 1)));
 				p.pushBack(Point<Real, 2>(Real(3 - 5, 1), Real(0 + 15, 1)));

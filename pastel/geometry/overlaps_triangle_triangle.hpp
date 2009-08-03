@@ -16,8 +16,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Triangle<1, Real>& aTriangle,
-		const Triangle<1, Real>& bTriangle)
+		const Triangle<Real, 1>& aTriangle,
+		const Triangle<Real, 1>& bTriangle)
 	{
 		Real aMin(0);
 		Real aMax(0);
@@ -41,8 +41,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Triangle<2, Real>& aTriangle,
-		const Triangle<2, Real>& bTriangle)
+		const Triangle<Real, 2>& aTriangle,
+		const Triangle<Real, 2>& bTriangle)
 	{
 		// Using separating axis theorem.
 		// There are six edge normals to
@@ -147,11 +147,11 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Triangle<3, Real>& aTriangle,
-		const Triangle<3, Real>& bTriangle)
+		const Triangle<Real, 3>& aTriangle,
+		const Triangle<Real, 3>& bTriangle)
 	{
-		Line<3, Real> intersectionLine;
-		AlignedBox<1, Real> intersectionRange;
+		Line<Real, 3> intersectionLine;
+		AlignedBox<Real, 1> intersectionRange;
 
 		return Pastel::intersect(
 			aTriangle, bTriangle,

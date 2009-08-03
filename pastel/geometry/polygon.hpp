@@ -10,8 +10,8 @@ namespace Pastel
 
 	// Polygon
 
-	template <int N, typename Real>
-	Polygon<N, Real>& Polygon<N, Real>::operator=(
+	template <typename Real, int N>
+	Polygon<Real, N>& Polygon<Real, N>::operator=(
 		const Polygon& that)
 	{
 		Polygon copy(that);
@@ -19,9 +19,9 @@ namespace Pastel
 		return *this;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Point<Real, N>&
-		Polygon<N, Real>::operator[](integer index)
+		Polygon<Real, N>::operator[](integer index)
 	{
 		PENSURE2(index >= 0 && index < data_.size(),
 			index, data_.size());
@@ -29,9 +29,9 @@ namespace Pastel
 		return data_[index];
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	const Point<Real, N>&
-		Polygon<N, Real>::operator[](integer index) const
+		Polygon<Real, N>::operator[](integer index) const
 	{
 		PENSURE2(index >= 0 && index < data_.size(),
 			index, data_.size());
@@ -39,34 +39,34 @@ namespace Pastel
 		return data_[index];
 	}
 
-	template <int N, typename Real>
-	void Polygon<N, Real>::swap(Polygon& that)
+	template <typename Real, int N>
+	void Polygon<Real, N>::swap(Polygon& that)
 	{
 		data_.swap(that.data_);
 	}
 
-	template <int N, typename Real>
-	integer Polygon<N, Real>::size() const
+	template <typename Real, int N>
+	integer Polygon<Real, N>::size() const
 	{
 		return data_.size();
 	}
 
-	template <int N, typename Real>
-	void Polygon<N, Real>::pushBack(
+	template <typename Real, int N>
+	void Polygon<Real, N>::pushBack(
 		const Point<Real, N>& that)
 	{
 		data_.push_back(that);
 	}
 
-	template <int N, typename Real>
-	void Polygon<N, Real>::popBack()
+	template <typename Real, int N>
+	void Polygon<Real, N>::popBack()
 	{
 		PENSURE(!data_.empty());
 		data_.pop_back();
 	}
 
-	template <int N, typename Real>
-	void Polygon<N, Real>::insert(
+	template <typename Real, int N>
+	void Polygon<Real, N>::insert(
 		integer index, const Point<Real, N>& that)
 	{
 		PENSURE2(index >= 0 && index <= data_.size(),
@@ -75,8 +75,8 @@ namespace Pastel
 			data_.begin() + index, that);
 	}
 
-	template <int N, typename Real>
-	void Polygon<N, Real>::erase(
+	template <typename Real, int N>
+	void Polygon<Real, N>::erase(
 		integer index)
 	{
 		PENSURE2(index >= 0 && index < data_.size(),
@@ -86,8 +86,8 @@ namespace Pastel
 			data_.begin() + index);
 	}
 
-	template <int N, typename Real>
-	void Polygon<N, Real>::reserve(
+	template <typename Real, int N>
+	void Polygon<Real, N>::reserve(
 		integer size)
 	{
 		data_.reserve(size);

@@ -15,8 +15,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Capsule<N, Real>& aCapsule,
-		const Capsule<N, Real>& bCapsule);
+		const Capsule<Real, N>& aCapsule,
+		const Capsule<Real, N>& bCapsule);
 
 }
 

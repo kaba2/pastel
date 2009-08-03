@@ -17,8 +17,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Plane<N, Real>& plane,
-		const Box<N, Real>& box);
+		const Plane<Real, N>& plane,
+		const Box<Real, N>& box);
 
 	//! Tests if a plane and an box overlap.
 
@@ -31,8 +31,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(
-		const Plane<N, Real>& plane,
-		const Box<N, Real>& box,
+		const Plane<Real, N>& plane,
+		const Box<Real, N>& box,
 		bool &boxOnPositiveSide);
 
 }

@@ -18,8 +18,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Triangle<1, Real>& aTriangle,
-		const Triangle<1, Real>& bTriangle);
+		const Triangle<Real, 1>& aTriangle,
+		const Triangle<Real, 1>& bTriangle);
 
 	//! Tests if two triangles overlap.
 
@@ -30,8 +30,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Triangle<2, Real>& aTriangle,
-		const Triangle<2, Real>& bTriangle);
+		const Triangle<Real, 2>& aTriangle,
+		const Triangle<Real, 2>& bTriangle);
 
 	//! Tests if two triangles overlap.
 
@@ -42,8 +42,8 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const Triangle<3, Real>& aTriangle,
-		const Triangle<3, Real>& bTriangle);
+		const Triangle<Real, 3>& aTriangle,
+		const Triangle<Real, 3>& bTriangle);
 
 }
 
