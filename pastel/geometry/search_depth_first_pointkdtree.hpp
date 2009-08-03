@@ -1,7 +1,7 @@
-#ifndef PASTEL_POINTKDTREE_DEPTH_FIRST_HPP
-#define PASTEL_POINTKDTREE_DEPTH_FIRST_HPP
+#ifndef PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_HPP
+#define PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_HPP
 
-#include "pastel/geometry/pointkdtree_depth_first.h"
+#include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/distance_point_point.h"
 

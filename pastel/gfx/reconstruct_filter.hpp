@@ -92,7 +92,10 @@ namespace Pastel
 
 				std::vector<ConstIterator> nearestSet;
 
-				searchNearest(kdTree_, Point<real, N>(position) + 0.5,
+				searchNearest(
+					kdTree_, 
+					Point<real, N>(position) + 0.5,
+					DepthFirst_SearchAlgorithm_PointKdTree(),
 					filter_.radius() * filterStretch_,
 					0,
 					Infinity_NormBijection<Real>(),

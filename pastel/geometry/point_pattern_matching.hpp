@@ -207,6 +207,7 @@ namespace Pastel
 						searchNearest(
 							sceneTree_,
 							scenePoint,
+							DepthFirst_SearchAlgorithm_PointKdTree(),
 							Accept_Always(),
 							//Accept_Except<SceneIterator>(sceneIter),
 							infinity<Real>(),
@@ -221,6 +222,7 @@ namespace Pastel
 						searchNearest(
 							modelTree_,
 							modelPoint,
+							DepthFirst_SearchAlgorithm_PointKdTree(),
 							Accept_Always(),
 							//Accept_Except<ModelIterator>(modelIter),
 							infinity<Real>(),

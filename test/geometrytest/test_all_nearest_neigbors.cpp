@@ -101,6 +101,7 @@ namespace
 
 		searchAllNeighborsKdTree(
 			pointSet,
+			DepthFirst_SearchAlgorithm_PointKdTree(),
 			CountingIterator<integer>(0),
 			CountingIterator<integer>(points),
 			0,

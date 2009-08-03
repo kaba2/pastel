@@ -93,7 +93,10 @@ namespace Pastel
 
 				Euclidean_NormBijection<Real> normBijection;
 
-				searchNearest(kdtree_, Point<Real, N>(position) + 0.5, 
+				searchNearest(
+					kdtree_, 
+					Point<Real, N>(position) + 0.5, 
+					DepthFirst_SearchAlgorithm_PointKdTree(),
 					Accept_Always(),
 					infinity<Real>(), maxRelativeError_, normBijection,
 					kNearest_ + 1, 
