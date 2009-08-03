@@ -188,6 +188,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/pointkdtree_search_nearest.hpp"
+#include "pastel/geometry/search_nearest_pointkdtree.hpp"
 
 #endif

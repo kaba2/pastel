@@ -6,8 +6,8 @@
 // Area is defined as the (n-1)-dimensional
 // volume of the boundary of an object.
 
-#include "pastel/geometry/boxarea.h"
+#include "pastel/geometry/box_area.h"
 #include "pastel/geometry/sphere_area.h"
-#include "pastel/geometry/polygonarea.h"
+#include "pastel/geometry/polygon_area.h"
 
 #endif

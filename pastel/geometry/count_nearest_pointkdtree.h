@@ -52,6 +52,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/pointkdtree_count_nearest.hpp"
+#include "pastel/geometry/count_nearest_pointkdtree.hpp"
 
 #endif

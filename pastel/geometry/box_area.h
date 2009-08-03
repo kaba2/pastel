@@ -1,8 +1,8 @@
 // Description: Tools for computing the area of a box
 // Documentation: area.txt
 
-#ifndef PASTEL_BOXAREA_H
-#define PASTEL_BOXAREA_H
+#ifndef PASTEL_BOX_AREA_H
+#define PASTEL_BOX_AREA_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/box.h"
@@ -24,6 +24,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/boxarea.hpp"
+#include "pastel/geometry/box_area.hpp"
 
 #endif

@@ -1,7 +1,7 @@
-#ifndef PASTEL_POLYGONAREA_HPP
-#define PASTEL_POLYGONAREA_HPP
+#ifndef PASTEL_POLYGON_AREA_HPP
+#define PASTEL_POLYGON_AREA_HPP
 
-#include "pastel/geometry/polygonarea.h"
+#include "pastel/geometry/polygon_area.h"
 
 namespace Pastel
 {

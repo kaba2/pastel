@@ -1,6 +1,6 @@
 #include "pastel/sys/log_all.h"
 
-#include "pastel/geometry/polygonarea.h"
+#include "pastel/geometry/polygon_area.h"
 
 #include "pastel/geometry/triangle.h"
 #include "pastel/geometry/simplex.h"

@@ -1,8 +1,8 @@
 // Description: Tools for computing polygon area in 2D
 // Documentation: area.txt
 
-#ifndef PASTEL_POLYGONAREA_H
-#define PASTEL_POLYGONAREA_H
+#ifndef PASTEL_POLYGON_AREA_H
+#define PASTEL_POLYGON_AREA_H
 
 #include "pastel/geometry/polygon.h"
 
@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/polygonarea.hpp"
+#include "pastel/geometry/polygon_area.hpp"
 
 #endif
