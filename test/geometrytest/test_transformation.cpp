@@ -13,7 +13,7 @@ namespace
 	{
 		for (integer i = 0;i < 10000;++i)
 		{
-			const Tuple<4, real> parameter(
+			const Tuple<real, 4> parameter(
 				random<real>() * 2 + 1,
 				random<real>() * 2 * constantPi<real>(),
 				random<real>() * 2 - 1,
@@ -28,7 +28,7 @@ namespace
 			const Point2 aTo(aFrom * transformation);
 			const Point2 bTo(bFrom * transformation);
 
-			const Tuple<4, real> matchedParameter =
+			const Tuple<real, 4> matchedParameter =
 				similarityTransformation(aFrom, bFrom, aTo, bTo);
 
 			const real scalingDelta = mabs(matchedParameter[0] - parameter[0]);
@@ -48,7 +48,7 @@ namespace
 	{
 		for (integer i = 0;i < 10000;++i)
 		{
-			const Tuple<4, real> parameter(
+			const Tuple<real, 4> parameter(
 				random<real>() * 2 + 1,
 				random<real>() * 2 * constantPi<real>(),
 				random<real>() * 2 - 1,
@@ -67,7 +67,7 @@ namespace
 					pattern.back() * transformation);
 			}
 
-			const Tuple<4, real> matchedParameter =
+			const Tuple<real, 4> matchedParameter =
 				similarityTransformation(
 				pattern, transformedPattern);
 

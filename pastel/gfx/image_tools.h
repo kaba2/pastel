@@ -20,17 +20,17 @@ namespace Pastel
 	typedef Integer_To_Color<uint32, 8, 8, 8> Rgb888Adapter;
 
 	template <int N>
-	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<N, uint32> > > >
-		constRgb888View(const Array<N, uint32>& image);
+	ConstView<N, Color, ConstAdaptedView<N, Rgb888Adapter, ConstArrayView<N, Array<uint32, N> > > >
+		constRgb888View(const Array<uint32, N>& image);
 
 	template <int N>
-	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, Array<N, uint32> > > >
-		rgb888View(Array<N, uint32>& image);
+	View<N, Color, AdaptedView<N, Rgb888Adapter, ArrayView<N, Array<uint32, N> > > >
+		rgb888View(Array<uint32, N>& image);
 
 	PASTELGFX void indexedImageToColorImage(
-		const Array<2, uint8>& indexedImage,
+		const Array<uint8, 2>& indexedImage,
 		const std::vector<Color>& palette,
-		Array<2, Color>& colorImage);
+		Array<Color, 2>& colorImage);
 
 	template <int N, typename Image_View>
 	void scaleGrayscaleImage(

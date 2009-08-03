@@ -65,7 +65,7 @@ namespace Pastel
 				cursor_.move<MirrorIndex>(-amount);
 			}
 
-			void move(Vector<N, integer> amount)
+			void move(Vector<integer, N> amount)
 			{
 				amount[MirrorIndex] = -amount[MirrorIndex];
 				cursor_.move(amount);

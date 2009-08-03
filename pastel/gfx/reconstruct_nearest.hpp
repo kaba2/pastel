@@ -30,14 +30,14 @@ namespace Pastel
 			}
 
 			DataPoint(
-				const Point<N, Real>& position,
+				const Point<Real, N>& position,
 				const Data& data)
 				: position_(position)
 				, data_(data)
 			{
 			}
 
-			Point<N, Real> position_;
+			Point<Real, N> position_;
 			Data data_;
 		};
 
@@ -48,7 +48,7 @@ namespace Pastel
 			typedef DataPoint<N, Real, Data> Object;
 			typedef FalseType ArbitrarySplits;
 
-			const Point<N, Real>& point(
+			const Point<Real, N>& point(
 				const DataPoint<N, Real, Data>& dataPoint) const
 			{
 				return dataPoint.position_;
@@ -79,7 +79,7 @@ namespace Pastel
 			typedef typename ObjectPolicy::Object Data;
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				typename Data::Data_& data) const
 			{
 				typedef PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
@@ -87,7 +87,7 @@ namespace Pastel
 
 				std::vector<ConstIterator> nearestSet;
 
-				searchNearest(kdtree_, Point<N, Real>(position) + 0.5, 
+				searchNearest(kdtree_, Point<Real, N>(position) + 0.5, 
 					infinity<Real>(), maxRelativeError_, Euclidean_NormBijection<Real>(),
 					kNearest_, &nearestSet);
 
@@ -103,7 +103,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const View<N, Data, Output_View>& view,
@@ -124,8 +124,8 @@ namespace Pastel
 		PointKdTree<N, Real, DataPolicy> kdTree(
 			ofDimension(N), 16, dataPolicy);
 
-		const Vector<N, Real> scaling = 
-			inverse(region.extent()) * Vector<N, Real>(view.extent());
+		const Vector<Real, N> scaling = 
+			inverse(region.extent()) * Vector<Real, N>(view.extent());
 
 		std::vector<DataPoint> dataPointList;
 		for (integer i = 0;i < points;++i)
@@ -150,7 +150,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const View<N, Data, Output_View>& view,
@@ -163,7 +163,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<N, Real> >& positionList,
+		const std::vector<Point<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<N, Real>& region,
 		const View<N, Data, Output_View>& view)

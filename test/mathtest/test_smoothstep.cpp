@@ -19,7 +19,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		const integer Points = 100;
 

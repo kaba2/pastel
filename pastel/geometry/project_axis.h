@@ -23,7 +23,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<N, Real>(0) + t * unitAxis
+	L(t) = Point<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -33,7 +33,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const AlignedBox<N, Real>& box,
-		const Vector<N, Real>& unitAxis);
+		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a box to an origin passing line.
 	/*!
@@ -44,7 +44,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<N, Real>(0) + t * unitAxis
+	L(t) = Point<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -54,7 +54,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Box<N, Real>& box,
-		const Vector<N, Real>& unitAxis);
+		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a sphere to an origin passing line.
 	/*!
@@ -65,7 +65,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<N, Real>(0) + t * unitAxis
+	L(t) = Point<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -75,7 +75,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Sphere<N, Real>& sphere,
-		const Vector<N, Real>& unitAxis);
+		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a line segment to an origin passing line.
 	/*!
@@ -86,7 +86,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<N, Real>(0) + t * unitAxis
+	L(t) = Point<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -96,7 +96,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Segment<N, Real>& segment,
-		const Vector<N, Real>& unitAxis);
+		const Vector<Real, N>& unitAxis);
 
 	//! Orthogonally projects a triangle to an origin passing line.
 	/*!
@@ -107,7 +107,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<N, Real>(0) + t * unitAxis
+	L(t) = Point<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -117,7 +117,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Triangle<N, Real>& triangle,
-		const Vector<N, Real>& unitAxis);
+		const Vector<Real, N>& unitAxis);
 
 }
 

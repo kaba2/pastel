@@ -19,12 +19,12 @@ namespace
 
 	void draw(const std::vector<Vector2>& sample,
 		integer x, integer y, const Color& color,
-		Array<2, Color>& image)
+		Array<Color, 2>& image)
 	{
 		const integer samples = sample.size();
 		for (integer i = 0;i < samples;++i)
 		{
-			drawPixel(Point<2, integer>(x + sample[i].x() * 100,
+			drawPixel(Point<integer, 2>(x + sample[i].x() * 100,
 				y + sample[i].y() * 100),
 				color, arrayView(image));
 		}
@@ -40,7 +40,7 @@ namespace
 		const integer Width = 600;
 		const integer Height = 600;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		std::vector<Vector2> square;
 
@@ -243,7 +243,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 250;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		std::vector<Vector2> square;
 		PushBack pushBack(square);
@@ -300,7 +300,7 @@ namespace
 	void testDistance()
 	{
 		const integer Samples = 100000;
-		std::vector<Vector<N, Real> > pointList;
+		std::vector<Vector<Real, N> > pointList;
 		pointList.reserve(Samples);
 
 		const integer Width = 512;
@@ -310,7 +310,7 @@ namespace
 
 		for (integer i = 0;i < Samples;++i)
 		{
-			const Vector<N, Real> sample
+			const Vector<Real, N> sample
 				= randomVectorBall<N, Real>();
 			const Real distance = 
 				norm(sample);
@@ -326,7 +326,7 @@ namespace
 			}
 		}
 
-		Array<2, Color> image(Width, Height, Color(1, 1, 1));
+		Array<Color, 2> image(Width, Height, Color(1, 1, 1));
 		for (integer x = 0;x < Width;++x)
 		{
 			const real t = dequantizeUnsigned(x, Width);

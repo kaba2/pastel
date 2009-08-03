@@ -130,16 +130,16 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Tuple<2, Real> closest(
+	Tuple<Real, 2> closest(
 		const Line<N, Real>& aLine,
 		const Line<N, Real>& bLine)
 	{
 		// Because the line directions are unit vectors,
 		// dot(s, s) = dot(q, q) = 1
 
-		const Vector<N, Real>& s(aLine.direction());
-		const Vector<N, Real>& q(bLine.direction());
-		const Vector<N, Real> d(bLine.position() - aLine.position());
+		const Vector<Real, N>& s(aLine.direction());
+		const Vector<Real, N>& q(bLine.direction());
+		const Vector<Real, N> d(bLine.position() - aLine.position());
 
 		const Real dotsq(dot(s, q));
 		const Real dotdq(dot(d, q));
@@ -164,7 +164,7 @@ namespace Pastel
 			u = v * dotsq - dotdq;
 		}
 
-		return Tuple<2, Real>(u, v);
+		return Tuple<Real, 2>(u, v);
 	}
 
 }

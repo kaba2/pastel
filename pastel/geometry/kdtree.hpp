@@ -796,8 +796,8 @@ namespace Pastel
 		const SubdivisionRule& subdivisionRule,
 		const Cursor& cursor,
 		integer depth,
-		const Point<N, Real>& minBound,
-		const Point<N, Real>& maxBound)
+		const Point<Real, N>& minBound,
+		const Point<Real, N>& maxBound)
 	{
 		Real splitPosition = 0;
 		integer splitAxis = 0;
@@ -829,7 +829,7 @@ namespace Pastel
 		// into an intermediate node.
 		if (!cursor.leaf())
 		{
-			Point<N, Real> negativeMax(maxBound);
+			Point<Real, N> negativeMax(maxBound);
 			negativeMax[splitAxis] = splitPosition;
 
 			refine(maxDepth, maxObjects, subdivisionRule,
@@ -837,7 +837,7 @@ namespace Pastel
 				minBound,
 				negativeMax.asTemporary());
 
-			Point<N, Real> positiveMin(minBound);
+			Point<Real, N> positiveMin(minBound);
 			positiveMin[splitAxis] = splitPosition;
 
 			refine(maxDepth, maxObjects, subdivisionRule,

@@ -32,13 +32,13 @@ namespace Pastel
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return view_.extent();
 		}
 
 		const Element& operator()(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			if (anyLess(position, 0) ||
 				anyGreaterEqual(asVector(position), view_.extent()))

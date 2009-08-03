@@ -28,11 +28,11 @@ namespace
 	void generateSpherePointSet(
 		integer dimension,
 		integer points,
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >=, 0);
 
-		std::vector<Point<N, Real> > result;
+		std::vector<Point<Real, N> > result;
 		result.reserve(points);
 		
 		for (integer i = 0;i < points;++i)
@@ -50,11 +50,11 @@ namespace
 		log() << dimension << "-D, " << points << " points, " 
 			<< kNearest << " neighbors." << logNewLine;
 
-		std::vector<Point<N, Real> > pointSet;
+		std::vector<Point<Real, N> > pointSet;
 		generateSpherePointSet(dimension, points, pointSet);
 
-		Array<2, integer> neighborSet(kNearest, points);
-		Array<2, integer> naiveNeighborSet(kNearest, points);
+		Array<integer, 2> neighborSet(kNearest, points);
+		Array<integer, 2> naiveNeighborSet(kNearest, points);
 
 		Timer timer;
 
@@ -138,21 +138,21 @@ namespace
 	template <int N, typename Real>
 	typename boost::disable_if_c<(N == 2)>::type
 		drawNearest(const std::string& name,
-		const std::vector<Point<N, Real> >& pointSet,
-		const Array<2, integer>& neighborSet)
+		const std::vector<Point<Real, N> >& pointSet,
+		const Array<integer, 2>& neighborSet)
 	{
 	}
 
 	template <int N, typename Real>
 	typename boost::enable_if_c<(N == 2)>::type
 		drawNearest(const std::string& name,
-		const std::vector<Point<N, Real> >& pointSet,
-		const Array<2, integer>& neighborSet)
+		const std::vector<Point<Real, N> >& pointSet,
+		const Array<integer, 2>& neighborSet)
 	{
 		const integer points = neighborSet.height();
 		const integer kNearest = neighborSet.width();
 
-		Array<2, Color> image(768, 768);
+		Array<Color, 2> image(768, 768);
 		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
 		renderer.setColor(Color(1));

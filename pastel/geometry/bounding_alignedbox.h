@@ -20,7 +20,7 @@ namespace Pastel
 	dimension > 0
 	dimension == N || N == Dynamic
 
-	The InputIterator must dereference to Point<N, Real>.
+	The InputIterator must dereference to Point<Real, N>.
 	*/
 
 	template <int N, typename Real, typename InputIterator>
@@ -83,7 +83,7 @@ namespace Pastel
 	*/
 	template <int N, typename Real>
 	bool extendToCover(
-		const Point<N, Real>& pointToCover,
+		const Point<Real, N>& pointToCover,
 		AlignedBox<N, Real>& boxToExtend);
 
 }

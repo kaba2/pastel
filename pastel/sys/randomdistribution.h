@@ -26,7 +26,7 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const = 0;
+		virtual TemporaryPoint<Real, N> sample() const = 0;
 		virtual std::string name() const = 0;
 
 		integer dimension() const
@@ -70,9 +70,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result(
+			Point<Real, N> result(
 				randomGaussianVector<N, Real>(Base::dimension()));
 			
 			return result.asTemporary();
@@ -131,9 +131,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result(
+			Point<Real, N> result(
 				randomExponentialVector<N, Real>(Base::dimension()));
 			
 			return result.asTemporary();
@@ -192,9 +192,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result(
+			Point<Real, N> result(
 				randomVectorCube<N, Real>(Base::dimension()));
 			
 			return result.asTemporary();
@@ -262,9 +262,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result(
+			Point<Real, N> result(
 				randomGeneralizedGaussianVector<N, Real>(
 				Base::dimension(), shape_, scale_));
 			
@@ -341,9 +341,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result(
+			Point<Real, N> result(
 				randomGammaVector<N, Real>(
 				Base::dimension(), shape_));
 			
@@ -413,11 +413,11 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
 			if (distributionSet_.empty())
 			{
-				return TemporaryPoint<N, Real>(
+				return TemporaryPoint<Real, N>(
 					ofDimension(Base::dimension()));
 			}
 
@@ -478,7 +478,7 @@ namespace Pastel
 
 		explicit Scaled_RandomDistribution(
 			const CountedPtr<RandomDistribution<N, Real> >& distribution,
-			const Vector<N, Real>& scaling)
+			const Vector<Real, N>& scaling)
 			: Base(scaling.dimension())
 			, distribution_(distribution)
 			, scaling_(scaling)
@@ -490,9 +490,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result = distribution_->sample();
+			Point<Real, N> result = distribution_->sample();
 			asVector(result) *= scaling_;
 			return result.asTemporary();
 		}
@@ -504,14 +504,14 @@ namespace Pastel
 
 	private:
 		CountedPtr<RandomDistribution<N, Real> > distribution_;
-		Vector<N, Real> scaling_;
+		Vector<Real, N> scaling_;
 	};
 
 	template <int N, typename Real>
 	CountedPtr<Scaled_RandomDistribution<N, Real> >
 		scale(
 		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<N, Real> >))& distribution,
-		const Vector<N, Real>& scaling)
+		const Vector<Real, N>& scaling)
 	{
 		return CountedPtr<Scaled_RandomDistribution<N, Real> >(
 			new Scaled_RandomDistribution<N, Real>(
@@ -548,9 +548,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result(
+			Point<Real, N> result(
 				distribution_->sample() * transform_);
 
 			return result.asTemporary();
@@ -594,7 +594,7 @@ namespace Pastel
 
 		explicit Translated_RandomDistribution(
 			const CountedPtr<RandomDistribution<N, Real> >& distribution,
-			const Vector<N, Real>& translation)
+			const Vector<Real, N>& translation)
 			: Base(translation.dimension())
 			, distribution_(distribution)
 			, translation_(translation)
@@ -606,9 +606,9 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<N, Real> sample() const
+		virtual TemporaryPoint<Real, N> sample() const
 		{
-			Point<N, Real> result = distribution_->sample();
+			Point<Real, N> result = distribution_->sample();
 			result += translation_;
 			return result.asTemporary();
 		}
@@ -620,14 +620,14 @@ namespace Pastel
 
 	private:
 		CountedPtr<RandomDistribution<N, Real> > distribution_;
-		Vector<N, Real> translation_;
+		Vector<Real, N> translation_;
 	};
 
 	template <int N, typename Real>
 	CountedPtr<Translated_RandomDistribution<N, Real> >
 		translate(
 		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<N, Real> >))& distribution,
-		const Vector<N, Real>& translation)
+		const Vector<Real, N>& translation)
 	{
 		return CountedPtr<Translated_RandomDistribution<N, Real> >(
 			new Translated_RandomDistribution<N, Real>(

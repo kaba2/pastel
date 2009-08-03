@@ -158,7 +158,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool saveBinaryPcx(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		const std::string& fileName)
 	{
 		IdentityAdapter<bool> adapter;
@@ -277,7 +277,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool saveIndexedPcx(
-		const Array<2, uint8>& image,
+		const Array<uint8, 2>& image,
 		const std::vector<Color>& palette,
 		const std::string& fileName)
 	{
@@ -358,7 +358,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool savePcx(
-		const Array<2, uint32>& image,
+		const Array<uint32, 2>& image,
 		const std::string& fileName)
 	{
 		Integer_To_Color<uint32, 8, 8, 8> adapter;
@@ -366,7 +366,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool savePcx(
-		const Array<2, uint16>& image,
+		const Array<uint16, 2>& image,
 		const std::string& fileName)
 	{
 		Integer_To_Color<uint16, 5, 6, 5> adapter;
@@ -374,7 +374,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool savePcx(
-		const Array<2, Color>& image,
+		const Array<Color, 2>& image,
 		const std::string& fileName)
 	{
 		IdentityAdapter<Color> adapter;
@@ -382,7 +382,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool savePcx(
-		const Array<2, ByteColor>& image,
+		const Array<ByteColor, 2>& image,
 		const std::string& fileName)
 	{
 		ByteColor_To_Color adapter;
@@ -390,7 +390,7 @@ namespace Pastel
 	}
 
 	PASTELGFX bool saveGrayscalePcx(
-		const Array<2, real32>& image,
+		const Array<real32, 2>& image,
 		const std::string& fileName)
 	{
 		ReverseAdapter<Integer_To_Real<real32, uint8> > adapter(

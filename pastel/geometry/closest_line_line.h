@@ -18,7 +18,7 @@ namespace Pastel
 	'bLine.at(t)' are closest points.
 	*/
 	template <int N, typename Real>
-	Tuple<2, Real> closest(
+	Tuple<Real, 2> closest(
 		const Line<N, Real>& aLine,
 		const Line<N, Real>& bLine);
 

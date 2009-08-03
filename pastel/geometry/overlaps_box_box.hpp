@@ -38,8 +38,8 @@ namespace Pastel
 			bBox.rotation() * aRotationInverse);
 
 		const AlignedBox<N, Real> aBoxTransformed(
-			Point<N, Real>(-aBox.width()),
-			Point<N, Real>(aBox.width()));
+			Point<Real, N>(-aBox.width()),
+			Point<Real, N>(aBox.width()));
 
 		return overlaps(
 			aBoxTransformed,
@@ -50,8 +50,8 @@ namespace Pastel
 	bool overlaps(
 		const Box<N, Real>& aBox,
 		const Box<N, Real>& bBox,
-		const Vector<N, Real>& bVelocity,
-		Tuple<2, Real>& intersectionRange)
+		const Vector<Real, N>& bVelocity,
+		Tuple<Real, 2>& intersectionRange)
 	{
 		// Transform boxes such that the
 		// aBox becomes an aligned box. Then
@@ -70,8 +70,8 @@ namespace Pastel
 			bBox.rotation() * aRotationInverse);
 
 		const AlignedBox<N, Real> aBoxTransformed(
-			Point<N, Real>(-aBox.width()),
-			Point<N, Real>(aBox.width()));
+			Point<Real, N>(-aBox.width()),
+			Point<Real, N>(aBox.width()));
 
 		return overlaps(
 			aBoxTransformed,
@@ -84,8 +84,8 @@ namespace Pastel
 	bool overlaps(
 		const Box<N, Real>& aBox,
 		const Box<N, Real>& bBox,
-		Vector<N, Real>& projection,
-		Point<N, Real>& commonPoint)
+		Vector<Real, N>& projection,
+		Point<Real, N>& commonPoint)
 	{
 		// Transform boxes such that the
 		// aBox becomes an aligned box. Then
@@ -104,11 +104,11 @@ namespace Pastel
 			bBox.rotation() * aRotationInverse);
 
 		const AlignedBox<N, Real> aBoxTransformed(
-			Point<N, Real>(-aBox.width()),
-			Point<N, Real>(aBox.width()));
+			Point<Real, N>(-aBox.width()),
+			Point<Real, N>(aBox.width()));
 
-		Vector<N, Real> transformedProjection;
-		Point<N, Real> transformedCommonPoint;
+		Vector<Real, N> transformedProjection;
+		Point<Real, N> transformedCommonPoint;
 		if (overlaps(
 			aBoxTransformed,
 			bBoxTransformed,

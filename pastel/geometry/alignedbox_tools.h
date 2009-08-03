@@ -19,10 +19,10 @@ namespace Pastel
 		const AffineTransformation<3, Real>& right);
 
 	template <int N, typename Real>
-	Point<N, Real> discreteToContinuous(
+	Point<Real, N> discreteToContinuous(
 		const AlignedBox<N, Real>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const Point<N, integer>& discretePoint);
+		const Point<integer, N>& discretePoint);
 
 	template <int N, typename Real>
 	AlignedBox<N, Real> discreteToContinuous(
@@ -31,10 +31,10 @@ namespace Pastel
 		const Rectangle<N>& discreteBox);
 
 	template <int N, typename Real>
-	Point<N, integer> continuousToDiscrete(
+	Point<integer, N> continuousToDiscrete(
 		const AlignedBox<N, Real>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const Point<N, Real>& continuousPoint);
+		const Point<Real, N>& continuousPoint);
 
 	template <int N, typename Real>
 	Rectangle<N> continuousToDiscrete(

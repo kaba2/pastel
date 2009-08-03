@@ -16,16 +16,16 @@ namespace Pastel
 	class PointPolicy
 	{
 	public:
-		typedef Point<N, Real> Object;
+		typedef Point<Real, N> Object;
 
-		AlignedBox<N, Real> bound(const Point<N, Real>& object) const
+		AlignedBox<N, Real> bound(const Point<Real, N>& object) const
 		{
 			return AlignedBox<N, Real>(object);
 		}
 
-		Tuple<2, Real> bound(const Point<N, Real>& object, integer axis) const
+		Tuple<Real, 2> bound(const Point<Real, N>& object, integer axis) const
 		{
-			return Tuple<2, Real>(object[axis]);
+			return Tuple<Real, 2>(object[axis]);
 		}
 	};
 
@@ -37,7 +37,7 @@ namespace Pastel
 		typedef UnspecifiedType Object;
 
 		AlignedBox<N, Real> bound(const Object& that) const;
-		Tuple<2, Real> bound(const Object& that, index) const;
+		Tuple<Real, 2> bound(const Object& that, index) const;
 	};
 	*/
 
@@ -289,8 +289,8 @@ namespace Pastel
 		{
 		public:
 			std::pair<Real, integer> operator()(
-				const Point<N, Real>& minBound,
-				const Point<N, Real>& maxBound,
+				const Point<Real, N>& minBound,
+				const Point<Real, N>& maxBound,
 				const ObjectPolicy& objectPolicy,
 				const ConstObjectIterator& objectBegin,
 				const ConstObjectIterator& objectEnd) const;
@@ -383,7 +383,7 @@ namespace Pastel
 				// The kd-tree nodes are
 				// half-open boxes of the form [min, max[.
 
-				const Tuple<2, Real> bound = objectPolicy_.bound(object, splitAxis_);
+				const Tuple<Real, 2> bound = objectPolicy_.bound(object, splitAxis_);
 				if (bound[1] < splitPosition_)
 				{
 					return TriState::True;
@@ -422,8 +422,8 @@ namespace Pastel
 			const SubdivisionRule& subdivisionRule,
 			const Cursor& cursor,
 			integer depth,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound);
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound);
 
 		ObjectContainer objectList_;
 		Allocator nodeAllocator_;

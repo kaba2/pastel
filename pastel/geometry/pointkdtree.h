@@ -22,11 +22,11 @@ namespace Pastel
 	class PointPolicy
 	{
 	public:
-		typedef Point<N, Real> Object;
+		typedef Point<Real, N> Object;
 		//typedef TrueType ArbitrarySplits;
 		typedef FalseType ArbitrarySplits;
 
-		const Point<N, Real>& point(const Object& object) const
+		const Point<Real, N>& point(const Object& object) const
 		{
 			return object;
 		}
@@ -45,7 +45,7 @@ namespace Pastel
 		typedef UnspecifiedType Object;
 		typedef (TrueType | FalseType) ArbitrarySplits;
 
-		Point<N, Real> point(const Object& that) const;
+		Point<Real, N> point(const Object& that) const;
 		Real point(const Object& that, integer axis) const;
 	};
 	*/
@@ -409,7 +409,7 @@ namespace Pastel
 			LeafNode* node,
 			const Real& splitPosition,
 			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
+			const Vector<Real, N>* splitDirection,
 			const Real& boundMin,
 			const Real& boundMax,
 			const Real& positiveMin,
@@ -417,8 +417,8 @@ namespace Pastel
 
 		void updateBound(
 			Node* someNode,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound);
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound);
 
 		//! Removes all objects, but retains nodes.
 		void clearObjects(Node* someNode);
@@ -471,8 +471,8 @@ namespace Pastel
 			integer maxDepth,
 			const SubdivisionRule& subdivisionRule,
 			integer depth,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound);
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound);
 
 		void updateEmptyBits(
 			LeafNode* node);

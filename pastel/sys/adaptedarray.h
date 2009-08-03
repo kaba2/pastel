@@ -21,7 +21,7 @@ namespace Pastel
 		}
 
 		ConstAdaptedArray(
-			const Array<N, ToType>& image,
+			const Array<ToType, N>& image,
 			const Adapter& adapter)
 			: image_(&image)
 			, adapter_(adapter)
@@ -32,19 +32,19 @@ namespace Pastel
 		{
 		}
 
-		virtual Vector<N, integer> extent() const
+		virtual Vector<integer, N> extent() const
 		{
 			return image_->extent();
 		}
 
 		virtual FromType operator()(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return adapter_.convert((*image_)(position));
 		}
 
 	protected:
-		const Array<N, ToType>* image_;
+		const Array<ToType, N>* image_;
 		Adapter adapter_;
 	};
 
@@ -60,7 +60,7 @@ namespace Pastel
 		}
 
 		AdaptedArray(
-			Array<N, ToType>& image,
+			Array<ToType, N>& image,
 			const Adapter& adapter)
 			: image_(&image)
 			, adapter_(adapter)
@@ -72,31 +72,31 @@ namespace Pastel
 		}
 
 		virtual void setExtent(
-			const Vector<N, integer>& extent)
+			const Vector<integer, N>& extent)
 		{
 			image_->setExtent(extent);
 		}
 
-		virtual Vector<N, integer> extent() const
+		virtual Vector<integer, N> extent() const
 		{
 			return image_->extent();
 		}
 
 		virtual void write(
-			const Point<N, integer>& position,
+			const Point<integer, N>& position,
 			const FromType& data)
 		{
 			(*image_)(position) = adapter_.revert(data);
 		}
 
 		virtual FromType operator()(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return adapter_.convert((*image_)(position));
 		}
 
 	private:
-		Array<N, ToType>* image_;
+		Array<ToType, N>* image_;
 		Adapter adapter_;
 	};
 

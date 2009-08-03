@@ -22,7 +22,7 @@ namespace Pastel
 		}
 
 		explicit BilinearTriangleTexture(
-			const Tuple<3, Type>& colorTriangle)
+			const Tuple<Type, 3>& colorTriangle)
 			: colorTriangle_(colorTriangle)
 		{
 		}
@@ -54,12 +54,12 @@ namespace Pastel
 		}
 
 	private:
-		Tuple<3, Type> colorTriangle_;
+		Tuple<Type, 3> colorTriangle_;
 	};
 
 	template <typename Type>
 	BilinearTriangleTexture<Type> bilinearTriangleTexture(
-		const Tuple<3, Type>& colorTriangle)
+		const Tuple<Type, 3>& colorTriangle)
 	{
 		return BilinearTriangleTexture<Type>(colorTriangle);
 	}

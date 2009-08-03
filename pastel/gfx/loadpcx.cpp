@@ -248,7 +248,7 @@ namespace Pastel
 		const integer width = pcxHeader.width();
 		const integer height = pcxHeader.height();
 
-		image.setExtent(Vector<2, integer>(width, height));
+		image.setExtent(Vector<integer, 2>(width, height));
 
 		for (integer yPos = height - 1;yPos >= 0;--yPos)
 		{
@@ -449,7 +449,7 @@ namespace Pastel
 		const integer width = pcxHeader.width();
 		const integer height = pcxHeader.height();
 
-		image.setExtent(Vector<2, integer>(width, height));
+		image.setExtent(Vector<integer, 2>(width, height));
 
 		for (integer yPos = height - 1;yPos >= 0;--yPos)
 		{
@@ -644,7 +644,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		Array<2, bool>& image,
+		Array<bool, 2>& image,
 		std::vector<Color>* colorPalette)
 	{
 		Integer_To_Bool<uint8> adapter;
@@ -653,7 +653,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		Array<2, uint8>& image,
+		Array<uint8, 2>& image,
 		std::vector<Color>* colorPalette)
 	{
 		IdentityAdapter<uint8> adapter;
@@ -662,7 +662,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, Color>& image)
+		Array<Color, 2>& image)
 	{
 		IdentityAdapter<Color> adapter;
 		return loadPcx(fileName, image, adapter);
@@ -670,7 +670,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, ByteColor>& image)
+		Array<ByteColor, 2>& image)
 	{
 		ByteColor_To_Color adapter;
 		return loadPcx(fileName, image, adapter);
@@ -678,7 +678,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, uint32>& image)
+		Array<uint32, 2>& image)
 	{
 		Integer_To_Color<uint32, 8, 8, 8> adapter;
 		return loadPcx(fileName, image, adapter);
@@ -686,7 +686,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, uint16>& image)
+		Array<uint16, 2>& image)
 	{
 		Integer_To_Color<uint16, 5, 6, 5> adapter;
 		return loadPcx(fileName, image, adapter);

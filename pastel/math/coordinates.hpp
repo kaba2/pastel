@@ -10,15 +10,15 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cartesianToCylinder(
-		const Vector<N, Real>& cartesian, integer k)
+	TemporaryVector<Real, N> cartesianToCylinder(
+		const Vector<Real, N>& cartesian, integer k)
 	{
 		const integer dimension = cartesian.dimension();
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, dimension);
 
-		Vector<N, Real> cylinder(ofDimension(dimension));
+		Vector<Real, N> cylinder(ofDimension(dimension));
 
 		// Copy the last (n - k) components as they are.
 
@@ -50,15 +50,15 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cylinderToCartesian(
-		const Vector<N, Real>& cylinder, integer k)
+	TemporaryVector<Real, N> cylinderToCartesian(
+		const Vector<Real, N>& cylinder, integer k)
 	{
 		const integer dimension = cylinder.dimension();
 
 		PENSURE_OP(k, >=, 0);
 		PENSURE_OP(k, <=, dimension);
 
-		Vector<N, Real> cartesian(ofDimension(dimension));
+		Vector<Real, N> cartesian(ofDimension(dimension));
 
 		// Convert the first k components from spherical
 		// coordinates to Cartesian coordinates:
@@ -88,32 +88,32 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cartesianToCylinder(
-		const Vector<N, Real>& cartesian)
+	TemporaryVector<Real, N> cartesianToCylinder(
+		const Vector<Real, N>& cartesian)
 	{
 		return Pastel::cartesianToCylinder(
 			cartesian, cartesian.dimension() - 1);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cylinderToCartesian(
-		const Vector<N, Real>& cylinder)
+	TemporaryVector<Real, N> cylinderToCartesian(
+		const Vector<Real, N>& cylinder)
 	{
 		return Pastel::cylinderToCartesian(cylinder,
 			cylinder.dimension() - 1);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cartesianToSpherical(
-		const Vector<N, Real>& cartesian)
+	TemporaryVector<Real, N> cartesianToSpherical(
+		const Vector<Real, N>& cartesian)
 	{
 		return cartesianToCylinder(cartesian, 
 			cartesian.dimension());
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> sphericalToCartesian(
-		const Vector<N, Real>& spherical)
+	TemporaryVector<Real, N> sphericalToCartesian(
+		const Vector<Real, N>& spherical)
 	{
 		return cylinderToCartesian(spherical, 
 			spherical.dimension());

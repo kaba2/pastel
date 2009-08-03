@@ -69,7 +69,7 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection, 
 		typename ConstIndexIterator, typename SplitRule>
 	void searchAllNeighborsKdTree(
-		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<Point<Real, N> >& pointSet,
 		const ConstIndexIterator& indexSetBegin,
 		const ConstIndexIterator& indexSetEnd,
 		integer kNearestBegin,
@@ -79,8 +79,8 @@ namespace Pastel
 		const NormBijection& normBijection,
 		integer bucketSize,
 		const SplitRule& splitRule,
-		Array<2, integer>* nearestArray,
-		Array<2, Real>* distanceArray = 0);
+		Array<integer, 2>* nearestArray,
+		Array<Real, 2>* distanceArray = 0);
 
 	template <int N, typename Real, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, typename NormBijection>
@@ -93,8 +93,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		Array<2, integer>* nearestArray,
-		Array<2, Real>* distanceArray = 0);
+		Array<integer, 2>* nearestArray,
+		Array<Real, 2>* distanceArray = 0);
 
 }
 

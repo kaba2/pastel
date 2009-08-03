@@ -26,8 +26,8 @@ namespace Pastel
 	s_k = atan(x_k / x_(k - 1))
 	*/
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cartesianToCylinder(
-		const Vector<N, Real>& cartesian, integer k);
+	TemporaryVector<Real, N> cartesianToCylinder(
+		const Vector<Real, N>& cartesian, integer k);
 
 	//! Converts generalized cylinder coordinates to cartesian coordinates.
 	/*!
@@ -46,8 +46,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cylinderToCartesian(
-		const Vector<N, Real>& cylinder, integer k);
+	TemporaryVector<Real, N> cylinderToCartesian(
+		const Vector<Real, N>& cylinder, integer k);
 
 	//! Converts cartesian coordinates to cylinder coordinates.
 	/*!
@@ -55,8 +55,8 @@ namespace Pastel
 	cartesianToCylinder(cartesian, dimension - 1).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cartesianToCylinder(
-		const Vector<N, Real>& cartesian);
+	TemporaryVector<Real, N> cartesianToCylinder(
+		const Vector<Real, N>& cartesian);
 
 	//! Converts cylinder coordinates to cartesian coordinates.
 	/*!
@@ -64,8 +64,8 @@ namespace Pastel
 	cylinderToCartesian(cartesian, dimension - 1).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cylinderToCartesian(
-		const Vector<N, Real>& cylinder);
+	TemporaryVector<Real, N> cylinderToCartesian(
+		const Vector<Real, N>& cylinder);
 
 	//! Converts cartesian coordinates to spherical coordinates.
 	/*!
@@ -73,8 +73,8 @@ namespace Pastel
 	cartesianToCylinder(cartesian, dimension).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<N, Real> cartesianToSpherical(
-		const Vector<N, Real>& cartesian);
+	TemporaryVector<Real, N> cartesianToSpherical(
+		const Vector<Real, N>& cartesian);
 
 	//! Converts spherical coordinates to cartesian coordinates.
 	/*!
@@ -82,8 +82,8 @@ namespace Pastel
 	cylinderToCartesian(cartesian, dimension).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<N, Real> sphericalToCartesian(
-		const Vector<N, Real>& spherical);
+	TemporaryVector<Real, N> sphericalToCartesian(
+		const Vector<Real, N>& spherical);
 
 }
 

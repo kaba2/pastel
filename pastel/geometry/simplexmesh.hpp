@@ -71,7 +71,7 @@ namespace Pastel
 	template <int N, typename DataPolicy>
 	typename SimplexMesh<N, DataPolicy>::Simplex
 		SimplexMesh<N, DataPolicy>::addSimplex(
-			const Tuple<PASTEL_ADD_N(N, 1), Vertex>& vertexList)
+			const Tuple<Vertex, PASTEL_ADD_N(N, 1)>& vertexList)
 	{
 		Simplex simplex = allocateSimplex();
 

@@ -16,13 +16,13 @@ namespace Pastel
 	void generateUniformBallPointSet(
 		integer points,
 		integer dimension,
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<N, Real> > result;
+		std::vector<Point<Real, N> > result;
 		result.reserve(points);
 
 		for (integer i = 0;i < points;++i)
@@ -39,14 +39,14 @@ namespace Pastel
 		integer points,
 		integer dimension,
 		integer clusters,
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE_OP(clusters, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<N, Real> > result;
+		std::vector<Point<Real, N> > result;
 		result.reserve(points);
 
 		Real realPointsCreated = 0;
@@ -63,7 +63,7 @@ namespace Pastel
 				clusterPoints = points - pointsCreated;
 			}
 
-			const Point<N, Real> clusterCenter(
+			const Point<Real, N> clusterCenter(
 				randomVectorCube<N, Real>(dimension));
 			const Real clusterRadius = random<Real>() * 0.1;
 
@@ -85,13 +85,13 @@ namespace Pastel
 	void generateUniformCubePointSet(
 		integer points,
 		integer dimension,
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<N, Real> > result;
+		std::vector<Point<Real, N> > result;
 		result.reserve(points);
 
 		for (integer i = 0;i < points;++i)
@@ -107,13 +107,13 @@ namespace Pastel
 	void generateGaussianPointSet(
 		integer points,
 		integer dimension,
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<N, Real> > result;
+		std::vector<Point<Real, N> > result;
 		result.reserve(points);
 
 		for (integer i = 0;i < points;++i)
@@ -127,8 +127,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void scale(
-		const Vector<N, Real>& scaling,
-		std::vector<Point<N, Real> >& pointSet)
+		const Vector<Real, N>& scaling,
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		if (pointSet.empty())
 		{
@@ -145,7 +145,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void randomlyRotate(
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		if (pointSet.empty())
 		{
@@ -167,7 +167,7 @@ namespace Pastel
 	template <int N, typename Real>
 	void randomlyReduceDimensionality(
 		integer dimensionality,
-		std::vector<Point<N, Real> >& pointSet)
+		std::vector<Point<Real, N> >& pointSet)
 	{
 		ENSURE_OP(dimensionality, >, 0);
 

@@ -9,14 +9,14 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<N, Real> permute(
-		const VectorExpression<N, Real, Expression>& that,
-		const Tuple<N, integer>& permutation)
+	inline TemporaryVector<Real, N> permute(
+		const VectorExpression<Real, N, Expression>& that,
+		const Tuple<integer, N>& permutation)
 	{
 		const integer dimension = that.size();
 		PENSURE_OP(dimension, ==, permutation.dimension());
 
-		Vector<N, Real> result(
+		Vector<Real, N> result(
 			ofDimension(dimensions));
 
 		for (integer i = 0;i < dimension;++i)
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	integer minIndex(
-		const VectorExpression<N, Real, Expression>& that)
+		const VectorExpression<Real, N, Expression>& that)
 	{
 		const integer dimension = that.dimension();
 
@@ -53,22 +53,22 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	Real min(
-		const VectorExpression<N, Real, Expression>& that)
+		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[minIndex(that)];
 	}
 
 	template <int N, typename Real,
 	typename LeftExpression, typename RightExpression>
-	TemporaryVector<N, Real> min(
-		const VectorExpression<N, Real, LeftExpression>& left,
-		const VectorExpression<N, Real, RightExpression>& right)
+	TemporaryVector<Real, N> min(
+		const VectorExpression<Real, N, LeftExpression>& left,
+		const VectorExpression<Real, N, RightExpression>& right)
 	{
 		PENSURE_OP(left.size(), ==, right.size());
 
 		const integer size = left.size();
 	
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::min(left[i], right[i]);
@@ -78,13 +78,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<N, Real> min(
+	TemporaryVector<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const VectorExpression<N, Real, Expression>& right)
+		const VectorExpression<Real, N, Expression>& right)
 	{
 		const integer size = right.size();
 
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::min(left, right[i]);
@@ -94,13 +94,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<N, Real> min(
-		const VectorExpression<N, Real, Expression>& left,
+	TemporaryVector<Real, N> min(
+		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		const integer size = left.size();
 
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 		for (integer i = 0;i < size;++i)
 		{
 			result[i] = std::min(left[i], right);
@@ -115,7 +115,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	integer maxIndex(
-		const VectorExpression<N, Real, Expression>& that)
+		const VectorExpression<Real, N, Expression>& that)
 	{
 		const integer dimension = that.dimension();
 
@@ -137,7 +137,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	Real max(
-		const VectorExpression<N, Real, Expression>& that)
+		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[maxIndex(that)];
 	}
@@ -145,14 +145,14 @@ namespace Pastel
 	template <int N, typename Real,
 	typename LeftExpression,
 	typename RightExpression>
-	TemporaryVector<N, Real> max(
-		const VectorExpression<N, Real, LeftExpression>& left,
-		const VectorExpression<N, Real, RightExpression>& right)
+	TemporaryVector<Real, N> max(
+		const VectorExpression<Real, N, LeftExpression>& left,
+		const VectorExpression<Real, N, RightExpression>& right)
 	{
 		PENSURE2(left.size() == right.size(), left.size(), right.size());
 
 		const integer size = left.size();
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 		
 		for (integer i = 0;i < size;++i)
 		{
@@ -163,12 +163,12 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<N, Real> max(
+	TemporaryVector<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const VectorExpression<N, Real, Expression>& right)
+		const VectorExpression<Real, N, Expression>& right)
 	{
 		const integer size = right.size();
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -179,12 +179,12 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<N, Real> max(
-		const VectorExpression<N, Real, Expression>& left,
+	TemporaryVector<Real, N> max(
+		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		const integer size = left.size();
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -198,16 +198,16 @@ namespace Pastel
 	typename ThatExpression,
 	typename MinExpression,
 	typename MaxExpression>
-	inline TemporaryVector<N, Real> clamp(
-		const VectorExpression<N, Real, ThatExpression>& that,
-		const VectorExpression<N, Real, MinExpression>& minimum,
-		const VectorExpression<N, Real, MaxExpression>& maximum)
+	inline TemporaryVector<Real, N> clamp(
+		const VectorExpression<Real, N, ThatExpression>& that,
+		const VectorExpression<Real, N, MinExpression>& minimum,
+		const VectorExpression<Real, N, MaxExpression>& maximum)
 	{
 		PENSURE2(that.size() == minimum.size(), that.size(), minimum.size());
 		PENSURE2(that.size() == maximum.size(), that.size(), maximum.size());
 
 		const integer size = that.size();
-		Vector<N, Real> result(ofDimension(size));
+		Vector<Real, N> result(ofDimension(size));
 
 		for (integer i = 0;i < size;++i)
 		{
@@ -221,8 +221,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void multiplyByPowerOf2(
-		Vector<N, Real>& x,
-		const Vector<N, Real>& power)
+		Vector<Real, N>& x,
+		const Vector<Real, N>& power)
 	{
 		PENSURE2(x.size() == power.size(), x.size(), power.size());
 
@@ -236,7 +236,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void multiplyByPowerOf2(
-		Vector<N, Real>& x,
+		Vector<Real, N>& x,
 		const Real& power)
 	{
 		PENSURE2(x.size() == power.size(), x.size(), power.size());
@@ -251,8 +251,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void divideByPowerOf2(
-		Vector<N, Real>& x,
-		const Vector<N, Real>& power)
+		Vector<Real, N>& x,
+		const Vector<Real, N>& power)
 	{
 		PENSURE2(x.size() == power.size(), x.size(), power.size());
 
@@ -266,7 +266,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void divideByPowerOf2(
-		Vector<N, Real>& x,
+		Vector<Real, N>& x,
 		const Real& power)
 	{
 		PENSURE2(x.size() == power.size(), x.size(), power.size());
@@ -283,7 +283,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorInverse<N, Real, Expression>
-		inverse(const VectorExpression<N, Real, Expression>& x)
+		inverse(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorInverse<N, Real, Expression>(
 			(const Expression&)x);
@@ -291,7 +291,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorAbs<N, Real, Expression>
-		mabs(const VectorExpression<N, Real, Expression>& x)
+		mabs(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorAbs<N, Real, Expression>(
 			(const Expression&)x);
@@ -299,7 +299,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorSquare<N, Real, Expression>
-		squarev(const VectorExpression<N, Real, Expression>& x)
+		squarev(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorSquare<N, Real, Expression>(
 			(const Expression&)x);
@@ -307,7 +307,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorExp<N, Real, Expression>
-		exp(const VectorExpression<N, Real, Expression>& x)
+		exp(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorExp<N, Real, Expression>(
 			(const Expression&)x);
@@ -315,7 +315,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorLog<N, Real, Expression>
-		log(const VectorExpression<N, Real, Expression>& x)
+		log(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorLog<N, Real, Expression>(
 			(const Expression&)x);
@@ -324,8 +324,8 @@ namespace Pastel
 	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
 		const VectorPow<N, Real, LeftExpression, RightExpression>
-		pow(const VectorExpression<N, Real, LeftExpression>& left,
-		const VectorExpression<N, Real, RightExpression>& right)
+		pow(const VectorExpression<Real, N, LeftExpression>& left,
+		const VectorExpression<Real, N, RightExpression>& right)
 	{
 		return VectorPow<N, Real, LeftExpression, RightExpression>(
 			(const LeftExpression&)left,
@@ -337,7 +337,7 @@ namespace Pastel
 		const VectorPow<N, Real,
 		LeftExpression,
 		VectorConstant<N, Real> >
-		pow(const VectorExpression<N, Real, LeftExpression>& left,
+		pow(const VectorExpression<Real, N, LeftExpression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return VectorPow<N, Real, LeftExpression,
@@ -348,7 +348,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorSqrt<N, Real, Expression>
-		sqrt(const VectorExpression<N, Real, Expression>& x)
+		sqrt(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorSqrt<N, Real, Expression>(
 			(const Expression&)x);
@@ -356,7 +356,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorFloor<N, Real, Expression>
-		floor(const VectorExpression<N, Real, Expression>& x)
+		floor(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorFloor<N, Real, Expression>(
 			(const Expression&)x);
@@ -364,7 +364,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorCeil<N, Real, Expression>
-		ceil(const VectorExpression<N, Real, Expression>& x)
+		ceil(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorCeil<N, Real, Expression>(
 			(const Expression&)x);
@@ -372,7 +372,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorSin<N, Real, Expression>
-		sin(const VectorExpression<N, Real, Expression>& x)
+		sin(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorSin<N, Real, Expression>(
 			(const Expression&)x);
@@ -380,7 +380,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorCos<N, Real, Expression>
-		cos(const VectorExpression<N, Real, Expression>& x)
+		cos(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorCos<N, Real, Expression>(
 			(const Expression&)x);
@@ -388,7 +388,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorTan<N, Real, Expression>
-		tan(const VectorExpression<N, Real, Expression>& x)
+		tan(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorTan<N, Real, Expression>(
 			(const Expression&)x);
@@ -396,7 +396,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorAsin<N, Real, Expression>
-		asin(const VectorExpression<N, Real, Expression>& x)
+		asin(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorAsin<N, Real, Expression>(
 			(const Expression&)x);
@@ -404,7 +404,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	const VectorAcos<N, Real, Expression>
-		acos(const VectorExpression<N, Real, Expression>& x)
+		acos(const VectorExpression<Real, N, Expression>& x)
 	{
 		return VectorAcos<N, Real, Expression>(
 			(const Expression&)x);
@@ -413,8 +413,8 @@ namespace Pastel
 	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
 		const VectorAtan2<N, Real, LeftExpression, RightExpression>
-		atan2(const VectorExpression<N, Real, LeftExpression>& left,
-		const VectorExpression<N, Real, RightExpression>& right)
+		atan2(const VectorExpression<Real, N, LeftExpression>& left,
+		const VectorExpression<Real, N, RightExpression>& right)
 	{
 		return VectorAtan2<N, Real,
 			LeftExpression, RightExpression>(

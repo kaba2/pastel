@@ -21,7 +21,7 @@ namespace Pastel
 		explicit ImagePdf(
 			const ConstView<N, Real, Image_ConstView>& image);
 
-		Point<N, integer> operator()() const;
+		Point<integer, N> operator()() const;
 
 	private:
 		class CdfElement
@@ -29,7 +29,7 @@ namespace Pastel
 		public:
 			CdfElement(
 				const Real& cdf,
-				const Point<N, integer>& position)
+				const Point<integer, N>& position)
 				: cdf_(cdf)
 				, position_(position)
 			{
@@ -45,14 +45,14 @@ namespace Pastel
 				return cdf_;
 			}
 
-			const Point<N, integer>& position() const
+			const Point<integer, N>& position() const
 			{
 				return position_;
 			}
 
 		private:
 			Real cdf_;
-			Point<N, integer> position_;
+			Point<integer, N> position_;
 		};
 
 		class CdfFunctor
@@ -66,7 +66,7 @@ namespace Pastel
 			{
 			}
 
-			void operator()(const Point<N, integer>& position,
+			void operator()(const Point<integer, N>& position,
 				Real imageValue) const
 			{
 				if (imageValue > 0)

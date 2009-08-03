@@ -14,9 +14,9 @@ namespace Pastel
 	template <int N, typename Real>
 	bool overlaps(
 		const Simplex<N, Real, N>& simplex,
-		const Point<N, Real>& point)
+		const Point<Real, N>& point)
 	{
-		const Vector<PASTEL_ADD_N(N, 1), Real> bary =
+		const Vector<Real, PASTEL_ADD_N(N, 1)> bary =
 			barycentric(point, simplex);
 
 		return allGreaterEqual(bary, 0) &&

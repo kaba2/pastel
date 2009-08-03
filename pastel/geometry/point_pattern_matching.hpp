@@ -138,7 +138,7 @@ namespace Pastel
 				return modelPointTries_;
 			}
 
-			bool operator()(Tuple<4, Real>& similarityResult) const
+			bool operator()(Tuple<Real, 4>& similarityResult) const
 			{
 				bestLocalTry_ = 0;
 				bestGlobalTry_ = 0;
@@ -180,7 +180,7 @@ namespace Pastel
 					const ModelIterator modelIter = modelIndexList[i];
 					const ModelObject& modelObject =
 						modelIter->object();
-					const Point<2, Real> modelPoint =
+					const Point<Real, 2> modelPoint =
 						modelTree_.objectPolicy().point(modelObject);
 
 					SceneIterator sceneIter = sceneTree_.begin();
@@ -192,7 +192,7 @@ namespace Pastel
 
 						const SceneObject& sceneObject =
 							sceneIter->object();
-						const Point<2, Real> scenePoint =
+						const Point<Real, 2> scenePoint =
 							sceneTree_.objectPolicy().point(sceneObject);
 
 						// Find the k nearest neighbours
@@ -258,7 +258,7 @@ namespace Pastel
 				{
 				}
 
-				Point<2, Real> operator()(const SceneObject& sceneObject) const
+				Point<Real, 2> operator()(const SceneObject& sceneObject) const
 				{
 					return sceneTree_.objectPolicy().point(sceneObject);
 				}
@@ -277,12 +277,12 @@ namespace Pastel
 				}
 			};
 
-			Point<2, Real> scenePosition(const SceneIterator& sceneIter) const
+			Point<Real, 2> scenePosition(const SceneIterator& sceneIter) const
 			{
 				return sceneTree_.objectPolicy().point(sceneIter->object());
 			}
 
-			Point<2, Real> modelPosition(const ModelIterator& modelIter) const
+			Point<Real, 2> modelPosition(const ModelIterator& modelIter) const
 			{
 				return modelTree_.objectPolicy().point(modelIter->object());
 			}
@@ -290,7 +290,7 @@ namespace Pastel
 			bool matchLocal(
 				const std::vector<ModelIterator>& modelSet,
 				const std::vector<SceneIterator>& sceneSet,
-				Tuple<4, Real>& resultSimilarity) const
+				Tuple<Real, 4>& resultSimilarity) const
 			{
 				ASSERT2(modelSet.size() == sceneSet.size(),
 					modelSet.size(), sceneSet.size());
@@ -300,16 +300,16 @@ namespace Pastel
 				// respectively. Thus to access the k:th nearest
 				// neighbour, one uses modelSet[k] and sceneSet[k].
 
-				const Point<2, Real> modelPoint =
+				const Point<Real, 2> modelPoint =
 					modelPosition(modelSet[0]);
-				const Point<2, Real> scenePoint =
+				const Point<Real, 2> scenePoint =
 					scenePosition(sceneSet[0]);
 
 				for (integer i = kPoints_ - k2Points_ + 1;i < kPoints_ + 1;++i)
 				{
 					for (integer j = 0;j < k3Points_;++j)
 					{
-						const Tuple<4, Real> similarityParameters =
+						const Tuple<Real, 4> similarityParameters =
 							similarityTransformation(
 							modelPoint, modelPosition(modelSet[i - k3Points_ / 2]),
 							scenePoint, scenePosition(sceneSet[i - j]));
@@ -320,14 +320,14 @@ namespace Pastel
 						// Count the number of points this similarity transform
 						// matches between the local point sets.
 
-						std::vector<Point<2, Real> > modelMatch;
+						std::vector<Point<Real, 2> > modelMatch;
 						modelMatch.push_back(modelPoint);
-						std::vector<Point<2, Real> > sceneMatch;
+						std::vector<Point<Real, 2> > sceneMatch;
 						sceneMatch.push_back(scenePoint);
 
 						for (integer m = 1;m < kPoints_ + 1;++m)
 						{
-							const Point<2, Real> transformedModelPoint =
+							const Point<Real, 2> transformedModelPoint =
 								modelPosition(modelSet[m]) * similarity;
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
@@ -371,21 +371,21 @@ namespace Pastel
 			}
 
 			bool improveGlobal(
-				const std::vector<Point<2, Real> >& modelMatch,
-				const std::vector<Point<2, Real> >& sceneMatch,
-				Tuple<4, Real>& resultSimilarity) const
+				const std::vector<Point<Real, 2> >& modelMatch,
+				const std::vector<Point<Real, 2> >& sceneMatch,
+				Tuple<Real, 4>& resultSimilarity) const
 			{
 				ASSERT2(sceneMatch.size() == modelMatch.size(),
 					sceneMatch.size(), modelMatch.size());
 
 				++globalTries_;
 
-				std::vector<Point<2, Real> > modelGlobalMatch(modelMatch);
-				std::vector<Point<2, Real> > sceneGlobalMatch(sceneMatch);
+				std::vector<Point<Real, 2> > modelGlobalMatch(modelMatch);
+				std::vector<Point<Real, 2> > sceneGlobalMatch(sceneMatch);
 
 				integer matches = 0;
 
-				Tuple<4, Real> lsSimilarityParameters;
+				Tuple<Real, 4> lsSimilarityParameters;
 				// We want to go through the improving process
 				// at least once even if we already had enough
 				// matching points. This is because at each
@@ -421,10 +421,10 @@ namespace Pastel
 
 					while(modelIter != modelEnd)
 					{
-						const Point<2, Real> modelPoint =
+						const Point<Real, 2> modelPoint =
 							modelPosition(modelIter);
 
-						const Point<2, Real> transformedModelPoint =
+						const Point<Real, 2> transformedModelPoint =
 							modelPoint * lsSimilarity;
 
 						// See if the model point maps near to some
@@ -436,7 +436,7 @@ namespace Pastel
 						if (closestScenePoint.key() <= matchingThreshold_ &&
 							usedSet.find(closestScenePoint.value()) == usedSet.end())
 						{
-							const Point<2, Real> scenePoint =
+							const Point<Real, 2> scenePoint =
 								scenePosition(closestScenePoint.value());
 
 							// Add these points as a new matching pair.
@@ -500,7 +500,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
-		Tuple<4, Real>& similarityResult)
+		Tuple<Real, 4>& similarityResult)
 	{
 		ENSURE1(minMatchRatio >= 0 && minMatchRatio <= 1, minMatchRatio);
 		if (matchingDistanceType == PatternMatch::AbsoluteDistance)
@@ -541,7 +541,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
-		Tuple<4, Real>& similarityResult)
+		Tuple<Real, 4>& similarityResult)
 	{
 		typedef PointKdTree<2, Real> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;

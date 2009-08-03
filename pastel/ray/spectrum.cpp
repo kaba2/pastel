@@ -188,9 +188,9 @@ namespace Pastel
 			0.072169 * cSample_;
 	}
 
-	Vector<3, float> Spectrum::toXyz() const
+	Vector<float, 3> Spectrum::toXyz() const
 	{
-		return Vector<3, float>(
+		return Vector<float, 3>(
 			0.412453 * aSample_ +
 			0.357580 * bSample_ +
 			0.180423 * cSample_,
@@ -202,7 +202,7 @@ namespace Pastel
 			0.950227 * cSample_);
 	}
 
-	Spectrum Spectrum::fromXyz(const Vector<3, float>& xyz)
+	Spectrum Spectrum::fromXyz(const Vector<float, 3>& xyz)
 	{
 		Spectrum spectrum;
 

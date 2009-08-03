@@ -73,10 +73,10 @@ namespace Pastel
 		return Alias<Type*>(data);
 	}
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class Tuple;
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class TemporaryTuple;
 
 	namespace Detail
@@ -84,7 +84,7 @@ namespace Pastel
 
 		template <int N, typename Type>
 		class TupleBase
-			: boost::equality_comparable<Tuple<N, Type> >
+			: boost::equality_comparable<Tuple<Type, N> >
 		{
 		public:
 			template <int N, typename Type>
@@ -154,7 +154,7 @@ namespace Pastel
 
 				enum
 				{
-					IsBase = boost::is_base_of<TupleBase, Tuple<N, Type> >::value
+					IsBase = boost::is_base_of<TupleBase, Tuple<Type, N> >::value
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
@@ -172,7 +172,7 @@ namespace Pastel
 			}
 			*/
 
-			void swap(Tuple<N, Type> & that)
+			void swap(Tuple<Type, N> & that)
 			{
 				using std::swap;
 
@@ -291,15 +291,15 @@ namespace Pastel
 				return data_[index];
 			}
 
-			bool operator==(const Tuple<N, Type> & that) const
+			bool operator==(const Tuple<Type, N> & that) const
 			{
 				return std::equal(
 					begin(), end(), that.begin());
 			}
 
-			TemporaryTuple<N, Type>& asTemporary()
+			TemporaryTuple<Type, N>& asTemporary()
 			{
-				return (TemporaryTuple<N, Type>&)*this;
+				return (TemporaryTuple<Type, N>&)*this;
 			}
 
 		private:
@@ -308,7 +308,7 @@ namespace Pastel
 
 		template <typename Type>
 		class TupleBase<Dynamic, Type>
-			: boost::equality_comparable<Tuple<Dynamic, Type> >
+			: boost::equality_comparable<Tuple<Type, Dynamic> >
 		{
 		private:
 			enum
@@ -438,13 +438,13 @@ namespace Pastel
 				};
 			}
 
-			TupleBase(const TemporaryTuple<N, Type>& that)
+			TupleBase(const TemporaryTuple<Type, N>& that)
 				: data_(0)
 				, size_(0)
 				, deleteData_(true)
 			{
-				TemporaryTuple<N, Type>& moveThat =
-					const_cast<TemporaryTuple<N, Type>&>(that);
+				TemporaryTuple<Type, N>& moveThat =
+					const_cast<TemporaryTuple<Type, N>&>(that);
 
 				swap(moveThat);
 			}
@@ -468,7 +468,7 @@ namespace Pastel
 
 				enum
 				{
-					IsBase = boost::is_base_of<TupleBase, Tuple<N, Type> >::value
+					IsBase = boost::is_base_of<TupleBase, Tuple<Type, N> >::value
 				};
 
 				BOOST_STATIC_ASSERT(IsBase);
@@ -500,7 +500,7 @@ namespace Pastel
 				swap(copy);
 			}
 
-			void swap(Tuple<N, Type>& that)
+			void swap(Tuple<Type, N>& that)
 			{
 				std::swap(data_, that.data_);
 				std::swap(size_, that.size_);
@@ -614,7 +614,7 @@ namespace Pastel
 				return data_[index];
 			}
 
-			bool operator==(const Tuple<N, Type> & that) const
+			bool operator==(const Tuple<Type, N> & that) const
 			{
 				PENSURE2(size() == that.size(), size(), that.size());
 
@@ -622,9 +622,9 @@ namespace Pastel
 					begin(), end(), that.begin());
 			}
 
-			TemporaryTuple<N, Type>& asTemporary()
+			TemporaryTuple<Type, N>& asTemporary()
 			{
-				return (TemporaryTuple<N, Type>&)*this;
+				return (TemporaryTuple<Type, N>&)*this;
 			}
 
 		private:

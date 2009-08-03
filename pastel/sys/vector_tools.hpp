@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
-		const VectorExpression<N, Real, Expression>& vector)
+		const VectorExpression<Real, N, Expression>& vector)
 	{
 		const integer size = vector.size();
 
@@ -30,7 +30,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	std::istream& operator>>(std::istream& stream,
-		Vector<N, Real>& vector)
+		Vector<Real, N>& vector)
 	{
 		const integer size = vector.size();
 
@@ -43,7 +43,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	Real sum(const VectorExpression<N, Real, Expression>& x)
+	Real sum(const VectorExpression<Real, N, Expression>& x)
 	{
 		const integer size = x.size();
 
@@ -58,7 +58,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	Real product(const VectorExpression<N, Real, Expression>& x)
+	Real product(const VectorExpression<Real, N, Expression>& x)
 	{
 		const integer size = x.size();
 
@@ -73,11 +73,10 @@ namespace Pastel
 	}
 
 	template <
-		int N,
-		typename Real>
+		typename Real,
+		int N>
 	class VectorUnitAxis
-		: public VectorExpression<N, Real,
-		VectorUnitAxis<N, Real> >
+		: public VectorExpression<Real, N, VectorUnitAxis<Real, N> >
 	{
 	public:
 		typedef const VectorUnitAxis StorageType;
@@ -124,19 +123,19 @@ namespace Pastel
 		const integer size_;
 	};
 
-	template <int N, typename Real>
-	VectorUnitAxis<N, Real> unitAxis(integer index)
+	template <typename Real, int N>
+	VectorUnitAxis<Real, N> unitAxis(integer index)
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		BOOST_STATIC_ASSERT(N > 0);
 
 		PENSURE2(index >= 0 && index < N, index, N);
 
-		return Pastel::unitAxis<N, Real>(N, index);
+		return Pastel::unitAxis<Real, N>(N, index);
 	}
 
-	template <int N, typename Real>
-	VectorUnitAxis<N, Real> unitAxis(
+	template <typename Real, int N>
+	VectorUnitAxis<Real, N> unitAxis(
 		integer dimension, integer index)
 	{
 		PENSURE_OP(dimension, >, 0);
@@ -144,18 +143,18 @@ namespace Pastel
 			dimension, N);
 		PENSURE2(index >= 0 && index < dimension, index, dimension);
 
-		return VectorUnitAxis<N, Real>(index, dimension);
+		return VectorUnitAxis<Real, N>(index, dimension);
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, -1), Real> shrink(
-		const VectorExpression<N, Real, Expression>& that)
+	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+		const VectorExpression<Real, N, Expression>& that)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		const integer size = that.size();
 
-		Vector<PASTEL_ADD_N(N, -1), Real> result(size - 1);
+		Vector<Real, PASTEL_ADD_N(N, -1)> result(size - 1);
 		for (int i = 0;i < size - 1;++i)
 		{
 			result[i] = that[i];
@@ -165,15 +164,15 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, -1), Real> shrink(
-		const VectorExpression<N, Real, Expression>& that,
+	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+		const VectorExpression<Real, N, Expression>& that,
 		integer index)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		const integer size = that.size();
 
-		Vector<PASTEL_ADD_N(N, -1), Real> result(size - 1);
+		Vector<Real, PASTEL_ADD_N(N, -1)> result(size - 1);
 		for (integer i = 0;i < index;++i)
 		{
 			result[i] = that[i];
@@ -191,8 +190,7 @@ namespace Pastel
 		typename Real,
 		typename Expression>
 	class VectorExtend
-		: public VectorExpression<PASTEL_ADD_N(N, 1), Real,
-		VectorExtend<N, Real, Expression> >
+		: public VectorExpression<Real, PASTEL_ADD_N(N, 1), VectorExtend<N, Real, Expression> >
 	{
 	public:
 		typedef const VectorExtend& StorageType;
@@ -253,7 +251,7 @@ namespace Pastel
 	template <int N, typename Real, typename Expression>
 	inline VectorExtend<N, Real, Expression> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const VectorExpression<N, Real, Expression>& right)
+		const VectorExpression<Real, N, Expression>& right)
 	{
 		return VectorExtend<N, Real, Expression>(
 			(const Expression&)right, 0, left);
@@ -261,7 +259,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline VectorExtend<N, Real, Expression> extend(
-		const VectorExpression<N, Real, Expression>& left,
+		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
 		return VectorExtend<N, Real, Expression>(
@@ -270,7 +268,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline VectorExtend<N, Real, Expression> extend(
-		const VectorExpression<N, Real, Expression>& left,
+		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index)
 	{
@@ -281,7 +279,7 @@ namespace Pastel
 	template <int N, typename Real,
 		typename Expression>
 		inline Real dot(
-		const VectorExpression<N, Real, Expression>& that)
+		const VectorExpression<Real, N, Expression>& that)
 	{
 		return sum(that * that);
 	}
@@ -289,35 +287,35 @@ namespace Pastel
 	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
-		const VectorExpression<N, Real, LeftExpression>& left,
-		const VectorExpression<N, Real, RightExpression>& right)
+		const VectorExpression<Real, N, LeftExpression>& left,
+		const VectorExpression<Real, N, RightExpression>& right)
 	{
 		return sum(left * right);
 	}
 
 	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
-		norm(const VectorExpression<N, Real, Expression>& that)
+		norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
 	}
 
 	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N == 1), Real>::type
-		norm(const VectorExpression<N, Real, Expression>& that)
+		norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return mabs(that[0]);
 	}
 
 	template <int N, typename Real, typename Expression>
-	Real normManhattan(const VectorExpression<N, Real, Expression>& that)
+	Real normManhattan(const VectorExpression<Real, N, Expression>& that)
 	{
 		return sum(mabs(that));
 	}
 
 	template <int N, typename Real, typename Expression>
 	Real powerSum(
-		const VectorExpression<N, Real, Expression>& that,
+		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		PENSURE_OP(metric, >=, 1);
@@ -326,7 +324,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	Real pNorm(
-		const VectorExpression<N, Real, Expression>& that,
+		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		PENSURE_OP(metric, >=, 1);
@@ -335,40 +333,40 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	Real normInfinity(const VectorExpression<N, Real, Expression>& that)
+	Real normInfinity(const VectorExpression<Real, N, Expression>& that)
 	{
 		return max(mabs(that));
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> normalize(const TemporaryVector<N, Real>& that)
+	TemporaryVector<Real, N> normalize(const TemporaryVector<Real, N>& that)
 	{
-		Vector<N, Real> result = that;
+		Vector<Real, N> result = that;
 		result /= norm(result);
 		return result.asTemporary();
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> normalize(const Vector<N, Real>& that)
+	TemporaryVector<Real, N> normalize(const Vector<Real, N>& that)
 	{
 		return that / norm(that);
 	}
 
 	template <typename Real, typename Expression>
-	TemporaryVector<2, Real> cross(
-		const VectorExpression<2, Real, Expression>& that)
+	TemporaryVector<Real, 2> cross(
+		const VectorExpression<Real, 2, Expression>& that)
 	{
-		Vector<2, Real> result(-that[1], that[0]);
+		Vector<Real, 2> result(-that[1], that[0]);
 		return result.asTemporary();
 	}
 
 	template <typename Real, typename ExpressionX,
 	typename ExpressionY>
-	TemporaryVector<3, Real> cross(
-		const VectorExpression<3, Real, ExpressionX>& x,
-		const VectorExpression<3, Real, ExpressionY>& y)
+	TemporaryVector<Real, 3> cross(
+		const VectorExpression<Real, 3, ExpressionX>& x,
+		const VectorExpression<Real, 3, ExpressionY>& y)
 	{
-		Vector<3, Real> result(
+		Vector<Real, 3> result(
 			x[1] * y[2] - x[2] * y[1],
 			x[2] * y[0] - x[0] * y[2],
 			x[0] * y[1] - x[1] * y[0]);

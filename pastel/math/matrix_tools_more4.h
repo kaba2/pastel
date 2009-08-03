@@ -82,8 +82,8 @@ namespace Pastel
 		typename RightExpression>
 		OuterProduct<Height, Width, Real, LeftExpression, RightExpression>
 		outerProduct(
-		const VectorExpression<Height, Real, LeftExpression>& left,
-		const VectorExpression<Width, Real, RightExpression>& right);
+		const VectorExpression<Real, Height, LeftExpression>& left,
+		const VectorExpression<Real, Width, RightExpression>& right);
 
 }
 

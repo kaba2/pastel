@@ -44,8 +44,8 @@ namespace Pastel
 	bool overlaps(
 		const AlignedBox<N, Real>& aBox,
 		const AlignedBox<N, Real>& bBox,
-		const Vector<N, Real>& bVelocity,
-		Tuple<2, Real>& intersectionRange)
+		const Vector<Real, N>& bVelocity,
+		Tuple<Real, 2>& intersectionRange)
 	{
 		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
 		PENSURE_OP(aBox.dimension(), ==, bVelocity.dimension());

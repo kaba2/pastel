@@ -13,7 +13,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 80;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 		Color froColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - froColor);
@@ -35,7 +35,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 400;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 		Color froColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - froColor);
@@ -74,7 +74,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 400;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 		Color froColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - froColor);

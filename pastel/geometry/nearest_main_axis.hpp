@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	integer nearestMainAxis(
-		const Vector<N, Real>& that)
+		const Vector<Real, N>& that)
 	{
 		// projectedLength = |<e_i, that> / |e_i|| = |that[i]|
 		return maxIndex(mabs(that));

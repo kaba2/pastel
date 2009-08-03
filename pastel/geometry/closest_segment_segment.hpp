@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Tuple<2, Real> closest(
+	Tuple<Real, 2> closest(
 		const Segment<N, Real>& aSegment,
 		const Segment<N, Real>& bSegment)
 	{
@@ -56,16 +56,16 @@ namespace Pastel
 		// d/du w^2(u, v) = -2 dot(p1 - p0, d0) - 2 v dot(d0, d1) + 2 u dot(d0)
 		// d/dv w^2(u, v) = 2 dot(p1 - p0, d1) + 2 v dot(d1) - 2 u dot(d0, d1)
 
-		const Vector<N, Real> aDelta = aSegment.end() - aSegment.start();
-		const Vector<N, Real> bDelta = bSegment.end() - bSegment.start();
+		const Vector<Real, N> aDelta = aSegment.end() - aSegment.start();
+		const Vector<Real, N> bDelta = bSegment.end() - bSegment.start();
 
 		const Real aNorm2 = dot(aDelta);
 		const Real bNorm2 = dot(bDelta);
 
-		const Vector<N, Real> aUnitDelta = aDelta / std::sqrt(aNorm2);
+		const Vector<Real, N> aUnitDelta = aDelta / std::sqrt(aNorm2);
 		const Line<N, Real> aLine(aSegment.start(), aUnitDelta);
 
-		const Vector<N, Real> bUnitDelta = bDelta / std::sqrt(aNorm2);
+		const Vector<Real, N> bUnitDelta = bDelta / std::sqrt(aNorm2);
 		const Line<N, Real> bLine(bSegment.start(), bUnitDelta);
 
 		// Handle degenerate cases.
@@ -75,7 +75,7 @@ namespace Pastel
 		{
 			if (bNorm == 0)
 			{
-				return Tuple<2, Real>(0, 0);
+				return Tuple<Real, 2>(0, 0);
 			}
 			else
 			{
@@ -94,7 +94,7 @@ namespace Pastel
 
 		// Find global minimum of w^2.
 
-		const Tuple<2, Real> t = closest(aLine, bLine);
+		const Tuple<Real, 2> t = closest(aLine, bLine);
 		const Real& u = t[0];
 		const Real& v = t[1];
 
@@ -122,10 +122,10 @@ namespace Pastel
 
 				if (u0vDistance2 < v0uDistance2)
 				{
-					return Tuple<2, Real>(0, u0vCandidate);
+					return Tuple<Real, 2>(0, u0vCandidate);
 				}
 
-				return Tuple<2, Real>(v0uCandidate, 0);
+				return Tuple<Real, 2>(v0uCandidate, 0);
 			}
 			else
 			{
@@ -147,10 +147,10 @@ namespace Pastel
 
 					if (u0vDistance2 < v1uDistance2)
 					{
-						return Tuple<2, Real>(0, u0vCandidate);
+						return Tuple<Real, 2>(0, u0vCandidate);
 					}
 
-					return Tuple<2, Real>(v1uCandidate, 1);
+					return Tuple<Real, 2>(v1uCandidate, 1);
 				}
 				else
 				{
@@ -159,7 +159,7 @@ namespace Pastel
 					// d/dv w^2(0, v) = 2 dot(p1 - p0, d1) + 2 v dot(d1) = 0
 					// => v = -dot(p1 - p0, d1) / dot(d1)
 
-					return Tuple<2, Real>(
+					return Tuple<Real, 2>(
 						clamp(-dot(bSegment.start() - aSegment.start(), bDelta) / bNorm2, 0, 1), 0);
 				}
 			}
@@ -188,10 +188,10 @@ namespace Pastel
 
 					if (u1vDistance2 < v0uDistance2)
 					{
-						return Tuple<2, Real>(1, u1vCandidate);
+						return Tuple<Real, 2>(1, u1vCandidate);
 					}
 
-					return Tuple<2, Real>(v0uCandidate, 0);
+					return Tuple<Real, 2>(v0uCandidate, 0);
 				}
 				else
 				{
@@ -200,7 +200,7 @@ namespace Pastel
 					// d/du w^2(u, 0) = -2dot(p1 - p0, d0) + 2u dot(d0) = 0
 					// => u = dot(p1 - p0, d0) / dot(d0)
 
-					return Tuple<2, Real>(
+					return Tuple<Real, 2>(
 						clamp(dot(bSegment.start() - aSegment.start(), aDelta) / aNorm2, 0, 1), 0);
 				}
 			}
@@ -227,10 +227,10 @@ namespace Pastel
 
 						if (u1vDistance2 < v1uDistance2)
 						{
-							return Tuple<2, Real>(1, u1vCandidate);
+							return Tuple<Real, 2>(1, u1vCandidate);
 						}
 
-						return Tuple<2, Real>(v1uCandidate, 1);
+						return Tuple<Real, 2>(v1uCandidate, 1);
 					}
 					else
 					{
@@ -239,7 +239,7 @@ namespace Pastel
 						// d/dv w^2(1, v) = 2 dot(p1 - p0, d1) + 2 v dot(d1) - 2 dot(d0, d1) = 0
 						// => v = [dot(d0, d1) - dot(p1 - p0, d1)] / dot(d1)
 
-						return Tuple<2, Real>(
+						return Tuple<Real, 2>(
 							clamp((dot(aDelta, bDelta) -
 							dot(bSegment.start() - aSegment.start(), bDelta)) / bNorm2, 0, 1), 0);
 					}
@@ -253,7 +253,7 @@ namespace Pastel
 						// d/du w^2(u, 1) = -2 dot(p1 - p0, d0) - 2 dot(d0, d1) + 2 u dot(d0) = 0
 						// => u = [dot(p1 - p0, d0) + dot(d0, d1)] / dot(d0)
 
-						return Tuple<2, Real>(
+						return Tuple<Real, 2>(
 							clamp((dot(bSegment.start() - aSegment.start(), aDelta) +
 							dot(aDelta, bDelta)) / aNorm2, 0, 1), 0);
 					}

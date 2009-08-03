@@ -17,7 +17,7 @@ namespace Pastel
 	Real volume(const Box<N, Real>& box);
 
 	template <int N, typename Real>
-	Real boxVolume(const Vector<N, Real>& width);
+	Real boxVolume(const Vector<Real, N>& width);
 
 }
 

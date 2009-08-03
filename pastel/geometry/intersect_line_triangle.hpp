@@ -16,11 +16,11 @@ namespace Pastel
 	bool intersect(
 		const Line<2, Real>& line,
 		const Triangle<2, Real>& triangle,
-		Vector<2, Real>& hitList)
+		Vector<Real, 2>& hitList)
 	{
-		const Point<2, Real>& a = triangle[0];
-		const Point<2, Real>& b = triangle[1];
-		const Point<2, Real>& c = triangle[2];
+		const Point<Real, 2>& a = triangle[0];
+		const Point<Real, 2>& b = triangle[1];
+		const Point<Real, 2>& c = triangle[2];
 
 		Real tMaxMin = -infinity<Real>();
 		Real tMinMax = infinity<Real>();
@@ -126,12 +126,12 @@ namespace Pastel
 		// Möller-Trumbore line-triangle intersection algorithm
 		// from the book "Real-time rendering", page 581
 
-		const Vector<3, Real> e1(
+		const Vector<Real, 3> e1(
 			triangle[1] - triangle[0]);
-		const Vector<3, Real> e2(
+		const Vector<Real, 3> e2(
 			triangle[2] - triangle[0]);
 
-		const Vector<3, Real> p(
+		const Vector<Real, 3> p(
 			cross(line.direction(), e2));
 
 		const Real a(dot(e1, p));
@@ -160,7 +160,7 @@ namespace Pastel
 
 		const Real f(inverse(a));
 
-		const Vector<3, Real> s(
+		const Vector<Real, 3> s(
 			line.position() - triangle[0]);
 		const Real u(dot(s, p) * f);
 
@@ -171,7 +171,7 @@ namespace Pastel
 			return false;
 		}
 
-		const Vector<3, Real> q(cross(s, e1));
+		const Vector<Real, 3> q(cross(s, e1));
 		const Real v(dot(line.direction(), q) * f);
 
 		if (v < 0 || u + v > 1)

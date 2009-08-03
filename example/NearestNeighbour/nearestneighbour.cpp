@@ -202,7 +202,7 @@ void drawBspTree(MyTree::Cursor cursor,
 	{
 		const integer splitAxis = cursor.splitAxis();
 		
-		Vector2 basisDirection = unitAxis<2, real>(splitAxis);
+		Vector2 basisDirection = unitAxis<real, 2>(splitAxis);
 		const Vector2* splitDirection = cursor.splitDirection();
 		if (!splitDirection)
 		{

@@ -36,13 +36,13 @@ namespace Pastel
 				return anyEqual(view_.extent(), 0);
 			}
 
-			const Vector<N, integer>& extent() const
+			const Vector<integer, N>& extent() const
 			{
 				return view_.extent();
 			}
 
 			const Element& operator()(
-				const Point<N, integer>& position) const
+				const Point<integer, N>& position) const
 			{
 				return view_(position);
 			}
@@ -126,7 +126,7 @@ namespace Pastel
 
 		const Element& operator()(integer x) const
 		{
-			return Base::operator()(Point<N, integer>(x));
+			return Base::operator()(Point<integer, N>(x));
 		}
 	};
 
@@ -177,7 +177,7 @@ namespace Pastel
 
 		const Element& operator()(integer x, integer y) const
 		{
-			return Base::operator()(Point<N, integer>(x, y));
+			return Base::operator()(Point<integer, N>(x, y));
 		}
 	};
 
@@ -233,7 +233,7 @@ namespace Pastel
 
 		const Element& operator()(integer x, integer y, integer z) const
 		{
-			return Base::operator()(Point<N, integer>(x, y, z));
+			return Base::operator()(Point<integer, N>(x, y, z));
 		}
 	};
 

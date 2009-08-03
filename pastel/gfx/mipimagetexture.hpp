@@ -40,7 +40,7 @@ namespace Pastel
 			return Type();
 		}
 
-		const Array<2, Type>& mostDetailedImage = 
+		const Array<Type, 2>& mostDetailedImage = 
 			(*mipMap_).mostDetailed();
 
 		const Vector2 dx = dUvDx * Vector2(mostDetailedImage.extent());
@@ -73,9 +73,9 @@ namespace Pastel
 
 		const real tDetail = level - detailLevel;
 
-		const Array<2, Type>& detailImage = 
+		const Array<Type, 2>& detailImage = 
 			(*mipMap_)(detailLevel);
-		const Array<2, Type>& coarseImage = 
+		const Array<Type, 2>& coarseImage = 
 			(*mipMap_)(coarseLevel);
 
 		const Type detailSample =

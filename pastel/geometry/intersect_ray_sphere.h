@@ -33,7 +33,7 @@ namespace Pastel
 	integer intersect(
 		const Ray<N, Real>& ray,
 		const Sphere<N, Real>& sphere,
-		Vector<2, Real>& hitList);
+		Vector<Real, 2>& hitList);
 
 }
 

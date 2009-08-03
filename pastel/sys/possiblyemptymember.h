@@ -37,7 +37,7 @@ namespace Pastel
 		}
 
 	private:
-		Tuple<sizeof(Type), char> data_;
+		Tuple<char, sizeof(Type)> data_;
 	};
 
 	template <>

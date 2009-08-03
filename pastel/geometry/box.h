@@ -45,14 +45,14 @@ namespace Pastel
 		explicit Box(integer dimension);
 
 		//! Constructs using the given information.
-		Box(const Point<N, Real>& position,
-			const Vector<N, Real>& width,
+		Box(const Point<Real, N>& position,
+			const Vector<Real, N>& width,
 			const Matrix<N, N, Real>& rotation);
 
 		//! Constructs using the given information.
 		Box(integer dimension,
-			const Point<N, Real>& position,
-			const Vector<N, Real>& width,
+			const Point<Real, N>& position,
+			const Vector<Real, N>& width,
 			const Matrix<N, N, Real>& rotation);
 
 		// Used for concept checking.
@@ -62,16 +62,16 @@ namespace Pastel
 		integer dimension() const;
 
 		//! Sets the dimensions of the box.
-		void setWidth(const Vector<N, Real>& width);
+		void setWidth(const Vector<Real, N>& width);
 
 		//! Returns the dimensions of the box.
-		const Vector<N, Real>& width() const;
+		const Vector<Real, N>& width() const;
 
 		//! Sets the position of the box.
-		void setPosition(const Point<N, Real>& position);
+		void setPosition(const Point<Real, N>& position);
 
 		//! Returns the position of the box.
-		const Point<N, Real>& position() const;
+		const Point<Real, N>& position() const;
 
 		//! Sets the rotation of the box.
 		void setRotation(const Matrix<N, N, Real>& rotation);
@@ -80,8 +80,8 @@ namespace Pastel
 		const Matrix<N, N, Real>& rotation() const;
 
 	private:
-		Point<N, Real> position_;
-		Vector<N, Real> width_;
+		Point<Real, N> position_;
+		Vector<Real, N> width_;
 		Matrix<N, N, Real> rotation_;
 	};
 

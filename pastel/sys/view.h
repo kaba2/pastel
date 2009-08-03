@@ -41,7 +41,7 @@ namespace Pastel
 			{
 			}
 
-			const Vector<N, integer>& extent() const
+			const Vector<integer, N>& extent() const
 			{
 				return view_.extent();
 			}
@@ -51,12 +51,12 @@ namespace Pastel
 				return view_;
 			}
 
-			ConstReference operator()(const Point<N, integer>& position) const
+			ConstReference operator()(const Point<integer, N>& position) const
 			{
 				return *view_.constCursor(position);
 			}
 
-			ConstCursor constCursor(const Point<N, integer>& position) const
+			ConstCursor constCursor(const Point<integer, N>& position) const
 			{
 				return view_.constCursor(position);
 			}
@@ -132,12 +132,12 @@ namespace Pastel
 
 		ConstReference operator()(integer x) const
 		{
-			return Base::operator()(Point<1, integer>(x));
+			return Base::operator()(Point<integer, 1>(x));
 		}
 
 		ConstCursor constCursor(integer x) const
 		{
-			return Base::constCursor(Point<1, integer>(x));
+			return Base::constCursor(Point<integer, 1>(x));
 		}
 	};
 
@@ -183,12 +183,12 @@ namespace Pastel
 
 		ConstReference operator()(integer x, integer y) const
 		{
-			return Base::operator()(Point<2, integer>(x, y));
+			return Base::operator()(Point<integer, 2>(x, y));
 		}
 
 		ConstCursor constCursor(integer x, integer y) const
 		{
-			return Base::constCursor(Point<2, integer>(x, y));
+			return Base::constCursor(Point<integer, 2>(x, y));
 		}
 	};
 
@@ -239,12 +239,12 @@ namespace Pastel
 
 		ConstReference operator()(integer x, integer y, integer z) const
 		{
-			return Base::operator()(Point<3, integer>(x, y, z));
+			return Base::operator()(Point<integer, 3>(x, y, z));
 		}
 
 		ConstCursor constCursor(integer x, integer y, integer z) const
 		{
-			return Base::constCursor(Point<3, integer>(x, y, z));
+			return Base::constCursor(Point<integer, 3>(x, y, z));
 		}
 	};
 
@@ -297,12 +297,12 @@ namespace Pastel
 			{
 			}
 
-			Reference operator()(const Point<N, integer>& position) const
+			Reference operator()(const Point<integer, N>& position) const
 			{
 				return *contained().cursor(position);
 			}
 
-			Cursor cursor(const Point<N, integer>& position) const
+			Cursor cursor(const Point<integer, N>& position) const
 			{
 				return contained().cursor(position);
 			}
@@ -390,12 +390,12 @@ namespace Pastel
 
 		Reference operator()(integer x) const
 		{
-			return *contained().cursor(Point<1, integer>(x));
+			return *contained().cursor(Point<integer, 1>(x));
 		}
 
 		Cursor cursor(integer x) const
 		{
-			return contained().cursor(Point<1, integer>(x));
+			return contained().cursor(Point<integer, 1>(x));
 		}
 	};
 
@@ -447,12 +447,12 @@ namespace Pastel
 
 		Reference operator()(integer x, integer y) const
 		{
-			return *contained().cursor(Point<2, integer>(x, y));
+			return *contained().cursor(Point<integer, 2>(x, y));
 		}
 
 		Cursor cursor(integer x, integer y) const
 		{
-			return contained().cursor(Point<2, integer>(x, y));
+			return contained().cursor(Point<integer, 2>(x, y));
 		}
 	};
 
@@ -509,12 +509,12 @@ namespace Pastel
 
 		Reference operator()(integer x, integer y, integer z) const
 		{
-			return *contained().cursor(Point<3, integer>(x, y, z));
+			return *contained().cursor(Point<integer, 3>(x, y, z));
 		}
 
 		Cursor cursor(integer x, integer y, integer z) const
 		{
-			return contained().cursor(Point<3, integer>(x, y, z));
+			return contained().cursor(Point<integer, 3>(x, y, z));
 		}
 	};
 

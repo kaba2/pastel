@@ -25,8 +25,8 @@ namespace
 
 		void testTrivial()
 		{
-			Array<2, int> a(1024, 1024);
-			Array<2, int> b(a);
+			Array<int, 2> a(1024, 1024);
+			Array<int, 2> b(a);
 			a = b;
 			b.clear();
 			b = a;
@@ -34,7 +34,7 @@ namespace
 			a.setExtent(53, 45, 15);
 		}
 
-		void print(const Array<2, integer>& that)
+		void print(const Array<integer, 2>& that)
 		{
 			const integer height = that.height();
 			const integer width = that.width();
@@ -50,7 +50,7 @@ namespace
 
 		void testSubArray()
 		{
-			Array<2, integer> a(6, 6);
+			Array<integer, 2> a(6, 6);
 
 			a |= 0, 1, 2, 3, 4, 5, 
 				6, 7, 8, 9, 10, 11, 
@@ -66,7 +66,7 @@ namespace
 			a(Point2i(0, 0), Point2i(3, 3)) = 
 				a(Point2i(3, 3), Point2i(6, 6));
 			
-			Array<2, integer> b(6, 6);
+			Array<integer, 2> b(6, 6);
 			b |= 21, 22, 23, 3, 4, 5, 
 				27, 28, 29, 9, 10, 11, 
 				33, 34, 35, 15, 16, 17, 

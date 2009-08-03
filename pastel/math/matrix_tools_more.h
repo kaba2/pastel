@@ -30,14 +30,14 @@ namespace Pastel
 	// Vectors and matrices
 
 	template <int N, typename Real, typename Expression>
-	Vector<N, Real> diagonal(
+	Vector<Real, N> diagonal(
 		const MatrixExpression<N, N, Real, Expression>& matrix);
 
 	/*
 	template <int Height, int Width, typename Real>
-	Vector<boost::mpl::min<
+	Vector<Real, boost::mpl::min<
 		boost::mpl::int_<Height>,
-		boost::mpl::int_<Width> >::value, Real>
+		boost::mpl::int_<Width> >::value>
 		diagonal(const Matrix<Height, Width, Real>& matrix);
 	*/
 
@@ -122,33 +122,33 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveLinear(
+	Vector<Real, N> solveLinear(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b);
+		const VectorExpression<Real, N, Expression_B>& b);
 
 	//! Solves a linear system x^T A = b^T.
 
 	template <typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<1, Real> solveLinear(
+	Vector<Real, 1> solveLinear(
 		const MatrixExpression<1, 1, Real, Expression_A>& a,
-		const VectorExpression<1, Real, Expression_B>& b);
+		const VectorExpression<Real, 1, Expression_B>& b);
 
 	//! Solves a linear system x^T A = b^T.
 
 	template <typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<2, Real> solveLinear(
+	Vector<Real, 2> solveLinear(
 		const MatrixExpression<2, 2, Real, Expression_A>& a,
-		const VectorExpression<2, Real, Expression_B>& b);
+		const VectorExpression<Real, 2, Expression_B>& b);
 
 	//! Solves a lower triangular linear system x^T A = b^T.
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveLowerTriangular(
+	Vector<Real, N> solveLowerTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b);
+		const VectorExpression<Real, N, Expression_B>& b);
 
 	//! Solves a unit lower triangular linear system x^T A = b^T.
 	/*!
@@ -163,17 +163,17 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveUnitLowerTriangular(
+	Vector<Real, N> solveUnitLowerTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b);
+		const VectorExpression<Real, N, Expression_B>& b);
 
 	//! Solves an upper triangular linear system x^T A = b^T.
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveUpperTriangular(
+	Vector<Real, N> solveUpperTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b);
+		const VectorExpression<Real, N, Expression_B>& b);
 
 	//! Solves a unit upper triangular linear system x^T A = b^T.
 	/*!
@@ -188,9 +188,9 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveUnitUpperTriangular(
+	Vector<Real, N> solveUnitUpperTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b);
+		const VectorExpression<Real, N, Expression_B>& b);
 
 }
 

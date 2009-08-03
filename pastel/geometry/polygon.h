@@ -25,23 +25,23 @@ namespace Pastel
 		Polygon<N, Real>& operator=(
 			const Polygon& that);
 
-		Point<N, Real>& operator[](integer index);
-		const Point<N, Real>& operator[](integer index) const;
+		Point<Real, N>& operator[](integer index);
+		const Point<Real, N>& operator[](integer index) const;
 
 		void swap(Polygon& that);
 
 		integer size() const;
 
-		void pushBack(const Point<N, Real>& that);
+		void pushBack(const Point<Real, N>& that);
 		void popBack();
 
-		void insert(integer index, const Point<N, Real>& that);
+		void insert(integer index, const Point<Real, N>& that);
 		void erase(integer index);
 
 		void reserve(integer size);
 
 	private:
-		std::vector<Point<N, Real> > data_;
+		std::vector<Point<Real, N> > data_;
 	};
 
 	typedef Polygon<2, real> Polygon2;

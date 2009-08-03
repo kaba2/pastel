@@ -13,8 +13,7 @@ namespace Pastel
 		typename Real,
 		typename Expression>
 	class MatrixSum
-		: public VectorExpression<Width, Real,
-		MatrixSum<Height, Width, Real, Expression> >
+		: public VectorExpression<Real, Width, MatrixSum<Height, Width, Real, Expression> >
 	{
 	public:
 		typedef const MatrixSum& StorageType;
@@ -76,8 +75,7 @@ namespace Pastel
 		typename Real,
 		typename Expression>
 	class MatrixMin
-		: public VectorExpression<Width, Real,
-		MatrixMin<Height, Width, Real, Expression> >
+		: public VectorExpression<Real, Width, MatrixMin<Height, Width, Real, Expression> >
 	{
 	public:
 		typedef const MatrixMin& StorageType;
@@ -143,8 +141,7 @@ namespace Pastel
 		typename Real,
 		typename Expression>
 	class MatrixMax
-		: public VectorExpression<Width, Real,
-		MatrixMax<Height, Width, Real, Expression> >
+		: public VectorExpression<Real, Width, MatrixMax<Height, Width, Real, Expression> >
 	{
 	public:
 		typedef const MatrixMax& StorageType;
@@ -462,8 +459,8 @@ namespace Pastel
 		typename RightExpression>
 		OuterProduct<Height, Width, Real, LeftExpression, RightExpression>
 		outerProduct(
-		const VectorExpression<Height, Real, LeftExpression>& left,
-		const VectorExpression<Width, Real, RightExpression>& right)
+		const VectorExpression<Real, Height, LeftExpression>& left,
+		const VectorExpression<Real, Width, RightExpression>& right)
 	{
 		return OuterProduct<Height, Width, Real, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, (const RightExpression&)right);

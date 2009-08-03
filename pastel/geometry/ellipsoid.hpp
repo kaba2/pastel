@@ -146,7 +146,7 @@ namespace Pastel
 		// careful for rounding errors
 		// here with the mabs().
 
-		const Vector<N, Real> radius = sqrt(mabs(
+		const Vector<Real, N> radius = sqrt(mabs(
 			diagonal(invQuadraticForm)));
 
 		const AlignedBox<N, Real> bound(

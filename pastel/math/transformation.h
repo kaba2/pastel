@@ -31,7 +31,7 @@ namespace Pastel
 		//! Constructs a given transformation.
 		Transformation(
 			const Matrix<N, N, Real>& transformation,
-			const Vector<N, Real>& translation);
+			const Vector<Real, N>& translation);
 
 		// Used for concept checking.
 		~Transformation();
@@ -66,13 +66,13 @@ namespace Pastel
 		const Matrix<N, N, Real>& inverseTransform() const;
 
 		//! Sets the translation
-		void setTranslation(const Vector<N, Real>& translation);
+		void setTranslation(const Vector<Real, N>& translation);
 
 		//! Returns the inverse translation.
-		const Vector<N, Real>& translation() const;
+		const Vector<Real, N>& translation() const;
 
 		//! Returns the inverse translation.
-		const Vector<N, Real>& inverseTranslation() const;
+		const Vector<Real, N>& inverseTranslation() const;
 
 	private:
 		void update() const;

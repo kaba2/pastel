@@ -25,11 +25,11 @@ namespace Pastel
 		typedef GfxRenderer<Type> Base;
 
 	public:
-		explicit Image_GfxRenderer(Array<2, Type>* image = 0);
+		explicit Image_GfxRenderer(Array<Type, 2>* image = 0);
 		virtual ~Image_GfxRenderer();
 
-		void setImage(Array<2, Type>* image);
-		Array<2, Type>* image() const;
+		void setImage(Array<Type, 2>* image);
+		Array<Type, 2>* image() const;
 
 		void onSetViewTransformation();
 		void onSetModelTransformation();
@@ -41,7 +41,7 @@ namespace Pastel
 
 		// Drawing
 
-		virtual integer uploadTexture(const Array<2, Type>& image);
+		virtual integer uploadTexture(const Array<Type, 2>& image);
 
 		virtual void clear();
 
@@ -56,7 +56,7 @@ namespace Pastel
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,
-			const Tuple<3, Type>& colorTriangle);
+			const Tuple<Type, 3>& colorTriangle);
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,
@@ -74,8 +74,8 @@ namespace Pastel
 		Point2 transform(const Point2& point) const;
 
 		AffineTransformation2 screenTransformation_;
-		Array<2, Type>* image_;
-		std::vector<const Array<2, Type>*> textureImage_;
+		Array<Type, 2>* image_;
+		std::vector<const Array<Type, 2>*> textureImage_;
 		std::vector<const MipMap<2, Type>*> mipMap_;
 
 		NearestImageTexture<Type> nearestTexture_;

@@ -27,19 +27,19 @@ namespace Pastel
 
 		ConstCursorView(
 			const ViewConstCursor& cursor,
-			const Vector<N, integer>& extent)
+			const Vector<integer, N>& extent)
 			: cursor_(cursor)
 			, extent_(extent)
 		{
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			ConstCursor result = cursor_;
 			result.move(asVector(position));
@@ -49,14 +49,14 @@ namespace Pastel
 
 	private:
 		const ViewConstCursor cursor_;
-		const Vector<N, integer> extent_;
+		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename ViewConstCursor>
 	ConstView<N, typename ViewConstCursor::Element, ConstCursorView<N, ViewConstCursor> >
 		constCursorView(
 		const ViewConstCursor& cursor,
-		const Vector<N, integer>& extent)
+		const Vector<integer, N>& extent)
 	{
 		return wrapConstView(ConstCursorView<ViewConstCursor>(cursor, extent));
 	}
@@ -87,13 +87,13 @@ namespace Pastel
 
 		CursorView(
 			const ViewCursor& cursor,
-			const Vector<N, integer>& extent)
+			const Vector<integer, N>& extent)
 			: Base(cursor, extent)
 		{
 		}
 
 		Cursor cursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			Cursor result = cursor_;
 			result.move(asVector(position));
@@ -104,7 +104,7 @@ namespace Pastel
 	template <int N, typename ViewCursor>
 	View<N, typename ViewCursor::Element, CursorView<N, ViewCursor> > cursorView(
 		const ViewCursor& cursor,
-		const Vector<N, integer>& extent)
+		const Vector<integer, N>& extent)
 	{
 		return wrapView(CursorView<N, ViewCursor>(cursor, extent));
 	}

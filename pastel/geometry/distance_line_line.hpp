@@ -15,14 +15,14 @@ namespace Pastel
 	Real distance2(const Line<N, Real>& aLine,
 		const Line<N, Real>& bLine)
 	{
-		const Tuple<2, Real> uv(closest(aLine, bLine));
+		const Tuple<Real, 2> uv(closest(aLine, bLine));
 
-		const Point<N, Real> aPoint(
+		const Point<Real, N> aPoint(
 			aLine.position() + aLine.direction() * uv[0]);
-		const Point<N, Real> bPoint(
+		const Point<Real, N> bPoint(
 			bLine.position() + bLine.direction() * uv[1]);
 
-		const Vector<N, Real> delta(bPoint - aPoint);
+		const Vector<Real, N> delta(bPoint - aPoint);
 
 		return dot(delta, delta);
 	}

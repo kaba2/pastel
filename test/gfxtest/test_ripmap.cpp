@@ -23,27 +23,27 @@ namespace
 		individual ripmaps to a single image.
 		*/
 
-		Array<2, Color> texture;
+		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
 		RipMap<2, Color> ripMap(arrayView(texture));
 
 		transform(ripMap, fitColor);
 
-		Point<2, integer> position;
+		Point<integer, 2> position;
 
-		Array<2, Color> outputImage(texture.extent() * 2);
+		Array<Color, 2> outputImage(texture.extent() * 2);
 
 		integer yPosition = 0;
 
-		const Vector<2, integer> textures = ripMap.levels();
+		const Vector<integer, 2> textures = ripMap.levels();
 		for (integer y = 0;y < textures.y();++y)
 		{
-			Point<2, integer> position(0, yPosition);
+			Point<integer, 2> position(0, yPosition);
 
 			for (integer x = 0;x < textures.x();++x)
 			{
-				Array<2, Color>& image = ripMap(Point<2, integer>(x, y));
+				Array<Color, 2>& image = ripMap(Point<integer, 2>(x, y));
 
 				drawView(constArrayView(image),
 					position, arrayView(outputImage));
@@ -51,7 +51,7 @@ namespace
 				position.x() += image.extent().x();
 			}
 
-			yPosition += ripMap(Point<2, integer>(0, y)).extent().y();
+			yPosition += ripMap(Point<integer, 2>(0, y)).extent().y();
 		}
 
 		savePcx(outputImage, "output/ripmap.pcx");

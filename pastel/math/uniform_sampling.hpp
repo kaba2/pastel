@@ -16,9 +16,9 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv,
+		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
@@ -44,9 +44,9 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv,
+		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
@@ -67,13 +67,13 @@ namespace Pastel
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
-			Vector<2, Real>(r, theta));
+			Vector<Real, 2>(r, theta));
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv,
+		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
@@ -282,23 +282,23 @@ namespace Pastel
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
-			Vector<3, Real>(r, phi, theta));
+			Vector<Real, 3>(r, phi, theta));
 	}
 
 	// uniformlySampleSimplex
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleSimplex(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		return uv;
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleSimplex(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		// Let p be a uniform probability distribution
 		// in the unit n-simplex
@@ -337,14 +337,14 @@ namespace Pastel
 		// = sqrt(u) * v
 
 		const Real uSqrt(std::sqrt(uv[0]));
-		return Vector<N, Real>(
+		return Vector<Real, N>(
 			1 - uSqrt, uSqrt * uv[1]);
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<N, Real> >::type
+	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<Real, N> >::type
 		uniformlySampleSimplex(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		const integer n = uv.dimension();
 
@@ -359,7 +359,7 @@ namespace Pastel
 
 		std::sort(partition.begin(), partition.end());
 
-		Vector<N, Real> simplex(ofDimension(n));
+		Vector<Real, N> simplex(ofDimension(n));
 
 		for (integer i = 0;i < n;++i)
 		{
@@ -372,17 +372,17 @@ namespace Pastel
 	// uniformlySampleBall
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		return 2 * uv - 1;
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		// "A Low Distortion Map Between Disk and Square",
 		// Peter Shirley, Kenneth Chiu, 1997
@@ -407,7 +407,7 @@ namespace Pastel
 		// In short, concentric boxes are
 		// mapped to concentric circles.
 
-		const Vector<2, Real> st(2 * uv - 1);
+		const Vector<Real, 2> st(2 * uv - 1);
 
 		Real radius(0);
 		Real scaledTheta(0);
@@ -446,16 +446,16 @@ namespace Pastel
 		const Real theta(
 			scaledTheta * (constantPi<Real>() / 4));
 
-		return Vector<2, Real>(
+		return Vector<Real, 2>(
 			radius * std::cos(theta),
 			radius * std::sin(theta));
 	}
 
 	/*
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		// This is the old implementation of 2-dimensional
 		// uniform sampling from a ball.
@@ -470,14 +470,14 @@ namespace Pastel
 			2 * constantPi<Real>() * uv[0];
 
 		return sphericalToCartesian(
-			Vector<2, Real>(r, theta));
+			Vector<Real, 2>(r, theta));
 	}
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		// This is the old implementation of 3-dimensional
 		// uniform sampling from a ball.
@@ -497,15 +497,15 @@ namespace Pastel
 			2 * constantPi<Real>() * uv[2];
 
 		return sphericalToCartesian(
-			Vector<3, Real>(r, phi, theta));
+			Vector<Real, 3>(r, phi, theta));
 	}
 
 	/*
 	// distortDiskToCube
 
 	template <typename Real>
-	Vector<2, Real> distortDiskToCube(
-		const Vector<2, Real>& uv)
+	Vector<Real, 2> distortDiskToCube(
+		const Vector<Real, 2>& uv)
 	{
 		// This is the inverse of the
 		// uniformlySampleBall<2, Real>() function.
@@ -549,7 +549,7 @@ namespace Pastel
 			}
 		}
 
-		return Vector<2, Real>(
+		return Vector<Real, 2>(
 			(s + 1) / 2, (t + 1) / 2);
 	}
 	*/
@@ -557,21 +557,21 @@ namespace Pastel
 	// uniformlySampleSphere
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleSphere(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		const Real angle = 2 * constantPi<Real>() * uv[0];
 
-		return Vector<2, Real>(
+		return Vector<Real, 2>(
 			std::cos(angle),
 			std::sin(angle));
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleSphere(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
 		const Real z(1 - 2 * uv[1]);
@@ -580,26 +580,26 @@ namespace Pastel
 		const Real x(r * std::cos(phi));
 		const Real y(r * std::sin(phi));
 
-		return Vector<3, Real>(x, y, z);
+		return Vector<Real, 3>(x, y, z);
 	}
 
 	// uniformlySampleHemisphere
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleHemisphere(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		const Real phi = constantPi<Real>() * uv[0];
-		return Vector<2, Real>(
+		return Vector<Real, 2>(
 			std::cos(phi),
 			std::sin(phi));
 	}
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleHemisphere(
-		const Vector<N, Real>& uv)
+		const Vector<Real, N>& uv)
 	{
 		const Real phi(2 * constantPi<Real>() * uv[0]);
 		const Real z(uv[1]);
@@ -607,21 +607,21 @@ namespace Pastel
 		const Real x(r * std::cos(phi));
 		const Real y(r * std::sin(phi));
 
-		return Vector<3, Real>(x, y, z);
+		return Vector<Real, 3>(x, y, z);
 	}
 
 	// cosineSampleHemisphere
 
 	template <int N, typename Real>
-	Vector<PASTEL_ADD_N(N, 1), Real> cosineSampleHemisphere(
-		const Vector<N, Real>& uv)
+	Vector<Real, PASTEL_ADD_N(N, 1)> cosineSampleHemisphere(
+		const Vector<Real, N>& uv)
 	{
 		// Malley's method:
 		// Projecting a uniformly distributed
 		// (n-1)-ball orthogonally up onto a n-hemisphere
 		// produces a cosine-weighted distribution.
 
-		const Vector<N, Real> ball = uniformlySampleBall(uv);
+		const Vector<Real, N> ball = uniformlySampleBall(uv);
 
 		return extend(ball, std::sqrt(1 - dot(ball)));
 	}

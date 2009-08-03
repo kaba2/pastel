@@ -21,7 +21,7 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	RectangleBase<N, Derived>::RectangleBase(
-		const Point<N, integer>& that)
+		const Point<integer, N>& that)
 		: min_(that)
 		, max_(that)
 	{
@@ -29,8 +29,8 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	RectangleBase<N, Derived>::RectangleBase(
-		const Point<N, integer>& min,
-		const Point<N, integer>& max)
+		const Point<integer, N>& min,
+		const Point<integer, N>& max)
 		: min_(min)
 		, max_(max)
 	{
@@ -59,8 +59,8 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	void RectangleBase<N, Derived>::set(
-		const Point<N, integer>& min,
-		const Point<N, integer>& max)
+		const Point<integer, N>& min,
+		const Point<integer, N>& max)
 	{
 		min_ = min;
 		max_ = max;
@@ -68,59 +68,59 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	void RectangleBase<N, Derived>::setMin(
-		const Point<N, integer>& point)
+		const Point<integer, N>& point)
 	{
 		min_ = point;
 	}
 
 	template <int N, typename Derived>
-	Point<N, integer>& RectangleBase<N, Derived>::min()
+	Point<integer, N>& RectangleBase<N, Derived>::min()
 	{
 		return min_;
 	}
 
 	template <int N, typename Derived>
-	const Point<N, integer>& RectangleBase<N, Derived>::min() const
+	const Point<integer, N>& RectangleBase<N, Derived>::min() const
 	{
 		return min_;
 	}
 
 	template <int N, typename Derived>
 	void RectangleBase<N, Derived>::setMax(
-		const Point<N, integer>& point)
+		const Point<integer, N>& point)
 	{
 		max_ = point;
 	}
 
 	template <int N, typename Derived>
-	Point<N, integer>& RectangleBase<N, Derived>::max()
+	Point<integer, N>& RectangleBase<N, Derived>::max()
 	{
 		return max_;
 	}
 
 	template <int N, typename Derived>
-	const Point<N, integer>& RectangleBase<N, Derived>::max() const
+	const Point<integer, N>& RectangleBase<N, Derived>::max() const
 	{
 		return max_;
 	}
 
 	template <int N, typename Derived>
-	Vector<N, integer> RectangleBase<N, Derived>::extent() const
+	Vector<integer, N> RectangleBase<N, Derived>::extent() const
 	{
 		return max_ - min_;
 	}
 
 	template <int N, typename Derived>
-	Point<N, integer> RectangleBase<N, Derived>::at(
-		const Vector<N, integer>& coordinates) const
+	Point<integer, N> RectangleBase<N, Derived>::at(
+		const Vector<integer, N>& coordinates) const
 	{
-		return Point<N, integer>((1 - coordinates) * asVector(min_) +
+		return Point<integer, N>((1 - coordinates) * asVector(min_) +
 			coordinates * asVector(max_));
 	}
 
 	template <int N, typename Derived>
 	Derived& RectangleBase<N, Derived>::operator+=(
-		const Vector<N, integer>& right)
+		const Vector<integer, N>& right)
 	{
 		min_ += right;
 		max_ += right;
@@ -130,7 +130,7 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	Derived RectangleBase<N, Derived>::operator+(
-		const Vector<N, integer>& right) const
+		const Vector<integer, N>& right) const
 	{
 		Derived result((Derived&)*this);
 		result += right;
@@ -139,7 +139,7 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	Derived& RectangleBase<N, Derived>::operator-=(
-		const Vector<N, integer>& right)
+		const Vector<integer, N>& right)
 	{
 		min_ -= right;
 		max_ -= right;
@@ -149,7 +149,7 @@ namespace Pastel
 
 	template <int N, typename Derived>
 	Derived RectangleBase<N, Derived>::operator-(
-		const Vector<N, integer>& right) const
+		const Vector<integer, N>& right) const
 	{
 		Derived result((Derived&)*this);
 		result -= right;

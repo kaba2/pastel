@@ -102,7 +102,7 @@ namespace
 
 	void testBegin()
 	{
-		Array<2, Color> image;
+		Array<Color, 2> image;
 		loadPcx("lena.pcx", image);
 
 		transform(arrayView(image), srgbToXyz);
@@ -120,7 +120,7 @@ namespace
 		real minScale = 1;
 		real maxScale = 100;
 
-		Array<2, Color> copyImage(image);
+		Array<Color, 2> copyImage(image);
 
 		while(true)
 		{

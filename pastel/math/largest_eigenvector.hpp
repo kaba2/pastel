@@ -10,8 +10,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> largestEigenVector(
-		const std::vector<Point<N, Real> >& pointSet)
+	TemporaryVector<Real, N> largestEigenVector(
+		const std::vector<Point<Real, N> >& pointSet)
 	{
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
@@ -23,7 +23,7 @@ namespace Pastel
 		const integer points = pointSet.size();
 		const integer dimension = pointSet.front().dimension();
 
-		const Point<N, Real> meanPoint = mean(pointSet);
+		const Point<Real, N> meanPoint = mean(pointSet);
 
 		// We choose the initial approximation as
 		// the direction of greatest axis aligned variance.
@@ -31,12 +31,12 @@ namespace Pastel
 		// does not always work, probably due to numerical
 		// errors.
 
-		const Vector<N, Real> axisVariance = axisAlignedVariance(
+		const Vector<Real, N> axisVariance = axisAlignedVariance(
 			pointSet, meanPoint);
 
 		const integer initialAxis = maxIndex(axisVariance);
 
-		Vector<N, Real> result(unitAxis<N, Real>(dimension, initialAxis));
+		Vector<Real, N> result(unitAxis<Real, N>(dimension, initialAxis));
 		Real d = 1;
 
 		for (integer i = 0;i < points;++i)

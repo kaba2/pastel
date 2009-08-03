@@ -29,7 +29,7 @@ namespace
 		KdTree<N, Real> kdTree(ofDimension(dimension));
 
 		const integer points = 10000;
-		std::vector<Point<N, Real> > pointList;
+		std::vector<Point<Real, N> > pointList;
 		pointList.reserve(points);
 
 		for (integer i = 0;i < points;++i)
@@ -60,12 +60,12 @@ namespace
 		{
 			KdTree<Dynamic, Real> bTree(ofDimension(dimension));
 
-			std::vector<Point<Dynamic, Real> > bPointList;
+			std::vector<Point<Real, Dynamic> > bPointList;
 			bPointList.reserve(points);
 
 			for (integer i = 0;i < points;++i)
 			{
-				Point<Dynamic, Real> p(ofDimension(dimension));
+				Point<Real, Dynamic> p(ofDimension(dimension));
 				for (integer j = 0;j < dimension;++j)
 				{
 					p[j] = pointList[i][j];
@@ -107,9 +107,9 @@ namespace
 			return boundingAlignedBox(*object);
 		}
 
-		Tuple<2, real> bound(const Sphere3* object, integer axis) const
+		Tuple<real, 2> bound(const Sphere3* object, integer axis) const
 		{
-			return Tuple<2, real>(
+			return Tuple<real, 2>(
 				object->position()[axis] - object->radius(),
 				object->position()[axis] + object->radius());
 		}
@@ -201,7 +201,7 @@ namespace
 		const integer width = 800;
 		const integer height = 800;
 
-		Array<2, Color> image(width, height, Color(0));
+		Array<Color, 2> image(width, height, Color(0));
 
 		integer reportedProgress = -1;
 

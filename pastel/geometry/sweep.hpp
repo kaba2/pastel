@@ -11,16 +11,16 @@ namespace Pastel
 
 	template <typename Real>
 	void orientedSweep(
-		const std::vector<Point<2, Real> >& pen,
+		const std::vector<Point<Real, 2> >& pen,
 		const Segment<2, Real>& segment,
-		std::vector<Point<2, Real> >& result)
+		std::vector<Point<Real, 2> >& result)
 	{
 		const integer points = pen.size();
 
-		const Vector<2, Real> delta = segment.end() - segment.start();
-		if (delta == Vector<2, Real>(0))
+		const Vector<Real, 2> delta = segment.end() - segment.start();
+		if (delta == Vector<Real, 2>(0))
 		{
-			std::vector<Point<2, Real> > sweepResult(pen);
+			std::vector<Point<Real, 2> > sweepResult(pen);
 			sweepResult.swap(result);
 			return;
 		}
@@ -28,7 +28,7 @@ namespace Pastel
 		const AffineTransformation2 transformation(
 			rotation2<Real>(ccwAngle(delta)));
 
-		std::vector<Point<2, Real> > orientedPen;
+		std::vector<Point<Real, 2> > orientedPen;
 		orientedPen.reserve(points);
 
 		for (integer i = 0;i < points;++i)
@@ -41,15 +41,15 @@ namespace Pastel
 
 	template <typename Real>
 	void sweep(
-		const std::vector<Point<2, Real> >& pen,
+		const std::vector<Point<Real, 2> >& pen,
 		const Segment<2, Real>& segment,
-		std::vector<Point<2, Real> >& result)
+		std::vector<Point<Real, 2> >& result)
 	{
-		const Vector<2, Real> delta = segment.end() - segment.start();
+		const Vector<Real, 2> delta = segment.end() - segment.start();
 
-		if (delta == Vector<2, Real>(0))
+		if (delta == Vector<Real, 2>(0))
 		{
-			std::vector<Point<2, Real> > sweepResult(pen);
+			std::vector<Point<Real, 2> > sweepResult(pen);
 			sweepResult.swap(result);
 			return;
 		}
@@ -58,7 +58,7 @@ namespace Pastel
 
 		const integer points = pen.size();
 
-		std::vector<Point<2, Real> > sweepResult;
+		std::vector<Point<Real, 2> > sweepResult;
 		sweepResult.reserve(points + 2);
 
 		integer i = breakPoint[0];

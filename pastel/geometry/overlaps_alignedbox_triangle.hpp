@@ -36,16 +36,16 @@ namespace Pastel
 			triangle[1] - asVector(alignedBox.min()),
 			triangle[2] - asVector(alignedBox.min()));
 
-		const Tuple<3, Vector<2, Real> > edges(
+		const Tuple<Vector<Real, 2>, 3> edges(
 			triangle[1] - triangle[0],
 			triangle[2] - triangle[1],
 			triangle[0] - triangle[2]);
 
 		// Calculate aligned box widths
 
-		const Vector<2, Real> halfWidths(
+		const Vector<Real, 2> halfWidths(
 			mabs(evaluate((alignedBox.max() - alignedBox.min()) * Real(0.5))));
-		const Point<2, Real> alignedBoxCenter(
+		const Point<Real, 2> alignedBoxCenter(
 			alignedBox.min() + halfWidths);
 
 		Real triangleProjMin(0);
@@ -100,7 +100,7 @@ namespace Pastel
 			// Calculate normal vector for the current
 			// triangle edge.
 
-			const Vector<2, Real> normal(cross(edges[i]));
+			const Vector<Real, 2> normal(cross(edges[i]));
 
 			// Project the triangle to the axis.
 
@@ -171,12 +171,12 @@ namespace Pastel
 		// from now on, rather than with min and max
 		// of the aligned box.
 
-		const Vector<3, Real> alignedBoxHalfWidths(
+		const Vector<Real, 3> alignedBoxHalfWidths(
 			mabs((alignedBox.max() - alignedBox.min()) * 0.5));
 
 		// Calculate the aligned box center.
 
-		const Point<3, Real> alignedBoxCenter(
+		const Point<Real, 3> alignedBoxCenter(
 			alignedBox.min() + alignedBoxHalfWidths);
 
 		// The algorithm transforms
@@ -184,13 +184,13 @@ namespace Pastel
 		// on the origin. This simplifies calculations.
 
 		const Triangle<3, Real> workTriangle(
-			Point<3, Real>(triangle[0] - alignedBoxCenter),
-			Point<3, Real>(triangle[1] - alignedBoxCenter),
-			Point<3, Real>(triangle[2] - alignedBoxCenter));
+			Point<Real, 3>(triangle[0] - alignedBoxCenter),
+			Point<Real, 3>(triangle[1] - alignedBoxCenter),
+			Point<Real, 3>(triangle[2] - alignedBoxCenter));
 
 		// Calculate the edge vectors of the triangle.
 
-		const Tuple<3, Vector<3, Real> > edges(
+		const Tuple<Vector<Real, 3>, 3> edges(
 			workTriangle[1] - workTriangle[0],
 			workTriangle[2] - workTriangle[1],
 			workTriangle[0] - workTriangle[2]);

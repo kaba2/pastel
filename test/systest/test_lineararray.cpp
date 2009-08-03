@@ -15,7 +15,7 @@ namespace
 
 		template <int Index, int N, typename Cursor>
 		void visitDimension(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Cursor& startCursor,
 			NormalTag)
 		{
@@ -39,7 +39,7 @@ namespace
 
 		template <int Index, int N, typename Cursor>
 		void visitDimension(
-			const Vector<N, integer>& extent,
+			const Vector<integer, N>& extent,
 			const Cursor& startCursor,
 			TerminateTag)
 		{
@@ -59,19 +59,19 @@ namespace
 
 	template <int N, typename Type>
 	void visit(
-		Array<N, Type>& image)
+		Array<Type, N>& image)
 	{
 		typedef typename boost::mpl::if_c<
 			(N > 1),
 			Detail::NormalTag,
 			Detail::TerminateTag>::type Tag;
 
-		Detail::visitDimension<N - 1>(image.extent(), image.cursor(Point<N, integer>(0)), Tag());
+		Detail::visitDimension<N - 1>(image.extent(), image.cursor(Point<integer, N>(0)), Tag());
 	}
 
 	void testTrivial()
 	{
-		Array<3, int> b(100, 200, 300);
+		Array<int, 3> b(100, 200, 300);
 
 		for (integer x = 0;x < 100;++x)
 		{

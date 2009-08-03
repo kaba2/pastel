@@ -7,13 +7,13 @@ namespace Pastel
 {
 
 	PASTELGFX void labelToImage(
-		const Array<2, int32>& labelImage,
-		Array<2, uint8>& image)
+		const Array<int32, 2>& labelImage,
+		Array<uint8, 2>& image)
 	{
 		const integer width = labelImage.width();
 		const integer height = labelImage.height();
 
-		Array<2, uint8> newImage(width, height);
+		Array<uint8, 2> newImage(width, height);
 
 		const int32 prime = followingPrime(300);
 

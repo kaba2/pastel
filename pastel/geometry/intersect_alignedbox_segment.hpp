@@ -20,7 +20,7 @@ namespace Pastel
 			segment.start(),
 			segment.end() - segment.start());
 
-		Vector<2, Real> tRange;
+		Vector<Real, 2> tRange;
 		if (!intersect(line, alignedBox, tRange))
 		{
 			return false;

@@ -140,7 +140,7 @@ namespace Pastel
 
 	template <typename Real, typename Type>
 	void marchingTriangles(
-		const Array<2, Real>& value,
+		const Array<Real, 2>& value,
 		const AlignedBox2& window,
 		GfxRenderer<Type>& renderer)
 	{

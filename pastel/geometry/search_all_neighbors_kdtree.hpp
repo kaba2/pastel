@@ -19,11 +19,11 @@ namespace Pastel
 		class PointListPolicy
 		{
 		public:
-			typedef const Point<N, Real>* Object;
+			typedef const Point<Real, N>* Object;
 			//typedef TrueType ArbitrarySplits;
 			typedef FalseType ArbitrarySplits;
 
-			const Point<N, Real>& point(
+			const Point<Real, N>& point(
 				const Object& object) const
 			{
 				return *object;
@@ -41,7 +41,7 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection, 
 		typename ConstIndexIterator, typename SplitRule>
 	void searchAllNeighborsKdTree(
-		const std::vector<Point<N, Real> >& pointSet,
+		const std::vector<Point<Real, N> >& pointSet,
 		const ConstIndexIterator& indexSetBegin,
 		const ConstIndexIterator& indexSetEnd,
 		integer kNearestBegin,
@@ -51,8 +51,8 @@ namespace Pastel
 		const NormBijection& normBijection,
 		integer bucketSize,
 		const SplitRule& splitRule,
-		Array<2, integer>* nearestArray,
-		Array<2, Real>* distanceArray)
+		Array<integer, 2>* nearestArray,
+		Array<Real, 2>* distanceArray)
 	{
 		ENSURE_OP(kNearestBegin, >=, 0);
 		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
@@ -103,7 +103,7 @@ namespace Pastel
 			Detail_AllNearestNeighborsKdTree::PointListPolicy<N, Real> > KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
 		typedef typename KdTree::Object Object;
-		typedef CountingIterator<const Point<N, Real>*> SequenceIterator;
+		typedef CountingIterator<const Point<Real, N>*> SequenceIterator;
 
 		KdTree kdTree(ofDimension(dimension), bucketSize);
 
@@ -144,7 +144,7 @@ namespace Pastel
 
 			/*
 			searchNearest(kdTree, pointSet[query], 
-				Accept_ExceptDeref<ConstObjectIterator, const Point<N, Real>* >(&pointSet[query]),
+				Accept_ExceptDeref<ConstObjectIterator, const Point<Real, N>* >(&pointSet[query]),
 				maxDistance, maxRelativeError,
 				normBijection, 
 				kNearestEnd, 
@@ -160,7 +160,7 @@ namespace Pastel
 				nearestSet.begin(), 
 				distanceSet.begin());
 
-			const Point<N, Real>* firstAddress = &pointSet.front();
+			const Point<Real, N>* firstAddress = &pointSet.front();
 
 			integer nearestIndex = 0;
 
@@ -246,8 +246,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		Array<2, integer>* nearestArray,
-		Array<2, Real>* distanceArray)
+		Array<integer, 2>* nearestArray,
+		Array<Real, 2>* distanceArray)
 	{
 		ENSURE_OP(queries, >=, 0);
 		ENSURE_OP(kNearestBegin, >=, 0);

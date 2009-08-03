@@ -14,21 +14,21 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Point;
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class TemporaryPoint;
 
 	namespace Detail
 	{
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		class PointBase
-			: boost::equality_comparable<Point<N, Real> >
+			: boost::equality_comparable<Point<Real, N> >
 		{
 		private:
-			template <int N, typename Real>
+			template <typename Real, int N>
 			friend class PointBase;
 
 		public:
@@ -58,19 +58,19 @@ namespace Pastel
 			}
 
 			template <typename ThatReal>
-			explicit PointBase(const TemporaryVector<N, ThatReal>& that)
+			explicit PointBase(const TemporaryVector<ThatReal, N>& that)
 				: data_(that)
 			{
 			}
 
 			template <typename ThatReal>
-			explicit PointBase(const Tuple<N, ThatReal>& that)
+			explicit PointBase(const Tuple<ThatReal, N>& that)
 				: data_(that)
 			{
 			}
 
 			template <typename ThatReal>
-			PointBase(const PointBase<N, ThatReal>& that)
+			PointBase(const PointBase<ThatReal, N>& that)
 				: data_(that.data_)
 			{
 			}
@@ -84,7 +84,7 @@ namespace Pastel
 			//! Constructs from a vector.
 			template <typename ThatReal, typename Expression>
 			explicit PointBase(const VectorExpression
-				<N, ThatReal, Expression>& that)
+				<ThatReal, N, Expression>& that)
 				: data_(that)
 			{
 			}
@@ -110,7 +110,7 @@ namespace Pastel
 			}
 
 			//! Swaps two points.
-			void swap(Point<N, Real>& that)
+			void swap(Point<Real, N>& that)
 			{
 				data_.swap(that.data_);
 			}
@@ -121,7 +121,7 @@ namespace Pastel
 				data_.set(that);
 			}
 
-			bool operator==(const Point<N, Real>& that) const
+			bool operator==(const Point<Real, N>& that) const
 			{
 				return data_ == that.data_;
 			}
@@ -139,121 +139,121 @@ namespace Pastel
 			}
 
 			//! Adds the given value to all elements.
-			Point<N, Real>& operator+=(const Real& that)
+			Point<Real, N>& operator+=(const Real& that)
 			{
 				data_ += that;
-				return (Point<N, Real>&)*this;
+				return (Point<Real, N>&)*this;
 			}
 
 			//! Returns the point added by 'that' to all elements.
-			TemporaryPoint<N, Real> operator+(const Real& that) const
+			TemporaryPoint<Real, N> operator+(const Real& that) const
 			{
-				TemporaryPoint<N, Real> result((Point<N, Real>&)*this);
+				TemporaryPoint<Real, N> result((Point<Real, N>&)*this);
 				result += that;
 				return result;
 			}
 
 			//! Subtracts the given value from all elements.
-			Point<N, Real>& operator-=(const Real& that)
+			Point<Real, N>& operator-=(const Real& that)
 			{
 				data_ -= that;
-				return (Point<N, Real>&)*this;
+				return (Point<Real, N>&)*this;
 			}
 
 			//! Returns the point subtracted by 'that' from all elements.
-			TemporaryPoint<N, Real> operator-(const Real& that) const
+			TemporaryPoint<Real, N> operator-(const Real& that) const
 			{
-				TemporaryPoint<N, Real> result((Point<N, Real>&)*this);
+				TemporaryPoint<Real, N> result((Point<Real, N>&)*this);
 				result -= that;
 				return result;
 			}
 
 			//! Translates the point by 'that'.
 			template <typename Expression>
-			Point<N, Real>& operator+=(
+			Point<Real, N>& operator+=(
 				const VectorExpression
-				<N, Real, Expression>& that)
+				<Real, N, Expression>& that)
 			{
 				data_ += that;
 
-				return (Point<N, Real>&)*this;
+				return (Point<Real, N>&)*this;
 			}
 
 			//! Translates the point backwards by 'that'.
 			template <typename Expression>
-			Point<N, Real>& operator-=(
+			Point<Real, N>& operator-=(
 				const VectorExpression
-				<N, Real, Expression>& that)
+				<Real, N, Expression>& that)
 			{
 				data_ -= that;
 
-				return (Point<N, Real>&)*this;
+				return (Point<Real, N>&)*this;
 			}
 
 			//! Returns the difference vector between two points.
 			const VectorSubtraction<N, Real, 
 				Detail::VectorBase<N, Real>,
 				Detail::VectorBase<N, Real>
-				> operator-(const Point<N, Real>& that) const
-			//TemporaryVector<N, Real> operator-(const Point<N, Real>& that) const
+				> operator-(const Point<Real, N>& that) const
+			//TemporaryVector<N, Real> operator-(const Point<Real, N>& that) const
 			{
 				return data_ - that.data_;
 			}
 
 			//! Returns the point translated by 'that'.
 			template <typename Expression>
-			TemporaryPoint<N, Real> operator+(
+			TemporaryPoint<Real, N> operator+(
 				const VectorExpression
-				<N, Real, Expression>& that) const
+				<Real, N, Expression>& that) const
 			{
-				Point<N, Real> result((const Point<N, Real>&)*this);
+				Point<Real, N> result((const Point<Real, N>&)*this);
 				result += that;
 				return result.asTemporary();
 			}
 
 			//! Returns the point translated backwards by 'that'.
 			template <typename Expression>
-			TemporaryPoint<N, Real> operator-(
+			TemporaryPoint<Real, N> operator-(
 				const VectorExpression
-				<N, Real, Expression>& that) const
+				<Real, N, Expression>& that) const
 			{
-				Point<N, Real> result((const Point<N, Real>&)*this);
+				Point<Real, N> result((const Point<Real, N>&)*this);
 				result -= that;
 				return result.asTemporary();
 			}
 
 			//! Interprets the point as a tuple.
-			Tuple<N, Real>& asTuple()
+			Tuple<Real, N>& asTuple()
 			{
 				return data_.asTuple();
 			}
 
 			//! Interprets the point as a Tuple.
-			const Tuple<N, Real>& asTuple() const
+			const Tuple<Real, N>& asTuple() const
 			{
 				return data_.asTuple();
 			}
 
 			//! Interprets the point as a position vector.
-			Vector<N, Real>& asVector()
+			Vector<Real, N>& asVector()
 			{
 				return data_;
 			}
 
 			//! Interprets the point as a position vector.
-			const Vector<N, Real>& asVector() const
+			const Vector<Real, N>& asVector() const
 			{
 				return data_;
 			}
 
 			//! Interprets the point as a temporary.
-			TemporaryPoint<N, Real>& asTemporary()
+			TemporaryPoint<Real, N>& asTemporary()
 			{
-				return (TemporaryPoint<N, Real>&)*this;
+				return (TemporaryPoint<Real, N>&)*this;
 			}
 
 		private:
-			Vector<N, Real> data_;
+			Vector<Real, N> data_;
 		};
 
 	}

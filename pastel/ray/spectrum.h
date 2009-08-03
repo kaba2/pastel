@@ -38,8 +38,8 @@ namespace Pastel
 		Spectrum operator/(real that) const;
 
 		real intensity() const;
-		Vector<3, float> toXyz() const;
-		static Spectrum fromXyz(const Vector<3, float>& xyz);
+		Vector<float, 3> toXyz() const;
+		static Spectrum fromXyz(const Vector<float, 3>& xyz);
 
 		friend Spectrum operator+(real left, const Spectrum& right)
 		{
@@ -67,7 +67,7 @@ namespace Pastel
 		return right * left;
 	}
 
-	typedef Array<2, Spectrum> SpectrumImage;
+	typedef Array<Spectrum, 2> SpectrumImage;
 
 }
 

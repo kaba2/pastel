@@ -8,9 +8,9 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename Expression>
-	Vector<N, Real> solveLinear(
+	Vector<Real, N> solveLinear(
 		const LuDecomposition<N, Real>& lu,
-		const VectorExpression<N, Real, Expression>& b)
+		const VectorExpression<Real, N, Expression>& b)
 	{
 		const Matrix<N, N, Real>& packedLu = lu.packedLu();
 
@@ -20,7 +20,7 @@ namespace Pastel
 
 		if (lu.singular())
 		{
-			return Vector<N, Real>(ofDimension(n));
+			return Vector<Real, N>(ofDimension(n));
 		}
 
 		/*
@@ -36,13 +36,13 @@ namespace Pastel
 		x^T P = y^T
 		*/
 
-		const Vector<N, Real> y = 
+		const Vector<Real, N> y = 
 			solveUnitLowerTriangular(lu.packedLu(),
 			solveUpperTriangular(lu.packedLu(), b));
 
-		Vector<N, Real> x(ofDimension(n));
+		Vector<Real, N> x(ofDimension(n));
 
-		const Tuple<N, integer>& rowPermutation = lu.rowPermutation();
+		const Tuple<integer, N>& rowPermutation = lu.rowPermutation();
 		for (integer i = 0;i < n;++i)
 		{
 			x[rowPermutation[i]] = y[i];

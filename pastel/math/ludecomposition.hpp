@@ -218,7 +218,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	const Tuple<N, integer>& LuDecomposition<N, Real>::rowPermutation() const
+	const Tuple<integer, N>& LuDecomposition<N, Real>::rowPermutation() const
 	{
 		return rowPermutation_;
 	}

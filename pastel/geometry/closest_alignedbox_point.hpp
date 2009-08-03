@@ -7,14 +7,14 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> closest(
+	TemporaryPoint<Real, N> closest(
 		const AlignedBox<N, Real>& box,
-		const Point<N, Real>& point)
+		const Point<Real, N>& point)
 	{
-		Point<N, Real> result(point);
+		Point<Real, N> result(point);
 
-		const Point<N, Real>& min = box.min();
-		const Point<N, Real>& max = box.max();
+		const Point<Real, N>& min = box.min();
+		const Point<Real, N>& max = box.max();
 
 		const integer n = point.size();
 		

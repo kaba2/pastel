@@ -36,7 +36,7 @@ namespace
 				to.push_back(toPoint);
 			}
 
-			const Tuple<4, real> parameters =
+			const Tuple<real, 4> parameters =
 				similarityTransformation(from, to);
 
 			REPORT(mabs(parameters[0] - scale) > 0.001);

@@ -109,22 +109,22 @@ namespace Pastel
 #include "pastel/sys/point.h"
 namespace Pastel
 {
-	template class Point<1, real>;
-	template class Point<2, real>;
-	template class Point<3, real>;
-	template class Point<4, real>;
-	template class Point<5, real>;
+	template class Point<real, 1>;
+	template class Point<real, 2>;
+	template class Point<real, 3>;
+	template class Point<real, 4>;
+	template class Point<real, 5>;
 }
 
 #include "pastel/sys/vector.h"
 namespace Pastel
 {
 
-	template class Vector<1, real>;
-	template class Vector<2, real>;
-	template class Vector<3, real>;
-	template class Vector<4, real>;
-	template class Vector<5, real>;
+	template class Vector<real, 1>;
+	template class Vector<real, 2>;
+	template class Vector<real, 3>;
+	template class Vector<real, 4>;
+	template class Vector<real, 5>;
 
 }
 

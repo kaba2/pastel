@@ -30,8 +30,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool orthonormalize(
-		const std::vector<Vector<N, Real> >& input,
-		std::vector<Vector<N, Real> >& result);
+		const std::vector<Vector<Real, N> >& input,
+		std::vector<Vector<Real, N> >& result);
 
 	//! Calls orthonormalize(vectorSet, vectorSet).
 	/*!
@@ -43,7 +43,7 @@ namespace Pastel
 	*/
 	template <int N, typename Real>
 	bool orthonormalize(
-		std::vector<Vector<N, Real> >& vectorSet);
+		std::vector<Vector<Real, N> >& vectorSet);
 
 	//! Calculates a perpendicular to a set of vectors
 	/*!
@@ -61,13 +61,13 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> perpendicular(
-		const std::vector<Vector<N, Real> >& orthonormalSet);
+	TemporaryVector<Real, N> perpendicular(
+		const std::vector<Vector<Real, N> >& orthonormalSet);
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> perpendicular(
+	TemporaryVector<Real, N> perpendicular(
 		integer dimension,
-		const std::vector<Vector<N, Real> >& orthonormalSet);
+		const std::vector<Vector<Real, N> >& orthonormalSet);
 
 }
 

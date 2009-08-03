@@ -12,7 +12,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const AlignedBox<N, Real>& box,
-		const Vector<N, Real>& unitAxis)
+		const Vector<Real, N>& unitAxis)
 	{
 		const Real t1 = dot(unitAxis, asVector(box.min()));
 		const Real t2 = dot(unitAxis, asVector(box.max()));
@@ -25,7 +25,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Box<N, Real>& box,
-		const Vector<N, Real>& unitAxis)
+		const Vector<Real, N>& unitAxis)
 	{
 		PENSURE_OP(box.dimension(), ==, unitAxis.dimension());
 
@@ -47,7 +47,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Sphere<N, Real>& sphere,
-		const Vector<N, Real>& unitAxis)
+		const Vector<Real, N>& unitAxis)
 	{
 		const Real position = dot(unitAxis, asVector(sphere.position()));
 		const Real radius = sphere.radius();
@@ -60,9 +60,9 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Segment<N, Real>& segment,
-		const Vector<N, Real>& unitAxis)
+		const Vector<Real, N>& unitAxis)
 	{
-		const Vector<N, Real> delta = segment.end() - segment.start();
+		const Vector<Real, N> delta = segment.end() - segment.start();
 		const Real position = dot(unitAxis,
 			linear(asVector(segment.start()), asVector(segment.end()), 0.5));
 		const Real radius = mabs(dot(unitAxis, delta)) * 0.5;
@@ -75,7 +75,7 @@ namespace Pastel
 	template <int N, typename Real>
 	AlignedBox<1, Real> projectAxis(
 		const Triangle<N, Real>& triangle,
-		const Vector<N, Real>& unitAxis)
+		const Vector<Real, N>& unitAxis)
 	{
 		const Real d0 = dot(asVector(triangle[0]), unitAxis);
 		const Real d1 = dot(asVector(triangle[1]), unitAxis);

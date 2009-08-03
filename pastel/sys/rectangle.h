@@ -25,13 +25,13 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<N, integer>& that)
+		explicit Rectangle(const Point<integer, N>& that)
 			: Base(that)
 		{
 		}
 
-		Rectangle(const Point<N, integer>& min,
-			const Point<N, integer>& max)
+		Rectangle(const Point<integer, N>& min,
+			const Point<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -55,19 +55,19 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<N, integer>& that)
+		explicit Rectangle(const Point<integer, N>& that)
 			: Base(that)
 		{
 		}
 
 		Rectangle(integer xMin, integer xMax)
-			: Base(Point<N, integer>(xMin),
-			Point<N, integer>(xMax))
+			: Base(Point<integer, N>(xMin),
+			Point<integer, N>(xMax))
 		{
 		}
 
-		Rectangle(const Point<N, integer>& min,
-			const Point<N, integer>& max)
+		Rectangle(const Point<integer, N>& min,
+			const Point<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -125,19 +125,19 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<N, integer>& that)
+		explicit Rectangle(const Point<integer, N>& that)
 			: Base(that)
 		{
 		}
 
 		Rectangle(integer xMin, integer yMin, integer xMax, integer yMax)
-			: Base(Point<N, integer>(xMin, yMin),
-			Point<N, integer>(xMax, yMax))
+			: Base(Point<integer, N>(xMin, yMin),
+			Point<integer, N>(xMax, yMax))
 		{
 		}
 
-		Rectangle(const Point<N, integer>& min,
-			const Point<N, integer>& max)
+		Rectangle(const Point<integer, N>& min,
+			const Point<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -222,20 +222,20 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<N, integer>& that)
+		explicit Rectangle(const Point<integer, N>& that)
 			: Base(that)
 		{
 		}
 
 		Rectangle(integer xMin, integer yMin, integer zMin,
 			integer xMax, integer yMax, integer zMax)
-			: Base(Point<N, integer>(xMin, yMin, zMin),
-			Point<N, integer>(xMax, yMax, zMax))
+			: Base(Point<integer, N>(xMin, yMin, zMin),
+			Point<integer, N>(xMax, yMax, zMax))
 		{
 		}
 
-		Rectangle(const Point<N, integer>& min,
-			const Point<N, integer>& max)
+		Rectangle(const Point<integer, N>& min,
+			const Point<integer, N>& max)
 			: Base(min, max)
 		{
 		}

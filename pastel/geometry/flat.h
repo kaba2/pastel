@@ -37,20 +37,20 @@ namespace Pastel
 		~Flat();
 
 		//! Sets the position of the flat.
-		void setPosition(const Point<N, Real>& position);
+		void setPosition(const Point<Real, N>& position);
 
 		//! Returns the position of the flat.
-		const Point<N, Real>& position() const;
+		const Point<Real, N>& position() const;
 
 		//! Returns a specific tangent vector of the flat.
-		Vector<N, Real>& operator[](integer index);
+		Vector<Real, N>& operator[](integer index);
 
 		//! Returns a specific tangent vector of the flat.
-		const Vector<N, Real>& operator[](integer index) const;
+		const Vector<Real, N>& operator[](integer index) const;
 
 	private:
-		Point<N, Real> position_;
-		Tuple<M, Vector<N, Real> > tangent_;
+		Point<Real, N> position_;
+		Tuple<Vector<Real, N>, M> tangent_;
 	};
 
 }

@@ -36,7 +36,7 @@ namespace Pastel
 		// of the box is always an extremal
 		// point.
 
-		const Vector<N, Real>& planeNormal = 
+		const Vector<Real, N>& planeNormal = 
 			plane.normal();
 
 		const Matrix<N, N, Real>& axes = box.rotation();

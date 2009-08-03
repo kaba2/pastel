@@ -37,8 +37,8 @@ namespace Pastel
 			sphere.radius());
 
 		const AlignedBox<N, Real> transformedBox(
-			Point<N, Real>(-box.width()),
-			Point<N, Real>(box.width()));
+			Point<Real, N>(-box.width()),
+			Point<Real, N>(box.width()));
 
 		return overlaps(transformedBox,
 			transformedSphere);

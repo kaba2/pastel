@@ -204,15 +204,15 @@ namespace
 
 			for (integer j = 0;j < height;++j)
 			{
-				a[j] = unitAxis<Dynamic, real32>(width, j) * 2;
+				a[j] = unitAxis<real32, Dynamic>(width, j) * 2;
 				TEST_ENSURE_OP(a[j][j], ==, 2);
-				a[j] = evaluate(unitAxis<Dynamic, real32>(width, j) * 3);
+				a[j] = evaluate(unitAxis<real32, Dynamic>(width, j) * 3);
 				TEST_ENSURE_OP(a[j][j], ==, 3);
 			}
 
 			// A const view can be adapted to a matrix expression:
 
-			Array<2, real32> b(height, width);
+			Array<real32, 2> b(height, width);
 			
 			a *= asMatrix(constArrayView(b));
 
@@ -441,14 +441,14 @@ namespace
 				Matrix<N, N, real> b(n, n);
 				setRandomMatrix(b);
 
-				Vector<N, real> v = randomVectorCube<N, real>(n);
+				Vector<real, N> v = randomVectorCube<N, real>(n);
 
-				Vector<N, real> result1 = v * (a * b);
-				Vector<N, real> result2 = (v * a) * b;
+				Vector<real, N> result1 = v * (a * b);
+				Vector<real, N> result2 = (v * a) * b;
 
 				a *= b;
 
-				Vector<N, real> result3 = v * a;
+				Vector<real, N> result3 = v * a;
 
 				const real error1 = norm(result1 - result2);
 				const real error2 = norm(result3 - result2);
@@ -523,9 +523,9 @@ namespace
 				Matrix<N, N, real> a(n, n);
 				setRandomMatrix(a);
 
-				const Vector<N, real> b(randomVectorCube<N, real>(n));
+				const Vector<real, N> b(randomVectorCube<N, real>(n));
 
-				const Vector<N, real> x(solveLinear(a, b));
+				const Vector<real, N> x(solveLinear(a, b));
 
 				const real error =
 					norm(x * a - b);

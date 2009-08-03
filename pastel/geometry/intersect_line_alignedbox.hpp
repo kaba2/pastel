@@ -15,7 +15,7 @@ namespace Pastel
 	bool intersect(
 		const Line<N, Real>& line,
 		const AlignedBox<N, Real>& alignedBox,
-		Vector<2, Real>& hitList)
+		Vector<Real, 2>& hitList)
 	{
 		PENSURE_OP(line.dimension(), ==, alignedBox.dimension());
 

@@ -14,16 +14,16 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Vector<N, Real> operator*(
-		const Vector<N, Real>& left,
+	Vector<Real, N> operator*(
+		const Vector<Real, N>& left,
 		const AffineTransformation<N, Real>& right)
 	{
 		return left * right.transformation();
 	}
 
 	template <int N, typename Real>
-	Point<N, Real> operator*(
-		const Point<N, Real>& left,
+	Point<Real, N> operator*(
+		const Point<Real, N>& left,
 		const AffineTransformation<N, Real>& right)
 	{
 		return left * right.transformation() +
@@ -41,7 +41,7 @@ namespace Pastel
 		
 		const Matrix<N, N, Real>& transformation =
 			that.transformation();
-		const Vector<N, Real>& translation =
+		const Vector<Real, N>& translation =
 			that.translation();
 
 		for (integer i = 0;i < dimension;++i)

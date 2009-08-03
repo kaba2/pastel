@@ -17,7 +17,7 @@ namespace Pastel
 	template <int N, typename Real>
 		bool overlaps(
 			const Box<N, Real>& box,
-			const Point<N, Real>& point)
+			const Point<Real, N>& point)
 	{
 		// Change coordinates so
 		// that the box becomes an origin
@@ -31,13 +31,13 @@ namespace Pastel
 		const Matrix<N, N, Real> boxRotationInverse(
 			transpose(box.rotation()));
 
-		const Point<N, Real> transformedPoint(
+		const Point<Real, N> transformedPoint(
 			(point - asVector(box.position())) *
 			boxRotationInverse);
 
 		const AlignedBox<N, Real> transformedBox(
-			Point<N, Real>(-box.width()),
-			Point<N, Real>(box.width()));
+			Point<Real, N>(-box.width()),
+			Point<Real, N>(box.width()));
 
 		return overlaps(transformedBox, transformedPoint);
 	}

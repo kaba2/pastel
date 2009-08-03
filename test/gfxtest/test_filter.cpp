@@ -24,7 +24,7 @@ namespace
 	void drawFilter(
 		const ConstFilterPtr& filter,
 		const Color& color,
-		Array<2, Color>& image,
+		Array<Color, 2>& image,
 		real maxFilterRadius = 2)
 	{
 		const integer Samples = 100;
@@ -52,7 +52,7 @@ namespace
 		const ConstFilterPtr& xFilter,
 		const ConstFilterPtr& yFilter,
 		const Color& color,
-		Array<2, Color>& image,
+		Array<Color, 2>& image,
 		real xMaxFilterRadius = 2,
 		real yMaxFilterRadius = 2)
 	{
@@ -83,7 +83,7 @@ namespace
 	void drawRadialFilter2D(
 		const ConstFilterPtr& filter,
 		const Color& color,
-		Array<2, Color>& image,
+		Array<Color, 2>& image,
 		real xMaxFilterRadius = 2)
 	{
 		const integer width = image.width();
@@ -112,12 +112,12 @@ namespace
 
 	template <typename Image_View>
 	void drawSignal(
-		const Array<1, real>& signal,
+		const Array<real, 1>& signal,
 		const ConstFilterPtr& filter,
 		const View<2, Color, Image_View>& image,
 		const Color& color)
 	{
-		Array<1, real> resampledSignal(image.width());
+		Array<real, 1> resampledSignal(image.width());
 		resample<real>(constArrayView(signal), 
 			ArrayExtender<1, real>(0),
 			filter, arrayView(resampledSignal));
@@ -142,9 +142,9 @@ namespace
 		const integer Width = 512;
 		const integer Height = 256;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
-		Array<1, real> signal(Width);
+		Array<real, 1> signal(Width);
 
 		for (integer i = 0;i < Width;++i)
 		{
@@ -157,7 +157,7 @@ namespace
 		{
 			clear(Color(0), arrayView(image));
 
-			Array<1, real> resampledSignal(i);
+			Array<real, 1> resampledSignal(i);
 			resample<real>(constArrayView(signal), 
 				ArrayExtender<1, real>(0),
 				filter, 
@@ -189,7 +189,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		FilterPtr filter = lanczosFilter(3);
 
@@ -210,7 +210,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		drawFilter(gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		drawFilter(triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
@@ -226,7 +226,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		drawFilter2D(gaussianFilter(2), gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_shape_gaussian.pcx");
@@ -249,7 +249,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		drawRadialFilter2D(gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		savePcx(image, "output/filter_radial_shape_gaussian.pcx");
@@ -272,7 +272,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		const real Range = 3;
 		const integer Steps = 20;
@@ -290,7 +290,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		const real bMin = 0;
 		const real bMax = 0.65;

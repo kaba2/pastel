@@ -14,8 +14,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> largestEigenVector(
-		const std::vector<Point<N, Real> >& pointSet);
+	TemporaryVector<Real, N> largestEigenVector(
+		const std::vector<Point<Real, N> >& pointSet);
 
 }
 

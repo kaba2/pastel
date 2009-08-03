@@ -60,9 +60,9 @@ namespace Pastel
 	class MipMap
 	{
 	public:
-		typedef View<N, Type, ArrayView<N, Array<N, Type> > >
+		typedef View<N, Type, ArrayView<N, Array<Type, N> > >
 			MipView;
-		typedef ConstView<N, Type, ConstArrayView<N, Array<N, Type> > >
+		typedef ConstView<N, Type, ConstArrayView<N, Array<Type, N> > >
 			ConstMipView;		
 
 		// Using default copy constructor.
@@ -87,9 +87,9 @@ namespace Pastel
 
 		MipMap<N, Type>& operator=(const MipMap& that);
 
-		const Array<N, Type>& operator()(integer level) const;
-		const Array<N, Type>& mostDetailed() const;
-		const Array<N, Type>& coarsest() const;
+		const Array<Type, N>& operator()(integer level) const;
+		const Array<Type, N>& mostDetailed() const;
+		const Array<Type, N>& coarsest() const;
 
 		MipView view(integer level);
 		ConstMipView view(integer level) const;
@@ -100,13 +100,13 @@ namespace Pastel
 		MipView coarsestView();
 		ConstMipView coarsestView() const;
 
-		Vector<N, integer> extent() const;
+		Vector<integer, N> extent() const;
 
 		integer levels() const;
 		bool empty() const;
 
 	private:
-		std::vector<Array<N, Type> > mipMapArray_;
+		std::vector<Array<Type, N> > mipMapArray_;
 		ArrayExtender<N, Type> extender_;
 	};
 

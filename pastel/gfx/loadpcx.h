@@ -65,7 +65,7 @@ namespace Pastel
 	template <typename Type, typename Adapter>
 	bool loadIndexedPcx(
 		const std::string& fileName,
-		Array<2, Type>& image,
+		Array<Type, 2>& image,
 		const Adapter& adapter,
 		std::vector<Color>* colorPalette = 0);
 
@@ -78,7 +78,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		Array<2, bool>& image,
+		Array<bool, 2>& image,
 		std::vector<Color>* colorPalette = 0);
 
 	//! Loads an indexed pcx image into an uint8 array.
@@ -90,7 +90,7 @@ namespace Pastel
 
 	PASTELGFX bool loadIndexedPcx(
 		const std::string& fileName,
-		Array<2, uint8>& image,
+		Array<uint8, 2>& image,
 		std::vector<Color>* colorPalette = 0);
 
 	//! Loads any pcx to an image array.
@@ -124,7 +124,7 @@ namespace Pastel
 	template <typename Type, typename Adapter>
 	bool loadPcx(
 		const std::string& fileName,
-		Array<2, Type>& image,
+		Array<Type, 2>& image,
 		const Adapter& adapter);
 
 	//! Loads a pcx image into a Color array.
@@ -136,7 +136,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, Color>& image);
+		Array<Color, 2>& image);
 
 	//! Loads a pcx image into a ByteColor array.
 	/*!
@@ -147,7 +147,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, ByteColor>& image);
+		Array<ByteColor, 2>& image);
 
 	//! Loads a pcx image into an rgb888 array.
 	/*!
@@ -158,7 +158,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, uint32>& image);
+		Array<uint32, 2>& image);
 
 	//! Loads a pcx image into an rgb565 array.
 	/*!
@@ -169,7 +169,7 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
-		Array<2, uint16>& image);
+		Array<uint16, 2>& image);
 
 }
 

@@ -31,40 +31,40 @@ namespace
 		// does not intersect any other aligned box.
 
 		AlignedBox<2, Real> a(
-			Point<2, Real>(0, 0),
-			Point<2, Real>(1, 1));
+			Point<Real, 2>(0, 0),
+			Point<Real, 2>(1, 1));
 
 		AlignedBox<2, Real> b(
-			Point<2, Real>(2, 0),
-			Point<2, Real>(3, 1));
+			Point<Real, 2>(2, 0),
+			Point<Real, 2>(3, 1));
 
 		AlignedBox<2, Real> c(
-			Point<2, Real>(4, 0),
-			Point<2, Real>(5, 1));
+			Point<Real, 2>(4, 0),
+			Point<Real, 2>(5, 1));
 
 		AlignedBox<2, Real> d(
-			Point<2, Real>(0, 2),
-			Point<2, Real>(1, 3));
+			Point<Real, 2>(0, 2),
+			Point<Real, 2>(1, 3));
 
 		AlignedBox<2, Real> e(
-			Point<2, Real>(2, 2),
-			Point<2, Real>(3, 3));
+			Point<Real, 2>(2, 2),
+			Point<Real, 2>(3, 3));
 
 		AlignedBox<2, Real> f(
-			Point<2, Real>(4, 2),
-			Point<2, Real>(5, 3));
+			Point<Real, 2>(4, 2),
+			Point<Real, 2>(5, 3));
 
 		AlignedBox<2, Real> g(
-			Point<2, Real>(0, 4),
-			Point<2, Real>(1, 5));
+			Point<Real, 2>(0, 4),
+			Point<Real, 2>(1, 5));
 
 		AlignedBox<2, Real> h(
-			Point<2, Real>(2, 4),
-			Point<2, Real>(3, 5));
+			Point<Real, 2>(2, 4),
+			Point<Real, 2>(3, 5));
 
 		AlignedBox<2, Real> i(
-			Point<2, Real>(4, 4),
-			Point<2, Real>(5, 5));
+			Point<Real, 2>(4, 4),
+			Point<Real, 2>(5, 5));
 
 		REPORT(overlaps(e, a));
 		REPORT(overlaps(e, b));
@@ -90,14 +90,14 @@ namespace
 	void testPositive()
 	{
 		AlignedBox<2, Real> a(
-			Point<2, Real>(0, 0),
-			Point<2, Real>(10, 20));
+			Point<Real, 2>(0, 0),
+			Point<Real, 2>(10, 20));
 
 		// AlignedBox fully contained in another.
 
 		AlignedBox<2, Real> b(
-			Point<2, Real>(5, 4),
-			Point<2, Real>(8, 15));
+			Point<Real, 2>(5, 4),
+			Point<Real, 2>(8, 15));
 
 		REPORT(!overlaps(a, b));
 		REPORT(!overlaps(b, a));
@@ -106,15 +106,15 @@ namespace
 		// in another.
 
 		AlignedBox<2, Real> c(
-			Point<2, Real>(6, 3),
-			Point<2, Real>(15, 18));
+			Point<Real, 2>(6, 3),
+			Point<Real, 2>(15, 18));
 
 		REPORT(!overlaps(a, c));
 		REPORT(!overlaps(c, a));
 
 		AlignedBox<2, Real> d(
-			Point<2, Real>(1, -5),
-			Point<2, Real>(8, 25));
+			Point<Real, 2>(1, -5),
+			Point<Real, 2>(8, 25));
 		REPORT(!overlaps(a, d));
 		REPORT(!overlaps(d, a));
 	}
@@ -122,14 +122,14 @@ namespace
 	void testSingular()
 	{
 		AlignedBox<2, Real> a(
-			Point<2, Real>(0, 0),
-			Point<2, Real>(1, 1));
+			Point<Real, 2>(0, 0),
+			Point<Real, 2>(1, 1));
 
 		// AlignedBoxs share a corner point.
 
 		AlignedBox<2, Real> b(
-			Point<2, Real>(1, 1),
-			Point<2, Real>(2, 2));
+			Point<Real, 2>(1, 1),
+			Point<Real, 2>(2, 2));
 
 		REPORT(!overlaps(a, b));
 		REPORT(!overlaps(b, a));
@@ -137,8 +137,8 @@ namespace
 		// AlignedBoxs share an edge
 
 		AlignedBox<2, Real> c(
-			Point<2, Real>(1, 0),
-			Point<2, Real>(2, 1));
+			Point<Real, 2>(1, 0),
+			Point<Real, 2>(2, 1));
 
 		REPORT(!overlaps(a, c));
 		REPORT(!overlaps(c, a));

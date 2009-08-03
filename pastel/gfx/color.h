@@ -9,11 +9,11 @@
 namespace Pastel
 {
 
-	typedef Vector<3, real32> Color;
+	typedef Vector<real32, 3> Color;
 
-	typedef Vector<4, real32> RgbaColor;
+	typedef Vector<real32, 4> RgbaColor;
 
-	typedef Vector<3, uint8> ByteColor;
+	typedef Vector<uint8, 3> ByteColor;
 
 }
 

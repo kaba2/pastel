@@ -21,7 +21,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Real boxVolume(const Vector<N, Real>& width)
+	Real boxVolume(const Vector<Real, N>& width)
 	{
 		return product(width);
 	}

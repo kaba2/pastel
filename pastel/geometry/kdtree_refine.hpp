@@ -13,8 +13,8 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -36,8 +36,8 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -59,12 +59,12 @@ namespace Pastel
 			ConstObjectIterator iterEnd = objectEnd;
 			while(iter != iterEnd)
 			{
-				const Tuple<2, Real> objectRange = objectPolicy.bound(*iter, splitAxis);
+				const Tuple<Real, 2> objectRange = objectPolicy.bound(*iter, splitAxis);
 
 				objectBound = boundingAlignedBox(objectBound,
 					AlignedBox<1, Real>(
-					Point<1, Real>(objectRange[0]),
-					Point<1, Real>(objectRange[1])));
+					Point<Real, 1>(objectRange[0]),
+					Point<Real, 1>(objectRange[1])));
 
 				++iter;
 			}
@@ -91,8 +91,8 @@ namespace Pastel
 			int N, typename Real,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<N, Real, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -119,7 +119,7 @@ namespace Pastel
 
 			// Find the longest dimension.
 
-			const Vector<N, Real> extent = maxBound - minBound;
+			const Vector<Real, N> extent = maxBound - minBound;
 
 			const integer maxExtentAxis = maxIndex(extent);
 			const Real maxExtent = extent[maxExtentAxis];
@@ -127,7 +127,7 @@ namespace Pastel
 			integer maxLegalSpreadAxis = 0;
 			Real maxLegalSpread = 0;
 
-			const Vector<N, Real> spread = objectBound.extent();
+			const Vector<Real, N> spread = objectBound.extent();
 
 			for (integer i = 0;i < dimension;++i)
 			{
@@ -281,7 +281,7 @@ namespace Pastel
 						ConstObjectIterator iterEnd = cursor.end();
 						while(iter != iterEnd)
 						{
-							const Tuple<2, Real> objectBound = tree.objectPolicy().bound(*iter, axis);
+							const Tuple<Real, 2> objectBound = tree.objectPolicy().bound(*iter, axis);
 
 							pointList.push_back(BoundPoint<N, Real, ObjectPolicy>(objectBound[0], true, iter));
 							pointList.push_back(BoundPoint<N, Real, ObjectPolicy>(objectBound[1], false, iter));

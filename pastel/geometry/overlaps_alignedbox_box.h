@@ -36,8 +36,8 @@ namespace Pastel
 	bool overlaps(
 		const AlignedBox<2, Real>& aAlignedBox,
 		const Box<2, Real>& bBox,
-		const Vector<2, Real>& bVelocity,
-		Tuple<2, Real>& intersectionRange);
+		const Vector<Real, 2>& bVelocity,
+		Tuple<Real, 2>& intersectionRange);
 
 	//! Tests if an aligned box and an box overlap.
 
@@ -58,8 +58,8 @@ namespace Pastel
 	bool overlaps(
 		const AlignedBox<2, Real>& alignedBox,
 		const Box<2, Real>& box,
-		Vector<2, Real>& projection,
-		Point<2, Real>& commonPoint);
+		Vector<Real, 2>& projection,
+		Point<Real, 2>& commonPoint);
 
 	//! Tests if an aligned box and an box overlap.
 

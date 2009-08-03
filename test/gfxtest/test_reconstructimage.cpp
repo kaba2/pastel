@@ -86,7 +86,7 @@ namespace
 	}
 
 	void testReconstruction(
-		const Array<2, Color>& blurTexture,
+		const Array<Color, 2>& blurTexture,
 		const std::vector<Point2>& positionList,
 		const std::string& name,
 		real sampleDistance,
@@ -106,7 +106,7 @@ namespace
 			dataList.push_back(color);
 		}
 
-		Array<2, Color> image(blurTexture);
+		Array<Color, 2> image(blurTexture);
 		for (integer i = 0;i < points;++i)
 		{
 			image(
@@ -189,7 +189,7 @@ namespace
 
 	void testReconstruction()
 	{
-		Array<2, Color> texture;
+		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
 		for (integer k = 4;k <= 9;++k)
@@ -197,7 +197,7 @@ namespace
 			const integer xPoints = 1 << k;
 			const real sampleDistance = (real)1 / (xPoints + 1);
 
-			Array<2, Color> blurTexture(texture.extent());
+			Array<Color, 2> blurTexture(texture.extent());
 			std::vector<Point2> positionList;
 
 			resample<Color>(
@@ -226,14 +226,14 @@ namespace
 	{
 	public:
 		Shepard_Interpolator(
-			const std::vector<Point<N, real> >& positionList,
+			const std::vector<Point<real, N> >& positionList,
 			const std::vector<Data>& dataList)
 			: positionList_(positionList)
 			, dataList_(dataList)
 		{
 		}
 
-		Data operator()(const Point<N, real>& position) const
+		Data operator()(const Point<real, N>& position) const
 		{
 			const integer n = positionList_.size();
 
@@ -269,16 +269,16 @@ namespace
 		}
 
 	private:
-		const std::vector<Point<N, real> >& positionList_;
+		const std::vector<Point<real, N> >& positionList_;
 		const std::vector<Data>& dataList_;
 	};
 
 	void testRbf()
 	{
-		Array<2, Color> colorTexture;
+		Array<Color, 2> colorTexture;
 		loadPcx("lena.pcx", colorTexture);
 
-		Array<2, real32> texture(colorTexture.extent());
+		Array<real32, 2> texture(colorTexture.extent());
 		transform(constArrayView(colorTexture), arrayView(texture), luma);
 
 		saveGrayscalePcx(texture, "test_rbf_input.pcx");
@@ -314,7 +314,7 @@ namespace
 
 	void testShepard()
 	{
-		Array<2, Color> texture;
+		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
 		const integer xPoints = texture.width() / 8;
@@ -362,14 +362,14 @@ namespace
 
 	void testReconstructionOld()
 	{
-		Array<2, Color> image;
+		Array<Color, 2> image;
 
 		loadPcx("ScMod_Tiff_Veeco.pcx", image);
 
 		const integer width = image.width();
 		const integer height = image.height();
 
-		Array<2, bool> mask(
+		Array<bool, 2> mask(
 			width, height, false);
 
 		for (integer y = 0;y < height;++y)
@@ -384,7 +384,7 @@ namespace
 			}
 		}
 
-		Array<2, Color> maskImage(width, height);
+		Array<Color, 2> maskImage(width, height);
 		for (integer y = 0;y < height;++y)
 		{
 			for (integer x = 0;x < width;++x)
@@ -397,11 +397,11 @@ namespace
 		savePcx(maskImage, "output/reconstructionmask.pcx");
 
 		const integer HoleWidth = 33;
-		Array<2, real> filter(
+		Array<real, 2> filter(
 			HoleWidth, HoleWidth);
 		setFilter(boost::bind(gaussian<real>, _1, (real)0.1), arrayView(filter));
 
-		Array<2, Color> result;
+		Array<Color, 2> result;
 		reconstructImage(image, mask, filter, result);
 
 		savePcx(result, "output/reconstructionresult.pcx");

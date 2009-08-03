@@ -52,7 +52,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
-		Tuple<4, Real>& similarityResult);
+		Tuple<Real, 4>& similarityResult);
 
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
@@ -70,7 +70,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
-		Tuple<4, Real>& similarityResult);
+		Tuple<Real, 4>& similarityResult);
 
 }
 

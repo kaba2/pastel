@@ -23,7 +23,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Plane<N, Real>::Plane()
 		: position_()
-		, normal_(unitAxis<N, Real>(0))
+		, normal_(unitAxis<Real, N>(0))
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 	}
@@ -31,14 +31,14 @@ namespace Pastel
 	template <int N, typename Real>
 	Plane<N, Real>::Plane(integer dimension)
 		: position_(ofDimension(dimension))
-		, normal_(unitAxis<N, Real>(dimension, 0))
+		, normal_(unitAxis<Real, N>(dimension, 0))
 	{
 	}
 
 	template <int N, typename Real>
 	Plane<N, Real>::Plane(
-		const Point<N, Real>& position,
-		const Vector<N, Real>& unitNormal)
+		const Point<Real, N>& position,
+		const Vector<Real, N>& unitNormal)
 		: position_(position)
 		, normal_(unitNormal)
 	{
@@ -47,8 +47,8 @@ namespace Pastel
 	template <int N, typename Real>
 	Plane<N, Real>::Plane(
 		integer dimension,
-		const Point<N, Real>& position,
-		const Vector<N, Real>& unitNormal)
+		const Point<Real, N>& position,
+		const Vector<Real, N>& unitNormal)
 		: position_(position)
 		, normal_(unitNormal)
 	{
@@ -78,8 +78,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Plane<N, Real>::set(
-		const Point<N, Real>& position,
-		const Vector<N, Real>& unitNormal)
+		const Point<Real, N>& position,
+		const Vector<Real, N>& unitNormal)
 	{
 		setPosition(position);
 		setNormal(unitNormal);
@@ -87,26 +87,26 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Plane<N, Real>::setPosition(
-		const Point<N, Real>& position)
+		const Point<Real, N>& position)
 	{
 		position_ = position;
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>& Plane<N, Real>::position() const
+	const Point<Real, N>& Plane<N, Real>::position() const
 	{
 		return position_;
 	}
 
 	template <int N, typename Real>
 	void Plane<N, Real>::setNormal(
-		const Vector<N, Real>& unitNormal)
+		const Vector<Real, N>& unitNormal)
 	{
 		normal_ = unitNormal;
 	}
 
 	template <int N, typename Real>
-	const Vector<N, Real>& Plane<N, Real>::normal() const
+	const Vector<Real, N>& Plane<N, Real>::normal() const
 	{
 		return normal_;
 	}

@@ -24,8 +24,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool lexicographicLess(
-		const Vector<N, Real>& left,
-		const Vector<N, Real>& right);
+		const Vector<Real, N>& left,
+		const Vector<Real, N>& right);
 
 	// Arithmetic functions
 
@@ -92,14 +92,14 @@ namespace Pastel
 
 	template <typename Real>
 	Real signedArea(
-		const Point<2, Real>& a,
-		const Point<2, Real>& b,
-		const Point<2, Real>& c);
+		const Point<Real, 2>& a,
+		const Point<Real, 2>& b,
+		const Point<Real, 2>& c);
 
 	template <typename Real>
 	bool lexicographical(
-		const Point<2, Real>& left,
-		const Point<2, Real>& right);
+		const Point<Real, 2>& left,
+		const Point<Real, 2>& right);
 
 	//! Measures the counter-clockwise angle from the x-axis.
 	/*!
@@ -109,7 +109,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& to);
+		const Vector<Real, 2>& to);
 
 	//! Measures the counter-clockwise angle from the x-axis.
 	/*!
@@ -126,15 +126,15 @@ namespace Pastel
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& to,
+		const Vector<Real, 2>& to,
 		const PASTEL_NO_DEDUCTION(Real)& normTo);
 
 	//! Measures the counter-clockwise angle between two vectors.
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& from,
-		const Vector<2, Real>& to);
+		const Vector<Real, 2>& from,
+		const Vector<Real, 2>& to);
 
 	//! Measures the counter-clockwise angle between two vectors.
 	/*!
@@ -149,8 +149,8 @@ namespace Pastel
 
 	template <typename Real>
 	Real ccwAngle(
-		const Vector<2, Real>& from,
-		const Vector<2, Real>& to,
+		const Vector<Real, 2>& from,
+		const Vector<Real, 2>& to,
 		const PASTEL_NO_DEDUCTION(Real)& fromNorm,
 		const PASTEL_NO_DEDUCTION(Real)& toNorm);
 
@@ -274,9 +274,9 @@ namespace Pastel
 			const Real& time);
 
 	template <int N, typename Real>
-	Point<N, Real> linear(
-		const Point<N, Real>& startPoint,
-		const Point<N, Real>& endPoint,
+	Point<Real, N> linear(
+		const Point<Real, N>& startPoint,
+		const Point<Real, N>& endPoint,
 		const PASTEL_NO_DEDUCTION(Real)& time);
 
 }

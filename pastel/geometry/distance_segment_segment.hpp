@@ -12,7 +12,7 @@ namespace Pastel
 		const Segment<N, Real>& aSegment,
 		const Segment<N, Real>& bSegment)
 	{
-		const Tuple<2, Real> t = closest(aSegment, bSegment);
+		const Tuple<Real, 2> t = closest(aSegment, bSegment);
 		return dot(bSegment.at(t[1]) - aSegment.at(t[0]));
 	}
 

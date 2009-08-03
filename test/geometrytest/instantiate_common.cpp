@@ -75,10 +75,10 @@ namespace Pastel
 		public:
 			typedef int Object;
 
-			Tuple<2, TestReal> bound(
+			Tuple<TestReal, 2> bound(
 				const Object& object, integer index) const
 			{
-				return Tuple<2, TestReal>();
+				return Tuple<TestReal, 2>();
 			}
 
 			AlignedBox<N, TestReal> bound(

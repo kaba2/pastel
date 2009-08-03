@@ -50,13 +50,13 @@ namespace Pastel
 		explicit Plane(integer dimension);
 
 		//! Constructs a plane given a position and a normal.
-		Plane(const Point<N, Real>& position,
-			const Vector<N, Real>& unitNormal);
+		Plane(const Point<Real, N>& position,
+			const Vector<Real, N>& unitNormal);
 
 		//! Constructs a plane given a position and a normal.
 		Plane(integer dimension,
-			const Point<N, Real>& position,
-			const Vector<N, Real>& unitNormal);
+			const Point<Real, N>& position,
+			const Vector<Real, N>& unitNormal);
 
 		//! Used for concept checking.
 		~Plane();
@@ -68,24 +68,24 @@ namespace Pastel
 		integer dimension() const;
 
 		//! Sets the position and normal of the plane.
-		void set(const Point<N, Real>& position,
-			const Vector<N, Real>& unitNormal);
+		void set(const Point<Real, N>& position,
+			const Vector<Real, N>& unitNormal);
 
 		//! Sets the point which the plane must pass through.
-		void setPosition(const Point<N, Real>& position);
+		void setPosition(const Point<Real, N>& position);
 
 		//! Returns the point that the plane must pass through.
-		const Point<N, Real>& position() const;
+		const Point<Real, N>& position() const;
 
 		//! Sets the normal of the plane.
-		void setNormal(const Vector<N, Real>& unitNormal);
+		void setNormal(const Vector<Real, N>& unitNormal);
 
 		//! Returns the normal of the plane.
-		const Vector<N, Real>& normal() const;
+		const Vector<Real, N>& normal() const;
 
 	private:
-		Point<N, Real> position_;
-		Vector<N, Real> normal_;
+		Point<Real, N> position_;
+		Vector<Real, N> normal_;
 	};
 
 	template <int N, typename Real>

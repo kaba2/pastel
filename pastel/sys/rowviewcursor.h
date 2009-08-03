@@ -89,7 +89,7 @@ namespace Pastel
 				cursor_.move(freeIndex_, amount);
 			}
 
-			void move(const Vector<1, integer>& amount)
+			void move(const Vector<integer, 1>& amount)
 			{
 				cursor_.move(freeIndex_, amount[0]);
 			}

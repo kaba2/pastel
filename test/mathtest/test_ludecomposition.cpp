@@ -29,11 +29,11 @@ namespace
 
 			if (!lu.singular())
 			{
-				const Vector<N, real> b = randomVectorCube<N, real>();
+				const Vector<real, N> b = randomVectorCube<N, real>();
 
-				const Vector<N, real> x = solveLinear(lu, b);
+				const Vector<real, N> x = solveLinear(lu, b);
 
-				const Vector<N, real> residual = x * m - b;
+				const Vector<real, N> residual = x * m - b;
 				const real normResidual = norm(residual);
 
 				if (normResidual > 0.0001)
@@ -56,7 +56,7 @@ namespace
 			const Matrix<2, 2, Real> correctPackedLu(
 					1, Real(1, 2), 
 					Real(1, 2), Real(3, 4));
-			const Tuple<2, integer> correctRowPermutation(
+			const Tuple<integer, 2> correctRowPermutation(
 				0, 1);
 			REPORT(lu.packedLu() != correctPackedLu);
 			REPORT(lu.rowPermutation() != correctRowPermutation);
@@ -74,7 +74,7 @@ namespace
 				7, 8, 9,
 				Real(1, 7), Real(6, 7), Real(12, 7),
 				Real(4, 7), Real(1, 2), 0);
-			const Tuple<3, integer> correctRowPermutation(
+			const Tuple<integer, 3> correctRowPermutation(
 				2, 0, 1);
 			REPORT(lu.packedLu() != correctPackedLu);
 			REPORT(lu.rowPermutation() != correctRowPermutation);

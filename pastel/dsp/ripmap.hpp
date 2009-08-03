@@ -22,7 +22,7 @@ namespace Pastel
 		{
 		public:
 			explicit Visitor(
-				Array<N, Array<N, Type> >& imageArray,
+				Array<Array<Type, N>, N>& imageArray,
 				const FilterPtr& filter)
 				: ripMapArray_(imageArray)
 				, filter_(filter)
@@ -30,15 +30,15 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
-				Array<N, Type>& image) const
+				const Point<integer, N>& position,
+				Array<Type, N>& image) const
 			{
 				if (allEqual(position, 0))
 				{
 					return;
 				}
 
-				Point<N, integer> previousPosition(position);
+				Point<integer, N> previousPosition(position);
 				for (integer i = 0;i < N;++i)
 				{
 					if (previousPosition[i] > 0)
@@ -48,11 +48,11 @@ namespace Pastel
 					}
 				}
 
-				const Array<N, Type>& previousImage =
+				const Array<Type, N>& previousImage =
 					ripMapArray_(previousPosition);
 
-				Vector<N, integer> resampleExtent =
-					ripMapArray_(Point<N, integer>(0)).extent();
+				Vector<integer, N> resampleExtent =
+					ripMapArray_(Point<integer, N>(0)).extent();
 				for (integer i = 0;i < N;++i)
 				{
 					resampleExtent[i] >>= position[i];
@@ -68,7 +68,7 @@ namespace Pastel
 			}
 
 		private:
-			Array<N, Array<N, Type> >& ripMapArray_;
+			Array<Array<Type, N>, N>& ripMapArray_;
 			const FilterPtr& filter_;
 		};
 
@@ -81,9 +81,9 @@ namespace Pastel
 		const FilterPtr& filter)
 		: ripMapArray_()
 	{
-		const Vector<N, integer> originalExtent = image.extent();
-		Vector<N, integer> topExtent;
-		Vector<N, integer> levels;
+		const Vector<integer, N> originalExtent = image.extent();
+		Vector<integer, N> topExtent;
+		Vector<integer, N> levels;
 
 		for (integer i = 0;i < N;++i)
 		{
@@ -91,7 +91,7 @@ namespace Pastel
 			levels[i] = integerLog2(topExtent[i]) + 1;
 		}
 
-		Array<N, Array<N, Type> > imageArray(levels);
+		Array<Array<Type, N>, N> imageArray(levels);
 
 		if (imageArray.empty())
 		{
@@ -99,13 +99,13 @@ namespace Pastel
 			return;
 		}
 
-		imageArray(Point<N, integer>(0)).setExtent(topExtent);
+		imageArray(Point<integer, N>(0)).setExtent(topExtent);
 
 		// Upsample to power-of-two size.
 
 		if (topExtent == originalExtent)
 		{
-			copy(image, arrayView(imageArray(Point<N, integer>(0))));
+			copy(image, arrayView(imageArray(Point<integer, N>(0))));
 		}
 		else
 		{
@@ -113,7 +113,7 @@ namespace Pastel
 				image,
 				clampExtender(),
 				filter,
-				arrayView(imageArray(Point<N, integer>(0))));
+				arrayView(imageArray(Point<integer, N>(0))));
 		}
 
 		Detail_ComputeRipMaps::Visitor<N, Type> visitor(imageArray, filter);
@@ -153,33 +153,33 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	Array<N, Type>& RipMap<N, Type>::operator()(
-		const Point<N, integer>& level)
+	Array<Type, N>& RipMap<N, Type>::operator()(
+		const Point<integer, N>& level)
 	{
 		return ripMapArray_(level);
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>& RipMap<N, Type>::operator()(
-		const Point<N, integer>& level) const
+	const Array<Type, N>& RipMap<N, Type>::operator()(
+		const Point<integer, N>& level) const
 	{
 		return ripMapArray_(level);
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>& RipMap<N, Type>::mostDetailed() const
+	const Array<Type, N>& RipMap<N, Type>::mostDetailed() const
 	{
-		return ripMapArray_(Point<N, integer>(0));
+		return ripMapArray_(Point<integer, N>(0));
 	}
 
 	template <int N, typename Type>
-	const Array<N, Type>& RipMap<N, Type>::coarsest() const
+	const Array<Type, N>& RipMap<N, Type>::coarsest() const
 	{
 		return ripMapArray_(asPoint(ripMapArray_.extent() - 1));
 	}
 
 	template <int N, typename Type>
-	const Vector<N, integer>& RipMap<N, Type>::levels() const
+	const Vector<integer, N>& RipMap<N, Type>::levels() const
 	{
 		return ripMapArray_.extent();
 	}
@@ -191,16 +191,16 @@ namespace Pastel
 	}
 
 	template <int N, typename Type>
-	View<N, Array<N, Type>,
-		ArrayView<N, Array<N, Array<N, Type> > > >
+	View<N, Array<Type, N>,
+		ArrayView<N, Array<Array<Type, N>, N> > >
 		RipMap<N, Type>::view()
 	{
 		return arrayView(ripMapArray_);
 	}
 
 	template <int N, typename Type>
-	ConstView<N, Array<N, Type>,
-		ConstArrayView<N, Array<N, Array<N, Type> > > >
+	ConstView<N, Array<Type, N>,
+		ConstArrayView<N, Array<Array<Type, N>, N> > >
 		RipMap<N, Type>::constView() const
 	{
 		return constArrayView(ripMapArray_);

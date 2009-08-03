@@ -80,7 +80,7 @@ namespace Pastel
 		const ConstView<2, bool, Element_ConstView>& element,
 		const View<2, bool, Output_View>& output)
 	{
-		const Point<2, integer> center(
+		const Point<integer, 2> center(
 			element.extent() / 2);
 		erode(input, element, output, center.x(), center.y());
 	}

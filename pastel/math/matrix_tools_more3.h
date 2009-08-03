@@ -123,7 +123,7 @@ namespace Pastel
 		const MatrixExpression<N, N, Real, Expression>& matrix);
 
 	template <typename Real>
-	Vector<2, Real> symmetricEigenValues(
+	Vector<Real, 2> symmetricEigenValues(
 		const Matrix<2, 2, Real>& matrix);
 
 	template <typename Real>

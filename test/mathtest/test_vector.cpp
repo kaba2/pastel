@@ -15,22 +15,22 @@ namespace
 	//typedef real Real;
 
 	template <int N, typename Type>
-	void someFunction(const Tuple<N, Type>& jorma)
+	void someFunction(const Tuple<Type, N>& jorma)
 	{
 	}
 
 	void testVectorBasic()
 	{
-		REPORT1(sizeof(Vector<3, Real>) != 3 * sizeof(Real), sizeof(Vector<3, Real>));
-		REPORT1(sizeof(Vector<3, integer>) != 3 * sizeof(integer), sizeof(Vector<3, integer>));
+		REPORT1(sizeof(Vector<Real, 3>) != 3 * sizeof(Real), sizeof(Vector<Real, 3>));
+		REPORT1(sizeof(Vector<integer, 3>) != 3 * sizeof(integer), sizeof(Vector<integer, 3>));
 
-		Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
+		Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
 		REPORT(a[0] != 1 || a[1] != 2 || a[2] != 3);
 
-		Vector<3, Real> b = Vector<3, Real>(4, 5, 6);
+		Vector<Real, 3> b = Vector<Real, 3>(4, 5, 6);
 		REPORT(b[0] != 4 || b[1] != 5 || b[2] != 6);
 
-		Vector<3, Real> c(b);
+		Vector<Real, 3> c(b);
 		REPORT(c[0] != 4 || c[1] != 5 || c[2] != 6);
 
 		a = b;
@@ -50,7 +50,7 @@ namespace
 		// member functions.
 
 		{
-			Vector<1, Real> a = Vector<1, Real>(1);
+			Vector<Real, 1> a = Vector<Real, 1>(1);
 			REPORT(a[0] != 1);
 
 			a.set(4);
@@ -59,14 +59,14 @@ namespace
 			a = 7;
 			REPORT(a[0] != 7);
 
-			Vector<1, Real> b(8);
+			Vector<Real, 1> b(8);
 			REPORT(b[0] != 8);
 
 			b.set(9);
 			REPORT(b[0] != 9);
 		}
 		{
-			Vector<2, Real> a = Vector<2, Real>(1, 2);
+			Vector<Real, 2> a = Vector<Real, 2>(1, 2);
 			REPORT(a[0] != 1 || a[1] != 2);
 
 			a.set(4, 5);
@@ -75,14 +75,14 @@ namespace
 			a = 7;
 			REPORT(a[0] != 7 || a[1] != 7);
 
-			Vector<2, Real> b(8);
+			Vector<Real, 2> b(8);
 			REPORT(b[0] != 8 || b[1] != 8);
 
 			b.set(9);
 			REPORT(b[0] != 9 || b[1] != 9);
 		}
 		{
-			Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
+			Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
 			REPORT(a[0] != 1 || a[1] != 2 || a[2] != 3);
 
 			a.set(4, 5, 6);
@@ -91,14 +91,14 @@ namespace
 			a = 7;
 			REPORT(a[0] != 7 || a[1] != 7 || a[2] != 7);
 
-			Vector<3, Real> b(8);
+			Vector<Real, 3> b(8);
 			REPORT(b[0] != 8 || b[1] != 8 || b[2] != 8);
 
 			b.set(9);
 			REPORT(b[0] != 9 || b[1] != 9 || b[2] != 9);
 		}
 		{
-			Vector<4, Real> a = Vector<4, Real>(1, 2, 3, 4);
+			Vector<Real, 4> a = Vector<Real, 4>(1, 2, 3, 4);
 			REPORT(a[0] != 1 || a[1] != 2 ||
 				 a[2] != 3 || a[3] != 4);
 
@@ -110,7 +110,7 @@ namespace
 			REPORT(a[0] != 7 || a[1] != 7 ||
 				a[2] != 7 || a[3] != 7);
 
-			Vector<4, Real> b(8);
+			Vector<Real, 4> b(8);
 			REPORT(b[0] != 8 || b[1] != 8 ||
 				b[2] != 8 || b[3] != 8);
 
@@ -122,8 +122,8 @@ namespace
 
 	void testVectorSimpleArithmetic()
 	{
-		Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
-		Vector<3, Real> b = Vector<3, Real>(4, 5, 6);
+		Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
+		Vector<Real, 3> b = Vector<Real, 3>(4, 5, 6);
 
 		// Vector op Vector
 
@@ -178,10 +178,10 @@ namespace
 	{
 		// Test the expression templates
 
-		Vector<3, Real> a = Vector<3, Real>(1, 2, 3);
-		Vector<3, Real> b = Vector<3, Real>(4, 5, 6);
+		Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
+		Vector<Real, 3> b = Vector<Real, 3>(4, 5, 6);
 
-		Vector<3, Real> c(a - b);
+		Vector<Real, 3> c(a - b);
 		REPORT(c[0] != -3 || c[1] != -3 || c[2] != -3);
 
 		c = a * b;
@@ -214,9 +214,9 @@ namespace
 	{
 		typedef float Real;
 
-		Vector<3, Real> a = Vector<3, Real>(-1, -2, 3);
+		Vector<Real, 3> a = Vector<Real, 3>(-1, -2, 3);
 
-		Vector<3, Real> b;
+		Vector<Real, 3> b;
 
 		b = mabs(a);
 
@@ -324,14 +324,14 @@ namespace
 	{
 		const integer size = (N == Dynamic) ? 100 : N;
 
-		Vector<N, Real> a(ofDimension(size));
+		Vector<Real, N> a(ofDimension(size));
 		
 		for (integer i = 0;i < size;++i)
 		{
 			a[i] = i;
 		}
 
-		Vector<N, Real> b = a.asTemporary();
+		Vector<Real, N> b = a.asTemporary();
 
 		// Move construction.
 		{
@@ -352,7 +352,7 @@ namespace
 
 		// Vector + Vector.
 		{
-			Vector<N, Real> c = b + b;
+			Vector<Real, N> c = b + b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -366,7 +366,7 @@ namespace
 
 		// Vector += Vector.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c += b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -381,7 +381,7 @@ namespace
 
 		// Vector - Vector.
 		{
-			Vector<N, Real> c = b - b;
+			Vector<Real, N> c = b - b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -395,7 +395,7 @@ namespace
 
 		// Vector -= Vector.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c -= b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -410,7 +410,7 @@ namespace
 
 		// Vector * Vector.
 		{
-			Vector<N, Real> c = b * b;
+			Vector<Real, N> c = b * b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -424,7 +424,7 @@ namespace
 
 		// Vector *= Vector.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c *= b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -439,7 +439,7 @@ namespace
 
 		// Vector / Vector.
 		{
-			Vector<N, Real> c = b / b;
+			Vector<Real, N> c = b / b;
 			integer contentsDiffer = 0;
 			for (integer i = 1;i < size;++i)
 			{
@@ -453,7 +453,7 @@ namespace
 
 		// Vector /= Vector.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c /= b;
 			integer contentsDiffer = 0;
 			for (integer i = 1;i < size;++i)
@@ -468,7 +468,7 @@ namespace
 
 		// Vector + Scalar.
 		{
-			Vector<N, Real> c = b + 5;
+			Vector<Real, N> c = b + 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -482,7 +482,7 @@ namespace
 
 		// Vector + Scalar.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c += 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -497,7 +497,7 @@ namespace
 
 		// Vector - Scalar.
 		{
-			Vector<N, Real> c = b - 5;
+			Vector<Real, N> c = b - 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -511,7 +511,7 @@ namespace
 
 		// Vector -= Scalar.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c -= 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -526,7 +526,7 @@ namespace
 
 		// Vector * Scalar.
 		{
-			Vector<N, Real> c = b * 5;
+			Vector<Real, N> c = b * 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -540,7 +540,7 @@ namespace
 
 		// Vector *= Scalar.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c *= 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -555,7 +555,7 @@ namespace
 
 		// Vector / Scalar.
 		{
-			Vector<N, Real> c = b / 5;
+			Vector<Real, N> c = b / 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -575,7 +575,7 @@ namespace
 
 		// Vector /= Scalar.
 		{
-			Vector<N, Real> c = b;
+			Vector<Real, N> c = b;
 			c /= 5;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
@@ -597,7 +597,7 @@ namespace
 
 		// Scalar + Vector.
 		{
-			Vector<N, Real> c = 5 + b;
+			Vector<Real, N> c = 5 + b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -611,7 +611,7 @@ namespace
 
 		// Scalar - Vector.
 		{
-			Vector<N, Real> c = 5 - b;
+			Vector<Real, N> c = 5 - b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -625,7 +625,7 @@ namespace
 
 		// Scalar * Vector.
 		{
-			Vector<N, Real> c = 5 * b;
+			Vector<Real, N> c = 5 * b;
 			integer contentsDiffer = 0;
 			for (integer i = 0;i < size;++i)
 			{
@@ -639,7 +639,7 @@ namespace
 
 		// Scalar / Vector.
 		{
-			Vector<N, Real> c = 5 / b;
+			Vector<Real, N> c = 5 / b;
 			integer contentsDiffer = 0;
 			for (integer i = 1;i < size;++i)
 			{
@@ -659,25 +659,25 @@ namespace
 	{
 		const integer size = (N == Dynamic) ? 100 : N;
 
-		Point<N, Real> a(ofDimension(size));
+		Point<Real, N> a(ofDimension(size));
 
-		Vector<N, Real> b = a.asVector();
+		Vector<Real, N> b = a.asVector();
 
-		Point<N, Real> e = a.asTemporary();
+		Point<Real, N> e = a.asTemporary();
 		if (N == Dynamic)
 		{
 			REPORT1(a.size() != 0, a.size());
 			REPORT2(e.size() != size, e.size(), size);
 		}
 
-		Tuple<N, Real> c = b.asTuple().asTemporary();
+		Tuple<Real, N> c = b.asTuple().asTemporary();
 		if (N == Dynamic)
 		{
 			REPORT1(b.size() != 0, b.size());
 			REPORT2(c.size() != size, c.size(), size);
 		}
 
-		Tuple<N, Real> d = c;
+		Tuple<Real, N> d = c;
 		if (N == Dynamic)
 		{
 			REPORT2(d.size() != size, d.size(), size);
@@ -691,17 +691,17 @@ namespace
 			REPORT2(c.size() != size, c.size(), size);
 		}
 
-		TemporaryTuple<N, Real> f = d.asTemporary();
+		TemporaryTuple<Real, N> f = d.asTemporary();
 		if (N == Dynamic)
 		{
 			REPORT2(f.size() != size, f.size(), size);
 			REPORT1(d.size() != 0, d.size());
 		}
 
-		Tuple<N, Real> g(ofDimension(size));
-		Vector<N, Real> j(g);
-		Point<N, Real> h(g);
-		Point<N, Real> k(j);
+		Tuple<Real, N> g(ofDimension(size));
+		Vector<Real, N> j(g);
+		Point<Real, N> h(g);
+		Point<Real, N> k(j);
 
 		j.asTuple();
 		j.asTemporary().asTuple();

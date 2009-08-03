@@ -7,9 +7,9 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename Expression>
-	Vector<N, Real> solveLinear(
+	Vector<Real, N> solveLinear(
 		const LuDecomposition<N, Real>& lu,
-		const VectorExpression<N, Real, Expression>& b);
+		const VectorExpression<Real, N, Expression>& b);
 
 	template <int N, typename Real>
 	Real determinant(

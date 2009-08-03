@@ -38,7 +38,7 @@ namespace Pastel
 			return Type();
 		}
 
-		const Array<2, Type>& mostDetailedImage = (*ripMap_).mostDetailed();
+		const Array<Type, 2>& mostDetailedImage = (*ripMap_).mostDetailed();
 
 		const Vector2 dx = dUvDx * Vector2(mostDetailedImage.extent());
 		const Vector2 dy = dUvDy * Vector2(mostDetailedImage.extent());
@@ -73,17 +73,17 @@ namespace Pastel
 
 		// Quadrilinear interpolation.
 
-		const Point<2, integer> level00(floor(asVector(level)));
-		const Point<2, integer> level10 = level00 + Vector<2, integer>(1, 0);
-		const Point<2, integer> level11 = level00 + Vector<2, integer>(1, 1);
-		const Point<2, integer> level01 = level00 + Vector<2, integer>(0, 1);
+		const Point<integer, 2> level00(floor(asVector(level)));
+		const Point<integer, 2> level10 = level00 + Vector<integer, 2>(1, 0);
+		const Point<integer, 2> level11 = level00 + Vector<integer, 2>(1, 1);
+		const Point<integer, 2> level01 = level00 + Vector<integer, 2>(0, 1);
 
 		const Vector2 tDetail = level - Point2(level00);
 
-		const Array<2, Type>& image00 = (*ripMap_)(level00);
-		const Array<2, Type>& image10 = (*ripMap_)(level10);
-		const Array<2, Type>& image11 = (*ripMap_)(level11);
-		const Array<2, Type>& image01 = (*ripMap_)(level01);
+		const Array<Type, 2>& image00 = (*ripMap_)(level00);
+		const Array<Type, 2>& image10 = (*ripMap_)(level10);
+		const Array<Type, 2>& image11 = (*ripMap_)(level11);
+		const Array<Type, 2>& image01 = (*ripMap_)(level01);
 
 		const Type sample00 =
 			sampleBilinear(

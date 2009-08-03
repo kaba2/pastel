@@ -20,7 +20,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real convexPolygonDiameter2(
-		const std::vector<Point<2, Real> >& pointSet);
+		const std::vector<Point<Real, 2> >& pointSet);
 
 	//! Returns the maximum squared distance over all point pairs.
 	/*!
@@ -29,7 +29,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real diameter2(
-		const std::vector<Point<2, Real> >& pointSet);
+		const std::vector<Point<Real, 2> >& pointSet);
 
 	//! Returns the squared diameter of an aligned box.
 

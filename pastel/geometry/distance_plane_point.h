@@ -14,7 +14,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real distance2(
 		const Plane<N, Real>& plane,
-		const Point<N, Real>& point);
+		const Point<Real, N>& point);
 
 }
 

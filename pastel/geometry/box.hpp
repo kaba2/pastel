@@ -27,8 +27,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Box<N, Real>::Box(
-		const Point<N, Real>& position,
-		const Vector<N, Real>& width,
+		const Point<Real, N>& position,
+		const Vector<Real, N>& width,
 		const Matrix<N, N, Real>& rotation)
 		: position_(position)
 		, width_(width)
@@ -40,8 +40,8 @@ namespace Pastel
 	template <int N, typename Real>
 	Box<N, Real>::Box(
 		integer dimension,
-		const Point<N, Real>& position,
-		const Vector<N, Real>& width,
+		const Point<Real, N>& position,
+		const Vector<Real, N>& width,
 		const Matrix<N, N, Real>& rotation)
 		: position_(position)
 		, width_(width)
@@ -67,26 +67,26 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void Box<N, Real>::setPosition(
-		const Point<N, Real>& position)
+		const Point<Real, N>& position)
 	{
 		position_ = position;
 	}
 
 	template <int N, typename Real>
-	const Point<N, Real>& Box<N, Real>::position() const
+	const Point<Real, N>& Box<N, Real>::position() const
 	{
 		return position_;
 	}
 
 	template <int N, typename Real>
 	void Box<N, Real>::setWidth(
-		const Vector<N, Real>& width)
+		const Vector<Real, N>& width)
 	{
 		width_ = width;
 	}
 
 	template <int N, typename Real>
-	const Vector<N, Real>& Box<N, Real>::width() const
+	const Vector<Real, N>& Box<N, Real>::width() const
 	{
 		return width_;
 	}

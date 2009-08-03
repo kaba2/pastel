@@ -23,8 +23,8 @@ namespace Pastel
 
 		explicit ConstSparseView(
 			const ConstView& view,
-			const Point<N, integer>& pivot,
-			const Vector<N, integer>& step)
+			const Point<integer, N>& pivot,
+			const Vector<integer, N>& step)
 			: view_(view)
 			, pivot_(pivot)
 			, step_(step)
@@ -35,13 +35,13 @@ namespace Pastel
 			ENSURE(allLess(asVector(pivot), view.extent()));
 		}
 
-		const Vector<N, integer>& extent() const
+		const Vector<integer, N>& extent() const
 		{
 			return extent_;
 		}
 
 		ConstCursor constCursor(
-			const Point<N, integer>& position) const
+			const Point<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(
 				pivot_ + asVector(position) * step_), step_);
@@ -49,17 +49,17 @@ namespace Pastel
 
 	protected:
 		const ConstView view_;
-		const Point<N, integer> pivot_;
-		const Vector<N, integer> step_;
-		const Vector<N, integer> extent_;
+		const Point<integer, N> pivot_;
+		const Vector<integer, N> step_;
+		const Vector<integer, N> extent_;
 	};
 
 	template <int N, typename Input_Element, typename Input_ConstView>
 	ConstView<N, Input_Element, ConstSparseView<N, Input_ConstView> >
 		constSparseView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
-		const PASTEL_NO_DEDUCTION((Point<N, integer>))& pivot,
-		const PASTEL_NO_DEDUCTION((Vector<N, integer>))& step)
+		const PASTEL_NO_DEDUCTION((Point<integer, N>))& pivot,
+		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& step)
 	{
 		return wrapConstView(
 			ConstSparseView<N, Input_ConstView>(view.contained(), pivot, step));
@@ -89,13 +89,13 @@ namespace Pastel
 
 		explicit SparseView(
 			const Contained_View& view,
-			const Point<N, integer>& pivot,
-			const Vector<N, integer>& step)
+			const Point<integer, N>& pivot,
+			const Vector<integer, N>& step)
 			: Base(view, pivot, step)
 		{
 		}
 
-		Cursor cursor(const Point<N, integer>& position) const
+		Cursor cursor(const Point<integer, N>& position) const
 		{
 			return Cursor(view_.cursor(pivot_ + asVector(position) * step_), 
 				step_);
@@ -106,8 +106,8 @@ namespace Pastel
 	View<N, Input_Element, SparseView<N, Input_View> >
 		sparseView(
 		const View<N, Input_Element, Input_View>& view,
-		const PASTEL_NO_DEDUCTION((Point<N, integer>))& pivot,
-		const PASTEL_NO_DEDUCTION((Vector<N, integer>))& step)
+		const PASTEL_NO_DEDUCTION((Point<integer, N>))& pivot,
+		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& step)
 	{
 		return wrapView(SparseView<N, Input_View>(view.contained(), pivot, step));
 	}

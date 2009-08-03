@@ -17,21 +17,21 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
-		const VectorExpression<N, Real, Expression>& vector);
+		const VectorExpression<Real, N, Expression>& vector);
 
 	template <int N, typename Real>
 	std::istream& operator>>(std::istream& stream,
-		Vector<N, Real>& vector);
+		Vector<Real, N>& vector);
 
 	//! Returns the sum of elements.
 
 	template <int N, typename Real, typename Expression>
-	inline Real sum(const VectorExpression<N, Real, Expression>& x);
+	inline Real sum(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the product of elements.
 
 	template <int N, typename Real, typename Expression>
-	inline Real product(const VectorExpression<N, Real, Expression>& x);
+	inline Real product(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the 'index'th natural basis axis.
 	/*!
@@ -40,12 +40,12 @@ namespace Pastel
 	*/
 
 	template <
-		int N,
-		typename Real>
+		typename Real,
+		int N>
 	class VectorUnitAxis;
 
-	template <int N, typename Real>
-	inline VectorUnitAxis<N, Real> unitAxis(integer index);
+	template <typename Real, int N>
+	inline VectorUnitAxis<Real, N> unitAxis(integer index);
 
 	//! Returns the 'index'th natural basis axis.
 	/*!
@@ -53,19 +53,19 @@ namespace Pastel
 	dimension > 0
 	*/
 
-	template <int N, typename Real>
-	inline VectorUnitAxis<N, Real> unitAxis(
+	template <typename Real, int N>
+	inline VectorUnitAxis<Real, N> unitAxis(
 		integer dimension, integer index);
 
 	//! Returns a subsequence of a vector.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, -1), Real> shrink(
-		const VectorExpression<N, Real, Expression>& that);
+	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+		const VectorExpression<Real, N, Expression>& that);
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<PASTEL_ADD_N(N, -1), Real> shrink(
-		const VectorExpression<N, Real, Expression>& that,
+	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+		const VectorExpression<Real, N, Expression>& that,
 		integer index);
 
 	template <
@@ -79,20 +79,20 @@ namespace Pastel
 	template <int N, typename Real, typename Expression>
 	inline VectorExtend<N, Real, Expression> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
-		const VectorExpression<N, Real, Expression>& right);
+		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
 	template <int N, typename Real, typename Expression>
 	inline VectorExtend<N, Real, Expression> extend(
-		const VectorExpression<N, Real, Expression>& left,
+		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns an N + 1 vector appended from a given position.
 
 	template <int N, typename Real, typename Expression>
 	inline VectorExtend<N, Real, Expression> extend(
-		const VectorExpression<N, Real, Expression>& left,
+		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
 		integer index);
 
@@ -105,7 +105,7 @@ namespace Pastel
 	template <int N, typename Real,
 		typename Expression>
 		inline Real dot(
-		const VectorExpression<N, Real, Expression>& that);
+		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the dot product between vectors.
 	/*!
@@ -116,8 +116,8 @@ namespace Pastel
 	template <int N, typename Real,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
-		const VectorExpression<N, Real, LeftExpression>& left,
-		const VectorExpression<N, Real, RightExpression>& right);
+		const VectorExpression<Real, N, LeftExpression>& left,
+		const VectorExpression<Real, N, RightExpression>& right);
 
 	//! Returns the Euclidean norm of a vector.
 	/*!
@@ -127,7 +127,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
-		norm(const VectorExpression<N, Real, Expression>& that);
+		norm(const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.
 	/*!
@@ -137,7 +137,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	typename boost::enable_if_c<(N == 1), Real>::type
-		norm(const VectorExpression<1, Real, Expression>& that);
+		norm(const VectorExpression<Real, 1, Expression>& that);
 
 	//! Returns the Manhattan (L1) norm of a vector.
 	/*!
@@ -147,7 +147,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline Real normManhattan(
-		const VectorExpression<N, Real, Expression>& that);
+		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the p:th-power of the Lp norm of a vector.
 	/*!
@@ -156,7 +156,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline Real powerSum(
-		const VectorExpression<N, Real, Expression>& that,
+		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
 	//! Returns the Lp norm of a vector.
@@ -173,7 +173,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline Real pNorm(
-		const VectorExpression<N, Real, Expression>& that,
+		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
 	//! Returns the infinity norm of a vector.
@@ -184,7 +184,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	inline Real normInfinity(
-		const VectorExpression<N, Real, Expression>& that);
+		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the corresponding unit vector (Euclidean norm).
 	/*!
@@ -194,8 +194,8 @@ namespace Pastel
 	This version does the normalization in-place.
 	*/
 	template <int N, typename Real>
-	inline TemporaryVector<N, Real> normalize(
-		const TemporaryVector<N, Real>& that);
+	inline TemporaryVector<Real, N> normalize(
+		const TemporaryVector<Real, N>& that);
 
 	//! Returns the corresponding unit vector (Euclidean norm).
 	/*!
@@ -203,22 +203,22 @@ namespace Pastel
 	norm(that) > 0
 	*/
 	template <int N, typename Real>
-	inline TemporaryVector<N, Real> normalize(
-		const Vector<N, Real>& that);
+	inline TemporaryVector<Real, N> normalize(
+		const Vector<Real, N>& that);
 
 	//! Returns a clockwise perpendicular to the given vector in 2D.
 
 	template <typename Real, typename Expression>
-	TemporaryVector<2, Real> cross(
-		const VectorExpression<2, Real, Expression>& that);
+	TemporaryVector<Real, 2> cross(
+		const VectorExpression<Real, 2, Expression>& that);
 
 	//! Returns the cross product of two vectors in 3D.
 
 	template <typename Real, typename ExpressionX,
 	typename ExpressionY>
-	TemporaryVector<3, Real> cross(
-		const VectorExpression<3, Real, ExpressionX>& x,
-		const VectorExpression<3, Real, ExpressionY>& y);
+	TemporaryVector<Real, 3> cross(
+		const VectorExpression<Real, 3, ExpressionX>& x,
+		const VectorExpression<Real, 3, ExpressionY>& y);
 
 }
 

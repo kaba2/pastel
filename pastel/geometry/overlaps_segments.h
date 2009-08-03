@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const std::vector<Point<2, Real> >& vertex,
+		const std::vector<Point<Real, 2> >& vertex,
 		const std::vector<Integer2>& segment);
 
 }

@@ -22,12 +22,12 @@ namespace Pastel
 		// Using default assignment
 
 		Quaternion();
-		explicit Quaternion(const Vector<3, Real>& that);
-		explicit Quaternion(const Vector<4, Real>& that);
+		explicit Quaternion(const Vector<Real, 3>& that);
+		explicit Quaternion(const Vector<Real, 4>& that);
 		Quaternion(const Real& x, const Real& y,
 			const Real& z, const Real& w);
 
-		void mulVector(Vector<3, Real>& vec) const;
+		void mulVector(Vector<Real, 3>& vec) const;
 
 		Quaternion<Real>& operator*=(const Quaternion<Real>& that);
 		Quaternion<Real>& operator+=(const Quaternion<Real>& that);
@@ -51,7 +51,7 @@ namespace Pastel
 			return result;
 		}
 
-		void setRotation(const Vector<3, Real>& axis,
+		void setRotation(const Vector<Real, 3>& axis,
 			const Real& angle);
 		void conjugate();
 		void invert();

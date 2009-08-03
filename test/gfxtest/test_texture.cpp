@@ -39,7 +39,7 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		Array<2, Color> textureImage;
+		Array<Color, 2> textureImage;
 
 		loadPcx("lena.pcx", textureImage);
 
@@ -47,7 +47,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		Array<2, Color> image(Width * 2, Height * 2);
+		Array<Color, 2> image(Width * 2, Height * 2);
 
 		const AlignedBox2 textureBox(0.4, 0.45, 0.55, 0.60);
 
@@ -105,7 +105,7 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		Array<2, Color> textureImage(40, 40);
+		Array<Color, 2> textureImage(40, 40);
 
 		const integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
@@ -130,7 +130,7 @@ namespace
 		}
 
 		/*
-		Array<2, Color> textureImage;
+		Array<Color, 2> textureImage;
 
 		loadPcx("texture_checker.pcx", textureImage);
 		//loadPcx("lena.pcx", textureImage);
@@ -140,7 +140,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		std::vector<Texture<Color>::Ptr> textureList;
 		textureList.push_back(
@@ -182,8 +182,8 @@ namespace
 
 	void testSamplers()
 	{
-		Array<2, Color> image(750, 500);
-		Array<2, Color> textureImage;
+		Array<Color, 2> image(750, 500);
+		Array<Color, 2> textureImage;
 
 		loadPcx("lena.pcx", textureImage);
 
@@ -286,8 +286,8 @@ namespace
 	}
 
 	void drawTestQuad(
-		const Tuple<4, Point2>& quad,
-		const Tuple<4, Point2>& textureQuad,
+		const Tuple<Point2, 4>& quad,
+		const Tuple<Point2, 4>& textureQuad,
 		const Texture<Color>& texture,
 		const std::string& testName,
 		const std::string& name)
@@ -301,7 +301,7 @@ namespace
 			}
 		}
 
-		Array<2, Color> image(500, ceil(yMax));
+		Array<Color, 2> image(500, ceil(yMax));
 
 		drawProjectiveQuad(
 			quad,
@@ -314,8 +314,8 @@ namespace
 
 	void testChecker()
 	{
-		Array<2, Color> image(500, 500);
-		Array<2, Color> textureImage(40, 40);
+		Array<Color, 2> image(500, 500);
+		Array<Color, 2> textureImage(40, 40);
 
 		const integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
@@ -348,7 +348,7 @@ namespace
 		RipMap<2, Color> ripMap(constArrayView(textureImage));
 		transform(ripMap, fitColor);
 
-		Array<2, Color> lenaTextureImage;
+		Array<Color, 2> lenaTextureImage;
 		loadPcx("lena.pcx", lenaTextureImage);
 
 		MipMap<2, Color> lenaMipMap(constArrayView(lenaTextureImage));
@@ -388,13 +388,13 @@ namespace
 		const integer textures = textureList.size();
 
 		{
-			Tuple<4, Point2> quad(
+			Tuple<Point2, 4> quad(
 				Point2(250, 0),
 				Point2(500, 150),
 				Point2(250, 175),
 				Point2(0, 150));
 
-			Tuple<4, Point2> textureQuad(
+			Tuple<Point2, 4> textureQuad(
 				Point2(0, 0),
 				Point2(2, 0),
 				Point2(2, 2),
@@ -415,14 +415,14 @@ namespace
 		clear(Color(0), arrayView(image));
 
 		drawProjectiveQuad(
-			Tuple<4, Point2>(
+			Tuple<Point2, 4>(
 			Point2(0, 0),
 			Point2(500, 0),
 			Point2(500, 500),
 			Point2(0, 500)),
 			distortTexture,
 			arrayView(image),
-			Tuple<4, Point2>(
+			Tuple<Point2, 4>(
 			Point2(0.5, 0),
 			Point2(1, (real)150 / 500),
 			Point2(0.5, (real)175 / 500),
@@ -436,13 +436,13 @@ namespace
 
 		for (integer i = 0;i < textures;++i)
 		{
-			Tuple<4, Point2> quad(
+			Tuple<Point2, 4> quad(
 				Point2(250, 0),
 				Point2(500, 150),
 				Point2(250, 175),
 				Point2(0, 150));
 
-			Tuple<4, Point2> textureQuad(
+			Tuple<Point2, 4> textureQuad(
 				Point2(0, 0),
 				Point2(1, 0),
 				Point2(1, 1),
@@ -460,14 +460,14 @@ namespace
 			clear(Color(0), arrayView(image));
 
 			drawProjectiveQuad(
-				Tuple<4, Point2>(
+				Tuple<Point2, 4>(
 				Point2(0, 0),
 				Point2(500, 0),
 				Point2(500, 500),
 				Point2(0, 500)),
 				distortTexture,
 				arrayView(image),
-				Tuple<4, Point2>(
+				Tuple<Point2, 4>(
 				Point2(0.5, 0),
 				Point2(1, (real)150 / 500),
 				Point2(0.5, (real)175 / 500),
@@ -480,13 +480,13 @@ namespace
 		ripMap.swap(lenaRipMap);
 
 		{
-			Tuple<4, Point2> quad(
+			Tuple<Point2, 4> quad(
 				Point2(0, 0),
 				Point2(500, 0),
 				Point2(255, 150),
 				Point2(245, 150));
 
-			Tuple<4, Point2> textureQuad(
+			Tuple<Point2, 4> textureQuad(
 				Point2(0, 0),
 				Point2(20, 0),
 				Point2(20, 800),
@@ -503,13 +503,13 @@ namespace
 		{
 			clear(Color(0), arrayView(image));
 
-			Tuple<4, Point2> quad(
+			Tuple<Point2, 4> quad(
 				Point2(0, 0),
 				Point2(500, 0),
 				Point2(300, 250),
 				Point2(200, 250));
 
-			Tuple<4, Point2> textureQuad(
+			Tuple<Point2, 4> textureQuad(
 				Point2(0, 0),
 				Point2(10, 0),
 				Point2(10, 100),
@@ -540,13 +540,13 @@ namespace
 
 	void testMix()
 	{
-		Array<2, Color> aTexture;
+		Array<Color, 2> aTexture;
 		loadPcx("lena.pcx", aTexture);
 
-		Array<2, Color> bTexture;
+		Array<Color, 2> bTexture;
 		loadPcx("kodak_test_images/kodim19.pcx", bTexture);
 
-		Array<2, Color> image(750, 750, Color(0));
+		Array<Color, 2> image(750, 750, Color(0));
 
 		MipMap<2, Color> aMipMap(constArrayView(aTexture));
 		transform(aMipMap, fitColor);

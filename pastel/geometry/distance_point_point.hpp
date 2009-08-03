@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distanceManhattan(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint)
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -20,8 +20,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint)
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -30,8 +30,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distancePower(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint,
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		return Pastel::distance2(
@@ -41,8 +41,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distanceInfinity(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint)
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -51,15 +51,15 @@ namespace Pastel
 
 	template <int N, typename Real, typename NormBijection>
 	Real distance2(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint,
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint,
 		const NormBijection& normBijection)
 	{
 		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
 
-		Tuple<N, Real>::const_iterator aData = aPoint.asTuple().begin();
-		const Tuple<N, Real>::const_iterator aEnd = aPoint.asTuple().end();
-		Tuple<N, Real>::const_iterator bData = bPoint.asTuple().begin();
+		Tuple<Real, N>::const_iterator aData = aPoint.asTuple().begin();
+		const Tuple<Real, N>::const_iterator aEnd = aPoint.asTuple().end();
+		Tuple<Real, N>::const_iterator bData = bPoint.asTuple().begin();
 
 		Real result = 0;
 		while(aData != aEnd)
@@ -77,16 +77,16 @@ namespace Pastel
 
 	template <int N, typename Real, typename NormBijection>
 	Real distance2(
-		const Point<N, Real>& aPoint,
-		const Point<N, Real>& bPoint,
+		const Point<Real, N>& aPoint,
+		const Point<Real, N>& bPoint,
 		const NormBijection& normBijection,
 		const PASTEL_NO_DEDUCTION(Real)& cullDistance)
 	{
 		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
 
-		Tuple<N, Real>::const_iterator aData = aPoint.asTuple().begin();
-		const Tuple<N, Real>::const_iterator aEnd = aPoint.asTuple().end();
-		Tuple<N, Real>::const_iterator bData = bPoint.asTuple().begin();
+		Tuple<Real, N>::const_iterator aData = aPoint.asTuple().begin();
+		const Tuple<Real, N>::const_iterator aEnd = aPoint.asTuple().end();
+		Tuple<Real, N>::const_iterator bData = bPoint.asTuple().begin();
 
 		Real result = 0;
 		while(aData != aEnd)

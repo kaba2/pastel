@@ -139,7 +139,7 @@ namespace Pastel
 			return ((SplitNode*)node_)->splitAxis();
 		}
 
-		const Vector<N, Real>* splitDirection() const
+		const Vector<Real, N>* splitDirection() const
 		{
 			PENSURE(node_);
 			PENSURE(!leaf());
@@ -178,7 +178,7 @@ namespace Pastel
 		}
 
 		Real projectedPosition(
-			const Point<N, Real>& point) const
+			const Point<Real, N>& point) const
 		{
 			PENSURE(node_);
 			PENSURE(!leaf());

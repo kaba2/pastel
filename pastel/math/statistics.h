@@ -16,15 +16,15 @@ namespace Pastel
 	//! Returns the mean of a point set.
 
 	template <int N, typename Real>
-	TemporaryPoint<N, Real> mean(
-		const std::vector<Point<N, Real> >& pointSet);
+	TemporaryPoint<Real, N> mean(
+		const std::vector<Point<Real, N> >& pointSet);
 
 	//! Returns the variance along each axis.
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> axisAlignedVariance(
-		const std::vector<Point<N, Real> >& pointSet,
-		const Point<N, Real>& mean);
+	TemporaryVector<Real, N> axisAlignedVariance(
+		const std::vector<Point<Real, N> >& pointSet,
+		const Point<Real, N>& mean);
 
 }
 

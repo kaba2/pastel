@@ -26,7 +26,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<N, integer>& position,
+				const Point<integer, N>& position,
 				const Type& imageElement, Type& sumImageElement) const
 			{
 				Type sum = imageElement;
@@ -35,7 +35,7 @@ namespace Pastel
 				{
 					if (position[i] > 0)
 					{
-						sum += sumImage_(position - unitAxis<N, integer>(i));
+						sum += sumImage_(position - unitAxis<integer, N>(i));
 					}
 				}
 

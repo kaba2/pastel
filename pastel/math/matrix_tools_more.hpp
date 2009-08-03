@@ -37,14 +37,14 @@ namespace Pastel
 	// Vectors and matrices
 
 	template <int N, typename Real, typename Expression>
-	Vector<N, Real> diagonal(
+	Vector<Real, N> diagonal(
 		const MatrixExpression<N, N, Real, Expression>& matrix)
 	{
 		ENSURE_OP(matrix.width(), ==, matrix.height());
 
 		const integer n = matrix.width();
 
-		Vector<N, Real> result(ofDimension(n));
+		Vector<Real, N> result(ofDimension(n));
 
 		for (int i = 0;i < n;++i)
 		{
@@ -56,9 +56,9 @@ namespace Pastel
 
 	/*
 	template <int Height, int Width, typename Real>
-	Vector<boost::mpl::min<
+	Vector<Real, boost::mpl::min<
 		boost::mpl::int_<Height>,
-		boost::mpl::int_<Width> >::value, Real>
+		boost::mpl::int_<Width> >::value>
 		diagonal(const Matrix<Height, Width, Real>& matrix)
 	{
 		using namespace boost::mpl;
@@ -68,7 +68,7 @@ namespace Pastel
 			MinDimension = boost::mpl::min<int_<Height>, int_<Width> >::value
 		};
 
-		Vector<MinDimension, Real> result;
+		Vector<Real, MinDimension> result;
 
 		for (int i = 0;i < MinDimension;++i)
 		{
@@ -415,9 +415,9 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveLinear(
+	Vector<Real, N> solveLinear(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b)
+		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		// The linear system is solved by
 		// Gaussian elimination with back-substitution
@@ -427,7 +427,7 @@ namespace Pastel
 		const integer height = a.height();
 
 		Matrix<N, N, Real> a2(a);
-		Vector<N, Real> b2(b);
+		Vector<Real, N> b2(b);
 
 		// Reduce the system
 		// ax = b
@@ -507,18 +507,18 @@ namespace Pastel
 
 	template <typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<1, Real> solveLinear(
+	Vector<Real, 1> solveLinear(
 		const MatrixExpression<1, 1, Real, Expression_A>& a,
-		const VectorExpression<1, Real, Expression_B>& b)
+		const VectorExpression<Real, 1, Expression_B>& b)
 	{
 		return b * inverse(a(0, 0));
 	}
 
 	template <typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<2, Real> solveLinear(
+	Vector<Real, 2> solveLinear(
 		const MatrixExpression<2, 2, Real, Expression_A>& a,
-		const VectorExpression<2, Real, Expression_B>& b)
+		const VectorExpression<Real, 2, Expression_B>& b)
 	{
 		// Using Cramers rule
 
@@ -528,21 +528,21 @@ namespace Pastel
 		const Real det0 = b[0] * a(1, 1) - b[1] * a(1, 0);
 		const Real det1 = a(0, 0) * b[1] - a(0, 1) * b[0];
 
-		return Vector<2, Real>(det0 * invDet, det1 * invDet);
+		return Vector<Real, 2>(det0 * invDet, det1 * invDet);
 	}
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveLowerTriangular(
+	Vector<Real, N> solveLowerTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b)
+		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
-		Vector<N, Real> b2 = b;
+		Vector<Real, N> b2 = b;
 		
 		// We want to solve the system
 		// x^T A = b^T
@@ -567,16 +567,16 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveUnitLowerTriangular(
+	Vector<Real, N> solveUnitLowerTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b)
+		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
-		Vector<N, Real> b2 = b;
+		Vector<Real, N> b2 = b;
 		
 		// We want to solve the system
 		// x^T A = b^T
@@ -600,16 +600,16 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveUpperTriangular(
+	Vector<Real, N> solveUpperTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b)
+		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
-		Vector<N, Real> b2 = b;
+		Vector<Real, N> b2 = b;
 		
 		// We want to solve the system
 		// x^T A = b^T
@@ -642,16 +642,16 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename Expression_A, typename Expression_B>
-	Vector<N, Real> solveUnitUpperTriangular(
+	Vector<Real, N> solveUnitUpperTriangular(
 		const MatrixExpression<N, N, Real, Expression_A>& a,
-		const VectorExpression<N, Real, Expression_B>& b)
+		const VectorExpression<Real, N, Expression_B>& b)
 	{
 		ENSURE_OP(a.width(), ==, a.height());
 		ENSURE_OP(b.size(), ==, a.width());
 
 		const integer n = a.height();
 
-		Vector<N, Real> b2 = b;
+		Vector<Real, N> b2 = b;
 		
 		// We want to solve the system
 		// x^T A = b^T

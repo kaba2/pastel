@@ -21,13 +21,13 @@ namespace Pastel
 	}
 
 	template <typename Real, typename Expression>
-	Real boxArea(const VectorExpression<1, Real, Expression>& width)
+	Real boxArea(const VectorExpression<Real, 1, Expression>& width)
 	{
 		return 0;
 	}
 
 	template <int N, typename Real, typename Expression>
-	Real boxArea(const VectorExpression<N, Real, Expression>& width)
+	Real boxArea(const VectorExpression<Real, N, Expression>& width)
 	{
 		// area = 2 * sum_i(width[0] * ... * width[i - 1] * width[i + 1] * ... * width[N])
 		//

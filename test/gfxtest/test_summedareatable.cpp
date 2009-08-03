@@ -24,11 +24,11 @@ namespace
 
 	void testSummedAreaTable()
 	{
-		Array<2, Color> image;
+		Array<Color, 2> image;
 
 		loadPcx("lena.pcx", image);
 
-		Array<2, Color> sumImage(image.extent());
+		Array<Color, 2> sumImage(image.extent());
 		computeSummedAreaTable(constArrayView(image), arrayView(sumImage));
 
 		const Color sum = sumImage(asPoint(image.extent() - 1));

@@ -10,12 +10,12 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool orthonormalize(
-		const std::vector<Vector<N, Real> >& input,
-		std::vector<Vector<N, Real> >& result)
+		const std::vector<Vector<Real, N> >& input,
+		std::vector<Vector<Real, N> >& result)
 	{
 		// Stabilized Gram-Schmidt orthonormalization
 
-		std::vector<Vector<N, Real> > output;
+		std::vector<Vector<Real, N> > output;
 
 		if (input.empty())
 		{
@@ -27,7 +27,7 @@ namespace Pastel
 
 		for (integer i = 0;i < vectors;++i)
 		{
-			Vector<N, Real> v(input[i]);
+			Vector<Real, N> v(input[i]);
 
 			for (integer j = 0;j < i;++j)
 			{
@@ -52,14 +52,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool orthonormalize(
-		std::vector<Vector<N, Real> >& vectorSet)
+		std::vector<Vector<Real, N> >& vectorSet)
 	{
 		return orthonormalize(vectorSet, vectorSet);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> perpendicular(
-		const std::vector<Vector<N, Real> >& orthonormalSet)
+	TemporaryVector<Real, N> perpendicular(
+		const std::vector<Vector<Real, N> >& orthonormalSet)
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		
@@ -67,9 +67,9 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<N, Real> perpendicular(
+	TemporaryVector<Real, N> perpendicular(
 		integer dimension,
-		const std::vector<Vector<N, Real> >& orthonormalSet)
+		const std::vector<Vector<Real, N> >& orthonormalSet)
 	{
 		ENSURE_OP(dimension, >, 0);
 
@@ -77,7 +77,7 @@ namespace Pastel
 
 		if (orthonormalSet.empty())
 		{
-			return unitAxis<N, Real>(dimension, 0);
+			return unitAxis<Real, N>(dimension, 0);
 		}
 
 		ENSURE_OP(orthonormalSet.front().dimension(), ==, dimension);
@@ -86,7 +86,7 @@ namespace Pastel
 
 		if (vectors >= dimension)
 		{
-			return TemporaryVector<N, Real>(ofDimension(dimension), 0);
+			return TemporaryVector<Real, N>(ofDimension(dimension), 0);
 		}
 
 		// Find the positive axis-aligned vector e_i
@@ -117,7 +117,7 @@ namespace Pastel
 
 		// Make e_i orthogonal to flat
 
-		Vector<N, Real> result = unitAxis<N, Real>(dimension, minMaxDotIndex);
+		Vector<Real, N> result = unitAxis<Real, N>(dimension, minMaxDotIndex);
 
 		for (integer i = 0;i < vectors;++i)
 		{

@@ -463,7 +463,7 @@ namespace Pastel
 		//! Constructs with the given row vector.
 		template <typename FirstExpression>
 		Matrix(
-			const VectorExpression<1, Real, FirstExpression>& firstRow)
+			const VectorExpression<Real, 1, FirstExpression>& firstRow)
 			: Base()
 		{
 			(*this)[0] = firstRow[0];
@@ -532,8 +532,8 @@ namespace Pastel
 			typename FirstExpression, 
 			typename SecondExpression>
 		Matrix(
-			const VectorExpression<2, Real, FirstExpression>& firstRow,
-			const VectorExpression<2, Real, SecondExpression>& secondRow)
+			const VectorExpression<Real, 2, FirstExpression>& firstRow,
+			const VectorExpression<Real, 2, SecondExpression>& secondRow)
 			: Base()
 		{
 			Base::operator[](0) = firstRow;
@@ -607,9 +607,9 @@ namespace Pastel
 			typename SecondExpression,
 			typename ThirdExpression>
 		Matrix(
-			const VectorExpression<3, Real, FirstExpression>& firstRow,
-			const VectorExpression<3, Real, SecondExpression>& secondRow,
-			const VectorExpression<3, Real, ThirdExpression>& thirdRow)
+			const VectorExpression<Real, 3, FirstExpression>& firstRow,
+			const VectorExpression<Real, 3, SecondExpression>& secondRow,
+			const VectorExpression<Real, 3, ThirdExpression>& thirdRow)
 			: Base()
 		{
 			Base::operator[](0) = firstRow;
@@ -693,10 +693,10 @@ namespace Pastel
 			typename ThirdExpression,
 			typename FourthExpression>
 		Matrix(
-			const VectorExpression<4, Real, FirstExpression>& firstRow,
-			const VectorExpression<4, Real, SecondExpression>& secondRow,
-			const VectorExpression<4, Real, ThirdExpression>& thirdRow,
-			const VectorExpression<4, Real, FourthExpression>& fourthRow)
+			const VectorExpression<Real, 4, FirstExpression>& firstRow,
+			const VectorExpression<Real, 4, SecondExpression>& secondRow,
+			const VectorExpression<Real, 4, ThirdExpression>& thirdRow,
+			const VectorExpression<Real, 4, FourthExpression>& fourthRow)
 			: Base()
 		{
 			Base::operator[](0) = firstRow;

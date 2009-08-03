@@ -15,7 +15,7 @@ namespace
 	{
 		const integer Width = 500;
 		const integer Height = 100;
-		Array<2, bool> image(Width, Height, false);
+		Array<bool, 2> image(Width, Height, false);
 		
 		PiecewiseLinear<real> f;
 

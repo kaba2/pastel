@@ -71,7 +71,7 @@ namespace Pastel
 
 				AlignedBox<N, Real> negativeAlignedBox(alignedBox);
 
-				Point<N, Real> maxTmp(negativeAlignedBox.max());
+				Point<Real, N> maxTmp(negativeAlignedBox.max());
 				maxTmp[splitAxis] = negativeSplit;
 				negativeAlignedBox.setMax(maxTmp);
 
@@ -187,7 +187,7 @@ namespace Pastel
 		typedef Detail::NodeRange<N, Real, Shape> Range;
 		typedef typename Range::ConstCursor ConstCursor;
 
-		Vector<2, Real> tRange;
+		Vector<Real, 2> tRange;
 		bool intersections = Pastel::intersect(
 			line, bihTree.boundingAlignedBox(), tRange);
 		if (!intersections)

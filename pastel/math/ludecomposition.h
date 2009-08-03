@@ -40,17 +40,17 @@ namespace Pastel
 		bool decompose(const Matrix<N, N, Real>& matrix);
 
 		const Matrix<N, N, Real>& packedLu() const;
-		const Tuple<N, integer>& rowPermutation() const;
+		const Tuple<integer, N>& rowPermutation() const;
 		bool evenPermutation() const;
 		bool singular() const;
 
 	private:
 		Matrix<N, N, Real> packedLu_;
-		Tuple<N, integer> rowPermutation_;
+		Tuple<integer, N> rowPermutation_;
 		bool evenRowPermutation_;
 		bool singular_;
 
-		Vector<N, Real> invLargestInRow_;
+		Vector<Real, N> invLargestInRow_;
 	};
 
 	typedef LuDecomposition<1, real> LuDecomposition1;

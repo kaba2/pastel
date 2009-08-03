@@ -49,8 +49,8 @@ namespace Pastel
 	integer toPixelSpanPoint(real t);
 
 	template <int N>
-	TemporaryPoint<N, integer> toPixelSpanPoint(
-		const Point<N, real>& that);
+	TemporaryPoint<integer, N> toPixelSpanPoint(
+		const Point<real, N>& that);
 
 	//! Scales an integer from [0, 2^FromBits - 1] to [0, 2^ToBits - 1].
 	/*!

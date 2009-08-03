@@ -137,7 +137,7 @@ namespace Pastel
 
 	// Drawing
 
-	integer GlGfxRenderer::uploadTexture(const Array<2, Color>& image)
+	integer GlGfxRenderer::uploadTexture(const Array<Color, 2>& image)
 	{
 		glEnable(GL_TEXTURE_2D);
 
@@ -168,7 +168,7 @@ namespace Pastel
 		integer width = image.width();
 		integer height = image.height();
 
-		Array<2, uint8> loadImage;
+		Array<uint8, 2> loadImage;
 
 		if (!GLEW_ARB_texture_non_power_of_two &&
 			(!isPowerOfTwo(width) ||
@@ -190,7 +190,7 @@ namespace Pastel
 				<< width << " x " << height << " -> "
 				<< width2 << " x " << height2 << logNewLine;
 
-			Array<2, Color> resampledImage(width2, height2);
+			Array<Color, 2> resampledImage(width2, height2);
 			resample<Color>(constArrayView(image), clampExtender(),
 				gaussianFilter(2), arrayView(resampledImage));
 			transform(arrayView(resampledImage), fitColor);
@@ -299,7 +299,7 @@ namespace Pastel
 
 	void GlGfxRenderer::drawTriangle(
 		const Triangle2& triangle,
-		const Tuple<3, Color>& colorTriangle)
+		const Tuple<Color, 3>& colorTriangle)
 	{
 		if (filled())
 		{

@@ -15,13 +15,13 @@
 namespace Pastel
 {
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class Array;
 
 	namespace Detail_Array
 	{
 
-		template <int N, typename Type>
+		template <typename Type, int N>
 		class ArrayBase
 		{
 		public:
@@ -40,19 +40,19 @@ namespace Pastel
 			typedef Type* Iterator;
 			typedef const Type* ConstIterator;
 
-			typedef Detail_Array::Cursor<N, Type> Cursor;
-			typedef Detail_Array::ConstCursor<N, Type> ConstCursor;
+			typedef Detail_Array::Cursor<Type, N> Cursor;
+			typedef Detail_Array::ConstCursor<Type, N> ConstCursor;
 
 			ArrayBase();
 			ArrayBase(
-				const Vector<N, integer>& extent,
+				const Vector<integer, N>& extent,
 				const Alias<Type*>& dataAlias);
 			ArrayBase(
-				const Vector<N, integer>& extent,
+				const Vector<integer, N>& extent,
 				const Type& defaultData = Type());
 			ArrayBase(const ArrayBase& that);
 			ArrayBase(const ArrayBase& that,
-				const Vector<N, integer>& extent,
+				const Vector<integer, N>& extent,
 				const Type& defaultData = Type());
 			~ArrayBase();
 
@@ -69,11 +69,11 @@ namespace Pastel
 			to an object constructed using the default constructor.
 			*/
 			void setExtent(
-				const Vector<N, integer>& extent,
+				const Vector<integer, N>& extent,
 				const Type& defaultData = Type());
 
 			//! Returns the extent of the array.
-			const Vector<N, integer>& extent() const;
+			const Vector<integer, N>& extent() const;
 
 			//! Sets the extents of the array using the existing data.
 			/*!
@@ -91,7 +91,7 @@ namespace Pastel
 			retains its row-major storage convention.
 			*/
 			void reshape(
-				const Vector<N, integer>& extent);
+				const Vector<integer, N>& extent);
 
 			//! Returns (size() == 0).
 			bool empty() const;
@@ -100,7 +100,7 @@ namespace Pastel
 			integer size() const;
 
 			//! Copies from another array.
-			ArrayBase<N, Type>& operator=(const ArrayBase& that);
+			ArrayBase<Type, N>& operator=(const ArrayBase& that);
 
 			//! Returns a reference to the element with the given index.
 			Type& operator()(integer index);
@@ -109,10 +109,10 @@ namespace Pastel
 			const Type& operator()(integer index) const;
 
 			//! Returns a reference to the element (x, y)
-			Type& operator()(const Point<N, integer>& position);
+			Type& operator()(const Point<integer, N>& position);
 
 			//! Returns a const reference to the element (x, y)
-			const Type& operator()(const Point<N, integer>& position) const;
+			const Type& operator()(const Point<integer, N>& position) const;
 
 			//! Filling the array with a comma-delimited list of elements.
 			CommaFiller<Type, Iterator> operator|=(const Type& that);
@@ -122,39 +122,39 @@ namespace Pastel
 			The parameter is deliberately taken by value,
 			because a reference could be from this array.
 			*/
-			ArrayBase<N, Type>& operator=(const Type that);
+			ArrayBase<Type, N>& operator=(const Type that);
 
 			//! Returns the sub-array in the range [min, max].
 			SubArray<N, Type> operator()(
-				const Point<N, integer>& min,
-				const Point<N, integer>& max);
+				const Point<integer, N>& min,
+				const Point<integer, N>& max);
 
 			//! Returns the sub-array in the range [min, max].
 			ConstSubArray<N, Type> operator()(
-				const Point<N, integer>& min,
-				const Point<N, integer>& max) const;
+				const Point<integer, N>& min,
+				const Point<integer, N>& max) const;
 
 			//! Returns a sparse sub-array in the range [min, max].
 			SubArray<N, Type> operator()(
-				const Point<N, integer>& min,
-				const Point<N, integer>& max,
-				const Vector<N, integer>& delta);
+				const Point<integer, N>& min,
+				const Point<integer, N>& max,
+				const Vector<integer, N>& delta);
 
 			//! Returns a sparse sub-array in the range [min, max].
 			ConstSubArray<N, Type> operator()(
-				const Point<N, integer>& min,
-				const Point<N, integer>& max,
-				const Vector<N, integer>& delta) const;
+				const Point<integer, N>& min,
+				const Point<integer, N>& max,
+				const Vector<integer, N>& delta) const;
 
 			SubArray<N, Type> operator()();
 
 			ConstSubArray<N, Type> operator()() const;
 
 			//! Returns a cursor to the given position.
-			Cursor cursor(const Point<N, integer>& position);
+			Cursor cursor(const Point<integer, N>& position);
 
 			//! Returns a cursor to the given position.
-			ConstCursor constCursor(const Point<N, integer>& position) const;
+			ConstCursor constCursor(const Point<integer, N>& position) const;
 
 			// Iterators
 
@@ -172,22 +172,22 @@ namespace Pastel
 
 			//! An iterator to the first element of a row.
 			RowIterator rowBegin(
-				const Point<N, integer>& position, 
+				const Point<integer, N>& position, 
 				integer axis);
 
 			//! An iterator to the first element of a row.
 			ConstRowIterator rowBegin(
-				const Point<N, integer>& position, 
+				const Point<integer, N>& position, 
 				integer axis) const;
 
 			//! An iterator to the one-past end element of a row.
 			RowIterator rowEnd(
-				const Point<N, integer>& position, 
+				const Point<integer, N>& position, 
 				integer axis);
 
 			//! An iterator to the one-past end element of a row.
 			ConstRowIterator rowEnd(
-				const Point<N, integer>& position, 
+				const Point<integer, N>& position, 
 				integer axis) const;
 
 			Type* dataBegin()
@@ -211,21 +211,21 @@ namespace Pastel
 			}
 
 			//! Memory address of the given position.
-			const Type* address(const Point<N, integer>& position) const;
+			const Type* address(const Point<integer, N>& position) const;
 
 			//! Memory address of the given position.
-			Type* address(const Point<N, integer>& position);
+			Type* address(const Point<integer, N>& position);
 
 		private:
 			void allocate(
-				const Vector<N, integer>& extent);
+				const Vector<integer, N>& extent);
 			void deallocate();
 			void copyConstruct(
 				const ArrayBase& that,
 				const Type& defaultData);
 
-			Vector<N, integer> extent_;
-			Vector<N, integer> stride_;
+			Vector<integer, N> extent_;
+			Vector<integer, N> stride_;
 			integer size_;
 			Type* data_;
 			bool deleteData_;

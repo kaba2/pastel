@@ -43,7 +43,7 @@ namespace Pastel
 	template <int N, typename Real>
 	void setDiagonal(
 		Matrix<N, N, Real>& matrix,
-		const Vector<N, Real>& values);
+		const Vector<Real, N>& values);
 
 	//! Generates a uniformly distributed random rotation matrix.
 

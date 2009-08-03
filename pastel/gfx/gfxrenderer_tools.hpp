@@ -41,7 +41,7 @@ namespace Pastel
 	void drawTriangle(
 		GfxRenderer<Type>& renderer,
 		const Triangle2& triangle,
-		const Tuple<3, Type>& colorTriangle)
+		const Tuple<Type, 3>& colorTriangle)
 	{
 		if (renderer.filled())
 		{
@@ -191,7 +191,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const AlignedBox2& alignedBox,
-		const Tuple<4, Point2>& textureQuad)
+		const Tuple<Point2, 4>& textureQuad)
 	{
 		const Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
@@ -245,7 +245,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const Box2& box,
-		const Tuple<4, Point2>& textureQuad)
+		const Tuple<Point2, 4>& textureQuad)
 	{
 		const Point2& center = box.position();
 		const Vector2 x = box.rotation()[0] * box.width()[0];

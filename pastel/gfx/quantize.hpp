@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <typename Real>
 	void quantizeRounding(
-		Array<2, Real>& image,
+		Array<Real, 2>& image,
 		const Real& interval)
 	{
 		ENSURE_OP(interval, >, 0);
@@ -39,7 +39,7 @@ namespace Pastel
 
 	template <typename Real>
 	void quantizeErrorDiffusion(
-		Array<2, Real>& image,
+		Array<Real, 2>& image,
 		const Real& interval)
 	{
 		ENSURE_OP(interval, >, 0);

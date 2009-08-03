@@ -40,7 +40,7 @@ namespace Pastel
 		odd(data.width())
 		*/
 		TableFilter(
-			const Array<1, real>& data,
+			const Array<real, 1>& data,
 			real radius);
 
 		virtual ~TableFilter();
@@ -55,7 +55,7 @@ namespace Pastel
 
 		virtual void onSetRadius();
 
-		Array<1, real> data_;
+		Array<real, 1> data_;
 		integer center_;
 		real scaling_;
 	};

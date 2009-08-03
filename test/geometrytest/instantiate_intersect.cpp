@@ -50,19 +50,19 @@ namespace Pastel
 {
 
 	template bool intersect(const Line<1, TestReal>&,
-		const AlignedBox<1, TestReal>&, Vector<2, TestReal>&);
+		const AlignedBox<1, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<2, TestReal>&,
-		const AlignedBox<2, TestReal>&, Vector<2, TestReal>&);
+		const AlignedBox<2, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<3, TestReal>&,
-		const AlignedBox<3, TestReal>&, Vector<2, TestReal>&);
+		const AlignedBox<3, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<4, TestReal>&,
-		const AlignedBox<4, TestReal>&, Vector<2, TestReal>&);
+		const AlignedBox<4, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<5, TestReal>&,
-		const AlignedBox<5, TestReal>&, Vector<2, TestReal>&);
+		const AlignedBox<5, TestReal>&, Vector<TestReal, 2>&);
 
 }
 
@@ -94,19 +94,19 @@ namespace Pastel
 {
 
 	template bool intersect(const Line<1, TestReal>&,
-		const Box<1, TestReal>&, Vector<2, TestReal>&);
+		const Box<1, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<2, TestReal>&,
-		const Box<2, TestReal>&, Vector<2, TestReal>&);
+		const Box<2, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<3, TestReal>&,
-		const Box<3, TestReal>&, Vector<2, TestReal>&);
+		const Box<3, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<4, TestReal>&,
-		const Box<4, TestReal>&, Vector<2, TestReal>&);
+		const Box<4, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<5, TestReal>&,
-		const Box<5, TestReal>&, Vector<2, TestReal>&);
+		const Box<5, TestReal>&, Vector<TestReal, 2>&);
 
 }
 
@@ -138,19 +138,19 @@ namespace Pastel
 {
 
 	template bool intersect(const Line<1, TestReal>&,
-		const Sphere<1, TestReal>&, Vector<2, TestReal>&);
+		const Sphere<1, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<2, TestReal>&,
-		const Sphere<2, TestReal>&, Vector<2, TestReal>&);
+		const Sphere<2, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<3, TestReal>&,
-		const Sphere<3, TestReal>&, Vector<2, TestReal>&);
+		const Sphere<3, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<4, TestReal>&,
-		const Sphere<4, TestReal>&, Vector<2, TestReal>&);
+		const Sphere<4, TestReal>&, Vector<TestReal, 2>&);
 
 	template bool intersect(const Line<5, TestReal>&,
-		const Sphere<5, TestReal>&, Vector<2, TestReal>&);
+		const Sphere<5, TestReal>&, Vector<TestReal, 2>&);
 
 }
 

@@ -17,9 +17,9 @@ namespace Pastel
 			std::pair<Real, integer> operator()(
 			const PointKdTree<N, Real, ObjectPolicy>& tree,
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
-			Vector<N, Real>* splitDirection) const
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
+			Vector<Real, N>* splitDirection) const
 		{
 			const integer dimension = tree.dimension();
 
@@ -31,7 +31,7 @@ namespace Pastel
 
 			if (splitDirection)
 			{
-				*splitDirection = unitAxis<N, Real>(dimension, splitAxis);
+				*splitDirection = unitAxis<Real, N>(dimension, splitAxis);
 			}
 
 			return std::make_pair(splitPosition, splitAxis);
@@ -47,9 +47,9 @@ namespace Pastel
 			std::pair<Real, integer> operator()(
 			const PointKdTree<N, Real, ObjectPolicy>& tree,
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
-			Vector<N, Real>* splitDirection) const
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
+			Vector<Real, N>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 				Iterator;
@@ -57,7 +57,7 @@ namespace Pastel
 			const integer dimension = tree.dimension();
 			const ObjectPolicy& objectPolicy = tree.objectPolicy();
 
-			std::vector<Point<N, Real> > pointSet;
+			std::vector<Point<Real, N> > pointSet;
 
 			Iterator iter = cursor.begin();
 			const Iterator iterEnd = cursor.end();
@@ -67,7 +67,7 @@ namespace Pastel
 				++iter;
 			}
 
-			const Vector<N, Real> boundExtent = maxBound - minBound;
+			const Vector<Real, N> boundExtent = maxBound - minBound;
 			const integer shortestSide = minIndex(boundExtent);
 			const integer longestSide = maxIndex(boundExtent);
 
@@ -85,10 +85,10 @@ namespace Pastel
 			}
 			else
 			{
-				const Vector<N, Real> maxVariance = 
+				const Vector<Real, N> maxVariance = 
 					largestEigenVector(pointSet);
 
-				const Point<N, Real> meanPoint = 
+				const Point<Real, N> meanPoint = 
 					//mean(pointSet);
 				linear(minBound, maxBound, 0.5);
 
@@ -115,9 +115,9 @@ namespace Pastel
 			std::pair<Real, integer> operator()(
 			const PointKdTree<N, Real, ObjectPolicy>& tree,
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
-			Vector<N, Real>* splitDirection) const
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
+			Vector<Real, N>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
@@ -125,7 +125,7 @@ namespace Pastel
 			const integer dimension = tree.dimension();
 			const ObjectPolicy& objectPolicy = tree.objectPolicy();
 
-			std::vector<Point<N, Real> > pointSet;
+			std::vector<Point<Real, N> > pointSet;
 
 			{
 				ConstObjectIterator iter = cursor.begin();
@@ -137,7 +137,7 @@ namespace Pastel
 				}
 			}
 
-			const Vector<N, Real> boundExtent = maxBound - minBound;
+			const Vector<Real, N> boundExtent = maxBound - minBound;
 			const integer shortestSide = minIndex(boundExtent);
 			const integer longestSide = maxIndex(boundExtent);
 
@@ -155,10 +155,10 @@ namespace Pastel
 			}
 			else
 			{
-				const Vector<N, Real> maxVariance = 
+				const Vector<Real, N> maxVariance = 
 					largestEigenVector(pointSet);
 
-				const Point<N, Real> meanPoint = 
+				const Point<Real, N> meanPoint = 
 					mean(pointSet);
 					//linear(minBound, maxBound, 0.5);
 
@@ -177,7 +177,7 @@ namespace Pastel
 					while(iter != iterEnd)
 					{
 						extendToCover(
-							Point<1, Real>(
+							Point<Real, 1>(
 							dot(asVector(objectPolicy.point(*iter)), maxVariance)),
 							objectBound);
 
@@ -191,7 +191,7 @@ namespace Pastel
 					while(iter != iterEnd)
 					{
 						extendToCover(
-							Point<1, Real>(
+							Point<Real, 1>(
 							objectPolicy.point(*iter, splitAxis)),
 							objectBound);
 
@@ -222,9 +222,9 @@ namespace Pastel
 			std::pair<Real, integer> operator()(
 			const PointKdTree<N, Real, ObjectPolicy>& tree,
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
-			Vector<N, Real>* splitDirection) const
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
+			Vector<Real, N>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
@@ -284,7 +284,7 @@ namespace Pastel
 
 			if (splitDirection)
 			{
-				*splitDirection = unitAxis<N, Real>(dimension, splitAxis);
+				*splitDirection = unitAxis<Real, N>(dimension, splitAxis);
 			}
 
 			return std::make_pair(splitPosition, splitAxis);
@@ -300,9 +300,9 @@ namespace Pastel
 			std::pair<Real, integer> operator()(
 			const PointKdTree<N, Real, ObjectPolicy>& tree,
 			const typename PointKdTree<N, Real, ObjectPolicy>::Cursor& cursor,
-			const Point<N, Real>& minBound,
-			const Point<N, Real>& maxBound,
-			Vector<N, Real>* splitDirection) const
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound,
+			Vector<Real, N>* splitDirection) const
 		{
 			typedef typename PointKdTree<N, Real, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
@@ -383,7 +383,7 @@ namespace Pastel
 
 			if (splitDirection)
 			{
-				*splitDirection = unitAxis<N, Real>(dimension, splitAxis);
+				*splitDirection = unitAxis<Real, N>(dimension, splitAxis);
 			}
 
 			return std::make_pair(splitPosition, splitAxis);

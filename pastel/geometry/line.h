@@ -36,13 +36,13 @@ namespace Pastel
 		explicit Line(integer dimension);
 
 		//! Construct a line given position and direction.
-		Line(const Point<N, Real>& position,
-			const Vector<N, Real>& unitDirection);
+		Line(const Point<Real, N>& position,
+			const Vector<Real, N>& unitDirection);
 
 		//! Construct a line given position and direction.
 		Line(integer dimension, 
-			const Point<N, Real>& position,
-			const Vector<N, Real>& unitDirection);
+			const Point<Real, N>& position,
+			const Vector<Real, N>& unitDirection);
 
 		// Used for concept checking.
 		~Line();
@@ -52,38 +52,38 @@ namespace Pastel
 
 		//! Translates the line by the given vector.
 		Line<N, Real>& operator+=(
-			const Vector<N, Real>& translation);
+			const Vector<Real, N>& translation);
 
 		//! Returns the line translated by the given vector.
 		Line<N, Real> operator+(
-			const Vector<N, Real>& translation) const;
+			const Vector<Real, N>& translation) const;
 
 		//! Translates the line backwards by the given vector.
 		Line<N, Real>& operator-=(
-			const Vector<N, Real>& translation);
+			const Vector<Real, N>& translation);
 
 		//! Returns the line translated backwards by the given vector.
 		Line<N, Real> operator-(
-			const Vector<N, Real>& translation) const;
+			const Vector<Real, N>& translation) const;
 
 		//! Sets the position and direction of the line.
-		void set(const Point<N, Real>& position,
-			const Vector<N, Real>& unitDirection);
+		void set(const Point<Real, N>& position,
+			const Vector<Real, N>& unitDirection);
 
 		//! Returns the dimension of the line.
 		integer dimension() const;
 
 		//! Sets the position of the line.
-		void setPosition(const Point<N, Real>& position);
+		void setPosition(const Point<Real, N>& position);
 
 		//! Returns the position of the line.
-		const Point<N, Real>& position() const;
+		const Point<Real, N>& position() const;
 
 		//! Sets the direction of the line.
-		void setDirection(const Vector<N, Real>& unitDirection);
+		void setDirection(const Vector<Real, N>& unitDirection);
 
 		//! Returns the direction of the line.
-		const Vector<N, Real>& direction() const;
+		const Vector<Real, N>& direction() const;
 
 		//! Returns the direction of the line inverted.
 		/*!
@@ -91,15 +91,15 @@ namespace Pastel
 		is meant to enable faster algorithms since
 		division is costly to compute.
 		*/
-		const Vector<N, Real>& inverseDirection() const;
+		const Vector<Real, N>& inverseDirection() const;
 
 		//! Returns the point (position + t * direction).
-		Point<N, Real> at(const Real& t) const;
+		Point<Real, N> at(const Real& t) const;
 
 	private:
-		Point<N, Real> position_;
-		Vector<N, Real> direction_;
-		Vector<N, Real> inverseDirection_;
+		Point<Real, N> position_;
+		Vector<Real, N> direction_;
+		Vector<Real, N> inverseDirection_;
 	};
 
 	typedef Line<1, real> Line1;

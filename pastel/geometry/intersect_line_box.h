@@ -21,7 +21,7 @@ namespace Pastel
 		bool intersect(
 			const Line<N, Real>& line,
 			const Box<N, Real>& box,
-			Vector<2, Real>& hitList);
+			Vector<Real, 2>& hitList);
 
 }
 

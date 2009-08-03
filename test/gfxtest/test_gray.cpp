@@ -27,10 +27,10 @@ namespace
 
 	void testGray()
 	{
-		Array<2, Color> image;
+		Array<Color, 2> image;
 		loadPcx("lena.pcx", image);
 
-		Array<2, Color> transformed(image.extent());
+		Array<Color, 2> transformed(image.extent());
 
 		transform(constArrayView(image),
 			arrayView(transformed), lumaColor);
@@ -47,7 +47,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		const real32 Step = 1 / Width;
 
@@ -69,7 +69,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		const real32 Step = 1 / Width;
 
@@ -90,7 +90,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		Array<2, Color> image(Width, Height);
+		Array<Color, 2> image(Width, Height);
 
 		const real32 Step = 100 / Width;
 

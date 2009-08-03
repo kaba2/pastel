@@ -8,11 +8,11 @@ namespace Pastel
 {
 
 	PASTELGFX integer boxLabel(
-		const Array<2, bool>& image,
+		const Array<bool, 2>& image,
 		integer maxWidth,
 		integer maxHeight,
 		real maxRatio,
-		Array<2, int32>& labelImage)
+		Array<int32, 2>& labelImage)
 	{
 		// This is a greedy algorithm to segment a binary image
 		// into boxes.

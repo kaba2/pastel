@@ -250,7 +250,7 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Vector<2, Real> symmetricEigenValues(
+	Vector<Real, 2> symmetricEigenValues(
 		const Matrix<2, 2, Real>& matrix)
 	{
 		// Let the matrix be
@@ -269,7 +269,7 @@ namespace Pastel
 		// =>
 		// k^2 - k(a + d) + (ad - bc) = 0
 
-		Vector<2, Real> eigenValue;
+		Vector<Real, 2> eigenValue;
 
 		quadratic(
 			1, -trace(matrix), determinant(matrix),

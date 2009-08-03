@@ -44,11 +44,11 @@ namespace
 				Matrix<N, N, Real> a(n, n);
 				setRandomMatrix(a);
 
-				const Vector<N, Real> b = randomVectorCube<N, Real>(n);
+				const Vector<Real, N> b = randomVectorCube<N, Real>(n);
 
 				const QrDecomposition<N, Real> qr(a);
 
-				const Vector<N, Real> qrSolution =
+				const Vector<Real, N> qrSolution =
 					solveLinear(qr, b);
 
 				const Real error = 

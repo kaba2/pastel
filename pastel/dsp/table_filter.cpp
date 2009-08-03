@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	TableFilter::TableFilter(
-		const Array<1, real>& data,
+		const Array<real, 1>& data,
 		real radius)
 		: Filter(radius, "table")
 		, data_()
@@ -68,7 +68,7 @@ namespace Pastel
 			std::ceil(samplesPerRadius * filterRadius);
 		const integer filterTableSize = 
 			filterTableRadius * 2 + 1;
-		Array<1, real> filterTable(filterTableSize);
+		Array<real, 1> filterTable(filterTableSize);
 		
 		for (integer i = 0;i < filterTableSize;++i)
 		{

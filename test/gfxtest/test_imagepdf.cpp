@@ -35,10 +35,10 @@ namespace
 
 	void testTechnique1()
 	{
-		Array<2, Color> colorImage;
+		Array<Color, 2> colorImage;
 		loadPcx("imagepdf_input.pcx", colorImage);
 
-		Array<2, real32> image(colorImage.extent());
+		Array<real32, 2> image(colorImage.extent());
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
@@ -71,10 +71,10 @@ namespace
 
 	void testTechnique2()
 	{
-		Array<2, Color> colorImage;
+		Array<Color, 2> colorImage;
 		loadPcx("imagepdf2_input.pcx", colorImage);
 
-		Array<2, real32> image(colorImage.extent());
+		Array<real32, 2> image(colorImage.extent());
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
@@ -107,17 +107,17 @@ namespace
 			{
 				for (;points < stepPoints;++points)
 				{
-					Point<2, integer> position(0, 0);
+					Point<integer, 2> position(0, 0);
 
 					for (integer level = images - 2;level >= 0;--level)
 					{
 						asVector(position) *= 2;
-						const Array<2, real32>& mipmap = mipMap(level);
+						const Array<real32, 2>& mipmap = mipMap(level);
 
 						const real32 sum1 = mipmap(position);
-						const real32 sum2 = sum1 + mipmap(position + Vector<2, integer>(1, 0));
-						const real32 sum3 = sum2 + mipmap(position + Vector<2, integer>(1, 1));
-						const real32 sum4 = sum3 + mipmap(position + Vector<2, integer>(0, 1));
+						const real32 sum2 = sum1 + mipmap(position + Vector<integer, 2>(1, 0));
+						const real32 sum3 = sum2 + mipmap(position + Vector<integer, 2>(1, 1));
+						const real32 sum4 = sum3 + mipmap(position + Vector<integer, 2>(0, 1));
 						const real32 value = random<real32>() * sum4;
 
 						if (value < sum1)
@@ -154,7 +154,7 @@ namespace
 
 	void computeProbabilityTree(
 		std::vector<real32>& probabilityTree,
-		const Array<2, real32>& summedAreaImage,
+		const Array<real32, 2>& summedAreaImage,
 		const Rectangle2& wholeRegion)
 	{
 		probabilityTree.push_back(1);
@@ -200,16 +200,16 @@ namespace
 
 	void testTechnique4()
 	{
-		Array<2, Color> colorImage;
+		Array<Color, 2> colorImage;
 		loadPcx("imagepdf4_input.pcx", colorImage);
 
-		Array<2, real32> image(colorImage.extent());
+		Array<real32, 2> image(colorImage.extent());
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
 		log() << "Computing summed area table..." << logNewLine;
 
-		Array<2, real32> summedAreaImage(image.extent());
+		Array<real32, 2> summedAreaImage(image.extent());
 
 		const integer width = image.width();
 		const integer height = image.height();
@@ -243,8 +243,8 @@ namespace
 			{
 				integer node = 1;
 				const integer nodes = probabilityTree.size();
-				Point<2, integer> position(0, 0);
-				Vector<2, integer> delta(width, height);
+				Point<integer, 2> position(0, 0);
+				Vector<integer, 2> delta(width, height);
 
 				while(node < nodes)
 				{

@@ -49,8 +49,8 @@ namespace Pastel
 	class VectorDivision;
 
 	template <
-		int N,
 		typename Real,
+		int N,
 		typename Expression>
 	class VectorExpression
 	{
@@ -97,7 +97,7 @@ namespace Pastel
 		}
 
 		template <typename RightExpression>
-		bool operator==(const VectorExpression<N, Real, RightExpression>& right) const
+		bool operator==(const VectorExpression<Real, N, RightExpression>& right) const
 		{
 			const Expression& left = (const Expression&)*this;
 
@@ -116,7 +116,7 @@ namespace Pastel
 		}
 
 		template <typename RightExpression>
-		bool operator!=(const VectorExpression<N, Real, RightExpression>& right) const
+		bool operator!=(const VectorExpression<Real, N, RightExpression>& right) const
 		{
 			return !(*this == right);
 		}
@@ -134,7 +134,7 @@ namespace Pastel
 		const VectorAddition<N, Real, Expression,
 			RightExpression>
 			operator+(const VectorExpression
-			<N, Real, RightExpression>& right) const
+			<Real, N, RightExpression>& right) const
 		{
 			return VectorAddition
 				<N, Real, Expression,
@@ -169,7 +169,7 @@ namespace Pastel
 		const VectorSubtraction<N, Real, Expression,
 			RightExpression>
 			operator-(const VectorExpression
-			<N, Real, RightExpression>& right) const
+			<Real, N, RightExpression>& right) const
 		{
 			return VectorSubtraction
 				<N, Real, Expression,
@@ -204,7 +204,7 @@ namespace Pastel
 		const VectorMultiplication<N, Real, Expression,
 			RightExpression>
 			operator*(const VectorExpression
-			<N, Real, RightExpression>& right) const
+			<Real, N, RightExpression>& right) const
 		{
 			return VectorMultiplication
 				<N, Real, Expression,
@@ -239,7 +239,7 @@ namespace Pastel
 		const VectorDivision<N, Real, Expression,
 			RightExpression>
 			operator/(const VectorExpression
-			<N, Real, RightExpression>& right) const
+			<Real, N, RightExpression>& right) const
 		{
 			return VectorDivision
 				<N, Real, Expression,
@@ -280,8 +280,7 @@ namespace Pastel
 		int N,
 		typename Real>
 	class VectorConstant
-		: public VectorExpression<N, Real,
-		VectorConstant<N, Real> >
+		: public VectorExpression<Real, N, VectorConstant<N, Real> >
 	{
 	public:
 		typedef const VectorConstant StorageType;
@@ -327,8 +326,7 @@ namespace Pastel
 		typename Real,
 		typename Expression>
 	class VectorNegation
-		: public VectorExpression<N, Real,
-		VectorNegation<N, Real, Expression> >
+		: public VectorExpression<Real, N, VectorNegation<N, Real, Expression> >
 	{
 	public:
 		typedef const VectorNegation& StorageType;
@@ -371,8 +369,7 @@ namespace Pastel
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorAddition
-		: public VectorExpression<N, Real,
-		VectorAddition<N, Real,
+		: public VectorExpression<Real, N, VectorAddition<N, Real,
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -423,8 +420,7 @@ namespace Pastel
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorSubtraction
-		: public VectorExpression<N, Real,
-		VectorSubtraction<N, Real,
+		: public VectorExpression<Real, N, VectorSubtraction<N, Real,
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -475,8 +471,7 @@ namespace Pastel
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorMultiplication
-		: public VectorExpression<N, Real,
-		VectorMultiplication<N, Real,
+		: public VectorExpression<Real, N, VectorMultiplication<N, Real,
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -527,8 +522,7 @@ namespace Pastel
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorDivision
-		: public VectorExpression<N, Real,
-		VectorDivision<N, Real,
+		: public VectorExpression<Real, N, VectorDivision<N, Real,
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -575,8 +569,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	class ConstVectorView
-		: public VectorExpression<N, Real,
-		ConstVectorView<N, Real> >
+		: public VectorExpression<Real, N, ConstVectorView<N, Real> >
 	{
 	public:
 		typedef const ConstVectorView StorageType;
@@ -742,7 +735,7 @@ namespace Pastel
 
 		template <typename ThatReal, typename Expression>
 		const VectorView& operator=(
-			const VectorExpression<N, ThatReal, Expression>& that) const
+			const VectorExpression<ThatReal, N, Expression>& that) const
 		{
 			ENSURE_OP(size(), ==, that.size());
 
@@ -757,7 +750,7 @@ namespace Pastel
 				// this vector as a non-trivial subexpression,
 				// we must copy construct anyway.
 
-				*this = Vector<N, Real>(that);
+				*this = Vector<Real, N>(that);
 			}
 			else
 			{				
@@ -847,14 +840,14 @@ namespace Pastel
 
 		template <typename ThatReal, typename Expression>
 		const VectorView& operator+=(
-			const VectorExpression<N, ThatReal, Expression>& that) const
+			const VectorExpression<ThatReal, N, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
 			if (that.involvesNonTrivially(
 				data_, data_ + size_))
 			{
-				*this += Vector<N, Real>(that);
+				*this += Vector<Real, N>(that);
 			}
 			else
 			{
@@ -873,14 +866,14 @@ namespace Pastel
 
 		template <typename ThatReal, typename Expression>
 		const VectorView& operator-=(
-			const VectorExpression<N, ThatReal, Expression>& that) const
+			const VectorExpression<ThatReal, N, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
 			if (that.involvesNonTrivially(
 				data_, data_ + size_))
 			{
-				*this -= Vector<N, Real>(that);
+				*this -= Vector<Real, N>(that);
 			}
 			else
 			{
@@ -899,14 +892,14 @@ namespace Pastel
 
 		template <typename ThatReal, typename Expression>
 		const VectorView& operator*=(
-			const VectorExpression<N, ThatReal, Expression>& that) const
+			const VectorExpression<ThatReal, N, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
 			if (that.involvesNonTrivially(
 				data_, data_ + size_))
 			{
-				*this *= Vector<N, Real>(that);
+				*this *= Vector<Real, N>(that);
 			}
 			else
 			{
@@ -925,14 +918,14 @@ namespace Pastel
 
 		template <typename ThatReal, typename Expression>
 		const VectorView& operator/=(
-			const VectorExpression<N, ThatReal, Expression>& that) const
+			const VectorExpression<ThatReal, N, Expression>& that) const
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
 			if (that.involvesNonTrivially(
 				data_, data_ + size_))
 			{
-				*this /= Vector<N, Real>(that);
+				*this /= Vector<Real, N>(that);
 			}
 			else
 			{

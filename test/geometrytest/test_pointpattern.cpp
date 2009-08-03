@@ -25,14 +25,14 @@ namespace
 	class PoissonDiskReporter
 	{
 	public:
-		explicit PoissonDiskReporter(Array<2, Color>& data)
+		explicit PoissonDiskReporter(Array<Color, 2>& data)
 			: data_(data)
 		{
 		}
 
 		void operator()(const Point1& point) const
 		{
-			clear(Color(1), rowView(arrayView(data_), 1, Point<2, integer>(point[0], 0)));
+			clear(Color(1), rowView(arrayView(data_), 1, Point<integer, 2>(point[0], 0)));
 		}
 
 		void operator()(const Point2& point) const
@@ -52,7 +52,7 @@ namespace
 		}
 
 	private:
-		Array<2, Color>& data_;
+		Array<Color, 2>& data_;
 	};
 
 	void testPoissonDiskPattern()
@@ -60,7 +60,7 @@ namespace
 		const integer width = 500;
 		const integer height = 500;
 
-		Array<2, Color> image;
+		Array<Color, 2> image;
 
 		PoissonDiskReporter poissonDiskReporter(image);
 

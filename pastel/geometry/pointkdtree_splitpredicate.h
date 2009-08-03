@@ -13,7 +13,7 @@ namespace Pastel
 		SplitPredicate_KdTree(
 			const Real& splitPosition,
 			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
+			const Vector<Real, N>* splitDirection,
 			const ObjectPolicy& objectPolicy)
 			: splitPosition_(splitPosition)
 			, splitAxis_(splitAxis)
@@ -41,7 +41,7 @@ namespace Pastel
 		SplitPredicate_BspTree(
 			const Real& splitPosition,
 			integer splitAxis,
-			const Vector<N, Real>* splitDirection,
+			const Vector<Real, N>* splitDirection,
 			const ObjectPolicy& objectPolicy)
 			: splitPosition_(splitPosition)
 			, splitDirection_(*splitDirection)
@@ -60,7 +60,7 @@ namespace Pastel
 
 	private:
 		Real splitPosition_;
-		const Vector<N, Real>& splitDirection_;
+		const Vector<Real, N>& splitDirection_;
 		const ObjectPolicy& objectPolicy_;
 	};
 

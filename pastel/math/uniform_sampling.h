@@ -29,23 +29,23 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv,
+		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv,
+		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
-		const Vector<N, Real>& uv,
+		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
@@ -63,19 +63,19 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleSimplex(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleSimplex(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<N, Real> >::type
+	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<Real, N> >::type
 		uniformlySampleSimplex(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	//! Uniformly samples a point from a ball.
 	/*!
@@ -90,19 +90,19 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 3, Vector<N, Real> >::type
+	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
 		uniformlySampleBall(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	// TODO: provide functions for 4d and up?
 
@@ -119,14 +119,14 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleSphere(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleSphere(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	// TODO: provide functions for 4d and up?
 
@@ -143,14 +143,14 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 1, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 1, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleHemisphere(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	template <int N, typename Real>
-	typename boost::enable_if_c<N == 2, Vector<PASTEL_ADD_N(N, 1), Real> >::type
+	typename boost::enable_if_c<N == 2, Vector<Real, PASTEL_ADD_N(N, 1)> >::type
 		uniformlySampleHemisphere(
-		const Vector<N, Real>& uv);
+		const Vector<Real, N>& uv);
 
 	// TODO: provide functions for 4d and up?
 
@@ -168,8 +168,8 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Vector<PASTEL_ADD_N(N, 1), Real> cosineSampleHemisphere(
-		const Vector<N, Real>& uv);
+	Vector<Real, PASTEL_ADD_N(N, 1)> cosineSampleHemisphere(
+		const Vector<Real, N>& uv);
 
 }
 

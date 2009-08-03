@@ -10,8 +10,8 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<PASTEL_ADD_N(N, 1), Real> barycentric(
-		const Point<N, Real>& point,
+	TemporaryVector<Real, PASTEL_ADD_N(N, 1)> barycentric(
+		const Point<Real, N>& point,
 		const Simplex<N, Real, N>& simplex)
 	{
 		PENSURE_OP(point.dimension(), ==, simplex.dimension());
@@ -29,8 +29,8 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<PASTEL_ADD_N(N, 1), Real> barycentric(
-		const Point<N, Real>& point)
+	TemporaryVector<Real, PASTEL_ADD_N(N, 1)> barycentric(
+		const Point<Real, N>& point)
 	{
 		// The linear system is trivial to solve in
 		// case of the standard simplex.
@@ -52,7 +52,7 @@ namespace Pastel
 
 		const integer dimension = point.dimension();
 
-		Vector<PASTEL_ADD_N(N, 1), Real> result(ofDimension(dimension));
+		Vector<Real, PASTEL_ADD_N(N, 1)> result(ofDimension(dimension));
 
 		result[0] = 1 - sum(asVector(point));
 
