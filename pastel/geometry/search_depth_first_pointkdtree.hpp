@@ -65,9 +65,9 @@ namespace Pastel
 			{
 				ENSURE(startCursor.leaf());
 
-				if (startCursor.containsPoints())
+				if (startCursor.objects() > 0)
 				{
-					visitLeaf(startCursor);
+					workTopBottom(startCursor, 0);
 				}
 
 				Cursor previous = startCursor;
@@ -76,32 +76,34 @@ namespace Pastel
 				{
 					const Real searchPosition = 
 						searchPoint[cursor.splitAxis()];
+					const Real splitPosition =
+						cursor.splitPosition();
 
 					Cursor farBranch;
 					Real farBoundDistance = 0;
 
-					if (previous == cursor.negative())
+					if (previous == cursor.left())
 					{
-						farBranch = cursor.positive();
-						if (searchPosition < cursor.positiveMin())
+						farBranch = cursor.right();
+						if (searchPosition < splitPosition)
 						{
 							farBoundDistance = normBijection.axis(
-								cursor.positiveMin() - searchPosition);
+								splitPosition - searchPosition);
 						}
 					}
 					else
 					{
-						farBranch = cursor.negative();
-						if (searchPosition > cursor.negativeMax())
+						farBranch = cursor.left();
+						if (searchPosition > splitPosition)
 						{
 							farBoundDistance = normBijection.axis(
-								searchPosition - cursor.negativeMax());
+								searchPosition - splitPosition);
 						}
 					}
 
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
-					if (farBranch.containsPoints() &&
+					if (farBranch.objects() > 0 &&
 						farBoundDistance <= nodeCullDistance)
 					{
 						// No culling could be done, visit the farther node
@@ -115,7 +117,7 @@ namespace Pastel
 			}
 
 		private:
-			void visitLeaf(const Cursor& cursor)
+			void searchBruteForce(const Cursor& cursor)
 			{
 				// We are now in a leaf node.
 				// Search through the objects in this node.
@@ -158,11 +160,11 @@ namespace Pastel
 
 			void workTopBottom(const Cursor& cursor, const Real& distance)
 			{
-				if (cursor.leaf())
+				if (cursor.objects() <= kdTree.bucketSize() || cursor.leaf())
 				{
-					if (cursor.containsPoints())
+					if (cursor.objects() > 0)
 					{
-						visitLeaf(cursor);
+						searchBruteForce(cursor);
 					}
 				}
 				else
@@ -170,16 +172,14 @@ namespace Pastel
 					// For an intermediate node our task is to
 					// recurse to child nodes while updating
 					// incrementally the distance 
-					// to the  current node. This distance
-					// is exact for the kdtree nodes, but
-					// only approximate for arbitrary
-					// directed splitting planes (note
-					// however that also in this case we trace 
-					// the distance to rectangular nodes rather than
-					// just to planes).
+					// to the current node. Note we trace
+					// distance to an aligned box rather
+					// than just a plane.
 
 					const Real searchPosition = 
 						searchPoint[cursor.splitAxis()];
+					const Real splitPosition =
+						cursor.splitPosition();
 
 					Cursor nearBranch;
 					Cursor farBranch;
@@ -190,31 +190,30 @@ namespace Pastel
 					// here, rather than comparing the result
 					// of a subtraction to zero.
 
-					if (cursor.projectedPosition(searchPoint) < 
-						cursor.splitPosition())
+					if (searchPosition < splitPosition)
 					{
 						// The search point is closer to the left branch so follow that.
-						farBranch = cursor.positive();
-						nearBranch = cursor.negative();
-						if (searchPosition < cursor.positiveMin())
+						farBranch = cursor.right();
+						nearBranch = cursor.left();
+						if (searchPosition < splitPosition)
 						{
 							farBoundDistance = normBijection.axis(
-								cursor.positiveMin() - searchPosition);
+								splitPosition - searchPosition);
 						}
 					}
 					else
 					{
 						// The search point is closer to the right branch so follow that.
-						farBranch = cursor.negative();
-						nearBranch = cursor.positive();
-						if (searchPosition > cursor.negativeMax())
+						farBranch = cursor.left();
+						nearBranch = cursor.right();
+						if (searchPosition > splitPosition)
 						{
 							farBoundDistance = normBijection.axis(
-								searchPosition - cursor.negativeMax());
+								searchPosition - splitPosition);
 						}
 					}
 
-					if (nearBranch.containsPoints())
+					if (nearBranch.objects() > 0)
 					{
 						// Follow downwards the kdTree with the nearer node.
 						workTopBottom(nearBranch, distance);
@@ -223,7 +222,7 @@ namespace Pastel
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
 
-					if (farBranch.containsPoints() &&
+					if (farBranch.objects() > 0 &&
 						farBoundDistance <= nodeCullDistance)
 					{
 						// Try to cull the farther node off based on the distance 
@@ -247,8 +246,8 @@ namespace Pastel
 
 						if (childDistance <= nodeCullDistance)
 						{
-								// No culling could be done, visit the farther node.
-								workTopBottom(farBranch, childDistance);
+							// No culling could be done, visit the farther node.
+							workTopBottom(farBranch, childDistance);
 						}
 					}
 				}

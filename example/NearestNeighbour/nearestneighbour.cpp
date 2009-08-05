@@ -44,7 +44,7 @@ const integer NearestPoints = 15;
 const real TranslationSpeed = 0.02;
 const real ZoomFactor = 1.05;
 const real RotationSpeed = 0.02;
-const integer SprayPoints = 20;
+const integer SprayPoints = 2;
 const real SprayRadius = 0.05;
 const real PointRange = 0.9;
 
@@ -96,7 +96,7 @@ void keyHandler(bool pressed, SDLKey key)
 
 		if (key == SDLK_x)
 		{
-			tree__.clearObjects();
+			tree__.eraseObjects();
 		}
 
 		if (key == SDLK_F5)
@@ -196,49 +196,51 @@ void drawBspTree(MyTree::Cursor cursor,
 				 std::vector<Plane2>& planeSet, 
 				 const AlignedBox2& treeBound,
 				 const AlignedBox2& bound,
-				 integer depth)
+				 integer depth,
+				 integer bucketSize)
 {
-	if (!cursor.leaf() && drawTree__ && cursor.containsPoints())
+	if (!cursor.leaf() && drawTree__ && cursor.objects() > 0)
 	{
 		const integer splitAxis = cursor.splitAxis();
 		
 		Vector2 basisDirection = unitAxis<real, 2>(splitAxis);
-		const Vector2* splitDirection = cursor.splitDirection();
-		if (!splitDirection)
-		{
-			splitDirection = &basisDirection;
-		}
+		const Vector2* splitDirection = &basisDirection;
 		
 		const Line2 line(
 			asPoint(*splitDirection * cursor.splitPosition()),
 			cross(*splitDirection));
 		
-		planeSet.push_back(
-			Plane2(line.position(), *splitDirection));
+		if (cursor.objects() > bucketSize)
+		{
+			planeSet.push_back(
+				Plane2(line.position(), *splitDirection));
 
-		AlignedBox2 positiveBound(bound);
-		positiveBound.min()[splitAxis] = cursor.positiveMin();
+			AlignedBox2 rightBound(bound);
+			rightBound.min()[splitAxis] = cursor.splitPosition();
 
-		drawBspTree(
-			cursor.positive(), 
-			planeSet,
-			treeBound,
-			positiveBound,
-			depth + 1);
+			drawBspTree(
+				cursor.right(), 
+				planeSet,
+				treeBound,
+				rightBound,
+				depth + 1,
+				bucketSize);
 
-		planeSet.back().setNormal(-(*splitDirection));
+			planeSet.back().setNormal(-(*splitDirection));
 
-		AlignedBox2 negativeBound(bound);
-		negativeBound.max()[splitAxis] = cursor.negativeMax();
+			AlignedBox2 leftBound(bound);
+			leftBound.max()[splitAxis] = cursor.splitPosition();
 
-		drawBspTree(
-			cursor.negative(), 
-			planeSet,
-			treeBound,
-			negativeBound,
-			depth + 1);
+			drawBspTree(
+				cursor.left(), 
+				planeSet,
+				treeBound,
+				leftBound,
+				depth + 1,
+				bucketSize);
 
-		planeSet.pop_back();
+			planeSet.pop_back();
+		}
 
 		Vector2 hitList;
 		if (intersect(line, bound, hitList))
@@ -279,7 +281,7 @@ void drawBspTree(MyTree::Cursor cursor,
 void drawBspTree(const MyTree& tree)
 {
 	std::vector<Plane2> planeSet;
-	drawBspTree(tree.root(), planeSet, tree.bound(), tree.bound(), 0);
+	drawBspTree(tree.root(), planeSet, tree.bound(), tree.bound(), 0, tree.bucketSize());
 
 	renderer__->setColor(Color(0, 1, 0));
 	drawBox(*renderer__, tree.bound());
@@ -293,12 +295,12 @@ void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
 		{
 			AlignedBox2 nextBound(bound);
 			nextBound.max()[cursor.splitAxis()] = cursor.splitPosition();
-			redrawTree(cursor.negative(), nextBound, depth + 1);
+			redrawTree(cursor.left(), nextBound, depth + 1);
 		}
 		{
 			AlignedBox2 nextBound(bound);
 			nextBound.min()[cursor.splitAxis()] = cursor.splitPosition();
-			redrawTree(cursor.positive(), nextBound, depth + 1);
+			redrawTree(cursor.right(), nextBound, depth + 1);
 		}
 	}
 	renderer__->setColor(Color(0, 1, 0) / std::pow((real)(depth + 1), (real)0.5));
@@ -634,10 +636,17 @@ void computeTree(integer maxDepth)
 
 	newTree.insert(tree__.objectBegin(), tree__.objectEnd());
 
-	newTree.refine(SlidingMidpoint2_SplitRule(), maxDepth);
+	ENSURE(check(newTree));
+
+	newTree.refine(SlidingMidpoint2_SplitRule_PointKdTree(), maxDepth);
+	//newTree.refine(Midpoint_SplitRule_PointKdTree(), 2);
+
+	ENSURE(check(newTree));
 
 	MyTree copyTree(newTree);
 	newTree.swap(copyTree);
+
+	ENSURE(check(newTree));
 
 	log() << "The constructed kd-tree has " << logNewLine;
 	log() << "depth " << depth(newTree) << "." << logNewLine;

@@ -1,9 +1,9 @@
-#ifndef PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_HPP
-#define PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_HPP
+#ifndef PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_HPP
+#define PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_HPP
 
-#include "pastel/geometry/count_all_neighbors_kdtree.h"
+#include "pastel/geometry/count_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/count_all_neighbors_1d.h"
-#include "pastel/geometry/kdtree_tools.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/countingiterator.h"
@@ -19,7 +19,6 @@ namespace Pastel
 		{
 		public:
 			typedef const Point<Real, N>* Object;
-			typedef FalseType ArbitrarySplits;
 
 			const Point<Real, N>& point(
 				const Object& object) const
@@ -95,7 +94,7 @@ namespace Pastel
 			}
 		}
 
-		kdTree.refine(SlidingMidpoint2_SplitRule());
+		kdTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
 #		pragma omp parallel for
 		for (integer i = 0;i < indices;++i)

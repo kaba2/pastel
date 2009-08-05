@@ -39,8 +39,8 @@ namespace Pastel
 			}
 
 			return std::max(
-				depth(tree, cursor.positive(), currentDepth + 1),
-				depth(tree, cursor.negative(), currentDepth + 1));
+				depth(tree, cursor.right(), currentDepth + 1),
+				depth(tree, cursor.left(), currentDepth + 1));
 		}
 
 	}
@@ -69,27 +69,15 @@ namespace Pastel
 					return false;
 				}
 
+				if (REPORT(cursor.bucket().objects() > std::max(tree.bucketSize(), cursor.objects())))
+				{
+					return false;
+				}
+
 				if (cursor.objects() == 0)
 				{
 					if (REPORT(cursor.begin() != tree.end() ||
 						cursor.end() != tree.end()))
-					{
-						return false;
-					}
-
-					if (REPORT(cursor.containsPoints()))
-					{
-						return false;
-					}
-				}
-				else
-				{
-					if (REPORT(!cursor.containsPoints()))
-					{
-						return false;
-					}
-
-					if (REPORT(cursor.begin() == cursor.end()))
 					{
 						return false;
 					}
@@ -99,7 +87,8 @@ namespace Pastel
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					if (REPORT(iter->bucket() != cursor))
+					typename PointKdTree<Real, N, ObjectPolicy>::Cursor leafCursor = iter->leaf();
+					if (REPORT(leafCursor != cursor))
 					{
 						return false;
 					}
@@ -128,34 +117,34 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT((cursor.negative().containsPoints() ||
-					cursor.positive().containsPoints()) != cursor.containsPoints()))
+				if (REPORT(cursor.left().objects() + cursor.right().objects() !=
+					cursor.objects()))
 				{
 					return false;
 				}
 
-				if (REPORT(cursor.negative().parent() != cursor))
+				if (REPORT(cursor.left().parent() != cursor))
 				{
 					return false;
 				}
 
-				if (REPORT(cursor.positive().parent() != cursor))
+				if (REPORT(cursor.right().parent() != cursor))
 				{
 					return false;
 				}
 
-				AlignedBox<Real, N> positiveBound(bound);
-				positiveBound.min()[cursor.splitAxis()] = cursor.splitPosition();
+				AlignedBox<Real, N> rightBound(bound);
+				rightBound.min()[cursor.splitAxis()] = cursor.splitPosition();
 
-				if (!check(tree, cursor.positive(), positiveBound))
+				if (!check(tree, cursor.right(), rightBound))
 				{
 					return false;
 				}
 
-				AlignedBox<Real, N> negativeBound(bound);
-				negativeBound.max()[cursor.splitAxis()] = cursor.splitPosition();
+				AlignedBox<Real, N> leftBound(bound);
+				leftBound.max()[cursor.splitAxis()] = cursor.splitPosition();
 
-				if (!check(tree, cursor.negative(), negativeBound))
+				if (!check(tree, cursor.left(), leftBound))
 				{
 					return false;
 				}
@@ -203,11 +192,11 @@ namespace Pastel
 					return false;
 				}
 
-				if (!equivalentKdTree(aTree.negative(), bTree.negative()))
+				if (!equivalentKdTree(aTree.left(), bTree.left()))
 				{
 					return false;
 				}
-				if (!equivalentKdTree(aTree.positive(), bTree.positive()))
+				if (!equivalentKdTree(aTree.right(), bTree.right()))
 				{
 					return false;
 				}

@@ -110,7 +110,7 @@ namespace
 			0,
 			Euclidean_NormBijection<Real>(),
 			16,
-			SlidingMidpoint2_SplitRule(),
+			SlidingMidpoint2_SplitRule_PointKdTree(),
 			&neighborSet);
 
 		timer.store();
