@@ -44,7 +44,7 @@ const integer NearestPoints = 15;
 const real TranslationSpeed = 0.02;
 const real ZoomFactor = 1.05;
 const real RotationSpeed = 0.02;
-const integer SprayPoints = 2;
+const integer SprayPoints = 50;
 const real SprayRadius = 0.05;
 const real PointRange = 0.9;
 
@@ -87,6 +87,18 @@ void keyHandler(bool pressed, SDLKey key)
 		if (key == SDLK_ESCAPE)
 		{
 			deviceSystem().stopEventLoop();
+		}
+
+		if (key == SDLK_z)
+		{
+			if (check(tree__))
+			{
+				log() << "Tree checked ok." << logNewLine;
+			}
+			else
+			{
+				log() << "Tree had errors!" << logNewLine;
+			}
 		}
 
 		if (key == SDLK_c)
@@ -371,14 +383,15 @@ void redrawNearest()
 		}
 	}
 
+	renderer__->setColor(Color(1));
+	renderer__->setFilled(false);
+
 	if (searchRadius__ != infinity<real>())
 	{
-		renderer__->setColor(Color(1));
-		renderer__->setFilled(false);
-
 		drawCircle(*renderer__, Sphere2(worldMouse, searchRadius__), 20);
-		drawCircle(*renderer__, Sphere2(worldMouse, SprayRadius), 20);
 	}
+
+	drawCircle(*renderer__, Sphere2(worldMouse, SprayRadius), 20);
 }
 
 void redrawRange()
@@ -579,7 +592,7 @@ void sprayPoints(const Point2& center, real radius, integer points)
 	for (integer i = 0;i < points;++i)
 	{
 		const real randomAngle = random<real>() * 2 * constantPi<real>();
-		const real randomRadius = random<real>() * radius;
+		const real randomRadius = (randomGaussian<real>() / 2) * radius;
 
 		const Point2 point(
 			center +
@@ -606,15 +619,9 @@ void erasePoints(const Point2& center, real radius)
 		std::back_inserter(nearestSet),
 		NullIterator());
 
-	for (integer i = 0;i < nearestSet.size();++i)
+	for (integer i = 0;i < nearestSet.size();i += 16)
 	{
 		tree__.erase(nearestSet[i]);
-	}
-
-	if (tree__.objects() == 1 && tree__.begin() == tree__.end())
-	{
-		log() << "karkeeta" << logNewLine;
-
 	}
 }
 

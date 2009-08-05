@@ -279,14 +279,14 @@ namespace Pastel
 	{
 		Node* node = iter->leaf().node_;
 
-		// Actually remove the object from the object list.
-
-		objectList_.erase(iter);
-
 		// Remove reference to the object
 		// from this node.
 
 		node->erase(iter, objectList_.end());
+
+		// Actually remove the object from the object list.
+
+		objectList_.erase(iter);
 
 		// Propagate object set changes upwards.
 
