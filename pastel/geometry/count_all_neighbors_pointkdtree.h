@@ -1,8 +1,8 @@
 // Description: Nearest neighbor counting using a kd-tree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_H
-#define PASTEL_COUNT_ALL_NEIGHBORS_KDTREE_H
+#ifndef PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
+#define PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/mytypes.h"
@@ -57,6 +57,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/count_all_neighbors_kdtree.hpp"
+#include "pastel/geometry/count_all_neighbors_pointkdtree.hpp"
 
 #endif

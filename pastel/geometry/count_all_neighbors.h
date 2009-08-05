@@ -6,6 +6,6 @@
 
 #include "pastel/geometry/count_all_neighbors_1d.h"
 #include "pastel/geometry/count_all_neighbors_bruteforce.h"
-#include "pastel/geometry/count_all_neighbors_kdtree.h"
+#include "pastel/geometry/count_all_neighbors_pointkdtree.h"
 
 #endif

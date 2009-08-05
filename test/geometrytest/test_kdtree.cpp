@@ -180,7 +180,7 @@ namespace
 		log() << kdTree.objects() << " object references ("
 			<< (real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
 
-		//kdTree.refine(computeKdTreeMaxDepth(kdTree.objects()), 16, SlidingMidpoint2_SplitRule());
+		//kdTree.refine(computeKdTreeMaxDepth(kdTree.objects()), 16, SlidingMidpoint2_SplitRule_PointKdTree());
 		refineSurfaceAreaHeuristic(computeKdTreeMaxDepth(kdTree.objects()), 2, kdTree);
 		//refineSurfaceAreaHeuristic(0, 2, kdTree);
 

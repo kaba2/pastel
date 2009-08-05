@@ -239,6 +239,28 @@ if most of the points have been hided, then one
 still has to visit those hided points in the object list.
 Particularly because of this reason, Proposition 3 is chosen.
 
+The importance of dividing equal points evenly
+----------------------------------------------
+
+Consider that there are n points and that they are all at
+the same position. If you divide the points to child nodes
+based purely on location (e.g. always store the a point on
+the splitting plane to the negative child), then these 
+positions necessarily end up at the same leaf node. Furthermore, 
+if n exceeds the splitting threshold for a node, the leaf node 
+is the result of splitting until the depth threshold is reached.
+
+This example underlines the importance of distributing the
+points on the splitting plane evenly to both
+sides of the plane. When this is done, the number of points
+at the same position diminishes exponentially. Thus,
+for our example the height of the tree will be O(log n).
+
+In combination with the sliding midpoint rule, which guarantees
+that at least 1 point is separated from the others at each
+split, distributing equal points evenly guarantees that the number 
+of nodes is O(n) in the worst case.
+
 Removal of points
 -----------------
 
@@ -252,13 +274,9 @@ objects in an array.
 
 ### Proposition 2: Search the tree for the containing leaf node
 
-Advantages:
-
- * No changes to the data structure
- 
-Disadvantages:
-
- * Does this have an acceptable performance?
+This approach does not work, because one does not know which
+node to follow in the case of a point exactly on the splitting
+plane.
 
 ### Proposition 3: Store with each point its containing leaf node
 
@@ -276,7 +294,9 @@ Disadvantages:
 ### Decision
 
 Choose Proposition 3. The increased memory requirement 
-is of no concern.
+is of no concern. When a lot of objects need to be removed, 
+it would be useful to have a  function that removes all objects, 
+but leaves the subdivision structure intact.
 
 How should you deal with changing geometry?
 -------------------------------------------
@@ -291,14 +311,10 @@ compares them by their values. We can only educate the user that whenever
 he wishes to change geometry, he should do it by removing, changing, and 
 inserting back.
 
-When a lot of objects need to be removed, it would be useful to have a 
-function that removes all objects, but leaves the subdivision structure intact.
-
 ### Decision
 
 Document that the user should not change geometry, but instead follow the
-remove-change-insert pattern. Implement a function to clear out the objects
-without clearing the subdivision.
+remove-change-insert pattern. 
 
 How should you store the nodes?
 -------------------------------
@@ -357,33 +373,101 @@ a function to enlarge it (but not shrink it).
 Trace the bounding box of the tree when adding points. Make it 
 possible to enlarge the bounding box but not shrink it.
 
-Empty subtrees
---------------
+Should the nodes know their parent nodes?
+-----------------------------------------
 
-An empty subtree is one under which there are no points stored.
-Clearly such a subtree can be skipped in many algorithms. Therefore
-it would be useful to store with each node a bit that tells
-if the subtree under it is empty.
+If one adds the ability to find the leaf node of an object
+directly, as is discussed in the removal of points,
+then by adding parent nodes one makes it possible to
+implement a very efficient bottom-top nearest neighbor
+searching. But parent nodes also make it possible to turn
+the kdtree into a self-adapting tree under removal and addition
+of points. 
 
-Whenever a leaf node is created, it is marked as empty or not
-depending on the number of objects that is stored on it.
-This information can only change when adding or removing points.
-When this occurs, the empty bits can be efficiently updated by 
-starting from the leaf node, and following the parent links to 
-possibly update the status of the nodes on the path to the leaf node.
+### Semi-adaptation by knowing that a subtree is empty
 
-There is another advantage to using parent pointers together
-with bucket pointers. This allows for an efficient implementation
-of bottom-top nearest neighbors searching, which visits the
-nodes in exactly the same order as normal depth-first searching,
-but immediately starts from the correct leaf node without the
-need to traverse there.
+Jon Bentley writes on the paper "Semidynamic point sets for kdtrees" 
+about such a structure. To each node he adds the information whether 
+the subtree under it is empty (void of points) or not. When all the 
+points of a leaf node are removed, this information is propagated up
+using the parent links. Then, when searching nearest neighbors,
+for example, he skips those subtrees which are empty
+without needing to inspect them. It is as if the
+tree adapted to the new distribution of points after
+removal, although there are no changes to the structure itself.
+
+### Adaptation by knowing the number of points under a subtree
+
+The previous idea can be generalized considerably. Rather than
+at each node knowing if the subtree under it is empty or not,
+one stores the number of points under that subtree.
+This can of course be used in exactly the same way
+as with the previous idea. However, we can do much better
+with this increased amount of information:
+
+After removing points in a leaf node, sum the 
+number of points under the node with the number of points under
+its sibling node. If this number is below the splitting threshold,
+merge the nodes, making their parent node a leaf node.
+Recurse this scheme up as long as possible using the parent links.
+
+This results in graceful degradation when _removing points_.
+However, if we were to remove points only temporally, and
+insert them back later, we would have to refine the structure 
+because the structure was simplified in the meantime.
+
+### Semi-adaptation
+
+There is a difference in the adaptation styles of the
+empty-subtree and count-subtree approaches just described.
+While the latter adaptation worked by modifying the tree structure,
+the former adaptation worked by providing additional information 
+at a rougher level of detail. Let us call this semi-adaptation.
+
+In some cases it would be useful to have a semi-adapting style.
+In particular, the following is an important use-case.
+The user creates a kd-tree from a sequence of points that are
+indexed by time, and refines the tree to get a good subdivision. 
+He then removes all the points from the tree, but leaves the 
+subdivision intact. Next he starts sliding a time-window in the 
+sequence of points, such that at each time instant it holds that
+the points in the tree are exactly those inside the time-window.
+Of course, the hope is that the points, considered all at once,
+would induce a good subdivision for all time instants, when combined
+with semi-adaptation. Compare this with the alternative approach
+of reconstructing the tree from scratch at each time instant.
+
+### Semi-adaptation by knowing the points under a subtree (and their number)
+
+The approach of counting the number of points under a subtree 
+can be made semi-adapting by adding yet more information.
+First, each node must know the set of points under its subtree
+(i.e. every node must be able to present the information of a 
+leaf node). By ordering the points in the point list in a proper way, this 
+set can be given, for each node, simply by an iterator range. 
+This way the tree can be looked at from different levels of
+detail, resulting in semi-adaptation. Second, we note that 
+if the objects are given a direct link to their containing leaf 
+nodes, then while the tree semi-adapts, these links still point 
+to the bottom of the tree, making bottom-up searches slow. This 
+can be remedied by storing to each leaf node a 'bucket node' link. 
+This link points to that node which contains the points of the 
+leaf node, and whose parent would contain more than the splitting 
+threshold number of points.
+
+### Cost of hierarchical information
+
+There is some cost in updating hierarchical information. For example, 
+the removal of a point needs to traverse from the leaf node to the root 
+while updating the hierarhical information. There are also the increased 
+memory requirements.
 
 ### Decision
 
-Supply parent pointers with each node. Use them for efficiently
-updating the empty-bit information in the nodes when removing
-or adding points.
+Provide each node with a parent pointer, an iterator range
+for the points under its subtree, and the number of points
+under its subtree. This allows for a semi-adapting tree 
+(as well as an adapting tree). 
 
 Should you use the same data structure for points and arbitrary shapes?
 -----------------------------------------------------------------------
@@ -436,6 +520,214 @@ Split node:
  
  * node bounds on the splitting axis
 
+Enumerations of different kinds of kdtrees
+------------------------------------------
+
+### Basic version
+
+Description:
+
+ * Split nodes know their bounds on splitting axis
+ 
+ * Leaf nodes know their set of points and their number
+ 
+Advantages:
+
+ * Minimal memory use.
+ 
+ * Good enough to implement high performance
+ top-bottom algorithms.
+
+Shortcomings:
+
+ * Points can't be removed, except all at once.
+ 
+ * No adaptation to smaller point sets (i.e.
+ removing all points without touching the subdivision
+ and inserting back a subset of those points).
+ 
+ * Bottom-up algorithms are not possible.
+
+### Removable version
+ 
+Additional features to basic version:
+
+ * For each point, store its containing leaf node.
+
+Advantages compared to basic version:
+
+ * Points can be removed. 
+
+### Adaptable version
+
+Additional features to removable version:
+
+ * Parent node is stored for each node.
+
+Advantages compared to removable version:
+
+ * Bottom-up algorithms are possible.
+
+ * The tree can be made adaptive and to
+ efficiently update hierarchical information.
+
+### Bentley's version
+
+Additional features to adaptable version:
+
+ * An empty-flag is stored for each node,
+ denoting if the subtree under that node
+ is void of points.
+ 
+Comments:
+ 
+ * The empty-flags are hierarchical information
+ which are efficiently updated by using the
+ parent links.
+
+Advantages compared to adaptable version:
+
+ * The empty-flag allows to skip examining
+ empty parts of the tree. 
+ 
+Shortcomings:
+
+  * The adaptation is probably not that effective 
+  in practice because it requires a wholly empty subtree
+  before stepping into action.
+  
+  * Bottom-up algorithms still have to start at leaf nodes
+  rather than from a more appropriate level of detail.
+
+### Removal adaptation version
+
+Additional features to adaptable version:
+
+ * New invariant: a leaf node either is the root node,
+ or the number of points under its parent is larger
+ than the splitting threshold.
+ 
+Comments:
+
+ * The invariant can be kept satisfied by updating
+ the tree structure at removal. After removing points
+ from a leaf node the following happens.
+ If the sibling node is not a leaf node, then it
+ must be contain more than the splitting threshold
+ number of points, as per the invariant, and nothing
+ is done. Otherwise, one checks the sum of the number 
+ of points in the current leaf node and its sibling. 
+ If this is less than the splitting threshold, one merges 
+ them into a common leaf node and recurses.
+ 
+Advantages to adaptable version:
+
+ * Adapts gracefully to removal of points.
+
+Shortcomings:
+
+ * In case the removal is just temporary, the adaptation
+ destroys structure which needs to be refined again at insertion. 
+ In this case it would be better that the structure would 
+ be preserved, and adaptation would be achieved by some 
+ book-keeping techique instead.
+
+### Multi-resolution version
+
+Additional features to adaptable version:
+
+ * Every node knows the set of points and their number
+ under its subtree.
+ 
+Comments:
+ 
+ * The points can be ordered in such a way that
+ for each node the set of points can be given by an 
+ iterator interval.
+
+ * The set of points and their number are hierarchical 
+ information which are efficiently updated by using the
+ parent links.
+ 
+ * When removing points from a leaf node, one does the following to
+ update the set of objects and their numbers at nodes.
+ The 'begin' iterator is set to the 'begin' iterator of the
+ negative child. The 'last' iterator is set to the 'last' iterator
+ of the positive child. The number of points is set to the sum
+ of the number of points in negative and positive child.
+ This has to be recursed all the way to the root.
+ 
+ * When inserting points you can add the number of points
+ in the nodes at the same time you propagate the points
+ down. After reaching a leaf node you then only need to 
+ update the 'begin' and 'last' iterators upwards which
+ is more efficient than before. First take a 'negative-up' traversal. 
+ If when following a parent link you came from the negative child, then
+ update the 'begin' point iterator to the same as the negative child 
+ and recurse. Otherwise stop. Then take a 'positive-up' traversal, which
+ is identical but checks if you came from the positive child and updates 
+ the 'last' point iterator.
+ 
+Advantages compared to adaptable version:
+
+ * The tree can be viewed at different levels of detail.
+ In particular, top-bottom traversal can handle the points
+ in blocks of appropriate size, without needing to traverse
+ to the bottom.
+
+Shortcomings:
+
+ * Bottom-up searches must start at a leaf node although
+ that would not necessarily be the appropriate level of 
+ detail. 
+
+### Multi-resolution with bucket pointers version
+
+Additional features to multiresolution version:
+
+ * Bucket node pointer is stored for each leaf node.
+ 
+ * New invariant: the bucket node corresponding to
+ a leaf node is such a node that:
+  
+	1. It contains the leaf node in its subtree
+	
+	2. The number of points under its subtree is at
+	most the maximum of the splitting threshold and
+	the number of points in the leaf node.
+	
+	3. Its parent (if it exists) has greater than 
+	splitting threshold number of points under its subtree.
+ 
+Comments:
+
+ * When removing points from a leaf node, one does the 
+ following to update the bucket nodes. First find the new 
+ bucket node for the leaf node. Note that you can start this
+ search from the current bucket node. Then iterate through all 
+ points under the new bucket node, setting the bucket node of
+ their associated leaf nodes to the new bucket node. Note this 
+ is much faster than recursing to the subtrees to find
+ the leaf nodes. This is because the number of points is
+ bounded by the splitting threshold. In contrast, 
+ the subtrees can be of considerable size.
+ 
+Advantages compared to multiresolution version:
+
+ * Bottom-up searches can start at the appropriate
+ level of detail, namely from the bucket node.
+ 
+Shortcomings:
+
+ * Increased memory usage.
+
+### Decision
+
+Choose the multi-resolution with bucket pointers version. 
+The only practical disadvantage is the increased memory use. 
+In this regard we just bite the bullet and notice that this
+is the price to pay for getting those nice features.
+
 Summary
 -------
 
@@ -458,7 +750,21 @@ Summary
  * Each point stores its containing leaf node to enable
  fast removal and fast bottom-up nearest neighbor searching.
  
+ * Each leaf node stores the corresponding bucket node.
+ 
  * Each node is allocated dynamically.
+ 
+ * Each node stores the number of points under its subtree.
+ 
+ * Each node stores the set of points under its subtree
+ using an iterator range (which implies that the points
+ have to be ordered in an approriate manner).
+ 
+ * The intent is that each node can be considered as
+ a leaf node, but with differing levels of detail.
+ 
+ * Each node stores its parent node. This enables
+ hierarchical information.
  
  * Each split node refers to exactly two concrete nodes.
  
@@ -496,3 +802,14 @@ Implementation experience
  by computing with norm bijections rather than norms
  (for example, squared L2-norm).
 
+Rejected ideas
+==============
+
+Bucket pointers
+---------------
+
+Assume we have adopted the scheme where each node stores the set 
+of points under its subtree (as well as their number). Then it would
+be nice to store to each point a link to that node which contains 
+the point and whose parents contains more than splitting threshold 
+number of points.

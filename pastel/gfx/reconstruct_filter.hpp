@@ -44,7 +44,6 @@ namespace Pastel
 		{
 		public:
 			typedef DataPoint<N, Real, Data> Object;
-			typedef FalseType ArbitrarySplits;
 
 			const Point<Real, N>& point(
 				const DataPoint<N, Real, Data>& dataPoint) const
@@ -174,7 +173,7 @@ namespace Pastel
 
 		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
-		kdTree.refine(SlidingMidpoint2_SplitRule());
+		kdTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
 		Detail_ReconstructFilter::ReconstructFunctor<N, Real, DataPolicy, Filter>
 			reconstructFunctor(kdTree, filter, filterStretch);

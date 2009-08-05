@@ -51,26 +51,26 @@ namespace Pastel
 				
 				if (range.max()[splitAxis] >= splitPosition)
 				{
-					// The positive child intersects the query box.
+					// The right child intersects the query box.
 					if (range.min()[splitAxis] < splitPosition)
 					{
 						// Both children intersect the query box.
-						nodeSet.push_back(cursor.positive());
-						cursor = cursor.negative();
+						nodeSet.push_back(cursor.right());
+						cursor = cursor.left();
 					}
 					else
 					{
-						// Only the positive child intersects
+						// Only the right child intersects
 						// the query box. No need for stack.
-						cursor = cursor.positive();
+						cursor = cursor.right();
 					}
 				}
 				else
 				{
-					// The positive child does not intersect the query box,
-					// so the negative child must intersect the query box
+					// The right child does not intersect the query box,
+					// so the left child must intersect the query box
 					// by the invariant. No need for stack.
-					cursor = cursor.negative();
+					cursor = cursor.left();
 				}
 			}
 			

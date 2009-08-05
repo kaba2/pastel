@@ -6,7 +6,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"
-#include "pastel/sys/arenaallocator.h"
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/poolallocator.h"
 
@@ -23,8 +22,6 @@ namespace Pastel
 	{
 	public:
 		typedef Point<Real, N> Object;
-		//typedef TrueType ArbitrarySplits;
-		typedef FalseType ArbitrarySplits;
 
 		const Point<Real, N>& point(const Object& object) const
 		{
@@ -43,7 +40,6 @@ namespace Pastel
 	{
 	public:
 		typedef UnspecifiedType Object;
-		typedef (TrueType | FalseType) ArbitrarySplits;
 
 		Point<Real, N> point(const Object& that) const;
 		Real point(const Object& that, integer axis) const;
@@ -56,10 +52,9 @@ namespace Pastel
 	{
 	public:
 		typedef typename ObjectPolicy::Object Object;
-		typedef typename ObjectPolicy::ArbitrarySplits ArbitrarySplits;
 
 	private:
-		typedef ArenaAllocator NodeAllocator;
+		typedef PoolAllocator NodeAllocator;
 		typedef PoolAllocator ObjectAllocator;
 		class ObjectInfo;
 
@@ -67,17 +62,6 @@ namespace Pastel
 		typedef typename ObjectContainer::iterator ObjectIterator;
 
 		class Node;
-		class LeafNode;
-		class SplitNode_BspTree;
-		class SplitNode_KdTree;
-
-		typedef boost::is_same<TrueType, typename ObjectPolicy::ArbitrarySplits>
-			UseArbitrarySplits;
-
-		typedef typename boost::mpl::if_<
-			UseArbitrarySplits,
-			SplitNode_BspTree,
-			SplitNode_KdTree>::type SplitNode;
 
 	public:
 		enum
@@ -96,9 +80,6 @@ namespace Pastel
 
 		//! Constructs an empty tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		strong
 		*/
@@ -111,9 +92,6 @@ namespace Pastel
 		dimension > 0
 		dimension == N || N == Dynamic
 		
-		Time complexity:
-		Constant
-
 		Exception safety:
 		strong
 		*/
@@ -124,9 +102,6 @@ namespace Pastel
 
 		//! Constructs a copy from another tree.
 		/*!
-		Time complexity:
-		?
-
 		Exception safety:
 		?
 		*/
@@ -134,9 +109,6 @@ namespace Pastel
 
 		//! Destructs the tree.
 		/*!
-		Time complexity:
-		Linear on nodes().
-
 		Exception safety:
 		nothrow
 		*/
@@ -144,9 +116,6 @@ namespace Pastel
 
 		//! Assigns another tree.
 		/*!
-		Time complexity:
-		?
-
 		Exception safety:
 		strong
 		*/
@@ -154,9 +123,6 @@ namespace Pastel
 
 		//! Swaps two trees.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -164,9 +130,6 @@ namespace Pastel
 
 		//! Returns the object policy.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -174,9 +137,6 @@ namespace Pastel
 
 		//! Extends the bounding box of the tree to cover the given box.
 		/*!
-		Time complexity:
-		O(dimension())
-
 		Exception safety:
 		strong (FIX: make it nothrow)
 		*/
@@ -184,9 +144,6 @@ namespace Pastel
 
 		//! Returns the bounding box of the tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -204,9 +161,6 @@ namespace Pastel
 
 		//! Returns the root node of the tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -214,9 +168,6 @@ namespace Pastel
 
 		//! Returns an iterator to the beginning of the object list.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -226,9 +177,6 @@ namespace Pastel
 
 		//! Returns an iterator to the end of the object list.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -238,9 +186,6 @@ namespace Pastel
 
 		//! Returns the number of nodes in the tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 
@@ -251,9 +196,6 @@ namespace Pastel
 
 		//! Returns the number of leaf nodes in the tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -261,9 +203,6 @@ namespace Pastel
 
 		//! Returns the number of objects in the tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -271,9 +210,6 @@ namespace Pastel
 
 		//! Returns the dimension of the tree.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -281,9 +217,6 @@ namespace Pastel
 
 		//! Preferred number of points in a bucket node.
 		/*!
-		Time complexity:
-		Constant
-
 		Exception safety:
 		nothrow
 		*/
@@ -294,9 +227,6 @@ namespace Pastel
 		Preconditions:
 		maxDepth >= 0
 		maxObjects > 0
-
-		Time complexity:
-		?
 
 		Exception safety:
 		Basic
@@ -318,9 +248,6 @@ namespace Pastel
 
 		//! Insert objects in the tree.
 		/*!
-		Time complexity:
-		O(objects * depth).
-
 		Exception safety:
 		strong
 
@@ -337,9 +264,6 @@ namespace Pastel
 
 		//! Clears off subdivision and objects.
 		/*!
-		Time complexity:
-		O(nodes() + objects())
-
 		Exception safety:
 		nothrow
 		*/
@@ -347,135 +271,19 @@ namespace Pastel
 
 		//! Clears the objects but leaves the subdivision intact.
 		/*!
-		Time complexity:
-		O(objects())
-
 		Exception safety:
 		nothrow
 		*/
-		void clearObjects();
+		void eraseObjects();
 
-		void clearObjects(const Cursor& cursor);
+		//! Clears the objects in a subtree but leaves subdivision intact.
+		void eraseObjects(const Cursor& cursor);
+
+		//! Collapse a subtree into a leaf node.
+		void merge(const Cursor& cursor);
 
 	private:
-		class SplitPredicate_KdTree;
-		class SplitPredicate_BspTree;
-
-		typedef typename boost::mpl::if_<
-			UseArbitrarySplits,
-			SplitPredicate_BspTree, 
-			SplitPredicate_KdTree>::type SplitPredicate;
-
-		void initialize();
-
-		void copyConstruct(
-			Node* thisNode,
-			Node* thatSomeNode);
-		
-		//! Subdivides a leaf node with the given plane.
-		/*!
-		Preconditions:
-		1) cursor.leaf() == true
-		2) 'cursor' points to a node in this tree.
-		3) 0 <= splitAxis < dimension()
-		4) If splitDirection != 0, then 
-		splitAxis is the standard basis axis which 
-		has minimal angle with *splitDirection.
-		5) If splitDirection != 0, then
-		splitPosition = dot(asVector(planePosition), splitDirection)
-
-		Time complexity:
-		Linear on cursor.objects().
-
-		Exception safety:
-		strong
-
-		cursor:
-		A cursor to a leaf node of the tree to subdivide.
-
-		splitPosition:
-		Signed distance of the splitting plane from the origin.
-
-		splitAxis:
-		Index of the standard basis axis which is closest
-		(in angle) to the splitting plane normal.
-
-		splitDirection:
-		If not 0, denotes the normal of the splitting
-		plane normal. If 0, the splitting plane normal
-		is the standard basis axis given by 'splitAxis'.
-		*/
-		void subdivide(
-			LeafNode* node,
-			const Real& splitPosition,
-			integer splitAxis,
-			const Vector<Real, N>* splitDirection,
-			const Real& boundMin,
-			const Real& boundMax,
-			const Real& positiveMin,
-			const Real& negativeMax);
-
-		void updateBound(
-			Node* someNode,
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound);
-
-		//! Removes all objects, but retains nodes.
-		void clearObjects(Node* someNode);
-
-		//! Propagates objects by reordering object list.
-		/*!
-		Preconditions:
-		1) [begin, end] is an iterator range in 'list'.
-		2) count >= 0
-		3) 'list' shares the same allocator with
-		'objectList_'.
-		
-		Note that the 'list' given to this function
-		is not the internal 'objectList_'.
-
-		If the node is an intermediate node,
-		this function reorders 'list'
-		in the given range so that the objects
-		going to the negative node are listed
-		before those going to the positive node.
-		This reordering is done by splicing a
-		linked list so no copying of objects is 
-		involved. The function then recurses to both 
-		nodes.
-
-		If the node is a leaf node,
-		the object range is spliced to the internal
-		'objectList_'. This is possible because
-		both lists use a shared allocator.
-		*/
-		void spliceInsert(
-			Node* someNode,
-			ObjectContainer& list,
-			const ObjectIterator& begin, 
-			const ObjectIterator& end,
-			integer count);
-
-		//! Subdivides the tree using the given subdivision rule.
-		/*!
-		Preconditions:
-		1) maxDepth >= 0
-		2) maxObjects >= 0
-		3) depth >= 0
-		4) depth <= maxDepth
-		5) allLessEqual(minBound, maxBound)
-		*/
-		template <typename SubdivisionRule>
-		void refine(
-			Node* someNode,
-			integer maxDepth,
-			const SubdivisionRule& subdivisionRule,
-			integer depth,
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound);
-
-		void updateEmptyBits(
-			LeafNode* node);
+		class SplitPredicate;
 
 		class ObjectInfo
 		{
@@ -484,9 +292,9 @@ namespace Pastel
 
 			ObjectInfo(
 				const Object& object,
-				LeafNode* bucket)
+				Node* leafNode)
 				: object_(object)
-				, bucket_(bucket)
+				, leafNode_(leafNode)
 			{
 			}
 
@@ -500,21 +308,165 @@ namespace Pastel
 				return object_;
 			}
 
-			Cursor bucket() const
+			Cursor leaf() const
 			{
-				return Cursor((Node*)bucket_);
+				return Cursor((Node*)leafNode_);
 			}
 		
-		private:
-			void setBucket(
-				const LeafNode* bucket) const
+			Cursor bucket() const
 			{
-				bucket_ = bucket;
+				return Cursor((Node*)leafNode_->bucket());
+			}
+
+		private:
+			void setLeaf(
+				const Node* leafNode) const
+			{
+				leafNode_ = leafNode;
 			}
 
 			Object object_;
-			mutable const LeafNode* bucket_;
+			mutable const Node* leafNode_;
 		};
+
+		//! Allocates the root node etc.
+		void initialize();
+
+		//! Copy constructs a subtree.
+		void copyConstruct(
+			Node* thisNode,
+			Node* thatNode);
+
+		//! Allocate a leaf node.
+		Node* allocateLeaf(
+			Node* parent,
+			const ConstObjectIterator& begin,
+			const ConstObjectIterator& last,
+			integer objects);
+
+		//! Collapse a subtree into a leaf node.
+		void merge(Node* node);
+
+		//! Deallocate the nodes of a subtree.
+		void erase(Node* node);
+
+		//! Find the bucket node starting from a given node.
+		/*!
+		The bucket node is searched from the given node 
+		_upwards_.
+		*/
+		Node* findBucket(Node* node);
+
+		//! Sets the buckets of non-empty leaf nodes of a subtree.
+		void setBucket(Node* subtree, Node* bucket);
+
+		//! Remove objects under a subtree.
+		void eraseObjects(Node* node);
+
+		//! Clear object ranges in a subtree, and set bucket nodes.
+		/*!
+		Note objects are not actually removed. Use eraseObjects()
+		for this. This is actually foremost a helper function for
+		eraseObjects().
+		*/
+		void clearObjects(Node* node);
+
+		//! Propagate _upwards_ the object set and count in a node.
+		void updateObjects(Node* node);
+
+		//! Propagate _upwards_ the object set in a node.
+		/*!
+		If the object count does not need to be propagated,
+		this function is more efficient than updateObjects(), 
+		because in most cases it does not need to traverse all 
+		the way to the root.
+		*/
+		void updateObjectRanges(Node* node);
+
+		//! Subdivides a leaf node with the given plane.
+		/*!
+		Preconditions:
+		1) node->leaf() == true
+		2) 'node' points to a node in this tree.
+		3) 0 <= splitAxis < dimension()
+
+		Exception safety:
+		strong
+
+		node:
+		A leaf node of the tree to subdivide.
+
+		splitPosition:
+		Signed distance of the splitting plane from the origin.
+
+		splitAxis:
+		Index of the standard basis axis to use for
+		the splitting plane normal.
+		*/
+		void subdivide(
+			Node* node,
+			const Real& splitPosition,
+			integer splitAxis,
+			const Real& boundMin,
+			const Real& boundMax);
+
+		//! Updates node bounds downwards.
+		void updateBound(
+			Node* node,
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound);
+
+		//! Propagates objects downwards by reordering object list.
+		/*!
+		Preconditions:
+		1) [begin, end] is an iterator range in 'list'.
+		2) count >= 0
+		3) 'list' shares the same allocator with
+		'objectList_'.
+		
+		Note that the 'list' given to this function
+		is not the internal 'objectList_'.
+
+		If the node is an intermediate node,
+		this function reorders 'list'
+		in the given range so that the objects
+		going to the left node are listed
+		before those going to the right node.
+		This reordering is done by splicing a
+		linked list so no copying of objects is 
+		involved. The function then recurses to both 
+		nodes.
+
+		If the node is a leaf node,
+		the object range is spliced to the internal
+		'objectList_'. This is possible because
+		both lists use a shared allocator.
+		*/
+		void spliceInsert(
+			Node* node,
+			ObjectContainer& list,
+			const ObjectIterator& begin, 
+			const ObjectIterator& end,
+			integer count,
+			Node* bucketNode);
+
+		//! Subdivides the tree using the given subdivision rule.
+		/*!
+		Preconditions:
+		1) maxDepth >= 0
+		2) maxObjects >= 0
+		3) depth >= 0
+		4) depth <= maxDepth
+		5) allLessEqual(minBound, maxBound)
+		*/
+		template <typename SubdivisionRule>
+		void refine(
+			Node* node,
+			integer maxDepth,
+			const SubdivisionRule& subdivisionRule,
+			integer depth,
+			const Point<Real, N>& minBound,
+			const Point<Real, N>& maxBound);
 
 		/*
 		objectList_:
@@ -524,9 +476,9 @@ namespace Pastel
 
 		nodeAllocator_:
 		Allocates memory for the nodes of the tree.
-		Because all nodes are deallocated at the same
-		time, we can provide for extremely fast
-		node allocation via an arena allocator.
+		Because all nodes are of the same size,
+		we can provide for extremely fast
+		node allocation via a specialized allocator.
 
 		root_:
 		The root node of the tree.
@@ -564,6 +516,11 @@ namespace Pastel
 
 }
 
+#include "pastel/geometry/pointkdtree_splitpredicate.h"
+#include "pastel/geometry/pointkdtree_node.h"
+#include "pastel/geometry/pointkdtree_cursor.h"
+
 #include "pastel/geometry/pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree_private.hpp"
 
 #endif

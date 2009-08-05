@@ -217,6 +217,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\pointkdtree_private.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\pointkdtree_refine.h"
 					>
 				</File>
@@ -1293,11 +1297,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\count_all_neighbors_kdtree.h"
+					RelativePath=".\count_all_neighbors_pointkdtree.h"
 					>
 				</File>
 				<File
-					RelativePath=".\count_all_neighbors_kdtree.hpp"
+					RelativePath=".\count_all_neighbors_pointkdtree.hpp"
 					>
 				</File>
 			</Filter>

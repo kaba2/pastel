@@ -4,7 +4,7 @@
 #ifndef PASTEL_POINTKDTREE_CURSOR_H
 #define PASTEL_POINTKDTREE_CURSOR_H
 
-#include "pastel/geometry/pointkdtree.hpp"
+#include "pastel/geometry/pointkdtree.h"
 
 namespace Pastel
 {
@@ -40,30 +40,53 @@ namespace Pastel
 			return node_ == 0;
 		}
 
-		bool containsPoints() const
+		// Tree
+
+		Cursor parent() const
 		{
-			return !node_->empty();
+			PENSURE(node_);
+			return Cursor(node_->parent());
 		}
+
+		Cursor right() const
+		{
+			PENSURE(node_);
+			return Cursor(node_->right());
+		}
+
+		Cursor left() const
+		{
+			PENSURE(node_);
+			return Cursor(node_->left());
+		}
+
+		bool leaf() const
+		{
+			PENSURE(node_);
+			return node_->leaf();
+		}
+
+		Cursor bucket() const
+		{
+			PENSURE(node_);
+			PENSURE(leaf());
+			return Cursor(node_->bucket());
+		}
+
+		// Objects
 
 		ConstObjectIterator begin() const
 		{
 			PENSURE(node_);
-			PENSURE(leaf());
-
-			LeafNode* leafNode = (LeafNode*)node_;
-
-			return leafNode->begin();
+			return node_->begin();
 		}
 
 		ConstObjectIterator end() const
 		{
 			PENSURE(node_);
-			PENSURE(leaf());
 
-			LeafNode* leafNode = (LeafNode*)node_;
-
-			ConstObjectIterator iterEnd = leafNode->last();
-			if (leafNode->objects() > 0)
+			ConstObjectIterator iterEnd = node_->last();
+			if (objects() > 0)
 			{
 				++iterEnd;
 			}
@@ -84,106 +107,35 @@ namespace Pastel
 		integer objects() const
 		{
 			PENSURE(node_);
-			PENSURE(leaf());
-
-			LeafNode* leafNode = (LeafNode*)node_;
-
-			return leafNode->objects();
+			return node_->objects();
 		}
 
-		Real min() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->min();
-		}
-
-		Real max() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->max();
-		}
-
-		Real positiveMin() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->positiveMin();
-		}
-
-		Real negativeMax() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->negativeMax();
-		}
+		// Splitting plane
 
 		Real splitPosition() const
 		{
 			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->splitPosition();
+			return node_->splitPosition();
 		}
 
 		integer splitAxis() const
 		{
 			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->splitAxis();
+			return node_->splitAxis();
 		}
 
-		const Vector<Real, N>* splitDirection() const
+		// Bounds
+
+		Real min() const
 		{
 			PENSURE(node_);
-			PENSURE(!leaf());
-			
-			return ((SplitNode*)node_)->splitDirection();
+			return node_->min();
 		}
 
-		bool leaf() const
+		Real max() const
 		{
 			PENSURE(node_);
-
-			return node_->leaf();
-		}
-
-		Cursor parent() const
-		{
-			PENSURE(node_);
-
-			return Cursor(node_->parent());
-		}
-
-		Cursor positive() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return Cursor(((SplitNode*)node_)->positive());
-		}
-
-		Cursor negative() const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return Cursor(((SplitNode*)node_)->negative());
-		}
-
-		Real projectedPosition(
-			const Point<Real, N>& point) const
-		{
-			PENSURE(node_);
-			PENSURE(!leaf());
-
-			return ((SplitNode*)node_)->projectedPosition(point);
+			return node_->max();
 		}
 
 	private:

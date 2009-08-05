@@ -557,8 +557,8 @@ namespace Pastel
 		ModelTree modelTree;
 		modelTree.insert(modelBegin, modelEnd);
 
-		sceneTree.refine(SlidingMidpoint2_SplitRule());
-		modelTree.refine(SlidingMidpoint2_SplitRule());
+		sceneTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+		modelTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
 		return Pastel::pointPatternMatch(
 			sceneTree, modelTree, minMatchRatio,  matchingDistance,

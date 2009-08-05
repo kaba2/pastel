@@ -163,8 +163,8 @@ namespace
 		ModelTree modelTree;
 		modelTree.insert(modelSet.begin(), modelSet.end());
 
-		sceneTree.refine(SlidingMidpoint2_SplitRule());
-		modelTree.refine(SlidingMidpoint2_SplitRule());
+		sceneTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+		modelTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
 		log() << "Computing point pattern match..." << logNewLine;
 
