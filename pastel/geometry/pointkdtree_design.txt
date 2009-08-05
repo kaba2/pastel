@@ -244,9 +244,9 @@ The importance of dividing equal points evenly
 
 Consider that there are n points and that they are all at
 the same position. If you divide the points to child nodes
-based purely on location (e.g. always store the a point on
-the splitting plane to the negative child), then these 
-positions necessarily end up at the same leaf node. Furthermore, 
+based purely on location (e.g. always store a point on
+the splitting plane to the negative child), then all the
+points necessarily end up at the same leaf node. Furthermore, 
 if n exceeds the splitting threshold for a node, the leaf node 
 is the result of splitting until the depth threshold is reached.
 
@@ -276,7 +276,8 @@ objects in an array.
 
 This approach does not work, because one does not know which
 node to follow in the case of a point exactly on the splitting
-plane.
+plane... Unless one bases the positioning purelu on location
+which however leads to other robustness problems, as discussed above.
 
 ### Proposition 3: Store with each point its containing leaf node
 
@@ -373,102 +374,6 @@ a function to enlarge it (but not shrink it).
 Trace the bounding box of the tree when adding points. Make it 
 possible to enlarge the bounding box but not shrink it.
 
-Should the nodes know their parent nodes?
------------------------------------------
-
-If one adds the ability to find the leaf node of an object
-directly, as is discussed in the removal of points,
-then by adding parent nodes one makes it possible to
-implement a very efficient bottom-top nearest neighbor
-searching. But parent nodes also make it possible to turn
-the kdtree into a self-adapting tree under removal and addition
-of points. 
-
-### Semi-adaptation by knowing that a subtree is empty
-
-Jon Bentley writes on the paper "Semidynamic point sets for kdtrees" 
-about such a structure. To each node he adds the information whether 
-the subtree under it is empty (void of points) or not. When all the 
-points of a leaf node are removed, this information is propagated up
-using the parent links. Then, when searching nearest neighbors,
-for example, he skips those subtrees which are empty
-without needing to inspect them. It is as if the
-tree adapted to the new distribution of points after
-removal, although there are no changes to the structure itself.
-
-### Adaptation by knowing the number of points under a subtree
-
-The previous idea can be generalized considerably. Rather than
-at each node knowing if the subtree under it is empty or not,
-one stores the number of points under that subtree.
-This can of course be used in exactly the same way
-as with the previous idea. However, we can do much better
-with this increased amount of information:
-
-After removing points in a leaf node, sum the 
-number of points under the node with the number of points under
-its sibling node. If this number is below the splitting threshold,
-merge the nodes, making their parent node a leaf node.
-Recurse this scheme up as long as possible using the parent links.
-
-This results in graceful degradation when _removing points_.
-However, if we were to remove points only temporally, and
-insert them back later, we would have to refine the structure 
-because the structure was simplified in the meantime.
-
-### Semi-adaptation
-
-There is a difference in the adaptation styles of the
-empty-subtree and count-subtree approaches just described.
-While the latter adaptation worked by modifying the tree structure,
-the former adaptation worked by providing additional information 
-at a rougher level of detail. Let us call this semi-adaptation.
-
-In some cases it would be useful to have a semi-adapting style.
-In particular, the following is an important use-case.
-The user creates a kd-tree from a sequence of points that are
-indexed by time, and refines the tree to get a good subdivision. 
-He then removes all the points from the tree, but leaves the 
-subdivision intact. Next he starts sliding a time-window in the 
-sequence of points, such that at each time instant it holds that
-the points in the tree are exactly those inside the time-window.
-Of course, the hope is that the points, considered all at once,
-would induce a good subdivision for all time instants, when combined
-with semi-adaptation. Compare this with the alternative approach
-of reconstructing the tree from scratch at each time instant.
-
-### Semi-adaptation by knowing the points under a subtree (and their number)
-
-The approach of counting the number of points under a subtree 
-can be made semi-adapting by adding yet more information.
-First, each node must know the set of points under its subtree
-(i.e. every node must be able to present the information of a 
-leaf node). By ordering the points in the point list in a proper way, this 
-set can be given, for each node, simply by an iterator range. 
-This way the tree can be looked at from different levels of
-detail, resulting in semi-adaptation. Second, we note that 
-if the objects are given a direct link to their containing leaf 
-nodes, then while the tree semi-adapts, these links still point 
-to the bottom of the tree, making bottom-up searches slow. This 
-can be remedied by storing to each leaf node a 'bucket node' link. 
-This link points to that node which contains the points of the 
-leaf node, and whose parent would contain more than the splitting 
-threshold number of points.
-
-### Cost of hierarchical information
-
-There is some cost in updating hierarchical information. For example, 
-the removal of a point needs to traverse from the leaf node to the root 
-while updating the hierarhical information. There are also the increased 
-memory requirements.
-
-### Decision
-
-Provide each node with a parent pointer, an iterator range
-for the points under its subtree, and the number of points
-under its subtree. This allows for a semi-adapting tree 
-(as well as an adapting tree). 
-
 Should you use the same data structure for points and arbitrary shapes?
 -----------------------------------------------------------------------
 
@@ -491,34 +396,21 @@ alternative is to separately create a kd-tree that is designed
 for point sets (PointKdTree) and a kd-tree that is designed for ray 
 tracing (KdTree)
 
-What information do you need in nodes?
---------------------------------------
+Should the nodes know their parent nodes?
+-----------------------------------------
 
-Both nodes:
-
- * pointer to parent node
- 
- * a bit to differentiate between
- a leaf node and a split node
- 
- * a bit to denote if the subtree below
- the node is empty or not
-
-Leaf node:
-
- * element count
- 
- * interval in the object list
-
-Split node:
-
- * pointers to child nodes
- 
- * splitting position
- 
- * splitting axis
- 
- * node bounds on the splitting axis
+A _parent link_ is a link from a child node to its parent node.
+Such links allow free traversal in a tree both up and down,
+which in combination with the leaf pointers for points allows for 
+some very efficient bottom-top algorithms to be implemented in
+the users side. However, in particular a parent link makes it 
+possible to manage hierarhical information, i.e., information in a node
+which is dependent on information in its immediate children.
+This makes it possible to turn the kdtree into a self-adapting 
+tree under removal and addition of points. 
+The addition of parent links allows a considerably expanded
+design space. Therefore we do not decide the question here,
+but enumerate a selection of possibilities in a moment.
 
 Enumerations of different kinds of kdtrees
 ------------------------------------------
@@ -802,14 +694,3 @@ Implementation experience
  by computing with norm bijections rather than norms
  (for example, squared L2-norm).
 
-Rejected ideas
-==============
-
-Bucket pointers
----------------
-
-Assume we have adopted the scheme where each node stores the set 
-of points under its subtree (as well as their number). Then it would
-be nice to store to each point a link to that node which contains 
-the point and whose parents contains more than splitting threshold 
-number of points.

@@ -69,7 +69,7 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT(cursor.bucket().objects() > std::max(tree.bucketSize(), cursor.objects())))
+				if (REPORT(!cursor.bucket().leaf() && cursor.bucket().objects() > tree.bucketSize()))
 				{
 					return false;
 				}

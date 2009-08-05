@@ -86,9 +86,8 @@ Points can be removed from the tree at any time.
 ### Automatic tracing of bucket nodes
 
 When adding or removing points, the bucket nodes are
-traced automatically. In particular, this makes it possible 
-for the PointKdTree to adapt to semidynamic point sets
-in an advanced manner.
+traced automatically. In particular, this allows
+the PointKdTree to adapt to changing point sets.
 
 ### Constant time bucket node look-up for points
 
