@@ -106,6 +106,11 @@ void keyHandler(bool pressed, SDLKey key)
 			tree__.clear();
 		}
 
+		if (key == SDLK_m)
+		{
+			tree__.merge();
+		}
+
 		if (key == SDLK_x)
 		{
 			tree__.eraseObjects();

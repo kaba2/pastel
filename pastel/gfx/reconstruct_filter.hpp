@@ -95,11 +95,13 @@ namespace Pastel
 					kdTree_, 
 					Point<real, N>(position) + 0.5,
 					DepthFirst_SearchAlgorithm_PointKdTree(),
+					Accept_Always(),
 					filter_.radius() * filterStretch_,
 					0,
 					Infinity_NormBijection<Real>(),
-					kdTree_.objects() - 1,
-					&nearestSet);
+					kdTree_.objects(),
+					std::back_inserter(nearestSet),
+					NullIterator());
 
 				const integer points = nearestSet.size();
 
@@ -110,14 +112,14 @@ namespace Pastel
 				{
 					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
 
-					const Vector<real, N> delta = nearestSet[i]->position_ - (Point<real, N>(position) + 0.5);
+					const Vector<real, N> delta = nearestSet[i]->object().position_ - (Point<real, N>(position) + 0.5);
 					real weight = 1;
 					for (integer k = 0;k < N;++k)
 					{
 						weight *= filter_.evaluate(delta[k] * invFilterStretch_);
 					}
 
-					valueSum += nearestSet[i]->data_ * weight;
+					valueSum += nearestSet[i]->object().data_ * weight;
 					weightSum += weight;
 				}
 

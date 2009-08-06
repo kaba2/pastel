@@ -326,6 +326,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::merge()
+	{
+		merge(root_);
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::merge(
 		const Cursor& cursor)
 	{

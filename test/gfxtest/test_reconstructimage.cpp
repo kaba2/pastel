@@ -15,7 +15,6 @@
 #include "pastel/gfx/image_tools.h"
 #include "pastel/gfx/reconstruct_nearest.h"
 #include "pastel/gfx/reconstruct_filter.h"
-#include "pastel/gfx/reconstruct_adaptive.h"
 #include "pastel/gfx/reconstruct_rbf.h"
 
 #include "pastel/dsp/resample.h"
@@ -143,21 +142,6 @@ namespace
 		}
 		*/
 
-		for (integer kNearest = 1;kNearest <= 16;kNearest *= 2)
-		{
-			reconstructAdaptive(
-				positionList,
-				dataList,
-				AlignedBox2(0, 0, 1, 1),
-				arrayView(image),
-				kNearest, 
-				0);
-
-			savePcx(image, "output/reconstruct_adaptive_" + integerToString(kNearest) + "_"
-				+ integerToString(k, 2) + "_" + name + ".pcx");
-		}
-
-		/*
 		for (integer maxRelativeError = 0;maxRelativeError <= 2;++maxRelativeError)
 		{
 			reconstructNearest(
@@ -184,7 +168,6 @@ namespace
 			arrayView(image));
 
 		savePcx(image, "output/reconstruct_filter_" + integerToString(k, 2) + "_" + name + ".pcx");
-		*/
 	}
 
 	void testReconstruction()

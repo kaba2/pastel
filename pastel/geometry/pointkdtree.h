@@ -279,6 +279,9 @@ namespace Pastel
 		//! Clears the objects in a subtree but leaves subdivision intact.
 		void eraseObjects(const Cursor& cursor);
 
+		//! Collapses the tree into a single leaf node.
+		void merge();
+
 		//! Collapse a subtree into a leaf node.
 		void merge(const Cursor& cursor);
 
@@ -359,6 +362,12 @@ namespace Pastel
 
 		//! Sets the buckets of non-empty leaf nodes of a subtree.
 		void setBucket(Node* subtree, Node* bucket);
+
+		//! Sets the leaf nodes of a range of objects.
+		void setLeaf(
+			const ConstObjectIterator& begin,
+			const ConstObjectIterator& end,
+			Node* node);
 
 		//! Remove objects under a subtree.
 		void eraseObjects(Node* node);

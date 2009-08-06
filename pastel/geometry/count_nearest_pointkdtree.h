@@ -1,7 +1,7 @@
 // Description: Tools for nearest neighbor counting
 
-#ifndef PASTEL_POINTKDTREE_COUNT_NEAREST_H
-#define PASTEL_POINTKDTREE_COUNT_NEAREST_H
+#ifndef PASTEL_COUNT_NEAREST_POINTKDTREE_H
+#define PASTEL_COUNT_NEAREST_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 

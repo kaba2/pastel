@@ -8,8 +8,8 @@
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/vector_tools.h"
-
 #include "pastel/sys/view_visit.h"
+#include "pastel/sys/nulliterator.h"
 
 namespace Pastel
 {
@@ -90,12 +90,15 @@ namespace Pastel
 					kdtree_, 
 					Point<Real, N>(position) + 0.5, 
 					DepthFirst_SearchAlgorithm_PointKdTree(),
+					Accept_Always(),
 					infinity<Real>(), 
 					maxRelativeError_, 
 					Euclidean_NormBijection<Real>(),
-					kNearest_, &nearestSet);
+					kNearest_, 
+					std::back_inserter(nearestSet),
+					NullIterator());
 
-				data = nearestSet.back()->data_;
+				data = nearestSet.back()->object().data_;
 			}
 
 		private:
