@@ -1,5 +1,5 @@
-#ifndef PASTEL_POINTKDTREE_SEARCH_RANGE_H
-#define PASTEL_POINTKDTREE_SEARCH_RANGE_H
+#ifndef PASTEL_SEARCH_RANGE_POINTKDTREE_H
+#define PASTEL_SEARCH_RANGE_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"

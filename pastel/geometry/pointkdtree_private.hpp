@@ -161,6 +161,21 @@ namespace Pastel
 		}
 	}
 
+
+	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::setLeaf(
+		const ConstObjectIterator& begin,
+		const ConstObjectIterator& end,
+		Node* node)
+	{
+		ConstObjectIterator iter = begin;
+		while(iter != end)
+		{
+			iter->setLeaf(node);
+			++iter;
+		}
+	}
+
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::updateObjects(
 		Node* node)
@@ -386,14 +401,7 @@ namespace Pastel
 			leftObjects);
 
 		// Assign correct leaf information to objects.
-		{
-			ConstObjectIterator iter = leftStart;
-			while(iter != rightStart)
-			{
-				iter->setLeaf(left);
-				++iter;
-			}
-		}
+		setLeaf(leftStart, rightStart, left);
 
 		Node* right = allocateLeaf(
 			node, 
@@ -402,14 +410,7 @@ namespace Pastel
 			rightObjects);
 
 		// Assign correct leaf information to objects.
-		{
-			ConstObjectIterator iter = rightStart;
-			while(iter != nodeEnd)
-			{
-				iter->setLeaf(right);
-				++iter;
-			}
-		}
+		setLeaf(rightStart, nodeEnd, right);
 
 		Node* parentBucket = node->bucket();
 
@@ -510,13 +511,7 @@ namespace Pastel
 		if (node->leaf())
 		{
 			// Set the leaf nodes for each point.
-
-			ObjectIterator iter = begin;
-			while(iter != end)
-			{
-				iter->setLeaf(node);
-				++iter;
-			}
+			setLeaf(begin, end, node);
 
 			// Splice the objects to this node.
 
