@@ -8,6 +8,8 @@
 #include "pastel/sys/vectorbase.h"
 
 #include <boost/utility/enable_if.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_integral.hpp>
 
 namespace Pastel
 {
@@ -61,6 +63,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Vector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		Vector(const TemporaryVector<Real, N>& that)
 			: Base(that)
 		{
@@ -83,8 +92,14 @@ namespace Pastel
 		{
 		}
 
-		explicit Vector(const Real& x)
-			: Base(x)
+		explicit Vector(const Real& that)
+			: Base(that)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit Vector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -130,6 +145,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Vector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		Vector(const TemporaryVector<Real, N>& that)
 			: Base(that)
 		{
@@ -153,9 +175,15 @@ namespace Pastel
 		}
 
 		// Implicit conversion allowed
-		// only for Nd version.
+		// only for 1d version.
 		Vector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit Vector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -212,6 +240,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Vector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		Vector(const TemporaryVector<Real, N>& that)
 			: Base(that)
 		{
@@ -236,6 +271,12 @@ namespace Pastel
 
 		explicit Vector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit Vector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -315,6 +356,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Vector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		Vector(const TemporaryVector<Real, N>& that)
 			: Base(that)
 		{
@@ -339,6 +387,12 @@ namespace Pastel
 
 		explicit Vector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit Vector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -430,6 +484,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Vector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		Vector(const TemporaryVector<Real, N>& that)
 			: Base(that)
 		{
@@ -454,6 +515,12 @@ namespace Pastel
 
 		explicit Vector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit Vector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -553,6 +620,13 @@ namespace Pastel
 		explicit Vector(
 			const Dimension& dimension,
 			const Real& that = Real())
+			: Base(dimension, that)
+		{
+		}
+
+		explicit Vector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
 			: Base(dimension, that)
 		{
 		}
@@ -699,6 +773,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -718,6 +799,12 @@ namespace Pastel
 
 		explicit TemporaryVector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit TemporaryVector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -772,6 +859,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -792,6 +886,12 @@ namespace Pastel
 		// Implicit conversion allowed.
 		TemporaryVector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit TemporaryVector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -848,6 +948,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -867,6 +974,12 @@ namespace Pastel
 
 		explicit TemporaryVector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit TemporaryVector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -928,6 +1041,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -947,6 +1067,12 @@ namespace Pastel
 
 		explicit TemporaryVector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit TemporaryVector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -1009,6 +1135,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		TemporaryVector(const TemporaryVector& that)
 			: Base(that)
 		{
@@ -1028,6 +1161,12 @@ namespace Pastel
 
 		explicit TemporaryVector(const Real& x)
 			: Base(x)
+		{
+		}
+
+		// The wrapper avoids interpreting literal 0 as a null pointer.
+		explicit TemporaryVector(const Copy<const Real*>& that)
+			: Base(that)
 		{
 		}
 
@@ -1091,6 +1230,13 @@ namespace Pastel
 		explicit TemporaryVector(
 			const Dimension& dimension,
 			const Real& that = Real())
+			: Base(dimension, that)
+		{
+		}
+
+		explicit TemporaryVector(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
 			: Base(dimension, that)
 		{
 		}

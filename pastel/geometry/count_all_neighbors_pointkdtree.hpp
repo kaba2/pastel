@@ -26,8 +26,7 @@ namespace Pastel
 				return *object;
 			}
 
-			Real point(
-				const Object& object, integer axis) const
+			Real point(const Object& object, integer axis) const
 			{
 				return (*object)[axis];
 			}

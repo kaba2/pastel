@@ -62,6 +62,13 @@ namespace Pastel
 
 			explicit VectorBase(
 				const Dimension& dimension,
+				const Copy<const Real*>& that)
+				: data_(dimension, that)
+			{
+			}
+
+			explicit VectorBase(
+				const Dimension& dimension,
 				const Alias<Real*> alias)
 				: data_(dimension, alias)
 			{
@@ -90,9 +97,15 @@ namespace Pastel
 			{
 			}
 
-			explicit VectorBase(const Real& x)
-				: data_(x)
+			explicit VectorBase(const Real& that)
+				: data_(that)
 			{
+			}
+
+			explicit VectorBase(const Copy<const Real*>& that)
+				: data_(that)
+			{
+				BOOST_STATIC_ASSERT(N != Dynamic);
 			}
 
 			template <typename ThatReal, typename Expression>
@@ -208,7 +221,7 @@ namespace Pastel
 			*/
 
 			Vector<Real, N>& operator=(
-				const VectorBase<Real, N>& that)
+				const Vector<Real, N>& that)
 			{
 				// We allow the size of the vector to be
 				// changed by an assignment.
@@ -291,6 +304,18 @@ namespace Pastel
 			const Real& operator[](integer index) const
 			{
 				return data_[index];
+			}
+
+			//! Returns the address of the first element.
+			Real* data()
+			{
+				return data_.data();
+			}
+
+			//! Returns the address of the first element.
+			const Real* data() const
+			{
+				return data_.data();
 			}
 
 			// The parameter to this function

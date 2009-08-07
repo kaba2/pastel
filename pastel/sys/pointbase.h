@@ -52,7 +52,20 @@ namespace Pastel
 			}
 
 			explicit PointBase(
+				const Dimension& dimension,
+				const Copy<const Real*>& that)
+				: data_(dimension, that)
+			{
+			}
+
+			explicit PointBase(
 				const Real& that)
+				: data_(that)
+			{
+			}
+
+			explicit PointBase(
+				const Copy<const Real*>& that)
 				: data_(that)
 			{
 			}
@@ -136,6 +149,18 @@ namespace Pastel
 			const Real& operator[](integer index) const
 			{
 				return data_[index];
+			}
+
+			//! Returns the address of the first element.
+			Real* data()
+			{
+				return data_.data();
+			}
+
+			//! Returns the address of the first element.
+			const Real* data() const
+			{
+				return data_.data();
 			}
 
 			//! Adds the given value to all elements.

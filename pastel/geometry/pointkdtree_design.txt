@@ -553,12 +553,8 @@ Comments:
  in the nodes at the same time you propagate the points
  down. After reaching a leaf node you then only need to 
  update the 'begin' and 'last' iterators upwards which
- is more efficient than before. First take a 'negative-up' traversal. 
- If when following a parent link you came from the negative child, then
- update the 'begin' point iterator to the same as the negative child 
- and recurse. Otherwise stop. Then take a 'positive-up' traversal, which
- is identical but checks if you came from the positive child and updates 
- the 'last' point iterator.
+ is more efficient than before because most of the time
+ you don't need to traverse all the way to the root. 
  
 Advantages compared to adaptable version:
 

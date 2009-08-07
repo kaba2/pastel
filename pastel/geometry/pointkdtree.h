@@ -39,10 +39,11 @@ namespace Pastel
 	class ObjectPolicy
 	{
 	public:
-		typedef UnspecifiedType Object;
+		typedef UserDefinedType Object;
 
-		Point<Real, N> point(const Object& that) const;
-		Real point(const Object& that, integer axis) const;
+		Point<Real, N> point(const Object& object) const;
+
+		Real point(const Object& object, integer axis) const;
 	};
 	*/
 
@@ -52,16 +53,17 @@ namespace Pastel
 	{
 	public:
 		typedef typename ObjectPolicy::Object Object;
+		class Cursor;
 
 	private:
 		typedef PoolAllocator NodeAllocator;
 		typedef PoolAllocator ObjectAllocator;
+
 		class ObjectInfo;
+		class Node;
 
 		typedef FastList<ObjectInfo, ObjectAllocator> ObjectContainer;
 		typedef typename ObjectContainer::iterator ObjectIterator;
-
-		class Node;
 
 	public:
 		enum
@@ -75,8 +77,6 @@ namespace Pastel
 			ConstObjectIterator;
 		typedef boost::indirect_iterator<ConstObjectIterator, const Object> 
 			ConstObjectDataIterator;
-
-		class Cursor;
 
 		//! Constructs an empty tree.
 		/*!
@@ -434,7 +434,7 @@ namespace Pastel
 		'objectList_'.
 		
 		Note that the 'list' given to this function
-		is not the internal 'objectList_'.
+		is not necessarily the internal 'objectList_'.
 
 		If the node is an intermediate node,
 		this function reorders 'list'

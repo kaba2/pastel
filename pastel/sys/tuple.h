@@ -50,7 +50,19 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit Tuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -104,7 +116,19 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit Tuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -168,7 +192,19 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit Tuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -254,7 +290,19 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit Tuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -352,7 +400,19 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit Tuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit Tuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -463,6 +523,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Tuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		// This function makes no sense
 		// for unbounded tuples, and thus
 		// we prohibit it.
@@ -532,23 +599,23 @@ namespace Pastel
 	};
 
 	typedef Tuple<integer, 1> Integer1;
-	typedef Tuple<real, 1> Real1;
+	typedef Tuple<real, 1> Type1;
 
 	typedef Tuple<integer, 2> Integer2;
-	typedef Tuple<real, 2> Real2;
+	typedef Tuple<real, 2> Type2;
 
 	typedef Tuple<integer, 3> Integer3;
-	typedef Tuple<real, 3> Real3;
+	typedef Tuple<real, 3> Type3;
 
 	typedef Tuple<integer, 4> Integer4;
-	typedef Tuple<real, 4> Real4;
+	typedef Tuple<real, 4> Type4;
 
-	template <int N, typename Real>
-	TemporaryTuple<Real, N> nullTuple();
+	template <int N, typename Type>
+	TemporaryTuple<Type, N> nullTuple();
 
-	template <int N, typename Real>
-	TemporaryTuple<Real, N> aliasTuple(integer dimension,
-		PASTEL_NO_DEDUCTION(Real)* data);
+	template <int N, typename Type>
+	TemporaryTuple<Type, N> aliasTuple(integer dimension,
+		PASTEL_NO_DEDUCTION(Type)* data);
 
 	template <typename Type, int N>
 	class TemporaryTuple
@@ -574,7 +641,19 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryTuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -615,7 +694,19 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryTuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -656,7 +747,19 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryTuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -702,7 +805,19 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryTuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -749,7 +864,19 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		explicit TemporaryTuple(const Type& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryTuple(const Copy<const Type*>& that)
 			: Base(that)
 		{
 		}
@@ -799,6 +926,13 @@ namespace Pastel
 		explicit TemporaryTuple(
 			const Dimension& dimension,
 			const Type& that = Type())
+			: Base(dimension, that)
+		{
+		}
+
+		explicit TemporaryTuple(
+			const Dimension& dimension,
+			const Copy<const Type*>& that)
 			: Base(dimension, that)
 		{
 		}
