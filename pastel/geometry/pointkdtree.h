@@ -359,6 +359,9 @@ namespace Pastel
 			const ConstObjectIterator& last,
 			integer objects);
 
+		//! Runs destructors for all nodes of a subtree.
+		void destructSubtree(Node* node);
+
 		//! Collapse a subtree into a leaf node.
 		void merge(Node* node);
 

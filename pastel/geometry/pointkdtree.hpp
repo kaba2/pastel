@@ -90,12 +90,13 @@ namespace Pastel
 		Time complexity:
 		
 		* Freeing the raw memory for the m nodes takes O(m), 
-		although we do not need to run their destructors.
+		although we do not necessarily need to run their destructors.
 
 		* Destructing the object list with n objects 
 		all at once takes O(n).
 		*/
 
+		destructSubtree(root_);
 		nodeAllocator_.clear();
 	}
 
@@ -315,6 +316,7 @@ namespace Pastel
 	void PointKdTree<Real, N, ObjectPolicy>::clear()
 	{
 		objectList_.clear();
+		destructSubtree(root_);
 		nodeAllocator_.clear();
 		root_ = 0;
 		bound_ = AlignedBox<Real, N>(dimension_);
@@ -326,7 +328,17 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::eraseObjects()
 	{
-		eraseObjects(root_);
+		// We can clear all of the objects faster and
+		// more storage-efficiently than using 
+		// eraseObjects(root()).
+
+		// Actually remove the objects.
+		
+		objectList_.clear();
+
+		// Clear the object ranges in the subtree.
+
+		clearObjects(root_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -339,13 +351,32 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::merge()
 	{
-		merge(root_);
+		// We can merge all of the nodes faster and
+		// more storage-efficiently than using
+		// merge(root_).
+
+		ConstObjectIterator begin = root_->begin();
+		ConstObjectIterator last = root_->last();
+
+		destructSubtree(root_);
+		nodeAllocator_.clear();
+
+		root_ = allocateLeaf(
+			0,
+			begin, 
+			last,
+			objects());
+
+		leaves_ = 1;
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::merge(
 		const Cursor& cursor)
 	{
+		// Note: We take the optimization for 
+		// the case cursor == root() inside this
+		// function.
 		merge(cursor.node_);
 	}
 
