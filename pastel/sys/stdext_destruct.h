@@ -12,15 +12,29 @@ namespace Pastel
 		//! Destructs all objects of type Type in the given range.
 		/*!
 		Preconditions:
-		[from, to[ forms a range.
+		[begin, end[ forms a range.
 
-		Time Complexity: constant for pod types, linear
-		for other types
+		Time Complexity: 
+		* for types with trivial destructors: constant
+		* otherwise: linear
 		Exception safety: nothrow
+
+		This function takes care of optimization in case the
+		destructor of Type is trivial.
 		*/
 
 		template <typename Type>
-		void destruct(Type* from, Type* to);
+		void destruct(Type* begin, Type* end);
+
+		//! Destructs an object of type Type.
+		/*!
+		Exception safety: nothrow
+
+		This function takes care of optimization in case the
+		destructor of Type is trivial.
+		*/
+		template <typename Type>
+		void destruct(Type* that);
 
 	}
 

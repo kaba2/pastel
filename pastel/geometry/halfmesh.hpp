@@ -963,11 +963,11 @@ namespace Pastel
 			case 3:
 				if (vertexBody->data())
 				{
-					vertexBody->data()->~VertexData();
+					StdExt::destruct(vertexBody->data());
 				}
 				// Fall-through
 			case 2:
-				vertexBody->~VertexBody();
+				StdExt::destruct(vertexBody);
 				// Fall-through
 			case 1:
 				vertexAllocator_.deallocate(vertexBody);
@@ -1017,11 +1017,11 @@ namespace Pastel
 			case 3:
 				if (halfBody->data())
 				{
-					halfBody->data()->~HalfData();
+					StdExt::destruct(halfBody->data());
 				}
 				// Fall-through
 			case 2:
-				halfBody->~HalfBody();
+				StdExt::destruct(halfBody);
 				// Fall through.
 			case 1:
 				halfAllocator_.deallocate(halfBody);
@@ -1073,11 +1073,11 @@ namespace Pastel
 			case 3:
 				if (edgeBody->data())
 				{
-					edgeBody->data()->~EdgeData();
+					StdExt::destruct(edgeBody->data());
 				}
 				// Fall-through
 			case 2:
-				edgeBody->~EdgeBody();
+				StdExt::destruct(edgeBody);
 				// Fall-through
 			case 1:
 				edgeAllocator_.deallocate(edgeBody);
@@ -1129,11 +1129,11 @@ namespace Pastel
 			case 3:
 				if (polygonBody->data())
 				{
-					polygonBody->data()->~PolygonData();
+					StdExt::destruct(polygonBody->data());
 				}
 				// Fall-through
 			case 2:
-				polygonBody->~PolygonBody();
+				StdExt::destruct(polygonBody);
 				// Fall-through
 			case 1:
 				polygonAllocator_.deallocate(polygonBody);
@@ -1158,9 +1158,9 @@ namespace Pastel
 		DataPolicy::destructVertex(vertexBody->data());
 		if (vertexBody->data())
 		{
-			vertexBody->data()->~VertexData();
+			StdExt::destruct(vertexBody->data());
 		}
-		vertexBody->~VertexBody();
+		StdExt::destruct(vertexBody);
 		vertexAllocator_.deallocate(vertexBody);
 	}
 
@@ -1174,9 +1174,9 @@ namespace Pastel
 		DataPolicy::destructHalf(halfBody->data());
 		if (halfBody->data())
 		{
-			halfBody->data()->~HalfData();
+			StdExt::destruct(halfBody->data());
 		}
-		halfBody->~HalfBody();
+		StdExt::destruct(halfBody);
 		halfAllocator_.deallocate(halfBody);
 	}
 
@@ -1190,9 +1190,9 @@ namespace Pastel
 		DataPolicy::destructEdge(edgeBody->data());
 		if (edgeBody->data())
 		{
-			edgeBody->data()->~EdgeData();
+			StdExt::destruct(edgeBody->data());
 		}
-		edgeBody->~EdgeBody();
+		StdExt::destruct(edgeBody);
 		edgeAllocator_.deallocate(edgeBody);
 	}
 
@@ -1206,9 +1206,9 @@ namespace Pastel
 		DataPolicy::destructPolygon(polygonBody->data());
 		if (polygonBody->data())
 		{
-			polygonBody->data()->~PolygonData();
+			StdExt::destruct(polygonBody->data());
 		}
-		polygonBody->~PolygonBody();
+		StdExt::destruct(polygonBody);
 		polygonAllocator_.deallocate(polygonBody);
 	}
 

@@ -92,7 +92,7 @@ namespace Pastel
 				destructSubtree(node->right());
 			}
 
-			node->~Node();
+			StdExt::destruct(node);
 		}
 	}
 
@@ -310,7 +310,7 @@ namespace Pastel
 
 		if (!boost::has_trivial_destructor<Real>())
 		{
-			node->~Node();
+			StdExt::destruct(node);
 		}
 
 		nodeAllocator_.deallocate(node);
