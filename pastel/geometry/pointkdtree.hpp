@@ -254,7 +254,8 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			neededToExtend |= extendToCover(
-				objectPolicy_.point(*iter), bound_);
+				objectPolicy_.point(*iter), 
+				bound_);
 
 			list.push_back(
 				ObjectInfo(*iter, (Node*)0));

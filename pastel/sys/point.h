@@ -5,7 +5,6 @@
 #define PASTEL_POINT_H
 
 #include "pastel/sys/mytypes.h"
-
 #include "pastel/sys/pointbase.h"
 
 #include <boost/static_assert.hpp>
@@ -62,6 +61,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Point(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit Point(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -69,6 +75,11 @@ namespace Pastel
 		}
 
 		explicit Point(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit Point(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -133,6 +144,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Point(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit Point(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -142,6 +160,11 @@ namespace Pastel
 		// Implicit conversion allowed
 		// only for 1d points.
 		Point(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit Point(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -210,6 +233,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Point(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit Point(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -217,6 +247,11 @@ namespace Pastel
 		}
 
 		explicit Point(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit Point(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -309,6 +344,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Point(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit Point(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -316,6 +358,11 @@ namespace Pastel
 		}
 
 		explicit Point(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit Point(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -419,6 +466,13 @@ namespace Pastel
 		{
 		}
 
+		explicit Point(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit Point(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -426,6 +480,11 @@ namespace Pastel
 		}
 
 		explicit Point(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit Point(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -539,6 +598,13 @@ namespace Pastel
 		explicit Point(
 			const Dimension& dimension,
 			const Real& that = Real())
+			: Base(dimension, that)
+		{
+		}
+
+		explicit Point(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
 			: Base(dimension, that)
 		{
 		}
@@ -691,6 +757,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -698,6 +771,11 @@ namespace Pastel
 		}
 
 		explicit TemporaryPoint(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryPoint(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -779,6 +857,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -786,6 +871,11 @@ namespace Pastel
 		}
 
 		explicit TemporaryPoint(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryPoint(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -861,6 +951,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -868,6 +965,11 @@ namespace Pastel
 		}
 
 		explicit TemporaryPoint(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryPoint(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -949,6 +1051,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -956,6 +1065,11 @@ namespace Pastel
 		}
 
 		explicit TemporaryPoint(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryPoint(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -1037,6 +1151,13 @@ namespace Pastel
 		{
 		}
 
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
+			: Base(dimension, that)
+		{
+		}
+
 		template <typename ThatReal>
 		explicit TemporaryPoint(const Tuple<ThatReal, N>& that)
 			: Base(that)
@@ -1044,6 +1165,11 @@ namespace Pastel
 		}
 
 		explicit TemporaryPoint(const Real& that)
+			: Base(that)
+		{
+		}
+
+		explicit TemporaryPoint(const Copy<const Real*>& that)
 			: Base(that)
 		{
 		}
@@ -1129,6 +1255,13 @@ namespace Pastel
 		explicit TemporaryPoint(
 			const Dimension& dimension,
 			const Real& that = Real())
+			: Base(dimension, that)
+		{
+		}
+
+		explicit TemporaryPoint(
+			const Dimension& dimension,
+			const Copy<const Real*>& that)
 			: Base(dimension, that)
 		{
 		}

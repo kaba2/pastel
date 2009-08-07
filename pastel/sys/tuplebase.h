@@ -62,6 +62,27 @@ namespace Pastel
 		Type data_;
 	};
 
+	template <typename Type>
+	class Copy
+	{
+	public:
+		explicit Copy(Type data)
+			: data_(data)
+		{
+		}
+
+		operator Type() const
+		{
+			return data_;
+		}
+
+	private:
+		// Prohibited.
+		Copy();
+
+		Type data_;
+	};
+
 	inline Dimension ofDimension(integer dimension)
 	{
 		return Dimension(dimension);
@@ -71,6 +92,12 @@ namespace Pastel
 	inline Alias<Type*> withAliasing(Type* data)
 	{
 		return Alias<Type*>(data);
+	}
+
+	template <typename Type>
+	inline Copy<const Type*> withCopying(const Type* data)
+	{
+		return Copy<const Type*>(data);
 	}
 
 	template <typename Type, int N = Dynamic>
@@ -116,7 +143,13 @@ namespace Pastel
 				set(that);
 			}
 
-			explicit TupleBase(
+			explicit TupleBase(const Type* that)
+				: data_()
+			{
+				std::copy(that, that + N, data_);
+			}
+
+			TupleBase(
 				const Dimension& dimension,
 				const Type& that)
 				: data_()
@@ -124,6 +157,15 @@ namespace Pastel
 				PENSURE_OP(dimension, ==, N);
 
 				set(that);
+			}
+
+			TupleBase(
+				const Dimension& dimension,
+				const Copy<const Type*>& that)
+				: data_()
+			{
+				PENSURE_OP(dimension, ==, N);
+				std::copy((const Type*)that, (const Type*)that + N, data_);
 			}
 
 			// Using default copy constructor.
@@ -291,6 +333,18 @@ namespace Pastel
 				return data_[index];
 			}
 
+			//! Returns the address of the first element.
+			Type* data()
+			{
+				return data_;
+			}
+
+			//! Returns the address of the first element.
+			const Type* data() const
+			{
+				return data_;
+			}
+
 			bool operator==(const Tuple<Type, N> & that) const
 			{
 				return std::equal(
@@ -451,11 +505,24 @@ namespace Pastel
 
 			TupleBase(
 				const Dimension& dimension,
-				const Alias<Type*> dataAlias)
+				const Alias<Type*>& dataAlias)
 				: data_(dataAlias)
 				, size_(dimension)
 				, deleteData_(false)
 			{
+			}
+
+			TupleBase(
+				const Dimension& dimension,
+				const Copy<const Type*>& that)
+				: data_(0)
+				, size_(0)
+				, deleteData_(true)
+			{
+				const integer size = dimension;
+				allocate(size);
+
+				std::copy((const Type*)that, (const Type*)that + size, data_);
 			}
 
 			~TupleBase()
@@ -612,6 +679,18 @@ namespace Pastel
 				PENSURE2(index >= 0 && index < size(), index, size());
 
 				return data_[index];
+			}
+
+			//! Returns the address of the first element.
+			Type* data()
+			{
+				return data_;
+			}
+
+			//! Returns the address of the first element.
+			const Type* data() const
+			{
+				return data_;
 			}
 
 			bool operator==(const Tuple<Type, N> & that) const

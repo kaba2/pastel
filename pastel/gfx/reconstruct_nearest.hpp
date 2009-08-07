@@ -47,17 +47,14 @@ namespace Pastel
 		public:
 			typedef DataPoint<N, Real, Data> Object;
 
-			const Point<Real, N>& point(
-				const DataPoint<N, Real, Data>& dataPoint) const
+			const Point<Real, N>& point(const Object& object) const
 			{
-				return dataPoint.position_;
+				return object.position_;
 			}
 
-			Real point(
-				const DataPoint<N, Real, Data>& dataPoint,
-				integer axis) const
+			Real point(const Object& object, integer axis) const
 			{
-				return dataPoint.position_[axis];
+				return object.position_[axis];
 			}
 		};
 
