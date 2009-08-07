@@ -164,7 +164,7 @@ namespace Pastel
 
 		linkNodes(previous, next);
 
-		nodeDeAllocate((DataNode*)node);
+		nodeDeallocate((DataNode*)node);
 
 		subtractSize(1);
 
@@ -252,12 +252,19 @@ namespace Pastel
 	template <
 		typename Type,
 		typename UniformAllocator>
-		void FastList<Type, UniformAllocator>::nodeDeAllocate(
+		void FastList<Type, UniformAllocator>::nodeDeallocate(
 		const DataNode* node)
 	{
 		ASSERT(node != head_);
 
-		node->~DataNode();
+		// If 'Type' has a trivial destructor,
+		// then so does the whole DataNode,
+		// and the destruction can be avoided.
+		if (!boost::has_trivial_destructor<Type>())
+		{
+			node->~DataNode();
+		}
+
 		allocator_->deallocate(node);
 	}
 

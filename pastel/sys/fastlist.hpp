@@ -9,7 +9,8 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/operators.hpp>
-#include <boost/type_traits.hpp>
+#include <boost/type_traits/has_trivial_destructor.hpp>
+#include <boost/type_traits/is_integral.hpp>
 
 #include <vector>
 #include <memory>
@@ -327,7 +328,8 @@ namespace Pastel
 		FastList<Type, UniformAllocator>::~FastList()
 	{
 		clear();
-		//allocator_->deallocate(head_);
+		// See the initialize() function for explanation
+		// why head_ has been allocated with new.
 		delete head_;
 	}
 
@@ -702,15 +704,59 @@ namespace Pastel
 		typename UniformAllocator>
 		void FastList<Type, UniformAllocator>::clear()
 	{
-		const_iterator current(begin());
-		const_iterator thisEnd(end());
-
-		while (current != thisEnd)
+		if (allocator_.use_count() == 1)
 		{
-			current = erase(current);
-		}
+			// If 'Type' has a trivial destructor,
+			// then so does the whole DataNode,
+			// and the destruction can be avoided.
 
-		size_ = 0;
+			if (!boost::has_trivial_destructor<Type>())
+			{
+				Node* node = head_->next_;
+				while (node != head_)
+				{
+					Node* next = node->next_;
+					((DataNode*)node)->~DataNode();
+					node = next;
+				}
+			}
+
+			// Release all memory at once. This is faster
+			// than deallocating each node individually,
+			// which would have happened with calling
+			// erase() for all nodes.
+
+			allocator_->clear();
+
+			// The head has not been allocated by
+			// the allocator_, but by new. Link
+			// it back to a sentinel node.
+
+			head_->next_ = head_;
+			head_->previous_ = head_;
+
+			// Update size.
+
+			size_ = 0;
+		}
+		else
+		{
+			// Because the allocator is shared
+			// by more than one container, the objects
+			// have to be deallocated one by one.
+
+			const_iterator iter = begin();
+			const const_iterator iterEnd = end();
+			while(iter != iterEnd)
+			{
+				iter = erase(iter);
+			}
+
+			// Update size (just in case
+			// it is set to unknown).
+
+			size_ = 0;
+		}
 	}
 
 	template <

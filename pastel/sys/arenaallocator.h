@@ -58,7 +58,7 @@ namespace Pastel
 
 		//! Deallocates all memory.
 		/*!
-		Time complexity: logarithmic
+		Time complexity: linear
 		Exception safety: nothrow
 		*/
 		void clear();

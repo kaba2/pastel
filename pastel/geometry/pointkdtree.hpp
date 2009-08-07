@@ -86,6 +86,16 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N > 0 || N == Dynamic);
 
+		/*
+		Time complexity:
+		
+		* Freeing the raw memory for the m nodes takes O(m), 
+		although we do not need to run their destructors.
+
+		* Destructing the object list with n objects 
+		all at once takes O(n).
+		*/
+
 		nodeAllocator_.clear();
 	}
 

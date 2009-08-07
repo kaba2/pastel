@@ -40,7 +40,7 @@ namespace
 		allocator.clear();
 	}
 
-	void testDeAllocate()
+	void testDeallocate()
 	{
 		ArenaAllocator allocator;
 		std::vector<void*> memoryList;
@@ -96,7 +96,7 @@ namespace
 	void testBegin()
 	{
 		testAllocate();
-		testDeAllocate();
+		testDeallocate();
 		testLarge();
 	}
 

@@ -156,7 +156,9 @@ namespace Pastel
 
 		//! Destructs the list.
 		/*!
-		Time complexity: linear
+		Time complexity:
+		O(clear())
+		
 		Exception safety: nothrow
 		*/
 		~FastList();
@@ -486,7 +488,15 @@ namespace Pastel
 
 		//! Removes all elements of the list.
 		/*!
-		Time complexity: linear
+		* If Type has a non-trivial destructor and allocator is not shared: 
+		O(n + UniformAllocator::clear())
+		* If Type has a trivial destructor and allocator is not shared:
+		O(UniformAllocator::clear())
+		* If allocator is shared:
+		O(n * UniformAllocator::deallocate())
+		* Here we have assumed that destructing
+		Type is constant time.
+
 		Exception safety: nothrow
 		*/
 		void clear();
@@ -656,7 +666,7 @@ namespace Pastel
 			Node* thatFrom, Node* thatTo);
 
 		DataNode* nodeAllocate(const value_type& data);
-		void nodeDeAllocate(const DataNode* node);
+		void nodeDeallocate(const DataNode* node);
 
 		void linkNodes(Node* that, Node* nextThat);
 		void addSize(size_type count);
