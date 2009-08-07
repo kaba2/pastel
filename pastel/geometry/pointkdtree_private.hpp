@@ -3,6 +3,8 @@
 
 #include "pastel/geometry/pointkdtree.h"
 
+#include <boost/type_traits/has_trivial_destructor.hpp>
+
 namespace Pastel
 {
 
@@ -76,6 +78,22 @@ namespace Pastel
 			0, 0, 0, 0);
 
 		return node;
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::destructSubtree(
+		Node* node)
+	{
+		if (!boost::has_trivial_destructor<Real>())
+		{
+			if (!node->leaf())
+			{
+				destructSubtree(node->left());
+				destructSubtree(node->right());
+			}
+
+			node->~Node();
+		}
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -252,18 +270,25 @@ namespace Pastel
 		Node* node)
 	{
 		ASSERT(node);
-
+		
 		if (!node->leaf())
 		{
-			erase(node->left());
-			erase(node->right());
+			if (node == root_)
+			{
+				merge();
+			}
+			else
+			{
+				erase(node->left());
+				erase(node->right());
 
-			node->setLeft(0);
-			node->setRight(0);
+				node->setLeft(0);
+				node->setRight(0);
 
-			// The node is now a leaf node.
+				// The node is now a leaf node.
 
-			node->setBucket(findBucket(node));
+				node->setBucket(findBucket(node));
+			}
 		}
 	}
 
@@ -283,7 +308,11 @@ namespace Pastel
 			--leaves_;
 		}
 
-		// No need to run destructors for nodes.
+		if (!boost::has_trivial_destructor<Real>())
+		{
+			node->~Node();
+		}
+
 		nodeAllocator_.deallocate(node);
 	}
 

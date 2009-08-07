@@ -78,6 +78,12 @@ namespace Pastel
 		Type data_;
 	};
 
+	template <typename Type>
+	CountingIterator<Type> countingIterator(const Type& that)
+	{
+		return CountingIterator<Type>(that);
+	}
+
 }
 
 #endif
