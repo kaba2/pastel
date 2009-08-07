@@ -34,7 +34,7 @@ namespace
 		}
 	}
 
-	void testDeAllocate()
+	void testDeallocate()
 	{
 		typedef std::vector<void*> MemoryList;
 		MemoryList memoryList;
@@ -125,7 +125,7 @@ namespace
 	void testBegin()
 	{
 		testAllocate();
-		testDeAllocate();
+		testDeallocate();
 		testRandomDeallocate();
 	}
 

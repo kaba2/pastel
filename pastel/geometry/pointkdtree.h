@@ -82,6 +82,9 @@ namespace Pastel
 		/*!
 		Exception safety:
 		strong
+
+		Time complexity:
+		constant
 		*/
 		explicit PointKdTree(integer bucketSize = 16,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
@@ -94,6 +97,9 @@ namespace Pastel
 		
 		Exception safety:
 		strong
+
+		Time complexity:
+		constant
 		*/
 		explicit PointKdTree(
 			Dimension dimension,
@@ -104,6 +110,9 @@ namespace Pastel
 		/*!
 		Exception safety:
 		?
+
+		Time complexity:
+		O(that.objects() * thatDepth + that.nodes())
 		*/
 		PointKdTree(const PointKdTree& that);
 
@@ -111,6 +120,9 @@ namespace Pastel
 		/*!
 		Exception safety:
 		nothrow
+
+		Time complexity:
+		O(nodes()
 		*/
 		~PointKdTree();
 
