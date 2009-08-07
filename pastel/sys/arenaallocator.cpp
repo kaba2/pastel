@@ -117,25 +117,36 @@ namespace Pastel
 	{
 		ASSERT1(minUnits >= 0, minUnits);
 
-		// Suggest the next block size by an exponential
-		// rule.
+		// The block must be at least of this size.
+		integer blockSize = minUnits;
 
-		integer blockSize = unitsAllocated_ >> 1;
+		// Requests larger than or equal to blockSize_ 
+		// are satisfied exactly.
+		if (blockSize < blockSize_)
+		{
+			// Otherwise, we seek to possibly allocate 
+			// a larger block.
 
-		// But limit the maximum block size. Thus the
-		// rule only gives a smooth start for the
-		// small block sizes.
+			// The block size must be at least 16.
 
-		blockSize = std::min(blockSize, blockSize_);
+			const integer MinBlockSize = 16;
+			blockSize = std::max(blockSize, MinBlockSize);
 
-		// The final block size is chosen as such:
-		// 1) The block size must be at least 16.
-		// 2) The block size must be at least 'minUnits',
-		// to cover the request.
+			// Choose the block size by an 1.5-exponential rule,
+			// if it makes the block larger. This gives blocks
+			// smoothly increasing sizes at the beginning,
+			// rather than allocating 'blockSize_' blocks right
+			// from the start. The intent here is to save
+			// memory when only a small number of elements
+			// is needed.
 
-		const integer MinBlockSize = 16;
-		blockSize = std::max(blockSize, MinBlockSize);
-		blockSize = std::max(blockSize, minUnits);
+			blockSize = std::max(unitsAllocated_ >> 1, blockSize);
+
+			// But limit that exponential rule so that it
+			// does not exceed blockSize_. 
+
+			blockSize = std::min(blockSize, blockSize_);
+		}
 
 		// Allocate and initialize a new
 		// block.
