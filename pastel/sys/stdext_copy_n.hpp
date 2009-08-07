@@ -4,6 +4,7 @@
 #include "pastel/sys/stdext_copy_n.h"
 
 #include <algorithm>
+#include <iterator>
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -17,7 +18,7 @@ namespace Pastel
 		namespace Detail_Copy_n
 		{
 
-			class RandomAccess
+			class RandomAccess_Version
 			{
 			public:
 				template <typename Source_ForwardIterator,
@@ -31,7 +32,7 @@ namespace Pastel
 				}
 			};
 
-			class General
+			class General_Version
 			{
 			public:
 				template <typename Source_ForwardIterator,
@@ -61,13 +62,14 @@ namespace Pastel
 		{
 			ENSURE_OP(count, >=, 0);
 
-			boost::mpl::if_<
+			typedef typename boost::mpl::if_<
 				boost::mpl::is_same<
-				typename Source_ForwardIterator::iterator_category,
+				typename std::iterator_traits<Source_ForwardIterator>::iterator_category,
 				std::random_access_iterator_tag>,
-				Detail_Copy_n::RandomAccess,
-				Detail_Copy_n::General>::work(
-				sourceBegin, count, targetBegin);
+				Detail_Copy_n::RandomAccess_Version,
+				Detail_Copy_n::General_Version>::type Copy_n;
+			
+			Copy_n::work(sourceBegin, count, targetBegin);
 		}
 	
 	}
