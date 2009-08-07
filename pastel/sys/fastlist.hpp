@@ -6,6 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/functional.h"
+#include "pastel/sys/stdext_destruct.h"
 
 #include <boost/mpl/if.hpp>
 #include <boost/operators.hpp>
@@ -716,7 +717,7 @@ namespace Pastel
 				while (node != head_)
 				{
 					Node* next = node->next_;
-					((DataNode*)node)->~DataNode();
+					StdExt::destruct((DataNode*)node);
 					node = next;
 				}
 			}

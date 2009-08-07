@@ -109,7 +109,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructVertex(EntityData* data)
 	{
 		vertexIndices_.deallocate(*data);
-		data->~EntityData();
+		StdExt::destruct(data);
 	}
 
 	void PropertyHalfMesh_Policy::constructHalf(EntityData* data)
@@ -147,7 +147,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructHalf(EntityData* data)
 	{
 		halfIndices_.deallocate(*data);
-		data->~EntityData();
+		StdExt::destruct(data);
 	}
 
 	void PropertyHalfMesh_Policy::constructEdge(EntityData* data)
@@ -185,7 +185,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructEdge(EntityData* data)
 	{
 		edgeIndices_.deallocate(*data);
-		data->~EntityData();
+		StdExt::destruct(data);
 	}
 
 	void PropertyHalfMesh_Policy::constructPolygon(EntityData* data)
@@ -223,7 +223,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructPolygon(EntityData* data)
 	{
 		polygonIndices_.deallocate(*data);
-		data->~EntityData();
+		StdExt::destruct(data);
 	}
 
 }

@@ -3,7 +3,7 @@
 
 #include "pastel/sys/stdext_destruct.h"
 
-#include <boost/type_traits/is_pod.hpp>
+#include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/mpl/if.hpp>
 
 namespace Pastel
@@ -12,46 +12,53 @@ namespace Pastel
 	namespace StdExt
 	{
 
-		namespace Detail
+		namespace Detail_Destruct
 		{
 
-			class PodTag {};
-			class NonPodTag {};
-
-			template <
-				typename Type>
-				void destructHelper(
-				Type* from, Type* to, NonPodTag)
+			class General_Version
 			{
-				// General version
-
-				Type* current(from);
-				while (current != to)
+			public:
+				template <typename Type>
+				static void work(Type* begin, Type* end)
 				{
-					current->~Type();
-					++current;
+					Type* current = begin;
+					while (current != end)
+					{
+						current->~Type();
+						++current;
+					}
 				}
-			}
+			};
 
-			template <typename Type>
-			void destructHelper(
-				Type*, Type*, PodTag)
+			class Trivial_Version
 			{
-				// POD version
-			}
+			public:
+				template <typename Type>
+				static void work(Type*, Type*)
+				{
+				}
+			};
 
 		}
 
 		template <typename Type>
-		void destruct(Type* from, Type* to)
+		void destruct(Type* begin, Type* end)
 		{
 			typedef typename boost::mpl::if_<
-				boost::is_pod<Type>,
-				Detail::PodTag,
-				Detail::NonPodTag>::type Tag;
+				boost::has_trivial_destructor<Type>,
+				Detail_Destruct::Trivial_Version,
+				Detail_Destruct::General_Version>::type Destruct;
 
-			Detail::destructHelper(
-				from, to, Tag());
+			Destruct::work(begin, end);
+		}
+
+		template <typename Type>
+		void destruct(Type* that)
+		{
+			if (!boost::has_trivial_destructor<Type>())
+			{
+				that->~Type();
+			}
 		}
 
 	}

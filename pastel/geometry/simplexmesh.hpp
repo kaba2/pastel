@@ -156,14 +156,14 @@ namespace Pastel
 			case 4:
 				if (vertexData->data())
 				{
-					vertexData->data()->~VertexData();
+					StdExt::destruct(vertexData->data());
 				}
 				// Fall-through
 			case 3:
 				vertexSet_.erase(Vertex(vertexData));
 				// Fall-through
 			case 2:
-				vertexData->~VertexBody();
+				StdExt::destruct(vertexData);
 				// Fall-through
 			case 1:
 				vertexAllocator_.deallocate(vertexData);
@@ -209,14 +209,14 @@ namespace Pastel
 			case 4:
 				if (simplexData->data())
 				{
-					simplexData->data()->~SimplexData();
+					StdExt::destruct(simplexData->data());
 				}
 				// Fall-through
 			case 3:
 				simplexSet_.erase(Simplex(simplexData));
 				// Fall-through
 			case 2:
-				simplexData->~SimplexBody();
+				StdExt::destruct(simplexData);
 				// Fall-through
 			case 1:
 				simplexAllocator_.deallocate(simplexData);
