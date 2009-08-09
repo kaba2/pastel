@@ -102,7 +102,8 @@ namespace Pastel
 		Node* node)
 	{
 		ASSERT(node);
-
+		
+		// Let limitSize = max(bucketSize_, leafNode->objects()).
 		// A bucket node of a leaf node is a node
 		// defined as follows. The bucket node of 
 		// an empty leaf node is the node itself.
@@ -113,17 +114,21 @@ namespace Pastel
 		// bucket node.
 		//
 		// 2) The parent of the bucket node, if it
-		// exists, contains more than 'bucketSize_'
+		// exists, contains greater than 'limitSize'
 		// number of points.
 		//
 		// 3) The children of the bucket node, if
 		// they exist, contain less than or equal to 
-		// 'bucketSize_' number of points.
+		// 'limitSize' number of points.
 
-		if (node->leaf() && node->objects() == 0)
+		if (node->objects() == 0)
 		{
+			ASSERT(node->leaf());
 			return node;
 		}
+
+		const integer limitSize = 
+			std::max(bucketSize_, node->objects());
 
 		// Search for the new bucket node upwards.
 
@@ -131,7 +136,7 @@ namespace Pastel
 		Node* parent = bucket->parent();
 		while(parent)
 		{
-			if (parent->objects() > bucketSize_)
+			if (parent->objects() > limitSize)
 			{
 				break;
 			}
@@ -169,7 +174,7 @@ namespace Pastel
 		// In contrast, 'subtree' can be the root and the
 		// tree have arbitrarily many leaf nodes.
 
-		ConstObjectIterator iter = subtree->begin();
+		ConstObjectIterator iter = subtree->first();
 		const ConstObjectIterator iterEnd = subtree->end();
 		while(iter != iterEnd)
 		{
@@ -209,10 +214,10 @@ namespace Pastel
 			node->setObjects(
 				left->objects() + right->objects());
 
-			ConstObjectIterator begin = left->begin();
+			ConstObjectIterator begin = left->first();
 			if (begin == objectList_.end())
 			{
-				begin = right->begin();
+				begin = right->first();
 			}
 
 			ConstObjectIterator last = right->last();
@@ -221,7 +226,7 @@ namespace Pastel
 				last = left->last();
 			}
 
-			node->setBegin(begin);
+			node->setFirst(begin);
 			node->setLast(last);
 
 			node = node->parent();
@@ -240,10 +245,10 @@ namespace Pastel
 			Node* left = node->left();
 			Node* right = node->right();
 
-			ConstObjectIterator begin = left->begin();
+			ConstObjectIterator begin = left->first();
 			if (begin == objectList_.end())
 			{
-				begin = right->begin();
+				begin = right->first();
 			}
 
 			ConstObjectIterator last = right->last();
@@ -252,13 +257,13 @@ namespace Pastel
 				last = left->last();
 			}
 
-			if (node->begin() == begin &&
+			if (node->first() == begin &&
 				node->last() == last)
 			{
 				break;
 			}
 
-			node->setBegin(begin);
+			node->setFirst(begin);
 			node->setLast(last);
 
 			node = node->parent();
@@ -324,7 +329,7 @@ namespace Pastel
 
 		// Actually remove the objects.
 
-		ConstObjectIterator iter = node->begin();
+		ConstObjectIterator iter = node->first();
 		const ConstObjectIterator iterEnd = node->end();
 		while(iter != iterEnd)
 		{
@@ -333,7 +338,7 @@ namespace Pastel
 
 		// Update the state for this node.
 
-		node->setBegin(objectList_.end());
+		node->setFirst(objectList_.end());
 		node->setLast(objectList_.end());
 		node->setObjects(0);
 
@@ -355,7 +360,7 @@ namespace Pastel
 
 		// Update the node state.
 
-		node->setBegin(objectList_.end());
+		node->setFirst(objectList_.end());
 		node->setLast(objectList_.end());
 		node->setObjects(0);
 
@@ -396,7 +401,7 @@ namespace Pastel
 
 		const std::pair<std::pair<ObjectIterator, integer>,
 			std::pair<ObjectIterator, integer> > result =
-			partition(objectList_, node->begin(), nodeEnd,
+			partition(objectList_, node->first(), nodeEnd,
 			splitPredicate);
 
 		ConstObjectIterator leftStart = objectList_.end();
@@ -519,20 +524,19 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::spliceInsert(
 		Node* node,
-		ObjectContainer& list,
-		const ObjectIterator& begin, 
-		const ObjectIterator& end,
+		const ObjectIterator& first, 
+		const ObjectIterator& last,
 		integer objects,
 		Node* bucketNode)
 	{
 		ASSERT(node);
-		ASSERT1(objects >= 0, objects);
+		ASSERT_OP(objects, >, 0);
 
-		if (objects == 0)
-		{
-			ASSERT(begin == end);
-			return;
-		}
+		const ObjectIterator begin = first;
+		ObjectIterator end = last;
+		++end;
+
+		const integer oldObjects = node->objects();
 
 		// Update the object count on the way down.
 		node->setObjects(node->objects() + objects);
@@ -544,32 +548,28 @@ namespace Pastel
 
 			// Splice the objects to this node.
 
-			ObjectIterator last = end;
-			--last;
+			objectList_.splice(node->first(), objectList_, begin, end);
 
-			objectList_.splice(node->begin(), list, begin, end);
-
-			node->setBegin(begin);
-
-			if (node->last() == objectList_.end())
-			{
-				// If there are currently no
-				// objects in the node, set the 'last' iterator.
-				node->setLast(last);
-			}
+			node->insert(begin, last, objectList_.end());
 
 			// Propagate object ranges up in the tree.
 
 			updateObjectRanges(node);
+
+			// The bucket node might not be at the right
+			// position.
+
+			node->setBucket(findBucket(node->bucket()));
 		}
 		else
 		{
 			Node* left = node->left();
 			Node* right = node->right();
 
-			if (!bucketNode && node->objects() <= bucketSize_)
+			if (!bucketNode && 
+				oldObjects <= bucketSize_)
 			{
-				// This node is a bucket node for its subtree.
+				// This node is currently a bucket node for its subtree.
 				bucketNode = node;				
 			}
 
@@ -579,7 +579,7 @@ namespace Pastel
 			// If we have already met the bucket node for this
 			// subtree, and if the addition of these points causes 
 			// the bucket threshold to be exceeded...
-			if (bucketNode && node->objects() + objects > bucketSize_)
+			if (bucketNode && oldObjects + objects > bucketSize_)
 			{
 				// ... then refine the bucket nodes for both
 				// subtrees.
@@ -601,25 +601,27 @@ namespace Pastel
 			const std::pair<
 				std::pair<ObjectIterator, integer>,
 				std::pair<ObjectIterator, integer> > result =
-				partition(list, begin, end,
+				partition(objectList_, begin, end,
 				splitPredicate);
 
-			const ObjectIterator rightBegin = result.second.first;
+			const ObjectIterator rightFirst = result.second.first;
 			const integer rightObjects = result.second.second;
-			const ObjectIterator leftBegin = result.first.first;
-			const integer leftObjects = result.first.second;
+			ObjectIterator rightLast = end;
+			--rightLast;
 
-			// Note that it is important to
-			// splice the left objects first, because
-			// rightBegin is part of the right object range.
+			const ObjectIterator leftFirst = result.first.first;
+			const integer leftObjects = result.first.second;
+			ObjectIterator leftLast = rightFirst;
+			--leftLast;
+
 			if (leftObjects > 0)
 			{
 				// If there are objects going to the left node,
 				// recurse deeper.
 
 				spliceInsert(
-					left, list, 
-					leftBegin, rightBegin, 
+					left, 
+					leftFirst, leftLast, 
 					leftObjects,
 					leftBucket);
 			}
@@ -629,8 +631,8 @@ namespace Pastel
 				// recurse deeper.
 
 				spliceInsert(
-					right, list, 
-					rightBegin, end, 
+					right, 
+					rightFirst, rightLast, 
 					rightObjects,
 					rightBucket);
 			}
@@ -644,7 +646,7 @@ namespace Pastel
 			objectList_.splice(
 				left->end(),
 				objectList_,
-				right->begin(),
+				right->first(),
 				right->end());
 		}
 	}

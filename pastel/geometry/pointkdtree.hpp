@@ -251,11 +251,10 @@ namespace Pastel
 			return;
 		}
 
-		// Copy objects to a list which shares
-		// an allocator with the objectList_.
-		ObjectContainer list(objectList_.get_allocator());
+		// Possibly extend the bounding box
+		// and copy the object to the inner list.
 
-		// Possibly extend the bounding box.
+		ObjectIterator first;
 
 		integer objects = 0;
 
@@ -268,8 +267,13 @@ namespace Pastel
 				objectPolicy_.point(*iter), 
 				bound_);
 
-			list.push_back(
+			objectList_.push_back(
 				ObjectInfo(*iter, (Node*)0));
+			if (objects == 0)
+			{
+				first = objectList_.end();
+				--first;
+			}
 
 			++objects;
 			++iter;
@@ -280,9 +284,12 @@ namespace Pastel
 			updateBound(root_, bound_.min(), bound_.max());
 		}
 
+		ObjectIterator last = objectList_.end();
+		--last;
+
 		// Splice the points to the leaf nodes.
 
-		spliceInsert(root_, list, list.begin(), list.end(), objects, 0);
+		spliceInsert(root_, first, last, objects, 0);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -295,6 +302,7 @@ namespace Pastel
 		// from this node.
 
 		node->erase(iter, objectList_.end());
+		node->setObjects(node->objects() - 1);
 
 		// Actually remove the object from the object list.
 
@@ -304,12 +312,33 @@ namespace Pastel
 
 		updateObjects(node);
 
-		// Because we removed, rather than inserted, objects 
-		// from the node, we can search the new
-		// bucket node efficiently by starting from the 
-		// current bucket node.
+		Node* oldBucket = node->bucket();
+	
+		if (node->objects() == 0)
+		{
+			// The bucket node of an empty leaf node
+			// is the leaf node itself.
+			node->setBucket(node);
+		}
+		else if (oldBucket->objects() > 0)
+		{
+			// Since the bucket node still has points,
+			// the removal of the point can cause it
+			// to move upwards in the tree.
 
-		node->setBucket(findBucket(node->bucket()));
+			// We can search the new bucket node 
+			// efficiently by starting from the 
+			// current bucket node.
+			Node* newBucket = findBucket(oldBucket);
+
+			if (newBucket != oldBucket)
+			{
+				// If the bucket node changed, set the
+				// bucket node pointers of all non-empty leaf 
+				// nodes under its subtree to the new bucket node.
+				setBucket(newBucket, newBucket);
+			}
+		}
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -355,7 +384,7 @@ namespace Pastel
 		// more storage-efficiently than using
 		// merge(root_).
 
-		ConstObjectIterator begin = root_->begin();
+		ConstObjectIterator begin = root_->first();
 		ConstObjectIterator last = root_->last();
 
 		destructSubtree(root_);

@@ -1,4 +1,4 @@
-// Description: Destruction of a sequence of objects
+// Description: Destruction of objects
 
 #ifndef PASTEL_STDEXT_DESTRUCT_H
 #define PASTEL_STDEXT_DESTRUCT_H
