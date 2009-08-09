@@ -78,7 +78,7 @@ namespace Pastel
 		ConstObjectIterator begin() const
 		{
 			PENSURE(node_);
-			return node_->begin();
+			return node_->first();
 		}
 
 		ConstObjectIterator end() const

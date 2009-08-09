@@ -90,7 +90,7 @@ namespace Pastel
 		typename SearchAlgorithm,
 		typename ConstObjectIterator_Iterator, 
 		typename NormBijection>
-	void searchAllNeighborsKdTree(
+	void searchAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchAlgorithm& searchAlgorithm,
 		const ConstObjectIterator_Iterator& querySetBegin,

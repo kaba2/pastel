@@ -14,7 +14,7 @@ namespace Pastel
 			Node* parent,
 			Node* right,
 			Node* left,
-			const ConstObjectIterator& begin,
+			const ConstObjectIterator& first,
 			const ConstObjectIterator& last,
 			integer objects,
 			integer splitAxis,
@@ -24,7 +24,7 @@ namespace Pastel
 			: parent_(parent)
 			, right_(right)
 			, left_(left)
-			, begin_(begin)
+			, first_(first)
 			, last_(last)
 			, objects_(objects)
 			, splitAxis_(splitAxis)
@@ -84,14 +84,14 @@ namespace Pastel
 
 		// Objects
 
-		void setBegin(const ConstObjectIterator& begin)
+		void setFirst(const ConstObjectIterator& first)
 		{
-			begin_ = begin;
+			first_ = first;
 		}
 
-		const ConstObjectIterator& begin() const
+		const ConstObjectIterator& first() const
 		{
-			return begin_;
+			return first_;
 		}
 
 		void setLast(const ConstObjectIterator& last)
@@ -131,24 +131,37 @@ namespace Pastel
 			const ConstObjectIterator& iter,
 			const ConstObjectIterator& end)
 		{
-			if (iter == begin_)
+			if (iter == first_)
 			{
 				if (iter == last_)
 				{
-					begin_ = end;
+					first_ = end;
 					last_ = end;
 				}
 				else
 				{
-					++begin_;
+					++first_;
 				}
 			}
 			else if (iter == last_)
 			{
 				--last_;
 			}
+		}
 
-			--objects_;
+		void insert(
+			const ConstObjectIterator& first,
+			const ConstObjectIterator& last,
+			const ConstObjectIterator& end)
+		{
+			first_ = first;
+
+			if (last_ == end)
+			{
+				// If there are currently no
+				// objects in the node, set the 'last' iterator.
+				last_ = last;
+			}
 		}
 
 		// Splitting plane
@@ -204,7 +217,7 @@ namespace Pastel
 
 		// Objects
 
-		ConstObjectIterator begin_;
+		ConstObjectIterator first_;
 		ConstObjectIterator last_;
 		uint32 objects_;
 

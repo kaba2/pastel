@@ -440,37 +440,30 @@ namespace Pastel
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound);
 
-		//! Propagates objects downwards by reordering object list.
+		//! Propagates new objects to leaf nodes.
 		/*!
 		Preconditions:
-		1) [begin, end] is an iterator range in 'list'.
-		2) count >= 0
-		3) 'list' shares the same allocator with
-		'objectList_'.
+		1) [first, last] is an inclusive iterator range in 'objectList_'.
+		2) count > 0
 		
-		Note that the 'list' given to this function
-		is not necessarily the internal 'objectList_'.
-
 		If the node is an intermediate node,
-		this function reorders 'list'
+		this function reorders 'objectList_'
 		in the given range so that the objects
 		going to the left node are listed
 		before those going to the right node.
 		This reordering is done by splicing a
-		linked list so no copying of objects is 
-		involved. The function then recurses to both 
-		nodes.
+		so no copying of objects is involved. 
+		The function then recurses to both nodes.
 
 		If the node is a leaf node,
-		the object range is spliced to the internal
-		'objectList_'. This is possible because
-		both lists use a shared allocator.
+		the given range is spliced to the correct
+		position such that all objects of a leaf node
+		are listed sequentially.
 		*/
 		void spliceInsert(
 			Node* node,
-			ObjectContainer& list,
-			const ObjectIterator& begin, 
-			const ObjectIterator& end,
+			const ObjectIterator& first, 
+			const ObjectIterator& last,
 			integer count,
 			Node* bucketNode);
 

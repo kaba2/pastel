@@ -59,6 +59,8 @@ namespace Pastel
 			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const AlignedBox<Real, N>& bound)
 		{
+			typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor Cursor;
+
 			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
 
@@ -69,26 +71,37 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT(!cursor.bucket().leaf() && cursor.bucket().objects() > tree.bucketSize()))
+				if (REPORT(cursor.objects() == 0 && (cursor.begin() != tree.end() ||
+					cursor.end() != tree.end())))
 				{
 					return false;
 				}
 
-				if (cursor.objects() == 0)
+				if (REPORT(cursor.objects() == 0 && cursor.bucket() != cursor))
 				{
-					if (REPORT(cursor.begin() != tree.end() ||
-						cursor.end() != tree.end()))
-					{
-						return false;
-					}
+					return false;
+				}
+
+				const Cursor bucket = cursor.bucket();
+
+				if (REPORT(!bucket.leaf() && 
+					bucket.objects() > tree.bucketSize() && bucket.objects() != cursor.objects()))
+				{
+					return false;
+				}
+
+				if (REPORT(!bucket.parent().empty() && bucket.objects() > 0 && 
+					bucket.parent().objects() == bucket.objects()))
+				{
+					return false;
 				}
 
 				ConstObjectIterator iter = cursor.begin();
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					typename PointKdTree<Real, N, ObjectPolicy>::Cursor leafCursor = iter->leaf();
-					if (REPORT(leafCursor != cursor))
+					Cursor leaf = iter->leaf();
+					if (REPORT(leaf != cursor))
 					{
 						return false;
 					}
