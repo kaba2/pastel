@@ -103,7 +103,7 @@ void keyHandler(bool pressed, SDLKey key)
 
 		if (key == SDLK_n)
 		{
-			tree__.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+			tree__.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		}
 
 		if (key == SDLK_c)
@@ -221,11 +221,12 @@ void drawBspTree(MyTree::Cursor cursor,
 				 integer depth,
 				 integer bucketSize)
 {
-	if (cursor.nonEmptyBucket())
+	if (cursor.isBucket())
 	{
-		if (cursor.objects() > bucketSize && 
-			!cursor.parent().empty() &&
-			cursor.objects() == cursor.parent().objects())
+		MyTree::Cursor bucket = cursor;
+		cursor = cursor.begin()->leaf();
+
+		if (bucket.objects() > bucketSize && bucket.objects() != cursor.objects())
 		{
 			renderer__->setColor(Color(1, 0, 0) / std::pow((real)(depth + 1), (real)0.5));
 			drawSegment(*renderer__, Segment2(bound.min(), bound.max()));
@@ -664,7 +665,7 @@ void computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine(SlidingMidpoint2_SplitRule_PointKdTree(), maxDepth);
+	newTree.refine(SlidingMidpoint_SplitRule_PointKdTree(), maxDepth);
 	//newTree.refine(Midpoint_SplitRule_PointKdTree(), 2);
 
 	ENSURE(check(newTree));

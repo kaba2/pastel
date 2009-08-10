@@ -66,10 +66,10 @@ namespace Pastel
 			return node_->leaf();
 		}
 
-		bool nonEmptyBucket() const
+		bool isBucket() const
 		{
 			PENSURE(node_);
-			return node_->nonEmptyBucket();
+			return node_->isBucket();
 		}
 
 		Cursor bucket() const

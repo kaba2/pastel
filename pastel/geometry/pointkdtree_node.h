@@ -83,18 +83,14 @@ namespace Pastel
 			return left_ == 0;
 		}
 
-		bool nonEmptyBucket() const
+		bool isBucket() const
 		{
-			if (objects_ > 0)
+			if (objects_ == 0)
 			{
-				Node* leaf = first_->leaf().node_;
-				if (leaf)
-				{
-					return leaf->bucket_ == this;
-				}
+				return leaf();
 			}
 
-			return false;
+			return (this == first_->leaf().node_->bucket_);
 		}
 
 		// Objects
