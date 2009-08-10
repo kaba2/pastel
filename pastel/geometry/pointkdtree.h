@@ -395,8 +395,11 @@ namespace Pastel
 		*/
 		void clearObjects(Node* node);
 
-		//! Propagate _upwards_ the object set and count in a node.
+		// Updates the object range and count from children.
 		void updateObjects(Node* node);
+
+		//! Propagate upwards the object set and count in a node.
+		void updateObjectsUpwards(Node* node);
 
 		//! Subdivides a leaf node with the given plane.
 		/*!
@@ -457,7 +460,7 @@ namespace Pastel
 			const ObjectIterator& last,
 			integer count,
 			Node* bucketNode,
-			Node* pseudoBucketNode);
+			Node* newBucketNode);
 
 		//! Subdivides the tree using the given subdivision rule.
 		/*!

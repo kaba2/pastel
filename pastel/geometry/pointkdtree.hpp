@@ -309,7 +309,7 @@ namespace Pastel
 
 		// Propagate object set changes upwards.
 
-		updateObjects(node);
+		updateObjectsUpwards(node);
 
 		Node* oldBucket = node->bucket();
 	
@@ -319,9 +319,10 @@ namespace Pastel
 			// is the leaf node itself.
 			node->setBucket(node);
 		}
-		else if (oldBucket->objects() > 0)
+		
+		if (oldBucket->objects() > 0)
 		{
-			// Since the bucket node still has points,
+			// Since the old bucket node still has points,
 			// the removal of the point can cause it
 			// to move upwards in the tree.
 

@@ -84,8 +84,7 @@ namespace Pastel
 
 				const Cursor bucket = cursor.bucket();
 
-				if (REPORT(!bucket.leaf() && 
-					bucket.objects() > tree.bucketSize() && bucket.objects() != cursor.objects()))
+				if (REPORT(bucket.objects() > tree.bucketSize() && bucket.objects() != cursor.objects()))
 				{
 					return false;
 				}
