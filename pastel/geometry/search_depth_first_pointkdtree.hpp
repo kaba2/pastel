@@ -122,8 +122,6 @@ namespace Pastel
 				// We are now in a leaf node.
 				// Search through the objects in this node.
 
-				ASSERT(cursor.leaf());
-
 				ConstObjectIterator iter = cursor.begin();
 				const ConstObjectIterator iterEnd = cursor.end();
 

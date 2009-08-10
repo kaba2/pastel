@@ -63,8 +63,7 @@ namespace Pastel
 		// being null pointer can be used to identify a leaf 
 		// node. In creation, the bucket node of a leaf node 
 		// is set to itself. This is a good default because 
-		// it is correct in case the leaf node is either empty
-		// or contains more points than 'bucketSize_'.
+		// it is correct in case the leaf node is either empty.
 
 		Node* node = (Node*)nodeAllocator_.allocate();
 
@@ -234,43 +233,6 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::updateObjectRanges(
-		Node* node)
-	{
-		ASSERT(node);
-
-		node = node->parent();
-		while (node)
-		{
-			Node* left = node->left();
-			Node* right = node->right();
-
-			ConstObjectIterator begin = left->first();
-			if (begin == objectList_.end())
-			{
-				begin = right->first();
-			}
-
-			ConstObjectIterator last = right->last();
-			if (last == objectList_.end())
-			{
-				last = left->last();
-			}
-
-			if (node->first() == begin &&
-				node->last() == last)
-			{
-				break;
-			}
-
-			node->setFirst(begin);
-			node->setLast(last);
-
-			node = node->parent();
-		}
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::merge(
 		Node* node)
 	{
@@ -389,9 +351,8 @@ namespace Pastel
 		ASSERT(node->leaf());
 		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 
-		ConstObjectIterator nodeEnd = node->end();
-
 		const integer objects = node->objects();
+		const ConstObjectIterator nodeEnd = node->end();
 
 		// Reorder the objects along the split position.
 
@@ -404,24 +365,24 @@ namespace Pastel
 			partition(objectList_, node->first(), nodeEnd,
 			splitPredicate);
 
-		ConstObjectIterator leftStart = objectList_.end();
+		ConstObjectIterator leftFirst = objectList_.end();
 		ConstObjectIterator leftLast = objectList_.end();
 
 		const integer leftObjects = result.first.second;
 		if (leftObjects > 0)
 		{
-			leftStart = result.first.first;
+			leftFirst = result.first.first;
 			leftLast = result.second.first;
 			--leftLast;
 		}
 
-		ConstObjectIterator rightStart = objectList_.end();
+		ConstObjectIterator rightFirst = objectList_.end();
 		ConstObjectIterator rightLast = objectList_.end();
 
 		const integer rightObjects = result.second.second;
 		if (rightObjects > 0)
 		{
-			rightStart = result.second.first;
+			rightFirst = result.second.first;
 			rightLast = nodeEnd;
 			--rightLast;
 		}
@@ -430,26 +391,44 @@ namespace Pastel
 
 		Node* left = allocateLeaf(
 			node,
-			leftStart, 
+			leftFirst, 
 			leftLast, 
 			leftObjects);
 
 		// Assign correct leaf information to objects.
-		setLeaf(leftStart, rightStart, left);
+		setLeaf(left->first(), left->end(), left);
 
 		Node* right = allocateLeaf(
 			node, 
-			rightStart, 
+			rightFirst, 
 			rightLast, 
 			rightObjects);
 
 		// Assign correct leaf information to objects.
-		setLeaf(rightStart, nodeEnd, right);
+		setLeaf(right->first(), right->end(), right);
 
-		Node* parentBucket = node->bucket();
+		Node* bucket = node->bucket();
 
 		// Convert the subdivided leaf node into
 		// a split node by adding details.
+
+		if (leftFirst != objectList_.end())
+		{
+			node->setFirst(leftFirst);
+		}
+		else
+		{
+			node->setFirst(rightFirst);
+		}
+
+		if (rightLast != objectList_.end())
+		{
+			node->setLast(rightLast);
+		}
+		else
+		{
+			node->setLast(leftLast);
+		}
 
 		node->setRight(right);
 		node->setLeft(left);
@@ -467,16 +446,19 @@ namespace Pastel
 		// Empty leaf nodes should have their
 		// bucket node point to themselves,
 		// which is set by default in construction.
-		
-		if (parentBucket->objects() <= bucketSize_)
+
+		const bool oneSided = 
+			(leftObjects != 0) ^ (rightObjects != 0);
+
+		if (bucket->objects() <= bucketSize_ || oneSided)
 		{
-			if (left->objects() > 0)
+			if (leftObjects > 0)
 			{
-				left->setBucket(parentBucket);
+				left->setBucket(bucket);
 			}
-			if (right->objects() > 0)
+			if (rightObjects > 0)
 			{
-				right->setBucket(parentBucket);
+				right->setBucket(bucket);
 			}
 		}
 	}
@@ -527,7 +509,8 @@ namespace Pastel
 		const ObjectIterator& first, 
 		const ObjectIterator& last,
 		integer objects,
-		Node* bucketNode)
+		Node* bucketNode,
+		Node* pseudoBucketNode)
 	{
 		ASSERT(node);
 		ASSERT_OP(objects, >, 0);
@@ -536,61 +519,24 @@ namespace Pastel
 		ObjectIterator end = last;
 		++end;
 
-		const integer oldObjects = node->objects();
-
-		// Update the object count on the way down.
-		node->setObjects(node->objects() + objects);
-
 		if (node->leaf())
 		{
-			// Set the leaf nodes for each point.
+			// Set the leaf nodes for each object.
 			setLeaf(begin, end, node);
 
 			// Splice the objects to this node.
-
 			objectList_.splice(node->first(), objectList_, begin, end);
 
-			node->insert(begin, last, objectList_.end());
+			// Update the node's object range.
+			node->insert(begin, last, objects, objectList_.end());
 
-			// Propagate object ranges up in the tree.
+			// Propagate object information up the tree.
+			updateObjects(node);
 
-			updateObjectRanges(node);
-
-			// The bucket node might not be at the right
-			// position.
-
-			node->setBucket(findBucket(node->bucket()));
+			node->setBucket(pseudoBucketNode);
 		}
 		else
 		{
-			Node* left = node->left();
-			Node* right = node->right();
-
-			if (!bucketNode && 
-				oldObjects <= bucketSize_)
-			{
-				// This node is currently a bucket node for its subtree.
-				bucketNode = node;				
-			}
-
-			Node* leftBucket = bucketNode;
-			Node* rightBucket = bucketNode;
-
-			// If we have already met the bucket node for this
-			// subtree, and if the addition of these points causes 
-			// the bucket threshold to be exceeded...
-			if (bucketNode && oldObjects + objects > bucketSize_)
-			{
-				// ... then refine the bucket nodes for both
-				// subtrees.
-
-				setBucket(left, left);
-				leftBucket = left;
-
-				setBucket(right, right);
-				rightBucket = right;
-			}
-
 			// This is a split node, so carry out a 
 			// partitioning of the objects.
 
@@ -614,6 +560,44 @@ namespace Pastel
 			ObjectIterator leftLast = rightFirst;
 			--leftLast;
 
+			Node* left = node->left();
+			Node* right = node->right();
+
+			if (!bucketNode && node->nonEmptyBucket())
+			{
+				bucketNode = node;
+			}
+
+			Node* leftBucket = bucketNode;
+			Node* rightBucket = bucketNode;
+			Node* leftPseudoBucket = pseudoBucketNode;
+			Node* rightPseudoBucket = pseudoBucketNode;
+
+			const bool oneSided = 
+				(leftObjects + left->objects() != 0) ^ 
+				(rightObjects + right->objects() != 0);
+
+			// This is a non-empty bucket node.
+			// If the addition of these points causes 
+			// the bucket threshold to be exceeded and the
+			// node is not one-sided...
+			if (node->objects() + objects > bucketSize_ && !oneSided)
+			{
+				// ... then refine the bucket nodes to
+				// the subtrees.
+
+				if (bucketNode == node)
+				{
+					setBucket(left, left);
+					setBucket(right, right);
+					leftBucket = left;
+					rightBucket = right;
+				}
+
+				leftPseudoBucket = left;
+				rightPseudoBucket = right;
+			}
+
 			if (leftObjects > 0)
 			{
 				// If there are objects going to the left node,
@@ -623,7 +607,8 @@ namespace Pastel
 					left, 
 					leftFirst, leftLast, 
 					leftObjects,
-					leftBucket);
+					leftBucket,
+					leftPseudoBucket);
 			}
 			if (rightObjects > 0)
 			{
@@ -634,7 +619,8 @@ namespace Pastel
 					right, 
 					rightFirst, rightLast, 
 					rightObjects,
-					rightBucket);
+					rightBucket,
+					rightPseudoBucket);
 			}
 
 			// Finally, we need to order the objects in the objectList_

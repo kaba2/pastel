@@ -66,6 +66,12 @@ namespace Pastel
 			return node_->leaf();
 		}
 
+		bool nonEmptyBucket() const
+		{
+			PENSURE(node_);
+			return node_->nonEmptyBucket();
+		}
+
 		Cursor bucket() const
 		{
 			PENSURE(node_);
