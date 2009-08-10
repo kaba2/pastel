@@ -355,7 +355,7 @@ namespace Pastel
 		//! Allocate a leaf node.
 		Node* allocateLeaf(
 			Node* parent,
-			const ConstObjectIterator& begin,
+			const ConstObjectIterator& first,
 			const ConstObjectIterator& last,
 			integer objects);
 

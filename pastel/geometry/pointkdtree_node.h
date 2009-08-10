@@ -138,6 +138,11 @@ namespace Pastel
 			return objects_;
 		}
 
+		bool empty() const
+		{
+			return objects_ == 0;
+		}
+
 		void erase(
 			const ConstObjectIterator& iter,
 			const ConstObjectIterator& end)

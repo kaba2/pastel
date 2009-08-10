@@ -35,9 +35,9 @@ namespace Pastel
 			return node_ == that.node_;
 		}
 
-		bool empty() const
+		bool exists() const
 		{
-			return node_ == 0;
+			return node_ != 0;
 		}
 
 		// Tree
@@ -92,7 +92,7 @@ namespace Pastel
 			PENSURE(node_);
 
 			ConstObjectIterator iterEnd = node_->last();
-			if (objects() > 0)
+			if (!empty())
 			{
 				++iterEnd;
 			}
@@ -114,6 +114,12 @@ namespace Pastel
 		{
 			PENSURE(node_);
 			return node_->objects();
+		}
+
+		bool empty() const
+		{
+			PENSURE(node_);
+			return node_->empty();
 		}
 
 		// Splitting plane

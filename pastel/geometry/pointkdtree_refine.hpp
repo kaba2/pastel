@@ -56,7 +56,7 @@ namespace Pastel
 
 			// Sliding midpoint
 
-			if (cursor.objects() > 0)
+			if (!cursor.empty())
 			{
 				Real leftMax = -infinity<Real>();
 				Real rightMin = infinity<Real>();
@@ -128,7 +128,7 @@ namespace Pastel
 
 			// Sliding midpoint
 
-			if (cursor.objects() > 0)
+			if (!cursor.empty())
 			{
 				Real leftMax = -infinity<Real>();
 				Real rightMin = infinity<Real>();

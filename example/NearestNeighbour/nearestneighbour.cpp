@@ -234,7 +234,7 @@ void drawBspTree(MyTree::Cursor cursor,
 
 		return;
 	}
-	if (!cursor.leaf() && drawTree__ && cursor.objects() > 0)
+	if (!cursor.leaf() && drawTree__ && !cursor.empty())
 	{
 		const integer splitAxis = cursor.splitAxis();
 		
@@ -353,6 +353,7 @@ void redrawPointSet()
 		MyTree::ConstObjectDataIterator iterEnd(tree__.objectEnd());
 		while (iter != iterEnd)
 		{
+			ENSURE_OP(points, >=, 0);
 			real alpha = (real)i / points;
 
 			Color color = red * (1 - alpha) + yellow * alpha;
@@ -783,7 +784,7 @@ int myMain()
 	*/
 
 	computeTree(24);
-	timing();
+	//timing();
 
 	AlignedBox2 viewWindow(tree__.bound());
 

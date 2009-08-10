@@ -71,13 +71,13 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT(cursor.objects() == 0 && (cursor.begin() != tree.end() ||
+				if (REPORT(cursor.empty() && (cursor.begin() != tree.end() ||
 					cursor.end() != tree.end())))
 				{
 					return false;
 				}
 
-				if (REPORT(cursor.objects() == 0 && cursor.bucket() != cursor))
+				if (REPORT(cursor.empty() && cursor.bucket() != cursor))
 				{
 					return false;
 				}
@@ -89,7 +89,7 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT(!bucket.parent().empty() && bucket.objects() > 0 && 
+				if (REPORT(bucket.parent().exists() && !bucket.empty() && 
 					bucket.parent().objects() == bucket.objects()))
 				{
 					return false;
@@ -143,6 +143,25 @@ namespace Pastel
 				if (REPORT(cursor.right().parent() != cursor))
 				{
 					return false;
+				}
+
+				if (cursor.empty())
+				{
+					if (REPORT(cursor.begin() != tree.end() || cursor.end() != tree.end()))
+					{
+						return false;
+					}
+				}
+				else
+				{
+					ConstObjectIterator begin = 
+						!cursor.left().empty() ? cursor.left().begin() : cursor.right().begin();
+					ConstObjectIterator end =
+						!cursor.right().empty() ? cursor.right().end() : cursor.left().end();
+					if (REPORT(cursor.begin() != begin || cursor.end() != end))
+					{
+						return false;
+					}
 				}
 
 				AlignedBox<Real, N> rightBound(bound);

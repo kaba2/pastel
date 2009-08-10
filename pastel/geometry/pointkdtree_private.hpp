@@ -54,16 +54,15 @@ namespace Pastel
 	typename PointKdTree<Real, N, ObjectPolicy>::Node*
 		PointKdTree<Real, N, ObjectPolicy>::allocateLeaf(
 		Node* parent,
-		const ConstObjectIterator& begin,
+		const ConstObjectIterator& first,
 		const ConstObjectIterator& last,
 		integer objects)
 	{
 		// In case of a leaf node, the 'right' node
-		// acts as the bucket pointer, and the 'left' node
-		// being null pointer can be used to identify a leaf 
+		// acts as the bucket pointer, and a null pointer
+		// in 'left' is used to identify a leaf 
 		// node. In creation, the bucket node of a leaf node 
-		// is set to itself. This is a good default because 
-		// it is correct in case the leaf node is either empty.
+		// is set to itself. 
 
 		Node* node = (Node*)nodeAllocator_.allocate();
 
@@ -71,7 +70,7 @@ namespace Pastel
 			parent,
 			node,
 			0,
-			begin,
+			first,
 			last,
 			objects, 
 			0, 0, 0, 0);
@@ -120,7 +119,7 @@ namespace Pastel
 		// they exist, contain less than or equal to 
 		// 'limitSize' number of points.
 
-		if (node->objects() == 0)
+		if (node->empty())
 		{
 			ASSERT(node->leaf());
 			return node;
@@ -222,10 +221,10 @@ namespace Pastel
 		node->setObjects(
 			left->objects() + right->objects());
 
-		ConstObjectIterator begin = left->first();
-		if (begin == objectList_.end())
+		ConstObjectIterator first = left->first();
+		if (first == objectList_.end())
 		{
-			begin = right->first();
+			first = right->first();
 		}
 
 		ConstObjectIterator last = right->last();
@@ -234,7 +233,7 @@ namespace Pastel
 			last = left->last();
 		}
 
-		node->setFirst(begin);
+		node->setFirst(first);
 		node->setLast(last);
 	}
 
@@ -423,35 +422,25 @@ namespace Pastel
 		setLeaf(left->first(), left->end(), left);
 		setLeaf(right->first(), right->end(), right);
 
+		// Store the current bucket node because
+		// it is going to be overwritten.
+
 		Node* bucket = node->bucket();
 
-		// Convert the subdivided leaf node into
-		// a split node by adding details.
+		// Turn the subdivided node into a split node.
 
-		if (leftFirst != objectList_.end())
-		{
-			node->setFirst(leftFirst);
-		}
-		else
-		{
-			node->setFirst(rightFirst);
-		}
-
-		if (rightLast != objectList_.end())
-		{
-			node->setLast(rightLast);
-		}
-		else
-		{
-			node->setLast(leftLast);
-		}
-
-		node->setRight(right);
 		node->setLeft(left);
+		node->setRight(right);
 		node->setSplitPosition(splitPosition);
 		node->setSplitAxis(splitAxis);
 		node->setMin(boundMin);
 		node->setMax(boundMax);
+
+		updateObjects(node);
+
+		// Propagate object information upwards.
+
+		updateObjectsUpwards(node);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.

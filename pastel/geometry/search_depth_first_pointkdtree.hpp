@@ -65,14 +65,14 @@ namespace Pastel
 			{
 				ENSURE(startCursor.leaf());
 
-				if (startCursor.objects() > 0)
+				if (!startCursor.empty())
 				{
 					workTopBottom(startCursor, 0);
 				}
 
 				Cursor previous = startCursor;
 				Cursor cursor = startCursor.parent();
-				while(!cursor.empty())
+				while(cursor.exists())
 				{
 					const Real searchPosition = 
 						searchPoint[cursor.splitAxis()];
@@ -103,7 +103,7 @@ namespace Pastel
 
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
-					if (farBranch.objects() > 0 &&
+					if (!farBranch.empty() &&
 						farBoundDistance <= nodeCullDistance)
 					{
 						// No culling could be done, visit the farther node
@@ -161,7 +161,7 @@ namespace Pastel
 			{
 				if (cursor.objects() <= kdTree.bucketSize() || cursor.leaf())
 				{
-					if (cursor.objects() > 0)
+					if (!cursor.empty())
 					{
 						searchBruteForce(cursor);
 					}
@@ -212,7 +212,7 @@ namespace Pastel
 						}
 					}
 
-					if (nearBranch.objects() > 0)
+					if (!nearBranch.empty())
 					{
 						// Follow downwards the kdTree with the nearer node.
 						workTopBottom(nearBranch, distance);
@@ -221,7 +221,7 @@ namespace Pastel
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
 
-					if (farBranch.objects() > 0 &&
+					if (!farBranch.empty() &&
 						farBoundDistance <= nodeCullDistance)
 					{
 						// Try to cull the farther node off based on the distance 

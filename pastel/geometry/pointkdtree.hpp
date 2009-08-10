@@ -313,14 +313,14 @@ namespace Pastel
 
 		Node* oldBucket = node->bucket();
 	
-		if (node->objects() == 0)
+		if (node->empty())
 		{
 			// The bucket node of an empty leaf node
 			// is the leaf node itself.
 			node->setBucket(node);
 		}
 		
-		if (oldBucket->objects() > 0)
+		if (!oldBucket->empty())
 		{
 			// Since the old bucket node still has points,
 			// the removal of the point can cause it
