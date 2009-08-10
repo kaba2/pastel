@@ -289,7 +289,7 @@ namespace Pastel
 
 		// Splice the points to the leaf nodes.
 
-		spliceInsert(root_, first, last, objects, 0);
+		spliceInsert(root_, first, last, objects, 0, root_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -302,7 +302,6 @@ namespace Pastel
 		// from this node.
 
 		node->erase(iter, objectList_.end());
-		node->setObjects(node->objects() - 1);
 
 		// Actually remove the object from the object list.
 

@@ -68,18 +68,33 @@ namespace Pastel
 		void setBucket(Node* bucket)
 		{
 			ASSERT(leaf());
-			right_ = bucket;
+			ASSERT(bucket);
+			bucket_ = bucket;
 		}
 
 		Node* bucket() const
 		{
 			ASSERT(leaf());
-			return right_;
+			return bucket_;
 		}
 
 		bool leaf() const
 		{
 			return left_ == 0;
+		}
+
+		bool nonEmptyBucket() const
+		{
+			if (objects_ > 0)
+			{
+				Node* leaf = first_->leaf().node_;
+				if (leaf)
+				{
+					return leaf->bucket_ == this;
+				}
+			}
+
+			return false;
 		}
 
 		// Objects
@@ -147,11 +162,13 @@ namespace Pastel
 			{
 				--last_;
 			}
+			--objects_;
 		}
 
 		void insert(
 			const ConstObjectIterator& first,
 			const ConstObjectIterator& last,
+			integer objects,
 			const ConstObjectIterator& end)
 		{
 			first_ = first;
@@ -162,6 +179,8 @@ namespace Pastel
 				// objects in the node, set the 'last' iterator.
 				last_ = last;
 			}
+
+			objects_ += objects;
 		}
 
 		// Splitting plane
@@ -212,7 +231,11 @@ namespace Pastel
 		// Tree
 
 		Node* parent_;
-		Node* right_;
+		union
+		{
+			Node* right_;
+			Node* bucket_;
+		};
 		Node* left_;
 
 		// Objects

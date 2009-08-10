@@ -101,6 +101,11 @@ void keyHandler(bool pressed, SDLKey key)
 			}
 		}
 
+		if (key == SDLK_n)
+		{
+			tree__.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+		}
+
 		if (key == SDLK_c)
 		{
 			tree__.clear();
@@ -216,6 +221,18 @@ void drawBspTree(MyTree::Cursor cursor,
 				 integer depth,
 				 integer bucketSize)
 {
+	if (cursor.nonEmptyBucket())
+	{
+		if (cursor.objects() > bucketSize && 
+			!cursor.parent().empty() &&
+			cursor.objects() == cursor.parent().objects())
+		{
+			renderer__->setColor(Color(1, 0, 0) / std::pow((real)(depth + 1), (real)0.5));
+			drawSegment(*renderer__, Segment2(bound.min(), bound.max()));
+		}
+
+		return;
+	}
 	if (!cursor.leaf() && drawTree__ && cursor.objects() > 0)
 	{
 		const integer splitAxis = cursor.splitAxis();
@@ -227,37 +244,34 @@ void drawBspTree(MyTree::Cursor cursor,
 			asPoint(*splitDirection * cursor.splitPosition()),
 			cross(*splitDirection));
 		
-		if (cursor.objects() > bucketSize)
-		{
-			planeSet.push_back(
-				Plane2(line.position(), *splitDirection));
+		planeSet.push_back(
+			Plane2(line.position(), *splitDirection));
 
-			AlignedBox2 rightBound(bound);
-			rightBound.min()[splitAxis] = cursor.splitPosition();
+		AlignedBox2 rightBound(bound);
+		rightBound.min()[splitAxis] = cursor.splitPosition();
 
-			drawBspTree(
-				cursor.right(), 
-				planeSet,
-				treeBound,
-				rightBound,
-				depth + 1,
-				bucketSize);
+		drawBspTree(
+			cursor.right(), 
+			planeSet,
+			treeBound,
+			rightBound,
+			depth + 1,
+			bucketSize);
 
-			planeSet.back().setNormal(-(*splitDirection));
+		planeSet.back().setNormal(-(*splitDirection));
 
-			AlignedBox2 leftBound(bound);
-			leftBound.max()[splitAxis] = cursor.splitPosition();
+		AlignedBox2 leftBound(bound);
+		leftBound.max()[splitAxis] = cursor.splitPosition();
 
-			drawBspTree(
-				cursor.left(), 
-				planeSet,
-				treeBound,
-				leftBound,
-				depth + 1,
-				bucketSize);
+		drawBspTree(
+			cursor.left(), 
+			planeSet,
+			treeBound,
+			leftBound,
+			depth + 1,
+			bucketSize);
 
-			planeSet.pop_back();
-		}
+		planeSet.pop_back();
 
 		Vector2 hitList;
 		if (intersect(line, bound, hitList))

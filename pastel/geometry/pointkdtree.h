@@ -398,15 +398,6 @@ namespace Pastel
 		//! Propagate _upwards_ the object set and count in a node.
 		void updateObjects(Node* node);
 
-		//! Propagate _upwards_ the object set in a node.
-		/*!
-		If the object count does not need to be propagated,
-		this function is more efficient than updateObjects(), 
-		because in most cases it does not need to traverse all 
-		the way to the root.
-		*/
-		void updateObjectRanges(Node* node);
-
 		//! Subdivides a leaf node with the given plane.
 		/*!
 		Preconditions:
@@ -465,7 +456,8 @@ namespace Pastel
 			const ObjectIterator& first, 
 			const ObjectIterator& last,
 			integer count,
-			Node* bucketNode);
+			Node* bucketNode,
+			Node* pseudoBucketNode);
 
 		//! Subdivides the tree using the given subdivision rule.
 		/*!
