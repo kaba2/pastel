@@ -47,6 +47,8 @@ namespace Pastel
 			copyConstruct(
 				thisNode->right(),
 				thatNode->right());
+
+			updateObjects(thisNode);
 		}
 	}
 
@@ -120,7 +122,7 @@ namespace Pastel
 
 		if (node->empty())
 		{
-			ASSERT(node->leaf());
+			ASSERT(node->leaf() || empty());
 			return node;
 		}
 
@@ -211,6 +213,7 @@ namespace Pastel
 		Node* node)
 	{
 		ASSERT(node);
+		ASSERT(!node->leaf());
 
 		Node* left = node->left();
 		Node* right = node->right();
@@ -437,7 +440,8 @@ namespace Pastel
 
 		// Propagate object information upwards.
 
-		updateObjectsUpwards(node);
+		// This is handled in refine().
+		//updateObjectsUpwards(node);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.
@@ -715,6 +719,8 @@ namespace Pastel
 				depth + 1, 
 				rightMin,
 				maxBound);
+
+			updateObjects(node);
 		}
 	}
 
