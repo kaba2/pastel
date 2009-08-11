@@ -69,6 +69,10 @@ namespace Pastel
 		{
 			ASSERT(leaf());
 			ASSERT(bucket);
+			// Can't assert since this information
+			// might be out-of-sync at the moment.
+			//ASSERT(objects_ > 0 || bucket_ == this);
+
 			bucket_ = bucket;
 		}
 

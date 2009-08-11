@@ -4,14 +4,13 @@ Pastel's nearest neighbours example
 Description
 -----------
 
-This is a program to visualize a point kd-tree.
-
-A point set is drawn along with its associated kd-tree.
-You can move the mouse cursor over this point set and
-the program shows you its nearest points using the 
-Euclidean norm. The larger circle is the search radius 
-beyond which points are not considered. The smaller
-circle is the spray radius. 
+This is a program to visualize a multi-resolution kd-tree.
+A point set is drawn along with its associated 
+multi-resolution kd-tree. You can move the mouse cursor 
+over this point set and the program shows you its nearest 
+points using the Euclidean norm. The larger circle is the 
+search radius beyond which points are not considered. The 
+smaller circle is the spray radius. 
 
 Adding and removing points
 --------------------------
@@ -20,7 +19,7 @@ You can spray new points by pushing the left mouse button.
 Similarly, you can erase points by pushing the right mouse 
 button.
 
-When spraying new points, the kd-tree becomes unoptimal
+When spraying new points, the kd-tree can become unoptimal,
 (especially if the new points extend the bounding box of
 the tree). The optimality can be regained by computing the 
 kd-tree from the start by using the number keys.
@@ -28,9 +27,10 @@ kd-tree from the start by using the number keys.
 Adaptation to removal
 ---------------------
 
-When you erase points, the kd-tree adapts itself by
-pruning empty subtrees. These subtrees are not actually
-removed but just taken out of consideration. You can
+When you erase points, the kd-tree adapts itself by 
+decreasing the level of detail in the subdivision.
+These subtrees are not actually removed but just 
+taken out of consideration to speed up searches. You can
 see this by spraying points to the same area from which
 you removed points from: the underlying subtrees are 
 again taken in consideration.
@@ -70,6 +70,7 @@ n - toggle drawing of the nearest points
 w, a, s, d - translate the camera
 q, e - rotate the camera
 r, f - zoom the camera
+o - Refine the subdivision
 esc - quit
 1, 2, 3, 4, 5, 6, 7, 8, 9 - recompute kd-tree for a given maximum depth
 0 - recompute the kd-tree for maximum depth of 24
