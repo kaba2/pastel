@@ -373,7 +373,7 @@ namespace Pastel
 		The bucket node is searched from the given node 
 		_upwards_.
 		*/
-		Node* findBucket(Node* node);
+		Node* findBucketUpwards(Node* node);
 
 		//! Sets the buckets of non-empty leaf nodes of a subtree.
 		void setBucket(Node* subtree, Node* bucket);

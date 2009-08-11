@@ -101,7 +101,7 @@ void keyHandler(bool pressed, SDLKey key)
 			}
 		}
 
-		if (key == SDLK_n)
+		if (key == SDLK_o)
 		{
 			tree__.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		}
@@ -223,13 +223,16 @@ void drawBspTree(MyTree::Cursor cursor,
 {
 	if (cursor.isBucket())
 	{
-		MyTree::Cursor bucket = cursor;
-		cursor = cursor.begin()->leaf();
-
-		if (bucket.objects() > bucketSize && bucket.objects() != cursor.objects())
+		if (!cursor.empty())
 		{
-			renderer__->setColor(Color(1, 0, 0) / std::pow((real)(depth + 1), (real)0.5));
-			drawSegment(*renderer__, Segment2(bound.min(), bound.max()));
+			MyTree::Cursor bucket = cursor;
+
+			if (bucket.parent().exists() && !bucket.empty() && 
+				bucket.parent().objects() == bucket.objects())
+			{
+				renderer__->setColor(Color(1, 0, 0) / std::pow((real)(depth + 1), (real)0.5));
+				drawSegment(*renderer__, Segment2(bound.min(), bound.max()));
+			}
 		}
 
 		return;
@@ -615,12 +618,16 @@ void sprayPoints(const Point2& center, real radius, integer points)
 		const real randomAngle = random<real>() * 2 * constantPi<real>();
 		const real randomRadius = (randomGaussian<real>() / 2) * radius;
 
-		const Point2 point(
-			center +
-			Vector2(
-			cos(randomAngle) * randomRadius,
-			sin(randomAngle) * randomRadius));
-		newPointSet.push_back(point);
+		if (std::abs(randomRadius) <= radius)
+		{
+			const Point2 point(
+				center + 
+				Vector2(
+				cos(randomAngle) * randomRadius,
+				sin(randomAngle) * randomRadius));
+
+			newPointSet.push_back(point);
+		}
 	}
 
 	tree__.insert(newPointSet.begin(), newPointSet.end());

@@ -96,7 +96,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename ObjectPolicy>
 	typename PointKdTree<Real, N, ObjectPolicy>::Node* 
-		PointKdTree<Real, N, ObjectPolicy>::findBucket(
+		PointKdTree<Real, N, ObjectPolicy>::findBucketUpwards(
 		Node* node)
 	{
 		ASSERT(node);
@@ -109,14 +109,13 @@ namespace Pastel
 		// bucket node is a node such that:
 		//
 		// 1) The leaf node is in the subtree of the
-		// bucket node.
+		// node.
 		//
-		// 2) The parent of the bucket node, if it
+		// 2) The parent of the node, if it
 		// exists, contains greater than 'limitSize'
 		// number of points.
 		//
-		// 3) The children of the bucket node, if
-		// they exist, contain less than or equal to 
+		// 3) The node contains less than or equal to 
 		// 'limitSize' number of points.
 
 		if (node->empty())
@@ -127,8 +126,6 @@ namespace Pastel
 
 		const integer limitSize = 
 			std::max(bucketSize_, node->objects());
-
-		// Search for the new bucket node upwards.
 
 		Node* bucket = node;
 		Node* parent = bucket->parent();
@@ -273,7 +270,7 @@ namespace Pastel
 
 				// The node is now a leaf node.
 
-				node->setBucket(findBucket(node));
+				node->setBucket(findBucketUpwards(node));
 			}
 		}
 	}

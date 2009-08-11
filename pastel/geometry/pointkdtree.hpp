@@ -315,29 +315,61 @@ namespace Pastel
 	
 		if (node->empty())
 		{
+			// The removal of the point made the node empty.
+
 			// The bucket node of an empty leaf node
 			// is the leaf node itself.
 			node->setBucket(node);
 		}
-		
-		if (!oldBucket->empty())
+
+		Node* startBucket = oldBucket;
+
+		if (oldBucket->empty())
 		{
-			// Since the old bucket node still has points,
-			// the removal of the point can cause it
-			// to move upwards in the tree.
+			// The removal of the point also made the 
+			// bucket node empty. If the bucket node
+			// has a bucket node as a sibling, these
+			// bucket nodes have to be merged together.
 
-			// We can search the new bucket node 
-			// efficiently by starting from the 
-			// current bucket node.
-			Node* newBucket = findBucket(oldBucket);
-
-			if (newBucket != oldBucket)
+			if (oldBucket->parent())
 			{
-				// If the bucket node changed, set the
-				// bucket node pointers of all non-empty leaf 
-				// nodes under its subtree to the new bucket node.
-				setBucket(newBucket, newBucket);
+				Node* parent = oldBucket->parent();
+
+				// The parent can't possibly be empty, because
+				// otherwise the bucket node would have been there.
+				ASSERT(!parent->empty());
+
+				Node* sibling = (parent->left() == oldBucket) ? 
+					parent->right() : parent->left();
+				
+				ASSERT(!sibling->empty());
+
+				if (!sibling->isBucket())
+				{
+					return;
+				}
+				
+				startBucket = parent;
 			}
+		}
+
+		// The removal of this point can cause changes
+		// to the non-empty bucket nodes above. 
+		// For example, the decreased object count
+		// can allow bucket nodes to join at a higher
+		// level in the tree.
+
+		// We can search the new bucket node 
+		// efficiently by starting from the 
+		// current bucket node.
+		Node* newBucket = findBucketUpwards(startBucket);
+
+		if (newBucket != oldBucket)
+		{
+			// If the bucket node changed, set the
+			// bucket node pointers of all non-empty leaf 
+			// nodes under its subtree to the new bucket node.
+			setBucket(newBucket, newBucket);
 		}
 	}
 
