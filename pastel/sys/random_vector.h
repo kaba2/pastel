@@ -11,7 +11,7 @@ namespace Pastel
 	//! Returns a random vector uniformly distributed in [-1, 1]^N.
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorCube();
+	Vector<Real, N> randomVectorCube();
 
 	//! Returns a random vector uniformly distributed in [-1, 1]^N.
 	/*!
@@ -20,7 +20,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorCube(integer dimension);
+	Vector<Real, N> randomVectorCube(integer dimension);
 
 	//! Returns a random vector uniformly distributed on the unit sphere.
 	/*!
@@ -29,7 +29,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorSphere();
+	Vector<Real, N> randomVectorSphere();
 
 	//! Returns a random vector uniformly distributed on the unit sphere.
 	/*!
@@ -41,7 +41,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorSphere(integer dimension);
+	Vector<Real, N> randomVectorSphere(integer dimension);
 
 	//! Returns a random vector uniformly distributed in the unit ball.
 	/*!
@@ -50,7 +50,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorBall();
+	Vector<Real, N> randomVectorBall();
 
 	//! Returns a random vector uniformly distributed in the unit ball.
 	/*!
@@ -62,7 +62,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorBall(integer dimension);
+	Vector<Real, N> randomVectorBall(integer dimension);
 
 	//! Returns a random vector uniformly distributed on the annulus.
 	/*!
@@ -71,7 +71,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorAnnulus(
+	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
@@ -85,7 +85,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorAnnulus(
+	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
 		integer dimension);
@@ -93,7 +93,7 @@ namespace Pastel
 	//! Returns a random vector uniformly distributed in [0, 1]^N.
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVector();
+	Vector<Real, N> randomVector();
 
 	//! Returns a random vector uniformly distributed in [0, 1]^N.
 	/*!
@@ -102,48 +102,48 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVector(integer dimension);
+	Vector<Real, N> randomVector(integer dimension);
 
 	//! Returns a random vector standard-normally distributed in a hyperball.
 	
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGaussianVector();
+	Vector<Real, N> randomGaussianVector();
 
 	//! Returns a random vector standard-normally distributed in a hyperball.
 	
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGaussianVector(integer dimension);
+	Vector<Real, N> randomGaussianVector(integer dimension);
 
 	//! Returns a random vector exponentially distributed in each component.
 	
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomExponentialVector();
+	Vector<Real, N> randomExponentialVector();
 
 	//! Returns a random vector exponentially distributed in each component.
 	
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomExponentialVector(integer dimension);
+	Vector<Real, N> randomExponentialVector(integer dimension);
 
 	//! Returns a random vector gamma distributed in each component.
 	
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGammaVector(
+	Vector<Real, N> randomGammaVector(
 		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	//! Returns a random vector gamma distributed in each component.
 	
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGammaVector(
+	Vector<Real, N> randomGammaVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGeneralizedGaussianVector(
+	Vector<Real, N> randomGeneralizedGaussianVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGeneralizedGaussianVector(
+	Vector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale);

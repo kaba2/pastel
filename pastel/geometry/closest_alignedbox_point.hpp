@@ -7,7 +7,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> closest(
+	Point<Real, N> closest(
 		const AlignedBox<Real, N>& box,
 		const Point<Real, N>& point)
 	{
@@ -30,7 +30,7 @@ namespace Pastel
 			}
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 }

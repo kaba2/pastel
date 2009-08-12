@@ -18,7 +18,7 @@ namespace Pastel
 	// Permutation
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, N> permute(
+	inline Vector<Real, N> permute(
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation);
 
@@ -40,21 +40,21 @@ namespace Pastel
 
 	template <int N, typename Real, 
 		typename LeftExpression, typename RightExpression>
-	inline TemporaryVector<Real, N> min(
+	inline Vector<Real, N> min(
 		const VectorExpression<Real, N, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right);
 
 	//! Returns the minimum of (left, right[i]), elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, N> min(
+	inline Vector<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns the minimum of (left[i], right), elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, N> min(
+	inline Vector<Real, N> min(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
@@ -78,21 +78,21 @@ namespace Pastel
 
 	template <int N, typename Real,
 	typename LeftExpression, typename RightExpression>
-	inline TemporaryVector<Real, N> max(
+	inline Vector<Real, N> max(
 		const VectorExpression<Real, N, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right);
 
 	//! Returns the maximum of (left, right[i]), elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, N> max(
+	inline Vector<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns the maximum of (left[i], right), elementwise.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, N> max(
+	inline Vector<Real, N> max(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
@@ -100,7 +100,7 @@ namespace Pastel
 	template <int N, typename Real,
 	typename ThatExpression, typename MinExpression,
 	typename MaxExpression>
-	inline TemporaryVector<Real, N> clamp(
+	inline Vector<Real, N> clamp(
 		const VectorExpression<Real, N, ThatExpression>& that,
 		const VectorExpression<Real, N, MinExpression>& minimum,
 		const VectorExpression<Real, N, MaxExpression>& maximum);

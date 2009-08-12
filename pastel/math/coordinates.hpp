@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cartesianToCylinder(
+	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian, integer k)
 	{
 		const integer dimension = cartesian.dimension();
@@ -46,11 +46,11 @@ namespace Pastel
 		squareSum += square(cartesian[0]);
 		cylinder[0] = std::sqrt(squareSum);
 
-		return cylinder.asTemporary();
+		return cylinder;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cylinderToCartesian(
+	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder, integer k)
 	{
 		const integer dimension = cylinder.dimension();
@@ -84,11 +84,11 @@ namespace Pastel
 			cartesian[i] = cylinder[i];
 		}
 
-		return cartesian.asTemporary();
+		return cartesian;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cartesianToCylinder(
+	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian)
 	{
 		return Pastel::cartesianToCylinder(
@@ -96,7 +96,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cylinderToCartesian(
+	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder)
 	{
 		return Pastel::cylinderToCartesian(cylinder,
@@ -104,7 +104,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cartesianToSpherical(
+	Vector<Real, N> cartesianToSpherical(
 		const Vector<Real, N>& cartesian)
 	{
 		return cartesianToCylinder(cartesian, 
@@ -112,7 +112,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> sphericalToCartesian(
+	Vector<Real, N> sphericalToCartesian(
 		const Vector<Real, N>& spherical)
 	{
 		return cylinderToCartesian(spherical, 

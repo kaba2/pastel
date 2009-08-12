@@ -14,14 +14,14 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorCube()
+	Vector<Real, N> randomVectorCube()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorCube<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorCube(integer dimension)
+	Vector<Real, N> randomVectorCube(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
@@ -32,18 +32,18 @@ namespace Pastel
 			direction[i] = 2 * random<Real>() - 1;
 		}
 
-		return direction.asTemporary();
+		return direction;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorSphere()
+	Vector<Real, N> randomVectorSphere()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorSphere<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorSphere(integer dimension)
+	Vector<Real, N> randomVectorSphere(integer dimension)
 	{
 		// A randomly distributed vector on the
 		// unit sphere can be generated as follows.
@@ -80,18 +80,18 @@ namespace Pastel
 			result /= std::sqrt(dotResult);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorBall()
+	Vector<Real, N> randomVectorBall()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorBall<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorBall(
+	Vector<Real, N> randomVectorBall(
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
@@ -101,11 +101,11 @@ namespace Pastel
 
 		sphere *= std::pow(random<Real>(), inverse((Real)dimension));
 
-		return sphere.asTemporary();
+		return sphere;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorAnnulus(
+	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
@@ -115,7 +115,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVectorAnnulus(
+	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
 		integer dimension)
@@ -133,18 +133,18 @@ namespace Pastel
 			random<Real>()),
 			inverse((Real)dimension));
 
-		return sphere.asTemporary();
+		return sphere;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVector()
+	Vector<Real, N> randomVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVector<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomVector(integer dimension)
+	Vector<Real, N> randomVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
@@ -155,18 +155,18 @@ namespace Pastel
 			direction[i] = random<Real>();
 		}
 
-		return direction.asTemporary();
+		return direction;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGaussianVector()
+	Vector<Real, N> randomGaussianVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomGaussianVector<N, Real>(N);
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGaussianVector(integer dimension)
+	Vector<Real, N> randomGaussianVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 		Vector<Real, N> direction(ofDimension(dimension));
@@ -176,11 +176,11 @@ namespace Pastel
 			direction[i] = randomGaussian<Real>();			
 		}
 
-		return direction.asTemporary();
+		return direction;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomExponentialVector()
+	Vector<Real, N> randomExponentialVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
@@ -188,7 +188,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomExponentialVector(
+	Vector<Real, N> randomExponentialVector(
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
@@ -199,11 +199,11 @@ namespace Pastel
 			result[i] = randomExponential<Real>();
 		}
 		
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGammaVector(
+	Vector<Real, N> randomGammaVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{		
 		BOOST_STATIC_ASSERT(N != Dynamic);
@@ -213,7 +213,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGammaVector(
+	Vector<Real, N> randomGammaVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
@@ -225,11 +225,11 @@ namespace Pastel
 			result[i] = randomGamma<Real>(shape);
 		}
 		
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGeneralizedGaussianVector(
+	Vector<Real, N> randomGeneralizedGaussianVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
@@ -240,7 +240,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> randomGeneralizedGaussianVector(
+	Vector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale)
@@ -253,7 +253,7 @@ namespace Pastel
 			result[i] = randomGeneralizedGaussian<Real>(shape, scale);
 		}
 		
-		return result.asTemporary();
+		return result;
 	}
 
 }

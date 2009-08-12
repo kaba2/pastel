@@ -371,7 +371,7 @@ namespace
 			a[i] = i;
 		}
 
-		Vector<Real, N> b = a.asTemporary();
+		Vector<Real, N> b = a;
 
 		// Move construction.
 		{
@@ -703,14 +703,14 @@ namespace
 
 		Vector<Real, N> b = a.asVector();
 
-		Point<Real, N> e = a.asTemporary();
+		Point<Real, N> e = a;
 		if (N == Dynamic)
 		{
 			REPORT1(a.size() != 0, a.size());
 			REPORT2(e.size() != size, e.size(), size);
 		}
 
-		Tuple<Real, N> c = b.asTuple().asTemporary();
+		Tuple<Real, N> c = b.asTuple();
 		if (N == Dynamic)
 		{
 			REPORT1(b.size() != 0, b.size());
@@ -731,7 +731,7 @@ namespace
 			REPORT2(c.size() != size, c.size(), size);
 		}
 
-		TemporaryTuple<Real, N> f = d.asTemporary();
+		Tuple<Real, N> f = d;
 		if (N == Dynamic)
 		{
 			REPORT2(f.size() != size, f.size(), size);
@@ -744,13 +744,13 @@ namespace
 		Point<Real, N> k(j);
 
 		j.asTuple();
-		j.asTemporary().asTuple();
+		j.asTuple();
 
 		h.asTuple();
-		h.asTemporary().asTuple();
+		h.asTuple();
 
 		h.asVector();
-		h.asTemporary().asVector();
+		h.asVector();
 	}
 	*/
 

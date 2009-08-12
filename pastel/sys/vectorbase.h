@@ -25,9 +25,6 @@ namespace Pastel
 	template <typename Real, int N = Dynamic>
 	class Vector;
 
-	template <typename Real, int N = Dynamic>
-	class TemporaryVector;
-
 	namespace Detail
 	{
 
@@ -88,12 +85,6 @@ namespace Pastel
 
 			VectorBase(const VectorBase& that)
 				: data_(that.data_)
-			{
-			}
-
-			explicit VectorBase(
-				const TemporaryVector<Real, N>& that)
-				: data_(that.asTuple())
 			{
 			}
 
@@ -206,19 +197,6 @@ namespace Pastel
 			{
 				return data_ |= that;
 			}
-
-			// This function can't be included because
-			// then assignment of a vector expression would
-			// be ambiguous. This is because TemporaryVector
-			// has an implicit conversion from a vector
-			// expression.
-			/*
-			Vector<Real, N>& operator=(
-				const TemporaryVector<Real, N>& that)
-			{
-				//...
-			}
-			*/
 
 			Vector<Real, N>& operator=(
 				const Vector<Real, N>& that)
@@ -473,11 +451,6 @@ namespace Pastel
 				}
 
 				return (Vector<Real, N>&)*this;
-			}
-
-			TemporaryVector<Real, N>& asTemporary()
-			{
-				return (TemporaryVector<Real, N>&)*this;
 			}
 
 			Tuple<Real, N>& asTuple()

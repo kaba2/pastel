@@ -453,10 +453,10 @@ namespace Pastel
 		// bucket node point to themselves,
 		// which is set by default in construction.
 
-		const bool oneSided = 
-			(leftObjects != 0) ^ (rightObjects != 0);
+		const bool branches = 
+			(leftObjects > 0) && (rightObjects > 0);
 
-		if (bucket->objects() <= bucketSize_ || oneSided)
+		if (bucket->objects() <= bucketSize_ || !branches)
 		{
 			if (leftObjects > 0)
 			{
@@ -510,7 +510,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::spliceInsert(
+	void PointKdTree<Real, N, ObjectPolicy>::insert(
 		Node* node,
 		const ObjectIterator& first, 
 		const ObjectIterator& last,
@@ -535,7 +535,7 @@ namespace Pastel
 			objectList_.splice(node->first(), objectList_, begin, end);
 
 			// Update the node's object range.
-			node->insert(begin, last, objects, objectList_.end());
+			node->insert(first, last, objects, objectList_.end());
 
 			// Set the bucket node.
 			node->setBucket(newBucketNode);
@@ -578,15 +578,15 @@ namespace Pastel
 			Node* newLeftBucket = newBucketNode;
 			Node* newRightBucket = newBucketNode;
 
-			const bool oneSided = 
-				(newLeftObjects + left->objects() != 0) ^ 
-				(newRightObjects + right->objects() != 0);
+			const bool branches = 
+				(newLeftObjects + left->objects() > 0) &&
+				(newRightObjects + right->objects() > 0);
 
 			// This is a non-empty bucket node.
 			// If the addition of these points causes 
 			// the bucket threshold to be exceeded and the
 			// node is not one-sided...
-			if (node->objects() + objects > bucketSize_ && !oneSided)
+			if (node->objects() + objects > bucketSize_ && branches)
 			{
 				// ... then refine the bucket nodes to
 				// the subtrees.
@@ -608,7 +608,7 @@ namespace Pastel
 				// If there are objects going to the left node,
 				// recurse deeper.
 
-				spliceInsert(
+				insert(
 					left, 
 					newLeftFirst, newLeftLast, 
 					newLeftObjects,
@@ -620,7 +620,7 @@ namespace Pastel
 				// If there are objects going to the right node,
 				// recurse deeper.
 
-				spliceInsert(
+				insert(
 					right, 
 					newRightFirst, newRightLast, 
 					newRightObjects,

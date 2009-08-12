@@ -17,9 +17,6 @@ namespace Pastel
 	template <typename Real, int N = Dynamic>
 	class Point;
 
-	template <typename Real, int N = Dynamic>
-	class TemporaryPoint;
-
 	namespace Detail
 	{
 
@@ -66,12 +63,6 @@ namespace Pastel
 
 			explicit PointBase(
 				const Copy<const Real*>& that)
-				: data_(that)
-			{
-			}
-
-			template <typename ThatReal>
-			explicit PointBase(const TemporaryVector<ThatReal, N>& that)
 				: data_(that)
 			{
 			}
@@ -171,9 +162,9 @@ namespace Pastel
 			}
 
 			//! Returns the point added by 'that' to all elements.
-			TemporaryPoint<Real, N> operator+(const Real& that) const
+			Point<Real, N> operator+(const Real& that) const
 			{
-				TemporaryPoint<Real, N> result((Point<Real, N>&)*this);
+				Point<Real, N> result((Point<Real, N>&)*this);
 				result += that;
 				return result;
 			}
@@ -186,9 +177,9 @@ namespace Pastel
 			}
 
 			//! Returns the point subtracted by 'that' from all elements.
-			TemporaryPoint<Real, N> operator-(const Real& that) const
+			Point<Real, N> operator-(const Real& that) const
 			{
-				TemporaryPoint<Real, N> result((Point<Real, N>&)*this);
+				Point<Real, N> result((Point<Real, N>&)*this);
 				result -= that;
 				return result;
 			}
@@ -220,31 +211,31 @@ namespace Pastel
 				Detail::VectorBase<Real, N>, 
 				Detail::VectorBase<Real, N>
 				> operator-(const Point<Real, N>& that) const
-			//TemporaryVector<N, Real> operator-(const Point<Real, N>& that) const
+			//Vector<N, Real> operator-(const Point<Real, N>& that) const
 			{
 				return data_ - that.data_;
 			}
 
 			//! Returns the point translated by 'that'.
 			template <typename Expression>
-			TemporaryPoint<Real, N> operator+(
+			Point<Real, N> operator+(
 				const VectorExpression
 				<Real, N, Expression>& that) const
 			{
 				Point<Real, N> result((const Point<Real, N>&)*this);
 				result += that;
-				return result.asTemporary();
+				return result;
 			}
 
 			//! Returns the point translated backwards by 'that'.
 			template <typename Expression>
-			TemporaryPoint<Real, N> operator-(
+			Point<Real, N> operator-(
 				const VectorExpression
 				<Real, N, Expression>& that) const
 			{
 				Point<Real, N> result((const Point<Real, N>&)*this);
 				result -= that;
-				return result.asTemporary();
+				return result;
 			}
 
 			//! Interprets the point as a tuple.
@@ -269,12 +260,6 @@ namespace Pastel
 			const Vector<Real, N>& asVector() const
 			{
 				return data_;
-			}
-
-			//! Interprets the point as a temporary.
-			TemporaryPoint<Real, N>& asTemporary()
-			{
-				return (TemporaryPoint<Real, N>&)*this;
 			}
 
 		private:

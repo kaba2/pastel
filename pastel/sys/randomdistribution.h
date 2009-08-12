@@ -26,7 +26,7 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const = 0;
+		virtual Point<Real, N> sample() const = 0;
 		virtual std::string name() const = 0;
 
 		integer dimension() const
@@ -70,12 +70,12 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result(
 				randomGaussianVector<N, Real>(Base::dimension()));
 			
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -131,12 +131,12 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result(
 				randomExponentialVector<N, Real>(Base::dimension()));
 			
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -192,12 +192,12 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result(
 				randomVectorCube<N, Real>(Base::dimension()));
 			
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -262,13 +262,13 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result(
 				randomGeneralizedGaussianVector<N, Real>(
 				Base::dimension(), shape_, scale_));
 			
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -341,13 +341,13 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result(
 				randomGammaVector<N, Real>(
 				Base::dimension(), shape_));
 			
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -413,11 +413,11 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			if (distributionSet_.empty())
 			{
-				return TemporaryPoint<Real, N>(
+				return Point<Real, N>(
 					ofDimension(Base::dimension()));
 			}
 
@@ -490,11 +490,11 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result = distribution_->sample();
 			asVector(result) *= scaling_;
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -548,12 +548,12 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result(
 				distribution_->sample() * transform_);
 
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const
@@ -606,11 +606,11 @@ namespace Pastel
 		{
 		}
 
-		virtual TemporaryPoint<Real, N> sample() const
+		virtual Point<Real, N> sample() const
 		{
 			Point<Real, N> result = distribution_->sample();
 			result += translation_;
-			return result.asTemporary();
+			return result;
 		}
 
 		virtual std::string name() const

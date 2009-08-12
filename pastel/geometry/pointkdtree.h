@@ -454,7 +454,7 @@ namespace Pastel
 		position such that all objects of a leaf node
 		are listed sequentially.
 		*/
-		void spliceInsert(
+		void insert(
 			Node* node,
 			const ObjectIterator& first, 
 			const ObjectIterator& last,

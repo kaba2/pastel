@@ -147,7 +147,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+	inline Vector<Real, PASTEL_ADD_N(N, -1)> shrink(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
@@ -160,11 +160,11 @@ namespace Pastel
 			result[i] = that[i];
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+	inline Vector<Real, PASTEL_ADD_N(N, -1)> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index)
 	{
@@ -182,7 +182,7 @@ namespace Pastel
 			result[i] = that[i + 1];
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <
@@ -339,30 +339,22 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> normalize(const TemporaryVector<Real, N>& that)
-	{
-		Vector<Real, N> result = that;
-		result /= norm(result);
-		return result.asTemporary();
-	}
-
-	template <int N, typename Real>
-	TemporaryVector<Real, N> normalize(const Vector<Real, N>& that)
+	Vector<Real, N> normalize(const Vector<Real, N>& that)
 	{
 		return that / norm(that);
 	}
 
 	template <typename Real, typename Expression>
-	TemporaryVector<Real, 2> cross(
+	Vector<Real, 2> cross(
 		const VectorExpression<Real, 2, Expression>& that)
 	{
 		Vector<Real, 2> result(-that[1], that[0]);
-		return result.asTemporary();
+		return result;
 	}
 
 	template <typename Real, typename ExpressionX,
 	typename ExpressionY>
-	TemporaryVector<Real, 3> cross(
+	Vector<Real, 3> cross(
 		const VectorExpression<Real, 3, ExpressionX>& x,
 		const VectorExpression<Real, 3, ExpressionY>& y)
 	{
@@ -371,7 +363,7 @@ namespace Pastel
 			x[2] * y[0] - x[0] * y[2],
 			x[0] * y[1] - x[1] * y[0]);
 
-		return result.asTemporary();
+		return result;
 	}
 
 }
