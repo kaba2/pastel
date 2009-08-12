@@ -61,11 +61,11 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> perpendicular(
+	Vector<Real, N> perpendicular(
 		const std::vector<Vector<Real, N> >& orthonormalSet);
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> perpendicular(
+	Vector<Real, N> perpendicular(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& orthonormalSet);
 

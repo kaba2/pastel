@@ -26,7 +26,7 @@ namespace Pastel
 	s_k = atan(x_k / x_(k - 1))
 	*/
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cartesianToCylinder(
+	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian, integer k);
 
 	//! Converts generalized cylinder coordinates to cartesian coordinates.
@@ -46,7 +46,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cylinderToCartesian(
+	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder, integer k);
 
 	//! Converts cartesian coordinates to cylinder coordinates.
@@ -55,7 +55,7 @@ namespace Pastel
 	cartesianToCylinder(cartesian, dimension - 1).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cartesianToCylinder(
+	Vector<Real, N> cartesianToCylinder(
 		const Vector<Real, N>& cartesian);
 
 	//! Converts cylinder coordinates to cartesian coordinates.
@@ -64,7 +64,7 @@ namespace Pastel
 	cylinderToCartesian(cartesian, dimension - 1).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cylinderToCartesian(
+	Vector<Real, N> cylinderToCartesian(
 		const Vector<Real, N>& cylinder);
 
 	//! Converts cartesian coordinates to spherical coordinates.
@@ -73,7 +73,7 @@ namespace Pastel
 	cartesianToCylinder(cartesian, dimension).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<Real, N> cartesianToSpherical(
+	Vector<Real, N> cartesianToSpherical(
 		const Vector<Real, N>& cartesian);
 
 	//! Converts spherical coordinates to cartesian coordinates.
@@ -82,7 +82,7 @@ namespace Pastel
 	cylinderToCartesian(cartesian, dimension).
 	*/
 	template <int N, typename Real>
-	TemporaryVector<Real, N> sphericalToCartesian(
+	Vector<Real, N> sphericalToCartesian(
 		const Vector<Real, N>& spherical);
 
 }

@@ -15,7 +15,7 @@ namespace Pastel
 	//! Computes the barycentric coordinates of a point in a simplex.
 
 	template <int N, typename Real>
-	TemporaryVector<Real, PASTEL_ADD_N(N, 1)> barycentric(
+	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
 		const Point<Real, N>& point,
 		const Simplex<Real, N, N>& simplex);
 
@@ -28,7 +28,7 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	TemporaryVector<Real, PASTEL_ADD_N(N, 1)> barycentric(
+	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
 		const Point<Real, N>& point);
 
 }

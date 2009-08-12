@@ -1288,6 +1288,26 @@
 				RelativePath=".\sparseiterator.h"
 				>
 			</File>
+			<Filter
+				Name="Iterator ranges"
+				>
+				<File
+					RelativePath=".\bidirectionalrange.h"
+					>
+				</File>
+				<File
+					RelativePath=".\forwardrange.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iteratorrange.h"
+					>
+				</File>
+				<File
+					RelativePath=".\randomaccessrange.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Documentation"

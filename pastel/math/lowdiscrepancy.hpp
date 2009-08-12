@@ -61,7 +61,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	TemporaryPoint<Real, N> haltonSequence(integer n, 
+	Point<Real, N> haltonSequence(integer n, 
 		const Point<integer, N>& bases)
 	{
 		PENSURE_OP(n, >=, 0);
@@ -77,11 +77,11 @@ namespace Pastel
 			result[i] = vanDerCorputSequence<Real>(n, bases[i]);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <typename Real, int N>
-	TemporaryPoint<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
+	Point<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
 		integer n, const Point<integer, N>& bases, integer size)
 	{
 		PENSURE_OP(size, >=, 1);
@@ -99,7 +99,7 @@ namespace Pastel
 
 		result[dimension] = Real(n) / size;
 
-		return result.asTemporary();
+		return result;
 	}
 
 }

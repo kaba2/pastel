@@ -835,14 +835,14 @@ namespace Pastel
 			refine(maxDepth, maxObjects, subdivisionRule,
 				cursor.negative(), depth + 1,
 				minBound,
-				negativeMax.asTemporary());
+				negativeMax);
 
 			Point<Real, N> positiveMin(minBound);
 			positiveMin[splitAxis] = splitPosition;
 
 			refine(maxDepth, maxObjects, subdivisionRule,
 				cursor.positive(), depth + 1, 
-				positiveMin.asTemporary(),
+				positiveMin,
 				maxBound);
 		}
 	}

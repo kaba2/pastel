@@ -27,17 +27,17 @@ namespace Pastel
 		const Point<Real, N>& that);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> min(
+	Point<Real, N> min(
 		const Point<Real, N>& left,
 		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> min(
+	Point<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> min(
+	Point<Real, N> min(
 		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
@@ -48,31 +48,31 @@ namespace Pastel
 		const Point<Real, N>& that);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> max(
+	Point<Real, N> max(
 		const Point<Real, N>& left,
 		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> max(
+	Point<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> max(
+	Point<Real, N> max(
 		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, PASTEL_ADD_N(N, -1)> shrink(
+	Point<Real, PASTEL_ADD_N(N, -1)> shrink(
 		const Point<Real, N>& that);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, PASTEL_ADD_N(N, 1)> extend(
+	Point<Real, PASTEL_ADD_N(N, 1)> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const Point<Real, N>& right);
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, PASTEL_ADD_N(N, 1)> extend(
+	Point<Real, PASTEL_ADD_N(N, 1)> extend(
 		const Point<Real, N>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 

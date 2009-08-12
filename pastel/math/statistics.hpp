@@ -7,7 +7,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> mean(
+	Point<Real, N> mean(
 		const std::vector<Point<Real, N> >& pointSet)
 	{
 		const integer points = pointSet.size();
@@ -15,7 +15,7 @@ namespace Pastel
 		if (points == 0)
 		{
 			Point<Real, N> result(ofDimension(0));
-			return result.asTemporary();
+			return result;
 		}
 
 		const integer dimension = pointSet.front().dimension();
@@ -28,11 +28,11 @@ namespace Pastel
 
 		asVector(result) /= points;
 		
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> axisAlignedVariance(
+	Vector<Real, N> axisAlignedVariance(
 		const std::vector<Point<Real, N> >& pointSet,
 		const Point<Real, N>& mean)
 	{
@@ -45,7 +45,7 @@ namespace Pastel
 			result += squarev(pointSet[i] - mean);
 		}
 		
-		return result.asTemporary();
+		return result;
 	}
 
 }

@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, N> permute(
+	inline Vector<Real, N> permute(
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation)
 	{
@@ -24,7 +24,7 @@ namespace Pastel
 			result[i] = that[permutation[i]];
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	// Minimum functions
@@ -60,7 +60,7 @@ namespace Pastel
 
 	template <int N, typename Real,
 	typename LeftExpression, typename RightExpression>
-	TemporaryVector<Real, N> min(
+	Vector<Real, N> min(
 		const VectorExpression<Real, N, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right)
 	{
@@ -74,11 +74,11 @@ namespace Pastel
 			result[i] = std::min(left[i], right[i]);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<Real, N> min(
+	Vector<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
 	{
@@ -90,11 +90,11 @@ namespace Pastel
 			result[i] = std::min(left, right[i]);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<Real, N> min(
+	Vector<Real, N> min(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
@@ -106,7 +106,7 @@ namespace Pastel
 			result[i] = std::min(left[i], right);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 
@@ -145,7 +145,7 @@ namespace Pastel
 	template <int N, typename Real,
 	typename LeftExpression,
 	typename RightExpression>
-	TemporaryVector<Real, N> max(
+	Vector<Real, N> max(
 		const VectorExpression<Real, N, LeftExpression>& left,
 		const VectorExpression<Real, N, RightExpression>& right)
 	{
@@ -159,11 +159,11 @@ namespace Pastel
 			result[i] = std::max(left[i], right[i]);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<Real, N> max(
+	Vector<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
 	{
@@ -175,11 +175,11 @@ namespace Pastel
 			result[i] = std::max(left, right[i]);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real, typename Expression>
-	TemporaryVector<Real, N> max(
+	Vector<Real, N> max(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
 	{
@@ -191,14 +191,14 @@ namespace Pastel
 			result[i] = std::max(left[i], right);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	template <int N, typename Real,
 	typename ThatExpression,
 	typename MinExpression,
 	typename MaxExpression>
-	inline TemporaryVector<Real, N> clamp(
+	inline Vector<Real, N> clamp(
 		const VectorExpression<Real, N, ThatExpression>& that,
 		const VectorExpression<Real, N, MinExpression>& minimum,
 		const VectorExpression<Real, N, MaxExpression>& maximum)
@@ -214,7 +214,7 @@ namespace Pastel
 			result[i] = Pastel::clamp(that[i], minimum[i], maximum[i]);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 	// Optimization functions

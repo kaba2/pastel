@@ -60,11 +60,11 @@ namespace Pastel
 	//! Returns a subsequence of a vector.
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+	inline Vector<Real, PASTEL_ADD_N(N, -1)> shrink(
 		const VectorExpression<Real, N, Expression>& that);
 
 	template <int N, typename Real, typename Expression>
-	inline TemporaryVector<Real, PASTEL_ADD_N(N, -1)> shrink(
+	inline Vector<Real, PASTEL_ADD_N(N, -1)> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index);
 
@@ -190,33 +190,22 @@ namespace Pastel
 	/*!
 	Preconditions:
 	norm(that) > 0
-
-	This version does the normalization in-place.
 	*/
 	template <int N, typename Real>
-	inline TemporaryVector<Real, N> normalize(
-		const TemporaryVector<Real, N>& that);
-
-	//! Returns the corresponding unit vector (Euclidean norm).
-	/*!
-	Preconditions:
-	norm(that) > 0
-	*/
-	template <int N, typename Real>
-	inline TemporaryVector<Real, N> normalize(
+	inline Vector<Real, N> normalize(
 		const Vector<Real, N>& that);
 
 	//! Returns a clockwise perpendicular to the given vector in 2D.
 
 	template <typename Real, typename Expression>
-	TemporaryVector<Real, 2> cross(
+	Vector<Real, 2> cross(
 		const VectorExpression<Real, 2, Expression>& that);
 
 	//! Returns the cross product of two vectors in 3D.
 
 	template <typename Real, typename ExpressionX,
 	typename ExpressionY>
-	TemporaryVector<Real, 3> cross(
+	Vector<Real, 3> cross(
 		const VectorExpression<Real, 3, ExpressionX>& x,
 		const VectorExpression<Real, 3, ExpressionY>& y);
 

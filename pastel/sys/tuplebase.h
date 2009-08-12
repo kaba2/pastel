@@ -103,9 +103,6 @@ namespace Pastel
 	template <typename Type, int N = Dynamic>
 	class Tuple;
 
-	template <typename Type, int N = Dynamic>
-	class TemporaryTuple;
-
 	namespace Detail
 	{
 
@@ -351,11 +348,6 @@ namespace Pastel
 					begin(), end(), that.begin());
 			}
 
-			TemporaryTuple<Type, N>& asTemporary()
-			{
-				return (TemporaryTuple<Type, N>&)*this;
-			}
-
 		private:
 			Type data_[N];
 		};
@@ -490,17 +482,6 @@ namespace Pastel
 					deallocate();
 					throw;
 				};
-			}
-
-			TupleBase(const TemporaryTuple<Type, N>& that)
-				: data_(0)
-				, size_(0)
-				, deleteData_(true)
-			{
-				TemporaryTuple<Type, N>& moveThat =
-					const_cast<TemporaryTuple<Type, N>&>(that);
-
-				swap(moveThat);
 			}
 
 			TupleBase(
@@ -699,11 +680,6 @@ namespace Pastel
 
 				return std::equal(
 					begin(), end(), that.begin());
-			}
-
-			TemporaryTuple<Type, N>& asTemporary()
-			{
-				return (TemporaryTuple<Type, N>&)*this;
 			}
 
 		private:

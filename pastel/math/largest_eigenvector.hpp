@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryVector<Real, N> largestEigenVector(
+	Vector<Real, N> largestEigenVector(
 		const std::vector<Point<Real, N> >& pointSet)
 	{
 		// This is the PASTd algorithm from
@@ -51,7 +51,7 @@ namespace Pastel
 			result += ((pointSet[i] - meanPoint) - result * y) * (y / d);
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 }

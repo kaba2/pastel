@@ -7,7 +7,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	TemporaryPoint<Real, N> wDivide(const Point<Real, N>& that)
+	Point<Real, N> wDivide(const Point<Real, N>& that)
 	{
 		const integer dimension = that.dimension();
 
@@ -19,7 +19,7 @@ namespace Pastel
 			result[i] *= wInv;
 		}
 
-		return result.asTemporary();
+		return result;
 	}
 
 }

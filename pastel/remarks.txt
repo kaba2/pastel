@@ -1,16 +1,3 @@
-
-search_best_first_pointkdtree.h
-search_depth_first_pointkdtree.h
-
-search_neighbors_pointkdtree.h
-count_neighbors_pointkdtree.h
-
-searh_all_neighbors_pointkdtree.h
-count_all_neighbors_pointkdtree.h
-
-BestFirst_SearchAlgorithm_PointKdTree
-DepthFirst_SearchAlgorithm_PointKdTree
-
 Remarks
 =======
 
@@ -346,11 +333,11 @@ is the essential efficiency requirement for returning from functions.
 
 Solution 3: Use move semantics..
 => Large objects act similar to auto_ptr
-=> Subclass Matrix with TemporaryMatrix. TemporaryMatrix's allow
-move semantics when assigned. Return TemporaryMatrix's from functions.
+=> Subclass Matrix with Matrix. Matrix's allow
+move semantics when assigned. Return Matrix's from functions.
 => Nice solution for one class alone, but does not layer nicely.
 E.g. take a Box, which contains a Matrix. Move semantics for the Box
-again needs TemporaryBox etc: its hard work.
+again needs Box etc: its hard work.
 
 Matrix indexing
 ---------------

@@ -710,19 +710,6 @@ namespace Pastel
 			return *this;
 		}
 
-		// This function can't be included because
-		// then assignment of a vector expression would
-		// be ambiguous. This is because TemporaryVector
-		// has an implicit conversion from a vector
-		// expression.
-		/*
-		VectorView& operator=(
-			const TemporaryVectorView& that)
-		{
-			//...
-		}
-		*/
-
 		const VectorView& operator=(
 			const VectorView& that) const
 		{

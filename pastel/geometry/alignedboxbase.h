@@ -149,10 +149,10 @@ namespace Pastel
 			return max_[index] - min_[index];
 		}
 
-		TemporaryPoint<Real, N> at(
+		Point<Real, N> at(
 			const Vector<Real, N>& coordinates) const
 		{
-			return TemporaryPoint<Real, N>(
+			return Point<Real, N>(
 				(1 - coordinates) * asVector(min_) +
 				coordinates * asVector(max_));
 		}

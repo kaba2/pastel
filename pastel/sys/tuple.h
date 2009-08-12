@@ -11,9 +11,6 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
-	class TemporaryTuple;
-
 	//! A fixed size array of the given type.
 
 	/*!
@@ -63,11 +60,6 @@ namespace Pastel
 		}
 
 		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
@@ -129,11 +121,6 @@ namespace Pastel
 		}
 
 		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
@@ -205,11 +192,6 @@ namespace Pastel
 		}
 
 		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
@@ -303,11 +285,6 @@ namespace Pastel
 		}
 
 		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
@@ -413,11 +390,6 @@ namespace Pastel
 		}
 
 		explicit Tuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		Tuple(const TemporaryTuple<Type, N>& that)
 			: Base(that)
 		{
 		}
@@ -568,16 +540,6 @@ namespace Pastel
 		}
 
 		Tuple(
-			const TemporaryTuple<Type, N>& that)
-			: Base(that)
-		{
-		}
-
-		// The TemporaryTuple's of ThatType
-		// are handled via the Tuple<ThatType, N>
-		// constructor.
-
-		Tuple(
 			const Dimension& dimension,
 			const Alias<Type*>& dataAlias)
 			: Base(dimension, dataAlias)
@@ -587,14 +549,6 @@ namespace Pastel
 		Tuple<Type, N>& operator=(const Tuple& that)
 		{
 			return (Tuple<Type, N>&)Base::operator=(that);
-		}
-
-		Tuple<Type, N>& operator=(
-			const TemporaryTuple<Type, N>& that)
-		{
-			Tuple<Type, N> copy(that);
-			swap(copy);
-			return *this;
 		}
 	};
 
@@ -609,370 +563,6 @@ namespace Pastel
 
 	typedef Tuple<integer, 4> Integer4;
 	typedef Tuple<real, 4> Type4;
-
-	template <int N, typename Type>
-	TemporaryTuple<Type, N> nullTuple();
-
-	template <int N, typename Type>
-	TemporaryTuple<Type, N> aliasTuple(integer dimension,
-		PASTEL_NO_DEDUCTION(Type)* data);
-
-	template <typename Type, int N>
-	class TemporaryTuple
-		: public Tuple<Type, N>
-	{
-	private:
-		typedef Tuple<Type, N> Base;
-
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		TemporaryTuple()
-			: Base()
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		TemporaryTuple(const TemporaryTuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<OtherType, N>& that)
-			: Base(that)
-		{
-		}
-	};
-
-	template <typename Type>
-	class TemporaryTuple<Type, 1>
-		: public Tuple<Type, 1>
-	{
-	private:
-		typedef Tuple<Type, 1> Base;
-
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		TemporaryTuple()
-			: Base()
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		TemporaryTuple(const TemporaryTuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<OtherType, 1>& that)
-			: Base(that)
-		{
-		}
-	};
-
-	template <typename Type>
-	class TemporaryTuple<Type, 2>
-		: public Tuple<Type, 2>
-	{
-	private:
-		typedef Tuple<Type, 2> Base;
-
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		TemporaryTuple()
-			: Base()
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		TemporaryTuple(const TemporaryTuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<OtherType, 2>& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& a, const Type& b)
-			: Base(a, b)
-		{
-		}
-	};
-
-	template <typename Type>
-	class TemporaryTuple<Type, 3>
-		: public Tuple<Type, 3>
-	{
-	private:
-		typedef Tuple<Type, 3> Base;
-
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		TemporaryTuple()
-			: Base()
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		TemporaryTuple(const TemporaryTuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<OtherType, 3>& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& a, const Type& b,
-			const Type& c)
-			: Base(a, b, c)
-		{
-		}
-	};
-
-	template <typename Type>
-	class TemporaryTuple<Type, 4>
-		: public Tuple<Type, 4>
-	{
-	private:
-		typedef Tuple<Type, 4> Base;
-
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		TemporaryTuple()
-			: Base()
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Copy<const Type*>& that)
-			: Base(that)
-		{
-		}
-
-		TemporaryTuple(const TemporaryTuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<OtherType, 4>& that)
-			: Base(that)
-		{
-		}
-
-		explicit TemporaryTuple(const Type& a, const Type& b,
-			const Type& c, const Type& d)
-			: Base(a, b, c, d)
-		{
-		}
-	};
-
-	template <typename Type>
-	class TemporaryTuple<Type, Dynamic>
-		: public Tuple<Type, Dynamic>
-	{
-	private:
-		enum
-		{
-			N = Dynamic
-		};
-
-		typedef Tuple<Type, N> Base;
-
-	public:
-		// Using default copy constructor.
-		// Using default assignment.
-		// Using default destructor.
-
-		using Base::swap;
-
-		TemporaryTuple()
-			: Base()
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Type& that = Type())
-			: Base(dimension, that)
-		{
-		}
-
-		explicit TemporaryTuple(
-			const Dimension& dimension,
-			const Copy<const Type*>& that)
-			: Base(dimension, that)
-		{
-		}
-
-		// This constructor does not make
-		// sense for unbounded vectors and thus
-		// we leave it out.
-		/*
-		explicit TemporaryTuple(const Type& that)
-			: Base(that)
-		{
-		}
-		*/
-
-		TemporaryTuple(const TemporaryTuple& that)
-			: Base(that)
-		{
-		}
-
-		template <typename OtherType>
-		TemporaryTuple(const TemporaryTuple<OtherType, N>& that)
-			: Base(that)
-		{
-		}
-
-		TemporaryTuple(
-			const Dimension& dimension,
-			Type* dataAlias)
-			: Base(dimension, dataAlias)
-		{
-		}
-
-		TemporaryTuple<Type, N>& operator=(
-			const TemporaryTuple& that)
-		{
-			TemporaryTuple copy(that);
-			swap(copy);
-			return *this;
-		}
-	};
 
 }
 
