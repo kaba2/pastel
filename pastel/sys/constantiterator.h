@@ -13,9 +13,14 @@ namespace Pastel
 	template <typename Type>
 	class ConstantIterator
 		: public boost::random_access_iterator_helper<
-		ConstantIterator<Type>, Type, integer, const Type*, const Type&>
+		ConstantIterator<Type>, Type, integer, const Type*, const Type>
 	{
 	public:
+		// Note the reference is const Type and not const Type&.
+		// You can't return a reference since a temporary 
+		// iterator can get destructed before the data
+		// is accessed.
+
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
@@ -61,7 +66,8 @@ namespace Pastel
 			return index_ - that.index_;
 		}
 
-		const Type& operator*() const
+		//const Type& operator*() const
+		Type operator*() const
 		{
 			return data_;
 		}

@@ -63,10 +63,20 @@ namespace Pastel
 		{
 		}
 
-		explicit Vector(
+		Vector(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
 			: Base(dimension, that)
+		{
+		}
+
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Vector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
 		{
 		}
 
@@ -92,7 +102,14 @@ namespace Pastel
 		{
 		}
 
-		// The wrapper avoids interpreting literal 0 as a null pointer.
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Vector(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
+		{
+		}
+
 		explicit Vector(const Copy<const Real*>& that)
 			: Base(that)
 		{
@@ -140,7 +157,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Vector(
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Vector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
+		Vector(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
 			: Base(dimension, that)
@@ -171,7 +198,14 @@ namespace Pastel
 		{
 		}
 
-		// The wrapper avoids interpreting literal 0 as a null pointer.
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Vector(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
+		{
+		}
+
 		explicit Vector(const Copy<const Real*>& that)
 			: Base(that)
 		{
@@ -230,7 +264,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Vector(
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Vector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
+		Vector(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
 			: Base(dimension, that)
@@ -259,7 +303,14 @@ namespace Pastel
 		{
 		}
 
-		// The wrapper avoids interpreting literal 0 as a null pointer.
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Vector(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
+		{
+		}
+
 		explicit Vector(const Copy<const Real*>& that)
 			: Base(that)
 		{
@@ -341,7 +392,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Vector(
+				// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Vector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
+		Vector(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
 			: Base(dimension, that)
@@ -370,7 +431,14 @@ namespace Pastel
 		{
 		}
 
-		// The wrapper avoids interpreting literal 0 as a null pointer.
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Vector(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
+		{
+		}
+
 		explicit Vector(const Copy<const Real*>& that)
 			: Base(that)
 		{
@@ -464,7 +532,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Vector(
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Vector(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
+		Vector(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
 			: Base(dimension, that)
@@ -493,7 +571,14 @@ namespace Pastel
 		{
 		}
 
-		// The wrapper avoids interpreting literal 0 as a null pointer.
+		// Alias for static vector is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Vector(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
+		{
+		}
+
 		explicit Vector(const Copy<const Real*>& that)
 			: Base(that)
 		{
