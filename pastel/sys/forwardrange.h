@@ -103,7 +103,7 @@ namespace Pastel
 
 		bool empty() const
 		{
-			return size_ == 0 || begin_ == end_;
+			return !(size_ > 0 || begin_ != end_);
 		}
 
 		void pop_front()
@@ -130,8 +130,9 @@ namespace Pastel
 		{
 			if (end_ == begin_ && size_ > 0)
 			{
+				end_ = begin_;
 				// Update cache.
-				end_ = std::advance(begin_, size_);
+				std::advance(end_, size_);
 			}
 
 			return end_;

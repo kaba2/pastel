@@ -18,7 +18,7 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-	class PointPolicy
+	class Direct_ObjectPolicy_PointKdTree
 	{
 	public:
 		typedef Point<Real, N> Object;
@@ -31,6 +31,23 @@ namespace Pastel
 		Real point(const Object& object, integer axis) const
 		{
 			return object[axis];
+		}
+	};
+
+	template <typename Real, int N>
+	class Pointer_ObjectPolicy_PointKdTree
+	{
+	public:
+		typedef Point<Real, N>* Object;
+
+		const Point<Real, N>& point(const Object& object) const
+		{
+			return *object;
+		}
+
+		Real point(const Object& object, integer axis) const
+		{
+			return (*object)[axis];
 		}
 	};
 
@@ -48,7 +65,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N = Dynamic, 
-		typename ObjectPolicy = PointPolicy<Real, N> >
+		typename ObjectPolicy = Direct_ObjectPolicy_PointKdTree<Real, N> >
 	class PointKdTree
 	{
 	public:
@@ -258,7 +275,10 @@ namespace Pastel
 			const SubdivisionRule& subdivisionRule,
 			integer maxDepth = 128);
 
-		//! Insert objects in the tree.
+		//! Insert an object into the tree.
+		ConstObjectIterator insert(const Object& object);
+
+		//! Insert objects into the tree.
 		/*!
 		Exception safety:
 		strong
@@ -305,9 +325,10 @@ namespace Pastel
 		public:
 			friend class PointKdTree;
 
+			// Implicit conversion allowed.
 			ObjectInfo(
 				const Object& object,
-				Node* leafNode)
+				Node* leafNode = 0)
 				: object_(object)
 				, leafNode_(leafNode)
 			{
@@ -361,6 +382,10 @@ namespace Pastel
 
 		//! Runs destructors for all nodes of a subtree.
 		void destructSubtree(Node* node);
+
+		//! Reserve bounding box for objects.
+		void reserveBound(const ConstObjectIterator& begin, 
+			const ConstObjectIterator& end);
 
 		//! Collapse a subtree into a leaf node.
 		void merge(Node* node);

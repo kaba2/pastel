@@ -15,7 +15,6 @@ namespace Pastel
 
 	public:
 		using Base::reference;
-		using Base::const_reference;
 		using Base::size_type;
 		
 		RandomAccessRange()
@@ -47,7 +46,7 @@ namespace Pastel
 
 		reference operator[](size_type index) const
 		{
-			return *(begin() + index);
+			return *(Base::begin() + index);
 		}
 	};
 

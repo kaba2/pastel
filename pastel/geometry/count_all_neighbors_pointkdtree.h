@@ -6,6 +6,9 @@
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/randomaccessrange.h"
+
+#include "pastel/geometry/pointkdtree.h"
 
 #include <vector>
 
@@ -14,18 +17,15 @@ namespace Pastel
 
 	//! Counts the number of neighbors for all query points.
 	/*!
-	pointSet:
-	A set of points.
+	kdTree:
+	A point kd-tree.
 
-	indexBegin, indexEnd:
-	A sequence of n integers denoting the indices of query points
-	in 'pointSet' for which the neighbors are counted for.
-	Note: The special iterator CountingIterator is memory-
-	efficient if the index set consists of an integer interval.
-	See 'pastel/sys/iterators.txt'. The iterators must be
-	random-access iterators.
-	
-	maxDistanceBegin:
+	querySet:
+	A set of n object iterators to 'kdTree'. Denotes the set
+	of query points for which the neighbors are counted.
+	The iterator must be a random-access iterator.
+
+	maxDistanceSet:
 	A sequence of n reals denoting the maximum distance inside
 	which points are considered neighbors. Note:
 	the special iterator ConstantIterator is memory-efficient 
@@ -37,23 +37,22 @@ namespace Pastel
 	Defines the distance that is used. 
 	See 'pastel/math/normbijection.txt'.
 
-	neighborsBegin (output):
+	result (output):
 	A sequence of n integers, the i:th member denoting the number 
-	of neighbors 'pointSet[indexSetBegin[i]]' has. The iterator 
+	of neighbors 'querySet[i]' has. The iterator 
 	must be a random-access iterator and writable.
 	*/
-	template <int N, typename Real, typename NormBijection, 
-		typename ConstIndexIterator,
-		typename ConstDistanceIterator, 
-		typename CountIterator>
-	void countAllNeighborsKdTree(
-		const std::vector<Point<Real, N> >& pointSet,
-		const ConstIndexIterator& indexBegin,
-		const ConstIndexIterator& indexEnd,
-		const ConstDistanceIterator& maxDistanceBegin,
+	template <typename Real, int N, typename ObjectPolicy,
+		typename ConstObjectIterator_Iterator,
+		typename Real_Iterator,
+		typename NormBijection,
+		typename Integer_OutputIterator>
+	void countAllNeighbors(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const NormBijection& normBijection,
-		integer bucketSize,
-		const CountIterator& neighborsBegin);
+		Integer_OutputIterator result);
 
 }
 
