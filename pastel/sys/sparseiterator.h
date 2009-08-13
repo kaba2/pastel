@@ -1,5 +1,5 @@
 // Description: SparseIterator class
-// Detail: A random-access iterator adapter for a larger step size.
+// Detail: An iterator adapter for a larger step size.
 // Documentation: miscellaneous.txt
 
 #ifndef PASTEL_SPARSEITERATOR_H
@@ -8,6 +8,8 @@
 #include "pastel/sys/mytypes.h"
 
 #include <boost/operators.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 
 #include <iterator>
 
@@ -169,6 +171,20 @@ namespace Pastel
 		{
 		}
 	};
+
+	template <typename Iterator>
+	SparseIterator<Iterator> sparseIterator(
+		const Iterator& that, integer delta)
+	{
+		return SparseIterator<Iterator>(that, delta);
+	}
+
+	template <typename ConstIterator>
+	ConstSparseIterator<ConstIterator> constSparseIterator(
+		const ConstIterator& that, integer delta)
+	{
+		return ConstSparseIterator<ConstIterator>(that, delta);
+	}
 
 	template <typename ConstIterator>
 	ConstIterator sparseEnd(

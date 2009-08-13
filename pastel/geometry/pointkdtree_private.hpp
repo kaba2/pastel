@@ -97,6 +97,81 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::reserveBound(
+		const ConstObjectIterator& begin, 
+		const ConstObjectIterator& end)
+	{
+		// Possibly extend the bounding box	
+
+		bool neededToExtend = false;
+		ConstObjectIterator iter = begin;
+		const ConstObjectIterator iterEnd = end;
+		while(iter != iterEnd)
+		{
+			neededToExtend |= extendToCover(
+				objectPolicy_.point(iter->object()), 
+				bound_);
+			++iter;
+		}
+
+		if (neededToExtend)
+		{
+			updateBound(root_, bound_.min(), bound_.max());
+		}
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::merge(
+		Node* node)
+	{
+		ASSERT(node);
+		
+		if (!node->leaf())
+		{
+			if (node == root_)
+			{
+				merge();
+			}
+			else
+			{
+				erase(node->left());
+				erase(node->right());
+
+				node->setLeft(0);
+				node->setRight(0);
+
+				// The node is now a leaf node.
+
+				node->setBucket(findBucketUpwards(node));
+			}
+		}
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::erase(
+		Node* node)
+	{
+		ASSERT(node);
+
+		if (!node->leaf())
+		{
+			erase(node->left());
+			erase(node->right());
+		}
+		else
+		{
+			--leaves_;
+		}
+
+		if (!boost::has_trivial_destructor<Real>())
+		{
+			StdExt::destruct(node);
+		}
+
+		nodeAllocator_.deallocate(node);
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
 	typename PointKdTree<Real, N, ObjectPolicy>::Node* 
 		PointKdTree<Real, N, ObjectPolicy>::findBucketUpwards(
 		Node* node)
@@ -249,57 +324,6 @@ namespace Pastel
 			updateObjects(node);
 			node = node->parent();
 		}
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::merge(
-		Node* node)
-	{
-		ASSERT(node);
-		
-		if (!node->leaf())
-		{
-			if (node == root_)
-			{
-				merge();
-			}
-			else
-			{
-				erase(node->left());
-				erase(node->right());
-
-				node->setLeft(0);
-				node->setRight(0);
-
-				// The node is now a leaf node.
-
-				node->setBucket(findBucketUpwards(node));
-			}
-		}
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::erase(
-		Node* node)
-	{
-		ASSERT(node);
-
-		if (!node->leaf())
-		{
-			erase(node->left());
-			erase(node->right());
-		}
-		else
-		{
-			--leaves_;
-		}
-
-		if (!boost::has_trivial_destructor<Real>())
-		{
-			StdExt::destruct(node);
-		}
-
-		nodeAllocator_.deallocate(node);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>

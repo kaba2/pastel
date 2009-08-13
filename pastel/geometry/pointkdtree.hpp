@@ -240,6 +240,28 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
+	typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
+		PointKdTree<Real, N, ObjectPolicy>::insert(const Object& object)
+	{
+		// Copy the object to the end of objectList_.
+
+		objectList_.push_back(object);
+		
+		ObjectIterator iter = objectList_.end();
+		--iter;
+
+		// Reserve bounding box for the inserted object.
+
+		reserveBound(iter, objectList_.end());
+
+		// Splice the point to the leaf node.
+
+		insert(root_, iter, iter, 1, 0, root_);
+
+		return iter;
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
 	template <typename InputIterator>
 	void PointKdTree<Real, N, ObjectPolicy>::insert(
 		const InputIterator& begin, 
@@ -251,43 +273,39 @@ namespace Pastel
 			return;
 		}
 
-		// Possibly extend the bounding box
-		// and copy the object to the inner list.
+		// Copy the objects to the end of objectList_.
+
+		ObjectIterator oldLast = objectList_.end();
+		if (!objectList_.empty())
+		{
+			--oldLast;
+		}
+
+		std::copy(begin, end, std::back_inserter(objectList_));
 
 		ObjectIterator first;
-
-		integer objects = 0;
-
-		bool neededToExtend = false;
-		InputIterator iter = begin;
-		const InputIterator iterEnd = end;
-		while(iter != iterEnd)
+		if (oldLast == objectList_.end())
 		{
-			neededToExtend |= extendToCover(
-				objectPolicy_.point(*iter), 
-				bound_);
-
-			objectList_.push_back(
-				ObjectInfo(*iter, (Node*)0));
-			if (objects == 0)
-			{
-				first = objectList_.end();
-				--first;
-			}
-
-			++objects;
-			++iter;
+			first = objectList_.begin();
+		}
+		else
+		{
+			first = oldLast;
+			++first;
 		}
 
-		if (neededToExtend)
-		{
-			updateBound(root_, bound_.min(), bound_.max());
-		}
+		// Count the number of inserted objects.
+
+		const integer objects = std::distance(begin, end);
+
+		// Reserve bounding box for the inserted objects.
+
+		reserveBound(first, objectList_.end());
+
+		// Splice the points to the leaf nodes.
 
 		ObjectIterator last = objectList_.end();
 		--last;
-
-		// Splice the points to the leaf nodes.
 
 		insert(root_, first, last, objects, 0, root_);
 	}

@@ -26,7 +26,7 @@ namespace Pastel
 		{
 		}
 
-		explicit ConstantIterator(integer index, const Type& data)
+		explicit ConstantIterator(const Type& data, integer index = 0)
 			: index_(index)
 			, data_(data)
 		{
@@ -80,6 +80,12 @@ namespace Pastel
 		integer index_;
 		Type data_;
 	};
+
+	template <typename Type>
+	ConstantIterator<Type> constantIterator(const Type& that, integer index = 0)
+	{
+		return ConstantIterator<Type>(that, index);
+	}
 
 }
 

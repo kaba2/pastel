@@ -1,0 +1,33 @@
+Affine transformations
+======================
+
+Theory
+------
+
+Let V and W be vector spaces over the reals. Let f : V -> W.
+f is called _affine_ if it holds that
+
+for all x, y in V: for all t in R:  
+f((1 - t) x + t y) = (1 - t) f(x) + t f(y)
+
+When V and W are finite dimensional, say of dimensions 
+n and m respectively, we can identify them with R^n 
+and R^m by choosing a basis in each. A linear transformation 
+between R^n and R^m can be described with an R^(m x n) matrix. 
+Similarly, it is easy to prove that an affine transformation 
+can be described with functions of the form f(x) = Ax + b, 
+where A is an R^(m x n) matrix, and b is a vector in R^m.
+
+Practice
+--------
+
+Pastel implements the AffineTransformation class to model
+affine transformations in R^n as well as functions for
+forming common affine transformations from various inputs, and
+inverting a transformation.
+
+An AffineTransformation acts on Vector's, Point's, and 
+AffineTransformation's by an overloaded multiplication operator.
+The effect of the transformation is different for each
+type. For example, vectors are not affected by translation
+part of an affine transformation.

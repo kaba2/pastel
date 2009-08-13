@@ -6,6 +6,7 @@
 
 #include "pastel/sys/point.h"
 #include "pastel/sys/array.h"
+#include "pastel/sys/randomaccessrange.h"
 
 #include "pastel/geometry/pointkdtree.h"
 
@@ -66,41 +67,21 @@ namespace Pastel
 	reporting this information is skipped.
 	*/
 
-	template <int N, typename Real,  
-		typename SearchAlgorithm,
-		typename ConstIndexIterator, 
-		typename NormBijection,
-		typename SplitRule>
-	void searchAllNeighborsKdTree(
-		const std::vector<Point<Real, N> >& pointSet,
-		const SearchAlgorithm& searchAlgorithm,
-		const ConstIndexIterator& indexSetBegin,
-		const ConstIndexIterator& indexSetEnd,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const NormBijection& normBijection,
-		integer bucketSize,
-		const SplitRule& splitRule,
-		Array<integer, 2>* nearestArray,
-		Array<Real, 2>* distanceArray = 0);
-
-	template <int N, typename Real, typename ObjectPolicy,
+	template <typename Real, int N, typename ObjectPolicy,
 		typename SearchAlgorithm,
 		typename ConstObjectIterator_Iterator, 
+		typename Real_Iterator,
 		typename NormBijection>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchAlgorithm& searchAlgorithm,
-		const ConstObjectIterator_Iterator& querySetBegin,
-		integer queries,
+		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		Array<integer, 2>* nearestArray,
+		Array<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator, 2>* nearestArray,
 		Array<Real, 2>* distanceArray = 0);
 
 }

@@ -1,7 +1,8 @@
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/search_all_neighbors.h"
-#include "pastel/sys/random_vector.h"
+#include "pastel/geometry/pointkdtree_refine.h"
+
 #include "pastel/math/normbijection.h"
 
 #include "pastel/gfx/savepcx.h"
@@ -10,12 +11,14 @@
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_tools.h"
 
+#include "pastel/sys/constantiterator.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/random.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/view_all.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/random_vector.h"
 
 #include "pastel/device/timer.h"
 
@@ -53,29 +56,29 @@ namespace
 		std::vector<Point<Real, N> > pointSet;
 		generateSpherePointSet(dimension, points, pointSet);
 
-		Array<integer, 2> neighborSet(kNearest, points);
-		Array<integer, 2> naiveNeighborSet(kNearest, points);
-
 		Timer timer;
 
-		log() << "Brute force..." << logNewLine;
+		{
+			Array<integer, 2> naiveNeighborSet(kNearest, points);
+			log() << "Brute force..." << logNewLine;
 
-		timer.setStart();
+			timer.setStart();
 
-		searchAllNeighborsBruteForce(
-			pointSet,
-			CountingIterator<integer>(0),
-			CountingIterator<integer>(points),
-			kNearest,
-			infinity<Real>(),
-			Euclidean_NormBijection<Real>(),
-			naiveNeighborSet);
+			searchAllNeighborsBruteForce(
+				pointSet,
+				CountingIterator<integer>(0),
+				CountingIterator<integer>(points),
+				kNearest,
+				infinity<Real>(),
+				Euclidean_NormBijection<Real>(),
+				naiveNeighborSet);
 
-		timer.store();
+			timer.store();
 
-		log() << timer.seconds() << " seconds." << logNewLine;
+			log() << timer.seconds() << " seconds." << logNewLine;
 
-		drawNearest("brute", pointSet, naiveNeighborSet);
+			drawNearest("brute", pointSet, naiveNeighborSet);
+		}
 
 		/*
 		searchAllNeighborsVaidya(
@@ -94,31 +97,43 @@ namespace
 			neighborSet);
 		*/
 
+		{
+			log() << "Kd-tree..." << logNewLine;
 
-		log() << "Kd-tree..." << logNewLine;
+			timer.setStart();
 
-		timer.setStart();
+			typedef PointKdTree<Real, N> KdTree;
+			typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
+				
+			KdTree kdTree(ofDimension(dimension));
+			kdTree.insert(pointSet.begin(), pointSet.end());
+			kdTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
-		searchAllNeighborsKdTree(
-			pointSet,
-			DepthFirst_SearchAlgorithm_PointKdTree(),
-			CountingIterator<integer>(0),
-			CountingIterator<integer>(points),
-			0,
-			kNearest,
-			infinity<Real>(),
-			0,
-			Euclidean_NormBijection<Real>(),
-			16,
-			SlidingMidpoint2_SplitRule_PointKdTree(),
-			&neighborSet);
+			std::vector<ConstObjectIterator> objectSet(
+				countingIterator(kdTree.begin()), 
+				countingIterator(kdTree.end()));
 
-		timer.store();
+			Array<ConstObjectIterator, 2> neighborSet(kNearest, points);
 
-		log() << timer.seconds() << " seconds." << logNewLine;
+			searchAllNeighbors(
+				kdTree,
+				DepthFirst_SearchAlgorithm_PointKdTree(),
+				randomAccessRange(objectSet.begin(), objectSet.end()),
+				0,
+				kNearest,
+				randomAccessRange(constantIterator(infinity<Real>()), objectSet.size()),
+				0,
+				Euclidean_NormBijection<Real>(),
+				&neighborSet);
 
-		drawNearest("kdtree", pointSet, neighborSet);
+			timer.store();
 
+			log() << timer.seconds() << " seconds." << logNewLine;
+
+			//drawNearest("kdtree", pointSet, neighborSet);
+		}
+
+		/*
 		integer differ = 0;
 		for (integer i = 0;i < points;++i)
 		{
@@ -132,6 +147,7 @@ namespace
 		}
 
 		log() << "Differ = " << differ << logNewLine;
+		*/
 
 		log() << "Done." << logNewLine;
 	}
