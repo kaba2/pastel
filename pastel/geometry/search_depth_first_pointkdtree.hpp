@@ -43,6 +43,7 @@ namespace Pastel
 				, cullDistance(maxDistance_)
 				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
 				, nodeCullDistance(maxDistance_)
+				, dimension(kdTree_.dimension())
 			{
 				// Due to rounding errors exact comparisons can miss
 				// reporting some of the points, giving incorrect results.
@@ -119,7 +120,7 @@ namespace Pastel
 		private:
 			void searchBruteForce(const Cursor& cursor)
 			{
-				// We are now in a leaf node.
+				// We are now in a bucket node.
 				// Search through the objects in this node.
 
 				ConstObjectIterator iter = cursor.begin();
@@ -128,7 +129,9 @@ namespace Pastel
 				while(iter != iterEnd)
 				{
 					const Real currentDistance = 
-						distance2(objectPolicy.point(iter->object()), 
+						distance2(
+						Point<Real, N>(ofDimension(dimension), 
+						withAliasing((Real*)objectPolicy.point(iter->object()))), 
 						searchPoint, 
 						normBijection, cullDistance);
 
@@ -159,15 +162,14 @@ namespace Pastel
 
 			void workTopBottom(const Cursor& cursor, const Real& distance)
 			{
-				if (cursor.objects() <= kdTree.bucketSize() || cursor.leaf())
+				if (cursor.isBucket())
 				{
-					if (!cursor.empty())
-					{
-						searchBruteForce(cursor);
-					}
+					searchBruteForce(cursor);
 				}
 				else
 				{
+					ASSERT(!cursor.leaf());
+
 					// For an intermediate node our task is to
 					// recurse to child nodes while updating
 					// incrementally the distance 
@@ -212,17 +214,13 @@ namespace Pastel
 						}
 					}
 
-					if (!nearBranch.empty())
-					{
-						// Follow downwards the kdTree with the nearer node.
-						workTopBottom(nearBranch, distance);
-					}
+					// Follow downwards the kdTree with the nearer node.
+					workTopBottom(nearBranch, distance);
 
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
 
-					if (!farBranch.empty() &&
-						farBoundDistance <= nodeCullDistance)
+					if (farBoundDistance <= nodeCullDistance)
 					{
 						// Try to cull the farther node off based on the distance 
 						// of the search point to the farther child node.
@@ -263,7 +261,8 @@ namespace Pastel
 			Real protectiveFactor;
 			Real cullDistance;
 			Real errorFactor;
-			Real nodeCullDistance;
+			Real nodeCullDistance;			
+			integer dimension;
 		};
 
 	}
@@ -305,8 +304,12 @@ namespace Pastel
 			return;
 		}
 
+		Point<Real, N> searchPoint2(
+			ofDimension(kdTree.dimension()), 
+			withAliasing((Real*)kdTree.objectPolicy().point(searchPoint->object())));
+
 		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, NormBijection, CandidateFunctor>
-			depthFirst(kdTree, kdTree.objectPolicy().point(searchPoint->object()), 
+			depthFirst(kdTree, searchPoint2, 
 			maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
 

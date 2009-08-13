@@ -180,8 +180,9 @@ namespace Pastel
 					const ModelIterator modelIter = modelIndexList[i];
 					const ModelObject& modelObject =
 						modelIter->object();
-					const Point<Real, 2> modelPoint =
-						modelTree_.objectPolicy().point(modelObject);
+					const Point<Real, 2> modelPoint(
+						ofDimension(modelTree_.dimension()),
+						withAliasing((Real*)modelTree_.objectPolicy().point(modelObject)));
 
 					SceneIterator sceneIter = sceneTree_.begin();
 					const SceneIterator sceneEnd = sceneTree_.end();
@@ -192,8 +193,9 @@ namespace Pastel
 
 						const SceneObject& sceneObject =
 							sceneIter->object();
-						const Point<Real, 2> scenePoint =
-							sceneTree_.objectPolicy().point(sceneObject);
+						const Point<Real, 2> scenePoint(
+							ofDimension(sceneTree_.dimension()),
+							withAliasing((Real*)sceneTree_.objectPolicy().point(sceneObject)));
 
 						// Find the k nearest neighbours
 						// for both points in their respective point sets.
@@ -262,7 +264,9 @@ namespace Pastel
 
 				Point<Real, 2> operator()(const SceneObject& sceneObject) const
 				{
-					return sceneTree_.objectPolicy().point(sceneObject);
+					return Point<Real, 2>(
+						ofDimension(sceneTree_.dimension()),
+						withAliasing((Real*)sceneTree_.objectPolicy().point(sceneObject)));
 				}
 
 			private:
@@ -281,12 +285,16 @@ namespace Pastel
 
 			Point<Real, 2> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return sceneTree_.objectPolicy().point(sceneIter->object());
+				return Point<Real, 2>(
+					ofDimension(sceneTree_.dimension()),
+					withAliasing((Real*)sceneTree_.objectPolicy().point(sceneIter->object())));
 			}
 
 			Point<Real, 2> modelPosition(const ModelIterator& modelIter) const
 			{
-				return modelTree_.objectPolicy().point(modelIter->object());
+				return Point<Real, 2>(
+					ofDimension(modelTree_.dimension()),
+					withAliasing((Real*)modelTree_.objectPolicy().point(modelIter->object())));
 			}
 
 			bool matchLocal(

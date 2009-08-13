@@ -61,6 +61,16 @@ namespace Pastel
 		{
 		}
 
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
 		explicit Point(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
@@ -76,6 +86,14 @@ namespace Pastel
 
 		explicit Point(const Real& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
 		{
 		}
 
@@ -144,6 +162,16 @@ namespace Pastel
 		{
 		}
 
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
 		explicit Point(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
@@ -161,6 +189,14 @@ namespace Pastel
 		// only for 1d points.
 		Point(const Real& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
 		{
 		}
 
@@ -233,6 +269,16 @@ namespace Pastel
 		{
 		}
 
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
 		explicit Point(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
@@ -248,6 +294,14 @@ namespace Pastel
 
 		explicit Point(const Real& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
 		{
 		}
 
@@ -344,6 +398,16 @@ namespace Pastel
 		{
 		}
 
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
 		explicit Point(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
@@ -359,6 +423,14 @@ namespace Pastel
 
 		explicit Point(const Real& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
 		{
 		}
 
@@ -466,6 +538,16 @@ namespace Pastel
 		{
 		}
 
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(
+			const Dimension& dimension,
+			const Alias<Real*>& that)
+			: Base(dimension, Copy<const Real*>(that))
+		{
+		}
+
 		explicit Point(
 			const Dimension& dimension,
 			const Copy<const Real*>& that)
@@ -481,6 +563,14 @@ namespace Pastel
 
 		explicit Point(const Real& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static point is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Point(const Alias<Real*>& that)
+			: Base(Copy<const Real*>(that))
 		{
 		}
 

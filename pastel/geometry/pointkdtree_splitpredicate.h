@@ -18,7 +18,6 @@ namespace Pastel
 			, splitAxis_(splitAxis)
 			, objectPolicy_(objectPolicy)
 		{
-			// splitDirection is not used.
 		}
 		
 		TriState::Enum operator()(const ObjectInfo& object) const

@@ -109,7 +109,8 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			neededToExtend |= extendToCover(
-				objectPolicy_.point(iter->object()), 
+				Point<Real, N>(ofDimension(dimension_),
+				withAliasing((Real*)objectPolicy_.point(iter->object()))), 
 				bound_);
 			++iter;
 		}

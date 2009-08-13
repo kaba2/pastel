@@ -23,12 +23,12 @@ namespace Pastel
 	public:
 		typedef Point<Real, N> Object;
 
-		const Point<Real, N>& point(const Object& object) const
+		const Real* point(const Object& object) const
 		{
-			return object;
+			return object.data();
 		}
 
-		Real point(const Object& object, integer axis) const
+		const Real& point(const Object& object, integer axis) const
 		{
 			return object[axis];
 		}
@@ -40,14 +40,31 @@ namespace Pastel
 	public:
 		typedef Point<Real, N>* Object;
 
-		const Point<Real, N>& point(const Object& object) const
+		const Real* point(const Object& object) const
 		{
-			return *object;
+			return object->data();
 		}
 
-		Real point(const Object& object, integer axis) const
+		const Real& point(const Object& object, integer axis) const
 		{
 			return (*object)[axis];
+		}
+	};
+
+	template <typename Real>
+	class Array_ObjectPolicy_PointKdTree
+	{
+	public:
+		typedef const Real* Object;
+
+		const Real* point(const Object& object) const
+		{
+			return object;
+		}
+
+		const Real& point(const Object& object, integer axis) const
+		{
+			return object[axis];
 		}
 	};
 
@@ -58,7 +75,7 @@ namespace Pastel
 	public:
 		typedef UserDefinedType Object;
 
-		Point<Real, N> point(const Object& object) const;
+		const Real* point(const Object& object) const;
 
 		Real point(const Object& object, integer axis) const;
 	};

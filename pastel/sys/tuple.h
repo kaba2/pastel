@@ -47,6 +47,16 @@ namespace Pastel
 		{
 		}
 
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Tuple(
+			const Dimension& dimension,
+			const Alias<Type*>& dataAlias)
+			: Base(dimension, Copy<const Type*>(dataAlias))
+		{
+		}
+
 		explicit Tuple(
 			const Dimension& dimension,
 			const Copy<const Type*>& that)
@@ -56,6 +66,14 @@ namespace Pastel
 
 		explicit Tuple(const Type& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Tuple(const Alias<Type*>& that)
+			: Base(Copy<const Type*>(that))
 		{
 		}
 
@@ -108,7 +126,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Tuple(
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Tuple(
+			const Dimension& dimension,
+			const Alias<Type*>& dataAlias)
+			: Base(dimension, Copy<const Type*>(dataAlias))
+		{
+		}
+
+		Tuple(
 			const Dimension& dimension,
 			const Copy<const Type*>& that)
 			: Base(dimension, that)
@@ -117,6 +145,14 @@ namespace Pastel
 
 		explicit Tuple(const Type& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Tuple(const Alias<Type*>& that)
+			: Base(Copy<const Type*>(that))
 		{
 		}
 
@@ -179,7 +215,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Tuple(
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Tuple(
+			const Dimension& dimension,
+			const Alias<Type*>& dataAlias)
+			: Base(dimension, Copy<const Type*>(dataAlias))
+		{
+		}
+
+		Tuple(
 			const Dimension& dimension,
 			const Copy<const Type*>& that)
 			: Base(dimension, that)
@@ -188,6 +234,14 @@ namespace Pastel
 
 		explicit Tuple(const Type& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Tuple(const Alias<Type*>& that)
+			: Base(Copy<const Type*>(that))
 		{
 		}
 
@@ -272,7 +326,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Tuple(
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Tuple(
+			const Dimension& dimension,
+			const Alias<Type*>& dataAlias)
+			: Base(dimension, Copy<const Type*>(dataAlias))
+		{
+		}
+
+		Tuple(
 			const Dimension& dimension,
 			const Copy<const Type*>& that)
 			: Base(dimension, that)
@@ -281,6 +345,14 @@ namespace Pastel
 
 		explicit Tuple(const Type& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Tuple(const Alias<Type*>& that)
+			: Base(Copy<const Type*>(that))
 		{
 		}
 
@@ -377,7 +449,17 @@ namespace Pastel
 		{
 		}
 
-		explicit Tuple(
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		Tuple(
+			const Dimension& dimension,
+			const Alias<Type*>& dataAlias)
+			: Base(dimension, Copy<const Type*>(dataAlias))
+		{
+		}
+
+		Tuple(
 			const Dimension& dimension,
 			const Copy<const Type*>& that)
 			: Base(dimension, that)
@@ -386,6 +468,14 @@ namespace Pastel
 
 		explicit Tuple(const Type& that)
 			: Base(that)
+		{
+		}
+
+		// Alias for static tuple is copying.
+		// This is needed so that one does not have to
+		// make special cases in generic programming.
+		explicit Tuple(const Alias<Type*>& that)
+			: Base(Copy<const Type*>(that))
 		{
 		}
 
@@ -495,7 +585,7 @@ namespace Pastel
 		{
 		}
 
-		explicit Tuple(
+		Tuple(
 			const Dimension& dimension,
 			const Copy<const Type*>& that)
 			: Base(dimension, that)

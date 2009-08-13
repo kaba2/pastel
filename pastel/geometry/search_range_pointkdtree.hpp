@@ -31,6 +31,8 @@ namespace Pastel
 			return;
 		}
 
+		const integer dimension = kdTree.dimension();
+
 		std::vector<Cursor> nodeSet;
 		nodeSet.push_back(kdTree.root());
 
@@ -84,7 +86,9 @@ namespace Pastel
 			while(iter != iterEnd)
 			{
 				const Object& object = iter->object();
-				if (overlaps(range, objectPolicy.point(object)))
+				if (overlaps(range, 
+					Point<Real, N>(ofDimension(dimension),
+					withAliasing((Real*)objectPolicy.point(object)))))
 				{
 					rangeSet.push_back(iter);
 				}
