@@ -535,6 +535,43 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
+	template <typename InputIterator>
+	typename PointKdTree<Real, N, ObjectPolicy>::ObjectIterator
+	PointKdTree<Real, N, ObjectPolicy>::insertPrepare(
+		const InputIterator& begin, 
+		const InputIterator& end)
+	{
+		// Copy the objects to the end of objectList_.
+
+		ObjectIterator oldLast = objectList_.end();
+		if (!objectList_.empty())
+		{
+			--oldLast;
+		}
+
+		// We can't use the return value of std::copy because
+		// it is of type std::back_inserter_iterator.
+		std::copy(begin, end, std::back_inserter(objectList_));
+
+		ObjectIterator first;
+		if (oldLast == objectList_.end())
+		{
+			first = objectList_.begin();
+		}
+		else
+		{
+			first = oldLast;
+			++first;
+		}
+
+		// Reserve bounding box for the inserted objects.
+
+		reserveBound(first, objectList_.end());
+
+		return first;
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::insert(
 		Node* node,
 		const ObjectIterator& first, 
@@ -557,7 +594,7 @@ namespace Pastel
 			setLeaf(begin, end, node);
 
 			// Splice the objects to this node.
-			objectList_.splice(node->first(), objectList_, begin, end);
+			objectList_.splice(node->end(), objectList_, begin, end);
 
 			// Update the node's object range.
 			node->insert(first, last, objects, objectList_.end());

@@ -630,7 +630,12 @@ void sprayPoints(const Point2& center, real radius, integer points)
 		}
 	}
 
-	tree__.insert(newPointSet.begin(), newPointSet.end());
+	//tree__.insert(newPointSet.begin(), newPointSet.end());
+
+	for (integer i = 0;i < newPointSet.size();++i)
+	{
+		tree__.insert(newPointSet[i]);
+	}
 }
 
 void erasePoints(const Point2& center, real radius)

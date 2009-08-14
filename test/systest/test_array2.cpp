@@ -21,6 +21,7 @@ namespace
 		{
 			testTrivial();
 			testSubArray();
+			testIterator();
 		}
 
 		void testTrivial()
@@ -46,6 +47,33 @@ namespace
 				}
 				std::cout << std::endl;
 			}
+		}
+
+		void testIterator()
+		{
+			Array<integer, 2> a(6, 6);
+			for (integer i = 0;i < a.size();++i)
+			{
+				a(i) = i;
+			}
+			
+			Array<integer, 2> b(6, 6);
+			std::copy(
+				countingIterator(0), countingIterator(b.size()),
+				b.begin());
+
+			TEST_ENSURE(std::equal(a.begin(), a.end(), b.begin()));
+
+			for (integer i = 0;i < a.width();++i)
+			{
+				a(i, 0) = a(i, 1);
+			}
+
+			std::copy(
+				a.rowBegin(1), a.rowEnd(1),
+				a.rowBegin(0));
+			
+			TEST_ENSURE(std::equal(a.rowBegin(0), a.rowEnd(0), a.rowBegin(1)));
 		}
 
 		void testSubArray()

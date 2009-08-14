@@ -68,7 +68,8 @@ namespace Pastel
 		{
 			ENSURE_OP(maxDistanceSet[i], >=, 0);
 
-			searchNearest(
+			const integer nearestCount = 
+				searchNearest(
 				kdTree, 
 				querySet[i], 
 				searchAlgorithm,
@@ -82,17 +83,30 @@ namespace Pastel
 
 			if (nearestArray)
 			{
-				std::copy(
-					nearestSet.begin() + kNearestBegin,
-					nearestSet.end(),
-					nearestArray->rowBegin(i));
+				if (nearestCount > kNearestBegin)
+				{
+					std::copy(
+						nearestSet.begin() + kNearestBegin,
+						nearestSet.begin() + nearestCount,
+						nearestArray->rowBegin(i));
+				}
+				std::fill(
+					nearestArray->rowBegin(i) + nearestCount,
+					nearestArray->rowEnd(i),
+					kdTree.end());
 			}
 			if (distanceArray)
 			{
-				std::copy(
-					distanceSet.begin() + kNearestBegin,
-					distanceSet.end(),
-					distanceArray->rowBegin(i));
+				if (nearestCount > kNearestBegin)
+				{
+					std::copy(
+						distanceSet.begin() + kNearestBegin,
+						distanceSet.begin() + nearestCount,
+						distanceArray->rowBegin(i));
+				}
+				std::fill(
+					distanceArray->rowBegin(i) + nearestCount,
+					distanceArray->rowEnd(i), infinity<Real>());
 			}
 		}
 		}

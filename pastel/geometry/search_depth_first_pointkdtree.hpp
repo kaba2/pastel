@@ -56,19 +56,19 @@ namespace Pastel
 				// into results.
 			}
 
-			void workTopBottom()
+			void workTopDown()
 			{
-				workTopBottom(kdTree.root(), 
+				workTopDown(kdTree.root(), 
 					distance2(kdTree.bound(), searchPoint, normBijection));
 			}
 
-			void workBottomTop(const Cursor& startCursor)
+			void workBottomUp(const Cursor& startCursor)
 			{
 				ENSURE(startCursor.leaf());
 
 				if (!startCursor.empty())
 				{
-					workTopBottom(startCursor, 0);
+					workTopDown(startCursor, 0);
 				}
 
 				Cursor previous = startCursor;
@@ -109,7 +109,7 @@ namespace Pastel
 					{
 						// No culling could be done, visit the farther node
 						// recursively.
-						workTopBottom(farBranch, farBoundDistance);
+						workTopDown(farBranch, farBoundDistance);
 					}
 					
 					previous = cursor;
@@ -160,7 +160,7 @@ namespace Pastel
 				}
 			}
 
-			void workTopBottom(const Cursor& cursor, const Real& distance)
+			void workTopDown(const Cursor& cursor, const Real& distance)
 			{
 				if (cursor.isBucket())
 				{
@@ -215,7 +215,7 @@ namespace Pastel
 					}
 
 					// Follow downwards the kdTree with the nearer node.
-					workTopBottom(nearBranch, distance);
+					workTopDown(nearBranch, distance);
 
 					// Try to cull the farther node off based on the distance 
 					// of the search point to the farther bound.
@@ -244,7 +244,7 @@ namespace Pastel
 						if (childDistance <= nodeCullDistance)
 						{
 							// No culling could be done, visit the farther node.
-							workTopBottom(farBranch, childDistance);
+							workTopDown(farBranch, childDistance);
 						}
 					}
 				}
@@ -286,7 +286,7 @@ namespace Pastel
 			depthFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
 
-		depthFirst.workTopBottom();
+		depthFirst.workTopDown();
 	}
 
 	template <int N, typename Real, typename ObjectPolicy, 
@@ -313,7 +313,7 @@ namespace Pastel
 			maxDistance, maxRelativeError,
 			normBijection, candidateFunctor);
 
-		depthFirst.workBottomTop(searchPoint->bucket());
+		depthFirst.workBottomUp(searchPoint->bucket());
 	}
 
 }

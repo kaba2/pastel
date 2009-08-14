@@ -308,6 +308,25 @@ namespace Pastel
 			const InputIterator& begin, 
 			const InputIterator& end);
 
+		//! Insert objects into the tree.
+		/*!
+		Exception safety:
+		strong
+
+		begin, end:
+		An iterator range consisting of objects to insert.
+
+		iteratorSet:
+		An output iterator to which the corresponding object
+		iterators are reported.
+		*/
+		template <typename InputIterator,
+			typename ConstObjectIterator_OutputIterator>
+		void insert(
+			const InputIterator& begin, 
+			const InputIterator& end,
+			ConstObjectIterator_OutputIterator iteratorSet);
+
 		//! Removes a point from the tree.
 		void erase(const ConstObjectIterator& iter);
 
@@ -475,6 +494,18 @@ namespace Pastel
 			Node* node,
 			const Point<Real, N>& minBound,
 			const Point<Real, N>& maxBound);
+
+		//! Inserts new objects at the end of the objectList_.
+		/*!
+		returns:
+		The first iterator of the inserted objects.
+
+		Also updates the bounding box.
+		*/
+		template <typename InputIterator>
+		ObjectIterator insertPrepare(
+			const InputIterator& begin,
+			const InputIterator& end);			
 
 		//! Propagates new objects to leaf nodes.
 		/*!

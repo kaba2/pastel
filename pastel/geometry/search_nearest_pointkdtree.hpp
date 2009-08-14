@@ -15,7 +15,7 @@ namespace Pastel
 	namespace Detail_Search_Nearest
 	{
 
-		template <int N, typename Real, typename ObjectPolicy,
+		template <typename Real, int N, typename ObjectPolicy,
 		typename AcceptFunctor>
 		class CandidateFunctor
 		{
@@ -63,11 +63,11 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename SearchAlgorithm,
 		typename NormBijection, typename AcceptFunctor,
 		typename NearestIterator, typename DistanceIterator>
-	void searchNearest(
+	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const SearchAlgorithm& searchAlgorithm,
@@ -90,7 +90,7 @@ namespace Pastel
 
 		if (kNearest == 0)
 		{
-			return;
+			return 0;
 		}
 
 		/*
@@ -104,7 +104,7 @@ namespace Pastel
 		}
 		*/
 
-		typedef Detail_Search_Nearest::CandidateFunctor<N, Real, ObjectPolicy, AcceptFunctor>
+		typedef Detail_Search_Nearest::CandidateFunctor<Real, N, ObjectPolicy, AcceptFunctor>
 			CandidateFunctor;
 		typedef PointKdTree<Real, N, ObjectPolicy> Tree;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
@@ -135,9 +135,11 @@ namespace Pastel
 			++nearestIter;
 			++distanceIter;
 		}
+
+		return candidateSet.size();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename SearchAlgorithm,
 		typename NormBijection, typename AcceptFunctor>
 	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
@@ -180,7 +182,7 @@ namespace Pastel
 		return keyValue(distance, nearest);
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename SearchAlgorithm,
 		typename AcceptFunctor>
 	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
@@ -205,7 +207,7 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename SearchAlgorithm,
 		typename AcceptFunctor>
 	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
@@ -228,7 +230,7 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename SearchAlgorithm,
 		typename AcceptFunctor>
 	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
@@ -248,7 +250,7 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <int N, typename Real, typename ObjectPolicy,
+	template <typename Real, int N, typename ObjectPolicy,
 		typename SearchPoint, typename SearchAlgorithm>
 	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
@@ -266,7 +268,7 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <int N, typename Real, typename ObjectPolicy,
+	template <typename Real, int N, typename ObjectPolicy,
 		typename SearchPoint>
 	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
 		searchNearest(
