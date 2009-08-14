@@ -176,6 +176,16 @@ namespace Pastel
 			integer objects,
 			const ConstObjectIterator& end)
 		{
+			last_ = last;
+
+			if (first_ == end)
+			{
+				// If there are currently no
+				// objects in the node, set the 'last' iterator.
+				first_ = first;
+			}
+
+			/*
 			first_ = first;
 
 			if (last_ == end)
@@ -184,6 +194,7 @@ namespace Pastel
 				// objects in the node, set the 'last' iterator.
 				last_ = last;
 			}
+			*/
 
 			objects_ += objects;
 		}

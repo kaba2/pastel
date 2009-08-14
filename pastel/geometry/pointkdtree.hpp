@@ -262,6 +262,40 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
+	template <typename InputIterator,
+		typename ConstObjectIterator_OutputIterator>
+	void PointKdTree<Real, N, ObjectPolicy>::insert(
+		const InputIterator& begin, 
+		const InputIterator& end,
+		ConstObjectIterator_OutputIterator iteratorSet)
+	{
+		if (begin == end)
+		{
+			// Nothing to do.
+			return;
+		}
+
+		// Prepare for insertion.
+
+		const ObjectIterator first = insertPrepare(begin, end);
+
+		// Copy the new object iterators to the user.
+
+		std::copy(countingIterator(first),
+			countingIterator(objectList_.end()),
+			iteratorSet);
+
+		// Send the objects down the tree.
+
+		const integer objects = std::distance(begin, end);
+
+		ObjectIterator last = objectList_.end();
+		--last;
+
+		insert(root_, first, last, objects, 0, root_);
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
 	template <typename InputIterator>
 	void PointKdTree<Real, N, ObjectPolicy>::insert(
 		const InputIterator& begin, 
@@ -273,36 +307,13 @@ namespace Pastel
 			return;
 		}
 
-		// Copy the objects to the end of objectList_.
+		// Prepare for insertion.
 
-		ObjectIterator oldLast = objectList_.end();
-		if (!objectList_.empty())
-		{
-			--oldLast;
-		}
+		const ObjectIterator first = insertPrepare(begin, end);
 
-		std::copy(begin, end, std::back_inserter(objectList_));
-
-		ObjectIterator first;
-		if (oldLast == objectList_.end())
-		{
-			first = objectList_.begin();
-		}
-		else
-		{
-			first = oldLast;
-			++first;
-		}
-
-		// Count the number of inserted objects.
+		// Send the objects down the tree.
 
 		const integer objects = std::distance(begin, end);
-
-		// Reserve bounding box for the inserted objects.
-
-		reserveBound(first, objectList_.end());
-
-		// Splice the points to the leaf nodes.
 
 		ObjectIterator last = objectList_.end();
 		--last;
