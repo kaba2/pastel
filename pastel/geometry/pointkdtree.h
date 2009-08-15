@@ -25,7 +25,7 @@ namespace Pastel
 
 		const Real* point(const Object& object) const
 		{
-			return object.data();
+			return object.rawBegin();
 		}
 
 		const Real& point(const Object& object, integer axis) const
@@ -42,7 +42,7 @@ namespace Pastel
 
 		const Real* point(const Object& object) const
 		{
-			return object->data();
+			return object->rawBegin();
 		}
 
 		const Real& point(const Object& object, integer axis) const

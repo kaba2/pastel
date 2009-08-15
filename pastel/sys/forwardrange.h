@@ -78,6 +78,12 @@ namespace Pastel
 			swap(size_, that.size_);
 		}
 
+		void updateCache() const
+		{
+			end();
+			size();
+		}
+
 		void clear()
 		{
 			begin_ = Iterator();

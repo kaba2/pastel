@@ -1,7 +1,7 @@
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/search_all_neighbors.h"
-#include "pastel/geometry/pointkdtree_refine.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/math/normbijection.h"
 

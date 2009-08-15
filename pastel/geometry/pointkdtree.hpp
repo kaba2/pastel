@@ -25,7 +25,8 @@ namespace Pastel
 		, dimension_(N)
 		, bucketSize_(bucketSize)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		ENSURE_OP(N, !=, Dynamic);
+		//BOOST_STATIC_ASSERT(N != Dynamic);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));

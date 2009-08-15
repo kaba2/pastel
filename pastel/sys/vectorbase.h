@@ -285,15 +285,27 @@ namespace Pastel
 			}
 
 			//! Returns the address of the first element.
-			Real* data()
+			Real* rawBegin()
 			{
-				return data_.data();
+				return data_.rawBegin();
 			}
 
 			//! Returns the address of the first element.
-			const Real* data() const
+			const Real* rawBegin() const
 			{
-				return data_.data();
+				return data_.rawBegin();
+			}
+
+			//! Returns the address of the one-past last element.
+			Real* rawEnd()
+			{
+				return data_.rawEnd();
+			}
+
+			//! Returns the address of the one-past last element.
+			const Real* rawEnd() const
+			{
+				return data_.rawEnd();
 			}
 
 			// The parameter to this function

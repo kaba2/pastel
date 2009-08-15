@@ -64,7 +64,7 @@ namespace Pastel
 
 			void workBottomUp(const Cursor& startCursor)
 			{
-				ENSURE(startCursor.leaf());
+				ENSURE(startCursor.isBucket());
 
 				if (!startCursor.empty())
 				{

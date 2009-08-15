@@ -190,22 +190,22 @@ namespace Pastel
 				const Point<integer, N>& position, 
 				integer axis) const;
 
-			Type* dataBegin()
+			Type* rawBegin()
 			{
 				return data_;
 			}
 
-			const Type* dataBegin() const
+			const Type* rawBegin() const
 			{
 				return data_;
 			}
 
-			Type* dataEnd()
+			Type* rawEnd()
 			{
 				return data_ + size_;
 			}
 
-			const Type* dataEnd() const
+			const Type* rawEnd() const
 			{
 				return data_ + size_;
 			}

@@ -262,7 +262,7 @@ namespace Pastel
 			ENSURE_OP(width(), ==, that.width());
 			ENSURE_OP(height(), ==, that.height());
 
-			if (that.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
+			if (that.involvesNonTrivially(data_.rawBegin(), data_.rawEnd()))
 			{
 				// The right expression contains this matrix
 				// as a subexpression. We thus need to evaluate
@@ -409,7 +409,7 @@ namespace Pastel
 			ENSURE(width() == right.width() &&
 				height() == right.height());
 
-			if (right.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
+			if (right.involvesNonTrivially(data_.rawBegin(), data_.rawEnd()))
 			{
 				// The right expression contains this matrix
 				// as a subexpression. We thus need to evaluate
@@ -454,7 +454,7 @@ namespace Pastel
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
-			if (right.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
+			if (right.involvesNonTrivially(data_.rawBegin(), data_.rawEnd()))
 			{
 				*this += Matrix<Dynamic, Dynamic, Real>(right);
 			}
@@ -484,7 +484,7 @@ namespace Pastel
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
-			if (right.involvesNonTrivially(data_.dataBegin(), data_.dataEnd()))
+			if (right.involvesNonTrivially(data_.rawBegin(), data_.rawEnd()))
 			{
 				*this -= Matrix<Dynamic, Dynamic, Real>(right);
 			}

@@ -369,13 +369,33 @@ namespace Pastel
 			ColumnIterator columnEnd(integer x)
 			{
 				return ColumnIterator(
-					data_ + x + Height * Width, Width);
+					rawEnd() + x, Width);
 			}
 
 			ConstColumnIterator columnEnd(integer x) const
 			{
 				return ConstColumnIterator(
-					data_ + x + Height * Width, Width);
+					rawEnd() + x, Width);
+			}
+
+			Real* rawBegin()
+			{
+				return data_;
+			}
+
+			const Real* rawBegin() const
+			{
+				return data_;
+			}
+
+			Real* rawEnd()
+			{
+				return data_ + Height * Width;
+			}
+
+			const Real* rawEnd() const
+			{
+				return data_ + Height * Width;
 			}
 
 		private:

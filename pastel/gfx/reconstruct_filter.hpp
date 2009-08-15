@@ -47,7 +47,7 @@ namespace Pastel
 
 			const Real* point(const Object& object) const
 			{
-				return object.position_.data();
+				return object.position_.rawBegin();
 			}
 
 			Real point(const Object& object, integer axis) const

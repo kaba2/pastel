@@ -82,7 +82,7 @@ namespace Pastel
 		{
 			return Pastel::memoryOverlaps(
 				memoryBegin, memoryEnd,
-				data_.dataBegin(), data_.dataEnd());
+				data_.rawBegin(), data_.rawEnd());
 		}
 
 		bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
@@ -465,6 +465,26 @@ namespace Pastel
 		ConstColumnIterator columnEnd(integer x) const
 		{
 			return data_.columnEnd(x);
+		}
+
+		Real* rawBegin()
+		{
+			return data_.rawBegin();
+		}
+
+		const Real* rawBegin() const
+		{
+			return data_.rawBegin();
+		}
+
+		Real* rawEnd()
+		{
+			return data_.rawEnd();
+		}
+
+		const Real* rawEnd() const
+		{
+			return data_.rawEnd();
 		}
 
 	private:
