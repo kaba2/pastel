@@ -26,15 +26,15 @@ namespace
 
 		Vector<Real, N> au2(0);
 		Vector<Real, N> au3(0.0);
-		Vector<Real, N> au4(withCopying(au2.data()));
+		Vector<Real, N> au4(withCopying(au2.rawBegin()));
 
 		Vector<float, N> af2(0);
 		Vector<float, N> af3(0.0);
-		Vector<float, N> af4(withCopying(af2.data()));
+		Vector<float, N> af4(withCopying(af2.rawBegin()));
 
 		Vector<int, N> ai1(0);
 		Vector<int, N> ai2(0.0);
-		Vector<int, N> ai3(withCopying(ai1.data()));
+		Vector<int, N> ai3(withCopying(ai1.rawBegin()));
 	}
 
 	template <int N>
@@ -49,11 +49,11 @@ namespace
 		Vector<float, N> af1(c + c);
 		Vector<float, N> af5(ofDimension(n), 0);
 		Vector<float, N> af6(ofDimension(n), 0.0);
-		Vector<float, N> af7(ofDimension(n), withCopying(af1.data()));
+		Vector<float, N> af7(ofDimension(n), withCopying(af1.rawBegin()));
 
 		Vector<int, N> ai5(ofDimension(n), 0);
 		Vector<int, N> ai6(ofDimension(n), 0.0);
-		Vector<int, N> ai7(ofDimension(n), withCopying(ai5.data()));
+		Vector<int, N> ai7(ofDimension(n), withCopying(ai5.rawBegin()));
 	}
 
 	/*

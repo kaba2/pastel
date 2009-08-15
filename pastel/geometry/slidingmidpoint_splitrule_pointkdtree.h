@@ -1,27 +1,11 @@
-#ifndef PASTEL_POINTKDTREE_REFINE_H
-#define PASTEL_POINTKDTREE_REFINE_H
+// Description: SlidingMidpoint_SplitRule_PointKdTree class
+// Detail: Sliding midpoint splitting rules for PointKdTree
 
-#include "pastel/geometry/pointkdtree.h"
+#ifndef PASTEL_SLIDINGMIDPOINT_SPLITRULE_POINTKDTREE_H
+#define PASTEL_SLIDINGMIDPOINT_SPLITRULE_POINTKDTREE_H
 
 namespace Pastel
 {
-
-	//! Refines a kd-tree using the midpoint rule.
-	/*!
-	Preconditions:
-	maxDepth >= 0
-	maxObjects >= 1
-
-	The midpoint rule splits a node
-	from the middle along the axis on which the node
-	has greatest extent.
-
-	This refinement is naive and should not
-	be used for anything. However, it is provided for 
-	checking and performance comparison purposes.
-	*/
-
-	class Midpoint_SplitRule_PointKdTree;
 
 	//! Refines a kd-tree using the sliding midpoint rule.
 	/*!
@@ -62,27 +46,8 @@ namespace Pastel
 	*/
 	class SlidingMidpoint2_SplitRule_PointKdTree;
 
-	//! Refines a kd-tree using the surface area heuristic.
-	/*!
-	Preconditions:
-	maxDepth >= 0
-	maxObjects >= 1
-
-	The surface area heuristic tries to minimize
-	the cost of traversing the kd-tree with a ray.
-	*/
-	template <
-		int N,
-		typename Real,
-		typename ObjectPolicy>
-		void refineSurfaceAreaHeuristic(
-		integer maxDepth,
-		integer maxObjects,
-		PointKdTree<Real, N, ObjectPolicy>& tree);
-
 }
 
-#include "pastel/geometry/pointkdtree_refine.hpp"
+#include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.hpp"
 
 #endif
-

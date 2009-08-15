@@ -193,6 +193,14 @@
 				Name="PointKdTree"
 				>
 				<File
+					RelativePath=".\midpoint_splitrule_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\midpoint_splitrule_pointkdtree.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\pointkdtree.h"
 					>
 				</File>
@@ -221,14 +229,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\pointkdtree_refine.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointkdtree_refine.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\pointkdtree_splitpredicate.h"
 					>
 				</File>
@@ -238,6 +238,18 @@
 				</File>
 				<File
 					RelativePath=".\pointkdtree_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\slidingmidpoint_splitrule_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\slidingmidpoint_splitrule_pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\splitrule_pointkdtree.h"
 					>
 				</File>
 			</Filter>

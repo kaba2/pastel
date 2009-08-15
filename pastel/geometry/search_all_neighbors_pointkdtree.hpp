@@ -62,7 +62,7 @@ namespace Pastel
 		DistanceSet distanceSet(kNearestEnd);
 		const integer queries = querySet.size();
 
-//#		pragma omp for schedule(dynamic, 100)
+//#		pragma omp for schedule(dynamic)
 #		pragma omp for
 		for (integer i = 0;i < queries;++i)
 		{

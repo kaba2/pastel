@@ -331,15 +331,27 @@ namespace Pastel
 			}
 
 			//! Returns the address of the first element.
-			Type* data()
+			Type* rawBegin()
 			{
 				return data_;
 			}
 
 			//! Returns the address of the first element.
-			const Type* data() const
+			const Type* rawBegin() const
 			{
 				return data_;
+			}
+
+			//! Returns the address of the one-past last element.
+			Type* rawEnd()
+			{
+				return data_ + N;
+			}
+
+			//! Returns the address of the one-past last element.
+			const Type* rawEnd() const
+			{
+				return data_ + N;
 			}
 
 			bool operator==(const Tuple<Type, N> & that) const
@@ -663,15 +675,27 @@ namespace Pastel
 			}
 
 			//! Returns the address of the first element.
-			Type* data()
+			Type* rawBegin()
 			{
 				return data_;
 			}
 
 			//! Returns the address of the first element.
-			const Type* data() const
+			const Type* rawBegin() const
 			{
 				return data_;
+			}
+
+			//! Returns the address of the one-past last element.
+			Type* rawEnd()
+			{
+				return data_ + size_;
+			}
+
+			//! Returns the address of the one-past last element.
+			const Type* rawEnd() const
+			{
+				return data_ + size_;
 			}
 
 			bool operator==(const Tuple<Type, N> & that) const

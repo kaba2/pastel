@@ -146,12 +146,12 @@ namespace Pastel
 			return data_;
 		}
 
-		Type* dataBegin() const
+		Type* rawBegin() const
 		{
 			return dataBegin_;
 		}
 
-		Type* dataEnd() const
+		Type* rawEnd() const
 		{
 			return dataEnd_;
 		}
@@ -395,12 +395,12 @@ namespace Pastel
 			return data_;
 		}
 
-		const Type* dataBegin() const
+		const Type* rawBegin() const
 		{
 			return dataBegin_;
 		}
 
-		const Type* dataEnd() const
+		const Type* rawEnd() const
 		{
 			return dataEnd_;
 		}

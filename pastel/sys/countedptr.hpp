@@ -142,8 +142,10 @@ namespace Pastel
 	{
 		if (data_)
 		{
+			#pragma omp critical (CountedPtr_ReadWrite)
+			{
 			// Decrease the reference count.
-
+	
 			decreaseCount();
 
 			// If the reference count reaches zero,
@@ -155,6 +157,7 @@ namespace Pastel
 			}
 
 			data_ = 0;
+			}
 		}
 	}
 
@@ -175,7 +178,12 @@ namespace Pastel
 
 		const ReferenceCounted* counter =
 			(const ReferenceCounted*)data_;
-		return counter->count_;
+		integer result = 0;
+#pragma omp critical (CountedPtr_ReadWrite)
+		{
+			result = counter->count_;
+		}
+		return result;
 	}
 
 	template <typename Type>
@@ -200,7 +208,11 @@ namespace Pastel
 
 		const ReferenceCounted* counter =
 			(const ReferenceCounted*)data_;
-		++(counter->count_);
+
+#pragma omp critical (CountedPtr_ReadWrite)
+		{
+			++(counter->count_);
+		}
 	}
 
 	template <typename Type>
@@ -218,7 +230,11 @@ namespace Pastel
 
 		const ReferenceCounted* counter =
 			(const ReferenceCounted*)data_;
-		--(counter->count_);
+
+#pragma omp critical (CountedPtr_ReadWrite)
+		{
+			--(counter->count_);
+		}
 	}
 
 	template <typename Type>
