@@ -190,6 +190,13 @@ namespace Pastel
 		return ForwardRange<Iterator>(begin, end, size);
 	}
 
+	template <typename Type, int N>
+	ForwardRange<Type*> forwardRange(
+		Type (&begin)[N])
+	{
+		return ForwardRange<Type*>(begin, N);
+	}
+
 }
 
 #endif

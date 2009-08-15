@@ -104,6 +104,13 @@ namespace Pastel
 		return BidirectionalRange<Iterator>(begin, end, size);
 	}
 
+	template <typename Type, int N>
+	BidirectionalRange<Type*> bidirectionalRange(
+		Type (&begin)[N])
+	{
+		return BidirectionalRange<Type*>(begin, N);
+	}
+
 }
 
 #endif
