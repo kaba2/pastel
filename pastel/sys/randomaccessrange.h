@@ -79,6 +79,13 @@ namespace Pastel
 		return RandomAccessRange<Iterator>(begin, end, size);
 	}
 
+	template <typename Type, int N>
+	RandomAccessRange<Type*> randomAccessRange(
+		Type (&begin)[N])
+	{
+		return RandomAccessRange<Type*>(begin, N);
+	}
+
 }
 
 #endif
