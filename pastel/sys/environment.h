@@ -5,13 +5,13 @@
 #define PASTEL_ENVIRONMENT_H
 
 // PASTEL_DEBUG_MODE == 0 => ASERT:s will be removed.
-#define PASTEL_DEBUG_MODE 0
+#define PASTEL_DEBUG_MODE 1
 
 // PASTEL_ENABLE_PENSURES == 0 => PENSURES will be removed.
-#define PASTEL_ENABLE_PENSURES 0
+#define PASTEL_ENABLE_PENSURES 1
 
 // PASTEL_ENABLE_OMP != 0 => #include <omp.h> will be added where needed.
-#define PASTEL_ENABLE_OMP 1
+#define PASTEL_ENABLE_OMP 0
 
 // PASTEL_DYNAMIC_LIBRARIES == 0 => No dll-exporting is done.
 #define PASTEL_DYNAMIC_LIBRARIES 1

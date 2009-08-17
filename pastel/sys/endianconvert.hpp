@@ -2,14 +2,14 @@
 #define PASTEL_ENDIANCONVERT_HPP
 
 #include "pastel/sys/endianconvert.h"
-
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/ensure.h"
+
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
 #include <boost/static_assert.hpp>
-#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
