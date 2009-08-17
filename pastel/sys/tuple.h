@@ -643,16 +643,16 @@ namespace Pastel
 	};
 
 	typedef Tuple<integer, 1> Integer1;
-	typedef Tuple<real, 1> Type1;
+	typedef Tuple<real, 1> Real1;
 
 	typedef Tuple<integer, 2> Integer2;
-	typedef Tuple<real, 2> Type2;
+	typedef Tuple<real, 2> Real2;
 
 	typedef Tuple<integer, 3> Integer3;
-	typedef Tuple<real, 3> Type3;
+	typedef Tuple<real, 3> Real3;
 
 	typedef Tuple<integer, 4> Integer4;
-	typedef Tuple<real, 4> Type4;
+	typedef Tuple<real, 4> Real4;
 
 }
 
