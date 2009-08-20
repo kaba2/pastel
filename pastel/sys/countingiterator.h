@@ -24,15 +24,15 @@ namespace Pastel
 		{
 		public:
 			typedef boost::random_access_iterator_helper<
-				CountingIterator<Type>, Type, integer, const Type*, const Type&> 
+				CountingIterator<Type>, Type, integer, const Type, const Type> 
 				RandomAccess_Base;
 
 			typedef boost::bidirectional_iterator_helper<
-				CountingIterator<Type>, Type, integer, const Type*, const Type&>
+				CountingIterator<Type>, Type, integer, const Type, const Type>
 				Bidirectional_Base;
 
 			typedef boost::forward_iterator_helper<
-				CountingIterator<Type>, Type, integer, const Type*, const Type&>
+				CountingIterator<Type>, Type, integer, const Type, const Type>
 				Forward_Base;
 
 			typedef boost::is_arithmetic<Type> IsArithmetic;
@@ -104,8 +104,11 @@ namespace Pastel
 			return data_ - that.data_;
 		}
 
-		const Type& operator*() const
+		Type operator*() const
 		{
+			// Note: this function must return 'data_' by value,
+			// for otherwise *(iter + n) would refer to an already
+			// destructed temporary.
 			return data_;
 		}
 
