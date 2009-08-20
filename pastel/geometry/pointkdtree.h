@@ -353,6 +353,9 @@ namespace Pastel
 		//! Collapse a subtree into a leaf node.
 		void merge(const Cursor& cursor);
 
+		//! Returns the position of a given object.
+		Point<Real, N> point(const Object& object) const;
+
 	private:
 		class SplitPredicate;
 

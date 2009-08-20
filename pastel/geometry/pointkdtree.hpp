@@ -471,6 +471,13 @@ namespace Pastel
 		merge(cursor.node_);
 	}
 
+	template <typename Real, int N, typename ObjectPolicy>
+	Point<Real, N> PointKdTree<Real, N, ObjectPolicy>::point(const Object& object) const
+	{
+		return Point<Real, N>(ofDimension(dimension_), 
+			withAliasing((Real*)objectPolicy_.point(object))); 
+	}
+
 }
 
 #endif
