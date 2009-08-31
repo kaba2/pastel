@@ -6,8 +6,8 @@
 
 #include "pastel/sys/environment.h"
 
-//#if PASTEL_ENABLE_OMP != 0
+#if PASTEL_ENABLE_OMP != 0
 #include "omp.h"
-//#endif
+#endif
 
 #endif
