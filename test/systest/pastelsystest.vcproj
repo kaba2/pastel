@@ -188,6 +188,10 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\mex_problem.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\pastelsystest.cpp"
 			>
 		</File>

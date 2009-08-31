@@ -37,18 +37,11 @@ namespace Pastel
 		{
 			PENSURE(maxDistanceSet[i] >= 0);
 
-			if (maxDistanceSet[i] == infinity<Real>())
-			{
-				result[i] = kdTree.objects();
-			}
-			else
-			{
-				result[i] = countNearest(
-					kdTree, 
-					querySet[i], 
-					maxDistanceSet[i], 
-					normBijection);
-			}
+			result[i] = countNearest(
+				kdTree, 
+				querySet[i], 
+				maxDistanceSet[i], 
+				normBijection);
 		}
 	}
 
