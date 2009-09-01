@@ -1,0 +1,18 @@
+ArenaAllocator class
+====================
+
+[Parent]: allocators.txt
+
+Motivation
+----------
+
+In situations where dynamic allocation and deallocation
+of small objects is frequent and large scale, the performance
+of the native allocator can often be enhanced substantially in some
+restricted cases. One such case is where allocations can happen 
+at any time, but deallocation of the objects is done all at once. 
+This allows for minimal book-keeping and very fast allocation and
+deallocation. ArenaAllocator reserves memory in big blocks
+which it then shares in required pieces. ArenaAllocator only 
+allocates raw memory, construction and destruction of objects is 
+left to the user of the memory.
