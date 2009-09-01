@@ -1,7 +1,7 @@
 Overlap testing
 ===============
 
-[Back to PastelGeometry](./pastelgeometry.txt)
+[Parent]: pastelgeometry.txt
 
 Theory
 ------

@@ -1,7 +1,7 @@
 Linear algebra
 ==============
 
-[Back to PastelMath](./pastelmath.htm)
+[Parent]: pastelmath.txt
 
 Theory
 ------
@@ -80,15 +80,4 @@ express more analytical solutions that linear algebra
 (for example, 'give the intersection of two 2-dimensional
 planes in R^4'). Particularly interesting would be
 the geometric algebras of R^2 and R^3.
-
-Learn more
-----------
-
-[Matrix class](./matrix.htm)
-
-[Matrix tools](./matrix_tools.htm)
-
-[Matrix decompositions](./matrix_decompositions.htm)
-
-[Eigenvectors](./eigenvectors.htm)
 

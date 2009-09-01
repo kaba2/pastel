@@ -1,31 +1,5 @@
 Testing
 =======
 
-[Back to PastelSys](./pastelsys.htm)
-
-Files
------
-
-### Reporting of unit test results ###
-
-[testreport.cpp](./testreport.cpp.htm)
-
-[testreport.h](./testreport.h.htm)
-
-### A class to run unit tests ###
-
-[testrunner.cpp](./testrunner.cpp.htm)
-
-[testrunner.h](./testrunner.h.htm)
-
-### An environment to run unit tests ###
-
-[testsuite.cpp](./testsuite.cpp.htm)
-
-[testsuite.h](./testsuite.h.htm)
-
-Learn more
-----------
-
-[Invariant checking](./ensure.htm)
+[Parent]: pastelsys.txt
 

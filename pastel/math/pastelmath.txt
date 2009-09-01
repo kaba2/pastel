@@ -1,7 +1,7 @@
 PastelMath
 ==========
 
-[Back to Pastel](../pastel.htm)
+[Parent]: pastel.txt
 
 Theory
 ------
@@ -10,26 +10,4 @@ The purpose of PastelMath is to provide general purpose
 mathematical tools. Algorithms and tools for geometry can 
 be found from the PastelGeometry sublibrary.
 
-Learn more
-----------
-
-[Linear algebra](./linear_algebra.htm)
-
-[Affine transformations](./affine_transformation.htm)
-
-[Quaternions](./quaternion.htm)
-
-[Curve interpolation](./interpolation.htm)
-
-[Uniform sampling](./uniform_sampling.htm)
-
-[Low-discrepancy sequences](./lowdiscrepancy.htm)
-
-[Polynomials](./polynomial.htm)
-
-[Numbers](./numbers.htm)
-
-[Coordinate systems](./coordinates.htm)
-
-[Norm bijections](./normbijection.htm)
 

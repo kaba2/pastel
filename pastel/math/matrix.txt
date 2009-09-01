@@ -1,22 +1,7 @@
 Matrix class
 ============
 
-[Back to Linear algebra](./linear_algebra.htm)
-
-Files
------
-
-[matrix.h](./matrix.h.htm)
-
-[matrix.hpp](./matrix.hpp.htm)
-
-[matrix_dynamic.h](./matrix_dynamic.h.htm)
-
-[matrix_static.h](./matrix_static.h.htm)
-
-[matrixexpression.h](./matrixexpression.h.htm)
-
-[matrixview.h](./matrixview.h.htm)
+[Parent]: linear_algebra.txt
 
 Use case
 --------

@@ -1,5 +1,5 @@
 Convex hull computation
 =======================
 
-[Back to PastelGeometry](./pastelgeometry.htm)
+[Parent]: pastelgeometry.txt
 

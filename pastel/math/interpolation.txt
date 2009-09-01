@@ -1,47 +1,7 @@
 Curve interpolation
 ===================
 
-[Back to PastelMath](./pastelmath.htm)
-
-Files
------
-
-### Catmull-Rom spline
-
-[crspline.h](./crspline.h.htm)
-
-[crspline.hpp](./crspline.hpp.htm)
-
-### Cubic hermite polynomial
-
-[hermite.h](./hermite.h.htm)
-
-[hermite.hpp](./hermite.hpp.htm)
-
-### Kochanek-Bartels spline
-
-[kbspline.h](./kbspline.h.htm)
-
-[kbspline.hpp](./kbspline.hpp.htm)
-
-### A class to represent and evaluate a piecewise linear curve.
-
-[piecewiselinear.h](./piecewiselinear.h.htm)
-
-[piecewiselinear.hpp](./piecewiselinear.hpp.htm)
-
-### Cubic, Quartic, and Quintic smoothsteps in the interval [0, 1].
-
-A smoothstep is a smooth increasing function f : R -> R such that 
-f(x) = 0 for x <= 0, f(x) = 1 for x >= 1.
-
-[smoothstep.h](./smoothstep.h.htm)
-
-[smoothstep.hpp](./smoothstep.hpp.htm)
-
-### An aggregate file for curve interpolation.
-
-[interpolation.h](./interpolation.h.htm)
+[Parent]: pastelmath.txt
 
 Theory
 ------

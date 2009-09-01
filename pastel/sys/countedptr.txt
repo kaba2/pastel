@@ -1,31 +1,7 @@
 Reference-counted pointers
 ==========================
 
-[Back to Memory management](./memory.htm)
-
-Files
------
-
-### Counted pointers
-
-[countedptr.h](./countedptr.h.htm)
-
-[countedptr.hpp](./countedptr.hpp.htm)
-
-### Weak pointers
-
-[weakptr.h](./weakptr.h.htm)
-
-[weakptr.hpp](./weakptr.hpp.htm)
-
-### A base-class for reference-counted objects
-
-Any class wishing to use CountedPtr and WeakPtr for 
-reference counting must derive from ReferenceCounted.
-
-[referencecounted.h](./referencecounted.h.htm)
-
-[referencecounted.hpp](./referencecounted.hpp.htm)
+[Parent]: memory.txt
 
 Theory
 ------

@@ -1,7 +1,7 @@
 Area computation
 ================
 
-[Back to PastelGeometry](./pastelgeometry.txt)
+[Parent]: pastelgeometry.txt
 
 Theory
 ------

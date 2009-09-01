@@ -1,14 +1,7 @@
 Uniform sampling
 ================
 
-[Back to Random variables](./random.htm)
-
-Files
------
-
-[random_vector.h](./random_vector.h)
-
-[random_vector.hpp](./random_vector.hpp)
+[Parent]: random.txt
 
 Theory
 ------

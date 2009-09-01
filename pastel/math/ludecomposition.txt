@@ -1,18 +1,7 @@
 PLU decomposition
 =================
 
-[Back to Matrix decompositions](./matrix_decompositions.htm)
-
-Files
------
-
-[ludecomposition.h](./ludecomposition.h.htm)
-
-[ludecomposition.hpp](./ludecomposition.hpp.htm)
-
-[ludecomposition_tools.h](./ludecomposition_tools.h.htm)
-
-[ludecomposition_tools.hpp](./ludecomposition_tools.hpp.htm)
+[Parent]: matrix_decompositions.txt
 
 Theory
 ------

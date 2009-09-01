@@ -1,7 +1,7 @@
 Pastel download
 ===============
 
-[Back to Pastel](./pastel.htm)
+[Parent]: pastel.txt
 
 Pastel as a zip file
 

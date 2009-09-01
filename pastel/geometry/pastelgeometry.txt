@@ -1,6 +1,6 @@
 PastelGeometry
 ==============
 
-[Back to Pastel](../pastel.htm)
+[Parent]: pastel.txt
 
 PastelGeometry is a library of geometric algorithms.

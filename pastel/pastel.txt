@@ -69,21 +69,3 @@ that it is possible to exclude those sub-libraries that aren't needed.
 [PastelDevice]: ./device/pasteldevice.htm
 [PastelGl]: ./gl/pastelgl.htm
 
-Learn more
-----------
-
-[Highlights of the library](./highlights.htm)
-
-[What I hope you to get out of this library](./some_points.htm)
-
-[Download](./download.htm)
-
-[Installation](./installation.htm)
-
-[Style conventions](./style_conventions.htm)
-
-[Documentation system](./documentation.htm)
-
-[Author](../index.htm)
-
-[Browse the source code](../)

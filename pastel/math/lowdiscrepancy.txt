@@ -1,14 +1,7 @@
 Low-discrepancy sequences
 =========================
 
-[Back to PastelMath](./pastelmath.htm)
-
-Files
------
-
-[lowdiscrepancy.h](./lowdiscrepancy.h.htm)
-
-[lowdiscrepancy.hpp](./lowdiscrepancy.hpp.htm)
+[Parent]: pastelmath.txt
 
 Theory
 ------
