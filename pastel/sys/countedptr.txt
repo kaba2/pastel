@@ -62,7 +62,7 @@ Practice
 Pastel provides an invasive technique for reference counting.
 This means that any class wishing to use CountedPtr or WeakPtr 
 for reference counting must derive from ReferenceCounted.
-This also means that Pastel's counted pointers can't used
+This also means that Pastel's counted pointers can't be used
 with native types or with objects whose class you can't modify. 
 If you want a non-invasive counted pointer instead, 
 usable for native types also, see the boost::shared_ptr in 

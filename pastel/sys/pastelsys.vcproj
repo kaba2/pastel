@@ -362,7 +362,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Memory management"
+			Name="Memory"
 			>
 			<File
 				RelativePath=".\addressof.h"
@@ -402,6 +402,10 @@
 						RelativePath=".\arenaallocator.hpp"
 						>
 					</File>
+					<File
+						RelativePath=".\arenaallocator.txt"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Native allocator"
@@ -432,6 +436,14 @@
 					</File>
 					<File
 						RelativePath=".\poolallocator.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\poolallocator.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\poolallocator_notes.txt"
 						>
 					</File>
 				</Filter>
@@ -474,7 +486,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Testing and reporting"
+			Name="Testing"
 			>
 			<File
 				RelativePath=".\testing.txt"
@@ -752,6 +764,10 @@
 				RelativePath=".\endianconvert.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\portability.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Miscellanous"
@@ -798,6 +814,10 @@
 			</File>
 			<File
 				RelativePath=".\keyvalue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\miscellaneous.txt"
 				>
 			</File>
 			<File
@@ -852,10 +872,6 @@
 				RelativePath=".\syscommon.hpp"
 				>
 			</File>
-			<File
-				RelativePath=".\tablemodify.h"
-				>
-			</File>
 			<Filter
 				Name="Guid"
 				>
@@ -871,6 +887,10 @@
 					RelativePath=".\guid.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\guid.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -882,6 +902,10 @@
 			</File>
 			<File
 				RelativePath=".\environment.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\meta.txt"
 				>
 			</File>
 			<File
@@ -998,6 +1022,10 @@
 			</File>
 			<File
 				RelativePath=".\random.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random.txt"
 				>
 			</File>
 			<File
@@ -1177,6 +1205,10 @@
 			Name="Stl extensions"
 			>
 			<File
+				RelativePath=".\stdext.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\stdext_algorithm.h"
 				>
 			</File>
@@ -1200,6 +1232,10 @@
 		<Filter
 			Name="Not sure"
 			>
+			<File
+				RelativePath=".\tablemodify.h"
+				>
+			</File>
 			<Filter
 				Name="ListArray"
 				>

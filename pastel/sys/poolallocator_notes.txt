@@ -1,0 +1,58 @@
+PoolAllocator implementation notes
+==================================
+
+[Parent]: poolallocator.txt
+
+Allocating memory in blocks
+---------------------------
+
+Because memory allocation is a rather expensive operation, it makes
+sense to allocate larger blocks of memory at once to enhance performance
+and perhaps also to enhance memory-use because of saved book-keeping
+expenses.
+
+Embedded linked list
+--------------------
+
+In C++, a byte is the smallest unit of memory that can be handled,
+and all objects take up at least one byte in memory when created.
+Assume that large a block of memory is allocated, containing memory 
+space for multiple objects of the given fixed size. Assume that the 
+size of the object is S and we allocate a memory block of size 256 * S.
+
+We need to somehow track which memory units inside the block have been 
+allocated and which are free. This is done by using an embedded linked
+list. The idea is that we can use the memory space of the unallocated 
+units inside the block as we wish. Because we are guaranteed that there
+is at least one byte per unit, we can use the first byte of the unallocated
+unit to record the index of the next unallocated unit (in terms of S).
+This creates a singly linked list inside the block, whose first
+element is stored together with the block. This allows to find an
+unallocated unit in constant time (if there is one). Similarly, an
+allocated unit can be deallocated in constant time (if the block is known)
+by appending it to the start of the list. This way the additional memory
+needed for book-keeping is minimal.
+
+Extending the linked-list idea to blocks
+----------------------------------------
+
+The idea of the embedded linked-list can be extended to the memory blocks.
+With each block which still contains free units, you keep up a pointer
+to the next such block. This allows to find a free block in constant time.
+
+Caching the latest deallocation block
+-------------------------------------
+
+Deallocation of a memory unit is more involved because it is first necessary
+to find the memory block that contains it. This can be solved in logarithmic
+time by using std::set to contain the memory block addresses.
+However, performance can be enhanced by caching the latest deallocation block
+and only doing a search in the set if the cached block does not match.
+This makes deallocation constant time in many practical situations.
+
+Credits
+-------
+
+I first saw the idea of embedding the linked list inside the memory block
+in the book "Modern C++ Design" by Andrei Alexandrescu. He
+discusses the implementation of a similar memory allocator.

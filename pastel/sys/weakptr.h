@@ -1,5 +1,6 @@
 // Description: WeakPtr class
 // Detail: A non-counting smart-pointer to breaking cyclic references
+// Documentation: countedptr.txt
 
 #ifndef PASTEL_WEAKPTR_H
 #define PASTEL_WEAKPTR_H

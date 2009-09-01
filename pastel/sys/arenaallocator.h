@@ -14,22 +14,6 @@ namespace Pastel
 
 	//! A deallocate-once, arbitrary size memory allocator.
 
-	/*!
-	In situations where dynamic allocation and deallocation
-	of small objects is frequent and large scale, performance
-	suffers an unacceptable penalty. One commonly encountered
-	property of these situations is that while allocations
-	can happen at any time, deallocation of the objects is
-	done all at once. This memory allocator is optimized for
-	arbitrary allocation, in both size and time, but
-	only simultaneous deallocation.
-	This allows for minimal book-keeping and very fast allocation and
-	deallocation. The allocator reserves memory in big blocks
-	which it then shares in required pieces.
-	ArenaAllocator allocates raw memory, construction
-	and destruction of objects is left to the user of the memory.
-	*/
-
 	class PASTELSYS ArenaAllocator
 	{
 	public:

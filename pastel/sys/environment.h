@@ -1,5 +1,5 @@
 // Description: Pastel's configuration file
-// Documentation: pastelsys.txt
+// Documentation: meta.txt
 
 #ifndef PASTEL_ENVIRONMENT_H
 #define PASTEL_ENVIRONMENT_H

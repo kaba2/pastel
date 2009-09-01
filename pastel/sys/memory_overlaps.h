@@ -1,3 +1,5 @@
+// Description: Test for overlapping of memory regions.
+
 #ifndef PASTEL_MEMORY_OVERLAPS_H
 #define PASTEL_MEMORY_OVERLAPS_H
 

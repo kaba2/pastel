@@ -1,5 +1,6 @@
 // Description: CallFunction class
 // Detail: Turns initialization into a function call
+// Documentation: miscellaneous.txt
 
 #ifndef PASTEL_CALLFUNCTION_H
 #define PASTEL_CALLFUNCTION_H

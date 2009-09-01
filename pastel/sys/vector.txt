@@ -6,19 +6,27 @@ Vector class
 Theory
 ------
 
+A vector space is a 4-tuple ''(V, F, +, *)''
+where
+* ''F'' is a field.
+* ''+ : V^2 -> V''
+* ''* : F xx V -> V''
+* ''(V, +)'' is an abelian group.
+* ''\forall alpha in F: m_{alpha}(v) = *(alpha, v)'' is an endomorphism in ''V''.
+
 Practice
 --------
 
 Pastel implements a class template Vector to
-support vectors in R^n over R, where R is an ordered field
+support vectors in ''R^n'' over ''R'', where ''R'' is an ordered field
 (such as real numbers or rational numbers).
 
 	:::cpp
 	template <typename Real, int N = Dynamic>
 	class Vector;
 
-Different element types
------------------------
+Parametrized element types
+--------------------------
 
 Vector's can work with different types of elements,
 as made possible by the template parameter Real.
@@ -31,7 +39,7 @@ mathematics, we should choose the concept for the
 element type to correspond to elements of a field.
 However, for a geometric library this concept is
 too general. For example, it contains complex numbers
-and finite fields. However, we need the field to be ordered,
+and finite fields. Instead, we need the field to be ordered,
 to be able to subdivide space in a kd-tree, for example.
 This restricted concept leaves us with fields such as
 rational numbers, algebraic numbers, and real numbers.
@@ -154,9 +162,9 @@ of the expression tree from depth-first to breadth-first.
 However, this technique causes a small problem with usability,
 which you should be aware of: because expressions yield expression objects,
 function templates that accept Vector's will not match
-the expression objects. This is because template matching must be exact.
-The solution is either to evaluate the expression first, or
-make the function accept a vector expression:
+the expression objects. This is because template parameter
+matching must be exact. The solution is either to evaluate the 
+expression first, or make the function accept a vector expression:
 
 	:::cpp
 	template <typename Real, int N>
