@@ -1,45 +1,7 @@
 Memory allocators
 =================
 
-[Back to Memory management](./memory.htm)
-
-Files
------
-
-### Arena allocator
-
-This allocator assumes that memory is allocated
-in arbitrarily sized pieces at arbitrary times,
-but deallocated all at the same time.
-
-[arenaallocator.cpp](./arenaallocator.cpp.htm)
-
-[arenaallocator.h](./arenaallocator.h.htm)
-
-[arenaallocator.hpp](./arenaallocator.hpp.htm)
-
-### Pool allocator
-
-This allocator assumes that memory is allocated
-in fixed-sized pieces at arbitrary times,
-and also deallocated at arbitrary times.
-
-[poolallocator.cpp](./poolallocator.cpp.htm)
-
-[poolallocator.h](./poolallocator.h.htm)
-
-[poolallocator.hpp](./poolallocator.hpp.htm)
-
-### Native allocator
-
-This allocator is simply an adapter for
-the native allocator.
-
-[nativeallocator.cpp](./nativeallocator.cpp.htm)
-
-[nativeallocator.h](./nativeallocator.h.htm)
-
-[nativeallocator.hpp](./nativeallocator.hpp.htm)
+[Parent]: memory.txt
 
 Theory
 ------

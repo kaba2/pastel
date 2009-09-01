@@ -1,29 +1,7 @@
 PastelSys
 =========
 
-[Back to Pastel](../pastel.htm)
+[Parent]: pastel.txt
 
 The purpose of PastelSys is to provide basic generic tools
 that are needed frequently.
-
-Learn more
-----------
-
-[Data structures](./data_structures.htm)
-
-[Memory management](./memory.htm)
-
-[Random variables](./random.htm)
-
-[Testing](./testing.htm)
-
-[Logging](./log.htm)
-
-[Portability](./portability.htm)
-
-[Basic math](./math.htm)
-
-[Measure table](./measure_table.htm)
-
-
-

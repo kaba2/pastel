@@ -1,14 +1,7 @@
 Norm bijections
 ===============
 
-[Back to PastelMath](./pastelmath.htm)
-
-Files
------
-
-### Defines Euclidean, Infinity, Manhattan, and Minkowski norm bijections.
-
-[normbijection.h](./normbijection.h.htm)
+[Parent]: pastelmath.txt
 
 Theory
 ------

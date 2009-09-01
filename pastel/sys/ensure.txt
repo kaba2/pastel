@@ -1,16 +1,7 @@
 Invariant checking
 ==================
 
-[Back to Testing](./testing.htm)
-
-Files
------
-
-[ensure.cpp](./ensure.cpp.htm)
-
-[ensure.h](./ensure.h.htm)
-
-[ensure.hpp](./ensure.hpp.htm)
+[Parent]: testing.txt
 
 Theory
 ------

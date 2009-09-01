@@ -1,14 +1,7 @@
 Distortion of a uniform distribution to another one
 ===================================================
 
-[Back to PastelMath](./pastelmath.htm)
-
-Files
------
-
-[uniform_sampling.h](./uniform_sampling.h.htm)
-
-[uniform_sampling.hpp](./uniform_sampling.hpp.htm)
+[Parent]: pastelmath.txt
 
 Theory
 ------

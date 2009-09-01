@@ -1,7 +1,7 @@
 Some points
 ===========
 
-[Back to Pastel](./pastel.htm)
+[Parent]: pastel.txt
 
 There are some educational points that I would like to
 transmit with the publishing of the Pastel library.

@@ -1,7 +1,7 @@
 PointKdTree class
 =================
 
-[Back to Data structures](./data_structures.htm)
+[Parent]: data_structures.txt
 
 Theory
 ------

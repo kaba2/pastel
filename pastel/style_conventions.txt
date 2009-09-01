@@ -1,7 +1,7 @@
 Style conventions
 =================
 
-[Back to Pastel](./pastel.htm)
+[Parent]: pastel.txt
 
 Principles
 ----------

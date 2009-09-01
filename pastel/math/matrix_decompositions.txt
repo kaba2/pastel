@@ -1,7 +1,7 @@
 Matrix decompositions
 =====================
 
-[Back to Linear algebra](./linear_algebra.htm)
+[Parent]: linear_algebra.txt
 
 Theory
 ------
@@ -16,17 +16,6 @@ Practice
 
 Pastel implements the PLU, QR, Cholesky,
 and singular value decompositions.
-
-Learn more
-----------
-
-[Cholesky decomposition](./choleskydecomposition.htm)
-
-[PLU decomposition](./ludecomposition.htm)
-
-[QR decomposition](./qrdecomposition.htm)
-
-[Singular value decomposition (SVD)](./svddecomposition.htm)
 
 Other decompositions
 --------------------

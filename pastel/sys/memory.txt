@@ -1,25 +1,5 @@
 Memory management
 =================
 
-[Back to PastelSys](./pastelsys.htm)
-
-Files
------
-
-[addressof.h](./addressof.h.htm)
-
-[addressof.hpp](./addressof.hpp.htm)
-
-[destruct.h](./stdext_destruct.h.htm)
-
-[destruct.hpp](./stdext_destruct.hpp.htm)
-
-[memory_overlaps.h](./memory_overlaps.h.htm)
-
-Learn more
-----------
-
-[Reference counted pointers](./countedptr.htm)
-
-[Memory allocators](./allocators.htm)
+[Parent]: pastelsys.txt
 
