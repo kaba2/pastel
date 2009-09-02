@@ -1,5 +1,6 @@
 // Description: Point class
 // Detail: Allows to work with points in affine n-space
+// Documentation: math.txt
 
 #ifndef PASTEL_POINT_H
 #define PASTEL_POINT_H

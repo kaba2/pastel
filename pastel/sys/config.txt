@@ -1,0 +1,5 @@
+Configuration
+=============
+
+[Parent]: pastelsys.txt
+

@@ -188,30 +188,10 @@
 		<Filter
 			Name="Data structures"
 			>
-			<Filter
-				Name="SmallSet"
+			<File
+				RelativePath=".\data_structures.txt"
 				>
-				<File
-					RelativePath=".\smallset.h"
-					>
-				</File>
-				<File
-					RelativePath=".\smallset.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SmallMap"
-				>
-				<File
-					RelativePath=".\smallmap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\smallmap.hpp"
-					>
-				</File>
-			</Filter>
+			</File>
 			<Filter
 				Name="Parallel array"
 				>
@@ -256,6 +236,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\array.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\arraybase.h"
 					>
 				</File>
@@ -281,18 +265,6 @@
 				</File>
 				<File
 					RelativePath=".\subarray_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SmallFixedSet"
-				>
-				<File
-					RelativePath=".\smallfixedset.h"
-					>
-				</File>
-				<File
-					RelativePath=".\smallfixedset.hpp"
 					>
 				</File>
 			</Filter>
@@ -368,6 +340,50 @@
 					</File>
 					<File
 						RelativePath=".\unorderedset.hpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Small containers"
+				>
+				<File
+					RelativePath=".\small_containers.txt"
+					>
+				</File>
+				<Filter
+					Name="SmallFixedSet"
+					>
+					<File
+						RelativePath=".\smallfixedset.h"
+						>
+					</File>
+					<File
+						RelativePath=".\smallfixedset.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="SmallSet"
+					>
+					<File
+						RelativePath=".\smallset.h"
+						>
+					</File>
+					<File
+						RelativePath=".\smallset.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="SmallMap"
+					>
+					<File
+						RelativePath=".\smallmap.h"
+						>
+					</File>
+					<File
+						RelativePath=".\smallmap.hpp"
 						>
 					</File>
 				</Filter>
@@ -962,6 +978,10 @@
 			</File>
 			<File
 				RelativePath=".\config.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\config.txt"
 				>
 			</File>
 			<File

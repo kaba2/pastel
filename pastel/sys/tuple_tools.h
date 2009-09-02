@@ -1,5 +1,6 @@
 // Description: Tools for working with Tuple's
 // Detail: makeTuple, comparison functions
+// Documentation: math.txt
 
 #ifndef PASTEL_TUPLE_TOOLS_H
 #define PASTEL_TUPLE_TOOLS_H

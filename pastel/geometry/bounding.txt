@@ -6,8 +6,12 @@ Bounding shape computation
 Theory
 ------
 
-Given is a shape of type A that should be bounded
-by a shape of type B. There are an infinity of such
-bounding shapes, and thus one usually adds the condition
-of finding the one with minimal volume or surface area.
+The problem of bounding is about finding a minimal covering shape of type A
+for a shape of type B. The minimal usually refers to either area or volume.
 
+Practice
+--------
+
+In addition to providing algorithms that find minimal covering shapes,
+Pastel provides algorithms that merely approximate minimality. Their
+advantage is simplicity.

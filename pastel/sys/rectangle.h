@@ -1,5 +1,6 @@
 // Description: Rectangle class
 // Detail: Allows to work with rectangles on integer coordinates
+// Documentation: math.txt
 
 #ifndef PASTEL_RECTANGLE_H
 #define PASTEL_RECTANGLE_H

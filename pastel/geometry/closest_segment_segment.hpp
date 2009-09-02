@@ -30,7 +30,7 @@ namespace Pastel
 		// w^2(u, v) = dot(p1(v) - p0(u))
 		// in [0, 1]^2.
 		//
-		// w^2 is an increasing parabola in u and v.
+		// w^2 is an increasing quadratic in u and v.
 		// Let (tu, tv) be the global minimum of w^2.
 		// If (tu, tv) is in [0, 1]^2, then we have
 		// found the closest points on the segments.

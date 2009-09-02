@@ -1,0 +1,5 @@
+Array class
+===========
+
+[Parent]: data_structures.txt
+

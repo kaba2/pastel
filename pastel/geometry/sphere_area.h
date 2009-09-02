@@ -10,9 +10,6 @@
 namespace Pastel
 {
 
-	// Note that we define area as the (n-1)-dimensional volume
-	// of the boundary.
-
 	PASTELGEOMETRY real areaUnitSphere(integer dimension);
 
 	template <int N, typename Real>

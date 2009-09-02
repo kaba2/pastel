@@ -1,5 +1,6 @@
 // Description: ParallelArray class
 // Detail: A parallel array
+// Documentation: data_structures.txt
 
 #ifndef PASTEL_PARALLELARRAY_H
 #define PASTEL_PARALLELARRAY_H
