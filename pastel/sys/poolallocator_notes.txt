@@ -16,7 +16,7 @@ Embedded linked list
 
 In C++, a byte is the smallest unit of memory that can be handled,
 and all objects take up at least one byte in memory when created.
-Assume that large a block of memory is allocated, containing memory 
+Assume that a large block of memory is allocated, containing memory 
 space for multiple objects of the given fixed size. Assume that the 
 size of the object is S and we allocate a memory block of size 256 * S.
 

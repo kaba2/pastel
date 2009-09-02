@@ -1,0 +1,55 @@
+Iterators
+=========
+
+[Parent]: pastelsys.txt
+
+Theory
+------
+
+In general, an iterator is an abstraction that allows to traverse a data 
+structure without knowing its exact structure. It is possibly
+the most important concept in the design of data structures,
+because it allows to separate the data structure from the 
+algorithms that use the data structure.
+Failing to do this results in classes whose interfaces
+need to be continuously extended to embed new algorithms.
+Moreover, these algorithms might be of interest to only a 
+minor subset of users.
+
+In Pastel, by an iterator we mean an iterator as above, but
+with the restriction of the data structure being sequential (linear).
+The general concept is instead named a cursor (because we feel iterators 
+are too strongly associated with sequential data structures).
+
+Synthetic data and iterator adapters
+------------------------------------
+
+In addition to abstracting traversal of data structures, one can
+create synthetic iterators which generate data on the fly.
+Such an iterator is given by the ConstantIterator which represents
+a sequence which contains the same constant data everywhere.
+A CountingIterator is an adapter that can be used to dereference the
+traversed iterator instead of its data. This is useful when you need
+to pass a function a set of iterators whose values to apply some 
+procedure. The NullIterator can be used as a no-op iterator which
+sends all the data written to it to oblivion. This is useful when
+you have no need for some result from a function.
+SparseIterator can be used as an adapter to take multiple steps
+instead of one. For example, using SparseIterator in combination
+with the CountingIterator with integers, you are able to generate the
+integer sequence 3, 5, 7, 9, 11 on the fly.
+
+Low-level nature and templates
+------------------------------
+
+While abstract, iterators are still very low-level, and often not
+appropriate for interfaces because each iterator range requires two
+parameters. In addition, a function template that parametrizes
+the type of the iterator is necessarily unrestricted. This can create
+problems with overloading when a function template matches although
+that was not the intention. This problem has to do with the lack
+of concept-based overloading in current C++. This can be remedied 
+by lifting the abstraction level to so-called iterator ranges. 
+
+
+

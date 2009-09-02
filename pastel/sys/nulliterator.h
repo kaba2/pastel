@@ -1,3 +1,7 @@
+// Description: NullIterator class
+// Detail: An iterator for sending data into oblivion.
+// Documentation: iterators.txt
+
 #ifndef PASTEL_NULLITERATOR_H
 #define PASTEL_NULLITERATOR_H
 

@@ -1,5 +1,6 @@
 // Description: StreamLogObserver class
 // Detail: Outputs logging information to a standard library stream
+// Documentation: log.txt
 
 #ifndef PASTEL_STREAMLOGOBSERVER_H
 #define PASTEL_STREAMLOGOBSERVER_H

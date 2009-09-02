@@ -1,3 +1,7 @@
+// Description: RandomAccessRange class
+// Detail: Random-access iterator range
+// Documentation: iteratorrange.txt
+
 #ifndef PASTEL_RANDOMACCESSRANGE_H
 #define PASTEL_RANDOMACCESSRANGE_H
 

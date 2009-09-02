@@ -1,3 +1,7 @@
+// Description: ConstantIterator class
+// Detail: A constant value iterator 
+// Documentation: iterators.txt
+
 #ifndef PASTEL_CONSTANTITERATOR_H
 #define PASTEL_CONSTANTITERATOR_H
 

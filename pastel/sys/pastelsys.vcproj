@@ -422,6 +422,10 @@
 						RelativePath=".\nativeallocator.hpp"
 						>
 					</File>
+					<File
+						RelativePath=".\nativeallocator.txt"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Pool allocator"
@@ -977,6 +981,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\log.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\log_all.h"
 				>
 			</File>
@@ -1080,6 +1088,10 @@
 				RelativePath=".\binaryfile.h"
 				>
 			</File>
+			<File
+				RelativePath=".\binaryfile.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="MeasureTable"
@@ -1090,6 +1102,10 @@
 			</File>
 			<File
 				RelativePath=".\measuretable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\measuretable.txt"
 				>
 			</File>
 			<File
@@ -1113,6 +1129,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\iterators.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\nulliterator.h"
 				>
 			</File>
@@ -1133,6 +1153,10 @@
 				</File>
 				<File
 					RelativePath=".\iteratorrange.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iteratorrange.txt"
 					>
 				</File>
 				<File

@@ -1,5 +1,6 @@
 // Description: ForwardRange class
-// Detail: Use both begin-end and begin-size iterator range forms efficiently.
+// Detail: Forward iterator range
+// Documentation: iteratorrange.txt
 
 #ifndef PASTEL_FORWARDRANGE_H
 #define PASTEL_FORWARDRANGE_H

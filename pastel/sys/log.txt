@@ -1,0 +1,21 @@
+Logging
+=======
+
+[Parent]: pastelsys.txt
+
+Motivation
+----------
+
+Logging is about reporting essential state of the program at runtime.
+It is important when trying to solve problems that are external to
+the program. Prime examples are when a file can not be found or can't
+be opened for some reason. Examining logs can reveal such problems.
+
+The places where the logging information should be sent changes depending
+on the situation. In addition, there should not be a single log, but multiple
+logs which are used as needed. To address the latter need, in Pastel logs can 
+be created as objects. To address the former need, these logs can be attached
+so-called observers at run-time. Such observers include ones that write to a
+file, to a stream, or to a C output (via printf). Since these observers
+follow an abstract interface through the LogObserver class, new
+observer classes can be written as needed.

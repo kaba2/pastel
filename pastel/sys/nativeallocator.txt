@@ -1,0 +1,11 @@
+NativeAllocator class
+=====================
+
+[Parent]: allocators.txt
+
+Motivation
+----------
+
+The intent of this class is to be able to use the
+native allocator with some data structures in Pastel
+such as FastList.
