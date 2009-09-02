@@ -1,5 +1,6 @@
 // Description: LogObserver class
 // Detail: An abstract class for handling logging information
+// Documentation: log.txt
 
 #ifndef PASTEL_LOGOBSERVER_H
 #define PASTEL_LOGOBSERVER_H

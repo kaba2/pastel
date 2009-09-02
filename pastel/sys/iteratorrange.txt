@@ -1,0 +1,59 @@
+Iterator ranges
+===============
+
+[Parent]: iterators.txt
+
+Theory
+------
+
+In Pastel, an iterator range is essentially a triple (b, e, d), 
+where [b, e[ is an iterator range and d is the distance between 
+b and e. Such a range can be described by giving b and either 
+e or d, since e and d are redundant.
+
+There are three kinds of iterator ranges corresponding to the
+three kinds of iterators, which are forward, bidirectional, and
+random-access, corresponding to the iterator categories in the
+C++ Standard Library.
+
+Describing iterator ranges
+--------------------------
+
+There are two useful ways to describe an iterator range.
+The first is as an iterator pair. The second is as a
+starting iterator and a number of elements. The first option
+is emphasized by the C++ Standard Library in that it misses
+some versions of algorithms that would take a range in the
+second form. However, there is no reason why this should be
+the case and this is why the next C++0x standard adds those missing
+functions.
+
+A problem with iterator ranges is that for some containers,
+determining the ending iterator from the number of elements 
+(or vice versa) is a linear operation, requiring to traverse
+through all the elements in between. Pastel avoids this problem,
+or at least pushes it forward, by lazily evaluating the missing
+information. For example, if the iterator range is given as an iterator
+pair, then the number of elements is only evaluated if it is
+asked for. Note that the performance problem only exists with
+iterators that are not random-access.
+
+The iterator ranges act as much as possible as the containers,
+which can be seen by looking at their interface.
+
+Iterators vs iterator ranges
+----------------------------
+
+The use of iterator ranges offers more compact interfaces
+to functions, since the number of parameters for each range
+is cut to half. In addition, function templates turn from 
+non-restricted to requiring the parameter to be an iterator range.
+This resembles concept-based overloading.
+
+Hierarchy
+---------
+
+A random-access iterator range is a bidirectional iterator range.
+Similarly, a bidirectional iterator range is a forward iterator range.
+This is reflected in RandomAccessRange class being derived
+from BidirectionalRange which is in turn being derived from ForwardRange.

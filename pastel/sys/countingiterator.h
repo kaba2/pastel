@@ -1,3 +1,7 @@
+// Description: CountingIterator class
+// Detail: An iterator adapter for dereferencing the adapted iterator
+// Documentation: iterators.txt
+
 #ifndef PASTEL_COUNTINGITERATOR_H
 #define PASTEL_COUNTINGITERATOR_H
 

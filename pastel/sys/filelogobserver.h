@@ -1,5 +1,6 @@
 // Description: FileLogObserver class
 // Detail: Outputs logging information to a file
+// Documentation: log.txt
 
 #ifndef PASTEL_FILELOGOBSERVER_H
 #define PASTEL_FILELOGOBSERVER_H
