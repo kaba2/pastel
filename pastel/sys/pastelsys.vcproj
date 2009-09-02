@@ -189,46 +189,6 @@
 			Name="Data structures"
 			>
 			<Filter
-				Name="UnorderedSet"
-				>
-				<File
-					RelativePath=".\unorderedset.h"
-					>
-				</File>
-				<File
-					RelativePath=".\unorderedset.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="UnorderedMap"
-				>
-				<File
-					RelativePath=".\functional.h"
-					>
-				</File>
-				<File
-					RelativePath=".\functional.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\unorderedbase.h"
-					>
-				</File>
-				<File
-					RelativePath=".\unorderedbase.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\unorderedmap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\unorderedmap.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="SmallSet"
 				>
 				<File
@@ -348,6 +308,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\fastlist.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\fastlist_tools.h"
 					>
 				</File>
@@ -359,6 +323,54 @@
 					RelativePath=".\fastlistprivate.hpp"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Unordered containers"
+				>
+				<File
+					RelativePath=".\unordered.txt"
+					>
+				</File>
+				<Filter
+					Name="UnorderedMap"
+					>
+					<File
+						RelativePath=".\functional.h"
+						>
+					</File>
+					<File
+						RelativePath=".\functional.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\unorderedbase.h"
+						>
+					</File>
+					<File
+						RelativePath=".\unorderedbase.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\unorderedmap.h"
+						>
+					</File>
+					<File
+						RelativePath=".\unorderedmap.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="UnorderedSet"
+					>
+					<File
+						RelativePath=".\unorderedset.h"
+						>
+					</File>
+					<File
+						RelativePath=".\unorderedset.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

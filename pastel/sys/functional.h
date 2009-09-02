@@ -1,3 +1,7 @@
+// Description: hash class for unordered containers
+// Detail: Also some other needed functors.
+// Documentation: unordered.txt
+
 #ifndef PASTEL_FUNCTIONAL_H
 #define PASTEL_FUNCTIONAL_H
 

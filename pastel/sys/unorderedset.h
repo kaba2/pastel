@@ -1,3 +1,7 @@
+// Description: UnorderedSet class
+// Detail: Unordered associative set
+// Documentation: unordered.txt
+
 #ifndef PASTEL_UNORDEREDSET_H
 #define PASTEL_UNORDEREDSET_H
 

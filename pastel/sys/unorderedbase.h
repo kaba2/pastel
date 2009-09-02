@@ -1,3 +1,7 @@
+// Description: UnorderedBase class
+// Detail: A common implementation of UnorderedMap and UnorderedSet
+// Documentation: unordered.txt
+
 #ifndef PASTEL_UNORDEREDBASE_H
 #define PASTEL_UNORDEREDBASE_H
 
