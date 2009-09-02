@@ -1,3 +1,5 @@
+// Documentation: data_structures.txt
+
 #ifndef PASTEL_PROPERTYID_H
 #define PASTEL_PROPERTYID_H
 

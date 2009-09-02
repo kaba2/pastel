@@ -1,5 +1,6 @@
-// Description: SmallMap
-// Detail: An associative array efficient with small number of elements
+// Description: SmallMap class
+// Detail: An efficient associative array for small maps
+// Documentation: small_containers.txt
 
 #ifndef PASTEL_SMALLMAP_H
 #define PASTEL_SMALLMAP_H

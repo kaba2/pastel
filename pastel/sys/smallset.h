@@ -1,5 +1,6 @@
 // Description: SmallSet class
 // Detail: An efficient associative array for small sets
+// Documentation: small_containers.txt
 
 #ifndef PASTEL_SMALLSET_H
 #define PASTEL_SMALLSET_H

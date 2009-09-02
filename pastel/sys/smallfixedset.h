@@ -1,3 +1,7 @@
+// Description: SmallFixedSet class
+// Detail: An efficient associative array for fixed-size small maps
+// Documentation: small_containers.txt
+
 #ifndef PASTEL_SMALLFIXEDSET_H
 #define PASTEL_SMALLFIXEDSET_H
 
