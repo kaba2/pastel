@@ -1,0 +1,17 @@
+FastList class
+==============
+
+[Parent]: data_structures.txt
+
+Motivation
+----------
+
+FastList is an almost-standards-conforming implementation of
+the C++ Standard Library std::list. The only place where it
+differs is in that of enhancing the allocator support.
+To motivation was to make it possible to use the specialized
+PoolAllocator in Pastel with the list, for enhanced memory
+usage and performance. Unfortunately this is not possible with
+the current allocator concept as defined in current C++98
+standard.
+

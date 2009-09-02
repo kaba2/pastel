@@ -1,3 +1,7 @@
+// Description: UnorderedMap class
+// Detail: An unordered associative map
+// Documentation: unordered.txt
+
 #ifndef PASTEL_UNORDEREDMAP_H
 #define PASTEL_UNORDEREDMAP_H
 
