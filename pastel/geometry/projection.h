@@ -1,4 +1,4 @@
-// Description: Tools for planar projections 
+// Description: Planar projections 
 // Documentation: common.txt
 
 #ifndef PASTEL_PROJECTION_H

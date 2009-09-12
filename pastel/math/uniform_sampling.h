@@ -1,4 +1,4 @@
-// Description: Tools for distorting a uniform distribution to another one
+// Description: Distortion of a uniform distribution to another one
 // Detail: As an example, distortion of [0, 1]^3 to a unit ball.
 
 #ifndef PASTEL_UNIFORM_SAMPLING_H

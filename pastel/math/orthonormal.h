@@ -1,4 +1,4 @@
-// Description: Tools to form perpendicular vectors
+// Description: Perpendicular vectors
 // Detail: orthonormalize, perpendicular, etc.
 // Documentation: pastelmath.txt
 

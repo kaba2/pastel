@@ -1,5 +1,5 @@
 // Description: TriState class
-// Details: Tools for Fuzzy 3-state logic
+// Details: Fuzzy 3-state logic
 // Documentation: math.txt
 
 #ifndef PASTEL_TRISTATE_H

@@ -1,4 +1,4 @@
-// Description: Tools to compare vectors
+// Description: Array comparison for Vectors
 // Detail: allLess, anyLess, allEqual, anyEqual, etc.
 
 #ifndef PASTEL_VECTOR_COMPARE_H

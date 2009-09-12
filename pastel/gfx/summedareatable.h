@@ -1,4 +1,4 @@
-// Description: Tools for computing summed-area tables
+// Description: Summed-area tables
 
 #ifndef PASTEL_SUMMEDAREATABLE_H
 #define PASTEL_SUMMEDAREATABLE_H

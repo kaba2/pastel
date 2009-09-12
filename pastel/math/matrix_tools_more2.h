@@ -1,4 +1,4 @@
-// Description: Tools for forming common matrices
+// Description: Common matrix forms
 // Detail: setRandomMatrix, setDiagonal, setRandomRotation, etc.
 
 #ifndef PASTEL_MATRIX_TOOLS_MORE2_H

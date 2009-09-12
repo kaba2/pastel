@@ -1,4 +1,4 @@
-// Description: Tools to generate and modify point sets
+// Description: Generation and modification of point-sets
 // Documentation: pastelgeometry.txt
 
 #ifndef PASTEL_POINT_PATTERNS_H

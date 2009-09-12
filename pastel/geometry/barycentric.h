@@ -1,4 +1,4 @@
-// Description: Tools for working with barycentric coordinates
+// Description: Barycentric coordinates
 // Documentation: common.txt
 
 #ifndef PASTEL_BARYCENTRIC_H

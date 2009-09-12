@@ -1,4 +1,4 @@
-// Description: Tools for working with polynomials
+// Description: Algorithms for polynomials
 // Detail: differentiate, derivative, trim, divide, randomPolynomial, etc.
 
 #ifndef PASTEL_POLYNOMIAL_TOOLS_H

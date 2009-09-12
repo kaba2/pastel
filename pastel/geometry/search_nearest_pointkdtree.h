@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	class Accept_Always
+	class Always_Accept_PointKdTree
 	{
 	public:
 		template <typename Type>
@@ -24,10 +24,10 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	class Accept_Except
+	class Dont_Accept_PointKdTree
 	{
 	public:
-		explicit Accept_Except(
+		explicit Dont_Accept_PointKdTree(
 			const Type& exception)
 			: exception_(exception)
 		{
@@ -40,14 +40,14 @@ namespace Pastel
 		}
 
 	private:
-		const Type& exception_;
+		Type exception_;
 	};
 
 	template <typename Type, typename DerefType>
-	class Accept_ExceptDeref
+	class ObjectDont_Accept_PointKdTree
 	{
 	public:
-		explicit Accept_ExceptDeref(
+		explicit ObjectDont_Accept_PointKdTree(
 			const DerefType& exception)
 			: exception_(exception)
 		{
@@ -60,7 +60,7 @@ namespace Pastel
 		}
 
 	private:
-		const DerefType& exception_;
+		DerefType exception_;
 	};
 
 	//! Finds nearest neighbors for a point in a kdTree.
@@ -88,10 +88,10 @@ namespace Pastel
 	acceptFunctor:
 	A functor that takes in a ConstObjectIterator of 
 	the 'kdTree' and returns a bool if the object should be accepted
-	as a neighbor or not. Default construct Accept_Always class
-	to accept all candidates. Default construct Accept_Except
+	as a neighbor or not. Default construct Always_Accept_PointKdTree class
+	to accept all candidates. Default construct Dont_Accept_PointKdTree
 	to reject a specific ConstObjectIterator of the 'kdTree'. 
-	Default construct Accept_ExceptDeref to reject a specific 
+	Default construct ObjectDont_Accept_PointKdTree to reject a specific 
 	Object of the 'kdTree'.
 
 	maxDistance:

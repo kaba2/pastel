@@ -1,3 +1,5 @@
+// Description: Intersection between a line and a polygon
+
 #ifndef PASTEL_INTERSECT_LINE_POLYGON_H
 #define PASTEL_INTERSECT_LINE_POLYGON_H
 

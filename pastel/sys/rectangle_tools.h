@@ -1,4 +1,4 @@
-// Description: Tools for working with rectangles
+// Description: Algorithms for rectangles
 // Detail: intersect, etc.
 // Documentation: math.txt
 

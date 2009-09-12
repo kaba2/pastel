@@ -1,4 +1,4 @@
-// Description: Tools related to prime numbers.
+// Description: Prime numbers.
 // Documentation: math.txt
 
 #ifndef PASTEL_PRIMES_H

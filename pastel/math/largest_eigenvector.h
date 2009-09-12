@@ -1,4 +1,4 @@
-// Description: Tools to compute an eigenvector for a point set
+// Description: Dominant eigenvector of a point set
 // Detail: Computes largest eigenvector of the covariance matrix of points
 // Documentation: linear_algebra.txt
 

@@ -1,4 +1,4 @@
-// Description: Tools to compute histograms
+// Description: Histograms
 // Documentation: math.txt
 
 #ifndef PASTEL_HISTOGRAM_H

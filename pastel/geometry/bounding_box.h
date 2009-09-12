@@ -1,4 +1,4 @@
-// Description: Tools for computing bounding boxes for shapes
+// Description: Bounding boxes
 
 #ifndef PASTEL_BOUNDING_BOX_H
 #define PASTEL_BOUNDING_BOX_H

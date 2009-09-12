@@ -1,4 +1,4 @@
-// Description: Tools for working with images
+// Description: Some algorithms for images
 
 #ifndef PASTEL_IMAGETOOLS_H
 #define PASTEL_IMAGETOOLS_H

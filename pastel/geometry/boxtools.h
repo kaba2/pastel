@@ -1,5 +1,4 @@
-// Description: Tools for working with boxes
-// Documentation: shapes.txt
+// Description: Algorithms for Box's
 
 #ifndef PASTEL_BOX_TOOLS_H
 #define PASTEL_BOX_TOOLS_H

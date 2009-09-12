@@ -1,0 +1,23 @@
+Shapes
+======
+
+[Parent]: pastelgeometry.txt
+
+Theory
+------
+
+A _shape_ is a subset of ''RR^n''. A shape ''S'' is called
+_convex_, if it holds that 
+
+''A, B in S => \forall t in [0, 1]: A + t(B - A) in S''.
+
+A shape that is not convex is called _concave_. 
+Shapes ''S_1'' and ''S_2'' _overlap_ if their intersection
+is non-empty.
+
+Practice
+--------
+
+Pastel implements various shapes, of which most are convex.
+The reason for this is that overlap testing between convex
+shapes is easier than between concave shapes.

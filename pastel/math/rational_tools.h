@@ -1,4 +1,4 @@
-// Description: Tools for working with rational numbers
+// Description: Algorithms for rational numbers
 // Detail: pretty printing to a stream, etc.
 
 #ifndef PASTEL_RATIONAL_TOOLS_H

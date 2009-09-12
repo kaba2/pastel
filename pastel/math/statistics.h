@@ -1,4 +1,4 @@
-// Description: Tools to compute statistics from samples
+// Description: Statistics from samples
 // Detail: mean, axisAlignedVariance, etc.
 // Documentation: pastelmath.txt
 

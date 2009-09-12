@@ -1,5 +1,4 @@
-// Description: Tools for working with aligned boxes
-// Documentation: shapes.txt
+// Description: Algorithms for aligned boxes
 
 #ifndef PASTEL_ALIGNEDBOXTOOLS_H
 #define PASTEL_ALIGNEDBOXTOOLS_H

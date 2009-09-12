@@ -1,4 +1,4 @@
-// Description: More tools for drawing 2d graphics
+// Description: More traditional 2d drawing algorithms
 
 #ifndef PASTEL_DRAWING_MORE_H
 #define PASTEL_DRAWING_MORE_H

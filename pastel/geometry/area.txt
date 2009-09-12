@@ -6,16 +6,16 @@ Area computation
 Theory
 ------
 
-The area of a point set in R^n is the (n-1)-dimensional 
-Lebesgue measure of the boundary of the point set.
+The _area_ of a point-set in ''RR^n'' is the ''(n-1)''-dimensional 
+Lebesgue measure of the boundary of the point-set.
 
 Practice
 --------
 
 The definition of area given here might be a bit surprising 
 for those who have not accustomed to it: the area of a sphere of 
-radius ''r'' in ''R^2'' is ''2 pi r'' (and its volume is ''pi r^2''). 
-But it is the correct generalization when considering geometric 
+radius ''r'' in ''RR^2'' is ''2 pi r'' (and its volume is ''pi r^2''). 
+However, it is the correct generalization when considering geometric 
 applications. One example is given by the surface area heuristic 
 when building kd-trees for ray tracing.
 

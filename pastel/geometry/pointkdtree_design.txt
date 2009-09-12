@@ -276,7 +276,7 @@ objects in an array.
 
 This approach does not work, because one does not know which
 node to follow in the case of a point exactly on the splitting
-plane... Unless one bases the positioning purelu on location
+plane... Unless one bases the positioning purely on location
 which however leads to other robustness problems, as discussed above.
 
 ### Proposition 3: Store with each point its containing leaf node
@@ -305,8 +305,8 @@ How should you deal with changing geometry?
 Because you can actually be holding only references to the geometry data,
 it is possible for the user to change geometry without the kd-tree
 knowing about it. The end-result is that one can invalidate both invariants 
-of the kdtree by modifying point locations. We have no way to prevent this
-except for the documentation. This problem is similar to what happens
+of the kdtree by modifying point locations. We have no way to prevent this. 
+This problem is similar to what happens
 with the std::set (for example) if one uses pointers as keys and 
 compares them by their values. We can only educate the user that whenever 
 he wishes to change geometry, he should do it by removing, changing, and 

@@ -434,67 +434,11 @@
 			Name="Shapes"
 			>
 			<File
-				RelativePath=".\alignedbox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\alignedbox.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\alignedbox_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\alignedbox_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\alignedboxbase.h"
-				>
-			</File>
-			<File
-				RelativePath=".\alignedboxbase.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\alignedplane.h"
 				>
 			</File>
 			<File
 				RelativePath=".\alignedplane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\box.h"
-				>
-			</File>
-			<File
-				RelativePath=".\box.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\boxtools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\boxtools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\capsule.h"
-				>
-			</File>
-			<File
-				RelativePath=".\capsule.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ellipsoid.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ellipsoid.hpp"
 				>
 			</File>
 			<File
@@ -506,23 +450,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\line.h"
-				>
-			</File>
-			<File
-				RelativePath=".\line.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\mathobjects.h"
-				>
-			</File>
-			<File
-				RelativePath=".\plane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\plane.hpp"
 				>
 			</File>
 			<File
@@ -542,11 +470,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\segment.h"
-				>
-			</File>
-			<File
-				RelativePath=".\segment.hpp"
+				RelativePath=".\shapes.txt"
 				>
 			</File>
 			<File
@@ -554,17 +478,161 @@
 				>
 			</File>
 			<File
-				RelativePath=".\sphere.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sphere.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\triangle.h"
 				>
 			</File>
+			<Filter
+				Name="Aligned box"
+				>
+				<File
+					RelativePath=".\alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedboxbase.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedboxbase.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Oriented box"
+				>
+				<File
+					RelativePath=".\box.h"
+					>
+				</File>
+				<File
+					RelativePath=".\box.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\box.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\boxtools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\boxtools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Capsule"
+				>
+				<File
+					RelativePath=".\capsule.h"
+					>
+				</File>
+				<File
+					RelativePath=".\capsule.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\capsule.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Line"
+				>
+				<File
+					RelativePath=".\line.h"
+					>
+				</File>
+				<File
+					RelativePath=".\line.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\line.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Plane"
+				>
+				<File
+					RelativePath=".\plane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\plane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\plane.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Segment"
+				>
+				<File
+					RelativePath=".\segment.h"
+					>
+				</File>
+				<File
+					RelativePath=".\segment.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\segment.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sphere"
+				>
+				<File
+					RelativePath=".\sphere.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sphere.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sphere.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Ellipsoid"
+				>
+				<File
+					RelativePath=".\ellipsoid.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ellipsoid.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ellipsoid.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Volume computation"
@@ -774,6 +842,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\overlaps_design.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\overlaps_flat_plane.h"
 				>
 			</File>
@@ -891,10 +963,6 @@
 			</File>
 			<File
 				RelativePath=".\closest_plane_point.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\closest_point.h"
 				>
 			</File>
 			<File
@@ -1041,6 +1109,10 @@
 		<Filter
 			Name="Intersection"
 			>
+			<File
+				RelativePath=".\intersect.txt"
+				>
+			</File>
 			<File
 				RelativePath=".\intersect_alignedbox_alignedbox.h"
 				>
@@ -1262,6 +1334,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\nearest_neighbors_semidynamic.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\search_depth_first_pointkdtree.h"
 				>
 			</File>
@@ -1359,6 +1435,10 @@
 			</File>
 			<File
 				RelativePath=".\barycentric.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\closest_point.h"
 				>
 			</File>
 			<File

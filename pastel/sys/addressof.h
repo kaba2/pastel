@@ -1,4 +1,4 @@
-// Description: Tools to obtaining the real memory address of an object
+// Description: Actual memory address of an object
 // Documentation: memory.txt
 
 #ifndef PASTEL_ADDRESSOF_H

@@ -1,4 +1,4 @@
-// Description: Some probability distribution functions
+// Description: Probability density functions
 
 #ifndef PASTEL_RANDOM_PDF_H
 #define PASTEL_RANDOM_PDF_H

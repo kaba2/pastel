@@ -1,0 +1,15 @@
+Sphere
+======
+
+[Parent]: shapes.txt
+
+Theory
+------
+
+A _sphere_ ''S'' in ''RR^n'' is described by a 
+point ''C in RR^n'' and ''r in RR'' such that 
+
+''S = {x in RR^n: |x - C| <= r}''
+
+where the norm is Euclidean.
+

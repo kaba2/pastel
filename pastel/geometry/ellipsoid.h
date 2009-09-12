@@ -1,3 +1,6 @@
+// Description: Algorithms for ellipsoids
+// Documentation: shapes.txt
+
 #ifndef PASTEL_ELLIPSOID_H
 #define PASTEL_ELLIPSOID_H
 

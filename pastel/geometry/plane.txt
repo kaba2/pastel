@@ -1,0 +1,11 @@
+Plane
+=====
+
+[Parent]: shapes.txt
+
+Theory
+------
+
+A _plane_ ''S'' in ''RR^n'' is the affine hull of ''(n + 1)'' 
+points ''{A_1, ..., A_{n + 1}}''. Alternatively, it is the 
+Minkowski sum of a point and the span of ''n'' vectors.

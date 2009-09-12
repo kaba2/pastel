@@ -1,0 +1,24 @@
+Intersections between shapes
+============================
+
+[Parent]: pastelgeometry.txt
+
+Theory
+------
+
+The _intersection_ ''S'' between two shapes ''A'' and ''B'' in ''RR^n''
+is ''S = A nn B''.
+
+Practice
+--------
+
+Pastel implements several algorithms to find the intersection between
+a pair of shapes. Describing the possible intersection shape is slower 
+than simply finding out if shapes overlap. If this is the need, you
+should use the algorithms for overlap testing instead.
+
+See also
+--------
+
+[Link]: overlaps.txt
+[Link]: shapes.txt

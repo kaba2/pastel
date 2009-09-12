@@ -1,4 +1,4 @@
-Poisson disk pattern
+Poisson-disk pattern
 ====================
 
 [Parent]: pastelgeometry.txt
@@ -6,19 +6,24 @@ Poisson disk pattern
 Theory
 ------
 
-An _epsilon-radius poisson disk pattern_ is a point set in R^n which 
-is characterized by the property that each ball of radius
-epsilon contains only one point. Given a set of points P and
-a poisson disk pattern on it, the pattern is called _maximal_
-if no points can be added to it.
+An _''epsilon''-radius poisson-disk pattern in ''S sub RR^n''_,
+''epsilon in RR^+'', is a
+finite point set ''P'' for which it holds that the minimum distance
+between the points in ''P'' is at least ''epsilon'', with the metric
+chosen freely. Such point-sets are said to satisfy the _poisson-disk 
+property_. If no point can be added to ''P'' without breaking the 
+poisson-disk property, the pattern is called _maximal_. Maximal
+poisson-disk patterns are of more interest because otherwise a single
+point would satisfy the requirements for any ''epsilon'' and 
+non-empty ''S''.
 
 Practice
 --------
 
-Pastel implements an algorithm to generate poisson disk patterns
-inside a rectangular region in R^n. These patterns are maximal,
-or at least close to being maximal (the algorithm is dependent on
-some randomization).
+Pastel implements an algorithm to generate almost-maximal 
+poisson-disk patterns inside a rectangular region in ''RR^n''. 
+The 'almost' is the consequence of using an algorithm that is based
+on randomization.
 
 References
 ----------

@@ -1,4 +1,4 @@
-// Description: Tools for computing polygon area in 2D
+// Description: Area of a polygon
 // Documentation: area.txt
 
 #ifndef PASTEL_POLYGON_AREA_H

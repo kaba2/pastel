@@ -1,4 +1,4 @@
-// Description: Tools to generate poisson disk patterns
+// Description: Poisson disk patterns
 
 #ifndef PASTEL_POISSONDISKPATTERN_H
 #define PASTEL_POISSONDISKPATTERN_H

@@ -1,4 +1,4 @@
-// Description: Tools for working with Interval's
+// Description: Algorithms for Interval's
 // Detail: intersect, boundingInterval, etc.
 
 #ifndef PASTEL_INTERVAL_TOOLS_H

@@ -1,0 +1,19 @@
+Ellipsoid
+=========
+
+[Parent]: shapes.txt
+
+Theory
+------
+
+An origin-centered ellipsoid Q is be given by:
+
+''Q = {x in RR^n | x^T S x = 1}''
+
+where
+
+''x in RR^(n xx 1)''
+
+''S in RR^(n xx n)'' and symmetric positive-semi-definite
+
+

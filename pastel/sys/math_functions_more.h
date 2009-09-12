@@ -1,4 +1,4 @@
-// Description: More commonly needed math functions
+// Description: More common math functions
 // Detail: square, clamp, odd, even, integerLog2, roundUpTo, etc.
 // Documentation: math.txt
 

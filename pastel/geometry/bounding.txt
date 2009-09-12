@@ -1,17 +1,18 @@
-Bounding shape computation
-==========================
+Bounding
+========
 
 [Parent]: pastelgeometry.txt
 
 Theory
 ------
 
-The problem of bounding is about finding a minimal covering shape of type A
-for a shape of type B. The minimal usually refers to either area or volume.
+_To bound_ is to find a minimal covering shape of type ''A''
+for a shape of type ''B'', where 'minimal' usually refers to either 
+area or volume. The covering shape is called a _bounding shape_. 
 
 Practice
 --------
 
 In addition to providing algorithms that find minimal covering shapes,
-Pastel provides algorithms that merely approximate minimality. Their
-advantage is simplicity.
+Pastel provides algorithms that do this approximately. 
+

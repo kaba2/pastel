@@ -1,4 +1,4 @@
-// Description: Tools for working with BigInteger's
+// Description: Algorithms for BigInteger's
 // Detail: pretty printing to a stream, etc.
 
 #ifndef PASTEL_BIGINTEGER_TOOLS_H

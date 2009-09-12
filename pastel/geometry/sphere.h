@@ -1,6 +1,5 @@
 // Description: Sphere class
 // Detail: Allows to work with spheres
-// Documentation: shapes.txt
 
 #ifndef PASTEL_SPHERE_H
 #define PASTEL_SPHERE_H

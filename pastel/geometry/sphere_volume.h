@@ -1,4 +1,4 @@
-// Description: Tools for computing the volume of a sphere
+// Description: Volume of a sphere
 // Detail: Some different norms are included to define a sphere
 // Documentation: volume.txt
 
