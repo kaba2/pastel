@@ -1,6 +1,5 @@
 // Description: Box class
 // Detail: Allows to work with oriented boxes
-// Documentation: shapes.txt
 
 #ifndef PASTEL_BOX_H
 #define PASTEL_BOX_H

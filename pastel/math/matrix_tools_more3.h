@@ -1,4 +1,4 @@
-// Description: Tools for computing matrix properties
+// Description: Matrix properties
 // Detail: trace, determinant, normManhattan, norm2, conditionManhattan, etc.
 
 #ifndef PASTEL_MATRIX_TOOLS_MORE3_H

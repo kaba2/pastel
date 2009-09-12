@@ -1,4 +1,4 @@
-// Description: Tools for working with points
+// Description: Array programming for Points
 // Detail: min, max, comparison functions, etc.
 // Documentation: math.txt
 

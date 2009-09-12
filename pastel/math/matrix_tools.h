@@ -1,4 +1,4 @@
-// Description: Tools for working with matrices
+// Description: Algorithms for matrices
 // Detail: pretty printing to a stream
 
 #ifndef PASTEL_MATRIX_TOOLS_H

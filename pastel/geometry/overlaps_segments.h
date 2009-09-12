@@ -1,4 +1,4 @@
-// Description: Tests whether there is an intersection in a line segment set
+// Description: Intersection in a line segment set
 
 #ifndef PASTEL_OVERLAPS_SEGMENTS_H
 #define PASTEL_OVERLAPS_SEGMENTS_H

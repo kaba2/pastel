@@ -1,4 +1,4 @@
-// Description: Tools for computing bounding aligned boxes for shapes.
+// Description: Bounding aligned boxes
 
 #ifndef PASTEL_BOUNDING_ALIGNEDBOX_H
 #define PASTEL_BOUNDING_ALIGNEDBOX_H

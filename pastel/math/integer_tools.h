@@ -1,4 +1,4 @@
-// Description: Tools for working with integers
+// Description: Integer algorithms
 // Detail: gcd, extendedGcd, etc.
 
 #ifndef PASTEL_INTEGER_TOOLS_H

@@ -1,4 +1,4 @@
-// Description: Tools for working with Tuple's
+// Description: Array programming for Tuples
 // Detail: makeTuple, comparison functions
 // Documentation: math.txt
 

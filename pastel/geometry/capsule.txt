@@ -1,0 +1,16 @@
+Capsule
+=======
+
+[Parent]: shapes.txt
+
+Theory
+------
+
+A _capsule_ ''S'' in ''RR^n'' is a Minkowski sum of a closed line segment 
+''L'' and a closed ''r''-radius ball. Alternatively,
+if ''A'' and ''B'' are the end-points of ''L'', then 
+
+''S = {x in RR^n | exists t in [0, 1] sub RR: |(A + t(B - A)) - x| <= r}''
+
+where the norm is Euclidean.
+

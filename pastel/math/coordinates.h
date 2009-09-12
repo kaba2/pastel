@@ -1,4 +1,4 @@
-// Description: Tools for converting between coordinate systems
+// Description: Conversion between coordinate systems
 // Detail: Cartesian, cylinder, polar, and spherical coordinate systems.
 
 #ifndef PASTEL_COORDINATES_H

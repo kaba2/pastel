@@ -1,4 +1,4 @@
-// Description: Tools for working with vectors
+// Description: Algorithms for Vectors
 
 #ifndef PASTEL_VECTOR_TOOLS_H
 #define PASTEL_VECTOR_TOOLS_H

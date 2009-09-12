@@ -1,4 +1,4 @@
-// Description: Tools for working with colors
+// Description: Color spaces etc.
 
 #ifndef PASTEL_COLORTOOLS_H
 #define PASTEL_COLORTOOLS_H

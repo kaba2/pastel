@@ -1,4 +1,4 @@
-// Description: Tools for computing antipodal point pairs
+// Description: Antipodal point pairs
 // Documentation: pastelgeometry.txt
 
 #ifndef PASTEL_ANTIPODAL_H

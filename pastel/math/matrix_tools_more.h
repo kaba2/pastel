@@ -1,4 +1,4 @@
-// Description: More tools for working with matrices.
+// Description: More algorithms for matrices.
 // Detail: transpose, inverse, solveLinear, solveLowerTriangular, etc.
 
 #ifndef PASTEL_MATRIX_TOOLS_MORE_H

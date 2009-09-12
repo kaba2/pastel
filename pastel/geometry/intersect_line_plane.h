@@ -1,4 +1,4 @@
-// Description: The intersection between a line and a plane
+// Description: Intersection between a line and a plane
 
 #ifndef PASTEL_INTERSECT_LINE_PLANE_H
 #define PASTEL_INTERSECT_LINE_PLANE_H

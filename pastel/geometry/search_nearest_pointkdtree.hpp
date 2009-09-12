@@ -262,7 +262,7 @@ namespace Pastel
 			kdTree, 
 			searchPoint,
 			searchAlgorithm,
-			Accept_Always(), 
+			Always_Accept_PointKdTree(), 
 			infinity<Real>(), 
 			0,
 			Euclidean_NormBijection<Real>());
@@ -279,7 +279,7 @@ namespace Pastel
 			kdTree, 
 			searchPoint, 
 			DepthFirst_SearchAlgorithm_PointKdTree(), 
-			Accept_Always(), 
+			Always_Accept_PointKdTree(), 
 			infinity<Real>(), 
 			0,
 			Euclidean_NormBijection<Real>());

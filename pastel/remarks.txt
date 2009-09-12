@@ -3,6 +3,15 @@ Remarks
 
 *.cpp *.h *.hpp *.txt *.sln *.vcproj *.py SConscript*.* SConstruct*.* license*.htm
 
+Todo
+----
+
+- Remove Simplex and Flat.
+- Replace Points with Vectors.
+- Clean excess whitespace.
+- Check that include guards equal file name.
+- Create a test file for each source file.
+
 What are the disabled Visual Studio warnings?
 ---------------------------------------------
 
@@ -128,26 +137,6 @@ should be ignored?
 5) Reporting functor
 => A functor is called with an iterator
 range giving the nearest neighbor-distance pairs.
-
-Todo
-----
-
-- Turn self-reference returning functions to void.
-- Remove Simplex and Flat.
-- Replace "pastel/sys/file.h" inclusion with "pastel/file.h":
-the user should not forced to remember on which sublibrary
-the files exist. This also helps when files are moved from
-one sublibrary to other.
-=> Need to generate forwarding files to pastel/.
-=> You can create a program to do this automatically.
-
-Need:
-- clean excess whitespace
-- check that include guards equal file name
-- a test file for each source file
-- better testing utilities
-=> need to return success/failure of tests
-=> if it fails, need to know why
 
 Qt installation
 ---------------

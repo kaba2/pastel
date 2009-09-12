@@ -1,4 +1,4 @@
-// Description: Tools for random number generation
+// Description: Random number generation
 
 #ifndef PASTEL_RANDOM_H
 #define PASTEL_RANDOM_H

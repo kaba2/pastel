@@ -1,4 +1,4 @@
-// Description: Tools for working with affine transformations.
+// Description: Algorithms for affine transformations.
 // Detail: inverse, similarityTransformation, rotation2, etc. 
 
 #ifndef PASTEL_AFFINETRANSFORMATION_TOOLS_H

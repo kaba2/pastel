@@ -1,6 +1,5 @@
 // Description: AlignedBoxBase class
 // Detail: CRTP base class for AlignedBox
-// Documentation: shapes.txt
 
 #ifndef PASTEL_ALIGNEDBOXBASE_H
 #define PASTEL_ALIGNEDBOXBASE_H
@@ -28,8 +27,6 @@ namespace Pastel
 	The aligned box is the set of points p that satisfy
 	'min <= p <= max' where the inequalities are understood
 	as "for all components".
-	In all times it must hold that 'min <= max'. This is
-	not enforced by the system but assumed by the algorithms.
 	*/
 
 	template <typename Real, int N>

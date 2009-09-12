@@ -1,4 +1,4 @@
-// Description: Tools for converting between little- and big-endian data
+// Description: Endian conversion
 // Documentation: portability.txt
 
 #ifndef PASTEL_ENDIANCONVERT_H

@@ -1,4 +1,4 @@
-// Description: Tools for computing bounding sphere for shapes
+// Description: Bounding spheres
 
 #ifndef PASTEL_BOUNDING_SPHERE_H
 #define PASTEL_BOUNDING_SPHERE_H

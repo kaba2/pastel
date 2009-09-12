@@ -1,4 +1,4 @@
-// Description: Tools for efficient min-max computations
+// Description: Min-max computations
 
 #ifndef PASTEL_MINMAX_H
 #define PASTEL_MINMAX_H

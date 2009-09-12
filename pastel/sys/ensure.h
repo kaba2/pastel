@@ -1,4 +1,4 @@
-// Description: Tools for invariant checking
+// Description: Invariant checking
 // Detail: Contains ENSURE, PENSURE, and ASSERT macros.
 
 #ifndef PASTEL_ENSURE_H

@@ -1,4 +1,4 @@
-// Description: Tools for obtaining the index of the highest/lowest bit
+// Description: Index of the highest/lowest bit
 // Documentation: miscellaneous.txt
 
 #ifndef PASTEL_BITQUERY_H

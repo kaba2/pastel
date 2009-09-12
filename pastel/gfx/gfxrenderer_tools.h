@@ -1,4 +1,4 @@
-// Description: Tools for working with GfxRenderer
+// Description: Algorithms for GfxRenderer
 
 #ifndef PASTEL_GFXRENDERERTOOLS_H
 #define PASTEL_GFXRENDERERTOOLS_H

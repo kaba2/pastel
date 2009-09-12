@@ -1,4 +1,4 @@
-// Description: More tools for working with rational numbers
+// Description: More Algorithms for rational numbers
 // Detail: infinity, nan, fraction, remainder, floor, toFloat, etc.
 
 #ifndef PASTEL_RATIONAL_MORE_H

@@ -1,4 +1,4 @@
-// Description: The intersection between a line and a triangle
+// Description: Intersection between a line and a triangle
 
 #ifndef PASTEL_INTERSECT_LINE_TRIANGLE_H
 #define PASTEL_INTERSECT_LINE_TRIANGLE_H

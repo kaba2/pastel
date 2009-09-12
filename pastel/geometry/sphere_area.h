@@ -1,4 +1,4 @@
-// Description: Tools for computing sphere area
+// Description: Area of a sphere
 // Documentation: area.txt
 
 #ifndef PASTEL_SPHERE_AREA_H

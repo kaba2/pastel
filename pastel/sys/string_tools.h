@@ -1,4 +1,4 @@
-// Description: Tools for working with strings
+// Description: Algorithms for strings
 // Documentation: miscellaneuous.txt
 
 #ifndef PASTEL_STRING_TOOLS_H

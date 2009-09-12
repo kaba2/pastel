@@ -1,4 +1,4 @@
-// Description: Resampling of a (multi-dimensional) signal to another size
+// Description: Signal resampling
 
 #ifndef PASTEL_RESAMPLE_H
 #define PASTEL_RESAMPLE_H

@@ -1,4 +1,4 @@
-// Description: Tools for printing a MeasureTable.
+// Description: Algorithms for MeasureTable
 
 #ifndef PASTEL_MEASURETABLE_TOOLS_H
 #define PASTEL_MEASURETABLE_TOOLS_H

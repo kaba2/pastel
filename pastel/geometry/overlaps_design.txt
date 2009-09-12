@@ -1,0 +1,27 @@
+Overlap testing design notes
+============================
+
+[Parent]: overlaps.txt
+
+GJK vs specialized algorithms
+-----------------------------
+
+Given ''n'' types of objects, one needs to implement ''O(n^2)''
+algorithms to cover for all pairwise combinations.
+The _GJK algorithm_ is able to avoid such a profileration of cases
+by abstracting a convex shape by using a so-called _support mapping_.
+One algorithm is then sufficient to handle all overlap testing (and more) 
+in a large class of convex shapes. The advantages of specialized
+testing includes:
+
+ * The results are exact (assuming exact arithmetic).
+ * The algorithms are probably somewhat faster, as they can use
+ information specific to the problem.
+ 
+The disadvantages include:
+
+ * Profileration of cases.
+ * No run-time abstraction for shapes. 
+
+The GJK and the specialized algorithms complement each other. An ideal case 
+would be to provide both.

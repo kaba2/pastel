@@ -1,3 +1,5 @@
+// Description: Intersection between an aligned box and a line segment
+
 #ifndef PASTEL_INTERSECT_ALIGNEDBOX_SEGMENT_H
 #define PASTEL_INTERSECT_ALIGNEDBOX_SEGMENT_H
 

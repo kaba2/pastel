@@ -1,4 +1,4 @@
-// Description: The intersection between a ray and an aligned box
+// Description: Intersection between a ray and an aligned box
 
 #ifndef PASTEL_INTERSECT_RAY_ALIGNEDBOX_H
 #define PASTEL_INTERSECT_RAY_ALIGNEDBOX_H

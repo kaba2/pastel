@@ -87,7 +87,7 @@ namespace Pastel
 					kdtree_, 
 					Point<Real, N>(position) + 0.5, 
 					DepthFirst_SearchAlgorithm_PointKdTree(),
-					Accept_Always(),
+					Always_Accept_PointKdTree(),
 					infinity<Real>(), 
 					maxRelativeError_, 
 					Euclidean_NormBijection<Real>(),

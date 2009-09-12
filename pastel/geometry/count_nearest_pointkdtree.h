@@ -1,4 +1,4 @@
-// Description: Tools for nearest neighbor counting
+// Description: Nearest neighbor counting for PointKdTree
 
 #ifndef PASTEL_COUNT_NEAREST_POINTKDTREE_H
 #define PASTEL_COUNT_NEAREST_POINTKDTREE_H
