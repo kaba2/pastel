@@ -6,9 +6,9 @@ Bounding
 Theory
 ------
 
-_To bound_ is to find a minimal covering shape of type ''A''
+A _bounding shape_ is a minimal covering shape of type ''A''
 for a shape of type ''B'', where 'minimal' usually refers to either 
-area or volume. The covering shape is called a _bounding shape_. 
+area or volume. _Bounding_ is the task of finding such a shape.
 
 Practice
 --------
@@ -16,3 +16,8 @@ Practice
 In addition to providing algorithms that find minimal covering shapes,
 Pastel provides algorithms that do this approximately. 
 
+See also
+--------
+
+[Link]: area.txt
+[Link]: volume.txt

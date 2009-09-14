@@ -1,0 +1,10 @@
+Containment between point-sets
+==============================
+
+[Parent]: pointset_queries.txt
+
+Theory
+------
+
+A point-set ''P sub RR^n'' _contains_ a point-set ''Q sub RR^n'' if
+''Q sub P''.

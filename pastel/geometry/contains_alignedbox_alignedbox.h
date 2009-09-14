@@ -1,4 +1,4 @@
-// Description: Containment tests between aligned boxes
+// Description: Does an aligned box contain another aligned box?
 
 #ifndef PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H

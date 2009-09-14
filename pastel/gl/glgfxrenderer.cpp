@@ -1,5 +1,5 @@
 #include "pastel/gl/glgfxrenderer.h"
-#include "pastel/geometry/projection.h"
+#include "pastel/geometry/planar_projection.h"
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"

@@ -1,18 +1,18 @@
-Overlap testing
-===============
+Overlap between point-sets
+==========================
 
-[Parent]: pastelgeometry.txt
+[Parent]: pointset_queries.txt
 
 Theory
 ------
 
-Two shapes overlap if their intersection is non-empty.
+Two point-sets ''P, Q sub RR^n'' _overlap_ if their intersection is non-empty.
 
 Practice
 --------
 
 Testing for overlap is an easier problem than finding
-and describing the intersection shape. Pastel implements
+and describing the intersection-shape. Pastel implements
 several overlap tests between pairs of shapes.
 
 See also

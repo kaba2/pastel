@@ -1,8 +1,8 @@
-// Description: Planar projections 
-// Documentation: common.txt
+// Description: Projections onto a plane
+// Documentation: projection.txt
 
-#ifndef PASTEL_PROJECTION_H
-#define PASTEL_PROJECTION_H
+#ifndef PASTEL_PLANAR_PROJECTION_H
+#define PASTEL_PLANAR_PROJECTION_H
 
 #include "pastel/sys/mytypes.h"
 
@@ -70,6 +70,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/projection.hpp"
+#include "pastel/geometry/planar_projection.hpp"
 
 #endif

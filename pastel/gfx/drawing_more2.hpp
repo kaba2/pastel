@@ -6,7 +6,7 @@
 
 #include "pastel/sys/view.h"
 
-#include "pastel/geometry/projection.h"
+#include "pastel/geometry/planar_projection.h"
 
 namespace Pastel
 {

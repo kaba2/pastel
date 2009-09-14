@@ -1,7 +1,7 @@
-#ifndef PASTEL_PROJECT_AXIS_HPP
-#define PASTEL_PROJECT_AXIS_HPP
+#ifndef PASTEL_LINEAR_PROJECTION_HPP
+#define PASTEL_LINEAR_PROJECTION_HPP
 
-#include "pastel/geometry/project_axis.h"
+#include "pastel/geometry/linear_projection.h"
 
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/vector_tools.h"

@@ -1,10 +1,10 @@
-Volume computation
-==================
+Volume of a point-set
+=====================
 
-[Parent]: pastelgeometry.txt
+[Parent]: pointset_properties.txt
 
 Theory
 ------
 
-We define the volume of a point set in R^n as its
+The _volume_ of a point set in ''RR^n'' is its
 Lebesgue measure.

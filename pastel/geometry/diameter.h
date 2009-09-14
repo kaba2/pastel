@@ -1,3 +1,5 @@
+// Description: Diameter of a point-set
+
 #ifndef PASTEL_DIAMETER_H
 #define PASTEL_DIAMETER_H
 

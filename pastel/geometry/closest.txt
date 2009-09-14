@@ -1,5 +1,7 @@
-Closest points computation
-==========================
+Closest points between point-sets
+=================================
+
+[Parent]: pointset_queries.txt
 
 Theory
 ------

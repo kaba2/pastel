@@ -1,4 +1,4 @@
-#include "pastel/geometry/projection.h"
+#include "pastel/geometry/planar_projection.h"
 
 #include "pastel/math/matrix_tools.h"
 
