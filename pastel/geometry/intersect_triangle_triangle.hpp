@@ -8,7 +8,7 @@
 #include "pastel/geometry/overlaps_plane_triangle.h"
 #include "pastel/geometry/intersect_flat_plane.h"
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"
-#include "pastel/geometry/project_axis.h"
+#include "pastel/geometry/linear_projection.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/vector_tools.h"

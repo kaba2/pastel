@@ -26,17 +26,15 @@ distances of the found neighbors to the distances of the exact neighbors.
 Practice
 --------
 
-Pastel implements nearest neighbor searching and counting, in both approximate and exact forms. 
+Pastel implements nearest-neighbor searching and counting, in both approximate and exact forms. 
 There are several algorithms that might be appropriate in different situations. 
-The brute-force search is a naive try-all algorithm, which scales in performance as ''O(n m^2)''.
-Its advantage is that it has minimal dependence to dimension. Due to _curse of dimensionality_,
-in dimensions high enough it is the case that even the more elegant algorithms in Pastel (i.e. 
-multi-resolution kd-tree) have to inspect all of the points, giving the same asymptotic performance 
-at best, but slower performance in practice. In these cases (e.g. dimension > 32) it might make 
-sense to use the brute-force algorithm instead, or to look for other algorithms.
-Given that the dimension is not too high (e.g. <= 32), then a particularly effective solution 
-to nearest neighbor searching is given by a multi-resolution kd-tree which uses the sliding 
-midpoint subdivision rule.
+The _brute-force algorithm_ is a naive try-all algorithm, which scales in performance as ''O(n m^2)''.
+A more elegant algorithm is made possible by a _branch-and-bound algorithm_ using the multi-resolution kd-tree. 
+The advantage of the brute-force algorithm is that it has minimal dependence to dimension. 
+Due to _curse of dimensionality_, in dimensions high enough (e.g. dimension > 32), 
+it is the case that the kd-tree has to inspect almost all of the points, 
+giving the same asymptotic performance as the brute-force search. In these cases, it can
+make sense to use the brute-force algorithm instead for better practical performance.
 
 See also
 --------

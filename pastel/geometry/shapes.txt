@@ -6,7 +6,7 @@ Shapes
 Theory
 ------
 
-A _shape_ is a subset of ''RR^n''. A shape ''S'' is called
+A _shape_ is a closed subset of ''RR^n''. A shape ''S'' is called
 _convex_, if it holds that 
 
 ''A, B in S => \forall t in [0, 1]: A + t(B - A) in S''.

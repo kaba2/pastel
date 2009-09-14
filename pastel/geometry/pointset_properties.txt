@@ -1,0 +1,5 @@
+Point-set properties
+====================
+
+[Parent]: pastelgeometry.txt
+

@@ -1,5 +1,4 @@
 // Description: Generation and modification of point-sets
-// Documentation: pastelgeometry.txt
 
 #ifndef PASTEL_POINT_PATTERNS_H
 #define PASTEL_POINT_PATTERNS_H

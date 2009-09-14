@@ -1,4 +1,4 @@
-// Description: Containment tests between an aligned box and a sphere
+// Description: Does an aligned box contain a sphere?
 
 #ifndef PASTEL_CONTAINS_ALIGNEDBOX_SPHERE_H
 #define PASTEL_CONTAINS_ALIGNEDBOX_SPHERE_H

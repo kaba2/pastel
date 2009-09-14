@@ -1,4 +1,0 @@
-Containment testing
-===================
-
-[Parent]: pastelgeometry.txt

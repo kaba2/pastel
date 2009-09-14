@@ -1,7 +1,7 @@
-#ifndef PASTEL_PROJECTION_HPP
-#define PASTEL_PROJECTION_HPP
+#ifndef PASTEL_PLANAR_PROJECTION_HPP
+#define PASTEL_PLANAR_PROJECTION_HPP
 
-#include "pastel/geometry/projection.h"
+#include "pastel/geometry/planar_projection.h"
 
 namespace Pastel
 {

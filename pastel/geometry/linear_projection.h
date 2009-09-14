@@ -1,8 +1,8 @@
-// Description: Orthogonal projection of a shape onto a line
-// Documentation: pastelgeometry.txt
+// Description: Projections onto a line
+// Documentation: projection.txt
 
-#ifndef PASTEL_PROJECT_AXIS_H
-#define PASTEL_PROJECT_AXIS_H
+#ifndef PASTEL_LINEAR_PROJECTION_H
+#define PASTEL_LINEAR_PROJECTION_H
 
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/vector.h"
@@ -121,6 +121,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/project_axis.hpp"
+#include "pastel/geometry/linear_projection.hpp"
 
 #endif

@@ -18,7 +18,7 @@
 #include "pastel/sys/string_tools.h"
 #include "pastel/sys/keyvalue.h"
 
-#include "pastel/geometry/projection.h"
+#include "pastel/geometry/planar_projection.h"
 
 using namespace Pastel;
 

@@ -1,7 +1,7 @@
-Area computation
-================
+Area of a point-set
+===================
 
-[Parent]: pastelgeometry.txt
+[Parent]: pointset_properties.txt
 
 Theory
 ------
@@ -13,8 +13,8 @@ Practice
 --------
 
 The definition of area given here might be a bit surprising 
-for those who have not accustomed to it: the area of a sphere of 
-radius ''r'' in ''RR^2'' is ''2 pi r'' (and its volume is ''pi r^2''). 
+for those who have not accustomed to it. For example, the area of a sphere of 
+radius ''r'' in ''RR^2'' is ''2 pi r'', and not ''pi r^2'' (which is its volume). 
 However, it is the correct generalization when considering geometric 
 applications. One example is given by the surface area heuristic 
 when building kd-trees for ray tracing.
