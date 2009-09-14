@@ -1,4 +1,4 @@
-// Description: Poisson disk patterns
+// Description: Poisson-disk pattern
 
 #ifndef PASTEL_POISSONDISKPATTERN_H
 #define PASTEL_POISSONDISKPATTERN_H

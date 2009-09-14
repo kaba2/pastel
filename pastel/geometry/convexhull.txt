@@ -1,5 +1,12 @@
-Convex hull computation
-=======================
+Convex hull of a point-set
+==========================
 
-[Parent]: pastelgeometry.txt
+[Parent]: pointset_properties.txt
 
+Theory
+------
+
+The _convex hull_ of a point-set ''P sub RR^n''
+is the set of all convex combinations of ''P''.
+Alternatively, it is the intersection of all convex
+sets that cover ''P''.

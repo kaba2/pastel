@@ -1,3 +1,5 @@
+// Documentation: halfmesh.txt
+
 #ifndef PASTEL_SIMPLEHALFMESH_H
 #define PASTEL_SIMPLEHALFMESH_H
 

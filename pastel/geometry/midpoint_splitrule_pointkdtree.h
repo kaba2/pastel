@@ -1,3 +1,7 @@
+// Description: Midpoint_SplitRule_PointKdTree class
+// Detail: Midpoint splitting rule for PointKdTree
+// Documentation: pointkdtree.txt
+
 #ifndef PASTEL_MIDPOINT_SPLITRULE_POINTKDTREE_H
 #define PASTEL_MIDPOINT_SPLITRULE_POINTKDTREE_H
 

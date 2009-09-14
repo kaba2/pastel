@@ -1,7 +1,7 @@
 Poisson-disk pattern
 ====================
 
-[Parent]: pastelgeometry.txt
+[Parent]: point_patterns.txt
 
 Theory
 ------

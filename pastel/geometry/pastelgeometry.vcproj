@@ -189,6 +189,10 @@
 		<Filter
 			Name="Data structures"
 			>
+			<File
+				RelativePath=".\data_structures.txt"
+				>
+			</File>
 			<Filter
 				Name="PointKdTree"
 				>
@@ -265,6 +269,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\bihtree.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\bihtree_more.h"
 					>
 				</File>
@@ -334,6 +342,10 @@
 				</File>
 				<File
 					RelativePath=".\halfmesh.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\halfmesh_design.txt"
 					>
 				</File>
 				<File
@@ -1041,162 +1053,162 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Intersection"
-			>
-			<File
-				RelativePath=".\intersect.txt"
+			<Filter
+				Name="Intersection"
 				>
-			</File>
-			<File
-				RelativePath=".\intersect_alignedbox_alignedbox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_alignedbox_alignedbox.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_alignedbox_plane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_alignedbox_plane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_alignedbox_segment.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_alignedbox_segment.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_flat_plane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_flat_plane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_alignedbox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_alignedbox.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_alignedplane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_alignedplane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_box.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_box.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_plane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_plane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_polygon.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_polygon.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_sphere.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_sphere.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_triangle.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_line_triangle.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_plane_sphere.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_plane_sphere.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_alignedbox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_alignedbox.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_alignedplane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_alignedplane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_plane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_plane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_sphere.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_ray_sphere.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_segment_halfspace.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_segment_halfspace.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_triangle_triangle.h"
-				>
-			</File>
-			<File
-				RelativePath=".\intersect_triangle_triangle.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mathintersect.h"
-				>
-			</File>
+				<File
+					RelativePath=".\intersect.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_plane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_plane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_segment.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_segment.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_flat_plane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_flat_plane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_alignedplane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_alignedplane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_box.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_box.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_plane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_plane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_polygon.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_polygon.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_sphere.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_sphere.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_triangle.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_line_triangle.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_plane_sphere.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_plane_sphere.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_alignedplane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_alignedplane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_plane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_plane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_sphere.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_ray_sphere.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_segment_halfspace.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_segment_halfspace.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_triangle_triangle.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_triangle_triangle.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\mathintersect.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Bounding"
@@ -1406,22 +1418,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Convex hull"
-				>
-				<File
-					RelativePath=".\convexhull.h"
-					>
-				</File>
-				<File
-					RelativePath=".\convexhull.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\convexhull.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Meshes"
 				>
 				<Filter
@@ -1610,6 +1606,22 @@
 				</File>
 				<File
 					RelativePath=".\sphere_area.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Convex hull"
+				>
+				<File
+					RelativePath=".\convexhull.h"
+					>
+				</File>
+				<File
+					RelativePath=".\convexhull.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\convexhull.txt"
 					>
 				</File>
 			</Filter>
