@@ -1,51 +1,7 @@
-Half-edge structure design space
-================================
+Half-edge structure
+===================
 
-* Must be able to store user data at the entities.
+[Parent]: data_structures.txt
 
-How should template parameters be used?
----------------------------------------
-
-1) One type for each user data type:
-
-template <typename VertexData, typename HalfData,
-typename EdgeData, typename PolygonData>
-class HalfMesh;
-
-=> Too much stuff to type.
-
-2) Pack the types into a policy class:
-
-template <typename ObjectPolicy>
-class HalfMesh;
-
-class ObjectPolicy
-{
-public:
-	typedef int VertexData;
-	typedef int HalfData;
-	typedef int EdgeData;
-	typedef int PolygonData;
-};
-
-How to make construction and destruction of
-the user data customizable?
--------------------------------------------
-
-1) Static late binding via crtp.
-Customize the construction and destruction in a
-derived class.
-=> Why use static late binding? The advantages are
-not justified here.
-=> Not good because users need to do this too.
-
-2) Dynamic late binding via virtual functions.
-Customize the construction and destruction in a
-derived class.
-=> But now one needs to subclass just to
-steer this process, not to add interface.
-
-3) Pass the code in a policy class.
-=> You can refer back from the policy class
-to a derived class if you want to.
-
+Theory
+------

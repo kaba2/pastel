@@ -1,6 +1,8 @@
 KdTree design decisions
 =======================
 
+[Parent]: data_structures.txt
+
 Invariants
 ----------
 

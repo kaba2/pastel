@@ -8,30 +8,30 @@ Theory
 
 ### BSP-tree
 
-A _binary space partitioning tree_ or a BSP-tree, 
-is a binary tree whose nodes correspond to convex geometric 
-regions in R^n. We denote the corresponding shape of a node A
-by s(A) and extend this notation to sets by 
-s({T_1, ..., T_n}) = {s(T_1), ..., s(T_n)}.
-The terminal nodes are called _leaf nodes_, 
-while the non-terminal nodes are called _split nodes_. 
-Given a split node A, the children of the node are formed
-by dividing s(A) with a plane into two disjoint convex shapes
-(the points on the plane can be divided arbitrarily between
-the shapes). This plane is called the _splitting plane_.
+A _binary space-partitioning tree_ or a BSP-tree, 
+is a binary tree whose nodes correspond to convex shapes in ''RR^n''. 
+Denote the corresponding shape of a node ''A''
+by ''s(A)'' and extend this notation to sets by 
+''s({T_1, ..., T_n}) = {s(T_1), ..., s(T_n)}''.
+The terminal nodes are called _leaf-nodes_, 
+while the non-terminal nodes are called _split-nodes_. 
+Given a split-node ''A'', the children of the node are formed
+by dividing ''s(A)'' with a plane into two disjoint convex shapes
+(the points on the plane can be distributed arbitrarily between
+the nodes). This plane is called the _splitting plane_.
 
-Let T be a BSP-tree. Denote the set of leaf nodes of T
-by {T}. Let S be a subtree of T such that S and T share
-the same root node. Then it holds that s({S}) is a partition 
-of s(T) (a partition of s(T) is a collection of disjoint sets 
-which cover s(T)). Furthermore, let S_2 be a subtree of T such
-that they share the same root_node, and let S be a subtree
-of S_2. Then s({S_2}) is a refinement of s({S}).
+Let ''T'' be a BSP-tree. Denote the set of leaf-nodes of ''T''
+by ''{T}''. Let ''S'' be a subtree of ''T'' such that ''S'' and ''T'' share
+the same root node. Then it holds that ''s({T})'' is a partition 
+of ''s(S)'' (a _partition of ''s(S)''_ is a collection of disjoint sets 
+which cover ''s(S)''). Furthermore, let ''S_2'' be a subtree of ''T'' such
+that they share the same root-node, and let ''S'' be a subtree
+of ''S_2''. Then ''s({S_2})'' is a refinement of ''s({S})''.
 
 ### Point BSP-tree
 
-A _point BSP-tree_ is a pair (T, P) such that P is a finite point 
-set in R^n and T is a BSP-tree such that P subset s(T). 
+A _point BSP-tree_ is a pair ''(T, P)'' such that ''P'' is a finite point 
+set in ''RR^n'' and ''T'' is a BSP-tree such that ''P'' subset ''s(T)''. 
 A node L in T is said to _hold_ a point q in P iff q in s(L). 
 The set of points that a node L holds is denoted by p(L).
 
