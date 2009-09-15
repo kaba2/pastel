@@ -31,16 +31,16 @@ of ''S_2''. Then ''s({S_2})'' is a refinement of ''s({S})''.
 ### Point BSP-tree
 
 A _point BSP-tree_ is a pair ''(T, P)'' such that ''P'' is a finite point 
-set in ''RR^n'' and ''T'' is a BSP-tree such that ''P'' subset ''s(T)''. 
-A node L in T is said to _hold_ a point q in P iff q in s(L). 
-The set of points that a node L holds is denoted by p(L).
+set in ''RR^n'' and ''T'' is a BSP-tree such that ''P sub s(T)''. 
+A node ''L'' in ''T'' is said to _hold_ a point ''q'' in ''P'' if ''q in s(L)''. 
+The set of points that a node ''L'' holds is denoted by ''p(L)''.
 
-Given a bucket size M, a _bucket node_ is a node which is either
+Given a bucket size ''M'', a _bucket node_ is a node which is either
 
- * a leaf node which holds more than M points, or
+ * a leaf node which holds more than ''M'' points, or
  
- * a node which holds at most M points, but whose parent 
- (if not the root node) holds greater than M number of points. 
+ * a node which holds at most ''M'' points, but whose parent 
+ (if not the root node) holds greater than ''M'' number of points. 
  
 ### Kd-tree
 
@@ -83,16 +83,16 @@ You can perform refinement later if needed.
 
 Points can be removed from the tree at any time. 
 
-### Automatic tracing of bucket nodes
+### Automatic tracking of bucket nodes
 
 When adding or removing points, the bucket nodes are
-traced automatically. In particular, this allows
+tracked automatically. In particular, this allows
 the PointKdTree to adapt to changing point sets.
 
-### Constant time bucket node look-up for points
+### Constant time bucket-node look-up for points
 
 Given a point stored in the tree, PointKdTree is able to return
-you the bucket node containing the point in constant time.
+the bucket node containing the point in constant time.
 Especially in nearest neighbor searching this allows to
 save the cost of one full-height down-traversal. In addition,
 because it returns the containing bucket node rather than 
@@ -127,14 +127,14 @@ basis axes has a number of advantages. Some of these are:
  * A plane can be described by one integer 
  (the splitting axis), and one real number 
  (distance of the plane from the origin).
- In contrast, arbitrary planes require O(n)
- storage in R^n.
+ In contrast, arbitrary planes require ''O(n)''
+ storage in ''RR^n''.
 
  * It can be tested with a single comparison on which
  side of the splitting plane a point is. Because there
  is no arithmetic involved, there are no numerical 
  problems with rounding: the result is exact.
- In contrast, arbitrary planes require O(n) time in R^n,
+ In contrast, arbitrary planes require ''O(n)'' time in ''RR^n'',
  and the result might be wrong due numerical problems.
 
  * For nearest neighbor searching, there are

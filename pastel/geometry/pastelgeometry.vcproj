@@ -1209,38 +1209,38 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Bounding"
-			>
-			<File
-				RelativePath=".\bounding.txt"
+			<Filter
+				Name="Bounding"
 				>
-			</File>
-			<File
-				RelativePath=".\bounding_alignedbox.h"
-				>
-			</File>
-			<File
-				RelativePath=".\bounding_alignedbox.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\bounding_box.h"
-				>
-			</File>
-			<File
-				RelativePath=".\bounding_box.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\bounding_sphere.h"
-				>
-			</File>
-			<File
-				RelativePath=".\bounding_sphere.hpp"
-				>
-			</File>
+				<File
+					RelativePath=".\bounding.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_box.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_box.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Point patterns"
@@ -1383,7 +1383,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Not well though out"
+			Name="Needs more thought"
 			>
 			<File
 				RelativePath=".\barycentric.h"
@@ -1395,6 +1395,10 @@
 			</File>
 			<File
 				RelativePath=".\closest_point.h"
+				>
+			</File>
+			<File
+				RelativePath=".\needs_more_thought.txt"
 				>
 			</File>
 			<File
@@ -1545,11 +1549,11 @@
 				Name="Volume"
 				>
 				<File
-					RelativePath=".\boxvolume.h"
+					RelativePath=".\box_volume.h"
 					>
 				</File>
 				<File
-					RelativePath=".\boxvolume.hpp"
+					RelativePath=".\box_volume.hpp"
 					>
 				</File>
 				<File

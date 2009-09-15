@@ -1,3 +1,5 @@
+// Description: Basic algorithms for PointKdTree
+
 #ifndef PASTEL_POINTKDTREE_TOOLS_H
 #define PASTEL_POINTKDTREE_TOOLS_H
 

@@ -1,0 +1,10 @@
+Diameter of a point-set
+=======================
+
+[Parent]: pointset_properties.txt
+
+Theory
+------
+
+The _diameter_ of a point-set ''P sub RR^n'' is
+''w = text(sup) {d(x, y) | x, y in P}'', where ''d'' is some metric in ''RR^n''.

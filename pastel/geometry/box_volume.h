@@ -1,8 +1,8 @@
 // Description: Volume of a box
 // Documentation: volume.txt
 
-#ifndef PASTEL_BOXVOLUME_H
-#define PASTEL_BOXVOLUME_H
+#ifndef PASTEL_BOX_VOLUME_H
+#define PASTEL_BOX_VOLUME_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/box.h"
@@ -21,6 +21,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/boxvolume.hpp"
+#include "pastel/geometry/box_volume.hpp"
 
 #endif
