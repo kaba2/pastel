@@ -16,8 +16,8 @@
 namespace Pastel
 {
 
-	template <int Height, int Width, typename Real, typename Functor>
-	void modify(Matrix<Height, Width, Real>& that, Functor f)
+	template <typename Real, int Height, int Width, typename Functor>
+	void modify(Matrix<Real, Height, Width>& that, Functor f)
 	{
 		const integer width = that.width();
 		const integer height = that.height();
@@ -31,9 +31,9 @@ namespace Pastel
 		}
 	}
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real trace(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
+		const MatrixExpression<Real, Height, Width, Expression>& that)
 	{
 		const integer width = that.width();
 		const integer height = that.height();
@@ -48,9 +48,9 @@ namespace Pastel
 		return result;
 	}
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real diagonalProduct(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
+		const MatrixExpression<Real, Height, Width, Expression>& that)
 	{
 		const integer width = that.width();
 		const integer height = that.height();
@@ -67,7 +67,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<N, N, Real, Expression>& that)
+		const MatrixExpression<Real, N, N, Expression>& that)
 	{
 		ENSURE_OP(that.width(), ==, that.height());
 
@@ -79,7 +79,7 @@ namespace Pastel
 
 		Real detChange = 1;
 
-		Matrix<N, N, Real> a2(that);
+		Matrix<Real, N, N> a2(that);
 
 		for (integer k = 0;k < n;++k)
 		{
@@ -155,14 +155,14 @@ namespace Pastel
 
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<1, 1, Real, Expression>& that)
+		const MatrixExpression<Real, 1, 1, Expression>& that)
 	{
 		return that(0, 0);
 	}
 
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<2, 2, Real, Expression>& that)
+		const MatrixExpression<Real, 2, 2, Expression>& that)
 	{
 		return that(0, 0) * that(1, 1) -
 			that(0, 1) * that(1, 0);
@@ -170,7 +170,7 @@ namespace Pastel
 
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<3, 3, Real, Expression>& that)
+		const MatrixExpression<Real, 3, 3, Expression>& that)
 	{
 		Real cofactor00(
 			that(1, 1) * that(2, 2) -
@@ -190,9 +190,9 @@ namespace Pastel
 		return result;
 	}
 
-	template <int Height, int Width, typename Real, 
+	template <typename Real, int Height, int Width, 
 		typename Expression, typename NormBijection>
-	Real norm2(const MatrixExpression<Height, Width, Real, Expression>& matrix,
+	Real norm2(const MatrixExpression<Real, Height, Width, Expression>& matrix,
 		const NormBijection& normBijection)
 	{
 		const integer width = matrix.width();
@@ -211,16 +211,16 @@ namespace Pastel
 		return result;
 	}
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real normManhattan(
-		const MatrixExpression<Height, Width, Real, Expression>& matrix)
+		const MatrixExpression<Real, Height, Width, Expression>& matrix)
 	{
 		return max(sum(abs(matrix)));
 	}
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real normInfinity(
-		const MatrixExpression<Height, Width, Real, Expression>& matrix)
+		const MatrixExpression<Real, Height, Width, Expression>& matrix)
 	{
 		return max(sum(abs(transpose(matrix))));
 	}
@@ -228,7 +228,7 @@ namespace Pastel
 	template <int N, typename Real, 
 		typename Expression, typename NormBijection>
 		Real condition2(
-		const MatrixExpression<N, N, Real, Expression>& matrix,
+		const MatrixExpression<Real, N, N, Expression>& matrix,
 		const NormBijection& normBijection)
 	{
 		return norm2(matrix, normBijection) * 
@@ -237,21 +237,21 @@ namespace Pastel
 
 	template <int N, typename Real, typename Expression>
 	Real conditionManhattan(
-		const MatrixExpression<N, N, Real, Expression>& matrix)
+		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{
 		return normManhattan(matrix) * normManhattan(inverse(matrix));
 	}
 
 	template <int N, typename Real, typename Expression>
 	Real conditionInfinity(
-		const MatrixExpression<N, N, Real, Expression>& matrix)
+		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{
 		return normInfinity(matrix) * normInfinity(inverse(matrix));
 	}
 
 	template <typename Real>
 	Vector<Real, 2> symmetricEigenValues(
-		const Matrix<2, 2, Real>& matrix)
+		const Matrix<Real, 2, 2>& matrix)
 	{
 		// Let the matrix be
 		// [a b]
@@ -280,8 +280,8 @@ namespace Pastel
 
 	template <typename Real>
 	void symmetricEigenDecomposition(
-		const Matrix<2, 2, Real>& matrix,
-		Matrix<2, 2, Real>& eigenVector,
+		const Matrix<Real, 2, 2>& matrix,
+		Matrix<Real, 2, 2>& eigenVector,
 		Vector2& eigenValue)
 	{
 		eigenValue = symmetricEigenValues(matrix);

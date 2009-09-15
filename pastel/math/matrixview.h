@@ -72,7 +72,7 @@ namespace Pastel
 
 	template <typename Real>
 	class ConstSubMatrix
-		: public MatrixExpression<Dynamic, Dynamic, Real, 
+		: public MatrixExpression<Real, Dynamic, Dynamic, 
 		ConstSubMatrix<Real> >
 	{
 	public:
@@ -218,7 +218,7 @@ namespace Pastel
 
 	template <typename Real>
 	class SubMatrix
-		: public MatrixExpression<Dynamic, Dynamic, Real, 
+		: public MatrixExpression<Real, Dynamic, Dynamic, 
 		SubMatrix<Real> >
 	{
 	public:
@@ -268,7 +268,7 @@ namespace Pastel
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
 				
-				*this = Matrix<Dynamic, Dynamic, Real>(that);
+				*this = Matrix<Real, Dynamic, Dynamic>(that);
 			}
 			else
 			{
@@ -404,7 +404,7 @@ namespace Pastel
 
 		template <int Height, int Width, typename RightExpression>
 		SubMatrix& operator=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			const MatrixExpression<Real, Height, Width, RightExpression>& right)
 		{
 			ENSURE(width() == right.width() &&
 				height() == right.height());
@@ -415,7 +415,7 @@ namespace Pastel
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
 				
-				*this = Matrix<Dynamic, Dynamic, Real>(right);
+				*this = Matrix<Real, Dynamic, Dynamic>(right);
 			}
 			else
 			{
@@ -438,7 +438,7 @@ namespace Pastel
 
 		template <int N, typename RightExpression>
 		SubMatrix& operator*=(
-			const MatrixExpression<N, N, Real, RightExpression>& right)
+			const MatrixExpression<Real, N, N, RightExpression>& right)
 		{
 			PENSURE2(width() == right.height(), width(), right.height());
 
@@ -449,14 +449,14 @@ namespace Pastel
 
 		template <int Height, int Width, typename RightExpression>
 		SubMatrix& operator+=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			const MatrixExpression<Real, Height, Width, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
 			if (right.involvesNonTrivially(data_.rawBegin(), data_.rawEnd()))
 			{
-				*this += Matrix<Dynamic, Dynamic, Real>(right);
+				*this += Matrix<Real, Dynamic, Dynamic>(right);
 			}
 			else
 			{
@@ -479,14 +479,14 @@ namespace Pastel
 
 		template <int Height, int Width, typename RightExpression>
 		SubMatrix& operator-=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			const MatrixExpression<Real, Height, Width, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
 
 			if (right.involvesNonTrivially(data_.rawBegin(), data_.rawEnd()))
 			{
-				*this -= Matrix<Dynamic, Dynamic, Real>(right);
+				*this -= Matrix<Real, Dynamic, Dynamic>(right);
 			}
 			else
 			{

@@ -14,44 +14,44 @@ namespace Pastel
 
 	//! Calls the functor y = f(x) on each matrix element.
 
-	template <int Height, int Width, typename Real, typename Functor>
-	void modify(Matrix<Height, Width, Real>& that, Functor f);
+	template <typename Real, int Height, int Width,typename Functor>
+	void modify(Matrix<Real, Height, Width>& that, Functor f);
 
 	//! Returns the trace of the matrix.
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real trace(
-		const MatrixExpression<Height, Width, Real, Expression>& that);
+		const MatrixExpression<Real, Height, Width, Expression>& that);
 
 	//! Returns the product of the diagonal elements.
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real diagonalProduct(
-		const MatrixExpression<Height, Width, Real, Expression>& that);
+		const MatrixExpression<Real, Height, Width, Expression>& that);
 
 	//! Returns the determinant of a matrix.
 
 	template <int N, typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<N, N, Real, Expression>& that);
+		const MatrixExpression<Real, N, N, Expression>& that);
 
 	//! Returns the determinant of a 1 x 1 matrix.
 
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<1, 1, Real, Expression>& that);
+		const MatrixExpression<Real, 1, 1, Expression>& that);
 
 	//! Returns the determinant of a 2 x 2 matrix.
 
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<2, 2, Real, Expression>& that);
+		const MatrixExpression<Real, 2, 2, Expression>& that);
 
 	//! Returns the determinant of a 3 x 3 matrix.
 
 	template <typename Real, typename Expression>
 	Real determinant(
-		const MatrixExpression<3, 3, Real, Expression>& that);
+		const MatrixExpression<Real, 3, 3, Expression>& that);
 
 	//! Returns a pointwise matrix norm given by the norm bijection.
 	/*!
@@ -61,9 +61,9 @@ namespace Pastel
 	See 'pastel/math/normbijection.h" for predefined norm bijections.
 	*/
 
-	template <int Height, int Width, typename Real, 
+	template <typename Real,int Height, int Width,  
 		typename Expression, typename NormBijection>
-	Real norm2(const MatrixExpression<Height, Width, Real, Expression>& matrix,
+	Real norm2(const MatrixExpression<Real, Height, Width, Expression>& matrix,
 		const NormBijection& normBijection);
 
 	//! Returns the induced manhattan matrix norm.
@@ -84,9 +84,9 @@ namespace Pastel
 	See 'norm2' for pointwise matrix norms.
 	*/
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real normManhattan(
-		const MatrixExpression<Height, Width, Real, Expression>& matrix);
+		const MatrixExpression<Real, Height, Width, Expression>& matrix);
 
 	//! Returns the induced infinity matrix norm.
 	/*!
@@ -98,38 +98,38 @@ namespace Pastel
 	matrix norms.
 	*/
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	Real normInfinity(
-		const MatrixExpression<Height, Width, Real, Expression>& matrix);
+		const MatrixExpression<Real, Height, Width, Expression>& matrix);
 
 	//! Returns the condition number of a matrix using a pointwise norm.
 
 	template <int N, typename Real, 
 		typename Expression, typename NormBijection>
 		Real condition2(
-		const MatrixExpression<N, N, Real, Expression>& matrix,
+		const MatrixExpression<Real, N, N, Expression>& matrix,
 		const NormBijection& normBijection);
 
 	//! Returns the condition number of a matrix using manhattan norm.
 
 	template <int N, typename Real, typename Expression>
 	Real conditionManhattan(
-		const MatrixExpression<N, N, Real, Expression>& matrix);
+		const MatrixExpression<Real, N, N, Expression>& matrix);
 
 	//! Returns the condition number of a matrix using infinity norm.
 
 	template <int N, typename Real, typename Expression>
 	Real conditionInfinity(
-		const MatrixExpression<N, N, Real, Expression>& matrix);
+		const MatrixExpression<Real, N, N, Expression>& matrix);
 
 	template <typename Real>
 	Vector<Real, 2> symmetricEigenValues(
-		const Matrix<2, 2, Real>& matrix);
+		const Matrix<Real, 2, 2>& matrix);
 
 	template <typename Real>
 	void symmetricEigenDecomposition(
-		const Matrix<2, 2, Real>& matrix,
-		Matrix<2, 2, Real>& eigenVector,
+		const Matrix<Real, 2, 2>& matrix,
+		Matrix<Real, 2, 2>& eigenVector,
 		Vector2& eigenValue);
 
 }

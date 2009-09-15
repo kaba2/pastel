@@ -28,7 +28,7 @@ namespace Pastel
 		// Inverse of an orthogonal matrix
 		// is its transpose.
 
-		const Matrix<N, N, Real> boxRotationInverse(
+		const Matrix<Real, N, N> boxRotationInverse(
 			transpose(box.rotation()));
 
 		const Point<Real, N> transformedPoint(

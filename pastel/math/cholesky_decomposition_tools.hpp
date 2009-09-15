@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Real determinant(const CholeskyDecomposition<Real, N>& that)
 	{
-		const Matrix<N, N, Real>& lower = that.lower();
+		const Matrix<Real, N, N>& lower = that.lower();
 		
 		const integer n = lower.width();
 

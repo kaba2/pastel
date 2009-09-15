@@ -27,7 +27,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Transformation<Real, N>::Transformation(
-		const Matrix<N, N, Real>& transformation,
+		const Matrix<Real, N, N>& transformation,
 		const Vector<Real, N>& translation)
 		: transform_(transformation, translation)
 		, inverse_()
@@ -101,20 +101,20 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Transformation<Real, N>::setTransform(
-		const Matrix<N, N, Real>& transformation)
+		const Matrix<Real, N, N>& transformation)
 	{
 		transform_.transformation() = transformation;
 		update_ = true;
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>& Transformation<Real, N>::transformation() const
+	const Matrix<Real, N, N>& Transformation<Real, N>::transformation() const
 	{
 		return transform_.transformation();
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>&
+	const Matrix<Real, N, N>&
 		Transformation<Real, N>::inverseTransform() const
 	{
 		if (update_)

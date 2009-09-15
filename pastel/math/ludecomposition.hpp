@@ -46,7 +46,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	LuDecomposition<Real, N>::LuDecomposition(
-		const Matrix<N, N, Real>& matrix)
+		const Matrix<Real, N, N>& matrix)
 		: packedLu_(matrix.width(), matrix.height())
 		, rowPermutation_(ofDimension(matrix.width()))
 		, evenRowPermutation_(true)
@@ -76,7 +76,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	bool LuDecomposition<Real, N>::decompose(const Matrix<N, N, Real>& matrix)
+	bool LuDecomposition<Real, N>::decompose(const Matrix<Real, N, N>& matrix)
 	{
 		// This is Crout's algorithm to
 		// compute LUP-decomposition in-place.
@@ -212,7 +212,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>& LuDecomposition<Real, N>::packedLu() const
+	const Matrix<Real, N, N>& LuDecomposition<Real, N>::packedLu() const
 	{
 		return packedLu_;
 	}

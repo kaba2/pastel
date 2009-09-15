@@ -535,7 +535,7 @@ namespace Pastel
 
 		explicit Transformed_RandomDistribution(
 			const CountedPtr<RandomDistribution<N, Real> >& distribution,
-			const Matrix<N, N, Real>& transform)
+			const Matrix<Real, N, N>& transform)
 			: Base(transform.width())
 			, distribution_(distribution)
 			, transform_(transform)
@@ -563,14 +563,14 @@ namespace Pastel
 
 	private:
 		CountedPtr<RandomDistribution<N, Real> > distribution_;
-		Matrix<N, N, Real> transform_;
+		Matrix<Real, N, N> transform_;
 	};
 
 	template <int N, typename Real>
 	CountedPtr<Transformed_RandomDistribution<N, Real> >
 		transform(
 		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<N, Real> >))& distribution,
-		const Matrix<N, N, Real>& transform)
+		const Matrix<Real, N, N>& transform)
 	{
 		return CountedPtr<Transformed_RandomDistribution<N, Real> >(
 			new Transformed_RandomDistribution<N, Real>(

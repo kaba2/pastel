@@ -11,52 +11,52 @@
 namespace Pastel
 {
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixMin;
 
 	//! Returns the minimum value of each column as a vector.
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixMin<Height, Width, Real, Expression> min(
-		const MatrixExpression<Height, Width, Real, Expression>& that);
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixMin<Real, Height, Width, Expression> min(
+		const MatrixExpression<Real, Height, Width, Expression>& that);
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixMax;
 
 	//! Returns the maximum value of each column as a vector.
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixMax<Height, Width, Real, Expression> max(
-		const MatrixExpression<Height, Width, Real, Expression>& that);
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixMax<Real, Height, Width, Expression> max(
+		const MatrixExpression<Real, Height, Width, Expression>& that);
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixAbs;
 
 	//! Returns the absolute value of each element.
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixAbs<Height, Width, Real, Expression> abs(
-		const MatrixExpression<Height, Width, Real, Expression>& that);
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixAbs<Real, Height, Width, Expression> abs(
+		const MatrixExpression<Real, Height, Width, Expression>& that);
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixRepeat;
 
 	//! Repeats a matrix expression to form a bigger matrix expression.
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixRepeat<Height, Width, Real, Expression> repeat(
-		const MatrixExpression<Height, Width, Real, Expression>& that,
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixRepeat<Real, Height, Width, Expression> repeat(
+		const MatrixExpression<Real, Height, Width, Expression>& that,
 		integer yBlocks, integer xBlocks);
 
 	template <
@@ -71,16 +71,16 @@ namespace Pastel
 		const ConstView<2, Real, Input_ConstView>& that);
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class OuterProduct;
 
-	template <int Height, int Width, typename Real,
+	template <typename Real,int Height, int Width, 
 		typename LeftExpression,
 		typename RightExpression>
-		OuterProduct<Height, Width, Real, LeftExpression, RightExpression>
+		OuterProduct<Real, Height, Width, LeftExpression, RightExpression>
 		outerProduct(
 		const VectorExpression<Real, Height, LeftExpression>& left,
 		const VectorExpression<Real, Width, RightExpression>& right);

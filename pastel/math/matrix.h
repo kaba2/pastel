@@ -31,11 +31,11 @@ namespace Pastel
 namespace Pastel
 {
 
-	typedef Matrix<1, 1, real> Matrix1;
-	typedef Matrix<2, 2, real> Matrix2;
-	typedef Matrix<3, 3, real> Matrix3;
-	typedef Matrix<4, 4, real> Matrix4;
-	typedef Matrix<Dynamic, Dynamic, real> MatrixD;
+	typedef Matrix<real, 1, 1> Matrix1;
+	typedef Matrix<real, 2, 2> Matrix2;
+	typedef Matrix<real, 3, 3> Matrix3;
+	typedef Matrix<real, 4, 4> Matrix4;
+	typedef Matrix<real, Dynamic, Dynamic> MatrixD;
 
 	// Vectors vs matrices
 
@@ -46,10 +46,10 @@ namespace Pastel
 		typename RightExpression>
 	class MatrixVectorMultiplication;
 
-	template <int Height, int Width, typename Real,
+	template <typename Real, int Height, int Width,
 	typename LeftExpression, typename RightExpression>
 	const MatrixVectorMultiplication<Real, Height, LeftExpression, RightExpression> operator *(
-		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
+		const MatrixExpression<Real, Height, Width, LeftExpression>& left,
 		const VectorExpression<Real, Width, RightExpression>& right);
 
 	template <
@@ -59,28 +59,28 @@ namespace Pastel
 		typename MatrixExpression>
 	class VectorMatrixMultiplication;
 
-	template <int Height, int Width, typename Real,
+	template <typename Real, int Height, int Width, 
 	typename LeftExpression, typename RightExpression>
 	const VectorMatrixMultiplication<Real, Width, LeftExpression, RightExpression> operator *(
 		const VectorExpression<Real, Height, LeftExpression>& left,
-		const MatrixExpression<Height, Width, Real, RightExpression>& right);
+		const MatrixExpression<Real, Height, Width, RightExpression>& right);
 
 	// Points vs matrices
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	Point<Real, Height> operator*(
-		const Matrix<Height, Width, Real>& left,
+		const Matrix<Real, Height, Width>& left,
 		const Point<Real, Width>& right);
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	Point<Real, Width> operator *(
 		const Point<Real, Height>& left,
-		const Matrix<Height, Width, Real>& right);
+		const Matrix<Real, Height, Width>& right);
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	void swap(
-		Matrix<Height, Width, Real>& left,
-		Matrix<Height, Width, Real>& right);
+		Matrix<Real, Height, Width>& left,
+		Matrix<Real, Height, Width>& right);
 
 }
 

@@ -24,14 +24,14 @@ namespace Pastel
 	*/
 
 	template <int N, typename Real>
-	Matrix<N, N, Real> ellipsoidQuadraticForm(
-		const Matrix<N, N, Real>& basis);
+	Matrix<Real, N, N> ellipsoidQuadraticForm(
+		const Matrix<Real, N, N>& basis);
 
 	//! Returns a minimum volume aligned box bounding the given ellipse.
 
 	template <int N, typename Real>
 	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
-		const Matrix<N, N, Real>& quadraticForm);
+		const Matrix<Real, N, N>& quadraticForm);
 
 }
 

@@ -17,6 +17,38 @@ namespace Pastel
 	Vector<Real, N> largestEigenVector(
 		const std::vector<Point<Real, N> >& pointSet);
 
+	//! Computes an approximation of the eigenstructure.
+	/*!
+	Preconditions:
+	eigenvectors > 0
+	beta >= 0
+
+	Complexity:
+	O(pointSet.size() * dimension * eigenvectors)
+	
+	pointSet:
+	A set of vectors.
+
+	eigenvectors:
+	The number of dominant eigenvectors that is
+	to be approximated.
+	
+	qOut:
+	A matrix containing the approximated eigenvectors 
+	as row vectors.
+
+	dOut:
+	A vector containing the approximated eigenvalues
+	corresponding to the approximated eigenvectors
+	in qOut.
+	*/
+	template <typename Real, int N>
+	void approximateEigenstructure(
+		const std::vector<Point<Real, N> >& pointSet,
+		integer eigenvectors,
+		Matrix<Real, Dynamic, Dynamic>& qOut,
+		Vector<Real, Dynamic>& dOut);
+
 }
 
 #include "pastel/math/largest_eigenvector.hpp"

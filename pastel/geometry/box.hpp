@@ -29,7 +29,7 @@ namespace Pastel
 	Box<Real, N>::Box(
 		const Point<Real, N>& position,
 		const Vector<Real, N>& width,
-		const Matrix<N, N, Real>& rotation)
+		const Matrix<Real, N, N>& rotation)
 		: position_(position)
 		, width_(width)
 		, rotation_(rotation)
@@ -42,7 +42,7 @@ namespace Pastel
 		integer dimension,
 		const Point<Real, N>& position,
 		const Vector<Real, N>& width,
-		const Matrix<N, N, Real>& rotation)
+		const Matrix<Real, N, N>& rotation)
 		: position_(position)
 		, width_(width)
 		, rotation_(rotation)
@@ -93,13 +93,13 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Box<Real, N>::setRotation(
-		const Matrix<N, N, Real>& rotation)
+		const Matrix<Real, N, N>& rotation)
 	{
 		rotation_ = rotation;
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>& Box<Real, N>::rotation() const
+	const Matrix<Real, N, N>& Box<Real, N>::rotation() const
 	{
 		return rotation_;
 	}

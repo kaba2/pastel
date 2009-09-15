@@ -89,7 +89,7 @@ namespace Pastel
 
 			//! Constructs using the given transformation and translation.
 			AffineTransformation(
-				const Matrix<N, N, Real>& transformation,
+				const Matrix<Real, N, N>& transformation,
 				const Vector<Real, N>& translation)
 				: transform_(transformation)
 				, translation_(translation)
@@ -100,7 +100,7 @@ namespace Pastel
 			//! Constructs using the given transformation and translation.
 			AffineTransformation(
 				integer dimension,
-				const Matrix<N, N, Real>& transformation,
+				const Matrix<Real, N, N>& transformation,
 				const Vector<Real, N>& translation)
 				: transform_(transformation)
 				, translation_(translation)
@@ -140,7 +140,7 @@ namespace Pastel
 			}
 
 			//! Sets the transformation and translation.
-			void set(const Matrix<N, N, Real>& transformation,
+			void set(const Matrix<Real, N, N>& transformation,
 				const Vector<Real, N>& translation)
 			{
 				PENSURE_OP(transform_.width(), ==, transformation.width());
@@ -157,13 +157,13 @@ namespace Pastel
 			}
 
 			//! Returns the transformation.
-			Matrix<N, N, Real>& transformation()
+			Matrix<Real, N, N>& transformation()
 			{
 				return transform_;
 			}
 
 			//! Returns the transformation.
-			const Matrix<N, N, Real>& transformation() const
+			const Matrix<Real, N, N>& transformation() const
 			{
 				return transform_;
 			}
@@ -181,7 +181,7 @@ namespace Pastel
 			}
 
 		private:
-			Matrix<N, N, Real> transform_;
+			Matrix<Real, N, N> transform_;
 			Vector<Real, N> translation_;
 	};
 
@@ -204,7 +204,7 @@ namespace Pastel
 		const AffineTransformation<Real, N>& right);
 
 	template <typename Real, int N>
-	Matrix<PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1), Real> asMatrix(
+	Matrix<Real, PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1)> asMatrix(
 		const AffineTransformation<Real, N>& that);
 
 }

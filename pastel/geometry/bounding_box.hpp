@@ -13,7 +13,7 @@ namespace Pastel
 		return Box<Real, N>(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
 			(alignedBox.max() - alignedBox.min()) * 0.5,
-			Matrix<N, N, Real>());
+			Matrix<Real, N, N>());
 	}
 
 }

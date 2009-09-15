@@ -19,7 +19,7 @@ namespace Pastel
 	template <typename Real, int N>
 	template <typename Expression>
 	QrDecomposition<Real, N>::QrDecomposition(
-		const MatrixExpression<N, N, Real, Expression>& that)
+		const MatrixExpression<Real, N, N, Expression>& that)
 		: q_()
 		, r_()
 	{
@@ -47,13 +47,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>& QrDecomposition<Real, N>::qTransposed() const
+	const Matrix<Real, N, N>& QrDecomposition<Real, N>::qTransposed() const
 	{
 		return q_;
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>& QrDecomposition<Real, N>::r() const
+	const Matrix<Real, N, N>& QrDecomposition<Real, N>::r() const
 	{
 		return r_;
 	}
@@ -61,7 +61,7 @@ namespace Pastel
 	template <typename Real, int N>
 	template <typename Expression>
 	void QrDecomposition<Real, N>::decompose(
-		const MatrixExpression<N, N, Real, Expression>& that)
+		const MatrixExpression<Real, N, N, Expression>& that)
 	{
 		ENSURE_OP(that.width(), ==, that.height());
 
@@ -159,7 +159,7 @@ namespace Pastel
 		const integer n = that.width();
 
 		r_ = that;
-		q_ = identityMatrix<N, N, Real>(n, n);
+		q_ = identityMatrix<Real, N, N>(n, n);
 
 		// We will reuse the memory space for v
 		// to avoid reallocation.

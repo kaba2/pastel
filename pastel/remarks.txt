@@ -437,10 +437,10 @@ Entertaining bug
 An extraneous ; was inserted at the code at some point.
 It compiled and resulted in a never-ending loop.
 
-template <int Height, int Width, typename Real>
-Matrix<Height, Width, Real> randomMatrix()
+template <typename Real, int Height, int Width>
+Matrix<Real, Height, Width> randomMatrix()
 {
-	Matrix<Height, Width, Real> result;
+	Matrix<Real, Height, Width> result;
 	for (integer i = 0;i < Height;++i)
 	{
 		for (integer j = 0;j < Width;++j)

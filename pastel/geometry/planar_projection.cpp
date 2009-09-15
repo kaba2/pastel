@@ -204,7 +204,7 @@ namespace Pastel
 		Which can be solved using standard methods.
 		*/
 
-		Matrix<8, 8, real> matrix;
+		Matrix<real, 8, 8> matrix;
 		for (integer i = 0;i < 4;++i)
 		{
 			matrix(0, i) = from[i][0];

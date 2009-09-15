@@ -26,7 +26,7 @@ namespace
 
 		savePcx(image, "output/array_rowiterator.pcx");
 
-		Matrix<Dynamic, Dynamic, real32> matrix(100, 100);
+		Matrix<real32, Dynamic, Dynamic> matrix(100, 100);
 		std::fill(matrix.rowBegin(20), matrix.rowEnd(20), 1);
 		std::fill(matrix.columnBegin(30), matrix.columnEnd(30), 0.5);
 

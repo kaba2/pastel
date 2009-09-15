@@ -111,13 +111,13 @@ namespace Pastel
 	white point.
 	*/
 
-	Matrix<3, 3, real32> linearSrgbToXyzTransform();
+	Matrix<real32, 3, 3> linearSrgbToXyzTransform();
 
-	Matrix<3, 3, real32> xyzToLinearSrgbTransform();
+	Matrix<real32, 3, 3> xyzToLinearSrgbTransform();
 
 	//! Computes a linear-RGB to XYZ transformation matrix.
 
-	Matrix<3, 3, real32> linearRgbToXyzTransform(
+	Matrix<real32, 3, 3> linearRgbToXyzTransform(
 		const Color& xyzRed,
 		const Color& xyzGreen,
 		const Color& xyzBlue,

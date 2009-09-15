@@ -16,11 +16,11 @@
 namespace Pastel
 {
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	void setRandomMatrix(
-		Matrix<Height, Width, Real>& matrix)
+		Matrix<Real, Height, Width>& matrix)
 	{
-		typedef typename Matrix<Height, Width, Real>::Iterator
+		typedef typename Matrix<Real, Height, Width>::Iterator
 			Iterator;
 
 		Iterator iter = matrix.begin();
@@ -34,7 +34,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void setDiagonal(
-		Matrix<N, N, Real>& matrix,
+		Matrix<Real, N, N>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value)
 	{
 		const integer width = matrix.width();
@@ -52,7 +52,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void setDiagonal(
-		Matrix<N, N, Real>& matrix,
+		Matrix<Real, N, N>& matrix,
 		const Vector<Real, N>& values)
 	{
 		const integer size = values.size();
@@ -70,7 +70,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void setRandomRotation(
-		Matrix<N, N, Real>& result)
+		Matrix<Real, N, N>& result)
 	{
 		// See "How to Generate Random Matrices
 		// from the Classical Compact Groups",
@@ -85,10 +85,10 @@ namespace Pastel
 		const Real scaling = 
 			inverse(std::sqrt((Real)2));
 
-		Matrix<N, N, Real>::Iterator iter = 
+		Matrix<Real, N, N>::Iterator iter = 
 			result.begin();
 
-		const Matrix<N, N, Real>::Iterator iterEnd = 
+		const Matrix<Real, N, N>::Iterator iterEnd = 
 			result.end();
 
 		while(iter != iterEnd)
@@ -110,9 +110,9 @@ namespace Pastel
 		}
 	}
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	void setRandomReducedRotation(
-		Matrix<Height, Width, Real>& result)
+		Matrix<Real, Height, Width>& result)
 	{
 		const integer height = result.height();
 		const integer width = result.width();
@@ -137,7 +137,7 @@ namespace Pastel
 	template <int N, typename Real>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		Matrix<N, N, Real>& result)
+		Matrix<Real, N, N>& result)
 	{
 		/*
 		Problem:
@@ -256,7 +256,7 @@ namespace Pastel
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		const PASTEL_NO_DEDUCTION(Real)& condition,
-		Matrix<N, N, Real>& result)
+		Matrix<Real, N, N>& result)
 	{
 		BOOST_STATIC_ASSERT(N != 1);
 

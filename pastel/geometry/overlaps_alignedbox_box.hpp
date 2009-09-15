@@ -35,9 +35,9 @@ namespace Pastel
 			(alignedBox.max() - alignedBox.min()) * 0.5);
 		const Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
-		const Matrix<2, 2, Real>& boxRotation = box.rotation();
+		const Matrix<Real, 2, 2>& boxRotation = box.rotation();
 		const Vector<Real, 2>& boxWidth = box.width();
-		Matrix<2, 2, Real> absRotation(box.rotation());
+		Matrix<Real, 2, 2> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
 		// Project to the aligned box's normals
@@ -204,10 +204,10 @@ namespace Pastel
 			(alignedBox.max() - alignedBox.min()) * 0.5);
 		const Vector<Real, 2> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
-		const Matrix<2, 2, Real>& boxRotation = box.rotation();
+		const Matrix<Real, 2, 2>& boxRotation = box.rotation();
 		const Vector<Real, 2>& boxWidth = box.width();
 
-		Matrix<2, 2, Real> absRotation(box.rotation());
+		Matrix<Real, 2, 2> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
 		Point<Real, 2> someCommonPoint;
@@ -387,9 +387,9 @@ namespace Pastel
 
 		const Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
-		const Matrix<3, 3, Real>& boxRotation = box.rotation();
+		const Matrix<Real, 3, 3>& boxRotation = box.rotation();
 		const Vector<Real, 3>& boxWidth = box.width();
-		Matrix<3, 3, Real> absRotation(box.rotation());
+		Matrix<Real, 3, 3> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
 		// Test for projection axes from aligned box
@@ -639,9 +639,9 @@ namespace Pastel
 
 		const Vector<Real, 3> delta(
 			box.position() - linear(alignedBox.min(), alignedBox.max(), 0.5));
-		const Matrix<3, 3, Real>& boxRotation = box.rotation();
+		const Matrix<Real, 3, 3>& boxRotation = box.rotation();
 		const Vector<Real, 3>& boxWidth = box.width();
-		Matrix<3, 3, Real> absRotation(box.rotation());
+		Matrix<Real, 3, 3> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
 		// Test for projection axes from aligned box

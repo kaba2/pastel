@@ -17,9 +17,9 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class Matrix<Dynamic, Dynamic, Real>
-		: public MatrixExpression<Dynamic, Dynamic, Real, 
-		Matrix<Dynamic, Dynamic, Real> >
+	class Matrix<Real, Dynamic, Dynamic>
+		: public MatrixExpression<Real, Dynamic, Dynamic, 
+		Matrix<Real, Dynamic, Dynamic> >
 	{
 	public:
 		typedef const Matrix& StorageType;
@@ -46,7 +46,7 @@ namespace Pastel
 		}
 
 		template <int Height, int Width, typename Expression>
-		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
 			: data_(that.width(), that.height())
 		{
 			*this = that;
@@ -190,7 +190,7 @@ namespace Pastel
 
 		template <int Height, int Width, typename RightExpression>
 		Matrix& operator=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			const MatrixExpression<Real, Height, Width, RightExpression>& right)
 		{
 			// We allow the size of the matrix to
 			// change in assignment.
@@ -227,7 +227,7 @@ namespace Pastel
 
 		template <int N, typename RightExpression>
 		Matrix& operator*=(
-			const MatrixExpression<N, N, Real, RightExpression>& right)
+			const MatrixExpression<Real, N, N, RightExpression>& right)
 		{
 			PENSURE2(width() == right.height(), width(), right.height());
 
@@ -241,7 +241,7 @@ namespace Pastel
 
 		template <int Height, int Width, typename RightExpression>
 		Matrix& operator+=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			const MatrixExpression<Real, Height, Width, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());
@@ -272,7 +272,7 @@ namespace Pastel
 
 		template <int Height, int Width, typename RightExpression>
 		Matrix& operator-=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right)
+			const MatrixExpression<Real, Height, Width, RightExpression>& right)
 		{
 			PENSURE2(width() == right.width(), width(), right.width());
 			PENSURE2(height() == right.height(), height(), right.height());

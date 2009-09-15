@@ -25,7 +25,7 @@ namespace Pastel
 		// Then the test for aligned box-triangle overlap
 		// is used.
 
-		const Matrix<N, N, Real> boxRotationInverse(
+		const Matrix<Real, N, N> boxRotationInverse(
 			transpose(box.rotation()));
 
 		const Triangle<Real, N> transformedTriangle(

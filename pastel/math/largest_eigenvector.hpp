@@ -54,6 +54,52 @@ namespace Pastel
 		return result;
 	}
 
+	template <typename Real, int N>
+	void approximateEigenstructure(
+		const std::vector<Point<Real, N> >& pointSet,
+		integer eigenvectors,
+		Matrix<Real, Dynamic, Dynamic>& qOut,
+		Vector<Real, Dynamic>& dOut)
+	{
+		// This is the PASTd algorithm from
+		// "Projection Approximation Subspace Tracking",
+		// Bin Yang, IEEE Transactions on Signal Processing,
+		// Vol 43., No. 1, January 1995.
+
+		ENSURE(!pointSet.empty());
+		ENSURE_OP(eigenvectors, >, 0);
+		ENSURE_OP(beta, >=, 0);
+
+		const integer points = pointSet.size();
+		const integer dimension = pointSet.front().dimension();
+		const real beta = 1;
+
+		const Point<Real, N> meanPoint = mean(pointSet);
+
+		qOut = identityMatrix<Real, Dynamic, Dynamic>(eigenvectors, dimension);
+		dOut = Vector<Real, Dynamic>(ofDimension(eigenvectors), 1);
+
+		for (integer i = 0;i < points;++i)
+		{
+			Vector<Real, N> x = pointSet[i] - meanPoint;
+			for (integer j = 0;j < eigenvectors;++j)
+			{
+				Vector<Real, Dynamic>& w = qOut[j];
+				Real& d = dOut[j];
+
+				const Real y = dot(w, x);
+
+				d = beta * d + square(y);
+
+				w += (x - w * y) * (y / d);
+
+				x -= w * y;
+			}
+		}
+
+		return result;
+	}
+
 }
 
 #endif

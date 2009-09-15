@@ -72,10 +72,10 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <int Height, int Width, typename Real,
+	template <typename Real, int Height, int Width, 
 	typename LeftExpression, typename RightExpression>
 	const MatrixVectorMultiplication<Real, Height, LeftExpression, RightExpression> operator *(
-		const MatrixExpression<Height, Width, Real, LeftExpression>& left,
+		const MatrixExpression<Real, Height, Width, LeftExpression>& left,
 		const VectorExpression<Real, Width, RightExpression>& right)
 	{
 		return MatrixVectorMultiplication<Real, Height, LeftExpression, RightExpression>(
@@ -142,11 +142,11 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <int Height, int Width, typename Real,
+	template <typename Real, int Height, int Width, 
 	typename LeftExpression, typename RightExpression>
 	const VectorMatrixMultiplication<Real, Width, LeftExpression, RightExpression> operator *(
 		const VectorExpression<Real, Height, LeftExpression>& left,
-		const MatrixExpression<Height, Width, Real, RightExpression>& right)
+		const MatrixExpression<Real, Height, Width, RightExpression>& right)
 	{
 		return VectorMatrixMultiplication<Real, Width, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, 
@@ -155,9 +155,9 @@ namespace Pastel
 
 	// Matrices vs points
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	Point<Real, Height> operator*(
-		const Matrix<Height, Width, Real>& left,
+		const Matrix<Real, Height, Width>& left,
 		const Point<Real, Width>& right)
 	{
 		const integer width = left.width();
@@ -182,10 +182,10 @@ namespace Pastel
 		return result;
 	}
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	Point<Real, Width> operator *(
 		const Point<Real, Height>& left,
-		const Matrix<Height, Width, Real>& right)
+		const Matrix<Real, Height, Width>& right)
 	{
 		const integer width = right.width();
 		const integer height = right.height();
@@ -206,10 +206,10 @@ namespace Pastel
 		return result;
 	}
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	void swap(
-		Matrix<Height, Width, Real>& left,
-		Matrix<Height, Width, Real>& right)
+		Matrix<Real, Height, Width>& left,
+		Matrix<Real, Height, Width>& right)
 	{
 		left.swap(right);
 	}
