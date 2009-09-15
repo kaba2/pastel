@@ -284,12 +284,15 @@ namespace Pastel
 		return sum(that * that);
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int LeftN, int RightN,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
-		const VectorExpression<Real, N, LeftExpression>& left,
-		const VectorExpression<Real, N, RightExpression>& right)
+		const VectorExpression<Real, LeftN, LeftExpression>& left,
+		const VectorExpression<Real, RightN, RightExpression>& right)
 	{
+		BOOST_STATIC_ASSERT(LeftN == Dynamic || RightN == Dynamic ||
+			LeftN == RightN);
+
 		return sum(left * right);
 	}
 

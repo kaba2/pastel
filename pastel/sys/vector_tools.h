@@ -113,11 +113,11 @@ namespace Pastel
 	dot(left, right) = sum(left[i] * right[i])
 	*/
 
-	template <int N, typename Real,
+	template <typename Real, int LeftN, int RightN,
 		typename LeftExpression, typename RightExpression>
 		inline Real dot(
-		const VectorExpression<Real, N, LeftExpression>& left,
-		const VectorExpression<Real, N, RightExpression>& right);
+		const VectorExpression<Real, LeftN, LeftExpression>& left,
+		const VectorExpression<Real, RightN, RightExpression>& right);
 
 	//! Returns the Euclidean norm of a vector.
 	/*!

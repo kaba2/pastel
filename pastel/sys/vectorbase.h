@@ -71,16 +71,18 @@ namespace Pastel
 			{
 			}
 
-			template <typename ThatReal>
-			explicit VectorBase(const Tuple<ThatReal, N>& that)
+			template <typename ThatReal, int ThatN>
+			explicit VectorBase(const Tuple<ThatReal, ThatN>& that)
 				: data_(that)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 			}
 
-			template <typename ThatReal>
-			VectorBase(const VectorBase<ThatReal, N>& that)
+			template <typename ThatReal, int ThatN>
+			VectorBase(const VectorBase<ThatReal, ThatN>& that)
 				: data_(that.data_)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 			}
 
 			VectorBase(const VectorBase& that)
@@ -99,12 +101,13 @@ namespace Pastel
 				BOOST_STATIC_ASSERT(N != Dynamic);
 			}
 
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			explicit VectorBase(
 				const VectorExpression
-				<ThatReal, N, Expression>& that)
+				<ThatReal, ThatN, Expression>& that)
 				: data_(ofDimension(that.size()))
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 				*this = that;
 			}
 
@@ -231,10 +234,12 @@ namespace Pastel
 				Vector<Real, N>&>::type operator=(
 				const VectorExpression<ThatReal, N, Expression>& that)
 			*/
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			Vector<Real, N>& operator=(
-				const VectorExpression<ThatReal, N, Expression>& that)
+				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
+
 				// We allow the size of the vector to be
 				// changed by an assignment.
 
@@ -369,10 +374,11 @@ namespace Pastel
 				return (*this *= Pastel::inverse(that));
 			}
 
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			Vector<Real, N>& operator+=(
-				const VectorExpression<ThatReal, N, Expression>& that)
+				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
@@ -393,10 +399,11 @@ namespace Pastel
 				return (Vector<Real, N>&)*this;
 			}
 
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			Vector<Real, N>& operator-=(
-				const VectorExpression<ThatReal, N, Expression>& that)
+				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
@@ -417,10 +424,11 @@ namespace Pastel
 				return (Vector<Real, N>&)*this;
 			}
 
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			Vector<Real, N>& operator*=(
-				const VectorExpression<ThatReal, N, Expression>& that)
+				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
@@ -441,10 +449,11 @@ namespace Pastel
 				return (Vector<Real, N>&)*this;
 			}
 
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			Vector<Real, N>& operator/=(
-				const VectorExpression<ThatReal, N, Expression>& that)
+				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			{
+				BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
 				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))

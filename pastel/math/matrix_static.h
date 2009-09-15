@@ -404,7 +404,7 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int Height, int Width>
+	template <typename Real, int Height = Dynamic, int Width = Height>
 	class Matrix
 		: public Detail::MatrixStaticBase<Real, Height, Width, 
 		Matrix<Real, Height, Width> >

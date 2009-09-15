@@ -7,7 +7,7 @@
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
 #include "pastel/sys/random_vector.h"
-#include "pastel/math/largest_eigenvector.h"
+#include "pastel/math/eigenstructure.h"
 
 #include "pastel/gl/glgfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
@@ -85,12 +85,32 @@ void redraw()
 	renderer__->setColor(Color(1));
 	const Point2 meanPoint = mean(targetSet__);
 	const Vector2 maximalVariance = largestEigenVector(targetSet__) * -0.4;
+
 	renderer__->setFilled(true);
 	renderer__->setColor(Color(1, 0, 0));
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - cross(maximalVariance), 
 		meanPoint + cross(maximalVariance)), 0.01, 0.01);
 
+	/*
+	MatrixD eigenVectorSet;
+	VectorD eigenValueSet;
+
+	approximateEigenstructure(
+		targetSet__,
+		2,
+		eigenVectorSet,
+		eigenValueSet);
+
+	drawFatSegment(*renderer__, 
+		Segment2(meanPoint - Vector2(eigenVectorSet[0]), 
+		meanPoint + Vector2(eigenVectorSet[0])), 0.01, 0.01);
+
+	drawFatSegment(*renderer__, 
+		Segment2(meanPoint - Vector2(eigenVectorSet[1]), 
+		meanPoint + Vector2(eigenVectorSet[1])), 0.01, 0.01);
+	*/
+	
 	AlignedBox2 box(-0.3, -0.5, 0.3, 0.5);
 	box += Vector2(0.2);
 

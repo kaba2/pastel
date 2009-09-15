@@ -525,11 +525,11 @@
 				Name="Eigenstructure"
 				>
 				<File
-					RelativePath=".\largest_eigenvector.h"
+					RelativePath=".\eigenstructure.h"
 					>
 				</File>
 				<File
-					RelativePath=".\largest_eigenvector.hpp"
+					RelativePath=".\eigenstructure.hpp"
 					>
 				</File>
 			</Filter>
