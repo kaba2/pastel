@@ -1,3 +1,5 @@
+// Description: PointKdTree::Node class
+
 #ifndef PASTEL_POINTKDTREE_NODE_H
 #define PASTEL_POINTKDTREE_NODE_H
 

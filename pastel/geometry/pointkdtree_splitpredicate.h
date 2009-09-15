@@ -1,3 +1,5 @@
+// Description: PointKdTree::SplitPredicate class
+
 #ifndef PASTEL_POINTKDTREE_SPLITPREDICATE_H
 #define PASTEL_POINTKDTREE_SPLITPREDICATE_H
 

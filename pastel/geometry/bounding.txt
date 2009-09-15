@@ -1,7 +1,7 @@
-Bounding
-========
+Bounding between point-sets
+===========================
 
-[Parent]: pastelgeometry.txt
+[Parent]: pointset_queries.txt
 
 Theory
 ------
