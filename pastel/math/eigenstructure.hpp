@@ -1,7 +1,7 @@
-#ifndef PASTEL_LARGEST_EIGENVECTOR_HPP
-#define PASTEL_LARGEST_EIGENVECTOR_HPP
+#ifndef PASTEL_EIGENSTRUCTURE_HPP
+#define PASTEL_EIGENSTRUCTURE_HPP
 
-#include "pastel/math/largest_eigenvector.h"
+#include "pastel/math/eigenstructure.h"
 #include "pastel/math/statistics.h"
 
 #include "pastel/sys/vector_tools.h"
@@ -58,8 +58,8 @@ namespace Pastel
 	void approximateEigenstructure(
 		const std::vector<Point<Real, N> >& pointSet,
 		integer eigenvectors,
-		Matrix<Real, Dynamic, Dynamic>& qOut,
-		Vector<Real, Dynamic>& dOut)
+		Matrix<Real>& qOut,
+		Vector<Real>& dOut)
 	{
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
@@ -68,7 +68,6 @@ namespace Pastel
 
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);
-		ENSURE_OP(beta, >=, 0);
 
 		const integer points = pointSet.size();
 		const integer dimension = pointSet.front().dimension();
@@ -84,20 +83,17 @@ namespace Pastel
 			Vector<Real, N> x = pointSet[i] - meanPoint;
 			for (integer j = 0;j < eigenvectors;++j)
 			{
-				Vector<Real, Dynamic>& w = qOut[j];
 				Real& d = dOut[j];
 
-				const Real y = dot(w, x);
+				const Real y = dot(qOut[j], x);
 
 				d = beta * d + square(y);
 
-				w += (x - w * y) * (y / d);
+				qOut[j] += (x - qOut[j] * y) * (y / d);
 
-				x -= w * y;
+				x -= qOut[j] * y;
 			}
 		}
-
-		return result;
 	}
 
 }

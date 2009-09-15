@@ -80,10 +80,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		explicit Vector(const Tuple<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Vector(const Vector<Real, N>& that)
@@ -91,10 +92,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		Vector(const Vector<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		explicit Vector(const Real& that)
@@ -115,12 +117,13 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
-			<ThatReal, N, Expression>& that)
+			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 	};
 
@@ -174,10 +177,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		explicit Vector(const Tuple<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Vector(const Vector<Real, N>& that)
@@ -185,10 +189,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		Vector(const Vector<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		// Implicit conversion allowed
@@ -211,12 +216,13 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
-			<ThatReal, N, Expression>& that)
+			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Real& x()
@@ -281,10 +287,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		explicit Vector(const Tuple<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Vector(const Vector<Real, N>& that)
@@ -292,10 +299,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		Vector(const Vector<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		explicit Vector(const Real& x)
@@ -322,12 +330,13 @@ namespace Pastel
 			set(x, y);
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
-			<ThatReal, N, Expression>& that)
+			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		void set(const Real& x, const Real& y)
@@ -409,10 +418,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		explicit Vector(const Tuple<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Vector(const Vector<Real, N>& that)
@@ -420,10 +430,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		Vector(const Vector<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		explicit Vector(const Real& x)
@@ -451,12 +462,13 @@ namespace Pastel
 			set(x, y, z);
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
-			<ThatReal, N, Expression>& that)
+			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		void set(const Real& x, const Real& y, const Real& z)
@@ -549,10 +561,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		explicit Vector(const Tuple<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Vector(const Vector<Real, N>& that)
@@ -560,10 +573,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		Vector(const Vector<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		explicit Vector(const Real& x)
@@ -591,12 +605,13 @@ namespace Pastel
 			set(x, y, z, w);
 		}
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
-			<ThatReal, N, Expression>& that)
+			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		void set(const Real& x, const Real& y, const Real& z,
@@ -698,10 +713,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		explicit Vector(const Tuple<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		explicit Vector(const Tuple<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		Vector(const Vector<Real, N>& that)
@@ -709,10 +725,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatReal>
-		Vector(const Vector<ThatReal, N>& that)
+		template <typename ThatReal, int ThatN>
+		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		// We don't want to provide this function
@@ -726,12 +743,13 @@ namespace Pastel
 		}
 		*/
 
-		template <typename ThatReal, typename Expression>
+		template <typename ThatReal, int ThatN, typename Expression>
 		Vector(
 			const VectorExpression
-			<ThatReal, N, Expression>& that)
+			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 	};
 

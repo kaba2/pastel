@@ -3,53 +3,22 @@ Vector design notes
 
 [Parent]: vector.txt
 
-Redundancy between Tuple's, Vector's, and Point's
--------------------------------------------------
-
-These objects share some of the algorithms. Namely:
-
-* all share comparison functions
-* Vector's and Point's share array computation functions
-
-How to implement these without replicating
-implementation?
-
-Solution:
-Only implement the function at the lowest level.
-Then forward to these functions from the higher levels.
-For example:
-
-	:::cpp
-	template <int N, typename Type>
-	bool anyLess(const Tuple<N, Type>& left,
-	const Tuple<N, Type>& right)
-	{
-	}
-
-	template <int N, typename Type>
-	bool anyLess(const Vector<N, Type>& left,
-	const Vector<N, Type>& right)
-	{
-		return Pastel::anyLess(asTuple(left), asTuple(right));
-	}
-
 What concept should the Type model?
 -----------------------------------
 
-### Points and vectors in Z^n
+### Vectors in ''ZZ^n''
 
-First of all, we abuse terminology here. By vectors in Z^n
+First of all, we abuse terminology here. By vectors in ''ZZ^n''
 we actually mean elements of a module over Z.
-If the scalars are Z, then we have module elements,
-if the scalars are R, then we have vectors.
-We don't want to implement Points and Vectors separately
-for the modules because they 
-would be identical to the Point and Vector implementations.
-Thus we embed them into the existing Point and Vector classes.
+If the scalars are ''Z'', then we have module elements,
+if the scalars are ''R'', then we have vectors.
+We don't want to implement Vectors separately
+for the modules because they would be identical to the Vector implementation.
+Thus we embed them into the existing Vector class.
 We need to separate those functions that only require
 the scalar set to be an ordered ring and those that require
-the scalar set to be R. Note the use of an ordered ring rather Z
-to underline that the functions should work for R too.
+the scalar set to be ''R''. Note the use of an ordered ring rather ''Z''
+to underline that the functions should work for ''R'' too.
 
 Rejected ideas
 --------------

@@ -6,13 +6,18 @@ Vector class
 Theory
 ------
 
-A vector space is a 4-tuple ''(V, F, +, *)''
+A vector space is a 4-tuple ''(V, F, +, \*)''
 where
-* ''F'' is a field.
-* ''+ : V^2 -> V''
-* ''* : F xx V -> V''
-* ''(V, +)'' is an abelian group.
-* ''\forall alpha in F: m_{alpha}(v) = *(alpha, v)'' is an endomorphism in ''V''.
+
+ * ''F'' is a field.
+ 
+ * ''+ : V^2 -> V''
+ 
+ * ''* : F xx V -> V''
+ 
+ * ''(V, +)'' is an Abelian group.
+ 
+ * ''\forall alpha in F: m_{alpha}(v) = *(alpha, v)'' is an endomorphism in ''V''.
 
 Practice
 --------
@@ -195,13 +200,11 @@ expression first, or make the function accept a vector expression:
 Interoperability
 ----------------
 
-A Point can be converted to a Vector with zero overhead.
-Similarly, a Vector can be converted to a Tuple with zero
-overhead. However, conversions to the other direction
-require copying: a Point can be constructed from a Vector,
-and a Vector can be constructed from a Tuple.
+A Vector can be converted to a Tuple with zero
+overhead. However, conversion to the other direction
+requires copying: a Vector can be constructed from a Tuple.
 
-The Matrix class plays together with the Vector class
+The Matrix class works together with the Vector class
 to provide a natural notation for multiplying vectors with
 matrices. So does the AffineTransformation class.
 
@@ -233,20 +236,14 @@ Vectors can be assigned values by using the following syntax:
 	Vector<float> a(ofDimension(8));
 	a |= 1, 2, 3, 4, 5, 6, 7, 8;
 
-This works because the |= and the comma operator
-have been overloaded approriately to fill the
-vector with the listed values.
-
-<./pastel/sys/commafiller.h>
-
-This initialization works with both static and
-dynamic vectors.
+Extraneous values are ignored.
 
 Minimal size of static vectors
 ------------------------------
 
 For static vectors it holds that
 
+	:::cpp
 	sizeof(Vector<Real, N>) == N * sizeof(Real)
 
 This minimality is important because vectors are expected 

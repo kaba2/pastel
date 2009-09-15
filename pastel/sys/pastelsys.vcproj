@@ -656,6 +656,10 @@
 				RelativePath=".\tristate.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\why_no_points.txt"
+				>
+			</File>
 			<Filter
 				Name="Point"
 				>

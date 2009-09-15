@@ -1,9 +1,9 @@
-// Description: Dominant eigenvector of a point set
-// Detail: Computes largest eigenvector of the covariance matrix of points
+// Description: Eigenvectors and eigenvalues
+// Detail: Eigenstructure of the covariance matrix of a point-set
 // Documentation: linear_algebra.txt
 
-#ifndef PASTEL_LARGEST_EIGENVECTOR_H
-#define PASTEL_LARGEST_EIGENVECTOR_H
+#ifndef PASTEL_EIGENSTRUCTURE_H
+#define PASTEL_EIGENSTRUCTURE_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/point.h"
@@ -21,7 +21,6 @@ namespace Pastel
 	/*!
 	Preconditions:
 	eigenvectors > 0
-	beta >= 0
 
 	Complexity:
 	O(pointSet.size() * dimension * eigenvectors)
@@ -46,11 +45,11 @@ namespace Pastel
 	void approximateEigenstructure(
 		const std::vector<Point<Real, N> >& pointSet,
 		integer eigenvectors,
-		Matrix<Real, Dynamic, Dynamic>& qOut,
-		Vector<Real, Dynamic>& dOut);
+		Matrix<Real>& qOut,
+		Vector<Real>& dOut);
 
 }
 
-#include "pastel/math/largest_eigenvector.hpp"
+#include "pastel/math/eigenstructure.hpp"
 
 #endif
