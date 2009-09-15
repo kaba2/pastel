@@ -17,7 +17,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	CholeskyDecomposition<Real, N>::CholeskyDecomposition(
-		const Matrix<N, N, Real>& that)
+		const Matrix<Real, N, N>& that)
 		: cholesky_(that)
 		, succeeded_(false)
 	{
@@ -35,7 +35,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	const Matrix<N, N, Real>& CholeskyDecomposition<Real, N>::lower() const
+	const Matrix<Real, N, N>& CholeskyDecomposition<Real, N>::lower() const
 	{
 		return cholesky_;
 	}
@@ -48,7 +48,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	bool CholeskyDecomposition<Real, N>::decompose(
-			const Matrix<N, N, Real>& that)
+			const Matrix<Real, N, N>& that)
 	{
 		// See "Numerical Recipes: The art of scientific
 		// computing", 3rd ed, section 2.9: Cholesky Decomposition.

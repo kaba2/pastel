@@ -116,7 +116,7 @@ namespace
 		}
 
 	private:
-		Matrix<3, 3, real32> transform_;
+		Matrix<real32, 3, 3> transform_;
 	};
 
 	void testChromaticAdaptation()

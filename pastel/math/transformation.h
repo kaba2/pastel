@@ -30,7 +30,7 @@ namespace Pastel
 
 		//! Constructs a given transformation.
 		Transformation(
-			const Matrix<N, N, Real>& transformation,
+			const Matrix<Real, N, N>& transformation,
 			const Vector<Real, N>& translation);
 
 		// Used for concept checking.
@@ -57,13 +57,13 @@ namespace Pastel
 		const AffineTransformation<Real, N>& affineInverse() const;
 
 		//! Sets the transformation.
-		void setTransform(const Matrix<N, N, Real>& transformation);
+		void setTransform(const Matrix<Real, N, N>& transformation);
 
 		//! Returns the transformation.
-		const Matrix<N, N, Real>& transformation() const;
+		const Matrix<Real, N, N>& transformation() const;
 
 		//! Returns the inverse transformation.
-		const Matrix<N, N, Real>& inverseTransform() const;
+		const Matrix<Real, N, N>& inverseTransform() const;
 
 		//! Sets the translation
 		void setTranslation(const Vector<Real, N>& translation);

@@ -257,7 +257,7 @@ namespace Pastel
 		return Color(hsv[2], p, q);
 	}
 
-	inline Matrix<3, 3, real32> linearSrgbToXyzTransform()
+	inline Matrix<real32, 3, 3> linearSrgbToXyzTransform()
 	{
 		// The sRGB standard chooses standard
 		// light emitters by specifying their
@@ -277,7 +277,7 @@ namespace Pastel
 		static const Color xyzWhite(
 			xyzIlluminantD65());
 
-		static const Matrix<3, 3, real32> transformation(
+		static const Matrix<real32, 3, 3> transformation(
 			linearRgbToXyzTransform(
 			xyzRed, xyzGreen, xyzBlue,
 			xyzWhite));
@@ -285,15 +285,15 @@ namespace Pastel
 		return transformation;
 	}
 
-	inline Matrix<3, 3, real32> xyzToLinearSrgbTransform()
+	inline Matrix<real32, 3, 3> xyzToLinearSrgbTransform()
 	{
-		static const Matrix<3, 3, real32> Conversion(
+		static const Matrix<real32, 3, 3> Conversion(
 			inverse(linearSrgbToXyzTransform()));
 
 		return Conversion;
 	}
 
-	inline Matrix<3, 3, real32> linearRgbToXyzTransform(
+	inline Matrix<real32, 3, 3> linearRgbToXyzTransform(
 		const Color& xyzRed,
 		const Color& xyzGreen,
 		const Color& xyzBlue,
@@ -323,7 +323,7 @@ namespace Pastel
 		//
 		// Which is a standard linear equation system.
 
-		const Matrix<3, 3, real32> primaryMatrix(
+		const Matrix<real32, 3, 3> primaryMatrix(
 			xyzRed,
 			xyzGreen,
 			xyzBlue);
@@ -334,7 +334,7 @@ namespace Pastel
 		// Use the weights to form the final transformation
 		// matrix.
 
-		return Matrix<3, 3, real32>(
+		return Matrix<real32, 3, 3>(
 			xyzRed * primaryWeights[0],
 			xyzGreen * primaryWeights[1],
 			xyzBlue * primaryWeights[2]);
@@ -342,7 +342,7 @@ namespace Pastel
 
 	inline Color xyzToSrgb(const Color& xyz)
 	{
-		static const Matrix<3, 3, real32> Conversion(
+		static const Matrix<real32, 3, 3> Conversion(
 			inverse(linearSrgbToXyzTransform()));
 
 		return linearSrgbToGammaSrgb(fitNegativeColor(xyz * Conversion));
@@ -350,7 +350,7 @@ namespace Pastel
 
 	inline Color srgbToXyz(const Color& rgb)
 	{
-		static const Matrix<3, 3, real32> Conversion(
+		static const Matrix<real32, 3, 3> Conversion(
 			linearSrgbToXyzTransform());
 
 		return gammaSrgbToLinearSrgb(rgb) * Conversion;
@@ -490,9 +490,9 @@ namespace Pastel
 		return Color(shuffled[2], shuffled[0], shuffled[1]);
 	}
 
-	inline Matrix<3, 3, real32> xyzToLmsTransform()
+	inline Matrix<real32, 3, 3> xyzToLmsTransform()
 	{
-		static const Matrix<3, 3, real32> Conversion(
+		static const Matrix<real32, 3, 3> Conversion(
 			 0.7328, -0.7036, 0.0030,
 			 0.4296,  1.6975, 0.0136,
 			-0.1624,  0.0061, 0.9834);
@@ -500,9 +500,9 @@ namespace Pastel
 		return Conversion;
 	}
 
-	inline Matrix<3, 3, real32> lmsToXyzTransform()
+	inline Matrix<real32, 3, 3> lmsToXyzTransform()
 	{
-		static const Matrix<3, 3, real32> Conversion(
+		static const Matrix<real32, 3, 3> Conversion(
 			inverse(xyzToLmsTransform()));
 
 		return Conversion;

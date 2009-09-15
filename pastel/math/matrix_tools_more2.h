@@ -19,9 +19,9 @@ namespace Pastel
 
 	//! Returns a random matrix with elements from [-1, 1].
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	void setRandomMatrix(
-		Matrix<Height, Width, Real>& matrix);
+		Matrix<Real, Height, Width>& matrix);
 
 	//! Returns a diagonal matrix with the given value.
 	/*!
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void setDiagonal(
-		Matrix<N, N, Real>& matrix,
+		Matrix<Real, N, N>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value);
 
 	//! Returns a diagonal matrix with elements from a vector.
@@ -42,14 +42,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void setDiagonal(
-		Matrix<N, N, Real>& matrix,
+		Matrix<Real, N, N>& matrix,
 		const Vector<Real, N>& values);
 
 	//! Generates a uniformly distributed random rotation matrix.
 
 	template <int N, typename Real>
 	void setRandomRotation(
-		Matrix<N, N, Real>& result);
+		Matrix<Real, N, N>& result);
 
 	//! Generates a random rotation matrix.
 	/*!
@@ -71,7 +71,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	void setRandomReducedRotation(
-		Matrix<N, N, Real>& result);
+		Matrix<Real, N, N>& result);
 
 	//! Generates random sym.pos.def. matrix S with given det(S).
 	/*!
@@ -82,7 +82,7 @@ namespace Pastel
 	template <int N, typename Real>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
-		Matrix<N, N, Real>& result);
+		Matrix<Real, N, N>& result);
 
 	//! Generates random sym.pos.def. matrix S with given det(S) and cond(S).
 	/*!
@@ -95,7 +95,7 @@ namespace Pastel
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		const PASTEL_NO_DEDUCTION(Real)& condition,
-		Matrix<N, N, Real>& result);
+		Matrix<Real, N, N>& result);
 
 }
 

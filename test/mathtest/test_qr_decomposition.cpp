@@ -41,7 +41,7 @@ namespace
 
 			for (integer i = 0;i < attempts;++i)
 			{
-				Matrix<N, N, Real> a(n, n);
+				Matrix<Real, N, N> a(n, n);
 				setRandomMatrix(a);
 
 				const Vector<Real, N> b = randomVectorCube<N, Real>(n);

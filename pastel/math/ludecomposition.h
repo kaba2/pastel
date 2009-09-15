@@ -31,21 +31,21 @@ namespace Pastel
 
 		LuDecomposition();
 		explicit LuDecomposition(integer dimension);
-		explicit LuDecomposition(const Matrix<N, N, Real>& matrix);
+		explicit LuDecomposition(const Matrix<Real, N, N>& matrix);
 
 		void swap(LuDecomposition& that);
 
 		LuDecomposition<Real, N>& operator=(const LuDecomposition& that);
 
-		bool decompose(const Matrix<N, N, Real>& matrix);
+		bool decompose(const Matrix<Real, N, N>& matrix);
 
-		const Matrix<N, N, Real>& packedLu() const;
+		const Matrix<Real, N, N>& packedLu() const;
 		const Tuple<integer, N>& rowPermutation() const;
 		bool evenPermutation() const;
 		bool singular() const;
 
 	private:
-		Matrix<N, N, Real> packedLu_;
+		Matrix<Real, N, N> packedLu_;
 		Tuple<integer, N> rowPermutation_;
 		bool evenRowPermutation_;
 		bool singular_;

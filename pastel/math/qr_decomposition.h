@@ -42,7 +42,7 @@ namespace Pastel
 		*/
 		template <typename Expression>
 		explicit QrDecomposition(
-			const MatrixExpression<N, N, Real, Expression>& that);
+			const MatrixExpression<Real, N, N, Expression>& that);
 
 		//! Returns the width of the decomposed matrix.
 		integer width() const;
@@ -75,7 +75,7 @@ namespace Pastel
 		*/
 		template <typename Expression>
 		void decompose(
-			const MatrixExpression<N, N, Real, Expression>& that);
+			const MatrixExpression<Real, N, N, Expression>& that);
 
 		//! Returns the transpose of the orthogonal matrix.
 		/*!
@@ -85,7 +85,7 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<N, N, Real>& qTransposed() const;
+		const Matrix<Real, N, N>& qTransposed() const;
 
 		//! Returns the upper triangular matrix.
 		/*!
@@ -95,11 +95,11 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		const Matrix<N, N, Real>& r() const;
+		const Matrix<Real, N, N>& r() const;
 
 	private:
-		Matrix<N, N, Real> q_;
-		Matrix<N, N, Real> r_;
+		Matrix<Real, N, N> q_;
+		Matrix<Real, N, N> r_;
 	};
 
 	typedef QrDecomposition<real, 1> QrDecomposition1;

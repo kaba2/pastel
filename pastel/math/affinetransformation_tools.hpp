@@ -17,7 +17,7 @@ namespace Pastel
 	AffineTransformation<Real, N> inverse(
 		const AffineTransformation<Real, N>& that)
 	{
-		const Matrix<N, N, Real> transformInverse(
+		const Matrix<Real, N, N> transformInverse(
 			inverse(that.transformation()));
 
 		return AffineTransformation<Real, N>(
@@ -29,7 +29,7 @@ namespace Pastel
 	AffineTransformation<Real, N> orthogonalInverse(
 		const AffineTransformation<Real, N>& that)
 	{
-		const Matrix<N, N, Real> transformInverse(
+		const Matrix<Real, N, N> transformInverse(
 			transpose(that.transformation()));
 
 		return AffineTransformation<Real, N>(
@@ -44,7 +44,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& yShear)
 	{
 		return AffineTransformation<Real, 2>(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			1, yShear,
 			0,      1),
 			Vector<Real, 2>(0));
@@ -55,7 +55,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& xShear)
 	{
 		return AffineTransformation<Real, 2>(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			1,      0,
 			xShear, 1),
 			Vector<Real, 2>(0));
@@ -71,7 +71,7 @@ namespace Pastel
 		// Rotation from x to y
 
 		return AffineTransformation<Real, 2>(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			c, s,
 			-s, c),
 			Vector<Real, 2>(0));
@@ -82,7 +82,7 @@ namespace Pastel
 		const Vector<Real, 2>& translation)
 	{
 		return AffineTransformation<Real, 2>(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			1, 0,
 			0, 1),
 			translation);
@@ -127,7 +127,7 @@ namespace Pastel
 		asVector(fromCentroid) /= points;
 		asVector(toCentroid) /= points;
 
-		Matrix<N, N, Real> c(dimension, dimension);
+		Matrix<Real, N, N> c(dimension, dimension);
 		for (integer i = 0;i < points;++i)
 		{
 			const Vector<Real, N> v = from[i] - fromCentroid;
@@ -137,7 +137,7 @@ namespace Pastel
 			}
 		}
 
-		Matrix<N, N, Real> d(dimension, dimension);
+		Matrix<Real, N, N> d(dimension, dimension);
 		for (integer i = 0;i < points;++i)
 		{
 			const Vector<Real, N> v = to[i] - toCentroid;
@@ -148,7 +148,7 @@ namespace Pastel
 			}
 		}
 
-		const Matrix<N, N, Real> a = inverse(c) * d;
+		const Matrix<Real, N, N> a = inverse(c) * d;
 
 		return AffineTransformation<Real, 2>(
 			a, toCentroid - fromCentroid * a);
@@ -255,7 +255,7 @@ namespace Pastel
 		const Vector<Real, 2>& translation)
 	{
 		return AffineTransformation<Real, 2>(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			scaling * std::cos(ccwRotation), scaling * std::sin(ccwRotation),
 			-scaling * std::sin(ccwRotation), scaling * std::cos(ccwRotation)),
 			translation);
@@ -283,7 +283,7 @@ namespace Pastel
 			cFrom - aFrom);
 
 		const AffineTransformation<Real, 2> fromMatrix(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			bFromDelta,
 			cFromDelta),
 			asVector(aFrom));
@@ -297,7 +297,7 @@ namespace Pastel
 			cTo - aTo);
 
 		const AffineTransformation<Real, 2> toMatrix(
-			Matrix<2, 2, Real>(
+			Matrix<Real, 2, 2>(
 			bToDelta,
 			cToDelta),
 			asVector(aTo));
@@ -323,7 +323,7 @@ namespace Pastel
 			cross(bFromDelta, cFromDelta));
 
 		const AffineTransformation<Real, 3> fromMatrix(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			bFromDelta,
 			cFromDelta,
 			normalFrom),
@@ -340,7 +340,7 @@ namespace Pastel
 			cross(bToDelta, cToDelta));
 
 		const AffineTransformation<Real, 3> toMatrix(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			bToDelta,
 			cToDelta,
 			normalTo),
@@ -359,7 +359,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& zShear)
 	{
 		return AffineTransformation<Real, 3>(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			1, yShear, zShear,
 			0, 1,      0,
 			0, 0,      1),
@@ -372,7 +372,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& zShear)
 	{
 		return AffineTransformation<Real, 3>(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			1,      0, 0,
 			xShear, 1, zShear,
 			0,      0, 1),
@@ -385,7 +385,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& yShear)
 	{
 		return AffineTransformation<Real, 3>(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			1,      0,      0,
 			0,      1,      0,
 			xShear, yShear, 1),
@@ -402,7 +402,7 @@ namespace Pastel
 		const Real s(std::sin(angle));
 
 		return AffineTransformation<Real, 3>(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			1,  0, 0,
 			0,  c, s,
 			0, -s, c),
@@ -419,7 +419,7 @@ namespace Pastel
 		const Real s(std::sin(angle));
 
 		return AffineTransformation<Real, 3>(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			c, 0,-s,
 			0, 1, 0,
 			s, 0, c),
@@ -436,7 +436,7 @@ namespace Pastel
 		const Real s(std::sin(angle));
 
 		return AffineTransformation<Real, 3>(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			c, s, 0,
 			-s, c, 0,
 			0, 0, 1),
@@ -448,7 +448,7 @@ namespace Pastel
 		const Vector<Real, 3>& translation)
 	{
 		return AffineTransformation<Real, 3>(
-			identityMatrix<3, 3, Real>(),
+			identityMatrix<Real, 3, 3>(),
 			translation);
 	}
 
@@ -468,7 +468,7 @@ namespace Pastel
 			dFrom - aFrom);
 
 		const AffineTransformation<Real, 3> fromMatrix(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			bFromDelta,
 			cFromDelta,
 			dFromDelta),
@@ -485,7 +485,7 @@ namespace Pastel
 			dTo - aTo);
 
 		const AffineTransformation<Real, 3> toMatrix(
-			Matrix<3, 3, Real>(
+			Matrix<Real, 3, 3>(
 			bToDelta,
 			cToDelta,
 			dToDelta),

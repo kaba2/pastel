@@ -82,13 +82,13 @@ namespace
 				0, 2, 0, 1, 0, 1;
 			
 			MatrixD b = repeat(
-				identityMatrix<Dynamic, Dynamic, real>(2, 2),
+				identityMatrix<real, Dynamic, Dynamic>(2, 2),
 				2, 3);
 
 			// You can refer to a submatrix of a matrix.
 
 			b(Point2i(2, 0), Point2i(4, 2)) = 
-				identityMatrix<Dynamic, Dynamic, real>(2, 2) * 2;
+				identityMatrix<real, Dynamic, Dynamic>(2, 2) * 2;
 
 			TEST_ENSURE(a == b);
 
@@ -145,7 +145,7 @@ namespace
 			// for index ordering is opposite
 			// for the views.
 
-			Matrix<Dynamic, Dynamic, real32> a(height, width);
+			Matrix<real32, Dynamic, Dynamic> a(height, width);
 			for (integer y = 0;y < height;++y)
 			{
 				for (integer x = 0;x < width;++x)
@@ -175,8 +175,8 @@ namespace
 			// of values, so that algorithms from the
 			// standard library can be used at will.
 
-			Matrix<Dynamic, Dynamic, real32>::Iterator iter = a.begin();
-			const Matrix<Dynamic, Dynamic, real32>::Iterator iterEnd = a.end();
+			Matrix<real32, Dynamic, Dynamic>::Iterator iter = a.begin();
+			const Matrix<real32, Dynamic, Dynamic>::Iterator iterEnd = a.end();
 
 			integer i = 0;
 			while(iter != iterEnd)
@@ -251,33 +251,33 @@ namespace
 		void testMatrixLowDimensional()
 		{
 			{
-				Matrix<1, 1, real> a(5);
+				Matrix<real, 1, 1> a(5);
 				TEST_ENSURE(
 					a(0, 0) == 5);
 			}
 			{
-				Matrix<2, 2, real> a(
+				Matrix<real, 2, 2> a(
 					1, 2,
 					3, 4);
 				TEST_ENSURE(
 					a(0, 0) == 1 && a(0, 1) == 2 &&
 					a(1, 0) == 3 && a(1, 1) == 4);
 
-				Matrix<2, 2, real> b;
+				Matrix<real, 2, 2> b;
 
 				b = a;
 				TEST_ENSURE(
 					b(0, 0) == 1 && b(0, 1) == 2 &&
 					b(1, 0) == 3 && b(1, 1) == 4);
 
-				Matrix<2, 2, real> c(b);
+				Matrix<real, 2, 2> c(b);
 				TEST_ENSURE(
 					c(0, 0) == 1 && c(0, 1) == 2 &&
 					c(1, 0) == 3 && c(1, 1) == 4);
 			}
 
 			{
-				Matrix<3, 3, real> a(
+				Matrix<real, 3, 3> a(
 					1, 2, 3,
 					4, 5, 6,
 					7, 8, 9);
@@ -286,7 +286,7 @@ namespace
 					a(1, 0) == 4 && a(1, 1) == 5 && a(1, 2) == 6 &&
 					a(2, 0) == 7 && a(2, 1) == 8 && a(2, 2) == 9);
 
-				Matrix<3, 3, real> b;
+				Matrix<real, 3, 3> b;
 
 				b = a;
 				TEST_ENSURE(
@@ -294,14 +294,14 @@ namespace
 					b(1, 0) == 4 && b(1, 1) == 5 && b(1, 2) == 6 &&
 					b(2, 0) == 7 && b(2, 1) == 8 && b(2, 2) == 9);
 
-				Matrix<3, 3, real> c(b);
+				Matrix<real, 3, 3> c(b);
 				TEST_ENSURE(
 					c(0, 0) == 1 && c(0, 1) == 2 && c(0, 2) == 3 &&
 					c(1, 0) == 4 && c(1, 1) == 5 && c(1, 2) == 6 &&
 					c(2, 0) == 7 && c(2, 1) == 8 && c(2, 2) == 9);
 			}
 			{
-				Matrix<4, 4, real> a(
+				Matrix<real, 4, 4> a(
 					1, 2, 3, 4,
 					5, 6, 7, 8,
 					9, 10, 11, 12,
@@ -316,7 +316,7 @@ namespace
 					a(3, 0) == 13 && a(3, 1) == 14 &&
 					a(3, 2) == 15 && a(3, 3) == 16);
 
-				Matrix<4, 4, real> b;
+				Matrix<real, 4, 4> b;
 
 				b = a;
 				TEST_ENSURE(
@@ -329,7 +329,7 @@ namespace
 					b(3, 0) == 13 && b(3, 1) == 14 &&
 					b(3, 2) == 15 && b(3, 3) == 16);
 
-				Matrix<4, 4, real> c(b);
+				Matrix<real, 4, 4> c(b);
 				TEST_ENSURE(
 					c(0, 0) == 1 && c(0, 1) == 2 &&
 					c(0, 2) == 3 && c(0, 3) == 4 &&
@@ -344,36 +344,36 @@ namespace
 
 		void testMatrixSimpleArithmetic()
 		{
-			Matrix<2, 3, real> a;
+			Matrix<real, 2, 3> a;
 
 			a |= 1, 2, 3,
 				4, 5, 6;
 
-			Matrix<3, 2, real> b;
+			Matrix<real, 3, 2> b;
 
 			b |= 7, 8,
 				4, 3,
 				3, 6;
 
-			Matrix<2, 2, real> c(a * b);
+			Matrix<real, 2, 2> c(a * b);
 			TEST_ENSURE(
 				c(0, 0) == 1 * 7 + 2 * 4 + 3 * 3 &&
 				c(0, 1) == 1 * 8 + 2 * 3 + 3 * 6 &&
 				c(1, 0) == 4 * 7 + 5 * 4 + 6 * 3 &&
 				c(1, 1) == 4 * 8 + 5 * 3 + 6 * 6);
 
-			Matrix<1, 3, real> d;
+			Matrix<real, 1, 3> d;
 			d |= 5, 2, 6;
 
-			Matrix<3, 1, real> e;
+			Matrix<real, 3, 1> e;
 			e(0, 0) = -3;
 			e(1, 0) = 6;
 			e(2, 0) = -4;
-			Matrix<1, 1, real> f(d * e);
+			Matrix<real, 1, 1> f(d * e);
 
 			TEST_ENSURE_OP(f(0, 0), ==, 5 * -3 + 2 * 6 + 6 * -4);
 
-			Matrix<2, 2, real> g(
+			Matrix<real, 2, 2> g(
 				1, 2,
 				3, 4);
 
@@ -405,15 +405,15 @@ namespace
 
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<N, N, real> m(n, n);
+				Matrix<real, N, N> m(n, n);
 				setRandomMatrix(m);
 
-				const Matrix<N, N, real> mInv = inverse(m);
+				const Matrix<real, N, N> mInv = inverse(m);
 
 				const real leftError = 
-					normManhattan(m * mInv - identityMatrix<N, N, real>(n, n));
+					normManhattan(m * mInv - identityMatrix<real, N, N>(n, n));
 				const real rightError = 
-					normManhattan(mInv * m - identityMatrix<N, N, real>(n, n));
+					normManhattan(mInv * m - identityMatrix<real, N, N>(n, n));
 				if (leftError > 0.001 ||
 					rightError > 0.001)
 				{
@@ -435,10 +435,10 @@ namespace
 
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<N, N, real> a(n, n);
+				Matrix<real, N, N> a(n, n);
 				setRandomMatrix(a);
 
-				Matrix<N, N, real> b(n, n);
+				Matrix<real, N, N> b(n, n);
 				setRandomMatrix(b);
 
 				Vector<real, N> v = randomVectorCube<N, real>(n);
@@ -474,10 +474,10 @@ namespace
 			const integer matrices = 1000;
 			for (integer i = 0;i < matrices;++i)
 			{
-				Matrix<N, N, real> a(n, n);
+				Matrix<real, N, N> a(n, n);
 				setRandomMatrix(a);
 
-				Matrix<N, N, real> b(n, n);
+				Matrix<real, N, N> b(n, n);
 				b = a;
 
 				TEST_ENSURE(b == a);
@@ -497,13 +497,13 @@ namespace
 				
 				TEST_ENSURE(a == b);
 
-				a += identityMatrix<N, N, real>(n, n) + (5 * b);
-				b += identityMatrix<N, N, real>(n, n) + (5 * b);
+				a += identityMatrix<real, N, N>(n, n) + (5 * b);
+				b += identityMatrix<real, N, N>(n, n) + (5 * b);
 				
 				TEST_ENSURE(a == b);
 
-				a += identityMatrix<N, N, real>(n, n) + (b * b);
-				b += identityMatrix<N, N, real>(n, n) + (b * b);
+				a += identityMatrix<real, N, N>(n, n) + (b * b);
+				b += identityMatrix<real, N, N>(n, n) + (b * b);
 
 				TEST_ENSURE(a == b);
 			}
@@ -520,7 +520,7 @@ namespace
 
 			for (integer i = 0;i < iterations;++i)
 			{
-				Matrix<N, N, real> a(n, n);
+				Matrix<real, N, N> a(n, n);
 				setRandomMatrix(a);
 
 				const Vector<real, N> b(randomVectorCube<N, real>(n));
@@ -553,7 +553,7 @@ namespace
 				const real cond = 1 + random<real>() * 9;
 				const real det = 1 + random<real>() * 9;
 
-				Matrix<N, N, real> a(n, n);
+				Matrix<real, N, N> a(n, n);
 				setRandomSymmetricPositiveDefinite(det, cond, a);
 
 				const real detError = 

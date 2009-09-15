@@ -12,39 +12,39 @@ namespace Pastel
 {
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixNegation;
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixAddition;
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixSubtraction;
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixMultiplication;
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixScalarMultiplication;
 
-	template <int Height, int Width, typename Real, typename Expression>
+	template <typename Real, int Height, int Width, typename Expression>
 	class MatrixExpression
 	{
 	protected:
@@ -91,7 +91,7 @@ namespace Pastel
 
 		template <typename RightExpression>
 		bool operator==(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right) const
+			const MatrixExpression<Real, Height, Width, RightExpression>& right) const
 		{
 			const Expression& left = (const Expression&)*this;
 
@@ -117,28 +117,28 @@ namespace Pastel
 
 		template <typename RightExpression>
 		bool operator!=(
-			const MatrixExpression<Height, Width, Real, RightExpression>& right) const
+			const MatrixExpression<Real, Height, Width, RightExpression>& right) const
 		{
 			return !(*this == right);
 		}
 
 		// Negation
 
-		const MatrixNegation<Height, Width, Real, Expression> operator-() const
+		const MatrixNegation<Real, Height, Width, Expression> operator-() const
 		{
-			return MatrixNegation<Height, Width, Real, Expression>((const Expression&)*this);
+			return MatrixNegation<Real, Height, Width, Expression>((const Expression&)*this);
 		}
 
 		// Summation
 
 		template <typename RightExpression>
-		const MatrixAddition<Height, Width, Real, Expression,
+		const MatrixAddition<Real, Height, Width, Expression, 
 			RightExpression>
 			operator+(const MatrixExpression
-			<Height, Width, Real, RightExpression>& right) const
+			<Real, Height, Width, RightExpression>& right) const
 		{
 			return MatrixAddition
-				<Height, Width, Real, Expression,
+				<Real, Height, Width, Expression, 
 				RightExpression >
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -147,13 +147,13 @@ namespace Pastel
 		// Subtraction
 
 		template <typename RightExpression>
-		const MatrixSubtraction<Height, Width, Real, Expression,
+		const MatrixSubtraction<Real, Height, Width, Expression, 
 			RightExpression>
 			operator-(const MatrixExpression
-			<Height, Width, Real, RightExpression>& right) const
+			<Real, Height, Width, RightExpression>& right) const
 		{
 			return MatrixSubtraction
-				<Height, Width, Real, Expression,
+				<Real, Height, Width, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -162,41 +162,41 @@ namespace Pastel
 		// Multiplication
 
 		template <int RightWidth, typename RightExpression>
-		const MatrixMultiplication<Height, RightWidth, Real, Expression,
+		const MatrixMultiplication<Real, Height, RightWidth, Expression, 
 			RightExpression>
 			operator*(const MatrixExpression
-			<Width, RightWidth, Real, RightExpression>& right) const
+			<Real, Width, RightWidth, RightExpression>& right) const
 		{
 			return MatrixMultiplication
-				<Height, RightWidth, Real, Expression,
+				<Real, Height, RightWidth, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
 		}
 
-		const MatrixScalarMultiplication<Height, Width, Real, Expression>
+		const MatrixScalarMultiplication<Real, Height, Width, Expression>
 			operator*(const Real& right) const
 		{
 			return MatrixScalarMultiplication
-				<Height, Width, Real, Expression>
+				<Real, Height, Width, Expression>
 				((const Expression&)*this, right);
 		}
 
-		friend const MatrixScalarMultiplication<Height, Width, Real, Expression>
+		friend const MatrixScalarMultiplication<Real, Height, Width, Expression>
 			operator*(const Real& left,
 			const MatrixExpression& right)
 		{
 			// Scalar multiplication is commutative.
 			return MatrixScalarMultiplication
-				<Height, Width, Real, Expression>
+				<Real, Height, Width, Expression>
 				((const Expression&)right, left);
 		}
 
-		const MatrixScalarMultiplication<Height, Width, Real, Expression>
+		const MatrixScalarMultiplication<Real, Height, Width, Expression>
 			operator/(const Real& right) const
 		{
 			return MatrixScalarMultiplication
-				<Height, Width, Real, Expression>
+				<Real, Height, Width, Expression>
 				((const Expression&)*this, inverse(right));
 		}
 
@@ -206,12 +206,12 @@ namespace Pastel
 	// Concrete expressions
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixNegation
-		: public MatrixExpression<Height, Width, Real,
-		MatrixNegation<Height, Width, Real, Expression> >
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixNegation<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixNegation& StorageType;
@@ -256,13 +256,13 @@ namespace Pastel
 	};
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixAddition
-		: public MatrixExpression<Height, Width, Real,
-		MatrixAddition<Height, Width, Real,
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixAddition<Real, Height, Width, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -313,13 +313,13 @@ namespace Pastel
 	};
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixSubtraction
-		: public MatrixExpression<Height, Width, Real,
-		MatrixSubtraction<Height, Width, Real,
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixSubtraction<Real, Height, Width, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -370,13 +370,13 @@ namespace Pastel
 	};
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class MatrixMultiplication
-		: public MatrixExpression<Height, Width, Real,
-		MatrixMultiplication<Height, Width, Real,
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixMultiplication<Real, Height, Width, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -438,13 +438,11 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <
-		int Height, int Width,
-		typename Real,
+	template <typename Real, int Height, int Width,
 		typename Expression>
 	class MatrixScalarMultiplication
-		: public MatrixExpression<Height, Width, Real,
-		MatrixScalarMultiplication<Height, Width, Real, Expression> >
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixScalarMultiplication<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixScalarMultiplication& StorageType;
@@ -491,12 +489,10 @@ namespace Pastel
 		const Real factor_;
 	};
 
-	template <
-		int Height, int Width,
-		typename Real>
+	template <typename Real, int Height, int Width>
 	class MatrixDiagonal
-		: public MatrixExpression<Height, Width, Real,
-		MatrixDiagonal<Height, Width, Real> >
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixDiagonal<Real, Height, Width> >
 	{
 	public:
 		// Since this expression contains data,

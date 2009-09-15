@@ -14,7 +14,7 @@ namespace Pastel
 	template <int Height, int Width, typename Real, typename Expression>
 	std::ostream& operator<<(
 		std::ostream& stream,
-		const MatrixExpression<Height, Width, Real, Expression>& m);
+		const MatrixExpression<Real, Height, Width, Expression>& m);
 
 }
 

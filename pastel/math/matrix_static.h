@@ -18,9 +18,9 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <int Height, int Width, typename Real, typename Derived>
+		template <typename Real, int Height, int Width, typename Derived>
 		class MatrixStaticBase
-			: public MatrixExpression<Height, Width, Real, Derived>
+			: public MatrixExpression<Real, Height, Width, Derived>
 		{
 		public:
 			typedef const Derived& StorageType;
@@ -47,7 +47,7 @@ namespace Pastel
 			}
 
 			template <typename Expression>
-			MatrixStaticBase(const MatrixExpression<Height, Width, Real, Expression>& that)
+			MatrixStaticBase(const MatrixExpression<Real, Height, Width, Expression>& that)
 			{
 				*this = that;
 			}
@@ -161,7 +161,7 @@ namespace Pastel
 
 			template <typename RightExpression>
 			Derived& operator=(
-				const MatrixExpression<Height, Width, Real, RightExpression>& right)
+				const MatrixExpression<Real, Height, Width, RightExpression>& right)
 			{
 				// We allow the size of the matrix to
 				// change in assignment.
@@ -198,7 +198,7 @@ namespace Pastel
 
 			template <typename RightExpression>
 			Derived& operator*=(
-				const MatrixExpression<Width, Width, Real, RightExpression>& right)
+				const MatrixExpression<Real, Width, Width, RightExpression>& right)
 			{
 				PENSURE2(width() == right.height(), width(), right.height());
 
@@ -212,7 +212,7 @@ namespace Pastel
 
 			template <typename RightExpression>
 			Derived& operator+=(
-				const MatrixExpression<Height, Width, Real, RightExpression>& right)
+				const MatrixExpression<Real, Height, Width, RightExpression>& right)
 			{
 				PENSURE2(width() == right.width(), width(), right.width());
 				PENSURE2(height() == right.height(), height(), right.height());
@@ -243,7 +243,7 @@ namespace Pastel
 
 			template <typename RightExpression>
 			Derived& operator-=(
-				const MatrixExpression<Height, Width, Real, RightExpression>& right)
+				const MatrixExpression<Real, Height, Width, RightExpression>& right)
 			{
 				PENSURE2(width() == right.width(), width(), right.width());
 				PENSURE2(height() == right.height(), height(), right.height());
@@ -404,14 +404,14 @@ namespace Pastel
 
 	}
 
-	template <int Height, int Width, typename Real>
+	template <typename Real, int Height, int Width>
 	class Matrix
-		: public Detail::MatrixStaticBase<Height, Width, Real,
-		Matrix<Height, Width, Real> >
+		: public Detail::MatrixStaticBase<Real, Height, Width, 
+		Matrix<Real, Height, Width> >
 	{
 	private:
-		typedef Detail::MatrixStaticBase<Height, Width, Real,
-			Matrix<Height, Width, Real> > Base;
+		typedef Detail::MatrixStaticBase<Real, Height, Width, 
+			Matrix<Real, Height, Width> > Base;
 
 	public:
 		Matrix()
@@ -420,7 +420,7 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -440,16 +440,16 @@ namespace Pastel
 
 		template <typename Expression>
 		Matrix& operator=(
-			const MatrixExpression<Height, Width, Real, Expression>& that)
+			const MatrixExpression<Real, Height, Width, Expression>& that)
 		{
-			return (Matrix<Height, Width, Real>&)Base::operator=(that);
+			return (Matrix<Real, Height, Width>&)Base::operator=(that);
 		}
 	};
 
 	template <typename Real>
-	class Matrix<1, 1, Real>
-		: public Detail::MatrixStaticBase<1, 1, Real,
-		Matrix<1, 1, Real> >
+	class Matrix<Real, 1, 1>
+		: public Detail::MatrixStaticBase<Real, 1, 1, 
+		Matrix<Real, 1, 1> >
 	{
 	private:
 		enum
@@ -458,8 +458,8 @@ namespace Pastel
 			Width = 1
 		};
 
-		typedef Detail::MatrixStaticBase<Height, Width, Real,
-			Matrix<1, 1, Real> > Base;
+		typedef Detail::MatrixStaticBase<Real, Height, Width, 
+			Matrix<Real, 1, 1> > Base;
 
 	public:
 		Matrix()
@@ -468,7 +468,7 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -505,17 +505,17 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix<Height, Width, Real>& operator=(
-			const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix<Real, Height, Width>& operator=(
+			const MatrixExpression<Real, Height, Width, Expression>& that)
 		{
-			return (Matrix<Height, Width, Real>&)Base::operator=(that);
+			return (Matrix<Real, Height, Width>&)Base::operator=(that);
 		}
 	};
 
 	template <typename Real>
-	class Matrix<2, 2, Real>
-		: public Detail::MatrixStaticBase<2, 2, Real,
-		Matrix<2, 2, Real> >
+	class Matrix<Real, 2, 2>
+		: public Detail::MatrixStaticBase<Real, 2, 2, 
+		Matrix<Real, 2, 2> >
 	{
 	private:
 		enum
@@ -524,8 +524,8 @@ namespace Pastel
 			Width = 2
 		};
 
-		typedef Detail::MatrixStaticBase<Height, Width, Real,
-		Matrix<2, 2, Real> > Base;
+		typedef Detail::MatrixStaticBase<Real, Height, Width, 
+		Matrix<Real, 2, 2> > Base;
 
 	public:
 		//! Constructs an identity matrix.
@@ -535,7 +535,7 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -579,17 +579,17 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix<Height, Width, Real>& operator=(
-			const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix<Real, Height, Width>& operator=(
+			const MatrixExpression<Real, Height, Width, Expression>& that)
 		{
-			return (Matrix<Height, Width, Real>&)Base::operator=(that);
+			return (Matrix<Real, Height, Width>&)Base::operator=(that);
 		}
 	};
 
 	template <typename Real>
-	class Matrix<3, 3, Real>
-		: public Detail::MatrixStaticBase<3, 3, Real,
-		Matrix<3, 3, Real> >
+	class Matrix<Real, 3, 3>
+		: public Detail::MatrixStaticBase<Real, 3, 3, 
+		Matrix<Real, 3, 3> >
 	{
 	private:
 		enum
@@ -598,8 +598,8 @@ namespace Pastel
 			Width = 3
 		};
 
-		typedef Detail::MatrixStaticBase<Height, Width, Real,
-		Matrix<3, 3, Real> > Base;
+		typedef Detail::MatrixStaticBase<Real, Height, Width, 
+		Matrix<Real, 3, 3> > Base;
 
 	public:
 		//! Constructs an identity matrix.
@@ -609,7 +609,7 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -664,17 +664,17 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix<Height, Width, Real>& operator=(
-			const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix<Real, Height, Width>& operator=(
+			const MatrixExpression<Real, Height, Width, Expression>& that)
 		{
-			return (Matrix<Height, Width, Real>&)Base::operator=(that);
+			return (Matrix<Real, Height, Width>&)Base::operator=(that);
 		}
 	};
 
 	template <typename Real>
-	class Matrix<4, 4, Real>
-		: public Detail::MatrixStaticBase<4, 4, Real,
-		Matrix<4, 4, Real> >
+	class Matrix<Real, 4, 4>
+		: public Detail::MatrixStaticBase<Real, 4, 4, 
+		Matrix<Real, 4, 4> >
 	{
 	private:
 		enum
@@ -683,8 +683,8 @@ namespace Pastel
 			Width = 4
 		};
 
-		typedef Detail::MatrixStaticBase<Height, Width, Real,
-		Matrix<4, 4, Real> > Base;
+		typedef Detail::MatrixStaticBase<Real, Height, Width, 
+		Matrix<Real, 4, 4> > Base;
 
 	public:
 		//! Constructs an identity matrix.
@@ -694,7 +694,7 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix(const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
 			: Base(that)
 		{
 		}
@@ -765,10 +765,10 @@ namespace Pastel
 		}
 
 		template <typename Expression>
-		Matrix<Height, Width, Real>& operator=(
-			const MatrixExpression<Height, Width, Real, Expression>& that)
+		Matrix<Real, Height, Width>& operator=(
+			const MatrixExpression<Real, Height, Width, Expression>& that)
 		{
-			return (Matrix<Height, Width, Real>&)Base::operator=(that);
+			return (Matrix<Real, Height, Width>&)Base::operator=(that);
 		}
 	};
 

@@ -12,7 +12,7 @@ namespace Pastel
 		const LuDecomposition<Real, N>& lu,
 		const VectorExpression<Real, N, Expression>& b)
 	{
-		const Matrix<N, N, Real>& packedLu = lu.packedLu();
+		const Matrix<Real, N, N>& packedLu = lu.packedLu();
 
 		const integer n = packedLu.width();
 

@@ -19,22 +19,22 @@ namespace Pastel
 
 		CholeskyDecomposition();
 		explicit CholeskyDecomposition(
-			const Matrix<N, N, Real>& that);
+			const Matrix<Real, N, N>& that);
 
 		void swap(
 			CholeskyDecomposition& that);
 
-		const Matrix<N, N, Real>& lower() const;
+		const Matrix<Real, N, N>& lower() const;
 
 		bool succeeded() const;
 
 		bool decompose(
-			const Matrix<N, N, Real>& that);
+			const Matrix<Real, N, N>& that);
 
 	private:
 		bool decompose();
 
-		Matrix<N, N, Real> cholesky_;
+		Matrix<Real, N, N> cholesky_;
 		bool succeeded_;
 	};
 

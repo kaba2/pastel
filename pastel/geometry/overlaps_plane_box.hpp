@@ -39,7 +39,7 @@ namespace Pastel
 		const Vector<Real, N>& planeNormal = 
 			plane.normal();
 
-		const Matrix<N, N, Real>& axes = box.rotation();
+		const Matrix<Real, N, N>& axes = box.rotation();
 
 		// Find the distance between the center point
 		// and an extremal point.

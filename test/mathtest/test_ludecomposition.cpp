@@ -22,7 +22,7 @@ namespace
 
 		for (integer i = 0;i < 10000;++i)
 		{
-			Matrix<N, N, real> m;
+			Matrix<real, N, N> m;
 			setRandomMatrix(m);
 
 			LuDecomposition<real, N> lu(m);
@@ -50,10 +50,10 @@ namespace
 	{
 		{
 			const LuDecomposition<Real, 2> lu(
-				Matrix<2, 2, Real>(
+				Matrix<Real, 2, 2>(
 				1, Real(1, 2), 
 				Real(1, 2), 1));
-			const Matrix<2, 2, Real> correctPackedLu(
+			const Matrix<Real, 2, 2> correctPackedLu(
 					1, Real(1, 2), 
 					Real(1, 2), Real(3, 4));
 			const Tuple<integer, 2> correctRowPermutation(
@@ -66,11 +66,11 @@ namespace
 		}
 		{
 			const LuDecomposition<Real, 3> lu(
-				Matrix<3, 3, Real>(
+				Matrix<Real, 3, 3>(
 				1, 2, 3,
 				4, 5, 6,
 				7, 8, 9));
-			const Matrix<3, 3, Real> correctPackedLu(
+			const Matrix<Real, 3, 3> correctPackedLu(
 				7, 8, 9,
 				Real(1, 7), Real(6, 7), Real(12, 7),
 				Real(4, 7), Real(1, 2), 0);

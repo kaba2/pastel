@@ -119,7 +119,7 @@ namespace Pastel
 	{
 		const integer n = positionList.size();
 
-		Matrix<Dynamic, Dynamic, Real> a(n, n);
+		Matrix<Real, Dynamic, Dynamic> a(n, n);
 
 		for (integer i = 0;i < n;++i)
 		{

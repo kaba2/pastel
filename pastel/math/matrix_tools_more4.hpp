@@ -9,11 +9,11 @@ namespace Pastel
 {
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixSum
-		: public VectorExpression<Real, Width, MatrixSum<Height, Width, Real, Expression> >
+		: public VectorExpression<Real, Width, MatrixSum<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixSum& StorageType;
@@ -62,20 +62,20 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixSum<Height, Width, Real, Expression> sum(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixSum<Real, Height, Width, Expression> sum(
+		const MatrixExpression<Real, Height, Width, Expression>& that)
 	{
-		return MatrixSum<Height, Width, Real, Expression>(
+		return MatrixSum<Real, Height, Width, Expression>(
 			(const Expression&)that);
 	}
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixMin
-		: public VectorExpression<Real, Width, MatrixMin<Height, Width, Real, Expression> >
+		: public VectorExpression<Real, Width, MatrixMin<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixMin& StorageType;
@@ -128,20 +128,20 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixMin<Height, Width, Real, Expression> min(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixMin<Real, Height, Width, Expression> min(
+		const MatrixExpression<Real, Height, Width, Expression>& that)
 	{
-		return MatrixMin<Height, Width, Real, Expression>(
+		return MatrixMin<Real, Height, Width, Expression>(
 			(const Expression&)that);
 	}
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixMax
-		: public VectorExpression<Real, Width, MatrixMax<Height, Width, Real, Expression> >
+		: public VectorExpression<Real, Width, MatrixMax<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixMax& StorageType;
@@ -194,21 +194,21 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixMax<Height, Width, Real, Expression> max(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixMax<Real, Height, Width, Expression> max(
+		const MatrixExpression<Real, Height, Width, Expression>& that)
 	{
-		return MatrixMax<Height, Width, Real, Expression>(
+		return MatrixMax<Real, Height, Width, Expression>(
 			(const Expression&)that);
 	}
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixAbs
-		: public MatrixExpression<Height, Width, Real,
-		MatrixAbs<Height, Width, Real, Expression> >
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixAbs<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixAbs& StorageType;
@@ -252,21 +252,21 @@ namespace Pastel
 		typename Expression::StorageType data_;
 	};
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixAbs<Height, Width, Real, Expression> abs(
-		const MatrixExpression<Height, Width, Real, Expression>& that)
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixAbs<Real, Height, Width, Expression> abs(
+		const MatrixExpression<Real, Height, Width, Expression>& that)
 	{
-		return MatrixAbs<Height, Width, Real, Expression>(
+		return MatrixAbs<Real, Height, Width, Expression>(
 			(const Expression&)that);
 	}
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename Expression>
 	class MatrixRepeat
-		: public MatrixExpression<Height, Width, Real,
-		MatrixRepeat<Height, Width, Real, Expression> >
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixRepeat<Real, Height, Width, Expression> >
 	{
 	public:
 		typedef const MatrixRepeat StorageType;
@@ -320,12 +320,12 @@ namespace Pastel
 		const integer height_;
 	};
 
-	template <int Height, int Width, typename Real, typename Expression>
-	MatrixRepeat<Height, Width, Real, Expression> repeat(
-		const MatrixExpression<Height, Width, Real, Expression>& that,
+	template <typename Real, int Height, int Width, typename Expression>
+	MatrixRepeat<Real, Height, Width, Expression> repeat(
+		const MatrixExpression<Real, Height, Width, Expression>& that,
 		integer yBlocks, integer xBlocks)
 	{
-		return MatrixRepeat<Height, Width, Real, Expression>(
+		return MatrixRepeat<Real, Height, Width, Expression>(
 			(const Expression&)that, yBlocks, xBlocks);
 	}
 
@@ -334,7 +334,7 @@ namespace Pastel
 		typename Real,
 		typename Input_ConstView>
 	class ConstViewMatrix
-		: public MatrixExpression<Dynamic, Dynamic, Real,
+		: public MatrixExpression<Real, Dynamic, Dynamic, 
 		ConstViewMatrix<Real, Input_ConstView> >
 	{
 	public:
@@ -399,13 +399,13 @@ namespace Pastel
 	}
 
 	template <
-		int Height, int Width,
 		typename Real,
+		int Height, int Width,
 		typename LeftExpression,
 		typename RightExpression>
 	class OuterProduct
-		: public MatrixExpression<Height, Width, Real,
-		OuterProduct<Height, Width, Real,
+		: public MatrixExpression<Real, Height, Width, 
+		OuterProduct<Real, Height, Width, 
 		LeftExpression, RightExpression> >
 	{
 	public:
@@ -454,15 +454,15 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <int Height, int Width, typename Real,
+	template <typename Real,int Height, int Width, 
 		typename LeftExpression,
 		typename RightExpression>
-		OuterProduct<Height, Width, Real, LeftExpression, RightExpression>
+		OuterProduct<Real, Height, Width, LeftExpression, RightExpression>
 		outerProduct(
 		const VectorExpression<Real, Height, LeftExpression>& left,
 		const VectorExpression<Real, Width, RightExpression>& right)
 	{
-		return OuterProduct<Height, Width, Real, LeftExpression, RightExpression>(
+		return OuterProduct<Real, Height, Width, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, (const RightExpression&)right);
 	}
 

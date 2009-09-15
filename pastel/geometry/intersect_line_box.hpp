@@ -22,7 +22,7 @@ namespace Pastel
 		Real tMin(-infinity<Real>());
 		Real tMax(infinity<Real>());
 
-		const Matrix<N, N, Real>& axes = box.rotation();
+		const Matrix<Real, N, N>& axes = box.rotation();
 		const Vector<Real, N>& width = box.width();
 
 		const Vector<Real, N> p(

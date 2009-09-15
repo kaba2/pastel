@@ -18,7 +18,7 @@ namespace Pastel
 
 		const integer dimension = point.dimension();
 
-		Matrix<PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1), Real> m(
+		Matrix<Real, PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1)> m(
 			dimension + 1, dimension + 1);
 		for (integer i = 0;i < dimension + 1;++i)
 		{
