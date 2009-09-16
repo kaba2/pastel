@@ -37,9 +37,9 @@ namespace Pastel
 		}
 
 		const Element& operator()(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
-			Point<integer, N> newPosition;
+			Vector<integer, N> newPosition;
 			for (integer i = 0;i < N;++i)
 			{
 				newPosition[i] = mod(position[i], extent_[i]);

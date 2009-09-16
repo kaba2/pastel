@@ -46,7 +46,7 @@ namespace Pastel
 		virtual void clear();
 
 		virtual void drawPoint(
-			const Point2& point);
+			const Vector2& point);
 
 		virtual void drawSegment(
 			const Segment2& segment);
@@ -71,7 +71,7 @@ namespace Pastel
 
 		void updateModelView();
 
-		Point2 transform(const Point2& point) const;
+		Vector2 transform(const Vector2& point) const;
 
 		AffineTransformation2 screenTransformation_;
 		Array<Type, 2>* image_;

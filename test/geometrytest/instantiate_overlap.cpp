@@ -115,27 +115,27 @@ namespace Pastel
 	template
 		bool overlaps(
 			const AlignedBox<TestReal, 1>& alignedBox,
-			const Point<TestReal, 1>& point);
+			const Vector<TestReal, 1>& point);
 
 	template
 		bool overlaps(
 			const AlignedBox<TestReal, 2>& alignedBox,
-			const Point<TestReal, 2>& point);
+			const Vector<TestReal, 2>& point);
 
 	template
 		bool overlaps(
 			const AlignedBox<TestReal, 3>& alignedBox,
-			const Point<TestReal, 3>& point);
+			const Vector<TestReal, 3>& point);
 
 	template
 		bool overlaps(
 			const AlignedBox<TestReal, 4>& alignedBox,
-			const Point<TestReal, 4>& point);
+			const Vector<TestReal, 4>& point);
 
 	template
 		bool overlaps(
 			const AlignedBox<TestReal, 5>& alignedBox,
-			const Point<TestReal, 5>& point);
+			const Vector<TestReal, 5>& point);
 
 }
 
@@ -454,27 +454,27 @@ namespace Pastel
 	template
 	bool overlaps(
 		const Box<TestReal, 1>& a,
-		const Point<TestReal, 1>& nb);
+		const Vector<TestReal, 1>& nb);
 
 	template
 	bool overlaps(
 		const Box<TestReal, 2>& a,
-		const Point<TestReal, 2>& nb);
+		const Vector<TestReal, 2>& nb);
 
 	template
 	bool overlaps(
 		const Box<TestReal, 3>& a,
-		const Point<TestReal, 3>& nb);
+		const Vector<TestReal, 3>& nb);
 
 	template
 	bool overlaps(
 		const Box<TestReal, 4>& a,
-		const Point<TestReal, 4>& nb);
+		const Vector<TestReal, 4>& nb);
 
 	template
 	bool overlaps(
 		const Box<TestReal, 5>& a,
-		const Point<TestReal, 5>& nb);
+		const Vector<TestReal, 5>& nb);
 
 }
 
@@ -689,23 +689,23 @@ namespace Pastel
 
 	template
 	bool overlaps(const Sphere<TestReal, 1>& sphere,
-		const Point<TestReal, 1>& point);
+		const Vector<TestReal, 1>& point);
 
 	template
 	bool overlaps(const Sphere<TestReal, 2>& sphere,
-		const Point<TestReal, 2>& point);
+		const Vector<TestReal, 2>& point);
 
 	template
 	bool overlaps(const Sphere<TestReal, 3>& sphere,
-		const Point<TestReal, 3>& point);
+		const Vector<TestReal, 3>& point);
 
 	template
 	bool overlaps(const Sphere<TestReal, 4>& sphere,
-		const Point<TestReal, 4>& point);
+		const Vector<TestReal, 4>& point);
 
 	template
 	bool overlaps(const Sphere<TestReal, 5>& sphere,
-		const Point<TestReal, 5>& point);
+		const Vector<TestReal, 5>& point);
 
 }
 

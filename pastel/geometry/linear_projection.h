@@ -23,7 +23,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<Real, N>(0) + t * unitAxis
+	L(t) = Vector<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -44,7 +44,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<Real, N>(0) + t * unitAxis
+	L(t) = Vector<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -65,7 +65,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<Real, N>(0) + t * unitAxis
+	L(t) = Vector<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -86,7 +86,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<Real, N>(0) + t * unitAxis
+	L(t) = Vector<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L
@@ -107,7 +107,7 @@ namespace Pastel
 	The direction of the line given
 	by a normalized direction vector.
 	The line is then parametrized by
-	L(t) = Point<Real, N>(0) + t * unitAxis
+	L(t) = Vector<Real, N>(0) + t * unitAxis
 
 	returns:
 	The interval [tMin, tMax] on line L

@@ -18,7 +18,7 @@ mac address should itself be a universally unique identifier.
 If we further pack with this information the current date
 and time and some random number we are pretty sure to never
 have any colliding identifiers. Such identifiers are called
-`Globally Unique IDentifiers`.
+_Globally Unique IDentifiers_.
 
 Practice
 --------

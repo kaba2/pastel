@@ -4,7 +4,7 @@
 #define PASTEL_OVERLAPS_SEGMENTS_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -16,7 +16,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const std::vector<Point<Real, 2> >& vertex,
+		const std::vector<Vector<Real, 2> >& vertex,
 		const std::vector<Integer2>& segment);
 
 }

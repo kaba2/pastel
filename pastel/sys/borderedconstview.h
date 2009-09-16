@@ -38,10 +38,10 @@ namespace Pastel
 		}
 
 		const Element& operator()(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			if (anyLess(position, 0) ||
-				anyGreaterEqual(asVector(position), view_.extent()))
+				anyGreaterEqual(position, view_.extent()))
 			{
 				return border_;
 			}

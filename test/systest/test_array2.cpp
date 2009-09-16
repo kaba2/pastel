@@ -91,8 +91,8 @@ namespace
 				std::equal(a.begin(), a.end(),
 				CountingIterator<integer>(0)));
 
-			a(Point2i(0, 0), Point2i(3, 3)) = 
-				a(Point2i(3, 3), Point2i(6, 6));
+			a(Vector2i(0, 0), Vector2i(3, 3)) = 
+				a(Vector2i(3, 3), Vector2i(6, 6));
 			
 			Array<integer, 2> b(6, 6);
 			b |= 21, 22, 23, 3, 4, 5, 
@@ -106,7 +106,7 @@ namespace
 				std::equal(a.begin(), a.end(),
 				b.begin()));
 
-			a(Point2i(0, 0), Point2i(6, 6), Vector2i(2, 2)) = 0;
+			a(Vector2i(0, 0), Vector2i(6, 6), Vector2i(2, 2)) = 0;
 
 			b |= 0, 22, 0, 3, 0, 5, 
 				27, 28, 29, 9, 10, 11, 
@@ -119,7 +119,7 @@ namespace
 				std::equal(a.begin(), a.end(),
 				b.begin()));
 
-			a(Point2i(1, 1), Point2i(6, 6), Vector2i(2, 2)) = 1;
+			a(Vector2i(1, 1), Vector2i(6, 6), Vector2i(2, 2)) = 1;
 
 			b |= 0, 22, 0, 3, 0, 5, 
 				27, 1, 29, 1, 10, 1, 
@@ -132,8 +132,8 @@ namespace
 				std::equal(a.begin(), a.end(),
 				b.begin()));
 
-			a(Point2i(2, 2), Point2i(-1, -1), Vector2i(-1, -1)) = 
-				a(Point2i(3, 0), Point2i(6, 3));			
+			a(Vector2i(2, 2), Vector2i(-1, -1), Vector2i(-1, -1)) = 
+				a(Vector2i(3, 0), Vector2i(6, 3));			
 
 			b |= 17, 0, 15, 3, 0, 5, 
 				1, 10, 1, 1, 10, 1, 
@@ -146,7 +146,7 @@ namespace
 				std::equal(a.begin(), a.end(),
 				b.begin()));
 
-			SubArray<2, integer> c(a(Point2i(0, 0), Point2i(2, 2)));
+			SubArray<2, integer> c(a(Vector2i(0, 0), Vector2i(2, 2)));
 			c = 2;
 
 			b |= 2, 2, 15, 3, 0, 5, 

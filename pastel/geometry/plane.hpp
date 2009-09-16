@@ -4,7 +4,6 @@
 #include "pastel/geometry/plane.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
@@ -37,7 +36,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Plane<Real, N>::Plane(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitNormal)
 		: position_(position)
 		, normal_(unitNormal)
@@ -47,7 +46,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Plane<Real, N>::Plane(
 		integer dimension,
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitNormal)
 		: position_(position)
 		, normal_(unitNormal)
@@ -78,7 +77,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Plane<Real, N>::set(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitNormal)
 	{
 		setPosition(position);
@@ -87,13 +86,13 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Plane<Real, N>::setPosition(
-		const Point<Real, N>& position)
+		const Vector<Real, N>& position)
 	{
 		position_ = position;
 	}
 
 	template <typename Real, int N>
-	const Point<Real, N>& Plane<Real, N>::position() const
+	const Vector<Real, N>& Plane<Real, N>::position() const
 	{
 		return position_;
 	}

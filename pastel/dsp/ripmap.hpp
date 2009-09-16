@@ -30,7 +30,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				Array<Type, N>& image) const
 			{
 				if (allEqual(position, 0))
@@ -38,7 +38,7 @@ namespace Pastel
 					return;
 				}
 
-				Point<integer, N> previousPosition(position);
+				Vector<integer, N> previousPosition(position);
 				for (integer i = 0;i < N;++i)
 				{
 					if (previousPosition[i] > 0)
@@ -52,7 +52,7 @@ namespace Pastel
 					ripMapArray_(previousPosition);
 
 				Vector<integer, N> resampleExtent =
-					ripMapArray_(Point<integer, N>(0)).extent();
+					ripMapArray_(Vector<integer, N>(0)).extent();
 				for (integer i = 0;i < N;++i)
 				{
 					resampleExtent[i] >>= position[i];
@@ -99,13 +99,13 @@ namespace Pastel
 			return;
 		}
 
-		imageArray(Point<integer, N>(0)).setExtent(topExtent);
+		imageArray(Vector<integer, N>(0)).setExtent(topExtent);
 
 		// Upsample to power-of-two size.
 
 		if (topExtent == originalExtent)
 		{
-			copy(image, arrayView(imageArray(Point<integer, N>(0))));
+			copy(image, arrayView(imageArray(Vector<integer, N>(0))));
 		}
 		else
 		{
@@ -113,7 +113,7 @@ namespace Pastel
 				image,
 				clampExtender(),
 				filter,
-				arrayView(imageArray(Point<integer, N>(0))));
+				arrayView(imageArray(Vector<integer, N>(0))));
 		}
 
 		Detail_ComputeRipMaps::Visitor<N, Type> visitor(imageArray, filter);
@@ -154,14 +154,14 @@ namespace Pastel
 
 	template <int N, typename Type>
 	Array<Type, N>& RipMap<N, Type>::operator()(
-		const Point<integer, N>& level)
+		const Vector<integer, N>& level)
 	{
 		return ripMapArray_(level);
 	}
 
 	template <int N, typename Type>
 	const Array<Type, N>& RipMap<N, Type>::operator()(
-		const Point<integer, N>& level) const
+		const Vector<integer, N>& level) const
 	{
 		return ripMapArray_(level);
 	}
@@ -169,13 +169,13 @@ namespace Pastel
 	template <int N, typename Type>
 	const Array<Type, N>& RipMap<N, Type>::mostDetailed() const
 	{
-		return ripMapArray_(Point<integer, N>(0));
+		return ripMapArray_(Vector<integer, N>(0));
 	}
 
 	template <int N, typename Type>
 	const Array<Type, N>& RipMap<N, Type>::coarsest() const
 	{
-		return ripMapArray_(asPoint(ripMapArray_.extent() - 1));
+		return ripMapArray_(ripMapArray_.extent() - 1);
 	}
 
 	template <int N, typename Type>

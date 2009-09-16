@@ -6,7 +6,6 @@
 #define PASTEL_MATH_FUNCTIONS_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 #include <string>
@@ -92,14 +91,14 @@ namespace Pastel
 
 	template <typename Real>
 	Real signedArea(
-		const Point<Real, 2>& a,
-		const Point<Real, 2>& b,
-		const Point<Real, 2>& c);
+		const Vector<Real, 2>& a,
+		const Vector<Real, 2>& b,
+		const Vector<Real, 2>& c);
 
 	template <typename Real>
 	bool lexicographical(
-		const Point<Real, 2>& left,
-		const Point<Real, 2>& right);
+		const Vector<Real, 2>& left,
+		const Vector<Real, 2>& right);
 
 	//! Measures the counter-clockwise angle from the x-axis.
 	/*!
@@ -274,9 +273,9 @@ namespace Pastel
 			const Real& time);
 
 	template <int N, typename Real>
-	Point<Real, N> linear(
-		const Point<Real, N>& startPoint,
-		const Point<Real, N>& endPoint,
+	Vector<Real, N> linear(
+		const Vector<Real, N>& startPoint,
+		const Vector<Real, N>& endPoint,
 		const PASTEL_NO_DEDUCTION(Real)& time);
 
 }

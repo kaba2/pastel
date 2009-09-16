@@ -13,8 +13,8 @@ namespace Pastel
 			typename Real, int N, 
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound,
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -36,8 +36,8 @@ namespace Pastel
 			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound,
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectEnd) const
@@ -63,8 +63,8 @@ namespace Pastel
 
 				objectBound = boundingAlignedBox(objectBound,
 					AlignedBox<Real, 1>(
-					Point<Real, 1>(objectRange[0]),
-					Point<Real, 1>(objectRange[1])));
+					Vector<Real, 1>(objectRange[0]),
+					Vector<Real, 1>(objectRange[1])));
 
 				++iter;
 			}
@@ -91,8 +91,8 @@ namespace Pastel
 			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound,
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound,
 			const ObjectPolicy& objectPolicy,
 			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectBegin,
 			const typename KdTree<Real, N, ObjectPolicy>::ConstObjectIterator& objectEnd) const

@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type MipImageTexture<Type>::operator()(
-		const Point2& uv,
+		const Vector2& uv,
 		const Vector2& dUvDx,
 		const Vector2& dUvDy) const
 	{
@@ -55,7 +55,7 @@ namespace Pastel
 			// Magnification: just do bilinear interpolation.
 
 			return sampleBilinear(
-				asPoint(asVector(uv) * Vector2(mostDetailedImage.extent())),
+				uv * Vector2(mostDetailedImage.extent()),
 				mostDetailedImage, extender_);
 		}
 
@@ -80,12 +80,12 @@ namespace Pastel
 
 		const Type detailSample =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(detailImage.extent())),
+			uv * Vector2(detailImage.extent()),
 			detailImage, extender_);
 
 		const Type coarseSample =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(coarseImage.extent())),
+			uv * Vector2(coarseImage.extent()),
 			coarseImage, extender_);
 
 		return linear(detailSample, coarseSample, tDetail);

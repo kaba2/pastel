@@ -27,7 +27,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position) const
+				const Vector<integer, N>& position) const
 			{
 				rowVisitor_(
 					constRowView(view_, freeIndex_, position));
@@ -54,7 +54,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position) const
+				const Vector<integer, N>& position) const
 			{
 				rowVisitor_(
 					rowView(view_, freeIndex_, position));
@@ -78,9 +78,7 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> rectangle(
-			Point<integer, N>(0),
-			asPoint(view.extent()));
+		Rectangle<N> rectangle(Vector<integer, N>(0), view.extent());
 
 		if (rectangle.empty())
 		{
@@ -108,9 +106,7 @@ namespace Pastel
 		BOOST_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> rectangle(
-			Point<integer, N>(0),
-			asPoint(view.extent()));
+		Rectangle<N> rectangle(Vector<integer, N>(0), view.extent());
 
 		if (rectangle.empty())
 		{
@@ -150,7 +146,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position) const
+				const Vector<integer, N>& position) const
 			{
 				rowVisitor_(
 					constRowView(left_, freeIndex_, position),
@@ -184,7 +180,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position) const
+				const Vector<integer, N>& position) const
 			{
 				rowVisitor_(
 					constRowView(left_, freeIndex_, position),
@@ -218,7 +214,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position) const
+				const Vector<integer, N>& position) const
 			{
 				rowVisitor_(
 					rowView(left_, freeIndex_, position),
@@ -248,12 +244,12 @@ namespace Pastel
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> leftRectangle(
-			Point<integer, N>(0),
-			asPoint(left.extent()));
+			Vector<integer, N>(0),
+			left.extent());
 
 		Rectangle<N> rightRectangle(
-			Point<integer, N>(0),
-			asPoint(right.extent()));
+			Vector<integer, N>(0),
+			right.extent());
 
 		if (leftRectangle.empty() ||
 			rightRectangle.empty())
@@ -289,12 +285,12 @@ namespace Pastel
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> leftRectangle(
-			Point<integer, N>(0),
-			asPoint(left.extent()));
+			Vector<integer, N>(0),
+			left.extent());
 
 		Rectangle<N> rightRectangle(
-			Point<integer, N>(0),
-			asPoint(right.extent()));
+			Vector<integer, N>(0),
+			right.extent());
 
 		if (leftRectangle.empty() ||
 			rightRectangle.empty())
@@ -330,12 +326,12 @@ namespace Pastel
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> leftRectangle(
-			Point<integer, N>(0),
-			asPoint(left.extent()));
+			Vector<integer, N>(0),
+			left.extent());
 
 		Rectangle<N> rightRectangle(
-			Point<integer, N>(0),
-			asPoint(right.extent()));
+			Vector<integer, N>(0),
+			right.extent());
 
 		if (leftRectangle.empty() ||
 			rightRectangle.empty())

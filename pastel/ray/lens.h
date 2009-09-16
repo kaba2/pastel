@@ -4,7 +4,8 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/ray/raylibrary.h"
 #include "pastel/sys/countedptr.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
+
 #include "pastel/geometry/line.h"
 
 namespace Pastel
@@ -22,7 +23,7 @@ namespace Pastel
 
 		virtual CountedPtr<Lens> clone() const = 0;
 
-		virtual Line3 getLine(const Point2& uv) const = 0;
+		virtual Line3 getLine(const Vector2& uv) const = 0;
 	};
 
 	typedef CountedPtr<Lens> LensPtr;

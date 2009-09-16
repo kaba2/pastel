@@ -47,27 +47,27 @@ namespace Pastel
 	template
 		TestReal distance2(
 			const AlignedBox<TestReal, 1>& alignedBox,
-			const Point<TestReal, 1>& point);
+			const Vector<TestReal, 1>& point);
 
 	template
 		TestReal distance2(
 			const AlignedBox<TestReal, 2>& alignedBox,
-			const Point<TestReal, 2>& point);
+			const Vector<TestReal, 2>& point);
 
 	template
 		TestReal distance2(
 			const AlignedBox<TestReal, 3>& alignedBox,
-			const Point<TestReal, 3>& point);
+			const Vector<TestReal, 3>& point);
 
 	template
 		TestReal distance2(
 			const AlignedBox<TestReal, 4>& alignedBox,
-			const Point<TestReal, 4>& point);
+			const Vector<TestReal, 4>& point);
 
 	template
 		TestReal distance2(
 			const AlignedBox<TestReal, 5>& alignedBox,
-			const Point<TestReal, 5>& point);
+			const Vector<TestReal, 5>& point);
 
 }
 
@@ -131,19 +131,19 @@ namespace Pastel
 {
 
 	template TestReal distance2(const Line<TestReal, 1>&,
-		const Point<TestReal, 1>&);
+		const Vector<TestReal, 1>&);
 
 	template TestReal distance2(const Line<TestReal, 2>&,
-		const Point<TestReal, 2>&);
+		const Vector<TestReal, 2>&);
 
 	template TestReal distance2(const Line<TestReal, 3>&,
-		const Point<TestReal, 3>&);
+		const Vector<TestReal, 3>&);
 
 	template TestReal distance2(const Line<TestReal, 4>&,
-		const Point<TestReal, 4>&);
+		const Vector<TestReal, 4>&);
 
 	template TestReal distance2(const Line<TestReal, 5>&,
-		const Point<TestReal, 5>&);
+		const Vector<TestReal, 5>&);
 
 }
 
@@ -155,26 +155,26 @@ namespace Pastel
 	template
 	TestReal distance2(
 		const Plane<TestReal, 1>& plane,
-		const Point<TestReal, 1>& point);
+		const Vector<TestReal, 1>& point);
 
 	template
 	TestReal distance2(
 		const Plane<TestReal, 2>& plane,
-		const Point<TestReal, 2>& point);
+		const Vector<TestReal, 2>& point);
 
 	template
 	TestReal distance2(
 		const Plane<TestReal, 3>& plane,
-		const Point<TestReal, 3>& point);
+		const Vector<TestReal, 3>& point);
 
 	template
 	TestReal distance2(
 		const Plane<TestReal, 4>& plane,
-		const Point<TestReal, 4>& point);
+		const Vector<TestReal, 4>& point);
 
 	template
 	TestReal distance2(
 		const Plane<TestReal, 5>& plane,
-		const Point<TestReal, 5>& point);
+		const Vector<TestReal, 5>& point);
 
 }

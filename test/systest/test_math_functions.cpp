@@ -122,10 +122,10 @@ namespace
 		check(sinc<real>(2), 0);
 		check(sinc<real>(3), 0);
 
-		check(signedArea(Point2(0), Point2(0, 1), Point2(1, 0)), -0.5);
-		check(signedArea(Point2(0), Point2(1, 0), Point2(0, 1)), 0.5);
-		check(signedArea(Point2(0), Point2(1, 1), Point2(1, 0)), -0.5);
-		check(signedArea(Point2(0), Point2(1, 0), Point2(1, 1)), 0.5);
+		check(signedArea(Vector2(0), Vector2(0, 1), Vector2(1, 0)), -0.5);
+		check(signedArea(Vector2(0), Vector2(1, 0), Vector2(0, 1)), 0.5);
+		check(signedArea(Vector2(0), Vector2(1, 1), Vector2(1, 0)), -0.5);
+		check(signedArea(Vector2(0), Vector2(1, 0), Vector2(1, 1)), 0.5);
 
 		check(ccwAngle(Vector2(1, 0)), 0);
 		check(ccwAngle(Vector2(1, 1)), 1 * constantPi<real>() / 4);

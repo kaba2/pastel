@@ -278,29 +278,29 @@ namespace Pastel
 
 		template <typename Type, int N>
 		Type& ArrayBase<Type, N>::operator()(
-			const Point<integer, N>& position)
+			const Vector<integer, N>& position)
 		{
 			return (Type&)((const ArrayBase&)*this)(position);
 		}
 
 		template <typename Type, int N>
 		const Type& ArrayBase<Type, N>::operator()(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			PENSURE(allGreaterEqual(position, 0));
-			PENSURE(allLess(asVector(position), extent_));
+			PENSURE(allLess(position, extent_));
 			
 			return *address(position);
 		}
 
 		template <typename Type, int N>
 		SubArray<N, Type> ArrayBase<Type, N>::operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max)
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max)
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
 			Vector<integer, N> newStride(stride_);
@@ -320,12 +320,12 @@ namespace Pastel
 
 		template <typename Type, int N>
 		ConstSubArray<N, Type> ArrayBase<Type, N>::operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max) const
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max) const
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
 			Vector<integer, N> newStride(stride_);
@@ -345,13 +345,13 @@ namespace Pastel
 
 		template <typename Type, int N>
 		SubArray<N, Type> ArrayBase<Type, N>::operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max,
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta)
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
@@ -369,13 +369,13 @@ namespace Pastel
 
 		template <typename Type, int N>
 		ConstSubArray<N, Type> ArrayBase<Type, N>::operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max,
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
@@ -486,7 +486,7 @@ namespace Pastel
 
 			integer outOfCopyZone = 0;
 			integer traversed = 0;
-			Point<integer, N> position(0);
+			Vector<integer, N> position(0);
 
 			try
 			{
@@ -551,7 +551,7 @@ namespace Pastel
 		template <typename Type, int N>
 		typename ArrayBase<Type, N>::Cursor
 			ArrayBase<Type, N>::cursor(
-			const Point<integer, N>& position)
+			const Vector<integer, N>& position)
 		{
 			return Cursor(&(*this)(position), stride_);
 		}
@@ -559,7 +559,7 @@ namespace Pastel
 		template <typename Type, int N>
 		typename ArrayBase<Type, N>::ConstCursor
 			ArrayBase<Type, N>::constCursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return ConstCursor(&(*this)(position), stride_);
 		}
@@ -595,7 +595,7 @@ namespace Pastel
 		template <typename Type, int N>
 		typename ArrayBase<Type, N>::RowIterator 
 			ArrayBase<Type, N>::rowBegin(
-			const Point<integer, N>& position, 
+			const Vector<integer, N>& position, 
 			integer axis)
 		{
 			integer index = position[0];
@@ -615,7 +615,7 @@ namespace Pastel
 		template <typename Type, int N>
 		typename ArrayBase<Type, N>::ConstRowIterator 
 			ArrayBase<Type, N>::rowBegin(
-			const Point<integer, N>& position, 
+			const Vector<integer, N>& position, 
 			integer axis) const
 		{
 			return ((ArrayBase&)*this).rowBegin(
@@ -625,7 +625,7 @@ namespace Pastel
 		template <typename Type, int N>
 		typename ArrayBase<Type, N>::RowIterator 
 			ArrayBase<Type, N>::rowEnd(
-			const Point<integer, N>& position, 
+			const Vector<integer, N>& position, 
 			integer axis)
 		{
 			return rowBegin(position, axis) + extent_[axis];
@@ -634,7 +634,7 @@ namespace Pastel
 		template <typename Type, int N>
 		typename ArrayBase<Type, N>::ConstRowIterator 
 			ArrayBase<Type, N>::rowEnd(
-			const Point<integer, N>& position, 
+			const Vector<integer, N>& position, 
 			integer axis) const
 		{
 			return ((ArrayBase&)*this).rowEnd(
@@ -642,7 +642,7 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
-		const Type* ArrayBase<Type, N>::address(const Point<integer, N>& position) const
+		const Type* ArrayBase<Type, N>::address(const Vector<integer, N>& position) const
 		{
 			const Type* result = data_ + position[0];
 			for (integer i = 1;i < N;++i)
@@ -654,7 +654,7 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
-		Type* ArrayBase<Type, N>::address(const Point<integer, N>& position)
+		Type* ArrayBase<Type, N>::address(const Vector<integer, N>& position)
 		{
 			return (Type*)((const ArrayBase&)*this).address(position);
 		}

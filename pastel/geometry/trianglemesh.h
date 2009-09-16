@@ -16,9 +16,9 @@ namespace Pastel
 	class PASTELGEOMETRY TriangleMesh
 	{
 	public:
-		static PropertyId<integer, Point3> VertexPositionId;
+		static PropertyId<integer, Vector3> VertexPositionId;
 		static PropertyId<integer, Vector3> VertexNormalId;
-		static PropertyId<integer, Point2> VertexUvId;
+		static PropertyId<integer, Vector2> VertexUvId;
 		static PropertyId<integer, RgbaColor> VertexColorId;
 
 		static PropertyId<integer, Integer3> TriangleIndexId;
@@ -43,14 +43,14 @@ namespace Pastel
 		void addVertexColors();
 		void removeVertexColors();
 
-		MemoryView<Point3> vertexPositions();
-		ConstMemoryView<Point3> vertexPositions() const;
+		MemoryView<Vector3> vertexPositions();
+		ConstMemoryView<Vector3> vertexPositions() const;
 
 		MemoryView<Vector3> vertexNormals();
 		ConstMemoryView<Vector3> vertexNormals() const;
 
-		MemoryView<Point2> vertexUvs();
-		ConstMemoryView<Point2> vertexUvs() const;
+		MemoryView<Vector2> vertexUvs();
+		ConstMemoryView<Vector2> vertexUvs() const;
 
 		MemoryView<RgbaColor> vertexColors();
 		ConstMemoryView<RgbaColor> vertexColors() const;

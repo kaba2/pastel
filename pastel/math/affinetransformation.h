@@ -6,7 +6,6 @@
 
 #include "pastel/math/matrix.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 
 namespace Pastel
 {
@@ -194,18 +193,18 @@ namespace Pastel
 		AffineTransformation<Real, N>& right);
 
 	template <typename Real, int N>
-	Vector<Real, N> operator*(
+	Matrix<Real, PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1)> asMatrix(
+		const AffineTransformation<Real, N>& that);
+
+	template <typename Real, int N>
+	Vector<Real, N> transformVector(
 		const Vector<Real, N>& left,
 		const AffineTransformation<Real, N>& right);
 
 	template <typename Real, int N>
-	Point<Real, N> operator*(
-		const Point<Real, N>& left,
+	Vector<Real, N> transformPoint(
+		const Vector<Real, N>& left,
 		const AffineTransformation<Real, N>& right);
-
-	template <typename Real, int N>
-	Matrix<Real, PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1)> asMatrix(
-		const AffineTransformation<Real, N>& that);
 
 }
 

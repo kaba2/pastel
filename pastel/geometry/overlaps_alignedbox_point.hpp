@@ -2,11 +2,11 @@
 #define PASTEL_OVERLAPS_ALIGNEDBOX_POINT_HPP
 
 #include "pastel/geometry/overlaps_alignedbox_point.h"
+#include "pastel/geometry/overlaps_alignedbox_sphere.h"
+#include "pastel/geometry/alignedbox.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/sys/point.h"
-#include "pastel/geometry/overlaps_alignedbox_sphere.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -14,7 +14,7 @@ namespace Pastel
 	template <int N, typename Real>
 	bool overlaps(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point)
+		const Vector<Real, N>& point)
 	{
 		// This overlap test is broken into N 1-dimensional tests.
 		// Each test is just a simple number-in-a-range test

@@ -2,9 +2,7 @@
 #define PASTEL_MARCHINGTRIANGLES_H
 
 #include "pastel/sys/array.h"
-
 #include "pastel/sys/math_functions.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/gfx/gfxrenderer.h"
@@ -14,9 +12,9 @@ namespace Pastel
 
 	template <typename Real, typename Type>
 	void renderMarchingTriangle(
-		const Point3& aPosition, const Real& aValue,
-		const Point2& bPosition, const Real& bValue,
-		const Point2& cPosition, const Real& cValue,
+		const Vector3& aPosition, const Real& aValue,
+		const Vector2& bPosition, const Real& bValue,
+		const Vector2& cPosition, const Real& cValue,
 		GfxRenderer<Type>& renderer)
 	{
 		uint32 mask = 0;
@@ -34,9 +32,9 @@ namespace Pastel
 			break;
 		case 1:
 			{
-				const Point2 abPosition =
+				const Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 acPosition =
+				const Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -47,9 +45,9 @@ namespace Pastel
 			break;
 		case 2:
 			{
-				const Point2 bcPosition =
+				const Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
-				const Point2 acPosition =
+				const Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -60,9 +58,9 @@ namespace Pastel
 			break;
 		case 3:
 			{
-				const Point2 abPosition =
+				const Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 acPosition =
+				const Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 
 				renderer.drawTriangle(
@@ -79,9 +77,9 @@ namespace Pastel
 			break;
 		case 4:
 			{
-				const Point2 abPosition =
+				const Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 bcPosition =
+				const Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -92,9 +90,9 @@ namespace Pastel
 			break;
 		case 5:
 			{
-				const Point2 bcPosition =
+				const Vector2 bcPosition =
 					linear(bPosition, cPosition, bValue / (cValue - bValue);
-				const Point2 acPosition =
+				const Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -110,9 +108,9 @@ namespace Pastel
 			break;
 		case 6:
 			{
-				const Point2 abPosition =
+				const Vector2 abPosition =
 					linear(aPosition, bPosition, aValue / (bValue - aValue);
-				const Point2 acPosition =
+				const Vector2 acPosition =
 					linear(aPosition, cPosition, aValue / (cValue - aValue);
 				renderer.drawTriangle(
 					Triangle2(
@@ -154,7 +152,7 @@ namespace Pastel
 		const Vector2 upOffset(0, positionDelta.y());
 		const Vector2& rightUpOffset = positionDelta;
 
-		Point2 position = window.min();
+		Vector2 position = window.min();
 
 		for (integer y = 0; y < height - 1;++y)
 		{

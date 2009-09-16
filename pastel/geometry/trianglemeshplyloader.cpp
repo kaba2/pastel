@@ -13,7 +13,7 @@ namespace Pastel
 		{
 		public:
 			PlyVertexCallback(
-				const MemoryView<Point3>& positions,
+				const MemoryView<Vector3>& positions,
 				integer index)
 				: positions_(positions)
 				, index_(index)
@@ -32,7 +32,7 @@ namespace Pastel
 			}
 
 		private:
-			MemoryView<Point3> positions_;
+			MemoryView<Vector3> positions_;
 			const integer index_;
 		};
 
@@ -81,8 +81,8 @@ namespace Pastel
 		mesh.reserveVertices(
 			element.count());
 
-		MemoryView<Point3> positions;
-		success = mesh.vertexProperty<Point3>(
+		MemoryView<Vector3> positions;
+		success = mesh.vertexProperty<Vector3>(
 			TriangleMesh::VertexPositionId, positions);
 		ENSURE(success);
 

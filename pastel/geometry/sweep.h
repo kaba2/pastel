@@ -5,7 +5,7 @@
 #define PASTEL_SWEEP_H
 
 #include "pastel/geometry/segment.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -25,9 +25,9 @@ namespace Pastel
 
 	template <typename Real>
 	void orientedSweep(
-		const std::vector<Point<Real, 2> >& pen,
+		const std::vector<Vector<Real, 2> >& pen,
 		const Segment<Real, 2>& segment,
-		std::vector<Point<Real, 2> >& result);
+		std::vector<Vector<Real, 2> >& result);
 
 	//! Sweeps a given shape along a line segment.
 	/*!
@@ -40,9 +40,9 @@ namespace Pastel
 
 	template <typename Real>
 	void sweep(
-		const std::vector<Point<Real, 2> >& pen,
+		const std::vector<Vector<Real, 2> >& pen,
 		const Segment<Real, 2>& segment,
-		std::vector<Point<Real, 2> >& result);
+		std::vector<Vector<Real, 2> >& result);
 
 }
 

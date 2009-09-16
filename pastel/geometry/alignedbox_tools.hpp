@@ -11,14 +11,14 @@ namespace Pastel
 		const AlignedBox<Real, 3>& left,
 		const AffineTransformation<Real, 3>& right)
 	{
-		Point<Real, 3> aPoint(left.min());
-		Point<Real, 3> bPoint(left.max());
-		Point<Real, 3> cPoint(aPoint[0], aPoint[1], bPoint[2]);
-		Point<Real, 3> dPoint(aPoint[0], bPoint[1], aPoint[2]);
-		Point<Real, 3> ePoint(aPoint[0], bPoint[1], bPoint[2]);
-		Point<Real, 3> fPoint(bPoint[0], aPoint[1], aPoint[2]);
-		Point<Real, 3> gPoint(bPoint[0], aPoint[1], bPoint[2]);
-		Point<Real, 3> hPoint(bPoint[0], bPoint[1], aPoint[2]);
+		Vector<Real, 3> aPoint(left.min());
+		Vector<Real, 3> bPoint(left.max());
+		Vector<Real, 3> cPoint(aPoint[0], aPoint[1], bPoint[2]);
+		Vector<Real, 3> dPoint(aPoint[0], bPoint[1], aPoint[2]);
+		Vector<Real, 3> ePoint(aPoint[0], bPoint[1], bPoint[2]);
+		Vector<Real, 3> fPoint(bPoint[0], aPoint[1], aPoint[2]);
+		Vector<Real, 3> gPoint(bPoint[0], aPoint[1], bPoint[2]);
+		Vector<Real, 3> hPoint(bPoint[0], bPoint[1], aPoint[2]);
 
 		aPoint = aPoint * right;
 		bPoint = bPoint * right;
@@ -41,10 +41,10 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Point<Real, N> discreteToContinuous(
+	Vector<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const Point<integer, N>& discretePoint)
+		const Vector<integer, N>& discretePoint)
 	{
 		return continuousRange.min() +
 			(Vector<Real, N>(discretePoint - discreteRange.min()) /
@@ -64,10 +64,10 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Point<integer, N> continuousToDiscrete(
+	Vector<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
 		const Rectangle<N>& discreteRange,
-		const Point<Real, N>& continuousPoint)
+		const Vector<Real, N>& continuousPoint)
 	{
 		return
 			discreteRange.min() +

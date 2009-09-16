@@ -1,6 +1,6 @@
 #include "pastelmathtest.h"
 
-#include "pastel/math/uniform_sampling.h"
+#include "pastel/math/uniform_distortion.h"
 
 #include "pastel/geometry/poissondiskpattern.h"
 
@@ -24,7 +24,7 @@ namespace
 		const integer samples = sample.size();
 		for (integer i = 0;i < samples;++i)
 		{
-			drawPixel(Point<integer, 2>(x + sample[i].x() * 100,
+			drawPixel(Vector<integer, 2>(x + sample[i].x() * 100,
 				y + sample[i].y() * 100),
 				color, arrayView(image));
 		}
@@ -218,7 +218,7 @@ namespace
 			draw(pointList, 300, 450, myRandoColor(), image);
 		}
 
-		savePcx(image, "uniform_sampling.pcx");
+		savePcx(image, "uniform_distortion.pcx");
 	}
 
 	class PushBack
@@ -230,9 +230,9 @@ namespace
 		{
 		}
 
-		void operator()(const Point2& that) const
+		void operator()(const Vector2& that) const
 		{
-			data_.push_back(asVector(that));
+			data_.push_back(that);
 		}
 
 		std::vector<Vector2>& data_;

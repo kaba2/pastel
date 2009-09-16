@@ -19,7 +19,7 @@ namespace Pastel
 	array of elements and directly models the
 	mathematical concept of a tuple (a finite ordered set).
 	A tuple	has no associated arithmetic operators,
-	see Vector and Point for such tuples.
+	see Vector and Vector for such tuples.
 	*/
 
 	template <typename Type, int N>

@@ -4,7 +4,7 @@
 #define PASTEL_IMAGEPDF_H
 
 #include "pastel/sys/view.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -21,7 +21,7 @@ namespace Pastel
 		explicit ImagePdf(
 			const ConstView<N, Real, Image_ConstView>& image);
 
-		Point<integer, N> operator()() const;
+		Vector<integer, N> operator()() const;
 
 	private:
 		class CdfElement
@@ -29,7 +29,7 @@ namespace Pastel
 		public:
 			CdfElement(
 				const Real& cdf,
-				const Point<integer, N>& position)
+				const Vector<integer, N>& position)
 				: cdf_(cdf)
 				, position_(position)
 			{
@@ -45,14 +45,14 @@ namespace Pastel
 				return cdf_;
 			}
 
-			const Point<integer, N>& position() const
+			const Vector<integer, N>& position() const
 			{
 				return position_;
 			}
 
 		private:
 			Real cdf_;
-			Point<integer, N> position_;
+			Vector<integer, N> position_;
 		};
 
 		class CdfFunctor
@@ -66,7 +66,7 @@ namespace Pastel
 			{
 			}
 
-			void operator()(const Point<integer, N>& position,
+			void operator()(const Vector<integer, N>& position,
 				Real imageValue) const
 			{
 				if (imageValue > 0)

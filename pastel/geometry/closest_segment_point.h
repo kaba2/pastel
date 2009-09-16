@@ -4,7 +4,8 @@
 #define PASTEL_CLOSEST_SEGMENT_POINT_H
 
 #include "pastel/geometry/segment.h"
-#include "pastel/sys/point.h"
+
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -18,7 +19,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real closest(
 		const Segment<Real, N>& segment,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

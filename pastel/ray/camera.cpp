@@ -34,14 +34,14 @@ namespace Pastel
 		objectToWorld_.swap(that.objectToWorld_);
 	}
 
-	void Camera::setPosition(const Point3& position)
+	void Camera::setPosition(const Vector3& position)
 	{
-		objectToWorld_.setTranslation(asVector(position));
+		objectToWorld_.setTranslation(position);
 	}
 
-	Point3 Camera::position() const
+	Vector3 Camera::position() const
 	{
-		return Point3(
+		return Vector3(
 			objectToWorld_.translation());
 	}
 
@@ -50,7 +50,7 @@ namespace Pastel
 		lens_ = lens;
 	}
 
-	Line3 Camera::getLine(const Point2& uv) const
+	Line3 Camera::getLine(const Vector2& uv) const
 	{
 		ENSURE(!lens_.empty());
 
@@ -61,8 +61,8 @@ namespace Pastel
 			objectToWorld_.affineTransform();
 
 		const Line3 cameraLine(
-			objectLine.position() * toWorld,
-			objectLine.direction() * toWorld);
+			transformPoint(objectLine.position(), toWorld),
+			transformPoint(objectLine.direction(), toWorld));
 
 		return Line3(cameraLine.position(),
 			cameraLine.direction() / norm(cameraLine.direction()));

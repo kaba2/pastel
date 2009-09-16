@@ -39,10 +39,10 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			ConstCursor result = cursor_;
-			result.move(asVector(position));
+			result.move(position);
 
 			return result;
 		}
@@ -93,10 +93,10 @@ namespace Pastel
 		}
 
 		Cursor cursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			Cursor result = cursor_;
-			result.move(asVector(position));
+			result.move(position);
 			return result;
 		}
 	};

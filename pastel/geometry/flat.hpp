@@ -19,13 +19,13 @@ namespace Pastel
 
 	template <typename Real, int N, int M>
 	void Flat<Real, N, M>::setPosition(
-		const Point<Real, N>& position)
+		const Vector<Real, N>& position)
 	{
 		position_ = position;
 	}
 
 	template <typename Real, int N, int M>
-	const Point<Real, N>& Flat<Real, N, M>::position() const
+	const Vector<Real, N>& Flat<Real, N, M>::position() const
 	{
 		return position_;
 	}

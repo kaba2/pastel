@@ -1,6 +1,5 @@
 #include "pastel/ray/perspectivelens.h"
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/point_tools.h"
 #include "pastel/sys/callfunction.h"
 
 namespace Pastel
@@ -25,27 +24,27 @@ namespace Pastel
 	}
 
 	Line3 PerspectiveLens::getLine(
-		const Point2& imagePosition) const
+		const Vector2& imagePosition) const
 	{
-		const Point3 rayTarget(
+		const Vector3 rayTarget(
 			(imagePosition.x() - 0.5) * halfWidth_,
 			(imagePosition.y() - 0.5) * halfHeight_,
 			0);
 
 		/*
-		const Point2 lensCoordinates(
+		const Vector2 lensCoordinates(
 		random<real>(), random<real>());
 		const Vector2 lensPosition(
-		asVector(sampleDisk(lensCoordinates)));
+		sampleDisk(lensCoordinates));
 
-		const Point3 raySource(
+		const Vector3 raySource(
 		lensPosition.x() * lensRadius_,
 		lensPosition.y() * lensRadius_,
 
 		);
 		*/
 
-		const Point3 raySource(centerOfProjection_);
+		const Vector3 raySource(centerOfProjection_);
 
 		const Vector3 rayDirection(
 			rayTarget - centerOfProjection_);
@@ -55,12 +54,12 @@ namespace Pastel
 	}
 
 	void PerspectiveLens::setCenterOfProjection(
-		const Point3& centerOfProjection)
+		const Vector3& centerOfProjection)
 	{
 		centerOfProjection_ = centerOfProjection;
 	}
 
-	const Point3& PerspectiveLens::centerOfProjection() const
+	const Vector3& PerspectiveLens::centerOfProjection() const
 	{
 		return centerOfProjection_;
 	}

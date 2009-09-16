@@ -17,9 +17,9 @@ namespace Pastel
 		if (Pastel::intersect(ray, sphere_, hitList))
 		{
 			localGeometry.position_ = ray.at(hitList[0]);
-			localGeometry.normal_ = asVector(localGeometry.position_);
+			localGeometry.normal_ = localGeometry.position_;
 			localGeometry.dpDu_ =
-				extend(cross(shrink(asVector(localGeometry.position_))), 0);
+				extend(cross(shrink(localGeometry.position_)), 0);
 			localGeometry.dpDv_ =
 				cross(localGeometry.normal_, localGeometry.dpDu_);
 

@@ -14,7 +14,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Filter, typename Output_View>
 	void reconstructFilter(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const Filter& filter,

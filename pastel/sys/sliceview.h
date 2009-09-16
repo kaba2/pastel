@@ -40,10 +40,10 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			const Point<integer, PASTEL_ADD_N(N, -1)>& position) const
+			const Vector<integer, PASTEL_ADD_N(N, -1)>& position) const
 		{
-			const Point<integer, N> actualPosition(
-				extend(asVector(position), pivot_, fixedIndex_));
+			const Vector<integer, N> actualPosition(
+				extend(position, pivot_, fixedIndex_));
 
 			return ConstCursor(view_.constCursor(
 				actualPosition), fixedIndex_);
@@ -101,10 +101,10 @@ namespace Pastel
 			ENSURE2(pivot >= 0 && pivot < view.extent()[fixedIndex], pivot, view.extent()[fixedIndex]);
 		}
 
-		Cursor cursor(const Point<integer, PASTEL_ADD_N(N, -1)>& position) const
+		Cursor cursor(const Vector<integer, PASTEL_ADD_N(N, -1)>& position) const
 		{
-			const Point<integer, N> actualPosition(
-				extend(asVector(position), pivot_, fixedIndex_));
+			const Vector<integer, N> actualPosition(
+				extend(position, pivot_, fixedIndex_));
 
 			return Cursor(view_.cursor(actualPosition), fixedIndex_);
 		}

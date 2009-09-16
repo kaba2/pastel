@@ -4,7 +4,7 @@
 #define PASTEL_DIAMETER_H
 
 #include "pastel/sys/tuple.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include "pastel/geometry/box.h"
 #include "pastel/geometry/alignedbox.h"
@@ -22,7 +22,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real convexPolygonDiameter2(
-		const std::vector<Point<Real, 2> >& pointSet);
+		const std::vector<Vector<Real, 2> >& pointSet);
 
 	//! Returns the maximum squared distance over all point pairs.
 	/*!
@@ -31,7 +31,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real diameter2(
-		const std::vector<Point<Real, 2> >& pointSet);
+		const std::vector<Vector<Real, 2> >& pointSet);
 
 	//! Returns the squared diameter of an aligned box.
 

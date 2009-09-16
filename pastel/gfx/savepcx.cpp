@@ -137,7 +137,7 @@ namespace Pastel
 				for (i = 0;i < 8 && xPos + i < width;++i)
 				{
 					data <<= 1;
-					if (image(Point2i(xPos + i, yPos)))
+					if (image(Vector2i(xPos + i, yPos)))
 					{
 						data += 1;
 					}
@@ -235,7 +235,7 @@ namespace Pastel
 		{
 			for (integer xPos = 0;xPos < width;++xPos)
 			{
-				scanline[xPos] = image(Point2i(xPos, yPos));
+				scanline[xPos] = image(Vector2i(xPos, yPos));
 			}
 
 			saveScanline(file, scanline, bytesPerScanline);
@@ -337,7 +337,7 @@ namespace Pastel
 		{
 			for (integer xPos = 0;xPos < width;++xPos)
 			{
-				const Color color = image(Point2i(xPos, yPos));
+				const Color color = image(Vector2i(xPos, yPos));
 
 				scanline[xPos] =
 					quantizeUnsigned(color[0], 256);

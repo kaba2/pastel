@@ -1,4 +1,4 @@
-// Description: Point-pattern matching between point-sets
+// Description: Vector-pattern matching between point-sets
 
 #ifndef PASTEL_POINT_PATTERN_MATCHING_H
 #define PASTEL_POINT_PATTERN_MATCHING_H

@@ -2,13 +2,11 @@
 #define PASTEL_INTERSECT_PLANE_SPHERE_HPP
 
 #include "pastel/geometry/intersect_plane_sphere.h"
-
-#include "pastel/sys/point.h"
-#include "pastel/sys/vector.h"
-#include "pastel/geometry/line.h"
-
 #include "pastel/geometry/intersect_line_plane.h"
 #include "pastel/geometry/overlaps_plane_sphere.h"
+#include "pastel/geometry/line.h"
+
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {

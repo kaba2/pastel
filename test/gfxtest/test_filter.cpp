@@ -32,11 +32,11 @@ namespace
 		const integer width = image.width();
 		const integer height = image.height();
 
-		Point2 previous;
+		Vector2 previous;
 		for (integer i = 0;i < width;++i)
 		{
 			const real t = (((real)i / (width - 1)) - 0.5) * 2 * maxFilterRadius;
-			const Point2 current(i, ((filter->evaluate(t) / filter->evaluate(0) + 1) / 2) * (height * 0.75));
+			const Vector2 current(i, ((filter->evaluate(t) / filter->evaluate(0) + 1) / 2) * (height * 0.75));
 
 			if (i != 0)
 			{
@@ -67,7 +67,7 @@ namespace
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				const Point2 uv(
+				const Vector2 uv(
 					dequantizeUnsigned(x, width), 
 					dequantizeUnsigned(y, height));
 				
@@ -125,10 +125,10 @@ namespace
 		const integer width = image.width();
 		const integer height = image.height();
 
-		Point2 previous;
+		Vector2 previous;
 		for (integer i = 0;i < width;++i)
 		{
-			const Point2 current(i, height * (0.5 * resampledSignal(i) + 0.5));
+			const Vector2 current(i, height * (0.5 * resampledSignal(i) + 0.5));
 			if (i > 0)
 			{
 				drawSegment(Segment2(previous, current), color, image);

@@ -186,7 +186,7 @@ namespace Pastel
 		const AlignedBox<Real, 2>& alignedBox,
 		const Box<Real, 2>& box,
 		Vector<Real, 2>& projection,
-		Point<Real, 2>& commonPoint)
+		Vector<Real, 2>& commonPoint)
 	{
 		// Using the separating axis theorem.
 
@@ -210,7 +210,7 @@ namespace Pastel
 		Matrix<Real, 2, 2> absRotation(box.rotation());
 		modify(absRotation, (real(*)(real))mabs);
 
-		Point<Real, 2> someCommonPoint;
+		Vector<Real, 2> someCommonPoint;
 
 		// Project to the aligned box's normals
 		// (the standard basis vectors).

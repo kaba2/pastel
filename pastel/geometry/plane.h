@@ -5,7 +5,6 @@
 #define PASTEL_PLANE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel
@@ -49,12 +48,12 @@ namespace Pastel
 		explicit Plane(integer dimension);
 
 		//! Constructs a plane given a position and a normal.
-		Plane(const Point<Real, N>& position,
+		Plane(const Vector<Real, N>& position,
 			const Vector<Real, N>& unitNormal);
 
 		//! Constructs a plane given a position and a normal.
 		Plane(integer dimension,
-			const Point<Real, N>& position,
+			const Vector<Real, N>& position,
 			const Vector<Real, N>& unitNormal);
 
 		//! Used for concept checking.
@@ -67,14 +66,14 @@ namespace Pastel
 		integer dimension() const;
 
 		//! Sets the position and normal of the plane.
-		void set(const Point<Real, N>& position,
+		void set(const Vector<Real, N>& position,
 			const Vector<Real, N>& unitNormal);
 
 		//! Sets the point which the plane must pass through.
-		void setPosition(const Point<Real, N>& position);
+		void setPosition(const Vector<Real, N>& position);
 
 		//! Returns the point that the plane must pass through.
-		const Point<Real, N>& position() const;
+		const Vector<Real, N>& position() const;
 
 		//! Sets the normal of the plane.
 		void setNormal(const Vector<Real, N>& unitNormal);
@@ -83,7 +82,7 @@ namespace Pastel
 		const Vector<Real, N>& normal() const;
 
 	private:
-		Point<Real, N> position_;
+		Vector<Real, N> position_;
 		Vector<Real, N> normal_;
 	};
 

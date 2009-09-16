@@ -30,14 +30,14 @@ namespace Pastel
 			}
 
 			DataPoint(
-				const Point<Real, N>& position,
+				const Vector<Real, N>& position,
 				const Data& data)
 				: position_(position)
 				, data_(data)
 			{
 			}
 
-			Point<Real, N> position_;
+			Vector<Real, N> position_;
 			Data data_;
 		};
 
@@ -75,7 +75,7 @@ namespace Pastel
 			typedef typename ObjectPolicy::Object Data;
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				typename Data::Data_& data) const
 			{
 				typedef PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
@@ -85,7 +85,7 @@ namespace Pastel
 
 				searchNearest(
 					kdtree_, 
-					Point<Real, N>(position) + 0.5, 
+					evaluate(Vector<Real, N>(position) + 0.5), 
 					DepthFirst_SearchAlgorithm_PointKdTree(),
 					Always_Accept_PointKdTree(),
 					infinity<Real>(), 
@@ -107,7 +107,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
@@ -137,7 +137,7 @@ namespace Pastel
 			if (overlaps(region, positionList[i]))
 			{
 				dataPointList.push_back(
-					DataPoint(asPoint((positionList[i] - region.min()) * scaling), dataList[i]));
+					DataPoint((positionList[i] - region.min()) * scaling, dataList[i]));
 			}
 		}
 
@@ -154,7 +154,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
@@ -167,7 +167,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view)

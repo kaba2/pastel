@@ -1,4 +1,4 @@
-Why are there no Point and Normal classes?
+Why are there no Vector and Normal classes?
 ==========================================
 
 [Parent]: math.txt
@@ -22,14 +22,14 @@ two ways of approaching their implementation. These are:
  points and normals. The advantage of this approach is
  simplicity.
  
- * Implement a Vector, a Point, and a Normal class. 
+ * Implement a Vector, a Vector, and a Normal class. 
  The advantage of this approach is that the compiler
  can check for legal expressions as well as that it is possible
  to overload based on these types. For example, the AffineTransformation 
  class can overload the  multiplication operator differently for points, 
  vectors, and normals, because they transform differently.
  
-Problems with the Vector, Point, and Normal approach
+Problems with the Vector, Vector, and Normal approach
 ----------------------------------------------------
 
 Creating separate types for vectors, points, and normals
@@ -51,11 +51,11 @@ of them:
 
 In addition consider these problems:
 
- * If you have a function to compute a mean of a Point set,
+ * If you have a function to compute a mean of a Vector set,
  it does not work to compute a mean of a Vector set.
  
- * Sometimes you want to interpret a Point as a Vector.
- Sometimes you want to interpret a Vector as a Point.
+ * Sometimes you want to interpret a Vector as a Vector.
+ Sometimes you want to interpret a Vector as a Vector.
  One of these conversions needs to construct an object
  of another type, leading to linear complexity.
 

@@ -4,7 +4,6 @@
 #include "pastel/geometry/distance_line_line.h"
 #include "pastel/geometry/closest_line_line.h"
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
@@ -17,9 +16,9 @@ namespace Pastel
 	{
 		const Tuple<Real, 2> uv(closest(aLine, bLine));
 
-		const Point<Real, N> aPoint(
+		const Vector<Real, N> aPoint(
 			aLine.position() + aLine.direction() * uv[0]);
-		const Point<Real, N> bPoint(
+		const Vector<Real, N> bPoint(
 			bLine.position() + bLine.direction() * uv[1]);
 
 		const Vector<Real, N> delta(bPoint - aPoint);

@@ -3,8 +3,8 @@
 
 #include "pastel/geometry/bounding_alignedbox.h"
 
-#include "pastel/sys/point.h"
-#include "pastel/sys/point_tools.h"
+#include "pastel/sys/vector.h"
+#include "pastel/sys/vector_tools.h"
 
 #include "pastel/sys/constants.h"
 
@@ -107,9 +107,9 @@ namespace Pastel
 		const AlignedBox<Real, N>& box)
 	{
 		const Real maxRadius = max(box.extent()) * 0.5;
-		const Point<Real, N> center = linear(box.min(), box.max(), 0.5);
-		Point<Real, N> minPoint = center - maxRadius;
-		Point<Real, N> maxPoint = center + maxRadius;
+		const Vector<Real, N> center = linear(box.min(), box.max(), 0.5);
+		Vector<Real, N> minPoint = center - maxRadius;
+		Vector<Real, N> maxPoint = center + maxRadius;
 
 		return AlignedBox<Real, N>(
 			min(minPoint, box.min()),
@@ -131,14 +131,14 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool extendToCover(
-		const Point<Real, N>& pointToCover,
+		const Vector<Real, N>& pointToCover,
 		AlignedBox<Real, N>& boxToExtend)
 	{
 		const integer dimension = pointToCover.size();
 		PENSURE_OP(dimension, ==, boxToExtend.dimension());
 
-		Point<Real, N>& min = boxToExtend.min();
-		Point<Real, N>& max = boxToExtend.max();
+		Vector<Real, N>& min = boxToExtend.min();
+		Vector<Real, N>& max = boxToExtend.max();
 
 		bool neededToExtend = false;
 

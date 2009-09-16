@@ -6,7 +6,7 @@
 #define PASTEL_SEARCH_ALL_NEIGHBORS_1D_H
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -57,7 +57,7 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection,
 	typename ConstIndexIterator>
 	void searchAllNeighbors1d(
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		const ConstIndexIterator& indexSetBegin,
 		const ConstIndexIterator& indexSetEnd,
 		integer kNearest,

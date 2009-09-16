@@ -1,4 +1,4 @@
-Point-set properties
+Vector-set properties
 ====================
 
 [Parent]: pastelgeometry.txt

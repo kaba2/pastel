@@ -29,12 +29,12 @@ namespace Pastel
 			return array_->extent();
 		}
 
-		const Element& operator()(const Point<integer, N>& position) const
+		const Element& operator()(const Vector<integer, N>& position) const
 		{
 			return (*array_)(position);
 		}
 
-		ConstCursor constCursor(const Point<integer, N>& position) const
+		ConstCursor constCursor(const Vector<integer, N>& position) const
 		{
 			return const_cast<Contained_Array*>(array_)->constCursor(position);
 		}
@@ -67,12 +67,12 @@ namespace Pastel
 		{
 		}
 
-		Element& operator()(const Point<integer, N>& position) const
+		Element& operator()(const Vector<integer, N>& position) const
 		{
 			return (*array_)(position);
 		}
 
-		Cursor cursor(const Point<integer, N>& position) const
+		Cursor cursor(const Vector<integer, N>& position) const
 		{
 			return const_cast<Contained_Array*>(array_)->cursor(position);
 		}

@@ -7,34 +7,34 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Point<Real, N> mean(
-		const std::vector<Point<Real, N> >& pointSet)
+	Vector<Real, N> mean(
+		const std::vector<Vector<Real, N> >& pointSet)
 	{
 		const integer points = pointSet.size();
 
 		if (points == 0)
 		{
-			Point<Real, N> result(ofDimension(0));
+			Vector<Real, N> result(ofDimension(0));
 			return result;
 		}
 
 		const integer dimension = pointSet.front().dimension();
 
-		Point<Real, N> result(ofDimension(dimension), 0);
+		Vector<Real, N> result(ofDimension(dimension), 0);
 		for (integer i = 0;i < points;++i)
 		{
-			result += asVector(pointSet[i]);
+			result += pointSet[i];
 		}
 
-		asVector(result) /= points;
+		result /= points;
 		
 		return result;
 	}
 
 	template <int N, typename Real>
 	Vector<Real, N> axisAlignedVariance(
-		const std::vector<Point<Real, N> >& pointSet,
-		const Point<Real, N>& mean)
+		const std::vector<Vector<Real, N> >& pointSet,
+		const Vector<Real, N>& mean)
 	{
 		const integer points = pointSet.size();
 		const integer dimension = pointSet.front().dimension();

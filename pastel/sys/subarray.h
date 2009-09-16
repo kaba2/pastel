@@ -4,11 +4,10 @@
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/memory_overlaps.h"
 #include "pastel/sys/range.h"
-#include "pastel/sys/point_tools.h"
+#include "pastel/sys/vector_tools.h"
+#include "pastel/sys/subarray_iterator.h"
 
 #include "pastel/math/integer_tools.h"
-
-#include "pastel/sys/subarray_iterator.h"
 
 namespace Pastel
 {
@@ -165,21 +164,21 @@ namespace Pastel
 
 		// Data access
 
-		Type& operator()(const Point<integer, N>& position) const
+		Type& operator()(const Vector<integer, N>& position) const
 		{
 			PENSURE(allGreaterEqual(position, 0));
-			PENSURE(allLess(asVector(position), extent_));
+			PENSURE(allLess(position, extent_));
 
 			return *address(position);
 		}
 
 		SubArray<N, Type> operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max) const
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max) const
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
 			const SubArray<N, Type> result(
@@ -191,13 +190,13 @@ namespace Pastel
 		}
 
 		SubArray<N, Type> operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max,
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
@@ -239,7 +238,7 @@ namespace Pastel
 		{
 			return Iterator(
 				this,
-				Point<integer, N>(ofDimension(extent_.dimension()), 0));
+				Vector<integer, N>(ofDimension(extent_.dimension()), 0));
 		}
 
 		Iterator end() const
@@ -247,28 +246,28 @@ namespace Pastel
 			const integer n = extent_.dimension();
 			return Iterator(
 				this,
-				Point<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
+				Vector<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
 		}
 
 		// Row iterators
 
 		RowIterator rowBegin(integer index, 
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return RowIterator(address(position), stride_[index]);
 		}
 
 		RowIterator rowEnd(integer index, 
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return RowIterator(address(position) + 
 				(extent_[index] - position[index]) * stride_[index], 
 				stride_[index]);
 		}
 
-		Type* address(const Point<integer, N>& position) const
+		Type* address(const Vector<integer, N>& position) const
 		{
-			return data_ + dot(asVector(position), stride_);
+			return data_ + dot(position, stride_);
 		}
 
 	private:
@@ -414,21 +413,21 @@ namespace Pastel
 
 		// Data access
 
-		const Type& operator()(const Point<integer, N>& position) const
+		const Type& operator()(const Vector<integer, N>& position) const
 		{
 			PENSURE(allGreaterEqual(position, 0));
-			PENSURE(allLess(asVector(position), extent_));
+			PENSURE(allLess(position, extent_));
 
 			return *address(position);
 		}
 
 		ConstSubArray<N, Type> operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max) const
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max) const
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
 			const ConstSubArray<N, Type> result(
@@ -440,13 +439,13 @@ namespace Pastel
 		}
 
 		ConstSubArray<N, Type> operator()(
-			const Point<integer, N>& min,
-			const Point<integer, N>& max,
+			const Vector<integer, N>& min,
+			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
 		{
-			PENSURE(allLess(asVector(min), extent_));
+			PENSURE(allLess(min, extent_));
 			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(asVector(max), extent_));
+			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
@@ -488,7 +487,7 @@ namespace Pastel
 		{
 			return ConstIterator(
 				this,
-				Point<integer, N>(ofDimension(extent_.dimension()), 0));
+				Vector<integer, N>(ofDimension(extent_.dimension()), 0));
 		}
 
 		ConstIterator end() const
@@ -496,28 +495,28 @@ namespace Pastel
 			const integer n = extent_.dimension();
 			return ConstIterator(
 				this,
-				Point<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
+				Vector<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
 		}
 
 		// Row iterators
 
 		ConstRowIterator rowBegin(integer index, 
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return ConstRowIterator(address(position), stride_[index]);
 		}
 
 		ConstRowIterator rowEnd(integer index, 
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return ConstRowIterator(address(position) + 
 				(extent_[index] - position[index]) * stride_[index], 
 				stride_[index]);
 		}
 
-		const Type* address(const Point<integer, N>& position) const
+		const Type* address(const Vector<integer, N>& position) const
 		{
-			return data_ + dot(asVector(position), stride_);
+			return data_ + dot(position, stride_);
 		}
 
 	private:

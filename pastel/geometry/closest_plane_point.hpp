@@ -13,7 +13,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real closest(
 		const Plane<Real, N>& plane,
-		const Point<Real, N>& point)
+		const Vector<Real, N>& point)
 	{
 		// Let
 		// N = a normal of the plane

@@ -380,7 +380,7 @@ Should you use the same data structure for points and arbitrary shapes?
 This is possible. However:
 
  * The shapes have to be abstracted by their bounding aligned boxes.
- Point based implementations then suffer abstraction penalty.
+ Vector based implementations then suffer abstraction penalty.
 
  * The splitting bounds and parent nodes are needed by nearest neighbor
  searching with points but are not needed in ray tracing.

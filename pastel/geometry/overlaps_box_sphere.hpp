@@ -32,13 +32,13 @@ namespace Pastel
 		// rotation.
 
 		const Sphere<Real, N> transformedSphere(
-			(sphere.position() - asVector(box.position())) *
+			(sphere.position() - box.position()) *
 			boxRotationInverse,
 			sphere.radius());
 
 		const AlignedBox<Real, N> transformedBox(
-			Point<Real, N>(-box.width()),
-			Point<Real, N>(box.width()));
+			Vector<Real, N>(-box.width()),
+			Vector<Real, N>(box.width()));
 
 		return overlaps(transformedBox,
 			transformedSphere);

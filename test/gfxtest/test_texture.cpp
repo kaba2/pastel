@@ -245,7 +245,7 @@ namespace
 
 		drawView(
 			constSubView(constArrayView(textureImage), Rectangle2(200, 200, 300, 300)),
-			Point2i(300, 400),
+			Vector2i(300, 400),
 			arrayView(image));
 
 		savePcx(image, "output/textures_texturebox.pcx");
@@ -286,8 +286,8 @@ namespace
 	}
 
 	void drawTestQuad(
-		const Tuple<Point2, 4>& quad,
-		const Tuple<Point2, 4>& textureQuad,
+		const Tuple<Vector2, 4>& quad,
+		const Tuple<Vector2, 4>& textureQuad,
 		const Texture<Color>& texture,
 		const std::string& testName,
 		const std::string& name)
@@ -388,17 +388,17 @@ namespace
 		const integer textures = textureList.size();
 
 		{
-			Tuple<Point2, 4> quad(
-				Point2(250, 0),
-				Point2(500, 150),
-				Point2(250, 175),
-				Point2(0, 150));
+			Tuple<Vector2, 4> quad(
+				Vector2(250, 0),
+				Vector2(500, 150),
+				Vector2(250, 175),
+				Vector2(0, 150));
 
-			Tuple<Point2, 4> textureQuad(
-				Point2(0, 0),
-				Point2(2, 0),
-				Point2(2, 2),
-				Point2(0, 2));
+			Tuple<Vector2, 4> textureQuad(
+				Vector2(0, 0),
+				Vector2(2, 0),
+				Vector2(2, 2),
+				Vector2(0, 2));
 
 			for (integer i = 0;i < textures;++i)
 			{
@@ -415,18 +415,18 @@ namespace
 		clear(Color(0), arrayView(image));
 
 		drawProjectiveQuad(
-			Tuple<Point2, 4>(
-			Point2(0, 0),
-			Point2(500, 0),
-			Point2(500, 500),
-			Point2(0, 500)),
+			Tuple<Vector2, 4>(
+			Vector2(0, 0),
+			Vector2(500, 0),
+			Vector2(500, 500),
+			Vector2(0, 500)),
 			distortTexture,
 			arrayView(image),
-			Tuple<Point2, 4>(
-			Point2(0.5, 0),
-			Point2(1, (real)150 / 500),
-			Point2(0.5, (real)175 / 500),
-			Point2(0, (real)150 / 500)));
+			Tuple<Vector2, 4>(
+			Vector2(0.5, 0),
+			Vector2(1, (real)150 / 500),
+			Vector2(0.5, (real)175 / 500),
+			Vector2(0, (real)150 / 500)));
 
 		savePcx(image, "output/texture_checker1_distorted2x.pcx");
 		*/
@@ -436,17 +436,17 @@ namespace
 
 		for (integer i = 0;i < textures;++i)
 		{
-			Tuple<Point2, 4> quad(
-				Point2(250, 0),
-				Point2(500, 150),
-				Point2(250, 175),
-				Point2(0, 150));
+			Tuple<Vector2, 4> quad(
+				Vector2(250, 0),
+				Vector2(500, 150),
+				Vector2(250, 175),
+				Vector2(0, 150));
 
-			Tuple<Point2, 4> textureQuad(
-				Point2(0, 0),
-				Point2(1, 0),
-				Point2(1, 1),
-				Point2(0, 1));
+			Tuple<Vector2, 4> textureQuad(
+				Vector2(0, 0),
+				Vector2(1, 0),
+				Vector2(1, 1),
+				Vector2(0, 1));
 
 			drawTestQuad(quad, textureQuad, *textureList[i].value(),
 				"lena1", textureList[i].key());
@@ -460,18 +460,18 @@ namespace
 			clear(Color(0), arrayView(image));
 
 			drawProjectiveQuad(
-				Tuple<Point2, 4>(
-				Point2(0, 0),
-				Point2(500, 0),
-				Point2(500, 500),
-				Point2(0, 500)),
+				Tuple<Vector2, 4>(
+				Vector2(0, 0),
+				Vector2(500, 0),
+				Vector2(500, 500),
+				Vector2(0, 500)),
 				distortTexture,
 				arrayView(image),
-				Tuple<Point2, 4>(
-				Point2(0.5, 0),
-				Point2(1, (real)150 / 500),
-				Point2(0.5, (real)175 / 500),
-				Point2(0, (real)150 / 500)));
+				Tuple<Vector2, 4>(
+				Vector2(0.5, 0),
+				Vector2(1, (real)150 / 500),
+				Vector2(0.5, (real)175 / 500),
+				Vector2(0, (real)150 / 500)));
 
 			savePcx(image, "output/texture_lena1_ewa_distorted2x.pcx");
 		*/
@@ -480,17 +480,17 @@ namespace
 		ripMap.swap(lenaRipMap);
 
 		{
-			Tuple<Point2, 4> quad(
-				Point2(0, 0),
-				Point2(500, 0),
-				Point2(255, 150),
-				Point2(245, 150));
+			Tuple<Vector2, 4> quad(
+				Vector2(0, 0),
+				Vector2(500, 0),
+				Vector2(255, 150),
+				Vector2(245, 150));
 
-			Tuple<Point2, 4> textureQuad(
-				Point2(0, 0),
-				Point2(20, 0),
-				Point2(20, 800),
-				Point2(0, 800));
+			Tuple<Vector2, 4> textureQuad(
+				Vector2(0, 0),
+				Vector2(20, 0),
+				Vector2(20, 800),
+				Vector2(0, 800));
 
 			for (integer i = 0;i < textures;++i)
 			{
@@ -503,17 +503,17 @@ namespace
 		{
 			clear(Color(0), arrayView(image));
 
-			Tuple<Point2, 4> quad(
-				Point2(0, 0),
-				Point2(500, 0),
-				Point2(300, 250),
-				Point2(200, 250));
+			Tuple<Vector2, 4> quad(
+				Vector2(0, 0),
+				Vector2(500, 0),
+				Vector2(300, 250),
+				Vector2(200, 250));
 
-			Tuple<Point2, 4> textureQuad(
-				Point2(0, 0),
-				Point2(10, 0),
-				Point2(10, 100),
-				Point2(0, 100));
+			Tuple<Vector2, 4> textureQuad(
+				Vector2(0, 0),
+				Vector2(10, 0),
+				Vector2(10, 100),
+				Vector2(0, 100));
 
 			clear(Color(0), arrayView(image));
 

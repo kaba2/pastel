@@ -3,7 +3,7 @@
 #ifndef PASTEL_CONVEXHULL_H
 #define PASTEL_CONVEXHULL_H
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -28,8 +28,8 @@ namespace Pastel
 
 	template <typename Real>
 	void convexHullGrahamsScan(
-		const std::vector<Point<Real, 2> >& pointSet,
-		std::vector<Point<Real, 2> >& hull);
+		const std::vector<Vector<Real, 2> >& pointSet,
+		std::vector<Vector<Real, 2> >& hull);
 
 }
 

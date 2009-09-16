@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/alignedbox.h"
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -15,14 +15,14 @@ namespace Pastel
 	template <int N, typename Real>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 	//! Calculates a bijective distance between an aligned box and a point.
 
 	template <int N, typename Real, typename NormBijection>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const NormBijection& normBijection);
 
 	//! Calculates farthest squared distance between an aligned box and a point.
@@ -30,14 +30,14 @@ namespace Pastel
 	template <int N, typename Real>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 	//! Calculates farthest bijective distance between an aligned box and a point.
 
 	template <int N, typename Real, typename NormBijection>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const NormBijection& normBijection);
 
 }

@@ -6,27 +6,32 @@ Linear algebra
 Theory
 ------
 
-Every finite n-dimensional vector space over the reals is isomorphic to R^n.
+_Linear algebra_ is the study of linear functions over vector spaces.
+Every finite n-dimensional vector space over the reals is isomorphic to ''RR^n''.
 Thus to solve problems in all such spaces, one only needs to develop
-computational tools to handle problems in R^n. 
+computational tools to handle problems in ''RR^n''. 
 For brevity, let us abbreviate a finite m-dimensional vector space over
 the real numbers simply as an m-vector space. For general n-vector spaces, 
-the problem is first mapped to R^n (by choosing a suitable basis), 
+the problem is first mapped to ''RR^n'' (by choosing a suitable basis), 
 solved there, and then mapped back to the original domain. 
 
-Of special interest are linear functions between an n-vector space V 
-and an m-vector space W. A linear function is simply a function from 
-V to W which preserves linear combinations of vectors.
-Choosing a basis in V can be used to fix an isomorphism between 
-vectors of V and vectors of R^n. Similarly between W and R^m.
+Of special interest are linear functions between an n-vector space ''V'' 
+and an m-vector space ''W''. A _linear function_ is simply a function from 
+''V'' to ''W'' which preserves linear combinations of vectors.
+Choosing a basis in ''V'' can be used to fix an isomorphism between 
+vectors of ''V'' and vectors of ''RR^n''. Similarly between ''W'' and ''RR^m''.
 However, having fixed both isomorphisms, we have come to fix
-an isomorphism between linear functions from V to W and
-R^(m x n) matrices.
+an isomorphism between linear functions from ''V'' to ''W'' and
+''RR^{m xx n}'' matrices.
 
-Matrix algebra is linear algebra in R^n (in our case). 
+_Matrix algebra_ is linear algebra in ''RR^n'' (in our case). 
 Because of the isomorphism results, it is a machinery sufficiently powerful 
-to answer questions in the theory of linear functions over 
-finite dimensional vector spaces. One can generalize to several directions. Notably:
+to answer questions in finite-dimensional linear algebra. 
+
+Generalization
+--------------
+
+One can generalize the described structure to several directions. Notably:
 
 1. One can allow general fields for underlying scalars.
 
@@ -36,12 +41,12 @@ This allows for more general underlying spaces such as the affine space
 
 3. One can allow subspaces of more than 1 dimensions to be used as primitive.
 This gives Grassmann algebra and even more importantly geometric algebra.
-The multivectors of geometric algebra are represented by 2^n components 
-if the underlying vector space is of dimension n.
+The multivectors of geometric algebra are represented by ''2^n'' components 
+if the underlying vector space is of dimension ''n''.
 
 4. One can consider linear functions between linear functions.
 This gives tensor algebra. Computationally, tensors are represented
-by n-dimensional arrays of values compared to the 2-dimensional
+by ''n''-dimensional arrays of values compared to the 2-dimensional
 representation of matrices. 
 
 Practice
@@ -59,10 +64,9 @@ applications.
 
 In contrast, affine and projective spaces are
 very important. Pastel recognizes affine spaces by supplying the
-user with separate point and vector classes, as well as a class that
-represents affine transformations. Points in projective 
+user with a class that encapsulates affine transformations. Points in projective 
 n-space can be embedded into a vector space with dimension n + 1 
-(the corresponding coordinate form is commonly known as homogeneous coordinates) 
+(the corresponding coordinates are commonly known as _homogeneous coordinates_) 
 and be handled with conventional linear algebra followed by a projection.
 Because affine n-space can be embedded into the projective n-space, 
 affine space can also be handled this way. However, affine 
@@ -78,6 +82,10 @@ The advantage of geometric algebra is that it is
 very intuitive for geometric problems and can
 express more analytical solutions that linear algebra
 (for example, 'give the intersection of two 2-dimensional
-planes in R^4'). Particularly interesting would be
-the geometric algebras of R^2 and R^3.
+planes in ''RR^4'''). Particularly interesting would be
+the geometric algebras of ''RR^2'' and ''RR^3''.
 
+See also
+--------
+
+[Link]: affinetransformation.txt

@@ -2,8 +2,8 @@
 #define PASTEL_SPHERE_HPP
 
 #include "pastel/geometry/sphere.h"
-#include "pastel/sys/point.h"
 
+#include "pastel/sys/vector.h"
 #include "pastel/sys/constants.h"
 
 namespace Pastel
@@ -28,7 +28,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Sphere<Real, N>::Sphere(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Real& radius)
 		: position_(position)
 		, radius_(radius)
@@ -40,7 +40,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Sphere<Real, N>::Sphere(
 		integer dimension,
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Real& radius)
 		: position_(position)
 		, radius_(radius)
@@ -74,7 +74,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Sphere<Real, N>::setPosition(
-		const Point<Real, N>& position)
+		const Vector<Real, N>& position)
 	{
 		PENSURE_OP(position_.dimension(), ==, position.dimension());
 
@@ -82,7 +82,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	const Point<Real, N>& Sphere<Real, N>::position() const
+	const Vector<Real, N>& Sphere<Real, N>::position() const
 	{
 		return position_;
 	}

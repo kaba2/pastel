@@ -107,11 +107,11 @@ namespace
 			{
 				for (;points < stepPoints;++points)
 				{
-					Point<integer, 2> position(0, 0);
+					Vector<integer, 2> position(0, 0);
 
 					for (integer level = images - 2;level >= 0;--level)
 					{
-						asVector(position) *= 2;
+						position *= 2;
 						const Array<real32, 2>& mipmap = mipMap(level);
 
 						const real32 sum1 = mipmap(position);
@@ -243,7 +243,7 @@ namespace
 			{
 				integer node = 1;
 				const integer nodes = probabilityTree.size();
-				Point<integer, 2> position(0, 0);
+				Vector<integer, 2> position(0, 0);
 				Vector<integer, 2> delta(width, height);
 
 				while(node < nodes)

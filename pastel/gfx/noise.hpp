@@ -141,7 +141,7 @@ namespace Pastel
 		public:
 			static Noise2<Real>& create();
 
-			Real operator()(const Point<Real, 2>& position) const;
+			Real operator()(const Vector<Real, 2>& position) const;
 
 		private:
 			Noise2();
@@ -207,7 +207,7 @@ namespace Pastel
 		}
 
 		template <typename Real>
-		Real Noise2<Real>::operator()(const Point<Real, 2>& pos) const
+		Real Noise2<Real>::operator()(const Vector<Real, 2>& pos) const
 		{
 			const Real x(pos[0]);
 			const Real y(pos[1]);
@@ -282,7 +282,7 @@ namespace Pastel
 		public:
 			static Noise3<Real>& create();
 
-			Real operator()(const Point<Real, 3>& pos) const;
+			Real operator()(const Vector<Real, 3>& pos) const;
 
 		private:
 			Real latticeValue(
@@ -364,7 +364,7 @@ namespace Pastel
 		}
 
 		template <typename Real>
-		Real Noise3<Real>::operator()(const Point<Real, 3>& pos) const
+		Real Noise3<Real>::operator()(const Vector<Real, 3>& pos) const
 		{
 			const Real x(pos[0]);
 			const Real y(pos[1]);
@@ -477,13 +477,13 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real noise(const Point<Real, 2>& position)
+	Real noise(const Vector<Real, 2>& position)
 	{
 		return Detail::noise2<Real>()(position);
 	}
 
 	template <typename Real>
-	Real noise(const Point<Real, 3>& position)
+	Real noise(const Vector<Real, 3>& position)
 	{
 		return Detail::noise3<Real>()(position);
 	}

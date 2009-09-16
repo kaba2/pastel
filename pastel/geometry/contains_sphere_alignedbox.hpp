@@ -11,7 +11,7 @@ namespace Pastel
 		const Sphere<Real, N>& outerSphere,
 		const AlignedBox<Real, N>& innerBox)
 	{
-		const Point<Real, N> boxCenter =
+		const Vector<Real, N> boxCenter =
 			linear(innerBox.min(), innerBox.max(), 0.5);
 
 		const Vector<Real, N> boxRadius =

@@ -4,7 +4,7 @@
 #ifndef PASTEL_SEGMENT_H
 #define PASTEL_SEGMENT_H
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -29,33 +29,33 @@ namespace Pastel
 		Segment();
 
 		//! Constructs a segment using the given points.
-		Segment(const Point<Real, N>& start,
-			const Point<Real, N>& end);
+		Segment(const Vector<Real, N>& start,
+			const Vector<Real, N>& end);
 
 		// Used for concept checking.
 		~Segment();
 
 		//! Sets the end points of the segment.
-		void set(const Point<Real, N>& start,
-			const Point<Real, N>& end);
+		void set(const Vector<Real, N>& start,
+			const Vector<Real, N>& end);
 
 		//! Returns the start point of the segment.
-		Point<Real, N>& start();
+		Vector<Real, N>& start();
 
 		//! Returns the start point of the segment.
-		const Point<Real, N>& start() const;
+		const Vector<Real, N>& start() const;
 
 		//! Returns the end point of the segment.
-		Point<Real, N>& end();
+		Vector<Real, N>& end();
 
 		//! Returns the end point of the segment.
-		const Point<Real, N>& end() const;
+		const Vector<Real, N>& end() const;
 
-		Point<Real, N> at(const Real& t) const;
+		Vector<Real, N> at(const Real& t) const;
 
 	private:
-		Point<Real, N> start_;
-		Point<Real, N> end_;
+		Vector<Real, N> start_;
+		Vector<Real, N> end_;
 	};
 
 	typedef Segment<real, 1> Segment1;

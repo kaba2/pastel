@@ -7,7 +7,7 @@ Theory
 ------
 
 Let ''P = {p_1, ..., p_m} sub RR^n'' be a finite point-set, and ''d : RR^n x RR^n -> RR'' a metric.
-Let ''q in RR^n''. Let ''<_q sub RR^n x RR^n'' be the (total) relation
+Let ''q in RR^n'' and ''<_q sub RR^n x RR^n'' be the (total) relation
 
 ''<_q = {(P_i, P_j) | d(P_i, q) < d(P_j, q) \or [d(P_i, q) = d(P_j, q) \and i < j]}''.
 

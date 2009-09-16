@@ -36,7 +36,7 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(position), adapter_);
 		}
@@ -97,7 +97,7 @@ namespace Pastel
 		{
 		}
 
-		Cursor cursor(const Point<integer, N>& position) const
+		Cursor cursor(const Vector<integer, N>& position) const
 		{
 			return Cursor(view_.cursor(position), adapter_);
 		}

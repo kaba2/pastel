@@ -3,10 +3,10 @@ Logging
 
 [Parent]: pastelsys.txt
 
-Motivation
-----------
+Practice
+--------
 
-Logging is about reporting essential state of the program at runtime.
+_Logging_ is about reporting essential state of the program at runtime.
 It is important when trying to solve problems that are external to
 the program. Prime examples are when a file can not be found or can't
 be opened for some reason. Examining logs can reveal such problems.

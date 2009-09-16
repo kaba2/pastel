@@ -241,6 +241,10 @@
 		<Filter
 			Name="Transformations"
 			>
+			<File
+				RelativePath=".\transformations.txt"
+				>
+			</File>
 			<Filter
 				Name="Affine transformation"
 				>
@@ -276,6 +280,10 @@
 					RelativePath=".\quaternion.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\quaternion.txt"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Transformation"
@@ -286,6 +294,10 @@
 				</File>
 				<File
 					RelativePath=".\transformation.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\transformation.txt"
 					>
 				</File>
 			</Filter>
@@ -319,18 +331,18 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Uniform sampling"
+			Name="Uniform distortion"
 			>
 			<File
-				RelativePath=".\uniform_sampling.h"
+				RelativePath=".\uniform_distortion.h"
 				>
 			</File>
 			<File
-				RelativePath=".\uniform_sampling.hpp"
+				RelativePath=".\uniform_distortion.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\uniform_sampling.txt"
+				RelativePath=".\uniform_distortion.txt"
 				>
 			</File>
 		</Filter>

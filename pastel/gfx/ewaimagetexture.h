@@ -101,7 +101,7 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Point2& p,
+			const Vector2& p,
 			const Vector2& dpDx,
 			const Vector2& dpDy) const;
 
@@ -122,7 +122,7 @@ namespace Pastel
 
 	private:
 		Type sampleEwa(
-			const Point2& uv,
+			const Vector2& uv,
 			const Matrix2& quadraticForm,
 			const AlignedBox2& bound,
 			real scaling,

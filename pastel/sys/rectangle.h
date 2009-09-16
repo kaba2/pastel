@@ -6,7 +6,6 @@
 #define PASTEL_RECTANGLE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/sys/rectanglebase.h"
@@ -26,13 +25,13 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<integer, N>& that)
+		explicit Rectangle(const Vector<integer, N>& that)
 			: Base(that)
 		{
 		}
 
-		Rectangle(const Point<integer, N>& min,
-			const Point<integer, N>& max)
+		Rectangle(const Vector<integer, N>& min,
+			const Vector<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -56,19 +55,19 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<integer, N>& that)
+		explicit Rectangle(const Vector<integer, N>& that)
 			: Base(that)
 		{
 		}
 
 		Rectangle(integer xMin, integer xMax)
-			: Base(Point<integer, N>(xMin),
-			Point<integer, N>(xMax))
+			: Base(Vector<integer, N>(xMin),
+			Vector<integer, N>(xMax))
 		{
 		}
 
-		Rectangle(const Point<integer, N>& min,
-			const Point<integer, N>& max)
+		Rectangle(const Vector<integer, N>& min,
+			const Vector<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -79,7 +78,7 @@ namespace Pastel
 
 		void set(integer xMin, integer xMax)
 		{
-			set(Point1i(xMin), Point1i(xMax));
+			set(Vector1i(xMin), Vector1i(xMax));
 		}
 
 		integer& xMin()
@@ -126,19 +125,19 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<integer, N>& that)
+		explicit Rectangle(const Vector<integer, N>& that)
 			: Base(that)
 		{
 		}
 
 		Rectangle(integer xMin, integer yMin, integer xMax, integer yMax)
-			: Base(Point<integer, N>(xMin, yMin),
-			Point<integer, N>(xMax, yMax))
+			: Base(Vector<integer, N>(xMin, yMin),
+			Vector<integer, N>(xMax, yMax))
 		{
 		}
 
-		Rectangle(const Point<integer, N>& min,
-			const Point<integer, N>& max)
+		Rectangle(const Vector<integer, N>& min,
+			const Vector<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -150,8 +149,8 @@ namespace Pastel
 		void set(integer xMin, integer yMin,
 			integer xMax, integer yMax)
 		{
-			set(Point2i(xMin, yMin),
-				Point2i(xMax, yMax));
+			set(Vector2i(xMin, yMin),
+				Vector2i(xMax, yMax));
 		}
 
 		integer& xMin()
@@ -223,20 +222,20 @@ namespace Pastel
 		{
 		}
 
-		explicit Rectangle(const Point<integer, N>& that)
+		explicit Rectangle(const Vector<integer, N>& that)
 			: Base(that)
 		{
 		}
 
 		Rectangle(integer xMin, integer yMin, integer zMin,
 			integer xMax, integer yMax, integer zMax)
-			: Base(Point<integer, N>(xMin, yMin, zMin),
-			Point<integer, N>(xMax, yMax, zMax))
+			: Base(Vector<integer, N>(xMin, yMin, zMin),
+			Vector<integer, N>(xMax, yMax, zMax))
 		{
 		}
 
-		Rectangle(const Point<integer, N>& min,
-			const Point<integer, N>& max)
+		Rectangle(const Vector<integer, N>& min,
+			const Vector<integer, N>& max)
 			: Base(min, max)
 		{
 		}
@@ -248,8 +247,8 @@ namespace Pastel
 		void set(integer xMin, integer yMin, integer zMin,
 			integer xMax, integer yMax, integer zMax)
 		{
-			set(Point3i(xMin, yMin, zMin),
-				Point3i(xMax, yMax, zMax));
+			set(Vector3i(xMin, yMin, zMin),
+				Vector3i(xMax, yMax, zMax));
 		}
 
 		integer& xMin()

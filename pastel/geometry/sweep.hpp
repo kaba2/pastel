@@ -11,16 +11,16 @@ namespace Pastel
 
 	template <typename Real>
 	void orientedSweep(
-		const std::vector<Point<Real, 2> >& pen,
+		const std::vector<Vector<Real, 2> >& pen,
 		const Segment<Real, 2>& segment,
-		std::vector<Point<Real, 2> >& result)
+		std::vector<Vector<Real, 2> >& result)
 	{
 		const integer points = pen.size();
 
 		const Vector<Real, 2> delta = segment.end() - segment.start();
 		if (delta == Vector<Real, 2>(0))
 		{
-			std::vector<Point<Real, 2> > sweepResult(pen);
+			std::vector<Vector<Real, 2> > sweepResult(pen);
 			sweepResult.swap(result);
 			return;
 		}
@@ -28,7 +28,7 @@ namespace Pastel
 		const AffineTransformation2 transformation(
 			rotation2<Real>(ccwAngle(delta)));
 
-		std::vector<Point<Real, 2> > orientedPen;
+		std::vector<Vector<Real, 2> > orientedPen;
 		orientedPen.reserve(points);
 
 		for (integer i = 0;i < points;++i)
@@ -41,15 +41,15 @@ namespace Pastel
 
 	template <typename Real>
 	void sweep(
-		const std::vector<Point<Real, 2> >& pen,
+		const std::vector<Vector<Real, 2> >& pen,
 		const Segment<Real, 2>& segment,
-		std::vector<Point<Real, 2> >& result)
+		std::vector<Vector<Real, 2> >& result)
 	{
 		const Vector<Real, 2> delta = segment.end() - segment.start();
 
 		if (delta == Vector<Real, 2>(0))
 		{
-			std::vector<Point<Real, 2> > sweepResult(pen);
+			std::vector<Vector<Real, 2> > sweepResult(pen);
 			sweepResult.swap(result);
 			return;
 		}
@@ -58,13 +58,13 @@ namespace Pastel
 
 		const integer points = pen.size();
 
-		std::vector<Point<Real, 2> > sweepResult;
+		std::vector<Vector<Real, 2> > sweepResult;
 		sweepResult.reserve(points + 2);
 
 		integer i = breakPoint[0];
 		while(i != breakPoint[1])
 		{
-			sweepResult.push_back(segment.start() + asVector(pen[i]));
+			sweepResult.push_back(segment.start() + pen[i]);
 
 			++i;
 			if (i == points)
@@ -73,11 +73,11 @@ namespace Pastel
 			}
 		}
 
-		sweepResult.push_back(segment.start() + asVector(pen[i]));
+		sweepResult.push_back(segment.start() + pen[i]);
 
 		while(i != breakPoint[0])
 		{
-			sweepResult.push_back(segment.end() + asVector(pen[i]));
+			sweepResult.push_back(segment.end() + pen[i]);
 
 			++i;
 			if (i == points)
@@ -86,7 +86,7 @@ namespace Pastel
 			}
 		}
 
-		sweepResult.push_back(segment.end() + asVector(pen[i]));
+		sweepResult.push_back(segment.end() + pen[i]);
 
 		sweepResult.swap(result);
 	}

@@ -16,14 +16,14 @@ namespace Pastel
 	class PointPolicy
 	{
 	public:
-		typedef Point<Real, N> Object;
+		typedef Vector<Real, N> Object;
 
-		AlignedBox<Real, N> bound(const Point<Real, N>& object) const
+		AlignedBox<Real, N> bound(const Vector<Real, N>& object) const
 		{
 			return AlignedBox<Real, N>(object);
 		}
 
-		Tuple<Real, 2> bound(const Point<Real, N>& object, integer axis) const
+		Tuple<Real, 2> bound(const Vector<Real, N>& object, integer axis) const
 		{
 			return Tuple<Real, 2>(object[axis]);
 		}
@@ -289,8 +289,8 @@ namespace Pastel
 		{
 		public:
 			std::pair<Real, integer> operator()(
-				const Point<Real, N>& minBound,
-				const Point<Real, N>& maxBound,
+				const Vector<Real, N>& minBound,
+				const Vector<Real, N>& maxBound,
 				const ObjectPolicy& objectPolicy,
 				const ConstObjectIterator& objectBegin,
 				const ConstObjectIterator& objectEnd) const;
@@ -422,8 +422,8 @@ namespace Pastel
 			const SubdivisionRule& subdivisionRule,
 			const Cursor& cursor,
 			integer depth,
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound);
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound);
 
 		ObjectContainer objectList_;
 		Allocator nodeAllocator_;

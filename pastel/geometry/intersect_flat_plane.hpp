@@ -6,8 +6,8 @@
 #include "pastel/geometry/flat.h"
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/line.h"
+
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/constants.h"
 
 namespace Pastel

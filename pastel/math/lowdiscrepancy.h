@@ -4,8 +4,8 @@
 #ifndef PASTEL_LOWDISCREPANCY_H
 #define PASTEL_LOWDISCREPANCY_H
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -41,7 +41,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	Point<Real, N> haltonSequence(integer n, const Point<integer, N>& bases);
+	Vector<Real, N> haltonSequence(integer n, const Vector<integer, N>& bases);
 
 	//! Returns the n:th element of the Hammersley sequence.
 	/*!
@@ -57,8 +57,8 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	Point<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
-		integer n, const Point<integer, N>& bases, integer size);
+	Vector<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
+		integer n, const Vector<integer, N>& bases, integer size);
 
 }
 

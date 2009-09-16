@@ -4,8 +4,8 @@
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 #include "pastel/sys/randomaccessrange.h"
 
 #include "pastel/geometry/pointkdtree.h"

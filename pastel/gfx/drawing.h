@@ -23,7 +23,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
-		const PASTEL_NO_DEDUCTION((Point<integer, N>))& position,
+		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& position,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<N, Type, Image_View>& image,
 		const ColorMixer& colorMixer);
@@ -32,7 +32,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View>
 	void drawPixel(
-		const PASTEL_NO_DEDUCTION((Point<integer, N>))& position,
+		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& position,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<N, Type, Image_View>& image);
 
@@ -124,7 +124,7 @@ namespace Pastel
 		typename ColorMixer>
 	void drawView(
 		const ConstView<N, Texture_Element, Texture_View>& texture,
-		const Point<integer, N>& position,
+		const Vector<integer, N>& position,
 		const View<N, Image_Element, Image_View>& image,
 		const ColorMixer& colorMixer);
 
@@ -140,7 +140,7 @@ namespace Pastel
 		typename Image_Element, typename Image_View>
 	void drawView(
 		const ConstView<N, Texture_Element, Texture_View>& texture,
-		const Point<integer, N>& position,
+		const Vector<integer, N>& position,
 		const View<N, Image_Element, Image_View>& image);
 
 	//! Draws a textured axis aligned box.

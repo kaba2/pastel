@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <typename Real, typename Point = Real>
+	template <typename Real, typename Vector = Real>
 	class PiecewiseLinear
 	{
 	public:
@@ -20,14 +20,14 @@ namespace Pastel
 		// Using default destructor.
 
 		void insert(const Real& time,
-			const Point& value);
+			const Vector& value);
 
 		void clear();
 
-		Point operator()(const Real& time) const;
+		Vector operator()(const Real& time) const;
 
 	private:
-		typedef SmallMap<Real, Point> Container;
+		typedef SmallMap<Real, Vector> Container;
 
 		Container map_;
 	};

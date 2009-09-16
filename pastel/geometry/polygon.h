@@ -7,7 +7,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/tuple.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -25,23 +25,23 @@ namespace Pastel
 		Polygon<Real, N>& operator=(
 			const Polygon& that);
 
-		Point<Real, N>& operator[](integer index);
-		const Point<Real, N>& operator[](integer index) const;
+		Vector<Real, N>& operator[](integer index);
+		const Vector<Real, N>& operator[](integer index) const;
 
 		void swap(Polygon& that);
 
 		integer size() const;
 
-		void pushBack(const Point<Real, N>& that);
+		void pushBack(const Vector<Real, N>& that);
 		void popBack();
 
-		void insert(integer index, const Point<Real, N>& that);
+		void insert(integer index, const Vector<Real, N>& that);
 		void erase(integer index);
 
 		void reserve(integer size);
 
 	private:
-		std::vector<Point<Real, N> > data_;
+		std::vector<Vector<Real, N> > data_;
 	};
 
 	typedef Polygon<real, 2> Polygon2;

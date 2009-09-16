@@ -3,17 +3,16 @@
 
 #include "pastel/geometry/overlaps_alignedbox_triangle.h"
 #include "pastel/geometry/overlaps_alignedbox_plane.h"
-
-#include "pastel/sys/mytypes.h"
-
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/triangle.h"
-#include "pastel/sys/vector_tools.h"
-#include "pastel/sys/point.h"
 #include "pastel/geometry/plane.h"
 
-#include "pastel/math/minmax.h"
+#include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
+#include "pastel/sys/vector_tools.h"
 #include "pastel/sys/math_functions.h"
+
+#include "pastel/math/minmax.h"
 
 namespace Pastel
 {
@@ -32,9 +31,9 @@ namespace Pastel
 		// Center geometry on aligned box min.
 
 		const Triangle<Real, 2> workTriangle(
-			triangle[0] - asVector(alignedBox.min()),
-			triangle[1] - asVector(alignedBox.min()),
-			triangle[2] - asVector(alignedBox.min()));
+			triangle[0] - alignedBox.min(),
+			triangle[1] - alignedBox.min(),
+			triangle[2] - alignedBox.min());
 
 		const Tuple<Vector<Real, 2>, 3> edges(
 			triangle[1] - triangle[0],
@@ -45,7 +44,7 @@ namespace Pastel
 
 		const Vector<Real, 2> halfWidths(
 			mabs(evaluate((alignedBox.max() - alignedBox.min()) * Real(0.5))));
-		const Point<Real, 2> alignedBoxCenter(
+		const Vector<Real, 2> alignedBoxCenter(
 			alignedBox.min() + halfWidths);
 
 		Real triangleProjMin(0);
@@ -105,9 +104,9 @@ namespace Pastel
 			// Project the triangle to the axis.
 
 			const Real triangleProj1(
-				dot(normal, asVector(workTriangle[i])));
+				dot(normal, workTriangle[i]));
 			const Real triangleProj2(
-				dot(normal, asVector(workTriangle[i3])));
+				dot(normal, workTriangle[i3]));
 
 			// Calculate triangle projection interval.
 
@@ -176,7 +175,7 @@ namespace Pastel
 
 		// Calculate the aligned box center.
 
-		const Point<Real, 3> alignedBoxCenter(
+		const Vector<Real, 3> alignedBoxCenter(
 			alignedBox.min() + alignedBoxHalfWidths);
 
 		// The algorithm transforms
@@ -184,9 +183,9 @@ namespace Pastel
 		// on the origin. This simplifies calculations.
 
 		const Triangle<Real, 3> workTriangle(
-			Point<Real, 3>(triangle[0] - alignedBoxCenter),
-			Point<Real, 3>(triangle[1] - alignedBoxCenter),
-			Point<Real, 3>(triangle[2] - alignedBoxCenter));
+			Vector<Real, 3>(triangle[0] - alignedBoxCenter),
+			Vector<Real, 3>(triangle[1] - alignedBoxCenter),
+			Vector<Real, 3>(triangle[2] - alignedBoxCenter));
 
 		// Calculate the edge vectors of the triangle.
 

@@ -45,7 +45,7 @@ namespace
 		for (integer x = 0;x < Width;++x)
 		{
 			const real t = (real)x / (Width - 1);
-			drawPixel(Point2(x, LabDetail::labFunction(t) * Height), true, arrayView(image));
+			drawPixel(Vector2(x, LabDetail::labFunction(t) * Height), true, arrayView(image));
 		}
 
 		saveBinaryPcx(image, "output/lab_function.pcx");

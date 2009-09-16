@@ -3,38 +3,6 @@ Installing the Pastel library
 
 [Parent]: pastel.txt
 
-The Pastel library is cross-platform, but here we will only
-detail the installation for Windows and Visual Studio.
-However, based on this document you should be able
-to construct a system for building Pastel also in
-Unix-based environments.
-
-Windows and Visual Studio
--------------------------
-
- * Add the Pastel's source code directory
-to the compiler's include search paths.
-
- * Add the 'pastel/lib' directory to the compiler's 
-library search paths.
-
-In Visual Studio, the search paths can be altered from
-Tools->Options...->[+] Projects and Solutions->VC++ Directories.
-
- * Add the 'pastel/lib' directory to the operating system's
-dll search paths.
-
-In Windows XP, the dll search paths can be altered from
-Control panel->System->Advanced->Environment variables
-
-It is recommended that you refer to the Pastel's
-include files in the form
-'#include \<pastel/sys/random.h\>'
-to avoid conflicts with other libraries.
-
-Pastel includes solution and project files for
-Visual Studio 2008.
-
 External dependencies
 ---------------------
 
@@ -113,6 +81,9 @@ dependencies.
 	math         |
 	^            |
 	|            |
+	dsp          |
+	^            |
+	|            |
 	geometry     |
 	^            |
 	|            |
@@ -159,3 +130,30 @@ on the part of the implementation. They can possibly interfere
 with optimization and therefore there is another switch that
 can be used to toggle whether the checks are included or not,
 the PASTEL_DEBUG_MODE flag.
+
+Windows and Visual Studio
+-------------------------
+
+ * Add the Pastel's source code directory
+to the compiler's include search paths.
+
+ * Add the 'pastel/lib' directory to the compiler's 
+library search paths.
+
+In Visual Studio, the search paths can be altered from
+Tools->Options...->[+] Projects and Solutions->VC++ Directories.
+
+ * Add the 'pastel/lib' directory to the operating system's
+dll search paths.
+
+In Windows XP, the dll search paths can be altered from
+Control panel->System->Advanced->Environment variables
+
+It is recommended that you refer to the Pastel's
+include files in the form
+'#include \<pastel/sys/random.h\>'
+to avoid conflicts with other libraries.
+
+Pastel includes solution and project files for
+Visual Studio 2008.
+

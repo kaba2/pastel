@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type EwaImageTexture<Type>::operator()(
-		const Point2& p_,
+		const Vector2& p_,
 		const Vector2& dpDx_,
 		const Vector2& dpDy_) const
 	{
@@ -29,7 +29,7 @@ namespace Pastel
 		// The derivative vectors along with 'uv' represent an affine
 		// transformation from the image plane to the texture plane.
 
-		const Point2 p(asVector(p_) * imageExtent);
+		const Vector2 p(p_ * imageExtent);
 		const Vector2 dpDx = dpDx_ * imageExtent * filterRadius_;
 		const Vector2 dpDy = dpDy_ * imageExtent * filterRadius_;
 
@@ -147,7 +147,7 @@ namespace Pastel
 		//return Type(level / (mipMap_->levels() - 1));
 
 		const AlignedBox2 bound =
-			ellipsoidBoundingAlignedBox(quadraticForm) + asVector(p);
+			ellipsoidBoundingAlignedBox(quadraticForm) + p;
 
 		// We want 'f' to give the value of
 		// 'filterTableSize' at the edge of the ellipse.
@@ -205,7 +205,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type EwaImageTexture<Type>::sampleEwa(
-		const Point2& p,
+		const Vector2& p,
 		const Matrix2& quadraticForm,
 		const AlignedBox2& bound,
 		real scaling,
@@ -215,12 +215,12 @@ namespace Pastel
 		// Read ewaimatexture.txt for implementation documentation.
 
 		const Rectangle2 window(
-			asPoint(floor(asVector(bound.min()) * scaling)),
-			asPoint(ceil(asVector(bound.max()) * scaling)));
+			floor(bound.min() * scaling),
+			ceil(bound.max() * scaling));
 
 		// Compute start values.
 
-		const Vector2 pStart(asVector(Point2(window.min()) + 0.5) - asVector(p) * scaling);
+		const Vector2 pStart(Vector2(window.min()) + 0.5 - p * scaling);
 
 		const real formScaling = inverse(square(scaling));
 
@@ -245,7 +245,7 @@ namespace Pastel
 					const real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
 
-					imageSum += weight * extender_(image, Point2i(j, i));
+					imageSum += weight * extender_(image, Vector2i(j, i));
 					weightSum += weight;
 				}
 

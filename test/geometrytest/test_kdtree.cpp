@@ -29,12 +29,12 @@ namespace
 		KdTree<Real, N> kdTree(ofDimension(dimension));
 
 		const integer points = 10000;
-		std::vector<Point<Real, N> > pointList;
+		std::vector<Vector<Real, N> > pointList;
 		pointList.reserve(points);
 
 		for (integer i = 0;i < points;++i)
 		{
-			pointList.push_back(asPoint(randomVectorBall<N, Real>(dimension)));
+			pointList.push_back(randomVectorBall<N, Real>(dimension));
 		}
 
 		kdTree.insert(pointList.begin(), pointList.end());
@@ -60,12 +60,12 @@ namespace
 		{
 			KdTree<Real, Dynamic> bTree(ofDimension(dimension));
 
-			std::vector<Point<Real, Dynamic> > bPointList;
+			std::vector<Vector<Real, Dynamic> > bPointList;
 			bPointList.reserve(points);
 
 			for (integer i = 0;i < points;++i)
 			{
-				Point<Real, Dynamic> p(ofDimension(dimension));
+				Vector<Real, Dynamic> p(ofDimension(dimension));
 				for (integer j = 0;j < dimension;++j)
 				{
 					p[j] = pointList[i][j];
@@ -165,13 +165,13 @@ namespace
 		for (integer i = 0;i < spheres;++i)
 		{
 			Sphere3* sphere = (Sphere3*)allocator.allocate();
-			new(sphere) Sphere3(Point3(1 * randomVectorBall<3, real>()),
+			new(sphere) Sphere3(Vector3(1 * randomVectorBall<3, real>()),
 				0.01);
 
 			sphereList.push_back(sphere);
 		}
 
-		kdTree.reserveBound(AlignedBox3(Point3(-10), Point3(10)));
+		kdTree.reserveBound(AlignedBox3(Vector3(-10), Vector3(10)));
 		kdTree.insert(sphereList.begin(), sphereList.end());
 
 		log() << "The kdTree has " << logNewLine;
@@ -216,7 +216,7 @@ namespace
 			for (integer x = 0;x < width;++x)
 			{
 				const Line3 ray(
-					Point3(
+					Vector3(
 					2 * ((real)(x + 0.5) / (width - 1)) - 1,
 					2 * ((real)(y + 0.5) / (height - 1)) - 1,
 					-2),

@@ -18,7 +18,7 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<real, N>& center,
+				const Vector<real, N>& center,
 				const Vector<real, N>& radius)
 				: center_(center)
 				, radius_(radius)
@@ -27,17 +27,17 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				bool& image) const
 			{
 				const Vector<real, N> delta
-					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
+					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = dot(delta) < 1;
 			}
 
 		private:
-			const Point<real, N> center_;
+			const Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
@@ -50,7 +50,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		Detail_EllipsoidElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<real, N>(image.extent()) / 2),
+			Vector<real, N>(image.extent()) / 2,
 			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
@@ -70,7 +70,7 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<real, N>& center,
+				const Vector<real, N>& center,
 				const Vector<real, N>& radius)
 				: center_(center)
 				, radius_(radius)
@@ -79,17 +79,17 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				bool& image) const
 			{
 				const Vector<real, N> delta
-					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
+					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = normManhattan(delta) < 1;
 			}
 
 		private:
-			const Point<real, N> center_;
+			const Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
@@ -102,7 +102,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		Detail_DiamondElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<real, N>(image.extent()) / 2),
+			Vector<real, N>(image.extent()) / 2,
 			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
@@ -122,7 +122,7 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<real, N>& center,
+				const Vector<real, N>& center,
 				const Vector<real, N>& radius,
 				real power)
 				: center_(center)
@@ -133,17 +133,17 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				bool& image) const
 			{
 				const Vector<real, N> delta
-					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
+					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = powerSum(delta, power_) < 1;
 			}
 
 		private:
-			const Point<real, N> center_;
+			const Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 			const real power_;
@@ -160,7 +160,7 @@ namespace Pastel
 		ENSURE_OP(power, >, 0);
 
 		Detail_pEllipsoidElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<real, N>(image.extent()) / 2),
+			Vector<real, N>(image.extent()) / 2,
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
 	}
@@ -181,7 +181,7 @@ namespace Pastel
 		{
 		public:
 			explicit VisitFunctor(
-				const Point<real, N>& center,
+				const Vector<real, N>& center,
 				const Vector<real, N>& radius)
 				: center_(center)
 				, radius_(radius)
@@ -190,17 +190,17 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				bool& image) const
 			{
 				const Vector<real, N> delta
-					= (Point<real, N>(position) + 0.5 - center_) * invRadius_;
+					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
 				image = normInfinity(delta) < 1;
 			}
 
 		private:
-			const Point<real, N> center_;
+			const Vector<real, N> center_;
 			const Vector<real, N> radius_;
 			const Vector<real, N> invRadius_;
 		};
@@ -213,7 +213,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION((Vector<real, N>))& diameter)
 	{
 		Detail_BoxElement::VisitFunctor<N> visitFunctor(
-			asPoint(Vector<real, N>(image.extent()) / 2),
+			Vector<real, N>(image.extent()) / 2,
 			diameter / 2, power);
 		visitPosition(image, visitFunctor);
 	}

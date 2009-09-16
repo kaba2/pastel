@@ -15,7 +15,7 @@ namespace Pastel
 	{
 		// The following ideas are from the
 		// article "Distance between Lines and Segments
-		// with their Closest Point of Approach"
+		// with their Closest Vector of Approach"
 		// by Dan Sunday.
 
 		// Parametrize the line segment 'aSegment' by:

@@ -7,11 +7,11 @@
 namespace Pastel
 {
 
-	PASTELGEOMETRY PropertyId<integer, Point3>
+	PASTELGEOMETRY PropertyId<integer, Vector3>
 		TriangleMesh::VertexPositionId(0);
 	PASTELGEOMETRY PropertyId<integer, Vector3>
 		TriangleMesh::VertexNormalId(1);
-	PASTELGEOMETRY PropertyId<integer, Point2>
+	PASTELGEOMETRY PropertyId<integer, Vector2>
 		TriangleMesh::VertexUvId(2);
 	PASTELGEOMETRY PropertyId<integer, RgbaColor>
 		TriangleMesh::VertexColorId(3);
@@ -79,7 +79,7 @@ namespace Pastel
 
 	void TriangleMesh::addVertexUvs()
 	{
-		vertexData_.add<Point2>(
+		vertexData_.add<Vector2>(
 			VertexUvId);
 	}
 
@@ -101,17 +101,17 @@ namespace Pastel
 			VertexColorId);
 	}
 
-	MemoryView<Point3> TriangleMesh::vertexPositions()
+	MemoryView<Vector3> TriangleMesh::vertexPositions()
 	{
-		MemoryView<Point3> result;
-		vertexProperty<Point3>(VertexPositionId, result);
+		MemoryView<Vector3> result;
+		vertexProperty<Vector3>(VertexPositionId, result);
 		return result;
 	}
 
-	ConstMemoryView<Point3> TriangleMesh::vertexPositions() const
+	ConstMemoryView<Vector3> TriangleMesh::vertexPositions() const
 	{
-		ConstMemoryView<Point3> result;
-		vertexProperty<Point3>(VertexPositionId, result);
+		ConstMemoryView<Vector3> result;
+		vertexProperty<Vector3>(VertexPositionId, result);
 		return result;
 	}
 
@@ -129,17 +129,17 @@ namespace Pastel
 		return result;
 	}
 
-	MemoryView<Point2> TriangleMesh::vertexUvs()
+	MemoryView<Vector2> TriangleMesh::vertexUvs()
 	{
-		MemoryView<Point2> result;
-		vertexProperty<Point2>(VertexUvId, result);
+		MemoryView<Vector2> result;
+		vertexProperty<Vector2>(VertexUvId, result);
 		return result;
 	}
 
-	ConstMemoryView<Point2> TriangleMesh::vertexUvs() const
+	ConstMemoryView<Vector2> TriangleMesh::vertexUvs() const
 	{
-		ConstMemoryView<Point2> result;
-		vertexProperty<Point2>(VertexUvId, result);
+		ConstMemoryView<Vector2> result;
+		vertexProperty<Vector2>(VertexUvId, result);
 		return result;
 	}
 

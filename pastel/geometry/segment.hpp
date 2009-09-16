@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/segment.h"
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <boost/static_assert.hpp>
 
@@ -19,8 +19,8 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Segment<Real, N>::Segment(
-		const Point<Real, N>& start,
-		const Point<Real, N>& end)
+		const Vector<Real, N>& start,
+		const Vector<Real, N>& end)
 		: start_(start)
 		, end_(end)
 	{
@@ -34,39 +34,39 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Segment<Real, N>::set(
-		const Point<Real, N>& start,
-		const Point<Real, N>& end)
+		const Vector<Real, N>& start,
+		const Vector<Real, N>& end)
 	{
 		start_ = start;
 		end_ = end;
 	}
 
 	template <typename Real, int N>
-	Point<Real, N>& Segment<Real, N>::start()
+	Vector<Real, N>& Segment<Real, N>::start()
 	{
 		return start_;
 	}
 
 	template <typename Real, int N>
-	const Point<Real, N>& Segment<Real, N>::start() const
+	const Vector<Real, N>& Segment<Real, N>::start() const
 	{
 		return start_;
 	}
 
 	template <typename Real, int N>
-	Point<Real, N>& Segment<Real, N>::end()
+	Vector<Real, N>& Segment<Real, N>::end()
 	{
 		return end_;
 	}
 
 	template <typename Real, int N>
-	const Point<Real, N>& Segment<Real, N>::end() const
+	const Vector<Real, N>& Segment<Real, N>::end() const
 	{
 		return end_;
 	}
 
 	template <typename Real, int N>
-	Point<Real, N> Segment<Real, N>::at(const Real& t) const
+	Vector<Real, N> Segment<Real, N>::at(const Real& t) const
 	{
 		return start_ + (end_ - start_) * t;
 	}

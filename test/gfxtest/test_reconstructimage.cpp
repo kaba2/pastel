@@ -33,25 +33,25 @@ namespace
 	{
 	public:
 		explicit ReportFunctor(
-			std::vector<Point2>& positionList)
+			std::vector<Vector2>& positionList)
 			: positionList_(positionList)
 		{
 		}
 
-		void operator()(const Point2& position) const
+		void operator()(const Vector2& position) const
 		{
 			positionList_.push_back(position);
 		}
 
-		std::vector<Point2>& positionList_;
+		std::vector<Vector2>& positionList_;
 	};
 
 	void generatePoisson(
-			std::vector<Point2>& positionList,
+			std::vector<Vector2>& positionList,
 			const AlignedBox2& region,
 			real poissonRadius)
 	{
-		std::vector<Point2> sampleList;
+		std::vector<Vector2> sampleList;
 
 		ReportFunctor reportFunctor(
 			sampleList);
@@ -62,21 +62,21 @@ namespace
 	}
 
 	void generateGrid(
-		std::vector<Point2>& positionList,
+		std::vector<Vector2>& positionList,
 		integer xPoints,
 		integer yPoints)
 	{
 		ENSURE_OP(xPoints, >, 0);
 		ENSURE_OP(yPoints, >, 0);
 
-		std::vector<Point2> sampleList;
+		std::vector<Vector2> sampleList;
 
 		for (integer y = 0;y < yPoints;++y)
 		{
 			for (integer x = 0;x < xPoints;++x)
 			{
 				sampleList.push_back(
-					Point2(dequantizeUnsigned(x, xPoints),
+					Vector2(dequantizeUnsigned(x, xPoints),
 					dequantizeUnsigned(y, yPoints)));
 			}
 		}
@@ -86,7 +86,7 @@ namespace
 
 	void testReconstruction(
 		const Array<Color, 2>& blurTexture,
-		const std::vector<Point2>& positionList,
+		const std::vector<Vector2>& positionList,
 		const std::string& name,
 		real sampleDistance,
 		integer k)
@@ -181,7 +181,7 @@ namespace
 			const real sampleDistance = (real)1 / (xPoints + 1);
 
 			Array<Color, 2> blurTexture(texture.extent());
-			std::vector<Point2> positionList;
+			std::vector<Vector2> positionList;
 
 			resample<Color>(
 				constArrayView(texture),
@@ -209,14 +209,14 @@ namespace
 	{
 	public:
 		Shepard_Interpolator(
-			const std::vector<Point<real, N> >& positionList,
+			const std::vector<Vector<real, N> >& positionList,
 			const std::vector<Data>& dataList)
 			: positionList_(positionList)
 			, dataList_(dataList)
 		{
 		}
 
-		Data operator()(const Point<real, N>& position) const
+		Data operator()(const Vector<real, N>& position) const
 		{
 			const integer n = positionList_.size();
 
@@ -252,7 +252,7 @@ namespace
 		}
 
 	private:
-		const std::vector<Point<real, N> >& positionList_;
+		const std::vector<Vector<real, N> >& positionList_;
 		const std::vector<Data>& dataList_;
 	};
 
@@ -269,9 +269,9 @@ namespace
 		const integer xPoints = texture.width() / 16;
 		const real sampleDistance = (real)texture.width() / (xPoints + 1);
 
-		std::vector<Point2> positionList;
+		std::vector<Vector2> positionList;
 		generatePoisson(positionList, 
-			AlignedBox2(Point2(0), Point2(texture.extent())), sampleDistance);
+			AlignedBox2(Vector2(0), Vector2(texture.extent())), sampleDistance);
 
 		const integer n = positionList.size();
 		std::vector<real32> dataList;
@@ -280,7 +280,7 @@ namespace
 		for (integer i = 0;i < n;++i)
 		{
 			dataList[i] = texture(
-				Point2i(positionList[i]));
+				Vector2i(positionList[i]));
 		}
 
 		FilterPtr filter(new MultiQuadric_Rbf(sampleDistance));
@@ -288,7 +288,7 @@ namespace
 		reconstructRbf(
 			positionList,
 			dataList,
-			AlignedBox2(Point2(0), Point2(texture.extent())),
+			AlignedBox2(Vector2(0), Vector2(texture.extent())),
 			filter,
 			arrayView(texture));
 
@@ -303,9 +303,9 @@ namespace
 		const integer xPoints = texture.width() / 8;
 		const real sampleDistance = (real)texture.width() / (xPoints + 1);
 
-		std::vector<Point2> positionList;
+		std::vector<Vector2> positionList;
 		generatePoisson(positionList, 
-			AlignedBox2(Point2(0), Point2(texture.extent())), sampleDistance);
+			AlignedBox2(Vector2(0), Vector2(texture.extent())), sampleDistance);
 
 		const integer n = positionList.size();
 		std::vector<Color> dataList;
@@ -314,7 +314,7 @@ namespace
 		for (integer i = 0;i < n;++i)
 		{
 			dataList[i] = texture(
-				Point2i(positionList[i]));
+				Vector2i(positionList[i]));
 		}
 
 		const Shepard_Interpolator<2, Color> interpolator(
@@ -327,7 +327,7 @@ namespace
 		{
 			for (integer x = 0;x < width;++x)
 			{
-				texture(x, y) = interpolator(Point2(x + 0.5, y + 0.5));
+				texture(x, y) = interpolator(Vector2(x + 0.5, y + 0.5));
 			}
 		}
 

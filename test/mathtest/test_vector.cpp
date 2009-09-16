@@ -699,11 +699,11 @@ namespace
 	{
 		const integer size = (N == Dynamic) ? 100 : N;
 
-		Point<Real, N> a(ofDimension(size));
+		Vector<Real, N> a(ofDimension(size));
 
-		Vector<Real, N> b = a.asVector();
+		Vector<Real, N> b = a;
 
-		Point<Real, N> e = a;
+		Vector<Real, N> e = a;
 		if (N == Dynamic)
 		{
 			REPORT1(a.size() != 0, a.size());
@@ -740,17 +740,14 @@ namespace
 
 		Tuple<Real, N> g(ofDimension(size));
 		Vector<Real, N> j(g);
-		Point<Real, N> h(g);
-		Point<Real, N> k(j);
+		Vector<Real, N> h(g);
+		Vector<Real, N> k(j);
 
 		j.asTuple();
 		j.asTuple();
 
 		h.asTuple();
 		h.asTuple();
-
-		h.asVector();
-		h.asVector();
 	}
 	*/
 

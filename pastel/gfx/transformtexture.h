@@ -26,7 +26,7 @@ namespace Pastel
 		}
 
 		Type operator()(
-			const Point2& uv,
+			const Vector2& uv,
 			const Vector2& dpDx,
 			const Vector2& dpDy) const
 		{

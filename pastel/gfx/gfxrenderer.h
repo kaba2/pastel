@@ -115,7 +115,7 @@ namespace Pastel
 		virtual void clear() = 0;
 
 		virtual void drawPoint(
-			const Point2& point) = 0;
+			const Vector2& point) = 0;
 
 		virtual void drawSegment(
 			const Segment2& segment) = 0;

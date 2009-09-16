@@ -31,7 +31,7 @@ namespace
 		Array<Color, 2> sumImage(image.extent());
 		computeSummedAreaTable(constArrayView(image), arrayView(sumImage));
 
-		const Color sum = sumImage(asPoint(image.extent() - 1));
+		const Color sum = sumImage(image.extent() - 1);
 		visit(arrayView(sumImage), _1 /= sum);
 
 		savePcx(sumImage, "output/summedareatable.pcx");

@@ -4,7 +4,8 @@
 #define PASTEL_NOISE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
+
 #include "pastel/ray/raylibrary.h"
 
 namespace Pastel
@@ -24,7 +25,7 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	Real noise(const Point<Real, 2>& pos);
+	Real noise(const Vector<Real, 2>& pos);
 
 	//! 3d Perlin noise.
 	/*!
@@ -32,7 +33,7 @@ namespace Pastel
 	*/
 
 	template <typename Real>
-	Real noise(const Point<Real, 3>& pos);
+	Real noise(const Vector<Real, 3>& pos);
 
 }
 

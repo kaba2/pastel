@@ -27,9 +27,9 @@ namespace
 {
 
 	void render(
-		const std::vector<Point2>& modelSet,
-		const std::vector<Point2>& sceneSet,
-		const std::vector<Point2>& correctSet,
+		const std::vector<Vector2>& modelSet,
+		const std::vector<Vector2>& sceneSet,
+		const std::vector<Vector2>& correctSet,
 		const AffineTransformation2 transform,
 		const std::string& fileName)
 	{
@@ -78,8 +78,8 @@ namespace
 
 		for (integer i = 0;i < modelPoints;++i)
 		{
-			const Point2 correct = correctSet[i];
-			const Point2 transformed = modelSet[i] * transform;
+			const Vector2 correct = correctSet[i];
+			const Vector2 transformed = transformPoint(modelSet[i], transform);
 
 			renderer.setFilled(true);
 			renderer.setColor(Color(0, 1, 0));
@@ -103,9 +103,9 @@ namespace
 		const integer modelPoints = 30;
 		const real noise = 0;
 
-		std::vector<Point2> sceneSet;
+		std::vector<Vector2> sceneSet;
 
-		std::vector<Point2> modelSet;
+		std::vector<Vector2> modelSet;
 		modelSet.reserve(modelPoints);
 
 		AffineTransformation2 transformation =
@@ -113,7 +113,7 @@ namespace
 			random<real>() * 2 * constantPi<real>(),
 			evaluate(randomVectorCube<2, real>() * 0.1));
 
-		std::vector<Point2> correctSet;
+		std::vector<Vector2> correctSet;
 		correctSet.reserve(modelPoints);
 
 		integer removedPoints = 0;
@@ -121,10 +121,10 @@ namespace
 		for (integer i = 0;i < modelPoints;++i)
 		{
 			modelSet.push_back(
-				Point2(random<real>(), random<real>()));
+				Vector2(random<real>(), random<real>()));
 
-			const Point2 transformedModelPoint =
-				modelSet.back() * transformation +
+			const Vector2 transformedModelPoint =
+				transformPoint(modelSet.back(), transformation) +
 				randomVectorSphere<2, real>() * noise;
 
 			correctSet.push_back(transformedModelPoint);
@@ -146,7 +146,7 @@ namespace
 
 		for (integer i = 0;i < extraPoints;++i)
 		{
-			sceneSet.push_back(Point2(2 * randomVector<2, real>() - 1));
+			sceneSet.push_back(Vector2(2 * randomVector<2, real>() - 1));
 		}
 
 		log() << "Computing kd-trees..." << logNewLine;
@@ -204,7 +204,7 @@ namespace
 		const integer RandomPoints = 20000;
 		const real minDistance = (real)1 / 1000;
 
-		std::vector<Point2> modelSet;
+		std::vector<Vector2> modelSet;
 
 		for (integer i = 0;i < EdgePoints;++i)
 		{
@@ -212,24 +212,24 @@ namespace
 				(real)i / (EdgePoints - 1);
 
 			modelSet.push_back(
-				Point2(x, 0));
+				Vector2(x, 0));
 			modelSet.push_back(
-				Point2(x, 1));
+				Vector2(x, 1));
 
 			if (i > 0 && i < EdgePoints - 1)
 			{
 				const real y = x;
 
 				modelSet.push_back(
-					Point2(0, y));
+					Vector2(0, y));
 				modelSet.push_back(
-					Point2(1, y));
+					Vector2(1, y));
 			}
 		}
 
 		for (integer i = 0;i < RandomPoints;++i)
 		{
-			modelSet.push_back(asPoint(randomVector<2, real>()));
+			modelSet.push_back(randomVector<2, real>());
 		}
 
 		std::random_shuffle(
@@ -248,12 +248,12 @@ namespace
 		const AffineTransformation2 transform =
 			similarityTransformation(scaling, angle, translation);
 
-		std::vector<Point2> sceneSet;
-		std::vector<Point2> correctSet;
+		std::vector<Vector2> sceneSet;
+		std::vector<Vector2> correctSet;
 
 		for (integer i = 0;i < modelPoints;++i)
 		{
-			sceneSet.push_back(modelSet[i] * transform);
+			sceneSet.push_back(transformPoint(modelSet[i], transform));
 			correctSet.push_back(sceneSet.back());
 		}
 

@@ -4,7 +4,8 @@
 #define PASTEL_CLOSEST_LINE_POINT_H
 
 #include "pastel/geometry/line.h"
-#include "pastel/sys/point.h"
+
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -17,7 +18,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real closest(
 		const Line<Real, N>& line,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

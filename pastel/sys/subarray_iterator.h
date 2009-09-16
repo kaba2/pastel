@@ -91,7 +91,7 @@ namespace Pastel
 	private:
 		SubArray_ConstIterator(
 			const ConstSubArray<N, Type>* subArray,
-			const Point<integer, N>& position)
+			const Vector<integer, N>& position)
 			: data_(subArray->address(position))
 			, position_(position)
 			, subArray_(subArray)
@@ -99,7 +99,7 @@ namespace Pastel
 		}
 
 		const Type* data_;
-		Point<integer, N> position_;
+		Vector<integer, N> position_;
 		const ConstSubArray<N, Type>* subArray_;
 	};
 
@@ -174,7 +174,7 @@ namespace Pastel
 	private:
 		SubArray_Iterator(
 			const SubArray<N, Type>* subArray,
-			const Point<integer, N>& position)
+			const Vector<integer, N>& position)
 			: data_(subArray->address(position))
 			, position_(position)
 			, subArray_(subArray)
@@ -182,7 +182,7 @@ namespace Pastel
 		}
 
 		Type* data_;
-		Point<integer, N> position_;
+		Vector<integer, N> position_;
 		const SubArray<N, Type>* subArray_;
 	};
 

@@ -4,7 +4,7 @@
 #define PASTEL_OVERLAPS_SPHERE_POINT_H
 
 #include "pastel/geometry/sphere.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -17,7 +17,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	bool overlaps(const Sphere<Real, N>& sphere,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

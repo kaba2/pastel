@@ -30,22 +30,22 @@ namespace
 		{
 		}
 
-		void operator()(const Point1& point) const
+		void operator()(const Vector1& point) const
 		{
-			clear(Color(1), rowView(arrayView(data_), 1, Point<integer, 2>(point[0], 0)));
+			clear(Color(1), rowView(arrayView(data_), 1, Vector<integer, 2>(point[0], 0)));
 		}
 
-		void operator()(const Point2& point) const
+		void operator()(const Vector2& point) const
 		{
 			drawPixel(point, Color(1), arrayView(data_));
 		}
 
-		void operator()(const Point3& point) const
+		void operator()(const Vector3& point) const
 		{
 			drawPixel(shrink(point), Color(1 - (point.z() / 500)), arrayView(data_));
 		}
 
-		void operator()(const Point4& point) const
+		void operator()(const Vector4& point) const
 		{
 			drawPixel(shrink(shrink(point)), hsvToRgb(Color(point.w() / 100,
 				1, 1 - (point.z() / 500))), arrayView(data_));
@@ -77,7 +77,7 @@ namespace
 		clear(Color(0), arrayView(image));
 
 		poissonDiskPattern(
-			AlignedBox2(Point2(0), Point2(width, height)),
+			AlignedBox2(Vector2(0), Vector2(width, height)),
 			5, poissonDiskReporter);
 
 		savePcx(image, "testpointpattern_poissondisk_2d.pcx");
@@ -85,7 +85,7 @@ namespace
 		clear(Color(0), arrayView(image));
 
 		poissonDiskPattern(
-			AlignedBox3(Point3(0), Point3(width, height, 500)),
+			AlignedBox3(Vector3(0), Vector3(width, height, 500)),
 			35, poissonDiskReporter);
 
 		savePcx(image, "testpointpattern_poissondisk_3d.pcx");
@@ -93,7 +93,7 @@ namespace
 		clear(Color(0), arrayView(image));
 
 		poissonDiskPattern(
-			AlignedBox4(Point4(0), Point4(width, height, 500, 500)),
+			AlignedBox4(Vector4(0), Vector4(width, height, 500, 500)),
 			70, poissonDiskReporter);
 
 		savePcx(image, "testpointpattern_poissondisk_4d.pcx");
