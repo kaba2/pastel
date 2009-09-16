@@ -3,7 +3,6 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/indexextender.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/view.h"
 
 namespace Pastel
@@ -82,7 +81,7 @@ namespace Pastel
 
 		Type operator()(
 			const Array<Type, N>& image,
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return (*this)(constArrayView(image), position);
 		}
@@ -90,11 +89,11 @@ namespace Pastel
 		template <typename Image_ConstView>
 		Type operator()(
 			const ConstView<N, Type, Image_ConstView>& image,
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			const Vector<integer, N>& extent = image.extent();
 
-			Point<integer, N> newPosition;
+			Vector<integer, N> newPosition;
 			for (integer i = 0;i < N;++i)
 			{
 				const ConstIndexExtenderPtr& extender = extender_[i];

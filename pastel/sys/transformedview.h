@@ -52,7 +52,7 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(position), transform_);
 		}

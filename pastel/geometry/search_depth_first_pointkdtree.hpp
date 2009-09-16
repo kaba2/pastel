@@ -27,7 +27,7 @@ namespace Pastel
 		public:
 			DepthFirst(
 				const PointKdTree<Real, N, ObjectPolicy>& kdTree_,
-				const Point<Real, N>& searchPoint_,
+				const Vector<Real, N>& searchPoint_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const NormBijection& normBijection_,
@@ -130,7 +130,7 @@ namespace Pastel
 				{
 					const Real currentDistance = 
 						distance2(
-						Point<Real, N>(ofDimension(dimension), 
+						Vector<Real, N>(ofDimension(dimension), 
 						withAliasing((Real*)objectPolicy.point(iter->object()))), 
 						searchPoint, 
 						normBijection, cullDistance);
@@ -251,7 +251,7 @@ namespace Pastel
 			}
 
 			const PointKdTree<Real, N, ObjectPolicy>& kdTree;
-			const Point<Real, N>& searchPoint;
+			const Vector<Real, N>& searchPoint;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
 			const NormBijection& normBijection;
@@ -271,7 +271,7 @@ namespace Pastel
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Point<Real, N>& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
@@ -304,7 +304,7 @@ namespace Pastel
 			return;
 		}
 
-		Point<Real, N> searchPoint2(
+		Vector<Real, N> searchPoint2(
 			ofDimension(kdTree.dimension()), 
 			withAliasing((Real*)kdTree.objectPolicy().point(searchPoint->object())));
 

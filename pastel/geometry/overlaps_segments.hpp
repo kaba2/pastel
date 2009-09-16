@@ -37,7 +37,7 @@ namespace Pastel
 
 				EventPoint(
 					integer id,
-					const Point<Real, 2>& position)
+					const Vector<Real, 2>& position)
 					: id_(id)
 					, position_(position)
 				{
@@ -55,7 +55,7 @@ namespace Pastel
 				}
 
 				integer id_;
-				Point<Real, 2> position_;
+				Vector<Real, 2> position_;
 			};
 
 			class StatusSegment
@@ -71,9 +71,9 @@ namespace Pastel
 
 				StatusSegment(
 					integer startId,
-					const Point<Real, 2>& startPosition,
+					const Vector<Real, 2>& startPosition,
 					integer endId,
-					const Point<Real, 2>& endPosition)
+					const Vector<Real, 2>& endPosition)
 					: start_(startId, startPosition)
 					, end_(endId, endPosition)
 				{
@@ -259,7 +259,7 @@ namespace Pastel
 				ConstExidenceIterator;
 		public:
 			OverlapSegments(
-				const std::vector<Point<Real, 2> >& vertex,
+				const std::vector<Vector<Real, 2> >& vertex,
 				const std::vector<Integer2>& segment);
 
 			bool compute();
@@ -275,7 +275,7 @@ namespace Pastel
 			bool removeIncident(const EventPoint& eventPoint);
 			bool insertExident(const EventPoint& eventPoint);
 
-			const std::vector<Point<Real, 2> >& vertex_;
+			const std::vector<Vector<Real, 2> >& vertex_;
 			const std::vector<Integer2>& segment_;
 
 			std::set<EventPoint> event_;
@@ -286,7 +286,7 @@ namespace Pastel
 
 		template <typename Real>
 		OverlapSegments<Real>::OverlapSegments(
-			const std::vector<Point<Real, 2> >& vertex,
+			const std::vector<Vector<Real, 2> >& vertex,
 			const std::vector<Integer2>& segment)
 			: vertex_(vertex)
 			, segment_(segment)
@@ -444,9 +444,9 @@ namespace Pastel
 				const integer startId = (*iter)[0];
 				const integer endId = (*iter)[1];
 
-				const Point<Real, 2>& start =
+				const Vector<Real, 2>& start =
 					vertex_[startId];
-				const Point<Real, 2>& end =
+				const Vector<Real, 2>& end =
 					vertex_[endId];
 
 				const StatusSegment newStatus(
@@ -533,7 +533,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlaps(
-		const std::vector<Point<Real, 2> >& vertex,
+		const std::vector<Vector<Real, 2> >& vertex,
 		const std::vector<Integer2>& segment)
 	{
 		Detail::OverlapSegments<Real> tester(vertex, segment);
@@ -542,7 +542,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool overlapsBruteForce(
-		const std::vector<Point<Real, 2> >& vertex,
+		const std::vector<Vector<Real, 2> >& vertex,
 		const std::vector<Integer2>& segment)
 	{
 		const integer segments = segment.size();

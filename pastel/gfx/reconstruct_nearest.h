@@ -20,7 +20,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
@@ -29,7 +29,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view,
@@ -37,7 +37,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructNearest(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const View<N, Data, Output_View>& view);

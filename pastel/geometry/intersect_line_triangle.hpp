@@ -18,9 +18,9 @@ namespace Pastel
 		const Triangle<Real, 2>& triangle,
 		Vector<Real, 2>& hitList)
 	{
-		const Point<Real, 2>& a = triangle[0];
-		const Point<Real, 2>& b = triangle[1];
-		const Point<Real, 2>& c = triangle[2];
+		const Vector<Real, 2>& a = triangle[0];
+		const Vector<Real, 2>& b = triangle[1];
+		const Vector<Real, 2>& c = triangle[2];
 
 		Real tMaxMin = -infinity<Real>();
 		Real tMinMax = infinity<Real>();

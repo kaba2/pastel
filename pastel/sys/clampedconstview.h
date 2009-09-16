@@ -36,9 +36,9 @@ namespace Pastel
 		}
 
 		const Element& operator()(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
-			return view_(Point<integer, N>(clamp(asVector(position),
+			return view_(Vector<integer, N>(clamp(position,
 				Vector<integer, N>(0), evaluate(view_.extent() - 1))));
 		}
 

@@ -3,9 +3,7 @@
 
 #include "pastel/geometry/line.h"
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
-
 #include "pastel/sys/vector_tools.h"
 
 #include <boost/static_assert.hpp>
@@ -32,7 +30,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Line<Real, N>::Line(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 		: position_(position)
 		, direction_(unitDirection)
@@ -44,7 +42,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Line<Real, N>::Line(
 		integer dimension,
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 		: position_(position)
 		, direction_(unitDirection)
@@ -113,7 +111,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Line<Real, N>::set(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 	{
 		setPosition(position);
@@ -122,7 +120,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Line<Real, N>::setPosition(
-		const Point<Real, N>& position)
+		const Vector<Real, N>& position)
 	{
 		PENSURE_OP(position_.dimension(), ==, position.dimension());
 
@@ -130,7 +128,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	const Point<Real, N>& Line<Real, N>::position() const
+	const Vector<Real, N>& Line<Real, N>::position() const
 	{
 		return position_;
 	}
@@ -160,7 +158,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Point<Real, N> Line<Real, N>::at(const Real& t) const
+	Vector<Real, N> Line<Real, N>::at(const Real& t) const
 	{
 		return position_ + direction_ * t;
 	}

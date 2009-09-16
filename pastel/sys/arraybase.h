@@ -7,7 +7,6 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/arraybasecursor.h"
 #include "pastel/sys/subarray.h"
@@ -109,10 +108,10 @@ namespace Pastel
 			const Type& operator()(integer index) const;
 
 			//! Returns a reference to the element (x, y)
-			Type& operator()(const Point<integer, N>& position);
+			Type& operator()(const Vector<integer, N>& position);
 
 			//! Returns a const reference to the element (x, y)
-			const Type& operator()(const Point<integer, N>& position) const;
+			const Type& operator()(const Vector<integer, N>& position) const;
 
 			//! Filling the array with a comma-delimited list of elements.
 			CommaFiller<Type, Iterator> operator|=(const Type& that);
@@ -126,24 +125,24 @@ namespace Pastel
 
 			//! Returns the sub-array in the range [min, max].
 			SubArray<N, Type> operator()(
-				const Point<integer, N>& min,
-				const Point<integer, N>& max);
+				const Vector<integer, N>& min,
+				const Vector<integer, N>& max);
 
 			//! Returns the sub-array in the range [min, max].
 			ConstSubArray<N, Type> operator()(
-				const Point<integer, N>& min,
-				const Point<integer, N>& max) const;
+				const Vector<integer, N>& min,
+				const Vector<integer, N>& max) const;
 
 			//! Returns a sparse sub-array in the range [min, max].
 			SubArray<N, Type> operator()(
-				const Point<integer, N>& min,
-				const Point<integer, N>& max,
+				const Vector<integer, N>& min,
+				const Vector<integer, N>& max,
 				const Vector<integer, N>& delta);
 
 			//! Returns a sparse sub-array in the range [min, max].
 			ConstSubArray<N, Type> operator()(
-				const Point<integer, N>& min,
-				const Point<integer, N>& max,
+				const Vector<integer, N>& min,
+				const Vector<integer, N>& max,
 				const Vector<integer, N>& delta) const;
 
 			SubArray<N, Type> operator()();
@@ -151,10 +150,10 @@ namespace Pastel
 			ConstSubArray<N, Type> operator()() const;
 
 			//! Returns a cursor to the given position.
-			Cursor cursor(const Point<integer, N>& position);
+			Cursor cursor(const Vector<integer, N>& position);
 
 			//! Returns a cursor to the given position.
-			ConstCursor constCursor(const Point<integer, N>& position) const;
+			ConstCursor constCursor(const Vector<integer, N>& position) const;
 
 			// Iterators
 
@@ -172,22 +171,22 @@ namespace Pastel
 
 			//! An iterator to the first element of a row.
 			RowIterator rowBegin(
-				const Point<integer, N>& position, 
+				const Vector<integer, N>& position, 
 				integer axis);
 
 			//! An iterator to the first element of a row.
 			ConstRowIterator rowBegin(
-				const Point<integer, N>& position, 
+				const Vector<integer, N>& position, 
 				integer axis) const;
 
 			//! An iterator to the one-past end element of a row.
 			RowIterator rowEnd(
-				const Point<integer, N>& position, 
+				const Vector<integer, N>& position, 
 				integer axis);
 
 			//! An iterator to the one-past end element of a row.
 			ConstRowIterator rowEnd(
-				const Point<integer, N>& position, 
+				const Vector<integer, N>& position, 
 				integer axis) const;
 
 			Type* rawBegin()
@@ -211,10 +210,10 @@ namespace Pastel
 			}
 
 			//! Memory address of the given position.
-			const Type* address(const Point<integer, N>& position) const;
+			const Type* address(const Vector<integer, N>& position) const;
 
 			//! Memory address of the given position.
-			Type* address(const Point<integer, N>& position);
+			Type* address(const Vector<integer, N>& position);
 
 		private:
 			void allocate(

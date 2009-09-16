@@ -2,8 +2,7 @@
 #define PASTEL_RECTANGLE_TOOLS_HPP
 
 #include "pastel/sys/rectangle_tools.h"
-
-#include "pastel/sys/point_tools.h"
+#include "pastel/sys/vector_tools.h"
 
 namespace Pastel
 {

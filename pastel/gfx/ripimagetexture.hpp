@@ -29,7 +29,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type RipImageTexture<Type>::operator()(
-		const Point2& uv,
+		const Vector2& uv,
 		const Vector2& dUvDx,
 		const Vector2& dUvDy) const
 	{
@@ -50,21 +50,21 @@ namespace Pastel
 			// Magnification: just do bilinear interpolation.
 
 			return sampleBilinear(
-				asPoint(asVector(uv) * Vector2(mostDetailedImage.extent())),
+				uv * Vector2(mostDetailedImage.extent()),
 				mostDetailedImage, extender_);
 		}
 
 		const real invLn2 = inverse(constantLn2<real>());
-		const Point2 level(max(evaluate(log(radius) * invLn2), 0));
+		const Vector2 level(max(evaluate(log(radius) * invLn2), 0));
 
 		if (allLessEqual(level, 0))
 		{
 			return sampleBilinear(
-				asPoint(asVector(uv) * Vector2(mostDetailedImage.extent())),
+				uv * Vector2(mostDetailedImage.extent()),
 				mostDetailedImage, extender_);
 		}
 
-		if (anyGreaterEqual(asVector(level), Vector2((*ripMap_).levels() - 1)))
+		if (anyGreaterEqual(level, Vector2((*ripMap_).levels() - 1)))
 		{
 			// Return the coarsest ripmap pixel.
 
@@ -73,12 +73,12 @@ namespace Pastel
 
 		// Quadrilinear interpolation.
 
-		const Point<integer, 2> level00(floor(asVector(level)));
-		const Point<integer, 2> level10 = level00 + Vector<integer, 2>(1, 0);
-		const Point<integer, 2> level11 = level00 + Vector<integer, 2>(1, 1);
-		const Point<integer, 2> level01 = level00 + Vector<integer, 2>(0, 1);
+		const Vector<integer, 2> level00(floor(level));
+		const Vector<integer, 2> level10 = level00 + Vector<integer, 2>(1, 0);
+		const Vector<integer, 2> level11 = level00 + Vector<integer, 2>(1, 1);
+		const Vector<integer, 2> level01 = level00 + Vector<integer, 2>(0, 1);
 
-		const Vector2 tDetail = level - Point2(level00);
+		const Vector2 tDetail = level - Vector2(level00);
 
 		const Array<Type, 2>& image00 = (*ripMap_)(level00);
 		const Array<Type, 2>& image10 = (*ripMap_)(level10);
@@ -87,22 +87,22 @@ namespace Pastel
 
 		const Type sample00 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image00.extent())),
+			uv * Vector2(image00.extent()),
 			image00, extender_);
 
 		const Type sample10 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image10.extent())),
+			uv * Vector2(image10.extent()),
 			image10, extender_);
 
 		const Type sample11 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image11.extent())),
+			uv * Vector2(image11.extent()),
 			image11, extender_);
 
 		const Type sample01 =
 			sampleBilinear(
-			asPoint(asVector(uv) * Vector2(image01.extent())),
+			uv * Vector2(image01.extent()),
 			image01, extender_);
 
 		return linear(

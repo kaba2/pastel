@@ -19,7 +19,6 @@
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/subview.h"
 #include "pastel/sys/rectangle_tools.h"
-#include "pastel/sys/point_tools.h"
 #include "pastel/sys/vector_tools.h"
 
 #include <algorithm>
@@ -29,13 +28,13 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View, typename ColorMixer>
 	void drawPixel(
-		const PASTEL_NO_DEDUCTION((Point<integer, N>))& position,
+		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& position,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<N, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
 		if (anyLess(position, 0) ||
-			anyGreaterEqual(asVector(position), image.extent()))
+			anyGreaterEqual(position, image.extent()))
 		{
 			return;
 		}
@@ -45,7 +44,7 @@ namespace Pastel
 
 	template <int N, typename Type, typename Image_View>
 	void drawPixel(
-		const PASTEL_NO_DEDUCTION((Point<integer, N>))& position,
+		const PASTEL_NO_DEDUCTION((Vector<integer, N>))& position,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<N, Type, Image_View>& image)
 	{
@@ -293,7 +292,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++x;
 
 						if (s >= 0)
@@ -318,7 +317,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++x;
 
 						if (s >= 0)
@@ -346,7 +345,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--x;
 
 						if (s >= 0)
@@ -371,7 +370,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--x;
 
 						if (s >= 0)
@@ -406,7 +405,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++y;
 
 						if (s >= 0)
@@ -431,7 +430,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--y;
 
 						if (s >= 0)
@@ -459,7 +458,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++y;
 
 						if (s >= 0)
@@ -484,7 +483,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--y;
 
 						if (s >= 0)
@@ -565,7 +564,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++x;
 
 						if (sFixed >= 0)
@@ -594,7 +593,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++x;
 
 						if (sFixed >= 0)
@@ -626,7 +625,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--x;
 
 						if (sFixed >= 0)
@@ -655,7 +654,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--x;
 
 						if (sFixed >= 0)
@@ -694,7 +693,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++y;
 
 						if (sFixed >= 0)
@@ -723,7 +722,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--y;
 
 						if (sFixed >= 0)
@@ -755,7 +754,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						++y;
 
 						if (sFixed >= 0)
@@ -784,7 +783,7 @@ namespace Pastel
 
 					for (integer i = 0;i < steps;++i)
 					{
-						drawPixel(Point2i(x, y), color, image);
+						drawPixel(Vector2i(x, y), color, image);
 						--y;
 
 						if (sFixed >= 0)
@@ -947,7 +946,7 @@ namespace Pastel
 
 		Rectangle2 clippedBox;
 		if (!intersect(discreteBox, 
-			Rectangle2(Point2i(0), asPoint(image.extent())), 
+			Rectangle2(Vector2i(0), image.extent()), 
 			clippedBox))
 		{
 			return;
@@ -1141,14 +1140,14 @@ namespace Pastel
 		typename ColorMixer>
 	void drawView(
 		const ConstView<N, Texture_Element, Texture_View>& texture,
-		const Point<integer, N>& position,
+		const Vector<integer, N>& position,
 		const View<N, Image_Element, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
 		const Rectangle<N> textureBox(
 			position, position + texture.extent());
 		const Rectangle<N> imageBox(
-			Point<integer, N>(0), asPoint(image.extent()));
+			Vector<integer, N>(0), image.extent());
 
 		Rectangle<N> clippedTextureBox;
 		if (!intersect(textureBox, imageBox, clippedTextureBox))
@@ -1158,7 +1157,7 @@ namespace Pastel
 
 		Detail_DrawView::Visitor<ColorMixer> visitor(colorMixer);
 
-		visit(constSubView(texture, clippedTextureBox - asVector(position)),
+		visit(constSubView(texture, clippedTextureBox - position),
 			subView(image, clippedTextureBox), visitor);
 	}
 
@@ -1167,7 +1166,7 @@ namespace Pastel
 		typename Image_Element, typename Image_View>
 	void drawView(
 		const ConstView<N, Texture_Element, Texture_View>& texture,
-		const Point<integer, N>& position,
+		const Vector<integer, N>& position,
 		const View<N, Image_Element, Image_View>& image)
 	{
 		drawView(texture, position, image, assignColorMixer<Image_Element>());
@@ -1191,8 +1190,8 @@ namespace Pastel
 			toPixelSpanPoint(box.max()));
 
 		const Rectangle2 window(
-			Point2i(0), 
-			asPoint(image.extent()));
+			Vector2i(0), 
+			image.extent());
 
 		Rectangle2 clippedBox;
 		if (!intersect(discreteBox, window, clippedBox))
@@ -1202,10 +1201,10 @@ namespace Pastel
 
 		const Vector2 textureDelta = textureBox.extent();
 		const Vector2 duvDxy = textureDelta / delta;
-		const Point2 uvMin = textureBox.min() + 
-			((Point2(discreteBox.min()) + 0.5) - box.min()) * duvDxy;
+		const Vector2 uvMin = textureBox.min() + 
+			((Vector2(discreteBox.min()) + 0.5) - box.min()) * duvDxy;
 
-		Point2 uv(uvMin);
+		Vector2 uv(uvMin);
 		Vector2 duvDx(duvDxy.x(), 0);
 		Vector2 duvDy(0, duvDxy.y());
 

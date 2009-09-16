@@ -2,7 +2,7 @@
 #include "pastel/device/gfxdevice.h"
 
 #include "pastel/sys/log_all.h"
-#include "pastel/sys/point_tools.h"
+#include "pastel/sys/vector_tools.h"
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
@@ -26,9 +26,9 @@ const integer ScreenHeight = 480;
 
 GfxRenderer<Color>* renderer__;
 
-std::vector<Point2> sourceSet__;
-std::vector<Point2> targetSet__;
-std::vector<Point2> fittedSet__;
+std::vector<Vector2> sourceSet__;
+std::vector<Vector2> targetSet__;
+std::vector<Vector2> fittedSet__;
 const integer points__ = 1000;
 
 bool mouseLeftPressed__ = false;
@@ -46,7 +46,7 @@ void keyHandler(bool pressed, SDLKey key)
 	}
 }
 
-void redrawPointSet(const std::vector<Point2>& pointSet)
+void redrawPointSet(const std::vector<Vector2>& pointSet)
 {
 	const integer points = pointSet.size();
 	for (integer i = 0;i < points;++i)
@@ -70,7 +70,7 @@ void redraw()
 	const integer points = sourceSet__.size();
 	for (integer i = 0;i < points;++i)
 	{
-		fittedSet__[i] = sourceSet__[i] * transformation;
+		fittedSet__[i] = transformPoint(sourceSet__[i], transformation);
 	}
 
 	renderer__->setColor(Color(0, 1, 0));
@@ -83,7 +83,7 @@ void redraw()
 	}
 
 	renderer__->setColor(Color(1));
-	const Point2 meanPoint = mean(targetSet__);
+	const Vector2 meanPoint = mean(targetSet__);
 	const Vector2 maximalVariance = largestEigenVector(targetSet__) * -0.4;
 
 	renderer__->setFilled(true);
@@ -92,7 +92,6 @@ void redraw()
 		Segment2(meanPoint - cross(maximalVariance), 
 		meanPoint + cross(maximalVariance)), 0.01, 0.01);
 
-	/*
 	MatrixD eigenVectorSet;
 	VectorD eigenValueSet;
 
@@ -102,6 +101,7 @@ void redraw()
 		eigenVectorSet,
 		eigenValueSet);
 
+	/*
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - Vector2(eigenVectorSet[0]), 
 		meanPoint + Vector2(eigenVectorSet[0])), 0.01, 0.01);
@@ -148,7 +148,7 @@ void applyTransformation(const AffineTransformation2& transformation)
 	const integer points = targetSet__.size();
 	for (integer i = 0;i < points;++i)
 	{
-		targetSet__[i] = targetSet__[i] * transformation;
+		targetSet__[i] = transformPoint(targetSet__[i], transformation);
 	}
 }
 
@@ -165,9 +165,9 @@ void logicHandler()
 	const Vector2 normMouse(
 		(currentMouse + 1) / 2);
 
-	const Point2 worldMouse(
-		renderer__->viewWindow().at(normMouse) *
-		renderer__->viewTransformation());
+	const Vector2 worldMouse(
+		transformPoint(renderer__->viewWindow().at(normMouse),
+		renderer__->viewTransformation()));
 
 	if (deviceSystem().keyDown(SDLK_a))
 	{
@@ -219,12 +219,12 @@ void logicHandler()
 	redraw();
 }
 
-void generatePoints(std::vector<Point2>& pointSet, integer points)
+void generatePoints(std::vector<Vector2>& pointSet, integer points)
 {
-	std::vector<Point2> result;
+	std::vector<Vector2> result;
 	for (integer i = 0;i < points;++i)
 	{
-		result.push_back(Point2(2 * random<real>() - 1, 2 * random<real>() - 1));
+		result.push_back(Vector2(2 * random<real>() - 1, 2 * random<real>() - 1));
 	}
 	result.swap(pointSet);
 }

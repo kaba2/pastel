@@ -6,8 +6,6 @@
 #define PASTEL_FLAT_H
 
 #include "pastel/sys/tuple.h"
-
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel
@@ -37,10 +35,10 @@ namespace Pastel
 		~Flat();
 
 		//! Sets the position of the flat.
-		void setPosition(const Point<Real, N>& position);
+		void setPosition(const Vector<Real, N>& position);
 
 		//! Returns the position of the flat.
-		const Point<Real, N>& position() const;
+		const Vector<Real, N>& position() const;
 
 		//! Returns a specific tangent vector of the flat.
 		Vector<Real, N>& operator[](integer index);
@@ -49,7 +47,7 @@ namespace Pastel
 		const Vector<Real, N>& operator[](integer index) const;
 
 	private:
-		Point<Real, N> position_;
+		Vector<Real, N> position_;
 		Tuple<Vector<Real, N>, M> tangent_;
 	};
 

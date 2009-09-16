@@ -4,8 +4,8 @@
 #ifndef PASTEL_CAPSULE_H
 #define PASTEL_CAPSULE_H
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
+
 #include "pastel/geometry/segment.h"
 
 namespace Pastel
@@ -34,18 +34,18 @@ namespace Pastel
 
 		Capsule();
 		Capsule(
-			const Point<Real, N>& start,
-			const Point<Real, N>& end,
+			const Vector<Real, N>& start,
+			const Vector<Real, N>& end,
 			const Real& radius);
 		Capsule(
 			const Segment<Real, N>& segment,
 			const Real& radius);
 
-		Point<Real, N>& start();
-		const Point<Real, N>& start() const;
+		Vector<Real, N>& start();
+		const Vector<Real, N>& start() const;
 
-		Point<Real, N>& end();
-		const Point<Real, N>& end() const;
+		Vector<Real, N>& end();
+		const Vector<Real, N>& end() const;
 
 		Segment<Real, N>& segment();
 		const Segment<Real, N>& segment() const;

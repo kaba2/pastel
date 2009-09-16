@@ -74,7 +74,7 @@ namespace Pastel
 	The PointKdTree to search neighbors in.
 	
 	searchPoint:
-	Either a Point<Real, N> or an iterator to
+	Either a Vector<Real, N> or an iterator to
 	the object of 'kdTree'. The latter allows better
 	performance.
 

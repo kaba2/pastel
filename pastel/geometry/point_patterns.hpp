@@ -16,19 +16,18 @@ namespace Pastel
 	void generateUniformBallPointSet(
 		integer points,
 		integer dimension,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<Real, N> > result;
+		std::vector<Vector<Real, N> > result;
 		result.reserve(points);
 
 		for (integer i = 0;i < points;++i)
 		{
-			result.push_back(
-				asPoint(randomVectorBall<N, Real>(dimension)));
+			result.push_back(randomVectorBall<N, Real>(dimension));
 		}
 
 		result.swap(pointSet);
@@ -39,14 +38,14 @@ namespace Pastel
 		integer points,
 		integer dimension,
 		integer clusters,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE_OP(clusters, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<Real, N> > result;
+		std::vector<Vector<Real, N> > result;
 		result.reserve(points);
 
 		Real realPointsCreated = 0;
@@ -63,7 +62,7 @@ namespace Pastel
 				clusterPoints = points - pointsCreated;
 			}
 
-			const Point<Real, N> clusterCenter(
+			const Vector<Real, N> clusterCenter(
 				randomVectorCube<N, Real>(dimension));
 			const Real clusterRadius = random<Real>() * 0.1;
 
@@ -85,19 +84,19 @@ namespace Pastel
 	void generateUniformCubePointSet(
 		integer points,
 		integer dimension,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<Real, N> > result;
+		std::vector<Vector<Real, N> > result;
 		result.reserve(points);
 
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				asPoint(randomVectorCube<N, Real>(dimension)));
+				randomVectorCube<N, Real>(dimension));
 		}
 
 		result.swap(pointSet);
@@ -107,19 +106,19 @@ namespace Pastel
 	void generateGaussianPointSet(
 		integer points,
 		integer dimension,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >, 0);
 		ENSURE_OP(dimension, >, 0);
 		ENSURE2(N == Dynamic || N == dimension, N, dimension);
 
-		std::vector<Point<Real, N> > result;
+		std::vector<Vector<Real, N> > result;
 		result.reserve(points);
 
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				asPoint(randomGaussianVector<N, Real>(dimension)));
+				randomGaussianVector<N, Real>(dimension));
 		}
 
 		result.swap(pointSet);
@@ -128,7 +127,7 @@ namespace Pastel
 	template <int N, typename Real>
 	void scale(
 		const Vector<Real, N>& scaling,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		if (pointSet.empty())
 		{
@@ -139,13 +138,13 @@ namespace Pastel
 
 		for (integer i = 0;i < points;++i)
 		{
-			asVector(pointSet[i]) *= scaling;
+			pointSet[i] *= scaling;
 		}
 	}
 
 	template <int N, typename Real>
 	void randomlyRotate(
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		if (pointSet.empty())
 		{
@@ -160,14 +159,14 @@ namespace Pastel
 
 		for (integer i = 0;i < points;++i)
 		{
-			pointSet[i] = asPoint(asVector(pointSet[i]) * rotation);
+			pointSet[i] = pointSet[i] * rotation;
 		}
 	}
 
 	template <int N, typename Real>
 	void randomlyReduceDimensionality(
 		integer dimensionality,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		ENSURE_OP(dimensionality, >, 0);
 

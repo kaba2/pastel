@@ -2,12 +2,14 @@
 #define PASTEL_CAMERA_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
+
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/lens.h"
 
 #include "pastel/geometry/line.h"
+
 #include "pastel/math/transformation.h"
-#include "pastel/sys/point.h"
 
 namespace Pastel
 {
@@ -23,12 +25,12 @@ namespace Pastel
 
 		void swap(Camera& that);
 
-		void setPosition(const Point3& position);
-		Point3 position() const;
+		void setPosition(const Vector3& position);
+		Vector3 position() const;
 
 		void setLens(const LensPtr& lens);
 
-		Line3 getLine(const Point2& uv) const;
+		Line3 getLine(const Vector2& uv) const;
 
 	private:
 		LensPtr lens_;

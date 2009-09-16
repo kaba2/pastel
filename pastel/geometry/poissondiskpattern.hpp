@@ -4,7 +4,7 @@
 #include "pastel/geometry/poissondiskpattern.h"
 
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/rectangle_tools.h"
 #include "pastel/sys/subview.h"
@@ -27,7 +27,7 @@ namespace Pastel
 		{
 		public:
 			explicit Visitor(
-				const Point<Real, N>& newPoint,
+				const Vector<Real, N>& newPoint,
 				const Real& minDistance2,
 				bool& validNewPoint)
 				: newPoint_(newPoint)
@@ -36,7 +36,7 @@ namespace Pastel
 			{
 			}
 
-			void operator()(const Point<Real, N>& point) const
+			void operator()(const Vector<Real, N>& point) const
 			{
 				if (validNewPoint_ && point.x() != infinity<Real>())
 				{
@@ -48,7 +48,7 @@ namespace Pastel
 				}
 			}
 
-			const Point<Real, N> newPoint_;
+			const Vector<Real, N> newPoint_;
 			const Real minDistance2_;
 			bool& validNewPoint_;
 		};
@@ -98,17 +98,17 @@ namespace Pastel
 
 		const Vector<Real, N> invVoxelDelta = Vector<Real, N>(extent) / windowDelta;
 
-		//const Point<integer, N> voxels = ceil(windowDelta * invDiagonal);
+		//const Vector<integer, N> voxels = ceil(windowDelta * invDiagonal);
 
-		Array<Point<Real, N>, N> grid(extent + 1, Point<Real, N>(infinity<Real>()));
-		const Rectangle<N> gridWindow(Point<integer, N>(0), asPoint(extent));
+		Array<Vector<Real, N>, N> grid(extent + 1, Vector<Real, N>(infinity<Real>()));
+		const Rectangle<N> gridWindow(Vector<integer, N>(0), extent);
 
-		std::vector<Point<integer, N> > activeSet;
+		std::vector<Vector<integer, N> > activeSet;
 
 		if (seedSetBegin == seedSetEnd)
 		{
-			const Point<Real, N> seedPoint(window.at(randomVector<N, Real>()));
-			const Point<integer, N> seedGridPosition(
+			const Vector<Real, N> seedPoint(window.at(randomVector<N, Real>()));
+			const Vector<integer, N> seedGridPosition(
 				floor((seedPoint - window.min()) * invVoxelDelta));
 
 			activeSet.push_back(seedGridPosition);
@@ -119,8 +119,8 @@ namespace Pastel
 			ConstSeedIterator iter = seedSetBegin;
 			while(iter != seedSetEnd)
 			{
-				const Point<Real, N> seedPoint(*iter);
-				const Point<integer, N> seedGridPosition(
+				const Vector<Real, N> seedPoint(*iter);
+				const Vector<integer, N> seedGridPosition(
 					floor((seedPoint - window.min()) * invVoxelDelta));
 
 				activeSet.push_back(seedGridPosition);
@@ -135,10 +135,10 @@ namespace Pastel
 			const integer randomIndex = randomInteger() % activeSet.size();
 			std::swap(activeSet[randomIndex], activeSet[activeSet.size() - 1]);
 
-			const Point<integer, N> coordinates = activeSet.back();
+			const Vector<integer, N> coordinates = activeSet.back();
 			activeSet.pop_back();
 
-			const Point<Real, N> activePoint = grid(coordinates);
+			const Vector<Real, N> activePoint = grid(coordinates);
 
 			bool foundNewPoint = false;
 			do
@@ -150,7 +150,7 @@ namespace Pastel
 					// Generate a new point from the annulus
 					// around the active point.
 
-					const Point<Real, N> newPoint =
+					const Vector<Real, N> newPoint =
 						activePoint +
 						randomVectorAnnulus<N, Real>(
 						minDistance, 2 * minDistance);
@@ -165,7 +165,7 @@ namespace Pastel
 					// Search the neighbourhood to see
 					// if the new point fits or not.
 
-					const Point<integer, N> gridPosition(
+					const Vector<integer, N> gridPosition(
 						(newPoint - window.min()) * invVoxelDelta);
 
 					const AlignedBox<Real, N> neighborhood(
@@ -173,8 +173,8 @@ namespace Pastel
 						newPoint + minDistance);
 
 					const Rectangle<N> searchWindow(
-						Point<integer, N>((neighborhood.min() - window.min()) * invVoxelDelta),
-						Point<integer, N>((neighborhood.max() - window.min()) * invVoxelDelta) + 1);
+						Vector<integer, N>((neighborhood.min() - window.min()) * invVoxelDelta),
+						Vector<integer, N>((neighborhood.max() - window.min()) * invVoxelDelta) + 1);
 
 					/*
 					const Rectangle<N> searchWindow(
@@ -215,7 +215,7 @@ namespace Pastel
 		ReportFunctor& reportFunctor,
 		integer maxRejections)
 	{
-		std::vector<Point<Real, N> > seedSet;
+		std::vector<Vector<Real, N> > seedSet;
 		Pastel::poissonDiskPattern(
 			window, minDistance, reportFunctor,
 			seedSet.begin(), seedSet.end(), maxRejections);

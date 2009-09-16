@@ -31,12 +31,12 @@ namespace Pastel
 				{
 				}
 
-				Point<Real, N>& position()
+				Vector<Real, N>& position()
 				{
 					return position_;
 				}
 
-				const Point<Real, N>& position() const
+				const Vector<Real, N>& position() const
 				{
 					return position_;
 				}
@@ -52,7 +52,7 @@ namespace Pastel
 				}
 
 			private:
-				Point<Real, N> position_;
+				Vector<Real, N> position_;
 			};
 
 			class SimplexData

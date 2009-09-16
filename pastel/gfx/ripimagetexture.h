@@ -7,7 +7,7 @@
 #include "pastel/gfx/texture.h"
 #include "pastel/dsp/ripmap.h"
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
 
 #include "pastel/sys/arrayextender.h"
@@ -33,7 +33,7 @@ namespace Pastel
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>());
 
 		virtual Type operator()(
-			const Point2& uv,
+			const Vector2& uv,
 			const Vector2& dUvDx,
 			const Vector2& dUvDy) const;
 

@@ -1,11 +1,10 @@
 // Description: Distortion of a uniform distribution to another one
 // Detail: As an example, distortion of [0, 1]^3 to a unit ball.
 
-#ifndef PASTEL_UNIFORM_SAMPLING_H
-#define PASTEL_UNIFORM_SAMPLING_H
+#ifndef PASTEL_UNIFORM_DISTORTION_H
+#define PASTEL_UNIFORM_DISTORTION_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 
 #include <boost/utility/enable_if.hpp>
 
@@ -173,6 +172,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/uniform_sampling.hpp"
+#include "pastel/math/uniform_distortion.hpp"
 
 #endif

@@ -40,7 +40,7 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			Point<integer, N> position) const
+			Vector<integer, N> position) const
 		{
 			position[MirrorIndex] = view_.extent()[MirrorIndex] - 1 - position[MirrorIndex];
 
@@ -95,7 +95,7 @@ namespace Pastel
 		}
 
 		Cursor cursor(
-			Point<integer, N> position) const
+			Vector<integer, N> position) const
 		{
 			position[MirrorIndex] = view_.extent()[MirrorIndex] - 1 - position[MirrorIndex];
 

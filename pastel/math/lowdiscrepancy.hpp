@@ -61,8 +61,8 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Point<Real, N> haltonSequence(integer n, 
-		const Point<integer, N>& bases)
+	Vector<Real, N> haltonSequence(integer n, 
+		const Vector<integer, N>& bases)
 	{
 		PENSURE_OP(n, >=, 0);
 		PENSURE(allGreaterEqual(bases, 2));
@@ -70,7 +70,7 @@ namespace Pastel
 		const integer dimension = 
 			ofDimension(bases.dimension());
 
-		Point<Real, N> result(dimension);
+		Vector<Real, N> result(dimension);
 
 		for (integer i = 0;i < dimension;++i)
 		{
@@ -81,8 +81,8 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Point<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
-		integer n, const Point<integer, N>& bases, integer size)
+	Vector<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
+		integer n, const Vector<integer, N>& bases, integer size)
 	{
 		PENSURE_OP(size, >=, 1);
 		PENSURE1(n >= 0 && n < size, n);
@@ -90,7 +90,7 @@ namespace Pastel
 
 		const integer dimension = bases.dimension();
 
-		Point<Real, PASTEL_ADD_N(N, 1)> result(ofDimension(dimension + 1));
+		Vector<Real, PASTEL_ADD_N(N, 1)> result(ofDimension(dimension + 1));
 
 		for (integer i = 0;i < dimension;++i)
 		{

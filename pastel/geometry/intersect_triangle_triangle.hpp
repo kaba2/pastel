@@ -81,7 +81,7 @@ namespace Pastel
 
 		intersectionLine = line;
 		intersectionRange = sharedInterval - 
-			Vector<Real, 1>(dot(asVector(line.position()), line.direction()));
+			Vector<Real, 1>(dot(line.position(), line.direction()));
 
 		return true;
 	}

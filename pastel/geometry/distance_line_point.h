@@ -4,8 +4,9 @@
 #define PASTEL_DISTANCE_LINE_POINT_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
+
 #include "pastel/geometry/line.h"
-#include "pastel/sys/point.h"
 
 namespace Pastel
 {
@@ -15,7 +16,7 @@ namespace Pastel
 	template <int N, typename Real>
 		Real distance2(
 			const Line<Real, N>& line,
-			const Point<Real, N>& point);
+			const Vector<Real, N>& point);
 
 }
 

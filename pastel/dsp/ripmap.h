@@ -65,10 +65,10 @@ namespace Pastel
 			const FilterPtr& filter = gaussianFilter(2));
 
 		Array<Type, N>& operator()(
-			const Point<integer, N>& level);
+			const Vector<integer, N>& level);
 
 		const Array<Type, N>& operator()(
-			const Point<integer, N>& level) const;
+			const Vector<integer, N>& level) const;
 
 		const Vector<integer, N>& levels() const;
 

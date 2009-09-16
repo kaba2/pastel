@@ -472,9 +472,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	Point<Real, N> PointKdTree<Real, N, ObjectPolicy>::point(const Object& object) const
+	Vector<Real, N> PointKdTree<Real, N, ObjectPolicy>::point(const Object& object) const
 	{
-		return Point<Real, N>(ofDimension(dimension_), 
+		return Vector<Real, N>(ofDimension(dimension_), 
 			withAliasing((Real*)objectPolicy_.point(object))); 
 	}
 

@@ -7,13 +7,13 @@ Principles
 ----------
 
 * Use English everywhere.
-	English will be by far the most common language used by the
-	potential users of the library. Also, most computer related
-	terms have their roots in English and are well known.
-	Their translations in other languages are probable
-	to be less known and thus be hard to decipher.
+	Most computer-related terms have their roots in English 
+	and are well known, while their translations in other languages 
+	are probable to be less known and thus hard to decipher.
 
-* Maximize readability of the code as English.
+* Maximize readability of the code in English.
+
+* Write programs and documentation to be read by others.
 
 Naming
 ------
@@ -72,12 +72,12 @@ Naming
 	property can be interpreted both as a verb and an adjective.
 	For example: `open` -> `isOpen`
 
-* Collections: `shapeList_`, `shapeSet_`.
+* Collections: `shapeSet_`.
 
 * Quantities: `shapes`, `leaves`.
 
-* When using curiously recurring template pattern with the
-class `MyClass`, name the super class as `MyClassBase`
+* When using the Curiously Recurring Template Pattern with the
+class `MyClass`, name the super class `MyClassBase`
 
 * When prohibiting the use of implicitly generated class
 members, declare them private, with no implementation and
@@ -87,14 +87,14 @@ comment them `Prohibited`.
 through to the handler of the next case, comment it
 with a `Fall-through`.
 
-Clauses
--------
+Statements
+----------
 
 * All control structures must have their actions defined on a block.
 
 * Place { and } on individual rows.
 
-* Write at most one clause per row.
+* Write at most one statement per row.
 
 * One row, one logical operation. It is hard to follow things 
 such as "a = b = c++;".
@@ -172,9 +172,9 @@ Text editors
 	Longer rows do not necessarily fit in other text editors.
 
 * Do not attempt to align for any other condition than indentation.
-	In particular, do not place comments after a clause.
+	In particular, do not place comments after a statement.
 	The position of the comment changes with the length of the
-	clause before it. Changing the clause requires to
+	statement before it. Changing the statement requires to
 	reposition the comment. The comment is also likely
 	to exceed the given maximum of 70 characters per row.
 
@@ -184,7 +184,7 @@ Text editors
 	the source code.
 	The much debated problems with the tabs stem from the fact that it
 	is often used incorrectly to match other boundary conditions than 
-	indentation (in the middle of a clause). 
+	indentation (in the middle of a statement). 
 	A hard tab can be added only if preceded by another hard tab 
 	or the beginning of a row.
 

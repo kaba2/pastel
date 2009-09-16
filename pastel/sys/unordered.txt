@@ -9,14 +9,15 @@ Theory
 Hashing is a technique which allows in many practical
 cases for constant-time associative searches.
 The unordered containers in Pastel are based on hashing
-and implement the TR1 library proposals for the hash-based
+and implement (except for a differing allocator model) 
+the TR1 library proposals for the hash-based
 containers in the C++ Standard Library. When the elements
 can be hashed, and the storage order does not matter, 
 it is preferable to use these unordered containers instead 
 of the std::set and std::map.
 
-Credits
--------
+Acknowledgements
+----------------
 
 Petri Lehtinen implemented both of the 
 UnorderedMap and UnorderedSet containers.

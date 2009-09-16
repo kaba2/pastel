@@ -6,7 +6,7 @@ Iterator ranges
 Theory
 ------
 
-In Pastel, an iterator range is essentially a triple (b, e, d), 
+In Pastel, an _iterator range_ is a triple (b, e, d), 
 where [b, e[ is an iterator range and d is the distance between 
 b and e. Such a range can be described by giving b and either 
 e or d, since e and d are redundant.
@@ -47,7 +47,7 @@ Iterators vs iterator ranges
 The use of iterator ranges offers more compact interfaces
 to functions, since the number of parameters for each range
 is cut to half. In addition, function templates turn from 
-non-restricted to requiring the parameter to be an iterator range.
+unconstrained to requiring the parameter to be an iterator range.
 This resembles concept-based overloading.
 
 Hierarchy

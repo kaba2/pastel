@@ -11,22 +11,22 @@ namespace Pastel
 
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawProjectiveQuad(
-		const Tuple<Point2, 4>& quad,
+		const Tuple<Vector2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image,
-		const Tuple<Point2, 4>& textureQuad,
+		const Tuple<Vector2, 4>& textureQuad,
 		const ColorMixer& colorMixer);
 
 	template <typename Type, typename Image_View>
 	void drawProjectiveQuad(
-		const Tuple<Point2, 4>& quad,
+		const Tuple<Vector2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image,
-		const Tuple<Point2, 4>& textureQuad);
+		const Tuple<Vector2, 4>& textureQuad);
 
 	template <typename Type, typename Image_View>
 	void drawProjectiveQuad(
-		const Tuple<Point2, 4>& quad,
+		const Tuple<Vector2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image);
 
@@ -42,7 +42,7 @@ namespace Pastel
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void distortAnnulusToAlignedBox(
 		const Texture<Type>& texture,
-		const Point2& annulusCenter,
+		const Vector2& annulusCenter,
 		real annulusStartRadius,
 		real annulusEndRadius,
 		real annulusStartAngle,

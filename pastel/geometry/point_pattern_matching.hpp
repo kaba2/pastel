@@ -180,7 +180,7 @@ namespace Pastel
 					const ModelIterator modelIter = modelIndexList[i];
 					const ModelObject& modelObject =
 						modelIter->object();
-					const Point<Real, 2> modelPoint(
+					const Vector<Real, 2> modelPoint(
 						ofDimension(modelTree_.dimension()),
 						withAliasing((Real*)modelTree_.objectPolicy().point(modelObject)));
 
@@ -193,7 +193,7 @@ namespace Pastel
 
 						const SceneObject& sceneObject =
 							sceneIter->object();
-						const Point<Real, 2> scenePoint(
+						const Vector<Real, 2> scenePoint(
 							ofDimension(sceneTree_.dimension()),
 							withAliasing((Real*)sceneTree_.objectPolicy().point(sceneObject)));
 
@@ -262,9 +262,9 @@ namespace Pastel
 				{
 				}
 
-				Point<Real, 2> operator()(const SceneObject& sceneObject) const
+				Vector<Real, 2> operator()(const SceneObject& sceneObject) const
 				{
-					return Point<Real, 2>(
+					return Vector<Real, 2>(
 						ofDimension(sceneTree_.dimension()),
 						withAliasing((Real*)sceneTree_.objectPolicy().point(sceneObject)));
 				}
@@ -283,16 +283,16 @@ namespace Pastel
 				}
 			};
 
-			Point<Real, 2> scenePosition(const SceneIterator& sceneIter) const
+			Vector<Real, 2> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return Point<Real, 2>(
+				return Vector<Real, 2>(
 					ofDimension(sceneTree_.dimension()),
 					withAliasing((Real*)sceneTree_.objectPolicy().point(sceneIter->object())));
 			}
 
-			Point<Real, 2> modelPosition(const ModelIterator& modelIter) const
+			Vector<Real, 2> modelPosition(const ModelIterator& modelIter) const
 			{
-				return Point<Real, 2>(
+				return Vector<Real, 2>(
 					ofDimension(modelTree_.dimension()),
 					withAliasing((Real*)modelTree_.objectPolicy().point(modelIter->object())));
 			}
@@ -310,9 +310,9 @@ namespace Pastel
 				// respectively. Thus to access the k:th nearest
 				// neighbour, one uses modelSet[k] and sceneSet[k].
 
-				const Point<Real, 2> modelPoint =
+				const Vector<Real, 2> modelPoint =
 					modelPosition(modelSet[0]);
-				const Point<Real, 2> scenePoint =
+				const Vector<Real, 2> scenePoint =
 					scenePosition(sceneSet[0]);
 
 				for (integer i = kPoints_ - k2Points_ + 1;i < kPoints_ + 1;++i)
@@ -330,15 +330,15 @@ namespace Pastel
 						// Count the number of points this similarity transform
 						// matches between the local point sets.
 
-						std::vector<Point<Real, 2> > modelMatch;
+						std::vector<Vector<Real, 2> > modelMatch;
 						modelMatch.push_back(modelPoint);
-						std::vector<Point<Real, 2> > sceneMatch;
+						std::vector<Vector<Real, 2> > sceneMatch;
 						sceneMatch.push_back(scenePoint);
 
 						for (integer m = 1;m < kPoints_ + 1;++m)
 						{
-							const Point<Real, 2> transformedModelPoint =
-								modelPosition(modelSet[m]) * similarity;
+							const Vector<Real, 2> transformedModelPoint =
+								transformPoint(modelPosition(modelSet[m]), similarity);
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
 								searchNearest(sceneTree_, transformedModelPoint);
@@ -381,8 +381,8 @@ namespace Pastel
 			}
 
 			bool improveGlobal(
-				const std::vector<Point<Real, 2> >& modelMatch,
-				const std::vector<Point<Real, 2> >& sceneMatch,
+				const std::vector<Vector<Real, 2> >& modelMatch,
+				const std::vector<Vector<Real, 2> >& sceneMatch,
 				Tuple<Real, 4>& resultSimilarity) const
 			{
 				ASSERT2(sceneMatch.size() == modelMatch.size(),
@@ -390,8 +390,8 @@ namespace Pastel
 
 				++globalTries_;
 
-				std::vector<Point<Real, 2> > modelGlobalMatch(modelMatch);
-				std::vector<Point<Real, 2> > sceneGlobalMatch(sceneMatch);
+				std::vector<Vector<Real, 2> > modelGlobalMatch(modelMatch);
+				std::vector<Vector<Real, 2> > sceneGlobalMatch(sceneMatch);
 
 				integer matches = 0;
 
@@ -431,11 +431,11 @@ namespace Pastel
 
 					while(modelIter != modelEnd)
 					{
-						const Point<Real, 2> modelPoint =
+						const Vector<Real, 2> modelPoint =
 							modelPosition(modelIter);
 
-						const Point<Real, 2> transformedModelPoint =
-							modelPoint * lsSimilarity;
+						const Vector<Real, 2> transformedModelPoint =
+							transformPoint(modelPoint, lsSimilarity);
 
 						// See if the model point maps near to some
 						// scene point.
@@ -446,7 +446,7 @@ namespace Pastel
 						if (closestScenePoint.key() <= matchingThreshold_ &&
 							usedSet.find(closestScenePoint.value()) == usedSet.end())
 						{
-							const Point<Real, 2> scenePoint =
+							const Vector<Real, 2> scenePoint =
 								scenePosition(closestScenePoint.value());
 
 							// Add these points as a new matching pair.

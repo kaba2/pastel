@@ -1,5 +1,5 @@
-PastelSys data structures
-=========================
+Data structures
+===============
 
 [Parent]: pastelsys.txt
 

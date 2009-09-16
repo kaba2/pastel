@@ -6,7 +6,6 @@
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/gfxrenderer.h"
 
-#include "pastel/sys/point.h"
 #include "pastel/geometry/triangle.h"
 #include "pastel/geometry/sphere.h"
 #include "pastel/geometry/alignedbox.h"
@@ -18,7 +17,7 @@ namespace Pastel
 	template <typename Type>
 	void drawPoint(
 		GfxRenderer<Type>& renderer,
-		const Point2& point);
+		const Vector2& point);
 
 	template <typename Type>
 	void drawTriangle(
@@ -64,7 +63,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const AlignedBox2& alignedBox,
-		const Tuple<Point2, 4>& textureQuad);
+		const Tuple<Vector2, 4>& textureQuad);
 
 	template <typename Type>
 	void drawBox(
@@ -75,7 +74,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const Box2& box,
-		const Tuple<Point2, 4>& textureQuad);
+		const Tuple<Vector2, 4>& textureQuad);
 
 	template <typename Type>
 	void drawArrow(
@@ -87,18 +86,18 @@ namespace Pastel
 	void drawSegment(
 		GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		const std::vector<Point2>& pen);
+		const std::vector<Vector2>& pen);
 
 	template <typename Type>
 	void drawOrientedSegment(
 		GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		const std::vector<Point2>& pen);
+		const std::vector<Vector2>& pen);
 
 	template <typename Type>
 	void drawConvexPolygon(
 		GfxRenderer<Type>& renderer,
-		const std::vector<Point2>& convexPolygon);
+		const std::vector<Vector2>& convexPolygon);
 
 }
 

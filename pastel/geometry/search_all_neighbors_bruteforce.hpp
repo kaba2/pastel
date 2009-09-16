@@ -49,7 +49,7 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection,
 	typename ConstIndexIterator>
 	void searchAllNeighborsBruteForce(
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		const ConstIndexIterator& indexSetBegin,
 		const ConstIndexIterator& indexSetEnd,
 		integer kNearest,
@@ -112,7 +112,7 @@ namespace Pastel
 		for (integer i = 0;i < indices;++i)
 		{
 			const integer index = indexSetBegin[i];
-			const Point<Real, N>& iPoint = pointSet[index];
+			const Vector<Real, N>& iPoint = pointSet[index];
 
 			Real cullDistance = maxDistance;
 			nearestSet.clear();

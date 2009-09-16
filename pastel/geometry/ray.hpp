@@ -3,9 +3,7 @@
 
 #include "pastel/geometry/ray.h"
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
-
 #include "pastel/sys/vector_tools.h"
 
 #include <boost/static_assert.hpp>
@@ -21,7 +19,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Ray<Real, N>::Ray(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 		: line_(position, unitDirection)
 	{
@@ -75,7 +73,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Ray<Real, N>::set(
-		const Point<Real, N>& position,
+		const Vector<Real, N>& position,
 		const Vector<Real, N>& unitDirection)
 	{
 		line_.set(position, unitDirection);
@@ -83,13 +81,13 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void Ray<Real, N>::setPosition(
-		const Point<Real, N>& position)
+		const Vector<Real, N>& position)
 	{
 		line_.setPosition(position);
 	}
 
 	template <typename Real, int N>
-	const Point<Real, N>& Ray<Real, N>::position() const
+	const Vector<Real, N>& Ray<Real, N>::position() const
 	{
 		return line_.position();
 	}
@@ -126,7 +124,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Point<Real, N> Ray<Real, N>::at(const Real& t) const
+	Vector<Real, N> Ray<Real, N>::at(const Real& t) const
 	{
 		return line_.at(t);
 	}

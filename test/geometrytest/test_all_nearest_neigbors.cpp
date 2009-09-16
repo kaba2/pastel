@@ -31,17 +31,17 @@ namespace
 	void generateSpherePointSet(
 		integer dimension,
 		integer points,
-		std::vector<Point<Real, N> >& pointSet)
+		std::vector<Vector<Real, N> >& pointSet)
 	{
 		ENSURE_OP(points, >=, 0);
 
-		std::vector<Point<Real, N> > result;
+		std::vector<Vector<Real, N> > result;
 		result.reserve(points);
 		
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				asPoint(randomVectorBall<N, Real>(dimension)));
+				randomVectorBall<N, Real>(dimension));
 		}
 
 		pointSet.swap(result);
@@ -53,7 +53,7 @@ namespace
 		log() << dimension << "-D, " << points << " points, " 
 			<< kNearest << " neighbors." << logNewLine;
 
-		std::vector<Point<Real, N> > pointSet;
+		std::vector<Vector<Real, N> > pointSet;
 		generateSpherePointSet(dimension, points, pointSet);
 
 		Timer timer;
@@ -155,7 +155,7 @@ namespace
 	template <int N, typename Real>
 	typename boost::disable_if_c<(N == 2)>::type
 		drawNearest(const std::string& name,
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		const Array<integer, 2>& neighborSet)
 	{
 	}
@@ -163,7 +163,7 @@ namespace
 	template <int N, typename Real>
 	typename boost::enable_if_c<(N == 2)>::type
 		drawNearest(const std::string& name,
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		const Array<integer, 2>& neighborSet)
 	{
 		const integer points = neighborSet.height();

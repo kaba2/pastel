@@ -124,10 +124,10 @@ namespace Pastel
 
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawPoint(
-		const Point2& point)
+		const Vector2& point)
 	{
 		const Type& currentColor = Base::color();
-		const Point2 screenPoint = transform(point);
+		const Vector2 screenPoint = transform(point);
 
 		// Set the closest pixel.
 
@@ -176,7 +176,7 @@ namespace Pastel
 
 		Pastel::drawTriangle(
 			screenTriangle,
-			Triangle2(Point2(0, 0), Point2(1, 0), Point2(0, 1)),
+			Triangle2(Vector2(0, 0), Vector2(1, 0), Vector2(0, 1)),
 			bilinearTriangleTexture<Type>(colorTriangle),
 			arrayView(*image_));
 	}
@@ -214,12 +214,12 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Point2 Image_GfxRenderer<Type>::transform(const Point2& point) const
+	Vector2 Image_GfxRenderer<Type>::transform(const Vector2& point) const
 	{
-		const Point2& viewPoint = point * screenTransformation_;
+		const Vector2& viewPoint = transformPoint(point, screenTransformation_);
 		const Vector2 uv = (viewPoint - Base::viewWindow().min()) /
 			Base::viewWindow().extent();
-		return Point2(uv * Vector2(image_->width(), image_->height()));
+		return Vector2(uv * Vector2(image_->width(), image_->height()));
 	}
 
 }

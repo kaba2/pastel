@@ -4,7 +4,8 @@
 #define PASTEL_CLOSEST_PLANE_POINT_H
 
 #include "pastel/geometry/plane.h"
-#include "pastel/sys/point.h"
+
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -19,7 +20,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real closest(
 		const Plane<Real, N>& plane,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

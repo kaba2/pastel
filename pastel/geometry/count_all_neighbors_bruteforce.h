@@ -5,7 +5,7 @@
 #define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -46,7 +46,7 @@ namespace Pastel
 	typename ConstIndexIterator, typename ConstDistanceIterator,
 	typename CountIterator>
 	void countAllNeighborsBruteForce(
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		const ConstIndexIterator& indexBegin,
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,

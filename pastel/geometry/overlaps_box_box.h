@@ -49,7 +49,7 @@ namespace Pastel
 		bool infiniteStart,
 		bool infiniteEnd,
 		Vector<Real, N>& projection,
-		Point<Real, N>& commonPoint);
+		Vector<Real, N>& commonPoint);
 
 }
 

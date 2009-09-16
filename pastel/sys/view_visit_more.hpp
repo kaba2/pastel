@@ -17,7 +17,7 @@ namespace Pastel
 		template <int Index, int N, typename Cursor, typename VisitPositionFunctor>
 		void visitPositionDimension(
 			const Vector<integer, N>& extent,
-			const Point<integer, N>& startPosition,
+			const Vector<integer, N>& startPosition,
 			const Cursor& startCursor,
 			const VisitPositionFunctor& visitPosition,
 			NormalTag)
@@ -27,7 +27,7 @@ namespace Pastel
 			const integer width = extent[Index];
 
 			Cursor cursor = startCursor;
-			Point<integer, N> position = startPosition;
+			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
@@ -47,7 +47,7 @@ namespace Pastel
 		template <int Index, int N, typename Cursor, typename VisitPositionFunctor>
 		void visitPositionDimension(
 			const Vector<integer, N>& extent,
-			const Point<integer, N>& startPosition,
+			const Vector<integer, N>& startPosition,
 			const Cursor& startCursor,
 			const VisitPositionFunctor& visitPosition,
 			TerminateTag)
@@ -57,7 +57,7 @@ namespace Pastel
 			const integer width = extent[Index];
 
 			Cursor cursor = startCursor;
-			Point<integer, N> position = startPosition;
+			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
@@ -82,8 +82,8 @@ namespace Pastel
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
 			input.extent(),
-			Point<integer, N>(0),
-			input.constCursor(Point<integer, N>(0)),
+			Vector<integer, N>(0),
+			input.constCursor(Vector<integer, N>(0)),
 			visitPosition,
 			Tag());
 	}
@@ -100,8 +100,8 @@ namespace Pastel
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
 			input.extent(),
-			Point<integer, N>(0),
-			input.cursor(Point<integer, N>(0)),
+			Vector<integer, N>(0),
+			input.cursor(Vector<integer, N>(0)),
 			visitPosition,
 			Tag());
 	}
@@ -117,7 +117,7 @@ namespace Pastel
 			typename VisitPositionFunctor>
 		void visitPositionDimension(
 			const Vector<integer, N>& extent,
-			const Point<integer, N>& startPosition,
+			const Vector<integer, N>& startPosition,
 			const Left_Cursor& leftStartCursor,
 			const Right_Cursor&  rightStartCursor,
 			const VisitPositionFunctor& visitPosition,
@@ -129,7 +129,7 @@ namespace Pastel
 
 			Left_Cursor leftCursor = leftStartCursor;
 			Right_Cursor rightCursor = rightStartCursor;
-			Point<integer, N> position = startPosition;
+			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
@@ -153,7 +153,7 @@ namespace Pastel
 			typename VisitPositionFunctor>
 		void visitPositionDimension(
 			const Vector<integer, N>& extent,
-			const Point<integer, N>& startPosition,
+			const Vector<integer, N>& startPosition,
 			const Left_Cursor& leftStartCursor,
 			const Right_Cursor& rightStartCursor,
 			const VisitPositionFunctor& visitPosition,
@@ -165,7 +165,7 @@ namespace Pastel
 
 			Left_Cursor leftCursor = leftStartCursor;
 			Right_Cursor rightCursor = rightStartCursor;
-			Point<integer, N> position = startPosition;
+			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
@@ -197,9 +197,9 @@ namespace Pastel
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
 			left.extent(),
-			Point<integer, N>(0),
-			left.constCursor(Point<integer, N>(0)),
-			right.cursor(Point<integer, N>(0)),
+			Vector<integer, N>(0),
+			left.constCursor(Vector<integer, N>(0)),
+			right.cursor(Vector<integer, N>(0)),
 			visitPosition,
 			Tag());
 	}
@@ -222,9 +222,9 @@ namespace Pastel
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
 			left.extent(),
-			Point<integer, N>(0),
-			left.cursor(Point<integer, N>(0)),
-			right.cursor(Point<integer, N>(0)),
+			Vector<integer, N>(0),
+			left.cursor(Vector<integer, N>(0)),
+			right.cursor(Vector<integer, N>(0)),
 			visitPosition,
 			Tag());
 	}
@@ -247,9 +247,9 @@ namespace Pastel
 
 		Detail_VisitPosition::visitPositionDimension<N - 1>(
 			left.extent(),
-			Point<integer, N>(0),
-			left.constCursor(Point<integer, N>(0)),
-			right.constCursor(Point<integer, N>(0)),
+			Vector<integer, N>(0),
+			left.constCursor(Vector<integer, N>(0)),
+			right.constCursor(Vector<integer, N>(0)),
 			visitPosition,
 			Tag());
 	}

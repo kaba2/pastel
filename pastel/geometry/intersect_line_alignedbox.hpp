@@ -23,7 +23,7 @@ namespace Pastel
 		Real tMax(infinity<Real>());
 
 		const AlignedBox<Real, N> testAlignedBox(alignedBox -
-			asVector(line.position()));
+			line.position());
 
 		const integer dimension = line.dimension();
 

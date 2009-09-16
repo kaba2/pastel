@@ -6,8 +6,8 @@
 #define PASTEL_SYSCOMMON_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 #include "pastel/sys/syslibrary.h"
-#include "pastel/sys/point.h"
 
 #include <vector>
 #include <string>
@@ -49,8 +49,8 @@ namespace Pastel
 	integer toPixelSpanPoint(real t);
 
 	template <int N>
-	Point<integer, N> toPixelSpanPoint(
-		const Point<real, N>& that);
+	Vector<integer, N> toPixelSpanPoint(
+		const Vector<real, N>& that);
 
 	//! Scales an integer from [0, 2^FromBits - 1] to [0, 2^ToBits - 1].
 	/*!

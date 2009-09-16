@@ -249,7 +249,7 @@ namespace Pastel
 	}
 
 	void GlGfxRenderer::drawPoint(
-		const Point2& point)
+		const Vector2& point)
 	{
 		const Color& currentColor = color();
 
@@ -262,8 +262,8 @@ namespace Pastel
 	void GlGfxRenderer::drawSegment(
 		const Segment2& segment)
 	{
-		const Point2& start = segment.start();
-		const Point2& end = segment.end();
+		const Vector2& start = segment.start();
+		const Vector2& end = segment.end();
 		const Color& currentColor = color();
 
 		glBegin(GL_LINES);

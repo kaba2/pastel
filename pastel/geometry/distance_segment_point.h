@@ -2,14 +2,15 @@
 #define PASTEL_DISTANCE_SEGMENT_POINT_H
 
 #include "pastel/geometry/segment.h"
-#include "pastel/geometry/point.h"
+
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
 	template <int N, typename Real>
 	Real distance2(const Segment<Real, N>& segment,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

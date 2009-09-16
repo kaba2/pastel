@@ -32,7 +32,7 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Point2& p,
+			const Vector2& p,
 			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{

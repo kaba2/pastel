@@ -154,8 +154,8 @@ namespace Pastel
 	}
 
 	PASTELGEOMETRY Matrix3 projectiveTransformation(
-		const Tuple<Point2, 4>& from,
-		const Tuple<Point2, 4>& to)
+		const Tuple<Vector2, 4>& from,
+		const Tuple<Vector2, 4>& to)
 	{
 		/*
 		Using homogeneous coordinates, a projective 2d transformation is

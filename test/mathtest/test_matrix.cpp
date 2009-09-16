@@ -87,7 +87,7 @@ namespace
 
 			// You can refer to a submatrix of a matrix.
 
-			b(Point2i(2, 0), Point2i(4, 2)) = 
+			b(Vector2i(2, 0), Vector2i(4, 2)) = 
 				identityMatrix<real, Dynamic, Dynamic>(2, 2) * 2;
 
 			TEST_ENSURE(a == b);
@@ -99,8 +99,8 @@ namespace
 			// You can assign a submatrix to a submatrix
 			// inside the same matrix.
 
-			c(Point2i(0, 7), Point2i(2, 9)) =
-				c(Point2i(0, 5), Point2i(2, 7));
+			c(Vector2i(0, 7), Vector2i(2, 9)) =
+				c(Vector2i(0, 5), Vector2i(2, 7));
 
 			MatrixD d(2, 9);
 			d |= 1, 2, 3, 4, 5, 6, 7, 6, 7,
@@ -122,8 +122,8 @@ namespace
 			// in a reversed manner by reversing the range
 			// values.
 
-			SubMatrix<real> v = c(Point2i(0, 2), Point2i(2, -1));
-			SubMatrix<real> v2 = c(Point2i(0, 0), Point2i(2, 3));
+			SubMatrix<real> v = c(Vector2i(0, 2), Vector2i(2, -1));
+			SubMatrix<real> v2 = c(Vector2i(0, 0), Vector2i(2, 3));
 
 			v2 = v;
 

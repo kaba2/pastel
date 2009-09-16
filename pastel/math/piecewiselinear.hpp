@@ -8,26 +8,26 @@
 namespace Pastel
 {
 
-	template <typename Real, typename Point>
-	void PiecewiseLinear<Real, Point>::insert(
-		const Real& time, const Point& value)
+	template <typename Real, typename Vector>
+	void PiecewiseLinear<Real, Vector>::insert(
+		const Real& time, const Vector& value)
 	{
 		map_.insert(time, value);
 	}
 
-	template <typename Real, typename Point>
-	void PiecewiseLinear<Real, Point>::clear()
+	template <typename Real, typename Vector>
+	void PiecewiseLinear<Real, Vector>::clear()
 	{
 		map_.clear();
 	}
 
-	template <typename Real, typename Point>
-	Point PiecewiseLinear<Real, Point>::operator()(
+	template <typename Real, typename Vector>
+	Vector PiecewiseLinear<Real, Vector>::operator()(
 		const Real& time) const
 	{
 		if (map_.empty())
 		{
-			return Point();
+			return Vector();
 		}
 
 		const integer index = map_.lower_bound(time);

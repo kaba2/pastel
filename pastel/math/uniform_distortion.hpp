@@ -1,10 +1,10 @@
-#ifndef PASTEL_UNIFORM_SAMPLING_HPP
-#define PASTEL_UNIFORM_SAMPLING_HPP
+#ifndef PASTEL_UNIFORM_DISTORTION_HPP
+#define PASTEL_UNIFORM_DISTORTION_HPP
 
-#include "pastel/math/uniform_sampling.h"
-#include "pastel/sys/math_functions.h"
+#include "pastel/math/uniform_distortion.h"
 #include "pastel/math/coordinates.h"
 
+#include "pastel/sys/math_functions.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/smallset.h"
@@ -510,7 +510,7 @@ namespace Pastel
 		// This is the inverse of the
 		// uniformlySampleBall<2, Real>() function.
 
-		const Real radius(norm(asVector(uv)));
+		const Real radius(norm(uv));
 		const Real theta(positiveRadians<Real>(std::atan2(uv[1], uv[0])));
 		const Real scaledTheta(
 			theta / (constantPi<Real>() / 4));

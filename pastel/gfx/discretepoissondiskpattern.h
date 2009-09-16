@@ -40,7 +40,7 @@ namespace Pastel
 
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				bool& image) const
 			{
 				Mixer mixer;

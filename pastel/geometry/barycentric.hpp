@@ -4,14 +4,13 @@
 #include "pastel/geometry/barycentric.h"
 
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/point_tools.h"
 
 namespace Pastel
 {
 
 	template <int N, typename Real>
 	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const Simplex<Real, N, N>& simplex)
 	{
 		PENSURE_OP(point.dimension(), ==, simplex.dimension());
@@ -22,15 +21,15 @@ namespace Pastel
 			dimension + 1, dimension + 1);
 		for (integer i = 0;i < dimension + 1;++i)
 		{
-			m[i] = extend(asVector(simplex[i]), 1);
+			m[i] = extend(simplex[i], 1);
 		}
 
-		return solveLinear(m, extend(asVector(point), 1));
+		return solveLinear(m, extend(point, 1));
 	}
 
 	template <int N, typename Real>
 	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
-		const Point<Real, N>& point)
+		const Vector<Real, N>& point)
 	{
 		// The linear system is trivial to solve in
 		// case of the standard simplex.
@@ -54,7 +53,7 @@ namespace Pastel
 
 		Vector<Real, PASTEL_ADD_N(N, 1)> result(ofDimension(dimension));
 
-		result[0] = 1 - sum(asVector(point));
+		result[0] = 1 - sum(point);
 
 		for (integer i = 1;i < dimension + 1;++i)
 		{

@@ -61,7 +61,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				const Input_RingElement& factor) const
 			{
 				if (processFunctor_(factor))
@@ -69,7 +69,7 @@ namespace Pastel
 					drawView(
 						constTransformedView(filterView_,
 						Transform<Filter_RingElement, Output_RingElement>(factor)),
-						position - filterView_.extent() / 2,
+						evaluate(position - filterView_.extent() / 2),
 						outputView_,
 						additiveColorMixer<Output_RingElement>());
 				}

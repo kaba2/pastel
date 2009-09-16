@@ -19,7 +19,7 @@ namespace Pastel
 			}
 
 			Vertex(
-				const Point2& position,
+				const Vector2& position,
 				integer index)
 				: position_(position)
 				, index_(index)
@@ -41,7 +41,7 @@ namespace Pastel
 				return index_ < that.index_;
 			}
 
-			Point2 position_;
+			Vector2 position_;
 			integer index_;
 		};
 
@@ -206,8 +206,8 @@ namespace Pastel
 			}
 
 			TextureVertex(
-				const Point2& position,
-				const Point2& uv,
+				const Vector2& position,
+				const Vector2& uv,
 				integer index)
 				: x_(position[0])
 				, y_(position[1])
@@ -218,7 +218,7 @@ namespace Pastel
 
 			real x_;
 			real y_;
-			Point2 uv_;
+			Vector2 uv_;
 			integer index_;
 		};
 
@@ -354,11 +354,11 @@ namespace Pastel
 
 		const bool longLeftEdge =
 			side(
-			Point2(yMidVertex.x_, yMidVertex.y_),
+			Vector2(yMidVertex.x_, yMidVertex.y_),
 			Plane2(
-			Point2(yMinVertex.x_, yMinVertex.y_),
-			cross(Point2(yMaxVertex.x_, yMaxVertex.y_) -
-			Point2(yMinVertex.x_, yMinVertex.y_)))) < 0;
+			Vector2(yMinVertex.x_, yMinVertex.y_),
+			cross(Vector2(yMaxVertex.x_, yMaxVertex.y_) -
+			Vector2(yMinVertex.x_, yMinVertex.y_)))) < 0;
 
 		if (longLeftEdge)
 		{
@@ -393,11 +393,11 @@ namespace Pastel
 
 		const bool longBottomEdge =
 			side(
-			Point2(xMidVertex.x_, xMidVertex.y_),
+			Vector2(xMidVertex.x_, xMidVertex.y_),
 			Plane2(
-			Point2(xMinVertex.x_, xMinVertex.y_),
-			cross(Point2(xMaxVertex.x_, xMaxVertex.y_) -
-			Point2(xMinVertex.x_, xMinVertex.y_)))) < 0;
+			Vector2(xMinVertex.x_, xMinVertex.y_),
+			cross(Vector2(xMaxVertex.x_, xMaxVertex.y_) -
+			Vector2(xMinVertex.x_, xMinVertex.y_)))) < 0;
 
 		if (longBottomEdge)
 		{
@@ -469,10 +469,10 @@ namespace Pastel
 		const real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
 
 		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
-		Point2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
+		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
 
 		real xRight = yMinVertex.x_ + dxRightDy * yOffset;
-		Point2 uvRight = yMinVertex.uv_ + dUvRightDy * yOffset;
+		Vector2 uvRight = yMinVertex.uv_ + dUvRightDy * yOffset;
 
 		// Compute data derivatives w.r.t. x.
 
@@ -553,7 +553,7 @@ namespace Pastel
 			{
 				const real xOffset = ((real)xBegin + 0.5) - xLeft;
 
-				Point2 uv = uvLeft + dUvDx * xOffset;
+				Vector2 uv = uvLeft + dUvDx * xOffset;
 
 				for (integer x = xBegin;x < xEnd;++x)
 				{
@@ -635,7 +635,7 @@ namespace Pastel
 			{
 				const real xOffset = ((real)xBegin + 0.5) - xLeft;
 
-				Point2 uv = uvLeft + dUvDx * xOffset;
+				Vector2 uv = uvLeft + dUvDx * xOffset;
 
 				for (integer x = xBegin;x < xEnd;++x)
 				{
@@ -682,8 +682,8 @@ namespace Pastel
 			}
 
 			TextureVertex(
-				const Point3& position,
-				const Point2& uv,
+				const Vector3& position,
+				const Vector2& uv,
 				integer index)
 				: x_(position[0])
 				, y_(position[1])
@@ -696,11 +696,11 @@ namespace Pastel
 			real x_;
 			real y_;
 
-			typedef Point1 tPoint;
+			typedef Vector1 tPoint;
 			typedef Vector1 tVector;
 
 			tPoint t_;
-			Point2 uv_;
+			Vector2 uv_;
 			integer index_;
 		};
 
@@ -878,11 +878,11 @@ namespace Pastel
 
 		const bool longLeftEdge =
 			side(
-			Point2(yMidVertex.x_, yMidVertex.y_),
+			Vector2(yMidVertex.x_, yMidVertex.y_),
 			Plane2(
-			Point2(yMinVertex.x_, yMinVertex.y_),
-			cross(Point2(yMaxVertex.x_, yMaxVertex.y_) -
-			Point2(yMinVertex.x_, yMinVertex.y_)))) < 0;
+			Vector2(yMinVertex.x_, yMinVertex.y_),
+			cross(Vector2(yMaxVertex.x_, yMaxVertex.y_) -
+			Vector2(yMinVertex.x_, yMinVertex.y_)))) < 0;
 
 		if (longLeftEdge)
 		{
@@ -923,11 +923,11 @@ namespace Pastel
 
 		const bool longBottomEdge =
 			side(
-			Point2(xMidVertex.x_, xMidVertex.y_),
+			Vector2(xMidVertex.x_, xMidVertex.y_),
 			Plane2(
-			Point2(xMinVertex.x_, xMinVertex.y_),
-			cross(Point2(xMaxVertex.x_, xMaxVertex.y_) -
-			Point2(xMinVertex.x_, xMinVertex.y_)))) < 0;
+			Vector2(xMinVertex.x_, xMinVertex.y_),
+			cross(Vector2(xMaxVertex.x_, xMaxVertex.y_) -
+			Vector2(xMinVertex.x_, xMinVertex.y_)))) < 0;
 
 		if (longBottomEdge)
 		{
@@ -1011,11 +1011,11 @@ namespace Pastel
 		const real yOffset = ((real)yMin + 0.5) - yMinVertex.y_;
 
 		real xLeft = yMinVertex.x_ + dxLeftDy * yOffset;
-		Point2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
+		Vector2 uvLeft = yMinVertex.uv_ + dUvLeftDy * yOffset;
 		tPoint tLeft = yMinVertex.t_ + dtLeftDy * yOffset;
 
 		real xRight = yMinVertex.x_ + dxRightDy * yOffset;
-		Point2 uvRight = yMinVertex.uv_ + dUvRightDy * yOffset;
+		Vector2 uvRight = yMinVertex.uv_ + dUvRightDy * yOffset;
 		tPoint tRight = yMinVertex.t_ + dtRightDy * yOffset;
 
 		// Compute data derivatives w.r.t. x.
@@ -1123,7 +1123,7 @@ namespace Pastel
 			{
 				const real xOffset = ((real)xBegin + 0.5) - xLeft;
 
-				Point2 uv = uvLeft + dUvDx * xOffset;
+				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
 				const real& uh = uv[0];
@@ -1143,12 +1143,12 @@ namespace Pastel
 					const real dwDx = -dtDx[0] * w * w;
 					const real dwDy = -dtDy[0] * w * w;
 
-					Vector2 dsDx = dUvDx * w + asVector(uv) * dwDx;
-					Vector2 dsDy = dUvDy * w + asVector(uv) * dwDy;
+					Vector2 dsDx = dUvDx * w + uv * dwDx;
+					Vector2 dsDy = dUvDy * w + uv * dwDy;
 
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(Point2(asVector(uv) * w), dsDx, dsDy));
+						textureSampler(uv * w, dsDx, dsDy));
 
 					uv += dUvDx;
 					t += dtDx;
@@ -1238,7 +1238,7 @@ namespace Pastel
 			{
 				const real xOffset = ((real)xBegin + 0.5) - xLeft;
 
-				Point2 uv = uvLeft + dUvDx * xOffset;
+				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
 				const real& uh = uv[0];
@@ -1264,12 +1264,12 @@ namespace Pastel
 					const real dwDx = -dtDx[0] * w * w;
 					const real dwDy = -dtDy[0] * w * w;
 
-					Vector2 dsDx = dUvDx * w + asVector(uv) * dwDx;
-					Vector2 dsDy = dUvDy * w + asVector(uv) * dwDy;
+					Vector2 dsDx = dUvDx * w + uv * dwDx;
+					Vector2 dsDy = dUvDy * w + uv * dwDy;
 
 					image(x, y) =
 						colorMixer(image(x, y),
-						textureSampler(Point2(asVector(uv) * w), dsDx, dsDy));
+						textureSampler(uv * w, dsDx, dsDy));
 
 					uv += dUvDx;
 					t += dtDx;

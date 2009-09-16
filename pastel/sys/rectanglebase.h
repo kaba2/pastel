@@ -34,11 +34,11 @@ namespace Pastel
 		RectangleBase();
 
 		//! Constructs a singular box (min = max = that).
-		explicit RectangleBase(const Point<integer, N>& that);
+		explicit RectangleBase(const Vector<integer, N>& that);
 
 		//! Constructs a box using the given points.
-		RectangleBase(Point<integer, N> const &nMin,
-			Point<integer, N> const &nMax);
+		RectangleBase(Vector<integer, N> const &nMin,
+			Vector<integer, N> const &nMax);
 
 		// Used for concept checking.
 		~RectangleBase();
@@ -50,31 +50,31 @@ namespace Pastel
 		void swap(Derived& that);
 
 		//! Sets the corner points of the box.
-		void set(const Point<integer, N>& nMin,
-			const Point<integer, N>& nMax);
+		void set(const Vector<integer, N>& nMin,
+			const Vector<integer, N>& nMax);
 
 		//! Sets the minimum point of the box.
-		void setMin(const Point<integer, N>& min);
+		void setMin(const Vector<integer, N>& min);
 
 		//! Returns the minimum point of the box.
-		Point<integer, N>& min();
+		Vector<integer, N>& min();
 
 		//! Returns the minimum point of the box.
-		const Point<integer, N>& min() const;
+		const Vector<integer, N>& min() const;
 
 		//! Sets the maximum point of the box.
-		void setMax(const Point<integer, N>& max);
+		void setMax(const Vector<integer, N>& max);
 
 		//! Returns the maximum point of the box.
-		Point<integer, N>& max();
+		Vector<integer, N>& max();
 
 		//! Returns the maximum point of the box.
-		const Point<integer, N>& max() const;
+		const Vector<integer, N>& max() const;
 
 		//! Returns max() - min().
 		Vector<integer, N> extent() const;
 
-		Point<integer, N> at(
+		Vector<integer, N> at(
 			const Vector<integer, N>& coordinates) const;
 
 		//! Translates the box by the given vector.
@@ -92,8 +92,8 @@ namespace Pastel
 			const Vector<integer, N>& right) const;
 
 	private:
-		Point<integer, N> min_;
-		Point<integer, N> max_;
+		Vector<integer, N> min_;
+		Vector<integer, N> max_;
 	};
 
 }

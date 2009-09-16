@@ -17,7 +17,7 @@ namespace Pastel
 		template <int Index, int N, typename VisitRectangleFunctor>
 		void visitRectangleDimension(
 			const Vector<integer, N>& extent,
-			const Point<integer, N>& startPosition,
+			const Vector<integer, N>& startPosition,
 			const VisitRectangleFunctor& visitRectangle,
 			NormalTag)
 		{
@@ -25,7 +25,7 @@ namespace Pastel
 
 			const integer width = extent[Index];
 
-			Point<integer, N> position = startPosition;
+			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
@@ -44,7 +44,7 @@ namespace Pastel
 		template <int Index, int N, typename VisitRectangleFunctor>
 		void visitRectangleDimension(
 			const Vector<integer, N>& extent,
-			const Point<integer, N>& startPosition,
+			const Vector<integer, N>& startPosition,
 			const VisitRectangleFunctor& visitRectangle,
 			TerminateTag)
 		{
@@ -52,7 +52,7 @@ namespace Pastel
 
 			const integer width = extent[Index];
 
-			Point<integer, N> position = startPosition;
+			Vector<integer, N> position = startPosition;
 
 			for (integer i = 0;i < width;++i)
 			{
@@ -76,7 +76,7 @@ namespace Pastel
 
 		Detail_VisitRectangle::visitRectangleDimension<N - 1>(
 			rectangle.extent(),
-			Point<integer, N>(0),
+			Vector<integer, N>(0),
 			visitor,
 			Tag());
 	}
@@ -151,7 +151,7 @@ namespace Pastel
 
 		Detail_Visit::visitDimension<N - 1>(
 			input.extent(),
-			input.constCursor(Point<integer, N>(0)),
+			input.constCursor(Vector<integer, N>(0)),
 			visitor,
 			Tag());
 	}
@@ -168,7 +168,7 @@ namespace Pastel
 
 		Detail_Visit::visitDimension<N - 1>(
 			input.extent(),
-			input.cursor(Point<integer, N>(0)),
+			input.cursor(Vector<integer, N>(0)),
 			visitor,
 			Tag());
 	}
@@ -258,8 +258,8 @@ namespace Pastel
 
 		Detail_Visit::visitDimension<N - 1>(
 			left.extent(),
-			left.constCursor(Point<integer, N>(0)),
-			right.cursor(Point<integer, N>(0)),
+			left.constCursor(Vector<integer, N>(0)),
+			right.cursor(Vector<integer, N>(0)),
 			visitor,
 			Tag());
 	}
@@ -282,8 +282,8 @@ namespace Pastel
 
 		Detail_Visit::visitDimension<N - 1>(
 			left.extent(),
-			left.cursor(Point<integer, N>(0)),
-			right.cursor(Point<integer, N>(0)),
+			left.cursor(Vector<integer, N>(0)),
+			right.cursor(Vector<integer, N>(0)),
 			visitor,
 			Tag());
 	}
@@ -306,8 +306,8 @@ namespace Pastel
 
 		Detail_Visit::visitDimension<N - 1>(
 			left.extent(),
-			left.constCursor(Point<integer, N>(0)),
-			right.constCursor(Point<integer, N>(0)),
+			left.constCursor(Vector<integer, N>(0)),
+			right.constCursor(Vector<integer, N>(0)),
 			visitor,
 			Tag());
 	}

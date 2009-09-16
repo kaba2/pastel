@@ -136,7 +136,7 @@ namespace
 		renderer.setColor(true);
 		renderer.setFilled(true);
 
-		drawCircle(renderer, Sphere2(Point2(0), 0.5), 50);
+		drawCircle(renderer, Sphere2(Vector2(0), 0.5), 50);
 
 		Array<bool, 2> element(31, 21, false);
 
@@ -145,7 +145,7 @@ namespace
 		elementRenderer.setColor(true);
 		elementRenderer.setFilled(true);
 
-		drawTriangle(elementRenderer, Triangle2(Point2(-1, -1), Point2(0, 1), Point2(1, -1)));
+		drawTriangle(elementRenderer, Triangle2(Vector2(-1, -1), Vector2(0, 1), Vector2(1, -1)));
 
 		saveBinaryPcx(image, "output/erode_input.pcx");
 		saveBinaryPcx(element, "output/erode_element.pcx");

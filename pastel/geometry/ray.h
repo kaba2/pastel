@@ -5,10 +5,9 @@
 #ifndef PASTEL_RAY_H
 #define PASTEL_RAY_H
 
-#include "pastel/sys/point.h"
-#include "pastel/sys/vector.h"
 #include "pastel/geometry/line.h"
 
+#include "pastel/sys/vector.h"
 #include "pastel/sys/tuple.h"
 
 namespace Pastel
@@ -35,7 +34,7 @@ namespace Pastel
 		Ray();
 
 		//! Construct a ray given position and direction.
-		Ray(const Point<Real, N>& position,
+		Ray(const Vector<Real, N>& position,
 			const Vector<Real, N>& unitDirection);
 
 		// Used for concept checking.
@@ -61,14 +60,14 @@ namespace Pastel
 			const Vector<Real, N>& translation) const;
 
 		//! Sets the position and direction of the ray.
-		void set(const Point<Real, N>& position,
+		void set(const Vector<Real, N>& position,
 			const Vector<Real, N>& unitDirection);
 
 		//! Sets the position of the ray.
-		void setPosition(const Point<Real, N>& position);
+		void setPosition(const Vector<Real, N>& position);
 
 		//! Returns the position of the ray.
-		const Point<Real, N>& position() const;
+		const Vector<Real, N>& position() const;
 
 		//! Sets the direction of the ray.
 		void setDirection(const Vector<Real, N>& unitDirection);
@@ -88,7 +87,7 @@ namespace Pastel
 		const Line<Real, N>& line() const;
 
 		//! Returns the point (position + t * direction).
-		Point<Real, N> at(const Real& t) const;
+		Vector<Real, N> at(const Real& t) const;
 
 	private:
 		Line<Real, N> line_;

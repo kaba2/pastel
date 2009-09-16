@@ -59,7 +59,7 @@ namespace Pastel
 		const AlignedBox<Real, 2>& alignedBox,
 		const Box<Real, 2>& box,
 		Vector<Real, 2>& projection,
-		Point<Real, 2>& commonPoint);
+		Vector<Real, 2>& commonPoint);
 
 	//! Tests if an aligned box and an box overlap.
 

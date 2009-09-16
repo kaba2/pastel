@@ -7,7 +7,6 @@
 #include "pastel/geometry/alignedbox.h"
 
 #include "pastel/sys/constants.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 #include <boost/static_assert.hpp>
@@ -46,7 +45,7 @@ namespace Pastel
 		}
 
 		//! Constructs a singular box (min = max = that).
-		explicit AlignedBoxBase(const Point<Real, N>& that)
+		explicit AlignedBoxBase(const Vector<Real, N>& that)
 			: min_(that)
 			, max_(that)
 		{
@@ -54,8 +53,8 @@ namespace Pastel
 
 		//! Constructs a box using the given points.
 		AlignedBoxBase(
-			const Point<Real, N>& min,
-			const Point<Real, N>& max)
+			const Vector<Real, N>& min,
+			const Vector<Real, N>& max)
 			: min_(min)
 			, max_(max)
 		{
@@ -89,45 +88,45 @@ namespace Pastel
 
 		//! Sets the corner points of the box.
 		void set(
-			const Point<Real, N>& min,
-			const Point<Real, N>& max)
+			const Vector<Real, N>& min,
+			const Vector<Real, N>& max)
 		{
 			min_ = min;
 			max_ = max;
 		}
 
 		//! Sets the minimum point of the box.
-		void setMin(const Point<Real, N>& min)
+		void setMin(const Vector<Real, N>& min)
 		{
 			min_ = point;
 		}
 
 		//! Returns the minimum point of the box.
-		Point<Real, N>& min()
+		Vector<Real, N>& min()
 		{
 			return min_;
 		}
 
 		//! Returns the minimum point of the box.
-		const Point<Real, N>& min() const
+		const Vector<Real, N>& min() const
 		{
 			return min_;
 		}
 
 		//! Sets the maximum point of the box.
-		void setMax(const Point<Real, N>& max)
+		void setMax(const Vector<Real, N>& max)
 		{
 			max_ = point;
 		}
 
 		//! Returns the maximum point of the box.
-		Point<Real, N>& max()
+		Vector<Real, N>& max()
 		{
 			return max_;
 		}
 
 		//! Returns the maximum point of the box.
-		const Point<Real, N>& max() const
+		const Vector<Real, N>& max() const
 		{
 			return max_;
 		}
@@ -146,12 +145,12 @@ namespace Pastel
 			return max_[index] - min_[index];
 		}
 
-		Point<Real, N> at(
+		Vector<Real, N> at(
 			const Vector<Real, N>& coordinates) const
 		{
-			return Point<Real, N>(
-				(1 - coordinates) * asVector(min_) +
-				coordinates * asVector(max_));
+			return Vector<Real, N>(
+				(1 - coordinates) * min_ +
+				coordinates * max_);
 		}
 
 		//! Translates the box by the given vector.
@@ -191,8 +190,8 @@ namespace Pastel
 		}
 
 	private:
-		Point<Real, N> min_;
-		Point<Real, N> max_;
+		Vector<Real, N> min_;
+		Vector<Real, N> max_;
 	};
 
 }

@@ -22,10 +22,10 @@ namespace Pastel
 			class ConvexHullPointCompare
 			{
 			public:
-				bool operator()(const Point<Real, 2>& left,
-					const Point<Real, 2>& right) const
+				bool operator()(const Vector<Real, 2>& left,
+					const Vector<Real, 2>& right) const
 				{
-					return lexicographicLess(asVector(left), asVector(right));
+					return lexicographicLess(left, right);
 				}
 			};
 
@@ -35,23 +35,23 @@ namespace Pastel
 
 	template <typename Real>
 	void convexHullGrahamsScan(
-		const std::vector<Point<Real, 2> >& pointSet,
-		std::vector<Point<Real, 2> >& hullResult)
+		const std::vector<Vector<Real, 2> >& pointSet,
+		std::vector<Vector<Real, 2> >& hullResult)
 	{
 		// This is the "Graham's scan" algorithm.
 
-		std::vector<Point<Real, 2> > hull;
+		std::vector<Vector<Real, 2> > hull;
 
 		if (pointSet.empty())
 		{
 			return;
 		}
 
-		std::vector<Point<Real, 2> > orderedSet(pointSet);
+		std::vector<Vector<Real, 2> > orderedSet(pointSet);
 		std::sort(orderedSet.begin(), orderedSet.end(),
 			Detail::GrahamsScan::ConvexHullPointCompare<Real>());
 
-		typedef std::vector<Point<Real, 2> > Container;
+		typedef std::vector<Vector<Real, 2> > Container;
 		typedef typename Container::iterator
 			Iterator;
 		typedef typename Container::const_iterator
@@ -106,14 +106,14 @@ namespace Pastel
 
 		while (current != to)
 		{
-			const Point<Real, 2>& toPoint = *current;
+			const Vector<Real, 2>& toPoint = *current;
 
 			if (toPoint != hull.back())
 			{
 				while (points > 1)
 				{
-					const Point<Real, 2>& fromPoint = hull[points - 2];
-					const Point<Real, 2>& middlePoint = hull[points - 1];
+					const Vector<Real, 2>& fromPoint = hull[points - 2];
+					const Vector<Real, 2>& middlePoint = hull[points - 1];
 
 					if (signedArea(fromPoint, middlePoint, toPoint) > 0)
 					{
@@ -146,14 +146,14 @@ namespace Pastel
 
 		while (rCurrent != rTo)
 		{
-			const Point<Real, 2>& toPoint = *rCurrent;
+			const Vector<Real, 2>& toPoint = *rCurrent;
 
 			if (toPoint != hull.back())
 			{
 				while (true)
 				{
-					const Point<Real, 2>& fromPoint = hull[points - 2];
-					const Point<Real, 2>& middlePoint = hull[points - 1];
+					const Vector<Real, 2>& fromPoint = hull[points - 2];
+					const Vector<Real, 2>& middlePoint = hull[points - 1];
 
 					if (signedArea(fromPoint, middlePoint, toPoint) > 0)
 					{

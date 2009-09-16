@@ -35,8 +35,8 @@ namespace Pastel
 			, window_(window)
 			, extent_(window.extent())
 		{
-			ENSURE(allGreaterEqual(window.min(), 0) && allLess(asVector(window.min()), view.extent()));
-			ENSURE(allGreaterEqual(window.max(), 0) && allLessEqual(asVector(window.max()), view.extent()));
+			ENSURE(allGreaterEqual(window.min(), 0) && allLess(window.min(), view.extent()));
+			ENSURE(allGreaterEqual(window.max(), 0) && allLessEqual(window.max(), view.extent()));
 			ENSURE(allLessEqual(window.min(), window.max()));
 		}
 
@@ -46,10 +46,10 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return view_.constCursor(
-				position + asVector(window_.min()));
+				position + window_.min());
 		}
 
 	protected:
@@ -101,10 +101,10 @@ namespace Pastel
 		}
 
 		Cursor cursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return view_.cursor(
-				position + asVector(window_.min()));
+				position + window_.min());
 		}
 	};
 

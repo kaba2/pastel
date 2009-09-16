@@ -4,7 +4,6 @@
 #ifndef PASTEL_TEXTURE_H
 #define PASTEL_TEXTURE_H
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/countedptr.h"
 
@@ -25,7 +24,7 @@ namespace Pastel
 		virtual ~Texture() {}
 
 		virtual Type operator()(
-			const Point2& p,
+			const Vector2& p,
 			const Vector2& dpDx,
 			const Vector2& dpDy) const = 0;
 

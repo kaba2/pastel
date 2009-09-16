@@ -48,10 +48,10 @@ namespace Pastel
 		}
 
 		ConstCursor constCursor(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return ConstCursor(view_.constCursor(
-				Point<integer, N>(permute(asVector(position), permutation_))),
+				Vector<integer, N>(permute(position, permutation_))),
 				permutation_);
 		}
 
@@ -111,10 +111,10 @@ namespace Pastel
 		{
 		}
 
-		Cursor cursor(const Point<integer, N>& position) const
+		Cursor cursor(const Vector<integer, N>& position) const
 		{
 			return Cursor(view_.cursor(
-				asPoint(permute(asVector(position), permutation_))),
+				asPoint(permute(position, permutation_))),
 				permutation_);
 		}
 	};

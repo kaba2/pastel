@@ -174,17 +174,17 @@ namespace Pastel
 
 	template <typename Real>
 	Real signedArea(
-		const Point<Real, 2>& a,
-		const Point<Real, 2>& b,
-		const Point<Real, 2>& c)
+		const Vector<Real, 2>& a,
+		const Vector<Real, 2>& b,
+		const Vector<Real, 2>& c)
 	{
 		return 0.5 * dot(cross(b - a), c - a);
 	}
 
 	template <typename Real>
 	bool lexicographical(
-		const Point<Real, 2>& left,
-		const Point<Real, 2>& right)
+		const Vector<Real, 2>& left,
+		const Vector<Real, 2>& right)
 	{
 		return left.x() < right.x() ||
 			(left.x() == right.x() &&
@@ -493,14 +493,13 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Point<Real, N> linear(
-		const Point<Real, N>& startPoint,
-		const Point<Real, N>& endPoint,
+	Vector<Real, N> linear(
+		const Vector<Real, N>& startPoint,
+		const Vector<Real, N>& endPoint,
 		const PASTEL_NO_DEDUCTION(Real)& time)
 	{
-		return Point<Real, N>(
-			asVector(startPoint) * (1 - time) +
-			asVector(endPoint) * time);
+		// TODO: Change to a vector expression!
+		return startPoint * (1 - time) + endPoint * time;
 	}
 
 }

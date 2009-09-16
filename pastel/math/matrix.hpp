@@ -6,7 +6,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 
 namespace Pastel
 {
@@ -156,16 +155,16 @@ namespace Pastel
 	// Matrices vs points
 
 	template <typename Real, int Height, int Width>
-	Point<Real, Height> operator*(
+	Vector<Real, Height> operator*(
 		const Matrix<Real, Height, Width>& left,
-		const Point<Real, Width>& right)
+		const Vector<Real, Width>& right)
 	{
 		const integer width = left.width();
 		const integer height = left.height();
 
 		ENSURE2(width == right.size(), width, right.size());
 
-		Point<Real, Height> result(ofDimension(height));
+		Vector<Real, Height> result(ofDimension(height));
 
 		const integer width = left.width();
 		const integer height = left.height();
@@ -183,8 +182,8 @@ namespace Pastel
 	}
 
 	template <typename Real, int Height, int Width>
-	Point<Real, Width> operator *(
-		const Point<Real, Height>& left,
+	Vector<Real, Width> operator *(
+		const Vector<Real, Height>& left,
 		const Matrix<Real, Height, Width>& right)
 	{
 		const integer width = right.width();
@@ -192,7 +191,7 @@ namespace Pastel
 
 		ENSURE2(height == left.size(), height, left.size());
 
-		Point<Real, Width> result(ofDimension(width));
+		Vector<Real, Width> result(ofDimension(width));
 
 		for (integer i = 0;i < width;++i)
 		{

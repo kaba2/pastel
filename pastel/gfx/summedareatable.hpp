@@ -26,7 +26,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				const Type& imageElement, Type& sumImageElement) const
 			{
 				Type sum = imageElement;
@@ -72,18 +72,18 @@ namespace Pastel
 		ENSURE(false);
 		return Image_Element();
 		/*
-		const Point2 newMin = region.min() - 1;
-		const Point2 newMax = region.max() - 1;
+		const Vector2 newMin = region.min() - 1;
+		const Vector2 newMax = region.max() - 1;
 
 		Image_Element sum = sampleBilinear(newMax, sumImage);
 
 		if (newMin.x() >= 0)
 		{
-			sum -= sampleBilinear(Point2(newMin.x(), newMax.y()), sumImage);
+			sum -= sampleBilinear(Vector2(newMin.x(), newMax.y()), sumImage);
 		}
 		if (newMin.y() >= 0)
 		{
-			sum -= sampleBilinear(Point2(newMax.x(), newMin.y()), sumImage);
+			sum -= sampleBilinear(Vector2(newMax.x(), newMin.y()), sumImage);
 		}
 
 		if (newMin.x() >= 0 && newMin.y() >= 0)

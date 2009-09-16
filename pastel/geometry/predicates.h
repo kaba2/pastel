@@ -4,7 +4,7 @@
 #ifndef PASTEL_PREDICATES_H
 #define PASTEL_PREDICATES_H
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 #include "pastel/geometry/plane.h"
 
 namespace Pastel
@@ -12,7 +12,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real side(
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const Plane<Real, N>& plane);
 
 }

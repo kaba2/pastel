@@ -45,7 +45,7 @@ namespace
 			for (integer x = 0;x < Width;++x)
 			{
 				image(x, y) = froColor +
-					noise(Point2((real)x / 5,
+					noise(Vector2((real)x / 5,
 					(real)y / 5)) * deltaColor;
 			}
 		}
@@ -59,14 +59,14 @@ namespace
 		noise(real(0));
 		noise(real(0));
 		noise(real(0));
-		noise(Point2(0));
-		noise(Point2(0));
-		noise(Point2(0));
-		noise(Point2(0));
-		noise(Point3(0));
-		noise(Point3(0));
-		noise(Point3(0));
-		noise(Point3(0));
+		noise(Vector2(0));
+		noise(Vector2(0));
+		noise(Vector2(0));
+		noise(Vector2(0));
+		noise(Vector3(0));
+		noise(Vector3(0));
+		noise(Vector3(0));
+		noise(Vector3(0));
 	}
 
 	void test3d()
@@ -84,7 +84,7 @@ namespace
 			for (integer x = 0;x < Width;++x)
 			{
 				image(x, y) = froColor +
-					noise(Point3((real)x / 5,
+					noise(Vector3((real)x / 5,
 					(real)y / 5, 0)) * deltaColor;
 			}
 		}

@@ -14,23 +14,6 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Vector<Real, N> operator*(
-		const Vector<Real, N>& left,
-		const AffineTransformation<Real, N>& right)
-	{
-		return left * right.transformation();
-	}
-
-	template <typename Real, int N>
-	Point<Real, N> operator*(
-		const Point<Real, N>& left,
-		const AffineTransformation<Real, N>& right)
-	{
-		return left * right.transformation() +
-			right.translation();
-	}
-
-	template <typename Real, int N>
 	Matrix<Real, PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1)> asMatrix(
 		const AffineTransformation<Real, N>& that)
 	{
@@ -51,6 +34,22 @@ namespace Pastel
 		result[dimension] = extend(translation, 1);
 
 		return result;
+	}
+
+	template <typename Real, int N>
+	Vector<Real, N> transformVector(
+		const Vector<Real, N>& left,
+		const AffineTransformation<Real, N>& right)
+	{
+		return left * right.transformation();
+	}
+
+	template <typename Real, int N>
+	Vector<Real, N> transformPoint(
+		const Vector<Real, N>& left,
+		const AffineTransformation<Real, N>& right)
+	{
+		return left * right.transformation() + right.translation();
 	}
 
 }

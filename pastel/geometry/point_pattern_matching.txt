@@ -1,4 +1,4 @@
-Point-pattern matching
+Vector-pattern matching
 ======================
 
 [Parent]: pastelgeometry.txt
@@ -48,5 +48,5 @@ problem.
 References
 ----------
 
-"A Fast Expected-Time 2d Point-Pattern Matching Algorithm",
+"A Fast Expected-Time 2d Vector-Pattern Matching Algorithm",
 P.B. Van Wamelen et al., Pattern Recognition 37 (2004), 1699-1711.

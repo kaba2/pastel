@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type sampleBilinear(
-		const Point2& uv,
+		const Vector2& uv,
 		const Array<Type, 2>& image,
 		const ArrayExtender<2, Type>& extender);
 
@@ -48,12 +48,12 @@ namespace Pastel
 		}
 
 		virtual Element operator()(
-			const Point2& p,
+			const Vector2& p,
 			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{
 			return sampleBilinear(
-				asPoint(asVector(p) * extent_),
+				p * extent_,
 				*image_, extender_);
 		}
 

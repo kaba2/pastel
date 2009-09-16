@@ -8,7 +8,6 @@
 #include "pastel/sys/ensure.h"
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 
 #include <boost/static_assert.hpp>
 
@@ -68,13 +67,13 @@ namespace Pastel
 	// Points vs matrices
 
 	template <typename Real, int Height, int Width>
-	Point<Real, Height> operator*(
+	Vector<Real, Height> operator*(
 		const Matrix<Real, Height, Width>& left,
-		const Point<Real, Width>& right);
+		const Vector<Real, Width>& right);
 
 	template <typename Real, int Height, int Width>
-	Point<Real, Width> operator *(
-		const Point<Real, Height>& left,
+	Vector<Real, Width> operator *(
+		const Vector<Real, Height>& left,
 		const Matrix<Real, Height, Width>& right);
 
 	template <typename Real, int Height, int Width>

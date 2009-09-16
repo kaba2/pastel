@@ -71,7 +71,7 @@ namespace Pastel
 
 				AlignedBox<Real, N> negativeAlignedBox(alignedBox);
 
-				Point<Real, N> maxTmp(negativeAlignedBox.max());
+				Vector<Real, N> maxTmp(negativeAlignedBox.max());
 				maxTmp[splitAxis] = negativeSplit;
 				negativeAlignedBox.setMax(maxTmp);
 

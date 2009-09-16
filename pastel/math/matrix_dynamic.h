@@ -111,48 +111,48 @@ namespace Pastel
 		}
 
 		SubMatrix<Real> operator()(
-			const Point2i& min,
-			const Point2i& max)
+			const Vector2i& min,
+			const Vector2i& max)
 		{
 			const SubMatrix<Real> result(
-				data_(Point2i(min.y(), min.x()),
-				Point2i(max.y(), max.x())));
+				data_(Vector2i(min.y(), min.x()),
+				Vector2i(max.y(), max.x())));
 
 			return result;
 		}
 
 		ConstSubMatrix<Real> operator()(
-			const Point2i& min,
-			const Point2i& max) const
+			const Vector2i& min,
+			const Vector2i& max) const
 		{
 			const ConstSubMatrix<Real> result(
-				data_(Point2i(min.y(), min.x()),
-				Point2i(max.y(), max.x())));
+				data_(Vector2i(min.y(), min.x()),
+				Vector2i(max.y(), max.x())));
 
 			return result;
 		}
 
 		SubMatrix<Real> operator()(
-			const Point2i& min,
-			const Point2i& max,
+			const Vector2i& min,
+			const Vector2i& max,
 			const Vector2i& delta)
 		{
 			const SubMatrix<Real> result(
-				data_(Point2i(min.y(), min.x()),
-				Point2i(max.y(), max.x()),
+				data_(Vector2i(min.y(), min.x()),
+				Vector2i(max.y(), max.x()),
 				Vector2i(delta.y(), delta.x())));
 
 			return result;
 		}
 
 		ConstSubMatrix<Real> operator()(
-			const Point2i& min,
-			const Point2i& max,
+			const Vector2i& min,
+			const Vector2i& max,
 			const Vector2i& delta) const
 		{
 			const ConstSubMatrix<Real> result(
-				data_(Point2i(min.y(), min.x()),
-				Point2i(max.y(), max.x()),
+				data_(Vector2i(min.y(), min.x()),
+				Vector2i(max.y(), max.x()),
 				Vector2i(delta.y(), delta.x())));
 
 			return result;

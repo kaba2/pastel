@@ -15,7 +15,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Point<Real, N> wDivide(const Point<Real, N>& that);
+	Vector<Real, N> wDivide(const Vector<Real, N>& that);
 
 	//! Returns a homogeneous 3D perspective projection matrix.
 	/*!
@@ -65,8 +65,8 @@ namespace Pastel
 	*/
 
 	PASTELGEOMETRY Matrix3 projectiveTransformation(
-		const Tuple<Point2, 4>& from,
-		const Tuple<Point2, 4>& to);
+		const Tuple<Vector2, 4>& from,
+		const Tuple<Vector2, 4>& to);
 
 }
 

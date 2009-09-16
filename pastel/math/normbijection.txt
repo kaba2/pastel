@@ -6,44 +6,39 @@ Norm bijections
 Theory
 ------
 
-Let |x| : R^n -> R+ be a norm and f an order-preserving bijection R+ -> R+.
-Then <x> : R^n -> R+ : <x> = f(|x|) is called a norm bijection.
-Example:
-|[x, y]| = sqrt(x^2 + y^2)
-f(r) = r^2
-<[x, y]> = f([x, y]) = x^2 + y^2
+Let ''|x| : RR^n -> RR^+'' be a norm and ''f : RR^+ -> RR^+'' an increasing bijection.
+A _norm bijection_ is a function defined by ''(: x :) : RR^n -> RR^+ : (: x :) = f(|x|)''.
+A _restricted norm bijection_ is any function ''g : RR^n -> RR^+'', which can expressed
+in the form ''g(x) = o+_{i = 1}^n f(|x_i|)'' with the functions 
+''f'' and ''o+'' defined below (redundant conditions in parentheses).
 
-A _restricted norm bijection_ is any function g : R^n -> R+, which can expressed
-in the form g(x) = (+)[i = 1..n] f(|x_i|) with the functions 
-f and (+) defined below (redundant conditions in parentheses).
+''f : RR^+ -> RR^+'', such that:
 
-f : R+ -> R+, such that:
+ * ''f'' is continuous
+ 
+ * ''f'' is increasing
+ 
+ * (''f'' is invertible)
 
- * f is continuous
+ * ''\forall a in RR^+: f(a x) = f(a) f(x)''
  
- * x < y => f(x) < f(y)
- 
- * for all a in R+: f(ax) = f(a) f(x)
- 
- * (f is invertible)
- 
- * (for all a in R+: f^-1(ax) = f^-1(a) f^-1(x))
+ * ''(\forall a in RR^+: f^-1(a x) = f^-1(a) f^-1(x))''
 
-(+) : R+^2 -> R+, such that
+''o+ : RR^{+^2} -> RR^+'', such that
 
- * (x (+) y) (+) z = x (+) (y (+) z)
+ * ''\forall x, y, z: (x o+ y) o+ z = x o+ (y o+ z)''
  
- * x (+) y = y (+) x
+ * ''\forall x, y: x o+ y = y o+ x''
  
- * x (+) 0 = x
+ * ''\forall x: x o+ 0 = x''
  
- * for all a in R+: (ax) (+) (ay) = a(x (+) y)
+ * ''\forall a, x, y in RR^+: (a x) o+ (a y) = a(x o+ y)''
  
- * x <= x (+) y
+ * ''\forall x, y: x <= x o+ y''
  
- * (y <= x (+) y)
+ * ''(\forall x, y: y <= x o+ y)''
  
-In particular, (f^-1 o g) is a norm and f is the order-preserving
+In particular, ''f^-1 o g'' is a norm and ''f'' is the increasing
 bijection in the definition of norm bijection.
 
 Practice
@@ -55,7 +50,7 @@ norm value is rarely of interest itself. Rather, it is the ordering of
 norms that is of interest. In particular, the p-norms (also called 
 Minkowski norms) compute a p:th root for each evaluation, which is a 
 rather slow operation. However, if all you have is an inequality 
-x^p < y^p, then this is equivalent to x < y and you can avoid 
+''x^p < y^p'', then this is equivalent to ''x < y'' and you can avoid 
 the root computation. 
 
 A norm bijection allows you, in particular, to move between
@@ -66,13 +61,21 @@ norm bijections, in Pastel this always means a restricted norm
 bijection as defined above. Pastel implements the following 
 restricted norm bijections:
 
- * Euclidean: <x> = sum x_i^2 ((+)(x, y) = x + y, f(x) = x^2)
+ * Euclidean: ''(: x :) = \sum_{i = 1}^n x_i^2'' <br /> 
+ ''o+(x, y) = x + y'' <br /> 
+ ''f(x) = x^2''
  
- * Manhattan: <x> = sum |x_i| ((+)(x, y) = x + y, f(x) = |x|)
+ * Manhattan: ''(: x :) = \sum_{i = 1}^n |x_i|'' <br />
+ ''o+(x, y) = x + y'' <br />
+ ''f(x) = |x|''
  
- * Infinity: <x> = max |x_i| ((+)(x, y) = max(x, y), f(x) = |x|)
+ * Infinity: ''(: x :) = text(max)_{i = 1}^n |x_i|'' <br /> 
+ ''o+(x, y) = text(max)(x, y)'' <br />
+ ''f(x) = |x|''
  
- * Minkowski: <x> = sum |x_i|^p ((+)(x, y) = x + y, f(x) = |x|^p)
+ * Minkowski: ''(: x :) = \sum_{i = 1}^n |x_i|^p'' <br />
+ ''o+(x, y) = x + y'' <br /> 
+ ''f(x) = |x|^p''
  
 Concept
 -------

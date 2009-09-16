@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real convexPolygonDiameter2(
-		const std::vector<Point<Real, 2> >& pointSet)
+		const std::vector<Vector<Real, 2> >& pointSet)
 	{
 		const Integer2 antiPodal = convexPolygonAntipodal(pointSet);
 
@@ -23,7 +23,7 @@ namespace Pastel
 
 	template <typename Real>
 	Real diameter2(
-		const std::vector<Point<Real, 2> >& pointSet)
+		const std::vector<Vector<Real, 2> >& pointSet)
 	{
 		const Integer2 antiPodal = antipodal(pointSet);
 

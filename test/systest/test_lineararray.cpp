@@ -66,7 +66,7 @@ namespace
 			Detail::NormalTag,
 			Detail::TerminateTag>::type Tag;
 
-		Detail::visitDimension<N - 1>(image.extent(), image.cursor(Point<integer, N>(0)), Tag());
+		Detail::visitDimension<N - 1>(image.extent(), image.cursor(Vector<integer, N>(0)), Tag());
 	}
 
 	void testTrivial()

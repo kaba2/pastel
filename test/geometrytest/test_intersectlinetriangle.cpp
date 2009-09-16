@@ -19,40 +19,40 @@ namespace
 	{
 		/*
 		const Triangle<Real, 2> triangle(
-			Point<Real, 2>(1, 1),
-			Point<Real, 2>(3, 1),
-			Point<Real, 2>(3, 3));
+			Vector<Real, 2>(1, 1),
+			Vector<Real, 2>(3, 1),
+			Vector<Real, 2>(3, 3));
 
 		const Line<Real, 2> a(
-			Point<Real, 2>(-4, 2),
+			Vector<Real, 2>(-4, 2),
 			Vector<Real, 2>(2, 0));
 
 		const Line<Real, 2> b(
-			Point<Real, 2>(0, 4),
+			Vector<Real, 2>(0, 4),
 			Vector<Real, 2>(1, -1));
 
 		const Line<Real, 2> c(
-			Point<Real, 2>(2, -1),
+			Vector<Real, 2>(2, -1),
 			Vector<Real, 2>(0, 2));
 
 		const Line<Real, 2> d(
-			Point<Real, 2>(2, 7),
+			Vector<Real, 2>(2, 7),
 			Vector<Real, 2>(0, -3));
 
 		const Line<Real, 2> e(
-			Point<Real, 2>(4, 6),
+			Vector<Real, 2>(4, 6),
 			Vector<Real, 2>(-1, -3));
 
 		const Line<Real, 2> f(
-			Point<Real, 2>(6, -2),
+			Vector<Real, 2>(6, -2),
 			Vector<Real, 2>(-2, 2));
 
 		const Line<Real, 2> g(
-			Point<Real, 2>(6, 3),
+			Vector<Real, 2>(6, 3),
 			Vector<Real, 2>(-2, -1));
 
 		const Line<Real, 2> h(
-			Point<Real, 2>(6, 5),
+			Vector<Real, 2>(6, 5),
 			Vector<Real, 2>(-2, -2));
 
 		Real t(0);
@@ -79,64 +79,64 @@ namespace
 	{
 		/*
 		const Triangle<Real, 2> triangle(
-			Point<Real, 2>(1, 1),
-			Point<Real, 2>(3, 1),
-			Point<Real, 2>(3, 3));
+			Vector<Real, 2>(1, 1),
+			Vector<Real, 2>(3, 1),
+			Vector<Real, 2>(3, 3));
 
 		const Line<Real, 2> a(
-			Point<Real, 2>(0, 0),
+			Vector<Real, 2>(0, 0),
 			Vector<Real, 2>(1, 1));
 
 		const Line<Real, 2> b(
-			Point<Real, 2>(1, -1),
+			Vector<Real, 2>(1, -1),
 			Vector<Real, 2>(2, 0));
 
 		const Line<Real, 2> c(
-			Point<Real, 2>(2, -4),
+			Vector<Real, 2>(2, -4),
 			Vector<Real, 2>(0, 2));
 
 		const Line<Real, 2> d(
-			Point<Real, 2>(-2, 2),
+			Vector<Real, 2>(-2, 2),
 			Vector<Real, 2>(-2, 0));
 
 		const Line<Real, 2> e(
-			Point<Real, 2>(5, 2),
+			Vector<Real, 2>(5, 2),
 			Vector<Real, 2>(2, 0));
 
 		const Line<Real, 2> f(
-			Point<Real, 2>(6, 1),
+			Vector<Real, 2>(6, 1),
 			Vector<Real, 2>(-1, 0));
 
 		const Line<Real, 2> g(
-			Point<Real, 2>(4, 1),
+			Vector<Real, 2>(4, 1),
 			Vector<Real, 2>(0, 2));
 
 		const Line<Real, 2> h(
-			Point<Real, 2>(4, 4),
+			Vector<Real, 2>(4, 4),
 			Vector<Real, 2>(-2, 0));
 
 		const Line<Real, 2> i(
-			Point<Real, 2>(2, 6),
+			Vector<Real, 2>(2, 6),
 			Vector<Real, 2>(0, 2));
 
 		const Line<Real, 2> j(
-			Point<Real, 2>(-1, 3),
+			Vector<Real, 2>(-1, 3),
 			Vector<Real, 2>(0, -2));
 
 		const Line<Real, 2> k(
-			Point<Real, 2>(2, 0),
+			Vector<Real, 2>(2, 0),
 			Vector<Real, 2>(-2, -2));
 
 		const Line<Real, 2> l(
-			Point<Real, 2>(2, 0),
+			Vector<Real, 2>(2, 0),
 			Vector<Real, 2>(2, 2));
 
 		const Line<Real, 2> m(
-			Point<Real, 2>(1, 2),
+			Vector<Real, 2>(1, 2),
 			Vector<Real, 2>(1, 1));
 
 		const Line<Real, 2> n(
-			Point<Real, 2>(3, 0),
+			Vector<Real, 2>(3, 0),
 			Vector<Real, 2>(0, 1));
 
 		Real t(0);
@@ -160,36 +160,36 @@ namespace
 	void testPositive3()
 	{
 		const Triangle<Real, 3> triangle(
-			Point<Real, 3>(1, 1, 1),
-			Point<Real, 3>(3, 1, 1),
-			Point<Real, 3>(3, 3, 1));
+			Vector<Real, 3>(1, 1, 1),
+			Vector<Real, 3>(3, 1, 1),
+			Vector<Real, 3>(3, 3, 1));
 
 		const Line<Real, 3> a(
-			Point<Real, 3>(1, 1, 0),
+			Vector<Real, 3>(1, 1, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> b(
-			Point<Real, 3>(2, 1, 0),
+			Vector<Real, 3>(2, 1, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> c(
-			Point<Real, 3>(3, 1, 0),
+			Vector<Real, 3>(3, 1, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> d(
-			Point<Real, 3>(3, 2, 0),
+			Vector<Real, 3>(3, 2, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> e(
-			Point<Real, 3>(3, 3, 0),
+			Vector<Real, 3>(3, 3, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> f(
-			Point<Real, 3>(2, 2, 0),
+			Vector<Real, 3>(2, 2, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> g(
-			Point<Real, 3>(Real(5, 2), Real(3, 2), 0),
+			Vector<Real, 3>(Real(5, 2), Real(3, 2), 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		Real t(0);
@@ -214,36 +214,36 @@ namespace
 	void testNegative3()
 	{
 		const Triangle<Real, 3> triangle(
-			Point<Real, 3>(1, 1, 1),
-			Point<Real, 3>(3, 1, 1),
-			Point<Real, 3>(3, 3, 1));
+			Vector<Real, 3>(1, 1, 1),
+			Vector<Real, 3>(3, 1, 1),
+			Vector<Real, 3>(3, 3, 1));
 
 		const Line<Real, 3> a(
-			Point<Real, 3>(4, 2, 1),
+			Vector<Real, 3>(4, 2, 1),
 			Vector<Real, 3>(-1, 0, 0));
 
 		const Line<Real, 3> b(
-			Point<Real, 3>(4, 2, 1),
+			Vector<Real, 3>(4, 2, 1),
 			Vector<Real, 3>(1, 0, 0));
 
 		const Line<Real, 3> c(
-			Point<Real, 3>(0, 2, 1),
+			Vector<Real, 3>(0, 2, 1),
 			Vector<Real, 3>(1, 0, 0));
 
 		const Line<Real, 3> d(
-			Point<Real, 3>(1, 0, 1),
+			Vector<Real, 3>(1, 0, 1),
 			Vector<Real, 3>(1, 1, 0));
 
 		const Line<Real, 3> e(
-			Point<Real, 3>(1, 3, 0),
+			Vector<Real, 3>(1, 3, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> f(
-			Point<Real, 3>(2, 0, 0),
+			Vector<Real, 3>(2, 0, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		const Line<Real, 3> g(
-			Point<Real, 3>(4, 1, 0),
+			Vector<Real, 3>(4, 1, 0),
 			Vector<Real, 3>(0, 0, 1));
 
 		Real t(0);

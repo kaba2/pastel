@@ -38,7 +38,7 @@ namespace Pastel
 		}
 
 		virtual FromType operator()(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return adapter_.convert((*image_)(position));
 		}
@@ -83,14 +83,14 @@ namespace Pastel
 		}
 
 		virtual void write(
-			const Point<integer, N>& position,
+			const Vector<integer, N>& position,
 			const FromType& data)
 		{
 			(*image_)(position) = adapter_.revert(data);
 		}
 
 		virtual FromType operator()(
-			const Point<integer, N>& position) const
+			const Vector<integer, N>& position) const
 		{
 			return adapter_.convert((*image_)(position));
 		}

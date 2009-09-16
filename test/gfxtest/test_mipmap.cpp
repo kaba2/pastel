@@ -34,7 +34,7 @@ namespace
 		MipMap<2, Color> mipMap(arrayView(texture));
 		transform(mipMap, fitColor);
 
-		Point<integer, 2> position;
+		Vector<integer, 2> position;
 
 		Array<Color, 2> outputImage(texture.extent() * 2);
 

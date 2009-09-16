@@ -6,7 +6,6 @@
 
 #include "pastel/geometry/simplex.h"
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 namespace Pastel
@@ -16,7 +15,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const Simplex<Real, N, N>& simplex);
 
 	//! Computes the barycentric coordinates of a point in a standard simplex.
@@ -29,7 +28,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

@@ -3,7 +3,7 @@
 #ifndef PASTEL_RECONSTRUCT_RBF_H
 #define PASTEL_RECONSTRUCT_RBF_H
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include "pastel/dsp/filter.h"
 
@@ -48,7 +48,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructRbf(
-		const std::vector<Point<Data, N> >& positionList,
+		const std::vector<Vector<Data, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const FilterPtr& radialBasisFunction,
@@ -70,7 +70,7 @@ namespace Pastel
 		{
 		public:
 			explicit ReconstructFunctor(
-				const std::vector<Point<Real, N> >& positionList,
+				const std::vector<Vector<Real, N> >& positionList,
 				const Vector<Real, Dynamic>& w,
 				const Vector<Data, Dynamic>& b,
 				const Vector<Real, N>& scaling,
@@ -84,7 +84,7 @@ namespace Pastel
 			}
 
 			void operator()(
-				const Point<integer, N>& position,
+				const Vector<integer, N>& position,
 				Data& data) const
 			{
 				const integer n = w_.size();
@@ -93,14 +93,14 @@ namespace Pastel
 				for (integer i = 0;i < n;++i)
 				{
 					result += w_[i] * radialBasisFunction_->evaluate(
-						dot(((Point<Real, N>(position) + 0.5) - positionList_[i]) * scaling_));
+						dot(((Vector<Real, N>(position) + 0.5) - positionList_[i]) * scaling_));
 				}
 
 				data = result;
 			}
 
 		private:
-			const std::vector<Point<Real, N> >& positionList_;
+			const std::vector<Vector<Real, N> >& positionList_;
 			const Vector<Real, Dynamic>& w_;
 			const Vector<Data, Dynamic>& b_;
 			const Vector<Real, N> scaling_;
@@ -111,7 +111,7 @@ namespace Pastel
 
 	template <int N, typename Real, typename Data, typename Output_View>
 	void reconstructRbf(
-		const std::vector<Point<Real, N> >& positionList,
+		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
 		const AlignedBox<Real, N>& region,
 		const FilterPtr& radialBasisFunction,

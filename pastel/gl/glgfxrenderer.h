@@ -40,7 +40,7 @@ namespace Pastel
 		virtual void clear();
 
 		virtual void drawPoint(
-			const Point2& point);
+			const Vector2& point);
 
 		virtual void drawSegment(
 			const Segment2& segment);

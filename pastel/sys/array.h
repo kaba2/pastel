@@ -195,22 +195,22 @@ namespace Pastel
 
 		Type& operator()(integer x)
 		{
-			return Base::operator()(Point<integer, N>(x));
+			return Base::operator()(Vector<integer, N>(x));
 		}
 
 		const Type& operator()(integer x) const
 		{
-			return Base::operator()(Point<integer, N>(x));
+			return Base::operator()(Vector<integer, N>(x));
 		}
 
 		Cursor cursor(integer x)
 		{
-			return Base::cursor(Point<integer, N>(x));
+			return Base::cursor(Vector<integer, N>(x));
 		}
 
 		ConstCursor constCursor(integer x) const
 		{
-			return Base::constCursor(Point<integer, N>(x));
+			return Base::constCursor(Vector<integer, N>(x));
 		}
 	};
 
@@ -322,62 +322,62 @@ namespace Pastel
 
 		Type& operator()(integer x, integer y)
 		{
-			return Base::operator()(Point<integer, N>(x, y));
+			return Base::operator()(Vector<integer, N>(x, y));
 		}
 
 		const Type& operator()(integer x, integer y) const
 		{
-			return Base::operator()(Point<integer, N>(x, y));
+			return Base::operator()(Vector<integer, N>(x, y));
 		}
 
 		Cursor cursor(integer x, integer y)
 		{
-			return Base::cursor(Point<integer, N>(x, y));
+			return Base::cursor(Vector<integer, N>(x, y));
 		}
 
 		ConstCursor constCursor(integer x, integer y) const
 		{
-			return Base::constCursor(Point<integer, N>(x, y));
+			return Base::constCursor(Vector<integer, N>(x, y));
 		}
 
 		RowIterator rowBegin(integer y)
 		{
-			return Base::rowBegin(Point<integer, N>(0, y), 0);
+			return Base::rowBegin(Vector<integer, N>(0, y), 0);
 		}
 
 		ConstRowIterator rowBegin(integer y) const
 		{
-			return Base::rowBegin(Point<integer, N>(0, y), 0);
+			return Base::rowBegin(Vector<integer, N>(0, y), 0);
 		}
 
 		RowIterator rowEnd(integer y)
 		{
-			return Base::rowEnd(Point<integer, N>(0, y), 0);
+			return Base::rowEnd(Vector<integer, N>(0, y), 0);
 		}
 
 		ConstRowIterator rowEnd(integer y) const
 		{
-			return Base::rowEnd(Point<integer, N>(0, y), 0);
+			return Base::rowEnd(Vector<integer, N>(0, y), 0);
 		}
 
 		RowIterator columnBegin(integer x)
 		{
-			return Base::rowBegin(Point<integer, N>(x, 0), 1);
+			return Base::rowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
 		ConstRowIterator columnBegin(integer x) const
 		{
-			return Base::rowBegin(Point<integer, N>(x, 0), 1);
+			return Base::rowBegin(Vector<integer, N>(x, 0), 1);
 		}
 
 		RowIterator columnEnd(integer x)
 		{
-			return Base::rowEnd(Point<integer, N>(x, 0), 1);
+			return Base::rowEnd(Vector<integer, N>(x, 0), 1);
 		}
 
 		ConstRowIterator columnEnd(integer x) const
 		{
-			return Base::rowEnd(Point<integer, N>(x, 0), 1);
+			return Base::rowEnd(Vector<integer, N>(x, 0), 1);
 		}
 	};
 
@@ -492,22 +492,22 @@ namespace Pastel
 
 		Type& operator()(integer x, integer y, integer z)
 		{
-			return Base::operator()(Point<integer, N>(x, y, z));
+			return Base::operator()(Vector<integer, N>(x, y, z));
 		}
 
 		const Type& operator()(integer x, integer y, integer z) const
 		{
-			return Base::operator()(Point<integer, N>(x, y, z));
+			return Base::operator()(Vector<integer, N>(x, y, z));
 		}
 
 		Cursor cursor(integer x, integer y, integer z)
 		{
-			return Base::cursor(Point<integer, N>(x, y, z));
+			return Base::cursor(Vector<integer, N>(x, y, z));
 		}
 
 		ConstCursor constCursor(integer x, integer y, integer z) const
 		{
-			return Base::constCursor(Point<integer, N>(x, y, z));
+			return Base::constCursor(Vector<integer, N>(x, y, z));
 		}
 	};
 

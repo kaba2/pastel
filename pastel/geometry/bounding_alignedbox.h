@@ -4,7 +4,6 @@
 #define PASTEL_BOUNDING_ALIGNEDBOX_H
 
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/sys/point.h"
 #include "pastel/geometry/sphere.h"
 #include "pastel/geometry/box.h"
 #include "pastel/geometry/segment.h"
@@ -20,7 +19,7 @@ namespace Pastel
 	dimension > 0
 	dimension == N || N == Dynamic
 
-	The InputIterator must dereference to Point<Real, N>.
+	The InputIterator must dereference to Vector<Real, N>.
 	*/
 
 	template <int N, typename Real, typename InputIterator>
@@ -83,7 +82,7 @@ namespace Pastel
 	*/
 	template <int N, typename Real>
 	bool extendToCover(
-		const Point<Real, N>& pointToCover,
+		const Vector<Real, N>& pointToCover,
 		AlignedBox<Real, N>& boxToExtend);
 
 }

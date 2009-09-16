@@ -123,27 +123,27 @@ namespace Pastel
 
 	template
 		Sphere<TestReal, 1> boundingSphere(
-		const std::vector<Point<TestReal, 1> >::iterator& from,
-		const std::vector<Point<TestReal, 1> >::iterator& to);
+		const std::vector<Vector<TestReal, 1> >::iterator& from,
+		const std::vector<Vector<TestReal, 1> >::iterator& to);
 
 	template
 		Sphere<TestReal, 2> boundingSphere(
-		const std::vector<Point<TestReal, 2> >::iterator& from,
-		const std::vector<Point<TestReal, 2> >::iterator& to);
+		const std::vector<Vector<TestReal, 2> >::iterator& from,
+		const std::vector<Vector<TestReal, 2> >::iterator& to);
 
 	template
 		Sphere<TestReal, 3> boundingSphere(
-		const std::vector<Point<TestReal, 3> >::iterator& from,
-		const std::vector<Point<TestReal, 3> >::iterator& to);
+		const std::vector<Vector<TestReal, 3> >::iterator& from,
+		const std::vector<Vector<TestReal, 3> >::iterator& to);
 
 	template
 		Sphere<TestReal, 4> boundingSphere(
-		const std::vector<Point<TestReal, 4> >::iterator& from,
-		const std::vector<Point<TestReal, 4> >::iterator& to);
+		const std::vector<Vector<TestReal, 4> >::iterator& from,
+		const std::vector<Vector<TestReal, 4> >::iterator& to);
 
 	template
 		Sphere<TestReal, 5> boundingSphere(
-		const std::vector<Point<TestReal, 5> >::iterator& from,
-		const std::vector<Point<TestReal, 5> >::iterator& to);
+		const std::vector<Vector<TestReal, 5> >::iterator& from,
+		const std::vector<Vector<TestReal, 5> >::iterator& to);
 
 }

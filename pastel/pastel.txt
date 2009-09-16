@@ -1,15 +1,45 @@
 Pastel
 ======
 
+[Back to Homepage of Kalle Rutanen][Back]
+
+[Back]: http://kaba.hilvi.org
+
 Description
 -----------
 
 Pastel is a C++ library for geometry and computer graphics.
 
-Philosophy
+Publishing
 ----------
 
-Write programs and documentation to be read by others.
+The motivation for publishing Pastel is two-fold. First,
+I hope it to transmit some useful implementation
+experience, techniques, and documentation for the people 
+interested in computer graphics, geometry, and programming. 
+Second, I have implemented another library ([TIM][]) that uses 
+Pastel, and I want to be open with sources.
+
+[TIM]: http://kaba.hilvi.org/tim
+
+Source code
+-----------
+
+The source-code for Pastel is licensed under the GNU Lesser GPL license, which is 
+unrestrictive and non-viral. There are two easy ways to browse the source-code
+online complete with coloring. The first one is to read this documentation, 
+following the _Learn more_ links. The second one is to view the 
+source-code tree.
+
+ * [View the source-code tree][ViewSourceTree].
+ * [Download the source-code][DownloadSource].
+
+Pastel has several dependencies to third-party libraries which must also be
+installed if you want to build Pastel yourself. See the _Installation_ link
+below for more information.
+
+[DownloadSource]: 
+[ViewSourceTree]: ./
 
 Technical features
 ------------------
@@ -24,25 +54,6 @@ Technical features
  * Const-correct
  * Style-consistent
  * Thread-safe (re-entrant)
- * Generic
-
-Publishing
-----------
-
-The motivation for publishing Pastel is two-fold. First,
-I hope the library to transmit some educational points
-for people interested in computer graphics, geometry, 
-and programming. You can read about what they are by 
-following the proper link in 'Learn more'.
-Second, I have implemented another library that uses Pastel. 
-Because I want to be open with the source, this is a 
-good time to publish Pastel too.
-
-Pastel is licensed under the GNU LGPL. While
-this allows you to integrate it with your own projects, 
-I don't recommend you to do so. This is because I can't guarantee
-stable interfaces. I'll be improving the library,
-and sometimes this means breaking backward compatibility.
 
 Sub-libraries
 ------------

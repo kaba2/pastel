@@ -15,9 +15,9 @@ namespace
 		{
 			const integer points = i + 2;
 
-			std::vector<Point2> from;
+			std::vector<Vector2> from;
 			from.reserve(points);
-			std::vector<Point2> to;
+			std::vector<Vector2> to;
 			to.reserve(points);
 
 			const real scale = random<real>() * 0.9 + 0.1;
@@ -29,10 +29,10 @@ namespace
 
 			for (integer i = 0;i < points;++i)
 			{
-				const Point2 fromPoint(randomVectorSphere<2, real>());
+				const Vector2 fromPoint(randomVectorSphere<2, real>());
 				from.push_back(fromPoint);
 
-				const Point2 toPoint(fromPoint * transformation);
+				const Vector2 toPoint(transformPoint(fromPoint, transformation));
 				to.push_back(toPoint);
 			}
 

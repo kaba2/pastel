@@ -5,10 +5,11 @@
 #include "pastel/geometry/overlaps_alignedbox_point.h"
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 #include "pastel/geometry/box.h"
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/sys/point.h"
+
 #include "pastel/math/matrix_tools.h"
 
 namespace Pastel
@@ -17,7 +18,7 @@ namespace Pastel
 	template <int N, typename Real>
 		bool overlaps(
 			const Box<Real, N>& box,
-			const Point<Real, N>& point)
+			const Vector<Real, N>& point)
 	{
 		// Change coordinates so
 		// that the box becomes an origin
@@ -31,13 +32,13 @@ namespace Pastel
 		const Matrix<Real, N, N> boxRotationInverse(
 			transpose(box.rotation()));
 
-		const Point<Real, N> transformedPoint(
-			(point - asVector(box.position())) *
+		const Vector<Real, N> transformedPoint(
+			(point - box.position()) *
 			boxRotationInverse);
 
 		const AlignedBox<Real, N> transformedBox(
-			Point<Real, N>(-box.width()),
-			Point<Real, N>(box.width()));
+			Vector<Real, N>(-box.width()),
+			Vector<Real, N>(box.width()));
 
 		return overlaps(transformedBox, transformedPoint);
 	}

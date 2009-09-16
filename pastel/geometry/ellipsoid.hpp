@@ -149,8 +149,7 @@ namespace Pastel
 		const Vector<Real, N> radius = sqrt(mabs(
 			diagonal(invQuadraticForm)));
 
-		const AlignedBox<Real, N> bound(
-			asPoint(-radius), asPoint(radius));
+		const AlignedBox<Real, N> bound(-radius, radius);
 
 		return bound;
 	}

@@ -2,8 +2,8 @@
 #include "pastel/device/gfxdevice.h"
 
 #include "pastel/sys/log_all.h"
+#include "pastel/sys/vector_tools.h"
 
-#include "pastel/sys/point_tools.h"
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
 
@@ -23,8 +23,8 @@ const integer ScreenHeight = 480;
 
 GlGfxRenderer* renderer__;
 
-std::vector<Point2> pointSet__;
-std::vector<Point2> convexHull__;
+std::vector<Vector2> pointSet__;
+std::vector<Vector2> convexHull__;
 
 bool mouseLeftPressed__ = false;
 
@@ -123,9 +123,10 @@ void logicHandler()
 	const Vector2 normMouse(
 		(currentMouse + 1) / 2);
 
-	const Point2 worldMouse(
-		renderer__->viewWindow().at(normMouse) *
-		renderer__->viewTransformation());
+	const Vector2 worldMouse(
+		transformPoint(
+		renderer__->viewWindow().at(normMouse),
+		renderer__->viewTransformation()));
 
 	if (!mouseLeftPressed__)
 	{
@@ -134,7 +135,7 @@ void logicHandler()
 			//cout << worldMouse[0] << ", " << worldMouse[1] << endl;
 
 			pointSet__.push_back(
-				Point2(worldMouse[0], worldMouse[1]));
+				Vector2(worldMouse[0], worldMouse[1]));
 			convexHullGrahamsScan(
 				pointSet__, convexHull__);
 			redraw();

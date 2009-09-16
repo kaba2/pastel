@@ -54,30 +54,30 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AffineTransformation<Real, N> leastSquaresAffineTransformation(
-		const std::vector<Point<Real, N> >& from,
-		const std::vector<Point<Real, N> >& to);
+		const std::vector<Vector<Real, N> >& from,
+		const std::vector<Vector<Real, N> >& to);
 
 	//! Returns the least squares affine transformation relating two point sets.
 
 	template <typename Real, int N>
 	AffineTransformation<Real, N> leastSquaresAffineTransformation(
 		integer dimension,
-		const std::vector<Point<Real, N> >& from,
-		const std::vector<Point<Real, N> >& to);
+		const std::vector<Vector<Real, N> >& from,
+		const std::vector<Vector<Real, N> >& to);
 
 	//! Returns the least squares similarity transformation relating two point sets.
 
 	template <typename Real>
 	Tuple<Real, 4> similarityTransformation(
-		const std::vector<Point<Real, 2> >& from,
-		const std::vector<Point<Real, 2> >& to);
+		const std::vector<Vector<Real, 2> >& from,
+		const std::vector<Vector<Real, 2> >& to);
 
 	//! Returns the similarity transformation relating two point pairs.
 
 	template <typename Real>
 	Tuple<Real, 4> similarityTransformation(
-		const Point<Real, 2>& aFrom, const Point<Real, 2>& bFrom,
-		const Point<Real, 2>& aTo, const Point<Real, 2>& bTo);
+		const Vector<Real, 2>& aFrom, const Vector<Real, 2>& bFrom,
+		const Vector<Real, 2>& aTo, const Vector<Real, 2>& bTo);
 
 	//! Returns the similarity transformation from given parameters.
 
@@ -104,10 +104,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool affineTransform(
-		const Point<Real, 2>& aFrom, const Point<Real, 2>& bFrom,
-		const Point<Real, 2>& cFrom,
-		const Point<Real, 2>& aTo, const Point<Real, 2>& bTo,
-		const Point<Real, 2>& cTo,
+		const Vector<Real, 2>& aFrom, const Vector<Real, 2>& bFrom,
+		const Vector<Real, 2>& cFrom,
+		const Vector<Real, 2>& aTo, const Vector<Real, 2>& bTo,
+		const Vector<Real, 2>& cTo,
 		AffineTransformation<Real, 2>& matrix);
 
 	// 3D
@@ -168,10 +168,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool affineTransform(
-		const Point<Real, 3>& aFrom, const Point<Real, 3>& bFrom,
-		const Point<Real, 3>& cFrom,
-		const Point<Real, 3>& aTo, const Point<Real, 3>& bTo,
-		const Point<Real, 3>& cTo,
+		const Vector<Real, 3>& aFrom, const Vector<Real, 3>& bFrom,
+		const Vector<Real, 3>& cFrom,
+		const Vector<Real, 3>& aTo, const Vector<Real, 3>& bTo,
+		const Vector<Real, 3>& cTo,
 		AffineTransformation<Real, 3>& matrix);
 
 	//! Returns the affine transformation from 'from' to 'to'.
@@ -185,10 +185,10 @@ namespace Pastel
 
 	template <typename Real>
 	bool affineTransform(
-		const Point<Real, 3>& aFrom, const Point<Real, 3>& bFrom,
-		const Point<Real, 3>& cFrom, const Point<Real, 3>& dFrom,
-		const Point<Real, 3>& aTo, const Point<Real, 3>& bTo,
-		const Point<Real, 3>& cTo,
+		const Vector<Real, 3>& aFrom, const Vector<Real, 3>& bFrom,
+		const Vector<Real, 3>& cFrom, const Vector<Real, 3>& dFrom,
+		const Vector<Real, 3>& aTo, const Vector<Real, 3>& bTo,
+		const Vector<Real, 3>& cTo,
 		AffineTransformation<Real, 3>& matrix);
 
 }

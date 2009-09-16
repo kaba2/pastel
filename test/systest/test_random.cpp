@@ -41,8 +41,8 @@ namespace
 			if (x > 0)
 			{
 				drawSegment(
-					Segment2(Point2(x - 1 + 0.5, yPrevious),
-					Point2(x + 0.5, y)),
+					Segment2(Vector2(x - 1 + 0.5, yPrevious),
+					Vector2(x + 0.5, y)),
 					color,
 					image);
 			}
@@ -65,7 +65,7 @@ namespace
 
 		for (integer x = 0;x < width;++x)
 		{
-			drawPixel(Point2(x, histogram[x] * scaling), color, 
+			drawPixel(Vector2(x, histogram[x] * scaling), color, 
 				image);
 		}
 	}

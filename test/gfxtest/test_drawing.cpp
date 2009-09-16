@@ -37,7 +37,7 @@ namespace
 
 		distortAnnulusToAlignedBox(
 			texture,
-			Point2(0.5),
+			Vector2(0.5),
 			0.25,
 			0.5,
 			0,
@@ -57,9 +57,9 @@ namespace
 		renderer.setViewWindow(
 			AlignedBox2(0, 0, 1, 1));
 
-		drawCircle(renderer, Sphere2(Point2(0.5), 0.25), 40);
-		drawCircle(renderer, Sphere2(Point2(0.5), 0.5), 40);
-		drawSegment(renderer, Segment2(Point2(0.6, 0.5), Point2(0.7, 0.5)));
+		drawCircle(renderer, Sphere2(Vector2(0.5), 0.25), 40);
+		drawCircle(renderer, Sphere2(Vector2(0.5), 0.5), 40);
+		drawSegment(renderer, Segment2(Vector2(0.6, 0.5), Vector2(0.7, 0.5)));
 
 		savePcx(textureImage, "output/distortion_texture.pcx");
 	}
@@ -69,10 +69,10 @@ namespace
 		Array<Color, 2> image(500, 500, Color(0));
 
 		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
-		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), Point2i(0), Vector2i(2, 2)));
+		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), Vector2i(0), Vector2i(2, 2)));
 
-		clear(Color(0, 0, 1), rowView(arrayView(image), 0, Point2i(10, 10)));
-		clear(Color(0, 0, 1), rowView(arrayView(image), 1, Point2i(10, 10)));
+		clear(Color(0, 0, 1), rowView(arrayView(image), 0, Vector2i(10, 10)));
+		clear(Color(0, 0, 1), rowView(arrayView(image), 1, Vector2i(10, 10)));
 
 		copy(constSubView(constArrayView(image), Rectangle2(0, 0, 200, 200)),
 			subView(arrayView(image), Rectangle2(300, 300, 500, 500)));
@@ -89,7 +89,7 @@ namespace
 		drawBox(AlignedBox2(100, 100, 200, 200), true,
 			arrayView(image));
 
-		drawSegment(Segment2(Point2(250, 50), Point2(300, 30)),
+		drawSegment(Segment2(Vector2(250, 50), Vector2(300, 30)),
 			true, arrayView(image));
 
 		saveBinaryPcx(image, "output/drawing_binary.pcx");
@@ -105,10 +105,10 @@ namespace
 		renderer.setFilled(false);
 
 		renderer.setColor(randomRgbColor());
-		drawCircle(renderer, Sphere2(Point2(0), 0.5), 20);
+		drawCircle(renderer, Sphere2(Vector2(0), 0.5), 20);
 
 		renderer.setColor(randomRgbColor());
-		drawTriangle(renderer, Triangle2(Point2(0), Point2(0, -1), Point2(0.5)));
+		drawTriangle(renderer, Triangle2(Vector2(0), Vector2(0, -1), Vector2(0.5)));
 
 		floodFill(0, 0, randomRgbColor(), arrayView(image));
 
@@ -116,7 +116,7 @@ namespace
 	}
 
 	template <int N, typename Real>
-	Point<Real, N> randomPoint(
+	Vector<Real, N> randomPoint(
 		const AlignedBox<Real, N>& region)
 	{
 		return region.min() + randomVector<N, Real>() * region.extent();
@@ -138,8 +138,8 @@ namespace
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox3 region(
-			Point3(-100, -100, 0),
-			Point3(600, 600, 10));
+			Vector3(-100, -100, 0),
+			Vector3(600, 600, 10));
 
 		for (integer i = 0;i < 5;++i)
 		{
@@ -149,7 +149,7 @@ namespace
 					randomPoint(region),
 					randomPoint(region)),
 				Triangle2(
-					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+					Vector2(0), Vector2(1, 0), Vector2(0.5, 1)),
 				sampler,
 				arrayView(image));
 		}
@@ -167,8 +167,8 @@ namespace
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox3 region(
-			Point3(-100, -100, 0),
-			Point3(600, 600, 10));
+			Vector3(-100, -100, 0),
+			Vector3(600, 600, 10));
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage));
 		EwaImageTexture<Color> texture(mipMap);
@@ -182,7 +182,7 @@ namespace
 					randomPoint(region),
 					randomPoint(region)),
 				Triangle2(
-					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+					Vector2(0), Vector2(1, 0), Vector2(0.5, 1)),
 				texture,
 				arrayView(image));
 		}
@@ -206,8 +206,8 @@ namespace
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
-			Point2(-100, -100),
-			Point2(600, 600));
+			Vector2(-100, -100),
+			Vector2(600, 600));
 
 		for (integer i = 0;i < 5;++i)
 		{
@@ -217,7 +217,7 @@ namespace
 					randomPoint(region),
 					randomPoint(region)),
 				Triangle2(
-					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+					Vector2(0), Vector2(1, 0), Vector2(0.5, 1)),
 				sampler,
 				arrayView(image));
 		}
@@ -235,8 +235,8 @@ namespace
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
-			Point2(-100, -100),
-			Point2(600, 600));
+			Vector2(-100, -100),
+			Vector2(600, 600));
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage));
 		EwaImageTexture<Color> texture(mipMap);
@@ -251,7 +251,7 @@ namespace
 					randomPoint(region),
 					randomPoint(region)),
 				Triangle2(
-					Point2(0), Point2(1, 0), Point2(0.5, 1)),
+					Vector2(0), Vector2(1, 0), Vector2(0.5, 1)),
 				texture,
 				arrayView(image));
 		}
@@ -269,8 +269,8 @@ namespace
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox2 region(
-			Point2(-100, -100),
-			Point2(600, 600));
+			Vector2(-100, -100),
+			Vector2(600, 600));
 
 		for (integer i = 0;i < 5;++i)
 		{
@@ -296,11 +296,11 @@ namespace
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 
-		Point2 a(0, 0);
-		Point2 b(33.3, 45.6);
-		Point2 c(634.4, 200.1);
-		Point2 d(33.3, 0);
-		Point2 e(634.4, 45.6);
+		Vector2 a(0, 0);
+		Vector2 b(33.3, 45.6);
+		Vector2 c(634.4, 200.1);
+		Vector2 d(33.3, 0);
+		Vector2 e(634.4, 45.6);
 
 		renderer.setColor(randomRgbColor());
 		drawBox(renderer, AlignedBox2(a, b));
@@ -325,7 +325,7 @@ namespace
 		{
 			for (integer j = 0;j < 10;++j)
 			{
-				drawCircle(renderer, Sphere2(Point2(i * 64.1 + 32, j * 48 + 24), 20 + j * 0.1));
+				drawCircle(renderer, Sphere2(Vector2(i * 64.1 + 32, j * 48 + 24), 20 + j * 0.1));
 			}
 		}
 
@@ -340,7 +340,7 @@ namespace
 		renderer.setImage(&image);
 		renderer.setViewWindow(AlignedBox2(0, 0, 640, 480));
 
-		Point2 a(320, 240);
+		Vector2 a(320, 240);
 
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(a, 100));
@@ -381,14 +381,14 @@ namespace
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(a, 10));
 
-		const Point2 b(55.3, 45.7);
+		const Vector2 b(55.3, 45.7);
 
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(b, 20.1));
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(b, 19.5));
 
-		const Point2 c(-50, 480);
+		const Vector2 c(-50, 480);
 
 		renderer.setColor(randomRgbColor());
 		drawCircle(renderer, Sphere2(c, 200));
@@ -405,18 +405,18 @@ namespace
 
 		const integer steps = 128;
 
-		const Point2 center(50.5, 240.5);
+		const Vector2 center(50.5, 240.5);
 		const real radius = 200;
 		real alphaStep = 2 * constantPi<real>() / steps;
 
 		for (integer i = 0;i < steps;++i)
 		{
-			const Point2 to(
+			const Vector2 to(
 				center.x() + std::cos(alphaStep * i) * radius,
 				center.y() + std::sin(alphaStep * i) * radius);
 
 			/*
-			const Point2 to(
+			const Vector2 to(
 				std::floor(center.x() + std::cos(alphaStep * i) * radius) + 0.5,
 				std::floor(center.y() + std::sin(alphaStep * i) * radius) + 0.5);
 			*/
@@ -435,8 +435,8 @@ namespace
 
 		for (integer i = 0;i < lines;++i)
 		{
-			const Point2 from(random<real>() * 1000 - 180, random<real>() * 740 - 180);
-			const Point2 to(random<real>() * 1000 - 180, random<real>() * 740 - 180);
+			const Vector2 from(random<real>() * 1000 - 180, random<real>() * 740 - 180);
+			const Vector2 to(random<real>() * 1000 - 180, random<real>() * 740 - 180);
 			drawSegment(Segment2(from, to), randomRgbColor(), arrayView(image));
 		}
 
@@ -461,10 +461,10 @@ namespace
 		{
 			for (integer x = 0;x < XLines;++x)
 			{
-				const Point2 from(
+				const Vector2 from(
 					x * BoxWidth + Border + 0.5,
 					y * BoxHeight + Border + (YStart + x * XYStep));
-				const Point2 to(
+				const Vector2 to(
 					x * BoxWidth + (BoxWidth - Border) + 0.5 ,
 					y * BoxHeight + (BoxHeight - Border) + (YStart + y * YYStep));
 

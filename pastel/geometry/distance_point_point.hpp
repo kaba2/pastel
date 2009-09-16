@@ -10,8 +10,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distanceManhattan(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint)
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -20,8 +20,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distance2(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint)
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -30,8 +30,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distancePower(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint,
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
 		return Pastel::distance2(
@@ -41,8 +41,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Real distanceInfinity(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint)
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -51,8 +51,8 @@ namespace Pastel
 
 	template <int N, typename Real, typename NormBijection>
 	Real distance2(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint,
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint,
 		const NormBijection& normBijection)
 	{
 		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
@@ -77,8 +77,8 @@ namespace Pastel
 
 	template <int N, typename Real, typename NormBijection>
 	Real distance2(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint,
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint,
 		const NormBijection& normBijection,
 		const PASTEL_NO_DEDUCTION(Real)& cullDistance)
 	{

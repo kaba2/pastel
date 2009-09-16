@@ -6,11 +6,11 @@ Low-discrepancy sequences
 Theory
 ------
 
-Let `V` be a measure space with a measure `m`. Let `A sub V`
-with finite measure. Let `S = {s_1, s_2, s_3, ...} sub A`.
-Let `B sub A`. The discrepancy of `S` is defined as
+Let ''V'' be a measure space with a measure ''m''. Let ''A sub V''
+with finite measure. Let ''S = {s_1, s_2, s_3, ...} sub A''.
+Let ''B sub A''. The discrepancy of ''S'' is defined by
 
-`D(N) = sup[B subset A] (intersection({s_1, ..., s_N}, B) / N - m(B) / m(A))`
+''D(N) = text(sup){({s_1, ..., s_N} nn B) / N - m(B) / m(A) | B sub A}''
 
 Most often, one sets V = R^n, A = [0, 1]^n, and restricts the B to sets of 
 the form [0, w_1] x [0, w_2] x ... x [0, w_n]. The resulting discrepancy
@@ -51,6 +51,8 @@ Third, the number of points must be a product of the grid sides.
 See also
 --------
 
-[Poisson disk pattern](../geometry/poissondiskpattern.htm)
+[Link]: ../geometry/poissondiskpattern.txt
 
-[Uniform sampling](./uniform_sampling.htm)
+[Link]: uniform_distortion.txt
+
+[Link]: ../sys/random_vector.txt

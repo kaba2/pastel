@@ -11,7 +11,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point)
+		const Vector<Real, N>& point)
 	{
 		return Pastel::distance2(
 			alignedBox, point,
@@ -21,17 +21,17 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const NormBijection& normBijection)
 	{
 		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
 		
-		// The distance calculation between an AlignedBox and a Point can
+		// The distance calculation between an AlignedBox and a Vector can
 		// be decomposed into separate calculations on each
 		// coordinate axis. In this 1-dimensional world, the AlignedBox
 		// degenerates into a range. For each axis we
-		// calculate the squared distance of the Point coordinate
-		// to the AlignedBox coordinate range. If the Point coordinate
+		// calculate the squared distance of the Vector coordinate
+		// to the AlignedBox coordinate range. If the Vector coordinate
 		// is inside the AlignedBox coordinate range,
 		// that particular distance is 0.
 		// Finally, the 1-dimensional squared distances
@@ -46,7 +46,7 @@ namespace Pastel
 		{
 			if (point[i] < alignedBox.min()[i])
 			{
-				// If the i:th Point coordinate is
+				// If the i:th Vector coordinate is
 				// on the lesser side of the range,
 				// base the distance calculation
 				// on the range's minimum point.
@@ -57,7 +57,7 @@ namespace Pastel
 			}
 			else if (point[i] > alignedBox.max()[i])
 			{
-				// If the i:th Point coordinate is
+				// If the i:th Vector coordinate is
 				// on the greater side of the range,
 				// base the distance calculation
 				// on the range's maximum point.
@@ -74,7 +74,7 @@ namespace Pastel
 	template <int N, typename Real>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point)
+		const Vector<Real, N>& point)
 	{
 		return Pastel::farthestDistance2(
 			alignedBox, point,
@@ -84,7 +84,7 @@ namespace Pastel
 	template <int N, typename Real, typename NormBijection>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& alignedBox,
-		const Point<Real, N>& point,
+		const Vector<Real, N>& point,
 		const NormBijection& normBijection)
 	{
 		return std::max(

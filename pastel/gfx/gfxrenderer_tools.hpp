@@ -15,7 +15,7 @@ namespace Pastel
 	template <typename Type>
 	void drawPoint(
 		GfxRenderer<Type>& renderer,
-		const Point2& point)
+		const Vector2& point)
 	{
 		renderer.drawPoint(point);
 	}
@@ -101,10 +101,10 @@ namespace Pastel
 
 		const Vector2 normal = cross(delta) / normDelta;
 
-		const Point2 startLeft = segment.start() + normal * startRadius;
-		const Point2 startRight = segment.start() - normal * startRadius;
-		const Point2 endLeft = segment.end() + normal * endRadius;
-		const Point2 endRight = segment.end() - normal * endRadius;
+		const Vector2 startLeft = segment.start() + normal * startRadius;
+		const Vector2 startRight = segment.start() - normal * startRadius;
+		const Vector2 endLeft = segment.end() + normal * endRadius;
+		const Vector2 endRight = segment.end() - normal * endRadius;
 
 		if (renderer.filled())
 		{
@@ -191,7 +191,7 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const AlignedBox2& alignedBox,
-		const Tuple<Point2, 4>& textureQuad)
+		const Tuple<Vector2, 4>& textureQuad)
 	{
 		const Box2 box(
 			linear(alignedBox.min(), alignedBox.max(), 0.5),
@@ -206,14 +206,14 @@ namespace Pastel
 		GfxRenderer<Type>& renderer,
 		const Box2& box)
 	{
-		const Point2& center = box.position();
+		const Vector2& center = box.position();
 		const Vector2 x = box.rotation()[0] * box.width()[0];
 		const Vector2 y = box.rotation()[1] * box.width()[1];
 
-		const Point2 leftBottom = center - x - y;
-		const Point2 rightBottom = center + x - y;
-		const Point2 rightTop = center + x + y;
-		const Point2 leftTop = center - x + y;
+		const Vector2 leftBottom = center - x - y;
+		const Vector2 rightBottom = center + x - y;
+		const Vector2 rightTop = center + x + y;
+		const Vector2 leftTop = center - x + y;
 
 		if (!renderer.filled())
 		{
@@ -245,16 +245,16 @@ namespace Pastel
 	void drawBox(
 		GfxRenderer<Type>& renderer,
 		const Box2& box,
-		const Tuple<Point2, 4>& textureQuad)
+		const Tuple<Vector2, 4>& textureQuad)
 	{
-		const Point2& center = box.position();
+		const Vector2& center = box.position();
 		const Vector2 x = box.rotation()[0] * box.width()[0];
 		const Vector2 y = box.rotation()[1] * box.width()[1];
 
-		const Point2 leftBottom = center - x - y;
-		const Point2 rightBottom = center + x - y;
-		const Point2 rightTop = center + x + y;
-		const Point2 leftTop = center - x + y;
+		const Vector2 leftBottom = center - x - y;
+		const Vector2 rightBottom = center + x - y;
+		const Vector2 rightTop = center + x + y;
+		const Vector2 leftTop = center - x + y;
 
 		if (!renderer.filled())
 		{
@@ -303,8 +303,8 @@ namespace Pastel
 		const Vector2 tangent = delta / normDelta;
 		const Vector2 normal = cross(tangent);
 
-		const Point2 endLeft = segment.end() + normal * radius - tangent * radius * 2;
-		const Point2 endRight = segment.end() - normal * radius - tangent * radius * 2;
+		const Vector2 endLeft = segment.end() + normal * radius - tangent * radius * 2;
+		const Vector2 endRight = segment.end() - normal * radius - tangent * radius * 2;
 
 		drawFatSegment(renderer, Segment2(segment.start(), segment.end() - tangent * radius * 2),
 			radius * 0.15, radius * 0.15);
@@ -315,9 +315,9 @@ namespace Pastel
 	void drawSegment(
 		GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		const std::vector<Point2>& pen)
+		const std::vector<Vector2>& pen)
 	{
-		std::vector<Point2> sweepPolygon;
+		std::vector<Vector2> sweepPolygon;
 		sweep(pen, segment, sweepPolygon);
 
 		drawConvexPolygon(renderer, sweepPolygon);
@@ -327,9 +327,9 @@ namespace Pastel
 	void drawOrientedSegment(
 		GfxRenderer<Type>& renderer,
 		const Segment2& segment,
-		const std::vector<Point2>& pen)
+		const std::vector<Vector2>& pen)
 	{
-		std::vector<Point2> sweepPolygon;
+		std::vector<Vector2> sweepPolygon;
 		orientedSweep(pen, segment, sweepPolygon);
 
 		drawConvexPolygon(renderer, sweepPolygon);
@@ -338,7 +338,7 @@ namespace Pastel
 	template <typename Type>
 	void drawConvexPolygon(
 		GfxRenderer<Type>& renderer,
-		const std::vector<Point2>& convexPolygon)
+		const std::vector<Vector2>& convexPolygon)
 	{
 		const integer points = convexPolygon.size();
 

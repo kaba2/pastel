@@ -3,8 +3,8 @@ ArenaAllocator class
 
 [Parent]: allocators.txt
 
-Motivation
-----------
+Practice
+--------
 
 In situations where dynamic allocation and deallocation
 of small objects is frequent and large scale, the performance

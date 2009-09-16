@@ -21,7 +21,7 @@ namespace Pastel
 	class Direct_ObjectPolicy_PointKdTree
 	{
 	public:
-		typedef Point<Real, N> Object;
+		typedef Vector<Real, N> Object;
 
 		const Real* point(const Object& object) const
 		{
@@ -38,7 +38,7 @@ namespace Pastel
 	class Pointer_ObjectPolicy_PointKdTree
 	{
 	public:
-		typedef Point<Real, N>* Object;
+		typedef Vector<Real, N>* Object;
 
 		const Real* point(const Object& object) const
 		{
@@ -354,7 +354,7 @@ namespace Pastel
 		void merge(const Cursor& cursor);
 
 		//! Returns the position of a given object.
-		Point<Real, N> point(const Object& object) const;
+		Vector<Real, N> point(const Object& object) const;
 
 	private:
 		class SplitPredicate;
@@ -495,8 +495,8 @@ namespace Pastel
 		//! Updates node bounds downwards.
 		void updateBound(
 			Node* node,
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound);
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound);
 
 		//! Inserts new objects at the end of the objectList_.
 		/*!
@@ -553,8 +553,8 @@ namespace Pastel
 			integer maxDepth,
 			const SubdivisionRule& subdivisionRule,
 			integer depth,
-			const Point<Real, N>& minBound,
-			const Point<Real, N>& maxBound);
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound);
 
 		/*
 		objectList_:

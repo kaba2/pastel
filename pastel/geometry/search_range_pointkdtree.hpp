@@ -87,7 +87,7 @@ namespace Pastel
 			{
 				const Object& object = iter->object();
 				if (overlaps(range, 
-					Point<Real, N>(ofDimension(dimension),
+					Vector<Real, N>(ofDimension(dimension),
 					withAliasing((Real*)objectPolicy.point(object)))))
 				{
 					rangeSet.push_back(iter);

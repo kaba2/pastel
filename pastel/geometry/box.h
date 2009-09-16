@@ -4,7 +4,6 @@
 #ifndef PASTEL_BOX_H
 #define PASTEL_BOX_H
 
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/math/matrix.h"
@@ -44,13 +43,13 @@ namespace Pastel
 		explicit Box(integer dimension);
 
 		//! Constructs using the given information.
-		Box(const Point<Real, N>& position,
+		Box(const Vector<Real, N>& position,
 			const Vector<Real, N>& width,
 			const Matrix<Real, N, N>& rotation);
 
 		//! Constructs using the given information.
 		Box(integer dimension,
-			const Point<Real, N>& position,
+			const Vector<Real, N>& position,
 			const Vector<Real, N>& width,
 			const Matrix<Real, N, N>& rotation);
 
@@ -67,10 +66,10 @@ namespace Pastel
 		const Vector<Real, N>& width() const;
 
 		//! Sets the position of the box.
-		void setPosition(const Point<Real, N>& position);
+		void setPosition(const Vector<Real, N>& position);
 
 		//! Returns the position of the box.
-		const Point<Real, N>& position() const;
+		const Vector<Real, N>& position() const;
 
 		//! Sets the rotation of the box.
 		void setRotation(const Matrix<Real, N, N>& rotation);
@@ -79,7 +78,7 @@ namespace Pastel
 		const Matrix<Real, N, N>& rotation() const;
 
 	private:
-		Point<Real, N> position_;
+		Vector<Real, N> position_;
 		Vector<Real, N> width_;
 		Matrix<Real, N, N> rotation_;
 	};

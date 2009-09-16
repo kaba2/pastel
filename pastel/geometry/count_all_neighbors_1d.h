@@ -5,7 +5,7 @@
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_1D_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_1D_H
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include <vector>
 
@@ -46,7 +46,7 @@ namespace Pastel
 	typename ConstIndexIterator, typename ConstDistanceIterator,
 	typename CountIterator>
 	void countAllNeighbors1d(
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		const ConstIndexIterator& indexBegin,
 		const ConstIndexIterator& indexEnd,
 		const ConstDistanceIterator& maxDistanceBegin,

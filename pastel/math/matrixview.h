@@ -118,25 +118,25 @@ namespace Pastel
 
 		const Real& operator()(integer y, integer x) const
 		{
-			return data_(Point2(x, y));
+			return data_(Vector2(x, y));
 		}
 
 		ConstSubMatrix operator()(
-			const Point2i& min,
-			const Point2i& max) const
+			const Vector2i& min,
+			const Vector2i& max) const
 		{
 			const ConstSubMatrix result(data_(min, max));
 			return result;
 		}
 
 		ConstSubMatrix operator()(
-			const Point2i& min,
-			const Point2i& max,
+			const Vector2i& min,
+			const Vector2i& max,
 			const Vector2i& delta) const
 		{
 			const ConstSubMatrix result(data_(
-				Point2i(min.y(), min.x()), 
-				Point2i(max.y(), max.x()), 
+				Vector2i(min.y(), min.x()), 
+				Vector2i(max.y(), max.x()), 
 				Vector2i(delta.y(), delta.x())));
 			return result;
 		}
@@ -146,7 +146,7 @@ namespace Pastel
 			PENSURE2(y >= 0 && y < height(), y, height());
 
 			const ConstSubMatrix result(
-				data_(Point2i(0, y), Point2i(0, y + 1)));
+				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
@@ -155,7 +155,7 @@ namespace Pastel
 			PENSURE2(y >= 0 && y < height(), y, height());
 
 			const ConstSubMatrix result(
-				data_(Point2i(0, y), Point2i(0, y + 1)));
+				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
@@ -164,7 +164,7 @@ namespace Pastel
 			PENSURE2(x >= 0 && x < width(), x, width());
 
 			const ConstSubMatrix result(
-				data_(Point2i(x, 0), Point2i(x + 1, 0)));
+				data_(Vector2i(x, 0), Vector2i(x + 1, 0)));
 			return result;
 		}
 
@@ -190,22 +190,22 @@ namespace Pastel
 
 		ConstRowIterator rowBegin(integer y) const
 		{
-			return data_.rowBegin(0, Point2i(0, y));
+			return data_.rowBegin(0, Vector2i(0, y));
 		}
 
 		ConstRowIterator rowEnd(integer y) const
 		{
-			return data_.rowEnd(0, Point2i(0, y));
+			return data_.rowEnd(0, Vector2i(0, y));
 		}
 
 		ConstColumnIterator columnBegin(integer x) const
 		{
-			return data_.columnBegin(1, Point2i(x, 0));
+			return data_.columnBegin(1, Vector2i(x, 0));
 		}
 
 		ConstColumnIterator columnEnd(integer x) const
 		{
-			return data_.columnEnd(1, Point2i(x, 0));
+			return data_.columnEnd(1, Vector2i(x, 0));
 		}
 
 	private:
@@ -296,54 +296,54 @@ namespace Pastel
 
 		Real& operator()(integer y, integer x)
 		{
-			return data_(Point2i(x, y));
+			return data_(Vector2i(x, y));
 		}
 
 		const Real& operator()(integer y, integer x) const
 		{
-			return data_(Point2(x, y));
+			return data_(Vector2(x, y));
 		}
 
 		SubMatrix operator()(
-			const Point2i& min,
-			const Point2i& max)
+			const Vector2i& min,
+			const Vector2i& max)
 		{
 			const SubMatrix result(data_(
-				Point2i(min.y(), min.x()), 
-				Point2i(max.y(), max.y())));
+				Vector2i(min.y(), min.x()), 
+				Vector2i(max.y(), max.y())));
 			return result;
 		}
 
 		ConstSubMatrix<Real> operator()(
-			const Point2i& min,
-			const Point2i& max) const
+			const Vector2i& min,
+			const Vector2i& max) const
 		{
 			const ConstSubMatrix<Real> result(data_(
-				Point2i(min.y(), min.x()), 
-				Point2i(max.y(), max.y())));
+				Vector2i(min.y(), min.x()), 
+				Vector2i(max.y(), max.y())));
 			return result;
 		}
 
 		SubMatrix operator()(
-			const Point2i& min,
-			const Point2i& max,
+			const Vector2i& min,
+			const Vector2i& max,
 			const Vector2i& delta)
 		{
 			const SubMatrix result(data_(
-				Point2i(min.y(), min.x()), 
-				Point2i(max.y(), max.x()), 
+				Vector2i(min.y(), min.x()), 
+				Vector2i(max.y(), max.x()), 
 				Vector2i(delta.y(), delta.x())));
 			return result;
 		}
 
 		ConstSubMatrix<Real> operator()(
-			const Point2i& min,
-			const Point2i& max,
+			const Vector2i& min,
+			const Vector2i& max,
 			const Vector2i& delta) const
 		{
 			const ConstSubMatrix<Real> result(data_(
-				Point2i(min.y(), min.x()), 
-				Point2i(max.y(), max.x()), 
+				Vector2i(min.y(), min.x()), 
+				Vector2i(max.y(), max.x()), 
 				Vector2i(delta.y(), delta.x())));
 			return result;
 		}
@@ -353,7 +353,7 @@ namespace Pastel
 			PENSURE2(y >= 0 && y < height(), y, height());
 
 			const SubMatrix result(
-				data_(Point2i(0, y), Point2i(0, y + 1)));
+				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
@@ -362,7 +362,7 @@ namespace Pastel
 			PENSURE2(y >= 0 && y < height(), y, height());
 
 			const ConstSubMatrix<Real> result(
-				data_(Point2i(0, y), Point2i(0, y + 1)));
+				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
@@ -371,7 +371,7 @@ namespace Pastel
 			PENSURE2(y >= 0 && y < height(), y, height());
 
 			const SubMatrix result(
-				data_(Point2i(0, y), Point2i(0, y + 1)));
+				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
@@ -380,7 +380,7 @@ namespace Pastel
 			PENSURE2(y >= 0 && y < height(), y, height());
 
 			const ConstSubMatrix<Real> result(
-				data_(Point2i(0, y), Point2i(0, y + 1)));
+				data_(Vector2i(0, y), Vector2i(0, y + 1)));
 			return result;
 		}
 
@@ -389,7 +389,7 @@ namespace Pastel
 			PENSURE2(x >= 0 && x < width(), x, width());
 
 			const SubMatrix result(
-				data_(Point2i(x, 0), Point2i(x + 1, 0)));
+				data_(Vector2i(x, 0), Vector2i(x + 1, 0)));
 			return result;
 		}
 
@@ -398,7 +398,7 @@ namespace Pastel
 			PENSURE2(x >= 0 && x < width(), x, width());
 
 			const ConstSubMatrix<Real> result(
-				data_(Point2i(x, 0), Point2i(x + 1, 0)));
+				data_(Vector2i(x, 0), Vector2i(x + 1, 0)));
 			return result;
 		}
 
@@ -568,42 +568,42 @@ namespace Pastel
 
 		RowIterator rowBegin(integer y)
 		{
-			return data_.rowBegin(0, Point2i(0, y));
+			return data_.rowBegin(0, Vector2i(0, y));
 		}
 
 		ConstRowIterator rowBegin(integer y) const
 		{
-			return data_.rowBegin(0, Point2i(0, y));
+			return data_.rowBegin(0, Vector2i(0, y));
 		}
 
 		RowIterator rowEnd(integer y)
 		{
-			return data_.rowEnd(0, Point2i(0, y));
+			return data_.rowEnd(0, Vector2i(0, y));
 		}
 
 		ConstRowIterator rowEnd(integer y) const
 		{
-			return data_.rowEnd(0, Point2i(0, y));
+			return data_.rowEnd(0, Vector2i(0, y));
 		}
 
 		ColumnIterator columnBegin(integer x)
 		{
-			return data_.columnBegin(1, Point2i(x, 0));
+			return data_.columnBegin(1, Vector2i(x, 0));
 		}
 
 		ConstColumnIterator columnBegin(integer x) const
 		{
-			return data_.columnBegin(1, Point2i(x, 0));
+			return data_.columnBegin(1, Vector2i(x, 0));
 		}
 
 		ColumnIterator columnEnd(integer x)
 		{
-			return data_.columnEnd(1, Point2i(x, 0));
+			return data_.columnEnd(1, Vector2i(x, 0));
 		}
 
 		ConstColumnIterator columnEnd(integer x) const
 		{
-			return data_.columnEnd(1, Point2i(x, 0));
+			return data_.columnEnd(1, Vector2i(x, 0));
 		}
 
 	private:

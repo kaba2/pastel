@@ -14,18 +14,18 @@ namespace Pastel
 	template <typename Type,
 		typename Image_View, typename ColorMixer>
 	void drawProjectiveQuad(
-		const Tuple<Point2, 4>& quad,
+		const Tuple<Vector2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image,
-		const Tuple<Point2, 4>& textureQuad,
+		const Tuple<Vector2, 4>& textureQuad,
 		const ColorMixer& colorMixer)
 	{
 		const Matrix3 matrix = projectiveTransformation(textureQuad, quad);
 
-		const Point3 a(wDivide(extend(textureQuad[0], 1) * matrix));
-		const Point3 b(wDivide(extend(textureQuad[1], 1) * matrix));
-		const Point3 c(wDivide(extend(textureQuad[2], 1) * matrix));
-		const Point3 d(wDivide(extend(textureQuad[3], 1) * matrix));
+		const Vector3 a(wDivide(evaluate(extend(textureQuad[0], 1) * matrix)));
+		const Vector3 b(wDivide(evaluate(extend(textureQuad[1], 1) * matrix)));
+		const Vector3 c(wDivide(evaluate(extend(textureQuad[2], 1) * matrix)));
+		const Vector3 d(wDivide(evaluate(extend(textureQuad[3], 1) * matrix)));
 
 		drawTriangle(
 			Triangle3(a, b, d),
@@ -42,10 +42,10 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawProjectiveQuad(
-		const Tuple<Point2, 4>& quad,
+		const Tuple<Vector2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image,
-		const Tuple<Point2, 4>& textureQuad)
+		const Tuple<Vector2, 4>& textureQuad)
 	{
 		Pastel::drawProjectiveQuad(quad,
 			texture, image, textureQuad,
@@ -54,24 +54,24 @@ namespace Pastel
 
 	template <typename Type, typename Image_View>
 	void drawProjectiveQuad(
-		const Tuple<Point2, 4>& quad,
+		const Tuple<Vector2, 4>& quad,
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image)
 	{
 		Pastel::drawProjectiveQuad(quad,
 			texture, image,
-			Tuple<Point2, 4>(
-			Point2(0, 0),
-			Point2(1, 0),
-			Point2(1, 1),
-			Point2(0, 1)),
+			Tuple<Vector2, 4>(
+			Vector2(0, 0),
+			Vector2(1, 0),
+			Vector2(1, 1),
+			Vector2(0, 1)),
 			assignColorMixer<Type>());
 	}
 
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void distortAnnulusToAlignedBox(
 		const Texture<Type>& texture,
-		const Point2& annulusCenter,
+		const Vector2& annulusCenter,
 		real annulusStartRadius,
 		real annulusEndRadius,
 		real annulusStartAngle,
@@ -124,7 +124,7 @@ namespace Pastel
 			toPixelSpanPoint(box.max().x()),
 			toPixelSpanPoint(box.max().y()));
 		const Rectangle2 imageWindow(
-			Point2i(0), asPoint(image.extent()));
+			Vector2i(0), image.extent());
 
 		Rectangle2 clippedBox;
 		if (intersect(imageBox, imageWindow, clippedBox))
@@ -154,7 +154,7 @@ namespace Pastel
 					const real aCos = std::cos(a);
 					const real aSin = std::sin(a);
 
-					const Point2 uv(
+					const Vector2 uv(
 						annulusCenter + r * Vector2(aCos, aSin));
 
 					const Vector2 duvDx(

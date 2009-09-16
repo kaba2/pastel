@@ -6,7 +6,6 @@
 #include "pastel/sys/tuple_tools.h"
 
 #include "pastel/geometry/sphere.h"
-#include "pastel/sys/point.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/math/matrix_tools.h"
@@ -41,7 +40,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<Real, N> boundingSphere(
-		const Point<Real, N>& aPoint)
+		const Vector<Real, N>& aPoint)
 	{
 		return circumscribedSphere(aPoint);
 	}
@@ -56,8 +55,8 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<Real, N> boundingSphere(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint)
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
 	{
 		return circumscribedSphere(aPoint, bPoint);
 	}
@@ -242,15 +241,15 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Sphere<Real, N> circumscribedSphere(
-		const Point<Real, N>& aPoint)
+		const Vector<Real, N>& aPoint)
 	{
 		return Sphere<Real, N>(aPoint, 0);
 	}
 
 	template <int N, typename Real>
 	Sphere<Real, N> circumscribedSphere(
-		const Point<Real, N>& aPoint,
-		const Point<Real, N>& bPoint)
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
 	{
 		return Sphere<Real, N>(
 			linear(aPoint, bPoint, 0.5),
@@ -430,7 +429,7 @@ namespace Pastel
 			return Sphere<Real, N>();
 		}
 
-		Point<Real, N> midPoint(0);
+		Vector<Real, N> midPoint(0);
 
 		integer points = 0;
 
@@ -439,12 +438,12 @@ namespace Pastel
 		InputIterator iter = from;
 		while(iter != to)
 		{
-			midPoint += asVector(positionFunctor(*iter));
+			midPoint += positionFunctor(*iter);
 			++iter;
 			++points;
 		}
 
-		asVector(midPoint) /= points;
+		midPoint /= points;
 
 		// Compute the maximum distance from the midpoint.
 
@@ -475,7 +474,7 @@ namespace Pastel
 		class PositionFunctor
 		{
 		public:
-			const Point<Real, N>& operator()(const Point<Real, N>& position) const
+			const Vector<Real, N>& operator()(const Vector<Real, N>& position) const
 			{
 				return position;
 			}

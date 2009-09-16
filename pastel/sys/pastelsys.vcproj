@@ -661,30 +661,6 @@
 				>
 			</File>
 			<Filter
-				Name="Point"
-				>
-				<File
-					RelativePath=".\point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\point_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pointbase.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Vector"
 				>
 				<File

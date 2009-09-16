@@ -11,7 +11,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Vector<Real, N> largestEigenVector(
-		const std::vector<Point<Real, N> >& pointSet)
+		const std::vector<Vector<Real, N> >& pointSet)
 	{
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
@@ -23,7 +23,7 @@ namespace Pastel
 		const integer points = pointSet.size();
 		const integer dimension = pointSet.front().dimension();
 
-		const Point<Real, N> meanPoint = mean(pointSet);
+		const Vector<Real, N> meanPoint = mean(pointSet);
 
 		// We choose the initial approximation as
 		// the direction of greatest axis aligned variance.
@@ -56,7 +56,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	void approximateEigenstructure(
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		integer eigenvectors,
 		Matrix<Real>& qOut,
 		Vector<Real>& dOut)
@@ -73,14 +73,14 @@ namespace Pastel
 		const integer dimension = pointSet.front().dimension();
 		const real beta = 1;
 
-		const Point<Real, N> meanPoint = mean(pointSet);
+		const Vector<Real, N> meanPoint = mean(pointSet);
 
 		qOut = identityMatrix<Real, Dynamic, Dynamic>(eigenvectors, dimension);
 		dOut = Vector<Real, Dynamic>(ofDimension(eigenvectors), 1);
 
 		for (integer i = 0;i < points;++i)
 		{
-			Vector<Real, N> x = pointSet[i] - meanPoint;
+			Vector<Real> x = pointSet[i] - meanPoint;
 			for (integer j = 0;j < eigenvectors;++j)
 			{
 				Real& d = dOut[j];

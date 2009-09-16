@@ -30,7 +30,7 @@ namespace
 
 		transform(ripMap, fitColor);
 
-		Point<integer, 2> position;
+		Vector<integer, 2> position;
 
 		Array<Color, 2> outputImage(texture.extent() * 2);
 
@@ -39,11 +39,11 @@ namespace
 		const Vector<integer, 2> textures = ripMap.levels();
 		for (integer y = 0;y < textures.y();++y)
 		{
-			Point<integer, 2> position(0, yPosition);
+			Vector<integer, 2> position(0, yPosition);
 
 			for (integer x = 0;x < textures.x();++x)
 			{
-				Array<Color, 2>& image = ripMap(Point<integer, 2>(x, y));
+				Array<Color, 2>& image = ripMap(Vector<integer, 2>(x, y));
 
 				drawView(constArrayView(image),
 					position, arrayView(outputImage));
@@ -51,7 +51,7 @@ namespace
 				position.x() += image.extent().x();
 			}
 
-			yPosition += ripMap(Point<integer, 2>(0, y)).extent().y();
+			yPosition += ripMap(Vector<integer, 2>(0, y)).extent().y();
 		}
 
 		savePcx(outputImage, "output/ripmap.pcx");

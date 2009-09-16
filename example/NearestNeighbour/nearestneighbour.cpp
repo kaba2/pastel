@@ -18,7 +18,6 @@
 #include "pastel/sys/random.h"
 #include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/log_all.h"
-#include "pastel/sys/point_tools.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/nulliterator.h"
 
@@ -77,8 +76,8 @@ integer firstPointIndex__ = 0;
 bool mouseLeftPressed__ = false;
 
 void computeTree(integer maxDepth);
-void sprayPoints(const Point2& center, real radius, integer points);
-void erasePoints(const Point2& center, real radius);
+void sprayPoints(const Vector2& center, real radius, integer points);
+void erasePoints(const Vector2& center, real radius);
 
 void keyHandler(bool pressed, SDLKey key)
 {
@@ -245,7 +244,7 @@ void drawBspTree(MyTree::Cursor cursor,
 		const Vector2* splitDirection = &basisDirection;
 		
 		const Line2 line(
-			asPoint(*splitDirection * cursor.splitPosition()),
+			*splitDirection * cursor.splitPosition(),
 			cross(*splitDirection));
 		
 		planeSet.push_back(
@@ -386,9 +385,10 @@ void redrawNearest()
 	const Vector2 normMouse(
 		(currentMouse + 1) / 2);
 
-	const Point2 worldMouse(
-		renderer__->viewWindow().at(normMouse) *
-		renderer__->viewTransformation());
+	const Vector2 worldMouse(
+		transformPoint(
+		renderer__->viewWindow().at(normMouse),
+		renderer__->viewTransformation()));
 
 	if (drawNearest__)
 	{
@@ -560,9 +560,10 @@ void logicHandler()
 	const Vector2 normMouse(
 		(currentMouse + 1) / 2);
 
-	const Point2 worldMouse(
-		renderer__->viewWindow().at(normMouse) *
-		renderer__->viewTransformation());
+	const Vector2 worldMouse(
+		transformPoint(
+		renderer__->viewWindow().at(normMouse),
+		renderer__->viewTransformation()));
 
 	if (leftButton)
 	{
@@ -621,9 +622,9 @@ void logicHandler()
 	}
 }
 
-void sprayPoints(const Point2& center, real radius, integer points)
+void sprayPoints(const Vector2& center, real radius, integer points)
 {
-	std::vector<Point2> newPointSet;
+	std::vector<Vector2> newPointSet;
 	for (integer i = 0;i < points;++i)
 	{
 		const real randomAngle = random<real>() * 2 * constantPi<real>();
@@ -631,7 +632,7 @@ void sprayPoints(const Point2& center, real radius, integer points)
 
 		if (std::abs(randomRadius) <= radius)
 		{
-			const Point2 point(
+			const Vector2 point(
 				center + 
 				Vector2(
 				cos(randomAngle) * randomRadius,
@@ -649,7 +650,7 @@ void sprayPoints(const Point2& center, real radius, integer points)
 	}
 }
 
-void erasePoints(const Point2& center, real radius)
+void erasePoints(const Vector2& center, real radius)
 {
 	NearestPointSet nearestSet;
 	searchNearest(
@@ -789,7 +790,7 @@ int myMain()
 		randomVector<2, real>());
 	*/
 
-	std::vector<Point2> pointSet;
+	std::vector<Vector2> pointSet;
 
 	for (integer i = 0;i < 10000;++i)
 	{
@@ -811,10 +812,10 @@ int myMain()
 
 	AlignedBox2 viewWindow(tree__.bound());
 
-	const Point2 cameraCenter = 
+	const Vector2 cameraCenter = 
 		linear(viewWindow.min(), viewWindow.max(), 0.5);
 
-	viewWindow -= asVector(cameraCenter);
+	viewWindow -= cameraCenter;
 
 	viewWindow.min() -= viewWindow.extent() * 0.05;
 	viewWindow.max() += viewWindow.extent() * 0.05;
@@ -840,7 +841,7 @@ int myMain()
 
 	renderer__ = new GlGfxRenderer();
 	renderer__->setViewTransformation(
-		translation2<real>(asVector(cameraCenter)));
+		translation2<real>(cameraCenter));
 	renderer__->setViewWindow(viewWindow);
 	renderer__->setColor(Color(0));
 	renderer__->clear();

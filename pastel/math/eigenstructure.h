@@ -6,7 +6,6 @@
 #define PASTEL_EIGENSTRUCTURE_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/point.h"
 
 #include <vector>
 
@@ -15,7 +14,7 @@ namespace Pastel
 
 	template <int N, typename Real>
 	Vector<Real, N> largestEigenVector(
-		const std::vector<Point<Real, N> >& pointSet);
+		const std::vector<Vector<Real, N> >& pointSet);
 
 	//! Computes an approximation of the eigenstructure.
 	/*!
@@ -43,7 +42,7 @@ namespace Pastel
 	*/
 	template <typename Real, int N>
 	void approximateEigenstructure(
-		const std::vector<Point<Real, N> >& pointSet,
+		const std::vector<Vector<Real, N> >& pointSet,
 		integer eigenvectors,
 		Matrix<Real>& qOut,
 		Vector<Real>& dOut);

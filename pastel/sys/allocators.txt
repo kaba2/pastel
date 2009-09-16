@@ -13,7 +13,7 @@ do much better, both in space and time.
 
 One such situation is when the memory is allocated at 
 arbitrary times, but is deallocated all at once. This leads to 
-the idea of arena allocation: allocate big chunks of memory at a 
+the idea of _arena allocation_: allocate big chunks of memory at a 
 time, and share memory from this chunk with an almost trivial 
 algorithm (just incrementing a pointer). When one wants to deallocate
 the memory, simply deallocate all the chunks that have been
@@ -22,23 +22,12 @@ allocated.
 Another situation is when the allocated memory is of fixed
 size. This assumption allows to create very efficient allocation
 and deallocation algorithms, and with minimal book-keeping.
-This leads to the so-called pool allocation.
+This leads to the so-called _pool allocation_.
 
 Practice
 --------
 
 Pastel implements allocators for arena and pool allocation.
 In addition Pastel has an adapter for the native allocator.
-These allocators can be used by themselves, but they are also
-used by some data structures in Pastel, see the links below.
+These allocators are used by many data structures in Pastel.
 
-See also
---------
-
-### Data structures in Pastel that use these allocators
-
-[FastList](./fastlist.htm)
-
-[UnorderedMap](./unorderedmap.htm)
-
-[UnorderedSet](./unorderedset.htm)

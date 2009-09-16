@@ -29,16 +29,16 @@ namespace Pastel
 			transpose(box.rotation()));
 
 		const Triangle<Real, N> transformedTriangle(
-			(triangle[0] - asVector(box.position())) *
+			(triangle[0] - box.position()) *
 			boxRotationInverse,
-			(triangle[1] - asVector(box.position())) *
+			(triangle[1] - box.position()) *
 			boxRotationInverse,
-			(triangle[2] - asVector(box.position())) *
+			(triangle[2] - box.position()) *
 			boxRotationInverse);
 
 		const AlignedBox<Real, N> transformedBox(
-			Point<Real, N>(-box.width()),
-			Point<Real, N>(box.width()));
+			Vector<Real, N>(-box.width()),
+			Vector<Real, N>(box.width()));
 
 		return Pastel::overlaps(transformedBox,
 			transformedTriangle);

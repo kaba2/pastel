@@ -6,24 +6,23 @@ Uniform sampling
 Theory
 ------
 
-Let V be a subset of R^n. Uniform sampling of V
-means to generate random samples from V such that
-the distribution of the random samples is uniform on V.
+_Uniform sampling of ''V sub RR^n''_ is the problem of generating random 
+samples from ''V'' with a uniform distribution.
 
 Practice
 --------
 
 A general algorithm to uniformly sample any
-set V is to bound it with an axis aligned box B,
-draw samples from a uniform distribution on B,
+set ''V'' is to bound it with an axis aligned box ''B'',
+draw samples from a uniform distribution on ''B'',
 and accept only those samples which are also
-in V. This is called _rejection sampling_. The
-probability that a sample drawn from B is also
-in V is the ratio of the measures of V and B.
+in ''V''. This is called _rejection sampling_. The
+probability that a sample drawn from ''B'' is also
+in ''V'' is the ratio of the measures of ''V'' and ''B''.
 Thus the efficiency is highly dependent on this
 ratio. Unfortunately, this ratio is often low,
 or even zero. For example, uniformly sampling
-the surface of a sphere in R^3 would not succeed
+the surface of a sphere in ''RR^3'' would not succeed
 using rejection sampling in the described manner.
 
 Thus, more than often it is either necessary,
@@ -32,15 +31,15 @@ samplings via slightly more complex algorithms.
 Pastel implements efficient algorithms to
 uniform sample from:
 
- * box in R^n
- * sphere (surface) in R^n
- * ball in R^n
- * annulus in R^n
+ * a box in ''RR^n''
+ * a sphere (surface) in ''RR^n''
+ * a ball in ''RR^n''
+ * an annulus in ''RR^n''
 
 If instead you need to distort an existing uniform sampling
-from one shape to another, see the link at the bottom.
+from one shape to another, see the link below.
   
 See also
 --------
 
-[Distortion of a uniform distribution to another one](../math/uniform_sampling.htm)
+[Distortion of a uniform distribution to another one](../math/uniform_distortion.htm)

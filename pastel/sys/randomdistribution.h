@@ -2,7 +2,6 @@
 #define PASTEL_RANDOMDISTRIBUTION_H
 
 #include "pastel/sys/countedptr.h"
-#include "pastel/sys/point.h"
 
 #include "pastel/sys/random_vector.h"
 
@@ -26,7 +25,7 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const = 0;
+		virtual Vector<Real, N> sample() const = 0;
 		virtual std::string name() const = 0;
 
 		integer dimension() const
@@ -70,9 +69,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result(
+			Vector<Real, N> result(
 				randomGaussianVector<N, Real>(Base::dimension()));
 			
 			return result;
@@ -131,9 +130,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result(
+			Vector<Real, N> result(
 				randomExponentialVector<N, Real>(Base::dimension()));
 			
 			return result;
@@ -192,9 +191,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result(
+			Vector<Real, N> result(
 				randomVectorCube<N, Real>(Base::dimension()));
 			
 			return result;
@@ -262,9 +261,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result(
+			Vector<Real, N> result(
 				randomGeneralizedGaussianVector<N, Real>(
 				Base::dimension(), shape_, scale_));
 			
@@ -341,9 +340,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result(
+			Vector<Real, N> result(
 				randomGammaVector<N, Real>(
 				Base::dimension(), shape_));
 			
@@ -413,11 +412,11 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
 			if (distributionSet_.empty())
 			{
-				return Point<Real, N>(
+				return Vector<Real, N>(
 					ofDimension(Base::dimension()));
 			}
 
@@ -490,10 +489,10 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result = distribution_->sample();
-			asVector(result) *= scaling_;
+			Vector<Real, N> result = distribution_->sample();
+			result *= scaling_;
 			return result;
 		}
 
@@ -548,9 +547,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result(
+			Vector<Real, N> result(
 				distribution_->sample() * transform_);
 
 			return result;
@@ -606,9 +605,9 @@ namespace Pastel
 		{
 		}
 
-		virtual Point<Real, N> sample() const
+		virtual Vector<Real, N> sample() const
 		{
-			Point<Real, N> result = distribution_->sample();
+			Vector<Real, N> result = distribution_->sample();
 			result += translation_;
 			return result;
 		}

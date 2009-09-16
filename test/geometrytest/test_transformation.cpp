@@ -22,11 +22,11 @@ namespace
 			const AffineTransformation2 transformation =
 				similarityTransformation(parameter);
 
-			const Point2 aFrom(random<real>(), random<real>());
-			const Point2 bFrom(random<real>(), random<real>());
+			const Vector2 aFrom(random<real>(), random<real>());
+			const Vector2 bFrom(random<real>(), random<real>());
 
-			const Point2 aTo(aFrom * transformation);
-			const Point2 bTo(bFrom * transformation);
+			const Vector2 aTo(transformPoint(aFrom, transformation));
+			const Vector2 bTo(transformPoint(bFrom, transformation));
 
 			const Tuple<real, 4> matchedParameter =
 				similarityTransformation(aFrom, bFrom, aTo, bTo);
@@ -57,14 +57,14 @@ namespace
 			const AffineTransformation2 transformation =
 				similarityTransformation(parameter);
 
-			std::vector<Point2> pattern;
-			std::vector<Point2> transformedPattern;
+			std::vector<Vector2> pattern;
+			std::vector<Vector2> transformedPattern;
 
 			for (integer i = 0;i < 1000;++i)
 			{
-				pattern.push_back(asPoint(randomVector<2, real>()));
+				pattern.push_back(randomVector<2, real>());
 				transformedPattern.push_back(
-					pattern.back() * transformation);
+					transformPoint(pattern.back(), transformation));
 			}
 
 			const Tuple<real, 4> matchedParameter =

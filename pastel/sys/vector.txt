@@ -23,7 +23,7 @@ Practice
 --------
 
 Pastel implements a class template Vector to
-support vectors in ''R^n'' over ''R'', where ''R'' is an ordered field
+model vectors in ''F^n'' over ''F'', where ''F'' is an ordered field
 (such as real numbers or rational numbers).
 
 	:::cpp
@@ -149,8 +149,8 @@ Vector expressions are as efficient as hand-coded
 expressions. For example:
 
 	:::cpp
-	Vector<3, float> x;
-	Vector<3, float> y = 2 * x  + 4;
+	Vector<float, 3> x;
+	Vector<float, 3> y = 2 * x  + 4;
 
 corresponds in performance to:
 
@@ -201,9 +201,9 @@ Interoperability
 ----------------
 
 A Vector can be converted to a Tuple with zero
-overhead. However, conversion to the other direction
+overhead, however, a Vector is-not-a Tuple. 
+Conversion to the other direction
 requires copying: a Vector can be constructed from a Tuple.
-
 The Matrix class works together with the Vector class
 to provide a natural notation for multiplying vectors with
 matrices. So does the AffineTransformation class.
@@ -216,7 +216,7 @@ as 2 or 3, Pastel offers some specialized notation.
 For example, the components in dimension 2
 can be accessed by member functions x() and y().
 In dimension 3 there is an additional z().
-But maybe the most important one is the ability to
+However, maybe the most important one is the ability to
 construct a vector by listing its components in the
 constructor:
 

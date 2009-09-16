@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/simplex.h"
 
-#include "pastel/sys/point.h"
+#include "pastel/sys/vector.h"
 
 #include "pastel/math/matrix_tools.h"
 
@@ -15,7 +15,7 @@ namespace Pastel
 	template <int N, typename Real>
 	bool overlaps(
 		const Simplex<Real, N, N>& simplex,
-		const Point<Real, N>& point);
+		const Vector<Real, N>& point);
 
 }
 

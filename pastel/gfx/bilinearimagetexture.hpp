@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <typename Type>
 	Type sampleBilinear(
-		const Point2& uv,
+		const Vector2& uv,
 		const Array<Type, 2>& image,
 		const ArrayExtender<2, Type>& extender)
 	{
@@ -19,7 +19,7 @@ namespace Pastel
 			return Type();
 		}
 
-		const Point<integer, 2> x(floor(asVector(uv) - 0.5));
+		const Vector<integer, 2> x(floor(uv - 0.5));
 
 		const real u = (uv[0] - 0.5) - x.x();
 		const real v = (uv[1] - 0.5) - x.y();

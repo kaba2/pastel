@@ -109,7 +109,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			neededToExtend |= extendToCover(
-				Point<Real, N>(ofDimension(dimension_),
+				Vector<Real, N>(ofDimension(dimension_),
 				withAliasing((Real*)objectPolicy_.point(iter->object()))), 
 				bound_);
 			++iter;
@@ -497,8 +497,8 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::updateBound(
 		Node* node,
-		const Point<Real, N>& minBound,
-		const Point<Real, N>& maxBound)
+		const Vector<Real, N>& minBound,
+		const Vector<Real, N>& maxBound)
 	{
 		ASSERT(node);
 
@@ -516,7 +516,7 @@ namespace Pastel
 
 			// Update the correct bounds and recurse.
 
-			Point<Real, N> leftMax = maxBound;
+			Vector<Real, N> leftMax = maxBound;
 			leftMax[splitAxis] = splitPosition;
 
 			updateBound(
@@ -524,7 +524,7 @@ namespace Pastel
 				minBound,
 				leftMax);
 
-			Point<Real, N> rightMin = minBound;
+			Vector<Real, N> rightMin = minBound;
 			rightMin[splitAxis] = splitPosition;
 
 			updateBound(
@@ -715,8 +715,8 @@ namespace Pastel
 		integer maxDepth,
 		const SubdivisionRule& subdivisionRule,
 		integer depth,
-		const Point<Real, N>& minBound,
-		const Point<Real, N>& maxBound)
+		const Vector<Real, N>& minBound,
+		const Vector<Real, N>& maxBound)
 	{
 		ASSERT(node);
 		ASSERT_OP(depth, >=, 0);
@@ -760,7 +760,7 @@ namespace Pastel
 		// into an intermediate node.
 		if (!node->leaf())
 		{
-			Point<Real, N> leftMax(maxBound);
+			Vector<Real, N> leftMax(maxBound);
 			leftMax[splitAxis] = splitPosition;
 
 			refine(
@@ -771,7 +771,7 @@ namespace Pastel
 				minBound,
 				leftMax);
 
-			Point<Real, N> rightMin(minBound);
+			Vector<Real, N> rightMin(minBound);
 			rightMin[splitAxis] = splitPosition;
 
 			refine(
