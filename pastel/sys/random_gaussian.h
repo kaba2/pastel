@@ -19,11 +19,10 @@ namespace Pastel
 	deviation >= 0
 
 	This is a convenience function that calls
-	randomGaussian<Real>() * deviation + mean;
+	randomGaussian<Real>() * deviation;
 	*/
 	template <typename Real>
 	Real randomGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation);
 
 	//! Returns a random vector standard-normally distributed in a hyperball.
@@ -38,7 +37,7 @@ namespace Pastel
 
 	//! Probability density function of the Gaussian distribution.
 	/*!
-	This function assumes mean = 0 and deviation = 1.
+	This function assumes deviation = 1.
 	*/
 	template <typename Real>
 	Real gaussianPdf(
@@ -48,7 +47,6 @@ namespace Pastel
 	template <typename Real>
 	Real gaussianPdf(
 		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation);
 
 }

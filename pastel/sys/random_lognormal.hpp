@@ -22,7 +22,7 @@ namespace Pastel
 	{
 		PENSURE_OP(normalDeviation, >, 0);
 
-		const Real u = randomGaussian<Real>(normalMean, normalDeviation);
+		const Real u = randomGaussian<Real>(normalDeviation) + normalMean;
 		return std::exp(u);
 	}
 

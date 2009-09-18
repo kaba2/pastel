@@ -163,18 +163,18 @@ namespace
 			clear(Color(0), arrayView(image));
 			drawDistribution(
 				region,
-				boost::bind(randomGaussian<real>, 0, 1),
-				boost::bind(gaussianPdf<real>, _1, 0, 1),
+				boost::bind(randomGaussian<real>, 1),
+				boost::bind(gaussianPdf<real>, _1, 1),
 				arrayView(image));
 			drawDistribution(
 				region,
-				boost::bind(randomGaussian<real>, 0, std::sqrt(0.2)),
-				boost::bind(gaussianPdf<real>, _1, 0, std::sqrt(0.2)),
+				boost::bind(randomGaussian<real>, std::sqrt(0.2)),
+				boost::bind(gaussianPdf<real>, _1, std::sqrt(0.2)),
 				arrayView(image));
 			drawDistribution(
 				region,
-				boost::bind(randomGaussian<real>, 0, std::sqrt(5.0)),
-				boost::bind(gaussianPdf<real>, _1, 0, std::sqrt(5.0)),
+				boost::bind(randomGaussian<real>, std::sqrt(5.0)),
+				boost::bind(gaussianPdf<real>, _1, std::sqrt(5.0)),
 				arrayView(image));
 			savePcx(image, "random_gaussian.pcx");
 		}
@@ -462,6 +462,38 @@ namespace
 				boost::bind(chiSquaredPdf<real>, _1, 5),
 				arrayView(image));
 			savePcx(image, "random_chisquared.pcx");
+		}
+
+		{
+			AlignedBox2 region(-1, 0, 1, 2);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomTriangle<real>, 1, 1),
+				boost::bind(trianglePdf<real>, _1, 1, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomTriangle<real>, 0.5, 0.5),
+				boost::bind(trianglePdf<real>, _1, 0.5, 0.5),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomTriangle<real>, 0.75, 0.75),
+				boost::bind(trianglePdf<real>, _1, 0.75, 0.75),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomTriangle<real>, 0.5, 0.75),
+				boost::bind(trianglePdf<real>, _1, 0.5, 0.75),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomTriangle<real>, 0.1, 1),
+				boost::bind(trianglePdf<real>, _1, 0.1, 1),
+				arrayView(image));
+			savePcx(image, "random_triangle.pcx");
 		}
 
 		/*

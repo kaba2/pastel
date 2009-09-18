@@ -19,17 +19,16 @@ namespace Pastel
 			return 1 - std::sqrt(dy - 1);
 		}
 
-		return sqrt(dy) - 1;
+		return std::sqrt(dy) - 1;
 	}
 
 	template <typename Real>
 	Real randomTriangle(
-		const PASTEL_NO_DEDUCTION(Real)& min,
-		const PASTEL_NO_DEDUCTION(Real)& mode,
-		const PASTEL_NO_DEDUCTION(Real)& max)
+		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
+		const PASTEL_NO_DEDUCTION(Real)& rightWidth)
 	{
-		PENSURE_OP(min, <, mode);
-		PENSURE_OP(mode, <, max);
+		PENSURE_OP(leftWidth, >, 0);
+		PENSURE_OP(rightWidth, >, 0);
 
 		/*
 		Denote
@@ -110,17 +109,19 @@ namespace Pastel
 		x = max - sqrt((d y - m) n)
 		*/
 
-		const Real d = max - min;
-		const Real m = mode - min;
+		// We assume:
+		// mode = 0
+		// min = -leftWidth
+		// max = rightWidth
 
-		const Real dy = d * random<Real>();
+		const Real dy = (rightWidth + leftWidth) * random<Real>();
 		
-		if (dy >= m)
+		if (dy >= leftWidth)
 		{
-			return max - std::sqrt((dy - m) * (d - m));
+			return rightWidth - std::sqrt((dy - leftWidth) * rightWidth);
 		}
 
-		return min + sqrt(m * dy);
+		return std::sqrt(leftWidth * dy) - leftWidth;
 	}
 
 	template <typename Real>
@@ -139,23 +140,25 @@ namespace Pastel
 	template <typename Real>
 	Real trianglePdf(
 		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& min,
-		const PASTEL_NO_DEDUCTION(Real)& mode,
-		const PASTEL_NO_DEDUCTION(Real)& max)
+		const PASTEL_NO_DEDUCTION(Real)& leftWidth,
+		const PASTEL_NO_DEDUCTION(Real)& rightWidth)
 	{
-		if (x < min || x > max)
+		PENSURE_OP(leftWidth, >, 0);
+		PENSURE_OP(rightWidth, >, 0);
+
+		if (x < -leftWidth || x > rightWidth)
 		{
 			return 0;
 		}
 
-		const Real d = max - min;
+		const Real d = leftWidth + rightWidth;
 
-		if (x < mode)
+		if (x < 0)
 		{
-			return 2 * (x - min) / ((mode - min) * d);
+			return 2 * (x + leftWidth) / (leftWidth * d);
 		}
 
-		return 2 * (max - x) / ((max - mode) * d);
+		return 2 * (rightWidth - x) / (rightWidth * d);
 	}
 
 }

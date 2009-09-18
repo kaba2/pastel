@@ -47,12 +47,11 @@ namespace Pastel
 
 	template <typename Real>
 	Real randomGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation)
 	{
 		PENSURE_OP(deviation, >=, 0);
 
-		return Pastel::randomGaussian<Real>() * deviation + mean;
+		return Pastel::randomGaussian<Real>() * deviation;
 	}
 
 	template <int N, typename Real>
@@ -87,7 +86,6 @@ namespace Pastel
 	template <typename Real>
 	Real gaussianPdf(
 		const PASTEL_NO_DEDUCTION(Real)& x,
-		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation)
 	{
 		PENSURE_OP(deviation, >=, 0);
