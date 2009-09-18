@@ -3,7 +3,7 @@
 #include "pastel/math/qr_decomposition_tools.h"
 #include "pastel/math/matrix_tools.h"
 
-#include "pastel/sys/random_vector.h"
+#include "pastel/sys/uniform_sampling.h"
 
 #include <iostream>
 

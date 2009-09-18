@@ -2,7 +2,7 @@
 
 #include "pastel/sys/arrayview.h"
 
-#include "pastel/sys/random_vector.h"
+#include "pastel/sys/uniform_sampling.h"
 
 #include "pastel/geometry/poissondiskpattern.h"
 

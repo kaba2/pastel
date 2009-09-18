@@ -4,6 +4,7 @@
 #define PASTEL_RANDOM_GAMMA_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -41,6 +42,19 @@ namespace Pastel
 	Real varianceToGammaScale(
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& variance);
+
+	//! Returns a random vector gamma distributed in each component.
+	
+	template <int N, typename Real>
+	Vector<Real, N> randomGammaVector(
+		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	//! Returns a random vector gamma distributed in each component.
+	
+	template <int N, typename Real>
+	Vector<Real, N> randomGammaVector(
+		integer dimension,
+		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	//! Probability density function for the Gamma distribution.
 	/*!

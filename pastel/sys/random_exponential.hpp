@@ -67,6 +67,29 @@ namespace Pastel
 		return Pastel::randomExponential<Real>() / mean;
 	}
 
+	template <int N, typename Real>
+	Vector<Real, N> randomExponentialVector()
+	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+
+		return Pastel::randomExponentialVector<N, Real>(N);
+	}
+
+	template <int N, typename Real>
+	Vector<Real, N> randomExponentialVector(
+		integer dimension)
+	{
+		PENSURE_OP(dimension, >=, 0);
+
+		Vector<Real, N> result(ofDimension(dimension));
+		for (integer i = 0;i < dimension;++i)
+		{
+			result[i] = randomExponential<Real>();
+		}
+		
+		return result;
+	}
+
 	template <typename Real>
 	Real exponentialPdf(
 		const PASTEL_NO_DEDUCTION(Real)& x)

@@ -40,6 +40,28 @@ namespace Pastel
 		return minValue + Pastel::random<Real>() * (maxValue - minValue);
 	}
 
+	template <int N, typename Real>
+	Vector<Real, N> randomVector()
+	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+		return Pastel::randomVector<N, Real>(N);
+	}
+
+	template <int N, typename Real>
+	Vector<Real, N> randomVector(integer dimension)
+	{
+		PENSURE_OP(dimension, >=, 0);
+
+		Vector<Real, N> direction(ofDimension(dimension));
+
+		for (integer i = 0;i < dimension;++i)
+		{
+			direction[i] = random<Real>();
+		}
+
+		return direction;
+	}
+
 }
 
 #endif

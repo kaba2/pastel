@@ -3,7 +3,7 @@
 
 #include "pastel/sys/countedptr.h"
 
-#include "pastel/sys/random_vector.h"
+#include "pastel/sys/uniform_sampling.h"
 
 namespace Pastel
 {

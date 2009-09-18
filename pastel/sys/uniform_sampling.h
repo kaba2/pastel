@@ -1,7 +1,7 @@
-// Description: Generation of random vectors in R^n
+// Description: Uniform sampling
 
-#ifndef PASTEL_RANDOM_VECTOR_H
-#define PASTEL_RANDOM_VECTOR_H
+#ifndef PASTEL_UNIFORM_SAMPLING_H
+#define PASTEL_UNIFORM_SAMPLING_H
 
 #include "pastel/sys/vector.h"
 
@@ -90,66 +90,8 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
 		integer dimension);
 
-	//! Returns a random vector uniformly distributed in [0, 1]^N.
-
-	template <int N, typename Real>
-	Vector<Real, N> randomVector();
-
-	//! Returns a random vector uniformly distributed in [0, 1]^N.
-	/*!
-	Preconditions:
-	dimension >= 0
-	*/
-
-	template <int N, typename Real>
-	Vector<Real, N> randomVector(integer dimension);
-
-	//! Returns a random vector standard-normally distributed in a hyperball.
-	
-	template <int N, typename Real>
-	Vector<Real, N> randomGaussianVector();
-
-	//! Returns a random vector standard-normally distributed in a hyperball.
-	
-	template <int N, typename Real>
-	Vector<Real, N> randomGaussianVector(integer dimension);
-
-	//! Returns a random vector exponentially distributed in each component.
-	
-	template <int N, typename Real>
-	Vector<Real, N> randomExponentialVector();
-
-	//! Returns a random vector exponentially distributed in each component.
-	
-	template <int N, typename Real>
-	Vector<Real, N> randomExponentialVector(integer dimension);
-
-	//! Returns a random vector gamma distributed in each component.
-	
-	template <int N, typename Real>
-	Vector<Real, N> randomGammaVector(
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
-	//! Returns a random vector gamma distributed in each component.
-	
-	template <int N, typename Real>
-	Vector<Real, N> randomGammaVector(
-		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
-	template <int N, typename Real>
-	Vector<Real, N> randomGeneralizedGaussianVector(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
-	template <int N, typename Real>
-	Vector<Real, N> randomGeneralizedGaussianVector(
-		integer dimension,
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
 }
 
-#include "pastel/sys/random_vector.hpp"
+#include "pastel/sys/uniform_sampling.hpp"
 
 #endif
