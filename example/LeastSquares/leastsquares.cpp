@@ -3,11 +3,12 @@
 
 #include "pastel/sys/log_all.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/random_vector.h"
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
-#include "pastel/sys/random_vector.h"
 #include "pastel/math/eigenstructure.h"
+#include "pastel/math/orthonormal.h"
 
 #include "pastel/gl/glgfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
@@ -21,8 +22,8 @@
 using namespace Pastel;
 using namespace std;
 
-const integer ScreenWidth = 640;
-const integer ScreenHeight = 480;
+const integer ScreenWidth = 800;
+const integer ScreenHeight = 600;
 
 GfxRenderer<Color>* renderer__;
 
@@ -101,7 +102,8 @@ void redraw()
 		eigenVectorSet,
 		eigenValueSet);
 
-	/*
+	orthonormalize(eigenVectorSet);
+
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - Vector2(eigenVectorSet[0]), 
 		meanPoint + Vector2(eigenVectorSet[0])), 0.01, 0.01);
@@ -109,7 +111,6 @@ void redraw()
 	drawFatSegment(*renderer__, 
 		Segment2(meanPoint - Vector2(eigenVectorSet[1]), 
 		meanPoint + Vector2(eigenVectorSet[1])), 0.01, 0.01);
-	*/
 	
 	AlignedBox2 box(-0.3, -0.5, 0.3, 0.5);
 	box += Vector2(0.2);

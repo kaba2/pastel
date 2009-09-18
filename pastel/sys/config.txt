@@ -3,3 +3,23 @@ Configuration
 
 [Parent]: pastelsys.txt
 
+Config file format
+------------------
+
+Everything after a % or a // symbol to the end of the row will be ignored.
+/* */ can be used for multi-line comments. Here is the config file syntax
+in BNF (Backus-Naur Form).
+
+	<File> := 'Pastel Config File' <VariableDeclaration>*
+	<VariableDeclaration> := <IntegerDeclaration> | <RealDeclaration> | <StringDeclaration>
+
+	<IntegerDeclaration> := 'integer' [<VariableSize>] <VariableName> '=' <IntegerList>
+	<RealDeclaration> := 'real' [<VariableSize>] <VariableName> '=' <RealList>
+	<StringDeclaration> := 'string' [<VariableSize>] <VariableName> '=' <StringList>
+
+	<VariableSize> := <PositiveInteger> | '*'
+	<VariableName> := <String>
+
+	<IntegerList> := <Integer> | <IntegerList> ',' <Integer>
+	<RealList> := <Real> | <RealList> ',' <Real>
+	<StringList> := <String> | <StringList> ',' <String>

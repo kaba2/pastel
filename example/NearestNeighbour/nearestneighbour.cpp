@@ -578,17 +578,6 @@ void logicHandler()
 	nearestPointSet__.clear();
 	nearestPointSet__.reserve(nearestPoints__);
 
-	integer count = countNearest(
-		tree__,
-		worldMouse, 
-		normBijection__.toBijection(searchRadius__),
-		normBijection__);
-
-	if (count > 0)
-	{
-		log() << count << ", ";
-	}
-
 	searchNearest(
 		tree__, 
 		worldMouse, 

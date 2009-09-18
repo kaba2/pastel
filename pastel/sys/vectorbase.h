@@ -108,7 +108,14 @@ namespace Pastel
 				: data_(ofDimension(that.size()))
 			{
 				BOOST_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
-				*this = that;
+
+				const integer n = that.size();
+				Iterator iter = begin();
+				for (integer i = 0;i < n;++i)
+				{
+					*iter = that[i];
+					++iter;
+				}
 			}
 
 			~VectorBase()

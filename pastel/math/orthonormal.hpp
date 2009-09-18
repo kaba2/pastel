@@ -8,6 +8,40 @@
 namespace Pastel
 {
 
+	template <typename Real, int Height, int Width>
+	bool orthonormalize(
+		Matrix<Real, Height, Width>& vectorSet)
+	{
+		// Stabilized Gram-Schmidt orthonormalization
+
+		if (vectorSet.size() == 0)
+		{
+			return true;
+		}
+
+		const integer height = vectorSet.height();
+		for (integer i = 0;i < height;++i)
+		{
+			for (integer j = 0;j < i;++j)
+			{
+				vectorSet[i] -= vectorSet[j] * dot(vectorSet[i], vectorSet[j]);
+			}
+
+			const Real vNorm = norm(vectorSet[i]);
+
+			// EPSILON
+			if (vNorm == 0)
+			{
+				return false;
+			}
+
+			vectorSet[i] /= vNorm;
+		}
+
+		return true;
+	}
+
+
 	template <int N, typename Real>
 	bool orthonormalize(
 		const std::vector<Vector<Real, N> >& input,

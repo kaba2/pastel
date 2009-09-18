@@ -1,5 +1,6 @@
 // Description: PlyLoader class
 // Detail: Loading of .ply files
+// Documentation: needs_more_thought.txt
 
 #ifndef PASTEL_PLYLOADER_H
 #define PASTEL_PLYLOADER_H

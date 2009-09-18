@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N>
+	template <typename Type, int N = Dynamic>
 	class Array;
 
 	namespace Detail_Array
@@ -42,30 +42,47 @@ namespace Pastel
 			typedef Detail_Array::Cursor<Type, N> Cursor;
 			typedef Detail_Array::ConstCursor<Type, N> ConstCursor;
 
+			//! Constructs an empty array.
 			ArrayBase();
+
+			//! Construct an array of given extents using existing memory.
 			ArrayBase(
 				const Vector<integer, N>& extent,
 				const Alias<Type*>& dataAlias);
+
+			//! Constructs an array of given extents filled with given data.
 			ArrayBase(
 				const Vector<integer, N>& extent,
 				const Type& defaultData = Type());
+
+			//! Copy constructs an array.
 			ArrayBase(const ArrayBase& that);
+
+			//! Copy constructs an array with given extents.
 			ArrayBase(const ArrayBase& that,
 				const Vector<integer, N>& extent,
 				const Type& defaultData = Type());
+
+			//! Destruct an array.
 			~ArrayBase();
 
+			//! Frees all memory and sets extents to zero.
 			void clear();
+
+			//! Swaps contents with another array.
 			void swap(ArrayBase& that);
 
 			//! Sets the extents of the array.
 			/*!
-			If extent or height is negative, a warning is generated.
-			If extent or height is zero, the effect is identical to
-			calling "clear()".
-			'defaultData' will be used to copy construct the new
-			objects. If 'defaultData' is not given, it is defaulted
-			to an object constructed using the default constructor.
+			Preconditions:
+			allGreaterEqual(extent, 0)
+
+			If the new extents contain no elements, the
+			effect is identical to calling "clear()".
+			'defaultData' will be used to copy construct the newly
+			created elements. If 'defaultData' is not given, it is 
+			defaulted to an object constructed using the default 
+			constructor.
 			*/
 			void setExtent(
 				const Vector<integer, N>& extent,
@@ -98,7 +115,7 @@ namespace Pastel
 			//! Returns the number of elements in the array.
 			integer size() const;
 
-			//! Copies from another array.
+			//! Assigns content from another array.
 			ArrayBase<Type, N>& operator=(const ArrayBase& that);
 
 			//! Returns a reference to the element with the given index.
@@ -107,13 +124,13 @@ namespace Pastel
 			//! Returns a const reference to the element with the given index.
 			const Type& operator()(integer index) const;
 
-			//! Returns a reference to the element (x, y)
+			//! Returns a reference to the given element.
 			Type& operator()(const Vector<integer, N>& position);
 
-			//! Returns a const reference to the element (x, y)
+			//! Returns a const reference to the given element.
 			const Type& operator()(const Vector<integer, N>& position) const;
 
-			//! Filling the array with a comma-delimited list of elements.
+			//! Allows to fill the array with a comma-delimited list of elements.
 			CommaFiller<Type, Iterator> operator|=(const Type& that);
 
 			//! Sets all the elements to the given value.
@@ -145,8 +162,10 @@ namespace Pastel
 				const Vector<integer, N>& max,
 				const Vector<integer, N>& delta) const;
 
+			//! Returns a sub-array of the whole array.
 			SubArray<N, Type> operator()();
 
+			//! Returns a non-mutable sub-array of the whole array.
 			ConstSubArray<N, Type> operator()() const;
 
 			//! Returns a cursor to the given position.
@@ -189,39 +208,69 @@ namespace Pastel
 				const Vector<integer, N>& position, 
 				integer axis) const;
 
+			//! Returns a raw memory address of the first element.
 			Type* rawBegin()
 			{
 				return data_;
 			}
 
+			//! Returns a raw memory address of the first element.
 			const Type* rawBegin() const
 			{
 				return data_;
 			}
 
+			//! Returns a raw memory address of the one-past-last element.
 			Type* rawEnd()
 			{
 				return data_ + size_;
 			}
 
+			//! Returns a raw memory address of the one-past-last element.
 			const Type* rawEnd() const
 			{
 				return data_ + size_;
 			}
 
-			//! Memory address of the given position.
+			//! Returns the memory address of the given position.
 			const Type* address(const Vector<integer, N>& position) const;
 
-			//! Memory address of the given position.
+			//! Returns the memory address of the given position.
 			Type* address(const Vector<integer, N>& position);
 
 		private:
 			void allocate(
 				const Vector<integer, N>& extent);
+
 			void deallocate();
+
 			void copyConstruct(
 				const ArrayBase& that,
 				const Type& defaultData);
+
+			/*
+			extent_:
+			The extents of the array.
+
+			stride_:
+			The multiplicative factors by
+			which each coordinate is scaled before
+			being summed to form a linear index.
+
+			size_:
+			The number of elements in the array.
+			Equal to product(extent_).
+
+			data_:
+			A pointer to a memory region containing
+			the elements of this array.
+
+			deleteData_:
+			If true, then the memory region in 'data_'
+			is deallocated when it is no longer needed.
+			Otherwise it is never deallocated.
+			Used for aliasing.
+			*/
 
 			Vector<integer, N> extent_;
 			Vector<integer, N> stride_;

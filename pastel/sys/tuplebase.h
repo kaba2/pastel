@@ -445,7 +445,7 @@ namespace Pastel
 				
 				try
 				{
-					copyConstruct(that, size, defaultData);
+					copyConstruct(that, ofDimension(size), defaultData);
 				}
 				catch(...)
 				{
@@ -557,11 +557,11 @@ namespace Pastel
 			{
 				ENSURE_OP(size, >=, 0);
 
-				TupleBase copy(*this, size, that);
+				TupleBase copy(*this, ofDimension(size), that);
 				swap(copy);
 			}
 
-			void swap(Tuple<Type, N>& that)
+			void swap(TupleBase& that)
 			{
 				std::swap(data_, that.data_);
 				std::swap(size_, that.size_);

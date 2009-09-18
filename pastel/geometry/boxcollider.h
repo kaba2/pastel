@@ -1,3 +1,5 @@
+// Documentation: needs_more_thought.txt
+
 #ifndef PASTEL_BOXCOLLIDER_H
 #define PASTEL_BOXCOLLIDER_H
 

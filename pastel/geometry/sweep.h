@@ -1,5 +1,5 @@
 // Description: Sweeping a given shape along a line segment
-// Documentation: pastelgeometry.txt
+// Documentation: needs_more_thought.txt
 
 #ifndef PASTEL_SWEEP_H
 #define PASTEL_SWEEP_H

@@ -8,6 +8,13 @@
 namespace Pastel
 {
 
+	template <typename BidiIterator>
+	void insertionSort(BidiIterator begin, BidiIterator end)
+	{
+		Pastel::insertionSort(begin, end, 
+			std::less<typename BidiIterator::value_type>());
+	}
+
 	template <typename BidiIterator, typename Compare>
 	void insertionSort(BidiIterator begin, BidiIterator end,
 		Compare compare)

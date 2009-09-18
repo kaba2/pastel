@@ -1,5 +1,5 @@
 // Description: Some geometric predicates
-// Documentation: common.txt
+// Documentation: needs_more_thought.txt
 
 #ifndef PASTEL_PREDICATES_H
 #define PASTEL_PREDICATES_H

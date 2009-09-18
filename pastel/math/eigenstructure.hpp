@@ -76,6 +76,7 @@ namespace Pastel
 		const Vector<Real, N> meanPoint = mean(pointSet);
 
 		qOut = identityMatrix<Real, Dynamic, Dynamic>(eigenvectors, dimension);
+		dOut.setSize(eigenvectors);
 		dOut = Vector<Real, Dynamic>(ofDimension(eigenvectors), 1);
 
 		for (integer i = 0;i < points;++i)

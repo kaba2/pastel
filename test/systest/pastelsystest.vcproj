@@ -240,6 +240,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_insertionsort.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_iteratorrange.cpp"
 			>
 		</File>
