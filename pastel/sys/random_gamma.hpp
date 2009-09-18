@@ -99,6 +99,32 @@ namespace Pastel
 		return std::sqrt(variance / shape);
 	}
 
+	template <int N, typename Real>
+	Vector<Real, N> randomGammaVector(
+		const PASTEL_NO_DEDUCTION(Real)& shape)
+	{		
+		BOOST_STATIC_ASSERT(N != Dynamic);
+
+		return Pastel::randomGammaVector<N, Real>(
+			N, shape, scale);
+	}
+
+	template <int N, typename Real>
+	Vector<Real, N> randomGammaVector(
+		integer dimension,
+		const PASTEL_NO_DEDUCTION(Real)& shape)
+	{
+		PENSURE_OP(dimension, >=, 0);
+
+		Vector<Real, N> result(ofDimension(dimension));
+		for (integer i = 0;i < dimension;++i)
+		{
+			result[i] = randomGamma<Real>(shape);
+		}
+		
+		return result;
+	}
+
 	template <typename Real>
 	Real gammaPdf(
 		const PASTEL_NO_DEDUCTION(Real)& x,

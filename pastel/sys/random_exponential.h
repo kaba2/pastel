@@ -4,6 +4,7 @@
 #define PASTEL_RANDOM_EXPONENTIAL_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -26,6 +27,16 @@ namespace Pastel
 	template <typename Real>
 	Real randomExponential(
 		const PASTEL_NO_DEDUCTION(Real)& mean);
+
+	//! Returns a random vector exponentially distributed in each component.
+	
+	template <int N, typename Real>
+	Vector<Real, N> randomExponentialVector();
+
+	//! Returns a random vector exponentially distributed in each component.
+	
+	template <int N, typename Real>
+	Vector<Real, N> randomExponentialVector(integer dimension);
 
 	//! Probability density function of the Exponential distribution.
 	/*!

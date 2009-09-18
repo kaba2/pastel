@@ -1092,6 +1092,18 @@
 				RelativePath=".\randomdistribution.h"
 				>
 			</File>
+			<File
+				RelativePath=".\uniform_sampling.h"
+				>
+			</File>
+			<File
+				RelativePath=".\uniform_sampling.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\uniform_sampling.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="AbstractArray"

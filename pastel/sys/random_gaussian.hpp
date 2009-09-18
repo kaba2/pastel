@@ -55,6 +55,27 @@ namespace Pastel
 		return Pastel::randomGaussian<Real>() * deviation + mean;
 	}
 
+	template <int N, typename Real>
+	Vector<Real, N> randomGaussianVector()
+	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+		return Pastel::randomGaussianVector<N, Real>(N);
+	}
+
+	template <int N, typename Real>
+	Vector<Real, N> randomGaussianVector(integer dimension)
+	{
+		PENSURE_OP(dimension, >=, 0);
+		Vector<Real, N> direction(ofDimension(dimension));
+
+		for (integer i = 0;i < dimension;++i)
+		{
+			direction[i] = randomGaussian<Real>();			
+		}
+
+		return direction;
+	}
+
 	template <typename Real>
 	Real gaussianPdf(
 		const PASTEL_NO_DEDUCTION(Real)& x)

@@ -4,6 +4,7 @@
 #define PASTEL_RANDOM_GENERALIZEDGAUSSIAN_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -51,6 +52,30 @@ namespace Pastel
 	Real varianceToGeneralizedGaussianScale(
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& variance);
+
+	//! Returns a vector of Generalized Gaussian random numbers.
+	/*!
+	Preconditions:
+	shape > 0
+	scale >= 0
+	*/
+	template <int N, typename Real>
+	Vector<Real, N> randomGeneralizedGaussianVector(
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale);
+
+	//! Returns a vector of Generalized Gaussian random numbers.
+	/*!
+	Preconditions:
+	dimension > 0
+	shape > 0
+	scale >= 0
+	*/
+	template <int N, typename Real>
+	Vector<Real, N> randomGeneralizedGaussianVector(
+		integer dimension,
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	//! Probability density function of the Generalized Gaussian Distribution.
 	/*!

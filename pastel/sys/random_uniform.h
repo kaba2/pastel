@@ -4,6 +4,7 @@
 #define PASTEL_RANDOM_UNIFORM_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -40,6 +41,20 @@ namespace Pastel
 	Real random(
 		const PASTEL_NO_DEDUCTION(Real)& minValue, 
 		const PASTEL_NO_DEDUCTION(Real)& maxValue);
+
+	//! Returns a random vector uniformly distributed in [0, 1]^N.
+
+	template <int N, typename Real>
+	Vector<Real, N> randomVector();
+
+	//! Returns a random vector uniformly distributed in [0, 1]^N.
+	/*!
+	Preconditions:
+	dimension >= 0
+	*/
+
+	template <int N, typename Real>
+	Vector<Real, N> randomVector(integer dimension);
 
 	//! Returns a uniformly distributed random integer in [0, 0x7FFFFFFF].
 

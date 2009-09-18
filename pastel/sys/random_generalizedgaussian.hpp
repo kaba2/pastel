@@ -52,6 +52,34 @@ namespace Pastel
 			gamma<Real>(invShape * 3));
 	}
 
+	template <int N, typename Real>
+	Vector<Real, N> randomGeneralizedGaussianVector(
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale)
+	{
+		BOOST_STATIC_ASSERT(N != Dynamic);
+
+		return Pastel::randomGeneralizedGaussianVector<N, Real>(
+			N, shape, scale);
+	}
+
+	template <int N, typename Real>
+	Vector<Real, N> randomGeneralizedGaussianVector(
+		integer dimension,
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale)
+	{
+		PENSURE_OP(dimension, >=, 0);
+
+		Vector<Real, N> result(ofDimension(dimension));
+		for (integer i = 0;i < dimension;++i)
+		{
+			result[i] = randomGeneralizedGaussian<Real>(shape, scale);
+		}
+		
+		return result;
+	}
+
 	template <typename Real>
 	Real generalizedGaussianPdf(
 		const PASTEL_NO_DEDUCTION(Real)& x,

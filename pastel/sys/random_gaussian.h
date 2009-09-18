@@ -4,6 +4,7 @@
 #define PASTEL_RANDOM_GAUSSIAN_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
@@ -24,6 +25,16 @@ namespace Pastel
 	Real randomGaussian(
 		const PASTEL_NO_DEDUCTION(Real)& mean,
 		const PASTEL_NO_DEDUCTION(Real)& deviation);
+
+	//! Returns a random vector standard-normally distributed in a hyperball.
+	
+	template <int N, typename Real>
+	Vector<Real, N> randomGaussianVector();
+
+	//! Returns a random vector standard-normally distributed in a hyperball.
+	
+	template <int N, typename Real>
+	Vector<Real, N> randomGaussianVector(integer dimension);
 
 	//! Probability density function of the Gaussian distribution.
 	/*!

@@ -12,7 +12,7 @@
 
 #include "pastel/device/timer.h"
 
-#include "pastel/sys/random_vector.h"
+#include "pastel/sys/uniform_sampling.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/arrayview.h"

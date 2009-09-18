@@ -3,7 +3,7 @@
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/ludecomposition_tools.h"
 
-#include "pastel/sys/random_vector.h"
+#include "pastel/sys/uniform_sampling.h"
 #include "pastel/sys/view_all.h"
 
 #include "pastel/gfx/pcx.h"

@@ -55,4 +55,4 @@ See also
 
 [Link]: uniform_distortion.txt
 
-[Link]: ../sys/random_vector.txt
+[Link]: ../sys/uniform_sampling.txt
