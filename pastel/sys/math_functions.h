@@ -29,25 +29,21 @@ namespace Pastel
 	// Arithmetic functions
 
 	//! Converts radians to degrees.
-
 	template <typename Real>
 	Real radiansToDegrees(
 		const PASTEL_NO_DEDUCTION(Real)& radians);
 
 	//! Converts degrees to radians.
-
 	template <typename Real>
 	Real degreesToRadians(
 		const PASTEL_NO_DEDUCTION(Real)& degrees);
 
 	//! Converts from [-180, 180[ range to [0, 360[ range.
-
 	template <typename Real>
 	Real positiveDegrees(
 		const PASTEL_NO_DEDUCTION(Real)& degrees);
 
 	//! Converts from [-pi, pi[ range to [0, 2pi[ range.
-
 	template <typename Real>
 	Real positiveRadians(
 		const PASTEL_NO_DEDUCTION(Real)& radians);
@@ -57,13 +53,11 @@ namespace Pastel
 	Preconditions:
 	x >= 1
 	*/
-
 	template <typename Real>
 	integer floorLog2(
 		const PASTEL_NO_DEDUCTION(Real)& x);
 
 	//! Computes base-2 logarithm of x.
-
 	template <typename Real>
 	Real log2(
 		const PASTEL_NO_DEDUCTION(Real)& x);
@@ -72,7 +66,6 @@ namespace Pastel
 	/*!
 	sinc(x) = sin(pi * x) / (pi * x).
 	*/
-
 	template <typename Real>
 	Real sinc(
 		const PASTEL_NO_DEDUCTION(Real)& x);
@@ -88,7 +81,6 @@ namespace Pastel
 	The absolute value of the returned value
 	is the area of the triangle.
 	*/
-
 	template <typename Real>
 	Real signedArea(
 		const Vector<Real, 2>& a,
@@ -105,7 +97,6 @@ namespace Pastel
 	Returns:
 	The angle in radians in [0, 2 pi[.
 	*/
-
 	template <typename Real>
 	Real ccwAngle(
 		const Vector<Real, 2>& to);
@@ -122,14 +113,12 @@ namespace Pastel
 	then this version of the 'ccwAngle' function performs 
 	faster by avoiding the norm computation.
 	*/
-
 	template <typename Real>
 	Real ccwAngle(
 		const Vector<Real, 2>& to,
 		const PASTEL_NO_DEDUCTION(Real)& normTo);
 
 	//! Measures the counter-clockwise angle between two vectors.
-
 	template <typename Real>
 	Real ccwAngle(
 		const Vector<Real, 2>& from,
@@ -145,7 +134,6 @@ namespace Pastel
 	then this version of the 'ccwAngle' function performs 
 	faster by avoiding the norm computations.
 	*/
-
 	template <typename Real>
 	Real ccwAngle(
 		const Vector<Real, 2>& from,
@@ -154,14 +142,12 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& toNorm);
 
 	//! Returns the absolute error of a measured value to a correct value.
-
 	template <typename Real>
 	Real absoluteError(
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct);
 
 	//! Returns the relative error of a measured value to a correct value.
-
 	template <typename Real>
 	Real relativeError(
 		const PASTEL_NO_DEDUCTION(Real)& measured,
@@ -234,7 +220,6 @@ namespace Pastel
 	H_0 = 0
 	H_n = 1/1 + 1/2 + ... + 1/n
 	*/
-
 	template <typename Real>
 	Real harmonicNumber(integer n);
 	
@@ -245,25 +230,30 @@ namespace Pastel
 
 	digamma(n) = harmonicNumber(n - 1) - constantEulerMascheroni
 	*/
-
 	PASTELSYS real64 digammaReal64(integer n);
 
+	//! Digamma function
 	template <typename Real>
 	Real digamma(integer n);
 
+	//! Gamma function
 	template <typename Real>
 	Real gamma(PASTEL_NO_DEDUCTION(Real) z);
 
+	//! Logarithm of the gamma function
 	template <typename Real>
 	Real lnGamma(PASTEL_NO_DEDUCTION(Real) z);
 
-	//! Interpolates linearly between points.
+	//! Beta function
+	template <typename Real>
+	Real beta(PASTEL_NO_DEDUCTION(Real) x,
+		PASTEL_NO_DEDUCTION(Real) y);
 
+	//! Interpolates linearly between points.
 	/*!
 	linear(startPoint, endPoint, time) =
 	startPoint + time * (endPoint - startPoint)
 	*/
-
 	template <
 		typename PointType,
 		typename Real>
@@ -272,6 +262,7 @@ namespace Pastel
 			const PointType& endPoint,
 			const Real& time);
 
+	//! Interpolates linearly between vectors.
 	template <int N, typename Real>
 	Vector<Real, N> linear(
 		const Vector<Real, N>& startPoint,

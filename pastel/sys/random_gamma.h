@@ -1,3 +1,5 @@
+// Description: Gamma-distributed random numbers
+
 #ifndef PASTEL_RANDOM_GAMMA_H
 #define PASTEL_RANDOM_GAMMA_H
 

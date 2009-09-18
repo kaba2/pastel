@@ -1,3 +1,5 @@
+// Description: Exponential-distributed random numbers
+
 #ifndef PASTEL_RANDOM_EXPONENTIAL_H
 #define PASTEL_RANDOM_EXPONENTIAL_H
 

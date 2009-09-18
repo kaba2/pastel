@@ -480,6 +480,14 @@ namespace Pastel
 			(z + 0.5) * std::log(t) - t + std::log(x);
 	}
 
+	template <typename Real>
+	Real beta(
+		PASTEL_NO_DEDUCTION(Real) x,
+		PASTEL_NO_DEDUCTION(Real) y)
+	{
+		return gamma<Real>(x) * gamma<Real>(y) / gamma<Real>(x + y);
+	}
+
 	template <
 		typename PointType,
 		typename Real>

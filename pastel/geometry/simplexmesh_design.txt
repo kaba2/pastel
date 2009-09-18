@@ -1,0 +1,50 @@
+Simplex mesh design notes
+=========================
+
+[Parent]: simplexmesh.txt
+
+Motivation
+----------
+
+You could store a simplex mesh in an array of vertices plus
+an array of N-tuple indices (simplices) into the vertex array:
+
+std::vector<Vertex> vertexSet;
+std::vector<Tuple<N, integer> > simplexSet;
+
+However, this has several disadvantages. 
+A list of them follows:
+
+1) You can't guarantee that the data is
+valid. Specifically, some index in 'simplexSet' can
+point outside the 'vertexSet' range. We need protection
+against this kind of behaviour.
+
+2) The data structure is static
+is nature: you can't remove vertices or simplices
+from the mesh without potentially modifying all the data.
+
+Requirements
+------------
+
+* The data structure is purely combinatorial, there is
+no associated geometry (other than the one defined by the user).
+
+* The combinatorial elements are vertices and simplices.
+
+* User data can be stored along with the elements.
+
+* If no user data is needed, it should not take any space.
+
+* The only adjacency query available is simplex->vertex.
+
+* Any element can be inserted (that is, arbitrary topology).
+
+* Any element can be inserted in constant time on average.
+
+* Any element can be removed.
+
+* Any element can be removed in constant time on average.
+
+* One can iterate over all elements of a given type.
+

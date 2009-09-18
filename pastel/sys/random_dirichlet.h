@@ -1,3 +1,5 @@
+// Description: Dirichlet-distributed random numbers
+
 #ifndef PASTEL_RANDOM_DIRICHLET_H
 #define PASTEL_RANDOM_DIRICHLET_H
 

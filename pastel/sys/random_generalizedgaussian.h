@@ -1,3 +1,5 @@
+// Description: Generalized-Gaussian-distributed random numbers
+
 #ifndef PASTEL_RANDOM_GENERALIZEDGAUSSIAN_H
 #define PASTEL_RANDOM_GENERALIZEDGAUSSIAN_H
 

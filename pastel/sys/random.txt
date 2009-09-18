@@ -3,18 +3,11 @@ Random variables
 
 [Parent]: pastelsys.txt
 
-Random-number generation
+Random number generation
 ------------------------
 
-Pastel allows to generate random-numbers from a range of
-useful distributions. The basic idea behind this process is
-to take a random number (or two) generated from a uniform distribution
-and then distort it to the desired distribution (or use some
-other ideas such as rejection sampling). Pastel uses the
-Boost library to generate the random variables from the uniform
-distribution (using the Mersenne Twister algorithm), but implements the 
-distortions itself. The distributions from which random-number
-can be generated include:
+Pastel allows to generate random numbers from a range of
+useful distributions. These include:
 
  * Uniform
  
@@ -31,7 +24,6 @@ can be generated include:
  * Beta
  
  * Dirichlet
- 
-Note that the Gamma and Generalized Gaussian distributions are not
-provided by the Boost library.
 
+For each distribution Pastel also provides its probability 
+density function.

@@ -1,3 +1,5 @@
+// Description: Beta-distributed random numbers
+
 #ifndef PASTEL_RANDOM_BETA_H
 #define PASTEL_RANDOM_BETA_H
 
@@ -9,13 +11,20 @@ namespace Pastel
 	//! Returns a beta-distributed random real.
 	/*!
 	Preconditions:
-	alpha > 0
-	beta > 0
+	a > 0
+	b > 0
 	*/
 	template <typename Real>
 	Real randomBeta(
-		const PASTEL_NO_DEDUCTION(Real)& alpha,
-		const PASTEL_NO_DEDUCTION(Real)& beta);
+		const PASTEL_NO_DEDUCTION(Real)& a,
+		const PASTEL_NO_DEDUCTION(Real)& b);
+
+	// Probability distribution of the Beta distribution.
+	template <typename Real>
+	Real betaPdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& a,
+		const PASTEL_NO_DEDUCTION(Real)& b);
 
 }
 
