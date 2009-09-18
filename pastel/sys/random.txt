@@ -11,9 +11,13 @@ useful distributions. These include:
 
  * Uniform
  
- * Gaussian (normal)
+ * Triangle
+ 
+ * Gaussian
  
  * Generalized Gaussian
+ 
+ * Log-Normal
 
  * Exponential
  
@@ -24,6 +28,11 @@ useful distributions. These include:
  * Beta
  
  * Dirichlet
+ 
+ * Cauchy
+ 
+ * Chi-squared
 
 For each distribution Pastel also provides its probability 
-density function.
+density function and the ability to generate vectors of
+random numbers.

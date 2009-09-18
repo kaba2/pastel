@@ -1,6 +1,5 @@
 // Description: CommaFiller class
 // Detail: Assigns values to an iterator range using the comma operator.
-// Documentation: miscellaneous.txt
 
 #ifndef PASTEL_COMMAFILLER_H
 #define PASTEL_COMMAFILLER_H

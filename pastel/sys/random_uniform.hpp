@@ -62,6 +62,34 @@ namespace Pastel
 		return direction;
 	}
 
+	template <typename Real>
+	Real uniformPdf(
+		const PASTEL_NO_DEDUCTION(Real)& x)
+	{
+		if (x < 0 || x > 1)
+		{
+			return 0;
+		}
+
+		return 1;
+	}
+
+	template <typename Real>
+	Real uniformPdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& minValue,
+		const PASTEL_NO_DEDUCTION(Real)& maxValue)
+	{
+		PENSURE_OP(minValue, <, maxValue);
+
+		if (x < minValue || x > maxValue)
+		{
+			return 0;
+		}
+
+		return inverse(maxValue - minValue);
+	}
+
 }
 
 #endif

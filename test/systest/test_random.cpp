@@ -319,6 +319,151 @@ namespace
 			savePcx(image, "random_gamma.pcx");
 		}
 
+		{
+			AlignedBox2 region(0, 0, 3, 2);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLogNormal<real>, 0, (real)1 / 8),
+				boost::bind(logNormalPdf<real>, _1, 0, (real)1 / 8),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLogNormal<real>, 0, (real)1 / 4),
+				boost::bind(logNormalPdf<real>, _1, 0, (real)1 / 4),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLogNormal<real>, 0, (real)1 / 2),
+				boost::bind(logNormalPdf<real>, _1, 0, (real)1 / 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLogNormal<real>, 0, 1),
+				boost::bind(logNormalPdf<real>, _1, 0, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLogNormal<real>, 0, (real)3 / 2),
+				boost::bind(logNormalPdf<real>, _1, 0, (real)3 / 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLogNormal<real>, 0, 10),
+				boost::bind(logNormalPdf<real>, _1, 0, 10),
+				arrayView(image));
+			savePcx(image, "random_lognormal.pcx");
+		}
+
+		{
+			AlignedBox2 region(-10, 0, 10, 0.5);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLaplace<real>, 1),
+				boost::bind(laplacePdf<real>, _1, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLaplace<real>, 2),
+				boost::bind(laplacePdf<real>, _1, 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomLaplace<real>, 4),
+				boost::bind(laplacePdf<real>, _1, 4),
+				arrayView(image));
+			savePcx(image, "random_laplace.pcx");
+		}
+
+		{
+			AlignedBox2 region(-5, 0, 5, 0.7);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomCauchy<real>, 0.5),
+				boost::bind(cauchyPdf<real>, _1, 0.5),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomCauchy<real>, 1),
+				boost::bind(cauchyPdf<real>, _1, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomCauchy<real>, 2),
+				boost::bind(cauchyPdf<real>, _1, 2),
+				arrayView(image));
+			savePcx(image, "random_cauchy.pcx");
+		}
+
+		{
+			AlignedBox2 region(0, 0, 1, 2.6);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomBeta<real>, 0.5, 0.5),
+				boost::bind(betaPdf<real>, _1, 0.5, 0.5),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomBeta<real>, 5, 1),
+				boost::bind(betaPdf<real>, _1, 5, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomBeta<real>, 1, 3),
+				boost::bind(betaPdf<real>, _1, 1, 3),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomBeta<real>, 2, 2),
+				boost::bind(betaPdf<real>, _1, 2, 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomBeta<real>, 2, 5),
+				boost::bind(betaPdf<real>, _1, 2, 5),
+				arrayView(image));
+			savePcx(image, "random_beta.pcx");
+		}
+
+		{
+			AlignedBox2 region(0, 0, 8, 1);
+
+			clear(Color(0), arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomChiSquared<real>, 1),
+				boost::bind(chiSquaredPdf<real>, _1, 1),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomChiSquared<real>, 2),
+				boost::bind(chiSquaredPdf<real>, _1, 2),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomChiSquared<real>, 3),
+				boost::bind(chiSquaredPdf<real>, _1, 3),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomChiSquared<real>, 4),
+				boost::bind(chiSquaredPdf<real>, _1, 4),
+				arrayView(image));
+			drawDistribution(
+				region,
+				boost::bind(randomChiSquared<real>, 5),
+				boost::bind(chiSquaredPdf<real>, _1, 5),
+				arrayView(image));
+			savePcx(image, "random_chisquared.pcx");
+		}
+
 		/*
 		drawDistribution(arrayView(image), 
 			uniformRandomDistribution<1, real>(), -3, 3, 1);
