@@ -1,12 +1,7 @@
 IndexAllocator class
 ====================
 
-[Back to Miscellaneous](./miscellaneuos.htm)
-
-Files
------
-
-indexallocator.cpp, indexallocator.h, indexallocator.hpp
+[Parent]: miscellaneous.txt
 
 Theory
 ------

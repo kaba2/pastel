@@ -1,7 +1,7 @@
 MeasureTable class
 ==================
 
-[Parent]: pastelsys.txt
+[Parent]: miscellaneous.txt
 
 Motivation
 ----------

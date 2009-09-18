@@ -57,8 +57,27 @@ namespace Pastel
 	Vector<Real, N> randomVector(integer dimension);
 
 	//! Returns a uniformly distributed random integer in [0, 0x7FFFFFFF].
-
 	PASTELSYS integer randomInteger();
+
+	//! Probability density function of the Uniform distribution.
+	/*!
+	This function assumes the probability distribution
+	has support [0, 1].
+	*/
+	template <typename Real>
+	Real uniformPdf(
+		const PASTEL_NO_DEDUCTION(Real)& x);
+
+	//! Probability density function of the Uniform distribution.
+	/*!
+	Preconditions:
+	minValue < maxValue
+	*/
+	template <typename Real>
+	Real uniformPdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& minValue,
+		const PASTEL_NO_DEDUCTION(Real)& maxValue);
 
 }
 

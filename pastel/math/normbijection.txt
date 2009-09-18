@@ -6,8 +6,13 @@ Norm bijections
 Theory
 ------
 
+### Norm bijection
+
 Let ''|x| : RR^n -> RR^+'' be a norm and ''f : RR^+ -> RR^+'' an increasing bijection.
 A _norm bijection_ is a function defined by ''(: x :) : RR^n -> RR^+ : (: x :) = f(|x|)''.
+
+### Restricted norm bijection
+
 A _restricted norm bijection_ is any function ''g : RR^n -> RR^+'', which can expressed
 in the form ''g(x) = o+_{i = 1}^n f(|x_i|)'' with the functions 
 ''f'' and ''o+'' defined below (redundant conditions in parentheses).
@@ -67,15 +72,15 @@ restricted norm bijections:
  
  * Manhattan: ''(: x :) = \sum_{i = 1}^n |x_i|'' <br />
  ''o+(x, y) = x + y'' <br />
- ''f(x) = |x|''
+ ''f(x) = x''
  
  * Infinity: ''(: x :) = text(max)_{i = 1}^n |x_i|'' <br /> 
  ''o+(x, y) = text(max)(x, y)'' <br />
- ''f(x) = |x|''
+ ''f(x) = x''
  
  * Minkowski: ''(: x :) = \sum_{i = 1}^n |x_i|^p'' <br />
  ''o+(x, y) = x + y'' <br /> 
- ''f(x) = |x|^p''
+ ''f(x) = x^p''
  
 Concept
 -------

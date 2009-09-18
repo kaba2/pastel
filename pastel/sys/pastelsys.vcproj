@@ -782,7 +782,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Miscellanous"
+			Name="Miscellaneous"
 			>
 			<File
 				RelativePath=".\callfunction.h"
@@ -790,22 +790,6 @@
 			</File>
 			<File
 				RelativePath=".\callfunction.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\commafiller.h"
-				>
-			</File>
-			<File
-				RelativePath=".\indexallocator.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\indexallocator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\indexallocator.hpp"
 				>
 			</File>
 			<File
@@ -861,6 +845,94 @@
 				</File>
 				<File
 					RelativePath=".\guid.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeasureTable"
+				>
+				<File
+					RelativePath=".\measuretable.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable_tools.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable_tools.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BinaryFile"
+				>
+				<File
+					RelativePath=".\binaryfile.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\binaryfile.h"
+					>
+				</File>
+				<File
+					RelativePath=".\binaryfile.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="AbstractArray"
+				>
+				<File
+					RelativePath=".\abstractarray.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\abstractarray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\adaptedarray.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="IndexAllocator"
+				>
+				<File
+					RelativePath=".\indexallocator.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\indexallocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\indexallocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\indexallocator.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CommaFiller"
+				>
+				<File
+					RelativePath=".\commafiller.h"
+					>
+				</File>
+				<File
+					RelativePath=".\commafiller.txt"
 					>
 				</File>
 			</Filter>
@@ -1009,6 +1081,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_cauchy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_cauchy.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_chisquared.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_chisquared.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\random_dirichlet.h"
 				>
 			</File>
@@ -1065,6 +1153,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_lognormal.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_lognormal.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_triangle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_triangle.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\random_uniform.cpp"
 				>
 			</File>
@@ -1078,62 +1182,6 @@
 			</File>
 			<File
 				RelativePath=".\randomdistribution.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="AbstractArray"
-			>
-			<File
-				RelativePath=".\abstractarray.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\abstractarray.h"
-				>
-			</File>
-			<File
-				RelativePath=".\adaptedarray.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="File access"
-			>
-			<File
-				RelativePath=".\binaryfile.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\binaryfile.h"
-				>
-			</File>
-			<File
-				RelativePath=".\binaryfile.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="MeasureTable"
-			>
-			<File
-				RelativePath=".\measuretable.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\measuretable.h"
-				>
-			</File>
-			<File
-				RelativePath=".\measuretable.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\measuretable_tools.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\measuretable_tools.h"
 				>
 			</File>
 		</Filter>

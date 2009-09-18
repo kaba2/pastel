@@ -1,6 +1,5 @@
 // Description: IndexAllocator class
 // Detail: Allocates integer identifiers conservatively
-// Documentation: miscellaneous.txt
 
 #ifndef PASTEL_INDEXALLOCATOR_H
 #define PASTEL_INDEXALLOCATOR_H
