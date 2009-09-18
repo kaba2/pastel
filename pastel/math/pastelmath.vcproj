@@ -682,6 +682,22 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Uniform sampling"
+			>
+			<File
+				RelativePath=".\uniform_sampling.h"
+				>
+			</File>
+			<File
+				RelativePath=".\uniform_sampling.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\uniform_sampling.txt"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\pastelmath.txt"
 			>

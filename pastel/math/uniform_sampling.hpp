@@ -1,7 +1,7 @@
 #ifndef PASTEL_UNIFORM_SAMPLING_HPP
 #define PASTEL_UNIFORM_SAMPLING_HPP
 
-#include "pastel/sys/uniform_sampling.h"
+#include "pastel/math/uniform_sampling.h"
 #include "pastel/sys/random.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/vector_tools.h"

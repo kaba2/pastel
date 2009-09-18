@@ -42,4 +42,4 @@ from one shape to another, see the link below.
 See also
 --------
 
-[Distortion of a uniform distribution to another one](../math/uniform_distortion.htm)
+[Link]: uniform_distortion.txt

@@ -3,7 +3,7 @@
 
 #include "pastel/sys/log_all.h"
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/uniform_sampling.h"
+#include "pastel/math/uniform_sampling.h"
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"

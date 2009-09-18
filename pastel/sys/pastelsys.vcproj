@@ -1077,31 +1077,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\random_vector.h"
-				>
-			</File>
-			<File
-				RelativePath=".\random_vector.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\random_vector.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\randomdistribution.h"
-				>
-			</File>
-			<File
-				RelativePath=".\uniform_sampling.h"
-				>
-			</File>
-			<File
-				RelativePath=".\uniform_sampling.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\uniform_sampling.txt"
 				>
 			</File>
 		</Filter>

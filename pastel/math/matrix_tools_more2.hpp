@@ -7,7 +7,7 @@
 #include "pastel/math/qr_decomposition.h"
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/uniform_sampling.h"
+#include "pastel/math/uniform_sampling.h"
 #include "pastel/sys/mytypes.h"
 
 #include <algorithm>

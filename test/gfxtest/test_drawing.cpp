@@ -11,7 +11,7 @@
 #include "pastel/dsp/mipmap_tools.h"
 #include "pastel/dsp/filter_all.h"
 
-#include "pastel/sys/uniform_sampling.h"
+#include "pastel/math/uniform_sampling.h"
 
 #include "pastel/gfx/colormixers.h"
 #include "pastel/gfx/textures.h"
