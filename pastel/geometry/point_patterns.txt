@@ -1,4 +1,4 @@
-Vector-patterns
+Point-patterns
 ==============
 
 [Parent]: pastelgeometry.txt

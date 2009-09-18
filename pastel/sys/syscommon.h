@@ -1,6 +1,6 @@
 // Description: Miscellaneous commonly needed tools.
 // Detail: equivalent, toPixelSpanPoint, scaleInteger, extractBits
-// Documentation: miscellaneous.txt
+// Documentation: basic_algorithms.txt
 
 #ifndef PASTEL_SYSCOMMON_H
 #define PASTEL_SYSCOMMON_H

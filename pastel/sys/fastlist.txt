@@ -15,3 +15,8 @@ usage and performance. Unfortunately this is not possible with
 the current allocator concept as defined in current C++98
 standard.
 
+See also
+--------
+
+[Link]: allocators.txt
+

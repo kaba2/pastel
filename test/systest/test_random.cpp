@@ -5,7 +5,7 @@
 #include "pastel/gfx/color_tools.h"
 
 #include "pastel/sys/randomdistribution.h"
-#include "pastel/sys/random_pdf.h"
+#include "pastel/sys/random.h"
 #include "pastel/sys/view_all.h"
 #include "pastel/sys/histogram.h"
 

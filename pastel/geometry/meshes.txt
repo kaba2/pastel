@@ -1,87 +1,13 @@
 Mesh data structures
 ====================
 
-By a mesh, in all generality, we mean a cell complex.
+[Parent]: needs_more_thought.txt
+
+A _mesh_ is a cell complex.
 Mesh data structures store cell complexes, or subsets
 of them. Meshes are purely topological or combinatorial
-objects. Thus no geometry is associated with them as
+objects and thus no geometry is associated with them as
 they are. However, they can be embedded into a geometric
 space by associating the elements with geometric
 counterparts.
 
-Topology
----------
-
-What kind of mesh data structures are needed?
-
-Half-edge mesh:
-
-* Cell 2-complexes with some restrictions.
-* Represents k-cells for all k in [0, 2].
-* Full adjacency queries.
-=> Solid meshes in 2d, boundary meshes in 3d.
-
-Simplex mesh:
-
-* Homogeneous simplicial n-complexes.
-* Represents n-simplices and 0-simplices (vertices).
-* n-simplex->vertex adjacency queries.
-
-Full simplex mesh:
-
-* Homogeneous simplicial n-complexes.
-* Represents k-simplices for all k in [0, n].
-* k-simplex->(k-1)-simplex adjacency queries for all k in [1, n].
-
-Geometry
---------
-
-Most of the time a mesh is associated with
-geometry via an embedding. Along with the
-topology of the meshes, we also need to be
-able to represent these embeddings. For example,
-a delaunay triangulation is closely associated
-with geometry. We would then like to convert
-it to a SimplexMesh representation. However,
-this can't be done without first having
-geometric information in SimplexMesh.
-How should we represent these embeddings?
-
-1) Specialize the data structures to have geometric
-embeddings. For example:
-
-SphericalHalfMesh
-=> Meshes on a 2-sphere.
-=> Vertices have positions in spherical coordinates.
-=> The sphere has a radius and a center.
-
-BezierFullSimplexMesh
-=> Vertices have positions.
-=> Triangles have inner control points.
-=> Edges have boundary control points.
-
-FlatHalfMesh
-=> The usual point-line segment-triangle embedding.
-
-Usage
------
-
-typedef FlatSimplexMesh<2, real, SimplexMesh_DefaultDataPolicy<real, real> > Mesh;
-typedef Mesh::Vertex Vertex;
-typedef Mesh::Simplex Simplex;
-
-Mesh mesh;
-Vertex aVertex = mesh.addVertex();
-Vertex bVertex = mesh.addVertex();
-Vertex cVertex = mesh.addVertex();
-
-Simplex aSimplex = mesh.addSimplex(
-	Tuple<3, Vertex>(aVertex, bVertex, cVertex));
-
-aVertex->position().set(0, 0, 0);
-bVertex->position().set(1, 0, 0);
-cVertex->position().set(0, 1, 0);
-
-*aSimplex = 2;
-aSimplex->data() = 4;
-aVertex->data() = 4;

@@ -1,5 +1,5 @@
 // Description: Barycentric coordinates
-// Documentation: common.txt
+// Documentation: needs_more_thought.txt
 
 #ifndef PASTEL_BARYCENTRIC_H
 #define PASTEL_BARYCENTRIC_H

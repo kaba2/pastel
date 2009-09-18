@@ -1,3 +1,5 @@
+// Documentation: needs_more_thought.txt
+
 #ifndef PASTEL_CLOSEST_POINT_H
 #define PASTEL_CLOSEST_POINT_H
 

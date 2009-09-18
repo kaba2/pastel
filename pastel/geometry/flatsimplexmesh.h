@@ -1,3 +1,5 @@
+// Documentation: mesh_embeddings.txt
+
 #ifndef PASTEL_FLATSIMPLEXMESH_H
 #define PASTEL_FLATSIMPLEXMESH_H
 

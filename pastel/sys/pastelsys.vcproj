@@ -785,14 +785,6 @@
 			Name="Miscellanous"
 			>
 			<File
-				RelativePath=".\bitquery.h"
-				>
-			</File>
-			<File
-				RelativePath=".\bitquery.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\callfunction.h"
 				>
 			</File>
@@ -814,14 +806,6 @@
 			</File>
 			<File
 				RelativePath=".\indexallocator.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\insertionsort.h"
-				>
-			</File>
-			<File
-				RelativePath=".\insertionsort.hpp"
 				>
 			</File>
 			<File
@@ -853,35 +837,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\string_tools.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\string_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\string_tools.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\subset.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\subset.h"
-				>
-			</File>
-			<File
-				RelativePath=".\syscommon.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syscommon.h"
-				>
-			</File>
-			<File
-				RelativePath=".\syscommon.hpp"
 				>
 			</File>
 			<Filter
@@ -1033,15 +993,7 @@
 			Name="Random variables"
 			>
 			<File
-				RelativePath=".\random.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\random.h"
-				>
-			</File>
-			<File
-				RelativePath=".\random.hpp"
 				>
 			</File>
 			<File
@@ -1049,11 +1001,79 @@
 				>
 			</File>
 			<File
-				RelativePath=".\random_pdf.h"
+				RelativePath=".\random_beta.h"
 				>
 			</File>
 			<File
-				RelativePath=".\random_pdf.hpp"
+				RelativePath=".\random_beta.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_dirichlet.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_dirichlet.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_exponential.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_exponential.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_gamma.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_gamma.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_gaussian.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_gaussian.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_generalizedgaussian.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_generalizedgaussian.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_generator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_generator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_laplace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_laplace.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_uniform.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_uniform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\random_uniform.hpp"
 				>
 			</File>
 			<File
@@ -1468,6 +1488,54 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Basic algorithms"
+			>
+			<File
+				RelativePath=".\basic_algorithms.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\bitquery.h"
+				>
+			</File>
+			<File
+				RelativePath=".\bitquery.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\insertionsort.h"
+				>
+			</File>
+			<File
+				RelativePath=".\insertionsort.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\string_tools.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\string_tools.h"
+				>
+			</File>
+			<File
+				RelativePath=".\string_tools.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\syscommon.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\syscommon.h"
+				>
+			</File>
+			<File
+				RelativePath=".\syscommon.hpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

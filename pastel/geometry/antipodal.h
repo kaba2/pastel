@@ -1,5 +1,5 @@
 // Description: Antipodal point pairs
-// Documentation: pastelgeometry.txt
+// Documentation: needs_more_thought.txt
 
 #ifndef PASTEL_ANTIPODAL_H
 #define PASTEL_ANTIPODAL_H

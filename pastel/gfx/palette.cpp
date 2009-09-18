@@ -2,6 +2,7 @@
 #include "pastel/gfx/color_tools.h"
 
 #include "pastel/sys/random.h"
+#include "pastel/sys/random_generator.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel

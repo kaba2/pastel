@@ -3,3 +3,110 @@ Array class
 
 [Parent]: data_structures.txt
 
+Practice
+--------
+
+Pastel implements the Array class template for storing and manipulating
+homogeneous multi-dimensional arrays with dynamic extents. 
+Array is a class template defined as:
+
+	:::cpp
+	template <typename Type, int N = Dynamic>
+	class Array;
+	
+The first template parameter _Type_ is the type of the elements that are stored
+in the array. The second template parameter _N_ is the dimensionality
+of the array. For example, N = 1 corresponds roughly to an std::vector, while
+N = 2 corresponds to a matrix of values. N = Dynamic can be used for an
+array whose dimensionality can be set at run-time.
+
+### Interface documentation
+
+The Array class uses the CRTP technique in implementation. This means
+that most of the interface is contained in the ArrayBase class, which is
+a base-class of Array. Read the source code for that class for details on 
+how to use the Array class.
+
+### Element access
+
+The elements of an Array are accessed using n-dimensional Vectors with
+integer elements. For example:
+
+	:::cpp
+	// Create an array of extents (3, 3) and fill with zeros.
+	Array<float, 2> a(Vector2i(3, 3), 0);
+	// Set the element (0, 2) to 2.
+	a(Vector2i(0, 2)) = 2;
+	// Alternatively for 2d-arrays the same can be achieved by:
+	Array<float, 2> b(3, 3, 0);
+	b(0, 2) = 2;
+
+### Specializations for low dimensions
+
+When the dimensionality of an Array is static and at most 3,
+the Array class template is specialized to support some additional
+syntax. These are:
+
+ * There are additional member functions width(), height(), and depth(),
+ available from dimensionalities up from 1, 2, and 3, respectively.
+ These refer to the first, second, and third extents of the Array.
+ 
+ * Elements can be accessed by using a list of coordinates.
+ 
+ * Reshaping and resizing can take a list of extents. 
+
+Using these functions can sometimes be more convenient when genericy 
+is not needed and the dimension is fixed.
+
+### Interpretation as a sequence
+
+While Array is a multi-dimensional data structure, it is still sometimes
+useful to traverse its elements sequentially. For this purpose, the elements 
+are ordered to a sequence based on the lexicographical order of their 
+coordinates, where the first coordinate is dominant, and for k > 1, the 
+(k - 1):th coordinate is more dominant than the k:th coordinate.
+The elements in this sequence can be accessed through an iterator interface,
+or alternatively by specifying an index. Specifically, this allows using the 
+Standard Library algorithms on the elements.
+
+### Storage order
+
+The elements of an Array are stored sequentially in memory by the lexicographical
+ordering described above.
+
+### Aliasing
+
+An Array can reuse an existing memory region for its elements.
+This is called _aliasing_. In this case Array does not release the aliased 
+memory region when it is no longer needed. Aliasing is especially 
+useful when interfacing with another software: then the data need not
+be copied just to be able manipulate it through an Array class.
+When aliasing, it is important to keep in mind the storage ordering 
+of Pastel and the storage ordering of the aliased memory region. 
+For example, Matlab uses column-major storage order.
+
+### Resizing
+
+_Resizing_ changes the extents of an Array. In this process, those coordinates
+which are inside the new extents preserve their value, and the possible
+newly created elements are assigned a given value.
+
+### Reshaping
+
+_Reshaping_ is the reinterpretation of the elements currently in the 
+array as an array with different extents. Reshaping requires that the
+Old extents and the new extents cover the same amount of elements.
+No memory is allocated or deallocated in this process.
+For example, a 2-dimensional integer array with extents (3, 4)
+
+	[1,   2,  3]
+	[4,   5,  6]
+	[7,   8,  9]
+	[10, 11, 12]
+	
+can be reshaped into a 2-dimensional array with extents (6, 2):
+
+	[1, 2, 3,  4,  5,  6]
+	[7, 8, 9, 10, 11, 12]
+
+

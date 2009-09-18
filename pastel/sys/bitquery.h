@@ -1,5 +1,5 @@
 // Description: Index of the highest/lowest bit
-// Documentation: miscellaneous.txt
+// Documentation: basic_algorithms.txt
 
 #ifndef PASTEL_BITQUERY_H
 #define PASTEL_BITQUERY_H

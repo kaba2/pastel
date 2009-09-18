@@ -1,5 +1,5 @@
-// Description: Algorithms for strings
-// Documentation: miscellaneuous.txt
+// Description: String algorithms
+// Documentation: basic_algorithms.txt
 
 #ifndef PASTEL_STRING_TOOLS_H
 #define PASTEL_STRING_TOOLS_H
