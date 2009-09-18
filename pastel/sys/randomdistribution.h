@@ -3,7 +3,7 @@
 
 #include "pastel/sys/countedptr.h"
 
-#include "pastel/sys/uniform_sampling.h"
+#include "pastel/math/uniform_sampling.h"
 
 namespace Pastel
 {

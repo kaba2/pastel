@@ -5,7 +5,7 @@
 #include "pastel/geometry/intersect_line_sphere.h"
 #include "pastel/geometry/intersect_line_alignedbox.h"
 
-#include "pastel/sys/uniform_sampling.h"
+#include "pastel/math/uniform_sampling.h"
 
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/savepcx.h"

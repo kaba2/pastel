@@ -92,6 +92,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/uniform_sampling.hpp"
+#include "pastel/math/uniform_sampling.hpp"
 
 #endif

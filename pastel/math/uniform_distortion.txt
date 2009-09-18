@@ -45,4 +45,4 @@ information.
 See also
 --------
 
-[Link]: ../sys/uniform_sampling.txt
+[Link]: ../math/uniform_sampling.txt

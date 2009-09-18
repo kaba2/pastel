@@ -55,4 +55,4 @@ See also
 
 [Link]: uniform_distortion.txt
 
-[Link]: ../sys/uniform_sampling.txt
+[Link]: ../math/uniform_sampling.txt
