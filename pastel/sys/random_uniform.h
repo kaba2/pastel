@@ -1,3 +1,5 @@
+// Description: Uniformly-distributed random numbers
+
 #ifndef PASTEL_RANDOM_UNIFORM_H
 #define PASTEL_RANDOM_UNIFORM_H
 

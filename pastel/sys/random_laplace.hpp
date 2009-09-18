@@ -3,6 +3,7 @@
 
 #include "pastel/sys/random_laplace.h"
 #include "pastel/sys/random_uniform.h"
+#include "pastel/sys/random_exponential.h"
 
 namespace Pastel
 {
@@ -36,6 +37,21 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
 		return Pastel::randomLaplace<Real>() * scale;
+	}
+
+	template <typename Real>
+	Real laplacePdf(
+		const PASTEL_NO_DEDUCTION(Real)& x)
+	{
+		return exponentialPdf<Real>(std::abs(x)) / 2;
+	}
+
+	template <typename Real>
+	Real laplacePdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& scale)
+	{
+		return Pastel::laplacePdf<Real>(x) / scale;
 	}
 
 }
