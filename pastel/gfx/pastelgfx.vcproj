@@ -198,6 +198,30 @@
 				>
 			</File>
 			<File
+				RelativePath=".\color_illuminant.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\color_illuminant.h"
+				>
+			</File>
+			<File
+				RelativePath=".\color_illuminant.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\color_palette.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\color_palette.h"
+				>
+			</File>
+			<File
+				RelativePath=".\color_palette.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\color_tools.cpp"
 				>
 			</File>
@@ -209,30 +233,82 @@
 				RelativePath=".\color_tools.hpp"
 				>
 			</File>
-			<File
-				RelativePath=".\coloradapter.cpp"
+			<Filter
+				Name="Color spaces"
 				>
-			</File>
-			<File
-				RelativePath=".\coloradapter.h"
+				<File
+					RelativePath=".\color_hsv.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_hsv.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_lab.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_lab.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_lch.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_lch.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_lms.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_lms.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_space.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_space.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\color_srgb.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_srgb.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_xyy.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_xyy.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Color adapters"
 				>
-			</File>
-			<File
-				RelativePath=".\coloradapter.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\palette.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\palette.h"
-				>
-			</File>
-			<File
-				RelativePath=".\palette.txt"
-				>
-			</File>
+				<File
+					RelativePath=".\coloradapter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\coloradapter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\coloradapter.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"

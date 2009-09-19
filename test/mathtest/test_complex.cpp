@@ -1,6 +1,7 @@
 #include "pastelmathtest.h"
 
 #include "pastel/gfx/pcx.h"
+#include "pastel/gfx/color_hsv.h"
 #include "pastel/gfx/color_tools.h"
 
 #include "pastel/sys/array.h"

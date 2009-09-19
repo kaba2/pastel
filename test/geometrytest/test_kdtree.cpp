@@ -9,7 +9,7 @@
 
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/palette.h"
+#include "pastel/gfx/color_palette.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/tristate.h"

@@ -1,6 +1,7 @@
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/pcx.h"
 

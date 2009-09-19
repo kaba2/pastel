@@ -1,7 +1,9 @@
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/pcx.h"
+#include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color_illuminant.h"
 #include "pastel/gfx/drawing.h"
 
 #include "pastel/sys/string_tools.h"
@@ -38,6 +40,7 @@ namespace
 			<< lumaWeights() << std::endl;
 		std::cout << std::endl;
 
+		/*
 		const integer Width = 500;
 		const integer Height = 500;
 
@@ -49,6 +52,7 @@ namespace
 		}
 
 		saveBinaryPcx(image, "output/lab_function.pcx");
+		*/
 	}
 
 	void testChromaticity()
@@ -111,8 +115,8 @@ namespace
 		Color operator()(
 			const Color& that) const
 		{
-			return linearSrgbToGammaSrgb(
-				fitColor(gammaSrgbToLinearSrgb(that) * transform_));
+			return linearSrgbToSrgb(
+				fitColor(srgbToLinearSrgb(that) * transform_));
 		}
 
 	private:

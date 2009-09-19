@@ -7,7 +7,8 @@ Theory
 ------
 
 _Uniform sampling of ''V sub RR^n''_ is the problem of generating random 
-samples from ''V'' with a uniform distribution.
+samples from ''V'' with a uniform distribution, assuming we can already
+generate random real numbers.
 
 Practice
 --------
@@ -43,3 +44,5 @@ See also
 --------
 
 [Link]: uniform_distortion.txt
+
+[Link]: ../sys/random.txt

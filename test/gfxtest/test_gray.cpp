@@ -5,6 +5,7 @@
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/loadpcx.h"
+#include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
 
 using namespace Pastel;
@@ -54,7 +55,7 @@ namespace
 		for (integer x = 0;x < Width;++x)
 		{
 			const Color color(
-				linearSrgbToGammaSrgb(
+				linearSrgbToSrgb(
 				Color(Step * x)));
 			for (integer y = 0;y < Height;++y)
 			{

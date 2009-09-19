@@ -1,6 +1,7 @@
 #include <pastel/gfx/loadpcx.h>
 #include <pastel/gfx/savepcx.h>
-#include <pastel/gfx/color_tools.h>
+#include <pastel/gfx/color_space.h>
+#include <pastel/gfx/color_illuminant.h>
 
 #include "pastel/sys/view_all.h"
 
