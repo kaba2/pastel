@@ -6,7 +6,7 @@
 #define PASTEL_ORTHONORMAL_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/matrix.h"
+#include "pastel/math/matrix.h"
 
 #include <vector>
 

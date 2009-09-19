@@ -44,7 +44,7 @@ namespace Pastel
 		{
 			if (data)
 			{
-				new(data) Vertexdata;
+				new(data) VertexData;
 			}
 		}
 
