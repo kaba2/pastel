@@ -194,6 +194,62 @@
 				>
 			</File>
 			<Filter
+				Name="Meshes"
+				>
+				<File
+					RelativePath=".\meshes.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\meshes_design.txt"
+					>
+				</File>
+				<Filter
+					Name="HalfMesh"
+					>
+					<File
+						RelativePath=".\halfmesh.h"
+						>
+					</File>
+					<File
+						RelativePath=".\halfmesh.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\halfmesh.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\halfmesh_design.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\halfmesh_tools.h"
+						>
+					</File>
+					<File
+						RelativePath=".\propertyhalfmesh.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\propertyhalfmesh.h"
+						>
+					</File>
+					<File
+						RelativePath=".\propertyhalfmesh.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\simplehalfmesh.h"
+						>
+					</File>
+					<File
+						RelativePath=".\simplehalfmesh.hpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
 				Name="BihTree"
 				>
 				<File
@@ -222,50 +278,6 @@
 				</File>
 				<File
 					RelativePath=".\concept_shapequery.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="HalfMesh"
-				>
-				<File
-					RelativePath=".\halfmesh.h"
-					>
-				</File>
-				<File
-					RelativePath=".\halfmesh.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\halfmesh.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\halfmesh_design.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\halfmesh_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\propertyhalfmesh.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\propertyhalfmesh.h"
-					>
-				</File>
-				<File
-					RelativePath=".\propertyhalfmesh.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\simplehalfmesh.h"
-					>
-				</File>
-				<File
-					RelativePath=".\simplehalfmesh.hpp"
 					>
 				</File>
 			</Filter>
@@ -1432,14 +1444,6 @@
 			<Filter
 				Name="Meshes"
 				>
-				<File
-					RelativePath=".\meshes.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\meshes_design.txt"
-					>
-				</File>
 				<Filter
 					Name="Topology"
 					>

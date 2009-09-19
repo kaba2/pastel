@@ -1,3 +1,7 @@
+// Description: ArrayView class
+// Detail: A view to an Array
+// Documentation: view.txt
+
 #ifndef PASTEL_ARRAYVIEW_H
 #define PASTEL_ARRAYVIEW_H
 

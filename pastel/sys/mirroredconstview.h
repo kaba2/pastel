@@ -1,3 +1,5 @@
+// Description: An extended view using repeated mirroring
+
 #ifndef PASTEL_MIRROREDCONSTVIEW_H
 #define PASTEL_MIRROREDCONSTVIEW_H
 

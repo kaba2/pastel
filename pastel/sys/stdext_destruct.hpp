@@ -55,7 +55,7 @@ namespace Pastel
 		template <typename Type>
 		void destruct(Type* that)
 		{
-			if (!boost::has_trivial_destructor<Type>())
+			if (!boost::has_trivial_destructor<Type>() && that)
 			{
 				that->~Type();
 			}

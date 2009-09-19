@@ -1,3 +1,6 @@
+// Description: RowViewCursor class
+// Documentation: view.txt
+
 #ifndef PASTEL_ROWVIEWCURSOR_H
 #define PASTEL_ROWVIEWCURSOR_H
 

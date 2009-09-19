@@ -61,13 +61,13 @@ Sub-libraries
 Pastel divides into a number of sub-libraries. These are:
 
  * [PastelSys][], for core functionality
- * [PastelMath][], for math primitives
+ * [PastelMath][], for mathematics in general
  * [PastelGeometry][], for geometric problems
  * [PastelDsp][], for signal processing tasks
  * [PastelGfx][], for 2d graphics tasks
  * [PastelDevice][], for access to hardware
  * [PastelGl][], for OpenGl related stuff
- * (PastelRay, for photorealistic 3d rendering, not published)
+ * (PastelRay, for photorealistic 3d rendering, not published yet)
 
 The dependencies between the sub-libraries form a directed acyclic graph. This means
 that it is possible to exclude those sub-libraries that aren't needed.

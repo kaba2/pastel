@@ -1,3 +1,5 @@
+// Description: An extended view using repeated tiling
+
 #ifndef PASTEL_REPEATEDCONSTVIEW_H
 #define PASTEL_REPEATEDCONSTVIEW_H
 

@@ -1,3 +1,5 @@
+// Description: Basic algorithms for HalfMesh
+
 #ifndef PASTEL_HALFMESH_TOOLS_H
 #define PASTEL_HALFMESH_TOOLS_H
 

@@ -1,3 +1,7 @@
+// Description: TransformedView class
+// Detail: An adapter view to change the apparent type of the data.
+// Documentation: view.txt
+
 #ifndef PASTEL_TRANSFORMEDVIEW_H
 #define PASTEL_TRANSFORMEDVIEW_H
 

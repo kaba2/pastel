@@ -1,3 +1,5 @@
+// Description: Visiting a view or a pair of views
+
 #ifndef PASTEL_VIEW_VISIT_H
 #define PASTEL_VIEW_VISIT_H
 

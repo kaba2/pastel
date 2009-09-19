@@ -1,3 +1,6 @@
+// Description: SparseViewCursor class
+// Documentation: view.txt
+
 #ifndef PASTEL_SPARSEVIEWCURSOR_H
 #define PASTEL_SPARSEVIEWCURSOR_H
 

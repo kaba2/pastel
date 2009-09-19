@@ -23,7 +23,6 @@ namespace Pastel
 	a comparison 'compare' if it holds that
 	!compare(left, right) && !compare(right, left).
 	*/
-
 	template <typename Type, typename Compare>
 	bool equivalent(const Type& left, const Type& right,
 		const Compare& compare);

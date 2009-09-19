@@ -1,3 +1,5 @@
+// Documentation: view.txt
+
 #ifndef PASTEL_ADAPTEDVIEW_H
 #define PASTEL_ADAPTEDVIEW_H
 

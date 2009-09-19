@@ -6,11 +6,23 @@
 #define PASTEL_ORTHONORMAL_H
 
 #include "pastel/sys/vector.h"
+#include "pastel/sys/matrix.h"
 
 #include <vector>
 
 namespace Pastel
 {
+
+	//! Orthonormalizes the columns of a matrix.
+	/*!
+	Returns:
+	True if succeeded, false otherwise.
+	The process fails only if the columns of the 
+	matrix are effectively linearly dependent.
+	*/
+	template <typename Real, int Height, int Width>
+	bool orthonormalize(
+		Matrix<Real, Height, Width>& vectorSet);
 
 	//! Orthonormalizes a linearly independent set of vectors.
 	/*!

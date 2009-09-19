@@ -81,6 +81,12 @@ namespace Pastel
 
 		try
 		{
+			if (data)
+			{
+				new(data) EntityData;
+			}
+			++rollBackIndex;
+
 			id = vertexIndices_.allocate();
 			++rollBackIndex;
 
@@ -94,11 +100,14 @@ namespace Pastel
 		{
 			switch(rollBackIndex)
 			{
-			case 2:
+			case 3:
 				// Can't and needn't rollback.
 				// Fall-through
-			case 1:
+			case 2:
 				vertexIndices_.deallocate(id);
+				// Fall-through
+			case 1:
+				StdExt::destruct(data);
 				break;
 			};
 
@@ -119,6 +128,12 @@ namespace Pastel
 
 		try
 		{
+			if (data)
+			{
+				new(data) EntityData;
+			}
+			++rollBackIndex;
+
 			id = halfIndices_.allocate();
 			++rollBackIndex;
 
@@ -132,11 +147,14 @@ namespace Pastel
 		{
 			switch(rollBackIndex)
 			{
-			case 2:
+			case 3:
 				// Can't and needn't rollback.
 				// Fall-through
-			case 1:
+			case 2:
 				halfIndices_.deallocate(id);
+				// Fall-through
+			case 1:
+				StdExt::destruct(data);
 				break;
 			};
 
@@ -157,6 +175,12 @@ namespace Pastel
 
 		try
 		{
+			if (data)
+			{
+				new(data) EntityData;
+			}
+			++rollBackIndex;
+
 			id = edgeIndices_.allocate();
 			++rollBackIndex;
 
@@ -170,11 +194,14 @@ namespace Pastel
 		{
 			switch(rollBackIndex)
 			{
-			case 2:
+			case 3:
 				// Can't and needn't rollback.
 				// Fall-through
-			case 1:
+			case 2:
 				edgeIndices_.deallocate(id);
+				// Fall-through
+			case 1:
+				StdExt::destruct(data);
 				break;
 			};
 
@@ -195,6 +222,12 @@ namespace Pastel
 
 		try
 		{
+			if (data)
+			{
+				new(data) EntityData;
+			}
+			++rollBackIndex;
+
 			id = polygonIndices_.allocate();
 			++rollBackIndex;
 
@@ -208,11 +241,14 @@ namespace Pastel
 		{
 			switch(rollBackIndex)
 			{
-			case 2:
+			case 3:
 				// Can't and needn't rollback.
 				// Fall-through
-			case 1:
+			case 2:
 				polygonIndices_.deallocate(id);
+				// Fall-through
+			case 1:
+				StdExt::destruct(data);
 				break;
 			};
 

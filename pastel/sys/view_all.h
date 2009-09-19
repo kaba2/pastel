@@ -1,3 +1,5 @@
+// Description: An aggregate file for array views
+
 #ifndef PASTEL_VIEW_ALL_H
 #define PASTEL_VIEW_ALL_H
 

@@ -1,3 +1,5 @@
+// Description: Visiting the rows of a view or a pair of views
+
 #ifndef PASTEL_VIEW_VISIT_MORE2_H
 #define PASTEL_VIEW_VISIT_MORE2_H
 

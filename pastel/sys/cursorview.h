@@ -1,3 +1,7 @@
+// Description: CursorView class
+// Detail: A view to a cursor range
+// Documentation: view.txt
+
 #ifndef PASTEL_CURSORVIEW_H
 #define PASTEL_CURSORVIEW_H
 
