@@ -1,5 +1,6 @@
-#include "pastel/gfx/palette.h"
+#include "pastel/gfx/color_palette.h"
 #include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color_hsv.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/random_generator.h"

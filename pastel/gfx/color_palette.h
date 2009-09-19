@@ -1,7 +1,7 @@
 // Description: Palette generation for indexed color systems
 
-#ifndef PASTEL_PALETTE_H
-#define PASTEL_PALETTE_H
+#ifndef PASTEL_COLOR_PALETTE_H
+#define PASTEL_COLOR_PALETTE_H
 
 #include "pastel/gfx/gfxlibrary.h"
 #include "pastel/gfx/color.h"

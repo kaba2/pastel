@@ -8,7 +8,7 @@
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/imagegfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color_space.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/arrayview.h"

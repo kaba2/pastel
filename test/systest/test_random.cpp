@@ -2,7 +2,7 @@
 
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/pcx.h"
-#include "pastel/gfx/color_tools.h"
+#include "pastel/gfx/color_space.h"
 
 #include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/random.h"

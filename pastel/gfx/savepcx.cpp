@@ -1,7 +1,7 @@
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/pcxheader.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/palette.h"
+#include "pastel/gfx/color_palette.h"
 #include "pastel/gfx/coloradapter.h"
 
 #include "pastel/sys/log.h"
