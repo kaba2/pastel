@@ -1,6 +1,8 @@
 Color adapters
 ==============
 
+[Parent]: color.txt
+
 Bit-packed RGB colors
 ---------------------
 

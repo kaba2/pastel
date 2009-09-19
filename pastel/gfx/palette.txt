@@ -1,6 +1,8 @@
 Palette
 =======
 
+[Parent]: color.txt
+
 Theory
 ------
 
