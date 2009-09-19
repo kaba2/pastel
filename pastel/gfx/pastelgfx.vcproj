@@ -679,6 +679,10 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\pastelgfx.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\summedareatable.h"
 			>
 		</File>

@@ -147,7 +147,7 @@ namespace
 		*/
 
 		Color color = hsvToRgb(
-			Color(random<real32>(), 1, 1));
+			Color(random<real32>(), 1, 0.2));
 
 		drawHistogram(histogram, region.max().y(), color, image);
 		drawGraph(region, randomPdf, color, image);
@@ -157,10 +157,12 @@ namespace
 	{
 		Array<Color, 2> image(800, 600);
 
+		Color background(1);
+
 		{
 			AlignedBox2 region(-5, 0, 5, 1);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomGaussian<real>, 1),
@@ -182,7 +184,7 @@ namespace
 		{
 			AlignedBox2 region(-3, 0, 3, 0.6);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomGeneralizedGaussian<real>, 0.5, 1),
@@ -219,7 +221,7 @@ namespace
 		{
 			AlignedBox2 region(-3, 0, 3, 1);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomGeneralizedGaussian<real>, 0.5, 
@@ -268,7 +270,7 @@ namespace
 		{
 			AlignedBox2 region(0, 0, 5, 1.5);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomExponential<real>, 0.5),
@@ -290,7 +292,7 @@ namespace
 		{
 			AlignedBox2 region(0, 0, 20, 0.5);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomGamma<real>, 1, 2),
@@ -322,7 +324,7 @@ namespace
 		{
 			AlignedBox2 region(0, 0, 3, 2);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomLogNormal<real>, 0, (real)1 / 8),
@@ -359,7 +361,7 @@ namespace
 		{
 			AlignedBox2 region(-10, 0, 10, 0.5);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomLaplace<real>, 1),
@@ -381,7 +383,7 @@ namespace
 		{
 			AlignedBox2 region(-5, 0, 5, 0.7);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomCauchy<real>, 0.5),
@@ -403,7 +405,7 @@ namespace
 		{
 			AlignedBox2 region(0, 0, 1, 2.6);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomBeta<real>, 0.5, 0.5),
@@ -435,7 +437,7 @@ namespace
 		{
 			AlignedBox2 region(0, 0, 8, 1);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomChiSquared<real>, 1),
@@ -467,7 +469,7 @@ namespace
 		{
 			AlignedBox2 region(-1, 0, 1, 2);
 
-			clear(Color(0), arrayView(image));
+			clear(background, arrayView(image));
 			drawDistribution(
 				region,
 				boost::bind(randomTriangle<real>, 1, 1),
@@ -501,7 +503,7 @@ namespace
 			uniformRandomDistribution<1, real>(), -3, 3, 1);
 		savePcx(image, "random_uniform.pcx");
 
-		clear(Color(0), arrayView(image));
+		clear(background, arrayView(image));
 		drawDistribution(arrayView(image), 
 			scale(gammaRandomDistribution<1, real>(1), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(arrayView(image), 

@@ -1,69 +1,98 @@
 Color
 =====
 
+[Parent]: pastelgfx.txt
+
 Theory
 ------
 
 Color is the visual sensation caused by radiomagnetic radiation 
-in the xxx-xxx wavelength range. Radiation with spectrum in this range
-is also called light. Most humans have three kinds of receptors in the 
+in the 400nm-700nm wavelength range. Most humans have three kinds of receptors in the 
 eye which are sensitive to different parts of the spectrum on sufficiently
 high intensities (daytime), and one additional receptor which is 
 active only at low intensities (night-time). This gives rise to the 
-so-called trichromatic theory which  states that the space of all 
-different colors is 3-dimensional. This theory is now most visibly 
-applied in tv and computer monitors, where each pixel is composed 
-of small closely positioned transmitters for red, green, and blue. 
-Because of their approximity, the pixel is considered by
-the brain as a single color which is not necessarily similar to
-any of the transmitter colors.
+_trichromatic theory_ which  states that the space of all 
+different colors is 3-dimensional. 
 
 ### CIE-XYZ color space
 
-One of the aims of color science is the description of color
-in an objective manner. From this need was born the CIE-XYZ color
-space, which relates each light spectrum with a real number 
-triple (X, Y, Z). The theory states that if we pick an idealized
-observer (an average human observer), then all different kinds of 
-lights which map to the same (X, Y, Z)-triple gives the same visual sensation 
-to the observer, no matter what the spectra are. This way CIE-XYZ color
-space stands as an important link between the physical measurements 
-of light and the visual sensations it causes.
+The _CIE-XYZ color space_ assigns each light spectrum a real 
+number triple (X, Y, Z). This mapping has been constructed such that
+if we pick an idealized observer (an average human observer), then all
+spectra which map to the same (X, Y, Z)-triple gives the same visual sensation 
+to the observer (assuming the same viewing conditions). Spectra which
+have an equal visual sensation are called _metamers_. The Y component
+corresponds to the sensation of luminance (the intensity of light).
+Note that luminance is linear to physical intensity of light, not to
+the perceived intensity.
 
 ### LMS color space
 
-There is perhaps a more natural color space than the XYZ
-from the physical point of view. This is the LMS color space 
-which stands for Long-Medium-Short corresponding
-to the types of wavelengths that the three receptors in the eye
-are sensitive to. By knowing the response curves of these receptors
-one can describe colors directly by their linear combinations which
-is exactly what the LMS space is for.
-The CIE-XYZ and the LMS space are related by a linear transformation. 
-What is gained in this process is that the Y component corresponds to
-the sensation of luminance (the sensed amplitude of light).
-Additionally, the coordinate triples become positive.
+The _LMS color space_ is perhaps a more natural color space than the CIE-XYZ
+from the physical point of view. The LMS is an acronym of
+Long-Medium-Short corresponding to the types of wavelengths that 
+the three receptors in the eye are sensitive to. By knowing the response 
+curves of these receptors one can describe colors directly by their linear 
+combinations. This is exactly what the LMS coordinates are for. 
+The CIE-XYZ and the LMS space are related by an invertible linear transformation.
+This explains the ability of the CIE-XYZ space to identify metamers.
+This linear transformation has been chosen such that the Y component corresponds to
+luminance 
+and that all of the coordinate triples are positive.
 
 ### CIE-Lab color space
 
-Another aim of color science is to deform the CIE-XYZ space in such
-a way that the Euclidean distance between points corresponds to the
+The _CIE-Lab color space_ is a deformation of the CIE-XYZ space in such
+a way that the Euclidean distance between points corresponds roughly to the
 notion of similarity or dissimilarity of colors, as judged by a human.
-A result of such an effort is the CIE-Lab color space, which is
-an approximation to such a space.
+In addition, one of the components is lightness which grows roughly
+linearly with the perceived intensity of the color.
 
+ * _Lightness_ is given by L. 
+ 
+ * _Hue_ is given by ''h = atan2(b, a)''.
+
+ * _Chroma_ is given by ''c = sqrt(a^2 + b^2)''. 
+ 
+ * _Saturation_ is given by ''s = c / L''.
+ 
+### CIE-Lch color space
+
+The _CIE-Lch color space_ are the cylindrical coordinates of the
+CIE-Lab space. Then:
+
+ * _Lightness_ is given by L.
+ 
+ * _Hue_ is given by h.
+ 
+ * _Chroma_ is given by c.
+
+ * _Saturation_ is given by ''s = c / L''.
+ 
 ### sRGB color space
 
-For a long time the tv and computer monitors as well as the image 
-formats did not follow any standard on the used color space (most
-used RGB, but with unspecified transmitter responses). This caused 
-an image produced using a specific monitor to look different on some other monitor 
-(depending on how the transmitters were chosen etc). As a compromise
-solution to this problem, the sRGB color space was defined whose
-definition followed the properties of an average monitor at its 
-time of definition. It has since been widely agreed that any image 
-for which no color space is defined should be assumed to be in the sRGB
-color space.
+For a long time computer monitors and image formats did not 
+follow any standard on the used color space. This resulted
+in the images looking different depending on the 
+monitor because the transmitters had different spectra. 
+The _sRGB color space_ was proposed as a default color space
+for such images. If an image does not specify a color space, 
+then it is assumed to be in sRGB.
+
+The coordinates of the sRGB color space are gamma encoded,
+i.e. in a form ready to be sent to the monitor.
+The sRGB coordinates whose gamma encoding has been undone
+are called _linear sRGB coordinates_. These linear coordinates
+are related by a linear transformation to the CIE-XYZ space.
+
+### HSV color space
+
+The _HSV color space_ is a deformation of the sRGB color space.
+It is an acronym of Hue-Saturation-Value. While the terms
+suggest a basis in color science, this is not the case and the
+deformation has been defined more as an aid to choosing colors.
+Qualitatively, the parameters act as their counterparts in
+color science.
 
 Practice
 --------
@@ -76,9 +105,12 @@ Pastel provides functions to convert between:
  * CIE-XYZ and LMS
  * CIE-Lab and CIE-Lch
  * sRGB and HSV
- 
 
- 
+References
+----------
+
+_Color Appearance Models_, Second Edition, Mark Fairchild, 2005
+
 Links
 -----
 

@@ -1,0 +1,8 @@
+PastelGfx
+---------
+
+[Parent]: pastel.txt
+
+The purpose of PastelGfx is to provide algorithms
+related to computer graphics excluding 3d
+rendering.
