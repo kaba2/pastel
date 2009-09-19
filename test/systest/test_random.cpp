@@ -147,7 +147,7 @@ namespace
 		*/
 
 		Color color = hsvToRgb(
-			Color(random<real32>(), 1, 0.2));
+			Color(random<real32>(), 1, 0.8));
 
 		drawHistogram(histogram, region.max().y(), color, image);
 		drawGraph(region, randomPdf, color, image);
