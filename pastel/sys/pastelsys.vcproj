@@ -223,6 +223,10 @@
 					RelativePath=".\disjointgroups.txt"
 					>
 				</File>
+				<File
+					RelativePath=".\disjointgroups_design.txt"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Array"
@@ -384,6 +388,150 @@
 					</File>
 					<File
 						RelativePath=".\smallmap.hpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="View"
+				>
+				<File
+					RelativePath=".\adaptedview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\adaptedviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\arrayview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\cursorview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mirrorview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mirrorviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\permutedview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\permutedviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rowview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rowviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sliceview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sliceviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sparseview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sparseviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\subview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\transformedview.h"
+					>
+				</File>
+				<File
+					RelativePath=".\transformedviewcursor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\view_all.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more2.h"
+					>
+				</File>
+				<File
+					RelativePath=".\view_visit_more2.hpp"
+					>
+				</File>
+				<Filter
+					Name="Extended ConstView"
+					>
+					<File
+						RelativePath=".\borderedconstview.h"
+						>
+					</File>
+					<File
+						RelativePath=".\clampedconstview.h"
+						>
+					</File>
+					<File
+						RelativePath=".\extendedconstview.h"
+						>
+					</File>
+					<File
+						RelativePath=".\extendedconstview_all.h"
+						>
+					</File>
+					<File
+						RelativePath=".\mirroredconstview.h"
+						>
+					</File>
+					<File
+						RelativePath=".\repeatedconstview.h"
 						>
 					</File>
 				</Filter>
@@ -1241,14 +1389,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\download.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\highlights.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\installation.txt"
 				>
 			</File>
@@ -1353,154 +1493,10 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="View"
-				>
-				<File
-					RelativePath=".\adaptedview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\adaptedviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\arrayview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\cursorview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\mirrorview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\mirrorviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\permutedview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\permutedviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\rowview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\rowviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sliceview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sliceviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sparseview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sparseviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\subview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\transformedview.h"
-					>
-				</File>
-				<File
-					RelativePath=".\transformedviewcursor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view_all.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\view_visit.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view_visit.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\view_visit_more.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view_visit_more.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\view_visit_more2.h"
-					>
-				</File>
-				<File
-					RelativePath=".\view_visit_more2.hpp"
-					>
-				</File>
-				<Filter
-					Name="Extended ConstView"
-					>
-					<File
-						RelativePath=".\borderedconstview.h"
-						>
-					</File>
-					<File
-						RelativePath=".\clampedconstview.h"
-						>
-					</File>
-					<File
-						RelativePath=".\extendedconstview.h"
-						>
-					</File>
-					<File
-						RelativePath=".\extendedconstview_all.h"
-						>
-					</File>
-					<File
-						RelativePath=".\mirroredconstview.h"
-						>
-					</File>
-					<File
-						RelativePath=".\repeatedconstview.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
 				Name="IndexExtender"
 				>
 				<File
 					RelativePath=".\arrayextender.h"
-					>
-				</File>
-				<File
-					RelativePath=".\arrayextender.txt"
 					>
 				</File>
 				<File

@@ -1,3 +1,7 @@
+// Description: SubView class
+// Detail: An adapter view for an n-dimensional subset
+// Documentation: view.txt
+
 #ifndef PASTEL_SUBVIEW_H
 #define PASTEL_SUBVIEW_H
 

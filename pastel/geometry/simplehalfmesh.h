@@ -1,3 +1,5 @@
+// Description: SimpleHalfMesh_Policy class
+// Detail: Runs no additional code run besides construction and destruction.
 // Documentation: halfmesh.txt
 
 #ifndef PASTEL_SIMPLEHALFMESH_H
@@ -40,34 +42,54 @@ namespace Pastel
 	protected:
 		void constructVertex(VertexData* data)
 		{
+			if (data)
+			{
+				new(data) Vertexdata;
+			}
 		}
 
 		void destructVertex(VertexData* data)
 		{
+			StdExt::destruct(data);
 		}
 
 		void constructHalf(HalfData* data)
 		{
+			if (data)
+			{
+				new(data) HalfData;
+			}
 		}
 
 		void destructHalf(HalfData* data)
 		{
+			StdExt::destruct(data);
 		}
 
 		void constructEdge(EdgeData* data)
 		{
+			if (data)
+			{
+				new(data) EdgeData;
+			}
 		}
 
 		void destructEdge(EdgeData* data)
 		{
+			StdExt::destruct(data);
 		}
 
 		void constructPolygon(PolygonData* data)
 		{
+			if (data)
+			{
+				new(data) PolygonData;
+			}
 		}
 
 		void destructPolygon(PolygonData* data)
 		{
+			StdExt::destruct(data);
 		}
 	};
 
@@ -79,8 +101,10 @@ namespace Pastel
 	{
 	};
 
-	typedef HalfMesh<SimpleHalfMesh_Policy<EmptyClass, EmptyClass,
-		EmptyClass, EmptyClass> > PureHalfMesh;
+	typedef SimpleHalfMesh_Policy<EmptyClass, EmptyClass,
+		EmptyClass, EmptyClass> PureHalfMesh_Policy;
+
+	typedef HalfMesh<PureHalfMesh_Policy> PureHalfMesh;
 
 }
 

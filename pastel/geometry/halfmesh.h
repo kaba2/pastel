@@ -39,16 +39,35 @@ namespace Pastel
 		typedef undefined_type EdgeData;
 		typedef undefined_type PolygonData;
 
+		// Called after having processed HalfMesh::swap().
+
+		void swap(DataPolicy& that);
+
+		// Called after having processed HalfMesh::clear().
+
+		void clear();
+
 		// If a user data type is defined as an
 		// EmptyClass, a zero pointer is passed
 		// to the following functions. The
 		// implementation must handle these cases
 		// correctly.
 
+		// Note: these objects must be constructed
+		// with the placement new: the passed memory 
+		// address, if not the null pointer, contains
+		// just enough memory to construct the object.
+		// For example: 'new(vertex) VertexData;'.
+
 		void constructVertex(VertexData* vertex);
 		void constructHalf(HalfData* half);
 		void constructEdge(EdgeData* edge);
 		void constructPolygon(PolygonData* polygon);
+
+		// Note: the destructors of the objects must 
+		// be run before completing these functions.
+		// For example: 'vertex->~VertexData();'.
+		// Delete must not be used!
 
 		void destructVertex(VertexData* vertex);
 		void destructHalf(HalfData* half);

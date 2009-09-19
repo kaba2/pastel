@@ -1,3 +1,5 @@
+// Description: An extended view using a constant border
+
 #ifndef PASTEL_BORDEREDCONSTVIEW_H
 #define PASTEL_BORDEREDCONSTVIEW_H
 

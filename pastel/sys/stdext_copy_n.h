@@ -1,3 +1,5 @@
+// Description: copy_n
+
 #ifndef PASTEL_STDEXT_COPY_N_H
 #define PASTEL_STDEXT_COPY_N_H
 

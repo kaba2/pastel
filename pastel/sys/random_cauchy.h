@@ -10,7 +10,7 @@ namespace Pastel
 
 	//! Returns a Cauchy-distributed random real.
 	/*!
-	This function assumes and scale = 1.
+	This function assumes scale = 1.
 	*/
 	template <typename Real>
 	Real randomCauchy();

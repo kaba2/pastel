@@ -1,3 +1,6 @@
+// Description: MirrorViewCursor class
+// Documentation: view.txt
+
 #ifndef PASTEL_MIRRORVIEWCURSOR_H
 #define PASTEL_MIRRORVIEWCURSOR_H
 

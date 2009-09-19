@@ -1,3 +1,7 @@
+// Description: SliceView class
+// Detail: An adapter view for an (n-1)-dimensional subset
+// Documentation: view.txt
+
 #ifndef PASTEL_SLICEVIEW_H
 #define PASTEL_SLICEVIEW_H
 

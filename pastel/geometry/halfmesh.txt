@@ -1,7 +1,176 @@
 Half-edge structure
 ===================
 
-[Parent]: data_structures.txt
+[Parent]: meshes.txt
 
 Theory
 ------
+
+### Half-edge structure
+
+The _half-edge structure_ is a data structure to efficiently
+store and manipulate a restricted set of 2-cell-complexes.
+In particular, this set includes those 2-cell-complexes
+which are also 2-manifolds with a boundary.
+
+The building blocks of this data structure are
+_half-edges_, _vertices_ , _edges_, and _polygons_,
+where the last three correspond to 
+0-cells, 1-cells, and 2-cells, respectively.
+
+The half-edges are directed edges of which there are 2
+for each edge, oriented oppositely. Given a half-edge H,
+the oppositely oriented half-edge is called the _pair_ of H.
+Every half-edge has an _origin_ vertex and a _destination_
+vertex. If a half-edge has A and B as origin and destination,
+respectively, then its pair has B and A as origin and destination,
+respectively. Every half-edge has a _successor_ and a _predecessor_.
+These links form a _loop_, and thus each half-edge
+is associated to some loop, dividing the set of half-edges
+into equivalence classes.
+
+Each loop can contain a _polygon_. However, the loop can
+also be empty, representing a hole.
+
+### Topological queries and manipulation
+
+The half-edge structure is able to answer local topological
+queries in constant time. These include:
+
+ * Given a vertex, find a half-edge connected to it.
+ 
+ * Given an edge, find a half-edge connected to it.
+ 
+ * Given a polygon, find a half-edge connected to it.
+ 
+ * Given a half-edge, find its pair, successor, 
+ origin vertex, or associated polygon. 
+ 
+ * Other operations which can be given by a constant number
+ of applications of the previous operations. For example,
+ the destination vertex of a half-edge can also be
+ found in constant time as the origin of its pair.
+
+Moreover, half-edge structure can solve the following
+problems efficiently (in linear time over the number of elements
+in the neighborhood):
+
+ * Given a vertex, find all edges and polygons connected to it.
+ 
+ * Given an edge, find all vertices and polygons connected to it.
+ 
+ * Given a polygon, find all vertices and edges connected to it.
+ 
+Finally, half-edge structure allows efficient manipulation
+of the 2-cell-complex topological structure, allowing adding, 
+removing, joining, and splitting cells.
+
+Practice
+--------
+
+Pastel implements the half-edge structure in the HalfMesh class 
+template. Its declaration is as follows:
+
+	:::cpp
+	template <typename DataPolicy>
+	class HalfMesh;
+
+The HalfMesh class follows a policy-based design, where the
+DataPolicy template parameter is used as a base-class for
+the HalfMesh class. This policy-class is concerned with the
+the addition of user-defined data to the vertices, half-edges,
+edges, and polygons. Because you are more likely
+to use predefined policies, this policy is detailed later below.
+
+### Predefined policies
+
+Each vertex, half-edge, edge, and polygon can be associated
+user-defined data whose types are passed as part of the
+DataPolicy policy-class. In addition, this class allows
+to inject code to be run just after constructing
+and just before destructing user data.
+By defining a user-defined data type as EmptyClass,
+no memory is allocated to user-defined data.
+There are several predefined policies
+which should be appropriate most of the time. These are:
+
+ * PureHalfMesh_Policy, which assumes EmptyClass for
+ each user-defined data-type, and thus uses no memory
+ for user-defined data. The result is a data structure that
+ contains only topological information (thus the name Pure).
+
+ * SimpleHalfMesh_Policy class template, which takes in 
+ the four types of the user-defined data-types for each entity,
+ and runs no code after construction or before destruction.
+ To save on typing, you should use the 
+ SimpleHalfMesh class template which derives from
+ the HalfMesh class using this policy.
+ 
+ * PropertyHalfMesh_Policy, which allows to add properties
+ to entities dynamically. These properties are not added to
+ single entities, such as a single vertex, but to all of the
+ entities of that type, i.e. each vertex gets the new property.
+ To save on typing, you should use the PropertyHalfMesh
+ class which derives from the HalfMesh class using this policy.
+ 
+### DataPolicy policy
+
+The DataPolicy policy is defined as follows:
+
+	:::cpp
+	class DataPolicy
+	{
+	public:
+		// You can expand the interface
+		// of HalfMesh by defining your functions
+		// here.
+		void yourOwnInterfaceExtension();
+
+	protected:
+		// The following must be implemented
+		// for the HalfMesh to work.
+		// Being implementation details, they should be protected.
+
+		// Define a user data type as an EmptyClass
+		// if no user data is desired.
+
+		typedef undefined_type VertexData;
+		typedef undefined_type HalfData;
+		typedef undefined_type EdgeData;
+		typedef undefined_type PolygonData;
+
+		// Called after having processed HalfMesh::swap().
+
+		void swap(DataPolicy& that);
+
+		// Called after having processed HalfMesh::clear().
+
+		void clear();
+
+		// If a user data type is defined as an
+		// EmptyClass, a zero pointer is passed
+		// to the following functions. The
+		// implementation must handle these cases
+		// correctly.
+
+		// Note: these objects must be constructed
+		// with the placement new: the passed memory 
+		// address, if not the null pointer, contains
+		// just enough memory to construct the object.
+		// For example: 'new(vertex) VertexData;'.
+
+		void constructVertex(VertexData* vertex);
+		void constructHalf(HalfData* half);
+		void constructEdge(EdgeData* edge);
+		void constructPolygon(PolygonData* polygon);
+
+		// Note: the destructors of the objects must 
+		// be run before completing these functions.
+		// For example: 'vertex->~VertexData();'.
+		// Delete must not be used!
+
+		void destructVertex(VertexData* vertex);
+		void destructHalf(HalfData* half);
+		void destructEdge(EdgeData* edge);
+		void destructPolygon(PolygonData* polygon);
+	};

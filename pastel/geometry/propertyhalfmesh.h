@@ -1,3 +1,5 @@
+// Description: PropertyHalfMesh_Policy class
+// Detail: Allows to dynamically add and remove entity properties
 // Documentation: halfmesh.txt
 
 #ifndef PASTEL_PROPERTYHALFMESH_H

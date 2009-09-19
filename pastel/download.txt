@@ -1,7 +1,0 @@
-Pastel download
-===============
-
-[Parent]: pastel.txt
-
-Pastel as a zip file
-

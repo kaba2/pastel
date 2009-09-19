@@ -121,8 +121,6 @@ get them anyway, resulting in increased
 physical dependencies and thus increased
 compilation and link times.
 
-
-
 Number of degrees of freedom for a rotation
 ===========================================
 

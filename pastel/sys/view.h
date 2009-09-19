@@ -1,3 +1,6 @@
+// Description: View class
+// Detail: Array view
+
 #ifndef PASTEL_VIEW_H
 #define PASTEL_VIEW_H
 

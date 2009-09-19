@@ -944,12 +944,6 @@ namespace Pastel
 			DataPolicy::constructVertex(vertexBody->data());
 			++rollBackIndex;
 
-			if (vertexBody->data())
-			{
-				new(vertexBody->data()) VertexData;
-			}
-			++rollBackIndex;
-
 			vertexSet_.insert(Vertex(vertexBody));
 			++rollBackIndex;
 		}
@@ -957,14 +951,8 @@ namespace Pastel
 		{
 			switch(rollBackIndex)
 			{
-			case 4:
-				DataPolicy::destructVertex(vertexBody->data());
-				// Fall-through
 			case 3:
-				if (vertexBody->data())
-				{
-					StdExt::destruct(vertexBody->data());
-				}
+				DataPolicy::destructVertex(vertexBody->data());
 				// Fall-through
 			case 2:
 				StdExt::destruct(vertexBody);
@@ -998,12 +986,6 @@ namespace Pastel
 			DataPolicy::constructHalf(halfBody->data());
 			++rollBackIndex;
 
-			if (halfBody->data())
-			{
-				new(halfBody->data()) HalfData;
-			}
-			++rollBackIndex;
-
 			halfSet_.insert(Half(halfBody));
 			++rollBackIndex;
 		}
@@ -1011,14 +993,8 @@ namespace Pastel
 		{
 			switch(rollBackIndex)
 			{
-			case 4:
-				DataPolicy::destructHalf(halfBody->data());
-				// Fall-through
 			case 3:
-				if (halfBody->data())
-				{
-					StdExt::destruct(halfBody->data());
-				}
+				DataPolicy::destructHalf(halfBody->data());
 				// Fall-through
 			case 2:
 				StdExt::destruct(halfBody);
@@ -1052,12 +1028,6 @@ namespace Pastel
 			DataPolicy::constructEdge(edgeBody->data());
 			++rollBackIndex;
 
-			if (edgeBody->data())
-			{
-				new(edgeBody->data()) EdgeData;
-			}
-			++rollBackIndex;
-
 			edgeSet_.insert(Edge(edgeBody));
 			++rollBackIndex;
 		}
@@ -1067,14 +1037,8 @@ namespace Pastel
 
 			switch(rollBackIndex)
 			{
-			case 4:
-				DataPolicy::destructEdge(edgeBody->data());
-				// Fall-through
 			case 3:
-				if (edgeBody->data())
-				{
-					StdExt::destruct(edgeBody->data());
-				}
+				DataPolicy::destructEdge(edgeBody->data());
 				// Fall-through
 			case 2:
 				StdExt::destruct(edgeBody);
@@ -1105,12 +1069,6 @@ namespace Pastel
 			new(polygonBody) PolygonBody;
 			++rollBackIndex;
 
-			if (polygonBody->data())
-			{
-				new(polygonBody->data()) PolygonData;
-			}
-			++rollBackIndex;
-
 			DataPolicy::constructPolygon(polygonBody->data());
 			++rollBackIndex;
 
@@ -1123,14 +1081,8 @@ namespace Pastel
 
 			switch(rollBackIndex)
 			{
-			case 4:
-				DataPolicy::destructPolygon(polygonBody->data());
-				// Fall-through
 			case 3:
-				if (polygonBody->data())
-				{
-					StdExt::destruct(polygonBody->data());
-				}
+				DataPolicy::destructPolygon(polygonBody->data());
 				// Fall-through
 			case 2:
 				StdExt::destruct(polygonBody);

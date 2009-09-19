@@ -82,6 +82,7 @@ namespace Pastel
 	PASTELSYS std::string integerToString(integer number,
 		integer digits = -1, char padding = '0');
 
+	//! Converts a real number to a string.
 	PASTELSYS std::string realToString(real number, integer digits = -1);
 
 }

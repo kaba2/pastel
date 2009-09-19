@@ -1,3 +1,5 @@
+// Description: Chi-squared distributed random numbers
+
 #ifndef PASTEL_RANDOM_CHISQUARED_H
 #define PASTEL_RANDOM_CHISQUARED_H
 

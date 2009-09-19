@@ -1,5 +1,6 @@
-Disjoint sets
-=============
+Array views
+===========
 
 [Parent]: data_structures.txt
+
 
