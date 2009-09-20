@@ -1,8 +1,9 @@
-// Description: TransformTexture
-// Detail: A texture which has gone through an affine transformation
+// Description: Transform_Texture class
+// Detail: An affinely transformed texture.
+// Documentation: texture.txt
 
-#ifndef PASTEL_TRANSFORMTEXTURE_H
-#define PASTEL_TRANSFORMTEXTURE_H
+#ifndef PASTEL_TRANSFORM_TEXTURE_H
+#define PASTEL_TRANSFORM_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 
@@ -12,11 +13,11 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class TransformTexture
+	class Transform_Texture
 		: public Texture<Type>
 	{
 	public:
-		TransformTexture(
+		Transform_Texture(
 			const Texture<Type>& texture,
 			const AffineTransformation2& transformation)
 			: texture_(&texture)
@@ -48,11 +49,11 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	TransformTexture<Type> transformTexture(
+	Transform_Texture<Type> transformTexture(
 		const Texture<Type>& texture,
 		const AffineTransformation2& transformation)
 	{
-		return TransformTexture<Type>(texture, transformation);
+		return Transform_Texture<Type>(texture, transformation);
 	}
 
 }

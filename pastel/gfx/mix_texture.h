@@ -1,8 +1,9 @@
-// Description: MixTexture
-// Detail: A texture which interpolates two textures with a third
+// Description: Mix_Texture class
+// Detail: A point-wise interpolation of two textures with a third.
+// Documentation: texture.txt
 
-#ifndef PASTEL_MIXTEXTURE_H
-#define PASTEL_MIXTEXTURE_H
+#ifndef PASTEL_MIX_TEXTURE_H
+#define PASTEL_MIX_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/colormixer.h"
@@ -11,11 +12,11 @@ namespace Pastel
 {
 
 	template <typename Type, typename Inter_Type>
-	class MixTexture
+	class Mix_Texture
 		: public Texture<Type>
 	{
 	public:
-		MixTexture(
+		Mix_Texture(
 			const Texture<Type>& aTexture,
 			const Texture<Type>& bTexture,
 			const Texture<Inter_Type>& tTexture)
@@ -25,7 +26,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~MixTexture()
+		virtual ~Mix_Texture()
 		{
 		}
 
@@ -54,12 +55,12 @@ namespace Pastel
 	};
 
 	template <typename Type, typename Inter_Type>
-	MixTexture<Type, Inter_Type> mixTexture(
+	Mix_Texture<Type, Inter_Type> mixTexture(
 		const Texture<Type>& aTexture,
 		const Texture<Type>& bTexture,
 		const Texture<Inter_Type>& tTexture)
 	{
-		return MixTexture<Type, Inter_Type>(aTexture, bTexture, tTexture);
+		return Mix_Texture<Type, Inter_Type>(aTexture, bTexture, tTexture);
 	}
 
 }

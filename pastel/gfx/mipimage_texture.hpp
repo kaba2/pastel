@@ -1,8 +1,8 @@
-#ifndef PASTEL_MIPIMAGETEXTURE_HPP
-#define PASTEL_MIPIMAGETEXTURE_HPP
+#ifndef PASTEL_MIPIMAGE_TEXTURE_HPP
+#define PASTEL_MIPIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/mipimagetexture.h"
-#include "pastel/gfx/bilinearimagetexture.h"
+#include "pastel/gfx/mipimage_texture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
 #include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/syscommon.h"
@@ -14,14 +14,14 @@ namespace Pastel
 {
 
 	template <typename Type>
-	MipImageTexture<Type>::MipImageTexture()
+	MipImage_Texture<Type>::MipImage_Texture()
 		: mipMap_(0)
 		, extender_()
 	{
 	}
 
 	template <typename Type>
-	MipImageTexture<Type>::MipImageTexture(
+	MipImage_Texture<Type>::MipImage_Texture(
 		const MipMap<2, Type>& mipMap,
 		const ArrayExtender<2, Type>& extender)
 		: mipMap_(&mipMap)
@@ -30,7 +30,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Type MipImageTexture<Type>::operator()(
+	Type MipImage_Texture<Type>::operator()(
 		const Vector2& uv,
 		const Vector2& dUvDx,
 		const Vector2& dUvDy) const

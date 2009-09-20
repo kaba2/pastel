@@ -1,8 +1,9 @@
-// Description: BilinearColorTexture
-// Detail: A bilinear color patch texture
+// Description: BilinearColor_Texture class
+// Detail: A bilinear color patch texture.
+// Documentation: texture.txt
 
-#ifndef PASTEL_BILINEARCOLORTEXTURE_H
-#define PASTEL_BILINEARCOLORTEXTURE_H
+#ifndef PASTEL_BILINEARCOLOR_TEXTURE_H
+#define PASTEL_BILINEARCOLOR_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 
@@ -12,11 +13,11 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class BilinearColorTexture
+	class BilinearColor_Texture
 		: public Texture<Type>
 	{
 	public:
-		BilinearColorTexture()
+		BilinearColor_Texture()
 			: color00_()
 			, color10_()
 			, color11_()
@@ -24,7 +25,7 @@ namespace Pastel
 		{
 		}
 
-		explicit BilinearColorTexture(
+		explicit BilinearColor_Texture(
 			const Type& color00,
 			const Type& color10,
 			const Type& color11,
@@ -36,7 +37,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~BilinearColorTexture()
+		virtual ~BilinearColor_Texture()
 		{
 		}
 
@@ -64,13 +65,13 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	BilinearColorTexture<Type> bilinearColorTexture(
+	BilinearColor_Texture<Type> bilinearColorTexture(
 		const PASTEL_NO_DEDUCTION(Type)& color00,
 		const PASTEL_NO_DEDUCTION(Type)& color10,
 		const PASTEL_NO_DEDUCTION(Type)& color11,
 		const PASTEL_NO_DEDUCTION(Type)& color01)
 	{
-		return BilinearColorTexture<Type>(color00, color10, color11, color01);
+		return BilinearColor_Texture<Type>(color00, color10, color11, color01);
 	}
 
 }

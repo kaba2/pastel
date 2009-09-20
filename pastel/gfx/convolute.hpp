@@ -2,7 +2,7 @@
 #define PASTEL_CONVOLUTE_HPP
 
 #include "pastel/gfx/convolute.h"
-#include "pastel/gfx/nearestimagetexture.h"
+#include "pastel/gfx/nearestimage_texture.h"
 #include "pastel/gfx/additivecolormixer.h"
 
 #include "pastel/sys/ensure.h"
@@ -229,7 +229,7 @@ namespace Pastel
 		typedef BorderedConstView<FilterView> BorderedFilterView;
 		typedef ExtendedConstView<2, Filter_Element, BorderedFilterView> ExtendedFilterView;
 
-		NearestImageTexture<ExtendedFilterView> textureSampler = nearestImageTexture(
+		NearestImage_Texture<ExtendedFilterView> textureSampler = nearestImageTexture(
 			borderedConstView(filterView, 0));
 
 		for (integer y = 0;y < height;++y)

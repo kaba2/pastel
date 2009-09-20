@@ -7,10 +7,10 @@
 #include "pastel/gfx/gfxrenderer.h"
 #include "pastel/dsp/mipmap.h"
 
-#include "pastel/gfx/nearestimagetexture.h"
-#include "pastel/gfx/bilinearimagetexture.h"
-#include "pastel/gfx/mipimagetexture.h"
-#include "pastel/gfx/ewaimagetexture.h"
+#include "pastel/gfx/nearestimage_texture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/mipimage_texture.h"
+#include "pastel/gfx/ewaimage_texture.h"
 
 #include "pastel/sys/array.h"
 
@@ -78,10 +78,10 @@ namespace Pastel
 		std::vector<const Array<Type, 2>*> textureImage_;
 		std::vector<const MipMap<2, Type>*> mipMap_;
 
-		NearestImageTexture<Type> nearestTexture_;
-		BilinearImageTexture<Type> bilinearTexture_;
-		MipImageTexture<Type> mipTexture_;
-		EwaImageTexture<Type> ewaTexture_;
+		NearestImage_Texture<Type> nearestTexture_;
+		BilinearImage_Texture<Type> bilinearTexture_;
+		MipImage_Texture<Type> mipTexture_;
+		EwaImage_Texture<Type> ewaTexture_;
 
 		Texture<Type>* texture_;
 	};

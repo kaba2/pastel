@@ -1,0 +1,84 @@
+Textures
+========
+
+[Parent]: pastelgfx.txt
+
+Theory
+------
+
+### Image and texture
+
+An _image_ is a function ''RR^n -> V'', where ''V'' is a
+vector space over reals.
+
+A _texture_ is a pair (g, h), where g is an image, and
+h is a function ''RR^n -> RR'', called a _detail filter_. 
+Given a texture T = (g, h), its _texture sampler_ is a function 
+
+''f_T : RR^{n xx n} xx RR^n -> V : f_T(M, x) = ((h \circ M) ox g)(x)'',
+
+where ''ox'' denotes convolution, and ''\circ'' denotes composition.
+
+### Discrete image and reconstruction
+
+A _discrete image_ is a function ''ZZ^n -> V'' where ''V''
+is a vector space over reals. Given a discrete image ''d'', 
+if we assume that it has been obtained by sampling some
+continuous band-limited image ''I'', it can be shown that 
+
+''I = D ox s'',
+
+where 
+
+''D : RR^n -> V : D = sum {delta_x * d(x) | x in ZZ^n}''
+
+''s : RR^n -> R : s(x) = prod_{i = 1}^n sinc(x_i)''
+
+where
+
+''delta_x'' is the delta distribution in ''RR^n'' centered on ''x''.
+
+The ''s'' is called a _reconstruction filter_, and as an approximation
+can be replaced by other low-pass filters, particularly with those having 
+finite support. The process of forming I from D (or d) is called 
+_reconstruction_.
+
+Practice
+--------
+
+Pastel provides the abstract Texture class to model
+textures. Its abstract interface provides access
+to a texture sampler. Pastel provides three 
+types of concrete, predefined texture classes:
+
+ * A _discrete image texture_, whose image has been
+ reconstructed from a discrete image. The different
+ versions differ in the used reconstruction
+ and detail filter.
+ 
+ * A _modifier texture_, which modifies an existing 
+ texture in some way, or combines two or more existing
+ textures to form a new one. Because one can't know the
+ contents of a given texture, these textures have the
+ detail filter set to the delta distribution 
+ (i.e. no filtering). This can cause aliasing in some
+ cases.
+
+ * A _synthetic texture_, whose image is computed
+ on the fly via a mathematical formula. Detail filtering
+ such textures can be hard or easy depending on the
+ formula.
+
+### Visual quality of reconstruction filters
+
+The ideal reconstruction filter most often can not be used for 
+computational purposes because it has an infinite support.
+Therefore, it is approximated by finite-support filters.
+However, for images it is the case that the visual quality
+which results from reconstructing with the ideal filter is 
+very bad (the reconstruction can be done in restricted cases
+by using the Fourier transform): it exhibits so called _ringing_ 
+where each discontinuity is echoed to its neighborhood. Therefore
+finite-support filters are not used just for necessity but
+also for better-looking reconstructions.
+

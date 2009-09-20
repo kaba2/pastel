@@ -1,8 +1,9 @@
-// Description: BilinearTriangleTexture
-// Detail: A triangle filled with a bilinear color patch 
+// Description: BilinearTriangle_Texture class
+// Detail: A triangle filled with a bilinear color patch.
+// Documentation: texture.txt
 
-#ifndef PASTEL_BILINEARTRIANGLETEXTURE_H
-#define PASTEL_BILINEARTRIANGLETEXTURE_H
+#ifndef PASTEL_BILINEARTRIANGLE_TEXTURE_H
+#define PASTEL_BILINEARTRIANGLE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 
@@ -12,22 +13,22 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class BilinearTriangleTexture
+	class BilinearTriangle_Texture
 		: public Texture<Type>
 	{
 	public:
-		BilinearTriangleTexture()
+		BilinearTriangle_Texture()
 			: colorTriangle_()
 		{
 		}
 
-		explicit BilinearTriangleTexture(
+		explicit BilinearTriangle_Texture(
 			const Tuple<Type, 3>& colorTriangle)
 			: colorTriangle_(colorTriangle)
 		{
 		}
 
-		virtual ~BilinearTriangleTexture()
+		virtual ~BilinearTriangle_Texture()
 		{
 		}
 
@@ -58,10 +59,10 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	BilinearTriangleTexture<Type> bilinearTriangleTexture(
+	BilinearTriangle_Texture<Type> bilinearTriangleTexture(
 		const Tuple<Type, 3>& colorTriangle)
 	{
-		return BilinearTriangleTexture<Type>(colorTriangle);
+		return BilinearTriangle_Texture<Type>(colorTriangle);
 	}
 
 }

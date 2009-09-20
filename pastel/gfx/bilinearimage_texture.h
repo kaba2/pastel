@@ -1,8 +1,9 @@
-// Description: NearestImageTexture class
-// Detail: Sampling of a nearest neighbor reconstruction
+// Description: BilinearImage_Texture class
+// Detail: Image-based texture with bilinear reconstruction and no filtering.
+// Documentation: texture.txt
 
-#ifndef PASTEL_NEARESTIMAGETEXTURE_H
-#define PASTEL_NEARESTIMAGETEXTURE_H
+#ifndef PASTEL_BILINEARIMAGE_TEXTURE_H
+#define PASTEL_BILINEARIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 
@@ -12,7 +13,13 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class NearestImageTexture
+	Type sampleBilinear(
+		const Vector2& uv,
+		const Array<Type, 2>& image,
+		const ArrayExtender<2, Type>& extender);
+
+	template <typename Type>
+	class BilinearImage_Texture
 		: public Texture<Type>
 	{
 	private:
@@ -21,14 +28,14 @@ namespace Pastel
 	public:
 		using Base::Element;
 
-		NearestImageTexture()
+		BilinearImage_Texture()
 			: image_(0)
 			, extender_()
 			, extent_()
 		{
 		}
 
-		explicit NearestImageTexture(
+		explicit BilinearImage_Texture(
 			const Array<Type, 2>& image,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>())
 			: image_(&image)
@@ -37,7 +44,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~NearestImageTexture()
+		virtual ~BilinearImage_Texture()
 		{
 		}
 
@@ -46,9 +53,9 @@ namespace Pastel
 			const Vector2& dpdx,
 			const Vector2& dpdy) const
 		{
-			const Vector<integer, 2> x(p * extent_);
-
-			return extender_(*image_, x);
+			return sampleBilinear(
+				p * extent_,
+				*image_, extender_);
 		}
 
 		void setImage(const Array<Type, 2>& image)
@@ -64,7 +71,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("NearestImage");
+			return std::string("BilinearImage");
 		}
 
 	private:
@@ -74,15 +81,15 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	NearestImageTexture<Type> nearestImageTexture(
+	BilinearImage_Texture<Type> bilinearImageTexture(
 		const Array<Type, 2>& image,
-		const ArrayExtender<2, PASTEL_NO_DEDUCTION(Type)>& extender = ArrayExtender<2, Type>())
+		const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>())
 	{
-		return NearestImageTexture<Type>(image, extender);
+		return BilinearImage_Texture<Type>(image, extender);
 	}
 
 }
 
-#include "pastel/gfx/nearestimagetexture.hpp"
+#include "pastel/gfx/bilinearimage_texture.hpp"
 
 #endif

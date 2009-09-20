@@ -1,7 +1,7 @@
-#ifndef PASTEL_BILINEARIMAGETEXTURE_HPP
-#define PASTEL_BILINEARIMAGETEXTURE_HPP
+#ifndef PASTEL_BILINEARIMAGE_TEXTURE_HPP
+#define PASTEL_BILINEARIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/bilinearimagetexture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
 
 #include "pastel/sys/vector_tools.h"
 

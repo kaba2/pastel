@@ -1,8 +1,8 @@
-#ifndef PASTEL_RIPIMAGETEXTURE_HPP
-#define PASTEL_RIPIMAGETEXTURE_HPP
+#ifndef PASTEL_RIPIMAGE_TEXTURE_HPP
+#define PASTEL_RIPIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/ripimagetexture.h"
-#include "pastel/gfx/bilinearimagetexture.h"
+#include "pastel/gfx/ripimage_texture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
 #include "pastel/dsp/ripmap.h"
 
 #include "pastel/sys/syscommon.h"
@@ -12,14 +12,14 @@ namespace Pastel
 {
 
 	template <typename Type>
-	RipImageTexture<Type>::RipImageTexture()
+	RipImage_Texture<Type>::RipImage_Texture()
 		: ripMap_(0)
 		, extender_()
 	{
 	}
 
 	template <typename Type>
-	RipImageTexture<Type>::RipImageTexture(
+	RipImage_Texture<Type>::RipImage_Texture(
 		const RipMap<2, Type>& ripMap,
 		const ArrayExtender<2, Type>& extender)
 		: ripMap_(&ripMap)
@@ -28,7 +28,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Type RipImageTexture<Type>::operator()(
+	Type RipImage_Texture<Type>::operator()(
 		const Vector2& uv,
 		const Vector2& dUvDx,
 		const Vector2& dUvDy) const

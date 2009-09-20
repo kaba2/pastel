@@ -2,7 +2,7 @@
 #define PASTEL_SUMMEDAREATABLE_HPP
 
 #include "pastel/gfx/summedareatable.h"
-#include "pastel/gfx/bilinearimagetexture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
 
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/vector_tools.h"
