@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <int N, typename Real>
-	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
+	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
 		const Vector<Real, N>& point,
 		const Simplex<Real, N, N>& simplex)
 	{
@@ -17,7 +17,7 @@ namespace Pastel
 
 		const integer dimension = point.dimension();
 
-		Matrix<Real, PASTEL_ADD_N(N, 1), PASTEL_ADD_N(N, 1)> m(
+		Matrix<Real, ModifyN<N, N + 1>::Result, ModifyN<N, N + 1>::Result> m(
 			dimension + 1, dimension + 1);
 		for (integer i = 0;i < dimension + 1;++i)
 		{
@@ -28,7 +28,7 @@ namespace Pastel
 	}
 
 	template <int N, typename Real>
-	Vector<Real, PASTEL_ADD_N(N, 1)> barycentric(
+	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
 		const Vector<Real, N>& point)
 	{
 		// The linear system is trivial to solve in
@@ -51,7 +51,7 @@ namespace Pastel
 
 		const integer dimension = point.dimension();
 
-		Vector<Real, PASTEL_ADD_N(N, 1)> result(ofDimension(dimension));
+		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(dimension));
 
 		result[0] = 1 - sum(point);
 

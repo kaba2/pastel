@@ -2,7 +2,7 @@
 #define PASTEL_MIPIMAGE_TEXTURE_HPP
 
 #include "pastel/gfx/mipimage_texture.h"
-#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/linearimage_texture.h"
 #include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/syscommon.h"
@@ -13,81 +13,102 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	MipImage_Texture<Type>::MipImage_Texture()
+	template <typename Type, int N>
+	MipImage_Texture<Type, N>::MipImage_Texture()
 		: mipMap_(0)
 		, extender_()
 	{
 	}
 
-	template <typename Type>
-	MipImage_Texture<Type>::MipImage_Texture(
-		const MipMap<2, Type>& mipMap,
-		const ArrayExtender<2, Type>& extender)
+	template <typename Type, int N>
+	MipImage_Texture<Type, N>::MipImage_Texture(
+		const MipMap<N, Type>& mipMap,
+		const ArrayExtender<N, Type>& extender)
 		: mipMap_(&mipMap)
 		, extender_(extender)
 	{
 	}
 
-	template <typename Type>
-	Type MipImage_Texture<Type>::operator()(
-		const Vector2& uv,
-		const Vector2& dUvDx,
-		const Vector2& dUvDy) const
+	template <typename Type, int N>
+	Type MipImage_Texture<Type, N>::operator()(
+		const Vector<real, N>& uv,
+		const Matrix<real, N, N>& m) const
 	{
-		if (!mipMap_ || (*mipMap_).empty())
+		if (!mipMap_ || mipMap_->empty())
 		{
 			return Type();
 		}
 
-		const Array<Type, 2>& mostDetailedImage = 
-			(*mipMap_).mostDetailed();
+		const integer n = m.height();
+		const Array<Type, N>& mostDetailedImage = 
+			mipMap_->mostDetailed();
 
-		const Vector2 dx = dUvDx * Vector2(mostDetailedImage.extent());
-		const Vector2 dy = dUvDy * Vector2(mostDetailedImage.extent());
+		// Compute detail level.
 
-		const real d = std::max(dot(dx), dot(dy));
+		// This is done by finding the tangent
+		// vector with the greatest length and using
+		// that as a isotropic sampling frequency.
+		// The one of greatest length is used to ensure
+		// we get rid of aliasing. 
+
+		real d = 0;
+		for (integer i = 0;i < n;++i)
+		{
+			const real dotMi = dot(m[i] * Vector2(mostDetailedImage.extent()));
+			if (dotMi > d)
+			{
+				d = dotMi;
+			}
+		}
+
 		const real invLn2 = inverse(constantLn2<real>());
 		const real level = 0.5 * std::log(d) * invLn2;
 
+		// Handle the case where no filtering needs to be done.
+
 		if (level <= 0)
 		{
-			// Magnification: just do bilinear interpolation.
-
-			return sampleBilinear(
-				uv * Vector2(mostDetailedImage.extent()),
+			return sampleLinear(
+				evaluate(uv * Vector<real, N>(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
-		if (level >= (*mipMap_).levels() - 1)
-		{
-			// Return the coarsest mipmap pixel.
+		// Handle the case where the image is smaller than
+		// a single pixel.
 
-			return  (*mipMap_).coarsest()(0, 0);
+		if (level >= mipMap_->levels() - 1)
+		{
+			return mipMap_->coarsest()(0);
 		}
 
-		// The normal case: trilinear interpolation.
+		// Gather samples from the 2 neighboring mipmaps.
+
+		// First sample from the more detailed image.
 
 		const integer detailLevel = std::floor(level);
-		const integer coarseLevel = detailLevel + 1;
-
-		const real tDetail = level - detailLevel;
-
-		const Array<Type, 2>& detailImage = 
+		const Array<Type, N>& detailImage = 
 			(*mipMap_)(detailLevel);
-		const Array<Type, 2>& coarseImage = 
-			(*mipMap_)(coarseLevel);
 
 		const Type detailSample =
-			sampleBilinear(
-			uv * Vector2(detailImage.extent()),
+			sampleLinear(
+			evaluate(uv * Vector<real, N>(detailImage.extent())),
 			detailImage, extender_);
 
+		// Then sample from the less detailed image.
+		
+		const integer coarseLevel = detailLevel + 1;
+		const Array<Type, N>& coarseImage = 
+			(*mipMap_)(coarseLevel);
+
 		const Type coarseSample =
-			sampleBilinear(
-			uv * Vector2(coarseImage.extent()),
+			sampleLinear(
+			evaluate(uv * Vector<real, N>(coarseImage.extent())),
 			coarseImage, extender_);
 
+		// Linearly interpolate these samples by the 
+		// fractional detail level.
+
+		const real tDetail = level - detailLevel;
 		return linear(detailSample, coarseSample, tDetail);
 	}
 

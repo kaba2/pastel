@@ -32,7 +32,7 @@ where
 
 ''D : RR^n -> V : D = sum {delta_x * d(x) | x in ZZ^n}''
 
-''s : RR^n -> R : s(x) = prod_{i = 1}^n sinc(x_i)''
+''s : RR^n -> RR : s(x) = prod_{i = 1}^n text(sinc)(x_i)''
 
 where
 
@@ -46,10 +46,16 @@ _reconstruction_.
 Practice
 --------
 
-Pastel provides the abstract Texture class to model
-textures. Its abstract interface provides access
-to a texture sampler. Pastel provides three 
-types of concrete, predefined texture classes:
+Pastel provides the abstract Texture class template to model
+textures in ''RR^2''. It is defined by:
+
+	template <typename Type, int N = 2>
+	class Texture;
+
+where Type is a vector, such as Color, or real32, which
+defines the ''V'' in the definition, and N defines the dimensionality. 
+Its abstract interface provides access to a texture sampler. 
+Pastel provides three types of concrete, predefined texture classes:
 
  * A _discrete image texture_, whose image has been
  reconstructed from a discrete image. The different

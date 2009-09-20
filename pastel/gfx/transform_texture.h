@@ -12,29 +12,26 @@
 namespace Pastel
 {
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class Transform_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		Transform_Texture(
-			const Texture<Type>& texture,
+			const Texture<Type, N>& texture,
 			const AffineTransformation2& transformation)
 			: texture_(&texture)
-			, transformation_(transformation)
 			, invTransformation_(inverse(transformation))
 		{
 		}
 
 		Type operator()(
-			const Vector2& uv,
-			const Vector2& dpDx,
-			const Vector2& dpDy) const
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const
 		{
 			return (*texture_)(
-				uv * invTransformation_,
-				dpDx * invTransformation_,
-				dpDy * invTransformation_);
+				transformPoint(p, invTransformation_),
+				m * invTransformation_.transformation())
 		}
 
 		virtual std::string name() const
@@ -43,17 +40,16 @@ namespace Pastel
 		}
 
 	private:
-		const Texture<Type>* texture_;
-		AffineTransformation2 transformation_;
-		AffineTransformation2 invTransformation_;
+		const Texture<Type, N>* texture_;
+		AffineTransformation<real, N> invTransformation_;
 	};
 
-	template <typename Type>
-	Transform_Texture<Type> transformTexture(
-		const Texture<Type>& texture,
-		const AffineTransformation2& transformation)
+	template <typename Type, int N>
+	Transform_Texture<Type, N> transformTexture(
+		const Texture<Type, N>& texture,
+		const AffineTransformation<real, N>& transformation)
 	{
-		return Transform_Texture<Type>(texture, transformation);
+		return Transform_Texture<Type, N>(texture, transformation);
 	}
 
 }

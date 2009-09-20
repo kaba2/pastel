@@ -165,7 +165,7 @@ namespace Pastel
 						drDy * aCos,
 						drDy * aSin);
 
-					*xyCursor = colorMixer(*xyCursor, texture(uv, duvDx, duvDy));
+					*xyCursor = colorMixer(*xyCursor, texture(uv, Matrix2(duvDx, duvDy)));
 
 					a += daDx;
 					xyCursor.xIncrement();

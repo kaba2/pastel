@@ -120,7 +120,7 @@ namespace Pastel
 				}
 			}
 
-			void move(const Vector<integer, PASTEL_ADD_N(N, -1)>& amount)
+			void move(const Vector<integer, ModifyN<N, N - 1>::Result>& amount)
 			{
 				cursor_.move(fixedIndex_, extend(amount, 0, fixedIndex_));
 			}

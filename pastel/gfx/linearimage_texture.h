@@ -1,9 +1,9 @@
-// Description: NearestImage_Texture class
-// Detail: Image-based texture with nearest reconstruction and no filtering.
+// Description: LinearImage_Texture class
+// Detail: Image-based texture with linear reconstruction and no filtering.
 // Documentation: texture.txt
 
-#ifndef PASTEL_NEARESTIMAGE_TEXTURE_H
-#define PASTEL_NEARESTIMAGE_TEXTURE_H
+#ifndef PASTEL_LINEARIMAGE_TEXTURE_H
+#define PASTEL_LINEARIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 
@@ -12,8 +12,14 @@
 namespace Pastel
 {
 
+	template <typename Type, int N>
+	Type sampleLinear(
+		const Vector<real, N>& uv,
+		const Array<Type, N>& image,
+		const ArrayExtender<N, Type>& extender);
+
 	template <typename Type, int N = 2>
-	class NearestImage_Texture
+	class LinearImage_Texture
 		: public Texture<Type, N>
 	{
 	private:
@@ -22,14 +28,14 @@ namespace Pastel
 	public:
 		using Base::Element;
 
-		NearestImage_Texture()
+		LinearImage_Texture()
 			: image_(0)
 			, extender_()
 			, extent_()
 		{
 		}
 
-		explicit NearestImage_Texture(
+		explicit LinearImage_Texture(
 			const Array<Type, N>& image,
 			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>())
 			: image_(&image)
@@ -38,7 +44,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~NearestImage_Texture()
+		virtual ~LinearImage_Texture()
 		{
 		}
 
@@ -46,9 +52,9 @@ namespace Pastel
 			const Vector<real, N>& p,
 			const Matrix<real, N, N>& m) const
 		{
-			const Vector<integer, N> x(p * extent_);
-
-			return extender_(*image_, x);
+			return sampleLinear(
+				evaluate(p * extent_),
+				*image_, extender_);
 		}
 
 		void setImage(const Array<Type, N>& image)
@@ -64,7 +70,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("NearestImage");
+			return std::string("LinearImage");
 		}
 
 	private:
@@ -74,15 +80,15 @@ namespace Pastel
 	};
 
 	template <typename Type, int N>
-	NearestImage_Texture<Type, N> nearestImageTexture(
+	LinearImage_Texture<Type, N> linearImageTexture(
 		const Array<Type, N>& image,
-		const ArrayExtender<N, PASTEL_NO_DEDUCTION(Type)>& extender = ArrayExtender<N, Type>())
+		const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>())
 	{
-		return NearestImage_Texture<Type, N>(image, extender);
+		return LinearImage_Texture<Type, N>(image, extender);
 	}
 
 }
 
-#include "pastel/gfx/nearestimage_texture.hpp"
+#include "pastel/gfx/linearimage_texture.hpp"
 
 #endif

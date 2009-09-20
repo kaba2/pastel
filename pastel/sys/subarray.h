@@ -21,7 +21,7 @@ namespace Pastel
 	private:
 		enum
 		{
-			Smaller = PASTEL_ADD_N(N, -1)
+			Smaller = ModifyN<N, N - 1>::Result
 		};
 
 	public:
@@ -305,7 +305,7 @@ namespace Pastel
 	private:
 		enum
 		{
-			Smaller = PASTEL_ADD_N(N, -1)
+			Smaller = ModifyN<N, N - 1>::Result
 		};
 
 	public:

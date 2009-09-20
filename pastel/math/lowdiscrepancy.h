@@ -57,7 +57,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	Vector<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
+	Vector<Real, ModifyN<N, N + 1>::Result> hammersleySequence(
 		integer n, const Vector<integer, N>& bases, integer size);
 
 }

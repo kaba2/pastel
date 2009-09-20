@@ -7,6 +7,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
+#include "pastel/sys/linear.h"
 
 #include <string>
 #include <vector>
@@ -248,26 +249,6 @@ namespace Pastel
 	template <typename Real>
 	Real beta(PASTEL_NO_DEDUCTION(Real) x,
 		PASTEL_NO_DEDUCTION(Real) y);
-
-	//! Interpolates linearly between points.
-	/*!
-	linear(startPoint, endPoint, time) =
-	startPoint + time * (endPoint - startPoint)
-	*/
-	template <
-		typename PointType,
-		typename Real>
-		PointType linear(
-			const PointType& startPoint,
-			const PointType& endPoint,
-			const Real& time);
-
-	//! Interpolates linearly between vectors.
-	template <int N, typename Real>
-	Vector<Real, N> linear(
-		const Vector<Real, N>& startPoint,
-		const Vector<Real, N>& endPoint,
-		const PASTEL_NO_DEDUCTION(Real)& time);
 
 }
 

@@ -488,28 +488,6 @@ namespace Pastel
 		return gamma<Real>(x) * gamma<Real>(y) / gamma<Real>(x + y);
 	}
 
-	template <
-		typename PointType,
-		typename Real>
-		PointType linear(
-			const PointType& startPoint,
-			const PointType& endPoint,
-			const Real& time)
-	{
-		return startPoint +
-			(endPoint - startPoint) * time;
-	}
-
-	template <int N, typename Real>
-	Vector<Real, N> linear(
-		const Vector<Real, N>& startPoint,
-		const Vector<Real, N>& endPoint,
-		const PASTEL_NO_DEDUCTION(Real)& time)
-	{
-		// TODO: Change to a vector expression!
-		return startPoint * (1 - time) + endPoint * time;
-	}
-
 }
 
 #endif
