@@ -1,4 +1,5 @@
-EwaImage_Texture class
+MipImage_Texture class
 ======================
 
 [Parent]: texture.txt
+
