@@ -7,10 +7,18 @@
 
 #include "pastel/sys/tuplebase.h"
 
-#define PASTEL_ADD_N(N, amount) (((N) == Dynamic) ? Dynamic : ((N) + amount))
-
 namespace Pastel
 {
+
+	template <int N, int NewN>
+	class ModifyN
+	{
+	public:
+		enum
+		{
+			Result = (N == Dynamic) ? Dynamic : NewN
+		};
+	};
 
 	//! A fixed size array of the given type.
 

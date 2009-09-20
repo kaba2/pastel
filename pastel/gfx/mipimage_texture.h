@@ -1,5 +1,5 @@
 // Description: MipImage_Texture class
-// Detail: Image-based texture with bilinear reconstruction and mip-filtering.
+// Detail: Image-based texture with linear reconstruction and mip-filtering.
 // Documentation: texture.txt
 
 #ifndef PASTEL_MIPIMAGE_TEXTURE_H
@@ -18,28 +18,27 @@
 namespace Pastel
 {
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class MipImage_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		MipImage_Texture();
 
 		explicit MipImage_Texture(
-			const MipMap<2, Type>& mipMap,
-			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>());
+			const MipMap<N, Type>& mipMap,
+			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>());
 
 		Type operator()(
-			const Vector2& uv,
-			const Vector2& dUvDx,
-			const Vector2& dUvDy) const;
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const;
 
-		void setMipMap(const MipMap<2, Type>& mipMap)
+		void setMipMap(const MipMap<N, Type>& mipMap)
 		{
 			mipMap_ = &mipMap;
 		}
 
-		void setExtender(const ArrayExtender<2, Type>& extender)
+		void setExtender(const ArrayExtender<N, Type>& extender)
 		{
 			extender_ = extender;
 		}
@@ -50,15 +49,15 @@ namespace Pastel
 		}
 
 	private:
-		const MipMap<2, Type>* mipMap_;
-		ArrayExtender<2, Type> extender_;
+		const MipMap<N, Type>* mipMap_;
+		ArrayExtender<N, Type> extender_;
 	};
 
-	template <typename Type>
-	MipImage_Texture<Type> mipImageTexture(
-		const MipMap<2, Type>& mipMap)
+	template <typename Type, int N>
+	MipImage_Texture<Type, N> mipImageTexture(
+		const MipMap<N, Type>& mipMap)
 	{
-		return MipImage_Texture<Type>(mipMap);
+		return MipImage_Texture<Type, N>(mipMap);
 	}
 
 }

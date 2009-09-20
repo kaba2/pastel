@@ -2,7 +2,7 @@
 #define PASTEL_SUMMEDAREATABLE_HPP
 
 #include "pastel/gfx/summedareatable.h"
-#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/linearimage_texture.h"
 
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/vector_tools.h"
@@ -75,20 +75,20 @@ namespace Pastel
 		const Vector2 newMin = region.min() - 1;
 		const Vector2 newMax = region.max() - 1;
 
-		Image_Element sum = sampleBilinear(newMax, sumImage);
+		Image_Element sum = sampleLinear(newMax, sumImage);
 
 		if (newMin.x() >= 0)
 		{
-			sum -= sampleBilinear(Vector2(newMin.x(), newMax.y()), sumImage);
+			sum -= sampleLinear(Vector2(newMin.x(), newMax.y()), sumImage);
 		}
 		if (newMin.y() >= 0)
 		{
-			sum -= sampleBilinear(Vector2(newMax.x(), newMin.y()), sumImage);
+			sum -= sampleLinear(Vector2(newMax.x(), newMin.y()), sumImage);
 		}
 
 		if (newMin.x() >= 0 && newMin.y() >= 0)
 		{
-			sum += sampleBilinear(newMin, sumImage);
+			sum += sampleLinear(newMin, sumImage);
 		}
 
 		return sum;

@@ -1,4 +1,4 @@
-BilinearImage_Texture class
+LinearImage_Texture class
 ===========================
 
 [Parent]: texture.txt

@@ -38,7 +38,7 @@ namespace Pastel
 	dot(n(u, v), q) = 0
 	<=>
 	dot(d + u * q - v * s, q) = 0
-	<=> (dot product bilinearity)
+	<=> (dot product linearity)
 	dot(d, q) + u * dot(q, q) - v * dot(s, q) = 0
 	<=> (solve for u)
 	u = (v * dot(s, q) - dot(d, q)) / dot(q, q)

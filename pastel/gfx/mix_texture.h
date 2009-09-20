@@ -11,15 +11,15 @@
 namespace Pastel
 {
 
-	template <typename Type, typename Inter_Type>
+	template <typename Type, typename Inter_Type, int N = 2>
 	class Mix_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		Mix_Texture(
-			const Texture<Type>& aTexture,
-			const Texture<Type>& bTexture,
-			const Texture<Inter_Type>& tTexture)
+			const Texture<Type, N>& aTexture,
+			const Texture<Type, N>& bTexture,
+			const Texture<Inter_Type, N>& tTexture)
 			: aTexture_(aTexture)
 			, bTexture_(bTexture)
 			, tTexture_(tTexture)
@@ -31,16 +31,15 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector2& p,
-			const Vector2& dpDx,
-			const Vector2& dpDy) const
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const
 		{
 			const Inter_Type t =
-				tTexture_(p, dpDx, dpDy);
+				tTexture_(p, m);
 
 			return
-				aTexture_(p, dpDx, dpDy) * (1 - t) +
-				bTexture_(p, dpDx, dpDy) * t;
+				aTexture_(p, m) * (1 - t) +
+				bTexture_(p, m) * t;
 		}
 
 		virtual std::string name() const
@@ -49,18 +48,18 @@ namespace Pastel
 		}
 
 	private:
-		const Texture<Type>& aTexture_;
-		const Texture<Type>& bTexture_;
-		const Texture<Inter_Type>& tTexture_;
+		const Texture<Type, N>& aTexture_;
+		const Texture<Type, N>& bTexture_;
+		const Texture<Inter_Type, N>& tTexture_;
 	};
 
-	template <typename Type, typename Inter_Type>
-	Mix_Texture<Type, Inter_Type> mixTexture(
-		const Texture<Type>& aTexture,
-		const Texture<Type>& bTexture,
-		const Texture<Inter_Type>& tTexture)
+	template <typename Type, typename Inter_Type, int N>
+	Mix_Texture<Type, Inter_Type, N> mixTexture(
+		const Texture<Type, N>& aTexture,
+		const Texture<Type, N>& bTexture,
+		const Texture<Inter_Type, N>& tTexture)
 	{
-		return Mix_Texture<Type, Inter_Type>(aTexture, bTexture, tTexture);
+		return Mix_Texture<Type, Inter_Type, N>(aTexture, bTexture, tTexture);
 	}
 
 }

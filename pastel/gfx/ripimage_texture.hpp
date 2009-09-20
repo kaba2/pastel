@@ -2,7 +2,7 @@
 #define PASTEL_RIPIMAGE_TEXTURE_HPP
 
 #include "pastel/gfx/ripimage_texture.h"
-#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/linearimage_texture.h"
 #include "pastel/dsp/ripmap.h"
 
 #include "pastel/sys/syscommon.h"
@@ -11,104 +11,104 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	RipImage_Texture<Type>::RipImage_Texture()
+	template <typename Type, int N>
+	RipImage_Texture<Type, N>::RipImage_Texture()
 		: ripMap_(0)
 		, extender_()
 	{
 	}
 
-	template <typename Type>
-	RipImage_Texture<Type>::RipImage_Texture(
-		const RipMap<2, Type>& ripMap,
-		const ArrayExtender<2, Type>& extender)
+	template <typename Type, int N>
+	RipImage_Texture<Type, N>::RipImage_Texture(
+		const RipMap<N, Type>& ripMap,
+		const ArrayExtender<N, Type>& extender)
 		: ripMap_(&ripMap)
 		, extender_(extender)
 	{
 	}
 
-	template <typename Type>
-	Type RipImage_Texture<Type>::operator()(
-		const Vector2& uv,
-		const Vector2& dUvDx,
-		const Vector2& dUvDy) const
+	template <typename Type, int N>
+	Type RipImage_Texture<Type, N>::operator()(
+		const Vector<real, N>& uv,
+		const Matrix<real, N, N>& m) const
 	{
-		if (!ripMap_ || (*ripMap_).empty())
+		if (!ripMap_ || ripMap_->empty())
 		{
 			return Type();
 		}
 
-		const Array<Type, 2>& mostDetailedImage = (*ripMap_).mostDetailed();
+		const Array<Type, N>& mostDetailedImage = 
+			ripMap_->mostDetailed();
 
-		const Vector2 dx = dUvDx * Vector2(mostDetailedImage.extent());
-		const Vector2 dy = dUvDy * Vector2(mostDetailedImage.extent());
-
-		const Vector2 radius = max(evaluate(mabs(dx)), evaluate(mabs(dy)));
+		const Vector<real, N> radius = 
+			max(abs(m)) * Vector<real, N>(mostDetailedImage.extent());
 
 		if (allLessEqual(radius, 1))
 		{
-			// Magnification: just do bilinear interpolation.
+			// Magnification: just do linear interpolation.
 
-			return sampleBilinear(
-				uv * Vector2(mostDetailedImage.extent()),
+			return sampleLinear(
+				evaluate(uv * Vector<real, N>(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
 		const real invLn2 = inverse(constantLn2<real>());
-		const Vector2 level(max(evaluate(log(radius) * invLn2), 0));
+		const Vector<real, N> level(max(evaluate(log(radius) * invLn2), 0));
 
 		if (allLessEqual(level, 0))
 		{
-			return sampleBilinear(
-				uv * Vector2(mostDetailedImage.extent()),
+			return sampleLinear(
+				evaluate(uv * Vector<real, N>(mostDetailedImage.extent())),
 				mostDetailedImage, extender_);
 		}
 
-		if (anyGreaterEqual(level, Vector2((*ripMap_).levels() - 1)))
+		if (anyGreaterEqual(level, Vector<real, N>(ripMap_->levels() - 1)))
 		{
 			// Return the coarsest ripmap pixel.
 
-			return  (*ripMap_).coarsest()(0, 0);
+			return ripMap_->coarsest()(0);
 		}
 
-		// Quadrilinear interpolation.
+		// Gather samples from all of the neighboring 
+		// 2^n ripmaps.
 
-		const Vector<integer, 2> level00(floor(level));
-		const Vector<integer, 2> level10 = level00 + Vector<integer, 2>(1, 0);
-		const Vector<integer, 2> level11 = level00 + Vector<integer, 2>(1, 1);
-		const Vector<integer, 2> level01 = level00 + Vector<integer, 2>(0, 1);
+		Vector<integer, N> p(floor(level));
+		const Vector<real, N> tDetail = level - Vector<real, N>(p);
 
-		const Vector2 tDetail = level - Vector2(level00);
+		const integer n = p.size();
+		const integer samples = 1 << n;
 
-		const Array<Type, 2>& image00 = (*ripMap_)(level00);
-		const Array<Type, 2>& image10 = (*ripMap_)(level10);
-		const Array<Type, 2>& image11 = (*ripMap_)(level11);
-		const Array<Type, 2>& image01 = (*ripMap_)(level01);
+		Tuple<Type, ModifyN<N, 1 << N>::Result> valueSet(ofDimension(samples));
+		Tuple<bool, N> s(ofDimension(n), false);
+		for (integer i = 0;i < samples;++i)
+		{
+			const Array<Type, N>& image = (*ripMap_)(p);
 
-		const Type sample00 =
-			sampleBilinear(
-			uv * Vector2(image00.extent()),
-			image00, extender_);
+			valueSet[i] = sampleLinear(
+				evaluate(uv * Vector<real, N>(image.extent())),
+				image, extender_);
 
-		const Type sample10 =
-			sampleBilinear(
-			uv * Vector2(image10.extent()),
-			image10, extender_);
+			integer axis = 0;
+			while(axis < n)
+			{
+				if (s[axis])
+				{
+					s[axis] = false;
+					--p[axis];
+				}
+				else
+				{
+					s[axis] = true;
+					++p[axis];
+					break;
+				}
+				++axis;
+			}
+		}
 
-		const Type sample11 =
-			sampleBilinear(
-			uv * Vector2(image11.extent()),
-			image11, extender_);
+		// Linearly interpolate between those samples.
 
-		const Type sample01 =
-			sampleBilinear(
-			uv * Vector2(image01.extent()),
-			image01, extender_);
-
-		return linear(
-			linear(sample00, sample10, tDetail.x()),
-			linear(sample01, sample11, tDetail.x()),
-			tDetail.y());
+		return linear(tDetail, valueSet);
 	}
 
 }

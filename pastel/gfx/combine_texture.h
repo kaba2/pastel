@@ -11,17 +11,17 @@
 namespace Pastel
 {
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class Combine_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		Combine_Texture(
-			const Texture<Type>& aSampler,
-			const Texture<Type>& bSampler,
+			const Texture<Type, N>& aTexture,
+			const Texture<Type, N>& bTexture,
 			const ColorMixer<Type>& colorMixer)
-			: aSampler_(aSampler)
-			, bSampler_(bSampler)
+			: aTexture_(aTexture)
+			, bTexture_(bTexture)
 			, colorMixer_(colorMixer)
 		{
 		}
@@ -31,13 +31,12 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector2& p,
-			const Vector2& dpDx,
-			const Vector2& dpDy) const
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const
 		{
 			return colorMixer_(
-				aSampler_(p, dpDx, dpDy),
-				bSampler_(p, dpDx, dpDy));
+				aTexture_(p, m),
+				bTexture_(p, m));
 		}
 
 		virtual std::string name() const
@@ -46,18 +45,18 @@ namespace Pastel
 		}
 
 	private:
-		const Texture<Type>& aSampler_;
-		const Texture<Type>& bSampler_;
+		const Texture<Type, N>& aTexture_;
+		const Texture<Type, N>& bTexture_;
 		const ColorMixer<Type>& colorMixer_;
 	};
 
-	template <typename Type>
-	Combine_Texture<Type> combineTexture(
-		const Texture<Type>& aSampler,
-		const Texture<Type>& bSampler,
+	template <typename Type, int N>
+	Combine_Texture<Type, N> combineTexture(
+		const Texture<Type, N>& aTexture,
+		const Texture<Type, N>& bTexture,
 		const ColorMixer<Type>& colorMixer)
 	{
-		return Combine_Texture<Type>(aSampler, bSampler, colorMixer);
+		return Combine_Texture<Type, N>(aTexture, bTexture, colorMixer);
 	}
 
 }

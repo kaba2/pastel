@@ -18,7 +18,7 @@ namespace Pastel
 	generalization of the beta-distribution.
 	*/
 	template <typename Real, int N>
-	Vector<Real, PASTEL_ADD_N(N, -1)> randomDirichlet(
+	Vector<Real, ModifyN<N, N - 1>::Result> randomDirichlet(
 		const Vector<Real, N>& shape);
 
 }

@@ -60,11 +60,11 @@ namespace Pastel
 	//! Returns a subsequence of a vector.
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<Real, PASTEL_ADD_N(N, -1)> shrink(
+	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
 		const VectorExpression<Real, N, Expression>& that);
 
 	template <int N, typename Real, typename Expression>
-	inline Vector<Real, PASTEL_ADD_N(N, -1)> shrink(
+	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index);
 

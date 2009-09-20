@@ -4,5 +4,5 @@ PastelGfx
 [Parent]: pastel.txt
 
 The purpose of PastelGfx is to provide algorithms
-related to computer graphics excluding 3d
-rendering.
+related to computer graphics. Ray-tracing related
+things are in the PastelRay sub-library.

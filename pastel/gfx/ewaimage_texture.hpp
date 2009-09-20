@@ -2,18 +2,47 @@
 #define PASTEL_EWAIMAGE_TEXTURE_HPP
 
 #include "pastel/gfx/ewaimage_texture.h"
-#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/linearimage_texture.h"
 
 #include "pastel/geometry/ellipsoid.h"
 
 namespace Pastel
 {
 
-	template <typename Type>
-	Type EwaImage_Texture<Type>::operator()(
-		const Vector2& p_,
-		const Vector2& dpDx_,
-		const Vector2& dpDy_) const
+	template <typename Type, int N>
+	void EwaImage_Texture<Type, N>::setFilter(
+		const FilterPtr& maxFilter,
+		const FilterPtr& minFilter = triangleFilter())
+	{
+		ENSURE(!maxFilter.empty() && !minFilter.empty());
+
+		const real filterRadius =
+			std::max(minFilter->radius(), maxFilter->radius());
+
+		const integer tableSize = filterRadius * 1024;
+		const real scaling = square(filterRadius) / tableSize;
+
+		std::vector<real> minFilterTable(tableSize);
+		std::vector<real> maxFilterTable(tableSize);
+
+		for (integer i = 0;i < tableSize;++i)
+		{
+			const real t = std::sqrt(i * scaling);
+
+			minFilterTable[i] = minFilter->evaluate(t);
+			maxFilterTable[i] = maxFilter->evaluate(t);
+		}
+
+		minFilterTable_.swap(minFilterTable);
+		maxFilterTable_.swap(maxFilterTable);
+		filterTableSize_ = tableSize;
+		filterRadius_ = filterRadius;
+	}
+
+	template <typename Type, int N>
+	Type EwaImage_Texture<Type, N>::operator()(
+		const Vector<real, N>& p_,
+		const Matrix<real, N, N>& m_) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
@@ -22,24 +51,24 @@ namespace Pastel
 			return Type(0.5);
 		}
 
-		const Array<Type, 2>& mostDetailedImage = mipMap_->mostDetailed();
-
-		const Vector2 imageExtent(mostDetailedImage.extent());
+		const integer n = m_.height();
+		const Array<Type, N>& mostDetailedImage = mipMap_->mostDetailed();
+		const Vector<real, N> imageExtent(mostDetailedImage.extent());
 
 		// The derivative vectors along with 'uv' represent an affine
 		// transformation from the image plane to the texture plane.
 
-		const Vector2 p(p_ * imageExtent);
-		const Vector2 dpDx = dpDx_ * imageExtent * filterRadius_;
-		const Vector2 dpDy = dpDy_ * imageExtent * filterRadius_;
+		const Vector<real, N> p(p_ * imageExtent);
+		Matrix<real, N, N> basis = m_;
+		for (integer i = 0;i < n;++i)
+		{
+			basis[i] *= imageExtent * filterRadius_;
+		}
 
 		// Find the ellipse that is obtained by applying
 		// that affine transformation to a unit sphere.
 
-		const Matrix2 basis(
-			dpDx, dpDy);
-
-		Matrix2 quadraticForm =
+		Matrix<real, N, N> quadraticForm =
 			ellipsoidQuadraticForm(basis);
 
 		// We do not use the coefficients as computed.
@@ -74,12 +103,16 @@ namespace Pastel
 		// Thus the lengths of the principal axes can be
 		// computed from the eigenvalues.
 
-		const Vector2 eigenValue = symmetricEigenValues(quadraticForm);
+		// NOTE: We don't have a general function to compute the 
+		// eigenvalues of a matrix. Until we have that we must
+		// restrict to 2D.
 
-		real majorAxisLength2 = inverse(eigenValue[0]);
-		real minorAxisLength2 = inverse(eigenValue[1]);
+		const Vector<real, N> eigenValue = symmetricEigenValues(quadraticForm);
 
 		// The eigenvalues are returned in ascending order.
+
+		real majorAxisLength2 = inverse(eigenValue[0]);
+		real minorAxisLength2 = inverse(eigenValue[eigenValue.size() - 1]);
 
 		const real eccentricity2 = majorAxisLength2/ minorAxisLength2;
 
@@ -102,12 +135,12 @@ namespace Pastel
 			// k = majorAxisLength / (minorAxisLength * MaxEccentricity)
 			// = eccentricity / MaxEccentricity
 
-			const Vector2 aMajorAxisCandidate(
+			const Vector<real, N> aMajorAxisCandidate(
 				quadraticForm(1, 0), eigenValue[0] - quadraticForm(0, 0));
-			const Vector2 bMajorAxisCandidate(
+			const Vector<real, N> bMajorAxisCandidate(
 				eigenValue[0] - quadraticForm(1, 1), quadraticForm(1, 0));
 
-			Vector2 majorAxis;
+			Vector<real, N> majorAxis;
 
 			if (normManhattan(aMajorAxisCandidate) <
 				normManhattan(bMajorAxisCandidate))
@@ -121,7 +154,7 @@ namespace Pastel
 
 			majorAxis /= norm(majorAxis);
 
-			Vector2 minorAxis = cross(majorAxis);
+			Vector<real, N> minorAxis = cross(majorAxis);
 
 			minorAxisLength2 *= (eccentricity2 / MaxEccentricity2);
 
@@ -132,7 +165,7 @@ namespace Pastel
 			// the minor axis has changed.
 
 			quadraticForm = ellipsoidQuadraticForm(
-				Matrix2(minorAxis, majorAxis));
+				Matrix<real, N, N>(minorAxis, majorAxis));
 		}
 
 		// Select an appropriate mipmap level.
@@ -203,30 +236,30 @@ namespace Pastel
 		return linear(detailSample, coarseSample, level - detailLevel);
 	}
 
-	template <typename Type>
-	Type EwaImage_Texture<Type>::sampleEwa(
-		const Vector2& p,
-		const Matrix2& quadraticForm,
-		const AlignedBox2& bound,
+	template <typename Type, int N>
+	Type EwaImage_Texture<Type, N>::sampleEwa(
+		const Vector<real, N>& p,
+		const Matrix<real, N>& quadraticForm,
+		const AlignedBox<real, N>& bound,
 		real scaling,
 		real tTransition,
-		const Array<Type, 2>& image) const
+		const Array<Type, N>& image) const
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
-		const Rectangle2 window(
+		const Rectangle<N> window(
 			floor(bound.min() * scaling),
 			ceil(bound.max() * scaling));
 
 		// Compute start values.
 
-		const Vector2 pStart(Vector2(window.min()) + 0.5 - p * scaling);
+		const Vector<real, N> pStart(Vector<real, N>(window.min()) + 0.5 - p * scaling);
 
 		const real formScaling = inverse(square(scaling));
 
 		real fLeft = dot(pStart * quadraticForm, pStart) * formScaling;
-		Vector2 dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
-		const Matrix2 ddf = (2 * formScaling) * quadraticForm;
+		Vector<real, N> dfLeft = (2 * (pStart * quadraticForm) + diagonal(quadraticForm)) * formScaling;
+		const Matrix<real, N, N> ddf = (2 * formScaling) * quadraticForm;
 
 		Type imageSum(0);
 		real weightSum = 0;
@@ -245,7 +278,7 @@ namespace Pastel
 					const real weight = linear(maxFilterTable_[fClamped],
 						minFilterTable_[fClamped], tTransition);
 
-					imageSum += weight * extender_(image, Vector2i(j, i));
+					imageSum += weight * extender_(image, Vector<integer, N>(j, i));
 					weightSum += weight;
 				}
 

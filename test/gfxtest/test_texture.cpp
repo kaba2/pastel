@@ -64,7 +64,7 @@ namespace
 				textureBox);
 		}
 		{
-			BilinearImage_Texture<Color> texture(textureImage);
+			LinearImage_Texture<Color> texture(textureImage);
 
 			drawTexturedBox(
 				box + Vector2(Width, Height),
@@ -156,7 +156,7 @@ namespace
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new BilinearImage_Texture<Color>(textureImage,
+			Texture<Color>::Ptr(new LinearImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 		textureList.push_back(
 			Texture<Color>::Ptr(new NearestImage_Texture<Color>(textureImage,
@@ -195,12 +195,13 @@ namespace
 
 		drawTexturedBox(
 			AlignedBox2(0, 400, 100, 500),
-			bilinearColorTexture<Color>(Color(1, 1, 1), Color(1, 0, 0), Color(0, 1, 0), Color(0, 0, 1)),
+			linearColorTexture<Color, 2>(
+				makeTuple(Color(1, 1, 1), Color(1, 0, 0), Color(0, 1, 0), Color(0, 0, 1))),
 			arrayView(image));
 
 		drawTexturedBox(
 			AlignedBox2(150, 400, 250, 500),
-			constantColorTexture<Color>(Color(0.5, 0, 1)),
+			constantColorTexture<Color, 2>(Color(0.5, 0, 1)),
 			arrayView(image));
 
 		// Comparison of filtering techniques.
@@ -232,7 +233,7 @@ namespace
 
 		drawTexturedBox(
 			AlignedBox2(250, 0, 450, 200),
-			bilinearImageTexture(clampedConstView(constSubView(constArrayView(textureImage), Rectangle2(100, 100, 150, 150)))),
+			linearImageTexture(clampedConstView(constSubView(constArrayView(textureImage), Rectangle2(100, 100, 150, 150)))),
 			arrayView(image));
 		*/
 
@@ -525,9 +526,9 @@ namespace
 				constantColorTexture<Color>(Color(0)),
 				transformTexture(
 				mixTexture(
-				bilinearImageTexture(repeatedConstView(constArrayView(lenaTextureImage))),
+				linearImageTexture(repeatedConstView(constArrayView(lenaTextureImage))),
 				constantColorTexture<Color>(Color(1)),
-				bilinearColorTexture<real>(0, 0, 1, 1)),
+				linearColorTexture<real>(0, 0, 1, 1)),
 				AffineTransformation2(Matrix2() * 10, Vector2())),
 				texture),
 				arrayView(image),

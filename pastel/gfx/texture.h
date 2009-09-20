@@ -7,12 +7,14 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/countedptr.h"
 
+#include "pastel/math/matrix.h"
+
 #include <string>
 
 namespace Pastel
 {
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class Texture
 		: public ReferenceCounted
 	{
@@ -24,9 +26,8 @@ namespace Pastel
 		virtual ~Texture() {}
 
 		virtual Type operator()(
-			const Vector2& p,
-			const Vector2& dpDx,
-			const Vector2& dpDy) const = 0;
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const = 0;
 
 		virtual std::string name() const = 0;
 	};

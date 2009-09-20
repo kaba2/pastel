@@ -6,13 +6,13 @@
 // Synthetic textures
 
 #include "pastel/gfx/constantcolor_texture.h"
-#include "pastel/gfx/bilinearcolor_texture.h"
-#include "pastel/gfx/bilineartriangle_texture.h"
+#include "pastel/gfx/linearcolor_texture.h"
+#include "pastel/gfx/linearsimplex_texture.h"
 
 // Image textures
 
 #include "pastel/gfx/nearestimage_texture.h"
-#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/linearimage_texture.h"
 #include "pastel/gfx/mipimage_texture.h"
 #include "pastel/gfx/ripimage_texture.h"
 #include "pastel/gfx/ewaimage_texture.h"

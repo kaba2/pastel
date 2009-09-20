@@ -21,7 +21,7 @@ namespace Pastel
 		, textureImage_()
 		, mipMap_()
 		, nearestTexture_()
-		, bilinearTexture_()
+		, linearTexture_()
 		, ewaTexture_(MipMap<2, Type>(), ArrayExtender<2, Type>(clampExtender()))
 		, texture_(0)
 	{
@@ -60,7 +60,7 @@ namespace Pastel
 	void Image_GfxRenderer<Type>::onSetTexture()
 	{
 		nearestTexture_.setImage(*textureImage_[Base::texture()]);
-		bilinearTexture_.setImage(*textureImage_[Base::texture()]);
+		linearTexture_.setImage(*textureImage_[Base::texture()]);
 		mipTexture_.setMipMap(*mipMap_[Base::texture()]);
 		ewaTexture_.setMipMap(*mipMap_[Base::texture()]);
 	}
@@ -74,7 +74,7 @@ namespace Pastel
 			texture_ = &nearestTexture_;
 			break;
 		case ResamplingMode::Bilinear:
-			texture_ = &bilinearTexture_;
+			texture_ = &linearTexture_;
 			break;
 		case ResamplingMode::Trilinear:
 			texture_ = &mipTexture_;
@@ -160,7 +160,7 @@ namespace Pastel
 		Pastel::drawTriangle(
 			screenTriangle,
 			Triangle2(),
-			constantColorTexture<Type>(currentColor),
+			constantColorTexture<Type, 2>(currentColor),
 			arrayView(*image_));
 	}
 
@@ -177,7 +177,7 @@ namespace Pastel
 		Pastel::drawTriangle(
 			screenTriangle,
 			Triangle2(Vector2(0, 0), Vector2(1, 0), Vector2(0, 1)),
-			bilinearTriangleTexture<Type>(colorTriangle),
+			linearSimplexTexture<Type>(colorTriangle),
 			arrayView(*image_));
 	}
 

@@ -49,14 +49,14 @@ namespace Pastel
 	the defaults.
 	*/
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class EwaImage_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		explicit EwaImage_Texture(
-			const MipMap<2, Type>& mipMap,
-			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>(),
+			const MipMap<N, Type>& mipMap,
+			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(),
 			const FilterPtr& maxFilter = lanczosFilter(2),
 			const FilterPtr& minFilter = triangleFilter())
 			: mipMap_(&mipMap)
@@ -70,48 +70,23 @@ namespace Pastel
 
 		virtual ~EwaImage_Texture()
 		{
+			BOOST_STATIC_ASSERT(N == 2);
 		}
 
 		void setFilter(
 			const FilterPtr& maxFilter,
-			const FilterPtr& minFilter = triangleFilter())
-		{
-			ENSURE(!maxFilter.empty() && !minFilter.empty());
-
-			const real filterRadius =
-				std::max(minFilter->radius(), maxFilter->radius());
-
-			const integer tableSize = filterRadius * 1024;
-			const real scaling = square(filterRadius) / tableSize;
-
-			std::vector<real> minFilterTable(tableSize);
-			std::vector<real> maxFilterTable(tableSize);
-
-			for (integer i = 0;i < tableSize;++i)
-			{
-				const real t = std::sqrt(i * scaling);
-
-				minFilterTable[i] = minFilter->evaluate(t);
-				maxFilterTable[i] = maxFilter->evaluate(t);
-			}
-
-			minFilterTable_.swap(minFilterTable);
-			maxFilterTable_.swap(maxFilterTable);
-			filterTableSize_ = tableSize;
-			filterRadius_ = filterRadius;
-		}
+			const FilterPtr& minFilter = triangleFilter());
 
 		virtual Type operator()(
-			const Vector2& p,
-			const Vector2& dpDx,
-			const Vector2& dpDy) const;
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const;
 
-		void setMipMap(const MipMap<2, Type>& mipMap)
+		void setMipMap(const MipMap<N, Type>& mipMap)
 		{
 			mipMap_ = &mipMap;
 		}
 
-		void setExtender(const ArrayExtender<2, Type>& extender)
+		void setExtender(const ArrayExtender<N, Type>& extender)
 		{
 			extender_ = extender;
 		}
@@ -123,15 +98,15 @@ namespace Pastel
 
 	private:
 		Type sampleEwa(
-			const Vector2& uv,
-			const Matrix2& quadraticForm,
-			const AlignedBox2& bound,
+			const Vector<real, N>& uv,
+			const Matrix<real, N, N>& quadraticForm,
+			const AlignedBox<real, N>& bound,
 			real scaling,
 			real tTransition,
-			const Array<Type, 2>& image) const;
+			const Array<Type, N>& image) const;
 
-		const MipMap<2, Type>* mipMap_;
-		ArrayExtender<2, Type> extender_;
+		const MipMap<N, Type>* mipMap_;
+		ArrayExtender<N, Type> extender_;
 		std::vector<real> minFilterTable_;
 		std::vector<real> maxFilterTable_;
 		integer filterTableSize_;

@@ -185,7 +185,7 @@ namespace Pastel
 		strong
 		*/
 		Simplex addSimplex(
-			const Tuple<Vertex, PASTEL_ADD_N(N, 1)>& vertexList);
+			const Tuple<Vertex, ModifyN<N, N + 1>::Result>& vertexList);
 
 		//! Returns an iterator to the beginning of the vertex set.
 		/*!
@@ -257,7 +257,7 @@ namespace Pastel
 			: public PossiblyEmptyMember<SimplexData>
 		{
 		public:
-			Tuple<Vertex, PASTEL_ADD_N(N, 1)> vertexList_;
+			Tuple<Vertex, ModifyN<N, N + 1>::Result> vertexList_;
 		};
 
 	public:

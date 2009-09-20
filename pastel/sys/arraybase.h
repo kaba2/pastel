@@ -238,6 +238,18 @@ namespace Pastel
 			//! Returns the memory address of the given position.
 			Type* address(const Vector<integer, N>& position);
 
+			integer stride(integer axis) const
+			{
+				PENSURE_OP(axis, >=, 0);
+				PENSURE_OP(axis, <, stride_.size());
+				return stride_[axis];
+			}
+
+			const Vector<integer, N>& stride() const
+			{
+				return stride_;
+			}
+
 		private:
 			void allocate(
 				const Vector<integer, N>& extent);

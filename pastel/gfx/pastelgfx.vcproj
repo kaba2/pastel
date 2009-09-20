@@ -505,18 +505,18 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Bilinear"
+					Name="Linear"
 					>
 					<File
-						RelativePath=".\bilinearimage_texture.h"
+						RelativePath=".\linearimage_texture.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bilinearimage_texture.hpp"
+						RelativePath=".\linearimage_texture.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bilinearimage_texture.txt"
+						RelativePath=".\linearimage_texture.txt"
 						>
 					</File>
 				</Filter>
@@ -557,15 +557,15 @@
 				Name="Synthetic textures"
 				>
 				<File
-					RelativePath=".\bilinearcolor_texture.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bilineartriangle_texture.h"
-					>
-				</File>
-				<File
 					RelativePath=".\constantcolor_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\linearcolor_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\linearsimplex_texture.h"
 					>
 				</File>
 			</Filter>

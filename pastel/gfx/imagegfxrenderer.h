@@ -8,7 +8,7 @@
 #include "pastel/dsp/mipmap.h"
 
 #include "pastel/gfx/nearestimage_texture.h"
-#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/linearimage_texture.h"
 #include "pastel/gfx/mipimage_texture.h"
 #include "pastel/gfx/ewaimage_texture.h"
 
@@ -79,7 +79,7 @@ namespace Pastel
 		std::vector<const MipMap<2, Type>*> mipMap_;
 
 		NearestImage_Texture<Type> nearestTexture_;
-		BilinearImage_Texture<Type> bilinearTexture_;
+		LinearImage_Texture<Type> linearTexture_;
 		MipImage_Texture<Type> mipTexture_;
 		EwaImage_Texture<Type> ewaTexture_;
 

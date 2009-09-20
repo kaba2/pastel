@@ -10,9 +10,9 @@
 namespace Pastel
 {
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class ConstantColor_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		ConstantColor_Texture()
@@ -31,9 +31,8 @@ namespace Pastel
 		}
 
 		virtual Type operator()(
-			const Vector2& p,
-			const Vector2& dpdx,
-			const Vector2& dpdy) const
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const
 		{
 			return color_;
 		}
@@ -47,11 +46,11 @@ namespace Pastel
 		Type color_;
 	};
 
-	template <typename Type>
-	ConstantColor_Texture<Type> constantColorTexture(
+	template <typename Type, int N>
+	ConstantColor_Texture<Type, N> constantColorTexture(
 		const PASTEL_NO_DEDUCTION(Type)& color)
 	{
-		return ConstantColor_Texture<Type>(color);
+		return ConstantColor_Texture<Type, N>(color);
 	}
 
 }

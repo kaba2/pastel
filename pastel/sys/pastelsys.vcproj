@@ -737,6 +737,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\linear.h"
+				>
+			</File>
+			<File
+				RelativePath=".\linear.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\math.txt"
 				>
 			</File>

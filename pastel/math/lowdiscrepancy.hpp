@@ -81,7 +81,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Vector<Real, PASTEL_ADD_N(N, 1)> hammersleySequence(
+	Vector<Real, ModifyN<N, N + 1>::Result> hammersleySequence(
 		integer n, const Vector<integer, N>& bases, integer size)
 	{
 		PENSURE_OP(size, >=, 1);
@@ -90,7 +90,7 @@ namespace Pastel
 
 		const integer dimension = bases.dimension();
 
-		Vector<Real, PASTEL_ADD_N(N, 1)> result(ofDimension(dimension + 1));
+		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(dimension + 1));
 
 		for (integer i = 0;i < dimension;++i)
 		{

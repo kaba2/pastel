@@ -1,5 +1,5 @@
 // Description: RipImage_Texture class
-// Detail: Image-based texture with bilinear reconstruction and rip-filtering.
+// Detail: Image-based texture with linear reconstruction and rip-filtering.
 // Documentation: texture.txt
 
 #ifndef PASTEL_RIPIMAGE_TEXTURE_H
@@ -18,9 +18,9 @@
 namespace Pastel
 {
 
-	template <typename Type>
+	template <typename Type, int N = 2>
 	class RipImage_Texture
-		: public Texture<Type>
+		: public Texture<Type, N>
 	{
 	public:
 		RipImage_Texture();
@@ -30,20 +30,19 @@ namespace Pastel
 		}
 
 		explicit RipImage_Texture(
-			const RipMap<2, Type>& ripMap,
-			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>());
+			const RipMap<N, Type>& ripMap,
+			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>());
 
 		virtual Type operator()(
-			const Vector2& uv,
-			const Vector2& dUvDx,
-			const Vector2& dUvDy) const;
+			const Vector<real, N>& uv,
+			const Matrix<real, N, N>& m) const;
 
-		void setRipMap(const RipMap<2, Type>& ripMap)
+		void setRipMap(const RipMap<N, Type>& ripMap)
 		{
 			ripMap_ = &ripMap;
 		}
 
-		void setExtender(const ArrayExtender<2, Type>& extender)
+		void setExtender(const ArrayExtender<N, Type>& extender)
 		{
 			extender_ = extender;
 		}
@@ -54,8 +53,8 @@ namespace Pastel
 		}
 
 	private:
-		const RipMap<2, Type>* ripMap_;
-		ArrayExtender<2, Type> extender_;
+		const RipMap<N, Type>* ripMap_;
+		ArrayExtender<N, Type> extender_;
 	};
 
 }
