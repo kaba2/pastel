@@ -210,18 +210,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\color_palette.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\color_palette.h"
-				>
-			</File>
-			<File
-				RelativePath=".\color_palette.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\color_tools.cpp"
 				>
 			</File>
@@ -309,6 +297,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Color palettes"
+				>
+				<File
+					RelativePath=".\color_palette.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_palette.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_palette.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"
@@ -353,118 +357,6 @@
 				RelativePath=".\marchingtriangles.h"
 				>
 			</File>
-		</Filter>
-		<Filter
-			Name="Image processing"
-			>
-			<Filter
-				Name="Labeling"
-				>
-				<File
-					RelativePath=".\boxlabel.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\boxlabel.h"
-					>
-				</File>
-				<File
-					RelativePath=".\connectedcomponents.h"
-					>
-				</File>
-				<File
-					RelativePath=".\connectedcomponents.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Morphology"
-				>
-				<File
-					RelativePath=".\dilate.h"
-					>
-				</File>
-				<File
-					RelativePath=".\dilate.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\erode.h"
-					>
-				</File>
-				<File
-					RelativePath=".\erode.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Convolution"
-				>
-				<File
-					RelativePath=".\convolute.h"
-					>
-				</File>
-				<File
-					RelativePath=".\convolute.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Miscellaneous"
-				>
-				<File
-					RelativePath=".\branchingnumber.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\branchingnumber.h"
-					>
-				</File>
-				<File
-					RelativePath=".\gfxresource.h"
-					>
-				</File>
-				<File
-					RelativePath=".\labeltoimage.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\labeltoimage.h"
-					>
-				</File>
-				<File
-					RelativePath=".\packrange.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pixelneighbours.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pixelneighbours.h"
-					>
-				</File>
-				<File
-					RelativePath=".\quantize.h"
-					>
-				</File>
-				<File
-					RelativePath=".\quantize.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Structuring elements"
-				>
-				<File
-					RelativePath=".\structuringelement.h"
-					>
-				</File>
-				<File
-					RelativePath=".\structuringelement.hpp"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Procedural textures"
@@ -554,6 +446,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\texture.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\textures.h"
 				>
 			</File>
@@ -561,15 +457,15 @@
 				Name="Modifier textures"
 				>
 				<File
-					RelativePath=".\combinetexture.h"
+					RelativePath=".\combine_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\mixtexture.h"
+					RelativePath=".\mix_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\transformtexture.h"
+					RelativePath=".\transform_texture.h"
 					>
 				</File>
 			</Filter>
@@ -577,43 +473,47 @@
 				Name="Image textures"
 				>
 				<File
-					RelativePath=".\bilinearimagetexture.h"
+					RelativePath=".\bilinearimage_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\bilinearimagetexture.hpp"
+					RelativePath=".\bilinearimage_texture.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\ewaimagetexture.h"
+					RelativePath=".\ewaimage_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\ewaimagetexture.hpp"
+					RelativePath=".\ewaimage_texture.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\mipimagetexture.h"
+					RelativePath=".\ewaimage_texture.txt"
 					>
 				</File>
 				<File
-					RelativePath=".\mipimagetexture.hpp"
+					RelativePath=".\mipimage_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\nearestimagetexture.h"
+					RelativePath=".\mipimage_texture.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\nearestimagetexture.hpp"
+					RelativePath=".\nearestimage_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\ripimagetexture.h"
+					RelativePath=".\nearestimage_texture.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\ripimagetexture.hpp"
+					RelativePath=".\ripimage_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ripimage_texture.hpp"
 					>
 				</File>
 			</Filter>
@@ -621,46 +521,18 @@
 				Name="Synthetic textures"
 				>
 				<File
-					RelativePath=".\bilinearcolortexture.h"
+					RelativePath=".\bilinearcolor_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\bilineartriangletexture.h"
+					RelativePath=".\bilineartriangle_texture.h"
 					>
 				</File>
 				<File
-					RelativePath=".\constantcolortexture.h"
+					RelativePath=".\constantcolor_texture.h"
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Color mixers"
-			>
-			<File
-				RelativePath=".\additivecolormixer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\assigncolormixer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\colormixer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\colormixers.h"
-				>
-			</File>
-			<File
-				RelativePath=".\functorcolormixer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\transparentcolormixer.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Reconstruction"
@@ -752,6 +624,150 @@
 					RelativePath=".\imagegfxrenderer.hpp"
 					>
 				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Not sure"
+			>
+			<Filter
+				Name="Color mixers"
+				>
+				<File
+					RelativePath=".\additivecolormixer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\assigncolormixer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\colormixer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\colormixers.h"
+					>
+				</File>
+				<File
+					RelativePath=".\functorcolormixer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\transparentcolormixer.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Image processing"
+				>
+				<Filter
+					Name="Labeling"
+					>
+					<File
+						RelativePath=".\boxlabel.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\boxlabel.h"
+						>
+					</File>
+					<File
+						RelativePath=".\connectedcomponents.h"
+						>
+					</File>
+					<File
+						RelativePath=".\connectedcomponents.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Morphology"
+					>
+					<File
+						RelativePath=".\dilate.h"
+						>
+					</File>
+					<File
+						RelativePath=".\dilate.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\erode.h"
+						>
+					</File>
+					<File
+						RelativePath=".\erode.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Convolution"
+					>
+					<File
+						RelativePath=".\convolute.h"
+						>
+					</File>
+					<File
+						RelativePath=".\convolute.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Miscellaneous"
+					>
+					<File
+						RelativePath=".\branchingnumber.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\branchingnumber.h"
+						>
+					</File>
+					<File
+						RelativePath=".\gfxresource.h"
+						>
+					</File>
+					<File
+						RelativePath=".\labeltoimage.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\labeltoimage.h"
+						>
+					</File>
+					<File
+						RelativePath=".\packrange.h"
+						>
+					</File>
+					<File
+						RelativePath=".\pixelneighbours.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\pixelneighbours.h"
+						>
+					</File>
+					<File
+						RelativePath=".\quantize.h"
+						>
+					</File>
+					<File
+						RelativePath=".\quantize.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Structuring elements"
+					>
+					<File
+						RelativePath=".\structuringelement.h"
+						>
+					</File>
+					<File
+						RelativePath=".\structuringelement.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<File

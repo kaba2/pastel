@@ -1,8 +1,9 @@
-// Description: EwaImageTexture class
-// Detail: Resampling by EWA filtering
+// Description: EwaImage_Texture class
+// Detail: Image-based texture with radial reconstruction and EWA filtering.
+// Documentation: texture.txt
 
-#ifndef PASTEL_EWAIMAGETEXTURE_H
-#define PASTEL_EWAIMAGETEXTURE_H
+#ifndef PASTEL_EWAIMAGE_TEXTURE_H
+#define PASTEL_EWAIMAGE_TEXTURE_H
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/vector_tools.h"
@@ -49,11 +50,11 @@ namespace Pastel
 	*/
 
 	template <typename Type>
-	class EwaImageTexture
+	class EwaImage_Texture
 		: public Texture<Type>
 	{
 	public:
-		explicit EwaImageTexture(
+		explicit EwaImage_Texture(
 			const MipMap<2, Type>& mipMap,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>(),
 			const FilterPtr& maxFilter = lanczosFilter(2),
@@ -67,7 +68,7 @@ namespace Pastel
 			setFilter(maxFilter, minFilter);
 		}
 
-		virtual ~EwaImageTexture()
+		virtual ~EwaImage_Texture()
 		{
 		}
 
@@ -139,6 +140,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/ewaimagetexture.hpp"
+#include "pastel/gfx/ewaimage_texture.hpp"
 
 #endif

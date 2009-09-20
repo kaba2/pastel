@@ -1,8 +1,9 @@
-// Description: RipImageTexture class
-// Detail: Resampling by ripmap filtering and multilinear reconstruction
+// Description: RipImage_Texture class
+// Detail: Image-based texture with bilinear reconstruction and rip-filtering.
+// Documentation: texture.txt
 
-#ifndef PASTEL_RIPIMAGETEXTURE_H
-#define PASTEL_RIPIMAGETEXTURE_H
+#ifndef PASTEL_RIPIMAGE_TEXTURE_H
+#define PASTEL_RIPIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/dsp/ripmap.h"
@@ -18,17 +19,17 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class RipImageTexture
+	class RipImage_Texture
 		: public Texture<Type>
 	{
 	public:
-		RipImageTexture();
+		RipImage_Texture();
 
-		virtual ~RipImageTexture()
+		virtual ~RipImage_Texture()
 		{
 		}
 
-		explicit RipImageTexture(
+		explicit RipImage_Texture(
 			const RipMap<2, Type>& ripMap,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>());
 
@@ -59,6 +60,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/ripimagetexture.hpp"
+#include "pastel/gfx/ripimage_texture.hpp"
 
 #endif

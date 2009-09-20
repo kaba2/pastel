@@ -30,7 +30,7 @@ namespace
 		loadPcx("lena.pcx", textureImage);
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage));
-		EwaImageTexture<Color> texture(mipMap);
+		EwaImage_Texture<Color> texture(mipMap);
 		transform(mipMap, fitColor);
 
 		Array<Color, 2> image(500, 100);
@@ -133,7 +133,7 @@ namespace
 		MipMap<2, Color> mipMap(constArrayView(texture));
 		transform(mipMap, fitColor);
 
-		MipImageTexture<Color> sampler(mipMap);
+		MipImage_Texture<Color> sampler(mipMap);
 
 		log() << "Rendering.." << logNewLine;
 
@@ -171,7 +171,7 @@ namespace
 			Vector3(600, 600, 10));
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage));
-		EwaImageTexture<Color> texture(mipMap);
+		EwaImage_Texture<Color> texture(mipMap);
 		transform(mipMap, fitColor);
 
 		for (integer i = 0;i < 5;++i)
@@ -201,7 +201,7 @@ namespace
 		MipMap<2, Color> mipMap(constArrayView(texture));
 		transform(mipMap, fitColor);
 
-		MipImageTexture<Color> sampler(mipMap);
+		MipImage_Texture<Color> sampler(mipMap);
 
 		log() << "Rendering.." << logNewLine;
 
@@ -239,7 +239,7 @@ namespace
 			Vector2(600, 600));
 
 		MipMap<2, Color> mipMap(constArrayView(textureImage));
-		EwaImageTexture<Color> texture(mipMap);
+		EwaImage_Texture<Color> texture(mipMap);
 		transform(mipMap, fitColor);
 
 		TriangleFilter ewaFilter;

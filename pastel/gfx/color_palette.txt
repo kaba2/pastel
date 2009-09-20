@@ -1,5 +1,5 @@
-Palette
-=======
+Color palettes
+==============
 
 [Parent]: color.txt
 

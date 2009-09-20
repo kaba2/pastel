@@ -54,7 +54,7 @@ namespace
 		const AlignedBox2 box(0, 0, Width, Height);
 
 		{
-			NearestImageTexture<Color> texture(textureImage,
+			NearestImage_Texture<Color> texture(textureImage,
 				ArrayExtender<2, Color>(clampExtender()));
 
 			drawTexturedBox(
@@ -64,7 +64,7 @@ namespace
 				textureBox);
 		}
 		{
-			BilinearImageTexture<Color> texture(textureImage);
+			BilinearImage_Texture<Color> texture(textureImage);
 
 			drawTexturedBox(
 				box + Vector2(Width, Height),
@@ -73,7 +73,7 @@ namespace
 				textureBox);
 		}
 		{
-			EwaImageTexture<Color> texture(mipMap,
+			EwaImage_Texture<Color> texture(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(1));
 
@@ -84,7 +84,7 @@ namespace
 				textureBox);
 		}
 		{
-			EwaImageTexture<Color> texture(mipMap,
+			EwaImage_Texture<Color> texture(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2));
 
@@ -144,22 +144,22 @@ namespace
 
 		std::vector<Texture<Color>::Ptr> textureList;
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImageTexture<Color>(mipMap,
+			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(1))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImageTexture<Color>(mipMap,
+			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				gaussianFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new EwaImageTexture<Color>(mipMap,
+			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new BilinearImageTexture<Color>(textureImage,
+			Texture<Color>::Ptr(new BilinearImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 		textureList.push_back(
-			Texture<Color>::Ptr(new NearestImageTexture<Color>(textureImage,
+			Texture<Color>::Ptr(new NearestImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 
 		const AlignedBox2 textureBox(0.4, 0.4, 0.6, 0.6);
@@ -191,7 +191,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		MipImageTexture<Color> mipmapSampler(mipMap);
+		MipImage_Texture<Color> mipmapSampler(mipMap);
 
 		drawTexturedBox(
 			AlignedBox2(0, 400, 100, 500),
@@ -215,7 +215,7 @@ namespace
 			mipmapSampler,
 			arrayView(image));
 
-		EwaImageTexture<Color> texture(mipMap);
+		EwaImage_Texture<Color> texture(mipMap);
 
 		drawTexturedBox(
 			AlignedBox2(450, 250, 550, 350),
@@ -359,20 +359,20 @@ namespace
 
 		ConstIndexExtenderPtr extender = repeatExtender();
 
-		EwaImageTexture<Color> textureEwaGaussian1(
+		EwaImage_Texture<Color> textureEwaGaussian1(
 			mipMap, ArrayExtender<2, Color>(extender), gaussianFilter(1));
-		EwaImageTexture<Color> textureEwaGaussian2(
+		EwaImage_Texture<Color> textureEwaGaussian2(
 			mipMap, ArrayExtender<2, Color>(extender), gaussianFilter(2));
-		EwaImageTexture<Color> textureEwaLanczos2(
+		EwaImage_Texture<Color> textureEwaLanczos2(
 			mipMap, ArrayExtender<2, Color>(extender), lanczosFilter(2));
-		EwaImageTexture<Color> textureEwaMitchell(
+		EwaImage_Texture<Color> textureEwaMitchell(
 			mipMap, ArrayExtender<2, Color>(extender), mitchellFilter());
-		EwaImageTexture<Color> textureEwaBox(
+		EwaImage_Texture<Color> textureEwaBox(
 			mipMap, ArrayExtender<2, Color>(extender), boxFilter());
-		EwaImageTexture<Color> textureEwaTriangle(
+		EwaImage_Texture<Color> textureEwaTriangle(
 			mipMap, ArrayExtender<2, Color>(extender), triangleFilter());
-		MipImageTexture<Color> textureMip(mipMap);
-		RipImageTexture<Color> textureRip(ripMap);
+		MipImage_Texture<Color> textureMip(mipMap);
+		RipImage_Texture<Color> textureRip(ripMap);
 
 		std::vector<KeyValue<std::string, Texture<Color>*> > textureList;
 
@@ -409,7 +409,7 @@ namespace
 
 		/*
 		MipMap<2, Color> distortMipMap(constArrayView(image));
-		EwaImageTexture<Color> distortTexture(distortMipMap);
+		EwaImage_Texture<Color> distortTexture(distortMipMap);
 		transform(distortMipMap, fitColor);
 
 		clear(Color(0), arrayView(image));
@@ -454,7 +454,7 @@ namespace
 
 		/*
 			MipMap<2, Color> distortMipMap(constArrayView(image));
-			EwaImageTexture<Color> distortTexture(distortMipMap);
+			EwaImage_Texture<Color> distortTexture(distortMipMap);
 			transform(distortMipMap, fitColor);
 
 			clear(Color(0), arrayView(image));
@@ -517,7 +517,7 @@ namespace
 
 			clear(Color(0), arrayView(image));
 
-			EwaImageTexture<Color> texture(mipMap);
+			EwaImage_Texture<Color> texture(mipMap);
 
 			drawProjectiveQuad(
 				quad,

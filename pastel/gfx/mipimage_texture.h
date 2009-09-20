@@ -1,8 +1,9 @@
-// Description: MipImageTexture class
-// Detail: Resampling by mipmap filtering and multilinear reconstruction
+// Description: MipImage_Texture class
+// Detail: Image-based texture with bilinear reconstruction and mip-filtering.
+// Documentation: texture.txt
 
-#ifndef PASTEL_MIPIMAGETEXTURE_H
-#define PASTEL_MIPIMAGETEXTURE_H
+#ifndef PASTEL_MIPIMAGE_TEXTURE_H
+#define PASTEL_MIPIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/dsp/mipmap.h"
@@ -18,13 +19,13 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class MipImageTexture
+	class MipImage_Texture
 		: public Texture<Type>
 	{
 	public:
-		MipImageTexture();
+		MipImage_Texture();
 
-		explicit MipImageTexture(
+		explicit MipImage_Texture(
 			const MipMap<2, Type>& mipMap,
 			const ArrayExtender<2, Type>& extender = ArrayExtender<2, Type>());
 
@@ -54,14 +55,14 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	MipImageTexture<Type> mipImageTexture(
+	MipImage_Texture<Type> mipImageTexture(
 		const MipMap<2, Type>& mipMap)
 	{
-		return MipImageTexture<Type>(mipMap);
+		return MipImage_Texture<Type>(mipMap);
 	}
 
 }
 
-#include "pastel/gfx/mipimagetexture.hpp"
+#include "pastel/gfx/mipimage_texture.hpp"
 
 #endif

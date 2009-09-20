@@ -1,8 +1,8 @@
-#ifndef PASTEL_EWAIMAGETEXTURE_HPP
-#define PASTEL_EWAIMAGETEXTURE_HPP
+#ifndef PASTEL_EWAIMAGE_TEXTURE_HPP
+#define PASTEL_EWAIMAGE_TEXTURE_HPP
 
-#include "pastel/gfx/ewaimagetexture.h"
-#include "pastel/gfx/bilinearimagetexture.h"
+#include "pastel/gfx/ewaimage_texture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
 
 #include "pastel/geometry/ellipsoid.h"
 
@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename Type>
-	Type EwaImageTexture<Type>::operator()(
+	Type EwaImage_Texture<Type>::operator()(
 		const Vector2& p_,
 		const Vector2& dpDx_,
 		const Vector2& dpDy_) const
@@ -204,7 +204,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Type EwaImageTexture<Type>::sampleEwa(
+	Type EwaImage_Texture<Type>::sampleEwa(
 		const Vector2& p,
 		const Matrix2& quadraticForm,
 		const AlignedBox2& bound,

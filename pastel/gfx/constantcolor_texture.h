@@ -1,8 +1,9 @@
-// Description: ConstantColorTexture
-// Detail: A texture of constant color
+// Description: ConstantColor_Texture class
+// Detail: A texture of constant color.
+// Documentation: texture.txt
 
-#ifndef PASTEL_CONSTANTCOLORTEXTURE_H
-#define PASTEL_CONSTANTCOLORTEXTURE_H
+#ifndef PASTEL_CONSTANTCOLOR_TEXTURE_H
+#define PASTEL_CONSTANTCOLOR_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 
@@ -10,22 +11,22 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class ConstantColorTexture
+	class ConstantColor_Texture
 		: public Texture<Type>
 	{
 	public:
-		ConstantColorTexture()
+		ConstantColor_Texture()
 			: color_()
 		{
 		}
 
-		explicit ConstantColorTexture(
+		explicit ConstantColor_Texture(
 			const Type& color)
 			: color_(color)
 		{
 		}
 
-		virtual ~ConstantColorTexture()
+		virtual ~ConstantColor_Texture()
 		{
 		}
 
@@ -47,10 +48,10 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	ConstantColorTexture<Type> constantColorTexture(
+	ConstantColor_Texture<Type> constantColorTexture(
 		const PASTEL_NO_DEDUCTION(Type)& color)
 	{
-		return ConstantColorTexture<Type>(color);
+		return ConstantColor_Texture<Type>(color);
 	}
 
 }

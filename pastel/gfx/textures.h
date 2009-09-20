@@ -5,22 +5,22 @@
 
 // Synthetic textures
 
-#include "pastel/gfx/constantcolortexture.h"
-#include "pastel/gfx/bilinearcolortexture.h"
-#include "pastel/gfx/bilineartriangletexture.h"
+#include "pastel/gfx/constantcolor_texture.h"
+#include "pastel/gfx/bilinearcolor_texture.h"
+#include "pastel/gfx/bilineartriangle_texture.h"
 
 // Image textures
 
-#include "pastel/gfx/nearestimagetexture.h"
-#include "pastel/gfx/bilinearimagetexture.h"
-#include "pastel/gfx/mipimagetexture.h"
-#include "pastel/gfx/ripimagetexture.h"
-#include "pastel/gfx/ewaimagetexture.h"
+#include "pastel/gfx/nearestimage_texture.h"
+#include "pastel/gfx/bilinearimage_texture.h"
+#include "pastel/gfx/mipimage_texture.h"
+#include "pastel/gfx/ripimage_texture.h"
+#include "pastel/gfx/ewaimage_texture.h"
 
 // Modifier textures
 
-#include "pastel/gfx/mixtexture.h"
-#include "pastel/gfx/combinetexture.h"
-#include "pastel/gfx/transformtexture.h"
+#include "pastel/gfx/mix_texture.h"
+#include "pastel/gfx/combine_texture.h"
+#include "pastel/gfx/transform_texture.h"
 
 #endif

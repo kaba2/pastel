@@ -1,8 +1,9 @@
-// Description: CombineTexture class
-// Detail: A texture which combines two textures with a ColorMixer.
+// Description: Combine_Texture class
+// Detail: A point-wise combination of two textures.
+// Documentation: texture.txt
 
-#ifndef PASTEL_COMBINETEXTURE_H
-#define PASTEL_COMBINETEXTURE_H
+#ifndef PASTEL_COMBINE_TEXTURE_H
+#define PASTEL_COMBINE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
 #include "pastel/gfx/colormixer.h"
@@ -11,11 +12,11 @@ namespace Pastel
 {
 
 	template <typename Type>
-	class CombineTexture
+	class Combine_Texture
 		: public Texture<Type>
 	{
 	public:
-		CombineTexture(
+		Combine_Texture(
 			const Texture<Type>& aSampler,
 			const Texture<Type>& bSampler,
 			const ColorMixer<Type>& colorMixer)
@@ -25,7 +26,7 @@ namespace Pastel
 		{
 		}
 
-		virtual ~CombineTexture()
+		virtual ~Combine_Texture()
 		{
 		}
 
@@ -51,12 +52,12 @@ namespace Pastel
 	};
 
 	template <typename Type>
-	CombineTexture<Type> combineTexture(
+	Combine_Texture<Type> combineTexture(
 		const Texture<Type>& aSampler,
 		const Texture<Type>& bSampler,
 		const ColorMixer<Type>& colorMixer)
 	{
-		return CombineTexture<Type>(aSampler, bSampler, colorMixer);
+		return Combine_Texture<Type>(aSampler, bSampler, colorMixer);
 	}
 
 }
