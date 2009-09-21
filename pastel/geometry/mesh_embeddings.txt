@@ -1,4 +1,0 @@
-Mesh embeddings
-===============
-
-[Parent]: meshes.txt

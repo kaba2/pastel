@@ -11,7 +11,6 @@
 #include "pastel/gfx/gfxrenderer_tools.h"
 
 #include "pastel/geometry/convexhull.h"
-#include "pastel/geometry/diameter.h"
 
 #include <iostream>
 

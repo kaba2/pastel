@@ -1,6 +1,6 @@
 // Description: Statistics from samples
 // Detail: mean, axisAlignedVariance, etc.
-// Documentation: pastelmath.txt
+// Documentation: common.txt
 
 #ifndef PASTELMATH_STATISTICS_H
 #define PASTELMATH_STATISTICS_H

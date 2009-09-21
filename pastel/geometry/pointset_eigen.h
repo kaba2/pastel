@@ -1,9 +1,8 @@
-// Description: Eigenvectors and eigenvalues
+// Description: Eigenvectors and eigenvalues of point-sets
 // Detail: Eigenstructure of the covariance matrix of a point-set
-// Documentation: linear_algebra.txt
 
-#ifndef PASTEL_EIGENSTRUCTURE_H
-#define PASTEL_EIGENSTRUCTURE_H
+#ifndef PASTEL_POINTSET_EIGEN_H
+#define PASTEL_POINTSET_EIGEN_H
 
 #include "pastel/sys/vector.h"
 
@@ -12,11 +11,16 @@
 namespace Pastel
 {
 
+	//! Computes an approximation of the largest eigenvector of a point-set.
+	/*!
+	Complexity:
+	O(pointSet.size() * dimension)
+	*/
 	template <int N, typename Real>
 	Vector<Real, N> largestEigenVector(
 		const std::vector<Vector<Real, N> >& pointSet);
 
-	//! Computes an approximation of the eigenstructure.
+	//! Computes an approximation of the eigenstructure of a point-set.
 	/*!
 	Preconditions:
 	eigenvectors > 0
@@ -49,6 +53,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/eigenstructure.hpp"
+#include "pastel/geometry/pointset_eigen.hpp"
 
 #endif

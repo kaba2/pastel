@@ -1,5 +1,6 @@
 // Description: Interval class
 // Detail: Allows to work with real intervals
+// Documentation: numbers.txt
 
 #ifndef PASTEL_INTERVAL_H
 #define PASTEL_INTERVAL_H

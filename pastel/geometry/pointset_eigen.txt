@@ -1,0 +1,24 @@
+Eigenstructure of a point-set
+=============================
+
+[Parent]: pointset_properties.txt
+
+Theory
+------
+
+An _eigenvector of a point-set_ is an eigenvector
+of the covariance matrix of the point-set.
+An _eigenvalue of a point-set_ is an eigenvalue
+corresponding to an eigenvector of the point-set.
+
+Practice
+--------
+
+Pastel uses the PASTd algorithm to efficiently compute approximate
+eigenvectors and eigenvalues for point-sets.
+
+References
+----------
+
+_Projection Approximation Subspace Tracking_, Bin Yang,
+IEEE Transactions on Signal Processing, vol. 43, no.1, Jan. 1995.

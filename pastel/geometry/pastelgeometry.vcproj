@@ -398,6 +398,14 @@
 			Name="Common"
 			>
 			<File
+				RelativePath=".\barycentric.h"
+				>
+			</File>
+			<File
+				RelativePath=".\barycentric.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\common.txt"
 				>
 			</File>
@@ -419,6 +427,14 @@
 			</File>
 			<File
 				RelativePath=".\pastelgeometry.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\predicates.h"
+				>
+			</File>
+			<File
+				RelativePath=".\predicates.hpp"
 				>
 			</File>
 		</Filter>
@@ -1403,154 +1419,6 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Needs more thought"
-			>
-			<File
-				RelativePath=".\barycentric.h"
-				>
-			</File>
-			<File
-				RelativePath=".\barycentric.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\closest_point.h"
-				>
-			</File>
-			<File
-				RelativePath=".\needs_more_thought.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\predicates.h"
-				>
-			</File>
-			<File
-				RelativePath=".\predicates.hpp"
-				>
-			</File>
-			<Filter
-				Name="Antipodal"
-				>
-				<File
-					RelativePath=".\antipodal.h"
-					>
-				</File>
-				<File
-					RelativePath=".\antipodal.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Meshes"
-				>
-				<Filter
-					Name="Topology"
-					>
-					<Filter
-						Name="SimplexMesh"
-						>
-						<File
-							RelativePath=".\simplexmesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh.txt"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh_datapolicies.h"
-							>
-						</File>
-						<File
-							RelativePath=".\simplexmesh_design.txt"
-							>
-						</File>
-					</Filter>
-					<Filter
-						Name="TriangleMesh"
-						>
-						<File
-							RelativePath=".\trianglemesh.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemesh.h"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemesh.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemesh.txt"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemeshplyloader.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\trianglemeshplyloader.h"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Embeddings"
-					>
-					<File
-						RelativePath=".\flatsimplexmesh.h"
-						>
-					</File>
-					<File
-						RelativePath=".\mesh_embeddings.txt"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="BoxCollider"
-				>
-				<File
-					RelativePath=".\boxcollider.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="File loaders"
-				>
-				<File
-					RelativePath=".\plyloader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\plyloader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\plyloader.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Sweeping"
-				>
-				<File
-					RelativePath=".\sweep.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sweep.hpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
 			Name="Properties of point-sets"
 			>
 			<File
@@ -1561,15 +1429,35 @@
 				Name="Diameter"
 				>
 				<File
+					RelativePath=".\alignedbox_diameter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox_diameter.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\box_diameter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\box_diameter.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\diameter.h"
 					>
 				</File>
 				<File
-					RelativePath=".\diameter.hpp"
+					RelativePath=".\diameter.txt"
 					>
 				</File>
 				<File
-					RelativePath=".\diameter.txt"
+					RelativePath=".\sphere_diameter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sphere_diameter.hpp"
 					>
 				</File>
 			</Filter>
@@ -1654,6 +1542,22 @@
 				</File>
 				<File
 					RelativePath=".\convexhull.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Eigenstructure"
+				>
+				<File
+					RelativePath=".\pointset_eigen.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointset_eigen.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pointset_eigen.txt"
 					>
 				</File>
 			</Filter>

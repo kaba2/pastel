@@ -306,6 +306,10 @@
 			Name="Common"
 			>
 			<File
+				RelativePath=".\common.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\mathlibrary.cpp"
 				>
 			</File>
@@ -350,51 +354,11 @@
 			Name="Numbers"
 			>
 			<File
-				RelativePath=".\biginteger.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\biginteger.h"
-				>
-			</File>
-			<File
-				RelativePath=".\biginteger_more.h"
-				>
-			</File>
-			<File
-				RelativePath=".\biginteger_more.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\biginteger_tools.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\biginteger_tools.h"
-				>
-			</File>
-			<File
 				RelativePath=".\integer_tools.h"
 				>
 			</File>
 			<File
 				RelativePath=".\integer_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\interval.h"
-				>
-			</File>
-			<File
-				RelativePath=".\interval.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\interval_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\interval_tools.hpp"
 				>
 			</File>
 			<File
@@ -406,29 +370,97 @@
 				>
 			</File>
 			<File
-				RelativePath=".\rational.h"
+				RelativePath=".\numbers.txt"
 				>
 			</File>
-			<File
-				RelativePath=".\rational.hpp"
+			<Filter
+				Name="BigInteger"
 				>
-			</File>
-			<File
-				RelativePath=".\rational_more.h"
+				<File
+					RelativePath=".\biginteger.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\biginteger.h"
+					>
+				</File>
+				<File
+					RelativePath=".\biginteger.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\biginteger_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\biginteger_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\biginteger_tools.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\biginteger_tools.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Rational"
 				>
-			</File>
-			<File
-				RelativePath=".\rational_more.hpp"
+				<File
+					RelativePath=".\rational.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rational.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\rational.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\rational_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rational_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\rational_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rational_tools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Interval"
 				>
-			</File>
-			<File
-				RelativePath=".\rational_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\rational_tools.hpp"
-				>
-			</File>
+				<File
+					RelativePath=".\interval.h"
+					>
+				</File>
+				<File
+					RelativePath=".\interval.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\interval.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\interval_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\interval_tools.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Polynomials"
@@ -439,6 +471,10 @@
 			</File>
 			<File
 				RelativePath=".\polynomial.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\polynomial.txt"
 				>
 			</File>
 			<File
@@ -457,18 +493,6 @@
 				RelativePath=".\linear_algebra.txt"
 				>
 			</File>
-			<Filter
-				Name="Eigenstructure"
-				>
-				<File
-					RelativePath=".\eigenstructure.h"
-					>
-				</File>
-				<File
-					RelativePath=".\eigenstructure.hpp"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="Matrix"
 				>

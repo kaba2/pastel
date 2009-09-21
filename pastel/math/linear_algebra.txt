@@ -85,6 +85,15 @@ express more analytical solutions that linear algebra
 planes in ''RR^4'''). Particularly interesting would be
 the geometric algebras of ''RR^2'' and ''RR^3''.
 
+References
+----------
+
+_Vector Calculus, Linear Algebra, and Differential Forms: A Unified Approach_, 
+2nd. ed., John H. Hubbard, Barbara Burke Hubbard, 2002.
+
+_Geometric Algebra for Computer Science_, 
+Leo Dorst, Daniel Fontijne, Stephen Mann, 2007.
+
 See also
 --------
 

@@ -7,7 +7,7 @@
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"
-#include "pastel/math/eigenstructure.h"
+#include "pastel/geometry/pointset_eigen.h"
 #include "pastel/math/orthonormal.h"
 
 #include "pastel/gl/glgfxrenderer.h"

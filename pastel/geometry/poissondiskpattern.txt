@@ -28,6 +28,6 @@ on randomization.
 References
 ----------
 
-"Fast poisson disk sampling in arbitrary dimensions",
+_Fast Poisson-Disk Sampling in Arbitrary Dimensions_,
 Robert Bridson, Siggraph 2007.
 

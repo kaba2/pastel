@@ -41,6 +41,12 @@ generate a uniformly distributed sample rather than distort an
 existing distribution. In this case the generalization
 exists for all listed cases. See the link below for more
 information.
+
+References
+----------
+
+_Physically Based Rendering_: From Theory to Implementation_, 
+Matt Pharr, Greg Humphreys, 2004.
  
 See also
 --------

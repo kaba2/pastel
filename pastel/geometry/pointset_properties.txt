@@ -3,3 +3,13 @@ Point-set properties
 
 [Parent]: pastelgeometry.txt
 
+Theory
+------
+
+A _point-set S in ''RR^n''_ is simply a subset ''S sub RR^n'',
+with no restrictions on cardinality.
+
+References
+----------
+
+_Geometric Tools for Computer Graphics_, Philip J. Schneider, David Eberly, 2003.
