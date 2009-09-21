@@ -1,4 +1,4 @@
-// Description: Distance computation between a plane and a point
+// Description: Distance between a plane and a point
 
 #ifndef PASTEL_DISTANCE_PLANE_POINT_H
 #define PASTEL_DISTANCE_PLANE_POINT_H

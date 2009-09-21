@@ -63,6 +63,14 @@ is referred to as 'rply.lib' (release mode) and
 come with precompiled .lib files, so you must first compile
 and link the RPly library yourself from the source files.
 
+### Official Mersenne Twister source code
+
+<http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/emt19937ar.html>
+
+Pastel integrates a minimally modified version of the official
+Mersenne Twister source code directly into the PastelSys library. 
+No installation is needed.
+
 Internal dependencies
 ---------------------
 

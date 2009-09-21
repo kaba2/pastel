@@ -1,4 +1,4 @@
-// Description: Log-normal distributed random numbers
+// Description: Log-normal-distributed random numbers
 
 #ifndef PASTEL_RANDOM_LOGNORMAL_H
 #define PASTEL_RANDOM_LOGNORMAL_H

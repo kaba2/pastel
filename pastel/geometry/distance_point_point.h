@@ -1,3 +1,5 @@
+// Description: Distance between two points
+
 #ifndef PASTEL_DISTANCE_POINT_POINT_H
 #define PASTEL_DISTANCE_POINT_POINT_H
 

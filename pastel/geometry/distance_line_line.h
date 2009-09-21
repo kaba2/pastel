@@ -1,4 +1,4 @@
-// Description: Distance computation between two lines
+// Description: Distance between two lines
 
 #ifndef PASTEL_DISTANCE_LINE_LINE_H
 #define PASTEL_DISTANCE_LINE_LINE_H

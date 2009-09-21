@@ -46,16 +46,17 @@ namespace Pastel
 		<=>
 		x = -ln(1 - t) / a
 
-		So if we pick t a uniform random number in [0, 1],
+		So if we pick t a uniform random number in [0, 1[,
 		then -ln(1 - t) / a is exponentially distributed.
 		We simplify this further as follows. First, if t is 
-		uniformly distributed in [0, 1], then so is
-		1 - t. Second, we can assume a = 1 without loss of
+		uniformly distributed in [0, 1[, then 1 - t is
+		uniformly distributed in ]0, 1]. 
+		Second, we can assume a = 1 without loss of
 		generality and let the user do the scaling
 		if needed. This improves performance.
 		*/
 
-		return -std::log(random<Real>());
+		return -std::log(random1<Real>());
 	}
 
 	template <typename Real>

@@ -7,30 +7,65 @@
 namespace Pastel
 {
 
-	namespace Detail_RandomUniform
+
+	inline integer randomInteger()
 	{
+		// Modified from the official Mersenne Twister source code.
+		return (integer)(Pastel::randomUint32() >> 1);
+	}
 
-		PASTELSYS real32 randomReal32();
-		PASTELSYS real64 randomReal64();
+	inline integer randomInteger(integer min, integer max)
+	{
+		// Note this works correctly even if
+		// min = 0 and max = 0x7fffffff, because
+		// of the 2-complement wrap-around.
 
-		PASTELSYS real32 randomExponentialReal32();
-		PASTELSYS real64 randomExponentialReal64();
-
+		return (integer)(Pastel::randomUint32() % (uint32)(max - min + 1)) + min;
 	}
 
 	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real32>, real32>::type 
-		random()
+	Real random()
 	{
-		return Detail_RandomUniform::randomReal32();
+		// These real versions are due to Isaku Wada, 2002/01/09.
+		// Modified from the official Mersenne Twister source code.
+
+		return randomUint32() * ((Real)1.0 / (Real)4294967295.0); 
+		// divided by 2^32 - 1
 	}
 
 	template <typename Real>
-	typename boost::enable_if<boost::is_same<Real, real64>, real64>::type 
-		random()
+	Real random0()
 	{
-		return Detail_RandomUniform::randomReal64();
+		// These real versions are due to Isaku Wada, 2002/01/09.
+		// Modified from the official Mersenne Twister source code.
+
+		return randomUint32() * ((Real)1.0 / (Real)4294967296.0); 
+		// divided by 2^32
 	}
+
+	template <typename Real>
+	Real random1()
+	{
+		// These real versions are due to Isaku Wada, 2002/01/09.
+		// Modified from the official Mersenne Twister source code.
+
+		return ((Real)randomUint32() + (Real)0.5) * 
+			((Real)1.0 / (Real)4294967296.0); 
+		// divided by 2^32
+	}
+
+	template <typename Real>
+	Real random53() 
+	{ 
+		// These real versions are due to Isaku Wada, 2002/01/09.
+		// Modified from the official Mersenne Twister source code.
+
+		const uint32 a = randomUint32() >> 5;
+		const uint32 b = randomUint32() >> 6; 
+
+		return (a * (Real)67108864.0 + b) * 
+			((Real)1.0 / (Real)9007199254740992.0); 
+	} 
 
 	template <typename Real>
 	Real random(

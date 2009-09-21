@@ -13,22 +13,6 @@ namespace Pastel
 	/*!
 	Preconditions:
 	shape > 0
-	scale >= 0
-
-	This is a convenience function that calls:
-	randomGeneralizedGaussian<Real>(shape) * scale.
-	
-	See the documentation for that function.
-	*/
-	template <typename Real>
-	Real randomGeneralizedGaussian(
-		const PASTEL_NO_DEDUCTION(Real)& shape, 
-		const PASTEL_NO_DEDUCTION(Real)& scale);
-
-	//! Returns a generalized-gaussian-distributed random real.
-	/*!
-	Preconditions:
-	shape > 0
 
 	This function assumes that the scale-parameter is 1.
 	The Generalized Gaussian distribution corresponds
@@ -41,6 +25,22 @@ namespace Pastel
 	template <typename Real>
 	Real randomGeneralizedGaussian(
 		const PASTEL_NO_DEDUCTION(Real)& shape);
+
+	//! Returns a generalized-gaussian-distributed random real.
+	/*!
+	Preconditions:
+	shape > 0
+	scale >= 0
+
+	This is a convenience function that calls:
+	randomGeneralizedGaussian<Real>(shape) * scale.
+	
+	See the documentation for that function.
+	*/
+	template <typename Real>
+	Real randomGeneralizedGaussian(
+		const PASTEL_NO_DEDUCTION(Real)& shape, 
+		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	//! Converts variance to Generalized Gaussian scale parameter.
 	/*!

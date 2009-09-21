@@ -17,7 +17,7 @@ namespace Pastel
 		const integer n = shape.size() - 1;
 		Vector<Real, ModifyN<N, N - 1>::Result> u(ofDimension(n));
 
-		Real gammaSum = randomGamma<Real>(shape[n]);
+		Real gammaSum = 0;
 		for (integer i = 0;i < n;++i)
 		{
 			const Real t = randomGamma<Real>(shape[i]);
@@ -25,6 +25,12 @@ namespace Pastel
 			u[i] = t;
 			gammaSum += t;
 		}
+
+		do
+		{
+			gammaSum += randomGamma<Real>(shape[n])
+		}
+		while(gammaSum == 0);
 		
 		u /= gammaSum;
 

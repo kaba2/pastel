@@ -33,7 +33,7 @@ namespace Pastel
 	//! Generates a palette good for false color images.
 
 	PASTELGFX void falseColorPalette(std::vector<Color>& palette,
-		integer count = 256, integer seed = 42);
+		integer count = 256);
 
 }
 

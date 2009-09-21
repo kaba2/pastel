@@ -19,7 +19,13 @@ namespace Pastel
 		PENSURE_OP(b, >, 0);
 
 		const Real u = randomGamma<Real>(a);
-		const Real v = randomGamma<Real>(b);
+		
+		Real v = 0;
+		do
+		{
+			v = randomGamma<Real>(b);
+		}
+		while(u + v == 0);
 
 		return u / (u + v);
 	}
