@@ -5,7 +5,7 @@
 #include "pastel/geometry/poissondiskpattern.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 #include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
 

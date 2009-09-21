@@ -8,7 +8,7 @@
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/array.h"
 
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 
 namespace Pastel
 {

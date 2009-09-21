@@ -5,7 +5,7 @@
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 #include "pastel/gfx/imagegfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/dsp/mipmap_tools.h"
@@ -35,7 +35,7 @@ namespace
 
 		Array<Color, 2> image(500, 100);
 
-		distortAnnulusToAlignedBox(
+		drawTexturedAnnulus(
 			texture,
 			Vector2(0.5),
 			0.25,

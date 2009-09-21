@@ -5,7 +5,7 @@
 #include "pastel/geometry/bounding_alignedbox.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 #include "pastel/gfx/imagegfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_tools.h"

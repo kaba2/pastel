@@ -1,75 +1,16 @@
-#ifndef PASTEL_DRAWING_MORE2_HPP
-#define PASTEL_DRAWING_MORE2_HPP
+#ifndef PASTEL_DRAW_TEXTURED_ANNULUS_HPP
+#define PASTEL_DRAW_TEXTURED_ANNULUS_HPP
 
-#include "pastel/gfx/drawing_more2.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/draw_textured_annulus.h"
 
-#include "pastel/sys/view.h"
-
-#include "pastel/geometry/planar_projection.h"
+#include "pastel/sys/vector_compare.h"
+#include "pastel/sys/rectangle_tools.h"
 
 namespace Pastel
 {
 
-	template <typename Type,
-		typename Image_View, typename ColorMixer>
-	void drawProjectiveQuad(
-		const Tuple<Vector2, 4>& quad,
-		const Texture<Type>& texture,
-		const View<2, Type, Image_View>& image,
-		const Tuple<Vector2, 4>& textureQuad,
-		const ColorMixer& colorMixer)
-	{
-		const Matrix3 matrix = projectiveTransformation(textureQuad, quad);
-
-		const Vector3 a(wDivide(evaluate(extend(textureQuad[0], 1) * matrix)));
-		const Vector3 b(wDivide(evaluate(extend(textureQuad[1], 1) * matrix)));
-		const Vector3 c(wDivide(evaluate(extend(textureQuad[2], 1) * matrix)));
-		const Vector3 d(wDivide(evaluate(extend(textureQuad[3], 1) * matrix)));
-
-		drawTriangle(
-			Triangle3(a, b, d),
-			Triangle2(textureQuad[0], textureQuad[1], textureQuad[3]),
-			texture,
-			image);
-
-		drawTriangle(
-			Triangle3(b, c, d),
-			Triangle2(textureQuad[1], textureQuad[2], textureQuad[3]),
-			texture,
-			image);
-	}
-
-	template <typename Type, typename Image_View>
-	void drawProjectiveQuad(
-		const Tuple<Vector2, 4>& quad,
-		const Texture<Type>& texture,
-		const View<2, Type, Image_View>& image,
-		const Tuple<Vector2, 4>& textureQuad)
-	{
-		Pastel::drawProjectiveQuad(quad,
-			texture, image, textureQuad,
-			assignColorMixer<Type>());
-	}
-
-	template <typename Type, typename Image_View>
-	void drawProjectiveQuad(
-		const Tuple<Vector2, 4>& quad,
-		const Texture<Type>& texture,
-		const View<2, Type, Image_View>& image)
-	{
-		Pastel::drawProjectiveQuad(quad,
-			texture, image,
-			Tuple<Vector2, 4>(
-			Vector2(0, 0),
-			Vector2(1, 0),
-			Vector2(1, 1),
-			Vector2(0, 1)),
-			assignColorMixer<Type>());
-	}
-
 	template <typename Type, typename Image_View, typename ColorMixer>
-	void distortAnnulusToAlignedBox(
+	void drawTexturedAnnulus(
 		const Texture<Type>& texture,
 		const Vector2& annulusCenter,
 		real annulusStartRadius,
