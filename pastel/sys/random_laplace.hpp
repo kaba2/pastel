@@ -21,7 +21,13 @@ namespace Pastel
 		additional random variable.
 		*/
 
-		const Real u = random<Real>(-1, 1);
+		Real u = 0;
+		do
+		{
+			u = random<Real>(-1, 1);
+		}
+		while(u == 0);
+
 		if (u < 0)
 		{
 			// Negative side.

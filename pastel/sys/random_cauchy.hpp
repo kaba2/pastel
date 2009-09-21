@@ -14,11 +14,12 @@ namespace Pastel
 	{
 		const Real u = randomGaussian<Real>();
 		
-		Real v = randomGaussian<Real>();
-		while (v == 0)
+		Real v = 0;
+		do
 		{
 			v = randomGaussian<Real>();
 		}
+		while (v == 0);
 
 		return u / v;
 	}

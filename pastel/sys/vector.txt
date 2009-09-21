@@ -6,7 +6,7 @@ Vector class
 Theory
 ------
 
-A vector space is a 4-tuple ''(V, F, +, \*)''
+A _vector space_ is a 4-tuple ''(V, F, +, \*)''
 where
 
  * ''F'' is a field.
@@ -22,7 +22,7 @@ where
 Practice
 --------
 
-Pastel implements a class template Vector to
+Pastel implements the Vector class template to
 model vectors in ''F^n'' over ''F'', where ''F'' is an ordered field
 (such as real numbers or rational numbers).
 
@@ -159,7 +159,7 @@ corresponds in performance to:
 	y[1] = 2 * x[1] + 4
 	y[2] = 2 * x[2] + 4
 
-This is achieved by using expression templates,
+This is achieved by using _expression templates_,
 i.e. by building a compile-time tree of an expression
 and evaluating it lazily. This converts the evaluation
 of the expression tree from depth-first to breadth-first. 

@@ -14,6 +14,8 @@ namespace Pastel
 	Real randomGeneralizedGaussian(
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
+		PENSURE_OP(shape, >, 0);
+
 		// See "Computer generation of the exponential power
 		// distributions", Johnson, M. E., 
 		// Journal of Statistical Computation and Simulation, 9,

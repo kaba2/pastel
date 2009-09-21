@@ -1221,6 +1221,14 @@
 			Name="Random variables"
 			>
 			<File
+				RelativePath=".\mt19937.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\mt19937.h"
+				>
+			</File>
+			<File
 				RelativePath=".\random.h"
 				>
 			</File>
@@ -1293,14 +1301,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\random_generator.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\random_generator.h"
-				>
-			</File>
-			<File
 				RelativePath=".\random_laplace.h"
 				>
 			</File>
@@ -1322,10 +1322,6 @@
 			</File>
 			<File
 				RelativePath=".\random_triangle.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\random_uniform.cpp"
 				>
 			</File>
 			<File

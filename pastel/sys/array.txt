@@ -89,13 +89,25 @@ For example, Matlab uses column-major storage order.
 
 _Resizing_ changes the extents of an Array. In this process, those coordinates
 which are inside the new extents preserve their value, and the possible
-newly created elements are assigned a given value.
+newly created elements are assigned a given value. For example,
+a 2-dimensional integer array with extents (3, 4)
+
+	[1,   2,  3]
+	[4,   5,  6]
+	[7,   8,  9]
+	[10, 11, 12]
+
+can be resized into a 2-dimensional array with extents (6, 2)
+and assigning new elements zero value:
+
+	[1, 2, 3, 0, 0, 0]
+	[4, 5, 6, 0, 0, 0]
 
 ### Reshaping
 
 _Reshaping_ is the reinterpretation of the elements currently in the 
 array as an array with different extents. Reshaping requires that the
-Old extents and the new extents cover the same amount of elements.
+old extents and the new extents cover the same amount of elements.
 No memory is allocated or deallocated in this process.
 For example, a 2-dimensional integer array with extents (3, 4)
 

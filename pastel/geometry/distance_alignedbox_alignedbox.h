@@ -1,3 +1,5 @@
+// Description: Distance between two aligned boxes
+
 #ifndef PASTEL_DISTANCE_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTEL_DISTANCE_ALIGNEDBOX_ALIGNEDBOX_H
 

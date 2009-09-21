@@ -3,7 +3,6 @@
 #include "pastel/gfx/color_hsv.h"
 
 #include "pastel/sys/random.h"
-#include "pastel/sys/random_generator.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel
@@ -169,11 +168,9 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
-	PASTELGFX void falseColorPalette(std::vector<Color>& palette, integer count, integer seed)
+	PASTELGFX void falseColorPalette(std::vector<Color>& palette, integer count)
 	{
 		ENSURE_OP(count, >=, 0);
-
-		RandomIntegerGenerator generator(seed);
 
 		std::vector<Color> resultPalette;
 
@@ -181,7 +178,7 @@ namespace Pastel
 
 		for (integer i = 1;i < count;++i)
 		{
-			const integer k = 1 + generator() % (count - 1);
+			const integer k = 1 + randomInteger() % (count - 1);
 			std::swap(resultPalette[i], resultPalette[k]);
 		}
 

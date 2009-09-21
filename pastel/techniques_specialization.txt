@@ -23,8 +23,9 @@ technique that avoids this kind of code replication.
 Setting up the scene
 --------------------
 
-Let us assume we have implemented a mathematical vector class template that models
-vectors in R^n (R for the set of real numbers) and that is templated with respect to dimension and its number type:
+Assume we have implemented a mathematical vector class template which models
+vectors in ''RR^n'' (''RR'' for the set of real numbers) and which is templated 
+with respect to dimension and its number type:
 
 	:::cpp
 	template <int N, typename Real>
@@ -81,8 +82,7 @@ The class template works as follows:
 
 The template implementation assumes that 
 the type Real models a certain concept which defines what you
-can do with Real's. However, we don't go into further detail with
-this. Google "c++ concepts" for more information.
+can do with Real's. 
 
 Problem statement
 -----------------
@@ -116,8 +116,7 @@ Copy and paste
 --------------
 
 The simplest approach is to use copy & paste. Here we replicate
-the common implementation code to each specialization.
-Let us see what this looks like:
+the common implementation code to each specialization:
 
 	:::cpp
 	// The general version
@@ -210,10 +209,7 @@ Let us see what this looks like:
 
 The problem with this approach is that specializing n versions of the class template means
 to replicate the implementation n times. This makes code maintenance a
-nightmare. Now, one can think of tricks with the preprocessor to alleviate
-this problem. However, playing with the preprocessor is always dangerous
-as you might know, and is not particularly elegant either. We won't
-go deeper into that.
+nightmare. 
 
 Curiously Recurring Template Pattern
 ------------------------------------
@@ -221,7 +217,7 @@ Curiously Recurring Template Pattern
 We shall now introduce an important template trick
 called the "Curiously Recurring Template Pattern".
 The name of the technique is a bit of a mouthful and thus we
-shall abbreviate it to 'CRTP'. Here is the technique in short:
+shall abbreviate it 'CRTP'. Here is the technique in short:
 
 	:::cpp
 	
@@ -239,10 +235,10 @@ shall abbreviate it to 'CRTP'. Here is the technique in short:
 	};
 	
 In words, the class Vector\<N, Real\> is derived from the
-class VectorBase\<N, Real, Vector<N, Real> \>.
+class VectorBase\<N, Real, Vector\<N, Real\> \>.
 An important thing to notice here is that when
-Vector\<N, Real\> defines its base class, it is only that
-the Vector\<N, Real\> has been declared but not defined.
+Vector\<N, Real\> defines its base class, 
+the Vector\<N, Real\> has only been declared but not defined.
 Thus, what VectorBase\<N, Real, Derived\> class definition 
 sees is effectively:
 

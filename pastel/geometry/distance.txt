@@ -6,3 +6,15 @@ Distance between point-sets
 Theory
 ------
 
+The _distance_ between two point-sets ''A, B sub RR^n''
+is defined by
+
+''D(A, B) = text(inf) {d(a, b) | a in A, b in B}''
+
+where ''d : RR^n -> RR'' is some metric.
+
+Practice
+--------
+
+In all distance queries it is assumed that the
+objects are solid.
