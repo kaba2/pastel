@@ -2,7 +2,7 @@
 #define PASTEL_IMAGEGFXRENDERER_HPP
 
 #include "pastel/gfx/imagegfxrenderer.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 #include "pastel/gfx/textures.h"
 
 #include "pastel/sys/indexextender_all.h"

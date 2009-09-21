@@ -4,7 +4,7 @@
 #include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/color_illuminant.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 
 #include "pastel/sys/string_tools.h"
 #include "pastel/sys/view_all.h"

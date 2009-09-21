@@ -6,7 +6,7 @@
 #include "pastel/gfx/noise.h"
 #include "pastel/gfx/summedareatable.h"
 #include "pastel/gfx/imagepdf.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 
 #include "pastel/dsp/filter_all.h"
 #include "pastel/dsp/mipmap.h"

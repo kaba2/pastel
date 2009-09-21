@@ -330,27 +330,115 @@
 			Name="Drawing"
 			>
 			<File
-				RelativePath=".\drawing.h"
+				RelativePath=".\draw.h"
 				>
 			</File>
 			<File
-				RelativePath=".\drawing.hpp"
+				RelativePath=".\draw.txt"
 				>
 			</File>
 			<File
-				RelativePath=".\drawing_more.h"
+				RelativePath=".\draw_box.h"
 				>
 			</File>
 			<File
-				RelativePath=".\drawing_more.hpp"
+				RelativePath=".\draw_box.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\drawing_more2.h"
+				RelativePath=".\draw_floodfill.h"
 				>
 			</File>
 			<File
-				RelativePath=".\drawing_more2.hpp"
+				RelativePath=".\draw_floodfill.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_horizontal_line.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_horizontal_line.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_perspective_triangle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_perspective_triangle.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_pixel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_pixel.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_projective_quad.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_projective_quad.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_segment.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_segment.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_textured_annulus.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_textured_annulus.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_textured_box.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_textured_box.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_textured_triangle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_textured_triangle.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_triangle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_triangle.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_vertical_line.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_vertical_line.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_view.h"
+				>
+			</File>
+			<File
+				RelativePath=".\draw_view.hpp"
 				>
 			</File>
 			<File

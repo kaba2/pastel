@@ -6,7 +6,7 @@
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 
 #include "pastel/dsp/mipmap_tools.h"
 

@@ -1,6 +1,6 @@
 #include "pastelsystest.h"
 
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_space.h"
 

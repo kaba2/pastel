@@ -5,7 +5,7 @@
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/drawing.h"
+#include "pastel/gfx/draw.h"
 #include "pastel/gfx/color_palette.h"
 
 #include <iostream>
