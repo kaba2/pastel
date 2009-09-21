@@ -1,6 +1,6 @@
 // Description: Perpendicular vectors
 // Detail: orthonormalize, perpendicular, etc.
-// Documentation: pastelmath.txt
+// Documentation: common.txt
 
 #ifndef PASTEL_ORTHONORMAL_H
 #define PASTEL_ORTHONORMAL_H

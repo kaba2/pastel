@@ -47,6 +47,12 @@ needs to generate 100^4 points. This is one example of the curse of
 dimensionality. Second, the points can't be generated incrementally.
 Third, the number of points must be a product of the grid sides.
 
+References
+----------
+
+_Physically Based Rendering_: From Theory to Implementation_, 
+Matt Pharr, Greg Humphreys, 2004.
+
 See also
 --------
 
@@ -54,4 +60,5 @@ See also
 
 [Link]: uniform_distortion.txt
 
-[Link]: ../math/uniform_sampling.txt
+[Link]: uniform_sampling.txt
+

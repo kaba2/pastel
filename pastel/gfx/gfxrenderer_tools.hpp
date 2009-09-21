@@ -3,9 +3,6 @@
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 
-#include "pastel/geometry/antipodal.h"
-#include "pastel/geometry/sweep.h"
-
 #include "pastel/sys/math_functions.h"
 #include "pastel/math/coordinates.h"
 
@@ -309,30 +306,6 @@ namespace Pastel
 		drawFatSegment(renderer, Segment2(segment.start(), segment.end() - tangent * radius * 2),
 			radius * 0.15, radius * 0.15);
 		drawTriangle(renderer, Triangle2(segment.end(), endLeft, endRight));
-	}
-
-	template <typename Type>
-	void drawSegment(
-		GfxRenderer<Type>& renderer,
-		const Segment2& segment,
-		const std::vector<Vector2>& pen)
-	{
-		std::vector<Vector2> sweepPolygon;
-		sweep(pen, segment, sweepPolygon);
-
-		drawConvexPolygon(renderer, sweepPolygon);
-	}
-
-	template <typename Type>
-	void drawOrientedSegment(
-		GfxRenderer<Type>& renderer,
-		const Segment2& segment,
-		const std::vector<Vector2>& pen)
-	{
-		std::vector<Vector2> sweepPolygon;
-		orientedSweep(pen, segment, sweepPolygon);
-
-		drawConvexPolygon(renderer, sweepPolygon);
 	}
 
 	template <typename Type>

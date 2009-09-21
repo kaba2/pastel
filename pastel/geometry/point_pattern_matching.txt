@@ -48,5 +48,5 @@ problem.
 References
 ----------
 
-"A Fast Expected-Time 2d Vector-Pattern Matching Algorithm",
+_A Fast Expected-Time 2d Point-Pattern Matching Algorithm_,
 P.B. Van Wamelen et al., Pattern Recognition 37 (2004), 1699-1711.

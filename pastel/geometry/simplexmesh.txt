@@ -1,5 +1,0 @@
-SimplexMesh class
-=================
-
-[Parent]: meshes.txt
-

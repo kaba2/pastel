@@ -83,18 +83,6 @@ namespace Pastel
 		const real radius);
 
 	template <typename Type>
-	void drawSegment(
-		GfxRenderer<Type>& renderer,
-		const Segment2& segment,
-		const std::vector<Vector2>& pen);
-
-	template <typename Type>
-	void drawOrientedSegment(
-		GfxRenderer<Type>& renderer,
-		const Segment2& segment,
-		const std::vector<Vector2>& pen);
-
-	template <typename Type>
 	void drawConvexPolygon(
 		GfxRenderer<Type>& renderer,
 		const std::vector<Vector2>& convexPolygon);

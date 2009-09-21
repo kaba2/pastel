@@ -3,5 +3,9 @@ Bounding Interval Hierachy Tree
 
 [Parent]: data_structures.txt
 
+References
+----------
 
+_Instant Ray Tracing: The Bounding Interval Hierarchy_,
+Carsten Wächter and Alexander Keller, 2006.
 

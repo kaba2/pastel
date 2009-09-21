@@ -1,7 +1,8 @@
-#ifndef PASTEL_EIGENSTRUCTURE_HPP
-#define PASTEL_EIGENSTRUCTURE_HPP
+#ifndef PASTEL_POINTSET_EIGEN_HPP
+#define PASTEL_POINTSET_EIGEN_HPP
 
-#include "pastel/math/eigenstructure.h"
+#include "pastel/geometry/pointset_eigen.h"
+
 #include "pastel/math/statistics.h"
 
 #include "pastel/sys/vector_tools.h"

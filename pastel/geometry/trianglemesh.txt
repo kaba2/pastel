@@ -1,5 +1,0 @@
-TriangleMesh class
-==================
-
-[Parent]: meshes.txt
-

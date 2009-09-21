@@ -1,5 +1,6 @@
 // Description: Algorithms for Interval's
 // Detail: intersect, boundingInterval, etc.
+// Documentation: numbers.txt
 
 #ifndef PASTEL_INTERVAL_TOOLS_H
 #define PASTEL_INTERVAL_TOOLS_H

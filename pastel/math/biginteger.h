@@ -1,5 +1,6 @@
 // Description: BigInteger class
 // Detail: Arbitrary precision integer
+// Documentation: numbers.txt
 
 #ifndef PASTEL_BIGINTEGER_H
 #define PASTEL_BIGINTEGER_H

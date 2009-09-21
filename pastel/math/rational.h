@@ -1,5 +1,6 @@
 // Description: Rational class
 // Detail: Allows to work with rational numbers
+// Documentation: numbers.txt
 
 #ifndef PASTEL_RATIONAL_H
 #define PASTEL_RATIONAL_H

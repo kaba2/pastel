@@ -3,13 +3,23 @@ Random variables
 
 [Parent]: pastelsys.txt
 
-Random number generation
-------------------------
+Practice
+--------
 
-Pastel allows to generate random numbers from a range of
+### Mersenne Twister
+
+_Mersenne Twister_ is a fast, high-quality pseudo-random number 
+generator with a period of ''2^19937 - 1''. Because of these properties, 
+many libraries have chosen it as the default random number generator,
+including Matlab and Python's standard library. It is also the choice in 
+Pastel where it is used to generate pseudo-random integers. 
+
+### Random real number distributions
+
+Pastel allows to generate random real numbers from a range of
 useful distributions. These include:
 
- * Uniform
+ * Uniform in [0, 1], ]0, 1], and [0, 1[
  
  * Triangle
  

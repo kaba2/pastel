@@ -21,3 +21,8 @@ Practice
 Pastel implements various shapes, of which most are convex.
 The reason for this is that overlap testing between convex
 shapes is easier than between concave shapes.
+
+References
+----------
+
+_Geometric Tools for Computer Graphics_, Philip J. Schneider, David Eberly, 2003.

@@ -2,3 +2,25 @@ Small associative containers
 ============================
 
 [Parent]: data_structures.txt
+
+Practice
+--------
+
+Binary trees and hash-based containers provide excellent
+performance for associative searches and are appropriate most
+of the time. However, when the number of stored elements is 
+low, say less than 64, it is more efficient both in time 
+and storage to simply use an array to store the elements of 
+an associative container. By making sure the elements of
+the array are sorted at all times, the searches on it are
+logarithmic. Because of this sorting invariant, the insertions
+and removals are linear time operations. However, because
+of the low number of elements and good locality of reference, 
+these are still fast operations in practice.
+
+For this purpose, Pastel provides the _small associative containers_
+SmallSet, SmallMap, and SmallFixedSet.
+
+
+
+

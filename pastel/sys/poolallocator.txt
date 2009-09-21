@@ -20,3 +20,7 @@ PoolAllocator allows to deallocate memory. PoolAllocator is conservative
 in memory allocation: no new memory is allocated until all existing 
 memory is used.
 
+References
+----------
+
+_Modern C++ Design_, Andrei Alexandrescu, 2001.

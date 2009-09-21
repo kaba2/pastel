@@ -1,5 +1,6 @@
 // Description: Algorithms for BigInteger's
-// Detail: pretty printing to a stream, etc.
+// Detail: Pretty printing to a stream, etc.
+// Documentation: numbers.txt
 
 #ifndef PASTEL_BIGINTEGER_TOOLS_H
 #define PASTEL_BIGINTEGER_TOOLS_H

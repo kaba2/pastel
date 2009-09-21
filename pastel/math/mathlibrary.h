@@ -1,5 +1,5 @@
 // Description: Dll-keywords for PastelMath
-// Documentation: pastelmath.txt
+// Documentation: common.txt
 
 #ifndef PASTEL_MATHLIBRARY_H
 #define PASTEL_MATHLIBRARY_H

@@ -223,10 +223,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_boxcollider.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_halfmesh.cpp"
 			>
 		</File>
