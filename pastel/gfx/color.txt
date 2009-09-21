@@ -14,3 +14,16 @@ active only at low intensities (night-time). This gives rise to the
 _trichromatic theory_ which  states that the space of all 
 different colors is 3-dimensional. 
 
+Practice
+--------
+
+Pastel implements conversions between color spaces,
+conversions between integer-based color formats, and
+other useful tools for working with colors.
+Because of the trichromatic theory, a color is stored
+in objects of type Color, which is simply a 3-component 
+vector of type real32. The color space is not enforced by 
+the type system, so the user must keep
+in mind which color space a given color is from.
+
+

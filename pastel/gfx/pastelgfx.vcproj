@@ -198,18 +198,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\color_illuminant.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\color_illuminant.h"
-				>
-			</File>
-			<File
-				RelativePath=".\color_illuminant.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\color_tools.cpp"
 				>
 			</File>
@@ -313,6 +301,26 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Standard illuminants"
+				>
+				<File
+					RelativePath=".\color_illuminant.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_illuminant.h"
+					>
+				</File>
+				<File
+					RelativePath=".\color_illuminant.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_illuminant.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"
@@ -327,7 +335,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Drawing"
+			Name="2d drawing"
 			>
 			<File
 				RelativePath=".\draw.h"
