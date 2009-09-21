@@ -6,7 +6,7 @@ Color palettes
 Theory
 ------
 
-When only a relative few colors are needed, an effective way to save 
+When only a few colors are needed, an effective way to save 
 on storage costs is to store the needed colors in a table, and then
 refer to them using small integers. Such a color system is called
 _indexed_, and the array holding the colors is called a _palette_
@@ -28,6 +28,4 @@ Practice
 
 Pastel provides functions to create some commonly needed palettes
 when working with indexed images. These include a random palette, 
-a grayscale palette, false color palettes, and, primarily for 
-good memories, the default VGA palette:)
-
+a grayscale palette, false color palettes, and, the default VGA palette.

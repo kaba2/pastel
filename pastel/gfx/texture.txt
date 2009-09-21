@@ -6,12 +6,12 @@ Textures
 Theory
 ------
 
-### Image and texture
+### Continuous image and texture
 
-An _image_ is a function ''RR^n -> V'', where ''V'' is a
-vector space over reals.
+A _continuous image_ is a continuous function ''RR^n -> V'', where ''V'' is a
+vector space over the reals.
 
-A _texture_ is a pair (g, h), where g is an image, and
+A _texture_ is a pair (g, h), where g is a continuous image, and
 h is a function ''RR^n -> RR'', called a _detail filter_. 
 Given a texture T = (g, h), its _texture sampler_ is a function 
 
@@ -21,10 +21,10 @@ where ''ox'' denotes convolution, and ''\circ'' denotes composition.
 
 ### Discrete image and reconstruction
 
-A _discrete image_ is a function ''ZZ^n -> V'' where ''V''
-is a vector space over reals. Given a discrete image ''d'', 
+An _image_ (or a _discrete image_) is a function ''ZZ^n -> V'' where ''V''
+is a vector space over the reals. Given an image ''d'', 
 if we assume that it has been obtained by sampling some
-continuous band-limited image ''I'', it can be shown that 
+band-limited continuous image ''I'', it can be shown that 
 
 ''I = D ox s'',
 
@@ -47,7 +47,7 @@ Practice
 --------
 
 Pastel provides the abstract Texture class template to model
-textures in ''RR^2''. It is defined by:
+textures in ''RR^n''. It is defined by:
 
 	template <typename Type, int N = 2>
 	class Texture;
@@ -57,8 +57,8 @@ defines the ''V'' in the definition, and N defines the dimensionality.
 Its abstract interface provides access to a texture sampler. 
 Pastel provides three types of concrete, predefined texture classes:
 
- * A _discrete image texture_, whose image has been
- reconstructed from a discrete image. The different
+ * An _image-based texture_, whose continuous image has been
+ reconstructed from an image. The different
  versions differ in the used reconstruction
  and detail filter.
  
@@ -70,10 +70,8 @@ Pastel provides three types of concrete, predefined texture classes:
  (i.e. no filtering). This can cause aliasing in some
  cases.
 
- * A _synthetic texture_, whose image is computed
- on the fly via a mathematical formula. Detail filtering
- such textures can be hard or easy depending on the
- formula.
+ * A _synthetic texture_, whose continuous image is computed
+ on the fly via a mathematical formula. 
 
 ### Visual quality of reconstruction filters
 
