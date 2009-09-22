@@ -1393,7 +1393,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\external.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\installation.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\internal.txt"
 				>
 			</File>
 			<File

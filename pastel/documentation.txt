@@ -26,9 +26,9 @@ Like Markdown, AsciiMathMl is both a syntax and a program to convert
 that syntax into MathMl. This allows one to use mathematical notation 
 as is common when communicating through an ascii-only medium 
 (newsgroups, emails). For example, using AsciiMathMl, one can type 
-`int_0^1 f(x) log(f(x)) dx` to render 
+`int_{-oo}^oo f(x) log(f(x)) dx` to render 
 
-''int_0^1 f(x) log(f(x)) dx'' 
+''int_{-oo}^oo f(x) log(f(x)) dx'' 
 
 Compare this to other notations (especially Latex) whose sources are 
 mostly unreadable.
