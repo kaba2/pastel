@@ -1,7 +1,7 @@
-#ifndef PASTEL_IMAGEGFXRENDERER_HPP
-#define PASTEL_IMAGEGFXRENDERER_HPP
+#ifndef PASTEL_IMAGE_GFXRENDERER_HPP
+#define PASTEL_IMAGE_GFXRENDERER_HPP
 
-#include "pastel/gfx/imagegfxrenderer.h"
+#include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/draw.h"
 #include "pastel/gfx/textures.h"
 
@@ -107,7 +107,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	void Image_GfxRenderer<Type>::clear()
+	void Image_GfxRenderer<Type>::clear() const
 	{
 		const Type& currentColor = Base::color();
 		const integer width = image_->width();
@@ -124,7 +124,7 @@ namespace Pastel
 
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawPoint(
-		const Vector2& point)
+		const Vector2& point) const
 	{
 		const Type& currentColor = Base::color();
 		const Vector2 screenPoint = transform(point);
@@ -137,7 +137,7 @@ namespace Pastel
 
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawSegment(
-		const Segment2& segment)
+		const Segment2& segment) const
 	{
 		const Type& currentColor = Base::color();
 		const Segment2 screenSegment = Segment2(
@@ -149,7 +149,7 @@ namespace Pastel
 
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawTriangle(
-		const Triangle2& triangle)
+		const Triangle2& triangle) const
 	{
 		const Type& currentColor = Base::color();
 		const Triangle2 screenTriangle(
@@ -167,7 +167,7 @@ namespace Pastel
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawTriangle(
 		const Triangle2& triangle,
-		const Tuple<Type, 3>& colorTriangle)
+		const Tuple<Type, 3>& colorTriangle) const
 	{
 		const Triangle2 screenTriangle(
 			transform(triangle[0]),
@@ -184,7 +184,7 @@ namespace Pastel
 	template <typename Type>
 	void Image_GfxRenderer<Type>::drawTriangle(
 		const Triangle2& triangle,
-		const Triangle2& textureTriangle)
+		const Triangle2& textureTriangle) const
 	{
 		if (Base::texture() >= textureImage_.size() ||
 			textureImage_[Base::texture()]->empty())

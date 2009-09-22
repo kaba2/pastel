@@ -3,6 +3,11 @@ PointKdTree class
 
 [Parent]: bsp_tree.txt
 
+Theory
+------
+
+
+
 Some properties of PointKdTree
 ------------------------------
 

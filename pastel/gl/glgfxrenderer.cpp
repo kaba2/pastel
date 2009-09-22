@@ -239,7 +239,7 @@ namespace Pastel
 		return textureId;
 	}
 
-	void GlGfxRenderer::clear()
+	void GlGfxRenderer::clear() const
 	{
 		const Color& currentColor = color();
 
@@ -249,7 +249,7 @@ namespace Pastel
 	}
 
 	void GlGfxRenderer::drawPoint(
-		const Vector2& point)
+		const Vector2& point) const
 	{
 		const Color& currentColor = color();
 
@@ -260,7 +260,7 @@ namespace Pastel
 	}
 
 	void GlGfxRenderer::drawSegment(
-		const Segment2& segment)
+		const Segment2& segment) const
 	{
 		const Vector2& start = segment.start();
 		const Vector2& end = segment.end();
@@ -275,7 +275,7 @@ namespace Pastel
 	}
 
 	void GlGfxRenderer::drawTriangle(
-		const Triangle2& triangle)
+		const Triangle2& triangle) const
 	{
 		if (filled())
 		{
@@ -299,7 +299,7 @@ namespace Pastel
 
 	void GlGfxRenderer::drawTriangle(
 		const Triangle2& triangle,
-		const Tuple<Color, 3>& colorTriangle)
+		const Tuple<Color, 3>& colorTriangle) const
 	{
 		if (filled())
 		{
@@ -321,7 +321,7 @@ namespace Pastel
 
 	void GlGfxRenderer::drawTriangle(
 		const Triangle2& triangle,
-		const Triangle2& textureTriangle)
+		const Triangle2& textureTriangle) const
 	{
 		if (!filled())
 		{

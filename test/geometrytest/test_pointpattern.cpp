@@ -6,7 +6,7 @@
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/draw.h"
-#include "pastel/gfx/imagegfxrenderer.h"
+#include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_space.h"
 

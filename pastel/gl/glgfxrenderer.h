@@ -37,24 +37,24 @@ namespace Pastel
 
 		virtual integer uploadTexture(const Array<Color, 2>& image);
 
-		virtual void clear();
+		virtual void clear() const;
 
 		virtual void drawPoint(
-			const Vector2& point);
+			const Vector2& point) const;
 
 		virtual void drawSegment(
-			const Segment2& segment);
+			const Segment2& segment) const;
 
 		virtual void drawTriangle(
-			const Triangle2& triangle);
-
-		virtual void drawTriangle(
-			const Triangle2& triangle,
-			const Tuple<Color, 3>& colorTriangle);
+			const Triangle2& triangle) const;
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,
-			const Triangle2& texture);
+			const Tuple<Color, 3>& colorTriangle) const;
+
+		virtual void drawTriangle(
+			const Triangle2& triangle,
+			const Triangle2& texture) const;
 
 	private:
 		// Prohibited
