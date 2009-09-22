@@ -1,3 +1,5 @@
+// Description: Algorithms for CholeskyDecomposition class
+
 #ifndef PASTEL_CHOLESKY_DECOMPOSITION_TOOLS_H
 #define PASTEL_CHOLESKY_DECOMPOSITION_TOOLS_H
 

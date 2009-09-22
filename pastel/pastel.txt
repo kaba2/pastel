@@ -15,7 +15,7 @@ Publishing
 
 The motivation for publishing Pastel is two-fold. First,
 I hope it to transmit some useful implementation
-experience, techniques, and documentation for the people 
+experience, techniques, and documentation for people 
 interested in computer graphics, geometry, and programming. 
 Second, I have implemented another library ([TIM][]) that uses 
 Pastel, and I want to be open with sources.
@@ -32,50 +32,40 @@ the library and can in this process break backwards-compatibility.
 
 There are two easy ways to browse the source-code
 online complete with coloring. The first one is to read this documentation, 
-following the _Learn more_ links. The second one is to view the 
+following the links. The second one is to view the 
 source-code tree.
 
  * [View the source-code tree][ViewSourceTree].
 
 Pastel has several dependencies to third-party libraries which must also be
-installed if you want to build Pastel yourself. See the _Installation_ link
-below for more information.
+installed if you want to build Pastel yourself. See the _External dependencies_ 
+link below for more information.
 
  * [Download the source-code][DownloadSource].
 
 [DownloadSource]: 
 [ViewSourceTree]: ./
 
-Technical features
-------------------
-
- * Standard C++03
- * Cross-platform (in particular, Windows and Linux)
- * Compiler independent
- * Processor independent
- * Endianness independent
- * Exception-safe
- * Type-safe
- * Const-correct
- * Style-consistent
- * Thread-safe (re-entrant)
-
 Sub-libraries
 ------------
 
 Pastel divides into a number of sub-libraries. These are:
 
- * [PastelSys][], for core functionality
- * [PastelMath][], for mathematics in general
- * [PastelGeometry][], for geometric problems
- * [PastelDsp][], for signal processing
- * [PastelGfx][], for computer graphics
- * [PastelDevice][], for access to hardware
- * [PastelGl][], for OpenGl-related things
- * (PastelRay, for photorealistic ray tracing, not published yet)
+### [PastelSys][]
 
-The dependencies between the sub-libraries form a directed acyclic graph. This means
-that it is possible to exclude those sub-libraries that aren't needed.
+### [PastelMath][]
+
+### [PastelGeometry][]
+
+### [PastelDsp][]
+
+### [PastelGfx][]
+
+### [PastelDevice][]
+
+### [PastelGl][]
+
+### PastelRay (not published yet)
 
 [PastelSys]: ./sys/pastelsys.htm
 [PastelMath]: ./math/pastelmath.htm

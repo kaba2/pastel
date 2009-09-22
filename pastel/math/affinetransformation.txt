@@ -15,7 +15,7 @@ When ''V'' and ''W'' are finite dimensional, say of dimensions
 ''n'' and ''m'' respectively, we can identify them with ''RR^n''
 and ''RR^m'' by choosing a basis in each. A linear transformation 
 between ''RR^n'' and ''RR^m'' can be described with an ''RR^{m xx n}'' matrix. 
-Similarly, it is easy to prove that an _affine transformation_
+Similarly, an _affine transformation_
 can be described with functions of the form ''f(x) = Ax + b'', 
 where ''A'' is an ''RR^{m xx n}'' matrix, and ''b'' is a vector in ''RR^m''.
 

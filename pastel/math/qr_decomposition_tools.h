@@ -1,3 +1,5 @@
+// Description: Algorithms for QrDecomposition class
+
 #ifndef PASTEL_QR_DECOMPOSITION_TOOLS_H
 #define PASTEL_QR_DECOMPOSITION_TOOLS_H
 

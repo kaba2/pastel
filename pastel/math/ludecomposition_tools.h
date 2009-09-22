@@ -1,3 +1,5 @@
+// Description: Algorithms for LuDecomposition class
+
 #ifndef PASTEL_LUDECOMPOSITION_TOOLS_H
 #define PASTEL_LUDECOMPOSITION_TOOLS_H
 
