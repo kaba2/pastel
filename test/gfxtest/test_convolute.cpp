@@ -7,7 +7,7 @@
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/draw.h"
-#include "pastel/gfx/imagegfxrenderer.h"
+#include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/mipimage_texture.h"
 #include "pastel/dsp/filterform.h"

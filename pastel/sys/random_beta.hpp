@@ -36,8 +36,13 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& a,
 		const PASTEL_NO_DEDUCTION(Real)& b)
 	{
-		return std::pow(x, a - 1) * 
-			std::pow(1 - x, b - 1) / beta<Real>(a, b);
+		if (x < 0 || x > 1)
+		{
+			return 0;
+		}
+
+		return (std::pow(x, a - 1) * std::pow(1 - x, b - 1)) / 
+			beta<Real>(a, b);
 	}
 
 }

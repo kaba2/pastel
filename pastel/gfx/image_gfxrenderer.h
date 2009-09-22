@@ -1,8 +1,8 @@
 // Description: Image_GfxRenderer
 // Detail: A 2d per-object software renderer to render to arrays.
 
-#ifndef PASTEL_IMAGEGFXRENDERER_H
-#define PASTEL_IMAGEGFXRENDERER_H
+#ifndef PASTEL_IMAGE_GFXRENDERER_H
+#define PASTEL_IMAGE_GFXRENDERER_H
 
 #include "pastel/gfx/gfxrenderer.h"
 #include "pastel/dsp/mipmap.h"
@@ -43,24 +43,24 @@ namespace Pastel
 
 		virtual integer uploadTexture(const Array<Type, 2>& image);
 
-		virtual void clear();
+		virtual void clear() const;
 
 		virtual void drawPoint(
-			const Vector2& point);
+			const Vector2& point) const;
 
 		virtual void drawSegment(
-			const Segment2& segment);
+			const Segment2& segment) const;
 
 		virtual void drawTriangle(
-			const Triangle2& triangle);
-
-		virtual void drawTriangle(
-			const Triangle2& triangle,
-			const Tuple<Type, 3>& colorTriangle);
+			const Triangle2& triangle) const;
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,
-			const Triangle2& texture);
+			const Tuple<Type, 3>& colorTriangle) const;
+
+		virtual void drawTriangle(
+			const Triangle2& triangle,
+			const Triangle2& texture) const;
 
 	private:
 		// Prohibited
@@ -88,6 +88,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/imagegfxrenderer.hpp"
+#include "pastel/gfx/image_gfxrenderer.hpp"
 
 #endif

@@ -112,24 +112,24 @@ namespace Pastel
 
 		virtual integer uploadTexture(const Array<Type, 2>& image) = 0;
 
-		virtual void clear() = 0;
+		virtual void clear() const = 0;
 
 		virtual void drawPoint(
-			const Vector2& point) = 0;
+			const Vector2& point) const = 0;
 
 		virtual void drawSegment(
-			const Segment2& segment) = 0;
+			const Segment2& segment) const = 0;
 
 		virtual void drawTriangle(
-			const Triangle2& triangle) = 0;
-
-		virtual void drawTriangle(
-			const Triangle2& triangle,
-			const Tuple<Type, 3>& colorTriangle) = 0;
+			const Triangle2& triangle) const = 0;
 
 		virtual void drawTriangle(
 			const Triangle2& triangle,
-			const Triangle2& texture) = 0;
+			const Tuple<Type, 3>& colorTriangle) const = 0;
+
+		virtual void drawTriangle(
+			const Triangle2& triangle,
+			const Triangle2& texture) const = 0;
 
 	private:
 		GfxState<Type> state_;

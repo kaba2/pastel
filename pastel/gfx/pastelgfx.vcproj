@@ -742,18 +742,18 @@
 				>
 			</File>
 			<Filter
-				Name="ImageGfxRenderer"
+				Name="Image_GfxRenderer"
 				>
 				<File
-					RelativePath=".\imagegfxrenderer.cpp"
+					RelativePath=".\image_gfxrenderer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\imagegfxrenderer.h"
+					RelativePath=".\image_gfxrenderer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\imagegfxrenderer.hpp"
+					RelativePath=".\image_gfxrenderer.hpp"
 					>
 				</File>
 			</Filter>
