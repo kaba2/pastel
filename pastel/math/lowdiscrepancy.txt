@@ -50,7 +50,7 @@ Third, the number of points must be a product of the grid sides.
 References
 ----------
 
-_Physically Based Rendering_: From Theory to Implementation_, 
+_Physically Based Rendering: From Theory to Implementation_, 
 Matt Pharr, Greg Humphreys, 2004.
 
 See also

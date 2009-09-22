@@ -26,4 +26,21 @@ namespace Pastel
 		return allFound;
 	}
 
+	PASTELSYS void createPropertyList(
+		const char** propertyArray,
+		integer properties,
+		std::vector<std::string>& propertyList)
+	{
+		std::vector<std::string> result;
+		result.reserve(properties);
+		
+		for (integer i = 0;i < properties;++i)
+		{
+			result.push_back(
+				std::string(propertyArray[i]));
+		}
+		
+		result.swap(propertyList);
+	}
+
 }
