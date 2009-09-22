@@ -49,6 +49,7 @@ Practice
 Pastel provides the abstract Texture class template to model
 textures in ''RR^n''. It is defined by:
 
+	:::cpp
 	template <typename Type, int N = 2>
 	class Texture;
 

@@ -1,5 +1,5 @@
 // Description: Conversion between coordinate systems
-// Detail: Cartesian, cylinder, polar, and spherical coordinate systems.
+// Detail: Cartesian, cylinder, and spherical coordinate systems.
 
 #ifndef PASTEL_COORDINATES_H
 #define PASTEL_COORDINATES_H

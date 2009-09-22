@@ -7,14 +7,14 @@ Theory
 ------
 
 _Uniform sampling of ''V sub RR^n''_ is the problem of generating random 
-samples from ''V'' with a uniform distribution, assuming we can already
-generate random real numbers.
+samples from ''V'' with a uniform distribution. 
 
 Practice
 --------
 
-A general algorithm to uniformly sample any
-set ''V'' is to bound it with an axis aligned box ''B'',
+In the following we assume that we are able to uniformly
+sample a real interval. A general algorithm to uniformly 
+sample any set ''V'' is to bound it with an axis aligned box ''B'',
 draw samples from a uniform distribution on ''B'',
 and accept only those samples which are also
 in ''V''. This is called _rejection sampling_. The

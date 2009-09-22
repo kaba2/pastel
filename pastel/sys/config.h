@@ -1,3 +1,6 @@
+// Description: Config class
+// Detail: Stores configuration properties
+
 #ifndef PASTEL_CONFIG_H
 #define PASTEL_CONFIG_H
 
