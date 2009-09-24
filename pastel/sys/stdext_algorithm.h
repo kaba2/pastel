@@ -5,5 +5,6 @@
 
 #include "pastel/sys/stdext_copy_n.h"
 #include "pastel/sys/stdext_destruct.h"
+#include "pastel/sys/stdext_subset.h"
 
 #endif

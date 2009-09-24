@@ -64,18 +64,6 @@ namespace Pastel
 		const VectorExpression<Real, Height, LeftExpression>& left,
 		const MatrixExpression<Real, Height, Width, RightExpression>& right);
 
-	// Points vs matrices
-
-	template <typename Real, int Height, int Width>
-	Vector<Real, Height> operator*(
-		const Matrix<Real, Height, Width>& left,
-		const Vector<Real, Width>& right);
-
-	template <typename Real, int Height, int Width>
-	Vector<Real, Width> operator *(
-		const Vector<Real, Height>& left,
-		const Matrix<Real, Height, Width>& right);
-
 	template <typename Real, int Height, int Width>
 	void swap(
 		Matrix<Real, Height, Width>& left,
