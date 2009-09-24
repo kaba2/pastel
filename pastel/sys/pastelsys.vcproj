@@ -1472,6 +1472,14 @@
 				RelativePath=".\stdext_destruct.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\stdext_subset.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdext_subset.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Not sure"

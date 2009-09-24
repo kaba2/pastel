@@ -152,59 +152,6 @@ namespace Pastel
 			(const RightExpression&)right);
 	}
 
-	// Matrices vs points
-
-	template <typename Real, int Height, int Width>
-	Vector<Real, Height> operator*(
-		const Matrix<Real, Height, Width>& left,
-		const Vector<Real, Width>& right)
-	{
-		const integer width = left.width();
-		const integer height = left.height();
-
-		ENSURE2(width == right.size(), width, right.size());
-
-		Vector<Real, Height> result(ofDimension(height));
-
-		const integer width = left.width();
-		const integer height = left.height();
-
-		for (integer i = 0;i < height;++i)
-		{
-			result[i] = right[0] * data_[i][0];
-			for (integer j = 1;j < width;++j)
-			{
-				result[i] += right[j] * data_[i][j];
-			}
-		}
-
-		return result;
-	}
-
-	template <typename Real, int Height, int Width>
-	Vector<Real, Width> operator *(
-		const Vector<Real, Height>& left,
-		const Matrix<Real, Height, Width>& right)
-	{
-		const integer width = right.width();
-		const integer height = right.height();
-
-		ENSURE2(height == left.size(), height, left.size());
-
-		Vector<Real, Width> result(ofDimension(width));
-
-		for (integer i = 0;i < width;++i)
-		{
-			result[i] = left[0] * right[0][i];
-			for (integer j = 1;j < height;++j)
-			{
-				result[i] += left[j] * right[j][i];
-			}
-		}
-
-		return result;
-	}
-
 	template <typename Real, int Height, int Width>
 	void swap(
 		Matrix<Real, Height, Width>& left,
