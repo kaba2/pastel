@@ -288,6 +288,10 @@
 					RelativePath=".\bsp_tree.txt"
 					>
 				</File>
+				<File
+					RelativePath=".\multiresolution_kdtree.txt"
+					>
+				</File>
 				<Filter
 					Name="KdTree"
 					>
