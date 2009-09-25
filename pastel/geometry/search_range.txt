@@ -1,0 +1,5 @@
+Orthogonal range searching
+==========================
+
+[Parent]: pastelgeometry.txt
+

@@ -1,5 +1,6 @@
 // Description: GfxDevice class
 // Detail: Allows the control of the graphics device
+// Documentation: graphics.txt
 
 #ifndef PASTEL_GFXDEVICE_H
 #define PASTEL_GFXDEVICE_H

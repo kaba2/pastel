@@ -1,3 +1,6 @@
+// Description: Orthogonal range searching using PointKdTree
+// Documentation: search_range.txt
+
 #ifndef PASTEL_SEARCH_RANGE_POINTKDTREE_H
 #define PASTEL_SEARCH_RANGE_POINTKDTREE_H
 

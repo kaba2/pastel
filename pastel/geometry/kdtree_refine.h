@@ -1,3 +1,6 @@
+// Description: Split rules for KdTree
+// Documentation: kdtree.txt
+
 #ifndef PASTEL_KDTREE_REFINE_H
 #define PASTEL_KDTREE_REFINE_H
 

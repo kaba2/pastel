@@ -1,4 +1,4 @@
-// Description: Nearest neighbor counting using a kd-tree
+// Description: All-nearest-neighbors counting using PointKdTree
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H

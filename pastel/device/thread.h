@@ -1,3 +1,7 @@
+// Description: Thread class
+// Detail: Running threads
+// Documentation: multithreading.txt
+
 #ifndef PASTEL_THREAD_H
 #define PASTEL_THREAD_H
 

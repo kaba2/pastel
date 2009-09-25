@@ -1,3 +1,6 @@
+// Description: Ray-traversal algorithm for KdTree
+// Documentation: kdtree.txt
+
 #ifndef PASTEL_KDTREE_RAYTRAVERSAL_H
 #define PASTEL_KDTREE_RAYTRAVERSAL_H
 

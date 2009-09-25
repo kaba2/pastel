@@ -1,4 +1,5 @@
 // Description: Devices and event loop
+// Documentation: devices.txt
 
 #ifndef PASTEL_DEVICESYSTEM_H
 #define PASTEL_DEVICESYSTEM_H

@@ -1,3 +1,6 @@
+// Description: Algorithms for KdTree
+// Documentation: kdtree.txt
+
 #ifndef PASTEL_KDTREE_TOOLS_H
 #define PASTEL_KDTREE_TOOLS_H
 

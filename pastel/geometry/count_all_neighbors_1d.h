@@ -1,4 +1,4 @@
-// Description: Nearest neighbor counting in 1D
+// Description: All-nearest-neighbors counting in 1D
 // Detail: Implements a very fast algorithm that works only in 1D.
 // Documentation: nearest_neighbors.txt
 

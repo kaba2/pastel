@@ -1,5 +1,0 @@
-Half-edge structure design notes
-================================
-
-[Parent]: halfmesh.txt
-

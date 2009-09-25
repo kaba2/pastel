@@ -1,4 +1,4 @@
-// Description: Nearest neighbor searching using a brute-force algorithm
+// Description: All-nearest-neighbors searching using a brute-force algorithm
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_BRUTEFORCE_H

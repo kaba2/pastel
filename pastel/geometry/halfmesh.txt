@@ -10,8 +10,14 @@ Theory
 
 The _half-edge structure_ is a data structure to efficiently
 store and manipulate a restricted set of 2-cell-complexes.
-In particular, this set includes those 2-cell-complexes
-which are also 2-manifolds with a boundary.
+In particular, this set includes 
+
+ * Those 2-cell-complexes which are also 2-manifolds with a boundary.
+ 
+ * All graphs including those with edge loops and multiple edges.
+ 
+ * Many kinds of mixes of a graph and polygon mesh, important in
+ particular when building a mesh.
 
 The building blocks of this data structure are
 _half-edges_, _vertices_ , _edges_, and _polygons_,

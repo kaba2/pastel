@@ -36,7 +36,3 @@ it is the case that the kd-tree has to inspect almost all of the points,
 giving the same asymptotic performance as the brute-force search. In these cases, it can
 make sense to use the brute-force algorithm instead for better practical performance.
 
-See also
---------
-
-[Link]: multiresolution_kdtree.txt

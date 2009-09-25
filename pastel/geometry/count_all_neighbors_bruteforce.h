@@ -1,4 +1,4 @@
-// Description: Nearest neighbor counting using a brute-force algorithm
+// Description: All-nearest-neighbors counting using a brute-force algorithm
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
