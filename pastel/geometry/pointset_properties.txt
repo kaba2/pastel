@@ -12,4 +12,8 @@ with no restrictions on cardinality.
 References
 ----------
 
+Most of the algorithms under this section 
+(excluding eigenstructure of a point-set), are explained 
+for 2- and 3-dimensional cases in:
+
 _Geometric Tools for Computer Graphics_, Philip J. Schneider, David Eberly, 2003.

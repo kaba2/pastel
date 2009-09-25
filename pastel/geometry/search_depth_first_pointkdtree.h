@@ -1,4 +1,5 @@
-// Description: Generic depth-first neighbor searches with culling
+// Description: Generic depth-first neighbor searching for PointKdTree
+// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_H
 #define PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_H

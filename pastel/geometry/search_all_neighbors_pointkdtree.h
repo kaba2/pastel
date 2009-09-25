@@ -1,4 +1,4 @@
-// Description: Nearest neighbor searching using a kd-tree
+// Description: All-nearest-neighbors searching using PointKdTree
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H

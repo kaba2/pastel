@@ -1,4 +1,4 @@
-// Description: Nearest neighbor searching in 1D
+// Description: All-nearest-neighbors searching in 1D
 // Detail: Implements an optimal algorithm that only works in 1D
 // Documentation: nearest_neighbors.txt
 

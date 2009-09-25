@@ -1,3 +1,6 @@
+// Description: KdTree class
+// Detail: A kd-tree data structure for ray casting shapes
+
 #ifndef PASTEL_KDTREE_H
 #define PASTEL_KDTREE_H
 

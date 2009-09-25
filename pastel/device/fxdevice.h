@@ -1,5 +1,6 @@
 // Description: FxDevice class
 // Detail: Allows the control of the audio device
+// Documentation: sound.txt
 
 #ifndef PASTEL_FXDEVICE_H
 #define PASTEL_FXDEVICE_H

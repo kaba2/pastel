@@ -200,10 +200,6 @@
 					RelativePath=".\meshes.txt"
 					>
 				</File>
-				<File
-					RelativePath=".\meshes_design.txt"
-					>
-				</File>
 				<Filter
 					Name="HalfMesh"
 					>
@@ -217,10 +213,6 @@
 					</File>
 					<File
 						RelativePath=".\halfmesh.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\halfmesh_design.txt"
 						>
 					</File>
 					<File
@@ -1349,14 +1341,6 @@
 				RelativePath=".\search_nearest_pointkdtree.hpp"
 				>
 			</File>
-			<File
-				RelativePath=".\search_range_pointkdtree.h"
-				>
-			</File>
-			<File
-				RelativePath=".\search_range_pointkdtree.hpp"
-				>
-			</File>
 			<Filter
 				Name="All nearest neighbors counting"
 				>
@@ -1565,6 +1549,22 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Range searching"
+			>
+			<File
+				RelativePath=".\search_range.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\search_range_pointkdtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\search_range_pointkdtree.hpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

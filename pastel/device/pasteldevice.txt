@@ -1,0 +1,9 @@
+PastelDevice
+============
+
+[Parent]: pastel.txt
+
+The purpose of PastelDevice is to provide tools for accessing
+hardware. It is not much more than a wrap around the 
+Simple DirectMedia Layer (SDL) library.
+

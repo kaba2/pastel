@@ -197,6 +197,10 @@
 				RelativePath=".\fxdevice.h"
 				>
 			</File>
+			<File
+				RelativePath=".\sound.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Gfx"
@@ -209,10 +213,18 @@
 				RelativePath=".\gfxdevice.h"
 				>
 			</File>
+			<File
+				RelativePath=".\graphics.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Multithreading"
 			>
+			<File
+				RelativePath=".\multithreading.txt"
+				>
+			</File>
 			<File
 				RelativePath=".\mutex.cpp"
 				>
@@ -253,6 +265,10 @@
 				RelativePath=".\timer.h"
 				>
 			</File>
+			<File
+				RelativePath=".\timing.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Common"
@@ -266,11 +282,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\devices.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\devicesystem.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\devicesystem.h"
+				>
+			</File>
+			<File
+				RelativePath=".\pasteldevice.txt"
 				>
 			</File>
 		</Filter>

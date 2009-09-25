@@ -1,5 +1,6 @@
 // Description: TimeDevice class
 // Detail: Allows controlling timing related stuff
+// Documentation: timing.txt
 
 #ifndef PASTEL_TIMEDEVICE_H
 #define PASTEL_TIMEDEVICE_H

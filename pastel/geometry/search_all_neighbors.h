@@ -1,4 +1,4 @@
-// Description: An aggregate file for nearest neighbor searching
+// Description: An aggregate file for all nearest neighbors searching
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_H

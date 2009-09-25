@@ -1,5 +1,6 @@
 // Description: Mutex class
 // Detail: Mutual exclusion in a concurrent program
+// Documentation: multithreading.txt
 
 #ifndef PASTEL_MUTEX_H
 #define PASTEL_MUTEX_H
