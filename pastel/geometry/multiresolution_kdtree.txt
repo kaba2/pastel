@@ -1,0 +1,57 @@
+Multi-resolution kd-tree
+========================
+
+[Parent]: bsp_tree.txt
+
+Theory
+------
+
+### Bucket nodes
+
+Let ''K = ((B, D), P)'' be a point kd-tree, where ''B = {B_1, ..., B_m}'' and
+''P = {P_1, ..., P_m}''.
+Let ''beta in ZZ'' be a positive integer, called the _bucket size_. 
+A _bucket node_ ''B_{b(i)} in B'' of a leaf node ''B_i in B'' is defined as follows.
+If ''|P_i| = 0'', then ''B_{b(i)} = B_i''. Otherwise, it is the unique node such that:
+
+ 1. ''B_{b(i)}'' is an ascendant of ''B_i'' or ''B_{b(i)} = B_i''.
+ 
+ 2. ''|P_{b(i)}| <= max(beta, |P_i|)
+ 
+ 3. If the parent ''B_{p(b(i))}'' of ''B_{b(i)}'' exists, ''|P_{p(b(i))}| > max(beta, |P_i|)''.
+ 
+### Multi-resolution kd-tree
+
+A _multi-resolution kd-tree_ is a pair ''(K, f)'' such that ''K'' is a
+point kd-tree and ''f : K_{text(leaf)} -> K'' is a function that associates 
+each leaf node with its corresponding bucket node.
+
+### Illustration
+
+In the following the multi-resolution kd-tree is illustrated in ''RR^2'' with bucket size 4.
+
+![Multi-resolution kd-tree](../../images/multiresolution_kdtree.png)
+
+_Figure 1. A multi-resolution kd-tree visualized. Bucket nodes marked in blue. 
+Number of objects in a subtree shown after dash._
+
+![Bucket nodes of a m-r kd-tree](../../images/multiresolution_kdtree_buckets.png)
+
+_Figure 2. Bucket nodes of the kd-tree from Figure 1._
+
+![Leaf nodes of a m-r kd-tree](../../images/multiresolution_kdtree_leaves.png)
+
+_Figure 3. Leaf nodes of the kd-tree from Figure 1._
+
+Practice
+--------
+
+The data-structure counterpart of the multi-resolution kd-tree allows, 
+in particular, efficient nearest neighbor searching for both static and 
+semi-dynamic point sets. See the PointKdTree class for the implementation
+of the corresponding data-structure.
+
+See also
+--------
+
+[Link]: nearest_neighbors_semidynamic.txt

@@ -1,5 +1,5 @@
 // Description: PointKdTree class
-// Detail: A multi-resolution kd-tree for points
+// Detail: A multi-resolution point kd-tree
 
 #ifndef PASTEL_POINTKDTREE_H
 #define PASTEL_POINTKDTREE_H
@@ -68,15 +68,18 @@ namespace Pastel
 		}
 	};
 
-	//! A kd-tree for point sets
+	//! A multi-resolution point kd-tree
 	/*!
 	class ObjectPolicy
 	{
 	public:
+		// Defines the type of stored object.
 		typedef UserDefinedType Object;
 
+		//! Returns a pointer to a coordinate array for the point.
 		const Real* point(const Object& object) const;
 
+		//! Returns a coordinate of the given point on the given axis.
 		Real point(const Object& object, integer axis) const;
 	};
 	*/

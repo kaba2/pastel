@@ -1,32 +1,99 @@
 PointKdTree class
 =================
 
-[Parent]: bsp_tree.txt
+[Parent]: multiresolution_kdtree.txt
 
-Theory
-------
+Practice
+--------
 
+The PointKdTree class is a data structure that allows storing
+and manipulating a multi-resolution kd-tree efficiently.
+This data structure has been primarily designed for efficient
+nearest neighbor searching in static and semi-dynamic point-sets.
+It is declared as:
 
+	:::cpp
+	template <typename Real, int N = Dynamic, 
+		typename ObjectPolicy = Direct_ObjectPolicy_PointKdTree<Real, N> >
+	class PointKdTree;
 
-Some properties of PointKdTree
-------------------------------
+where N is the dimensionality of the tree, Real is a computation
+type which models an ordered field, and ObjectPolicy is a policy
+class which allows to store the points in different ways.
+The dimensionality can be set to Dynamic meaning that it is chosen 
+at runtime. The ObjectPolicy concept will be detailed later below,
+because most of the time you will probably find the predefined policies
+satisfactory. Since the stored objects might be indirect representations 
+of points, they are called _objects_ instead.
+
+### Predefined object policies
+
+ * *Direct_ObjectPolicy_PointKdTree\<Real, N\>* class stores as objects 
+ elements of type Vector\<Real, N\>, thus representing points directly.
+ 
+ * *Pointer_ObjectPolicy_PointKdTree\<Real, N\>* class stores as objects
+ pointers to Vector\<Real, N\>. Thus it is assumed that the objects
+ have been allocated memory elsewhere and are now simply referred to.
+ 
+ * *Array_ObjectPolicy_PointKdTree\<Real, N\>* class stores as objects
+ pointers to Real. These pointers should point to the beginning of
+ a Real array containing the point coordinates. Again it is assumed that
+ the memory pointed to has been allocated memory elsewhere. Using
+ this object policy can be advantageous because it can easily interface 
+ with external software and avoids problems with possible abstraction 
+ penalties which might exist when using the Vector\<Real, N\> class.
+
+### Traversal of the subdivision using cursors
+
+The nodes can be traversed using cursors. From each node you can
+traverse either to a parent (if it exists) or to left or right
+child (if they exist). At each node you can inspect:
+
+ * How many objects are stored under the sub-tree whose root-node 
+ the current node is?
+ 
+ * What those objects are? (iterator range to the objectlist).
+ 
+ * What are the node bounds on the splitting dimension?
+ 
+ * What are the cursors to the child nodes?
+ 
+ * What is the cursor to the parent node?
+
+In addition, for a leaf node you can inspect:
+ 
+ * What is the bucket node of this leaf node?
+
+### Traversal of the objects in the kd-tree
+
+All of the objects stored in the kd-tree can be traversed as a
+sequence using an iterator interface. Note that their order
+can change after subdivision, and if an object is removed and
+immediately inserted back, it might take another position in 
+the object list (there is no ordering between points
+in the same leaf node).
 
 ### Insertion of points
 
-Points can be inserted into the tree at any time. The
-insertion of points is separated from refinement and
-thus at insertion they are simply stored in the tree. 
-You can perform refinement later if needed.
+Points can be inserted into the tree at any time, either one
+by one or as a set. No new nodes are created in this process.
+However, the kd-tree automatically adapts to higher resolution
+when it updates the positions of the bucket nodes.
 
 ### Removal of points
 
-Points can be removed from the tree at any time. 
+Points can be removed from the tree at any time. This can be
+done either one by one, or by removing all points at once.
+No nodes are removed in this process.
+However, the kd-tree automatically adapts to lower resolution
+when it updates the positions of the bucket nodes.
 
-### Automatic tracking of bucket nodes
+### Refinement of the subdivision
 
-When adding or removing points, the bucket nodes are
-tracked automatically. In particular, this allows
-the PointKdTree to adapt to changing point sets.
+The recursive subdivision of the kd-tree can be refined
+at any time. In this process existing leaf nodes are converted
+into split nodes by recursively subdividing them into two new leaf 
+nodes. The split plane is chosen by a _splitting rule_.
 
 ### Constant time bucket-node look-up for points
 
@@ -57,4 +124,20 @@ the splitting axis. Knowing these bounds is essential in
 the implementation of an efficient nearest neighbor
 searching algorithm.
 
+### ObjectPolicy concept
+
+	:::cpp
+	class ObjectPolicy
+	{
+	public:
+		// Defines the type of stored object.
+		typedef UserDefinedType Object;
+
+		//! Returns a pointer to a coordinate array for the point.
+		const Real* point(const Object& object) const;
+
+		//! Returns a coordinate of the given point on the given axis.
+		Real point(const Object& object, integer axis) const;
+	};
+		
 

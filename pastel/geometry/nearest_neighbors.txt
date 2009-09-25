@@ -39,4 +39,4 @@ make sense to use the brute-force algorithm instead for better practical perform
 See also
 --------
 
-[Link]: pointkdtree.txt
+[Link]: multiresolution_kdtree.txt

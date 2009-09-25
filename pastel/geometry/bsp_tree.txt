@@ -6,49 +6,66 @@ BSP trees
 Theory
 ------
 
+### Nodes
+
+A _node_ is a closed and connected subset of ''RR^n''.
+Denote the set of all nodes by ''C = {S sub RR^n : S text( is a node)}''
+and let ''S = {S_1, ..., S_m} sub C''.
+A node ''B in S'' is called a _descendant_ of a node ''A in S''
+if ''B sub A'' and ''B != A''. If ''B'' is a descendant of ''A'', 
+then ''A'' is called an _ascendant_ of ''B''. A node ''A_c in S'' 
+is called a _child_ of a node ''A in S'' if ''A_c'' is a descendant 
+of ''A'' and there is no descendant ''B in S'' of ''A'' which would 
+also be an ascendant of ''A_c''. If ''A_c'' is a child of ''A'', then
+''A'' is called a _parent_ of ''A_c''.
+
 ### BSP-tree
 
-A _binary space-partitioning tree_ or a BSP-tree, 
-is a binary tree whose nodes correspond to closed convex sets in ''RR^n''. 
-Denote the corresponding shape of a node ''A''
-by ''s(A)'' and extend this notation to sets by 
-''s({T_1, ..., T_n}) = {s(T_1), ..., s(T_n)}''.
-The terminal nodes are called _leaf-nodes_, 
-while the non-terminal nodes are called _split-nodes_. 
-Given a split-node ''A'', the children of the node are formed
-by dividing ''s(A)'' with a plane into two almost-disjoint closed convex shapes.
-This plane is called the _splitting plane_.
+A _binary space-partitioning tree_ or a _bsp-tree_, is a 
+directed graph ''T = (B, D)'', such that
 
-Let ''T'' be a BSP-tree. Denote the set of leaf-nodes of ''T''
-by ''{T}''. Let ''S'' be a subtree of ''T'' such that ''S'' and ''T'' share
-the same root node. Then it holds that ''s({T})'' is a partition 
-of ''s(S)'' (a _partition of ''s(S)''_ is a collection of disjoint sets 
-which cover ''s(S)''). Furthermore, let ''S_2'' be a subtree of ''T'' such
-that they share the same root-node, and let ''S'' be a subtree
-of ''S_2''. Then ''s({S_2})'' is a refinement of ''s({S})''.
+ * ''B = {B_1, ..., B_m} sub C''.
+
+ * ''D = {(B_i, B_j) in B^2 : B_i text( is a child of ) B_j}''.
+
+ * ''\forall i, j: \exists k: (B_i, B_k) in D and (B_j, B_k) in D''
+ 
+ * ''\forall i: B_i'' either has no children or 
+ it has exactly two children ''B_{l(i)}'' and ''B_{r(i)}'' such that
+ ''B_{l(i)} uu B_{r(i)} = B_i'' and ''text(vol)(B_{l(i)} nn B_{r(i)}) = 0''.
+ Here vol refers to volume (Lebesgue measure) of a point-set.
+
+These definitions imply that ''T'' is a binary tree,
+explaining the name. A node which has no children is called a _leaf node_,
+while the unique node which has no parent is called the _root node_.
+A node which is not a leaf node is called a _split node_.
+Two nodes which have the same parent are called _siblings_.
 
 ### Point BSP-tree
 
-A _point BSP-tree_ is a pair ''(T, P)'' such that ''P'' is a finite point 
-set in ''RR^n'' and ''T'' is a BSP-tree such that ''P sub s(T)''. 
-A node ''L in T'' is said to _hold_ a point ''q in P'' if ''q in s(L)''. 
-The set of points that a node ''L'' holds is denoted by ''p(L)''.
+A _point BSP-tree_ is a pair ''(T, P)'' such that 
 
-Given a bucket size ''M'', a _bucket node_ is a node which is either
+ * ''T = (B, D)'' is a BSP-tree, where ''B = {B_1, ..., B_m}''.
+ 
+ * ''P = {P_1, ..., P_m} sub 2^{RR^n}'', where each ''P_i sub RR^n'' is finite.
+ 
+ * ''\forall i: P_i sub B_i''.
+ 
+ * ''\forall i: P_i'' is not a leaf node ''=> P_i = P_{l(i)} uu P_{r(i)}''.
 
- * a leaf node which holds more than ''M'' points, or
- 
- * a node which holds at most ''M'' points, but whose parent 
- (if not the root node) holds greater than ''M'' number of points. 
- 
 ### Kd-tree
 
-A _kd-tree_ is a special kind of a BSP-tree, with the restriction
-that each splitting plane is orthogonal to some standard basis axis.
-We further restrict the definition so that the subdivided region
-is an axis aligned box. The advantage of this restriction is
-that the the subdivided parts of the space are also axis aligned 
-boxes.
+A _kd-tree_ is a BSP-tree with the restriction that the set of all
+nodes is restricted to closed axis-aligned boxes. Let a split-node ''B''
+in a kd-tree have children ''B_l'' and ''B_r''. Then there is an 
+axis-aligned plane which passes through the points in ''B_l nn B_r'',
+called a _splitting plane of ''B''_. The index of the standard basis
+axis which corresponds to the normal of this plane is called the
+_splitting axis_.
+
+### Point kd-tree
+
+A _point kd-tree_ is a point bsp-tree which is also a kd-tree.
 
 Practice
 --------
@@ -59,17 +76,10 @@ neighbor searching, and range searching. The efficiency of these
 algorithms rely on the ability to skip exploring a large part 
 of the space if that is known not to affect the result. The BSP-tree
 is effectively a multi-dimensional generalization of the binary tree.
-In practice, it is the kd-tree which offers the best properties
-of the BSP-trees, from many point of views. We will summarize these
-properties shortly.
+In practice, kd-trees offer the best properties of the BSP-trees, 
+from many point of views.
 
-Pastel implements the PointKdTree class to handle point kd-trees. 
-In particular, this data structure can be used for efficient 
-nearest neighbor searching. In Pastel, this is the main use for the
-PointKdTree. For a kd-tree suitable for ray casting, see the links below.
-
-Kd-tree vs BSP-tree
--------------------
+### Kd-tree vs BSP-tree
 
 Restricting the splitting planes to be orthogonal with the standard
 basis axes has a number of advantages. Some of these are:
@@ -94,11 +104,9 @@ basis axes has a number of advantages. Some of these are:
  best of our knowledge, there is currently no known 
  splitting rule that would have both of these properties.
  
- * When doing nearest neighbor searching,
- with orthogonal splitting planes and an axis-aligned 
- box as the region, there is a technique to incrementally 
- compute the exact distance from the search point to the 
- partition cells. This allows for more efficient culling 
+ * When doing nearest neighbor searching, there is a technique to 
+ incrementally compute the exact distance from the search point to the 
+ nearest node. This allows for more efficient culling 
  of space which in turn increases performance. In contrast, 
  this is very hard to achieve with arbitrary splitting planes.
 
