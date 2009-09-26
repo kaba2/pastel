@@ -25,6 +25,17 @@ poisson-disk patterns inside a rectangular region in ''RR^n''.
 The 'almost' is the consequence of using an algorithm that is based
 on randomization.
 
+### Examples
+
+Here is a maximal poisson-disk pattern in ''RR'', where each point has
+been extended to a horizontal line for visualization.
+
+![1D poisson-disk pattern](../../images/poissondisk_1d.png)
+
+Here is a maximal poisson-disk pattern in ''RR^2''.
+
+![2D poisson-disk pattern](../../images/poissondisk_2d.png)
+
 References
 ----------
 

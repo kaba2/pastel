@@ -26,14 +26,14 @@ namespace Pastel
 		MipImage_Texture();
 
 		explicit MipImage_Texture(
-			const MipMap<N, Type>& mipMap,
+			const MipMap<Type, N>& mipMap,
 			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>());
 
 		Type operator()(
 			const Vector<real, N>& p,
 			const Matrix<real, N, N>& m) const;
 
-		void setMipMap(const MipMap<N, Type>& mipMap)
+		void setMipMap(const MipMap<Type, N>& mipMap)
 		{
 			mipMap_ = &mipMap;
 		}
@@ -49,13 +49,13 @@ namespace Pastel
 		}
 
 	private:
-		const MipMap<N, Type>* mipMap_;
+		const MipMap<Type, N>* mipMap_;
 		ArrayExtender<N, Type> extender_;
 	};
 
 	template <typename Type, int N>
 	MipImage_Texture<Type, N> mipImageTexture(
-		const MipMap<N, Type>& mipMap)
+		const MipMap<Type, N>& mipMap)
 	{
 		return MipImage_Texture<Type, N>(mipMap);
 	}

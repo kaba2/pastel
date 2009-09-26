@@ -76,6 +76,10 @@ Naming
 
 * Quantities: `shapes`, `leaves`.
 
+* Derived class of an abstract class: 'LikeThis_BaseClass'.
+For example, if 'Filter' is an abstract class, then 'Gaussian_Filter'
+could be one of its derived classes.
+
 * When using the Curiously Recurring Template Pattern with the
 class `MyClass`, name the super class `MyClassBase`
 

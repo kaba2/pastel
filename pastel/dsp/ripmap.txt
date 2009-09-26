@@ -1,0 +1,50 @@
+Rip mapping
+===========
+
+[Parent]: precomputed_filtering.txt
+
+Theory
+------
+
+Let ''I'' be an n-dimensional image with extents ''w in ZZ^n'' and
+values in a vector space. In the following, if there are expressions
+involving vectors, the operations are carried out elementwise.
+Let ''m in ZZ^n'', such that ''m = |~text(log)_2(w)~|''. 
+Let ''hat(w) in ZZ^n'', such that ''hat(w) = 2^m''. 
+A _rip-map_ is a set of images ''R = {R_s}'', where for all ''s'':
+
+ * ''s in ZZ^n'', such that ''0 <= s <= m''.
+
+ * ''R_s'' is a resampling of ''I''.
+
+ * ''R_s'' has extents ''hat(w) / 2^s''. 
+
+As an overload of terminology, each ''R_s'' is also called
+a rip-map. The meaning of the term should be clear from the
+context.
+
+Practice
+--------
+
+Pastel implements the RipMap class for storing and manipulating
+rip-maps. It is declared as:
+
+	:::cpp
+	template <typename Type, int N = 2>
+	class RipMap;
+
+### Memory requirements
+
+The memory requirements for a rip-map grow exponentially with
+increasing dimension. In general, if an n-dimensional image 
+takes ''C'' units of memory, then a rip-map takes ''C * 2^n''
+units of memory.
+
+### Example
+
+Here is an example of a rip-map for a 2-dimensional image.
+The invidual rip-maps have been combined into a single image
+for visualization. Note: this image was originally 1024 x 1024,
+which I resampled to 512 x 512 to better fit the webpage.
+
+![Rip-map](../../images/ripmap.png)

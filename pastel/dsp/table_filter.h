@@ -1,5 +1,6 @@
-// Description: TableFilter class
+// Description: Table_Filter class
 // Detail: Piecewise-linear modifiable reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_TABLE_FILTER_H
 #define PASTEL_TABLE_FILTER_H
@@ -25,7 +26,7 @@ namespace Pastel
 	other filters.
 	*/
 
-	class PASTELDSP TableFilter
+	class PASTELDSP Table_Filter
 		: public Filter
 	{
 	public:
@@ -39,19 +40,19 @@ namespace Pastel
 		radius > 0
 		odd(data.width())
 		*/
-		TableFilter(
+		Table_Filter(
 			const Array<real, 1>& data,
 			real radius);
 
-		virtual ~TableFilter();
+		virtual ~Table_Filter();
 
 		virtual real evaluateInRange(real position) const;
 
 	private:
 		// Prohibited
-		TableFilter(const TableFilter& that);
+		Table_Filter(const Table_Filter& that);
 		// Prohibited
-		TableFilter& operator=(const TableFilter& that);
+		Table_Filter& operator=(const Table_Filter& that);
 
 		virtual void onSetRadius();
 
@@ -60,8 +61,8 @@ namespace Pastel
 		real scaling_;
 	};
 
-	typedef CountedPtr<TableFilter> TableFilterPtr;
-	typedef CountedPtr<const TableFilter> ConstTableFilterPtr;
+	typedef CountedPtr<Table_Filter> TableFilterPtr;
+	typedef CountedPtr<const Table_Filter> ConstTableFilterPtr;
 
 	PASTELDSP TableFilterPtr tableFilter(const ConstFilterPtr& filter, integer samplesPerRadius = 16);
 

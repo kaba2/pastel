@@ -3,7 +3,7 @@ PastelDevice
 
 [Parent]: pastel.txt
 
-The purpose of PastelDevice is to provide tools for accessing
-hardware. It is not much more than a wrap around the 
-Simple DirectMedia Layer (SDL) library.
+The purpose of the PastelDevice sub-library is to provide 
+tools for accessing hardware. It is not much more than a 
+wrap around the Simple DirectMedia Layer (SDL) library.
 

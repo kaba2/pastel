@@ -5,16 +5,16 @@
 namespace Pastel
 {
 
-	GaussianFilter::GaussianFilter(real radius)
+	Gaussian_Filter::Gaussian_Filter(real radius)
 		: Filter(radius, "gaussian")
 	{
 	}
 
-	GaussianFilter::~GaussianFilter()
+	Gaussian_Filter::~Gaussian_Filter()
 	{
 	}
 
-	real GaussianFilter::evaluateInRange(real x) const
+	real Gaussian_Filter::evaluateInRange(real x) const
 	{
 		// I chose the factor -2 because
 		// it fitted well with the lobe of

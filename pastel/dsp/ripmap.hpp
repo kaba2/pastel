@@ -17,7 +17,7 @@ namespace Pastel
 	namespace Detail_ComputeRipMaps
 	{
 
-		template <int N, typename Type>
+		template <typename Type, int N>
 		class Visitor
 		{
 		public:
@@ -74,9 +74,9 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	template <typename Image_ConstView>
-	RipMap<N, Type>::RipMap(
+	RipMap<Type, N>::RipMap(
 		const ConstView<N, Type, Image_ConstView>& image,
 		const FilterPtr& filter)
 		: ripMapArray_()
@@ -116,92 +116,92 @@ namespace Pastel
 				arrayView(imageArray(Vector<integer, N>(0))));
 		}
 
-		Detail_ComputeRipMaps::Visitor<N, Type> visitor(imageArray, filter);
+		Detail_ComputeRipMaps::Visitor<Type, N> visitor(imageArray, filter);
 		visitPosition(arrayView(imageArray), visitor);
 
 		ripMapArray_.swap(imageArray);
 	}
 
-	template <int N, typename Type>
-	void RipMap<N, Type>::swap(RipMap& that)
+	template <typename Type, int N>
+	void RipMap<Type, N>::swap(RipMap& that)
 	{
 		ripMapArray_.swap(that.ripMapArray_);
 	}
 
-	template <int N, typename Type>
-	void RipMap<N, Type>::clear()
+	template <typename Type, int N>
+	void RipMap<Type, N>::clear()
 	{
 		ripMapArray_.clear();
 	}
 
-	template <int N, typename Type>
-	RipMap<N, Type>& RipMap<N, Type>::operator=(const RipMap& that)
+	template <typename Type, int N>
+	RipMap<Type, N>& RipMap<Type, N>::operator=(const RipMap& that)
 	{
 		RipMap copy(that);
 		swap(copy);
 		return *this;
 	}
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	template <typename Image_ConstView>
-	void RipMap<N, Type>::setImage(
+	void RipMap<Type, N>::setImage(
 		const ConstView<N, Type, Image_ConstView>& image,
 		const FilterPtr& filter)
 	{
-		RipMap<N, Type> copy(image, filter);
+		RipMap<Type, N> copy(image, filter);
 		swap(copy);
 	}
 
-	template <int N, typename Type>
-	Array<Type, N>& RipMap<N, Type>::operator()(
+	template <typename Type, int N>
+	Array<Type, N>& RipMap<Type, N>::operator()(
 		const Vector<integer, N>& level)
 	{
 		return ripMapArray_(level);
 	}
 
-	template <int N, typename Type>
-	const Array<Type, N>& RipMap<N, Type>::operator()(
+	template <typename Type, int N>
+	const Array<Type, N>& RipMap<Type, N>::operator()(
 		const Vector<integer, N>& level) const
 	{
 		return ripMapArray_(level);
 	}
 
-	template <int N, typename Type>
-	const Array<Type, N>& RipMap<N, Type>::mostDetailed() const
+	template <typename Type, int N>
+	const Array<Type, N>& RipMap<Type, N>::mostDetailed() const
 	{
 		return ripMapArray_(Vector<integer, N>(0));
 	}
 
-	template <int N, typename Type>
-	const Array<Type, N>& RipMap<N, Type>::coarsest() const
+	template <typename Type, int N>
+	const Array<Type, N>& RipMap<Type, N>::coarsest() const
 	{
 		return ripMapArray_(ripMapArray_.extent() - 1);
 	}
 
-	template <int N, typename Type>
-	const Vector<integer, N>& RipMap<N, Type>::levels() const
+	template <typename Type, int N>
+	const Vector<integer, N>& RipMap<Type, N>::levels() const
 	{
 		return ripMapArray_.extent();
 	}
 
-	template <int N, typename Type>
-	bool RipMap<N, Type>::empty() const
+	template <typename Type, int N>
+	bool RipMap<Type, N>::empty() const
 	{
 		return ripMapArray_.empty();
 	}
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	View<N, Array<Type, N>,
 		ArrayView<N, Array<Array<Type, N>, N> > >
-		RipMap<N, Type>::view()
+		RipMap<Type, N>::view()
 	{
 		return arrayView(ripMapArray_);
 	}
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	ConstView<N, Array<Type, N>,
 		ConstArrayView<N, Array<Array<Type, N>, N> > >
-		RipMap<N, Type>::constView() const
+		RipMap<Type, N>::constView() const
 	{
 		return constArrayView(ripMapArray_);
 	}

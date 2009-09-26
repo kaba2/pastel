@@ -30,14 +30,14 @@ namespace Pastel
 		}
 
 		explicit RipImage_Texture(
-			const RipMap<N, Type>& ripMap,
+			const RipMap<Type, N>& ripMap,
 			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>());
 
 		virtual Type operator()(
 			const Vector<real, N>& uv,
 			const Matrix<real, N, N>& m) const;
 
-		void setRipMap(const RipMap<N, Type>& ripMap)
+		void setRipMap(const RipMap<Type, N>& ripMap)
 		{
 			ripMap_ = &ripMap;
 		}
@@ -53,7 +53,7 @@ namespace Pastel
 		}
 
 	private:
-		const RipMap<N, Type>* ripMap_;
+		const RipMap<Type, N>* ripMap_;
 		ArrayExtender<N, Type> extender_;
 	};
 

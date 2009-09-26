@@ -6,6 +6,8 @@
 
 #include "pastel/sys/vector.h"
 
+#include <boost/operators.hpp>
+
 namespace Pastel
 {
 
@@ -17,9 +19,13 @@ namespace Pastel
 	p = P + t * (Q - P)
 	with 0 <= t <= 1
 	*/
-
 	template <typename Real, int N = Dynamic>
 	class Segment
+		: boost::multipliable<Segment<Real, N>, Real
+		, boost::dividable<Segment<Real, N>, Real
+		, boost::addable<Segment<Real, N>, Vector<Real, N>
+		, boost::subtractable<Segment<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	public:
 		// Using default copy constructor.
@@ -52,6 +58,18 @@ namespace Pastel
 		const Vector<Real, N>& end() const;
 
 		Vector<Real, N> at(const Real& t) const;
+
+		//! Translates the segment by the given vector.
+		Segment<Real, N>& operator+=(const Vector<Real, N>& that);
+
+		//! Translates the segment backwards by the given vector.
+		Segment<Real, N>& operator-=(const Vector<Real, N>& that);
+
+		//! Scales up the segment without affecting position.
+		Segment<Real, N>& operator*=(const Real& that);
+
+		//! Scales down the segment without affecting position.
+		Segment<Real, N>& operator/=(const Real& that);
 
 	private:
 		Vector<Real, N> start_;

@@ -1,0 +1,5 @@
+Precomputed filtering
+=====================
+
+[Parent]: pasteldsp.txt
+

@@ -6,14 +6,18 @@ Ellipsoid
 Theory
 ------
 
-An origin-centered ellipsoid Q is be given by:
+An _ellipsoid_ is an affine transform of a sphere.
+Alternatively, a subset ''Q sub RR^n'' is called
+an ellipsoid if
 
-''Q = {x in RR^n | x^T S x = 1}''
+''\exists c in RR^n, S in RR^{n xx n}: Q = {x in RR^n : (x - c)^T S (x - c) <= 1}''
 
-where
+where ''S'' is symmetric and positive-semi-definite.
+If such ''c'' and ''S'' can be found, then ''c'' is called the _center_
+of the ellipsoid, and ''S'' is called the _quadratic form matrix_
+of the ellipsoid.
 
-''x in RR^(n xx 1)''
+See also
+--------
 
-''S in RR^(n xx n)'' and symmetric positive-semi-definite
-
-
+[Link]: sphere.txt

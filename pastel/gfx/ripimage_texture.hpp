@@ -20,7 +20,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	RipImage_Texture<Type, N>::RipImage_Texture(
-		const RipMap<N, Type>& ripMap,
+		const RipMap<Type, N>& ripMap,
 		const ArrayExtender<N, Type>& extender)
 		: ripMap_(&ripMap)
 		, extender_(extender)

@@ -208,6 +208,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\filter.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\filter_all.h"
 				>
 			</File>
@@ -251,89 +255,133 @@
 				RelativePath=".\triangle_filter.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Precomputed filtering"
+			>
+			<File
+				RelativePath=".\precomputed_filtering.txt"
+				>
+			</File>
 			<Filter
-				Name="Deprecated"
+				Name="MipMap"
 				>
 				<File
-					RelativePath=".\filterdesign.cpp"
+					RelativePath=".\mipmap.h"
 					>
 				</File>
 				<File
-					RelativePath=".\filterdesign.h"
+					RelativePath=".\mipmap.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\filterform.h"
+					RelativePath=".\mipmap.txt"
 					>
 				</File>
 				<File
-					RelativePath=".\filterform.hpp"
+					RelativePath=".\mipmap_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mipmap_tools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="RipMap"
+				>
+				<File
+					RelativePath=".\ripmap.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ripmap.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ripmap.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\ripmap_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ripmap_tools.hpp"
 					>
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\discretefourier.h"
+		<Filter
+			Name="Resampling"
 			>
-		</File>
-		<File
-			RelativePath=".\discretefourier.hpp"
+			<File
+				RelativePath=".\resample.h"
+				>
+			</File>
+			<File
+				RelativePath=".\resample.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\resample.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Miscellaneous"
 			>
-		</File>
-		<File
-			RelativePath=".\dsplibrary.cpp"
+			<File
+				RelativePath=".\discretefourier.h"
+				>
+			</File>
+			<File
+				RelativePath=".\discretefourier.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dsplibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dsplibrary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\miscellaneous.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstructimage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstructimage.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Deprecated"
 			>
-		</File>
+			<File
+				RelativePath=".\filterdesign.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\filterdesign.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filterform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\filterform.hpp"
+				>
+			</File>
+		</Filter>
 		<File
-			RelativePath=".\dsplibrary.h"
-			>
-		</File>
-		<File
-			RelativePath=".\mipmap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\mipmap.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\mipmap_tools.h"
-			>
-		</File>
-		<File
-			RelativePath=".\mipmap_tools.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\reconstructimage.h"
-			>
-		</File>
-		<File
-			RelativePath=".\reconstructimage.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\resample.h"
-			>
-		</File>
-		<File
-			RelativePath=".\resample.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ripmap.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ripmap.hpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ripmap_tools.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ripmap_tools.hpp"
+			RelativePath=".\pasteldsp.txt"
 			>
 		</File>
 	</Files>

@@ -280,10 +280,6 @@
 					RelativePath=".\bsp_tree.txt"
 					>
 				</File>
-				<File
-					RelativePath=".\multiresolution_kdtree.txt"
-					>
-				</File>
 				<Filter
 					Name="KdTree"
 					>
@@ -333,6 +329,10 @@
 					</File>
 					<File
 						RelativePath=".\midpoint_splitrule_pointkdtree.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\multiresolution_kdtree.txt"
 						>
 					</File>
 					<File

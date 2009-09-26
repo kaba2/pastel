@@ -11,7 +11,7 @@ namespace Pastel
 	namespace Detail_RipMapTransform
 	{
 
-		template <int N, typename Type, typename TransformFunctor>
+		template <typename Type, int N, typename TransformFunctor>
 		class Visitor
 		{
 		public:
@@ -32,12 +32,12 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Type, typename TransformFunctor>
+	template <typename Type, int N, typename TransformFunctor>
 	void transform(
-		RipMap<N, Type>& ripMap,
+		RipMap<Type, N>& ripMap,
 		const TransformFunctor& transform)
 	{
-		Detail_RipMapTransform::Visitor<N, Type, TransformFunctor> visitor(transform);
+		Detail_RipMapTransform::Visitor<Type, N, TransformFunctor> visitor(transform);
 
 		visit(ripMap.view(), visitor);
 	}

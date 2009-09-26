@@ -1,5 +1,6 @@
-// Description: GaussianFilter class
+// Description: Gaussian_Filter class
 // Detail: Clamped gaussian reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_GAUSSIAN_FILTER_H
 #define PASTEL_GAUSSIAN_FILTER_H
@@ -10,32 +11,32 @@
 namespace Pastel
 {
 
-	class PASTELDSP GaussianFilter
+	class PASTELDSP Gaussian_Filter
 		: public Filter
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit GaussianFilter(real radius = 2);
+		explicit Gaussian_Filter(real radius = 2);
 
-		virtual ~GaussianFilter();
+		virtual ~Gaussian_Filter();
 
 		virtual real evaluateInRange(real x) const;
 
 	private:
 		// Prohibited
-		GaussianFilter(const GaussianFilter& that);
+		Gaussian_Filter(const Gaussian_Filter& that);
 		// Prohibited
-		GaussianFilter& operator=(const GaussianFilter& that);
+		Gaussian_Filter& operator=(const Gaussian_Filter& that);
 	};
 
-	typedef CountedPtr<GaussianFilter> GaussianFilterPtr;
-	typedef CountedPtr<const GaussianFilter> ConstGaussianFilterPtr;
+	typedef CountedPtr<Gaussian_Filter> GaussianFilterPtr;
+	typedef CountedPtr<const Gaussian_Filter> ConstGaussianFilterPtr;
 
 	inline GaussianFilterPtr gaussianFilter(real radius = 2)
 	{
-		return GaussianFilterPtr(new GaussianFilter(radius));
+		return GaussianFilterPtr(new Gaussian_Filter(radius));
 	}
 
 }

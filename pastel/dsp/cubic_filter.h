@@ -1,5 +1,6 @@
-// Description: CubicFilter class
+// Description: Cubic_Filter class
 // Detail: Cardinal cubic spline reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_CUBIC_FILTER_H
 #define PASTEL_CUBIC_FILTER_H
@@ -16,7 +17,7 @@ namespace Pastel
 	filter only if the values of 'negativeLobeness' are
 	in the range [0, 1]. However, we don't restrict the
 	usage. This filter is interpolatory. It is equivalent to
-	MitchellFilter(0, negativeLobeness * (3 / 2)). However,
+	Mitchell_Filter(0, negativeLobeness * (3 / 2)). However,
 	this implementation is more efficient.
 
 	The default	value for 'negativeLobeness' comes from the
@@ -24,35 +25,35 @@ namespace Pastel
 	concluded that the (subjectively) best filters lie
 	on the line 2C + B = 1.	Here B = 0 and C = negativeLobeness * (3 / 2),
 	from which the result follows. Coincidentally, this default
-	parameter gives a filter that is almost identical to LanczosFilter(2).
+	parameter gives a filter that is almost identical to Lanczos_Filter(2).
 	*/
-	class PASTELDSP CubicFilter
+	class PASTELDSP Cubic_Filter
 		: public Filter
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit CubicFilter(real negativeLobeness = (real)1 / 3);
-		virtual ~CubicFilter();
+		explicit Cubic_Filter(real negativeLobeness = (real)1 / 3);
+		virtual ~Cubic_Filter();
 
 		virtual real evaluateInRange(real x) const;
 
 	private:
 		// Prohibited
-		CubicFilter(const CubicFilter& that);
+		Cubic_Filter(const Cubic_Filter& that);
 		// Prohibited
-		CubicFilter& operator=(const CubicFilter& that);
+		Cubic_Filter& operator=(const Cubic_Filter& that);
 
 		real d_;
 	};
 
-	typedef CountedPtr<CubicFilter> CubicFilterPtr;
-	typedef CountedPtr<const CubicFilter> ConstCubicFilterPtr;
+	typedef CountedPtr<Cubic_Filter> CubicFilterPtr;
+	typedef CountedPtr<const Cubic_Filter> ConstCubicFilterPtr;
 
 	inline CubicFilterPtr cubicFilter(real negativeLobeness = (real)1 / 3)
 	{
-		return CubicFilterPtr(new CubicFilter(negativeLobeness));
+		return CubicFilterPtr(new Cubic_Filter(negativeLobeness));
 	}
 
 }

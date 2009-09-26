@@ -43,7 +43,7 @@ namespace
 
 		loadPcx("lena.pcx", textureImage);
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage),
+		MipMap<Color, 2> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
@@ -136,7 +136,7 @@ namespace
 		//loadPcx("lena.pcx", textureImage);
 		*/
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage),
+		MipMap<Color, 2> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
@@ -187,7 +187,7 @@ namespace
 
 		loadPcx("lena.pcx", textureImage);
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage),
+		MipMap<Color, 2> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
@@ -342,20 +342,20 @@ namespace
 
 		savePcx(textureImage, "texture_checker.pcx");
 
-		MipMap<2, Color> mipMap(constArrayView(textureImage),
+		MipMap<Color, 2> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(repeatExtender()), boxFilter());
 		transform(mipMap, fitColor);
 
-		RipMap<2, Color> ripMap(constArrayView(textureImage));
+		RipMap<Color, 2> ripMap(constArrayView(textureImage));
 		transform(ripMap, fitColor);
 
 		Array<Color, 2> lenaTextureImage;
 		loadPcx("lena.pcx", lenaTextureImage);
 
-		MipMap<2, Color> lenaMipMap(constArrayView(lenaTextureImage));
+		MipMap<Color, 2> lenaMipMap(constArrayView(lenaTextureImage));
 		transform(lenaMipMap, fitColor);
 
-		RipMap<2, Color> lenaRipMap(constArrayView(lenaTextureImage));
+		RipMap<Color, 2> lenaRipMap(constArrayView(lenaTextureImage));
 		transform(lenaRipMap, fitColor);
 
 		ConstIndexExtenderPtr extender = repeatExtender();
@@ -409,7 +409,7 @@ namespace
 		}
 
 		/*
-		MipMap<2, Color> distortMipMap(constArrayView(image));
+		MipMap<Color, 2> distortMipMap(constArrayView(image));
 		EwaImage_Texture<Color> distortTexture(distortMipMap);
 		transform(distortMipMap, fitColor);
 
@@ -454,7 +454,7 @@ namespace
 		}
 
 		/*
-			MipMap<2, Color> distortMipMap(constArrayView(image));
+			MipMap<Color, 2> distortMipMap(constArrayView(image));
 			EwaImage_Texture<Color> distortTexture(distortMipMap);
 			transform(distortMipMap, fitColor);
 
@@ -549,10 +549,10 @@ namespace
 
 		Array<Color, 2> image(750, 750, Color(0));
 
-		MipMap<2, Color> aMipMap(constArrayView(aTexture));
+		MipMap<Color, 2> aMipMap(constArrayView(aTexture));
 		transform(aMipMap, fitColor);
 
-		MipMap<2, Color> bMipMap(constArrayView(bTexture));
+		MipMap<Color, 2> bMipMap(constArrayView(bTexture));
 		transform(bMipMap, fitColor);
 
 		const integer iconSize = 250;

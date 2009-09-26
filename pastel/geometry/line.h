@@ -7,6 +7,8 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/tuple.h"
 
+#include <boost/operators.hpp>
+
 namespace Pastel
 {
 
@@ -21,6 +23,11 @@ namespace Pastel
 
 	template <typename Real, int N = Dynamic>
 	class Line
+		: boost::multipliable<Line<Real, N>, Real
+		, boost::dividable<Line<Real, N>, Real
+		, boost::addable<Line<Real, N>, Vector<Real, N>
+		, boost::subtractable<Line<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	public:
 		// Using default copy constructor.
@@ -47,22 +54,6 @@ namespace Pastel
 
 		//! Swaps two lines.
 		void swap(Line<Real, N>& that);
-
-		//! Translates the line by the given vector.
-		Line<Real, N>& operator+=(
-			const Vector<Real, N>& translation);
-
-		//! Returns the line translated by the given vector.
-		Line<Real, N> operator+(
-			const Vector<Real, N>& translation) const;
-
-		//! Translates the line backwards by the given vector.
-		Line<Real, N>& operator-=(
-			const Vector<Real, N>& translation);
-
-		//! Returns the line translated backwards by the given vector.
-		Line<Real, N> operator-(
-			const Vector<Real, N>& translation) const;
 
 		//! Sets the position and direction of the line.
 		void set(const Vector<Real, N>& position,
@@ -93,6 +84,18 @@ namespace Pastel
 
 		//! Returns the point (position + t * direction).
 		Vector<Real, N> at(const Real& t) const;
+
+		//! Translates the line by the given vector.
+		Line<Real, N>& operator+=(const Vector<Real, N>& that);
+
+		//! Translates the line backwards by the given vector.
+		Line<Real, N>& operator-=(const Vector<Real, N>& that);
+
+		//! Scales up the line without affecting position.
+		Line<Real, N>& operator*=(const Real& that);
+
+		//! Scales down the line without affecting position.
+		Line<Real, N>& operator/=(const Real& that);
 
 	private:
 		Vector<Real, N> position_;

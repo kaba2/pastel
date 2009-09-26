@@ -217,7 +217,7 @@ namespace
 		drawFilter(triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		drawFilter(boxFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		drawFilter(mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		//drawFilter(CubicFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
+		//drawFilter(Cubic_Filter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 
 		savePcx(image, "output/filter_shape.pcx");
 	}

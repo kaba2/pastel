@@ -21,7 +21,7 @@ namespace
 
 		sound.setExtent(10);
 		
-		MipMap<1, real> mipMap(arrayView(sound));
+		MipMap<real, 1> mipMap(arrayView(sound));
 		
 		sound(4) = 2;
 	}
@@ -31,12 +31,12 @@ namespace
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
-		MipMap<2, Color> mipMap(arrayView(texture));
+		MipMap<Color, 2> mipMap(arrayView(texture));
 		transform(mipMap, fitColor);
 
 		Vector<integer, 2> position;
 
-		Array<Color, 2> outputImage(texture.extent() * 2);
+		Array<Color, 2> outputImage(texture.extent() * 2, Color(1));
 
 		const integer images = mipMap.levels();
 		for (integer i = 0;i < images;++i)

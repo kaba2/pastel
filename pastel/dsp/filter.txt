@@ -1,0 +1,33 @@
+Filters
+=======
+
+[Parent]: pasteldsp.txt
+
+Practice
+--------
+
+The Filter class is an abstract base class for 
+1-dimensional reconstruction filters. It is defined as:
+
+	:::cpp
+	class Filter
+		: public ReferenceCounted
+	{
+	public:
+		Filter(real radius,
+			const std::string& name);
+		virtual ~Filter();
+
+		virtual real evaluateInRange(real position) const = 0;
+
+		void setRadius(real radius);
+		real radius() const;
+
+		real evaluate(real position) const;
+		const std::string& name() const;
+	};
+
+See also
+--------
+
+[Link]: resample.txt

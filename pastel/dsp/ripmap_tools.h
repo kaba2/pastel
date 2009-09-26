@@ -8,9 +8,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Type, typename TransformFunctor>
+	template <typename Type, int N, typename TransformFunctor>
 	void transform(
-		RipMap<N, Type>& ripMap,
+		RipMap<Type, N>& ripMap,
 		const TransformFunctor& transform);
 
 }
