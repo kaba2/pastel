@@ -80,6 +80,46 @@ namespace Pastel
 		return radius_;
 	}
 
+	template <typename Real, int N>
+	Capsule<Real, N>& Capsule<Real, N>::operator+=(
+		const Vector<Real, N>& that)
+	{
+		segment_ += that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Capsule<Real, N>& Capsule<Real, N>::operator-=(
+		const Vector<Real, N>& that)
+	{
+		segment_ -= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Capsule<Real, N>& Capsule<Real, N>::operator*=(
+		const Real& that)
+	{
+		segment_ *= that;
+		radius_ *= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Capsule<Real, N>& Capsule<Real, N>::operator/=(
+		const Real& that)
+	{
+		PENSURE_OP(that, !=, 0);
+
+		segment_ /= that;
+		radius_ /= that;
+
+		return *this;
+	}
+
 }
 
 #endif

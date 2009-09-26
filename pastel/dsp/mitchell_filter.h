@@ -1,5 +1,6 @@
-// Description: MitchellFilter class
+// Description: Mitchell_Filter class
 // Detail: Mitchell-Netravali cubic spline reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_MITCHELL_FILTER_H
 #define PASTEL_MITCHELL_FILTER_H
@@ -18,7 +19,7 @@ namespace Pastel
 
 	This filter is interpolatory if and only if B = 0.
 	However, if you want interpolation, then consider using
-	CubicFilter which is specialized for this case and
+	Cubic_Filter which is specialized for this case and
 	thus more efficient.
 
 	The default	values comes from the
@@ -27,38 +28,38 @@ namespace Pastel
 	on the line 2C + B = 1. They further deemed
 	(B = 1/3, C = 1/3) as the best from this line.
 	*/
-	class PASTELDSP MitchellFilter
+	class PASTELDSP Mitchell_Filter
 		: public Filter
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit MitchellFilter(
+		explicit Mitchell_Filter(
 			real b = (real)1 / 3,
 			real c = (real)1 / 3);
-		virtual ~MitchellFilter();
+		virtual ~Mitchell_Filter();
 
 		virtual real evaluateInRange(real x) const;
 
 	private:
 		// Prohibited
-		MitchellFilter(const MitchellFilter& that);
+		Mitchell_Filter(const Mitchell_Filter& that);
 		// Prohibited
-		MitchellFilter& operator=(const MitchellFilter& that);
+		Mitchell_Filter& operator=(const Mitchell_Filter& that);
 
 		real b_;
 		real c_;
 	};
 
-	typedef CountedPtr<MitchellFilter> MitchellFilterPtr;
-	typedef CountedPtr<const MitchellFilter> ConstMitchellFilterPtr;
+	typedef CountedPtr<Mitchell_Filter> MitchellFilterPtr;
+	typedef CountedPtr<const Mitchell_Filter> ConstMitchellFilterPtr;
 
 	inline MitchellFilterPtr mitchellFilter(
 		real b = (real)1 / 3,
 		real c = (real)1 / 3)
 	{
-		return MitchellFilterPtr(new MitchellFilter(b, c));
+		return MitchellFilterPtr(new Mitchell_Filter(b, c));
 	}
 
 }

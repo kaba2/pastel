@@ -40,11 +40,11 @@ namespace Pastel
 	Mitchell	aliasing		very good
 	Lanczos(2)	aliasing		excellent
 
-	- Prefer TriangleFilter to GaussianFilter for minification.
+	- Prefer Triangle_Filter to Gaussian_Filter for minification.
 	It has a smaller radius, no visible clamping step,
 	and performs equivalently to the eye.
-	- The combination of a TriangleFilter for minification
-	and a LanczosFilter(2) for magnification seems to deliver
+	- The combination of a Triangle_Filter for minification
+	and a Lanczos_Filter(2) for magnification seems to deliver
 	the best results of all combinations. These are
 	the defaults.
 	*/
@@ -55,7 +55,7 @@ namespace Pastel
 	{
 	public:
 		explicit EwaImage_Texture(
-			const MipMap<N, Type>& mipMap,
+			const MipMap<Type, N>& mipMap,
 			const ArrayExtender<N, Type>& extender = ArrayExtender<N, Type>(),
 			const FilterPtr& maxFilter = lanczosFilter(2),
 			const FilterPtr& minFilter = triangleFilter())
@@ -81,7 +81,7 @@ namespace Pastel
 			const Vector<real, N>& p,
 			const Matrix<real, N, N>& m) const;
 
-		void setMipMap(const MipMap<N, Type>& mipMap)
+		void setMipMap(const MipMap<Type, N>& mipMap)
 		{
 			mipMap_ = &mipMap;
 		}
@@ -105,7 +105,7 @@ namespace Pastel
 			real tTransition,
 			const Array<Type, N>& image) const;
 
-		const MipMap<N, Type>* mipMap_;
+		const MipMap<Type, N>* mipMap_;
 		ArrayExtender<N, Type> extender_;
 		std::vector<real> minFilterTable_;
 		std::vector<real> maxFilterTable_;

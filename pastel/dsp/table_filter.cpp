@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	TableFilter::TableFilter(
+	Table_Filter::Table_Filter(
 		const Array<real, 1>& data,
 		real radius)
 		: Filter(radius, "table")
@@ -34,11 +34,11 @@ namespace Pastel
 		scaling_ = (width / 2) / Filter::radius();
 	}
 
-	TableFilter::~TableFilter()
+	Table_Filter::~Table_Filter()
 	{
 	}
 
-	real TableFilter::evaluateInRange(real x) const
+	real Table_Filter::evaluateInRange(real x) const
 	{
 		const real filterPos = 
 			center_ + x * scaling_;
@@ -52,7 +52,7 @@ namespace Pastel
 			filterPos - filterIndex);
 	}
 
-	void TableFilter::onSetRadius()
+	void Table_Filter::onSetRadius()
 	{
 		scaling_ = (data_.width() / 2) / radius();
 	}
@@ -78,7 +78,7 @@ namespace Pastel
 			filterTable(i) = filter->evaluateInRange(filterPosition);
 		}
 
-		return TableFilterPtr(new TableFilter(filterTable, filterRadius));
+		return TableFilterPtr(new Table_Filter(filterTable, filterRadius));
 	}
 
 }

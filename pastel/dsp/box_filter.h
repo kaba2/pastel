@@ -1,5 +1,6 @@
-// Description: BoxFilter class
+// Description: Box_Filter class
 // Detail: Box reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_BOX_FILTER_H
 #define PASTEL_BOX_FILTER_H
@@ -10,7 +11,7 @@
 namespace Pastel
 {
 
-	class PASTELDSP BoxFilter
+	class PASTELDSP Box_Filter
 		: public Filter
 	{
 	public:
@@ -18,25 +19,25 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		BoxFilter();
+		Box_Filter();
 
-		virtual ~BoxFilter();
+		virtual ~Box_Filter();
 
 		virtual real evaluateInRange(real x) const;
 
 	private:
 		// Prohibited
-		BoxFilter(const BoxFilter& that);
+		Box_Filter(const Box_Filter& that);
 		// Prohibited
-		BoxFilter& operator=(const BoxFilter& that);
+		Box_Filter& operator=(const Box_Filter& that);
 	};
 
-	typedef CountedPtr<BoxFilter> BoxFilterPtr;
-	typedef CountedPtr<const BoxFilter> ConstBoxFilterPtr;
+	typedef CountedPtr<Box_Filter> BoxFilterPtr;
+	typedef CountedPtr<const Box_Filter> ConstBoxFilterPtr;
 
 	inline BoxFilterPtr boxFilter()
 	{
-		return BoxFilterPtr(new BoxFilter);
+		return BoxFilterPtr(new Box_Filter);
 	}
 
 }

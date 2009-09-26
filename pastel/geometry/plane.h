@@ -7,13 +7,15 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 
+#include <boost/operators.hpp>
+
 namespace Pastel
 {
 
-	//! A hyperplane.
+	//! A plane.
 
 	/*!
-	A hyperplane can be described by a position and a
+	A plane can be described by a position and a
 	normal. The hyperplane is the set of all x's that satisfy
 	the equation:
 	dot(normal, x - position) = 0
@@ -36,6 +38,11 @@ namespace Pastel
 
 	template <typename Real, int N = Dynamic>
 	class Plane
+		: boost::multipliable<Plane<Real, N>, Real
+		, boost::dividable<Plane<Real, N>, Real
+		, boost::addable<Plane<Real, N>, Vector<Real, N>
+		, boost::subtractable<Plane<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	public:
 		// Using default copy constructor.
@@ -80,6 +87,18 @@ namespace Pastel
 
 		//! Returns the normal of the plane.
 		const Vector<Real, N>& normal() const;
+
+		//! Translates the plane by the given vector.
+		Plane<Real, N>& operator+=(const Vector<Real, N>& that);
+
+		//! Translates the plane backwards by the given vector.
+		Plane<Real, N>& operator-=(const Vector<Real, N>& that);
+
+		//! Scales up the plane without affecting position.
+		Plane<Real, N>& operator*=(const Real& that);
+
+		//! Scales down the plane without affecting position.
+		Plane<Real, N>& operator/=(const Real& that);
 
 	private:
 		Vector<Real, N> position_;

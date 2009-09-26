@@ -26,13 +26,13 @@ namespace
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
 
-		RipMap<2, Color> ripMap(arrayView(texture));
+		RipMap<Color, 2> ripMap(arrayView(texture));
 
 		transform(ripMap, fitColor);
 
 		Vector<integer, 2> position;
 
-		Array<Color, 2> outputImage(texture.extent() * 2);
+		Array<Color, 2> outputImage(texture.extent() * 2, Color(1));
 
 		integer yPosition = 0;
 

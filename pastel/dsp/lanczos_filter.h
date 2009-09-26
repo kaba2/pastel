@@ -1,5 +1,6 @@
-// Description: LanczosFilter class
+// Description: Lanczos_Filter class
 // Detail: Lanczos reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_LANCZOS_FILTER_H
 #define PASTEL_LANCZOS_FILTER_H
@@ -17,35 +18,35 @@ namespace Pastel
 										0, otherwise
 	*/
 
-	class PASTELDSP LanczosFilter
+	class PASTELDSP Lanczos_Filter
 		: public Filter
 	{
 	public:
 		// Using default copy constructor.
 		// Using default assignment.
 
-		explicit LanczosFilter(real radius = 2);
-		virtual ~LanczosFilter();
+		explicit Lanczos_Filter(real radius = 2);
+		virtual ~Lanczos_Filter();
 
 		virtual real evaluateInRange(real x) const;
 
 	private:
 		// Prohibited
-		LanczosFilter(const LanczosFilter& that);
+		Lanczos_Filter(const Lanczos_Filter& that);
 		// Prohibited
-		LanczosFilter& operator=(const LanczosFilter& that);
+		Lanczos_Filter& operator=(const Lanczos_Filter& that);
 
 		virtual void onSetRadius();
 
 		real invRadius_;
 	};
 
-	typedef CountedPtr<LanczosFilter> LanczosFilterPtr;
-	typedef CountedPtr<const LanczosFilter> ConstLanczosFilterPtr;
+	typedef CountedPtr<Lanczos_Filter> LanczosFilterPtr;
+	typedef CountedPtr<const Lanczos_Filter> ConstLanczosFilterPtr;
 
 	inline LanczosFilterPtr lanczosFilter(real radius = 2)
 	{
-		return LanczosFilterPtr(new LanczosFilter(radius));
+		return LanczosFilterPtr(new Lanczos_Filter(radius));
 	}
 
 }

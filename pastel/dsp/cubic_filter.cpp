@@ -5,19 +5,19 @@
 namespace Pastel
 {
 
-	// CubicFilter
+	// Cubic_Filter
 
-	CubicFilter::CubicFilter(real negativeLobeness)
+	Cubic_Filter::Cubic_Filter(real negativeLobeness)
 		: Filter(2, "cubic")
 		, d_((negativeLobeness * 3) / 2)
 	{
 	}
 
-	CubicFilter::~CubicFilter()
+	Cubic_Filter::~Cubic_Filter()
 	{
 	}
 
-	real CubicFilter::evaluateInRange(real x) const
+	real Cubic_Filter::evaluateInRange(real x) const
 	{
 		// Let
 		// f(x) = ax^3 + bx^2 + cx + d

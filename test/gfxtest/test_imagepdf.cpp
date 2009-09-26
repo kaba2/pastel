@@ -80,7 +80,7 @@ namespace
 
 		log() << "Computing mipmaps..." << logNewLine;
 
-		MipMap<2, real32> mipMap(constArrayView(image),
+		MipMap<real32, 2> mipMap(constArrayView(image),
 			ArrayExtender<2, real32>(), boxFilter());
 
 		const integer images = mipMap.levels();

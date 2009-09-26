@@ -7,11 +7,12 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 
+#include <boost/operators.hpp>
+
 namespace Pastel
 {
 
-	//! A hypersphere.
-
+	//! A sphere.
 	/*!
 	A sphere S is specified by a center position c
 	and radius r. Then
@@ -20,6 +21,11 @@ namespace Pastel
 
 	template <typename Real, int N = Dynamic>
 	class Sphere
+		: boost::multipliable<Sphere<Real, N>, Real
+		, boost::dividable<Sphere<Real, N>, Real
+		, boost::addable<Sphere<Real, N>, Vector<Real, N>
+		, boost::subtractable<Sphere<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	public:
 		// Using default copy constructor.
@@ -67,6 +73,18 @@ namespace Pastel
 		division is expensive.
 		*/
 		const Real& inverseRadius() const;
+
+		//! Translates the sphere by the given vector.
+		Sphere<Real, N>& operator+=(const Vector<Real, N>& that);
+
+		//! Translates the sphere backwards by the given vector.
+		Sphere<Real, N>& operator-=(const Vector<Real, N>& that);
+
+		//! Scales up the sphere without affecting position.
+		Sphere<Real, N>& operator*=(const Real& that);
+
+		//! Scales down the sphere without affecting position.
+		Sphere<Real, N>& operator/=(const Real& that);
 
 	private:
 		Vector<Real, N> position_;

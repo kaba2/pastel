@@ -8,9 +8,9 @@
 namespace Pastel
 {
 
-	template <int N, typename Type, typename TransformFunctor>
+	template <typename Type, int N, typename TransformFunctor>
 	void transform(
-		MipMap<N, Type>& mipMap,
+		MipMap<Type, N>& mipMap,
 		const TransformFunctor& transform)
 	{
 		const integer images = mipMap.levels();

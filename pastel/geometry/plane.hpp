@@ -110,6 +110,46 @@ namespace Pastel
 		return normal_;
 	}
 
+	template <typename Real, int N>
+	Plane<Real, N>& Plane<Real, N>::operator+=(
+		const Vector<Real, N>& that)
+	{
+		position_ += that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Plane<Real, N>& Plane<Real, N>::operator-=(
+		const Vector<Real, N>& that)
+	{
+		position_ -= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Plane<Real, N>& Plane<Real, N>::operator*=(
+		const Real& that)
+	{
+		// Do nothing.
+		
+		unused(that);
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Plane<Real, N>& Plane<Real, N>::operator/=(
+		const Real& that)
+	{
+		PENSURE_OP(that, !=, 0);
+
+		// Do nothing.
+
+		return *this;
+	}
+
 }
 
 #endif

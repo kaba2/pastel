@@ -70,40 +70,6 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Line<Real, N>& Line<Real, N>::operator+=(
-		const Vector<Real, N>& translation)
-	{
-		position_ += translation;
-		return *this;
-	}
-
-	template <typename Real, int N>
-	Line<Real, N> Line<Real, N>::operator+(
-		const Vector<Real, N>& translation) const
-	{
-		Line<Real, N> result(*this);
-		result += translation;
-		return result;
-	}
-
-	template <typename Real, int N>
-	Line<Real, N>& Line<Real, N>::operator-=(
-		const Vector<Real, N>& translation)
-	{
-		position_ -= translation;
-		return *this;
-	}
-
-	template <typename Real, int N>
-	Line<Real, N> Line<Real, N>::operator-(
-		const Vector<Real, N>& translation) const
-	{
-		Line<Real, N> result(*this);
-		result -= translation;
-		return result;
-	}
-
-	template <typename Real, int N>
 	integer Line<Real, N>::dimension() const
 	{
 		return position_.dimension();
@@ -161,6 +127,46 @@ namespace Pastel
 	Vector<Real, N> Line<Real, N>::at(const Real& t) const
 	{
 		return position_ + direction_ * t;
+	}
+
+	template <typename Real, int N>
+	Line<Real, N>& Line<Real, N>::operator+=(
+		const Vector<Real, N>& that)
+	{
+		position_ += that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Line<Real, N>& Line<Real, N>::operator-=(
+		const Vector<Real, N>& that)
+	{
+		position_ -= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Line<Real, N>& Line<Real, N>::operator*=(
+		const Real& that)
+	{
+		// Do nothing.
+		
+		unused(that);
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Line<Real, N>& Line<Real, N>::operator/=(
+		const Real& that)
+	{
+		PENSURE_OP(that, !=, 0);
+
+		// Do nothing.
+
+		return *this;
 	}
 
 }

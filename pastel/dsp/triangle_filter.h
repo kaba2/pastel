@@ -1,5 +1,6 @@
-// Description: TriangleFilter class
+// Description: Triangle_Filter class
 // Detail: Triangle reconstruction filter
+// Documentation: filter.txt
 
 #ifndef PASTEL_TRIANGLE_FILTER_H
 #define PASTEL_TRIANGLE_FILTER_H
@@ -10,7 +11,7 @@
 namespace Pastel
 {
 
-	class PASTELDSP TriangleFilter
+	class PASTELDSP Triangle_Filter
 		: public Filter
 	{
 	public:
@@ -18,25 +19,25 @@ namespace Pastel
 		// Using default copy constructor.
 		// Using default assignment.
 
-		TriangleFilter();
+		Triangle_Filter();
 
-		virtual ~TriangleFilter();
+		virtual ~Triangle_Filter();
 
 		virtual real evaluateInRange(real position) const;
 
 	private:
 		// Prohibited
-		TriangleFilter(const TriangleFilter& that);
+		Triangle_Filter(const Triangle_Filter& that);
 		// Prohibited
-		TriangleFilter& operator=(const TriangleFilter& that);
+		Triangle_Filter& operator=(const Triangle_Filter& that);
 	};
 
-	typedef CountedPtr<TriangleFilter> TriangleFilterPtr;
-	typedef CountedPtr<const TriangleFilter> ConstTriangleFilterPtr;
+	typedef CountedPtr<Triangle_Filter> TriangleFilterPtr;
+	typedef CountedPtr<const Triangle_Filter> ConstTriangleFilterPtr;
 
 	inline TriangleFilterPtr triangleFilter()
 	{
-		return TriangleFilterPtr(new TriangleFilter);
+		return TriangleFilterPtr(new Triangle_Filter);
 	}
 
 }

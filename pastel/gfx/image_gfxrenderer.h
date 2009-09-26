@@ -37,7 +37,7 @@ namespace Pastel
 		void onSetResamplingMode();
 
 		void uploadMipMap(
-			integer textureId, const MipMap<2, Type>& mipMap);
+			integer textureId, const MipMap<Type, 2>& mipMap);
 
 		// Drawing
 
@@ -76,7 +76,7 @@ namespace Pastel
 		AffineTransformation2 screenTransformation_;
 		Array<Type, 2>* image_;
 		std::vector<const Array<Type, 2>*> textureImage_;
-		std::vector<const MipMap<2, Type>*> mipMap_;
+		std::vector<const MipMap<Type, 2>*> mipMap_;
 
 		NearestImage_Texture<Type> nearestTexture_;
 		LinearImage_Texture<Type> linearTexture_;

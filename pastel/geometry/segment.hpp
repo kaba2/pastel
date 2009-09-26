@@ -4,6 +4,7 @@
 #include "pastel/geometry/segment.h"
 
 #include "pastel/sys/vector.h"
+#include "pastel/sys/math_functions.h"
 
 #include <boost/static_assert.hpp>
 
@@ -68,7 +69,49 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> Segment<Real, N>::at(const Real& t) const
 	{
-		return start_ + (end_ - start_) * t;
+		return linear(start_, end_, t);
+	}
+
+	template <typename Real, int N>
+	Segment<Real, N>& Segment<Real, N>::operator+=(
+		const Vector<Real, N>& that)
+	{
+		start_ += that;
+		end_ += that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Segment<Real, N>& Segment<Real, N>::operator-=(
+		const Vector<Real, N>& that)
+	{
+		start_ -= that;
+		end_ -= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Segment<Real, N>& Segment<Real, N>::operator*=(
+		const Real& that)
+	{
+		const Vector<Real, N> translation =
+			(end_ - start_) * ((that - 1) / 2);
+		
+		start_ += translation;
+		end_ -= translation;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Segment<Real, N>& Segment<Real, N>::operator/=(
+		const Real& that)
+	{
+		PENSURE_OP(that, !=, 0);
+
+		return (*this) *= inverse(that);
 	}
 
 }

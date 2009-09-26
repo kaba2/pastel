@@ -5,20 +5,20 @@
 namespace Pastel
 {
 
-	// MitchellFilter
+	// Mitchell_Filter
 
-	MitchellFilter::MitchellFilter(real b, real c)
+	Mitchell_Filter::Mitchell_Filter(real b, real c)
 		: Filter(2, "mitchell")
 		, b_(b)
 		, c_(c)
 	{
 	}
 
-	MitchellFilter::~MitchellFilter()
+	Mitchell_Filter::~Mitchell_Filter()
 	{
 	}
 
-	real MitchellFilter::evaluateInRange(real x) const
+	real Mitchell_Filter::evaluateInRange(real x) const
 	{
 		// Let
 		// f(x) = ax^3 + bx^2 + cx + d

@@ -3,16 +3,16 @@
 namespace Pastel
 {
 
-	BoxFilter::BoxFilter()
+	Box_Filter::Box_Filter()
 		: Filter(0.5, "box")
 	{
 	}
 
-	BoxFilter::~BoxFilter()
+	Box_Filter::~Box_Filter()
 	{
 	}
 
-	real BoxFilter::evaluateInRange(real x) const
+	real Box_Filter::evaluateInRange(real x) const
 	{
 		return 1;
 	}

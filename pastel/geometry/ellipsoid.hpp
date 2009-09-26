@@ -54,8 +54,10 @@ namespace Pastel
 		// and thus the correct matrix to return is
 		// ((L^T)^-T (L^T)^-1)^T = L^-1 L^-T.
 
-		const Matrix<Real, N, N> invBasis = inverse(basis);
-		return invBasis * transpose(invBasis);
+		Matrix<Real, N, N> result = inverse(basis);
+		result *= transpose(result);
+		
+		return result;
 	}
 
 	template <int N, typename Real>

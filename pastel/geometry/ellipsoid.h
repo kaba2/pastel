@@ -1,5 +1,4 @@
 // Description: Algorithms for ellipsoids
-// Documentation: shapes.txt
 
 #ifndef PASTEL_ELLIPSOID_H
 #define PASTEL_ELLIPSOID_H
@@ -19,7 +18,7 @@ namespace Pastel
 	S is in R^(n x n) and symmetric positive semi-definite
 
 	This function returns a matrix S such that
-	the set Q is an image of the unit circle under
+	the set Q is an image of the unit sphere under
 	the given linear transformation.
 	*/
 

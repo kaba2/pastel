@@ -51,8 +51,23 @@ textures in ''RR^n''. It is defined by:
 
 	:::cpp
 	template <typename Type, int N = 2>
-	class Texture;
+	class Texture
+		: public ReferenceCounted
+	{
+	public:
+		typedef CountedPtr<Texture> Ptr;
+		typedef CountedPtr<const Texture> ConstPtr;
+		typedef Type Element;
 
+		virtual ~Texture() {}
+
+		virtual Type operator()(
+			const Vector<real, N>& p,
+			const Matrix<real, N, N>& m) const = 0;
+
+		virtual std::string name() const = 0;
+	};
+	
 where Type is a vector, such as Color, or real32, which
 defines the ''V'' in the definition, and N defines the dimensionality. 
 Its abstract interface provides access to a texture sampler. 

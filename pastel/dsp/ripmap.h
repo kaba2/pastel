@@ -21,10 +21,10 @@ namespace Pastel
 	the individual downsampled images are also called ripmaps.
 
 	The result is an array of ripmaps, such that
-	ripMapList(Vector<integer, N>(0)) contains the original image upsampled
+	ripMap(Vector<integer, N>(0)) contains the original image upsampled
 	to the next power-of-two extents. Subsequently, if p is an
-	array coordinate vector, then ripMapList(p + unitAxis<I>())
-	contains a half-extent version of ripMapList(p) along the I:th standard axis.
+	array coordinate vector, then ripMap(p + unitAxis<I>())
+	contains a half-extent version of ripMap(p) along the I:th standard axis.
 
 	You can choose the reconstruction filter to use
 	in the resamplings. Note that if your filter has
@@ -34,13 +34,9 @@ namespace Pastel
 	contains color, then you will want to
 	call 'transform(arrayView(ripMap(p)), fitColor)'
 	for each ripmap afterwards.
-
-	The memory footprint of the ripmaps can be computed as follows.
-	Assume the dimensions is n and the original image is a
-	cube with side length 2^m. The memory footprint is
 	*/
 
-	template <int N, typename Type>
+	template <typename Type, int N = 2>
 	class RipMap
 	{
 	public:
@@ -57,7 +53,7 @@ namespace Pastel
 		void swap(RipMap& that);
 		void clear();
 
-		RipMap<N, Type>& operator=(const RipMap& that);
+		RipMap<Type, N>& operator=(const RipMap& that);
 
 		template <typename Image_ConstView>
 		void setImage(
@@ -80,11 +76,11 @@ namespace Pastel
 
 		View<N, Array<Type, N>,
 			ArrayView<N, Array<Array<Type, N>, N> > >
-			RipMap<N, Type>::view();
+			RipMap<Type, N>::view();
 
 		ConstView<N, Array<Type, N>,
 			ConstArrayView<N, Array<Array<Type, N>, N> > >
-			RipMap<N, Type>::constView() const;
+			RipMap<Type, N>::constView() const;
 
 	private:
 		Array<Array<Type, N>, N> ripMapArray_;

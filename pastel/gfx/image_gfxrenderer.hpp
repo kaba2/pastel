@@ -22,7 +22,7 @@ namespace Pastel
 		, mipMap_()
 		, nearestTexture_()
 		, linearTexture_()
-		, ewaTexture_(MipMap<2, Type>(), ArrayExtender<2, Type>(clampExtender()))
+		, ewaTexture_(MipMap<Type, 2>(), ArrayExtender<2, Type>(clampExtender()))
 		, texture_(0)
 	{
 	}
@@ -87,7 +87,7 @@ namespace Pastel
 
 	template <typename Type>
 	void Image_GfxRenderer<Type>::uploadMipMap(
-		integer textureId, const MipMap<2, Type>& mipMap)
+		integer textureId, const MipMap<Type, 2>& mipMap)
 	{
 		ENSURE2(textureId >= 0 && textureId < textureImage_.size(),
 			textureId, textureImage_.size());

@@ -22,7 +22,7 @@ namespace Pastel
 
 	template <typename Type, int N>
 	MipImage_Texture<Type, N>::MipImage_Texture(
-		const MipMap<N, Type>& mipMap,
+		const MipMap<Type, N>& mipMap,
 		const ArrayExtender<N, Type>& extender)
 		: mipMap_(&mipMap)
 		, extender_(extender)

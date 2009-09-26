@@ -126,7 +126,7 @@ namespace Pastel
 	blurFactor >= 1
 
 	This function calls the corresponding resampleTable()
-	function after constructing a TableFilter out of
+	function after constructing a Table_Filter out of
 	the given filter.
 	*/
 

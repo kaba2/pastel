@@ -5,16 +5,16 @@
 namespace Pastel
 {
 
-	TriangleFilter::TriangleFilter()
+	Triangle_Filter::Triangle_Filter()
 		: Filter(1, "triangle")
 	{
 	}
 
-	TriangleFilter::~TriangleFilter()
+	Triangle_Filter::~Triangle_Filter()
 	{
 	}
 
-	real TriangleFilter::evaluateInRange(real x) const
+	real Triangle_Filter::evaluateInRange(real x) const
 	{
 		return 1 - mabs(x);
 	}

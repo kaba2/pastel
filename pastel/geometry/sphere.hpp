@@ -113,5 +113,42 @@ namespace Pastel
 		left.swap(right);
 	}
 
+	template <typename Real, int N>
+	Sphere<Real, N>& Sphere<Real, N>::operator+=(
+		const Vector<Real, N>& that)
+	{
+		position_ += that;
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Sphere<Real, N>& Sphere<Real, N>::operator-=(
+		const Vector<Real, N>& that)
+	{
+		position_ -= that;
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Sphere<Real, N>& Sphere<Real, N>::operator*=(
+		const Real& that)
+	{
+		radius_ *= that;
+		inverseRadius_ /= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Sphere<Real, N>& Sphere<Real, N>::operator/=(
+		const Real& that)
+	{
+		radius_ /= that;
+		inverseRadius_ *= that;
+
+		return *this;
+	}
+
 }
+
 #endif
