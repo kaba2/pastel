@@ -169,7 +169,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					shrink((randomVectorBall<3, real>() + 1) / 2));
+					shrink((randomVectorBall<real, 3>() + 1) / 2));
 			}
 			draw(pointList, 150, 300, myRandoColor(), image);
 		}
@@ -214,7 +214,7 @@ namespace
 			for (integer i = 0;i < points;++i)
 			{
 				pointList.push_back(
-					(randomVectorBall<2, real>() + 1) / 2);
+					(randomVectorBall<real, 2>() + 1) / 2);
 			}
 			draw(pointList, 300, 450, myRandoColor(), image);
 		}
@@ -312,7 +312,7 @@ namespace
 		for (integer i = 0;i < Samples;++i)
 		{
 			const Vector<Real, N> sample
-				= randomVectorBall<N, Real>();
+				= randomVectorBall<Real, N>();
 			const Real distance = 
 				norm(sample);
 			++histogram[quantizeUnsigned(distance, Width)];

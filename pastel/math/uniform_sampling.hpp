@@ -13,14 +13,14 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVectorCube<N, Real>(N);
+		return Pastel::randomVectorCube<Real, N>(N);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
@@ -35,14 +35,14 @@ namespace Pastel
 		return direction;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVectorSphere<N, Real>(N);
+		return Pastel::randomVectorSphere<Real, N>(N);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere(integer dimension)
 	{
 		// A randomly distributed vector on the
@@ -83,38 +83,38 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVectorBall<N, Real>(N);
+		return Pastel::randomVectorBall<Real, N>(N);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall(
 		integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
 		Vector<Real, N> sphere = 
-			randomVectorSphere<N, Real>(dimension);
+			randomVectorSphere<Real, N>(dimension);
 
 		sphere *= std::pow(random<Real>(), inverse((Real)dimension));
 
 		return sphere;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomVectorAnnulus<N, Real>(
+		return Pastel::randomVectorAnnulus<Real, N>(
 			minRadius, maxRadius, N);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,
@@ -123,7 +123,7 @@ namespace Pastel
 		PENSURE_OP(dimension, >=, 0);
 
 		Vector<Real, N> sphere = 
-			randomVectorSphere<N, Real>(dimension);
+			randomVectorSphere<Real, N>(dimension);
 
 		sphere *= 
 			std::pow(

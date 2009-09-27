@@ -441,7 +441,7 @@ namespace
 				Matrix<real, N, N> b(n, n);
 				setRandomMatrix(b);
 
-				Vector<real, N> v = randomVectorCube<N, real>(n);
+				Vector<real, N> v = randomVectorCube<real, N>(n);
 
 				Vector<real, N> result1 = v * (a * b);
 				Vector<real, N> result2 = (v * a) * b;
@@ -523,7 +523,7 @@ namespace
 				Matrix<real, N, N> a(n, n);
 				setRandomMatrix(a);
 
-				const Vector<real, N> b(randomVectorCube<N, real>(n));
+				const Vector<real, N> b(randomVectorCube<real, N>(n));
 
 				const Vector<real, N> x(solveLinear(a, b));
 

@@ -100,7 +100,7 @@ namespace Pastel
 	{		
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::randomGammaVector<N, Real>(
+		return Pastel::randomGammaVector<Real, N>(
 			N, shape, scale);
 	}
 

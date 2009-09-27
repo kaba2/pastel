@@ -29,7 +29,7 @@ namespace
 
 			if (!lu.singular())
 			{
-				const Vector<real, N> b = randomVectorCube<N, real>();
+				const Vector<real, N> b = randomVectorCube<real, N>();
 
 				const Vector<real, N> x = solveLinear(lu, b);
 

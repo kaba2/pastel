@@ -41,7 +41,7 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				randomVectorBall<N, Real>(dimension));
+				randomVectorBall<Real, N>(dimension));
 		}
 
 		pointSet.swap(result);

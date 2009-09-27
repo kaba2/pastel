@@ -205,7 +205,7 @@ void logicHandler()
 		const integer points = targetSet__.size();
 		for (integer i = 0;i < points;++i)
 		{
-			targetSet__[i] += randomVectorSphere<2, real>() * 0.01;
+			targetSet__[i] += randomVectorSphere<real, 2>() * 0.01;
 		}
 	}
 	if (deviceSystem().keyDown(SDLK_q))

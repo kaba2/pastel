@@ -73,7 +73,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::randomExponentialVector<N, Real>(N);
+		return Pastel::randomExponentialVector<Real, N>(N);
 	}
 
 	template <typename Real, int N>
