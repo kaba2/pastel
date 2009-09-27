@@ -621,20 +621,20 @@ namespace
 
 		/*
 		drawDistribution(renderer, 
-			uniformRandomDistribution<1, real>(), -3, 3, 1);
+			uniformRandomDistribution<real, 1>(), -3, 3, 1);
 		savePcx(image, "random_uniform.pcx");
 
 		clear(background, arrayView(image));
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<1, real>(1), Vector1(2)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<real, 1>(1), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<1, real>(2), Vector1(2)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<real, 1>(2), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<1, real>(3), Vector1(2)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<real, 1>(3), Vector1(2)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<1, real>(5), Vector1(1)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<real, 1>(5), Vector1(1)), 0, 20, 0.5);
 		drawDistribution(renderer, 
-			scale(gammaRandomDistribution<1, real>(9), Vector1(0.5)), 0, 20, 0.5);
+			scale(gammaRandomDistribution<real, 1>(9), Vector1(0.5)), 0, 20, 0.5);
 		savePcx(image, "random_gamma.pcx");
 		*/
 	}

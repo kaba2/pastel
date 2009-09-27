@@ -34,7 +34,7 @@ namespace
 
 		for (integer i = 0;i < points;++i)
 		{
-			pointList.push_back(randomVectorBall<N, Real>(dimension));
+			pointList.push_back(randomVectorBall<Real, N>(dimension));
 		}
 
 		kdTree.insert(pointList.begin(), pointList.end());
@@ -165,7 +165,7 @@ namespace
 		for (integer i = 0;i < spheres;++i)
 		{
 			Sphere3* sphere = (Sphere3*)allocator.allocate();
-			new(sphere) Sphere3(Vector3(1 * randomVectorBall<3, real>()),
+			new(sphere) Sphere3(Vector3(1 * randomVectorBall<real, 3>()),
 				0.01);
 
 			sphereList.push_back(sphere);

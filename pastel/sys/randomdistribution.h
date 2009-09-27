@@ -133,7 +133,7 @@ namespace Pastel
 		virtual Vector<Real, N> sample() const
 		{
 			Vector<Real, N> result(
-				randomExponentialVector<N, Real>(Base::dimension()));
+				randomExponentialVector<Real, N>(Base::dimension()));
 			
 			return result;
 		}
@@ -158,7 +158,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::exponentialRandomDistribution<N, Real>(N);
+		return Pastel::exponentialRandomDistribution<Real, N>(N);
 	}
 
 }
@@ -194,7 +194,7 @@ namespace Pastel
 		virtual Vector<Real, N> sample() const
 		{
 			Vector<Real, N> result(
-				randomVectorCube<N, Real>(Base::dimension()));
+				randomVectorCube<Real, N>(Base::dimension()));
 			
 			return result;
 		}
@@ -219,7 +219,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::uniformRandomDistribution<N, Real>(N);
+		return Pastel::uniformRandomDistribution<Real, N>(N);
 	}
 
 }
@@ -300,7 +300,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::generalizedGaussianRandomDistribution<N, Real>(
+		return Pastel::generalizedGaussianRandomDistribution<Real, N>(
 			N, shape, scale);
 	}
 
@@ -343,7 +343,7 @@ namespace Pastel
 		virtual Vector<Real, N> sample() const
 		{
 			Vector<Real, N> result(
-				randomGammaVector<N, Real>(
+				randomGammaVector<Real, N>(
 				Base::dimension(), shape_));
 			
 			return result;
@@ -376,7 +376,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::gammaRandomDistribution<N, Real>(
+		return Pastel::gammaRandomDistribution<Real, N>(
 			N, shape);
 	}
 

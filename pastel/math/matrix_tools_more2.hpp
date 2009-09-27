@@ -123,7 +123,7 @@ namespace Pastel
 		orthonormalSet.reserve(height);
 
 		orthonormalSet.push_back(
-			randomVectorSphere<Width, Real>(width));
+			randomVectorSphere<Real, Width>(width));
 		result[0] = orthonormalSet.back();
 
 		for (integer i = 1;i < height;++i)

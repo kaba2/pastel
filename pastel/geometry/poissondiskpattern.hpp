@@ -152,7 +152,7 @@ namespace Pastel
 
 					const Vector<Real, N> newPoint =
 						activePoint +
-						randomVectorAnnulus<N, Real>(
+						randomVectorAnnulus<Real, N>(
 						minDistance, 2 * minDistance);
 
 					// See if the new point is inside the region.

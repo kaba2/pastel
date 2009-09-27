@@ -27,7 +27,7 @@ namespace Pastel
 
 		for (integer i = 0;i < points;++i)
 		{
-			result.push_back(randomVectorBall<N, Real>(dimension));
+			result.push_back(randomVectorBall<Real, N>(dimension));
 		}
 
 		result.swap(pointSet);
@@ -63,7 +63,7 @@ namespace Pastel
 			}
 
 			const Vector<Real, N> clusterCenter(
-				randomVectorCube<N, Real>(dimension));
+				randomVectorCube<Real, N>(dimension));
 			const Real clusterRadius = random<Real>() * 0.1;
 
 			for (integer i = 0;i < clusterPoints;++i)
@@ -96,7 +96,7 @@ namespace Pastel
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				randomVectorCube<N, Real>(dimension));
+				randomVectorCube<Real, N>(dimension));
 		}
 
 		result.swap(pointSet);

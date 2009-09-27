@@ -10,7 +10,7 @@ namespace Pastel
 
 	//! Returns a random vector uniformly distributed in [-1, 1]^N.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube();
 
 	//! Returns a random vector uniformly distributed in [-1, 1]^N.
@@ -19,7 +19,7 @@ namespace Pastel
 	dimension >= 0
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube(integer dimension);
 
 	//! Returns a random vector uniformly distributed on the unit sphere.
@@ -28,7 +28,7 @@ namespace Pastel
 	A vector x such that dot(x) = 1.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere();
 
 	//! Returns a random vector uniformly distributed on the unit sphere.
@@ -40,7 +40,7 @@ namespace Pastel
 	A vector x such that dot(x) = 1.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere(integer dimension);
 
 	//! Returns a random vector uniformly distributed in the unit ball.
@@ -49,7 +49,7 @@ namespace Pastel
 	A vector x such that dot(x) <= 1.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall();
 
 	//! Returns a random vector uniformly distributed in the unit ball.
@@ -61,7 +61,7 @@ namespace Pastel
 	A vector x such that dot(x) <= 1.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall(integer dimension);
 
 	//! Returns a random vector uniformly distributed on the annulus.
@@ -70,7 +70,7 @@ namespace Pastel
 	A vector x such that minRadius <= norm(x) <= maxRadius.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
@@ -84,7 +84,7 @@ namespace Pastel
 	A vector x such that minRadius <= norm(x) <= maxRadius.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVectorAnnulus(
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius,

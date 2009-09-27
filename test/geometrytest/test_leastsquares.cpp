@@ -29,7 +29,7 @@ namespace
 
 			for (integer i = 0;i < points;++i)
 			{
-				const Vector2 fromPoint(randomVectorSphere<2, real>());
+				const Vector2 fromPoint(randomVectorSphere<real, 2>());
 				from.push_back(fromPoint);
 
 				const Vector2 toPoint(transformPoint(fromPoint, transformation));

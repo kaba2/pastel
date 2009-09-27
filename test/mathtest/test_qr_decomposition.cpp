@@ -44,7 +44,7 @@ namespace
 				Matrix<Real, N, N> a(n, n);
 				setRandomMatrix(a);
 
-				const Vector<Real, N> b = randomVectorCube<N, Real>(n);
+				const Vector<Real, N> b = randomVectorCube<Real, N>(n);
 
 				const QrDecomposition<Real, N> qr(a);
 
