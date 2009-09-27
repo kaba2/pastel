@@ -285,6 +285,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Transformation"
+				>
+				<File
+					RelativePath=".\transformation.h"
+					>
+				</File>
+				<File
+					RelativePath=".\transformation.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\transformation.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"
