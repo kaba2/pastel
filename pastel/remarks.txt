@@ -11,6 +11,13 @@ Todo
 - Check that include guards equal file name.
 - Create a test file for each source file.
 
+- Generalize drawing functions to use textures
+- Create some distortion textures
+- Implement ellipse drawing
+- Replace Views with SubArrays ?
+- Make resampling functions easier to use
+- Replace iterator interfaces with iterator range interfaces
+
 What are the disabled Visual Studio warnings?
 ---------------------------------------------
 

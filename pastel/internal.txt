@@ -10,19 +10,4 @@ or only as a subset if some functionality is not required.
 The following (transitively reduced) graph summarizes the 
 internal dependencies.
 
-	sys <------- device
-	^            ^
-	|            |
-	math         |
-	^            |
-	|            |
-	dsp          |
-	^            |
-	|            |
-	geometry     |
-	^            |
-	|            |
-	gfx <------- gl
-	^
-	|            
-	ray
+![Internal dependencies](../images/internal_dependencies.png)
