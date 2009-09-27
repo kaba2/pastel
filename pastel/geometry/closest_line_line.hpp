@@ -129,7 +129,7 @@ namespace Pastel
 	u = -dot(d, q) / dot(q, q)
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Tuple<Real, 2> closest(
 		const Line<Real, N>& aLine,
 		const Line<Real, N>& bLine)

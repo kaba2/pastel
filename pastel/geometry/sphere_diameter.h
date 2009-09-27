@@ -11,13 +11,13 @@ namespace Pastel
 
 	//! Returns the diameter of a sphere.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real diameter(
 		const Sphere<Real, N>& sphere);
 
 	//! Returns the squared diameter of a sphere.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real diameter2(
 		const Sphere<Real, N>& sphere);
 

@@ -29,7 +29,7 @@ namespace Pastel
 
 	// Vectors and matrices
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> diagonal(
 		const MatrixExpression<Real, N, N, Expression>& matrix);
 
@@ -78,7 +78,7 @@ namespace Pastel
 	the identity matrix is returned.
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Matrix<Real, N, N> inverse(
 		const MatrixExpression<Real, N, N, Expression>& a);
 
@@ -120,7 +120,7 @@ namespace Pastel
 
 	//! Solves a linear system x^T A = b^T.
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLinear(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -144,7 +144,7 @@ namespace Pastel
 
 	//! Solves a lower triangular linear system x^T A = b^T.
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLowerTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -161,7 +161,7 @@ namespace Pastel
 	matrix with implicit 1's on the diagonal of either one).
 	*/
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitLowerTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -169,7 +169,7 @@ namespace Pastel
 
 	//! Solves an upper triangular linear system x^T A = b^T.
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUpperTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -186,7 +186,7 @@ namespace Pastel
 	matrix with implicit 1's on the diagonal of either one).
 	*/
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitUpperTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,

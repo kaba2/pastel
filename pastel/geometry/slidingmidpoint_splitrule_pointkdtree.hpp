@@ -13,7 +13,7 @@ namespace Pastel
 	{
 	public:
 		template <
-			int N, typename Real,
+			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const PointKdTree<Real, N, ObjectPolicy>& tree,
@@ -85,7 +85,7 @@ namespace Pastel
 	{
 	public:
 		template <
-			int N, typename Real,
+			typename Real, int N,
 			typename ObjectPolicy>
 			std::pair<Real, integer> operator()(
 			const PointKdTree<Real, N, ObjectPolicy>& tree,

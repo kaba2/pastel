@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> wDivide(const Vector<Real, N>& that)
 	{
 		const integer dimension = that.dimension();

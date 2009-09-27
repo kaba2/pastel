@@ -21,7 +21,7 @@ namespace Pastel
 	the entries will be the same.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool intersect(
 			const Line<Real, N>& line,
 			const Sphere<Real, N>& sphere,

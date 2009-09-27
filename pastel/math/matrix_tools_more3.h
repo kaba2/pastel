@@ -31,7 +31,7 @@ namespace Pastel
 
 	//! Returns the determinant of a matrix.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real determinant(
 		const MatrixExpression<Real, N, N, Expression>& that);
 
@@ -104,7 +104,7 @@ namespace Pastel
 
 	//! Returns the condition number of a matrix using a pointwise norm.
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression, typename NormBijection>
 		Real condition2(
 		const MatrixExpression<Real, N, N, Expression>& matrix,
@@ -112,13 +112,13 @@ namespace Pastel
 
 	//! Returns the condition number of a matrix using manhattan norm.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real conditionManhattan(
 		const MatrixExpression<Real, N, N, Expression>& matrix);
 
 	//! Returns the condition number of a matrix using infinity norm.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real conditionInfinity(
 		const MatrixExpression<Real, N, N, Expression>& matrix);
 

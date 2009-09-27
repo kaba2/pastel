@@ -29,7 +29,7 @@ namespace Pastel
 	matrix.width() == matrix.height()
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setDiagonal(
 		Matrix<Real, N, N>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value);
@@ -40,14 +40,14 @@ namespace Pastel
 	matrix.width() == matrix.height() == values.size()
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setDiagonal(
 		Matrix<Real, N, N>& matrix,
 		const Vector<Real, N>& values);
 
 	//! Generates a uniformly distributed random rotation matrix.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomRotation(
 		Matrix<Real, N, N>& result);
 
@@ -69,7 +69,7 @@ namespace Pastel
 	using the function 'perpendicular'.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomReducedRotation(
 		Matrix<Real, N, N>& result);
 
@@ -79,7 +79,7 @@ namespace Pastel
 	determinant > 0
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		Matrix<Real, N, N>& result);
@@ -91,7 +91,7 @@ namespace Pastel
 	condition >= 1
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		const PASTEL_NO_DEDUCTION(Real)& condition,

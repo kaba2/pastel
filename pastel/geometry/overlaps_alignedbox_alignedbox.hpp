@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(
 			const AlignedBox<Real, N>& aAlignedBox,
 			const AlignedBox<Real, N>& bAlignedBox)
@@ -40,7 +40,7 @@ namespace Pastel
 		return true;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,

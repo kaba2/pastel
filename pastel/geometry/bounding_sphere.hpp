@@ -19,7 +19,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const AlignedBox<Real, N>& alignedBox)
 	{
@@ -29,7 +29,7 @@ namespace Pastel
 			std::sqrt(dot(delta)) * 0.5);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Box<Real, N>& box)
 	{
@@ -38,14 +38,14 @@ namespace Pastel
 			std::sqrt(dot(box.width())));
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Vector<Real, N>& aPoint)
 	{
 		return circumscribedSphere(aPoint);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Segment<Real, N>& segment)
 	{
@@ -53,7 +53,7 @@ namespace Pastel
 			segment.start(), segment.end());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
@@ -61,14 +61,14 @@ namespace Pastel
 		return circumscribedSphere(aPoint, bPoint);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Simplex<Real, N, 0>& simplex)
 	{
 		return circumscribedSphere(simplex);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
 		const Simplex<Real, N, 1>& simplex)
 	{
@@ -136,7 +136,7 @@ namespace Pastel
 		template <int K>
 		struct DimensionTag {};
 
-		template <int N, typename Real, int M>
+		template <typename Real, int N, int M>
 		Sphere<Real, N> boundingSphere(
 			const Simplex<Real, N, M>& simplex,
 			DimensionTag<M>)
@@ -144,7 +144,7 @@ namespace Pastel
 			return circumscribedSphere(simplex);
 		}
 
-		template <int N, typename Real, int M, int K>
+		template <typename Real, int N, int M, int K>
 		Sphere<Real, N> boundingSphere(
 			const Simplex<Real, N, M>& simplex,
 			DimensionTag<K>)
@@ -209,7 +209,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	Sphere<Real, N> boundingSphere(
 		const Simplex<Real, N, M>& simplex)
 	{
@@ -239,14 +239,14 @@ namespace Pastel
 			BoundingSphere::DimensionTag<1>());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const Vector<Real, N>& aPoint)
 	{
 		return Sphere<Real, N>(aPoint, 0);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
@@ -256,14 +256,14 @@ namespace Pastel
 			norm(evaluate(bPoint - aPoint)) * 0.5);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const Simplex<Real, N, 0>& simplex)
 	{
 		return Sphere<Real, N>(simplex[0], 0);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
 		const Simplex<Real, N, 1>& simplex)
 	{
@@ -272,7 +272,7 @@ namespace Pastel
 			norm(evaluate(simplex[1] - simplex[0])) * 0.5);
 	}
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	Sphere<Real, N> circumscribedSphere(
 		const Simplex<Real, N, M>& simplex)
 	{
@@ -415,7 +415,7 @@ namespace Pastel
 			norm(translation));
 	}
 
-	template <int N, typename Real, typename InputIterator, typename PositionFunctor>
+	template <typename Real, int N, typename InputIterator, typename PositionFunctor>
 	Sphere<Real, N> boundingSphere(
 		const InputIterator& from,
 		const InputIterator& to,
@@ -470,7 +470,7 @@ namespace Pastel
 	namespace Detail_BoundingSphere
 	{
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		class PositionFunctor
 		{
 		public:
@@ -482,13 +482,13 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename InputIterator>
+	template <typename Real, int N, typename InputIterator>
 	Sphere<Real, N> boundingSphere(
 		const InputIterator& from,
 		const InputIterator& to)
 	{
-		Detail_BoundingSphere::PositionFunctor<N, Real> positionFunctor;
-		return Pastel::boundingSphere<N, Real>(from, to, positionFunctor);
+		Detail_BoundingSphere::PositionFunctor<Real, N> positionFunctor;
+		return Pastel::boundingSphere<Real, N>(from, to, positionFunctor);
 	}
 
 }

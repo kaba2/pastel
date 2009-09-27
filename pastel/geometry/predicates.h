@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real side(
 		const Vector<Real, N>& point,
 		const Plane<Real, N>& plane);

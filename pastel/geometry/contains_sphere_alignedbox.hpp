@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool contains(
 		const Sphere<Real, N>& outerSphere,
 		const AlignedBox<Real, N>& innerBox)

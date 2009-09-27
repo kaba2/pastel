@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Computes the distance between two lines.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance(
 		const Line<Real, N>& aLine,
 		const Line<Real, N>& bLine);

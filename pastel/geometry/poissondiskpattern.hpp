@@ -22,7 +22,7 @@ namespace Pastel
 	namespace Detail_PoissonDiskPattern
 	{
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		class Visitor
 		{
 		public:
@@ -55,7 +55,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ReportFunctor, typename ConstSeedIterator>
+	template <typename Real, int N, typename ReportFunctor, typename ConstSeedIterator>
 	void poissonDiskPattern(
 		const AlignedBox<Real, N>& window,
 		const PASTEL_NO_DEDUCTION(Real)& minDistance,
@@ -187,7 +187,7 @@ namespace Pastel
 
 					if (intersect(searchWindow, gridWindow, clippedSearchWindow))
 					{
-						Detail_PoissonDiskPattern::Visitor<N, Real> visitor(
+						Detail_PoissonDiskPattern::Visitor<Real, N> visitor(
 							newPoint, minDistance2, validNewPoint);
 						visit(subView(arrayView(grid), clippedSearchWindow), visitor);
 					}
@@ -208,7 +208,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real, typename ReportFunctor>
+	template <typename Real, int N, typename ReportFunctor>
 	void poissonDiskPattern(
 		const AlignedBox<Real, N>& window,
 		const PASTEL_NO_DEDUCTION(Real)& minDistance,

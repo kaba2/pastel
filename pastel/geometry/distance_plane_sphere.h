@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Computes the squared distance between a plane and a sphere.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere);

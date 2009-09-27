@@ -65,7 +65,7 @@ namespace Pastel
 				// Pattern Recognition 37 (2004), 1699-1711.
 
 				const ScenePositionFunctor scenePositionFunctor(sceneTree);
-				const Sphere<Real, 2> sceneSphere = boundingSphere<2, Real>(
+				const Sphere<Real, 2> sceneSphere = boundingSphere<Real, 2>(
 					sceneTree.objectBegin(), sceneTree.objectEnd(), scenePositionFunctor);
 
 				if (matchingDistanceType == PatternMatch::AbsoluteDistance)

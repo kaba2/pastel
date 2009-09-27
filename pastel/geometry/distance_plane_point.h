@@ -12,7 +12,7 @@ namespace Pastel
 
 	//! Computes the squared distance between a plane and a point.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point);

@@ -8,34 +8,34 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distanceManhattan(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distancePower(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distanceInfinity(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint);
 
-	template <int N, typename Real, typename NormBijection>
+	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint,
 		const NormBijection& normBijection);
 
-	template <int N, typename Real, typename NormBijection>
+	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint,

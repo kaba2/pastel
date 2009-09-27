@@ -28,7 +28,7 @@ namespace Pastel
 	hit is tangential.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	integer intersect(
 		const Ray<Real, N>& ray,
 		const AlignedBox<Real, N>& alignedBox,

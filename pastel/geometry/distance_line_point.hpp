@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		Real distance2(
 			const Line<Real, N>& line,
 			const Vector<Real, N>& point)

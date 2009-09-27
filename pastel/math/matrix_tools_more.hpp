@@ -36,7 +36,7 @@ namespace Pastel
 
 	// Vectors and matrices
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> diagonal(
 		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{
@@ -180,7 +180,7 @@ namespace Pastel
 
 	// General inversion algorithm for NxN matrices.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Matrix<Real, N, N> inverse(
 		const MatrixExpression<Real, N, N, Expression>& a)
 	{
@@ -413,7 +413,7 @@ namespace Pastel
 			positive(scalar(matrix)) ? 1 : -1);
 	}
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLinear(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -531,7 +531,7 @@ namespace Pastel
 		return Vector<Real, 2>(det0 * invDet, det1 * invDet);
 	}
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveLowerTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -565,7 +565,7 @@ namespace Pastel
 		return b2;
 	}
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitLowerTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -598,7 +598,7 @@ namespace Pastel
 		return b2;
 	}
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUpperTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,
@@ -640,7 +640,7 @@ namespace Pastel
 	computation than the more general 'solveUpperTriangular'.
 	*/
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression_A, typename Expression_B>
 	Vector<Real, N> solveUnitUpperTriangular(
 		const MatrixExpression<Real, N, N, Expression_A>& a,

@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool intersect(const Line<Real, N>& line,
 		const AlignedPlane<Real, N>& alignedPlane, Real& t)
 	{

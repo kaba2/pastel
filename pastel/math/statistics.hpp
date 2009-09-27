@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> mean(
 		const std::vector<Vector<Real, N> >& pointSet)
 	{
@@ -31,7 +31,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> axisAlignedVariance(
 		const std::vector<Vector<Real, N> >& pointSet,
 		const Vector<Real, N>& mean)

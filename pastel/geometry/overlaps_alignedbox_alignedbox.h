@@ -14,7 +14,7 @@ namespace Pastel
 	The aligned boxes are considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(
 			const AlignedBox<Real, N>& aAlignedBox,
 			const AlignedBox<Real, N>& bAlignedBox);
@@ -31,7 +31,7 @@ namespace Pastel
 	if the aligned boxes will overlap
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox,

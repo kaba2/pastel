@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	integer nearestMainAxis(
 		const Vector<Real, N>& that)
 	{
