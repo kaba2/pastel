@@ -40,32 +40,32 @@ namespace Pastel
 		return dimension * constantLn2<Real>();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 1), Real>::type
 		volumeUnitSphere()
 	{
 		return 2;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 2), Real>::type
 		volumeUnitSphere()
 	{
 		return constantPi<Real>();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 3), Real>::type
 		volumeUnitSphere()
 	{
 		return ((real)4 / 3) * constantPi<Real>();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N > 3), Real>::type
 		volumeUnitSphere()
 	{
-		return areaUnitSphere<N, Real>() / N;
+		return areaUnitSphere<Real, N>() / N;
 	}
 
 	template <typename Real>
@@ -89,7 +89,7 @@ namespace Pastel
 			square(sphere.radius()) * sphere.radius();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real volume(const Sphere<Real, N>& sphere)
 	{
 		return volumeUnitSphere<N, Real>() * std::pow(sphere.radius(), (Real)N);

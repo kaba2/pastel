@@ -10,16 +10,16 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real area(const AlignedBox<Real, N>& box);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real area(const Box<Real, N>& box);
 
 	template <typename Real, typename Expression>
 	Real boxArea(const VectorExpression<Real, 1, Expression>& width);
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real boxArea(const VectorExpression<Real, N, Expression>& width);
 
 }

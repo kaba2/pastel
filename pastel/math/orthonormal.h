@@ -40,7 +40,7 @@ namespace Pastel
 	function.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool orthonormalize(
 		const std::vector<Vector<Real, N> >& input,
 		std::vector<Vector<Real, N> >& result);
@@ -53,7 +53,7 @@ namespace Pastel
 	See the documentation for the two-parameter
 	version of this function.
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool orthonormalize(
 		std::vector<Vector<Real, N> >& vectorSet);
 
@@ -72,11 +72,11 @@ namespace Pastel
 	orthonormalize()
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> perpendicular(
 		const std::vector<Vector<Real, N> >& orthonormalSet);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> perpendicular(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& orthonormalSet);

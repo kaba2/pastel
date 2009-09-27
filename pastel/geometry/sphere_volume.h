@@ -75,19 +75,19 @@ namespace Pastel
 	template <typename Real>
 	Real lnVolumeUnitSphereInfinity(integer dimension);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 1), Real>::type
 		volumeUnitSphere();
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 2), Real>::type
 		volumeUnitSphere();
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 3), Real>::type
 		volumeUnitSphere();
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N > 3), Real>::type
 		volumeUnitSphere();
 
@@ -100,7 +100,7 @@ namespace Pastel
 	template <typename Real>
 	Real volume(const Sphere<Real, 3>& sphere);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real volume(const Sphere<Real, N>& sphere);
 
 }
