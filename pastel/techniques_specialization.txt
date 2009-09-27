@@ -45,13 +45,13 @@ with respect to dimension and its number type:
 			return data_[index];
 		}
 
-		Vector<N, Real>& operator+=(const Vector& that)
+		Vector<Real, N>& operator+=(const Vector& that)
 		{
 			// Add stuff together..
 			return *this;
 		}
 		
-		Vector<N, Real> operator+(Vector that) const
+		Vector<Real, N> operator+(Vector that) const
 		{
 			return that += *this;
 		}
@@ -138,13 +138,13 @@ the common implementation code to each specialization:
 			return data_[index];
 		}
 
-		Vector<N, Real>& operator+=(const Vector& that)
+		Vector<Real, N>& operator+=(const Vector& that)
 		{
 			// Add stuff together..
 			return *this;
 		}
 	
-		Vector<N, Real> operator+(Vector that) const
+		Vector<Real, N> operator+(Vector that) const
 		{
 			return that += *this;
 		}
@@ -229,17 +229,17 @@ shall abbreviate it 'CRTP'. Here is the technique in short:
 	
 	template <typename Real, int N>
 	class Vector
-	: public VectorBase<N, Real, Vector<N, Real> >
+	: public VectorBase<Real, N, Vector<Real, N> >
 	{
 		// ...
 	};
 	
-In words, the class Vector\<N, Real\> is derived from the
-class VectorBase\<N, Real, Vector\<N, Real\> \>.
+In words, the class Vector\<Real, N\> is derived from the
+class VectorBase\<Real, N, Vector\<Real, N\> \>.
 An important thing to notice here is that when
-Vector\<N, Real\> defines its base class, 
-the Vector\<N, Real\> has only been declared but not defined.
-Thus, what VectorBase\<N, Real, Derived\> class definition 
+Vector\<Real, N\> defines its base class, 
+the Vector\<Real, N\> has only been declared but not defined.
+Thus, what VectorBase\<Real, N, Derived\> class definition 
 sees is effectively:
 
 	:::cpp
@@ -323,10 +323,10 @@ Here's how we achieve that:
 	
 	template <typename Real, int N>
 	class Vector
-	: public VectorBase<N, Real, Vector<N, Real> >
+	: public VectorBase<Real, N, Vector<Real, N> >
 	{
 	private:
-		typedef VectorBase<N, Real, Vector<N, Real> > Base;
+		typedef VectorBase<Real, N, Vector<Real, N> > Base;
 		
 	public:
 		explicit Vector(const Real& that)

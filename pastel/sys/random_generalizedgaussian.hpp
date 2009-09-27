@@ -61,7 +61,7 @@ namespace Pastel
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::randomGeneralizedGaussianVector<N, Real>(
+		return Pastel::randomGeneralizedGaussianVector<Real, N>(
 			N, shape, scale);
 	}
 

@@ -12,13 +12,13 @@ namespace Pastel
 
 	PASTELGEOMETRY real areaUnitSphere(integer dimension);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real areaUnitSphere();
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real areaUnitSphere(integer dimension);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real area(const Sphere<Real, N>& sphere);
 
 }

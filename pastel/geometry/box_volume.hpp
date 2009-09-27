@@ -8,19 +8,19 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real volume(const AlignedBox<Real, N>& box)
 	{
 		return boxVolume(box.max() - box.min());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real volume(const Box<Real, N>& box)
 	{
 		return boxVolume(2 * box.width());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real boxVolume(const Vector<Real, N>& width)
 	{
 		return product(width);

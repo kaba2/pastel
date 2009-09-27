@@ -264,7 +264,7 @@ namespace Pastel
 		virtual Vector<Real, N> sample() const
 		{
 			Vector<Real, N> result(
-				randomGeneralizedGaussianVector<N, Real>(
+				randomGeneralizedGaussianVector<Real, N>(
 				Base::dimension(), shape_, scale_));
 			
 			return result;
