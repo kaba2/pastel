@@ -27,7 +27,7 @@ using namespace Pastel;
 namespace
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void generateSpherePointSet(
 		integer dimension,
 		integer points,
@@ -47,7 +47,7 @@ namespace
 		pointSet.swap(result);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void test(integer dimension, integer points, integer kNearest)
 	{
 		log() << dimension << "-D, " << points << " points, " 
@@ -152,7 +152,7 @@ namespace
 		log() << "Done." << logNewLine;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::disable_if_c<(N == 2)>::type
 		drawNearest(const std::string& name,
 		const std::vector<Vector<Real, N> >& pointSet,
@@ -160,7 +160,7 @@ namespace
 	{
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N == 2)>::type
 		drawNearest(const std::string& name,
 		const std::vector<Vector<Real, N> >& pointSet,
@@ -203,38 +203,38 @@ namespace
 
 	void testAllNearest()
 	{
-		//test<8, real>(8, 20000, 1);
-		test<Dynamic, real>(8, 20000, 1);
+		//test<real, 8>(8, 20000, 1);
+		test<real, Dynamic>(8, 20000, 1);
 		/*
-		test<8, real>(8, 5000, 1);
-		test<8, real>(8, 10000, 1);
-		test<8, real>(8, 20000, 1);
-		test<Dynamic, real>(8, 5000, 1);
-		test<Dynamic, real>(8, 10000, 1);
+		test<real, 8>(8, 5000, 1);
+		test<real, 8>(8, 10000, 1);
+		test<real, 8>(8, 20000, 1);
+		test<real, Dynamic>(8, 5000, 1);
+		test<real, Dynamic>(8, 10000, 1);
 		*/
-		//test<8, real>(8, 10000, 1);
-		//test<Dynamic, real>(8, 1000, 1);
-		//test<8, real>(8, 20000, 1);
-		//test<Dynamic, real>(8, 20000, 1);
+		//test<real, 8>(8, 10000, 1);
+		//test<real, Dynamic>(8, 1000, 1);
+		//test<real, 8>(8, 20000, 1);
+		//test<real, Dynamic>(8, 20000, 1);
 
 		/*
-		test<Dynamic, real>(20, 5000, 1);
+		test<real, Dynamic>(20, 5000, 1);
 
-		test<5, real>(5, 10000, 1);
-		test<Dynamic, real>(10, 10000, 1);
-		test<Dynamic, real>(20, 10000, 1);
+		test<real, 5>(5, 10000, 1);
+		test<real, Dynamic>(10, 10000, 1);
+		test<real, Dynamic>(20, 10000, 1);
 
-		test<5, real>(5, 20000, 1);
-		test<Dynamic, real>(10, 20000, 1);
-		test<Dynamic, real>(20, 20000, 1);
+		test<real, 5>(5, 20000, 1);
+		test<real, Dynamic>(10, 20000, 1);
+		test<real, Dynamic>(20, 20000, 1);
 
-		test<5, real>(5, 10000, 4);
-		test<Dynamic, real>(10, 10000, 4);
-		test<Dynamic, real>(20, 10000, 4);
+		test<real, 5>(5, 10000, 4);
+		test<real, Dynamic>(10, 10000, 4);
+		test<real, Dynamic>(20, 10000, 4);
 
-		test<5, real>(5, 10000, 8);
-		test<Dynamic, real>(10, 10000, 8);
-		test<Dynamic, real>(20, 10000, 8);
+		test<real, 5>(5, 10000, 8);
+		test<real, Dynamic>(10, 10000, 8);
+		test<real, Dynamic>(20, 10000, 8);
 		*/
 	}
 

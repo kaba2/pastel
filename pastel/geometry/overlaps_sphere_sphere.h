@@ -12,7 +12,7 @@ namespace Pastel
 	/*!
 	The spheres are considered to be closed and solid.
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Sphere<Real, N>& aSphere,
 		const Sphere<Real, N>& bSphere);

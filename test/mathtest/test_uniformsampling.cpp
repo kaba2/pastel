@@ -297,7 +297,7 @@ namespace
 		savePcx(image, "uniform_sampling_distortion.pcx");
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void testDistance()
 	{
 		const integer Samples = 100000;
@@ -344,8 +344,8 @@ namespace
 	{
 		mathTestList().add("UniformSampling_1", test);
 		mathTestList().add("UniformSampling_2", test2);
-		mathTestList().add("UniformSampling_Distance_2", testDistance<2, real>);
-		mathTestList().add("UniformSampling_Distance_8", testDistance<8, real>);
+		mathTestList().add("UniformSampling_Distance_2", testDistance<real, 2>);
+		mathTestList().add("UniformSampling_Distance_8", testDistance<real, 8>);
 	}
 
 	CallFunction run(testAdd);

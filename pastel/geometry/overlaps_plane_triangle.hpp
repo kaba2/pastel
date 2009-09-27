@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(
 			const Plane<Real, N> &plane,
 			const Triangle<Real, N> &triangle)

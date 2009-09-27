@@ -10,18 +10,18 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	template <typename Image_ConstView>
-	ImagePdf<N, Real>::ImagePdf(
+	ImagePdf<Real, N>::ImagePdf(
 		const ConstView<N, Real, Image_ConstView>& image)
 		: cdf_()
 	{
 		computeCdf(image);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	template <typename Image_ConstView>
-	void ImagePdf<N, Real>::computeCdf(
+	void ImagePdf<Real, N>::computeCdf(
 		const ConstView<N, Real, Image_ConstView>& image)
 	{
 		Real imageSum = 0;
@@ -34,8 +34,8 @@ namespace Pastel
 		cdfTmp.swap(cdf_);
 	}
 
-	template <int N, typename Real>
-	Vector<integer, N> ImagePdf<N, Real>::operator()() const
+	template <typename Real, int N>
+	Vector<integer, N> ImagePdf<Real, N>::operator()() const
 	{
 		if (cdf_.empty())
 		{

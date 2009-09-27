@@ -11,7 +11,7 @@ namespace Pastel
 
 	//! Computes the squared distance between an aligned box and a sphere.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const AlignedBox<Real, N>& alignedBox,
 		const Sphere<Real, N>& sphere);

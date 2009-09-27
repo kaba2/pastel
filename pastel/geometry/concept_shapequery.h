@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename ShapeHandle, int N, typename Real>
+	template <typename ShapeHandle, typename Real, int N>
 	class ConceptShapeBoundQuery
 	{
 	public:
@@ -19,7 +19,7 @@ namespace Pastel
 			const ShapeHandle& handle) const;
 	};
 
-	template <typename ShapeHandle, int N, typename Real>
+	template <typename ShapeHandle, typename Real, int N>
 	class ConceptIntersectionQuery
 	{
 	public:

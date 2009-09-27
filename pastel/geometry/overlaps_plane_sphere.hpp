@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(
 			const Plane<Real, N>& plane,
 			const Sphere<Real, N>& sphere)
@@ -23,7 +23,7 @@ namespace Pastel
 			sphere.radius() * sphere.radius();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(
 			const Plane<Real, N>& plane,
 			const Sphere<Real, N>& sphere,

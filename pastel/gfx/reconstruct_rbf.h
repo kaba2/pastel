@@ -46,7 +46,7 @@ namespace Pastel
 	};
 
 
-	template <int N, typename Real, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Data, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -65,7 +65,7 @@ namespace Pastel
 	namespace Detail_ReconstructRbf
 	{
 
-		template <int N, typename Real, typename Data>
+		template <typename Real, int N, typename Data>
 		class ReconstructFunctor
 		{
 		public:
@@ -109,7 +109,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename Data, typename Output_View>
+	template <typename Real, int N, typename Data, typename Output_View>
 	void reconstructRbf(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -149,7 +149,7 @@ namespace Pastel
 		
 		const Vector<Real, Dynamic> w = solveLinear(a, b);
 
-		const Detail_ReconstructRbf::ReconstructFunctor<N, Real, Data>
+		const Detail_ReconstructRbf::ReconstructFunctor<Real, N, Data>
 			reconstructFunctor(positionList, w, b, scaling, radialBasisFunction);
 		
 		visitPosition(view, reconstructFunctor);

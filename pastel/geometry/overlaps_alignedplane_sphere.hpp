@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
 			Sphere<Real, N> const &sphere)
 	{
@@ -20,7 +20,7 @@ namespace Pastel
 		return (mabs(delta) <= sphere.radius());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
 			Sphere<Real, N> const &sphere,
 		bool &sphereOnPositiveSide)

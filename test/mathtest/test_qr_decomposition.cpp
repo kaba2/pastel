@@ -23,14 +23,14 @@ namespace
 
 		virtual void run()
 		{
-			testQrCase<1, real>();
-			testQrCase<2, real>();
-			testQrCase<3, real>();
-			testQrCase<4, real>();
-			//testQrCase<Dynamic, real>();
+			testQrCase<real, 1>();
+			testQrCase<real, 2>();
+			testQrCase<real, 3>();
+			testQrCase<real, 4>();
+			//testQrCase<real, Dynamic>();
 		}
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		void testQrCase()
 		{
 			const integer n = 

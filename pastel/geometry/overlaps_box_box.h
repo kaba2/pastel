@@ -14,12 +14,12 @@ namespace Pastel
 	The box's are considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
@@ -42,7 +42,7 @@ namespace Pastel
 	intersection
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,

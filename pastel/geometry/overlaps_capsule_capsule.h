@@ -13,7 +13,7 @@ namespace Pastel
 	The capsules are considered closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Capsule<Real, N>& aCapsule,
 		const Capsule<Real, N>& bCapsule);
