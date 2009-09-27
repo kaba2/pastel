@@ -107,7 +107,7 @@ namespace Pastel
 
 		if (seedSetBegin == seedSetEnd)
 		{
-			const Vector<Real, N> seedPoint(window.at(randomVector<N, Real>()));
+			const Vector<Real, N> seedPoint(window.at(randomVector<Real, N>()));
 			const Vector<integer, N> seedGridPosition(
 				floor((seedPoint - window.min()) * invVoxelDelta));
 

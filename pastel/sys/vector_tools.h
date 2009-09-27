@@ -15,22 +15,22 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	std::ostream& operator<<(std::ostream& stream,
 		const VectorExpression<Real, N, Expression>& vector);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	std::istream& operator>>(std::istream& stream,
 		Vector<Real, N>& vector);
 
 	//! Returns the sum of elements.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real sum(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the product of elements.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real product(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the 'index'th natural basis axis.
@@ -59,11 +59,11 @@ namespace Pastel
 
 	//! Returns a subsequence of a vector.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
 		const VectorExpression<Real, N, Expression>& that);
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
 		const VectorExpression<Real, N, Expression>& that,
 		integer index);
@@ -76,21 +76,21 @@ namespace Pastel
 
 	//! Returns an N + 1 vector appended from the left.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns an N + 1 vector appended from the right.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 	//! Returns an N + 1 vector appended from a given position.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline VectorExtend<Real, N, Expression> extend(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right,
@@ -102,7 +102,7 @@ namespace Pastel
 	dot(that) = sum(that[i] * that[i])
 	*/
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename Expression>
 		inline Real dot(
 		const VectorExpression<Real, N, Expression>& that);
@@ -125,7 +125,7 @@ namespace Pastel
 	norm_2(that) := sqrt(sum(that[i]^2))
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
 		norm(const VectorExpression<Real, N, Expression>& that);
 
@@ -135,7 +135,7 @@ namespace Pastel
 	norm_2(that) := sqrt(sum(that[i]^2))
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	typename boost::enable_if_c<(N == 1), Real>::type
 		norm(const VectorExpression<Real, 1, Expression>& that);
 
@@ -145,7 +145,7 @@ namespace Pastel
 	norm_1(that) := sum(mabs(that[i]))
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real normManhattan(
 		const VectorExpression<Real, N, Expression>& that);
 
@@ -154,7 +154,7 @@ namespace Pastel
 	powerSum(that) := sum(mabs(that[i])^p)
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real powerSum(
 		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
@@ -171,7 +171,7 @@ namespace Pastel
 	for p e ]0, 1[.
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real pNorm(
 		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
@@ -182,7 +182,7 @@ namespace Pastel
 	norm_inf(that) := max(mabs(that[i])).
 	*/
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real normInfinity(
 		const VectorExpression<Real, N, Expression>& that);
 
@@ -191,7 +191,7 @@ namespace Pastel
 	Preconditions:
 	norm(that) > 0
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	inline Vector<Real, N> normalize(
 		const Vector<Real, N>& that);
 

@@ -17,7 +17,7 @@ namespace Pastel
 
 	// Permutation
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> permute(
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation);
@@ -26,19 +26,19 @@ namespace Pastel
 
 	//! Returns the index of the minimum element.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline integer minIndex(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the minimum of elements.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real min(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the minimum of (left[i], right[i]), elementwise.
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename LeftExpression, typename RightExpression>
 	inline Vector<Real, N> min(
 		const VectorExpression<Real, N, LeftExpression>& left,
@@ -46,14 +46,14 @@ namespace Pastel
 
 	//! Returns the minimum of (left, right[i]), elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns the minimum of (left[i], right), elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> min(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
@@ -64,19 +64,19 @@ namespace Pastel
 
 	//! Returns the index of the maximum element.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline integer maxIndex(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the maximum of elements.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Real max(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the maximum of (left[i], right[i]), elementwise.
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 	typename LeftExpression, typename RightExpression>
 	inline Vector<Real, N> max(
 		const VectorExpression<Real, N, LeftExpression>& left,
@@ -84,20 +84,20 @@ namespace Pastel
 
 	//! Returns the maximum of (left, right[i]), elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right);
 
 	//! Returns the maximum of (left[i], right), elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> max(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
 
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 	typename ThatExpression, typename MinExpression,
 	typename MaxExpression>
 	inline Vector<Real, N> clamp(
@@ -109,28 +109,28 @@ namespace Pastel
 
 	//! Returns x[i] * 2^power[i], elementwise.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	inline void multiplyByPowerOf2(
 		Vector<Real, N>& x,
 		const Vector<Real, N>& power);
 
 	//! Returns x[i] * 2^power, elementwise.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	inline void multiplyByPowerOf2(
 		Vector<Real, N>& x,
 		const Real& power);
 
 	//! Returns x[i] / 2^power[i], elementwise.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	inline void divideByPowerOf2(
 		Vector<Real, N>& x,
 		const Vector<Real, N>& power);
 
 	//! Returns x[i] / 2^power, elementwise.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	inline void divideByPowerOf2(
 		Vector<Real, N>& x,
 		const Real& power);
@@ -841,37 +841,37 @@ namespace Pastel
 
 	//! Returns 1 / x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorInverse<Real, N, Expression>
 		inverse(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the absolute value of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorAbs<Real, N, Expression>
 		mabs(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the square of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorSquare<Real, N, Expression>
 		squarev(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns e^x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorExp<Real, N, Expression>
 		exp(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the natural logarithm of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorLog<Real, N, Expression>
 		log(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns x[i]^y[i], elementwise.
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename LeftExpression, typename RightExpression>
 		inline const VectorPow<Real, N, 
 		LeftExpression, RightExpression>
@@ -880,7 +880,7 @@ namespace Pastel
 
 	//! Returns x[i]^y, elementwise.
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename LeftExpression>
 		inline const VectorPow<Real, N, 
 		LeftExpression, 
@@ -890,55 +890,55 @@ namespace Pastel
 
 	//! Returns the square root of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorSqrt<Real, N, Expression>
 		sqrt(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the floor of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorFloor<Real, N, Expression>
 		floor(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the ceiling of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorCeil<Real, N, Expression>
 		ceil(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the sine of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorSin<Real, N, Expression>
 		sin(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the cosine of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorCos<Real, N, Expression>
 		cos(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the tangent of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorTan<Real, N, Expression>
 		tan(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the arcsine of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorAsin<Real, N, Expression>
 		asin(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the arccosine of x[i], elementwise.
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline const VectorAcos<Real, N, Expression>
 		acos(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns the arctangent of x[i], elementwise.
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename LeftExpression, typename RightExpression>
 		inline const VectorAtan2<Real, N, 
 		LeftExpression, 

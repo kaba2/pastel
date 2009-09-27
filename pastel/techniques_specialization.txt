@@ -28,7 +28,7 @@ vectors in ''RR^n'' (''RR'' for the set of real numbers) and which is templated
 with respect to dimension and its number type:
 
 	:::cpp
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Vector
 	{
 	public:
@@ -121,7 +121,7 @@ the common implementation code to each specialization:
 	:::cpp
 	// The general version
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Vector
 	{
 	public:
@@ -221,13 +221,13 @@ shall abbreviate it 'CRTP'. Here is the technique in short:
 
 	:::cpp
 	
-	template <int N, typename Real, typename Derived>
+	template <typename Real, int N, typename Derived>
 	class VectorBase
 	{
 		// ...
 	};
 	
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Vector
 	: public VectorBase<N, Real, Vector<N, Real> >
 	{
@@ -283,7 +283,7 @@ Here's how we achieve that:
 	::::cpp
 	// Common code
 
-	template <int N, typename Real, Derived>
+	template <typename Real, int N, Derived>
 	class VectorBase
 	{
 	public:
@@ -321,7 +321,7 @@ Here's how we achieve that:
 
 	// The general version.
 	
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Vector
 	: public VectorBase<N, Real, Vector<N, Real> >
 	{

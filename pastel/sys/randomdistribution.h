@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class RandomDistribution
 		: public ReferenceCounted
 	{
@@ -44,12 +44,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Gaussian_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Gaussian_RandomDistribution> Ptr;
@@ -72,7 +72,7 @@ namespace Pastel
 		virtual Vector<Real, N> sample() const
 		{
 			Vector<Real, N> result(
-				randomGaussianVector<N, Real>(Base::dimension()));
+				randomGaussianVector<Real, N>(Base::dimension()));
 			
 			return result;
 		}
@@ -83,21 +83,21 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Gaussian_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Gaussian_RandomDistribution<Real, N> >
 		gaussianRandomDistribution(integer dimension)
 	{
-		return CountedPtr<Gaussian_RandomDistribution<N, Real> >(
-			new Gaussian_RandomDistribution<N, Real>(dimension));
+		return CountedPtr<Gaussian_RandomDistribution<Real, N> >(
+			new Gaussian_RandomDistribution<Real, N>(dimension));
 	}
 
-	template <int N, typename Real>
-	CountedPtr<Gaussian_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Gaussian_RandomDistribution<Real, N> >
 		gaussianRandomDistribution()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::gaussianRandomDistribution<N, Real>(N);
+		return Pastel::gaussianRandomDistribution<Real, N>(N);
 	}
 
 }
@@ -105,12 +105,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Exponential_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Exponential_RandomDistribution> Ptr;
@@ -144,16 +144,16 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Exponential_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Exponential_RandomDistribution<Real, N> >
 		exponentialRandomDistribution(integer dimension)
 	{
-		return CountedPtr<Exponential_RandomDistribution<N, Real> >(
-			new Exponential_RandomDistribution<N, Real>(dimension));
+		return CountedPtr<Exponential_RandomDistribution<Real, N> >(
+			new Exponential_RandomDistribution<Real, N>(dimension));
 	}
 
-	template <int N, typename Real>
-	CountedPtr<Exponential_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Exponential_RandomDistribution<Real, N> >
 		exponentialRandomDistribution()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
@@ -166,12 +166,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Uniform_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Uniform_RandomDistribution> Ptr;
@@ -205,16 +205,16 @@ namespace Pastel
 		}
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Uniform_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Uniform_RandomDistribution<Real, N> >
 		uniformRandomDistribution(integer dimension)
 	{
-		return CountedPtr<Uniform_RandomDistribution<N, Real> >(
-			new Uniform_RandomDistribution<N, Real>(dimension));
+		return CountedPtr<Uniform_RandomDistribution<Real, N> >(
+			new Uniform_RandomDistribution<Real, N>(dimension));
 	}
 
-	template <int N, typename Real>
-	CountedPtr<Uniform_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Uniform_RandomDistribution<Real, N> >
 		uniformRandomDistribution()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
@@ -227,12 +227,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class GeneralizedGaussian_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<GeneralizedGaussian_RandomDistribution> Ptr;
@@ -280,20 +280,20 @@ namespace Pastel
 		Real scale_;
 	};
 
-	template <int N, typename Real>
-	CountedPtr<GeneralizedGaussian_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<GeneralizedGaussian_RandomDistribution<Real, N> >
 		generalizedGaussianRandomDistribution(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
-		return CountedPtr<GeneralizedGaussian_RandomDistribution<N, Real> >(
-			new GeneralizedGaussian_RandomDistribution<N, Real>(
+		return CountedPtr<GeneralizedGaussian_RandomDistribution<Real, N> >(
+			new GeneralizedGaussian_RandomDistribution<Real, N>(
 			dimension, shape, scale));
 	}
 
-	template <int N, typename Real>
-	CountedPtr<GeneralizedGaussian_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<GeneralizedGaussian_RandomDistribution<Real, N> >
 		generalizedGaussianRandomDistribution(
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
@@ -309,12 +309,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Gamma_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Gamma_RandomDistribution> Ptr;
@@ -358,19 +358,19 @@ namespace Pastel
 		Real shape_;
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Gamma_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Gamma_RandomDistribution<Real, N> >
 		gammaRandomDistribution(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
-		return CountedPtr<Gamma_RandomDistribution<N, Real> >(
-			new Gamma_RandomDistribution<N, Real>(
+		return CountedPtr<Gamma_RandomDistribution<Real, N> >(
+			new Gamma_RandomDistribution<Real, N>(
 			dimension, shape));
 	}
 
-	template <int N, typename Real>
-	CountedPtr<Gamma_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Gamma_RandomDistribution<Real, N> >
 		gammaRandomDistribution(
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
@@ -385,12 +385,12 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Clustered_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Clustered_RandomDistribution> Ptr;
@@ -432,32 +432,32 @@ namespace Pastel
 		}
 
 		void add(
-			const CountedPtr<RandomDistribution<N, Real> >& distribution)
+			const CountedPtr<RandomDistribution<Real, N> >& distribution)
 		{
 			distributionSet_.push_back(distribution);
 		}
 
 	private:
 		std::vector<
-			CountedPtr<RandomDistribution<N, Real> > >
+			CountedPtr<RandomDistribution<Real, N> > >
 			distributionSet_;
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Clustered_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Clustered_RandomDistribution<Real, N> >
 		clusteredRandomDistribution(integer dimension)
 	{
-		return CountedPtr<Clustered_RandomDistribution<N, Real> >(
-			new Clustered_RandomDistribution<N, Real>(dimension));
+		return CountedPtr<Clustered_RandomDistribution<Real, N> >(
+			new Clustered_RandomDistribution<Real, N>(dimension));
 	}
 
-	template <int N, typename Real>
-	CountedPtr<Clustered_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Clustered_RandomDistribution<Real, N> >
 		clusteredRandomDistribution()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
 
-		return Pastel::clusteredRandomDistribution<N, Real>(N);
+		return Pastel::clusteredRandomDistribution<Real, N>(N);
 	}
 
 }
@@ -465,18 +465,18 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Scaled_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Scaled_RandomDistribution> Ptr;
 
 		explicit Scaled_RandomDistribution(
-			const CountedPtr<RandomDistribution<N, Real> >& distribution,
+			const CountedPtr<RandomDistribution<Real, N> >& distribution,
 			const Vector<Real, N>& scaling)
 			: Base(scaling.dimension())
 			, distribution_(distribution)
@@ -502,18 +502,18 @@ namespace Pastel
 		}
 
 	private:
-		CountedPtr<RandomDistribution<N, Real> > distribution_;
+		CountedPtr<RandomDistribution<Real, N> > distribution_;
 		Vector<Real, N> scaling_;
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Scaled_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Scaled_RandomDistribution<Real, N> >
 		scale(
-		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<N, Real> >))& distribution,
+		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<Real, N> >))& distribution,
 		const Vector<Real, N>& scaling)
 	{
-		return CountedPtr<Scaled_RandomDistribution<N, Real> >(
-			new Scaled_RandomDistribution<N, Real>(
+		return CountedPtr<Scaled_RandomDistribution<Real, N> >(
+			new Scaled_RandomDistribution<Real, N>(
 			distribution, scaling));
 	}
 
@@ -522,18 +522,18 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Transformed_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Transformed_RandomDistribution> Ptr;
 
 		explicit Transformed_RandomDistribution(
-			const CountedPtr<RandomDistribution<N, Real> >& distribution,
+			const CountedPtr<RandomDistribution<Real, N> >& distribution,
 			const Matrix<Real, N, N>& transform)
 			: Base(transform.width())
 			, distribution_(distribution)
@@ -561,18 +561,18 @@ namespace Pastel
 		}
 
 	private:
-		CountedPtr<RandomDistribution<N, Real> > distribution_;
+		CountedPtr<RandomDistribution<Real, N> > distribution_;
 		Matrix<Real, N, N> transform_;
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Transformed_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Transformed_RandomDistribution<Real, N> >
 		transform(
-		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<N, Real> >))& distribution,
+		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<Real, N> >))& distribution,
 		const Matrix<Real, N, N>& transform)
 	{
-		return CountedPtr<Transformed_RandomDistribution<N, Real> >(
-			new Transformed_RandomDistribution<N, Real>(
+		return CountedPtr<Transformed_RandomDistribution<Real, N> >(
+			new Transformed_RandomDistribution<Real, N>(
 			distribution, transform));
 	}
 
@@ -581,18 +581,18 @@ namespace Pastel
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class Translated_RandomDistribution
-		: public RandomDistribution<N, Real>
+		: public RandomDistribution<Real, N>
 	{
 	private:
-		typedef RandomDistribution<N, Real> Base;
+		typedef RandomDistribution<Real, N> Base;
 
 	public:
 		typedef CountedPtr<Translated_RandomDistribution> Ptr;
 
 		explicit Translated_RandomDistribution(
-			const CountedPtr<RandomDistribution<N, Real> >& distribution,
+			const CountedPtr<RandomDistribution<Real, N> >& distribution,
 			const Vector<Real, N>& translation)
 			: Base(translation.dimension())
 			, distribution_(distribution)
@@ -618,18 +618,18 @@ namespace Pastel
 		}
 
 	private:
-		CountedPtr<RandomDistribution<N, Real> > distribution_;
+		CountedPtr<RandomDistribution<Real, N> > distribution_;
 		Vector<Real, N> translation_;
 	};
 
-	template <int N, typename Real>
-	CountedPtr<Translated_RandomDistribution<N, Real> >
+	template <typename Real, int N>
+	CountedPtr<Translated_RandomDistribution<Real, N> >
 		translate(
-		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<N, Real> >))& distribution,
+		const PASTEL_NO_DEDUCTION((CountedPtr<RandomDistribution<Real, N> >))& distribution,
 		const Vector<Real, N>& translation)
 	{
-		return CountedPtr<Translated_RandomDistribution<N, Real> >(
-			new Translated_RandomDistribution<N, Real>(
+		return CountedPtr<Translated_RandomDistribution<Real, N> >(
+			new Translated_RandomDistribution<Real, N>(
 			distribution, translation));
 	}
 

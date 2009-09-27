@@ -753,19 +753,19 @@ namespace Pastel
 	typedef Vector3 UnitVector3;
 	typedef Vector4 UnitVector4;
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void swap(Vector<Real, N>& left,
 		Vector<Real, N>& right);
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> evaluate(
 		const VectorExpression<Real, N, Expression>& that);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Tuple<Real, N>& asTuple(
 		Vector<Real, N>& that);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	const Tuple<Real, N>& asTuple(
 		const Vector<Real, N>& that);
 

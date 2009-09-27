@@ -43,7 +43,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxValue);
 
 	//! Returns a random vector uniformly distributed in [0, 1]^N.
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVector();
 
 	//! Returns a random vector uniformly distributed in [0, 1]^N.
@@ -51,7 +51,7 @@ namespace Pastel
 	Preconditions:
 	dimension >= 0
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomVector(integer dimension);
 
 	//! Probability density function of the Uniform distribution.

@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	inline Vector<Real, N> permute(
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation)
@@ -29,7 +29,7 @@ namespace Pastel
 
 	// Minimum functions
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	integer minIndex(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -51,14 +51,14 @@ namespace Pastel
 		return index;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real min(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[minIndex(that)];
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 	typename LeftExpression, typename RightExpression>
 	Vector<Real, N> min(
 		const VectorExpression<Real, N, LeftExpression>& left,
@@ -77,7 +77,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> min(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
@@ -93,7 +93,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> min(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
@@ -113,7 +113,7 @@ namespace Pastel
 
 	// Maximum functions
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	integer maxIndex(
 		const VectorExpression<Real, N, Expression>& that)
 	{
@@ -135,14 +135,14 @@ namespace Pastel
 		return index;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real max(
 		const VectorExpression<Real, N, Expression>& that)
 	{
 		return that[maxIndex(that)];
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 	typename LeftExpression,
 	typename RightExpression>
 	Vector<Real, N> max(
@@ -162,7 +162,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> max(
 		const PASTEL_NO_DEDUCTION(Real)& left,
 		const VectorExpression<Real, N, Expression>& right)
@@ -178,7 +178,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, N> max(
 		const VectorExpression<Real, N, Expression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right)
@@ -194,7 +194,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 	typename ThatExpression,
 	typename MinExpression,
 	typename MaxExpression>
@@ -219,7 +219,7 @@ namespace Pastel
 
 	// Optimization functions
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void multiplyByPowerOf2(
 		Vector<Real, N>& x,
 		const Vector<Real, N>& power)
@@ -234,7 +234,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void multiplyByPowerOf2(
 		Vector<Real, N>& x,
 		const Real& power)
@@ -249,7 +249,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void divideByPowerOf2(
 		Vector<Real, N>& x,
 		const Vector<Real, N>& power)
@@ -264,7 +264,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void divideByPowerOf2(
 		Vector<Real, N>& x,
 		const Real& power)
@@ -281,7 +281,7 @@ namespace Pastel
 
 	// Arithmetic functions
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorInverse<Real, N, Expression>
 		inverse(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -289,7 +289,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorAbs<Real, N, Expression>
 		mabs(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -297,7 +297,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorSquare<Real, N, Expression>
 		squarev(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -305,7 +305,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorExp<Real, N, Expression>
 		exp(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -313,7 +313,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorLog<Real, N, Expression>
 		log(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -321,7 +321,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename LeftExpression, typename RightExpression>
 		const VectorPow<Real, N, LeftExpression, RightExpression>
 		pow(const VectorExpression<Real, N, LeftExpression>& left,
@@ -332,7 +332,7 @@ namespace Pastel
 			(const RightExpression&)right);
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename LeftExpression>
 		const VectorPow<Real, N, 
 		LeftExpression, 
@@ -346,7 +346,7 @@ namespace Pastel
 			VectorConstant<Real, N>(right, left.size()));
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorSqrt<Real, N, Expression>
 		sqrt(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -354,7 +354,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorFloor<Real, N, Expression>
 		floor(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -362,7 +362,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorCeil<Real, N, Expression>
 		ceil(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -370,7 +370,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorSin<Real, N, Expression>
 		sin(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -378,7 +378,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorCos<Real, N, Expression>
 		cos(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -386,7 +386,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorTan<Real, N, Expression>
 		tan(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -394,7 +394,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorAsin<Real, N, Expression>
 		asin(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -402,7 +402,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	const VectorAcos<Real, N, Expression>
 		acos(const VectorExpression<Real, N, Expression>& x)
 	{
@@ -410,7 +410,7 @@ namespace Pastel
 			(const Expression&)x);
 	}
 
-	template <int N, typename Real,
+	template <typename Real, int N,
 		typename LeftExpression, typename RightExpression>
 		const VectorAtan2<Real, N, LeftExpression, RightExpression>
 		atan2(const VectorExpression<Real, N, LeftExpression>& left,

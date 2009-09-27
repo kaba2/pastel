@@ -37,7 +37,7 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			input(
-				randomVector<2, real>() * Vector2(extent - 1)) = randomRgbColor();
+				randomVector<real, 2>() * Vector2(extent - 1)) = randomRgbColor();
 		}
 
 		savePcx(input, "output/convolution_input.pcx");
@@ -70,7 +70,7 @@ namespace
 		for (integer i = 0;i < points;++i)
 		{
 			input(
-				randomVector<3, real>() * Vector3(extent - 1)) = randomRgbColor();
+				randomVector<real, 3>() * Vector3(extent - 1)) = randomRgbColor();
 		}
 
 		Array<Color, 3> output(extent);

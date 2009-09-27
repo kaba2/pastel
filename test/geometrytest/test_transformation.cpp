@@ -62,7 +62,7 @@ namespace
 
 			for (integer i = 0;i < 1000;++i)
 			{
-				pattern.push_back(randomVector<2, real>());
+				pattern.push_back(randomVector<real, 2>());
 				transformedPattern.push_back(
 					transformPoint(pattern.back(), transformation));
 			}
