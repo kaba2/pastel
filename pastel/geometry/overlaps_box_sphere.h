@@ -16,7 +16,7 @@ namespace Pastel
 	to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,
 		const Sphere<Real, N>& sphere);

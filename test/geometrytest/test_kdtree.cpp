@@ -23,7 +23,7 @@ using namespace Pastel;
 namespace
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void testNearest2(integer dimension)
 	{
 		KdTree<Real, N> kdTree(ofDimension(dimension));
@@ -89,8 +89,8 @@ namespace
 
 	void testNearest()
 	{
-		testNearest2<2, float>(2);
-		//testNearest2<Dynamic, float>(10);
+		testNearest2<float, 2>(2);
+		//testNearest2<float, Dynamic>(10);
 	}
 
 	class SpherePolicy

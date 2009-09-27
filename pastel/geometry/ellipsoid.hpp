@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Matrix<Real, N, N> ellipsoidQuadraticForm(
 		const Matrix<Real, N, N>& basis)
 	{
@@ -60,7 +60,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, N> ellipsoidBoundingAlignedBox(
 		const Matrix<Real, N, N>& quadraticForm)
 	{

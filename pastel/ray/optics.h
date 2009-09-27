@@ -25,7 +25,7 @@ namespace Pastel
 	dot(from, normal) >= 0
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> reflect(
 		const Vector<Real, N>& from,
 		const Vector<Real, N>& normal);
@@ -38,7 +38,7 @@ namespace Pastel
 	cosFromNormal = cos(from, normal)
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> reflect(
 		const Vector<Real, N>& from,
 		const Vector<Real, N>& normal,
@@ -53,7 +53,7 @@ namespace Pastel
 	toIndex != 0
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> refract(
 		const Vector<Real, N>& from,
 		const Vector<Real, N>& normal,
@@ -70,7 +70,7 @@ namespace Pastel
 	toIndex != 0
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> refract(
 		const Vector<Real, N>& from,
 		const Vector<Real, N>& normal,
@@ -87,7 +87,7 @@ namespace Pastel
 	to = refract(from, normal, fromIndex, toIndex)
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real fresnelDielectric(
 		const Vector<Real, N>& from,
 		const Vector<Real, N>& normal,
@@ -118,7 +118,7 @@ namespace Pastel
 	Light is p-polarized.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real pFresnelDielectric(
 		const Real& fromIndex,
 		const Real& toIndex,
@@ -133,7 +133,7 @@ namespace Pastel
 	Light is unpolarized.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real fresnelDielectric(
 		const Real& fromIndex,
 		const Real& toIndex,

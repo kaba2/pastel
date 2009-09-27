@@ -115,7 +115,7 @@ namespace
 		savePcx(image, "output/drawing_floodfill.pcx");
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomPoint(
 		const AlignedBox<Real, N>& region)
 	{

@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Simplex<Real, N, N>& simplex,
 		const Vector<Real, N>& point);

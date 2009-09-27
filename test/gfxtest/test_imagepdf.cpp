@@ -42,7 +42,7 @@ namespace
 
 		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
 
-		ImagePdf<2, real32> imagePdf(constArrayView(image));
+		ImagePdf<real32, 2> imagePdf(constArrayView(image));
 
 		clear(0, arrayView(image));
 

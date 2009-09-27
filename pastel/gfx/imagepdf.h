@@ -13,7 +13,7 @@ namespace Pastel
 
 	//! Returns random pixel positions distributed in accordance to an image.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	class ImagePdf
 	{
 	public:

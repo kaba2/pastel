@@ -25,7 +25,7 @@ namespace Pastel
 			return Real(1) - indexRatio * indexRatio;
 		}
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		Vector<Real, N> reflect(
 			const Vector<Real, N>& from,
 			const Vector<Real, N>& normal)
@@ -35,7 +35,7 @@ namespace Pastel
 			return reflect(from, normal, cosFromNormal);
 		}
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		Vector<Real, N> reflect(
 			const Vector<Real, N>& from,
 			const Vector<Real, N>& normal,
@@ -44,7 +44,7 @@ namespace Pastel
 			return 2 * cosFromNormal * normal - from;
 		}
 
-		template <int N, typename Real>
+		template <typename Real, int N>
 		Vector<Real, N> refract(
 			const Vector<Real, N>& from,
 			const Vector<Real, N>& normal,
@@ -58,7 +58,7 @@ namespace Pastel
 				fromIndex, toIndex, cosFromNormal);
 		}
 
-			template <int N, typename Real>
+			template <typename Real, int N>
 		Vector<Real, N> refract(
 			const Vector<Real, N>& from,
 			const Vector<Real, N>& normal,

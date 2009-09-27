@@ -15,7 +15,7 @@ namespace Pastel
 	The box is considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& a,
 		const Vector<Real, N>& nb);

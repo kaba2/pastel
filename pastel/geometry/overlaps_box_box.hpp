@@ -16,7 +16,7 @@ namespace Pastel
 {
 
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox)
@@ -46,7 +46,7 @@ namespace Pastel
 			bBoxTransformed);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,
@@ -80,7 +80,7 @@ namespace Pastel
 			intersectionRange);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
 		const Box<Real, N>& bBox,

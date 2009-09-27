@@ -15,7 +15,7 @@ namespace Pastel
 	The sphere is considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(const Sphere<Real, N>& sphere,
 		const Vector<Real, N>& point);
 

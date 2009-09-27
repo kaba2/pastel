@@ -15,7 +15,7 @@ namespace Pastel
 	namespace Detail_ReconstructFilter
 	{
 
-		template <int N, typename Real, typename Data>
+		template <typename Real, int N, typename Data>
 		class DataPoint
 		{
 		public:
@@ -39,11 +39,11 @@ namespace Pastel
 			Data data_;
 		};
 
-		template <int N, typename Real, typename Data>
+		template <typename Real, int N, typename Data>
 		class DataPolicy
 		{
 		public:
-			typedef DataPoint<N, Real, Data> Object;
+			typedef DataPoint<Real, N, Data> Object;
 
 			const Real* point(const Object& object) const
 			{
@@ -56,7 +56,7 @@ namespace Pastel
 			}
 		};
 
-		template <int N, typename Real, typename ObjectPolicy, typename Filter>
+		template <typename Real, int N, typename ObjectPolicy, typename Filter>
 		class ReconstructFunctor
 		{
 		public:
@@ -136,7 +136,7 @@ namespace Pastel
 		};
 	}
 
-	template <int N, typename Real, typename Data, typename Filter, typename Output_View>
+	template <typename Real, int N, typename Data, typename Filter, typename Output_View>
 	void reconstructFilter(
 		const std::vector<Vector<Real, N> >& positionList,
 		const std::vector<Data>& dataList,
@@ -151,8 +151,8 @@ namespace Pastel
 
 		ENSURE2(points == dataList.size(), points, dataList.size());
 
-		typedef Detail_ReconstructFilter::DataPoint<N, Real, Data> DataPoint;
-		typedef Detail_ReconstructFilter::DataPolicy<N, Real, Data> DataPolicy;
+		typedef Detail_ReconstructFilter::DataPoint<Real, N, Data> DataPoint;
+		typedef Detail_ReconstructFilter::DataPolicy<Real, N, Data> DataPolicy;
 
 		DataPolicy dataPolicy;
 		PointKdTree<Real, N, DataPolicy> kdTree(
@@ -174,7 +174,7 @@ namespace Pastel
 
 		kdTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
-		Detail_ReconstructFilter::ReconstructFunctor<N, Real, DataPolicy, Filter>
+		Detail_ReconstructFilter::ReconstructFunctor<Real, N, DataPolicy, Filter>
 			reconstructFunctor(kdTree, filter, filterStretch);
 
 		visitPosition(
