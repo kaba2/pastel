@@ -8,6 +8,8 @@
 
 #include "pastel/math/matrix.h"
 
+#include <boost/operators.hpp>
+
 namespace Pastel
 {
 
@@ -31,6 +33,11 @@ namespace Pastel
 
 	template <typename Real, int N = Dynamic>
 	class Box
+		: boost::multipliable<Box<Real, N>, Real
+		, boost::dividable<Box<Real, N>, Real
+		, boost::addable<Box<Real, N>, Vector<Real, N>
+		, boost::subtractable<Box<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	public:
 		// Using default copy constructor.
@@ -76,6 +83,18 @@ namespace Pastel
 
 		//! Returns the rotation of the box.
 		const Matrix<Real, N, N>& rotation() const;
+
+		//! Translates the box by the given vector.
+		Box<Real, N>& operator+=(const Vector<Real, N>& that);
+
+		//! Translates the box backwards by the given vector.
+		Box<Real, N>& operator-=(const Vector<Real, N>& that);
+
+		//! Scales up the box without affecting position.
+		Box<Real, N>& operator*=(const Real& that);
+
+		//! Scales down the box without affecting position.
+		Box<Real, N>& operator/=(const Real& that);
 
 	private:
 		Vector<Real, N> position_;

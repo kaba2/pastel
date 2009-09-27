@@ -66,22 +66,38 @@ norm bijections, in Pastel this always means a restricted norm
 bijection as defined above. Pastel implements the following 
 restricted norm bijections:
 
- * Euclidean: ''(: x :) = \sum_{i = 1}^n x_i^2'' <br /> 
- ''o+(x, y) = x + y'' <br /> 
- ''f(x) = x^2''
- 
- * Manhattan: ''(: x :) = \sum_{i = 1}^n |x_i|'' <br />
- ''o+(x, y) = x + y'' <br />
- ''f(x) = x''
- 
- * Infinity: ''(: x :) = text(max)_{i = 1}^n |x_i|'' <br /> 
- ''o+(x, y) = text(max)(x, y)'' <br />
- ''f(x) = x''
- 
- * Minkowski: ''(: x :) = \sum_{i = 1}^n |x_i|^p'' <br />
- ''o+(x, y) = x + y'' <br /> 
- ''f(x) = x^p''
- 
+### Manhattan / 1
+
+''(: x :) = \sum_{i = 1}^n |x_i|''
+
+''o+(x, y) = x + y''
+
+''f(x) = x''
+
+### Euclidean / 2
+
+''(: x :) = \sum_{i = 1}^n x_i^2''
+
+''o+(x, y) = x + y''
+
+''f(x) = x^2''
+
+### Minkowski / P
+
+''(: x :) = \sum_{i = 1}^n |x_i|^p''
+
+''o+(x, y) = x + y''
+
+''f(x) = x^p''
+
+### Maximum / Infinity
+
+''(: x :) = text(max)_{i = 1}^n |x_i|''
+
+''o+(x, y) = text(max)(x, y)''
+
+''f(x) = x''
+
 Concept
 -------
 

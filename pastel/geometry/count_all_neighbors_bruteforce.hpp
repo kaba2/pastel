@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator, typename ConstDistanceIterator,
 	typename CountIterator>
 	void countAllNeighborsBruteForce(

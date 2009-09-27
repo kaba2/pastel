@@ -99,8 +99,8 @@ namespace Pastel
 		const Vector<Real, N> translation =
 			(end_ - start_) * ((that - 1) / 2);
 		
-		start_ += translation;
-		end_ -= translation;
+		start_ -= translation;
+		end_ += translation;
 
 		return *this;
 	}

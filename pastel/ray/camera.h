@@ -7,9 +7,9 @@
 #include "pastel/ray/raylibrary.h"
 #include "pastel/ray/lens.h"
 
-#include "pastel/geometry/line.h"
-
 #include "pastel/math/transformation.h"
+
+#include "pastel/geometry/line.h"
 
 namespace Pastel
 {

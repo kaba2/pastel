@@ -1,5 +1,4 @@
 // Description: An aggregate file for all-nearest-neighbors counting
-// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_H

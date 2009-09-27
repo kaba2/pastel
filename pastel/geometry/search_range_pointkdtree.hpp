@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	void searchRange(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,

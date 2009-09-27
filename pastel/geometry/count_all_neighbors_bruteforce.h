@@ -1,5 +1,4 @@
 // Description: All-nearest-neighbors counting using a brute-force algorithm
-// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_BRUTEFORCE_H
@@ -42,7 +41,7 @@ namespace Pastel
 	of neighbors 'pointSet[indexSetBegin[i]]' has. The iterator 
 	must be a random-access iterator and writable.
 	*/
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator, typename ConstDistanceIterator,
 	typename CountIterator>
 	void countAllNeighborsBruteForce(

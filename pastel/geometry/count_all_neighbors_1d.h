@@ -1,6 +1,5 @@
 // Description: All-nearest-neighbors counting in 1D
 // Detail: Implements a very fast algorithm that works only in 1D.
-// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_1D_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_1D_H
@@ -42,7 +41,7 @@ namespace Pastel
 	of neighbors 'pointSet[indexSetBegin[i]]' has. The iterator 
 	must be a random-access iterator and writable.
 	*/
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator, typename ConstDistanceIterator,
 	typename CountIterator>
 	void countAllNeighbors1d(

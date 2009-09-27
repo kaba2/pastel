@@ -33,7 +33,7 @@ namespace Pastel
 	See 'pastel/math/normbijection.txt'.
 
 	*/
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -46,7 +46,7 @@ namespace Pastel
 	class DepthFirst_SearchAlgorithm_PointKdTree
 	{
 	public:
-		template <int N, typename Real, typename ObjectPolicy, 
+		template <typename Real, int N, typename ObjectPolicy, 
 			typename NormBijection, typename CandidateFunctor>
 		static void work(
 			const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -61,7 +61,7 @@ namespace Pastel
 				normBijection, candidateFunctor);
 		}
 
-		template <int N, typename Real, typename ObjectPolicy, 
+		template <typename Real, int N, typename ObjectPolicy, 
 			typename NormBijection, typename CandidateFunctor>
 		static void work(
 			const PointKdTree<Real, N, ObjectPolicy>& kdTree,

@@ -107,7 +107,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator>
 	void searchAllNeighbors1d(
 		const std::vector<Vector<Real, N> >& pointSet,
@@ -201,7 +201,7 @@ namespace Pastel
 	}
 
 	/*
-	template <int N, typename Real, typename NormBijection>
+	template <typename Real, int N, typename NormBijection>
 	void searchAllNeighbors1d(
 		const std::vector<Vector<Real, N> >& pointSet,
 		integer kNearest,

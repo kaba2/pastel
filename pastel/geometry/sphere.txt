@@ -7,7 +7,7 @@ Theory
 ------
 
 A _sphere_ ''S'' in ''RR^n'' is any set which can be 
-described by a point ''c in RR^n'' and ''r in RR, r > 0'' such that 
+described by a point ''c in RR^n'' and ''r in RR, r >= 0'' such that 
 
 ''S = {x in RR^n: |x - c| <= r}''
 

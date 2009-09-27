@@ -9,6 +9,8 @@
 #include "pastel/sys/constants.h"
 #include "pastel/sys/vector.h"
 
+#include <boost/operators.hpp>
+
 #include <boost/static_assert.hpp>
 
 namespace Pastel
@@ -30,6 +32,11 @@ namespace Pastel
 
 	template <typename Real, int N>
 	class AlignedBoxBase
+		: boost::multipliable<AlignedBox<Real, N>, Real
+		, boost::dividable<AlignedBox<Real, N>, Real
+		, boost::addable<AlignedBox<Real, N>, Vector<Real, N>
+		, boost::subtractable<AlignedBox<Real, N>, Vector<Real, N>
+		> > > >
 	{
 	public:
 		// Using default copy constructor.
@@ -163,14 +170,6 @@ namespace Pastel
 			return (AlignedBox<Real, N>&)*this;
 		}
 
-		AlignedBox<Real, N> operator+(
-			const Vector<Real, N>& right) const
-		{
-			AlignedBox<Real, N> result((const AlignedBox<Real, N>&)*this);
-			result += right;
-			return result;
-		}
-
 		//! Translates the box backwards by the given vector.
 		AlignedBox<Real, N>& operator-=(
 			const Vector<Real, N>& right)
@@ -181,12 +180,24 @@ namespace Pastel
 			return (AlignedBox<Real, N>&)*this;
 		}
 
-		AlignedBox<Real, N> operator-(
-			const Vector<Real, N>& right) const
+		//! Scales up the box without affecting position.
+		AlignedBox<Real, N>& operator*=(
+			const Real& that)
 		{
-			AlignedBox<Real, N> result((const AlignedBox<Real, N>&)*this);
-			result -= right;
-			return result;
+			const Vector<Real, N> translation =
+				(max_ - min_) * ((that - 1) / 2);
+		
+			min_ -= translation;
+			max_ += translation;
+
+			return (AlignedBox<Real, N>&)*this;
+		}
+
+		//! Scales down the box without affecting position.
+		AlignedBox<Real, N>& operator/=(
+			const Real& that)
+		{
+			return (AlignedBox<Real, N>&)(*this *= inverse(that));
 		}
 
 	private:

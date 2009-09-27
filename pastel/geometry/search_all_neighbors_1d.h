@@ -1,6 +1,5 @@
 // Description: All-nearest-neighbors searching in 1D
 // Detail: Implements an optimal algorithm that only works in 1D
-// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_1D_H
 #define PASTEL_SEARCH_ALL_NEIGHBORS_1D_H
@@ -54,7 +53,7 @@ namespace Pastel
 	reporting this information is skipped.
 	*/
 
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator>
 	void searchAllNeighbors1d(
 		const std::vector<Vector<Real, N> >& pointSet,

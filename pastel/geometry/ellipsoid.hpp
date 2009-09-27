@@ -69,7 +69,7 @@ namespace Pastel
 
 		// I credit 'Dave' from sci.math for
 		// the solution of this problem. Discussions
-		// with Dave Eberly for comp.graphics.algorithms
+		// with Dave Eberly from comp.graphics.algorithms
 		// were also helpful.
 		//
 		// Let

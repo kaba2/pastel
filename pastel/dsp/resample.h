@@ -6,6 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"
 #include "pastel/sys/arrayextender.h"
+#include "pastel/sys/iteratorrange.h"
 
 #include "pastel/dsp/table_filter.h"
 
@@ -17,10 +18,8 @@ namespace Pastel
 		typename Input_ConstIterator,
 		typename Output_Iterator>
 	void resample(
-		const Input_ConstIterator& inputBegin,
-		const Input_ConstIterator& inputEnd,
-		const Output_Iterator& outputBegin,
-		const Output_Iterator& outputEnd,
+		const RandomAccessRange<Input_ConstIterator>& inputSet,
+		const RandomAccessRange<Output_Iterator>& outputSet,
 		const ConstFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
 		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
@@ -31,10 +30,8 @@ namespace Pastel
 		typename Input_ConstIterator,
 		typename Output_Iterator>
 	void resampleTable(
-		const Input_ConstIterator& inputBegin,
-		const Input_ConstIterator& inputEnd,
-		const Output_Iterator& outputBegin,
-		const Output_Iterator& outputEnd,
+		const RandomAccessRange<Input_ConstIterator>& inputSet,
+		const RandomAccessRange<Output_Iterator>& outputSet,
 		const ConstTableFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
 		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),

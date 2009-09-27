@@ -23,7 +23,7 @@ namespace Pastel
 	See "pastel/math/normbijection.h" for predefined norm bijections.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NormBijection>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -44,7 +44,7 @@ namespace Pastel
 	general countNearest() function.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy,
+	template <typename Real, int N, typename ObjectPolicy,
 	typename SearchPoint>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,

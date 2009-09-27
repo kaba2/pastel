@@ -669,6 +669,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Distortion textures"
+				>
+				<File
+					RelativePath=".\radial_texture.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Reconstruction"

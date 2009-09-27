@@ -1,4 +1,4 @@
-Interval class
-==============
+Intervals
+=========
 
 [Parent]: numbers.txt
