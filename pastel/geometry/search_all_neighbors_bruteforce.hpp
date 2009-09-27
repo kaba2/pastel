@@ -46,7 +46,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator>
 	void searchAllNeighborsBruteForce(
 		const std::vector<Vector<Real, N> >& pointSet,

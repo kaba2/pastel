@@ -104,6 +104,44 @@ namespace Pastel
 		return rotation_;
 	}
 
+	template <typename Real, int N>
+	Box<Real, N>& Box<Real, N>::operator+=(
+		const Vector<Real, N>& that)
+	{
+		position_ += that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Box<Real, N>& Box<Real, N>::operator-=(
+		const Vector<Real, N>& that)
+	{
+		position_ -= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Box<Real, N>& Box<Real, N>::operator*=(
+		const Real& that)
+	{
+		width_ *= that;
+
+		return *this;
+	}
+
+	template <typename Real, int N>
+	Box<Real, N>& Box<Real, N>::operator/=(
+		const Real& that)
+	{
+		PENSURE_OP(that, !=, 0);
+
+		width_ /= that;
+
+		return *this;
+	}
+
 }
 
 #endif

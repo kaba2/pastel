@@ -1349,6 +1349,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\count_all_neighbors.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\count_all_neighbors_1d.h"
 					>
 				</File>
@@ -1378,6 +1382,10 @@
 				>
 				<File
 					RelativePath=".\search_all_neighbors.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_all_neighbors.txt"
 					>
 				</File>
 				<File
@@ -1551,7 +1559,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Range searching"
+			Name="Orthogonal range searching"
 			>
 			<File
 				RelativePath=".\search_range.txt"

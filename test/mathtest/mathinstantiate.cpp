@@ -58,18 +58,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/transformation.h"
-namespace Pastel
-{
-
-	template class Transformation<real, 1>;
-	template class Transformation<real, 2>;
-	template class Transformation<real, 3>;
-	template class Transformation<real, 4>;
-	template class Transformation<real, 5>;
-
-}
-
 #include "pastel/geometry/sphere.h"
 namespace Pastel
 {

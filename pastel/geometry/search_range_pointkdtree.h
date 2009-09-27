@@ -12,16 +12,13 @@
 namespace Pastel
 {
 
-	//! Finds all objects in a kd-tree within an orthogonal range.
+	//! Finds all objects within an aligned box from a PointKdTree.
 	/*!
 	Preconditions:
 	kdTree.dimension() == range.dimension()
-
-	More specifically, finds all objects whose
-	bounding boxes intersect the orthogonal query range.
 	*/
 
-	template <int N, typename Real, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy>
 	void searchRange(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,

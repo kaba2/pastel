@@ -16,8 +16,7 @@ files to .html files. The appealing idea behind Markdown is
 that these source-text files should also be readable by themself. 
 For an example, [see the source for this page](./documentation.txt).
 
-Mathematical notation
----------------------
+### Mathematical notation
 
 The Markdown syntax has been extended to embed mathematical notation
 via the AsciiMathMl library. This extends the idea of making both 
@@ -42,8 +41,7 @@ nodes and edges denote a parent-child relation.
 This tree is used to generate various useful information 
 automatically to the webpages.
 
-Viewing a documentation page
-----------------------------
+### Viewing a documentation page
 
 For a documentation page, a _Back_ link is automatically generated to refer to 
 the documentation page of its parent file. The children of the documentation page are 
@@ -55,8 +53,7 @@ Links to source-code files are preceded by a description which can be specified 
 source-code file. The source-code files are grouped according to a common name without the 
 filetype-suffix.
 
-Viewing a source-code file
---------------------------
+### Viewing a source-code file
 
 When viewing a source-code file or the source of a documentation file,
 the text is color-coded appropriately. The include commands that refer to the same library 
@@ -64,15 +61,16 @@ are converted into links, which allows to browse the source-code associatively.
 The _Documentation_ link is automatically generated to refer to the parent documentation page 
 of the source-code file. There is also a link to the containing directory in the directory view.
 
-Viewing the documentation tree
-------------------------------
+### Viewing the documentation tree
 
 When browsing the source-code through the directory view, the documentation tree is 
 explicitly shown in the directory view, where source-code files in a directory are grouped 
 further based on their parent files, showing their descriptions.
 
-Specifying a parent file
-------------------------
+Specifying meta-information
+---------------------------
+
+### Specifying a parent file
 
 A documentation file specifies its parent file by writing somewhere
 in the file 
@@ -105,8 +103,7 @@ correctly associated with a parent file.
 
  * For a documentation file, choose a special orphan file as the parent file.
 
-Specifying a description
-------------------------
+### Specifying a description
 
 A source-code file can be given a description by writing somewhere
 in the file a comment of the form:
@@ -137,8 +134,7 @@ a comment of the form:
 These tags are best placed at the beginning of a file for 
 LightMark to find them quickly.
 
-Manual linking
---------------
+### Manual linking
 
 A link to a source-code file or a documentation page can be specified 
 manually to generate a link that has a description as with the automatically

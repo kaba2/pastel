@@ -267,7 +267,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -289,7 +289,7 @@ namespace Pastel
 		depthFirst.workTopDown();
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename NormBijection, typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,

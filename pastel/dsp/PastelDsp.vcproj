@@ -327,6 +327,10 @@
 				RelativePath=".\resample.txt"
 				>
 			</File>
+			<File
+				RelativePath=".\resample_optimal_order.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Miscellaneous"

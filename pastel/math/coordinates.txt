@@ -3,58 +3,101 @@ Coordinate conversions
 
 [Parent]: pastelmath.txt
 
-Theory
-------
-
-### Coordinate systems
+Coordinate systems
+------------------
 
 A _coordinate system_ in ''RR^n'' is a function ''f : S sub RR^n -> RR^n'' such that ''f'' is a homeomorphism
 (''f'' is a continuous bijection, and so is ''f^-1'') almost everywhere. 
 Some commonly used coordinate systems include:
 
- * Cartesian ''RR^n'': 
- ''f_{text(cartesian)}(x_1, ..., x_n) = (
- (x_1), 
- (\vdots), 
- (x_n))''
- 
- * Polar ''RR^2'': 
- ''f_{text(polar)}(r, alpha) = (
- (r text(cos)(alpha)), 
- (r text(sin)(alpha)))''
- 
- * Cylinder ''RR^3'': 
- ''f_{text(cylinder)}(r, alpha, z) = (
- (r text(cos)(alpha)), 
- (r text(sin)(alpha)), 
- (z))''
- 
- * Spherical ''RR^3'': 
- ''f_{text(spherical)}(r, alpha_1, alpha_2) = (
- (r text(cos)(alpha_1)), 
- (r text(sin)(alpha_1) text(cos)(alpha_2)), 
- (r text(sin)(alpha_1) text(sin)(alpha_2)))''
+### Cartesian ''RR^n''
 
-### Generalized coordinate systems
+''f_{text(cartesian)} : RR^n -> RR^n :
+f_{text(cartesian)}(x_1, ..., x_n) = (
+(x_1), 
+(\vdots), 
+(x_n))''
+
+''f_{text(cartesian)}^-1 : RR^n -> RR^n :
+f_{text(cartesian)}^-1(x_1, ..., x_n) = (
+(x_1), 
+(\vdots), 
+(x_n))''
  
+### Polar ''RR^2''
+
+''f_{text(polar)} : RR_+ xx text([) 0, 2 pi text([) -> RR^2 :
+f_{text(polar)}(r, alpha) = (
+(r text(cos)(alpha)), 
+(r text(sin)(alpha)))''
+
+''f_{text(polar)}^-1 : RR^2 -> RR_+ xx text([) 0, 2 pi text([) :
+f_{text(polar)}^-1(x_1, x_2) = (
+(sqrt(x_1^2 + x_2^2)), 
+(text(atan2)(x_2, x_1)))''
+ 
+### Cylinder ''RR^3''
+
+''f_{text(cylinder)} : RR_+ xx text([) 0, 2pi text([) xx RR -> RR^3 :
+f_{text(cylinder)}(r, alpha, x_3) = (
+(r text(cos)(alpha)), 
+(r text(sin)(alpha)), 
+(x_3))''
+
+''f_{text(cylinder)}^-1 : RR^3 -> RR_+ xx text([) 0, 2pi text([) xx RR :
+f_{text(cylinder)}^-1(x_1, x_2, x_3) = (
+(sqrt(x_1^2 + x_2^2)), 
+(text(atan2)(x_2, x_1)),
+(x_3))''
+ 
+### Spherical ''RR^3''
+
+''f_{text(spherical)} : RR_+ xx text([)0, pi text([) xx text([) 0, 2 pi text([) -> RR^3 :
+f_{text(spherical)}(r, alpha_1, alpha_2) = (
+(r text(cos)(alpha_1)), 
+(r text(sin)(alpha_1) text(cos)(alpha_2)), 
+(r text(sin)(alpha_1) text(sin)(alpha_2)))''
+
+''f_{text(spherical)}^-1 : RR^3 -> RR_+ xx text([)0, pi text([) xx text([) 0, 2 pi text([) :
+f_{text(spherical)}^-1(x_1, x_2, x_3) = (
+(sqrt(x_1^2 + x_2^2 + x_3^2)), 
+(text(atan2)(sqrt(x_2^2 + x_3^2), x_1)),
+(text(atan2)(x_3, x_2)))''
+
+Generalized coordinate systems
+------------------------------
+ 
+### Spherical ''RR^n''
+
 The polar and spherical coordinate systems are 
 simply special cases of the spherical coordinate system in ''RR^n'':
- 
- * Spherical ''RR^n'': 
- ''f_{text(hyperspherical)}(r, alpha_1, ..., alpha_n) = (
- (r text(cos)(alpha_1)), 
- (r text(sin)(alpha_1) text(cos)(alpha_2)), 
- (\vdots),
- (r text(sin)(alpha_1) \cdots text(sin)(alpha_(n - 2)) text(cos)(alpha_(n - 1))),
- (r text(sin)(alpha_1) \cdots text(sin)(alpha_(n - 1)) text(sin)(alpha_n)))''
- 
+
+''f_{text(hyperspherical)} : RR_+ xx text([)0, pi text([)^(n - 2) xx text([) 0, 2 pi text([) -> RR^n :
+f_{text(hyperspherical)}(r, alpha_1, ..., alpha_{n - 1}) = (
+(r text(cos)(alpha_1)), 
+(r text(sin)(alpha_1) text(cos)(alpha_2)), 
+(\vdots),
+(r text(sin)(alpha_1) \cdots text(sin)(alpha_{n - 2}) text(cos)(alpha_{n - 1})),
+(r text(sin)(alpha_1) \cdots text(sin)(alpha_{n - 2}) text(sin)(alpha_{n - 1})))''
+
+''f_{text(hyperspherical)}^-1 : RR^n -> RR_+ xx text([)0, pi text([)^(n - 2) xx text([) 0, 2 pi text([) :
+f_{text(hyperspherical)}^-1(x_1, ..., x_n) = (
+(sqrt(x_1^2 + ... + x_n^2)),
+(\vdots),
+(atan2(sqrt(x_i^2 + ... + x_n^2), x_(i - 1))),
+(\vdots),
+(atan2(x_n, x_(n - 1))))''
+
+Spherical coordinate systems are only defined for ''n >= 2''.
 To see where the spherical coordinate system gets its name, notice 
-that ''|f_{text(hyperspherical)}(r, alpha_1, \cdots, alpha_n)| = r'' 
-independent of ''text(alpha)_i'', where the norm is Euclidean. 
+that ''|f_{text(hyperspherical)}(r, alpha_1, \cdots, alpha_{n - 1})| = r'', 
+where the norm is Euclidean. 
+
+### Generalized cylinder ''RR^n''
 
 All of the mentioned coordinate systems can be united under a single generalization. 
 This is done by computing spherical coordinates only for the ''k <= n'' first components 
-of ''v in R^n'', and leaving the other ''n - k'' components as they were. This is called the
+of ''v in RR^n'', and leaving the other ''n - k'' components as they were. This is called the
 _generalized cylinder coordinate system_. The spherical coordinate system
 is obtained by setting ''k = n''. The cylinder coordinate system is obtained
 by setting ''k = n - 1''. The Cartesian coordinate system is obtained

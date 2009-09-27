@@ -1,5 +1,4 @@
 // Description: All-nearest-neighbors counting using PointKdTree
-// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H
 #define PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_H

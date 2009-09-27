@@ -11,7 +11,7 @@ namespace Pastel
 	namespace Detail_Count_Nearest
 	{
 
-		template <int N, typename Real, typename ObjectPolicy>
+		template <typename Real, int N, typename ObjectPolicy>
 		class CandidateFunctor
 		{
 		private:
@@ -43,7 +43,7 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Real, typename ObjectPolicy, 
+	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NormBijection>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -65,7 +65,7 @@ namespace Pastel
 		}
 		*/
 
-		typedef Detail_Count_Nearest::CandidateFunctor<N, Real, ObjectPolicy>
+		typedef Detail_Count_Nearest::CandidateFunctor<Real, N, ObjectPolicy>
 			CandidateFunctor;
 
 		integer nearestCount = 0;
@@ -78,7 +78,7 @@ namespace Pastel
 		return nearestCount;
 	}
 
-	template <int N, typename Real, typename ObjectPolicy,
+	template <typename Real, int N, typename ObjectPolicy,
 	typename SearchPoint>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,

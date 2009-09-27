@@ -1,0 +1,140 @@
+Resampling n-dimensional images in an optimal order
+===================================================
+
+[Parent]: resample.txt
+
+Problem
+-------
+
+The resampling of an n-dimensional image can be carried out
+by n subsequent sets of 1-dimensional resamplings.
+What is the optimal order to carry out these 1-d resamplings
+to maximize efficiency?
+
+### Formal problem statement
+
+Consider you have an n-dimensional image with extents ''w in ZZ^n''. 
+You want to resample this image to new extents ''hat(w) in ZZ^n'' and do 
+this by resampling each dimension ''i'' at a time. 
+Let ''P = {p_1, ... p_n} = [1, n] sub ZZ'', and
+''r = (hat(w)_{p(1)} / w_{p(1)}, ..., hat(w)_{p(n)} / w_{p(n)}) in RR^n''.
+A cost function for each of these resamplings can be given recursively as follows:
+
+''r_0 = 1''
+
+''C(0) = 1''
+      
+''C(i) = C(i - 1) * r_{i - 1} * \max(1, r_i)''
+
+The total cost of the process is then given by
+
+''C_{text(total)} = sum_{i = 1}^n C(i)''
+
+The problem is to construct an algorithm to find a ''P'' with minimal total cost.
+
+Solution
+--------
+
+The following solution is from James Waldby as a result of
+a newsgroup discussion in sci.math. If one exchanges the 
+values of ''p_i'' and ''p_{i + 1}'',
+then the costs ''{C(1), ..., C(i - 1), C(i + 2), ... C(n)}'' are
+not influenced. Thus in this case:
+
+''C_{text(total)} < hat(C)_{text(total)}''
+
+''<=>''
+
+''sum_{k = 1}^n C(k) < sum_{k = 1}^n hat(C)(k)''
+
+''<=>''
+
+''C(i) + C(i + 1) < hat(C)(i) + hat(C)(i + 1)''
+
+''<=>''
+
+''C(i - 1) * r_{i - 1} * \max(1, r_i)(1 + r_i * \max(1, r_{i + 1})) <
+hat(C)(i - 1) * hat(r)_{i - 1} * \max(1, hat(r)_i)(1 + hat(r)_i * \max(1, hat(r)_{i + 1}))''
+
+''<=>''
+
+''\max(1, r_i)(1 + r_i * \max(1, r_{i + 1})) < \max(1, hat(r)_i)(1 + hat(r)_i * \max(1, hat(r)_{i + 1}))''
+
+''<=>''
+
+''\max(1, r_i)(1 + r_i * \max(1, r_{i + 1})) < \max(1, r_{i + 1})(1 + r_{i + 1} * \max(1, r_i))''
+
+### Case ''r_i < 1'', ''r_{i + 1} < 1''
+
+''\max(1, r_i)(1 + r_i * \max(1, r_{i + 1})) < \max(1, r_{i + 1})(1 + r_{i + 1} * \max(1, r_i))''
+
+''<=>''
+
+''1 + r_i < 1 + r_{i + 1}''
+
+''<=>''
+
+''r_i < r_{i + 1}''
+
+### Case ''r_i >= 1'', ''r_{i + 1} >= 1''
+
+''\max(1, r_i)(1 + r_i * \max(1, r_{i + 1})) < \max(1, r_{i + 1})(1 + r_{i + 1} * \max(1, r_i))''
+
+''<=>''
+
+''r_i (1 + r_i r_{i + 1}) < r_{i + 1}(1 + r_{i + 1} r_i)''
+
+''<=>''
+
+''r_i < r_{i + 1}''
+
+### Case ''r_i >= 1'', ''r_{i + 1} < 1''
+
+''\max(1, r_i)(1 + r_i * \max(1, r_{i + 1})) < \max(1, r_{i + 1})(1 + r_{i + 1} * \max(1, r_i))''
+
+''<=>''
+
+''r_i (1 + r_i) < 1 + r_{i + 1} r_i''
+
+''<=>''
+
+''1 + r_i < 1 / r_i + r_{i + 1}''
+
+''<=>''
+
+''r_i + 1 - 1 / r_i < r_{i + 1}''
+
+''<=>''
+
+''text(false)''
+
+''<=>''
+
+''r_i < r_{i + 1}''
+
+### Result
+
+To minimize the total cost one must choose ''P'' such 
+that ''{r_1, ..., r_n}'' is an ascending sequence.
+
+Generalization
+--------------
+
+One may want to expand the resampling filter support in some dimension for 
+deliberately blurring. The expansion constants are called _blurring factors_. 
+Using the same argument as before, one can prove that in many cases 
+''P'' must be chosen such that ''(b_1 r_1, .., b_n r_n)'' is an ascending sequence,
+where ''b in RR^n, b >= 1'' contains the blurring factors.
+I have proved this for the cases where
+ 
+ * There is only upsampling.
+ 
+ * There is only downsampling.
+ 
+ * There is both upsampling and downsampling, but the blurring factors
+ are such that ''\forall i, j: r_i < r_j <=> b_i < b_j''.
+ 
+The remaining cases I have not been able to prove. I have a minor suspect 
+they would be NP-hard. If someone can show otherwise, I'd be interested
+to hear it.
+

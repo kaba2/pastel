@@ -1,5 +1,4 @@
 // Description: All-nearest-neighbors searching using a brute-force algorithm
-// Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_BRUTEFORCE_H
 #define PASTEL_SEARCH_ALL_NEIGHBORS_BRUTEFORCE_H
@@ -50,7 +49,7 @@ namespace Pastel
 	the j:th neighbor of the i:th point in the index set.
 	*/
 
-	template <int N, typename Real, typename NormBijection,
+	template <typename Real, int N, typename NormBijection,
 	typename ConstIndexIterator>
 	void searchAllNeighborsBruteForce(
 		const std::vector<Vector<Real, N> >& pointSet,
