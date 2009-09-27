@@ -71,28 +71,28 @@ namespace Pastel
 	template <typename Real>
 	Real volume(const Sphere<Real, 1>& sphere)
 	{
-		return volumeUnitSphere<1, Real>() * 
+		return volumeUnitSphere<Real, 1>() * 
 			sphere.radius();
 	}
 
 	template <typename Real>
 	Real volume(const Sphere<Real, 2>& sphere)
 	{
-		return volumeUnitSphere<2, Real>() * 
+		return volumeUnitSphere<Real, 2>() * 
 			square(sphere.radius());
 	}
 
 	template <typename Real>
 	Real volume(const Sphere<Real, 3>& sphere)
 	{
-		return volumeUnitSphere<3, Real>() * 
+		return volumeUnitSphere<Real, 3>() * 
 			square(sphere.radius()) * sphere.radius();
 	}
 
 	template <typename Real, int N>
 	Real volume(const Sphere<Real, N>& sphere)
 	{
-		return volumeUnitSphere<N, Real>() * std::pow(sphere.radius(), (Real)N);
+		return volumeUnitSphere<Real, N>() * std::pow(sphere.radius(), (Real)N);
 	}
 
 }

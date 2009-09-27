@@ -14,7 +14,7 @@ namespace
 	typedef Rational<NativeInteger<integer> > Real;
 	//typedef real Real;
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	void someFunction(const Tuple<Type, N>& jorma)
 	{
 	}

@@ -184,7 +184,7 @@ namespace Pastel
 			return false;
 		}
 
-		typedef Detail::NodeRange<N, Real, Shape> Range;
+		typedef Detail::NodeRange<Real, N, Shape> Range;
 		typedef typename Range::ConstCursor ConstCursor;
 
 		Vector<Real, 2> tRange;
