@@ -27,21 +27,21 @@ namespace Pastel
 	variables uniformly distributed on the annulus.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
@@ -61,17 +61,17 @@ namespace Pastel
 	variables uniformly distributed on the simplex.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<Real, N> >::type
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
@@ -88,17 +88,17 @@ namespace Pastel
 	so is the returned value on the ball.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
@@ -117,12 +117,12 @@ namespace Pastel
 	so is the returned value on the sphere.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 1, Vector<Real, ModifyN<N, N + 1>::Result> >::type
 		uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 2, Vector<Real, ModifyN<N, N + 1>::Result> >::type
 		uniformlySampleSphere(
 		const Vector<Real, N>& uv);
@@ -141,12 +141,12 @@ namespace Pastel
 	so is the returned value on the hemisphere.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 1, Vector<Real, ModifyN<N, N + 1>::Result> >::type
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	typename boost::enable_if_c<N == 2, Vector<Real, ModifyN<N, N + 1>::Result> >::type
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
@@ -166,7 +166,7 @@ namespace Pastel
 	variables cosine-distributed on the hemisphere.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, ModifyN<N, N + 1>::Result> cosineSampleHemisphere(
 		const Vector<Real, N>& uv);
 

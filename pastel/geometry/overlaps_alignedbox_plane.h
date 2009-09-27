@@ -16,7 +16,7 @@ namespace Pastel
 	The aligned box is considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(
 			const AlignedBox<Real, N>& alignedBox,
 			const Plane<Real, N>& plane);

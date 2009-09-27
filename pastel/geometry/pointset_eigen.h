@@ -16,7 +16,7 @@ namespace Pastel
 	Complexity:
 	O(pointSet.size() * dimension)
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> largestEigenVector(
 		const std::vector<Vector<Real, N> >& pointSet);
 

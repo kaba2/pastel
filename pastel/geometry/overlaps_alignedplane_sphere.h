@@ -15,7 +15,7 @@ namespace Pastel
 	The sphere is considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
 		Sphere<Real, N> const &sphere);
 
@@ -28,7 +28,7 @@ namespace Pastel
 	on the positive side of the plane.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
 		Sphere<Real, N> const &sphere,
 		bool &sphereOnPositiveSide);

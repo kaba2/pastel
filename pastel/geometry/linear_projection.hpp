@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
 		const AlignedBox<Real, N>& box,
 		const Vector<Real, N>& unitAxis)
@@ -22,7 +22,7 @@ namespace Pastel
 			std::max(t1, t2));
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
 		const Box<Real, N>& box,
 		const Vector<Real, N>& unitAxis)
@@ -44,7 +44,7 @@ namespace Pastel
 			position + radius);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
 		const Sphere<Real, N>& sphere,
 		const Vector<Real, N>& unitAxis)
@@ -57,7 +57,7 @@ namespace Pastel
 			position + radius);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
 		const Segment<Real, N>& segment,
 		const Vector<Real, N>& unitAxis)
@@ -72,7 +72,7 @@ namespace Pastel
 			position + radius);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
 		const Triangle<Real, N>& triangle,
 		const Vector<Real, N>& unitAxis)

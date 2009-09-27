@@ -27,7 +27,7 @@ namespace Pastel
 	The maximal effort the algorithm makes to ensure
 	that the pattern is maximal.
 	*/
-	template <int N, typename Real, typename ReportFunctor, typename ConstSeedIterator>
+	template <typename Real, int N, typename ReportFunctor, typename ConstSeedIterator>
 	void poissonDiskPattern(
 		const AlignedBox<Real, N>& window,
 		const PASTEL_NO_DEDUCTION(Real)& minDistance,
@@ -43,7 +43,7 @@ namespace Pastel
 	to use any seed points. See the documentation
 	for the more general version.
 	*/
-	template <int N, typename Real, typename ReportFunctor>
+	template <typename Real, int N, typename ReportFunctor>
 	void poissonDiskPattern(
 		const AlignedBox<Real, N>& window,
 		const PASTEL_NO_DEDUCTION(Real)& minDistance,

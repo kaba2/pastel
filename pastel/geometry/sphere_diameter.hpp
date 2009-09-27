@@ -8,14 +8,14 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real diameter(
 		const Sphere<Real, N>& sphere)
 	{
 		return 2 * sphere.radius();
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real diameter2(
 		const Sphere<Real, N>& sphere)
 	{

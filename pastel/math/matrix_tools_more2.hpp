@@ -32,7 +32,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setDiagonal(
 		Matrix<Real, N, N>& matrix,
 		const PASTEL_NO_DEDUCTION(Real)& value)
@@ -50,7 +50,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setDiagonal(
 		Matrix<Real, N, N>& matrix,
 		const Vector<Real, N>& values)
@@ -68,7 +68,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomRotation(
 		Matrix<Real, N, N>& result)
 	{
@@ -134,7 +134,7 @@ namespace Pastel
 		}
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		Matrix<Real, N, N>& result)
@@ -252,7 +252,7 @@ namespace Pastel
 		result *= transpose(result);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	void setRandomSymmetricPositiveDefinite(
 		const PASTEL_NO_DEDUCTION(Real)& determinant,
 		const PASTEL_NO_DEDUCTION(Real)& condition,

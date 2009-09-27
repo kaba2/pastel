@@ -15,7 +15,7 @@ namespace Pastel
 	The box is considered to be closed and solid.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
 		Box<Real, N> const &box);
 
@@ -28,7 +28,7 @@ namespace Pastel
 	side of the plane.
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
 			Box<Real, N> const &box,
 			bool &boxOnPositiveSide);

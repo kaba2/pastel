@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)

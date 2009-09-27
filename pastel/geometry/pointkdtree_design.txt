@@ -74,7 +74,7 @@ Store arbitrary user objects and require to supply a functor that
 gives projection to an axis given an object.
 
 	:::cpp
-	template <int N, typename Real, typename Object,
+	template <typename Real, int N, typename Object,
 	typename ProjectionFunctor>
 	class PointKdtree
 	{

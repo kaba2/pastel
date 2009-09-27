@@ -65,7 +65,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real determinant(
 		const MatrixExpression<Real, N, N, Expression>& that)
 	{
@@ -225,7 +225,7 @@ namespace Pastel
 		return max(sum(abs(transpose(matrix))));
 	}
 
-	template <int N, typename Real, 
+	template <typename Real, int N, 
 		typename Expression, typename NormBijection>
 		Real condition2(
 		const MatrixExpression<Real, N, N, Expression>& matrix,
@@ -235,14 +235,14 @@ namespace Pastel
 			norm2(inverse(matrix), normBijection);
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real conditionManhattan(
 		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{
 		return normManhattan(matrix) * normManhattan(inverse(matrix));
 	}
 
-	template <int N, typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Real conditionInfinity(
 		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{

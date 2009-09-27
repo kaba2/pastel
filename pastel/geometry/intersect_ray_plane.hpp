@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool intersect(
 		const Ray<Real, N>& ray,
 		const Plane<Real, N>& plane,

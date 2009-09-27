@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
 		const Vector<Real, N>& point,
 		const Simplex<Real, N, N>& simplex)
@@ -27,7 +27,7 @@ namespace Pastel
 		return solveLinear(m, extend(point, 1));
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
 		const Vector<Real, N>& point)
 	{

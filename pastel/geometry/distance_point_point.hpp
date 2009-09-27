@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distanceManhattan(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
@@ -18,7 +18,7 @@ namespace Pastel
 			Manhattan_NormBijection<Real>());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
@@ -28,7 +28,7 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distancePower(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint,
@@ -39,7 +39,7 @@ namespace Pastel
 			Minkowski_NormBijection<Real>(metric));
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distanceInfinity(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
@@ -49,7 +49,7 @@ namespace Pastel
 			Infinity_NormBijection<Real>());
 	}
 
-	template <int N, typename Real, typename NormBijection>
+	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint,
@@ -75,7 +75,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real, typename NormBijection>
+	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint,

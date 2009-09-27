@@ -17,7 +17,7 @@ namespace Pastel
 	If returns true, hitList[0] <= hitList[1].
 	*/
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 		bool intersect(
 			const Line<Real, N>& line,
 			const Box<Real, N>& box,

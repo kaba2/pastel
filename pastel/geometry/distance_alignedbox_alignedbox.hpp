@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real distance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox)
@@ -40,7 +40,7 @@ namespace Pastel
 		return result;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Real farthestDistance2(
 		const AlignedBox<Real, N>& aBox,
 		const AlignedBox<Real, N>& bBox)

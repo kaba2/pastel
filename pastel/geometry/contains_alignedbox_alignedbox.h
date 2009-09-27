@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	//! Finds out if an aligned box is contained in another one.
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool contains(
 		const AlignedBox<Real, N>& outer,
 		const AlignedBox<Real, N>& inner);

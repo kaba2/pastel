@@ -22,7 +22,7 @@ namespace Pastel
 	The InputIterator must dereference to Vector<Real, N>.
 	*/
 
-	template <int N, typename Real, typename InputIterator>
+	template <typename Real, int N, typename InputIterator>
 	AlignedBox<Real, N> boundingAlignedBox(
 		integer dimension,
 		const InputIterator& from,
@@ -30,38 +30,38 @@ namespace Pastel
 
 	//! Finds the minimum volume bounding aligned box of two aligned boxes.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& aAlignedBox,
 		const AlignedBox<Real, N>& bAlignedBox);
 
 	//! Finds the minimum volume bounding aligned box of a sphere.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere);
 
 	//! Finds the minimum volume bounding aligned box of an oriented box.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Box<Real, N>& box);
 
 	//! Finds the minimum volume bounding aligned box of a line segment.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Segment<Real, N>& segment);
 
 	//! Finds the minimum volume bounding aligned box of a simplex.
 
-	template <int N, typename Real, int M>
+	template <typename Real, int N, int M>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Simplex<Real, N, M>& simplex);
 
 	//! Finds the minimum volume bounding aligned cube of an aligned box.
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedCube(
 		const AlignedBox<Real, N>& box);
 
@@ -70,7 +70,7 @@ namespace Pastel
 	Returns:
 	If the box needed to be extended.
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool extendToCover(
 		const AlignedBox<Real, N>& boxToCover,
 		AlignedBox<Real, N>& boxToExtend);
@@ -80,7 +80,7 @@ namespace Pastel
 	Returns:
 	If the box needed to be extended.
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool extendToCover(
 		const Vector<Real, N>& pointToCover,
 		AlignedBox<Real, N>& boxToExtend);
