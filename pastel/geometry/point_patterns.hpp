@@ -70,7 +70,7 @@ namespace Pastel
 			{
 				result.push_back(
 					clusterCenter + 
-					randomGaussianVector<N, Real>(dimension) * clusterRadius);
+					randomGaussianVector<Real, N>(dimension) * clusterRadius);
 			}
 
 			realPointsCreated += realClusterPoints;
@@ -118,7 +118,7 @@ namespace Pastel
 		for (integer i = 0;i < points;++i)
 		{
 			result.push_back(
-				randomGaussianVector<N, Real>(dimension));
+				randomGaussianVector<Real, N>(dimension));
 		}
 
 		result.swap(pointSet);

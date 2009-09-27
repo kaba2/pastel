@@ -749,8 +749,8 @@ int myMain()
 	//generateUniformBallPointSet(10000, 2, pointSet__);
 	//generateUniformCubePointSet(10000, 2, pointSet__);
 
-	CountedPtr<Clustered_RandomDistribution<2, real> >
-		clusteredDistribution = clusteredRandomDistribution<2, real>();
+	CountedPtr<Clustered_RandomDistribution<real, 2> >
+		clusteredDistribution = clusteredRandomDistribution<real, 2>();
 
 	const integer clusters = 10;
 	for (integer i = 0;i < clusters;++i)
@@ -762,21 +762,21 @@ int myMain()
 			translate(
 			transform(
 			scale(
-			gaussianRandomDistribution<2, real>(), 
-			evaluate(randomVector<2, real>() * 0.05)),
+			gaussianRandomDistribution<real, 2>(), 
+			evaluate(randomVector<real, 2>() * 0.05)),
 			rotation),
-			randomVector<2, real>()));
+			randomVector<real, 2>()));
 	}
 
-	CountedPtr<RandomDistribution<2, real> >
+	CountedPtr<RandomDistribution<real, 2> >
 		randomDistribution = clusteredDistribution;
 
 	/*
-	CountedPtr<RandomDistribution<2, real> >
+	CountedPtr<RandomDistribution<real, 2> >
 		randomDistribution = 
 		scale(
 		gaussianDistribution<2, real>(), 
-		randomVector<2, real>());
+		randomVector<real, 2>());
 	*/
 
 	std::vector<Vector2> pointSet;
@@ -791,7 +791,7 @@ int myMain()
 
 	/*
 	generateGaussianPointSet(10000, 2, pointSet__);
-	scale(randomVector<2, real>(), pointSet__);
+	scale(randomVector<real, 2>(), pointSet__);
 	randomlyReduceDimensionality(1, pointSet__);
 	randomlyRotate(pointSet__);
 	*/

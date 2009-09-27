@@ -45,13 +45,13 @@ namespace Pastel
 
 	//! Returns a random vector gamma distributed in each component.
 	
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
 		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	//! Returns a random vector gamma distributed in each component.
 	
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomGammaVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& scale);

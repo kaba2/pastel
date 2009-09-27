@@ -22,7 +22,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& rightPrimary,
 		const PASTEL_NO_DEDUCTION(Type)& rightSecondary);
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	bool lexicographicLess(
 		const Vector<Real, N>& left,
 		const Vector<Real, N>& right);

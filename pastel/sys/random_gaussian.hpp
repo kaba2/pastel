@@ -54,14 +54,14 @@ namespace Pastel
 		return Pastel::randomGaussian<Real>() * deviation;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomGaussianVector()
 	{
 		BOOST_STATIC_ASSERT(N != Dynamic);
-		return Pastel::randomGaussianVector<N, Real>(N);
+		return Pastel::randomGaussianVector<Real, N>(N);
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomGaussianVector(integer dimension)
 	{
 		PENSURE_OP(dimension, >=, 0);

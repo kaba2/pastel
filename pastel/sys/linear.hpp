@@ -56,7 +56,7 @@ namespace Pastel
 			(endPoint - startPoint) * time;
 	}
 
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> linear(
 		const Vector<Real, N>& startPoint,
 		const Vector<Real, N>& endPoint,

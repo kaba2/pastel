@@ -119,7 +119,7 @@ namespace
 	Vector<Real, N> randomPoint(
 		const AlignedBox<Real, N>& region)
 	{
-		return region.min() + randomVector<N, Real>() * region.extent();
+		return region.min() + randomVector<Real, N>() * region.extent();
 	}
 
 	void testPerspectiveTriangle()

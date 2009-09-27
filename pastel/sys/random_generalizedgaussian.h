@@ -59,7 +59,7 @@ namespace Pastel
 	shape > 0
 	scale >= 0
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale);
@@ -71,7 +71,7 @@ namespace Pastel
 	shape > 0
 	scale >= 0
 	*/
-	template <int N, typename Real>
+	template <typename Real, int N>
 	Vector<Real, N> randomGeneralizedGaussianVector(
 		integer dimension,
 		const PASTEL_NO_DEDUCTION(Real)& shape, 

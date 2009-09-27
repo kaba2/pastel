@@ -146,7 +146,7 @@ namespace
 
 		for (integer i = 0;i < extraPoints;++i)
 		{
-			sceneSet.push_back(Vector2(2 * randomVector<2, real>() - 1));
+			sceneSet.push_back(Vector2(2 * randomVector<real, 2>() - 1));
 		}
 
 		log() << "Computing kd-trees..." << logNewLine;
@@ -229,7 +229,7 @@ namespace
 
 		for (integer i = 0;i < RandomPoints;++i)
 		{
-			modelSet.push_back(randomVector<2, real>());
+			modelSet.push_back(randomVector<real, 2>());
 		}
 
 		std::random_shuffle(
