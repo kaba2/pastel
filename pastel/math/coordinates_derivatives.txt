@@ -33,3 +33,15 @@ following results:
 [x_{n - 1} / (x_{n - 1}^2 + x_n^2), text(, k = n)],
 [0, text(, otherwise)]]''
 
+### Spherical to Cartesian
+
+The spherical to Cartesian conversion is defined by:
+
+''f_{text(hyperspherical)} : RR_+ xx text([)0, pi text([)^(n - 2) xx text([) 0, 2 pi text([) -> RR^n :
+f_{text(hyperspherical)}(r, alpha_1, ..., alpha_{n - 1}) = (
+(r text(cos)(alpha_1)), 
+(r text(sin)(alpha_1) text(cos)(alpha_2)), 
+(\vdots),
+(r text(sin)(alpha_1) \cdots text(sin)(alpha_{n - 2}) text(cos)(alpha_{n - 1})),
+(r text(sin)(alpha_1) \cdots text(sin)(alpha_{n - 2}) text(sin)(alpha_{n - 1})))''
+

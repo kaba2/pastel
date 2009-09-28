@@ -5,6 +5,7 @@
 #include "pastel/gfx/colormixer.h"
 
 #include "pastel/math/coordinates.h"
+#include "pastel/math/coordinates_derivatives.h"
 
 namespace Pastel
 {
@@ -39,7 +40,7 @@ namespace Pastel
 
 			return texture_(
 				center_ + sphericalToCartesian(spherical),
-				m);
+				sphericalToCartesianDerivative(spherical) * m);
 		}
 
 		virtual std::string name() const
