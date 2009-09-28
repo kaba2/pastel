@@ -1,0 +1,35 @@
+Derivatives of coordinate conversions
+=====================================
+
+[Parent]: coordinates.txt
+
+Theory
+------
+
+### Cartesian to spherical
+
+The Cartesian to spherical conversion is defined by:
+
+''f_{text(hyperspherical)}^-1 : RR^n -> RR_+ xx text([)0, pi text([)^(n - 2) xx text([) 0, 2 pi text([) :
+f_{text(hyperspherical)}^-1(x_1, ..., x_n) = (
+(sqrt(x_1^2 + ... + x_n^2)),
+(\vdots),
+(atan2(sqrt(x_i^2 + ... + x_n^2), x_(i - 1))),
+(\vdots),
+(atan2(x_n, x_(n - 1))))''
+
+The partial derivative of this function w.r.t. ''x_k'' can be evaluated based on the 
+following results:
+
+''d / dx_k sqrt(x_1^2 + ... + x_n^2) = x_k / sqrt(x_1^2 + ... + x_n^2)''
+
+''d / dx_k text(atan2)(sqrt(x_i^2 + ... + x_n^2), x_{i - 1}) = [
+[(x_k x_{i - 1}) / (sqrt(x_i^2 + ... + x_n^2) * (x_{i - 1}^2 + ... + x_n^2)), text(, ) k in \[i, n\]],
+[-sqrt(x_i^2 + ... + x_n^2) / (x_{i - 1}^2 + ... + x_n^2), text(, ) k = i - 1],
+[0, text(, otherwise)]]''
+
+''d / dx_k text(atan2)(x_n, x_{n - 1}) = [
+[-x_n / (x_{n - 1}^2 + x_n^2), text(, k = n - 1)],
+[x_{n - 1} / (x_{n - 1}^2 + x_n^2), text(, k = n)],
+[0, text(, otherwise)]]''
+

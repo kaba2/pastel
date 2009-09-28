@@ -661,6 +661,18 @@
 				RelativePath=".\coordinates.txt"
 				>
 			</File>
+			<File
+				RelativePath=".\coordinates_derivatives.h"
+				>
+			</File>
+			<File
+				RelativePath=".\coordinates_derivatives.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\coordinates_derivatives.txt"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Norm bijections"
