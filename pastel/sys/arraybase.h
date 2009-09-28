@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	template <typename Type, int N = Dynamic>
+	template <typename Type, int N = 2>
 	class Array;
 
 	namespace Detail_Array

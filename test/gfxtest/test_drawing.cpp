@@ -8,6 +8,8 @@
 #include "pastel/gfx/draw.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
+#include "pastel/gfx/radial_texture.h"
+
 #include "pastel/dsp/mipmap_tools.h"
 #include "pastel/dsp/filter_all.h"
 
@@ -30,11 +32,13 @@ namespace
 		loadPcx("lena.pcx", textureImage);
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage));
-		EwaImage_Texture<Color> texture(mipMap);
+		EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
+		//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
 		transform(mipMap, fitColor);
 
-		Array<Color, 2> image(500, 100);
+		Array<Color, 2> image(400, 512);
 
+		/*
 		drawTexturedAnnulus(
 			texture,
 			Vector2(0.5),
@@ -45,6 +49,16 @@ namespace
 			arrayView(image),
 			AlignedBox2(0, 0, 500, 100),
 			assignColorMixer<Color>());
+		*/
+
+		Radial_Texture<Color> distortedTexture =
+			radialTexture(texture, Vector2(0.5),
+			Vector2(-0.5, 0), Vector2(0.5, constantPi<real>()));
+
+		drawBox(
+			AlignedBox2(0, 0, image.width(), image.height()),
+			distortedTexture,
+			arrayView(image));
 
 		transform(arrayView(image), fitColor);
 

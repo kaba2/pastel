@@ -3,9 +3,6 @@ PastelMath
 
 [Parent]: pastel.txt
 
-Theory
-------
-
 The purpose of PastelMath is to provide general-purpose 
 mathematical tools. Algorithms and tools for geometry can 
 be found from the PastelGeometry sublibrary.
