@@ -29,14 +29,14 @@ namespace
 	void testDistortion()
 	{
 		Array<Color, 2> textureImage;
-		loadPcx("lena.pcx", textureImage);
+		loadPcx("circle_text.pcx", textureImage);
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage));
 		EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
 		//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
 		transform(mipMap, fitColor);
 
-		Array<Color, 2> image(400, 512);
+		Array<Color, 2> image(800, 256);
 
 		/*
 		drawTexturedAnnulus(
@@ -51,9 +51,12 @@ namespace
 			assignColorMixer<Color>());
 		*/
 
+		const real minRadius = 0.25;
+		const real maxRadius = 0.5;
+
 		Radial_Texture<Color> distortedTexture =
 			radialTexture(texture, Vector2(0.5),
-			Vector2(-0.5, 0), Vector2(0.5, constantPi<real>()));
+			Vector2(minRadius, 2 * constantPi<real>()), Vector2(maxRadius, 0));
 
 		drawBox(
 			AlignedBox2(0, 0, image.width(), image.height()),
@@ -71,9 +74,9 @@ namespace
 		renderer.setViewWindow(
 			AlignedBox2(0, 0, 1, 1));
 
-		drawCircle(renderer, Sphere2(Vector2(0.5), 0.25), 40);
-		drawCircle(renderer, Sphere2(Vector2(0.5), 0.5), 40);
-		drawSegment(renderer, Segment2(Vector2(0.6, 0.5), Vector2(0.7, 0.5)));
+		drawCircle(renderer, Sphere2(Vector2(0.5), minRadius), 40);
+		drawCircle(renderer, Sphere2(Vector2(0.5), maxRadius), 40);
+		drawSegment(renderer, Segment2(Vector2(0.5 + minRadius, 0.5), Vector2(0.5 + maxRadius, 0.5)));
 
 		savePcx(textureImage, "output/distortion_texture.pcx");
 	}

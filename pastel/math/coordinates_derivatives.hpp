@@ -35,7 +35,7 @@ namespace Pastel
 		{
 			const Real nextSquareSum = square(cartesian[i - 1]) + squareSum;
 			const Real sqrtSquareSum = std::sqrt(squareSum);
-			const Real factor = cartesian[i - 1]) /
+			const Real factor = cartesian[i - 1] /
 					(sqrtSquareSum * nextSquareSum);
 
 			result(i - 1, i) = -sqrtSquareSum / nextSquareSum;
@@ -60,13 +60,61 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Matrix<Real, N, N> sphericalToCartesianDerivative(
-		const Vector<Real, N>& cartesian)
+		const Vector<Real, N>& spherical)
 	{
-		const integer n = cartesian.size();
+		const integer n = spherical.size();
 
 		ENSURE_OP(n, >=, 2);
 
-		Matrix<Real, N, N> result(n, n, 0);
+		Matrix<Real, N, N> result(n, n);
+
+		const Vector<Real, N> cosSpherical = cos(spherical);
+		const Vector<Real, N> sinSpherical = sin(spherical);
+
+		{
+			Real product = 1;
+			result(0, 0) = product * cosSpherical[1];
+			for (integer i = 1;i < n - 1;++i)
+			{
+				product *= sinSpherical[i];
+				result(0, i) = product * cosSpherical[i + 1];
+			}
+
+			result(0, n - 1) = product * sinSpherical[n - 1];
+		}
+
+		for (integer i = 1;i < n;++i)
+		{
+			Real product = spherical[0];
+			for (integer j = 1;j < i;++j)
+			{
+				product *= sinSpherical[j];
+			}
+			result(i, i) = -product * sinSpherical[i];
+
+			for (integer j = i + 1;j < n - 2;++j)
+			{
+				product *= sinSpherical[j];
+				result(i, j) = product * cosSpherical[j + 1];
+			}
+			if (n > 2)
+			{
+				product *= sinSpherical[n - 2];
+			}
+
+			if (i == n - 1)
+			{
+				result(i, n - 2) = -product * sinSpherical[n - 1];
+				result(i, n - 1) = product * cosSpherical[n - 1];
+			}
+			else
+			{
+				result(i, n - 2) = product * cosSpherical[n - 1];
+				result(i, n - 1) = product * sinSpherical[n - 1];
+			}
+		}
+			
+		return result;
 	}
 
 }
