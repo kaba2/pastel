@@ -23,7 +23,7 @@ namespace
 			for (integer x = 0;x < Width;++x)
 			{
 				image(x, y) = froColor +
-					noise((real)x / 5) * deltaColor;
+					noise<real>((real)x / 5) * deltaColor;
 			}
 		}
 
@@ -55,10 +55,10 @@ namespace
 
 	void testSome()
 	{
-		noise(real(0));
-		noise(real(0));
-		noise(real(0));
-		noise(real(0));
+		noise<real>(real(0));
+		noise<real>(real(0));
+		noise<real>(real(0));
+		noise<real>(real(0));
 		noise(Vector2(0));
 		noise(Vector2(0));
 		noise(Vector2(0));
