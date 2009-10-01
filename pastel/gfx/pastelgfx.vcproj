@@ -469,6 +469,22 @@
 				RelativePath=".\noise.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\noise.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\noise_notes.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\perlin_noise.h"
+				>
+			</File>
+			<File
+				RelativePath=".\perlin_noise.hpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Image files"
@@ -666,6 +682,10 @@
 				</File>
 				<File
 					RelativePath=".\linearsimplex_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\noise_texture.h"
 					>
 				</File>
 			</Filter>

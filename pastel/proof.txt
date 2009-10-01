@@ -1,6 +1,66 @@
 Proofs about everything
 =======================
 
+### Distance from the mean point to the vertices
+
+Let ''P'' be regular. Define:
+
+''c = 1 / (n + 1) sum_{i = 0}^n p_i''
+
+Then it can be shown that:
+
+''\exists g in RR: \forall i in [0, n]: |p_i - c| = g_n''
+
+Furthermore, it can be shown that ''g_n'' is given by:
+
+''g_n = d sqrt(1 - (3 / 4)^n)''
+
+### Generation of a regular simplex
+
+In the following we describe a procedure to generate
+a set of vertices ''V = {v_0, ..., v_n} sub RR^n'' such that
+for all ''m in [0, n]'' ''V_m = {v_0, ..., v_m} sub V'' is a
+regular m-simplex. The procedure is as follows:
+
+''v_0 = 0''
+
+''v_i = 1 / i sum_{k = 0}^{i - 1} v_j + w_i e_i''
+
+where ''w_i in RR'' and ''e_i in RR^n'' is the i:th standard basis axis. 
+Here ''w_i'' must be chosen such that ''|v_i - v_0| = |v_i| = d''.
+It can be shown that they are given by:
+
+''w_i = sqrt(d^2 - g_{i - 1}^2) = d (3/4)^{(i - 1) / 2}''
+
+Thus:
+
+''v_i = 1 / i sum_{k = 0}^{i - 1} v_j + d (3/4)^{(i - 1) / 2} e_i''
+
+For example, in ''RR^4'':
+
+''v_0 = d [0, 0, 0, 0]^T''
+
+''v_1 = d [1, 0, 0, 0]^T''
+
+''v_2 = d [1 / 2, sqrt(3) / 4, 0, 0]^T''
+
+''v_3 = d [1 / 2, sqrt(3) / 12, 3 / 4, 0]^T''
+
+''v_4 = d [1 / 2, sqrt(3) / 12, 3 / 16, (3 * sqrt(3)) / 8]^T''
+
+### Simplicial tesselation of ''RR^n''
+
+Partition ''RR^n'' with a set of almost-disjoint (intersection set
+has measure zero) regular simplices of edge length ''d'', such that
+one of the simplices is given by the generation procedure above.
+Then we can take think of the vertices of the simplices as a linear
+transform of the integer grid. This linear transformation is given by:
+
+''M = [v_1 - v_0, ..., v_n - v_0] = [v_1, ..., v_n]''.
+
+Notice that ''M'' is lower-triangular and therefore admits fast
+solving of linear equations ''Mx = b''.
+
 Theory of views
 ===============
 

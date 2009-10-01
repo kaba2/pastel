@@ -1,42 +1,8 @@
-// Description: Perlin's noise functions
+// Description: An aggregate file noise functions
 
 #ifndef PASTEL_NOISE_H
 #define PASTEL_NOISE_H
 
-#include "pastel/sys/mytypes.h"
-#include "pastel/sys/vector.h"
-
-#include "pastel/ray/raylibrary.h"
-
-namespace Pastel
-{
-
-	//! 1d Perlin noise.
-	/*!
-	The returned values are in the range [0, 1].
-	*/
-
-	template <typename Real>
-	Real noise(const Real& pos);
-
-	//! 2d Perlin noise.
-	/*!
-	The returned values are in the range [0, 1].
-	*/
-
-	template <typename Real>
-	Real noise(const Vector<Real, 2>& pos);
-
-	//! 3d Perlin noise.
-	/*!
-	The returned values are in the range [0, 1].
-	*/
-
-	template <typename Real>
-	Real noise(const Vector<Real, 3>& pos);
-
-}
-
-#include "pastel/gfx/noise.hpp"
+#include "pastel/gfx/perlin_noise.h"
 
 #endif

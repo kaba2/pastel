@@ -1,7 +1,7 @@
-#ifndef PASTEL_NOISE_HPP
-#define PASTEL_NOISE_HPP
+#ifndef PASTEL_PERLIN_NOISE_HPP
+#define PASTEL_PERLIN_NOISE_HPP
 
-#include "pastel/gfx/noise.h"
+#include "pastel/gfx/perlin_noise.h"
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/random.h"
@@ -471,9 +471,15 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real noise(const Real& position)
+	Real noise(const PASTEL_NO_DEDUCTION(Real)& position)
 	{
 		return Detail::noise1<Real>()(position);
+	}
+
+	template <typename Real>
+	Real noise(const Vector<Real, 1>& position)
+	{
+		return Detail::noise1<Real>()(position.x());
 	}
 
 	template <typename Real>
