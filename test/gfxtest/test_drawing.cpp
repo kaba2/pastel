@@ -194,7 +194,11 @@ namespace
 
 	void testEwaPerspectiveTriangle()
 	{
-		Array<Color, 2> image(500, 500);
+		const integer superSample = 4;
+		const integer width = 512 * superSample;
+		const integer height = 512 * superSample;
+
+		Array<Color, 2> image(width, height);
 
 		Array<Color, 2> textureImage;
 		loadPcx("lena.pcx", textureImage);
@@ -202,8 +206,8 @@ namespace
 		log() << "Rendering.." << logNewLine;
 
 		const AlignedBox3 region(
-			Vector3(-100, -100, 0),
-			Vector3(600, 600, 10));
+			Vector3(-width / 4, -height / 4, 0),
+			Vector3(width * 1.25, height * 1.25, 10));
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage));
 		EwaImage_Texture<Color> texture(mipMap);
@@ -222,7 +226,15 @@ namespace
 				arrayView(image));
 		}
 
-		savePcx(image, "output/drawing_ewaperspectivetriangle.pcx");
+		Array<Color> smallImage(width / superSample, height / superSample);
+		resample<Color>(
+			constArrayView(image),
+			ArrayExtender<2, Color>(clampExtender()),
+			lanczosFilter(2),
+			arrayView(smallImage));
+		transform(arrayView(smallImage), fitColor);
+
+		savePcx(smallImage, "output/drawing_ewaperspectivetriangle.pcx");
 	}
 
 	void testTextureTriangle()
