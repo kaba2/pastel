@@ -8,6 +8,7 @@
 #include "pastel/gfx/constantcolor_texture.h"
 #include "pastel/gfx/linearcolor_texture.h"
 #include "pastel/gfx/linearsimplex_texture.h"
+#include "pastel/gfx/noise_texture.h"
 
 // Image textures
 

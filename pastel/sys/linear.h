@@ -6,6 +6,9 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/tuple.h"
+#include "pastel/sys/randomaccessrange.h"
+
+#include <iterator>
 
 namespace Pastel
 {
@@ -30,8 +33,11 @@ namespace Pastel
 		const Vector<Real, N>& endPoint,
 		const PASTEL_NO_DEDUCTION(Real)& time);
 
-	//! Interpolates linearly in a cube.
+	//! Interpolates linearly in a [0, 1]^n cube.
 	/*!
+	Preconditions:
+	data.size() >= (1 << n)
+
 	Complexity:
 	O(2^n), where n is the dimensionality.
 
@@ -39,10 +45,10 @@ namespace Pastel
 	The values of the cube vertices 
 	in lexicographical order in coordinates.
 	*/
-	template <typename Type, int N>
-	Type linear(
+	template <int N, typename Iterator>
+	typename std::iterator_traits<Iterator>::value_type linear(
 		const Vector<real, N>& position,
-		const Tuple<Type, ModifyN<N, 1 << N>::Result>& data);
+		const RandomAccessRange<Iterator>& data);
 
 }
 

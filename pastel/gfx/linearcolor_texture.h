@@ -36,7 +36,8 @@ namespace Pastel
 			const Vector<real, N>& p,
 			const Matrix<real, N, N>& m) const
 		{
-			return linear(p, data_);
+			return linear(p, 
+				randomAccessRange(data_.begin(), data_.end()));
 		}
 
 		virtual std::string name() const

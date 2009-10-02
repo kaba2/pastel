@@ -51,7 +51,8 @@ namespace Pastel
 			}
 		}
 
-		return linear(st, valueSet);
+		return linear(st, 
+			randomAccessRange(valueSet.begin(), valueSet.end()));
 	}
 
 }

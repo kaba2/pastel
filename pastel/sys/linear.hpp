@@ -9,10 +9,10 @@ namespace Pastel
 	namespace Detail_Linear
 	{
 
-		template <typename Type, int N>
+		template <typename Type, int N, typename Iterator>
 		Type linear(
 			const Vector<real, N>& position,
-			const Tuple<Type, ModifyN<N, 1 << N>::Result>& data, 
+			const RandomAccessRange<Iterator>& data, 
 			integer index,
 			integer axis)
 		{
@@ -21,27 +21,33 @@ namespace Pastel
 			ASSERT_OP(index, >=, 0);
 			ASSERT_OP(index, <, n);
 			ASSERT_OP(axis, >=, 0);
-			ASSERT_OP(axis, <, n);
+			ASSERT_OP(axis, <=, n);
 
-			if (axis == n - 1)
+			if (axis == n)
 			{
 				return data[index];
 			}
 
-			return Pastel::linear(
-				linear(position, data, index * 2, axis + 1),
-				linear(position, data, index * 2 + (1 << axis), axis + 1),
+			return Pastel::linear<Type>(
+				linear<Type>(position, data, index, axis + 1),
+				linear<Type>(position, data, index + (1 << axis), axis + 1),
 				position[axis]);
 		}
 
 	}
 
-	template <typename Type, int N>
-	Type linear(
+	template <int N, typename Iterator>
+	typename std::iterator_traits<Iterator>::value_type linear(
 		const Vector<real, N>& position,
-		const Tuple<Type, ModifyN<N, 1 << N>::Result>& data)
+		const RandomAccessRange<Iterator>& data)
 	{
-		return Detail_Linear::linear(position, data, 0, 0);
+		typedef typename std::iterator_traits<Iterator>::value_type
+			Type;
+
+		const integer n = position.size();
+		ENSURE_OP(data.size(), >=, (1 << n));
+
+		return Detail_Linear::linear<Type>(position, data, 0, 0);
 	}
 
 	template <
