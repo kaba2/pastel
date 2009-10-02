@@ -462,6 +462,14 @@
 			Name="Procedural textures"
 			>
 			<File
+				RelativePath=".\gradientfield.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gradientfield.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\noise.h"
 				>
 			</File>
@@ -479,6 +487,14 @@
 			</File>
 			<File
 				RelativePath=".\perlin_noise.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\simplex_noise.h"
+				>
+			</File>
+			<File
+				RelativePath=".\simplex_noise.hpp"
 				>
 			</File>
 		</Filter>

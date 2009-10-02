@@ -26,7 +26,7 @@ namespace Pastel
 			const Vector<real, N>& p,
 			const Matrix<real, N, N>& m) const
 		{
-			return noise(
+			return perlinNoise(
 				evaluate(p * scale_ + translation_));
 		}
 

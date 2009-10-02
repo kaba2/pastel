@@ -149,7 +149,7 @@ namespace
 
 		for (integer i = 0;i < Width;++i)
 		{
-			signal(i) = (noise<real>(i * 0.11) - 0.5) * 2;
+			signal(i) = (perlinNoise<real>(i * 0.11) - 0.5) * 2;
 		}
 
 		drawSignal(signal, filter, arrayView(image), Color(1));

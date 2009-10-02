@@ -1,32 +1,32 @@
-Simplex noise derivation
-========================
+Deriving simplex noise
+======================
 
 [Parent]: noise.txt
 
 Abstract
 ------
 
-The simplex noise algorithm, as described in the original paper (see references), 
-has remained a bit mystical because the paper does not provide any derivations 
-of the mathematical results. In addition, the provided source 
-code is optimized to the point of being very hard to understand. To address 
-these issues, Stefan Gustavson has written a paper to explain the algorithm 
-more intuitively with source code that is easy to understand (see references). 
+The simplex noise algorithm, as described by Perlin in SIGGRAPH Course Notes 
+(see references), has remained a bit mystical because the paper does not provide 
+any derivations of the mathematical results. Furthermore, the provided source
+code is hard to understand because of its heavy optimizations and hard-coding
+of dimension-specific constants for ''RR^3''.
+To address some of these issues, Gustavson has written a paper to explain the algorithm 
+more intuitively with source code for that is easier to understand (see references).
 However, neither of the papers give a detailed derivation of the mathematical
-results in n-dimensional space. Such derivations are important in
-convincing others for the correctness of the algorithm as well as to establishing 
-claimed properties. Indeed, we shall show that the original algorithm contains 
-several problems, some of which are caused by errors in derivations, and some of 
-which are fundamental. Specifically, in this paper we provide the following:
+results in n-dimensional space. Such derivations are important in ensuring
+correctness and in establishing the claimed properties. In this paper 
+we provide the following:
 
- * A derivation of the important results used in this algorithm in 
- n-dimensional space.
+ * A derivation of the important results used in the simplex noise algorithm 
+ in n-dimensional space.
  
- * Observe that the scale of features is not invariant to dimensionality.
+ * Observe that the support of the spherical attenuation function leaks into 
+ the neighboring simplices.
  
- * Give a solution to the above problem by uniform scaling.
+ * Give an attenuation function with a proper range.
  
- * Observe that with increasing dimension the algorithm generates 
+ * Observe that with increasing dimensionality the algorithm generates 
  increasing amounts of zero value. In the limit the space contains
  nothing else than the zero value.
 
@@ -46,6 +46,8 @@ A simplex is called _regular_ if it holds that
 
 ''\exists d in RR: \forall i, j in [0, n]: i != j => |p_i - p_j| = d''
 
+where the norm is Euclidean.
+
 ### Non-regular simplicial partitioning
 
 In the following, by a partitioning of ''RR^n'' we mean a collection of sets
@@ -62,16 +64,17 @@ each specifying ''(n + 1)'' vertices of a simplex.
 
 This procedure gives a partitioning of ''RR^n'' into simplices. However, these simplices are not regular:
 while each edge on the traversal path is of length 1, the edge from the last vertex to the first is
-of length ''sqrt(n)'' (for example). 
+of length ''sqrt(n)''. 
 
 ### Scaling along a cube diagonal
 
 A simple transformation that turns these simplices regular
 is to scale the space along the vector ''p = [1, ..., 1]''. Such a scaling is given by:
 
-''f : RR^n -> RR^n: f(x) = x + (alpha - 1) (: x, p :) / (: p, p :) p = x + (alpha - 1) / n (sum_{i = 1}^n x_i) p''
+''f : RR^n -> RR^n: f(x) = x + (alpha - 1) (: x, p :) / (: p, p :) p 
+= x + (alpha - 1) / n (sum_{i = 1}^n x_i) p''
 
-where ''alpha in RR'', ''alpha > 0'', and ''(: ., . :)'' is the dot product. 
+where ''alpha in RR'', ''alpha > 0'', and ''(: , :)'' is the dot product. 
 Applying this scaling to the standard basis vectors ''e_i'' gives:
 
 ''f(e_i) = e_i + (alpha - 1) / n p''
@@ -82,6 +85,8 @@ The squared length of ''f(e_i)'' is given by:
 
 ''(: f(e_i) :) = ((alpha - 1) / n + 1)^2 + (n - 1)((alpha - 1) / n)^2''
 
+Note specifically that this length is independent of ''i'':
+the images of ''e_i'' remain of equal length under the scaling.
 On the other hand:
 
 ''sum_{i = 1}^n f(e_i) = (alpha - 1) p + p = alpha p''
@@ -102,21 +107,22 @@ Of which we select (the other one changes orientation):
 
 ''alpha = 1 / sqrt(n + 1)''
 
-It can then be shown that all edges of the simplex are of equal length ''d = sqrt(n / (n + 1))''.
+As a result of this scaling transformation all simplices 
+become regular with an edge length of ''d = sqrt(n / (n + 1))''.
 
 ### Deforming transformation
 
 The transformation from the non-regular simplex partitioning to
 a regular simplex partitioning is linear and is given by the matrix ''M in RR^{n xx n}'':
 
-''M = [f(e_1), ..., f(e_n)] = (1 / sqrt(n + 1) - 1) / n [p, ..., p] + I = 
-(1 - sqrt(n + 1)) / (n sqrt(n + 1)) [p, ..., p] + I''
+''M = [f(e_1), ..., f(e_n)] = I + (1 / sqrt(n + 1) - 1) / n [p, ..., p]
+= I - (sqrt(n + 1) - 1) / (n sqrt(n + 1)) [p, ..., p]''
 
 It can be shown that the inverse matrix of ''M'' is given by:
 
-''M^{-1} = (sqrt(n + 1) - 1) / n [p, ..., p] + I''
+''M^{-1} = I + (sqrt(n + 1) - 1) / n [p, ..., p]''
 
-These are the transformations that are used in the original algorithm. 
+These are the transformations that seem to be used in the original algorithm. 
 However, the problem with these transformations is that the simplex edge length
 varies with dimension. This in turn implies that the feature size varies with
 dimension. Therefore, it is better to apply an additional uniform scaling, which
@@ -145,7 +151,7 @@ B^{-1} [u_1, ..., u_n]^T =
 d * ([u_1, ..., u_n]^T + (s * sum_{i = 1}^n u_i) * [1, ..., 1]^T)''
 
 where ''s = (sqrt(n + 1) - 1) / n''. The simplicity of this transformation is not a coincidence:
-the simplex partitioning was specifically chosen (by Ken Perlin) to yield this kind of transformation.
+the simplex partitioning was specifically chosen (by Perlin) to yield this kind of transformation.
 The original algorithm does not have the ''d'' factor.
 
 ### Vertices of the containing simplex
@@ -165,7 +171,13 @@ seen that the number of different traversals is ''n!'', and that the path contai
 Let ''b = x - h'', ''b in \[0, 1\[^n sub RR^n''. Further, order the components of ''b'' into
 descending order ''{b_{r_1}, ..., b_{r_n}}''. Then the vertices of the containing simplex are
 given by ''{h, h + e_{r_1}, ..., h + sum_{i = 1}^k e_{r_i}, ..., h + sum_{i = 1}^n e_{r_i}}''.
-These (n + 1) vertices can be mapped back to the regular simplex space by using the transformation ''B''.
+These (n + 1) vertices can be mapped back to the regular simplex space by using the transformation ''B'':
+
+''u = [u_1, ..., u_n]^T = 
+B [x_1, ..., x_n]^T = 
+1 / d * ([x_1, ..., x_n]^T - (q * sum_{i = 1}^n x_i) * [1, ..., 1]^T)''
+
+where ''q = (sqrt(n + 1) - 1) / (n sqrt(n + 1)) = s / sqrt(n + 1)''.
 
 ### Scalar fields 
 
@@ -180,20 +192,15 @@ scalar field ''s'' centered on ''v'' by:
 This scalar field is attenuated by a spherically symmetric function ''a''
 centered on ''v'':
 
-''a : RR^n -> RR : a(x) = {((1 - (: x :) / (r^2 d^2))^4, text(, when ) (: x :) <= r^2 d^2),
+''a : RR^n -> RR : a(x) = {((1 - (: x :) / (r^2 d^2))^4, text(, if ) (: x :) <= r^2 d^2),
                                                      (0, text(, otherwise))]''
 
 where ''r in \]0, 1\] sub RR'' is the percentage of the simplex edge length ''d'' after which
 ''a'' must have been attenuated to zero. Because of the normalization of the simplex edge
 length, we have ''d = 1'' and thus the expression for ''a'' simplifies to:
 
-''a : RR^n -> RR : a(x) = {((1 - (: x :) / r^2)^4, text(, when ) (: x :) <= r^2),
+''a : RR^n -> RR : a(x) = {((1 - (: x :) / r^2)^4, text(, if ) (: x :) <= r^2),
                                                (0, text(, otherwise))]''
-
-Note that this attenuation function is a bit different from the one given by Perlin in his paper.
-The original function has problems with scale-invariance (this is related to the fact that there
-is no normalization of the simplex edge length in the original algorithm: ''d'' changes with
-dimension but this is not taken into account anywhere).
 
 The product of the scalar functions ''s'' and ''a'', centered on ''v'', is given by:
 
@@ -204,9 +211,9 @@ The product of the scalar functions ''s'' and ''a'', centered on ''v'', is given
 The ''r'' must be chosen appropriately: the support of the function ''e'' must be
 such that it is contained in the union of those simplices which are connected
 to the given vertex. If this were not the case, then it would not be sufficient
-to evaluate ''(n + 1)'' vertices for a given point. Out of these values we want 
-the largest one. This is given by ''r'' such that ''r d = h'', where ''h'' is the 
-height of a regular simplex of edge length ''d'':
+to evaluate only ''(n + 1)'' surrounding vertices for a given point. Out of the possible
+values for ''r'' we want the largest one. This is given by ''r'' such that ''r d = h'', 
+where ''h'' is the height of a regular simplex of edge length ''d'':
 
 ''h = d sqrt((3 / 4)^{n - 1})''
 
@@ -218,15 +225,30 @@ and
 
 ''r^2 = (3 / 4)^{n - 1}''
 
-However, from these formulas we see that as dimension grows, more and more
+### Diminishing support of ''e'' in higher dimensions
+
+From the given formulae it is evident that as dimension grows, more and more
 of the scalar field ''e'' inside the simplex is zero. For example, in ''RR^7'',
 only 42% of the edge length of a simplex is covered by the scalar field of its 
-either end-vertex. This means that 16% of the edge has ''e'' zero. Moreover, 
-a remarkable amount of volume inside the simplex has ''e'' zero.
-This shows that the reconstruction method in simplex noise does not generalize
-appropriately for higher dimensions.
+either end-vertex. This means that 16% of the edge has ''e'' zero, which implies
+that there is considerable amount of volume inside the simplex which has ''e'' zero.
+In the limit, as dimension increases, ''e'' is zero almost everywhere.
 
-### Noise function
+### Difference to the original attenuation function
+
+The attenuation function we give differs from that given by Perlin for ''RR^3'':
+
+''a_2 : RR^3 -> RR : a_2(x) = {(8(0.6 - (: x :))^4, text(, if ) (: x :) <= 0.6),
+                                                (0, text(, otherwise))]''
+
+However, this function is erroneous: its support leaks into neighboring simplices. 
+This is because the squared height of the simplex in ''RR^3'' is given by:
+
+''h^2 = d^2 (3 / 4)^2 = (3 / 4)^3 ~= 0.42''
+
+which is less than 0.6.
+
+### Simplex noise function
 
 Let ''V = {v_1, v_2, ...} sub RR^n'' be the set of all simplex vertices. The noise function is 
 given by:
@@ -235,12 +257,6 @@ given by:
 
 Because ''e'' has finite support, this sum actually contains only ''(n + 1)'' non-zero terms:
 these terms are those corresponding to the vertices of the simplex containing ''x''.
-
-### Normalization constant to have noise range in ''\[-1, 1\]''
-
-It is important to normalize the output of the noise function such that it has certain
-minimum and maximum values. We choose these as -1 and 1, respectively. However,
-I don't know how to approach this problem.
 
 References
 ----------
