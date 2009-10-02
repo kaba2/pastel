@@ -4,12 +4,11 @@
 #include "pastel/gfx/perlin_noise.h"
 
 #include "pastel/sys/syscommon.h"
-#include "pastel/sys/random.h"
-#include "pastel/sys/tristate.h"
-
 #include "pastel/sys/vector.h"
-#include "pastel/math/smoothstep.h"
 #include "pastel/sys/math_functions.h"
+#include "pastel/sys/random_uniform.h"
+
+#include "pastel/math/smoothstep.h"
 
 #include <vector>
 
@@ -19,453 +18,296 @@ namespace Pastel
 	namespace Detail
 	{
 
-		// Noise1
-
-		template <typename Real>
-		class Noise1
+		template <typename Real, int N = 2>
+		class Noise
 		{
 		public:
-			static Noise1<Real>& create();
+			static Noise<Real, N>& create();
 
-			Real operator()(const Real& position) const;
+			Real operator()(const Vector<Real, N>& position) const;
+
+			// The evaluation of Perlin noise is
+			// exponential in dimension, so let's
+			// be realistic and prohibit instantiation
+			// on dimensions that are too high.
+			enum
+			{
+				MaxDimension = 8
+			};
 
 		private:
-			Noise1();
-			~Noise1();
+			Real contribution(
+				const Vector<integer, N>& position,
+				const Vector<Real, N>& minDelta) const;
 
-			Real latticeValue(
-				integer x, const Real& xDeltaMin) const;
+			Noise();
+			explicit Noise(integer n);
+			~Noise();
+
+			void initialize(integer n);
 
 			// Prohibited
-			Noise1(
-				const Noise1<Real>& that);
+			Noise(const Noise& that);
 			// Prohibited
-			Noise1<Real>& operator=(
-				const Noise1<Real>& that);
+			Noise<Real, N>& operator=(
+				const Noise& that);
 
 			std::vector<integer> permutation_;
-			std::vector<Real> gradients_;
+			integer permutationMask_;
 		};
 
-		template <typename Real>
-		Noise1<Real>&
-			Noise1<Real>::create()
+		template <typename Real, int N>
+		Noise<Real, N>&
+			Noise<Real, N>::create()
 		{
-			static Noise1 theNoise1;
-			return theNoise1;
+			static Noise<Real, N> theNoise;
+			return theNoise;
 		}
 
-		template <typename Real>
-		Noise1<Real>::Noise1()
+		template <typename Real, int N>
+		Noise<Real, N>::Noise()
 			: permutation_()
-			, gradients_()
+			, permutationMask_(0)
 		{
-			gradients_.reserve(8);
+			BOOST_STATIC_ASSERT(N != Dynamic);
 
-			gradients_.push_back(0.875);
-			gradients_.push_back(0.625);
-			gradients_.push_back(0.375);
-			gradients_.push_back(0.125);
-			gradients_.push_back(-0.125);
-			gradients_.push_back(-0.375);
-			gradients_.push_back(-0.625);
-			gradients_.push_back(-0.875);
+			initialize(N);
+		}
 
-			// Generate random permutation table
+		template <typename Real, int N>
+		Noise<Real, N>::Noise(integer n)
+			: permutation_()
+			, permutationMask_(0)
+		{
+			ENSURE(N == Dynamic || N == n);
 
-			permutation_.reserve(512);
+			ENSURE_OP(n, <=, MaxDimension);
 
-			for (integer i = 0;i < 256;++i)
+			initialize(n);
+		}
+
+		template <typename Real, int N>
+		void Noise<Real, N>::initialize(integer n)
+		{
+			const integer basicGradients = (1 << (n - 1));
+			const integer gradients = n * basicGradients;
+			
+			// The size of the permutation:
+			//
+			// * must be a power of two so that the modulo operation 
+			// can be replaced by a bit-wise and. 
+			//
+			// * must be larger than the number of gradients
+			// to be able to generate all of them.
+			//
+			// * must be at least 256 (arbitrarily) because this size 
+			// also determines the size of the noise tile that is to be 
+			// repeated (in RR^n, the size of the tile is 
+			// [0, permutationSize[^n).
+
+			const integer permutationSize = 
+				std::max(roundUpToPowerOf2(gradients), 256);
+			permutationMask_ = permutationSize - 1;
+			
+			// Generate the standard permutation.
+			permutation_.reserve(permutationSize * 2);
+			for (integer i = 0;i < permutationSize;++i)
 			{
 				permutation_.push_back(i);
 			}
 
-			for (integer i = 0;i < 256;++i)
+			// Shuffle it to a random permutation.
+			for (integer i = 0;i < permutationSize;++i)
 			{
-				integer u = randomInteger() & 0xFF;
+				const integer u = randomInteger() & permutationMask_;
 				std::swap(permutation_[u], permutation_[i]);
 			}
 
-			// Double permutation table so
+			// Repeat the permutation table so
 			// we needn't use modulus later
-
-			for (integer i = 0;i < 256;++i)
+			for (integer i = 0;i < permutationSize;++i)
 			{
 				permutation_.push_back(permutation_[i]);
 			}
 		}
 
-		template <typename Real>
-		Real Noise1<Real>::operator()(const Real& pos) const
+		template <typename Real, int N>
+		Real Noise<Real, N>::operator()(const Vector<Real, N>& position) const
 		{
-			const Real x(pos);
+			const integer n = position.size();
 
-			const integer xFloor = (integer)std::floor(x);
-			const Real xDeltaMin(x - xFloor);
-			const Real xDeltaMax(xDeltaMin - 1);
-			const Real xWeight(quinticSmoothStep(xDeltaMin));
+			const Vector<integer, N> floorPosition = floor(position);
+			const Vector<Real, N> minDelta = position - Vector<Real, N>(floorPosition);
+			
+			// Find out the contribution of each vertex of the
+			// containing cube.
 
-			const Real vx0(latticeValue(xFloor, xDeltaMin));
-			const Real vx1(latticeValue(xFloor + 1, xDeltaMax));
+			std::vector<Real> vertexSet;
+			vertexSet.reserve(1 << n);
+			
+			Vector<integer, N> p = floorPosition;
+			Vector<Real, N> f = minDelta;
+			uint32 state = 0;
+			while(true)
+			{
+				vertexSet.push_back(contribution(p, f));
 
-			return linear(vx0, vx1, xWeight) + 0.5;
+				integer axis = 0;
+				uint32 mask = 1;
+				while((state & mask) && axis < n)
+				{
+					state -= mask;
+					--p[axis];
+					f[axis] = minDelta[axis];
+					
+					++axis;
+					mask <<= 1;
+				}
+				if (axis == n)
+				{
+					break;
+				}
+
+				state += mask;
+				++p[axis];
+				--f[axis];
+			}
+
+			// The interpolation coefficients are modified
+			// by a quintic smoothstep function.
+			Vector<Real, N> t(ofDimension(n));
+			for (integer i = 0;i < n;++i)
+			{
+				t[i] = quinticSmoothStep(minDelta[i]);
+			}
+
+			// Linearly interpolate between the contributions
+			// of the cube vertices.
+			const Real value = linear(t, randomAccessRange(
+				vertexSet.begin(), vertexSet.end()));
+
+			const Real maxValue = (Real)n / 2;
+
+			return (value / maxValue + 1) / 2;
 		}
 
 		// Private
 
-		template <typename Real>
-		Real Noise1<Real>::latticeValue(
-			integer x, const Real& xDeltaMin) const
+		template <typename Real, int N>
+		Real Noise<Real, N>::contribution(
+			const Vector<integer, N>& position,
+			const Vector<Real, N>& delta) const
 		{
-			const integer index = permutation_[x & 0xFF] & 0x7;
+			const integer n = position.size();
 
-			return gradients_[index] * xDeltaMin;
-		}
-
-		template <typename Real>
-		Noise1<Real>::~Noise1()
-		{
-		}
-
-		template <typename Real>
-		Noise1<Real>& noise1()
-		{
-			return Noise1<Real>::create();
-		}
-
-		// Noise2
-
-		template <typename Real>
-		class Noise2
-		{
-		public:
-			static Noise2<Real>& create();
-
-			Real operator()(const Vector<Real, 2>& position) const;
-
-		private:
-			Noise2();
-			~Noise2();
-
-			Real latticeValue(
-				integer x, integer y,
-				const Real& xDeltaMin, const Real& yDeltaMin) const;
-
-			// Prohibited
-			Noise2(
-				const Noise2<Real>& that);
-			// Prohibited
-			Noise2<Real>& operator=(
-				const Noise2<Real>& that);
-
-			std::vector<integer> permutation_;
-			std::vector<Vector<Real, 2> > gradients_;
-		};
-
-		template <typename Real>
-		Noise2<Real>&
-			Noise2<Real>::create()
-		{
-			static Noise2<Real> theNoise2;
-			return theNoise2;
-		}
-
-		template <typename Real>
-		Noise2<Real>::Noise2()
-			: permutation_()
-			, gradients_()
-		{
-			gradients_.reserve(4);
-
-			gradients_.push_back(Vector<Real, 2>( 1, 1));
-			gradients_.push_back(Vector<Real, 2>( 1,-1));
-			gradients_.push_back(Vector<Real, 2>(-1, 1));
-			gradients_.push_back(Vector<Real, 2>(-1,-1));
-
-			// Generate random permutation table
-
-			permutation_.reserve(512);
-
-			for (integer i = 0;i < 256;++i)
+			if (n == 1)
 			{
-				permutation_.push_back(i);
+				// The 1-dimensional noise has to be handled
+				// as a special case. The reasons are that in RR^1:
+				//
+				// * there are no gradients of the form which we
+				// are going to pick.
+				//
+				// * a small number of gradients will not do.
+				//
+				// There has to be a larger number of gradients
+				// to make the noise interesting. The difference
+				// to higher dimensions is the number of surrounding
+				// cube points. In nD, if there are m different
+				// gradients, then there are m^{2^n} different kinds of
+				// cubes. Thus, in 2D, 4 gradients are able to generate
+				// 4^4 = 256 different kinds of cubes. But, in 1D,
+				// 4 gradients generate only 4^2 = 16 different kinds
+				// cubes (intervals).
+				//
+				// Let us target 256 different kinds of cubes,
+				// that is, 16 different gradients.
+
+				enum
+				{
+					Gradients = 1 << 4,
+					GradientMask = Gradients - 1
+				};
+
+				const integer index = permutation_[position[0] & permutationMask_];
+				const Real gradient = (((Real)(2 * (index & GradientMask))) / (Gradients - 1)) - 1;
+
+				return delta[0] * gradient;
 			}
 
-			for (integer i = 0;i < 256;++i)
+			const integer basicGradients = (1 << (n - 1));
+			const integer gradients = n * basicGradients;
+
+			// Each point in the integer lattice is associated
+			// with a gradient. This association is made by
+			// hashing the position vector into an index which
+			// selects a gradient from a certain set.
+
+			integer index = 0;
+			for (integer i = 0;i < n;++i)
 			{
-				integer u = randomInteger() & 0xFF;
-				std::swap(permutation_[u], permutation_[i]);
+				index = permutation_[(position[i] & permutationMask_) + index];
+			}
+			index %= gradients;
+
+			// As gradients we select those vectors of {-1, 0, 1}^n sub RR^n
+			// which have norm sqrt(n - 1). I.e. those vectors which have
+			// exactly one zero component. 
+
+			const integer zeroAt = index / basicGradients;
+			uint32 gradient = (uint32)(index & (basicGradients - 1));
+
+			// The 'gradient' variable is a 32-bit integer consisting
+			// of the bits {b_0, ..., b_31}.
+			// A gradient vector 'g' is packed in 'gradient' as
+			// follows:
+			// g = [s_0, ..., s_{k - 1}, 0, s_{k}, ..., s_{n - 1}].
+			// where
+			// s_i = (-1)^{b_i}
+			//
+			// Here 'k' denotes the position of the zero in the
+			// gradient vector, which is currently stored in 'zeroAt'
+			// variable.
+
+			// Evaluate <x, g>, the dot product between the 
+			// gradient vector g and the delta vector x.
+
+			Real dotProduct = 0;
+			for (integer i = 0;i < n;++i)
+			{
+				if (i != zeroAt)
+				{
+					// The magnitude is 1.
+
+					if (gradient & 0x1)
+					{
+						// The sign is -.
+						dotProduct -= delta[i];
+					}
+					else
+					{
+						// The sign is +.
+						dotProduct += delta[i];
+					}
+					
+					// Next component.
+					gradient >>= 1;
+				}
 			}
 
-			// Double permutation table so
-			// we needn't use modulus later
-
-			for (integer i = 0;i < 256;++i)
-			{
-				permutation_.push_back(permutation_[i]);
-			}
+			return dotProduct;
 		}
 
-		template <typename Real>
-		Real Noise2<Real>::operator()(const Vector<Real, 2>& pos) const
+		template <typename Real, int N>
+		Noise<Real, N>::~Noise()
 		{
-			const Real x(pos[0]);
-			const Real y(pos[1]);
-
-			const integer xFloor = (integer)std::floor(x);
-			const Real xDeltaMin(x - xFloor);
-			const Real xDeltaMax(xDeltaMin - 1);
-			const Real xWeight(quinticSmoothStep(xDeltaMin));
-
-			const integer yFloor = (integer)std::floor(y);
-			const Real yDeltaMin(y - yFloor);
-			const Real yDeltaMax(yDeltaMin - 1);
-			const Real yWeight(quinticSmoothStep(yDeltaMin));
-
-			// Bilinear interpolation between 4
-			// surrounding square latticepoint values
-
-			// W.r.t. x-axis.
-
-			const Real v00(latticeValue(
-				xFloor, yFloor, xDeltaMin, yDeltaMin));
-			const Real v10(latticeValue(
-				xFloor + 1, yFloor, xDeltaMax, yDeltaMin));
-			const Real vx0(linear(v00, v10, xWeight));
-
-			const Real v01(latticeValue(
-				xFloor, yFloor + 1, xDeltaMin, yDeltaMax));
-			const Real v11(latticeValue(
-				xFloor + 1, yFloor + 1, xDeltaMax, yDeltaMax));
-			const Real vx1(linear(v01, v11, xWeight));
-
-			// W.r.t. y-axis.
-
-			const Real vxy(linear(vx0, vx1, yWeight));
-
-			return (vxy + 1) * Real(0.5);
+			BOOST_STATIC_ASSERT(N == Dynamic || N <= MaxDimension);
 		}
 
-		// Private
-
-		template <typename Real>
-		Real Noise2<Real>::latticeValue(
-			integer x, integer y,
-			const Real& xDeltaMin, const Real& yDeltaMin) const
+		template <typename Real, int N>
+		Noise<Real, N>& noise()
 		{
-			const integer index =
-				permutation_[(x & 0xFF) +
-				permutation_[(y & 0xFF)]] & 0x3;
-
-			const Vector<Real, 2>& gradient(gradients_[index]);
-
-			return gradient[0] * xDeltaMin +
-				gradient[1] * yDeltaMin;
-		}
-
-		template <typename Real>
-		Noise2<Real>::~Noise2()
-		{
-		}
-
-		template <typename Real>
-		Noise2<Real>& noise2()
-		{
-			return Noise2<Real>::create();
-		}
-
-		// Noise3
-
-		template <typename Real>
-		class Noise3
-		{
-		public:
-			static Noise3<Real>& create();
-
-			Real operator()(const Vector<Real, 3>& pos) const;
-
-		private:
-			Real latticeValue(
-				integer x, integer y, integer z,
-				const Real& xDeltaMin, const Real& yDeltaMin,
-				const Real& zDeltaMin) const;
-
-			Noise3();
-			~Noise3();
-
-			// Prohibited
-			Noise3(
-				const Noise3<Real>& that);
-			// Prohibited
-			Noise3<Real>& operator=(
-				const Noise3<Real>& that);
-
-			std::vector<integer> permutation_;
-			std::vector<Vector<Real, 3> > gradients_;
-		};
-
-		template <typename Real>
-		Noise3<Real>&
-			Noise3<Real>::create()
-		{
-			static Noise3<Real> theNoise3;
-			return theNoise3;
-		}
-
-		template <typename Real>
-		Noise3<Real>::Noise3()
-			: permutation_()
-			, gradients_()
-		{
-			gradients_.reserve(16);
-
-			gradients_.push_back(Vector<Real, 3>(1, 1, 0));
-			gradients_.push_back(Vector<Real, 3>(-1, 1, 0));
-			gradients_.push_back(Vector<Real, 3>( 1,-1, 0));
-			gradients_.push_back(Vector<Real, 3>(-1,-1, 0));
-
-			gradients_.push_back(Vector<Real, 3>( 1, 0, 1));
-			gradients_.push_back(Vector<Real, 3>(-1, 0, 1));
-			gradients_.push_back(Vector<Real, 3>( 1, 0,-1));
-			gradients_.push_back(Vector<Real, 3>(-1, 0,-1));
-
-			gradients_.push_back(Vector<Real, 3>( 0, 1, 1));
-			gradients_.push_back(Vector<Real, 3>(0,-1, 1));
-			gradients_.push_back(Vector<Real, 3>( 0, 1,-1));
-			gradients_.push_back(Vector<Real, 3>(0,-1,-1));
-
-			gradients_.push_back(Vector<Real, 3>( 1, 1, 0));
-			gradients_.push_back(Vector<Real, 3>(-1, 1, 0));
-			gradients_.push_back(Vector<Real, 3>( 0,-1, 1));
-			gradients_.push_back(Vector<Real, 3>( 0,-1,-1));
-
-			// Generate random permutation table
-
-			permutation_.reserve(512);
-
-			for (integer i = 0;i < 256;++i)
-			{
-				permutation_.push_back(i);
-			}
-
-			for (integer i = 0;i < 256;++i)
-			{
-				integer u = randomInteger() & 0xFF;
-				std::swap(permutation_[u], permutation_[i]);
-			}
-
-			// Double permutation table so
-			// we needn't use modulus later
-
-			for (integer i = 0;i < 256;++i)
-			{
-				permutation_.push_back(permutation_[i]);
-			}
-		}
-
-		template <typename Real>
-		Real Noise3<Real>::operator()(const Vector<Real, 3>& pos) const
-		{
-			const Real x(pos[0]);
-			const Real y(pos[1]);
-			const Real z(pos[2]);
-
-			const integer xFloor = (integer)std::floor(x);
-			const Real xDeltaMin(x - xFloor);
-			const Real xDeltaMax(xDeltaMin - 1);
-			const Real xWeight(quinticSmoothStep(xDeltaMin));
-
-			const integer yFloor = (integer)std::floor(y);
-			const Real yDeltaMin(y - yFloor);
-			const Real yDeltaMax(yDeltaMin - 1);
-			const Real yWeight(quinticSmoothStep(yDeltaMin));
-
-			const integer zFloor = (integer)std::floor(z);
-			const Real zDeltaMin(z - zFloor);
-			const Real zDeltaMax(zDeltaMin - 1);
-			const Real zWeight(quinticSmoothStep(zDeltaMin));
-
-			// Trilinear interpolation between 8 surrounding cube
-			// latticepoint values
-
-			// W.r.t. x-axis.
-
-			const Real v000(latticeValue(
-				xFloor, yFloor, zFloor,
-				xDeltaMin, yDeltaMin, zDeltaMin));
-			const Real v100(latticeValue(
-				x + 1, yFloor, zFloor,
-				xDeltaMax, yDeltaMin, zDeltaMin));
-			const Real vx00(linear(v000, v100, xWeight));
-
-			const Real v010(latticeValue(
-				xFloor, yFloor + 1, zFloor,
-				xDeltaMin, yDeltaMax, zDeltaMin));
-			const Real v110(latticeValue(
-				xFloor + 1, yFloor + 1, zFloor,
-				xDeltaMax, yDeltaMax, zDeltaMin));
-			const Real vx10(linear(v010, v110, xWeight));
-
-			const Real v001(latticeValue(
-				xFloor, yFloor, zFloor + 1,
-				xDeltaMin, yDeltaMin, zDeltaMax));
-			const Real v101(latticeValue(
-				xFloor + 1, yFloor, zFloor + 1,
-				xDeltaMax, yDeltaMin, zDeltaMax));
-			const Real vx01(linear(v001, v101, xWeight));
-
-			const Real v011(latticeValue(
-				xFloor, yFloor + 1, zFloor + 1,
-				xDeltaMin, yDeltaMax, zDeltaMax));
-			const Real v111(latticeValue(
-				xFloor + 1, yFloor + 1, zFloor + 1,
-				xDeltaMax, yDeltaMax, zDeltaMax));
-			const Real vx11(linear(v011, v111, xWeight));
-
-			// W.r.t. y-axis.
-
-			const Real vxy0(linear(vx00, vx10, yWeight));
-			const Real vxy1(linear(vx01, vx11, yWeight));
-
-			// W.r.t. z-axis.
-
-			const Real vxyz(linear(vxy0, vxy1, zWeight));
-
-			return (vxyz + 2) * Real(0.25);
-		}
-
-		// Private
-
-		template <typename Real>
-		Real Noise3<Real>::latticeValue(
-			integer x, integer y, integer z,
-			const Real& xDeltaMin, const Real& yDeltaMin,
-			const Real& zDeltaMin) const
-		{
-			// FIX: What if x, y or z < 0?
-
-			const integer index =
-				permutation_[(x & 0xFF) +
-				permutation_[(y & 0xFF) +
-				permutation_[(z & 0xFF)]]] & 0xF;
-
-			const Vector3& gradient = gradients_[index];
-
-			return
-				gradient[0] * xDeltaMin +
-				gradient[1] * yDeltaMin +
-				gradient[2] * zDeltaMin;
-		}
-
-		template <typename Real>
-		Noise3<Real>::~Noise3()
-		{
-		}
-
-		template <typename Real>
-		Noise3<Real>& noise3()
-		{
-			return Noise3<Real>::create();
+			return Noise<Real, N>::create();
 		}
 
 	}
@@ -473,25 +315,13 @@ namespace Pastel
 	template <typename Real>
 	Real noise(const PASTEL_NO_DEDUCTION(Real)& position)
 	{
-		return Detail::noise1<Real>()(position);
+		return Detail::noise<Real, 1>()(position);
 	}
 
-	template <typename Real>
-	Real noise(const Vector<Real, 1>& position)
+	template <typename Real, int N>
+	Real noise(const Vector<Real, N>& position)
 	{
-		return Detail::noise1<Real>()(position.x());
-	}
-
-	template <typename Real>
-	Real noise(const Vector<Real, 2>& position)
-	{
-		return Detail::noise2<Real>()(position);
-	}
-
-	template <typename Real>
-	Real noise(const Vector<Real, 3>& position)
-	{
-		return Detail::noise3<Real>()(position);
+		return Detail::noise<Real, N>()(position);
 	}
 
 }

@@ -12,32 +12,19 @@
 namespace Pastel
 {
 
-	//! 1d Perlin noise.
+	//! Perlin noise.
 	/*!
 	The returned values are in the range [0, 1].
 	*/
-
 	template <typename Real>
 	Real noise(const PASTEL_NO_DEDUCTION(Real)& pos);
 
-	template <typename Real>
-	Real noise(const Vector<Real, 1>& position);
-
-	//! 2d Perlin noise.
+	//! Perlin noise
 	/*!
 	The returned values are in the range [0, 1].
 	*/
-
-	template <typename Real>
-	Real noise(const Vector<Real, 2>& pos);
-
-	//! 3d Perlin noise.
-	/*!
-	The returned values are in the range [0, 1].
-	*/
-
-	template <typename Real>
-	Real noise(const Vector<Real, 3>& pos);
+	template <typename Real, int N>
+	Real noise(const Vector<Real, N>& pos);
 
 }
 

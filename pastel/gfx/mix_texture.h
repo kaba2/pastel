@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Type, typename Inter_Type, int N = 2>
+	template <typename Type, typename Inter_Type = Type, int N = 2>
 	class Mix_Texture
 		: public Texture<Type, N>
 	{

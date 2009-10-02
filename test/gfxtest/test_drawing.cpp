@@ -29,7 +29,8 @@ namespace
 	void testDistortion()
 	{
 		Array<Color, 2> textureImage;
-		loadPcx("circle_text.pcx", textureImage);
+		//loadPcx("circle_text.pcx", textureImage);
+		loadPcx("lena.pcx", textureImage);
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage));
 		EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
@@ -57,6 +58,23 @@ namespace
 		Radial_Texture<Color> distortedTexture =
 			radialTexture(texture, Vector2(0.5),
 			Vector2(minRadius, 2 * constantPi<real>()), Vector2(maxRadius, 0));
+
+		/*
+		Noise_Texture<> staticTexture = noiseTexture<2>();
+		
+		Tuple<Color, 4> colorSquare(
+			Color(1, 0, 0),
+			Color(0, 1, 0),
+			Color(0, 0, 1),
+			Color(1, 1, 1));
+
+		LinearColor_Texture<Color> colorTexture = linearColorTexture<Color, 2>(colorSquare);
+
+		Mix_Texture<Color, real> mixTexture(
+			distortedTexture,
+			colorTexture,
+			staticTexture);
+		*/
 
 		drawBox(
 			AlignedBox2(0, 0, image.width(), image.height()),
