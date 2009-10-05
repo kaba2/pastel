@@ -3,6 +3,7 @@
 
 #include "pastel/gfx/simplex_noise.h"
 #include "pastel/gfx/gradientfield.h"
+#include "pastel/gfx/perlin_noise.h"
 
 #include "pastel/sys/keyvalue.h"
 
@@ -12,7 +13,7 @@ namespace Pastel
 	template <typename Real>
 	Real simplexNoise(const PASTEL_NO_DEDUCTION(Real)& position)
 	{
-		return 0;
+		return perlinNoise<Real>(position);
 	}
 
 	template <typename Real, int N>
@@ -26,14 +27,14 @@ namespace Pastel
 		const Real dInv = inverse(d);
 
 		// Transform the point to the integer
-		// lattice simplex space.
+		// cube simplicial partitioning.
 
-		Vector<Real, N> u = d * (x + s * sum(x));
+		const Vector<Real, N> u = d * (x + s * sum(x));
 
-		// Find out in which cube we are.
+		// Find out in which integer cube we are.
 
 		Vector<integer, N> p = floor(u);
-		Vector<Real, N> f = x - Vector<Real, N>(p);
+		Vector<Real, N> f = u - Vector<Real, N>(p);
 
 		// In that cube, find out in which
 		// simplex we are in.
@@ -46,9 +47,12 @@ namespace Pastel
 		}
 		std::sort(orderSet.begin(), orderSet.end(), std::greater<KeyValue<Real, integer> >());
 
-		// Map the min vertex back to the regular simplex space.
+		// Map the min vertex back to the transformed simplex space
+		// (out of the scalings along [1, ..., 1], this one maximizes
+		// the regularity of the resulting simplices).
 
-		Vector<Real, N> simplexMin = (Vector<Real, N>(p) - q * sum(p)) * dInv;
+		const Vector<Real, N> simplexMin = 
+			(Vector<Real, N>(p) - q * sum(p)) * dInv;
 		f = x - simplexMin;
 
 		// Sum the contributions from the surrounding
@@ -58,7 +62,6 @@ namespace Pastel
 		const Real r2Inv = std::pow((Real)4 / 3, (Real)(n - 1));
 
 		Real value = 0;
-	
 		for (integer i = 0;i < n;++i)
 		{
 			const Real attenuation = 1 - dot(f) * r2Inv;
@@ -66,7 +69,7 @@ namespace Pastel
 			if (attenuation > 0)
 			{
 				const Real vertexValue = gradientField<Real, N>()(p, f);
-				value += attenuation * vertexValue;
+				value += square(square(attenuation)) * vertexValue;
 			}
 
 			const integer axis = orderSet[i].value();
@@ -81,11 +84,11 @@ namespace Pastel
 			if (attenuation > 0)
 			{
 				const Real vertexValue = gradientField<Real, N>()(p, f);
-				value += attenuation * vertexValue;
+				value += square(square(attenuation)) * vertexValue;
 			}
 		}
 
-		return (value + 1) / 2;
+		return (value * 3 + 1) / 2;
 	}
 
 }

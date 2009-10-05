@@ -12,7 +12,7 @@ any derivations of the mathematical results. Furthermore, the provided source
 code is hard to understand because of its heavy optimizations and hard-coding
 of dimension-specific constants for ''RR^3''.
 To address some of these issues, Gustavson has written a paper to explain the algorithm 
-more intuitively with source code for that is easier to understand (see references).
+more intuitively with source code that is easier to understand (see references).
 However, neither of the papers give a detailed derivation of the mathematical
 results in n-dimensional space. Such derivations are important in ensuring
 correctness and in establishing the claimed properties. In this paper 
@@ -48,28 +48,35 @@ A simplex is called _regular_ if it holds that
 
 where the norm is Euclidean.
 
-### Non-regular simplicial partitioning
+### Simplicial partitioning of integer cubes
 
 In the following, by a partitioning of ''RR^n'' we mean a collection of sets
 which cover ''RR^n'' and whose pair-wise intersection has Lebesgue measure zero.
+An integer cube is a set of the form ''[h_1, ..., h_n] xx ... xx [h_1 + 1, ..., h_n + 1] sub RR^n'',
+where ''[h_1, ..., h_n] in ZZ^n''. An integer cube is identified with its lower integer 
+coordinates ''[h_1, ..., h_n] in ZZ^n''. 
 The simplex noise algorithm assumes that ''RR^n'' has been partitioned by 
-regular simplices. To find such a partitioning, first consider a partioning by cubes of the form 
-''C(i_1, ..., i_n) = [i_1, i_1 + 1] xx ... xx [i_n, i_n + 1] sub RR^n''. The vertices of ''C(i_1, ..., i_n)'' 
-are clearly given by ''V(i_1, ..., i_n) = {i_1, i_1 + 1} xx ... xx {i_n, i_n + 1} sub RR^n''.
-We would like to partition each cube with simplices such that each simplex contains as vertices
-''[i_1, ..., i_n]'' and ''[i_1 + 1, ..., i_n + 1]''. Each such simplex can be identified with a 
-traversal from ''[i_1, ..., i_n]'' to ''[i_1 + 1, ..., i_n + 1]'' using ''e_i'' as displacements,
-where ''e_i'' is the i:th standard basis vector. Clearly there are ''n!'' number of such traversals,
-each specifying ''(n + 1)'' vertices of a simplex.
+(not necessarily regular) simplices. To find such a partitioning, first consider a partioning given by the 
+set of by integer cubes. If ''[h_1, ..., h_n] in ZZ^n'' is an integer cube, then clearly
+its vertices are given by ''{h_1, h_1 + 1} xx ... xx {h_n, h_n + 1} sub ZZ^n''.
+We would like to partition the cube with simplices such that each simplex contains as vertices
+''[h_1, ..., h_n]'' and ''[h_1 + 1, ..., h_n + 1]''. Those simplices are given by the set:
 
-This procedure gives a partitioning of ''RR^n'' into simplices. However, these simplices are not regular:
-while each edge on the traversal path is of length 1, the edge from the last vertex to the first is
-of length ''sqrt(n)''. 
+''S = {{h, h + e_{r_1}, ..., h + sum_{i = 1}^k e_{r_i}, ..., h + sum_{i = 1}^n e_{r_i}} : {r_1, ..., r_n} = \[1, n\]}''
+
+where ''e_i'' is the i:th standard basis vector. Because the number of permutations of ''\[1, n\]'' is ''n!'',
+there are also ''n!'' simplices in ''S''. This procedure gives a partitioning of ''RR^n'' into simplices. 
+However, these simplices are not regular nor close to being regular. 
 
 ### Scaling along a cube diagonal
 
-A simple transformation that turns these simplices regular
-is to scale the space along the vector ''p = [1, ..., 1]''. Such a scaling is given by:
+Let us measure the regularity of a simplex by the ratio of the length of its shortest 
+edge and its longest edge. It easily seen that the regularity of all the simplicies in the 
+simplicial partitioning of integer cubes is ''1 / sqrt(n)''.
+
+We would like to have a transformation which would have a simple form, and which
+would maximize regularity. We shall consider a transformation which scales the space 
+along the vector ''p = [1, ..., 1]''. Such a scaling is given by:
 
 ''f : RR^n -> RR^n: f(x) = x + (alpha - 1) (: x, p :) / (: p, p :) p 
 = x + (alpha - 1) / n (sum_{i = 1}^n x_i) p''
@@ -79,36 +86,129 @@ Applying this scaling to the standard basis vectors ''e_i'' gives:
 
 ''f(e_i) = e_i + (alpha - 1) / n p''
 
-We would now like to determine ''alpha'' such that 
-''{0, f(e_1), ... sum_{i = 1}^k f(e_i), ..., sum_{i = 1}^n f(e_i)}'' is a simplex.
-The squared length of ''f(e_i)'' is given by:
+### Edge lengths of the transformed simplex
 
-''(: f(e_i) :) = ((alpha - 1) / n + 1)^2 + (n - 1)((alpha - 1) / n)^2''
+The simplex from an integer cube partitioning is transformed into:
 
-Note specifically that this length is independent of ''i'':
-the images of ''e_i'' remain of equal length under the scaling.
-On the other hand:
+''{f(h), f(h) + f(e_{r_1}), ..., f(h) + sum_{i = 1}^k f(e_{r_i}), ..., f(h) + sum_{i = 1}^n f(e_{r_i})}''
 
-''sum_{i = 1}^n f(e_i) = (alpha - 1) p + p = alpha p''
+The vector between simplex vertices ''k_1'' and ''k_2'', with ''k_1 < k_2'', is given by:
+
+''D = (f(h) + sum_{i = 1}^{k_2} f(e_{r_i})) - (f(h) + sum_{j = 1}^{k_1} f(e_{r_j}))''
+
+''= sum_{i = k_1 + 1}^{k_2} f(e_{r_i})''
+
+''= sum_{i = k_1 + 1}^{k_2} (e_{r_i} + (alpha - 1) / n p)''
+
+''= (k_2 - k_1) (alpha - 1) / n p + sum_{i = k_1 + 1}^{k_2} e_{r_i}''
+
+Its squared length is given by:
+
+''(: D :) = (: (k_2 - k_1) (alpha - 1) / n p + sum_{i = k_1 + 1}^{k_2} e_{r_i} :)''
+
+''= (: (k_2 - k_1) (alpha - 1) / n p :) + (: sum_{i = k_1 + 1}^{k_2} e_{r_i} :) +
+2 (: (k_2 - k_1) (alpha - 1) / n p, sum_{i = k_1 + 1}^{k_2} e_{r_i} :)''
+
+''= (k_2 - k_1)^2 (alpha - 1)^2 / n^2 (: p :) + (k_2 - k_1) +
+2 (k_2 - k_1) (alpha - 1) / n (: p, sum_{i = k_1 + 1}^{k_2} e_{r_i} :)''
+
+''= (k_2 - k_1)^2 (alpha - 1)^2 / n + (k_2 - k_1) +
+2 (k_2 - k_1) (alpha - 1) / n (k_2 - k_1)''
+
+Denote ''m = k_2 - k_1''. Then:
+
+''(: D :) = m^2 (alpha - 1)^2 / n + 2 m^2 (alpha - 1) / n + m''
+
+''= m^2 ((alpha - 1)^2 + 2 (alpha - 1)) / n + m''
+
+''= m^2 (alpha^2 - 1) / n + m''
+
+### Choosing ''alpha'' to maximize regularity
+
+We would like to choose ''alpha'' such that regularity is maximized.
+Let 
+
+''g(m) = m^2 (alpha^2 - 1) / n + m''.
+
+Then 
+
+''g'(m) = 2 m (alpha^2 - 1) / n + 1''. 
+
+The critical point of ''g'' (assume ''alpha != 1'') is found by equating its
+derivative to zero. Whether it is a maximum or a minimum
+depends on the value of ''alpha''.
+
+''g'(m) = 0
+<=>
+2 m (alpha^2 - 1) / n + 1 = 0
+<=>
+m = -n / (2(alpha^2 - 1))
+<=>
+m = n / (2(1 - alpha^2))
+''
+
+From here on the computation of regularity branches based on the
+position ''m'' of the critical point. The following inequalities
+reveal the dependence of ''m'' to ''alpha'':
+
+''m >= 1
+<=> 
+n / (2(1 - alpha^2)) >= 1
+<=> 
+n / 2 >= 1 - alpha^2
+<=> 
+alpha^2 >= 1 - n / 2
+<=> 
+true''
+
+''m <= n
+<=>
+n / (2(1 - alpha^2)) <= n
+<=>
+1 / 2 <= 1 - alpha^2
+<=>
+alpha^2 <= 1 / 2
+''
+
+Thus, if it holds that ''alpha^2 > 1 / 2'', then ''g'' is increasing in ''\[1, n\]'' and
+the squared regularity is given by:
+
+''reg^2
+= g(1) / g(n)
+= ((alpha^2 - 1) / n + 1) / (n^2 (alpha^2 - 1) / n + n)
+= ((alpha^2 - 1) + n) / (n^2 (alpha^2 - 1) + n^2)
+= (alpha^2 - 1 + n) / (n^2 alpha^2)
+''
+
+Which is maximized by ''alpha^2 = 1 / 2'':
+
+''reg^2
+= ((-1 / 2) + n) / (n^2 / 2)
+= (2 n - 1) / n^2''
+
+However, it could still be the case that a greater regularity can be
+obtained for some ''alpha^2 <= 1 / 2'' (and this will be the case).
+
+If it holds that ''alpha^2 <= 1 / 2'', then 
+
+''m_{text(min)} = {
+(1, text(, if ) alpha^2 >= 1 / (n + 1)), 
+(n, text(, otherwise))]''
 
 and
 
-''(: sum_{i = 1}^n f(e_i) :) = alpha^2 n
+''m_{text(max)} = text(floor)(n / (2(1 - alpha^2)) + 1/2)''
 
-We require the squared lengths to coincide:
+If one picks ''alpha^2 = 1 / (n + 1)'', then
 
-''alpha^2 n = ((alpha - 1) / n + 1)^2 + (n - 1)((alpha - 1) / n)^2''
+''reg^2 = {
+(4 / (n + 2 + 1 / n), text(, if n is odd)),
+(4 / (n + 2), text(, if n is even))]''
 
-This can be solved as:
-
-''alpha = +- 1 / sqrt(n + 1)''
-
-Of which we select (the other one changes orientation):
-
-''alpha = 1 / sqrt(n + 1)''
+For all ''n >= 2'' this gives the largest regularity.
 
 As a result of this scaling transformation all simplices 
-become regular with an edge length of ''d = sqrt(n / (n + 1))''.
+have a minimum edge length of ''d = sqrt(n / (n + 1))''.
 
 ### Deforming transformation
 
@@ -123,7 +223,7 @@ It can be shown that the inverse matrix of ''M'' is given by:
 ''M^{-1} = I + (sqrt(n + 1) - 1) / n [p, ..., p]''
 
 These are the transformations that seem to be used in the original algorithm. 
-However, the problem with these transformations is that the simplex edge length
+However, the problem with these transformations is that the minimum simplex edge length
 varies with dimension. This in turn implies that the feature size varies with
 dimension. Therefore, it is better to apply an additional uniform scaling, which
 expands distances but does not affect angles. Since the length of the simplex
@@ -156,9 +256,7 @@ The original algorithm does not have the ''d'' factor.
 
 ### Vertices of the containing simplex
 
-An integer cube is a set of the form ''[h_1, ..., h_n] xx ... xx [h_1 + 1, ..., h_n + 1] sub RR^n'',
-where ''[h_1, ..., h_n] in ZZ^n''. The integer cubes can be identified by their lower integer 
-coordinates ''[h_1, ..., h_n] in ZZ^n''. Clearly the containing cube for a point ''x'' is given by
+Clearly the containing cube for a point ''x'' is given by
 
 ''h = [h_1, ..., h_n]^T = text(floor)([x_1, ..., x_n]^T) = text(floor)(x)''.
 
@@ -181,7 +279,7 @@ where ''q = (sqrt(n + 1) - 1) / (n sqrt(n + 1)) = s / sqrt(n + 1)''.
 
 ### Scalar fields 
 
-Consider the regular simplex space again. Each simplex vertex in this space is
+Consider the transformed simplex space again. Each simplex vertex in this space is
 associated with a gradient vector. This is the gradient of the noise
 function at that point. The noise function itself is zero at each vertex.
 The gradient vector ''g in RR^n'' of a given vertex ''v in RR^n'' defines a 
@@ -195,7 +293,7 @@ centered on ''v'':
 ''a : RR^n -> RR : a(x) = {((1 - (: x :) / (r^2 d^2))^4, text(, if ) (: x :) <= r^2 d^2),
                                                      (0, text(, otherwise))]''
 
-where ''r in \]0, 1\] sub RR'' is the percentage of the simplex edge length ''d'' after which
+where ''r in \]0, 1\] sub RR'' is the percentage of the minimum simplex edge length ''d'' after which
 ''a'' must have been attenuated to zero. Because of the normalization of the simplex edge
 length, we have ''d = 1'' and thus the expression for ''a'' simplifies to:
 
@@ -213,7 +311,7 @@ such that it is contained in the union of those simplices which are connected
 to the given vertex. If this were not the case, then it would not be sufficient
 to evaluate only ''(n + 1)'' surrounding vertices for a given point. Out of the possible
 values for ''r'' we want the largest one. This is given by ''r'' such that ''r d = h'', 
-where ''h'' is the height of a regular simplex of edge length ''d'':
+where ''h'' is the height of a regular simplex of the minimum edge length ''d'':
 
 ''h = d sqrt((3 / 4)^{n - 1})''
 
@@ -224,6 +322,9 @@ Thus
 and
 
 ''r^2 = (3 / 4)^{n - 1}''
+
+The idea is that the true height of the simplex must be greater than the height
+of a regular simplex with minimum edge length.
 
 ### Diminishing support of ''e'' in higher dimensions
 

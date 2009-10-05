@@ -27,7 +27,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/noise_1d.pcx");
+		savePcx(image, "output/perlin_noise_1d.pcx");
 	}
 
 	void test2d()
@@ -50,23 +50,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/noise_2d.pcx");
-	}
-
-	void testSome()
-	{
-		perlinNoise<real>(real(0));
-		perlinNoise<real>(real(0));
-		perlinNoise<real>(real(0));
-		perlinNoise<real>(real(0));
-		perlinNoise(Vector2(0));
-		perlinNoise(Vector2(0));
-		perlinNoise(Vector2(0));
-		perlinNoise(Vector2(0));
-		perlinNoise(Vector3(0));
-		perlinNoise(Vector3(0));
-		perlinNoise(Vector3(0));
-		perlinNoise(Vector3(0));
+		savePcx(image, "output/perlin_noise_2d.pcx");
 	}
 
 	void test3d()
@@ -89,7 +73,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/noise_3d.pcx");
+		savePcx(image, "output/perlin_noise_3d.pcx");
 	}
 
 	void testSimplex2d()
@@ -115,9 +99,32 @@ namespace
 		savePcx(image, "output/simplex_noise_2d.pcx");
 	}
 
+	void testSimplex3d()
+	{
+		const integer Width = 512;
+		const integer Height = 512;
+
+		Array<Color, 2> image(Width, Height);
+		Color fromColor = Color(0, 0, 0);
+		Color toColor = Color(0, 0, 1);
+		Color deltaColor(toColor - fromColor);
+
+		for (integer y = 0;y < Height;++y)
+		{
+			for (integer x = 0;x < Width;++x)
+			{
+				image(x, y) = fromColor +
+					simplexNoise(Vector3((real)x / 30, (real)y / 30, 0)) * deltaColor;
+			}
+		}
+
+		savePcx(image, "output/simplex_noise_3d.pcx");
+	}
+
 	void testBegin()
 	{
 		testSimplex2d();
+		testSimplex3d();
 
 		test1d();
 		test2d();
