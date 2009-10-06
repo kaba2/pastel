@@ -45,7 +45,7 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("Radial");
+			return std::string("Radial(" + texture_.fullName() + ")");
 		}
 
 	private:

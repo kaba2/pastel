@@ -41,7 +41,8 @@ namespace Pastel
 
 		virtual std::string name() const
 		{
-			return std::string("Combine");
+			return std::string("Combine(" + aTexture_.fullName() + 
+				", " + bTexture_.fullName() + ")");
 		}
 
 	private:

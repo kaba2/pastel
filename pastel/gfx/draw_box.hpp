@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/draw_box.h"
 #include "pastel/gfx/assigncolormixer.h"
-#include "pastel/gfx/constantcolor_texture.h"
+#include "pastel/gfx/color_texture.h"
 
 #include "pastel/sys/rectangle.h"
 
@@ -82,7 +82,7 @@ namespace Pastel
 	{
 		Pastel::drawBox(
 			box, 
-			constantColorTexture<Type, 2>(color),
+			colorTexture<Type, 2>(color),
 			image);
 	}
 
@@ -97,7 +97,7 @@ namespace Pastel
 	{
 		Pastel::drawBox(
 			box, 
-			constantColorTexture<Type, 2>(color),
+			colorTexture<Type, 2>(color),
 			image,
 			colorMixer);
 	}

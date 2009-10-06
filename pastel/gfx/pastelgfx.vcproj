@@ -406,14 +406,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\draw_textured_annulus.h"
-				>
-			</File>
-			<File
-				RelativePath=".\draw_textured_annulus.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\draw_textured_box.h"
 				>
 			</File>
@@ -459,7 +451,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Procedural textures"
+			Name="Noise"
 			>
 			<File
 				RelativePath=".\gradientfield.h"
@@ -592,10 +584,6 @@
 					RelativePath=".\mix_texture.h"
 					>
 				</File>
-				<File
-					RelativePath=".\transform_texture.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Image textures"
@@ -685,7 +673,7 @@
 				Name="Synthetic textures"
 				>
 				<File
-					RelativePath=".\constantcolor_texture.h"
+					RelativePath=".\color_texture.h"
 					>
 				</File>
 				<File
@@ -700,12 +688,24 @@
 					RelativePath=".\noise_texture.h"
 					>
 				</File>
+				<File
+					RelativePath=".\turbulence_texture.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Distortion textures"
 				>
 				<File
 					RelativePath=".\radial_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sub_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\transform_texture.h"
 					>
 				</File>
 			</Filter>

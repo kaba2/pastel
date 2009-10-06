@@ -47,6 +47,12 @@ namespace Pastel
 			return std::string("Mix");
 		}
 
+		virtual std::string fullName() const
+		{
+			return std::string("Mix(") + aTexture_.fullName() + ", " + bTexture_.fullName() 
+				+ ", " + tTexture_.fullName() + ")";
+		}
+
 	private:
 		const Texture<Type, N>& aTexture_;
 		const Texture<Type, N>& bTexture_;

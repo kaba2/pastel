@@ -1,6 +1,5 @@
 // Description: NearestImage_Texture class
 // Detail: Image-based texture with nearest reconstruction and no filtering.
-// Documentation: texture.txt
 
 #ifndef PASTEL_NEARESTIMAGE_TEXTURE_H
 #define PASTEL_NEARESTIMAGE_TEXTURE_H

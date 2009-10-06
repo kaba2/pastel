@@ -93,7 +93,7 @@ Pastel provides functions to convert between:
 
  * CIE-XYZ and sRGB
  * CIE-XYZ and CIE-Lab
- * CIE-XYZ and CIE-XYy
+ * CIE-XYZ and CIE-xyY
  * CIE-XYZ and LMS
  * CIE-Lab and CIE-Lch
  * sRGB and HSV

@@ -1,6 +1,5 @@
 // Description: EwaImage_Texture class
 // Detail: Image-based texture with radial reconstruction and EWA filtering.
-// Documentation: texture.txt
 
 #ifndef PASTEL_EWAIMAGE_TEXTURE_H
 #define PASTEL_EWAIMAGE_TEXTURE_H

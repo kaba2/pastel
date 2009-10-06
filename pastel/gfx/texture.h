@@ -30,6 +30,11 @@ namespace Pastel
 			const Matrix<real, N, N>& m) const = 0;
 
 		virtual std::string name() const = 0;
+
+		virtual std::string fullName() const
+		{
+			return name();
+		}
 	};
 
 }

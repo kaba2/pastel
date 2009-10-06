@@ -1,4 +1,4 @@
-EwaImage_Texture class
-======================
+Elliptically Weighted Average resampling
+========================================
 
 [Parent]: texture.txt

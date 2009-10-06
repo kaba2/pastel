@@ -88,7 +88,7 @@ namespace Pastel
 			}
 		}
 
-		return (value * 3 + 1) / 2;
+		return (value * 2 + 1) / 2;
 	}
 
 }

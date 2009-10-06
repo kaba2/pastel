@@ -1,6 +1,5 @@
 // Description: MipImage_Texture class
 // Detail: Image-based texture with linear reconstruction and mip-filtering.
-// Documentation: texture.txt
 
 #ifndef PASTEL_MIPIMAGE_TEXTURE_H
 #define PASTEL_MIPIMAGE_TEXTURE_H

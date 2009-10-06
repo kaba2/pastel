@@ -1,5 +1,5 @@
-MipImage_Texture class
-======================
+Mip-map resampling
+==================
 
 [Parent]: texture.txt
 

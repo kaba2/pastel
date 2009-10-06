@@ -121,7 +121,7 @@ namespace Pastel
 				// cubes. Thus, in 2D, 4 gradients are able to generate
 				// 4^4 = 256 different kinds of cubes. But, in 1D,
 				// 4 gradients generate only 4^2 = 16 different kinds
-				// cubes (intervals).
+				// of cubes (intervals).
 				//
 				// Let us target 256 different kinds of cubes,
 				// that is, 16 different gradients.
@@ -136,6 +136,67 @@ namespace Pastel
 				const Real gradient = (((Real)(2 * (index & GradientMask))) / (Gradients - 1)) - 1;
 
 				return delta[0] * gradient;
+			}
+			else if (n == 2)
+			{
+				// The 2-dimensional gradient field also has to be
+				// handled a special case. We want to choose gradient
+				// vectors from the set {-1, 1}^2.
+
+				enum
+				{
+					Gradients = 1 << 3,
+					GradientMask = Gradients - 1
+				};
+
+				const integer index = 
+					permutation_[(position[1] & permutationMask_) +
+					permutation_[position[0] & permutationMask_]];
+				const uint32 gradient = ((uint32)index) & GradientMask;
+
+				Real dotProduct = 0;
+				switch(gradient)
+				{
+				case 0:
+					// (1, 0)
+					dotProduct = delta[0];
+					break;
+				case 1:
+					// (1, 1)
+					dotProduct = delta[0] + delta[1];
+					break;
+				case 2:
+					// (0, 1)
+					dotProduct = delta[1];
+					break;
+				case 3:
+					// (-1, 1)
+					dotProduct = delta[1] - delta[0];
+					break;
+				case 4:
+					// (-1, 0)
+					dotProduct = -delta[0];
+					break;
+				case 5:
+					// (-1, -1)
+					dotProduct = -delta[0] - delta[1];
+					break;
+				case 6:
+					// (0, -1)
+					dotProduct = -delta[1];
+					break;
+				case 7:
+					// (1, -1)
+					dotProduct = delta[0] - delta[1];
+					break;
+				};
+
+				if (gradient & 1)
+				{
+					dotProduct /= std::sqrt((Real)2);
+				}
+
+				return dotProduct;
 			}
 
 			const integer basicGradients = (1 << (n - 1));
