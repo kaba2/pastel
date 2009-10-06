@@ -1,6 +1,5 @@
 // Description: LinearImage_Texture class
 // Detail: Image-based texture with linear reconstruction and no filtering.
-// Documentation: texture.txt
 
 #ifndef PASTEL_LINEARIMAGE_TEXTURE_H
 #define PASTEL_LINEARIMAGE_TEXTURE_H

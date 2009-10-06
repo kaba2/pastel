@@ -71,6 +71,9 @@ textures in ''RR^n''. It is defined by:
 where Type is a vector, such as Color, or real32, which
 defines the ''V'' in the definition, and N defines the dimensionality. 
 Its abstract interface provides access to a texture sampler. 
+
+### Types of textures
+
 Pastel provides three types of concrete, predefined texture classes:
 
  * An _image-based texture_, whose continuous image has been
@@ -78,16 +81,15 @@ Pastel provides three types of concrete, predefined texture classes:
  versions differ in the used reconstruction
  and detail filter.
  
- * A _modifier texture_, which modifies an existing 
- texture in some way, or combines two or more existing
- textures to form a new one. Because one can't know the
- contents of a given texture, these textures have the
- detail filter set to the delta distribution 
- (i.e. no filtering). This can cause aliasing in some
- cases.
+ * A _modifier texture_, which modifies the values of an existing
+ texture in some way, or combines the values of two or more existing
+ textures to form a new one. 
 
  * A _synthetic texture_, whose continuous image is computed
- on the fly via a mathematical formula. 
+ on the fly via a mathematical formula.
+ 
+ * A _distortion texture_, which distorts the texture space of
+ an existing texture in some way.
 
 ### Visual quality of reconstruction filters
 

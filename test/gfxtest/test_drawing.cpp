@@ -99,6 +99,45 @@ namespace
 		savePcx(textureImage, "output/distortion_texture.pcx");
 	}
 
+	void testTextureCase(const Texture<Color>& texture)
+	{
+		const integer width = 512;
+		const integer height = 512;
+		Array<Color> image(width, height);
+
+		drawBox(
+			AlignedBox2(0, 0, width, height),
+			texture,
+			arrayView(image));
+
+		savePcx(image, "output/texture_" + texture.fullName() + ".pcx");
+	}
+
+	void testTexture()
+	{
+		LinearColor_Texture<Color> smooth =
+			linearColorTexture<Color, 2>(
+			makeTuple(
+			Color(1, 0, 0),
+			Color(0, 1, 0),
+			Color(0, 0, 1),
+			Color(1, 1, 1)));
+
+		testTextureCase(
+			mixTexture(
+			subTexture(smooth, AlignedBox2(-1, -1, 2, 2)),
+			colorTexture<Color, 2>(Color(0)), 
+			subTexture(noiseTexture<2>(), 
+			AlignedBox2(0, 0, 0.2, 0.2))));
+
+		testTextureCase(
+			mixTexture(
+			colorTexture<Color, 2>(Color(0)),
+			subTexture(smooth, AlignedBox2(-1, -1, 2, 2)),
+			subTexture(turbulenceTexture<2>(),
+			AlignedBox2(0, 0, 0.1, 0.1))));
+	}
+
 	void testView()
 	{
 		Array<Color, 2> image(500, 500, Color(0));
@@ -524,6 +563,7 @@ namespace
 
 	void testAdd()
 	{
+		gfxTestList().add("Drawing.Texture", testTexture);
 		gfxTestList().add("Drawing.Distortion", testDistortion);
 		gfxTestList().add("Drawing.View", testView);
 		gfxTestList().add("Drawing.Binary", testBinary);

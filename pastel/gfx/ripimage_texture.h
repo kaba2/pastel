@@ -1,6 +1,5 @@
 // Description: RipImage_Texture class
 // Detail: Image-based texture with linear reconstruction and rip-filtering.
-// Documentation: texture.txt
 
 #ifndef PASTEL_RIPIMAGE_TEXTURE_H
 #define PASTEL_RIPIMAGE_TEXTURE_H

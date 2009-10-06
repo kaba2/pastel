@@ -53,6 +53,4 @@ the case, then you can use the functions 'integerToColor' and 'colorToInteger':
 
 	:::cpp
 	Color dColor = integerToColor<uint32>(dPackedColor, 8, 8, 8, 24, 8, 16);
-
-	:::cpp
 	uint32 dPackedColor = colorToInteger<uint32>(dColor, 8, 8, 8, 24, 8, 16);

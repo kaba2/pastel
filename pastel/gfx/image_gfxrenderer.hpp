@@ -160,7 +160,7 @@ namespace Pastel
 		Pastel::drawTriangle(
 			screenTriangle,
 			Triangle2(),
-			constantColorTexture<Type, 2>(currentColor),
+			colorTexture<Type, 2>(currentColor),
 			arrayView(*image_));
 	}
 

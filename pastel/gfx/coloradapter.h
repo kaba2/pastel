@@ -266,7 +266,9 @@ namespace Pastel
 	template <typename Integer>
 	Color integerToColor(const PASTEL_NO_DEDUCTION(Integer)& packedColor,
 		integer redBits, integer greenBits, integer blueBits,
-		integer redFrom = 0, integer greenFrom = redFrom + redBits, integer blueFrom = greenFrom + greenBits)
+		integer redFrom = 0, 
+		integer greenFrom = redFrom + redBits, 
+		integer blueFrom = greenFrom + greenBits)
 	{
 		return Color(
 			dequantizeUnsigned(extractBits(packedColor, redFrom, redBits), 1 << redBits),
@@ -277,7 +279,9 @@ namespace Pastel
 	template <typename Integer>
 	Integer colorToInteger(const Color& color,
 		integer redBits, integer greenBits, integer blueBits,
-		integer redFrom = 0, integer greenFrom = redFrom + redBits, integer blueFrom = greenFrom + greenBits)
+		integer redFrom = 0, 
+		integer greenFrom = redFrom + redBits, 
+		integer blueFrom = greenFrom + greenBits)
 	{
 		const Integer red = quantizeUnsigned(color[0], 1 << redBits);
 		const Integer green = quantizeUnsigned(color[1], 1 << greenBits);

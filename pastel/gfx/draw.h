@@ -16,6 +16,5 @@
 #include "pastel/gfx/draw_textured_triangle.h"
 #include "pastel/gfx/draw_perspective_triangle.h"
 #include "pastel/gfx/draw_projective_quad.h"
-#include "pastel/gfx/draw_textured_annulus.h"
 
 #endif

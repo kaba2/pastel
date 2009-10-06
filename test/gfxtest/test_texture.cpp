@@ -201,7 +201,7 @@ namespace
 
 		drawTexturedBox(
 			AlignedBox2(150, 400, 250, 500),
-			constantColorTexture<Color, 2>(Color(0.5, 0, 1)),
+			colorTexture<Color, 2>(Color(0.5, 0, 1)),
 			arrayView(image));
 
 		// Comparison of filtering techniques.
@@ -523,11 +523,11 @@ namespace
 			drawProjectiveQuad(
 				quad,
 				mixTexture(
-				constantColorTexture<Color>(Color(0)),
+				colorTexture<Color>(Color(0)),
 				transformTexture(
 				mixTexture(
 				linearImageTexture(repeatedConstView(constArrayView(lenaTextureImage))),
-				constantColorTexture<Color>(Color(1)),
+				colorTexture<Color>(Color(1)),
 				linearColorTexture<real>(0, 0, 1, 1)),
 				AffineTransformation2(Matrix2() * 10, Vector2())),
 				texture),

@@ -29,3 +29,9 @@ Practice
 Pastel provides functions to create some commonly needed palettes
 when working with indexed images. These include a random palette, 
 a grayscale palette, false color palettes, and, the default VGA palette.
+
+Acknowledgements
+----------------
+
+Daniel Pitts retrieved the default VGA palette from the hardware
+and output it into the array which is now used by Pastel.

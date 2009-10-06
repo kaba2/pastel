@@ -1,5 +1,5 @@
-LinearImage_Texture class
-===========================
+Linear interpolation
+====================
 
 [Parent]: texture.txt
 

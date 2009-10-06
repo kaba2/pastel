@@ -50,9 +50,9 @@ where the norm is Euclidean.
 
 ### Simplicial partitioning of integer cubes
 
-In the following, by a partitioning of ''RR^n'' we mean a collection of sets
+In the following, by a _partitioning of ''RR^n''_ we mean a collection of sets
 which cover ''RR^n'' and whose pair-wise intersection has Lebesgue measure zero.
-An integer cube is a set of the form ''[h_1, ..., h_n] xx ... xx [h_1 + 1, ..., h_n + 1] sub RR^n'',
+An _integer cube_ is a set of the form ''[h_1, ..., h_n] xx ... xx [h_1 + 1, ..., h_n + 1] sub RR^n'',
 where ''[h_1, ..., h_n] in ZZ^n''. An integer cube is identified with its lower integer 
 coordinates ''[h_1, ..., h_n] in ZZ^n''. 
 The simplex noise algorithm assumes that ''RR^n'' has been partitioned by 
@@ -70,13 +70,14 @@ However, these simplices are not regular nor close to being regular.
 
 ### Scaling along a cube diagonal
 
-Let us measure the regularity of a simplex by the ratio of the length of its shortest 
+Define the _regularity of a simplex_ as the ratio of the length of its shortest 
 edge and its longest edge. It easily seen that the regularity of all the simplicies in the 
 simplicial partitioning of integer cubes is ''1 / sqrt(n)''.
 
-We would like to have a transformation which would have a simple form, and which
-would maximize regularity. We shall consider a transformation which scales the space 
-along the vector ''p = [1, ..., 1]''. Such a scaling is given by:
+We would like to have a transformation class which would have a simple form, and then from
+that class find a transformation which maximizes regularity. Following Perlin, we shall 
+consider a transformation which scales the space along the vector ''p = [1, ..., 1]''. 
+Such a scaling is given by:
 
 ''f : RR^n -> RR^n: f(x) = x + (alpha - 1) (: x, p :) / (: p, p :) p 
 = x + (alpha - 1) / n (sum_{i = 1}^n x_i) p''
@@ -170,24 +171,22 @@ n / (2(1 - alpha^2)) <= n
 alpha^2 <= 1 / 2
 ''
 
-Thus, if it holds that ''alpha^2 > 1 / 2'', then ''g'' is increasing in ''\[1, n\]'' and
+Thus, if it holds that ''alpha^2 >= 1 / 2'', then ''g'' is increasing in ''\[1, n\]'' and
 the squared regularity is given by:
 
-''reg^2
+''text(reg)_1^2
 = g(1) / g(n)
 = ((alpha^2 - 1) / n + 1) / (n^2 (alpha^2 - 1) / n + n)
 = ((alpha^2 - 1) + n) / (n^2 (alpha^2 - 1) + n^2)
 = (alpha^2 - 1 + n) / (n^2 alpha^2)
 ''
 
-Which is maximized by ''alpha^2 = 1 / 2'':
+This is a decreasing function (w.r.t. ''alpha'') when restricted to ''alpha^2 >= 1 / 2'',
+and thus it is maximized by ''alpha^2 = 1 / 2'':
 
-''reg^2
+''text(reg)_1^2
 = ((-1 / 2) + n) / (n^2 / 2)
 = (2 n - 1) / n^2''
-
-However, it could still be the case that a greater regularity can be
-obtained for some ''alpha^2 <= 1 / 2'' (and this will be the case).
 
 If it holds that ''alpha^2 <= 1 / 2'', then 
 
@@ -201,14 +200,14 @@ and
 
 If one picks ''alpha^2 = 1 / (n + 1)'', then
 
-''reg^2 = {
+''text(reg)_2^2 = {
 (4 / (n + 2 + 1 / n), text(, if n is odd)),
 (4 / (n + 2), text(, if n is even))]''
 
-For all ''n >= 2'' this gives the largest regularity.
-
-As a result of this scaling transformation all simplices 
-have a minimum edge length of ''d = sqrt(n / (n + 1))''.
+For all ''n >= 2'' it holds that ''text(reg)_2 >= text(reg)_1''.
+I suspect this is the value of ''alpha'' which maximizes regularity.
+However, I haven't proved this yet. As a result of this scaling 
+transformation all simplices  have a minimum edge length of ''d = sqrt(n / (n + 1))''.
 
 ### Deforming transformation
 
@@ -326,14 +325,18 @@ and
 The idea is that the true height of the simplex must be greater than the height
 of a regular simplex with minimum edge length.
 
-### Diminishing support of ''e'' in higher dimensions
+### Simplex noise function
 
-From the given formulae it is evident that as dimension grows, more and more
-of the scalar field ''e'' inside the simplex is zero. For example, in ''RR^7'',
-only 42% of the edge length of a simplex is covered by the scalar field of its 
-either end-vertex. This means that 16% of the edge has ''e'' zero, which implies
-that there is considerable amount of volume inside the simplex which has ''e'' zero.
-In the limit, as dimension increases, ''e'' is zero almost everywhere.
+Let ''V = {v_1, v_2, ...} sub RR^n'' be the set of all simplex vertices. The noise function is 
+given by:
+
+''text(noise)(x) : RR^n -> RR : text(noise)(x) = sum_{i = 1}^oo e(x - v_i)
+
+Because ''e'' has finite support, this sum actually contains only ''(n + 1)'' non-zero terms:
+these terms are those corresponding to the vertices of the simplex containing ''x''.
+
+Problems with the original algorithm
+------------------------------------
 
 ### Difference to the original attenuation function
 
@@ -349,15 +352,29 @@ This is because the squared height of the simplex in ''RR^3'' is given by:
 
 which is less than 0.6.
 
-### Simplex noise function
+### Diminishing support of ''e'' in higher dimensions
 
-Let ''V = {v_1, v_2, ...} sub RR^n'' be the set of all simplex vertices. The noise function is 
-given by:
+From the given formulae it is evident that as dimension grows, more and more
+of the scalar field ''e'' inside the simplex is zero. For example, in ''RR^7'',
+only 42% of the shortest edge of a simplex is covered by the scalar field of its 
+either end-vertex. This means that 16% of the edge has ''e'' zero, which implies
+that there is considerable amount of volume inside the simplex which has ''e'' zero.
+In the limit, as dimension increases, ''e'' is zero almost everywhere.
 
-''text(noise)(x) : RR^n -> RR : text(noise)(x) = sum_{i = 1}^oo e(x - v_i)
+This is a fundamental restriction of the simplex noise algorithm: it isn't
+suited for higher dimensions. However, an open question (to me) is:
+what is the highest dimension in which the results are still acceptable?
+Clearly the result in ''RR^7'' and in higher dimensions is not acceptable.
+On the other hand, from practical tests it can be seen that the result in 
+''RR^4'' (e.g. time-varying 3d-noise) is still good.
+The question then is if the maximum acceptable dimension is 4, 5, or 6?
 
-Because ''e'' has finite support, this sum actually contains only ''(n + 1)'' non-zero terms:
-these terms are those corresponding to the vertices of the simplex containing ''x''.
+Acknowledgements
+----------------
+
+'Hagman' and 'Tonico' from the newsgroup sci.math helped me with 
+finding the transformed simplex edges with minimum and maximum length.
+The name of the thread was _Minimize and maximize_.
 
 References
 ----------
