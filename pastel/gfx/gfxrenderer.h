@@ -1,5 +1,6 @@
 // Description: GfxRenderer class
 // Detail: An abstraction for 2d per-object renderers
+// Documentation: renderer.txt
 
 #ifndef PASTEL_GFXRENDERER_H
 #define PASTEL_GFXRENDERER_H

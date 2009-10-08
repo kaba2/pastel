@@ -337,6 +337,22 @@
 				RelativePath=".\gfxlibrary.h"
 				>
 			</File>
+			<Filter
+				Name="Image"
+				>
+				<File
+					RelativePath=".\image_tools.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\image_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\image_tools.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="2d drawing"
@@ -410,6 +426,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\draw_segment_notes.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\draw_textured_box.h"
 				>
 			</File>
@@ -469,22 +489,6 @@
 				RelativePath=".\noise_notes.txt"
 				>
 			</File>
-			<File
-				RelativePath=".\perlin_noise.h"
-				>
-			</File>
-			<File
-				RelativePath=".\perlin_noise.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\simplex_noise.h"
-				>
-			</File>
-			<File
-				RelativePath=".\simplex_noise.hpp"
-				>
-			</File>
 			<Filter
 				Name="Gradient field"
 				>
@@ -498,6 +502,38 @@
 				</File>
 				<File
 					RelativePath=".\gradientfield.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Perlin noise"
+				>
+				<File
+					RelativePath=".\perlin_noise.h"
+					>
+				</File>
+				<File
+					RelativePath=".\perlin_noise.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\perlin_noise.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Simplex noise"
+				>
+				<File
+					RelativePath=".\simplex_noise.h"
+					>
+				</File>
+				<File
+					RelativePath=".\simplex_noise.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\simplex_noise.txt"
 					>
 				</File>
 			</Filter>
@@ -549,26 +585,6 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Image"
-			>
-			<File
-				RelativePath=".\image.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\image_tools.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\image_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\image_tools.hpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Textures"
@@ -811,6 +827,10 @@
 			</File>
 			<File
 				RelativePath=".\gfxrenderer_tools.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\renderer.txt"
 				>
 			</File>
 			<Filter

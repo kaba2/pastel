@@ -1,4 +1,5 @@
 // Description: Some algorithms for images
+// Documentation: common.txt
 
 #ifndef PASTEL_IMAGETOOLS_H
 #define PASTEL_IMAGETOOLS_H

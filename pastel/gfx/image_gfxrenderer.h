@@ -1,5 +1,6 @@
 // Description: Image_GfxRenderer
 // Detail: A 2d per-object software renderer to render to arrays.
+// Documentation: renderer.txt
 
 #ifndef PASTEL_IMAGE_GFXRENDERER_H
 #define PASTEL_IMAGE_GFXRENDERER_H
