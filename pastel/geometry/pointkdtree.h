@@ -575,7 +575,7 @@ namespace Pastel
 		The root node of the tree.
 
 		bound_:
-		An axis aligned box containing all
+		An axis-aligned box containing all
 		points in the tree.
 
 		leaves_:

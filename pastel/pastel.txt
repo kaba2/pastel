@@ -14,11 +14,11 @@ Publishing
 ----------
 
 The motivation for publishing Pastel is two-fold. First,
-I hope it to transmit some useful implementation
-experience, techniques, and documentation for people 
+I hope it to transmit at least a few neat ideas for people 
 interested in computer graphics, geometry, and programming. 
 Second, I have implemented another library ([TIM][]) that uses 
-Pastel, and I want to be open with sources.
+Pastel. Because I wanted to be open with its sources, this
+was a good time to publish Pastel too.
 
 [TIM]: http://kaba.hilvi.org/tim
 

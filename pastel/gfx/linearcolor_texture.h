@@ -1,6 +1,5 @@
-// Description: LinearColor_Texture class
-// Detail: A linear color patch texture.
-// Documentation: texture.txt
+// Description: Cube with multi-linear coloring
+// Documentation: synthetic_textures.txt
 
 #ifndef PASTEL_LINEARCOLOR_TEXTURE_H
 #define PASTEL_LINEARCOLOR_TEXTURE_H

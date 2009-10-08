@@ -20,6 +20,13 @@ PoolAllocator allows to deallocate memory. PoolAllocator is conservative
 in memory allocation: no new memory is allocated until all existing 
 memory is used.
 
+Acknowledgements
+----------------
+
+I first saw the idea of embedding the linked list inside the memory block
+in the book _Modern C++ Design_ by Andrei Alexandrescu. He
+discusses the implementation of a similar memory allocator.
+
 References
 ----------
 

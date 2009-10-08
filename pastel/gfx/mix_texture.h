@@ -1,6 +1,5 @@
-// Description: Mix_Texture class
-// Detail: A point-wise interpolation of two textures with a third.
-// Documentation: texture.txt
+// Description: Texture that is an interpolation of two textures with a third
+// Documentation: modifier_textures.txt
 
 #ifndef PASTEL_MIX_TEXTURE_H
 #define PASTEL_MIX_TEXTURE_H

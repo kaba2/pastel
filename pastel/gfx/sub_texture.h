@@ -1,3 +1,6 @@
+// Description: Texture that is a rectangular subset of another texture
+// Documentation: distortion_textures.txt
+
 #ifndef PASTEL_SUB_TEXTURE_H
 #define PASTEL_SUB_TEXTURE_H
 

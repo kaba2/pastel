@@ -1,5 +1,5 @@
 // Description: AlignedBox class
-// Detail: Allows to work with axis aligned boxes
+// Detail: Allows to work with axis-aligned boxes
 
 #ifndef PASTEL_ALIGNEDBOX_H
 #define PASTEL_ALIGNEDBOX_H

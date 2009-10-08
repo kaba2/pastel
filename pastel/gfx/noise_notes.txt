@@ -369,6 +369,15 @@ On the other hand, from practical tests it can be seen that the result in
 ''RR^4'' (e.g. time-varying 3d-noise) is still good.
 The question then is if the maximum acceptable dimension is 4, 5, or 6?
 
+### Still of exponential complexity
+
+One major feature of simplex noise was supposed to be that it does
+not have exponential dependence to dimension. However, the algorithm that 
+Perlin uses to compute the pseudo-random gradient index seems (to me) to have 
+exponential dependence to dimension. This is why we use a
+traditional table of permutation values instead (of exponential size),
+as given by the GradientField class.
+
 Acknowledgements
 ----------------
 
@@ -384,3 +393,7 @@ Ken Perlin, 2001.
 
 _Simplex Noise Demystified_, Stefan Gustavson, 2005.
 
+See also
+--------
+
+[Link]: gradientfield.txt

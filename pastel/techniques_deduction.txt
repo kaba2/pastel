@@ -1,8 +1,6 @@
 Restricting function template type deduction 
 ============================================
 
-[Parent]
-
 [Parent]: techniques.txt
 
  * 28.11.2008 Added 'Templated types through macro' text.

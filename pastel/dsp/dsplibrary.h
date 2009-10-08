@@ -1,3 +1,6 @@
+// Description: Dll-keywords for PastelDsp
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_DSPLIBRARY_H
 #define PASTEL_DSPLIBRARY_H
 

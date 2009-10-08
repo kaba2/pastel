@@ -1,6 +1,5 @@
-// Description: Color_Texture class
-// Detail: A texture of constant color.
-// Documentation: texture.txt
+// Description: Constant color texture
+// Documentation: synthetic_textures.txt
 
 #ifndef PASTEL_COLOR_TEXTURE_H
 #define PASTEL_COLOR_TEXTURE_H

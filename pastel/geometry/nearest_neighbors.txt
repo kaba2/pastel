@@ -6,10 +6,10 @@ Nearest neighbors
 Theory
 ------
 
-Let ''P = {p_1, ..., p_m} sub RR^n'' be a finite point-set, and ''d : RR^n x RR^n -> RR'' a metric.
-Let ''q in RR^n'' and ''<_q sub RR^n x RR^n'' be the (total) relation
+Let ''P = {p_1, ..., p_m} sub RR^n'' be a finite point-set, and ''d : RR^n xx RR^n -> RR'' a metric.
+Let ''q in RR^n'' and ''<_q sub RR^n xx RR^n'' be the (total) relation
 
-''<_q = {(P_i, P_j) | d(P_i, q) < d(P_j, q) \or [d(P_i, q) = d(P_j, q) \and i < j]}''.
+''<_q = {(P_i, P_j) in RR^n xx RR^n | d(P_i, q) < d(P_j, q) \or [d(P_i, q) = d(P_j, q) \and i < j]}''.
 
 If ''P_i <_q P_j'' then ''P_i'' is said to be _nearer to q_ than ''P_j''.
 If ''P'' is ordered with ''<_q'', then the _k:th nearest neighbor_ of ''q'' in ''P'' is the 
@@ -26,13 +26,13 @@ distances of the found neighbors to the distances of the exact neighbors.
 Practice
 --------
 
-Pastel implements nearest-neighbor searching and counting, in both approximate and exact forms. 
+Pastel implements nearest-neighbor searching and counting in both approximate and exact forms. 
 There are several algorithms that might be appropriate in different situations. 
 The _brute-force algorithm_ is a naive try-all algorithm, which scales in performance as ''O(n m^2)''.
-A more elegant algorithm is made possible by a _branch-and-bound algorithm_ using the multi-resolution kd-tree. 
+A more elegant algorithm is made possible by a _branch-and-bound algorithm_ using a kd-tree. 
 The advantage of the brute-force algorithm is that it has minimal dependence to dimension. 
 Due to _curse of dimensionality_, in dimensions high enough (e.g. dimension > 32), 
 it is the case that the kd-tree has to inspect almost all of the points, 
 giving the same asymptotic performance as the brute-force search. In these cases, it can
 make sense to use the brute-force algorithm instead for better practical performance.
-
+However, in all other cases you should use the kd-tree.

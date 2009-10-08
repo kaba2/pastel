@@ -1,6 +1,6 @@
 // Description: TestSuite class
 // Detail: Gathers the results of a unit test into a TestReport.
-// Documentation: testing.txt
+// Documentation: unit_testing.txt
 
 #ifndef PASTEL_TESTSUITE_H
 #define PASTEL_TESTSUITE_H

@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	//! Draws a textured axis aligned box.
+	//! Draws a textured axis-aligned box.
 
 	template <
 		typename Image_Element,
@@ -26,7 +26,7 @@ namespace Pastel
 		const AlignedBox2& textureBox,
 		const ColorMixer& colorMixer);
 
-	//! Draws a textured axis aligned box.
+	//! Draws a textured axis-aligned box.
 	/*!
 	This is a shortcut to the more general
 	'drawTexturedBox' function. It uses
@@ -42,7 +42,7 @@ namespace Pastel
 		const View<2, Image_Element, Image_View>& image,
 		const AlignedBox2& textureBox);
 
-	//! Draws a textured axis aligned box.
+	//! Draws a textured axis-aligned box.
 	/*!
 	This is a shortcut to the more general
 	'drawTexturedBox' function. It uses

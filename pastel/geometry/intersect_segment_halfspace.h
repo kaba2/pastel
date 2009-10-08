@@ -1,3 +1,5 @@
+// Description: Intersection between a line segment and a half-space
+
 #ifndef PASTEL_INTERSECT_SEGMENT_HALFSPACE_H
 #define PASTEL_INTERSECT_SEGMENT_HALFSPACE_H
 

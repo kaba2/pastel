@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	//! Draws an axis aligned rectangular area.
+	//! Draws an axis-aligned rectangular area.
 
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawBox(
@@ -22,7 +22,7 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer);
 
-	//! Draws an axis aligned rectangular area.
+	//! Draws an axis-aligned rectangular area.
 
 	template <typename Type, typename Image_View>
 	void drawBox(
@@ -30,15 +30,17 @@ namespace Pastel
 		const Texture<Type>& texture,
 		const View<2, Type, Image_View>& image);
 
-	//! Draws an axis aligned rectangular area.
-
+	//! Draws an axis-aligned rectangular area.
+	/*!
+	This is a convenience function that calls:
+	*/
 	template <typename Type, typename Image_View>
 	void drawBox(
 		const AlignedBox2& box,
 		const PASTEL_NO_DEDUCTION(Type)& color,
 		const View<2, Type, Image_View>& image);
 
-	//! Draws an axis aligned rectangular area.
+	//! Draws an axis-aligned rectangular area.
 
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawBox(

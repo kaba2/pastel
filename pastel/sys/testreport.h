@@ -1,6 +1,6 @@
 // Description: TestReport class
 // Detail: Stores error reports from unit tests.
-// Documentation: testing.txt
+// Documentation: unit_testing.txt
 
 #ifndef PASTEL_TESTREPORT_H
 #define PASTEL_TESTREPORT_H

@@ -1,3 +1,6 @@
+// Description: Perlin's classic noise texture
+// Documentation: synthetic_textures.txt
+
 #ifndef PASTEL_NOISE_TEXTURE_H
 #define PASTEL_NOISE_TEXTURE_H
 

@@ -190,6 +190,10 @@
 			Name="Common"
 			>
 			<File
+				RelativePath=".\common.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\gllibrary.cpp"
 				>
 			</File>
@@ -209,7 +213,15 @@
 				RelativePath=".\glgfxrenderer.h"
 				>
 			</File>
+			<File
+				RelativePath=".\rendering.txt"
+				>
+			</File>
 		</Filter>
+		<File
+			RelativePath=".\pastelgl.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

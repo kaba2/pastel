@@ -51,7 +51,7 @@ A _point BSP-tree_ is a pair ''(T, P)'' such that
  
  * ''\forall i: P_i sub B_i''.
  
- * ''\forall i: P_i'' is not a leaf node ''=> P_i = P_{l(i)} uu P_{r(i)}''.
+ * ''\forall i: B_i'' is not a leaf node ''=> P_i = P_{l(i)} uu P_{r(i)}''.
 
 ### Kd-tree
 
@@ -84,8 +84,8 @@ from many point of views.
 Restricting the splitting planes to be orthogonal with the standard
 basis axes has a number of advantages. Some of these are:
 
- * A plane can be described by one integer 
- (the splitting axis), and one real number 
+ * A plane can be described by a single integer 
+ (the splitting axis), and a real number 
  (distance of the plane from the origin).
  In contrast, arbitrary planes require ''O(n)''
  storage in ''RR^n''.
@@ -100,7 +100,7 @@ basis axes has a number of advantages. Some of these are:
  * For nearest neighbor searching, there are
  splitting rules which are easy to compute and result
  in excellent performance for the nearest neighbor
- searching. In contrast, with arbitrary planes, to the
+ searching and ray casting. In contrast, with arbitrary planes, to the
  best of our knowledge, there is currently no known 
  splitting rule that would have both of these properties.
  

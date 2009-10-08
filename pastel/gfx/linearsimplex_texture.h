@@ -1,6 +1,5 @@
-// Description: LinearSimplex_Texture class
-// Detail: A simplex filled with a linear color patch.
-// Documentation: texture.txt
+// Description: Simplex with a gradient texture
+// Documentation: synthetic_textures.txt
 
 #ifndef PASTEL_LINEARSIMPLEX_TEXTURE_H
 #define PASTEL_LINEARSIMPLEX_TEXTURE_H

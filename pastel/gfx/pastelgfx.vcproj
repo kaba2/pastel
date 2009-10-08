@@ -326,6 +326,10 @@
 			Name="Common"
 			>
 			<File
+				RelativePath=".\common.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\gfxlibrary.cpp"
 				>
 			</File>
@@ -454,14 +458,6 @@
 			Name="Noise"
 			>
 			<File
-				RelativePath=".\gradientfield.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gradientfield.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\noise.h"
 				>
 			</File>
@@ -489,6 +485,22 @@
 				RelativePath=".\simplex_noise.hpp"
 				>
 			</File>
+			<Filter
+				Name="Gradient field"
+				>
+				<File
+					RelativePath=".\gradientfield.h"
+					>
+				</File>
+				<File
+					RelativePath=".\gradientfield.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\gradientfield.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Image files"
@@ -584,10 +596,18 @@
 					RelativePath=".\mix_texture.h"
 					>
 				</File>
+				<File
+					RelativePath=".\modifier_textures.txt"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Image textures"
 				>
+				<File
+					RelativePath=".\image_textures.txt"
+					>
+				</File>
 				<Filter
 					Name="Rip-mapping"
 					>
@@ -689,6 +709,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\synthetic_textures.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\turbulence_texture.h"
 					>
 				</File>
@@ -696,6 +720,10 @@
 			<Filter
 				Name="Distortion textures"
 				>
+				<File
+					RelativePath=".\distortion_textures.txt"
+					>
+				</File>
 				<File
 					RelativePath=".\radial_texture.h"
 					>

@@ -7,7 +7,7 @@ Practice
 --------
 
 The KdTree class is a data-structure for storing and manipulating
-a kd-tree which contains shapes. This primary purpose of this
+a kd-tree which contains shapes. The primary purpose of this
 data-structure is to accelerate ray casting in ray tracing
 algorithms. If you need a data-structure for a point kd-tree
 instead, see the PointKdTree class.

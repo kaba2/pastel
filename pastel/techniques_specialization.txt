@@ -1,8 +1,6 @@
 Specialization without repeating all the implementation
 =======================================================
 
-[Parent]
-
 [Parent]: techniques.txt
 
 * Original text: 02.11.2008

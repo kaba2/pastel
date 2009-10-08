@@ -1,6 +1,5 @@
 // Description: More Algorithms for rational numbers
 // Detail: infinity, nan, fraction, remainder, floor, toFloat, etc.
-// Documentation: numbers.txt
 
 #ifndef PASTEL_RATIONAL_MORE_H
 #define PASTEL_RATIONAL_MORE_H

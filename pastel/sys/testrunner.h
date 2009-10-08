@@ -1,6 +1,6 @@
 // Description: TestRunner class
 // Detail: Stores test functions to be run as a batch or from a console.
-// Documentation: testing.txt
+// Documentation: unit_testing.txt
 
 #ifndef PASTEL_TESTRUNNER_H
 #define PASTEL_TESTRUNNER_H

@@ -544,6 +544,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\cholesky_decomposition.txt"
+						>
+					</File>
+					<File
 						RelativePath=".\cholesky_decomposition_tools.h"
 						>
 					</File>
@@ -589,6 +593,10 @@
 					</File>
 					<File
 						RelativePath=".\qr_decomposition.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\qr_decomposition.txt"
 						>
 					</File>
 					<File

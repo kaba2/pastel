@@ -1,3 +1,6 @@
+// Description: Discrete fourier transform
+// Documentation: miscellaneous.txt
+
 #ifndef PASTEL_DISCRETEFOURIER_H
 #define PASTEL_DISCRETEFOURIER_H
 

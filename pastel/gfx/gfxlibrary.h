@@ -1,5 +1,5 @@
 // Description: Dll-keywords for PastelGfx
-// Documentation: pastelgfx.txt
+// Documentation: common.txt
 
 #ifndef PASTEL_GFXLIBRARY_H
 #define PASTEL_GFXLIBRARY_H

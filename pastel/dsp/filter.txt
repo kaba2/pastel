@@ -6,7 +6,7 @@ Filters
 Theory
 ------
 
-In Pastel, a _filter_ is a function ''RR -> RR'' with finite support.
+In Pastel, a _filter_ is a continuous function ''RR -> RR'' with finite support.
 
 Practice
 --------
