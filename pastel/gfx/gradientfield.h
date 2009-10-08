@@ -1,5 +1,4 @@
 // Description: Gradient field for noise algorithms
-// Documentation: noise.txt
 
 #ifndef PASTEL_GRADIENTFIELD_H
 #define PASTEL_GRADIENTFIELD_H

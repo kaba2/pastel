@@ -1,0 +1,4 @@
+QR decomposition
+================
+
+[Parent]: matrix_decompositions.txt

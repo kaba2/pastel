@@ -50,9 +50,3 @@ However, performance can be enhanced by caching the latest deallocation block
 and only doing a search in the set if the cached block does not match.
 This makes deallocation constant time in many practical situations.
 
-Acknowledgements
-----------------
-
-I first saw the idea of embedding the linked list inside the memory block
-in the book _Modern C++ Design_ by Andrei Alexandrescu. He
-discusses the implementation of a similar memory allocator.

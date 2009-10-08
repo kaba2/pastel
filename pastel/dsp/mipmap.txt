@@ -11,9 +11,7 @@ values in a vector space. In the following, if there are expressions
 involving vectors, the operations are carried out elementwise.
 Let ''m in ZZ'', such that ''m = |~text(log)_2(text(max)(w))~|''. 
 Let ''hat(w) in ZZ^n'', such that ''hat(w) = (2^m, ..., 2^m)''. 
-A _mip-map_ is a set of images ''M = {M_s}'', where for all ''s'':
-
- * ''s in ZZ'', such that ''0 <= s <= m''.
+A _mip-map_ is a set of images ''M = {M_0, ..., M_m}'', where for all ''s'':
 
  * ''M_s'' is a resampling of ''I''.
 

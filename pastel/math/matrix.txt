@@ -3,13 +3,43 @@ Matrix class
 
 [Parent]: linear_algebra.txt
 
-Use case
+Practice
 --------
 
-[test_matrix.cpp](/test-list/test/mathtest/test_matrix.cpp.htm)
+### Declaration
 
-Vector embedding convention
----------------------------
+The Matrix class is declared by:
+
+	:::cpp
+	template <typename Real, int Height = Dynamic, int Width = Height>
+	class Matrix;
+
+When the Height and the Width are positive integers, the Matrix
+stores its data directly to the class and its extents can't be
+changed. Such a Matrix is called _static-sized_. If on the
+other hand Height and Width are Dynamic, then the size of the Matrix 
+can be changed at run-time and it is called _dynamic-sized_.
+	
+### Static and dynamic-sized matrices
+
+Pastel implements both static (compile-time) and dynamic-sized
+matrices. When the dimensions of the matrix are known
+in compile-time (and are small), memory use and efficiency can be boosted 
+by storing the matrix elements directly
+in the matrix class, rather than accessible through
+a pointer to dynamically allocated memory. Compilers
+can possibly produce faster code because the length
+of the loops become known in advance. Both types
+of matrices fall under a generic template class, which
+makes it possible to use the same algorithms for both.
+
+Static sized matrices are useful in those geometric and computer
+graphics applications where the dimension stays constant
+and is low (<= 4). In contrast, dynamic-sized matrices are useful when
+solving larger linear equation systems or systems
+whose dimension is only known at run-time.
+
+### Vector embedding convention
 
 We choose the convention of embedding vectors to matrices
 by identifying vectors with row vectors. This is the opposite
@@ -44,8 +74,7 @@ been used to work with column vectors. However, the connection
 between using column or row vectors is trivial.
 In this library we will use the row vector convention.
 
-Operator overloading
---------------------
+### Operator overloading
 
 Operator overloading is essential in being able to imitate
 the brief and coincise notation of mathematics. Using operator
@@ -54,8 +83,7 @@ than multiply(A, B) in functional notation. Pastel overloads
 the operators for the matrix class in a way that resembles
 mathematical notation.
 
-Different ways of viewing the data
-----------------------------------
+### Different ways of viewing the data
 
 There are several useful ways to view the data in matrices. 
 We enumerate them as follows:
@@ -77,36 +105,18 @@ can handle a matrix row as a vector.
 4. Matrix as a collection of column vectors. One
 can handle a matrix column as a vector.
 
-5. Matrix is a matrix expression. This makes it automatically
+5. Matrix as a matrix expression. This makes it automatically
 work with whatever new matrix expression are introduced in
 the future.
 
-6. Matrix as an array view (both mutable and non-mutable). This makes
-it possible to concentrate on subsets of a
-matrix without creating a temporary copy. This
-functionality is similar to the subsetting functionality 
-in Matlab.
-
-In addition we also include the following possibility
-which completes the set of tools for manipulating
-matrices:
-
-7. An array view can be adapted into a matrix expression. 
-This makes it possible to masquerade a complex subset view
-of a regular array as a matrix expression. The idea is
-to start from a matrix, choose some complex submatrix
-from it, and adapt the resulting view to a matrix expression
-to use in matrix computations.
-
-Efficiency
-----------
+### Efficiency
 
 The main technique in making matrix computations efficient in both space and time
 is the use of expression templates. Consider a matrix expression such as
 
 	A := A * (B + D)
 
-Using a naive implementation the result of B + D is computed
+Using a naive implementation, the result of B + D is computed
 in its entirety, requiring a temporary matrix E to hold the result.
 Next the product A * E is computed whose result again requires a new
 temporary matrix F. Finally F is assigned to A. Because the matrices
@@ -144,8 +154,7 @@ following assignment does not generate temporaries at all:
 
 	A := A + B + (2 * A)
 
-Synthetic matrices
-------------------
+### Synthetic matrices
 
 Matrix expressions can also be used other things than
 to implement fast operations between matrices. For example,
@@ -155,8 +164,7 @@ for the other positions. Assigning such an expression
 to a matrix allows to initialize the matrix to an identity
 matrix without actually creating a temporary one in memory.
 	
-Storage convention
-------------------
+### Storage convention
 
 The matrix data is stored as a continuous array of numbers with
 the row-major convention. This means that the rows are
@@ -169,8 +177,7 @@ This convention corresponds to the convention that
 programming language C (and C++) uses with its
 multi-dimensional tables. 
 
-Aliasing
---------
+### Aliasing
 
 Two matrix classes can share the same data. This is
 called aliasing. Because we know the storage convention,
@@ -184,23 +191,5 @@ aliased matrix is destroyed before the aliasing matrix,
 there is a danger of accessing unallocated memory.
 One must be wary for this not to happen.
 
-Static and dynamic sized matrices
----------------------------------
 
-Pastel implements both static (compile-time) and dynamic sized
-matrices. When the dimensions of the matrix are known
-in compile-time (and are small), memory use and efficiency can be boosted 
-by storing the matrix elements directly
-in the matrix class, rather than accessible through
-a pointer to dynamically allocated memory. Compilers
-can possibly produce faster code because the length
-of the loops become known in advance. Both types
-of matrices fall under a generic template class, which
-makes it possible to use the same algorithms for both.
-
-Static sized matrices are useful in those geometric and computer
-graphics applications, where the dimension stays constant
-and is low (<= 4). In contrast, dynamic sized matrices are useful when
-solving larger linear equation systems or systems
-whose dimension is only known at run-time.
 

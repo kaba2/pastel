@@ -14,7 +14,7 @@ Practice
 
 In the following we assume that we are able to uniformly
 sample a real interval. A general algorithm to uniformly 
-sample any set ''V'' is to bound it with an axis aligned box ''B'',
+sample any set ''V'' is to bound it with an axis-aligned box ''B'',
 draw samples from a uniform distribution on ''B'',
 and accept only those samples which are also
 in ''V''. This is called _rejection sampling_. The

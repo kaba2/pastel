@@ -1,6 +1,5 @@
 // Description: Algorithms for rational numbers
 // Detail: Pretty printing to a stream, etc.
-// Documentation: numbers.txt
 
 #ifndef PASTEL_RATIONAL_TOOLS_H
 #define PASTEL_RATIONAL_TOOLS_H

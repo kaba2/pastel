@@ -35,9 +35,7 @@ The problem is to construct an algorithm to find a ''P'' with minimal total cost
 Solution
 --------
 
-The following solution is from James Waldby as a result of
-a newsgroup discussion in sci.math. If one exchanges the 
-values of ''p_i'' and ''p_{i + 1}'',
+If one exchanges the values of ''p_i'' and ''p_{i + 1}'',
 then the costs ''{C(1), ..., C(i - 1), C(i + 2), ... C(n)}'' are
 not influenced. Thus in this case:
 
@@ -138,3 +136,8 @@ The remaining cases I have not been able to prove. I have a minor suspect
 they would be NP-hard. If someone can show otherwise, I'd be interested
 to hear it.
 
+Acknowledgements
+----------------
+
+The solution to this problem was given by James Waldby as a result of
+a newsgroup discussion in sci.math.

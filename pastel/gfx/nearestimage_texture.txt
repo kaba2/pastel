@@ -1,5 +1,5 @@
-Nearest neighbor interpolation
-==============================
+Image-based texture with nearest neighbor interpolation
+=======================================================
 
-[Parent]: texture.txt
+[Parent]: image_textures.txt
 

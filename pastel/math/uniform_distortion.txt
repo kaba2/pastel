@@ -1,5 +1,5 @@
-Distortion of a uniform distribution to another one
-===================================================
+Uniform distortion
+==================
 
 [Parent]: pastelmath.txt
 

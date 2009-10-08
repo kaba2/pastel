@@ -1,0 +1,4 @@
+Synthetic textures
+==================
+
+[Parent]: texture.txt

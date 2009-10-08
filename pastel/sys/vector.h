@@ -25,7 +25,7 @@ namespace Pastel
 	expressions to perform equal with hand-written
 	expressions.
 	A simple template trick with TableModify
-	is used to ensure unrolling of static sized loops.
+	is used to ensure unrolling of static-sized loops.
 	*/
 
 	/*

@@ -72,7 +72,7 @@ namespace Pastel
 		}
 	}
 
-	//! Draws an axis aligned rectangular area.
+	//! Draws an axis-aligned rectangular area.
 
 	template <typename Type, typename Image_View>
 	void drawBox(
@@ -86,7 +86,7 @@ namespace Pastel
 			image);
 	}
 
-	//! Draws an axis aligned rectangular area.
+	//! Draws an axis-aligned rectangular area.
 
 	template <typename Type, typename Image_View, typename ColorMixer>
 	void drawBox(

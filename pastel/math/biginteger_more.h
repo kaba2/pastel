@@ -1,5 +1,4 @@
 // Description: More BigInteger class
-// Documentation: numbers.txt
 
 #ifndef PASTEL_BIGINTEGER_MORE_H
 #define PASTEL_BIGINTEGER_MORE_H

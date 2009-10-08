@@ -672,30 +672,6 @@
 				RelativePath=".\testing.txt"
 				>
 			</File>
-			<File
-				RelativePath=".\testreport.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\testreport.h"
-				>
-			</File>
-			<File
-				RelativePath=".\testrunner.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\testrunner.h"
-				>
-			</File>
-			<File
-				RelativePath=".\testsuite.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\testsuite.h"
-				>
-			</File>
 			<Filter
 				Name="Invariant checking"
 				>
@@ -713,6 +689,38 @@
 				</File>
 				<File
 					RelativePath=".\ensure.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Unit testing"
+				>
+				<File
+					RelativePath=".\testreport.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\testreport.h"
+					>
+				</File>
+				<File
+					RelativePath=".\testrunner.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\testrunner.h"
+					>
+				</File>
+				<File
+					RelativePath=".\testsuite.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\testsuite.h"
+					>
+				</File>
+				<File
+					RelativePath=".\unit_testing.txt"
 					>
 				</File>
 			</Filter>

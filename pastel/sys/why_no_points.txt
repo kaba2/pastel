@@ -7,7 +7,7 @@ Practice
 --------
 
 Points, vectors, and normals are all different kinds of
-objects which should not confused as the same. They transform
+objects which should not be confused as the same. They transform
 differently and allow a different set of manipulations.
 However, if one considers an n-dimensional space, then all of them
 are represented by an n-tuple of real numbers after choosing

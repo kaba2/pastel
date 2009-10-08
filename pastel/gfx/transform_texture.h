@@ -1,6 +1,5 @@
-// Description: Transform_Texture class
-// Detail: An affinely transformed texture.
-// Documentation: texture.txt
+// Description: Texture that affinely transforms another texture
+// Documentation: distortion_textures.txt
 
 #ifndef PASTEL_TRANSFORM_TEXTURE_H
 #define PASTEL_TRANSFORM_TEXTURE_H

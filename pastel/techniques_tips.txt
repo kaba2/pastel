@@ -1,15 +1,9 @@
 Coding tips for C++
 ===================
 
-[Parent]
-
 [Parent]: techniques.txt
 
 * Original text: 3.2.2009
-
-This page contains the best of the C++ coding tips I have learned during the 
-years and which I would have wanted to know much earlier. Hope
-you find them useful.
 
 Do not use enums without scoping
 --------------------------------
@@ -291,6 +285,6 @@ you.
 Use precondition checking
 -------------------------
 
-<ensure.txt>
+[Link]: ensure.txt
 
 

@@ -27,7 +27,7 @@ namespace Pastel
 		const Vector<Real, N> meanPoint = mean(pointSet);
 
 		// We choose the initial approximation as
-		// the direction of greatest axis aligned variance.
+		// the direction of greatest axis-aligned variance.
 		// Simply setting it to e_1 = (1, 0, ..., 0)
 		// does not always work, probably due to numerical
 		// errors.

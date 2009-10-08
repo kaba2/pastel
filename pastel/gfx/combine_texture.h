@@ -1,6 +1,5 @@
-// Description: Combine_Texture class
-// Detail: A point-wise combination of two textures.
-// Documentation: texture.txt
+// Description: Texture that is a point-wise combination of two textures
+// Documentation: modifier_textures.txt
 
 #ifndef PASTEL_COMBINE_TEXTURE_H
 #define PASTEL_COMBINE_TEXTURE_H
