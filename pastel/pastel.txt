@@ -10,29 +10,43 @@ Description
 
 Pastel is a C++ library for geometry and computer graphics.
 
-Publishing
-----------
+Documentation
+-------------
 
-The motivation for publishing Pastel is two-fold. First,
-I hope it to transmit at least a few neat ideas for people 
-interested in computer graphics, geometry, and programming. 
-Second, I have implemented another library ([TIM][]) that uses 
-Pastel. Because I wanted to be open with its sources, this
-was a good time to publish Pastel too.
+Pastel uses a novel documentation system called _LightMark_ to
+integrate source code with its documentation. Thus you will find that 
+browsing the source code of Pastel is a bit different than what you might 
+have used to. 
 
-[TIM]: http://kaba.hilvi.org/tim
+Rather than repeating what is said in the source-code as part 
+of the interface documentation, the documentation in these pages
+defines the theory behind the subjects, as well as gives a
+high-level practical introduction to the subject. The source-code
+files that are related to each subject are gathered as links
+onto the documentation page of that subject. 
+This approach is somewhat reminiscent of the literate programming paradigm 
+where the source code is mixed with prose. However, instead of going
+that far, LightMark obtains a tight coupling between the source
+code and documentation by organizing all files into a hierarchical 
+tree. This tree allows you to concentrate on the interesting part 
+while ignoring the rest. 
+
+If you are interested, you can find more information about the LightMark 
+documentation system from below.
 
 Source code
 -----------
 
-The source-code for Pastel is licensed under the GNU Lesser GPL license, which is 
-unrestrictive and non-viral. While this allows you to build your programs using
-Pastel, I do not recommend you do this. This is because I am still developing 
-the library and can in this process break backwards-compatibility. 
+The source-code for Pastel is licensed under the _GNU Lesser GPL_ license, which is 
+unrestrictive and non-viral. While this allows you to build your own programs using
+Pastel, I do not recommend you do this. This is because Pastel is still under development
+and is thus prone to break backwards-compatibility. Rather, consider it from 
+an educational viewpoint containing implementations and documentations of useful 
+data structures and algorithms.
 
 There are two easy ways to browse the source-code
-online complete with coloring. The first one is to read this documentation, 
-following the links. The second one is to view the 
+online complete with coloring. The first one is to read this documentation
+in a hierarchical manner following the links. The second one is to view the 
 source-code tree.
 
  * [View the source-code tree][ViewSourceTree].
@@ -45,6 +59,20 @@ link below for more information.
 
 [DownloadSource]: 
 [ViewSourceTree]: ./
+
+Note on web-browsers
+--------------------
+
+This documentation uses MathMl to display inlined mathematics.
+Unfortunately not all browsers support MathMl natively, including
+Internet Explorer. In this case you will not be able to see the 
+mathematical expressions correctly. While there is a plug-in 
+available (MathPlayer) for adding this capability to Internet Explorer, 
+in our tests this combination crashed the browser when viewing 
+these pages. According to Wikipedia, some major web-browsers that 
+currently display MathMl natively include Mozilla Firefox, Opera, 
+and Camino. At this point we can't do anything else than to direct 
+you to use these browsers to view these pages.
 
 Sub-libraries
 ------------

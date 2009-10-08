@@ -1,4 +1,5 @@
-// Description: Algorithms for const GfxRenderer
+// Description: Algorithms for GfxRenderer
+// Documentation: renderer.txt
 
 #ifndef PASTEL_GFXRENDERER_TOOLS_H
 #define PASTEL_GFXRENDERER_TOOLS_H

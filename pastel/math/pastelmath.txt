@@ -1,7 +1,7 @@
 PastelMath
 ==========
 
-[Parent]: pastel.txt
+[Parent!]: pastel.txt
 
 The purpose of PastelMath is to provide general-purpose 
 mathematical tools. Algorithms and tools for geometry can 

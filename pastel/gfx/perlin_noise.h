@@ -1,5 +1,4 @@
 // Description: Perlin's classic noise
-// Documentation: noise.txt
 
 #ifndef PASTEL_PERLIN_NOISE_H
 #define PASTEL_PERLIN_NOISE_H

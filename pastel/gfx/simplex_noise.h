@@ -1,5 +1,4 @@
 // Description: Perlin's simplex noise
-// Documentation: noise.txt
 
 #ifndef PASTEL_SIMPLEX_NOISE_H
 #define PASTEL_SIMPLEX_NOISE_H
