@@ -200,6 +200,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\pastelmathtest.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\test_biginteger.cpp"
 			>
 		</File>

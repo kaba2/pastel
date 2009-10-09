@@ -215,6 +215,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\pastelgeometrytest.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\test_all_nearest_neigbors.cpp"
 			>
 		</File>

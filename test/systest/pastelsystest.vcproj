@@ -200,6 +200,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\pastelsystest.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\poolspeed.txt"
 			>
 		</File>
