@@ -11,7 +11,7 @@
 #define PASTEL_ENABLE_PENSURES 0
 
 // PASTEL_ENABLE_OMP != 0 => #include <omp.h> will be added where needed.
-#define PASTEL_ENABLE_OMP 0
+#define PASTEL_ENABLE_OMP 1
 
 // PASTEL_DYNAMIC_LIBRARIES == 0 => No dll-exporting is done.
 #define PASTEL_DYNAMIC_LIBRARIES 1

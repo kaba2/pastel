@@ -75,6 +75,29 @@ namespace Pastel
 		return result;
 	}
 
+	template <typename Real, typename NormBijection>
+	Real distance2(
+		const Real* aPoint,
+		const Real* bPoint,
+		integer dimension,
+		const NormBijection& normBijection)
+	{
+		PENSURE_OP(dimension, >=, 0);
+
+		Real result = 0;
+		for (integer i = 0;i < dimension;++i)
+		{
+			result = normBijection.addAxis(
+				result, 
+				normBijection.signedAxis(*aPoint - *bPoint));
+
+			++aPoint;
+			++bPoint;
+		}
+
+		return result;
+	}
+
 	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,

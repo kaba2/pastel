@@ -29,6 +29,13 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint);
 
+	template <typename Real, typename NormBijection>
+	Real distance2(
+		const Real* aPoint,
+		const Real* bPoint,
+		integer dimension,
+		const NormBijection& normBijection);
+
 	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
