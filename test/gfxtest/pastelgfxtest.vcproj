@@ -200,6 +200,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\pastelgfxtest.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\test_adaptedarray.cpp"
 			>
 		</File>

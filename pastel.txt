@@ -93,13 +93,11 @@ Pastel divides into a number of sub-libraries. These are:
 
 ### [PastelGl][]
 
-### PastelRay (not published yet)
-
-[PastelSys]: ./sys/pastelsys.htm
-[PastelMath]: ./math/pastelmath.htm
-[PastelGeometry]: ./geometry/pastelgeometry.htm
-[PastelDsp]: ./dsp/pasteldsp.htm
-[PastelGfx]: ./gfx/pastelgfx.htm
-[PastelDevice]: ./device/pasteldevice.htm
-[PastelGl]: ./gl/pastelgl.htm
+[PastelSys]: ./pastel/sys/pastelsys.htm
+[PastelMath]: ./pastel/math/pastelmath.htm
+[PastelGeometry]: ./pastel/geometry/pastelgeometry.htm
+[PastelDsp]: ./pastel/dsp/pasteldsp.htm
+[PastelGfx]: ./pastel/gfx/pastelgfx.htm
+[PastelDevice]: ./pastel/device/pasteldevice.htm
+[PastelGl]: ./pastel/gl/pastelgl.htm
 

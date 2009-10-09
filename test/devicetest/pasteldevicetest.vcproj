@@ -188,6 +188,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\pasteldevicetest.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\test_thread.cpp"
 			>
 		</File>
