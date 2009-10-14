@@ -6,6 +6,7 @@
 
 #include "pastel/sys/environment.h"
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/pastelomp.h"
 
 #define PASTEL_NO_DEDUCTION(x) typename Pastel::ParenthesesRemover<void (x)>::Type
 

@@ -32,6 +32,11 @@ namespace Pastel
 	The rectangular region to sum over.
 	*/
 
+	template <typename Type, typename Sum_ConstView>
+	Type summedAreaTable(
+		const ConstView<2, Type, Sum_ConstView>& sumImage,
+		const Rectangle2& region);
+
 	template <typename Image_Element, typename Image_ConstView>
 	Image_Element summedAreaTable(
 		const ExtendedConstView<2, Image_Element, Image_ConstView>& sumImage,

@@ -8,26 +8,28 @@
 namespace Pastel
 {
 
-	template <typename Real, typename ConstIterator, typename OutputIterator>
+	template <typename Real_ConstIterator, typename Real_OutputIterator>
 	void computeHistogram(
-		const ConstIterator& begin,
-		const ConstIterator& end,
-		const Real& min,
-		const Real& max,
+		const ForwardRange<Real_ConstIterator>& dataSet,
+		const typename std::iterator_traits<Real_ConstIterator>::value_type& min,
+		const typename std::iterator_traits<Real_ConstIterator>::value_type& max,
 		integer bins,
-		const OutputIterator& outputBegin)
+		const Real_OutputIterator& outputBegin)
 	{
 		ENSURE_OP(bins, >, 0);
 
+		typedef typename std::iterator_traits<Real_ConstIterator>::value_type
+			Real;
+
 		const Real rangeDelta = max - min;
 
-		std::fill(
-			outputBegin, outputBegin + bins, 0);
+		std::vector<Real> hitSet(bins, 0);
 
-		ConstIterator iter = begin;
+		Real_ConstIterator iter = dataSet.begin();
+		const Real_ConstIterator iterEnd = dataSet.end();
 		integer samples = 0;
 
-		while(iter != end)
+		while(iter != iterEnd)
 		{
 			Real value = *iter;
 
@@ -39,7 +41,7 @@ namespace Pastel
 				const integer bin  =
 					quantizeUnsigned(value, bins);
 
-				++*(outputBegin + bin);
+				++hitSet[bin];
 			}
 			
 			++iter;
@@ -50,14 +52,13 @@ namespace Pastel
 
 		const Real binSize = (max - min) / bins;
 		const Real factor = (Real)1 / (samples * binSize);
-		
-		OutputIterator outputIter = outputBegin;
-		const OutputIterator outputEnd = outputBegin + bins;
-		while(outputIter != outputEnd)
+		for (integer i = 0;i < bins;++i)
 		{
-			*outputIter *= factor;
-			++outputIter;
+			hitSet[i] *= factor;
 		}
+
+		std::copy(hitSet.begin(), hitSet.end(),
+			outputBegin);
 	}
 
 	template <typename Real, typename ConstIterator, typename OutputView>

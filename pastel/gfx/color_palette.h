@@ -22,8 +22,13 @@ namespace Pastel
 	PASTELGFX void randomPalette(std::vector<Color>& palette, integer count = 256);
 
 	//! Generates a grayscale palette.
+	/*!
+	Preconditions:
+	count >= 0
+	maxValue >= 0
+	*/
 
-	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count = 256);
+	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count = 256, real32 maxValue = 1);
 
 	//! Generates a palette good for false color images.
 

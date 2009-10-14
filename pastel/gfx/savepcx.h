@@ -71,9 +71,11 @@ namespace Pastel
 		const Array<Color, 2>& image,
 		const std::string& fileName);
 
-	PASTELGFX bool saveGrayscalePcx(
-		const Array<real32, 2>& image,
-		const std::string& fileName);
+	template <typename Real>
+	bool saveGrayscalePcx(
+		const Array<Real>& image,
+		const std::string& fileName,
+		bool maximizeContrast = false);
 
 }
 

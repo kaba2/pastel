@@ -389,17 +389,4 @@ namespace Pastel
 		return savePcx(image, fileName, adapter);
 	}
 
-	PASTELGFX bool saveGrayscalePcx(
-		const Array<real32, 2>& image,
-		const std::string& fileName)
-	{
-		ReverseAdapter<Integer_To_Real<real32, uint8> > adapter(
-			Integer_To_Real<real32, uint8>(256));
-
-		std::vector<Color> palette;
-		grayscalePalette(palette, 256);
-
-		return saveIndexedPcx(image, palette, fileName, adapter);
-	}
-
 }

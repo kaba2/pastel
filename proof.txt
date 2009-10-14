@@ -48,19 +48,6 @@ For example, in ''RR^4'':
 
 ''v_4 = d [1 / 2, sqrt(3) / 12, 3 / 16, (3 * sqrt(3)) / 8]^T''
 
-### Simplicial tesselation of ''RR^n''
-
-Partition ''RR^n'' with a set of almost-disjoint (intersection set
-has measure zero) regular simplices of edge length ''d'', such that
-one of the simplices is given by the generation procedure above.
-Then we can take think of the vertices of the simplices as a linear
-transform of the integer grid. This linear transformation is given by:
-
-''M = [v_1 - v_0, ..., v_n - v_0] = [v_1, ..., v_n]''.
-
-Notice that ''M'' is lower-triangular and therefore admits fast
-solving of linear equations ''Mx = b''.
-
 Theory of views
 ===============
 

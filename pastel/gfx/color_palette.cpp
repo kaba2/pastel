@@ -123,16 +123,17 @@ namespace Pastel
 		resultPalette.swap(palette);
 	}
 
-	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count)
+	PASTELGFX void grayscalePalette(std::vector<Color>& palette, integer count, real32 maxValue)
 	{
 		ENSURE_OP(count, >=, 0);
+		ENSURE_OP(maxValue, >=, 0);
 
 		std::vector<Color> resultPalette;
 		resultPalette.reserve(count);
 
 		for (integer i = 0;i < count;++i)
 		{
-			resultPalette.push_back(Color((real32)i / (count - 1)));
+			resultPalette.push_back(Color(maxValue * ((real32)i / (count - 1))));
 		}
 
 		resultPalette.swap(palette);

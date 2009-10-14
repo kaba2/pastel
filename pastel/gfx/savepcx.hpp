@@ -2,8 +2,12 @@
 #define PASTEL_SAVEPCX_HPP
 
 #include "pastel/gfx/savepcx.h"
+#include "pastel/gfx/color_palette.h"
+#include "pastel/gfx/coloradapter.h"
 
 #include "pastel/sys/adaptedarray.h"
+
+#include <algorithm>
 
 namespace Pastel
 {
@@ -43,6 +47,48 @@ namespace Pastel
 			image, adapter);
 
 		return savePcx(adaptedImage, fileName);
+	}
+
+	template <typename Real>
+	bool saveGrayscalePcx(
+		const Array<Real>& image,
+		const std::string& fileName,
+		bool maximizeContrast)
+	{
+		const Real maxValue = 
+			std::max(*std::max_element(image.begin(), image.end()), (Real)0);
+
+		ReverseAdapter<Integer_To_Real<Real, uint8> > adapter(
+			Integer_To_Real<Real, uint8>(256, maxValue));
+
+		const real32 paletteMaxValue = maximizeContrast ? 
+			1 : maxValue;
+
+		std::vector<Color> palette;
+		grayscalePalette(palette, 256, paletteMaxValue);
+
+		return saveIndexedPcx(image, palette, fileName, adapter);
+	}
+
+	template <typename Real>
+	bool saveRainbowPcx(
+		const Array<Real>& image,
+		const std::string& fileName,
+		bool maximizeContrast)
+	{
+		const Real maxValue = 
+			std::max(*std::max_element(image.begin(), image.end()), (Real)0);
+
+		ReverseAdapter<Integer_To_Real<Real, uint8> > adapter(
+			Integer_To_Real<Real, uint8>(256, maxValue));
+
+		const real32 paletteMaxValue = maximizeContrast ? 
+			1 : maxValue;
+
+		std::vector<Color> palette;
+		smoothFalseColorPalette(palette, 256);
+
+		return saveIndexedPcx(image, palette, fileName, adapter);
 	}
 
 }
