@@ -5,18 +5,20 @@
 #define PASTEL_HISTOGRAM_H
 
 #include "pastel/sys/view.h"
+#include "pastel/sys/forwardrange.h"
+
+#include <iterator>
 
 namespace Pastel
 {
 
-	template <typename Real, typename ConstIterator, typename OutputIterator>
+	template <typename Real_ConstIterator, typename Real_OutputIterator>
 	void computeHistogram(
-		const ConstIterator& begin,
-		const ConstIterator& end,
-		const Real& min,
-		const Real& max,
+		const ForwardRange<Real_ConstIterator>& dataSet,
+		const typename std::iterator_traits<Real_ConstIterator>::value_type& min,
+		const typename std::iterator_traits<Real_ConstIterator>::value_type& max,
 		integer bins,
-		const OutputIterator& outputBegin);
+		const Real_OutputIterator& outputBegin);
 
 	template <typename Real, typename ConstIterator, typename OutputView>
 	void computeJointHistogram(

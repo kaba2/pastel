@@ -1,6 +1,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/log_all.h"
+#include "pastel/sys/pastelomp.h"
 
 #include <iostream>
 #include <string>

@@ -60,17 +60,6 @@ namespace Pastel
 			ConstAdaptedView<N, Adapter, Input_ConstView>(view.contained(), adapter));
 	}
 
-	//! Permutes the dimensions of the view.
-	/*!
-	More specifically:
-
-	adaptedView(x_1, ..., x_n) =
-	view(x_p(1), ..., x_p(n))
-
-	Where
-	p is in [1, n]^n
-	*/
-
 	template <int N, typename Adapter, typename Contained_View>
 	class AdaptedView
 		: public ConstAdaptedView<N, Adapter, Contained_View>

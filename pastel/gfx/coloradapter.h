@@ -104,23 +104,26 @@ namespace Pastel
 		typedef Integer Physical;
 
 		explicit Integer_To_Real(
-			integer numbers)
+			integer numbers,
+			Real maxValue = 1)
 			: numbers_(numbers)
+			, maxValue_(maxValue)
 		{
 		}
 
 		Logical convert(const Physical& physical) const
 		{
-			return dequantizeUnsigned(physical, numbers_);
+			return dequantizeUnsigned(physical, numbers_) * maxValue_;
 		}
 
 		Physical revert(const Logical& logical) const
 		{
-			return quantizeUnsigned(logical, numbers_);
+			return quantizeUnsigned(logical / maxValue_, numbers_);
 		}
 
 	private:
 		integer numbers_;
+		Real maxValue_;
 	};
 
 	template <typename Integer>

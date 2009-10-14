@@ -54,6 +54,7 @@
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
+				ForcedIncludeFiles="force_old_runtime.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -136,6 +137,7 @@
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
+				ForcedIncludeFiles="$(SolutionDir)\force_old_runtime.h"
 				ShowIncludes="false"
 			/>
 			<Tool
@@ -1113,6 +1115,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\force_old_runtime.h"
+				>
+			</File>
+			<File
 				RelativePath=".\meta.txt"
 				>
 			</File>
@@ -1397,59 +1403,51 @@
 			Name="Documentation"
 			>
 			<File
-				RelativePath="..\documentation.txt"
+				RelativePath="..\..\documentation.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\external.txt"
+				RelativePath="..\..\external.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\installation.txt"
+				RelativePath="..\..\installation.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\internal.txt"
+				RelativePath="..\..\internal.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\pastel.txt"
+				RelativePath="..\..\pastel.txt"
 				>
 			</File>
 			<File
-				RelativePath=".\pastelsys.txt"
+				RelativePath="..\..\proof.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\proof.txt"
+				RelativePath="..\..\remarks.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\remarks.txt"
+				RelativePath="..\..\style_conventions.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\some_points.txt"
+				RelativePath="..\..\techniques.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\style_conventions.txt"
+				RelativePath="..\..\techniques_deduction.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\techniques.txt"
+				RelativePath="..\..\techniques_specialization.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\techniques_deduction.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\techniques_specialization.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\techniques_tips.txt"
+				RelativePath="..\..\techniques_tips.txt"
 				>
 			</File>
 		</Filter>

@@ -6,6 +6,7 @@
 
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/rectangle_tools.h"
 
 namespace Pastel
 {
@@ -29,19 +30,21 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				const Type& imageElement, Type& sumImageElement) const
 			{
+				const integer n = position.size();
+
 				Type sum = imageElement;
 
-				for (integer i = 0;i < N;++i)
+				for (integer i = 0;i < n;++i)
 				{
 					if (position[i] > 0)
 					{
-						sum += sumImage_(position - unitAxis<integer, N>(i));
+						sum += sumImage_(position - unitAxis<integer, N>(n, i));
 					}
 				}
 
 				if (allGreater(position, 0))
 				{
-					sum -= (N - 1) * sumImage_(position - 1);
+					sum -= (n - 1) * sumImage_(position - 1);
 				}
 
 				sumImageElement = sum;
@@ -62,6 +65,39 @@ namespace Pastel
 		Detail_ComputeSummedAreaTable::Visitor<N, Type, Image_ConstView, Sum_View>
 			visitor(image, sumImage);
 		visitPosition(image, sumImage, visitor);
+	}
+
+	template <typename Type, typename Sum_ConstView>
+	Type summedAreaTable(
+		const ConstView<2, Type, Sum_ConstView>& sumImage,
+		const Rectangle2& region)
+	{
+		if (anyEqual(sumImage.extent(), 0) ||
+			anyLess(region.max(), 0))
+		{
+			return 0;
+		}
+
+		const Rectangle2 equalRegion(
+			min(region.min(), sumImage.extent() - 1) - 1,
+			min(region.max(), sumImage.extent()) - 1);
+
+		Type sum = sumImage(equalRegion.max());
+
+		if (equalRegion.min().x() >= 0)
+		{
+			sum -= sumImage(equalRegion.min().x(), equalRegion.max().y());
+		}
+		if (equalRegion.min().y() >= 0)
+		{
+			sum -= sumImage(equalRegion.max().x(), equalRegion.min().y());
+		}
+		if (equalRegion.min().x() >= 0 && equalRegion.min().y() >= 0)
+		{
+			sum += sumImage(equalRegion.min());
+		}
+
+		return sum;
 	}
 
 	template <typename Image_Element, typename Image_ConstView>
