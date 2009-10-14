@@ -28,18 +28,23 @@ namespace Pastel
 	The maximum relative error to distance under which
 	candidates are not possibly reported as a neighbor.
 
+	acceptPoint:
+	A predicate which allows to ignore some points.
+	See 'pastel/geometry/acceptpoint.txt'.
+
 	normBijection:
 	The norm bijection to use for distance measures.
 	See 'pastel/math/normbijection.txt'.
-
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NormBijection, typename CandidateFunctor>
+		typename AcceptPoint, typename NormBijection, 
+		typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor);
 
@@ -47,33 +52,37 @@ namespace Pastel
 	{
 	public:
 		template <typename Real, int N, typename ObjectPolicy, 
-			typename NormBijection, typename CandidateFunctor>
+			typename AcceptPoint, typename NormBijection, 
+			typename CandidateFunctor>
 		static void work(
 			const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 			const Vector<Real, N>& searchPoint,
 			const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 			const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+			const AcceptPoint& acceptPoint,
 			const NormBijection& normBijection,
 			const CandidateFunctor& candidateFunctor)
 		{
 			searchDepthFirst(
 				kdTree, searchPoint, maxDistance, maxRelativeError, 
-				normBijection, candidateFunctor);
+				acceptPoint, normBijection, candidateFunctor);
 		}
 
 		template <typename Real, int N, typename ObjectPolicy, 
-			typename NormBijection, typename CandidateFunctor>
+			typename AcceptPoint, typename NormBijection, 
+			typename CandidateFunctor>
 		static void work(
 			const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 			const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
 			const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 			const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+			const AcceptPoint& acceptPoint,
 			const NormBijection& normBijection,
 			const CandidateFunctor& candidateFunctor)
 		{
 			searchDepthFirst(
 				kdTree, searchPoint, maxDistance, maxRelativeError, 
-				normBijection, candidateFunctor);
+				acceptPoint, normBijection, candidateFunctor);
 		}
 	};
 

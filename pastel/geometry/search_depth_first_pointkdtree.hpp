@@ -16,7 +16,8 @@ namespace Pastel
 		// Depth-first approximate search
 
 		template <typename Real, int N, typename ObjectPolicy, 
-			typename NormBijection, typename CandidateFunctor>
+			typename AcceptPoint, typename NormBijection, 
+			typename CandidateFunctor>
 		class DepthFirst
 		{
 		private:
@@ -30,12 +31,14 @@ namespace Pastel
 				const Vector<Real, N>& searchPoint_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
+				const AcceptPoint& acceptPoint_,
 				const NormBijection& normBijection_,
 				const CandidateFunctor& candidateFunctor_)
 				: kdTree(kdTree_)
 				, searchPoint(searchPoint_)
 				, maxDistance(maxDistance_)
 				, maxRelativeError(maxRelativeError_)
+				, acceptPoint(acceptPoint_)
 				, normBijection(normBijection_)
 				, candidateFunctor(candidateFunctor_)
 				, objectPolicy(kdTree_.objectPolicy())
@@ -138,7 +141,7 @@ namespace Pastel
 					// It is essential that this is <= rather
 					// than <, because of the possibility
 					// of multiple points at same location.
-					if (currentDistance <= cullDistance)
+					if (currentDistance <= cullDistance && acceptPoint(iter))
 					{
 						candidateFunctor(currentDistance, iter);
 						const Real cullSuggestion = 
@@ -254,6 +257,7 @@ namespace Pastel
 			const Vector<Real, N>& searchPoint;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
+			const AcceptPoint& acceptPoint;
 			const NormBijection& normBijection;
 			const CandidateFunctor& candidateFunctor;
 			const ObjectPolicy& objectPolicy;
@@ -268,12 +272,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NormBijection, typename CandidateFunctor>
+		typename AcceptPoint, typename NormBijection, 
+		typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{
@@ -282,20 +288,22 @@ namespace Pastel
 			return;
 		}
 
-		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, NormBijection, CandidateFunctor>
+		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
 			depthFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
-			normBijection, candidateFunctor);
+			acceptPoint, normBijection, candidateFunctor);
 
 		depthFirst.workTopDown();
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NormBijection, typename CandidateFunctor>
+		typename AcceptPoint, typename NormBijection, 
+		typename CandidateFunctor>
 	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{
@@ -308,10 +316,9 @@ namespace Pastel
 			ofDimension(kdTree.dimension()), 
 			withAliasing((Real*)kdTree.objectPolicy().point(searchPoint->object())));
 
-		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, NormBijection, CandidateFunctor>
-			depthFirst(kdTree, searchPoint2, 
-			maxDistance, maxRelativeError,
-			normBijection, candidateFunctor);
+		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
+			depthFirst(kdTree, searchPoint2, maxDistance, maxRelativeError,
+			acceptPoint, normBijection, candidateFunctor);
 
 		depthFirst.workBottomUp(searchPoint->bucket());
 	}

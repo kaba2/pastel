@@ -74,6 +74,7 @@ namespace Pastel
 		Dynamic = -1
 	};
 
+	class PASTELSYS UserDefinedType {};
 	class PASTELSYS EmptyClass {};
 	class PASTELSYS TrueType {};
 	class PASTELSYS FalseType {};

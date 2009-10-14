@@ -32,6 +32,11 @@ namespace Pastel
 
 		const integer queries = querySet.size();
 
+		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+			ConstObjectIterator;
+
+		Always_AcceptPoint<ConstObjectIterator> acceptPoint;
+
 #		pragma omp parallel for
 		for (integer i = 0;i < queries;++i)
 		{
@@ -41,6 +46,7 @@ namespace Pastel
 				kdTree, 
 				querySet[i], 
 				maxDistanceSet[i], 
+				acceptPoint,
 				normBijection);
 		}
 	}
