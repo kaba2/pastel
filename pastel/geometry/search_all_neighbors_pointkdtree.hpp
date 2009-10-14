@@ -73,7 +73,7 @@ namespace Pastel
 				kdTree, 
 				querySet[i], 
 				searchAlgorithm,
-				Dont_Accept_PointKdTree<ConstObjectIterator>(querySet[i]),
+				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
 				maxDistanceSet[i], 
 				maxRelativeError,
 				normBijection, 

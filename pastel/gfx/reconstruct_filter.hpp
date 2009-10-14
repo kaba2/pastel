@@ -92,7 +92,7 @@ namespace Pastel
 					kdTree_, 
 					evaluate(Vector<real, N>(position) + 0.5),
 					DepthFirst_SearchAlgorithm_PointKdTree(),
-					Always_Accept_PointKdTree(),
+					Always_AcceptPoint<ConstIterator>(),
 					filter_.radius() * filterStretch_,
 					0,
 					Infinity_NormBijection<Real>(),

@@ -1576,6 +1576,46 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Concepts and their models"
+			>
+			<File
+				RelativePath=".\geometry_concepts.txt"
+				>
+			</File>
+			<Filter
+				Name="AcceptPoint"
+				>
+				<File
+					RelativePath=".\acceptpoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\acceptpoint.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\acceptpoint_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\always_acceptpoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\dont_acceptpoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\negate_acceptpoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\objectdont_acceptpoint.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

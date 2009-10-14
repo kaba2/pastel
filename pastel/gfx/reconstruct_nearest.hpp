@@ -87,7 +87,7 @@ namespace Pastel
 					kdtree_, 
 					evaluate(Vector<Real, N>(position) + 0.5), 
 					DepthFirst_SearchAlgorithm_PointKdTree(),
-					Always_Accept_PointKdTree(),
+					Always_AcceptPoint<ConstIterator>(),
 					infinity<Real>(), 
 					maxRelativeError_, 
 					Euclidean_NormBijection<Real>(),
