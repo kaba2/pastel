@@ -692,11 +692,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\infinity_normbijection.h"
+				RelativePath=".\manhattan_normbijection.h"
 				>
 			</File>
 			<File
-				RelativePath=".\manhattan_normbijection.h"
+				RelativePath=".\maximum_normbijection.h"
 				>
 			</File>
 			<File

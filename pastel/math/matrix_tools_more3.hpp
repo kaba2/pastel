@@ -212,14 +212,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int Height, int Width, typename Expression>
-	Real normManhattan(
+	Real manhattanNorm(
 		const MatrixExpression<Real, Height, Width, Expression>& matrix)
 	{
 		return max(sum(abs(matrix)));
 	}
 
 	template <typename Real, int Height, int Width, typename Expression>
-	Real normInfinity(
+	Real maxNorm(
 		const MatrixExpression<Real, Height, Width, Expression>& matrix)
 	{
 		return max(sum(abs(transpose(matrix))));
@@ -239,14 +239,14 @@ namespace Pastel
 	Real conditionManhattan(
 		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{
-		return normManhattan(matrix) * normManhattan(inverse(matrix));
+		return manhattanNorm(matrix) * manhattanNorm(inverse(matrix));
 	}
 
 	template <typename Real, int N, typename Expression>
 	Real conditionInfinity(
 		const MatrixExpression<Real, N, N, Expression>& matrix)
 	{
-		return normInfinity(matrix) * normInfinity(inverse(matrix));
+		return maxNorm(matrix) * maxNorm(inverse(matrix));
 	}
 
 	template <typename Real>

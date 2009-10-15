@@ -411,9 +411,9 @@ namespace
 				const Matrix<real, N, N> mInv = inverse(m);
 
 				const real leftError = 
-					normManhattan(m * mInv - identityMatrix<real, N, N>(n, n));
+					manhattanNorm(m * mInv - identityMatrix<real, N, N>(n, n));
 				const real rightError = 
-					normManhattan(mInv * m - identityMatrix<real, N, N>(n, n));
+					manhattanNorm(mInv * m - identityMatrix<real, N, N>(n, n));
 				if (leftError > 0.001 ||
 					rightError > 0.001)
 				{

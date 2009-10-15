@@ -1,9 +1,9 @@
-// Description: Infinity_NormBijection class
-// Detail: A norm bijection of the infinity norm
+// Description: Maximum_NormBijection class
+// Detail: A norm bijection of the maximum norm
 // Documentation: normbijection.txt
 
-#ifndef PASTEL_INFINITY_NORMBIJECTION_H
-#define PASTEL_INFINITY_NORMBIJECTION_H
+#ifndef PASTEL_MAXIMUM_NORMBIJECTION_H
+#define PASTEL_MAXIMUM_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/syscommon.h"
@@ -14,7 +14,7 @@ namespace Pastel
 {
 
 	template <typename Real>
-	class Infinity_NormBijection
+	class Maximum_NormBijection
 	{
 	public:
 		// Using default constructor.
