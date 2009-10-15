@@ -6,6 +6,7 @@
 #include "pastel/geometry/intersect_line_alignedbox.h"
 
 #include "pastel/math/uniform_sampling.h"
+#include "pastel/math/smoothstep.h"
 
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/savepcx.h"
@@ -22,76 +23,6 @@ using namespace Pastel;
 
 namespace
 {
-
-	template <typename Real, int N>
-	void testNearest2(integer dimension)
-	{
-		KdTree<Real, N> kdTree(ofDimension(dimension));
-
-		const integer points = 10000;
-		std::vector<Vector<Real, N> > pointList;
-		pointList.reserve(points);
-
-		for (integer i = 0;i < points;++i)
-		{
-			pointList.push_back(randomVectorBall<Real, N>(dimension));
-		}
-
-		kdTree.insert(pointList.begin(), pointList.end());
-
-		log() << "The kdTree has " << logNewLine;
-		log() << kdTree.nodes() << " nodes" << logNewLine;
-		log() << "Depth of " << depth(kdTree) << logNewLine;
-		log() << kdTree.objects() << " object references ("
-			<< (Real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
-
-		kdTree.refine(
-			computeKdTreeMaxDepth(kdTree.objects()), 16, Midpoint_SplitRule());
-
-		REPORT(!check(kdTree));
-
-		log() << "The kdTree has " << logNewLine;
-		log() << kdTree.nodes() << " nodes" << logNewLine;
-		log() << "Of which " << kdTree.leaves() << " are leaf nodes." << logNewLine;
-		log() << "Depth of " << depth(kdTree) << logNewLine;
-		log() << kdTree.objects() << " object references ("
-			<< (Real)kdTree.objects() / kdTree.leaves() << " per leaf on average)." << logNewLine;
-
-		{
-			KdTree<Real, Dynamic> bTree(ofDimension(dimension));
-
-			std::vector<Vector<Real, Dynamic> > bPointList;
-			bPointList.reserve(points);
-
-			for (integer i = 0;i < points;++i)
-			{
-				Vector<Real, Dynamic> p(ofDimension(dimension));
-				for (integer j = 0;j < dimension;++j)
-				{
-					p[j] = pointList[i][j];
-				}
-
-				bPointList.push_back(p);
-				ENSURE(allEqual(bPointList.back(),
-					p));
-			}
-
-			bTree.insert(bPointList.begin(), bPointList.end());
-
-			bTree.refine(
-				computeKdTreeMaxDepth(bTree.objects()), 16, Midpoint_SplitRule());
-
-			REPORT(!check(bTree));
-
-			REPORT(!equivalentKdTree(kdTree, bTree));
-		}
-	}
-
-	void testNearest()
-	{
-		testNearest2<float, 2>(2);
-		//testNearest2<float, Dynamic>(10);
-	}
 
 	class SpherePolicy
 	{
@@ -226,7 +157,8 @@ namespace
 					recursiveRayTraversal(kdTree, ray, sphereIntersector);
 				if (iter != kdTree.end())
 				{
-					image(x, y) = palette[(uint8)((pointer_integer)(*iter) % 256)];
+					image(x, y) = linear(Color(1), evaluate(0.5 * Color(0.5, 0, 1)), cubicSmoothStep(norm((*iter)->position())));
+					//image(x, y) = palette[(uint8)((pointer_integer)(*iter) % 256)];
 					//image(x, y) = Color(1);
 				}
 			}
@@ -242,7 +174,6 @@ namespace
 	void testAdd()
 	{
 		geometryTestList().add("KdTree.RayTracing", testSphereTracing);
-		geometryTestList().add("KdTree.Nearest", testNearest);
 	}
 
 	CallFunction run(testAdd);
