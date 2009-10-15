@@ -6,5 +6,7 @@ Concepts in PastelGeometry
 Here we have gathered all of the concepts that occur
 all across the PastelGeometry.
 
+[Link]: acceptpoint.txt
+
 
 

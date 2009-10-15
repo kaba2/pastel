@@ -261,6 +261,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_pointkdtree.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_pointpattern.cpp"
 			>
 		</File>

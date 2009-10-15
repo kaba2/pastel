@@ -4,6 +4,7 @@
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/pointkdtree_tools.h"
+#include "pastel/geometry/dont_acceptpoint.h"
 
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/countingiterator.h"
@@ -70,16 +71,13 @@ namespace Pastel
 
 			const integer nearestCount = 
 				searchNearest(
-				kdTree, 
-				querySet[i], 
-				searchAlgorithm,
-				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
-				maxDistanceSet[i], 
-				maxRelativeError,
-				normBijection, 
+				kdTree, querySet[i], 
 				kNearestEnd,
-				nearestSet.begin(), 
-				distanceSet.begin());
+				nearestSet.begin(), distanceSet.begin(),
+				maxDistanceSet[i], maxRelativeError,
+				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
+				normBijection, 
+				searchAlgorithm);
 
 			if (nearestArray)
 			{

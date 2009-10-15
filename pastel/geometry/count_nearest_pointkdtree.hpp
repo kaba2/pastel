@@ -4,6 +4,9 @@
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
+#include "pastel/geometry/always_acceptpoint.h"
+
+#include "pastel/math/euclidean_normbijection.h"
 
 namespace Pastel
 {

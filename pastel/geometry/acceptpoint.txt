@@ -1,7 +1,7 @@
 AcceptPoint concept
 -------------------
 
-[Parent]: geometry_concepts.txt
+[Parent]: nearest_neighbors.txt
 
 This concept is used in nearest neighbors searching and counting to be
 able to ignore a set of points during the search. For example, given

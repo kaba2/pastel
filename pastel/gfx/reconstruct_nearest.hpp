@@ -86,14 +86,10 @@ namespace Pastel
 				searchNearest(
 					kdtree_, 
 					evaluate(Vector<Real, N>(position) + 0.5), 
-					DepthFirst_SearchAlgorithm_PointKdTree(),
-					Always_AcceptPoint<ConstIterator>(),
-					infinity<Real>(), 
-					maxRelativeError_, 
-					Euclidean_NormBijection<Real>(),
 					kNearest_, 
 					std::back_inserter(nearestSet),
-					NullIterator());
+					NullIterator(),
+					infinity<Real>(), maxRelativeError_);
 
 				data = nearestSet.back()->object().data_;
 			}
