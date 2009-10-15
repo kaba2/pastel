@@ -67,9 +67,9 @@ For a long time computer monitors and image formats did not
 follow any standard on the used color space. This resulted
 in the images looking different depending on the 
 monitor because the transmitters had different spectra. 
-The _sRGB color space_ was proposed as a default color space
-for such images. If an image does not specify a color space, 
-then it is assumed to be in sRGB.
+The _sRGB color space_ was proposed and widely adopted as a 
+default color space for such images. If an image does not 
+specify a color space, then it is assumed to be in sRGB.
 
 The coordinates of the sRGB color space are gamma encoded,
 i.e. in a form ready to be sent to the monitor.

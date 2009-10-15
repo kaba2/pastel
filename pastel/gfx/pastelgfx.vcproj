@@ -487,10 +487,6 @@
 				RelativePath=".\noise.txt"
 				>
 			</File>
-			<File
-				RelativePath=".\noise_notes.txt"
-				>
-			</File>
 			<Filter
 				Name="Gradient field"
 				>
@@ -536,6 +532,10 @@
 				</File>
 				<File
 					RelativePath=".\simplex_noise.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\simplex_noise_notes.txt"
 					>
 				</File>
 			</Filter>

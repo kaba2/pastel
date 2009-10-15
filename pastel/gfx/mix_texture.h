@@ -1,4 +1,4 @@
-// Description: Texture that is an interpolation of two textures with a third
+// Description: Interpolation of two textures with a third
 // Documentation: modifier_textures.txt
 
 #ifndef PASTEL_MIX_TEXTURE_H

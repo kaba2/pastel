@@ -1,4 +1,4 @@
-// Description: Texture that is a point-wise combination of two textures
+// Description: Point-wise combination of two textures
 // Documentation: modifier_textures.txt
 
 #ifndef PASTEL_COMBINE_TEXTURE_H
