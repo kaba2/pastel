@@ -1,5 +1,4 @@
 // Description: AcceptPoint concept
-// Documentation: acceptpoint.txt
 
 #ifndef PASTEL_ACCEPTPOINT_CONCEPT_H
 #define PASTEL_ACCEPTPOINT_CONCEPT_H
@@ -14,10 +13,8 @@ namespace Pastel
 	public:
 		typedef UserDefinedType Object;
 
-		bool operator()(const Object&) const
-		{
-			return true;
-		}
+		//! Return whether to accept an object.
+		bool operator()(const Object&) const;
 	};
 
 }

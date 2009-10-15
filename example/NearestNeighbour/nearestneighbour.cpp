@@ -581,11 +581,12 @@ void logicHandler()
 	searchNearest(
 		tree__, 
 		worldMouse, 
-		DepthFirst_SearchAlgorithm_PointKdTree(),
-		Always_AcceptPoint<MyTree::ConstObjectIterator>(), 
+		nearestPoints__,
+		std::back_inserter(nearestPointSet__), 
+		NullIterator(),
 		normBijection__.toBijection(searchRadius__), 0,
-		normBijection__, nearestPoints__, std::back_inserter(nearestPointSet__), 
-		NullIterator());
+		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+		normBijection__);
 	if (searchRadius__ != infinity<real>())
 	{
 		searchRange(tree__, 
@@ -645,13 +646,12 @@ void erasePoints(const Vector2& center, real radius)
 	searchNearest(
 		tree__,
 		center,
-		DepthFirst_SearchAlgorithm_PointKdTree(),
-		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
-		normBijection__.toBijection(radius),
-		0, normBijection__,
 		tree__.objects(),
 		std::back_inserter(nearestSet),
-		NullIterator());
+		NullIterator(),
+		normBijection__.toBijection(radius), 0,
+		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+		normBijection__);
 
 	for (integer i = 0;i < nearestSet.size();i += 16)
 	{
@@ -716,11 +716,6 @@ void timing()
 		searchNearest(
 			tree__, 
 			iter->object(),
-			DepthFirst_SearchAlgorithm_PointKdTree(),
-			Always_AcceptPoint<MyTree::ConstObjectIterator>(),
-			infinity<real>(),
-			0,
-			Euclidean_NormBijection<real>(),
 			NearestPoints, 
 			std::back_inserter(nearestPointSet__),
 			NullIterator());

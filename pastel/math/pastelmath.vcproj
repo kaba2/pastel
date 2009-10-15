@@ -711,6 +711,10 @@
 				RelativePath=".\normbijection.txt"
 				>
 			</File>
+			<File
+				RelativePath=".\normbijection_concept.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Low discrepancy sequences"

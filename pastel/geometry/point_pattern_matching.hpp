@@ -209,30 +209,20 @@ namespace Pastel
 						searchNearest(
 							sceneTree_,
 							scenePoint,
-							DepthFirst_SearchAlgorithm_PointKdTree(),
-							Always_AcceptPoint<SceneIterator>(),
-							//Dont_AcceptPoint<SceneIterator>(sceneIter),
-							infinity<Real>(),
-							0,
-							Euclidean_NormBijection<Real>(),
 							kPoints_ + 1,
 							std::back_inserter(sceneSet),
-							NullIterator());
+							NullIterator(),
+							infinity<Real>(), 0);
 
 						std::vector<ModelIterator> modelSet;
 						modelSet.reserve(kPoints_ + 1);
 						searchNearest(
 							modelTree_,
 							modelPoint,
-							DepthFirst_SearchAlgorithm_PointKdTree(),
-							Always_AcceptPoint<ModelIterator>(),
-							//Dont_AcceptPoint<ModelIterator>(modelIter),
-							infinity<Real>(),
-							0,
-							Euclidean_NormBijection<Real>(),
 							kPoints_ + 1,
 							std::back_inserter(modelSet),
-							NullIterator());
+							NullIterator(),
+							infinity<Real>(), 0);
 
 						// Try to match the nearest neighbours.
 						// If they match, then try to improve the
@@ -341,7 +331,7 @@ namespace Pastel
 								transformPoint(modelPosition(modelSet[m]), similarity);
 
 							const KeyValue<Real, SceneIterator> closestScenePoint =
-								searchNearest(sceneTree_, transformedModelPoint);
+								searchNearestOne(sceneTree_, transformedModelPoint);
 
 							// A transformed model point M' matches a scene point S
 							// if the distance between M' and S is below
@@ -441,7 +431,7 @@ namespace Pastel
 						// scene point.
 
 						const KeyValue<Real, SceneIterator> closestScenePoint =
-							searchNearest(sceneTree_, transformedModelPoint);
+							searchNearestOne(sceneTree_, transformedModelPoint);
 
 						if (closestScenePoint.key() <= matchingThreshold_ &&
 							usedSet.find(closestScenePoint.value()) == usedSet.end())
