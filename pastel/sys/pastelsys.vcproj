@@ -1491,6 +1491,10 @@
 			Name="Not sure"
 			>
 			<File
+				RelativePath=".\notsure.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\tablemodify.h"
 				>
 			</File>
@@ -1531,6 +1535,10 @@
 				</File>
 				<File
 					RelativePath=".\indexextender.h"
+					>
+				</File>
+				<File
+					RelativePath=".\indexextender.txt"
 					>
 				</File>
 				<File

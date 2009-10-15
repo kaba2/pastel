@@ -1,3 +1,5 @@
+// Documentation: indexextender.txt
+
 #ifndef PASTEL_MIRROREXTENDER_H
 #define PASTEL_MIRROREXTENDER_H
 

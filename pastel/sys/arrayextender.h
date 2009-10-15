@@ -1,3 +1,5 @@
+// Documentation: indexextender.txt
+
 #ifndef PASTEL_ARRAYEXTENDER_H
 #define PASTEL_ARRAYEXTENDER_H
 

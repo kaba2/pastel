@@ -1,3 +1,5 @@
+// Documentation: indexextender.txt
+
 #ifndef PASTEL_REPEATEXTENDER_H
 #define PASTEL_REPEATEXTENDER_H
 
