@@ -1,4 +1,4 @@
-// Description: Texture that affinely transforms another texture
+// Description: Affine transform of another texture
 // Documentation: distortion_textures.txt
 
 #ifndef PASTEL_TRANSFORM_TEXTURE_H

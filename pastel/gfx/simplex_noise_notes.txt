@@ -1,7 +1,7 @@
 Deriving simplex noise
 ======================
 
-[Parent]: noise.txt
+[Parent]: simplex_noise.txt
 
 Abstract
 ------
@@ -52,17 +52,17 @@ where the norm is Euclidean.
 
 In the following, by a _partitioning of ''RR^n''_ we mean a collection of sets
 which cover ''RR^n'' and whose pair-wise intersection has Lebesgue measure zero.
-An _integer cube_ is a set of the form ''[h_1, ..., h_n] xx ... xx [h_1 + 1, ..., h_n + 1] sub RR^n'',
-where ''[h_1, ..., h_n] in ZZ^n''. An integer cube is identified with its lower integer 
-coordinates ''[h_1, ..., h_n] in ZZ^n''. 
+An _integer cube_ is a set of the form ''[h_1, h_1 + 1] xx ... xx [h_n, h_n + 1] sub RR^n'',
+where ''(h_1, ..., h_n) in ZZ^n''. An integer cube is identified with its lower integer 
+coordinates ''(h_1, ..., h_n) in ZZ^n''. 
 The simplex noise algorithm assumes that ''RR^n'' has been partitioned by 
 (not necessarily regular) simplices. To find such a partitioning, first consider a partioning given by the 
-set of by integer cubes. If ''[h_1, ..., h_n] in ZZ^n'' is an integer cube, then clearly
+set of by integer cubes. If ''(h_1, ..., h_n) in ZZ^n'' is an integer cube, then clearly
 its vertices are given by ''{h_1, h_1 + 1} xx ... xx {h_n, h_n + 1} sub ZZ^n''.
 We would like to partition the cube with simplices such that each simplex contains as vertices
-''[h_1, ..., h_n]'' and ''[h_1 + 1, ..., h_n + 1]''. Those simplices are given by the set:
+''(h_1, ..., h_n)'' and ''(h_1 + 1, ..., h_n + 1)''. Those simplices are given by the set:
 
-''S = {{h, h + e_{r_1}, ..., h + sum_{i = 1}^k e_{r_i}, ..., h + sum_{i = 1}^n e_{r_i}} : {r_1, ..., r_n} = \[1, n\]}''
+''S = {{h, h + e_{r_1}, ..., h + sum_{i = 1}^k e_{r_i}, ..., h + sum_{i = 1}^n e_{r_i}} in ZZ^{n + 1} : {r_1, ..., r_n} = \[1, n\] sub ZZ}''
 
 where ''e_i'' is the i:th standard basis vector. Because the number of permutations of ''\[1, n\]'' is ''n!'',
 there are also ''n!'' simplices in ''S''. This procedure gives a partitioning of ''RR^n'' into simplices. 
@@ -73,7 +73,6 @@ However, these simplices are not regular nor close to being regular.
 Define the _regularity of a simplex_ as the ratio of the length of its shortest 
 edge and its longest edge. It easily seen that the regularity of all the simplicies in the 
 simplicial partitioning of integer cubes is ''1 / sqrt(n)''.
-
 We would like to have a transformation class which would have a simple form, and then from
 that class find a transformation which maximizes regularity. Following Perlin, we shall 
 consider a transformation which scales the space along the vector ''p = [1, ..., 1]''. 
@@ -89,7 +88,7 @@ Applying this scaling to the standard basis vectors ''e_i'' gives:
 
 ### Edge lengths of the transformed simplex
 
-The simplex from an integer cube partitioning is transformed into:
+A simplex from an integer cube partitioning is transformed into:
 
 ''{f(h), f(h) + f(e_{r_1}), ..., f(h) + sum_{i = 1}^k f(e_{r_i}), ..., f(h) + sum_{i = 1}^n f(e_{r_i})}''
 
@@ -206,7 +205,7 @@ If one picks ''alpha^2 = 1 / (n + 1)'', then
 
 For all ''n >= 2'' it holds that ''text(reg)_2 >= text(reg)_1''.
 I suspect this is the value of ''alpha'' which maximizes regularity.
-However, I haven't proved this yet. As a result of this scaling 
+However, I haven't managed to prove this yet. As a result of this scaling 
 transformation all simplices  have a minimum edge length of ''d = sqrt(n / (n + 1))''.
 
 ### Deforming transformation

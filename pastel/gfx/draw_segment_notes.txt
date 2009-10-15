@@ -36,9 +36,9 @@ then the sampling point of the pixel ''(0, 0)'' is at
 
 Let
 
-''dx = xEnd - xStart''
+''w = x_{text(end)} - x_{text(start)}''
 
-''dy = yEnd - yStart''
+''h = y_{text(end)} - y_{text(start)}''
 
 The algorithm separates into cases based on which
 octant the end-point is with respect to the start point.
@@ -50,99 +50,102 @@ The octants are numbered as:
 	4/|\7
 	/5|6\
 
-### Derivation
+### Two possibilities for the next move
 
-Assume ''|dx| >= |dy|''. This takes care
+Assume ''|w| >= |h|''. This takes care
 of octants 0, 3, 4 and 7. We will deal
 with the other octants later.
 
-We start tracing from the pixel ''(x(0), y(0))''
-that has the sampling point closest to ''(xStart, yStart)''.
+We start tracing from the pixel ''p(0) = ((x(0)), (y(0)))''
+that has the sampling point closest to ''((x_{text(start)}), (y_{text(start)}))''.
 
 From here, we perform either of the
 two steps:
 
- 1. ''x(i + 1) = x(i) + tx, y(i + 1) = y(i) + ty1''
+ 1. ''p(i + 1) = p(i) + ((Delta x), (Delta y_1))''
  
- 2. ''x(i + 1) = x(i) + tx, y(i + 1) = y(i) + ty2''
+ 2. ''p(i + 1) = p(i) + ((Delta x), (Delta y_2))''
 
-where ''(tx, ty1, ty2)'' is one of
-''{(1, 0, 1), (1, 0, -1), (-1, 0, 1), (-1, 0, -1)}''.
+where ''((Delta x), (Delta y_1), (Delta y_2)) in 
+{((1), (0), (1)), ((1), (0), (-1)), ((-1), (0), (1)), ((-1), (0), (-1))}''.
 
 We choose the one that will keep us closer to the line.
 This simple procedure is repeated to trace the whole line
-segment.
+segment. 
+
+### Choosing the next move to keep close to the line
 
 The distance of a pixel to the line is measured as the
 distance of its sampling point to the line. Thus the
 comparison to select between the two cases is:
 
-''distance((x(i) + u + tx, y(i) + v + ty1), line) <=
-distance((x(i) + u + tx, y(i) + v + ty2), line)''
+''text(distance)(((x(i) + u + Delta x), (y(i) + v + Delta y_1)), text(line)) <=
+text(distance)(((x(i) + u + Delta x), (y(i) + v + Delta y_2)), text(line))''
 
 If this comparison yields true, the option 1 is chosen.
-Otherwise option 2 is chosen. However, this is inefficient.
-
-Let
+Otherwise option 2 is chosen. However, directly applying
+a distance algorithm here is expensive. Rather, let
 
 ''a(i) = x(i) + u''
 
-''b(i) = yStart + ((x(i) + u) - xStart) * (dy / dx)''
+''b(i) = y_{text(start)} + ((x(i) + u) - x_{text(start)}) * (h / w)''
 
-Then ''(a(i), b(i))'' traces out points from the line
+Then ''((a(i)), (b(i)))'' traces out points from the line
 with ''a(i)'' horizontally at the sampling points.
-
 Because of similar triangles, we can equivalently compare the
 distances of the sampling points to the line along the y-axis:
 
-''|(y(i) + v + ty1) - b(i + 1)| <= |b(i + 1) - (y(i) + v + ty2)|''
+''|(y(i) + v + Delta y_1) - b(i + 1)| <= |b(i + 1) - (y(i) + v + Delta y_2)|''
 
 This is much faster, but the absolute values
 still block the way to an efficient implementation.
+Fortunately, we can use an alternative comparison that keeps
+us equivalently close to the line. Rather than comparing the 
+distances of the two candidate points to the line segment, we 
+can compare the position of their midpoint to the line segment 
+along the y-axis:
 
-Fortunately, we see that there is still one more equivalent
-comparison. Rather than comparing the distances of the two candidate points
-to the line segment, we can compare the position of their
-midpoint to the line segment (along y-axis):
-
-''((y(i) + v + ty1) + (y(i) + v + ty2)) / 2 <= b(i + 1)''
-
-''<=>''
-
-''(y(i) + v + ty1) + (y(i) + v + ty2) <= 2 b(i + 1)''
+''((y(i) + v + Delta y_1) + (y(i) + v + Delta y_2)) / 2 <= b(i + 1)''
 
 ''<=>''
 
-''(y(i) + v + ty1) - b(i + 1) <= b(i + 1) - (y(i) + v + ty2)''
+''(y(i) + v + Delta y_1) + (y(i) + v + Delta y_2) <= 2 b(i + 1)''
 
-Thus, the absolute values can be removed!
+''<=>''
 
-Rather than comparing directly ''(left <= right)'', we compare the sign
-of the difference ''(left - right <= 0)'':
+''(y(i) + v + Delta y_1) - b(i + 1) <= b(i + 1) - (y(i) + v + Delta y_2)''
 
-''s'(i)''
+This is almost the same inequality as above but with absolute values removed.
 
-''= (y(i) + v + ty1) - b(i + 1)) - (b(i + 1) - (y(i) + v + ty2))''
+### Packing the comparison into a decision variable
 
-''= 2(y(i) + v) - 2b(i + 1) + (ty1 + ty2)''
+Rather than comparing directly ''(text(left) <= text(right))'', we can compare the sign
+of the difference ''(text(left) - text(right) <= 0)'':
 
-''= 2(y(i) + v) - 2(yStart + (x(i + 1) + v - xStart) * (dy / dx)) + (ty1 + ty2)''
+''hat(s)(i)''
 
-''= 2(y(i) + v) - 2(yStart + (x(i) + tx + v - xStart) * (dy / dx)) + (ty1 + ty2)''
+''= (y(i) + v + Delta y_1) - b(i + 1)) - (b(i + 1) - (y(i) + v + Delta y_2))''
 
-''= 2(y(i) + v) - 2b(i) - 2 tx (dy / dx) + (ty1 + ty2)''
+''= 2(y(i) + v) - 2b(i + 1) + (Delta y_1 + Delta y_2)''
 
-If ''s'(i) <= 0'', then we choose the option that increases ''s'(i)''.
-Otherwise we choose the option that decreases ''s'(i)''.
+''= 2(y(i) + v) - 2(y_{text(start)} + (x(i + 1) + v - x_{text(start)}) * (h / w)) + (Delta y_1 + Delta y_2)''
 
-Because ''dx'' is positive, and thus does not change the sign
-of ''s''', we can as well multiply s' by dx to avoid division.
+''= 2(y(i) + v) - 2(y_{text(start)} + (x(i) + Delta x + v - x_{text(start)}) * (h / w)) + (Delta y_1 + Delta y_2)''
+
+''= 2(y(i) + v) - 2b(i) - 2 Delta x (h / w) + (Delta y_1 + Delta y_2)''
+
+If ''hat(s)(i) <= 0'', then we choose the option that increases ''hat(s)(i)''.
+Otherwise we choose the option that decreases ''hat(s)(i)''.
+Because ''w'' is positive, and thus does not change the sign
+of ''hat(s)'', we can as well multiply ''hat(s)'' by ''w'' to avoid division.
 
 ''s(i)''
 
-''= s'(i) * dx''
+''= hat(s)(i) * w''
 
-''= 2(y(i) + v)dx - 2b(i)dx - 2 tx dy + (ty1 + ty2)dx''
+''= 2(y(i) + v)w - 2b(i)w - 2 Delta x h + (Delta y_1 + Delta y_2)w''
+
+### Computing the decision variable incrementally
 
 We now notice:
 
@@ -150,116 +153,126 @@ If option 1 is chosen, then
 
 ''s(i + 1)''
 
-''= 2(y(i + 1) + v)dx - 2b(i + 1)dx - 2 tx dy + (ty1 + ty2)dx''
+''= 2(y(i + 1) + v)w - 2b(i + 1)w - 2 Delta x h + (Delta y_1 + Delta y_2)w''
 
-''= 2(y(i) + v)dx + 2 ty1 dx - 2b(i)dx - 2 tx dy - 2 tx dy + (ty1 + ty2)dx''
+''= 2(y(i) + v)w + 2 Delta y_1 w - 2b(i)w - 2 Delta x h - 2 Delta x h + (Delta y_1 + Delta y_2)w''
 
-''= s(i) + 2 ty1 dx - 2 tx dy''
+''= s(i) + 2 Delta y_1 w - 2 Delta x h''
 
 Similarly, if option 2 is chosen, then
 
 ''s(i + 1)''
 
-''= s(i) + 2 ty2 dx - 2 tx dy''
+''= s(i) + 2 Delta y_2 w - 2 Delta x h''
 
 Thus the values for ''s(i)'' can be computed
-incrementally. However, ''s(0)'' must be computed directly:
+incrementally. 
+
+### Computing the initial value of the decision variable
+
+However, ''s(0)'' must be computed directly:
 
 ''s(0)''
 
-''= 2(y(0) + v)dx - 2b(0)dx - 2 tx dy + (ty1 + ty2)dx''
+''= 2(y(0) + v)w - 2b(0)w - 2 Delta x h + (Delta y_1 + Delta y_2)w''
 
-''= 2(y(0) + v)dx - 2(yStart * dx + ((x(0) + u) - xStart) * dy) - 2 tx dy + (ty1 + ty2)dx''
+''= 2(y(0) + v)w - 2(y_{text(start)} * w + ((x(0) + u) - x_{text(start)}) * h) - 2 Delta x h + (Delta y_1 + Delta y_2)w''
 
-''= 2((y(0) + v) - yStart)dx - 2((x(0) + u) - xStart)dy - 2 tx dy + (ty1 + ty2) dx''
+''= 2((y(0) + v) - y_{text(start)})w - 2((x(0) + u) - x_{text(start)})h - 2 Delta x h + (Delta y_1 + Delta y_2) w''
 
-Notice that if ''xStart = x(0) + u'' and ''yStart = y(0) + v'' 
+Notice that if ''x_{text(start)} = x(0) + u'' and ''y_{text(start)} = y(0) + v'' 
 (the start point is at a sample point), then
 
-''s(0) = -2 tx dy + (ty1 + ty2) dx''
+''s(0) = -2 Delta x h + (Delta y_1 + Delta y_2) w''
 
-If in addition ''(xEnd, yEnd)'' is at a sample point,
-then the whole algorithm runs on integer arithmetic.
+If in addition ''((x_{text(end)}), (y_{text(end)}))'' is at a sample point,
+then the whole algorithm runs on integer arithmetic. This is the
+traditional midpoint algorithm.
 
-The octants 1, 2, 5, and 6 with ''|dx| < |dy|'' can be derived
+### Other octants
+
+The octants 1, 2, 5, and 6 with ''|w| < |h|'' can be derived
 by simply exchanging ''x'' and ''y'' in all formulas.
 This has the effect of reflecting the plane
 w.r.t the line ''(1, 1)''.
-Thus the ''sAdd1'', ''sAdd2'' and ''s(0)'' can be obtained from
+Thus the ''Delta s_1'', ''Delta s_2'' and ''s(0)'' can be obtained from
 the following reflection pairs by exchanging ''x'' and ''y'':
 
-Octant 1 <-> Octant 0
-Octant 2 <-> Octant 7
-Octant 5 <-> Octant 4
-Octant 6 <-> Octant 3
+ * Octant 1 <-> Octant 0
+
+ * Octant 2 <-> Octant 7
+ 
+ * Octant 5 <-> Octant 4
+ 
+ * Octant 6 <-> Octant 3
 
 Summary
 -------
 
-''sNormal = 2((y(0) + v) - yStart)dx - 2((x(0) + u) - xStart)dy - 2 tx dy + (ty1 + ty2) dx''
-''sReflected = 2((x(0) + u) - xStart)dy - 2((y(0) + v) - yStart)dx - 2 ty dx + (tx1 + tx2) dy''
+''s_{text(normal)} = 2((y(0) + v) - y_{text(start)})w - 2((x(0) + u) - x_{text(start)})h - 2 Delta x h + (Delta y_1 + Delta y_2) w''
+''s_{text(reflected)} = 2((x(0) + u) - x_{text(start)})h - 2((y(0) + v) - y_{text(start)})w - 2 Delta y w + (Delta x_1 + Delta x_2) h''
 
 ### Octant 0:
 
-''(1, 0) => sAdd1 = -2 dy''
+''(1, 0) => Delta s_1 = -2 h''
 
-''(1, 1) => sAdd2 = -2 dy + 2 dx''
+''(1, 1) => Delta s_2 = -2 h + 2 w''
 
-''s(0) = sNormal + -2 dy + dx''
+''s(0) = s_{text(normal)} + (-2 h + w)''
 
 ### Octant 1 (reflected octant 0):
 
-''(0, 1) => sAdd1 = -2 dx''
+''(0, 1) => Delta s_1 = -2 w''
 
-''(1, 1) => sAdd2 = -2 dx + 2 dy''
+''(1, 1) => Delta s_2 = -2 w + 2 h''
 
-''s(0) = sReflected + (-2 dx + dy)''
+''s(0) = s_{text(reflected)} + (-2 w + h)''
 
 ### Octant 3
 
-''(-1, 0) => sAdd1 = 2 dy''
+''(-1, 0) => Delta s_1 = 2 h''
 
-''(-1, 1) => sAdd2 = 2 dy + 2 dx''
+''(-1, 1) => Delta s_2 = 2 h + 2 w''
 
-''s(0) = sNormal + 2 dy + dx''
+''s(0) = s_{text(normal)} + (2 h + w)''
 
 ### Octant 6 (reflected octant 3) 
 
-''(1, -1) => sAdd1 = 2 dx + 2 dy''
+''(1, -1) => Delta s_1 = 2 w + 2 h''
 
-''(0, -1) => sAdd2 = 2 dx''
+''(0, -1) => Delta s_2 = 2 w''
 
-''s(0) = sReflected + (2 dx + dy)''
+''s(0) = s_{text(reflected)} + (2 w + h)''
 
 ###Octant 4
 
-''(-1,  0) => sAdd1 = 2 dy''
+''(-1,  0) => Delta s_1 = 2 h''
 
-''(-1, -1) => sAdd2 = 2 dy - 2 dx''
+''(-1, -1) => Delta s_2 = 2 h - 2 w''
 
-''s(0) = sNormal + 2 dy - dx''
+''s(0) = s_{text(normal)} + (2 h - w)''
 
 ### Octant 5 (reflected octant 4)
 
-''( 0, -1) => sAdd1 = 2 dx''
+''( 0, -1) => Delta s_1 = 2 w''
 
-''(-1, -1) => sAdd2 = 2 dx - 2 dy''
+''(-1, -1) => Delta s_2 = 2 w - 2 h''
 
-''s(0) = sReflected + (2 dx - dy)''
+''s(0) = s_{text(reflected)} + (2 w - h)''
 
 ### Octant 7
 
-''(1,  0) => sAdd1 = -2 dy''
+''(1,  0) => Delta s_1 = -2 h''
 
-''(1, -1) => sAdd2 = -2 dy - 2 dx''
+''(1, -1) => Delta s_2 = -2 h - 2 w''
 
-''s(0) = sNormal + (-2 dy - dx)''
+''s(0) = s_{text(normal)} + (-2 h - w)''
 
 ### Octant 2 (reflected octant 7)
 
-''(-1, 1) => sAdd1 = -2 dx - 2 dy''
+''(-1, 1) => Delta s_1 = -2 w - 2 h''
 
-''( 0, 1) => sAdd2 = -2 dx''
+''( 0, 1) => Delta s_2 = -2 w''
 
-''s(0) = sReflected + (-2 dx - dy)''
+''s(0) = s_{text(reflected)} + (-2 w - h)''
 

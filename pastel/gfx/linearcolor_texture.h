@@ -1,4 +1,4 @@
-// Description: Cube with multi-linear coloring
+// Description: Cube with linear coloring
 // Documentation: synthetic_textures.txt
 
 #ifndef PASTEL_LINEARCOLOR_TEXTURE_H

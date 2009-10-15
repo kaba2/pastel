@@ -1,4 +1,4 @@
-// Description: Simplex with a gradient texture
+// Description: Simplex with linear coloring
 // Documentation: synthetic_textures.txt
 
 #ifndef PASTEL_LINEARSIMPLEX_TEXTURE_H

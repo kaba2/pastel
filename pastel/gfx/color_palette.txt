@@ -20,7 +20,7 @@ for the size of the indexing integer.
 
 Nowadays color indexing is primarily of interest in the hopes of creating
 image files of small size when there are only a few colors. Otherwise
-direct description of colors in sRGB color space are used, both in
+direct description of colors in sRGB color space is used, both in
 image file formats and graphics hardware.
 
 Practice
@@ -28,7 +28,7 @@ Practice
 
 Pastel provides functions to create some commonly needed palettes
 when working with indexed images. These include a random palette, 
-a grayscale palette, false color palettes, and, the default VGA palette.
+a grayscale palette, false color palettes, and the default VGA palette.
 
 Acknowledgements
 ----------------
