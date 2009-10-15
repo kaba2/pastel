@@ -1,5 +1,6 @@
 // Description: MemoryView class
 // Detail: A View interface to a memory range.
+// Documentation: notsure.txt
 
 #ifndef PASTEL_MEMORYVIEW_H
 #define PASTEL_MEMORYVIEW_H
