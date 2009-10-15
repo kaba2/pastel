@@ -311,7 +311,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Expression>
-	Real normManhattan(const VectorExpression<Real, N, Expression>& that)
+	Real manhattanNorm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return sum(mabs(that));
 	}
@@ -326,7 +326,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Expression>
-	Real pNorm(
+	Real minkowskiNorm(
 		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
@@ -336,7 +336,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Expression>
-	Real normInfinity(const VectorExpression<Real, N, Expression>& that)
+	Real maxNorm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return max(mabs(that));
 	}

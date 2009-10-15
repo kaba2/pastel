@@ -146,7 +146,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename Expression>
-	inline Real normManhattan(
+	inline Real manhattanNorm(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the p:th-power of the Lp norm of a vector.
@@ -172,18 +172,18 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename Expression>
-	inline Real pNorm(
+	inline Real minkowskiNorm(
 		const VectorExpression<Real, N, Expression>& that,
 		const PASTEL_NO_DEDUCTION(Real)& metric);
 
-	//! Returns the infinity norm of a vector.
+	//! Returns the max norm of a vector.
 	/*!
-	The infinity norm is
-	norm_inf(that) := max(mabs(that[i])).
+	The max norm is
+	norm_max(that) := max(mabs(that[i])).
 	*/
 
 	template <typename Real, int N, typename Expression>
-	inline Real normInfinity(
+	inline Real maxNorm(
 		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the corresponding unit vector (Euclidean norm).

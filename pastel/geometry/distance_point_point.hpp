@@ -46,7 +46,7 @@ namespace Pastel
 	{
 		return Pastel::distance2(
 			aPoint, bPoint,
-			Infinity_NormBijection<Real>());
+			Maximum_NormBijection<Real>());
 	}
 
 	template <typename Real, int N, typename NormBijection>

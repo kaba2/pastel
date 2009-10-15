@@ -26,12 +26,14 @@ namespace Pastel
 		//! Returns the norm bijection value along a standard basis axis.
 		/*!
 		Here it is assumed that 'axisDistance' is non-negative.
+		It must be a norm bijection value.
 		*/
 		Real axis(const Real& axisDistance) const;
 
 		//! Returns the norm bijection value along a standard basis axis.
 		/*!
 		Here the 'axisDistance' can also be negative.
+		It must be a norm bijection value.
 		*/
 		Real signedAxis(const Real& axisDistance) const;
 		
@@ -47,8 +49,7 @@ namespace Pastel
 
 		//! Replace distance along some standard basis axis.
 		/*!
-		Replaces a distance along some standard basis axis
-		by a new one.
+		These distances must be norm bijection values.
 		*/
 		Real replaceAxis(
 			const Real& distance, 

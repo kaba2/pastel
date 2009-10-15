@@ -85,7 +85,7 @@ namespace Pastel
 				const Vector<real, N> delta
 					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
-				image = normManhattan(delta) < 1;
+				image = manhattanNorm(delta) < 1;
 			}
 
 		private:
@@ -196,7 +196,7 @@ namespace Pastel
 				const Vector<real, N> delta
 					= (Vector<real, N>(position) + 0.5 - center_) * invRadius_;
 
-				image = normInfinity(delta) < 1;
+				image = maxNorm(delta) < 1;
 			}
 
 		private:

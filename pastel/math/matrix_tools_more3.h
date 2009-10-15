@@ -1,5 +1,5 @@
 // Description: Matrix properties
-// Detail: trace, determinant, normManhattan, norm2, conditionManhattan, etc.
+// Detail: trace, determinant, manhattanNorm, norm2, conditionManhattan, etc.
 
 #ifndef PASTEL_MATRIX_TOOLS_MORE3_H
 #define PASTEL_MATRIX_TOOLS_MORE3_H
@@ -85,7 +85,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int Height, int Width, typename Expression>
-	Real normManhattan(
+	Real manhattanNorm(
 		const MatrixExpression<Real, Height, Width, Expression>& matrix);
 
 	//! Returns the induced infinity matrix norm.
@@ -93,13 +93,13 @@ namespace Pastel
 	This matrix norm is given by the maximum absolute
 	row sum:
 	max(sum(abs(transpose(matrix))))
-	See the documentation for 'normManhattan'
+	See the documentation for 'manhattanNorm'
 	for more information. See 'norm2' for pointwise
 	matrix norms.
 	*/
 
 	template <typename Real, int Height, int Width, typename Expression>
-	Real normInfinity(
+	Real maxNorm(
 		const MatrixExpression<Real, Height, Width, Expression>& matrix);
 
 	//! Returns the condition number of a matrix using a pointwise norm.
@@ -116,7 +116,7 @@ namespace Pastel
 	Real conditionManhattan(
 		const MatrixExpression<Real, N, N, Expression>& matrix);
 
-	//! Returns the condition number of a matrix using infinity norm.
+	//! Returns the condition number of a matrix using max norm.
 
 	template <typename Real, int N, typename Expression>
 	Real conditionInfinity(

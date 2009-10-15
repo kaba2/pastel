@@ -142,8 +142,8 @@ namespace Pastel
 
 			Vector<real, N> majorAxis;
 
-			if (normManhattan(aMajorAxisCandidate) <
-				normManhattan(bMajorAxisCandidate))
+			if (manhattanNorm(aMajorAxisCandidate) <
+				manhattanNorm(bMajorAxisCandidate))
 			{
 				majorAxis = bMajorAxisCandidate;
 			}

@@ -96,7 +96,7 @@ namespace Pastel
 					NullIterator(),
 					filter_.radius() * filterStretch_, 0,
 					Always_AcceptPoint<ConstIterator>(),
-					Infinity_NormBijection<Real>());
+					Maximum_NormBijection<Real>());
 
 				const integer points = nearestSet.size();
 
