@@ -943,6 +943,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\eps.h"
+				>
+			</File>
+			<File
 				RelativePath=".\portability.txt"
 				>
 			</File>

@@ -44,9 +44,25 @@ namespace Pastel
 				sizeof(pointer_integer) == sizeof(void*));
 
 			BOOST_STATIC_ASSERT(
-				sizeof(uint32) == sizeof(real32));
+				sizeof(uint16) == 2 * sizeof(uint8));
 			BOOST_STATIC_ASSERT(
-				sizeof(uint64) == sizeof(real64));
+				sizeof(uint32) == 4 * sizeof(uint8));
+			BOOST_STATIC_ASSERT(
+				sizeof(uint64) == 8 * sizeof(uint8));
+
+			BOOST_STATIC_ASSERT(
+				sizeof(real32) == 4 * sizeof(uint8));
+			BOOST_STATIC_ASSERT(
+				sizeof(real64) == 8 * sizeof(uint8));
+
+			BOOST_STATIC_ASSERT(
+				sizeof(int8) == sizeof(uint8));
+			BOOST_STATIC_ASSERT(
+				sizeof(int16) == sizeof(uint16));
+			BOOST_STATIC_ASSERT(
+				sizeof(int32) == sizeof(uint32));
+			BOOST_STATIC_ASSERT(
+				sizeof(int64) == sizeof(uint64));
 		}
 
 	}

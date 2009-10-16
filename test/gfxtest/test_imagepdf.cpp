@@ -14,7 +14,6 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_all.h"
 #include "pastel/sys/string_tools.h"
-#include "pastel/sys/extendedconstview_all.h"
 
 #include "pastel/device/timer.h"
 
@@ -33,7 +32,7 @@ using namespace Pastel;
 namespace
 {
 
-	void testTechnique1()
+	void testImagePdf()
 	{
 		Array<Color, 2> colorImage;
 		loadPcx("imagepdf_input.pcx", colorImage);
@@ -69,229 +68,9 @@ namespace
 		}
 	}
 
-	void testTechnique2()
-	{
-		Array<Color, 2> colorImage;
-		loadPcx("imagepdf2_input.pcx", colorImage);
-
-		Array<real32, 2> image(colorImage.extent());
-
-		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
-
-		log() << "Computing mipmaps..." << logNewLine;
-
-		MipMap<real32, 2> mipMap(constArrayView(image),
-			ArrayExtender<2, real32>(), boxFilter());
-
-		const integer images = mipMap.levels();
-
-		for (integer i = 0;i < images;++i)
-		{
-			visit(mipMap.view(i), bind(clamp<real32>, _1, 0, 1));
-		}
-
-		log() << "Generating points..." << logNewLine;
-
-		if (images > 1)
-		{
-			image.setExtent(mipMap.extent());
-			clear(0, arrayView(image));
-
-			integer points = 0;
-
-			Timer timer;
-			timer.setStart();
-
-			integer stepPoints = 10000;
-			for (integer step = 0;step < 4;++step)
-			{
-				for (;points < stepPoints;++points)
-				{
-					Vector<integer, 2> position(0, 0);
-
-					for (integer level = images - 2;level >= 0;--level)
-					{
-						position *= 2;
-						const Array<real32, 2>& mipmap = mipMap(level);
-
-						const real32 sum1 = mipmap(position);
-						const real32 sum2 = sum1 + mipmap(position + Vector<integer, 2>(1, 0));
-						const real32 sum3 = sum2 + mipmap(position + Vector<integer, 2>(1, 1));
-						const real32 sum4 = sum3 + mipmap(position + Vector<integer, 2>(0, 1));
-						const real32 value = random<real32>() * sum4;
-
-						if (value < sum1)
-						{
-							// Do nothing.
-						}
-						else if (value < sum2)
-						{
-							++position.x();
-						}
-						else if (value < sum3)
-						{
-							++position.x();
-							++position.y();
-						}
-						else
-						{
-							++position.y();
-						}
-					}
-
-					image(position) += 0.2;
-				}
-
-				timer.store();
-
-				log() << "Computation took " << timer.seconds() << " seconds." << logNewLine;
-				saveGrayscalePcx(image, std::string("imagepdf2_output_") + integerToString(points) + std::string(".pcx"));
-
-				stepPoints *= 10;
-			}
-		}
-	}
-
-	void computeProbabilityTree(
-		std::vector<real32>& probabilityTree,
-		const Array<real32, 2>& summedAreaImage,
-		const Rectangle2& wholeRegion)
-	{
-		probabilityTree.push_back(1);
-
-		std::list<Rectangle2 > regionQueue;
-
-		regionQueue.push_back(wholeRegion);
-
-		while(!regionQueue.empty())
-		{
-			const Rectangle2 region = regionQueue.front();
-			regionQueue.pop_front();
-
-			if (anyGreater(region.extent(), 1))
-			{
-				const integer axis = maxIndex(region.extent());
-				const integer midPoint = (region.max()[axis] + region.min()[axis]) / 2;
-
-				Rectangle2 aRegion = region;
-				aRegion.max()[axis] = midPoint;
-
-				Rectangle2 bRegion = region;
-				bRegion.min()[axis] = midPoint;
-
-				const real32 aSum =
-					summedAreaTable(clampedConstView(arrayView(summedAreaImage)),
-					AlignedBox2(aRegion.min(), aRegion.max()));
-				const real32 bSum =
-					summedAreaTable(clampedConstView(arrayView(summedAreaImage)),
-					AlignedBox2(bRegion.min(), bRegion.max()));
-
-				const real32 aProbability = aSum / (aSum + bSum);
-				const real32 bProbability = 1 - aProbability;
-
-				probabilityTree.push_back(aProbability);
-				regionQueue.push_back(aRegion);
-
-				probabilityTree.push_back(bProbability);
-				regionQueue.push_back(bRegion);
-			}
-		}
-	}
-
-	void testTechnique4()
-	{
-		Array<Color, 2> colorImage;
-		loadPcx("imagepdf4_input.pcx", colorImage);
-
-		Array<real32, 2> image(colorImage.extent());
-
-		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
-
-		log() << "Computing summed area table..." << logNewLine;
-
-		Array<real32, 2> summedAreaImage(image.extent());
-
-		const integer width = image.width();
-		const integer height = image.height();
-
-		computeSummedAreaTable(
-			constArrayView(image), arrayView(summedAreaImage));
-
-		saveGrayscalePcx(summedAreaImage, "imagepdf4_summedarea.pcx");
-
-		// Compute a balanced binary tree.
-
-		std::vector<real32> probabilityTree;
-
-		computeProbabilityTree(probabilityTree,
-			summedAreaImage,
-			Rectangle2(0, 0, width, height));
-
-		log() << "Generating points..." << logNewLine;
-
-		clear(0, arrayView(image));
-
-		integer points = 0;
-
-		Timer timer;
-		timer.setStart();
-
-		integer stepPoints = 10000;
-		for (integer step = 0;step < 4;++step)
-		{
-			for (;points < stepPoints;++points)
-			{
-				integer node = 1;
-				const integer nodes = probabilityTree.size();
-				Vector<integer, 2> position(0, 0);
-				Vector<integer, 2> delta(width, height);
-
-				while(node < nodes)
-				{
-					const integer axis = maxIndex(delta);
-					const real32 aProbability = probabilityTree[node];
-
-					delta[axis] /= 2;
-
-					if (random<real32>() < aProbability)
-					{
-						node = node * 2 + 1;
-					}
-					else
-					{
-						node = (node + 1) * 2 + 1;
-						position[axis] += delta[axis];
-					}
-				}
-
-				drawPixel(position, 0.2, arrayView(image), _1 + _2);
-			}
-
-			timer.store();
-
-			log() << "Computation took " << timer.seconds() << " seconds." << logNewLine;
-
-			saveGrayscalePcx(image, std::string("imagepdf4_output_") + integerToString(points) + std::string(".pcx"));
-
-			stepPoints *= 10;
-		}
-	}
-
-	void testBegin()
-	{
-		// 9 s
-		// 48 s
-		// 176 s
-		// 27 s
-
-		testTechnique1();
-		//testTechnique2();
-		//testTechnique4();
-	}
-
 	void testAdd()
 	{
-		gfxTestList().add("ImagePdf", testBegin);
+		gfxTestList().add("ImagePdf", testImagePdf);
 	}
 
 	CallFunction run(testAdd);

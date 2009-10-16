@@ -142,7 +142,7 @@ namespace Pastel
 	{
 		if (data_)
 		{
-			#pragma omp critical (CountedPtr_ReadWrite)
+			//#pragma omp critical (CountedPtr_ReadWrite)
 			{
 			// Decrease the reference count.
 	
