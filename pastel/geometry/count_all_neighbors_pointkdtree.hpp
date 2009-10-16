@@ -2,6 +2,7 @@
 #define PASTEL_COUNT_ALL_NEIGHBORS_POINTKDTREE_HPP
 
 #include "pastel/geometry/count_all_neighbors_pointkdtree.h"
+#include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/sys/pastelomp.h"
@@ -38,7 +39,7 @@ namespace Pastel
 #		pragma omp parallel for
 		for (integer i = 0;i < queries;++i)
 		{
-			PENSURE(maxDistanceSet[i] >= 0);
+			PENSURE_OP(maxDistanceSet[i], >=, 0);
 
 			result[i] = countNearest(
 				kdTree, 

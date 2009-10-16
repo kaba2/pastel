@@ -164,6 +164,8 @@ namespace
 				correct *= i + 1;
 			}
 		}
+
+		check(digamma<real>(10000), 9.210290371142850);
 	}
 
 	void addTests()

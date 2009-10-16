@@ -231,17 +231,19 @@ namespace Pastel
 						Real oldAxisDistance = 0;
 						if (searchPosition < cursor.min())
 						{
-							oldAxisDistance = cursor.min() - searchPosition;
+							oldAxisDistance = 
+								normBijection.axis(cursor.min() - searchPosition);
 						}
 						else if (searchPosition > cursor.max())
 						{
-							oldAxisDistance = searchPosition - cursor.max();
+							oldAxisDistance = 
+								normBijection.axis(searchPosition - cursor.max());
 						}
 
 						const Real childDistance = 
 							normBijection.replaceAxis(
 							distance, 
-							normBijection.axis(oldAxisDistance),
+							oldAxisDistance,
 							farBoundDistance);
 
 						if (childDistance <= nodeCullDistance)

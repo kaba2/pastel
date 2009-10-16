@@ -1,11 +1,11 @@
 // Description: Summed-area tables
+// Documentation: pastelgfx.txt
 
 #ifndef PASTEL_SUMMEDAREATABLE_H
 #define PASTEL_SUMMEDAREATABLE_H
 
 #include "pastel/sys/view.h"
 #include "pastel/sys/rectangle.h"
-#include "pastel/sys/extendedconstview.h"
 
 #include "pastel/geometry/alignedbox.h"
 
@@ -36,11 +36,6 @@ namespace Pastel
 	Type summedAreaTable(
 		const ConstView<2, Type, Sum_ConstView>& sumImage,
 		const Rectangle2& region);
-
-	template <typename Image_Element, typename Image_ConstView>
-	Image_Element summedAreaTable(
-		const ExtendedConstView<2, Image_Element, Image_ConstView>& sumImage,
-		const AlignedBox2& region);
 
 }
 
