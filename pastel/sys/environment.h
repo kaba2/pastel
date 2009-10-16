@@ -4,7 +4,7 @@
 #ifndef PASTEL_ENVIRONMENT_H
 #define PASTEL_ENVIRONMENT_H
 
-// PASTEL_DEBUG_MODE == 0 => ASERT:s will be removed.
+// PASTEL_DEBUG_MODE == 0 => ASSERT:s will be removed.
 #define PASTEL_DEBUG_MODE 0
 
 // PASTEL_ENABLE_PENSURES == 0 => PENSURES will be removed.
