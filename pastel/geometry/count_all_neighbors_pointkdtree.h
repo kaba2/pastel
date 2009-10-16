@@ -44,13 +44,31 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator,
 		typename Real_Iterator,
-		typename NormBijection,
+		typename Integer_OutputIterator,
+		typename NormBijection>
+	void countAllNeighbors(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		Integer_OutputIterator result,
+		const NormBijection& normBijection);
+
+	//! Counts the number of neighbors for all query points.
+	/*!
+	This is a convenience function that calls:
+	countAllNeighbors(
+		kdTree, querySet,
+		maxDistanceSet, result,
+		Euclidean_NormBijection<Real>());
+	*/
+	template <typename Real, int N, typename ObjectPolicy,
+		typename ConstObjectIterator_Iterator,
+		typename Real_Iterator,
 		typename Integer_OutputIterator>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
-		const NormBijection& normBijection,
 		Integer_OutputIterator result);
 
 }

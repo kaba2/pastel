@@ -117,13 +117,9 @@ namespace
 
 			searchAllNeighbors(
 				kdTree,
-				DepthFirst_SearchAlgorithm_PointKdTree(),
 				randomAccessRange(objectSet.begin(), objectSet.end()),
 				0,
 				kNearest,
-				randomAccessRange(constantIterator(infinity<Real>()), objectSet.size()),
-				0,
-				Euclidean_NormBijection<Real>(),
 				&neighborSet);
 
 			timer.store();

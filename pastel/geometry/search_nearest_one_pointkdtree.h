@@ -58,8 +58,7 @@ namespace Pastel
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
 		acceptPoint, 
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename AcceptPoint>
@@ -77,9 +76,7 @@ namespace Pastel
 	searchNearestOne(
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(), 
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint>
@@ -95,10 +92,23 @@ namespace Pastel
 	This is a convenience function that calls
 	searchNearestOne(
 		kdTree, searchPoint,
-		maxDistance, 0,
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(), 
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		maxDistance, maxRelativeError,
+		Dont_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(searchPoint));
+	*/
+	template <typename Real, int N, typename ObjectPolicy>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+		searchNearestOne(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
+
+	//! Finds nearest neighbors for a point in a kdTree.
+	/*!
+	This is a convenience function that calls
+	searchNearestOne(
+		kdTree, searchPoint,
+		maxDistance, 0);
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint>
@@ -113,10 +123,7 @@ namespace Pastel
 	This is a convenience function that calls
 	searchNearestOne(
 		kdTree, searchPoint,
-		infinity<Real>(), 0,
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(), 
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		infinity<Real>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint>
