@@ -1,14 +1,14 @@
-Coding tips for C++
-===================
+Miscellaneous techniques
+========================
 
 [Parent]: techniques.txt
 
 * Original text: 3.2.2009
 
-Do not use enums without scoping
---------------------------------
+Enums with scoping
+------------------
 
-Unscoped enums pollute the namespace. Consider the following code:
+Consider the following code:
 
 	:::cpp
 
@@ -96,71 +96,56 @@ is to wrap enums inside a class, in effect offering the enum values their own na
 
 The extra effort you need to do now is to rewrite the types of the enums as LoopType::Enum and Direction::Enum
 instead of just LoopType and Direction. Additionally, you always have to be explicit with the enum values,
-qualifying the enum of which you are referring to (e.g. LoopType::Forward). In my opinion, this is the way it should have been
-implemented in C++ from the start (i.e. not polluting the surrounding namespace). 
-I find the the enum type name (e.g. LoopType::Enum) nice because it is in symmetry with the
-enum value names (e.g. LoopType::Forward) as if saying 'replace Enum with your desired enum value'.
-Of course, you can also use structs and then you can get rid of the redundant public specifiers:
-this is just a matter of taste (I use classes exclusively).
+qualifying the enum of which you are referring to (e.g. LoopType::Forward). I find the the enum type name 
+(e.g. LoopType::Enum) nice because it is in symmetry with the enum value names (e.g. LoopType::Forward) as 
+if saying 'replace Enum with your desired enum value'.
 
 Do not use unsigned integers
 ----------------------------
 
 Or more precisely, only use them to represent bit fields.
-In summary, unsigned integers are a wrong model for integers in Z.
-Using them to model N (non-negative integers) is most often a wrong choice 
-of concept because substraction a - b is not defined for a < b and
-substraction is still used. Let us be more specific now.
- 
 Assume you have created an array container class. Its size can be altered via
 a 'resize' member function which takes an integer as its parameter denoting the
-desired size. Now, while 'size' values from 0 towards infinity make sense,
+desired size. While values from 0 towards infinity make sense for 'size',
 this is not so with negative values. This is a precondition to the function:
-all passed-in 'size' values should be non-negative. What you should do now is to document
-this fact as a precondition for this function and also [ensure this precondition
-is never violated][Precondition].
+all passed-in 'size' values should be non-negative. This should be both
+documented and checked.
 
-Most often, there is an unfortunate reaction to some people when they see a
-integer variable for which only non-negative values make sense: they 
-turn the variable into an unsigned integer. After all, this way one doubles the range of 
-legal sizes for the array, compared to 'wasting one bit'. What this leads to in our array example is
-that there are no invalid values to check for. 
+### Using an unsigned integer instead of checking a precondition
+
+Sometimes people react to this situation by turning the variable into an 
+unsigned integer. After all, this way one doubles the range of 
+legal sizes for the array, compared to 'wasting one bit'. 
 Unfortunately, it is very common in programming to
 get integer calculations off by just a little amount (usually just by one).
-Now consider you have calculated a new array size by some formula
+Consider you have calculated a new array size by some formula
 and you end up at -1 instead of the correct result 0. What happens
 now is that because of the 2's complement representation the
 integer becomes some very large integer. Thus, instead of resizing your
 array to zero size you end up allocating an enormous amount of data.
-The worst thing, however, is that you can't take this is as an error because every
+However, you can't take this is as an error because every
 value is legal to the 'resize' function. That is, you are not able
 to detect a bug that is expected to happen frequently.
+
+### Reserving space in the integer to detect common bugs
 
 To fix this, you can sacrifice some of the parameter range to 
 detect bugs: 'assert(size < maxInteger - bugThreshold)'.
 However, while this test is correct computationally (dependening on the
 fact that the integers are represented as 2's complement numbers),
-it is not correct logically. What the 'resize' function
-takes as a parameter is an integer, and an integer is supposed to
-model an element of Z (the set of integers). Why Z instead of N (the
-set of non-negative integers)?
-Because you are most probably using subtraction when computing
-the value of 'size' and substraction a - b is not defined 
-if a < b: thus N is a wrong concept. 
-Now, if the 'size' parameter is to model an integer, it makes no sense 
-logically that the buggy parameters for the 'size' would reside in the upper portion 
-of the parameter range: logically, they should be allright. 
+it is logically a bit odd. You wouldn't want to read that in code.
 
-This logical inconsistency is solved by modeling an integer with its proper
-concept: a signed integer. What you wanted to say in the first
-place was that you do not accept negative values:
+The way out is to use a signed integer. What you wanted to say in the 
+first place was that you do not accept negative values:
 'assert(size >= 0)'. Now the test agrees with logic.
-You should not think that a bit is wasted using signed
-integers. Instead, it is in good use enabling you to detect
-very common bugs (size < 0).
+One should not think that a bit is wasted using signed
+integers. Instead, one should think that the bit is in good use
+allowing to detect common bugs.
 
-Let us give another example why signed integers should be
-used: looping over values from n to zero backwards:
+### Looping with unsigned integers
+
+Let us give another example where unsigned integers cause problems: 
+looping over values from n to zero backwards:
 
 	:::cpp
 	for (unsigned int i = n;i >= 0;--i)
@@ -170,8 +155,8 @@ used: looping over values from n to zero backwards:
 	
 This code gets in an infinite loop,
 since there are no negative values which would fail the loop test.
-There is no natural fix to this problem with unsigned integers. However,
-with signed integers this is just natural:
+There is no natural fix to this problem with unsigned integers. Again,
+the way out is to use signed integers:
 
 	:::cpp
 	for (int i = n;i >= 0;--i)
@@ -181,6 +166,8 @@ with signed integers this is just natural:
 
 Anyway, if the iteration was over the range [-4, 15], say, you would be
 using signed integers anyway: signed integers give your code consistency.
+
+### Signed-unsigned conversion
 
 Lastly, conversion between an unsigned integer and a signed integer
 is an information destroying process in either direction.
@@ -201,8 +188,6 @@ that model the desired abstract concept!
 Rather than using the native types, abstract an integer used
 for indices and counts as its own type. Do the same for reals.
 
-I use:
-
 	:::cpp
 	
 	typedef int integer;
@@ -221,9 +206,9 @@ I use:
 	}
 	
 Single floats work nicely as models for real numbers most of the time.
-However, by doing this kind of abstraction I make it possible to change the 
-representation to a double if at some point I find that the 
-accuracy of a single float is not enough for my work.
+However, by doing this kind of abstraction it is possible to change the 
+representation to a double if at some point it is found that the 
+accuracy of a single float is not enough.
 
 Do turn off some of the compiler warnings
 -----------------------------------------
@@ -231,7 +216,7 @@ Do turn off some of the compiler warnings
 Some people take an obsession to eliminate every warning the
 compiler has to offer. Paradoxically, this leads to worse code than
 what can be achieved by a more relaxed approach.
-I will now justify this (arrogant?:) claim by listing some of the compiler warnings
+I will now justify this claim by listing some of the compiler warnings
 that I have turned off in Visual Studio 2008 and by explaining my reasons for doing that.
 
 4351
@@ -244,20 +229,17 @@ need for this warning anymore in that particular project.
 4996
 'function': was declared deprecated
 
-This warning message is particularly arrogant from the Microsoft side.
-The functions referred to in these warnings were those of the Standard Library,
-for which Microsoft had created their own 'safe' versions (postfixed with a _s).
-The Standard Library functions sure aren't deprecated, and aren't going to be, 
-so this warning message is simply wrong. I hope people
-haven't switched functions just because of this (Microsoft's functions
-are not portable because they are not standard).
+This warning is simply rubbish, since the functions which are referred to
+are functions in the Standard Library which are not deprecated in the standard. 
+The questionable intent here was probably to promote Microsofts 'safe' 
+implementation of the standard library.
 
 4018
 'expression' : signed/unsigned mismatch
 
-Ok, you end up in the unfortunate situation that you must assign
+Assume you end up in the unfortunate situation that you must assign
 an unsigned integer to a signed integer or vice versa. As discussed elsewhere
-on this page, there is nothing you can do to save the day because
+on this page, there is nothing that can be done to save the day because
 both directions are information destroying. Some people at this 
 situation use a cast to get rid of the warning. This is a bit of a self-deception.
 After all, the problem is not resolved by the cast, it is only sweeped
@@ -277,10 +259,6 @@ to me this warning serves no purpose. I also find the code looking
 aesthetically better when I don't perform the cast. Finally, if there
 is any day a suspicion that a bug is being caused by this kind of
 operation, then the compiler can help me to locate the place.
-
-Of course, when turning off warnings you have to know what you are
-doing, and justify your actions to yourself and others working with
-you.
 
 Use precondition checking
 -------------------------
