@@ -1,4 +1,0 @@
-Meta stuff
-==========
-
-[Parent]: pastelsys.txt

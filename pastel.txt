@@ -63,14 +63,14 @@ link below for more information.
 Note on web-browsers
 --------------------
 
-This documentation uses MathMl to display inlined mathematics.
-Unfortunately not all browsers support MathMl natively, including
+This documentation uses MathML to display inlined mathematics.
+Unfortunately not all browsers support MathML natively, including
 Internet Explorer. In this case you will not be able to see the 
 mathematical expressions correctly. While there is a plug-in 
 available (MathPlayer) for adding this capability to Internet Explorer, 
 in our tests this combination crashed the browser when viewing 
 these pages. According to Wikipedia, some major web-browsers that 
-currently display MathMl natively include Mozilla Firefox, Opera, 
+currently display MathML natively include Mozilla Firefox, Opera, 
 and Camino. At this point we can't do anything else than to direct 
 you to use these browsers to view these pages.
 

@@ -11,14 +11,14 @@ from which they can safely be identified later.
 In this case a need for an identifier allocation policy arises.
 If this identifier allocation process is distributed,
 it is impossible without coordination to avoid duplicate
-identifiers for sure. This is solved by using a statistical approach 
+identifiers. This is solved by using a statistical approach 
 instead, where a long identifier is combined together from time, place and
-environment dependent variables. For example, a network
-mac address should itself be a universally unique identifier.
+environment-dependent variables. For example, a network
+mac-address should itself be a universally unique identifier.
 If we further pack with this information the current date
 and time and some random number we are pretty sure to never
 have any colliding identifiers. Such identifiers are called
-_Globally Unique IDentifiers_.
+_Globally Unique IDentifiers_ (GUID).
 
 Practice
 --------
