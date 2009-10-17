@@ -19,12 +19,12 @@ For an example, [see the source for this page](./documentation.txt).
 ### Mathematical notation
 
 The Markdown syntax has been extended to embed mathematical notation
-via the AsciiMathMl library. This extends the idea of making both 
+via the AsciiMathML library. This extends the idea of making both 
 the document and the source itself readable.
-Like Markdown, AsciiMathMl is both a syntax and a program to convert
-that syntax into MathMl. This allows one to use mathematical notation 
+Like Markdown, AsciiMathML is both a syntax and a program to convert
+that syntax into MathML. This allows one to use mathematical notation 
 as is common when communicating through an ascii-only medium 
-(newsgroups, emails). For example, using AsciiMathMl, one can type 
+(newsgroups, emails). For example, using AsciiMathML, one can type 
 `int_{-oo}^oo f(x) log(f(x)) dx` to render 
 
 ''int_{-oo}^oo f(x) log(f(x)) dx'' 

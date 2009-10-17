@@ -739,6 +739,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\eps.h"
+				>
+			</File>
+			<File
+				RelativePath=".\eps.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\histogram.h"
 				>
 			</File>
@@ -932,26 +940,6 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Portability"
-			>
-			<File
-				RelativePath=".\endianconvert.h"
-				>
-			</File>
-			<File
-				RelativePath=".\endianconvert.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\eps.h"
-				>
-			</File>
-			<File
-				RelativePath=".\portability.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Miscellaneous"
 			>
 			<File
@@ -963,11 +951,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\endianconvert.h"
+				>
+			</File>
+			<File
+				RelativePath=".\endianconvert.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\keyvalue.h"
 				>
 			</File>
 			<File
 				RelativePath=".\miscellaneous.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\pastelsys.cpp"
 				>
 			</File>
 			<File
@@ -996,6 +996,14 @@
 			</File>
 			<File
 				RelativePath=".\subset.h"
+				>
+			</File>
+			<File
+				RelativePath=".\syslibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\syslibrary.h"
 				>
 			</File>
 			<Filter
@@ -1108,55 +1116,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Meta"
-			>
-			<File
-				RelativePath=".\meta.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelsys.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.h"
-				>
-			</File>
-			<Filter
-				Name="Build switches"
-				>
-				<File
-					RelativePath=".\environment.h"
-					>
-				</File>
-				<File
-					RelativePath=".\environment.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\environment.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\mytypes.h"
-					>
-				</File>
-				<File
-					RelativePath=".\mytypes.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pastelomp.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Configuration"
+			Name="Configuration files"
 			>
 			<File
 				RelativePath=".\config.cpp"
@@ -1612,6 +1572,34 @@
 			>
 			<File
 				RelativePath="..\..\installation.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Build switches"
+			>
+			<File
+				RelativePath=".\environment.h"
+				>
+			</File>
+			<File
+				RelativePath=".\environment.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\environment.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\mytypes.h"
+				>
+			</File>
+			<File
+				RelativePath=".\mytypes.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\pastelomp.h"
 				>
 			</File>
 		</Filter>

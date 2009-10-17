@@ -1,5 +1,5 @@
 // Description: Endian conversion
-// Documentation: portability.txt
+// Documentation: miscellaneous.txt
 
 #ifndef PASTEL_ENDIANCONVERT_H
 #define PASTEL_ENDIANCONVERT_H

@@ -1,4 +1,0 @@
-Portability
-===========
-
-[Parent]: pastelsys.txt

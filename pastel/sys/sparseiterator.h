@@ -1,6 +1,6 @@
 // Description: SparseIterator class
 // Detail: An iterator adapter for a larger step size.
-// Documentation: miscellaneous.txt
+// Documentation: iterators.txt
 
 #ifndef PASTEL_SPARSEITERATOR_H
 #define PASTEL_SPARSEITERATOR_H
