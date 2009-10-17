@@ -1447,11 +1447,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\techniques_specialization.txt"
+				RelativePath="..\..\techniques_miscellaneous.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\..\techniques_tips.txt"
+				RelativePath="..\..\techniques_specialization.txt"
 				>
 			</File>
 		</Filter>
