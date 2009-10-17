@@ -6,14 +6,14 @@ Style conventions
 Principles
 ----------
 
+* Write programs and documentation to be read by others.
+
+* Maximize readability of the code in English.
+
 * Use English everywhere.
 	Most computer-related terms have their roots in English 
 	and are well known, while their translations in other languages 
 	are probable to be less known and thus hard to decipher.
-
-* Maximize readability of the code in English.
-
-* Write programs and documentation to be read by others.
 
 Naming
 ------

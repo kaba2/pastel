@@ -1,0 +1,4 @@
+Summed-area tables
+==================
+
+[Parent]: pastelgfx.txt

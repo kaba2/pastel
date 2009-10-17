@@ -10,4 +10,4 @@ or only as a subset if some functionality is not required.
 The following (transitively reduced) graph summarizes the 
 internal dependencies.
 
-![Internal dependencies](../images/internal_dependencies.png)
+![Internal dependencies](./images/internal_dependencies.png)

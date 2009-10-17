@@ -3,20 +3,3 @@ Noise
 
 [Parent]: pastelgfx.txt
 
-Theory
-------
-
-An _ideal noise function_ is any function ''f : RR^n -> [-1, 1] sub RR'' which fulfills the
-following requirements:
-
- * ''f'' is at least twice differentiable (and thus continuous).
- 
- * ''f'' is band-limited. I.e. the fourier transform of ''f'' has finite support.
- 
- * ''f'' has zero mean.
-
- * ''f'' is isotropic: there is no preferential direction when
- viewing the function.
- 
- * ''f'' looks random. 
- 

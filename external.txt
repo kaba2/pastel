@@ -3,6 +3,9 @@ External dependencies
 
 [Parent]: pastel.txt
 
+Practice
+--------
+
 Pastel uses a few external third-party libraries which 
 must be installed in order to compile and link all
 Pastel libraries succesfully. The following list summarizes 

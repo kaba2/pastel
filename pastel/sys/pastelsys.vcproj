@@ -1111,27 +1111,7 @@
 			Name="Meta"
 			>
 			<File
-				RelativePath=".\environment.h"
-				>
-			</File>
-			<File
-				RelativePath=".\environment.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\meta.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\mytypes.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mytypes.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelomp.h"
 				>
 			</File>
 			<File
@@ -1146,6 +1126,34 @@
 				RelativePath=".\syslibrary.h"
 				>
 			</File>
+			<Filter
+				Name="Build switches"
+				>
+				<File
+					RelativePath=".\environment.h"
+					>
+				</File>
+				<File
+					RelativePath=".\environment.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\environment.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\mytypes.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mytypes.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pastelomp.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Configuration"
@@ -1411,10 +1419,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\installation.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\internal.txt"
 				>
 			</File>
@@ -1600,6 +1604,14 @@
 			</File>
 			<File
 				RelativePath=".\syscommon.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Installation"
+			>
+			<File
+				RelativePath="..\..\installation.txt"
 				>
 			</File>
 		</Filter>
