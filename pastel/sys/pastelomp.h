@@ -1,5 +1,5 @@
 // Description: Conditionally includes omp.h
-// Documentation: meta.txt
+// Documentation: environment.txt
 
 #ifndef PASTEL_PASTELOMP_H
 #define PASTEL_PASTELOMP_H

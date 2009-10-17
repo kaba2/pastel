@@ -1,0 +1,78 @@
+Build switches
+==============
+
+[Parent]: pastel.txt
+
+Practice
+--------
+
+The file 'environment.h' contains a few configuration switches 
+in the form of preprocessors defines, which globally affect the 
+code-generation in Pastel. We explain these switches here.
+
+### PASTEL_DYNAMIC_LIBRARIES
+
+By default, the library is set to produce dll libraries.
+For this to work, the classes need to be dll-exported
+under Windows. In Visual C++ this is accomplished
+by prepending functions and classes with certain
+declspec commands. It is the generation of these commands
+that is controlled by this switch.
+In Unix the default is to dll-export everything, and
+thus the previous commands are only generated if
+WIN32 has been defined.
+If PASTEL_DYNAMIC_LIBRARIES != 0, the compiler-specific 
+prepending commands are generated, otherwise they are not.
+
+### PASTEL_ENABLE_PENSURES
+
+ENSUREs are runtime checks used to check preconditions for 
+functions. The triggering of such a check signals the presence 
+of a bug on the user's side.
+However, some of these checks can cause relatively severe
+performance degradation, notably when the function is of low complexity.
+These checks are marked as PENSUREs, for 'Performance ENSURE'.
+This build switch controls the code generation for PENSURES.
+If PASTEL_ENABLE_PENSURES != 0, the tests are generated,
+otherwise they are not.
+
+### PASTEL_DEBUG_MODE
+
+The ASSERTs form another class of runtime checks which are
+used internally to check invariants in the Pastel library.
+The triggering of such check always signals a presence of a bug
+on the part of the implementation. They can possibly interfere 
+with optimization and therefore this switch allows to control
+whether their code is generated or not.
+If PASTEL_DEBUG_MODE != 0, the tests are generated, otherwise
+they are not.
+
+### PASTEL_ENABLE_OMP
+
+Pastel uses the OpenMp library for parallelizing some sections
+of the code, such as all-nearest neighbors searching. The OpenMp
+library comes with a header file omp.h, which however might not
+always be available on a given building environment. To solve
+this problem, Pastel has a redirection file named 'pastelomp.h',
+which includes 'omp.h' conditionally based on this build switch.
+If PASTEL_ENABLE_OMP != 0, then 'omp.h' is included in 'pastelomp.h',
+otherwise it is not included.
+
+Global type definitions
+-----------------------
+
+Pastel includes some global type definitions in the file 'mytypes.h',
+which is included in practically every file in Pastel. In that file
+there is particularly the definition of 'real' type which you might
+want to change to either 'float' or 'double' based on your specific
+requirements. The other types should be chosen such that they meet
+the obvious requirements (e.g. the size of uint16 is 16 bits).
+These requirements are checked automatically in 'pastelsys.cpp' in
+the PastelSys library. Compilation of that file fails if the 
+requirements are not met. In this case you might need to change the
+types in 'mytypes.h' to proper types.
+
+See also
+--------
+
+[Link]: ensure.txt
