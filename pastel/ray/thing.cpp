@@ -21,13 +21,26 @@ namespace Pastel
 			transformPoint(ray.position(), transformation_.inverse()),
 			transformVector(ray.direction(), transformation_.inverse()));
 
-		return intersect_(transformedRay, surface, tClosest);
+		if (intersect_(transformedRay, surface, tClosest))
+		{
+			surface.position = transformPoint(surface.position, transformation_.forward());
+			surface.normal = transformNormal(surface.normal, transformation_.inverse());
+			surface.dpDu = transformVector(surface.dpDu, transformation_.forward());
+			surface.dpDv = transformVector(surface.dpDv, transformation_.forward());
+			surface.ddpDuu = transformVector(surface.ddpDuu, transformation_.forward());
+			surface.ddpDuv = transformVector(surface.ddpDuv, transformation_.forward());
+			surface.ddpDvv = transformVector(surface.ddpDvv, transformation_.forward());
+			
+			return true;
+		}
+
+		return false;
 	}
 
 	void Thing::setTransformation(
-		const AffineTransformation3& worldTransformation)
+		const AffineTransformation3& transformation)
 	{
-		transformation_ = worldTransformation;
+		transformation_ = transformation;
 	}
 
 	const AffineBijection3& Thing::transformation() const

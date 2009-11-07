@@ -52,6 +52,15 @@ namespace Pastel
 		return left * right.matrix() + right.translation();
 	}
 
+	template <typename Real, int N>
+	Vector<Real, N> transformNormal(
+		const Vector<Real, N>& left,
+		const AffineTransformation<Real, N>& rightInverse)
+	{
+		// Normals transform via inverse-transpose.
+		return rightInverse.matrix() * left;
+	}
+
 }
 
 #endif

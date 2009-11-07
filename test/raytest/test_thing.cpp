@@ -85,7 +85,7 @@ namespace
 			ShapePtr shape = 
 				ShapePtr(new Sphere_Shape);
 
-			const integer things = 100;
+			const integer things = 1;
 			std::vector<ThingPtr> thingSet;
 			thingSet.reserve(things);
 			for (integer i = 0;i < things;++i)
@@ -93,7 +93,11 @@ namespace
 				Shape_ThingPtr thing = Shape_ThingPtr(new Shape_Thing(
 					shape, material));
 				thing->setTransformation(
-					scaling3<real>(Vector3(2, 1, 1)) * translation3(evaluate((randomVector<real, 3>() - 0.5) * 30)));
+					scaling3<real>(Vector3(4, 1, 1)));
+				/*
+				thing->setTransformation(
+					scaling3<real>(Vector3(1, 1, 1)) * translation3(evaluate((randomVector<real, 3>() - 0.5) * 30)));
+				*/
 				thingSet.push_back(thing);
 			}
 
