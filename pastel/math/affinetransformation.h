@@ -183,6 +183,11 @@ namespace Pastel
 		const Vector<Real, N>& left,
 		const AffineTransformation<Real, N>& right);
 
+	template <typename Real, int N>
+	Vector<Real, N> transformNormal(
+		const Vector<Real, N>& left,
+		const AffineTransformation<Real, N>& rightInverse);
+
 }
 
 #include "pastel/math/affinetransformation.hpp"

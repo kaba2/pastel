@@ -12,9 +12,9 @@ namespace Pastel
 		const Beam result(
 			Ray3(transformPoint(beam.ray().position(), transformation),
 			transformVector(beam.ray().direction(), transformation)),
-			Ray3(transformPoint(beam.ddx().position(), transformation),
+			Ray3(transformVector(beam.ddx().position(), transformation),
 			transformVector(beam.ddx().direction(), transformation)),
-			Ray3(transformPoint(beam.ddy().position(), transformation),
+			Ray3(transformVector(beam.ddy().position(), transformation),
 			transformVector(beam.ddy().direction(), transformation)));
 
 		return result;
@@ -33,7 +33,7 @@ namespace Pastel
 
 		// Compute primary ray.
 
-		result.ray().set(surface.position, beam.ray().direction());
+		result.ray().setPosition(surface.position);
 
 		// Compute x-derivative.
 
