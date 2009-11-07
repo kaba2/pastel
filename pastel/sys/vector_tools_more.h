@@ -15,6 +15,63 @@
 namespace Pastel
 {
 
+#define PASTEL_VECTOR_EXPRESSION_CLASS(CLASS, SCALAR_FUNCTION) \
+	template <  \
+		typename Real,  \
+		int N,  \
+		typename Expression>  \
+	class CLASS \
+		: public VectorExpression<Real, N, CLASS<Real, N, Expression> > \
+	{ \
+	public: \
+		typedef const CLASS& StorageType; \
+		\
+		explicit CLASS( \
+			const Expression& data) \
+			: data_(data) \
+		{ \
+		} \
+		\
+		Real operator[](integer index) const \
+		{ \
+			return SCALAR_FUNCTION(data_[index]); \
+		} \
+		\
+		integer size() const \
+		{ \
+			const Expression& expression = \
+				(const Expression&)data_; \
+			return expression.size(); \
+		} \
+		\
+		bool involves( \
+			const void* memoryBegin, const void* memoryEnd) const \
+		{ \
+			return data_.involves(memoryBegin, memoryEnd); \
+		} \
+		\
+		bool involvesNonTrivially( \
+			const void* memoryBegin, const void* memoryEnd) const \
+		{ \
+			return data_.involvesNonTrivially(memoryBegin, memoryEnd); \
+		} \
+		 \
+	private: \
+		typename Expression::StorageType data_; \
+	};
+
+#define PASTEL_VECTOR_EXPRESSION_FUNCTION(CLASS, VECTOR_FUNCTION) \
+	template <typename Real, int N, typename Expression> \
+	inline const CLASS<Real, N, Expression> \
+		VECTOR_FUNCTION(const VectorExpression<Real, N, Expression>& x) \
+	{ \
+		return CLASS<Real, N, Expression>((const Expression&)x); \
+	}
+
+#define PASTEL_VECTOR_EXPRESSION(CLASS, SCALAR_FUNCTION, VECTOR_FUNCTION) \
+	PASTEL_VECTOR_EXPRESSION_CLASS(CLASS, SCALAR_FUNCTION); \
+	PASTEL_VECTOR_EXPRESSION_FUNCTION(CLASS, VECTOR_FUNCTION);
+
 	// Permutation
 
 	template <typename Real, int N, typename Expression>
@@ -137,190 +194,21 @@ namespace Pastel
 
 	// Expression templates for array computation
 
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorAbs
-		: public VectorExpression<Real, N, VectorAbs<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorAbs& StorageType;
-
-		explicit VectorAbs(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			const Real data(data_[index]);
-			return data > 0 ? data : -data;
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorSquare
-		: public VectorExpression<Real, N, VectorSquare<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorSquare& StorageType;
-
-		explicit VectorSquare(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return Pastel::square(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorExp
-		: public VectorExpression<Real, N, VectorExp<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorExp& StorageType;
-
-		explicit VectorExp(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::exp(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorLog
-		: public VectorExpression<Real, N, VectorLog<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorLog& StorageType;
-
-		explicit VectorLog(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::log(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
+	PASTEL_VECTOR_EXPRESSION(VectorInverse, inverse, inverse);
+	PASTEL_VECTOR_EXPRESSION(VectorAbs, mabs, mabs);
+	PASTEL_VECTOR_EXPRESSION(VectorSquare, square, squarev);
+	PASTEL_VECTOR_EXPRESSION(VectorExp, std::exp, exp);
+	PASTEL_VECTOR_EXPRESSION(VectorLog, std::log, log);
+	PASTEL_VECTOR_EXPRESSION(VectorSqrt, std::sqrt, sqrt);
+	PASTEL_VECTOR_EXPRESSION(VectorFloor, std::floor, floor);
+	PASTEL_VECTOR_EXPRESSION(VectorCeil, std::ceil, ceil);
+	PASTEL_VECTOR_EXPRESSION(VectorMod, mod, mod);
+	PASTEL_VECTOR_EXPRESSION(VectorSin, std::sin, sin);
+	PASTEL_VECTOR_EXPRESSION(VectorCos, std::cos, cos);
+	PASTEL_VECTOR_EXPRESSION(VectorTan, std::tan, tan);
+	PASTEL_VECTOR_EXPRESSION(VectorAsin, std::asin, asin);
+	PASTEL_VECTOR_EXPRESSION(VectorAcos, std::acos, acos);
+	PASTEL_VECTOR_EXPRESSION(VectorAtan, std::atan, atan);
 
 	template <
 		typename Real,
@@ -378,374 +266,6 @@ namespace Pastel
 	template <
 		typename Real,
 		int N,
-		typename Expression>
-	class VectorSqrt
-		: public VectorExpression<Real, N, VectorSqrt<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorSqrt& StorageType;
-
-		explicit VectorSqrt(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::sqrt(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorFloor
-		: public VectorExpression<Real, N, VectorFloor<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorFloor& StorageType;
-
-		explicit VectorFloor(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::floor(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorCeil
-		: public VectorExpression<Real, N, VectorCeil<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorCeil& StorageType;
-
-		explicit VectorCeil(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::ceil(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorSin
-		: public VectorExpression<Real, N, VectorSin<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorSin& StorageType;
-
-		explicit VectorSin(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::sin(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorCos
-		: public VectorExpression<Real, N, VectorCos<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorCos& StorageType;
-
-		explicit VectorCos(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::cos(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorTan
-		: public VectorExpression<Real, N, VectorTan<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorTan& StorageType;
-
-		explicit VectorTan(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::tan(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorAsin
-		: public VectorExpression<Real, N, VectorAsin<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorAsin& StorageType;
-
-		explicit VectorAsin(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::asin(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorAcos
-		: public VectorExpression<Real, N, VectorAcos<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorAcos& StorageType;
-
-		explicit VectorAcos(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return std::acos(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin,
-			const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
-	template <
-		typename Real,
-		int N,
 		typename LeftExpression,
 		typename RightExpression>
 	class VectorAtan2
@@ -793,81 +313,7 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <
-		typename Real,
-		int N,
-		typename Expression>
-	class VectorInverse
-		: public VectorExpression<Real, N, VectorInverse<Real, N, Expression> >
-	{
-	public:
-		typedef const VectorInverse& StorageType;
-
-		explicit VectorInverse(
-			const Expression& data)
-			: data_(data)
-		{
-		}
-
-		Real operator[](integer index) const
-		{
-			return inverse(data_[index]);
-		}
-
-		integer size() const
-		{
-			const Expression& expression =
-				(const Expression&)data_;
-			return expression.size();
-		}
-
-		bool involves(
-			const void* memoryBegin, const void* memoryEnd) const
-		{
-			return data_.involves(memoryBegin, memoryEnd);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin, const void* memoryEnd) const
-		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
-		}
-
-	private:
-		typename Expression::StorageType data_;
-	};
-
 	// Arithmetic functions
-
-	//! Returns 1 / x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorInverse<Real, N, Expression>
-		inverse(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the absolute value of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorAbs<Real, N, Expression>
-		mabs(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the square of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorSquare<Real, N, Expression>
-		squarev(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns e^x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorExp<Real, N, Expression>
-		exp(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the natural logarithm of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorLog<Real, N, Expression>
-		log(const VectorExpression<Real, N, Expression>& x);
 
 	//! Returns x[i]^y[i], elementwise.
 
@@ -887,56 +333,6 @@ namespace Pastel
 		VectorConstant<Real, N> >
 		pow(const VectorExpression<Real, N, LeftExpression>& left,
 		const PASTEL_NO_DEDUCTION(Real)& right);
-
-	//! Returns the square root of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorSqrt<Real, N, Expression>
-		sqrt(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the floor of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorFloor<Real, N, Expression>
-		floor(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the ceiling of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorCeil<Real, N, Expression>
-		ceil(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the sine of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorSin<Real, N, Expression>
-		sin(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the cosine of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorCos<Real, N, Expression>
-		cos(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the tangent of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorTan<Real, N, Expression>
-		tan(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the arcsine of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorAsin<Real, N, Expression>
-		asin(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the arccosine of x[i], elementwise.
-
-	template <typename Real, int N, typename Expression>
-	inline const VectorAcos<Real, N, Expression>
-		acos(const VectorExpression<Real, N, Expression>& x);
-
-	//! Returns the arctangent of x[i], elementwise.
 
 	template <typename Real, int N,
 		typename LeftExpression, typename RightExpression>

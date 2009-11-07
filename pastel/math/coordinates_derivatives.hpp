@@ -117,6 +117,72 @@ namespace Pastel
 		return result;
 	}
 
+	template <typename Real, int N>
+	Vector<Real, N> sphericalToCartesianDerivative(
+		const Vector<Real, N>& spherical,
+		const Vector<integer, N>& index)
+	{
+		PENSURE(allGreaterEqual(index, 0));
+		PENSURE_OP(index.size(), ==, spherical.size());
+
+		const integer n = spherical.size();
+
+		if (index[0] >= 2)
+		{
+			// More than twice differentiated with respect to r.
+
+			return Vector<Real, N>(ofDimension(n), 0);
+		}
+
+		Vector<Real, N> result(ofDimension(n), 0);
+
+		// Either r has been differentiated away or not.
+
+		Real x = (index[0] == 0) ? spherical[0] : 1;
+
+		for (integer i = 0;i < n - 1;++i)
+		{
+			const real c = std::cos(spherical[i + 1]);
+			const real s = std::sin(spherical[i + 1]);
+
+			// The derivatives of sine are cyclic with
+			// a period of 4:
+			// sin(x), cos(x), -sin(x), -cos(x), sin(x), ...
+			// Thus we can reduce the cases to those
+			// of 0, 1, 2, or 3 times differentiated.
+			
+			const integer timesMod4 = index[i + 1] & 3;
+
+			switch(timesMod4)
+			{
+			case 0:
+				// No differentiation.
+				result[i] = x * c;
+				x *= s;
+				break;
+			case 1:
+				// Once differentiated.
+				result[i] = x * -s;
+				x *= c;
+				break;
+			case 2:
+				// Twice differentiated.
+				result[i] = x * -c;
+				x *= -s;
+				break;
+			case 3:
+				// Thrice differentiated.
+				result[i] = x * s;
+				x *= -c;
+				break;
+			};
+		}
+
+		result[n - 1] = x;
+
+		return result;
+	}
+
 }
 
 #endif

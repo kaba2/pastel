@@ -44,14 +44,15 @@ automatically to the webpages.
 ### Viewing a documentation page
 
 For a documentation page, a _Back_ link is automatically generated to refer to 
-the documentation page of its parent file. The children of the documentation page are 
-automatically generated links to under the _Learn more_ heading. Links to documentation 
-pages are named after their first heading.
+its parent file. The documentation children are automatically generated links 
+to under the _Learn more_ heading. Such links are named after their first 
+heading. The source-code children are automatically generated links to under the 
+_Files_ heading. These links are preceded by a description which 
+can be specified in the source-code file. The source-code files are grouped
+under a single description according to the following logic:
 
-The child source-code files are automatically generated links to under the _Files_ heading. 
-Links to source-code files are preceded by a description which can be specified in the 
-source-code file. The source-code files are grouped according to a common name without the 
-filetype-suffix.
+ * If a source-code file inherits a parent file from another source-code file,
+ then these two files belong to the same group.
 
 ### Viewing a source-code file
 
@@ -77,31 +78,14 @@ in the file
 
 	[Parent]: name_of_parent.txt 
 	
-This is actually a link definition 
-in Markdown format (in Markdown, link definitions must be referred to
-to be generated), guaranteeing that this extension works nicely with
-the Markdown source.
-
 A source-code file specifies its parent file by writing somewhere
 in the file a comment of the form:
 
 	// Documentation: name_of_documentation.txt
 
-If a documentation page or a source-code file does not specify a parent file,
-LightMark gives the file an implicitly-defined parent file. The logic
-for this goes as follows:
-
- * For a source-code file, if in the same directory there is a file 
-whose name without the filetype-suffix is a prefix of the source-code file,
-and whose filetype-suffix is .txt, choose that file as a parent file. 
-If there are multiple such files, choose the one with the longest common prefix.
-
- * If the search in the current directory failed, go up in the directory 
-hierachy and try again. If this is not possible, choose a special orphan file 
-as the parent file. This file is useful in making sure that every file is 
-correctly associated with a parent file.
-
- * For a documentation file, choose a special orphan file as the parent file.
+The specified file will be first searched from the current directory,
+and then sequantially through parent directories up to the project's 
+root directory.
 
 ### Specifying a description
 
@@ -109,21 +93,6 @@ A source-code file can be given a description by writing somewhere
 in the file a comment of the form:
 
 	// Description: Useful description here
-
-If a source-code file has a description, then all the files with the
-same name but with different filetype-suffices are given the same
-description.
-
-This description affects the generation of the links under the _Files_
-section of the corresponding documentation page. Source-code files
-with the same name without the filetype-suffix are grouped under
-the same description in alphabetical order.
-
-If a source-code file does not specify a description, LightMark
-gives it an implicitly-defined description. This is formed from
-taking the name of the source-code file, removing the filetype-suffix,
-and making the name start with a capital letter. The grouping
-of same-named source-code files again applies.
 
 One can transmit an additional line of information
 about the purpose of the file by writing somewhere in the file
@@ -136,9 +105,30 @@ LightMark to find them quickly.
 
 ### Manual linking
 
-A link to a source-code file or a documentation page can be specified 
+A link to a source-code file or a documentation file can be specified 
 manually to generate a link that has a description as with the automatically
 generated links. This is done by the following syntax:
 
 	[Link]: allocators.txt
+
+Implicitly-defined parent file
+------------------------------
+
+If a documentation file does not specify a parent file, it is assigned
+a special orphan file as the parent file. If a source-code file does not 
+specify a parent file, LightMark gives the file an implicitly-defined parent 
+file. The logic for this goes as follows:
+
+ * In the same directory, search for the longest prefix file (excluding the 
+ file itself). Give documentation files (.txt) priority over source-code 
+ files (i.e. consider them longer). Do not consider source-code files 
+ which do not specify a parent file. If there are multiple candidate 
+ source-code files, pick one arbitrarily (LightMark reports a warning
+ about the ambiguity). 
+ 
+ * If a documentation file is found, use it as a parent file. 
+
+ * If a source-code file is found, use its parent as a parent file. 
+
+ * Otherwise use a special orphan file as a parent file.
 

@@ -193,10 +193,18 @@ namespace
 
 		MipImage_Texture<Color> mipmapSampler(mipMap);
 
+		const Color colorSet[] = 
+		{
+			Color(1, 1, 1), 
+			Color(1, 0, 0), 
+			Color(0, 1, 0),
+			Color(0, 0, 1)
+		};
+
 		drawTexturedBox(
 			AlignedBox2(0, 400, 100, 500),
 			linearColorTexture<Color, 2>(
-				makeTuple(Color(1, 1, 1), Color(1, 0, 0), Color(0, 1, 0), Color(0, 0, 1))),
+				randomAccessRange(colorSet)),
 			arrayView(image));
 
 		drawTexturedBox(

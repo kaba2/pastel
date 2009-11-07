@@ -8,6 +8,9 @@
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/pastelomp.h"
 
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_arithmetic.hpp>
+
 #define PASTEL_NO_DEDUCTION(x) typename Pastel::ParenthesesRemover<void (x)>::Type
 
 namespace Pastel
@@ -91,8 +94,8 @@ namespace Pastel
 	template <typename Type>
 	void unused(const Type&);
 
-	float mabs(float that);
-	double mabs(double that);
+	template <typename Type>
+	typename boost::enable_if<boost::is_arithmetic<Type>, Type>::type mabs(Type that);
 
 	void deallocateRaw(const void* data);
 	void* allocateRaw(integer size);

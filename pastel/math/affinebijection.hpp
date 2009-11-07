@@ -1,7 +1,7 @@
-#ifndef PASTEL_TRANSFORMATION_HPP
-#define PASTEL_TRANSFORMATION_HPP
+#ifndef PASTEL_AFFINEBIJECTION_HPP
+#define PASTEL_AFFINEBIJECTION_HPP
 
-#include "pastel/math/transformation.h"
+#include "pastel/math/affinebijection.h"
 
 #include "pastel/math/affinetransformation_tools.h"
 
@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-	Transformation<Real, N>::Transformation()
+	AffineBijection<Real, N>::AffineBijection()
 		: transform_()
 		, inverse_()
 		, update_(false)
@@ -17,7 +17,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Transformation<Real, N>::Transformation(
+	AffineBijection<Real, N>::AffineBijection(
 		const AffineTransformation<Real, N>& that)
 		: transform_(that)
 		, inverse_()
@@ -26,7 +26,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Transformation<Real, N>::Transformation(
+	AffineBijection<Real, N>::AffineBijection(
 		const Matrix<Real, N, N>& transformation,
 		const Vector<Real, N>& translation)
 		: transform_(transformation, translation)
@@ -36,15 +36,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Transformation<Real, N>::~Transformation()
+	AffineBijection<Real, N>::~AffineBijection()
 	{
 		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <typename Real, int N>
-	void Transformation<Real, N>::swap(Transformation<Real, N>& that)
+	void AffineBijection<Real, N>::swap(AffineBijection<Real, N>& that)
 	{
-		using std::swap;
 		using std::swap;
 
 		swap(transform_, that.transform_);
@@ -53,8 +52,8 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Transformation<Real, N>& Transformation<Real, N>::operator*=(
-		const Transformation<Real, N>& that)
+	AffineBijection<Real, N>& AffineBijection<Real, N>::operator*=(
+		const AffineBijection<Real, N>& that)
 	{
 		transform_ *= that.transform_;
 		update_ = true;
@@ -63,17 +62,17 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Transformation<Real, N> Transformation<Real, N>::operator*(
-		const Transformation<Real, N>& that) const
+	AffineBijection<Real, N> AffineBijection<Real, N>::operator*(
+		const AffineBijection<Real, N>& that) const
 	{
-		Transformation<Real, N> result(*this);
+		AffineBijection<Real, N> result(*this);
 		result *= that;
 
 		return result;
 	}
 
 	template <typename Real, int N>
-	void Transformation<Real, N>::setTransform(
+	void AffineBijection<Real, N>::setTransform(
 		const AffineTransformation<Real, N>& transformation)
 	{
 		transform_ = transformation;
@@ -82,14 +81,14 @@ namespace Pastel
 
 	template <typename Real, int N>
 	const AffineTransformation<Real, N>&
-		Transformation<Real, N>::affineTransform() const
+		AffineBijection<Real, N>::forward() const
 	{
 		return transform_;
 	}
 
 	template <typename Real, int N>
 	const AffineTransformation<Real, N>&
-		Transformation<Real, N>::affineInverse() const
+		AffineBijection<Real, N>::inverse() const
 	{
 		if (update_)
 		{
@@ -100,33 +99,33 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	void Transformation<Real, N>::setTransform(
+	void AffineBijection<Real, N>::setMatrix(
 		const Matrix<Real, N, N>& transformation)
 	{
-		transform_.transformation() = transformation;
+		transform_.matrix() = transformation;
 		update_ = true;
 	}
 
 	template <typename Real, int N>
-	const Matrix<Real, N, N>& Transformation<Real, N>::transformation() const
+	const Matrix<Real, N, N>& AffineBijection<Real, N>::matrix() const
 	{
-		return transform_.transformation();
+		return transform_.matrix();
 	}
 
 	template <typename Real, int N>
 	const Matrix<Real, N, N>&
-		Transformation<Real, N>::inverseTransform() const
+		AffineBijection<Real, N>::inverseMatrix() const
 	{
 		if (update_)
 		{
 			update();
 		}
 
-		return inverse_.transformation();
+		return inverse_.matrix();
 	}
 
 	template <typename Real, int N>
-	void Transformation<Real, N>::setTranslation(
+	void AffineBijection<Real, N>::setTranslation(
 		const Vector<Real, N>& translation)
 	{
 		transform_.translation() = translation;
@@ -135,14 +134,14 @@ namespace Pastel
 
 	template <typename Real, int N>
 	const Vector<Real, N>&
-		Transformation<Real, N>::translation() const
+		AffineBijection<Real, N>::translation() const
 	{
 		return transform_.translation();
 	}
 
 	template <typename Real, int N>
 	const Vector<Real, N>&
-		Transformation<Real, N>::inverseTranslation() const
+		AffineBijection<Real, N>::inverseTranslation() const
 	{
 		if (update_)
 		{
@@ -155,9 +154,9 @@ namespace Pastel
 	// Private
 
 	template <typename Real, int N>
-	void Transformation<Real, N>::update() const
+	void AffineBijection<Real, N>::update() const
 	{
-		inverse_ = inverse(transform_);
+		inverse_ = Pastel::inverse(transform_);
 		update_ = false;
 	}
 

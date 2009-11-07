@@ -1,0 +1,12 @@
+
+
+namespace Pastel
+{
+
+
+	void renderDirectLighting()
+	{
+
+	}
+
+}

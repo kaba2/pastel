@@ -19,6 +19,58 @@ Todo
 - Make resampling functions easier to use
 - Replace iterator interfaces with iterator range interfaces
 
+The case of crSpline
+--------------------
+
+Full concept version:
+
+	:::cpp
+	template <typename Vector_Iterator>
+	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
+		const RandomAccessRange<Vector_Iterator>& pointSet,
+		const typename Vector_Scalar<typename std::iterator_traits<Vector_Iterator>::value_type>::type& time);
+
+	template <typename Vector_Iterator>
+	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
+		const RandomAccessRange<Vector_Iterator>& pointSet,
+		const typename Vector_Scalar<boost::iterator_value<Vector_Iterator> >::type& time);
+
+Problems: Ugly interface. This is caused by having to use meta-functions to
+access associated types, which is caused by the lack of concept mapping. 
+Ideally we would have:
+
+	:::cpp
+	template <typename Vector_Iterator>
+	Vector_Iterator::value_type crSpline(
+		const RandomAccessRange<Vector_Iterator>& pointSet,
+		const Vector_Iterator::value_type::Scalar& time);
+		
+Problems: Not valid C++.
+
+Require specifying scalar (i.e. simplification by removing requirements):
+
+	:::cpp
+	template <typename Real, typename Vector_Iterator>
+	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
+		const RandomAccessRange<Vector_Iterator>& pointSet,
+		const Real& time);
+		
+Problems: 1) The specified 'Real' type could conflict with the vectors:
+not all combinations are legal.
+2) Type of 'Real' would be dependent on the argument type (e.g. 0 vs 0.0),
+unless explicitly specified.
+
+Pre-specify a scalar (i.e. simplification by adding requirements):
+
+	:::cpp
+	template <typename Vector_Iterator>
+	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
+		const RandomAccessRange<Vector_Iterator>& pointSet,
+		const real& time);
+
+Problems: The 'real' type could conflict with the vectors. Less
+generic: does not work where the previous did.
+
 What are the disabled Visual Studio warnings?
 ---------------------------------------------
 

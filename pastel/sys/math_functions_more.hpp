@@ -67,6 +67,17 @@ namespace Pastel
 		return periodicIndex;
 	}
 
+	inline real mod(real x)
+	{
+		return x - std::floor(x);
+	}
+
+	inline real mod(real x, real n)
+	{
+		PENSURE_OP(n, >, 0);
+		return Pastel::mod(x / n) * n;
+	}
+
 	inline integer integerLog2(integer that)
 	{
 		ENSURE_OP(that, >, 0);

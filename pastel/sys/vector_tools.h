@@ -195,6 +195,10 @@ namespace Pastel
 	inline Vector<Real, N> normalize(
 		const Vector<Real, N>& that);
 
+	template <typename Real, int N, typename Expression>
+	inline Vector<Real, N> normalize(
+		const VectorExpression<Real, N, Expression>& that);
+
 	//! Returns a clockwise perpendicular to the given vector in 2D.
 
 	template <typename Real, typename Expression>

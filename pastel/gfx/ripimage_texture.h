@@ -5,6 +5,7 @@
 #define PASTEL_RIPIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
+
 #include "pastel/dsp/ripmap.h"
 
 #include "pastel/sys/vector.h"

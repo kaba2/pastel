@@ -1603,6 +1603,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Concepts"
+			>
+			<File
+				RelativePath=".\vector_concept.h"
+				>
+			</File>
+			<File
+				RelativePath=".\vector_concept.hpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

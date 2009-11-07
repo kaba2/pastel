@@ -40,10 +40,37 @@ namespace Pastel
 	/*!
 	Preconditions:
 	n > 0
+	Postconditions:
+	0 <= x < n
+
+	Returns:
+	x mod n
 
 	mod(-1, n) = n - 1, and so on
 	*/
 	inline integer mod(integer x, integer n);
+
+	//! Returns x mod 1.
+	/*!
+	Postconditions:
+	0 <= x < 1
+
+	Returns:
+	x - floor(x)
+	*/
+	inline real mod(real x);
+
+	//! Returns x mod n.
+	/*!
+	Preconditions:
+	n > 0
+	Postconditions:
+	0 <= x < n
+
+	This is a convenience function that calls
+	mod(x / n) * n
+	*/
+	inline real mod(real x, real n);
 
 	//! Returns floor(log_2(that)).
 	/*!

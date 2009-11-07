@@ -16,6 +16,17 @@ namespace Pastel
 	public:
 		typedef typename AcceptPoint::Object Object;
 
+		Negate_AcceptPoint()
+			: inner_()
+		{
+		}
+
+		explicit Negate_AcceptPoint(
+			const AcceptPoint& that)
+			: inner_(that)
+		{
+		}
+
 		bool operator()(const Object& that) const
 		{
 			return !inner_(that);

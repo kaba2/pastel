@@ -151,6 +151,12 @@ namespace Pastel
 	AffineTransformation<Real, 3> zRotation3(
 		const PASTEL_NO_DEDUCTION(Real)& angle);
 
+	//! Returns a 3D scaling transformation.
+
+	template <typename Real>
+	AffineTransformation<Real, 3> scaling3(
+		const Vector<Real, 3>& scaling);
+
 	//! Returns a 3D translation transformation.
 
 	template <typename Real>

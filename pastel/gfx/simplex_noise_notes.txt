@@ -40,7 +40,7 @@ Theory
 
 Let ''P = {p_0, p_1, ..., p_n} sub RR^n'', where the points of ''P''
 are affinely independent. Then the convex hull of ''P'' is a simplex. 
-The convex hull of a k-sized subset of ''P'' is a k-simplex.
+The convex hull of a ''(k + 1)''-sized subset of ''P'' is a ''k''-simplex.
 In what follows, we identify a simplex with its vertices.
 A simplex is called _regular_ if it holds that
 
@@ -211,7 +211,7 @@ transformation all simplices  have a minimum edge length of ''d = sqrt(n / (n + 
 ### Deforming transformation
 
 The transformation from the non-regular simplex partitioning to
-a regular simplex partitioning is linear and is given by the matrix ''M in RR^{n xx n}'':
+a more-regular simplex partitioning is linear and is given by the matrix ''M in RR^{n xx n}'':
 
 ''M = [f(e_1), ..., f(e_n)] = I + (1 / sqrt(n + 1) - 1) / n [p, ..., p]
 = I - (sqrt(n + 1) - 1) / (n sqrt(n + 1)) [p, ..., p]''
@@ -224,8 +224,8 @@ These are the transformations that seem to be used in the original algorithm.
 However, the problem with these transformations is that the minimum simplex edge length
 varies with dimension. This in turn implies that the feature size varies with
 dimension. Therefore, it is better to apply an additional uniform scaling, which
-expands distances but does not affect angles. Since the length of the simplex
-edges is ''d'', the edge length of 1 is obtained by multiplying
+expands distances but does not affect angles. Since the minimum length of the simplex
+edges is ''d'', the minimum edge length of 1 is obtained by multiplying
 with ''1 / d'':
 
 ''B = 1 / d M''
@@ -234,7 +234,7 @@ with ''1 / d'':
 
 ### Containing simplex
 
-Assume the space is partitioned according to the regular simplicial
+Assume the space is partitioned according to the more-regular simplicial
 partitioning as described above. Given a point ''u in RR^n'', 
 we would like to obtain the vertices of that simplex which contains ''u''.
  
@@ -277,7 +277,7 @@ where ''q = (sqrt(n + 1) - 1) / (n sqrt(n + 1)) = s / sqrt(n + 1)''.
 
 ### Scalar fields 
 
-Consider the transformed simplex space again. Each simplex vertex in this space is
+Consider the more-regular simplex space again. Each simplex vertex in this space is
 associated with a gradient vector. This is the gradient of the noise
 function at that point. The noise function itself is zero at each vertex.
 The gradient vector ''g in RR^n'' of a given vertex ''v in RR^n'' defines a 

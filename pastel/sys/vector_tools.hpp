@@ -347,6 +347,13 @@ namespace Pastel
 		return that / norm(that);
 	}
 
+	template <typename Real, int N, typename Expression>
+	Vector<Real, N> normalize(
+		const VectorExpression<Real, N, Expression>& that)
+	{
+		return Pastel::normalize(evaluate(that));
+	}
+
 	template <typename Real, typename Expression>
 	Vector<Real, 2> cross(
 		const VectorExpression<Real, 2, Expression>& that)
