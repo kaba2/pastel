@@ -281,46 +281,6 @@ namespace Pastel
 
 	// Arithmetic functions
 
-	template <typename Real, int N, typename Expression>
-	const VectorInverse<Real, N, Expression>
-		inverse(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorInverse<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorAbs<Real, N, Expression>
-		mabs(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorAbs<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorSquare<Real, N, Expression>
-		squarev(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorSquare<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorExp<Real, N, Expression>
-		exp(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorExp<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorLog<Real, N, Expression>
-		log(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorLog<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
 	template <typename Real, int N,
 		typename LeftExpression, typename RightExpression>
 		const VectorPow<Real, N, LeftExpression, RightExpression>
@@ -344,70 +304,6 @@ namespace Pastel
 			VectorConstant<Real, N> >(
 			(const LeftExpression&)left,
 			VectorConstant<Real, N>(right, left.size()));
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorSqrt<Real, N, Expression>
-		sqrt(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorSqrt<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorFloor<Real, N, Expression>
-		floor(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorFloor<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorCeil<Real, N, Expression>
-		ceil(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorCeil<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorSin<Real, N, Expression>
-		sin(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorSin<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorCos<Real, N, Expression>
-		cos(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorCos<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorTan<Real, N, Expression>
-		tan(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorTan<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorAsin<Real, N, Expression>
-		asin(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorAsin<Real, N, Expression>(
-			(const Expression&)x);
-	}
-
-	template <typename Real, int N, typename Expression>
-	const VectorAcos<Real, N, Expression>
-		acos(const VectorExpression<Real, N, Expression>& x)
-	{
-		return VectorAcos<Real, N, Expression>(
-			(const Expression&)x);
 	}
 
 	template <typename Real, int N,

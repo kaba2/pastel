@@ -476,7 +476,7 @@ void handleKeyboard()
 		const AffineTransformation2 transformation(renderer__->viewTransformation());
 		renderer__->setViewTransformation(
 			transformation *
-			translation2<real>(-TranslationSpeed * transformation.transformation()[0]));
+			translation2<real>(-TranslationSpeed * transformation.matrix()[0]));
 
 	}
 	if (deviceSystem().keyDown(SDLK_d))
@@ -484,33 +484,33 @@ void handleKeyboard()
 		const AffineTransformation2 transformation(renderer__->viewTransformation());
 		renderer__->setViewTransformation(
 			transformation *
-			translation2<real>(TranslationSpeed * transformation.transformation()[0]));
+			translation2<real>(TranslationSpeed * transformation.matrix()[0]));
 	}
 	if (deviceSystem().keyDown(SDLK_w))
 	{
 		const AffineTransformation2 transformation(renderer__->viewTransformation());
 		renderer__->setViewTransformation(
 			transformation *
-			translation2<real>(TranslationSpeed * transformation.transformation()[1]));
+			translation2<real>(TranslationSpeed * transformation.matrix()[1]));
 	}
 	if (deviceSystem().keyDown(SDLK_s))
 	{
 		const AffineTransformation2 transformation(renderer__->viewTransformation());
 		renderer__->setViewTransformation(
 			transformation *
-			translation2<real>(-TranslationSpeed * transformation.transformation()[1]));
+			translation2<real>(-TranslationSpeed * transformation.matrix()[1]));
 	}
 	if (deviceSystem().keyDown(SDLK_r))
 	{
 		AffineTransformation2 transformation(renderer__->viewTransformation());
-		transformation.transformation() /= ZoomFactor;
+		transformation.matrix() /= ZoomFactor;
 		renderer__->setViewTransformation(transformation);
 	}
 
 	if (deviceSystem().keyDown(SDLK_f))
 	{
 		AffineTransformation2 transformation(renderer__->viewTransformation());
-		transformation.transformation() *= ZoomFactor;
+		transformation.matrix() *= ZoomFactor;
 		renderer__->setViewTransformation(transformation);
 	}
 }

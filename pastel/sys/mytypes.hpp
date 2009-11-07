@@ -11,17 +11,8 @@ namespace Pastel
 	{
 	}
 
-	inline float mabs(float that)
-	{
-		if (that < 0)
-		{
-			return -that;
-		}
-
-		return that;
-	}
-
-	inline double mabs(double that)
+	template <typename Type>
+	inline typename boost::enable_if<boost::is_arithmetic<Type>, Type>::type mabs(Type that)
 	{
 		if (that < 0)
 		{

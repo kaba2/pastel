@@ -23,7 +23,7 @@ namespace Pastel
 			dimension + 1, dimension + 1);
 		
 		const Matrix<Real, N, N>& transformation =
-			that.transformation();
+			that.matrix();
 		const Vector<Real, N>& translation =
 			that.translation();
 
@@ -41,7 +41,7 @@ namespace Pastel
 		const Vector<Real, N>& left,
 		const AffineTransformation<Real, N>& right)
 	{
-		return left * right.transformation();
+		return left * right.matrix();
 	}
 
 	template <typename Real, int N>
@@ -49,7 +49,7 @@ namespace Pastel
 		const Vector<Real, N>& left,
 		const AffineTransformation<Real, N>& right)
 	{
-		return left * right.transformation() + right.translation();
+		return left * right.matrix() + right.translation();
 	}
 
 }

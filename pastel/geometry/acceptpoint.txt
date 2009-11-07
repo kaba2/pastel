@@ -3,6 +3,9 @@ AcceptPoint concept
 
 [Parent]: nearest_neighbors.txt
 
+Practice
+--------
+
 This concept is used in nearest neighbors searching and counting to be
 able to ignore a set of points during the search. For example, given
 a point in a point-set, you might want to exclude the point itself

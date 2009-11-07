@@ -5,6 +5,7 @@
 #define PASTEL_MIPIMAGE_TEXTURE_H
 
 #include "pastel/gfx/texture.h"
+
 #include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/vector.h"

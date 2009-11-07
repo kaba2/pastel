@@ -30,7 +30,7 @@ namespace Pastel
 		{
 			return (*texture_)(
 				transformPoint(p, invTransformation_),
-				m * invTransformation_.transformation())
+				m * invTransformation_.matrix())
 		}
 
 		virtual std::string name() const

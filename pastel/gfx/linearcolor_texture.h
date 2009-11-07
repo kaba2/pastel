@@ -7,6 +7,9 @@
 #include "pastel/gfx/texture.h"
 
 #include "pastel/sys/math_functions.h"
+#include "pastel/sys/randomaccessrange.h"
+
+#include <vector>
 
 namespace Pastel
 {
@@ -21,9 +24,10 @@ namespace Pastel
 		{
 		}
 
+		template <typename Iterator>
 		explicit LinearColor_Texture(
-			const Tuple<Type, ModifyN<N, 1 << N>::Result>& data)
-			: data_(data)
+			const RandomAccessRange<Iterator>& data)
+			: data_(data.begin(), data.end())
 		{
 		}
 
@@ -45,12 +49,12 @@ namespace Pastel
 		}
 
 	private:
-		Tuple<Type, ModifyN<N, 1 << N>::Result> data_;
+		std::vector<Type> data_;
 	};
 
-	template <typename Type, int N>
+	template <typename Type, int N, typename Iterator>
 	LinearColor_Texture<Type, N> linearColorTexture(
-		const Tuple<PASTEL_NO_DEDUCTION(Type), ModifyN<N, 1 << N>::Result>& data)
+		const RandomAccessRange<Iterator>& data)
 	{
 		return LinearColor_Texture<Type, N>(data);
 	}

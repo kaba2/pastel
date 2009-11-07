@@ -23,8 +23,8 @@ namespace Pastel
 		void convert(const AffineTransformation2& from,
 			AffineTransformation3& to)
 		{
-			Matrix3& toTransformation = to.transformation();
-			const Matrix2& fromTransformation = from.transformation();
+			Matrix3& toTransformation = to.matrix();
+			const Matrix2& fromTransformation = from.matrix();
 
 			toTransformation[0] = extend(fromTransformation[0], 0);
 			toTransformation[1] = extend(fromTransformation[1], 0);

@@ -1,4 +1,4 @@
-// Description: Aggregate file for models of AcceptPoint concept
+// Description: An aggregate file for models of AcceptPoint concept
 
 #ifndef PASTEL_ACCEPTPOINT_H
 #define PASTEL_ACCEPTPOINT_H

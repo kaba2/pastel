@@ -115,13 +115,17 @@ namespace
 
 	void testTexture()
 	{
-		LinearColor_Texture<Color> smooth =
-			linearColorTexture<Color, 2>(
-			makeTuple(
+		const Color colorSet[] = 
+		{
 			Color(1, 0, 0),
 			Color(0, 1, 0),
 			Color(0, 0, 1),
-			Color(1, 1, 1)));
+			Color(1, 1, 1)
+		};
+
+		LinearColor_Texture<Color> smooth =
+			linearColorTexture<Color, 2>(
+			randomAccessRange(colorSet));
 
 		testTextureCase(
 			mixTexture(

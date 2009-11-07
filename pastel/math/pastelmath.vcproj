@@ -288,18 +288,18 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Transformation"
+				Name="AffineBijection"
 				>
 				<File
-					RelativePath=".\transformation.h"
+					RelativePath=".\affinebijection.h"
 					>
 				</File>
 				<File
-					RelativePath=".\transformation.hpp"
+					RelativePath=".\affinebijection.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\transformation.txt"
+					RelativePath=".\affinebijection.txt"
 					>
 				</File>
 			</Filter>

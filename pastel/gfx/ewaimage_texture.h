@@ -4,6 +4,8 @@
 #ifndef PASTEL_EWAIMAGE_TEXTURE_H
 #define PASTEL_EWAIMAGE_TEXTURE_H
 
+#include "pastel/gfx/texture.h"
+
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/clampextender.h"
