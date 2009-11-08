@@ -1,10 +1,10 @@
 #ifndef PASTEL_INTERSECT_LINE_SPHERE_HPP
 #define PASTEL_INTERSECT_LINE_SPHERE_HPP
 
-#include "pastel/sys/vector.h"
-#include "pastel/sys/vector_tools.h"
 #include "pastel/geometry/line.h"
 #include "pastel/geometry/sphere.h"
+
+#include "pastel/sys/vector_tools.h"
 #include "pastel/sys/math_functions.h"
 
 namespace Pastel
@@ -18,7 +18,7 @@ namespace Pastel
 	{
 		// Let
 		// P = line position
-		// D = line direction (unit vector)
+		// D = line direction
 		// S = sphere position
 		// r = sphere radius
 		//
@@ -34,22 +34,22 @@ namespace Pastel
 		// a = dot(D)
 		// b = -2 * dot(S - P, D)
 		// c = dot(S - P, S - P) - r^2
-		//
-		// D is a unit vector so a = 1.
 
 		const Vector<Real, N> delta(
 			sphere.position() - line.position());
 
-		const Real bCoeff(
-			-2 * dot(line.direction(), delta));
-		const Real cCoeff(
+		const Real aCoeff =
+			dot(line.direction());
+		const Real bCoeff =
+			-2 * dot(line.direction(), delta);
+		const Real cCoeff = 
 			dot(delta) -
-			sphere.radius() * sphere.radius());
+			square(sphere.radius());
 
 		Real t0(0);
 		Real t1(0);
 
-		if (!quadratic(1, bCoeff, cCoeff, t0, t1))
+		if (!quadratic(aCoeff, bCoeff, cCoeff, t0, t1))
 		{
 			return false;
 		}

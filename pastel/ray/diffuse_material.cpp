@@ -32,8 +32,9 @@ namespace Pastel
 		{
 			return Spectrum();
 		}
-		
-		return (*color_)(q, Matrix2(qx, qy)) * f;
+
+		//return Color(f);
+		return (*color_)(q, Matrix2(qx, qy));
 	}
 
 }

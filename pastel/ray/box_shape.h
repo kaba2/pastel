@@ -23,6 +23,8 @@ namespace Pastel
 			LocalGeometry& surface,
 			real& tClosest) const;
 
+		virtual AlignedBox3 bound() const;
+
 	private:
 		Vector3 radius_;
 	};

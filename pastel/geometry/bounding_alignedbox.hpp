@@ -5,8 +5,9 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
-
 #include "pastel/sys/constants.h"
+
+#include "pastel/math/matrix_tools.h"
 
 namespace Pastel
 {
@@ -46,6 +47,47 @@ namespace Pastel
 		return AlignedBox<Real, N>(
 			min(aAlignedBox.min(), bAlignedBox.min()),
 			max(aAlignedBox.max(), bAlignedBox.max()));
+	}
+
+	template <typename Real, int N>
+	AlignedBox<Real, N> boundingAlignedBox(
+		const AlignedBox<Real, N>& alignedBox,
+		const AffineTransformation<Real, N>& transformation)
+	{
+		// Let the affine transformation be given by
+		//
+		// f : R^n -> R^n: f(x) = Ax + b
+		// where
+		// A in R^{n x n}
+		// b is R^n
+		//
+		// Let the aligned box be given by the minimum
+		// and maximum points p_min and p_max and define:
+		//
+		// p = (p_min + p_max) / 2
+		// w = (p_max - p_min) / 2
+		//
+		// It is easy to see that the 'radius' of the
+		// transformed aligned box in the k:th standard
+		// basis axis is given by:
+		//
+		// r_k = sum_{i = 1}^n |dot(e_k, A ((w_i / 2) e_i)|
+		// = sum_{i = 1}^n |A_ki| (w_i / 2)
+		//
+		// Thus:
+		// r = abs(A) w / 2
+		
+		const Vector<Real, N> radius =
+			(alignedBox.extent() * abs(transformation.matrix())) * 0.5;
+		
+		const Vector<Real, N> center =
+			transformPoint(linear(alignedBox.min(), alignedBox.max(), 0.5), 
+			transformation);
+		
+		const AlignedBox<Real, N> result(
+			center - radius, center + radius);
+
+		return result;
 	}
 
 	template <typename Real, int N>

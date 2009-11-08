@@ -198,6 +198,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\shape.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\shape.h"
 				>
 			</File>

@@ -85,19 +85,17 @@ namespace
 			ShapePtr shape = 
 				ShapePtr(new Sphere_Shape);
 
-			const integer things = 1;
+			const integer things = 100;
 			std::vector<ThingPtr> thingSet;
 			thingSet.reserve(things);
 			for (integer i = 0;i < things;++i)
 			{			
 				Shape_ThingPtr thing = Shape_ThingPtr(new Shape_Thing(
 					shape, material));
-				thing->setTransformation(
-					scaling3<real>(Vector3(4, 1, 1)));
-				/*
-				thing->setTransformation(
-					scaling3<real>(Vector3(1, 1, 1)) * translation3(evaluate((randomVector<real, 3>() - 0.5) * 30)));
-				*/
+
+				//scaling3<real>(randomVector<real, 3>() + 0.5) * 
+				thing->setTransformation(					
+					translation3(evaluate(randomVectorBall<real, 3>() * 30)));
 				thingSet.push_back(thing);
 			}
 
@@ -141,11 +139,6 @@ namespace
 					const real v = dequantizeUnsigned(y, height);
 
 					Beam beam = camera->beam(Vector2(u, v));
-					/*
-					beam.ray().set(
-						viewVolume.at(Vector3(u, v, 0)),
-						Vector3(0, 0, 1));
-					*/
 
 					LocalGeometry surface;
 					real t;
@@ -161,14 +154,7 @@ namespace
 
 						const Matrix3 invBasis = inverse(basis);
 
-						/*
-						const Vector2 dqDx = 
-							shrink(solveLinear(basis, beam.ddx().direction()));
-						const Vector2 dqDy = 
-							shrink(solveLinear(basis, beam.ddy().direction()));
-						*/
-
-						Vector3 light(0, 0, -1);
+						Vector3 light = -surface.position;
 						Vector3 in = normalize(light * invBasis);
 						Vector3 out = normalize(-beam.ray().direction() * invBasis);
 
@@ -179,7 +165,7 @@ namespace
 
 						image(x, y) = surface.thing->material()->brdf(
 							surface.q, dqDx * xDelta, dqDy * yDelta,
-							in, out);
+							in, out) * dot(normalize(light), normalize(surface.normal));
 					}
 				}
 			}

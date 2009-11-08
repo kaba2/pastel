@@ -47,4 +47,12 @@ namespace Pastel
 		return false;
 	}
 
+	AlignedBox3 Box_Shape::bound() const
+	{
+		const AlignedBox3 result(
+			-radius_, radius_);
+
+		return result;
+	}
+
 }

@@ -41,9 +41,8 @@ namespace Pastel
 		explicit AffineTransformation(
 			const Matrix<Real, N, N>& matrix)
 			: matrix_(matrix)
-			, translation_()
+			, translation_(ofDimension(matrix.width()))
 		{
-			BOOST_STATIC_ASSERT(N > 0);
 		}
 
 		//! Constructs using the given matrix and translation.
@@ -54,21 +53,6 @@ namespace Pastel
 			, translation_(translation)
 		{
 			BOOST_STATIC_ASSERT(N > 0);
-		}
-
-		//! Constructs using the given matrix and no translation.
-		AffineTransformation(
-			integer dimension,
-			const Matrix<Real, N, N>& matrix)
-			: matrix_(matrix)
-			, translation_(ofDimension(dimension))
-		{
-			PENSURE_OP(dimension, >, 0);
-			PENSURE2(dimension == N || N == Dynamic, dimension, N);
-
-			PENSURE_OP(translation.dimension(), ==, dimension);
-			PENSURE_OP(matrix.width(), ==, dimension);
-			PENSURE_OP(matrix.height(), ==, dimension);
 		}
 
 		//! Constructs using the given matrix and translation.
