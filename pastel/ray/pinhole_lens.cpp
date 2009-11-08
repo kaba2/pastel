@@ -30,8 +30,10 @@ namespace Pastel
 			(position.y() - 0.5) * halfHeight_,
 			distance_);
 		
-		const Vector3 rayDirection = 
-			normalize(rayPosition);
+		const real length = norm(rayPosition);
+
+		const Vector3 rayDirection =
+			rayPosition / length;
 
 		const Vector3 xRayPosition(
 			halfWidth_,	0, 0);
@@ -39,22 +41,13 @@ namespace Pastel
 		const Vector3 yRayPosition(
 			0, halfHeight_, 0);
 
-		const real length = norm(rayPosition);
-
-		const real dlDx = position.x() / length;
-		const real dlDy = position.y() / length;
-
 		const Vector3 xRayDirection =
-			Vector3(
-			(dlDx / length) + position.x(), 
-			position.y(),
-			distance_) / dlDx;
+			Vector3(halfWidth_ / length, 0, 0) - 
+			rayDirection * (square(halfWidth_ / length) * (position.x() - 0.5));
 
 		const Vector3 yRayDirection =
-			Vector3(
-			position.x(),
-			(dlDy / length) + position.y(), 
-			distance_) / dlDy;
+			Vector3(halfHeight_ / length, 0, 0) - 
+			rayDirection * (square(halfHeight_ / length) * (position.y() - 0.5));
 
 		const Beam result(
 			Ray3(rayPosition, rayDirection),

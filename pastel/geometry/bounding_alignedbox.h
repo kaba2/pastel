@@ -9,10 +9,12 @@
 #include "pastel/geometry/segment.h"
 #include "pastel/geometry/simplex.h"
 
+#include "pastel/math/affinetransformation.h"
+
 namespace Pastel
 {
 
-	//! Finds the minimum volume bounding aligned box of a point set.
+	//! Bounding aligned box of a point set.
 
 	/*!
 	Preconditions:
@@ -28,38 +30,45 @@ namespace Pastel
 		const InputIterator& from,
 		const InputIterator& to);
 
-	//! Finds the minimum volume bounding aligned box of two aligned boxes.
+	//! Bounding aligned box of two aligned boxes.
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const AlignedBox<Real, N>& aAlignedBox,
 		const AlignedBox<Real, N>& bAlignedBox);
 
-	//! Finds the minimum volume bounding aligned box of a sphere.
+	//! Bounding aligned box of an affinely transformed aligned box.
+
+	template <typename Real, int N>
+	AlignedBox<Real, N> boundingAlignedBox(
+		const AlignedBox<Real, N>& alignedBox,
+		const AffineTransformation<Real, N>& transformation);
+
+	//! Bounding aligned box of a sphere.
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Sphere<Real, N>& sphere);
 
-	//! Finds the minimum volume bounding aligned box of an oriented box.
+	//! Bounding aligned box of an oriented box.
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Box<Real, N>& box);
 
-	//! Finds the minimum volume bounding aligned box of a line segment.
+	//! Bounding aligned box of a line segment.
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Segment<Real, N>& segment);
 
-	//! Finds the minimum volume bounding aligned box of a simplex.
+	//! Bounding aligned box of a simplex.
 
 	template <typename Real, int N, int M>
 	AlignedBox<Real, N> boundingAlignedBox(
 		const Simplex<Real, N, M>& simplex);
 
-	//! Finds the minimum volume bounding aligned cube of an aligned box.
+	//! Bounding aligned cube of an aligned box.
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> boundingAlignedCube(

@@ -21,6 +21,8 @@ namespace Pastel
 			LocalGeometry& surface,
 			real& tClosest) const;
 
+		virtual AlignedBox3 bound() const;
+
 	private:
 		Sphere3 sphere_;
 	};
