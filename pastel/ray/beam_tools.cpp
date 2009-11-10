@@ -1,6 +1,5 @@
 #include "pastel/ray/beam_tools.h"
 #include "pastel/ray/optics.h"
-#include "pastel/ray/differential_geometry.h"
 
 namespace Pastel
 {
@@ -69,38 +68,28 @@ namespace Pastel
 		result.ray().set(surface.position, 
 			reflect(beam.ray().direction(), surface.normal));
 		
-		// Compute derivatives of the normal.
-
-		Vector3 xNormal;
-		Vector3 yNormal;
-
-		computeNormalDerivatives(
-			surface,
-			xNormal,
-			yNormal);
-
 		// Compute x-derivative.
 
 		const real dDotDnDx = 
 			dot(beam.ddx().direction(), surface.normal) + 
-			dot(beam.ray().direction(), xNormal);
+			dot(beam.ray().direction(), surface.dnDu);
 
 		result.ddx().setPosition(beam.ddx().position());
 		result.ddx().setDirection(
 			beam.ddx().direction() - 
-			2 * (dot(beam.ray().direction(), surface.normal) * xNormal + 
+			2 * (dot(beam.ray().direction(), surface.normal) * surface.dnDu + 
 			dDotDnDx * surface.normal));
 		
 		// Compute y-derivative.
 
 		const real dDotDnDy = 
 			dot(beam.ddy().direction(), surface.normal) + 
-			dot(beam.ray().direction(), yNormal);
+			dot(beam.ray().direction(), surface.dnDv);
 
 		result.ddy().setPosition(beam.ddy().position());
 		result.ddy().setDirection(
 			beam.ddy().direction() - 
-			2 * (dot(beam.ray().direction(), surface.normal) * yNormal + 
+			2 * (dot(beam.ray().direction(), surface.normal) * surface.dnDv + 
 			dDotDnDy * surface.normal));
 
 		return result;

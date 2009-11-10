@@ -19,37 +19,37 @@ namespace Pastel
 	{
 		PENSURE_OP(line.dimension(), ==, alignedBox.dimension());
 
-		Real tMin(-infinity<Real>());
-		Real tMax(infinity<Real>());
+		Real tMin = -infinity<Real>();
+		Real tMax = infinity<Real>();
 
-		const AlignedBox<Real, N> testAlignedBox(alignedBox -
-			line.position());
+		const AlignedBox<Real, N> testAlignedBox = 
+			alignedBox - line.position();
 
 		const integer dimension = line.dimension();
 
 		for (integer i = 0;i < dimension;++i)
 		{
-			// There are some algorithms that
-			// do not check the direction for zero
-			// to get infinities in the inverse
-			// directions. This works
-			// in the rest of the algorithm
-			// almost in every case.
-			// However, there are singular cases
-			// that don't work correctly.
-			// For an example, let:
-			// f == -infinity &&
-			// testAlignedBox.min()[i] == 0 &&
-			// testAlignedBox.max()[i] >= 0
-			// Then
-			// t0 = testAlignedBox[i].min()[i] * f = 0
-			// t1 = testAlignedBox[i].max()[i] * f = -infinity
-			// This yields incorrect results.
-			// There are 3 such cases more (+/- infinity,
-			// whether min or max is zero).
-
 			if (zero(line.direction()[i]))
 			{
+				// There are some algorithms that
+				// do not check the direction for zero
+				// to get infinities in the inverse
+				// directions. This works
+				// in the rest of the algorithm
+				// almost in every case.
+				// However, there are singular cases
+				// that don't work correctly.
+				// For an example, let:
+				// f == -infinity &&
+				// testAlignedBox.min()[i] == 0 &&
+				// testAlignedBox.max()[i] >= 0
+				// Then
+				// t0 = testAlignedBox[i].min()[i] * f = 0
+				// t1 = testAlignedBox[i].max()[i] * f = -infinity
+				// This yields incorrect results.
+				// There are 3 such cases more (+/- infinity,
+				// whether min or max is zero).
+
 				if (positive(testAlignedBox.min()[i]) ||
 					negative(testAlignedBox.max()[i]))
 				{

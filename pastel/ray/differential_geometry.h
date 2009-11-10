@@ -23,7 +23,12 @@ namespace Pastel
 	This function computes dN/du and dN/dv.
 	*/
 	PASTELRAY void computeNormalDerivatives(
-		const LocalGeometry& surface,
+		const Vector3& normal,
+		const Vector3& dpDu,
+		const Vector3& dpDv,
+		const Vector3& ddpDuu,
+		const Vector3& ddpDuv,
+		const Vector3& ddpDvv,
 		Vector3& dnDu,
 		Vector3& dnDv);
 

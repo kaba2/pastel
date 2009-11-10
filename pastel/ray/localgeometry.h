@@ -1,10 +1,12 @@
 #ifndef PASTEL_LOCALGEOMETRY_H
 #define PASTEL_LOCALGEOMETRY_H
 
+#include "pastel/ray/raylibrary.h"
+#include "pastel/ray/shapeintersection.h"
+
 #include "pastel/sys/vector.h"
 
-#include "pastel/ray/rayforward.h"
-#include "pastel/ray/raylibrary.h"
+#include "pastel/math/affinebijection.h"
 
 namespace Pastel
 {
@@ -20,6 +22,10 @@ namespace Pastel
 		// This structure describes the differential
 		// geometric properties of a shape at a
 		// specific point on its surface.
+		//
+		// Its normal is given by:
+		// n : R^2 -> R^3: 
+		// n(u, v) = cross((dp / du)(u, v), (dp / dv)(u, v))
 		
 		// (u, v)
 		Vector2 q;
@@ -27,8 +33,7 @@ namespace Pastel
 		// p(u, v)
 		Vector3 position;
 
-		// cross((dp / du)(u, v), (dp / dv)(u, v)) 
-		// (within a factor)
+		// n(u, v)
 		Vector3 normal;
 
 		// (dp / du)(u, v)
@@ -37,18 +42,19 @@ namespace Pastel
 		// (dp / dv)(u, v)
 		Vector3 dpDv;
 
-		// (d^2p / du^2)(u, v)
-		Vector3 ddpDuu;
+		// (dn / du)(u, v)
+		Vector3 dnDu;
 
-		// (d^2p / (du dv))(u, v)
-		Vector3 ddpDuv;
-
-		// (d^2p / dv^2)(u, v)
-		Vector3 ddpDvv;
-
-		// Shape
-		const Shape_Thing* thing;
+		// (dn / dv)(u, v)
+		Vector3 dnDv;
 	};
+
+	PASTELRAY void transform(
+		LocalGeometry& surface,
+		const AffineBijection3& transformation);
+
+	PASTELRAY LocalGeometry localGeometry(
+		const ShapeIntersection& intersection);
 
 }
 

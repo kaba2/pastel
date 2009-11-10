@@ -12,12 +12,12 @@ namespace Pastel
 	Matrix<Real, N, N> ellipsoidQuadraticForm(
 		const Matrix<Real, N, N>& basis)
 	{
-		// A origin-centered ellipsoid Q is given by the set:
+		// An origin-centered ellipsoid Q is given by the set:
 		// Q = {p | f(p) = 1}
 		// where
 		// f(p) = p^T S p
-		// p is in R^(n x 1)
 		// S is in R^(n x n) and symmetric positive semi-definite
+		// p is in R^n
 		//
 		// We would like to transform Q by a linear transformation L.
 		// Let us try to find how this affects the coefficient matrix:
@@ -69,17 +69,18 @@ namespace Pastel
 
 		// I credit 'Dave' from sci.math for
 		// the solution of this problem. Discussions
-		// with Dave Eberly from comp.graphics.algorithms
+		// with Dave Eberly in comp.graphics.algorithms
 		// were also helpful.
 		//
 		// Let
-		// f(x) = x^T S x
+		// p : R^n -> R: p(x) = x^T S x
 		// S symmetric and positive semi-definite
 		//
 		// Note that:
-		// gradient(f)(x) = 2Sx
+		// gradient(p)(x) = 2Sx
 		//
 		// We wish to compute the bounds of the ellipsoid
+		// E = {x in R^n : p(x) = 1}
 		// along a unit vector n. To do this, we use
 		// Lagrange multipliers to solve a constrained
 		// maximization problem.
@@ -142,14 +143,8 @@ namespace Pastel
 		const Matrix<Real, N, N> invQuadraticForm =
 			inverse(quadraticForm);
 
-		// Actually, being positive semi-definite
-		// implies that the diagonal elements
-		// are non-negative. We are just being
-		// careful for rounding errors
-		// here with the mabs().
-
-		const Vector<Real, N> radius = sqrt(mabs(
-			diagonal(invQuadraticForm)));
+		const Vector<Real, N> radius = sqrt(
+			diagonal(invQuadraticForm));
 
 		const AlignedBox<Real, N> bound(-radius, radius);
 

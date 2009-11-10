@@ -21,6 +21,11 @@ namespace Pastel
 	{
 	}
 
+	AlignedBox3 Shape_Thing::bound() const
+	{
+		return shape_->bound(transformation().forward());
+	}
+
 	void Shape_Thing::setShape(const ShapePtr& shape)
 	{
 		shape_ = shape;
@@ -45,16 +50,17 @@ namespace Pastel
 
 	bool Shape_Thing::intersect_(
 		const Ray3& ray,
-		LocalGeometry& surface,
-		real& tClosest) const
+		ShapeIntersection& shapeIntersection) const
 	{
-		if (shape_->intersect(ray, surface, tClosest))
+		real t = 0;
+		if (shape_->intersect(ray, t))
 		{
-			surface.thing = this;
+			shapeIntersection.t = t;
+			shapeIntersection.position = ray.at(t);
+			shapeIntersection.shapeToWorld = AffineTransformation3();
+			shapeIntersection.thing = this;
 			return true;
 		}
-
-		tClosest = infinity<real>();
 
 		return false;
 	}

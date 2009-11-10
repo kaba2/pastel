@@ -1,13 +1,16 @@
 #ifndef PASTEL_THING_H
 #define PASTEL_THING_H
 
+#include "pastel/ray/rayforward.h"
 #include "pastel/ray/localgeometry.h"
+#include "pastel/ray/shapeintersection.h"
 
 #include "pastel/math/affinebijection.h"
 
 #include "pastel/sys/countedptr.h"
 
 #include "pastel/geometry/ray.h"
+#include "pastel/geometry/alignedbox.h"
 
 namespace Pastel
 {
@@ -19,10 +22,11 @@ namespace Pastel
 		Thing();
 		virtual ~Thing();
 
+		virtual AlignedBox3 bound() const = 0;
+
 		bool intersect(
 			const Ray3& ray,
-			LocalGeometry& surface,
-			real& tClosest) const;
+			ShapeIntersection& shapeIntersection) const;
 
 		void setTransformation(
 			const AffineTransformation3& transformation);
@@ -31,8 +35,7 @@ namespace Pastel
 	private:
 		virtual bool intersect_(
 			const Ray3& ray,
-			LocalGeometry& surface,
-			real& tClosest) const = 0;
+			ShapeIntersection& shapeIntersection) const = 0;
 
 		AffineBijection3 transformation_;
 	};

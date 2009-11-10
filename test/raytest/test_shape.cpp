@@ -54,11 +54,11 @@ namespace
 						viewVolume.at(Vector3(u, v, 0)),
 						Vector3(0, 0, 1));
 
-					LocalGeometry local;
 					real t;
-
-					if (shape->intersect(ray, local, t))
+					if (shape->intersect(ray, t))
 					{
+						LocalGeometry local = shape->localGeometry(ray.at(t));
+
 						const Color colorSet[] = 
 						{
 							Color(1, 1, 1),
@@ -72,7 +72,7 @@ namespace
 							evaluate(mod(local.q * Vector2(5, 10))),
 							randomAccessRange(colorSet));
 
-						image(x, y) = color * dot(local.normal, Vector3(0, 0, -1));
+						image(x, y) = color;
 					}
 				}
 			}

@@ -74,8 +74,6 @@ namespace Pastel
 		const Beam beam =
 			transform(lensBeam, objectToWorld_.forward());
 
-		// FIX: Normalize ray direction!
-
 		return beam;
 	}
 

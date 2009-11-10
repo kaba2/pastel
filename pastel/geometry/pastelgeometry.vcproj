@@ -1247,6 +1247,10 @@
 				Name="Bounding"
 				>
 				<File
+					RelativePath=".\bounding.h"
+					>
+				</File>
+				<File
 					RelativePath=".\bounding.txt"
 					>
 				</File>
@@ -1255,7 +1259,43 @@
 					>
 				</File>
 				<File
-					RelativePath=".\bounding_alignedbox.hpp"
+					RelativePath=".\bounding_alignedbox_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_box.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_box.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_pointset.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_pointset.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_segment.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_segment.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_sphere.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_alignedbox_sphere.hpp"
 					>
 				</File>
 				<File
