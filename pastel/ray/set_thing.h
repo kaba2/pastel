@@ -21,13 +21,15 @@ namespace Pastel
 		void insert(
 			const ForwardRange<ThingPtr_Iterator>& thingSet);
 
+		virtual AlignedBox3 bound() const;
+
 	private:
 		virtual bool intersect_(
 			const Ray3& ray,
-			LocalGeometry& surface,
-			real& tClosest) const;
+			ShapeIntersection& shapeIntersection) const;
 
 		std::vector<ThingPtr> thingSet_;
+		AlignedBox3 bound_;
 	};
 
 	typedef CountedPtr<Set_Thing> Set_ThingPtr;

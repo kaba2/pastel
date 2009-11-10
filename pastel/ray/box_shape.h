@@ -20,13 +20,15 @@ namespace Pastel
 
 		virtual bool intersect(
 			const Ray3& ray,
-			LocalGeometry& surface,
 			real& tClosest) const;
 
 		virtual AlignedBox3 bound() const;
 
+		void setRadius(const Vector3& radius);
+		const Vector3& radius() const;
+
 	private:
-		Vector3 radius_;
+		AlignedBox3 box_;
 	};
 
 }

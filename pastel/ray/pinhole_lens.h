@@ -24,18 +24,18 @@ namespace Pastel
 
 		virtual Beam beam(const Vector2& position) const;
 
-		void setHalfWidth(real halfWidth);
-		real halfWidth() const;
+		void setWidth(real width);
+		real width() const;
 
-		void setHalfHeight(real halfHeight);
-		real halfHeight() const;
+		void setHeight(real height);
+		real height() const;
 
 		void setDistance(real distance);
 		real distance() const;
 
 	private:
-		real halfWidth_;
-		real halfHeight_;
+		real width_;
+		real height_;
 		real distance_;
 	};
 

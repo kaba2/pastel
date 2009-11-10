@@ -14,20 +14,24 @@ namespace Pastel
 		Vector<Real, 2>& hitList)
 	{
 		Vector<Real, 2> t;
-		if (!intersect(ray.line(), sphere, t) ||
-			t[1] < 0)
+		if (!intersect(ray.line(), sphere, t))
 		{
 			return 0;
 		}
 
-		if (t[0] >= 0)
+		if (t[1] < 0)
 		{
-			hitList = t;
-			return 2;
+			return 0;
 		}
 
-		hitList[0] = t[1];
-		return 1;
+		if (t[0] < 0)
+		{
+			hitList[0] = t[1];
+			return 1;
+		}
+
+		hitList = t;
+		return 2;
 	}
 
 }

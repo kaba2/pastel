@@ -20,6 +20,8 @@ namespace Pastel
 
 		virtual ~Shape_Thing();
 
+		virtual AlignedBox3 bound() const;
+
 		void setShape(const ShapePtr& shape);
 		ShapePtr shape() const;
 
@@ -29,8 +31,7 @@ namespace Pastel
 	private:
 		virtual bool intersect_(
 			const Ray3& ray,
-			LocalGeometry& surface,
-			real& tClosest) const;
+			ShapeIntersection& intersection) const;
 
 		ShapePtr shape_;
 		MaterialPtr material_;

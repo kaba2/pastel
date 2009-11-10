@@ -1,8 +1,11 @@
 #include "pastelraytest.h"
 
 #include <pastel/ray/sphere_shape.h>
+
 #include <pastel/ray/shape_thing.h>
 #include <pastel/ray/set_thing.h>
+#include <pastel/ray/kdtree_thing.h>
+
 #include <pastel/ray/diffuse_material.h>
 #include <pastel/ray/beam_tools.h>
 #include <pastel/ray/camera.h>
@@ -36,12 +39,12 @@ namespace
 
 		virtual void run()
 		{
-			const integer width = 512;
-			const integer height = 512;
+			const integer width = 768;
+			const integer height = 768;
 			Array<Spectrum> image(width, height, Spectrum());
 
 			Array<Color> textureImage;
-			loadPcx("lena.pcx", textureImage);
+			loadPcx("text.pcx", textureImage);
 
 			Array<Spectrum> spectrumImage(textureImage.extent());
 			for (integer i = 0;i < textureImage.size();++i)
@@ -85,7 +88,7 @@ namespace
 			ShapePtr shape = 
 				ShapePtr(new Sphere_Shape);
 
-			const integer things = 100;
+			const integer things = 500;
 			std::vector<ThingPtr> thingSet;
 			thingSet.reserve(things);
 			for (integer i = 0;i < things;++i)
@@ -99,15 +102,22 @@ namespace
 				thingSet.push_back(thing);
 			}
 
+			/*
 			Set_ThingPtr setThing = 
 				Set_ThingPtr(new Set_Thing);
 			setThing->insert(
 				forwardRange(thingSet.begin(), thingSet.end()));			
+			*/
+			KdTree_ThingPtr setThing =
+				KdTree_ThingPtr(new KdTree_Thing);
+			setThing->insert(
+				forwardRange(thingSet.begin(), thingSet.end()));
+			setThing->refine();
 
 			LensPtr lens = LensPtr(new Pinhole_Lens);
 			CameraPtr camera = CameraPtr(
 				new Camera(lens));
-			camera->setPosition(Vector3(0, 0, -30));
+			camera->setPosition(Vector3(0, 0, -10));
 
 			renderThing(
 				camera,
@@ -140,32 +150,44 @@ namespace
 
 					Beam beam = camera->beam(Vector2(u, v));
 
+					ShapeIntersection intersection;
 					LocalGeometry surface;
-					real t;
-
-					if (thing->intersect(beam.ray(), surface, t))
+					if (thing->intersect(beam.ray(), intersection))
 					{
-						beam = transferToSurface(beam, surface, t);
+						LocalGeometry surface = localGeometry(intersection);
 
-						const Matrix3 basis(
+						beam = transferToSurface(beam, surface, intersection.t);
+
+						const Matrix3 qBasis(
 							surface.dpDu,
 							surface.dpDv,
 							surface.normal);
 
-						const Matrix3 invBasis = inverse(basis);
+						const Matrix3 qInvBasis = inverse(qBasis);
 
+						const Matrix3 lightBasis(
+							normalize(surface.dpDu),
+							normalize(-cross(surface.dpDu, surface.normal)),
+							normalize(surface.normal));
+
+						const Matrix3 lightInvBasis = transpose(lightBasis);
+							
 						Vector3 light = -surface.position;
-						Vector3 in = normalize(light * invBasis);
-						Vector3 out = normalize(-beam.ray().direction() * invBasis);
+						//Vector3 light = Vector3(0, 0, -1);
+						Vector3 in = normalize(light * lightInvBasis);
+						Vector3 out = normalize(-beam.ray().direction() * lightInvBasis);
 
 						const Vector2 dqDx = 
-							shrink(beam.ddx().position() * invBasis);
+							shrink(beam.ddx().position() * qInvBasis);
 						const Vector2 dqDy = 
-							shrink(beam.ddy().position() * invBasis);
+							shrink(beam.ddy().position() * qInvBasis);
 
-						image(x, y) = surface.thing->material()->brdf(
+						/*
+						image(x, y) = Color(dot(normalize(light), normalize(surface.normal)));
+						*/
+						image(x, y) = intersection.thing->material()->brdf(
 							surface.q, dqDx * xDelta, dqDy * yDelta,
-							in, out) * dot(normalize(light), normalize(surface.normal));
+							in, out);
 					}
 				}
 			}

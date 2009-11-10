@@ -7,8 +7,8 @@ namespace Pastel
 {
 
 	Pinhole_Lens::Pinhole_Lens()
-		: halfWidth_(1)
-		, halfHeight_(1)
+		: width_(1)
+		, height_(1)
 		, distance_(1)
 	{
 	}
@@ -26,8 +26,8 @@ namespace Pastel
 		const Vector2& position) const
 	{
 		const Vector3 rayPosition(
-			(position.x() - 0.5) * halfWidth_,
-			(position.y() - 0.5) * halfHeight_,
+			(position.x() - 0.5) * width_,
+			(position.y() - 0.5) * height_,
 			distance_);
 		
 		const real length = norm(rayPosition);
@@ -36,18 +36,18 @@ namespace Pastel
 			rayPosition / length;
 
 		const Vector3 xRayPosition(
-			halfWidth_,	0, 0);
+			width_,	0, 0);
 
 		const Vector3 yRayPosition(
-			0, halfHeight_, 0);
+			0, height_, 0);
 
 		const Vector3 xRayDirection =
-			Vector3(halfWidth_ / length, 0, 0) - 
-			rayDirection * (square(halfWidth_ / length) * (position.x() - 0.5));
+			Vector3(width_ / length, 0, 0) - 
+			rayDirection * (square(width_ / length) * (position.x() - 0.5));
 
 		const Vector3 yRayDirection =
-			Vector3(halfHeight_ / length, 0, 0) - 
-			rayDirection * (square(halfHeight_ / length) * (position.y() - 0.5));
+			Vector3(height_ / length, 0, 0) - 
+			rayDirection * (square(height_ / length) * (position.y() - 0.5));
 
 		const Beam result(
 			Ray3(rayPosition, rayDirection),
@@ -57,24 +57,24 @@ namespace Pastel
 		return result;
 	}
 
-	void Pinhole_Lens::setHalfWidth(real halfWidth)
+	void Pinhole_Lens::setWidth(real width)
 	{
-		halfWidth_ = halfWidth;
+		width_ = width;
 	}
 
-	real Pinhole_Lens::halfWidth() const
+	real Pinhole_Lens::width() const
 	{
-		return halfWidth_;
+		return width_;
 	}
 
-	void Pinhole_Lens::setHalfHeight(real halfHeight)
+	void Pinhole_Lens::setHeight(real height)
 	{
-		halfHeight_ = halfHeight;
+		height_ = height;
 	}
 
-	real Pinhole_Lens::halfHeight() const
+	real Pinhole_Lens::height() const
 	{
-		return halfHeight_;
+		return height_;
 	}
 
 	void Pinhole_Lens::setDistance(real distance)

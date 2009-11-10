@@ -19,29 +19,29 @@ namespace Pastel
 	{
 		PENSURE_OP(line.dimension(), ==, box.dimension());
 
-		Real tMin(-infinity<Real>());
-		Real tMax(infinity<Real>());
+		Real tMin = -infinity<Real>();
+		Real tMax = infinity<Real>();
 
 		const Matrix<Real, N, N>& axes = box.rotation();
 		const Vector<Real, N>& width = box.width();
 
-		const Vector<Real, N> p(
+		const Vector<Real, N> p =
 			box.position() -
-			line.position());
+			line.position();
 
 		const integer dimension = line.dimension();
 
 		for (integer i = 0;i < dimension;++i)
 		{
-			const Real e(dot(axes[i], p));
-			const Real f(dot(axes[i], line.direction()));
+			const Real e = dot(axes[i], p);
+			const Real f = dot(axes[i], line.direction());
 
 			// EPSILON
 			if (f == 0)
 			{
-				const Real fInv(inverse(f));
-				Real t1((e + width[i]) * fInv);
-				Real t2((e - width[i]) * fInv);
+				const Real fInv = inverse(f);
+				Real t1 = (e + width[i]) * fInv;
+				Real t2 = (e - width[i]) * fInv;
 				if (t1 > t2)
 				{
 					std::swap(t1, t2);

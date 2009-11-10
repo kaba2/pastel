@@ -126,15 +126,15 @@ namespace Pastel
 		// Möller-Trumbore line-triangle intersection algorithm
 		// from the book "Real-time rendering", page 581
 
-		const Vector<Real, 3> e1(
-			triangle[1] - triangle[0]);
-		const Vector<Real, 3> e2(
-			triangle[2] - triangle[0]);
+		const Vector<Real, 3> e1 =
+			triangle[1] - triangle[0];
+		const Vector<Real, 3> e2 =
+			triangle[2] - triangle[0];
 
-		const Vector<Real, 3> p(
-			cross(line.direction(), e2));
+		const Vector<Real, 3> p =
+			cross(line.direction(), e2);
 
-		const Real a(dot(e1, p));
+		const Real a = dot(e1, p);
 
 		// Test for parallel plane case
 
@@ -158,11 +158,11 @@ namespace Pastel
 		// plane-line intersection point
 		// to test if it is inside the triangle
 
-		const Real f(inverse(a));
+		const Real f = inverse(a);
 
-		const Vector<Real, 3> s(
-			line.position() - triangle[0]);
-		const Real u(dot(s, p) * f);
+		const Vector<Real, 3> s =
+			line.position() - triangle[0];
+		const Real u = dot(s, p) * f;
 
 		if (u < 0 || u > 1)
 		{
@@ -171,8 +171,8 @@ namespace Pastel
 			return false;
 		}
 
-		const Vector<Real, 3> q(cross(s, e1));
-		const Real v(dot(line.direction(), q) * f);
+		const Vector<Real, 3> q = cross(s, e1);
+		const Real v = dot(line.direction(), q) * f;
 
 		if (v < 0 || u + v > 1)
 		{
@@ -184,7 +184,7 @@ namespace Pastel
 		// Intersection point inside the triangle
 		// => intersection
 
-		const Real t(dot(e2, q) * f);
+		const Real t = dot(e2, q) * f;
 
 		tIntersection = t;
 		uIntersection = u;

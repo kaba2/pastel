@@ -88,8 +88,8 @@ namespace Pastel
 					Cursor currentNode = stackElement.node_;
 					Real tMin = stackElement.tMin_;
 					Real tMax = stackElement.tMax_;
-					Vector<Real, N> minPosition = ray.position() + tMin * ray.direction();
-					Vector<Real, N> maxPosition = ray.position() + tMax * ray.direction();
+					Vector<Real, N> minPosition = ray.at(tMin);
+					Vector<Real, N> maxPosition = ray.at(tMax);
 
 					while(!currentNode.leaf())
 					{

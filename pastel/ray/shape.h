@@ -22,13 +22,15 @@ namespace Pastel
 
 		virtual bool intersect(
 			const Ray3& ray,
-			LocalGeometry& surface,
 			real& tClosest) const = 0;
 
 		virtual AlignedBox3 bound() const = 0;
 
 		virtual AlignedBox3 bound(
 			const AffineTransformation3& transformation) const;
+
+		virtual LocalGeometry localGeometry(
+			const Vector3& position) const = 0;
 	};
 
 }
