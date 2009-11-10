@@ -257,6 +257,14 @@
 				RelativePath=".\pinhole_lens.h"
 				>
 			</File>
+			<File
+				RelativePath=".\spherical_lens.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\spherical_lens.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Thing"

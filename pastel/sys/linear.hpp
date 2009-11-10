@@ -19,7 +19,7 @@ namespace Pastel
 			const integer n = position.size();
 
 			ASSERT_OP(index, >=, 0);
-			ASSERT_OP(index, <, n);
+			ASSERT_OP(index, <, (1 << n));
 			ASSERT_OP(axis, >=, 0);
 			ASSERT_OP(axis, <=, n);
 

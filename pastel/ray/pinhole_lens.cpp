@@ -1,7 +1,6 @@
 #include "pastel/ray/pinhole_lens.h"
 
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/callfunction.h"
 
 namespace Pastel
 {

@@ -27,7 +27,7 @@ namespace Pastel
 		Vector<integer, N> x = floor(uv - 0.5);
 		Vector<real, N> st = (uv - 0.5) - Vector<real, N>(x);
 		Tuple<Type, ModifyN<N, 1 << N>::Result> valueSet(ofDimension(samples));
-		Tuple<bool, N> s(ofDimension(samples), false);
+		Tuple<bool, N> s(ofDimension(n), false);
 		
 		for (integer i = 0;i < samples;++i)
 		{
