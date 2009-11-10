@@ -10,6 +10,7 @@
 #include <pastel/ray/beam_tools.h>
 #include <pastel/ray/camera.h>
 #include <pastel/ray/pinhole_lens.h>
+#include <pastel/ray/spherical_lens.h>
 
 #include <pastel/geometry/alignedbox.h>
 
@@ -44,7 +45,7 @@ namespace
 			Array<Spectrum> image(width, height, Spectrum());
 
 			Array<Color> textureImage;
-			loadPcx("text.pcx", textureImage);
+			loadPcx("texture.pcx", textureImage);
 
 			Array<Spectrum> spectrumImage(textureImage.extent());
 			for (integer i = 0;i < textureImage.size();++i)
@@ -58,8 +59,14 @@ namespace
 
 			MipMap<Spectrum> mipMap(constArrayView(spectrumImage));
 
+			/*
 			Texture<Spectrum>::Ptr texture(
 				new EwaImage_Texture<Spectrum>(mipMap, 
+				ArrayExtender<2, Spectrum>(repeatExtender())));
+			*/
+
+			Texture<Spectrum>::Ptr texture(
+				new MipImage_Texture<Spectrum>(mipMap, 
 				ArrayExtender<2, Spectrum>(repeatExtender())));
 
 			/*
@@ -115,6 +122,11 @@ namespace
 			setThing->refine();
 
 			LensPtr lens = LensPtr(new Pinhole_Lens);
+			//Spherical_LensPtr lens = Spherical_LensPtr(new Spherical_Lens);
+			/*
+			lens->setWindow(
+				AlignedBox2(-1, -0.5, 1, 0.5) * constantPi<real>());
+			*/
 			CameraPtr camera = CameraPtr(
 				new Camera(lens));
 			camera->setPosition(Vector3(0, 0, -10));
