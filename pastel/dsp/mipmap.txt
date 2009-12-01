@@ -27,7 +27,7 @@ Practice
 Pastel implements the MipMap class for storing and manipulating
 mip-maps. It is declared as:
 
-	:::cpp
+	[CppCode]:
 	template <typename Type, int N = 2>
 	class MipMap;
 

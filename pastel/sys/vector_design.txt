@@ -28,7 +28,7 @@ Rejected ideas
 It should be possible to pass a vector to a
 function requiring a tuple:
 
-	:::cpp
+	[CppCode]:
 	template <typename Type, int N>
 	void f(const Tuple<N, Type>& left)
 	{

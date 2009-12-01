@@ -1,4 +1,4 @@
-#ifndef PASTEL_INTERSECT_LINE_TRIANGLE_HPP
+﻿#ifndef PASTEL_INTERSECT_LINE_TRIANGLE_HPP
 #define PASTEL_INTERSECT_LINE_TRIANGLE_HPP
 
 #include "pastel/geometry/intersect_line_triangle.h"
@@ -123,7 +123,7 @@ namespace Pastel
 		Real& uIntersection,
 		Real& vIntersection)
 	{
-		// M�ller-Trumbore line-triangle intersection algorithm
+		// Möller-Trumbore line-triangle intersection algorithm
 		// from the book "Real-time rendering", page 581
 
 		const Vector<Real, 3> e1 =

@@ -1,5 +1,5 @@
 PastelGfx
----------
+=========
 
 [Parent!]: pastel.txt
 
