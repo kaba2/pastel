@@ -1387,6 +1387,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\pastelsys.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\proof.txt"
 				>
 			</File>

@@ -10,7 +10,7 @@ Enums with scoping
 
 Consider the following code:
 
-	:::cpp
+	[CppCode]:
 
 	enum LoopType
 	{
@@ -50,7 +50,7 @@ This code won't compile because the enum values are not scoped inside LoopType a
 Instead, the enum values reserve identifiers from the surrounding namespace. The solution
 is to wrap enums inside a class, in effect offering the enum values their own namespace:
 
-	:::cpp
+	[CppCode]:
 	
 	class LoopType
 	{
@@ -147,7 +147,7 @@ allowing to detect common bugs.
 Let us give another example where unsigned integers cause problems: 
 looping over values from n to zero backwards:
 
-	:::cpp
+	[CppCode]:
 	for (unsigned int i = n;i >= 0;--i)
 	{
 		// Do something.
@@ -158,7 +158,7 @@ since there are no negative values which would fail the loop test.
 There is no natural fix to this problem with unsigned integers. Again,
 the way out is to use signed integers:
 
-	:::cpp
+	[CppCode]:
 	for (int i = n;i >= 0;--i)
 	{
 		// Do something.
@@ -188,7 +188,7 @@ that model the desired abstract concept!
 Rather than using the native types, abstract an integer used
 for indices and counts as its own type. Do the same for reals.
 
-	:::cpp
+	[CppCode]:
 	
 	typedef int integer;
 	typedef float real;

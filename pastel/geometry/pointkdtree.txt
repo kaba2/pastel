@@ -12,7 +12,7 @@ This data structure has been primarily designed for efficient
 nearest neighbor searching in static and semi-dynamic point-sets.
 It is declared as:
 
-	:::cpp
+	[CppCode]:
 	template <typename Real, int N = Dynamic, 
 		typename ObjectPolicy = Direct_ObjectPolicy_PointKdTree<Real, N> >
 	class PointKdTree;
@@ -125,7 +125,7 @@ searching algorithm.
 
 ### ObjectPolicy concept
 
-	:::cpp
+	[CppCode]:
 	class ObjectPolicy
 	{
 	public:

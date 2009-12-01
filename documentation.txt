@@ -1,31 +1,28 @@
-LightMark documentation system
-==============================
+Remark documentation system
+===========================
 
 [Parent]: pastel.txt
 
-Pastel uses the LightMark documentation system to generate
+Pastel uses the Remark documentation system to generate
 these web-pages automatically from the .txt documentation 
 files that come with Pastel's source-code.
 
 Syntax
 ------
 
-LightMark uses a slightly modified Markdown syntax for documentation. 
-Markdown is both a syntax and a program to convert files from text
-files to .html files. The appealing idea behind Markdown is
-that these source-text files should also be readable by themself. 
-For an example, [see the source for this page](./documentation.txt).
+Remark uses a slightly modified Markdown syntax for documentation. 
+The appealing idea behind Markdown is that the source-text files 
+should also be readable by themself. For an example, 
+[see the source for this page](./documentation.txt).
 
 ### Mathematical notation
 
 The Markdown syntax has been extended to embed mathematical notation
-via the AsciiMathML library. This extends the idea of making both 
-the document and the source itself readable.
-Like Markdown, AsciiMathML is both a syntax and a program to convert
-that syntax into MathML. This allows one to use mathematical notation 
-as is common when communicating through an ascii-only medium 
-(newsgroups, emails). For example, using AsciiMathML, one can type 
-`int_{-oo}^oo f(x) log(f(x)) dx` to render 
+via the AsciiMath syntax. This extends the idea of making both 
+the document and the source itself readable. This allows one to use 
+mathematical notation as is common when communicating through an 
+ascii-only medium (newsgroups, emails). For example, using AsciiMath, 
+one can type `int_{-oo}^oo f(x) log(f(x)) dx` to render 
 
 ''int_{-oo}^oo f(x) log(f(x)) dx'' 
 
@@ -35,7 +32,7 @@ mostly unreadable.
 Documentation tree
 ------------------
 
-Every file under LightMark is associated with a unique parent file.
+Every file under Remark is associated with a unique parent file.
 This parent-child relation induces a tree where the files are
 nodes and edges denote a parent-child relation.
 This tree is used to generate various useful information 
@@ -101,7 +98,7 @@ a comment of the form:
 	// Detail: A more detailed description here
 
 These tags are best placed at the beginning of a file for 
-LightMark to find them quickly.
+Remark to find them quickly.
 
 ### Manual linking
 
@@ -116,14 +113,14 @@ Implicitly-defined parent file
 
 If a documentation file does not specify a parent file, it is assigned
 a special orphan file as the parent file. If a source-code file does not 
-specify a parent file, LightMark gives the file an implicitly-defined parent 
+specify a parent file, Remark gives the file an implicitly-defined parent 
 file. The logic for this goes as follows:
 
  * In the same directory, search for the longest prefix file (excluding the 
  file itself). Give documentation files (.txt) priority over source-code 
  files (i.e. consider them longer). Do not consider source-code files 
  which do not specify a parent file. If there are multiple candidate 
- source-code files, pick one arbitrarily (LightMark reports a warning
+ source-code files, pick one arbitrarily (Remark reports a warning
  about the ambiguity). 
  
  * If a documentation file is found, use it as a parent file. 

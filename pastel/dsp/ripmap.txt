@@ -29,7 +29,7 @@ Practice
 Pastel implements the RipMap class for storing and manipulating
 rip-maps. It is declared as:
 
-	:::cpp
+	[CppCode]:
 	template <typename Type, int N = 2>
 	class RipMap;
 

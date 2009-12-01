@@ -1,5 +1,3 @@
-// Description: Array programming for matrices
-
 #ifndef PASTEL_MATRIX_TOOLS_MORE4_HPP
 #define PASTEL_MATRIX_TOOLS_MORE4_HPP
 
