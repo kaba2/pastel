@@ -13,7 +13,7 @@
 #define PASTEL_ENABLE_OMP 1
 
 // PASTEL_DYNAMIC_LIBRARIES == 0 => No dll-exporting is done.
-#define PASTEL_DYNAMIC_LIBRARIES 1
+#define PASTEL_DYNAMIC_LIBRARIES 0
 
 #include "pastel/sys/environment.hpp"
 

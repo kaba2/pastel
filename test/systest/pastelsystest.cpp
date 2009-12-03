@@ -4,6 +4,9 @@
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/eps.h"
 
+#include <boost/integer_fwd.hpp>
+#include <boost/config/compiler/visualc.hpp>
+
 #include <iostream>
 #include <string>
 
