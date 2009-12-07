@@ -95,6 +95,17 @@ namespace Pastel
 				return Width * Height;
 			}
 
+			bool valid(integer y, integer x) const
+			{
+				if (y >= 0 && y < Height &&
+					x >= 0 && x < Width)
+				{
+					return true;
+				}
+
+				return false;
+			}
+
 			bool involves(const void* memoryBegin, const void* memoryEnd) const
 			{
 				return Pastel::memoryOverlaps(
