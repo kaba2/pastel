@@ -1,6 +1,6 @@
 PastelGl
 ========
 
-[Parent!]: pastel.txt
+[Parent]: pastel.txt
 
 The purpose of PastelGl is to provide tools related to OpenGl.

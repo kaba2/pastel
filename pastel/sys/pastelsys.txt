@@ -1,6 +1,6 @@
 PastelSys
 =========
 
-[Parent!]: pastel.txt
+[Parent]: pastel.txt
 
 The purpose of PastelSys is to provide general-purpose tools.

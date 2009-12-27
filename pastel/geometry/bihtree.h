@@ -20,7 +20,7 @@ namespace Pastel
 
 	/*!
 	"Instant ray tracing: The bounding interval hierarchy"
-	Carsten Wächter and Alexander Keller, 2006.
+	Carsten Waechter and Alexander Keller, 2006.
 
 	This is an implementation of the bounding interval
 	hierarchy tree. It uses a construct-at-once philosophy:
