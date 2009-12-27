@@ -77,7 +77,7 @@ Practice
 Pastel implements the half-edge structure in the HalfMesh class 
 template. Its declaration is as follows:
 
-	[CppCode]:
+[CppCode]:
 	template <typename DataPolicy>
 	class HalfMesh;
 
@@ -123,7 +123,7 @@ which should be appropriate most of the time. These are:
 
 The DataPolicy policy is defined as follows:
 
-	[CppCode]:
+[CppCode]:
 	class DataPolicy
 	{
 	public:

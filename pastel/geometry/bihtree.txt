@@ -7,5 +7,5 @@ References
 ----------
 
 _Instant Ray Tracing: The Bounding Interval Hierarchy_,
-Carsten Wächter and Alexander Keller, 2006.
+Carsten Waechter and Alexander Keller, 2006.
 

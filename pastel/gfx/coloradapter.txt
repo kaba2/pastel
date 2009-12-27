@@ -29,7 +29,7 @@ trickery, the encoding and decoding with a packed color
 can be made as fast as a hand-written implementation. In Pastel, you
 do the conversion for the encoding schemes listed above as follows:
 
-	[CppCode]:
+[CppCode]:
 	Color aColor = Integer_To_Color<uint16, 5, 6, 5>::convert(aPackedColor);
 	Color bColor = Integer_To_Color<uint16, 5, 5, 5>::convert(bPackedColor);
 	Color cColor = Integer_To_Color<uint32, 8, 8, 8>::convert(cPackedColor);
@@ -41,7 +41,7 @@ component, and the starting indices of each component.
 If the positions are not given, the components are assumed to be packed
 subsequently. The conversion to the other direction is as easy:
 	
-	[CppCode]:	
+[CppCode]:	
 	uint16 aPackedColor = Integer_To_Color<uint16, 5, 6, 5>::revert(aColor);
 	uint16 bPackedColor = Integer_To_Color<uint16, 5, 5, 5>::revert(bColor);
 	uint32 cPackedColor = Integer_To_Color<uint32, 8, 8, 8>::revert(cColor);
@@ -51,6 +51,6 @@ subsequently. The conversion to the other direction is as easy:
 Here the encoding scheme must be known in compile time. If this is not
 the case, then you can use the functions 'integerToColor' and 'colorToInteger':
 
-	[CppCode]:
+[CppCode]:
 	Color dColor = integerToColor<uint32>(dPackedColor, 8, 8, 8, 24, 8, 16);
 	uint32 dPackedColor = colorToInteger<uint32>(dColor, 8, 8, 8, 24, 8, 16);

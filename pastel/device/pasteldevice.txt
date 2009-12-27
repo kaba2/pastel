@@ -1,7 +1,7 @@
 PastelDevice
 ============
 
-[Parent!]: pastel.txt
+[Parent]: pastel.txt
 
 The purpose of the PastelDevice sub-library is to provide 
 tools for accessing hardware. It is not much more than a 
