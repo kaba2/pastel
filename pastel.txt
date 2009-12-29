@@ -101,3 +101,11 @@ Pastel divides into a number of sub-libraries. These are:
 [PastelDevice]: ./pastel/device/pasteldevice.htm
 [PastelGl]: ./pastel/gl/pastelgl.htm
 
+[[set DocChildren:no_links_for]]:
+	pastelsys.txt
+	pastelmath.txt
+	pastelgeometry.txt
+	pasteldsp.txt
+	pastelgfx.txt
+	pasteldevice.txt
+	pastelgl.txt

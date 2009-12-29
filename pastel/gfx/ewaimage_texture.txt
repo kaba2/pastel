@@ -1,4 +1,4 @@
 Image-based texture with EWA resampling
 =======================================
 
-[Parent]: image_textures.txt
+[[Parent]]: image_textures.txt

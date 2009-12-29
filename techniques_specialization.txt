@@ -1,7 +1,7 @@
 Specialization without repeating all the implementation
 =======================================================
 
-[Parent]: techniques.txt
+[[Parent]]: techniques.txt
 
 * Original text: 02.11.2008
 
@@ -25,7 +25,7 @@ Assume we have implemented a mathematical vector class template which models
 vectors in ''RR^n'' (''RR'' for the set of real numbers) and which is templated 
 with respect to dimension and its number type:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, int N>
 	class Vector
 	{
@@ -62,7 +62,7 @@ with respect to dimension and its number type:
 	
 The class template works as follows:
 
-[CppCode]:
+[[CppCode]]:
 	#include "vector.h"
 	int main()
 	{
@@ -91,7 +91,7 @@ that it has additional member functions x(), y(), and z() to access the
 first, second, and third elements of the vector, respectively. Then
 we could rewrite the program above as:
 
-[CppCode]:
+[[CppCode]]:
 	#include "vector.h"
 	
 	int main()
@@ -116,7 +116,7 @@ Copy and paste
 The simplest approach is to use copy & paste. Here we replicate
 the common implementation code to each specialization:
 
-[CppCode]:
+[[CppCode]]:
 	// The general version
 
 	template <typename Real, int N>
@@ -217,7 +217,7 @@ called the "Curiously Recurring Template Pattern".
 The name of the technique is a bit of a mouthful and thus we
 shall abbreviate it 'CRTP'. Here is the technique in short:
 
-[CppCode]:
+[[CppCode]]:
 	
 	template <typename Real, int N, typename Derived>
 	class VectorBase
@@ -240,7 +240,7 @@ the Vector\<Real, N\> has only been declared but not defined.
 Thus, what VectorBase\<Real, N, Derived\> class definition 
 sees is effectively:
 
-[CppCode]:
+[[CppCode]]:
 	class Derived;
 
 But this is less restrictive than one first thinks.
@@ -278,7 +278,7 @@ return types.
 
 Here's how we achieve that:
 
-[CppCode]:
+[[CppCode]]:
 	// Common code
 
 	template <typename Real, int N, Derived>

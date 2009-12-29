@@ -1,7 +1,7 @@
 Area of a point-set
 ===================
 
-[Parent]: pointset_properties.txt
+[[Parent]]: pointset_properties.txt
 
 Theory
 ------

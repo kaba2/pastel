@@ -1,7 +1,7 @@
 Multi-resolution kd-tree
 ========================
 
-[Parent]: bsp_tree.txt
+[[Parent]]: bsp_tree.txt
 
 Theory
 ------
@@ -54,4 +54,4 @@ of the corresponding data-structure.
 See also
 --------
 
-[Link]: nearest_neighbors_semidynamic.txt
+[[Link]]: nearest_neighbors_semidynamic.txt

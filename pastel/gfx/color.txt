@@ -1,7 +1,7 @@
 Color
 =====
 
-[Parent]: pastelgfx.txt
+[[Parent]]: pastelgfx.txt
 
 Theory
 ------

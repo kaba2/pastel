@@ -1,7 +1,7 @@
 Iterator ranges
 ===============
 
-[Parent]: iterators.txt
+[[Parent]]: iterators.txt
 
 Theory
 ------

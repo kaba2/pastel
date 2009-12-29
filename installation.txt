@@ -1,7 +1,7 @@
 Installing the Pastel library
 =============================
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 Pastel includes solution and project files for
 Visual Studio 2008. Here we briefly explain how
@@ -31,8 +31,8 @@ Control panel->System->Advanced->Environment variables
 See also
 --------
 
-[Link]: external.txt
+[[Link]]: external.txt
 
-[Link]: build_switches.txt
+[[Link]]: ./pastel/sys/environment.txt
 
 

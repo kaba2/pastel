@@ -1,7 +1,7 @@
 Linear algebra
 ==============
 
-[Parent]: pastelmath.txt
+[[Parent]]: pastelmath.txt
 
 Theory
 ------
@@ -97,4 +97,4 @@ Leo Dorst, Daniel Fontijne, Stephen Mann, 2007.
 See also
 --------
 
-[Link]: affinetransformation.txt
+[[Link]]: affinetransformation.txt

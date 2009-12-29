@@ -1,7 +1,7 @@
 Overlap testing design notes
 ============================
 
-[Parent]: overlaps.txt
+[[Parent]]: overlaps.txt
 
 GJK vs specialized algorithms
 -----------------------------

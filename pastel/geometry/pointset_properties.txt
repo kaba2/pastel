@@ -1,7 +1,7 @@
 Point-set properties
 ====================
 
-[Parent]: pastelgeometry.txt
+[[Parent]]: pastelgeometry.txt
 
 Theory
 ------

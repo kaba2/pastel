@@ -1,4 +1,4 @@
 Miscellaneous stuff
 ===================
 
-[Parent]: pasteldsp.txt
+[[Parent]]: pasteldsp.txt

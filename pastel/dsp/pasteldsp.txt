@@ -1,7 +1,7 @@
 PastelDsp
 =========
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 The purpose of the PastelDsp sub-library is to provide
 tools related to signal processing.

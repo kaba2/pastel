@@ -1,7 +1,7 @@
 Sphere
 ======
 
-[Parent]: shapes.txt
+[[Parent]]: shapes.txt
 
 Theory
 ------

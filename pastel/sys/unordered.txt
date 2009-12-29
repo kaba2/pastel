@@ -1,7 +1,7 @@
 Unordered associative containers
 ================================
 
-[Parent]: data_structures.txt
+[[Parent]]: data_structures.txt
 
 Theory
 ------
@@ -25,4 +25,4 @@ UnorderedMap and UnorderedSet containers.
 See also
 --------
 
-[Link]: allocators.txt
+[[Link]]: allocators.txt

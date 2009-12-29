@@ -1,4 +1,4 @@
 Common stuff
 ============
 
-[Parent]: pastelgfx.txt
+[[Parent]]: pastelgfx.txt

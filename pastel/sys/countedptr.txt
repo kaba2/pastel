@@ -1,7 +1,7 @@
 Reference-counted pointers
 ==========================
 
-[Parent]: memory.txt
+[[Parent]]: memory.txt
 
 Theory
 ------

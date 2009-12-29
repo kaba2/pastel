@@ -1,7 +1,7 @@
 Internal dependencies
 =====================
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 The dependencies between Pastel's sub-libraries 
 form an acyclic directed graph. Because of this,

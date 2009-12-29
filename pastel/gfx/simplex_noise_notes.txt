@@ -1,7 +1,7 @@
 Deriving simplex noise
 ======================
 
-[Parent]: simplex_noise.txt
+[[Parent]]: simplex_noise.txt
 
 Abstract
 ------
@@ -395,4 +395,4 @@ _Simplex Noise Demystified_, Stefan Gustavson, 2005.
 See also
 --------
 
-[Link]: gradientfield.txt
+[[Link]]: gradientfield.txt

@@ -1,7 +1,7 @@
 PointKdTree design notes
 ========================
 
-[Parent]: pointkdtree.txt
+[[Parent]]: pointkdtree.txt
 
 Invariants
 ----------
@@ -51,7 +51,7 @@ How to support different kinds of objects?
 
 ### Proposition 1: an object oriented interface
 
-[CppCode]:
+[[CppCode]]:
 	class PointKdTreeObject
 	{
 	public:
@@ -73,7 +73,7 @@ Disadvantages:
 Store arbitrary user objects and require to supply a functor that
 gives projection to an axis given an object.
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, int N, typename Object,
 	typename ProjectionFunctor>
 	class PointKdtree
@@ -95,7 +95,7 @@ Disadvantages:
 
 ### Proposition 3: generic programming with a policy
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, int N, typename ObjectPolicy>
 	class PointKdTree
 	{

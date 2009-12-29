@@ -1,7 +1,7 @@
 Invariant checking
 ==================
 
-[Parent]: testing.txt
+[[Parent]]: testing.txt
 
 Theory
 ------

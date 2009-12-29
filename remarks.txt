@@ -24,7 +24,7 @@ The case of crSpline
 
 Full concept version:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Vector_Iterator>
 	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
 		const RandomAccessRange<Vector_Iterator>& pointSet,
@@ -39,7 +39,7 @@ Problems: Ugly interface. This is caused by having to use meta-functions to
 access associated types, which is caused by the lack of concept mapping. 
 Ideally we would have:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Vector_Iterator>
 	Vector_Iterator::value_type crSpline(
 		const RandomAccessRange<Vector_Iterator>& pointSet,
@@ -49,7 +49,7 @@ Problems: Not valid C++.
 
 Require specifying scalar (i.e. simplification by removing requirements):
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, typename Vector_Iterator>
 	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
 		const RandomAccessRange<Vector_Iterator>& pointSet,
@@ -62,7 +62,7 @@ unless explicitly specified.
 
 Pre-specify a scalar (i.e. simplification by adding requirements):
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Vector_Iterator>
 	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
 		const RandomAccessRange<Vector_Iterator>& pointSet,

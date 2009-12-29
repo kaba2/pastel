@@ -1,7 +1,7 @@
 Bounding Interval Hierachy Tree
 ===============================
 
-[Parent]: data_structures.txt
+[[Parent]]: data_structures.txt
 
 References
 ----------

@@ -1,4 +1,4 @@
 Standard illuminants
 ====================
 
-[Parent]: color.txt
+[[Parent]]: color.txt

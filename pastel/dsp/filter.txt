@@ -1,7 +1,7 @@
 Filters
 =======
 
-[Parent]: pasteldsp.txt
+[[Parent]]: pasteldsp.txt
 
 Theory
 ------
@@ -14,7 +14,7 @@ Practice
 The Filter class is an abstract base class for 
 a 1-dimensional reconstruction filter. It is defined as:
 
-[CppCode]:
+[[CppCode]]:
 	class Filter
 		: public ReferenceCounted
 	{
@@ -35,4 +35,4 @@ a 1-dimensional reconstruction filter. It is defined as:
 See also
 --------
 
-[Link]: resample.txt
+[[Link]]: resample.txt

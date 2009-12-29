@@ -1,7 +1,7 @@
 Restricting function template type deduction 
 ============================================
 
-[Parent]: techniques.txt
+[[Parent]]: techniques.txt
 
  * 28.11.2008 Added 'Templated types through macro' text.
  * 13.12.2007 Class/function templates, not template classes/functions.
@@ -15,7 +15,7 @@ Problem
 
 Consider the following code:
 
-[CppCode]:
+[[CppCode]]:
 	class A
 	{
 	public:
@@ -73,7 +73,7 @@ particular problem. I credit Greg Herlihy (solution 3) and Yechezkel Mett
 Attempt 1: Direct templatization
 ---------------------------------
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	class B
 	{
@@ -135,7 +135,7 @@ Attempt 2: Overgeneralization
 
 To fight the problem in the first try, lets make the left hand side type a template parameter.
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	class C
 	{
@@ -213,7 +213,7 @@ actually of the type Type.
 Attempt 3: Templates and friends
 --------------------------------
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	class D
 	{
@@ -283,7 +283,7 @@ function template.
 Attempt 4: Disabling template type deduction
 --------------------------------------------
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	class Identity
 	{
@@ -351,7 +351,7 @@ and the left hand parameter type is thus right as deduced from the parameter of 
 This solution solves all problems in the previous solutions. Because the disabling 
 is a bit verbose, I prefer to define a macro something like this: 
 
-[CppCode]:
+[[CppCode]]:
 	#define PASTEL_NO_DEDUCTION(x) typename Identity< x >::Result
 
 An even better solution
@@ -362,21 +362,21 @@ multi-parameter class templates. You can get around this limitation by
 using the following trick. We first note that the type can be passed through 
 the macro by enclosing it in parentheses:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	void f(const PASTEL_NO_DEDUCTION((Vector<2, Type>))& left, const Type& right);
 
 This solves the problem with the comma. However, this
 introduces another problem: the macro expands into
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	void f(const typename Identity<(Vector<2, Type>)>& left, const Type& right);
 
 which is not legal C++. To make it legal, we need to get
 rid of the parentheses. We do this by the following:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	class ParenthesesRemover
 	{
@@ -400,12 +400,12 @@ not contain commas. Fortunately we can solve this last minor troubling
 by noticing that extra parenthesis do not do harm for a type.
 Thus we can rewrite the macro as:
 
-[CppCode]:
+[[CppCode]]:
 	#define PASTEL_NO_DEDUCTION(x) typename ParenthesesRemover<void (x)>::Result
 
 And everything works nice again. To demonstrate:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type>
 	void f(const PASTEL_NO_DEDUCTION((Vector<2, Type>))& left, const Type& right);
 	

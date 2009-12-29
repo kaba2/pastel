@@ -1,7 +1,7 @@
 Rip mapping
 ===========
 
-[Parent]: precomputed_filtering.txt
+[[Parent]]: precomputed_filtering.txt
 
 Theory
 ------
@@ -29,7 +29,7 @@ Practice
 Pastel implements the RipMap class for storing and manipulating
 rip-maps. It is declared as:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type, int N = 2>
 	class RipMap;
 

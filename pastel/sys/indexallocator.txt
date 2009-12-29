@@ -1,7 +1,7 @@
 IndexAllocator class
 ====================
 
-[Parent]: miscellaneous.txt
+[[Parent]]: miscellaneous.txt
 
 Theory
 ------

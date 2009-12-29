@@ -1,5 +1,5 @@
 2d drawing
 ==========
 
-[Parent]: pastelgfx.txt
+[[Parent]]: pastelgfx.txt
 

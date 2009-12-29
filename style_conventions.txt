@@ -1,7 +1,7 @@
 Style conventions
 =================
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 Principles
 ----------

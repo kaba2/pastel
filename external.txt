@@ -1,7 +1,7 @@
 External dependencies
 =====================
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 Practice
 --------

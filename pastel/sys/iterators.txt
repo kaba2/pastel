@@ -1,7 +1,7 @@
 Iterators
 =========
 
-[Parent]: pastelsys.txt
+[[Parent]]: pastelsys.txt
 
 Theory
 ------

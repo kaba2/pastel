@@ -1,7 +1,7 @@
 Logging
 =======
 
-[Parent]: pastelsys.txt
+[[Parent]]: pastelsys.txt
 
 Practice
 --------

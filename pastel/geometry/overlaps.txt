@@ -1,7 +1,7 @@
 Overlap between point-sets
 ==========================
 
-[Parent]: pointset_queries.txt
+[[Parent]]: pointset_queries.txt
 
 Theory
 ------
@@ -18,5 +18,5 @@ several overlap tests between pairs of shapes.
 See also
 --------
 
-[Link]: shapes.txt
-[Link]: intersect.txt
+[[Link]]: shapes.txt
+[[Link]]: intersect.txt

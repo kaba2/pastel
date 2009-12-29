@@ -1,7 +1,7 @@
 Matrix class
 ============
 
-[Parent]: linear_algebra.txt
+[[Parent]]: linear_algebra.txt
 
 Practice
 --------
@@ -10,7 +10,7 @@ Practice
 
 The Matrix class is declared by:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, int Height = Dynamic, int Width = Height>
 	class Matrix;
 

@@ -1,4 +1,4 @@
 Quaternions
 ===========
 
-[Parent]: transformations.txt
+[[Parent]]: transformations.txt

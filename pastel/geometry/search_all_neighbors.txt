@@ -1,5 +1,5 @@
 All nearest neighbors searching
 ===============================
 
-[Parent]: nearest_neighbors.txt
+[[Parent]]: nearest_neighbors.txt
 

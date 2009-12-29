@@ -1,7 +1,7 @@
 Sphere shape
 ============
 
-[Parent]: shapes.txt
+[[Parent]]: shapes.txt
 
 
 

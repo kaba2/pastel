@@ -1,4 +1,4 @@
 Common stuff
 ============
 
-[Parent]: pastelmath.txt
+[[Parent]]: pastelmath.txt

@@ -1,5 +1,5 @@
 Noise
 =====
 
-[Parent]: pastelgfx.txt
+[[Parent]]: pastelgfx.txt
 

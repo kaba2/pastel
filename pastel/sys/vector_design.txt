@@ -1,7 +1,7 @@
 Vector design notes
 ===================
 
-[Parent]: vector.txt
+[[Parent]]: vector.txt
 
 What concept should the Type model?
 -----------------------------------
@@ -28,7 +28,7 @@ Rejected ideas
 It should be possible to pass a vector to a
 function requiring a tuple:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Type, int N>
 	void f(const Tuple<N, Type>& left)
 	{

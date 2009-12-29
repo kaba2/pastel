@@ -1,5 +1,5 @@
 Image-based texture with linear interpolation
 =============================================
 
-[Parent]: image_textures.txt
+[[Parent]]: image_textures.txt
 

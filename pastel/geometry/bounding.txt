@@ -1,7 +1,7 @@
 Bounding between point-sets
 ===========================
 
-[Parent]: pointset_queries.txt
+[[Parent]]: pointset_queries.txt
 
 Theory
 ------
@@ -19,5 +19,5 @@ Pastel provides algorithms that do this approximately.
 See also
 --------
 
-[Link]: area.txt
-[Link]: volume.txt
+[[Link]]: area.txt
+[[Link]]: volume.txt

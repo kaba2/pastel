@@ -1,7 +1,7 @@
 Recurring programming techniques in Pastel
 ==========================================
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 Practice
 --------
@@ -13,4 +13,4 @@ make more sense of the source code.
 See also
 --------
 
-[Link]: ensure.txt
+[[Link]]: ./pastel/sys/ensure.txt

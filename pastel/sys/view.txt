@@ -1,6 +1,6 @@
 Array views
 ===========
 
-[Parent]: data_structures.txt
+[[Parent]]: data_structures.txt
 
 
