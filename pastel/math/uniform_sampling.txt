@@ -1,7 +1,7 @@
 Uniform sampling
 ================
 
-[Parent]: pastelmath.txt
+[[Parent]]: pastelmath.txt
 
 Theory
 ------
@@ -43,6 +43,6 @@ from one shape to another, see the link below.
 See also
 --------
 
-[Link]: uniform_distortion.txt
+[[Link]]: uniform_distortion.txt
 
-[Link]: ../sys/random.txt
+[[Link]]: ../sys/random.txt

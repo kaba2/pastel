@@ -1,5 +1,5 @@
 Basic math
 ==========
 
-[Parent]: pastelsys.txt
+[[Parent]]: pastelsys.txt
 

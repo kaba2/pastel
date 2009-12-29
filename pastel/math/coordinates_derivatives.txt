@@ -1,7 +1,7 @@
 Derivatives of coordinate conversions
 =====================================
 
-[Parent]: coordinates.txt
+[[Parent]]: coordinates.txt
 
 Theory
 ------

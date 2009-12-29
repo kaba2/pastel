@@ -1,7 +1,7 @@
 Norm bijections
 ===============
 
-[Parent]: pastelmath.txt
+[[Parent]]: pastelmath.txt
 
 Theory
 ------

@@ -1,7 +1,7 @@
 PastelGfx
 =========
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 The purpose of the PastelGfx sub-library is to provide algorithms
 related to computer graphics. Ray-tracing related

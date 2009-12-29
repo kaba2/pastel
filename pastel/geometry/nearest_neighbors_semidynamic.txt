@@ -1,7 +1,7 @@
 Nearest neighbors in semi-dynamic point sets
 ============================================
 
-[Parent]: nearest_neighbors.txt
+[[Parent]]: nearest_neighbors.txt
 
 Theory
 ------
@@ -30,4 +30,4 @@ nearest neighbors are searched, and points are removed and inserted incrementall
 See also
 --------
 
-[Link]: multiresolution_kdtree.txt
+[[Link]]: multiresolution_kdtree.txt

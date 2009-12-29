@@ -1,5 +1,5 @@
 Data structures
 ===============
 
-[Parent]: pastelsys.txt
+[[Parent]]: pastelsys.txt
 

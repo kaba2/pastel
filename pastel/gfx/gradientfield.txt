@@ -1,4 +1,4 @@
 Gradient field
 ==============
 
-[Parent]: noise.txt
+[[Parent]]: noise.txt

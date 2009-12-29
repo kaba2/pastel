@@ -1,7 +1,7 @@
 ArenaAllocator class
 ====================
 
-[Parent]: allocators.txt
+[[Parent]]: allocators.txt
 
 Practice
 --------

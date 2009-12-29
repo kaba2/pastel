@@ -1,7 +1,7 @@
 Low-discrepancy sequences
 =========================
 
-[Parent]: pastelmath.txt
+[[Parent]]: pastelmath.txt
 
 Theory
 ------
@@ -56,9 +56,9 @@ Matt Pharr, Greg Humphreys, 2004.
 See also
 --------
 
-[Link]: ../geometry/poissondiskpattern.txt
+[[Link]]: ../geometry/poissondiskpattern.txt
 
-[Link]: uniform_distortion.txt
+[[Link]]: uniform_distortion.txt
 
-[Link]: uniform_sampling.txt
+[[Link]]: uniform_sampling.txt
 

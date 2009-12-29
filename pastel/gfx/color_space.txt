@@ -1,7 +1,7 @@
 Color spaces
 ============
 
-[Parent]: color.txt
+[[Parent]]: color.txt
 
 Theory
 ------

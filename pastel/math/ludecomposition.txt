@@ -1,7 +1,7 @@
 PLU decomposition
 =================
 
-[Parent]: matrix_decompositions.txt
+[[Parent]]: matrix_decompositions.txt
 
 Theory
 ------
@@ -69,4 +69,4 @@ a matrix.
 See also
 --------
 
-[Link]: cholesky_decomposition.txt
+[[Link]]: cholesky_decomposition.txt

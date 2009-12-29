@@ -1,5 +1,5 @@
 Distortion textures
 ===================
 
-[Parent]: texture.txt
+[[Parent]]: texture.txt
 

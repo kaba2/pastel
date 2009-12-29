@@ -1519,6 +1519,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\installation.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\internal.txt"
 				>
 			</File>
@@ -1708,14 +1712,6 @@
 			</File>
 			<File
 				RelativePath=".\syscommon.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Installation"
-			>
-			<File
-				RelativePath="..\..\installation.txt"
 				>
 			</File>
 		</Filter>

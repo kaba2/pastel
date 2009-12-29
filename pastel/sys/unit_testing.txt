@@ -1,4 +1,4 @@
 Unit testing
 ============
 
-[Parent]: testing.txt
+[[Parent]]: testing.txt

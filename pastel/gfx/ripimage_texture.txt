@@ -1,5 +1,5 @@
 Image-based texture using rip-map resampling
 ============================================
 
-[Parent]: image_textures.txt
+[[Parent]]: image_textures.txt
 

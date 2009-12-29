@@ -1,7 +1,7 @@
 Small associative containers
 ============================
 
-[Parent]: data_structures.txt
+[[Parent]]: data_structures.txt
 
 Practice
 --------

@@ -1,7 +1,7 @@
 FastList class
 ==============
 
-[Parent]: data_structures.txt
+[[Parent]]: data_structures.txt
 
 Motivation
 ----------
@@ -18,5 +18,5 @@ standard.
 See also
 --------
 
-[Link]: allocators.txt
+[[Link]]: allocators.txt
 

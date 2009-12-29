@@ -1,7 +1,7 @@
 Coordinate conversions
 ======================
 
-[Parent]: pastelmath.txt
+[[Parent]]: pastelmath.txt
 
 Coordinate systems
 ------------------

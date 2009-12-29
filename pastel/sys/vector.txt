@@ -1,7 +1,7 @@
 Vector class
 ============
 
-[Parent]: math.txt
+[[Parent]]: math.txt
 
 Theory
 ------
@@ -26,7 +26,7 @@ Pastel implements the Vector class template to
 model vectors in ''F^n'' over ''F'', where ''F'' is an ordered field
 (such as real numbers or rational numbers).
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, int N = Dynamic>
 	class Vector;
 
@@ -58,7 +58,7 @@ The static ones are those for which N is a positive
 integer. The dynamic ones are those for which N equals 
 the constant Dynamic.
 
-[CppCode]:
+[[CppCode]]:
 	// Static 2d vector.
 	Vector<float, 2> a;
 	
@@ -96,7 +96,7 @@ To make the notation correspond to that used in mathematics,
 Pastel overloads the arithmetic operators for Vector's.
 Here is an example computation:
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float, 2> a(1, 2);
 	Vector<float, 2> b(3, 4);
 	Vector<float, 2> c = a - (4 * (a + b - 2)) / 3;
@@ -107,7 +107,7 @@ Array programming
 The multiplication and division operators have been
 extended to work with vectors in an element-wise manner:
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float, 2> a(1, 2);
 	Vector<float, 2> b(3, 4);
 	Vector<float, 2> c = (a * b) / (a + b);
@@ -122,7 +122,7 @@ familiar sin, cos, exp, log, pow, etc. Comparison functions
 have been extended to vectors by the
 functions anyLess, allLess, anyEqual, allEqual, etc.
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float, 2> a(1, 2);
 	Vector<float, 2> b = 2 * sin(a) * cos(a);
 	Vector<float, 2> c(
@@ -134,7 +134,7 @@ If there are scalars in an expressions, they work
 as if they were extended to appropriately sized vectors,
 and the operation then carried out element-wise:
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float, 2> a(1, 2);
 	Vector<float, 2> b = 1 - (a + 2);
 	Vector<float, 2> c(
@@ -148,13 +148,13 @@ Vector expressions
 Vector expressions are as efficient as hand-coded 
 expressions. For example:
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float, 3> x;
 	Vector<float, 3> y = 2 * x  + 4;
 
 corresponds in performance to:
 
-[CppCode]:
+[[CppCode]]:
 	y[0] = 2 * x[0] + 4
 	y[1] = 2 * x[1] + 4
 	y[2] = 2 * x[2] + 4
@@ -171,7 +171,7 @@ the expression objects. This is because template parameter
 matching must be exact. The solution is either to evaluate the 
 expression first, or make the function accept a vector expression:
 
-[CppCode]:
+[[CppCode]]:
 	template <typename Real, int N>
 	void f(const Vector<Real, N>& v)
 	{
@@ -220,7 +220,7 @@ However, maybe the most important one is the ability to
 construct a vector by listing its components in the
 constructor:
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float, 3> a(1, 2, 3);
 	a.set(1, 2, 3);
 	a.x() = 1;
@@ -232,7 +232,7 @@ Assigning values from a comma-separated list
 
 Vectors can be assigned values by using the following syntax:
 
-[CppCode]:
+[[CppCode]]:
 	Vector<float> a(ofDimension(8));
 	a |= 1, 2, 3, 4, 5, 6, 7, 8;
 
@@ -243,7 +243,7 @@ Minimal size of static vectors
 
 For static vectors it holds that
 
-[CppCode]:
+[[CppCode]]:
 	sizeof(Vector<Real, N>) == N * sizeof(Real)
 
 This minimality is important because vectors are expected 

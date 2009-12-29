@@ -1,7 +1,7 @@
 Disjoint sets design notes
 ==========================
 
-[Parent]: disjointgroups.txt
+[[Parent]]: disjointgroups.txt
 
 Requirements
 ------------

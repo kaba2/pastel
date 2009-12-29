@@ -1,12 +1,12 @@
 Concepts in PastelGeometry
 ==========================
 
-[Parent]: pastelgeometry.txt
+[[Parent]]: pastelgeometry.txt
 
 Here we have gathered all of the concepts that occur
 all across the PastelGeometry.
 
-[Link]: acceptpoint.txt
+[[Link]]: acceptpoint.txt
 
 
 

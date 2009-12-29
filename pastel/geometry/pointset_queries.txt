@@ -1,7 +1,7 @@
 Queries between point-sets
 ==========================
 
-[Parent]: pastelgeometry.txt
+[[Parent]]: pastelgeometry.txt
 
 References
 ----------

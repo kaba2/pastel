@@ -1,7 +1,7 @@
 Axis-aligned box
 ================
 
-[Parent]: shapes.txt
+[[Parent]]: shapes.txt
 
 Theory
 ------

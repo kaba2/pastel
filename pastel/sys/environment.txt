@@ -1,7 +1,7 @@
 Build switches
 ==============
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 Practice
 --------
@@ -75,4 +75,4 @@ types in 'mytypes.h' to proper types.
 See also
 --------
 
-[Link]: ensure.txt
+[[Link]]: ensure.txt

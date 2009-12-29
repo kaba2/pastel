@@ -1,7 +1,7 @@
 Capsule
 =======
 
-[Parent]: shapes.txt
+[[Parent]]: shapes.txt
 
 Theory
 ------

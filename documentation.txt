@@ -1,7 +1,7 @@
 Remark documentation system
 ===========================
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 Pastel uses the Remark documentation system to generate
 these web-pages automatically from the .txt documentation 
@@ -73,7 +73,7 @@ Specifying meta-information
 A documentation file specifies its parent file by writing somewhere
 in the file 
 
-	[Parent]: name_of_parent.txt 
+	[[Parent]]: name_of_parent.txt 
 	
 A source-code file specifies its parent file by writing somewhere
 in the file a comment of the form:
@@ -106,7 +106,7 @@ A link to a source-code file or a documentation file can be specified
 manually to generate a link that has a description as with the automatically
 generated links. This is done by the following syntax:
 
-	[Link]: allocators.txt
+	[[Link]]: ./pastel/sys/allocators.txt
 
 Implicitly-defined parent file
 ------------------------------

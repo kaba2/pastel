@@ -1,4 +1,4 @@
 Rendering
 =========
 
-[Parent]: pastelgl.txt
+[[Parent]]: pastelgl.txt

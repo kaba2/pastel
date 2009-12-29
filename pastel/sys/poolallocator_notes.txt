@@ -1,7 +1,7 @@
 PoolAllocator implementation notes
 ==================================
 
-[Parent]: poolallocator.txt
+[[Parent]]: poolallocator.txt
 
 Allocating memory in blocks
 ---------------------------

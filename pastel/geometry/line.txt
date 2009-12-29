@@ -1,7 +1,7 @@
 Line
 ====
 
-[Parent]: shapes.txt
+[[Parent]]: shapes.txt
 
 Theory
 ------

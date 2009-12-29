@@ -1,7 +1,7 @@
 PastelGeometry
 ==============
 
-[Parent]: pastel.txt
+[[Parent]]: pastel.txt
 
 PastelGeometry is a library of geometric algorithms.
 A unifying principle across this sub-library is that

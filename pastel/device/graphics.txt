@@ -1,5 +1,5 @@
 Graphics hardware
 =================
 
-[Parent]: pasteldevice.txt
+[[Parent]]: pasteldevice.txt
 

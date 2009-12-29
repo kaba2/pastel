@@ -1,5 +1,5 @@
 Resampling
 ==========
 
-[Parent]: pasteldsp.txt
+[[Parent]]: pasteldsp.txt
 

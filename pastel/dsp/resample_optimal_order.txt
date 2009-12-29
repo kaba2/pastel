@@ -1,7 +1,7 @@
 Resampling n-dimensional images in an optimal order
 ===================================================
 
-[Parent]: resample.txt
+[[Parent]]: resample.txt
 
 Problem
 -------

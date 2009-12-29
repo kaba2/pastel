@@ -1,7 +1,7 @@
 AcceptPoint concept
 ===================
 
-[Parent]: nearest_neighbors.txt
+[[Parent]]: nearest_neighbors.txt
 
 Practice
 --------
