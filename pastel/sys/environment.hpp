@@ -13,21 +13,17 @@
 #   define PASTEL_ENABLE_PENSURES 1
 #endif
 
-#ifndef PASTEL_DYNAMIC_LIBRARIES
-#   define PASTEL_DYNAMIC_LIBRARIES 1
+#ifndef PASTEL_ENABLE_OMP
+#   define PASTEL_ENABLE_OMP 0
 #endif
 
 // Output value determination
 
-#if (PASTEL_DYNAMIC_LIBRARIES != 0)
-
 // PORTABILITY: dynamic libraries are not standard C++.
 
-#	ifdef WIN32
-#	   define PASTEL_DLLEXPORT __declspec(dllexport)
-#	   define PASTEL_DLLIMPORT __declspec(dllimport)
-#	endif
-
+#ifdef WIN32
+#   define PASTEL_DLLEXPORT __declspec(dllexport)
+#   define PASTEL_DLLIMPORT __declspec(dllimport)
 #endif
 
 // Default output values

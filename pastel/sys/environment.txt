@@ -10,20 +10,6 @@ The file 'environment.h' contains a few configuration switches
 in the form of preprocessors defines, which globally affect the 
 code-generation in Pastel. We explain these switches here.
 
-### PASTEL_DYNAMIC_LIBRARIES
-
-By default, the library is set to produce dll libraries.
-For this to work, the classes need to be dll-exported
-under Windows. In Visual C++ this is accomplished
-by prepending functions and classes with certain
-declspec commands. It is the generation of these commands
-that is controlled by this switch.
-In Unix the default is to dll-export everything, and
-thus the previous commands are only generated if
-WIN32 has been defined.
-If PASTEL_DYNAMIC_LIBRARIES != 0, the compiler-specific 
-prepending commands are generated, otherwise they are not.
-
 ### PASTEL_ENABLE_PENSURES
 
 ENSUREs are runtime checks used to check preconditions for 

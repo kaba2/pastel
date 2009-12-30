@@ -6,10 +6,14 @@
 
 #include "pastel/sys/environment.h"
 
-#if (defined(PASTELRAY_EXPORTS) || defined(PASTEL_EXPORTS))
-#   define PASTELRAY PASTEL_DLLEXPORT
+#ifdef _USRDLL
+#	ifdef PASTELRAY_EXPORTS
+#		define PASTELRAY PASTEL_DLLEXPORT
+#	else
+#		define PASTELRAY PASTEL_DLLIMPORT
+#	endif
 #else
-#   define PASTELRAY PASTEL_DLLIMPORT
+#	define PASTELRAY
 #endif
 
 #endif
