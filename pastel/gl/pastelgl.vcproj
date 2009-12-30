@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsysd.lib pastelmathd.lib glew32.lib opengl32.lib pastelgeometryd.lib pastelgfxd.lib pasteldspd.lib"
+				AdditionalDependencies="pastelsys_d.lib pastelmath_d.lib glew32.lib opengl32.lib pastelgeometry_d.lib pastelgfx_d.lib pasteldsp_d.lib"
 				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
