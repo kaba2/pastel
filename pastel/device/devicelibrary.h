@@ -6,10 +6,14 @@
 
 #include "pastel/sys/environment.h"
 
-#if (defined(PASTELDEVICE_EXPORTS) || defined(PASTEL_EXPORTS))
-#   define PASTELDEVICE PASTEL_DLLEXPORT
+#ifdef _USRDLL
+#	ifdef PASTELDEVICE_EXPORTS
+#		define PASTELDEVICE PASTEL_DLLEXPORT
+#	else
+#		define PASTELDEVICE PASTEL_DLLIMPORT
+#	endif
 #else
-#   define PASTELDEVICE PASTEL_DLLIMPORT
+#	define PASTELDEVICE
 #endif
 
 #endif

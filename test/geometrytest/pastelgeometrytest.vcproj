@@ -320,7 +320,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_sd.lib pastelmath_sd.lib pastelgeometry_sd.lib pastelgfx_sd.lib pasteldevice_sd.lib pasteldsp_sd.lib"
+				AdditionalDependencies="pastelsys_sd.lib pastelmath_sd.lib pastelgeometry_sd.lib pastelgfx_sd.lib pasteldevice_sd.lib pasteldsp_sd.lib sdl.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"

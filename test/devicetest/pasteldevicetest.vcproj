@@ -309,7 +309,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_sd.lib pasteldevice_sd.lib"
+				AdditionalDependencies="pastelsys_sd.lib pasteldevice_sd.lib sdl.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
