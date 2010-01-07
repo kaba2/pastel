@@ -13,13 +13,13 @@ namespace Pastel
 		const VectorExpression<Real, N, Expression>& that,
 		const Tuple<integer, N>& permutation)
 	{
-		const integer dimension = that.size();
-		PENSURE_OP(dimension, ==, permutation.dimension());
+		const integer n = that.size();
+		PENSURE_OP(n, ==, permutation.dimension());
 
 		Vector<Real, N> result(
-			ofDimension(dimensions));
+			ofDimension(n));
 
-		for (integer i = 0;i < dimension;++i)
+		for (integer i = 0;i < n;++i)
 		{
 			result[i] = that[permutation[i]];
 		}
