@@ -44,21 +44,13 @@ and is thus prone to break backwards-compatibility. Rather, consider it from
 an educational viewpoint containing implementations and documentations of useful 
 data structures and algorithms.
 
-There are two easy ways to browse the source-code
-online complete with coloring. The first one is to read this documentation
-in a hierarchical manner following the links. The second one is to view the 
-source-code tree.
-
- * [View the source-code tree][ViewSourceTree].
-
 Pastel has several dependencies to third-party libraries which must also be
 installed if you want to build Pastel yourself. See the _External dependencies_ 
 link below for more information.
 
- * [Download the source-code (version 1.0, 2049KB)][DownloadSource].
+ * [Download Pastel][DownloadSource].
 
-[DownloadSource]: ./files/pastel-source-1.0.zip
-[ViewSourceTree]: ./
+[DownloadSource]: ./files/pastel-1.0.zip
 
 Note on web-browsers
 --------------------
