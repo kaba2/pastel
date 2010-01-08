@@ -1,5 +1,4 @@
 // Description: Bounding aligned box of a line segment
-// Documentation: bounding.txt
 
 #ifndef PASTEL_BOUNDING_ALIGNEDBOX_SEGMENT_H
 #define PASTEL_BOUNDING_ALIGNEDBOX_SEGMENT_H
