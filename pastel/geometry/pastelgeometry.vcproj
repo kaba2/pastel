@@ -1453,6 +1453,38 @@
 					RelativePath=".\bounding_sphere.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\bounding_sphere_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_box.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_box.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_pointset.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_pointset.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_segment.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bounding_sphere_segment.hpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

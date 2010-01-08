@@ -1,46 +1,18 @@
-// Description: Bounding spheres
+// Description: An aggregate file for bounding spheres
 
 #ifndef PASTEL_BOUNDING_SPHERE_H
 #define PASTEL_BOUNDING_SPHERE_H
 
+#include "pastel/geometry/bounding_sphere_alignedbox.h"
+#include "pastel/geometry/bounding_sphere_box.h"
+#include "pastel/geometry/bounding_sphere_segment.h"
+#include "pastel/geometry/bounding_sphere_pointset.h"
+
 #include "pastel/geometry/sphere.h"
 #include "pastel/geometry/simplex.h"
-#include "pastel/geometry/segment.h"
-#include "pastel/geometry/box.h"
 
 namespace Pastel
 {
-
-	//! Finds the minimum volume bounding sphere of an aligned box.
-
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const AlignedBox<Real, N>& alignedBox);
-
-	//! Finds the minimum volume bounding sphere of a box.
-
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const Box<Real, N>& box);
-
-	//! Finds the minimum volume bounding sphere of a point.
-
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const Vector<Real, N>& aPoint);
-
-	//! Finds the minimum volume bounding sphere of a line segment.
-
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const Segment<Real, N>& segment);
-
-	//! Finds the minimum volume bounding sphere of two points.
-
-	template <typename Real, int N>
-	Sphere<Real, N> boundingSphere(
-		const Vector<Real, N>& aPoint,
-		const Vector<Real, N>& bPoint);
 
 	//! Finds the minimum volume bounding sphere of a 0-simplex.
 
@@ -90,27 +62,6 @@ namespace Pastel
 	template <typename Real, int N, int M>
 	Sphere<Real, N> circumscribedSphere(
 		const Simplex<Real, N, M>& simplex);
-
-	//! Finds a bounding sphere of a point set.
-	/*!
-	The InputIterator must dereference to Vector<Real, N>.
-	*/
-
-	template <typename Real, int N, typename InputIterator, typename PositionFunctor>
-	Sphere<Real, N> boundingSphere(
-		const InputIterator& from,
-		const InputIterator& to,
-		const PositionFunctor& positionFunctor);
-
-	//! Finds a bounding sphere of a point set.
-	/*!
-	The InputIterator must dereference to Vector<Real, N>.
-	*/
-
-	template <typename Real, int N, typename InputIterator>
-	Sphere<Real, N> boundingSphere(
-		const InputIterator& from,
-		const InputIterator& to);
 
 }
 

@@ -19,12 +19,6 @@
 namespace Pastel
 {
 
-	inline integer computeKdTreeMaxDepth(integer objects)
-	{
-		ENSURE_OP(objects, >=, 0);
-		return (real)1.3 * (real)integerLog2(objects + 1) + (real)8.0;
-	}
-
 	namespace Detail
 	{
 

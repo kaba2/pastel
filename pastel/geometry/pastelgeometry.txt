@@ -5,5 +5,5 @@ PastelGeometry
 
 PastelGeometry is a library of geometric algorithms.
 A unifying principle across this sub-library is that
-geometric problems should be solved independent of
+geometric problems are solved independent of
 dimension, whenever that is possible.
