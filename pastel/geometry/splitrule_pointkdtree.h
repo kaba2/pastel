@@ -5,5 +5,6 @@
 #define PASTEL_SPLITRULE_POINTKDTREE_H
 
 #include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+#include "pastel/geometry/midpoint_splitrule_pointkdtree.h"
 
 #endif

@@ -1,3 +1,6 @@
+// Description: Bounding aligned box of a sphere
+// Documentation: bounding.txt
+
 #ifndef PASTEL_BOUNDING_ALIGNEDBOX_SPHERE_H
 #define PASTEL_BOUNDING_ALIGNEDBOX_SPHERE_H
 

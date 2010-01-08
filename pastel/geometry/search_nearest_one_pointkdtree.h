@@ -1,3 +1,6 @@
+// Description: Nearest neighbor searching for PointKdTree
+// Documentation: nearest_neighbors.txt
+
 #ifndef PASTEL_SEARCH_NEAREST_ONE_POINTKDTREE_H
 #define PASTEL_SEARCH_NEAREST_ONE_POINTKDTREE_H
 
