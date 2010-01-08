@@ -8,36 +8,12 @@ Pastel
 Description
 -----------
 
-Pastel is a C++ library for geometry and computer graphics.
-
-Documentation
--------------
-
-Pastel uses a novel documentation system called _LightMark_ to
-integrate source code with its documentation. Thus you will find that 
-browsing the source code of Pastel is a bit different than what you might 
-have used to. 
-
-Rather than repeating what is said in the source-code as part 
-of the interface documentation, the documentation in these pages
-defines the theory behind the subjects, as well as gives a
-high-level practical introduction to the subject. The source-code
-files that are related to each subject are gathered as links
-onto the documentation page of that subject. 
-This approach is somewhat reminiscent of the literate programming paradigm 
-where the source code is mixed with prose. However, instead of going
-that far, LightMark obtains a tight coupling between the source
-code and documentation by organizing all files into a hierarchical 
-tree. This tree allows you to concentrate on the interesting part 
-while ignoring the rest. 
-
-If you are interested, you can find more information about the LightMark 
-documentation system from below.
+_Pastel_ is a C++ library for geometry and computer graphics.
 
 Source code
 -----------
 
-The source-code for Pastel is licensed under the _GNU Lesser GPL_ license, which is 
+Pastel is licensed under the _GNU Lesser GPL_ license, which is 
 unrestrictive and non-viral. While this allows you to build your own programs using
 Pastel, I do not recommend you do this. This is because Pastel is still under development
 and is thus prone to break backwards-compatibility. Rather, consider it from 

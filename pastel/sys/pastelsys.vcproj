@@ -1511,10 +1511,6 @@
 			Name="Documentation"
 			>
 			<File
-				RelativePath="..\..\documentation.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\external.txt"
 				>
 			</File>
