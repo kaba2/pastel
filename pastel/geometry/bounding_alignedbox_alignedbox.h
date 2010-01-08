@@ -1,5 +1,4 @@
 // Description: Bounding aligned box of aligned boxes
-// Documentation: bounding.txt
 
 #ifndef PASTEL_BOUNDING_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTEL_BOUNDING_ALIGNEDBOX_ALIGNEDBOX_H

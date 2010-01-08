@@ -1,3 +1,5 @@
+// Description: Bounding sphere of a box
+
 #ifndef PASTEL_BOUNDING_SPHERE_BOX_H
 #define PASTEL_BOUNDING_SPHERE_BOX_H
 

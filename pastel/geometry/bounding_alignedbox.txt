@@ -1,0 +1,5 @@
+Bounding aligned box
+====================
+
+[[Parent]]: bounding.txt
+

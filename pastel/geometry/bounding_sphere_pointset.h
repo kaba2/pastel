@@ -1,3 +1,5 @@
+// Description: Bounding sphere of a point-set
+
 #ifndef PASTEL_BOUNDING_SPHERE_POINTSET_H
 #define PASTEL_BOUNDING_SPHERE_POINTSET_H
 

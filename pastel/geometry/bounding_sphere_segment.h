@@ -1,3 +1,5 @@
+// Description: Bounding sphere of a line segment
+
 #ifndef PASTEL_BOUNDING_SPHERE_SEGMENT_H
 #define PASTEL_BOUNDING_SPHERE_SEGMENT_H
 

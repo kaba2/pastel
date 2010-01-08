@@ -1,5 +1,4 @@
 // Description: Bounding aligned box of a point-set
-// Documentation: bounding.txt
 
 #ifndef PASTEL_BOUNDING_ALIGNEDBOX_POINTSET_H
 #define PASTEL_BOUNDING_ALIGNEDBOX_POINTSET_H

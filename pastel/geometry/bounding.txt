@@ -16,8 +16,3 @@ Practice
 In addition to providing algorithms that find minimal covering shapes,
 Pastel provides algorithms that do this approximately. 
 
-See also
---------
-
-[[Link]]: area.txt
-[[Link]]: volume.txt
