@@ -70,10 +70,10 @@ Pastel divides into a number of sub-libraries. These are:
 [PastelGl]: ./pastel/gl/pastelgl.htm
 
 [[set DocChildren:no_links_for]]:
-	./pastel/sys/pastelsys.htm
-	./pastel/math/pastelmath.htm
-	./pastel/geometry/pastelgeometry.htm
-	./pastel/dsp/pasteldsp.htm
-	./pastel/gfx/pastelgfx.htm
-	./pastel/device/pasteldevice.htm
-	./pastel/gl/pastelgl.htm
+	./pastel/sys/pastelsys.txt
+	./pastel/math/pastelmath.txt
+	./pastel/geometry/pastelgeometry.txt
+	./pastel/dsp/pasteldsp.txt
+	./pastel/gfx/pastelgfx.txt
+	./pastel/device/pasteldevice.txt
+	./pastel/gl/pastelgl.txt
