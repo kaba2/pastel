@@ -40,7 +40,7 @@ where
 
 The ''s'' is called a _reconstruction filter_, and as an approximation
 can be replaced by other low-pass filters, particularly with those having 
-finite support. The process of forming I from D (or d) is called 
+bounded support. The process of forming I from D (or d) is called 
 _reconstruction_.
 
 Practice

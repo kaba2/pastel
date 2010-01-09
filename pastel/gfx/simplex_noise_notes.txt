@@ -331,7 +331,7 @@ given by:
 
 ''text(noise)(x) : RR^n -> RR : text(noise)(x) = sum_{i = 1}^oo e(x - v_i)
 
-Because ''e'' has finite support, this sum actually contains only ''(n + 1)'' non-zero terms:
+Because ''e'' has bounded support, this sum actually contains only ''(n + 1)'' non-zero terms:
 these terms are those corresponding to the vertices of the simplex containing ''x''.
 
 Problems with the original algorithm

@@ -119,7 +119,7 @@ Generalization
 --------------
 
 One may want to expand the resampling filter support in some dimension for 
-deliberately blurring. The expansion constants are called _blurring factors_. 
+deliberate blurring. The expansion constants are called _blurring factors_. 
 Using the same argument as before, one can prove that in many cases 
 ''P'' must be chosen such that ''(b_1 r_1, .., b_n r_n)'' is an ascending sequence,
 where ''b in RR^n, b >= 1'' contains the blurring factors.
