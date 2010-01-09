@@ -12,7 +12,7 @@ namespace Pastel
 	Real diameter2(
 		const Box<Real, N>& box)
 	{
-		return 2 * dot(box.width());
+		return 4 * dot(box.width());
 	}
 
 }
