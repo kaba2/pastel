@@ -9,13 +9,64 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-	Real distanceManhattan(
+	Real distance(
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		return Pastel::distance2(
+		return euclideanDistance(aPoint, bPoint);
+	}
+
+	template <typename Real, int N>
+	Real manhattanDistance(
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
+	{
+		Manhattan_NormBijection<Real> normBijection;
+		
+		return normBijection.toNorm(
+			Pastel::distance2(
 			aPoint, bPoint,
-			Manhattan_NormBijection<Real>());
+			normBijection));
+	}
+
+	template <typename Real, int N>
+	Real euclideanDistance(
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
+	{
+		Euclidean_NormBijection<Real> normBijection;
+		
+		return normBijection.toNorm(
+			Pastel::distance2(
+			aPoint, bPoint,
+			normBijection));
+	}
+
+	template <typename Real, int N>
+	Real minkowskiDistance(
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint,
+		const PASTEL_NO_DEDUCTION(Real)& metric)
+	{
+		Minkowksi_NormBijection<Real> normBijection(metric);
+		
+		return normBijection.toNorm(
+			Pastel::distance2(
+			aPoint, bPoint,
+			normBijection));
+	}
+
+	template <typename Real, int N>
+	Real maximumDistance(
+		const Vector<Real, N>& aPoint,
+		const Vector<Real, N>& bPoint)
+	{
+		Maximum_NormBijection<Real> normBijection;
+		
+		return normBijection.toNorm(
+			Pastel::distance2(
+			aPoint, bPoint,
+			normBijection));
 	}
 
 	template <typename Real, int N>
@@ -23,30 +74,11 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		return Pastel::distance2(
-			aPoint, bPoint,
-			Euclidean_NormBijection<Real>());
-	}
+		Euclidean_NormBijection<Real> normBijection;
 
-	template <typename Real, int N>
-	Real distancePower(
-		const Vector<Real, N>& aPoint,
-		const Vector<Real, N>& bPoint,
-		const PASTEL_NO_DEDUCTION(Real)& metric)
-	{
 		return Pastel::distance2(
 			aPoint, bPoint,
-			Minkowski_NormBijection<Real>(metric));
-	}
-
-	template <typename Real, int N>
-	Real distanceInfinity(
-		const Vector<Real, N>& aPoint,
-		const Vector<Real, N>& bPoint)
-	{
-		return Pastel::distance2(
-			aPoint, bPoint,
-			Maximum_NormBijection<Real>());
+			normBijection);
 	}
 
 	template <typename Real, int N, typename NormBijection>
