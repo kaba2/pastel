@@ -1531,14 +1531,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\proof.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\..\remarks.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\style_conventions.txt"
 				>
 			</File>
