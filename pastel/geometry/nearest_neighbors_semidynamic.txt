@@ -21,7 +21,7 @@ An obvious way to do this is to repeat a standard nearest neighbor search
 from the stratch at each time instant. However, this is inefficient because
 the temporal coherence is not taken advantage of. 
 Specifically to address this problem, Pastel implements a self-adaptive data 
-structure, called the _multi-resolution kd-tree_, which is able to adapt itself 
+structure, called the _semi-dynamic kd-tree_, which is able to adapt itself 
 as points are inserted and removed, maintaining efficient searches and avoiding 
 reconstruction. Using this data structure, the problem is approached by 
 constructing the kd-tree based on all points in ''P''. Then, at each time step, 
@@ -30,4 +30,4 @@ nearest neighbors are searched, and points are removed and inserted incrementall
 See also
 --------
 
-[[Link]]: multiresolution_kdtree.txt
+[[Link]]: semidynamic_kdtree.txt

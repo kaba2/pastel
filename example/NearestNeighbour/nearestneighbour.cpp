@@ -57,6 +57,8 @@ typedef PointKdTree<real, 2> MyTree;
 MyTree tree__;
 Euclidean_NormBijection<real> normBijection__;
 
+typedef SlidingMidpoint2_SplitRule_PointKdTree SplitRule;
+
 typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
 std::vector<MyTree::ConstObjectIterator> rangePointSet__;
 
@@ -102,7 +104,7 @@ void keyHandler(bool pressed, SDLKey key)
 
 		if (key == SDLK_o)
 		{
-			tree__.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			tree__.refine(SplitRule());
 		}
 
 		if (key == SDLK_c)
@@ -679,8 +681,7 @@ void computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine(SlidingMidpoint_SplitRule_PointKdTree(), maxDepth);
-	//newTree.refine(Midpoint_SplitRule_PointKdTree(), 2);
+	newTree.refine(SplitRule(), maxDepth);
 
 	ENSURE(check(newTree));
 

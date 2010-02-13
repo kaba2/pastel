@@ -4,9 +4,9 @@ Pastel's nearest neighbours example
 Description
 -----------
 
-This is a program to visualize a multi-resolution kd-tree.
+This is a program to visualize a semi-dynamic kd-tree.
 A point set is drawn along with its associated 
-multi-resolution kd-tree. You can move the mouse cursor 
+semi-dynamic kd-tree. You can move the mouse cursor 
 over this point set and the program shows you its nearest 
 points using the Euclidean norm. The larger circle is the 
 search radius beyond which points are not considered. The 
