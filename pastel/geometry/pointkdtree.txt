@@ -1,13 +1,13 @@
 PointKdTree class
 =================
 
-[[Parent]]: multiresolution_kdtree.txt
+[[Parent]]: semidynamic_kdtree.txt
 
 Practice
 --------
 
 The PointKdTree class is a data structure that allows storing
-and manipulating a multi-resolution kd-tree efficiently.
+and manipulating a semi-dynamic kd-tree efficiently.
 This data structure has been primarily designed for efficient
 nearest neighbor searching in static and semi-dynamic point-sets.
 It is declared as:

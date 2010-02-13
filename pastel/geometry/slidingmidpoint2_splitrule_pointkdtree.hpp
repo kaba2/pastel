@@ -1,7 +1,7 @@
-#ifndef PASTEL_SLIDINGMIDPOINT_SPLITRULE_POINTKDTREE_HPP
-#define PASTEL_SLIDINGMIDPOINT_SPLITRULE_POINTKDTREE_HPP
+#ifndef PASTEL_SLIDINGMIDPOINT2_SPLITRULE_POINTKDTREE_HPP
+#define PASTEL_SLIDINGMIDPOINT2_SPLITRULE_POINTKDTREE_HPP
 
-#include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+#include "pastel/geometry/slidingmidpoint2_splitrule_pointkdtree.h"
 #include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	class SlidingMidpoint_SplitRule_PointKdTree
+	class SlidingMidpoint2_SplitRule_PointKdTree
 	{
 	public:
 		template <
@@ -33,7 +33,7 @@ namespace Pastel
 			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 
-			// Sliding midpoint
+			// Modified sliding midpoint
 
 			if (!cursor.empty())
 			{
@@ -41,6 +41,11 @@ namespace Pastel
 				Real rightMin = infinity<Real>();
 				integer leftCount = 0;
 				integer rightCount = 0;
+
+				// Count the number of points on left
+				// and right. Also, find maximum
+				// point on the left side and the minimum
+				// on the right side.
 
 				ConstObjectIterator iter = cursor.begin();
 				const ConstObjectIterator iterEnd = cursor.end();
@@ -67,13 +72,34 @@ namespace Pastel
 					++iter;
 				}
 
-				if (leftCount == 0)
+				if (leftCount > 0)
 				{
-					splitPosition = rightMin;
+					if (rightCount > 0)
+					{
+						if (leftCount < rightCount)
+						{
+							splitPosition = rightMin;
+						}
+						else
+						{
+							splitPosition = leftMax;
+						}
+						/*
+						splitPosition = (splitPosition - leftMax) < 
+							(rightMin - splitPosition) ?
+							//leftMax : rightMin;
+							rightMin : leftMax;
+						*/
+					}
+					else
+					{
+						splitPosition = leftMax;
+					}
 				}
-				else if (rightCount == 0)
+				else
 				{
-					splitPosition = leftMax;
+					ASSERT(rightCount > 0);
+					splitPosition = rightMin;
 				}
 			}
 

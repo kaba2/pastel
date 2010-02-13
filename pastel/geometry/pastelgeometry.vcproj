@@ -465,15 +465,19 @@
 					Name="PointKdTree"
 					>
 					<File
+						RelativePath=".\longestmedian_splitrule_pointkdtree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\longestmedian_splitrule_pointkdtree.hpp"
+						>
+					</File>
+					<File
 						RelativePath=".\midpoint_splitrule_pointkdtree.h"
 						>
 					</File>
 					<File
 						RelativePath=".\midpoint_splitrule_pointkdtree.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\multiresolution_kdtree.txt"
 						>
 					</File>
 					<File
@@ -517,6 +521,18 @@
 						>
 					</File>
 					<File
+						RelativePath=".\semidynamic_kdtree.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.hpp"
+						>
+					</File>
+					<File
 						RelativePath=".\slidingmidpoint_splitrule_pointkdtree.h"
 						>
 					</File>
@@ -526,6 +542,10 @@
 					</File>
 					<File
 						RelativePath=".\splitrule_pointkdtree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\splitrule_pointkdtree.txt"
 						>
 					</File>
 				</Filter>

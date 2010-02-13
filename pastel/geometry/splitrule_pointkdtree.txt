@@ -1,0 +1,130 @@
+PointKdTree splitting rules
+===========================
+
+[[Parent]]: pointkdtree.txt
+
+When a node of a kd-tree is subdivided, the position and orientation
+of the splitting plane is decided based on a _splitting rule_.
+The splitting rule gets as input the aligned bounding box of the
+node as well as the contained points. As output it is expected
+to return the orientation and position of the splitting plane.
+Since the orientation is restricted to one of standard basis axes, 
+it is given by an integer. The position is given by a real number.
+
+The chosen splitting rule has an enormous effect on the performance
+of the kd-tree to perform nearest neighbor searching as well as
+range searching. In this page we shall list the available splitting
+rules in Pastel and their properties. We should note that being
+able to choose the splitting rule is mainly to enable comparison
+and testing: the median-of-longest-side is an optimal splitting rule.
+
+Midpoint splitting rule
+-----------------------
+
+The midpoint rule chooses to split along the longest side of the node.
+On this axis it chooses to split at the midpoint of the node.
+
+### Advantages
+
+ * Guarantees maximally fat nodes.
+
+### Disadvantages
+
+ * Cannot guarantee a bound to tree depth, because
+ of the possibility of trivial splits.
+ 
+ * Because of the previous, cannot theoretically guarantee good 
+ performance in anything.
+
+Sliding midpoint splitting rule
+-------------------------------
+
+The sliding midpoint rule chooses to split along the longest side 
+of the node. On this axis it first tries to split a node from 
+the middle as the midpoint rule. However, if all points are on 
+the same side of the split plane, it slides the split plane to 
+compactly bound those points, while still keeping them all on the 
+same side. This avoids trivial splits.
+
+### Advantages
+
+ * The nodes are very fat.
+
+ * There are no trivial splits.
+
+ * Because of the previous, tree depth is bounded by n.
+
+ * The tree satisfies a packing lemma which guarantees
+excellent performance on approximate nearest neighbors
+searching and approximate range searching.
+
+### Disadvantages
+
+ * Tree depth is bounded _only_ by n. Meaning
+ a point-set can be deliberately constructed to result
+ in O(n) depth. However, by constructing such a 
+ point-set it is easy to get convinced on that such
+ point-sets almost never come up in practice (try constructing one!). 
+ Thus in practice the trees have a logarithmic tree depth. 
+ 
+ * Because of the previous, there are situations where
+ the performance of nearest neighbors searching is not optimal. 
+ However, this rarely happens in practice.
+ 
+### References
+
+_It's okay to be skinny if your friends are fat._,
+S. Maneewongvatana and David M. Mount,
+in 4th Annual CGC Workshop on Computational Geometry, 
+1999.
+
+Modified sliding midpoint splitting rule
+----------------------------------------
+
+The modified sliding midpoint rule chooses to split along the 
+longest side of the node. It first places the splitting
+position at the middle as the midpoint rule. It then counts
+the number of points on both sides of the splitting plane
+and slides the plane to contact with the larger point-set.
+This tends to give larger cell of empty space and thus better 
+performance because the process is biased towards cutting the empty 
+space away from the larger point set. This also guarantees that at least 
+one point lies on each splitting plane.
+
+See the sliding midpoint rule for properties: they
+are the same.
+
+Median-of-longest-side splitting rule
+-------------------------------------
+
+The median-of-longest-side rule chooses to split along the longest
+side of the node. On this axis it chooses to split at the median of 
+the contained points.
+
+### Advantages
+
+ * There are no trivial splits.
+ 
+ * Tree depth is bounded by log2(n).
+ 
+ * The tree satisfies a packing lemma which guarantees
+excellent worst-case performance on approximate nearest neighbors
+searching and approximate range searching.
+
+### Disadvantages
+
+ * There are quite many thin nodes. This is the price
+ to pay for the guaranteed logarithmic depth.
+ 
+ * Because of the previous, in practice this
+ rule results in slower performance than the sliding midpoint 
+ rule. This is because most of the time the sliding midpoint rule 
+ produces trees of logarithmic depth and in in addition has fatter
+ nodes.
+
+### References
+
+_K-D Trees Are Better when Cut on the Longest Side_,
+Matthew Dickerson, Christian A. Duncan, and Michael T. Goodrich,
+Proceedings of the 8th Annual European Symposium on Algorithms,
+2000.

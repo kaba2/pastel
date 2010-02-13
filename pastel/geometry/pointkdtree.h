@@ -1,5 +1,5 @@
 // Description: PointKdTree class
-// Detail: A multi-resolution point kd-tree
+// Detail: A semi-dynamic point kd-tree
 
 #ifndef PASTEL_POINTKDTREE_H
 #define PASTEL_POINTKDTREE_H
@@ -68,7 +68,7 @@ namespace Pastel
 		}
 	};
 
-	//! A multi-resolution point kd-tree
+	//! A semi-dynamic point kd-tree
 	/*!
 	class ObjectPolicy
 	{

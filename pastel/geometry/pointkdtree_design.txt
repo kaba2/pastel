@@ -524,7 +524,7 @@ Shortcomings:
  be preserved, and adaptation would be achieved by some 
  book-keeping techique instead.
 
-### Multi-resolution version
+### Semi-dynamic version
 
 Additional features to adaptable version:
 
@@ -569,9 +569,9 @@ Shortcomings:
  that would not necessarily be the appropriate level of 
  detail. 
 
-### Multi-resolution with bucket pointers version
+### Semi-dynamic with bucket pointers version
 
-Additional features to multiresolution version:
+Additional features to semidynamic version:
 
  * Bucket node pointer is stored for each leaf node.
  
@@ -600,7 +600,7 @@ Comments:
  bounded by the splitting threshold. In contrast, 
  the subtrees can be of considerable size.
  
-Advantages compared to multiresolution version:
+Advantages compared to semidynamic version:
 
  * Bottom-up searches can start at the appropriate
  level of detail, namely from the bucket node.
@@ -611,7 +611,7 @@ Shortcomings:
 
 ### Decision
 
-Choose the multi-resolution with bucket pointers version. 
+Choose the semi-dynamic with bucket pointers version. 
 The only practical disadvantage is the increased memory use. 
 In this regard we just bite the bullet and notice that this
 is the price to pay for getting those nice features.
