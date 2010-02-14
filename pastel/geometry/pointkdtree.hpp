@@ -220,9 +220,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	template <typename SubdivisionRule>
+	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
-		const SubdivisionRule& subdivisionRule,
+		const SplitRule_PointKdTree& splitRule,
 		integer maxDepth)
 	{
 		ENSURE_OP(maxDepth, >=, 0);
@@ -235,7 +235,7 @@ namespace Pastel
 
 		refine(root_, 
 			maxDepth,
-			subdivisionRule,
+			splitRule,
 			0, 
 			bound().min(), bound().max());
 	}

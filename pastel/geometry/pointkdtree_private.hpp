@@ -709,11 +709,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	template <typename SubdivisionRule>
+	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
 		Node* node,
 		integer maxDepth,
-		const SubdivisionRule& subdivisionRule,
+		const SplitRule_PointKdTree& splitRule,
 		integer depth,
 		const Vector<Real, N>& minBound,
 		const Vector<Real, N>& maxBound)
@@ -737,7 +737,7 @@ namespace Pastel
 				// apply the splitting rule.
 
 				const std::pair<Real, integer> result = 
-					subdivisionRule(
+					splitRule(
 					*this,
 					Cursor(node),
 					minBound,
@@ -766,7 +766,7 @@ namespace Pastel
 			refine(
 				node->left(), 
 				maxDepth, 
-				subdivisionRule,
+				splitRule,
 				depth + 1,
 				minBound,
 				leftMax);
@@ -777,7 +777,7 @@ namespace Pastel
 			refine(
 				node->right(), 
 				maxDepth, 
-				subdivisionRule,
+				splitRule,
 				depth + 1, 
 				rightMin,
 				maxBound);

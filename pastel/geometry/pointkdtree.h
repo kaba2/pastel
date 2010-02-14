@@ -70,18 +70,8 @@ namespace Pastel
 
 	//! A semi-dynamic point kd-tree
 	/*!
-	class ObjectPolicy
-	{
-	public:
-		// Defines the type of stored object.
-		typedef UserDefinedType Object;
-
-		//! Returns a pointer to a coordinate array for the point.
-		const Real* point(const Object& object) const;
-
-		//! Returns a coordinate of the given point on the given axis.
-		Real point(const Object& object, integer axis) const;
-	};
+	See also:
+	objectpolicy_pointkdtree_concept.h
 	*/
 
 	template <typename Real, int N = Dynamic, 
@@ -280,19 +270,12 @@ namespace Pastel
 		Exception safety:
 		Basic
 
-		class SubdivisionRule
-		{
-		public:
-			std::pair<Real, integer> operator()(
-				const AlignedBox<Real, N>& bound,
-				const ObjectPolicy& objectPolicy,
-				const ConstObjectIterator& objectBegin,
-				const ConstObjectIterator& objectEnd) const;
-		};
+		See also:
+		splitrule_pointkdtree_concept.h
 		*/
-		template <typename SubdivisionRule>
+		template <typename SplitRule_PointKdTree>
 		void refine(
-			const SubdivisionRule& subdivisionRule,
+			const SplitRule_PointKdTree& splitRule,
 			integer maxDepth = 128);
 
 		//! Insert an object into the tree.
@@ -550,11 +533,11 @@ namespace Pastel
 		4) depth <= maxDepth
 		5) allLessEqual(minBound, maxBound)
 		*/
-		template <typename SubdivisionRule>
+		template <typename SplitRule_PointKdTree>
 		void refine(
 			Node* node,
 			integer maxDepth,
-			const SubdivisionRule& subdivisionRule,
+			const SplitRule_PointKdTree& splitRule,
 			integer depth,
 			const Vector<Real, N>& minBound,
 			const Vector<Real, N>& maxBound);
