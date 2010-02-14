@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	class Midpoint_SplitRule
+	class Fair_SplitRule
 	{
 	public:
 		template <

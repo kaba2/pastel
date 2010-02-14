@@ -1,0 +1,40 @@
+Sliding midpoint splitting rule
+===============================
+
+[[Parent]]: splitrule_pointkdtree.txt
+
+The sliding midpoint rule chooses to split along the longest side 
+of the node. On this axis it first tries to split a node from 
+the middle. However, if all points are on the same side of the 
+split plane, it slides the split plane to compactly bound those 
+points, while still keeping them all on the same side.
+At least the point on the splitting plane will then end up on the
+other side.
+
+### Advantages
+
+ * The tree satisfies a packing lemma which guarantees
+excellent performance on approximate nearest neighbors
+searching and approximate range searching.
+
+ * In practice the tree depth is often O(log n).
+
+ * Excellent performance in practice.
+
+### Disadvantages
+
+ * A point-set can be deliberately constructed to result
+ in O(n) depth. However, by constructing such a 
+ point-set it is easy to get convinced on that such
+ point-sets almost never come up in practice (try constructing one!). 
+ 
+ * Because of the previous, there are situations where
+ the performance of nearest neighbors searching is not optimal. 
+ 
+References
+----------
+
+_It's okay to be skinny if your friends are fat._,
+S. Maneewongvatana and David M. Mount,
+in 4th Annual CGC Workshop on Computational Geometry, 
+1999.

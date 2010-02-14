@@ -57,6 +57,7 @@ typedef PointKdTree<real, 2> MyTree;
 MyTree tree__;
 Euclidean_NormBijection<real> normBijection__;
 
+//typedef Fair_SplitRule_PointKdTree SplitRule;
 typedef SlidingMidpoint2_SplitRule_PointKdTree SplitRule;
 
 typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
