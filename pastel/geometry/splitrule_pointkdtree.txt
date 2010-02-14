@@ -14,9 +14,9 @@ it is given by an integer. The position is given by a real number.
 The splitting rule has just one requirement: it must produce
 a split where points end up on both sides of the splitting plane.
 This guarantees that the recursive refinement always terminates and 
-gives an O(n) upper bound to the depth of the tree. For example, always
-splitting on the midpoint of the node on some axis would not be an 
-acceptable splitting rule.
+gives an O(n) upper bound to the number of nodes in the resulting tree. 
+For example, always splitting on the midpoint of the node on some axis 
+would not be an acceptable splitting rule.
 
 Whenever points are exactly on the splitting plane, the PointKdTree
 distributes the points evenly to both sides of the plane. In case

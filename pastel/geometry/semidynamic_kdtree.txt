@@ -37,7 +37,7 @@ Number of objects in a subtree shown after dash._
 
 ![Bucket nodes of a m-r kd-tree](../../images/semidynamic_kdtree_buckets.png)
 
-_Figure 2. Bucket nodes of the kd-tree from Figure 1._
+_Figure 2. Non-empty bucket nodes of the kd-tree from Figure 1._
 
 ![Leaf nodes of a m-r kd-tree](../../images/semidynamic_kdtree_leaves.png)
 

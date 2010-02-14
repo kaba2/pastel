@@ -122,21 +122,3 @@ Each split node contains the bounds of the node on
 the splitting axis. Knowing these bounds is essential in
 the implementation of an efficient nearest neighbor
 searching algorithm.
-
-### ObjectPolicy concept
-
-[[CppCode]]:
-	class ObjectPolicy
-	{
-	public:
-		// Defines the type of stored object.
-		typedef UserDefinedType Object;
-
-		//! Returns a pointer to a coordinate array for the point.
-		const Real* point(const Object& object) const;
-
-		//! Returns a coordinate of the given point on the given axis.
-		Real point(const Object& object, integer axis) const;
-	};
-		
-

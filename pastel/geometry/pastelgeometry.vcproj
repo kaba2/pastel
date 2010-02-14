@@ -465,27 +465,7 @@
 					Name="PointKdTree"
 					>
 					<File
-						RelativePath=".\fair_splitrule_pointkdtree.h"
-						>
-					</File>
-					<File
-						RelativePath=".\fair_splitrule_pointkdtree.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\fair_splitrule_pointkdtree.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\longestmedian_splitrule_pointkdtree.h"
-						>
-					</File>
-					<File
-						RelativePath=".\longestmedian_splitrule_pointkdtree.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\longestmedian_splitrule_pointkdtree.txt"
+						RelativePath=".\objectpolicy_pointkdtree_concept.h"
 						>
 					</File>
 					<File
@@ -532,38 +512,70 @@
 						RelativePath=".\semidynamic_kdtree.txt"
 						>
 					</File>
-					<File
-						RelativePath=".\slidingmidpoint2_splitrule_poindkdtree.txt"
+					<Filter
+						Name="Split rules"
 						>
-					</File>
-					<File
-						RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.h"
-						>
-					</File>
-					<File
-						RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\slidingmidpoint_splitrule_poindktree.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\slidingmidpoint_splitrule_pointkdtree.h"
-						>
-					</File>
-					<File
-						RelativePath=".\slidingmidpoint_splitrule_pointkdtree.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\splitrule_pointkdtree.h"
-						>
-					</File>
-					<File
-						RelativePath=".\splitrule_pointkdtree.txt"
-						>
-					</File>
+						<File
+							RelativePath=".\fair_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\fair_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\fair_splitrule_pointkdtree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\longestmedian_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\longestmedian_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\longestmedian_splitrule_pointkdtree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint2_splitrule_poindkdtree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint_splitrule_poindktree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\splitrule_pointkdtree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\splitrule_pointkdtree_concept.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 		</Filter>
