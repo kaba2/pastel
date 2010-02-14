@@ -540,10 +540,6 @@
 							>
 						</File>
 						<File
-							RelativePath=".\slidingmidpoint2_splitrule_poindkdtree.txt"
-							>
-						</File>
-						<File
 							RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.h"
 							>
 						</File>
@@ -552,7 +548,7 @@
 							>
 						</File>
 						<File
-							RelativePath=".\slidingmidpoint_splitrule_poindktree.txt"
+							RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.txt"
 							>
 						</File>
 						<File
@@ -561,6 +557,10 @@
 						</File>
 						<File
 							RelativePath=".\slidingmidpoint_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\slidingmidpoint_splitrule_pointkdtree.txt"
 							>
 						</File>
 						<File
