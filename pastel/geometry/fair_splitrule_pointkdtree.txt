@@ -1,0 +1,18 @@
+Fair splitting rule
+===================
+
+[[Parent]]: splitrule_pointkdtree.txt
+
+The fair rule chooses to split along the longest side of the node.
+On this axis it chooses to split at the midpoint of the 
+minimum bounding interval of the contained points.
+
+References
+----------
+
+_A decomposition of Multidimensional Point Sets with
+Applications to k-Nearest-Neighbors and n-Body
+Potential Fields_,
+Paul B. Callahan, S. Rao. Kosaraju,
+Journal of the ACM, Volume 42, Number 1, pages 67-90, 
+January 1995.

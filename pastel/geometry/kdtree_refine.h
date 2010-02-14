@@ -24,7 +24,7 @@ namespace Pastel
 	checking and performance comparison purposes.
 	*/
 
-	class Midpoint_SplitRule_PointKdTree;
+	class Fair_SplitRule_PointKdTree;
 
 	//! Refines a kd-tree using the sliding midpoint rule.
 	/*!

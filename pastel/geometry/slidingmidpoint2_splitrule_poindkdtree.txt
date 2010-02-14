@@ -1,0 +1,24 @@
+Modified sliding midpoint splitting rule
+========================================
+
+[[Parent]]: splitrule_pointkdtree.txt
+
+The modified sliding midpoint rule chooses to split along the 
+longest side of the node. It first places the splitting
+position at the middle. It then counts the number of points 
+on both sides of the splitting plane and slides the plane into 
+contact with the larger point-set. This tends to give larger 
+cell of empty space and thus better performance because the 
+process is biased towards cutting the empty space away from the 
+larger point set. This also guarantees that at least 
+one point lies on each splitting plane.
+
+See the sliding midpoint rule for properties: they
+are the same.
+
+See also
+--------
+
+[[Link]]: slidingmidpoint_splitrule_pointkdtree.txt
+
+

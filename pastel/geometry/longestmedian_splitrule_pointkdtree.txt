@@ -1,0 +1,33 @@
+Median-of-longest-side splitting rule
+=====================================
+
+[[Parent]]: splitrule_pointkdtree.txt
+
+The median-of-longest-side rule chooses to split along the longest
+side of the node. On this axis it chooses to split at the median of 
+the contained points.
+
+### Advantages
+
+ * Tree depth is bounded by log2(n).
+ 
+ * The tree satisfies a packing lemma which guarantees
+excellent worst-case performance on approximate nearest neighbors
+searching and approximate range searching.
+
+### Disadvantages
+
+ * There are quite many thin nodes. This is the price
+ to pay for the guaranteed logarithmic depth.
+ 
+ * Because of the previous, in practice this
+ rule results in slower performance than the sliding midpoint 
+ rule. 
+
+References
+----------
+
+_K-D Trees Are Better when Cut on the Longest Side_,
+Matthew Dickerson, Christian A. Duncan, and Michael T. Goodrich,
+Proceedings of the 8th Annual European Symposium on Algorithms,
+2000.
