@@ -1,5 +1,5 @@
-Intersection between point-sets
-===============================
+Intersection between shapes
+===========================
 
 [[Parent]]: shape_algorithms.txt
 
@@ -12,10 +12,33 @@ is ''S = A nn B''.
 Practice
 --------
 
-Pastel implements several algorithms to find the intersection between
+Pastel implements several algorithms for finding the intersection between
 a pair of shapes. Describing the possible intersection shape is slower 
-than simply finding out if shapes overlap. If this is the need, you
+than simply finding out if the shapes overlap. If this is the need, you
 should use the algorithms for overlap testing instead.
+The implemented algorithms are listed in the following table.
+
+Shape/Shape  | AlignedBox    | Box   | Sphere    | Plane | Segment       | Triangle       | Line | Ray
+------------ | ------------- | ----- | --------- | ----- | ------------- | -------------- | ---- | ---
+AlignedBox   | nD            |       |           |       |               |                |      |
+Box          | -             | -     |           |       |               |                |      |
+Sphere       | -             | -     | -         |       |               |                |      |
+Plane        | ?             | +     | nD        | +     |               |                |      |
+Segment      | +             | +     | +         | -     | -             |                |      |
+Triangle     | ?             | ?     | -         | ?     | -             | -1D,+2D,3D,-nD |      |
+Line         | nD            | nD    | nD        | nD    | -             | 2D, 3D, -nD    | -    |
+Ray          | nD            | +     | nD        | nD    | -             | +              | -    | -
+
+where
+ 
+ * '-' means the algorithm is not sensible or will not be 
+ implemented because the intersection shape can't be described.
+ 
+ * '?' means the algorithm could be useful but probably too rarely.
+ 
+ * '+' means the algorithm would be useful but has not been implemented yet.
+ 
+ * '1D', '2D', '3D', and 'nD' denote dimensions in which the tests operate.
 
 See also
 --------

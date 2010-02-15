@@ -1,22 +1,44 @@
-Overlap between point-sets
-==========================
+Overlap between shapes
+======================
 
 [[Parent]]: shape_algorithms.txt
 
 Theory
 ------
 
-Two point-sets ''P, Q sub RR^n'' _overlap_ if their intersection is non-empty.
+Two shapes ''P, Q sub RR^n'' _overlap_ if their intersection is non-empty.
 
 Practice
 --------
 
 Testing for overlap is an easier problem than finding
 and describing the intersection-shape. Pastel implements
-several overlap tests between pairs of shapes.
+several overlap tests between pairs of shapes. They are
+listed in the following table.
+
+Shape/Shape  | Point    | AlignedBox    | Box   | Sphere    | Plane | Segment   | Capsule   | Triangle  | Simplex
+------------ | -------  | ------------- | ----- | --------- | ----- | --------- | --------- | --------- | -------
+Point        | -        |               |       |           |       |           |           |           |        
+AlignedBox   | nD       | nD            |       |           |       |           |           |           |        
+Box          | nD       | nD            | nD    |           |       |           |           |           |        
+Sphere       | nD       | nD            | nD    | nD        |       |           |           |           |        
+Plane        | -        | nD            | nD    | nD        | +     |           |           |           |        
+Segment      | -        | +             | +     | +         | +     | -         |           |           |        
+Capsule      | +        | +             | +     | +         | +     | +         | +         |           |        
+Triangle     | -        | 2D, 3D        | 2D, 3D| nD        | nD    | +         | +         | 1D, 2D, 3D|        
+Simplex      | nD       | +             | +     | +         | +     | +         | +         | +         | +      
+
+where
+ 
+ * '-' means the test is not sensible.
+ 
+ * '+' means the test has not been implemented yet.
+ 
+ * '1D', '2D', '3D', and 'nD' denote the dimensions in which the implemented tests operate.
 
 See also
 --------
 
 [[Link]]: shapes.txt
+
 [[Link]]: intersect.txt

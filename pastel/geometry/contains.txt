@@ -1,5 +1,5 @@
-Containment between point-sets
-==============================
+Containment between shapes
+==========================
 
 [[Parent]]: shape_algorithms.txt
 

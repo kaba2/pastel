@@ -1,5 +1,5 @@
-Bounding between point-sets
-===========================
+Bounding between shapes
+=======================
 
 [[Parent]]: shape_algorithms.txt
 
