@@ -1,9 +1,0 @@
-Algorithms for shapes
-=====================
-
-[[Parent]]: pastelgeometry.txt
-
-References
-----------
-
-_Geometric Tools for Computer Graphics_, Philip J. Schneider, David Eberly, 2003.
