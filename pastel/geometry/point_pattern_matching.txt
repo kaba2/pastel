@@ -1,7 +1,7 @@
 Point-pattern matching
 ======================
 
-[[Parent]]: pastelgeometry.txt
+[[Parent]]: pointsets.txt
 
 Theory
 ------

@@ -1,7 +1,7 @@
 Eigenstructure of a point-set
 =============================
 
-[[Parent]]: pointset_properties.txt
+[[Parent]]: pointsets.txt
 
 Theory
 ------

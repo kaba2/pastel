@@ -1,10 +1,9 @@
-Volume of a point-set
-=====================
+Volume of a shape
+=================
 
-[[Parent]]: pointset_properties.txt
+[[Parent]]: shape_algorithms.txt
 
 Theory
 ------
 
-The _volume_ of a point set in ''RR^n'' is its
-Lebesgue measure.
+The _volume_ of a shape in ''RR^n'' is its Lebesgue measure.

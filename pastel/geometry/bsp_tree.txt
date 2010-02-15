@@ -8,7 +8,7 @@ Theory
 
 ### Nodes
 
-A _node_ is a closed and connected subset of ''RR^n''.
+A _node_ is a closed and simply connected subset of ''RR^n''.
 Denote the set of all nodes by ''C = {S sub RR^n : S text( is a node)}''
 and let ''S = {S_1, ..., S_m} sub C''.
 A node ''B in S'' is called a _descendant_ of a node ''A in S''
@@ -28,7 +28,7 @@ directed graph ''T = (B, D)'', such that
 
  * ''D = {(B_i, B_j) in B^2 : B_i text( is a child of ) B_j}''.
 
- * ''\forall i, j: \exists k: (B_i, B_k) in D and (B_j, B_k) in D''
+ * ''\forall i, j: \exists k: B_i sub B_k and B_j sub B_k''
  
  * ''\forall i: B_i'' either has no children or 
  it has exactly two children ''B_{l(i)}'' and ''B_{r(i)}'' such that
@@ -47,7 +47,7 @@ A _point BSP-tree_ is a pair ''(T, P)'' such that
 
  * ''T = (B, D)'' is a BSP-tree, where ''B = {B_1, ..., B_m}''.
  
- * ''P = {P_1, ..., P_m} sub 2^{RR^n}'', where each ''P_i sub RR^n'' is finite.
+ * ''P = {P_1, ..., P_m}'', where ''P_i sub RR^n'' are finite sets.
  
  * ''\forall i: P_i sub B_i''.
  
@@ -57,9 +57,9 @@ A _point BSP-tree_ is a pair ''(T, P)'' such that
 
 A _kd-tree_ is a BSP-tree with the restriction that the set of all
 nodes is restricted to closed axis-aligned boxes. Let a split-node ''B''
-in a kd-tree have children ''B_l'' and ''B_r''. Then there is an 
+in a kd-tree have children ''B_l'' and ''B_r''. Then there is a unique 
 axis-aligned plane which passes through the points in ''B_l nn B_r'',
-called a _splitting plane of ''B''_. The index of the standard basis
+called the _splitting plane of ''B''_. The index of the standard basis
 axis which corresponds to the normal of this plane is called the
 _splitting axis_.
 
@@ -97,16 +97,16 @@ basis axes has a number of advantages. Some of these are:
  In contrast, arbitrary planes require ''O(n)'' time in ''RR^n'',
  and the result might be wrong due numerical problems.
 
- * For nearest neighbor searching, there are
- splitting rules which are easy to compute and result
- in excellent performance for the nearest neighbor
- searching and ray casting. In contrast, with arbitrary planes, to the
- best of our knowledge, there is currently no known 
- splitting rule that would have both of these properties.
+ * There are splitting rules which are easy to compute and result
+ in excellent performance for nearest neighbor
+ searching and ray casting. In contrast, with arbitrary planes, 
+ to the best of our knowledge, there is currently no known 
+ splitting rules that would have both of these properties.
  
  * When doing nearest neighbor searching, there is a technique to 
  incrementally compute the exact distance from the search point to the 
  nearest node. This allows for more efficient culling 
  of space which in turn increases performance. In contrast, 
- this is very hard to achieve with arbitrary splitting planes.
+ this is very hard to achieve with arbitrary splitting planes because
+ the complexities of the nodes are not bounded.
 

@@ -1,10 +1,10 @@
-Diameter of a point-set
-=======================
+Diameter of a shape
+===================
 
-[[Parent]]: pointset_properties.txt
+[[Parent]]: shape_algorithms.txt
 
 Theory
 ------
 
-The _diameter_ of a point-set ''P sub RR^n'' is
+The _diameter_ of a shape ''P sub RR^n'' is
 ''w = text(sup) {d(x, y) | x, y in P}'', where ''d'' is some metric in ''RR^n''.

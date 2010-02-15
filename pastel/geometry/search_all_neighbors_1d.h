@@ -1,4 +1,4 @@
-// Description: All-nearest-neighbors searching in 1D
+// Description: All-k-nearest-neighbors searching in 1D
 // Detail: Implements an optimal algorithm that only works in 1D
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_1D_H
