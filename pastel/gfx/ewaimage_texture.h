@@ -87,6 +87,12 @@ namespace Pastel
 			mipMap_ = &mipMap;
 		}
 
+		const MipMap<Type, N>& mipMap() const
+		{
+			PENSURE(mipMap_);
+			return *mipMap_;
+		}
+
 		void setExtender(const ArrayExtender<N, Type>& extender)
 		{
 			extender_ = extender;

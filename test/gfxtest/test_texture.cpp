@@ -39,9 +39,7 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		Array<Color, 2> textureImage;
-
-		loadPcx("lena.pcx", textureImage);
+		Array<Color>& textureImage = *gfxStorage().get<Array<Color>*>("lena");
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));

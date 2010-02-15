@@ -1,5 +1,4 @@
 // Description: Distortion of a texture from cartesian to spherical space
-// Documentation: distortion_textures.txt
 
 #ifndef PASTEL_RADIAL_TEXTURE_H
 #define PASTEL_RADIAL_TEXTURE_H

@@ -2,40 +2,38 @@
 
 #include "pastel/sys/log_all.h"
 
+#include "pastel/gfx/pcx.h"
+#include "pastel/gfx/ewaimage_texture.h"
+#include "pastel/gfx/color_tools.h"
+
+#include "pastel/dsp/mipmap_tools.h"
+
+#include "pastel/sys/arrayextender.h"
+#include "pastel/sys/indexextender_all.h"
+
 using namespace Pastel;
 
 #include <string>
 #include <iostream>
 
-#include "pastel/gfx/savepcx.h"
-
 using namespace std;
-
-#include <boost/filesystem.hpp>
-using namespace boost::filesystem;
 
 int main()
 {
 	log().addObserver(streamLogObserver(&std::cout));
 	log().addObserver(fileLogObserver("log.txt"));
 
-	create_directory("output");
+	Array<Color> textureImage;
+	loadPcx("lena.pcx", textureImage);
+	
+	MipMap<Color> mipMap(constArrayView(textureImage));
+	EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
+	//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
+	transform(mipMap, fitColor);
 
-	/*
-	integer width = 100;
-	integer height = 100;
-
-	Array<Color, 2> image(width, height);
-	for (integer y = 0;y < height;++y)
-	{
-		for (integer x = 0;x < width;++x)
-		{
-			image(x, y) = even(x + y) ? Color(1) : Color(0);
-		}
-	}
-
-	savePcx(image, "output/grid.pcx");
-	*/
+	gfxStorage().set("lena_image", &textureImage);
+	gfxStorage().set("lena_mipmap", &mipMap);
+	gfxStorage().set("lena_texture", &texture);
 
 	gfxTestList().console();
 

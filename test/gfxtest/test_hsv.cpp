@@ -10,19 +10,19 @@ namespace
 
 	void testHsv()
 	{
-		const real Width = 400;
-		const real Height = 100;
+		const real Width = 512;
+		const real Height = 128;
 		Array<Color, 2> image(Width, Height);
 
-		const real32 Step = (real32)1 / Width;
+		const real32 HueStep = (real32)1 / Width;
+		const real32 SaturationStep = (real32)1 / Height;
 
 		for (integer x = 0;x < Width;++x)
 		{
-			const Color color(
-				hsvToRgb(Color(Step * x, 1, 1)));
 			for (integer y = 0;y < Height;++y)
 			{
-				image(x, y) = color;
+				image(x, y) = hsvToRgb(
+					Color(HueStep * x, SaturationStep * y, 1));
 			}
 		}
 

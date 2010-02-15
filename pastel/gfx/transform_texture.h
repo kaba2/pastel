@@ -1,5 +1,4 @@
 // Description: Affine transform of another texture
-// Documentation: distortion_textures.txt
 
 #ifndef PASTEL_TRANSFORM_TEXTURE_H
 #define PASTEL_TRANSFORM_TEXTURE_H
@@ -30,7 +29,7 @@ namespace Pastel
 		{
 			return (*texture_)(
 				transformPoint(p, invTransformation_),
-				m * invTransformation_.matrix())
+				m * invTransformation_.matrix());
 		}
 
 		virtual std::string name() const

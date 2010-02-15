@@ -26,79 +26,6 @@ using namespace Pastel;
 namespace
 {
 
-	void testDistortion()
-	{
-		Array<Color, 2> textureImage;
-		//loadPcx("circle_text.pcx", textureImage);
-		loadPcx("lena.pcx", textureImage);
-
-		MipMap<Color, 2> mipMap(constArrayView(textureImage));
-		EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
-		//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
-		transform(mipMap, fitColor);
-
-		Array<Color, 2> image(800, 256);
-
-		/*
-		drawTexturedAnnulus(
-			texture,
-			Vector2(0.5),
-			0.25,
-			0.5,
-			0,
-			2 * constantPi<real>(),
-			arrayView(image),
-			AlignedBox2(0, 0, 500, 100),
-			assignColorMixer<Color>());
-		*/
-
-		const real minRadius = 0.25;
-		const real maxRadius = 0.5;
-
-		Radial_Texture<Color> distortedTexture =
-			radialTexture(texture, Vector2(0.5),
-			Vector2(minRadius, 2 * constantPi<real>()), Vector2(maxRadius, 0));
-
-		/*
-		Noise_Texture<> staticTexture = noiseTexture<2>();
-		
-		Tuple<Color, 4> colorSquare(
-			Color(1, 0, 0),
-			Color(0, 1, 0),
-			Color(0, 0, 1),
-			Color(1, 1, 1));
-
-		LinearColor_Texture<Color> colorTexture = linearColorTexture<Color, 2>(colorSquare);
-
-		Mix_Texture<Color, real> mixTexture(
-			distortedTexture,
-			colorTexture,
-			staticTexture);
-		*/
-
-		drawBox(
-			AlignedBox2(0, 0, image.width(), image.height()),
-			distortedTexture,
-			arrayView(image));
-
-		transform(arrayView(image), fitColor);
-
-		savePcx(image, "output/distortion.pcx");
-
-		Image_GfxRenderer<Color> renderer;
-		renderer.setImage(&textureImage);
-		renderer.setFilled(false);
-		renderer.setColor(Color(0, 1, 0));
-		renderer.setViewWindow(
-			AlignedBox2(0, 0, 1, 1));
-
-		drawCircle(renderer, Sphere2(Vector2(0.5), minRadius), 40);
-		drawCircle(renderer, Sphere2(Vector2(0.5), maxRadius), 40);
-		drawSegment(renderer, Segment2(Vector2(0.5 + minRadius, 0.5), Vector2(0.5 + maxRadius, 0.5)));
-
-		savePcx(textureImage, "output/distortion_texture.pcx");
-	}
-
 	void testTextureCase(const Texture<Color>& texture)
 	{
 		const integer width = 512;
@@ -568,7 +495,6 @@ namespace
 	void testAdd()
 	{
 		gfxTestList().add("Drawing.Texture", testTexture);
-		gfxTestList().add("Drawing.Distortion", testDistortion);
 		gfxTestList().add("Drawing.View", testView);
 		gfxTestList().add("Drawing.Binary", testBinary);
 		gfxTestList().add("Drawing.FloodFill", testFloodFill);
