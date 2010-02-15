@@ -1,5 +1,5 @@
-Closest points between point-sets
-=================================
+Closest points between shapes
+=============================
 
 [[Parent]]: shape_algorithms.txt
 

@@ -5,11 +5,6 @@ Algorithms for shapes
 
 This page contains algorithms for shapes.
 
-See also
---------
-
-[[Link]]: shapes.txt
-
 References
 ----------
 
@@ -17,3 +12,8 @@ Most of the algorithms under this section are explained
 for 2- and 3-dimensional cases in:
 
 _Geometric Tools for Computer Graphics_, Philip J. Schneider, David Eberly, 2003.
+
+See also
+--------
+
+[[Link]]: shapes.txt

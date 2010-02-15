@@ -1,12 +1,12 @@
-Distance between point-sets
-===========================
+Distance between shapes
+=======================
 
 [[Parent]]: shape_algorithms.txt
 
 Theory
 ------
 
-The _distance_ between two point-sets ''A, B sub RR^n''
+The _distance_ between two shapes ''A, B sub RR^n''
 is defined by
 
 ''D(A, B) = text(inf) {d(a, b) | a in A, b in B}''
