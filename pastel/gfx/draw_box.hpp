@@ -45,30 +45,33 @@ namespace Pastel
 		const integer width = clippedBox.extent().x();
 		const integer height = clippedBox.extent().y();
 
-		const real dpdx = inverse((real)height);
-		const real dpdy = inverse((real)width);
+		const Vector2 dp(
+			inverse((real)width),
+			inverse((real)height));
 
 		const Matrix2 m(
-			dpdx, 0,
-			0, dpdy);
+			dp.x(), 0,
+			0, dp.y());
 
-		Vector2 p(0, 0);
+		const Vector2 textureOrigin =
+			((Vector2(clippedBox.min()) + 0.5) - box.min()) * dp;
 
+		Vector2 p = textureOrigin;
 		for (integer y = 0;y < height;++y)
 		{
 			Cursor xyCursor = yCursor;
-			p.y() = 0;
+			p.x() = textureOrigin.x();
 
 			for (integer x = 0;x < width;++x)
 			{
 				*xyCursor = colorMixer(*xyCursor, texture(p, m));
 				xyCursor.xIncrement();
 
-				p.y() += dpdy;
+				p.x() += dp.x();
 			}
 
 			yCursor.yIncrement();
-			p.x() += dpdx;
+			p.y() += dp.y();
 		}
 	}
 

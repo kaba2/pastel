@@ -237,7 +237,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_s.lib pastelmath_s.lib pastelgfx_s.lib pastelgeometry_s.lib pasteldevice_s.lib pasteldsp_s.lib"
+				AdditionalDependencies="pastelsys_s.lib pastelmath_s.lib pastelgfx_s.lib pastelgeometry_s.lib pasteldevice_s.lib pasteldsp_s.lib sdl.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
@@ -321,7 +321,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_sd.lib pastelmath_sd.lib pastelgfx_sd.lib pastelgeometry_sd.lib pasteldevice_sd.lib pasteldsp_sd.lib"
+				AdditionalDependencies="pastelsys_sd.lib pastelmath_sd.lib pastelgfx_sd.lib pastelgeometry_sd.lib pasteldevice_sd.lib pasteldsp_sd.lib sdl.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
@@ -456,6 +456,10 @@
 		</File>
 		<File
 			RelativePath=".\test_texture.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_texture_examples.cpp"
 			>
 		</File>
 	</Files>

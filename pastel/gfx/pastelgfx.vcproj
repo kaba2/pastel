@@ -886,11 +886,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\radial_texture.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\sub_texture.h"
 					>
 				</File>
 				<File
 					RelativePath=".\transform_texture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\transform_texture.txt"
 					>
 				</File>
 			</Filter>

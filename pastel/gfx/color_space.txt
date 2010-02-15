@@ -86,6 +86,16 @@ deformation has been defined more as an aid to choosing colors.
 Qualitatively, the parameters act as their counterparts in
 color science.
 
+The following image shows a slice through the HSV space with
+constant value. 
+
+![A slice of HSV color space](../../images/hsv.png)
+
+_A slice of the HSV color space.
+The saturation varies along the y-axis from the
+bottom 0 to top 1. The hue varies along the x-axis from the
+left 0 to top 1._
+
 Practice
 --------
 

@@ -1,0 +1,28 @@
+Radial texture
+==============
+
+[[Parent]]: distortion_textures.txt
+
+The radial texture distorts a piece of an n-ball to an axis aligned box.
+This distortion is described by the center of the ball and
+a piece of that ball bounded by an aligned box in spherical 
+coordinates. 
+
+Example
+-------
+
+The images below demonstrate the usage. Note that
+in the images below we have also applied a transform-texture
+to flip and mirror the roles of x and y.
+
+![Radial texture](../../images/radial_texture_input.png)
+
+_The input image to be distorted as well as the piece of
+the distortion ball._
+
+![Radial texture](../../images/radial_texture.png)
+
+_The result of applying the radial texture distortion. We
+used mirroring for the texture extension and EWA filtering
+for the image resampling._
+
