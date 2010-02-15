@@ -1,7 +1,7 @@
 Nearest neighbors
 =================
 
-[[Parent]]: pastelgeometry.txt
+[[Parent]]: pointsets.txt
 
 Theory
 ------
@@ -9,16 +9,16 @@ Theory
 Let ''P = {p_1, ..., p_m} sub RR^n'' be a finite point-set, and ''d : RR^n xx RR^n -> RR'' a metric.
 Let ''q in RR^n'' and ''<_q sub RR^n xx RR^n'' be the (total) relation
 
-''<_q = {(P_i, P_j) in RR^n xx RR^n | d(P_i, q) < d(P_j, q) \or [d(P_i, q) = d(P_j, q) \and i < j]}''.
+''<_q = {(p_i, p_j) in RR^n xx RR^n | d(p_i, q) < d(p_j, q) \or [d(p_i, q) = d(p_j, q) \and i < j]}''.
 
-If ''P_i <_q P_j'' then ''P_i'' is said to be _nearer to q_ than ''P_j''.
+If ''p_i <_q p_j'' then ''p_i'' is said to be _nearer to q_ than ''p_j''.
 If ''P'' is ordered with ''<_q'', then the _k:th nearest neighbor_ of ''q'' in ''P'' is the 
-k:th smallest element of ''P'', denoted ''P_{w_k}''.
-The _exact nearest neighbor problem_ asks for the ''k'' points nearest to ''q'', i.e., ''P_w = {P_{w_1}, ..., P_{w_k}} sub P''.
-The _approximate nearest neighbor problem_ asks for ''k'' points ''P_v = {P_{v_1}, ..., P_{v_k}} sub P'' 
+k:th smallest element of ''P'', denoted ''p_{w_k}''.
+The _exact nearest neighbor problem_ asks for the ''k'' points nearest to ''q'', i.e., ''p_w = {p_{w_1}, ..., p_{w_k}} sub P''.
+The _approximate nearest neighbor problem_ asks for ''k'' points ''P_v = {p_{v_1}, ..., p_{v_k}} sub P'' 
 such that 
 
-''\forall i in [1, k]: d(P_{v_i}, q) < (1 + epsilon) d(P_{w_i}, q)'',
+''\forall i in [1, k]: d(p_{v_i}, q) < (1 + epsilon) d(p_{w_i}, q)'',
 
 i.e., the found points have no more than ''(1 + epsilon)'' amount of relative error when comparing the 
 distances of the found neighbors to the distances of the exact neighbors.

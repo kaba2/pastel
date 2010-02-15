@@ -1,7 +1,7 @@
 Bounding between point-sets
 ===========================
 
-[[Parent]]: pointset_queries.txt
+[[Parent]]: shape_algorithms.txt
 
 Theory
 ------

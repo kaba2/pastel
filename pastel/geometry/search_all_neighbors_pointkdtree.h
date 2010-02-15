@@ -1,4 +1,4 @@
-// Description: All-nearest-neighbors searching using PointKdTree
+// Description: All-k-nearest-neighbors searching using PointKdTree
 
 #ifndef PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
 #define PASTEL_SEARCH_ALL_NEIGHBORS_POINTKDTREE_H
@@ -14,49 +14,63 @@
 namespace Pastel
 {
 
-	//! Finds k nearest-neighbours for the given query points.
+	//! Finds k nearest-neighbours for queried points in a PointKdTree.
 	/*!
 	Preconditions:
 	kNearestBegin >= 0
 	kNearestEnd < pointSet.size()
 	kNearestBegin <= kNearestEnd
-	maxDistance >= 0
+	maxDistanceSet[i] >= 0
 	maxRelativeError >= 0
-	bucketSize >= 1
 
-	pointSet:
-	The set of points to do the searching in.
+	kdTree:
+	A point kd-tree to do the searching in.
 
-	indexSetBegin, indexSetEnd:
-	A sequence of integers denoting indices of those
-	points in the 'pointSet' for which the neighbors
-	are sought for. Note: use the CountingIterator 
-	class for generating a range of integer values 
-	without using any additional storage.
+	querySet:
+	A random access range of object iterators to 
+	'kdTree' to use as query points.
 
-	kNearest:
-	The number of nearest neighbors to seek for.
+	kNearestBegin, kNearestEnd:
+	The indices [kNearestBegin, kNearestEnd[ 
+	of the nearest neighbors that should be 
+	reported. For example, [1, 3[ reports
+	the 2nd and 3rd nearest neighbors.
 
-	maxDistance:
-	A distance after which points aren't considered
-	neighbors. This distance is in terms of the
-	norm bijection. Note: Can be set to infinity.
+	nearestArray (output):
+	An array of object iterators to 'kdTree'
+	such that nearestArray(i, j) contains the 
+	(i + 'kNearestBegin'):th nearest neighbor 
+	of the point in 'querySet[j]'. 
+	Note: Can be given a null pointer in which 
+	case reporting this information is skipped.
+
+	distanceArray (output):
+	An array of distances such that 'distanceArray(i, j)'
+	contains the distance between 'querySet[j]'
+	and its (i + 'kNearestBegin'):th nearest neighbor.
+	Note: Can be given a null pointer in which case
+	reporting this information is skipped.
+
+	maxDistanceSet:
+	Distances for each query point after which points 
+	aren't considered neighbors. This distance is in 
+	terms of the norm bijection. 
+	Note: Can be set to infinity.
+
+	maxRelativeError:
+	Maximum relative error that is allowed between
+	the distance from the query point to the reported 
+	k:th nearest neighbor and the distance from the
+	query point to the correct k:th nearest neighbor.
+	Larger allowed errors allow for enhanced performance,
+	particularly so in higher dimensions.
+	Note: Zero corresponds to exact matches.
 
 	normBijection:
 	The norm bijection to use to define distance.
 
-	nearestArray (output):
-	An array of indices such that a(i, j) contains
-	the i:th neighbor of the j:th point in the index set.
-	Note: Can be given a null pointer in which case
-	reporting this information is skipped.
-
-	distanceArray (output):
-	An array of distances such that d(i, j) contains
-	the distance between j:th point in the index set
-	and its i:th neighbor.
-	Note: Can be given a null pointer in which case
-	reporting this information is skipped.
+	searchAlgorithm:
+	Search algorithm to use.
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, 

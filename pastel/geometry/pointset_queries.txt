@@ -1,5 +1,5 @@
-Queries between point-sets
-==========================
+Algorithms for shapes
+=====================
 
 [[Parent]]: pastelgeometry.txt
 

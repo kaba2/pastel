@@ -1,4 +1,4 @@
-// Description: Nearest neighbors searching for PointKdTree
+// Description: K-nearest-neighbors searching for PointKdTree
 // Documentation: nearest_neighbors.txt
 
 #ifndef PASTEL_SEARCH_NEAREST_POINTKDTREE_H
@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	//! Finds nearest neighbors for a point in a kdTree.
+	//! Finds k nearest neighbors for a point in a PointKdTree.
 	/*!
 	Preconditions:
 	maxDistance >= 0

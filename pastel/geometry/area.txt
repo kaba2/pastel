@@ -1,12 +1,12 @@
-Area of a point-set
-===================
+Area of a shape
+===============
 
-[[Parent]]: pointset_properties.txt
+[[Parent]]: shape_algorithms.txt
 
 Theory
 ------
 
-The _area_ of a point-set in ''RR^n'' is the ''(n-1)''-dimensional 
+The _area_ of a shape in ''RR^n'' is the ''(n-1)''-dimensional 
 Lebesgue measure of the boundary of the point-set.
 
 Practice
