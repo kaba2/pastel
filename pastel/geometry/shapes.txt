@@ -6,8 +6,8 @@ Shapes
 Theory
 ------
 
-A _shape_ is a closed subset of ''RR^n''. A shape ''S'' is called
-_convex_, if it holds that 
+A _shape_ is a closed and simply connected subset of ''RR^n''. 
+A shape ''S'' is called _convex_, if it holds that 
 
 ''A, B in S => \forall t in [0, 1]: A + t(B - A) in S''.
 
@@ -27,7 +27,7 @@ shapes is easier than between concave shapes.
 All shapes overload the operators +=, +, -=, and - to translate
 by a vector and the operators *=, *, /=, and / to scale by a real number.
 The scaling is always defined for a given shape so
-that the it commutes with translation.
+that it commutes with translation.
 
 References
 ----------
