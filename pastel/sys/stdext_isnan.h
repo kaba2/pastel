@@ -1,3 +1,5 @@
+// Description: Check if a number is a NaN
+
 #ifndef PASTEL_STDEXT_ISNAN_H
 #define PASTEL_STDEXT_ISNAN_H
 
