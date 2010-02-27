@@ -69,7 +69,7 @@ Pastel divides into a number of sub-libraries. These are:
 [PastelDevice]: ./pastel/device/pasteldevice.htm
 [PastelGl]: ./pastel/gl/pastelgl.htm
 
-[[set DocChildren:no_links_for]]:
+[[set DocChildren.no_links_for]]:
 	./pastel/sys/pastelsys.txt
 	./pastel/math/pastelmath.txt
 	./pastel/geometry/pastelgeometry.txt
