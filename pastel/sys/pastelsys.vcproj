@@ -1587,6 +1587,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\stdext_isnan.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdext_subset.h"
 				>
 			</File>
