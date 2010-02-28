@@ -407,6 +407,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_eps.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_fastlist.cpp"
 			>
 		</File>
