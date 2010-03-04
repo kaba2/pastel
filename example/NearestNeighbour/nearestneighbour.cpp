@@ -49,6 +49,7 @@ const real PointRange = 0.9;
 
 integer nearestPoints__ = NearestPoints;
 real searchRadius__ = SearchRadius;
+real scaling__ = 1;
 
 GlGfxRenderer* renderer__;
 
@@ -418,7 +419,7 @@ void redrawNearest()
 		drawCircle(*renderer__, Sphere2(worldMouse, searchRadius__), 20);
 	}
 
-	drawCircle(*renderer__, Sphere2(worldMouse, SprayRadius), 20);
+	drawCircle(*renderer__, Sphere2(worldMouse, SprayRadius * scaling__), 20);
 }
 
 void redrawRange()
@@ -507,6 +508,7 @@ void handleKeyboard()
 	{
 		AffineTransformation2 transformation(renderer__->viewTransformation());
 		transformation.matrix() /= ZoomFactor;
+		scaling__ /= ZoomFactor;
 		renderer__->setViewTransformation(transformation);
 	}
 
@@ -514,6 +516,7 @@ void handleKeyboard()
 	{
 		AffineTransformation2 transformation(renderer__->viewTransformation());
 		transformation.matrix() *= ZoomFactor;
+		scaling__ *= ZoomFactor;
 		renderer__->setViewTransformation(transformation);
 	}
 }
@@ -621,9 +624,9 @@ void sprayPoints(const Vector2& center, real radius, integer points)
 	for (integer i = 0;i < points;++i)
 	{
 		const real randomAngle = random<real>() * 2 * constantPi<real>();
-		const real randomRadius = (randomGaussian<real>() / 2) * radius;
+		const real randomRadius = (randomGaussian<real>() / 2) * radius * scaling__;
 
-		if (std::abs(randomRadius) <= radius)
+		if (std::abs(randomRadius) <= radius * scaling__)
 		{
 			const Vector2 point(
 				center + 

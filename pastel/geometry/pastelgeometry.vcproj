@@ -1794,6 +1794,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\search_best_first_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_best_first_pointkdtree.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\search_depth_first_pointkdtree.h"
 					>
 				</File>

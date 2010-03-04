@@ -113,7 +113,7 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		explicit PointKdTree(integer bucketSize = 16,
+		explicit PointKdTree(integer bucketSize = 8,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs an empty tree.
@@ -130,7 +130,7 @@ namespace Pastel
 		*/
 		explicit PointKdTree(
 			Dimension dimension,
-			integer bucketSize = 16,
+			integer bucketSize = 8,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs a copy from another tree.

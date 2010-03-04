@@ -467,10 +467,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\resample_irregular.h"
-				>
-			</File>
-			<File
 				RelativePath=".\resample_optimal_order.txt"
 				>
 			</File>

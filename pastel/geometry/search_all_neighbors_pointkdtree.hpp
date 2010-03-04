@@ -20,6 +20,7 @@ namespace Pastel
 		typename ConstObjectIterator_Iterator, 
 		typename Real_Iterator,
 		typename NormBijection,
+		typename Real_Iterator_Hint,
 		typename SearchAlgorithm>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -31,22 +32,26 @@ namespace Pastel
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
+		const RandomAccessRange<Real_Iterator_Hint>& hintDistanceSet,
 		const SearchAlgorithm& searchAlgorithm)
 	{
 		ENSURE_OP(kNearestBegin, >=, 0);
 		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
 		ENSURE_OP(maxRelativeError, >=, 0);
-		ENSURE_OP(querySet.size(), ==, maxDistanceSet.size());
+		ENSURE_OP(maxDistanceSet.size(), >=, querySet.size());
+		ENSURE_OP(hintDistanceSet.size(), >=, querySet.size());
 
 		const integer kNearest = kNearestEnd - kNearestBegin;
 
-		ENSURE2(!nearestArray || nearestArray->width() == kNearest, 
+		ENSURE2(!nearestArray || nearestArray->width() >= kNearest, 
 			nearestArray->width(), kNearest);
-		ENSURE2(!nearestArray || nearestArray->height() == querySet.size(), 
+		ENSURE2(!nearestArray || nearestArray->height() >= querySet.size(), 
 			nearestArray->height(), querySet.size());
 		
-		ENSURE(!nearestArray || !distanceArray ||
-			allEqual(nearestArray->extent(), distanceArray->extent()));
+		ENSURE2(!distanceArray || distanceArray->width() >= kNearest, 
+			distanceArray->width(), kNearest);
+		ENSURE2(!distanceArray || distanceArray->height() >= querySet.size(), 
+			distanceArray->height(), querySet.size());
 
 		if (kNearest == 0 || kdTree.empty() || querySet.empty() ||
 			(!nearestArray && !distanceArray))
@@ -66,21 +71,44 @@ namespace Pastel
 		DistanceSet distanceSet(kNearestEnd);
 		const integer queries = querySet.size();
 
-//#		pragma omp for schedule(dynamic)
-#		pragma omp for
+#		pragma omp for 
 		for (integer i = 0;i < queries;++i)
 		{
 			ENSURE_OP(maxDistanceSet[i], >=, 0);
+			ENSURE_OP(hintDistanceSet[i], >=, 0);
 
-			const integer nearestCount = 
-				searchNearest(
-				kdTree, querySet[i], 
-				kNearestEnd,
-				nearestSet.begin(), distanceSet.begin(),
-				maxDistanceSet[i], maxRelativeError,
-				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
-				normBijection, 
-				searchAlgorithm);
+			integer nearestCount = 0;
+
+			if (hintDistanceSet[i] < maxDistanceSet[i])
+			{
+				nearestCount = 
+					searchNearest(
+					kdTree, querySet[i], 
+					kNearestEnd,
+					nearestSet.begin(), distanceSet.begin(),
+					hintDistanceSet[i], maxRelativeError,
+					Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
+					normBijection, 
+					searchAlgorithm);
+			}
+
+			if (nearestCount < kNearestEnd)
+			{
+				// Either the hint distance was larger
+				// than the maximum distance or the
+				// hint failed. In any case, perform a 
+				// search with the maximum distance.
+
+				nearestCount = 
+					searchNearest(
+					kdTree, querySet[i], 
+					kNearestEnd,
+					nearestSet.begin(), distanceSet.begin(),
+					maxDistanceSet[i], maxRelativeError,
+					Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
+					normBijection, 
+					searchAlgorithm);
+			}
 
 			if (nearestArray)
 			{
@@ -112,7 +140,34 @@ namespace Pastel
 					distanceArray->rowEnd(i), infinity<Real>());
 			}
 		}
+
 		}
+	}
+
+	template <typename Real, int N, typename ObjectPolicy,
+		typename ConstObjectIterator_Iterator, 
+		typename Real_Iterator,
+		typename NormBijection,
+		typename Real_Iterator_Hint>
+	void searchAllNeighbors(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		integer kNearestBegin,
+		integer kNearestEnd,
+		Array<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator, 2>* nearestArray,
+		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
+		const RandomAccessRange<Real_Iterator_Hint>& hintDistanceSet)
+	{
+		Pastel::searchAllNeighbors(
+			kdTree, querySet,
+			kNearestBegin, kNearestEnd,
+			nearestArray, distanceArray,
+			maxDistanceSet, maxRelativeError,
+			normBijection, hintDistanceSet,
+			BestFirst_SearchAlgorithm_PointKdTree());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy,
@@ -136,7 +191,7 @@ namespace Pastel
 			nearestArray, distanceArray,
 			maxDistanceSet, maxRelativeError,
 			normBijection,
-			DepthFirst_SearchAlgorithm_PointKdTree());
+			constantRange(infinity<Real>(), querySet.size()));
 	}
 
 	template <typename Real, int N, typename ObjectPolicy,
@@ -193,7 +248,7 @@ namespace Pastel
 			kdTree, querySet,
 			kNearestBegin, kNearestEnd,
 			nearestArray, distanceArray,
-			randomAccessRange(constantIterator<Real>(infinity<Real>()), querySet.size()));
+			constantRange(infinity<Real>(), querySet.size()));
 	}
 
 	template <typename Real, int N, typename ObjectPolicy,

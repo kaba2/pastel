@@ -1,0 +1,12 @@
+Gaussian-distributed random numbers
+===================================
+
+[[Parent]]: random.txt
+
+The probability density function of a gaussian-distributed
+random variable is given by:
+
+''f(x) = (1 / (sqrt(2 pi sigma^2)) e^(-(x - mu)^2 / (2 sigma^2))''
+
+![Gaussian distribution](../../images/random_gaussian.png)
+

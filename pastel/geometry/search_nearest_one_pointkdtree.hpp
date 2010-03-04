@@ -67,7 +67,7 @@ namespace Pastel
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
 			acceptPoint, normBijection,
-			DepthFirst_SearchAlgorithm_PointKdTree());
+			BestFirst_SearchAlgorithm_PointKdTree());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 

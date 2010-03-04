@@ -185,8 +185,10 @@ namespace
 	void drawDistributions()
 	{
 		const integer superSample = 4;
-		Array<Color, 2> superImage(480 * superSample, 360 * superSample);
-		Array<Color, 2> image(480, 360);
+		const integer width = 512;
+		const integer height = 384;
+		Array<Color, 2> superImage(width * superSample, height * superSample);
+		Array<Color, 2> image(width, height);
 
 		Image_GfxRenderer<Color> renderer(&superImage);
 

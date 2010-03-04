@@ -1423,6 +1423,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_gaussian.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_generalizedgaussian.h"
 				>
 			</File>

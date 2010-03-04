@@ -2,7 +2,7 @@
 #define PASTEL_COUNT_NEAREST_POINTKDTREE_HPP
 
 #include "pastel/geometry/count_nearest_pointkdtree.h"
-#include "pastel/geometry/search_depth_first_pointkdtree.h"
+#include "pastel/geometry/search_best_first_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/always_acceptpoint.h"
 
@@ -76,7 +76,7 @@ namespace Pastel
 		integer nearestCount = 0;
 		const CandidateFunctor candidateFunctor(nearestCount);
 
-		searchDepthFirst(
+		searchBestFirst(
 			kdTree, searchPoint, maxDistance, 0,
 			acceptPoint, normBijection, candidateFunctor);
 

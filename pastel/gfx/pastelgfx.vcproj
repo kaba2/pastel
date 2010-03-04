@@ -515,10 +515,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\draw_ellipsoid.h"
-				>
-			</File>
-			<File
 				RelativePath=".\draw_floodfill.h"
 				>
 			</File>
