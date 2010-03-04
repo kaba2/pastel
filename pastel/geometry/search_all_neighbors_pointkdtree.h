@@ -69,6 +69,15 @@ namespace Pastel
 	normBijection:
 	The norm bijection to use to define distance.
 
+	hintDistanceSet:
+	For each point, if the hinted distance is smaller 
+	than the maximum distance, the algorithm first tries 
+	to search in the hinted maximum distance. If not
+	all neighbors can be found, an additional search
+	is performed using the maximum distance. This
+	can be used to take advantage of possible temporal
+	coherence.
+
 	searchAlgorithm:
 	Search algorithm to use.
 	*/
@@ -76,6 +85,7 @@ namespace Pastel
 		typename ConstObjectIterator_Iterator, 
 		typename Real_Iterator,
 		typename NormBijection,
+		typename Real_Iterator_Hint,
 		typename SearchAlgorithm>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -87,6 +97,7 @@ namespace Pastel
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
+		const RandomAccessRange<Real_Iterator_Hint>& hintDistanceSet,
 		const SearchAlgorithm& searchAlgorithm);
 
 	//! Finds k nearest-neighbours for the given query points.
@@ -97,8 +108,39 @@ namespace Pastel
 		kNearestBegin, kNearestEnd,
 		nearestArray, distanceArray,
 		maxDistanceSet, maxRelativeError,
+		normBijection, hintDistanceSet,
+		BestFirst_SearchAlgorithm_PointKdTree());
+	*/
+	template <typename Real, int N, typename ObjectPolicy,
+		typename ConstObjectIterator_Iterator, 
+		typename Real_Iterator,
+		typename NormBijection,
+		typename Real_Iterator_Hint>
+	void searchAllNeighbors(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		integer kNearestBegin,
+		integer kNearestEnd,
+		Array<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator, 2>* nearestArray,
+		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const NormBijection& normBijection,
+		const RandomAccessRange<Real_Iterator_Hint>& hintDistanceSet);
+
+	//! Finds k nearest-neighbours for the given query points.
+	/*!
+	This is a convenience function that calls:
+	searchAllNeighbors(
+		kdTree, querySet,
+		kNearestBegin, kNearestEnd,
+		nearestArray, distanceArray,
+		maxDistanceSet, maxRelativeError,
+		Euclidean_NormBijection<Real>(),
+		constantRange(infinity<Real>(), querySet.size()),
+		maxRelativeError,
 		normBijection,
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		constantRange(infinity<Real>(), querySet.size()));
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, 
@@ -123,8 +165,7 @@ namespace Pastel
 		kNearestBegin, kNearestEnd,
 		nearestArray, distanceArray,
 		maxDistanceSet, maxRelativeError,
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, 
@@ -146,9 +187,7 @@ namespace Pastel
 		kdTree, querySet,
 		kNearestBegin, kNearestEnd,
 		nearestArray, distanceArray,
-		maxDistanceSet, 0,
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		maxDistanceSet, 0);
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, 
@@ -169,10 +208,7 @@ namespace Pastel
 		kdTree, querySet,
 		kNearestBegin, kNearestEnd,
 		nearestArray, distanceArray,
-		randomAccessRange(constantIterator<Real>(infinity<Real>()), querySet.size()));
-		maxDistanceSet, 0,
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		constantRange(infinity<Real>(), querySet.size()));
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator>
@@ -190,11 +226,7 @@ namespace Pastel
 	searchAllNeighbors(
 		kdTree, querySet,
 		kNearestBegin, kNearestEnd,
-		nearestArray, 0,
-		randomAccessRange(constantIterator<Real>(infinity<Real>()), querySet.size()));
-		maxDistanceSet, 0,
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		nearestArray, 0);
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator>

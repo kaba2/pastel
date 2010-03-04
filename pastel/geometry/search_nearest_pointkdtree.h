@@ -64,7 +64,9 @@ namespace Pastel
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.
-	The only possible algorithm at the moment is
+	The possible algorithms at the moment are
+	BestFirst_SearchAlgorithm_PointKdTree
+	in 'search_best_first_pointkdtree.h' and
 	DepthFirst_SearchAlgorithm_PointKdTree
 	in 'search_depth_first_pointkdtree.h'. Default
 	construct an object of this class as an argument.
@@ -95,7 +97,7 @@ namespace Pastel
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, acceptPoint,
 		normBijection,
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		BestFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NearestIterator, 
@@ -118,8 +120,7 @@ namespace Pastel
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, acceptPoint,
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NearestIterator, 
@@ -140,9 +141,7 @@ namespace Pastel
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, 
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(),
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NearestIterator, 
@@ -161,10 +160,7 @@ namespace Pastel
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
-		maxDistance, 0, 
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(),
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		maxDistance, 0);
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NearestIterator, 
@@ -182,10 +178,7 @@ namespace Pastel
 	This is a convenience function that calls:
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
-		infinity<Real>(), 0, 
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(),
-		Euclidean_NormBijection<Real>(),
-		DepthFirst_SearchAlgorithm_PointKdTree());
+		infinity<Real>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NearestIterator, 
