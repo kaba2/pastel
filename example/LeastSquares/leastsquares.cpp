@@ -13,6 +13,8 @@
 #include "pastel/gl/glgfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 
+#include "pastel/gfx_ui/gfx_ui.h"
+
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/diameter.h"
 #include "pastel/geometry/intersect_alignedbox_plane.h"
@@ -25,71 +27,88 @@ using namespace std;
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;
 
-GfxRenderer<Color>* renderer__;
-
-std::vector<Vector2> sourceSet__;
-std::vector<Vector2> targetSet__;
-std::vector<Vector2> fittedSet__;
-const integer points__ = 1000;
-
-bool mouseLeftPressed__ = false;
-
-void redraw();
-
-void keyHandler(bool pressed, SDLKey key)
+class LeastSquares_Gfx_Ui
+	: public Gfx_Ui
 {
-	if (pressed)
-	{
-		if (key == SDLK_ESCAPE)
-		{
-			deviceSystem().stopEventLoop();
-		}
-	}
+public:
+	LeastSquares_Gfx_Ui();
+	~LeastSquares_Gfx_Ui();
+
+private:
+	virtual void onRender();
+	virtual void onGfxLogic();
+
+	void redrawPointSet(const std::vector<Vector2>& pointSet);
+	void applyTransformation(
+		const AffineTransformation2& transformation);
+	void generatePoints(
+		std::vector<Vector2>& pointSet, integer points);
+
+	std::vector<Vector2> sourceSet_;
+	std::vector<Vector2> targetSet_;
+	std::vector<Vector2> fittedSet_;
+	integer points_;
+};
+
+LeastSquares_Gfx_Ui::LeastSquares_Gfx_Ui()
+	: Gfx_Ui(new GlGfxRenderer())
+	, points_(1000)
+{
+	generatePoints(sourceSet_, points_);
+	targetSet_ = sourceSet_;
+	fittedSet_ = sourceSet_;
 }
 
-void redrawPointSet(const std::vector<Vector2>& pointSet)
+LeastSquares_Gfx_Ui::~LeastSquares_Gfx_Ui()
+{
+	delete &renderer();
+}
+
+void LeastSquares_Gfx_Ui::redrawPointSet(const std::vector<Vector2>& pointSet)
 {
 	const integer points = pointSet.size();
 	for (integer i = 0;i < points;++i)
 	{
-		drawCircle(*renderer__, Sphere2(pointSet[i], 0.01), 20);
+		drawCircle(renderer(), Sphere2(pointSet[i], 0.01), 20);
 	}
 }
 
-void redraw()
+void LeastSquares_Gfx_Ui::onRender()
 {
-	renderer__->setColor(Color(0));
-	renderer__->clear();
+	renderer().setColor(Color(0));
+	renderer().clear();
 
-	renderer__->setColor(Color(1, 0, 0));
-	renderer__->setFilled(true);
-	redrawPointSet(targetSet__);
+	renderer().setColor(Color(1, 0, 0));
+	renderer().setFilled(true);
+	redrawPointSet(targetSet_);
 
-	AffineTransformation2 transformation = leastSquaresAffineTransformation(
-		sourceSet__, targetSet__);
+	AffineTransformation2 transformation = 
+		leastSquaresAffineTransformation(
+		sourceSet_, targetSet_);
 
-	const integer points = sourceSet__.size();
+	const integer points = sourceSet_.size();
 	for (integer i = 0;i < points;++i)
 	{
-		fittedSet__[i] = transformPoint(sourceSet__[i], transformation);
+		fittedSet_[i] = transformPoint(sourceSet_[i], transformation);
 	}
 
-	renderer__->setColor(Color(0, 1, 0));
-	renderer__->setFilled(false);
-	redrawPointSet(fittedSet__);
+	renderer().setColor(Color(0, 1, 0));
+	renderer().setFilled(false);
+	redrawPointSet(fittedSet_);
 
 	for (integer i = 0;i < points;++i)
 	{
-		drawSegment(*renderer__, Segment2(targetSet__[i], fittedSet__[i]));
+		drawSegment(renderer(), Segment2(targetSet_[i], fittedSet_[i]));
 	}
 
-	renderer__->setColor(Color(1));
-	const Vector2 meanPoint = mean(targetSet__);
-	const Vector2 maximalVariance = largestEigenVector(targetSet__) * -0.4;
+	renderer().setColor(Color(1));
+	const Vector2 meanPoint = mean(targetSet_);
+	const Vector2 maximalVariance = 
+		largestEigenVector(targetSet_) * -0.4;
 
-	renderer__->setFilled(true);
-	renderer__->setColor(Color(1, 0, 0));
-	drawFatSegment(*renderer__, 
+	renderer().setFilled(true);
+	renderer().setColor(Color(1, 0, 0));
+	drawFatSegment(renderer(), 
 		Segment2(meanPoint - cross(maximalVariance), 
 		meanPoint + cross(maximalVariance)), 0.01, 0.01);
 
@@ -97,26 +116,26 @@ void redraw()
 	VectorD eigenValueSet;
 
 	approximateEigenstructure(
-		targetSet__,
+		targetSet_,
 		2,
 		eigenVectorSet,
 		eigenValueSet);
 
 	orthonormalize(eigenVectorSet);
 
-	drawFatSegment(*renderer__, 
+	drawFatSegment(renderer(), 
 		Segment2(meanPoint - Vector2(eigenVectorSet[0]), 
 		meanPoint + Vector2(eigenVectorSet[0])), 0.01, 0.01);
 
-	drawFatSegment(*renderer__, 
+	drawFatSegment(renderer(), 
 		Segment2(meanPoint - Vector2(eigenVectorSet[1]), 
 		meanPoint + Vector2(eigenVectorSet[1])), 0.01, 0.01);
 	
 	AlignedBox2 box(-0.3, -0.5, 0.3, 0.5);
 	box += Vector2(0.2);
 
-	renderer__->setFilled(false);
-	drawBox(*renderer__, box);
+	renderer().setFilled(false);
+	drawBox(renderer(), box);
 
 	const Plane2 plane(meanPoint, maximalVariance);
 
@@ -126,101 +145,86 @@ void redraw()
 
 	if (intersect(box, plane, clipDimension, minBoxMax, maxBoxMin))
 	{
-		renderer__->setColor(Color(1, 1, 0));
+		renderer().setColor(Color(1, 1, 0));
 		AlignedBox2 minBox(box);
 		minBox.min() += 0.02;
 		minBox.max() -= 0.02;
 		minBox.max()[clipDimension] = minBoxMax;
-		drawBox(*renderer__, minBox);
+		drawBox(renderer(), minBox);
 
-		renderer__->setColor(Color(1, 0, 1));
+		renderer().setColor(Color(1, 0, 1));
 		AlignedBox2 maxBox(box);
 		maxBox.min() += 0.04;
 		maxBox.max() -= 0.04;
 		maxBox.min()[clipDimension] = maxBoxMin;
-		drawBox(*renderer__, maxBox);
+		drawBox(renderer(), maxBox);
 	}
 
 	gfxDevice().swapBuffers();
 }
 
-void applyTransformation(const AffineTransformation2& transformation)
+void LeastSquares_Gfx_Ui::applyTransformation(
+	const AffineTransformation2& transformation)
 {
-	const integer points = targetSet__.size();
+	const integer points = targetSet_.size();
 	for (integer i = 0;i < points;++i)
 	{
-		targetSet__[i] = transformPoint(targetSet__[i], transformation);
+		targetSet_[i] = transformPoint(targetSet_[i], transformation);
 	}
 }
 
-void logicHandler()
+void LeastSquares_Gfx_Ui::onGfxLogic()
 {
-	Integer2 iMouse;
-	bool leftButton = false;
-	iMouse = deviceSystem().mouse(&leftButton);
-
-	const Vector2 currentMouse = Vector2(
-		2 * ((real)iMouse[0] / ScreenWidth) - 1,
-		-(2 * ((real)iMouse[1] / ScreenHeight) - 1));
-
-	const Vector2 normMouse(
-		(currentMouse + 1) / 2);
-
-	const Vector2 worldMouse(
-		transformPoint(renderer__->viewWindow().at(normMouse),
-		renderer__->viewTransformation()));
-
-	if (deviceSystem().keyDown(SDLK_a))
+	if (deviceSystem().keyDown(SDLK_j))
 	{
 		applyTransformation(translation2(Vector2(-0.05, 0)));
 	}
 
-	if (deviceSystem().keyDown(SDLK_d))
+	if (deviceSystem().keyDown(SDLK_l))
 	{
 		applyTransformation(translation2(Vector2(0.05, 0)));
 	}
 
-	if (deviceSystem().keyDown(SDLK_w))
+	if (deviceSystem().keyDown(SDLK_i))
 	{
 		applyTransformation(translation2(Vector2(0, 0.05)));
 	}
 
-	if (deviceSystem().keyDown(SDLK_s))
+	if (deviceSystem().keyDown(SDLK_k))
 	{
 		applyTransformation(translation2(Vector2(0, -0.05)));
 	}
 
-	if (deviceSystem().keyDown(SDLK_1))
+	if (deviceSystem().keyDown(SDLK_7))
 	{
 		applyTransformation(AffineTransformation2(
 			Matrix2(1 / 1.1, 0, 0, 1), Vector2(0, 0)));
 	}
-	if (deviceSystem().keyDown(SDLK_3))
+	if (deviceSystem().keyDown(SDLK_9))
 	{
 		applyTransformation(AffineTransformation2(
 			Matrix2(1.1, 0, 0, 1), Vector2(0, 0)));
 	}
-	if (deviceSystem().keyDown(SDLK_r))
+	if (deviceSystem().keyDown(SDLK_p))
 	{
-		const integer points = targetSet__.size();
+		const integer points = targetSet_.size();
 		for (integer i = 0;i < points;++i)
 		{
-			targetSet__[i] += randomVectorSphere<real, 2>() * 0.01;
+			targetSet_[i] += randomVectorSphere<real, 2>() * 0.01;
 		}
 	}
-	if (deviceSystem().keyDown(SDLK_q))
+	if (deviceSystem().keyDown(SDLK_u))
 	{
 		applyTransformation(rotation2<real>(degreesToRadians<real>(5)));
 	}
-	if (deviceSystem().keyDown(SDLK_e))
+	if (deviceSystem().keyDown(SDLK_o))
 	{
 		applyTransformation(rotation2<real>(degreesToRadians<real>(-5)));
 	}
-
-	redraw();
 }
 
-void generatePoints(std::vector<Vector2>& pointSet, integer points)
+void LeastSquares_Gfx_Ui::generatePoints(
+	std::vector<Vector2>& pointSet, integer points)
 {
 	std::vector<Vector2> result;
 	for (integer i = 0;i < points;++i)
@@ -236,24 +240,13 @@ int myMain()
 	log().addObserver(fileLogObserver("log.txt"));
 
 	deviceSystem().initialize();
-	deviceSystem().setKeyHandler(keyHandler);
-	deviceSystem().setLogicHandler(logicHandler);
-
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 32, false);
 	deviceSystem().setCaption("Pastel's least squares example");
 
-	renderer__ = new GlGfxRenderer();
-	renderer__->setColor(Color(0, 0, 0));
-	renderer__->clear();
-	gfxDevice().swapBuffers();
-
-	generatePoints(sourceSet__, points__);
-	targetSet__ = sourceSet__;
-	fittedSet__ = sourceSet__;
-
+	LeastSquares_Gfx_Ui leastSquaresUi;
+	deviceSystem().setUi(&leastSquaresUi);
+	
 	deviceSystem().startEventLoop();
-
-	delete renderer__;
 
 	gfxDevice().deInitialize();
 	deviceSystem().deInitialize();

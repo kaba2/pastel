@@ -8,6 +8,7 @@
 #include "pastel/sys/tuple.h"
 
 #include "pastel/device/devicelibrary.h"
+#include "pastel/device/ui.h"
 
 #include <SDL.h>
 
@@ -17,8 +18,6 @@
 
 namespace Pastel
 {
-	typedef void KeyHandler(bool, SDLKey);
-	typedef void LogicHandler();
 
 	//! A class for device and event handling.
 	class PASTELDEVICE DeviceSystem
@@ -39,13 +38,17 @@ namespace Pastel
 		*/
 		void deInitialize();
 
+		//! Returns true if a key is being pressed.
 		bool keyDown(SDLKey key) const;
 
+		//! Sets the caption for the application.
 		void setCaption(const std::string& text);
+
+		//! Gets the caption of the application.
 		std::string getCaption() const;
 
-		void setKeyHandler(KeyHandler* keyHandler);
-		void setLogicHandler(LogicHandler* logicHandler);
+		//! Sets a user interface.
+		void setUi(Ui* ui);
 
 		//! Starts running the event loop.
 		void startEventLoop(integer fps = 100);
@@ -73,8 +76,7 @@ namespace Pastel
 
 		integer referenceCount_;
 		bool eventLoopActive_;
-		KeyHandler* keyHandler_;
-		LogicHandler* logicHandler_;
+		Ui* ui_;
 		real cpuUsage_;
 
 		enum

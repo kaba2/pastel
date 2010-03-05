@@ -72,6 +72,14 @@ namespace Pastel
 		return startPoint * (1 - time) + endPoint * time;
 	}
 
+	template <typename Real, int N>
+	Vector<Real, N> midpoint(
+		const Vector<Real, N>& startPoint,
+		const Vector<Real, N>& endPoint)
+	{
+		return linear(startPoint, endPoint, (Real)0.5);
+	}
+
 }
 
 #endif

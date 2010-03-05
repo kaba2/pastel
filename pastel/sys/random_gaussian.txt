@@ -6,7 +6,11 @@ Gaussian-distributed random numbers
 The probability density function of a gaussian-distributed
 random variable is given by:
 
-''f(x) = (1 / (sqrt(2 pi sigma^2)) e^(-(x - mu)^2 / (2 sigma^2))''
+''f(x) = 1 / (sqrt(2 pi sigma^2))    e^(-(x - mu)^2 / (2 sigma^2))''
 
-![Gaussian distribution](../../images/random_gaussian.png)
+This pdf is shown for various ''sigma'' in the image below.
+
+[[Gallery]]: 
+	../../images/random_gaussian.png
+	- Gaussian distribution with various sigma.
 

@@ -50,6 +50,17 @@ namespace Pastel
 		const Vector<real, N>& position,
 		const RandomAccessRange<Iterator>& data);
 
+	//! Return midpoint of two points.
+	/*!
+	This is a convenience function that calls:
+
+	linear(startPoint, endPoint, (Real)0.5);
+	*/
+	template <typename Real, int N>
+	Vector<Real, N> midpoint(
+		const Vector<Real, N>& startPoint,
+		const Vector<Real, N>& endPoint);
+
 }
 
 #include "pastel/sys/linear.hpp"

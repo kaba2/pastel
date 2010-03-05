@@ -8,7 +8,10 @@
 #include "pastel/math/affinetransformation_tools.h"
 
 #include "pastel/gl/glgfxrenderer.h"
+
 #include "pastel/gfx/gfxrenderer_tools.h"
+
+#include "pastel/gfx_ui/gfx_ui.h"
 
 #include "pastel/geometry/convexhull.h"
 
@@ -20,54 +23,76 @@ using namespace std;
 const integer ScreenWidth = 640;
 const integer ScreenHeight = 480;
 
-GlGfxRenderer* renderer__;
+class ConvexHull_Gfx_Ui
+	: public Gfx_Ui
+{
+public:
+	ConvexHull_Gfx_Ui();
+	~ConvexHull_Gfx_Ui();
 
-std::vector<Vector2> pointSet__;
-std::vector<Vector2> convexHull__;
+private:
+	virtual void onGfxLogic();
+	virtual void onKey(bool pressed, SDLKey key);
+	virtual void onRender();
 
-bool mouseLeftPressed__ = false;
+	void drawDiagonal(integer i, integer j);
+	void redrawPointSet();
+	void redrawPolygon();
+	void redrawConvexHull();
 
-void redraw();
+	std::vector<Vector2> pointSet_;
+	std::vector<Vector2> convexHull_;
 
-void keyHandler(bool pressed, SDLKey key)
+	bool mouseLeftPressed_;
+};
+
+ConvexHull_Gfx_Ui::ConvexHull_Gfx_Ui()
+: Gfx_Ui(new GlGfxRenderer())
+, pointSet_()
+, convexHull_()
+, mouseLeftPressed_(false)
+{
+}
+
+ConvexHull_Gfx_Ui::~ConvexHull_Gfx_Ui()
+{
+	delete &renderer();
+}
+
+void ConvexHull_Gfx_Ui::onKey(bool pressed, SDLKey key)
 {
 	if (pressed)
 	{
-		if (key == SDLK_ESCAPE)
-		{
-			deviceSystem().stopEventLoop();
-		}
 		if (key == SDLK_SPACE)
 		{
-			pointSet__.clear();
-			convexHull__.clear();
-			redraw();
+			pointSet_.clear();
+			convexHull_.clear();
 		}
 	}
 }
 
-void drawDiagonal(integer i, integer j)
+void ConvexHull_Gfx_Ui::drawDiagonal(integer i, integer j)
 {
-	renderer__->setColor(Color(0, 0, 1));
-	drawFatSegment(*renderer__,
-		Segment2(pointSet__[i],
-		pointSet__[j]), 0.005, 0.005);
+	renderer().setColor(Color(0, 0, 1));
+	drawFatSegment(renderer(),
+		Segment2(pointSet_[i],
+		pointSet_[j]), 0.005, 0.005);
 }
 
-void redrawPointSet()
+void ConvexHull_Gfx_Ui::redrawPointSet()
 {
-	renderer__->setColor(Color(1));
-	const integer points = pointSet__.size();
+	renderer().setColor(Color(1));
+	const integer points = pointSet_.size();
 	for (integer i = 0;i < points;++i)
 	{
-		drawCircle(*renderer__, Sphere2(pointSet__[i], 0.01));
+		drawCircle(renderer(), Sphere2(pointSet_[i], 0.01));
 	}
 }
 
-void redrawPolygon()
+void ConvexHull_Gfx_Ui::redrawPolygon()
 {
-	renderer__->setColor(Color(1));
-	const integer points = pointSet__.size();
+	renderer().setColor(Color(1));
+	const integer points = pointSet_.size();
 	for (integer i = 0;i < points;++i)
 	{
 		integer iNext = i + 1;
@@ -75,14 +100,14 @@ void redrawPolygon()
 		{
 			iNext = 0;
 		}
-		drawFatSegment(*renderer__, Segment2(pointSet__[i], pointSet__[iNext]), 0.005, 0.005);
+		drawFatSegment(renderer(), Segment2(pointSet_[i], pointSet_[iNext]), 0.005, 0.005);
 	}
 }
 
-void redrawConvexHull()
+void ConvexHull_Gfx_Ui::redrawConvexHull()
 {
-	renderer__->setColor(Color(0, 1, 0));
-	const integer points = convexHull__.size();
+	renderer().setColor(Color(0, 1, 0));
+	const integer points = convexHull_.size();
 	for (integer i = 0;i < points;++i)
 	{
 		integer next = i + 1;
@@ -91,25 +116,25 @@ void redrawConvexHull()
 			next = 0;
 		}
 
-		drawFatSegment(*renderer__,
-			Segment2(convexHull__[i],
-			convexHull__[next]), 0.005, 0.005);
+		drawFatSegment(renderer(),
+			Segment2(convexHull_[i],
+			convexHull_[next]), 0.005, 0.005);
 	}
 }
 
-void redraw()
+void ConvexHull_Gfx_Ui::onRender()
 {
-	renderer__->setColor(Color(0));
-	renderer__->clear();
+	renderer().setColor(Color(0));
+	renderer().clear();
 
-	redrawPolygon();
+	//redrawPolygon();
 	redrawConvexHull();
 	redrawPointSet();
 
 	gfxDevice().swapBuffers();
 }
 
-void logicHandler()
+void ConvexHull_Gfx_Ui::onGfxLogic()
 {
 	Integer2 iMouse;
 	bool leftButton = false;
@@ -124,31 +149,30 @@ void logicHandler()
 
 	const Vector2 worldMouse(
 		transformPoint(
-		renderer__->viewWindow().at(normMouse),
-		renderer__->viewTransformation()));
+		renderer().viewWindow().at(normMouse),
+		renderer().viewTransformation()));
 
-	if (!mouseLeftPressed__)
+	if (!mouseLeftPressed_)
 	{
 		if (leftButton)
 		{
 			//cout << worldMouse[0] << ", " << worldMouse[1] << endl;
 
-			pointSet__.push_back(
+			pointSet_.push_back(
 				Vector2(worldMouse[0], worldMouse[1]));
 			convexHullGrahamsScan(
-				pointSet__, convexHull__);
-			redraw();
+				pointSet_, convexHull_);
 
-			//cout << "Diameter = " << convexPolygonDiameter(convexHull__) << endl;
+			//cout << "Diameter = " << convexPolygonDiameter(convexHull_) << endl;
 
-			mouseLeftPressed__ = true;
+			mouseLeftPressed_ = true;
 		}
 	}
 	else
 	{
 		if (!leftButton)
 		{
-			mouseLeftPressed__ = false;
+			mouseLeftPressed_ = false;
 		}
 	}
 }
@@ -159,20 +183,13 @@ int myMain()
 	log().addObserver(fileLogObserver("log.txt"));
 
 	deviceSystem().initialize();
-	deviceSystem().setKeyHandler(keyHandler);
-	deviceSystem().setLogicHandler(logicHandler);
-
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 32, false);
 	deviceSystem().setCaption("Pastel's convex hull example");
 
-	renderer__ = new GlGfxRenderer();
-	renderer__->setColor(Color(0));
-	renderer__->clear();
-	gfxDevice().swapBuffers();
+	ConvexHull_Gfx_Ui convexHullUi;
+	deviceSystem().setUi(&convexHullUi);
 
 	deviceSystem().startEventLoop();
-
-	delete renderer__;
 
 	gfxDevice().deInitialize();
 	deviceSystem().deInitialize();

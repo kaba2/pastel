@@ -59,16 +59,10 @@ namespace Pastel
 		return std::string(title);
 	}
 
-	void DeviceSystem::setKeyHandler(
-		KeyHandler* keyHandler)
+	void DeviceSystem::setUi(
+		Ui* ui)
 	{
-		keyHandler_ = keyHandler;
-	}
-
-	void DeviceSystem::setLogicHandler(
-		LogicHandler* logicHandler)
-	{
-		logicHandler_ = logicHandler;
+		ui_ = ui;
 	}
 
 	void DeviceSystem::startEventLoop(integer fps)
@@ -95,20 +89,20 @@ namespace Pastel
 					{
 					case SDL_KEYDOWN:
 						{
-							if (keyHandler_)
+							if (ui_)
 							{
 								SDL_keysym* keysym = &event.key.keysym;
-								keyHandler_(true, keysym->sym);
+								ui_->handleKey(true, keysym->sym);
 								keyDown_[keysym->sym % KeyTableSize] = true;
 							}
 						}
 						break;
 					case SDL_KEYUP:
 						{
-							if (keyHandler_)
+							if (ui_)
 							{
 								SDL_keysym* keysym = &event.key.keysym;
-								keyHandler_(false, keysym->sym);
+								ui_->handleKey(false, keysym->sym);
 								keyDown_[keysym->sym % KeyTableSize] = false;
 							}
 						}
@@ -123,10 +117,10 @@ namespace Pastel
 
 				timer.store();
 
-				if (logicHandler_ && timer.seconds() >= frameDelay)
+				if (ui_ && timer.seconds() >= frameDelay)
 				{
 					timer.setStart();
-					logicHandler_();
+					ui_->handleLogic();
 					timer.store();
 
 					cpuUsage_ = (real)100 * (timer.seconds() / frameDelay);
@@ -195,8 +189,7 @@ namespace Pastel
 	DeviceSystem::DeviceSystem()
 		: referenceCount_(0)
 		, eventLoopActive_(false)
-		, keyHandler_()
-		, logicHandler_()
+		, ui_(0)
 		, cpuUsage_(0)
 		, keyDown_(KeyTableSize, false)
 	{

@@ -332,6 +332,45 @@ namespace Pastel
 		}
 	}
 
+	template <typename Type>
+	void concentrate(
+		GfxRenderer<Type>& renderer,
+		const AlignedBox2& region)
+	{
+		AlignedBox2 viewWindow = region;
+
+		const Vector2 cameraCenter = 
+			midpoint(viewWindow.min(), viewWindow.max());
+
+		viewWindow -= cameraCenter;
+
+		viewWindow.min() -= viewWindow.extent() * 0.05;
+		viewWindow.max() += viewWindow.extent() * 0.05;
+		const Vector2 viewExtent = viewWindow.extent();
+
+		const real aspectRatio = (real)4 / 3;
+		if (viewExtent.x() < aspectRatio * viewExtent.y())
+		{
+			const real xExtentDelta = 
+				aspectRatio * viewExtent.y() - viewExtent.x();
+
+			viewWindow.min().x() -= xExtentDelta / 2;
+			viewWindow.max().x() += xExtentDelta / 2;
+		}
+		else
+		{
+			const real yExtentDelta = 
+				viewExtent.x() - aspectRatio * viewExtent.y();
+
+			viewWindow.min().y() -= yExtentDelta / 2;
+			viewWindow.max().y() += yExtentDelta / 2;
+		}
+
+		renderer.setViewTransformation(
+			translation2<real>(cameraCenter));
+		renderer.setViewWindow(viewWindow);
+	}
+
 }
 
 #endif
