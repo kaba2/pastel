@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="LeastSquares"
-	ProjectGUID="{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}"
-	RootNamespace="LeastSquares"
+	Name="PastelGfxUi"
+	ProjectGUID="{0B447ABF-385F-475F-BF5F-88E4EE20BB98}"
+	RootNamespace="PastelGfxUi"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -18,9 +18,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\lib"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="1"
 			>
 			<Tool
@@ -43,17 +43,15 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PASTELGFXUI_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
-				ForcedIncludeFiles=""
+				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -66,11 +64,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_d.lib pastelgfx_d.lib pasteldevice_d.lib pastelgfxui_d.lib pastelgl_d.lib pastelgeometry_d.lib pastelmath_d.lib"
+				AdditionalDependencies="pastelsys_d.lib pastelgfx_d.lib pasteldevice_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -97,9 +95,9 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\lib"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -124,16 +122,14 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELGFXUI_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="true"
-				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
-				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
-				ForcedIncludeFiles=""
+				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -146,93 +142,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys.lib pastelgfx.lib pasteldevice.lib pastelgfxui.lib pastelgl.lib pastelgeometry.lib pastelmath.lib"
+				AdditionalDependencies="pastelsys.lib pastelgfx.lib pasteldevice.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Static Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
-				Optimization="2"
-				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
-				DisableLanguageExtensions="true"
-				OpenMP="true"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
-				ForcedIncludeFiles=""
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_s.lib pasteldsp_s.lib pastelgfx_s.lib pasteldevice_s.lib pastelgfxui_s.lib pastelgl_s.lib pastelgeometry_s.lib pastelmath_s.lib opengl32.lib glew32.lib sdl.lib"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(SolutionDir)\lib"
-				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -261,9 +175,9 @@
 		</Configuration>
 		<Configuration
 			Name="Static Debug|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\lib"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
+			ConfigurationType="4"
 			CharacterSet="1"
 			>
 			<Tool
@@ -286,17 +200,15 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180"
-				ForcedIncludeFiles=""
+				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -308,19 +220,11 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_sd.lib pasteldsp_sd.lib pastelgfx_sd.lib pasteldevice_sd.lib pastelgfxui_sd.lib pastelgl_sd.lib pastelgeometry_sd.lib pastelmath_sd.lib sdl.lib glew32.lib opengl32.lib"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(SolutionDir)\lib"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName)_sd.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -332,7 +236,71 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Static Release|Win32"
+			OutputDirectory="$(SolutionDir)\lib"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="$(SolutionDir)\..\"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				DisableLanguageExtensions="true"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName)_s.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -343,11 +311,15 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\leastsquares.cpp"
+			RelativePath=".\gfx_ui.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\leastsquaresmain.cpp"
+			RelativePath=".\gfx_ui.h"
+			>
+		</File>
+		<File
+			RelativePath=".\gfxuilibrary.h"
 			>
 		</File>
 	</Files>

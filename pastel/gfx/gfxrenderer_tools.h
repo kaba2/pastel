@@ -88,6 +88,11 @@ namespace Pastel
 		const GfxRenderer<Type>& renderer,
 		const std::vector<Vector2>& convexPolygon);
 
+	template <typename Type>
+	void concentrate(
+		GfxRenderer<Type>& renderer,
+		const AlignedBox2& region);
+
 }
 
 #include "pastel/gfx/gfxrenderer_tools.hpp"

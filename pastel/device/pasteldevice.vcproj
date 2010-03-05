@@ -440,6 +440,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Ui"
+			>
+			<File
+				RelativePath=".\ui.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ui.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
