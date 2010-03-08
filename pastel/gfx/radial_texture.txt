@@ -15,14 +15,9 @@ The images below demonstrate the usage. Note that
 in the images below we have also applied a transform-texture
 to flip and mirror the roles of x and y.
 
-![Radial texture](../../images/radial_texture_input.png)
-
-_The input image to be distorted as well as the piece of
-the distortion ball._
-
-![Radial texture](../../images/radial_texture.png)
-
-_The result of applying the radial texture distortion. We
-used mirroring for the texture extension and EWA filtering
-for the image resampling._
+[[Gallery]]:
+	../../images/radial_texture_input.png
+	- The input image to be distorted as well as the piece of the distortion ball.
+	../../images/radial_texture.png
+	- The result of applying the radial texture distortion. We used mirroring for the texture extension and EWA filtering for the image resampling.
 

@@ -1,0 +1,10 @@
+Previous releases
+=================
+
+[[Parent]]: pastel.txt
+
+### Version 1.0.1
+
+[Download Pastel 1.0.1][Pastel-Source-1.0.1]
+
+[Pastel-Source-1.0.1]: .files/pastel-source-1.0.1.zip

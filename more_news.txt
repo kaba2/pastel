@@ -1,0 +1,8 @@
+More news
+=========
+
+[[Parent]]: pastel.txt
+
+### 13.1.2010: Released version 1.0.1
+
+Initial release.

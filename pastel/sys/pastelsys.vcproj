@@ -1375,11 +1375,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_beta.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_cauchy.h"
 				>
 			</File>
 			<File
 				RelativePath=".\random_cauchy.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_cauchy.txt"
 				>
 			</File>
 			<File
@@ -1391,11 +1399,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_chisquared.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_dirichlet.h"
 				>
 			</File>
 			<File
 				RelativePath=".\random_dirichlet.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_dirichlet.txt"
 				>
 			</File>
 			<File
@@ -1407,11 +1423,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_exponential.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_gamma.h"
 				>
 			</File>
 			<File
 				RelativePath=".\random_gamma.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_gamma.txt"
 				>
 			</File>
 			<File
@@ -1435,11 +1459,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_generalizedgaussian.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_laplace.h"
 				>
 			</File>
 			<File
 				RelativePath=".\random_laplace.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_laplace.txt"
 				>
 			</File>
 			<File
@@ -1451,6 +1483,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_lognormal.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_triangle.h"
 				>
 			</File>
@@ -1459,11 +1495,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\random_triangle.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\random_uniform.h"
 				>
 			</File>
 			<File
 				RelativePath=".\random_uniform.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\random_uniform.txt"
 				>
 			</File>
 			<File
@@ -1535,11 +1579,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\more_news.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\pastel.txt"
 				>
 			</File>
 			<File
 				RelativePath=".\pastelsys.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\previous_releases.txt"
 				>
 			</File>
 			<File

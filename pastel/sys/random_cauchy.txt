@@ -1,0 +1,8 @@
+Cauchy-distributed random numbers
+=================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_cauchy.png
+	- Cauchy distribution with various parameters.

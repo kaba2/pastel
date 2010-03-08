@@ -1,0 +1,5 @@
+Uniformly-distributed random numbers
+====================================
+
+[[Parent]]: random.txt
+

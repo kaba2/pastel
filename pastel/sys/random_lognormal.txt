@@ -1,0 +1,8 @@
+Log-normal-distributed random numbers
+=====================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_lognormal.png
+	- Log-normal distribution with various parameters.
