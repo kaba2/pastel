@@ -1,0 +1,8 @@
+Chi-squared-distributed random numbers
+======================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_chisquared.png
+	- Chi-squared distribution with various parameters.

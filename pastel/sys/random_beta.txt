@@ -1,0 +1,8 @@
+Beta-distributed random numbers
+===============================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_beta.png
+	- Beta distribution with various parameters.

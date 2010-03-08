@@ -9,7 +9,9 @@ to the given texture.
 Example
 -------
 
-![Radial texture](../../images/transform_texture.png)
+[[Gallery]]:
+	../../images/transform_texture.png
+	- Radial texture
 
 _The result of rotating and translating the Lena image 
 with the transform texture distortion. We used mirroring 

@@ -1,0 +1,5 @@
+Dirichlet-distributed random numbers
+====================================
+
+[[Parent]]: random.txt
+

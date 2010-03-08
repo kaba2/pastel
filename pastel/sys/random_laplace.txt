@@ -1,0 +1,8 @@
+Laplace-distributed random numbers
+==================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_laplace.png
+	- Laplace distribution with various parameters.

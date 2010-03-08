@@ -1,0 +1,8 @@
+Triangle-distributed random numbers
+===================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_triangle.png
+	- Triangle distribution with various parameters.

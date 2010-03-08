@@ -1,0 +1,8 @@
+Gamma-distributed random numbers
+================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_gamma.png
+	- Gamma distribution with various parameters.

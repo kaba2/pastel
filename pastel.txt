@@ -10,6 +10,30 @@ Description
 
 _Pastel_ is a C++ library for geometry and computer graphics.
 
+News
+----
+
+### Released Pastel 1.1.0
+
+#### PastelGeometry
+
+ * Added best-first algorithm to nearest neighbors searching
+ and made it the default.
+ * Added hint-distances to nearest neighbors searching to
+ make it possible to make use of temporal coherence.
+ * Added median-of-longest-side splitting rule for PointKdTree.
+ 
+#### PastelSys
+
+ * Fixed a bug with nextSmaller and nextGreater function.
+ * Added isNan.
+ 
+#### PastelGfxUi
+
+ * A new library to offer a simple graphical gui.
+
+[[Link]]: more_news.txt
+
 Source code
 -----------
 
@@ -24,9 +48,11 @@ Pastel has several dependencies to third-party libraries which must also be
 installed if you want to build Pastel yourself. See the _External dependencies_ 
 link below for more information.
 
-[Download Pastel][DownloadSource].
+[Download Pastel 1.1.0][Pastel-Source-1.1.0]
 
-[DownloadSource]: ./files/pastel-1.0.1.zip
+[Pastel-Source-1.1.0]: ./files/pastel-source-1.1.0.zip
+
+[[Link]]: previous_releases.txt
 
 Note on web-browsers
 --------------------
@@ -70,10 +96,12 @@ Pastel divides into a number of sub-libraries. These are:
 [PastelGl]: ./pastel/gl/pastelgl.htm
 
 [[set DocChildren.no_links_for]]:
-	./pastel/sys/pastelsys.txt
-	./pastel/math/pastelmath.txt
-	./pastel/geometry/pastelgeometry.txt
-	./pastel/dsp/pasteldsp.txt
-	./pastel/gfx/pastelgfx.txt
-	./pastel/device/pasteldevice.txt
-	./pastel/gl/pastelgl.txt
+	pastel/sys/pastelsys.txt
+	pastel/math/pastelmath.txt
+	pastel/geometry/pastelgeometry.txt
+	pastel/dsp/pasteldsp.txt
+	pastel/gfx/pastelgfx.txt
+	pastel/device/pasteldevice.txt
+	pastel/gl/pastelgl.txt
+	previous_releases.txt
+	more_news.txt

@@ -1,0 +1,8 @@
+Exponential-distributed random numbers
+======================================
+
+[[Parent]]: random.txt
+
+[[Gallery]]: 
+	../../images/random_exponential.png
+	- Exponential distribution with various parameters.
