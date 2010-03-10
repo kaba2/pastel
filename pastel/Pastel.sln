@@ -91,12 +91,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelRay", "ray\pastelray.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelRayTest", "..\test\raytest\pastelraytest.vcproj", "{55AD7A34-33A4-497C-9232-600640C1F73B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxUi", "gfx_ui\PastelGfxUi.vcproj", "{0B447ABF-385F-475F-BF5F-88E4EE20BB98}"
-	ProjectSection(ProjectDependencies) = postProject
-		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
-		{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D} = {9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}
-		{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5} = {3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxUi", "gfxui\PastelGfxUi.vcproj", "{0B447ABF-385F-475F-BF5F-88E4EE20BB98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -54,4 +54,6 @@ The invidual mip-maps have been combined into a single image
 for visualization. Note: this image was originally 1024 x 1024,
 which I resampled to 512 x 512 to better fit the webpage.
 
-![Mip-map](../../images/mipmap.png)
+[[Gallery]]:
+	../../images/mipmap.png
+	- A mip-map illustrated.

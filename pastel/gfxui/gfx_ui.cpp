@@ -1,4 +1,4 @@
-#include "pastel/gfx_ui/gfx_ui.h"
+#include "pastel/gfxui/gfx_ui.h"
 
 #include "pastel/device/devicesystem.h"
 

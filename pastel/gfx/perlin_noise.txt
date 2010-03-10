@@ -6,16 +6,10 @@ Perlin's classic noise
 Examples
 --------
 
-![Perlin's classic noise in 1d](../../images/perlin_noise_1d.png)
-
-_Figure 1: Perlin's classic noise in 1d. Each point has been
-extended to a vertical line for visualization._
-
-![Perlin's classic noise in 2d](../../images/perlin_noise_2d.png)
-
-_Figure 2: Perlin's classic noise in 2d._
-
-![Perlin's classic noise in 3d](../../images/perlin_noise_3d.png)
-
-_Figure 3: Perlin's classic noise in 3d with a slice through
-a 2d-plane._
+[[Gallery]]:
+	../../images/perlin_noise_1d.png
+	- Perlin's classic noise in 1d. Each point has been extended to a vertical line for visualization.
+	../../images/perlin_noise_2d.png
+	- Perlin's classic noise in 2d.
+	../../images/perlin_noise_3d.png
+	- Perlin's classic noise in 3d with a slice through a 2d-plane.

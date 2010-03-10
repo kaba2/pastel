@@ -30,18 +30,13 @@ each leaf node with its corresponding bucket node.
 
 In the following the semi-dynamic kd-tree is illustrated in ''RR^2'' with bucket size 4.
 
-![Semi-dynamic kd-tree](../../images/semidynamic_kdtree.png)
-
-_Figure 1. A semi-dynamic kd-tree visualized. Bucket nodes marked in blue. 
-Number of objects in a subtree shown after dash._
-
-![Bucket nodes of a m-r kd-tree](../../images/semidynamic_kdtree_buckets.png)
-
-_Figure 2. Non-empty bucket nodes of the kd-tree from Figure 1._
-
-![Leaf nodes of a m-r kd-tree](../../images/semidynamic_kdtree_leaves.png)
-
-_Figure 3. Leaf nodes of the kd-tree from Figure 1._
+[[Gallery]]:
+	../../images/semidynamic_kdtree.png
+	- Figure 1. A semi-dynamic kd-tree visualized. Bucket nodes marked in blue. Number of objects in a subtree shown after dash.
+	../../images/semidynamic_kdtree_buckets.png
+	- Figure 2. Non-empty bucket nodes of the semi-dynamic kd-tree from Figure 1.
+	../../images/semidynamic_kdtree_leaves.png
+	- Figure 3. Leaf nodes of the semi-dynamic kd-tree from Figure 1.
 
 Practice
 --------
