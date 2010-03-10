@@ -11,7 +11,7 @@
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 
-#include "pastel/gfx_ui/gfx_ui.h"
+#include "pastel/gfxui/gfx_ui.h"
 
 #include "pastel/geometry/convexhull.h"
 

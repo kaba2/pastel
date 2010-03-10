@@ -1,0 +1,9 @@
+PastelGfxUi
+===========
+
+[[Parent]]: pastel.txt
+
+The purpose of the PastelGfxUi sub-library is to provide 
+a simple graphical user interface. A separate sub-library
+was needed because this component is dependent on both
+PastelGfx and PastelDevice, which are independent of each other.

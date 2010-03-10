@@ -1,7 +1,9 @@
+// Description: A simple graphical user interface
+
 #ifndef PASTEL_GFX_UI_H
 #define PASTEL_GFX_UI_H
 
-#include "pastel/gfx_ui/gfxuilibrary.h"
+#include "pastel/gfxui/gfxuilibrary.h"
 
 #include "pastel/gfx/gfxrenderer.h"
 #include "pastel/gfx/color.h"

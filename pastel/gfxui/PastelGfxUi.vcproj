@@ -311,6 +311,10 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\common.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\gfx_ui.cpp"
 			>
 		</File>
@@ -319,7 +323,15 @@
 			>
 		</File>
 		<File
+			RelativePath=".\gfx_ui.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\gfxuilibrary.h"
+			>
+		</File>
+		<File
+			RelativePath=".\pastelgfxui.txt"
 			>
 		</File>
 	</Files>

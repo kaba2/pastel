@@ -73,35 +73,30 @@ Sub-libraries
 
 Pastel divides into a number of sub-libraries. These are:
 
-### [PastelSys][]
+### [[Link]]: pastel/device/pasteldevice.txt
 
-### [PastelMath][]
+### [[Link]]: pastel/dsp/pasteldsp.txt
 
-### [PastelGeometry][]
+### [[Link]]: pastel/geometry/pastelgeometry.txt
 
-### [PastelDsp][]
+### [[Link]]: pastel/gfx/pastelgfx.txt
 
-### [PastelGfx][]
+### [[Link]]: pastel/gfxui/pastelgfxui.txt
 
-### [PastelDevice][]
+### [[Link]]: pastel/gl/pastelgl.txt
 
-### [PastelGl][]
+### [[Link]]: pastel/math/pastelmath.txt
 
-[PastelSys]: ./pastel/sys/pastelsys.htm
-[PastelMath]: ./pastel/math/pastelmath.htm
-[PastelGeometry]: ./pastel/geometry/pastelgeometry.htm
-[PastelDsp]: ./pastel/dsp/pasteldsp.htm
-[PastelGfx]: ./pastel/gfx/pastelgfx.htm
-[PastelDevice]: ./pastel/device/pasteldevice.htm
-[PastelGl]: ./pastel/gl/pastelgl.htm
+### [[Link]]: pastel/sys/pastelsys.txt
 
-[[set DocChildren.no_links_for]]:
-	pastel/sys/pastelsys.txt
-	pastel/math/pastelmath.txt
-	pastel/geometry/pastelgeometry.txt
-	pastel/dsp/pasteldsp.txt
-	pastel/gfx/pastelgfx.txt
+[[set_outer DocChildren.no_links_for]]:
 	pastel/device/pasteldevice.txt
+	pastel/dsp/pasteldsp.txt
+	pastel/geometry/pastelgeometry.txt
+	pastel/gfx/pastelgfx.txt
+	pastel/gfxui/pastelgfxui.txt
 	pastel/gl/pastelgl.txt
+	pastel/math/pastelmath.txt
+	pastel/sys/pastelsys.txt
 	previous_releases.txt
 	more_news.txt

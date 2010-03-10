@@ -13,7 +13,7 @@
 #include "pastel/gl/glgfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 
-#include "pastel/gfx_ui/gfx_ui.h"
+#include "pastel/gfxui/gfx_ui.h"
 
 #include "pastel/geometry/convexhull.h"
 #include "pastel/geometry/diameter.h"

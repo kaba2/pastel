@@ -1579,7 +1579,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\more_news.txt"
+				RelativePath="..\..\more_news.txt"
 				>
 			</File>
 			<File
@@ -1591,7 +1591,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\previous_releases.txt"
+				RelativePath="..\..\previous_releases.txt"
 				>
 			</File>
 			<File

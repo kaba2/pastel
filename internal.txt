@@ -10,4 +10,6 @@ or only as a subset if some functionality is not required.
 The following (transitively reduced) graph summarizes the 
 internal dependencies.
 
-![Internal dependencies](./images/internal_dependencies.png)
+[[Gallery]]:
+	internal_dependencies.png
+	- Internal dependencies between the sub-libraries of Pastel.
