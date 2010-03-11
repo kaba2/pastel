@@ -17,6 +17,13 @@
 #   define PASTEL_ENABLE_OMP 0
 #endif
 
+#ifdef _DEBUG
+#	undef PASTEL_DEBUG_MODE
+#	define PASTEL_DEBUG_MODE 1
+#	undef PASTEL_ENABLE_PENSURES
+#	define PASTEL_ENABLE_PENSURES 1
+#endif
+
 // Output value determination
 
 // PORTABILITY: dynamic libraries are not standard C++.

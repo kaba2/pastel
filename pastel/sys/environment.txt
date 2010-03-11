@@ -20,7 +20,8 @@ performance degradation, notably when the function is of low complexity.
 These checks are marked as PENSUREs, for 'Performance ENSURE'.
 This build switch controls the code generation for PENSURES.
 If PASTEL_ENABLE_PENSURES != 0, the tests are generated,
-otherwise they are not.
+otherwise they are not. If _DEBUG is defined, PASTEL_ENABLE_PENSURES
+is forced to 1.
 
 ### PASTEL_DEBUG_MODE
 
@@ -31,7 +32,8 @@ on the part of the implementation. They can possibly interfere
 with optimization and therefore this switch allows to control
 whether their code is generated or not.
 If PASTEL_DEBUG_MODE != 0, the tests are generated, otherwise
-they are not.
+they are not. If _DEBUG is defined, PASTEL_DEBUG_MODE
+is forced to 1.
 
 ### PASTEL_ENABLE_OMP
 
