@@ -5,6 +5,6 @@ Previous releases
 
 ### Version 1.0.1
 
-[Download Pastel 1.0.1][Pastel-Source-1.0.1]
+[Download Pastel 1.0.1][Pastel-1.0.1]
 
-[Pastel-Source-1.0.1]: .files/pastel-source-1.0.1.zip
+[Pastel-1.0.1]: .files/pastel-1.0.1.zip

@@ -48,9 +48,9 @@ Pastel has several dependencies to third-party libraries which must also be
 installed if you want to build Pastel yourself. See the _External dependencies_ 
 link below for more information.
 
-[Download Pastel 1.1.0][Pastel-Source-1.1.0]
+[Download Pastel 1.1.0][Pastel-1.1.0]
 
-[Pastel-Source-1.1.0]: ./files/pastel-source-1.1.0.zip
+[Pastel-1.1.0]: ./files/pastel-1.1.0.zip
 
 [[Link]]: previous_releases.txt
 
