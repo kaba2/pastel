@@ -50,7 +50,7 @@ link below for more information.
 
 [Download Pastel 1.1.0][Pastel-1.1.0]
 
-[Pastel-1.1.0]: pastel-1.1.0.zip
+[Pastel-1.1.0]: files/pastel-1.1.0.zip
 
 [[Link]]: previous_releases.txt
 
