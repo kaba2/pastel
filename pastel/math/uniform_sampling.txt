@@ -45,4 +45,4 @@ See also
 
 [[Link]]: uniform_distortion.txt
 
-[[Link]]: ../sys/random.txt
+[[Link]]: random.txt

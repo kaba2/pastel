@@ -56,7 +56,7 @@ Matt Pharr, Greg Humphreys, 2004.
 See also
 --------
 
-[[Link]]: ../geometry/poissondiskpattern.txt
+[[Link]]: poissondiskpattern.txt
 
 [[Link]]: uniform_distortion.txt
 

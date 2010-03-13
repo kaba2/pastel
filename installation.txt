@@ -33,6 +33,6 @@ See also
 
 [[Link]]: external.txt
 
-[[Link]]: ./pastel/sys/environment.txt
+[[Link]]: environment.txt
 
 
