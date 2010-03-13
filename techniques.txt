@@ -13,4 +13,4 @@ make more sense of the source code.
 See also
 --------
 
-[[Link]]: ./pastel/sys/ensure.txt
+[[Link]]: ensure.txt

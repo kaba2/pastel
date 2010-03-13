@@ -7,4 +7,4 @@ Previous releases
 
 [Download Pastel 1.0.1][Pastel-1.0.1]
 
-[Pastel-1.0.1]: .files/pastel-1.0.1.zip
+[Pastel-1.0.1]: files/pastel-1.0.1.zip
