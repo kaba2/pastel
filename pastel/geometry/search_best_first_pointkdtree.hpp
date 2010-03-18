@@ -62,7 +62,7 @@ namespace Pastel
 				// into results.
 			}
 
-			void workTopDown()
+			void work()
 			{
 				std::priority_queue<
 					KeyValue<real, Cursor>, 
@@ -96,11 +96,8 @@ namespace Pastel
 					}
 
 					bool brokeOut = false;
-					//while(!cursor.isBucket())
-					while(cursor.objects() > kdTree.bucketSize())
+					while(!cursor.leaf() && cursor.objects() > kdTree.bucketSize())
 					{
-						ASSERT(!cursor.leaf());
-
 						// For an intermediate node our task is to
 						// recurse to child nodes while updating
 						// incrementally the distance 
@@ -192,7 +189,6 @@ namespace Pastel
 					}
 					if (!brokeOut)
 					{
-						ASSERT(!cursor.empty());
 						searchBruteForce(cursor);
 					}
 				}
@@ -280,7 +276,7 @@ namespace Pastel
 			bestFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
 			acceptPoint, normBijection, candidateFunctor);
 
-		bestFirst.workTopDown();
+		bestFirst.work();
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
@@ -308,7 +304,7 @@ namespace Pastel
 			bestFirst(kdTree, searchPoint2, maxDistance, maxRelativeError,
 			acceptPoint, normBijection, candidateFunctor);
 
-		bestFirst.workTopDown();
+		bestFirst.work();
 	}
 
 }

@@ -65,19 +65,6 @@ namespace Pastel
 			return node_->leaf();
 		}
 
-		bool isBucket() const
-		{
-			PENSURE(node_);
-			return node_->isBucket();
-		}
-
-		Cursor bucket() const
-		{
-			PENSURE(node_);
-			PENSURE(leaf());
-			return Cursor(node_->bucket());
-		}
-
 		// Objects
 
 		ConstObjectIterator begin() const

@@ -140,10 +140,6 @@ namespace Pastel
 
 				node->setLeft(0);
 				node->setRight(0);
-
-				// The node is now a leaf node.
-
-				node->setBucket(findBucketUpwards(node));
 			}
 		}
 	}
@@ -171,104 +167,6 @@ namespace Pastel
 
 		nodeAllocator_.deallocate(node);
 	}
-
-	template <typename Real, int N, typename ObjectPolicy>
-	typename PointKdTree<Real, N, ObjectPolicy>::Node* 
-		PointKdTree<Real, N, ObjectPolicy>::findBucketUpwards(
-		Node* node)
-	{
-		ASSERT(node);
-		
-		// Let limitSize = max(bucketSize_, leafNode->objects()).
-		// A bucket node of a leaf node is a node
-		// defined as follows. The bucket node of 
-		// an empty leaf node is the node itself.
-		// If the leaf node is not empty, its
-		// bucket node is a node such that:
-		//
-		// 1) The leaf node is in the subtree of the
-		// node.
-		//
-		// 2) The parent of the node, if it
-		// exists, contains greater than 'limitSize'
-		// number of points.
-		//
-		// 3) The node contains less than or equal to 
-		// 'limitSize' number of points.
-
-		if (node->empty())
-		{
-			ASSERT(node->leaf() || empty());
-			return node;
-		}
-
-		const integer limitSize = 
-			std::max(bucketSize_, node->objects());
-
-		Node* bucket = node;
-		Node* parent = bucket->parent();
-		while(parent)
-		{
-			if (parent->objects() > limitSize)
-			{
-				break;
-			}
-			
-			bucket = parent;
-			parent = parent->parent();
-		}
-
-		return bucket;
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::setBucket(
-		Node* subtree, Node* bucket)
-	{
-		ASSERT(subtree);
-		ASSERT(bucket);
-
-		// The problem is to set all the bucket nodes
-		// of empty leaf nodes under a subtree.
-		// Since empty leaf nodes are their own bucket
-		// nodes, they need not (and should not) be updated.
-		//
-		// First assume that the subtree has less than
-		// or equal to 'bucketSize_' number of objects.
-		// Then this task can be carried out by
-		// assigning to the bucket node pointers of the 
-		// leaf nodes of the objects in the subtree.
-		// Because 'bucketSize_' is a constant, this
-		// is a constant-time operation and in particular
-		// independent of the tree depth.
-		//
-		// Now assume that the subtree has greater than
-		// 'bucketSize_' number of objects.
-		// Then by the definition of a bucket node
-		// all of the objects are in the same leaf node.
-		// This leaf node can be accessed by the 
-		// the leaf node of the first object in the
-		// subtree. Thus also in this case the operation
-		// is constant time.
-
-		if (subtree->objects() > bucketSize_)
-		{
-			Node* leaf = subtree->first()->leaf().node_;
-			leaf->setBucket(bucket);
-		}
-		else
-		{
-			ConstObjectIterator iter = subtree->first();
-			const ConstObjectIterator iterEnd = subtree->end();
-			while(iter != iterEnd)
-			{
-				Node* leaf = iter->leaf().node_;
-				leaf->setBucket(bucket);
-				++iter;
-			}
-		}
-	}
-
 
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::setLeaf(
@@ -367,13 +265,7 @@ namespace Pastel
 		node->setLast(objectList_.end());
 		node->setObjects(0);
 
-		if (node->leaf())
-		{
-			// Empty leaf nodes are their
-			// own bucket nodes.
-			node->setBucket(node);
-		}
-		else
+		if (!node->leaf())
 		{
 			// Recurse deeper.
 
@@ -447,11 +339,6 @@ namespace Pastel
 		setLeaf(left->first(), left->end(), left);
 		setLeaf(right->first(), right->end(), right);
 
-		// Store the current bucket node because
-		// it is going to be overwritten.
-
-		Node* bucket = node->bucket();
-
 		// Turn the subdivided node into a split node.
 
 		node->setLeft(left);
@@ -472,26 +359,6 @@ namespace Pastel
 		// so it's only one up.
 
 		++leaves_;
-
-		// Possibly update bucket nodes.
-		// Empty leaf nodes should have their
-		// bucket node point to themselves,
-		// which is set by default in construction.
-
-		const bool branches = 
-			(leftObjects > 0) && (rightObjects > 0);
-
-		if (bucket->objects() <= bucketSize_ || !branches)
-		{
-			if (leftObjects > 0)
-			{
-				left->setBucket(bucket);
-			}
-			if (rightObjects > 0)
-			{
-				right->setBucket(bucket);
-			}
-		}
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -576,12 +443,9 @@ namespace Pastel
 		Node* node,
 		const ObjectIterator& first, 
 		const ObjectIterator& last,
-		integer objects,
-		Node* bucketNode,
-		Node* newBucketNode)
+		integer objects)
 	{
 		ASSERT(node);
-		ASSERT(newBucketNode);
 		ASSERT_OP(objects, >, 0);
 
 		const ObjectIterator begin = first;
@@ -598,9 +462,6 @@ namespace Pastel
 
 			// Update the node's object range.
 			node->insert(first, last, objects, objectList_.end());
-
-			// Set the bucket node.
-			node->setBucket(newBucketNode);
 		}
 		else
 		{
@@ -630,41 +491,6 @@ namespace Pastel
 			Node* left = node->left();
 			Node* right = node->right();
 
-			if (!bucketNode && node->isBucket())
-			{
-				bucketNode = node;
-			}
-
-			Node* leftBucket = bucketNode;
-			Node* rightBucket = bucketNode;
-			Node* newLeftBucket = newBucketNode;
-			Node* newRightBucket = newBucketNode;
-
-			const bool branches = 
-				(newLeftObjects + left->objects() > 0) &&
-				(newRightObjects + right->objects() > 0);
-
-			// This is a non-empty bucket node.
-			// If the addition of these points causes 
-			// the bucket threshold to be exceeded and the
-			// node is not one-sided...
-			if (node->objects() + objects > bucketSize_ && branches)
-			{
-				// ... then refine the bucket nodes to
-				// the subtrees.
-
-				if (bucketNode)
-				{
-					setBucket(left, left);
-					setBucket(right, right);
-					leftBucket = left;
-					rightBucket = right;
-				}
-
-				newLeftBucket = left;
-				newRightBucket = right;
-			}
-
 			if (newLeftObjects > 0)
 			{
 				// If there are objects going to the left node,
@@ -673,9 +499,7 @@ namespace Pastel
 				insert(
 					left, 
 					newLeftFirst, newLeftLast, 
-					newLeftObjects,
-					leftBucket,
-					newLeftBucket);
+					newLeftObjects);
 			}
 			if (newRightObjects > 0)
 			{
@@ -685,9 +509,7 @@ namespace Pastel
 				insert(
 					right, 
 					newRightFirst, newRightLast, 
-					newRightObjects,
-					rightBucket,
-					newRightBucket);
+					newRightObjects);
 			}
 
 			// Update the object information.

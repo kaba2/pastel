@@ -374,11 +374,6 @@ namespace Pastel
 				return Cursor((Node*)leafNode_);
 			}
 		
-			Cursor bucket() const
-			{
-				return Cursor((Node*)leafNode_->bucket());
-			}
-
 		private:
 			void setLeaf(
 				const Node* leafNode) const
@@ -417,16 +412,6 @@ namespace Pastel
 
 		//! Deallocate the nodes of a subtree.
 		void erase(Node* node);
-
-		//! Find the bucket node starting from a given node.
-		/*!
-		The bucket node is searched from the given node 
-		_upwards_.
-		*/
-		Node* findBucketUpwards(Node* node);
-
-		//! Sets the buckets of non-empty leaf nodes of a subtree.
-		void setBucket(Node* subtree, Node* bucket);
 
 		//! Sets the leaf nodes of a range of objects.
 		void setLeaf(
@@ -520,9 +505,7 @@ namespace Pastel
 			Node* node,
 			const ObjectIterator& first, 
 			const ObjectIterator& last,
-			integer count,
-			Node* bucketNode,
-			Node* newBucketNode);
+			integer count);
 
 		//! Subdivides the tree using the given subdivision rule.
 		/*!
