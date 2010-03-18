@@ -34,6 +34,7 @@ namespace Pastel
 		}
 
 		const integer queries = querySet.size();
+		const integer dimension = kdTree.dimension();
 
 		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 			ConstObjectIterator;
@@ -43,9 +44,12 @@ namespace Pastel
 		{
 			PENSURE_OP(maxDistanceSet[i], >=, 0);
 
+			const Vector<Real, N> queryPoint(ofDimension(dimension), 
+				withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
+
 			result[i] = countNearest(
 				kdTree, 
-				querySet[i], 
+				queryPoint, 
 				maxDistanceSet[i], 
 				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
 				normBijection) + 1;
