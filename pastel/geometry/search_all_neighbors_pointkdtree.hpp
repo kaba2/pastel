@@ -20,7 +20,6 @@ namespace Pastel
 		typename ConstObjectIterator_Iterator, 
 		typename Real_Iterator,
 		typename NormBijection,
-		typename Real_Iterator_Hint,
 		typename SearchAlgorithm>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -32,14 +31,12 @@ namespace Pastel
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const NormBijection& normBijection,
-		const RandomAccessRange<Real_Iterator_Hint>& hintDistanceSet,
 		const SearchAlgorithm& searchAlgorithm)
 	{
 		ENSURE_OP(kNearestBegin, >=, 0);
 		ENSURE_OP(kNearestBegin, <=, kNearestEnd);
 		ENSURE_OP(maxRelativeError, >=, 0);
 		ENSURE_OP(maxDistanceSet.size(), >=, querySet.size());
-		ENSURE_OP(hintDistanceSet.size(), >=, querySet.size());
 
 		const integer kNearest = kNearestEnd - kNearestBegin;
 
@@ -75,7 +72,6 @@ namespace Pastel
 		for (integer i = 0;i < queries;++i)
 		{
 			ENSURE_OP(maxDistanceSet[i], >=, 0);
-			ENSURE_OP(hintDistanceSet[i], >=, 0);
 
 			integer nearestCount = 0;
 
@@ -83,36 +79,15 @@ namespace Pastel
 				ofDimension(kdTree.dimension()), 
 				withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
 
-			if (hintDistanceSet[i] < maxDistanceSet[i])
-			{
-				nearestCount = 
-					searchNearest(
-					kdTree, queryPoint, 
-					kNearestEnd,
-					nearestSet.begin(), distanceSet.begin(),
-					hintDistanceSet[i], maxRelativeError,
-					Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
-					normBijection, 
-					searchAlgorithm);
-			}
-
-			if (nearestCount < kNearestEnd)
-			{
-				// Either the hint distance was larger
-				// than the maximum distance or the
-				// hint failed. In any case, perform a 
-				// search with the maximum distance.
-
-				nearestCount = 
-					searchNearest(
-					kdTree, queryPoint, 
-					kNearestEnd,
-					nearestSet.begin(), distanceSet.begin(),
-					maxDistanceSet[i], maxRelativeError,
-					Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
-					normBijection, 
-					searchAlgorithm);
-			}
+			nearestCount = 
+				searchNearest(
+				kdTree, queryPoint, 
+				kNearestEnd,
+				nearestSet.begin(), distanceSet.begin(),
+				maxDistanceSet[i], maxRelativeError,
+				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
+				normBijection, 
+				searchAlgorithm);
 
 			if (nearestArray)
 			{
@@ -151,32 +126,6 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, 
 		typename Real_Iterator,
-		typename NormBijection,
-		typename Real_Iterator_Hint>
-	void searchAllNeighbors(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
-		integer kNearestBegin,
-		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator, 2>* nearestArray,
-		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
-		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const NormBijection& normBijection,
-		const RandomAccessRange<Real_Iterator_Hint>& hintDistanceSet)
-	{
-		Pastel::searchAllNeighbors(
-			kdTree, querySet,
-			kNearestBegin, kNearestEnd,
-			nearestArray, distanceArray,
-			maxDistanceSet, maxRelativeError,
-			normBijection, hintDistanceSet,
-			BestFirst_SearchAlgorithm_PointKdTree());
-	}
-
-	template <typename Real, int N, typename ObjectPolicy,
-		typename ConstObjectIterator_Iterator, 
-		typename Real_Iterator,
 		typename NormBijection>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
@@ -194,8 +143,8 @@ namespace Pastel
 			kNearestBegin, kNearestEnd,
 			nearestArray, distanceArray,
 			maxDistanceSet, maxRelativeError,
-			normBijection,
-			constantRange(infinity<Real>(), querySet.size()));
+			normBijection, 
+			BestFirst_SearchAlgorithm_PointKdTree());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy,
