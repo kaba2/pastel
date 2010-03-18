@@ -95,7 +95,6 @@ namespace Pastel
 						break;
 					}
 
-					bool brokeOut = false;
 					while(!cursor.leaf() && cursor.objects() > kdTree.bucketSize())
 					{
 						// For an intermediate node our task is to
@@ -171,23 +170,9 @@ namespace Pastel
 							}
 						}
 
-						if (nearBranch.empty())
-						{
-							// If the near child is empty,
-							// then we should get another
-							// node from the queue.
-							brokeOut = true;
-							break;
-						}
-						else
-						{
-							// Otherwise we should continue
-							// searching the near branch, since
-							// it still has the nearest node.
-							cursor = nearBranch;
-						}
+						cursor = nearBranch;
 					}
-					if (!brokeOut)
+					if (!cursor.empty())
 					{
 						searchBruteForce(cursor);
 					}
@@ -274,34 +259,6 @@ namespace Pastel
 
 		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
 			bestFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
-			acceptPoint, normBijection, candidateFunctor);
-
-		bestFirst.work();
-	}
-
-	template <typename Real, int N, typename ObjectPolicy, 
-		typename AcceptPoint, typename NormBijection, 
-		typename CandidateFunctor>
-	void searchBestFirst(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-		const AcceptPoint& acceptPoint,
-		const NormBijection& normBijection,
-		const CandidateFunctor& candidateFunctor)
-	{
-		if (kdTree.empty())
-		{
-			return;
-		}
-
-		Vector<Real, N> searchPoint2(
-			ofDimension(kdTree.dimension()), 
-			withAliasing((Real*)kdTree.objectPolicy().point(searchPoint->object())));
-
-		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			bestFirst(kdTree, searchPoint2, maxDistance, maxRelativeError,
 			acceptPoint, normBijection, candidateFunctor);
 
 		bestFirst.work();
