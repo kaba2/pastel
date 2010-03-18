@@ -61,12 +61,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename NearestIterator, 
+		typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
 		typename NormBijection, typename SearchAlgorithm>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -137,12 +137,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename NearestIterator, 
+		typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
 		typename NormBijection>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -160,11 +160,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename NearestIterator, 
+		typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -180,11 +180,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename NearestIterator, 
+		typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -199,11 +199,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename NearestIterator, 
+		typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -216,11 +216,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename NearestIterator, 
+		typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin)

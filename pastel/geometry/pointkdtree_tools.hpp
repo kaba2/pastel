@@ -71,24 +71,6 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT(cursor.empty() && cursor.bucket() != cursor))
-				{
-					return false;
-				}
-
-				const Cursor bucket = cursor.bucket();
-
-				if (REPORT(bucket.objects() > tree.bucketSize() && bucket.objects() != cursor.objects()))
-				{
-					return false;
-				}
-
-				if (REPORT(bucket.parent().exists() && !bucket.empty() && 
-					bucket.parent().objects() == bucket.objects()))
-				{
-					return false;
-				}
-
 				ConstObjectIterator iter = cursor.begin();
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)

@@ -79,11 +79,15 @@ namespace Pastel
 
 			integer nearestCount = 0;
 
+			Vector<Real, N> queryPoint(
+				ofDimension(kdTree.dimension()), 
+				withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
+
 			if (hintDistanceSet[i] < maxDistanceSet[i])
 			{
 				nearestCount = 
 					searchNearest(
-					kdTree, querySet[i], 
+					kdTree, queryPoint, 
 					kNearestEnd,
 					nearestSet.begin(), distanceSet.begin(),
 					hintDistanceSet[i], maxRelativeError,
@@ -101,7 +105,7 @@ namespace Pastel
 
 				nearestCount = 
 					searchNearest(
-					kdTree, querySet[i], 
+					kdTree, queryPoint, 
 					kNearestEnd,
 					nearestSet.begin(), distanceSet.begin(),
 					maxDistanceSet[i], maxRelativeError,

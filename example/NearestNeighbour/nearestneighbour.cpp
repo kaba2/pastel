@@ -341,20 +341,8 @@ void NearestNeighbor_Gfx_Ui::drawBspTree(
 	integer depth,
 	integer bucketSize)
 {
-	if (cursor.isBucket())
+	if (cursor.objects() <= bucketSize)
 	{
-		if (!cursor.empty())
-		{
-			MyTree::Cursor bucket = cursor;
-
-			if (bucket.parent().exists() && !bucket.empty() && 
-				bucket.parent().objects() == bucket.objects())
-			{
-				renderer().setColor(Color(1, 0, 0) / std::pow((real)(depth + 1), (real)0.5));
-				drawSegment(renderer(), Segment2(bound.min(), bound.max()));
-			}
-		}
-
 		return;
 	}
 	if (!cursor.leaf() && drawTree_ && !cursor.empty())

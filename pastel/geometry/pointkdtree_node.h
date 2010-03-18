@@ -65,36 +65,9 @@ namespace Pastel
 			return left_;
 		}
 
-		void setBucket(Node* bucket)
-		{
-			ASSERT(leaf());
-			ASSERT(bucket);
-			// Can't assert since this information
-			// might be out-of-sync at the moment.
-			//ASSERT(objects_ > 0 || bucket_ == this);
-
-			bucket_ = bucket;
-		}
-
-		Node* bucket() const
-		{
-			ASSERT(leaf());
-			return bucket_;
-		}
-
 		bool leaf() const
 		{
 			return left_ == 0;
-		}
-
-		bool isBucket() const
-		{
-			if (objects_ == 0)
-			{
-				return leaf();
-			}
-
-			return (this == first_->leaf().node_->bucket_);
 		}
 
 		// Objects
@@ -247,11 +220,7 @@ namespace Pastel
 		// Tree
 
 		Node* parent_;
-		union
-		{
-			Node* right_;
-			Node* bucket_;
-		};
+		Node* right_;
 		Node* left_;
 
 		// Objects

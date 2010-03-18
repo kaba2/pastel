@@ -45,11 +45,11 @@ namespace Pastel
 	See 'pastel/math/normbijection_concept.txt'.
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename SearchPoint, typename AcceptPoint, 
+		typename AcceptPoint, 
 		typename NormBijection>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint,
 		const NormBijection& normBijection);
@@ -62,10 +62,10 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename ObjectPolicy,
-	typename SearchPoint, typename AcceptPoint>
+	typename AcceptPoint>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint);
 
@@ -76,11 +76,10 @@ namespace Pastel
 		Always_Accept<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(), 
 		Euclidean_NormBijection<Real>());
 	*/
-	template <typename Real, int N, typename ObjectPolicy,
-	typename SearchPoint>
+	template <typename Real, int N, typename ObjectPolicy>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const SearchPoint& searchPoint,
+		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance);
 
 }
