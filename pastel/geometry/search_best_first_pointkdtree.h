@@ -48,6 +48,18 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor);
 
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint, typename NormBijection, 
+		typename CandidateFunctor>
+	void searchBestFirst(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
+		const NormBijection& normBijection,
+		const CandidateFunctor& candidateFunctor);
+
 	class BestFirst_SearchAlgorithm_PointKdTree
 	{
 	public:
