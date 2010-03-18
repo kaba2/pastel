@@ -64,12 +64,11 @@ namespace Pastel
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.
-	The possible algorithms at the moment are
+	The only possible algorithm at the moment is
 	BestFirst_SearchAlgorithm_PointKdTree
-	in 'search_best_first_pointkdtree.h' and
-	DepthFirst_SearchAlgorithm_PointKdTree
-	in 'search_depth_first_pointkdtree.h'. Default
-	construct an object of this class as an argument.
+	in 'search_best_first_pointkdtree.h'.
+	Default construct an object of this class as 
+	an argument.
 
 	returns:
 	The number of found neighbors.

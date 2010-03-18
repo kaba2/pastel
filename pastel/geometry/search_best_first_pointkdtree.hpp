@@ -64,28 +64,40 @@ namespace Pastel
 
 			void workTopDown()
 			{
-				nodeQueue.push(
-					keyValue(
-					distance2(kdTree.bound(), searchPoint, normBijection),
-					kdTree.root()));
-				workTopDown_();
-			}
+				std::priority_queue<
+					KeyValue<real, Cursor>, 
+					std::vector<KeyValue<real, Cursor> >,
+					std::greater<KeyValue<real, Cursor> > > nodeQueue;
 
-			void workTopDown_()
-			{
+				if (!kdTree.root().empty())
+				{
+					nodeQueue.push(
+						keyValue(
+						distance2(kdTree.bound(), searchPoint, normBijection),
+						kdTree.root()));
+				}
+
 				while(!nodeQueue.empty())
 				{
 					const real distance = nodeQueue.top().key();
 					Cursor cursor = nodeQueue.top().value();
+					ASSERT(!cursor.empty());
 
 					nodeQueue.pop();
 
 					if (distance > nodeCullDistance)
 					{
+						// This is the closest node there is
+						// of all the non-visited nodes.
+						// Because it is beyond the current
+						// cull distance, we are done.
+
 						break;
 					}
 
-					while(!cursor.isBucket())
+					bool brokeOut = false;
+					//while(!cursor.isBucket())
+					while(cursor.objects() > kdTree.bucketSize())
 					{
 						ASSERT(!cursor.leaf());
 
@@ -115,31 +127,23 @@ namespace Pastel
 							// The search point is closer to the left branch so follow that.
 							farBranch = cursor.right();
 							nearBranch = cursor.left();
-							if (searchPosition < splitPosition)
-							{
-								farBoundDistance = normBijection.axis(
-									splitPosition - searchPosition);
-							}
+							farBoundDistance = normBijection.axis(
+								splitPosition - searchPosition);
 						}
 						else
 						{
 							// The search point is closer to the right branch so follow that.
 							farBranch = cursor.left();
 							nearBranch = cursor.right();
-							if (searchPosition > splitPosition)
-							{
-								farBoundDistance = normBijection.axis(
-									searchPosition - splitPosition);
-							}
+							farBoundDistance = normBijection.axis(
+								searchPosition - splitPosition);
 						}
-
-						// Follow downwards the kdTree with the nearer node.
-						cursor = nearBranch;
 
 						// Try to cull the farther node off based on the distance 
 						// of the search point to the farther bound.
+						// The far branch is only searched if it is non-empty.
 
-						if (farBoundDistance <= nodeCullDistance)
+						if (farBoundDistance <= nodeCullDistance && !farBranch.empty())
 						{
 							// Try to cull the farther node off based on the distance 
 							// of the search point to the farther child node.
@@ -169,68 +173,29 @@ namespace Pastel
 								nodeQueue.push(keyValue(childDistance, farBranch));
 							}
 						}
-					}
 
-					searchBruteForce(cursor);
-				}
-			}
-
-			void workBottomUp(const Cursor& startCursor)
-			{
-				ENSURE(startCursor.isBucket());
-
-				if (!startCursor.empty())
-				{
-					searchBruteForce(startCursor);
-				}
-
-				Cursor previous = startCursor;
-				Cursor cursor = startCursor.parent();
-				while(cursor.exists())
-				{
-					const Real searchPosition = 
-						searchPoint[cursor.splitAxis()];
-					const Real splitPosition =
-						cursor.splitPosition();
-
-					Cursor farBranch;
-					Real farBoundDistance = 0;
-
-					if (previous == cursor.left())
-					{
-						farBranch = cursor.right();
-						if (searchPosition < splitPosition)
+						if (nearBranch.empty())
 						{
-							farBoundDistance = normBijection.axis(
-								splitPosition - searchPosition);
+							// If the near child is empty,
+							// then we should get another
+							// node from the queue.
+							brokeOut = true;
+							break;
+						}
+						else
+						{
+							// Otherwise we should continue
+							// searching the near branch, since
+							// it still has the nearest node.
+							cursor = nearBranch;
 						}
 					}
-					else
+					if (!brokeOut)
 					{
-						farBranch = cursor.left();
-						if (searchPosition > splitPosition)
-						{
-							farBoundDistance = normBijection.axis(
-								searchPosition - splitPosition);
-						}
+						ASSERT(!cursor.empty());
+						searchBruteForce(cursor);
 					}
-
-					// Try to cull the farther node off based on the distance 
-					// of the search point to the farther bound.
-					if (!farBranch.empty() &&
-						farBoundDistance <= nodeCullDistance)
-					{
-						// No culling could be done, visit the farther node
-						// recursively.
-						nodeQueue.push(
-							keyValue(farBoundDistance, farBranch));
-					}
-					
-					previous = cursor;
-					cursor = cursor.parent();
 				}
-
-				workTopDown_();
 			}
 
 		private:
@@ -290,11 +255,6 @@ namespace Pastel
 			Real errorFactor;
 			Real nodeCullDistance;			
 			integer dimension;
-
-			std::priority_queue<
-				KeyValue<real, Cursor>, 
-				std::vector<KeyValue<real, Cursor> >,
-				std::greater<KeyValue<real, Cursor> > > nodeQueue;
 		};
 
 	}
@@ -348,7 +308,7 @@ namespace Pastel
 			bestFirst(kdTree, searchPoint2, maxDistance, maxRelativeError,
 			acceptPoint, normBijection, candidateFunctor);
 
-		bestFirst.workBottomUp(searchPoint->bucket());
+		bestFirst.workTopDown();
 	}
 
 }
