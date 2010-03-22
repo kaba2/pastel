@@ -23,11 +23,22 @@ namespace Pastel
 
 			template <typename Iterator>
 			void report(
+				const Iterator& iter) const
+			{
+				*output_ = iter;
+				++output_;
+			}
+
+			template <typename Iterator>
+			void report(
 				const Iterator& begin,
 				const Iterator& end,
 				integer count) const
 			{
-				output_ = std::copy(begin, end, output_);
+				output_ = std::copy(
+					countingIterator(begin), 
+					countingIterator(end), 
+					output_);
 			}
 
 		private:

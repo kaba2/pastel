@@ -10,49 +10,6 @@
 namespace Pastel
 {
 
-	namespace Detail_SearchRangeAlgorithm
-	{
-
-		template <typename Real, typename ObjectPolicy>
-		class Predicate
-		{
-		public:
-			Predicate(
-				integer axis,
-				const Real& min,
-				const Real& max,
-				const ObjectPolicy& objectPolicy)
-				: axis_(axis)
-				, min_(min)
-				, max_(max)
-				, objectPolicy_(objectPolicy)
-			{
-			}
-
-			template <typename Iterator>
-			bool operator()(const Iterator& that) const
-			{
-				const Real position = 
-					objectPolicy_.point(that->object(), axis_);
-
-				if (position < min_ ||
-					position > max_)
-				{
-					return false;
-				}
-
-				return true;
-			}
-
-		private:
-			integer axis_;
-			const Real& min_;
-			const Real& max_;
-			const ObjectPolicy& objectPolicy_;
-		};
-
-	}
-
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename Reporter_SearchRange>
 	void searchRangeAlgorithm(
@@ -96,6 +53,8 @@ namespace Pastel
 			}
 		}
 
+		const ObjectPolicy& objectPolicy = kdTree.objectPolicy();
+
 		std::vector<std::pair<Cursor, uint32> > nodeSet;
 		nodeSet.push_back(std::make_pair(kdTree.root(), rootFlags));
 
@@ -105,9 +64,8 @@ namespace Pastel
 			uint32 flags = nodeSet.back().second;
 			nodeSet.pop_back();
 
-			// As an invariant, the node:
-			// * intersects the query box
-			// * is not empty
+			// As an invariant, the node
+			// intersects the query box.
 
 			while(!cursor.leaf() && 
 				cursor.objects() > bucketSize)
@@ -192,55 +150,40 @@ namespace Pastel
 				// in the range.
 
 				reporter.report(
-					countingIterator(cursor.begin()), 
-					countingIterator(cursor.end()),
+					cursor.begin(), 
+					cursor.end(),
 					cursor.objects());
 			}
 			else
 			{
 				// Only accept objects in the range.
 
-				typedef std::vector<ConstObjectIterator> ResultSet;
-				typedef typename ResultSet::iterator ResultIterator;
-
-				ResultSet resultSet;
-				resultSet.reserve(cursor.objects());
-
-				std::copy(
-					countingIterator(cursor.begin()), 
-					countingIterator(cursor.end()), 
-					std::back_inserter(resultSet));
-
-				// Cull the points dimension by dimension.
-
-				const ObjectPolicy& objectPolicy = kdTree.objectPolicy();
-				ResultIterator resultEnd = resultSet.end();
-				for (integer i = 0;i < dimension;++i)
+				ConstObjectIterator iter = cursor.begin();
+				const ConstObjectIterator iterEnd = cursor.end();
+				while(iter != iterEnd)
 				{
-					const integer flag = (uint32)1 << i;
-					if ((flags & flag) == 0)
+					const typename ObjectPolicy::Object& object = iter->object();
+					// Cull the point dimension by dimension.
+					integer i = 0;
+					while(i < dimension)
 					{
-						// The culling need only by done
-						// on this axis if the node is not 
-						// stabbed.
-
-						const Detail_SearchRangeAlgorithm::Predicate<Real, ObjectPolicy> 
-							predicate(
-							i,
-							rangeMin[i],
-							rangeMax[i],
-							objectPolicy);
-
-						resultEnd = std::partition(
-							resultSet.begin(), resultEnd,
-							predicate);
+						const Real position = 
+							objectPolicy.point(object, i);
+						if (position < rangeMin[i] || 
+							position > rangeMax[i])
+						{
+							// The point is not in the range.
+							break;
+						}
+						++i;
 					}
-				}
+					if (i == dimension)
+					{
+						reporter.report(iter);
+					}
 
-				reporter.report(
-					resultSet.begin(),
-					resultEnd,
-					std::distance(resultSet.begin(), resultEnd));
+					++iter;
+				}
 			}
 		}
 	}

@@ -465,6 +465,15 @@ public:
 
 	template <typename Iterator>
 	void report(
+		const Iterator& iter) const
+	{
+		Iterator next = iter;
+		++next;
+		report(iter, next, 1);
+	}
+
+	template <typename Iterator>
+	void report(
 		const Iterator& begin,
 		const Iterator& end,
 		integer count) const
@@ -474,7 +483,7 @@ public:
 		Iterator iter(begin);
 		while (iter != end)
 		{
-			renderer_.drawPoint((*iter)->object());
+			renderer_.drawPoint(iter->object());
 			++iter;
 		}
 	}
@@ -629,13 +638,11 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		const integer count = countRange(tree_, 
 			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
 			worldMouse + searchRadius_ * scaling_));
-		/*
 		searchRange(tree_, 
 			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
 			worldMouse + searchRadius_ * scaling_),
 			std::back_inserter(rangePointSet_));
 		ENSURE_OP(count, ==, rangePointSet_.size());
-		*/
 	}
 }
 
