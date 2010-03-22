@@ -4,6 +4,8 @@
 #include "pastel/geometry/intersect_segment_halfspace.h"
 #include "pastel/geometry/point_patterns.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
+#include "pastel/geometry/search_range_pointkdtree.h"
+#include "pastel/geometry/count_range_pointkdtree.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 
@@ -193,7 +195,7 @@ void NearestNeighbor_Gfx_Ui::onRender()
 	}
 
 	drawBspTree(tree_);
-	//redrawRange();
+	redrawRange();
 	redrawNearest();
 
 	gfxDevice().swapBuffers();
@@ -452,30 +454,47 @@ void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
 }
 */
 
-void NearestNeighbor_Gfx_Ui::redrawPointSet()
+class PointDrawer
 {
-	Color red = Color(1, 0, 0);
-	Color yellow = Color(0, 0, 1);
-
+public:
+	PointDrawer(
+		GfxRenderer<Color>& renderer)
+		: renderer_(renderer)
 	{
-		integer i = 0;
-		const integer points = tree_.objects();
-		MyTree::ConstObjectDataIterator iter(tree_.objectBegin());
-		MyTree::ConstObjectDataIterator iterEnd(tree_.objectEnd());
-		while (iter != iterEnd)
+	}
+
+	template <typename Iterator>
+	void report(
+		const Iterator& begin,
+		const Iterator& end,
+		integer count) const
+	{
+		renderer_.setColor(Color(1, 0, 0));
+
+		Iterator iter(begin);
+		while (iter != end)
 		{
-			ENSURE_OP(points, >=, 0);
-			real alpha = (real)i / points;
-
-			Color color = red * (1 - alpha) + yellow * alpha;
-
-			renderer().setColor(color);
-			renderer().drawPoint(
-				*iter);
-			++i;
+			renderer_.drawPoint((*iter)->object());
 			++iter;
 		}
 	}
+
+	GfxRenderer<Color>& renderer_;
+};
+
+void NearestNeighbor_Gfx_Ui::redrawPointSet()
+{
+	PointDrawer pointDrawer(renderer());
+
+	const AlignedBox2 viewBound =
+		boundingAlignedBox(
+		renderer().viewWindow(),
+		renderer().viewTransformation());
+	
+	searchRangeAlgorithm(
+		tree_,
+		viewBound,
+		pointDrawer);
 }
 
 void NearestNeighbor_Gfx_Ui::redrawNearest()
@@ -535,16 +554,16 @@ void NearestNeighbor_Gfx_Ui::redrawRange()
 		return;
 	}
 
+	Color color(1, 1, 0);
+	renderer().setColor(color);
+	renderer().setFilled(false);
+
 	const integer points = rangePointSet_.size();
 	for (integer i = 0;i < points;++i)
 	{
-		Color color(1, 1, 0);
-
 		MyTree::ConstObjectIterator dataIter(
 			rangePointSet_[i]);
-		renderer().setColor(color);
-		renderer().setFilled(false);
-		drawCircle(renderer(), Sphere2(dataIter->object(), 0.01), 20);
+		drawCircle(renderer(), Sphere2(dataIter->object(), 0.01 * scaling_),  20);
 		//drawSegment(renderer(), Segment2(worldMouse, dataIter->object()));
 	}
 }
@@ -603,12 +622,20 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
 		normBijection_);
 
+	rangePointSet_.clear();
+
 	if (searchRadius_ != infinity<real>())
 	{
+		const integer count = countRange(tree_, 
+			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
+			worldMouse + searchRadius_ * scaling_));
+		/*
 		searchRange(tree_, 
-			AlignedBox2(worldMouse - searchRadius_, 
-			worldMouse + searchRadius_),
-			rangePointSet_);
+			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
+			worldMouse + searchRadius_ * scaling_),
+			std::back_inserter(rangePointSet_));
+		ENSURE_OP(count, ==, rangePointSet_.size());
+		*/
 	}
 }
 

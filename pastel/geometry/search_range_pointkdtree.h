@@ -16,13 +16,25 @@ namespace Pastel
 	/*!
 	Preconditions:
 	kdTree.dimension() == range.dimension()
+	kdTree.dimension() <= 32
+	bucketSize >= 1
 	*/
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename ObjectIterator_OutputIterator>
 	void searchRange(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		std::vector<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>& result);
+		ObjectIterator_OutputIterator result,
+		integer bucketSize = 8);
+
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename CandidateFunctor>
+	void searchRangeGeneric(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const AlignedBox<Real, N>& range,
+		const CandidateFunctor& candidateFunctor,
+		integer bucketSize = 8);
 
 }
 
