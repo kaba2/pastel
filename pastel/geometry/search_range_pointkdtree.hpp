@@ -2,101 +2,52 @@
 #define PASTEL_SEARCH_RANGE_POINTKDTREE_HPP
 
 #include "pastel/geometry/search_range_pointkdtree.h"
-#include "pastel/geometry/overlaps_alignedbox_point.h"
-#include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
+
+#include "pastel/geometry/search_range_algorithm_pointkdtree.h"
 
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy>
+	namespace Detail_SearchRange
+	{
+
+		template <typename OutputIterator>
+		class Search_Reporter_SearchRange
+		{
+		public:
+			explicit Search_Reporter_SearchRange(
+				OutputIterator& output)
+				: output_(output)
+			{
+			}
+
+			template <typename Iterator>
+			void report(
+				const Iterator& begin,
+				const Iterator& end,
+				integer count) const
+			{
+				output_ = std::copy(begin, end, output_);
+			}
+
+		private:
+			OutputIterator& output_;
+		};
+
+	}
+
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename ObjectIterator_OutputIterator>
 	void searchRange(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		std::vector<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>& result)
+		ObjectIterator_OutputIterator result,
+		integer bucketSize)
 	{
-		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
+		Detail_SearchRange::Search_Reporter_SearchRange<ObjectIterator_OutputIterator>
+			reporter(result);
 
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
-			ConstObjectIterator;
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor
-			Cursor;
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::Object
-			Object;
-
-		std::vector<ConstObjectIterator> rangeSet;
-
-		if (!overlaps(range, kdTree.bound()))
-		{
-			rangeSet.swap(result);
-			return;
-		}
-
-		const integer dimension = kdTree.dimension();
-
-		std::vector<Cursor> nodeSet;
-		nodeSet.push_back(kdTree.root());
-
-		while(!nodeSet.empty())
-		{
-			Cursor cursor = nodeSet.back();
-			nodeSet.pop_back();
-			
-			while(!cursor.leaf())
-			{
-				const integer splitAxis = cursor.splitAxis();
-				const Real splitPosition = cursor.splitPosition();
-
-				// As an invariant, the node intersects
-				// the query box. Thus either one
-				// or both children intersect
-				// the query box.
-				
-				if (range.max()[splitAxis] >= splitPosition)
-				{
-					// The right child intersects the query box.
-					if (range.min()[splitAxis] < splitPosition)
-					{
-						// Both children intersect the query box.
-						nodeSet.push_back(cursor.right());
-						cursor = cursor.left();
-					}
-					else
-					{
-						// Only the right child intersects
-						// the query box. No need for stack.
-						cursor = cursor.right();
-					}
-				}
-				else
-				{
-					// The right child does not intersect the query box,
-					// so the left child must intersect the query box
-					// by the invariant. No need for stack.
-					cursor = cursor.left();
-				}
-			}
-			
-			// We are now in a leaf node.
-			// Collect the objects.
-
-			const ObjectPolicy& objectPolicy = kdTree.objectPolicy();
-
-			ConstObjectIterator iter = cursor.begin();
-			const ConstObjectIterator iterEnd = cursor.end();
-			while(iter != iterEnd)
-			{
-				const Object& object = iter->object();
-				if (overlaps(range, 
-					Vector<Real, N>(ofDimension(dimension),
-					withAliasing((Real*)objectPolicy.point(object)))))
-				{
-					rangeSet.push_back(iter);
-				}
-				++iter;
-			}
-		}
-
-		rangeSet.swap(result);
+		searchRangeAlgorithm(kdTree, range, reporter, bucketSize);
 	}
 
 }

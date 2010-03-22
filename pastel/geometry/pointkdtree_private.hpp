@@ -334,11 +334,6 @@ namespace Pastel
 			rightLast, 
 			rightObjects);
 
-		// Assign correct leaf information to objects.
-
-		setLeaf(left->first(), left->end(), left);
-		setLeaf(right->first(), right->end(), right);
-
 		// Turn the subdivided node into a split node.
 
 		node->setLeft(left);
@@ -348,17 +343,16 @@ namespace Pastel
 		node->setMin(boundMin);
 		node->setMax(boundMax);
 
-		updateObjects(node);
-
-		// Propagate object information upwards.
-
-		// This is handled in refine().
-		//updateObjectsUpwards(node);
-
 		// One leaf node got splitted into two,
 		// so it's only one up.
 
 		++leaves_;
+
+		// Note: we didn't update hierarchical information
+		// nor set the leaf node pointers for objects.
+		// This is intentional: these things are done in refine().
+		// Doing them here would affect the complexity of
+		// recursive subdivision.
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -578,10 +572,17 @@ namespace Pastel
 			splitAxis = node->splitAxis();
 		}
 
-		// A leaf node might or might not have been turned
-		// into an intermediate node.
-		if (!node->leaf())
+		if (node->leaf())
 		{
+			// A leaf node did not get subdivide further.
+			// Simply so assign the leaf node pointers
+			// to objects.
+			setLeaf(node->first(), node->end(), node);
+		}
+		else
+		{
+			// A leaf node was subdivided into two.
+			// Recursively subdivide.
 			Vector<Real, N> leftMax(maxBound);
 			leftMax[splitAxis] = splitPosition;
 

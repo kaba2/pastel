@@ -1762,7 +1762,31 @@
 				Name="Orthogonal range searching"
 				>
 				<File
+					RelativePath=".\count_all_range_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\count_all_range_pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\count_range_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\count_range_pointkdtree.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\search_range.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range_algorithm_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range_algorithm_pointkdtree.hpp"
 					>
 				</File>
 				<File
