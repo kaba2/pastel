@@ -22,6 +22,13 @@ namespace Pastel
 
 			template <typename Iterator>
 			void report(
+				const Iterator& iter) const
+			{
+				++count_;
+			}
+
+			template <typename Iterator>
+			void report(
 				const Iterator& begin,
 				const Iterator& end,
 				integer count) const
