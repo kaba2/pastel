@@ -64,9 +64,7 @@ namespace Pastel
 			uint32 flags = nodeSet.back().second;
 			nodeSet.pop_back();
 
-			// As an invariant, the node
-			// intersects the query box.
-
+			bool foundSomething = true;
 			while(!cursor.leaf() && 
 				cursor.objects() > bucketSize)
 			{
@@ -74,54 +72,53 @@ namespace Pastel
 				const Real splitPosition = cursor.splitPosition();
 				const uint32 flag = (uint32)1 << splitAxis;
 
-				if ((flags & flag) == flag)
+				if (flags == fullFlags)
 				{
-					// This node is being stabbed
-					// on the splitting axis.
-
-					if (flags == fullFlags)
-					{
-						// Actually, this node is being
-						// stabbed on all axes. Stop recursion.
-						break;
-					}
-					
-					// Visit both children.
-					nodeSet.push_back(
-						std::make_pair(cursor.left(), flags));
-					cursor = cursor.right();
-					continue;
+					// The node is being stabbed on all axes. 
+					// Stop recursion.
+					break;
 				}
+
+				const Cursor left = cursor.left();
+				const Cursor right = cursor.right();
+
+				const Real leftMin = left.min();
+				const Real leftMax = left.max();
+				const Real rightMin = right.min();
+				const Real rightMax = right.max();
 
 				bool visitRight = false;
 				bool visitLeft = false;
 				uint32 leftFlags = flags;
 				uint32 rightFlags = flags;
 
-				if (rangeMax[splitAxis] >= splitPosition)
+				if (rangeMin[splitAxis] <= leftMax &&
+					rangeMax[splitAxis] >= leftMin)
 				{
-					// The right child intersects the query box.
-					visitRight = true;
+					// The left child intersects the query box.
+					visitLeft = true;
 
-					if (rangeMin[splitAxis] <= cursor.min())
+					if (rangeMin[splitAxis] <= leftMin &&
+						rangeMax[splitAxis] >= leftMax)
 					{
 						// The left child is being stabbed.
 						leftFlags |= flag;
 					}
 				}
-				if (rangeMin[splitAxis] <= splitPosition)
-				{
-					// The left child intersects the query box.
-					visitLeft = true;
 
-					if (rangeMax[splitAxis] >= cursor.max())
+				if (rangeMin[splitAxis] <= rightMax &&
+					rangeMax[splitAxis] >= rightMin)
+				{
+					// The right child intersects the query box.
+					visitRight = true;
+
+					if (rangeMin[splitAxis] <= rightMin &&
+						rangeMax[splitAxis] >= rightMax)
 					{
 						// The right child is being stabbed.
 						rightFlags |= flag;
 					}
 				}
-
-				ASSERT(visitLeft || visitRight);
 
 				if (visitRight)
 				{
@@ -135,11 +132,22 @@ namespace Pastel
 				}
 				else
 				{
-					// Because of the invariant, at least one
-					// child must intersect the search range.
-					cursor = cursor.left();
-					flags = leftFlags;
+					if (visitLeft)
+					{
+						cursor = cursor.left();
+						flags = leftFlags;
+					}
+					else
+					{
+						foundSomething = false;
+						break;
+					}
 				}
+			}
+
+			if (!foundSomething)
+			{
+				continue;
 			}
 			
 			// Collect the objects.
