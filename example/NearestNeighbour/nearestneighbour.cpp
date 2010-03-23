@@ -6,8 +6,10 @@
 #include "pastel/geometry/search_nearest_pointkdtree.h"
 #include "pastel/geometry/search_range_pointkdtree.h"
 #include "pastel/geometry/count_range_pointkdtree.h"
+#include "pastel/geometry/alignedbox_tools.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
+#include "pastel/gfx/color_space.h"
 
 #include "pastel/gfxui/gfx_ui.h"
 
@@ -61,12 +63,20 @@ public:
 private:
 	typedef PointKdTree<real, 2> MyTree;
 	//typedef Fair_SplitRule_PointKdTree SplitRule;
-	typedef SlidingMidpoint2_SplitRule_PointKdTree SplitRule;
+	typedef LongestMedian_SplitRule_PointKdTree SplitRule;
+	//typedef SlidingMidpoint2_SplitRule_PointKdTree SplitRule;
 	typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
 
 	virtual void onRender();
 	virtual void onKey(bool pressed, SDLKey key);
 
+	void drawKdTree(const MyTree& tree);
+	void drawKdTree(
+		MyTree::Cursor cursor, 
+		const AlignedBox2& bound,
+		integer depth = 0,
+		integer bucketSize = 8);
+	/*
 	void drawBspTree(const MyTree& tree);
 	void drawBspTree(
 		MyTree::Cursor cursor, 
@@ -75,6 +85,7 @@ private:
 		const AlignedBox2& bound,
 		integer depth,
 		integer bucketSize);
+	*/
 
 	void redrawPointSet();
 	void redrawNearest();
@@ -173,7 +184,8 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	randomlyRotate(pointSet_);
 	*/
 
-	computeTree(128);
+	computeTree(1);
+	//computeTree(128);
 	//timing();
 
 	concentrate(renderer(), tree_.bound());
@@ -194,8 +206,8 @@ void NearestNeighbor_Gfx_Ui::onRender()
 		redrawPointSet();
 	}
 
-	drawBspTree(tree_);
-	redrawRange();
+	drawKdTree(tree_);
+	//redrawRange();
 	redrawNearest();
 
 	gfxDevice().swapBuffers();
@@ -298,43 +310,44 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 		}
 		if (key == SDLK_1)
 		{
-			computeTree(1);
+			computeTree(0);
 		}
 		if (key == SDLK_2)
 		{
-			computeTree(2);
+			computeTree(1);
 		}
 		if (key == SDLK_3)
 		{
-			computeTree(3);
+			computeTree(2);
 		}
 		if (key == SDLK_4)
 		{
-			computeTree(4);
+			computeTree(3);
 		}
 		if (key == SDLK_5)
 		{
-			computeTree(5);
+			computeTree(4);
 		}
 		if (key == SDLK_6)
 		{
-			computeTree(6);
+			computeTree(5);
 		}
 		if (key == SDLK_7)
 		{
-			computeTree(7);
+			computeTree(6);
 		}
 		if (key == SDLK_8)
 		{
-			computeTree(8);
+			computeTree(7);
 		}
 		if (key == SDLK_9)
 		{
-			computeTree(9);
+			computeTree(8);
 		}
 	}
 }
 
+/*
 void NearestNeighbor_Gfx_Ui::drawBspTree(
 	MyTree::Cursor cursor, 
 	std::vector<Plane2>& planeSet, 
@@ -431,28 +444,68 @@ void NearestNeighbor_Gfx_Ui::drawBspTree(const MyTree& tree)
 	renderer().setColor(Color(0, 1, 0));
 	drawBox(renderer(), tree.bound());
 }
+*/
 
-/*
-void redrawTree(MyTree::Cursor cursor, const AlignedBox2& bound, integer depth)
+void NearestNeighbor_Gfx_Ui::drawKdTree(const MyTree& tree)
 {
-	if (!cursor.leaf() && drawTree_)
+	drawKdTree(tree.root(), tree.bound(), 0, 8);
+}
+
+void NearestNeighbor_Gfx_Ui::drawKdTree(
+	MyTree::Cursor cursor, 
+	const AlignedBox2& bound, 
+	integer depth,
+	integer bucketSize)
+{
+	Color color(hsvToRgb(Color((real32)(depth % 8) / 8, 1, 1)));
+
+	if (cursor.leaf() || cursor.objects() <= bucketSize)
+	{
+		renderer().setColor(color / std::pow((real)(depth + 1), (real)0.5));
+		renderer().setFilled(false);
+		drawBox(renderer(), bound);
+	}
+	else
 	{
 		{
 			AlignedBox2 nextBound(bound);
-			nextBound.max()[cursor.splitAxis()] = cursor.splitPosition();
-			redrawTree(cursor.left(), nextBound, depth + 1);
+			nextBound.min()[cursor.splitAxis()] = 
+				cursor.left().min();
+			nextBound.max()[cursor.splitAxis()] = 
+				cursor.left().max();
+			drawKdTree(cursor.left(), nextBound, depth + 1);
 		}
 		{
 			AlignedBox2 nextBound(bound);
-			nextBound.min()[cursor.splitAxis()] = cursor.splitPosition();
-			redrawTree(cursor.right(), nextBound, depth + 1);
+			nextBound.min()[cursor.splitAxis()] = 
+				cursor.right().min();
+			nextBound.max()[cursor.splitAxis()] = 
+				cursor.right().max();
+			drawKdTree(cursor.right(), nextBound, depth + 1);
 		}
+		/*
+		renderer().setColor(Color(1, 1, 1));
+		if (cursor.splitAxis() == 0)
+		{
+			const real x = cursor.splitPosition();
+			const real y1 = bound.min().y();
+			const real y2 = bound.max().y();
+
+			drawSegment(renderer(),
+				Segment2(Vector2(x, y1), Vector2(x, y2)));
+		}
+		else
+		{
+			const real y = cursor.splitPosition();
+			const real x1 = bound.min().x();
+			const real x2 = bound.max().x();
+
+			drawSegment(renderer(),
+				Segment2(Vector2(x1, y), Vector2(x2, y)));
+		}
+		*/
 	}
-	renderer().setColor(Color(0, 1, 0) / std::pow((real)(depth + 1), (real)0.5));
-	renderer().setFilled(false);
-	drawBox(renderer(), bound);
 }
-*/
 
 class PointDrawer
 {
@@ -718,8 +771,8 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	MyTree copyTree(newTree);
-	newTree.swap(copyTree);
+	//MyTree copyTree(newTree);
+	//newTree.swap(copyTree);
 
 	ENSURE(check(newTree));
 
@@ -730,6 +783,8 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 	timer.store();
 
 	cout << "Construction took " << timer.seconds() << " seconds." << endl;
+
+	std::cout << newTree.bound().min() << ", " << newTree.bound().max() << std::endl;
 
 	newTree.swap(tree_);
 }

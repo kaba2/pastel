@@ -18,9 +18,7 @@ namespace Pastel
 			const ConstObjectIterator& last,
 			integer objects,
 			integer splitAxis,
-			const Real& splitPosition,
-			const Real& min,
-			const Real& max)
+			const Real& splitPosition)
 			: parent_(parent)
 			, right_(right)
 			, left_(left)
@@ -29,13 +27,11 @@ namespace Pastel
 			, objects_(objects)
 			, splitAxis_(splitAxis)
 			, splitPosition_(splitPosition)
-			, min_(min)
-			, max_(max)
+			, min_(infinity<Real>())
+			, max_(-infinity<Real>())
 		{
 			ASSERT_OP(objects, >=, 0);
 			ASSERT_OP(splitAxis, >=, 0);
-			ASSERT(min <= splitPosition);
-			ASSERT(max >= splitPosition);
 		}
 
 		// Tree
@@ -196,22 +192,46 @@ namespace Pastel
 
 		// Bounds
 
+		/*
+		void setMin(Cut* min)
+		{
+			min->increaseNodes();
+			if (min_)
+			{
+				min_->decreaseNodes();
+			}
+			min_ = min;
+		}
+		*/
+
 		void setMin(const Real& min)
 		{
 			min_ = min;
 		}
 
-		const Real& min() const
+		Real min() const
 		{
 			return min_;
 		}
+
+		/*
+		void setMax(Real* max)
+		{
+			max->increaseNodes();
+			if (max_)
+			{
+				max_->decreaseNodes();
+			}
+			max_ = max;
+		}
+		*/
 
 		void setMax(const Real& max)
 		{
 			max_ = max;
 		}
 
-		const Real& max() const
+		Real max() const
 		{
 			return max_;
 		}
@@ -234,10 +254,15 @@ namespace Pastel
 		uint32 splitAxis_;
 		Real splitPosition_;
 
-		// Bounds
+		// Bounds of the contained
+		// objects on the splitting
+		// axis of the _parent_ node.
 
 		Real min_;
 		Real max_;
+
+		//Cut* min_;
+		//Cut* max_;
 	};
 
 }

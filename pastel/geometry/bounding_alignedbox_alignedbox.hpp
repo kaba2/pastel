@@ -111,7 +111,7 @@ namespace Pastel
 				min[i] = pointToCover[i];
 				neededToExtend = true;
 			}
-			else if (pointToCover[i] > max[i])
+			if (pointToCover[i] > max[i])
 			{
 				max[i] = pointToCover[i];
 				neededToExtend = true;

@@ -94,8 +94,10 @@ namespace Pastel
 
 						break;
 					}
-
-					while(!cursor.leaf() && cursor.objects() > kdTree.bucketSize())
+					
+					bool foundSomething = true;
+					while(!cursor.leaf() && 
+						cursor.objects() > kdTree.bucketSize())
 					{
 						// For an intermediate node our task is to
 						// recurse to child nodes while updating
@@ -106,73 +108,87 @@ namespace Pastel
 
 						const Real searchPosition = 
 							searchPoint[cursor.splitAxis()];
-						const Real splitPosition =
-							cursor.splitPosition();
 
-						Cursor nearBranch;
-						Cursor farBranch;
-						Real farBoundDistance = 0;
+						const Cursor left = cursor.left();
+						const Cursor right = cursor.right();
+
+						const Real leftMin = left.min();
+						const Real leftMax = left.max();
+						const Real rightMin = right.min();
+						const Real rightMax = right.max();
+
+						Real leftDistance = distance;
+						Real rightDistance = distance;
 
 						// Note: it is essential for numerical
-						// precision to use comparison of two values
+						// precision to use comparisons of values
 						// here, rather than comparing the result
 						// of a subtraction to zero.
 
-						if (searchPosition < splitPosition)
+						if (searchPosition < leftMin)
 						{
-							// The search point is closer to the left branch so follow that.
-							farBranch = cursor.right();
-							nearBranch = cursor.left();
-							farBoundDistance = normBijection.axis(
-								splitPosition - searchPosition);
-						}
-						else
-						{
-							// The search point is closer to the right branch so follow that.
-							farBranch = cursor.left();
-							nearBranch = cursor.right();
-							farBoundDistance = normBijection.axis(
-								searchPosition - splitPosition);
-						}
-
-						// Try to cull the farther node off based on the distance 
-						// of the search point to the farther bound.
-						// The far branch is only searched if it is non-empty.
-
-						if (farBoundDistance <= nodeCullDistance && !farBranch.empty())
-						{
-							// Try to cull the farther node off based on the distance 
-							// of the search point to the farther child node.
-
-							Real oldAxisDistance = 0;
-							if (searchPosition < cursor.min())
+							rightDistance = normBijection.replaceAxis(
+								distance,
+								normBijection.axis(leftMin - searchPosition),
+								normBijection.axis(rightMin - searchPosition));
+							
+							// Since the distance to the left child does
+							// not change, it must be the closest of all currently
+							// considered nodes: continue with that.
+							cursor = left;
+							if (rightDistance <= nodeCullDistance && 
+								!right.empty())
 							{
-								oldAxisDistance = 
-									normBijection.axis(cursor.min() - searchPosition);
-							}
-							else if (searchPosition > cursor.max())
-							{
-								oldAxisDistance = 
-									normBijection.axis(searchPosition - cursor.max());
-							}
-
-							const Real childDistance = 
-								normBijection.replaceAxis(
-								distance, 
-								oldAxisDistance,
-								farBoundDistance);
-
-							if (childDistance <= nodeCullDistance)
-							{
-								// No culling could be done, place the farther node
-								// into the queue.
-								nodeQueue.push(keyValue(childDistance, farBranch));
+								nodeQueue.push(keyValue(rightDistance, right));
 							}
 						}
+						else if (searchPosition > rightMax)
+						{
+							leftDistance = normBijection.replaceAxis(
+								distance,
+								normBijection.axis(searchPosition - rightMax),
+								normBijection.axis(searchPosition - leftMax));
 
-						cursor = nearBranch;
+							// Since the distance to the right child does
+							// not change, it must be the closest of all currently
+							// considered nodes: continue with that.
+							cursor = right;
+							if (leftDistance <= nodeCullDistance && 
+								!left.empty())
+							{
+								nodeQueue.push(keyValue(leftDistance, left));
+							}
+						}
+						else 
+						{
+							if (searchPosition > leftMax)
+							{
+								leftDistance = normBijection.addAxis(
+									distance,
+									normBijection.axis(searchPosition - leftMax));
+								if (leftDistance <= nodeCullDistance && 
+									!left.empty())
+								{
+									nodeQueue.push(keyValue(leftDistance, left));
+								}
+							}
+							if (searchPosition < rightMin)
+							{
+								rightDistance = normBijection.addAxis(
+									distance,
+									normBijection.axis(rightMin - searchPosition));
+								if (rightDistance <= nodeCullDistance && 
+									!right.empty())
+								{
+									nodeQueue.push(keyValue(rightDistance, right));
+								}
+							}
+
+							foundSomething = false;
+							break;
+						}
 					}
-					if (!cursor.empty())
+					if (foundSomething)
 					{
 						searchBruteForce(cursor);
 					}

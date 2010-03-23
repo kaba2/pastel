@@ -95,15 +95,17 @@ namespace Pastel
 					return false;
 				}
 
-				if (REPORT(cursor.min() != bound.min()[cursor.splitAxis()]))
+				/*
+				if (REPORT(cursor.min() >= bound.min()[cursor.splitAxis()]))
 				{
 					return false;
 				}
 
-				if (REPORT(cursor.max() != bound.max()[cursor.splitAxis()]))
+				if (REPORT(cursor.max() <= bound.max()[cursor.splitAxis()]))
 				{
 					return false;
 				}
+				*/
 
 				if (REPORT(cursor.left().objects() + cursor.right().objects() !=
 					cursor.objects()))

@@ -85,6 +85,7 @@ namespace Pastel
 	private:
 		typedef PoolAllocator NodeAllocator;
 		typedef PoolAllocator ObjectAllocator;
+		typedef PoolAllocator BoundAllocator;
 
 		class ObjectInfo;
 		class Node;
@@ -403,9 +404,16 @@ namespace Pastel
 		//! Runs destructors for all nodes of a subtree.
 		void destructSubtree(Node* node);
 
-		//! Reserve bounding box for objects.
-		void reserveBound(const ConstObjectIterator& begin, 
-			const ConstObjectIterator& end);
+		//! Compute a bounding box for objects.
+		AlignedBox<Real, N> computeBound(
+			const ConstObjectIterator& begin, 
+			const ConstObjectIterator& end) const;
+
+		//! Compute a bounding box for objects.
+		std::pair<Real, Real> computeBound(
+			const ConstObjectIterator& begin, 
+			const ConstObjectIterator& end,
+			integer axis) const;
 
 		//! Collapse a subtree into a leaf node.
 		void merge(Node* node);
@@ -430,10 +438,13 @@ namespace Pastel
 		*/
 		void clearObjects(Node* node);
 
-		// Updates the object range and count from children.
+		//! Updates hierarchical object information.
 		void updateObjects(Node* node);
 
-		//! Propagate upwards the object set and count in a node.
+		//! Updates hierarchical bound information.
+		void updateBounds(Node* node, const AlignedBox<Real, N>& bound);
+
+		//! Propagates hierarchical information upwards.
 		void updateObjectsUpwards(Node* node);
 
 		//! Subdivides a leaf node with the given plane.
@@ -459,15 +470,7 @@ namespace Pastel
 		void subdivide(
 			Node* node,
 			const Real& splitPosition,
-			integer splitAxis,
-			const Real& boundMin,
-			const Real& boundMax);
-
-		//! Updates node bounds downwards.
-		void updateBound(
-			Node* node,
-			const Vector<Real, N>& minBound,
-			const Vector<Real, N>& maxBound);
+			integer splitAxis);
 
 		//! Inserts new objects at the end of the objectList_.
 		/*!
@@ -505,7 +508,8 @@ namespace Pastel
 			Node* node,
 			const ObjectIterator& first, 
 			const ObjectIterator& last,
-			integer count);
+			integer count,
+			AlignedBox<Real, N>& bound);
 
 		//! Subdivides the tree using the given subdivision rule.
 		/*!
@@ -522,8 +526,8 @@ namespace Pastel
 			integer maxDepth,
 			const SplitRule_PointKdTree& splitRule,
 			integer depth,
-			const Vector<Real, N>& minBound,
-			const Vector<Real, N>& maxBound);
+			Vector<Real, N>& minBound,
+			Vector<Real, N>& maxBound);
 
 		/*
 		objectList_:

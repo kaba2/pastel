@@ -132,17 +132,6 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::reserveBound(
-		const AlignedBox<Real, N>& boxToCover)
-	{
-		if (extendToCover(
-			boxToCover, bound_))
-		{
-			updateBound(root_, bound_.min(), bound_.max());
-		}
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
 	const AlignedBox<Real, N>& PointKdTree<Real, N, ObjectPolicy>::bound() const
 	{
 		return bound_;
@@ -233,11 +222,15 @@ namespace Pastel
 			return;
 		}
 
+		Vector<Real, N> minBound(bound_.min());
+		Vector<Real, N> maxBound(bound_.max());
+
 		refine(root_, 
 			maxDepth,
 			splitRule,
-			0, 
-			bound().min(), bound().max());
+			0,
+			minBound,
+			maxBound);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -251,13 +244,13 @@ namespace Pastel
 		ObjectIterator iter = objectList_.end();
 		--iter;
 
-		// Reserve bounding box for the inserted object.
-
-		reserveBound(iter, objectList_.end());
-
 		// Splice the point to the leaf node.
 
-		insert(root_, iter, iter, 1);
+		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
+
+		insert(root_, iter, iter, 1, objectBound);
+
+		extendToCover(objectBound, bound_);
 
 		return iter;
 	}
@@ -277,23 +270,23 @@ namespace Pastel
 		}
 
 		// Prepare for insertion.
-
 		const ObjectIterator first = insertPrepare(begin, end);
 
 		// Copy the new object iterators to the user.
-
 		std::copy(countingIterator(first),
 			countingIterator(objectList_.end()),
 			iteratorSet);
 
 		// Send the objects down the tree.
-
 		const integer objects = std::distance(begin, end);
-
 		ObjectIterator last = objectList_.end();
 		--last;
 
-		insert(root_, first, last, objects);
+		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
+		insert(root_, first, last, objects, objectBound);
+
+		// Extend the bounding box of the tree.
+		extendToCover(objectBound, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -309,17 +302,19 @@ namespace Pastel
 		}
 
 		// Prepare for insertion.
-
 		const ObjectIterator first = insertPrepare(begin, end);
 
 		// Send the objects down the tree.
-
 		const integer objects = std::distance(begin, end);
 
 		ObjectIterator last = objectList_.end();
 		--last;
 
-		insert(root_, first, last, objects);
+		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
+
+		insert(root_, first, last, objects, objectBound);
+
+		extendToCover(objectBound, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -330,15 +325,12 @@ namespace Pastel
 
 		// Remove reference to the object
 		// from this node.
-
 		node->erase(iter, objectList_.end());
 
 		// Actually remove the object from the object list.
-
 		objectList_.erase(iter);
 
 		// Propagate object set changes upwards.
-
 		updateObjectsUpwards(node);
 	}
 
@@ -349,7 +341,7 @@ namespace Pastel
 		destructSubtree(root_);
 		nodeAllocator_.clear();
 		root_ = 0;
-		bound_ = AlignedBox<Real, N>(dimension_);
+		bound_ = AlignedBox<Real, N>(ofDimension(dimension_));
 		leaves_ = 0;
 
 		initialize();
