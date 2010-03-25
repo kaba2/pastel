@@ -187,26 +187,14 @@ namespace Pastel
 	}
 	
 	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::refine(
-		integer maxDepth,
-		integer bucketSize)
+	void PointKdTree<Real, N, ObjectPolicy>::refine()
 	{
-		ENSURE_OP(maxDepth, >=, 0);
-		ENSURE_OP(bucketSize, >=, 1);
-
-		if (maxDepth == 0)
-		{
-			// Nothing to be done.
-			return;
-		}
-
 		Vector<Real, N> minBound(ofDimension(dimension_), -infinity<Real>());
 		Vector<Real, N> maxBound(ofDimension(dimension_), infinity<Real>());
 
 		refine(root_, 
-			maxDepth,
 			0,
-			bucketSize,
+			0,
 			minBound,
 			maxBound);
 	}

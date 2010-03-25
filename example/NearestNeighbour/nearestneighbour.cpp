@@ -3,6 +3,8 @@
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/intersect_segment_halfspace.h"
 #include "pastel/geometry/point_patterns.h"
+#include "pastel/geometry/search_all_neighbors_pointkdtree.h"
+#include "pastel/geometry/search_all_neighbors_bruteforce.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
 #include "pastel/geometry/search_range_pointkdtree.h"
 #include "pastel/geometry/count_range_pointkdtree.h"
@@ -777,7 +779,7 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine(maxDepth, 1);
+	newTree.refine();
 
 	ENSURE(check(newTree));
 
@@ -837,19 +839,68 @@ int myMain()
 	NearestNeighbor_Gfx_Ui nearestNeighborUi;
 	deviceSystem().setUi(&nearestNeighborUi);
 
-	/*
+	Timer timer;
+
 	const integer d = 100;
 	const integer n = 10000;
-	PointKdTree<real> tree(ofDimension(d));
+	PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d));
 	std::vector<Vector<real> > pointSet;
 	pointSet.reserve(n);
 	for (integer i = 0;i < n;++i)
 	{
-		pointSet.insert(randomGaussianVector<real, Dynamic>(d));
+		pointSet.push_back(randomGaussianVector<real, Dynamic>(d));
 	}
-	tree.insert(pointSet.begin(), pointSet.end());
+	std::vector<PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> querySet;
+	for (integer i = 0;i < n;++i)
+	{
+		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
+	}
 	tree.refine();
-	*/
+
+	log() << "Bounding search" << logNewLine;
+
+	timer.setStart();
+
+	Array<PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> nearestSet(1, n);
+	searchAllNeighbors(tree,
+		randomAccessRange(querySet.begin(), querySet.end()),
+		0, 1,
+		&nearestSet);
+
+	timer.store();
+
+	cout << "Finding " << NearestPoints << " nearest neighbours for "
+		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
+
+	log() << "Brute-force search" << logNewLine;
+
+	timer.setStart();
+
+	Array<integer> bruteSet(1, n);
+	searchAllNeighborsBruteForce(
+		pointSet,
+		countingIterator(0),
+		countingIterator(n),
+		1,
+		infinity<real>(),
+		Euclidean_NormBijection<real>(),
+		bruteSet);
+	
+	integer fuckedUp = 0;
+	for (integer i = 0;i < n;++i)
+	{
+		const real* brute = pointSet[bruteSet(i)].rawBegin();
+		const real* nearest = nearestSet(i)->object();
+		if (brute != nearest)
+		{
+			++fuckedUp;
+		}
+	}
+	timer.store();
+
+	log() << "Fucked up = " << fuckedUp << logNewLine;
+	cout << "Finding " << NearestPoints << " nearest neighbours for "
+		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
 
 	deviceSystem().startEventLoop(LogicFps);
 
