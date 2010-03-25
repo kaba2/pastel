@@ -167,7 +167,11 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	bool check(const PointKdTree<Real, N, ObjectPolicy>& tree)
 	{
-		return Detail::check(tree, tree.root(), tree.bound());
+		const AlignedBox<Real, N> bound(
+			Vector<Real, N>(ofDimension(tree.dimension()), -infinity<Real>()),
+			Vector<Real, N>(ofDimension(tree.dimension()), infinity<Real>()));;
+		
+		return Detail::check(tree, tree.root(), bound);
 	}
 
 	namespace Detail_EquivalentKdTree
@@ -227,10 +231,6 @@ namespace Pastel
 		{
 			return false;
 		}
-		/*
-			!allEqual(aTree.bound().min(), bTree.bound().min()) ||
-			!allEqual(aTree.bound().max(), bTree.bound().max()))
-		*/
 
 		return Detail_EquivalentKdTree::equivalentKdTree(
 			aTree.root(), bTree.root());

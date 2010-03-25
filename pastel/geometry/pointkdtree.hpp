@@ -14,16 +14,13 @@ namespace Pastel
 
 	template <typename Real, int N, typename ObjectPolicy>
 	PointKdTree<Real, N, ObjectPolicy>::PointKdTree(
-		integer bucketSize,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
-		, bound_(N)
 		, leaves_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(N)
-		, bucketSize_(bucketSize)
 	{
 		ENSURE_OP(N, !=, Dynamic);
 		//BOOST_STATIC_ASSERT(N != Dynamic);
@@ -37,16 +34,13 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	PointKdTree<Real, N, ObjectPolicy>::PointKdTree(
 		Dimension dimension,
-		integer bucketSize,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
-		, bound_(dimension)
 		, leaves_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(dimension)
-		, bucketSize_(bucketSize)
 	{
 		ENSURE2((N != Dynamic && dimension == N) || 
 			(N == Dynamic && dimension > 0), dimension, N);
@@ -62,11 +56,9 @@ namespace Pastel
 		: objectList_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
-		, bound_(that.dimension_)
 		, leaves_(0)
 		, objectPolicy_(that.objectPolicy_)
 		, dimension_(that.dimension_)
-		, bucketSize_(that.bucketSize_)
 	{
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
@@ -118,23 +110,15 @@ namespace Pastel
 		objectList_.swap(that.objectList_);
 		nodeAllocator_.swap(that.nodeAllocator_);
 		std::swap(root_, that.root_);
-		bound_.swap(that.bound_);
 		std::swap(leaves_, that.leaves_);
 		std::swap(objectPolicy_, that.objectPolicy_);
 		std::swap(dimension_, that.dimension_);
-		std::swap(bucketSize_, that.bucketSize_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
 	const ObjectPolicy& PointKdTree<Real, N, ObjectPolicy>::objectPolicy() const
 	{
 		return objectPolicy_;
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
-	const AlignedBox<Real, N>& PointKdTree<Real, N, ObjectPolicy>::bound() const
-	{
-		return bound_;
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -203,18 +187,12 @@ namespace Pastel
 	}
 	
 	template <typename Real, int N, typename ObjectPolicy>
-	integer PointKdTree<Real, N, ObjectPolicy>::bucketSize() const
-	{
-		return bucketSize_;
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
-	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
-		const SplitRule_PointKdTree& splitRule,
-		integer maxDepth)
+		integer maxDepth,
+		integer bucketSize)
 	{
 		ENSURE_OP(maxDepth, >=, 0);
+		ENSURE_OP(bucketSize, >=, 1);
 
 		if (maxDepth == 0)
 		{
@@ -222,13 +200,13 @@ namespace Pastel
 			return;
 		}
 
-		Vector<Real, N> minBound(bound_.min());
-		Vector<Real, N> maxBound(bound_.max());
+		Vector<Real, N> minBound(-infinity<Real>());
+		Vector<Real, N> maxBound(infinity<Real>());
 
 		refine(root_, 
 			maxDepth,
-			splitRule,
 			0,
+			bucketSize,
 			minBound,
 			maxBound);
 	}
@@ -249,8 +227,6 @@ namespace Pastel
 		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
 
 		insert(root_, iter, iter, 1, objectBound);
-
-		extendToCover(objectBound, bound_);
 
 		return iter;
 	}
@@ -284,9 +260,6 @@ namespace Pastel
 
 		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
 		insert(root_, first, last, objects, objectBound);
-
-		// Extend the bounding box of the tree.
-		extendToCover(objectBound, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -311,10 +284,7 @@ namespace Pastel
 		--last;
 
 		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
-
 		insert(root_, first, last, objects, objectBound);
-
-		extendToCover(objectBound, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -341,7 +311,6 @@ namespace Pastel
 		destructSubtree(root_);
 		nodeAllocator_.clear();
 		root_ = 0;
-		bound_ = AlignedBox<Real, N>(ofDimension(dimension_));
 		leaves_ = 0;
 
 		initialize();

@@ -23,11 +23,13 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection,
 		const SearchAlgorithm& searchAlgorithm)
 	{
 		ENSURE_OP(maxDistance, >=, 0);
 		ENSURE_OP(maxRelativeError, >=, 0);
+		ENSURE_OP(bucketSize, >=, 1);
 
 		if (kdTree.empty())
 		{
@@ -45,7 +47,8 @@ namespace Pastel
 			kdTree, searchPoint, 
 			1, &nearest, &distance,
 			maxDistance, maxRelativeError,
-			acceptPoint, normBijection, 
+			acceptPoint, bucketSize,
+			normBijection, 
 			searchAlgorithm);
 
 		return keyValue(distance, nearest);
@@ -61,13 +64,34 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection)
 	{
 		return Pastel::searchNearestOne(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
-			acceptPoint, normBijection,
+			acceptPoint, bucketSize,
+			normBijection,
 			BestFirst_SearchAlgorithm_PointKdTree());
+	}
+
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+		searchNearestOne(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const Vector<Real, N>& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize)
+	{
+		return Pastel::searchNearestOne(
+			kdTree, searchPoint, 
+			maxDistance, maxRelativeError,
+			acceptPoint, 
+			bucketSize,
+			Euclidean_NormBijection<Real>());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
@@ -83,7 +107,7 @@ namespace Pastel
 		return Pastel::searchNearestOne(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
-			acceptPoint, Euclidean_NormBijection<Real>());
+			acceptPoint, 1);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>

@@ -54,21 +54,16 @@ namespace Pastel
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection)
 	{
 		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE_OP(bucketSize, >=, 1);
 
 		if (maxDistance == infinity<Real>())
 		{
 			return kdTree.objects();
 		}
-
-		/*
-		if (distance2(kdTree.bound(), searchPoint, normBijection) > maxDistance)
-		{
-			return 0;
-		}
-		*/
 
 		typedef Detail_Count_Nearest::CandidateFunctor<Real, N, ObjectPolicy>
 			CandidateFunctor;
@@ -78,7 +73,7 @@ namespace Pastel
 
 		searchBestFirst(
 			kdTree, searchPoint, maxDistance, 0,
-			acceptPoint, normBijection, candidateFunctor);
+			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
 		return nearestCount;
 	}
@@ -89,13 +84,25 @@ namespace Pastel
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const AcceptPoint& acceptPoint)
+		const AcceptPoint& acceptPoint, 
+		integer bucketSize)
 	{
-		ENSURE_OP(maxDistance, >=, 0);
-
 		return Pastel::countNearest(
 			kdTree, searchPoint, maxDistance, acceptPoint,
+			bucketSize,
 			Euclidean_NormBijection<Real>());
+	}
+
+	template <typename Real, int N, typename ObjectPolicy,
+	typename AcceptPoint>
+	integer countNearest(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const Vector<Real, N>& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const AcceptPoint& acceptPoint)
+	{
+		return Pastel::countNearest(
+			kdTree, searchPoint, maxDistance, acceptPoint, 1);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -104,15 +111,12 @@ namespace Pastel
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
-		ENSURE_OP(maxDistance, >=, 0);
-
 		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 			ConstObjectIterator;
 
 		return Pastel::countNearest(
 			kdTree, searchPoint, maxDistance,
-			Always_AcceptPoint<ConstObjectIterator>(), 
-			Euclidean_NormBijection<Real>());
+			Always_AcceptPoint<ConstObjectIterator>());
 	}
 
 }

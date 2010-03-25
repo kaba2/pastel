@@ -2,6 +2,7 @@
 #define PASTEL_POINTKDTREE_PRIVATE_HPP
 
 #include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/longestmedian_splitrule_pointkdtree.h"
 
 #include <boost/type_traits/has_trivial_destructor.hpp>
 
@@ -540,12 +541,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
-	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
 		Node* node,
 		integer maxDepth,
-		const SplitRule_PointKdTree& splitRule,
 		integer depth,
+		integer bucketSize,
 		Vector<Real, N>& minBound,
 		Vector<Real, N>& maxBound)
 	{
@@ -557,10 +557,10 @@ namespace Pastel
 		{
 			// There are two conditions for termination:
 			// 1) The 'depth' gets greater than 'maxDepth'.
-			// 2) The number of objects is less than 'bucketSize_'.
+			// 2) The number of objects is less than or equal to 'bucketSize'.
 			const bool terminate = 
 				depth >= maxDepth || 
-				node->objects() <= bucketSize_;
+				node->objects() <= bucketSize;
 			if (terminate)
 			{
 				// A leaf node did not get subdivided further.
@@ -571,6 +571,8 @@ namespace Pastel
 			{
 				// If those conditions do not apply, 
 				// apply the splitting rule.
+
+				LongestMedian_SplitRule_PointKdTree splitRule;
 
 				const std::pair<Real, integer> result = 
 					splitRule(
@@ -601,8 +603,8 @@ namespace Pastel
 			refine(
 				node->left(), 
 				maxDepth, 
-				splitRule,
 				depth + 1, 
+				bucketSize,
 				minBound,
 				maxBound);
 
@@ -612,8 +614,8 @@ namespace Pastel
 			refine(
 				node->right(), 
 				maxDepth, 
-				splitRule,
-				depth + 1, 
+				depth + 1,
+				bucketSize,
 				minBound,
 				maxBound);
 

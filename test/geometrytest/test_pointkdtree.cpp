@@ -50,8 +50,7 @@ namespace
 			tree.insert(
 				pointSet.begin(), pointSet.end());
 
-			tree.refine(
-				SlidingMidpoint_SplitRule_PointKdTree());
+			tree.refine();
 			
 			Euclidean_NormBijection<real> normBijection;
 

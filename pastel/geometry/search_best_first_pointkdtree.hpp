@@ -35,6 +35,7 @@ namespace Pastel
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const AcceptPoint& acceptPoint_,
+				integer bucketSize_,
 				const NormBijection& normBijection_,
 				const CandidateFunctor& candidateFunctor_)
 				: kdTree(kdTree_)
@@ -50,6 +51,7 @@ namespace Pastel
 				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
 				, nodeCullDistance(maxDistance_)
 				, dimension(kdTree_.dimension())
+				, bucketSize(bucketSize_)
 			{
 				// Due to rounding errors exact comparisons can miss
 				// reporting some of the points, giving incorrect results.
@@ -65,21 +67,19 @@ namespace Pastel
 			void work()
 			{
 				std::priority_queue<
-					KeyValue<real, Cursor>, 
-					std::vector<KeyValue<real, Cursor> >,
-					std::greater<KeyValue<real, Cursor> > > nodeQueue;
+					KeyValue<Real, Cursor>, 
+					std::vector<KeyValue<Real, Cursor> >,
+					std::greater<KeyValue<Real, Cursor> > > nodeQueue;
 
 				if (!kdTree.root().empty())
 				{
 					nodeQueue.push(
-						keyValue(
-						distance2(kdTree.bound(), searchPoint, normBijection),
-						kdTree.root()));
+						keyValue((Real)0, kdTree.root()));
 				}
 
 				while(!nodeQueue.empty())
 				{
-					const real distance = nodeQueue.top().key();
+					const Real distance = nodeQueue.top().key();
 					Cursor cursor = nodeQueue.top().value();
 					ASSERT(!cursor.empty());
 
@@ -97,7 +97,7 @@ namespace Pastel
 					
 					bool foundSomething = true;
 					while(!cursor.leaf() && 
-						cursor.objects() > kdTree.bucketSize())
+						cursor.objects() > bucketSize)
 					{
 						// For an intermediate node our task is to
 						// recurse to child nodes while updating
@@ -252,6 +252,7 @@ namespace Pastel
 			Real errorFactor;
 			Real nodeCullDistance;			
 			integer dimension;
+			integer bucketSize;
 		};
 
 	}
@@ -265,6 +266,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{
@@ -275,7 +277,7 @@ namespace Pastel
 
 		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
 			bestFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
-			acceptPoint, normBijection, candidateFunctor);
+			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
 		bestFirst.work();
 	}
