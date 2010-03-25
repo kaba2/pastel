@@ -200,8 +200,8 @@ namespace Pastel
 			return;
 		}
 
-		Vector<Real, N> minBound(-infinity<Real>());
-		Vector<Real, N> maxBound(infinity<Real>());
+		Vector<Real, N> minBound(ofDimension(dimension_), -infinity<Real>());
+		Vector<Real, N> maxBound(ofDimension(dimension_), infinity<Real>());
 
 		refine(root_, 
 			maxDepth,

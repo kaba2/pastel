@@ -86,6 +86,7 @@ namespace Pastel
 				nearestSet.begin(), distanceSet.begin(),
 				maxDistanceSet[i], maxRelativeError,
 				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
+				8,
 				normBijection, 
 				searchAlgorithm);
 
