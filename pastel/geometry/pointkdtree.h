@@ -257,18 +257,12 @@ namespace Pastel
 		//! Refines the tree using the given splitting rule.
 		/*!
 		Preconditions:
-		maxDepth >= 0
 		maxObjects > 0
 
 		Exception safety:
 		Basic
-
-		See also:
-		splitrule_pointkdtree_concept.h
 		*/
-		void refine(
-			integer maxDepth = 128,
-			integer bucketSize = 8);
+		void refine();
 
 		//! Insert an object into the tree.
 		ConstObjectIterator insert(const Object& object);
@@ -505,18 +499,14 @@ namespace Pastel
 		//! Subdivides the tree using the given subdivision rule.
 		/*!
 		Preconditions:
-		maxDepth >= 0
 		maxObjects >= 0
 		depth >= 0
-		depth <= maxDepth
 		allLessEqual(minBound, maxBound)
-		bucketSize >= 1
 		*/
 		void refine(
 			Node* node,
-			integer maxDepth,
 			integer depth,
-			integer bucketSize,
+			integer splitAxis,
 			Vector<Real, N>& minBound,
 			Vector<Real, N>& maxBound);
 

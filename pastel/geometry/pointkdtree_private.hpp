@@ -452,10 +452,10 @@ namespace Pastel
 		if (node->leaf())
 		{
 			// Compute the bounding box of the inserted points.
-			bound = computeBound(begin, end);
+			//bound = computeBound(begin, end);
 
 			// Set the bounds.
-			updateBounds(node, bound);
+			//updateBounds(node, bound);
 
 			// Set the leaf nodes for each object.
 			setLeaf(begin, end, node);
@@ -511,21 +511,22 @@ namespace Pastel
 				// If there are objects going to the right node,
 				// recurse deeper.
 
-				AlignedBox<Real, N> rightBound(ofDimension(dimension_));
+				//AlignedBox<Real, N> rightBound(ofDimension(dimension_));
 				insert(
 					right, 
 					newRightFirst, newRightLast, 
 					newRightObjects,
-					rightBound);
+					bound);
+					//rightBound);
 
 				// Compute the combined bounding box of the
 				// inserted points in both the left and right child.
-				extendToCover(rightBound, bound);
+				//extendToCover(rightBound, bound);
 			}
 
 			// Update hierarchical information.
 			updateObjects(node);
-			updateBounds(node, bound);
+			//updateBounds(node, bound);
 			
 			// Finally, we need to order the objects in the objectList_
 			// so that the objects in the right child come right after
@@ -543,9 +544,8 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
 		Node* node,
-		integer maxDepth,
 		integer depth,
-		integer bucketSize,
+		integer splitAxis,
 		Vector<Real, N>& minBound,
 		Vector<Real, N>& maxBound)
 	{
@@ -555,13 +555,7 @@ namespace Pastel
 
 		if (node->leaf())
 		{
-			// There are two conditions for termination:
-			// 1) The 'depth' gets greater than 'maxDepth'.
-			// 2) The number of objects is less than or equal to 'bucketSize'.
-			const bool terminate = 
-				depth >= maxDepth || 
-				node->objects() <= bucketSize;
-			if (terminate)
+			if (node->objects() <= 1)
 			{
 				// A leaf node did not get subdivided further.
 				// Assign the leaf node pointers to objects.
@@ -572,17 +566,24 @@ namespace Pastel
 				// If those conditions do not apply, 
 				// apply the splitting rule.
 
-				LongestMedian_SplitRule_PointKdTree splitRule;
+				// Get the positions of the points along the splitting axis.
 
-				const std::pair<Real, integer> result = 
-					splitRule(
-					*this,
-					Cursor(node),
-					minBound,
-					maxBound);
+				std::vector<Real> positionSet;
+				positionSet.reserve(node->objects());
 
-				const Real splitPosition = result.first;
-				const integer splitAxis = result.second;
+				ConstObjectIterator iter = node->first();
+				const ConstObjectIterator iterEnd = node->end();
+				while(iter != iterEnd)
+				{
+					positionSet.push_back(objectPolicy_.point(iter->object(), splitAxis));
+					++iter;
+				}
+
+				// Get the median of the points on the splitting axis.
+
+				std::sort(positionSet.begin(), positionSet.end());
+
+				const Real splitPosition = positionSet[positionSet.size() / 2];
 
 				subdivide(node, splitPosition, splitAxis);
 			}
@@ -593,7 +594,12 @@ namespace Pastel
 			// Refine recursively.
 
 			integer splitAxis = node->splitAxis();
-
+			integer nextSplitAxis = splitAxis + 1;
+			if (nextSplitAxis == dimension_)
+			{
+				nextSplitAxis = 0;
+			}
+			
 			const Real oldMinBound = minBound[splitAxis];
 			const Real oldMaxBound = maxBound[splitAxis];
 
@@ -602,9 +608,8 @@ namespace Pastel
 
 			refine(
 				node->left(), 
-				maxDepth, 
 				depth + 1, 
-				bucketSize,
+				nextSplitAxis,
 				minBound,
 				maxBound);
 
@@ -613,9 +618,8 @@ namespace Pastel
 
 			refine(
 				node->right(), 
-				maxDepth, 
 				depth + 1,
-				bucketSize,
+				nextSplitAxis,
 				minBound,
 				maxBound);
 
