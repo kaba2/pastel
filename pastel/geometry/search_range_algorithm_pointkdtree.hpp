@@ -27,7 +27,7 @@ namespace Pastel
 		typedef typename PointKdTree<Real, N, ObjectPolicy>::Object
 			Object;
 
-		if (kdTree.empty() || !overlaps(range, kdTree.bound()))
+		if (kdTree.empty())
 		{
 			return;
 		}
@@ -42,21 +42,10 @@ namespace Pastel
 		const Vector<Real, N>& rangeMin = range.min();
 		const Vector<Real, N>& rangeMax = range.max();
 
-		// Find out the stabbing flags for the root node.
-		uint32 rootFlags = 0;
-		for (integer i = 0;i < dimension;++i)
-		{
-			if (rangeMin[i] <= kdTree.bound().min()[i] &&
-				rangeMax[i] >= kdTree.bound().max()[i])
-			{
-				rootFlags |= (uint32)1 << i;
-			}
-		}
-
 		const ObjectPolicy& objectPolicy = kdTree.objectPolicy();
 
 		std::vector<std::pair<Cursor, uint32> > nodeSet;
-		nodeSet.push_back(std::make_pair(kdTree.root(), rootFlags));
+		nodeSet.push_back(std::make_pair(kdTree.root(), 0));
 
 		while(!nodeSet.empty())
 		{

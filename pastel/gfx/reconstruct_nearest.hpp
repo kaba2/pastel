@@ -122,7 +122,7 @@ namespace Pastel
 
 		DataPolicy dataPolicy;
 		PointKdTree<Real, N, DataPolicy> kdTree(
-			ofDimension(N), 16, dataPolicy);
+			ofDimension(N), dataPolicy);
 
 		const Vector<Real, N> scaling = 
 			inverse(region.extent()) * Vector<Real, N>(view.extent());
@@ -139,7 +139,7 @@ namespace Pastel
 
 		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
-		kdTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+		kdTree.refine();
 
 		Detail_ReconstructNearest::ReconstructFunctor<Real, N, DataPolicy>
 			reconstructFunctor(kdTree, kNearest, maxRelativeError);

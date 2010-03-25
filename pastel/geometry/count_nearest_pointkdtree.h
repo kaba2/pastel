@@ -52,13 +52,31 @@ namespace Pastel
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection);
 
 	//! Counts nearest neighbors for a point in a kd-tree.
 	/*!
 	This is a convenience function that calls:
 	countNearest(kdTree, searchPoint, maxDistance,
-		acceptPoint, Euclidean_NormBijection<Real>());
+		acceptPoint, bucketSize,
+		Euclidean_NormBijection<Real>());
+	*/
+
+	template <typename Real, int N, typename ObjectPolicy,
+	typename AcceptPoint>
+	integer countNearest(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const Vector<Real, N>& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize);
+
+	//! Counts nearest neighbors for a point in a kd-tree.
+	/*!
+	This is a convenience function that calls:
+	countNearest(kdTree, searchPoint, maxDistance,
+		acceptPoint, 1);
 	*/
 
 	template <typename Real, int N, typename ObjectPolicy,
@@ -73,8 +91,7 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	countNearest(kdTree, searchPoint, maxDistance,
-		Always_Accept<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>(), 
-		Euclidean_NormBijection<Real>());
+		Always_Accept<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy>
 	integer countNearest(

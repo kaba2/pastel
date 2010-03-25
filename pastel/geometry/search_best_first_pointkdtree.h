@@ -45,6 +45,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor);
 
@@ -60,12 +61,13 @@ namespace Pastel
 			const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 			const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 			const AcceptPoint& acceptPoint,
+			integer bucketSize,
 			const NormBijection& normBijection,
 			const CandidateFunctor& candidateFunctor)
 		{
 			searchBestFirst(
 				kdTree, searchPoint, maxDistance, maxRelativeError, 
-				acceptPoint, normBijection, candidateFunctor);
+				acceptPoint, bucketSize, normBijection, candidateFunctor);
 		}
 	};
 

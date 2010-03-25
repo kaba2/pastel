@@ -75,7 +75,7 @@ private:
 		MyTree::Cursor cursor, 
 		const AlignedBox2& bound,
 		integer depth = 0,
-		integer bucketSize = 8);
+		integer bucketSize = 1);
 	/*
 	void drawBspTree(const MyTree& tree);
 	void drawBspTree(
@@ -169,10 +169,13 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 
 	std::vector<Vector2> pointSet;
 
+	AlignedBox2 bound;
+
 	for (integer i = 0;i < 10000;++i)
 	{
 		pointSet.push_back(
 			randomDistribution->sample());
+		extendToCover(pointSet.back(), bound);
 	}
 
 	tree_.insert(pointSet.begin(), pointSet.end());
@@ -188,7 +191,7 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	//computeTree(128);
 	//timing();
 
-	concentrate(renderer(), tree_.bound());
+	concentrate(renderer(), bound);
 }
 
 NearestNeighbor_Gfx_Ui::~NearestNeighbor_Gfx_Ui()
@@ -236,7 +239,7 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 
 		if (key == SDLK_o)
 		{
-			tree_.refine(SplitRule());
+			tree_.refine();
 		}
 
 		if (key == SDLK_c)
@@ -448,7 +451,10 @@ void NearestNeighbor_Gfx_Ui::drawBspTree(const MyTree& tree)
 
 void NearestNeighbor_Gfx_Ui::drawKdTree(const MyTree& tree)
 {
-	drawKdTree(tree.root(), tree.bound(), 0, 8);
+	const AlignedBox2 bound(
+		Vector2(-infinity<real>()),
+		Vector2(infinity<real>()));
+	drawKdTree(tree.root(), bound, 0);
 }
 
 void NearestNeighbor_Gfx_Ui::drawKdTree(
@@ -457,11 +463,13 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 	integer depth,
 	integer bucketSize)
 {
-	Color color(hsvToRgb(Color((real32)(depth % 8) / 8, 1, 1)));
+	//Color color(hsvToRgb(Color((real32)(depth % 8) / 8, 1, 1)));
+	Color color(1);
 
-	if (cursor.leaf() || cursor.objects() <= bucketSize)
+	if (cursor.leaf()/* || cursor.objects() <= bucketSize*/)
 	{
-		renderer().setColor(color / std::pow((real)(depth + 1), (real)0.5));
+		//renderer().setColor(color / std::pow((real)(depth + 1), (real)0.5));
+		renderer().setColor(color);
 		renderer().setFilled(false);
 		drawBox(renderer(), bound);
 	}
@@ -483,13 +491,13 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 				cursor.right().max();
 			drawKdTree(cursor.right(), nextBound, depth + 1);
 		}
-		/*
 		renderer().setColor(Color(1, 1, 1));
+		/*
 		if (cursor.splitAxis() == 0)
 		{
 			const real x = cursor.splitPosition();
-			const real y1 = bound.min().y();
-			const real y2 = bound.max().y();
+			const real y1 = std::max(bound.min().y(), (real)-1000);
+			const real y2 = std::min(bound.max().y(), (real)1000);
 
 			drawSegment(renderer(),
 				Segment2(Vector2(x, y1), Vector2(x, y2)));
@@ -497,8 +505,8 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 		else
 		{
 			const real y = cursor.splitPosition();
-			const real x1 = bound.min().x();
-			const real x2 = bound.max().x();
+			const real x1 = std::max(bound.min().x(), (real)-1000);
+			const real x2 = std::min(bound.max().x(), (real)1000);
 
 			drawSegment(renderer(),
 				Segment2(Vector2(x1, y), Vector2(x2, y)));
@@ -682,6 +690,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		NullIterator(),
 		normBijection_.toBijection(searchRadius_ * scaling_), 0,
 		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+		8,
 		normBijection_);
 
 	rangePointSet_.clear();
@@ -739,6 +748,7 @@ void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
 		NullIterator(),
 		normBijection_.toBijection(radius), 0,
 		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+		8,
 		normBijection_);
 
 	for (integer i = 0;i < nearestSet.size();i += 16)
@@ -767,7 +777,7 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine(SplitRule(), maxDepth);
+	newTree.refine(maxDepth, 1);
 
 	ENSURE(check(newTree));
 
@@ -783,8 +793,6 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 	timer.store();
 
 	cout << "Construction took " << timer.seconds() << " seconds." << endl;
-
-	std::cout << newTree.bound().min() << ", " << newTree.bound().max() << std::endl;
 
 	newTree.swap(tree_);
 }

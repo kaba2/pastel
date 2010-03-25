@@ -30,6 +30,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection,
 		const SearchAlgorithm& searchAlgorithm);
 
@@ -39,7 +40,8 @@ namespace Pastel
 	searchNearestOne(
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
-		acceptPoint, normBijection,
+		acceptPoint, bucketSize,
+		normBijection,
 		BestFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
@@ -52,6 +54,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
+		integer bucketSize,
 		const NormBijection& normBijection);
 
 	//! Finds nearest neighbors for a point in a kdTree.
@@ -61,7 +64,28 @@ namespace Pastel
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
 		acceptPoint, 
+		bucketSize,
 		Euclidean_NormBijection<Real>());
+	*/
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint>
+	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+		searchNearestOne(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const Vector<Real, N>& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize);
+
+	//! Finds nearest neighbors for a point in a kdTree.
+	/*!
+	This is a convenience function that calls
+	searchNearestOne(
+		kdTree, searchPoint,
+		maxDistance, maxRelativeError,
+		acceptPoint, 
+		1);
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint>

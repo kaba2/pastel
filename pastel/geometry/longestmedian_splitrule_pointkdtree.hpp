@@ -30,9 +30,28 @@ namespace Pastel
 
 			// Split along the longest dimension.
 
-			const integer splitAxis = maxIndex(maxBound - minBound);
-			Real splitPosition = linear(minBound[splitAxis], 
-				maxBound[splitAxis], 0.5);
+			integer splitAxis = 0;
+			real longestExtent = 0;
+			const integer n = tree.dimension();
+			for (integer i = 0;i < n;++i)
+			{
+				if (minBound[i] == -infinity<Real>() &&
+					maxBound[i] == infinity<Real>())
+				{
+					longestExtent = infinity<Real>();
+					splitAxis = i;
+					break;
+				}
+
+				const real extent = maxBound[i] - minBound[i];
+				if (extent > longestExtent)
+				{
+					longestExtent = extent;
+					splitAxis = i;
+				}
+			}
+
+			Real splitPosition = 0;
 
 			if (!cursor.empty())
 			{

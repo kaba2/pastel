@@ -114,7 +114,7 @@ namespace Pastel
 		Time complexity:
 		constant
 		*/
-		explicit PointKdTree(integer bucketSize = 8,
+		explicit PointKdTree(
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs an empty tree.
@@ -131,7 +131,6 @@ namespace Pastel
 		*/
 		explicit PointKdTree(
 			Dimension dimension,
-			integer bucketSize = 8,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs a copy from another tree.
@@ -255,13 +254,6 @@ namespace Pastel
 		*/
 		integer dimension() const;
 
-		//! Preferred number of points in a bucket node.
-		/*!
-		Exception safety:
-		nothrow
-		*/
-		integer bucketSize() const;
-
 		//! Refines the tree using the given splitting rule.
 		/*!
 		Preconditions:
@@ -274,10 +266,9 @@ namespace Pastel
 		See also:
 		splitrule_pointkdtree_concept.h
 		*/
-		template <typename SplitRule_PointKdTree>
 		void refine(
-			const SplitRule_PointKdTree& splitRule,
-			integer maxDepth = 128);
+			integer maxDepth = 128,
+			integer bucketSize = 8);
 
 		//! Insert an object into the tree.
 		ConstObjectIterator insert(const Object& object);
@@ -514,18 +505,18 @@ namespace Pastel
 		//! Subdivides the tree using the given subdivision rule.
 		/*!
 		Preconditions:
-		1) maxDepth >= 0
-		2) maxObjects >= 0
-		3) depth >= 0
-		4) depth <= maxDepth
-		5) allLessEqual(minBound, maxBound)
+		maxDepth >= 0
+		maxObjects >= 0
+		depth >= 0
+		depth <= maxDepth
+		allLessEqual(minBound, maxBound)
+		bucketSize >= 1
 		*/
-		template <typename SplitRule_PointKdTree>
 		void refine(
 			Node* node,
 			integer maxDepth,
-			const SplitRule_PointKdTree& splitRule,
 			integer depth,
+			integer bucketSize,
 			Vector<Real, N>& minBound,
 			Vector<Real, N>& maxBound);
 
@@ -544,10 +535,6 @@ namespace Pastel
 		root_:
 		The root node of the tree.
 
-		bound_:
-		An axis-aligned box containing all
-		points in the tree.
-
 		leaves_:
 		The number of leaf nodes in the tree.
 
@@ -559,20 +546,14 @@ namespace Pastel
 
 		dimension_:
 		The dimension of the tree.
-
-		bucketSize_:
-		The maximum number of objects on a leaf node
-		such that splitting is not performed.
 		*/
 
 		ObjectContainer objectList_;
 		NodeAllocator nodeAllocator_;
 		Node* root_;
-		AlignedBox<Real, N> bound_;
 		integer leaves_;
 		ObjectPolicy objectPolicy_;
 		integer dimension_;
-		integer bucketSize_;
 	};
 
 }
