@@ -837,6 +837,20 @@ int myMain()
 	NearestNeighbor_Gfx_Ui nearestNeighborUi;
 	deviceSystem().setUi(&nearestNeighborUi);
 
+	/*
+	const integer d = 100;
+	const integer n = 10000;
+	PointKdTree<real> tree(ofDimension(d));
+	std::vector<Vector<real> > pointSet;
+	pointSet.reserve(n);
+	for (integer i = 0;i < n;++i)
+	{
+		pointSet.insert(randomGaussianVector<real, Dynamic>(d));
+	}
+	tree.insert(pointSet.begin(), pointSet.end());
+	tree.refine();
+	*/
+
 	deviceSystem().startEventLoop(LogicFps);
 
 	gfxDevice().deInitialize();

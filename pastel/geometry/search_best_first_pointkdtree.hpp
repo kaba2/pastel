@@ -48,8 +48,6 @@ namespace Pastel
 				, objectPolicy(kdTree_.objectPolicy())
 				, protectiveFactor(normBijection.scalingFactor(1.001))
 				, cullDistance(maxDistance_)
-				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
-				, nodeCullDistance(maxDistance_)
 				, dimension(kdTree_.dimension())
 				, bucketSize(bucketSize_)
 			{
@@ -85,7 +83,7 @@ namespace Pastel
 
 					nodeQueue.pop();
 
-					if (distance > nodeCullDistance)
+					if (distance > cullDistance)
 					{
 						// This is the closest node there is
 						// of all the non-visited nodes.
@@ -95,9 +93,11 @@ namespace Pastel
 						break;
 					}
 					
-					bool foundSomething = true;
-					while(!cursor.leaf() && 
-						cursor.objects() > bucketSize)
+					if (cursor.leaf() || cursor.objects() <= bucketSize)
+					{
+						searchBruteForce(cursor);
+					}
+					else
 					{
 						// For an intermediate node our task is to
 						// recurse to child nodes while updating
@@ -127,37 +127,32 @@ namespace Pastel
 
 						if (searchPosition < leftMin)
 						{
-							rightDistance = normBijection.replaceAxis(
+							leftDistance = normBijection.addAxis(
 								distance,
-								normBijection.axis(leftMin - searchPosition),
+								normBijection.axis(leftMin - searchPosition));
+							rightDistance = normBijection.addAxis(
+								distance,
 								normBijection.axis(rightMin - searchPosition));
 							
 							// Since the distance to the left child does
 							// not change, it must be the closest of all currently
 							// considered nodes: continue with that.
 							cursor = left;
-							if (rightDistance <= nodeCullDistance && 
-								!right.empty())
-							{
-								nodeQueue.push(keyValue(rightDistance, right));
-							}
+							nodeQueue.push(keyValue(rightDistance, right));
 						}
 						else if (searchPosition > rightMax)
 						{
-							leftDistance = normBijection.replaceAxis(
+							leftDistance = normBijection.addAxis(
 								distance,
-								normBijection.axis(searchPosition - rightMax),
 								normBijection.axis(searchPosition - leftMax));
+							rightDistance = normBijection.addAxis(
+								distance,
+								normBijection.axis(searchPosition - rightMax));
 
 							// Since the distance to the right child does
 							// not change, it must be the closest of all currently
 							// considered nodes: continue with that.
 							cursor = right;
-							if (leftDistance <= nodeCullDistance && 
-								!left.empty())
-							{
-								nodeQueue.push(keyValue(leftDistance, left));
-							}
 						}
 						else 
 						{
@@ -166,31 +161,17 @@ namespace Pastel
 								leftDistance = normBijection.addAxis(
 									distance,
 									normBijection.axis(searchPosition - leftMax));
-								if (leftDistance <= nodeCullDistance && 
-									!left.empty())
-								{
-									nodeQueue.push(keyValue(leftDistance, left));
-								}
+								nodeQueue.push(keyValue(leftDistance, left));
 							}
 							if (searchPosition < rightMin)
 							{
 								rightDistance = normBijection.addAxis(
 									distance,
 									normBijection.axis(rightMin - searchPosition));
-								if (rightDistance <= nodeCullDistance && 
-									!right.empty())
-								{
-									nodeQueue.push(keyValue(rightDistance, right));
-								}
 							}
-
-							foundSomething = false;
-							break;
 						}
-					}
-					if (foundSomething)
-					{
-						searchBruteForce(cursor);
+						nodeQueue.push(keyValue(leftDistance, left));
+						nodeQueue.push(keyValue(rightDistance, right));
 					}
 				}
 			}
@@ -224,14 +205,7 @@ namespace Pastel
 						if (cullSuggestion < cullDistance)
 						{
 							cullDistance = cullSuggestion;
-							nodeCullDistance = cullDistance * errorFactor;
 						}
-						/*
-						cullDistance = std::min(
-							candidateFunctor.suggestCullDistance() * protectiveFactor,
-							cullDistance);
-						nodeCullDistance = cullDistance * errorFactor;
-						*/
 					}
 
 					++iter;
@@ -249,8 +223,6 @@ namespace Pastel
 			
 			Real protectiveFactor;
 			Real cullDistance;
-			Real errorFactor;
-			Real nodeCullDistance;			
 			integer dimension;
 			integer bucketSize;
 		};
