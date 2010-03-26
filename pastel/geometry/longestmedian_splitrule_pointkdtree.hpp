@@ -21,7 +21,8 @@ namespace Pastel
 			const PointKdTree<Real, N, ObjectPolicy>& tree,
 			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
 			const Vector<Real, N>& minBound,
-			const Vector<Real, N>& maxBound) const
+			const Vector<Real, N>& maxBound,
+			integer depth) const
 		{
 			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
 				ConstObjectIterator;

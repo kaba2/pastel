@@ -64,153 +64,132 @@ namespace Pastel
 
 			void work()
 			{
-				std::priority_queue<
-					KeyValue<Real, Cursor>, 
-					std::vector<KeyValue<Real, Cursor> >,
-					std::greater<KeyValue<Real, Cursor> > > nodeQueue;
+				typedef KeyValue<Real, Cursor> Entry;
+
+				std::priority_queue<Entry,
+					std::vector<Entry>,
+					std::greater<Entry> > nodeQueue;
 
 				if (!kdTree.root().empty())
 				{
 					nodeQueue.push(
-						keyValue((Real)0, kdTree.root()));
+						keyValue(distance2(kdTree.bound(), searchPoint), 
+						kdTree.root()));
 				}
 
 				while(!nodeQueue.empty())
 				{
-					const Real distance = nodeQueue.top().key();
 					Cursor cursor = nodeQueue.top().value();
-					ASSERT(!cursor.empty());
+					Real distance = nodeQueue.top().key();
 
 					nodeQueue.pop();
 
 					if (distance > cullDistance)
 					{
-						// This is the closest node there is
-						// of all the non-visited nodes.
-						// Because it is beyond the current
-						// cull distance, we are done.
-
+						// This is the closest node and it is
+						// beyond the maximum distance. We are
+						// done.
 						break;
 					}
-					
-					if (cursor.leaf() || cursor.objects() <= bucketSize)
+
+					bool searchThis = true;
+					while(!cursor.leaf() && searchThis)
 					{
-						searchBruteForce(cursor);
-					}
-					else
-					{
+						const integer splitAxis = cursor.splitAxis();
+						const Real searchPosition = 
+							searchPoint[splitAxis];
+
 						// For an intermediate node our task is to
 						// recurse to child nodes while updating
 						// incrementally the distance 
-						// to the current node. Note we trace
-						// distance to an aligned box rather
-						// than just a plane.
-
-						const Real searchPosition = 
-							searchPoint[cursor.splitAxis()];
+						// to the current node. 
 
 						const Cursor left = cursor.left();
 						const Cursor right = cursor.right();
 
-						const Real leftMin = left.min();
-						const Real leftMax = left.max();
-						const Real rightMin = right.min();
-						const Real rightMax = right.max();
+						bool goingLeft = false;
+						bool goingRight = false;
 
-						Real leftDistance = distance;
-						Real rightDistance = distance;
-
-						// Note: it is essential for numerical
-						// precision to use comparisons of values
-						// here, rather than comparing the result
-						// of a subtraction to zero.
-
-						if (searchPosition < leftMin)
+						if (!left.empty())
 						{
-							leftDistance = normBijection.addAxis(
-								distance,
-								normBijection.axis(leftMin - searchPosition));
-							rightDistance = normBijection.addAxis(
-								distance,
-								normBijection.axis(rightMin - searchPosition));
-							
-							// Since the distance to the left child does
-							// not change, it must be the closest of all currently
-							// considered nodes: continue with that.
-							cursor = left;
-							nodeQueue.push(keyValue(rightDistance, right));
-						}
-						else if (searchPosition > rightMax)
-						{
-							leftDistance = normBijection.addAxis(
-								distance,
-								normBijection.axis(searchPosition - leftMax));
-							rightDistance = normBijection.addAxis(
-								distance,
-								normBijection.axis(searchPosition - rightMax));
-
-							// Since the distance to the right child does
-							// not change, it must be the closest of all currently
-							// considered nodes: continue with that.
-							cursor = right;
-						}
-						else 
-						{
-							if (searchPosition > leftMax)
+							const Real leftDistance = left.updateDistance(
+								searchPosition, distance, normBijection);
+							if (leftDistance == distance)
 							{
-								leftDistance = normBijection.addAxis(
-									distance,
-									normBijection.axis(searchPosition - leftMax));
+								// The left node remains the closest node.
+								cursor = left;
+								distance = leftDistance;
+								goingLeft = true;
+							}
+							else
+							{
 								nodeQueue.push(keyValue(leftDistance, left));
 							}
-							if (searchPosition < rightMin)
+						}
+						if (!right.empty())
+						{
+							const Real rightDistance = right.updateDistance(
+								searchPosition, distance, normBijection);
+							if (rightDistance == distance && !goingLeft)
 							{
-								rightDistance = normBijection.addAxis(
-									distance,
-									normBijection.axis(rightMin - searchPosition));
+								// The right node remains the closest node.
+								cursor = right;
+								distance = rightDistance;
+								goingRight = true;
+							}
+							else
+							{
+								nodeQueue.push(keyValue(rightDistance, right));
 							}
 						}
-						nodeQueue.push(keyValue(leftDistance, left));
-						nodeQueue.push(keyValue(rightDistance, right));
+						if (!goingLeft && !goingRight)
+						{
+							searchThis = false;
+						}
+					}
+					
+					if (searchThis /*|| cursor.objects() <= bucketSize*/)
+					{
+						searchBruteForce(cursor);
 					}
 				}
 			}
 
 		private:
 			void searchBruteForce(const Cursor& cursor)
-			{
-				// We are now in a bucket node.
-				// Search through the objects in this node.
+            {
+                // We are now in a bucket node.
+                // Search through the objects in this node.
 
-				ConstObjectIterator iter = cursor.begin();
-				const ConstObjectIterator iterEnd = cursor.end();
+                ConstObjectIterator iter = cursor.begin();
+                const ConstObjectIterator iterEnd = cursor.end();
 
-				while(iter != iterEnd)
-				{
-					const Real currentDistance = 
-						distance2(
-						Vector<Real, N>(ofDimension(dimension), 
-						withAliasing((Real*)objectPolicy.point(iter->object()))), 
-						searchPoint, 
-						normBijection, cullDistance);
+                while(iter != iterEnd)
+                {
+                    const Real currentDistance = 
+                        distance2(
+                        Vector<Real, N>(ofDimension(dimension), 
+                        withAliasing((Real*)objectPolicy.point(iter->object()))), 
+                        searchPoint, 
+                        normBijection, cullDistance);
 
-					// It is essential that this is <= rather
-					// than <, because of the possibility
-					// of multiple points at same location.
-					if (currentDistance <= cullDistance && acceptPoint(iter))
-					{
-						candidateFunctor(currentDistance, iter);
-						const Real cullSuggestion = 
-							candidateFunctor.suggestCullDistance() * protectiveFactor;
-						if (cullSuggestion < cullDistance)
-						{
-							cullDistance = cullSuggestion;
-						}
-					}
+                    // It is essential that this is <= rather
+                    // than <, because of the possibility
+                    // of multiple points at same location.
+                    if (currentDistance <= cullDistance && acceptPoint(iter))
+                    {
+                        candidateFunctor(currentDistance, iter);
+                        const Real cullSuggestion = 
+                            candidateFunctor.suggestCullDistance() * protectiveFactor;
+                        if (cullSuggestion < cullDistance)
+                        {
+                            cullDistance = cullSuggestion;
+                        }
+                    }
 
-					++iter;
-				}
-			}
+                    ++iter;
+                }
+            }
 
 			const Tree& kdTree;
 			const Vector<Real, N>& searchPoint;

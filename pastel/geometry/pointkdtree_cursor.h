@@ -136,6 +136,19 @@ namespace Pastel
 			return node_->max();
 		}
 
+		template <typename NormBijection>
+		Real updateDistance(
+			const Real& position,
+			const Real& distance,
+			const NormBijection& normBijection) const
+		{
+			PENSURE(node_);
+			return node_->updateDistance(
+				position,
+				distance,
+				normBijection);
+		}
+
 	private:
 		friend class PointKdTree<Real, N, ObjectPolicy>;
 

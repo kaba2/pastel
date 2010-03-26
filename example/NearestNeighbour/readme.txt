@@ -4,13 +4,14 @@ Pastel's nearest neighbours example
 Description
 -----------
 
-This is a program to visualize a semi-dynamic kd-tree.
-A point set is drawn along with its associated 
-semi-dynamic kd-tree. You can move the mouse cursor 
-over this point set and the program shows you its nearest 
-points using the Euclidean norm. The larger circle is the 
-search radius beyond which points are not considered. The 
-smaller circle is the spray radius. 
+This is a program to visualize a bounding interval tree.
+A point set is drawn along with its associated tree. 
+You can move the mouse cursor over this point set and the 
+program shows you its nearest points using the Euclidean 
+norm. The smaller circle is the spray radius. 
+The larger circle is the search radius beyond which 
+points are not considered. When the search radius is infinite,
+as in the start, it is not shown.
 
 Adding and removing points
 --------------------------
@@ -19,15 +20,15 @@ You can spray new points by pushing the left mouse button.
 Similarly, you can erase points by pushing the right mouse 
 button.
 
-When spraying new points, the kd-tree can become unoptimal,
+When spraying new points, the tree can become unoptimal,
 (especially if the new points extend the bounding box of
-the tree). The optimality can be regained by computing the 
-kd-tree from the start by using the number keys.
+the tree). The optimality can be regained by recomputing the 
+tree (see keys below).
 
 Adaptation to removal
 ---------------------
 
-When you erase points, the kd-tree adapts itself by 
+When you erase points, the tree adapts itself by 
 decreasing the level of detail in the subdivision.
 These subtrees are not actually removed but just 
 taken out of consideration to speed up searches. You can
@@ -38,17 +39,15 @@ again taken in consideration.
 Levels of subdivision
 ---------------------
 
-The number keys can be used to visualize how the subdivision
-is done at each step, by setting an upper bound
-for the number of subdivision levels. For a given point
-set, try pressing the keys from 1 to 9 and 0 
-subsequently.
+At the start the program shows only the leaf nodes of the tree.
+Using keypad + and - you can visualize nodes at higher levels on 
+the tree.
 
 Drawing performance
 -------------------
 
 Drawing is currently a performance bottleneck. 
-When the number of points and kd-tree nodes get higher, 
+When the number of points and tree nodes get higher, 
 the frame rate will drop quickly. Therefore I have
 included keys to toggle drawing on and off.
 The program will always show the bounding box of the points
@@ -63,14 +62,13 @@ F6 - toggle searching k-nearest / all in range
 left mouse button - spray some points
 right mouse button - erase points
 c - clear subdivision and all points
-x - clear all points
-t - toggle drawing of the kd-tree
-p - toggle drawing of the point set
-n - toggle drawing of the nearest points
+x - clear all points but not the subdivision
+t - toggle drawing the tree
+p - toggle drawing the point set
+n - toggle drawing the nearest points
 w, a, s, d - translate the camera
 q, e - rotate the camera
 r, f - zoom the camera
 o - Refine the subdivision
 esc - quit
-1, 2, 3, 4, 5, 6, 7, 8, 9 - recompute kd-tree for a given maximum depth
-0 - recompute the kd-tree for maximum depth of 24
+0 - recompute the tree

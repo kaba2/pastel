@@ -192,18 +192,6 @@ namespace Pastel
 
 		// Bounds
 
-		/*
-		void setMin(Cut* min)
-		{
-			min->increaseNodes();
-			if (min_)
-			{
-				min_->decreaseNodes();
-			}
-			min_ = min;
-		}
-		*/
-
 		void setMin(const Real& min)
 		{
 			min_ = min;
@@ -214,18 +202,6 @@ namespace Pastel
 			return min_;
 		}
 
-		/*
-		void setMax(Real* max)
-		{
-			max->increaseNodes();
-			if (max_)
-			{
-				max_->decreaseNodes();
-			}
-			max_ = max;
-		}
-		*/
-
 		void setMax(const Real& max)
 		{
 			max_ = max;
@@ -234,6 +210,63 @@ namespace Pastel
 		Real max() const
 		{
 			return max_;
+		}
+
+		void setPrevMin(const Real& prevMin)
+		{
+			prevMin_ = prevMin;
+		}
+
+		Real prevMin() const
+		{
+			return prevMin_;
+		}
+
+		void setPrevMax(const Real& prevMax)
+		{
+			prevMax_ = prevMax;
+		}
+
+		Real prevMax() const
+		{
+			return prevMax_;
+		}
+
+		template <typename NormBijection>
+		Real updateDistance(
+			const Real& position,
+			const Real& distance,
+			const NormBijection& normBijection) const
+		{
+			Real oldDistance = 0;
+			if (position < prevMin_)
+			{
+				oldDistance = 
+					normBijection.axis(prevMin_ - position);
+			}
+			else if (position > prevMax_)
+			{
+				oldDistance = 
+					normBijection.axis(position - prevMax_);
+			}
+
+			Real newDistance = distance;
+			if (position < min_)
+			{
+				newDistance = normBijection.replaceAxis(
+					distance,
+					oldDistance,
+					normBijection.axis(min_ - position));
+			}
+			else if (position > max_)
+			{
+				newDistance = normBijection.replaceAxis(
+					distance,
+					oldDistance,
+					normBijection.axis(position - max_));
+			}
+
+			return newDistance;
 		}
 
 	private:
@@ -261,8 +294,11 @@ namespace Pastel
 		Real min_;
 		Real max_;
 
-		//Cut* min_;
-		//Cut* max_;
+		// Previous values of min_ and max_ 
+		// on the splitting axis.
+
+		Real prevMin_;
+		Real prevMax_;
 	};
 
 }

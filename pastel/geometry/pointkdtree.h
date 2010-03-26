@@ -264,6 +264,9 @@ namespace Pastel
 		*/
 		void refine();
 
+		template <typename SplitRule_PointKdTree>
+		void refine(const SplitRule_PointKdTree& splitRule);
+
 		//! Insert an object into the tree.
 		ConstObjectIterator insert(const Object& object);
 
@@ -455,7 +458,9 @@ namespace Pastel
 		void subdivide(
 			Node* node,
 			const Real& splitPosition,
-			integer splitAxis);
+			integer splitAxis,
+			const Vector<Real, N>& minBound,
+			const Vector<Real, N>& maxBound);
 
 		//! Inserts new objects at the end of the objectList_.
 		/*!
@@ -499,16 +504,15 @@ namespace Pastel
 		//! Subdivides the tree using the given subdivision rule.
 		/*!
 		Preconditions:
-		maxObjects >= 0
-		depth >= 0
 		allLessEqual(minBound, maxBound)
 		*/
+		template <typename SplitRule_PointKdTree>
 		void refine(
 			Node* node,
-			integer depth,
-			integer splitAxis,
 			Vector<Real, N>& minBound,
-			Vector<Real, N>& maxBound);
+			Vector<Real, N>& maxBound,
+			const SplitRule_PointKdTree& splitRule,
+			integer depth);
 
 		/*
 		objectList_:
@@ -544,6 +548,7 @@ namespace Pastel
 		integer leaves_;
 		ObjectPolicy objectPolicy_;
 		integer dimension_;
+		AlignedBox<Real, N> bound_;
 	};
 
 }

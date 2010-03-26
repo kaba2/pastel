@@ -46,7 +46,7 @@ using namespace Pastel;
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;
 const integer LogicFps = 100;
-const real SearchRadius = 0.2;
+const real SearchRadius = infinity<real>();
 const integer NearestPoints = 15;
 const real TranslationSpeed = 0.02;
 const real ZoomFactor = 1.05;
@@ -115,6 +115,7 @@ private:
 	integer nearestPoints_;
 	real searchRadius_;
 	real scaling_;
+	integer treeDrawDepth_;
 };
 
 NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
@@ -130,6 +131,7 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	, nearestPoints_(NearestPoints)
 	, searchRadius_(SearchRadius)
 	, scaling_(1)
+	, treeDrawDepth_(0)
 {
 	renderer().setColor(Color(0));
 	renderer().clear();
@@ -309,45 +311,20 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 		{
 			drawNearest_ = !drawNearest_;
 		}
+		if (key == SDLK_KP_PLUS)
+		{
+			++treeDrawDepth_;
+		}
+		if (key == SDLK_KP_MINUS)
+		{
+			if (treeDrawDepth_ > 0)
+			{
+				--treeDrawDepth_;
+			}
+		}
 		if (key == SDLK_0)
 		{
-			computeTree(128);
-		}
-		if (key == SDLK_1)
-		{
-			computeTree(0);
-		}
-		if (key == SDLK_2)
-		{
-			computeTree(1);
-		}
-		if (key == SDLK_3)
-		{
-			computeTree(2);
-		}
-		if (key == SDLK_4)
-		{
-			computeTree(3);
-		}
-		if (key == SDLK_5)
-		{
-			computeTree(4);
-		}
-		if (key == SDLK_6)
-		{
-			computeTree(5);
-		}
-		if (key == SDLK_7)
-		{
-			computeTree(6);
-		}
-		if (key == SDLK_8)
-		{
-			computeTree(7);
-		}
-		if (key == SDLK_9)
-		{
-			computeTree(8);
+			computeTree(64);
 		}
 	}
 }
@@ -453,10 +430,9 @@ void NearestNeighbor_Gfx_Ui::drawBspTree(const MyTree& tree)
 
 void NearestNeighbor_Gfx_Ui::drawKdTree(const MyTree& tree)
 {
-	const AlignedBox2 bound(
-		Vector2(-infinity<real>()),
-		Vector2(infinity<real>()));
-	drawKdTree(tree.root(), bound, 0);
+	drawKdTree(tree.root(), tree.bound(), 0);
+	renderer().setColor(Color(0, 1, 0));
+	drawBox(renderer(), tree.bound());
 }
 
 void NearestNeighbor_Gfx_Ui::drawKdTree(
@@ -468,7 +444,8 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 	//Color color(hsvToRgb(Color((real32)(depth % 8) / 8, 1, 1)));
 	Color color(1);
 
-	if (cursor.leaf()/* || cursor.objects() <= bucketSize*/)
+		/* || cursor.objects() <= bucketSize*/
+	if (cursor.leaf() || depth == treeDrawDepth_)
 	{
 		//renderer().setColor(color / std::pow((real)(depth + 1), (real)0.5));
 		renderer().setColor(color);
@@ -493,8 +470,8 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 				cursor.right().max();
 			drawKdTree(cursor.right(), nextBound, depth + 1);
 		}
-		renderer().setColor(Color(1, 1, 1));
 		/*
+		renderer().setColor(Color(1, 1, 1));
 		if (cursor.splitAxis() == 0)
 		{
 			const real x = cursor.splitPosition();
@@ -779,7 +756,9 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine();
+	newTree.refine(Hybrid_SplitRule_PointKdTree());
+	//newTree.refine(Midpoint_SplitRule_PointKdTree());
+	//newTree.refine();
 
 	ENSURE(check(newTree));
 
@@ -834,14 +813,14 @@ int myMain()
 
 	deviceSystem().initialize();
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
-	deviceSystem().setCaption("Pastel's nearest neighbours example");
+	deviceSystem().setCaption("Nearest neighbors example");
 
 	NearestNeighbor_Gfx_Ui nearestNeighborUi;
 	deviceSystem().setUi(&nearestNeighborUi);
 
 	Timer timer;
 
-	const integer d = 100;
+	const integer d = 10;
 	const integer n = 10000;
 	PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d));
 	std::vector<Vector<real> > pointSet;
@@ -891,7 +870,11 @@ int myMain()
 	{
 		const real* brute = pointSet[bruteSet(i)].rawBegin();
 		const real* nearest = nearestSet(i)->object();
-		if (brute != nearest)
+		const real bruteDistance = distance2(pointSet[bruteSet(i)], pointSet[i]);
+		const real nearestDistance = 
+			distance2(nearestSet(i)->object(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
+		
+		if (REPORT2(bruteDistance != nearestDistance, bruteDistance, nearestDistance))
 		{
 			++fuckedUp;
 		}

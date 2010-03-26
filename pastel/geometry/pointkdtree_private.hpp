@@ -314,7 +314,9 @@ namespace Pastel
 	void PointKdTree<Real, N, ObjectPolicy>::subdivide(
 		Node* node,
 		const Real& splitPosition, 
-		integer splitAxis)
+		integer splitAxis,
+		const Vector<Real, N>& minBound,
+		const Vector<Real, N>& maxBound)
 	{
 		ASSERT(node);
 		ASSERT(node->leaf());
@@ -381,13 +383,25 @@ namespace Pastel
 
 		const std::pair<Real, Real> leftBound = 
 			computeBound(left->first(), left->end(), splitAxis);
-		left->setMin(leftBound.first);
-		left->setMax(leftBound.second);
+
+		const Real leftMin = leftBound.first;
+		const Real leftMax = leftBound.second;
+
+		left->setMin(leftMin);
+		left->setMax(leftMax);
+		left->setPrevMin(minBound[splitAxis]);
+		left->setPrevMax(maxBound[splitAxis]);
 
 		const std::pair<Real, Real> rightBound = 
 			computeBound(right->first(), right->end(), splitAxis);
-		right->setMin(rightBound.first);
-		right->setMax(rightBound.second);
+
+		const Real rightMin = rightBound.first;
+		const Real rightMax = rightBound.second;
+
+		right->setMin(rightMin);
+		right->setMax(rightMax);
+		right->setPrevMin(minBound[splitAxis]);
+		right->setPrevMax(maxBound[splitAxis]);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.
@@ -452,10 +466,10 @@ namespace Pastel
 		if (node->leaf())
 		{
 			// Compute the bounding box of the inserted points.
-			//bound = computeBound(begin, end);
+			bound = computeBound(begin, end);
 
 			// Set the bounds.
-			//updateBounds(node, bound);
+			updateBounds(node, bound);
 
 			// Set the leaf nodes for each object.
 			setLeaf(begin, end, node);
@@ -511,22 +525,21 @@ namespace Pastel
 				// If there are objects going to the right node,
 				// recurse deeper.
 
-				//AlignedBox<Real, N> rightBound(ofDimension(dimension_));
+				AlignedBox<Real, N> rightBound(ofDimension(dimension_));
 				insert(
 					right, 
 					newRightFirst, newRightLast, 
 					newRightObjects,
-					bound);
-					//rightBound);
+					rightBound);
 
 				// Compute the combined bounding box of the
 				// inserted points in both the left and right child.
-				//extendToCover(rightBound, bound);
+				extendToCover(rightBound, bound);
 			}
 
 			// Update hierarchical information.
 			updateObjects(node);
-			//updateBounds(node, bound);
+			updateBounds(node, bound);
 			
 			// Finally, we need to order the objects in the objectList_
 			// so that the objects in the right child come right after
@@ -542,29 +555,34 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
+	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
 		Node* node,
-		integer depth,
-		integer splitAxis,
 		Vector<Real, N>& minBound,
-		Vector<Real, N>& maxBound)
+		Vector<Real, N>& maxBound,
+		const SplitRule_PointKdTree& splitRule,
+		integer depth)
 	{
 		ASSERT(node);
-		ASSERT_OP(depth, >=, 0);
-		ASSERT_OP(maxDepth, >=, 0);
 
 		if (node->leaf())
 		{
 			if (node->objects() <= 1)
 			{
-				// A leaf node did not get subdivided further.
-				// Assign the leaf node pointers to objects.
 				setLeaf(node->first(), node->end(), node);
 			}
 			else
 			{
-				// If those conditions do not apply, 
-				// apply the splitting rule.
+				const std::pair<Real, integer> split = 
+					splitRule(*this, Cursor(node), 
+					minBound, maxBound, depth);
+				const Real splitPosition = split.first;
+				const integer splitAxis = split.second;
+				/*
+				// Find the axis on which the bounding box
+				// has the longest extent.
+
+				const integer splitAxis = maxIndex(maxBound - minBound);
 
 				// Get the positions of the points along the splitting axis.
 
@@ -583,9 +601,12 @@ namespace Pastel
 
 				std::sort(positionSet.begin(), positionSet.end());
 
-				const Real splitPosition = positionSet[positionSet.size() / 2];
+				const integer medianIndex = positionSet.size() / 2;
+				const Real splitPosition = positionSet[medianIndex];
+				*/
 
-				subdivide(node, splitPosition, splitAxis);
+				subdivide(node, splitPosition, splitAxis,
+					minBound, maxBound);
 			}
 		}
 
@@ -593,12 +614,7 @@ namespace Pastel
 		{
 			// Refine recursively.
 
-			integer splitAxis = node->splitAxis();
-			integer nextSplitAxis = splitAxis + 1;
-			if (nextSplitAxis == dimension_)
-			{
-				nextSplitAxis = 0;
-			}
+			const integer splitAxis = node->splitAxis();
 			
 			const Real oldMinBound = minBound[splitAxis];
 			const Real oldMaxBound = maxBound[splitAxis];
@@ -608,20 +624,20 @@ namespace Pastel
 
 			refine(
 				node->left(), 
-				depth + 1, 
-				nextSplitAxis,
 				minBound,
-				maxBound);
+				maxBound,
+				splitRule,
+				depth + 1);
 
 			minBound[splitAxis] = node->right()->min();
 			maxBound[splitAxis] = node->right()->max();
 
 			refine(
 				node->right(), 
-				depth + 1,
-				nextSplitAxis,
 				minBound,
-				maxBound);
+				maxBound,
+				splitRule,
+				depth + 1);
 
 			minBound[splitAxis] = oldMinBound;
 			maxBound[splitAxis] = oldMaxBound;
