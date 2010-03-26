@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/bounding_alignedbox.h"
+#include "pastel/geometry/longestmedian_splitrule_pointkdtree.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
@@ -21,6 +22,7 @@ namespace Pastel
 		, leaves_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(N)
+		, bound_()
 	{
 		ENSURE_OP(N, !=, Dynamic);
 		//BOOST_STATIC_ASSERT(N != Dynamic);
@@ -41,6 +43,7 @@ namespace Pastel
 		, leaves_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(dimension)
+		, bound_(ofDimension(dimension))
 	{
 		ENSURE2((N != Dynamic && dimension == N) || 
 			(N == Dynamic && dimension > 0), dimension, N);
@@ -59,6 +62,7 @@ namespace Pastel
 		, leaves_(0)
 		, objectPolicy_(that.objectPolicy_)
 		, dimension_(that.dimension_)
+		, bound_(that.bound_)
 	{
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
@@ -113,12 +117,27 @@ namespace Pastel
 		std::swap(leaves_, that.leaves_);
 		std::swap(objectPolicy_, that.objectPolicy_);
 		std::swap(dimension_, that.dimension_);
+		bound_.swap(that.bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
 	const ObjectPolicy& PointKdTree<Real, N, ObjectPolicy>::objectPolicy() const
 	{
 		return objectPolicy_;
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
+	const AlignedBox<Real, N>& 
+		PointKdTree<Real, N, ObjectPolicy>::bound() const
+	{
+		return bound_;
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
+	void PointKdTree<Real, N, ObjectPolicy>::reserveBound(
+		const AlignedBox<Real, N>& boxToCover)
+	{
+		extendToCover(boxToCover, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -189,14 +208,23 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::refine()
 	{
-		Vector<Real, N> minBound(ofDimension(dimension_), -infinity<Real>());
-		Vector<Real, N> maxBound(ofDimension(dimension_), infinity<Real>());
+		const LongestMedian_SplitRule_PointKdTree splitRule;
+		refine(splitRule);
+	}
+
+	template <typename Real, int N, typename ObjectPolicy>
+	template <typename SplitRule_PointKdTree>
+	void PointKdTree<Real, N, ObjectPolicy>::refine(
+		const SplitRule_PointKdTree& splitRule)
+	{
+		Vector<Real, N> minBound(bound_.min());
+		Vector<Real, N> maxBound(bound_.max());
 
 		refine(root_, 
-			0,
-			0,
 			minBound,
-			maxBound);
+			maxBound,
+			splitRule,
+			0);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -215,6 +243,8 @@ namespace Pastel
 		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
 
 		insert(root_, iter, iter, 1, objectBound);
+
+		extendToCover(objectBound, bound_);
 
 		return iter;
 	}
@@ -248,6 +278,8 @@ namespace Pastel
 
 		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
 		insert(root_, first, last, objects, objectBound);
+
+		extendToCover(objectBound, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -273,6 +305,8 @@ namespace Pastel
 
 		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
 		insert(root_, first, last, objects, objectBound);
+
+		extendToCover(objectBound, bound_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>
@@ -300,6 +334,7 @@ namespace Pastel
 		nodeAllocator_.clear();
 		root_ = 0;
 		leaves_ = 0;
+		bound_ = AlignedBox<Real, N>(ofDimension(dimension_));
 
 		initialize();
 	}

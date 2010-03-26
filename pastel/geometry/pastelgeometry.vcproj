@@ -528,6 +528,14 @@
 							>
 						</File>
 						<File
+							RelativePath=".\hybrid_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\hybrid_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
 							RelativePath=".\longestmedian_splitrule_pointkdtree.h"
 							>
 						</File>
@@ -537,6 +545,14 @@
 						</File>
 						<File
 							RelativePath=".\longestmedian_splitrule_pointkdtree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\midpoint_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\midpoint_splitrule_pointkdtree.hpp"
 							>
 						</File>
 						<File
