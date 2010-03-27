@@ -9,5 +9,6 @@
 #include "pastel/geometry/slidingmidpoint2_splitrule_pointkdtree.h"
 #include "pastel/geometry/longestmedian_splitrule_pointkdtree.h"
 #include "pastel/geometry/hybrid_splitrule_pointkdtree.h"
+#include "pastel/geometry/minimumvolume_splitrule_pointkdtree.h"
 
 #endif

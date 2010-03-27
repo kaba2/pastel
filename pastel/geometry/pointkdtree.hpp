@@ -22,7 +22,7 @@ namespace Pastel
 		, leaves_(0)
 		, objectPolicy_(objectPolicy)
 		, dimension_(N)
-		, bound_()
+		, bound_(ofDimension(N))
 	{
 		ENSURE_OP(N, !=, Dynamic);
 		//BOOST_STATIC_ASSERT(N != Dynamic);

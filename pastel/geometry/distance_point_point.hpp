@@ -89,22 +89,11 @@ namespace Pastel
 	{
 		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
 
-		Tuple<Real, N>::const_iterator aData = aPoint.asTuple().begin();
-		const Tuple<Real, N>::const_iterator aEnd = aPoint.asTuple().end();
-		Tuple<Real, N>::const_iterator bData = bPoint.asTuple().begin();
-
-		Real result = 0;
-		while(aData != aEnd)
-		{
-			result = normBijection.addAxis(
-				result, 
-				normBijection.signedAxis(*aData - *bData));
-
-			++aData;
-			++bData;
-		}
-
-		return result;
+		return Pastel::distance2(
+			aPoint.rawBegin(),
+			bPoint.rawBegin(),
+			aPoint.dimension(),
+			normBijection);
 	}
 
 	template <typename Real, typename NormBijection>
@@ -130,6 +119,34 @@ namespace Pastel
 		return result;
 	}
 
+	template <typename Real, typename NormBijection>
+	Real distance2(
+		const Real* aPoint,
+		const Real* bPoint,
+		integer dimension,
+		const NormBijection& normBijection,
+		const Real& cullDistance)
+	{
+		PENSURE_OP(dimension, >=, 0);
+
+		Real result = 0;
+		for (integer i = 0;i < dimension;++i)
+		{
+			result = normBijection.addAxis(
+				result, 
+				normBijection.signedAxis(*aPoint - *bPoint));
+			if (result > cullDistance)
+			{
+				break;
+			}
+
+			++aPoint;
+			++bPoint;
+		}
+
+		return result;
+	}
+
 	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,
@@ -139,27 +156,12 @@ namespace Pastel
 	{
 		PENSURE_OP(aPoint.dimension(), ==, bPoint.dimension());
 
-		Tuple<Real, N>::const_iterator aData = aPoint.asTuple().begin();
-		const Tuple<Real, N>::const_iterator aEnd = aPoint.asTuple().end();
-		Tuple<Real, N>::const_iterator bData = bPoint.asTuple().begin();
-
-		Real result = 0;
-		while(aData != aEnd)
-		{
-			result = normBijection.addAxis(
-				result, 
-				normBijection.signedAxis(*aData - *bData));
-
-			if (result > cullDistance)
-			{
-				break;
-			}
-
-			++aData;
-			++bData;
-		}
-
-		return result;
+		return Pastel::distance2(
+			aPoint.rawBegin(),
+			bPoint.rawBegin(),
+			aPoint.size(),
+			normBijection,
+			cullDistance);
 	}
 
 }

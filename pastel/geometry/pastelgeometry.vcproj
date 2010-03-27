@@ -556,6 +556,14 @@
 							>
 						</File>
 						<File
+							RelativePath=".\minimumvolume_splitrule_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\minimumvolume_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
 							RelativePath=".\slidingmidpoint2_splitrule_pointkdtree.h"
 							>
 						</File>
@@ -1839,6 +1847,14 @@
 				</File>
 				<File
 					RelativePath=".\search_best_first_pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\search_depth_first_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_depth_first_pointkdtree.hpp"
 					>
 				</File>
 				<File

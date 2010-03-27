@@ -197,7 +197,7 @@ namespace Pastel
 			min_ = min;
 		}
 
-		Real min() const
+		const Real& min() const
 		{
 			return min_;
 		}
@@ -207,7 +207,7 @@ namespace Pastel
 			max_ = max;
 		}
 
-		Real max() const
+		const Real& max() const
 		{
 			return max_;
 		}
@@ -217,7 +217,7 @@ namespace Pastel
 			prevMin_ = prevMin;
 		}
 
-		Real prevMin() const
+		const Real& prevMin() const
 		{
 			return prevMin_;
 		}
@@ -227,46 +227,9 @@ namespace Pastel
 			prevMax_ = prevMax;
 		}
 
-		Real prevMax() const
+		const Real& prevMax() const
 		{
 			return prevMax_;
-		}
-
-		template <typename NormBijection>
-		Real updateDistance(
-			const Real& position,
-			const Real& distance,
-			const NormBijection& normBijection) const
-		{
-			Real oldDistance = 0;
-			if (position < prevMin_)
-			{
-				oldDistance = 
-					normBijection.axis(prevMin_ - position);
-			}
-			else if (position > prevMax_)
-			{
-				oldDistance = 
-					normBijection.axis(position - prevMax_);
-			}
-
-			Real newDistance = distance;
-			if (position < min_)
-			{
-				newDistance = normBijection.replaceAxis(
-					distance,
-					oldDistance,
-					normBijection.axis(min_ - position));
-			}
-			else if (position > max_)
-			{
-				newDistance = normBijection.replaceAxis(
-					distance,
-					oldDistance,
-					normBijection.axis(position - max_));
-			}
-
-			return newDistance;
 		}
 
 	private:

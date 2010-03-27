@@ -3,6 +3,7 @@
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/intersect_segment_halfspace.h"
 #include "pastel/geometry/point_patterns.h"
+#include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_bruteforce.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
@@ -46,7 +47,7 @@ using namespace Pastel;
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;
 const integer LogicFps = 100;
-const real SearchRadius = infinity<real>();
+const real SearchRadius = 0.1;
 const integer NearestPoints = 15;
 const real TranslationSpeed = 0.02;
 const real ZoomFactor = 1.05;
@@ -129,7 +130,7 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	, drawNearest_(true)
 	, mouseLeftPressed_(false)
 	, nearestPoints_(NearestPoints)
-	, searchRadius_(SearchRadius)
+	, searchRadius_(infinity<real>())
 	, scaling_(1)
 	, treeDrawDepth_(0)
 {
@@ -213,7 +214,12 @@ void NearestNeighbor_Gfx_Ui::onRender()
 		redrawPointSet();
 	}
 
-	drawKdTree(tree_);
+	if (drawTree_)
+	{
+		drawKdTree(tree_);
+	}
+	renderer().setColor(Color(0, 1, 0));
+	drawBox(renderer(), tree_.bound());
 	//redrawRange();
 	redrawNearest();
 
@@ -431,8 +437,6 @@ void NearestNeighbor_Gfx_Ui::drawBspTree(const MyTree& tree)
 void NearestNeighbor_Gfx_Ui::drawKdTree(const MyTree& tree)
 {
 	drawKdTree(tree.root(), tree.bound(), 0);
-	renderer().setColor(Color(0, 1, 0));
-	drawBox(renderer(), tree.bound());
 }
 
 void NearestNeighbor_Gfx_Ui::drawKdTree(
@@ -756,8 +760,10 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine(Hybrid_SplitRule_PointKdTree());
+	newTree.refine(MinimumVolume_SplitRule_PointKdTree());
+	//newTree.refine(Hybrid_SplitRule_PointKdTree());
 	//newTree.refine(Midpoint_SplitRule_PointKdTree());
+	//newTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 	//newTree.refine();
 
 	ENSURE(check(newTree));
@@ -820,7 +826,9 @@ int myMain()
 
 	Timer timer;
 
-	const integer d = 10;
+	const real maxRelativeError = 0;
+	const integer k = 4;
+	const integer d = 32;
 	const integer n = 10000;
 	PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d));
 	std::vector<Vector<real> > pointSet;
@@ -834,55 +842,65 @@ int myMain()
 	{
 		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
 	}
-	tree.refine();
+	tree.refine(MinimumVolume_SplitRule_PointKdTree());
+	//tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
 
 	log() << "Bounding search" << logNewLine;
 
 	timer.setStart();
 
-	Array<PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> nearestSet(1, n);
+	Euclidean_NormBijection<real> normBijection;
+
+	Array<PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> nearestSet(k, n);
 	searchAllNeighbors(tree,
 		randomAccessRange(querySet.begin(), querySet.end()),
-		0, 1,
-		&nearestSet);
+		0, k,
+		&nearestSet,
+		0, constantRange(infinity<real>(), querySet.size()),
+		maxRelativeError,
+		normBijection,
+		DepthFirst_SearchAlgorithm_PointKdTree());
 
 	timer.store();
 
-	cout << "Finding " << NearestPoints << " nearest neighbours for "
+	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
 
 	log() << "Brute-force search" << logNewLine;
 
 	timer.setStart();
 
-	Array<integer> bruteSet(1, n);
+	Array<integer> bruteSet(k, n);
 	searchAllNeighborsBruteForce(
 		pointSet,
 		countingIterator(0),
 		countingIterator(n),
-		1,
+		k,
 		infinity<real>(),
-		Euclidean_NormBijection<real>(),
+		normBijection,
 		bruteSet);
 	
 	integer fuckedUp = 0;
 	for (integer i = 0;i < n;++i)
 	{
-		const real* brute = pointSet[bruteSet(i)].rawBegin();
-		const real* nearest = nearestSet(i)->object();
-		const real bruteDistance = distance2(pointSet[bruteSet(i)], pointSet[i]);
-		const real nearestDistance = 
-			distance2(nearestSet(i)->object(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
-		
-		if (REPORT2(bruteDistance != nearestDistance, bruteDistance, nearestDistance))
+		for (integer j = 0;j < k;++j)
 		{
-			++fuckedUp;
+			const real* brute = pointSet[bruteSet(j, i)].rawBegin();
+			const real* nearest = nearestSet(j, i)->object();
+			const real bruteDistance = distance2(pointSet[bruteSet(j, i)], pointSet[i]);
+			const real nearestDistance = 
+				distance2(nearestSet(j, i)->object(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
+			
+			if (relativeError<real>(nearestDistance, bruteDistance) > maxRelativeError)
+			{
+				++fuckedUp;
+			}
 		}
 	}
 	timer.store();
 
-	log() << "Fucked up = " << fuckedUp << logNewLine;
-	cout << "Finding " << NearestPoints << " nearest neighbours for "
+	log() << "Wrong results = " << fuckedUp << logNewLine;
+	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
 
 	deviceSystem().startEventLoop(LogicFps);

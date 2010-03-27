@@ -315,8 +315,8 @@ namespace Pastel
 		Node* node,
 		const Real& splitPosition, 
 		integer splitAxis,
-		const Vector<Real, N>& minBound,
-		const Vector<Real, N>& maxBound)
+		const Real& prevMin,
+		const Real& prevMax)
 	{
 		ASSERT(node);
 		ASSERT(node->leaf());
@@ -383,25 +383,27 @@ namespace Pastel
 
 		const std::pair<Real, Real> leftBound = 
 			computeBound(left->first(), left->end(), splitAxis);
-
 		const Real leftMin = leftBound.first;
 		const Real leftMax = leftBound.second;
+		//const Real leftMin = prevMin;
+		//const Real leftMax = splitPosition;
 
 		left->setMin(leftMin);
 		left->setMax(leftMax);
-		left->setPrevMin(minBound[splitAxis]);
-		left->setPrevMax(maxBound[splitAxis]);
+		left->setPrevMin(prevMin);
+		left->setPrevMax(prevMax);
 
 		const std::pair<Real, Real> rightBound = 
 			computeBound(right->first(), right->end(), splitAxis);
-
 		const Real rightMin = rightBound.first;
 		const Real rightMax = rightBound.second;
+		//const Real rightMin = splitPosition;
+		//const Real rightMax = prevMax;
 
 		right->setMin(rightMin);
 		right->setMax(rightMax);
-		right->setPrevMin(minBound[splitAxis]);
-		right->setPrevMax(maxBound[splitAxis]);
+		right->setPrevMin(prevMin);
+		right->setPrevMax(prevMax);
 
 		// One leaf node got splitted into two,
 		// so it's only one up.
@@ -578,35 +580,9 @@ namespace Pastel
 					minBound, maxBound, depth);
 				const Real splitPosition = split.first;
 				const integer splitAxis = split.second;
-				/*
-				// Find the axis on which the bounding box
-				// has the longest extent.
-
-				const integer splitAxis = maxIndex(maxBound - minBound);
-
-				// Get the positions of the points along the splitting axis.
-
-				std::vector<Real> positionSet;
-				positionSet.reserve(node->objects());
-
-				ConstObjectIterator iter = node->first();
-				const ConstObjectIterator iterEnd = node->end();
-				while(iter != iterEnd)
-				{
-					positionSet.push_back(objectPolicy_.point(iter->object(), splitAxis));
-					++iter;
-				}
-
-				// Get the median of the points on the splitting axis.
-
-				std::sort(positionSet.begin(), positionSet.end());
-
-				const integer medianIndex = positionSet.size() / 2;
-				const Real splitPosition = positionSet[medianIndex];
-				*/
 
 				subdivide(node, splitPosition, splitAxis,
-					minBound, maxBound);
+					minBound[splitAxis], maxBound[splitAxis]);
 			}
 		}
 

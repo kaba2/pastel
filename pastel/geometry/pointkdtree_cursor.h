@@ -110,7 +110,7 @@ namespace Pastel
 
 		// Splitting plane
 
-		Real splitPosition() const
+		const Real& splitPosition() const
 		{
 			PENSURE(node_);
 			return node_->splitPosition();
@@ -124,16 +124,28 @@ namespace Pastel
 
 		// Bounds
 
-		Real min() const
+		const Real& min() const
 		{
 			PENSURE(node_);
 			return node_->min();
 		}
 
-		Real max() const
+		const Real& max() const
 		{
 			PENSURE(node_);
 			return node_->max();
+		}
+
+		const Real& prevMin() const
+		{
+			PENSURE(node_);
+			return node_->prevMin();
+		}
+
+		const Real& prevMax() const
+		{
+			PENSURE(node_);
+			return node_->prevMax();
 		}
 
 		template <typename NormBijection>
