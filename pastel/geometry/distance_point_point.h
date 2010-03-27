@@ -46,6 +46,14 @@ namespace Pastel
 		integer dimension,
 		const NormBijection& normBijection);
 
+	template <typename Real, typename NormBijection>
+	Real distance2(
+		const Real* aPoint,
+		const Real* bPoint,
+		integer dimension,
+		const NormBijection& normBijection,
+		const Real& cullDistance);
+
 	template <typename Real, int N, typename NormBijection>
 	Real distance2(
 		const Vector<Real, N>& aPoint,

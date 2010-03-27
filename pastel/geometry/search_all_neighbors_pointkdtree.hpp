@@ -57,6 +57,8 @@ namespace Pastel
 			return;
 		}
 
+		const integer bucketSize = 16;
+
 		typedef PointKdTree<Real, N, ObjectPolicy> KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
 
@@ -86,7 +88,7 @@ namespace Pastel
 				nearestSet.begin(), distanceSet.begin(),
 				maxDistanceSet[i], maxRelativeError,
 				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
-				8,
+				bucketSize,
 				normBijection, 
 				searchAlgorithm);
 

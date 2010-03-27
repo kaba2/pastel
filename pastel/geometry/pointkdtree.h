@@ -459,8 +459,8 @@ namespace Pastel
 			Node* node,
 			const Real& splitPosition,
 			integer splitAxis,
-			const Vector<Real, N>& minBound,
-			const Vector<Real, N>& maxBound);
+			const Real& prevMin,
+			const Real& prevMax);
 
 		//! Inserts new objects at the end of the objectList_.
 		/*!

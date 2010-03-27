@@ -1,7 +1,7 @@
-#ifndef PASTEL_SEARCH_BEST_FIRST_POINTKDTREE_HPP
-#define PASTEL_SEARCH_BEST_FIRST_POINTKDTREE_HPP
+#ifndef PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_HPP
+#define PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_HPP
 
-#include "pastel/geometry/search_best_first_pointkdtree.h"
+#include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/distance_point_point.h"
 
@@ -13,15 +13,15 @@
 namespace Pastel
 {
 
-	namespace Detail_BestFirst
+	namespace Detail_DepthFirst
 	{
 
-		// Best-first approximate search
+		// Depth-first approximate search
 
 		template <typename Real, int N, typename ObjectPolicy, 
 			typename AcceptPoint, typename NormBijection, 
 			typename CandidateFunctor>
-		class BestFirst
+		class DepthFirst
 		{
 		private:
 			typedef PointKdTree<Real, N, ObjectPolicy> Tree;
@@ -29,7 +29,7 @@ namespace Pastel
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 		public:
-			BestFirst(
+			DepthFirst(
 				const PointKdTree<Real, N, ObjectPolicy>& kdTree_,
 				const Vector<Real, N>& searchPoint_,
 				const Real& maxDistance_,
@@ -67,31 +67,26 @@ namespace Pastel
 			void work()
 			{
 				typedef KeyValue<Real, Cursor> Entry;
-				typedef std::priority_queue<Entry,
-					std::vector<Entry>,
-					std::greater<Entry> > EntrySet;
+				typedef std::vector<Entry> EntrySet;
 
 				EntrySet nodeQueue;
 
 				if (!kdTree.root().empty())
 				{
-					nodeQueue.push(
+					nodeQueue.push_back(
 						keyValue(distance2(kdTree.bound(), searchPoint, normBijection), 
 						kdTree.root()));
 				}
 
 				while(!nodeQueue.empty())
 				{
-					Real distance = nodeQueue.top().key();
-					Cursor cursor = nodeQueue.top().value();
-					nodeQueue.pop();
+					Real distance = nodeQueue.back().key();
+					Cursor cursor = nodeQueue.back().value();
+					nodeQueue.pop_back();
 
 					if (distance > nodeCullDistance)
 					{
-						// This is the closest node and it is
-						// beyond the maximum distance. We are
-						// done.
-						break;
+						continue;
 					}
 
 					if (cursor.leaf() || cursor.objects() <= bucketSize)
@@ -161,7 +156,7 @@ namespace Pastel
 								leftAxisDistance);
 							if (leftDistance <= nodeCullDistance)
 							{
-								nodeQueue.push(keyValue(leftDistance, left));
+								nodeQueue.push_back(keyValue(leftDistance, left));
 							}
 						}
 
@@ -179,7 +174,7 @@ namespace Pastel
 								rightAxisDistance);
 							if (rightDistance <= nodeCullDistance)
 							{
-								nodeQueue.push(keyValue(rightDistance, right));
+								nodeQueue.push_back(keyValue(rightDistance, right));
 							}
 						}
 					}
@@ -246,7 +241,7 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, typename NormBijection, 
 		typename CandidateFunctor>
-	void searchBestFirst(
+	void searchDepthFirst(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -261,11 +256,11 @@ namespace Pastel
 			return;
 		}
 
-		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			bestFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
+		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
+			depthFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
-		bestFirst.work();
+		depthFirst.work();
 	}
 
 }
