@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_1d.h"
+#include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/dont_acceptpoint.h"
 
@@ -57,7 +58,7 @@ namespace Pastel
 			return;
 		}
 
-		const integer bucketSize = 16;
+		const integer bucketSize = 8;
 
 		typedef PointKdTree<Real, N, ObjectPolicy> KdTree;
 		typedef typename KdTree::ConstObjectIterator ConstObjectIterator;
@@ -77,13 +78,9 @@ namespace Pastel
 
 			integer nearestCount = 0;
 
-			Vector<Real, N> queryPoint(
-				ofDimension(kdTree.dimension()), 
-				withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
-
 			nearestCount = 
 				searchNearest(
-				kdTree, queryPoint, 
+				kdTree, querySet[i], 
 				kNearestEnd,
 				nearestSet.begin(), distanceSet.begin(),
 				maxDistanceSet[i], maxRelativeError,
@@ -147,7 +144,7 @@ namespace Pastel
 			nearestArray, distanceArray,
 			maxDistanceSet, maxRelativeError,
 			normBijection, 
-			BestFirst_SearchAlgorithm_PointKdTree());
+			DepthFirst_SearchAlgorithm_PointKdTree());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy,
