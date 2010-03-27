@@ -2,7 +2,7 @@
 #define PASTEL_SEARCH_NEAREST_POINTKDTREE_HPP
 
 #include "pastel/geometry/search_nearest_pointkdtree.h"
-#include "pastel/geometry/search_best_first_pointkdtree.h"
+#include "pastel/geometry/search_depth_first_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/always_acceptpoint.h"
 
@@ -61,12 +61,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
 		typename NormBijection, typename SearchAlgorithm>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -129,12 +129,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
 		typename NormBijection>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -149,15 +149,15 @@ namespace Pastel
 			kNearest, nearestBegin, distanceBegin,
 			maxDistance, maxRelativeError, acceptPoint,
 			bucketSize, normBijection,
-			BestFirst_SearchAlgorithm_PointKdTree());
+			DepthFirst_SearchAlgorithm_PointKdTree());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -174,11 +174,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -193,11 +193,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -212,11 +212,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin,
@@ -229,11 +229,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
-		typename NearestIterator, 
+		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const Vector<Real, N>& searchPoint,
+		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
 		const DistanceIterator& distanceBegin)

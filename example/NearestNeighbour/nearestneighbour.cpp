@@ -44,6 +44,8 @@ using std::endl;
 
 using namespace Pastel;
 
+typedef MinimumVolume_SplitRule_PointKdTree SplitRule;
+
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;
 const integer LogicFps = 100;
@@ -65,9 +67,6 @@ public:
 
 private:
 	typedef PointKdTree<real, 2> MyTree;
-	//typedef Fair_SplitRule_PointKdTree SplitRule;
-	typedef LongestMedian_SplitRule_PointKdTree SplitRule;
-	//typedef SlidingMidpoint2_SplitRule_PointKdTree SplitRule;
 	typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
 
 	virtual void onRender();
@@ -760,11 +759,7 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	ENSURE(check(newTree));
 
-	newTree.refine(MinimumVolume_SplitRule_PointKdTree());
-	//newTree.refine(Hybrid_SplitRule_PointKdTree());
-	//newTree.refine(Midpoint_SplitRule_PointKdTree());
-	//newTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
-	//newTree.refine();
+	newTree.refine(SplitRule());
 
 	ENSURE(check(newTree));
 
@@ -842,8 +837,7 @@ int myMain()
 	{
 		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
 	}
-	tree.refine(MinimumVolume_SplitRule_PointKdTree());
-	//tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+	tree.refine(SplitRule());
 
 	log() << "Bounding search" << logNewLine;
 

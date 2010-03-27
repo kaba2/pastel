@@ -49,15 +49,28 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor);
 
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint, typename NormBijection, 
+		typename CandidateFunctor>
+	void searchDepthFirst(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize,
+		const NormBijection& normBijection,
+		const CandidateFunctor& candidateFunctor);
+
 	class DepthFirst_SearchAlgorithm_PointKdTree
 	{
 	public:
 		template <typename Real, int N, typename ObjectPolicy, 
-			typename AcceptPoint, typename NormBijection, 
+			typename SearchPoint, typename AcceptPoint, typename NormBijection, 
 			typename CandidateFunctor>
 		static void work(
 			const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-			const Vector<Real, N>& searchPoint,
+			const SearchPoint& searchPoint,
 			const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 			const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 			const AcceptPoint& acceptPoint,

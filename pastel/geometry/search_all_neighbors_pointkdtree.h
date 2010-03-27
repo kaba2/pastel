@@ -101,7 +101,7 @@ namespace Pastel
 		constantRange(infinity<Real>(), querySet.size()),
 		maxRelativeError,
 		normBijection,
-		BestFirst_SearchAlgorithm_PointKdTree());
+		DepthFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
 		typename ConstObjectIterator_Iterator, 

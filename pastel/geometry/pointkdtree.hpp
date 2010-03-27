@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/bounding_alignedbox.h"
-#include "pastel/geometry/longestmedian_splitrule_pointkdtree.h"
+#include "pastel/geometry/minimumvolume_splitrule_pointkdtree.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
@@ -208,7 +208,7 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	void PointKdTree<Real, N, ObjectPolicy>::refine()
 	{
-		const LongestMedian_SplitRule_PointKdTree splitRule;
+		const MinimumVolume_SplitRule_PointKdTree splitRule;
 		refine(splitRule);
 	}
 

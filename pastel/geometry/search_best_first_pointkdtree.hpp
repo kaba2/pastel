@@ -32,6 +32,7 @@ namespace Pastel
 			BestFirst(
 				const PointKdTree<Real, N, ObjectPolicy>& kdTree_,
 				const Vector<Real, N>& searchPoint_,
+				const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const AcceptPoint& acceptPoint_,
@@ -40,6 +41,7 @@ namespace Pastel
 				const CandidateFunctor& candidateFunctor_)
 				: kdTree(kdTree_)
 				, searchPoint(searchPoint_)
+				, searchIter(searchIter_)
 				, maxDistance(maxDistance_)
 				, maxRelativeError(maxRelativeError_)
 				, acceptPoint(acceptPoint_)
@@ -71,6 +73,26 @@ namespace Pastel
 					std::vector<Entry>,
 					std::greater<Entry> > EntrySet;
 
+				Cursor initialNode; 
+				if (searchIter != kdTree.end())
+				{
+					// If the search point is one of the points
+					// in the tree, we can use this information
+					// for better performance by scanning its
+					// leaf node at once. This is useful especially
+					// in k-nearest neighbor searching in higher 
+					// dimensions where the distances to points provide 
+					// pruning. 
+
+					initialNode = searchIter->leaf();
+					while(initialNode.parent().exists() && 
+						initialNode.parent().objects() <= bucketSize)
+					{
+						initialNode = initialNode.parent();
+					}
+					searchBruteForce(initialNode);
+				}
+
 				EntrySet nodeQueue;
 
 				if (!kdTree.root().empty())
@@ -85,6 +107,11 @@ namespace Pastel
 					Real distance = nodeQueue.top().key();
 					Cursor cursor = nodeQueue.top().value();
 					nodeQueue.pop();
+
+					if (cursor == initialNode)
+					{
+						continue;
+					}
 
 					if (distance > nodeCullDistance)
 					{
@@ -226,6 +253,7 @@ namespace Pastel
 
 			const Tree& kdTree;
 			const Vector<Real, N>& searchPoint;
+			const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
 			const AcceptPoint& acceptPoint;
@@ -262,7 +290,32 @@ namespace Pastel
 		}
 
 		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			bestFirst(kdTree, searchPoint, maxDistance, maxRelativeError,
+			bestFirst(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
+			acceptPoint, bucketSize, normBijection, candidateFunctor);
+
+		bestFirst.work();
+	}
+
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint, typename NormBijection, 
+		typename CandidateFunctor>
+	void searchBestFirst(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize,
+		const NormBijection& normBijection,
+		const CandidateFunctor& candidateFunctor)
+	{
+		if (kdTree.empty())
+		{
+			return;
+		}
+
+		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
+			bestFirst(kdTree, kdTree.point(searchIter->object()), searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
 		bestFirst.work();
