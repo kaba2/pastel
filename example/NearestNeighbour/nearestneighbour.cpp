@@ -44,7 +44,10 @@ using std::endl;
 
 using namespace Pastel;
 
-typedef MinimumVolume_SplitRule_PointKdTree SplitRule;
+//typedef MinimumVolume_SplitRule_PointKdTree SplitRule;
+typedef SlidingMidpoint_SplitRule_PointKdTree SplitRule;
+//typedef LongestMedian_SplitRule_PointKdTree SplitRule;
+//typedef Midpoint_SplitRule_PointKdTree SplitRule;
 
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;
@@ -219,7 +222,8 @@ void NearestNeighbor_Gfx_Ui::onRender()
 	}
 	renderer().setColor(Color(0, 1, 0));
 	drawBox(renderer(), tree_.bound());
-	//redrawRange();
+
+	redrawRange();
 	redrawNearest();
 
 	gfxDevice().swapBuffers();
@@ -248,7 +252,7 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 
 		if (key == SDLK_o)
 		{
-			tree_.refine();
+			tree_.refine(SplitRule());
 		}
 
 		if (key == SDLK_c)
@@ -447,8 +451,9 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 	//Color color(hsvToRgb(Color((real32)(depth % 8) / 8, 1, 1)));
 	Color color(1);
 
-		/* || cursor.objects() <= bucketSize*/
-	if (cursor.leaf() || depth == treeDrawDepth_)
+	if (cursor.leaf() || 
+		cursor.objects() <= bucketSize ||
+		depth == treeDrawDepth_)
 	{
 		//renderer().setColor(color / std::pow((real)(depth + 1), (real)0.5));
 		renderer().setColor(color);
@@ -682,11 +687,18 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		const integer count = countRange(tree_, 
 			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
 			worldMouse + searchRadius_ * scaling_));
+		const integer count2 = countNearest(tree_,
+			worldMouse,
+			searchRadius_ * scaling_,
+			Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+			8,
+			Maximum_NormBijection<real>());
 		searchRange(tree_, 
 			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
 			worldMouse + searchRadius_ * scaling_),
 			std::back_inserter(rangePointSet_));
 		ENSURE_OP(count, ==, rangePointSet_.size());
+		ENSURE_OP(count, ==, count2);
 	}
 }
 
@@ -823,29 +835,54 @@ int myMain()
 
 	const real maxRelativeError = 0;
 	const integer k = 4;
-	const integer d = 32;
-	const integer n = 10000;
-	PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d));
-	std::vector<Vector<real> > pointSet;
+	const integer d = 10;
+	const integer n = 100000;
+	enum
+	{
+		N = Dynamic
+	};
+	PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d));
+	std::vector<Vector<real, N> > pointSet;
 	pointSet.reserve(n);
+
+	CountedPtr<Clustered_RandomDistribution<real, N> >
+			clusteredDistribution = clusteredRandomDistribution<real, N>(d);
+
+	const integer clusters = 100;
+	for (integer i = 0;i < clusters;++i)
+	{
+		clusteredDistribution->add(
+			translate(
+			scale(
+			gaussianRandomDistribution<real, N>(d), 
+			evaluate(randomVector<real, N>(d) * 0.05)),
+			randomVector<real, N>(d)));
+	}
+
+	CountedPtr<RandomDistribution<real, N> >
+		randomDistribution = clusteredDistribution;
+
 	for (integer i = 0;i < n;++i)
 	{
-		pointSet.push_back(randomGaussianVector<real, Dynamic>(d));
+		//pointSet.push_back(randomGaussianVector<real, N>(d));
+		pointSet.push_back(
+			randomDistribution->sample());
 	}
-	std::vector<PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> querySet;
+
+	std::vector<PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> querySet;
 	for (integer i = 0;i < n;++i)
 	{
 		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
 	}
-	tree.refine(SplitRule());
+	tree.refine(SplitRule(), 1);
 
 	log() << "Bounding search" << logNewLine;
 
+	Euclidean_NormBijection<real> normBijection;
+	Array<PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> nearestSet(k, n);
+
 	timer.setStart();
 
-	Euclidean_NormBijection<real> normBijection;
-
-	Array<PointKdTree<real, Dynamic, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> nearestSet(k, n);
 	searchAllNeighbors(tree,
 		randomAccessRange(querySet.begin(), querySet.end()),
 		0, k,
@@ -860,11 +897,13 @@ int myMain()
 	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
 
+	/*
 	log() << "Brute-force search" << logNewLine;
+
+	Array<integer> bruteSet(k, n);
 
 	timer.setStart();
 
-	Array<integer> bruteSet(k, n);
 	searchAllNeighborsBruteForce(
 		pointSet,
 		countingIterator(0),
@@ -874,6 +913,8 @@ int myMain()
 		normBijection,
 		bruteSet);
 	
+	timer.store();
+
 	integer fuckedUp = 0;
 	for (integer i = 0;i < n;++i)
 	{
@@ -891,11 +932,11 @@ int myMain()
 			}
 		}
 	}
-	timer.store();
 
 	log() << "Wrong results = " << fuckedUp << logNewLine;
 	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
+	*/
 
 	deviceSystem().startEventLoop(LogicFps);
 

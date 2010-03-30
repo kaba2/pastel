@@ -3,7 +3,6 @@
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/bounding_alignedbox.h"
-#include "pastel/geometry/minimumvolume_splitrule_pointkdtree.h"
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
@@ -206,16 +205,10 @@ namespace Pastel
 	}
 	
 	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::refine()
-	{
-		const MinimumVolume_SplitRule_PointKdTree splitRule;
-		refine(splitRule);
-	}
-
-	template <typename Real, int N, typename ObjectPolicy>
 	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, ObjectPolicy>::refine(
-		const SplitRule_PointKdTree& splitRule)
+		const SplitRule_PointKdTree& splitRule,
+		integer bucketSize)
 	{
 		Vector<Real, N> minBound(bound_.min());
 		Vector<Real, N> maxBound(bound_.max());
@@ -224,7 +217,8 @@ namespace Pastel
 			minBound,
 			maxBound,
 			splitRule,
-			0);
+			0,
+			bucketSize);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>

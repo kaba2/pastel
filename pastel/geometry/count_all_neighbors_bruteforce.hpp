@@ -58,7 +58,7 @@ namespace Pastel
 			const Real maxDistance = maxDistanceBegin[i];
 			for (integer j = 0;j < points;++j)
 			{
-				if (distance2(iPoint, pointSet[j], normBijection) <= maxDistance)
+				if (distance2(iPoint, pointSet[j], normBijection) < maxDistance)
 				{
 					++neighborsBegin[i];
 				}

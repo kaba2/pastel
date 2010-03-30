@@ -254,18 +254,9 @@ namespace Pastel
 		*/
 		integer dimension() const;
 
-		//! Refines the tree using the given splitting rule.
-		/*!
-		Preconditions:
-		maxObjects > 0
-
-		Exception safety:
-		Basic
-		*/
-		void refine();
-
 		template <typename SplitRule_PointKdTree>
-		void refine(const SplitRule_PointKdTree& splitRule);
+		void refine(const SplitRule_PointKdTree& splitRule,
+			integer bucketSize = 8);
 
 		//! Insert an object into the tree.
 		ConstObjectIterator insert(const Object& object);
@@ -512,7 +503,8 @@ namespace Pastel
 			Vector<Real, N>& minBound,
 			Vector<Real, N>& maxBound,
 			const SplitRule_PointKdTree& splitRule,
-			integer depth);
+			integer depth,
+			integer bucketSize);
 
 		/*
 		objectList_:

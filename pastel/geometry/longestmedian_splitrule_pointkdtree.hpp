@@ -31,7 +31,7 @@ namespace Pastel
 
 			// Split along the longest dimension.
 
-			const integer splitAxis = minIndex(maxBound - minBound);
+			const integer splitAxis = maxIndex(maxBound - minBound);
 			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 

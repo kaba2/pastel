@@ -47,16 +47,23 @@ namespace Pastel
 		{
 			PENSURE_OP(maxDistanceSet[i], >=, 0);
 
-			const Vector<Real, N> queryPoint(ofDimension(dimension), 
-				withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
+			if (maxDistanceSet[i] == 0)
+			{
+				result[i] = 0;
+			}
+			else
+			{
+				const Vector<Real, N> queryPoint(ofDimension(dimension), 
+					withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
 
-			queryRange.min() = queryPoint - maxDistanceSet[i];
-			queryRange.max() = queryPoint + maxDistanceSet[i];
+				queryRange.min() = queryPoint - maxDistanceSet[i];
+				queryRange.max() = queryPoint + maxDistanceSet[i];
 
-			result[i] = countRange(
-				kdTree, 
-				queryRange,
-				bucketSize);
+				result[i] = countRange(
+					kdTree, 
+					queryRange,
+					bucketSize);
+			}
 		}
 		}
 	}
