@@ -27,6 +27,8 @@ namespace Pastel
 		typedef typename PointKdTree<Real, N, ObjectPolicy>::Object
 			Object;
 
+		// Note: we assume the search region is open.
+
 		if (kdTree.empty())
 		{
 			return;
@@ -44,8 +46,28 @@ namespace Pastel
 
 		const ObjectPolicy& objectPolicy = kdTree.objectPolicy();
 
+		const AlignedBox<Real, N>& bound = kdTree.bound();
+
+		uint32 rootFlags = 0;
+		for (integer i = 0;i < dimension;++i)
+		{
+			if (bound.max()[i] <= rangeMin[i] ||
+				bound.min()[i] >= rangeMax[i])
+			{
+				// The search range does not
+				// intersect the kd-tree.
+				return;
+			}
+
+			if (rangeMin[i] < bound.min()[i] && 
+				rangeMax[i] > bound.max()[i])
+			{
+				rootFlags += (1 << i);
+			}
+		}
+
 		std::vector<std::pair<Cursor, uint32> > nodeSet;
-		nodeSet.push_back(std::make_pair(kdTree.root(), 0));
+		nodeSet.push_back(std::make_pair(kdTree.root(), rootFlags));
 
 		while(!nodeSet.empty())
 		{
@@ -81,28 +103,28 @@ namespace Pastel
 				uint32 leftFlags = flags;
 				uint32 rightFlags = flags;
 
-				if (rangeMin[splitAxis] <= leftMax &&
-					rangeMax[splitAxis] >= leftMin)
+				if (rangeMin[splitAxis] < leftMax &&
+					rangeMax[splitAxis] > leftMin)
 				{
 					// The left child intersects the query box.
 					visitLeft = true;
 
-					if (rangeMin[splitAxis] <= leftMin &&
-						rangeMax[splitAxis] >= leftMax)
+					if (rangeMin[splitAxis] < leftMin &&
+						rangeMax[splitAxis] > leftMax)
 					{
 						// The left child is being stabbed.
 						leftFlags |= flag;
 					}
 				}
 
-				if (rangeMin[splitAxis] <= rightMax &&
-					rangeMax[splitAxis] >= rightMin)
+				if (rangeMin[splitAxis] < rightMax &&
+					rangeMax[splitAxis] > rightMin)
 				{
 					// The right child intersects the query box.
 					visitRight = true;
 
-					if (rangeMin[splitAxis] <= rightMin &&
-						rangeMax[splitAxis] >= rightMax)
+					if (rangeMin[splitAxis] < rightMin &&
+						rangeMax[splitAxis] > rightMax)
 					{
 						// The right child is being stabbed.
 						rightFlags |= flag;
@@ -166,8 +188,8 @@ namespace Pastel
 					{
 						const Real position = 
 							objectPolicy.point(object, i);
-						if (position < rangeMin[i] || 
-							position > rangeMax[i])
+						if (position <= rangeMin[i] || 
+							position >= rangeMax[i])
 						{
 							// The point is not in the range.
 							break;

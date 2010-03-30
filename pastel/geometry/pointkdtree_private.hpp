@@ -563,13 +563,14 @@ namespace Pastel
 		Vector<Real, N>& minBound,
 		Vector<Real, N>& maxBound,
 		const SplitRule_PointKdTree& splitRule,
-		integer depth)
+		integer depth,
+		integer bucketSize)
 	{
 		ASSERT(node);
 
 		if (node->leaf())
 		{
-			if (node->objects() <= 1)
+			if (node->objects() <= bucketSize)
 			{
 				setLeaf(node->first(), node->end(), node);
 			}
@@ -603,7 +604,8 @@ namespace Pastel
 				minBound,
 				maxBound,
 				splitRule,
-				depth + 1);
+				depth + 1,
+				bucketSize);
 
 			minBound[splitAxis] = node->right()->min();
 			maxBound[splitAxis] = node->right()->max();
@@ -613,7 +615,8 @@ namespace Pastel
 				minBound,
 				maxBound,
 				splitRule,
-				depth + 1);
+				depth + 1,
+				bucketSize);
 
 			minBound[splitAxis] = oldMinBound;
 			maxBound[splitAxis] = oldMaxBound;

@@ -16,6 +16,9 @@ namespace Pastel
 
 	//! Counts the number of neighbors for all query points.
 	/*!
+	Preconditions:
+	bucketSize > 0
+
 	kdTree:
 	A point kd-tree.
 
@@ -51,6 +54,7 @@ namespace Pastel
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
+		integer bucketSize,
 		const NormBijection& normBijection);
 
 	//! Counts the number of neighbors for all query points.
@@ -59,6 +63,7 @@ namespace Pastel
 	countAllNeighbors(
 		kdTree, querySet,
 		maxDistanceSet, result,
+		bucketSize,
 		Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename ObjectPolicy,
@@ -69,7 +74,8 @@ namespace Pastel
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
-		Integer_OutputIterator result);
+		Integer_OutputIterator result,
+		integer bucketSize = 8);
 
 }
 

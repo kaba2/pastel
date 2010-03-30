@@ -23,9 +23,11 @@ namespace Pastel
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
+		integer bucketSize,
 		const NormBijection& normBijection)
 	{
 		ENSURE_OP(querySet.size(), ==, maxDistanceSet.size());
+		ENSURE_OP(bucketSize, >, 0);
 
 		if (kdTree.empty() || querySet.empty())
 		{
@@ -51,8 +53,9 @@ namespace Pastel
 				kdTree, 
 				queryPoint, 
 				maxDistanceSet[i], 
-				Dont_AcceptPoint<ConstObjectIterator>(querySet[i]),
-				normBijection) + 1;
+				Always_AcceptPoint<ConstObjectIterator>(),
+				bucketSize,
+				normBijection);
 		}
 	}
 
@@ -69,6 +72,7 @@ namespace Pastel
 		Pastel::countAllNeighbors(
 			kdTree, querySet,
 			maxDistanceSet, result,
+			bucketSize,
 			Euclidean_NormBijection<Real>());
 	}
 

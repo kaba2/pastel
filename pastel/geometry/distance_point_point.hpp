@@ -21,7 +21,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		Manhattan_NormBijection<Real> normBijection;
+		const Manhattan_NormBijection<Real> normBijection;
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -34,7 +34,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		Euclidean_NormBijection<Real> normBijection;
+		const Euclidean_NormBijection<Real> normBijection;
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -48,7 +48,8 @@ namespace Pastel
 		const Vector<Real, N>& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
-		Minkowksi_NormBijection<Real> normBijection(metric);
+		const Minkowksi_NormBijection<Real> 
+			normBijection(metric);
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -61,7 +62,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		Maximum_NormBijection<Real> normBijection;
+		const Maximum_NormBijection<Real> normBijection;
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -74,7 +75,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		Euclidean_NormBijection<Real> normBijection;
+		const Euclidean_NormBijection<Real> normBijection;
 
 		return Pastel::distance2(
 			aPoint, bPoint,
@@ -105,8 +106,10 @@ namespace Pastel
 	{
 		PENSURE_OP(dimension, >=, 0);
 
+		const Real* aEnd = aPoint + dimension;
+
 		Real result = 0;
-		for (integer i = 0;i < dimension;++i)
+		while(aPoint != aEnd)
 		{
 			result = normBijection.addAxis(
 				result, 
@@ -129,8 +132,10 @@ namespace Pastel
 	{
 		PENSURE_OP(dimension, >=, 0);
 
+		const Real* aEnd = aPoint + dimension;
+
 		Real result = 0;
-		for (integer i = 0;i < dimension;++i)
+		while(aPoint != aEnd)
 		{
 			result = normBijection.addAxis(
 				result, 

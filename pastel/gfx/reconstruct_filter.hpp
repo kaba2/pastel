@@ -171,7 +171,7 @@ namespace Pastel
 
 		kdTree.insert(dataPointList.begin(), dataPointList.end());
 
-		kdTree.refine();
+		kdTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 
 		Detail_ReconstructFilter::ReconstructFunctor<Real, N, DataPolicy, Filter>
 			reconstructFunctor(kdTree, filter, filterStretch);

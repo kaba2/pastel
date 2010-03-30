@@ -48,26 +48,22 @@ namespace Pastel
 				, normBijection(normBijection_)
 				, candidateFunctor(candidateFunctor_)
 				, objectPolicy(kdTree_.objectPolicy())
-				, protectiveFactor(normBijection.scalingFactor(1.001))
+				, protectiveFactor(normBijection.scalingFactor(1.01))
 				, cullDistance(maxDistance_)
 				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
- 				, nodeCullDistance(maxDistance_)
+ 				, nodeCullDistance(cullDistance * errorFactor)
 				, dimension(kdTree_.dimension())
 				, bucketSize(bucketSize_)
 			{
-				// Due to rounding errors exact comparisons can miss
-				// reporting some of the points, giving incorrect results.
-				// For example, consider n > k points on a 2d circle and make a 
-				// k-nearest query to its center. With bad luck the algorithm
-				// can report less than k points. We avoid this behaviour
-				// by scaling the culling radius up by a protective factor.
-				// However, when doing this one must not allow for points
-				// that have distance more than maxDistance to creep
-				// into results.
 			}
 
 			void work()
 			{
+				if (maxDistance == 0)
+				{
+					return;
+				}
+
 				typedef KeyValue<Real, Cursor> Entry;
 				typedef std::priority_queue<Entry,
 					std::vector<Entry>,
@@ -176,7 +172,7 @@ namespace Pastel
 						}
 						bool visitLeft = false;
 						Real leftDistance = 0;
-						if (leftAxisDistance <= nodeCullDistance)
+						if (leftAxisDistance <= nodeCullDistance && !left.empty())
 						{
 							// The left node can't be culled by the axis
 							// distance. Let's see if it can be culled
@@ -194,7 +190,7 @@ namespace Pastel
 
 						bool visitRight = false;
 						Real rightDistance = 0; 
-						if (rightAxisDistance <= nodeCullDistance)
+						if (rightAxisDistance <= nodeCullDistance && !right.empty())
 						{
 							// The right node can't be culled by the axis
 							// distance. Let's see if it can be culled
@@ -232,12 +228,15 @@ namespace Pastel
                         normBijection, 
 						cullDistance);
 
-                    // It is essential that this is <= rather
-                    // than <, because of the possibility
-                    // of multiple points at same location.
-                    if (currentDistance <= cullDistance && acceptPoint(iter))
+					// In the case of a fixed-radius search, we
+					// use an open search ball. 
+                    if (currentDistance < cullDistance && acceptPoint(iter))
                     {
                         candidateFunctor(currentDistance, iter);
+						// Note that if there are multiple points at the same 
+						// distance, then the points after the first should _not_
+						// be culled away. We attempt to deal with this
+						// by expanding the culling radius by a protective factor.
                         const Real cullSuggestion = 
                             candidateFunctor.suggestCullDistance() * protectiveFactor;
                         if (cullSuggestion < cullDistance)
@@ -309,13 +308,18 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{
-		if (kdTree.empty())
+		if (kdTree.empty() ||
+			searchIter == kdTree.end())
 		{
 			return;
 		}
 
+		const Vector<Real, N> searchPoint(
+			ofDimension(kdTree.dimension()),
+			withAliasing((Real*)kdTree.objectPolicy().point(searchIter->object())));
+
 		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			bestFirst(kdTree, kdTree.point(searchIter->object()), searchIter, maxDistance, maxRelativeError,
+			bestFirst(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
 		bestFirst.work();

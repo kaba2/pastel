@@ -48,162 +48,156 @@ namespace Pastel
 				, normBijection(normBijection_)
 				, candidateFunctor(candidateFunctor_)
 				, objectPolicy(kdTree_.objectPolicy())
-				, protectiveFactor(normBijection.scalingFactor(1.001))
+				, protectiveFactor(normBijection.scalingFactor(1.01))
 				, cullDistance(maxDistance_)
 				, errorFactor(inverse(normBijection.scalingFactor(1 + maxRelativeError)))
- 				, nodeCullDistance(maxDistance_)
+ 				, nodeCullDistance(cullDistance * errorFactor)
 				, dimension(kdTree_.dimension())
 				, bucketSize(bucketSize_)
 			{
-				// Due to rounding errors exact comparisons can miss
-				// reporting some of the points, giving incorrect results.
-				// For example, consider n > k points on a 2d circle and make a 
-				// k-nearest query to its center. With bad luck the algorithm
-				// can report less than k points. We avoid this behaviour
-				// by scaling the culling radius up by a protective factor.
-				// However, when doing this one must not allow for points
-				// that have distance more than maxDistance to creep
-				// into results.
 			}
 
 			void work()
 			{
-				typedef KeyValue<Real, Cursor> Entry;
-				typedef std::vector<Entry> EntrySet;
-
-				Cursor initialNode; 
-				if (searchIter != kdTree.end())
+				if (maxDistance == 0)
 				{
-					// If the search point is one of the points
-					// in the tree, we can use this information
-					// for better performance by scanning its
-					// leaf node at once. This is useful especially
-					// in k-nearest neighbor searching in higher 
-					// dimensions where the distances to points provide 
-					// pruning. 
-
-					initialNode = searchIter->leaf();
-					while(initialNode.parent().exists() && 
-						initialNode.parent().objects() <= bucketSize)
-					{
-						initialNode = initialNode.parent();
-					}
-					searchBruteForce(initialNode);
+					return;
 				}
 
-				EntrySet nodeQueue;
-
-				if (!kdTree.root().empty())
-				{
-					nodeQueue.push_back(
-						keyValue(distance2(kdTree.bound(), searchPoint, normBijection), 
-						kdTree.root()));
-				}
-
-				while(!nodeQueue.empty())
-				{
-					Real distance = nodeQueue.back().key();
-					Cursor cursor = nodeQueue.back().value();
-					nodeQueue.pop_back();
-
-					if (distance > nodeCullDistance || cursor == initialNode) 
-					{
-						continue;
-					}
-
-					if (cursor.leaf() || cursor.objects() <= bucketSize)
-					{
-						searchBruteForce(cursor);
-					}
-					else
-					{
-						const integer splitAxis = cursor.splitAxis();
-						const Real searchPosition = 
-							searchPoint[splitAxis];
-
-						// For an intermediate node our task is to
-						// recurse to child nodes while updating
-						// incrementally the distance 
-						// to the current node. 
-
-						const Cursor left = cursor.left();
-						const Cursor right = cursor.right();
-
-						// First compute the distances to splitting planes.
-
-						Real oldAxisDistance = 0;
-						Real leftAxisDistance = 0;
-						Real rightAxisDistance = 0;
-						if (searchPosition < right.min())
-						{
-							rightAxisDistance = 
-								normBijection.axis(right.min() - searchPosition);
-							if (searchPosition < left.min())
-							{
-								leftAxisDistance = 
-									normBijection.axis(left.min() - searchPosition);
-								if (searchPosition < left.prevMin())
-								{
-									oldAxisDistance = 
-										normBijection.axis(left.prevMin() - searchPosition);
-								}
-							}
-						}
-						if (searchPosition > left.max())
-						{
-							leftAxisDistance = 
-								normBijection.axis(searchPosition - left.max());
-							if (searchPosition > right.max())
-							{
-								rightAxisDistance = 
-									normBijection.axis(searchPosition - right.max());
-								if (searchPosition > right.prevMax())
-								{
-									oldAxisDistance = 
-										normBijection.axis(searchPosition - right.prevMax());
-								}
-							}
-						}
-						bool visitLeft = false;
-						Real leftDistance = 0;
-						if (leftAxisDistance <= nodeCullDistance)
-						{
-							// The left node can't be culled by the axis
-							// distance. Let's see if it can be culled
-							// by the actual distance.
-							leftDistance = 
-								normBijection.replaceAxis(
-								distance,
-								oldAxisDistance,
-								leftAxisDistance);
-							if (leftDistance <= nodeCullDistance)
-							{
-								nodeQueue.push_back(keyValue(leftDistance, left));
-							}
-						}
-
-						bool visitRight = false;
-						Real rightDistance = 0; 
-						if (rightAxisDistance <= nodeCullDistance)
-						{
-							// The right node can't be culled by the axis
-							// distance. Let's see if it can be culled
-							// by the actual distance.
-							rightDistance = 
-								normBijection.replaceAxis(
-								distance,
-								oldAxisDistance,
-								rightAxisDistance);
-							if (rightDistance <= nodeCullDistance)
-							{
-								nodeQueue.push_back(keyValue(rightDistance, right));
-							}
-						}
-					}
-				}
+				workTopDown(kdTree.root(),
+					distance2(kdTree.bound(), searchPoint, normBijection));
 			}
 
 		private:
+			void workTopDown(Cursor cursor, Real distance)
+			{
+				while(!cursor.leaf() && cursor.objects() > bucketSize)
+				{
+					const integer splitAxis = cursor.splitAxis();
+					const Real searchPosition = 
+						searchPoint[splitAxis];
+
+					// For an intermediate node our task is to
+					// recurse to child nodes while updating
+					// incrementally the distance 
+					// to the current node. 
+
+					const Cursor left = cursor.left();
+					const Cursor right = cursor.right();
+
+					// First compute the distances to splitting planes.
+
+					Real oldAxisDistance = 0;
+					Real leftAxisDistance = 0;
+					Real rightAxisDistance = 0;
+					if (searchPosition < right.min())
+					{
+						rightAxisDistance = 
+							normBijection.axis(right.min() - searchPosition);
+						if (searchPosition < left.min())
+						{
+							leftAxisDistance = 
+								normBijection.axis(left.min() - searchPosition);
+							if (searchPosition < left.prevMin())
+							{
+								oldAxisDistance = 
+									normBijection.axis(left.prevMin() - searchPosition);
+							}
+						}
+					}
+					if (searchPosition > left.max())
+					{
+						leftAxisDistance = 
+							normBijection.axis(searchPosition - left.max());
+						if (searchPosition > right.max())
+						{
+							rightAxisDistance = 
+								normBijection.axis(searchPosition - right.max());
+							if (searchPosition > right.prevMax())
+							{
+								oldAxisDistance = 
+									normBijection.axis(searchPosition - right.prevMax());
+							}
+						}
+					}
+					bool visitLeft = false;
+					Real leftDistance = 0;
+					if (leftAxisDistance <= nodeCullDistance && !left.empty())
+					{
+						// The left node can't be culled by the axis
+						// distance. Let's see if it can be culled
+						// by the actual distance.
+						leftDistance = 
+							normBijection.replaceAxis(
+							distance,
+							oldAxisDistance,
+							leftAxisDistance);
+						if (leftDistance <= nodeCullDistance)
+						{
+							visitLeft = true;
+						}
+					}
+
+					bool visitRight = false;
+					Real rightDistance = 0; 
+					if (rightAxisDistance <= nodeCullDistance && !right.empty())
+					{
+						// The right node can't be culled by the axis
+						// distance. Let's see if it can be culled
+						// by the actual distance.
+						rightDistance = 
+							normBijection.replaceAxis(
+							distance,
+							oldAxisDistance,
+							rightAxisDistance);
+						if (rightDistance <= nodeCullDistance)
+						{
+							visitRight = true;
+						}
+					}
+
+					if (visitLeft)
+					{
+						if (visitRight)
+						{
+							if (leftDistance < rightDistance)
+							{
+								workTopDown(left, leftDistance);
+								cursor = right;
+								distance = rightDistance;
+							}
+							else
+							{
+								workTopDown(right, rightDistance);
+								cursor = left;
+								distance = leftDistance;
+							}
+						}
+						else
+						{
+							cursor = left;
+							distance = leftDistance;
+						}
+					}
+					else
+					{
+						if (visitRight)
+						{
+							cursor = right;
+							distance = rightDistance;
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+				if (cursor.leaf() || cursor.objects() <= bucketSize)
+				{
+					searchBruteForce(cursor);
+				}
+			}
+
 			void searchBruteForce(const Cursor& cursor)
             {
                 // We are now in a bucket node.
@@ -212,9 +206,10 @@ namespace Pastel
                 ConstObjectIterator iter = cursor.begin();
                 const ConstObjectIterator iterEnd = cursor.end();
 
+				Real currentDistance = 0;
                 while(iter != iterEnd)
                 {
-                    const Real currentDistance = 
+                    currentDistance = 
                         distance2(
                         objectPolicy.point(iter->object()),
                         searchPoint.rawBegin(),
@@ -222,17 +217,20 @@ namespace Pastel
                         normBijection, 
 						cullDistance);
 
-                    // It is essential that this is <= rather
-                    // than <, because of the possibility
-                    // of multiple points at same location.
-                    if (currentDistance <= cullDistance && acceptPoint(iter))
+					// In the case of a fixed-radius search, we
+					// use an open search ball. 
+                    if (currentDistance < cullDistance && acceptPoint(iter))
                     {
                         candidateFunctor(currentDistance, iter);
+						// Note that if there are multiple points at the same 
+						// distance, then the points after the first should _not_
+						// be culled away. We attempt to deal with this
+						// by expanding the culling radius by a protective factor.
                         const Real cullSuggestion = 
                             candidateFunctor.suggestCullDistance() * protectiveFactor;
                         if (cullSuggestion < cullDistance)
                         {
-                            cullDistance = cullSuggestion;
+							cullDistance = cullSuggestion;
 							nodeCullDistance = cullDistance * errorFactor;
                         }
                     }
@@ -299,13 +297,17 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CandidateFunctor& candidateFunctor)
 	{
-		if (kdTree.empty())
+		if (kdTree.empty() || searchIter == kdTree.end())
 		{
 			return;
 		}
 
+		const Vector<Real, N> searchPoint(
+			ofDimension(kdTree.dimension()),
+			withAliasing((Real*)kdTree.objectPolicy().point(searchIter->object())));
+
 		Detail_DepthFirst::DepthFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			depthFirst(kdTree, kdTree.point(searchIter->object()), searchIter, maxDistance, maxRelativeError,
+			depthFirst(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
 		depthFirst.work();

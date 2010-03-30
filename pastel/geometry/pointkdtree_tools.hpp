@@ -58,6 +58,11 @@ namespace Pastel
 			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
 				ConstObjectIterator;
 
+			if (REPORT(cursor.empty() && cursor.parent().exists()))
+			{
+				return false;
+			}
+
 			if (cursor.leaf())
 			{
 				if (REPORT(std::distance(cursor.begin(), cursor.end()) != cursor.objects()))

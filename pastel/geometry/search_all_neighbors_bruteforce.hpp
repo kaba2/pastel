@@ -125,7 +125,7 @@ namespace Pastel
 						distance2(pointSet[j], iPoint, 
 						normBijection, cullDistance);
 
-					if (distance <= cullDistance)
+					if (distance < cullDistance)
 					{
 						nearestSet.insert(Entry(distance, j));
 						if (nearestSet.full())
