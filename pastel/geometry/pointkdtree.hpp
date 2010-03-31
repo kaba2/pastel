@@ -14,6 +14,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename ObjectPolicy>
 	PointKdTree<Real, N, ObjectPolicy>::PointKdTree(
+		bool simulateKdTree,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(Node))
@@ -22,6 +23,7 @@ namespace Pastel
 		, objectPolicy_(objectPolicy)
 		, dimension_(N)
 		, bound_(ofDimension(N))
+		, simulateKdTree_(simulateKdTree)
 	{
 		ENSURE_OP(N, !=, Dynamic);
 		//BOOST_STATIC_ASSERT(N != Dynamic);
@@ -35,6 +37,7 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy>
 	PointKdTree<Real, N, ObjectPolicy>::PointKdTree(
 		Dimension dimension,
+		bool simulateKdTree,
 		const ObjectPolicy& objectPolicy)
 		: objectList_()
 		, nodeAllocator_(sizeof(Node))
@@ -43,6 +46,7 @@ namespace Pastel
 		, objectPolicy_(objectPolicy)
 		, dimension_(dimension)
 		, bound_(ofDimension(dimension))
+		, simulateKdTree_(simulateKdTree)
 	{
 		ENSURE2((N != Dynamic && dimension == N) || 
 			(N == Dynamic && dimension > 0), dimension, N);
@@ -62,6 +66,7 @@ namespace Pastel
 		, objectPolicy_(that.objectPolicy_)
 		, dimension_(that.dimension_)
 		, bound_(that.bound_)
+		, simulateKdTree_(that.simulateKdTree)
 	{
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
@@ -117,6 +122,7 @@ namespace Pastel
 		std::swap(objectPolicy_, that.objectPolicy_);
 		std::swap(dimension_, that.dimension_);
 		bound_.swap(that.bound_);
+		std::swap(simulateKdTree_, that.simulateKdTree_);
 	}
 
 	template <typename Real, int N, typename ObjectPolicy>

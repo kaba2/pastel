@@ -381,24 +381,40 @@ namespace Pastel
 
 		// Create new cuts for the child nodes.
 
-		const std::pair<Real, Real> leftBound = 
-			computeBound(left->first(), left->end(), splitAxis);
-		const Real leftMin = leftBound.first;
-		const Real leftMax = leftBound.second;
-		//const Real leftMin = prevMin;
-		//const Real leftMax = splitPosition;
+		Real leftMin;
+		Real leftMax;
+		if (simulateKdTree_)
+		{
+			leftMin = prevMin;
+			leftMax = splitPosition;
+		}
+		else
+		{
+			const std::pair<Real, Real> leftBound = 
+				computeBound(left->first(), left->end(), splitAxis);
+			leftMin = leftBound.first;
+			leftMax = leftBound.second;
+		}
 
 		left->setMin(leftMin);
 		left->setMax(leftMax);
 		left->setPrevMin(prevMin);
 		left->setPrevMax(prevMax);
 
-		const std::pair<Real, Real> rightBound = 
-			computeBound(right->first(), right->end(), splitAxis);
-		const Real rightMin = rightBound.first;
-		const Real rightMax = rightBound.second;
-		//const Real rightMin = splitPosition;
-		//const Real rightMax = prevMax;
+		Real rightMin;
+		Real rightMax;
+		if (simulateKdTree_)
+		{
+			rightMin = splitPosition;
+			rightMax = prevMax;
+		}
+		else
+		{
+			const std::pair<Real, Real> rightBound = 
+				computeBound(right->first(), right->end(), splitAxis);
+			rightMin = rightBound.first;
+			rightMax = rightBound.second;
+		}
 
 		right->setMin(rightMin);
 		right->setMax(rightMax);
