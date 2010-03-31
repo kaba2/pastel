@@ -1842,23 +1842,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\search_best_first_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_best_first_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\search_depth_first_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_depth_first_pointkdtree.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\search_nearest_algorithm_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_nearest_algorithm_pointkdtree.hpp"
 					>
 				</File>
 				<File
@@ -1978,6 +1966,34 @@
 					</File>
 					<File
 						RelativePath=".\objectdont_acceptpoint.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="SearchAlgorithm_PointKdTree"
+					>
+					<File
+						RelativePath=".\bestfirst_searchalgorithm_pointkdtree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\bestfirst_searchalgorithm_pointkdtree.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\depthfirst_searchalgorithm_pointkdtree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\depthfirst_searchalgorithm_pointkdtree.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\searchalgorithm_pointkdtree.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\searchalgorithm_pointkdtree_concept.h"
 						>
 					</File>
 				</Filter>

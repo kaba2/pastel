@@ -1,13 +1,16 @@
-// Description: Generic depth-first neighbor searching for PointKdTree
+// Description: Generic neighbor searching for PointKdTree
 // Documentation: nearest_neighbors.txt
 
-#ifndef PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_H
-#define PASTEL_SEARCH_DEPTH_FIRST_POINTKDTREE_H
+#ifndef PASTEL_SEARCH_NEAREST_ALGORITHM_POINTKDTREE_H
+#define PASTEL_SEARCH_NEAREST_ALGORITHM_POINTKDTREE_H
 
 #include "pastel/geometry/pointkdtree.h"
 
+#include "pastel/geometry/searchalgorithm_pointkdtree_concept.h"
+
 namespace Pastel
 {
+
 
 	/*!
 	Preconditions:
@@ -35,11 +38,14 @@ namespace Pastel
 	normBijection:
 	The norm bijection to use for distance measures.
 	See 'pastel/math/normbijection.txt'.
+
+	searchAlgorithm:
+	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, typename NormBijection, 
-		typename CandidateFunctor>
-	void searchDepthFirst(
+		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -47,12 +53,13 @@ namespace Pastel
 		const AcceptPoint& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
-		const CandidateFunctor& candidateFunctor);
+		const CandidateFunctor& candidateFunctor,
+		const SearchAlgorithm_PointKdTree& searchAlgorithm);
 
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, typename NormBijection, 
-		typename CandidateFunctor>
-	void searchDepthFirst(
+		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -60,32 +67,11 @@ namespace Pastel
 		const AcceptPoint& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
-		const CandidateFunctor& candidateFunctor);
-
-	class DepthFirst_SearchAlgorithm_PointKdTree
-	{
-	public:
-		template <typename Real, int N, typename ObjectPolicy, 
-			typename SearchPoint, typename AcceptPoint, typename NormBijection, 
-			typename CandidateFunctor>
-		static void work(
-			const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-			const SearchPoint& searchPoint,
-			const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-			const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
-			const AcceptPoint& acceptPoint,
-			integer bucketSize,
-			const NormBijection& normBijection,
-			const CandidateFunctor& candidateFunctor)
-		{
-			searchDepthFirst(
-				kdTree, searchPoint, maxDistance, maxRelativeError, 
-				acceptPoint, bucketSize, normBijection, candidateFunctor);
-		}
-	};
+		const CandidateFunctor& candidateFunctor,
+		const SearchAlgorithm_PointKdTree& searchAlgorithm);
 
 }
 
-#include "pastel/geometry/search_depth_first_pointkdtree.hpp"
+#include "pastel/geometry/search_nearest_algorithm_pointkdtree.hpp"
 
 #endif

@@ -1,7 +1,7 @@
-#ifndef PASTEL_SEARCH_BEST_FIRST_POINTKDTREE_HPP
-#define PASTEL_SEARCH_BEST_FIRST_POINTKDTREE_HPP
+#ifndef PASTEL_SEARCH_NEAREST_ALGORITHM_POINTKDTREE_HPP
+#define PASTEL_SEARCH_NEAREST_ALGORITHM_POINTKDTREE_HPP
 
-#include "pastel/geometry/search_best_first_pointkdtree.h"
+#include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/distance_point_point.h"
 
@@ -13,15 +13,13 @@
 namespace Pastel
 {
 
-	namespace Detail_BestFirst
+	namespace Detail_NearestAlgorithm
 	{
-
-		// Best-first approximate search
 
 		template <typename Real, int N, typename ObjectPolicy, 
 			typename AcceptPoint, typename NormBijection, 
-			typename CandidateFunctor>
-		class BestFirst
+			typename CandidateFunctor, typename SearchAlgorithm>
+		class GenericAlgorithm
 		{
 		private:
 			typedef PointKdTree<Real, N, ObjectPolicy> Tree;
@@ -29,7 +27,7 @@ namespace Pastel
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 		public:
-			BestFirst(
+			GenericAlgorithm(
 				const PointKdTree<Real, N, ObjectPolicy>& kdTree_,
 				const Vector<Real, N>& searchPoint_,
 				const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter_,
@@ -54,70 +52,66 @@ namespace Pastel
  				, nodeCullDistance(cullDistance * errorFactor)
 				, dimension(kdTree_.dimension())
 				, bucketSize(bucketSize_)
+				, algorithm()
 			{
 			}
 
 			void work()
 			{
-				if (maxDistance == 0)
+				if (kdTree.empty())
 				{
+					// The tree does not contain
+					// any objects.
 					return;
 				}
 
-				typedef KeyValue<Real, Cursor> Entry;
-				typedef std::priority_queue<Entry,
-					std::vector<Entry>,
-					std::greater<Entry> > EntrySet;
-
-				Cursor initialNode; 
-				if (searchIter != kdTree.end())
+				// Note: we consider the search ball open.
+				if (maxDistance == 0)
 				{
-					// If the search point is one of the points
-					// in the tree, we can use this information
-					// for better performance by scanning its
-					// leaf node at once. This is useful especially
-					// in k-nearest neighbor searching in higher 
-					// dimensions where the distances to points provide 
-					// pruning. 
-
-					initialNode = searchIter->leaf();
-					while(initialNode.parent().exists() && 
-						initialNode.parent().objects() <= bucketSize)
-					{
-						initialNode = initialNode.parent();
-					}
-					searchBruteForce(initialNode);
+					// The search ball is the empty set.
+					return;
 				}
 
-				EntrySet nodeQueue;
+				const Real rootDistance = 
+					distance2(kdTree.bound(), searchPoint, normBijection);
 
-				if (!kdTree.root().empty())
+				if (rootDistance >= maxDistance)
 				{
-					nodeQueue.push(
-						keyValue(distance2(kdTree.bound(), searchPoint, normBijection), 
-						kdTree.root()));
+					// The bounding box for the points does not
+					// intersect the search ball.
+					return;
 				}
 
-				while(!nodeQueue.empty())
+				// Start from the root node.
+				algorithm.insertNode(kdTree.root(), rootDistance);
+
+				while(true)
 				{
-					Real distance = nodeQueue.top().key();
-					Cursor cursor = nodeQueue.top().value();
-					nodeQueue.pop();
+					const KeyValue<Real, Cursor> entry =
+						algorithm.nextNode();
 
-					if (cursor == initialNode)
-					{
-						continue;
-					}
+					const Real& distance = entry.key();
+					const Cursor& cursor = entry.value();
 
-					if (distance > nodeCullDistance)
+					if (!cursor.exists())
 					{
-						// This is the closest node and it is
-						// beyond the maximum distance. We are
-						// done.
 						break;
 					}
+					
+					if (distance > nodeCullDistance)
+					{
+						if (algorithm.breakOnCulling())
+						{
+							break;
+						}
+						else
+						{
+							continue;
+						}
+					}
 
-					if (cursor.leaf() || cursor.objects() <= bucketSize)
+					if (cursor.leaf() ||
+						algorithm.shouldSearchSplitNode(cursor, bucketSize))
 					{
 						searchBruteForce(cursor);
 					}
@@ -135,7 +129,8 @@ namespace Pastel
 						const Cursor left = cursor.left();
 						const Cursor right = cursor.right();
 
-						// First compute the distances to splitting planes.
+						// Compute the distances to the boundary 
+						// planes of the child nodes.
 
 						Real oldAxisDistance = 0;
 						Real leftAxisDistance = 0;
@@ -170,46 +165,59 @@ namespace Pastel
 								}
 							}
 						}
-						bool visitLeft = false;
-						Real leftDistance = 0;
-						if (leftAxisDistance <= nodeCullDistance && !left.empty())
+						
+						// Compute the actual distances
+						// to the child nodes. These are
+						// only done if the nodes can't be
+						// culled by the boundary plane distance.
+
+						Real leftDistance = leftAxisDistance;
+						if (leftAxisDistance <= nodeCullDistance)
 						{
-							// The left node can't be culled by the axis
-							// distance. Let's see if it can be culled
-							// by the actual distance.
 							leftDistance = 
 								normBijection.replaceAxis(
 								distance,
 								oldAxisDistance,
 								leftAxisDistance);
-							if (leftDistance <= nodeCullDistance)
-							{
-								nodeQueue.push(keyValue(leftDistance, left));
-							}
 						}
 
-						bool visitRight = false;
-						Real rightDistance = 0; 
-						if (rightAxisDistance <= nodeCullDistance && !right.empty())
+						Real rightDistance = rightAxisDistance; 
+						if (rightAxisDistance <= nodeCullDistance)
 						{
-							// The right node can't be culled by the axis
-							// distance. Let's see if it can be culled
-							// by the actual distance.
 							rightDistance = 
 								normBijection.replaceAxis(
 								distance,
 								oldAxisDistance,
 								rightAxisDistance);
-							if (rightDistance <= nodeCullDistance)
+						}
+
+						// Queue non-culled child nodes for 
+						// future handling.
+
+						if (leftDistance <= nodeCullDistance && 
+							!algorithm.skipNode(left))
+						{
+							if (rightDistance <= nodeCullDistance && 
+								!algorithm.skipNode(right))
 							{
-								nodeQueue.push(keyValue(rightDistance, right));
+								algorithm.insertNodes(
+									left, leftDistance,
+									right, rightDistance);
 							}
+							else
+							{
+								algorithm.insertNode(left, leftDistance);
+							}
+						}
+						else if (rightDistance <= nodeCullDistance && 
+							!algorithm.skipNode(right))
+						{
+							algorithm.insertNode(right, rightDistance);
 						}
 					}
 				}
 			}
 
-		private:
 			void searchBruteForce(const Cursor& cursor)
             {
                 // We are now in a bucket node.
@@ -218,9 +226,10 @@ namespace Pastel
                 ConstObjectIterator iter = cursor.begin();
                 const ConstObjectIterator iterEnd = cursor.end();
 
+				Real currentDistance = 0;
                 while(iter != iterEnd)
                 {
-                    const Real currentDistance = 
+                    currentDistance = 
                         distance2(
                         objectPolicy.point(iter->object()),
                         searchPoint.rawBegin(),
@@ -228,8 +237,8 @@ namespace Pastel
                         normBijection, 
 						cullDistance);
 
-					// In the case of a fixed-radius search, we
-					// use an open search ball. 
+					// Remember that we are using an open search ball.
+					// Here it is enforced again.
                     if (currentDistance < cullDistance && acceptPoint(iter))
                     {
                         candidateFunctor(currentDistance, iter);
@@ -241,7 +250,7 @@ namespace Pastel
                             candidateFunctor.suggestCullDistance() * protectiveFactor;
                         if (cullSuggestion < cullDistance)
                         {
-                            cullDistance = cullSuggestion;
+							cullDistance = cullSuggestion;
 							nodeCullDistance = cullDistance * errorFactor;
                         }
                     }
@@ -266,14 +275,15 @@ namespace Pastel
 			Real nodeCullDistance;  
 			integer dimension;
 			integer bucketSize;
+			SearchAlgorithm algorithm;
 		};
 
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, typename NormBijection, 
-		typename CandidateFunctor>
-	void searchBestFirst(
+		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -281,24 +291,23 @@ namespace Pastel
 		const AcceptPoint& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
-		const CandidateFunctor& candidateFunctor)
+		const CandidateFunctor& candidateFunctor,
+		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
-		if (kdTree.empty())
-		{
-			return;
-		}
+		typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor Cursor;
+		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm;
 
-		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			bestFirst(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
+		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm>
+			genericAlgorithm(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
-		bestFirst.work();
+		genericAlgorithm.work();
 	}
 
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, typename NormBijection, 
-		typename CandidateFunctor>
-	void searchBestFirst(
+		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
+	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
@@ -306,23 +315,26 @@ namespace Pastel
 		const AcceptPoint& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
-		const CandidateFunctor& candidateFunctor)
+		const CandidateFunctor& candidateFunctor,
+		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
-		if (kdTree.empty() ||
-			searchIter == kdTree.end())
+		if (searchIter == kdTree.end())
 		{
 			return;
 		}
+
+		typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor Cursor;
+		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm;
 
 		const Vector<Real, N> searchPoint(
 			ofDimension(kdTree.dimension()),
 			withAliasing((Real*)kdTree.objectPolicy().point(searchIter->object())));
 
-		Detail_BestFirst::BestFirst<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor>
-			bestFirst(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
+		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, ObjectPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm>
+			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
-		bestFirst.work();
+		genericAlgorithm.work();
 	}
 
 }

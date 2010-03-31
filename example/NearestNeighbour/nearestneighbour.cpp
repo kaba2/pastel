@@ -3,7 +3,7 @@
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/intersect_segment_halfspace.h"
 #include "pastel/geometry/point_patterns.h"
-#include "pastel/geometry/search_depth_first_pointkdtree.h"
+#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_bruteforce.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
@@ -723,12 +723,14 @@ void NearestNeighbor_Gfx_Ui::sprayPoints(
 		}
 	}
 
-	//tree_.insert(newPointSet.begin(), newPointSet.end());
+	tree_.insert(newPointSet.begin(), newPointSet.end());
 
+	/*
 	for (integer i = 0;i < newPointSet.size();++i)
 	{
 		tree_.insert(newPointSet[i]);
 	}
+	*/
 }
 
 void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
@@ -836,7 +838,7 @@ int myMain()
 	const real maxRelativeError = 0;
 	const integer k = 4;
 	const integer d = 10;
-	const integer n = 100000;
+	const integer n = 10000;
 	enum
 	{
 		N = Dynamic
@@ -891,13 +893,13 @@ int myMain()
 		maxRelativeError,
 		normBijection,
 		DepthFirst_SearchAlgorithm_PointKdTree());
+		//BestFirst_SearchAlgorithm_PointKdTree());
 
 	timer.store();
 
 	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
 
-	/*
 	log() << "Brute-force search" << logNewLine;
 
 	Array<integer> bruteSet(k, n);
@@ -936,7 +938,6 @@ int myMain()
 	log() << "Wrong results = " << fuckedUp << logNewLine;
 	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
-	*/
 
 	deviceSystem().startEventLoop(LogicFps);
 
