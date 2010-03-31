@@ -1,16 +1,9 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/log_all.h"
-#include "pastel/sys/pastelomp.h"
-#include "pastel/sys/eps.h"
-
-#include <boost/integer_fwd.hpp>
-#include <boost/config/compiler/visualc.hpp>
 
 #include <iostream>
 #include <string>
-
-#include "pastel/sys/subarray.h"
 
 using namespace std;
 using namespace Pastel;

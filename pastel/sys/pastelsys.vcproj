@@ -935,34 +935,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\nativeinteger.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\nativeinteger.h"
-				>
-			</File>
-			<File
-				RelativePath=".\nativeinteger.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\nativeinteger_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\nativeinteger_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\nativereal.h"
-				>
-			</File>
-			<File
-				RelativePath=".\nativereal.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\primes.cpp"
 				>
 			</File>
@@ -1083,6 +1055,54 @@
 				</File>
 				<File
 					RelativePath=".\tuplebase.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Numbers"
+				>
+				<File
+					RelativePath=".\nativeinteger.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\nativeinteger.h"
+					>
+				</File>
+				<File
+					RelativePath=".\nativeinteger.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\nativeinteger_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\nativeinteger_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\nativereal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\nativereal.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\statreal.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\statreal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\statreal_tools.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\statreal_tools.h"
 					>
 				</File>
 			</Filter>
