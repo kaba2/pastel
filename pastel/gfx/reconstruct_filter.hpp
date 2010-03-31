@@ -155,7 +155,7 @@ namespace Pastel
 
 		DataPolicy dataPolicy;
 		PointKdTree<Real, N, DataPolicy> kdTree(
-			ofDimension(N), dataPolicy);
+			ofDimension(N), false, dataPolicy);
 
 		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());
 

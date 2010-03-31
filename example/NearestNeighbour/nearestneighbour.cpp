@@ -753,7 +753,7 @@ void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
 
 void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 {
-	MyTree newTree;
+	MyTree newTree(false);
 
 	Timer timer;
 

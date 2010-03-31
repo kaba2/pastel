@@ -115,6 +115,7 @@ namespace Pastel
 		constant
 		*/
 		explicit PointKdTree(
+			bool simulateKdTree = false,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs an empty tree.
@@ -131,6 +132,7 @@ namespace Pastel
 		*/
 		explicit PointKdTree(
 			Dimension dimension,
+			bool simulateKdTree = false,
 			const ObjectPolicy& objectPolicy = ObjectPolicy());
 
 		//! Constructs a copy from another tree.
@@ -532,6 +534,13 @@ namespace Pastel
 
 		dimension_:
 		The dimension of the tree.
+
+		bound_:
+		An axis aligned bounding box for the
+		points in the tree.
+
+		simulateKdTree_:
+		If true, no shrinking is done to nodes.
 		*/
 
 		ObjectContainer objectList_;
@@ -541,6 +550,7 @@ namespace Pastel
 		ObjectPolicy objectPolicy_;
 		integer dimension_;
 		AlignedBox<Real, N> bound_;
+		bool simulateKdTree_;
 	};
 
 }
