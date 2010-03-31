@@ -459,6 +459,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_statreal.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_unordered_set.cpp"
 			>
 		</File>

@@ -1,0 +1,29 @@
+#include "pastel/sys/statreal_tools.h"
+
+namespace Pastel
+{
+
+	PASTELSYS std::ostream& operator<<(
+		std::ostream& stream,
+		const StatReal::GlobalStats& stats)
+	{
+		stream << "Constructed " << stats.constructed() << std::endl;
+		stream << "Destructed " << stats.destructed() << std::endl;
+
+		const char* name[] = {
+			"Operations",
+			"Comparisons",
+			"Conversions"
+		};
+
+		BOOST_STATIC_ASSERT(sizeof(name) / sizeof(const char*) == StatReal::Stat::Size);
+
+		for (integer i = 0;i < StatReal::Stat::Size;++i)
+		{
+			stream << name[i] << ": " << stats.statistic(i) << std::endl;
+		}
+
+		return stream;
+	}
+
+}
