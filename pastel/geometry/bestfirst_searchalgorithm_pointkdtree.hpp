@@ -3,6 +3,7 @@
 
 #include "pastel/geometry/bestfirst_searchalgorithm_pointkdtree.h"
 
+#include "pastel/sys/mytypes.h"
 #include "pastel/sys/keyvalue.h"
 
 #include <queue>
