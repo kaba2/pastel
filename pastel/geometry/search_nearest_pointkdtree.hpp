@@ -2,8 +2,8 @@
 #define PASTEL_SEARCH_NEAREST_POINTKDTREE_HPP
 
 #include "pastel/geometry/search_nearest_pointkdtree.h"
-#include "pastel/geometry/search_depth_first_pointkdtree.h"
-#include "pastel/geometry/distance_alignedbox_point.h"
+#include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"
+#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/always_acceptpoint.h"
 
 #include "pastel/math/euclidean_normbijection.h"
@@ -104,11 +104,12 @@ namespace Pastel
 		CandidateSet candidateSet(kNearest);
 		const CandidateFunctor candidateFunctor(candidateSet);
 
-		SearchAlgorithm::work(
+		searchNearestAlgorithm(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, 
-			normBijection, candidateFunctor);
+			normBijection, candidateFunctor,
+			searchAlgorithm);
 
 		NearestIterator nearestIter = nearestBegin;
 		DistanceIterator distanceIter = distanceBegin;

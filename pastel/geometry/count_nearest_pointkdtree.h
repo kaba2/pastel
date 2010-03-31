@@ -43,6 +43,29 @@ namespace Pastel
 
 	normBijection:
 	See 'pastel/math/normbijection_concept.txt'.
+
+	searchAlgorithm:
+	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
+	*/
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint, 
+		typename NormBijection, 
+		typename SearchAlgorithm_PointKdTree>
+	integer countNearest(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const Vector<Real, N>& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize,
+		const NormBijection& normBijection,
+		const SearchAlgorithm_PointKdTree& searchAlgorithm);
+
+	//! Counts nearest neighbors for a point in a kd-tree.
+	/*!
+	This is a convenience function that calls:
+	countNearest(kdTree, searchPoint, maxDistance,
+		acceptPoint, bucketSize, normBijection,
+		DepthFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, 

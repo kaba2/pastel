@@ -2,7 +2,8 @@
 #define PASTEL_COUNT_NEAREST_POINTKDTREE_HPP
 
 #include "pastel/geometry/count_nearest_pointkdtree.h"
-#include "pastel/geometry/search_best_first_pointkdtree.h"
+#include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"
+#include "pastel/geometry/bestfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/always_acceptpoint.h"
 
@@ -48,14 +49,16 @@ namespace Pastel
 
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename AcceptPoint, 
-		typename NormBijection>
+		typename NormBijection, 
+		typename SearchAlgorithm_PointKdTree>
 	integer countNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint,
 		integer bucketSize,
-		const NormBijection& normBijection)
+		const NormBijection& normBijection,
+		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
 		ENSURE_OP(maxDistance, >=, 0);
 		ENSURE_OP(bucketSize, >=, 1);
@@ -71,11 +74,30 @@ namespace Pastel
 		integer nearestCount = 0;
 		const CandidateFunctor candidateFunctor(nearestCount);
 
-		searchBestFirst(
+		searchNearestAlgorithm(
 			kdTree, searchPoint, maxDistance, 0,
-			acceptPoint, bucketSize, normBijection, candidateFunctor);
+			acceptPoint, bucketSize, normBijection, candidateFunctor,
+			searchAlgorithm);
 
 		return nearestCount;
+	}
+
+	template <typename Real, int N, typename ObjectPolicy, 
+		typename AcceptPoint, 
+		typename NormBijection>
+	integer countNearest(
+		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const Vector<Real, N>& searchPoint,
+		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const AcceptPoint& acceptPoint,
+		integer bucketSize,
+		const NormBijection& normBijection)
+	{
+		return Pastel::countNearest(
+			kdTree, searchPoint,
+			maxDistance, acceptPoint,
+			bucketSize, normBijection,
+			DepthFirst_SearchAlgorithm_PointKdTree());
 	}
 
 	template <typename Real, int N, typename ObjectPolicy,

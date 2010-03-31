@@ -64,9 +64,9 @@ namespace Pastel
 	The search algorithm to use for searching the 'kdTree'.
 	The possible algorithms at the moment are
 	DepthFirst_SearchAlgorithm_PointKdTree
-	in 'search_depth_first_pointkdtree.h' and
+	in 'depthfirst_searchalgorithm_pointkdtree.h' and
 	BestFirst_SearchAlgorithm_PointKdTree
-	in 'search_best_first_pointkdtree.h'
+	in 'bestfirst_searchalgorithm_pointkdtree.h'
 	Default construct an object of this class as 
 	an argument.
 
@@ -76,7 +76,7 @@ namespace Pastel
 	template <typename Real, int N, typename ObjectPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
-		typename NormBijection, typename SearchAlgorithm>
+		typename NormBijection, typename SearchAlgorithm_PointKdTree>
 	integer searchNearest(
 		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
 		const SearchPoint& searchPoint,
@@ -88,7 +88,7 @@ namespace Pastel
 		const AcceptPoint& acceptPoint,
 		integer bucketSize,
 		const NormBijection& normBijection,
-		const SearchAlgorithm& searchAlgorithm);
+		const SearchAlgorithm_PointKdTree& searchAlgorithm);
 
 	//! Finds nearest neighbors for a point in a kdTree.
 	/*!
