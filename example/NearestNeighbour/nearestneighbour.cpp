@@ -45,8 +45,8 @@ using std::endl;
 using namespace Pastel;
 
 //typedef MinimumVolume_SplitRule_PointKdTree SplitRule;
-typedef SlidingMidpoint_SplitRule_PointKdTree SplitRule;
-//typedef LongestMedian_SplitRule_PointKdTree SplitRule;
+//typedef SlidingMidpoint_SplitRule_PointKdTree SplitRule;
+typedef LongestMedian_SplitRule_PointKdTree SplitRule;
 //typedef Midpoint_SplitRule_PointKdTree SplitRule;
 
 const integer ScreenWidth = 800;
@@ -60,6 +60,18 @@ const real RotationSpeed = 0.02;
 const integer SprayPoints = 50;
 const real SprayRadius = 0.05;
 const real PointRange = 0.9;
+
+class TreeType
+{
+public:
+	enum Enum
+	{
+		SlidingKd,
+		MedianKd,
+		SlidingBit,
+		MedianBit
+	};
+};
 
 class NearestNeighbor_Gfx_Ui
 	: public Gfx_Ui
@@ -100,7 +112,7 @@ private:
 	void sprayPoints(
 		const Vector2& center, real radius, integer points);
 	void erasePoints(const Vector2& center, real radius);
-	void computeTree(integer maxDepth);
+	void computeTree(TreeType::Enum treeType);
 	void timing();
 
 	MyTree tree_;
@@ -119,6 +131,8 @@ private:
 	real searchRadius_;
 	real scaling_;
 	integer treeDrawDepth_;
+	integer bucketSize_;
+	integer treeDepth_;
 };
 
 NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
@@ -135,6 +149,8 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	, searchRadius_(infinity<real>())
 	, scaling_(1)
 	, treeDrawDepth_(0)
+	, bucketSize_(1)
+	, treeDepth_(0)
 {
 	renderer().setColor(Color(0));
 	renderer().clear();
@@ -194,8 +210,7 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	randomlyRotate(pointSet_);
 	*/
 
-	computeTree(1);
-	//computeTree(128);
+	computeTree(TreeType::SlidingBit);
 	//timing();
 
 	concentrate(renderer(), bound);
@@ -223,7 +238,7 @@ void NearestNeighbor_Gfx_Ui::onRender()
 	renderer().setColor(Color(0, 1, 0));
 	drawBox(renderer(), tree_.bound());
 
-	redrawRange();
+	//redrawRange();
 	redrawNearest();
 
 	gfxDevice().swapBuffers();
@@ -252,7 +267,7 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 
 		if (key == SDLK_o)
 		{
-			tree_.refine(SplitRule());
+			tree_.refine(SplitRule(), bucketSize_);
 		}
 
 		if (key == SDLK_c)
@@ -323,6 +338,10 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 		if (key == SDLK_KP_PLUS)
 		{
 			++treeDrawDepth_;
+			if (treeDrawDepth_ > treeDepth_)
+			{
+				treeDrawDepth_ = treeDepth_;
+			}
 		}
 		if (key == SDLK_KP_MINUS)
 		{
@@ -331,9 +350,21 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 				--treeDrawDepth_;
 			}
 		}
-		if (key == SDLK_0)
+		if (key == SDLK_1)
 		{
-			computeTree(64);
+			computeTree(TreeType::SlidingKd);
+		}
+		if (key == SDLK_2)
+		{
+			computeTree(TreeType::MedianKd);
+		}
+		if (key == SDLK_3)
+		{
+			computeTree(TreeType::SlidingBit);
+		}
+		if (key == SDLK_4)
+		{
+			computeTree(TreeType::MedianBit);
 		}
 	}
 }
@@ -682,6 +713,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 
 	rangePointSet_.clear();
 
+	/*
 	if (searchRadius_ != infinity<real>())
 	{
 		const integer count = countRange(tree_, 
@@ -700,6 +732,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		ENSURE_OP(count, ==, rangePointSet_.size());
 		ENSURE_OP(count, ==, count2);
 	}
+	*/
 }
 
 void NearestNeighbor_Gfx_Ui::sprayPoints(
@@ -753,9 +786,12 @@ void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
 	}
 }
 
-void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
+void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 {
-	MyTree newTree(false);
+	const bool kd = (treeType == TreeType::SlidingKd) || 
+		(treeType == TreeType::MedianKd);
+
+	MyTree newTree(kd);
 
 	Timer timer;
 
@@ -767,13 +803,29 @@ void NearestNeighbor_Gfx_Ui::computeTree(integer maxDepth)
 
 	timer.setStart();
 
-	log() << "Constructing a new kd-tree with max-depth " << maxDepth << "." << logNewLine;
-
 	newTree.insert(tree_.objectBegin(), tree_.objectEnd());
 
 	ENSURE(check(newTree));
 
-	newTree.refine(SplitRule());
+	switch(treeType)
+	{
+	case TreeType::SlidingKd:
+		// Fall-through.
+	case TreeType::SlidingBit:
+		newTree.refine(SlidingMidpoint_SplitRule_PointKdTree(), bucketSize_);
+		break;
+	case TreeType::MedianKd:
+		// Fall-through.
+	case TreeType::MedianBit:
+		newTree.refine(LongestMedian_SplitRule_PointKdTree(), bucketSize_);
+		break;
+	}
+
+	treeDepth_ = depth(newTree);
+	if (treeDrawDepth_ > treeDepth_)
+	{
+		treeDrawDepth_ = treeDepth_;
+	}
 
 	ENSURE(check(newTree));
 
@@ -821,18 +873,8 @@ void NearestNeighbor_Gfx_Ui::timing()
 		<< tree_.objects() << " points took " << timer.seconds() << " seconds." << endl;
 }
 
-int myMain()
+void test()
 {
-	log().addObserver(streamLogObserver(&std::cout));
-	log().addObserver(fileLogObserver("log.txt"));
-
-	deviceSystem().initialize();
-	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
-	deviceSystem().setCaption("Nearest neighbors example");
-
-	NearestNeighbor_Gfx_Ui nearestNeighborUi;
-	deviceSystem().setUi(&nearestNeighborUi);
-
 	Timer timer;
 
 	const real maxRelativeError = 0;
@@ -843,7 +885,7 @@ int myMain()
 	{
 		N = Dynamic
 	};
-	PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d));
+	PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d), true);
 	std::vector<Vector<real, N> > pointSet;
 	pointSet.reserve(n);
 
@@ -876,7 +918,7 @@ int myMain()
 	{
 		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
 	}
-	tree.refine(SplitRule(), 1);
+	tree.refine(SplitRule(), 8);
 
 	log() << "Bounding search" << logNewLine;
 
@@ -938,6 +980,21 @@ int myMain()
 	log() << "Wrong results = " << fuckedUp << logNewLine;
 	cout << "Finding " << k << " nearest neighbours for "
 		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
+}
+
+int myMain()
+{
+	log().addObserver(streamLogObserver(&std::cout));
+	log().addObserver(fileLogObserver("log.txt"));
+
+	//test();
+
+	deviceSystem().initialize();
+	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
+	deviceSystem().setCaption("Nearest neighbors example");
+
+	NearestNeighbor_Gfx_Ui nearestNeighborUi;
+	deviceSystem().setUi(&nearestNeighborUi);
 
 	deviceSystem().startEventLoop(LogicFps);
 

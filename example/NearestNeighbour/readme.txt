@@ -4,14 +4,13 @@ Pastel's nearest neighbours example
 Description
 -----------
 
-This is a program to visualize a bounding interval tree.
-A point set is drawn along with its associated tree. 
-You can move the mouse cursor over this point set and the 
-program shows you its nearest points using the Euclidean 
-norm. The smaller circle is the spray radius. 
-The larger circle is the search radius beyond which 
-points are not considered. When the search radius is infinite,
-as in the start, it is not shown.
+This is a program to visualize a kd-tree and a 
+bounding interval tree. A point set is drawn along with its 
+associated tree. You can move the mouse cursor over this point set 
+and the program shows you its nearest points using the Euclidean 
+norm. The smaller circle is the spray radius. The larger circle 
+is the search radius beyond which points are not considered. 
+When the search radius is infinite, as in the start, it is not shown.
 
 Adding and removing points
 --------------------------
@@ -20,7 +19,7 @@ You can spray new points by pushing the left mouse button.
 Similarly, you can erase points by pushing the right mouse 
 button.
 
-When spraying new points, the tree can become unoptimal,
+When spraying new points, the tree becomes unoptimal,
 (especially if the new points extend the bounding box of
 the tree). The optimality can be regained by recomputing the 
 tree (see keys below).
@@ -36,12 +35,12 @@ see this by spraying points to the same area from which
 you removed points from: the underlying subtrees are 
 again taken in consideration.
 
-Levels of subdivision
----------------------
+Maximum tree-drawing depth
+--------------------------
 
-At the start the program shows only the leaf nodes of the tree.
-Using keypad + and - you can visualize nodes at higher levels on 
-the tree.
+At the start the drawing depth of the tree has been set to 0:
+therefore the tree is not shown at all. Use the keypad + and -
+to visualize other levels of the tree.
 
 Drawing performance
 -------------------
@@ -56,19 +55,24 @@ as well as the search radius circle.
 Keys
 ----
 
-F5 - toggle finite / infinite search radius
-F6 - toggle searching k-nearest / all in range
+left mouse button : spray some points
+right mouse button : erase some points
 
-left mouse button - spray some points
-right mouse button - erase points
-c - clear subdivision and all points
-x - clear all points but not the subdivision
-t - toggle drawing the tree
-p - toggle drawing the point set
-n - toggle drawing the nearest points
-w, a, s, d - translate the camera
-q, e - rotate the camera
-r, f - zoom the camera
-o - Refine the subdivision
-esc - quit
-0 - recompute the tree
+F5 : toggle finite / infinite search radius (infinite at start)
+F6 : toggle searching k-nearest / all in range (k-nearest at start)
+
+1 : recompute the tree as a sliding midpoint kd-tree
+2 : recompute the tree as a longest median kd-tree
+3 : recompute the tree as a sliding midpoint bounding interval tree
+4 : recompute the tree as a longest median bounding interval tree
++, - : increase or decrease the drawing depth of the nodes
+c : clear subdivision and all points
+x : clear all points but not the subdivision
+t : toggle drawing the tree
+p : toggle drawing the point set
+n : toggle drawing the nearest points
+w, a, s, d : translate the camera
+q, e : rotate the camera
+r, f : zoom the camera
+o : Refine the subdivision
+esc : quit
