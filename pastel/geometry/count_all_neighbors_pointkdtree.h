@@ -44,13 +44,13 @@ namespace Pastel
 	of neighbors 'querySet[i]' has. The iterator 
 	must be a random-access iterator and writable.
 	*/
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename ConstObjectIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator,
 		typename NormBijection>
 	void countAllNeighbors(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
@@ -66,12 +66,12 @@ namespace Pastel
 		bucketSize,
 		Euclidean_NormBijection<Real>());
 	*/
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename ConstObjectIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator>
 	void countAllNeighbors(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,

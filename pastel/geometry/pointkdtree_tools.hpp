@@ -22,9 +22,9 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <typename Real, int N, typename ObjectPolicy>
-		integer depth(const PointKdTree<Real, N, ObjectPolicy>& tree,
-			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
+		template <typename Real, int N, typename PointPolicy>
+		integer depth(const PointKdTree<Real, N, PointPolicy>& tree,
+			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
 			integer currentDepth)
 		{
 			if (cursor.leaf())
@@ -39,8 +39,8 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	integer depth(const PointKdTree<Real, N, ObjectPolicy>& tree)
+	template <typename Real, int N, typename PointPolicy>
+	integer depth(const PointKdTree<Real, N, PointPolicy>& tree)
 	{
 		return Detail::depth(tree, tree.root(), 0);
 	}
@@ -48,14 +48,14 @@ namespace Pastel
 	namespace Detail
 	{
 
-		template <typename Real, int N, typename ObjectPolicy>
-		bool check(const PointKdTree<Real, N, ObjectPolicy>& tree,
-			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
+		template <typename Real, int N, typename PointPolicy>
+		bool check(const PointKdTree<Real, N, PointPolicy>& tree,
+			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
 			const AlignedBox<Real, N>& bound)
 		{
-			typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor Cursor;
+			typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
 
-			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+			typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 				ConstObjectIterator;
 
 			if (REPORT(cursor.empty() && cursor.parent().exists()))
@@ -169,8 +169,8 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	bool check(const PointKdTree<Real, N, ObjectPolicy>& tree)
+	template <typename Real, int N, typename PointPolicy>
+	bool check(const PointKdTree<Real, N, PointPolicy>& tree)
 	{
 		const AlignedBox<Real, N> bound(
 			Vector<Real, N>(ofDimension(tree.dimension()), -infinity<Real>()),
@@ -224,10 +224,10 @@ namespace Pastel
 		}
 
 	}
-	template <int N_A, typename Real, typename ObjectPolicy_A, 
-		int N_B, typename ObjectPolicy_B>
-	bool equivalentKdTree(const PointKdTree<Real, N_A, ObjectPolicy_A>& aTree,
-	const PointKdTree<Real, N_B, ObjectPolicy_B>& bTree)
+	template <int N_A, typename Real, typename PointPolicy_A, 
+		int N_B, typename PointPolicy_B>
+	bool equivalentKdTree(const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
+	const PointKdTree<Real, N_B, PointPolicy_B>& bTree)
 	{
 		if (aTree.nodes() != bTree.nodes() ||
 			aTree.objects() != bTree.objects() ||

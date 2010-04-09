@@ -14,12 +14,12 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename AcceptPoint, 
 		typename NormBijection, typename SearchAlgorithm>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -37,7 +37,7 @@ namespace Pastel
 			return keyValue(infinity<Real>(), kdTree.end());
 		}
 
-		typedef PointKdTree<Real, N, ObjectPolicy> Tree;
+		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Cursor Cursor;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
@@ -55,12 +55,12 @@ namespace Pastel
 		return keyValue(distance, nearest);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename AcceptPoint, 
 		typename NormBijection>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -76,11 +76,11 @@ namespace Pastel
 			DepthFirst_SearchAlgorithm_PointKdTree());
 	}
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename AcceptPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -95,11 +95,11 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename AcceptPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -111,16 +111,16 @@ namespace Pastel
 			acceptPoint, 1);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 			ConstObjectIterator;
 
 		return Pastel::searchNearestOne(
@@ -129,15 +129,15 @@ namespace Pastel
 			Always_AcceptPoint<ConstObjectIterator>());
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	template <typename Real, int N, typename PointPolicy>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchPoint,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
+		const typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 			ConstObjectIterator;
 
 		return Pastel::searchNearestOne(
@@ -146,11 +146,11 @@ namespace Pastel
 			Dont_AcceptPoint<ConstObjectIterator>(searchPoint));
 	}
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
@@ -159,11 +159,11 @@ namespace Pastel
 			maxDistance, 0);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename SearchPoint>
-	KeyValue<Real, typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>
+	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>
 		searchNearestOne(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint)
 	{
 		return Pastel::searchNearestOne(

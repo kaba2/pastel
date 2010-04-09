@@ -20,18 +20,18 @@ namespace Pastel
 	bucketSize >= 1
 	*/
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename ObjectIterator_OutputIterator>
 	void searchRange(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
 		ObjectIterator_OutputIterator result,
 		integer bucketSize = 8);
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename CandidateFunctor>
 	void searchRangeGeneric(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
 		const CandidateFunctor& candidateFunctor,
 		integer bucketSize = 8);

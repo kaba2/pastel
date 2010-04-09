@@ -9,12 +9,12 @@ namespace Pastel
 {
 
 	//! Counts the number of neighbors for all query points.
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename ConstObjectIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator>
 	void countAllRange(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,

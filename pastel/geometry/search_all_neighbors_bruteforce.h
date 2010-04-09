@@ -29,7 +29,7 @@ namespace Pastel
 	dimension:
 	Dimension of the point-set.
 
-	objectPolicy:
+	pointPolicy:
 	An object modeling the PointPolicy concept.
 	See pointpolicy.txt.
 
@@ -58,14 +58,14 @@ namespace Pastel
 	*/
 
 	template <typename Object_Iterator,
-		typename ObjectPolicy,
+		typename PointPolicy,
 		typename Real_Iterator,
 		typename Object_Iterator_Iterator,
 		typename NormBijection>
 	void searchAllNeighborsBruteForce(
 		const RandomAccessRange<Object_Iterator>& pointSet,
 		integer dimension,
-		const ObjectPolicy& objectPolicy,
+		const PointPolicy& pointPolicy,
 		Array<Object_Iterator>& nearestArray,
 		integer kNearest,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,

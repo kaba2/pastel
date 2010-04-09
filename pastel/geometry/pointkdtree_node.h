@@ -6,8 +6,8 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy>
-	class PointKdTree<Real, N, ObjectPolicy>::Node
+	template <typename Real, int N, typename PointPolicy>
+	class PointKdTree<Real, N, PointPolicy>::Node
 	{
 	public:
 		Node(

@@ -47,14 +47,14 @@ namespace Pastel
 	}
 
 	template <typename Object_Iterator,
-		typename ObjectPolicy,
+		typename PointPolicy,
 		typename Real_Iterator,
 		typename Object_Iterator_Iterator,
 		typename NormBijection>
 	void searchAllNeighborsBruteForce(
 		const RandomAccessRange<Object_Iterator>& pointSet,
 		integer dimension,
-		const ObjectPolicy& objectPolicy,
+		const PointPolicy& pointPolicy,
 		Array<Object_Iterator>& nearestArray,
 		integer kNearest,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
@@ -80,7 +80,7 @@ namespace Pastel
 			return;
 		}
 		
-		typedef typename ObjectPolicy::Coordinate Real;
+		typedef typename PointPolicy::Coordinate Real;
 		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
 		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
@@ -101,7 +101,7 @@ namespace Pastel
 #		pragma omp for
 		for (integer i = 0;i < indices;++i)
 		{
-			const Real* iPoint = objectPolicy.point(*indexSet[i]);
+			const Real* iPoint = pointPolicy.point(*indexSet[i]);
 
 			Real cullDistance = maxDistanceSet[i];
 			nearestSet.clear();
@@ -110,7 +110,7 @@ namespace Pastel
 			{
 				if (j != i)
 				{
-					const Real* jPoint = objectPolicy.point(pointSet[j]);
+					const Real* jPoint = pointPolicy.point(pointSet[j]);
 
 					const Real distance = 
 						distance2(iPoint, jPoint, dimension,

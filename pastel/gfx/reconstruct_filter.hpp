@@ -56,12 +56,12 @@ namespace Pastel
 			}
 		};
 
-		template <typename Real, int N, typename ObjectPolicy, typename Filter>
+		template <typename Real, int N, typename PointPolicy, typename Filter>
 		class ReconstructFunctor
 		{
 		public:
 			explicit ReconstructFunctor(
-				const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+				const PointKdTree<Real, N, PointPolicy>& kdTree,
 				const Filter& filter,
 				const Real& filterStretch)
 				: kdTree_(kdTree)
@@ -71,7 +71,7 @@ namespace Pastel
 			{
 			}
 
-			typedef typename ObjectPolicy::Object Data;
+			typedef typename PointPolicy::Object Data;
 
 			void operator()(
 				const Vector<integer, N>& position,
@@ -83,7 +83,7 @@ namespace Pastel
 					return;
 				}
 
-				typedef PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+				typedef PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
@@ -128,7 +128,7 @@ namespace Pastel
 			}
 
 		private:
-			const PointKdTree<Real, N, ObjectPolicy>& kdTree_;
+			const PointKdTree<Real, N, PointPolicy>& kdTree_;
 			const Filter& filter_;
 			const Real& filterStretch_;
 			const Real invFilterStretch_;

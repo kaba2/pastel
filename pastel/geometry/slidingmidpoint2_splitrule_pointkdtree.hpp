@@ -14,19 +14,19 @@ namespace Pastel
 	public:
 		template <
 			typename Real, int N,
-			typename ObjectPolicy>
+			typename PointPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<Real, N, ObjectPolicy>& tree,
-			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, PointPolicy>& tree,
+			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
 			const Vector<Real, N>& minBound,
 			const Vector<Real, N>& maxBound,
 			integer depth) const
 		{
-			typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator 
+			typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator 
 				ConstObjectIterator;
 
 			const integer dimension = tree.dimension();
-			const ObjectPolicy& objectPolicy = tree.objectPolicy();
+			const PointPolicy& pointPolicy = tree.pointPolicy();
 
 			// Split along the longest dimension.
 
@@ -52,7 +52,7 @@ namespace Pastel
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					const Real position = objectPolicy.point(iter->object(), splitAxis);
+					const Real position = pointPolicy.point(iter->object(), splitAxis);
 					if (position < splitPosition)
 					{
 						if (position > leftMax)

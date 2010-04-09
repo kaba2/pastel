@@ -6,30 +6,30 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy>
-	class PointKdTree<Real, N, ObjectPolicy>::SplitPredicate
+	template <typename Real, int N, typename PointPolicy>
+	class PointKdTree<Real, N, PointPolicy>::SplitPredicate
 	{
 	public:
 		SplitPredicate(
 			const Real& splitPosition,
 			integer splitAxis,
-			const ObjectPolicy& objectPolicy)
+			const PointPolicy& pointPolicy)
 			: splitPosition_(splitPosition)
 			, splitAxis_(splitAxis)
-			, objectPolicy_(objectPolicy)
+			, pointPolicy_(pointPolicy)
 		{
 		}
 		
 		TriState::Enum operator()(const ObjectInfo& object) const
 		{
-			return triLess(objectPolicy_.point(*object, splitAxis_),
+			return triLess(pointPolicy_.point(*object, splitAxis_),
 				splitPosition_);
 		}
 
 	private:
 		Real splitPosition_;
 		integer splitAxis_;
-		const ObjectPolicy& objectPolicy_;
+		const PointPolicy& pointPolicy_;
 	};
 
 }

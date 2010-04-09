@@ -73,12 +73,12 @@ namespace Pastel
 	returns:
 	The number of found neighbors.
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
 		typename NormBijection, typename SearchAlgorithm_PointKdTree>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
@@ -99,12 +99,12 @@ namespace Pastel
 		normBijection,
 		DepthFirst_SearchAlgorithm_PointKdTree());
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint,
 		typename NormBijection>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
@@ -123,11 +123,11 @@ namespace Pastel
 		maxDistance, maxRelativeError, acceptPoint,
 		bucketSize,	Euclidean_NormBijection<Real>());
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
@@ -144,11 +144,11 @@ namespace Pastel
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, acceptPoint, 1);
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator, typename AcceptPoint>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
@@ -163,13 +163,13 @@ namespace Pastel
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, 
-		Always_AcceptPoint<typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator>());
+		Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>());
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
@@ -184,11 +184,11 @@ namespace Pastel
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, 0);
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,
@@ -202,11 +202,11 @@ namespace Pastel
 		kNearest, nearestBegin, distanceBegin,
 		infinity<Real>());
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 
 		typename DistanceIterator>
 	integer searchNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const SearchPoint& searchPoint,
 		integer kNearest,
 		const NearestIterator& nearestBegin,

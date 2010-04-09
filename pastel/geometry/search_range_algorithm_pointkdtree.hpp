@@ -10,21 +10,21 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename Reporter_SearchRange>
 	void searchRangeAlgorithm(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
 		const Reporter_SearchRange& reporter,
 		integer bucketSize)
 	{
 		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
 
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 			ConstObjectIterator;
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::Cursor
+		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor
 			Cursor;
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::Object
+		typedef typename PointKdTree<Real, N, PointPolicy>::Object
 			Object;
 
 		// Note: we assume the search region is open.
@@ -44,7 +44,7 @@ namespace Pastel
 		const Vector<Real, N>& rangeMin = range.min();
 		const Vector<Real, N>& rangeMax = range.max();
 
-		const ObjectPolicy& objectPolicy = kdTree.objectPolicy();
+		const PointPolicy& pointPolicy = kdTree.pointPolicy();
 
 		const AlignedBox<Real, N>& bound = kdTree.bound();
 
@@ -181,13 +181,13 @@ namespace Pastel
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					const typename ObjectPolicy::Object& object = iter->object();
+					const typename PointPolicy::Object& object = iter->object();
 					// Cull the point dimension by dimension.
 					integer i = 0;
 					while(i < dimension)
 					{
 						const Real position = 
-							objectPolicy.point(object, i);
+							pointPolicy.point(object, i);
 						if (position <= rangeMin[i] || 
 							position >= rangeMax[i])
 						{
