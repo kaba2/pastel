@@ -11,8 +11,8 @@ namespace Pastel
 
 	// Private
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::initialize()
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::initialize()
 	{
 		root_ = allocateLeaf(
 			0,
@@ -23,8 +23,8 @@ namespace Pastel
 		++leaves_;
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::copyConstruct(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::copyConstruct(
 		Node* thisNode, Node* thatNode)
 	{
 		ASSERT(thisNode);
@@ -55,9 +55,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	typename PointKdTree<Real, N, ObjectPolicy>::Node*
-		PointKdTree<Real, N, ObjectPolicy>::allocateLeaf(
+	template <typename Real, int N, typename PointPolicy>
+	typename PointKdTree<Real, N, PointPolicy>::Node*
+		PointKdTree<Real, N, PointPolicy>::allocateLeaf(
 		Node* parent,
 		const ConstObjectIterator& first,
 		const ConstObjectIterator& last,
@@ -80,8 +80,8 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::destructSubtree(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::destructSubtree(
 		Node* node)
 	{
 		if (!boost::has_trivial_destructor<Real>())
@@ -96,8 +96,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	AlignedBox<Real, N> PointKdTree<Real, N, ObjectPolicy>::computeBound(
+	template <typename Real, int N, typename PointPolicy>
+	AlignedBox<Real, N> PointKdTree<Real, N, PointPolicy>::computeBound(
 		const ConstObjectIterator& begin, 
 		const ConstObjectIterator& end) const
 	{
@@ -109,7 +109,7 @@ namespace Pastel
 		{
 			extendToCover(
 				Vector<Real, N>(ofDimension(dimension_),
-				withAliasing((Real*)objectPolicy_.point(iter->object()))), 
+				withAliasing((Real*)pointPolicy_.point(iter->object()))), 
 				bound);
 			++iter;
 		}
@@ -117,8 +117,8 @@ namespace Pastel
 		return bound;
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	std::pair<Real, Real> PointKdTree<Real, N, ObjectPolicy>::computeBound(
+	template <typename Real, int N, typename PointPolicy>
+	std::pair<Real, Real> PointKdTree<Real, N, PointPolicy>::computeBound(
 		const ConstObjectIterator& begin, 
 		const ConstObjectIterator& end,
 		integer axis) const
@@ -131,7 +131,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real position = 
-				objectPolicy_.point(iter->object(), axis);
+				pointPolicy_.point(iter->object(), axis);
 			if (position < bound.first)
 			{
 				bound.first = position;
@@ -147,8 +147,8 @@ namespace Pastel
 		return bound;
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::merge(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::merge(
 		Node* node)
 	{
 		ASSERT(node);
@@ -170,8 +170,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::erase(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::erase(
 		Node* node)
 	{
 		ASSERT(node);
@@ -194,8 +194,8 @@ namespace Pastel
 		nodeAllocator_.deallocate(node);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::setLeaf(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::setLeaf(
 		const ConstObjectIterator& begin,
 		const ConstObjectIterator& end,
 		Node* node)
@@ -208,8 +208,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::updateObjects(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::updateObjects(
 		Node* node)
 	{
 		ASSERT(node);
@@ -237,8 +237,8 @@ namespace Pastel
 		node->setLast(last);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::updateBounds(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::updateBounds(
 		Node* node, const AlignedBox<Real, N>& bound)
 	{
 		// We only allow to expand the
@@ -251,8 +251,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::updateObjectsUpwards(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::updateObjectsUpwards(
 		Node* node)
 	{
 		ASSERT(node);
@@ -266,8 +266,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::eraseObjects(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::eraseObjects(
 		Node* node)
 	{
 		ASSERT(node);
@@ -287,8 +287,8 @@ namespace Pastel
 		updateObjectsUpwards(node);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::clearObjects(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::clearObjects(
 		Node* node)
 	{
 		ASSERT(node);
@@ -310,8 +310,8 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::subdivide(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::subdivide(
 		Node* node,
 		const Real& splitPosition, 
 		integer splitAxis,
@@ -329,7 +329,7 @@ namespace Pastel
 
 		const SplitPredicate splitPredicate(
 			splitPosition, splitAxis, 
-			objectPolicy_);
+			pointPolicy_);
 
 		const std::pair<std::pair<ObjectIterator, integer>,
 			std::pair<ObjectIterator, integer> > result =
@@ -433,10 +433,10 @@ namespace Pastel
 		// recursive subdivision.
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, int N, typename PointPolicy>
 	template <typename InputIterator>
-	typename PointKdTree<Real, N, ObjectPolicy>::ObjectIterator
-	PointKdTree<Real, N, ObjectPolicy>::insertPrepare(
+	typename PointKdTree<Real, N, PointPolicy>::ObjectIterator
+	PointKdTree<Real, N, PointPolicy>::insertPrepare(
 		const InputIterator& begin, 
 		const InputIterator& end)
 	{
@@ -466,8 +466,8 @@ namespace Pastel
 		return first;
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
-	void PointKdTree<Real, N, ObjectPolicy>::insert(
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::insert(
 		Node* node,
 		const ObjectIterator& first, 
 		const ObjectIterator& last,
@@ -505,7 +505,7 @@ namespace Pastel
 
 			const SplitPredicate splitPredicate(
 				node->splitPosition(), node->splitAxis(), 
-				objectPolicy_);
+				pointPolicy_);
 
 			const std::pair<
 				std::pair<ObjectIterator, integer>,
@@ -572,9 +572,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, int N, typename PointPolicy>
 	template <typename SplitRule_PointKdTree>
-	void PointKdTree<Real, N, ObjectPolicy>::refine(
+	void PointKdTree<Real, N, PointPolicy>::refine(
 		Node* node,
 		Vector<Real, N>& minBound,
 		Vector<Real, N>& maxBound,

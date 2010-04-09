@@ -96,12 +96,12 @@ Disadvantages:
 ### Proposition 3: generic programming with a policy
 
 [[CppCode]]:
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, int N, typename PointPolicy>
 	class PointKdTree
 	{
 	};
 
-	class ObjectPolicy
+	class PointPolicy
 	{
 	public:
 		typedef int Object;

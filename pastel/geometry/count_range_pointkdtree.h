@@ -10,9 +10,9 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, int N, typename PointPolicy>
 	integer countRange(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
 		integer bucketSize = 8);
 

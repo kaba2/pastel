@@ -25,11 +25,11 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N = Dynamic, 
-		typename ObjectPolicy = Vector_PointPolicy<Real, N> >
+		typename PointPolicy = Vector_PointPolicy<Real, N> >
 	class PointKdTree
 	{
 	public:
-		typedef typename ObjectPolicy::Object Object;
+		typedef typename PointPolicy::Object Object;
 		class Cursor;
 
 	private:
@@ -49,7 +49,7 @@ namespace Pastel
 			N_ = N
 		};
 		typedef Real Real_;
-		typedef ObjectPolicy ObjectPolicy_;
+		typedef PointPolicy PointPolicy_;
 
 		typedef typename ObjectContainer::const_iterator 
 			ConstObjectIterator;
@@ -66,7 +66,7 @@ namespace Pastel
 		*/
 		explicit PointKdTree(
 			bool simulateKdTree = false,
-			const ObjectPolicy& objectPolicy = ObjectPolicy());
+			const PointPolicy& pointPolicy = PointPolicy());
 
 		//! Constructs an empty tree.
 		/*!
@@ -83,7 +83,7 @@ namespace Pastel
 		explicit PointKdTree(
 			Dimension dimension,
 			bool simulateKdTree = false,
-			const ObjectPolicy& objectPolicy = ObjectPolicy());
+			const PointPolicy& pointPolicy = PointPolicy());
 
 		//! Constructs a copy from another tree.
 		/*!
@@ -124,7 +124,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		const ObjectPolicy& objectPolicy() const;
+		const PointPolicy& pointPolicy() const;
 
 		//! Extends the bounding box of the tree to cover the given box.
 		/*!
@@ -476,7 +476,7 @@ namespace Pastel
 		leaves_:
 		The number of leaf nodes in the tree.
 
-		objectPolicy_:
+		pointPolicy_:
 		A functor that maps the users Object's
 		into geometric points. This allows
 		to abstract the representation
@@ -497,7 +497,7 @@ namespace Pastel
 		NodeAllocator nodeAllocator_;
 		Node* root_;
 		integer leaves_;
-		ObjectPolicy objectPolicy_;
+		PointPolicy pointPolicy_;
 		integer dimension_;
 		AlignedBox<Real, N> bound_;
 		bool simulateKdTree_;

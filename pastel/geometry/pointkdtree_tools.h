@@ -15,8 +15,8 @@ namespace Pastel
 	//! Compute the maximum depth of the kd-tree.
 
 	template <typename Real, int N,
-		typename ObjectPolicy>
-	integer depth(const PointKdTree<Real, N, ObjectPolicy>& tree);
+		typename PointPolicy>
+	integer depth(const PointKdTree<Real, N, PointPolicy>& tree);
 
 	//! Check the invariants of the kd-tree.
 	/*!
@@ -26,16 +26,16 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N,
-		typename ObjectPolicy>
-	bool check(const PointKdTree<Real, N, ObjectPolicy>& tree);
+		typename PointPolicy>
+	bool check(const PointKdTree<Real, N, PointPolicy>& tree);
 
 	//! Check that the kd-trees are equivalent.
 
-	template <int N_A, typename Real, typename ObjectPolicy_A, 
-		int N_B, typename ObjectPolicy_B>
+	template <int N_A, typename Real, typename PointPolicy_A, 
+		int N_B, typename PointPolicy_B>
 	bool equivalentKdTree(
-		const PointKdTree<Real, N_A, ObjectPolicy_A>& aTree,
-		const PointKdTree<Real, N_B, ObjectPolicy_B>& bTree);
+		const PointKdTree<Real, N_A, PointPolicy_A>& aTree,
+		const PointKdTree<Real, N_B, PointPolicy_B>& bTree);
 
 }
 

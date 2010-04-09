@@ -40,10 +40,10 @@ namespace Pastel
 		PointKdTree.
 		*/
 		template <typename Real, int N,
-			typename ObjectPolicy>
+			typename PointPolicy>
 			std::pair<Real, integer> operator()(
-			const PointKdTree<Real, N, ObjectPolicy>& tree,
-			const typename PointKdTree<Real, N, ObjectPolicy>::Cursor& cursor,
+			const PointKdTree<Real, N, PointPolicy>& tree,
+			const typename PointKdTree<Real, N, PointPolicy>::Cursor& cursor,
 			const Vector<Real, N>& minBound,
 			const Vector<Real, N>& maxBound,
 			integer depth) const;

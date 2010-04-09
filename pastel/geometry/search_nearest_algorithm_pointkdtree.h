@@ -42,11 +42,11 @@ namespace Pastel
 	searchAlgorithm:
 	See 'pastel/geometry/searchalgorithm_pointkdtree.txt'.
 	*/
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename AcceptPoint, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -56,12 +56,12 @@ namespace Pastel
 		const CandidateFunctor& candidateFunctor,
 		const SearchAlgorithm_PointKdTree& searchAlgorithm);
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename AcceptPoint, typename NormBijection, 
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
-		const typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator& searchIter,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
+		const typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,

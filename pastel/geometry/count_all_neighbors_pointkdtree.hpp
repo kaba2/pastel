@@ -13,13 +13,13 @@
 namespace Pastel
 {
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename ConstObjectIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator,
 		typename NormBijection>
 	void countAllNeighbors(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
@@ -38,7 +38,7 @@ namespace Pastel
 		const integer queries = querySet.size();
 		const integer dimension = kdTree.dimension();
 
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 			ConstObjectIterator;
 
 #		pragma omp parallel for
@@ -47,7 +47,7 @@ namespace Pastel
 			PENSURE_OP(maxDistanceSet[i], >=, 0);
 
 			const Vector<Real, N> queryPoint(ofDimension(dimension), 
-				withAliasing((Real*)kdTree.objectPolicy().point(querySet[i]->object())));
+				withAliasing((Real*)kdTree.pointPolicy().point(querySet[i]->object())));
 
 			result[i] = countNearest(
 				kdTree, 
@@ -59,12 +59,12 @@ namespace Pastel
 		}
 	}
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 		typename ConstObjectIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator>
 	void countAllNeighbors(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result)

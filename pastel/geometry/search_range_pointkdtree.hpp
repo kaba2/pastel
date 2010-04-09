@@ -47,10 +47,10 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename ObjectIterator_OutputIterator>
 	void searchRange(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
 		ObjectIterator_OutputIterator result,
 		integer bucketSize)

@@ -15,11 +15,11 @@ namespace Pastel
 	namespace Detail_Count_Nearest
 	{
 
-		template <typename Real, int N, typename ObjectPolicy>
+		template <typename Real, int N, typename PointPolicy>
 		class CandidateFunctor
 		{
 		private:
-			typedef PointKdTree<Real, N, ObjectPolicy> Tree;
+			typedef PointKdTree<Real, N, PointPolicy> Tree;
 			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
 		public:
@@ -47,12 +47,12 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename AcceptPoint, 
 		typename NormBijection, 
 		typename SearchAlgorithm_PointKdTree>
 	integer countNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint,
@@ -68,7 +68,7 @@ namespace Pastel
 			return kdTree.objects();
 		}
 
-		typedef Detail_Count_Nearest::CandidateFunctor<Real, N, ObjectPolicy>
+		typedef Detail_Count_Nearest::CandidateFunctor<Real, N, PointPolicy>
 			CandidateFunctor;
 
 		integer nearestCount = 0;
@@ -82,11 +82,11 @@ namespace Pastel
 		return nearestCount;
 	}
 
-	template <typename Real, int N, typename ObjectPolicy, 
+	template <typename Real, int N, typename PointPolicy, 
 		typename AcceptPoint, 
 		typename NormBijection>
 	integer countNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint,
@@ -100,10 +100,10 @@ namespace Pastel
 			DepthFirst_SearchAlgorithm_PointKdTree());
 	}
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 	typename AcceptPoint>
 	integer countNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint, 
@@ -115,10 +115,10 @@ namespace Pastel
 			Euclidean_NormBijection<Real>());
 	}
 
-	template <typename Real, int N, typename ObjectPolicy,
+	template <typename Real, int N, typename PointPolicy,
 	typename AcceptPoint>
 	integer countNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const AcceptPoint& acceptPoint)
@@ -127,13 +127,13 @@ namespace Pastel
 			kdTree, searchPoint, maxDistance, acceptPoint, 1);
 	}
 
-	template <typename Real, int N, typename ObjectPolicy>
+	template <typename Real, int N, typename PointPolicy>
 	integer countNearest(
-		const PointKdTree<Real, N, ObjectPolicy>& kdTree,
+		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
-		typedef typename PointKdTree<Real, N, ObjectPolicy>::ConstObjectIterator
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
 			ConstObjectIterator;
 
 		return Pastel::countNearest(
