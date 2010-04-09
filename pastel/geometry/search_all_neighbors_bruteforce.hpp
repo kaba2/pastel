@@ -63,8 +63,8 @@ namespace Pastel
 	{
 		ENSURE_OP(dimension, >, 0);
 		ENSURE_OP(kNearest, >=, 0);
-		ENSURE_OP(nearestArray.width(), ==, kNearest);
-		ENSURE_OP(nearestArray.height(), ==, pointSet.size());
+		ENSURE_OP(nearestArray.width(), >=, kNearest);
+		ENSURE_OP(nearestArray.height(), >=, indexSet.size());
 		ENSURE_OP(maxDistanceSet.size(), ==, indexSet.size());
 
 		if (kNearest > pointSet.size())
