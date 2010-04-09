@@ -14,7 +14,7 @@ It is declared as:
 
 [[CppCode]]:
 	template <typename Real, int N = Dynamic, 
-		typename ObjectPolicy = Direct_ObjectPolicy_PointKdTree<Real, N> >
+		typename ObjectPolicy = Vector_PointPolicy<Real, N> >
 	class PointKdTree;
 
 where N is the dimensionality of the tree, Real is a computation
@@ -28,14 +28,10 @@ of points, they are called _objects_ instead.
 
 ### Predefined object policies
 
- * *Direct_ObjectPolicy_PointKdTree\<Real, N\>* class stores as objects 
+ * *Vector_PointPolicy\<Real, N\>* class stores as objects 
  elements of type Vector\<Real, N\>, thus representing points directly.
  
- * *Pointer_ObjectPolicy_PointKdTree\<Real, N\>* class stores as objects
- pointers to Vector\<Real, N\>. Thus it is assumed that the objects
- have been allocated memory elsewhere and are now simply referred to.
- 
- * *Array_ObjectPolicy_PointKdTree\<Real, N\>* class stores as objects
+ * *Array_PointPolicy\<Real, N\>* class stores as objects
  pointers to Real. These pointers should point to the beginning of
  a Real array containing the point coordinates. Again it is assumed that
  the memory pointed to has been allocated memory elsewhere. Using

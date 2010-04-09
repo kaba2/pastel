@@ -10,63 +10,13 @@
 #include "pastel/sys/poolallocator.h"
 
 #include "pastel/geometry/alignedbox.h"
+#include "pastel/geometry/vector_pointpolicy.h"
 
 #include <boost/mpl/if.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 
 namespace Pastel
 {
-
-	template <typename Real, int N>
-	class Direct_ObjectPolicy_PointKdTree
-	{
-	public:
-		typedef Vector<Real, N> Object;
-
-		const Real* point(const Object& object) const
-		{
-			return object.rawBegin();
-		}
-
-		const Real& point(const Object& object, integer axis) const
-		{
-			return object[axis];
-		}
-	};
-
-	template <typename Real, int N>
-	class Pointer_ObjectPolicy_PointKdTree
-	{
-	public:
-		typedef Vector<Real, N>* Object;
-
-		const Real* point(const Object& object) const
-		{
-			return object->rawBegin();
-		}
-
-		const Real& point(const Object& object, integer axis) const
-		{
-			return (*object)[axis];
-		}
-	};
-
-	template <typename Real>
-	class Array_ObjectPolicy_PointKdTree
-	{
-	public:
-		typedef const Real* Object;
-
-		const Real* point(const Object& object) const
-		{
-			return object;
-		}
-
-		const Real& point(const Object& object, integer axis) const
-		{
-			return object[axis];
-		}
-	};
 
 	//! A semi-dynamic point kd-tree
 	/*!
@@ -75,7 +25,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N = Dynamic, 
-		typename ObjectPolicy = Direct_ObjectPolicy_PointKdTree<Real, N> >
+		typename ObjectPolicy = Vector_PointPolicy<Real, N> >
 	class PointKdTree
 	{
 	public:
