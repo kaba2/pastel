@@ -26,12 +26,17 @@ namespace Pastel
 	pointSet:
 	The set of points to do the searching in.
 
-	indexSetBegin, indexSetEnd:
-	A sequence of integers denoting indices of those
-	points in the 'pointSet' for which the neighbors
-	are sought for. Note: use the CountingIterator 
-	class for generating a range of integer values 
-	without using any additional storage.
+	dimension:
+	Dimension of the point-set.
+
+	objectPolicy:
+	An object modeling the PointPolicy concept.
+	See pointpolicy.txt.
+
+	nearestArray (output):
+	An array of iterators from 'pointSet' such that 
+	a(i, j) contains the j:th neighbor of the i:th point 
+	in the 'indexSet'.
 
 	kNearest:
 	The number of nearest neighbors to seek for.
@@ -41,24 +46,31 @@ namespace Pastel
 	neighbors. This distance is in terms of the
 	norm bijection. Note: Can be set to infinity.
 
+	indexSet:
+	A sequence of integers denoting iterators in 'pointSet'
+	for which the neighbors are sought for. Note: use the 
+	CountingIterator class for generating a range of iterator
+	values without using any additional storage.
+
 	normBijection:
 	The norm bijection to use to define distance.
-
-	nearestArray (output):
-	An array of indices such that a(i, j) contains
-	the j:th neighbor of the i:th point in the index set.
+	See 'pastel/math/normbijection.txt'.
 	*/
 
-	template <typename Real, int N, typename NormBijection,
-	typename ConstIndexIterator>
+	template <typename Object_Iterator,
+		typename ObjectPolicy,
+		typename Real_Iterator,
+		typename Object_Iterator_Iterator,
+		typename NormBijection>
 	void searchAllNeighborsBruteForce(
-		const std::vector<Vector<Real, N> >& pointSet,
-		const ConstIndexIterator& indexSetBegin,
-		const ConstIndexIterator& indexSetEnd,
+		const RandomAccessRange<Object_Iterator>& pointSet,
+		integer dimension,
+		const ObjectPolicy& objectPolicy,
+		Array<Object_Iterator>& nearestArray,
 		integer kNearest,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormBijection& normBijection,
-		Array<integer, 2>& nearestArray);
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		const RandomAccessRange<Object_Iterator_Iterator>& indexSet,
+		const NormBijection& normBijection);
 
 }
 

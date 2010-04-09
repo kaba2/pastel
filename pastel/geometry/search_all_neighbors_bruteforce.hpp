@@ -46,21 +46,26 @@ namespace Pastel
 
 	}
 
-	template <typename Real, int N, typename NormBijection,
-	typename ConstIndexIterator>
+	template <typename Object_Iterator,
+		typename ObjectPolicy,
+		typename Real_Iterator,
+		typename Object_Iterator_Iterator,
+		typename NormBijection>
 	void searchAllNeighborsBruteForce(
-		const std::vector<Vector<Real, N> >& pointSet,
-		const ConstIndexIterator& indexSetBegin,
-		const ConstIndexIterator& indexSetEnd,
+		const RandomAccessRange<Object_Iterator>& pointSet,
+		integer dimension,
+		const ObjectPolicy& objectPolicy,
+		Array<Object_Iterator>& nearestArray,
 		integer kNearest,
-		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const NormBijection& normBijection,
-		Array<integer, 2>& nearestArray)
+		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		const RandomAccessRange<Object_Iterator_Iterator>& indexSet,
+		const NormBijection& normBijection)
 	{
+		ENSURE_OP(dimension, >, 0);
 		ENSURE_OP(kNearest, >=, 0);
-		ENSURE_OP(maxDistance, >=, 0);
-		ENSURE2(nearestArray.width() == kNearest, nearestArray.width(), kNearest);
-		ENSURE2(nearestArray.height() == pointSet.size(), nearestArray.height(), pointSet.size());
+		ENSURE_OP(nearestArray.width(), ==, kNearest);
+		ENSURE_OP(nearestArray.height(), ==, pointSet.size());
+		ENSURE_OP(maxDistanceSet.size(), ==, indexSet.size());
 
 		if (kNearest > pointSet.size())
 		{
@@ -68,29 +73,14 @@ namespace Pastel
 		}
 
 		const integer points = pointSet.size();
-		const integer indices = indexSetEnd - indexSetBegin;
+		const integer indices = indexSet.size();
 
 		if (points == 0 || kNearest == 0 || indices == 0)
 		{
 			return;
 		}
 		
-		const integer dimension = pointSet.front().dimension();
-
-		if (dimension == 1)
-		{
-			searchAllNeighbors1d(
-				pointSet,
-				indexSetBegin, indexSetEnd,
-				kNearest,
-				maxDistance,
-				normBijection,
-				&nearestArray,
-				0);
-			
-			return;
-		}
-
+		typedef typename ObjectPolicy::Coordinate Real;
 		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
 		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
@@ -102,7 +92,7 @@ namespace Pastel
 		// can report less than k points. We avoid this behaviour
 		// by scaling the culling radius up by a protective factor.
 		const Real protectiveFactor = 
-			normBijection.scalingFactor(1.001);
+			normBijection.scalingFactor(1.01);
 
 #		pragma omp parallel
 		{
@@ -111,18 +101,19 @@ namespace Pastel
 #		pragma omp for
 		for (integer i = 0;i < indices;++i)
 		{
-			const integer index = indexSetBegin[i];
-			const Vector<Real, N>& iPoint = pointSet[index];
+			const Real* iPoint = objectPolicy.point(*indexSet[i]);
 
-			Real cullDistance = maxDistance;
+			Real cullDistance = maxDistanceSet[i];
 			nearestSet.clear();
 
 			for (integer j = 0;j < points;++j)
 			{
-				if (j != index)
+				if (j != i)
 				{
+					const Real* jPoint = objectPolicy.point(pointSet[j]);
+
 					const Real distance = 
-						distance2(pointSet[j], iPoint, 
+						distance2(iPoint, jPoint, dimension,
 						normBijection, cullDistance);
 
 					if (distance < cullDistance)
@@ -132,7 +123,7 @@ namespace Pastel
 						{
 							cullDistance = std::min(
 								nearestSet.back().distance_ * protectiveFactor,
-								maxDistance);
+								maxDistanceSet[i]);
 						}
 					}
 				}
@@ -143,7 +134,7 @@ namespace Pastel
 			const NearestIterator iterEnd = nearestSet.end();
 			while(iter != iterEnd)
 			{
-				nearestArray(nearestIndex, i) = iter->index_;
+				nearestArray(nearestIndex, i) = pointSet.begin() + iter->index_;
 				++nearestIndex;
 				++iter;
 			}
@@ -153,7 +144,7 @@ namespace Pastel
 
 			for (;nearestIndex < kNearest;++nearestIndex)
 			{
-				nearestArray(nearestIndex, i) = -1;
+				nearestArray(nearestIndex, i) = pointSet.end();
 			}
 		}
 		}

@@ -217,7 +217,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				DisableLanguageExtensions="true"
-				OpenMP="true"
+				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
@@ -464,10 +464,6 @@
 				<Filter
 					Name="PointKdTree"
 					>
-					<File
-						RelativePath=".\objectpolicy_pointkdtree_concept.h"
-						>
-					</File>
 					<File
 						RelativePath=".\pointkdtree.h"
 						>
@@ -1997,6 +1993,30 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Point policies"
+				>
+				<File
+					RelativePath=".\array_pointpolicy.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_all.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\vector_pointpolicy.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

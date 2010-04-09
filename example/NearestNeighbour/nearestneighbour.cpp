@@ -10,6 +10,7 @@
 #include "pastel/geometry/search_range_pointkdtree.h"
 #include "pastel/geometry/count_range_pointkdtree.h"
 #include "pastel/geometry/alignedbox_tools.h"
+#include "pastel/geometry/pointpolicy_all.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_space.h"
@@ -885,8 +886,11 @@ void test()
 	{
 		N = Dynamic
 	};
-	PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> > tree(ofDimension(d), true);
-	std::vector<Vector<real, N> > pointSet;
+	PointKdTree<real, N, Array_PointPolicy<real> > tree(ofDimension(d), true);
+
+	typedef std::vector<Vector<real, N> > PointSet;
+
+	PointSet pointSet;
 	pointSet.reserve(n);
 
 	CountedPtr<Clustered_RandomDistribution<real, N> >
@@ -913,7 +917,7 @@ void test()
 			randomDistribution->sample());
 	}
 
-	std::vector<PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> querySet;
+	std::vector<PointKdTree<real, N, Array_PointPolicy<real> >::ConstObjectIterator> querySet;
 	for (integer i = 0;i < n;++i)
 	{
 		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
@@ -923,7 +927,7 @@ void test()
 	log() << "Bounding search" << logNewLine;
 
 	Euclidean_NormBijection<real> normBijection;
-	Array<PointKdTree<real, N, Array_ObjectPolicy_PointKdTree<real> >::ConstObjectIterator> nearestSet(k, n);
+	Array<PointKdTree<real, N, Array_PointPolicy<real> >::ConstObjectIterator> nearestSet(k, n);
 
 	timer.setStart();
 
@@ -944,19 +948,24 @@ void test()
 
 	log() << "Brute-force search" << logNewLine;
 
-	Array<integer> bruteSet(k, n);
+	//Array<integer> bruteSet(k, n);
+	Array<PointSet::iterator> bruteSet(k, n);
 
 	timer.setStart();
 
 	searchAllNeighborsBruteForce(
-		pointSet,
-		countingIterator(0),
-		countingIterator(n),
+		randomAccessRange(
+		pointSet.begin(), pointSet.end()),
+		d,
+		Vector_PointPolicy<real, N>(),
+		bruteSet,
 		k,
-		infinity<real>(),
-		normBijection,
-		bruteSet);
-	
+		constantRange(infinity<real>(), pointSet.size()),
+		randomAccessRange(
+		countingIterator(pointSet.begin()), 
+		countingIterator(pointSet.end())),
+		normBijection);
+
 	timer.store();
 
 	integer fuckedUp = 0;
@@ -964,9 +973,9 @@ void test()
 	{
 		for (integer j = 0;j < k;++j)
 		{
-			const real* brute = pointSet[bruteSet(j, i)].rawBegin();
+			const real* brute = bruteSet(j, i)->rawBegin();
 			const real* nearest = nearestSet(j, i)->object();
-			const real bruteDistance = distance2(pointSet[bruteSet(j, i)], pointSet[i]);
+			const real bruteDistance = distance2(*bruteSet(j, i), pointSet[i]);
 			const real nearestDistance = 
 				distance2(nearestSet(j, i)->object(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
 			
@@ -987,7 +996,7 @@ int myMain()
 	log().addObserver(streamLogObserver(&std::cout));
 	log().addObserver(fileLogObserver("log.txt"));
 
-	//test();
+	test();
 
 	deviceSystem().initialize();
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);
