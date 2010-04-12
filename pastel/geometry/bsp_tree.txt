@@ -8,7 +8,7 @@ Theory
 
 ### Nodes
 
-A _node_ is a closed and simply connected subset of ''RR^n''.
+A _node_ is a closed subset of ''RR^n''.
 Denote the set of all nodes by ''C = {S sub RR^n : S text( is a node)}''
 and let ''S = {S_1, ..., S_m} sub C''.
 A node ''B in S'' is called a _descendant_ of a node ''A in S''
@@ -32,9 +32,9 @@ directed graph ''T = (B, D)'', such that
  
  * ''\forall i: B_i'' either has no children or 
  it has exactly two children ''B_{l(i)}'' and ''B_{r(i)}'' such that
- ''B_{l(i)} uu B_{r(i)} = B_i'' and ''text(vol)(B_{l(i)} nn B_{r(i)}) = 0''.
- Here vol refers to volume (Lebesgue measure) of a point-set.
-
+ ''B_{l(i)} uu B_{r(i)} = B_i'' and ''I(B_{l(i)}) nn I(B_{r(i)}) = \emptyset'',
+ where ''I'' refers to the interior of a point-set.
+ 
 These definitions imply that ''T'' is a binary tree,
 explaining the name. A node which has no children is called a _leaf node_,
 while the unique node which has no parent is called the _root node_.

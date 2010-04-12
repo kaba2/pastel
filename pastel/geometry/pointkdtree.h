@@ -1,5 +1,5 @@
 // Description: PointKdTree class
-// Detail: A semi-dynamic point kd-tree
+// Detail: A multi-level point kd-tree
 
 #ifndef PASTEL_POINTKDTREE_H
 #define PASTEL_POINTKDTREE_H
@@ -18,10 +18,10 @@
 namespace Pastel
 {
 
-	//! A semi-dynamic point kd-tree
+	//! A multi-level point kd-tree
 	/*!
 	See also:
-	objectpolicy_pointkdtree_concept.h
+	pointpolicy_concept.h
 	*/
 
 	template <typename Real, int N = Dynamic, 
