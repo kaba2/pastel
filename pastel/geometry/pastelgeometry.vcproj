@@ -536,15 +536,15 @@
 							>
 						</File>
 						<File
-							RelativePath=".\minimumvolume_splitrule.txt"
-							>
-						</File>
-						<File
 							RelativePath=".\minimumvolume_splitrule_pointkdtree.h"
 							>
 						</File>
 						<File
 							RelativePath=".\minimumvolume_splitrule_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\minimumvolume_splitrule_pointkdtree.txt"
 							>
 						</File>
 						<File
