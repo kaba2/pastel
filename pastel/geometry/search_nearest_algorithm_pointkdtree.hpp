@@ -18,7 +18,7 @@ namespace Pastel
 
 		template <typename Real, int N, typename PointPolicy, 
 			typename AcceptPoint, typename NormBijection, 
-			typename CandidateFunctor, typename SearchAlgorithm>
+			typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 		class GenericAlgorithm
 		{
 		private:
@@ -275,7 +275,7 @@ namespace Pastel
 			Real nodeCullDistance;  
 			integer dimension;
 			integer bucketSize;
-			SearchAlgorithm algorithm;
+			SearchAlgorithm_PointKdTree algorithm;
 		};
 
 	}
@@ -295,9 +295,9 @@ namespace Pastel
 		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
-		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm;
+		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm_PointKdTree;
 
-		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm>
+		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree>
 			genericAlgorithm(kdTree, searchPoint, kdTree.end(), maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 
@@ -324,13 +324,13 @@ namespace Pastel
 		}
 
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
-		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm;
+		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm_PointKdTree;
 
 		const Vector<Real, N> searchPoint(
 			ofDimension(kdTree.dimension()),
 			withAliasing((Real*)kdTree.pointPolicy().point(searchIter->object())));
 
-		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm>
+		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree>
 			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,
 			acceptPoint, bucketSize, normBijection, candidateFunctor);
 

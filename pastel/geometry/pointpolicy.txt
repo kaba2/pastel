@@ -3,3 +3,25 @@ PointPolicy concept
 
 [[Parent]]: pointsets.txt
 
+The PointPolicy concept allows to abstract the representation of 
+points by providing a way to access the coordinates of a point
+from a given data type. This policy is defined as follows:
+
+Definition
+----------
+
+[[CppCode]]:
+	class PointPolicy_Concept
+	{
+	public:
+		// Defines the type of the coordinates.
+		typedef UserDefinedType Coordinate;
+		// Defines the type of stored object.
+		typedef UserDefinedType Object;
+
+		//! Returns a pointer to a coordinate array for the point.
+		const Coordinate* point(const Object& object) const;
+
+		//! Returns a coordinate of the given point on the given axis.
+		Coordinate point(const Object& object, integer axis) const;
+	};

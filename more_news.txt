@@ -3,6 +3,25 @@ More news
 
 [[Parent]]: pastel.txt
 
+### 13.03.2010: Released Pastel 1.1.0
+
+#### PastelGeometry
+
+ * Added best-first algorithm to nearest neighbors searching
+ and made it the default.
+ * Added hint-distances to nearest neighbors searching to
+ make it possible to make use of temporal coherence.
+ * Added median-of-longest-side splitting rule for PointKdTree.
+
+#### PastelSys
+
+ * Fixed a bug with nextSmaller and nextGreater function.
+ * Added isNan.
+
+#### PastelGfxUi
+
+ * A new library to offer a simple graphical gui.
+
 ### 13.1.2010: Released version 1.0.1
 
 Initial release.

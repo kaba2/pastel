@@ -465,6 +465,10 @@
 					Name="PointKdTree"
 					>
 					<File
+						RelativePath=".\multilevel_kdtree.txt"
+						>
+					</File>
+					<File
 						RelativePath=".\pointkdtree.h"
 						>
 					</File>
@@ -504,10 +508,6 @@
 						RelativePath=".\pointkdtree_tools.hpp"
 						>
 					</File>
-					<File
-						RelativePath=".\semidynamic_kdtree.txt"
-						>
-					</File>
 					<Filter
 						Name="Split rules"
 						>
@@ -524,14 +524,6 @@
 							>
 						</File>
 						<File
-							RelativePath=".\hybrid_splitrule_pointkdtree.h"
-							>
-						</File>
-						<File
-							RelativePath=".\hybrid_splitrule_pointkdtree.hpp"
-							>
-						</File>
-						<File
 							RelativePath=".\longestmedian_splitrule_pointkdtree.h"
 							>
 						</File>
@@ -544,11 +536,7 @@
 							>
 						</File>
 						<File
-							RelativePath=".\midpoint_splitrule_pointkdtree.h"
-							>
-						</File>
-						<File
-							RelativePath=".\midpoint_splitrule_pointkdtree.hpp"
+							RelativePath=".\minimumvolume_splitrule.txt"
 							>
 						</File>
 						<File
