@@ -12,7 +12,7 @@ the contained points.
  * Tree depth is bounded by log2(n).
  
  * The tree satisfies a packing lemma which guarantees
-excellent worst-case performance on approximate nearest neighbors
+good worst-case performance on approximate nearest neighbors
 searching and approximate range searching.
 
 ### Disadvantages

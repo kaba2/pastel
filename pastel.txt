@@ -13,25 +13,21 @@ _Pastel_ is a C++ library for geometry and computer graphics.
 News
 ----
 
-### 13.03.2010: Released Pastel 1.1.0
+### 12.04.2010: Released Pastel 1.2.0
 
 #### PastelGeometry
 
- * Added best-first algorithm to nearest neighbors searching
- and made it the default.
- * Added hint-distances to nearest neighbors searching to
- make it possible to make use of temporal coherence.
- * Added median-of-longest-side splitting rule for PointKdTree.
+ * Turned nearest neighbor searching on kd-trees into a generic 
+ implementation on which variants can be implemented as customizations.
+ * Removed the support for bucket nodes from PointKdTree because of no gain.
+ * Nearest neighbor searching on PointKdTree: removed hint-distances and
+ bottom-up searching because of negligible gain.
+ * Implemented range searching and range counting algorithms on PointKdTree.
+ * Improved the brute-force nearest neighbors searching implementation.
+ * Changed to use open search regions in nearest-neighbors and range
+ searching.
+ * Lifted ObjectPolicy_PointKdTree concept to a global PointPolicy concept.
  
-#### PastelSys
-
- * Fixed a bug with nextSmaller and nextGreater function.
- * Added isNan.
- 
-#### PastelGfxUi
-
- * A new library to offer a simple graphical gui.
-
 [[Link]]: more_news.txt
 
 Source code
@@ -48,9 +44,9 @@ Pastel has several dependencies to third-party libraries which must also be
 installed if you want to build Pastel yourself. See the _External dependencies_ 
 link below for more information.
 
-[Download Pastel 1.1.0][Pastel-1.1.0]
+[Download Pastel 1.2.0][Pastel-1.2.0]
 
-[Pastel-1.1.0]: files/pastel-1.1.0.zip
+[Pastel-1.2.0]: files/pastel-1.2.0.zip
 
 [[Link]]: previous_releases.txt
 

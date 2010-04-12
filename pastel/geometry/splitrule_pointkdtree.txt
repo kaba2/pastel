@@ -26,7 +26,7 @@ that side of the plane which has less points.
 The chosen splitting rule has an effect on the performance
 of the kd-tree on nearest neighbor searching as well as on
 range searching. In this page we shall describe the available splitting
-rules in Pastel. Unless you have a very good reason to do otherwise,
+rules in Pastel. Unless you have a good reason to do otherwise,
 you should use either the sliding midpoint rule or the modified
 sliding midpoint rule.
 

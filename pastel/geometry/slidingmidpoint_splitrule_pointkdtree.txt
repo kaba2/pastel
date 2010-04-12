@@ -13,15 +13,19 @@ other side.
 
 ### Advantages
 
- * The tree satisfies a packing lemma which guarantees
-excellent performance on approximate nearest neighbors
-searching and approximate range searching.
+ * The tree satisfies a packing lemma which hints towards good 
+ performance on approximate nearest neighbors
+ searching and approximate range searching.
 
  * In practice the tree depth is often O(log n).
 
- * Excellent performance in practice.
+ * In practice the best performance over all splitting rules
+ we know.
 
 ### Disadvantages
+
+ * It has not been possible to prove worst-case bounds for
+ this splitting rule on approximate queries.
 
  * A point-set can be deliberately constructed to result
  in O(n) depth. However, by constructing such a 

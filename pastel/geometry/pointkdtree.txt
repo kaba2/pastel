@@ -21,23 +21,7 @@ where N is the dimensionality of the tree, Real is a computation
 type which models an ordered field, and PointPolicy is a policy
 class which allows to store the points in different ways.
 The dimensionality can be set to Dynamic meaning that it is chosen 
-at runtime. The PointPolicy concept will be detailed later below,
-because most of the time you will probably find the predefined policies
-satisfactory. Since the stored objects might be indirect representations 
-of points, they are called _objects_ instead.
-
-### Predefined object policies
-
- * *Vector_PointPolicy\<Real, N\>* class stores as objects 
- elements of type Vector\<Real, N\>, thus representing points directly.
- 
- * *Array_PointPolicy\<Real, N\>* class stores as objects
- pointers to Real. These pointers should point to the beginning of
- a Real array containing the point coordinates. Again it is assumed that
- the memory pointed to has been allocated memory elsewhere. Using
- this object policy can be advantageous because it can easily interface 
- with external software and avoids problems with possible abstraction 
- penalties which might exist when using the Vector\<Real, N\> class.
+at runtime. 
 
 ### Traversal of the subdivision using cursors
 
@@ -95,3 +79,8 @@ Each split node contains the bounds of the node on
 the splitting axis. Knowing these bounds is essential in
 the implementation of an efficient nearest neighbor
 searching algorithm.
+
+See also
+--------
+
+[[Link]]: pointpolicy.txt

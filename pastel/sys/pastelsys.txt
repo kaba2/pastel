@@ -3,4 +3,4 @@ PastelSys
 
 [[Parent]]: pastel.txt
 
-The purpose of PastelSys is to provide general-purpose tools.
+The purpose of _PastelSys_ is to provide general-purpose tools.

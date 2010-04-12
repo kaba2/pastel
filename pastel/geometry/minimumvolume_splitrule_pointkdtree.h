@@ -1,5 +1,5 @@
 // Description: MinimumVolume_SplitRule_PointKdTree class
-// Detail: MinimumVolume splitting rule for PointKdTree
+// Detail: Minimum-volume splitting rule for PointKdTree
 
 #ifndef PASTEL_MINIMUMVOLUME_SPLITRULE_POINTKDTREE_H
 #define PASTEL_MINIMUMVOLUME_SPLITRULE_POINTKDTREE_H
