@@ -30,4 +30,4 @@ nearest neighbors are searched, and points are removed and inserted incrementall
 See also
 --------
 
-[[Link]]: semidynamic_kdtree.txt
+[[Link]]: multilevel_kdtree.txt

@@ -1,13 +1,13 @@
 PointKdTree class
 =================
 
-[[Parent]]: semidynamic_kdtree.txt
+[[Parent]]: multilevel_kdtree.txt
 
 Practice
 --------
 
 The PointKdTree class is a data structure that allows storing
-and manipulating a semi-dynamic kd-tree efficiently.
+and manipulating a multi-level kd-tree efficiently.
 This data structure has been primarily designed for efficient
 nearest neighbor searching in static and semi-dynamic point-sets.
 It is declared as:
@@ -56,10 +56,6 @@ or to left or right child (if they exist). At each node you can inspect:
  
  * What is the cursor to the parent node?
 
-In addition, for a leaf node you can inspect:
- 
- * What is the bucket node of this leaf node?
-
 ### Traversal of the objects in the kd-tree
 
 All of the objects stored in the kd-tree can be traversed as a
@@ -79,9 +75,6 @@ when it updates the positions of the bucket nodes.
 
 Points can be removed from the tree at any time. This can be
 done either one by one, or by removing all points at once.
-No nodes are removed in this process.
-However, the kd-tree automatically adapts to lower resolution
-when it updates the positions of the bucket nodes.
 
 ### Refinement of the subdivision
 
@@ -90,27 +83,11 @@ at any time. In this process existing leaf nodes are converted
 into split nodes by recursively subdividing them into two new leaf 
 nodes. The split plane is chosen by a _splitting rule_.
 
-### Constant time bucket-node look-up for points
-
-Given a point stored in the tree, PointKdTree is able to return
-the bucket node containing the point in constant time.
-Especially in nearest neighbor searching this allows to
-save the cost of one full-height down-traversal. In addition,
-because it returns the containing bucket node rather than 
-just the containing leaf node, one also saves part of the 
-cost of redundant up-traversal. Being able to do this
-look-up is a requirement for efficient removal of points.
-
 ### Parent nodes for up-traversal
 
 In addition to being able to traverse the tree from the
 root to the leaves, PointKdTree allows you to move from
-a child to its parent. Particularly in nearest neighbor
-searching this allows for an efficient bottom-up approach,
-where you immediately start from the right bucket node and
-then traverse the nodes as in depth-first traversal.
-The parent nodes are also essential in being able to update
-bucket nodes efficiently when adding or removing points.
+a child to its parent. 
 
 ### Node bounds on the splitting axis
 

@@ -155,7 +155,7 @@ How to store the objects of a leaf node?
 
 Advantages:
 
- * Incremental adding or removing of points
+ * Incremental insertion or removal of points
  possible, and reasonably efficient.
 
 Disadvantages:
@@ -213,7 +213,7 @@ Advantages:
  from the tree's object list.
  
  * It is possible to incrementally add or remove points
- and do this fast (if one also has bucket pointers).
+ and do this fast (if one also has leaf node pointers from objects).
 
 Disadvantages:
 
@@ -284,9 +284,6 @@ which however leads to other robustness problems, as discussed above.
 Advantages:
 
  * Constant complexity performance for finding the leaf node.
- 
- * Allows for very fast bottom-top nearest neighbors
- searches.
  
 Disadvantages:
 
@@ -400,13 +397,9 @@ Should the nodes know their parent nodes?
 -----------------------------------------
 
 A _parent link_ is a link from a child node to its parent node.
-Such links allow free traversal in a tree both up and down,
-which in combination with the leaf pointers for points allows for 
-some very efficient bottom-top algorithms to be implemented in
-the users side. However, in particular a parent link makes it 
-possible to manage hierarhical information, i.e., information in a node
-which is dependent on information in its immediate children.
-This makes it possible to turn the kdtree into a self-adapting 
+In particular, a parent link makes it possible to manage hierarhical 
+information, i.e., information in a node which is dependent on information 
+in its children. This makes it possible to turn the kdtree into a self-adapting 
 tree under removal and addition of points. 
 The addition of parent links allows a considerably expanded
 design space. Therefore we do not decide the question here,
@@ -427,8 +420,8 @@ Advantages:
 
  * Minimal memory use.
  
- * Good enough to implement high performance
- top-bottom algorithms.
+ * Good enough to implement high performance algorithms
+ for static point-sets.
 
 Shortcomings:
 
@@ -438,8 +431,6 @@ Shortcomings:
  removing all points without touching the subdivision
  and inserting back a subset of those points).
  
- * Bottom-up algorithms are not possible.
-
 ### Removable version
  
 Additional features to basic version:
@@ -457,8 +448,6 @@ Additional features to removable version:
  * Parent node is stored for each node.
 
 Advantages compared to removable version:
-
- * Bottom-up algorithms are possible.
 
  * The tree can be made adaptive and to
  efficiently update hierarchical information.
@@ -488,9 +477,6 @@ Shortcomings:
   in practice because it requires a wholly empty subtree
   before stepping into action.
   
-  * Bottom-up algorithms still have to start at leaf nodes
-  rather than from a more appropriate level of detail.
-
 ### Removal adaptation version
 
 Additional features to adaptable version:
@@ -524,7 +510,7 @@ Shortcomings:
  be preserved, and adaptation would be achieved by some 
  book-keeping techique instead.
 
-### Semi-dynamic version
+### Multi-level version
 
 Additional features to adaptable version:
 
@@ -549,72 +535,15 @@ Comments:
  of the number of points in negative and positive child.
  This has to be recursed all the way to the root.
  
- * When inserting points you can add the number of points
- in the nodes at the same time you propagate the points
- down. After reaching a leaf node you then only need to 
- update the 'begin' and 'last' iterators upwards which
- is more efficient than before because most of the time
- you don't need to traverse all the way to the root. 
+ * When inserting points you update the hierarchical information
+ on the way back from the recursive calls.
  
 Advantages compared to adaptable version:
 
  * The tree can be viewed at different levels of detail.
  In particular, top-bottom traversal can handle the points
  in blocks of appropriate size, without needing to traverse
- to the bottom.
-
-Shortcomings:
-
- * Bottom-up searches must start at a leaf node although
- that would not necessarily be the appropriate level of 
- detail. 
-
-### Semi-dynamic with bucket pointers version
-
-Additional features to semidynamic version:
-
- * Bucket node pointer is stored for each leaf node.
- 
- * New invariant: the bucket node corresponding to
- a leaf node is such a node that:
-  
-	1. It contains the leaf node in its subtree
-	
-	2. The number of points under its subtree is at
-	most the maximum of the splitting threshold and
-	the number of points in the leaf node.
-	
-	3. Its parent (if it exists) has greater than 
-	splitting threshold number of points under its subtree.
- 
-Comments:
-
- * When removing points from a leaf node, one does the 
- following to update the bucket nodes. First find the new 
- bucket node for the leaf node. Note that you can start this
- search from the current bucket node. Then iterate through all 
- points under the new bucket node, setting the bucket node of
- their associated leaf nodes to the new bucket node. Note this 
- is much faster than recursing to the subtrees to find
- the leaf nodes. This is because the number of points is
- bounded by the splitting threshold. In contrast, 
- the subtrees can be of considerable size.
- 
-Advantages compared to semidynamic version:
-
- * Bottom-up searches can start at the appropriate
- level of detail, namely from the bucket node.
- 
-Shortcomings:
-
- * Increased memory usage.
-
-### Decision
-
-Choose the semi-dynamic with bucket pointers version. 
-The only practical disadvantage is the increased memory use. 
-In this regard we just bite the bullet and notice that this
-is the price to pay for getting those nice features.
+ to the leaf nodes.
 
 Summary
 -------
@@ -679,7 +608,7 @@ Implementation experience
  node bounds.
  
  * In nearest neighbor searching and refinement, recursive 
- function calls are faster than iteration based on a stack.
+ function calls seem to be faster than iteration based on a stack.
  
  * In nearest neighbor searching, performance is enhanced
  by computing partial distances: whenever the distance
