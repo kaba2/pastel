@@ -463,6 +463,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_string_tools.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_unordered_set.cpp"
 			>
 		</File>
