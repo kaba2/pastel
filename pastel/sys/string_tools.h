@@ -13,6 +13,15 @@
 namespace Pastel
 {
 
+	//! Returns whether the given string begins with another string.
+	PASTELSYS bool startsWith(const std::string& text, const std::string& prologue);
+
+	//! Converts alphabets to lowercase.
+	PASTELSYS std::string lowercase(const std::string& text);
+	
+	//! Converts alphabets to uppercase.
+	PASTELSYS std::string uppercase(const std::string& text);
+
 	//! Concatenates a string with itself 'times' times.
 	/*!
 	Preconditions:
@@ -20,8 +29,17 @@ namespace Pastel
 	*/
 	PASTELSYS std::string repeat(const std::string& that, integer times);
 
+	//! Removes white-space from the beginning.
+	PASTELSYS std::string ltrim(const std::string& that, 
+		integer* indexBegin = 0);
+
+	//! Removes white-space from the end.
+	PASTELSYS std::string rtrim(const std::string& that, 
+		integer* indexEnd = 0);
+
 	//! Removes white-space from the ends.
-	PASTELSYS std::string trim(const std::string& that);
+	PASTELSYS std::string trim(const std::string& that, 
+		integer* indexBegin = 0, integer* indexEnd = 0);
 
 	//! Returns the first word of the string.
 	PASTELSYS std::string firstWord(const std::string& that);
@@ -53,8 +71,14 @@ namespace Pastel
 	/*!
 	Time complexity: linear
 	Exception safety: strong
+
+	Special meanings:
+	inf, +inf: infinity<real>()
+	-inf: -infinity<real>()
+	nan, +nan, -nan: nan<real>()	
 	*/
-	PASTELSYS real stringToReal(const std::string& text);
+	PASTELSYS real stringToReal(const std::string& text, 
+		integer* indexEnd = 0);
 
 	//! Converts an integer to a string.
 	/*!
