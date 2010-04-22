@@ -409,6 +409,14 @@
 					RelativePath=".\color_xyy.h"
 					>
 				</File>
+				<File
+					RelativePath=".\color_yuv.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\color_yuv.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Color adapters"

@@ -15,7 +15,7 @@ namespace Pastel
 	PASTELGFX Color rgbToHsv(const Color& rgb);
 
 	//! Converts HSV color to sRGB color.
-	PASTELGFX Color hsvToRgb(const Color& rgb);
+	PASTELGFX Color hsvToRgb(const Color& hsv);
 
 }
 
