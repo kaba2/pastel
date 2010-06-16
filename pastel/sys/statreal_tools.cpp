@@ -16,7 +16,7 @@ namespace Pastel
 			"Conversions"
 		};
 
-		BOOST_STATIC_ASSERT(sizeof(name) / sizeof(const char*) == StatReal::Stat::Size);
+		PASTEL_STATIC_ASSERT(sizeof(name) / sizeof(const char*) == StatReal::Stat::Size);
 
 		for (integer i = 0;i < StatReal::Stat::Size;++i)
 		{

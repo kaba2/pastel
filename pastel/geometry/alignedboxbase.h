@@ -11,8 +11,6 @@
 
 #include <boost/operators.hpp>
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -70,7 +68,7 @@ namespace Pastel
 		// Used for concept checking.
 		~AlignedBoxBase()
 		{
-			BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 
 		//! Returns (exist i: min()[i] >= max()[i])

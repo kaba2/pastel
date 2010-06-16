@@ -78,7 +78,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomVector()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVector<Real, N>(N);
 	}
 

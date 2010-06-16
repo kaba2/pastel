@@ -15,7 +15,7 @@ namespace Pastel
 		, radius_(0)
 		, inverseRadius_(infinity<Real>())
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <typename Real, int N>
@@ -34,7 +34,7 @@ namespace Pastel
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <typename Real, int N>
@@ -52,7 +52,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Sphere<Real, N>::~Sphere()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <typename Real, int N>

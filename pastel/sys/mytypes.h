@@ -12,6 +12,7 @@
 #include <boost/type_traits/is_arithmetic.hpp>
 
 #define PASTEL_NO_DEDUCTION(x) typename Pastel::ParenthesesRemover<void (x)>::Type
+#define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
 namespace Pastel
 {

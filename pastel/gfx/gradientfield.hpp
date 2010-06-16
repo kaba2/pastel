@@ -23,7 +23,7 @@ namespace Pastel
 			, permutationMask_(0)
 			, normalizationFactor_(0)
 		{
-			BOOST_STATIC_ASSERT(N != Dynamic);
+			PASTEL_STATIC_ASSERT(N != Dynamic);
 
 			initialize(N);
 		}

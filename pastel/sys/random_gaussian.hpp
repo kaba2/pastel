@@ -57,7 +57,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomGaussianVector()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomGaussianVector<Real, N>(N);
 	}
 

@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Real areaUnitSphere()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::areaUnitSphere(N);
 	}
 

@@ -11,7 +11,6 @@
 
 #include "pastel/sys/math_functions.h"
 
-#include <boost/static_assert.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/min.hpp>
 #include <boost/mpl/int.hpp>
@@ -84,7 +83,7 @@ namespace Pastel
 	template <typename Real, int Height, int Width>
 	MatrixDiagonal<Real, Height, Width> identityMatrix()
 	{
-		BOOST_STATIC_ASSERT(Width != Dynamic && Height != Dynamic);
+		PASTEL_STATIC_ASSERT(Width != Dynamic && Height != Dynamic);
 
 		return Pastel::identityMatrix<Real, Height, Width>(Height, Width);
 	}

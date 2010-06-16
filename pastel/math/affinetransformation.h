@@ -25,7 +25,7 @@ namespace Pastel
 			: matrix_()
 			, translation_(0)
 		{
-			BOOST_STATIC_ASSERT(N > 0);
+			PASTEL_STATIC_ASSERT(N > 0);
 		}
 
 		//! Constructs an identity transformation.
@@ -52,7 +52,7 @@ namespace Pastel
 			: matrix_(matrix)
 			, translation_(translation)
 		{
-			BOOST_STATIC_ASSERT(N > 0);
+			PASTEL_STATIC_ASSERT(N > 0);
 		}
 
 		//! Constructs using the given matrix and translation.

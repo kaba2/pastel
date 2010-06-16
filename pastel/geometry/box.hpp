@@ -3,8 +3,6 @@
 
 #include "pastel/geometry/box.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -14,7 +12,7 @@ namespace Pastel
 		, width_(1)
 		, rotation_()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <typename Real, int N>
@@ -34,7 +32,7 @@ namespace Pastel
 		, width_(width)
 		, rotation_(rotation)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <typename Real, int N>
@@ -56,7 +54,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Box<Real, N>::~Box()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <typename Real, int N>

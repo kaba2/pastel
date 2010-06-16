@@ -14,7 +14,6 @@
 #include <vector>
 #include <algorithm>
 
-#include <boost/static_assert.hpp>
 #include <boost/operators.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 
@@ -190,14 +189,14 @@ namespace Pastel
 
 			~TupleBase()
 			{
-				BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+				PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 
 				enum
 				{
 					IsBase = boost::is_base_of<TupleBase, Tuple<Type, N> >::value
 				};
 
-				BOOST_STATIC_ASSERT(IsBase);
+				PASTEL_STATIC_ASSERT(IsBase);
 			}
 
 			// The assignment need not be implemented, since
@@ -532,7 +531,7 @@ namespace Pastel
 					IsBase = boost::is_base_of<TupleBase, Tuple<Type, N> >::value
 				};
 
-				BOOST_STATIC_ASSERT(IsBase);
+				PASTEL_STATIC_ASSERT(IsBase);
 			}
 
 			TupleBase<Type, N>& operator=(const TupleBase& that)

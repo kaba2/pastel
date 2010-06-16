@@ -203,7 +203,7 @@ namespace Pastel
 		const ConstView<N, std::complex<Real>, Input_View>& input,
 		const View<N, std::complex<Real>, Output_View>& output)
 	{
-		BOOST_STATIC_ASSERT(N > 1);
+		PASTEL_STATIC_ASSERT(N > 1);
 
 		Detail_DiscreteFourier::FourierFunctor fourierFunctor;
 
@@ -247,7 +247,7 @@ namespace Pastel
 		const ConstView<N, std::complex<Real>, Input_View>& input,
 		const View<N, std::complex<Real>, Output_View>& output)
 	{
-		BOOST_STATIC_ASSERT(N > 1);
+		PASTEL_STATIC_ASSERT(N > 1);
 
 		Detail_DiscreteFourierInverse::FourierInverseFunctor 
 			fourierInverseFunctor;

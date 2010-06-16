@@ -26,7 +26,7 @@ namespace Pastel
 		, simulateKdTree_(simulateKdTree)
 	{
 		ENSURE_OP(N, !=, Dynamic);
-		//BOOST_STATIC_ASSERT(N != Dynamic);
+		//PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
@@ -85,7 +85,7 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	PointKdTree<Real, N, PointPolicy>::~PointKdTree()
 	{
-		BOOST_STATIC_ASSERT(N > 0 || N == Dynamic);
+		PASTEL_STATIC_ASSERT(N > 0 || N == Dynamic);
 
 		/*
 		Time complexity:

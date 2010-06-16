@@ -9,8 +9,6 @@
 
 #include "pastel/sys/vector.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 

@@ -8,15 +8,13 @@
 
 #include <cmath>
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorCube()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorCube<Real, N>(N);
 	}
 
@@ -38,7 +36,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorSphere()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorSphere<Real, N>(N);
 	}
 
@@ -86,7 +84,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomVectorBall()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorBall<Real, N>(N);
 	}
 
@@ -109,7 +107,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		return Pastel::randomVectorAnnulus<Real, N>(
 			minRadius, maxRadius, N);
 	}

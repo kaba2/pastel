@@ -38,7 +38,7 @@ namespace Pastel
 	template <typename Real, int N>
 	AffineBijection<Real, N>::~AffineBijection()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <typename Real, int N>

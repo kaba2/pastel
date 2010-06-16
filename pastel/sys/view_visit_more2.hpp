@@ -4,8 +4,6 @@
 #include "pastel/sys/view_visit_more2.h"
 #include "pastel/sys/rowview.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -75,7 +73,7 @@ namespace Pastel
 		integer freeIndex,
 		const RowVisitorFunctor& rowVisitor)
 	{
-		BOOST_STATIC_ASSERT(N >= 1);
+		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> rectangle(Vector<integer, N>(0), view.extent());
@@ -103,7 +101,7 @@ namespace Pastel
 		integer freeIndex,
 		const RowVisitorFunctor& rowVisitor)
 	{
-		BOOST_STATIC_ASSERT(N >= 1);
+		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> rectangle(Vector<integer, N>(0), view.extent());
@@ -240,7 +238,7 @@ namespace Pastel
 			integer freeIndex,
 			const RowVisitorFunctor& rowVisitor)
 	{
-		BOOST_STATIC_ASSERT(N >= 1);
+		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> leftRectangle(
@@ -281,7 +279,7 @@ namespace Pastel
 			integer freeIndex,
 			const RowVisitorFunctor& rowVisitor)
 	{
-		BOOST_STATIC_ASSERT(N >= 1);
+		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> leftRectangle(
@@ -322,7 +320,7 @@ namespace Pastel
 			integer freeIndex,
 			const RowVisitorFunctor& rowVisitor)
 	{
-		BOOST_STATIC_ASSERT(N >= 1);
+		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
 		Rectangle<N> leftRectangle(

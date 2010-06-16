@@ -6,7 +6,6 @@
 #include "pastel/sys/ensure.h"
 
 #include <boost/type_traits/is_base_of.hpp>
-#include <boost/static_assert.hpp>
 
 namespace Pastel
 {
@@ -135,7 +134,7 @@ namespace Pastel
 			IsBase = boost::is_base_of<ReferenceCounted, Type>::value
 		};
 
-		BOOST_STATIC_ASSERT(IsBase);
+		PASTEL_STATIC_ASSERT(IsBase);
 
 		if (!data_)
 		{

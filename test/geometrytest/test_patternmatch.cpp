@@ -13,6 +13,7 @@
 #include "pastel/device/timer.h"
 
 #include "pastel/math/uniform_sampling.h"
+#include "pastel/math/conformalaffine2d_tools.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/arrayview.h"
@@ -25,7 +26,7 @@ using namespace Pastel;
 
 namespace
 {
-
+	
 	void render(
 		const std::vector<Vector2>& modelSet,
 		const std::vector<Vector2>& sceneSet,
@@ -108,8 +109,7 @@ namespace
 		std::vector<Vector2> modelSet;
 		modelSet.reserve(modelPoints);
 
-		AffineTransformation2 transformation =
-			similarityTransformation(2 * random<real>(),
+		ConformalAffine2 transformation(2 * random<real>(),
 			random<real>() * 2 * constantPi<real>(),
 			evaluate(randomVectorCube<real, 2>() * 0.1));
 
@@ -171,10 +171,10 @@ namespace
 		Timer timer;
 		timer.setStart();
 
-		Tuple<real, 4> parameter;
+		ConformalAffine2 similarity;
 		const bool success = pointPatternMatch(
 			sceneTree, modelTree, 0.7,  0.01, PatternMatch::RelativeDistance,
-			parameter);
+			similarity);
 
 		timer.store();
 
@@ -183,16 +183,16 @@ namespace
 		if (success)
 		{
 			log() << "Found the model from the scene!" << logNewLine;
-			log() << "Scaling " << parameter[0] << logNewLine;
-			log() << "Ccw rotation " << radiansToDegrees<real>(parameter[1]) << logNewLine;
-			log() << "Translation " << parameter[2] << ", " << parameter[3] << logNewLine;
+			log() << "Scaling " << similarity.scaling() << logNewLine;
+			log() << "Ccw rotation " << radiansToDegrees<real>(similarity.rotation()) << logNewLine;
+			log() << "Translation " << similarity.translation()[0] << ", " << similarity.translation()[1] << logNewLine;
 		}
 		else
 		{
 			log() << "Failed to find the pattern from the background" << logNewLine;
 		}
 
-		AffineTransformation2 matchedTransform = similarityTransformation(parameter);
+		AffineTransformation2 matchedTransform = toAffine(similarity);
 
 		render(modelSet, sceneSet, correctSet, matchedTransform, "patternmatch.pcx");
 	}
@@ -245,8 +245,7 @@ namespace
 		log() << "Angle = " << radiansToDegrees<real>(angle) << " degrees." << logNewLine;
 		log() << "Translation = (" << translation.x() << ", " << translation.y() << ")" << logNewLine;
 
-		const AffineTransformation2 transform =
-			similarityTransformation(scaling, angle, translation);
+		const ConformalAffine2 transform(scaling, angle, translation);
 
 		std::vector<Vector2> sceneSet;
 		std::vector<Vector2> correctSet;
@@ -265,12 +264,12 @@ namespace
 		Timer timer;
 		timer.setStart();
 
-		Tuple<real, 4> parameter;
+		ConformalAffine2 similarity;
 		const bool success = pointPatternMatch(
-			sceneSet.begin(), sceneSet.end(),
-			modelSet.begin(), modelSet.end(),
+			forwardRange(sceneSet.begin(), sceneSet.end()),
+			forwardRange(modelSet.begin(), modelSet.end()),
 			1,  minDistance, PatternMatch::AbsoluteDistance,
-			parameter);
+			similarity);
 
 		timer.store();
 
@@ -279,16 +278,16 @@ namespace
 		if (success)
 		{
 			log() << "Found the model from the scene!" << logNewLine;
-			log() << "Scaling " << parameter[0] << logNewLine;
-			log() << "Ccw rotation " << radiansToDegrees<real>(parameter[1]) << logNewLine;
-			log() << "Translation " << parameter[2] << ", " << parameter[3] << logNewLine;
+			log() << "Scaling " << similarity.scaling() << logNewLine;
+			log() << "Ccw rotation " << radiansToDegrees<real>(similarity.rotation()) << logNewLine;
+			log() << "Translation " << similarity.translation()[0] << ", " << similarity.translation()[1] << logNewLine;
 		}
 		else
 		{
 			log() << "Failed to find the pattern from the background" << logNewLine;
 		}
 
-		AffineTransformation2 matchedTransform = similarityTransformation(parameter);
+		AffineTransformation2 matchedTransform = toAffine(similarity);
 
 		render(modelSet, sceneSet, correctSet, matchedTransform, "boxpatternmatch.pcx");
 	}

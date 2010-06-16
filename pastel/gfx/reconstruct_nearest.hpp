@@ -110,7 +110,7 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 		
 		const integer points = positionList.size();
 

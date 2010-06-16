@@ -24,6 +24,8 @@
 #define REPORT4(expr, a, b, c, d)\
 	((expr) && (Pastel::Detail::report(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d)), true))
 
+#define REPORT_OP(x, op, y) REPORT2(x op y, x, y)
+
 // Errors
 
 #define ENSURE(expr)\

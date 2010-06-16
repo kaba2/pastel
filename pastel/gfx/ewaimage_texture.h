@@ -71,7 +71,7 @@ namespace Pastel
 
 		virtual ~EwaImage_Texture()
 		{
-			BOOST_STATIC_ASSERT(N == 2);
+			PASTEL_STATIC_ASSERT(N == 2);
 		}
 
 		void setFilter(

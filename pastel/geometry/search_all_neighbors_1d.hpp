@@ -6,8 +6,6 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/smallfixedset.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 

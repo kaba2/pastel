@@ -83,7 +83,7 @@ void LeastSquares_Gfx_Ui::onRender()
 	redrawPointSet(targetSet_);
 
 	AffineTransformation2 transformation = 
-		leastSquaresAffineTransformation(
+		lsAffine(
 		sourceSet_, targetSet_);
 
 	const integer points = sourceSet_.size();

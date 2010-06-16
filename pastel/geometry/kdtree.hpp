@@ -368,7 +368,7 @@ namespace Pastel
 		, objectPolicy_()
 		, dimension_(N)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
@@ -419,8 +419,8 @@ namespace Pastel
 	KdTree<Real, N, ObjectPolicy>::~KdTree()
 	{
 		// This is what we assume for memory allocation.
-		BOOST_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(SplitNode));
-		BOOST_STATIC_ASSERT(N > 0 || N == Dynamic);
+		PASTEL_STATIC_ASSERT(sizeof(LeafNode) <= sizeof(SplitNode));
+		PASTEL_STATIC_ASSERT(N > 0 || N == Dynamic);
 
 		nodeAllocator_.clear();
 	}
