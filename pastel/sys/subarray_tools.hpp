@@ -9,14 +9,14 @@ namespace Pastel
 
 	template <int N, typename Type, typename Functor>
 	void visitRows(
-		SubArray<N, Type>& subArray,
+		SubArray<Type, N>& subArray,
 		integer axis,
 		const Functor& functor)
 	{
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, subArray.dimension());
 
-		typename SubArray<ModifyN<N, N - 1>::Result, Type>
+		typename SubArray<Type, ModifyN<N, N - 1>::Result>
 			InputSlice;
 		typedef typename InputSlice::Iterator 
 			InputSliceIterator;
@@ -42,10 +42,10 @@ namespace Pastel
 		}						
 	}
 
-	template <int N_A, int N_B, typename TypeA, typename TypeB, typename Functor>
+	template <int N_A, int N_B, typename Type_A, typename Type_B, typename Functor>
 	void visitRows(
-		const SubArray<N_A, Type_A>& aArray,
-		SubArray<N_B, Type_B>& bArray,
+		const SubArray<Type_A, N_A>& aArray,
+		SubArray<Type_B, N_B>& bArray,
 		integer axis,
 		const Functor& functor)
 	{
@@ -57,12 +57,12 @@ namespace Pastel
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, dimension);
 
-		typename SubArray<ModifyN<N_A, N_A - 1>::Result, Type_A>
+		typename SubArray<Type_A, ModifyN<N_A, N_A - 1>::Result>
 			Slice_A;
 		typedef typename Slice_A::ConstIterator 
 			SliceIterator_A;
 
-		typename SubArray<ModifyN<N_B, N_B -1>::Result, Type_B>
+		typename SubArray<Type_B, ModifyN<N_B, N_B -1>::Result>
 			Slice_B;
 		typedef typename Slice_B::Iterator 
 			SliceIterator_B;

@@ -43,8 +43,8 @@ namespace Pastel
 		typename Input_Element,
 		typename Output_Element>
 	void resample(
-		const ConstSubArray<N, Input_Element>& input,
-		const SubArray<N, Output_Element>& output,
+		const ConstSubArray<Input_Element, N>& input,
+		const SubArray<Output_Element, N>& output,
 		const ConstFilterPtr& filter,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
 		real blurFactor = 1);
@@ -55,8 +55,8 @@ namespace Pastel
 		typename Input_Element,
 		typename Output_Element>
 	void resampleTable(
-		const ConstSubArray<N, Input_Element>& input,
-		const SubArray<N, Output_Element>& output,
+		const ConstSubArray<Input_Element, N>& input,
+		const SubArray<Output_Element, N>& output,
 		const ConstTableFilterPtr& filter,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
 		real blurFactor = 1);

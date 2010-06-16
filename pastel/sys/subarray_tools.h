@@ -9,14 +9,14 @@ namespace Pastel
 
 	template <int N, typename Type, typename Functor>
 	void visitRows(
-		SubArray<N, Type>& subArray,
+		SubArray<Type, N>& subArray,
 		integer axis,
 		const Functor& functor);
 
 	template <int N_A, int N_B, typename TypeA, typename TypeB, typename Functor>
 	void visitRows(
-		const SubArray<N_A, Type_A>& aArray,
-		SubArray<N_B, Type_B>& bArray,
+		const SubArray<Type_A, N_A>& aArray,
+		SubArray<Type_B, N_B>& bArray,
 		integer axis,
 		const Functor& functor);
 

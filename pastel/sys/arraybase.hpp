@@ -294,7 +294,7 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
-		SubArray<N, Type> ArrayBase<Type, N>::operator()(
+		SubArray<Type, N> ArrayBase<Type, N>::operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max)
 		{
@@ -312,14 +312,14 @@ namespace Pastel
 				}
 			}
 
-			const SubArray<N, Type> result(
+			const SubArray<Type, N> result(
 				address(min), newStride, mabs(max - min));
 
 			return result;
 		}
 
 		template <typename Type, int N>
-		ConstSubArray<N, Type> ArrayBase<Type, N>::operator()(
+		ConstSubArray<Type, N> ArrayBase<Type, N>::operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max) const
 		{
@@ -337,14 +337,14 @@ namespace Pastel
 				}
 			}
 
-			const ConstSubArray<N, Type> result(
+			const ConstSubArray<Type, N> result(
 				address(min), newStride, mabs(max - min));
 
 			return result;
 		}
 
 		template <typename Type, int N>
-		SubArray<N, Type> ArrayBase<Type, N>::operator()(
+		SubArray<Type, N> ArrayBase<Type, N>::operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta)
@@ -360,7 +360,7 @@ namespace Pastel
 				PENSURE((min[i] < max[i]) == (delta[i] > 0));
 			}
 
-			const SubArray<N, Type> result(
+			const SubArray<Type, N> result(
 				address(min), stride_ * delta, 
 				numbers(mabs(max - min), delta));
 
@@ -368,7 +368,7 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
-		ConstSubArray<N, Type> ArrayBase<Type, N>::operator()(
+		ConstSubArray<Type, N> ArrayBase<Type, N>::operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
@@ -384,7 +384,7 @@ namespace Pastel
 				PENSURE((min[i] < max[i]) == (delta[i] > 0));
 			}
 
-			const ConstSubArray<N, Type> result(
+			const ConstSubArray<Type, N> result(
 				address(min), stride_ * delta, 
 				numbers(mabs(max - min), delta));
 
@@ -392,18 +392,18 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
-		SubArray<N, Type> ArrayBase<Type, N>::operator()()
+		SubArray<Type, N> ArrayBase<Type, N>::operator()()
 		{
-			const SubArray<N, Type> result(
+			const SubArray<Type, N> result(
 				data_, stride_, extent_);
 
 			return result;
 		}
 
 		template <typename Type, int N>
-		ConstSubArray<N, Type> ArrayBase<Type, N>::operator()() const
+		ConstSubArray<Type, N> ArrayBase<Type, N>::operator()() const
 		{
-			const ConstSubArray<N, Type> result(
+			const ConstSubArray<Type, N> result(
 				data_, stride_, extent_);
 
 			return result;

@@ -12,7 +12,7 @@
 #define PASTEL_ENABLE_PENSURES 0
 
 // PASTEL_ENABLE_OMP != 0 => #include <omp.h> will be added where needed.
-#define PASTEL_ENABLE_OMP 1
+#define PASTEL_ENABLE_OMP 0
 
 #include "pastel/sys/environment.hpp"
 
