@@ -13,6 +13,9 @@ namespace Pastel
 		Matrix<Real, Height, Width>& vectorSet)
 	{
 		// Stabilized Gram-Schmidt orthonormalization
+		// This is numerically ok, however, a more stable
+		// way to do this is via QR decomposition using
+		// Householder transformations.
 
 		if (vectorSet.size() == 0)
 		{
@@ -22,9 +25,16 @@ namespace Pastel
 		const integer height = vectorSet.height();
 		for (integer i = 0;i < height;++i)
 		{
+			// From i:th vector, remove the contributions of the
+			// orthonormal set of vectors in vectorSet[0]..vectorSet[i - 1].
 			for (integer j = 0;j < i;++j)
 			{
-				vectorSet[i] -= vectorSet[j] * dot(vectorSet[i], vectorSet[j]);
+				// Note: While equivalent mathematically, 
+				// it is important for numerical stability
+				// that we use the modified vectors in the dot product
+				// computation, rather than the original ones.
+				vectorSet[i] -= 
+					vectorSet[j] * dot(vectorSet[i], vectorSet[j]);
 			}
 
 			const Real vNorm = norm(vectorSet[i]);
@@ -35,6 +45,7 @@ namespace Pastel
 				return false;
 			}
 
+			// Normalize to unit length.
 			vectorSet[i] /= vNorm;
 		}
 

@@ -136,8 +136,8 @@ namespace Pastel
 		typename Input_Element,
 		typename Output_Element>
 	void resample(
-		const ConstSubArray<N, Input_Element>& input,
-		const SubArray<N, Output_Element>& output,
+		const ConstSubArray<Input_Element, N>& input,
+		const SubArray<Output_Element, N>& output,
 		const ConstFilterPtr& filter,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
 		real blurFactor)
@@ -156,8 +156,8 @@ namespace Pastel
 		typename Input_Element,
 		typename Output_Element>
 	void resampleTable(
-		const ConstSubArray<N, Input_Element>& input,
-		const SubArray<N, Output_Element>& output,
+		const ConstSubArray<Input_Element, N>& input,
+		const SubArray<Output_Element, N>& output,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
 		const ConstTableFilterPtr& filter,
 		real blurFactor)
@@ -174,7 +174,7 @@ namespace Pastel
 		// then it can be shown that the same
 		// condition gives an optimal order in many, but not all, cases.
 
-		SubArray<N, Output_Element> output(outputRef);
+		SubArray<Output_Element, N> output(outputRef);
 
 		const integer dimension = input.dimension();
 		ENSURE_OP(dimension, ==, output.dimension());

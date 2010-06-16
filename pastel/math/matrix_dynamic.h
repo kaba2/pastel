@@ -405,7 +405,7 @@ namespace Pastel
 			return constArrayView(data_);
 		}
 		
-		const Array<Real, 2>& asArray() const
+		const Array<Real>& asArray() const
 		{
 			return data_;
 		}
@@ -499,7 +499,7 @@ namespace Pastel
 		}
 
 	private:
-		Array<Real, 2> data_;
+		Array<Real> data_;
 	};
 
 }

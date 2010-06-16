@@ -141,32 +141,32 @@ namespace Pastel
 			ArrayBase<Type, N>& operator=(const Type that);
 
 			//! Returns the sub-array in the range [min, max].
-			SubArray<N, Type> operator()(
+			SubArray<Type, N> operator()(
 				const Vector<integer, N>& min,
 				const Vector<integer, N>& max);
 
 			//! Returns the sub-array in the range [min, max].
-			ConstSubArray<N, Type> operator()(
+			ConstSubArray<Type, N> operator()(
 				const Vector<integer, N>& min,
 				const Vector<integer, N>& max) const;
 
 			//! Returns a sparse sub-array in the range [min, max].
-			SubArray<N, Type> operator()(
+			SubArray<Type, N> operator()(
 				const Vector<integer, N>& min,
 				const Vector<integer, N>& max,
 				const Vector<integer, N>& delta);
 
 			//! Returns a sparse sub-array in the range [min, max].
-			ConstSubArray<N, Type> operator()(
+			ConstSubArray<Type, N> operator()(
 				const Vector<integer, N>& min,
 				const Vector<integer, N>& max,
 				const Vector<integer, N>& delta) const;
 
 			//! Returns a sub-array of the whole array.
-			SubArray<N, Type> operator()();
+			SubArray<Type, N> operator()();
 
 			//! Returns a non-mutable sub-array of the whole array.
-			ConstSubArray<N, Type> operator()() const;
+			ConstSubArray<Type, N> operator()() const;
 
 			//! Returns a cursor to the given position.
 			Cursor cursor(const Vector<integer, N>& position);

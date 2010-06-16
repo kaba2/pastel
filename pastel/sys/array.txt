@@ -27,19 +27,47 @@ that most of the interface is contained in the ArrayBase class, which is
 a base-class of Array. Read the source code for that class for details on 
 how to use the Array class.
 
-### Element access
+### Element access 
+
+#### By coordinates
 
 The elements of an Array are accessed using n-dimensional Vectors with
 integer elements. For example:
 
 [[CppCode]]:
-	// Create an array of extents (3, 3) and fill with zeros.
-	Array<float, 2> a(Vector2i(3, 3), 0);
+	// Create a 2d-array of extents (3, 3) and fill with zeros.
+	Array<float> a(Vector2i(3, 3), 0);
 	// Set the element (0, 2) to 2.
 	a(Vector2i(0, 2)) = 2;
 	// Alternatively for 2d-arrays the same can be achieved by:
-	Array<float, 2> b(3, 3, 0);
+	Array<float> b(3, 3, 0);
 	b(0, 2) = 2;
+
+#### By sub-arrays
+
+It is possible to consider a sub-array of an array and
+read from and write to it. This is done by specifying an integer
+rectangle on the element coordinates by its minimum and maximum
+coordinates. For example:
+
+[[CppCode]]:
+	// Create a 2d-array of size 100 x 100, filled with zeros.
+	Array<float> b(100, 100, 0);
+	
+	// Consider the lower-left corner of 'b'.
+	SubArray<float> bSub = b(Vector2i(0, 0), Vector2i(50, 50));
+	// Fill the lower-left corner with ones.
+	std::fill(bSub.begin(), bSub.end(), 1);
+
+In the following we select from the lower-left corner of 'b' 
+every 2nd of in the horizontal direction, and every 3rd in the 
+vertical direction, and fill that sub-array with twos.
+
+[[CppCode]]:
+	// Consider the lower-left corner of 'b' with sparseness.
+	SubArray<float> sbSub = b(Vector2i(0, 0), Vector2i(50, 50), Vector2i(2, 3));
+	// Fill the lower-left corner sparsily with twos.
+	std::fill(sbSub.begin(), sbSub.end(), 2);
 
 ### Specializations for low dimensions
 

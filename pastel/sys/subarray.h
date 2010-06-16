@@ -1,3 +1,6 @@
+// Description: SubArray class
+// Documentation: array.txt
+
 #ifndef PASTEL_SUBARRAY_H
 #define PASTEL_SUBARRAY_H
 
@@ -12,10 +15,10 @@
 namespace Pastel
 {
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class ConstSubArray;
 
-	template <int N, typename Type>
+	template <typename Type, int N = 2>
 	class SubArray
 	{
 	private:
@@ -25,10 +28,10 @@ namespace Pastel
 		};
 
 	public:
-		friend class ConstSubArray<N, Type>;
+		friend class ConstSubArray<Type, N>;
 
-		typedef SubArray_Iterator<N, Type> Iterator;
-		typedef SubArray_ConstIterator<N, Type> ConstIterator;
+		typedef SubArray_Iterator<Type, N> Iterator;
+		typedef SubArray_ConstIterator<Type, N> ConstIterator;
 		typedef typename SparseIterator<Type*> RowIterator;
 		typedef typename ConstSparseIterator<const Type*> ConstRowIterator;
 
@@ -64,9 +67,9 @@ namespace Pastel
 			computeDataRange();
 		}
 
-		operator ConstSubArray<N, Type>() const
+		operator ConstSubArray<Type, N>() const
 		{
-			const ConstSubArray<N, Type> result(
+			const ConstSubArray<Type, N> result(
 				data_, stride_, extent_);
 
 			return result;
@@ -172,7 +175,7 @@ namespace Pastel
 			return *address(position);
 		}
 
-		SubArray<N, Type> operator()(
+		SubArray<Type, N> operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max) const
 		{
@@ -181,7 +184,7 @@ namespace Pastel
 			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
-			const SubArray<N, Type> result(
+			const SubArray<Type, N> result(
 				address(min),
 				stride_,
 				mabs(max - min));
@@ -189,7 +192,7 @@ namespace Pastel
 			return result;
 		}
 
-		SubArray<N, Type> operator()(
+		SubArray<Type, N> operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
@@ -200,7 +203,7 @@ namespace Pastel
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
-			const SubArray<N, Type> result(
+			const SubArray<Type, N> result(
 				address(min),
 				stride_ * delta,
 				numbers(mabs(max - min), delta));
@@ -210,7 +213,7 @@ namespace Pastel
 
 		// Slicing
 
-		SubArray<Smaller, Type> slice(
+		SubArray<Type, Smaller> slice(
 			integer axis,
 			integer index) const
 		{
@@ -225,7 +228,7 @@ namespace Pastel
 			const Vector<integer, Smaller> sliceStride(
 				shrink(stride_, axis));
 
-			const SubArray<Smaller, Type> result(
+			const SubArray<Type, Smaller> result(
 				data_ + index * stride_[axis],
 				sliceStride, sliceExtent);
 
@@ -299,7 +302,7 @@ namespace Pastel
 		Type* dataEnd_;
 	};
 
-	template <int N, typename Type>
+	template <typename Type, int N = 2>
 	class ConstSubArray
 	{
 	private:
@@ -309,7 +312,7 @@ namespace Pastel
 		};
 
 	public:
-		typedef SubArray_ConstIterator<N, Type> ConstIterator;
+		typedef SubArray_ConstIterator<Type, N> ConstIterator;
 		typedef typename ConstSparseIterator<const Type*> ConstRowIterator;
 
 		// Using default copy constructor.
@@ -328,7 +331,7 @@ namespace Pastel
 
 		/*
 		ConstSubArray(
-			const SubArray<N, Type>& that)
+			const SubArray<Type, N>& that)
 			: data_(that.data_)
 			, stride_(that.stride_)
 			, extent_(that.extent_)
@@ -421,7 +424,7 @@ namespace Pastel
 			return *address(position);
 		}
 
-		ConstSubArray<N, Type> operator()(
+		ConstSubArray<Type, N> operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max) const
 		{
@@ -430,7 +433,7 @@ namespace Pastel
 			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
-			const ConstSubArray<N, Type> result(
+			const ConstSubArray<Type, N> result(
 				address(min),
 				stride_,
 				mabs(max - min));
@@ -438,7 +441,7 @@ namespace Pastel
 			return result;
 		}
 
-		ConstSubArray<N, Type> operator()(
+		ConstSubArray<Type, N> operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
@@ -449,7 +452,7 @@ namespace Pastel
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
-			const ConstSubArray<N, Type> result(
+			const ConstSubArray<Type, N> result(
 				address(min),
 				stride_ * delta,
 				numbers(mabs(max - min), delta));
@@ -459,7 +462,7 @@ namespace Pastel
 
 		// Slicing
 
-		ConstSubArray<Smaller, Type> slice(
+		ConstSubArray<Type, Smaller> slice(
 			integer axis,
 			integer index) const
 		{
@@ -474,7 +477,7 @@ namespace Pastel
 			const Vector<integer, Smaller> sliceStride(
 				shrink(stride_, axis));
 
-			const ConstSubArray<Smaller, Type> result(
+			const ConstSubArray<Type, Smaller> result(
 				data_ + index * stride_[axis],
 				sliceStride, sliceExtent);
 

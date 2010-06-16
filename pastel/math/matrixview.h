@@ -79,9 +79,9 @@ namespace Pastel
 		typedef const ConstSubMatrix& StorageType;
 
 		typedef ConstVectorView<Real, Dynamic> ConstRow;
-		typedef typename ConstSubArray<2, Real>::ConstIterator ConstIterator;
-		typedef typename ConstSubArray<2, Real>::ConstRowIterator ConstRowIterator;
-		typedef typename ConstSubArray<2, Real>::ConstRowIterator ConstColumnIterator;
+		typedef typename ConstSubArray<Real>::ConstIterator ConstIterator;
+		typedef typename ConstSubArray<Real>::ConstRowIterator ConstRowIterator;
+		typedef typename ConstSubArray<Real>::ConstRowIterator ConstColumnIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -101,7 +101,7 @@ namespace Pastel
 		}
 
 		explicit ConstSubMatrix(
-			const ConstSubArray<2, Real>& data)
+			const ConstSubArray<Real>& data)
 			: data_(data)
 		{
 		}
@@ -213,7 +213,7 @@ namespace Pastel
 		ConstSubMatrix& operator=(
 			const ConstSubMatrix& that);
 
-		ConstSubArray<2, Real> data_;
+		ConstSubArray<Real> data_;
 	};
 
 	template <typename Real>
@@ -226,12 +226,12 @@ namespace Pastel
 
 		typedef VectorView<Real, Dynamic> Row;
 		typedef ConstVectorView<Real, Dynamic> ConstRow;
-		typedef typename SubArray<2, Real>::Iterator Iterator;
-		typedef typename SubArray<2, Real>::ConstIterator ConstIterator;
-		typedef typename SubArray<2, Real>::RowIterator RowIterator;
-		typedef typename SubArray<2, Real>::ConstRowIterator ConstRowIterator;
-		typedef typename SubArray<2, Real>::RowIterator ColumnIterator;
-		typedef typename SubArray<2, Real>::ConstRowIterator ConstColumnIterator;
+		typedef typename SubArray<Real>::Iterator Iterator;
+		typedef typename SubArray<Real>::ConstIterator ConstIterator;
+		typedef typename SubArray<Real>::RowIterator RowIterator;
+		typedef typename SubArray<Real>::ConstRowIterator ConstRowIterator;
+		typedef typename SubArray<Real>::RowIterator ColumnIterator;
+		typedef typename SubArray<Real>::ConstRowIterator ConstColumnIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.
@@ -251,7 +251,7 @@ namespace Pastel
 		}
 
 		explicit SubMatrix(
-			const SubArray<2, Real>& data)
+			const SubArray<Real>& data)
 			: data_(data)
 		{
 		}
@@ -607,7 +607,7 @@ namespace Pastel
 		}
 
 	private:
-		SubArray<2, Real> data_;
+		SubArray<Real> data_;
 	};
 
 }

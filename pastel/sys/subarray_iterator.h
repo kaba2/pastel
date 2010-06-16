@@ -14,19 +14,19 @@ namespace Pastel
 		return (extent + mabs(stride) - 1) / mabs(stride);
 	}
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class SubArray;
 
-	template <int N, typename Type>
+	template <typename Type, int N>
 	class ConstSubArray;
 
-	template <int N, typename Type>
+	template <typename Type, int N = 2>
 	class SubArray_ConstIterator
 		: public boost::bidirectional_iterator_helper<
-		SubArray_ConstIterator<N, Type>, Type, integer>
+		SubArray_ConstIterator<Type, N>, Type, integer>
 	{
 	public:
-		friend class SubArray<N, Type>;
+		friend class SubArray<Type, N>;
 
 		const Type& operator*() const
 		{
@@ -90,7 +90,7 @@ namespace Pastel
 
 	private:
 		SubArray_ConstIterator(
-			const ConstSubArray<N, Type>* subArray,
+			const ConstSubArray<Type, N>* subArray,
 			const Vector<integer, N>& position)
 			: data_(subArray->address(position))
 			, position_(position)
@@ -100,16 +100,16 @@ namespace Pastel
 
 		const Type* data_;
 		Vector<integer, N> position_;
-		const ConstSubArray<N, Type>* subArray_;
+		const ConstSubArray<Type, N>* subArray_;
 	};
 
-	template <int N, typename Type>
+	template <typename Type, int N = 2>
 	class SubArray_Iterator
 		: public boost::bidirectional_iterator_helper<
-		SubArray_Iterator<N, Type>, Type, integer>
+		SubArray_Iterator<Type, N>, Type, integer>
 	{
 	public:
-		friend class SubArray<N, Type>;
+		friend class SubArray<Type, N>;
 
 		Type& operator*() const
 		{
@@ -173,7 +173,7 @@ namespace Pastel
 
 	private:
 		SubArray_Iterator(
-			const SubArray<N, Type>* subArray,
+			const SubArray<Type, N>* subArray,
 			const Vector<integer, N>& position)
 			: data_(subArray->address(position))
 			, position_(position)
@@ -183,7 +183,7 @@ namespace Pastel
 
 		Type* data_;
 		Vector<integer, N> position_;
-		const SubArray<N, Type>* subArray_;
+		const SubArray<Type, N>* subArray_;
 	};
 
 }

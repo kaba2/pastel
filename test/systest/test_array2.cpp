@@ -146,7 +146,7 @@ namespace
 				std::equal(a.begin(), a.end(),
 				b.begin()));
 
-			SubArray<2, integer> c(a(Vector2i(0, 0), Vector2i(2, 2)));
+			SubArray<integer> c(a(Vector2i(0, 0), Vector2i(2, 2)));
 			c = 2;
 
 			b |= 2, 2, 15, 3, 0, 5, 
@@ -174,7 +174,7 @@ namespace
 				b.begin()));
 		}
 
-		void f(const SubArray<2, integer>& that,
+		void f(const SubArray<integer>& that,
 			integer value)
 		{
 			that = value;
