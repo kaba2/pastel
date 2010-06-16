@@ -7,6 +7,8 @@
 
 #include "pastel/geometry/pointkdtree.h"
 
+#include "pastel/math/conformalaffine2d.h"
+
 namespace Pastel
 {
 
@@ -45,14 +47,14 @@ namespace Pastel
 
 	*/
 
-	template <typename Real, typename ScenePolicy, typename ModelPolicy>
+	template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
 	bool pointPatternMatch(
-		const PointKdTree<Real, 2, ScenePolicy>& sceneTree,
-		const PointKdTree<Real, 2, ModelPolicy>& modelTree,
+		const PointKdTree<Real, N, ScenePolicy>& sceneTree,
+		const PointKdTree<Real, N, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
-		Tuple<Real, 4>& similarityResult);
+		ConformalAffine2D<Real, N>& similarityResult);
 
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
@@ -61,16 +63,14 @@ namespace Pastel
 	calls the more general 'pointPatternMatch()'.
 	*/
 
-	template <typename Real, typename SceneIterator, typename ModelIterator>
+	template <typename Real, int N, typename SceneIterator, typename ModelIterator>
 	bool pointPatternMatch(
-		const SceneIterator& sceneBegin,
-		const SceneIterator& sceneEnd,
-		const ModelIterator& modelBegin,
-		const ModelIterator& modelEnd,
+		const ForwardRange<SceneIterator>& scene,
+		const ForwardRange<ModelIterator>& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
 		const PatternMatch::Enum& matchingDistanceType,
-		Tuple<Real, 4>& similarityResult);
+		ConformalAffine2D<Real, N>& similarityResult);
 
 }
 

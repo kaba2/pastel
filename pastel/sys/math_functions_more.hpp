@@ -4,8 +4,6 @@
 #include "pastel/sys/math_functions_more.h"
 #include "pastel/sys/ensure.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -155,7 +153,7 @@ namespace Pastel
 
 	inline integer roundUpToPowerOf2(integer that)
 	{
-		BOOST_STATIC_ASSERT(sizeof(integer) == sizeof(int32));
+		PASTEL_STATIC_ASSERT(sizeof(integer) == sizeof(int32));
 
 		PENSURE_OP(that, >=, 0);
 
@@ -210,7 +208,7 @@ namespace Pastel
 	template <int N>
 	inline real64 dequantizeSigned(integer i)
 	{
-		BOOST_STATIC_ASSERT(N >= 2 && N <= 32);
+		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
 
 		enum
 		{
@@ -224,7 +222,7 @@ namespace Pastel
 	template <int N>
 	inline real64 ditheredQuantizeSigned(integer i)
 	{
-		BOOST_STATIC_ASSERT(N >= 2 && N <= 32);
+		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
 
 		enum
 		{
@@ -248,7 +246,7 @@ namespace Pastel
 	template <int N>
 	inline integer quantizeSigned(real64 r)
 	{
-		BOOST_STATIC_ASSERT(N >= 2 && N <= 32);
+		PASTEL_STATIC_ASSERT(N >= 2 && N <= 32);
 
 		enum
 		{

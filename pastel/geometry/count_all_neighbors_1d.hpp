@@ -7,8 +7,6 @@
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/ensure.h"
 
-#include <boost/static_assert.hpp>
-
 #include <algorithm>
 
 namespace Pastel
@@ -25,7 +23,7 @@ namespace Pastel
 		const NormBijection& normBijection,
 		const CountIterator& neighborsBegin)
 	{
-		BOOST_STATIC_ASSERT(N == 1 || N == Dynamic);
+		PASTEL_STATIC_ASSERT(N == 1 || N == Dynamic);
 		
 		const integer points = pointSet.size();
 		const integer indices = indexEnd - indexBegin;

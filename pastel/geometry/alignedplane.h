@@ -7,8 +7,6 @@
 
 #include "pastel/sys/mytypes.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -54,7 +52,7 @@ namespace Pastel
 
 		~AlignedPlane()
 		{
-			BOOST_STATIC_ASSERT(N > 0);
+			PASTEL_STATIC_ASSERT(N > 0);
 		}
 
 		//! Swaps two AlignedPlane's.

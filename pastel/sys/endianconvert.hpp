@@ -9,8 +9,6 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_floating_point.hpp>
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -20,7 +18,7 @@ namespace Pastel
 		template <integer Size>
 		void swapByteOrder(const char* data, char* result)
 		{
-			BOOST_STATIC_ASSERT(Size > 0);
+			PASTEL_STATIC_ASSERT(Size > 0);
 			ASSERT(data != 0 && result != 0);
 
 			for(integer i = 0; i < Size; ++i)
@@ -68,7 +66,7 @@ namespace Pastel
 	template <typename Type>
 	Type littleEndian(const Type& that)
 	{
-		BOOST_STATIC_ASSERT(
+		PASTEL_STATIC_ASSERT(
 			boost::is_integral<Type>::value ||
 			boost::is_floating_point<Type>::value);
 
@@ -85,7 +83,7 @@ namespace Pastel
 	template <typename Type>
 	Type bigEndian(const Type& that)
 	{
-		BOOST_STATIC_ASSERT(
+		PASTEL_STATIC_ASSERT(
 			boost::is_integral<Type>::value ||
 			boost::is_floating_point<Type>::value);
 

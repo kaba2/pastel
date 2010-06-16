@@ -1,8 +1,9 @@
 #include "pastelgeometrytest.h"
 
-#include "pastel/math/affinetransformation_tools.h"
-#include "pastel/sys/vector_tools.h"
+#include "pastel/math/conformalaffine2d_tools.h"
 #include "pastel/math/uniform_sampling.h"
+
+#include "pastel/sys/vector_tools.h"
 
 using namespace Pastel;
 
@@ -13,14 +14,10 @@ namespace
 	{
 		for (integer i = 0;i < 10000;++i)
 		{
-			const Tuple<real, 4> parameter(
+			const ConformalAffine2 transformation(
 				random<real>() * 2 + 1,
 				random<real>() * 2 * constantPi<real>(),
-				random<real>() * 2 - 1,
-				random<real>() * 2 - 1);
-
-			const AffineTransformation2 transformation =
-				similarityTransformation(parameter);
+				Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
 
 			const Vector2 aFrom(random<real>(), random<real>());
 			const Vector2 bFrom(random<real>(), random<real>());
@@ -28,18 +25,22 @@ namespace
 			const Vector2 aTo(transformPoint(aFrom, transformation));
 			const Vector2 bTo(transformPoint(bFrom, transformation));
 
-			const Tuple<real, 4> matchedParameter =
-				similarityTransformation(aFrom, bFrom, aTo, bTo);
+			const ConformalAffine2 matchedTransformation =
+				conformalAffine(aFrom, bFrom, aTo, bTo);
 
-			const real scalingDelta = mabs(matchedParameter[0] - parameter[0]);
-			const real angleDelta = mabs(matchedParameter[1] - parameter[1]);
-			const real xDelta = mabs(matchedParameter[2] - parameter[2]);
-			const real yDelta = mabs(matchedParameter[3] - parameter[3]);
+			const real scalingDelta = absoluteError<real>(
+				matchedTransformation.scaling(), 
+				transformation.scaling());
+			const real angleDelta = absoluteError<real>(
+				matchedTransformation.rotation(), 
+				transformation.rotation());
+			const real tDelta = norm(
+				matchedTransformation.translation() - 
+				transformation.translation());
 
-			REPORT1(scalingDelta > 0.001, scalingDelta);
-			REPORT1(angleDelta > 0.001, angleDelta);
-			REPORT1(xDelta > 0.001, xDelta);
-			REPORT1(yDelta > 0.001, yDelta);
+			REPORT_OP(scalingDelta, >, 0.001);
+			REPORT_OP(angleDelta, >, 0.001);
+			REPORT_OP(tDelta, >,  0.001);
 		}
 
 	}
@@ -48,14 +49,10 @@ namespace
 	{
 		for (integer i = 0;i < 10000;++i)
 		{
-			const Tuple<real, 4> parameter(
+			const ConformalAffine2 transformation(
 				random<real>() * 2 + 1,
 				random<real>() * 2 * constantPi<real>(),
-				random<real>() * 2 - 1,
-				random<real>() * 2 - 1);
-
-			const AffineTransformation2 transformation =
-				similarityTransformation(parameter);
+				Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
 
 			std::vector<Vector2> pattern;
 			std::vector<Vector2> transformedPattern;
@@ -67,19 +64,22 @@ namespace
 					transformPoint(pattern.back(), transformation));
 			}
 
-			const Tuple<real, 4> matchedParameter =
-				similarityTransformation(
-				pattern, transformedPattern);
+			const ConformalAffine2 matchedTransformation =
+				lsConformalAffine(pattern, transformedPattern);
 
-			const real scalingDelta = mabs(matchedParameter[0] - parameter[0]);
-			const real angleDelta = mabs(matchedParameter[1] - parameter[1]);
-			const real xDelta = mabs(matchedParameter[2] - parameter[2]);
-			const real yDelta = mabs(matchedParameter[3] - parameter[3]);
+			const real scalingDelta = absoluteError<real>(
+				matchedTransformation.scaling(), 
+				transformation.scaling());
+			const real angleDelta = absoluteError<real>(
+				matchedTransformation.rotation(), 
+				transformation.rotation());
+			const real tDelta = norm(
+				matchedTransformation.translation() - 
+				transformation.translation());
 
-			REPORT1(scalingDelta > 0.001, scalingDelta);
-			REPORT1(angleDelta > 0.001, angleDelta);
-			REPORT1(xDelta > 0.001, xDelta);
-			REPORT1(yDelta > 0.001, yDelta);
+			REPORT_OP(scalingDelta, >, 0.001);
+			REPORT_OP(angleDelta, >, 0.001);
+			REPORT_OP(tDelta, >,  0.001);
 		}
 
 	}

@@ -71,7 +71,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> randomExponentialVector()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::randomExponentialVector<Real, N>(N);
 	}

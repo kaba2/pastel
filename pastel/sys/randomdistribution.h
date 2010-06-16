@@ -95,7 +95,7 @@ namespace Pastel
 	CountedPtr<Gaussian_RandomDistribution<Real, N> >
 		gaussianRandomDistribution()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::gaussianRandomDistribution<Real, N>(N);
 	}
@@ -156,7 +156,7 @@ namespace Pastel
 	CountedPtr<Exponential_RandomDistribution<Real, N> >
 		exponentialRandomDistribution()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::exponentialRandomDistribution<Real, N>(N);
 	}
@@ -217,7 +217,7 @@ namespace Pastel
 	CountedPtr<Uniform_RandomDistribution<Real, N> >
 		uniformRandomDistribution()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::uniformRandomDistribution<Real, N>(N);
 	}
@@ -298,7 +298,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::generalizedGaussianRandomDistribution<Real, N>(
 			N, shape, scale);
@@ -374,7 +374,7 @@ namespace Pastel
 		gammaRandomDistribution(
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::gammaRandomDistribution<Real, N>(
 			N, shape);
@@ -455,7 +455,7 @@ namespace Pastel
 	CountedPtr<Clustered_RandomDistribution<Real, N> >
 		clusteredRandomDistribution()
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::clusteredRandomDistribution<Real, N>(N);
 	}

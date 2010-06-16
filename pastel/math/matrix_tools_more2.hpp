@@ -258,7 +258,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& condition,
 		Matrix<Real, N, N>& result)
 	{
-		BOOST_STATIC_ASSERT(N != 1);
+		PASTEL_STATIC_ASSERT(N != 1);
 
 		/*
 		Problem:

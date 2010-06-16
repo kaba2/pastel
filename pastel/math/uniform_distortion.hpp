@@ -10,8 +10,6 @@
 #include "pastel/sys/smallset.h"
 #include "pastel/sys/random.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 

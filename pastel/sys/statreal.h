@@ -7,7 +7,6 @@
 #include "pastel/sys/pastelomp.h"
 
 #include <boost/operators.hpp>
-#include <boost/static_assert.hpp>
 
 namespace Pastel
 {

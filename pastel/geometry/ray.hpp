@@ -6,8 +6,6 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -28,7 +26,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Ray<Real, N>::~Ray()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <typename Real, int N>

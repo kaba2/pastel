@@ -10,8 +10,6 @@
 #include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -55,7 +53,7 @@ namespace Pastel
 			// Used for concept checking.
 			~MatrixStaticBase()
 			{
-				BOOST_STATIC_ASSERT(Height > 0 && Width > 0);
+				PASTEL_STATIC_ASSERT(Height > 0 && Width > 0);
 			}
 
 			MatrixStaticBase& operator=(

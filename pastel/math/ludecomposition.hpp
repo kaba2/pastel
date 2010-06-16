@@ -16,7 +16,7 @@ namespace Pastel
 		, invLargestInRow_(1)
 		, singular_(false)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		setDiagonal(packedLu_, 0);
 		const integer size = rowPermutation_.size();

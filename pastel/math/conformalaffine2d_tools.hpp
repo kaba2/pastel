@@ -1,0 +1,227 @@
+#ifndef PASTEL_CONFORMALAFFINE2D_TOOLS_HPP
+#define PASTEL_CONFORMALAFFINE2D_TOOLS_HPP
+
+#include "pastel/math/conformalaffine2d_tools.h"
+
+namespace Pastel
+{
+
+	template <typename Real, int N>
+	ConformalAffine2D<Real, N> inverse(
+		const ConformalAffine2D<Real, N>& that)
+	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+
+		// f^-1(x) = (1 / s) Q^T x - (1 / s) Q^T t
+
+		const Real invScaling = inverse(that.scaling());
+
+		const Real c = std::cos(-transform.rotation());
+		const Real s = std::sin(-transform.rotation());
+		const Real xNew = 
+			-invScaling * (c * that[0] - s * that[1]); 
+		const Real yNew = 
+			-invScaling * (s * that[0] + c * that[1]);
+
+		Vector<Real, N> invTranslation(ofDimension(2), 0);
+		invTranslation[0] = xNew;
+		invTranslation[1] = yNew;
+
+		return ConformalAffine2D<Real, N>(
+			invScaling,
+			-that.rotation(),
+			invTranslation);
+	}
+
+	template <typename Real, int N>
+	Vector<Real, N>& transformVectorInplace(
+		Vector<Real, N>& that,
+		const ConformalAffine2D<Real, N>& transform)
+	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+		PENSURE_OP(that.size(), ==, 2);
+
+		// f(x) = sQx
+
+		const Real c = std::cos(transform.rotation());
+		const Real s = std::sin(transform.rotation());
+		const Real xNew = 
+			transform.scaling() * (c * that[0] - s * that[1]);
+		const Real yNew = 
+			transform.scaling() * (s * that[0] + c * that[1]);
+
+		that[0] = xNew;
+		that[1] = yNew;
+
+		return that;
+	}
+
+	template <typename Real, int N>
+	Vector<Real, N> transformVector(
+		const Vector<Real, N>& that,
+		const ConformalAffine2D<Real, N>& transform)
+	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+		PENSURE_OP(that.size(), ==, 2);
+
+		// f(x) = sQx
+
+		Vector<Real, N> result(that);
+		transformVectorInplace(result, transform);
+
+		return result;
+	}
+
+	template <typename Real, int N>
+	Vector<Real, N>& transformPointInplace(
+		Vector<Real, N>& that,
+		const ConformalAffine2D<Real, N>& transform)
+	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+		PENSURE_OP(that.size(), ==, 2);
+
+		// f(x) = sQx + t
+
+		transformVectorInplace(that, transform);
+		that += transform.translation();
+
+		return that;
+	}
+
+	template <typename Real, int N>
+	Vector<Real, N> transformPoint(
+		const Vector<Real, N>& that,
+		const ConformalAffine2D<Real, N>& transform)
+	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+		PENSURE_OP(that.size(), ==, 2);
+
+		// f(x) = sQx + t
+
+		Vector<Real, N> result(ofDimension(2), 0);
+		transformPointInplace(result, transform);
+
+		return result;
+	}
+
+	template <typename Real, int N>
+	ConformalAffine2D<Real, N> lsConformalAffine(
+		const std::vector<Vector<Real, N> >& from,
+		const std::vector<Vector<Real, N> >& to)
+	{
+		ENSURE2(from.size() == to.size(), from.size(), to.size());
+		typedef std::vector<Vector<Real, N> >::const_iterator InputIterator;
+
+		InputIterator fromIter = from.begin();
+		InputIterator fromEnd = from.end();
+		InputIterator toIter = to.begin();
+		InputIterator toEnd = to.end();
+
+		Vector<Real, N> sumFrom(ofDimension(2), 0);
+		Vector<Real, N> sumTo(ofDimension(2) ,0);
+		Real sumSquareFrom = 0;
+		Real dotSum = 0;
+		Real crossDotSum = 0;
+
+		integer points = 0;
+
+		while(fromIter != fromEnd)
+		{
+			const Vector<Real, N>& fromVector = *fromIter;
+			const Vector<Real, N>& toVector = *toIter;
+
+			sumFrom += fromVector;
+			sumTo += toVector;
+
+			sumSquareFrom += dot(fromVector);
+			dotSum += dot(fromVector, toVector);
+			crossDotSum += dot(cross(fromVector), toVector);
+
+			++fromIter;
+			++toIter;
+			++points;
+		}
+
+		const Real det = points * sumSquareFrom - dot(sumFrom);
+		const Real invDet = inverse(det);
+
+		const Vector<Real, N> translation(
+			(sumSquareFrom * sumTo[0] - sumFrom[0] * dotSum + sumFrom[1] * crossDotSum) * invDet,
+			(sumSquareFrom * sumTo[1] - sumFrom[1] * dotSum - sumFrom[0] * crossDotSum) * invDet);
+
+		// scaledCos = scale * cos(angle)
+
+		const Real scaledCos =
+			(-sumFrom[0] * sumTo[0] - sumFrom[1] * sumTo[1] + points * dotSum) * invDet;
+
+		// scaledSin = scale * sin(angle)
+
+		const Real scaledSin =
+			(sumFrom[1] * sumTo[0] - sumFrom[0] * sumTo[1] + points * crossDotSum) * invDet;
+
+		// scaledCos^2 + scaledSin^2 = scale * cos^2(angle) + scale * sin^2(angle)
+		// = scale * (cos^2(angle) + sin^2(angle)) = scale
+
+		const Real scale = std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
+
+		// atan(scaledSin / scaledCos) = atan((scale * sin(angle)) / (scale * cos(angle)))
+		// = atan(tan(angle)) = angle
+
+		const Real angle = positiveRadians<Real>(std::atan2(scaledSin, scaledCos));
+
+		return ConformalAffine2D<Real, N>(scale, angle, translation);
+	}
+
+	template <typename Real, int N>
+	ConformalAffine2D<Real, N> conformalAffine(
+		const Vector<Real, N>& aFrom, const Vector<Real, N>& bFrom,
+		const Vector<Real, N>& aTo, const Vector<Real, N>& bTo)
+	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+		PENSURE_OP(aFrom.size(), ==, 2);
+		PENSURE_OP(bFrom.size(), ==, 2);
+		PENSURE_OP(aTo.size(), ==, 2);
+		PENSURE_OP(bTo.size(), ==, 2);
+
+		// f(x) = sQx + t
+		// where
+		// s >= 0
+		// f(a) = a'
+		// f(b) = b'
+
+		// f(b) - f(a) = sQ(b' - a')
+		// =>
+		// |f(b) - f(a)| = s|b' - a'|
+		// =>
+		// s = |f(b) - f(a)| / |b' - a'|
+
+		// Find out the scaling.
+
+		const Vector<Real, N> fromDelta = bFrom - aFrom;
+		const Vector<Real, N> toDelta = bTo - aTo;
+
+		const Real fromNorm = norm(fromDelta);
+		const Real toNorm = norm(toDelta);
+
+		const Real scaling = toNorm / fromNorm;
+
+		// Find out the rotation angle.
+
+		const Real ccwRotation = ccwAngle(
+			fromDelta, toDelta,
+			fromNorm, toNorm);
+
+		// Find out the translation.
+		// t = f(a) - sQa = a' - sQa
+
+		ConformalAffine2D<Real, N> result(
+			scaling, ccwRotation);
+
+		result.translation() = aTo - transformVector(aFrom, result);
+
+		return result;
+	}
+
+}
+
+#endif

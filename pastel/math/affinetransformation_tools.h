@@ -1,5 +1,5 @@
 // Description: Algorithms for affine transformations.
-// Detail: inverse, similarityTransformation, rotation2, etc. 
+// Detail: inverse, conformalAffine, rotation2, etc. 
 
 #ifndef PASTEL_AFFINETRANSFORMATION_TOOLS_H
 #define PASTEL_AFFINETRANSFORMATION_TOOLS_H
@@ -8,6 +8,7 @@
 
 #include "pastel/math/mathlibrary.h"
 #include "pastel/math/affinetransformation.h"
+#include "pastel/math/conformalaffine2d.h"
 
 namespace Pastel
 {
@@ -53,45 +54,23 @@ namespace Pastel
 	//! Returns the least squares affine transformation relating two point sets.
 
 	template <typename Real, int N>
-	AffineTransformation<Real, N> leastSquaresAffineTransformation(
+	AffineTransformation<Real, N> lsAffine(
 		const std::vector<Vector<Real, N> >& from,
 		const std::vector<Vector<Real, N> >& to);
 
 	//! Returns the least squares affine transformation relating two point sets.
 
 	template <typename Real, int N>
-	AffineTransformation<Real, N> leastSquaresAffineTransformation(
+	AffineTransformation<Real, N> lsAffine(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& from,
 		const std::vector<Vector<Real, N> >& to);
 
-	//! Returns the least squares similarity transformation relating two point sets.
+	//! Converts a ConformalAffine2D to an AffineTransformation.
 
-	template <typename Real>
-	Tuple<Real, 4> similarityTransformation(
-		const std::vector<Vector<Real, 2> >& from,
-		const std::vector<Vector<Real, 2> >& to);
-
-	//! Returns the similarity transformation relating two point pairs.
-
-	template <typename Real>
-	Tuple<Real, 4> similarityTransformation(
-		const Vector<Real, 2>& aFrom, const Vector<Real, 2>& bFrom,
-		const Vector<Real, 2>& aTo, const Vector<Real, 2>& bTo);
-
-	//! Returns the similarity transformation from given parameters.
-
-	template <typename Real>
-	AffineTransformation<Real, 2> similarityTransformation(
-		const PASTEL_NO_DEDUCTION(Real)& scaling,
-		const PASTEL_NO_DEDUCTION(Real)& ccwRotation,
-		const Vector<Real, 2>& translation);
-
-	//! Returns the similarity transformation from given parameters (scale, angle, x, y).
-
-	template <typename Real>
-	AffineTransformation<Real, 2> similarityTransformation(
-		const Tuple<Real, 4>& parameter);
+	template <typename Real, int N>
+	AffineTransformation<Real, N> toAffine(
+		const ConformalAffine2D<Real, N>& that);
 
 	//! Returns the affine transformation from 'from' to 'to'.
 

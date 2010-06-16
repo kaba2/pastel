@@ -4,8 +4,6 @@
 #include "pastel/sys/rectanglebase.h"
 #include "pastel/sys/vector_tools.h"
 
-#include <boost/static_assert.hpp>
-
 #include <limits>
 
 namespace Pastel
@@ -38,7 +36,7 @@ namespace Pastel
 	template <int N, typename Derived>
 	RectangleBase<N, Derived>::~RectangleBase()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <int N, typename Derived>

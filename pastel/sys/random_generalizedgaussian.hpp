@@ -59,7 +59,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& shape, 
 		const PASTEL_NO_DEDUCTION(Real)& scale)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::randomGeneralizedGaussianVector<Real, N>(
 			N, shape, scale);

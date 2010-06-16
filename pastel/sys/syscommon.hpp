@@ -49,8 +49,8 @@ namespace Pastel
 	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
-		BOOST_STATIC_ASSERT(FromBits > 0);
-		BOOST_STATIC_ASSERT(ToBits > 0);
+		PASTEL_STATIC_ASSERT(FromBits > 0);
+		PASTEL_STATIC_ASSERT(ToBits > 0);
 
 		enum
 		{
@@ -71,15 +71,15 @@ namespace Pastel
 	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
-		BOOST_STATIC_ASSERT(FromBits > 0);
-		BOOST_STATIC_ASSERT(ToBits > 0);
+		PASTEL_STATIC_ASSERT(FromBits > 0);
+		PASTEL_STATIC_ASSERT(ToBits > 0);
 
 		enum
 		{
 			DeltaBits = ToBits - FromBits
 		};
 
-		BOOST_STATIC_ASSERT(DeltaBits >= 0);
+		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number << DeltaBits) +
 			(number >> (FromBits - DeltaBits));
@@ -89,15 +89,15 @@ namespace Pastel
 	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
-		BOOST_STATIC_ASSERT(FromBits > 0);
-		BOOST_STATIC_ASSERT(ToBits > 0);
+		PASTEL_STATIC_ASSERT(FromBits > 0);
+		PASTEL_STATIC_ASSERT(ToBits > 0);
 
 		enum
 		{
 			DeltaBits = ToBits - FromBits
 		};
 
-		BOOST_STATIC_ASSERT(DeltaBits >= 0);
+		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number << DeltaBits) +
 			(number << (DeltaBits - FromBits)) +
@@ -108,15 +108,15 @@ namespace Pastel
 	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type
 		scaleInteger(const Integer& number)
 	{
-		BOOST_STATIC_ASSERT(FromBits > 0);
-		BOOST_STATIC_ASSERT(ToBits > 0);
+		PASTEL_STATIC_ASSERT(FromBits > 0);
+		PASTEL_STATIC_ASSERT(ToBits > 0);
 
 		enum
 		{
 			DeltaBits = ToBits - FromBits
 		};
 
-		BOOST_STATIC_ASSERT(DeltaBits >= 0);
+		PASTEL_STATIC_ASSERT(DeltaBits >= 0);
 
 		return (number << DeltaBits) +
 			(number << (DeltaBits - FromBits)) +
@@ -127,8 +127,8 @@ namespace Pastel
 	template <int FromBit, int Bits, typename Integer>
 	Integer extractBits(const Integer& number)
 	{
-		BOOST_STATIC_ASSERT(FromBit >= 0);
-		BOOST_STATIC_ASSERT(Bits > 0);
+		PASTEL_STATIC_ASSERT(FromBit >= 0);
+		PASTEL_STATIC_ASSERT(Bits > 0);
 
 		return (number >> FromBit) & ((1 << Bits) - 1);
 	}

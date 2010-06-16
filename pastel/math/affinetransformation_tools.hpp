@@ -99,17 +99,17 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	AffineTransformation<Real, N> leastSquaresAffineTransformation(
+	AffineTransformation<Real, N> lsAffine(
 		const std::vector<Vector<Real, N> >& from,
 		const std::vector<Vector<Real, N> >& to)
 	{
-		BOOST_STATIC_ASSERT(N > 0);
-		return Pastel::leastSquaresAffineTransformation(
+		PASTEL_STATIC_ASSERT(N > 0);
+		return Pastel::lsAffine(
 			N, from, to);
 	}
 
 	template <typename Real, int N>
-	AffineTransformation<Real, N> leastSquaresAffineTransformation(
+	AffineTransformation<Real, N> lsAffine(
 		integer dimension,
 		const std::vector<Vector<Real, N> >& from,
 		const std::vector<Vector<Real, N> >& to)
@@ -164,119 +164,21 @@ namespace Pastel
 			a, toCentroid - fromCentroid * a);
 	}
 
-	template <typename Real>
-	Tuple<Real, 4> similarityTransformation(
-		const std::vector<Vector<Real, 2> >& from,
-		const std::vector<Vector<Real, 2> >& to)
+	template <typename Real, int N>
+	AffineTransformation<Real, N> toAffine(
+		const ConformalAffine2D<Real, N>& that)
 	{
-		ENSURE2(from.size() == to.size(), from.size(), to.size());
-		typedef std::vector<Vector<Real, 2> >::const_iterator InputIterator;
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
 
-		InputIterator fromIter = from.begin();
-		InputIterator fromEnd = from.end();
-		InputIterator toIter = to.begin();
-		InputIterator toEnd = to.end();
+		const Real& scaling = that.scaling();
+		const Real& ccwRotation = that.rotation();
 
-		Vector<Real, 2> sumFrom;
-		Vector<Real, 2> sumTo;
-		Real sumSquareFrom = 0;
-		Real dotSum = 0;
-		Real crossDotSum = 0;
-
-		integer points = 0;
-
-		while(fromIter != fromEnd)
-		{
-			const Vector<Real, 2>& fromVector = *fromIter;
-			const Vector<Real, 2>& toVector = *toIter;
-
-			sumFrom += fromVector;
-			sumTo += toVector;
-
-			sumSquareFrom += dot(fromVector);
-			dotSum += dot(fromVector, toVector);
-			crossDotSum += dot(cross(fromVector), toVector);
-
-			++fromIter;
-			++toIter;
-			++points;
-		}
-
-		const Real det = points * sumSquareFrom - dot(sumFrom);
-		const Real invDet = inverse(det);
-
-		const Vector<Real, 2> translation(
-			(sumSquareFrom * sumTo[0] - sumFrom[0] * dotSum + sumFrom[1] * crossDotSum) * invDet,
-			(sumSquareFrom * sumTo[1] - sumFrom[1] * dotSum - sumFrom[0] * crossDotSum) * invDet);
-
-		// scaledCos = scale * cos(angle)
-
-		const Real scaledCos =
-			(-sumFrom[0] * sumTo[0] - sumFrom[1] * sumTo[1] + points * dotSum) * invDet;
-
-		// scaledSin = scale * sin(angle)
-
-		const Real scaledSin =
-			(sumFrom[1] * sumTo[0] - sumFrom[0] * sumTo[1] + points * crossDotSum) * invDet;
-
-		// scaledCos^2 + scaledSin^2 = scale * cos^2(angle) + scale * sin^2(angle)
-		// = scale * (cos^2(angle) + sin^2(angle)) = scale
-
-		const Real scale = std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
-
-		// atan(scaledSin / scaledCos) = atan((scale * sin(angle)) / (scale * cos(angle)))
-		// = atan(tan(angle)) = angle
-
-		const Real angle = positiveRadians<Real>(std::atan2(scaledSin, scaledCos));
-
-		return Tuple<Real, 4>(scale, angle, translation[0], translation[1]);
-	}
-
-	template <typename Real>
-	Tuple<Real, 4> similarityTransformation(
-		const Vector<Real, 2>& aFrom, const Vector<Real, 2>& bFrom,
-		const Vector<Real, 2>& aTo, const Vector<Real, 2>& bTo)
-	{
-		const Vector<Real, 2> fromDelta = bFrom - aFrom;
-		const Vector<Real, 2> toDelta = bTo - aTo;
-
-		const Real fromNorm = norm(fromDelta);
-		const Real toNorm = norm(toDelta);
-
-		const Real scaling = toNorm / fromNorm;
-
-		const Real ccwRotation = ccwAngle(
-			fromDelta, toDelta,
-			fromNorm, toNorm);
-
-		const AffineTransformation<Real, 2> scaleRotate =
-			Pastel::similarityTransformation(
-			scaling, ccwRotation, Vector<Real, 2>(0));
-
-		const Vector<Real, 2> translation = aTo - transformPoint(aFrom, scaleRotate);
-
-		return Tuple<Real, 4>(scaling, ccwRotation, translation[0], translation[1]);
-	}
-
-	template <typename Real>
-	AffineTransformation<Real, 2> similarityTransformation(
-		const PASTEL_NO_DEDUCTION(Real)& scaling,
-		const PASTEL_NO_DEDUCTION(Real)& ccwRotation,
-		const Vector<Real, 2>& translation)
-	{
-		return AffineTransformation<Real, 2>(
-			Matrix<Real, 2, 2>(
+		Matrix<Real, N, N> transform(2, 2);
+		transform |= 
 			scaling * std::cos(ccwRotation), scaling * std::sin(ccwRotation),
-			-scaling * std::sin(ccwRotation), scaling * std::cos(ccwRotation)),
-			translation);
-	}
+			-scaling * std::sin(ccwRotation), scaling * std::cos(ccwRotation);
 
-	template <typename Real>
-	AffineTransformation<Real, 2> similarityTransformation(
-		const Tuple<Real, 4>& parameter)
-	{
-		return Pastel::similarityTransformation(parameter[0], parameter[1],
-			Vector<Real, 2>(parameter[2], parameter[3]));
+		return AffineTransformation<Real, 2>(transform,	that.translation());
 	}
 
 	template <typename Real>

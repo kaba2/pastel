@@ -5,16 +5,14 @@
 
 #include "pastel/sys/ensure.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
 	template <typename Real, int N, int M>
 	Flat<Real, N, M>::~Flat()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
-		BOOST_STATIC_ASSERT(M <= N);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(M <= N);
 	}
 
 	template <typename Real, int N, int M>

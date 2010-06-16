@@ -9,8 +9,6 @@
 
 #include "pastel/sys/math_functions.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -126,8 +124,8 @@ namespace Pastel
 	template <typename Real, int N>
 	VectorUnitAxis<Real, N> unitAxis(integer index)
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
-		BOOST_STATIC_ASSERT(N > 0);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N > 0);
 
 		PENSURE2(index >= 0 && index < N, index, N);
 
@@ -150,7 +148,7 @@ namespace Pastel
 	inline Vector<Real, ModifyN<N, N - 1>::Result> shrink(
 		const VectorExpression<Real, N, Expression>& that)
 	{
-		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
+		PASTEL_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		const integer size = that.size();
 
@@ -168,7 +166,7 @@ namespace Pastel
 		const VectorExpression<Real, N, Expression>& that,
 		integer index)
 	{
-		BOOST_STATIC_ASSERT(N > 1 || N == Dynamic);
+		PASTEL_STATIC_ASSERT(N > 1 || N == Dynamic);
 
 		const integer size = that.size();
 
@@ -290,7 +288,7 @@ namespace Pastel
 		const VectorExpression<Real, LeftN, LeftExpression>& left,
 		const VectorExpression<Real, RightN, RightExpression>& right)
 	{
-		BOOST_STATIC_ASSERT(LeftN == Dynamic || RightN == Dynamic ||
+		PASTEL_STATIC_ASSERT(LeftN == Dynamic || RightN == Dynamic ||
 			LeftN == RightN);
 
 		return sum(left * right);

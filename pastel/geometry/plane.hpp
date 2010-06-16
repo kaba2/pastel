@@ -7,8 +7,6 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -24,7 +22,7 @@ namespace Pastel
 		: position_()
 		, normal_(unitAxis<Real, N>(0))
 	{
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
 
 	template <typename Real, int N>
@@ -58,7 +56,7 @@ namespace Pastel
 	template <typename Real, int N>
 	Plane<Real, N>::~Plane()
 	{
-		BOOST_STATIC_ASSERT(N == Dynamic || N > 0);
+		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
 	template <typename Real, int N>

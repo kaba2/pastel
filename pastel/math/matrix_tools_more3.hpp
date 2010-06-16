@@ -8,7 +8,6 @@
 #include "pastel/sys/math_functions.h"
 #include "pastel/math/matrix.h"
 
-#include <boost/static_assert.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/less_equal.hpp>

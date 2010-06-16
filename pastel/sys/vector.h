@@ -424,7 +424,7 @@ namespace Pastel
 		Vector(const Vector<ThatReal, ThatN>& that)
 			: Base(that)
 		{
-			BOOST_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
+			PASTEL_STATIC_ASSERT(ThatN == N || ThatN == Dynamic);
 		}
 
 		explicit Vector(const Real& x)

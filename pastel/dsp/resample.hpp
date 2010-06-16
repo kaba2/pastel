@@ -509,7 +509,7 @@ namespace Pastel
 		// then it can be shown that the same
 		// heuristic gives an optimal order in many, but not all, cases.
 
-		BOOST_STATIC_ASSERT(N != 1);
+		PASTEL_STATIC_ASSERT(N != 1);
 
 		// Find out the mostly-optimal order.
 

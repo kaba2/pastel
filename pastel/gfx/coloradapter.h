@@ -9,8 +9,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syscommon.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -182,12 +180,12 @@ namespace Pastel
 
 		~Integer_To_ByteColor()
 		{
-			BOOST_STATIC_ASSERT(RedFrom >= 0);
-			BOOST_STATIC_ASSERT(GreenFrom >= 0);
-			BOOST_STATIC_ASSERT(BlueFrom >= 0);
-			BOOST_STATIC_ASSERT(RedBits > 0);
-			BOOST_STATIC_ASSERT(GreenBits > 0);
-			BOOST_STATIC_ASSERT(BlueBits > 0);
+			PASTEL_STATIC_ASSERT(RedFrom >= 0);
+			PASTEL_STATIC_ASSERT(GreenFrom >= 0);
+			PASTEL_STATIC_ASSERT(BlueFrom >= 0);
+			PASTEL_STATIC_ASSERT(RedBits > 0);
+			PASTEL_STATIC_ASSERT(GreenBits > 0);
+			PASTEL_STATIC_ASSERT(BlueBits > 0);
 		}
 
 		static Logical convert(const Physical& physical)
@@ -237,15 +235,15 @@ namespace Pastel
 
 		~Integer_To_Color()
 		{
-			BOOST_STATIC_ASSERT(RedFrom >= 0);
-			BOOST_STATIC_ASSERT(GreenFrom >= 0);
-			BOOST_STATIC_ASSERT(BlueFrom >= 0);
-			BOOST_STATIC_ASSERT(RedBits > 0);
-			BOOST_STATIC_ASSERT(GreenBits > 0);
-			BOOST_STATIC_ASSERT(BlueBits > 0);
-			BOOST_STATIC_ASSERT(RedFrom + RedBits <= 32);
-			BOOST_STATIC_ASSERT(GreenFrom + GreenBits <= 32);
-			BOOST_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
+			PASTEL_STATIC_ASSERT(RedFrom >= 0);
+			PASTEL_STATIC_ASSERT(GreenFrom >= 0);
+			PASTEL_STATIC_ASSERT(BlueFrom >= 0);
+			PASTEL_STATIC_ASSERT(RedBits > 0);
+			PASTEL_STATIC_ASSERT(GreenBits > 0);
+			PASTEL_STATIC_ASSERT(BlueBits > 0);
+			PASTEL_STATIC_ASSERT(RedFrom + RedBits <= 32);
+			PASTEL_STATIC_ASSERT(GreenFrom + GreenBits <= 32);
+			PASTEL_STATIC_ASSERT(BlueFrom + BlueBits <= 32);
 		}
 
 		static Logical convert(const Physical& physical)

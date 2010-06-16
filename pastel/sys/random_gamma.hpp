@@ -98,7 +98,7 @@ namespace Pastel
 	Vector<Real, N> randomGammaVector(
 		const PASTEL_NO_DEDUCTION(Real)& shape)
 	{		
-		BOOST_STATIC_ASSERT(N != Dynamic);
+		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::randomGammaVector<Real, N>(
 			N, shape, scale);

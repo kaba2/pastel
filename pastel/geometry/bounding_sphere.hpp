@@ -14,8 +14,6 @@
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/overlaps_sphere_point.h"
 
-#include <boost/static_assert.hpp>
-
 namespace Pastel
 {
 
@@ -39,9 +37,9 @@ namespace Pastel
 		template <int SubsetSize, int Elements>
 		void firstSubset(Tuple<integer, SubsetSize>& subset)
 		{
-			BOOST_STATIC_ASSERT(SubsetSize > 0);
-			BOOST_STATIC_ASSERT(Elements > 0);
-			BOOST_STATIC_ASSERT(SubsetSize <= Elements);
+			PASTEL_STATIC_ASSERT(SubsetSize > 0);
+			PASTEL_STATIC_ASSERT(Elements > 0);
+			PASTEL_STATIC_ASSERT(SubsetSize <= Elements);
 
 			for (integer i = 0;i < SubsetSize;++i)
 			{
@@ -52,9 +50,9 @@ namespace Pastel
 		template <int SubsetSize, int Elements>
 		bool nextSubset(Tuple<integer, SubsetSize>& subset)
 		{
-			BOOST_STATIC_ASSERT(SubsetSize > 0);
-			BOOST_STATIC_ASSERT(Elements > 0);
-			BOOST_STATIC_ASSERT(SubsetSize <= Elements);
+			PASTEL_STATIC_ASSERT(SubsetSize > 0);
+			PASTEL_STATIC_ASSERT(Elements > 0);
+			PASTEL_STATIC_ASSERT(SubsetSize <= Elements);
 
 			if (subset[0] + 1 < Elements)
 			{
