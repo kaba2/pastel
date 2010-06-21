@@ -112,6 +112,7 @@ namespace
 		const real minMatchRatio = 0.9;
 		const real noise = 0;
 		const real matchingDistance = 0.001;
+		const real confidence = 0.99;
 
 		std::vector<Vector2> sceneSet;
 
@@ -182,7 +183,9 @@ namespace
 
 		ConformalAffine2 similarity;
 		const bool success = pointPatternMatch(
-			sceneTree, modelTree, minMatchRatio,  matchingDistance,
+			sceneTree, modelTree, 
+			minMatchRatio,  matchingDistance,
+			confidence,
 			similarity);
 
 		timer.store();
@@ -277,7 +280,8 @@ namespace
 		const bool success = pointPatternMatch(
 			forwardRange(sceneSet.begin(), sceneSet.end()),
 			forwardRange(modelSet.begin(), modelSet.end()),
-			1,  minDistance, 
+			1,  minDistance,
+			0.99,
 			similarity);
 
 		timer.store();

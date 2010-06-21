@@ -16,7 +16,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	0 <= minMatchRatio <= 1
-	relativeMatchingDistance >= 0
+	0 <= relativeMatchingDistance <= 1
 
 	This function searches for such a similarity transformation that 
 	'minMatchRatio'-ratio of the mapped model points have a unique scene 
@@ -30,13 +30,37 @@ namespace Pastel
 		const PointKdTree<Real, N, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real, N>& similarityResult);
 
 	//! Finds the given model point pattern from the scene point pattern.
 	/*!
-	This is a convenience function for one-time use.
-	It simply computes the kd-trees from the point sets and
-	calls the more general 'pointPatternMatch()'.
+	This is a convenience function which builds kd-trees from the point sets 
+	and calls the more general 'pointPatternMatch()'.
+	*/
+
+	template <typename Real, int N, typename SceneIterator, typename ModelIterator,
+		typename Model_PointPolicy, typename Scene_PointPolicy>
+	bool pointPatternMatch(
+		const ForwardRange<SceneIterator>& scene,
+		const ForwardRange<ModelIterator>& model,
+		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
+		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& confidence,
+		ConformalAffine2D<Real, N>& similarityResult,
+		const Model_PointPolicy& modelPointPolicy,
+		const Scene_PointPolicy& scenePointPolicy);
+
+	//! Finds the given model point pattern from the scene point pattern.
+	/*!
+	This is a convenience function which calls:
+	pointPatternMatch(
+		scene, model,
+		minMatchRatio, relativeMatchingDistance,
+		confidence,
+		similarityResult,
+		Vector_PointPolicy<Real, N>(),
+		Vector_PointPolicy<Real, N>());
 	*/
 
 	template <typename Real, int N, typename SceneIterator, typename ModelIterator>
@@ -45,6 +69,7 @@ namespace Pastel
 		const ForwardRange<ModelIterator>& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real, N>& similarityResult);
 
 }

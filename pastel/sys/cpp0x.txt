@@ -1,0 +1,26 @@
+C++0x features
+==============
+
+[[Parent]]: pastel.txt
+
+The next standard of the C++, named C++0x, brings a host of very useful
+features. Some of these are already available with Visual Studio 2010 and gcc,
+including auto, shared_ptr, r-value references and decltype. Because this already 
+covers the most widely used compilers, we have decided to start using these features
+already, despite the fact that the standard has not yet been finalized.
+
+Here is a todo list for the conversion to C++0x:
+
+ * Make data structures move-aware. This enables us to return large objects
+ "by value" from functions without the fear of losing performance. This in turn gives
+ us the benefits of functional composition. We actually have done this already, relying
+ on return value optimizations.
+
+ * Remove CountedPtr and switch to use shared_ptr everywhere. The make_shared() 
+ function in C++0x finally offers an optimal way to use reference counting, giving the
+ best of both worlds of CountedPtr and boost::shared_ptr.
+  
+ * Remove redundancy where helpful by using the trailing return type + decltype.
+
+ * Replace function objects by lambda functions to give cleaner code.
+

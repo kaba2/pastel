@@ -1,0 +1,8 @@
+pastelgeometry_matlab.cpp
+*.cpp
+-I'e:\ohjelmointi\hgproject\pastel_main\' 
+-I'e:\ohjelmointi\external\boost_1_41_0'
+-L'e:\ohjelmointi\hgproject\pastel_main\pastel\lib'
+-lpastelsys_s
+-lpastelmath_s
+-lpastelgeometry_s

@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelraytest", "..\test\ra
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxUi", "gfxui\PastelGfxUi.vcxproj", "{0B447ABF-385F-475F-BF5F-88E4EE20BB98}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgeometry_matlab", "geometry_matlab\pastelgeometry_matlab.vcxproj", "{25047750-4011-428C-BEB6-8082475E040E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -189,6 +191,14 @@ Global
 		{0B447ABF-385F-475F-BF5F-88E4EE20BB98}.Static Debug|Win32.Build.0 = Static Debug|Win32
 		{0B447ABF-385F-475F-BF5F-88E4EE20BB98}.Static Release|Win32.ActiveCfg = Static Release|Win32
 		{0B447ABF-385F-475F-BF5F-88E4EE20BB98}.Static Release|Win32.Build.0 = Static Release|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Debug|Win32.Build.0 = Debug|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Release|Win32.ActiveCfg = Release|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Release|Win32.Build.0 = Release|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Static Debug|Win32.ActiveCfg = Debug|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Static Debug|Win32.Build.0 = Debug|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Static Release|Win32.ActiveCfg = Static Release|Win32
+		{25047750-4011-428C-BEB6-8082475E040E}.Static Release|Win32.Build.0 = Static Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
