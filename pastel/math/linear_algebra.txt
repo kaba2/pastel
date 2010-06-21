@@ -1,7 +1,7 @@
 Linear algebra
 ==============
 
-[[Parent]]: pastelmath.txt
+[[Parent]]: transformations.txt
 
 Theory
 ------

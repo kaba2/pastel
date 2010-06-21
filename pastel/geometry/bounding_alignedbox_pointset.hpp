@@ -35,6 +35,16 @@ namespace Pastel
 		return result;
 	}
 
+	template <typename Real, int N, typename InputIterator>
+	AlignedBox<Real, N> boundingAlignedBox(
+		const InputIterator& from,
+		const InputIterator& to)
+	{
+		PASTEL_STATIC_ASSERT(N > 0);
+		
+		return Pastel::boundingAlignedBox<Real, N>(N, from, to);
+	}
+
 }
 
 #endif

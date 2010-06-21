@@ -116,11 +116,35 @@ namespace Pastel
 	{
 		ENSURE2(from.size() == to.size(), from.size(), to.size());
 
+		// Let P = [p_1, ..., p_n] in R^{m x n}
+		// and R = [r_1, ..., r_n] in R^{m x n}
+		// represent sets of points in R^m.
+		//
+		// f : R^m -> R^m : f(x) = Ax + b
+		//
+		// The affine transformation that maps P to R, while
+		// minimizing least-squares error is given by:
+		//
+		// A = (PR^T)(PP^T)^-1
+		// b = r' - Ap'
+		//
+		// where 
+		// p' = (1 / n) sum_{i = 1}^n p_i
+		// r' = (1 / n) sum_{i = 1}^n r_i
+
 		const integer points = from.size();
 
 		if (points == 0)
 		{
 			return AffineTransformation<Real, N>(dimension);
+		}
+
+		if (points == 1)
+		{
+			return AffineTransformation<Real, N>(
+				dimension,
+				identityMatrix<Real, N, N>(dimension, dimension),
+				to.front() - from.front());
 		}
 
 		// Compute centroids
@@ -137,31 +161,26 @@ namespace Pastel
 		fromCentroid /= points;
 		toCentroid /= points;
 
-		Matrix<Real, N, N> c(dimension, dimension);
+		// A = (PR^T)(PP^T)^-1
+		// =>
+		// A^T = (PP^T)^-1 (RP^T)
+
+		// Compute RP^T and PP^T.
+
+		Matrix<Real, N, N> rpt(dimension, dimension);
+		Matrix<Real, N, N> ppt(dimension, dimension);
 		for (integer i = 0;i < points;++i)
 		{
-			const Vector<Real, N> v = from[i] - fromCentroid;
-			for (integer k = 0;k < dimension;++k)
-			{
-				c[k] += v * v[k];
-			}
+			ppt += outerProduct(from[i] - fromCentroid);
+			rpt += outerProduct(
+				from[i] - fromCentroid, 
+				to[i] - toCentroid);
 		}
 
-		Matrix<Real, N, N> d(dimension, dimension);
-		for (integer i = 0;i < points;++i)
-		{
-			const Vector<Real, N> v = to[i] - toCentroid;
-			const Vector<Real, N> w = from[i] - fromCentroid;
-			for (integer k = 0;k < dimension;++k)
-			{
-				d[k] += v * w[k];
-			}
-		}
+		Matrix<Real, N, N> at = inverse(ppt) * rpt;
 
-		const Matrix<Real, N, N> a = inverse(c) * d;
-
-		return AffineTransformation<Real, 2>(
-			a, toCentroid - fromCentroid * a);
+		return AffineTransformation<Real, N>(
+			std::move(at), toCentroid - fromCentroid * at);
 	}
 
 	template <typename Real, int N>

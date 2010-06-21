@@ -15,21 +15,6 @@
 namespace Pastel
 {
 
-	template <typename Real, int Height, int Width, typename Functor>
-	void modify(Matrix<Real, Height, Width>& that, Functor f)
-	{
-		const integer width = that.width();
-		const integer height = that.height();
-
-		for (integer i = 0;i < height;++i)
-		{
-			for (integer j = 0;j < width;++j)
-			{
-				that(i, j) = f(that(i, j));
-			}
-		}
-	}
-
 	template <typename Real, int Height, int Width, typename Expression>
 	Real trace(
 		const MatrixExpression<Real, Height, Width, Expression>& that)
@@ -38,7 +23,7 @@ namespace Pastel
 		const integer height = that.height();
 		const integer minSize = std::min(width, height);
 
-		Real result(that(0, 0));
+		Real result = that(0, 0);
 		for (integer i = 1;i < minSize;++i)
 		{
 			result += that(i, i);
@@ -55,7 +40,7 @@ namespace Pastel
 		const integer height = that.height();
 		const integer minSize = std::min(width, height);
 
-		Real result(that(0, 0));
+		Real result = that(0, 0);
 		for (integer i = 1;i < minSize;++i)
 		{
 			result *= that(i, i);
@@ -171,17 +156,17 @@ namespace Pastel
 	Real determinant(
 		const MatrixExpression<Real, 3, 3, Expression>& that)
 	{
-		Real cofactor00(
+		const Real cofactor00(
 			that(1, 1) * that(2, 2) -
 			that(1, 2) * that(2, 1));
-		Real cofactor10(
+		const Real cofactor10(
 			-that(0, 1) * that(2, 2) +
 			that(0, 2) * that(2, 1));
-		Real cofactor20(
+		const Real cofactor20(
 			that(0, 1) * that(1, 2) -
 			that(0, 2) * that(1, 1));
 
-		Real result(
+		const Real result(
 			that(0, 0) * cofactor00 +
 			that(1, 0) * cofactor10 +
 			that(2, 0) * cofactor20);
@@ -194,20 +179,13 @@ namespace Pastel
 	Real norm2(const MatrixExpression<Real, Height, Width, Expression>& matrix,
 		const NormBijection& normBijection)
 	{
-		const integer width = matrix.width();
-		const integer height = matrix.height();
-
-		Real result = 0;
-		for (integer i = 0;i < height;++i)
+		return std::accumulate(
+			matrix.begin(), matrix.end(), (Real)0,
+			[](const Real& left, const Real& right) 
 		{
-			for (integer j = 0;j < width;++j)
-			{
-				result = normBijection.addAxis(result, 
-					normBijection.signedAxis(matrix(i, j)));
-			}
-		}
-
-		return result;
+			return normBijection.addAxis(left, 
+				normBijection.signedAxis(right))
+		});
 	}
 
 	template <typename Real, int Height, int Width, typename Expression>
@@ -222,30 +200,6 @@ namespace Pastel
 		const MatrixExpression<Real, Height, Width, Expression>& matrix)
 	{
 		return max(sum(abs(transpose(matrix))));
-	}
-
-	template <typename Real, int N, 
-		typename Expression, typename NormBijection>
-		Real condition2(
-		const MatrixExpression<Real, N, N, Expression>& matrix,
-		const NormBijection& normBijection)
-	{
-		return norm2(matrix, normBijection) * 
-			norm2(inverse(matrix), normBijection);
-	}
-
-	template <typename Real, int N, typename Expression>
-	Real conditionManhattan(
-		const MatrixExpression<Real, N, N, Expression>& matrix)
-	{
-		return manhattanNorm(matrix) * manhattanNorm(inverse(matrix));
-	}
-
-	template <typename Real, int N, typename Expression>
-	Real conditionInfinity(
-		const MatrixExpression<Real, N, N, Expression>& matrix)
-	{
-		return maxNorm(matrix) * maxNorm(inverse(matrix));
 	}
 
 	template <typename Real>

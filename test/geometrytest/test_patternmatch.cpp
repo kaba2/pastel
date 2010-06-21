@@ -44,8 +44,11 @@ namespace
 
 		Array<Color, 2> image(width, height);
 
-		AlignedBox2 viewWindow = 
-			boundingAlignedBox<real, 2>(2, sceneSet.begin(), sceneSet.end());
+		const Sphere2 sceneSphere =
+			boundingSphere<real, 2>(sceneSet.begin(), sceneSet.end());
+
+		const AlignedBox2 viewWindow = 
+			boundingAlignedBox(sceneSphere) * 1.5;
 
 		/*
 		if (viewWindow.extent().x() < viewWindow.extent().y())
@@ -68,7 +71,7 @@ namespace
 		renderer.setColor(Color(1));
 		renderer.setFilled(true);
 
-		const real radius = 0.01;
+		const real radius = 0.005;
 
 		const integer scenePoints = sceneSet.size();
 
@@ -90,6 +93,10 @@ namespace
 			renderer.setColor(Color(1, 0, 0));
 			drawCircle(renderer, Sphere2(correct, radius), 30);
 
+			renderer.setFilled(false);
+			renderer.setColor(Color(0, 1, 0));
+			drawCircle(renderer, sceneSphere, 30);
+
 			renderer.setColor(Color(0, 0, 1));
 			drawCircle(renderer, Sphere2(transformed, radius), 30);
 		}
@@ -99,10 +106,12 @@ namespace
 
 	void testPatternMatch()
 	{
-		const integer extraPoints = 10;
+		const integer extraPoints = 0;
 		const integer missingPoints = 0;
 		const integer modelPoints = 30;
+		const real minMatchRatio = 0.9;
 		const real noise = 0;
+		const real matchingDistance = 0.001;
 
 		std::vector<Vector2> sceneSet;
 
@@ -173,7 +182,7 @@ namespace
 
 		ConformalAffine2 similarity;
 		const bool success = pointPatternMatch(
-			sceneTree, modelTree, 0.7,  0.01, PatternMatch::RelativeDistance,
+			sceneTree, modelTree, minMatchRatio,  matchingDistance,
 			similarity);
 
 		timer.store();
@@ -197,26 +206,26 @@ namespace
 		render(modelSet, sceneSet, correctSet, matchedTransform, "patternmatch.pcx");
 	}
 
-	void testBoxPatternMatch()
+	void testBoxPatternMatch(
+		integer edgePoints, integer randomPoints,
+		const std::string& name)
 	{
-		const integer EdgePoints = 0;
 		const integer RemovePoints = 0;
-		const integer RandomPoints = 20000;
-		const real minDistance = (real)1 / 1000;
+		const real minDistance = (real)1 / 100;
 
 		std::vector<Vector2> modelSet;
 
-		for (integer i = 0;i < EdgePoints;++i)
+		for (integer i = 0;i < edgePoints;++i)
 		{
 			const real x =
-				(real)i / (EdgePoints - 1);
+				(real)i / (edgePoints - 1);
 
 			modelSet.push_back(
 				Vector2(x, 0));
 			modelSet.push_back(
 				Vector2(x, 1));
 
-			if (i > 0 && i < EdgePoints - 1)
+			if (i > 0 && i < edgePoints - 1)
 			{
 				const real y = x;
 
@@ -227,7 +236,7 @@ namespace
 			}
 		}
 
-		for (integer i = 0;i < RandomPoints;++i)
+		for (integer i = 0;i < randomPoints;++i)
 		{
 			modelSet.push_back(randomVector<real, 2>());
 		}
@@ -268,7 +277,7 @@ namespace
 		const bool success = pointPatternMatch(
 			forwardRange(sceneSet.begin(), sceneSet.end()),
 			forwardRange(modelSet.begin(), modelSet.end()),
-			1,  minDistance, PatternMatch::AbsoluteDistance,
+			1,  minDistance, 
 			similarity);
 
 		timer.store();
@@ -289,12 +298,13 @@ namespace
 
 		AffineTransformation2 matchedTransform = toAffine(similarity);
 
-		render(modelSet, sceneSet, correctSet, matchedTransform, "boxpatternmatch.pcx");
+		render(modelSet, sceneSet, correctSet, matchedTransform, "patternmatch_" + name + ".pcx");
 	}
 
 	void testBegin()
 	{
-		//testBoxPatternMatch();
+		testBoxPatternMatch(100, 0, "box_edge");
+		testBoxPatternMatch(0, 100, "box_uniform");
 		testPatternMatch();
 	}
 
