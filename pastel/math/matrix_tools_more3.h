@@ -12,11 +12,6 @@
 namespace Pastel
 {
 
-	//! Calls the functor y = f(x) on each matrix element.
-
-	template <typename Real, int Height, int Width,typename Functor>
-	void modify(Matrix<Real, Height, Width>& that, Functor f);
-
 	//! Returns the trace of the matrix.
 
 	template <typename Real, int Height, int Width, typename Expression>
@@ -101,26 +96,6 @@ namespace Pastel
 	template <typename Real, int Height, int Width, typename Expression>
 	Real maxNorm(
 		const MatrixExpression<Real, Height, Width, Expression>& matrix);
-
-	//! Returns the condition number of a matrix using a pointwise norm.
-
-	template <typename Real, int N, 
-		typename Expression, typename NormBijection>
-		Real condition2(
-		const MatrixExpression<Real, N, N, Expression>& matrix,
-		const NormBijection& normBijection);
-
-	//! Returns the condition number of a matrix using manhattan norm.
-
-	template <typename Real, int N, typename Expression>
-	Real conditionManhattan(
-		const MatrixExpression<Real, N, N, Expression>& matrix);
-
-	//! Returns the condition number of a matrix using max norm.
-
-	template <typename Real, int N, typename Expression>
-	Real conditionInfinity(
-		const MatrixExpression<Real, N, N, Expression>& matrix);
 
 	template <typename Real>
 	Vector<Real, 2> symmetricEigenValues(

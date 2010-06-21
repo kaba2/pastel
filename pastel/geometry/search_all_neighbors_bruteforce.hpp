@@ -103,7 +103,8 @@ namespace Pastel
 		{
 			const Real* iPoint = pointPolicy.point(*indexSet[i]);
 
-			Real cullDistance = maxDistanceSet[i];
+			const Real maxDistance = maxDistanceSet[i];
+			Real cullDistance = maxDistance;
 			nearestSet.clear();
 
 			for (integer j = 0;j < points;++j)

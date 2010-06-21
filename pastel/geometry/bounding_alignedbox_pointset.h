@@ -24,6 +24,11 @@ namespace Pastel
 		const InputIterator& from,
 		const InputIterator& to);
 
+	template <typename Real, int N, typename InputIterator>
+	AlignedBox<Real, N> boundingAlignedBox(
+		const InputIterator& from,
+		const InputIterator& to);
+
 }
 
 #include "pastel/geometry/bounding_alignedbox_pointset.hpp"

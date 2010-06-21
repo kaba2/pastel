@@ -227,11 +227,22 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& fromNorm,
 		const PASTEL_NO_DEDUCTION(Real)& toNorm)
 	{
+		PENSURE_OP(fromNorm, >=, 0);
+		PENSURE_OP(toNorm, >=, 0);
+
+		const Real normProduct = fromNorm * toNorm;
+
+		// EPSILON
+		if (normProduct == 0)
+		{
+			return 0;
+		}
+
 		const Vector<Real, 2> normalFrom(
 			cross(from));
 
-		const Real angle = std::acos(dot(from, to) /
-			(fromNorm * toNorm));
+		const Real angle = std::acos(
+			dot(from, to) / normProduct);
 
 		if (dot(normalFrom, to) < 0)
 		{

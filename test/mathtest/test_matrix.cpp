@@ -59,12 +59,6 @@ namespace
 			testMatrixAssigns<5>();
 			testMatrixAssigns<Dynamic>();
 
-			testMatrixCondition<2>();
-			testMatrixCondition<3>();
-			testMatrixCondition<4>();
-			testMatrixCondition<5>();
-			testMatrixCondition<Dynamic>();
-
 			testSubMatrix();
 			testMatrixArray();
 		}
@@ -539,41 +533,6 @@ namespace
 			TEST_ENSURE_OP(count, <, 10);
 		}
 
-		template <int N>
-		void testMatrixCondition()
-		{
-			const integer iterations = 1000;
-
-			const integer n = (N == Dynamic) ? 10 : N;
-
-			integer count = 0;
-
-			for (integer i = 0;i < iterations;++i)
-			{
-				const real cond = 1 + random<real>() * 9;
-				const real det = 1 + random<real>() * 9;
-
-				Matrix<real, N, N> a(n, n);
-				setRandomSymmetricPositiveDefinite(det, cond, a);
-
-				const real detError = 
-					mabs(determinant(a) - det);
-				TEST_ENSURE_OP(detError, <, 0.01);
-
-				/*
-				const real condError =
-					mabs(conditionManhattan(a) - cond);
-				TEST_ENSURE_OP(condError, <, 0.01);
-				*/
-
-				if (detError > 0.01)
-				{
-					++count;
-				}
-			}
-
-			TEST_ENSURE_OP(count, <, 10);
-		}
 	};
 
 	void testMatrix()

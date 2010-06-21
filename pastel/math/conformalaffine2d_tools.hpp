@@ -98,7 +98,7 @@ namespace Pastel
 
 		// f(x) = sQx + t
 
-		Vector<Real, N> result(ofDimension(2), 0);
+		Vector<Real, N> result(that);
 		transformPointInplace(result, transform);
 
 		return result;
@@ -111,6 +111,33 @@ namespace Pastel
 	{
 		ENSURE2(from.size() == to.size(), from.size(), to.size());
 		typedef std::vector<Vector<Real, N> >::const_iterator InputIterator;
+
+		// Handle special cases.
+
+		if (from.empty())
+		{
+			return ConformalAffine2D<Real, N>();
+		}
+
+		if (from.size() == 1)
+		{
+			// If there is just one point in each
+			// set, we reduce the transformation to
+			// a pure translation.
+
+			return ConformalAffine2D<Real, N>(
+				1, 0, to.front() - from.front());
+		}
+
+		if (from.size() == 2)
+		{
+			// If there are two points in each set,
+			// we use the direct method instead.
+
+			return conformalAffine(
+				from.front(), from.back(),
+				to.front(), to.back());
+		}
 
 		InputIterator fromIter = from.begin();
 		InputIterator fromEnd = from.end();
@@ -198,9 +225,16 @@ namespace Pastel
 		// Find out the scaling.
 
 		const Vector<Real, N> fromDelta = bFrom - aFrom;
-		const Vector<Real, N> toDelta = bTo - aTo;
-
 		const Real fromNorm = norm(fromDelta);
+		
+		// EPSILON
+		if (fromNorm == 0)
+		{
+			// The transformation does not exist, return identity.
+			return ConformalAffine2D<Real, N>();
+		}
+
+		const Vector<Real, N> toDelta = bTo - aTo;
 		const Real toNorm = norm(toDelta);
 
 		const Real scaling = toNorm / fromNorm;

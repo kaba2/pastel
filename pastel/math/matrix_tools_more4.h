@@ -53,6 +53,11 @@ namespace Pastel
 	class MatrixRepeat;
 
 	//! Repeats a matrix expression to form a bigger matrix expression.
+	/*!
+	Preconditions:
+	xBlocks >= 0
+	yBlocks >= 0
+	*/
 
 	template <typename Real, int Height, int Width, typename Expression>
 	MatrixRepeat<Real, Height, Width, Expression> repeat(
@@ -77,6 +82,11 @@ namespace Pastel
 		typename RightExpression>
 	class OuterProduct;
 
+	//! Computes the outer product v w^T.
+	/*!
+	Here 'left' is v and 'right' is w.
+	*/
+
 	template <typename Real,int Height, int Width, 
 		typename LeftExpression,
 		typename RightExpression>
@@ -84,6 +94,18 @@ namespace Pastel
 		outerProduct(
 		const VectorExpression<Real, Height, LeftExpression>& left,
 		const VectorExpression<Real, Width, RightExpression>& right);
+
+	//! Computes the outer product v v^T.
+	/*!
+	This is a convenience function that calls
+	outerProduct(that, that). See the documentation
+	for that function.
+	*/
+
+	template <typename Real, int N, typename Expression>
+		OuterProduct<Real, N, N, Expression, Expression>
+		outerProduct(
+		const VectorExpression<Real, N, Expression>& that);
 
 }
 

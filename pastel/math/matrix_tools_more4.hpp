@@ -279,6 +279,8 @@ namespace Pastel
 			, width_(data.width() * xBlocks)
 			, height_(data.height() * yBlocks)
 		{
+			PENSURE_OP(xBlocks, >=, 0);
+			PENSURE_OP(yBlocks, >=, 0);
 		}
 
 		Real operator()(integer y, integer x) const
@@ -462,6 +464,14 @@ namespace Pastel
 	{
 		return OuterProduct<Real, Height, Width, LeftExpression, RightExpression>(
 			(const LeftExpression&)left, (const RightExpression&)right);
+	}
+
+	template <typename Real, int N, typename Expression>
+		OuterProduct<Real, N, N, Expression, Expression>
+		outerProduct(
+		const VectorExpression<Real, N, Expression>& that)
+	{
+		return Pastel::outerProduct(that, that);
 	}
 
 }

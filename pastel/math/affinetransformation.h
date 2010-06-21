@@ -38,17 +38,19 @@ namespace Pastel
 		}
 
 		//! Constructs using the given matrix and no translation.
+		template <typename Expression>
 		explicit AffineTransformation(
-			const Matrix<Real, N, N>& matrix)
+			const MatrixExpression<Real, N, N, Expression>& matrix)
 			: matrix_(matrix)
 			, translation_(ofDimension(matrix.width()))
 		{
 		}
 
 		//! Constructs using the given matrix and translation.
+		template <typename Left_Expression, typename Right_Expression>
 		AffineTransformation(
-			const Matrix<Real, N, N>& matrix,
-			const Vector<Real, N>& translation)
+			const MatrixExpression<Real, N, N, Left_Expression>& matrix,
+			const VectorExpression<Real, N, Right_Expression>& translation)
 			: matrix_(matrix)
 			, translation_(translation)
 		{
@@ -56,10 +58,11 @@ namespace Pastel
 		}
 
 		//! Constructs using the given matrix and translation.
+		template <typename Left_Expression, typename Right_Expression>
 		AffineTransformation(
 			integer dimension,
-			const Matrix<Real, N, N>& matrix,
-			const Vector<Real, N>& translation)
+			const MatrixExpression<Real, N, N, Left_Expression>& matrix,
+			const VectorExpression<Real, N, Right_Expression>& translation)
 			: matrix_(matrix)
 			, translation_(translation)
 		{
@@ -99,8 +102,10 @@ namespace Pastel
 		}
 
 		//! Sets the matrix and translation.
-		void set(const Matrix<Real, N, N>& matrix,
-			const Vector<Real, N>& translation)
+		template <typename Left_Expression, typename Right_Expression>
+		void set(
+			const MatrixExpression<Real, N, N, Left_Expression>& matrix,
+			const VectorExpression<Real, N, Right_Expression>& translation)
 		{
 			PENSURE_OP(matrix_.width(), ==, matrix.width());
 			PENSURE_OP(matrix_.height(), ==, matrix.height());
