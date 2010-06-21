@@ -24,7 +24,14 @@ confidence = 0.95;
 noiseAmount = 0.1;
 
 % Generate a random set of model points.
-m = 10000;
+% m     | time for non-match with confidence 0.95
+% ------+----------------------------------------
+% 10000 | 3667s ~= 1h
+%  2500 |  176s ~= 3min
+%  1250 |   45s
+%   625 |   11s
+
+m = 1250;
 M = randn(2, m);
 
 % Generate a random similarity.

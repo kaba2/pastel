@@ -191,6 +191,8 @@ namespace Pastel
 				}
 
 				Array<SceneIterator> sceneNearest(k_, scenePoints_);
+				std::vector<SceneIterator> sceneSet(k_ + 1);
+				std::vector<ModelIterator> modelSet(k_ + 1);
 
 				for (integer i = 0;i < modelPointsToTest;++i)
 				{
@@ -206,10 +208,7 @@ namespace Pastel
 						// for both points in their respective point sets.
 
 						const SceneIterator sceneIter = sceneIndexList[j];
-
-						std::vector<SceneIterator> sceneSet;
-						sceneSet.reserve(k_ + 1);
-						sceneSet.push_back(sceneIter);
+						sceneSet.front() = sceneIter;
 
 						if (i == 0)
 						{
@@ -231,27 +230,21 @@ namespace Pastel
 						std::copy(
 							sceneNearest.rowBegin(j),
 							sceneNearest.rowEnd(j),
-							std::back_inserter(sceneSet));
-
-						ASSERT_OP(sceneSet.size(), ==, k_+ 1);
+							sceneSet.begin() + 1);
 
 						// Find the k-nearest neighbors for the model
 						// point. These need not reused, so we don't
 						// need to cache them.
 
-						std::vector<ModelIterator> modelSet;
-						modelSet.reserve(k_ + 1);
-						modelSet.push_back(modelIter);
+						modelSet.front() = modelIter;
 						searchNearest(
 							modelTree_,
 							modelIter,
 							k_,
-							std::back_inserter(modelSet),
+							modelSet.begin() + 1,
 							NullIterator(),
 							infinity<Real>(), 0,
 							Dont_AcceptPoint<ModelIterator>(modelIter));
-
-						ASSERT_OP(modelSet.size(), ==, k_+ 1);
 
 						// Try to match the nearest neighbours.
 						// If they match, then try to improve the
