@@ -180,7 +180,7 @@ namespace Pastel
 		Matrix<Real, N, N> at = inverse(ppt) * rpt;
 
 		return AffineTransformation<Real, N>(
-			std::move(at), toCentroid - fromCentroid * at);
+			at, toCentroid - fromCentroid * at);
 	}
 
 	template <typename Real, int N>

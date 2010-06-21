@@ -2,11 +2,11 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="PastelDevice"
-	ProjectGUID="{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}"
-	RootNamespace="PastelDevice"
+	Name="PastelGeometryMatlab"
+	ProjectGUID="{810B18AB-2DA0-435D-8642-9391A29F1F2A}"
+	RootNamespace="PastelGeometryMatlab"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -20,7 +20,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)\lib"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="1"
 			>
 			<Tool
@@ -43,18 +43,15 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PASTELDEVICE_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -66,22 +63,11 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib pastelsys_d.lib glew32.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(SolutionDir)\lib"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -93,9 +79,6 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -103,7 +86,7 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\lib"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -127,18 +110,15 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELDEVICE_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="true"
-				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -150,23 +130,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib pastelsys.lib glew32.lib"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(SolutionDir)\lib"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -176,9 +143,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -212,19 +176,15 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="true"
-				OpenMP="true"
 				UsePrecompiledHeader="0"
-				ObjectFile="$(IntDir)\"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -282,18 +242,15 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -329,126 +286,42 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Fx"
+			Name="Matlab files"
 			>
 			<File
-				RelativePath=".\fxdevice.cpp"
+				RelativePath=".\check.m"
 				>
 			</File>
 			<File
-				RelativePath=".\fxdevice.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sound.txt"
+				RelativePath=".\pastel_point_pattern_match.m"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Gfx"
+			Name="Mex files"
 			>
 			<File
-				RelativePath=".\gfxdevice.cpp"
+				RelativePath=".\matlab_point_pattern_match.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\gfxdevice.h"
+				RelativePath=".\pastelgeometry_matlab.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\graphics.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Multithreading"
-			>
-			<File
-				RelativePath=".\multithreading.txt"
+				RelativePath=".\pastelgeometry_matlab.h"
 				>
 			</File>
 			<File
-				RelativePath=".\mutex.cpp"
+				RelativePath=".\pastelgeometry_mex.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mutex.h"
+				RelativePath=".\pastelgeometry_mex.h"
 				>
 			</File>
 			<File
-				RelativePath=".\mutex.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\thread.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\thread.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Timing"
-			>
-			<File
-				RelativePath=".\timedevice.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\timedevice.h"
-				>
-			</File>
-			<File
-				RelativePath=".\timer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\timer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\timing.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Common"
-			>
-			<File
-				RelativePath=".\devicelibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\devicelibrary.h"
-				>
-			</File>
-			<File
-				RelativePath=".\devices.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\devicesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\devicesystem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pasteldevice.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Ui"
-			>
-			<File
-				RelativePath=".\ui.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ui.h"
+				RelativePath=".\pastelgeometry_mex.hpp"
 				>
 			</File>
 		</Filter>

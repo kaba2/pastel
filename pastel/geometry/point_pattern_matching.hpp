@@ -7,12 +7,13 @@
 #include "pastel/geometry/bounding_sphere.h"
 
 #include "pastel/math/affinetransformation_tools.h"
-#include "pastel/math/conformalaffine2d.h"
+#include "pastel/math/conformalaffine2d_tools.h"
 
 #include "pastel/sys/unorderedset.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/smallset.h"
 #include "pastel/sys/nulliterator.h"
+#include "pastel/sys/stdext_subset.h"
 
 namespace Pastel
 {
@@ -38,11 +39,13 @@ namespace Pastel
 			PatternMatcher(
 				const SceneTree& sceneTree,
 				const ModelTree& modelTree,
-				const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
-				const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance)
+				const Real& minMatchRatio,
+				const Real& relativeMatchingDistance,
+				const Real& confidence)
 				: sceneTree_(sceneTree)
 				, modelTree_(modelTree)
 				, minMatchRatio_(minMatchRatio)
+				, confidence_(confidence)
 				, scenePoints_(sceneTree.objects())
 				, modelPoints_(modelTree.objects())
 				, k_(0)
@@ -85,12 +88,11 @@ namespace Pastel
 						<< " to guarantee optimal asymptotic performance." << logNewLine;
 				}
 
-				const Real confidence = 0.95;
 				const Real kSuggestion =
 					std::log((Real)modelPoints_) /
 					(2 * square(minMatchRatio - square(relativeMatchingDistance) / 4));
 				const Real k2Suggestion =
-					std::log(1 - confidence) / std::log(1 - minMatchRatio);
+					std::log((Real)0.05) / std::log(1 - minMatchRatio);
 				const Real k3Suggestion =
 					2 * relativeMatchingDistance * std::sqrt(kSuggestion / constantPi<Real>());
 
@@ -154,8 +156,7 @@ namespace Pastel
 				localTries_ = 0;
 				modelPointTries_ = 0;
 
-				// We want to try the model points in a random
-				// permuted order.
+				// Find a permuted order for model points.
 
 				std::vector<ModelIterator> modelIndexList;
 				modelIndexList.reserve(modelPoints_);
@@ -163,44 +164,80 @@ namespace Pastel
 					countingIterator(modelTree_.begin()),
 					countingIterator(modelTree_.end()),
 					std::back_inserter(modelIndexList));
+				
+				// We only need those points randomized
+				// which we are going to use as a pivot point.
+				const integer modelPointsToTest = 
+					std::ceil(clamp(
+					std::log(1 - confidence_) / 
+					std::log(1 - minMatchRatio_), 
+					1, modelPoints_));
+				StdExt::subset(
+					modelIndexList.begin(),
+					modelIndexList.end(),
+					modelPointsToTest);
 
-				// Permute the index list.
-				for (integer i = 0;i < modelPoints_;++i)
+				// Randomize all of the scene pointset.
+				std::vector<SceneIterator> sceneIndexList;
+				sceneIndexList.reserve(scenePoints_);
+				std::copy(
+					countingIterator(sceneTree_.begin()),
+					countingIterator(sceneTree_.end()),
+					std::back_inserter(sceneIndexList));
+				for (integer i = 0;i < scenePoints_ - 1;++i)
 				{
-					std::swap(modelIndexList[i],
-						modelIndexList[randomInteger() % modelPoints_]);
+					const integer j = i + 1 + (randomInteger() % (scenePoints_ - (i + 1)));
+					std::swap(sceneIndexList[i], sceneIndexList[j]);
 				}
 
-				for (integer i = 0;i < modelPoints_;++i)
+				Array<SceneIterator> sceneNearest(k_, scenePoints_);
+
+				for (integer i = 0;i < modelPointsToTest;++i)
 				{
 					++modelPointTries_;
 
 					const ModelIterator modelIter = modelIndexList[i];
 
-					// FIX: Should we permute the sceneSet also?
-
-					SceneIterator sceneIter = sceneTree_.begin();
-					const SceneIterator sceneEnd = sceneTree_.end();
-					while(sceneIter != sceneEnd)
+					for (integer j = 0;j < scenePoints_;++j)
 					{
 						++localTries_;
 
 						// Find the k nearest neighbours
 						// for both points in their respective point sets.
 
+						const SceneIterator sceneIter = sceneIndexList[j];
+
 						std::vector<SceneIterator> sceneSet;
 						sceneSet.reserve(k_ + 1);
 						sceneSet.push_back(sceneIter);
-						searchNearest(
-							sceneTree_,
-							sceneIter,
-							k_,
-							std::back_inserter(sceneSet),
-							NullIterator(),
-							infinity<Real>(), 0,
-							Dont_AcceptPoint<SceneIterator>(sceneIter));
+
+						if (i == 0)
+						{
+							// Find the k nearest neighbors
+							// for the scene point. Cache the
+							// result.
+
+							searchNearest(
+								sceneTree_,
+								sceneIter,
+								k_,
+								sceneNearest.rowBegin(j),
+								NullIterator(),
+								infinity<Real>(), 0,
+								Dont_AcceptPoint<SceneIterator>(sceneIter));
+						}
+
+						// Get the k-nearest neighbors from the cache.
+						std::copy(
+							sceneNearest.rowBegin(j),
+							sceneNearest.rowEnd(j),
+							std::back_inserter(sceneSet));
 
 						ASSERT_OP(sceneSet.size(), ==, k_+ 1);
+
+						// Find the k-nearest neighbors for the model
+						// point. These need not reused, so we don't
+						// need to cache them.
 
 						std::vector<ModelIterator> modelSet;
 						modelSet.reserve(k_ + 1);
@@ -225,8 +262,6 @@ namespace Pastel
 						{
 							return true;
 						}
-
-						++sceneIter;
 					}
 				}
 
@@ -464,6 +499,7 @@ namespace Pastel
 			const SceneTree& sceneTree_;
 			const ModelTree& modelTree_;
 			const Real minMatchRatio_;
+			const Real confidence_;
 			const integer scenePoints_;
 			const integer modelPoints_;
 			integer k_;
@@ -486,18 +522,22 @@ namespace Pastel
 		const PointKdTree<Real, N, ModelPolicy>& modelTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		ConformalAffine2D<Real, N>& similarityResult)
 	{
 		ENSURE_OP(minMatchRatio, >=, 0); 
 		ENSURE_OP(minMatchRatio, <=, 1);
 		ENSURE_OP(relativeMatchingDistance, >=, 0);
 		ENSURE_OP(relativeMatchingDistance, <=, 1);
+		ENSURE_OP(confidence, >=, 0);
+		ENSURE_OP(confidence, <=, 1);
 
 		Detail_PointPatternMatch::PatternMatcher<Real, N, ScenePolicy, ModelPolicy>
 			patternMatcher(
 			sceneTree, modelTree,
 			minMatchRatio,
-			relativeMatchingDistance);
+			relativeMatchingDistance,
+			confidence);
 
 		const bool succeeded = patternMatcher(similarityResult);
 
@@ -512,32 +552,55 @@ namespace Pastel
 		return succeeded;
 	}
 
-	template <typename Real, int N, typename SceneIterator, typename ModelIterator>
+	template <typename Real, int N, typename SceneIterator, typename ModelIterator,
+		typename Model_PointPolicy, typename Scene_PointPolicy>
 	bool pointPatternMatch(
 		const ForwardRange<SceneIterator>& scene,
 		const ForwardRange<ModelIterator>& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
-		ConformalAffine2D<Real, N>& similarityResult)
+		const PASTEL_NO_DEDUCTION(Real)& confidence,
+		ConformalAffine2D<Real, N>& similarityResult,
+		const Model_PointPolicy& modelPointPolicy,
+		const Scene_PointPolicy& scenePointPolicy)
 	{
-		typedef PointKdTree<Real, N> SceneTree;
+		typedef PointKdTree<Real, N, Model_PointPolicy> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
-		typedef PointKdTree<Real, N> ModelTree;
+		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
-		SceneTree sceneTree;
+		SceneTree sceneTree(false, scenePointPolicy);
 		sceneTree.insert(scene.begin(), scene.end());
 
-		ModelTree modelTree;
+		ModelTree modelTree(false, modelPointPolicy);
 		modelTree.insert(model.begin(), model.end());
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 
 		return Pastel::pointPatternMatch(
-			sceneTree, modelTree, minMatchRatio,  relativeMatchingDistance,
-			similarityResult);
+			sceneTree, modelTree, 
+			minMatchRatio, relativeMatchingDistance,
+			confidence, similarityResult);
+	}
+
+	template <typename Real, int N, typename SceneIterator, typename ModelIterator>
+	bool pointPatternMatch(
+		const ForwardRange<SceneIterator>& scene,
+		const ForwardRange<ModelIterator>& model,
+		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
+		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& confidence,
+		ConformalAffine2D<Real, N>& similarityResult)
+	{
+		return Pastel::pointPatternMatch(
+			scene, model,
+			minMatchRatio, relativeMatchingDistance,
+			confidence,
+			similarityResult,
+			Vector_PointPolicy<Real, N>(),
+			Vector_PointPolicy<Real, N>());
 	}
 
 }

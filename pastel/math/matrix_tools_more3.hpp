@@ -174,6 +174,31 @@ namespace Pastel
 		return result;
 	}
 
+	namespace Detail_Norm2
+	{
+
+		template <typename Real, typename NormBijection>
+		class AddAxis
+		{
+		public:
+			explicit AddAxis(
+				const NormBijection& normBijection)
+				: normBijection_(normBijection)
+			{
+			}
+
+			Real operator()(const Real& left, const Real& right) const
+			{
+				return normBijection_.addAxis(left, 
+					normBijection_.signedAxis(right))
+			}
+
+		private:
+			const NormBijection& normBijection_;
+		};
+
+	}
+
 	template <typename Real, int Height, int Width, 
 		typename Expression, typename NormBijection>
 	Real norm2(const MatrixExpression<Real, Height, Width, Expression>& matrix,
@@ -181,11 +206,16 @@ namespace Pastel
 	{
 		return std::accumulate(
 			matrix.begin(), matrix.end(), (Real)0,
+			Detail_Norm2::AddAxis<Real, NormBijection>(normBijection));
+		/*
+		return std::accumulate(
+			matrix.begin(), matrix.end(), (Real)0,
 			[](const Real& left, const Real& right) 
 		{
 			return normBijection.addAxis(left, 
 				normBijection.signedAxis(right))
 		});
+		*/
 	}
 
 	template <typename Real, int Height, int Width, typename Expression>
