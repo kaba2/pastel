@@ -102,45 +102,11 @@ namespace Pastel
 	Real ccwAngle(
 		const Vector<Real, 2>& to);
 
-	//! Measures the counter-clockwise angle from the x-axis.
-	/*!
-	Preconditions:
-	normTo == norm(to)
-
-	Returns:
-	The angle in radians in [0, 2 pi[.
-
-	If the norm of the vector is known in advance,
-	then this version of the 'ccwAngle' function performs 
-	faster by avoiding the norm computation.
-	*/
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& to,
-		const PASTEL_NO_DEDUCTION(Real)& normTo);
-
 	//! Measures the counter-clockwise angle between two vectors.
 	template <typename Real>
 	Real ccwAngle(
 		const Vector<Real, 2>& from,
 		const Vector<Real, 2>& to);
-
-	//! Measures the counter-clockwise angle between two vectors.
-	/*!
-	Preconditions:
-	fromNorm == norm(from)
-	toNorm == norm(to)
-
-	If the norms of both vectors are known in advance,
-	then this version of the 'ccwAngle' function performs 
-	faster by avoiding the norm computations.
-	*/
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& from,
-		const Vector<Real, 2>& to,
-		const PASTEL_NO_DEDUCTION(Real)& fromNorm,
-		const PASTEL_NO_DEDUCTION(Real)& toNorm);
 
 	//! Returns the absolute error of a measured value to a correct value.
 	template <typename Real>

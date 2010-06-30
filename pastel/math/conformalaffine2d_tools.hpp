@@ -241,9 +241,7 @@ namespace Pastel
 
 		// Find out the rotation angle.
 
-		const Real ccwRotation = ccwAngle(
-			fromDelta, toDelta,
-			fromNorm, toNorm);
+		const Real ccwRotation = ccwAngle(fromDelta, toDelta);
 
 		// Find out the translation.
 		// t = f(a) - sQa = a' - sQa

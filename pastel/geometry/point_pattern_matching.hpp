@@ -563,10 +563,10 @@ namespace Pastel
 		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
-		SceneTree sceneTree(false, scenePointPolicy);
+		SceneTree sceneTree(ofDimension(2), false, scenePointPolicy);
 		sceneTree.insert(scene.begin(), scene.end());
 
-		ModelTree modelTree(false, modelPointPolicy);
+		ModelTree modelTree(ofDimension(2), false, modelPointPolicy);
 		modelTree.insert(model.begin(), model.end());
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());

@@ -17,11 +17,15 @@
 #   define PASTEL_ENABLE_OMP 0
 #endif
 
+// Force some values in debug mode.
+
 #ifdef _DEBUG
 #	undef PASTEL_DEBUG_MODE
 #	define PASTEL_DEBUG_MODE 1
 #	undef PASTEL_ENABLE_PENSURES
 #	define PASTEL_ENABLE_PENSURES 1
+#	undef PASTEL_ENABLE_OMP
+#	define PASTEL_ENABLE_OMP 0
 #endif
 
 // Output value determination

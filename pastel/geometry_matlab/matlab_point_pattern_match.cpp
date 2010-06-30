@@ -26,7 +26,7 @@ namespace
 		const real* modelData = mxGetPr(inputSet[modelIndex]);
 		const integer modelPoints = mxGetN(inputSet[modelIndex]);
 		const real* sceneData = mxGetPr(inputSet[sceneIndex]);
-		const integer scenePoints = mxGetN(inputSet[modelIndex]);
+		const integer scenePoints = mxGetN(inputSet[sceneIndex]);
 		const real minMatchRatio = getReal(inputSet[minMatchRatioIndex]);
 		const real relativeMatchingDistance = 
 			getReal(inputSet[relativeMatchingDistanceIndex]);

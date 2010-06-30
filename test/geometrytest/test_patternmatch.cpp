@@ -3,6 +3,7 @@
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/point_pattern_matching.h"
 #include "pastel/geometry/bounding_alignedbox.h"
+#include "pastel/geometry/array_pointpolicy.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/draw.h"
@@ -305,8 +306,141 @@ namespace
 		render(modelSet, sceneSet, correctSet, matchedTransform, "patternmatch_" + name + ".pcx");
 	}
 
+	void testPekka()
+	{
+		const real M[] = 
+		{
+			184,   124,
+			236,   127,
+			145,   132,
+			201,   144,
+			197,   146,
+			309,   149,
+			126,   150,
+			240,   150,
+			165,   152,
+			319,   152,
+			322,   159,
+			142,   161,
+			196,   161,
+			302,   161,
+			144,   169,
+			328,   177,
+			304,   178,
+			313,   194,
+			382,   194,
+			158,   199,
+			175,   202,
+			192,   204,
+			380,   208,
+			402,   210,
+			375,   218,
+			254,   223,
+			203,   225,
+			183,   226,
+			193,   227,
+			404,   229,
+			236,   237,
+			403,   244,
+			249,   248,
+			360,   259,
+			412,   270,
+			430,   275,
+			311,   277,
+			335,   278,
+			387,   281,
+			347,   282,
+			405,   283,
+			327,   284,
+			385,   289,
+			394,   290,
+			357,   295,
+			364,   297,
+			208,   569,
+			178,   585
+		};
+
+		const real S[] = 
+		{
+			183,   124,
+			200,   145,
+			126,   152,
+			163,   155,
+			142,   160,
+			183,   162,
+			176,   163,
+			230,   163,
+			142,   170,
+			304,   172,
+			370,   174,
+			302,   178,
+			283,   181,
+			383,   191,
+			315,   196,
+			158,   198,
+			365,   201,
+			175,   203,
+			192,   203,
+			376,   209,
+			382,   210,
+			401,   210,
+			203,   225,
+			192,   226,
+			393,   226,
+			267,   228,
+			404,   230,
+			399,   234,
+			409,   240,
+			248,   248,
+			288,   250,
+			374,   255,
+			282,   263,
+			326,   269,
+			280,   271,
+			311,   274,
+			409,   274,
+			430,   275,
+			385,   281,
+			327,   283,
+			346,   283,
+			412,   283,
+			404,   284,
+			334,   285,
+			385,   290,
+			 99,   364,
+			 88,   411,
+			193,   445,
+			223,   497,
+			207,   568,
+			238,   569,
+			380,   611,
+			444,   611,
+			290,   629,
+			388,   633,
+			479,   633,
+			499,   646,
+			289,   668,
+			441,   674,
+			473,   675
+		};
+
+		const integer sPoints = (sizeof(S) / sizeof(real)) / 2;
+		const integer mPoints = (sizeof(M) / sizeof(real)) / 2;
+
+		ConformalAffine2 similarity;
+		const bool success = pointPatternMatch(
+			forwardRange(sparseIterator(countingIterator(&M[0]), 2), mPoints),
+			forwardRange(sparseIterator(countingIterator(&S[0]), 2), sPoints),
+			0.6, 0.03, 0.95, similarity,
+			Array_PointPolicy<real>(),
+			Array_PointPolicy<real>());
+
+		log() << "Success." << logNewLine;
+	}
+
 	void testBegin()
 	{
+		testPekka();
 		testBoxPatternMatch(100, 0, "box_edge");
 		testBoxPatternMatch(0, 100, "box_uniform");
 		testPatternMatch();
