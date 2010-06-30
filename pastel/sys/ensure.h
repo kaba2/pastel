@@ -7,6 +7,47 @@
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"
 
+#include <string>
+
+namespace Pastel
+{
+
+	class InvariantFailed
+	{
+	public:
+		InvariantFailed(
+			const std::string& fileName,
+			integer lineNumber,
+			const std::string& message)
+			: fileName_(fileName)
+			, lineNumber_(lineNumber)
+			, message_(message)
+		{
+		}
+
+		const std::string& fileName() const
+		{
+			return fileName_;
+		}
+
+		integer lineNumber() const
+		{
+			return lineNumber_;
+		}
+
+		const std::string& message() const
+		{
+			return message_;
+		}
+		
+	private:
+		std::string fileName_;
+		integer lineNumber_;
+		std::string message_;
+	};
+
+}
+
 // Reports
 
 #define REPORT(expr)\

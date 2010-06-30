@@ -4,6 +4,7 @@
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/stdext_isnan.h"
 
 #include <cmath>
 
@@ -192,64 +193,28 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& to)
+	Real ccwAngle(const Vector<Real, 2>& to)
 	{
-		return ccwAngle(to, norm(to));
-	}
-
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& to,
-		const PASTEL_NO_DEDUCTION(Real)& normTo)
-	{
-		const Real angle = std::acos(to[0] / normTo);
-		if (to[1] < 0)
-		{
-			return 2 * constantPi<Real>() - angle;
-		}
-
-		return angle;
-	}
-
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& from,
-		const Vector<Real, 2>& to)
-	{
-		return ccwAngle(from, to, norm(from), norm(to));
-	}
-
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& from,
-		const Vector<Real, 2>& to,
-		const PASTEL_NO_DEDUCTION(Real)& fromNorm,
-		const PASTEL_NO_DEDUCTION(Real)& toNorm)
-	{
-		PENSURE_OP(fromNorm, >=, 0);
-		PENSURE_OP(toNorm, >=, 0);
-
-		const Real normProduct = fromNorm * toNorm;
-
-		// EPSILON
-		if (normProduct == 0)
+		if (allEqual(to, 0))
 		{
 			return 0;
 		}
 
-		const Vector<Real, 2> normalFrom(
-			cross(from));
+		return positiveRadians<Real>(std::atan2(to.y(), to.x()));
+	}
 
-		const Real angle = std::acos(
-			dot(from, to) / normProduct);
-
-		if (dot(normalFrom, to) < 0)
+	template <typename Real>
+	Real ccwAngle(
+		const Vector<Real, 2>& from,
+		const Vector<Real, 2>& to)
+	{
+		const Real deltaAngle = Pastel::ccwAngle(to) - Pastel::ccwAngle(from);
+		if (deltaAngle >= 0)
 		{
-			return 2 * constantPi<Real>() - angle;
+			return deltaAngle;
 		}
 
-		return angle;
+		return deltaAngle + 2 * constantPi<Real>();
 	}
 
 	template <typename Real>

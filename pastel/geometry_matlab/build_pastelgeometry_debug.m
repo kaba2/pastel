@@ -1,4 +1,3 @@
-% Description: TIM Matlab mex debug building
-% Documentation: tim_matlab_matlab.txt
+% Description: PastelGeometryMatlab mex debug building
 
 mex @build_options_debug.txt

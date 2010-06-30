@@ -32,11 +32,13 @@ namespace Pastel
 
 			if (aMin > bMax)
 			{
-				result = normBijection.addAxis(result, aMin - bMax);
+				result = normBijection.addAxis(result, 
+					normBijection.axis(aMin - bMax));
 			}
 			else if (bMin > aMax)
 			{
-				result = normBijection.addAxis(result, bMin - aMax);
+				result = normBijection.addAxis(result, 
+					normBijection.axis(bMin - aMax));
 			}
 			// else the projection intervals overlap.
 		}

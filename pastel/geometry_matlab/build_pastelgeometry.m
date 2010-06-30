@@ -1,4 +1,3 @@
-% Description: TIM Matlab mex building
-% Documentation: tim_matlab_matlab.txt
+% Description: PastelGeometryMatlab mex building
 
 mex @build_options.txt

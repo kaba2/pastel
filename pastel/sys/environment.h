@@ -12,6 +12,7 @@
 #define PASTEL_ENABLE_PENSURES 0
 
 // PASTEL_ENABLE_OMP != 0 => #include <omp.h> will be added where needed.
+// If _DEBUG is defined, PASTEL_ENABLE_OMP is forced to 0.
 #define PASTEL_ENABLE_OMP 1
 
 #include "pastel/sys/environment.hpp"

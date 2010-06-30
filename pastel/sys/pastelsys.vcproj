@@ -1587,6 +1587,10 @@
 			Name="Documentation"
 			>
 			<File
+				RelativePath=".\bug_fights.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\external.txt"
 				>
 			</File>

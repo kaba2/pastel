@@ -81,10 +81,20 @@ void mexFunction(
 		// Find out its function pointer.
 		MatlabFunction* function = iter->second;
 
-		// Call that function, but omit the
-		// first name parameter.
-		(*function)(
-			outputs, outputSet,
-			inputs - 1, inputSet + 1);
+		try
+		{
+			// Call that function, but omit the
+			// first name parameter.
+			(*function)(
+				outputs, outputSet,
+				inputs - 1, inputSet + 1);
+		}
+		catch(const InvariantFailed& invariant)
+		{
+			printf("Invariant failed.\nFile: %s\nLine: %d\nMessage: %s\n", 
+				invariant.fileName().c_str(),
+				invariant.lineNumber(),
+				invariant.message().c_str());
+		};
 	}
 }

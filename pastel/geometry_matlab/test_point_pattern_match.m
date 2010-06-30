@@ -12,7 +12,7 @@ minMatchRatio = 0.9;
 % The matching distance is given relative to the
 % expected distance to the nearest neighbor, under
 % the assumption of uniform distribution in a sphere.
-relativeMatchingDistance = 0.1;
+relativeMatchingDistance = 0.01;
 
 % This should correspond roughly to the probability that
 % if the algorithm finds no match, then there really is no
@@ -21,7 +21,7 @@ confidence = 0.95;
 
 % The amplitude of the gaussian noise to apply to the model
 % points in the scene.
-noiseAmount = 0.1;
+noiseAmount = 0;
 
 % Generate a random set of model points.
 % m     | time for non-match with confidence 0.95
