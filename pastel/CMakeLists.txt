@@ -10,7 +10,7 @@ add_subdirectory(dsp)
 add_subdirectory(gfx)
 add_subdirectory(gfxui)
 add_subdirectory(gl)
-#add_subdirectory(geometry_matlab)
+add_subdirectory(geometry_matlab)
 add_subdirectory(ray)
 add_subdirectory(device)
 
