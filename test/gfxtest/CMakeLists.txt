@@ -3,7 +3,6 @@
 cmake_minimum_required(VERSION 2.8)
 
 set(PastelGfxTest_Files
-log.txt
 pastelgfxtest.cpp
 pastelgfxtest.h
 pastelgfxtest.txt

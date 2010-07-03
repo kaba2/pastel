@@ -4,7 +4,6 @@ cmake_minimum_required(VERSION 2.8)
 
 set(PastelSysTest_Files
 CMakeLists.txt
-mex_problem.txt
 pastelsystest.cpp
 pastelsystest.h
 pastelsystest.txt
