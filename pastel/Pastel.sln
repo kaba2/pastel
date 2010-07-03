@@ -1,43 +1,99 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelsys", "sys\pastelsys.vcxproj", "{75A8AB3F-51F7-4732-90E9-1266434FE08C}"
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelSys", "sys\pastelsys.vcproj", "{75A8AB3F-51F7-4732-90E9-1266434FE08C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelmath", "math\pastelmath.vcxproj", "{D866F479-947D-4A26-B3BC-9E75F78F828A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelMath", "math\pastelmath.vcproj", "{D866F479-947D-4A26-B3BC-9E75F78F828A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgeometry", "geometry\pastelgeometry.vcxproj", "{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGeometry", "geometry\pastelgeometry.vcproj", "{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelsystest", "..\test\systest\pastelsystest.vcxproj", "{8B6AB5CB-C685-4D48-A013-5BF90619C0CC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelSysTest", "..\test\systest\pastelsystest.vcproj", "{8B6AB5CB-C685-4D48-A013-5BF90619C0CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgfx", "gfx\pastelgfx.vcxproj", "{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfx", "gfx\pastelgfx.vcproj", "{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
+		{785939E7-58E3-4E5D-9215-1BA393315CDB} = {785939E7-58E3-4E5D-9215-1BA393315CDB}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pasteldevice", "device\pasteldevice.vcxproj", "{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDevice", "device\pasteldevice.vcproj", "{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgeometrytest", "..\test\geometrytest\pastelgeometrytest.vcxproj", "{8EC8462F-B7A2-42A3-A0A3-16A812B55548}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGeometryTest", "..\test\geometrytest\pastelgeometrytest.vcproj", "{8EC8462F-B7A2-42A3-A0A3-16A812B55548}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelmathtest", "..\test\mathtest\pastelmathtest.vcxproj", "{DA2BF3E7-22C9-4850-AD55-B9E860441710}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelMathTest", "..\test\mathtest\pastelmathtest.vcproj", "{DA2BF3E7-22C9-4850-AD55-B9E860441710}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgfxtest", "..\test\gfxtest\pastelgfxtest.vcxproj", "{987B3F80-4945-4FCA-A60B-56D19FDE4624}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxTest", "..\test\gfxtest\pastelgfxtest.vcproj", "{987B3F80-4945-4FCA-A60B-56D19FDE4624}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D} = {9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgl", "gl\pastelgl.vcxproj", "{B4DA9D81-D551-43C4-9EDF-2AE58A678DE3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGl", "gl\pastelgl.vcproj", "{B4DA9D81-D551-43C4-9EDF-2AE58A678DE3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D} = {9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+		{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5} = {3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}
+		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvexHull", "..\example\ConvexHull\ConvexHull.vcxproj", "{88A6D6DC-8307-4B52-AD67-4D9F45A105A8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConvexHull", "..\example\ConvexHull\ConvexHull.vcproj", "{88A6D6DC-8307-4B52-AD67-4D9F45A105A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D} = {9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NearestNeighbour", "..\example\NearestNeighbour\NearestNeighbour.vcxproj", "{948301BD-4972-4D34-8C86-743304464F00}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NearestNeighbour", "..\example\NearestNeighbour\NearestNeighbour.vcproj", "{948301BD-4972-4D34-8C86-743304464F00}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LeastSquares", "..\example\LeastSquares\LeastSquares.vcxproj", "{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LeastSquares", "..\example\LeastSquares\LeastSquares.vcproj", "{8A3ACE1A-1F96-411E-8F66-FDF3B6CF00F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDsp", "dsp\PastelDsp.vcxproj", "{785939E7-58E3-4E5D-9215-1BA393315CDB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDsp", "dsp\PastelDsp.vcproj", "{785939E7-58E3-4E5D-9215-1BA393315CDB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+		{D866F479-947D-4A26-B3BC-9E75F78F828A} = {D866F479-947D-4A26-B3BC-9E75F78F828A}
+		{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77} = {0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pasteldevicetest", "..\test\devicetest\pasteldevicetest.vcxproj", "{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDeviceTest", "..\test\devicetest\pasteldevicetest.vcproj", "{A9BA79C1-4E23-4567-BB46-F80133D4DFF1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelray", "ray\pastelray.vcxproj", "{F8F3A26A-3267-4F88-9614-4F32B6859C32}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelRay", "ray\pastelray.vcproj", "{F8F3A26A-3267-4F88-9614-4F32B6859C32}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelraytest", "..\test\raytest\pastelraytest.vcxproj", "{55AD7A34-33A4-497C-9232-600640C1F73B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelRayTest", "..\test\raytest\pastelraytest.vcproj", "{55AD7A34-33A4-497C-9232-600640C1F73B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxUi", "gfxui\PastelGfxUi.vcxproj", "{0B447ABF-385F-475F-BF5F-88E4EE20BB98}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxUi", "gfxui\PastelGfxUi.vcproj", "{0B447ABF-385F-475F-BF5F-88E4EE20BB98}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastelgeometry_matlab", "geometry_matlab\pastelgeometry_matlab.vcxproj", "{25047750-4011-428C-BEB6-8082475E040E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGeometryMatlab", "geometry_matlab\PastelGeometryMatlab.vcproj", "{810B18AB-2DA0-435D-8642-9391A29F1F2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,14 +247,14 @@ Global
 		{0B447ABF-385F-475F-BF5F-88E4EE20BB98}.Static Debug|Win32.Build.0 = Static Debug|Win32
 		{0B447ABF-385F-475F-BF5F-88E4EE20BB98}.Static Release|Win32.ActiveCfg = Static Release|Win32
 		{0B447ABF-385F-475F-BF5F-88E4EE20BB98}.Static Release|Win32.Build.0 = Static Release|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Debug|Win32.Build.0 = Debug|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Release|Win32.ActiveCfg = Release|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Release|Win32.Build.0 = Release|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Static Debug|Win32.ActiveCfg = Debug|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Static Debug|Win32.Build.0 = Debug|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Static Release|Win32.ActiveCfg = Static Release|Win32
-		{25047750-4011-428C-BEB6-8082475E040E}.Static Release|Win32.Build.0 = Static Release|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Debug|Win32.Build.0 = Debug|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Release|Win32.ActiveCfg = Release|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Release|Win32.Build.0 = Release|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Debug|Win32.ActiveCfg = Static Debug|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Debug|Win32.Build.0 = Static Debug|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Release|Win32.ActiveCfg = Static Release|Win32
+		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Release|Win32.Build.0 = Static Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
