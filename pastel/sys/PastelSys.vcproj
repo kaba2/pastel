@@ -1799,6 +1799,30 @@
 			Name="Build switches"
 			>
 			<File
+				RelativePath="..\..\test\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\example\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\cpp0x.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\environment.h"
 				>
 			</File>
