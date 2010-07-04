@@ -500,6 +500,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CMakeLists.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\differential_geometry.cpp"
 			>
 		</File>

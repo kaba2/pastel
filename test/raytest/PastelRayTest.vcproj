@@ -353,6 +353,10 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\CMakeLists.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\pastelraytest.cpp"
 			>
 		</File>

@@ -359,7 +359,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\log.txt"
+			RelativePath=".\CMakeLists.txt"
 			>
 		</File>
 		<File

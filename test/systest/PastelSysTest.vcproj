@@ -359,7 +359,7 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\mex_problem.txt"
+			RelativePath=".\CMakeLists.txt"
 			>
 		</File>
 		<File

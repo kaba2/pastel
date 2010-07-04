@@ -5,16 +5,43 @@ cmake_minimum_required(VERSION 2.8)
 
 project(PastelAll)
 
-#set(CMAKE_BUILD_TYPE Debug)
-#set(EXECUTABLE_OUTPUT_PATH
-#${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
-#set(LIBRARY_OUTPUT_PATH
-#${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE})
+# These directories you must set in any case,
+# since there are no Find modules for them:
 
-include_directories("E:/Ohjelmointi/external/boost_1_41_0")
-include_directories("E:/Ohjelmointi/external/rply-1.01")
-include_directories("E:/Ohjelmointi/external/SDL-1.2.13/include")
-include_directories("E:/Ohjelmointi/external/glew/include")
+set(MANUAL_GLEW_INCLUDE_DIR "E:/Ohjelmointi/external/glew/include")
+
+# These directories need to be set only in case
+# automatic deduction fails.
+
+set(MANUAL_SDL_INCLUDE_DIR "E:/Ohjelmointi/external/sdl-1.2.13/include")
+set(MANUAL_BOOST_INCLUDE_DIR "E:/Ohjelmointi/external/boost_1_43_0")
+
+find_package(SDL 1.2 REQUIRED)
+if(SDL_FOUND)
+	message("SDL found.")
+else()
+	message("SDL not found.")
+endif()
+
+find_package(Boost 1.43 REQUIRED)
+if(Boost_FOUND)
+	message("Boost found.")
+else()
+	message("Boost not found.")
+	set(Boost_INCLUDE_DIRS ${MANUAL_BOOST_INCLUDE_DIR})
+endif()
+
+if(SDL_INCLUDE_DIR MATCHES SDL_INCLUDE_DIR-NOTFOUND)
+	# The FindSDL module may say it found SDL,
+	# but still not fill the SDL_INCLUDE_DIR.
+	set(SDL_INCLUDE_DIR ${MANUAL_SDL_INCLUDE_DIR})
+endif()
+
+set(GLEW_INCLUDE_DIR ${MANUAL_GLEW_INCLUDE_DIR})
+
+include_directories(${SDL_INCLUDE_DIR}) 
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${GLEW_INCLUDE_DIR})
 
 link_directories("E:/Ohjelmointi/externallib")
 

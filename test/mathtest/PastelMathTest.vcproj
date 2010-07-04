@@ -359,6 +359,10 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\CMakeLists.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\mathinstantiate.cpp"
 			>
 		</File>

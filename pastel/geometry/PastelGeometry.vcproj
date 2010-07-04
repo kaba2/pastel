@@ -2007,6 +2007,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\CMakeLists.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
