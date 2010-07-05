@@ -1587,7 +1587,11 @@
 			Name="Documentation"
 			>
 			<File
-				RelativePath=".\bug_fights.txt"
+				RelativePath="..\..\bug_fights.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\cmake_experiences.txt"
 				>
 			</File>
 			<File
@@ -1799,14 +1803,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\test\CMakeLists.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
@@ -1816,6 +1812,14 @@
 			</File>
 			<File
 				RelativePath="..\..\example\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
 			<File
