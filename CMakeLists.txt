@@ -8,13 +8,17 @@ project(PastelAll)
 # These directories you must set in any case,
 # since there are no Find modules for them:
 
-set(MANUAL_GLEW_INCLUDE_DIR "E:/Ohjelmointi/external/glew/include")
+set(EXTERNAL_DIR "E:/Ohjelmointi/external")
+
+set(MANUAL_GLEW_INCLUDE_DIR ${EXTERNAL_DIR}/glew/include)
 
 # These directories need to be set only in case
 # automatic deduction fails.
 
-set(MANUAL_SDL_INCLUDE_DIR "E:/Ohjelmointi/external/sdl-1.2.13/include")
-set(MANUAL_BOOST_INCLUDE_DIR "E:/Ohjelmointi/external/boost_1_43_0")
+set(MANUAL_SDL_INCLUDE_DIR ${EXTERNAL_DIR}/sdl-1.2.13/include)
+set(MANUAL_BOOST_INCLUDE_DIR ${EXTERNAL_DIR}/boost_1_43_0)
+
+set(BOOST_INCLUDEDIR ${MANUAL_BOOST_INCLUDE_DIR})
 
 find_package(SDL 1.2 REQUIRED)
 if(SDL_FOUND)

@@ -487,7 +487,7 @@ randomaccessrange.h
 source_group(
 "Documentation"
 FILES
-bug_fights.txt
+../../bug_fights.txt
 ../../external.txt
 ../../installation.txt
 ../../internal.txt
@@ -634,7 +634,7 @@ binaryfile.txt
 bitquery.h
 bitquery.hpp
 borderedconstview.h
-bug_fights.txt
+../../bug_fights.txt
 callfunction.h
 callfunction.hpp
 clampedconstview.h
