@@ -15,7 +15,7 @@ set(MANUAL_GLEW_INCLUDE_DIR ${EXTERNAL_DIR}/glew/include)
 # These directories need to be set only in case
 # automatic deduction fails.
 
-set(MANUAL_SDL_INCLUDE_DIR ${EXTERNAL_DIR}/sdl-1.2.13/include)
+set(MANUAL_SDL_INCLUDE_DIR ${EXTERNAL_DIR}/SDL-1.2.13/include)
 set(MANUAL_BOOST_INCLUDE_DIR ${EXTERNAL_DIR}/boost_1_43_0)
 
 set(BOOST_INCLUDEDIR ${MANUAL_BOOST_INCLUDE_DIR})
@@ -47,7 +47,7 @@ include_directories(${SDL_INCLUDE_DIR})
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${GLEW_INCLUDE_DIR})
 
-link_directories("E:/Ohjelmointi/externallib")
+link_directories(${EXTERNAL_DIR}/lib)
 
 # Visual Studio specific stuff
 # ----------------------------
