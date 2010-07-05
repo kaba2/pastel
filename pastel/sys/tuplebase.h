@@ -374,7 +374,7 @@ namespace Pastel
 				N = Dynamic
 			};
 		public:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class TupleBase;
 
 			typedef Type value_type;

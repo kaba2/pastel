@@ -47,7 +47,7 @@ namespace Pastel
 		const Iterator& begin,
 		const Iterator& end)
 	{
-		return CommaFiller<Type>(begin, end);
+		return CommaFiller<Type, Iterator>(begin, end);
 	}
 
 	template <typename Type, typename Iterator>
