@@ -19,7 +19,7 @@ namespace Pastel
 		typedef ForwardRange<Iterator> Base;
 
 	public:
-		using Base::reference;
+		using typename Base::reference;
 
 		typedef std::reverse_iterator<Iterator> reverse_iterator;
 

@@ -18,8 +18,8 @@ namespace Pastel
 		typedef BidirectionalRange<Iterator> Base;
 
 	public:
-		using Base::reference;
-		using Base::size_type;
+		using typename Base::reference;
+		using typename Base::size_type;
 		
 		RandomAccessRange()
 			: Base()
