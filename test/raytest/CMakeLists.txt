@@ -10,7 +10,7 @@ test_shape.cpp
 test_thing.cpp
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 add_executable(PastelRayTest ${PastelRayTest_Files})
 target_link_libraries(PastelRayTest 

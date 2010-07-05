@@ -28,6 +28,6 @@ pastelgl.txt
 rendering.txt
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 add_library(PastelGl ${PastelGl_Files})
