@@ -33,7 +33,7 @@ test_unordered_set.cpp
 test_view.cpp
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 
 add_executable(PastelSysTest ${PastelSysTest_Files})

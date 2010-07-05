@@ -7,7 +7,7 @@ leastsquares.cpp
 leastsquaresmain.cpp
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 add_executable(LeastSquares ${LeastSquares_Files})
 target_link_libraries(LeastSquares 

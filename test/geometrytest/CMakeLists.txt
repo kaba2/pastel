@@ -26,7 +26,7 @@ test_simplehalfmesh.cpp
 test_transformation.cpp
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 add_executable(PastelGeometryTest ${PastelGeometryTest_Files})
 target_link_libraries(PastelGeometryTest 

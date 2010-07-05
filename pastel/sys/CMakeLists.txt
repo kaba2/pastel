@@ -922,5 +922,5 @@ weakptr.hpp
 why_no_points.txt
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 add_library(PastelSys ${PastelSys_Files})

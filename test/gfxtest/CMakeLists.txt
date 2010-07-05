@@ -30,7 +30,7 @@ test_texture.cpp
 test_texture_examples.cpp
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 add_executable(PastelGfxTest ${PastelGfxTest_Files})
 target_link_libraries(PastelGfxTest 

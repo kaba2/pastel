@@ -536,6 +536,6 @@ transparentcolormixer.h
 turbulence_texture.h
 )
 
-include_directories(${Pastel_Source_Dir})
+include_directories(${Pastel_SOURCE_DIR})
 link_directories(${Pastel_Binary_Dir}/lib)
 add_library(PastelGfx ${PastelGfx_Files})
