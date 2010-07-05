@@ -1,0 +1,29 @@
+Bug fights
+==========
+
+[[Parent]]: pastel.txt
+
+This page documents experiences with fighting some non-obvious bugs.
+The hope is that the next time such a bug happens, it is already documented
+here.
+
+Invalid MEX-file 'somefile.mexw32': The specified module could not be found.
+----------------------------------------------------------------------------
+
+### Description
+
+I was trying to call a mex file from Matlab, but was stumped on the
+given error message. However, I had just built the mex file, so the file
+certainly was there.
+
+### Cause
+
+I had enabled OpenMp, but had not included 'omp.h'.
+
+### Solution
+
+I included 'omp.h' to proper places. I guess why this helps is that it 
+also causes the OpenMp library to be linked in.
+
+
+
