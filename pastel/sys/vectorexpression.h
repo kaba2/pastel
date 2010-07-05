@@ -5,9 +5,13 @@
 #define PASTEL_VECTOREXPRESSION_H
 
 #include "pastel/sys/vectorbase.h"
+#include "pastel/sys/memory_overlaps.h"
 
 namespace Pastel
 {
+
+	template <typename Real, int N>
+	class Vector;
 
 	template <
 		typename Real,

@@ -34,7 +34,7 @@ namespace Pastel
 			>
 		{
 		private:
-			template <typename Real, int N>
+			template <typename, int>
 			friend class VectorBase;
 
 		public:

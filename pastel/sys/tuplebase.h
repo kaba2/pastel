@@ -111,7 +111,7 @@ namespace Pastel
 			: boost::equality_comparable<Tuple<Type, N> >
 		{
 		public:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class TupleBase;
 
 			typedef Type value_type;
