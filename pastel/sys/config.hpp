@@ -59,7 +59,7 @@ namespace Pastel
 	template <typename Type>
 	const Type& Config::property(const ConstIterator& iter) const
 	{
-		return property(iter->first);
+		return property<Type>(iter->first);
 	}
 
 	template <typename Type>
