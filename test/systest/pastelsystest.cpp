@@ -12,8 +12,6 @@ using namespace Pastel;
 
 int main()
 {
-
-
 	log().addObserver(streamLogObserver(&cout));
 	log().addObserver(fileLogObserver("log.txt"));
 
