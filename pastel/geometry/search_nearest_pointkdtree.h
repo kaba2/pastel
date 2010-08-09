@@ -26,6 +26,8 @@ namespace Pastel
 
 	searchPoint:
 	The point for which to search a neighbor for.
+	This can be either a Vector<Real, N>, or
+	a ConstObjectIterator of 'kdTree'.
 	
 	kNearest:
 	The number of nearest neighbors to search.
@@ -53,7 +55,7 @@ namespace Pastel
 	as a neighbor or not. Default construct Always_AcceptPoint class
 	to accept all candidates. Default construct Dont_AcceptPoint
 	to reject a specific ConstObjectIterator of the 'kdTree'. 
-	Default construct ObjectDont_AcceptPoint to reject a specific 
+	Construct ObjectDont_AcceptPoint to reject a specific 
 	Object of the 'kdTree'.
 
 	normBijection:
