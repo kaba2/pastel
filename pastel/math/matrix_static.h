@@ -25,8 +25,8 @@ namespace Pastel
 
 			typedef Real* Iterator;
 			typedef const Real* ConstIterator;
-			typedef VectorView<Real, Width> Row;
-			typedef ConstVectorView<Real, Width> ConstRow;
+			typedef Array_VectorExpression<Real, Width> Row;
+			typedef ConstArray_VectorExpression<Real, Width> ConstRow;
 			typedef Iterator RowIterator;
 			typedef ConstIterator ConstRowIterator;
 			typedef SparseIterator<Real*> ColumnIterator;

@@ -3,9 +3,15 @@ PointPolicy concept
 
 [[Parent]]: pointsets.txt
 
-The PointPolicy concept allows to abstract the representation of 
-points by providing a way to access the coordinates of a point
-from a given data type. This policy is defined as follows:
+The PointPolicy concept aims to abstract all the different data structures
+for representing points in ''RR^n''. A point data structure is quite simple
+and therefore gets implemented over and over again in different libraries.
+It would be nice to design algorithms so that they assume no particular
+data structure (such as Pastel's Vector) for storing points. If this
+does not hold, then one has the nuisance of needing to convert between the
+point data structures before calling an algorithm. This "redundant" 
+conversion also causes performance issues. However, only rarely does this
+have effect on the asymptotic complexity.
 
 Definition
 ----------
@@ -14,9 +20,19 @@ Definition
 	class PointPolicy_Concept
 	{
 	public:
-		// Defines the type of the coordinates.
+		//! Defines the compile-time dimension.
+		/*!
+		If the dimension 'd' is a compile-time
+		constant, N == d. Otherwise, N == Dynamic,
+		and 'd' can be obtained for each point at run-time 
+		from the dimension() function.
+		*/
+		enum {N = UserDefinedInteger};
+		
+		//! Defines the type of the coordinates.
 		typedef UserDefinedType Coordinate;
-		// Defines the type of stored object.
+		
+		//! Defines the type of a point.
 		typedef UserDefinedType Object;
 
 		//! Returns a pointer to a coordinate array for the point.
@@ -24,4 +40,7 @@ Definition
 
 		//! Returns a coordinate of the given point on the given axis.
 		Coordinate point(const Object& object, integer axis) const;
+		
+		//! Returns the dimensionality of a given point.
+		integer dimension(const Object& object) const;
 	};

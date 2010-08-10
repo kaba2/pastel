@@ -417,7 +417,11 @@ namespace Pastel
 					// of the current matching sets.
 
 					lsSimilarity =
-						lsConformalAffine(modelGlobalMatch, sceneGlobalMatch);
+						lsConformalAffine(
+						forwardRange(modelGlobalMatch.begin(), modelGlobalMatch.end()),
+						forwardRange(sceneGlobalMatch.begin(), sceneGlobalMatch.end()),
+						Vector_PointPolicy<Real, N>(),
+						Vector_PointPolicy<Real, N>());
 
 					// Now see which of the mapped model points have
 					// t-neighbours in the scene set.

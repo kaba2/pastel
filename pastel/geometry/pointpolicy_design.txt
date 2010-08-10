@@ -1,0 +1,72 @@
+PointPolicy concept design considerations
+=========================================
+
+[[Parent]]: pointpolicy.txt
+
+Here we discuss the design considerations of the PointPolicy concept.
+
+Abstraction
+-----------
+
+What we are attempting to abstract is
+
+ * the retrieval of the dimension of a point, and
+ 
+ * the retrieval of the elements of a point.
+
+Use-cases
+---------
+
+We want to support at least the following use-cases:
+
+ * Store a sequence of points of the same dimensionality, 
+ without needing to store the dimension with each point.
+ The dimension can be retrieved for each point (although
+ it is always the same).
+ 
+ * Store a sequence of points of various dimensionality.
+ The dimension can be retrieved for each point (perhaps
+ by the storing the dimension with the point).
+ 
+Types
+-----
+
+We want to use a pointer to real numbers as a representation
+for a point. Thus one can't assume that the point-type is a class.
+
+Solution candidates
+-------------------
+
+### Access object
+
+Create a concept for extracting the required information from an
+abstract point object. 
+
+	class PointPolicy_Concept
+	{
+	public:
+		//! Defines the compile-time dimension.
+		/*!
+		If the dimension 'd' is a compile-time
+		constant, N == d. Otherwise, N == Dynamic,
+		and 'd' can be obtained for each point at run-time 
+		from the dimension() function.
+		*/
+		enum {N = UserDefinedInteger};
+		
+		//! Defines the type of the coordinates.
+		typedef UserDefinedType Coordinate;
+		
+		//! Defines the type of a point.
+		typedef UserDefinedType Object;
+
+		//! Returns a pointer to a coordinate array for the point.
+		const Coordinate* point(const Object& object) const;
+
+		//! Returns a coordinate of the given point on the given axis.
+		Coordinate point(const Object& object, integer axis) const;
+		
+		//! Returns the dimensionality of a given point.
+		integer dimension(const Object& object) const;
+	};
+

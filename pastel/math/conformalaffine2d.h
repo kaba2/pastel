@@ -10,7 +10,12 @@
 namespace Pastel
 {
 
-	//! A conformal affine transformation.
+	//! A conformal affine transformation in 2D.
+	/*!
+	Note: While we provide the parametrization by
+	the compile-time dimension N, only the values
+	N == 2 and N == Dynamic are allowed. 
+	*/
 	template <typename Real, int N = 2>
 	class ConformalAffine2D
 		: boost::multipliable<ConformalAffine2D<Real, N> >

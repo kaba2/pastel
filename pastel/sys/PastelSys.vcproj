@@ -958,6 +958,26 @@
 				Name="Vector"
 				>
 				<File
+					RelativePath=".\array_vectorexpression.h"
+					>
+				</File>
+				<File
+					RelativePath=".\binary_vectorexpression.h"
+					>
+				</File>
+				<File
+					RelativePath=".\binary_vectorexpression_detail.h"
+					>
+				</File>
+				<File
+					RelativePath=".\unary_vectorexpression.h"
+					>
+				</File>
+				<File
+					RelativePath=".\unary_vectorexpression_detail.h"
+					>
+				</File>
+				<File
 					RelativePath=".\vector.h"
 					>
 				</File>
@@ -1803,10 +1823,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
@@ -1820,6 +1836,10 @@
 			</File>
 			<File
 				RelativePath="..\..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
 			<File

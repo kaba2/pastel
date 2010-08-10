@@ -16,8 +16,6 @@ namespace Pastel
 
 	// Optimization functions
 
-	void multiplyByPowerOf2(double& x, double power);
-	void divideByPowerOf2(double& x, double power);
 	double inverse(double x);
 	bool zero(double x);
 	bool negative(double x);
@@ -33,8 +31,6 @@ namespace Pastel
 
 	// Optimization functions
 
-	void multiplyByPowerOf2(float& x, float power);
-	void divideByPowerOf2(float& x, float power);
 	float inverse(float x);
 	bool zero(float x);
 	bool negative(float x);

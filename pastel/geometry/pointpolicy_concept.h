@@ -12,9 +12,19 @@ namespace Pastel
 	class PointPolicy_Concept
 	{
 	public:
-		// Defines the type of the coordinates.
+		//! Defines the compile-time dimension.
+		/*!
+		If the dimension 'd' is a compile-time
+		constant, N == d. Otherwise, N == Dynamic,
+		and 'd' can be obtained for each point at run-time 
+		from the dimension() function.
+		*/
+		enum {N = UserDefinedInteger};
+		
+		//! Defines the type of the coordinates.
 		typedef UserDefinedType Coordinate;
-		// Defines the type of stored object.
+		
+		//! Defines the type of a point.
 		typedef UserDefinedType Object;
 
 		//! Returns a pointer to a coordinate array for the point.
@@ -22,6 +32,12 @@ namespace Pastel
 
 		//! Returns a coordinate of the given point on the given axis.
 		Coordinate point(const Object& object, integer axis) const;
+		
+		//! Returns the dimensionality of a given point.
+		/*!
+		If N is non-negative, this function returns N.
+		*/
+		integer dimension(const Object& object) const;
 	};
 
 }

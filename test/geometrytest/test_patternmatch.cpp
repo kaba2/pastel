@@ -432,8 +432,8 @@ namespace
 			forwardRange(sparseIterator(countingIterator(&M[0]), 2), mPoints),
 			forwardRange(sparseIterator(countingIterator(&S[0]), 2), sPoints),
 			0.6, 0.03, 0.95, similarity,
-			Array_PointPolicy<real>(),
-			Array_PointPolicy<real>());
+			Array_PointPolicy2(),
+			Array_PointPolicy2());
 
 		log() << "Success." << logNewLine;
 	}

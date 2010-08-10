@@ -10,6 +10,16 @@
 namespace Pastel
 {
 
+	template <int LeftN, int RightN>
+	class ResultN
+	{
+	public:
+		enum
+		{
+			N = (LeftN == Dynamic) ? RightN : LeftN
+		};
+	};
+
 	template <typename Real, int N>
 	class Vector;
 
@@ -100,8 +110,8 @@ namespace Pastel
 			return ((const Expression&)*this).involvesNonTrivially(memoryBegin, memoryEnd);
 		}
 
-		template <typename RightExpression>
-		bool operator==(const VectorExpression<Real, N, RightExpression>& right) const
+		template <int RightN, typename RightExpression>
+		bool operator==(const VectorExpression<Real, RightN, RightExpression>& right) const
 		{
 			const Expression& left = (const Expression&)*this;
 
@@ -119,8 +129,8 @@ namespace Pastel
 			return true;
 		}
 
-		template <typename RightExpression>
-		bool operator!=(const VectorExpression<Real, N, RightExpression>& right) const
+		template <int RightN, typename RightExpression>
+		bool operator!=(const VectorExpression<Real, RightN, RightExpression>& right) const
 		{
 			return !(*this == right);
 		}
@@ -134,14 +144,14 @@ namespace Pastel
 
 		// Summation
 
-		template <typename RightExpression>
-		const VectorAddition<Real, N, Expression, 
+		template <int RightN, typename RightExpression>
+		const VectorAddition<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator+(const VectorExpression
-			<Real, N, RightExpression>& right) const
+			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorAddition
-				<Real, N, Expression, 
+				<Real, ResultN<N, RightN>::N, Expression, 
 				RightExpression >
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -169,14 +179,14 @@ namespace Pastel
 
 		// Subtraction
 
-		template <typename RightExpression>
-		const VectorSubtraction<Real, N, Expression, 
+		template <int RightN, typename RightExpression>
+		const VectorSubtraction<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator-(const VectorExpression
-			<Real, N, RightExpression>& right) const
+			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorSubtraction
-				<Real, N, Expression, 
+				<Real, ResultN<N, RightN>::N, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -204,14 +214,14 @@ namespace Pastel
 
 		// Multiplication
 
-		template <typename RightExpression>
-		const VectorMultiplication<Real, N, Expression, 
+		template <int RightN, typename RightExpression>
+		const VectorMultiplication<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator*(const VectorExpression
-			<Real, N, RightExpression>& right) const
+			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorMultiplication
-				<Real, N, Expression, 
+				<Real, ResultN<N, RightN>::N, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -239,14 +249,14 @@ namespace Pastel
 
 		// Division
 
-		template <typename RightExpression>
-		const VectorDivision<Real, N, Expression, 
+		template <int RightN, typename RightExpression>
+		const VectorDivision<Real, ResultN<N, RightN>::N, Expression, 
 			RightExpression>
 			operator/(const VectorExpression
-			<Real, N, RightExpression>& right) const
+			<Real, RightN, RightExpression>& right) const
 		{
 			return VectorDivision
-				<Real, N, Expression, 
+				<Real, ResultN<N, RightN>::N, Expression, 
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
@@ -385,8 +395,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Dynamic || left.size() == right.size(), 
-				left.size(), right.size());
+			PENSURE_OP(left.size(), ==, right.size());
 		}
 
 		Real operator[](integer index) const
@@ -436,8 +445,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Dynamic || left.size() == right.size(), 
-				left.size(), right.size());
+			PENSURE_OP(left.size(), ==, right.size());
 		}
 
 		Real operator[](integer index) const
@@ -487,8 +495,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Dynamic || left.size() == right.size(), 
-				left.size(), right.size());
+			PENSURE_OP(left.size(), ==, right.size());
 		}
 
 		Real operator[](integer index) const
@@ -538,8 +545,7 @@ namespace Pastel
 			: left_(left)
 			, right_(right)
 		{
-			PENSURE2(N != Dynamic || left.size() == right.size(), 
-				left.size(), right.size());
+			PENSURE_OP(left.size(), ==, right.size());
 		}
 
 		Real operator[](integer index) const
@@ -571,369 +577,10 @@ namespace Pastel
 		typename RightExpression::StorageType right_;
 	};
 
-	template <typename Real, int N>
-	class ConstVectorView
-		: public VectorExpression<Real, N, ConstVectorView<Real, N> >
-	{
-	public:
-		typedef const ConstVectorView StorageType;
-
-		typedef const Real* ConstIterator;
-
-		ConstVectorView()
-			: data_(0)
-			, size_(0)
-		{
-		}
-
-		ConstVectorView(
-			const Real* data,
-			integer size)
-			: data_(data)
-			, size_(size)
-		{
-			PENSURE_OP(size, >=, 0);
-			PENSURE2(N == Dynamic || size == N, N, size);
-		}
-
-		integer size() const
-		{
-			return size_;
-		}
-
-		bool involves(
-			const void* memoryBegin, const void* memoryEnd) const
-		{
-			return Pastel::memoryOverlaps(
-				memoryBegin, memoryEnd,
-				data_, data_ + size_);
-		}
-
-		bool involvesNonTrivially(
-			const void* memoryBegin, const void* memoryEnd) const
-		{
-			return false;
-		}
-
-		integer dimension() const
-		{
-			return size_;
-		}
-
-		void swap(ConstVectorView<Real, N>& that)
-		{
-			std::swap(data_, that.data_);
-			std::swap(size_, that.size_);
-		}
-
-		bool operator==(const ConstVectorView& that) const
-		{
-			return std::equal(
-				begin(), end(), that.begin());
-		}
-
-		const Real& operator[](integer index) const
-		{
-			PENSURE2(index >= 0 && index < size_, 
-				index, size_);
-
-			return data_[index];
-		}
-
-		ConstIterator begin() const
-		{
-			return data_;
-		}
-
-		ConstIterator end() const
-		{
-			return data_ + size_;
-		}
-
-	protected:
-		// Must be protected for
-		// VectorView to access
-
-		const Real* data_;
-		integer size_;
-	};
-
-	template <typename Real, int N>
-	class VectorView
-		: public ConstVectorView<Real, N>
-	{
-	private:
-		typedef ConstVectorView<Real, N> Base;
-		using Base::data_;
-		using Base::size_;
-
-	public:
-		typedef const VectorView StorageType;
-		typedef Real* Iterator;
-
-		using Base::size;
-
-		VectorView()
-			: Base()
-		{
-		}
-
-		VectorView(
-			const Real* data,
-			integer size)
-			: Base(data, size)
-		{
-			PENSURE_OP(size, >=, 0);
-			PENSURE2(N == Dynamic || size == N, N, size);
-		}
-
-		// The parameter to this function
-		// is deliberately not a reference,
-		// because the reference could point
-		// to this vector.
-		void set(const Real that) const
-		{
-			std::fill(begin(), end(), that);
-		}
-
-		Iterator begin() const
-		{
-			return (Iterator)data_;
-		}
-
-		Iterator end() const
-		{
-			return (Iterator)(data_ + size_);
-		}
-
-		const VectorView& operator=(const Real& that) const
-		{
-			// We accept basic exception safety for performance.
-			set(that);
-
-			return *this;
-		}
-
-		const VectorView& operator=(
-			const VectorView& that) const
-		{
-			ENSURE_OP(size(), ==, that.size());
-
-			std::copy(begin(), end(), data_);
-
-			return *this;
-		}
-
-		template <typename ThatReal, typename Expression>
-		const VectorView& operator=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
-		{
-			ENSURE_OP(size(), ==, that.size());
-
-			if (that.involvesNonTrivially(
-				data_, data_ + size_))
-			{
-				// In the case we must reallocate, we can
-				// as well copy construct, so that there
-				// is no redundant initialization.
-				
-				// Of course, if the expression involves
-				// this vector as a non-trivial subexpression,
-				// we must copy construct anyway.
-
-				*this = Vector<Real, N>(that);
-			}
-			else
-			{				
-				// We accept basic exception safety for performance.
-
-				Iterator iter = begin();
-				const integer n = size();
-
-				for (integer i = 0;i < n;++i)
-				{
-					*iter = that[i];
-					++iter;
-				}
-			}
-
-			return *this;
-		}
-
-		Real& operator[](integer index) const
-		{
-			PENSURE2(index >= 0 && index < size_, 
-				index, size_);
-
-			return (Real&)data_[index];
-		}
-
-		// The parameter to this function
-		// is deliberately not a reference,
-		// because the reference could point
-		// to this vector.
-		const VectorView& operator+=(const Real that) const
-		{
-			Iterator iter = begin();
-			const Iterator iterEnd = end();
-
-			while(iter != iterEnd)
-			{
-				*iter += that;
-				++iter;
-			}
-
-			return *this;
-		}
-
-		// The parameter to this function
-		// is deliberately not a reference,
-		// because the reference could point
-		// to this vector.
-		const VectorView& operator-=(const Real that) const
-		{
-			Iterator iter = begin();
-			const Iterator iterEnd = end();
-
-			while(iter != iterEnd)
-			{
-				*iter -= that;
-				++iter;
-			}
-
-			return *this;
-		}
-
-		// The parameter to this function
-		// is deliberately not a reference,
-		// because the reference could point
-		// to this vector.
-		const VectorView& operator*=(const Real that) const
-		{
-			Iterator iter = begin();
-			const Iterator iterEnd = end();
-
-			while(iter != iterEnd)
-			{
-				*iter *= that;
-				++iter;
-			}
-
-			return *this;
-		}
-
-		// Here the reference is ok because we actually
-		// use the parameter's inverse.
-		const VectorView& operator/=(const Real& that) const
-		{
-			return (*this *= Pastel::inverse(that));
-		}
-
-		template <typename ThatReal, typename Expression>
-		const VectorView& operator+=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
-		{
-			PENSURE2(that.size() == size(), that.size(), size());
-
-			if (that.involvesNonTrivially(
-				data_, data_ + size_))
-			{
-				*this += Vector<Real, N>(that);
-			}
-			else
-			{
-				Iterator iter = begin();
-				const integer n = size();
-
-				for (integer i = 0;i < n;++i)
-				{
-					*iter += that[i];
-					++iter;
-				}
-			}
-
-			return *this;
-		}
-
-		template <typename ThatReal, typename Expression>
-		const VectorView& operator-=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
-		{
-			PENSURE2(that.size() == size(), that.size(), size());
-
-			if (that.involvesNonTrivially(
-				data_, data_ + size_))
-			{
-				*this -= Vector<Real, N>(that);
-			}
-			else
-			{
-				Iterator iter = begin();
-				const integer n = size();
-
-				for (integer i = 0;i < n;++i)
-				{
-					*iter -= that[i];
-					++iter;
-				}
-			}
-
-			return *this;
-		}
-
-		template <typename ThatReal, typename Expression>
-		const VectorView& operator*=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
-		{
-			PENSURE2(that.size() == size(), that.size(), size());
-
-			if (that.involvesNonTrivially(
-				data_, data_ + size_))
-			{
-				*this *= Vector<Real, N>(that);
-			}
-			else
-			{
-				Iterator iter = begin();
-				const integer n = size();
-
-				for (integer i = 0;i < n;++i)
-				{
-					*iter *= that[i];
-					++iter;
-				}
-			}
-
-			return *this;
-		}
-
-		template <typename ThatReal, typename Expression>
-		const VectorView& operator/=(
-			const VectorExpression<ThatReal, N, Expression>& that) const
-		{
-			PENSURE2(that.size() == size(), that.size(), size());
-
-			if (that.involvesNonTrivially(
-				data_, data_ + size_))
-			{
-				*this /= Vector<Real, N>(that);
-			}
-			else
-			{
-				Iterator iter = begin();
-				const integer n = size();
-
-				for (integer i = 0;i < n;++i)
-				{
-					*iter /= that[i];
-					++iter;
-				}
-			}
-
-			return *this;
-		}
-	};
-
 }
+
+#include "pastel/sys/array_vectorexpression.h"
+#include "pastel/sys/binary_vectorexpression.h"
+#include "pastel/sys/unary_vectorexpression.h"
 
 #endif

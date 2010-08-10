@@ -104,7 +104,7 @@ namespace Pastel
 		integer power = 0;
 		while (y >= 2)
 		{
-			divideByPowerOf2(y, 1);
+			y /= 2;
 			++power;
 		}
 

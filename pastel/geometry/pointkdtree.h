@@ -477,10 +477,7 @@ namespace Pastel
 		The number of leaf nodes in the tree.
 
 		pointPolicy_:
-		A functor that maps the users Object's
-		into geometric points. This allows
-		to abstract the representation
-		of points.
+		See the PointPolicy concept.
 
 		dimension_:
 		The dimension of the tree.
