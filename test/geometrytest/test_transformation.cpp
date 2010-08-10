@@ -4,6 +4,7 @@
 #include "pastel/math/uniform_sampling.h"
 
 #include "pastel/sys/vector_tools.h"
+#include "pastel/geometry/vector_pointpolicy.h"
 
 using namespace Pastel;
 
@@ -65,7 +66,11 @@ namespace
 			}
 
 			const ConformalAffine2 matchedTransformation =
-				lsConformalAffine(pattern, transformedPattern);
+				lsConformalAffine(
+				forwardRange(pattern.begin(), pattern.end()),
+				forwardRange(transformedPattern.begin(), transformedPattern.end()),
+				Vector_PointPolicy2(),
+				Vector_PointPolicy2());
 
 			const real scalingDelta = absoluteError<real>(
 				matchedTransformation.scaling(), 

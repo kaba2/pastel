@@ -352,20 +352,27 @@ namespace Pastel
 		return Pastel::normalize(evaluate(that));
 	}
 
-	template <typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, 2> cross(
-		const VectorExpression<Real, 2, Expression>& that)
+		const VectorExpression<Real, N, Expression>& that)
 	{
+		PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
+		PENSURE_OP(that.size(), ==, 2);
+		
 		Vector<Real, 2> result(-that[1], that[0]);
+
 		return result;
 	}
 
-	template <typename Real, typename ExpressionX,
+	template <typename Real, int N, typename ExpressionX,
 	typename ExpressionY>
 	Vector<Real, 3> cross(
-		const VectorExpression<Real, 3, ExpressionX>& x,
-		const VectorExpression<Real, 3, ExpressionY>& y)
+		const VectorExpression<Real, N, ExpressionX>& x,
+		const VectorExpression<Real, N, ExpressionY>& y)
 	{
+		PASTEL_STATIC_ASSERT(N == 3 || N == Dynamic);
+		PENSURE_OP(that.size(), ==, 3);
+
 		Vector<Real, 3> result(
 			x[1] * y[2] - x[2] * y[1],
 			x[2] * y[0] - x[0] * y[2],

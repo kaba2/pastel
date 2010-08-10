@@ -3,6 +3,8 @@
 
 #include "pastel/math/conformalaffine2d_tools.h"
 
+#include "pastel/geometry/pointpolicy_tools.h"
+
 namespace Pastel
 {
 
@@ -104,13 +106,29 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, int N>
-	ConformalAffine2D<Real, N> lsConformalAffine(
-		const std::vector<Vector<Real, N> >& from,
-		const std::vector<Vector<Real, N> >& to)
+	template <
+		typename From_Point_ConstIterator, 
+		typename To_Point_ConstIterator,
+		typename From_PointPolicy,
+		typename To_PointPolicy>
+	ConformalAffine2D<typename From_PointPolicy::Coordinate, 
+		ResultN<From_PointPolicy::N, To_PointPolicy::N>::N> 
+		lsConformalAffine(
+		const ForwardRange<From_Point_ConstIterator>& from,
+		const ForwardRange<To_Point_ConstIterator>& to,
+		const From_PointPolicy& fromPointPolicy,
+		const To_PointPolicy& toPointPolicy)
 	{
-		ENSURE2(from.size() == to.size(), from.size(), to.size());
-		typedef std::vector<Vector<Real, N> >::const_iterator InputIterator;
+		typedef typename From_PointPolicy::Coordinate Real;
+		typedef typename From_PointPolicy::Object FromPoint;
+		typedef typename To_PointPolicy::Object ToPoint;
+
+		enum
+		{
+			N = From_PointPolicy::N
+		};
+
+		ENSURE_OP(from.size(), ==, to.size());
 
 		// Handle special cases.
 
@@ -134,15 +152,32 @@ namespace Pastel
 			// If there are two points in each set,
 			// we use the direct method instead.
 
+			From_Point_ConstIterator fromSecond = from.begin();
+			++fromSecond;
+			To_Point_ConstIterator toSecond = to.begin();
+			++toSecond;
+
+			const Vector<Real, 2> aFrom = 
+				pointAsVector(from.front(), fromPointPolicy);
+
+			const Vector<Real, 2> bFrom = 
+				pointAsVector(*fromSecond, fromPointPolicy);
+
+			const Vector<Real, 2> aTo = 
+				pointAsVector(to.front(), toPointPolicy);
+
+			const Vector<Real, 2> bTo = 
+				pointAsVector(*toSecond, toPointPolicy);
+
 			return conformalAffine(
-				from.front(), from.back(),
-				to.front(), to.back());
+				aFrom, bFrom,
+				aTo, bTo);
 		}
 
-		InputIterator fromIter = from.begin();
-		InputIterator fromEnd = from.end();
-		InputIterator toIter = to.begin();
-		InputIterator toEnd = to.end();
+		From_Point_ConstIterator fromIter = from.begin();
+		const From_Point_ConstIterator fromEnd = from.end();
+		To_Point_ConstIterator toIter = to.begin();
+		const To_Point_ConstIterator toEnd = to.end();
 
 		Vector<Real, N> sumFrom(ofDimension(2), 0);
 		Vector<Real, N> sumTo(ofDimension(2) ,0);
@@ -154,15 +189,17 @@ namespace Pastel
 
 		while(fromIter != fromEnd)
 		{
-			const Vector<Real, N>& fromVector = *fromIter;
-			const Vector<Real, N>& toVector = *toIter;
+			sumFrom += pointAsVector(*fromIter, fromPointPolicy);
+			sumTo += pointAsVector(*toIter, toPointPolicy);
 
-			sumFrom += fromVector;
-			sumTo += toVector;
-
-			sumSquareFrom += dot(fromVector);
-			dotSum += dot(fromVector, toVector);
-			crossDotSum += dot(cross(fromVector), toVector);
+			sumSquareFrom += dot(
+				pointAsVector(*fromIter, fromPointPolicy));
+			dotSum += dot(
+				pointAsVector(*fromIter, fromPointPolicy), 
+				pointAsVector(*toIter, toPointPolicy));
+			crossDotSum += dot(
+				cross(pointAsVector(*fromIter, fromPointPolicy)),
+				pointAsVector(*toIter, toPointPolicy));
 
 			++fromIter;
 			++toIter;
@@ -189,12 +226,14 @@ namespace Pastel
 		// scaledCos^2 + scaledSin^2 = scale * cos^2(angle) + scale * sin^2(angle)
 		// = scale * (cos^2(angle) + sin^2(angle)) = scale
 
-		const Real scale = std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
+		const Real scale = 
+			std::sqrt(scaledCos * scaledCos + scaledSin * scaledSin);
 
 		// atan(scaledSin / scaledCos) = atan((scale * sin(angle)) / (scale * cos(angle)))
 		// = atan(tan(angle)) = angle
 
-		const Real angle = positiveRadians<Real>(std::atan2(scaledSin, scaledCos));
+		const Real angle = 
+			positiveRadians<Real>(std::atan2(scaledSin, scaledCos));
 
 		return ConformalAffine2D<Real, N>(scale, angle, translation);
 	}

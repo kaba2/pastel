@@ -77,7 +77,8 @@ namespace Pastel
 
 	enum
 	{
-		Dynamic = -1
+		Dynamic = -1,
+		UserDefinedInteger = 0
 	};
 
 	class PASTELSYS UserDefinedType {};

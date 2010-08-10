@@ -201,19 +201,23 @@ namespace Pastel
 
 	//! Returns a clockwise perpendicular to the given vector in 2D.
 
-	template <typename Real, typename Expression>
+	template <typename Real, int N, typename Expression>
 	Vector<Real, 2> cross(
-		const VectorExpression<Real, 2, Expression>& that);
+		const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the cross product of two vectors in 3D.
 
-	template <typename Real, typename ExpressionX,
+	template <typename Real, int N, typename ExpressionX,
 	typename ExpressionY>
 	Vector<Real, 3> cross(
-		const VectorExpression<Real, 3, ExpressionX>& x,
-		const VectorExpression<Real, 3, ExpressionY>& y);
+		const VectorExpression<Real, N, ExpressionX>& x,
+		const VectorExpression<Real, N, ExpressionY>& y);
 
 }
+
+#include "pastel/sys/array_vectorexpression.h"
+#include "pastel/sys/unary_vectorexpression.h"
+#include "pastel/sys/binary_vectorexpression.h"
 
 #include "pastel/sys/vector_tools_more.h"
 #include "pastel/sys/vector_compare.h"

@@ -28,16 +28,6 @@ namespace Pastel
 
 	// Optimization functions
 
-	inline void multiplyByPowerOf2(double& x, double power)
-	{
-		x *= std::pow((double)2, power);
-	}
-
-	inline void divideByPowerOf2(double& x, double power)
-	{
-		x /= std::pow((double)2, power);
-	}
-
 	inline double inverse(double x)
 	{
 		return 1 / x;
@@ -74,18 +64,6 @@ namespace Pastel
 	Integer integerCast(float x)
 	{
 		return Integer(x);
-	}
-
-	// Optimization functions
-
-	inline void multiplyByPowerOf2(float& x, float power)
-	{
-		x *= std::pow((float)2, power);
-	}
-
-	inline void divideByPowerOf2(float& x, float power)
-	{
-		x /= std::pow((float)2, power);
 	}
 
 	inline float inverse(float x)

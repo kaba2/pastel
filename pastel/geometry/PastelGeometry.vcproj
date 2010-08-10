@@ -2002,6 +2002,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\pointpolicy_design.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_tools.h"
+					>
+				</File>
+				<File
 					RelativePath=".\vector_pointpolicy.h"
 					>
 				</File>

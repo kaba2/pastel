@@ -4,6 +4,8 @@
 #include "pastel/math/uniform_sampling.h"
 #include "pastel/math/conformalaffine2d_tools.h"
 
+#include "pastel/geometry/vector_pointpolicy.h"
+
 #include "pastel/sys/vector_tools.h"
 
 using namespace Pastel;
@@ -38,7 +40,11 @@ namespace
 			}
 
 			const ConformalAffine2 similarity =
-				lsConformalAffine(from, to);
+				lsConformalAffine(
+				forwardRange(from.begin(), from.end()), 
+				forwardRange(to.begin(), to.end()),
+				Vector_PointPolicy2(),
+				Vector_PointPolicy2());
 
 			REPORT(absoluteError<real>(similarity.scaling(), scale) > 0.001);
 			REPORT(absoluteError<real>(similarity.rotation(), angle) > 0.001);
