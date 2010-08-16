@@ -6,6 +6,7 @@
 #include "pastel/sys/tuple.h"
 
 #include "pastel/geometry/pointkdtree.h"
+#include "pastel/geometry/sphere.h"
 
 #include "pastel/math/conformalaffine2d.h"
 
@@ -23,6 +24,13 @@ namespace Pastel
 	point in their t-neighborhood. The 't' is computed by
 	t = relativeMatchingDistance * sceneSphere.radius() / (2 * sqrt(scenePoints)).
 	*/
+
+	template <typename Real, int N, 
+		typename Point_ConstIterator, typename PointPolicy>
+	Sphere<typename PointPolicy::Coordinate, PointPolicy::N> 
+		relativeMatchingDistance(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy);
 
 	template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
 	bool pointPatternMatch(

@@ -371,7 +371,8 @@ namespace Pastel
 		const VectorExpression<Real, N, ExpressionY>& y)
 	{
 		PASTEL_STATIC_ASSERT(N == 3 || N == Dynamic);
-		PENSURE_OP(that.size(), ==, 3);
+		PENSURE_OP(x.size(), ==, 3);
+		PENSURE_OP(y.size(), ==, 3);
 
 		Vector<Real, 3> result(
 			x[1] * y[2] - x[2] * y[1],

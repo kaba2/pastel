@@ -1722,6 +1722,14 @@
 				Name="Point pattern matching"
 				>
 				<File
+					RelativePath=".\point_pattern_match_gmo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\point_pattern_match_gmo.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\point_pattern_matching.h"
 					>
 				</File>

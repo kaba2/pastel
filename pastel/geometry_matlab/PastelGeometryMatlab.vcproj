@@ -309,6 +309,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\matlab_point_pattern_match_gmo.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\pastelgeometry_matlab.cpp"
 				>
 			</File>

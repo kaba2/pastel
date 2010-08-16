@@ -41,8 +41,8 @@ namespace Pastel
 		typedef typename Tree::Cursor Cursor;
 		typedef typename Tree::ConstObjectIterator ConstObjectIterator;
 
-		Real distance = 0;
-		ConstObjectIterator nearest;
+		Real distance = infinity<Real>();
+		ConstObjectIterator nearest = kdTree.end();
 
 		searchNearest(
 			kdTree, searchPoint, 
