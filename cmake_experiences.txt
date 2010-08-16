@@ -44,8 +44,8 @@ from the book. Unfortunately, I was disappointed by the quality of that
 excerpt since I considered it badly written. It left a lot of rows from 
 the example code unexplained and considered, in my opinion, tasks that are 
 irrelevant when you are really at the beginning of your learning process. Based on
-that, I'm not sure if I actually want the book anymore (on the other there are
-no alternatives).
+that, I'm not sure if I actually want the book anymore (on the other hand
+there are no alternatives).
 
 ### Overall idea
 

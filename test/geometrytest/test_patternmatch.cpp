@@ -2,6 +2,7 @@
 
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/point_pattern_matching.h"
+#include "pastel/geometry/point_pattern_match_gmo.h"
 #include "pastel/geometry/bounding_alignedbox.h"
 #include "pastel/geometry/array_pointpolicy.h"
 
@@ -435,15 +436,194 @@ namespace
 			Array_PointPolicy2(),
 			Array_PointPolicy2());
 
-		log() << "Success." << logNewLine;
+		if (success)
+		{
+			log() << "Success." << logNewLine;
+		}
+		else
+		{
+			log() << "Fail." << logNewLine;
+		}
+	}
+
+	void testPekka2()
+	{
+		const real modelData[] = 
+		{
+			184,   124,
+			236,   127,
+			145,   132,
+			201,   144,
+			197,   146,
+			309,   149,
+			126,   150,
+			240,   150,
+			165,   152,
+			319,   152,
+			322,   159,
+			142,   161,
+			196,   161,
+			302,   161,
+			144,   169,
+			328,   177,
+			304,   178,
+			313,   194,
+			382,   194,
+			158,   199,
+			175,   202,
+			192,   204,
+			380,   208,
+			402,   210,
+			375,   218,
+			254,   223,
+			203,   225,
+			183,   226,
+			193,   227,
+			404,   229,
+			236,   237,
+			403,   244,
+			249,   248,
+			360,   259,
+			412,   270,
+			430,   275,
+			311,   277,
+			335,   278,
+			387,   281,
+			347,   282,
+			405,   283,
+			327,   284,
+			385,   289,
+			394,   290,
+			357,   295,
+			364,   297,
+			208,   569,
+			178,   585
+		};
+
+		const real sceneData[] = 
+		{
+			183,   124,
+			200,   145,
+			126,   152,
+			163,   155,
+			142,   160,
+			183,   162,
+			176,   163,
+			230,   163,
+			142,   170,
+			304,   172,
+			370,   174,
+			302,   178,
+			283,   181,
+			383,   191,
+			315,   196,
+			158,   198,
+			365,   201,
+			175,   203,
+			192,   203,
+			376,   209,
+			382,   210,
+			401,   210,
+			203,   225,
+			192,   226,
+			393,   226,
+			267,   228,
+			404,   230,
+			399,   234,
+			409,   240,
+			248,   248,
+			288,   250,
+			374,   255,
+			282,   263,
+			326,   269,
+			280,   271,
+			311,   274,
+			409,   274,
+			430,   275,
+			385,   281,
+			327,   283,
+			346,   283,
+			412,   283,
+			404,   284,
+			334,   285,
+			385,   290,
+			 99,   364,
+			 88,   411,
+			193,   445,
+			223,   497,
+			207,   568,
+			238,   569,
+			380,   611,
+			444,   611,
+			290,   629,
+			388,   633,
+			479,   633,
+			499,   646,
+			289,   668,
+			441,   674,
+			473,   675
+		};
+
+		const integer n = 2;
+
+		const integer scenePoints = (sizeof(sceneData) / sizeof(real)) / n;
+		const integer modelPoints = (sizeof(modelData) / sizeof(real)) / n;
+
+		//const integer threads = getInteger(inputSet[threadsIndex]);
+		//setNumberOfThreads(threads);
+
+		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
+		typedef SceneTree::ConstObjectIterator SceneIterator;
+
+		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
+		typedef ModelTree::ConstObjectIterator ModelIterator;
+
+		SceneTree sceneTree(ofDimension(n), false, Array_PointPolicy<real>(n));
+		sceneTree.insert(
+			constSparseIterator(countingIterator(&sceneData[0]), n), 
+			constSparseIterator(countingIterator(&sceneData[0]), n) + scenePoints);
+
+		ModelTree modelTree(ofDimension(n), false, Array_PointPolicy<real>(n));
+		modelTree.insert(
+			constSparseIterator(countingIterator(&modelData[0]), n),
+			constSparseIterator(countingIterator(&modelData[0]), n) + modelPoints);
+
+		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+
+		// Here's where we store the results.
+
+		std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
+		Vector<real> translation(ofDimension(n));
+
+		// Compute the point pattern match.
+
+		const real minMatchRatio = 0.90;
+		const real matchingDistance = 0.01;
+		const real confidence = 0.99;
+
+		const bool success = Pastel::pointPatternMatchGmo(
+			sceneTree, modelTree, 
+			minMatchRatio, matchingDistance,
+			confidence, translation, std::back_inserter(pairSet));
+
+		if (success)
+		{
+			log() << "Success." << logNewLine;
+		}
+		else
+		{
+			log() << "Fail." << logNewLine;
+		}
 	}
 
 	void testBegin()
 	{
-		testPekka();
-		testBoxPatternMatch(100, 0, "box_edge");
-		testBoxPatternMatch(0, 100, "box_uniform");
-		testPatternMatch();
+		testPekka2();
+		//testPekka();
+		//testBoxPatternMatch(100, 0, "box_edge");
+		//testBoxPatternMatch(0, 100, "box_uniform");
+		//testPatternMatch();
 	}
 
 	void testAdd()

@@ -18,6 +18,26 @@
 namespace Pastel
 {
 
+	template <typename Point_ConstIterator, typename PointPolicy>
+	typename PointPolicy::Coordinate 
+		relativeToAbsoluteMatchingDistance(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy,
+		const typename PointPolicy::Coordinate& relativeMatchingDistance)
+	{
+		typedef typename PointPolicy::Coordinate Real;
+		enum
+		{
+			N = PointPolicy::N
+		};
+
+		const Sphere<Real, N> sceneSphere = boundingSphere(
+			pointSet, pointPolicy);
+
+		return relativeMatchingDistance * 
+			sceneSphere.radius() / (2 * std::sqrt((Real)pointSet.size()));
+	}
+
 	namespace Detail_PointPatternMatch
 	{
 
@@ -67,14 +87,6 @@ namespace Pastel
 				// "A fast expected time algorithm for the 2-D point pattern
 				// matching problem", P.B. Van Wamelen et al.,
 				// Pattern Recognition 37 (2004), 1699-1711.
-
-				const ScenePositionFunctor scenePositionFunctor(sceneTree);
-				const Sphere<Real, N> sceneSphere = boundingSphere<Real, N>(
-					sceneTree.objectBegin(), sceneTree.objectEnd(), scenePositionFunctor);
-
-				matchingDistance_ =
-					relativeMatchingDistance * sceneSphere.radius() /
-					(2 * std::sqrt((Real)scenePoints_));
 
 				// An upper bound for matching factor.
 
