@@ -8,7 +8,7 @@
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/vector.h"
 
-#include "pastel/math/minmax.h"
+#include "pastel/sys/minmax.h"
 
 namespace Pastel
 {

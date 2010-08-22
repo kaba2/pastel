@@ -1,7 +1,7 @@
 #include "pastelmathtest.h"
 
-#include "pastel/math/biginteger.h"
-#include "pastel/math/integer_tools.h"
+#include "pastel/sys/biginteger.h"
+#include "pastel/sys/integer_tools.h"
 
 namespace
 {

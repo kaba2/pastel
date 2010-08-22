@@ -1082,49 +1082,177 @@
 				Name="Numbers"
 				>
 				<File
-					RelativePath=".\nativeinteger.cpp"
+					RelativePath=".\integer_tools.h"
 					>
 				</File>
 				<File
-					RelativePath=".\nativeinteger.h"
+					RelativePath=".\integer_tools.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\nativeinteger.hpp"
+					RelativePath=".\minmax.h"
 					>
 				</File>
 				<File
-					RelativePath=".\nativeinteger_tools.h"
+					RelativePath=".\minmax.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\nativeinteger_tools.hpp"
+					RelativePath=".\numbers.txt"
 					>
 				</File>
-				<File
-					RelativePath=".\nativereal.h"
+				<Filter
+					Name="BigInteger"
 					>
-				</File>
-				<File
-					RelativePath=".\nativereal.hpp"
+					<File
+						RelativePath=".\biginteger.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\biginteger.h"
+						>
+					</File>
+					<File
+						RelativePath=".\biginteger.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\biginteger_more.h"
+						>
+					</File>
+					<File
+						RelativePath=".\biginteger_more.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\biginteger_tools.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\biginteger_tools.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="NativeInteger"
 					>
-				</File>
-				<File
-					RelativePath=".\statreal.cpp"
+					<File
+						RelativePath=".\nativeinteger.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\nativeinteger.h"
+						>
+					</File>
+					<File
+						RelativePath=".\nativeinteger.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\nativeinteger_tools.h"
+						>
+					</File>
+					<File
+						RelativePath=".\nativeinteger_tools.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Real concept"
 					>
-				</File>
-				<File
-					RelativePath=".\statreal.h"
-					>
-				</File>
-				<File
-					RelativePath=".\statreal_tools.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\statreal_tools.h"
-					>
-				</File>
+					<File
+						RelativePath=".\real.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\real_concept.h"
+						>
+					</File>
+					<File
+						RelativePath=".\real_concept.hpp"
+						>
+					</File>
+					<Filter
+						Name="Native reals"
+						>
+						<File
+							RelativePath=".\double_real.h"
+							>
+						</File>
+						<File
+							RelativePath=".\double_real.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\float_real.h"
+							>
+						</File>
+						<File
+							RelativePath=".\float_real.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\nativereal.h"
+							>
+						</File>
+						<File
+							RelativePath=".\nativereal.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="StatReal"
+						>
+						<File
+							RelativePath=".\statreal.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\statreal.h"
+							>
+						</File>
+						<File
+							RelativePath=".\statreal_tools.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\statreal_tools.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Rational"
+						>
+						<File
+							RelativePath=".\rational.h"
+							>
+						</File>
+						<File
+							RelativePath=".\rational.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\rational.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\rational_more.h"
+							>
+						</File>
+						<File
+							RelativePath=".\rational_more.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\rational_tools.h"
+							>
+						</File>
+						<File
+							RelativePath=".\rational_tools.hpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1823,10 +1951,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath=".\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\example\CMakeLists.txt"
 				>
 			</File>
@@ -1840,6 +1964,10 @@
 			</File>
 			<File
 				RelativePath="..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
 			<File

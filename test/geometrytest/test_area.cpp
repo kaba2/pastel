@@ -1,7 +1,7 @@
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/area.h"
-#include "pastel/math/rational.h"
+#include "pastel/sys/rational.h"
 
 using namespace Pastel;
 

@@ -10,7 +10,7 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/subarray_iterator.h"
 
-#include "pastel/math/integer_tools.h"
+#include "pastel/sys/integer_tools.h"
 
 namespace Pastel
 {

@@ -2,6 +2,7 @@
 #define PASTEL_REFERENCECOUNTED_HPP
 
 #include "pastel/sys/referencecounted.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {

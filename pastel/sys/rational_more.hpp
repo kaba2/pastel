@@ -1,7 +1,7 @@
 #ifndef PASTEL_RATIONAL_MORE_HPP
 #define PASTEL_RATIONAL_MORE_HPP
 
-#include "pastel/math/rational_more.h"
+#include "pastel/sys/rational_more.h"
 
 namespace Pastel
 {
@@ -45,12 +45,31 @@ namespace Pastel
 	template <typename Integer>
 	Integer floor(const Rational<Integer>& x)
 	{
+		// Note: Denominator is always >= 0.
 		if (x.denominator() == 1)
 		{
 			return x.numerator();
 		}
 
 		return x.numerator() / x.denominator();
+	}
+
+	template <typename Integer>
+	Integer ceil(const Rational<Integer>& x)
+	{
+		// Note: Denominator is always >= 0.
+		if (x.denominator() == 1)
+		{
+			return x.numerator();
+		}
+
+		Integer result = floor(x);
+		if (result * x.denominator() != x.numerator())
+		{
+			++result;
+		}
+
+		return result;
 	}
 
 	// Optimization functions
@@ -114,10 +133,10 @@ namespace Pastel
 	}
 
 
-	template <typename Integer>
-	float toFloat(const Rational<Integer>& that)
+	template <typename Real, typename Integer>
+	Real toReal(const Rational<Integer>& that)
 	{
-		return 0;
+		return (Real)that.numerator().data() / (Real)that.denominator().data();
 	}
 
 	template <typename Integer>

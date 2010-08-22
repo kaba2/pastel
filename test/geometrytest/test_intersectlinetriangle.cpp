@@ -1,10 +1,10 @@
 #include "pastelgeometrytest.h"
 
 #include <pastel/geometry/intersect_line_triangle.h>
-#include "pastel/math/rational.h"
-#include "pastel/math/rational_tools.h"
-#include "pastel/math/biginteger.h"
-#include "pastel/math/biginteger_tools.h"
+#include "pastel/sys/rational.h"
+#include "pastel/sys/rational_tools.h"
+#include "pastel/sys/biginteger.h"
+#include "pastel/sys/biginteger_tools.h"
 
 #include <iostream>
 

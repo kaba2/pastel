@@ -1,4 +1,4 @@
-#include "pastel/math/biginteger_tools.h"
+#include "pastel/sys/biginteger_tools.h"
 
 #include <sstream>
 #include <string>
@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	PASTELMATH std::ostream& operator<<(
+	PASTELSYS std::ostream& operator<<(
 		std::ostream& stream,
 		const BigInteger& number)
 	{

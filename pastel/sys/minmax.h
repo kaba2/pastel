@@ -28,6 +28,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/minmax.hpp"
+#include "pastel/sys/minmax.hpp"
 
 #endif

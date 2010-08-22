@@ -4,7 +4,7 @@
 #ifndef PASTEL_RATIONAL_MORE_H
 #define PASTEL_RATIONAL_MORE_H
 
-#include "pastel/math/rational.h"
+#include "pastel/sys/rational.h"
 
 namespace Pastel
 {
@@ -43,6 +43,11 @@ namespace Pastel
 	template <typename Integer>
 	Integer floor(const Rational<Integer>& x);
 
+	//! Computes the smallest integer greater than or equal to x.
+
+	template <typename Integer>
+	Integer ceil(const Rational<Integer>& x);
+
 	// Optimization functions
 
 	template <typename Integer>
@@ -68,14 +73,14 @@ namespace Pastel
 	template <typename Integer>
 	bool zero(const Rational<Integer>& that);
 
-	template <typename Integer>
-	float toFloat(const Rational<Integer>& that);
+	template <typename Real, typename Integer>
+	Real toReal(const Rational<Integer>& that);
 
 	template <typename Integer>
 	Rational<Integer> mabs(const Rational<Integer>& that);
 
 }
 
-#include "pastel/math/rational_more.hpp"
+#include "pastel/sys/rational_more.hpp"
 
 #endif

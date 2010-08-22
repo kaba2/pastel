@@ -1,7 +1,7 @@
 #ifndef PASTEL_MINMAX_HPP
 #define PASTEL_MINMAX_HPP
 
-#include "pastel/math/minmax.h"
+#include "pastel/sys/minmax.h"
 
 namespace Pastel
 {

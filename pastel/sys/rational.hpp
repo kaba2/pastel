@@ -1,9 +1,9 @@
 #ifndef PASTEL_RATIONAL_HPP
 #define PASTEL_RATIONAL_HPP
 
-#include "pastel/math/rational.h"
+#include "pastel/sys/rational.h"
 
-#include "pastel/math/integer_tools.h"
+#include "pastel/sys/integer_tools.h"
 #include "pastel/sys/mytypes.h"
 
 namespace Pastel

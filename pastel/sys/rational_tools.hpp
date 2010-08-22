@@ -1,7 +1,7 @@
 #ifndef PASTEL_RATIONAL_TOOLS_HPP
 #define PASTEL_RATIONAL_TOOLS_HPP
 
-#include "pastel/math/rational_tools.h"
+#include "pastel/sys/rational_tools.h"
 
 namespace Pastel
 {

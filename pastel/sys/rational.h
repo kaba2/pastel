@@ -175,8 +175,8 @@ namespace Pastel
 
 }
 
-#include "pastel/math/rational.hpp"
+#include "pastel/sys/rational.hpp"
 
-#include "pastel/math/rational_more.h"
+#include "pastel/sys/rational_more.h"
 
 #endif

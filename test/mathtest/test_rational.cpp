@@ -1,10 +1,10 @@
 #include "pastelmathtest.h"
 
-#include "pastel/math/rational.h"
-#include "pastel/math/biginteger.h"
+#include "pastel/sys/rational.h"
+#include "pastel/sys/biginteger.h"
 #include "pastel/sys/nativeinteger.h"
-#include "pastel/math/rational_tools.h"
-#include "pastel/math/biginteger_tools.h"
+#include "pastel/sys/rational_tools.h"
+#include "pastel/sys/biginteger_tools.h"
 #include "pastel/sys/nativeinteger_tools.h"
 
 #include <iostream>
