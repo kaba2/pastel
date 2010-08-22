@@ -1,4 +1,4 @@
-// Description: Float as a model of the Real concept
+// Description: Double as a model of the Real concept
 // Documentation: real.txt
 
 #ifndef PASTEL_DOUBLE_REAL_H
@@ -6,10 +6,18 @@
 
 #include "pastel/sys/real_concept.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
 	double inverse(double x);
+
+	// We use std::floor and std::ceil as
+	// implementations of those functions
+	// in the Real concept.
+	using std::floor;
+	using std::ceil;
 
 	double infinity(double*);
 	double nan(double*);
