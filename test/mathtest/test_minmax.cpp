@@ -1,6 +1,6 @@
 #include "pastelmathtest.h"
 
-#include "pastel/math/minmax.h"
+#include "pastel/sys/minmax.h"
 
 namespace
 {

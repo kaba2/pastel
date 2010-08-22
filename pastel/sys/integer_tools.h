@@ -29,6 +29,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/integer_tools.hpp"
+#include "pastel/sys/integer_tools.hpp"
 
 #endif

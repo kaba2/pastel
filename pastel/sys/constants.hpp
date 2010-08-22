@@ -10,18 +10,6 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Real infinity()
-	{
-		return Pastel::infinity((Real*)0);
-	}
-
-	template <typename Real>
-	Real nan()
-	{
-		return Pastel::nan((Real*)0);
-	}
-
-	template <typename Real>
 	Real constant(const std::string& number)
 	{
 		ENSURE(!number.empty());

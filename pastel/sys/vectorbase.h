@@ -233,16 +233,16 @@ namespace Pastel
 				return (Vector<Real, N>&)*this;
 			}
 
-			/*
-			template <typename ThatReal, typename Expression>
+			template <typename ThatReal, int ThatN, typename Expression>
 			typename boost::disable_if<
-				boost::is_same<Expression, VectorBase<Real, N> >,
+				boost::is_same<Expression, VectorBase<ThatReal, ThatN> >,
 				Vector<Real, N>&>::type operator=(
-				const VectorExpression<ThatReal, N, Expression>& that)
-			*/
+				const VectorExpression<ThatReal, ThatN, Expression>& that)
+			/*
 			template <typename ThatReal, int ThatN, typename Expression>
 			Vector<Real, N>& operator=(
 				const VectorExpression<ThatReal, ThatN, Expression>& that)
+			*/
 			{
 				PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 

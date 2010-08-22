@@ -12,7 +12,7 @@
 #include "pastel/sys/memory_overlaps.h"
 #include "pastel/sys/range.h"
 
-#include "pastel/math/integer_tools.h"
+#include "pastel/sys/integer_tools.h"
 
 namespace Pastel
 {

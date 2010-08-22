@@ -15,7 +15,7 @@
 namespace Pastel
 {
 
-	class PASTELMATH BigInteger
+	class PASTELSYS BigInteger
 		: boost::less_than_comparable<
 		BigInteger
 		, boost::equality_comparable<
@@ -110,8 +110,8 @@ namespace Pastel
 
 }
 
-#include "pastel/math/biginteger_tools.h"
+#include "pastel/sys/biginteger_tools.h"
 
-#include "pastel/math/biginteger_more.h"
+#include "pastel/sys/biginteger_more.h"
 
 #endif

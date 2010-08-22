@@ -1,0 +1,68 @@
+Real concept
+============
+
+[[Parent]]: numbers.txt
+
+Theory
+------
+
+A _field_ is a triple ''(F, +, *)'', where
+
+ * ''(F, +)'' is a commutative group with the identity element ''0''.
+ 
+ * ''(F, *)'' is a commutative monoid with the identity element ''1 != 0''.
+
+ * ''(F\{0}, *)'' is a commutative group.
+ 
+ * ''forall x, y, z in F: x * (y + z) = (x * y) + (x * z)''
+ 
+Examples of fields include rational numbers, real numbers, complex numbers, and
+finite fields. 
+ 
+An _ordered field_ is a tuple ''((F, +, *), <=)'', where 
+
+ * ''(F, +, *)'' is a field.
+
+ * ''<='' is a total order relation in ''F''.
+ 
+ * ''forall x, y, z in F: x <= y <=> x + z <= y + z''
+ 
+ * ''forall x, y in F: 0 <= x and 0 <= y <=> 0 <= xy''
+ 
+Examples of ordered fields include rational numbers and real numbers.
+
+An _affinely extended ordered field_ is a tuple 
+''((F union {-oo, +oo}, +, *), <=)'', where
+ 
+* ''-oo'' and ''oo'' are called minus-infinity and plus-infinity,
+respectively.
+
+* ''((F, +, *), <=)'' is an ordered field.
+
+* ''-oo = -(+oo)''
+
+* ''forall x in F: -oo <= x and x <= +oo''
+
+* ''forall x in F: oo +- x = x +- oo = +-oo''
+
+* ''forall x in F: (+-oo) * x = x * (+-oo) = signum(x) * (+-oo)''
+
+* ''forall x in F: x / (+-oo) = 0''
+
+* ''forall x in F: (+-oo) / x = signum(x) * (+-oo)''
+ 
+Such an extended field is not a field. For example, the
+infinities do not have an inverse element. Most often the significance
+of the infinities is that they allow for compact notation, as used for 
+infinite real intervals and unbounded limiting behaviour of functions.
+ 
+Practice
+--------
+
+The Real concept abstracts elements of an affinely extended ordered field. 
+Specifically, by this abstraction we aim to capture implementations of 
+floating point numbers and rational numbers. The intent is to be able to use the
+same algorithms independent of the representation of numbers. For example,
+the same geometric algorithms may be used with either floating point
+arithmetic or exact rational arithmetic.
+

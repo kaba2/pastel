@@ -50,7 +50,7 @@ tic
     confidence);
 timeSpent = toc;
 
-pairSet
+%pairSet
 
 % Output the results.
 if success

@@ -1,7 +1,7 @@
 #ifndef PASTEL_INTEGER_TOOLS_HPP
 #define PASTEL_INTEGER_TOOLS_HPP
 
-#include "pastel/math/integer_tools.h"
+#include "pastel/sys/integer_tools.h"
 
 #include "pastel/sys/math_functions.h"
 

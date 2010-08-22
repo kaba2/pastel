@@ -5,8 +5,6 @@
 
 #include "pastel/sys/math_functions.h"
 
-#include "pastel/sys/compiletime.h"
-
 namespace Pastel
 {
 

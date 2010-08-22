@@ -3,7 +3,7 @@
 #ifndef PASTEL_BIGINTEGER_MORE_H
 #define PASTEL_BIGINTEGER_MORE_H
 
-#include "pastel/math/biginteger.h"
+#include "pastel/sys/biginteger.h"
 
 namespace Pastel
 {
@@ -16,6 +16,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/biginteger_more.hpp"
+#include "pastel/sys/biginteger_more.hpp"
 
 #endif

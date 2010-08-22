@@ -2,8 +2,8 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
-#include "pastel/math/rational_tools.h"
-#include "pastel/math/biginteger.h"
+#include "pastel/sys/rational_tools.h"
+#include "pastel/sys/biginteger.h"
 #include "pastel/sys/nativeinteger_tools.h"
 
 using namespace Pastel;

@@ -4,7 +4,7 @@
 #include "pastel/sys/nativeinteger_tools.h"
 #include "pastel/sys/tuple_tools.h"
 
-#include "pastel/math/rational_tools.h"
+#include "pastel/sys/rational_tools.h"
 #include "pastel/math/ludecomposition_tools.h"
 
 using namespace Pastel;

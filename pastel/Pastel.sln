@@ -95,6 +95,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGfxUi", "gfxui\Pastel
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGeometryMatlab", "geometry_matlab\PastelGeometryMatlab.vcproj", "{810B18AB-2DA0-435D-8642-9391A29F1F2A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Triangle", "Triangle\Triangle.vcproj", "{B421485B-88A3-43C4-AAB9-4F688369DB59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -255,6 +257,14 @@ Global
 		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Debug|Win32.Build.0 = Static Debug|Win32
 		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Release|Win32.ActiveCfg = Static Release|Win32
 		{810B18AB-2DA0-435D-8642-9391A29F1F2A}.Static Release|Win32.Build.0 = Static Release|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Debug|Win32.Build.0 = Debug|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Release|Win32.ActiveCfg = Release|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Release|Win32.Build.0 = Release|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Static Debug|Win32.ActiveCfg = Debug|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Static Debug|Win32.Build.0 = Debug|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Static Release|Win32.ActiveCfg = Release|Win32
+		{B421485B-88A3-43C4-AAB9-4F688369DB59}.Static Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,6 +3,8 @@
 #ifndef PASTEL_MEMORY_OVERLAPS_H
 #define PASTEL_MEMORY_OVERLAPS_H
 
+#include "pastel/sys/ensure.h"
+
 namespace Pastel
 {
 

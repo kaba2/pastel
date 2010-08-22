@@ -4,7 +4,7 @@
 #ifndef PASTEL_RATIONAL_TOOLS_H
 #define PASTEL_RATIONAL_TOOLS_H
 
-#include "pastel/math/rational.h"
+#include "pastel/sys/rational.h"
 
 #include "pastel/sys/constants.h"
 
@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/rational_tools.hpp"
+#include "pastel/sys/rational_tools.hpp"
 
 #endif

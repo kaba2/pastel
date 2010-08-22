@@ -12,16 +12,6 @@
 namespace Pastel
 {
 
-	//! Returns an infinity.
-
-	template <typename Real>
-	inline Real infinity();
-
-	//! Returns a Not-a-Number.
-
-	template <typename Real>
-	inline Real nan();
-
 	//! Converts a text string to number.
 
 	// Too big for inlining.

@@ -1,7 +1,7 @@
 #include "pastelmathtest.h"
 
-#include <pastel/math/biginteger.h>
-#include <pastel/math/biginteger_tools.h>
+#include <pastel/sys/biginteger.h>
+#include <pastel/sys/biginteger_tools.h>
 
 #include <iostream>
 
