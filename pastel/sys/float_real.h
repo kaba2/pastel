@@ -6,10 +6,18 @@
 
 #include "pastel/sys/real_concept.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
 	float inverse(float x);
+
+	// We use std::floor and std::ceil as
+	// implementations of those functions
+	// in the Real concept.
+	using std::floor;
+	using std::ceil;
 
 	float infinity(float*);
 	float nan(float*);

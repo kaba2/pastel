@@ -1,4 +1,4 @@
-Real concept
+Real numbers
 ============
 
 [[Parent]]: numbers.txt
@@ -12,7 +12,7 @@ A _field_ is a triple ''(F, +, *)'', where
  
  * ''(F, *)'' is a commutative monoid with the identity element ''1 != 0''.
 
- * ''(F\{0}, *)'' is a commutative group.
+ * ''(F \setminus {0}, *)'' is a commutative group.
  
  * ''forall x, y, z in F: x * (y + z) = (x * y) + (x * z)''
  
@@ -32,7 +32,7 @@ An _ordered field_ is a tuple ''((F, +, *), <=)'', where
 Examples of ordered fields include rational numbers and real numbers.
 
 An _affinely extended ordered field_ is a tuple 
-''((F union {-oo, +oo}, +, *), <=)'', where
+''((F uu {-oo, +oo}, +, *), <=)'', where
  
 * ''-oo'' and ''oo'' are called minus-infinity and plus-infinity,
 respectively.
@@ -45,11 +45,11 @@ respectively.
 
 * ''forall x in F: oo +- x = x +- oo = +-oo''
 
-* ''forall x in F: (+-oo) * x = x * (+-oo) = signum(x) * (+-oo)''
+* ''forall x in F: (+-oo) * x = x * (+-oo) = "signum"(x) * (+-oo)''
 
 * ''forall x in F: x / (+-oo) = 0''
 
-* ''forall x in F: (+-oo) / x = signum(x) * (+-oo)''
+* ''forall x in F: (+-oo) / x = "signum"(x) * (+-oo)''
  
 Such an extended field is not a field. For example, the
 infinities do not have an inverse element. Most often the significance

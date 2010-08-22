@@ -1,4 +1,34 @@
 Rational numbers
 ================
 
-[[Parent]]: numbers.txt
+[[Parent]]: real.txt
+
+Theory
+------
+
+The _rational numbers_ are an ordered field ''((QQ, +, *), <=)'', where 
+
+ * ''QQ = (ZZ xx ZZ^+)/~''
+ 
+ * ''(x, y) ~ (z, w) <=> x * w = z * y'' (''~'' is an equivalence relation).
+ 
+ * ''[(x, y)] <= [(z, w)] <=> x * w <= z * y'' (''[(x, y)]'' means the equivalence class of ''(x, y)'')
+
+ * ''forall x, z in ZZ, y, w in ZZ^+: [(x, y)] + [(z, w)] = [(x * w + y * z, y * w)]''
+
+ * ''forall x, z in ZZ, y, w in ZZ^+: [(x, y)] * [(z, w)] = [(x * z, y * w)]''
+
+It follows that:
+
+ * ''[(1, 1)]'' is the multiplicative identity element.
+ 
+ * ''[(0, 1)]'' is the additive identity element.
+ 
+ * The subset consisting of the elements ''[(x, 1)]'' is isomorphic 
+ to the ordered ring of integers.
+ 
+ * ''forall x in ZZ \setminus {0}, y in ZZ^+: [(x, y)]^-1 = [("signum"(x) * y, "signum"(x) * x)]''
+
+Most often, one works with the elements of ''ZZ xx ZZ^+'', rather than with
+the rational numbers themselves. It must then be remembered that the
+corresponding equivalence classes are implicitly meant instead.

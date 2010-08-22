@@ -55,26 +55,40 @@ namespace Pastel
 
 			Real& operator/=(const Real& that);
 			Real operator/(const Real& that) const;
+
+			// Order relation.
+
+			bool operator<(const Real& that) const;
+			bool operator>(const Real& that) const;
+			bool operator<=(const Real& that) const;
+			bool operator>=(const Real& that) const;
+
+			bool operator==(const Real& that) const;
+			bool operator!=(const Real& that) const;
 		};
 
 		//! Returns the multiplicative inverse of 'that'.
 		Real inverse(const Real& that);
 
+		//! Returns the greatest integer less than or equal to 'that'.
+		Real floor(const Real& that);
+
+		//! Returns the smallest integer greater than or equal to 'that'.
+		Real ceil(const Real& that);
+
 		//! Returns the positive infinity.
 		/*!
-		The parameter is not used, but simply used
-		for overloading purposes. This function is
-		meant to be called by the function template
-		infinity() below.
+		The parameter is used only for overloading 
+		purposes. This function is meant to be called 
+		by the function template infinity() below.
 		*/
 		Real infinity(const Real*);
 
 		//! Returns a Not-A-Number.
 		/*!
-		The parameter is not used, but simply used
-		for overloading purposes. This function is
-		meant to be called by the function template
-		nan() below.
+		The parameter is used only for overloading 
+		purposes. This function is meant to be called 
+		by the function template nan() below.
 		*/
 		Real nan(const Real*);
 
