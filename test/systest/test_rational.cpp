@@ -1,4 +1,4 @@
-#include "pastelmathtest.h"
+#include "pastelsystest.h"
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/biginteger.h"
@@ -38,14 +38,10 @@ namespace
 			REPORT(a != Rat(1, 5));
 		}
 		{
-			cout << gcd(NativeInteger<integer>(5 * 1234235),
-				NativeInteger<integer>(7 * 1234235)) << endl;
 			Rat a(5 * 1234235, 7 * 1234235);
 			REPORT(a != Rat(5, 7));
 			REPORT(a.numerator() != 5);
 			REPORT(a.denominator() != 7);
-			cout << a << endl;
-
 		}
 		{
 			Rat a(2, 5);
@@ -309,7 +305,7 @@ namespace
 
 	void testAdd()
 	{
-		mathTestList().add("Rational", testBegin);
+		sysTestList().add("Rational", testBegin);
 	}
 
 	CallFunction run(testAdd);

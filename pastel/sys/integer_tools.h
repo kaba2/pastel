@@ -1,6 +1,6 @@
 // Description: Integer algorithms
 // Detail: gcd, extendedGcd, etc.
-// Documentation: numbers.txt
+// Documentation: integer.txt
 
 #ifndef PASTEL_INTEGER_TOOLS_H
 #define PASTEL_INTEGER_TOOLS_H

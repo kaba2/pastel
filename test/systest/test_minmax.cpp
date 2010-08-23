@@ -1,4 +1,4 @@
-#include "pastelmathtest.h"
+#include "pastelsystest.h"
 
 #include "pastel/sys/minmax.h"
 
@@ -41,7 +41,7 @@ namespace
 
 	void testAdd()
 	{
-		mathTestList().add("MinMax", testBegin);
+		sysTestList().add("MinMax", testBegin);
 	}
 
 	CallFunction run(testAdd);

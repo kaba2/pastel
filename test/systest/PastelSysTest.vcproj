@@ -387,6 +387,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_biginteger.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_config.cpp"
 			>
 		</File>
@@ -439,6 +443,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_minmax.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_parallelarray.cpp"
 			>
 		</File>
@@ -448,6 +456,10 @@
 		</File>
 		<File
 			RelativePath=".\test_random.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_rational.cpp"
 			>
 		</File>
 		<File

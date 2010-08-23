@@ -1,4 +1,4 @@
-#include "pastelmathtest.h"
+#include "pastelsystest.h"
 
 #include <pastel/sys/biginteger.h>
 #include <pastel/sys/biginteger_tools.h>
@@ -107,17 +107,6 @@ namespace
 
 		BigInteger a(std::string("2435325"));
 		BigInteger b(std::string("23452345"));
-
-		std::cout << a << std::endl;
-		std::cout << b << std::endl;
-		std::cout << a + b << std::endl;
-		std::cout << b + a << std::endl;
-		std::cout << a - b << std::endl;
-		std::cout << b - a << std::endl;
-		std::cout << a * b << std::endl;
-		std::cout << b * a << std::endl;
-		std::cout << a / b << std::endl;
-		std::cout << b / a << std::endl;
 	}
 
 	void testBegin()
@@ -127,7 +116,7 @@ namespace
 
 	void testAdd()
 	{
-		mathTestList().add("BigInteger", testBegin);
+		sysTestList().add("BigInteger", testBegin);
 	}
 
 	CallFunction run(testAdd);
