@@ -1,5 +1,5 @@
 // Description: BigInteger class
-// Detail: Arbitrary precision integer
+// Detail: Arbitrary precision integer modeling the Integer concept.
 
 #ifndef PASTEL_BIGINTEGER_H
 #define PASTEL_BIGINTEGER_H

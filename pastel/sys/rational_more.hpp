@@ -136,7 +136,7 @@ namespace Pastel
 	template <typename Real, typename Integer>
 	Real toReal(const Rational<Integer>& that)
 	{
-		return (Real)that.numerator().data() / (Real)that.denominator().data();
+		return (Real)that.numerator() / (Real)that.denominator();
 	}
 
 	template <typename Integer>

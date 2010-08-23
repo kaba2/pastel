@@ -424,8 +424,8 @@ namespace Pastel
 	template <typename Integer>
 	void Rational<Integer>::simplify()
 	{
-		if (!(numerator_.zero() &&
-			denominator_.zero()))
+		if (!(zero(numerator_) &&
+			zero(denominator_)))
 		{
 			// The number is not NaN, so
 			// divide by the GCD(numerator, denominator)
@@ -435,7 +435,7 @@ namespace Pastel
 			numerator_ /= theGcd;
 			denominator_ /= theGcd;
 
-			if (denominator_.negative())
+			if (negative(denominator_))
 			{
 				numerator_ = -numerator_;
 				denominator_ = -denominator_;
@@ -448,22 +448,22 @@ namespace Pastel
 		Rational<Integer>::classify() const
 	{
 		NumberType::Enum result = NumberType::Normal;
-		if (!denominator_.zero())
+		if (!zero(denominator_))
 		{
-			if (numerator_.zero())
+			if (zero(numerator_))
 			{
 				result = NumberType::Zero;
 			}
 		}
 		else
 		{
-			if (numerator_.zero())
+			if (zero(numerator_))
 			{
 				result = NumberType::Nan;
 			}
 			else
 			{
-				if (numerator_.positive())
+				if (positive(numerator_))
 				{
 					result = NumberType::Infinity;
 				}
@@ -476,70 +476,6 @@ namespace Pastel
 
 		return result;
 	}
-
-	/*
-	template <typename Integer>
-	bool Rational<Integer>::lessThan(const Rational& that) const
-	{
-		// Let the numbers be:
-		// (a / b) and (c / d)
-		// and define:
-		// det = ad - bc
-
-		// sign(b)	| sign(d)	| result
-		// ---------+-----------+----------------
-		// 0			| 0			| c > 0 && a != 0
-		// 0			| -			| a < 0
-		// 0			| +			| a < 0
-		// -			| 0			| c > 0
-		// -			| -			| det < 0
-		// -			| +			| det > 0
-		// +			| 0			| c > 0
-		// +			| -			| det > 0
-		// +			| +			| det < 0
-
-		const Integer& a = numerator_;
-		const Integer& b = denominator_;
-		const Integer& c = that.numerator_;
-		const Integer& d = that.denominator_;
-
-		bool result = false;
-
-		if (b.zero())
-		{
-			if (d.zero())
-			{
-				result = c.positive() && !a.zero();
-			}
-			else
-			{
-				result = a.negative();
-			}
-		}
-		else
-		{
-			if (d.zero())
-			{
-				result = c.positive();
-			}
-			else
-			{
-				const Integer det(a * d - b * c);
-
-				if (b.negative() == d.negative())
-				{
-					result = det.negative();
-				}
-				else
-				{
-					result = det.positive();
-				}
-			}
-		}
-
-		return result;
-	}
-	*/
 
 	template <typename Integer>
 	bool Rational<Integer>::equal(const Rational& that) const
@@ -584,27 +520,27 @@ namespace Pastel
 
 		bool result = false;
 
-		if (b.zero())
+		if (zero(b))
 		{
-			if (d.zero())
+			if (zero(d))
 			{
-				result = c.positive() && a.negative();
+				result = positive(c) && negative(a);
 			}
 			else
 			{
-				result = a.negative();
+				result = negative(a);
 			}
 		}
 		else
 		{
-			if (d.zero())
+			if (zero(d))
 			{
-				result = c.positive();
+				result = positive(c);
 			}
 			else
 			{
 				const Integer det(a * d - b * c);
-				result = det.negative();
+				result = negative(det);
 			}
 		}
 

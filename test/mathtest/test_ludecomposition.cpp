@@ -1,7 +1,6 @@
 #include "pastelmathtest.h"
 
 #include "pastel/sys/arrayview.h"
-#include "pastel/sys/nativeinteger_tools.h"
 #include "pastel/sys/tuple_tools.h"
 
 #include "pastel/sys/rational_tools.h"
@@ -12,8 +11,7 @@ using namespace Pastel;
 namespace
 {
 
-	typedef NativeInteger<integer> Integer;
-	typedef Rational<Integer> Real;
+	typedef Rational<integer> Real;
 
 	template <int N>
 	void testLuCase()
