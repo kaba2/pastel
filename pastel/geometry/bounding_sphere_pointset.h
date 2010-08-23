@@ -5,6 +5,8 @@
 
 #include "pastel/geometry/sphere.h"
 
+#include "pastel/sys/forwardrange.h"
+
 namespace Pastel
 {
 
@@ -26,21 +28,11 @@ namespace Pastel
 	The InputIterator must dereference to Vector<Real, N>.
 	*/
 
-	template <typename Real, int N, typename InputIterator, typename PositionFunctor>
-	Sphere<Real, N> boundingSphere(
-		const InputIterator& from,
-		const InputIterator& to,
-		const PositionFunctor& positionFunctor);
-
-	//! Finds a bounding sphere of a point set.
-	/*!
-	The InputIterator must dereference to Vector<Real, N>.
-	*/
-
-	template <typename Real, int N, typename InputIterator>
-	Sphere<Real, N> boundingSphere(
-		const InputIterator& from,
-		const InputIterator& to);
+	template <typename Point_ConstIterator, typename PointPolicy>
+	Sphere<typename PointPolicy::Coordinate, PointPolicy::N> 
+		boundingSphere(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy);
 
 }
 

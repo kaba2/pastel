@@ -47,7 +47,9 @@ namespace
 		Array<Color, 2> image(width, height);
 
 		const Sphere2 sceneSphere =
-			boundingSphere<real, 2>(sceneSet.begin(), sceneSet.end());
+			boundingSphere(
+			forwardRange(sceneSet.begin(), sceneSet.end()),
+			Vector_PointPolicy2());
 
 		const AlignedBox2 viewWindow = 
 			boundingAlignedBox(sceneSphere) * 1.5;
@@ -620,10 +622,10 @@ namespace
 	void testBegin()
 	{
 		testPekka2();
-		//testPekka();
-		//testBoxPatternMatch(100, 0, "box_edge");
-		//testBoxPatternMatch(0, 100, "box_uniform");
-		//testPatternMatch();
+		testPekka();
+		testBoxPatternMatch(100, 0, "box_edge");
+		testBoxPatternMatch(0, 100, "box_uniform");
+		testPatternMatch();
 	}
 
 	void testAdd()
