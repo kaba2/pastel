@@ -1,6 +1,6 @@
 // Description: Some commonly used constants
-// Detail: infinity, nan, pi, e, ln2, etc.
-// Documentation: math.txt
+// Detail: pi, e, ln2, etc.
+// Documentation: real.txt
 
 #ifndef PASTEL_CONSTANTS_H
 #define PASTEL_CONSTANTS_H

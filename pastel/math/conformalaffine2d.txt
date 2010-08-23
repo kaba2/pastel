@@ -8,34 +8,35 @@ Theory
 
 A _conformal affine transformation_ (CAT) in ''RR^n'' is a function
 ''f : RR^n -> RR^n : f(x) = sQx + t'', where 
-''s in RR', 
+''s in RR'', 
 ''Q'' is an orthogonal matrix, and 
 ''t in RR^n''.
-
 We shall identify ''f = [s, Q, t]'', because of an obvious bijection.
 The CATs are closed under composition. For if ''g(x) = s'Q'x + t''', then:
 
-''(f o g)(x) ''
-''= f(g(x))''
+''(f o g)(x) = f(g(x))''
+
 ''= sQ(s'Q'x + t') + t''
+
 ''= ss'QQ'x + sQt' + t''
+
 ''= ss'QQ'x + f(t')''
-''=>''
-''f o g = [ss', QQ', f(t')]''
+
+''=> f o g = [ss', QQ', f(t')]''
 
 A CAT is invertible if and only if ''s != 0'':
 
 ''f(x) = sQx + t''
-''=>''
-''f(x) - t = sQx''
-''=>''
-''x = (1 / s) Q^T (f(x) - t)''
-''=>''
-''x = (1 / s) Q^T f(x) - (1 / s) Q^T t''
-''=>''
-''f^-1(x) = (1 / s) Q^T x - (1 / s) Q^T t''
-''=>''
-''f^-1 = [1 / s, Q^T, -(1 / s) Q^T t]''
+
+''=> f(x) - t = sQx''
+
+''=> x = (1 / s) Q^T (f(x) - t)''
+
+''=> x = (1 / s) Q^T f(x) - (1 / s) Q^T t''
+
+''=> f^-1(x) = (1 / s) Q^T x - (1 / s) Q^T t''
+
+''=> f^-1 = [1 / s, Q^T, -(1 / s) Q^T t]''
 
 From above we see that the inverse of a CAT is also a CAT.
 Thus the invertible CATs form a group under composition.

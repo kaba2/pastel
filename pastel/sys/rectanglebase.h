@@ -1,6 +1,5 @@
 // Description: RectangleBase class
 // Detail: CRTP base class for Rectangle
-// Documentation: math.txt
 
 #ifndef PASTEL_RECTANGLEBASE_H
 #define PASTEL_RECTANGLEBASE_H

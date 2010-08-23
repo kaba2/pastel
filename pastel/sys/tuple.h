@@ -1,6 +1,5 @@
 // Description: Tuple class
 // Detail: Allows to work with n-tuples
-// Documentation: math.txt
 
 #ifndef PASTEL_TUPLE_H
 #define PASTEL_TUPLE_H

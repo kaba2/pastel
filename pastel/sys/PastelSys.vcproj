@@ -879,14 +879,6 @@
 			Name="Basic math"
 			>
 			<File
-				RelativePath=".\constants.h"
-				>
-			</File>
-			<File
-				RelativePath=".\constants.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\eps.h"
 				>
 			</File>
@@ -932,22 +924,6 @@
 			</File>
 			<File
 				RelativePath=".\math_functions_more.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\primes.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\primes.h"
-				>
-			</File>
-			<File
-				RelativePath=".\tristate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\tristate.hpp"
 				>
 			</File>
 			<File
@@ -1038,6 +1014,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\rectangle.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\rectangle_tools.h"
 					>
 				</File>
@@ -1066,6 +1046,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\tuple.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\tuple_tools.h"
 					>
 				</File>
@@ -1075,6 +1059,22 @@
 				</File>
 				<File
 					RelativePath=".\tuplebase.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Fuzzy logic"
+				>
+				<File
+					RelativePath=".\fuzzy_logic.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\tristate.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tristate.hpp"
 					>
 				</File>
 			</Filter>
@@ -1783,10 +1783,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\example\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\test\CMakeLists.txt"
 				>
 			</File>
@@ -1800,6 +1796,10 @@
 			</File>
 			<File
 				RelativePath=".\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\example\CMakeLists.txt"
 				>
 			</File>
 			<File
@@ -1853,6 +1853,14 @@
 			<Filter
 				Name="Real numbers"
 				>
+				<File
+					RelativePath=".\constants.h"
+					>
+				</File>
+				<File
+					RelativePath=".\constants.hpp"
+					>
+				</File>
 				<File
 					RelativePath=".\real.txt"
 					>
@@ -1955,6 +1963,14 @@
 				</File>
 				<File
 					RelativePath=".\integer_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\primes.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\primes.h"
 					>
 				</File>
 				<Filter

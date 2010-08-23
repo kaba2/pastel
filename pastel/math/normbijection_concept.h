@@ -1,3 +1,5 @@
+// Description: NormBijection concept
+
 #ifndef PASTEL_NORMBIJECTION_CONCEPT_H
 #define PASTEL_NORMBIJECTION_CONCEPT_H
 

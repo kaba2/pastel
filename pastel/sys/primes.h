@@ -1,5 +1,5 @@
 // Description: Prime numbers.
-// Documentation: math.txt
+// Documentation: integer.txt
 
 #ifndef PASTEL_PRIMES_H
 #define PASTEL_PRIMES_H
