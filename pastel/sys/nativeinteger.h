@@ -1,4 +1,4 @@
-// Documentation: math.txt
+// Documentation: integer.txt
 
 #ifndef PASTEL_NATIVEINTEGER_H
 #define PASTEL_NATIVEINTEGER_H

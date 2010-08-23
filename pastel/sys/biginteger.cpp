@@ -708,7 +708,8 @@ namespace Pastel
 		return false;
 	}
 
-	void BigInteger::add(const DigitContainer& left,
+	void BigInteger::add(
+		const DigitContainer& left,
 		const DigitContainer& right,
 		DigitContainer& result) const
 	{
@@ -717,7 +718,7 @@ namespace Pastel
 		const integer leftSize = left.size();
 		const integer rightSize = right.size();
 
-		const uint32 MAX_UINT16 = 65535;
+		const uint32 MaxDigit = 65535;
 
 		result.clear();
 		result.reserve(leftSize + 1);
@@ -730,10 +731,10 @@ namespace Pastel
 			digitAdd += right[i];
 			digitAdd += carry;
 
-			if (digitAdd > MAX_UINT16)
+			if (digitAdd > MaxDigit)
 			{
 				result.push_back(
-					(uint16)(digitAdd - (MAX_UINT16 + 1)));
+					(uint16)(digitAdd - (MaxDigit + 1)));
 				carry = 1;
 			}
 			else
@@ -748,10 +749,10 @@ namespace Pastel
 			uint32 digitAdd = left[i];
 			digitAdd += carry;
 
-			if (digitAdd > MAX_UINT16)
+			if (digitAdd > MaxDigit)
 			{
 				result.push_back(
-					(uint16)(digitAdd - (MAX_UINT16 + 1)));
+					(uint16)(digitAdd - (MaxDigit + 1)));
 				carry = 1;
 			}
 			else
@@ -767,10 +768,14 @@ namespace Pastel
 		}
 	}
 
-	void BigInteger::subtract(const DigitContainer& left,
+	void BigInteger::subtract(
+		const DigitContainer& left,
 		const DigitContainer& right,
 		DigitContainer& result) const
 	{
+		// This function is only called when
+		// right.absoluteLessThan(left).
+
 		ASSERT(left.size() >= right.size());
 
 		if (right.empty())
@@ -782,38 +787,52 @@ namespace Pastel
 		const integer leftSize = left.size();
 		const integer rightSize = right.size();
 
-		const int32 MAX_UINT16 = 65535;
+		const int32 MaxDigit = 65535;
+		const int32 digits = 65536;
+		int32 borrow = 0;
 
 		result = left;
 
 		for (integer i = 0;i < rightSize;++i)
 		{
-			int32 digit = left[i];
-			digit -= right[i];
+			const int32 digit = 
+				(int32)result[i] - 
+				(int32)right[i] - 
+				(int32)borrow;
 
 			if (digit < 0)
 			{
-				integer nextNonZero = i + 1;
-				while (nextNonZero < leftSize &&
-					result[nextNonZero] == 0)
-				{
-					++nextNonZero;
-				}
-				ASSERT(result[nextNonZero] != 0);
-				--result[nextNonZero];
-				for (integer j = i + 1;j < nextNonZero;++j)
-				{
-					result[j] = MAX_UINT16;
-				}
-
 				result[i] =
-					(uint16)(digit + (MAX_UINT16 + 1));
+					(uint16)(digit + digits);
+				borrow = 1;
 			}
 			else
 			{
 				result[i] = (uint16)digit;
+				borrow = 0;
 			}
 		}
+
+		for (integer i = rightSize;i < leftSize;++i)
+		{
+			const int32 digit = 
+				(int32)result[i] - 
+				(int32)borrow;
+
+			if (digit < 0)
+			{
+				result[i] =
+					(uint16)(digit + digits);
+				borrow = 1;
+			}
+			else
+			{
+				result[i] = (uint16)digit;
+				borrow = 0;
+			}
+		}
+
+		ASSERT_OP(borrow, ==, 0);
 
 		trim(result);
 	}

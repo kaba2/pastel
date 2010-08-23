@@ -1950,6 +1950,10 @@
 				Name="Integers"
 				>
 				<File
+					RelativePath=".\integer.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\integer_tools.h"
 					>
 				</File>

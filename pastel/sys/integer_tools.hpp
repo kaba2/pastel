@@ -101,6 +101,8 @@ namespace Pastel
 
 		do
 		{
+			//std::cout << u << " : " << v << std::endl;
+
 			// If u is odd and v is even:
 			// GCD(u, v / 2) = GCD(u, v)
 

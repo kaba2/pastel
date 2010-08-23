@@ -61,8 +61,8 @@ Practice
 
 The Real concept abstracts elements of an affinely extended ordered field. 
 Specifically, by this abstraction we aim to capture implementations of 
-floating point numbers and rational numbers. The intent is to be able to use the
-same algorithms independent of the representation of numbers. For example,
-the same geometric algorithms may be used with either floating point
-arithmetic or exact rational arithmetic.
+floating point numbers and exact rational numbers. The intent is to be able 
+to use the same algorithms independent of the representation of numbers. 
+For example, the same geometric algorithms may be used with either floating 
+point arithmetic or exact rational arithmetic.
 

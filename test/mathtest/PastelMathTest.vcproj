@@ -379,10 +379,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_biginteger.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_cholesky_decomposition.cpp"
 			>
 		</File>
@@ -411,10 +407,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_minmax.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_piecewiselinear.cpp"
 			>
 		</File>
@@ -424,10 +416,6 @@
 		</File>
 		<File
 			RelativePath=".\test_qr_decomposition.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_rational.cpp"
 			>
 		</File>
 		<File
