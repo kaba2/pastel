@@ -1,5 +1,3 @@
-// Description: More BigInteger class
-
 #ifndef PASTEL_BIGINTEGER_MORE_H
 #define PASTEL_BIGINTEGER_MORE_H
 
