@@ -27,7 +27,7 @@ An _ordered field_ is a tuple ''((F, +, *), <=)'', where
  
  * ''forall x, y, z in F: x <= y <=> x + z <= y + z''
  
- * ''forall x, y in F: 0 <= x and 0 <= y <=> 0 <= xy''
+ * ''forall x, y in F: 0 <= x and 0 <= y => 0 <= xy''
  
 Examples of ordered fields include rational numbers and real numbers.
 
