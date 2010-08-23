@@ -4,14 +4,13 @@
 
 #include "pastel/sys/rational_tools.h"
 #include "pastel/sys/biginteger.h"
-#include "pastel/sys/nativeinteger_tools.h"
 
 using namespace Pastel;
 
 namespace
 {
 
-	typedef Rational<NativeInteger<integer> > Real;
+	typedef Rational<integer> Real;
 	//typedef real Real;
 
 	template <typename Type, int N>

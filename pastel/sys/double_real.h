@@ -1,4 +1,4 @@
-// Description: Double as a model of the Real concept
+// Description: Native double type modeling the Real concept
 // Documentation: real.txt
 
 #ifndef PASTEL_DOUBLE_REAL_H

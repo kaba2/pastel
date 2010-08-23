@@ -108,6 +108,8 @@ namespace Pastel
 
 #include "pastel/sys/mytypes.hpp"
 
-#include "pastel/sys/nativereal.h"
+#include "pastel/sys/integer_integer.h"
+#include "pastel/sys/float_real.h"
+#include "pastel/sys/double_real.h"
 
 #endif

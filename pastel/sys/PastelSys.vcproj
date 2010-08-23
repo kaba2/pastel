@@ -1884,14 +1884,6 @@
 						RelativePath=".\float_real.hpp"
 						>
 					</File>
-					<File
-						RelativePath=".\nativereal.h"
-						>
-					</File>
-					<File
-						RelativePath=".\nativereal.hpp"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="StatReal"
@@ -1954,6 +1946,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\integer_concept.h"
+					>
+				</File>
+				<File
 					RelativePath=".\integer_tools.h"
 					>
 				</File>
@@ -1994,26 +1990,14 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="NativeInteger"
+					Name="Native integers"
 					>
 					<File
-						RelativePath=".\nativeinteger.cpp"
+						RelativePath=".\integer_integer.h"
 						>
 					</File>
 					<File
-						RelativePath=".\nativeinteger.h"
-						>
-					</File>
-					<File
-						RelativePath=".\nativeinteger.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\nativeinteger_tools.h"
-						>
-					</File>
-					<File
-						RelativePath=".\nativeinteger_tools.hpp"
+						RelativePath=".\integer_integer.hpp"
 						>
 					</File>
 				</Filter>

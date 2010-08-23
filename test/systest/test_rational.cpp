@@ -2,10 +2,8 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/biginteger.h"
-#include "pastel/sys/nativeinteger.h"
 #include "pastel/sys/rational_tools.h"
 #include "pastel/sys/biginteger_tools.h"
-#include "pastel/sys/nativeinteger_tools.h"
 
 #include <iostream>
 
@@ -16,7 +14,6 @@ namespace
 	using namespace std;
 
 	typedef BigInteger Integer;
-	//typedef NativeInteger<integer> Integer;
 	typedef Rational<Integer> Rat;
 
 	void testSimple()

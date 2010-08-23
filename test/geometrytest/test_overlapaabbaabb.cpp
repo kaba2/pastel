@@ -3,9 +3,6 @@
 #include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
 
 #include "pastel/sys/rational.h"
-#include "pastel/sys/biginteger.h"
-#include "pastel/sys/nativeinteger.h"
-#include "pastel/sys/biginteger_tools.h"
 #include "pastel/sys/rational_tools.h"
 
 #include <iostream>
@@ -17,8 +14,7 @@ using namespace Pastel;
 namespace
 {
 
-	typedef Rational<BigInteger> Real;
-	//typedef Rational<NativeInteger<integer> > Real;
+	typedef Rational<integer> Real;
 
 	void testNegative()
 	{

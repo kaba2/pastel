@@ -300,13 +300,6 @@ tuplebase.h
 source_group(
 "Basic math\\Numbers"
 FILES
-nativeinteger.cpp
-nativeinteger.h
-nativeinteger.hpp
-nativeinteger_tools.h
-nativeinteger_tools.hpp
-nativereal.h
-nativereal.hpp
 statreal.cpp
 statreal.h
 statreal_tools.cpp
@@ -744,13 +737,6 @@ nativeallocator.cpp
 nativeallocator.h
 nativeallocator.hpp
 nativeallocator.txt
-nativeinteger.cpp
-nativeinteger.h
-nativeinteger.hpp
-nativeinteger_tools.h
-nativeinteger_tools.hpp
-nativereal.h
-nativereal.hpp
 notsure.txt
 nulliterator.h
 parallelarray.h

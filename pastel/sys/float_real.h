@@ -1,4 +1,4 @@
-// Description: Float as a model of the Real concept
+// Description: Native float type modeling the Real concept
 // Documentation: real.txt
 
 #ifndef PASTEL_FLOAT_REAL_H
