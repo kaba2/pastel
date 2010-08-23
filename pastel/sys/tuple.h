@@ -90,8 +90,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename OtherType>
-		Tuple(const Tuple<OtherType, N>& that)
+		template <typename ThatType, int ThatN>
+		Tuple(const Tuple<ThatType, ThatN>& that)
 			: Base(that)
 		{
 		}
@@ -169,8 +169,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename OtherType>
-		Tuple(const Tuple<OtherType, N>& that)
+		template <typename ThatType, int ThatN>
+		Tuple(const Tuple<ThatType, ThatN>& that)
 			: Base(that)
 		{
 		}
@@ -258,8 +258,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename OtherType>
-		Tuple(const Tuple<OtherType, N>& that)
+		template <typename ThatType, int ThatN>
+		Tuple(const Tuple<ThatType, ThatN>& that)
 			: Base(that)
 		{
 		}
@@ -369,8 +369,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename OtherType>
-		Tuple(const Tuple<OtherType, N>& that)
+		template <typename ThatType, int ThatN>
+		Tuple(const Tuple<ThatType, ThatN>& that)
 			: Base(that)
 		{
 		}
@@ -492,8 +492,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename OtherType>
-		Tuple(const Tuple<OtherType, N>& that)
+		template <typename ThatType, int ThatN>
+		Tuple(const Tuple<ThatType, ThatN>& that)
 			: Base(that)
 		{
 		}
@@ -615,8 +615,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename ThatType>
-		Tuple(const Tuple<ThatType, N>& that)
+		template <typename ThatType, int ThatN>
+		Tuple(const Tuple<ThatType, ThatN>& that)
 			: Base(that)
 		{
 		}
@@ -661,6 +661,9 @@ namespace Pastel
 
 	typedef Tuple<integer, 4> Integer4;
 	typedef Tuple<real, 4> Real4;
+
+	typedef Tuple<integer, Dynamic> IntegerD;
+	typedef Tuple<real, Dynamic> RealD;
 
 }
 

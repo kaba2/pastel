@@ -3,7 +3,7 @@
 
 #include "pastel/math/conformalaffine2d_tools.h"
 
-#include "pastel/geometry/pointpolicy_tools.h"
+#include "pastel/sys/pointpolicy_tools.h"
 
 namespace Pastel
 {

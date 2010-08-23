@@ -3,7 +3,7 @@
 #ifndef PASTEL_POINTPOLICY_ALL_H
 #define PASTEL_POINTPOLICY_ALL_H
 
-#include "pastel/geometry/array_pointpolicy.h"
-#include "pastel/geometry/vector_pointpolicy.h"
+#include "pastel/sys/array_pointpolicy.h"
+#include "pastel/sys/vector_pointpolicy.h"
 
 #endif

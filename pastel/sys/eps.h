@@ -1,5 +1,5 @@
 // Description: Next greater and next smaller floating point values
-// Documentation: math.txt
+// Documentation: basic_math.txt
 
 #ifndef PASTEL_EPS_H
 #define PASTEL_EPS_H

@@ -5,8 +5,10 @@
 #define PASTEL_POINTSET_EIGEN_H
 
 #include "pastel/sys/vector.h"
+#include "pastel/sys/forwardrange.h"
+#include "pastel/sys/pointpolicy_concept.h"
 
-#include <vector>
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -16,9 +18,13 @@ namespace Pastel
 	Complexity:
 	O(pointSet.size() * dimension)
 	*/
-	template <typename Real, int N>
-	Vector<Real, N> largestEigenVector(
-		const std::vector<Vector<Real, N> >& pointSet);
+	template <
+		typename Point_ConstIterator, 
+		typename PointPolicy>
+	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+	largestEigenVector(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy);
 
 	//! Computes an approximation of the eigenstructure of a point-set.
 	/*!
@@ -44,12 +50,13 @@ namespace Pastel
 	corresponding to the approximated eigenvectors
 	in qOut.
 	*/
-	template <typename Real, int N>
+	template <typename Point_ConstIterator, typename PointPolicy>
 	void approximateEigenstructure(
-		const std::vector<Vector<Real, N> >& pointSet,
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy,
 		integer eigenvectors,
-		Matrix<Real>& qOut,
-		Vector<Real>& dOut);
+		Matrix<typename PointPolicy::Coordinate>& qOut,
+		Vector<typename PointPolicy::Coordinate>& dOut);
 
 }
 

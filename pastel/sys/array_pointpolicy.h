@@ -1,11 +1,11 @@
 // Description: Array_PointPolicy class
-// Detail: Points represented by coordinate pointers.
+// Detail: Native array as a model of the PointPolicy concept.
 // Documentation: pointpolicy.txt
 
 #ifndef PASTEL_ARRAY_POINTPOLICY_H
 #define PASTEL_ARRAY_POINTPOLICY_H
 
-#include "pastel/geometry/pointpolicy_concept.h"
+#include "pastel/sys/pointpolicy_concept.h"
 
 namespace Pastel
 {
@@ -24,6 +24,9 @@ namespace Pastel
 		Array_PointPolicy()
 			: dimension_(N)
 		{
+			// We can't allow N == Dynamic here, since
+			// then there would be no way to get the
+			// dimensionality of the points.
 			PENSURE(N >= 0);
 		}
 
@@ -48,8 +51,17 @@ namespace Pastel
 			return object[axis];
 		}
 
+		integer dimension() const
+		{
+			// The check here is to enable compile-time
+			// optimization when N is not Dynamic.
+			return (N >= 0) ? N : dimension_;
+		}
+
 		integer dimension(Object object) const
 		{
+			// The check here is to enable compile-time
+			// optimization when N is not Dynamic.
 			return (N >= 0) ? N : dimension_;
 		}
 

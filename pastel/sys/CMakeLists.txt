@@ -246,7 +246,7 @@ histogram.h
 histogram.hpp
 linear.h
 linear.hpp
-math.txt
+basic_math.txt
 math_functions.cpp
 math_functions.h
 math_functions.hpp
@@ -574,13 +574,6 @@ mytypes.hpp
 pastelomp.h
 )
 
-source_group(
-"Concepts"
-FILES
-vector_concept.h
-vector_concept.hpp
-)
-
 set(PastelSys_Files
 ../../CMakeLists.txt
 ../../example/CMakeLists.txt
@@ -709,7 +702,7 @@ log.txt
 log_all.h
 logobserver.cpp
 logobserver.h
-math.txt
+basic_math.txt
 math_functions.cpp
 math_functions.h
 math_functions.hpp
@@ -883,8 +876,6 @@ vector.hpp
 vector.txt
 vector_compare.h
 vector_compare.hpp
-vector_concept.h
-vector_concept.hpp
 vector_design.txt
 vector_tools.h
 vector_tools.hpp

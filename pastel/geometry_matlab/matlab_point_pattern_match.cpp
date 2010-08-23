@@ -3,7 +3,7 @@
 #include "pastel/geometry_matlab/pastelgeometry_matlab.h"
 
 #include "pastel/geometry/point_pattern_matching.h"
-#include "pastel/geometry/array_pointpolicy.h"
+#include "pastel/sys/array_pointpolicy.h"
 
 using namespace Pastel;
 

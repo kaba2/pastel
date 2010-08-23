@@ -1,0 +1,5 @@
+Fuzzy logic
+===========
+
+[[Parent]]: basic_math.txt
+

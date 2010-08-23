@@ -1,4 +1,4 @@
-#include "pastelmathtest.h"
+#include "pastelsystest.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
@@ -21,19 +21,21 @@ namespace
 	template <int N>
 	void testNullPointerStatic()
 	{
+		/*
+		Purpose:
+
+		*/
+
 		typedef Rational<BigInteger> Real;
 
 		Vector<Real, N> au2(0);
 		Vector<Real, N> au3(0.0);
-		Vector<Real, N> au4(withCopying(au2.rawBegin()));
 
 		Vector<float, N> af2(0);
 		Vector<float, N> af3(0.0);
-		Vector<float, N> af4(withCopying(af2.rawBegin()));
 
 		Vector<int, N> ai1(0);
 		Vector<int, N> ai2(0.0);
-		Vector<int, N> ai3(withCopying(ai1.rawBegin()));
 	}
 
 	template <int N>
@@ -41,21 +43,18 @@ namespace
 	{
 		const integer n = (N == Dynamic) ? 3 : N;
 
-		Tuple<float, N> t(ofDimension(5), 0);
+		Tuple<float, N> t(ofDimension(n), 0);
 
 		Vector<float, N> c;
 
 		Vector<float, N> af1(c + c);
 		Vector<float, N> af5(ofDimension(n), 0);
 		Vector<float, N> af6(ofDimension(n), 0.0);
-		Vector<float, N> af7(ofDimension(n), withCopying(af1.rawBegin()));
 
 		Vector<int, N> ai5(ofDimension(n), 0);
 		Vector<int, N> ai6(ofDimension(n), 0.0);
-		Vector<int, N> ai7(ofDimension(n), withCopying(ai5.rawBegin()));
 	}
 
-	/*
 	void testVectorBasic()
 	{
 		REPORT1(sizeof(Vector<Real, 3>) != 3 * sizeof(Real), sizeof(Vector<Real, 3>));
@@ -372,23 +371,6 @@ namespace
 
 		Vector<Real, N> b = a;
 
-		// Move construction.
-		{
-			REPORT1(N == Dynamic && a.size() != 0, a.size());
-			REPORT1(N == Dynamic && b.size() != size, b.size());
-			
-			integer contentsDiffer = 0;
-			for (integer i = 0;i < size;++i)
-			{
-				if (b[i] != i)
-				{
-					++contentsDiffer;
-					break;
-				}
-			}
-			REPORT1(contentsDiffer != 0, contentsDiffer);
-		}
-
 		// Vector + Vector.
 		{
 			Vector<Real, N> c = b + b;
@@ -696,59 +678,67 @@ namespace
 	template <int N>
 	void testCollaboration()
 	{
-		const integer size = (N == Dynamic) ? 100 : N;
+		const integer size = (N == Dynamic) ? 10 : N;
 
 		Vector<Real, N> a(ofDimension(size));
+
+		// Static-sized vectors must be
+		// constructible from dynamic-sized vectors
+		// and vice versa. Same thing for
+		// assignment.
+		{
+			Vector<Real> a(ofDimension(size));
+			Vector<Real, N> b(a);
+			Vector<Real> c(b);
+
+			a = b;
+			b = a;
+
+			Tuple<Real, N> d(ofDimension(size));
+			Tuple<Real> e(d);
+			Tuple<Real, N> f(e);
+			e = d;
+			d = e;
+		}
 
 		Vector<Real, N> b = a;
 
 		Vector<Real, N> e = a;
-		if (N == Dynamic)
-		{
-			REPORT1(a.size() != 0, a.size());
-			REPORT2(e.size() != size, e.size(), size);
-		}
+		REPORT2(e.size() != size, e.size(), size);
 
 		Tuple<Real, N> c = b.asTuple();
-		if (N == Dynamic)
-		{
-			REPORT1(b.size() != 0, b.size());
-			REPORT2(c.size() != size, c.size(), size);
-		}
+		REPORT2(c.size() != size, c.size(), size);
 
 		Tuple<Real, N> d = c;
-		if (N == Dynamic)
-		{
-			REPORT2(d.size() != size, d.size(), size);
-			REPORT2(c.size() != size, c.size(), size);
-		}
+		REPORT2(c.size() != size, c.size(), size);
 
 		d = c;
-		if (N == Dynamic)
-		{
-			REPORT2(d.size() != size, d.size(), size);
-			REPORT2(c.size() != size, c.size(), size);
-		}
+		REPORT2(d.size() != size, d.size(), size);
 
 		Tuple<Real, N> f = d;
-		if (N == Dynamic)
+		REPORT2(f.size() != size, f.size(), size);
+
 		{
-			REPORT2(f.size() != size, f.size(), size);
-			REPORT1(d.size() != 0, d.size());
+			// Vectors must be constructible
+			// from Tuples.
+			Tuple<Real, N> a(ofDimension(size));
+			Vector<Real, N> b(a);
+
+			// The N does not need to match.
+			Tuple<Real> c(ofDimension(size));
+			Vector<Real, N> d(c);
+			Tuple<Real> e(asTuple(d));
 		}
 
-		Tuple<Real, N> g(ofDimension(size));
-		Vector<Real, N> j(g);
-		Vector<Real, N> h(g);
-		Vector<Real, N> k(j);
-
-		j.asTuple();
-		j.asTuple();
-
-		h.asTuple();
-		h.asTuple();
+		// Vector contains a Tuple.
+		{
+			Vector<Real, N> a(ofDimension(size));
+			Tuple<Real, N> b(a.asTuple());
+			REPORT(b != a.asTuple());
+			Tuple<Real, N> c(asTuple(a));
+			REPORT(c != a.asTuple());
+		}
 	}
-	*/
 
 	void testBegin()
 	{
@@ -763,7 +753,6 @@ namespace
 		testNullPointer<4>();
 		testNullPointer<Dynamic>();
 
-		/*
 		testVectorBasic();
 		testVectorLowDimensional();
 		testVectorSimpleArithmetic();
@@ -781,12 +770,11 @@ namespace
 		testCollaboration<3>();
 		testCollaboration<4>();
 		testCollaboration<Dynamic>();
-		*/
 	}
 
 	void testAdd()
 	{
-		mathTestList().add("Vector", testBegin);
+		sysTestList().add("Vector", testBegin);
 	}
 
 	CallFunction run(testAdd);

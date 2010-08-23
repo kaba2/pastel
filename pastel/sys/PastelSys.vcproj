@@ -879,6 +879,10 @@
 			Name="Basic math"
 			>
 			<File
+				RelativePath=".\basic_math.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\eps.h"
 				>
 			</File>
@@ -900,10 +904,6 @@
 			</File>
 			<File
 				RelativePath=".\linear.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\math.txt"
 				>
 			</File>
 			<File
@@ -1075,6 +1075,38 @@
 				</File>
 				<File
 					RelativePath=".\tristate.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Point policy"
+				>
+				<File
+					RelativePath=".\array_pointpolicy.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_all.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_design.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\pointpolicy_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\vector_pointpolicy.h"
 					>
 				</File>
 			</Filter>
@@ -1783,10 +1815,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\test\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
@@ -1800,6 +1828,10 @@
 			</File>
 			<File
 				RelativePath="..\..\example\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\CMakeLists.txt"
 				>
 			</File>
 			<File
@@ -1828,18 +1860,6 @@
 			</File>
 			<File
 				RelativePath=".\pastelomp.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Concepts"
-			>
-			<File
-				RelativePath=".\vector_concept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vector_concept.hpp"
 				>
 			</File>
 		</Filter>

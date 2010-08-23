@@ -1,6 +1,6 @@
 // Description: More common math functions
 // Detail: square, clamp, odd, even, integerLog2, roundUpTo, etc.
-// Documentation: math.txt
+// Documentation: basic_math.txt
 
 #ifndef PASTEL_MATH_FUNCTIONS_MORE_H
 #define PASTEL_MATH_FUNCTIONS_MORE_H

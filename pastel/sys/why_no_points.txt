@@ -1,7 +1,7 @@
 Why are there no Point and Normal classes?
 ==========================================
 
-[[Parent]]: math.txt
+[[Parent]]: basic_math.txt
 
 Practice
 --------

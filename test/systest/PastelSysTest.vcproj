@@ -483,6 +483,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_vector.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_view.cpp"
 			>
 		</File>

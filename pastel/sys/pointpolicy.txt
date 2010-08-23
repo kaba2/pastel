@@ -1,0 +1,30 @@
+PointPolicy concept
+===================
+
+[[Parent]]: basic_math.txt
+
+The PointPolicy concept aims to abstract all the different data structures
+for representing elements of ''RR^n''. A point data structure is quite simple
+and therefore gets implemented over and over again in different libraries.
+It would be nice to design algorithms so that they assume no particular
+data structure (such as Pastel's Vector) for storing points. If this
+does not hold, then one has the nuisance of needing to convert between the
+point data structures before calling an algorithm. This "redundant" 
+conversion also causes performance issues. However, only rarely does this
+have effect on the asymptotic complexity.
+
+Dimensionality
+--------------
+
+There are two different use-cases for dimensionalities that we attempt to 
+cover with the PointPolicy abstraction. These are:
+
+1. A set of points with the same dimensionality.
+In this case the PointPolicy needs to store that dimensionality.
+This is especially important because we also need to support
+empty pointsets.
+
+2. A set of points with varying dimensionality.
+Here you will need a way to obtain the dimensionality of each
+point. In case the pointset is empty, there should be no
+dimensionality available.

@@ -1,5 +1,5 @@
 // Description: Linear interpolation
-// Documentation: math.txt
+// Documentation: basic_math.txt
 
 #ifndef PASTEL_LINEAR_H
 #define PASTEL_LINEAR_H
