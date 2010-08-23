@@ -1,6 +1,6 @@
 // Description: Common math functions
 // Detail: log2, floorLog2, sinc, ccwAngle, choose, factorial, etc.
-// Documentation: math.txt
+// Documentation: basic_math.txt
 
 #ifndef PASTEL_MATH_FUNCTIONS_H
 #define PASTEL_MATH_FUNCTIONS_H

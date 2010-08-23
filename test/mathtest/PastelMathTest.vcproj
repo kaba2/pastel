@@ -426,10 +426,6 @@
 			RelativePath=".\test_uniformsampling.cpp"
 			>
 		</File>
-		<File
-			RelativePath=".\test_vector.cpp"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

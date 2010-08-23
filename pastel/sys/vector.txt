@@ -1,7 +1,7 @@
 Vectors
 =======
 
-[[Parent]]: math.txt
+[[Parent]]: basic_math.txt
 
 Theory
 ------

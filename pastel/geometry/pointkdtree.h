@@ -10,7 +10,7 @@
 #include "pastel/sys/poolallocator.h"
 
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/vector_pointpolicy.h"
+#include "pastel/sys/vector_pointpolicy.h"
 
 #include <boost/mpl/if.hpp>
 #include <boost/iterator/indirect_iterator.hpp>

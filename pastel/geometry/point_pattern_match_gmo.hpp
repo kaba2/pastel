@@ -2,7 +2,7 @@
 #define PASTEL_POINT_PATTERN_MATCH_GMO_HPP
 
 #include "pastel/geometry/point_pattern_match_gmo.h"
-#include "pastel/geometry/pointpolicy_tools.h"
+#include "pastel/sys/pointpolicy_tools.h"
 #include "pastel/geometry/search_nearest_one_pointkdtree.h"
 
 #include "pastel/sys/countingiterator.h"

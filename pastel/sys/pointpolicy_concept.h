@@ -1,22 +1,14 @@
-PointPolicy concept
-===================
+// Description: PointPolicy concept
+// Documentation: pointpolicy.txt
 
-[[Parent]]: pointsets.txt
+#ifndef PASTEL_POINTPOLICY_CONCEPT_H
+#define PASTEL_POINTPOLICY_CONCEPT_H
 
-The PointPolicy concept aims to abstract all the different data structures
-for representing points in ''RR^n''. A point data structure is quite simple
-and therefore gets implemented over and over again in different libraries.
-It would be nice to design algorithms so that they assume no particular
-data structure (such as Pastel's Vector) for storing points. If this
-does not hold, then one has the nuisance of needing to convert between the
-point data structures before calling an algorithm. This "redundant" 
-conversion also causes performance issues. However, only rarely does this
-have effect on the asymptotic complexity.
+#include "pastel/sys/mytypes.h"
 
-Definition
-----------
+namespace Pastel
+{
 
-[[CppCode]]:
 	class PointPolicy_Concept
 	{
 	public:
@@ -41,6 +33,25 @@ Definition
 		//! Returns a coordinate of the given point on the given axis.
 		Coordinate point(const Object& object, integer axis) const;
 		
+		//! Returns the dimensionality of all points.
+		/*!
+		If there is no specific dimensionality for all points,
+		this function should return Dynamic. In this case
+		the dimensionality of each point can be obtained
+		from the dimension(object) function. Note:
+		it does not necessarily hold that dimension() == N,
+		because one can have N == Dynamic, but still a constant
+		dimension() != Dynamic.
+		*/
+		integer dimension() const;
+
 		//! Returns the dimensionality of a given point.
+		/*!
+		If N is non-negative, this function returns N.
+		*/
 		integer dimension(const Object& object) const;
 	};
+
+}
+
+#endif

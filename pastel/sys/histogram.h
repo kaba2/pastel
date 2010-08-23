@@ -1,5 +1,5 @@
 // Description: Histograms
-// Documentation: math.txt
+// Documentation: basic_math.txt
 
 #ifndef PASTEL_HISTOGRAM_H
 #define PASTEL_HISTOGRAM_H

@@ -2,10 +2,12 @@
 // Detail: mean, axisAlignedVariance, etc.
 // Documentation: common.txt
 
-#ifndef PASTELMATH_STATISTICS_H
-#define PASTELMATH_STATISTICS_H
+#ifndef PASTEL_STATISTICS_H
+#define PASTEL_STATISTICS_H
 
 #include "pastel/sys/vector.h"
+#include "pastel/sys/forwardrange.h"
+#include "pastel/sys/pointpolicy_concept.h"
 
 #include <vector>
 
@@ -13,17 +15,18 @@ namespace Pastel
 {
 
 	//! Returns the mean of a point set.
-
-	template <typename Real, int N>
-	Vector<Real, N> mean(
-		const std::vector<Vector<Real, N> >& pointSet);
+	template <typename Point_ConstIterator, typename PointPolicy>
+	Vector<typename PointPolicy::Coordinate, PointPolicy::N> mean(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy);
 
 	//! Returns the variance along each axis.
-
-	template <typename Real, int N>
-	Vector<Real, N> axisAlignedVariance(
-		const std::vector<Vector<Real, N> >& pointSet,
-		const Vector<Real, N>& mean);
+	template <typename Point_ConstIterator, typename PointPolicy>
+	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+		axisAlignedVariance(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const typename PointPolicy::Object& mean,
+		const PointPolicy& pointPolicy);
 
 }
 

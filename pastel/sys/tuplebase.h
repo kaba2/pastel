@@ -93,12 +93,6 @@ namespace Pastel
 		return Alias<Type*>(data);
 	}
 
-	template <typename Type>
-	inline Copy<const Type*> withCopying(const Type* data)
-	{
-		return Copy<const Type*>(data);
-	}
-
 	template <typename Type, int N = Dynamic>
 	class Tuple;
 
@@ -177,10 +171,11 @@ namespace Pastel
 			*/
 
 			// Note copy constructor won't match this function.
-			template <typename ThatType>
-			TupleBase(const TupleBase<ThatType, N>& that)
+			template <typename ThatType, int ThatN>
+			TupleBase(const TupleBase<ThatType, ThatN>& that)
 				: data_()
 			{
+				PENSURE_OP(size(), ==, that.size());
 				std::copy(that.begin(), that.end(), begin());
 			}
 
@@ -452,9 +447,9 @@ namespace Pastel
 				};
 			}
 
-			template <typename ThatType>
+			template <typename ThatType, int ThatN>
 			TupleBase(
-				const TupleBase<ThatType, N>& that)
+				const TupleBase<ThatType, ThatN>& that)
 				: data_(0)
 				, size_(0)
 				, deleteData_(true)
@@ -472,9 +467,9 @@ namespace Pastel
 				};
 			}
 
-			template <typename ThatType>
+			template <typename ThatType, int ThatN>
 			TupleBase(
-				const TupleBase<ThatType, N>& that,
+				const TupleBase<ThatType, ThatN>& that,
 				const Dimension& dimension,
 				const Type& defaultData = Type())
 				: data_(0)
@@ -726,12 +721,12 @@ namespace Pastel
 				size_ = 0;
 			}
 
-			template <typename ThatType>
+			template <typename ThatType, int ThatN>
 			void copyConstruct(
-				const TupleBase<ThatType, N>& that)
+				const TupleBase<ThatType, ThatN>& that)
 			{
 				const integer size = that.size();
-				ASSERT(size == size_);
+				ASSERT_OP(size, ==, size_);
 
 				try
 				{
@@ -747,9 +742,9 @@ namespace Pastel
 				};
 			}
 
-			template <typename ThatType>
+			template <typename ThatType, int ThatN>
 			void copyConstruct(
-				const TupleBase<ThatType, N>& that,
+				const TupleBase<ThatType, ThatN>& that,
 				const Dimension& dimension,
 				const Type& defaultData)
 			{

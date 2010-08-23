@@ -4,7 +4,7 @@
 #include "pastel/math/uniform_sampling.h"
 #include "pastel/math/conformalaffine2d_tools.h"
 
-#include "pastel/geometry/vector_pointpolicy.h"
+#include "pastel/sys/vector_pointpolicy.h"
 
 #include "pastel/sys/vector_tools.h"
 

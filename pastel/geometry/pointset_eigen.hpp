@@ -10,21 +10,32 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
-	Vector<Real, N> largestEigenVector(
-		const std::vector<Vector<Real, N> >& pointSet)
+	template <
+		typename Point_ConstIterator, 
+		typename PointPolicy>
+	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+	largestEigenVector(
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy)
 	{
+		typedef typename PointPolicy::Coordinate Real;
+		enum {N = PointPolicy::N};
+
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		ENSURE(!pointSet.empty());
+		const integer n = pointPolicy.dimension();
+		ENSURE_OP(n, !=, Dynamic);
 
-		const integer points = pointSet.size();
-		const integer dimension = pointSet.front().dimension();
+		if (pointSet.empty())
+		{
+			return Vector<Real, N>(ofDimension(n), 0);
+		}
 
-		const Vector<Real, N> meanPoint = mean(pointSet);
+		const Vector<Real, N> meanPoint = 
+			mean(pointSet, pointPolicy);
 
 		// We choose the initial approximation as
 		// the direction of greatest axis-aligned variance.
@@ -32,57 +43,73 @@ namespace Pastel
 		// does not always work, probably due to numerical
 		// errors.
 
-		const Vector<Real, N> axisVariance = axisAlignedVariance(
-			pointSet, meanPoint);
+		const Vector<Real, N> axisVariance = 
+			axisAlignedVariance(pointSet, meanPoint, pointPolicy);
 
 		const integer initialAxis = maxIndex(axisVariance);
 
-		Vector<Real, N> result(unitAxis<Real, N>(dimension, initialAxis));
+		Vector<Real, N> result(
+			unitAxis<Real, N>(n, initialAxis));
 		Real d = 1;
 
-		for (integer i = 0;i < points;++i)
+		Point_ConstIterator iter = pointSet.begin();
+		const Point_ConstIterator iterEnd = pointSet.end();
+		while(iter != iterEnd)
 		{
-			const Real y = dot(result, pointSet[i] - meanPoint);
+			const Real y = dot(result, 
+				pointAsVector(*iter, pointPolicy) - meanPoint);
 
 			// We take beta = 1.
 			
 			//d = beta * d + square(y);
 			d += square(y);
 
-			result += ((pointSet[i] - meanPoint) - result * y) * (y / d);
+			result += ((pointAsVector(*iter, pointPolicy) - meanPoint) - 
+				result * y) * (y / d);
+
+			++iter;
 		}
 
 		return result;
 	}
 
-	template <typename Real, int N>
+	template <typename Point_ConstIterator, typename PointPolicy>
 	void approximateEigenstructure(
-		const std::vector<Vector<Real, N> >& pointSet,
+		const ForwardRange<Point_ConstIterator>& pointSet,
+		const PointPolicy& pointPolicy,
 		integer eigenvectors,
-		Matrix<Real>& qOut,
-		Vector<Real>& dOut)
+		Matrix<typename PointPolicy::Coordinate>& qOut,
+		Vector<typename PointPolicy::Coordinate>& dOut)
 	{
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
+		typedef typename PointPolicy::Coordinate Real;
+
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);
 
-		const integer points = pointSet.size();
-		const integer dimension = pointSet.front().dimension();
+		const integer n = pointPolicy.dimension();
+		ENSURE_OP(n, !=, Dynamic);
+
 		const real beta = 1;
+		const Vector<Real> meanPoint = 
+			mean(pointSet, pointPolicy);
 
-		const Vector<Real, N> meanPoint = mean(pointSet);
-
-		qOut = identityMatrix<Real, Dynamic, Dynamic>(eigenvectors, dimension);
+		qOut = identityMatrix<Real, Dynamic, Dynamic>(eigenvectors, n);
 		dOut.setSize(eigenvectors);
-		dOut = Vector<Real, Dynamic>(ofDimension(eigenvectors), 1);
+		dOut = Vector<Real>(ofDimension(eigenvectors), 1);
 
-		for (integer i = 0;i < points;++i)
+		Vector<Real> x(ofDimension(n));
+
+		Point_ConstIterator iter = pointSet.begin();
+		const Point_ConstIterator iterEnd = pointSet.end();
+		while(iter != iterEnd)
 		{
-			Vector<Real> x = pointSet[i] - meanPoint;
+			x = pointAsVector(*iter, pointPolicy) - meanPoint;
+
 			for (integer j = 0;j < eigenvectors;++j)
 			{
 				Real& d = dOut[j];
@@ -95,6 +122,8 @@ namespace Pastel
 
 				x -= qOut[j] * y;
 			}
+
+			++iter;
 		}
 	}
 

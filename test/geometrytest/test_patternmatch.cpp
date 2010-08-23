@@ -4,7 +4,7 @@
 #include "pastel/geometry/point_pattern_matching.h"
 #include "pastel/geometry/point_pattern_match_gmo.h"
 #include "pastel/geometry/bounding_alignedbox.h"
-#include "pastel/geometry/array_pointpolicy.h"
+#include "pastel/sys/array_pointpolicy.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/draw.h"

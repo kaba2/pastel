@@ -3,7 +3,7 @@
 
 #include "pastel/math/conformalaffine2d.h"
 
-#include "pastel/geometry/pointpolicy_concept.h"
+#include "pastel/sys/pointpolicy_concept.h"
 
 #include "pastel/sys/forwardrange.h"
 
@@ -63,7 +63,7 @@ namespace Pastel
 	Two sets of points.
 
 	fromPointPolicy, toPointPolicy:
-	See the PointPolicy concept from 'pastel/geometry/pointpolicy.txt'.
+	See the PointPolicy concept from 'pastel/sys/pointpolicy.txt'.
 
 	returns:
 	A conformal affine transformation such that mapping 'fromPointSet'
