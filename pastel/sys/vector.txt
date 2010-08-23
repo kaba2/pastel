@@ -1,5 +1,5 @@
-Vector class
-============
+Vectors
+=======
 
 [[Parent]]: math.txt
 

@@ -1,6 +1,5 @@
 // Description: TupleBase class
 // Detail: CRTP base class for Tuple
-// Documentation: math.txt
 
 #ifndef PASTEL_TUPLEBASE_H
 #define PASTEL_TUPLEBASE_H

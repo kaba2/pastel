@@ -1,6 +1,5 @@
 // Description: Algorithms for rectangles
 // Detail: intersect, etc.
-// Documentation: math.txt
 
 #ifndef PASTEL_RECTANGLE_TOOLS_H
 #define PASTEL_RECTANGLE_TOOLS_H
