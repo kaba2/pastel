@@ -60,21 +60,24 @@ namespace Pastel
 		//! Swaps two trees.
 		void swap(RedBlackTree& that);
 
-		//! Removes all elements.
+		//! Removes all elements from the tree.
 		void clear();
 
 		//! Returns true if the tree is empty.
 		bool empty() const;
 
-		//! Insert a node with the given value.
+		//! Inserts an element into the tree.
 		Iterator insert(
 			const Key& key, 
 			const ValueType& value = ValueType());
 
-		//! Search for a node with the given value.
+		//! Removes an element from the tree.
+		Iterator erase(const ConstIterator& that);
+
+		//! Searches for a node with the given value.
 		Iterator find(const Key& key);
 
-		//! Search for a node with the given value.
+		//! Searches for a node with the given value.
 		ConstIterator find(const Key& key) const;
 
 		//! Returns the iterator to the smallest element.
@@ -153,6 +156,9 @@ namespace Pastel
 
 		//! Tree-rotation to the right.
 		Node* rotateRight(Node* node);
+
+		Node* moveRedLeft(Node* node);
+		Node* moveRedRight(Node* node);
 
 		//! Flips the colors of a node and its children.
 		void flipColors(Node* node);

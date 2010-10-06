@@ -316,6 +316,43 @@ namespace Pastel
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
+	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
+		RedBlackTree<Key, Compare, RbtPolicy>::moveRedLeft(
+		Node* node)
+	{
+		ASSERT(node != sentinel_);
+		ASSERT(node->left() != sentinel_);
+
+		flipColors(node);
+		if (node->right()->left()->color() == Color::Red)
+		{
+			node->right() = rotateRight(node->right());
+			node = node->rotateLeft(node);
+			flipColors(node);
+		}
+
+		return node;
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
+	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
+		RedBlackTree<Key, Compare, RbtPolicy>::moveRedRight(
+		Node* node)
+	{
+		ASSERT(node != sentinel_);
+		ASSERT(node->left() != sentinel_);
+
+		flipColors(node);
+		if (node->left()->left()->color() == Color::Red)
+		{
+			node = node->rotateRight(node);
+			flipColors(node);
+		}
+
+		return node;
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
 	void RedBlackTree<Key, Compare, RbtPolicy>::flipColors(
 		Node* node)
 	{

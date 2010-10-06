@@ -110,6 +110,26 @@ namespace Pastel
 				return *node_;
 			}
 
+			bool sentinel() const
+			{
+				return node_->sentinel();
+			}
+
+			ConstIterator parent() const
+			{
+				return ConstIterator(node_->parent());
+			}
+
+			ConstIterator left() const
+			{
+				return ConstIterator(node_->left());
+			}
+
+			ConstIterator right() const
+			{
+				return ConstIterator(node_->right());
+			}
+
 		private:
 			template <typename Key, typename Compare, typename RbtPolicy>
 			friend class RedBlackTree;
@@ -154,6 +174,21 @@ namespace Pastel
 			{
 				ASSERT(node_);
 				return (Node&)*node_;
+			}
+
+			Iterator parent() const
+			{
+				return Iterator(node_->parent());
+			}
+
+			Iterator left() const
+			{
+				return Iterator(node_->left());
+			}
+
+			Iterator right() const
+			{
+				return Iterator(node_->right());
 			}
 
 		private:
