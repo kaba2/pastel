@@ -7,28 +7,62 @@ namespace Pastel
 {
 
 	template <typename Key, typename Compare, typename RbtPolicy>
+	void RedBlackTree<Key, Compare, RbtPolicy>::allocateSentinel(
+		const Key& sentinelKey,
+		const ValueType* sentinelValue)
+	{
+		// The sentinel is not allocated from the allocator,
+		// since we want to keep its identity even if the
+		// whole tree was freed with clear().
+
+		integer rollBackIndex = 0;
+		try
+		{
+			// The balancing algorithms assume that the
+			// color of the sentinel is black.
+			sentinel_ = new Node(sentinelKey, 0, 0, 0, Color::Black);
+			sentinel_->parent() = sentinel_;
+			sentinel_->left() = sentinel_;
+			sentinel_->right() = sentinel_;
+			++rollBackIndex;
+
+			if (Node::ValueExists && sentinelValue)
+			{
+				// Construct the value.
+				new(sentinel_->valuePtr()) ValueType(*sentinelValue);
+				++rollBackIndex;
+			}
+		}
+		catch(...)
+		{
+			switch(rollBackIndex)
+			{
+			case 1:
+				delete sentinel_;
+				break;
+			};
+
+			throw;
+		}
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
+	void RedBlackTree<Key, Compare, RbtPolicy>::deallocateSentinel()
+	{
+		destructNode(sentinel_);
+		delete sentinel_;
+		sentinel_ = 0;
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
 	void RedBlackTree<Key, Compare, RbtPolicy>::initialize()
 	{
 		// This function is called both in construction
 		// and in clear().
 
-		if (!sentinel_)
-		{
-			// The sentinel is not allocated from the allocator,
-			// since we want to keep its identity even if the
-			// whole tree was freed with clear().
-			// In addition, we do not want to construct the Node,
-			// since that would require Key to be default-constructible.
-
-			sentinel_ = (Node*)allocateRaw(sizeof(Node));
-		}
-
 		sentinel_->parent() = sentinel_;
 		sentinel_->left() = sentinel_;
 		sentinel_->right() = sentinel_;
-		// The balancing algorithms assume that the
-		// color of the sentinel is black.
-		sentinel_->setColor(Color::Black);
 
 		setMinimum(sentinel_);
 		setMaximum(sentinel_);
@@ -39,7 +73,8 @@ namespace Pastel
 	template <typename Key, typename Compare, typename RbtPolicy>
 	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
 	RedBlackTree<Key, Compare, RbtPolicy>::allocateNode(
-	const Key& key, const ValueType* value, Node* parent)
+	const Key& key, const ValueType* value, 
+	Node* parent, Color::Enum color)
 	{
 		Node* node = 0;
 		integer rollBackIndex = 0;
@@ -49,10 +84,10 @@ namespace Pastel
 			++rollBackIndex;
 
 			// Construct the node.
-			new(node) Node(key, parent, sentinel_, sentinel_);
+			new(node) Node(key, parent, sentinel_, sentinel_, color);
 			++rollBackIndex;
 
-			if (ValueExists && value)
+			if (Node::ValueExists && value)
 			{
 				// Construct the value.
 				new(node->valuePtr()) ValueType(*value);
@@ -79,12 +114,7 @@ namespace Pastel
 	template <typename Key, typename Compare, typename RbtPolicy>
 	void RedBlackTree<Key, Compare, RbtPolicy>::destructNode(Node* node)
 	{
-		// The sentinel should not be deallocated
-		// with this function, since it was not
-		// allocated with 'allocator_'.
-		ASSERT(node != sentinel_);
-
-		if (ValueExists)
+		if (Node::ValueExists)
 		{
 			// Destruct the value.
 			node->valuePtr()->~ValueType();
@@ -102,9 +132,21 @@ namespace Pastel
 	{
 		if (node == sentinel_)
 		{
-			// The key does not exist.
-			// Insert it as a leaf node.
-			newNode = allocateNode(key, value, parent);
+			// The key does not exist, so insert it as a leaf node.
+			// New nodes are created red.
+			newNode = allocateNode(key, value, parent, Color::Red);
+
+			if (parent != sentinel_)
+			{
+				if (fromLeft)
+				{
+					parent->left() = newNode;
+				}
+				else
+				{
+					parent->right() = newNode;
+				}
+			}
 
 			if (empty() || (parent == minimum() && fromLeft))
 			{
@@ -118,29 +160,37 @@ namespace Pastel
 				setMaximum(newNode);
 			}
 
+			policy_.updateHierarchicalData(
+				Iterator(newNode));
+
 			return newNode;
 		}
 
 		if (compare_(key, node->key()))
 		{
-			node->left() = insert(key, value, node->left(), node, true, newNode);
+			// Smaller elements are located at the left child.
+			node->left() = insert(
+				key, value, node->left(), 
+				node, true, newNode);
 		}
 		else if (compare_(node->key(), key))
 		{
-			node->right() = insert(key, value, node->right(), node, false, newNode);
+			// Greater elements are located at the right child.
+			node->right() = insert(
+				key, value, node->right(), 
+				node, false, newNode);
 		}
 		else
 		{
 			// The key already exists. 
-			// We shall overwrite the value.
-			
-			if (ValueExists && value)
-			{
-				*node->valuePtr() = *value;
-			}
+			// We return it.
 
 			newNode = node;
+			return newNode;
 		}
+
+		policy_.updateHierarchicalData(
+			Iterator(node));
 
 		if (node->left()->color() == Color::Black &&
 			node->right()->color() == Color::Red)
@@ -170,7 +220,7 @@ namespace Pastel
 
 	template <typename Key, typename Compare, typename RbtPolicy>
 	typename RedBlackTree<Key, Compare, RbtPolicy>::Node* 
-		RedBlackTree<Key, Compare, RbtPolicy>::constructNode(
+		RedBlackTree<Key, Compare, RbtPolicy>::copyConstruct(
 		Node* parent, Node* thatNode)
 	{
 		if (thatNode->sentinel())
@@ -183,15 +233,16 @@ namespace Pastel
 		try
 		{
 			node = allocateNode(
-				thatNode->key(), thatNode->valuePtr(), parent);
+				thatNode->key(), thatNode->valuePtr(), 
+				parent, thatNode->color());
 			++rollBackIndex;
 
 			// Copy construct the left child.
-			node->left() = constructNode(node, thatNode->left());
+			node->left() = copyConstruct(node, thatNode->left());
 			++rollBackIndex;
 
 			// Copy construct the right child.
-			node->right() = constructNode(node, thatNode->right());
+			node->right() = copyConstruct(node, thatNode->right());
 			++rollBackIndex;
 		}
 		catch(...)
@@ -273,6 +324,11 @@ namespace Pastel
 		x->setColor(node->color());
 		node->setColor(Color::Red);
 
+		policy_.updateHierarchicalData(
+			Iterator(node));
+		policy_.updateHierarchicalData(
+			Iterator(x));
+
 		return x;
 	}
 
@@ -311,6 +367,11 @@ namespace Pastel
 
 		x->setColor(node->color());
 		node->setColor(Color::Red);
+
+		policy_.updateHierarchicalData(
+			Iterator(node));
+		policy_.updateHierarchicalData(
+			Iterator(x));
 
 		return x;
 	}

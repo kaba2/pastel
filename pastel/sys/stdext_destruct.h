@@ -14,7 +14,7 @@ namespace Pastel
 		Preconditions:
 		[begin, end[ forms a range.
 
-		Time Complexity: 
+		Complexity: 
 		* for types with trivial destructors: constant
 		* otherwise: linear
 		Exception safety: nothrow

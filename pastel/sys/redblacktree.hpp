@@ -6,34 +6,49 @@
 namespace Pastel
 {
 	template <typename Key, typename Compare, typename RbtPolicy>
-	RedBlackTree<Key, Compare, RbtPolicy>::RedBlackTree()
+	RedBlackTree<Key, Compare, RbtPolicy>::RedBlackTree(
+		const RbtPolicy& policy,
+		const Key& sentinelKey,
+		const ValueType& sentinelValue)
 		: root_(0)
 		, sentinel_(0)
 		, minimum_(0)
 		, allocator_(sizeof(Node))
 		, compare_()
+		, policy_(policy)
 	{
+		allocateSentinel(sentinelKey, &sentinelValue);
+
+		// This doesn't throw.
 		initialize();
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
 	RedBlackTree<Key, Compare, RbtPolicy>::RedBlackTree(
-		const RedBlackTree& that)
+		const RedBlackTree& that,
+		const RbtPolicy& policy)
 		: root_(0)
 		, sentinel_(0)
 		, minimum_(0)
 		, allocator_(sizeof(Node))
 		, compare_()
+		, policy_(policy)
 	{
+		// We don't want to rollback this in case of exception,
+		// because it gives a default-constructed state.
+		allocateSentinel(that.sentinel_->key(), that.sentinel_->valuePtr());
+
+		// This doesn't throw.
 		initialize();
 
-		// We could simply insert the values here
-		// in order. However, because 'that' is already
-		// a working tree, we can make the copy more efficient
-		// by also copying its structure.
 		try
 		{
-			root_ = constructNode(sentinel_, that.root_);
+			// We could simply insert the values here
+			// in order. However, because 'that' is already
+			// a working tree, we can make the copy more efficient
+			// by also copying its structure.
+
+			root_ = copyConstruct(sentinel_, that.root_);
 			ASSERT(root_->parent() == sentinel_);
 		}
 		catch(...)
@@ -85,9 +100,7 @@ namespace Pastel
 	RedBlackTree<Key, Compare, RbtPolicy>::~RedBlackTree()
 	{
 		clear();
-
-		// Free the sentinel.
-		deallocateRaw(sentinel_);
+		deallocateSentinel();
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
@@ -100,6 +113,7 @@ namespace Pastel
 		swap(minimum_, that.minimum_);
 		allocator_.swap(that.allocator_);
 		swap(compare_, that.compare_);
+		policy_.swap(that.policy_);
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
@@ -238,6 +252,20 @@ namespace Pastel
 	RedBlackTree<Key, Compare, RbtPolicy>::last() const
 	{
 		return ConstIterator(maximum());
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
+	typename RedBlackTree<Key, Compare, RbtPolicy>::Iterator 
+	RedBlackTree<Key, Compare, RbtPolicy>::root()
+	{
+		return Iterator(root_);
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
+	typename RedBlackTree<Key, Compare, RbtPolicy>::ConstIterator 
+	RedBlackTree<Key, Compare, RbtPolicy>::root() const
+	{
+		return ConstIterator(root_);
 	}
 
 }

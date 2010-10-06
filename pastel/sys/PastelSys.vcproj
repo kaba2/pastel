@@ -698,6 +698,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\redblacktree.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\redblacktree_iterator.h"
 					>
 				</File>
@@ -709,6 +713,30 @@
 					RelativePath=".\redblacktree_private.hpp"
 					>
 				</File>
+				<Filter
+					Name="RbtPolicy"
+					>
+					<File
+						RelativePath=".\map_rbtpolicy.h"
+						>
+					</File>
+					<File
+						RelativePath=".\rbtpolicy.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\rbtpolicy_all.h"
+						>
+					</File>
+					<File
+						RelativePath=".\rbtpolicy_concept.h"
+						>
+					</File>
+					<File
+						RelativePath=".\set_rbtpolicy.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1839,10 +1867,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
@@ -1856,6 +1880,10 @@
 			</File>
 			<File
 				RelativePath="..\..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
 			<File

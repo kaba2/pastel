@@ -1,40 +1,23 @@
+// Description: RedBlackTree class
+
 #ifndef PASTEL_REDBLACKTREE_H
 #define PASTEL_REDBLACKTREE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/poolallocator.h"
-
-#include <boost/type_traits/is_same.hpp>
-
+#include "pastel/sys/rbtpolicy_concept.h"
+#include "pastel/sys/set_rbtpolicy.h"
 #include "pastel/sys/redblacktree_node.h"
 #include "pastel/sys/redblacktree_iterator.h"
 
 namespace Pastel
 {
 
-	class RbtPolicy_Concept
-	{
-	public:
-	};
-
-	class No_RbtPolicy
-	{
-	public:
-		typedef EmptyClass ValueType;
-	};
-
-	template <typename Value>
-	class Value_RbtPolicy
-	{
-	public:
-		typedef Value ValueType;
-	};
-
 	//! Left-leaning red-black tree
 	template <
 		typename Key,
 		typename Compare = std::less<Key>, 
-		typename RbtPolicy = No_RbtPolicy>
+		typename RbtPolicy = Set_RbtPolicy>
 	class RedBlackTree
 	{
 	public:
@@ -46,86 +29,192 @@ namespace Pastel
 		typedef RedBlackTree_Detail::ConstIterator<Key, ValueType> ConstIterator;
 
 		//! Constructs an empty tree.
-		RedBlackTree();
+		/*!
+		Exception safety: strong
+		Complexity: constant
+		*/
+		explicit RedBlackTree(
+			const RbtPolicy& policy = RbtPolicy(),
+			const Key& sentinelKey = Key(), 
+			const ValueType& sentinelValue = ValueType());
 
 		//! Constructs a copy of another tree.
-		RedBlackTree(const RedBlackTree& that);
+		/*!
+		Exception safety: strong
+		Complexity: O(n)
+		*/
+		RedBlackTree(
+			const RedBlackTree& that,
+			const RbtPolicy& policy = RbtPolicy());
 
 		//! Replaces this tree with a copy of another tree.
+		/*!
+		Exception safety: strong
+		Complexity: O(n)
+		*/
 		RedBlackTree& operator=(const RedBlackTree& that);
 
 		//! Destructs the tree.
+		/*!
+		Exception safety: nothrow
+		Complexity: O(n)
+		*/
 		~RedBlackTree();
 
 		//! Swaps two trees.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
 		void swap(RedBlackTree& that);
 
 		//! Removes all elements from the tree.
+		/*!
+		Exception safety: nothrow
+		Complexity: O(n)
+		*/
 		void clear();
 
 		//! Returns true if the tree is empty.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
 		bool empty() const;
 
 		//! Inserts an element into the tree.
+		/*!
+		Exception safety: nothrow
+		Complexity: O(f(n) log n)
+
+		Here f(n) is the time spent computing the
+		user-specified hierarchical data (usually O(1)).
+		*/
 		Iterator insert(
 			const Key& key, 
 			const ValueType& value = ValueType());
 
 		//! Removes an element from the tree.
+		/*!
+		Exception safety: nothrow
+		Complexity: O(f(n) log n)
+
+		Here f(n) is the time spent computing the
+		user-specified hierarchical data (usually O(1)).
+		*/
 		Iterator erase(const ConstIterator& that);
 
 		//! Searches for a node with the given value.
+		/*!
+		See the documentation for the const version.
+		*/
 		Iterator find(const Key& key);
 
 		//! Searches for a node with the given value.
+		/*!
+		Exception safety: nothrow
+		Complexity: O(log n)
+		*/
 		ConstIterator find(const Key& key) const;
 
 		//! Returns the iterator to the smallest element.
+		/*!
+		See the documentation for the const version.
+		*/
 		Iterator begin();
 
 		//! Returns the iterator to the smallest element.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
 		ConstIterator begin() const;
 
 		//! Returns the iterator to the one-past-greatest element.
+		/*!
+		See the documentation for the const version.
+		*/
 		Iterator end();
 
 		//! Returns the iterator to the one-past-greatest element.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
 		ConstIterator end() const;
 
 		//! Returns the iterator to the greatest element.
+		/*!
+		See the documentation for the const version.
+		*/
 		Iterator last();
 
 		//! Returns the iterator to the greatest element.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
 		ConstIterator last() const;
 
-	private:
-		enum
-		{
-			ValueExists = 
-			!boost::is_same<ValueType, EmptyClass>::value
-		};
+		//! Returns the iterator to the root element.
+		/*!
+		See the documentation for the const version.
+		*/
+		Iterator root();
 
+		//! Returns the iterator to the root element.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
+		ConstIterator root() const;
+
+	private:
 		typedef RedBlackTree_Detail::Color Color;
 		typedef RedBlackTree_Detail::Node<Key, ValueType> Node;
 
-		//! Allocates the sentinel node etc.
+		//! Allocates the sentinel node.
 		/*!
-		Exception safety: 
-		strong
+		Exception safety: strong
+		Complexity: constant
+		*/
+		void allocateSentinel(
+			const Key& sentinelKey,
+			const ValueType* sentinelValue);
+
+		//! Deallocates the sentinel node.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
+		void deallocateSentinel();
+
+		//! Initializes some member variables.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+
+		This function is to catch functionality
+		common to different constructors.
 		*/
 		void initialize();
 
 		//! Allocates a node.
 		/*!
-		Exception safety:
-		strong
+		Exception safety: strong
+		Complexity:	constant
 		*/
 		Node* allocateNode(
 			const Key& key, 
 			const ValueType* value,
-			Node* parent);
+			Node* parent,
+			Color::Enum color);
 
 		//! Destruct a node.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
 		void destructNode(Node* node);
 		
 		//! Inserts a new node.
@@ -143,36 +232,88 @@ namespace Pastel
 		strong, except for not deallocating
 		memory in 'allocator', which must be
 		done later.
+
+		Complexity:
+		O(n)
+
+		Here 'n' is the number of nodes in the
+		subtree of 'thatNode'.
 		*/
-		Node* constructNode(
+		Node* copyConstruct(
 			Node* parent,
 			Node* thatNode);
 
 		//! Destructs the nodes of a subtree.
+		/*!
+		Exception safety: nothrow
+		Complexity:	O(n)
+
+		Here 'n' is the number of nodes in the subtree
+		of 'node'.
+		*/
 		void clear(Node* node);
 
 		//! Tree-rotation to the left.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		Node* rotateLeft(Node* node);
 
 		//! Tree-rotation to the right.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		Node* rotateRight(Node* node);
 
+		//! ...
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		Node* moveRedLeft(Node* node);
+
+		//! ...
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		Node* moveRedRight(Node* node);
 
 		//! Flips the colors of a node and its children.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		void flipColors(Node* node);
 
 		//! Sets the minimum node.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		void setMinimum(Node* node);
 
 		//! Returns the minimum node.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		Node* minimum() const;
 
 		//! Sets the maximum node.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		void setMaximum(Node* node);
 
 		//! Returns the maximum node.
+		/*!
+		Exception safety: nothrow
+		Complexity:	constant
+		*/
 		Node* maximum() const;
 
 		//! The root-node of the tree.
@@ -203,6 +344,9 @@ namespace Pastel
 
 		//! The comparison functor.
 		Compare compare_;
+
+		//! The policy.
+		RbtPolicy policy_;
 	};
 
 }
