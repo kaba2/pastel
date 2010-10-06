@@ -4,44 +4,9 @@ RbtPolicy concept
 [[Parent]]: redblacktree.txt
 
 The RbtPolicy concept allows to modify the behaviour of the RedBlackTree.
-First, via this concept you may specify extra data to be stored in each
-node, called _value data_. Second, you may specify that some of the value
-data be updated automatically as the tree structure changes. Such data
-are called _hierachical data_. This generic _augmentation_ of binary trees 
-opens up a path for developing a large class of efficient algorithms.
+First, it allows you to specify the type of the value data to
+store in each node. Second, it allows you to update value data 
+automatically as the tree structure changes, to allow for hierarchical
+data. This generic augmentation of the red-black tree allows for 
+developing a large class of tree-based algorithms.
 
-Value data
-----------
-
-In addition to the key, a node can store arbitrary extra
-data, called _value data_. In contrast to the keys, the
-values can be modified at any time. The type of the value
-data by specified in the `ValueType` member type in the policy.
-If no extra data is needed, you should define this type 
-`EmptyClass`, so that no memory is spent on the values.
-
-Hierarchical data
------------------
-
-_Hierarchical data_ is any information that can be
-computed for a node from its subtree, assuming the
-hierarchical data of the children are up to date.
-Examples include:
-
-* The number of nodes in a subtree.
-* The sum of keys/values in a subtree.
-* The maximum/minimum of keys/values in a subtree.
-* Any associative binary operation of keys/values in a subtree.
-
-When the local computation takes O(1) time, as in all of the
-examples above, the hierarchical data can be kept up 
-to date in insertions and removals without affecting the 
-asymptotic performance of the RedBlackTree. More generally, the
-local computation time acts multiplicatively on the complexity
-of the insert() and erase() functions of the RedBlackTree.
-For example, if the local computation takes O(log n), then the
-complexity of insert() will be O((log n)^2).
-
-The RedBlackTree automatically keeps hierarchical data up to date, 
-given that the user provides the local computation for a single 
-node in the updateHierarchicalData() function.
