@@ -41,6 +41,9 @@ namespace
 			// Nothing should happen.
 			tree.insert(1, 1);
 
+			Tree copyTree(tree);
+			copyTree.swap(tree);
+
 			std::cout << "Minimum " << tree.begin()->key() << std::endl;
 			std::cout << "Maximum " << tree.last()->key() << std::endl;
 			

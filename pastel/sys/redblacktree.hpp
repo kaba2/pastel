@@ -52,9 +52,7 @@ namespace Pastel
 				node = node->left();
 			}
 
-			// The smallest node is stored
-			// at the left child of the sentinel.
-			sentinel_->left() = node;
+			setMinimum(node);
 		}
 
 		// Find the greatest node.
@@ -65,9 +63,7 @@ namespace Pastel
 				node = node->right();
 			}
 
-			// The greatest node is stored
-			// at the parent of the sentinel.
-			sentinel_->parent() = node;
+			setMaximum(node);
 		}
 	}
 
@@ -98,11 +94,12 @@ namespace Pastel
 	void RedBlackTree<Key, Compare, RbtPolicy>::swap(
 		RedBlackTree& that)
 	{
-		std::swap(root_, that.root_);
-		std::swap(sentinel_, that.sentinel_);
-		std::swap(minimum_, that.minimum_);
+		using std::swap;
+		swap(root_, that.root_);
+		swap(sentinel_, that.sentinel_);
+		swap(minimum_, that.minimum_);
 		allocator_.swap(that.allocator_);
-		compare_.swap(that.compare_);
+		swap(compare_, that.compare_);
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
@@ -143,6 +140,15 @@ namespace Pastel
 		root_->setColor(Color::Black);
 
 		return Iterator(newNode);
+	}
+	
+	template <typename Key, typename Compare, typename RbtPolicy>
+	typename RedBlackTree<Key, Compare, RbtPolicy>::Iterator 
+		RedBlackTree<Key, Compare, RbtPolicy>::erase(
+		const ConstIterator& that)
+	{
+		ENSURE(false);
+		return that;
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
