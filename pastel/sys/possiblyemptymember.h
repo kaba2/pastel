@@ -28,12 +28,12 @@ namespace Pastel
 
 		Type* data()
 		{
-			return (Type*)&data_[0];
+			return (Type*)&data_.front();
 		}
 
 		const Type* data() const
 		{
-			return (Type*)&data_[0];
+			return (Type*)&data_.front();
 		}
 
 	private:

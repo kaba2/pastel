@@ -19,9 +19,9 @@
 % with points in 'scenePointSet' to be accepted. For example, 0.8 means 
 % that 80% of the points must match.
 %
-% MATCHINGDISTANCE is a real number which gives the distance under
-% which a mapped point from the 'modelPointSet' is considered matching
-% a point from the 'scenePointSet'.
+% MATCHINGDISTANCE is a non-negative real number which gives the distance 
+% under which a mapped point from the 'modelPointSet' is considered 
+% matching a point from the 'scenePointSet'.
 %
 % CONFIDENCE is a real number in the range [0, 1]. It is roughly the 
 % probability, that if the algorithm finds no match, then there really 
@@ -40,7 +40,7 @@
 function [pairSet, translation, success] = ...
     pastel_point_pattern_match_gmo(...
     modelPointSet, scenePointSet, ...
-    minMatchRatio, relativeMatchingDistance, ...
+    minMatchRatio, matchingDistance, ...
     confidence)
 
 if nargin < 5
@@ -50,15 +50,15 @@ end
 check(modelPointSet, 'pointset');
 check(scenePointSet, 'pointset');
 check(minMatchRatio, 'real');
-check(relativeMatchingDistance, 'real');
+check(matchingDistance, 'real');
 check(confidence, 'real');
 
 if minMatchRatio < 0 || minMatchRatio > 1
     error('minMatchRatio must be in the range [0, 1].');
 end
 
-if relativeMatchingDistance < 0 || relativeMatchingDistance > 1
-    error('relativeMatchingDistance must be in the range [0, 1]');
+if matchingDistance < 0
+    error('matchingDistance must be non-negative.');
 end
 
 if confidence < 0 || confidence > 1
@@ -72,7 +72,7 @@ end
 [pairSet, translation, success] = ...
     pastelgeometry_matlab('point_pattern_match_gmo', ...
     modelPointSet, scenePointSet, ...
-    minMatchRatio, relativeMatchingDistance, ...
+    minMatchRatio, matchingDistance, ...
     confidence);
 
 
