@@ -686,6 +686,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="RedBlackTree"
+				>
+				<File
+					RelativePath=".\redblacktree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree_iterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree_node.h"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree_private.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Memory"
@@ -1815,10 +1839,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
@@ -1832,6 +1852,10 @@
 			</File>
 			<File
 				RelativePath="..\..\test\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
 			<File
