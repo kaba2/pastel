@@ -13,16 +13,16 @@ namespace Pastel
 	{
 
 		template <typename Key, typename Value>
-		class Iterator;
+		class ConstIterator;
 
 		template <typename Key, typename Value>
-		class ConstIterator
+		class Iterator
 			: public boost::bidirectional_iterator_helper<
-			ConstIterator<Key, Value>, const Node<Key, Value>, integer>
+			Iterator<Key, Value>, Node<Key, Value>, integer>
 		{
 		public:
 			template <typename Key, typename Value>
-			friend class Iterator;
+			friend class ConstIterator;
 
 			typedef Node<Key, Value> Node;
 
@@ -30,31 +30,26 @@ namespace Pastel
 			// Using default assignment.
 			// Using default destructor.
 
-			ConstIterator()
+			Iterator()
 				: node_(0)
 			{
 			}
 
-			ConstIterator(const ConstIterator& that)
-				: node_(that.node_)
-			{
-			}
-
-			bool operator==(const ConstIterator& that) const
+			bool operator==(const Iterator& that) const
 			{
 				return node_ == that.node_;
 			}
 
-			bool operator<(const ConstIterator& that) const
+			bool operator<(const Iterator& that) const
 			{
 				return node_ < that.node_;
 			}
 			
-			ConstIterator& operator++()
+			Iterator& operator++()
 			{
 				if (node_->right()->sentinel())
 				{
-					const Node* prevNode = node_;
+					Node* prevNode = node_;
 					do
 					{
 						prevNode = node_;
@@ -74,12 +69,12 @@ namespace Pastel
 				return *this;
 			}
 
-			ConstIterator& operator--()
+			Iterator& operator--()
 			{
 				if (node_->left()->sentinel())
 				{
-					const Node* originalNode = node_;
-					const Node* prevNode = node_;
+					Node* originalNode = node_;
+					Node* prevNode = node_;
 					do
 					{
 						prevNode = node_;
@@ -104,7 +99,7 @@ namespace Pastel
 				return *this;
 			}
 
-			const Node& operator*() const
+			Node& operator*() const
 			{
 				ASSERT(node_);
 				return *node_;
@@ -113,67 +108,6 @@ namespace Pastel
 			bool sentinel() const
 			{
 				return node_->sentinel();
-			}
-
-			ConstIterator parent() const
-			{
-				return ConstIterator(node_->parent());
-			}
-
-			ConstIterator left() const
-			{
-				return ConstIterator(node_->left());
-			}
-
-			ConstIterator right() const
-			{
-				return ConstIterator(node_->right());
-			}
-
-		private:
-			template <typename Key, typename Compare, typename RbtPolicy>
-			friend class RedBlackTree;
-
-			explicit ConstIterator(const Node* node)
-				: node_(node)
-			{
-			}
-
-			const Node* node_;
-		};
-
-		template <typename Key, typename Value>
-		class Iterator
-			: public ConstIterator<Key, Value>
-		{
-		public:
-			typedef ConstIterator<Key, Value> Base;
-
-			using Base::Node;
-			
-			// Using default copy constructor.
-			// Using default assignment.
-			// Using default destructor.
-
-			Iterator()
-				: node_(0)
-			{
-			}
-
-			Iterator& operator++()
-			{
-				return (Iterator&)Base::operator++();
-			}
-
-			Iterator& operator--()
-			{
-				return (Iterator&)Base::operator--();
-			}
-
-			Node& operator*()
-			{
-				ASSERT(node_);
-				return (Node&)*node_;
 			}
 
 			Iterator parent() const
@@ -196,9 +130,93 @@ namespace Pastel
 			friend class RedBlackTree;
 
 			explicit Iterator(Node* node)
-				: Base(node)
+				: node_(node)
 			{
 			}
+
+			Node* node_;
+		};
+
+		template <typename Key, typename Value>
+		class ConstIterator
+			: public boost::bidirectional_iterator_helper<
+			ConstIterator<Key, Value>, const Node<Key, Value>, integer>
+		{
+		public:
+			// Using default copy constructor.
+			// Using default assignment.
+			// Using default destructor.
+
+			typedef Iterator<Key, Value> Iterator;
+			typedef Node<Key, Value> Node;
+			
+			ConstIterator()
+				: iter_()
+			{
+			}
+
+			ConstIterator(const Iterator& that)
+				: iter_(that)
+			{
+			}
+
+			bool operator==(const ConstIterator& that) const
+			{
+				return iter_ == that.iter_;
+			}
+
+			bool operator<(const ConstIterator& that) const
+			{
+				return iter_ < that.iter_;
+			}
+			
+			ConstIterator& operator++()
+			{
+				++iter_;
+				return *this;
+			}
+
+			ConstIterator& operator--()
+			{
+				--iter_;
+				return *this;
+			}
+
+			const Node& operator*() const
+			{
+				return (const Node&)*iter_;
+			}
+
+			bool sentinel() const
+			{
+				return iter_->sentinel();
+			}
+
+			ConstIterator parent() const
+			{
+				return iter_->parent();
+			}
+
+			ConstIterator left() const
+			{
+				return iter_->left();
+			}
+
+			ConstIterator right() const
+			{
+				return iter_->right();
+			}
+
+		private:
+			template <typename Key, typename Compare, typename RbtPolicy>
+			friend class RedBlackTree;
+
+			explicit ConstIterator(const Node* node)
+				: iter_((Node*)node)
+			{
+			}
+
+			Iterator iter_;
 		};
 
 	}

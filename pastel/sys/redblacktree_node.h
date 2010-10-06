@@ -51,8 +51,6 @@ namespace Pastel
 			
 			Value& value()
 			{
-				ASSERT(!sentinel());
-
 				PASTEL_STATIC_ASSERT(ValueExists);
 
 				return *Base::data();
@@ -60,8 +58,6 @@ namespace Pastel
 
 			const Value& value() const
 			{
-				ASSERT(!sentinel());
-
 				PASTEL_STATIC_ASSERT(ValueExists);
 
 				return *Base::data();
@@ -79,13 +75,13 @@ namespace Pastel
 			friend class RedBlackTree;
 
 			template <typename Key, typename Value>
-			friend class ConstIterator;
+			friend class Iterator;
 
 			Node(const Key& key,
 				Node* parent,
 				Node* left,
 				Node* right,
-				Color::Enum color = Color::Red)
+				Color::Enum color)
 				: key_(key)
 				, parent_(parent)
 				, left_(left)
@@ -104,7 +100,7 @@ namespace Pastel
 				return parent_;
 			}
 
-			const Node* parent() const
+			Node* parent() const
 			{
 				return parent_;
 			}
@@ -114,7 +110,7 @@ namespace Pastel
 				return left_;
 			}
 
-			const Node* left() const
+			Node* left() const
 			{
 				return left_;
 			}
@@ -124,7 +120,7 @@ namespace Pastel
 				return right_;
 			}
 
-			const Node* right() const
+			Node* right() const
 			{
 				return right_;
 			}

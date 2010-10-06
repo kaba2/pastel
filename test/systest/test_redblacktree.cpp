@@ -1,6 +1,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/redblacktree.h"
+#include "pastel/sys/rbtpolicy_all.h"
 
 #include <iostream>
 
@@ -23,21 +24,42 @@ namespace
 			testSimple();
 		}
 
-		typedef RedBlackTree<integer, std::less<integer>, Value_RbtPolicy<integer> > Tree;
+		class Counting_RbtPolicy
+		{
+		public:
+			typedef integer ValueType;
+
+			void swap(Counting_RbtPolicy& that)
+			{
+			}
+
+			template <typename Iterator>
+			void updateHierarchicalData(const Iterator& iter)
+			{
+				//iter->value() = 
+				//	iter.left()->value() + iter.right()->value() + 1;
+				iter->value() = 
+					std::max(std::max(iter.left()->value(), iter.right()->value()),
+					iter->key());
+			}
+		};
+
+		//typedef RedBlackTree<integer, std::less<integer>, Map_RbtPolicy<integer> > Tree;
+		typedef RedBlackTree<integer, std::less<integer>, Counting_RbtPolicy> Tree;
 		//typedef RedBlackTree<integer> Tree;
 		typedef Tree::Iterator Iterator;
 		typedef Tree::ConstIterator ConstIterator;
 
 		void testSimple()
 		{
-			Tree tree;
+			Tree tree(Counting_RbtPolicy(), 0, 0);
 			tree.insert(1, 1);
-			tree.insert(8, 64);
-			tree.insert(3, 9);
-			tree.insert(5, 25);
-			tree.insert(7, 49);
-			tree.insert(2, 4);
-			tree.insert(9, 81);
+			tree.insert(8, 1);
+			tree.insert(3, 1);
+			tree.insert(5, 1);
+			tree.insert(7, 1);
+			tree.insert(2, 1);
+			tree.insert(9, 1);
 			// Nothing should happen.
 			tree.insert(1, 1);
 
@@ -70,6 +92,9 @@ namespace
 			std::cout << iter->key() << ", ";
 
 			std::cout << "end." << std::endl;
+			std::cout << "Root " 
+				<< tree.root()->key() << " : " 
+				<< tree.root()->value() << "." << std::endl;
 
 			find(tree, 3);
 			find(tree, -1);
