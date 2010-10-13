@@ -6,19 +6,16 @@ Red-black tree
 Theory
 ------
 
-A red-black tree is a balanced binary search tree. It is a data structure 
+A _red-black tree_ is a balanced binary search tree. It is a data structure 
 to contain arbitrary elements, given that those elements can be totally 
 ordered by their _keys_. Such a tree has the following attractive properties.
 
  * It can be constructed in ''O(n)'' time and uses ''O(n)'' space.
- * An element can be inserted into it in ''O(log n)'' time.
- * An element can be removed from it in ''O(log n)'' time.
- * An element can be searched in it in ''O(log n)'' time.
+ * An element can be inserted into it in ''O(log(n))'' time.
+ * An element can be removed from it in ''O(log(n))'' time.
+ * An element can be searched in it in ''O(log(n))'' time.
  * The next largest or the next smallest element can be
- found in ''O(1)'' amortized time (worst-case ''O(log n)'').
-
-Practice
---------
+ found in ''O(1)'' amortized time (worst-case ''O(log(n))'').
 
 Many algorithms derive their efficiency from using an augmented version of 
 a balanced tree. For example, it is possible to augment each node of a binary
@@ -31,16 +28,19 @@ efficient for this task. For example, the STL library containers `set` and
 are more than dictionaries: the tree structure itself is important for many
 algorithms, and specifically those which use an augmented tree.
 
+Practice
+--------
+
 Pastel provides an efficient and generic implementation of augmented 
 red-black trees. Pastel's implementation generalizes on the properties of 
 those already listed for the red-black tree.
 
  * The tree can be augmented with value data.
- * Hierarchical data can be updated automatically using a user-defined
+ * Hierarchical data can be kept up to date automatically using a user-defined
  function which updates the data in a single node. Denote the complexity 
  of this function by ''f(n)'' (usually ''O(1)'').
- * An element can be inserted into it in ''O(f(n) log n)'' time,
- * An element can be removed from it in ''O(f(n) log n)'' time.
+ * An element can be inserted into it in ''O(f(n) log(n))'' time,
+ * An element can be removed from it in ''O(f(n) log(n))'' time.
  * The minimum element can be found in ''O(1)'' time.
  * The maximum element can be found in ''O(1)'' time.
  
@@ -49,9 +49,10 @@ those already listed for the red-black tree.
 In addition to the key, a node can store arbitrary extra
 data, called _value data_. In contrast to the keys, the
 values can be modified at any time. The type of the value
-data by specified in the `ValueType` member type in the policy.
+data is specified in the `ValueType` member type in the `RbtPolicy` policy.
 If no extra data is needed, you should define this type 
-`EmptyClass`, so that no memory is spent on the values.
+`EmptyClass`, and Pastel makes sure that no memory is spent on the 
+values.
 
 ### Hierarchical data
 
@@ -65,14 +66,16 @@ Examples include:
 * The maximum/minimum of keys/values in a subtree.
 * Any associative binary operation of keys/values in a subtree.
 
-When the local computation takes O(1) time, as in all of the
+Such hierarchical data can be used, for example, to find _any_
+quantile of an element set in ''O(log(n))'' time. When the local 
+computation takes ''O(1)'' time, as in all of the
 examples above, the hierarchical data can be kept up 
 to date in insertions and removals without affecting the 
 asymptotic performance of the RedBlackTree. More generally, the
 local computation time acts multiplicatively on the complexity
 of the insert() and erase() functions of the RedBlackTree.
-For example, if the local computation takes O(log n), then the
-complexity of insert() will be O((log n)^2).
+For example, if the local computation takes O(log(n)), then the
+complexity of insert() will be O((log(n))^2).
 
 The RedBlackTree automatically keeps hierarchical data up to date, 
 given that the user provides the local computation for a single 

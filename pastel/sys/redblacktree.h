@@ -388,5 +388,7 @@ namespace Pastel
 
 #include "pastel/sys/redblacktree.hpp"
 #include "pastel/sys/redblacktree_private.hpp"
+#include "pastel/sys/redblacktree_erase.hpp"
+#include "pastel/sys/redblacktree_insert.hpp"
 
 #endif
