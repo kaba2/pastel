@@ -1,9 +1,11 @@
 #include "pastelsystest.h"
 
-#include "pastel/sys/redblacktree.h"
+#include "pastel/sys/redblacktree_tools.h"
 #include "pastel/sys/rbtpolicy_all.h"
+#include "pastel/sys/random_uniform.h"
 
 #include <iostream>
+#include <list>
 
 using namespace Pastel;
 
@@ -34,13 +36,17 @@ namespace
 			}
 
 			template <typename Iterator>
-			void updateHierarchicalData(const Iterator& iter)
+			void updateInsertDown(const Iterator& iter)
 			{
-				//iter->value() = 
-				//	iter.left()->value() + iter.right()->value() + 1;
+			}
+
+			template <typename Iterator>
+			void updateHierarchical(const Iterator& iter)
+			{
 				iter->value() = 
-					std::max(std::max(iter.left()->value(), iter.right()->value()),
-					iter->key());
+					iter.left()->value() + 
+					iter.right()->value() + 
+					(iter.red() ? 1 : 0);
 			}
 		};
 
@@ -53,18 +59,37 @@ namespace
 		void testSimple()
 		{
 			Tree tree(Counting_RbtPolicy(), 0, 0);
-			tree.insert(1, 1);
-			tree.insert(8, 1);
-			tree.insert(3, 1);
-			tree.insert(5, 1);
-			tree.insert(7, 1);
-			tree.insert(2, 1);
-			tree.insert(9, 1);
-			// Nothing should happen.
-			tree.insert(1, 1);
+
+			std::list<integer> dataSet;
+
+			const integer treeSizeSet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 100, 1000};
+			const integer treeSizes = sizeof(treeSizeSet) / sizeof(integer);
+
+			for (integer k = 0;k < treeSizes;++k)
+			{
+				const integer treeSize = treeSizeSet[k];
+				tree.clear();
+				dataSet.clear();
+				for (integer i = 0;i < treeSize;++i)
+				{
+					const integer n = randomInteger();
+					dataSet.push_back(n);
+
+					tree.insert(n, 1);
+					TEST_ENSURE(check(tree));
+
+					if (tree.size() > treeSize)
+					{
+						tree.erase(dataSet.front());
+						TEST_ENSURE(check(tree));
+						dataSet.pop_front();
+					}
+				}
+			}
 
 			Tree copyTree(tree);
 			copyTree.swap(tree);
+			TEST_ENSURE(check(tree));
 
 			std::cout << "Minimum " << tree.begin()->key() << std::endl;
 			std::cout << "Maximum " << tree.last()->key() << std::endl;
@@ -73,9 +98,12 @@ namespace
 			const ConstIterator iterEnd = tree.end();
 			while(iter != iterEnd)
 			{
-				std::cout << iter->key() << ", ";
+				std::cout << "(" << iter->key() << " : " 
+					<< iter->value() << "), ";
 				++iter;
 			}
+
+			std::cout << "end." << std::endl;
 
 			// The iterator should stay on end().
 			++iter;
@@ -83,15 +111,17 @@ namespace
 			do
 			{
 				--iter;			
-				std::cout << iter->key() << ", ";
+				std::cout << "(" << iter->key() << " : " 
+					<< iter->value() << "), ";
 			}
 			while(iter != tree.begin());
 
+			std::cout << "end." << std::endl;
+
 			// The iterator should stay on begin().
 			--iter;
-			std::cout << iter->key() << ", ";
+			std::cout << iter->key() << std::endl;
 
-			std::cout << "end." << std::endl;
 			std::cout << "Root " 
 				<< tree.root()->key() << " : " 
 				<< tree.root()->value() << "." << std::endl;

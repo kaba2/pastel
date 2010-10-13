@@ -79,8 +79,14 @@ namespace Pastel
 					{
 						prevNode = node_;
 						node_ = node_->parent();
+
+						// In case 'prevNode' is the sentinel
+						// node, it matters whether we test
+						// prevNode == node->left() or 
+						// prevNode != node->right(). The
+						// latter is the correct test.
 					}
-					while (prevNode == node_->left());
+					while (prevNode != node_->right());
 					
 					if (node_->sentinel())
 					{
@@ -123,6 +129,16 @@ namespace Pastel
 			Iterator right() const
 			{
 				return Iterator(node_->right());
+			}
+
+			bool red() const
+			{
+				return node_->red();
+			}
+
+			bool black() const
+			{
+				return !red();
 			}
 
 		private:
@@ -189,22 +205,32 @@ namespace Pastel
 
 			bool sentinel() const
 			{
-				return iter_->sentinel();
+				return iter_.sentinel();
 			}
 
 			ConstIterator parent() const
 			{
-				return iter_->parent();
+				return iter_.parent();
 			}
 
 			ConstIterator left() const
 			{
-				return iter_->left();
+				return iter_.left();
 			}
 
 			ConstIterator right() const
 			{
-				return iter_->right();
+				return iter_.right();
+			}
+
+			bool red() const
+			{
+				return iter_.red();
+			}
+
+			bool black() const
+			{
+				return !red();
 			}
 
 		private:

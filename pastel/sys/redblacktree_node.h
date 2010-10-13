@@ -16,16 +16,6 @@ namespace Pastel
 		template <typename Key, typename Value>
 		class ConstIterator;
 
-		class Color
-		{
-		public:
-			enum Enum
-			{
-				Red,
-				Black
-			};
-		};
-
 		template <typename Key, typename Value>
 		class Node
 			: private PossiblyEmptyMember<Value>
@@ -44,9 +34,14 @@ namespace Pastel
 				return key_;
 			}
 
-			Color::Enum color() const
+			bool red() const
 			{
-				return color_;
+				return red_;
+			}
+
+			bool black() const
+			{
+				return !red_;
 			}
 			
 			Value& value()
@@ -81,18 +76,31 @@ namespace Pastel
 				Node* parent,
 				Node* left,
 				Node* right,
-				Color::Enum color)
+				bool red)
 				: key_(key)
 				, parent_(parent)
 				, left_(left)
 				, right_(right)
-				, color_(color)
+				, red_(red)
 			{
 			}
 
-			void setColor(Color::Enum color)
+			void setRed()
 			{
-				color_ = color;
+				ASSERT(!sentinel());
+				red_ = true;
+			}
+
+			void setBlack()
+			{
+				ASSERT(!sentinel());
+				red_ = false;
+			}
+
+			void setRed(bool red)
+			{
+				ASSERT(!sentinel());
+				red_ = red;
 			}
 
 			Node*& parent()
@@ -132,21 +140,15 @@ namespace Pastel
 
 			void flipColor()
 			{
-				if (color_ == Color::Red)
-				{
-					color_ = Color::Black;
-				}
-				else
-				{
-					color_ = Color::Red;
-				}
+				ASSERT(!sentinel());
+				red_ = !red_;
 			}
 
 			Key key_;
 			Node* parent_;
 			Node* left_;
 			Node* right_;
-			Color::Enum color_;
+			bool red_;
 		};
 
 	}

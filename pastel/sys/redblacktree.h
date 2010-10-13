@@ -75,6 +75,13 @@ namespace Pastel
 		*/
 		void clear();
 
+		//! Returns the number of elements in the tree.
+		/*!
+		Exception safety: nothrow
+		Complexity: constant
+		*/
+		integer size() const;
+
 		//! Returns true if the tree is empty.
 		/*!
 		Exception safety: nothrow
@@ -103,6 +110,13 @@ namespace Pastel
 		user-specified hierarchical data (usually O(1)).
 		*/
 		Iterator erase(const ConstIterator& that);
+
+		//! Removes an element from the tree.
+		/*!
+		This is a convenience function that calls
+		erase(find(key)).
+		*/
+		Iterator erase(const Key& key);
 
 		//! Searches for a node with the given value.
 		/*!
@@ -170,7 +184,6 @@ namespace Pastel
 		ConstIterator root() const;
 
 	private:
-		typedef RedBlackTree_Detail::Color Color;
 		typedef RedBlackTree_Detail::Node<Key, ValueType> Node;
 
 		//! Allocates the sentinel node.
@@ -208,7 +221,7 @@ namespace Pastel
 			const Key& key, 
 			const ValueType* value,
 			Node* parent,
-			Color::Enum color);
+			bool red);
 
 		//! Destruct a node.
 		/*!
@@ -225,6 +238,19 @@ namespace Pastel
 			Node* parent,
 			bool fromLeft,
 			Node*& newNode);
+
+		//! Removes a node.
+		Node* erase(Node* node);
+
+		//! Updates hierarhical data on the path to root.
+		/*!
+		Calls policy_.updateHierarhical(node) for each node in 
+		the path to the root, including 'node' itself.
+		*/
+		void updateToRoot(Node* node);
+
+		void swapNodes(Node* aNode, Node* bNode);
+		void rebalance(Node* toRebalance, bool leftLowOnBlack);
 
 		//! Copy-constructs a subtree.
 		/*!
@@ -252,6 +278,12 @@ namespace Pastel
 		of 'node'.
 		*/
 		void clear(Node* node);
+
+		//! Links a parent and the left child together.
+		void linkLeft(Node* parent, Node* child);
+
+		//! Links a parent and the right child together.
+		void linkRight(Node* parent, Node* child);
 
 		//! Tree-rotation to the left.
 		/*!
@@ -338,6 +370,9 @@ namespace Pastel
 
 		//! The minimum node of the tree.
 		Node* minimum_;
+
+		//! The number of stored elements in the tree.
+		integer size_;
 
 		//! The allocator for the nodes.
 		PoolAllocator allocator_;

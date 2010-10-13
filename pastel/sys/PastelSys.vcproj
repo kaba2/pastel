@@ -713,6 +713,18 @@
 					RelativePath=".\redblacktree_private.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\redblacktree_recycle.h"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree_tools.hpp"
+					>
+				</File>
 				<Filter
 					Name="RbtPolicy"
 					>
@@ -1867,14 +1879,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath=".\CMakeLists.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\..\example\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\test\CMakeLists.txt"
 				>
 			</File>
@@ -1884,6 +1888,14 @@
 			</File>
 			<File
 				RelativePath="..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\example\CMakeLists.txt"
 				>
 			</File>
 			<File

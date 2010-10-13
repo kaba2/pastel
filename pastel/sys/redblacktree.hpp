@@ -13,6 +13,7 @@ namespace Pastel
 		: root_(0)
 		, sentinel_(0)
 		, minimum_(0)
+		, size_(0)
 		, allocator_(sizeof(Node))
 		, compare_()
 		, policy_(policy)
@@ -30,8 +31,9 @@ namespace Pastel
 		: root_(0)
 		, sentinel_(0)
 		, minimum_(0)
+		, size_(0)
 		, allocator_(sizeof(Node))
-		, compare_()
+		, compare_(that.compare_)
 		, policy_(policy)
 	{
 		// We don't want to rollback this in case of exception,
@@ -80,6 +82,8 @@ namespace Pastel
 
 			setMaximum(node);
 		}
+
+		size_ = that.size_;
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
@@ -111,6 +115,7 @@ namespace Pastel
 		swap(root_, that.root_);
 		swap(sentinel_, that.sentinel_);
 		swap(minimum_, that.minimum_);
+		swap(size_, that.size_);
 		allocator_.swap(that.allocator_);
 		swap(compare_, that.compare_);
 		policy_.swap(that.policy_);
@@ -126,6 +131,12 @@ namespace Pastel
 		allocator_.clear();
 
 		initialize();
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
+	integer RedBlackTree<Key, Compare, RbtPolicy>::size() const
+	{
+		return size_;
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
@@ -151,7 +162,7 @@ namespace Pastel
 		// * It removes the possible last invariant violation of two 
 		//   subsequent red nodes next to the root.
 
-		root_->setColor(Color::Black);
+		root_->setBlack();
 
 		return Iterator(newNode);
 	}
@@ -161,8 +172,15 @@ namespace Pastel
 		RedBlackTree<Key, Compare, RbtPolicy>::erase(
 		const ConstIterator& that)
 	{
-		ENSURE(false);
-		return that;
+		return Iterator(erase(that.iter_.node_));
+	}
+
+	template <typename Key, typename Compare, typename RbtPolicy>
+	typename RedBlackTree<Key, Compare, RbtPolicy>::Iterator 
+		RedBlackTree<Key, Compare, RbtPolicy>::erase(
+		const Key& key)
+	{
+		return erase(find(key));
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
@@ -175,7 +193,7 @@ namespace Pastel
 
 		// Cast constness away. This is ok, since
 		// we own the data.
-		Node* node = (Node*)iter.node_;
+		Node* node = (Node*)iter.iter_.node_;
 
 		// Return the iterator.
 		return Iterator(node);
