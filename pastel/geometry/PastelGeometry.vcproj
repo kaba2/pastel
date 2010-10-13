@@ -1685,6 +1685,10 @@
 					RelativePath=".\maximum_clique_alignedbox.h"
 					>
 				</File>
+				<File
+					RelativePath=".\maximum_clique_alignedbox.hpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

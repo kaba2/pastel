@@ -10,8 +10,11 @@ namespace Pastel
 	std::ostream& operator<<(std::ostream& stream,
 		const Rational<Integer>& number)
 	{
-		stream << number.numerator() << "/"
-			<< number.denominator();
+		stream << number.numerator();
+		if (number.denominator() != 1)
+		{
+			stream << "/" << number.denominator();
+		}
 
 		return stream;
 	}
