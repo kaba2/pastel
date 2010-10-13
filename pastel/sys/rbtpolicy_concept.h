@@ -37,7 +37,10 @@ namespace Pastel
 		hierarchical data is recursively defined).
 		*/
 		template <typename Iterator>
-		void updateHierarchicalData(const Iterator& iter);
+		void updateInsertDown(const Iterator& iter);
+
+		template <typename Iterator>
+		void updateHierarchical(const Iterator& iter);
 	};
 
 }

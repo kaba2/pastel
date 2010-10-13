@@ -1678,6 +1678,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Intersection graph"
+				>
+				<File
+					RelativePath=".\maximum_clique_alignedbox.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Algorithms for point-sets"
