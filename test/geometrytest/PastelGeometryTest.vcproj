@@ -421,6 +421,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_maximum_clique.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_overlapaabbaabb.cpp"
 			>
 		</File>

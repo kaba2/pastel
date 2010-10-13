@@ -12,7 +12,7 @@ The _GJK algorithm_ is able to avoid such a profileration of cases
 by abstracting a convex shape by using a so-called _support mapping_.
 One algorithm is then sufficient to handle all overlap testing (and more) 
 in a large class of convex shapes. The advantages of specialized
-testing includes:
+testing include:
 
  * The results are exact (assuming exact arithmetic).
  * The algorithms are probably somewhat faster, as they can use
