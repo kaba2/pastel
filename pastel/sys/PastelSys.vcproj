@@ -702,6 +702,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\redblacktree_erase.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\redblacktree_insert.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\redblacktree_iterator.h"
 					>
 				</File>
@@ -711,10 +719,6 @@
 				</File>
 				<File
 					RelativePath=".\redblacktree_private.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_recycle.h"
 					>
 				</File>
 				<File

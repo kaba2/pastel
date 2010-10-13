@@ -1,5 +1,7 @@
-#ifndef PASTEL_RBTPOLICT_CONCEPT_H
-#define PASTEL_RBTPOLICT_CONCEPT_H
+// Description: RbtPolicy concept
+
+#ifndef PASTEL_RBTPOLICY_CONCEPT_H
+#define PASTEL_RBTPOLICY_CONCEPT_H
 
 #include "pastel/sys/mytypes.h"
 
