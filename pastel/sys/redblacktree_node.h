@@ -29,6 +29,12 @@ namespace Pastel
 					!boost::is_same<Value, EmptyClass>::value
 			};
 
+			enum
+			{
+				Left = 0,
+				Right = 1
+			};
+
 			const Key& key() const
 			{
 				return key_;
@@ -61,8 +67,8 @@ namespace Pastel
 			bool sentinel() const
 			{
 				// A sentinel is identified by the unique property
-				// that its right child is the sentinel itself.
-				return left_ == this;
+				// that its children point to itself.
+				return left() == this;
 			}
 
 		private:
@@ -79,10 +85,11 @@ namespace Pastel
 				bool red)
 				: key_(key)
 				, parent_(parent)
-				, left_(left)
-				, right_(right)
+				, child_()
 				, red_(red)
 			{
+				child_[Left] = left;
+				child_[Right] = right;
 			}
 
 			void setRed()
@@ -113,24 +120,38 @@ namespace Pastel
 				return parent_;
 			}
 
+			Node*& child(integer direction)
+			{
+				ASSERT(direction == Left || 
+					direction == Right);
+				return child_[direction];
+			}
+
+			Node* child(integer direction) const
+			{
+				ASSERT(direction == Left || 
+					direction == Right);
+				return child_[direction];
+			}
+
 			Node*& left()
 			{
-				return left_;
+				return child_[Left];
 			}
 
 			Node* left() const
 			{
-				return left_;
+				return child_[Right];
 			}
 
 			Node*& right()
 			{
-				return right_;
+				return child_[Right];
 			}
 
 			Node* right() const
 			{
-				return right_;
+				return child_[Right];
 			}
 
 			Value* valuePtr() const
@@ -146,8 +167,7 @@ namespace Pastel
 
 			Key key_;
 			Node* parent_;
-			Node* left_;
-			Node* right_;
+			Node* child_[2];
 			bool red_;
 		};
 

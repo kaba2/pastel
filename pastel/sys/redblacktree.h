@@ -184,6 +184,12 @@ namespace Pastel
 		ConstIterator root() const;
 
 	private:
+		enum
+		{
+			Left = 0,
+			Right = 1
+		};
+
 		typedef RedBlackTree_Detail::Node<Key, ValueType> Node;
 
 		//! Allocates the sentinel node.
@@ -249,7 +255,6 @@ namespace Pastel
 		*/
 		void updateToRoot(Node* node);
 
-		void swapNodes(Node* aNode, Node* bNode);
 		void rebalance(Node* toRebalance, bool leftLowOnBlack);
 
 		//! Copy-constructs a subtree.
@@ -279,39 +284,26 @@ namespace Pastel
 		*/
 		void clear(Node* node);
 
-		//! Links a parent and the left child together.
-		void linkLeft(Node* parent, Node* child);
-
-		//! Links a parent and the right child together.
-		void linkRight(Node* parent, Node* child);
-
-		//! Tree-rotation to the left.
+		//! Links a parent and a child together.
 		/*!
+		Preconditions:
+		d == Left || d == Right
+
 		Exception safety: nothrow
 		Complexity:	constant
 		*/
-		Node* rotateLeft(Node* node);
+		void link(Node* parent, Node* child, 
+			integer direction);
 
-		//! Tree-rotation to the right.
+		//! Tree-rotation
 		/*!
+		Preconditions:
+		d == Left || d == Right
+
 		Exception safety: nothrow
 		Complexity:	constant
 		*/
-		Node* rotateRight(Node* node);
-
-		//! ...
-		/*!
-		Exception safety: nothrow
-		Complexity:	constant
-		*/
-		Node* moveRedLeft(Node* node);
-
-		//! ...
-		/*!
-		Exception safety: nothrow
-		Complexity:	constant
-		*/
-		Node* moveRedRight(Node* node);
+		Node* rotate(Node* node, integer direction);
 
 		//! Flips the colors of a node and its children.
 		/*!
