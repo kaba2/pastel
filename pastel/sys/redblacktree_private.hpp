@@ -147,86 +147,6 @@ namespace Pastel
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::swapNodes(
-		Node* aNode, Node* bNode)
-	{
-		ASSERT(aNode != sentinel_);
-		ASSERT(bNode != sentinel_);
-
-		if (aNode == root_)
-		{
-			root_ = bNode;
-		}
-		else if (bNode == root_)
-		{
-			root_ = aNode;
-		}
-
-		const bool aLeft = 
-			(aNode->parent()->left() == aNode);
-		const bool bLeft = 
-			(bNode->parent()->left() == bNode);
-
-		Node* aNodeLeft = bNode->left();
-		if (aNodeLeft == aNode)
-		{
-			aNodeLeft = bNode;
-		}
-		Node* aNodeRight = bNode->right();
-		if (aNodeRight == aNode)
-		{
-			aNodeRight = bNode;
-		}
-		Node* aNodeParent = bNode->parent();
-		if (aNodeParent == aNode)
-		{
-			aNodeParent = bNode;
-		}
-
-		Node* bNodeLeft = aNode->left();
-		if (bNodeLeft == bNode)
-		{
-			bNodeLeft = aNode;
-		}
-		Node* bNodeRight = aNode->right();
-		if (bNodeRight == bNode)
-		{
-			bNodeRight = aNode;
-		}
-		Node* bNodeParent = aNode->parent();
-		if (bNodeParent == bNode)
-		{
-			bNodeParent = aNode;
-		}
-
-		if (bLeft)
-		{
-			linkLeft(aNodeParent, aNode);
-		}
-		else
-		{
-			linkRight(aNodeParent, aNode);
-		}
-		linkLeft(aNode, aNodeLeft);
-		linkRight(aNode, aNodeRight);
-
-		if (aLeft)
-		{
-			linkLeft(bNodeParent, bNode);
-		}
-		else
-		{
-			linkRight(bNodeParent, bNode);
-		}
-		linkLeft(bNode, bNodeLeft);
-		linkRight(bNode, bNodeRight);
-		
-		const bool bRed = bNode->red();
-		bNode->setRed(aNode->red());
-		aNode->setRed(bRed);
-	}
-
-	template <typename Key, typename Compare, typename RbtPolicy>
 	typename RedBlackTree<Key, Compare, RbtPolicy>::Node* 
 		RedBlackTree<Key, Compare, RbtPolicy>::copyConstruct(
 		Node* parent, Node* thatNode)
@@ -297,30 +217,12 @@ namespace Pastel
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::linkLeft(
-		Node* parent, Node* child)
+	void RedBlackTree<Key, Compare, RbtPolicy>::link(
+		Node* parent, Node* child, integer direction)
 	{
 		if (parent != sentinel_)
 		{
-			parent->left() = child;
-		}
-		else
-		{
-			root_ = child;
-		}
-		if (child != sentinel_)
-		{
-			child->parent() = parent;
-		}
-	}
-
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::linkRight(
-		Node* parent, Node* child)
-	{
-		if (parent != sentinel_)
-		{
-			parent->right() = child;
+			parent->child(direction) = child;
 		}
 		else
 		{
@@ -334,102 +236,33 @@ namespace Pastel
 
 	template <typename Key, typename Compare, typename RbtPolicy>
 	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::rotateLeft(
-		Node* node)
+		RedBlackTree<Key, Compare, RbtPolicy>::rotate(
+		Node* node, integer direction)
 	{
 		ASSERT(node != sentinel_);
-		ASSERT(node->right() != sentinel_);
 
 		Node* parent = node->parent();
-		Node* x = node->right();
+		Node* x = node->child(!direction);
+		Node* y = x->child(direction);
+
+		ASSERT(x != sentinel_);
 
 		if (node == parent->left())
 		{
-			linkLeft(parent, x);
+			link(parent, x, Left);
 		}
 		else
 		{
-			linkRight(parent, x);
+			link(parent, x, Right);
 		}
 
-		linkRight(node, x->left());
-		linkLeft(x, node);
+		link(node, y, !direction);
+		link(x, node, direction);
 
 		x->setRed(node->red());
 		node->setRed();
 
 		return x;
-	}
-
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::rotateRight(
-		Node* node)
-	{
-		ASSERT(node != sentinel_);
-		ASSERT(node->left() != sentinel_);
-
-		Node* parent = node->parent();
-		Node* x = node->left();
-
-		if (node == parent->left())
-		{
-			linkLeft(parent, x);
-		}
-		else
-		{
-			linkRight(parent, x);
-		}
-
-		linkLeft(node, x->right());
-		linkRight(x, node);
-
-		x->setRed(node->red());
-		node->setRed();
-
-		policy_.updateHierarchical(
-			Iterator(node));
-		policy_.updateHierarchical(
-			Iterator(x));
-
-		return x;
-	}
-
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::moveRedLeft(
-		Node* node)
-	{
-		ASSERT(node != sentinel_);
-		ASSERT(node->left() != sentinel_);
-
-		flipColors(node);
-		if (node->right()->left()->red())
-		{
-			node->right() = rotateRight(node->right());
-			node = node->rotateLeft(node);
-			flipColors(node);
-		}
-
-		return node;
-	}
-
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::moveRedRight(
-		Node* node)
-	{
-		ASSERT(node != sentinel_);
-		ASSERT(node->left() != sentinel_);
-
-		flipColors(node);
-		if (node->left()->left()->red())
-		{
-			node = node->rotateRight(node);
-			flipColors(node);
-		}
-
-		return node;
 	}
 
 	template <typename Key, typename Compare, typename RbtPolicy>

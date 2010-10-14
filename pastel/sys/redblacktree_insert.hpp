@@ -86,7 +86,7 @@ namespace Pastel
 		{
 			// We want a left-leaning red-black tree.
 			// This fixes that locally.
-			node = rotateLeft(node);
+			node = rotate(node, Left);
 
 			policy_.updateHierarchical(
 				Iterator(node->left()));
@@ -100,7 +100,7 @@ namespace Pastel
 			// An invariant of a red-black tree is that
 			// there are no two subsequent red nodes.
 			// This fixes that locally.
-			node = rotateRight(node);
+			node = rotate(node, Right);
 
 			policy_.updateHierarchical(
 				Iterator(node->right()));
