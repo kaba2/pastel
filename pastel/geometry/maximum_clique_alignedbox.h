@@ -7,6 +7,7 @@
 #include "pastel/sys/forwardrange.h"
 
 #include <vector>
+#include <iterator>
 
 namespace Pastel
 {
@@ -30,8 +31,8 @@ namespace Pastel
 	template <
 		typename AlignedBox_ConstIterator,
 		typename AlignedBox_ConstIterator_Iterator>
-	typename AlignedBox_ConstIterator::value_type maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet,
 		AlignedBox_ConstIterator_Iterator result);
 
 	//! Finds an aligned box of maximum intersection among aligned boxes.
@@ -42,7 +43,8 @@ namespace Pastel
 	See the documentation for the general function.
 	*/
 	template <typename AlignedBox_ConstIterator>
-	typename AlignedBox_ConstIterator::value_type maximumClique(
+	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+		maximumClique(
 		const ForwardRange<AlignedBox_ConstIterator>& boxSet);
 
 }

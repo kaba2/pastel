@@ -122,11 +122,12 @@ namespace Pastel
 	template <
 		typename AlignedBox_ConstIterator,
 		typename AlignedBox_ConstIterator_Iterator>
-	typename AlignedBox_ConstIterator::value_type maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet,
 		AlignedBox_ConstIterator_Iterator result)
 	{
-		typedef typename AlignedBox_ConstIterator::value_type Box;
+		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
+			value_type Box;
 		typedef typename Box::Real_ Real;
 
 		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
@@ -330,8 +331,8 @@ namespace Pastel
 	}	
 
 	template <typename AlignedBox_ConstIterator>
-	typename AlignedBox_ConstIterator::value_type maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet)
+	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet)
 	{
 		return Pastel::maximumClique(boxSet, NullIterator());
 	}
