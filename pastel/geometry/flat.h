@@ -27,6 +27,13 @@ namespace Pastel
 	class Flat
 	{
 	public:
+		typedef Real Real_;
+		enum 
+		{
+			N_ = N,
+			M_ = M
+		};
+
 		// Using default constructor.
 		// Using default copy constructor.
 		// Using default assignment.

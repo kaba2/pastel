@@ -19,6 +19,13 @@ namespace Pastel
 		typedef Tuple<Vector<Real, N>, M + 1> Base;
 
 	public:
+		typedef Real Real_;
+		enum 
+		{
+			N_ = N,
+			M_ = M
+		};
+
 		using Base::operator[];
 
 		Simplex()

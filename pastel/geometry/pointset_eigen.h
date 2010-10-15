@@ -15,7 +15,7 @@ namespace Pastel
 
 	//! Computes an approximation of the largest eigenvector of a point-set.
 	/*!
-	Complexity:
+	Time complexity:
 	O(pointSet.size() * dimension)
 	*/
 	template <
@@ -31,7 +31,7 @@ namespace Pastel
 	Preconditions:
 	eigenvectors > 0
 
-	Complexity:
+	Time complexity:
 	O(pointSet.size() * dimension * eigenvectors)
 	
 	pointSet:

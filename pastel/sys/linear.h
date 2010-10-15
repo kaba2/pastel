@@ -38,7 +38,7 @@ namespace Pastel
 	Preconditions:
 	data.size() >= (1 << n)
 
-	Complexity:
+	Time complexity:
 	O(2^n), where n is the dimensionality.
 
 	data:

@@ -30,7 +30,7 @@ namespace Pastel
 
 	/*!
 	Exception safety: strong
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	IndexAllocator::IndexAllocator()
@@ -42,7 +42,7 @@ namespace Pastel
 
 	/*!
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	void IndexAllocator::swap(IndexAllocator& that)
@@ -54,7 +54,7 @@ namespace Pastel
 
 	/*!
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	void IndexAllocator::clear()
@@ -73,7 +73,7 @@ namespace Pastel
 	\param count Amount of indices to allocate space for.
 
 	Exception safety: basic
-	Complexity: linear
+	Time complexity: linear
 	*/
 
 	void IndexAllocator::reserve(integer count)
@@ -96,7 +96,7 @@ namespace Pastel
 	\return Amount of allocated indices.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::size() const
@@ -108,7 +108,7 @@ namespace Pastel
 	\return Amount of capacity for indices.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::capacity() const
@@ -120,7 +120,7 @@ namespace Pastel
 	\return true if the index has already been allocated, false otherwise.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	bool IndexAllocator::isAllocated(integer index) const
@@ -146,7 +146,7 @@ namespace Pastel
 	\return A newly allocated index.
 
 	Exception safety: strong
-	Complexity: amortized logarithmic
+	Time complexity: amortized logarithmic
 	*/
 
 	integer IndexAllocator::allocate()
@@ -175,7 +175,7 @@ namespace Pastel
 	\param index Index to deallocate.
 
 	Exception safety: nothrow
-	Complexity: logarithmic
+	Time complexity: logarithmic
 	*/
 
 	void IndexAllocator::deallocate(integer index)
@@ -211,7 +211,7 @@ namespace Pastel
 	\return The index of the left child of the given heap node index.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::leftChild(integer index) const
@@ -229,7 +229,7 @@ namespace Pastel
 	\return The index of the right child of the given heap node index.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::rightChild(integer index) const
@@ -246,7 +246,7 @@ namespace Pastel
 	\return Index of the parent node of the given heap node index.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::parent(integer index) const
@@ -267,7 +267,7 @@ namespace Pastel
 	\return An internal index that has been converted from an external index.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::toInternalIndex(integer index) const
@@ -285,7 +285,7 @@ namespace Pastel
 	\return An external index that has been converted from an internal index.
 
 	Exception safety: nothrow
-	Complexity: constant
+	Time complexity: constant
 	*/
 
 	integer IndexAllocator::toExternalIndex(integer index) const
@@ -299,7 +299,7 @@ namespace Pastel
 
 	/*!
 	Exception safety: strong
-	Complexity: linear
+	Time complexity: linear
 	*/
 
 	/*
@@ -365,7 +365,7 @@ namespace Pastel
 
 	/*!
 	Exception safety: nothrow
-	Complexity: logarithmic
+	Time complexity: logarithmic
 	*/
 
 	/*
@@ -408,7 +408,7 @@ namespace Pastel
 
 	/*!
 	Exception safety: nothrow
-	Complexity: logarithmic
+	Time complexity: logarithmic
 	*/
 
 	/*

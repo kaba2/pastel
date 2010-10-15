@@ -18,6 +18,9 @@ namespace Pastel
 	class Polygon
 	{
 	public:
+		typedef Real Real_;
+		enum {N_ = N};
+
 		// Using default constructor.
 		// Using default copy constructor.
 		// Using default destructor.
