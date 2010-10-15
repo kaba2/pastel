@@ -1682,6 +1682,10 @@
 				Name="Intersection graph"
 				>
 				<File
+					RelativePath=".\intersection_graph.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\maximum_clique_alignedbox.h"
 					>
 				</File>

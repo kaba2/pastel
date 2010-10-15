@@ -84,26 +84,19 @@ namespace Pastel
 		template <typename Iterator>
 		void updateHierarchical(const Iterator& iter)
 		{
-			integer actives = 
+			const integer v = iter->key().min ? 1 : -1;
+
+			iter->value().actives = 
 				iter.left()->value().actives + 
-				iter.right()->value().actives;
-
-			if (iter->key().min)
-			{
-				++actives;
-			}
-			else
-			{
-				--actives;
-			}
-
-			iter->value().actives = actives;
+				iter.right()->value().actives +
+				v;
 
 			iter->value().maxActives = 
-				std::max(actives,
+				std::max(iter.left()->value().maxActives,
 				std::max(
-				iter.left()->value().actives,
-				iter.right()->value().actives));
+				iter.left()->value().actives + v,
+				iter.left()->value().actives + v + 
+				iter.right()->value().maxActives));
 		}
 
 		void swap(MaximumClique_RbtPolicy& that)
@@ -145,6 +138,8 @@ namespace Pastel
 		Tree tree;
 		AlignedBox<Real, 2> clique;
 
+		Real yMin = 0;
+		Real yMax = 0;
 		integer maxMaxActives = 0;
 		integer maxIndex = 0;
 		for (integer j = 0;j < 2;++j)
@@ -180,37 +175,8 @@ namespace Pastel
 					{
 						// We have now reconstructed a tree which 
 						// contains a maximum clique rectangle.
-						// We already know its y-range. Now we need
-						// to find its x-range.
-
-						const Real yMin = e.position;
-						const Real yMax = eventSet[i + 1].position;
-
-						ConstIterator iter = tree.root();
-						while(true)
-						{
-							ASSERT(!iter.sentinel());
-
-							if (iter.left()->value().maxActives == maxMaxActives)
-							{
-								iter = iter.left();
-							}
-							else if (iter.right()->value().maxActives == maxMaxActives)
-							{
-								iter = iter.right();
-							}
-							else
-							{
-								// This is a maximum clique node.
-								break;
-							}
-						}
-
-						const Real xMin = iter->key().position;
-						++iter;
-						const Real xMax = iter->key().position;
-
-						clique.set(xMin, yMin, xMax, yMax);
+						yMin = e.position;
+						yMax = eventSet[i + 1].position;
 						break;
 					}
 				}
@@ -221,6 +187,49 @@ namespace Pastel
 					tree.erase(maxEvent);
 				}
 			}
+
+			if (maxMaxActives == 1)
+			{
+				break;
+			}
+		}
+
+		if (maxMaxActives > 1)
+		{
+			// We have now reconstructed a tree which 
+			// contains a maximum clique rectangle.
+			// We already know its y-range. Now we need
+			// to find its x-range.
+
+			ConstIterator iter = tree.root();
+			while(true)
+			{
+				ASSERT(!iter.sentinel());
+
+				const integer v = iter->key().min ? 1 : -1;
+
+				if (iter.left()->value().maxActives == maxMaxActives)
+				{
+					iter = iter.left();
+				}
+				else if (iter.right()->value().maxActives == 
+					iter.left()->value().actives + v + 
+					iter.right()->value().maxActives)
+				{
+					iter = iter.right();
+				}
+				else
+				{
+					// This is a maximum clique node.
+					break;
+				}
+			}
+
+			const Real xMin = iter->key().position;
+			++iter;
+			const Real xMax = iter->key().position;
+
+			clique.set(xMin, yMin, xMax, yMax);
 		}
 
 		return clique;
