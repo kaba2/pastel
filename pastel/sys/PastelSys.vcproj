@@ -702,11 +702,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\redblacktree_design.txt"
+					RelativePath=".\redblacktree_erase.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\redblacktree_erase.hpp"
+					RelativePath=".\redblacktree_implementation.txt"
 					>
 				</File>
 				<File
@@ -1887,10 +1887,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
@@ -1904,6 +1900,10 @@
 			</File>
 			<File
 				RelativePath="..\..\test\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
 			<File

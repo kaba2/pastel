@@ -23,6 +23,7 @@ namespace
 
 		virtual void run()
 		{
+			testRandom();
 			testSimple();
 		}
 
@@ -56,7 +57,7 @@ namespace
 		typedef Tree::Iterator Iterator;
 		typedef Tree::ConstIterator ConstIterator;
 
-		void testSimple()
+		void testRandom()
 		{
 			Tree tree(Counting_RbtPolicy(), 0, 0);
 
@@ -87,9 +88,27 @@ namespace
 				}
 			}
 
-			Tree copyTree(tree);
-			copyTree.swap(tree);
-			TEST_ENSURE(check(tree));
+			{
+				Tree copyTree(tree);
+				copyTree.swap(tree);
+				TEST_ENSURE(check(tree));
+			}
+		
+		}
+
+		void testSimple()
+		{
+			Tree tree(Counting_RbtPolicy(), 0, 0);
+
+			tree.insert(1, 1);
+			tree.insert(5, 1);
+			tree.insert(3, 1);
+			tree.insert(4, 1);
+			tree.insert(8, 1);
+			tree.insert(7, 1);
+			tree.insert(6, 1);
+			tree.insert(9, 1);
+			tree.insert(2, 1);
 
 			std::cout << "Minimum " << tree.begin()->key() << std::endl;
 			std::cout << "Maximum " << tree.last()->key() << std::endl;
@@ -105,8 +124,12 @@ namespace
 
 			std::cout << "end." << std::endl;
 
-			// The iterator should stay on end().
-			++iter;
+			{
+				// The iterator should stay on end().
+				ConstIterator copyIter = iter;
+				++copyIter;
+				TEST_ENSURE(copyIter == iter);
+			}
 
 			do
 			{
@@ -118,9 +141,12 @@ namespace
 
 			std::cout << "end." << std::endl;
 
-			// The iterator should stay on begin().
-			--iter;
-			std::cout << iter->key() << std::endl;
+			{
+				// The iterator should stay on begin().
+				ConstIterator copyIter = iter;
+				--copyIter;
+				TEST_ENSURE(copyIter == iter);
+			}
 
 			std::cout << "Root " 
 				<< tree.root()->key() << " : " 
