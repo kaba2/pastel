@@ -12,10 +12,11 @@ namespace Pastel
 		template <typename ConstIterator>
 		bool check(
 			const ConstIterator& iter,
-			integer& blackDepth)
+			integer& blackHeight)
 		{
 			if (iter.sentinel())
 			{
+				blackHeight = 0;
 				return true;
 			}
 
@@ -37,48 +38,38 @@ namespace Pastel
 				return false;
 			}
 
-			if (iter.left().red() && 
-				iter.left().left().red())
+			if (iter.red() && 
+				(iter.left().red() || iter.right().red()))
 			{
 				// No two consecutive reds are allowed
 				// on a path.
 				return false;
 			}
 
-			if (iter.left().red() && iter.right().red())
+			integer leftBlackHeight = blackHeight;
+			if (!check(iter.left(), leftBlackHeight))
 			{
-				// No 4-nodes are allowed.
 				return false;
 			}
 
-			if (iter.right().red())
+			integer rightBlackHeight = blackHeight;
+			if (!check(iter.right(), rightBlackHeight))
 			{
-				// No right-leaning 3-nodes are allowed.
 				return false;
 			}
-			
+
+			if (leftBlackHeight != rightBlackHeight)
+			{
+				// The black heights must equal on every
+				// path.
+				return false;
+			}
+
+			blackHeight = leftBlackHeight;
+
 			if (iter.black())
 			{
-				++blackDepth;
-			}
-
-			integer leftBlackDepth = 0;
-			if (!check(iter.left(), leftBlackDepth))
-			{
-				return false;
-			}
-
-			integer rightBlackDepth = 0;
-			if (!check(iter.right(), rightBlackDepth))
-			{
-				return false;
-			}
-
-			if (leftBlackDepth != rightBlackDepth)
-			{
-				// The black depths must equal on every
-				// path.
-				//return false;
+				++blackHeight;
 			}
 
 			return true;
@@ -95,8 +86,8 @@ namespace Pastel
 			return false;
 		}
 
-		integer blackDepth = 0;
-		return RedBlackTreeTools_Detail::check(tree.root(), blackDepth);
+		integer blackHeight = 0;
+		return RedBlackTreeTools_Detail::check(tree.root(), blackHeight);
 	}
 
 }
