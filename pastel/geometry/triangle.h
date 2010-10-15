@@ -21,6 +21,9 @@ namespace Pastel
 		typedef Simplex<Real, N, 2> Base;
 
 	public:
+		typedef Real Real_;
+		enum {N_ = N};
+
 		using Base::operator[];
 
 		Triangle()

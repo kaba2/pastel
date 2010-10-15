@@ -5,6 +5,7 @@
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/countingiterator.h"
+#include "pastel/sys/nulliterator.h"
 
 namespace Pastel
 {
@@ -12,7 +13,7 @@ namespace Pastel
 	namespace MaximumCliqueAlignedBox_Detail
 	{
 
-		template <typename Real>
+		template <typename Real, typename ConstIterator>
 		class Event
 		{
 		public:
@@ -20,15 +21,18 @@ namespace Pastel
 				: position(0)
 				, index(0)
 				, min(true)
+				, box()
 			{
 			}
 
 			Event(const Real& position_,
 				integer index_,
-				bool min_)
+				bool min_,
+				const ConstIterator& box_)
 				: position(position_)
 				, index(index_)
 				, min(min_)
+				, box(box_)
 			{
 			}
 
@@ -53,12 +57,18 @@ namespace Pastel
 					return false;
 				}
 
+				// We would rather want to compare
+				// the iterators, so that we didn't need
+				// to store the 'index' field. However, only
+				// random-access iterators are guaranteed
+				// to have a less-than comparison.
 				return index < that.index;
 			}
 
 			Real position;
 			integer index;
 			bool min;
+			ConstIterator box;
 		};
 
 		class MaximumClique_RbtPolicy
@@ -109,35 +119,67 @@ namespace Pastel
 
 	}
 
-	template <typename Real>
-	AlignedBox<Real, 2> maximumClique(
-		const std::vector<AlignedBox<Real, 2> >& boxSet)
+	template <
+		typename AlignedBox_ConstIterator,
+		typename AlignedBox_ConstIterator_Iterator>
+	typename AlignedBox_ConstIterator::value_type maximumClique(
+		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		AlignedBox_ConstIterator_Iterator result)
 	{
-		typedef MaximumCliqueAlignedBox_Detail::Event<Real> Event;
-		typedef MaximumCliqueAlignedBox_Detail::MaximumClique_RbtPolicy RbtPolicy;
+		typedef typename AlignedBox_ConstIterator::value_type Box;
+		typedef typename Box::Real_ Real;
+
+		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
+
+		typedef MaximumCliqueAlignedBox_Detail::
+			Event<Real, AlignedBox_ConstIterator> Event;
+		typedef MaximumCliqueAlignedBox_Detail::
+			MaximumClique_RbtPolicy RbtPolicy;
 		typedef RedBlackTree<Event, std::less<Event>, RbtPolicy> Tree;
-		typedef typename Tree::ConstIterator ConstIterator;
+		typedef typename Tree::ConstIterator Event_ConstIterator;
 		typedef RbtPolicy::ValueType Value;
-		typedef std::vector<AlignedBox<Real, 2> > BoxSet;
 
 		// This is a sweepline algorithm to compute an
 		// aligned box of maximum overlap in a set of aligned 
-		// boxes.
+		// boxes. The paper
+		//
+		// "Finding the Connected Components and a Maximum Clique
+		// of an Intersection Graph of Rectangles in the Plane",
+		// Hiroshi Imai, Takao Asano, 
+		// Journal of Algorithms, pp. 310-323, 1983.
+		//
+		// essentially describes the algorithm here. However, whereas
+		// they augment 2-3-trees, we augment red-black trees. The
+		// point here is to have a balanced tree to guarantee O(log n)
+		// augmented insertion and deletion.
 
+		// This will take linear time for an iterator
+		// that is not random access. However, it is
+		// worth it, since we can then reserve the size
+		// of 'eventSet' below beforehand.
 		const integer n = boxSet.size();
 
 		// Insert the y-endpoints of each box
 		// into an event list.
 		std::vector<Event> eventSet;
 		eventSet.reserve(2 * n);
-		for (integer i = 0;i < n;++i)
 		{
-			const AlignedBox<Real, 2>& box = boxSet[i];
+			AlignedBox_ConstIterator iter = boxSet.begin();
+			const AlignedBox_ConstIterator iterEnd = boxSet.end();
 
-			eventSet.push_back(
-				Event(box.min().y(), i, true));
-			eventSet.push_back(
-				Event(box.max().y(), i, false));
+			integer i = 0;
+			while(iter != iterEnd)
+			{
+				PENSURE(iter->dimension() == 2);
+
+				eventSet.push_back(
+					Event(iter->min().y(), i, true, iter));
+				eventSet.push_back(
+					Event(iter->max().y(), i, false, iter));
+
+				++i;
+				++iter;
+			}
 		}
 
 		// Sort the event list lexicographically in the
@@ -176,9 +218,9 @@ namespace Pastel
 				// Find out the extremities of the box
 				// in the _x_ direction.
 				const Event minEvent(
-					boxSet[e.index].min().x(), e.index, true);
+					e.box->min().x(), e.index, true, e.box);
 				const Event maxEvent(
-					boxSet[e.index].max().x(), e.index, false);
+					e.box->max().x(), e.index, false, e.box);
 
 				if (e.min)
 				{
@@ -226,7 +268,7 @@ namespace Pastel
 			}
 		}
 
-		AlignedBox<Real, 2> clique;
+		Box clique(2);
 
 		if (maxMaxCliqueSize > 1)
 		{
@@ -235,39 +277,64 @@ namespace Pastel
 			// We already know its y-range. Now we need
 			// to find its x-range.
 
-			ConstIterator iter = tree.root();
+			Event_ConstIterator cliqueIter = tree.root();
 			while(true)
 			{
-				ASSERT(!iter.sentinel());
+				ASSERT(!cliqueIter.sentinel());
 
-				const integer v = iter->key().min ? 1 : -1;
+				const integer v = cliqueIter->key().min ? 1 : -1;
 
-				if (iter->value().maxCliqueSize == 
-					iter.left()->value().actives + v)
+				if (cliqueIter->value().maxCliqueSize == 
+					cliqueIter.left()->value().actives + v)
 				{
 					// This is a maximum clique node.
 					break;
 				}
-				else if (iter->value().maxCliqueSize == 
-					iter.left()->value().maxCliqueSize)
+				else if (cliqueIter->value().maxCliqueSize == 
+					cliqueIter.left()->value().maxCliqueSize)
 				{
-					iter = iter.left();
+					cliqueIter = cliqueIter.left();
 				}
 				else
 				{
-					iter = iter.right();
+					cliqueIter = cliqueIter.right();
 				}
 			}
 
-			const Real xMin = iter->key().position;
-			++iter;
-			const Real xMax = iter->key().position;
+			const Real xMin = cliqueIter->key().position;
+			++cliqueIter;
+			const Real xMax = cliqueIter->key().position;
 
 			clique.set(xMin, yMin, xMax, yMax);
+
+			// All of the boxes in the tree participate
+			// in the intersection.
+			Event_ConstIterator iter = tree.begin();
+			while(iter != cliqueIter)
+			{
+				if (iter->key().min)
+				{
+					// We want to avoid reporting each box
+					// twice, so we report it only on the
+					// minimum event. This will also
+					// report the boxes in sorted order
+					// based on their minimum y-points.
+					*result = iter->key().box;
+					++result;
+				}
+				++iter;
+			}
 		}
 
 		return clique;
 	}	
+
+	template <typename AlignedBox_ConstIterator>
+	typename AlignedBox_ConstIterator::value_type maximumClique(
+		const ForwardRange<AlignedBox_ConstIterator>& boxSet)
+	{
+		return Pastel::maximumClique(boxSet, NullIterator());
+	}
 
 }
 

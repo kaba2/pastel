@@ -31,7 +31,7 @@ namespace Pastel
 		//! Constructs an empty tree.
 		/*!
 		Exception safety: strong
-		Complexity: constant
+		Time complexity: constant
 		*/
 		explicit RedBlackTree(
 			const RbtPolicy& policy = RbtPolicy(),
@@ -41,7 +41,7 @@ namespace Pastel
 		//! Constructs a copy of another tree.
 		/*!
 		Exception safety: strong
-		Complexity: O(n)
+		Time complexity: O(n)
 		*/
 		RedBlackTree(
 			const RedBlackTree& that,
@@ -50,49 +50,49 @@ namespace Pastel
 		//! Replaces this tree with a copy of another tree.
 		/*!
 		Exception safety: strong
-		Complexity: O(n)
+		Time complexity: O(n)
 		*/
 		RedBlackTree& operator=(const RedBlackTree& that);
 
 		//! Destructs the tree.
 		/*!
 		Exception safety: nothrow
-		Complexity: O(n)
+		Time complexity: O(n)
 		*/
 		~RedBlackTree();
 
 		//! Swaps two trees.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		void swap(RedBlackTree& that);
 
 		//! Removes all elements from the tree.
 		/*!
 		Exception safety: nothrow
-		Complexity: O(n)
+		Time complexity: O(n)
 		*/
 		void clear();
 
 		//! Returns the number of elements in the tree.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		integer size() const;
 
 		//! Returns true if the tree is empty.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		bool empty() const;
 
 		//! Inserts an element into the tree.
 		/*!
 		Exception safety: nothrow
-		Complexity: O(f(n) log n)
+		Time complexity: O(f(n) log n)
 
 		Here f(n) is the time spent computing the
 		user-specified hierarchical data (usually O(1)).
@@ -104,7 +104,7 @@ namespace Pastel
 		//! Removes an element from the tree.
 		/*!
 		Exception safety: nothrow
-		Complexity: O(f(n) log n)
+		Time complexity: O(f(n) log n)
 
 		Here f(n) is the time spent computing the
 		user-specified hierarchical data (usually O(1)).
@@ -127,7 +127,7 @@ namespace Pastel
 		//! Searches for a node with the given value.
 		/*!
 		Exception safety: nothrow
-		Complexity: O(log n)
+		Time complexity: O(log n)
 		*/
 		ConstIterator find(const Key& key) const;
 
@@ -140,7 +140,7 @@ namespace Pastel
 		//! Returns the iterator to the smallest element.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		ConstIterator begin() const;
 
@@ -153,7 +153,7 @@ namespace Pastel
 		//! Returns the iterator to the one-past-greatest element.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		ConstIterator end() const;
 
@@ -166,7 +166,7 @@ namespace Pastel
 		//! Returns the iterator to the greatest element.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		ConstIterator last() const;
 
@@ -179,7 +179,7 @@ namespace Pastel
 		//! Returns the iterator to the root element.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		ConstIterator root() const;
 
@@ -195,7 +195,7 @@ namespace Pastel
 		//! Allocates the sentinel node.
 		/*!
 		Exception safety: strong
-		Complexity: constant
+		Time complexity: constant
 		*/
 		void allocateSentinel(
 			const Key& sentinelKey,
@@ -204,14 +204,14 @@ namespace Pastel
 		//! Deallocates the sentinel node.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		void deallocateSentinel();
 
 		//! Initializes some member variables.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 
 		This function is to catch functionality
 		common to different constructors.
@@ -221,7 +221,7 @@ namespace Pastel
 		//! Allocates a node.
 		/*!
 		Exception safety: strong
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		Node* allocateNode(
 			const Key& key, 
@@ -232,7 +232,7 @@ namespace Pastel
 		//! Destruct a node.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		void destructNode(Node* node);
 		
@@ -264,7 +264,7 @@ namespace Pastel
 		memory in 'allocator', which must be
 		done later.
 
-		Complexity:
+		Time complexity:
 		O(n)
 
 		Here 'n' is the number of nodes in the
@@ -277,7 +277,7 @@ namespace Pastel
 		//! Destructs the nodes of a subtree.
 		/*!
 		Exception safety: nothrow
-		Complexity:	O(n)
+		Time complexity:	O(n)
 
 		Here 'n' is the number of nodes in the subtree
 		of 'node'.
@@ -290,7 +290,7 @@ namespace Pastel
 		d == Left || d == Right
 
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		void link(Node* parent, Node* child, 
 			integer direction);
@@ -301,42 +301,42 @@ namespace Pastel
 		d == Left || d == Right
 
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		Node* rotate(Node* node, integer direction);
 
 		//! Flips the colors of a node and its children.
 		/*!
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		void flipColors(Node* node);
 
 		//! Sets the minimum node.
 		/*!
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		void setMinimum(Node* node);
 
 		//! Returns the minimum node.
 		/*!
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		Node* minimum() const;
 
 		//! Sets the maximum node.
 		/*!
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		void setMaximum(Node* node);
 
 		//! Returns the maximum node.
 		/*!
 		Exception safety: nothrow
-		Complexity:	constant
+		Time complexity:	constant
 		*/
 		Node* maximum() const;
 

@@ -40,7 +40,7 @@ namespace Pastel
 		//! Copies another transformation.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		ConformalAffine2D<Real, N>& operator=(
 			const ConformalAffine2D<Real, N>& that);
@@ -48,7 +48,7 @@ namespace Pastel
 		//! Forms the composition that o (*this).
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		ConformalAffine2D<Real, N>& operator*=(
 			const ConformalAffine2D<Real, N>& that);
@@ -56,7 +56,7 @@ namespace Pastel
 		//! Returns the amount of scaling.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		Real& scaling();
 
@@ -69,7 +69,7 @@ namespace Pastel
 		//! Returns the angle of rotation.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 
 		The angle is measured counter-clockwise, in radians.
 		*/
@@ -84,7 +84,7 @@ namespace Pastel
 		//! Returns the translation.
 		/*!
 		Exception safety: nothrow
-		Complexity: constant
+		Time complexity: constant
 		*/
 		Vector<Real, N>& translation();
 

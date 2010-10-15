@@ -20,7 +20,7 @@ namespace Pastel
 
 		//! Swaps two policies.
 		/*!
-		Complexity: O(1).
+		Time complexity: O(1).
 		*/
 		void swap(RbtPolicy_Concept& that);
 
