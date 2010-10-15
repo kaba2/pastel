@@ -12,12 +12,37 @@
 namespace Pastel
 {
 	
+	class MaximumClique_BoxType
+	{
+	public:
+		enum Enum
+		{
+			Open,
+			Closed
+		};
+	};
+	
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
+	boxSet:
+	An iterator range where AlignedBox_ConstIterator
+	dereferences to AlignedBox<Real, N>.
+
+	boxType:
+	Whether to interpret boxes as open or closed sets.
+	Notice that if in x-direction a box is half-open of
+	the form [a, b), or (a, b], then the result of this 
+	algorithm is the same as using an x-open box.
+	The same goes for the y-direction. Thus no generality 
+	is lost by concentrating just on open and closed boxes.
+
+	result:
+	An iterator which dereferences to something that can
+	be assigned an AlignedBox_ConstIterator.
+
 	Preconditions:
 	The dimension of the aligned boxes are 2.
-	AlignedBox_ConstIterator dereferences to AlignedBox<Real, N>,
-	where N == 2 or N == Dynamic.
+	N == 2 || N == Dynamic.
 
 	Time complexity:
 	O(n log n)
@@ -33,19 +58,21 @@ namespace Pastel
 		typename AlignedBox_ConstIterator_Iterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		MaximumClique_BoxType::Enum boxType,
 		AlignedBox_ConstIterator_Iterator result);
 
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	This is a convenience function that calls:
-	maximumClique(boxSet, NullIterator())
+	maximumClique(boxSet, boxType, NullIterator())
 
 	See the documentation for the general function.
 	*/
 	template <typename AlignedBox_ConstIterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet);
+		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		MaximumClique_BoxType::Enum boxType = MaximumClique_BoxType::Closed);
 
 }
 
