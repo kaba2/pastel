@@ -13,6 +13,22 @@ namespace Pastel
 	namespace MaximumCliqueAlignedBox_Detail
 	{
 
+		class EventType
+		{
+		public:
+			enum Enum
+			{
+				// These numbers were carefully
+				// chosen to make the <-relation
+				// matrix of this enum to have a 
+				// certain form.
+				OpenMin = 0,
+				ClosedMin = 1,
+				OpenMax = 2,
+				ClosedMax = 3
+			};
+		};
+
 		template <typename Real, typename ConstIterator>
 		class Event
 		{
@@ -20,41 +36,95 @@ namespace Pastel
 			Event()
 				: position(0)
 				, index(0)
-				, min(true)
+				, type(EventType::ClosedMin)
 				, box()
 			{
 			}
 
 			Event(const Real& position_,
 				integer index_,
-				bool min_,
+				EventType::Enum type_,
 				const ConstIterator& box_)
 				: position(position_)
 				, index(index_)
-				, min(min_)
+				, type(type_)
 				, box(box_)
 			{
+			}
+
+			bool compareType(
+				EventType::Enum left,
+				EventType::Enum right) const
+			{
+				// Less-than is an irreflexive, asymmetric, and
+				// transitive relation. Thus logically we need only 
+				// explain the following cases:
+				//
+				//        r
+				//     ( [ ) ]
+				//   ( F      
+				// l [ T F    
+				//   ) T T F  
+				//   ] T F T F
+				//
+				// This relation matrix is transitive,
+				// which I checked with Matlab.
+				//
+				// 1) Irreflexivity explains the diagonal.
+				//
+				// 2) If there is OpenMin and ClosedMin,
+				// then we can choose either way. We use
+				// the opportunity to make the relation
+				// matrix simpler by placing true values
+				// to lower-right.
+				//
+				// 3) If both are closed, but not equal, 
+				// the minimum one should come first to
+				// cause an intersection.
+				//
+				// 4) If both are open, but not equal,
+				// the maximum one should come first to
+				// not cause an intersection.
+				//
+				// 5) If there is OpenMin and ClosedMax,
+				// or ClosedMin and OpenMax, the closing
+				// one should come first to not cause an
+				// intersection.
+				//
+				// Full relation matrix:
+				//
+				//        r
+				//     ( [ ) ]
+				//   ( F F F F
+				// l [ T F F T   
+				//   ) T T F F 
+				//   ] T F T F
+
+				if (left == EventType::ClosedMax &&
+					right == EventType::ClosedMin)
+				{
+					return false;
+				}
+				if (left == EventType::ClosedMin &&
+					right == EventType::ClosedMax)
+				{
+					return true;
+				}
+				
+				return right < left;
 			}
 
 			bool operator<(
 				const Event& that) const
 			{
-				if (position < that.position)
+				if (position != that.position)
 				{
-					return true;
+					return position < that.position;
 				}
-				if (that.position < position)
+				
+				if (type != that.type)
 				{
-					return false;
-				}
-
-				if (min && !that.min)
-				{
-					return true;
-				}
-				if (that.min && !min)
-				{
-					return false;
+					return compareType(type, that.type);
 				}
 
 				// We would rather want to compare
@@ -65,9 +135,14 @@ namespace Pastel
 				return index < that.index;
 			}
 
+			bool min() const
+			{
+				return type <= 1;
+			}
+
 			Real position;
 			integer index;
-			bool min;
+			EventType::Enum type;
 			ConstIterator box;
 		};
 
@@ -97,7 +172,7 @@ namespace Pastel
 			template <typename Iterator>
 			void updateHierarchical(const Iterator& iter)
 			{
-				const integer v = iter->key().min ? 1 : -1;
+				const integer v = iter->key().min() ? 1 : -1;
 
 				iter->value().actives = 
 					iter.left()->value().actives + 
@@ -124,8 +199,11 @@ namespace Pastel
 		typename AlignedBox_ConstIterator_Iterator>
 		typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		MaximumClique_BoxType::Enum boxType,
 		AlignedBox_ConstIterator_Iterator result)
 	{
+		typedef MaximumCliqueAlignedBox_Detail::
+			EventType EventType;
 		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
 			value_type Box;
 		typedef typename Box::Real_ Real;
@@ -160,6 +238,14 @@ namespace Pastel
 		// of 'eventSet' below beforehand.
 		const integer n = boxSet.size();
 
+		const EventType::Enum minType = 
+			boxType == MaximumClique_BoxType::Closed ?
+			EventType::ClosedMin : EventType::OpenMin;
+
+		const EventType::Enum maxType = 
+			boxType == MaximumClique_BoxType::Closed ?
+			EventType::ClosedMax : EventType::OpenMax;
+
 		// Insert the y-endpoints of each box
 		// into an event list.
 		std::vector<Event> eventSet;
@@ -174,9 +260,9 @@ namespace Pastel
 				PENSURE(iter->dimension() == 2);
 
 				eventSet.push_back(
-					Event(iter->min().y(), i, true, iter));
+					Event(iter->min().y(), i, minType, iter));
 				eventSet.push_back(
-					Event(iter->max().y(), i, false, iter));
+					Event(iter->max().y(), i, maxType, iter));
 
 				++i;
 				++iter;
@@ -219,11 +305,11 @@ namespace Pastel
 				// Find out the extremities of the box
 				// in the _x_ direction.
 				const Event minEvent(
-					e.box->min().x(), e.index, true, e.box);
+					e.box->min().x(), e.index, minType, e.box);
 				const Event maxEvent(
-					e.box->max().x(), e.index, false, e.box);
+					e.box->max().x(), e.index, maxType, e.box);
 
-				if (e.min)
+				if (e.min())
 				{
 					// If this event begins a new box, then
 					// we insert the x-endpoints of that box 
@@ -283,7 +369,7 @@ namespace Pastel
 			{
 				ASSERT(!cliqueIter.sentinel());
 
-				const integer v = cliqueIter->key().min ? 1 : -1;
+				const integer v = cliqueIter->key().min() ? 1 : -1;
 
 				if (cliqueIter->value().maxCliqueSize == 
 					cliqueIter.left()->value().actives + v)
@@ -313,7 +399,7 @@ namespace Pastel
 			Event_ConstIterator iter = tree.begin();
 			while(iter != cliqueIter)
 			{
-				if (iter->key().min)
+				if (iter->key().min())
 				{
 					// We want to avoid reporting each box
 					// twice, so we report it only on the
@@ -332,9 +418,11 @@ namespace Pastel
 
 	template <typename AlignedBox_ConstIterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
-		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet)
+		maximumClique(
+		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		MaximumClique_BoxType::Enum boxType)
 	{
-		return Pastel::maximumClique(boxSet, NullIterator());
+		return Pastel::maximumClique(boxSet, boxType, NullIterator());
 	}
 
 }
