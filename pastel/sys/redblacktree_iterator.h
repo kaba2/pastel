@@ -86,7 +86,8 @@ namespace Pastel
 						// prevNode != node->right(). The
 						// latter is the correct test.
 					}
-					while (prevNode != node_->right());
+					while (!node_->sentinel() && 
+						prevNode != node_->right());
 					
 					if (node_->sentinel())
 					{

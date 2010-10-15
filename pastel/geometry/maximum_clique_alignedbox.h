@@ -1,3 +1,6 @@
+// Description: Maximum clique of an aligned box graph
+// Documentation: intersection_graph.txt
+
 #ifndef PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 #define PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
