@@ -6,6 +6,9 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/nulliterator.h"
+#include "pastel/sys/unorderedmap.h"
+
+#include <boost/type_traits/is_same.hpp>
 
 namespace Pastel
 {
@@ -36,6 +39,7 @@ namespace Pastel
 			Event()
 				: position(0)
 				, index(0)
+				, label(0)
 				, type(EventType::ClosedMin)
 				, box()
 			{
@@ -43,10 +47,12 @@ namespace Pastel
 
 			Event(const Real& position_,
 				integer index_,
+				integer label_,
 				EventType::Enum type_,
 				const ConstIterator& box_)
 				: position(position_)
 				, index(index_)
+				, label(label_)
 				, type(type_)
 				, box(box_)
 			{
@@ -124,6 +130,15 @@ namespace Pastel
 				
 				if (type != that.type)
 				{
+					if (label == that.label)
+					{
+						// If the labels are equal,
+						// then we treat them specially
+						// so that two closed event-points
+						// won't cause an intersection.
+						return that.type < type;
+					}
+
 					return compareType(type, that.type);
 				}
 
@@ -142,6 +157,7 @@ namespace Pastel
 
 			Real position;
 			integer index;
+			integer label;
 			EventType::Enum type;
 			ConstIterator box;
 		};
@@ -192,6 +208,32 @@ namespace Pastel
 			}
 		};
 
+		template <typename Iterator>
+		bool cliqueHere(const Iterator& iter)
+		{
+			const integer v = iter->key().min() ? 1 : -1;
+
+			if (iter->value().maxCliqueSize == 
+				iter.left()->value().actives + v)
+			{
+				return true;
+			}
+		
+			return false;
+		}
+
+		template <typename Iterator>
+		bool cliqueOnLeft(const Iterator& iter)
+		{
+			if (iter->value().maxCliqueSize == 
+				iter.left()->value().maxCliqueSize)
+			{
+				return true;
+			}
+		
+			return false;
+		}
+
 	}
 
 	template <
@@ -202,18 +244,16 @@ namespace Pastel
 		MaximumClique_BoxType::Enum boxType,
 		AlignedBox_ConstIterator_Iterator result)
 	{
-		typedef MaximumCliqueAlignedBox_Detail::
-			EventType EventType;
+		using namespace MaximumCliqueAlignedBox_Detail;
+
 		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
 			value_type Box;
 		typedef typename Box::Real_ Real;
 
 		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
 
-		typedef MaximumCliqueAlignedBox_Detail::
-			Event<Real, AlignedBox_ConstIterator> Event;
-		typedef MaximumCliqueAlignedBox_Detail::
-			MaximumClique_RbtPolicy RbtPolicy;
+		typedef Event<Real, AlignedBox_ConstIterator> Event;
+		typedef MaximumClique_RbtPolicy RbtPolicy;
 		typedef RedBlackTree<Event, std::less<Event>, RbtPolicy> Tree;
 		typedef typename Tree::ConstIterator Event_ConstIterator;
 		typedef RbtPolicy::ValueType Value;
@@ -260,9 +300,9 @@ namespace Pastel
 				PENSURE(iter->dimension() == 2);
 
 				eventSet.push_back(
-					Event(iter->min().y(), i, minType, iter));
+					Event(iter->min().y(), i, i, minType, iter));
 				eventSet.push_back(
-					Event(iter->max().y(), i, maxType, iter));
+					Event(iter->max().y(), i, i, maxType, iter));
 
 				++i;
 				++iter;
@@ -282,6 +322,7 @@ namespace Pastel
 		Real yMax = 0;
 		integer maxMaxCliqueSize = 0;
 		integer maxIndex = 0;
+		Real maxHeight = 0;
 
 		for (integer j = 0;j < 2;++j)
 		{
@@ -305,9 +346,9 @@ namespace Pastel
 				// Find out the extremities of the box
 				// in the _x_ direction.
 				const Event minEvent(
-					e.box->min().x(), e.index, minType, e.box);
+					e.box->min().x(), e.index, e.label, minType, e.box);
 				const Event maxEvent(
-					e.box->max().x(), e.index, maxType, e.box);
+					e.box->max().x(), e.index, e.label, maxType, e.box);
 
 				if (e.min())
 				{
@@ -319,11 +360,22 @@ namespace Pastel
 					
 					if (j == 0)
 					{
-						// See if the size of the maximum clique grew.
-						if (tree.root()->value().maxCliqueSize > maxMaxCliqueSize)
+						// Primarily, we want to maximize the size of
+						// the maximum clique.
+						const integer maxCliqueSize = 
+							tree.root()->value().maxCliqueSize;
+						
+						// Secondarily, we want to maximize the height
+						// of the maximum clique box.
+						const Real height = 
+							eventSet[i + 1].position - e.position;
+
+						if (maxCliqueSize > maxMaxCliqueSize ||
+							(maxCliqueSize == maxMaxCliqueSize && height > maxHeight))
 						{
-							maxMaxCliqueSize = tree.root()->value().maxCliqueSize;
+							maxMaxCliqueSize = maxCliqueSize;
 							maxIndex = i;
+							maxHeight = height;
 						}
 					}
 					else if (i == maxIndex)
@@ -331,8 +383,8 @@ namespace Pastel
 						// We have now reconstructed a tree which 
 						// contains a maximum clique rectangle.
 						// Although there could be several maximum 
-						// cliques, we are content with the first 
-						// one (this also saves some computation).
+						// cliques, we are content with just one (this 
+						// also saves some computation).
 						yMin = e.position;
 						yMax = eventSet[i + 1].position;
 						break;
@@ -371,21 +423,19 @@ namespace Pastel
 
 				const integer v = cliqueIter->key().min() ? 1 : -1;
 
-				if (cliqueIter->value().maxCliqueSize == 
-					cliqueIter.left()->value().actives + v)
+				// There can be many maximum cliques in the tree.
+				// However, we need just one of these, and we
+				// prefer the nodes in order current, left, and
+				// right.
+
+				if (cliqueHere(cliqueIter))
 				{
 					// This is a maximum clique node.
 					break;
 				}
-				else if (cliqueIter->value().maxCliqueSize == 
-					cliqueIter.left()->value().maxCliqueSize)
-				{
-					cliqueIter = cliqueIter.left();
-				}
-				else
-				{
-					cliqueIter = cliqueIter.right();
-				}
+
+				cliqueIter = cliqueOnLeft(cliqueIter) ? 
+					cliqueIter.left() : cliqueIter.right();
 			}
 
 			const Real xMin = cliqueIter->key().position;
@@ -394,22 +444,48 @@ namespace Pastel
 
 			clique.set(xMin, yMin, xMax, yMax);
 
-			// All of the boxes in the tree participate
-			// in the intersection.
-			Event_ConstIterator iter = tree.begin();
-			while(iter != cliqueIter)
+			const bool reportBoxes = 
+				!boost::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
+
+			if (reportBoxes)
 			{
-				if (iter->key().min())
+				// Do a linear scan to find out which boxes
+				// are active in our chosen maximum clique.
+
+				typedef UnorderedMap<integer, AlignedBox_ConstIterator>
+					ActiveSet;
+				typedef typename ActiveSet::const_iterator Active_ConstIterator;
+
+				UnorderedMap<integer, AlignedBox_ConstIterator> activeSet;
+				
+				// Find out all the participating boxes.
 				{
-					// We want to avoid reporting each box
-					// twice, so we report it only on the
-					// minimum event. This will also
-					// report the boxes in sorted order
-					// based on their minimum y-points.
-					*result = iter->key().box;
-					++result;
+					Event_ConstIterator iter = tree.begin();
+					while(iter != cliqueIter)
+					{
+						if (iter->key().min())
+						{
+							activeSet.insert(
+								std::make_pair(iter->key().index, iter->key().box));
+						}
+						else
+						{
+							activeSet.erase(iter->key().index);
+						}
+						++iter;
+					}
 				}
-				++iter;
+
+				// Report all the participating boxes.
+				{
+					Active_ConstIterator iter = activeSet.begin();
+					while(iter != activeSet.end())
+					{
+						*result = iter->second;
+						++result;
+						++iter;
+					}
+				}
 			}
 		}
 
