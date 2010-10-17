@@ -7,6 +7,7 @@
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/nulliterator.h"
 #include "pastel/sys/unorderedmap.h"
+#include "pastel/sys/random_uniform.h"
 
 #include <boost/type_traits/is_same.hpp>
 
@@ -170,7 +171,7 @@ namespace Pastel
 			public:
 				ValueType(
 					integer actives_ = 0,
-					integer maxCliqueSize_ = 0)
+					integer maxCliqueSize_ = -1)
 					: actives(actives_)
 					, maxCliqueSize(maxCliqueSize_)
 				{
@@ -196,7 +197,8 @@ namespace Pastel
 					v;
 
 				iter->value().maxCliqueSize = 
-					std::max(iter.left()->value().maxCliqueSize,
+					std::max(
+					iter.left()->value().maxCliqueSize,
 					std::max(
 					iter.left()->value().actives + v,
 					iter.left()->value().actives + v + 
@@ -225,13 +227,134 @@ namespace Pastel
 		template <typename Iterator>
 		bool cliqueOnLeft(const Iterator& iter)
 		{
-			if (iter->value().maxCliqueSize == 
+			if (!iter.left().sentinel() && 
+				iter->value().maxCliqueSize == 
 				iter.left()->value().maxCliqueSize)
 			{
 				return true;
 			}
 		
 			return false;
+		}
+
+		template <typename Iterator>
+		bool cliqueOnRight(const Iterator& iter)
+		{
+			const integer v = iter->key().min() ? 1 : -1;
+
+			if (!iter.right().sentinel() &&
+				iter->value().maxCliqueSize == 
+				iter.left()->value().actives + v +
+				iter.right()->value().maxCliqueSize)
+			{
+				return true;
+			}
+		
+			return false;
+		}
+
+		class Direction
+		{
+		public:
+			enum Enum
+			{
+				Current,
+				Left,
+				Right
+			};
+		};
+
+		template <typename Iterator, typename Direction_Iterator>
+		Iterator findMaximumClique(
+			const Iterator& root,
+			const ForwardRange<Direction_Iterator>& directionSet)
+		{
+			Iterator iter = root;
+			Direction_Iterator directionIter = directionSet.begin();
+			const Direction_Iterator directionEnd = directionSet.end();
+			while(directionIter != directionEnd)
+			{
+				const Direction::Enum direction =
+					*directionIter;
+
+				ASSERT(
+					direction == Direction::Left ||
+					direction == Direction::Right);
+
+				if (*directionIter == Direction::Left)
+				{
+					iter = iter.left();
+				}
+				else
+				{
+					iter = iter.right();
+				}
+				++directionIter;
+			}
+			
+			return iter;
+		}
+
+		template <typename Iterator, typename Direction_Iterator>
+		Iterator findSomeMaximumClique(
+			const Iterator& root,
+			Direction_Iterator result)
+		{
+			Direction::Enum candidateSet[3];
+
+			ASSERT(!root.sentinel());
+
+			Iterator iter = root;
+			while(!iter.left().sentinel() ||
+				!iter.right().sentinel()) 
+			{
+				// There can be many maximum cliques in the tree.
+				// We choose one randomly.
+
+				integer candidates = 0;
+				if (cliqueHere(iter))
+				{
+					candidateSet[candidates] = Direction::Current;
+					++candidates;
+				}
+				if (cliqueOnLeft(iter))
+				{
+					candidateSet[candidates] = Direction::Left;
+					++candidates;
+				}
+				if (cliqueOnRight(iter))
+				{
+					candidateSet[candidates] = Direction::Right;
+					++candidates;
+				}
+
+				ASSERT_OP(candidates, >, 0);
+
+				integer index = 0;
+				if (candidates == 2)
+				{
+					index = randomInteger() & 1;
+				}
+				else if (candidates == 3)
+				{
+					index = randomInteger() % 3;
+				}
+
+				const Direction::Enum direction = candidateSet[index];
+
+				if (direction == Direction::Current)
+				{
+					break;
+				}
+
+				iter = (direction == Direction::Left) ? 
+					iter.left() : iter.right();
+
+				*result = direction;
+				++result;
+			}
+
+			return iter;
 		}
 
 	}
@@ -330,7 +453,9 @@ namespace Pastel
 		Real yMax = 0;
 		integer maxMaxCliqueSize = 0;
 		integer maxIndex = 0;
-		Real maxHeight = 0;
+		Real maxSize = 0;
+		Real maxArea = 0;
+		std::vector<Direction::Enum> maxDirectionSet;
 
 		for (integer j = 0;j < 2;++j)
 		{
@@ -372,18 +497,43 @@ namespace Pastel
 						// the maximum clique.
 						const integer maxCliqueSize = 
 							tree.root()->value().maxCliqueSize;
-						
-						// Secondarily, we want to maximize the height
-						// of the maximum clique box.
-						const Real height = 
-							eventSet[i + 1].position - e.position;
 
-						if (maxCliqueSize > maxMaxCliqueSize ||
-							(maxCliqueSize == maxMaxCliqueSize && height > maxHeight))
+						if (maxCliqueSize > 1 && maxCliqueSize >= maxMaxCliqueSize)
 						{
-							maxMaxCliqueSize = maxCliqueSize;
-							maxIndex = i;
-							maxHeight = height;
+							// Secondarily, we want to maximize the area
+							// of the maximum clique box.
+							std::vector<Direction::Enum> directionSet;
+							Event_ConstIterator cliqueIter = 
+								findSomeMaximumClique(tree.root(),
+								std::back_inserter(directionSet));
+
+							const Real xMinNew = cliqueIter->key().position;
+							++cliqueIter;
+							const Real xMaxNew = cliqueIter->key().position;
+
+							const Real yMinNew = e.position;
+							const Real yMaxNew = eventSet[i + 1].position;
+
+							const Real width = xMaxNew - xMinNew;
+							const Real height = yMaxNew - yMinNew;
+
+							const Real area = width * height;
+
+							// Tertiarily, we want the maximum width of the 
+							// maximum clique box.
+							const Real size = std::max(width, height);
+
+							if (maxCliqueSize > maxMaxCliqueSize ||
+								(maxCliqueSize == maxMaxCliqueSize && area > maxArea) ||
+								(maxCliqueSize == maxMaxCliqueSize && area == maxArea &&
+								size > maxSize))
+							{
+								maxMaxCliqueSize = maxCliqueSize;
+								maxIndex = i;
+								maxArea = area;
+								maxSize = size;
+								maxDirectionSet.swap(directionSet);
+							}
 						}
 					}
 					else if (i == maxIndex)
@@ -424,27 +574,11 @@ namespace Pastel
 			// We already know its y-range. Now we need
 			// to find its x-range.
 
-			Event_ConstIterator cliqueIter = tree.root();
-			while(true)
-			{
-				ASSERT(!cliqueIter.sentinel());
-
-				const integer v = cliqueIter->key().min() ? 1 : -1;
-
-				// There can be many maximum cliques in the tree.
-				// However, we need just one of these, and we
-				// prefer the nodes in order current, left, and
-				// right.
-
-				if (cliqueHere(cliqueIter))
-				{
-					// This is a maximum clique node.
-					break;
-				}
-
-				cliqueIter = cliqueOnLeft(cliqueIter) ? 
-					cliqueIter.left() : cliqueIter.right();
-			}
+			Event_ConstIterator cliqueIter = 
+				findMaximumClique(
+				tree.root(),
+				forwardRange(maxDirectionSet.begin(), 
+				maxDirectionSet.end()));
 
 			const Real xMin = cliqueIter->key().position;
 			++cliqueIter;
