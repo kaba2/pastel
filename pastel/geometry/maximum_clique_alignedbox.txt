@@ -6,7 +6,7 @@ Maximum clique of aligned boxes
 Theory
 ------
 
-Given is a set ''P'' of (axis-aligned) boxes in ''R^d', ''|B| = n''. 
+Given a set ''P'' of (axis-aligned) boxes in ''R^d'', ''|P| = n''. 
 A _clique box_ is a box which is contained in the intersection of 
 some subset ''hat(P) sub P'' of boxes. The _box maximum clique 
 problem_ is to find a clique box such that ''|hat(P)| = k'' is maximized.
@@ -18,7 +18,7 @@ Practice
 
 Pastel implements an algorithm to find a maximum clique box in
 time ''O(n log(n))'', and to optionally report the subset ''hat(P)''
-for additional ''O(k)'' time. Consider the subset of those boxes that
+using additional ''O(k)'' time. Consider the subset of those boxes that
 intersect a given horizontal line. We call the maximum cliques in that
 subset the _local maximum cliques_. For each local maximum clique set,
 the algorithm samples randomly (using a uniform distribution) one of
@@ -45,9 +45,9 @@ probability very quickly converges from above towards
 returns a non-singular maximum clique box. Similarly, the probability 
 that the algorithm returns one of the four large-area maximum cliques 
 is given by ''1 - (1 - 4 / n)^2'', which for ''n = 16'' evaluates to
-''0.44', but approaches zero as ''n'' grows.
+0.44, but approaches zero as ''n'' grows.
 
 [[Gallery]]:
 	maximum_clique_alignedbox.png
-	- Figure 1. n boxes form O(n^2) maximum cliques.
+	- Figure 1. n boxes forming O(n^2) maximum cliques.
 	
