@@ -36,6 +36,10 @@ namespace Pastel
 	The same goes for the y-direction. Thus no generality 
 	is lost by concentrating just on open and closed boxes.
 
+	sweepDirection:
+	The axis on which the width of the maximum clique box
+	is secondarily maximized among all maximum cliques.
+
 	result:
 	An iterator which dereferences to something that can
 	be assigned an AlignedBox_ConstIterator.
@@ -57,14 +61,16 @@ namespace Pastel
 		typename AlignedBox_ConstIterator,
 		typename AlignedBox_ConstIterator_Iterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
-		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		maximumClique(
+		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
 		MaximumClique_BoxType::Enum boxType,
+		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result);
 
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	This is a convenience function that calls:
-	maximumClique(boxSet, boxType, NullIterator())
+	maximumClique(boxSet, boxType, sweepDirection, NullIterator())
 
 	See the documentation for the general function.
 	*/
@@ -72,7 +78,8 @@ namespace Pastel
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
 		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
-		MaximumClique_BoxType::Enum boxType = MaximumClique_BoxType::Closed);
+		MaximumClique_BoxType::Enum boxType = MaximumClique_BoxType::Closed,
+		integer sweepDirection = 1);
 
 }
 
