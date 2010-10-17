@@ -240,8 +240,10 @@ namespace Pastel
 		typename AlignedBox_ConstIterator,
 		typename AlignedBox_ConstIterator_Iterator>
 		typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
-		maximumClique(const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		maximumClique(
+		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
 		MaximumClique_BoxType::Enum boxType,
+		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result)
 	{
 		using namespace MaximumCliqueAlignedBox_Detail;
@@ -272,6 +274,9 @@ namespace Pastel
 		// point here is to have a balanced tree to guarantee O(log n)
 		// augmented insertion and deletion.
 
+		ENSURE_OP(sweepDirection, >=, 0);
+		ENSURE_OP(sweepDirection, <, 2);
+
 		// This will take linear time for an iterator
 		// that is not random access. However, it is
 		// worth it, since we can then reserve the size
@@ -285,6 +290,9 @@ namespace Pastel
 		const EventType::Enum maxType = 
 			boxType == MaximumClique_BoxType::Closed ?
 			EventType::ClosedMax : EventType::OpenMax;
+
+		const integer y = sweepDirection;
+		const integer x = !y;
 
 		// Insert the y-endpoints of each box
 		// into an event list.
@@ -300,9 +308,9 @@ namespace Pastel
 				PENSURE(iter->dimension() == 2);
 
 				eventSet.push_back(
-					Event(iter->min().y(), i, i, minType, iter));
+					Event(iter->min()[y], i, i, minType, iter));
 				eventSet.push_back(
-					Event(iter->max().y(), i, i, maxType, iter));
+					Event(iter->max()[y], i, i, maxType, iter));
 
 				++i;
 				++iter;
@@ -346,9 +354,9 @@ namespace Pastel
 				// Find out the extremities of the box
 				// in the _x_ direction.
 				const Event minEvent(
-					e.box->min().x(), e.index, e.label, minType, e.box);
+					e.box->min()[x], e.index, e.label, minType, e.box);
 				const Event maxEvent(
-					e.box->max().x(), e.index, e.label, maxType, e.box);
+					e.box->max()[x], e.index, e.label, maxType, e.box);
 
 				if (e.min())
 				{
@@ -442,7 +450,10 @@ namespace Pastel
 			++cliqueIter;
 			const Real xMax = cliqueIter->key().position;
 
-			clique.set(xMin, yMin, xMax, yMax);
+			clique.min()[x] = xMin;
+			clique.min()[y] = yMin;
+			clique.max()[x] = xMax;
+			clique.max()[y] = yMax;
 
 			const bool reportBoxes = 
 				!boost::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
@@ -496,9 +507,11 @@ namespace Pastel
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
 		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
-		MaximumClique_BoxType::Enum boxType)
+		MaximumClique_BoxType::Enum boxType,
+		integer sweepDirection)
 	{
-		return Pastel::maximumClique(boxSet, boxType, NullIterator());
+		return Pastel::maximumClique(
+			boxSet, boxType, sweepDirection, NullIterator());
 	}
 
 }
