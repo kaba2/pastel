@@ -115,6 +115,9 @@ namespace Pastel
 			//! Returns the number of elements in the array.
 			integer size() const;
 
+			//! Returns the dimension of the array.
+			integer dimension() const;
+
 			//! Assigns content from another array.
 			ArrayBase<Type, N>& operator=(const ArrayBase& that);
 

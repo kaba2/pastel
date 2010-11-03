@@ -7,6 +7,7 @@
 #include "pastel/gfx/packrange.h"
 
 #include "pastel/dsp/discretefourier.h"
+#include "pastel/dsp/discretecosine.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
@@ -15,7 +16,6 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
 using namespace Pastel;
 
 namespace
@@ -57,56 +57,124 @@ namespace
 		}
 	};
 
-	void testFourier()
+	class Fourier_Test
+		: public TestSuite
 	{
-		Array<Color, 2> image;
-		loadPcx("lena.pcx", image);
-
-		Array<std::complex<real32>, 2> fourierImage(image.extent());
-
-		/*
-		Array<real32, 2> grayImage(image.extent());
-		copy(constAdaptedView(constArrayView(image), Luma_Color_Adapter()),
-			arrayView(grayImage));
-		packRange(arrayView(grayImage), 0, 1);
-		saveGrayscalePcx(grayImage, "fourier_lena_gray.pcx");
-
-		Array<std::complex<real32>, 2> complexImage(image.extent());
-		copy(constAdaptedView(constArrayView(grayImage), Real_Complex_Adapter()),
-			arrayView(complexImage));
-
-		discreteFourier(
-			constArrayView(complexImage),
-			arrayView(fourierImage));
-		*/
-
-		discreteFourier(
-			constAdaptedView(
-			constAdaptedView(constArrayView(image), Luma_Color_Adapter()),
-			Real_Complex_Adapter()),
-			arrayView(fourierImage));
-
-		Array<real32, 2> fourierReal(image.extent());
-		copy(constAdaptedView(constArrayView(fourierImage), Complex_Mod_Adapter()),
-			arrayView(fourierReal));
-
-		packRange(arrayView(fourierReal), 0, 1);
-		for (integer y = 0;y < image.height();++y)
+	public:
+		Fourier_Test()
+			: TestSuite(&gfxTestReport())
 		{
-			for (integer x = 0;x < image.width();++x)
-			{
-				fourierReal(x, y) = std::pow(fourierReal(x, y), (real32)0.2);
-			}
 		}
 
-		saveGrayscalePcx(fourierReal, "fourier_lena_real.pcx");
+		virtual void run()
+		{
+			testSimple();
+		}
+
+		template <int N>
+		void testFourierCase(const real (&input)[N])
+		{
+			std::vector<std::complex<real> > output;
+
+			dft(forwardRange(input),
+				std::back_inserter(output));
+			
+			inverseDft(
+				forwardRange(output.begin(), output.end()),
+				output.begin());
+			
+			for (integer i = 0;i < N;++i)
+			{
+				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
+			}
+
+			//std::copy(output.begin(), output.end(),
+			//	std::ostream_iterator<std::complex<real> >(std::cout));
+			//std::cout << std::endl;
+
+		}
+
+		template <int N>
+		void testCosineCase(const real (&input)[N])
+		{
+			std::vector<std::complex<real> > output;
+
+			dctOrthogonal(forwardRange(input),
+				std::back_inserter(output));
+			
+			//std::copy(output.begin(), output.end(),
+			//	std::ostream_iterator<std::complex<real> >(std::cout));
+			//std::cout << std::endl;
+
+			inverseDctOrthogonal(
+				forwardRange(output.begin(), output.end()),
+				output.begin());
+			
+			for (integer i = 0;i < N;++i)
+			{
+				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
+			}
+
+			//std::copy(output.begin(), output.end(),
+			//	std::ostream_iterator<std::complex<real> >(std::cout));
+			//std::cout << std::endl;
+		}
+
+		void testSimple()
+		{
+			{
+				const real input[] = {1};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+			{
+				const real input[] = {1, 2};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+			{
+				const real input[] = {1, 2, 3, 4};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+			{
+				const real input[] = {4, 3, 2, 1};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+			{
+				const real input[] = {1, 2, 3, 4, 5, 6, 7, 8};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+			{
+				const real input[] = {1, 5, 2, 3, 4, 9, 5, 5};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+			{
+				const real input[] = 
+				{
+					0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8,
+					0, 8, 0, 7, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1
+				};
+				testFourierCase(input);
+				testCosineCase(input);
+			}
+		}
+	};
+
+	void testFourier()
+	{
+		Fourier_Test test;
+		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Fourier", testFourier);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

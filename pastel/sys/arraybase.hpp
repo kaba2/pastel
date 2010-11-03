@@ -243,6 +243,12 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
+		integer ArrayBase<Type, N>::dimension() const
+		{
+			return extent_.dimension();
+		}
+
+		template <typename Type, int N>
 		ArrayBase<Type, N>& ArrayBase<Type, N>::operator=(
 			const ArrayBase& that)
 		{

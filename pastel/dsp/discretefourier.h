@@ -1,5 +1,4 @@
 // Description: Discrete fourier transform
-// Documentation: miscellaneous.txt
 
 #ifndef PASTEL_DISCRETEFOURIER_H
 #define PASTEL_DISCRETEFOURIER_H
@@ -9,58 +8,56 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
 
+#include "pastel/sys/forwardrange.h"
+
 #include <complex>
 
 namespace Pastel
 {
 
-	//! Computes a discrete fourier transformation.
-
-	template <typename Real, typename Input_View,
-		typename Output_View>
-		void discreteFourier(
-		const ConstView<1, std::complex<Real>, Input_View>& input,
-		const View<1, std::complex<Real>, Output_View>& output);
-
-	//! Computes a discrete fourier inverse transformation.
-
-	template <typename Real, typename Input_View,
-		typename Output_View>
-		void discreteFourierInverse(
-		const ConstView<1, std::complex<Real>, Input_View>& input,
-		const View<1, std::complex<Real>, Output_View>& output);
-
-	//! Computes a discrete fourier transformation.
+	//! Computes a discrete fourier transform.
 	/*!
-	This function simply uses the 1d discrete fourier
-	transformation for each row on each axis.
+	Preconditions:
+	isPowerOfTwo(input.size())
 	*/
 
-	template <
-		int N,
-		typename Real,
-		typename Input_View,
-		typename Output_View>
-		typename boost::enable_if_c<(N > 1), void>::type
-		discreteFourier(
-		const ConstView<N, std::complex<Real>, Input_View>& input,
-		const View<N, std::complex<Real>, Output_View>& output);
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void dft(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output);
 
-	//! Computes a discrete fourier inverse transformation.
+	//! Computes an orthogonal discrete fourier transform.
 	/*!
-	This function simply uses the 1d discrete fourier
-	inverse transformation for each row on each axis.
+	Preconditions:
+	isPowerOfTwo(input.size())
 	*/
 
-	template <
-		int N,
-		typename Real,
-		typename Input_View,
-		typename Output_View>
-		typename boost::enable_if_c<(N > 1), void>::type
-		discreteFourierInverse(
-		const ConstView<N, std::complex<Real>, Input_View>& input,
-		const View<N, std::complex<Real>, Output_View>& output);
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void dftOrthogonal(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output);
+
+	//! Computes an inverse discrete fourier transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(input.size())
+	*/
+
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void inverseDft(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output);
+
+	//! Computes an inverse orthogonal discrete fourier transform.
+	/*!
+	Preconditions:
+	isPowerOfTwo(input.size())
+	*/
+
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void inverseDftOrthogonal(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output);
 
 }
 
