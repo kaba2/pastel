@@ -7,17 +7,19 @@ Theory
 ------
 
 The _discrete cosine transform_ (DCT) is an invertible linear 
-mapping ''DCT : CC^N -> CC^N'' defined by:
+mapping ''"DCT" : CC^N -> CC^N'' defined by:
 
-''DCT(x) = M x'', where
+''"DCT"(x) = M x'', where ''M in CC^{N \times N}'', and
 
-''M in CC^{N \times N}, M_{kn} = cos(pi (k / N) (n + 1 / 2)).''
+''M_{kn} = cos((pi k (2n + 1)) / (2N)).''
 
-Its inverse is given by:
+Its inverse is given by ''"IDCT" : CC^N -> CC^N'':
 
-''IDCT(x) = M^{-1} x'', where
+''"IDCT"(x) = M^{-1} x'', where ''M^{-1} in CC^{N \times N}'', 
 
-''M^{-1} in CC^{N \times N}, M_{kn}^{-1} = ...''
+''M_{nk}^{-1} = w_n cos((pi k (2n + 1)) / (2N))'', and
+
+''w_n = ((1 / N, ", for " n = 1), (2 / N, ", otherwise"))''
 
 The _unitary discrete cosine transform_ is given by multiplying the first row of ''M''
 by ''sqrt(1 / N)'', and the rest of ''M'' by ''sqrt(2 / N)''. Such a transformation 

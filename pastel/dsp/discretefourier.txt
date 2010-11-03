@@ -7,19 +7,19 @@ Theory
 ------
 
 The _discrete fourier transform_ (DFT) is an invertible linear 
-mapping ''DFT : CC^N -> CC^N'' defined by:
+mapping ''"DFT" : CC^N -> CC^N'' defined by:
 
-''DFT(x) = M x'', where
+''"DFT"(x) = M x'', where ''M in CC^{N \times N}'', and
 
-''M in CC^{N \times N}, M_{kn} = e^{-2 pi i k n / N}.''
+''M_{kn} = e^{-2 pi i k n / N}.''
 
-Its inverse is given by ''IDFT : CC^N -> CC^N'':
+Its inverse is given by ''"IDFT" : CC^N -> CC^N'':
 
-''IDFT(x) = M^{-1} x'', where
+''"IDFT"(x) = M^{-1} x'', where ''M^{-1} in CC^{N \times N}'', and
 
-''M^{-1} in CC^{N \times N}, M_{kn}^{-1} = (1 / N) e^{2 pi i k n / N}.''
+''M_{kn}^{-1} = (1 / N) e^{2 pi i k n / N}.''
 
-The _orthogonal discrete fourier transform_ is given by multiplying 
+The _unitary discrete fourier transform_ is given by multiplying 
 ''M'' with ''1 / sqrt(N)''. This transformation has the convenient 
 property of preserving 2-norms.
 
