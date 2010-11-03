@@ -19,11 +19,19 @@ Its inverse is given by:
 
 ''M^{-1} in CC^{N \times N}, M_{kn}^{-1} = ...''
 
-The _orthogonal discrete cosine transform_ is given by multiplying the first row of ''M''
+The _unitary discrete cosine transform_ is given by multiplying the first row of ''M''
 by ''sqrt(1 / N)'', and the rest of ''M'' by ''sqrt(2 / N)''. Such a transformation 
 has the convenient property of preserving 2-norms.
-
 The DCT can be viewed as a change of basis from the standard basis to a cosine basis. 
+
+### Real vs complex
+
+Since the matrix ''M'' is real, the DCT and IDCT are closed under ''RR^n''.
+Using the DCT on real vectors is arguably the most common use-case. In this real 
+case the unitary version is called an _orthogonal discrete cosine transform_.
+
+### Applications
+
 The DCT is interesting for the same reasons as the [discrete fourier transform][DFT].
 However, especially when applied to images, the DCT has a strong _energy compaction
 property_, which means that most of the information (length) of a vector is contained
@@ -37,7 +45,7 @@ Practice
 
 Pastel implements efficient ''O(n log n)'' algorithms for computing the DCT and 
 the IDCT, when ''n'' is a power of two. Both the standard and the orthogonal version
-are provided.
+are provided, as well as both real and complex versions.
 
 See also
 --------
