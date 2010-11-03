@@ -88,6 +88,18 @@ namespace
 				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
 			}
 
+			unitaryDft(forwardRange(input),
+				output.begin());
+			
+			inverseUnitaryDft(
+				forwardRange(output.begin(), output.end()),
+				output.begin());
+
+			for (integer i = 0;i < N;++i)
+			{
+				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
+			}
+
 			//std::copy(output.begin(), output.end(),
 			//	std::ostream_iterator<std::complex<real> >(std::cout, " "));
 			//std::cout << std::endl;
@@ -103,10 +115,9 @@ namespace
 				std::back_inserter(output));
 			
 			//std::copy(output.begin(), output.end(),
-			//	std::ostream_iterator<std::complex<real> >(std::cout, " "));
+			//	std::ostream_iterator<real>(std::cout, " "));
 			//std::cout << std::endl;
 
-			/*
 			inverseOrthogonalDct(
 				forwardRange(output.begin(), output.end()),
 				output.begin());
@@ -115,11 +126,26 @@ namespace
 			{
 				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
 			}
-			*/
 
-			std::copy(output.begin(), output.end(),
-				std::ostream_iterator<real>(std::cout, " "));
-			std::cout << std::endl;
+			dct(forwardRange(input),
+				output.begin());
+			
+			//std::copy(output.begin(), output.end(),
+			//	std::ostream_iterator<real>(std::cout, " "));
+			//std::cout << std::endl;
+
+			inverseDct(
+				forwardRange(output.begin(), output.end()),
+				output.begin());
+			
+			for (integer i = 0;i < N;++i)
+			{
+				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
+			}
+
+			//std::copy(output.begin(), output.end(),
+			//	std::ostream_iterator<real>(std::cout, " "));
+			//std::cout << std::endl;
 		}
 
 		void testSimple()
