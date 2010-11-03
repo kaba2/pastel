@@ -26,14 +26,14 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
-	//! Computes an orthogonal discrete fourier transform.
+	//! Computes a unitary discrete fourier transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(input.size())
 	*/
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
-	void dftOrthogonal(
+	void unitaryDft(
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
@@ -48,14 +48,14 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
-	//! Computes an inverse orthogonal discrete fourier transform.
+	//! Computes an inverse unitary discrete fourier transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(input.size())
 	*/
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
-	void inverseDftOrthogonal(
+	void inverseUnitaryDft(
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 

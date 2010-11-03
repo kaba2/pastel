@@ -285,7 +285,7 @@ namespace Pastel
 	}
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
-	void dftOrthogonal(
+	void unitaryDft(
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
@@ -303,7 +303,7 @@ namespace Pastel
 	}
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
-	void inverseDftOrthogonal(
+	void inverseUnitaryDft(
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
