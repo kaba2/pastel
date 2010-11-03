@@ -69,116 +69,130 @@ namespace
 		virtual void run()
 		{
 			testSimple();
+			testRandom();
 		}
 
-		template <int N>
-		void testFourierCase(const real (&input)[N])
+		template <typename Complex_Iterator>
+		void testDft(
+			const RandomAccessRange<Complex_Iterator>& input)
 		{
-			std::vector<std::complex<real> > output;
+			const integer n = input.size();
 
-			dft(forwardRange(input),
-				std::back_inserter(output));
-			
+			std::vector<std::complex<real> > output(n);
+			dft(forwardRange(input.begin(), input.end()),
+				output.begin());
 			inverseDft(
 				forwardRange(output.begin(), output.end()),
 				output.begin());
-			
-			for (integer i = 0;i < N;++i)
+
+			for (integer i = 0;i < n;++i)
 			{
 				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
 			}
 
-			unitaryDft(forwardRange(input),
+			unitaryDft(forwardRange(input.begin(), input.end()),
 				output.begin());
-			
 			inverseUnitaryDft(
 				forwardRange(output.begin(), output.end()),
 				output.begin());
 
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < n;++i)
 			{
 				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
 			}
-
-			//std::copy(output.begin(), output.end(),
-			//	std::ostream_iterator<std::complex<real> >(std::cout, " "));
-			//std::cout << std::endl;
-
 		}
 
 		template <int N>
-		void testCosineCase(const real (&input)[N])
+		void testDft(const real (&input)[N])
 		{
-			std::vector<real> output;
+			testDft(randomAccessRange(input));
+		}
 
-			orthogonalDct(forwardRange(input),
-				std::back_inserter(output));
-			
-			//std::copy(output.begin(), output.end(),
-			//	std::ostream_iterator<real>(std::cout, " "));
-			//std::cout << std::endl;
+		template <typename Complex_Iterator>
+		void testDct(
+			const RandomAccessRange<Complex_Iterator>& input)
+		{
+			const integer n = input.size();
 
-			inverseOrthogonalDct(
-				forwardRange(output.begin(), output.end()),
+			std::vector<real> output(n);
+			dct(forwardRange(input.begin(), input.end()),
 				output.begin());
-			
-			for (integer i = 0;i < N;++i)
-			{
-				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
-			}
-
-			dct(forwardRange(input),
-				output.begin());
-			
-			//std::copy(output.begin(), output.end(),
-			//	std::ostream_iterator<real>(std::cout, " "));
-			//std::cout << std::endl;
-
 			inverseDct(
 				forwardRange(output.begin(), output.end()),
 				output.begin());
-			
-			for (integer i = 0;i < N;++i)
+
+			for (integer i = 0;i < n;++i)
 			{
 				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
 			}
 
-			//std::copy(output.begin(), output.end(),
-			//	std::ostream_iterator<real>(std::cout, " "));
-			//std::cout << std::endl;
+			orthogonalDct(forwardRange(input.begin(), input.end()),
+				output.begin());
+			inverseOrthogonalDct(
+				forwardRange(output.begin(), output.end()),
+				output.begin());
+
+			for (integer i = 0;i < n;++i)
+			{
+				TEST_ENSURE_OP(std::abs(input[i] - output[i]), <, 0.001);
+			}
+		}
+
+		template <int N>
+		void testDct(const real (&input)[N])
+		{
+			testDct(randomAccessRange(input));
+		}
+
+		void testRandom()
+		{
+			for (integer i = 0;i < 100;++i)
+			{
+				const integer n = (1 << (randomInteger() % 9));
+
+				std::vector<real> input;
+				input.reserve(n);
+				for (integer j = 0;j < n;++j)
+				{
+					input.push_back(random<real>(-1, 1));
+				}
+
+				testDct(randomAccessRange(input.begin(), input.end()));
+				testDft(randomAccessRange(input.begin(), input.end()));
+			}			
 		}
 
 		void testSimple()
 		{
 			{
 				const real input[] = {1};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 			{
 				const real input[] = {1, 2};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 			{
 				const real input[] = {1, 2, 3, 4};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 			{
 				const real input[] = {4, 3, 2, 1};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 			{
 				const real input[] = {1, 2, 3, 4, 5, 6, 7, 8};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 			{
 				const real input[] = {1, 5, 2, 3, 4, 9, 5, 5};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 			{
 				const real input[] = 
@@ -186,8 +200,8 @@ namespace
 					0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8,
 					0, 8, 0, 7, 0, 6, 0, 5, 0, 4, 0, 3, 0, 2, 0, 1
 				};
-				testFourierCase(input);
-				testCosineCase(input);
+				testDft(input);
+				testDct(input);
 			}
 		}
 	};
