@@ -9,20 +9,27 @@ Theory
 The _discrete fourier transform_ (DFT) is an invertible linear 
 mapping ''DFT : CC^N -> CC^N'' defined by:
 
-''DFT(x) = M x'',
-where
-''M in CC^{N \times N}, M_{kn} = e^{-i pi k n / N}.''
+''DFT(x) = M x'', where
 
-It can be viewed as a change of basis from the standard orthogonal basis to a 
-complex exponential basis. This mapping can be made orthogonal by
-multiplying the resulting vector with ''1 / sqrt(N)''. Such a transformation 
-has the convenient property of preserving 2-norms.
+''M in CC^{N \times N}, M_{kn} = e^{-2 pi i k n / N}.''
 
-The DFT is interesting because, in this new basis, the coefficients correspond to
-the weights of sinusoids at different frequencies. Thus, effectively the DFT
-decomposes the vector components into a linear combination of sinusoids, with the 
-weights given by the coefficients. This in turn allows for a powerful way to modify
-signals by attenuating or amplifying the desired sinusoids.
+Its inverse is given by ''IDFT : CC^N -> CC^N'':
+
+''IDFT(x) = M^{-1} x'', where
+
+''M^{-1} in CC^{N \times N}, M_{kn}^{-1} = (1 / N) e^{2 pi i k n / N}.''
+
+The _orthogonal discrete fourier transform_ is given by multiplying 
+''M'' with ''1 / sqrt(N)''. This transformation has the convenient 
+property of preserving 2-norms.
+
+The DFT can be viewed as a change of basis from the standard basis to a 
+complex exponential basis. The DFT is interesting because, in this new basis, 
+the coefficients correspond to the weights of sinusoids at different frequencies. 
+Thus, effectively the DFT decomposes the vector components into a linear 
+combination of sinusoids, with the weights given by the coefficients. This 
+in turn allows for a powerful way to modify signals by attenuating or amplifying 
+the desired sinusoids.
 
 The DFT generalizes easily to a multi-dimensional setting. Here the vectors are
 multi-dimensional arrays, and the exponential basis functions are radially extended
@@ -30,6 +37,13 @@ from the 1-dimensional case. This transformation is separable: it can be compute
 by performing 1-dimensional DFT:s for each column in each dimension successively.
 For example, a 2-dimensional DFT is performed by doing 1-dimensional DFTs first on
 rows, and then on columns (or the other way around).
+
+Practice
+--------
+
+Pastel implements efficient ''O(n log n)'' algorithms for computing the DFT and 
+the IDFT, when ''n'' is a power of two. Both the standard and the orthogonal version
+are provided.
 
 See also
 --------

@@ -71,7 +71,7 @@ However, these simplices are not regular nor close to being regular.
 ### Scaling along a cube diagonal
 
 Define the _regularity of a simplex_ as the ratio of the length of its shortest 
-edge and its longest edge. It easily seen that the regularity of all the simplicies in the 
+edge and its longest edge. It is easily seen that the regularity of all the simplices in the 
 simplicial partitioning of integer cubes is ''1 / sqrt(n)''.
 We would like to have a transformation class which would have a simple form, and then from
 that class find a transformation which maximizes regularity. Following Perlin, we shall 

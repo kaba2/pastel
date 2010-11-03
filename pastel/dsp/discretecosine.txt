@@ -9,22 +9,35 @@ Theory
 The _discrete cosine transform_ (DCT) is an invertible linear 
 mapping ''DCT : CC^N -> CC^N'' defined by:
 
-''DCT(x) = M x'',
-where
+''DCT(x) = M x'', where
+
 ''M in CC^{N \times N}, M_{kn} = cos(pi (k / N) (n + 1 / 2)).''
 
-It can be viewed as a change of basis from the standard basis to a cosine basis. 
-This mapping can be made orthogonal by multiplying the first row of ''M''
+Its inverse is given by:
+
+''IDCT(x) = M^{-1} x'', where
+
+''M^{-1} in CC^{N \times N}, M_{kn}^{-1} = ...''
+
+The _orthogonal discrete cosine transform_ is given by multiplying the first row of ''M''
 by ''sqrt(1 / N)'', and the rest of ''M'' by ''sqrt(2 / N)''. Such a transformation 
 has the convenient property of preserving 2-norms.
 
+The DCT can be viewed as a change of basis from the standard basis to a cosine basis. 
 The DCT is interesting for the same reasons as the [discrete fourier transform][DFT].
-However, particularly when applied to images, the DCT has a strong _energy compaction
+However, especially when applied to images, the DCT has a strong _energy compaction
 property_, which means that most of the information (length) of a vector is contained
 in the first few coefficients. This property has been extensively taken advantage of 
 in image compression.
 
 [DFT]: [[Ref]]: discretefourier.txt
+
+Practice
+--------
+
+Pastel implements efficient ''O(n log n)'' algorithms for computing the DCT and 
+the IDCT, when ''n'' is a power of two. Both the standard and the orthogonal version
+are provided.
 
 See also
 --------

@@ -1,3 +1,6 @@
+// Description: Point pattern matching under translations
+// Documentation: point_pattern_matching.txt
+
 #ifndef PASTEL_POINT_PATTERN_MATCH_GMO_H
 #define PASTEL_POINT_PATTERN_MATCH_GMO_H
 
