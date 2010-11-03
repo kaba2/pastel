@@ -276,6 +276,10 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
+		// FIX: Does not work yet.
+		const bool implementationMissing = true;
+		ENSURE(!implementationMissing);
+
 		Dct_Detail::inverseDiscreteCosine<false, true>(input, output);
 	}
 
@@ -296,6 +300,10 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
+		// FIX: Does not work yet.
+		const bool implementationMissing = true;
+		ENSURE(!implementationMissing);
+
 		Dct_Detail::inverseDiscreteCosine<true, true>(input, output);
 	}
 
