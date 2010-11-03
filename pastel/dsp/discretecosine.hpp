@@ -12,9 +12,31 @@ namespace Pastel
 	namespace Dct_Detail
 	{
 
-		template <bool Inverse, bool Orthogonal, 
+		template <typename Real, bool ComplexOutput>
+		class ExtractOutput
+		{
+		public:
+			template <typename Type>
+			const Type& operator()(const Type& that) const
+			{
+				return that;
+			}
+		};
+
+		template <typename Real>
+		class ExtractOutput<Real, false>
+		{
+		public:
+			template <typename Type>
+			Real operator()(const Type& that) const
+			{
+				return that.real();
+			}
+		};
+
+		template <bool Inverse, bool Orthogonal, bool ComplexOutput,
 			typename Complex_ConstIterator, typename Complex_Iterator>
-		void dct(
+		void discreteCosine(
 			const ForwardRange<Complex_ConstIterator>& input,
 			Complex_Iterator output)
 		{
@@ -24,6 +46,7 @@ namespace Pastel
 				InputComplex;
 			typedef typename Complex_RealType<InputComplex>::Result Real;
 			typedef std::complex<Real> Complex;
+			ExtractOutput<Real, ComplexOutput> extractOutput;
 
 			if (input.empty())
 			{
@@ -113,14 +136,14 @@ namespace Pastel
 					Orthogonal ? inverse(2 * std::sqrt((Real)n)) :
 					(Inverse ? inverse(2 * (Real)n) : inverse((Real)2));
 
-				*output = oddFourier.front() * FirstScaling;
+				*output = extractOutput(oddFourier.front() * FirstScaling);
 				++output;
 
 				Complex oddFactor(NthRoot * UnitScaling);
 						
 				for (integer i = 1;i < n;++i)
 				{
-					*output = oddFactor * oddFourier[i];
+					*output = extractOutput(oddFactor * oddFourier[i]);
 					++output;
 
 					oddFactor *= NthRoot;
@@ -130,36 +153,84 @@ namespace Pastel
 
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Real_ConstIterator, 
+		typename Real_Iterator>
 	void dct(
-		const ForwardRange<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+		const ForwardRange<Real_ConstIterator>& input,
+		Real_Iterator output)
 	{
-		Dct_Detail::dct<false, false>(input, output);
+		Dct_Detail::discreteCosine<false, false, false>(input, output);
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Real_ConstIterator, 
+		typename Real_Iterator>
 	void inverseDct(
-		const ForwardRange<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+		const ForwardRange<Real_ConstIterator>& input,
+		Real_Iterator output)
 	{
-		Dct_Detail::dct<true, false>(input, output);
+		Dct_Detail::discreteCosine<true, false, false>(input, output);
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
-	void dctOrthogonal(
-		const ForwardRange<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+	template <
+		typename Real_ConstIterator, 
+		typename Real_Iterator>
+	void orthogonalDct(
+		const ForwardRange<Real_ConstIterator>& input,
+		Real_Iterator output)
 	{
-		Dct_Detail::dct<false, true>(input, output);
+		Dct_Detail::discreteCosine<false, true, false>(input, output);
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
-	void inverseDctOrthogonal(
+	template <
+		typename Real_ConstIterator, 
+		typename Real_Iterator>
+	void inverseOrthogonalDct(
+		const ForwardRange<Real_ConstIterator>& input,
+		Real_Iterator output)
+	{
+		Dct_Detail::discreteCosine<true, true, false>(input, output);
+	}
+
+	template <
+		typename Complex_ConstIterator, 
+		typename Complex_Iterator>
+	void complexDct(
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
-		Dct_Detail::dct<true, true>(input, output);
+		Dct_Detail::discreteCosine<false, false, true>(input, output);
+	}
+
+	template <
+		typename Complex_ConstIterator, 
+		typename Complex_Iterator>
+	void inverseComplexDct(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
+	{
+		Dct_Detail::discreteCosine<true, false, true>(input, output);
+	}
+
+	template <
+		typename Complex_ConstIterator, 
+		typename Complex_Iterator>
+	void unitaryDct(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
+	{
+		Dct_Detail::discreteCosine<false, true, true>(input, output);
+	}
+
+	template <
+		typename Complex_ConstIterator, 
+		typename Complex_Iterator>
+	void inverseUnitaryDct(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
+	{
+		Dct_Detail::discreteCosine<true, true, true>(input, output);
 	}
 
 }
