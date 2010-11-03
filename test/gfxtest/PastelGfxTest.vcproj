@@ -383,6 +383,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_blockmatching.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_color.cpp"
 			>
 		</File>

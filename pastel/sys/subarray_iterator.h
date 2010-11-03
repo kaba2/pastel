@@ -27,6 +27,7 @@ namespace Pastel
 	{
 	public:
 		friend class SubArray<Type, N>;
+		friend class ConstSubArray<Type, N>;
 
 		const Type& operator*() const
 		{
@@ -81,6 +82,11 @@ namespace Pastel
 			}
 
 			return *this;
+		}
+
+		const Vector<integer, N>& position() const
+		{
+			return position_;
 		}
 
 		bool operator==(const SubArray_ConstIterator& that) const
@@ -169,6 +175,11 @@ namespace Pastel
 		bool operator==(const SubArray_Iterator& that) const
 		{
 			return data_ == that.data_;
+		}
+
+		const Vector<integer, N>& position() const
+		{
+			return position_;
 		}
 
 	private:

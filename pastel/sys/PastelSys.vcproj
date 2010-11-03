@@ -1105,6 +1105,18 @@
 					RelativePath=".\rectanglebase.hpp"
 					>
 				</File>
+				<Filter
+					Name="PositionVisitor concept"
+					>
+					<File
+						RelativePath=".\positionvisitor.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\positionvisitor_concept.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Tuple"
@@ -1887,10 +1899,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
@@ -1904,6 +1912,10 @@
 			</File>
 			<File
 				RelativePath="..\..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
 			<File

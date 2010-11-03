@@ -475,14 +475,6 @@
 			Name="Miscellaneous"
 			>
 			<File
-				RelativePath=".\discretefourier.h"
-				>
-			</File>
-			<File
-				RelativePath=".\discretefourier.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\dsplibrary.cpp"
 				>
 			</File>
@@ -520,6 +512,38 @@
 			</File>
 			<File
 				RelativePath=".\filterform.hpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Transforms"
+			>
+			<File
+				RelativePath=".\discretecosine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\discretecosine.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\discretecosine.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\discretefourier.h"
+				>
+			</File>
+			<File
+				RelativePath=".\discretefourier.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\discretefourier.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\transforms.txt"
 				>
 			</File>
 		</Filter>

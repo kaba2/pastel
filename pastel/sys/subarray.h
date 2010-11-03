@@ -237,6 +237,25 @@ namespace Pastel
 
 		// Iterators
 
+		Iterator begin(integer index) const
+		{
+			ENSURE_OP(index, >=, 0);
+			ENSURE_OP(index, <=, size_);
+
+			const integer n = extent_.dimension();
+			
+			Vector<integer, N> position(
+				ofDimension(n), 0);
+			for (integer i = n - 1;i >= 0;--i)
+			{
+				position[i] = index / stride_[i];
+				index -= position[i] * stride_[i];
+			}
+
+			return Iterator(
+				this, position);
+		}
+
 		Iterator begin() const
 		{
 			return Iterator(
@@ -485,6 +504,25 @@ namespace Pastel
 		}
 
 		// Iterators
+
+		ConstIterator begin(integer index) const
+		{
+			ENSURE_OP(index, >=, 0);
+			ENSURE_OP(index, <=, size_);
+
+			const integer n = extent_.dimension();
+			
+			Vector<integer, N> position(
+				ofDimension(n), 0);
+			for (integer i = n - 1;i >= 0;--i)
+			{
+				position[i] = index / stride_[i];
+				index -= position[i] * stride_[i];
+			}
+
+			return ConstIterator(
+				this, position);
+		}
 
 		ConstIterator begin() const
 		{

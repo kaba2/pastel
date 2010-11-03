@@ -1159,6 +1159,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Block matching"
+			>
+			<File
+				RelativePath=".\matchblock_bruteforce.h"
+				>
+			</File>
+			<File
+				RelativePath=".\matchblock_bruteforce.hpp"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\CMakeLists.txt"
 			>

@@ -15,247 +15,300 @@
 namespace Pastel
 {
 
-	/*
-	The fast fourier transformation is based on the following
-	recursion property:
-	Let
-	n := 2^k (k for some integer).
-	a := a finite sequence of complex numbers (a(1), ..., a(n)).
-	w := e^(i * (2 * pi / n)) (the n:th root of unity).
+	namespace Fourier_Detail
+	{
 
-	The discrete fourier transformation is defined by:
-	F{a}(k) := sum{k}(a(k) * w^k)
+		template <typename Type>
+		class Complex_RealType
+		{
+		public:
+			typedef Type Result;
+		};
 
-	The sum can be decomposed into even and odd indices:
-	Feven{a}(k) := sum{k}(a(2*k) * w^(2*k))
-	Fodd{a}(k) := sum{k}(a(2*k + 1) * w^(2*k + 1))
-	= w * sum{k}(a(2*k + 1) * w^(2*k))
+		template <typename Real>
+		class Complex_RealType<std::complex<Real> >
+		{
+		public:
+			typedef Real Result;
+		};
 
-	Now the discrete fourier transformation can be given
-	recursively as:
-	FIX: Complete this.
-	*/
+		template <bool Inverse, bool TopLevel, bool Orthogonal, 
+			typename Complex_ConstIterator, typename Complex_Iterator>
+		void discreteFourierSmall(
+			const ForwardRange<Complex_ConstIterator>& input,
+			Complex_Iterator output)
+		{
+			typedef typename Complex_RealType<
+				typename std::iterator_traits<Complex_ConstIterator>::value_type>::Result Real;
+			typedef std::complex<Real> Complex;
 
-	template <typename Real, typename Input_View,
-		typename Output_View>
+			Complex_ConstIterator iter = input.begin();
+
+			const integer n = input.size();
+			ENSURE_OP(n, <=, 8);
+			ENSURE1(isPowerOfTwo(n), n);
+
+			const Real Normalization =
+				n == 1 ? 1 :
+				Orthogonal ? inverse(std::sqrt((Real)n)) :
+				(Inverse ? inverse((Real)n) : 1);
+
+			const bool Normalize = 
+				(Inverse || Orthogonal) && TopLevel;
+
+			switch(n)
+			{
+			case 1:
+				{
+					// Size 1 dft
+					const Complex a0(*iter);
+					++iter;
+
+					*output = a0;
+					++output;
+				}
+				break;
+			case 2:
+				{
+					// Size 1 dfts
+					const Complex a0(*iter);
+					++iter;
+					const Complex a1(*iter);
+					++iter;
+
+					// Size 2 dft
+					if (Normalize)
+					{
+						*output = (a0 + a1) * Normalization;
+						++output;
+
+						*output = (a0 - a1) * Normalization;
+						++output;
+					}
+					else
+					{
+						*output = a0 + a1;
+						++output;
+
+						*output = a0 - a1;
+						++output;
+					}
+				}
+				break;
+			case 4:
+				{
+					// Size 1 dfts
+					const Complex a0(*iter);
+					++iter;
+					const Complex a1(*iter);
+					++iter;
+					const Complex a2(*iter);
+					++iter;
+					const Complex a3(*iter);
+					++iter;
+
+					// Size-2 dfts
+					const Complex b0(a0 + a2);
+					const Complex b1(a0 - a2);
+					const Complex b2(a1 + a3);
+					const Complex b3(a1 - a3);
+
+					const Complex im(0, 
+						Inverse ? -1 : 1);
+					
+					// Size-4 dft
+					if (Normalize)
+					{
+						*output = (b0 + b2) * Normalization;
+						++output;
+
+						*output = (b1 - im * b3) * Normalization;
+						++output;
+
+						*output = (b0 - b2) * Normalization;
+						++output;
+
+						*output = (b1 + im * b3) * Normalization;
+						++output;
+					}
+					else
+					{
+						*output = b0 + b2;
+						++output;
+
+						*output = b1 - im * b3;
+						++output;
+
+						*output = b0 - b2;
+						++output;
+
+						*output = b1 + im * b3;
+						++output;
+					}
+				}
+				break;
+			};
+		}
+
+		template <bool Inverse, bool TopLevel, bool Orthogonal,
+			typename Complex_ConstIterator, typename Complex_Iterator>
 		void discreteFourier(
-		const ConstView<1, std::complex<Real>, Input_View>& input,
-		const View<1, std::complex<Real>, Output_View>& output)
-	{
-		const integer n = input.width();
-
-		ENSURE2(n == output.width(), n, output.width());
-
-		if (n == 0)
+			const ForwardRange<Complex_ConstIterator>& input,
+			Complex_Iterator output)
 		{
-			return;
-		}
+			using namespace Fourier_Detail;
 
-		ENSURE1(isPowerOfTwo(n), n);
+			typedef typename std::iterator_traits<Complex_ConstIterator>::value_type
+				InputComplex;
+			typedef typename Complex_RealType<InputComplex>::Result Real;
+			typedef std::complex<Real> Complex;
 
-		if (n == 1)
-		{
-			// End of recursion
-			output(0) = input(0);
-			return;
-		}
-
-		const integer nHalf = n / 2;
-
-		// Find out the fourier transformation
-		// of the even-index subsequence.
-
-		Array<std::complex<Real>, 1> evenFourier(nHalf);
-		for (integer i = 0;i < nHalf;++i)
-		{
-			evenFourier(i) = input(i * 2);
-		}
-		/*
-		copy(constSparseView(input, 0, 2), 
-			arrayView(evenFourier));
-		*/
-		discreteFourier(constArrayView(evenFourier), 
-			arrayView(evenFourier));
-
-		// Find out the fourier transformation
-		// of the odd-index subsequence.
-
-		Array<std::complex<Real>, 1> oddFourier(nHalf);
-		for (integer i = 0;i < nHalf;++i)
-		{
-			oddFourier(i) = input(i * 2 + 1);
-		}
-		/*
-		copy(constSparseView(input, 1, 2), 
-			arrayView(oddFourier));
-		*/
-		discreteFourier(constArrayView(oddFourier), 
-			arrayView(oddFourier));
-
-		// Combine the results
-
-		static const Real NthRootAngle = 
-			2 * constantPi<Real>() / n;
-
-		const std::complex<Real> NthRoot =
-			std::polar((Real)1, NthRootAngle);
-
-		std::complex<Real> oddFactor(1);
-
-		for (integer i = 0;i < nHalf;++i)
-		{
-			output(i) = evenFourier(i) +
-				oddFactor * oddFourier(i);
-			output(i + nHalf) = evenFourier(i) -
-				oddFactor * oddFourier(i);
-
-			oddFactor *= NthRoot;
-		}
-	}
-
-	template <typename Real, typename Input_View,
-		typename Output_View>
-		void discreteFourierInverse(
-		const ConstView<1, std::complex<Real>, Input_View>& input,
-		const View<1, std::complex<Real>, Output_View>& output)
-	{
-		const integer n = input.width();
-
-		ENSURE2(n == output.width(), n, output.width());
-
-		if (n == 0)
-		{
-			return;
-		}
-
-		ENSURE1(isPowerOfTwo(n), n);
-
-		if (n == 1)
-		{
-			// End of recursion
-			output(0) = input(0);
-			return;
-		}
-
-		const integer nHalf = n / 2;
-
-		// Find out the inverse fourier transformation
-		// of the even-index subsequence.
-
-		Array<std::complex<Real>, 1> evenFourier(nHalf);
-		copy(constSparseView(input, 0, 2), 
-			arrayView(evenFourier));
-		discreteFourierInverse(
-			constArrayView(evenFourier), 
-			arrayView(evenFourier));
-
-		// Find out the inverse fourier transformation
-		// of the odd-index subsequence.
-
-		Array<std::complex<Real>, 1> oddFourier(nHalf);
-		copy(constSparseView(input, 1, 2), 
-			arrayView(oddFourier));
-		discreteFourierInverse(
-			constArrayView(oddFourier), 
-			arrayView(oddFourier));
-
-		// Combine the results
-
-		static const Real NthRootAngle = 
-			-2 * constantPi<Real>() / n;
-
-		for (integer i = 0;i < nHalf;++i)
-		{
-			const std::complex<Real> oddFactor(
-				polar((Real)1, (Real)i * NthRootAngle));
-
-			output(i) = (evenFourier(i) +
-				oddFactor * oddFourier(i)) / 2;
-			output(i + nHalf) = (evenFourier(i) -
-				oddFactor * oddFourier(i)) / 2;
-		}
-	}
-
-	namespace Detail_DiscreteFourier
-	{
-
-		class FourierFunctor
-		{
-		public:
-			template <typename Left_View, typename Right_View>
-			void operator()(
-				const Left_View& left,
-				const Right_View& right) const
+			if (input.empty())
 			{
-				discreteFourier(left, right);
+				return;
 			}
-		};
 
-	}
+			const integer n = input.size();
+			ENSURE1(isPowerOfTwo(n), n);
 
-	template <
-		int N,
-		typename Real,
-		typename Input_View,
-		typename Output_View>
-		typename boost::enable_if_c<(N > 1), void>::type
-		discreteFourier(
-		const ConstView<N, std::complex<Real>, Input_View>& input,
-		const View<N, std::complex<Real>, Output_View>& output)
-	{
-		PASTEL_STATIC_ASSERT(N > 1);
-
-		Detail_DiscreteFourier::FourierFunctor fourierFunctor;
-
-		Array<std::complex<Real>, N> temp(input.extent());
-
-		visitRows(input, arrayView(temp), 0, fourierFunctor);
-		
-		for (integer i = 1;i < N - 1;++i)
-		{
-			visitRows(constArrayView(temp), 
-				arrayView(temp), i, fourierFunctor);
-		}
-
-		visitRows(constArrayView(temp), output, N - 1, fourierFunctor);
-	}
-
-	namespace Detail_DiscreteFourierInverse
-	{
-
-		class FourierInverseFunctor
-		{
-		public:
-			template <typename Left_View, typename Right_View>
-			void operator()(
-				const Left_View& left,
-				const Right_View& right) const
+			if (n <= 4)
 			{
-				discreteFourierInverse(left, right);
+				// As base-cases we handle 1, 2, and 4 size 
+				// instances by hand.
+
+				Fourier_Detail::discreteFourierSmall<Inverse, TopLevel, Orthogonal>(
+					input, output);
+				return;
 			}
-		};
+
+			const integer nHalf = n / 2;
+
+			// Separate the input into odd-index and 
+			// even-index subsequences.
+
+			Complex_ConstIterator iter = input.begin();
+
+			std::vector<Complex> evenFourier;
+			evenFourier.reserve(nHalf);
+			std::vector<Complex> oddFourier;
+			oddFourier.reserve(nHalf);
+			for (integer i = 0;i < nHalf;++i)
+			{
+				evenFourier.push_back(*iter);
+				++iter;
+				oddFourier.push_back(*iter);
+				++iter;
+			}
+
+			// Find out the fourier transformation
+			// of the even-index subsequence.
+			discreteFourier<Inverse, false, Orthogonal>(
+				forwardRange(evenFourier.begin(), evenFourier.end()),
+				evenFourier.begin());
+
+			// Find out the fourier transformation
+			// of the odd-index subsequence.
+			discreteFourier<Inverse, false, Orthogonal>(
+				forwardRange(oddFourier.begin(), oddFourier.end()),
+				oddFourier.begin());
+
+			// Combine the results
+
+			const Real NthRootAngle = 
+				(Inverse ? 2 : -2) * constantPi<Real>() / n;
+
+			const Complex NthRoot(
+				std::cos(NthRootAngle),
+				std::sin(NthRootAngle));
+
+			const Real Normalization =
+				Orthogonal ? inverse(std::sqrt((Real)n)) :
+				(Inverse ? inverse((Real)n) : 1);
+
+			const bool Normalize = 
+				(Inverse || Orthogonal) && TopLevel;
+
+			// Report the first half of the dft.
+			{
+				Complex oddFactor(1);
+						
+				for (integer i = 0;i < nHalf;++i)
+				{
+					if (Normalize)
+					{
+						*output = (evenFourier[i] +
+							oddFactor * oddFourier[i]) * Normalization;
+					}
+					else
+					{
+						*output = evenFourier[i] +
+							oddFactor * oddFourier[i];
+					}
+					++output;
+
+					oddFactor *= NthRoot;
+				}
+			}
+
+			// Report the second half of the dft.
+			{
+				Complex oddFactor(1);
+
+				for (integer i = 0;i < nHalf;++i)
+				{
+					if (Normalize)
+					{
+						*output = (evenFourier[i] -
+							oddFactor * oddFourier[i]) * Normalization;
+					}
+					else
+					{
+						*output = evenFourier[i] -
+							oddFactor * oddFourier[i];
+					}
+					++output;
+
+					oddFactor *= NthRoot;
+				}
+			}
+		}
 
 	}
 
-	template <
-		int N,
-		typename Real,
-		typename Input_View,
-		typename Output_View>
-		typename boost::enable_if_c<(N > 1), void>::type
-		discreteFourierInverse(
-		const ConstView<N, std::complex<Real>, Input_View>& input,
-		const View<N, std::complex<Real>, Output_View>& output)
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void dft(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
 	{
-		PASTEL_STATIC_ASSERT(N > 1);
+		Fourier_Detail::discreteFourier<false, true, false>(
+			input, output);
+	}
 
-		Detail_DiscreteFourierInverse::FourierInverseFunctor 
-			fourierInverseFunctor;
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void dftOrthogonal(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
+	{
+		Fourier_Detail::discreteFourier<false, true, true>(
+			input, output);
+	}
 
-		for (integer i = 0;i < N;++i)
-		{
-			visitRows(input, output, i, fourierInverseFunctor);
-		}
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void inverseDft(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
+	{
+		Fourier_Detail::discreteFourier<true, true, false>(
+			input, output);
+	}
+
+	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	void inverseDftOrthogonal(
+		const ForwardRange<Complex_ConstIterator>& input,
+		Complex_Iterator output)
+	{
+		Fourier_Detail::discreteFourier<true, true, true>(
+			input, output);
 	}
 
 }

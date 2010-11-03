@@ -25,17 +25,27 @@ int main()
 
 	Array<Color> textureImage;
 	loadPcx("lena.pcx", textureImage);
+
+	Array<real32> grayImage(textureImage.extent());
+	std::transform(
+		textureImage.begin(), textureImage.end(),
+		grayImage.begin(), luma);
 	
 	MipMap<Color> mipMap(constArrayView(textureImage));
 	EwaImage_Texture<Color> texture(mipMap, ArrayExtender<2, Color>(mirrorExtender()));
 	//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
 	transform(mipMap, fitColor);
 
+	grayImage.setExtent(256, 256);
+
+	gfxStorage().set("lena_gray", &grayImage);
 	gfxStorage().set("lena_image", &textureImage);
 	gfxStorage().set("lena_mipmap", &mipMap);
 	gfxStorage().set("lena_texture", &texture);
 
 	gfxTestList().console();
+
+	generateTestReport(gfxTestReport(), log());
 
 	std::string tmp;
 	std::getline(std::cin, tmp);
