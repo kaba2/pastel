@@ -243,13 +243,20 @@ namespace Pastel
 			ENSURE_OP(index, <=, size_);
 
 			const integer n = extent_.dimension();
+
+			Vector<integer, N> prodExtent(
+				ofDimension(n), 1);
+			for (integer i = 1;i < n;++i)
+			{
+				prodExtent[i] = prodExtent[i - 1] * extent_[i];
+			}
 			
 			Vector<integer, N> position(
 				ofDimension(n), 0);
 			for (integer i = n - 1;i >= 0;--i)
 			{
-				position[i] = index / stride_[i];
-				index -= position[i] * stride_[i];
+				position[i] = index / prodExtent[i];
+				index -= position[i] * prodExtent[i];
 			}
 
 			return Iterator(
@@ -339,125 +346,75 @@ namespace Pastel
 		// Using default destructor.
 
 		ConstSubArray()
-			: data_(0)
-			, stride_(0)
-			, extent_(0)
-			, size_(0)
-			, dataBegin_(0)
-			, dataEnd_(0)
+			: subArray_()
 		{
 		}
 
-		/*
 		ConstSubArray(
 			const SubArray<Type, N>& that)
-			: data_(that.data_)
-			, stride_(that.stride_)
-			, extent_(that.extent_)
-			, size_(that.size_)
-			, dataBegin_(that.dataBegin_)
-			, dataEnd_(that.dataEnd_)
+			: subArray_(that)
 		{
-		}
-		*/
-
-		ConstSubArray(
-			const Type* data,
-			const Vector<integer, N>& stride,
-			const Vector<integer, N>& extent)
-			: data_(data)
-			, stride_(stride)
-			, extent_(extent)
-			, size_(product(extent))
-			, dataBegin_(0)
-			, dataEnd_(0)
-
-		{
-			PENSURE(allGreaterEqual(extent, 0));
-			PENSURE(!anyEqual(stride, 0));
-
-			computeDataRange();
 		}
 
 		void swap(ConstSubArray& that)
 		{
-			std::swap(data_, that.data_);
-			stride_.swap(that.stride_);
-			extent_.swap(that.extent_);
-			std::swap(size_, that.size_);
-			std::swap(dataBegin_, that.dataBegin_);
-			std::swap(dataEnd_, that.dataEnd_);
+			subArray_.swap(that.subArray_);
 		}
 
 		// Properties
 
 		const Vector<integer, N>& stride() const
 		{
-			return stride_;
+			return subArray_.stride();
 		}
 
 		const Vector<integer, N>& extent() const
 		{
-			return extent_;
+			return subArray_.extent();
 		}
 
 		integer dimension() const
 		{
-			return extent_.dimension();
+			return subArray_.dimension();
 		}
 
 		integer size() const
 		{
-			return size_;
+			return subArray_.size();
 		}
 
 		const Type* data() const
 		{
-			return data_;
+			return subArray_.data();
 		}
 
 		const Type* rawBegin() const
 		{
-			return dataBegin_;
+			return subArray_.rawBegin();
 		}
 
 		const Type* rawEnd() const
 		{
-			return dataEnd_;
+			return subArray_.rawEnd();
 		}
 
 		bool involves(const void* memoryBegin, const void* memoryEnd) const
 		{
-			return Pastel::memoryOverlaps(
-				memoryBegin, memoryEnd,
-				dataBegin_, dataEnd_);
+			return subArray_.involves(memoryBegin, memoryEnd);
 		}
 
 		// Data access
 
 		const Type& operator()(const Vector<integer, N>& position) const
 		{
-			PENSURE(allGreaterEqual(position, 0));
-			PENSURE(allLess(position, extent_));
-
-			return *address(position);
+			return subArray_(position);
 		}
 
 		ConstSubArray<Type, N> operator()(
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max) const
 		{
-			PENSURE(allLess(min, extent_));
-			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(max, extent_));
-			PENSURE(allGreaterEqual(max, -1));
-
-			const ConstSubArray<Type, N> result(
-				address(min),
-				stride_,
-				mabs(max - min));
-			
-			return result;
+			return subArray_(min, max);
 		}
 
 		ConstSubArray<Type, N> operator()(
@@ -465,18 +422,7 @@ namespace Pastel
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
 		{
-			PENSURE(allLess(min, extent_));
-			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(max, extent_));
-			PENSURE(allGreaterEqual(max, -1));
-			PENSURE(!anyEqual(delta, 0));
-
-			const ConstSubArray<Type, N> result(
-				address(min),
-				stride_ * delta,
-				numbers(mabs(max - min), delta));
-			
-			return result;
+			return subArray_(min, max, delta);
 		}
 
 		// Slicing
@@ -485,58 +431,24 @@ namespace Pastel
 			integer axis,
 			integer index) const
 		{
-			PENSURE_OP(axis, >=, 0);
-			PENSURE_OP(axis, <, dimension());
-			PENSURE_OP(index, >=, 0);
-			PENSURE_OP(index, <, extent_[axis]);
-
-			const Vector<integer, Smaller> sliceExtent(
-				shrink(extent_, axis));
-
-			const Vector<integer, Smaller> sliceStride(
-				shrink(stride_, axis));
-
-			const ConstSubArray<Type, Smaller> result(
-				data_ + index * stride_[axis],
-				sliceStride, sliceExtent);
-
-			return result;
+			return subArray_.slice(axis, index);
 		}
 
 		// Iterators
 
 		ConstIterator begin(integer index) const
 		{
-			ENSURE_OP(index, >=, 0);
-			ENSURE_OP(index, <=, size_);
-
-			const integer n = extent_.dimension();
-			
-			Vector<integer, N> position(
-				ofDimension(n), 0);
-			for (integer i = n - 1;i >= 0;--i)
-			{
-				position[i] = index / stride_[i];
-				index -= position[i] * stride_[i];
-			}
-
-			return ConstIterator(
-				this, position);
+			return subArray_.begin(index);
 		}
 
 		ConstIterator begin() const
 		{
-			return ConstIterator(
-				this,
-				Vector<integer, N>(ofDimension(extent_.dimension()), 0));
+			return subArray_.begin();
 		}
 
 		ConstIterator end() const
 		{
-			const integer n = extent_.dimension();
-			return ConstIterator(
-				this,
-				Vector<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
+			return subArray_.end();
 		}
 
 		// Row iterators
@@ -544,53 +456,26 @@ namespace Pastel
 		ConstRowIterator rowBegin(integer index, 
 			const Vector<integer, N>& position) const
 		{
-			return ConstRowIterator(address(position), stride_[index]);
+			return subArray_.rowBegin(index, position);
 		}
 
 		ConstRowIterator rowEnd(integer index, 
 			const Vector<integer, N>& position) const
 		{
-			return ConstRowIterator(address(position) + 
-				(extent_[index] - position[index]) * stride_[index], 
-				stride_[index]);
+			return subArray_.rowEnd(index, position);
 		}
 
 		const Type* address(const Vector<integer, N>& position) const
 		{
-			return data_ + dot(position, stride_);
+			return subArray_.address(position);
 		}
 
 	private:
+		SubArray<Type, N> subArray_;
+
 		// Prohibited
 		ConstSubArray& operator=(
 			const ConstSubArray& that);
-
-		void computeDataRange()
-		{
-			dataBegin_ = data_;
-			dataEnd_ = data_;
-
-			const integer n = extent_.dimension();
-			for (integer i = 0;i < n;++i)
-			{
-				if (stride_[i] < 0)
-				{
-					dataBegin_ += stride_[i] * (extent_[i] - 1);
-				}
-				else
-				{
-					dataEnd_ += stride_[i] * (extent_[i] - 1);
-				}
-			}
-			++dataEnd_;
-		}
-
-		const Type* data_;
-		Vector<integer, N> stride_;
-		Vector<integer, N> extent_;
-		integer size_;
-		const Type* dataBegin_;
-		const Type* dataEnd_;
 	};
 
 }

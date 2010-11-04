@@ -284,6 +284,13 @@ namespace Pastel
 			input, output);
 	}
 
+	template <typename Complex_Iterator>
+	void dft(
+		const ForwardRange<Complex_Iterator>& inputOutput)
+	{
+		Pastel::dft(inputOutput, inputOutput.begin());
+	}
+
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
 	void unitaryDft(
 		const ForwardRange<Complex_ConstIterator>& input,
@@ -291,6 +298,13 @@ namespace Pastel
 	{
 		Fourier_Detail::discreteFourier<false, true, true>(
 			input, output);
+	}
+
+	template <typename Complex_Iterator>
+	void unitaryDft(
+		const ForwardRange<Complex_Iterator>& inputOutput)
+	{
+		Pastel::unitaryDft(inputOutput, inputOutput.begin());
 	}
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
@@ -302,6 +316,13 @@ namespace Pastel
 			input, output);
 	}
 
+	template <typename Complex_Iterator>
+	void inverseDft(
+		const ForwardRange<Complex_Iterator>& inputOutput)
+	{
+		Pastel::inverseDft(inputOutput, inputOutput.begin());
+	}
+
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
 	void inverseUnitaryDft(
 		const ForwardRange<Complex_ConstIterator>& input,
@@ -309,6 +330,13 @@ namespace Pastel
 	{
 		Fourier_Detail::discreteFourier<true, true, true>(
 			input, output);
+	}
+
+	template <typename Complex_Iterator>
+	void inverseUnitaryDft(
+		const ForwardRange<Complex_Iterator>& inputOutput)
+	{
+		Pastel::inverseUnitaryDft(inputOutput, inputOutput.begin());
 	}
 
 }

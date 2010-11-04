@@ -16,6 +16,17 @@
 //#define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 #define PASTEL_STATIC_ASSERT(x) BOOST_STATIC_ASSERT(x);
 
+#define PASTEL_RANGE_ALGORITHM(FunctionName, Name) \
+	class Name \
+	{ \
+	public: \
+		template <typename Iterator> \
+		void operator()(const ForwardRange<Iterator>& range) const \
+		{ \
+			FunctionName(range); \
+		} \
+	};
+
 namespace Pastel
 {
 

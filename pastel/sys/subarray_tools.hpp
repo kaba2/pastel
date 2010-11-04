@@ -7,16 +7,18 @@
 namespace Pastel
 {
 
-	template <int N, typename Type, typename Functor>
-	void visitRows(
-		SubArray<Type, N>& subArray,
-		integer axis,
-		const Functor& functor)
+	template <
+		typename Type, int N,
+		typename RangeAlgorithm>
+	void forEachRow(
+		const SubArray<Type, N>& subArray,
+		const RangeAlgorithm& rangeAlgorithm,
+		integer axis)
 	{
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, subArray.dimension());
 
-		typename SubArray<Type, ModifyN<N, N - 1>::Result>
+		typedef typename SubArray<Type, ModifyN<N, N - 1>::Result>
 			InputSlice;
 		typedef typename InputSlice::Iterator 
 			InputSliceIterator;
@@ -32,22 +34,40 @@ namespace Pastel
 
 		while(iter != iterEnd)
 		{
-			functor(
+			rangeAlgorithm(
+				forwardRange(
 				SparseIterator<Type*>(
 				&*iter, stride[axis]),
 				SparseIterator<Type*>(
-				&*iter + endOffset, stride[axis]));
+				&*iter + endOffset, stride[axis])));
 
 			++iter;
 		}						
 	}
 
-	template <int N_A, int N_B, typename Type_A, typename Type_B, typename Functor>
-	void visitRows(
-		const SubArray<Type_A, N_A>& aArray,
-		SubArray<Type_B, N_B>& bArray,
-		integer axis,
-		const Functor& functor)
+	template <
+		typename Type, int N,
+		typename RangeAlgorithm>
+	void forEachRowOnAllAxes(
+		const SubArray<Type, N>& subArray,
+		const RangeAlgorithm& rangeAlgorithm)
+	{
+		const integer n = subArray.dimension();
+		for (integer i = 0;i < n;++i)
+		{
+			Pastel::forEachRow(subArray, rangeAlgorithm, i);
+		}
+	}
+
+	template <
+		typename Type_A, int N_A, 
+		typename Type_B, int N_B, 
+		typename RangeAlgorithm2>
+	void forEachRow(
+		const ConstSubArray<Type_A, N_A>& aArray,
+		const SubArray<Type_B, N_B>& bArray,
+		const RangeAlgorithm2& rangeAlgorithm2,
+		integer axis)
 	{
 		ENSURE_OP(aArray.dimension(), ==, bArray.dimension());
 		ENSURE(shrink(aArray.extent(), axis) == shrink(bArray.extent(), axis));
@@ -57,7 +77,7 @@ namespace Pastel
 		ENSURE_OP(axis, >=, 0);
 		ENSURE_OP(axis, <, dimension);
 
-		typename SubArray<Type_A, ModifyN<N_A, N_A - 1>::Result>
+		typedef typename SubArray<Type_A, ModifyN<N_A, N_A - 1>::Result>
 			Slice_A;
 		typedef typename Slice_A::ConstIterator 
 			SliceIterator_A;
@@ -85,15 +105,17 @@ namespace Pastel
 
 		while(aIter != aIterEnd)
 		{
-			functor(
+			rangeAlgorithm2(
+				forwardRange(
 				SparseIterator<Type*>(
 				&*aIter, aStride[axis]),
 				SparseIterator<Type*>(
-				&*aIter + aEndOffset, aStride[axis]),
+				&*aIter + aEndOffset, aStride[axis])),
+				forwardRange(
 				SparseIterator<Type*>(
 				&*bIter, bStride[axis]),
 				SparseIterator<Type*>(
-				&*bIter + bEndOffset, bStride[axis]));
+				&*bIter + bEndOffset, bStride[axis])));
 
 			++aIter;
 			++bIter;

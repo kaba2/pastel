@@ -49,6 +49,13 @@ Pastel implements efficient ''O(n log n)'' algorithms for computing the DCT and
 the IDCT, when ''n'' is a power of two. Both the standard and the orthogonal version
 are provided, as well as both real and complex versions.
 
+### Range algorithms
+
+Pastel also provides the in-place versions of the DCT as [range algorithms][Range],
+so that applying them to arrays is easy.
+
+[Range]: [[Ref]]: rangealgorithm.txt
+
 See also
 --------
 

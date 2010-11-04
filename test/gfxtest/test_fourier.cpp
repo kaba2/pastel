@@ -12,6 +12,7 @@
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/adaptedview.h"
+#include "pastel/sys/subarray_tools.h"
 
 #include <iostream>
 #include <string>
@@ -68,8 +69,48 @@ namespace
 
 		virtual void run()
 		{
-			testSimple();
-			testRandom();
+			//testSimple();
+			//testRandom();
+			testImage();
+		}
+
+		class LessThan
+		{
+		public:
+			template <typename A, typename B>
+			bool operator()(const A& a, const B& b) const
+			{
+				return a < b;
+			}
+		};
+
+		void testImage()
+		{
+			const Array<real32>& image = 
+				*gfxStorage().get<Array<real32>*>("lena_gray");
+			
+			Array<real32> dctImage(image);
+
+			std::sort(dctImage.begin(), dctImage.end(), LessThan());
+
+			forEachRowOnAllAxes(dctImage(), Dct());
+
+			for (integer y = 0;y < dctImage.height();++y)
+			{
+				for (integer x = 0;x < dctImage.width();++x)
+				{
+					dctImage(x, y) *= std::exp(-(real32)(x * x + y * y) / 4000);
+				}
+			}
+
+			forEachRowOnAllAxes(dctImage(), InverseDct());
+
+			//for (integer i = 0;i < dctImage.size();++i)
+			//{
+			//	dctImage(i) = std::log(std::abs(dctImage(i)) + 1);
+			//}
+
+			saveGrayscalePcx(dctImage, "dct_lena.pcx", true);
 		}
 
 		template <typename Complex_Iterator>

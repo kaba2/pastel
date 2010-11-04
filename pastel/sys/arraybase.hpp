@@ -329,24 +329,7 @@ namespace Pastel
 			const Vector<integer, N>& min,
 			const Vector<integer, N>& max) const
 		{
-			PENSURE(allLess(min, extent_));
-			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(max, extent_));
-			PENSURE(allGreaterEqual(max, -1));
-
-			Vector<integer, N> newStride(stride_);
-			for (integer i = 0;i < N;++i)
-			{
-				if (max[i] < min[i])
-				{
-					newStride[i] = -newStride[i];
-				}
-			}
-
-			const ConstSubArray<Type, N> result(
-				address(min), newStride, mabs(max - min));
-
-			return result;
+			return ((ArrayBase&)*this)(min, max);
 		}
 
 		template <typename Type, int N>
@@ -379,22 +362,7 @@ namespace Pastel
 			const Vector<integer, N>& max,
 			const Vector<integer, N>& delta) const
 		{
-			PENSURE(allLess(min, extent_));
-			PENSURE(allGreaterEqual(min, 0));
-			PENSURE(allLessEqual(max, extent_));
-			PENSURE(allGreaterEqual(max, -1));
-			PENSURE(!anyEqual(delta, 0));
-
-			for (integer i = 0;i < N;++i)
-			{
-				PENSURE((min[i] < max[i]) == (delta[i] > 0));
-			}
-
-			const ConstSubArray<Type, N> result(
-				address(min), stride_ * delta, 
-				numbers(mabs(max - min), delta));
-
-			return result;
+			return ((ArrayBase&)*this)(min, max, delta);
 		}
 
 		template <typename Type, int N>
@@ -409,10 +377,7 @@ namespace Pastel
 		template <typename Type, int N>
 		ConstSubArray<Type, N> ArrayBase<Type, N>::operator()() const
 		{
-			const ConstSubArray<Type, N> result(
-				data_, stride_, extent_);
-
-			return result;
+			return ((ArrayBase&)*this)();
 		}
 
 		template <typename Type, int N>

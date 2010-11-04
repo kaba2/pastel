@@ -36,7 +36,7 @@ int main()
 	//NearestImage_Texture<Color> texture(textureImage, ArrayExtender<2, Color>(mirrorExtender()));
 	transform(mipMap, fitColor);
 
-	grayImage.setExtent(256, 256);
+	//grayImage.setExtent(128, 128);
 
 	gfxStorage().set("lena_gray", &grayImage);
 	gfxStorage().set("lena_image", &textureImage);
