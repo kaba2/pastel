@@ -1899,10 +1899,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath=".\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\example\CMakeLists.txt"
 				>
 			</File>
@@ -1916,6 +1912,10 @@
 			</File>
 			<File
 				RelativePath="..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
 			<File
@@ -2118,6 +2118,54 @@
 					</File>
 					<File
 						RelativePath=".\integer_integer.hpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Algorithm concept"
+			>
+			<File
+				RelativePath=".\algorithm.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\algorithm_concept.h"
+				>
+			</File>
+			<Filter
+				Name="RangeAlgorithm concept"
+				>
+				<File
+					RelativePath=".\rangealgorithm.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\rangealgorithm_concept.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="RelationAlgorithm concept"
+				>
+				<File
+					RelativePath=".\relationalgorithm.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\relationalgorithm_concept.h"
+					>
+				</File>
+				<Filter
+					Name="OrderRelationAlgorithm concept"
+					>
+					<File
+						RelativePath=".\orderrelationalgorithm.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\orderrelationalgorithm_concept.h"
 						>
 					</File>
 				</Filter>

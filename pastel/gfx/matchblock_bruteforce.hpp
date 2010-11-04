@@ -42,7 +42,6 @@ namespace Pastel
 		SmallFixedSet<KeyValue<Real, integer> > aNearestSet(kNearest); 
 
 		// For each block A in the region...
-		ConstIterator aIter = region.begin();
 		const ConstIterator regionEnd = region.end();
 #pragma omp for
 		for (integer a = 0;a < region.size();++a)

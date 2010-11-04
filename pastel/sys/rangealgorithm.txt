@@ -1,0 +1,44 @@
+Range algorithm concept
+=======================
+
+[[Parent]]: algorithm.txt
+
+A _range algorithm_ is a refinement of the algorithm concept.
+It requires additionally that the argument be a forward iterator range.
+
+Motivation
+----------
+
+Particularly with arrays, it is often the case that 
+some algorithm needs to be applied to each row of the 
+array, in some dimension. As an example, the
+[discrete cosine transform][DCT] is done this way by applying the
+algorithm to each row successively in every dimension.
+The range algorithm concept is useful because it allows to abstract 
+out the iteration over the rows, which can be quite complicated for 
+multi-dimensional arrays.
+
+[DCT]: [[Ref]]: discretecosine.txt
+
+Generalizations
+---------------
+
+A _double-range algorithm_ is a functor which can be called with two
+forward iterator ranges. It is represented by the RangeAlgorithm2
+concept. Similarly, a _triple-range algorithm_ is a functor which can 
+be called with three forward iterator ranges. It is represented by 
+the RangeAlgorithm3 concept.
+
+Example
+-------
+
+To perform a discrete cosine transform (DCT) for an image,
+we simply apply the Dct() range algorithm to each row and column
+of the image:
+
+[[CppCode]]:
+	forEachRow(image(), Dct(), 0);
+	forEachRow(image(), Dct(), 1);
+
+[DCT]: [[Ref]]: discretecosine.txt
+

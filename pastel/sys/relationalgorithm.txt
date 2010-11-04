@@ -1,0 +1,9 @@
+Relation algorithm concept
+==========================
+
+[[Parent]]: algorithm.txt
+
+The _relation algorithm_ concept is a refinement of the algorithm 
+concept. It defines an algorithm which takes two arbitrary arguments
+and returns a boolean result.
+

@@ -1,0 +1,24 @@
+Algorithm concept
+=================
+
+[[Parent]]: pastel.txt
+
+An _algorithm_, as a concept, is an object which encapsulates a _generic_
+algorithm. 
+
+Motivation
+----------
+
+In generic programming, it is often desirable to parametrize an algorithm
+by sub-algorithms. For example, a nearest-neighbor search algorithm over
+kd-trees might be parametrized by the traversal order of nodes. This can be
+encapsulated into an algorithm object, which the user passes to the search
+function, and used as a sub-algorithm.
+
+Compared to the usual use of functors, the algorithm objects are different
+in that usually the functors are not templated. Instead, the usual functors 
+carry only a specific type of function, such as std::less\<int\>() passed to 
+std::sort(). Using the algorithm concept, one would instead pass a LessThan()
+algorithm which encapsulates a less-than comparison for all types.
+
+
