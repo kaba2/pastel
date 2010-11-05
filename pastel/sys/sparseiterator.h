@@ -6,6 +6,7 @@
 #define PASTEL_SPARSEITERATOR_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/randomaccessrange.h"
 
 #include <boost/operators.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -176,6 +177,8 @@ namespace Pastel
 	SparseIterator<Iterator> sparseIterator(
 		const Iterator& that, integer delta)
 	{
+		PENSURE_OP(delta, >=, 1);
+
 		return SparseIterator<Iterator>(that, delta);
 	}
 
@@ -183,12 +186,14 @@ namespace Pastel
 	ConstSparseIterator<ConstIterator> constSparseIterator(
 		const ConstIterator& that, integer delta)
 	{
+		PENSURE_OP(delta, >=, 1);
+
 		return ConstSparseIterator<ConstIterator>(that, delta);
 	}
 
-	template <typename ConstIterator>
-	ConstIterator sparseEnd(
-		const ConstIterator& begin, const ConstIterator& end,
+	template <typename Iterator>
+	SparseIterator<Iterator> sparseEnd(
+		const Iterator& begin, const Iterator& end,
 		integer delta)
 	{
 		PENSURE_OP(delta, >= , 1);
@@ -196,13 +201,47 @@ namespace Pastel
 		const integer elements = end - begin;
 		const integer remainder = elements % delta;
 
-		ConstIterator result = end;
+		Iterator result = end;
 		if (remainder > 0)
 		{
 			result += delta - remainder;
 		}
 		
-		return result;
+		return SparseIterator<Iterator>(result, delta);
+	}
+
+	template <typename ConstIterator>
+	ConstSparseIterator<ConstIterator> constSparseEnd(
+		const ConstIterator& begin, const ConstIterator& end,
+		integer delta)
+	{
+		PENSURE_OP(delta, >=, 1);
+
+		return sparseEnd(begin, end, delta);
+	}
+
+	template <typename Iterator>
+	RandomAccessRange<SparseIterator<Iterator> > sparseRange(
+		const Iterator& begin, const Iterator& end,
+		integer delta)
+	{
+		PENSURE_OP(delta, >=, 1);
+
+		return randomAccessRange(
+			sparseIterator(begin, delta),
+			sparseEnd(begin, end, delta));
+	}
+
+	template <typename ConstIterator>
+	RandomAccessRange<ConstSparseIterator<ConstIterator> > constSparseRange(
+		const ConstIterator& begin, const ConstIterator& end,
+		integer delta)
+	{
+		PENSURE_OP(delta, >=, 1);
+
+		return randomAccessRange(
+			constSparseIterator(begin, delta),
+			constSparseEnd(begin, end, delta));
 	}
 
 }

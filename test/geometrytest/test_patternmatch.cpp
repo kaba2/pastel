@@ -172,10 +172,12 @@ namespace
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree;
-		sceneTree.insert(sceneSet.begin(), sceneSet.end());
+		sceneTree.insert(
+			forwardRange(sceneSet.begin(), sceneSet.end()));
 
 		ModelTree modelTree;
-		modelTree.insert(modelSet.begin(), modelSet.end());
+		modelTree.insert(
+			forwardRange(modelSet.begin(), modelSet.end()));
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
@@ -582,13 +584,23 @@ namespace
 
 		SceneTree sceneTree(ofDimension(n), false, Array_PointPolicy<real>(n));
 		sceneTree.insert(
-			constSparseIterator(countingIterator(&sceneData[0]), n), 
-			constSparseIterator(countingIterator(&sceneData[0]), n) + scenePoints);
+			constSparseRange(
+			countingIterator(&sceneData[0]),
+			countingIterator(&sceneData[0] + scenePoints * n),
+			n));
+
+		//constSparseIterator(countingIterator(&sceneData[0]), n), 
+		//constSparseIterator(countingIterator(&sceneData[0]), n) + scenePoints);
 
 		ModelTree modelTree(ofDimension(n), false, Array_PointPolicy<real>(n));
 		modelTree.insert(
-			constSparseIterator(countingIterator(&modelData[0]), n),
-			constSparseIterator(countingIterator(&modelData[0]), n) + modelPoints);
+			constSparseRange(
+			countingIterator(&modelData[0]),
+			countingIterator(&modelData[0] + modelPoints * n),
+			n));
+
+		//constSparseIterator(countingIterator(&modelData[0]), n),
+		//constSparseIterator(countingIterator(&modelData[0]), n) + modelPoints);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());

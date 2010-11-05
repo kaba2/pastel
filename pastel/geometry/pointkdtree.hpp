@@ -79,7 +79,8 @@ namespace Pastel
 
 		// Then insert the objects to the nodes.
 
-		insert(that.objectBegin(), that.objectEnd());
+		insert(
+			forwardRange(that.objectBegin(), that.objectEnd()));
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -253,15 +254,17 @@ namespace Pastel
 	template <typename InputIterator,
 		typename ConstObjectIterator_OutputIterator>
 	void PointKdTree<Real, N, PointPolicy>::insert(
-		const InputIterator& begin, 
-		const InputIterator& end,
+		const ForwardRange<InputIterator>& objectSet, 
 		ConstObjectIterator_OutputIterator iteratorSet)
 	{
-		if (begin == end)
+		if (objectSet.empty())
 		{
 			// Nothing to do.
 			return;
 		}
+
+		const InputIterator begin = objectSet.begin();
+		const InputIterator end = objectSet.end();
 
 		// Prepare for insertion.
 		const ObjectIterator first = insertPrepare(begin, end);
@@ -285,14 +288,16 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	template <typename InputIterator>
 	void PointKdTree<Real, N, PointPolicy>::insert(
-		const InputIterator& begin, 
-		const InputIterator& end)
+		const ForwardRange<InputIterator>& objectSet)
 	{
-		if (begin == end)
+		if (objectSet.empty())
 		{
 			// Nothing to do.
 			return;
 		}
+
+		const InputIterator begin = objectSet.begin();
+		const InputIterator end = objectSet.end();
 
 		// Prepare for insertion.
 		const ObjectIterator first = insertPrepare(begin, end);

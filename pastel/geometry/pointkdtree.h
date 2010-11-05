@@ -8,6 +8,7 @@
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/poolallocator.h"
+#include "pastel/sys/forwardrange.h"
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/sys/vector_pointpolicy.h"
@@ -223,8 +224,7 @@ namespace Pastel
 		*/
 		template <typename InputIterator>
 		void insert(
-			const InputIterator& begin, 
-			const InputIterator& end);
+			const ForwardRange<InputIterator>& objectSet);
 
 		//! Insert objects into the tree.
 		/*!
@@ -241,8 +241,7 @@ namespace Pastel
 		template <typename InputIterator,
 			typename ConstObjectIterator_OutputIterator>
 		void insert(
-			const InputIterator& begin, 
-			const InputIterator& end,
+			const ForwardRange<InputIterator>& objectSet, 
 			ConstObjectIterator_OutputIterator iteratorSet);
 
 		//! Removes a point from the tree.

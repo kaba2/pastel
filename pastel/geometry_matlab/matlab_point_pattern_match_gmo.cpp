@@ -48,13 +48,23 @@ namespace
 
 		SceneTree sceneTree(ofDimension(n), false, Array_PointPolicy<real>(n));
 		sceneTree.insert(
-			constSparseIterator(countingIterator(sceneData), n), 
-			constSparseIterator(countingIterator(sceneData), n) + scenePoints);
+			constSparseRange(
+			countingIterator(sceneData),
+			countingIterator(sceneData + scenePoints * n),
+			n));
+
+		//constSparseIterator(countingIterator(sceneData), n), 
+		//constSparseIterator(countingIterator(sceneData), n) + scenePoints);
 
 		ModelTree modelTree(ofDimension(n), false, Array_PointPolicy<real>(n));
 		modelTree.insert(
-			constSparseIterator(countingIterator(modelData), n),
-			constSparseIterator(countingIterator(modelData), n) + modelPoints);
+			constSparseRange(
+			countingIterator(modelData),
+			countingIterator(modelData + modelPoints * n),
+			n));
+			
+		//constSparseIterator(countingIterator(modelData), n),
+		//constSparseIterator(countingIterator(modelData), n) + modelPoints);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());

@@ -580,10 +580,10 @@ namespace Pastel
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
 		SceneTree sceneTree(ofDimension(2), false, scenePointPolicy);
-		sceneTree.insert(scene.begin(), scene.end());
+		sceneTree.insert(scene);
 
 		ModelTree modelTree(ofDimension(2), false, modelPointPolicy);
-		modelTree.insert(model.begin(), model.end());
+		modelTree.insert(model);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());

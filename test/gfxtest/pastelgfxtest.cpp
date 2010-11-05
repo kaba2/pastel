@@ -43,7 +43,15 @@ int main()
 	gfxStorage().set("lena_mipmap", &mipMap);
 	gfxStorage().set("lena_texture", &texture);
 
-	gfxTestList().console();
+	try
+	{
+		gfxTestList().console();
+	}
+	catch(...)
+	{
+		std::cout << "Error occurred." << std::endl;
+		throw;
+	};
 
 	generateTestReport(gfxTestReport(), log());
 
