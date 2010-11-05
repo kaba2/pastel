@@ -1282,6 +1282,10 @@
 				Name="Intersection"
 				>
 				<File
+					RelativePath=".\intersect.h"
+					>
+				</File>
+				<File
 					RelativePath=".\intersect.txt"
 					>
 				</File>
@@ -1427,10 +1431,6 @@
 				</File>
 				<File
 					RelativePath=".\intersect_triangle_triangle.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\mathintersect.h"
 					>
 				</File>
 			</Filter>
@@ -1711,6 +1711,26 @@
 				</File>
 				<File
 					RelativePath=".\maximum_clique_alignedbox.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Difference"
+				>
+				<File
+					RelativePath=".\difference.h"
+					>
+				</File>
+				<File
+					RelativePath=".\difference.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\difference_alignedbox_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\difference_alignedbox_alignedbox.hpp"
 					>
 				</File>
 			</Filter>

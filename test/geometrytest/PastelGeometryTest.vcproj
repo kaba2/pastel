@@ -397,6 +397,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_difference_alignedbox_alignedbox.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_halfmesh.cpp"
 			>
 		</File>
