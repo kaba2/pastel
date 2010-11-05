@@ -35,7 +35,7 @@ namespace Pastel
 		}
 
 		const Vector<Real, N> meanPoint = 
-			mean(pointSet, pointPolicy);
+			pointSetMean(pointSet, pointPolicy);
 
 		// We choose the initial approximation as
 		// the direction of greatest axis-aligned variance.
@@ -44,7 +44,7 @@ namespace Pastel
 		// errors.
 
 		const Vector<Real, N> axisVariance = 
-			axisAlignedVariance(pointSet, meanPoint, pointPolicy);
+			pointSetVariance(pointSet, meanPoint, pointPolicy);
 
 		const integer initialAxis = maxIndex(axisVariance);
 
@@ -96,7 +96,7 @@ namespace Pastel
 
 		const real beta = 1;
 		const Vector<Real> meanPoint = 
-			mean(pointSet, pointPolicy);
+			pointSetMean(pointSet, pointPolicy);
 
 		qOut = identityMatrix<Real, Dynamic, Dynamic>(eigenvectors, n);
 		dOut.setSize(eigenvectors);

@@ -10,7 +10,8 @@ namespace Pastel
 {
 
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Vector<typename PointPolicy::Coordinate, PointPolicy::N> mean(
+	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+		pointSetMean(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy)
 	{
@@ -48,7 +49,7 @@ namespace Pastel
 
 	template <typename Point_ConstIterator, typename PointPolicy>
 	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
-		axisAlignedVariance(
+		pointSetVariance(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const typename PointPolicy::Object& mean,
 		const PointPolicy& pointPolicy)

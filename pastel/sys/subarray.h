@@ -76,9 +76,9 @@ namespace Pastel
 		}
 
 		const SubArray& operator=(
-			const SubArray& that) const
+			const ConstSubArray<Type, N>& that) const
 		{
-			PENSURE(allEqual(extent_, that.extent_));
+			PENSURE(allEqual(extent_, that.extent()));
 
 			if (that.involves(dataBegin_, dataEnd_))
 			{

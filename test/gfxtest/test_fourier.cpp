@@ -70,19 +70,9 @@ namespace
 		virtual void run()
 		{
 			testSimple();
-			//testRandom();
-			//testImage();
+			testRandom();
+			testImage();
 		}
-
-		class LessThan
-		{
-		public:
-			template <typename A, typename B>
-			bool operator()(const A& a, const B& b) const
-			{
-				return a < b;
-			}
-		};
 
 		void testImage()
 		{
@@ -90,8 +80,6 @@ namespace
 				*gfxStorage().get<Array<real32>*>("lena_gray");
 			
 			Array<real32> dctImage(image);
-
-			std::sort(dctImage.begin(), dctImage.end(), LessThan());
 
 			forEachRowOnAllAxes(dctImage(), Dct());
 

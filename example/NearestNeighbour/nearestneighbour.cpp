@@ -202,7 +202,8 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 		extendToCover(pointSet.back(), bound);
 	}
 
-	tree_.insert(pointSet.begin(), pointSet.end());
+	tree_.insert(
+		forwardRange(pointSet.begin(), pointSet.end()));
 
 	/*
 	generateGaussianPointSet(10000, 2, pointSet_);
@@ -757,7 +758,8 @@ void NearestNeighbor_Gfx_Ui::sprayPoints(
 		}
 	}
 
-	tree_.insert(newPointSet.begin(), newPointSet.end());
+	tree_.insert(
+		forwardRange(newPointSet.begin(), newPointSet.end()));
 
 	/*
 	for (integer i = 0;i < newPointSet.size();++i)
@@ -804,7 +806,8 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 
 	timer.setStart();
 
-	newTree.insert(tree_.objectBegin(), tree_.objectEnd());
+	newTree.insert(
+		forwardRange(tree_.objectBegin(), tree_.objectEnd()));
 
 	ENSURE(check(newTree));
 

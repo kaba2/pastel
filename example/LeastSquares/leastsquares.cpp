@@ -102,7 +102,7 @@ void LeastSquares_Gfx_Ui::onRender()
 	}
 
 	renderer().setColor(Color(1));
-	const Vector2 meanPoint = mean(
+	const Vector2 meanPoint = pointSetMean(
 		forwardRange(targetSet_.begin(), targetSet_.end()), 
 		Vector_PointPolicy2());
 	const Vector2 maximalVariance = 
