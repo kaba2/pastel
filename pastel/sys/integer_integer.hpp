@@ -3,6 +3,8 @@
 
 #include "pastel/sys/integer_integer.h"
 
+#include <limits>
+
 namespace Pastel
 {
 
@@ -19,6 +21,11 @@ namespace Pastel
 	inline bool positive(integer that)
 	{
 		return that > 0;
+	}
+
+	inline integer infinity(integer *)
+	{
+		return std::numeric_limits<integer>::max();
 	}
 
 }

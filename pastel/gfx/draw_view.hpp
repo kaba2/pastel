@@ -1,6 +1,8 @@
 #ifndef PASTEL_DRAW_VIEW_HPP
 #define PASTEL_DRAW_VIEW_HPP
 
+#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+
 #include "pastel/gfx/draw_view.h"
 #include "pastel/gfx/assigncolormixer.h"
 

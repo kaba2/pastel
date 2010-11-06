@@ -247,7 +247,7 @@ namespace Pastel
 	{
 		// Read ewaimatexture.txt for implementation documentation.
 
-		const Rectangle<N> window(
+		const AlignedBox<integer, N> window(
 			floor(bound.min() * scaling),
 			ceil(bound.max() * scaling));
 

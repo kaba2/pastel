@@ -56,7 +56,7 @@ namespace Pastel
 			Real& operator/=(const Real& that);
 			Real operator/(const Real& that) const;
 
-			// Order relation.
+			// Order relations.
 
 			bool operator<(const Real& that) const;
 			bool operator>(const Real& that) const;
@@ -92,13 +92,13 @@ namespace Pastel
 		*/
 		Real nan(const Real*);
 
-		//! Returns that == 0.
+		//! Returns if 'that' == 0.
 		bool zero(const Real& that);
 
-		//! Returns that < 0.
+		//! Returns if 'that' < 0.
 		bool negative(const Real& that);
 
-		//! Returns that > 0.
+		//! Returns if 'that' > 0.
 		bool positive(const Real& that);
 		
 		template <typename NativeReal>

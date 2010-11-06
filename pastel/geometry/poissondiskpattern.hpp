@@ -2,11 +2,11 @@
 #define PASTEL_POISSONDISKPATTERN_HPP
 
 #include "pastel/geometry/poissondiskpattern.h"
+#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/rectangle_tools.h"
 #include "pastel/sys/subview.h"
 #include "pastel/sys/arrayview.h"
 
@@ -101,7 +101,7 @@ namespace Pastel
 		//const Vector<integer, N> voxels = ceil(windowDelta * invDiagonal);
 
 		Array<Vector<Real, N>, N> grid(extent + 1, Vector<Real, N>(infinity<Real>()));
-		const Rectangle<N> gridWindow(Vector<integer, N>(0), extent);
+		const AlignedBox<integer, N> gridWindow(Vector<integer, N>(0), extent);
 
 		std::vector<Vector<integer, N> > activeSet;
 
@@ -172,24 +172,28 @@ namespace Pastel
 						newPoint - minDistance,
 						newPoint + minDistance);
 
-					const Rectangle<N> searchWindow(
+					const AlignedBox<integer, N> searchWindow(
 						Vector<integer, N>((neighborhood.min() - window.min()) * invVoxelDelta),
 						Vector<integer, N>((neighborhood.max() - window.min()) * invVoxelDelta) + 1);
 
 					/*
-					const Rectangle<N> searchWindow(
+					const AlignedBox<integer, N> searchWindow(
 						gridPosition - 2,
 						gridPosition + 3);
 					*/
 
-					Rectangle<N> clippedSearchWindow;
+					AlignedBox<integer, N> clippedSearchWindow;
 					bool validNewPoint = true;
 
 					if (intersect(searchWindow, gridWindow, clippedSearchWindow))
 					{
+						const Rectangle<N> rect(
+							clippedSearchWindow.min(),
+							clippedSearchWindow.max());
+
 						Detail_PoissonDiskPattern::Visitor<Real, N> visitor(
 							newPoint, minDistance2, validNewPoint);
-						visit(subView(arrayView(grid), clippedSearchWindow), visitor);
+						visit(subView(arrayView(grid), rect), visitor);
 					}
 
 					if (validNewPoint)
