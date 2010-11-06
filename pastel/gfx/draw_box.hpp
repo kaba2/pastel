@@ -5,7 +5,7 @@
 #include "pastel/gfx/assigncolormixer.h"
 #include "pastel/gfx/color_texture.h"
 
-#include "pastel/sys/rectangle.h"
+#include "pastel/sys/alignedbox.h"
 
 namespace Pastel
 {
@@ -26,13 +26,13 @@ namespace Pastel
 		const View<2, Type, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		const Rectangle2 discreteBox(
+		const AlignedBox2i discreteBox(
 			toPixelSpanPoint(box.min()), 
 			toPixelSpanPoint(box.max()));
 
-		Rectangle2 clippedBox;
+		AlignedBox2i clippedBox;
 		if (!intersect(discreteBox, 
-			Rectangle2(Vector2i(0), image.extent()), 
+			AlignedBox2i(Vector2i(0), image.extent()), 
 			clippedBox))
 		{
 			return;
@@ -42,8 +42,8 @@ namespace Pastel
 
 		Cursor yCursor = image.cursor(clippedBox.min());
 
-		const integer width = clippedBox.extent().x();
-		const integer height = clippedBox.extent().y();
+		const integer width = clippedBox.extent()[0];
+		const integer height = clippedBox.extent()[1];
 
 		const Vector2 dp(
 			inverse((real)width),

@@ -73,14 +73,14 @@ namespace
 	{
 		Array<Color, 2> image(500, 500, Color(0));
 
-		clear(Color(1), subView(arrayView(image), Rectangle2(10, 20, 100, 110)));
-		clear(Color(1), sparseView(subView(arrayView(image), Rectangle2(110, 120, 200, 210)), Vector2i(0), Vector2i(2, 2)));
+		clear(Color(1), subView(arrayView(image), AlignedBox2i(10, 20, 100, 110)));
+		clear(Color(1), sparseView(subView(arrayView(image), AlignedBox2i(110, 120, 200, 210)), Vector2i(0), Vector2i(2, 2)));
 
 		clear(Color(0, 0, 1), rowView(arrayView(image), 0, Vector2i(10, 10)));
 		clear(Color(0, 0, 1), rowView(arrayView(image), 1, Vector2i(10, 10)));
 
-		copy(constSubView(constArrayView(image), Rectangle2(0, 0, 200, 200)),
-			subView(arrayView(image), Rectangle2(300, 300, 500, 500)));
+		copy(constSubView(constArrayView(image), AlignedBox2i(0, 0, 200, 200)),
+			subView(arrayView(image), AlignedBox2i(300, 300, 500, 500)));
 
 		savePcx(image, "output/drawing_view.pcx");
 	}

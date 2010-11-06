@@ -5,7 +5,8 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/addressof.h"
-#include "pastel/syS/view_tools.h"
+#include "pastel/sys/view_tools.h"
+#include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
 namespace Pastel
 {
@@ -25,12 +26,12 @@ namespace Pastel
 		const integer width = image.width();
 		const integer height = image.height();
 
-		const Rectangle2 elementWindow(
+		const AlignedBox2i elementWindow(
 			x, y, x + elementWidth, y + elementHeight);
-		const Rectangle2 imageWindow(
+		const AlignedBox2i imageWindow(
 			0, 0, width, height);
 
-		Rectangle2 clippedWindow;
+		AlignedBox2i clippedWindow;
 
 		if (intersect(elementWindow, imageWindow, clippedWindow))
 		{
@@ -40,8 +41,8 @@ namespace Pastel
 			const integer clippedWidth = clippedWindow.width();
 			const integer clippedHeight = clippedWindow.height();
 
-			const integer xMinClipped = clippedWindow.xMin();
-			const integer yMinClipped = clippedWindow.yMin();
+			const integer xMinClipped = clippedWindow.min().x();
+			const integer yMinClipped = clippedWindow.min().y();
 
 			for (integer i = 0;i < clippedHeight;++i)
 			{

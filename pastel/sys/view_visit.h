@@ -4,7 +4,7 @@
 #define PASTEL_VIEW_VISIT_H
 
 #include "pastel/sys/view.h"
-#include "pastel/sys/rectangle.h"
+#include "pastel/sys/alignedbox.h"
 
 namespace Pastel
 {
@@ -13,7 +13,7 @@ namespace Pastel
 
 	template <int N, typename VisitorFunctor>
 	void visit(
-		const Rectangle<N>& rectangle,
+		const AlignedBox<integer, N>& rectangle,
 		const VisitorFunctor& visitor);
 
 	//! Applies a functor to elements of view: visitor(input(x)).

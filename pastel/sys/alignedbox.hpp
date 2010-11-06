@@ -1,7 +1,7 @@
 #ifndef PASTEL_ALIGNEDBOX_HPP
 #define PASTEL_ALIGNEDBOX_HPP
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/sys/alignedbox.h"
 
 namespace Pastel
 {

@@ -49,12 +49,12 @@ namespace Pastel
 		const View<N, Image_Element, Image_View>& image,
 		const ColorMixer& colorMixer)
 	{
-		const Rectangle<N> textureBox(
+		const AlignedBox<integer, N> textureBox(
 			position, position + texture.extent());
-		const Rectangle<N> imageBox(
+		const AlignedBox<integer, N> imageBox(
 			Vector<integer, N>(0), image.extent());
 
-		Rectangle<N> clippedTextureBox;
+		AlignedBox<integer, N> clippedTextureBox;
 		if (!intersect(textureBox, imageBox, clippedTextureBox))
 		{
 			return;

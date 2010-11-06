@@ -706,10 +706,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\alignedbox.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\alignedbox.txt"
 					>
 				</File>
@@ -719,14 +715,6 @@
 				</File>
 				<File
 					RelativePath=".\alignedbox_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\alignedboxbase.h"
-					>
-				</File>
-				<File
-					RelativePath=".\alignedboxbase.hpp"
 					>
 				</File>
 			</Filter>
@@ -1294,10 +1282,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\intersect_alignedbox_alignedbox.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\intersect_alignedbox_plane.h"
 					>
 				</File>
@@ -1727,10 +1711,6 @@
 				</File>
 				<File
 					RelativePath=".\difference_alignedbox_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\difference_alignedbox_alignedbox.hpp"
 					>
 				</File>
 			</Filter>

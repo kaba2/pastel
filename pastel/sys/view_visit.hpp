@@ -66,7 +66,7 @@ namespace Pastel
 
 	template <int N, typename VisitorFunctor>
 	void visit(
-		const Rectangle<N>& rectangle,
+		const AlignedBox<integer, N>& rectangle,
 		const VisitorFunctor& visitor)
 	{
 		typedef typename boost::mpl::if_c<
@@ -75,7 +75,7 @@ namespace Pastel
 			Detail_VisitRectangle::TerminateTag>::type Tag;
 
 		Detail_VisitRectangle::visitRectangleDimension<N - 1>(
-			rectangle.extent(),
+			evaluate(rectangle.extent()),
 			Vector<integer, N>(0),
 			visitor,
 			Tag());

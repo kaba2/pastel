@@ -1,0 +1,31 @@
+Rectangles
+==========
+
+[[Parent]]: basic_math.txt
+
+Theory
+------
+
+A _rectangle_ ''S'' in ''ZZ^n'' is a Cartesian product of 
+''n'' half-open intervals. Alternatively, it is described by two points ''A'' 
+and ''B'' in ''ZZ^n'', such that 
+
+''S = {x in RR^n | \forall i in [1, n] : A_i <= x_i < B_i}''.
+
+In this representation, ''A'' is called the _minimum point_, and 
+''B'' is called the _maximum point_.
+
+Practice
+--------
+
+In Pastel, a rectangle is modeled with the `AlignedBox<integer, N>` 
+class using the min-max representation. The minimum point and the 
+maximum point are initialized to [`infinity<integer>()`][NativeInteger], 
+and `-infinity<integer>()`, respectively, to represent an empty rectangle.
+The same class template is used to represent axis-aligned boxes in ''RR^n'',
+by providing a type modeling the Real concept. The PastelGeometry library takes 
+[this view further][GeometryBox].
+
+[NativeInteger]: [[Ref]]: integer_integer.txt
+[GeometryBox]: [[Ref]]: pastel/geometry/alignedbox.txt
+

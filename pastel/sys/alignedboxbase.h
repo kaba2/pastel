@@ -4,7 +4,7 @@
 #ifndef PASTEL_ALIGNEDBOXBASE_H
 #define PASTEL_ALIGNEDBOXBASE_H
 
-#include "pastel/geometry/alignedbox.h"
+#include "pastel/sys/alignedbox.h"
 
 #include "pastel/sys/constants.h"
 #include "pastel/sys/vector.h"
@@ -210,5 +210,7 @@ namespace Pastel
 	};
 
 }
+
+#include "pastel/sys/alignedboxbase.hpp"
 
 #endif

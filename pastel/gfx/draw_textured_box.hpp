@@ -6,7 +6,7 @@
 
 #include "pastel/math/matrix.h"
 
-#include "pastel/sys/rectangle_tools.h"
+#include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
 namespace Pastel
 {
@@ -24,15 +24,15 @@ namespace Pastel
 	{
 		const Vector2 delta = box.extent();
 
-		const Rectangle2 discreteBox(
+		const AlignedBox2i discreteBox(
 			toPixelSpanPoint(box.min()), 
 			toPixelSpanPoint(box.max()));
 
-		const Rectangle2 window(
+		const AlignedBox2i window(
 			Vector2i(0), 
 			image.extent());
 
-		Rectangle2 clippedBox;
+		AlignedBox2i clippedBox;
 		if (!intersect(discreteBox, window, clippedBox))
 		{
 			return;
@@ -51,8 +51,8 @@ namespace Pastel
 
 		Cursor yCursor = image.cursor(clippedBox.min());
 
-		const integer width = clippedBox.extent().x();
-		const integer height = clippedBox.extent().y();
+		const integer width = clippedBox.extent()[0];
+		const integer height = clippedBox.extent()[1];
 
 		for (integer y = 0; y < height;++y)
 		{
@@ -83,7 +83,8 @@ namespace Pastel
 		const View<2, Image_Element, Image_View>& image,
 		const AlignedBox2& textureBox)
 	{
-		drawTexturedBox(box, textureSampler, image, textureBox, assignColorMixer<Image_Element>());
+		drawTexturedBox(box, textureSampler, image, 
+			textureBox, assignColorMixer<Image_Element>());
 	}
 
 	template <
@@ -94,7 +95,8 @@ namespace Pastel
 		const Texture<Image_Element>& textureSampler,
 		const View<2, Image_Element, Image_View>& image)
 	{
-		drawTexturedBox(box, textureSampler, image, AlignedBox2(0, 0, 1, 1));
+		drawTexturedBox(box, textureSampler, 
+			image, AlignedBox2(0, 0, 1, 1));
 	}
 
 }

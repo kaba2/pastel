@@ -1,7 +1,7 @@
 #ifndef PASTEL_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_HPP
 #define PASTEL_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_HPP
 
-#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+#include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/sys/vector_tools.h"
 

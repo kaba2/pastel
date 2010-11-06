@@ -6,7 +6,7 @@
 
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/rectangle_tools.h"
+#include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
 namespace Pastel
 {
@@ -70,7 +70,7 @@ namespace Pastel
 	template <typename Type, typename Sum_ConstView>
 	Type summedAreaTable(
 		const ConstView<2, Type, Sum_ConstView>& sumImage,
-		const Rectangle2& region)
+		const AlignedBox2i& region)
 	{
 		if (anyEqual(sumImage.extent(), 0) ||
 			anyLess(region.max(), 0))
@@ -78,7 +78,7 @@ namespace Pastel
 			return 0;
 		}
 
-		const Rectangle2 equalRegion(
+		const AlignedBox2i equalRegion(
 			min(region.min(), sumImage.extent() - 1) - 1,
 			min(region.max(), sumImage.extent()) - 1);
 

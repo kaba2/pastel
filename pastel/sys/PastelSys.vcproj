@@ -1075,50 +1075,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Rectangle"
-				>
-				<File
-					RelativePath=".\rectangle.h"
-					>
-				</File>
-				<File
-					RelativePath=".\rectangle.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\rectangle.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\rectangle_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\rectangle_tools.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\rectanglebase.h"
-					>
-				</File>
-				<File
-					RelativePath=".\rectanglebase.hpp"
-					>
-				</File>
-				<Filter
-					Name="PositionVisitor concept"
-					>
-					<File
-						RelativePath=".\positionvisitor.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\positionvisitor_concept.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
 				Name="Tuple"
 				>
 				<File
@@ -1373,6 +1329,54 @@
 						</File>
 					</Filter>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="AlignedBox"
+				>
+				<File
+					RelativePath=".\alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedbox_tools.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedboxbase.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedboxbase.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\difference_alignedbox_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\difference_alignedbox_alignedbox.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_alignedbox.h"
+					>
+				</File>
+				<File
+					RelativePath=".\intersect_alignedbox_alignedbox.hpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -2174,6 +2178,18 @@
 					</File>
 				</Filter>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="PositionVisitor concept"
+			>
+			<File
+				RelativePath=".\positionvisitor.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\positionvisitor_concept.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
