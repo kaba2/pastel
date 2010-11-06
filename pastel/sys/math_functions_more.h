@@ -1,22 +1,25 @@
 // Description: More common math functions
-// Detail: square, clamp, odd, even, integerLog2, roundUpTo, etc.
 // Documentation: basic_math.txt
 
 #ifndef PASTEL_MATH_FUNCTIONS_MORE_H
 #define PASTEL_MATH_FUNCTIONS_MORE_H
 
-#include "pastel/sys/math_functions_more.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {
 
 	//! Squares the given variable.
-
+	/*!
+	[Squaring]
+	*/
 	template <typename Type>
 	Type square(const Type& that);
 
 	//! Clamps the variable to a given range.
 	/*!
+	[Clamping]
+
 	Preconditions:
 	xMin <= xMax
 	*/
@@ -26,17 +29,17 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Type)& xMin,
 		const PASTEL_NO_DEDUCTION(Type)& xMax);
 
-	//! Returns true on an odd integer, false otherwise.
+	//! Returns true on an [odd integer], false otherwise.
 
 	template <typename Integer>
 	inline bool odd(const Integer& x);
 
-	//! Returns true on an even integer, false otherwise.
+	//! Returns true on an [even integer], false otherwise.
 
 	template <typename Integer>
 	inline bool even(const Integer& x);
 
-	//! Computes the remainder
+	//! Computes the [remainder].
 	/*!
 	Preconditions:
 	n > 0
@@ -85,6 +88,8 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next multiple of 'to'.
 	/*!
+	[Round up to a multiple]
+
 	Preconditions:
 	that >= 0
 	to >= 0
@@ -96,6 +101,8 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next odd number.
 	/*!
+	[Round up to odd]
+
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
@@ -105,6 +112,8 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next even number.
 	/*!
+	[Round up to even]
+
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
@@ -114,6 +123,8 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next power of 2.
 	/*!
+	[Round up to power of 2]
+
 	Preconditions:
 	that >= 0
 
@@ -124,6 +135,8 @@ namespace Pastel
 
 	//! Rounds up 'that' to the next multiple of power of 2.
 	/*!
+	[Round up to multiple of power of 2]
+
 	Preconditions:
 	that >= 0
 	power >= 0
@@ -133,7 +146,7 @@ namespace Pastel
 	*/
 	integer roundUpToPowerOf2(integer that, integer power);
 
-	//! Returns if 'that' is a power of 2.
+	//! Returns if 'that' [is a power of 2].
 	/*!
 	Preconditions:
 	that >= 0
@@ -153,13 +166,14 @@ namespace Pastel
 
 	//! Converts real [0, 1] to integer [0, numbers - 1].
 	/*!
+	[Quantization]
+
 	x < 0 will be converted to 0.
 	x > 1 will be converted to numbers - 1.
 
 	Random uniform distributions on [0, 1] map
 	to random uniform distributions on [0, numbers - 1].
 	*/
-
 	integer quantizeUnsigned(real64 x, integer numbers);
 
 	//! Converts integer [0, numbers - 1] to real [0, 1].
