@@ -760,7 +760,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Memory"
+			Name="Memory management"
 			>
 			<File
 				RelativePath=".\addressof.h"
@@ -948,7 +948,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Basic math"
+			Name="Math"
 			>
 			<File
 				RelativePath=".\basic_math.txt"
@@ -1146,6 +1146,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\pointpolicy_tools.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\vector_pointpolicy.h"
 					>
 				</File>
@@ -1272,14 +1276,6 @@
 						RelativePath=".\integer_tools.hpp"
 						>
 					</File>
-					<File
-						RelativePath=".\primes.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\primes.h"
-						>
-					</File>
 					<Filter
 						Name="BigInteger"
 						>
@@ -1328,10 +1324,26 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Primes"
+						>
+						<File
+							RelativePath=".\primes.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\primes.h"
+							>
+						</File>
+						<File
+							RelativePath=".\primes.txt"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="AlignedBox"
+				Name="Rectangles"
 				>
 				<File
 					RelativePath=".\alignedbox.h"
@@ -1991,43 +2003,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\bitquery.h"
-				>
-			</File>
-			<File
-				RelativePath=".\bitquery.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\insertionsort.h"
 				>
 			</File>
 			<File
 				RelativePath=".\insertionsort.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\minmax.h"
-				>
-			</File>
-			<File
-				RelativePath=".\minmax.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\string_tools.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\string_tools.h"
-				>
-			</File>
-			<File
-				RelativePath=".\string_tools.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syscommon.cpp"
 				>
 			</File>
 			<File
@@ -2041,6 +2021,14 @@
 			<Filter
 				Name="Stl extensions"
 				>
+				<File
+					RelativePath=".\minmax.h"
+					>
+				</File>
+				<File
+					RelativePath=".\minmax.hpp"
+					>
+				</File>
 				<File
 					RelativePath=".\stdext.txt"
 					>
@@ -2075,6 +2063,50 @@
 				</File>
 				<File
 					RelativePath=".\stdext_subset.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="String algorithms"
+				>
+				<File
+					RelativePath=".\string_algorithms.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\string_tools.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\string_tools.h"
+					>
+				</File>
+				<File
+					RelativePath=".\string_tools.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Bit tricks"
+				>
+				<File
+					RelativePath=".\bitquery.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bitquery.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bittrick.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bittrick.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\bittrick.txt"
 					>
 				</File>
 			</Filter>

@@ -5,7 +5,6 @@
 
 #include "pastel/sys/extendedconstview.h"
 #include "pastel/sys/view.h"
-#include "pastel/sys/syscommon.h"
 
 namespace Pastel
 {

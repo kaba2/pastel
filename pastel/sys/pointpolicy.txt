@@ -9,9 +9,7 @@ and therefore gets implemented over and over again in different libraries.
 It would be nice to design algorithms so that they assume no particular
 data structure (such as Pastel's Vector) for storing points. If this
 does not hold, then one has the nuisance of needing to convert between the
-point data structures before calling an algorithm. This "redundant" 
-conversion also causes performance issues. However, only rarely does this
-have effect on the asymptotic complexity.
+point data structures before calling an algorithm. 
 
 Dimensionality
 --------------

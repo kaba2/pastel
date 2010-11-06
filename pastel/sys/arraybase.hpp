@@ -4,7 +4,6 @@
 #include "pastel/sys/arraybase.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/stdext_destruct.h"
 #include "pastel/sys/vector_tools.h"
 

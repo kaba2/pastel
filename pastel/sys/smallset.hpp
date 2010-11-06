@@ -4,7 +4,6 @@
 #include "pastel/sys/smallset.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/syscommon.h"
 
 #include <algorithm>
 

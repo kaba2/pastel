@@ -37,7 +37,7 @@ Vector's can work with different types of elements,
 as made possible by the template parameter Real.
 Examples include float, double, and the Rational class.
 User-defined types can also be used, given that they
-model the required concept for elements.
+model the [Real][Real] concept.
 
 If we were to model vectors as they are defined in 
 mathematics, we should choose the concept for the
@@ -48,6 +48,8 @@ and finite fields. Instead, we need the field to be ordered,
 to be able to subdivide space in a kd-tree, for example.
 This restricted concept leaves us with fields such as
 rational numbers, algebraic numbers, and real numbers.
+
+[Real]: real.txt
 
 Dynamic and static vectors
 --------------------------

@@ -1,0 +1,12 @@
+Prime numbers
+=============
+
+[[Parent]]: integer.txt
+
+Theory
+------
+
+The _prime numbers_ are those non-negative integers that are divisible 
+by 1 and itself, and only those numbers, excluding the number 1. The 
+fundamental theorem of arithmetic states that every integer greater 
+than 1 can be factorized uniquely into a product of primes.

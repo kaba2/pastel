@@ -4,7 +4,6 @@
 #include "pastel/gfx/perlin_noise.h"
 #include "pastel/gfx/gradientfield.h"
 
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/math_functions.h"
 

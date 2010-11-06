@@ -1,7 +1,6 @@
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/view_all.h"
 #include "pastel/sys/indexextender_all.h"
 

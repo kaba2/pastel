@@ -7,7 +7,6 @@
 
 #include "pastel/sys/clampextender.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/vector.h"
 

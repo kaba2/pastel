@@ -1,5 +1,5 @@
 // Description: Min-max computations
-// Documentation: basic_algorithms.txt
+// Documentation: stdext.txt
 
 #ifndef PASTEL_MINMAX_H
 #define PASTEL_MINMAX_H

@@ -5,7 +5,6 @@
 #include "pastel/gfx/linearimage_texture.h"
 #include "pastel/dsp/mipmap.h"
 
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/repeatedconstview.h"
 #include "pastel/sys/view_tools.h"

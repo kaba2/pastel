@@ -1,5 +1,4 @@
 // Description: Native integer type modeling the Integer concept.
-// Documentation: integer.txt
 
 #ifndef PASTEL_INTEGER_INTEGER_H
 #define PASTEL_INTEGER_INTEGER_H

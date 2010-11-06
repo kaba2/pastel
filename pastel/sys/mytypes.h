@@ -98,22 +98,52 @@ namespace Pastel
 	class PASTELSYS FalseType {};
 
 	//! A no-op function taking a variable.
-
 	/*!
 	The purpose of this function is to supress warnings
 	that are caused by not using a local variable.
 	Just call this function with that variable to
 	get rid of the warning message.
 	*/
-
 	template <typename Type>
 	void unused(const Type&);
 
 	template <typename Type>
 	typename boost::enable_if<boost::is_arithmetic<Type>, Type>::type mabs(Type that);
 
-	void deallocateRaw(const void* data);
+	//! Allocates a raw memory block.
+	/*!
+	size:
+	The size of the memory block in bytes.
+
+	Preconditions:
+	size > 0
+	*/
 	void* allocateRaw(integer size);
+
+	//! Deallocates a raw memory block.
+	void deallocateRaw(const void* data);
+
+	//! Tests two variables for equivalence.
+	/*!
+	'left' and 'right' are equivalent under
+	a comparison 'compare' if it holds that
+	!compare(left, right) && !compare(right, left).
+	*/
+	template <typename Type, typename Compare>
+	bool equivalent(
+		const Type& left, const Type& right,
+		const Compare& compare);
+
+	//! Tests two variables for equivalence.
+	/*!
+	This is a convenience function that uses
+	std::less<Type> as the comparison functor
+	for the more general equivalent() function.
+	See the documentation for that.
+	*/
+	template <typename Type>
+	bool equivalent(
+		const Type& left, const Type& right);
 
 }
 

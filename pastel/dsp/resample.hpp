@@ -3,13 +3,12 @@
 
 #include "pastel/dsp/resample.h"
 
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/smallset.h"
-
+#include "pastel/sys/syscommon.h"
 #include "pastel/sys/math_functions.h"
 
 #include <vector>

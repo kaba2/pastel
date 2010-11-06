@@ -6,8 +6,6 @@
 
 #include "pastel/math/euclidean_normbijection.h"
 
-#include "pastel/sys/syscommon.h"
-
 namespace Pastel
 {
 
