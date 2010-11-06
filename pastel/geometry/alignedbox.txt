@@ -20,4 +20,14 @@ Practice
 In Pastel, an axis-aligned box is modeled with the AlignedBox class
 using the min-max representation.
 
+### Integer boxes
+
+As a very special case, we allow `integer` to be passed as the underlying
+Real type. This way we avoid having to implement some specific 
+algorithms, such as box intersection or box difference, twice for integer 
+boxes. Since `integer` does not model the Real concept, not all algorithms
+on AlignedBox work on the `integer` type. For this reason we have explicitly
+marked in the documentation which algorithms on aligned boxes also work
+with integer boxes.
+
 

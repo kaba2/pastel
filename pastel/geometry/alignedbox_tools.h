@@ -20,25 +20,25 @@ namespace Pastel
 	template <typename Real, int N>
 	Vector<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
-		const Rectangle<N>& discreteRange,
+		const AlignedBox<integer, N>& discreteRange,
 		const Vector<integer, N>& discretePoint);
 
 	template <typename Real, int N>
 	AlignedBox<Real, N> discreteToContinuous(
 		const AlignedBox<Real, N>& continuousRange,
-		const Rectangle<N>& discreteRange,
-		const Rectangle<N>& discreteBox);
+		const AlignedBox<integer, N>& discreteRange,
+		const AlignedBox<integer, N>& discreteBox);
 
 	template <typename Real, int N>
 	Vector<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
-		const Rectangle<N>& discreteRange,
+		const AlignedBox<integer, N>& discreteRange,
 		const Vector<Real, N>& continuousPoint);
 
 	template <typename Real, int N>
-	Rectangle<N> continuousToDiscrete(
+	AlignedBox<integer, N> continuousToDiscrete(
 		const AlignedBox<Real, N>& continuousRange,
-		const Rectangle<N>& discreteRange,
+		const AlignedBox<integer, N>& discreteRange,
 		const AlignedBox<Real, N>& continuousBox);
 
 }
