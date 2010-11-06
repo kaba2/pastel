@@ -3,7 +3,6 @@
 
 #include "pastel/dsp/discretefourier.h"
 
-#include "pastel/sys/syscommon.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/array.h"

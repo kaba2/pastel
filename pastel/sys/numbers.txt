@@ -1,5 +1,6 @@
 Numbers
 =======
 
-[[Parent]]: pastelsys.txt
+[[Parent]]: basic_math.txt
 
+In Pastel, a _number_ is an element of an algebraic ring.

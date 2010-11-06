@@ -10,17 +10,6 @@ namespace Pastel
 
 	//! A triple state variable.
 
-	/*!
-	Sometimes it is required to answer a question with not only
-	true or false, but also with 'both' or 'neither' or
-	some other choice. The sign of a variable is a TriState:
-	the sign might be negative, positive, or the variable
-	might be zero, that is, not negative nor positive.
-	The logic functions are generalized to these tristates,
-	with false being 0, true being 1, and values not true
-	or false being 0.5. The used t-norm is max.
-	*/
-
 	class TriState
 	{
 	public:

@@ -4,7 +4,6 @@
 #define PASTEL_MIRROREXTENDER_H
 
 #include "pastel/sys/indexextender.h"
-#include "pastel/sys/syscommon.h"
 
 namespace Pastel
 {

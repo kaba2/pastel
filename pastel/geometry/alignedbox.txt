@@ -31,15 +31,15 @@ emphasized by PastelGeometry. It makes sense to implement both by the
 same implementation, since some algorithms, for example box intersection
 and difference, can be carried out on both types of boxes. While the
 implementation is actually in PastelSys, for convenience we provide
-similarly named redirection files [[File: alignedbox.h]] and 
-[[File: alignedbox_tools.h]] for PastelGeometry, so that all shapes 
+similarly named redirection files [[FileLink: alignedbox.h]] and 
+[[FileLink: alignedbox_tools.h]] for PastelGeometry, so that all shapes 
 in PastelGeometry can be logically found from the same location. Actually,
 there is more than just convenience to this, since in the PastelGeometry 
 files we provide additional algorithms specific to geometry. Therefore,
 when dealing with geometry, you should always include these files, rather
 than the PastelSys files.
 
-[SysBox]: [[Ref]]: pastel/sys/alignedbox.txt
+[SysBox]: [[Ref]]: ../sys/alignedbox.txt
 
 
 

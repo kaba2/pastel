@@ -4,7 +4,7 @@ Native integer
 [[Parent]]: integer.txt
 
 The native integer type `integer` is an instance of the Integer concept.
-The support for it is automatically included in [[File: mytypes.h]].
+The support for it is automatically included in [[FileLink: mytypes.h]].
 
 ### Infinity
 

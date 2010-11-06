@@ -8,8 +8,8 @@ Theory
 
 In general, creating custom allocators to gain efficiency
 compared to the default allocator is a bad idea.
-However, in some very specialized situations one can 
-do much better, both in space and time. 
+However, in specialized situations one can do much better, 
+both in space and time. 
 
 One such situation is when the memory is allocated at 
 arbitrary times, but is deallocated all at once. This leads to 
@@ -28,6 +28,6 @@ Practice
 --------
 
 Pastel implements allocators for arena and pool allocation.
-In addition Pastel has an adapter for the native allocator.
+In addition, Pastel has an adapter for the native allocator.
 These allocators are used by many data structures in Pastel.
 

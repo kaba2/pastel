@@ -6,7 +6,6 @@
 #define PASTEL_MANHATTAN_NORMBIJECTION_H
 
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/syscommon.h"
 
 #include "pastel/geometry/sphere_volume.h"
 

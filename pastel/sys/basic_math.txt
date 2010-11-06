@@ -1,5 +1,14 @@
-Basic math
-==========
+Mathematics
+===========
 
 [[Parent]]: pastelsys.txt
+
+Here we present some fundamental mathematical tools which are used
+throughout Pastel. More complicated mathematical tools, building on 
+these, can be found from PastelMath. Much of the need for the tools
+at this level can be explained by the need to provide support for 
+[multi-dimensional arrays][Array]. 
+
+[Array]: [[Ref]]: array.txt
+
 

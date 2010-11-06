@@ -7,7 +7,7 @@
 #include "pastel/gfx/color.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/syscommon.h"
+#include "pastel/sys/bittrick.h"
 
 namespace Pastel
 {

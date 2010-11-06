@@ -3,3 +3,8 @@ Arbitrarily-sized integers
 
 [[Parent]]: integer.txt
 
+The `BigInteger` class implements arbitrarily-sized integers.
+It dynamically changes its size depending on the contained number.
+Compared to using native integers, using this number type is 
+orders of magnitude slower. However, combined with the Rational 
+class, one obtains exact arithmetic over the rationals.

@@ -1,4 +1,5 @@
 // Description: Set-difference between aligned boxes
+// Documentation: alignedbox.txt
 
 #ifndef PASTEL_DIFFERENCE_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTEL_DIFFERENCE_ALIGNEDBOX_ALIGNEDBOX_H

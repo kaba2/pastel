@@ -14,7 +14,7 @@ are represented by an n-tuple of real numbers after choosing
 an affine frame or a basis (depending on the structure of space).
 Their implementations are therefore almost identical, only
 differing on the set of operator overloads they offer.
-When implementing a geometric library, there is at least
+When implementing a geometric library, there are at least
 two ways of approaching their implementation. These are:
 
  * Implement only a Vector class, i.e., the class that allows
@@ -63,7 +63,7 @@ Simplicity via Vector-only approach
 -----------------------------------
 
 I worked with the separate-class approach for many years.
-However, after adding more and more useful features the 
+However, after adding more and more useful features, the 
 mentioned maintenance problems became too large. In addition,
 I have come to the conclusion that forming invalid expressions,
 such as adding two points, happens very rarely, and thus
