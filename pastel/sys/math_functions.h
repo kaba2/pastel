@@ -1,5 +1,4 @@
 // Description: Common math functions
-// Detail: log2, floorLog2, sinc, ccwAngle, choose, factorial, etc.
 // Documentation: basic_math.txt
 
 #ifndef PASTEL_MATH_FUNCTIONS_H
@@ -58,12 +57,12 @@ namespace Pastel
 	integer floorLog2(
 		const PASTEL_NO_DEDUCTION(Real)& x);
 
-	//! Computes base-2 logarithm of x.
+	//! Computes the [base-2 logarithm] of x.
 	template <typename Real>
 	Real log2(
 		const PASTEL_NO_DEDUCTION(Real)& x);
 
-	//! Computes the cardinal sine.
+	//! Computes the [cardinal sine].
 	/*!
 	sinc(x) = sin(pi * x) / (pi * x).
 	*/
@@ -71,7 +70,7 @@ namespace Pastel
 	Real sinc(
 		const PASTEL_NO_DEDUCTION(Real)& x);
 
-	//! Returns the signed area of a given triangle.
+	//! Returns the [signed area of a triangle].
 	/*!
 	If the three points are collinear,
 	the returned value is zero.
@@ -93,7 +92,7 @@ namespace Pastel
 		const Vector<Real, 2>& left,
 		const Vector<Real, 2>& right);
 
-	//! Measures the counter-clockwise angle from the x-axis.
+	//! Measures the [counter-clockwise angle from the x-axis].
 	/*!
 	Returns:
 	The angle in radians in [0, 2 pi[.
@@ -102,28 +101,30 @@ namespace Pastel
 	Real ccwAngle(
 		const Vector<Real, 2>& to);
 
-	//! Measures the counter-clockwise angle between two vectors.
+	//! Measures the [counter-clockwise angle between two vectors].
 	template <typename Real>
 	Real ccwAngle(
 		const Vector<Real, 2>& from,
 		const Vector<Real, 2>& to);
 
-	//! Returns the absolute error of a measured value to a correct value.
+	//! Returns the [absolute error] of a measured value to a correct value.
 	template <typename Real>
 	Real absoluteError(
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct);
 
-	//! Returns the relative error of a measured value to a correct value.
+	//! Returns the [relative error] of a measured value to a correct value.
 	template <typename Real>
 	Real relativeError(
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct);
 
-	//! Computes the binomial coefficient choose(n, i) = n! / ((n - i)!i!).
+	//! Computes the [binomial coefficient].
 	/*!
 	Preconditions:
 	n >= 0
+
+	choose(n, i) = n! / ((n - i)!i!)
 
 	If i < 0 or i > n, returns 0.
 	*/
@@ -131,24 +132,24 @@ namespace Pastel
 	template <typename Real>
 	Real choose(integer n, integer i);
 
-	//! Computes the factorial i!.
+	//! Computes the [factorial].
 	/*!
 	Preconditions:
 	i >= 0
 
-	0! = 1
 	i! = i * (i - 1)!
+	0! = 1
 	*/
-
 	template <typename Real>
 	Real factorial(integer i);
 
 	PASTELSYS real64 lnFactorialReal64(integer n);
 
+	//! Computes [logarithm of factorial].
 	template <typename Real>
 	Real lnFactorial(integer i);
 
-	//! Computes the i:th n-degree Bernstein polynomial at t.
+	//! Computes the i:th n-degree [Bernstein polynomial] at t.
 	/*!
 	Preconditions:
 	n >= 0
@@ -157,12 +158,10 @@ namespace Pastel
 	The Bernstein polynomials are the terms
 	of the binomial expansion of 1 = 1^n = ((1 - t) + t)^n.
 	*/
-
 	template <typename Real>
 	Real bernstein(integer n, integer i, const Real& t);
 
-	//! Solves a quadratic equation ax^2 + bx + c = 0.
-
+	//! Solves a [quadratic equation] ax^2 + bx + c = 0.
 	/*!
 	If the equation has no solution, returns false and
 	't0' and 't1' are left unmodified. Else returns
@@ -170,7 +169,6 @@ namespace Pastel
 	such that t0 <= t1. If there is a double root,
 	t0 == t1.
 	*/
-
 	template <typename Real>
 	bool quadratic(
 		const PASTEL_NO_DEDUCTION(Real)& aCoeff,
@@ -179,7 +177,7 @@ namespace Pastel
 		Real &t0, Real &t1,
 		bool solutionsMustExist = false);
 
-	//! Computes the harmonic number H_n
+	//! Computes a [harmonic number].
 	/*!
 	Preconditions:
 	n >= 0
@@ -199,19 +197,19 @@ namespace Pastel
 	*/
 	PASTELSYS real64 digammaReal64(integer n);
 
-	//! Digamma function
+	//! [Digamma function]
 	template <typename Real>
 	Real digamma(integer n);
 
-	//! Gamma function
+	//! [Gamma function]
 	template <typename Real>
 	Real gamma(PASTEL_NO_DEDUCTION(Real) z);
 
-	//! Logarithm of the gamma function
+	//! [Logarithm of the gamma function]
 	template <typename Real>
 	Real lnGamma(PASTEL_NO_DEDUCTION(Real) z);
 
-	//! Beta function
+	//! [Beta function]
 	template <typename Real>
 	Real beta(PASTEL_NO_DEDUCTION(Real) x,
 		PASTEL_NO_DEDUCTION(Real) y);
