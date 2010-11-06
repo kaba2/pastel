@@ -234,12 +234,12 @@ namespace
 		/*
 		drawTexturedBox(
 			AlignedBox2(0, 0, 200, 200),
-			nearestImageTexture(clampedConstView(constSubView(constArrayView(textureImage), Rectangle2(100, 100, 150, 150)))),
+			nearestImageTexture(clampedConstView(constSubView(constArrayView(textureImage), AlignedBox2i(100, 100, 150, 150)))),
 			arrayView(image));
 
 		drawTexturedBox(
 			AlignedBox2(250, 0, 450, 200),
-			linearImageTexture(clampedConstView(constSubView(constArrayView(textureImage), Rectangle2(100, 100, 150, 150)))),
+			linearImageTexture(clampedConstView(constSubView(constArrayView(textureImage), AlignedBox2i(100, 100, 150, 150)))),
 			arrayView(image));
 		*/
 
@@ -251,7 +251,7 @@ namespace
 			transparentColorMixer<Color>(0.25));
 
 		drawView(
-			constSubView(constArrayView(textureImage), Rectangle2(200, 200, 300, 300)),
+			constSubView(constArrayView(textureImage), AlignedBox2i(200, 200, 300, 300)),
 			Vector2i(300, 400),
 			arrayView(image));
 

@@ -5,7 +5,7 @@
 #ifndef PASTEL_SUBVIEW_H
 #define PASTEL_SUBVIEW_H
 
-#include "pastel/sys/rectangle.h"
+#include "pastel/sys/alignedbox.h"
 
 #include "pastel/sys/view.h"
 
@@ -34,7 +34,7 @@ namespace Pastel
 
 		ConstSubView(
 			const Contained_ConstView& view,
-			const Rectangle<N>& window)
+			const AlignedBox<integer, N>& window)
 			: view_(view)
 			, window_(window)
 			, extent_(window.extent())
@@ -58,7 +58,7 @@ namespace Pastel
 
 	protected:
 		const Contained_ConstView view_;
-		const Rectangle<N> window_;
+		const AlignedBox<integer, N> window_;
 		const Vector<integer, N> extent_;
 	};
 
@@ -66,7 +66,7 @@ namespace Pastel
 	ConstView<N, Input_Element, ConstSubView<N, Input_ConstView> >
 		constSubView(
 		const ConstView<N, Input_Element, Input_ConstView>& view,
-		const Rectangle<N>& window)
+		const AlignedBox<integer, N>& window)
 	{
 		return wrapConstView(
 			ConstSubView<N, Input_ConstView>(view.contained(), window));
@@ -99,7 +99,7 @@ namespace Pastel
 
 		SubView(
 			const Contained_View& view,
-			const Rectangle<N>& window)
+			const AlignedBox<integer, N>& window)
 			: Base(view, window)
 		{
 		}
@@ -115,7 +115,7 @@ namespace Pastel
 	template <int N, typename Input_Element, typename Input_View>
 	View<N, Input_Element, SubView<N, Input_View> >
 		subView(const View<N, Input_Element, Input_View>& view,
-			const Rectangle<N>& window)
+			const AlignedBox<integer, N>& window)
 	{
 		return wrapView(SubView<N, Input_View>(view.contained(), window));
 	}

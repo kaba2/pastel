@@ -157,8 +157,8 @@ namespace
 			// Demonstrating the modification of a matrix
 			// via view interface.
 
-			copy(constSubView(a.constView(), Rectangle2(0, 0, 2, 2)),
-				subView(a.view(), Rectangle2(2, 2, 4, 4)));
+			copy(constSubView(a.constView(), AlignedBox2i(0, 0, 2, 2)),
+				subView(a.view(), AlignedBox2i(2, 2, 4, 4)));
 			
 			TEST_ENSURE_OP(a(2, 2), ==, a(0, 0));
 			TEST_ENSURE_OP(a(3, 2), ==, a(1, 0));

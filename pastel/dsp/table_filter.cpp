@@ -28,7 +28,7 @@ namespace Pastel
 
 		copy(constArrayView(data),
 			subView(arrayView(data_), 
-			Rectangle<1>(Padding, paddedWidth - Padding)));
+			AlignedBox<integer, 1>(Padding, paddedWidth - Padding)));
 
 		center_ = paddedWidth / 2;
 		scaling_ = (width / 2) / Filter::radius();

@@ -76,7 +76,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> rectangle(Vector<integer, N>(0), view.extent());
+		AlignedBox<integer, N> rectangle(Vector<integer, N>(0), view.extent());
 
 		if (rectangle.empty())
 		{
@@ -104,7 +104,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> rectangle(Vector<integer, N>(0), view.extent());
+		AlignedBox<integer, N> rectangle(Vector<integer, N>(0), view.extent());
 
 		if (rectangle.empty())
 		{
@@ -241,11 +241,11 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> leftRectangle(
+		AlignedBox<integer, N> leftRectangle(
 			Vector<integer, N>(0),
 			left.extent());
 
-		Rectangle<N> rightRectangle(
+		AlignedBox<integer, N> rightRectangle(
 			Vector<integer, N>(0),
 			right.extent());
 
@@ -282,11 +282,11 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> leftRectangle(
+		AlignedBox<integer, N> leftRectangle(
 			Vector<integer, N>(0),
 			left.extent());
 
-		Rectangle<N> rightRectangle(
+		AlignedBox<integer, N> rightRectangle(
 			Vector<integer, N>(0),
 			right.extent());
 
@@ -323,11 +323,11 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N >= 1);
 		ENSURE2(freeIndex >= 0 && freeIndex < N, freeIndex, N);
 
-		Rectangle<N> leftRectangle(
+		AlignedBox<integer, N> leftRectangle(
 			Vector<integer, N>(0),
 			left.extent());
 
-		Rectangle<N> rightRectangle(
+		AlignedBox<integer, N> rightRectangle(
 			Vector<integer, N>(0),
 			right.extent());
 

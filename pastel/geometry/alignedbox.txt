@@ -12,22 +12,34 @@ and ''B'' in ''RR^n'', such that
 
 ''S = {x in RR^n | \forall i in [1, n] : A_i <= x_i <= B_i}''.
 
-In this representation, ''A'' is called the _minimum point_, and ''B'' is called the _maximum point_.
+In this representation, ''A'' is called the _minimum point_, and 
+''B'' is called the _maximum point_.
 
 Practice
 --------
 
-In Pastel, an axis-aligned box is modeled with the AlignedBox class
-using the min-max representation.
+In Pastel, an axis-aligned box is modeled with the `AlignedBox` class
+using the min-max representation. 
 
-### Integer boxes
+### Dual role
 
-As a very special case, we allow `integer` to be passed as the underlying
-Real type. This way we avoid having to implement some specific 
-algorithms, such as box intersection or box difference, twice for integer 
-boxes. Since `integer` does not model the Real concept, not all algorithms
-on AlignedBox work on the `integer` type. For this reason we have explicitly
-marked in the documentation which algorithms on aligned boxes also work
-with integer boxes.
+The `AlignedBox` class template has a dual role in Pastel. First, it
+is used to represent integer boxes. This is reflected by the [PastelSys
+providing the implementation][SysBox] of the AlignedBox. Second, it is 
+used to represent real boxes, i.e. more geometric objects, a view which is 
+emphasized by PastelGeometry. It makes sense to implement both by the
+same implementation, since some algorithms, for example box intersection
+and difference, can be carried out on both types of boxes. While the
+implementation is actually in PastelSys, for convenience we provide
+similarly named redirection files [[File: alignedbox.h]] and 
+[[File: alignedbox_tools.h]] for PastelGeometry, so that all shapes 
+in PastelGeometry can be logically found from the same location. Actually,
+there is more than just convenience to this, since in the PastelGeometry 
+files we provide additional algorithms specific to geometry. Therefore,
+when dealing with geometry, you should always include these files, rather
+than the PastelSys files.
+
+[SysBox]: [[Ref]]: pastel/sys/alignedbox.txt
+
 
 

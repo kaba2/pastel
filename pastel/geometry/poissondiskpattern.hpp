@@ -187,13 +187,9 @@ namespace Pastel
 
 					if (intersect(searchWindow, gridWindow, clippedSearchWindow))
 					{
-						const Rectangle<N> rect(
-							clippedSearchWindow.min(),
-							clippedSearchWindow.max());
-
 						Detail_PoissonDiskPattern::Visitor<Real, N> visitor(
 							newPoint, minDistance2, validNewPoint);
-						visit(subView(arrayView(grid), rect), visitor);
+						visit(subView(arrayView(grid), clippedSearchWindow), visitor);
 					}
 
 					if (validNewPoint)

@@ -5,7 +5,7 @@
 #define PASTEL_SUMMEDAREATABLE_H
 
 #include "pastel/sys/view.h"
-#include "pastel/sys/rectangle.h"
+#include "pastel/sys/alignedbox.h"
 
 #include "pastel/geometry/alignedbox.h"
 
@@ -35,7 +35,7 @@ namespace Pastel
 	template <typename Type, typename Sum_ConstView>
 	Type summedAreaTable(
 		const ConstView<2, Type, Sum_ConstView>& sumImage,
-		const Rectangle2& region);
+		const AlignedBox2i& region);
 
 }
 

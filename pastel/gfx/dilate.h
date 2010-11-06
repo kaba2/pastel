@@ -5,7 +5,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/view.h"
-#include "pastel/sys/rectangle_tools.h"
 
 namespace Pastel
 {

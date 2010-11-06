@@ -73,10 +73,10 @@ namespace Pastel
 	}
 
 	void GlGfxRenderer::setGlViewport(
-		const Rectangle2& viewport)
+		const AlignedBox2i& viewport)
 	{
 		glViewport(viewport.min().x(), viewport.min().y(),
-			viewport.extent().x(), viewport.extent().y());
+			viewport.extent()[0], viewport.extent()[1]);
 
 		setViewWindow(viewWindow());
 	}

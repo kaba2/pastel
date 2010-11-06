@@ -9,7 +9,7 @@
 
 #include "pastel/gfx/gfxrenderer.h"
 
-#include "pastel/sys/rectangle.h"
+#include "pastel/sys/alignedbox.h"
 
 namespace Pastel
 {
@@ -24,7 +24,7 @@ namespace Pastel
 		// Specialized functions
 
 		void setGlViewport(
-			const Rectangle2& viewport);
+			const AlignedBox2i& viewport);
 
 		// Transformation state
 

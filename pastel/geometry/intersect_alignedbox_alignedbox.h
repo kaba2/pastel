@@ -1,21 +1,8 @@
 // Description: Intersection between two aligned boxes
 
-#ifndef PASTEL_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
-#define PASTEL_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
+#ifndef PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
+#define PASTELGEOMETRY_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
 
-#include "pastel/geometry/alignedbox.h"
-
-namespace Pastel
-{
-
-	template <typename Real, int N>
-	bool intersect(
-		const AlignedBox<Real, N>& aBox,
-		const AlignedBox<Real, N>& bBox,
-		AlignedBox<Real, N>& result);
-
-}
-
-#include "pastel/geometry/intersect_alignedbox_alignedbox.hpp"
+#include "pastel/sys/intersect_alignedbox_alignedbox.h"
 
 #endif

@@ -1,0 +1,18 @@
+Native integer
+==============
+
+[[Parent]]: integer.txt
+
+The native integer type `integer` is an instance of the Integer concept.
+The support for it is automatically included in [[File: mytypes.h]].
+
+### Infinity
+
+The infinity for an `integer` is the greatest positive value it can hold.
+For this value it holds that any number is either less than or equal to it.
+The negation of infinity is _not_ the smallest value, but the next-smallest
+value. However, this value should still be treated as the minus infinity: it
+is more important to retain the property that the negation of infinity is
+the minus infinity. The infinity and -infinity should be used whenever there
+is a need to initialize variables with their semantics. The infinity is 
+obtained with the `infinity<integer>()` function.
