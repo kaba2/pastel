@@ -1,5 +1,5 @@
 // Description: Element-wise unary vector expressions
-// Documentation: vector.txt
+// Documentation: vectorexpression.txt
 
 #ifndef PASTEL_UNARY_VECTOREXPRESSION_H
 #define PASTEL_UNARY_VECTOREXPRESSION_H

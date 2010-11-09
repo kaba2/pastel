@@ -58,7 +58,7 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// This is a non-trivial expression.
@@ -128,7 +128,7 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// This is a non-trivial expression.

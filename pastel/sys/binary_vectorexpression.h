@@ -1,5 +1,5 @@
 // Description: Element-wise binary vector expressions
-// Documentation: vector.txt
+// Documentation: vectorexpression.txt
 
 #ifndef PASTEL_BINARY_VECTOREXPRESSION_H
 #define PASTEL_BINARY_VECTOREXPRESSION_H

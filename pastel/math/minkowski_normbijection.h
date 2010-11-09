@@ -12,10 +12,12 @@
 namespace Pastel
 {
 
-	template <typename Real>
+	template <typename Real_>
 	class Minkowski_NormBijection
 	{
 	public:
+		typedef Real_ Real;
+
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.

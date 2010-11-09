@@ -36,7 +36,7 @@ namespace Pastel
 		const Point_ConstIterator iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
-			result += pointAsVector(*iter, pointPolicy);
+			result += pointPolicy(*iter);
 			++points;
 			
 			++iter;
@@ -76,8 +76,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			result += squarev(
-				pointAsVector(*iter, pointPolicy) - 
-				pointAsVector(mean, pointPolicy));
+				pointPolicy(*iter) - pointPolicy(mean));
 			++points;
 			
 			++iter;

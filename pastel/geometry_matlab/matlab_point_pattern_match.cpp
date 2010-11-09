@@ -49,8 +49,8 @@ namespace
 			relativeMatchingDistance,
 			confidence,
 			similarity,
-			Array_PointPolicyD(),
-			Array_PointPolicyD());
+			Array_PointPolicy2(),
+			Array_PointPolicy2());
 
 		// Output the similarity.
 			

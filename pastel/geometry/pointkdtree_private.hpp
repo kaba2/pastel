@@ -101,15 +101,15 @@ namespace Pastel
 		const ConstObjectIterator& begin, 
 		const ConstObjectIterator& end) const
 	{
-		AlignedBox<Real, N> bound(ofDimension(dimension_));
+		AlignedBox<Real, N> bound(
+			ofDimension(dimension()));
 
 		ConstObjectIterator iter = begin;
 		const ConstObjectIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			extendToCover(
-				Vector<Real, N>(ofDimension(dimension_),
-				withAliasing((Real*)pointPolicy_.point(iter->object()))), 
+				evaluate(pointPolicy_(iter->object())), 
 				bound);
 			++iter;
 		}
@@ -131,7 +131,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real position = 
-				pointPolicy_.point(iter->object(), axis);
+				pointPolicy_(iter->object())[axis];
 			if (position < bound.first)
 			{
 				bound.first = position;
@@ -543,7 +543,8 @@ namespace Pastel
 				// If there are objects going to the right node,
 				// recurse deeper.
 
-				AlignedBox<Real, N> rightBound(ofDimension(dimension_));
+				AlignedBox<Real, N> rightBound(
+					ofDimension(dimension()));
 				insert(
 					right, 
 					newRightFirst, newRightLast, 

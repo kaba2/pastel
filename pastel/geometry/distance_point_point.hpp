@@ -97,19 +97,22 @@ namespace Pastel
 			normBijection);
 	}
 
-	template <typename Real, typename NormBijection>
-	Real distance2(
-		const Real* aPoint,
-		const Real* bPoint,
+	template <
+		typename Real_ConstIterator_A,
+		typename Real_ConstIterator_B, 
+		typename NormBijection>
+	typename NormBijection::Real distance2(
+		Real_ConstIterator_A aPoint,
+		Real_ConstIterator_B bPoint,
 		integer dimension,
 		const NormBijection& normBijection)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		const Real* aEnd = aPoint + dimension;
+		typedef typename NormBijection::Real Real;
 
 		Real result = 0;
-		while(aPoint != aEnd)
+		for (integer i = 0;i < dimension;++i)
 		{
 			result = normBijection.addAxis(
 				result, 
@@ -122,20 +125,23 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Real, typename NormBijection>
-	Real distance2(
-		const Real* aPoint,
-		const Real* bPoint,
+	template <
+		typename Real_ConstIterator_A,
+		typename Real_ConstIterator_B, 
+		typename NormBijection>
+	typename NormBijection::Real distance2(
+		Real_ConstIterator_A aPoint,
+		Real_ConstIterator_B bPoint,
 		integer dimension,
 		const NormBijection& normBijection,
-		const Real& cullDistance)
+		const typename NormBijection::Real& cullDistance)
 	{
 		PENSURE_OP(dimension, >=, 0);
 
-		const Real* aEnd = aPoint + dimension;
+		typedef typename NormBijection::Real Real;
 
 		Real result = 0;
-		while(aPoint != aEnd)
+		for (integer i = 0;i < dimension;++i)
 		{
 			result = normBijection.addAxis(
 				result, 

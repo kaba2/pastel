@@ -104,12 +104,10 @@ namespace Pastel
 					while(scenePivotIter != scenePivotEnd)
 					{
 						tryTranslation = 
-							pointAsVector(
-							scenePivotIter->object(),
-							sceneTree.pointPolicy()) -
-							pointAsVector(
-							modelPivotIter->object(),
-							modelTree.pointPolicy());
+							sceneTree.pointPolicy()(
+							scenePivotIter->object()) -
+							modelTree.pointPolicy()(
+							modelPivotIter->object());
 
 						// Find out how many points match
 						// under this translation.
@@ -119,9 +117,8 @@ namespace Pastel
 						{
 							const ConstModelIterator modelIter = modelSet[j];
 							
-							searchPoint = pointAsVector(
-								modelIter->object(),
-								modelTree.pointPolicy()) + 
+							searchPoint = modelTree.pointPolicy()(
+								modelIter->object()) + 
 								tryTranslation;
 
 							const KeyValue<Real, ConstSceneIterator> neighbor = 

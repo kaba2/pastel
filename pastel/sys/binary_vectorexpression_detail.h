@@ -42,11 +42,11 @@
 				right_.involves(memoryBegin, memoryEnd); \
 		} \
 		\
-		bool involvesNonTrivially( \
+		bool evaluateBeforeAssignment( \
 			const void* memoryBegin, const void* memoryEnd) const \
 		{ \
-			return left_.involvesNonTrivially(memoryBegin, memoryEnd) || \
-				right_.involvesNonTrivially(memoryBegin, memoryEnd); \
+			return left_.evaluateBeforeAssignment(memoryBegin, memoryEnd) || \
+				right_.evaluateBeforeAssignment(memoryBegin, memoryEnd); \
 		} \
 		 \
 	private: \

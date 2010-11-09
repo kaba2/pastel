@@ -52,7 +52,8 @@ namespace Pastel
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					const Real position = pointPolicy.point(iter->object(), splitAxis);
+					const Real position = 
+						pointPolicy(iter->object())[splitAxis];
 					if (position < splitPosition)
 					{
 						if (position > leftMax)

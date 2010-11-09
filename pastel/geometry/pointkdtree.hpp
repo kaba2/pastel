@@ -21,35 +21,11 @@ namespace Pastel
 		, root_(0)
 		, leaves_(0)
 		, pointPolicy_(pointPolicy)
-		, dimension_(N)
-		, bound_(ofDimension(N))
+		, bound_(pointPolicy.dimension())
 		, simulateKdTree_(simulateKdTree)
 	{
-		ENSURE_OP(N, !=, Dynamic);
-		//PASTEL_STATIC_ASSERT(N != Dynamic);
-
-		objectList_.set_allocator(ObjectContainer::allocator_ptr(
-			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
-
-		initialize();
-	}
-
-	template <typename Real, int N, typename PointPolicy>
-	PointKdTree<Real, N, PointPolicy>::PointKdTree(
-		Dimension dimension,
-		bool simulateKdTree,
-		const PointPolicy& pointPolicy)
-		: objectList_()
-		, nodeAllocator_(sizeof(Node))
-		, root_(0)
-		, leaves_(0)
-		, pointPolicy_(pointPolicy)
-		, dimension_(dimension)
-		, bound_(ofDimension(dimension))
-		, simulateKdTree_(simulateKdTree)
-	{
-		ENSURE2((N != Dynamic && dimension == N) || 
-			(N == Dynamic && dimension > 0), dimension, N);
+		ENSURE(N == Dynamic || 
+			N == pointPolicy.dimension());
 
 		objectList_.set_allocator(ObjectContainer::allocator_ptr(
 			new ObjectAllocator(objectList_.get_allocator()->unitSize())));
@@ -64,7 +40,6 @@ namespace Pastel
 		, root_(0)
 		, leaves_(0)
 		, pointPolicy_(that.pointPolicy_)
-		, dimension_(that.dimension_)
 		, bound_(that.bound_)
 		, simulateKdTree_(that.simulateKdTree)
 	{
@@ -121,7 +96,6 @@ namespace Pastel
 		std::swap(root_, that.root_);
 		std::swap(leaves_, that.leaves_);
 		std::swap(pointPolicy_, that.pointPolicy_);
-		std::swap(dimension_, that.dimension_);
 		bound_.swap(that.bound_);
 		std::swap(simulateKdTree_, that.simulateKdTree_);
 	}
@@ -208,7 +182,7 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	integer PointKdTree<Real, N, PointPolicy>::dimension() const
 	{
-		return dimension_;
+		return pointPolicy_.dimension();
 	}
 	
 	template <typename Real, int N, typename PointPolicy>
@@ -241,7 +215,8 @@ namespace Pastel
 
 		// Splice the point to the leaf node.
 
-		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
+		AlignedBox<Real, N> objectBound(
+			ofDimension(dimension()));
 
 		insert(root_, iter, iter, 1, objectBound);
 
@@ -279,7 +254,8 @@ namespace Pastel
 		ObjectIterator last = objectList_.end();
 		--last;
 
-		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
+		AlignedBox<Real, N> objectBound(
+			ofDimension(dimension()));
 		insert(root_, first, last, objects, objectBound);
 
 		extendToCover(objectBound, bound_);
@@ -308,7 +284,8 @@ namespace Pastel
 		ObjectIterator last = objectList_.end();
 		--last;
 
-		AlignedBox<Real, N> objectBound(ofDimension(dimension_));
+		AlignedBox<Real, N> objectBound(
+			ofDimension(dimension()));
 		insert(root_, first, last, objects, objectBound);
 
 		extendToCover(objectBound, bound_);
@@ -339,7 +316,8 @@ namespace Pastel
 		nodeAllocator_.clear();
 		root_ = 0;
 		leaves_ = 0;
-		bound_ = AlignedBox<Real, N>(ofDimension(dimension_));
+		bound_ = AlignedBox<Real, N>(
+			ofDimension(dimension()));
 
 		initialize();
 	}
@@ -400,10 +378,10 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	Vector<Real, N> PointKdTree<Real, N, PointPolicy>::point(const Object& object) const
+	Vector<Real, N> PointKdTree<Real, N, PointPolicy>::point(
+		const Object& object) const
 	{
-		return Vector<Real, N>(ofDimension(dimension_), 
-			withAliasing((Real*)pointPolicy_.point(object))); 
+		return pointPolicy_(object);
 	}
 
 }

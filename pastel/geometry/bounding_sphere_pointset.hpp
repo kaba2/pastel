@@ -60,7 +60,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real currentDistance2 =
-				dot(pointAsVector(*iter, pointPolicy) - midPoint);
+				dot(pointPolicy(*iter) - midPoint);
 			if (currentDistance2 > maxDistance2)
 			{
 				maxDistance2 = currentDistance2;

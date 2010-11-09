@@ -34,15 +34,23 @@ namespace Pastel
 
 		typedef Real Coordinate;
 		typedef Vector<Real, N> Object;
+		typedef const Coordinate* ConstIterator;
+		typedef ConstArray_VectorExpression<Real, N> Expression;
 
-		const Coordinate* point(const Object& object) const
+		ConstIterator begin(const Object& object) const
 		{
 			return object.rawBegin();
 		}
 
-		const Coordinate& point(const Object& object, integer axis) const
+		ConstIterator end(const Object& object) const
 		{
-			return object[axis];
+			return object.rawEnd();
+		}
+
+		Expression operator()(const Object& object) const
+		{
+			return constVectorExpression<N>(
+				object.rawBegin(), dimension());
 		}
 
 		integer dimension() const

@@ -306,16 +306,12 @@ namespace Pastel
 
 			Vector<Real, N> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return Vector<Real, N>(
-					ofDimension(sceneTree_.dimension()),
-					withAliasing((Real*)sceneTree_.pointPolicy().point(sceneIter->object())));
+				return sceneTree_.pointPolicy()(sceneIter->object());
 			}
 
 			Vector<Real, N> modelPosition(const ModelIterator& modelIter) const
 			{
-				return Vector<Real, N>(
-					ofDimension(modelTree_.dimension()),
-					withAliasing((Real*)modelTree_.pointPolicy().point(modelIter->object())));
+				return modelTree_.pointPolicy()(modelIter->object());
 			}
 
 			bool matchLocal(
@@ -573,16 +569,19 @@ namespace Pastel
 		const Model_PointPolicy& modelPointPolicy,
 		const Scene_PointPolicy& scenePointPolicy)
 	{
+		ENSURE_OP(modelPointPolicy.dimension(), ==, 2);
+		ENSURE_OP(scenePointPolicy.dimension(), ==, 2);
+
 		typedef PointKdTree<Real, N, Model_PointPolicy> SceneTree;
 		typedef SceneTree::ConstObjectIterator SceneIterator;
 
 		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
 		typedef ModelTree::ConstObjectIterator ModelIterator;
 
-		SceneTree sceneTree(ofDimension(2), false, scenePointPolicy);
+		SceneTree sceneTree(false, scenePointPolicy);
 		sceneTree.insert(scene);
 
-		ModelTree modelTree(ofDimension(2), false, modelPointPolicy);
+		ModelTree modelTree(false, modelPointPolicy);
 		modelTree.insert(model);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());

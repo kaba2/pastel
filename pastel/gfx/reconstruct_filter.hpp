@@ -44,16 +44,46 @@ namespace Pastel
 		{
 		public:
 			typedef DataPoint<Real, N, Data> Object;
+			typedef Real Coordinate;
+			typedef const Real* ConstIterator;
+			typedef ConstArray_VectorExpression<Real, N> Expression;
 
-			const Real* point(const Object& object) const
+			explicit DataPolicy(
+				integer dimension)
+				: dimension_(dimension)
+			{
+				ENSURE(N == Dynamic || 
+					dimension == N);
+			}
+
+			integer dimension() const
+			{
+				return (N != Dynamic) ? N : dimension_;
+			}
+
+			integer dimension(const Object& object) const
+			{
+				return (N != Dynamic) ? N : dimension_;
+			}
+
+			Expression operator()(const Object& object) const
+			{
+				return constVectorExpression<N>(
+					begin(object), dimension());
+			}
+
+			ConstIterator begin(const Object& object) const
 			{
 				return object.position_.rawBegin();
 			}
 
-			Real point(const Object& object, integer axis) const
+			ConstIterator end(const Object& object) const
 			{
-				return object.position_[axis];
+				return object.position_.rawBegin() + dimension();
 			}
+
+		private:
+			integer dimension_;
 		};
 
 		template <typename Real, int N, typename PointPolicy, typename Filter>
@@ -108,7 +138,9 @@ namespace Pastel
 				{
 					//const real weight = filter_.evaluate(nearestSet[i].key() * invFilterStretch_);
 
-					const Vector<real, N> delta = nearestSet[i]->object().position_ - (Vector<real, N>(position) + 0.5);
+					const Vector<real, N> delta = 
+						nearestSet[i]->object().position_ - 
+						(Vector<real, N>(position) + 0.5);
 					real weight = 1;
 					for (integer k = 0;k < N;++k)
 					{
@@ -144,8 +176,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& filterStretch,
 		const View<N, Data, Output_View>& view)
 	{
-		PASTEL_STATIC_ASSERT(N != Dynamic);
-
+		const integer n = region.dimension();
 		const integer points = positionList.size();
 
 		ENSURE2(points == dataList.size(), points, dataList.size());
@@ -153,9 +184,8 @@ namespace Pastel
 		typedef Detail_ReconstructFilter::DataPoint<Real, N, Data> DataPoint;
 		typedef Detail_ReconstructFilter::DataPolicy<Real, N, Data> DataPolicy;
 
-		DataPolicy dataPolicy;
 		PointKdTree<Real, N, DataPolicy> kdTree(
-			ofDimension(N), false, dataPolicy);
+			false, DataPolicy(n));
 
 		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());
 

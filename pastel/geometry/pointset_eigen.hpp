@@ -57,14 +57,14 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real y = dot(result, 
-				pointAsVector(*iter, pointPolicy) - meanPoint);
+				pointPolicy(*iter) - meanPoint);
 
 			// We take beta = 1.
 			
 			//d = beta * d + square(y);
 			d += square(y);
 
-			result += ((pointAsVector(*iter, pointPolicy) - meanPoint) - 
+			result += ((pointPolicy(*iter) - meanPoint) - 
 				result * y) * (y / d);
 
 			++iter;
@@ -108,7 +108,7 @@ namespace Pastel
 		const Point_ConstIterator iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
-			x = pointAsVector(*iter, pointPolicy) - meanPoint;
+			x = pointPolicy(*iter) - meanPoint;
 
 			for (integer j = 0;j < eigenvectors;++j)
 			{

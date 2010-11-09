@@ -38,10 +38,10 @@
 			return data_.involves(memoryBegin, memoryEnd); \
 		} \
 		\
-		bool involvesNonTrivially( \
+		bool evaluateBeforeAssignment( \
 			const void* memoryBegin, const void* memoryEnd) const \
 		{ \
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd); \
+			return data_.evaluateBeforeAssignment(memoryBegin, memoryEnd); \
 		} \
 		 \
 	private: \

@@ -47,7 +47,7 @@ namespace Pastel
 				data_, data_ + size_);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			return false;
@@ -96,15 +96,15 @@ namespace Pastel
 		integer size_;
 	};
 
-	template <typename Real>
-	ConstArray_VectorExpression<Real, Dynamic> 
+	template <int N, typename Real>
+	ConstArray_VectorExpression<Real, N> 
 		constVectorExpression(const Real* data, integer size)
 	{
-		return ConstArray_VectorExpression<Real, Dynamic>(data, size);
+		return ConstArray_VectorExpression<Real, N>(data, size);
 	}
 
 	template <typename Real, int N>
-	ConstArray_VectorExpression<Real, Dynamic> 
+	ConstArray_VectorExpression<Real, N> 
 		constVectorExpression(const Real (&data)[N])
 	{
 		return ConstArray_VectorExpression<Real, N>(data, N);
@@ -182,7 +182,7 @@ namespace Pastel
 		{
 			ENSURE_OP(size(), ==, that.size());
 
-			if (that.involvesNonTrivially(
+			if (that.evaluateBeforeAssignment(
 				data_, data_ + size_))
 			{
 				// In the case we must reallocate, we can
@@ -287,7 +287,7 @@ namespace Pastel
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
-			if (that.involvesNonTrivially(
+			if (that.evaluateBeforeAssignment(
 				data_, data_ + size_))
 			{
 				*this += Vector<Real, N>(that);
@@ -313,7 +313,7 @@ namespace Pastel
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
-			if (that.involvesNonTrivially(
+			if (that.evaluateBeforeAssignment(
 				data_, data_ + size_))
 			{
 				*this -= Vector<Real, N>(that);
@@ -339,7 +339,7 @@ namespace Pastel
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
-			if (that.involvesNonTrivially(
+			if (that.evaluateBeforeAssignment(
 				data_, data_ + size_))
 			{
 				*this *= Vector<Real, N>(that);
@@ -365,7 +365,7 @@ namespace Pastel
 		{
 			PENSURE2(that.size() == size(), that.size(), size());
 
-			if (that.involvesNonTrivially(
+			if (that.evaluateBeforeAssignment(
 				data_, data_ + size_))
 			{
 				*this /= Vector<Real, N>(that);
@@ -386,15 +386,15 @@ namespace Pastel
 		}
 	};
 
-	template <typename Real>
-	Array_VectorExpression<Real, Dynamic> 
+	template <int N, typename Real>
+	Array_VectorExpression<Real, N> 
 		vectorExpression(Real* data, integer size)
 	{
-		return Array_VectorExpression<Real, Dynamic>(data, size);
+		return Array_VectorExpression<Real, N>(data, size);
 	}
 
 	template <typename Real, int N>
-	Array_VectorExpression<Real, Dynamic> 
+	Array_VectorExpression<Real, N> 
 		vectorExpression(const Real (&data)[N])
 	{
 		return Array_VectorExpression<Real, N>(data, N);

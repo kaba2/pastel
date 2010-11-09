@@ -6,6 +6,7 @@
 #define PASTEL_ARRAY_POINTPOLICY_H
 
 #include "pastel/sys/pointpolicy_concept.h"
+#include "pastel/sys/array_vectorexpression.h"
 
 namespace Pastel
 {
@@ -38,17 +39,22 @@ namespace Pastel
 
 		typedef Real Coordinate;
 		typedef const Coordinate* Object;
+		typedef const Coordinate* ConstIterator;
+		typedef ConstArray_VectorExpression<Real, N> Expression;
 
-		// We do not use a const-reference here, since a
-		// pointer is transmitted faster by value.
-		const Coordinate* point(Object object) const
+		ConstIterator begin(Object object) const
 		{
 			return object;
 		}
 
-		const Coordinate& point(Object object, integer axis) const
+		ConstIterator end(Object object) const
 		{
-			return object[axis];
+			return object + dimension();
+		}
+
+		Expression operator()(Object object) const
+		{
+			return constVectorExpression<N>(object, dimension());
 		}
 
 		integer dimension() const
