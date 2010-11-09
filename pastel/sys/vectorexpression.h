@@ -1,5 +1,4 @@
-// Description: Basic vector expressions
-// Detail: addition, subtraction, multiplication, etc.
+// Description: VectorExpression CRTP base class
 
 #ifndef PASTEL_VECTOREXPRESSION_H
 #define PASTEL_VECTOREXPRESSION_H
@@ -104,10 +103,10 @@ namespace Pastel
 			return ((const Expression&)*this).involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return ((const Expression&)*this).involvesNonTrivially(memoryBegin, memoryEnd);
+			return ((const Expression&)*this).evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 		template <int RightN, typename RightExpression>
@@ -324,7 +323,7 @@ namespace Pastel
 			return false;
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			return false;
@@ -367,10 +366,10 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return data_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -415,11 +414,11 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
-				right_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return left_.evaluateBeforeAssignment(memoryBegin, memoryEnd) ||
+				right_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -465,11 +464,11 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
-				right_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return left_.evaluateBeforeAssignment(memoryBegin, memoryEnd) ||
+				right_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -515,11 +514,11 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
-				right_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return left_.evaluateBeforeAssignment(memoryBegin, memoryEnd) ||
+				right_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -565,11 +564,11 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
-			return left_.involvesNonTrivially(memoryBegin, memoryEnd) ||
-				right_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return left_.evaluateBeforeAssignment(memoryBegin, memoryEnd) ||
+				right_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:

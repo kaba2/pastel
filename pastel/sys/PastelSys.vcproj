@@ -1006,26 +1006,6 @@
 				Name="Vector"
 				>
 				<File
-					RelativePath=".\array_vectorexpression.h"
-					>
-				</File>
-				<File
-					RelativePath=".\binary_vectorexpression.h"
-					>
-				</File>
-				<File
-					RelativePath=".\binary_vectorexpression_detail.h"
-					>
-				</File>
-				<File
-					RelativePath=".\unary_vectorexpression.h"
-					>
-				</File>
-				<File
-					RelativePath=".\unary_vectorexpression_detail.h"
-					>
-				</File>
-				<File
 					RelativePath=".\vector.h"
 					>
 				</File>
@@ -1069,10 +1049,42 @@
 					RelativePath=".\vectorbase.h"
 					>
 				</File>
-				<File
-					RelativePath=".\vectorexpression.h"
+				<Filter
+					Name="Vector expressions"
 					>
-				</File>
+					<File
+						RelativePath=".\array_vectorexpression.h"
+						>
+					</File>
+					<File
+						RelativePath=".\binary_vectorexpression.h"
+						>
+					</File>
+					<File
+						RelativePath=".\binary_vectorexpression_detail.h"
+						>
+					</File>
+					<File
+						RelativePath=".\unary_vectorexpression.h"
+						>
+					</File>
+					<File
+						RelativePath=".\unary_vectorexpression_detail.h"
+						>
+					</File>
+					<File
+						RelativePath=".\vectorexpression.h"
+						>
+					</File>
+					<File
+						RelativePath=".\vectorexpression.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\vectorexpression_concept.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Tuple"
@@ -2115,10 +2127,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\test\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
@@ -2132,6 +2140,10 @@
 			</File>
 			<File
 				RelativePath="..\..\example\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\CMakeLists.txt"
 				>
 			</File>
 			<File

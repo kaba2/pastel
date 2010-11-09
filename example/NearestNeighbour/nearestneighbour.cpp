@@ -889,7 +889,8 @@ void test()
 	{
 		N = Dynamic
 	};
-	PointKdTree<real, N, Array_PointPolicy<real> > tree(ofDimension(d), true);
+	PointKdTree<real, N, Array_PointPolicy<real> > tree(
+		true, Array_PointPolicy<real>(d));
 
 	typedef std::vector<Vector<real, N> > PointSet;
 
@@ -999,7 +1000,7 @@ int myMain()
 	log().addObserver(streamLogObserver(&std::cout));
 	log().addObserver(fileLogObserver("log.txt"));
 
-	test();
+	//test();
 
 	deviceSystem().initialize();
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 0, false);

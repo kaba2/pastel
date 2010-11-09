@@ -69,23 +69,6 @@ namespace Pastel
 			bool simulateKdTree = false,
 			const PointPolicy& pointPolicy = PointPolicy());
 
-		//! Constructs an empty tree.
-		/*!
-		Preconditions:
-		dimension > 0
-		dimension == N || N == Dynamic
-		
-		Exception safety:
-		strong
-
-		Time complexity:
-		constant
-		*/
-		explicit PointKdTree(
-			Dimension dimension,
-			bool simulateKdTree = false,
-			const PointPolicy& pointPolicy = PointPolicy());
-
 		//! Constructs a copy from another tree.
 		/*!
 		Exception safety:
@@ -478,9 +461,6 @@ namespace Pastel
 		pointPolicy_:
 		See the PointPolicy concept.
 
-		dimension_:
-		The dimension of the tree.
-
 		bound_:
 		An axis aligned bounding box for the
 		points in the tree.
@@ -494,7 +474,6 @@ namespace Pastel
 		Node* root_;
 		integer leaves_;
 		PointPolicy pointPolicy_;
-		integer dimension_;
 		AlignedBox<Real, N> bound_;
 		bool simulateKdTree_;
 	};

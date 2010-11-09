@@ -158,16 +158,16 @@ namespace Pastel
 			++toSecond;
 
 			const Vector<Real, 2> aFrom = 
-				pointAsVector(from.front(), fromPointPolicy);
+				fromPointPolicy(from.front());
 
 			const Vector<Real, 2> bFrom = 
-				pointAsVector(*fromSecond, fromPointPolicy);
+				fromPointPolicy(*fromSecond);
 
 			const Vector<Real, 2> aTo = 
-				pointAsVector(to.front(), toPointPolicy);
+				toPointPolicy(to.front());
 
 			const Vector<Real, 2> bTo = 
-				pointAsVector(*toSecond, toPointPolicy);
+				toPointPolicy(*toSecond);
 
 			return conformalAffine(
 				aFrom, bFrom,
@@ -189,17 +189,17 @@ namespace Pastel
 
 		while(fromIter != fromEnd)
 		{
-			sumFrom += pointAsVector(*fromIter, fromPointPolicy);
-			sumTo += pointAsVector(*toIter, toPointPolicy);
+			sumFrom += fromPointPolicy(*fromIter);
+			sumTo += toPointPolicy(*toIter);
 
 			sumSquareFrom += dot(
-				pointAsVector(*fromIter, fromPointPolicy));
+				fromPointPolicy(*fromIter));
 			dotSum += dot(
-				pointAsVector(*fromIter, fromPointPolicy), 
-				pointAsVector(*toIter, toPointPolicy));
+				fromPointPolicy(*fromIter), 
+				toPointPolicy(*toIter));
 			crossDotSum += dot(
-				cross(pointAsVector(*fromIter, fromPointPolicy)),
-				pointAsVector(*toIter, toPointPolicy));
+				cross(fromPointPolicy(*fromIter)),
+				toPointPolicy(*toIter));
 
 			++fromIter;
 			++toIter;

@@ -46,16 +46,46 @@ namespace Pastel
 		{
 		public:
 			typedef DataPoint<Real, N, Data> Object;
+			typedef Real Coordinate;
+			typedef const Real* ConstIterator;
+			typedef ConstArray_VectorExpression<Real, N> Expression;
 
-			const Real* point(const Object& object) const
+			explicit DataPolicy(
+				integer dimension)
+				: dimension_(dimension)
+			{
+				ENSURE(N == Dynamic || 
+					dimension == N);
+			}
+
+			integer dimension() const
+			{
+				return (N != Dynamic) ? N : dimension_;
+			}
+
+			integer dimension(const Object& object) const
+			{
+				return (N != Dynamic) ? N : dimension_;
+			}
+
+			Expression operator()(const Object& object) const
+			{
+				return constVectorExpression<N>(
+					begin(object), dimension());
+			}
+
+			ConstIterator begin(const Object& object) const
 			{
 				return object.position_.rawBegin();
 			}
 
-			Real point(const Object& object, integer axis) const
+			ConstIterator end(const Object& object) const
 			{
-				return object.position_[axis];
+				return object.position_.rawBegin() + dimension();
 			}
+
+		private:
+			integer dimension_;
 		};
 
 		template <typename Real, int N, typename PointPolicy>
@@ -110,8 +140,7 @@ namespace Pastel
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError)
 	{
-		PASTEL_STATIC_ASSERT(N != Dynamic);
-		
+		const integer n = region.dimension();
 		const integer points = positionList.size();
 
 		ENSURE_OP(kNearest, >, 0);
@@ -120,9 +149,8 @@ namespace Pastel
 		typedef Detail_ReconstructNearest::DataPoint<Real, N, Data> DataPoint;
 		typedef Detail_ReconstructNearest::DataPolicy<Real, N, Data> DataPolicy;
 
-		DataPolicy dataPolicy;
 		PointKdTree<Real, N, DataPolicy> kdTree(
-			ofDimension(N), false, dataPolicy);
+			false, DataPolicy(n));
 
 		const Vector<Real, N> scaling = 
 			inverse(region.extent()) * Vector<Real, N>(view.extent());

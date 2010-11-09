@@ -46,7 +46,8 @@ namespace Pastel
 				const ConstObjectIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					positionSet.push_back(pointPolicy.point(iter->object(), splitAxis));
+					positionSet.push_back(
+						pointPolicy(iter->object())[splitAxis]);
 					++iter;
 				}
 

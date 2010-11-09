@@ -172,7 +172,7 @@ namespace Pastel
 					&*begin(), &*end());
 			}
 
-			bool involvesNonTrivially(
+			bool evaluateBeforeAssignment(
 				const void* memoryBegin,
 				const void* memoryEnd) const
 			{
@@ -251,7 +251,7 @@ namespace Pastel
 
 				const integer n = that.size();
 				if (n != size() ||
-					that.involvesNonTrivially(
+					that.evaluateBeforeAssignment(
 					&*data_.begin(), &*data_.end()))
 				{
 					// In the case we must reallocate, we can
@@ -387,7 +387,7 @@ namespace Pastel
 				PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
+				if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
 				{
 					*this += Vector<Real, N>(that);
 				}
@@ -412,7 +412,7 @@ namespace Pastel
 				PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
+				if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
 				{
 					*this -= Vector<Real, N>(that);
 				}
@@ -437,7 +437,7 @@ namespace Pastel
 				PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
+				if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
 				{
 					*this *= Vector<Real, N>(that);
 				}
@@ -462,7 +462,7 @@ namespace Pastel
 				PASTEL_STATIC_ASSERT(ThatN == N || N == Dynamic || ThatN == Dynamic);
 				PENSURE2(that.size() == size(), that.size(), size());
 
-				if (that.involvesNonTrivially(&*data_.begin(), &*data_.end()))
+				if (that.evaluateBeforeAssignment(&*data_.begin(), &*data_.end()))
 				{
 					*this /= Vector<Real, N>(that);
 				}

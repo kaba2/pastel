@@ -111,7 +111,7 @@ namespace Pastel
 					data_, data_ + size());
 			}
 
-			bool involvesNonTrivially(const void* memoryBegin, const void* memoryEnd) const
+			bool evaluateBeforeAssignment(const void* memoryBegin, const void* memoryEnd) const
 			{
 				return false;
 			}
@@ -175,7 +175,7 @@ namespace Pastel
 				// We allow the size of the matrix to
 				// change in assignment.
 
-				if (right.involvesNonTrivially(&*begin(), &*end()) ||
+				if (right.evaluateBeforeAssignment(&*begin(), &*end()) ||
 					width() != right.width() ||
 					height() != right.height())
 				{
@@ -226,7 +226,7 @@ namespace Pastel
 				PENSURE2(width() == right.width(), width(), right.width());
 				PENSURE2(height() == right.height(), height(), right.height());
 
-				if (right.involvesNonTrivially(&*begin(), &*end()))
+				if (right.evaluateBeforeAssignment(&*begin(), &*end()))
 				{
 					*this += Derived(right);
 				}
@@ -257,7 +257,7 @@ namespace Pastel
 				PENSURE2(width() == right.width(), width(), right.width());
 				PENSURE2(height() == right.height(), height(), right.height());
 
-				if (right.involvesNonTrivially(&*begin(), &*end()))
+				if (right.evaluateBeforeAssignment(&*begin(), &*end()))
 				{
 					*this -= Derived(right);
 				}

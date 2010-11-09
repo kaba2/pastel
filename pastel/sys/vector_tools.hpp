@@ -109,7 +109,7 @@ namespace Pastel
 			return false;
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -232,7 +232,7 @@ namespace Pastel
 			return expression_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{

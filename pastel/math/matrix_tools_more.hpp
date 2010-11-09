@@ -136,7 +136,7 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{

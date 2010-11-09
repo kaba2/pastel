@@ -169,7 +169,7 @@ namespace
 
 				for (integer i = 0;i < featureSet.height();++i)
 				{
-					t = (pointAsVector(&featureSet(0, i), pointPolicy) - mean) * 
+					t = (pointPolicy(&featureSet(0, i)) - mean) * 
 						transpose(qr.qTransposed());
 
 					for (integer j = 0;j < featureSet.width();++j)

@@ -187,7 +187,7 @@ namespace Pastel
 					while(i < dimension)
 					{
 						const Real position = 
-							pointPolicy.point(object, i);
+							pointPolicy(object)[i];
 						if (position <= rangeMin[i] || 
 							position >= rangeMax[i])
 						{

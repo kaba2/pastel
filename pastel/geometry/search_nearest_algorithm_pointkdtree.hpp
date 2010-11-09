@@ -231,7 +231,7 @@ namespace Pastel
                 {
                     currentDistance = 
                         distance2(
-                        pointPolicy.point(iter->object()),
+                        pointPolicy.begin(iter->object()),
                         searchPoint.rawBegin(),
 						dimension,
                         normBijection, 
@@ -326,9 +326,8 @@ namespace Pastel
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
 		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm_PointKdTree;
 
-		const Vector<Real, N> searchPoint(
-			ofDimension(kdTree.dimension()),
-			withAliasing((Real*)kdTree.pointPolicy().point(searchIter->object())));
+		const Vector<Real, N> searchPoint =
+			kdTree.pointPolicy()(searchIter->object());
 
 		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree>
 			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,

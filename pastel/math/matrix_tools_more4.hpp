@@ -47,7 +47,7 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -113,7 +113,7 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -179,7 +179,7 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
@@ -239,11 +239,11 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return data_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -305,11 +305,11 @@ namespace Pastel
 			return data_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin,
 			const void* memoryEnd) const
 		{
-			return data_.involvesNonTrivially(memoryBegin, memoryEnd);
+			return data_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
 		}
 
 	private:
@@ -374,7 +374,7 @@ namespace Pastel
 			return false;
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// TODO: FIX:
@@ -441,7 +441,7 @@ namespace Pastel
 				right_.involves(memoryBegin, memoryEnd);
 		}
 
-		bool involvesNonTrivially(
+		bool evaluateBeforeAssignment(
 			const void* memoryBegin, const void* memoryEnd) const
 		{
 			// This is a non-trivial combination.
