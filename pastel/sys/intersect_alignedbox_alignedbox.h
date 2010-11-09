@@ -9,6 +9,12 @@
 namespace Pastel
 {
 
+	//! Finds the intersection of two aligned boxes.
+	/*!
+	If the boxes do not intersect, 'result' is not
+	changed. The 'result' can be the same as 'aBox' 
+	and 'bBox'.
+	*/
 	template <typename Real, int N>
 	bool intersect(
 		const AlignedBox<Real, N>& aBox,

@@ -3,6 +3,8 @@
 
 #include "pastel/gfx/matchblock_bruteforce.h"
 
+#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
+
 #include "pastel/sys/smallfixedset.h"
 #include "pastel/sys/keyvalue.h"
 
@@ -13,6 +15,7 @@ namespace Pastel
 	Array<integer, 2> matchBlockBrute(
 		const Array<Real, N>& image,
 		const Vector<integer, N>& blockExtent,
+		const AlignedBox<integer, N>& neighborhood,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection)
@@ -27,19 +30,32 @@ namespace Pastel
 
 		Array<integer> nearestSet(kNearest, image.size(), -1);
 
+		if (neighborhood.empty())
+		{
+			return nearestSet;
+		}
+
+		const integer n = image.dimension();
+
 		typedef ConstSubArray<Real, N> Region;
 		typedef typename Region::ConstIterator ConstIterator;
 
-		const Region region =
-			image(Vector<integer, N>(ofDimension(image.dimension()), 0), 
+		const AlignedBox<integer, N> regionBox(
+			Vector<integer, N>(ofDimension(n), 0),
 			image.extent() - blockExtent);
+		
+		const Region region =
+			image(regionBox.min(), regionBox.max());
 
 #pragma omp parallel
 		{
 		// We seek for k-nearest neighbors for
 		// block A. The 'aNearestSet' keeps track
 		// of the k best candidates.
-		SmallFixedSet<KeyValue<Real, integer> > aNearestSet(kNearest); 
+		SmallFixedSet<KeyValue<Real, integer> > aNearestSet(kNearest);
+
+		AlignedBox<integer, N> neighborBox(
+			ofDimension(n));
 
 		// For each block A in the region...
 		const ConstIterator regionEnd = region.end();
@@ -54,13 +70,27 @@ namespace Pastel
 
 			const ConstIterator aIter = region.begin(a);
 
+			neighborBox.min() = 
+				aIter.position() + neighborhood.min();
+			neighborBox.max() = 
+				aIter.position() + neighborhood.max() - blockExtent;
+
+			if (!intersect(regionBox, neighborBox, neighborBox))
+			{
+				continue;
+			}
+
+			const Region neighborRegion =
+				image(neighborBox.min(), neighborBox.max());
+
 			// This is the sub-array for the block A.
 			const Region aBlock = 
 				image(aIter.position(),
 				aIter.position() + blockExtent);
 
-			ConstIterator bIter = region.begin();
-			while (bIter != regionEnd)
+			ConstIterator bIter = neighborRegion.begin();
+			const ConstIterator bEnd = neighborRegion.end();
+			while (bIter != bEnd)
 			{
 				// This is the sub-array for the block B.
 				const Region bBlock =
