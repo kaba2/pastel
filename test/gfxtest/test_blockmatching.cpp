@@ -17,6 +17,7 @@
 
 #include <pastel/sys/subarray_tools.h>
 #include <pastel/sys/pointpolicy_all.h>
+#include <pastel/sys/string_tools.h>
 
 #include <fstream>
 
@@ -36,9 +37,9 @@ namespace
 
 		virtual void run()
 		{
-			testSimple();
-			//testBruteForce();
-			testApproximate();
+			//testSimple();
+			testBruteForce();
+			//testApproximate();
 		}
 
 		void testSimple()
@@ -320,6 +321,9 @@ namespace
 
 		void testBruteForce()
 		{
+			const integer kNearest = 8;
+			const integer blockSize = 8;
+
 			const Array<real32>& image = 
 				*gfxStorage().get<Array<real32>*>("lena_gray");
 			
@@ -327,8 +331,11 @@ namespace
 
 			timer.setStart();
 
+			AlignedBox<integer, 2> neighborhood(
+				-19, -19, 20, 20);
+
 			Array<integer> nearestSet = matchBlockBrute(
-				image, Vector2i(8, 8), 64, 
+				image, Vector2i(blockSize, blockSize), neighborhood, kNearest, 
 				infinity<real32>(), Euclidean_NormBijection<real32>());
 
 			timer.store();
@@ -336,7 +343,12 @@ namespace
 			std::cout << "Computation took " << 
 				timer.seconds() << " seconds." << std::endl;
 
-			std::ofstream file("lena-64-nearest-8x8-brute.txt");
+			std::string filename = 
+				std::string("lena-") + integerToString(kNearest) + 
+				"-nearest-" + integerToString(blockSize) + "x" + 
+				integerToString(blockSize) + "-brute.txt";
+
+			std::ofstream file(filename.c_str());
 			for (integer i = 0;i < nearestSet.height();++i)
 			{
 				for (integer j = 0;j < nearestSet.width();++j)
@@ -346,7 +358,7 @@ namespace
 				file << std::endl;
 			}
 
-			saveGrayscalePcx(image, "lena-64-nearest.pcx");
+			//saveGrayscalePcx(image, "lena-64-nearest.pcx");
 		}
 
 	};

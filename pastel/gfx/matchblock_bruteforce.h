@@ -41,6 +41,7 @@ namespace Pastel
 	Array<integer, 2> matchBlockBrute(
 		const Array<Real, N>& image,
 		const Vector<integer, N>& blockExtent,
+		const AlignedBox<integer, N>& neighborhood,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection);
