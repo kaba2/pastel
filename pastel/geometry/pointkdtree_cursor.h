@@ -65,19 +65,19 @@ namespace Pastel
 			return node_->leaf();
 		}
 
-		// Objects
+		// Points
 
-		ConstObjectIterator begin() const
+		ConstPointIterator begin() const
 		{
 			PENSURE(node_);
 			return node_->first();
 		}
 
-		ConstObjectIterator end() const
+		ConstPointIterator end() const
 		{
 			PENSURE(node_);
 
-			ConstObjectIterator iterEnd = node_->last();
+			ConstPointIterator iterEnd = node_->last();
 			if (!empty())
 			{
 				++iterEnd;
@@ -86,20 +86,20 @@ namespace Pastel
 			return iterEnd;
 		}
 
-		ConstObjectDataIterator objectBegin() const
+		ConstPointDataIterator pointBegin() const
 		{
-			return ConstObjectDataIterator(begin());
+			return ConstPointDataIterator(begin());
 		}
 
-		ConstObjectDataIterator objectEnd() const
+		ConstPointDataIterator pointEnd() const
 		{
-			return ConstObjectDataIterator(end());
+			return ConstPointDataIterator(end());
 		}
 
-		integer objects() const
+		integer points() const
 		{
 			PENSURE(node_);
-			return node_->objects();
+			return node_->points();
 		}
 
 		bool empty() const

@@ -5,20 +5,56 @@
 
 #include "pastel/sys/alignedbox.h"
 
-#include "pastel/math/affinetransformation.h"
-
 namespace Pastel
 {
 
+	//! Converts a point to a linear index in an integer grid.
+	/*!
+	point:
+	The point to convert.	
+
+	stride:
+	The 'stride[i]' tells how much the index increases
+	when moving one unit along the i:th axis.
+
+	returns:
+	The linear index, which is computed from 'dot(point, stride)'.
+	*/
+	template <int N>
+	integer linearIndex(
+		const Vector<integer, N>& point,
+		const Vector<integer, N>& stride);
+
+	//! Converts a linear index into a point in an integer grid.
+	/*!
+	This is the inverse function of 'linearIndex()'. 
+	See the documentation for that function.
+	*/
+	template <int N>
+	Vector<integer, N> position(
+		integer linearIndex,
+		const Vector<integer, N>& stride);
+
+	//! Calls 'positionVisitor' at each point in the region.
+	/*!
+	region:
+	The set of points to visit.
+
+	positionVisitor:
+	The functor to call at each point.
+	See 'positionvisitor.txt'.
+	
+	Returns:
+	The number of visited points.
+
+	The number of visited points is not necessarily the number
+	of points in the 'region', because the 'positionVisitor'
+	can ask for an early exit.
+	*/
 	template <int N, typename PositionVisitor>
 	integer forEach(
 		const AlignedBox<integer, N>& region,
 		PositionVisitor positionVisitor);
-
-	template <typename Real>
-	AlignedBox<Real, 3> operator*(
-		const AlignedBox<Real, 3>& left,
-		const AffineTransformation<Real, 3>& right);
 
 	template <typename Real, int N>
 	Vector<Real, N> discreteToContinuous(

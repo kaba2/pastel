@@ -13,12 +13,12 @@ namespace Pastel
 	template <
 		typename Point_ConstIterator, 
 		typename PointPolicy>
-	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Vector<typename PointPolicy::Real, PointPolicy::N> 
 	largestEigenVector(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy)
 	{
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 		enum {N = PointPolicy::N};
 
 		// This is the PASTd algorithm from
@@ -78,15 +78,15 @@ namespace Pastel
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy,
 		integer eigenvectors,
-		Matrix<typename PointPolicy::Coordinate>& qOut,
-		Vector<typename PointPolicy::Coordinate>& dOut)
+		Matrix<typename PointPolicy::Real>& qOut,
+		Vector<typename PointPolicy::Real>& dOut)
 	{
 		// This is the PASTd algorithm from
 		// "Projection Approximation Subspace Tracking",
 		// Bin Yang, IEEE Transactions on Signal Processing,
 		// Vol 43., No. 1, January 1995.
 
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 
 		ENSURE(!pointSet.empty());
 		ENSURE_OP(eigenvectors, >, 0);

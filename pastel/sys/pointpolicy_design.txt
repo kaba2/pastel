@@ -41,32 +41,3 @@ Solution candidates
 
 Create a concept for extracting the required information from an
 abstract point object. 
-
-	class PointPolicy_Concept
-	{
-	public:
-		//! Defines the compile-time dimension.
-		/*!
-		If the dimension 'd' is a compile-time
-		constant, N == d. Otherwise, N == Dynamic,
-		and 'd' can be obtained for each point at run-time 
-		from the dimension() function.
-		*/
-		enum {N = UserDefinedInteger};
-		
-		//! Defines the type of the coordinates.
-		typedef UserDefinedType Coordinate;
-		
-		//! Defines the type of a point.
-		typedef UserDefinedType Object;
-
-		//! Returns a pointer to a coordinate array for the point.
-		const Coordinate* point(const Object& object) const;
-
-		//! Returns a coordinate of the given point on the given axis.
-		Coordinate point(const Object& object, integer axis) const;
-		
-		//! Returns the dimensionality of a given point.
-		integer dimension(const Object& object) const;
-	};
-

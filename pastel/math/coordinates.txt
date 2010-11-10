@@ -1,9 +1,9 @@
-Coordinate conversions
+Real conversions
 ======================
 
 [[Parent]]: pastelmath.txt
 
-Coordinate systems
+Real systems
 ------------------
 
 A _coordinate system_ in ''RR^n'' is a function ''f : S sub RR^n -> RR^n'' such that ''f'' is a homeomorphism

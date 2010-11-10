@@ -16,8 +16,8 @@ namespace Pastel
 	{
 		root_ = allocateLeaf(
 			0,
-			objectList_.end(), 
-			objectList_.end(),
+			pointList_.end(), 
+			pointList_.end(),
 			0);
 
 		++leaves_;
@@ -51,7 +51,7 @@ namespace Pastel
 				thatNode->min());
 			thisNode->setMax(
 				thatNode->max());
-			updateObjects(thisNode);
+			updatePoints(thisNode);
 		}
 	}
 
@@ -59,9 +59,9 @@ namespace Pastel
 	typename PointKdTree<Real, N, PointPolicy>::Node*
 		PointKdTree<Real, N, PointPolicy>::allocateLeaf(
 		Node* parent,
-		const ConstObjectIterator& first,
-		const ConstObjectIterator& last,
-		integer objects)
+		const ConstPointIterator& first,
+		const ConstPointIterator& last,
+		integer points)
 	{
 		// A null pointer in 'left' is used to identify a leaf 
 		// node.
@@ -74,7 +74,7 @@ namespace Pastel
 			0,
 			first,
 			last,
-			objects, 
+			points, 
 			0, 0);
 
 		return node;
@@ -98,18 +98,18 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	AlignedBox<Real, N> PointKdTree<Real, N, PointPolicy>::computeBound(
-		const ConstObjectIterator& begin, 
-		const ConstObjectIterator& end) const
+		const ConstPointIterator& begin, 
+		const ConstPointIterator& end) const
 	{
 		AlignedBox<Real, N> bound(
 			ofDimension(dimension()));
 
-		ConstObjectIterator iter = begin;
-		const ConstObjectIterator iterEnd = end;
+		ConstPointIterator iter = begin;
+		const ConstPointIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			extendToCover(
-				evaluate(pointPolicy_(iter->object())), 
+				evaluate(pointPolicy_(iter->point())), 
 				bound);
 			++iter;
 		}
@@ -119,19 +119,19 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	std::pair<Real, Real> PointKdTree<Real, N, PointPolicy>::computeBound(
-		const ConstObjectIterator& begin, 
-		const ConstObjectIterator& end,
+		const ConstPointIterator& begin, 
+		const ConstPointIterator& end,
 		integer axis) const
 	{
 		std::pair<Real, Real> bound(
 			infinity<Real>(), -infinity<Real>());
 
-		ConstObjectIterator iter = begin;
-		const ConstObjectIterator iterEnd = end;
+		ConstPointIterator iter = begin;
+		const ConstPointIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			const Real position = 
-				pointPolicy_(iter->object())[axis];
+				pointPolicy_(iter->point())[axis];
 			if (position < bound.first)
 			{
 				bound.first = position;
@@ -196,11 +196,11 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::setLeaf(
-		const ConstObjectIterator& begin,
-		const ConstObjectIterator& end,
+		const ConstPointIterator& begin,
+		const ConstPointIterator& end,
 		Node* node)
 	{
-		ConstObjectIterator iter = begin;
+		ConstPointIterator iter = begin;
 		while(iter != end)
 		{
 			iter->setLeaf(node);
@@ -209,7 +209,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateObjects(
+	void PointKdTree<Real, N, PointPolicy>::updatePoints(
 		Node* node)
 	{
 		ASSERT(node);
@@ -218,17 +218,17 @@ namespace Pastel
 		Node* left = node->left();
 		Node* right = node->right();
 
-		node->setObjects(
-			left->objects() + right->objects());
+		node->setPoints(
+			left->points() + right->points());
 
-		ConstObjectIterator first = left->first();
-		if (first == objectList_.end())
+		ConstPointIterator first = left->first();
+		if (first == pointList_.end())
 		{
 			first = right->first();
 		}
 
-		ConstObjectIterator last = right->last();
-		if (last == objectList_.end())
+		ConstPointIterator last = right->last();
+		if (last == pointList_.end())
 		{
 			last = left->last();
 		}
@@ -242,7 +242,7 @@ namespace Pastel
 		Node* node, const AlignedBox<Real, N>& bound)
 	{
 		// We only allow to expand the
-		// object bound.
+		// point bound.
 		if (node->parent())
 		{
 			const integer splitAxis = node->parent()->splitAxis();
@@ -252,7 +252,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateObjectsUpwards(
+	void PointKdTree<Real, N, PointPolicy>::updatePointsUpwards(
 		Node* node)
 	{
 		ASSERT(node);
@@ -260,44 +260,44 @@ namespace Pastel
 		node = node->parent();
 		while (node)
 		{
-			updateObjects(node);
+			updatePoints(node);
 
 			node = node->parent();
 		}
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::eraseObjects(
+	void PointKdTree<Real, N, PointPolicy>::erasePoints(
 		Node* node)
 	{
 		ASSERT(node);
 
-		// Actually remove the objects.
-		ConstObjectIterator iter = node->first();
-		const ConstObjectIterator iterEnd = node->end();
+		// Actually remove the points.
+		ConstPointIterator iter = node->first();
+		const ConstPointIterator iterEnd = node->end();
 		while(iter != iterEnd)
 		{
-			iter = objectList_.erase(iter);
+			iter = pointList_.erase(iter);
 		}
 
-		// Clear the object ranges in the subtree.
-		clearObjects(node);
+		// Clear the point ranges in the subtree.
+		clearPoints(node);
 
 		// Update hierarchical information.
-		updateObjectsUpwards(node);
+		updatePointsUpwards(node);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::clearObjects(
+	void PointKdTree<Real, N, PointPolicy>::clearPoints(
 		Node* node)
 	{
 		ASSERT(node);
 
 		// Update the node state.
 
-		node->setFirst(objectList_.end());
-		node->setLast(objectList_.end());
-		node->setObjects(0);
+		node->setFirst(pointList_.end());
+		node->setLast(pointList_.end());
+		node->setPoints(0);
 		node->setMin(infinity<Real>());
 		node->setMax(-infinity<Real>());
 
@@ -305,8 +305,8 @@ namespace Pastel
 		{
 			// Recurse deeper.
 
-			clearObjects(node->right());
-			clearObjects(node->left());
+			clearPoints(node->right());
+			clearPoints(node->left());
 		}
 	}
 
@@ -322,36 +322,36 @@ namespace Pastel
 		ASSERT(node->leaf());
 		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 
-		const integer objects = node->objects();
-		const ConstObjectIterator nodeEnd = node->end();
+		const integer points = node->points();
+		const ConstPointIterator nodeEnd = node->end();
 
-		// Reorder the objects along the split position.
+		// Reorder the points along the split position.
 
 		const SplitPredicate splitPredicate(
 			splitPosition, splitAxis, 
 			pointPolicy_);
 
-		const std::pair<std::pair<ObjectIterator, integer>,
-			std::pair<ObjectIterator, integer> > result =
-			partition(objectList_, node->first(), nodeEnd,
+		const std::pair<std::pair<PointIterator, integer>,
+			std::pair<PointIterator, integer> > result =
+			partition(pointList_, node->first(), nodeEnd,
 			splitPredicate);
 
-		ConstObjectIterator leftFirst = objectList_.end();
-		ConstObjectIterator leftLast = objectList_.end();
+		ConstPointIterator leftFirst = pointList_.end();
+		ConstPointIterator leftLast = pointList_.end();
 
-		const integer leftObjects = result.first.second;
-		if (leftObjects > 0)
+		const integer leftPoints = result.first.second;
+		if (leftPoints > 0)
 		{
 			leftFirst = result.first.first;
 			leftLast = result.second.first;
 			--leftLast;
 		}
 
-		ConstObjectIterator rightFirst = objectList_.end();
-		ConstObjectIterator rightLast = objectList_.end();
+		ConstPointIterator rightFirst = pointList_.end();
+		ConstPointIterator rightLast = pointList_.end();
 
-		const integer rightObjects = result.second.second;
-		if (rightObjects > 0)
+		const integer rightPoints = result.second.second;
+		if (rightPoints > 0)
 		{
 			rightFirst = result.second.first;
 			rightLast = nodeEnd;
@@ -364,13 +364,13 @@ namespace Pastel
 			node,
 			leftFirst, 
 			leftLast, 
-			leftObjects);
+			leftPoints);
 
 		Node* right = allocateLeaf(
 			node, 
 			rightFirst, 
 			rightLast, 
-			rightObjects);
+			rightPoints);
 
 		// Turn the subdivided node into a split node.
 
@@ -427,7 +427,7 @@ namespace Pastel
 		++leaves_;
 
 		// Note: we didn't update hierarchical information
-		// nor set the leaf node pointers for objects.
+		// nor set the leaf node pointers for points.
 		// This is intentional: these things are done in refine().
 		// Doing them here would affect the complexity of
 		// recursive subdivision.
@@ -435,27 +435,27 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	template <typename InputIterator>
-	typename PointKdTree<Real, N, PointPolicy>::ObjectIterator
+	typename PointKdTree<Real, N, PointPolicy>::PointIterator
 	PointKdTree<Real, N, PointPolicy>::insertPrepare(
 		const InputIterator& begin, 
 		const InputIterator& end)
 	{
-		// Copy the objects to the end of objectList_.
+		// Copy the points to the end of pointList_.
 
-		ObjectIterator oldLast = objectList_.end();
-		if (!objectList_.empty())
+		PointIterator oldLast = pointList_.end();
+		if (!pointList_.empty())
 		{
 			--oldLast;
 		}
 
 		// We can't use the return value of std::copy because
 		// it is of type std::back_inserter_iterator.
-		std::copy(begin, end, std::back_inserter(objectList_));
+		std::copy(begin, end, std::back_inserter(pointList_));
 
-		ObjectIterator first;
-		if (oldLast == objectList_.end())
+		PointIterator first;
+		if (oldLast == pointList_.end())
 		{
-			first = objectList_.begin();
+			first = pointList_.begin();
 		}
 		else
 		{
@@ -469,16 +469,16 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::insert(
 		Node* node,
-		const ObjectIterator& first, 
-		const ObjectIterator& last,
-		integer objects,
+		const PointIterator& first, 
+		const PointIterator& last,
+		integer points,
 		AlignedBox<Real, N>& bound)
 	{
 		ASSERT(node);
-		ASSERT_OP(objects, >, 0);
+		ASSERT_OP(points, >, 0);
 
-		const ObjectIterator begin = first;
-		ObjectIterator end = last;
+		const PointIterator begin = first;
+		PointIterator end = last;
 		++end;
 
 		if (node->leaf())
@@ -489,58 +489,58 @@ namespace Pastel
 			// Set the bounds.
 			updateBounds(node, bound);
 
-			// Set the leaf nodes for each object.
+			// Set the leaf nodes for each point.
 			setLeaf(begin, end, node);
 
-			// Splice the objects to this node.
-			objectList_.splice(node->end(), objectList_, begin, end);
+			// Splice the points to this node.
+			pointList_.splice(node->end(), pointList_, begin, end);
 
-			// Update the node's object range.
-			node->insert(first, last, objects, objectList_.end());
+			// Update the node's point range.
+			node->insert(first, last, points, pointList_.end());
 		}
 		else
 		{
 			// This is a split node, so carry out a 
-			// partitioning of the objects.
+			// partitioning of the points.
 
 			const SplitPredicate splitPredicate(
 				node->splitPosition(), node->splitAxis(), 
 				pointPolicy_);
 
 			const std::pair<
-				std::pair<ObjectIterator, integer>,
-				std::pair<ObjectIterator, integer> > result =
-				partition(objectList_, begin, end,
+				std::pair<PointIterator, integer>,
+				std::pair<PointIterator, integer> > result =
+				partition(pointList_, begin, end,
 				splitPredicate);
 
-			const ObjectIterator newRightFirst = result.second.first;
-			const integer newRightObjects = result.second.second;
-			ObjectIterator newRightLast = end;
+			const PointIterator newRightFirst = result.second.first;
+			const integer newRightPoints = result.second.second;
+			PointIterator newRightLast = end;
 			--newRightLast;
 
-			const ObjectIterator newLeftFirst = result.first.first;
-			const integer newLeftObjects = result.first.second;
-			ObjectIterator newLeftLast = newRightFirst;
+			const PointIterator newLeftFirst = result.first.first;
+			const integer newLeftPoints = result.first.second;
+			PointIterator newLeftLast = newRightFirst;
 			--newLeftLast;
 
 			Node* left = node->left();
 			Node* right = node->right();
 
-			if (newLeftObjects > 0)
+			if (newLeftPoints > 0)
 			{
-				// If there are objects going to the left node,
+				// If there are points going to the left node,
 				// recurse deeper.
 
 				insert(
 					left, 
 					newLeftFirst, newLeftLast, 
-					newLeftObjects,
+					newLeftPoints,
 					bound);
 			}
 
-			if (newRightObjects > 0)
+			if (newRightPoints > 0)
 			{
-				// If there are objects going to the right node,
+				// If there are points going to the right node,
 				// recurse deeper.
 
 				AlignedBox<Real, N> rightBound(
@@ -548,7 +548,7 @@ namespace Pastel
 				insert(
 					right, 
 					newRightFirst, newRightLast, 
-					newRightObjects,
+					newRightPoints,
 					rightBound);
 
 				// Compute the combined bounding box of the
@@ -557,17 +557,17 @@ namespace Pastel
 			}
 
 			// Update hierarchical information.
-			updateObjects(node);
+			updatePoints(node);
 			updateBounds(node, bound);
 			
-			// Finally, we need to order the objects in the objectList_
-			// so that the objects in the right child come right after
+			// Finally, we need to order the points in the pointList_
+			// so that the points in the right child come right after
 			// those in the left child. This is needed to represent
-			// the object sets in each node by a simple iterator range.
+			// the point sets in each node by a simple iterator range.
 			// We take care of this ordering by splicing.
-			objectList_.splice(
+			pointList_.splice(
 				left->end(),
-				objectList_,
+				pointList_,
 				right->first(),
 				right->end());
 		}
@@ -587,7 +587,7 @@ namespace Pastel
 
 		if (node->leaf())
 		{
-			if (node->objects() <= bucketSize)
+			if (node->points() <= bucketSize)
 			{
 				setLeaf(node->first(), node->end(), node);
 			}
@@ -638,10 +638,10 @@ namespace Pastel
 			minBound[splitAxis] = oldMinBound;
 			maxBound[splitAxis] = oldMaxBound;
 
-			// Update object information.
+			// Update point information.
 			// The bound information has already
 			// been handled top-down.
-			updateObjects(node);
+			updatePoints(node);
 		}
 	}
 

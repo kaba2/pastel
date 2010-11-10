@@ -26,14 +26,13 @@ namespace Pastel
 			N = (N_A == Dynamic) ? N_B : N_A
 		};
 
-		// In case the dimension is static,
-		// this gives the compiler a chance
-		// to unroll the loop.
+		// In case the dimension is static, this gives the compiler a 
+		// chance to unroll the loop.
 		const integer n = 
 			(N == Dynamic) ? aBox.dimension() : N;
 
-		// The idea in this algorithm is to split a sub-box from 'aBox'
-		// one at a time, so that the splitted box is given by the
+		// The idea in this algorithm is to cut out a sub-box from 'aBox'
+		// one at a time, so that the cut-out box is given by the
 		// intersection of the current box with the outward half-space 
 		// induced by a side of 'bBox'. This process guarantees that
 		// at most 2n boxes are produced, where n is the dimension.

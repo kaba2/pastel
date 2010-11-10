@@ -30,19 +30,19 @@ namespace Pastel
 	class PointKdTree
 	{
 	public:
-		typedef typename PointPolicy::Object Object;
+		typedef typename PointPolicy::Point Point;
 		class Cursor;
 
 	private:
 		typedef PoolAllocator NodeAllocator;
-		typedef PoolAllocator ObjectAllocator;
+		typedef PoolAllocator PointAllocator;
 		typedef PoolAllocator BoundAllocator;
 
-		class ObjectInfo;
+		class PointInfo;
 		class Node;
 
-		typedef FastList<ObjectInfo, ObjectAllocator> ObjectContainer;
-		typedef typename ObjectContainer::iterator ObjectIterator;
+		typedef FastList<PointInfo, PointAllocator> PointContainer;
+		typedef typename PointContainer::iterator PointIterator;
 
 	public:
 		enum
@@ -52,10 +52,10 @@ namespace Pastel
 		typedef Real Real_;
 		typedef PointPolicy PointPolicy_;
 
-		typedef typename ObjectContainer::const_iterator 
-			ConstObjectIterator;
-		typedef boost::indirect_iterator<ConstObjectIterator, const Object> 
-			ConstObjectDataIterator;
+		typedef typename PointContainer::const_iterator 
+			ConstPointIterator;
+		typedef boost::indirect_iterator<ConstPointIterator, const Point> 
+			ConstPointDataIterator;
 
 		//! Constructs an empty tree.
 		/*!
@@ -75,7 +75,7 @@ namespace Pastel
 		?
 
 		Time complexity:
-		O(that.objects() * thatDepth + that.nodes())
+		O(that.points() * thatDepth + that.nodes())
 		*/
 		PointKdTree(const PointKdTree& that);
 
@@ -103,7 +103,7 @@ namespace Pastel
 		*/
 		void swap(PointKdTree& that);
 
-		//! Returns the object policy.
+		//! Returns the point policy.
 		/*!
 		Exception safety:
 		nothrow
@@ -124,7 +124,7 @@ namespace Pastel
 		*/
 		const AlignedBox<Real, N>& bound() const;
 
-		//! Returns true if there are no objects in the tree.
+		//! Returns true if there are no points in the tree.
 		/*!
 		Time complexity:
 		Constant
@@ -141,23 +141,23 @@ namespace Pastel
 		*/
 		Cursor root() const;
 
-		//! Returns an iterator to the beginning of the object list.
+		//! Returns an iterator to the beginning of the point list.
 		/*!
 		Exception safety:
 		nothrow
 		*/
-		ConstObjectIterator begin() const;
+		ConstPointIterator begin() const;
 
-		ConstObjectDataIterator objectBegin() const;
+		ConstPointDataIterator pointBegin() const;
 
-		//! Returns an iterator to the end of the object list.
+		//! Returns an iterator to the end of the point list.
 		/*!
 		Exception safety:
 		nothrow
 		*/
-		ConstObjectIterator end() const;
+		ConstPointIterator end() const;
 
-		ConstObjectDataIterator objectEnd() const;
+		ConstPointDataIterator pointEnd() const;
 
 		//! Returns the number of nodes in the tree.
 		/*!
@@ -176,12 +176,12 @@ namespace Pastel
 		*/
 		integer leaves() const;
 
-		//! Returns the number of objects in the tree.
+		//! Returns the number of points in the tree.
 		/*!
 		Exception safety:
 		nothrow
 		*/
-		integer objects() const;
+		integer points() const;
 
 		//! Returns the dimension of the tree.
 		/*!
@@ -194,62 +194,62 @@ namespace Pastel
 		void refine(const SplitRule_PointKdTree& splitRule,
 			integer bucketSize = 8);
 
-		//! Insert an object into the tree.
-		ConstObjectIterator insert(const Object& object);
+		//! Insert a point into the tree.
+		ConstPointIterator insert(const Point& point);
 
-		//! Insert objects into the tree.
+		//! Insert points into the tree.
 		/*!
 		Exception safety:
 		strong
 
 		begin, end:
-		An iterator range consisting of objects to insert.
+		An iterator range consisting of points to insert.
 		*/
 		template <typename InputIterator>
 		void insert(
-			const ForwardRange<InputIterator>& objectSet);
+			const ForwardRange<InputIterator>& pointSet);
 
-		//! Insert objects into the tree.
+		//! Insert points into the tree.
 		/*!
 		Exception safety:
 		strong
 
 		begin, end:
-		An iterator range consisting of objects to insert.
+		An iterator range consisting of points to insert.
 
 		iteratorSet:
-		An output iterator to which the corresponding object
+		An output iterator to which the corresponding point
 		iterators are reported.
 		*/
 		template <typename InputIterator,
-			typename ConstObjectIterator_OutputIterator>
+			typename ConstPointIterator_OutputIterator>
 		void insert(
-			const ForwardRange<InputIterator>& objectSet, 
-			ConstObjectIterator_OutputIterator iteratorSet);
+			const ForwardRange<InputIterator>& pointSet, 
+			ConstPointIterator_OutputIterator iteratorSet);
 
 		//! Removes a point from the tree.
-		void erase(const ConstObjectIterator& iter);
+		void erase(const ConstPointIterator& iter);
 
 		//! Removes a set of points from the tree.
-		template <typename ConstObjectIterator_ConstIterator>
-		void erase(const ForwardRange<ConstObjectIterator_ConstIterator>& objectSet);
+		template <typename ConstPointIterator_ConstIterator>
+		void erase(const ForwardRange<ConstPointIterator_ConstIterator>& pointSet);
 
-		//! Clears off subdivision and objects.
+		//! Clears off subdivision and points.
 		/*!
 		Exception safety:
 		nothrow
 		*/
 		void clear();
 
-		//! Clears the objects but leaves the subdivision intact.
+		//! Clears the points but leaves the subdivision intact.
 		/*!
 		Exception safety:
 		nothrow
 		*/
-		void eraseObjects();
+		void erasePoints();
 
-		//! Clears the objects in a subtree but leaves subdivision intact.
-		void eraseObjects(const Cursor& cursor);
+		//! Clears the points in a subtree but leaves subdivision intact.
+		void erasePoints(const Cursor& cursor);
 
 		//! Collapses the tree into a single leaf node.
 		void merge();
@@ -257,34 +257,34 @@ namespace Pastel
 		//! Collapse a subtree into a leaf node.
 		void merge(const Cursor& cursor);
 
-		//! Returns the position of a given object.
-		Vector<Real, N> point(const Object& object) const;
+		//! Returns the position of a given point.
+		Vector<Real, N> point(const Point& point) const;
 
 	private:
 		class SplitPredicate;
 
-		class ObjectInfo
+		class PointInfo
 		{
 		public:
 			friend class PointKdTree;
 
 			// Implicit conversion allowed.
-			ObjectInfo(
-				const Object& object,
+			PointInfo(
+				const Point& point,
 				Node* leafNode = 0)
-				: object_(object)
+				: point_(point)
 				, leafNode_(leafNode)
 			{
 			}
 
-			const Object& operator*() const
+			const Point& operator*() const
 			{
-				return object_;
+				return point_;
 			}
 
-			const Object& object() const
+			const Point& point() const
 			{
-				return object_;
+				return point_;
 			}
 
 			Cursor leaf() const
@@ -299,7 +299,7 @@ namespace Pastel
 				leafNode_ = leafNode;
 			}
 
-			Object object_;
+			Point point_;
 			mutable const Node* leafNode_;
 		};
 
@@ -314,22 +314,22 @@ namespace Pastel
 		//! Allocate a leaf node.
 		Node* allocateLeaf(
 			Node* parent,
-			const ConstObjectIterator& first,
-			const ConstObjectIterator& last,
-			integer objects);
+			const ConstPointIterator& first,
+			const ConstPointIterator& last,
+			integer points);
 
 		//! Runs destructors for all nodes of a subtree.
 		void destructSubtree(Node* node);
 
-		//! Compute a bounding box for objects.
+		//! Compute a bounding box for points.
 		AlignedBox<Real, N> computeBound(
-			const ConstObjectIterator& begin, 
-			const ConstObjectIterator& end) const;
+			const ConstPointIterator& begin, 
+			const ConstPointIterator& end) const;
 
-		//! Compute a bounding box for objects.
+		//! Compute a bounding box for points.
 		std::pair<Real, Real> computeBound(
-			const ConstObjectIterator& begin, 
-			const ConstObjectIterator& end,
+			const ConstPointIterator& begin, 
+			const ConstPointIterator& end,
 			integer axis) const;
 
 		//! Collapse a subtree into a leaf node.
@@ -338,31 +338,31 @@ namespace Pastel
 		//! Deallocate the nodes of a subtree.
 		void erase(Node* node);
 
-		//! Sets the leaf nodes of a range of objects.
+		//! Sets the leaf nodes of a range of points.
 		void setLeaf(
-			const ConstObjectIterator& begin,
-			const ConstObjectIterator& end,
+			const ConstPointIterator& begin,
+			const ConstPointIterator& end,
 			Node* node);
 
-		//! Remove objects under a subtree.
-		void eraseObjects(Node* node);
+		//! Remove points under a subtree.
+		void erasePoints(Node* node);
 
-		//! Clear object ranges in a subtree, and set bucket nodes.
+		//! Clear point ranges in a subtree, and set bucket nodes.
 		/*!
-		Note objects are not actually removed. Use eraseObjects()
+		Note points are not actually removed. Use erasePoints()
 		for this. This is actually foremost a helper function for
-		eraseObjects().
+		erasePoints().
 		*/
-		void clearObjects(Node* node);
+		void clearPoints(Node* node);
 
-		//! Updates hierarchical object information.
-		void updateObjects(Node* node);
+		//! Updates hierarchical point information.
+		void updatePoints(Node* node);
 
 		//! Updates hierarchical bound information.
 		void updateBounds(Node* node, const AlignedBox<Real, N>& bound);
 
 		//! Propagates hierarchical information upwards.
-		void updateObjectsUpwards(Node* node);
+		void updatePointsUpwards(Node* node);
 
 		//! Subdivides a leaf node with the given plane.
 		/*!
@@ -391,42 +391,42 @@ namespace Pastel
 			const Real& prevMin,
 			const Real& prevMax);
 
-		//! Inserts new objects at the end of the objectList_.
+		//! Inserts new points at the end of the pointList_.
 		/*!
 		returns:
-		The first iterator of the inserted objects.
+		The first iterator of the inserted points.
 
 		Also updates the bounding box.
 		*/
 		template <typename InputIterator>
-		ObjectIterator insertPrepare(
+		PointIterator insertPrepare(
 			const InputIterator& begin,
 			const InputIterator& end);			
 
-		//! Propagates new objects to leaf nodes.
+		//! Propagates new points to leaf nodes.
 		/*!
 		Preconditions:
-		1) [first, last] is an inclusive iterator range in 'objectList_'.
+		1) [first, last] is an inclusive iterator range in 'pointList_'.
 		2) count > 0
 		
 		If the node is an intermediate node,
-		this function reorders 'objectList_'
-		in the given range so that the objects
+		this function reorders 'pointList_'
+		in the given range so that the points
 		going to the left node are listed
 		before those going to the right node.
 		This reordering is done by splicing a
-		so no copying of objects is involved. 
+		so no copying of points is involved. 
 		The function then recurses to both nodes.
 
 		If the node is a leaf node,
 		the given range is spliced to the correct
-		position such that all objects of a leaf node
+		position such that all points of a leaf node
 		are listed sequentially.
 		*/
 		void insert(
 			Node* node,
-			const ObjectIterator& first, 
-			const ObjectIterator& last,
+			const PointIterator& first, 
+			const PointIterator& last,
 			integer count,
 			AlignedBox<Real, N>& bound);
 
@@ -445,9 +445,9 @@ namespace Pastel
 			integer bucketSize);
 
 		/*
-		objectList_:
-		Contains all objects in the tree ordered
-		in such a way that the objects of each leaf node 
+		pointList_:
+		Contains all points in the tree ordered
+		in such a way that the points of each leaf node 
 		are positioned sequantially in a range.
 
 		nodeAllocator_:
@@ -473,7 +473,7 @@ namespace Pastel
 		If true, no shrinking is done to nodes.
 		*/
 
-		ObjectContainer objectList_;
+		PointContainer pointList_;
 		NodeAllocator nodeAllocator_;
 		Node* root_;
 		integer leaves_;

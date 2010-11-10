@@ -54,8 +54,8 @@ namespace Pastel
 		{
 			typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
 
-			typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
-				ConstObjectIterator;
+			typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+				ConstPointIterator;
 
 			if (REPORT(cursor.empty() && cursor.parent().exists()))
 			{
@@ -64,7 +64,7 @@ namespace Pastel
 
 			if (cursor.leaf())
 			{
-				if (REPORT(std::distance(cursor.begin(), cursor.end()) != cursor.objects()))
+				if (REPORT(std::distance(cursor.begin(), cursor.end()) != cursor.points()))
 				{
 					return false;
 				}
@@ -75,8 +75,8 @@ namespace Pastel
 					return false;
 				}
 
-				ConstObjectIterator iter = cursor.begin();
-				const ConstObjectIterator iterEnd = cursor.end();
+				ConstPointIterator iter = cursor.begin();
+				const ConstPointIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					Cursor leaf = iter->leaf();
@@ -111,8 +111,8 @@ namespace Pastel
 				}
 				*/
 
-				if (REPORT(cursor.left().objects() + cursor.right().objects() !=
-					cursor.objects()))
+				if (REPORT(cursor.left().points() + cursor.right().points() !=
+					cursor.points()))
 				{
 					return false;
 				}
@@ -136,9 +136,9 @@ namespace Pastel
 				}
 				else
 				{
-					ConstObjectIterator begin = 
+					ConstPointIterator begin = 
 						!cursor.left().empty() ? cursor.left().begin() : cursor.right().begin();
-					ConstObjectIterator end =
+					ConstPointIterator end =
 						!cursor.right().empty() ? cursor.right().end() : cursor.left().end();
 					if (REPORT(cursor.begin() != begin || cursor.end() != end))
 					{
@@ -194,7 +194,7 @@ namespace Pastel
 
 			if (aTree.leaf())
 			{
-				if (aTree.objects() != bTree.objects())
+				if (aTree.points() != bTree.points())
 				{
 					return false;
 				}
@@ -229,7 +229,7 @@ namespace Pastel
 	const PointKdTree<Real, N_B, PointPolicy_B>& bTree)
 	{
 		if (aTree.nodes() != bTree.nodes() ||
-			aTree.objects() != bTree.objects() ||
+			aTree.points() != bTree.points() ||
 			aTree.leaves() != bTree.leaves() ||
 			aTree.dimension() != bTree.dimension())
 		{

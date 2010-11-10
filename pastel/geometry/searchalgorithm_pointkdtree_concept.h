@@ -40,7 +40,7 @@ namespace Pastel
 			//! Whether a split-node should be searched or not.
 			/*!
 			For example, if the whole subtree does not contain
-			more than 'bucketSize' number of objects, it makes
+			more than 'bucketSize' number of points, it makes
 			more sense to search it with brute-force right-away,
 			than to traverse the hierarchy.
 			*/
@@ -49,7 +49,7 @@ namespace Pastel
 
 			//! Whether to skip the given node.
 			/*!
-			For example, nodes which have no objects under their
+			For example, nodes which have no points under their
 			subtree can be skipped at will.
 			*/
 			bool skipNode(const Cursor& cursor) const;

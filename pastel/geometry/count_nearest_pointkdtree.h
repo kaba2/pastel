@@ -29,7 +29,7 @@ namespace Pastel
 
 	searchPoint:
 	The point for which to search neighbors for.
-	Can be either a Vector<Real, N> or an object 
+	Can be either a Vector<Real, N> or a point 
 	iterator of 'kdTree'. In the former case the
 	searched point need not be stored in 'kdTree'.
 	The search is more efficient in the latter case.
@@ -114,7 +114,7 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	countNearest(kdTree, searchPoint, maxDistance,
-		Always_Accept<typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator>());
+		Always_Accept<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator>());
 	*/
 	template <typename Real, int N, typename PointPolicy>
 	integer countNearest(

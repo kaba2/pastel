@@ -29,7 +29,7 @@ namespace Pastel
 	*/
 
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Sphere<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Sphere<typename PointPolicy::Real, PointPolicy::N> 
 		boundingSphere(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy);

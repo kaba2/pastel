@@ -3,26 +3,66 @@ PointPolicy concept
 
 [[Parent]]: basic_math.txt
 
-The PointPolicy concept aims to abstract all the different data structures
-for representing elements of ''RR^n''. A point data structure is quite simple
-and therefore gets implemented over and over again in different libraries.
-It would be nice to design algorithms so that they assume no particular
-data structure (such as Pastel's Vector) for storing points. If this
-does not hold, then one has the nuisance of needing to convert between the
-point data structures before calling an algorithm. 
+Theory
+------
 
-Dimensionality
---------------
+The PointPolicy concept abstracts the representation of points 
+in ''RR^n'' by an arbitrary object. This allows to create generic 
+algorithms that work not only with the Pastel's Vector, but also with 
+raw arrays, a user's own type, or even with data generated on the fly.
 
-There are two different use-cases for dimensionalities that we attempt to 
-cover with the PointPolicy abstraction. These are:
+### Motivation
+
+Being such a basic data structure, a point type is commonly among the
+first types implemented in a geometric library. In addition, there are
+many situations in which data in some form needs to be interpreted
+as a point in ''RR^n''. If one can not abstract the representation of
+a point, then one has to convert the point to a specific point data 
+structure (such as Pastel's Vector) before calling an algorithm. Often 
+this is not more than a nuisance, but there are situations where this 
+increases memory requirements inapproriately. A striking example of this 
+kind is given by interpreting ''m xx m'' blocks of an image as points in 
+''RR^{m^2}''. If these overlapping blocks are copied into separate point 
+data structures, then the memory requirements increase by a factor of 
+''m^2'', compared to reinterpreting the blocks using a PointPolicy.
+
+Practice
+--------
+
+### Synthetic points
+
+The PointPolicy abstract points as a read-only data structure,
+so that it is possible to create a PointPolicy to generate coordinates 
+on the fly. For example, one can identify an integer ''i'' with the point
+''(i >> 8, i & 0xFF)'', thus giving a very efficient and compact 
+representation for points located in an integer grid.
+
+### Relation to vector expressions
+
+The [vector expressions][VectorExpr] also abstract the representation
+of the elements of ''RR^n'' as vectors, but do so by having a different
+type for each expression. In contrast, the PointPolicy concept uses
+objects of the same type for representing points. The essential difference
+here is that using a PointPolicy, the coordinates of a point are produced
+from the given point object. Such an object can contain all the coordinates,
+such as Pastel's Vector, or just a reference to data elsewhere, such as
+a raw pointer. A point can be converted to a vector expression.
+
+[VectorExpr]: [[Ref]]: vectorexpression.txt
+
+### Dimensionality
+
+There are two different use-cases for dimensionalities that we cover with 
+the PointPolicy abstraction. These are:
 
 1. A set of points with the same dimensionality.
-In this case the PointPolicy needs to store that dimensionality.
-This is especially important because we also need to support
-empty pointsets.
+In this case the PointPolicy stores that dimensionality.
+This is especially important because of the need to support
+empty pointsets (e.g. return an empty box bounding box with 
+correct dimensionality).
 
-2. A set of points with varying dimensionality.
-Here you will need a way to obtain the dimensionality of each
-point. In case the pointset is empty, there should be no
-dimensionality available.
+2. A set of points with varying dimensionality. In this case
+you obtain the dimensionality of each point from the PointPolicy. 
+In case the pointset is empty, no dimensionality is available.
+
+

@@ -6,6 +6,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/stdext_destruct.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/alignedbox_tools.h"
 
 #include <algorithm>
 
@@ -506,19 +507,7 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, size());
 
-			const integer n = dimension();
-
-			Vector<integer, N> result(
-				ofDimension(n));
-
-			for (integer i = n - 1;i > 0;--i)
-			{
-				result[i] = index / stride_[i];
-				index -= result[i] * stride_[i];
-			}
-			result[0] = index;
-
-			return result;
+			return Pastel::position(index, stride_);
 		}
 
 		template <typename Type, int N>
@@ -528,15 +517,7 @@ namespace Pastel
 			PENSURE(allGreaterEqual(position, 0));
 			PENSURE(allLess(position, extent()));
 
-			const integer n = dimension();
-
-			integer index = position[0];
-			for (integer i = 1;i < n;++i)
-			{
-				index += stride_[i] * position[i];
-			}
-			
-			return index;
+			return linearIndex(position, stride_);
 		}
 
 		template <typename Type, int N>

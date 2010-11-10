@@ -28,12 +28,12 @@ namespace Pastel
 	}
 
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Sphere<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Sphere<typename PointPolicy::Real, PointPolicy::N> 
 		boundingSphere(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy)
 	{
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 		enum {N = PointPolicy::N};
 
 		// This function does not give the minimum volume

@@ -43,7 +43,7 @@ namespace
 			}
 
 			typedef PointKdTree<real, N> Tree;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			typedef typename Tree::ConstPointIterator ConstPointIterator;
 
 			Tree tree;
 
@@ -55,7 +55,7 @@ namespace
 			Euclidean_NormBijection<real> normBijection;
 
 			{
-				std::vector<ConstObjectIterator> neighborSet;
+				std::vector<ConstPointIterator> neighborSet;
 				std::vector<real> distanceSet;
 
 				const integer count = searchNearest(

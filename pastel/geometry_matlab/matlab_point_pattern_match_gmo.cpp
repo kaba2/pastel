@@ -41,10 +41,10 @@ namespace
 		//setNumberOfThreads(threads);
 
 		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
-		typedef SceneTree::ConstObjectIterator SceneIterator;
+		typedef SceneTree::ConstPointIterator SceneIterator;
 
 		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
-		typedef ModelTree::ConstObjectIterator ModelIterator;
+		typedef ModelTree::ConstPointIterator ModelIterator;
 
 		SceneTree sceneTree(false, Array_PointPolicy<real>(n));
 		sceneTree.insert(
@@ -91,8 +91,8 @@ namespace
 			//rawPair[i * 2] = pairSet[i].first == sceneTree.end() ? 1 : 0;
 			//rawPair[i * 2 + 1] = pairSet[i].second == modelTree.end() ? -1 : +1;
 			
-			rawPair[i * 2] = (pairSet[i].first->object() - sceneData) / n;
-			rawPair[i * 2 + 1] = (pairSet[i].second->object() - modelData) / n;
+			rawPair[i * 2] = (pairSet[i].first->point() - sceneData) / n;
+			rawPair[i * 2 + 1] = (pairSet[i].second->point() - modelData) / n;
 		}
 
 		// Output the translation.

@@ -14,9 +14,9 @@ namespace Pastel
 			Node* parent,
 			Node* right,
 			Node* left,
-			const ConstObjectIterator& first,
-			const ConstObjectIterator& last,
-			integer objects,
+			const ConstPointIterator& first,
+			const ConstPointIterator& last,
+			integer points,
 			integer splitAxis,
 			const Real& splitPosition)
 			: parent_(parent)
@@ -24,13 +24,13 @@ namespace Pastel
 			, left_(left)
 			, first_(first)
 			, last_(last)
-			, objects_(objects)
+			, points_(points)
 			, splitAxis_(splitAxis)
 			, splitPosition_(splitPosition)
 			, min_(infinity<Real>())
 			, max_(-infinity<Real>())
 		{
-			ASSERT_OP(objects, >=, 0);
+			ASSERT_OP(points, >=, 0);
 			ASSERT_OP(splitAxis, >=, 0);
 		}
 
@@ -66,32 +66,32 @@ namespace Pastel
 			return left_ == 0;
 		}
 
-		// Objects
+		// Points
 
-		void setFirst(const ConstObjectIterator& first)
+		void setFirst(const ConstPointIterator& first)
 		{
 			first_ = first;
 		}
 
-		const ConstObjectIterator& first() const
+		const ConstPointIterator& first() const
 		{
 			return first_;
 		}
 
-		void setLast(const ConstObjectIterator& last)
+		void setLast(const ConstPointIterator& last)
 		{
 			last_ = last;
 		}
 
-		const ConstObjectIterator& last() const
+		const ConstPointIterator& last() const
 		{
 			return last_;
 		}
 
-		ConstObjectIterator end() const
+		ConstPointIterator end() const
 		{
-			ConstObjectIterator result = last_;
-			if (objects_ > 0)
+			ConstPointIterator result = last_;
+			if (points_ > 0)
 			{
 				++result;
 			}
@@ -99,26 +99,26 @@ namespace Pastel
 			return result;
 		}
 
-		void setObjects(integer objects)
+		void setPoints(integer points)
 		{
-			ASSERT_OP(objects, >=, 0);
+			ASSERT_OP(points, >=, 0);
 
-			objects_ = objects;
+			points_ = points;
 		}
 
-		integer objects() const
+		integer points() const
 		{
-			return objects_;
+			return points_;
 		}
 
 		bool empty() const
 		{
-			return objects_ == 0;
+			return points_ == 0;
 		}
 
 		void erase(
-			const ConstObjectIterator& iter,
-			const ConstObjectIterator& end)
+			const ConstPointIterator& iter,
+			const ConstPointIterator& end)
 		{
 			if (iter == first_)
 			{
@@ -136,21 +136,21 @@ namespace Pastel
 			{
 				--last_;
 			}
-			--objects_;
+			--points_;
 		}
 
 		void insert(
-			const ConstObjectIterator& first,
-			const ConstObjectIterator& last,
-			integer objects,
-			const ConstObjectIterator& end)
+			const ConstPointIterator& first,
+			const ConstPointIterator& last,
+			integer points,
+			const ConstPointIterator& end)
 		{
 			last_ = last;
 
 			if (first_ == end)
 			{
 				// If there are currently no
-				// objects in the node, set the 'last' iterator.
+				// points in the node, set the 'last' iterator.
 				first_ = first;
 			}
 
@@ -160,12 +160,12 @@ namespace Pastel
 			if (last_ == end)
 			{
 				// If there are currently no
-				// objects in the node, set the 'last' iterator.
+				// points in the node, set the 'last' iterator.
 				last_ = last;
 			}
 			*/
 
-			objects_ += objects;
+			points_ += points;
 		}
 
 		// Splitting plane
@@ -239,11 +239,11 @@ namespace Pastel
 		Node* right_;
 		Node* left_;
 
-		// Objects
+		// Points
 
-		ConstObjectIterator first_;
-		ConstObjectIterator last_;
-		uint32 objects_;
+		ConstPointIterator first_;
+		ConstPointIterator last_;
+		uint32 points_;
 
 		// Splitting plane
 
@@ -251,7 +251,7 @@ namespace Pastel
 		Real splitPosition_;
 
 		// Bounds of the contained
-		// objects on the splitting
+		// points on the splitting
 		// axis of the _parent_ node.
 
 		Real min_;

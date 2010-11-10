@@ -24,8 +24,8 @@ namespace Pastel
 			const Vector<Real, N>& maxBound,
 			integer depth) const
 		{
-			typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator 
-				ConstObjectIterator;
+			typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator 
+				ConstPointIterator;
 
 			const PointPolicy& pointPolicy = tree.pointPolicy();
 
@@ -40,14 +40,14 @@ namespace Pastel
 				// Get the positions of the points along the splitting axis.
 
 				std::vector<Real> positionSet;
-				positionSet.reserve(cursor.objects());
+				positionSet.reserve(cursor.points());
 
-				ConstObjectIterator iter = cursor.begin();
-				const ConstObjectIterator iterEnd = cursor.end();
+				ConstPointIterator iter = cursor.begin();
+				const ConstPointIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					positionSet.push_back(
-						pointPolicy(iter->object())[splitAxis]);
+						pointPolicy(iter->point())[splitAxis]);
 					++iter;
 				}
 

@@ -2,9 +2,38 @@
 #define PASTEL_ALIGNEDBOX_TOOLS_HPP
 
 #include "pastel/sys/alignedbox_tools.h"
+#include "pastel/sys/vector_tools.h"
 
 namespace Pastel
 {
+
+	template <int N>
+	integer linearIndex(
+		const Vector<integer, N>& point,
+		const Vector<integer, N>& stride)
+	{
+		return dot(point, stride);
+	}
+
+	template <int N>
+	Vector<integer, N> position(
+		integer linearIndex,
+		const Vector<integer, N>& stride)
+	{
+		const integer n = stride.dimension();
+
+		Vector<integer, N> result(
+			ofDimension(n));
+
+		for (integer i = n - 1;i > 0;--i)
+		{
+			result[i] = linearIndex / stride[i];
+			linearIndex -= result[i] * stride[i];
+		}
+		result[0] = linearIndex;
+
+		return result;
+	}
 
 	template <int N, typename PositionVisitor>
 	integer forEach(

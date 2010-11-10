@@ -1,4 +1,4 @@
-// Description: ObjectDont_AcceptPoint
+// Description: PointDont_AcceptPoint
 // Detail: Rejects a given point but accepts otherwise.
 // Documentation: acceptpoint.txt
 
@@ -11,21 +11,21 @@ namespace Pastel
 {
 
 	template <typename Type, typename DerefType>
-	class ObjectDont_AcceptPoint
+	class PointDont_AcceptPoint
 	{
 	public:
-		typedef Type Object;
+		typedef Type Point;
 
-		explicit ObjectDont_AcceptPoint(
+		explicit PointDont_AcceptPoint(
 			const DerefType& exception)
 			: exception_(exception)
 		{
 		}
 
 		bool operator()(
-			const Object& that) const
+			const Point& that) const
 		{
-			return that->object() != exception_;
+			return that->point() != exception_;
 		}
 
 	private:

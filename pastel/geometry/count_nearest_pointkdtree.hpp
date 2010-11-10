@@ -20,7 +20,7 @@ namespace Pastel
 		{
 		private:
 			typedef PointKdTree<Real, N, PointPolicy> Tree;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			typedef typename Tree::ConstPointIterator ConstPointIterator;
 
 		public:
 			explicit CandidateFunctor(
@@ -31,7 +31,7 @@ namespace Pastel
 
 			void operator()(
 				const Real& distance,
-				const ConstObjectIterator& iter) const
+				const ConstPointIterator& iter) const
 			{
 				++nearestCount_;
 			}
@@ -65,7 +65,7 @@ namespace Pastel
 
 		if (maxDistance == infinity<Real>())
 		{
-			return kdTree.objects();
+			return kdTree.points();
 		}
 
 		typedef Detail_Count_Nearest::CandidateFunctor<Real, N, PointPolicy>
@@ -133,12 +133,12 @@ namespace Pastel
 		const Vector<Real, N>& searchPoint,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance)
 	{
-		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
-			ConstObjectIterator;
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+			ConstPointIterator;
 
 		return Pastel::countNearest(
 			kdTree, searchPoint, maxDistance,
-			Always_AcceptPoint<ConstObjectIterator>());
+			Always_AcceptPoint<ConstPointIterator>());
 	}
 
 }

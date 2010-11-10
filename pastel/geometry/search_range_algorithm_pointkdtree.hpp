@@ -20,11 +20,11 @@ namespace Pastel
 	{
 		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
 
-		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
-			ConstObjectIterator;
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+			ConstPointIterator;
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor
 			Cursor;
-		typedef typename PointKdTree<Real, N, PointPolicy>::Object
+		typedef typename PointKdTree<Real, N, PointPolicy>::Point
 			Object;
 
 		// Note: we assume the search region is open.
@@ -77,7 +77,7 @@ namespace Pastel
 
 			bool foundSomething = true;
 			while(!cursor.leaf() && 
-				cursor.objects() > bucketSize)
+				cursor.points() > bucketSize)
 			{
 				const integer splitAxis = cursor.splitAxis();
 				const Real splitPosition = cursor.splitPosition();
@@ -161,33 +161,33 @@ namespace Pastel
 				continue;
 			}
 			
-			// Collect the objects.
+			// Collect the points.
 
 			if (flags == fullFlags)
 			{
-				// All objects in this subtree are
+				// All points in this subtree are
 				// in the range.
 
 				reporter.report(
 					cursor.begin(), 
 					cursor.end(),
-					cursor.objects());
+					cursor.points());
 			}
 			else
 			{
-				// Only accept objects in the range.
+				// Only accept points in the range.
 
-				ConstObjectIterator iter = cursor.begin();
-				const ConstObjectIterator iterEnd = cursor.end();
+				ConstPointIterator iter = cursor.begin();
+				const ConstPointIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					const typename PointPolicy::Object& object = iter->object();
+					const typename PointPolicy::Point& point = iter->point();
 					// Cull the point dimension by dimension.
 					integer i = 0;
 					while(i < dimension)
 					{
 						const Real position = 
-							pointPolicy(object)[i];
+							pointPolicy(point)[i];
 						if (position <= rangeMin[i] || 
 							position >= rangeMax[i])
 						{

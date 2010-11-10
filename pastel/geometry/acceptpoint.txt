@@ -15,17 +15,3 @@ the points will be processed regardless of whether they are
 included in the results or not. In particular, when using the PointKdTree,
 you should consider whether it is better to actually remove a point
 from the point-set or ignore it. 
-
-Definition
-----------
-
-[[CppCode]]:
-	class AcceptPoint_Concept
-	{
-	public:
-		typedef UserDefinedType Object;
-
-		//! Return whether to accept an object.
-		bool operator()(const Object&) const;
-	};
-

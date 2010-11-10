@@ -41,7 +41,7 @@ namespace Pastel
 			bool shouldSearchSplitNode(
 				const Cursor& cursor, integer bucketSize) const
 			{
-				return cursor.objects() <= bucketSize;
+				return cursor.points() <= bucketSize;
 			}
 
 			bool skipNode(const Cursor& cursor) const

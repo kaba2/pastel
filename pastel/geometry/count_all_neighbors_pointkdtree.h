@@ -23,7 +23,7 @@ namespace Pastel
 	A point kd-tree.
 
 	querySet:
-	A set of n object iterators to 'kdTree'. Denotes the set
+	A set of n point iterators to 'kdTree'. Denotes the set
 	of query points for which the neighbors are counted.
 	The iterator must be a random-access iterator.
 
@@ -45,13 +45,13 @@ namespace Pastel
 	must be a random-access iterator and writable.
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstObjectIterator_Iterator,
+		typename ConstPointIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator,
 		typename NormBijection>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
 		integer bucketSize,
@@ -67,12 +67,12 @@ namespace Pastel
 		Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstObjectIterator_Iterator,
+		typename ConstPointIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
 		integer bucketSize = 8);

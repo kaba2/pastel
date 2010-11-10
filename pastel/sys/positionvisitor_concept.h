@@ -1,3 +1,5 @@
+// Description: Position visitor concept
+
 #ifndef PASTEL_POSITIONVISITOR_CONCEPT_H
 #define PASTEL_POSITIONVISITOR_CONCEPT_H
 
@@ -10,6 +12,7 @@ namespace Pastel
 	class PositionVisitor_Concept
 	{
 	public:
+		//! The compile-time dimension.
 		enum {N = UserDefinedInteger};
 
 		//! Visits the given position.

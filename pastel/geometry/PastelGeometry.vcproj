@@ -585,6 +585,18 @@
 						</File>
 					</Filter>
 				</Filter>
+				<Filter
+					Name="SubPointTree"
+					>
+					<File
+						RelativePath=".\subpointtree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\subpointtree.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Range tree"
