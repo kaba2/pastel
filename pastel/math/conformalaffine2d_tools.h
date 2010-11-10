@@ -55,7 +55,7 @@ namespace Pastel
 	i:th element of the range.
 
 	Static preconditions:
-	From_PointPolicy::Coordinate matches To_PointPolicy::Coordinate
+	From_PointPolicy::Real matches To_PointPolicy::Real
 
 	The LS is an abbreviation from Least-Squares. 
 	
@@ -75,7 +75,7 @@ namespace Pastel
 		typename To_Point_ConstIterator,
 		typename From_PointPolicy,
 		typename To_PointPolicy>
-	ConformalAffine2D<typename From_PointPolicy::Coordinate, 
+	ConformalAffine2D<typename From_PointPolicy::Real, 
 	ResultN<From_PointPolicy::N, To_PointPolicy::N>::N > 
 		lsConformalAffine(
 		const ForwardRange<From_Point_ConstIterator>& from,

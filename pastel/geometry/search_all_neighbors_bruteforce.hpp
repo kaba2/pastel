@@ -80,11 +80,11 @@ namespace Pastel
 			return;
 		}
 		
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
 		typedef SmallFixedSet<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
-		typedef typename PointPolicy::ConstIterator CoordinateIterator;
+		typedef typename PointPolicy::ConstIterator RealIterator;
 
 		// Due to rounding errors exact comparisons can miss
 		// reporting some of the points, giving incorrect results.
@@ -102,7 +102,7 @@ namespace Pastel
 #		pragma omp for
 		for (integer i = 0;i < indices;++i)
 		{
-			CoordinateIterator iPoint = pointPolicy.begin(*indexSet[i]);
+			RealIterator iPoint = pointPolicy.begin(*indexSet[i]);
 
 			const Real maxDistance = maxDistanceSet[i];
 			Real cullDistance = maxDistance;
@@ -112,7 +112,7 @@ namespace Pastel
 			{
 				if (j != i)
 				{
-					CoordinateIterator jPoint = pointPolicy.begin(pointSet[j]);
+					RealIterator jPoint = pointPolicy.begin(pointSet[j]);
 
 					const Real distance = 
 						distance2(iPoint, jPoint, dimension,

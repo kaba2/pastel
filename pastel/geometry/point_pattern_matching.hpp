@@ -19,13 +19,13 @@ namespace Pastel
 {
 
 	template <typename Point_ConstIterator, typename PointPolicy>
-	typename PointPolicy::Coordinate 
+	typename PointPolicy::Real 
 		relativeToAbsoluteMatchingDistance(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy,
-		const typename PointPolicy::Coordinate& relativeMatchingDistance)
+		const typename PointPolicy::Real& relativeMatchingDistance)
 	{
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 		enum
 		{
 			N = PointPolicy::N
@@ -48,12 +48,12 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(N == 2 || N == Dynamic);
 
 			typedef PointKdTree<Real, N, ScenePolicy> SceneTree;
-			typedef typename SceneTree::ConstObjectIterator SceneIterator;
-			typedef typename SceneTree::Object SceneObject;
+			typedef typename SceneTree::ConstPointIterator SceneIterator;
+			typedef typename SceneTree::Point SceneObject;
 
 			typedef PointKdTree<Real, N, ModelPolicy> ModelTree;
-			typedef typename ModelTree::ConstObjectIterator ModelIterator;
-			typedef typename ModelTree::Object ModelObject;
+			typedef typename ModelTree::ConstPointIterator ModelIterator;
+			typedef typename ModelTree::Point ModelObject;
 
 		public:
 			PatternMatcher(
@@ -66,8 +66,8 @@ namespace Pastel
 				, modelTree_(modelTree)
 				, minMatchRatio_(minMatchRatio)
 				, confidence_(confidence)
-				, scenePoints_(sceneTree.objects())
-				, modelPoints_(modelTree.objects())
+				, scenePoints_(sceneTree.points())
+				, modelPoints_(modelTree.points())
 				, k_(0)
 				, k2_(0)
 				, k3_(0)
@@ -300,18 +300,18 @@ namespace Pastel
 				std::size_t operator()(const SceneIterator& sceneIter) const
 				{
 					const hash<SceneObject*> hash;
-					return hash(&sceneIter->object());
+					return hash(&sceneIter->point());
 				}
 			};
 
 			Vector<Real, N> scenePosition(const SceneIterator& sceneIter) const
 			{
-				return sceneTree_.pointPolicy()(sceneIter->object());
+				return sceneTree_.pointPolicy()(sceneIter->point());
 			}
 
 			Vector<Real, N> modelPosition(const ModelIterator& modelIter) const
 			{
-				return modelTree_.pointPolicy()(modelIter->object());
+				return modelTree_.pointPolicy()(modelIter->point());
 			}
 
 			bool matchLocal(
@@ -573,10 +573,10 @@ namespace Pastel
 		ENSURE_OP(scenePointPolicy.dimension(), ==, 2);
 
 		typedef PointKdTree<Real, N, Model_PointPolicy> SceneTree;
-		typedef SceneTree::ConstObjectIterator SceneIterator;
+		typedef SceneTree::ConstPointIterator SceneIterator;
 
 		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
-		typedef ModelTree::ConstObjectIterator ModelIterator;
+		typedef ModelTree::ConstPointIterator ModelIterator;
 
 		SceneTree sceneTree(false, scenePointPolicy);
 		sceneTree.insert(scene);

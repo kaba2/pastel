@@ -1,5 +1,5 @@
-PositionVisitor concept
-=======================
+Position visitor concept
+========================
 
-[[Parent]]: rectangle.txt
+[[Parent]]: alignedbox.txt
 

@@ -14,7 +14,7 @@ namespace Pastel
 	class Negate_AcceptPoint
 	{
 	public:
-		typedef typename AcceptPoint::Object Object;
+		typedef typename AcceptPoint::Point Object;
 
 		Negate_AcceptPoint()
 			: inner_()

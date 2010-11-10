@@ -46,7 +46,7 @@ Disadvantages:
 
 Choose Proposition 2.
 
-How to support different kinds of objects?
+How to support different kinds of points?
 ------------------------------------------
 
 ### Proposition 1: an object oriented interface
@@ -66,12 +66,12 @@ Disadvantages:
 
  * Performance losses because of dynamic binding
  
- * Data has to be wrapped to objects which inherit from PointKdTreeObject.
+ * Data has to be wrapped to points which inherit from PointKdTreeObject.
 
 ### Proposition 2: generic programming
 
-Store arbitrary user objects and require to supply a functor that
-gives projection to an axis given an object.
+Store arbitrary user points and require to supply a functor that
+gives projection to an axis given a point.
 
 [[CppCode]]:
 	template <typename Real, int N, typename Object,
@@ -87,7 +87,7 @@ Advantages:
  
  * Supports sharing of data (for example, store indices to a vertex buffer)
  
- * You can still use polymorphic objects (for example Object = PointKdTreeObject*)
+ * You can still use polymorphic points (for example Object = PointKdTreeObject*)
  
 Disadvantages:
 
@@ -106,7 +106,7 @@ Disadvantages:
 	public:
 		typedef int Object;
 		
-		real position(const Object& object, integer axis) const;
+		real position(const Object& point, integer axis) const;
 	};
 
 Advantages:
@@ -115,7 +115,7 @@ Advantages:
  
  * Supports sharing of data (for example, store indices to a vertex buffer)
  
- * You can still use polymorphic objects (for example Object = PointKdTreeObject*)
+ * You can still use polymorphic points (for example Object = PointKdTreeObject*)
 
 ### Decision
 
@@ -148,7 +148,7 @@ the set of added points.
 
 Choose Proposition 3.
 
-How to store the objects of a leaf node?
+How to store the points of a leaf node?
 ----------------------------------------
 
 ### Proposition 1: An array or a linked list for each node
@@ -164,12 +164,12 @@ Disadvantages:
  of a small memory region. This might
  waste more memory than needs to be.
  
- * It is not easy to access all objects of
+ * It is not easy to access all points of
  the tree as a sequence.
  
 ### Proposition 2: An array shared by all nodes
 
-Leaf nodes would refer to objects in this
+Leaf nodes would refer to points in this
 array by integer intervals.
 
 Advantages:
@@ -177,7 +177,7 @@ Advantages:
  * One big memory allocation instead of many
  small ones.
  
- * Random-access to (permuted) object list is possible.
+ * Random-access to (permuted) point list is possible.
  
  * It is possible to hide/unhide points as per
  semidynamic point sets.
@@ -191,52 +191,52 @@ Disadvantages:
  would be invalidated.
  
  * When hiding a point, the point must be kept
- in the tree's object list. I.e. while the point
- is hidden in the leaf node's object list, it is not 
- hidden in the tree's object list.
+ in the tree's point list. I.e. while the point
+ is hidden in the leaf node's point list, it is not 
+ hidden in the tree's point list.
 
 ### Proposition 3: A linked list shared by all nodes
 
-Leaf nodes would refer to objects in this list
+Leaf nodes would refer to points in this list
 by inclusive iterator intervals. Why inclusive intervals? 
-Because the object that is pointed to by an end-iterator
+Because the point that is pointed to by an end-iterator
 of a normal range can get removed.
 
 Advantages:
 
- * Sequential access to (permuted) object list possible.
+ * Sequential access to (permuted) point list possible.
  
  * It is possible to hide/unhide points as per
  semidynamic point sets.
  
  * When hiding, the points can actually be removed
- from the tree's object list.
+ from the tree's point list.
  
  * It is possible to incrementally add or remove points
- and do this fast (if one also has leaf node pointers from objects).
+ and do this fast (if one also has leaf node pointers from points).
 
 Disadvantages:
 
- * No random access to object list.
+ * No random access to point list.
  
  * Dynamic allocation for each linked list node, and
- traversal of the object list by following links might 
+ traversal of the point list by following links might 
  not be so efficient.
  
 ### Decision
 
-Random access to the object list is
+Random access to the point list is
 important when parallelizing work that is to be done for
-each point in the object list (or more properly, for each 
-object iterator in the tree). If one chooses the linked
+each point in the point list (or more properly, for each 
+point iterator in the tree). If one chooses the linked
 list approach, one can get around this problem by
-copying the iterators of the object list to a random 
+copying the iterators of the point list to a random 
 access array and then using that to carry out the task.
 One does not have this problem with an array since it
 already is random-access. However, this advantage of arrays
 is diminished when considering semidynamic point sets:
 if most of the points have been hided, then one
-still has to visit those hided points in the object list.
+still has to visit those hided points in the point list.
 Particularly because of this reason, Proposition 3 is chosen.
 
 The importance of dividing equal points evenly
@@ -270,7 +270,7 @@ for each point (its iterator) the leaf node that it is stored in.
 ### Proposition 1: Do not allow removal of points
 
 This is the only choice if one decides to store the
-objects in an array.
+points in an array.
 
 ### Proposition 2: Search the tree for the containing leaf node
 
@@ -292,8 +292,8 @@ Disadvantages:
 ### Decision
 
 Choose Proposition 3. The increased memory requirement 
-is of no concern. When a lot of objects need to be removed, 
-it would be useful to have a  function that removes all objects, 
+is of no concern. When a lot of points need to be removed, 
+it would be useful to have a  function that removes all points, 
 but leaves the subdivision structure intact.
 
 How should you deal with changing geometry?
@@ -342,7 +342,7 @@ Choose Proposition 2 as the only working one.
 Null references to children
 ---------------------------
 
-If there are no objects in a child of a split node, 
+If there are no points in a child of a split node, 
 you can either create an empty leaf node or give a null reference to
 the intermediate node. However, empty leaf nodes are helpful when you 
 want to subdivide, because then you can explicitly point to the node
@@ -528,7 +528,7 @@ Comments:
  parent links.
  
  * When removing points from a leaf node, one does the following to
- update the set of objects and their numbers at nodes.
+ update the set of points and their numbers at nodes.
  The 'begin' iterator is set to the 'begin' iterator of the
  negative child. The 'last' iterator is set to the 'last' iterator
  of the positive child. The number of points is set to the sum
@@ -552,13 +552,13 @@ Summary
  separate data structure and algorithms that use it.
  
  * Generic programming together with policy based design is 
- used to support different types of point objects (and point 
+ used to support different types of point points (and point 
  references as well).
  
  * Points are added to the tree as sets, rather than
  one by one. This is more efficient.
  
- * The objects in the tree are stored in a linked list
+ * The points in the tree are stored in a linked list
  which is shared between leaf nodes. The leaf nodes 
  refer to this list by inclusive iterator intervals.
  

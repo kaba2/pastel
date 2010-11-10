@@ -83,7 +83,7 @@ public:
 
 private:
 	typedef PointKdTree<real, 2> MyTree;
-	typedef std::vector<MyTree::ConstObjectIterator> NearestPointSet;
+	typedef std::vector<MyTree::ConstPointIterator> NearestPointSet;
 
 	virtual void onRender();
 	virtual void onKey(bool pressed, SDLKey key);
@@ -119,7 +119,7 @@ private:
 	MyTree tree_;
 	Euclidean_NormBijection<real> normBijection_;
 
-	std::vector<MyTree::ConstObjectIterator> rangePointSet_;
+	std::vector<MyTree::ConstPointIterator> rangePointSet_;
 	NearestPointSet nearestPointSet_;
 
 	bool drawTree_;
@@ -284,7 +284,7 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 
 		if (key == SDLK_x)
 		{
-			tree_.eraseObjects();
+			tree_.erasePoints();
 		}
 
 		if (key == SDLK_F5)
@@ -313,7 +313,7 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 			}
 			else
 			{
-				nearestPoints_ = tree_.objects();
+				nearestPoints_ = tree_.points();
 				if (searchRadius_ == infinity<real>())
 				{
 					searchRadius_ = SearchRadius;
@@ -380,7 +380,7 @@ void NearestNeighbor_Gfx_Ui::drawBspTree(
 	integer depth,
 	integer bucketSize)
 {
-	if (cursor.objects() <= bucketSize)
+	if (cursor.points() <= bucketSize)
 	{
 		return;
 	}
@@ -485,7 +485,7 @@ void NearestNeighbor_Gfx_Ui::drawKdTree(
 	Color color(1);
 
 	if (cursor.leaf() || 
-		cursor.objects() <= bucketSize ||
+		cursor.points() <= bucketSize ||
 		depth == treeDrawDepth_)
 	{
 		//renderer().setColor(color / std::pow((real)(depth + 1), (real)0.5));
@@ -564,7 +564,7 @@ public:
 		Iterator iter(begin);
 		while (iter != end)
 		{
-			renderer_.drawPoint(iter->object());
+			renderer_.drawPoint(iter->point());
 			++iter;
 		}
 	}
@@ -616,12 +616,12 @@ void NearestNeighbor_Gfx_Ui::redrawNearest()
 			const real alpha = (real)i / points;
 			Color color = aColor * (1 - alpha) + bColor * alpha;
 
-			MyTree::ConstObjectIterator dataIter = 
+			MyTree::ConstPointIterator dataIter = 
 				nearestPointSet_[i];
 			renderer().setColor(color);
 			renderer().setFilled(false);
 			//drawCircle(renderer_, Sphere2(dataIter->key(), 0.01), 20);
-			drawSegment(renderer(), Segment2(worldMouse, dataIter->object()));
+			drawSegment(renderer(), Segment2(worldMouse, dataIter->point()));
 		}
 	}
 
@@ -651,10 +651,10 @@ void NearestNeighbor_Gfx_Ui::redrawRange()
 	const integer points = rangePointSet_.size();
 	for (integer i = 0;i < points;++i)
 	{
-		MyTree::ConstObjectIterator dataIter(
+		MyTree::ConstPointIterator dataIter(
 			rangePointSet_[i]);
-		drawCircle(renderer(), Sphere2(dataIter->object(), 0.01 * scaling_),  20);
-		//drawSegment(renderer(), Segment2(worldMouse, dataIter->object()));
+		drawCircle(renderer(), Sphere2(dataIter->point(), 0.01 * scaling_),  20);
+		//drawSegment(renderer(), Segment2(worldMouse, dataIter->point()));
 	}
 }
 
@@ -709,7 +709,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		std::back_inserter(nearestPointSet_), 
 		NullIterator(),
 		normBijection_.toBijection(searchRadius_ * scaling_), 0,
-		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+		Always_AcceptPoint<MyTree::ConstPointIterator>(),
 		8,
 		normBijection_);
 
@@ -724,7 +724,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		const integer count2 = countNearest(tree_,
 			worldMouse,
 			searchRadius_ * scaling_,
-			Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+			Always_AcceptPoint<MyTree::ConstPointIterator>(),
 			8,
 			Maximum_NormBijection<real>());
 		searchRange(tree_, 
@@ -775,11 +775,11 @@ void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
 	searchNearest(
 		tree_,
 		center,
-		tree_.objects(),
+		tree_.points(),
 		std::back_inserter(nearestSet),
 		NullIterator(),
 		normBijection_.toBijection(radius), 0,
-		Always_AcceptPoint<MyTree::ConstObjectIterator>(),
+		Always_AcceptPoint<MyTree::ConstPointIterator>(),
 		8,
 		normBijection_);
 
@@ -807,7 +807,7 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 	timer.setStart();
 
 	newTree.insert(
-		forwardRange(tree_.objectBegin(), tree_.objectEnd()));
+		forwardRange(tree_.pointBegin(), tree_.pointEnd()));
 
 	ENSURE(check(newTree));
 
@@ -855,8 +855,8 @@ void NearestNeighbor_Gfx_Ui::timing()
 
 	timer.setStart();
 
-	MyTree::ConstObjectIterator iter(tree_.begin());
-	MyTree::ConstObjectIterator iterEnd(tree_.end());
+	MyTree::ConstPointIterator iter(tree_.begin());
+	MyTree::ConstPointIterator iterEnd(tree_.end());
 	while (iter != iterEnd)
 	{
 		nearestPointSet_.clear();
@@ -864,7 +864,7 @@ void NearestNeighbor_Gfx_Ui::timing()
 
 		searchNearest(
 			tree_, 
-			iter->object(),
+			iter->point(),
 			NearestPoints, 
 			std::back_inserter(nearestPointSet_),
 			NullIterator());
@@ -874,7 +874,7 @@ void NearestNeighbor_Gfx_Ui::timing()
 	timer.store();
 
 	cout << "Finding " << NearestPoints << " nearest neighbours for "
-		<< tree_.objects() << " points took " << timer.seconds() << " seconds." << endl;
+		<< tree_.points() << " points took " << timer.seconds() << " seconds." << endl;
 }
 
 void test()
@@ -921,7 +921,7 @@ void test()
 			randomDistribution->sample());
 	}
 
-	std::vector<PointKdTree<real, N, Array_PointPolicy<real> >::ConstObjectIterator> querySet;
+	std::vector<PointKdTree<real, N, Array_PointPolicy<real> >::ConstPointIterator> querySet;
 	for (integer i = 0;i < n;++i)
 	{
 		querySet.push_back(tree.insert(pointSet[i].rawBegin()));
@@ -931,7 +931,7 @@ void test()
 	log() << "Bounding search" << logNewLine;
 
 	Euclidean_NormBijection<real> normBijection;
-	Array<PointKdTree<real, N, Array_PointPolicy<real> >::ConstObjectIterator> nearestSet(k, n);
+	Array<PointKdTree<real, N, Array_PointPolicy<real> >::ConstPointIterator> nearestSet(k, n);
 
 	timer.setStart();
 
@@ -948,7 +948,7 @@ void test()
 	timer.store();
 
 	cout << "Finding " << k << " nearest neighbours for "
-		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
+		<< tree.points() << " points took " << timer.seconds() << " seconds." << endl;
 
 	log() << "Brute-force search" << logNewLine;
 
@@ -978,10 +978,10 @@ void test()
 		for (integer j = 0;j < k;++j)
 		{
 			const real* brute = bruteSet(j, i)->rawBegin();
-			const real* nearest = nearestSet(j, i)->object();
+			const real* nearest = nearestSet(j, i)->point();
 			const real bruteDistance = distance2(*bruteSet(j, i), pointSet[i]);
 			const real nearestDistance = 
-				distance2(nearestSet(j, i)->object(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
+				distance2(nearestSet(j, i)->point(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
 			
 			if (relativeError<real>(nearestDistance, bruteDistance) > maxRelativeError)
 			{
@@ -992,7 +992,7 @@ void test()
 
 	log() << "Wrong results = " << fuckedUp << logNewLine;
 	cout << "Finding " << k << " nearest neighbours for "
-		<< tree.objects() << " points took " << timer.seconds() << " seconds." << endl;
+		<< tree.points() << " points took " << timer.seconds() << " seconds." << endl;
 }
 
 int myMain()

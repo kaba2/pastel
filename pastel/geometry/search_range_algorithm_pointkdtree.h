@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	//! Finds all objects within an aligned box from a PointKdTree.
+	//! Finds all points within an aligned box from a PointKdTree.
 	/*!
 	Preconditions:
 	kdTree.dimension() == range.dimension()

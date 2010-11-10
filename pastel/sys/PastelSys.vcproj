@@ -948,7 +948,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Math"
+			Name="Mathematics"
 			>
 			<File
 				RelativePath=".\basic_math.txt"
@@ -1401,6 +1401,18 @@
 					RelativePath=".\intersect_alignedbox_alignedbox.hpp"
 					>
 				</File>
+				<Filter
+					Name="PositionVisitor concept"
+					>
+					<File
+						RelativePath=".\positionvisitor.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\positionvisitor_concept.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -2226,18 +2238,6 @@
 					</File>
 				</Filter>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="PositionVisitor concept"
-			>
-			<File
-				RelativePath=".\positionvisitor.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\positionvisitor_concept.h"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

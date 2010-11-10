@@ -27,7 +27,7 @@ namespace Pastel
 
 	template <typename Real, int N, 
 		typename Point_ConstIterator, typename PointPolicy>
-	Sphere<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Sphere<typename PointPolicy::Real, PointPolicy::N> 
 		relativeMatchingDistance(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy);

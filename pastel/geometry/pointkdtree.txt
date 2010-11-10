@@ -29,10 +29,10 @@ The nodes of the kd-tree can be traversed using cursors.
 From each node you can traverse either to a parent (if it exists) 
 or to left or right child (if they exist). At each node you can inspect:
 
- * How many objects are stored under the sub-tree whose root-node 
+ * How many points are stored under the sub-tree whose root-node 
  the current node is?
  
- * What those objects are? (iterator range to the object list).
+ * What those points are? (iterator range to the point list).
  
  * What are the node bounds on the splitting dimension?
  
@@ -40,13 +40,13 @@ or to left or right child (if they exist). At each node you can inspect:
  
  * What is the cursor to the parent node?
 
-### Traversal of the objects in the kd-tree
+### Traversal of the points in the kd-tree
 
-All of the objects stored in the kd-tree can be traversed as a
+All of the points stored in the kd-tree can be traversed as a
 sequence using an iterator interface. Note that their order
-can change after subdivision, and if an object is removed and
+can change after subdivision, and if a point is removed and
 immediately inserted back, it might take another position in 
-the object list.
+the point list.
 
 ### Insertion of points
 

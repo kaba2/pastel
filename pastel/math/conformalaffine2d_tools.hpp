@@ -111,7 +111,7 @@ namespace Pastel
 		typename To_Point_ConstIterator,
 		typename From_PointPolicy,
 		typename To_PointPolicy>
-	ConformalAffine2D<typename From_PointPolicy::Coordinate, 
+	ConformalAffine2D<typename From_PointPolicy::Real, 
 		ResultN<From_PointPolicy::N, To_PointPolicy::N>::N> 
 		lsConformalAffine(
 		const ForwardRange<From_Point_ConstIterator>& from,
@@ -119,9 +119,9 @@ namespace Pastel
 		const From_PointPolicy& fromPointPolicy,
 		const To_PointPolicy& toPointPolicy)
 	{
-		typedef typename From_PointPolicy::Coordinate Real;
-		typedef typename From_PointPolicy::Object FromPoint;
-		typedef typename To_PointPolicy::Object ToPoint;
+		typedef typename From_PointPolicy::Real Real;
+		typedef typename From_PointPolicy::Point FromPoint;
+		typedef typename To_PointPolicy::Point ToPoint;
 
 		enum
 		{

@@ -24,13 +24,13 @@ namespace Pastel
 		private:
 			typedef PointKdTree<Real, N, PointPolicy> Tree;
 			typedef typename Tree::Cursor Cursor;
-			typedef typename Tree::ConstObjectIterator ConstObjectIterator;
+			typedef typename Tree::ConstPointIterator ConstPointIterator;
 
 		public:
 			GenericAlgorithm(
 				const PointKdTree<Real, N, PointPolicy>& kdTree_,
 				const Vector<Real, N>& searchPoint_,
-				const typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator& searchIter_,
+				const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const AcceptPoint& acceptPoint_,
@@ -61,7 +61,7 @@ namespace Pastel
 				if (kdTree.empty())
 				{
 					// The tree does not contain
-					// any objects.
+					// any points.
 					return;
 				}
 
@@ -221,17 +221,17 @@ namespace Pastel
 			void searchBruteForce(const Cursor& cursor)
             {
                 // We are now in a bucket node.
-                // Search through the objects in this node.
+                // Search through the points in this node.
 
-                ConstObjectIterator iter = cursor.begin();
-                const ConstObjectIterator iterEnd = cursor.end();
+                ConstPointIterator iter = cursor.begin();
+                const ConstPointIterator iterEnd = cursor.end();
 
 				Real currentDistance = 0;
                 while(iter != iterEnd)
                 {
                     currentDistance = 
                         distance2(
-                        pointPolicy.begin(iter->object()),
+                        pointPolicy.begin(iter->point()),
                         searchPoint.rawBegin(),
 						dimension,
                         normBijection, 
@@ -261,7 +261,7 @@ namespace Pastel
 
 			const Tree& kdTree;
 			const Vector<Real, N>& searchPoint;
-			const typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator& searchIter;
+			const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
 			const AcceptPoint& acceptPoint;
@@ -309,7 +309,7 @@ namespace Pastel
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator& searchIter,
+		const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,
@@ -327,7 +327,7 @@ namespace Pastel
 		typedef typename SearchAlgorithm_PointKdTree::Instance<Real, Cursor> SearchAlgorithm_PointKdTree;
 
 		const Vector<Real, N> searchPoint =
-			kdTree.pointPolicy()(searchIter->object());
+			kdTree.pointPolicy()(searchIter->point());
 
 		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm_PointKdTree>
 			genericAlgorithm(kdTree, searchPoint, searchIter, maxDistance, maxRelativeError,

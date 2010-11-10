@@ -296,14 +296,14 @@ namespace
 			typedef PointKdTree<real32, Dynamic, Array_PointPolicy<real32, Dynamic> >
 				Tree;
 
-			typedef Tree::ConstObjectIterator ConstObjectIterator;
+			typedef Tree::ConstPointIterator ConstPointIterator;
 
 			std::cout << "Building a kd-tree..." << std::endl;
 
 			Tree tree(
 				ofDimension(coeffs));
 
-			std::vector<ConstObjectIterator> querySet;
+			std::vector<ConstPointIterator> querySet;
 			querySet.reserve(featureSet.height());
 
 			tree.insert(
@@ -319,13 +319,13 @@ namespace
 			//tree.refine(Fair_SplitRule_PointKdTree());
 
 			std::cout << "Tree depth " << depth(tree) << std::endl;
-			//std::cout << "Tree objects " << tree.objects() << std::endl;
+			//std::cout << "Tree points " << tree.points() << std::endl;
 
 			//std::cout << tree.bound().extent() << " " << std::endl;
 
 			std::cout << "Computing nearest neighbors..." << std::endl;
 
-			Array<ConstObjectIterator> nearestSet(
+			Array<ConstPointIterator> nearestSet(
 				kNearest, image.size(), tree.end());
 
 			searchAllNeighbors(
@@ -366,7 +366,7 @@ namespace
 
 							if (nearestSet(k, myIndex) != tree.end())
 							{
-								index = (nearestSet(k, myIndex)->object() - 
+								index = (nearestSet(k, myIndex)->point() - 
 									featureSet.rawBegin()) / coeffs;
 
 								const integer y = index / (image.width() - 8);
@@ -405,34 +405,34 @@ namespace
 
 			enum {N = Dynamic};
 			
-			typedef real32 Coordinate;
+			typedef real32 Real;
 			
-			typedef const real32* Object;
+			typedef const real32* Point;
 
 			typedef ConstSubArray<real32>::ConstIterator ConstIterator;
 
 			typedef Range_VectorExpression<real32, N, ConstIterator> 
 				Expression;
 
-			Expression operator()(const Object& object) const
+			Expression operator()(const Point& point) const
 			{
-				return rangeAsVector<Coordinate, N>(
-					randomAccessRange(begin(object), end(object)));
+				return rangeAsVector<Real, N>(
+					randomAccessRange(begin(point), end(point)));
 			}
 
-			ConstIterator begin(const Object& object) const
+			ConstIterator begin(const Point& point) const
 			{
 				const Vector2i position = 
-					image_->position(object - image_->rawBegin());
+					image_->position(point - image_->rawBegin());
 
 				return (*image_)(position, position + blockSize_).begin();
 			}
 
 			//! Returns an iterator to the end of coordinate data.
-			ConstIterator end(const Object& object) const
+			ConstIterator end(const Point& point) const
 			{
 				const Vector2i position = 
-					image_->position(object - image_->rawBegin());
+					image_->position(point - image_->rawBegin());
 
 				return (*image_)(position, position + blockSize_).end();
 			}
@@ -442,7 +442,7 @@ namespace
 				return square(blockSize_);
 			}
 
-			integer dimension(const Object& object) const
+			integer dimension(const Point& point) const
 			{
 				return dimension();
 			}				
@@ -475,7 +475,7 @@ namespace
 			typedef PointKdTree<real32, Dynamic, Block_PointPolicy>
 				Tree;
 
-			typedef Tree::ConstObjectIterator ConstObjectIterator;
+			typedef Tree::ConstPointIterator ConstPointIterator;
 
 			std::cout << "Building a kd-tree..." << std::endl;
 
@@ -495,13 +495,13 @@ namespace
 			//tree.refine(Fair_SplitRule_PointKdTree());
 
 			std::cout << "Tree depth " << depth(tree) << std::endl;
-			//std::cout << "Tree objects " << tree.objects() << std::endl;
+			//std::cout << "Tree points " << tree.points() << std::endl;
 
 			//std::cout << tree.bound().extent() << " " << std::endl;
 
-			UnorderedMap<const real32*, ConstObjectIterator> activeSet;
+			UnorderedMap<const real32*, ConstPointIterator> activeSet;
 
-			tree.eraseObjects();
+			tree.erasePoints();
 			for (integer y = 0;y < std::min(neighborhood.max().y(), image.height() - blockSize);++y)
 			{
 				for (integer x = 0;x < std::min(neighborhood.max().x(), image.width() - blockSize);++x)
@@ -515,7 +515,7 @@ namespace
 
 			std::cout << "Computing nearest neighbors..." << std::endl;
 
-			Array<ConstObjectIterator> nearestSet(
+			Array<ConstPointIterator> nearestSet(
 				kNearest, image.size(), tree.end());
 
 			Vector<real32> searchPoint(
@@ -538,7 +538,8 @@ namespace
 						infinity<real32>(),
 						maxRelativeError);
 
-					if (x > 0 && x < image.width() - blockSize - 1)
+					if ((!xShiftRight && x > 0) ||
+						(xShiftRight && x < image.width() - blockSize - 1))
 					{
 						// Shift horizontally.
 
@@ -561,6 +562,8 @@ namespace
 						{
 							for (integer i = yMin;i < yMax;++i)
 							{
+								ENSURE(activeSet.find(&image(xRemove, i)) != activeSet.end());
+
 								tree.erase(activeSet[&image(xRemove, i)]);
 								activeSet.erase(&image(xRemove, i));
 							}
@@ -583,7 +586,7 @@ namespace
 				// the x direction.
 				xShiftRight = !xShiftRight;
 
-				if (y > 0 && y < image.height() - blockSize - 1)
+				if (y < image.height() - blockSize - 1)
 				{
 					// Shift vertically.
 
@@ -601,6 +604,8 @@ namespace
 					{
 						for (integer i = xMin;i < xMax;++i)
 						{
+							ENSURE(activeSet.find(&image(i, yRemove)) != activeSet.end());
+
 							tree.erase(activeSet[&image(i, yRemove)]);
 							activeSet.erase(&image(i, yRemove));
 						}
@@ -653,7 +658,7 @@ namespace
 
 							if (nearestSet(k, myIndex) != tree.end())
 							{
-								index = nearestSet(k, myIndex)->object() - 
+								index = nearestSet(k, myIndex)->point() - 
 									image.rawBegin();
 
 								const integer y = index / (image.width() - 8);

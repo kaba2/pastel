@@ -1,5 +1,5 @@
 // Description: Array_PointPolicy class
-// Detail: Native array as a model of the PointPolicy concept.
+// Detail: Point from a pointer to coordinates
 // Documentation: pointpolicy.txt
 
 #ifndef PASTEL_ARRAY_POINTPOLICY_H
@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N_ = Dynamic>
+	template <typename Real_, int N_ = Dynamic>
 	class Array_PointPolicy
 	{
 	public:
@@ -37,24 +37,24 @@ namespace Pastel
 			PENSURE(N == Dynamic || N == dimension);
 		}
 
-		typedef Real Coordinate;
-		typedef const Coordinate* Object;
-		typedef const Coordinate* ConstIterator;
+		typedef Real_ Real;
+		typedef const Real* Point;
+		typedef const Real* ConstIterator;
 		typedef ConstArray_VectorExpression<Real, N> Expression;
 
-		ConstIterator begin(Object object) const
+		ConstIterator begin(Point point) const
 		{
-			return object;
+			return point;
 		}
 
-		ConstIterator end(Object object) const
+		ConstIterator end(Point point) const
 		{
-			return object + dimension();
+			return point + dimension();
 		}
 
-		Expression operator()(Object object) const
+		Expression operator()(Point point) const
 		{
-			return constVectorExpression<N>(object, dimension());
+			return constVectorExpression<N>(point, dimension());
 		}
 
 		integer dimension() const
@@ -64,11 +64,9 @@ namespace Pastel
 			return (N >= 0) ? N : dimension_;
 		}
 
-		integer dimension(Object object) const
+		integer dimension(Point point) const
 		{
-			// The check here is to enable compile-time
-			// optimization when N is not Dynamic.
-			return (N >= 0) ? N : dimension_;
+			return dimension();
 		}
 
 	private:

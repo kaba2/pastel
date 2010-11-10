@@ -26,10 +26,10 @@ namespace Pastel
 			enum {N = UserDefinedInteger};
 			
 			//! The type of a coordinate.
-			typedef UserDefinedType Coordinate;
+			typedef UserDefinedType Real;
 			
 			//! The type of a point reference.
-			typedef UserDefinedType Object;
+			typedef UserDefinedType Point;
 
 			//! The type of an associated vector expression.
 			typedef UserDefinedType Expression;
@@ -41,20 +41,20 @@ namespace Pastel
 			/*!
 			See the vector expression concept in vectorexpression.txt.
 			*/
-			Expression operator()(const Object& object) const;
+			Expression operator()(const Point& point) const;
 
 			//! Returns an iterator to the beginning of coordinate data.
-			ConstIterator begin(const Object& object) const;
+			ConstIterator begin(const Point& point) const;
 
 			//! Returns an iterator to the end of coordinate data.
-			ConstIterator end(const Object& object) const;
+			ConstIterator end(const Point& point) const;
 
 			//! Returns the dimensionality of all points.
 			/*!
 			If there is no specific dimensionality for all points,
 			this function should return Dynamic. In this case
 			the dimensionality of each point can be obtained
-			from the dimension(object) function. Note:
+			from the dimension(point) function. Note:
 			it does not necessarily hold that dimension() == N,
 			because one can have N == Dynamic, but still a constant
 			dimension() != Dynamic.
@@ -65,7 +65,7 @@ namespace Pastel
 			/*!
 			If N is non-negative, this function returns N.
 			*/
-			integer dimension(const Object& object) const;
+			integer dimension(const Point& point) const;
 		};
 
 	}

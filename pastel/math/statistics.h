@@ -16,16 +16,16 @@ namespace Pastel
 
 	//! Returns the mean of a point set.
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Vector<typename PointPolicy::Coordinate, PointPolicy::N> pointSetMean(
+	Vector<typename PointPolicy::Real, PointPolicy::N> pointSetMean(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy);
 
 	//! Returns the variance along each axis.
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetVariance(
 		const ForwardRange<Point_ConstIterator>& pointSet,
-		const typename PointPolicy::Object& mean,
+		const typename PointPolicy::Point& mean,
 		const PointPolicy& pointPolicy);
 
 }

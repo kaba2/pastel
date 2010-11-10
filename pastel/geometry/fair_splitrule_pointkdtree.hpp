@@ -22,8 +22,8 @@ namespace Pastel
 			const Vector<Real, N>& maxBound,
 			integer depth) const
 		{
-			typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator 
-				ConstObjectIterator;
+			typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator 
+				ConstPointIterator;
 
 			const PointPolicy& pointPolicy = tree.pointPolicy();
 
@@ -41,12 +41,12 @@ namespace Pastel
 				Real minPosition = infinity<Real>();
 				Real maxPosition = -infinity<Real>();
 
-				ConstObjectIterator iter = cursor.begin();
-				const ConstObjectIterator iterEnd = cursor.end();
+				ConstPointIterator iter = cursor.begin();
+				const ConstPointIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					const Real position = 
-						pointPolicy.point(iter->object(), splitAxis);
+						pointPolicy.point(iter->point(), splitAxis);
 					if (position < minPosition)
 					{
 						minPosition = position;

@@ -41,12 +41,12 @@ namespace Pastel
 			Data data_;
 		};
 
-		template <typename Real, int N, typename Data>
+		template <typename Real_, int N, typename Data>
 		class DataPolicy
 		{
 		public:
-			typedef DataPoint<Real, N, Data> Object;
-			typedef Real Coordinate;
+			typedef Real_ Real;
+			typedef DataPoint<Real, N, Data> Point;
 			typedef const Real* ConstIterator;
 			typedef ConstArray_VectorExpression<Real, N> Expression;
 
@@ -63,25 +63,25 @@ namespace Pastel
 				return (N != Dynamic) ? N : dimension_;
 			}
 
-			integer dimension(const Object& object) const
+			integer dimension(const Point& point) const
 			{
 				return (N != Dynamic) ? N : dimension_;
 			}
 
-			Expression operator()(const Object& object) const
+			Expression operator()(const Point& point) const
 			{
 				return constVectorExpression<N>(
-					begin(object), dimension());
+					begin(point), dimension());
 			}
 
-			ConstIterator begin(const Object& object) const
+			ConstIterator begin(const Point& point) const
 			{
-				return object.position_.rawBegin();
+				return point.position_.rawBegin();
 			}
 
-			ConstIterator end(const Object& object) const
+			ConstIterator end(const Point& point) const
 			{
-				return object.position_.rawBegin() + dimension();
+				return point.position_.rawBegin() + dimension();
 			}
 
 		private:
@@ -102,13 +102,13 @@ namespace Pastel
 			{
 			}
 
-			typedef typename PointPolicy::Object Data;
+			typedef typename PointPolicy::Point Data;
 
 			void operator()(
 				const Vector<integer, N>& position,
 				typename Data::Data_& data) const
 			{
-				typedef PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
+				typedef PointKdTree<Real, N, PointPolicy>::ConstPointIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
@@ -121,7 +121,7 @@ namespace Pastel
 					NullIterator(),
 					infinity<Real>(), maxRelativeError_);
 
-				data = nearestSet.back()->object().data_;
+				data = nearestSet.back()->point().data_;
 			}
 
 		private:

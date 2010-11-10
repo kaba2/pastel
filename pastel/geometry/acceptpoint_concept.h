@@ -11,10 +11,10 @@ namespace Pastel
 	class AcceptPoint_Concept
 	{
 	public:
-		typedef UserDefinedType Object;
+		typedef UserDefinedType Point;
 
 		//! Return whether to accept an object.
-		bool operator()(const Object&) const;
+		bool operator()(const Point& point) const;
 	};
 
 }

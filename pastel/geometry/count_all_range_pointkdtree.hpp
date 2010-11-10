@@ -12,12 +12,12 @@ namespace Pastel
 {
 
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstObjectIterator_Iterator,
+		typename ConstPointIterator_Iterator,
 		typename Real_Iterator,
 		typename Integer_OutputIterator>
 	void countAllRange(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstObjectIterator_Iterator>& querySet,
+		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
 		integer bucketSize)
@@ -34,8 +34,8 @@ namespace Pastel
 		const integer queries = querySet.size();
 		const integer dimension = kdTree.dimension();
 
-		typedef typename PointKdTree<Real, N, PointPolicy>::ConstObjectIterator
-			ConstObjectIterator;
+		typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+			ConstPointIterator;
 
 #		pragma omp parallel
 		{
@@ -53,11 +53,10 @@ namespace Pastel
 			}
 			else
 			{
-				const Vector<Real, N> queryPoint(ofDimension(dimension), 
-					withAliasing((Real*)kdTree.pointPolicy().point(querySet[i]->object())));
-
-				queryRange.min() = queryPoint - maxDistanceSet[i];
-				queryRange.max() = queryPoint + maxDistanceSet[i];
+				queryRange.min() = 
+					kdTree.pointPolicy(querySet[i]->point()) - maxDistanceSet[i];
+				queryRange.max() = 
+					kdTree.pointPolicy(querySet[i]->point()) + maxDistanceSet[i];
 
 				result[i] = countRange(
 					kdTree, 

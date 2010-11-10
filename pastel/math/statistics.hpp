@@ -10,12 +10,12 @@ namespace Pastel
 {
 
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetMean(
 		const ForwardRange<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy)
 	{
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 		enum
 		{
 			N = PointPolicy::N
@@ -48,13 +48,13 @@ namespace Pastel
 	}
 
 	template <typename Point_ConstIterator, typename PointPolicy>
-	Vector<typename PointPolicy::Coordinate, PointPolicy::N> 
+	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetVariance(
 		const ForwardRange<Point_ConstIterator>& pointSet,
-		const typename PointPolicy::Object& mean,
+		const typename PointPolicy::Point& mean,
 		const PointPolicy& pointPolicy)
 	{
-		typedef typename PointPolicy::Coordinate Real;
+		typedef typename PointPolicy::Real Real;
 		enum
 		{
 			N = PointPolicy::N

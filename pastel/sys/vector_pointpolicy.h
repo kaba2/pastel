@@ -1,5 +1,5 @@
 // Description: Vector_PointPolicy class
-// Detail: Vector as a model of the PointPolicy concept.
+// Detail: Point from a Vector
 // Documentation: pointpolicy.txt
 
 #ifndef PASTEL_VECTOR_POINTPOLICY_H
@@ -12,7 +12,7 @@
 namespace Pastel
 {
 
-	template <typename Real, int N_ = Dynamic>
+	template <typename Real_, int N_ = Dynamic>
 	class Vector_PointPolicy
 	{
 	public:
@@ -32,25 +32,25 @@ namespace Pastel
 			PENSURE(N == dimension || N == Dynamic);
 		}
 
-		typedef Real Coordinate;
-		typedef Vector<Real, N> Object;
-		typedef const Coordinate* ConstIterator;
+		typedef Real_ Real;
+		typedef Vector<Real, N> Point;
+		typedef const Real* ConstIterator;
 		typedef ConstArray_VectorExpression<Real, N> Expression;
 
-		ConstIterator begin(const Object& object) const
+		ConstIterator begin(const Point& point) const
 		{
-			return object.rawBegin();
+			return point.rawBegin();
 		}
 
-		ConstIterator end(const Object& object) const
+		ConstIterator end(const Point& point) const
 		{
-			return object.rawEnd();
+			return point.rawEnd();
 		}
 
-		Expression operator()(const Object& object) const
+		Expression operator()(const Point& point) const
 		{
 			return constVectorExpression<N>(
-				object.rawBegin(), dimension());
+				point.rawBegin(), dimension());
 		}
 
 		integer dimension() const
@@ -60,11 +60,11 @@ namespace Pastel
 			return (N >= 0) ? N : dimension_;
 		}
 
-		integer dimension(const Object& object) const
+		integer dimension(const Point& point) const
 		{
 			// The check here is to enable compile-time
 			// optimization when N is not Dynamic.
-			return (N >= 0) ? N : object.size();
+			return (N >= 0) ? N : point.size();
 		}
 	
 	private:

@@ -21,14 +21,14 @@ namespace Pastel
 		{
 		public:
 			typedef PointKdTree<Real, N, Model_PointPolicy> ModelTree;
-			typedef typename ModelTree::ConstObjectIterator 
+			typedef typename ModelTree::ConstPointIterator 
 				ConstModelIterator;
-			typedef typename ModelTree::Object ModelPoint;
+			typedef typename ModelTree::Point ModelPoint;
 
 			typedef PointKdTree<Real, N, Scene_PointPolicy> SceneTree;
-			typedef typename SceneTree::ConstObjectIterator 
+			typedef typename SceneTree::ConstPointIterator 
 				ConstSceneIterator;
-			typedef typename SceneTree::Object ScenePoint;
+			typedef typename SceneTree::Point ScenePoint;
 
 			typedef std::map<ConstSceneIterator, ConstModelIterator> 
 				PairSet;
@@ -105,9 +105,9 @@ namespace Pastel
 					{
 						tryTranslation = 
 							sceneTree.pointPolicy()(
-							scenePivotIter->object()) -
+							scenePivotIter->point()) -
 							modelTree.pointPolicy()(
-							modelPivotIter->object());
+							modelPivotIter->point());
 
 						// Find out how many points match
 						// under this translation.
@@ -118,7 +118,7 @@ namespace Pastel
 							const ConstModelIterator modelIter = modelSet[j];
 							
 							searchPoint = modelTree.pointPolicy()(
-								modelIter->object()) + 
+								modelIter->point()) + 
 								tryTranslation;
 
 							const KeyValue<Real, ConstSceneIterator> neighbor = 

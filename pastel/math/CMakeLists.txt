@@ -205,7 +205,7 @@ polynomial_tools.hpp
 )
 
 source_group(
-"Coordinate conversions"
+"Real conversions"
 FILES
 coordinates.h
 coordinates.hpp
