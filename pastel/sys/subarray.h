@@ -43,6 +43,7 @@ namespace Pastel
 			: data_(0)
 			, stride_(0)
 			, extent_(0)
+			, extentStride_(0)
 			, size_(0)
 			, dataBegin_(0)
 			, dataEnd_(0)
@@ -56,6 +57,7 @@ namespace Pastel
 			: data_(data)
 			, stride_(stride)
 			, extent_(extent)
+			, extentStride_(extent)
 			, size_(product(extent))
 			, dataBegin_(0)
 			, dataEnd_(0)
@@ -65,14 +67,6 @@ namespace Pastel
 			PENSURE(!anyEqual(stride, 0));
 
 			computeDataRange();
-		}
-
-		operator ConstSubArray<Type, N>() const
-		{
-			const ConstSubArray<Type, N> result(
-				data_, stride_, extent_);
-
-			return result;
 		}
 
 		const SubArray& operator=(
@@ -116,6 +110,7 @@ namespace Pastel
 			std::swap(data_, that.data_);
 			stride_.swap(that.stride_);
 			extent_.swap(that.extent_);
+			extentStride_.swap(that.extentStride_);
 			std::swap(size_, that.size_);
 			std::swap(dataBegin_, that.dataBegin_);
 			std::swap(dataEnd_, that.dataEnd_);
@@ -146,16 +141,6 @@ namespace Pastel
 		Type* data() const
 		{
 			return data_;
-		}
-
-		Type* rawBegin() const
-		{
-			return dataBegin_;
-		}
-
-		Type* rawEnd() const
-		{
-			return dataEnd_;
 		}
 
 		bool involves(const void* memoryBegin, const void* memoryEnd) const
@@ -242,40 +227,40 @@ namespace Pastel
 			ENSURE_OP(index, >=, 0);
 			ENSURE_OP(index, <=, size_);
 
-			const integer n = extent_.dimension();
+			const integer n = dimension();
 
-			Vector<integer, N> prodExtent(
-				ofDimension(n), 1);
-			for (integer i = 1;i < n;++i)
-			{
-				prodExtent[i] = prodExtent[i - 1] * extent_[i];
-			}
-			
 			Vector<integer, N> position(
 				ofDimension(n), 0);
 			for (integer i = n - 1;i >= 0;--i)
 			{
-				position[i] = index / prodExtent[i];
-				index -= position[i] * prodExtent[i];
+				position[i] = index / extentStride_[i];
+				index -= position[i] * extentStride_[i];
 			}
 
 			return Iterator(
-				this, position);
+				data_,
+				position,
+				extent_,
+				stride_);
 		}
 
 		Iterator begin() const
 		{
 			return Iterator(
-				this,
-				Vector<integer, N>(ofDimension(extent_.dimension()), 0));
+				data_, 
+				Vector<integer, N>(ofDimension(dimension()), 0),
+				extent_,
+				stride_);
 		}
 
 		Iterator end() const
 		{
-			const integer n = extent_.dimension();
+			const integer n = dimension();
 			return Iterator(
-				this,
-				Vector<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]));
+				data_,
+				Vector<integer, N>(unitAxis<integer, N>(n - 1) * extent_[n - 1]),
+				extent_,
+				stride_);
 		}
 
 		// Row iterators
@@ -294,9 +279,57 @@ namespace Pastel
 				stride_[index]);
 		}
 
+		Vector<integer, N> position(
+			integer index) const
+		{
+			PENSURE_OP(index, >=, 0);
+			PENSURE_OP(index, <, size());
+
+			const integer n = dimension();
+
+			Vector<integer, N> result(
+				ofDimension(n));
+
+			for (integer i = n - 1;i > 0;--i)
+			{
+				result[i] = index / extentStride_[i];
+				index -= result[i] * extentStride_[i];
+			}
+			result[0] = index;
+
+			return result;
+		}
+
+		integer index(
+			const Vector<integer, N>& position) const
+		{
+			PENSURE(allGreaterEqual(position, 0));
+			PENSURE(allLess(position, extent()));
+
+			const integer n = dimension();
+
+			integer index = position[0];
+			for (integer i = 1;i < n;++i)
+			{
+				index += extentStride_[i] * position[i];
+			}
+			
+			return index;
+		}
+
 		Type* address(const Vector<integer, N>& position) const
 		{
 			return data_ + dot(position, stride_);
+		}
+
+		Type* dataBegin() const
+		{
+			return dataBegin_;
+		}
+
+		Type* dataEnd() const
+		{
+			return dataEnd_;
 		}
 
 	private:
@@ -305,7 +338,7 @@ namespace Pastel
 			dataBegin_ = data_;
 			dataEnd_ = data_;
 
-			const integer n = extent_.dimension();
+			const integer n = dimension();
 			for (integer i = 0;i < n;++i)
 			{
 				if (stride_[i] < 0)
@@ -318,12 +351,24 @@ namespace Pastel
 				}
 			}
 			++dataEnd_;
+
+			extentStride_[0] = 1;
+			for (integer i = 1;i < n;++i)
+			{
+				extentStride_[i] = extentStride_[i - 1] * extent_[i - 1];
+			}
 		}
 
+		// Iteration region
 		Type* data_;
 		Vector<integer, N> stride_;
 		Vector<integer, N> extent_;
+
+		// Precomputed stuff
+		Vector<integer, N> extentStride_;
 		integer size_;
+
+		// Memory range
 		Type* dataBegin_;
 		Type* dataEnd_;
 	};
@@ -388,16 +433,6 @@ namespace Pastel
 			return subArray_.data();
 		}
 
-		const Type* rawBegin() const
-		{
-			return subArray_.rawBegin();
-		}
-
-		const Type* rawEnd() const
-		{
-			return subArray_.rawEnd();
-		}
-
 		bool involves(const void* memoryBegin, const void* memoryEnd) const
 		{
 			return subArray_.involves(memoryBegin, memoryEnd);
@@ -451,6 +486,16 @@ namespace Pastel
 			return subArray_.end();
 		}
 
+		const Type* dataBegin() const
+		{
+			return subArray_.dataBegin();
+		}
+
+		const Type* dataEnd() const
+		{
+			return subArray_.dataEnd();
+		}
+
 		// Row iterators
 
 		ConstRowIterator rowBegin(integer index, 
@@ -468,6 +513,16 @@ namespace Pastel
 		const Type* address(const Vector<integer, N>& position) const
 		{
 			return subArray_.address(position);
+		}
+
+		Vector<integer, N> position(integer index) const
+		{
+			return subArray_.position(index);
+		}
+
+		integer index(const Vector<integer, N>& position) const
+		{
+			return subArray_.index(position);
 		}
 
 	private:

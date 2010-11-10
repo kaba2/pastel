@@ -1635,30 +1635,34 @@
 				>
 			</File>
 			<Filter
-				Name="Log observers"
+				Name="Loggers"
 				>
 				<File
-					RelativePath=".\filelogobserver.cpp"
+					RelativePath=".\file_logger.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\filelogobserver.h"
+					RelativePath=".\file_logger.h"
 					>
 				</File>
 				<File
-					RelativePath=".\logobserver.cpp"
+					RelativePath=".\logger.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\logobserver.h"
+					RelativePath=".\logger.h"
 					>
 				</File>
 				<File
-					RelativePath=".\streamlogobserver.cpp"
+					RelativePath=".\loggers.h"
 					>
 				</File>
 				<File
-					RelativePath=".\streamlogobserver.h"
+					RelativePath=".\stream_logger.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\stream_logger.h"
 					>
 				</File>
 			</Filter>
@@ -2127,10 +2131,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
@@ -2144,6 +2144,10 @@
 			</File>
 			<File
 				RelativePath="..\..\test\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
 			<File

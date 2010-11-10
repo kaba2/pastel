@@ -14,6 +14,13 @@ namespace Pastel
 		class VectorExpression
 		{
 		public:
+			//! Compile-time dimension.
+			/*!
+			Can be either Dynamic or a positive integer.
+			If N != Dynamic, then N == dimension().
+			*/
+			enum {N = UserDefinedInteger};
+
 			//! The type of the elements.
 			typedef UserDefinedType Real;
 

@@ -403,12 +403,12 @@ log_all.h
 source_group(
 "Logging\\Log observers"
 FILES
-filelogobserver.cpp
-filelogobserver.h
-logobserver.cpp
-logobserver.h
-streamlogobserver.cpp
-streamlogobserver.h
+filelogger.cpp
+filelogger.h
+logger.cpp
+logger.h
+streamlogger.cpp
+streamlogger.h
 )
 
 source_group(
@@ -668,8 +668,8 @@ fastlist.txt
 fastlist_tools.h
 fastlist_tools.hpp
 fastlistprivate.hpp
-filelogobserver.cpp
-filelogobserver.h
+filelogger.cpp
+filelogger.h
 forwardrange.h
 functional.h
 functional.hpp
@@ -700,8 +700,8 @@ log.cpp
 log.h
 log.txt
 log_all.h
-logobserver.cpp
-logobserver.h
+logger.cpp
+logger.h
 basic_math.txt
 math_functions.cpp
 math_functions.h
@@ -829,8 +829,8 @@ stdext_destruct.hpp
 stdext_isnan.h
 stdext_subset.h
 stdext_subset.hpp
-streamlogobserver.cpp
-streamlogobserver.h
+streamlogger.cpp
+streamlogger.h
 string_tools.cpp
 string_tools.h
 string_tools.hpp

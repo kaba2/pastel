@@ -18,6 +18,8 @@
 #include <pastel/sys/subarray_tools.h>
 #include <pastel/sys/pointpolicy_all.h>
 #include <pastel/sys/string_tools.h>
+#include <pastel/sys/unorderedmap.h>
+#include <pastel/sys/nulliterator.h>
 
 #include <fstream>
 
@@ -25,6 +27,76 @@ using namespace Pastel;
 
 namespace
 {
+
+	template <typename Real_, int N_, typename ConstIterator_>
+	class Range_VectorExpression
+		: public VectorExpression<
+		Real_, N_, Range_VectorExpression<Real_, N_, ConstIterator_> >
+	{
+	public:
+		enum {N = N_};
+
+		typedef Real_ Real;
+
+		typedef ConstIterator_ ConstIterator;
+
+		Range_VectorExpression(
+			const RandomAccessRange<ConstIterator>& range)
+			: range_(range)
+		{
+		}				
+
+		ConstIterator begin() const
+		{
+			return range_.begin();
+		}
+
+		ConstIterator end() const
+		{
+			return range_.end();
+		}
+
+		integer size() const
+		{
+			return range_.size();
+		}
+
+		const Real& operator[](integer index) const
+		{
+			return range_[index];
+		}
+
+		integer dimension() const
+		{
+			return range_.size();
+		}
+
+		bool involves(
+			const void* memoryBegin, 
+			const void* memoryEnd) const
+		{
+			return false;
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin, 
+			const void* memoryEnd) const
+		{
+			return false;
+		}
+
+	private:
+		RandomAccessRange<ConstIterator> range_;
+	};
+
+	template <typename Real, int N, typename ConstIterator>
+	Range_VectorExpression<Real, N, ConstIterator>
+		rangeAsVector(
+		const RandomAccessRange<ConstIterator>& range)
+	{
+		return Range_VectorExpression<Real, N, ConstIterator>(
+			range);
+	}
 
 	class BlockMatching_Test
 		: public TestSuite
@@ -38,8 +110,9 @@ namespace
 		virtual void run()
 		{
 			//testSimple();
-			testBruteForce();
+			//testBruteForce();
 			//testApproximate();
+			testApproximate2();
 		}
 
 		void testSimple()
@@ -295,6 +368,293 @@ namespace
 							{
 								index = (nearestSet(k, myIndex)->object() - 
 									featureSet.rawBegin()) / coeffs;
+
+								const integer y = index / (image.width() - 8);
+								const integer x = index - y * (image.width() - 8);
+
+								index = y * image.width() + x;
+							}
+
+							file << index << " ";
+						}
+					}
+					else
+					{
+						for (integer k = 0;k < kNearest;++k)
+						{
+							file << -1 << " ";
+						}
+					}
+				}
+				file << std::endl;
+			}
+
+			std::cout << "Done." << std::endl;
+		}
+
+		class Block_PointPolicy
+		{
+		public:
+			Block_PointPolicy(
+				const Array<real32>& image,
+				integer blockSize)
+				: image_(&image)
+				, blockSize_(blockSize)
+			{
+			}
+
+			enum {N = Dynamic};
+			
+			typedef real32 Coordinate;
+			
+			typedef const real32* Object;
+
+			typedef ConstSubArray<real32>::ConstIterator ConstIterator;
+
+			typedef Range_VectorExpression<real32, N, ConstIterator> 
+				Expression;
+
+			Expression operator()(const Object& object) const
+			{
+				return rangeAsVector<Coordinate, N>(
+					randomAccessRange(begin(object), end(object)));
+			}
+
+			ConstIterator begin(const Object& object) const
+			{
+				const Vector2i position = 
+					image_->position(object - image_->rawBegin());
+
+				return (*image_)(position, position + blockSize_).begin();
+			}
+
+			//! Returns an iterator to the end of coordinate data.
+			ConstIterator end(const Object& object) const
+			{
+				const Vector2i position = 
+					image_->position(object - image_->rawBegin());
+
+				return (*image_)(position, position + blockSize_).end();
+			}
+
+			integer dimension() const
+			{
+				return square(blockSize_);
+			}
+
+			integer dimension(const Object& object) const
+			{
+				return dimension();
+			}				
+
+		private:
+			const Array<real32>* image_;
+			integer blockSize_;
+		};
+
+		void testApproximate2()
+		{
+			AlignedBox<integer, 2> neighborhood(
+				-19, -19, 20, 20);
+
+			const Array<real32>& image = 
+				*gfxStorage().get<Array<real32>*>("lena_gray");
+			
+			Timer timer;
+
+			timer.setStart();
+
+			const integer blockSize = 8;
+			
+			const real32 maxRelativeError = 0;
+			const integer kNearest = 8;
+
+			Block_PointPolicy pointPolicy(
+				image, blockSize);
+
+			typedef PointKdTree<real32, Dynamic, Block_PointPolicy>
+				Tree;
+
+			typedef Tree::ConstObjectIterator ConstObjectIterator;
+
+			std::cout << "Building a kd-tree..." << std::endl;
+
+			Tree tree(ofDimension(square(blockSize)), pointPolicy);
+
+			for (integer y = 0;y < image.height() - blockSize;++y)
+			{
+				for (integer x = 0;x < image.width() - blockSize;++x)
+				{
+					tree.insert(&image(x, y));
+				}
+			}
+
+			tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());	
+			//tree.refine(LongestMedian_SplitRule_PointKdTree());	
+			//tree.refine(MinimumVolume_SplitRule_PointKdTree());	
+			//tree.refine(Fair_SplitRule_PointKdTree());
+
+			std::cout << "Tree depth " << depth(tree) << std::endl;
+			//std::cout << "Tree objects " << tree.objects() << std::endl;
+
+			//std::cout << tree.bound().extent() << " " << std::endl;
+
+			UnorderedMap<const real32*, ConstObjectIterator> activeSet;
+
+			tree.eraseObjects();
+			for (integer y = 0;y < std::min(neighborhood.max().y(), image.height() - blockSize);++y)
+			{
+				for (integer x = 0;x < std::min(neighborhood.max().x(), image.width() - blockSize);++x)
+				{
+					activeSet.insert(
+						std::make_pair(
+							&image(x, y),
+							tree.insert(&image(x, y))));
+				}
+			}
+
+			std::cout << "Computing nearest neighbors..." << std::endl;
+
+			Array<ConstObjectIterator> nearestSet(
+				kNearest, image.size(), tree.end());
+
+			Vector<real32> searchPoint(
+				ofDimension(square(blockSize)));
+
+			bool xShiftRight = true;
+
+			for (integer y = 0;y < image.height() - blockSize;++y)
+			{
+				for (integer x = 0;x < image.width() - blockSize;++x)
+				{
+					searchPoint = pointPolicy(&image(x, y));
+
+					searchNearest(
+						tree,
+						searchPoint,
+						kNearest,
+						nearestSet.rowBegin(y * image.width() + x),
+						NullIterator(),
+						infinity<real32>(),
+						maxRelativeError);
+
+					if (x > 0 && x < image.width() - blockSize - 1)
+					{
+						// Shift horizontally.
+
+						const integer xAdd = 
+							xShiftRight ? 
+							x + neighborhood.max().x() : 
+							x - 1 + neighborhood.min().x();
+
+						const integer xRemove = 
+							xShiftRight ? 
+							x + neighborhood.min().x() : 
+							x - 1 + neighborhood.max().x();
+
+						const integer yMin = 
+							std::max(0, y - neighborhood.min().y());
+						const integer yMax = 
+							std::min(y + neighborhood.max().y(), image.height() - blockSize);
+
+						if (xRemove >= 0 && xRemove < image.width() - blockSize)
+						{
+							for (integer i = yMin;i < yMax;++i)
+							{
+								tree.erase(activeSet[&image(xRemove, i)]);
+								activeSet.erase(&image(xRemove, i));
+							}
+						}
+
+						if (xAdd >= 0 && xAdd < image.width() - blockSize)
+						{
+							for (integer i = yMin;i < yMax;++i)
+							{
+								activeSet.insert(
+									std::make_pair(
+									&image(xAdd, i), 
+									tree.insert(&image(xAdd, i))));
+							}
+						}
+					}
+				}
+
+				// Change the direction of the shifting in
+				// the x direction.
+				xShiftRight = !xShiftRight;
+
+				if (y > 0 && y < image.height() - blockSize - 1)
+				{
+					// Shift vertically.
+
+					const integer yAdd = y + neighborhood.max().y();
+					const integer yRemove = y + neighborhood.min().y();
+
+					const integer x = 
+						xShiftRight ? 0 : image.width() - 1;
+					const integer xMin =
+						std::max(0, y - neighborhood.min().x());
+					const integer xMax = 
+						std::min(image.width() - blockSize, x + neighborhood.max().x());
+
+					if (yRemove >= 0 && yRemove < image.height() - blockSize)
+					{
+						for (integer i = xMin;i < xMax;++i)
+						{
+							tree.erase(activeSet[&image(i, yRemove)]);
+							activeSet.erase(&image(i, yRemove));
+						}
+					}
+
+					if (yAdd >= 0 && yAdd < image.height() - blockSize)
+					{
+						for (integer i = xMin;i < xMax;++i)
+						{
+							activeSet.insert(
+								std::make_pair(
+								&image(i, yAdd), 
+								tree.insert(&image(i, yAdd))));
+						}
+					}
+				}
+			}
+
+			timer.store();
+
+			std::cout << "Computation took " << 
+				timer.seconds() << " seconds." << std::endl;
+
+			std::cout << "Saving results to file..." << std::endl;
+
+			std::string filename = 
+				std::string("lena-") + integerToString(kNearest) + 
+				"-nearest-" + integerToString(blockSize) + "x" + 
+				integerToString(blockSize) + "-kd.txt";
+
+			std::ofstream file(filename.c_str());
+			for (integer i = 0;i < image.height();++i)
+			{
+				for (integer j = 0;j < image.width();++j)
+				{
+					if (i < image.height() - 8 && 
+						j < image.width() - 8)
+					{
+						const integer myIndex = 
+							i * (image.width() - 8) + j;
+
+						const integer myReportedIndex =
+							i * image.width() + j;
+
+						file << myReportedIndex << " ";
+
+						for (integer k = 0;k < kNearest - 1;++k)
+						{
+							integer index = -1;
+
+							if (nearestSet(k, myIndex) != tree.end())
+							{
+								index = nearestSet(k, myIndex)->object() - 
+									image.rawBegin();
 
 								const integer y = index / (image.width() - 8);
 								const integer x = index - y * (image.width() - 8);

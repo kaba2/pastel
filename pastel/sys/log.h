@@ -1,12 +1,12 @@
 // Description: Log class
-// Detail: Outputs logging information to a set of LogObserver's.
+// Detail: Outputs logging information to a set of Logger's.
 
 #ifndef PASTEL_LOG_H
 #define PASTEL_LOG_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/countedptr.h"
-#include "pastel/sys/logobserver.h"
+#include "pastel/sys/logger.h"
 
 #include <set>
 
@@ -23,8 +23,8 @@ namespace Pastel
 		void swap(Log& that);
 		Log& operator=(const Log& that);
 
-		void addObserver(const LogObserverPtr& observer);
-		void removeObserver(const LogObserverPtr& observer);
+		void addLogger(const LoggerPtr& observer);
+		void removeLogger(const LoggerPtr& observer);
 
 		Log& operator<<(const std::string& value);
 		Log& operator<<(char value);
@@ -37,8 +37,10 @@ namespace Pastel
 		Log& operator<<(double value);
 		Log& operator<<(void (*function)(Log&));
 
+		void finalize();
+
 	private:
-		typedef std::set<LogObserverPtr> ObserverContainer;
+		typedef std::set<LoggerPtr> ObserverContainer;
 		typedef ObserverContainer::iterator ObserverIterator;
 		typedef ObserverContainer::const_iterator ConstObserverIterator;
 

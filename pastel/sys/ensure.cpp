@@ -109,21 +109,9 @@ namespace Pastel
 				info3Name, info3,
 				info4Name, info4);
 
-			// For a long time I though std::abort()
-			// is the only sensible thing to do, along
-			// with a break for compiler using assert.
-			// However, by throwing, one can make tests
-			// for precondition checks. In addition,
-			// when I call functions from Matlab,
-			// which then assert, I still want to return 
-			// to Matlab gracefully, reporting the assertion.
+			log().finalize();
 
-			// Place a breakpoint here, when you want to
-			// debug an invariant failure.
-
-			throw InvariantFailed(
-				fileName, lineNumber,
-				testText);
+			std::abort();
 		}
 
 		PASTELSYS void assertionError(
@@ -144,12 +132,9 @@ namespace Pastel
 				info3Name, info3,
 				info4Name, info4);
 
-			// Place a breakpoint here, when you want to
-			// debug an internal invariant failure.
+			log().finalize();
 
-			throw InvariantFailed(
-				fileName, lineNumber,
-				testText);
+			std::abort();
 		}
 
 	}
