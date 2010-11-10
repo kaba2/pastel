@@ -1,0 +1,7 @@
+File logger
+===========
+
+[[Parent]]: logger.txt
+
+The `File_Logger` class is a logger that outputs logging information 
+into a file.

@@ -1,6 +1,5 @@
 // Description: Stream_Logger class
-// Detail: Outputs logging information to a standard library stream
-// Documentation: log.txt
+// Detail: Outputs logging information into a standard library stream
 
 #ifndef PASTEL_STREAM_LOGGER_H
 #define PASTEL_STREAM_LOGGER_H

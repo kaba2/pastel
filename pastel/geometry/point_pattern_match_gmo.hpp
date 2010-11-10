@@ -39,7 +39,7 @@ namespace Pastel
 			class Unique_AcceptPoint
 			{
 			public:
-				typedef Type Object;
+				typedef Type Point;
 
 				explicit Unique_AcceptPoint(
 					const PairSet& pairSet)
@@ -48,7 +48,7 @@ namespace Pastel
 				}
 
 				bool operator()(
-					const Object& that) const
+					const Point& that) const
 				{
 					return pairSet_.find(that) == pairSet_.end();
 				}

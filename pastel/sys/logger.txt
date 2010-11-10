@@ -1,0 +1,13 @@
+Loggers
+=======
+
+[[Parent]]: log.txt
+
+A _logger_ is an object which can be attached to [log objects][Log].
+The log objects distribute textual data to loggers, which then
+store or report this data in various ways. Perhaps the most 
+common usages are outputting to screen or a file. All loggers derive
+from the `Logger` abstract base class, allowing to define additional
+types of loggers when needed.
+
+[Log]: [[Ref]]: log.txt

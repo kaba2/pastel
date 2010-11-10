@@ -1,6 +1,5 @@
 // Description: Logger class
-// Detail: An abstract class for handling logging information
-// Documentation: log.txt
+// Detail: An abstract base class for reporting logging information
 
 #ifndef PASTEL_LOGGER_H
 #define PASTEL_LOGGER_H

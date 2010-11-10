@@ -52,10 +52,10 @@ How to support different kinds of points?
 ### Proposition 1: an object oriented interface
 
 [[CppCode]]:
-	class PointKdTreeObject
+	class PointKdTreePoint
 	{
 	public:
-		virtual ~PointKdTreeObject()
+		virtual ~PointKdTreePoint()
 		{
 		}
 		
@@ -66,7 +66,7 @@ Disadvantages:
 
  * Performance losses because of dynamic binding
  
- * Data has to be wrapped to points which inherit from PointKdTreeObject.
+ * Data has to be wrapped to points which inherit from PointKdTreePoint.
 
 ### Proposition 2: generic programming
 
@@ -74,7 +74,7 @@ Store arbitrary user points and require to supply a functor that
 gives projection to an axis given a point.
 
 [[CppCode]]:
-	template <typename Real, int N, typename Object,
+	template <typename Real, int N, typename Point,
 	typename ProjectionFunctor>
 	class PointKdtree
 	{
@@ -87,7 +87,7 @@ Advantages:
  
  * Supports sharing of data (for example, store indices to a vertex buffer)
  
- * You can still use polymorphic points (for example Object = PointKdTreeObject*)
+ * You can still use polymorphic points (for example Point = PointKdTreePoint*)
  
 Disadvantages:
 
@@ -104,9 +104,9 @@ Disadvantages:
 	class PointPolicy
 	{
 	public:
-		typedef int Object;
+		typedef int Point;
 		
-		real position(const Object& point, integer axis) const;
+		real position(const Point& point, integer axis) const;
 	};
 
 Advantages:
@@ -115,7 +115,7 @@ Advantages:
  
  * Supports sharing of data (for example, store indices to a vertex buffer)
  
- * You can still use polymorphic points (for example Object = PointKdTreeObject*)
+ * You can still use polymorphic points (for example Point = PointKdTreePoint*)
 
 ### Decision
 
@@ -562,7 +562,7 @@ Summary
  which is shared between leaf nodes. The leaf nodes 
  refer to this list by inclusive iterator intervals.
  
- * Objects can be added and removed freely.
+ * Points can be added and removed freely.
  
  * Each point stores its containing leaf node to enable
  fast removal and fast bottom-up nearest neighbor searching.

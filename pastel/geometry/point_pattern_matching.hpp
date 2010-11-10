@@ -49,11 +49,11 @@ namespace Pastel
 
 			typedef PointKdTree<Real, N, ScenePolicy> SceneTree;
 			typedef typename SceneTree::ConstPointIterator SceneIterator;
-			typedef typename SceneTree::Point SceneObject;
+			typedef typename SceneTree::Point ScenePoint;
 
 			typedef PointKdTree<Real, N, ModelPolicy> ModelTree;
 			typedef typename ModelTree::ConstPointIterator ModelIterator;
-			typedef typename ModelTree::Point ModelObject;
+			typedef typename ModelTree::Point ModelPoint;
 
 		public:
 			PatternMatcher(
@@ -283,11 +283,11 @@ namespace Pastel
 				{
 				}
 
-				Vector<Real, N> operator()(const SceneObject& sceneObject) const
+				Vector<Real, N> operator()(const ScenePoint& scenePoint) const
 				{
 					return Vector<Real, N>(
 						ofDimension(sceneTree_.dimension()),
-						withAliasing((Real*)sceneTree_.pointPolicy().point(sceneObject)));
+						withAliasing((Real*)sceneTree_.pointPolicy().point(scenePoint)));
 				}
 
 			private:
@@ -299,7 +299,7 @@ namespace Pastel
 			public:
 				std::size_t operator()(const SceneIterator& sceneIter) const
 				{
-					const hash<SceneObject*> hash;
+					const hash<ScenePoint*> hash;
 					return hash(&sceneIter->point());
 				}
 			};

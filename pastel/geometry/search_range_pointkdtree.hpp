@@ -48,14 +48,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy, 
-		typename ObjectIterator_OutputIterator>
+		typename PointIterator_OutputIterator>
 	void searchRange(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		ObjectIterator_OutputIterator result,
+		PointIterator_OutputIterator result,
 		integer bucketSize)
 	{
-		Detail_SearchRange::Search_Reporter_SearchRange<ObjectIterator_OutputIterator>
+		Detail_SearchRange::Search_Reporter_SearchRange<PointIterator_OutputIterator>
 			reporter(result);
 
 		searchRangeAlgorithm(kdTree, range, reporter, bucketSize);

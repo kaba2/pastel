@@ -14,22 +14,22 @@ namespace Pastel
 	class Dont_AcceptPoint
 	{
 	public:
-		typedef Type Object;
+		typedef Type Point;
 
 		explicit Dont_AcceptPoint(
-			const Object& exception)
+			const Point& exception)
 			: exception_(exception)
 		{
 		}
 
 		bool operator()(
-			const Object& that) const
+			const Point& that) const
 		{
 			return that != exception_;
 		}
 
 	private:
-		Object exception_;
+		Point exception_;
 	};
 
 }
