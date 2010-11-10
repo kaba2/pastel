@@ -32,3 +32,34 @@ It follows that:
 Most often, one works with the elements of ''ZZ xx ZZ^+'', rather than with
 the rational numbers themselves. It must then be remembered that the
 corresponding equivalence classes are implicitly meant instead.
+
+Practice
+--------
+
+The `Rational` class template can be used in conjuction with 
+[integer types][Integer] to provide a rational number. Rationals 
+have the potential to provide exact arithmetic under restricted 
+situations.
+
+[[CppCode]]:
+	template <typename Integer>
+	class Rational;
+	
+[Integer]: [[Ref]]: integer.txt
+
+There are several values with a special meaning:
+
+* ''0 / 0'' is called _Not-A-Number_ (NaN).
+* ''x / 0'' for any ''x > 0'' is called Infinity(x).
+* ''y / 0'' for any ''y < 0'' is called MinusInfinity(y).
+ 
+It holds that:
+
+* Infinity(x) = Infinity(y), for any ''x, y != 0''.
+* MinusInfinity(x) = -Infinity(y), for any ''x, y != 0''.
+
+Thus we can simply speak of Infinity and -Infinity.
+The `Rational` class maintains two invariants:
+
+* If the number is not NaN, GCD(numerator, denominator) = 1.
+* denominator >= 0.

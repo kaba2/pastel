@@ -6,7 +6,7 @@ Small associative containers
 Practice
 --------
 
-Binary trees and hash-based containers provide excellent
+[Binary trees][Binary] and [hash tables][Hash] provide excellent
 performance for associative searches and are appropriate most
 of the time. However, when the number of stored elements is 
 low, say less than 64, it is more efficient both in time 
@@ -17,10 +17,10 @@ logarithmic. Because of this sorting invariant, the insertions
 and removals are linear time operations. However, because
 of the low number of elements and good locality of reference, 
 these are still fast operations in practice.
+For these reasons, Pastel provides the _small associative 
+containers_ `SmallSet`, `SmallMap`, and `SmallFixedSet`.
 
-For this purpose, Pastel provides the _small associative containers_
-SmallSet, SmallMap, and SmallFixedSet.
-
-
+[Binary]: [[Ref]]: redblacktree.txt
+[Hash]: [[Ref]]: unordered.txt
 
 

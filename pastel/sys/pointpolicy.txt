@@ -1,12 +1,12 @@
-PointPolicy concept
-===================
+Point abstraction
+=================
 
 [[Parent]]: basic_math.txt
 
 Theory
 ------
 
-The PointPolicy concept abstracts the representation of points 
+The `PointPolicy` concept abstracts the representation of points 
 in ''RR^n'' by an arbitrary object. This allows to create generic 
 algorithms that work not only with the Pastel's Vector, but also with 
 raw arrays, a user's own type, or even with data generated on the fly.
@@ -24,7 +24,7 @@ increases memory requirements inapproriately. A striking example of this
 kind is given by interpreting ''m xx m'' blocks of an image as points in 
 ''RR^{m^2}''. If these overlapping blocks are copied into separate point 
 data structures, then the memory requirements increase by a factor of 
-''m^2'', compared to reinterpreting the blocks using a PointPolicy.
+''m^2'', compared to reinterpreting the blocks using a `PointPolicy`.
 
 Practice
 --------

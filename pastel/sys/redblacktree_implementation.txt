@@ -67,7 +67,7 @@ boundary cases, and whether we are accessing a null-pointer or not.
 In addition to this, the sentinel node works as the one-past-end 
 iterator, when the tree is interpreted as ordered sequence. When the
 parent of the sentinel node points to the maximum node, one is able
-to naturally get to the precedessor (the maximum noed) from the 
+to naturally get to the precedessor (the maximum node) from the 
 one-past-end iterator. The color of the sentinel node is black, and it
 does not have any children. The children of the entinel node point
 to itself, a unique property which can be used to identify a sentinel

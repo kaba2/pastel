@@ -1,5 +1,5 @@
-// Description: Native float type modeling the Real concept
-// Documentation: real.txt
+// Description: Float as a real number
+// Documentation: native_reals.txt
 
 #ifndef PASTEL_FLOAT_REAL_H
 #define PASTEL_FLOAT_REAL_H

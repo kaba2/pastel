@@ -12,30 +12,6 @@ namespace Pastel
 {
 
 	//! A rational number.
-
-	/*!
-	This class can be used in conjuction with integer
-	types to provide a rational number. Rationals
-	have the potential to provide exact arithmetic
-	under restricted situations.
-
-	There are several values with a special meaning:
-	(0/0) is called 'Not-A-Number' (NaN).
-	(x/0) for any x > 0 is called 'Infinity(x)'.
-	(y/0) for any y < 0 is called 'MinusInfinity(x)'.
-	It holds that:
-	Infinity(x) = Infinity(y), for any x,y != 0.
-	MinusInfinity(x) = -Infinity(y), for any x,y != 0.
-	Also, in calculations Infinity(x) delivers the same
-	results as using Infinity(y), for any x, y != 0.
-	Thus we can simply speak of 'Infinity' and '-Infinity'.
-
-	This rational class maintains two invariants:
-	* If the number is not NaN, GCD(numerator, denominator) = 1.
-	If the number is NaN, GCD is undefined.
-	* denominator >= 0.
-	*/
-
 	template <typename Integer>
 	class Rational
 		: boost::less_than_comparable<

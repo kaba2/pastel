@@ -1,0 +1,8 @@
+Native real numbers
+===================
+
+[[Parent]]: real.txt
+
+Pastel provides support for interpreting the `float` and `double`
+types as modeling the Real concept. This support is included in
+`mytypes.h`, i.e. virtually automatically.

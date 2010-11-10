@@ -351,7 +351,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="DisjointGroups"
+				Name="Disjoint sets"
 				>
 				<File
 					RelativePath=".\disjointgroups.h"
@@ -371,7 +371,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Array"
+				Name="Multi-dimensional array"
 				>
 				<File
 					RelativePath=".\array.h"
@@ -687,7 +687,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="RedBlackTree"
+				Name="Red-black tree"
 				>
 				<File
 					RelativePath=".\redblacktree.h"
@@ -1213,6 +1213,10 @@
 						</File>
 						<File
 							RelativePath=".\float_real.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\native_reals.txt"
 							>
 						</File>
 					</Filter>

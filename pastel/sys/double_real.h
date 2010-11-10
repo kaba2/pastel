@@ -1,5 +1,5 @@
-// Description: Native double type modeling the Real concept
-// Documentation: real.txt
+// Description: Double as a real number
+// Documentation: native_reals.txt
 
 #ifndef PASTEL_DOUBLE_REAL_H
 #define PASTEL_DOUBLE_REAL_H
