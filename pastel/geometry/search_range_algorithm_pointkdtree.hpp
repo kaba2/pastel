@@ -25,7 +25,7 @@ namespace Pastel
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor
 			Cursor;
 		typedef typename PointKdTree<Real, N, PointPolicy>::Point
-			Object;
+			Point;
 
 		// Note: we assume the search region is open.
 

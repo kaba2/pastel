@@ -55,8 +55,8 @@ namespace Pastel
 	as a neighbor or not. Default construct Always_AcceptPoint class
 	to accept all candidates. Default construct Dont_AcceptPoint
 	to reject a specific ConstPointIterator of the 'kdTree'. 
-	Construct ObjectDont_AcceptPoint to reject a specific 
-	Object of the 'kdTree'.
+	Construct PointDont_AcceptPoint to reject a specific 
+	Point of the 'kdTree'.
 
 	normBijection:
 	Defines the norm used to measure distance.

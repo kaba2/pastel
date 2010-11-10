@@ -14,7 +14,7 @@ namespace Pastel
 	class Negate_AcceptPoint
 	{
 	public:
-		typedef typename AcceptPoint::Point Object;
+		typedef typename AcceptPoint::Point Point;
 
 		Negate_AcceptPoint()
 			: inner_()
@@ -27,7 +27,7 @@ namespace Pastel
 		{
 		}
 
-		bool operator()(const Object& that) const
+		bool operator()(const Point& that) const
 		{
 			return !inner_(that);
 		}

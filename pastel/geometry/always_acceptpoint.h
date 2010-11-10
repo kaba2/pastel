@@ -14,9 +14,9 @@ namespace Pastel
 	class Always_AcceptPoint
 	{
 	public:
-		typedef Type Object;		
+		typedef Type Point;		
 
-		bool operator()(const Object&) const
+		bool operator()(const Point&) const
 		{
 			return true;
 		}

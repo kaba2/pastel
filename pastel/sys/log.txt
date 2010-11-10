@@ -16,5 +16,4 @@ on the situation. In addition, there should not be a single log, but multiple
 logs which are used as needed. To address the latter need, in Pastel logs can 
 be created as objects. To address the former need, these logs can be attached
 so-called _loggers_ at run-time. These loggers do the actual logging, such
-as writing to a file, or a stream. New logger classes can be written by 
-deriving from the Logger class.
+as writing to a file, or a stream. 

@@ -57,19 +57,19 @@ namespace Pastel
 	See 'pastel/math/normbijection.txt'.
 	*/
 
-	template <typename Object_Iterator,
+	template <typename Point_Iterator,
 		typename PointPolicy,
 		typename Real_Iterator,
-		typename Object_Iterator_Iterator,
+		typename Point_Iterator_Iterator,
 		typename NormBijection>
 	void searchAllNeighborsBruteForce(
-		const RandomAccessRange<Object_Iterator>& pointSet,
+		const RandomAccessRange<Point_Iterator>& pointSet,
 		integer dimension,
 		const PointPolicy& pointPolicy,
-		Array<Object_Iterator>& nearestArray,
+		Array<Point_Iterator>& nearestArray,
 		integer kNearest,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
-		const RandomAccessRange<Object_Iterator_Iterator>& indexSet,
+		const RandomAccessRange<Point_Iterator_Iterator>& indexSet,
 		const NormBijection& normBijection);
 
 }

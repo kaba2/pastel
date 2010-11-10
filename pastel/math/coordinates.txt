@@ -1,13 +1,13 @@
-Real conversions
-======================
+Coordinate systems
+==================
 
 [[Parent]]: pastelmath.txt
 
-Real systems
-------------------
+Theory
+------
 
-A _coordinate system_ in ''RR^n'' is a function ''f : S sub RR^n -> RR^n'' such that ''f'' is a homeomorphism
-(''f'' is a continuous bijection, and so is ''f^-1'') almost everywhere. 
+A _coordinate system_ in ''RR^n'' is a function ''f : S sub RR^n -> RR^n'' 
+such that the restriction of ''f'' to some cofinite set is a homeomorphism.
 Some commonly used coordinate systems include:
 
 ### Cartesian ''RR^n''
@@ -64,9 +64,6 @@ f_{text(spherical)}^-1(x_1, x_2, x_3) = (
 (text(atan2)(sqrt(x_2^2 + x_3^2), x_1)),
 (text(atan2)(x_3, x_2)))''
 
-Generalized coordinate systems
-------------------------------
- 
 ### Spherical ''RR^n''
 
 The polar and spherical coordinate systems are 
@@ -112,8 +109,7 @@ coordinate system is thought of as the most natural coordinate system.
 For all other coordinate system Pastel offers functions to convert to Cartesian
 coordinates and back. This way, if there are ''n'' coordinate systems,
 only ''O(n)'' conversion functions are needed instead of ''O(n^2)'' for conversions
-between all systems.
-
-Pastel offers conversion functions for the generalized cylinder coordinate system,
-as well as specialized functions for spherical and cylinder coordinate systems.
+between all systems. Pastel offers conversion functions for the generalized 
+cylinder coordinate system, as well as specialized functions for spherical and 
+cylinder coordinate systems.
 

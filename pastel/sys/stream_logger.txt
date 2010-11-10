@@ -1,0 +1,7 @@
+Stream logger
+=============
+
+[[Parent]]: logger.txt
+
+The `Stream_Logger` class is a logger that outputs logging information
+into a standard library stream.

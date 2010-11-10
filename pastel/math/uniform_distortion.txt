@@ -11,8 +11,9 @@ to another point-set ''V sub RR^n'' such that if there
 is a uniform distribution on ''[0, 1]^n'' then the function maps
 it to a uniform distribution on ''V'' .
 If you simply need to generate random samples uniformly from ''V'',
-then this easier and can be done more generally. See the links
-below for more information on this.
+then that is easier and can be done more generally using [uniform sampling][Sampling].
+
+[Sampling]: [[Ref]]: uniform_sampling.txt
 
 Practice
 --------
@@ -36,11 +37,6 @@ This kind of uniform distribution distortion does not
 generalize easily to higher dimensions. To the best of 
 our knowledge, none of the distortions listed above 
 (except the simplex) have closed form solutions for n > 3.
-The situation is different if you simply need to
-generate a uniformly distributed sample rather than distort an
-existing distribution. In this case the generalization
-exists for all listed cases. See the link below for more
-information.
 
 References
 ----------
@@ -48,7 +44,3 @@ References
 _Physically Based Rendering: From Theory to Implementation_, 
 Matt Pharr, Greg Humphreys, 2004.
  
-See also
---------
-
-[[Link]]: uniform_sampling.txt

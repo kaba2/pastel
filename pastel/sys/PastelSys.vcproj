@@ -1654,14 +1654,6 @@
 				Name="Loggers"
 				>
 				<File
-					RelativePath=".\file_logger.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\file_logger.h"
-					>
-				</File>
-				<File
 					RelativePath=".\logger.cpp"
 					>
 				</File>
@@ -1670,17 +1662,45 @@
 					>
 				</File>
 				<File
+					RelativePath=".\logger.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\loggers.h"
 					>
 				</File>
-				<File
-					RelativePath=".\stream_logger.cpp"
+				<Filter
+					Name="File logger"
 					>
-				</File>
-				<File
-					RelativePath=".\stream_logger.h"
+					<File
+						RelativePath=".\file_logger.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\file_logger.h"
+						>
+					</File>
+					<File
+						RelativePath=".\file_logger.txt"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stream logger"
 					>
-				</File>
+					<File
+						RelativePath=".\stream_logger.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\stream_logger.h"
+						>
+					</File>
+					<File
+						RelativePath=".\stream_logger.txt"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

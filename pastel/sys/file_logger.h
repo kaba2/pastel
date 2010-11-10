@@ -1,6 +1,5 @@
 // Description: File_Logger class
-// Detail: Outputs logging information to a file
-// Documentation: log.txt
+// Detail: Outputs logging information into a file
 
 #ifndef PASTEL_FILE_LOGGER_H
 #define PASTEL_FILE_LOGGER_H
