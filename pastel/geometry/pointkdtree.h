@@ -414,7 +414,7 @@ namespace Pastel
 		in the given range so that the points
 		going to the left node are listed
 		before those going to the right node.
-		This reordering is done by splicing a
+		This reordering is done by splicing
 		so no copying of points is involved. 
 		The function then recurses to both nodes.
 

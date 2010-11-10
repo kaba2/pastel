@@ -1,37 +1,37 @@
-Array class
-===========
+Multi-dimensional array
+=======================
 
 [[Parent]]: data_structures.txt
 
 Practice
 --------
 
-Pastel implements the Array class template for storing and manipulating
+Pastel implements the `Array` class template for storing and manipulating
 homogeneous multi-dimensional arrays with dynamic extents. 
-Array is a class template defined as:
+`Array` is a class template defined as:
 
 [[CppCode]]:
 	template <typename Type, int N = 2>
 	class Array;
 	
-The first template parameter _Type_ is the type of the elements that are stored
-in the array. The second template parameter _N_ is the dimensionality
-of the array. For example, N = 1 corresponds roughly to an std::vector, while
-N = 2 corresponds to a matrix of values. N = Dynamic can be used for an
+The first template parameter `Type` is the type of the elements that are stored
+in the array. The second template parameter `N` is the dimensionality
+of the array. For example, `N == 1` corresponds roughly to an `std::vector`, while
+`N == 2` corresponds to a matrix of values. `N == Dynamic` can be used for an
 array whose dimensionality can be set at run-time.
 
 ### Interface documentation
 
-The Array class uses the CRTP technique in implementation. This means
+The `Array` class uses the CRTP technique in implementation. This means
 that most of the interface is contained in the ArrayBase class, which is
-a base-class of Array. Read the source code for that class for details on 
+a base-class of `Array`. Read the source code for that class for details on 
 how to use the Array class.
 
 ### Element access 
 
 #### By coordinates
 
-The elements of an Array are accessed using n-dimensional Vectors with
+The elements of an `Array` are accessed using n-dimensional Vectors with
 integer elements. For example:
 
 [[CppCode]]:
@@ -71,13 +71,13 @@ vertical direction, and fill that sub-array with twos.
 
 ### Specializations for low dimensions
 
-When the dimensionality of an Array is static and at most 3,
-the Array class template is specialized to support some additional
+When the dimensionality of an `Array` is static and at most 3,
+the `Array` class template is specialized to support some additional
 syntax. These are:
 
  * There are additional member functions width(), height(), and depth(),
  available from dimensionalities up from 1, 2, and 3, respectively.
- These refer to the first, second, and third extents of the Array.
+ These refer to the first, second, and third extents of the `Array`.
  
  * Elements can be accessed by using a list of coordinates.
  
@@ -88,7 +88,7 @@ is not needed and the dimension is fixed.
 
 ### Interpretation as a sequence
 
-While Array is a multi-dimensional data structure, it is still sometimes
+While `Array` is a multi-dimensional data structure, it is still sometimes
 useful to traverse its elements sequentially. For this purpose, the elements 
 are ordered to a sequence based on the lexicographical order of their 
 coordinates, where the first coordinate is dominant, and for k > 1, the 
@@ -99,23 +99,23 @@ Standard Library algorithms on the elements.
 
 ### Storage order
 
-The elements of an Array are stored sequentially in memory by the lexicographical
+The elements of an `Array` are stored sequentially in memory by the lexicographical
 ordering described above.
 
 ### Aliasing
 
-An Array can reuse an existing memory region for its elements.
-This is called _aliasing_. In this case Array does not release the aliased 
+An `Array` can reuse an existing memory region for its elements.
+This is called _aliasing_. In this case `Array` does not release the aliased 
 memory region when it is no longer needed. Aliasing is especially 
 useful when interfacing with another software: then the data need not
-be copied just to be able manipulate it through an Array class.
+be copied just to be able manipulate it through an `Array` class.
 When aliasing, it is important to keep in mind the storage ordering 
 of Pastel and the storage ordering of the aliased memory region. 
 For example, Matlab uses column-major storage order.
 
 ### Resizing
 
-_Resizing_ changes the extents of an Array. In this process, those coordinates
+_Resizing_ changes the extents of an `Array`. In this process, those coordinates
 which are inside the new extents preserve their value, and the possible
 newly created elements are assigned a given value. For example,
 a 2-dimensional integer array with extents (3, 4)
