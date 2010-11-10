@@ -11,8 +11,8 @@ using namespace Pastel;
 
 int main()
 {
-	log().addObserver(streamLogObserver(&std::cout));
-	log().addObserver(fileLogObserver("log.txt"));
+	log().addLogger(streamLogger(&std::cout));
+	log().addLogger(fileLogger("log.txt"));
 
 	mathTestList().console();
 

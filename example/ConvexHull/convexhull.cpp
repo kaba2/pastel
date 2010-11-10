@@ -179,8 +179,8 @@ void ConvexHull_Gfx_Ui::onGfxLogic()
 
 int myMain()
 {
-	log().addObserver(streamLogObserver(&std::cout));
-	log().addObserver(fileLogObserver("log.txt"));
+	log().addLogger(streamLogger(&std::cout));
+	log().addLogger(fileLogger("log.txt"));
 
 	deviceSystem().initialize();
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 32, false);

@@ -10,8 +10,8 @@ using namespace Pastel;
 
 int main()
 {
-	log().addObserver(streamLogObserver(&cout));
-	log().addObserver(fileLogObserver("log.txt"));
+	log().addLogger(streamLogger(&cout));
+	log().addLogger(fileLogger("log.txt"));
 
 	rayTestList().console();
 

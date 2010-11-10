@@ -37,11 +37,13 @@ namespace Pastel
 		{
 			ENSURE(allGreaterEqual(extent, 0));
 
-			Vector<integer, N> newFactor;
+			const integer n = dimension();
+
+			Vector<integer, N> newFactor(
+				ofDimension(n));
 
 			newFactor[0] = 1;
-
-			for (integer i = 1;i < N;++i)
+			for (integer i = 1;i < n;++i)
 			{
 				newFactor[i] = newFactor[i - 1] * extent[i - 1];
 			}
@@ -175,7 +177,9 @@ namespace Pastel
 			const Vector<integer, N>& extent,
 			const Type& defaultData)
 		{
-			for (integer i = 0;i < N;++i)
+			const integer n = dimension();
+
+			for (integer i = 0;i < n;++i)
 			{
 				ENSURE_OP(extent[i], >=, 0);
 			}
@@ -208,17 +212,18 @@ namespace Pastel
 		{
 			ENSURE(allGreaterEqual(extent, 0));
 
+			const integer n = dimension();
 			const integer newSize = product(extent);
 			
 			ENSURE_OP(newSize, ==, size_);
 
 			if (newSize > 0)
 			{
-				Vector<integer, N> newFactor;
+				Vector<integer, N> newFactor(
+					ofDimension(n));
 
 				newFactor[0] = 1;
-
-				for (integer i = 1;i < N;++i)
+				for (integer i = 1;i < n;++i)
 				{
 					newFactor[i] = newFactor[i - 1] * extent[i - 1];
 				}
@@ -308,8 +313,10 @@ namespace Pastel
 			PENSURE(allLessEqual(max, extent_));
 			PENSURE(allGreaterEqual(max, -1));
 
+			const integer n = dimension();
+
 			Vector<integer, N> newStride(stride_);
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < n;++i)
 			{
 				if (max[i] < min[i])
 				{
@@ -343,7 +350,9 @@ namespace Pastel
 			PENSURE(allGreaterEqual(max, -1));
 			PENSURE(!anyEqual(delta, 0));
 
-			for (integer i = 0;i < N;++i)
+			const integer n = dimension();
+
+			for (integer i = 0;i < n;++i)
 			{
 				PENSURE((min[i] < max[i]) == (delta[i] > 0));
 			}
@@ -393,129 +402,6 @@ namespace Pastel
 			// because a reference could be from this array.
 			std::fill(begin(), end(), that);
 			return *this;
-		}
-
-		// Private
-
-		template <typename Type, int N>
-		void ArrayBase<Type, N>::allocate(
-			const Vector<integer, N>& extent)
-		{
-			ASSERT(data_ == 0);
-			ASSERT(size_ == 0);
-
-			const integer units = product(extent);
-			if (units == 0)
-			{
-				return;
-			}
-
-			Type* newData = (Type*)allocateRaw(units * sizeof(Type));
-
-			// Compute steps between consecutive
-			// elements on each axis.
-
-			Vector<integer, N> newFactor;
-
-			newFactor[0] = 1;
-
-			for (integer i = 1;i < N;++i)
-			{
-				newFactor[i] = newFactor[i - 1] * extent[i - 1];
-			}
-
-			stride_ = newFactor;
-			extent_ = extent;
-			size_ = units;
-			data_ = newData;
-			deleteData_ = true;
-		}
-
-		template <typename Type, int N>
-		void ArrayBase<Type, N>::deallocate()
-		{
-			deallocateRaw((void*)data_);
-			data_ = 0;
-			size_ = 0;
-			stride_.set(0);
-			extent_.set(0);
-			deleteData_ = true;
-		}
-
-		template <typename Type, int N>
-		void ArrayBase<Type, N>::copyConstruct(
-			const ArrayBase& that,
-			const Type& defaultData)
-		{
-			if (size_ == 0)
-			{
-				return;
-			}
-
-			const Vector<integer, N> minExtent = min(extent_, that.extent_);
-
-			integer outOfCopyZone = 0;
-			integer traversed = 0;
-			Vector<integer, N> position(0);
-
-			try
-			{
-				while(traversed < size_)
-				{
-					if (outOfCopyZone == 0)
-					{
-						std::uninitialized_copy(
-							&that(position),
-							&that(position) + minExtent[0],
-							&(*this)(position));
-						
-						traversed += minExtent[0];
-
-						if (extent_[0] > minExtent[0])
-						{
-							std::uninitialized_fill_n(
-								&(*this)(position) + minExtent[0],
-								extent_[0] - minExtent[0],
-								defaultData);
-							
-							traversed -= minExtent[0];
-							traversed += extent_[0];
-						}
-					}
-					else
-					{
-						std::uninitialized_fill_n(
-							&(*this)(position),
-							extent_[0],
-							defaultData);
-
-						traversed += extent_[0];
-					}
-
-					for (integer i = 1;i < N;++i)
-					{
-						++position[i];
-						if (position[i] == minExtent[i])
-						{
-							++outOfCopyZone;
-						}
-						if (position[i] == extent_[i])
-						{
-							position[i] = 0;
-							--outOfCopyZone;
-						}
-						else
-						{
-							break;
-						}
-					}
-				}
-			}
-			catch(...)
-			{
-				StdExt::destruct(data_, data_ + traversed);
-				throw;
-			};
 		}
 
 		template <typename Type, int N>
@@ -568,12 +454,14 @@ namespace Pastel
 			const Vector<integer, N>& position, 
 			integer axis)
 		{
+			const integer n = dimension();
+
 			integer index = position[0];
 			for (integer i = 1;i < axis;++i)
 			{
 				index += position[i] * stride_[i];
 			}
-			for (integer i = axis + 1;i < N;++i)
+			for (integer i = axis + 1;i < n;++i)
 			{
 				index += position[i] * stride_[i];
 			}
@@ -612,21 +500,187 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
-		const Type* ArrayBase<Type, N>::address(const Vector<integer, N>& position) const
+		Vector<integer, N> ArrayBase<Type, N>::position(
+			integer index) const
 		{
-			const Type* result = data_ + position[0];
-			for (integer i = 1;i < N;++i)
+			PENSURE_OP(index, >=, 0);
+			PENSURE_OP(index, <, size());
+
+			const integer n = dimension();
+
+			Vector<integer, N> result(
+				ofDimension(n));
+
+			for (integer i = n - 1;i > 0;--i)
 			{
-				result += position[i] * stride_[i];
+				result[i] = index / stride_[i];
+				index -= result[i] * stride_[i];
 			}
+			result[0] = index;
 
 			return result;
 		}
 
 		template <typename Type, int N>
-		Type* ArrayBase<Type, N>::address(const Vector<integer, N>& position)
+		integer ArrayBase<Type, N>::index(
+			const Vector<integer, N>& position) const
+		{
+			PENSURE(allGreaterEqual(position, 0));
+			PENSURE(allLess(position, extent()));
+
+			const integer n = dimension();
+
+			integer index = position[0];
+			for (integer i = 1;i < n;++i)
+			{
+				index += stride_[i] * position[i];
+			}
+			
+			return index;
+		}
+
+		template <typename Type, int N>
+		const Type* ArrayBase<Type, N>::address(
+			const Vector<integer, N>& position) const
+		{
+			return data_ + index(position);
+		}
+
+		template <typename Type, int N>
+		Type* ArrayBase<Type, N>::address(
+			const Vector<integer, N>& position)
 		{
 			return (Type*)((const ArrayBase&)*this).address(position);
+		}
+
+		// Private
+
+		template <typename Type, int N>
+		void ArrayBase<Type, N>::allocate(
+			const Vector<integer, N>& extent)
+		{
+			ASSERT(data_ == 0);
+			ASSERT(size_ == 0);
+
+			const integer units = product(extent);
+			if (units == 0)
+			{
+				return;
+			}
+
+			Type* newData = (Type*)allocateRaw(units * sizeof(Type));
+
+			// Compute steps between consecutive
+			// elements on each axis.
+
+			const integer n = dimension();
+
+			Vector<integer, N> newFactor(
+				ofDimension(n));
+
+			newFactor[0] = 1;
+
+			for (integer i = 1;i < n;++i)
+			{
+				newFactor[i] = newFactor[i - 1] * extent[i - 1];
+			}
+
+			stride_ = newFactor;
+			extent_ = extent;
+			size_ = units;
+			data_ = newData;
+			deleteData_ = true;
+		}
+
+		template <typename Type, int N>
+		void ArrayBase<Type, N>::deallocate()
+		{
+			deallocateRaw((void*)data_);
+			data_ = 0;
+			size_ = 0;
+			stride_.set(0);
+			extent_.set(0);
+			deleteData_ = true;
+		}
+
+		template <typename Type, int N>
+		void ArrayBase<Type, N>::copyConstruct(
+			const ArrayBase& that,
+			const Type& defaultData)
+		{
+			if (size_ == 0)
+			{
+				return;
+			}
+
+			const integer n = dimension();
+
+			const Vector<integer, N> minExtent = 
+				min(extent_, that.extent_);
+
+			integer outOfCopyZone = 0;
+			integer traversed = 0;
+			Vector<integer, N> position(
+				ofDimension(n), 0);
+
+			try
+			{
+				while(traversed < size_)
+				{
+					if (outOfCopyZone == 0)
+					{
+						std::uninitialized_copy(
+							&that(position),
+							&that(position) + minExtent[0],
+							&(*this)(position));
+						
+						traversed += minExtent[0];
+
+						if (extent_[0] > minExtent[0])
+						{
+							std::uninitialized_fill_n(
+								&(*this)(position) + minExtent[0],
+								extent_[0] - minExtent[0],
+								defaultData);
+							
+							traversed -= minExtent[0];
+							traversed += extent_[0];
+						}
+					}
+					else
+					{
+						std::uninitialized_fill_n(
+							&(*this)(position),
+							extent_[0],
+							defaultData);
+
+						traversed += extent_[0];
+					}
+
+					for (integer i = 1;i < n;++i)
+					{
+						++position[i];
+						if (position[i] == minExtent[i])
+						{
+							++outOfCopyZone;
+						}
+						if (position[i] == extent_[i])
+						{
+							position[i] = 0;
+							--outOfCopyZone;
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+			}
+			catch(...)
+			{
+				StdExt::destruct(data_, data_ + traversed);
+				throw;
+			};
 		}
 
 	}

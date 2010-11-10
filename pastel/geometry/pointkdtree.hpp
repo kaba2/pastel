@@ -309,6 +309,22 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
+	template <typename ConstObjectIterator_ConstIterator>
+	void PointKdTree<Real, N, PointPolicy>::erase(
+		const ForwardRange<ConstObjectIterator_ConstIterator>& objectSet)
+	{
+		const ConstObjectIterator_ConstIterator iter = 
+			objectSet.begin();
+		const ConstObjectIterator_ConstIterator iterEnd = 
+			objectSet.end();
+		while(iter != iterEnd)
+		{
+			erase(*iter);
+			++iter;
+		}
+	}
+
+	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::clear()
 	{
 		objectList_.clear();

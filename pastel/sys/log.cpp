@@ -19,14 +19,27 @@ namespace Pastel
 		return *this;
 	}
 
-	void Log::addObserver(const LogObserverPtr& observer)
+	void Log::addLogger(const LoggerPtr& observer)
 	{
 		observer_.insert(observer);
 	}
 
-	void Log::removeObserver(const LogObserverPtr& observer)
+	void Log::removeLogger(const LoggerPtr& observer)
 	{
 		observer_.erase(observer);
+	}
+
+	void Log::finalize()
+	{
+		ConstObserverIterator iter(observer_.begin());
+		ConstObserverIterator iterEnd(observer_.end());
+
+		while (iter != iterEnd)
+		{
+			(*iter)->finalize();
+
+			++iter;
+		}
 	}
 
 	Log& Log::operator<<(const std::string& value)

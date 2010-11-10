@@ -230,6 +230,10 @@ namespace Pastel
 		//! Removes a point from the tree.
 		void erase(const ConstObjectIterator& iter);
 
+		//! Removes a set of points from the tree.
+		template <typename ConstObjectIterator_ConstIterator>
+		void erase(const ForwardRange<ConstObjectIterator_ConstIterator>& objectSet);
+
 		//! Clears off subdivision and objects.
 		/*!
 		Exception safety:

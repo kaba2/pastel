@@ -241,8 +241,8 @@ void LeastSquares_Gfx_Ui::generatePoints(
 
 int myMain()
 {
-	log().addObserver(streamLogObserver(&std::cout));
-	log().addObserver(fileLogObserver("log.txt"));
+	log().addLogger(streamLogger(&std::cout));
+	log().addLogger(fileLogger("log.txt"));
 
 	deviceSystem().initialize();
 	gfxDevice().initialize(ScreenWidth, ScreenHeight, 32, false);

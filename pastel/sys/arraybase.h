@@ -235,6 +235,22 @@ namespace Pastel
 				return data_ + size_;
 			}
 
+			//! Returns the position at the given linear index.
+			/*!
+			Preconditions:
+			index >= 0
+			index < size()
+			*/
+			Vector<integer, N> position(integer index) const;
+
+			//! Returns the linear index given a position.
+			/*!
+			Preconditions:
+			allGreaterEqual(position, 0)
+			allLess(position, extent())
+			*/
+			integer index(const Vector<integer, N>& position) const;
+
 			//! Returns the memory address of the given position.
 			const Type* address(const Vector<integer, N>& position) const;
 
