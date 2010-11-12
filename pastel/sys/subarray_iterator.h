@@ -182,21 +182,24 @@ namespace Pastel
 			, stride_(stride)
 			, size_(product(extent))
 			, extentStride_(extent)
-			, data_(0)
+			, data_(begin)
 			, index_(0)
 			, position_(position)
 		{
-			const integer n = dimension();
-
-			extentStride_[0] = 1;
-			for (integer i = 1;i < n;++i)
+			if (size_ > 0)
 			{
-				extentStride_[i] = 
-					extentStride_[i - 1] * extent_[i - 1];
-			}
+				const integer n = dimension();
 
-			data_ = begin_ + dot(position, stride);
-			index_ = index(position);
+				extentStride_[0] = 1;
+				for (integer i = 1;i < n;++i)
+				{
+					extentStride_[i] = 
+						extentStride_[i - 1] * extent_[i - 1];
+				}
+
+				data_ = begin_ + dot(position, stride);
+				index_ = index(position);
+			}
 		}
 
 		// Iteration region

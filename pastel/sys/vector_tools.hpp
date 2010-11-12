@@ -295,14 +295,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Expression>
-	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
+	PASTEL_ENABLE_IF_C(N > 1 || N == Dynamic, Real)
 		norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return std::sqrt(dot(that, that));
 	}
 
 	template <typename Real, int N, typename Expression>
-	typename boost::enable_if_c<(N == 1), Real>::type
+	PASTEL_ENABLE_IF_C(N == 1, Real)
 		norm(const VectorExpression<Real, N, Expression>& that)
 	{
 		return mabs(that[0]);

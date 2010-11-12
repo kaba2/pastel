@@ -16,7 +16,6 @@
 
 #include <boost/operators.hpp>
 #include <boost/type_traits/is_base_of.hpp>
-#include <boost/utility/enable_if.hpp>
 
 namespace Pastel
 {
@@ -234,9 +233,9 @@ namespace Pastel
 			}
 
 			template <typename ThatReal, int ThatN, typename Expression>
-			typename boost::disable_if<
-				boost::is_same<Expression, VectorBase<ThatReal, ThatN> >,
-				Vector<Real, N>&>::type operator=(
+			PASTEL_DISABLE_IF(
+				(boost::is_same<Expression, VectorBase<ThatReal, ThatN> >),
+				(Vector<Real, N>&)) operator=(
 				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			/*
 			template <typename ThatReal, int ThatN, typename Expression>

@@ -1,4 +1,4 @@
-// Description: Aggregate file for loggers
+// Description: An aggregate file for loggers
 
 #ifndef PASTEL_LOGGERS_H
 #define PASTEL_LOGGERS_H

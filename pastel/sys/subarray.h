@@ -36,7 +36,6 @@ namespace Pastel
 		typedef typename ConstSparseIterator<const Type*> ConstRowIterator;
 
 		// Using default copy constructor.
-		// Using default assignment.
 		// Using default destructor.
 
 		SubArray()
@@ -70,7 +69,7 @@ namespace Pastel
 		}
 
 		const SubArray& operator=(
-			const ConstSubArray<Type, N>& that) const
+			const SubArray<Type, N>& that) const
 		{
 			PENSURE(allEqual(extent_, that.extent()));
 
@@ -97,6 +96,12 @@ namespace Pastel
 			}
 
 			return *this;
+		}
+
+		const SubArray& operator=(
+			const ConstSubArray<Type, N>& that) const
+		{
+			return (*this = that.subArray_);
 		}
 
 		const SubArray& operator=(const Type& that) const
@@ -383,6 +388,8 @@ namespace Pastel
 		};
 
 	public:
+		friend class SubArray<Type, N>;
+
 		typedef SubArray_ConstIterator<Type, N> ConstIterator;
 		typedef typename ConstSparseIterator<const Type*> ConstRowIterator;
 

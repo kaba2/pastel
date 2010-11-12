@@ -459,6 +459,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_range.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_rational.cpp"
 			>
 		</File>

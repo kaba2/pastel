@@ -55,24 +55,22 @@ as well as the search radius circle.
 Keys
 ----
 
-left mouse button : spray some points
-right mouse button : erase some points
-
-F5 : toggle finite / infinite search radius (infinite at start)
-F6 : toggle searching k-nearest / all in range (k-nearest at start)
-
-1 : recompute the tree as a sliding midpoint kd-tree
-2 : recompute the tree as a longest median kd-tree
-3 : recompute the tree as a sliding midpoint bounding interval tree
-4 : recompute the tree as a longest median bounding interval tree
-+, - : increase or decrease the drawing depth of the nodes
-c : clear subdivision and all points
-x : clear all points but not the subdivision
-t : toggle drawing the tree
-p : toggle drawing the point set
-n : toggle drawing the nearest points
-w, a, s, d : translate the camera
-q, e : rotate the camera
-r, f : zoom the camera
-o : Refine the subdivision
-esc : quit
+* left mouse button : spray some points
+* right mouse button : erase some points
+* F5 : toggle finite / infinite search radius (infinite at start)
+* F6 : toggle searching k-nearest / all in range (k-nearest at start)
+* 1 : recompute the tree as a sliding midpoint kd-tree
+* 2 : recompute the tree as a longest median kd-tree
+* 3 : recompute the tree as a sliding midpoint bounding interval tree
+* 4 : recompute the tree as a longest median bounding interval tree
+* +, - : increase or decrease the drawing depth of the nodes
+* c : clear subdivision and all points
+* x : clear all points but not the subdivision
+* t : toggle drawing the tree
+* p : toggle drawing the point set
+* n : toggle drawing the nearest points
+* w, a, s, d : translate the camera
+* q, e : rotate the camera
+* r, f : zoom the camera
+* o : Refine the subdivision
+* esc : quit

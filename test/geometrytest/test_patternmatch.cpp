@@ -576,14 +576,17 @@ namespace
 		//const integer threads = getInteger(inputSet[threadsIndex]);
 		//setNumberOfThreads(threads);
 
-		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
+		typedef Array_PointPolicy<real> PointPolicy;
+
+		typedef PointKdTree<real, Dynamic, PointPolicy> SceneTree;
 		typedef SceneTree::ConstPointIterator SceneIterator;
 
-		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
+		typedef PointKdTree<real, Dynamic, PointPolicy> ModelTree;
 		typedef ModelTree::ConstPointIterator ModelIterator;
 
-		SceneTree sceneTree(
-			false, Array_PointPolicy<real>(n));
+		PointPolicy pointPolicy;
+
+		SceneTree sceneTree(pointPolicy);
 		sceneTree.insert(
 			constSparseRange(
 			countingIterator(&sceneData[0]),
@@ -593,8 +596,7 @@ namespace
 		//constSparseIterator(countingIterator(&sceneData[0]), n), 
 		//constSparseIterator(countingIterator(&sceneData[0]), n) + scenePoints);
 
-		ModelTree modelTree(
-			false, Array_PointPolicy<real>(n));
+		ModelTree modelTree(pointPolicy);
 		modelTree.insert(
 			constSparseRange(
 			countingIterator(&modelData[0]),

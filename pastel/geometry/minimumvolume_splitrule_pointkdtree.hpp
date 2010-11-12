@@ -64,7 +64,7 @@ namespace Pastel
 					const ConstPointIterator iterEnd = cursor.end();
 					while(iter != iterEnd)
 					{
-						positionSet.push_back(pointPolicy.point(iter->point(), i));
+						positionSet.push_back(pointPolicy.axis(iter->point(), i));
 						++iter;
 					}
 

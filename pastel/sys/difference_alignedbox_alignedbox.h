@@ -20,11 +20,11 @@ namespace Pastel
 	*/
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Iterator>
+		typename AlignedBox_Functor>
 	void difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Iterator output);
+		AlignedBox_Functor report);
 
 	//! Computes the symmetric set-difference between two aligned boxes.
 	/*!
@@ -37,11 +37,11 @@ namespace Pastel
 	*/
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Iterator>
+		typename AlignedBox_Functor>
 	void symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Iterator output);
+		AlignedBox_Functor report);
 
 }
 

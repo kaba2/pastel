@@ -8,8 +8,6 @@
 #include "pastel/geometry/geometrylibrary.h"
 #include "pastel/geometry/sphere.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
@@ -76,19 +74,19 @@ namespace Pastel
 	Real lnVolumeUnitSphereInfinity(integer dimension);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N == 1), Real>::type
+	PASTEL_ENABLE_IF_C(N == 1, Real)
 		volumeUnitSphere();
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N == 2), Real>::type
+	PASTEL_ENABLE_IF_C(N == 2, Real)
 		volumeUnitSphere();
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N == 3), Real>::type
+	PASTEL_ENABLE_IF_C(N == 3, Real)
 		volumeUnitSphere();
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N > 3), Real>::type
+	PASTEL_ENABLE_IF_C(N > 3, Real)
 		volumeUnitSphere();
 
 	template <typename Real>

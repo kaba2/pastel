@@ -285,9 +285,7 @@ namespace Pastel
 
 				Vector<Real, N> operator()(const ScenePoint& scenePoint) const
 				{
-					return Vector<Real, N>(
-						ofDimension(sceneTree_.dimension()),
-						withAliasing((Real*)sceneTree_.pointPolicy().point(scenePoint)));
+					return sceneTree_.pointPolicy(scenePoint);
 				}
 
 			private:
@@ -578,10 +576,10 @@ namespace Pastel
 		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
 		typedef ModelTree::ConstPointIterator ModelIterator;
 
-		SceneTree sceneTree(false, scenePointPolicy);
+		SceneTree sceneTree(scenePointPolicy);
 		sceneTree.insert(scene);
 
-		ModelTree modelTree(false, modelPointPolicy);
+		ModelTree modelTree(modelPointPolicy);
 		modelTree.insert(model);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());

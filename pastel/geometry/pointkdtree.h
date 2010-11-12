@@ -30,6 +30,13 @@ namespace Pastel
 	class PointKdTree
 	{
 	public:
+		enum
+		{
+			N_ = N
+		};
+		typedef Real Real_;
+		typedef PointPolicy PointPolicy_;
+
 		typedef typename PointPolicy::Point Point;
 		class Cursor;
 
@@ -45,13 +52,6 @@ namespace Pastel
 		typedef typename PointContainer::iterator PointIterator;
 
 	public:
-		enum
-		{
-			N_ = N
-		};
-		typedef Real Real_;
-		typedef PointPolicy PointPolicy_;
-
 		typedef typename PointContainer::const_iterator 
 			ConstPointIterator;
 		typedef boost::indirect_iterator<ConstPointIterator, const Point> 
@@ -66,8 +66,8 @@ namespace Pastel
 		constant
 		*/
 		explicit PointKdTree(
-			bool simulateKdTree = false,
-			const PointPolicy& pointPolicy = PointPolicy());
+			const PointPolicy& pointPolicy = PointPolicy(),
+			bool simulateKdTree = false);
 
 		//! Constructs a copy from another tree.
 		/*!

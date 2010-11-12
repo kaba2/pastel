@@ -6,8 +6,6 @@
 
 #include "pastel/sys/sliceview.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
