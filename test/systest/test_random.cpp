@@ -1,3 +1,6 @@
+// Description: Testing for random numbers
+// DocumentationOf: random.h
+
 #include "pastelsystest.h"
 
 #include "pastel/gfx/draw.h"

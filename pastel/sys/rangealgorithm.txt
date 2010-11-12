@@ -18,7 +18,7 @@ The range algorithm concept is useful because it allows to abstract
 out the iteration over the rows, which can be quite complicated for 
 multi-dimensional arrays.
 
-[DCT]: [[Ref]]: discretecosine.txt
+[DCT]: [[Ref]]: cosine_transform.txt
 
 Generalizations
 ---------------
@@ -40,5 +40,5 @@ of the image:
 	forEachRow(image(), Dct(), 0);
 	forEachRow(image(), Dct(), 1);
 
-[DCT]: [[Ref]]: discretecosine.txt
+[DCT]: [[Ref]]: cosine_transform.txt
 

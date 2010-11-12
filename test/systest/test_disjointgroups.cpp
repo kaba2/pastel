@@ -1,3 +1,6 @@
+// Description: Testing for DisjointGroups
+// DocumentationOf: disjointgroups.h
+
 #include "pastelsystest.h"
 
 #include <pastel/sys/disjointgroups.h>

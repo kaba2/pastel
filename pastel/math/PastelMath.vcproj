@@ -516,27 +516,23 @@
 						Name="Lu decomposition"
 						>
 						<File
-							RelativePath=".\ludecomposition.h"
+							RelativePath=".\lu_decomposition.h"
 							>
 						</File>
 						<File
-							RelativePath=".\ludecomposition.hpp"
+							RelativePath=".\lu_decomposition.hpp"
 							>
 						</File>
 						<File
-							RelativePath=".\ludecomposition.txt"
+							RelativePath=".\lu_decomposition.txt"
 							>
 						</File>
 						<File
-							RelativePath=".\ludecomposition_tools.h"
+							RelativePath=".\lu_decomposition_tools.h"
 							>
 						</File>
 						<File
-							RelativePath=".\ludecomposition_tools.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\ludecomposition_tools.txt"
+							RelativePath=".\lu_decomposition_tools.hpp"
 							>
 						</File>
 					</Filter>

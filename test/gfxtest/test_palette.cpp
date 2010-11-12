@@ -1,3 +1,6 @@
+// Description: Testing for palettes
+// DocumentationOf: color_palette.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/arrayview.h"

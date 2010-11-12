@@ -1,8 +1,8 @@
-#ifndef PASTEL_DISCRETECOSINE_HPP
-#define PASTEL_DISCRETECOSINE_HPP
+#ifndef PASTEL_COSINE_TRANSFORM_HPP
+#define PASTEL_COSINE_TRANSFORM_HPP
 
-#include "pastel/dsp/discretecosine.h"
-#include "pastel/dsp/discretefourier.h"
+#include "pastel/dsp/cosine_transform.h"
+#include "pastel/dsp/fourier_transform.h"
 
 #include <complex>
 

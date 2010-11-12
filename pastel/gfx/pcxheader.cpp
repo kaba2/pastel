@@ -1,5 +1,5 @@
 #include "pastel/gfx/pcxheader.h"
-#include "pastel/sys/endianconvert.h"
+#include "pastel/sys/endian.h"
 #include "pastel/sys/log.h"
 
 namespace Pastel

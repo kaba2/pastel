@@ -1,3 +1,6 @@
+// Description: Testing for ParallelArray
+// DocumentationOf: parallelarray.h
+
 #include "pastelsystest.h"
 #include "pastel/sys/parallelarray.h"
 

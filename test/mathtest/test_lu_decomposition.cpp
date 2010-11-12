@@ -1,10 +1,13 @@
+// Description: Testing for PluDecomposition
+// DocumentationOf: lu_decomposition.h
+
 #include "pastelmathtest.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/tuple_tools.h"
 
 #include "pastel/sys/rational_tools.h"
-#include "pastel/math/ludecomposition_tools.h"
+#include "pastel/math/lu_decomposition_tools.h"
 
 using namespace Pastel;
 

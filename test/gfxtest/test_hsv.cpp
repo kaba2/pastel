@@ -1,3 +1,6 @@
+// Description: Testing for HSV color space
+// DocumentationOf: color_hsv.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/savepcx.h"

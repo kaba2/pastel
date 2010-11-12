@@ -1,3 +1,6 @@
+// Description: Testing for filters
+// DocumentationOf: filter.h
+
 #include "pastelgfxtest.h"
 
 #include <pastel/gfx/pcx.h>

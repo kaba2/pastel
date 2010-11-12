@@ -1,3 +1,6 @@
+// Description: Testing for PoolAllocator
+// DocumentationOf: poolallocator.h
+
 #include "pastelsystest.h"
 #include "pastel/sys/poolallocator.h"
 

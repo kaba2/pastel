@@ -1,3 +1,6 @@
+// Description: Adjacent floating point numbers
+// DocumentationOf: eps.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/eps.h"

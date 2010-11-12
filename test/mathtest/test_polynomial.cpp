@@ -1,3 +1,6 @@
+// Description: Testing for Polynomial
+// DocumentationOf: polynomial.h
+
 #include "pastelmathtest.h"
 
 #include "pastel/math/polynomial.h"

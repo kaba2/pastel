@@ -1,3 +1,6 @@
+// Description: Testing for StatReal
+// DocumentationOf: statreal.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/statreal_tools.h"

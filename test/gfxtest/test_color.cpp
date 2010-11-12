@@ -1,3 +1,6 @@
+// Description: Testing for Color
+// DocumentationOf: color.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/pcx.h"

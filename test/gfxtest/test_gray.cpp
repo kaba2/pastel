@@ -1,3 +1,6 @@
+// Description: Testing for lightness
+// DocumentationOf: color_tools.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/view_tools.h"

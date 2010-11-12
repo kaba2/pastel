@@ -5,7 +5,7 @@
 #include "pastel/gfx/color_palette.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/endianconvert.h"
+#include "pastel/sys/endian.h"
 #include "pastel/sys/log.h"
 #include "pastel/sys/binaryfile.h"
 

@@ -1,3 +1,6 @@
+// Description: Testing for string tools
+// DocumentationOf: string_tools.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/string_tools.h"

@@ -40,7 +40,7 @@ property_, which means that most of the information (length) of a vector is cont
 in the first few coefficients. This property has been extensively taken advantage of 
 in image compression.
 
-[DFT]: [[Ref]]: discretefourier.txt
+[DFT]: [[Ref]]: fourier_transform.txt
 
 Practice
 --------
@@ -59,4 +59,4 @@ so that applying them to arrays is easy.
 See also
 --------
 
-[[Link]]: discretefourier.txt
+[[Link]]: fourier_transform.txt

@@ -1,3 +1,6 @@
+// Description: Testing for image processing
+// DocumentationOf: erode.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/savepcx.h"

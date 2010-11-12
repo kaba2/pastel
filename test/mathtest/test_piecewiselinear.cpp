@@ -1,3 +1,6 @@
+// Description: Testing for PiecewiseLinear
+// DocumentationOf: piecewiselinear.h
+
 #include "pastelmathtest.h"
 
 #include "pastel/math/piecewiselinear.h"

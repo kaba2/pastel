@@ -1,3 +1,6 @@
+// Description: Testing for drawing
+// DocumentationOf: draw.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/extendedconstview_all.h"

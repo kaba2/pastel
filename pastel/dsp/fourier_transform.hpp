@@ -1,7 +1,7 @@
-#ifndef PASTEL_DISCRETEFOURIER_HPP
-#define PASTEL_DISCRETEFOURIER_HPP
+#ifndef PASTEL_FOURIER_TRANSFORM_HPP
+#define PASTEL_FOURIER_TRANSFORM_HPP
 
-#include "pastel/dsp/discretefourier.h"
+#include "pastel/dsp/fourier_transform.h"
 
 #include "pastel/sys/constants.h"
 #include "pastel/sys/ensure.h"
