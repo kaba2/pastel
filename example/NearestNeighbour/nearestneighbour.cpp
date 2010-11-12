@@ -794,7 +794,8 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 	const bool kd = (treeType == TreeType::SlidingKd) || 
 		(treeType == TreeType::MedianKd);
 
-	MyTree newTree(kd);
+	MyTree newTree(
+		MyTree::PointPolicy_(), kd);
 
 	Timer timer;
 
@@ -890,7 +891,7 @@ void test()
 		N = Dynamic
 	};
 	PointKdTree<real, N, Array_PointPolicy<real> > tree(
-		true, Array_PointPolicy<real>(d));
+		Array_PointPolicy<real>(d), true);
 
 	typedef std::vector<Vector<real, N> > PointSet;
 

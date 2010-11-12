@@ -57,6 +57,11 @@ namespace Pastel
 			return constVectorExpression<N>(point, dimension());
 		}
 
+		const Real& axis(Point point, integer index) const
+		{
+			return point[index];
+		}
+
 		integer dimension() const
 		{
 			// The check here is to enable compile-time

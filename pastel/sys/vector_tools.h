@@ -7,8 +7,6 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/tuple_tools.h"
 
-#include <boost/utility/enable_if.hpp>
-
 #include <vector>
 #include <iostream>
 
@@ -126,7 +124,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename Expression>
-	typename boost::enable_if_c<(N > 1 || N == Dynamic), Real>::type
+	PASTEL_ENABLE_IF_C(N > 1 || N == Dynamic, Real)
 		norm(const VectorExpression<Real, N, Expression>& that);
 
 	//! Returns the Euclidean (L2) norm of a vector.
@@ -136,7 +134,7 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename Expression>
-	typename boost::enable_if_c<(N == 1), Real>::type
+	PASTEL_ENABLE_IF_C(N == 1, Real)
 		norm(const VectorExpression<Real, 1, Expression>& that);
 
 	//! Returns the Manhattan (L1) norm of a vector.

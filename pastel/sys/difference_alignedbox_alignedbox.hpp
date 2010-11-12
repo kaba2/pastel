@@ -7,11 +7,11 @@ namespace Pastel
 {
 
 	template <typename Real, int N_A, int N_B,
-		typename AlignedBox_Iterator>
+		typename AlignedBox_Functor>
 	void difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Iterator output)
+		AlignedBox_Functor report)
 	{
 		PASTEL_STATIC_ASSERT(
 			N_A == N_B || 
@@ -47,10 +47,23 @@ namespace Pastel
 			{
 				const Real previousMax = cutBox.max()[i];
 
-				// Form the cut-out box,
-				cutBox.max()[i] = bBox.min()[i];
-				// and report it.
-				*output = cutBox;
+				if (previousMax <= bBox.min()[i])
+				{
+					// The whole box is included in
+					// the cut-out box.
+					report(cutBox);
+
+					// There is nothing more to report.
+					return;
+				}
+				else
+				{
+					// Form the cut-out box,
+					cutBox.max()[i] = bBox.min()[i];
+
+					// and report it.
+					report(cutBox);
+				}
 
 				// Form the rest of the box,
 				cutBox.min()[i] = bBox.min()[i];
@@ -67,10 +80,23 @@ namespace Pastel
 			{
 				const Real previousMin = cutBox.min()[i];
 
-				// Form the cut-out box,
-				cutBox.min()[i] = bBox.max()[i];
-				// and report it.
-				*output = cutBox;
+				if (previousMin >= bBox.max()[i])
+				{
+					// The whole box is included in
+					// the cut-out box.
+					report(cutBox);
+
+					// There is nothing more to report.
+					return;
+				}
+				else
+				{
+					// Form the cut-out box,
+					cutBox.min()[i] = bBox.max()[i];
+
+					// and report it.
+					report(cutBox);
+				}
 
 				// Form the rest of the box,
 				cutBox.min()[i] = previousMin;
@@ -82,14 +108,14 @@ namespace Pastel
 
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Iterator>
+		typename AlignedBox_Functor>
 	void symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Iterator output)
+		AlignedBox_Functor report)
 	{
-		difference(aBox, bBox, output);
-		difference(bBox, aBox, output);
+		difference(aBox, bBox, report);
+		difference(bBox, aBox, report);
 	}
 
 }

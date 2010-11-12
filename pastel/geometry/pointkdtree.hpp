@@ -14,8 +14,8 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	PointKdTree<Real, N, PointPolicy>::PointKdTree(
-		bool simulateKdTree,
-		const PointPolicy& pointPolicy)
+		const PointPolicy& pointPolicy,
+		bool simulateKdTree)
 		: pointList_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)

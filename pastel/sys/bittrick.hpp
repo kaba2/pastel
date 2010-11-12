@@ -7,7 +7,7 @@ namespace Pastel
 {
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits < FromBits), Integer)
 		scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
@@ -22,14 +22,14 @@ namespace Pastel
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits == FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits == FromBits), Integer)
 		scaleInteger(const Integer& number)
 	{
 		return number;
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits > FromBits && ToBits <= 2 * FromBits), Integer)
 		scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
@@ -47,7 +47,7 @@ namespace Pastel
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer)
 		scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);
@@ -66,7 +66,7 @@ namespace Pastel
 	}
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer)
 		scaleInteger(const Integer& number)
 	{
 		PASTEL_STATIC_ASSERT(FromBits > 0);

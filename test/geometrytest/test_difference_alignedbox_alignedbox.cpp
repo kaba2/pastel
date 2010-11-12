@@ -40,10 +40,12 @@ namespace
 				AlignedBox2(0, 0, 6, 6));
 			
 			std::vector<AlignedBox2> boxSet;
+			/*
 			symmetricDifference(
 				AlignedBox2(0, 0, 4, 4),
 				AlignedBox2(2, 2, 6, 6),
 				std::back_inserter(boxSet));
+			*/
 
 			for (integer i = 0;i < boxSet.size();++i)
 			{

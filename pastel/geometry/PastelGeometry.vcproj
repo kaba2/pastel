@@ -586,14 +586,14 @@
 					</Filter>
 				</Filter>
 				<Filter
-					Name="SubPointTree"
+					Name="WindowedPointTree"
 					>
 					<File
-						RelativePath=".\subpointtree.h"
+						RelativePath=".\windowedpointtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\subpointtree.hpp"
+						RelativePath=".\windowedpointtree.hpp"
 						>
 					</File>
 				</Filter>

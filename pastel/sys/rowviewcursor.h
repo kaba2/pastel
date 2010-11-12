@@ -6,8 +6,6 @@
 
 #include "pastel/sys/rowview.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
@@ -46,10 +44,10 @@ namespace Pastel
 			}
 
 			template <int Index>
-			typename boost::disable_if_c<Index == 0>::type increment();
+			PASTEL_DISABLE_IF_C(Index == 0, void) increment();
 
 			template <int Index>
-			typename boost::enable_if_c<Index == 0>::type increment()
+			PASTEL_ENABLE_IF_C(Index == 0, void) increment()
 			{
 				cursor_.increment(freeIndex_);
 			}
@@ -62,10 +60,10 @@ namespace Pastel
 			}
 
 			template <int Index>
-			typename boost::disable_if_c<Index == 0>::type decrement();
+			PASTEL_DISABLE_IF_C(Index == 0, void) decrement();
 
 			template <int Index>
-			typename boost::enable_if_c<Index == 0>::type decrement()
+			PASTEL_ENABLE_IF_C(Index == 0, void) decrement()
 			{
 				cursor_.decrement(freeIndex_);
 			}
@@ -78,10 +76,10 @@ namespace Pastel
 			}
 
 			template <int Index>
-			typename boost::disable_if_c<Index == 0>::type move(integer amount);
+			PASTEL_DISABLE_IF_C(Index == 0, void) move(integer amount);
 
 			template <int Index>
-			typename boost::enable_if_c<Index == 0>::type move(integer amount)
+			PASTEL_ENABLE_IF_C(Index == 0, void) move(integer amount)
 			{
 				cursor_.move(freeIndex_, amount);
 			}

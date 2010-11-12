@@ -41,28 +41,28 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N == 1), Real>::type
+	PASTEL_ENABLE_IF_C(N == 1, Real)
 		volumeUnitSphere()
 	{
 		return 2;
 	}
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N == 2), Real>::type
+	PASTEL_ENABLE_IF_C(N == 2, Real)
 		volumeUnitSphere()
 	{
 		return constantPi<Real>();
 	}
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N == 3), Real>::type
+	PASTEL_ENABLE_IF_C(N == 3, Real)
 		volumeUnitSphere()
 	{
 		return ((real)4 / 3) * constantPi<Real>();
 	}
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N > 3), Real>::type
+	PASTEL_ENABLE_IF_C(N > 3, Real)
 		volumeUnitSphere()
 	{
 		return areaUnitSphere<Real, N>() / N;

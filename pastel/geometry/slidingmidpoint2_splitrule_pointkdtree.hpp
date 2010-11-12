@@ -53,7 +53,9 @@ namespace Pastel
 				while(iter != iterEnd)
 				{
 					const Real position = 
-						pointPolicy(iter->point())[splitAxis];
+						pointPolicy.axis(iter->point(), splitAxis);
+
+						//pointPolicy(iter->point())[splitAxis];
 					if (position < splitPosition)
 					{
 						if (position > leftMax)

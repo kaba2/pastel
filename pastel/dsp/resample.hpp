@@ -488,7 +488,7 @@ namespace Pastel
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View>
-		typename boost::enable_if_c<(N > 1), void>::type
+		PASTEL_ENABLE_IF_C(N > 1, void)
 		resampleTable(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
@@ -573,7 +573,7 @@ namespace Pastel
 		typename Input_View,
 		typename Output_Element,
 		typename Output_View>
-		typename boost::enable_if_c<(N > 1), void>::type
+		PASTEL_ENABLE_IF_C(N > 1, void)
 		resample(
 		const ConstView<N, Input_Element, Input_View>& input,
 		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,

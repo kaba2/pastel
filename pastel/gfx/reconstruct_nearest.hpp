@@ -74,6 +74,11 @@ namespace Pastel
 					begin(point), dimension());
 			}
 
+			const Real& axis(const Point& point, integer index) const
+			{
+				return point.position_[index];
+			}
+
 			ConstIterator begin(const Point& point) const
 			{
 				return point.position_.rawBegin();
@@ -149,8 +154,9 @@ namespace Pastel
 		typedef Detail_ReconstructNearest::DataPoint<Real, N, Data> DataPoint;
 		typedef Detail_ReconstructNearest::DataPolicy<Real, N, Data> DataPolicy;
 
-		PointKdTree<Real, N, DataPolicy> kdTree(
-			false, DataPolicy(n));
+		DataPolicy pointPolicy(n);
+
+		PointKdTree<Real, N, DataPolicy> kdTree(pointPolicy);
 
 		const Vector<Real, N> scaling = 
 			inverse(region.extent()) * Vector<Real, N>(view.extent());

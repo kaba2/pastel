@@ -184,8 +184,9 @@ namespace Pastel
 		typedef Detail_ReconstructFilter::DataPoint<Real, N, Data> DataPoint;
 		typedef Detail_ReconstructFilter::DataPolicy<Real, N, Data> DataPolicy;
 
-		PointKdTree<Real, N, DataPolicy> kdTree(
-			false, DataPolicy(n));
+		DataPolicy pointPolicy(n);
+
+		PointKdTree<Real, N, DataPolicy> kdTree(pointPolicy);
 
 		const Vector<Real, N> scaling = inverse(region.extent()) * Vector<Real, N>(view.extent());
 

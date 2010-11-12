@@ -46,7 +46,9 @@ namespace
 		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
 		typedef ModelTree::ConstPointIterator ModelIterator;
 
-		SceneTree sceneTree(false, Array_PointPolicy<real>(n));
+		Array_PointPolicy<real> pointPolicy(n);
+
+		SceneTree sceneTree(pointPolicy);
 		sceneTree.insert(
 			constSparseRange(
 			countingIterator(sceneData),
@@ -56,7 +58,7 @@ namespace
 		//constSparseIterator(countingIterator(sceneData), n), 
 		//constSparseIterator(countingIterator(sceneData), n) + scenePoints);
 
-		ModelTree modelTree(false, Array_PointPolicy<real>(n));
+		ModelTree modelTree(pointPolicy);
 		modelTree.insert(
 			constSparseRange(
 			countingIterator(modelData),

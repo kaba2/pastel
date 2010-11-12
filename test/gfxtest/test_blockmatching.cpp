@@ -11,6 +11,7 @@
 #include <pastel/geometry/pointset_eigen.h>
 #include <pastel/geometry/pointkdtree_tools.h>
 #include <pastel/geometry/search_all_neighbors_pointkdtree.h>
+#include <pastel/geometry/windowedpointtree.h>
 
 #include <pastel/gfx/matchblock_bruteforce.h>
 #include <pastel/gfx/savepcx.h>
@@ -24,6 +25,25 @@
 #include <fstream>
 
 using namespace Pastel;
+
+/*
+64D, 64N, full image
+--------------------
+
+Brute force, 1x memory, 3600s
+L-median kd, 64x memory, 1269s
+Sliding kd, 64x memory, 874s
+Sliding kd + PCA, 64x memory, 360s
+Sliding kd + PCA + 1eps, 64x memory, 179s
+Sliding kd + PCA + 2eps, 64x memory, 118s
+
+64D, 64N, 39x39 window
+----------------------
+
+Sliding kd + PCA, 64x memory, 510s
+L-median kd, 8x memory, 328s
+
+*/
 
 namespace
 {
@@ -98,6 +118,230 @@ namespace
 			range);
 	}
 
+	class Separate_PointQuery
+	{
+	public:
+		enum
+		{
+			M = 2
+		};
+
+		typedef Array_PointPolicy<real32> PointPolicy;
+
+		Separate_PointQuery(
+			const Array<real32>& image,
+			const Vector<integer, 2>& blockExtent,
+			Array<real32>& featureSet,
+			bool dct = false, bool pca = false)
+			: image_(image)
+			, featureSet_(featureSet)
+			, region_(VectorConstant<integer, M>(0, 2), image.extent() - blockExtent)
+			, blockExtent_(blockExtent)
+			, pointPolicy_(product(blockExtent))
+		{
+			const integer blockSize = product(blockExtent);
+			const integer zigzag[8 * 8] = 
+			{
+				0,
+				1, 8, 
+				16, 9, 2,
+				3, 10, 17, 24,
+				32, 25, 18, 11, 4,
+				5, 12, 19, 26, 33, 40,
+				48, 41, 34, 27, 20, 13, 6,
+				7, 14, 21, 28, 35, 42, 49, 56,
+				57, 50, 43, 36, 29, 22, 15,
+				23, 30, 37, 44, 51, 58,
+				59, 52, 45, 38, 31,
+				39, 46, 53, 60,
+				61, 54, 47,
+				55, 62,
+				63
+			};
+
+			featureSet.setExtent(
+				blockSize, (image.width() - 8) * (image.height() - 8));
+
+#pragma omp parallel
+			{
+			Array<real32> block(8, 8);
+#pragma omp for
+			for (integer y = 0;y < image.height() - blockExtent.y();++y)
+			{
+				for (integer x = 0;x < image.width() - blockExtent.x();++x)
+				{
+					block() = image(Vector2i(x, y), Vector2i(x + blockExtent.x(), y + blockExtent.y()));
+					for (integer i = 0;i < block.size();++i)
+					{
+						block(i) += random<real32>(0, inverse((real32)257));
+					}
+
+					const integer index = y * (image.width() - blockExtent.x()) + x;
+					if (dct)
+					{
+						forEachRowOnAllAxes(block(), OrthogonalDct());
+						for (integer i = 0;i < blockSize;++i)
+						{
+							featureSet(i, index) = block(zigzag[i]);
+						}
+					}
+					else
+					{
+						for (integer i = 0;i < blockSize;++i)
+						{
+							featureSet(i, index) = block(i);
+						}
+					}
+				}
+			}
+			}
+
+			Array_PointPolicy<real32> pointPolicy(blockSize);
+
+			if (pca && !dct)
+			{
+				std::cout << "Computing eigenstructure..." << std::endl;
+				
+				Matrix<real32> eigenVectorSet;
+				Vector<real32> eigenValueSet;
+
+				approximateEigenstructure(
+					sparseRange(
+					countingIterator(featureSet.rawBegin()), 
+					countingIterator(featureSet.rawEnd()), 
+					blockSize),
+					pointPolicy,
+					blockSize,
+					eigenVectorSet,
+					eigenValueSet);
+
+				Vector<real32> mean(ofDimension(blockSize), 0);
+				mean = pointSetMean(
+					sparseRange(
+					countingIterator(featureSet.rawBegin()), 
+					countingIterator(featureSet.rawEnd()), 
+					blockSize),
+					pointPolicy);
+
+				// We need to orthonormalize the matrix.
+				QrDecomposition<real32> qr(transpose(eigenVectorSet));
+				Vector<real32> t(ofDimension(blockSize));
+
+				for (integer i = 0;i < featureSet.height();++i)
+				{
+					t = (pointPolicy(&featureSet(0, i)) - mean) * 
+						transpose(qr.qTransposed());
+
+					for (integer j = 0;j < featureSet.width();++j)
+					{
+						featureSet(j, i) = t[j];
+					}
+				}
+			}
+		}
+	
+		const PointPolicy& pointPolicy() const
+		{
+			return pointPolicy_;
+		}
+
+		template <typename Point_Functor>
+		void queryPoints(
+			const AlignedBox<integer, M>& region,
+			Point_Functor report)
+		{
+			AlignedBox<integer, M> reportBox(
+				ofDimension(region.dimension()));
+			if (intersect(region, region_, reportBox) &&
+				!reportBox.empty())
+			{
+				for (integer y = reportBox.min().y();y < reportBox.max().y();++y)
+				{
+					for (integer x = reportBox.min().x();x < reportBox.max().x();++x)
+					{
+						report(&featureSet_(0, y * (image_.width() - blockExtent_.x()) + x));
+					}
+				}
+			}
+		}
+
+	private:
+		const Array<real32>& image_;
+		const Array<real32>& featureSet_;
+		AlignedBox<integer, M> region_;
+		Vector<integer, M> blockExtent_;
+		PointPolicy pointPolicy_;
+	};
+
+	class Overlapping_PointQuery
+	{
+	public:
+		enum
+		{
+			M = 2
+		};
+
+		typedef Array_PointPolicy<real32> PointPolicy;
+
+		Overlapping_PointQuery(
+			const Array<real32>& image,
+			const Vector<integer, 2>& blockExtent,
+			Array<real32>& featureSet)
+			: image_(image)
+			, featureSet_(featureSet)
+			, region_(VectorConstant<integer, M>(0, 2), image.extent() - blockExtent)
+			, blockExtent_(blockExtent)
+			, pointPolicy_(product(blockExtent))
+		{
+			featureSet.setExtent(
+				image.height() * blockExtent.x(), 
+				image.width() - blockExtent.x());
+
+			for (integer y = 0; y < image.height();++y)
+			{
+				for (integer x = 0;x < image.width() - blockExtent.x();++x)
+				{
+					std::copy(
+						image.rowBegin(y) + x,
+						image.rowBegin(y) + x + blockExtent.x(),
+						featureSet.rowBegin(x) + blockExtent.x() * y);
+				}
+			}
+		}
+
+		const PointPolicy& pointPolicy() const
+		{
+			return pointPolicy_;
+		}
+
+		template <typename Point_Functor>
+		void queryPoints(
+			const AlignedBox<integer, M>& region,
+			Point_Functor report)
+		{
+			AlignedBox<integer, M> reportBox(
+				ofDimension(region.dimension()));
+			if (intersect(region, region_, reportBox) &&
+				!reportBox.empty())
+			{
+				for (integer y = reportBox.min().y();y < reportBox.max().y();++y)
+				{
+					for (integer x = reportBox.min().x();x < reportBox.max().x();++x)
+					{
+						report(&featureSet_(y * blockExtent_.x(), x));
+					}
+				}
+			}
+		}
+
+	private:
+		const Array<real32>& image_;
+		const Array<real32>& featureSet_;
+		AlignedBox<integer, M> region_;
+		Vector<integer, M> blockExtent_;
+		PointPolicy pointPolicy_;
+	};
+
 	class BlockMatching_Test
 		: public TestSuite
 	{
@@ -142,8 +386,13 @@ namespace
 		{
 			const Array<real32>& image = 
 				*gfxStorage().get<Array<real32>*>("lena_gray");
-			
+		
+			const integer blockSize = 64;
+			const real32 maxRelativeError = 2;
+			const integer kNearest = 64;
+			const integer coeffs = 64;
 			bool dct = false;
+			bool pca = false;
 
 			Timer timer;
 
@@ -168,12 +417,6 @@ namespace
 				63
 			};
 
-			const integer blockSize = 64;
-			
-			const real32 maxRelativeError = 2;
-			const integer kNearest = 64;
-			const integer coeffs = 3;
-
 			Array<real32> featureSet(
 				blockSize, (image.width() - 8) * (image.height() - 8));
 
@@ -190,6 +433,11 @@ namespace
 				for (integer x = 0;x < image.width() - 8;++x)
 				{
 					dctImage() = image(Vector2i(x, y), Vector2i(x + 8, y + 8));
+					for (integer i = 0;i < dctImage.size();++i)
+					{
+						dctImage(i) += random<real32>(0, inverse((real32)257));
+					}
+
 					const integer index = y * (image.width() - 8) + x;
 					if (dct)
 					{
@@ -210,9 +458,23 @@ namespace
 			}
 			}
 
+			/*
+			{
+			std::ofstream file("feature.txt");
+			for (integer i = 0;i < featureSet.height();++i)
+			{
+				for (integer j = 0;j < featureSet.width();++j)
+				{
+					file << featureSet(j, i) << " ";
+				}
+				file << std::endl;
+			}
+			}
+			*/
+
 			Array_PointPolicy<real32> pointPolicy(blockSize);
 
-			if (!dct)
+			if (pca && !dct)
 			{
 				std::cout << "Computing eigenstructure..." << std::endl;
 				
@@ -279,20 +541,6 @@ namespace
 			//std::cout << "Mean " << mean << std::endl;
 			std::cout << "Stdev " << stdev << std::endl;
 
-			/*
-			{
-			std::ofstream file("feature.txt");
-			for (integer i = 0;i < featureSet.height();++i)
-			{
-				for (integer j = 0;j < featureSet.width();++j)
-				{
-					file << featureSet(j, i) << " ";
-				}
-				file << std::endl;
-			}
-			}
-			*/
-
 			typedef PointKdTree<real32, Dynamic, Array_PointPolicy<real32, Dynamic> >
 				Tree;
 
@@ -300,8 +548,7 @@ namespace
 
 			std::cout << "Building a kd-tree..." << std::endl;
 
-			Tree tree(
-				ofDimension(coeffs));
+			Tree tree(pointPolicy);
 
 			std::vector<ConstPointIterator> querySet;
 			querySet.reserve(featureSet.height());
@@ -313,6 +560,7 @@ namespace
 				coeffs),
 				std::back_inserter(querySet));
 
+			//tree.refine(SlidingMidpoint_SplitRule_PointKdTree());	
 			tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());	
 			//tree.refine(LongestMedian_SplitRule_PointKdTree());	
 			//tree.refine(MinimumVolume_SplitRule_PointKdTree());	
@@ -397,9 +645,9 @@ namespace
 		public:
 			Block_PointPolicy(
 				const Array<real32>& image,
-				integer blockSize)
+				integer blockWidth)
 				: image_(&image)
-				, blockSize_(blockSize)
+				, blockWidth_(blockWidth)
 			{
 			}
 
@@ -425,7 +673,7 @@ namespace
 				const Vector2i position = 
 					image_->position(point - image_->rawBegin());
 
-				return (*image_)(position, position + blockSize_).begin();
+				return (*image_)(position, position + blockWidth_).begin();
 			}
 
 			//! Returns an iterator to the end of coordinate data.
@@ -434,12 +682,12 @@ namespace
 				const Vector2i position = 
 					image_->position(point - image_->rawBegin());
 
-				return (*image_)(position, position + blockSize_).end();
+				return (*image_)(position, position + blockWidth_).end();
 			}
 
 			integer dimension() const
 			{
-				return square(blockSize_);
+				return square(blockWidth_);
 			}
 
 			integer dimension(const Point& point) const
@@ -449,84 +697,125 @@ namespace
 
 		private:
 			const Array<real32>* image_;
-			integer blockSize_;
+			integer blockWidth_;
 		};
 
 		void testApproximate2()
 		{
-			AlignedBox<integer, 2> neighborhood(
-				-19, -19, 20, 20);
+			const integer blockWidth = 8;
+			const real32 maxRelativeError = 2;
+			const integer kNearest = 64;
 
 			const Array<real32>& image = 
 				*gfxStorage().get<Array<real32>*>("lena_gray");
-			
-			Timer timer;
 
+			/*
+			Array<real32> image(lenaImage);
+			for (integer i = 0;i < image.size();++i)
+			{
+				image(i) += random<real32>(0, inverse((real32)257));
+			}
+
+			saveGrayscalePcx(image, "noisy_lena.pcx");
+			*/
+
+			Timer timer;
 			timer.setStart();
 
-			const integer blockSize = 8;
-			
-			const real32 maxRelativeError = 0;
-			const integer kNearest = 8;
+			typedef Overlapping_PointQuery PointQuery;
+			//typedef Separate_PointQuery PointQuery;
+			typedef PointQuery::PointPolicy PointPolicy;
+			typedef WindowedPointTree<PointQuery> WindowedTree;
 
-			Block_PointPolicy pointPolicy(
-				image, blockSize);
+			Array<real32> featureSet;
 
-			typedef PointKdTree<real32, Dynamic, Block_PointPolicy>
-				Tree;
+			PointQuery pointQuery(
+				image, Vector2i(blockWidth), featureSet);
 
-			typedef Tree::ConstPointIterator ConstPointIterator;
+			const PointPolicy& pointPolicy = pointQuery.pointPolicy();
+
+			//saveGrayscalePcx(featureSet, "feature_image.pcx");
+
+			/*
+			Array<real32> test(blockWidth, blockWidth);
+			std::copy(
+				pointPolicy(&featureSet(0, 1)).begin(),
+				pointPolicy(&featureSet(0, 1)).end(),
+				test.begin());
+
+			saveGrayscalePcx(test, "test_image.pcx");
+			*/
+
+			/*
+			{
+			std::ofstream file("feature.txt");
+			for (integer i = 0;i < image.height() - blockWidth;++i)
+			{
+				for (integer j = 0;j < image.width() - blockWidth;++j)
+				{
+					file << pointPolicy(&image(j, i)) << std::endl;
+				}
+			}
+			}
+			*/
 
 			std::cout << "Building a kd-tree..." << std::endl;
 
-			Tree tree(ofDimension(square(blockSize)), pointPolicy);
+			WindowedTree windowedTree(pointQuery);
 
-			for (integer y = 0;y < image.height() - blockSize;++y)
-			{
-				for (integer x = 0;x < image.width() - blockSize;++x)
-				{
-					tree.insert(&image(x, y));
-				}
-			}
+			std::cout << "Tree depth " << depth(windowedTree.tree()) << std::endl;
 
-			tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());	
-			//tree.refine(LongestMedian_SplitRule_PointKdTree());	
-			//tree.refine(MinimumVolume_SplitRule_PointKdTree());	
-			//tree.refine(Fair_SplitRule_PointKdTree());
+			windowedTree.setWindow(
+				AlignedBox2i(0, 0, 
+				image.width() - blockWidth, image.height() - blockWidth));
+			
+			//windowedTree.refine(
+			//	SlidingMidpoint2_SplitRule_PointKdTree());
 
-			std::cout << "Tree depth " << depth(tree) << std::endl;
-			//std::cout << "Tree points " << tree.points() << std::endl;
+			windowedTree.refine(
+				LongestMedian_SplitRule_PointKdTree());
 
-			//std::cout << tree.bound().extent() << " " << std::endl;
+			std::cout << "Tree depth " << depth(windowedTree.tree()) << std::endl;
+			std::cout << "Tree points " << windowedTree.tree().points() << std::endl;
 
-			UnorderedMap<const real32*, ConstPointIterator> activeSet;
-
-			tree.erasePoints();
-			for (integer y = 0;y < std::min(neighborhood.max().y(), image.height() - blockSize);++y)
-			{
-				for (integer x = 0;x < std::min(neighborhood.max().x(), image.width() - blockSize);++x)
-				{
-					activeSet.insert(
-						std::make_pair(
-							&image(x, y),
-							tree.insert(&image(x, y))));
-				}
-			}
+			//std::cout << windowedTree.tree().bound().extent() << " " << std::endl;
 
 			std::cout << "Computing nearest neighbors..." << std::endl;
+
+			typedef WindowedTree::Tree Tree;
+			typedef Tree::ConstPointIterator ConstPointIterator;
+
+			const Tree& tree = windowedTree.tree();
 
 			Array<ConstPointIterator> nearestSet(
 				kNearest, image.size(), tree.end());
 
 			Vector<real32> searchPoint(
-				ofDimension(square(blockSize)));
+				ofDimension(square(blockWidth)));
+
+			AlignedBox<integer, 2> neighborhood(
+				-19, -19, 20, 20);
+
+			//AlignedBox<integer, 2> neighborhood(
+			//	-10000, -10000, 10000, 10000);
+
+			//log() << tree.points() << logNewLine;
+			//return;
 
 			bool xShiftRight = true;
-
-			for (integer y = 0;y < image.height() - blockSize;++y)
+			integer x = 0;
+			for (integer y = 0;y < image.height() - blockWidth;++y)
 			{
-				for (integer x = 0;x < image.width() - blockSize;++x)
+				log() << "y = " << y << logNewLine;
+
+				while(true)
 				{
+					//log() << "x = " << x << logNewLine;
+
+					windowedTree.setWindow(neighborhood);
+
+					//log() << tree.points() << logNewLine;
+
 					searchPoint = pointPolicy(&image(x, y));
 
 					searchNearest(
@@ -538,46 +827,32 @@ namespace
 						infinity<real32>(),
 						maxRelativeError);
 
-					if ((!xShiftRight && x > 0) ||
-						(xShiftRight && x < image.width() - blockSize - 1))
+					if (xShiftRight)
 					{
-						// Shift horizontally.
-
-						const integer xAdd = 
-							xShiftRight ? 
-							x + neighborhood.max().x() : 
-							x - 1 + neighborhood.min().x();
-
-						const integer xRemove = 
-							xShiftRight ? 
-							x + neighborhood.min().x() : 
-							x - 1 + neighborhood.max().x();
-
-						const integer yMin = 
-							std::max(0, y - neighborhood.min().y());
-						const integer yMax = 
-							std::min(y + neighborhood.max().y(), image.height() - blockSize);
-
-						if (xRemove >= 0 && xRemove < image.width() - blockSize)
+						if (x < image.width() - blockWidth - 1)
 						{
-							for (integer i = yMin;i < yMax;++i)
-							{
-								ENSURE(activeSet.find(&image(xRemove, i)) != activeSet.end());
-
-								tree.erase(activeSet[&image(xRemove, i)]);
-								activeSet.erase(&image(xRemove, i));
-							}
+							// Shift right in x-direction.
+							++neighborhood.min().x();
+							++neighborhood.max().x();
+							++x;
 						}
-
-						if (xAdd >= 0 && xAdd < image.width() - blockSize)
+						else
 						{
-							for (integer i = yMin;i < yMax;++i)
-							{
-								activeSet.insert(
-									std::make_pair(
-									&image(xAdd, i), 
-									tree.insert(&image(xAdd, i))));
-							}
+							break;
+						}
+					}
+					else
+					{
+						if (x > 0)
+						{
+							// Shift left in x-direction.
+							--neighborhood.min().x();
+							--neighborhood.max().x();
+							--x;
+						}
+						else
+						{
+							break;
 						}
 					}
 				}
@@ -586,41 +861,11 @@ namespace
 				// the x direction.
 				xShiftRight = !xShiftRight;
 
-				if (y < image.height() - blockSize - 1)
+				if (y < image.height() - blockWidth - 1)
 				{
-					// Shift vertically.
-
-					const integer yAdd = y + neighborhood.max().y();
-					const integer yRemove = y + neighborhood.min().y();
-
-					const integer x = 
-						xShiftRight ? 0 : image.width() - 1;
-					const integer xMin =
-						std::max(0, y - neighborhood.min().x());
-					const integer xMax = 
-						std::min(image.width() - blockSize, x + neighborhood.max().x());
-
-					if (yRemove >= 0 && yRemove < image.height() - blockSize)
-					{
-						for (integer i = xMin;i < xMax;++i)
-						{
-							ENSURE(activeSet.find(&image(i, yRemove)) != activeSet.end());
-
-							tree.erase(activeSet[&image(i, yRemove)]);
-							activeSet.erase(&image(i, yRemove));
-						}
-					}
-
-					if (yAdd >= 0 && yAdd < image.height() - blockSize)
-					{
-						for (integer i = xMin;i < xMax;++i)
-						{
-							activeSet.insert(
-								std::make_pair(
-								&image(i, yAdd), 
-								tree.insert(&image(i, yAdd))));
-						}
-					}
+					// Shift in y-direction.
+					++neighborhood.min().y();
+					++neighborhood.max().y();
 				}
 			}
 
@@ -629,12 +874,14 @@ namespace
 			std::cout << "Computation took " << 
 				timer.seconds() << " seconds." << std::endl;
 
+			return;
+
 			std::cout << "Saving results to file..." << std::endl;
 
 			std::string filename = 
 				std::string("lena-") + integerToString(kNearest) + 
-				"-nearest-" + integerToString(blockSize) + "x" + 
-				integerToString(blockSize) + "-kd.txt";
+				"-nearest-" + integerToString(blockWidth) + "x" + 
+				integerToString(blockWidth) + "-kd.txt";
 
 			std::ofstream file(filename.c_str());
 			for (integer i = 0;i < image.height();++i)
@@ -656,7 +903,7 @@ namespace
 						{
 							integer index = -1;
 
-							if (nearestSet(k, myIndex) != tree.end())
+							if (nearestSet(k, myIndex) != windowedTree.tree().end())
 							{
 								index = nearestSet(k, myIndex)->point() - 
 									image.rawBegin();

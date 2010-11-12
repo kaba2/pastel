@@ -5,8 +5,6 @@
 
 #include "pastel/sys/integer_concept.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
@@ -29,23 +27,23 @@ namespace Pastel
 	*/
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits < FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits < FromBits), Integer)
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits == FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits == FromBits), Integer)
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > FromBits && ToBits <= 2 * FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits > FromBits && ToBits <= 2 * FromBits), Integer)
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits > 2 * FromBits && ToBits <= 3 * FromBits), Integer)
 		scaleInteger(const Integer& number);
 
 	template <int FromBits, int ToBits, typename Integer>
-	typename boost::enable_if_c<(ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer>::type
+	PASTEL_ENABLE_IF_C((ToBits > 3 * FromBits && ToBits <= 4 * FromBits), Integer)
 		scaleInteger(const Integer& number);
 
 	//! Returns the bits at range [FromBit, FromBit + Bits[.

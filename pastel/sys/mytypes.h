@@ -12,9 +12,31 @@
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/static_assert.hpp>
 
-#define PASTEL_NO_DEDUCTION(x) typename Pastel::ParenthesesRemover<void (x)>::Type
+#define PASTEL_REMOVE_BRACKETS(x) typename Pastel::RemoveBrackets<void (x)>::Type
+#define PASTEL_NO_DEDUCTION(x) PASTEL_REMOVE_BRACKETS(x)
+
 //#define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 #define PASTEL_STATIC_ASSERT(x) BOOST_STATIC_ASSERT(x);
+
+#define PASTEL_ENABLE_IF(Condition, ReturnType) \
+	typename boost::enable_if< \
+	PASTEL_REMOVE_BRACKETS(Condition), \
+	PASTEL_REMOVE_BRACKETS(ReturnType)>::type
+
+#define PASTEL_ENABLE_IF_C(Condition, ReturnType) \
+	typename boost::enable_if_c< \
+	(Condition), \
+	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
+
+#define PASTEL_DISABLE_IF(Condition, ReturnType) \
+	typename boost::disable_if< \
+	PASTEL_REMOVE_BRACKETS(Condition), \
+	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
+
+#define PASTEL_DISABLE_IF_C(Condition, ReturnType) \
+	typename boost::disable_if_c< \
+	(Condition), \
+	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
 
 #define PASTEL_RANGE_ALGORITHM(FunctionName, Name) \
 	class Name \
@@ -65,7 +87,6 @@ namespace Pastel
 	typedef double             real64_ieee;
 
 	// Compile-time decision types
-
 	/*!
 	'integer' type must be able to hold at least the same
 	numbers as a 32-bit signed native integer.
@@ -74,28 +95,43 @@ namespace Pastel
 	typedef double	           real;
 	typedef uint32             pointer_integer;
 
+	//! Removes brackets around a type.
+	/*!
+	To transmit a type containing commas through a macro,
+	it needs to be enclosed in brackets. However, then it
+	is possible that the type does not make sense anymore.
+	Therefore, PASTEL_REMOVE_BRACKETS macro turns this
+	bracketed type into a function type 'void (T)'. From
+	this form we can again regain the type inside the
+	brackets using RemoveBrackets.
+	*/
 	template <typename T>
-	class ParenthesesRemover
+	class RemoveBrackets
 	{
 	};
 
 	template <typename T>
-	class ParenthesesRemover<void (T)>
+	class RemoveBrackets<void (T)>
 	{
 	public:
 		typedef T Type;
 	};
 
-	enum
+	template <>
+	class RemoveBrackets<void ()>
 	{
-		Dynamic = -1,
-		UserDefinedInteger = 0
+	public:
+		typedef void Type;
 	};
 
+	// A literal for documenting concepts.
+	enum {UserDefinedInteger = 0};
+	// A type for documenting concepts.
 	class PASTELSYS UserDefinedType {};
+
+	enum {Dynamic = -1};
+
 	class PASTELSYS EmptyClass {};
-	class PASTELSYS TrueType {};
-	class PASTELSYS FalseType {};
 
 	//! A no-op function taking a variable.
 	/*!
@@ -108,7 +144,7 @@ namespace Pastel
 	void unused(const Type&);
 
 	template <typename Type>
-	typename boost::enable_if<boost::is_arithmetic<Type>, Type>::type mabs(Type that);
+	PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, Type) mabs(Type that);
 
 	//! Allocates a raw memory block.
 	/*!
@@ -125,8 +161,8 @@ namespace Pastel
 
 	//! Tests two variables for equivalence.
 	/*!
-	'left' and 'right' are equivalent under
-	a comparison 'compare' if it holds that
+	The elements 'left' and 'right' are equivalent 
+	under a comparison 'compare' if it holds that
 	!compare(left, right) && !compare(right, left).
 	*/
 	template <typename Type, typename Compare>

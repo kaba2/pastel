@@ -378,18 +378,18 @@ rid of the parentheses. We do this by the following:
 
 [[CppCode]]:
 	template <typename Type>
-	class ParenthesesRemover
+	class RemoveBrackets
 	{
 	};
 	
 	template <typename Type>
-	class ParenthesesRemover<void (Type)>
+	class RemoveBrackets<void (Type)>
 	{
 	public:
 		typedef Type Result;
 	};
 
-	#define PASTEL_NO_DEDUCTION(x) typename ParenthesesRemover<void x>::Result
+	#define PASTEL_NO_DEDUCTION(x) typename RemoveBrackets<void x>::Result
 
 That is, in the macro we expand the parenthesized type into a function type.
 We then catch it by a partial template specialization that specializes
@@ -401,7 +401,7 @@ by noticing that extra parenthesis do not do harm for a type.
 Thus we can rewrite the macro as:
 
 [[CppCode]]:
-	#define PASTEL_NO_DEDUCTION(x) typename ParenthesesRemover<void (x)>::Result
+	#define PASTEL_NO_DEDUCTION(x) typename RemoveBrackets<void (x)>::Result
 
 And everything works nice again. To demonstrate:
 

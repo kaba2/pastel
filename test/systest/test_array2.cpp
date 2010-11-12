@@ -86,14 +86,24 @@ namespace
 				18, 19, 20, 21, 22, 23, 
 				24, 25, 26, 27, 28, 29, 
 				30, 31, 32, 33, 34, 35;
-			
+
+			std::copy(
+				a.begin(), a.end(), 
+				std::ostream_iterator<integer>(std::cout, " "));
+			std::cout << std::endl;
+
 			TEST_ENSURE(
 				std::equal(a.begin(), a.end(),
-				CountingIterator<integer>(0)));
+				countingIterator(0)));
 
 			a(Vector2i(0, 0), Vector2i(3, 3)) = 
 				a(Vector2i(3, 3), Vector2i(6, 6));
 			
+			std::copy(
+				a.begin(), a.end(), 
+				std::ostream_iterator<integer>(std::cout, " "));
+			std::cout << std::endl;
+
 			Array<integer, 2> b(6, 6);
 			b |= 21, 22, 23, 3, 4, 5, 
 				27, 28, 29, 9, 10, 11, 

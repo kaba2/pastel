@@ -5,8 +5,6 @@
 
 #include "pastel/sys/vector.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
@@ -27,21 +25,21 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
 		const PASTEL_NO_DEDUCTION(Real)& maxRadius);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 3, (Vector<Real, N>))
 		uniformlySampleAnnulus(
 		const Vector<Real, N>& uv,
 		const PASTEL_NO_DEDUCTION(Real)& minRadius,
@@ -61,17 +59,17 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<(N >= 3 || N == Dynamic), Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N >= 3 || N == Dynamic, (Vector<Real, N>))
 		uniformlySampleSimplex(
 		const Vector<Real, N>& uv);
 
@@ -88,17 +86,17 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 1, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, N>))
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 2, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, N>))
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 3, Vector<Real, N> >::type
+	PASTEL_ENABLE_IF_C(N == 3, (Vector<Real, N>))
 		uniformlySampleBall(
 		const Vector<Real, N>& uv);
 
@@ -117,12 +115,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 1, Vector<Real, ModifyN<N, N + 1>::Result> >::type
+	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, ModifyN<N, N + 1>::Result>))
 		uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 2, Vector<Real, ModifyN<N, N + 1>::Result> >::type
+	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, ModifyN<N, N + 1>::Result>))
 		uniformlySampleSphere(
 		const Vector<Real, N>& uv);
 
@@ -141,12 +139,12 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 1, Vector<Real, ModifyN<N, N + 1>::Result> >::type
+	PASTEL_ENABLE_IF_C(N == 1, (Vector<Real, ModifyN<N, N + 1>::Result>))
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 
 	template <typename Real, int N>
-	typename boost::enable_if_c<N == 2, Vector<Real, ModifyN<N, N + 1>::Result> >::type
+	PASTEL_ENABLE_IF_C(N == 2, (Vector<Real, ModifyN<N, N + 1>::Result>))
 		uniformlySampleHemisphere(
 		const Vector<Real, N>& uv);
 

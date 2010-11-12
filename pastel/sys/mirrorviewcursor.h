@@ -6,8 +6,6 @@
 
 #include "pastel/sys/mirrorview.h"
 
-#include <boost/utility/enable_if.hpp>
-
 namespace Pastel
 {
 
@@ -33,37 +31,37 @@ namespace Pastel
 			}
 
 			template <int Index>
-			typename boost::disable_if_c<Index == MirrorIndex>::type increment()
+			PASTEL_DISABLE_IF_C(Index == MirrorIndex, void) increment()
 			{
 				cursor_.increment<Index>();
 			}
 
 			template <int Index>
-			typename boost::enable_if_c<Index == MirrorIndex>::type increment()
+			PASTEL_ENABLE_IF_C(Index == MirrorIndex, void) increment()
 			{
 				cursor_.decrement<MirrorIndex>();
 			}
 
 			template <int Index>
-			typename boost::disable_if_c<Index == MirrorIndex>::type decrement()
+			PASTEL_DISABLE_IF_C(Index == MirrorIndex, void) decrement()
 			{
 				cursor_.decrement<Index>();
 			}
 
 			template <int Index>
-			typename boost::enable_if_c<Index == MirrorIndex>::type decrement()
+			PASTEL_ENABLE_IF_C(Index == MirrorIndex, void) decrement()
 			{
 				cursor_.increment<MirrorIndex>();
 			}
 
 			template <int Index>
-			typename boost::disable_if_c<Index == MirrorIndex>::type move(integer amount)
+			PASTEL_DISABLE_IF_C(Index == MirrorIndex, void) move(integer amount)
 			{
 				cursor_.move<Index>(amount);
 			}
 
 			template <int Index>
-			typename boost::enable_if_c<Index == MirrorIndex>::type move(integer amount)
+			PASTEL_ENABLE_IF_C(Index == MirrorIndex, void) move(integer amount)
 			{
 				cursor_.move<MirrorIndex>(-amount);
 			}
