@@ -1431,14 +1431,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\endianconvert.h"
-				>
-			</File>
-			<File
-				RelativePath=".\endianconvert.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\keyvalue.h"
 				>
 			</File>
@@ -1591,6 +1583,22 @@
 				</File>
 				<File
 					RelativePath=".\commafiller.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Endian conversion"
+				>
+				<File
+					RelativePath=".\endian.h"
+					>
+				</File>
+				<File
+					RelativePath=".\endian.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\endian.txt"
 					>
 				</File>
 			</Filter>
@@ -1980,7 +1988,7 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Not sure"
+			Name="Not sure if good ideas"
 			>
 			<File
 				RelativePath=".\notsure.txt"
@@ -2167,10 +2175,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
@@ -2184,6 +2188,10 @@
 			</File>
 			<File
 				RelativePath="..\..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\CMakeLists.txt"
 				>
 			</File>
 			<File

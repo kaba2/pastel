@@ -1,3 +1,6 @@
+// Description: Testing for ArenaAllocator
+// DocumentationOf: arenaallocator.h
+
 #include "pastelsystest.h"
 #include "pastel/sys/arenaallocator.h"
 

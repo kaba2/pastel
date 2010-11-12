@@ -1,7 +1,7 @@
-#ifndef PASTEL_LUDECOMPOSITION_TOOLS_HPP
-#define PASTEL_LUDECOMPOSITION_TOOLS_HPP
+#ifndef PASTEL_LU_DECOMPOSITION_TOOLS_HPP
+#define PASTEL_LU_DECOMPOSITION_TOOLS_HPP
 
-#include "pastel/math/ludecomposition_tools.h"
+#include "pastel/math/lu_decomposition_tools.h"
 #include "pastel/math/matrix_tools.h"
 
 namespace Pastel

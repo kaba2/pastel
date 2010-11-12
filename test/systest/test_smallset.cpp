@@ -1,3 +1,6 @@
+// Description: Testing for SmallSet
+// DocumentationOf: smallset.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/smallset.h"

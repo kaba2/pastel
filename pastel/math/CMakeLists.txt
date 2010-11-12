@@ -88,11 +88,11 @@ cholesky_decomposition_tools.hpp
 source_group(
 "Transformations\\Linear algebra\\Matrix decompositions\\Lu decomposition"
 FILES
-ludecomposition.h
-ludecomposition.hpp
-ludecomposition.txt
-ludecomposition_tools.h
-ludecomposition_tools.hpp
+lu_decomposition.h
+lu_decomposition.hpp
+lu_decomposition.txt
+lu_decomposition_tools.h
+lu_decomposition_tools.hpp
 )
 
 source_group(
@@ -296,11 +296,11 @@ linear_algebra.txt
 lowdiscrepancy.h
 lowdiscrepancy.hpp
 lowdiscrepancy.txt
-ludecomposition.h
-ludecomposition.hpp
-ludecomposition.txt
-ludecomposition_tools.h
-ludecomposition_tools.hpp
+lu_decomposition.h
+lu_decomposition.hpp
+lu_decomposition.txt
+lu_decomposition_tools.h
+lu_decomposition_tools.hpp
 manhattan_normbijection.h
 mathlibrary.cpp
 mathlibrary.h

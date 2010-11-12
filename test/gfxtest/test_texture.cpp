@@ -1,3 +1,6 @@
+// Description: Testing for textures
+// DocumentationOf: textures.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/array.h"

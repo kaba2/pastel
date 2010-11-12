@@ -1,7 +1,10 @@
+// Description: Testing for Matrix
+// DocumentationOf: matrix.h
+
 #include "pastelmathtest.h"
 
 #include "pastel/math/matrix_tools.h"
-#include "pastel/math/ludecomposition_tools.h"
+#include "pastel/math/lu_decomposition_tools.h"
 
 #include "pastel/math/uniform_sampling.h"
 #include "pastel/sys/view_all.h"

@@ -1,3 +1,6 @@
+// Description: Testing for iterator ranges
+// DocumentationOf: iteratorrange.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/iteratorrange.h"

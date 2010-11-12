@@ -1,3 +1,6 @@
+// Description: Testing for RipMap
+// DocumentationOf: ripmap.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/string_tools.h"

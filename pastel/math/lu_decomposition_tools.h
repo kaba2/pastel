@@ -1,9 +1,9 @@
 // Description: Algorithms for LuDecomposition class
 
-#ifndef PASTEL_LUDECOMPOSITION_TOOLS_H
-#define PASTEL_LUDECOMPOSITION_TOOLS_H
+#ifndef PASTEL_LU_DECOMPOSITION_TOOLS_H
+#define PASTEL_LU_DECOMPOSITION_TOOLS_H
 
-#include "pastel/math/ludecomposition.h"
+#include "pastel/math/lu_decomposition.h"
 
 namespace Pastel
 {
@@ -19,6 +19,6 @@ namespace Pastel
 
 }
 
-#include "pastel/math/ludecomposition_tools.hpp"
+#include "pastel/math/lu_decomposition_tools.hpp"
 
 #endif

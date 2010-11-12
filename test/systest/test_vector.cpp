@@ -1,3 +1,6 @@
+// Description: Testing for Vector
+// DocumentationOf: vector.h
+
 #include "pastelsystest.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"

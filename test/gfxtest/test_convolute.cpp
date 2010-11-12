@@ -1,3 +1,6 @@
+// Description: Testing for convolution
+// DocumentationOf: convolute.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/arrayview.h"

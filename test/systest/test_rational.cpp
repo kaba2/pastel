@@ -1,3 +1,6 @@
+// Description: Testing for Rational
+// DocumentationOf: rational.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/rational.h"

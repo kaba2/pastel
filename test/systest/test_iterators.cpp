@@ -1,3 +1,6 @@
+// Description: Testing for iterators
+// DocumentationOf: iterator.txt
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/constantiterator.h"

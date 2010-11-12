@@ -1,3 +1,6 @@
+// Description: Testing for low-discrepancy sequences
+// DocumentationOf: lowdiscrepancy.h
+
 #include "pastelmathtest.h"
 
 #include "pastel/sys/arrayview.h"

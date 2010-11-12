@@ -4,7 +4,7 @@
 
 #include <pastel/math/euclidean_normbijection.h>
 
-#include <pastel/dsp/discretecosine.h>
+#include <pastel/dsp/cosine_transform.h>
 
 #include <pastel/math/qr_decomposition.h>
 

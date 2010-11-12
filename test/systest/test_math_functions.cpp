@@ -1,3 +1,6 @@
+// Description: Testing for math functions
+// DocumentationOf: math_functions.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/math_functions.h"

@@ -63,8 +63,8 @@ resample_optimal_order.txt
 source_group(
 "Miscellaneous"
 FILES
-discretefourier.h
-discretefourier.hpp
+fourier_transform.h
+fourier_transform.hpp
 dsplibrary.cpp
 dsplibrary.h
 miscellaneous.txt
@@ -86,8 +86,8 @@ box_filter.cpp
 box_filter.h
 cubic_filter.cpp
 cubic_filter.h
-discretefourier.h
-discretefourier.hpp
+fourier_transform.h
+fourier_transform.hpp
 dsplibrary.cpp
 dsplibrary.h
 filter.cpp

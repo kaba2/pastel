@@ -13,7 +13,7 @@ test_common.cpp
 test_complex.cpp
 test_gcd.cpp
 test_lowdiscrepancy.cpp
-test_ludecomposition.cpp
+test_lu_decomposition.cpp
 test_matrix.cpp
 test_minmax.cpp
 test_piecewiselinear.cpp

@@ -48,5 +48,5 @@ are provided.
 See also
 --------
 
-[[Link]]: discretecosine.txt
+[[Link]]: cosine_transform.txt
 

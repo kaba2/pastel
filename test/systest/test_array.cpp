@@ -1,3 +1,6 @@
+// Description: Testing for Array
+// DocumentationOf: array.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/array.h"

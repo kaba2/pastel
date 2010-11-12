@@ -1,7 +1,7 @@
 // Description: Discrete cosine transform
 
-#ifndef PASTEL_DISCRETECOSINE_H
-#define PASTEL_DISCRETECOSINE_H
+#ifndef PASTEL_COSINE_TRANSFORM_H
+#define PASTEL_COSINE_TRANSFORM_H
 
 #include "pastel/sys/forwardrange.h"
 
@@ -202,6 +202,6 @@ namespace Pastel
 
 }
 
-#include "pastel/dsp/discretecosine.hpp"
+#include "pastel/dsp/cosine_transform.hpp"
 
 #endif

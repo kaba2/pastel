@@ -311,8 +311,8 @@ source_group(
 FILES
 callfunction.h
 callfunction.hpp
-endianconvert.h
-endianconvert.hpp
+endian.h
+endian.hpp
 keyvalue.h
 miscellaneous.txt
 pastelsys.cpp
@@ -649,8 +649,8 @@ disjointgroups.h
 disjointgroups.hpp
 disjointgroups.txt
 disjointgroups_design.txt
-endianconvert.h
-endianconvert.hpp
+endian.h
+endian.hpp
 ensure.cpp
 ensure.h
 ensure.hpp

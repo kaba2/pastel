@@ -399,7 +399,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_ludecomposition.cpp"
+			RelativePath=".\test_lu_decomposition.cpp"
 			>
 		</File>
 		<File
@@ -423,7 +423,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_uniformsampling.cpp"
+			RelativePath=".\test_uniform_distortion.cpp"
 			>
 		</File>
 	</Files>

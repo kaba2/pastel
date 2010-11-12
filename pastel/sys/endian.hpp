@@ -1,7 +1,7 @@
-#ifndef PASTEL_ENDIANCONVERT_HPP
-#define PASTEL_ENDIANCONVERT_HPP
+#ifndef PASTEL_ENDIAN_HPP
+#define PASTEL_ENDIAN_HPP
 
-#include "pastel/sys/endianconvert.h"
+#include "pastel/sys/endian.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/ensure.h"

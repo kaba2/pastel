@@ -395,10 +395,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_config.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\test_countedptr.cpp"
 			>
 		</File>
@@ -432,10 +428,6 @@
 		</File>
 		<File
 			RelativePath=".\test_iterators.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_lineararray.cpp"
 			>
 		</File>
 		<File

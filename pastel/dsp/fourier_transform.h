@@ -1,7 +1,7 @@
 // Description: Discrete fourier transform
 
-#ifndef PASTEL_DISCRETEFOURIER_H
-#define PASTEL_DISCRETEFOURIER_H
+#ifndef PASTEL_FOURIER_TRANSFORM_H
+#define PASTEL_FOURIER_TRANSFORM_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/memoryview.h"
@@ -109,6 +109,6 @@ namespace Pastel
 
 }
 
-#include "pastel/dsp/discretefourier.hpp"
+#include "pastel/dsp/fourier_transform.hpp"
 
 #endif

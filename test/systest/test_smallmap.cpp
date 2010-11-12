@@ -1,3 +1,6 @@
+// Description: Testing for SmallMap
+// DocumentationOf: smallmap.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/smallmap.h"

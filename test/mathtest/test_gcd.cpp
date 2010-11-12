@@ -1,3 +1,6 @@
+// Description: Testing for integer algorithms
+// DocumentationOf: integer_tools.h
+
 #include "pastelmathtest.h"
 
 #include "pastel/sys/biginteger.h"

@@ -1,6 +1,6 @@
 #include "pastel/sys/binaryfile.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/endianconvert.h"
+#include "pastel/sys/endian.h"
 #include <fstream>
 
 namespace Pastel

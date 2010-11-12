@@ -519,27 +519,27 @@
 			Name="Transforms"
 			>
 			<File
-				RelativePath=".\discretecosine.h"
+				RelativePath=".\cosine_transform.h"
 				>
 			</File>
 			<File
-				RelativePath=".\discretecosine.hpp"
+				RelativePath=".\cosine_transform.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\discretecosine.txt"
+				RelativePath=".\cosine_transform.txt"
 				>
 			</File>
 			<File
-				RelativePath=".\discretefourier.h"
+				RelativePath=".\fourier_transform.h"
 				>
 			</File>
 			<File
-				RelativePath=".\discretefourier.hpp"
+				RelativePath=".\fourier_transform.hpp"
 				>
 			</File>
 			<File
-				RelativePath=".\discretefourier.txt"
+				RelativePath=".\fourier_transform.txt"
 				>
 			</File>
 			<File

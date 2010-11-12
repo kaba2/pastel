@@ -1,3 +1,6 @@
+// Description: Testing for Fourier transform
+// DocumentationOf: fourier_transform.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/loadpcx.h"
@@ -6,8 +9,8 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/packrange.h"
 
-#include "pastel/dsp/discretefourier.h"
-#include "pastel/dsp/discretecosine.h"
+#include "pastel/dsp/fourier_transform.h"
+#include "pastel/dsp/cosine_transform.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
