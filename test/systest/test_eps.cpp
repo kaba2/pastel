@@ -1,4 +1,4 @@
-// Description: Adjacent floating point numbers
+// Description: Testing for adjacent floating point numbers
 // DocumentationOf: eps.h
 
 #include "pastelsystest.h"

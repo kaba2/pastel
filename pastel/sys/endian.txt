@@ -1,0 +1,26 @@
+Endian conversions
+==================
+
+[[Parent]]: miscellaneous.txt
+
+Theory
+------
+
+Processor manufacturers present us with two major ways of storing a 
+multi-byte integer into memory. _Little endians_ list the bytes from 
+the least significant to the most signifact. The _big endians_, in 
+contrast, list the bytes from the most signifact to the least 
+significant. When data is stored into files using a direct binary 
+representation, the storage order must be chosen as well. Therefore,
+when loading from or saving to files, we are presented with two 
+practical problems:
+
+1. Checking which _endianness_ the computer has. 
+2. Converting from the endianness used in the file to the
+endianness used in the computer (or vice versa).
+
+Practice
+--------
+
+Pastel provides functions for checking the endianness of the
+computer as well as converting between endiannesses.

@@ -346,6 +346,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\parallelarray.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\propertyid.h"
 					>
 				</File>
@@ -677,14 +681,6 @@
 						>
 					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="AnyStorage"
-				>
-				<File
-					RelativePath=".\anystorage.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Red-black tree"
@@ -2054,6 +2050,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="AnyStorage"
+				>
+				<File
+					RelativePath=".\anystorage.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Basic algorithms"
@@ -2175,10 +2179,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath=".\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\example\CMakeLists.txt"
 				>
 			</File>
@@ -2192,6 +2192,10 @@
 			</File>
 			<File
 				RelativePath="..\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\CMakeLists.txt"
 				>
 			</File>
 			<File

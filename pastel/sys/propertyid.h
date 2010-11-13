@@ -1,4 +1,5 @@
-// Documentation: data_structures.txt
+// Description: PropertyId class
+// DocumentationOf: parallelarray.h
 
 #ifndef PASTEL_PROPERTYID_H
 #define PASTEL_PROPERTYID_H

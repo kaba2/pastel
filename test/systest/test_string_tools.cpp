@@ -1,4 +1,4 @@
-// Description: Testing for string tools
+// Description: Testing for string algorithms
 // DocumentationOf: string_tools.h
 
 #include "pastelsystest.h"
