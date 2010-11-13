@@ -3,3 +3,7 @@ Data structures
 
 [[Parent]]: pastelsys.txt
 
+This section contains implementations for a set of fundamental data
+structures. In addition to being the everyday tools of a programmer,
+they also form a set of building blocks from which to form more 
+advanced data structures.

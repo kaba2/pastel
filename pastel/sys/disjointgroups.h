@@ -1,3 +1,5 @@
+// Description: DisjointGroups class
+
 #ifndef PASTEL_DISJOINTGROUPS_H
 #define PASTEL_DISJOINTGROUPS_H
 

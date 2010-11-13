@@ -1,5 +1,4 @@
 // Description: An associative container for arbitrary data.
-// Documentation: data_structures.txt
 
 #ifndef PASTEL_ANYSTORAGE_H
 #define PASTEL_ANYSTORAGE_H

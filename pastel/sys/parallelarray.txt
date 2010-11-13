@@ -1,0 +1,22 @@
+Parallel array
+==============
+
+[[Parent]]: data_structures.txt
+
+The `ParallelArray` is an implementation of a 'parallel array'. Rather 
+than storing structs in an array, this data structure can be thought 
+as storing arrays in a struct. For example, consider a struct consisting 
+of a name and a phone number. Rather than storing these structs in an 
+array, you store all of the names in one array, and all of the phone 
+numbers in another array. The association between a name and a phone
+number is given by the position in the array. The contained arrays are 
+called _properties_.
+
+The advantage of this structuring is that the fields or members of the 
+struct can be added and removed dynamically. The types of the contained 
+arrays can be arbitrary. Succesfully retrieving an array requires knowing 
+its key and its precise type.
+
+Resizing might result in the reallocation of the individual
+array memories. In this case all references to those
+arrays are invalidated.

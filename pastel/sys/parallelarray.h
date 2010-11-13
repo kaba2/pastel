@@ -1,6 +1,5 @@
 // Description: ParallelArray class
 // Detail: A parallel array
-// Documentation: data_structures.txt
 
 #ifndef PASTEL_PARALLELARRAY_H
 #define PASTEL_PARALLELARRAY_H
@@ -33,29 +32,6 @@ namespace Pastel
 	}
 
 	//! A set of equal sized homogeneous typed arrays.
-
-	/*!
-	This class is an implementation of a 'parallel array'.
-	Rather than storing "structs in an array", this data structure
-	can be thought as storing "arrays in a struct". For example,
-	consider a struct consisting of a name and a phone number.
-	Rather than storing these structs in an array, you store
-	all of the names in one array, and all of the phone numbers
-	in another array. The association between a name and a phone
-	number is given by the position in the array.
-
-	The contained arrays are called properties.
-
-	The advantage of this structuring is that the fields
-	or members of the struct can be added and removed dynamically.
-	The types of the contained arrays can be arbitrary.
-	Succesfully retrieving an array requires knowing its key
-	and its precise type.
-
-	Resizing might result in the reallocation of the individual
-	array memories. In this case all references to those
-	arrays are invalidated.
-	*/
 
 	template <typename Key>
 	class ParallelArray;
