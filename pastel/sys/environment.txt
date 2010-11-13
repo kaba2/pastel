@@ -6,45 +6,50 @@ Build switches
 Practice
 --------
 
-The file 'environment.h' contains a few configuration switches 
+The file [[FileLink: environment.h]] contains a few configuration switches 
 in the form of preprocessors defines, which globally affect the 
 code-generation in Pastel. We explain these switches here.
 
-### PASTEL_ENABLE_PENSURES
+### PASTEL\_ENABLE\_PENSURES
 
-ENSUREs are runtime checks used to check preconditions for 
+`ENSURE`s are runtime checks used to [check preconditions][Ensure] for 
 functions. The triggering of such a check signals the presence 
 of a bug on the user's side.
 However, some of these checks can cause relatively severe
 performance degradation, notably when the function is of low complexity.
-These checks are marked as PENSUREs, for 'Performance ENSURE'.
-This build switch controls the code generation for PENSURES.
-If PASTEL_ENABLE_PENSURES != 0, the tests are generated,
-otherwise they are not. If _DEBUG is defined, PASTEL_ENABLE_PENSURES
+These checks are marked as `PENSURE`s, for _Performance `ENSURE`_.
+This build switch controls the code generation for `PENSURE`s.
+If `PASTEL_ENABLE_PENSURES != 0`, the tests are generated,
+otherwise they are not. If `_DEBUG` is defined, `PASTEL_ENABLE_PENSURES`
 is forced to 1.
 
-### PASTEL_DEBUG_MODE
+[Ensure]: [[Ref]]: ensure.txt
 
-The ASSERTs form another class of runtime checks which are
+### PASTEL\_DEBUG\_MODE
+
+The `ASSERT`s form another class of runtime checks which are
 used internally to check invariants in the Pastel library.
 The triggering of such check always signals a presence of a bug
 on the part of the implementation. They can possibly interfere 
 with optimization and therefore this switch allows to control
 whether their code is generated or not.
-If PASTEL_DEBUG_MODE != 0, the tests are generated, otherwise
-they are not. If _DEBUG is defined, PASTEL_DEBUG_MODE
+If `PASTEL_DEBUG_MODE != 0`, the tests are generated, otherwise
+they are not. If `_DEBUG` is defined, `PASTEL_DEBUG_MODE`
 is forced to 1.
 
-### PASTEL_ENABLE_OMP
+### PASTEL\_ENABLE\_OMP
 
 Pastel uses the OpenMp library for parallelizing some sections
-of the code, such as all-nearest neighbors searching. The OpenMp
-library comes with a header file omp.h, which however might not
+of the code, such as [all-nearest neighbors searching][Neighbors]. 
+The OpenMp library comes with a header file omp.h, which however might not
 always be available on a given building environment. To solve
-this problem, Pastel has a redirection file named 'pastelomp.h',
-which includes 'omp.h' conditionally based on this build switch.
-If PASTEL_ENABLE_OMP != 0, then 'omp.h' is included in 'pastelomp.h',
-otherwise it is not included.
+this problem, Pastel has a redirection file named [[FileLink: pastelomp.h]],
+which includes `omp.h` conditionally based on this build switch.
+If `PASTEL_ENABLE_OMP != 0`, then `omp.h` is included in `pastelomp.h`,
+otherwise it is not included. If `_DEBUG` is defined, `PASTEL_ENABLE_OMP`
+is forced to 0.
+
+[Neighbors]: [[Ref]]: nearest_neighbors.txt 
 
 Global type definitions
 -----------------------
