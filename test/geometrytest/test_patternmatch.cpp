@@ -166,10 +166,10 @@ namespace
 		log() << "Computing kd-trees..." << logNewLine;
 
 		typedef PointKdTree<real, 2> SceneTree;
-		typedef SceneTree::ConstPointIterator SceneIterator;
+		typedef SceneTree::Point_ConstIterator SceneIterator;
 
 		typedef PointKdTree<real, 2> ModelTree;
-		typedef ModelTree::ConstPointIterator ModelIterator;
+		typedef ModelTree::Point_ConstIterator ModelIterator;
 
 		SceneTree sceneTree;
 		sceneTree.insert(
@@ -579,10 +579,10 @@ namespace
 		typedef Array_PointPolicy<real> PointPolicy;
 
 		typedef PointKdTree<real, Dynamic, PointPolicy> SceneTree;
-		typedef SceneTree::ConstPointIterator SceneIterator;
+		typedef SceneTree::Point_ConstIterator SceneIterator;
 
 		typedef PointKdTree<real, Dynamic, PointPolicy> ModelTree;
-		typedef ModelTree::ConstPointIterator ModelIterator;
+		typedef ModelTree::Point_ConstIterator ModelIterator;
 
 		PointPolicy pointPolicy;
 

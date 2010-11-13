@@ -20,10 +20,6 @@ and is thus prone to break backwards-compatibility. Rather, consider it from
 an educational viewpoint containing implementations and documentations of useful 
 data structures and algorithms.
 
-Pastel has several dependencies to third-party libraries which must also be
-installed if you want to build Pastel yourself. See the [external dependencies][External]
-for more information.
-
 [Download Pastel 1.2.0][Pastel-1.2.0]
 
 [Pastel-1.2.0]: files/pastel-1.2.0.zip

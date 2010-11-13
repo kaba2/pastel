@@ -59,8 +59,8 @@ namespace Pastel
 	typename PointKdTree<Real, N, PointPolicy>::Node*
 		PointKdTree<Real, N, PointPolicy>::allocateLeaf(
 		Node* parent,
-		const ConstPointIterator& first,
-		const ConstPointIterator& last,
+		const Point_ConstIterator& first,
+		const Point_ConstIterator& last,
 		integer points)
 	{
 		// A null pointer in 'left' is used to identify a leaf 
@@ -98,14 +98,14 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	AlignedBox<Real, N> PointKdTree<Real, N, PointPolicy>::computeBound(
-		const ConstPointIterator& begin, 
-		const ConstPointIterator& end) const
+		const Point_ConstIterator& begin, 
+		const Point_ConstIterator& end) const
 	{
 		AlignedBox<Real, N> bound(
 			ofDimension(dimension()));
 
-		ConstPointIterator iter = begin;
-		const ConstPointIterator iterEnd = end;
+		Point_ConstIterator iter = begin;
+		const Point_ConstIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			extendToCover(
@@ -119,15 +119,15 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	std::pair<Real, Real> PointKdTree<Real, N, PointPolicy>::computeBound(
-		const ConstPointIterator& begin, 
-		const ConstPointIterator& end,
+		const Point_ConstIterator& begin, 
+		const Point_ConstIterator& end,
 		integer axis) const
 	{
 		std::pair<Real, Real> bound(
 			infinity<Real>(), -infinity<Real>());
 
-		ConstPointIterator iter = begin;
-		const ConstPointIterator iterEnd = end;
+		Point_ConstIterator iter = begin;
+		const Point_ConstIterator iterEnd = end;
 		while(iter != iterEnd)
 		{
 			const Real position = 
@@ -196,11 +196,11 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::setLeaf(
-		const ConstPointIterator& begin,
-		const ConstPointIterator& end,
+		const Point_ConstIterator& begin,
+		const Point_ConstIterator& end,
 		Node* node)
 	{
-		ConstPointIterator iter = begin;
+		Point_ConstIterator iter = begin;
 		while(iter != end)
 		{
 			iter->setLeaf(node);
@@ -221,13 +221,13 @@ namespace Pastel
 		node->setPoints(
 			left->points() + right->points());
 
-		ConstPointIterator first = left->first();
+		Point_ConstIterator first = left->first();
 		if (first == pointList_.end())
 		{
 			first = right->first();
 		}
 
-		ConstPointIterator last = right->last();
+		Point_ConstIterator last = right->last();
 		if (last == pointList_.end())
 		{
 			last = left->last();
@@ -273,8 +273,8 @@ namespace Pastel
 		ASSERT(node);
 
 		// Actually remove the points.
-		ConstPointIterator iter = node->first();
-		const ConstPointIterator iterEnd = node->end();
+		Point_ConstIterator iter = node->first();
+		const Point_ConstIterator iterEnd = node->end();
 		while(iter != iterEnd)
 		{
 			iter = pointList_.erase(iter);
@@ -323,7 +323,7 @@ namespace Pastel
 		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 
 		const integer points = node->points();
-		const ConstPointIterator nodeEnd = node->end();
+		const Point_ConstIterator nodeEnd = node->end();
 
 		// Reorder the points along the split position.
 
@@ -331,13 +331,13 @@ namespace Pastel
 			splitPosition, splitAxis, 
 			pointPolicy_);
 
-		const std::pair<std::pair<PointIterator, integer>,
-			std::pair<PointIterator, integer> > result =
+		const std::pair<std::pair<Point_Iterator, integer>,
+			std::pair<Point_Iterator, integer> > result =
 			partition(pointList_, node->first(), nodeEnd,
 			splitPredicate);
 
-		ConstPointIterator leftFirst = pointList_.end();
-		ConstPointIterator leftLast = pointList_.end();
+		Point_ConstIterator leftFirst = pointList_.end();
+		Point_ConstIterator leftLast = pointList_.end();
 
 		const integer leftPoints = result.first.second;
 		if (leftPoints > 0)
@@ -347,8 +347,8 @@ namespace Pastel
 			--leftLast;
 		}
 
-		ConstPointIterator rightFirst = pointList_.end();
-		ConstPointIterator rightLast = pointList_.end();
+		Point_ConstIterator rightFirst = pointList_.end();
+		Point_ConstIterator rightLast = pointList_.end();
 
 		const integer rightPoints = result.second.second;
 		if (rightPoints > 0)
@@ -435,14 +435,14 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	template <typename InputIterator>
-	typename PointKdTree<Real, N, PointPolicy>::PointIterator
+	typename PointKdTree<Real, N, PointPolicy>::Point_Iterator
 	PointKdTree<Real, N, PointPolicy>::insertPrepare(
 		const InputIterator& begin, 
 		const InputIterator& end)
 	{
 		// Copy the points to the end of pointList_.
 
-		PointIterator oldLast = pointList_.end();
+		Point_Iterator oldLast = pointList_.end();
 		if (!pointList_.empty())
 		{
 			--oldLast;
@@ -452,7 +452,7 @@ namespace Pastel
 		// it is of type std::back_inserter_iterator.
 		std::copy(begin, end, std::back_inserter(pointList_));
 
-		PointIterator first;
+		Point_Iterator first;
 		if (oldLast == pointList_.end())
 		{
 			first = pointList_.begin();
@@ -469,16 +469,16 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::insert(
 		Node* node,
-		const PointIterator& first, 
-		const PointIterator& last,
+		const Point_Iterator& first, 
+		const Point_Iterator& last,
 		integer points,
 		AlignedBox<Real, N>& bound)
 	{
 		ASSERT(node);
 		ASSERT_OP(points, >, 0);
 
-		const PointIterator begin = first;
-		PointIterator end = last;
+		const Point_Iterator begin = first;
+		Point_Iterator end = last;
 		++end;
 
 		if (node->leaf())
@@ -508,19 +508,19 @@ namespace Pastel
 				pointPolicy_);
 
 			const std::pair<
-				std::pair<PointIterator, integer>,
-				std::pair<PointIterator, integer> > result =
+				std::pair<Point_Iterator, integer>,
+				std::pair<Point_Iterator, integer> > result =
 				partition(pointList_, begin, end,
 				splitPredicate);
 
-			const PointIterator newRightFirst = result.second.first;
+			const Point_Iterator newRightFirst = result.second.first;
 			const integer newRightPoints = result.second.second;
-			PointIterator newRightLast = end;
+			Point_Iterator newRightLast = end;
 			--newRightLast;
 
-			const PointIterator newLeftFirst = result.first.first;
+			const Point_Iterator newLeftFirst = result.first.first;
 			const integer newLeftPoints = result.first.second;
-			PointIterator newLeftLast = newRightFirst;
+			Point_Iterator newLeftLast = newRightFirst;
 			--newLeftLast;
 
 			Node* left = node->left();

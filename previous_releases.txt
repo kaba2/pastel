@@ -3,6 +3,8 @@ Previous releases
 
 [[Parent]]: pastel.txt
 
+Here we list all the releases of Pastel thus far.
+
 Pastel 1.2.0 (xx.xx.2010)
 -------------------------
 

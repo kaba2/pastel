@@ -1935,6 +1935,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\cpp0x.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\external.txt"
 				>
 			</File>
@@ -2192,10 +2196,6 @@
 			</File>
 			<File
 				RelativePath=".\CMakeLists.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\cpp0x.txt"
 				>
 			</File>
 			<File

@@ -47,7 +47,7 @@ namespace Pastel
 		};
 
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
-		typedef typename Tree::ConstPointIterator ConstIterator;
+		typedef typename Tree::Point_ConstIterator ConstIterator;
 
 		typedef UnorderedMap<Point, ConstIterator> ActiveSet;
 

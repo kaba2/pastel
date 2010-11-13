@@ -114,7 +114,7 @@ namespace Pastel
 	/*!
 	This is a convenience function that calls:
 	countNearest(kdTree, searchPoint, maxDistance,
-		Always_Accept<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator>());
+		Always_Accept<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>());
 	*/
 	template <typename Real, int N, typename PointPolicy>
 	integer countNearest(

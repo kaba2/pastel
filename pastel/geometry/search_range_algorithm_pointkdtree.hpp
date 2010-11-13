@@ -20,8 +20,8 @@ namespace Pastel
 	{
 		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
 
-		typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
-			ConstPointIterator;
+		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
+			Point_ConstIterator;
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor
 			Cursor;
 		typedef typename PointKdTree<Real, N, PointPolicy>::Point
@@ -177,8 +177,8 @@ namespace Pastel
 			{
 				// Only accept points in the range.
 
-				ConstPointIterator iter = cursor.begin();
-				const ConstPointIterator iterEnd = cursor.end();
+				Point_ConstIterator iter = cursor.begin();
+				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					const typename PointPolicy::Point& point = iter->point();

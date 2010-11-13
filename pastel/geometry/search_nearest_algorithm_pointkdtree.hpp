@@ -24,13 +24,13 @@ namespace Pastel
 		private:
 			typedef PointKdTree<Real, N, PointPolicy> Tree;
 			typedef typename Tree::Cursor Cursor;
-			typedef typename Tree::ConstPointIterator ConstPointIterator;
+			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 
 		public:
 			GenericAlgorithm(
 				const PointKdTree<Real, N, PointPolicy>& kdTree_,
 				const Vector<Real, N>& searchPoint_,
-				const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter_,
+				const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter_,
 				const Real& maxDistance_,
 				const Real& maxRelativeError_,
 				const AcceptPoint& acceptPoint_,
@@ -223,8 +223,8 @@ namespace Pastel
                 // We are now in a bucket node.
                 // Search through the points in this node.
 
-                ConstPointIterator iter = cursor.begin();
-                const ConstPointIterator iterEnd = cursor.end();
+                Point_ConstIterator iter = cursor.begin();
+                const Point_ConstIterator iterEnd = cursor.end();
 
 				Real currentDistance = 0;
                 while(iter != iterEnd)
@@ -261,7 +261,7 @@ namespace Pastel
 
 			const Tree& kdTree;
 			const Vector<Real, N>& searchPoint;
-			const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter;
+			const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter;
 			const Real& maxDistance;
 			const Real& maxRelativeError;
 			const AcceptPoint& acceptPoint;
@@ -309,7 +309,7 @@ namespace Pastel
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter,
+		const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,

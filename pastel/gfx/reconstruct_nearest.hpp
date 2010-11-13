@@ -113,7 +113,7 @@ namespace Pastel
 				const Vector<integer, N>& position,
 				typename Data::Data_& data) const
 			{
-				typedef PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+				typedef PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;

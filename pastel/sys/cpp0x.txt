@@ -1,8 +1,6 @@
 C++0x features
 ==============
 
-[[Parent]]: pastel.txt
-
 The next standard of the C++, named C++0x, brings a host of very useful
 features. Some of these are already available with Visual Studio 2010 and gcc,
 including auto, shared_ptr, r-value references and decltype. Because this already 

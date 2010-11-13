@@ -54,8 +54,8 @@ namespace Pastel
 		{
 			typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
 
-			typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
-				ConstPointIterator;
+			typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
+				Point_ConstIterator;
 
 			if (REPORT(cursor.empty() && cursor.parent().exists()))
 			{
@@ -75,8 +75,8 @@ namespace Pastel
 					return false;
 				}
 
-				ConstPointIterator iter = cursor.begin();
-				const ConstPointIterator iterEnd = cursor.end();
+				Point_ConstIterator iter = cursor.begin();
+				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					Cursor leaf = iter->leaf();
@@ -136,9 +136,9 @@ namespace Pastel
 				}
 				else
 				{
-					ConstPointIterator begin = 
+					Point_ConstIterator begin = 
 						!cursor.left().empty() ? cursor.left().begin() : cursor.right().begin();
-					ConstPointIterator end =
+					Point_ConstIterator end =
 						!cursor.right().empty() ? cursor.right().end() : cursor.left().end();
 					if (REPORT(cursor.begin() != begin || cursor.end() != end))
 					{

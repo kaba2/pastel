@@ -24,8 +24,8 @@ namespace Pastel
 		{
 		private:
 			typedef PointKdTree<Real, N, PointPolicy> Tree;
-			typedef typename Tree::ConstPointIterator ConstPointIterator;
-			typedef KeyValue<Real, ConstPointIterator> KeyVal;
+			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
+			typedef KeyValue<Real, Point_ConstIterator> KeyVal;
 
 			typedef SmallFixedSet<KeyVal> CandidateSet;
 
@@ -38,7 +38,7 @@ namespace Pastel
 
 			void operator()(
 				const Real& distance,
-				const ConstPointIterator& iter) const
+				const Point_ConstIterator& iter) const
 			{
 				candidateSet_.insert(
 					KeyVal(distance, iter));
@@ -95,8 +95,8 @@ namespace Pastel
 		typedef Detail_Search_Nearest::CandidateFunctor<Real, N, PointPolicy, AcceptPoint>
 			CandidateFunctor;
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
-		typedef typename Tree::ConstPointIterator ConstPointIterator;
-		typedef KeyValue<Real, ConstPointIterator> KeyVal;
+		typedef typename Tree::Point_ConstIterator Point_ConstIterator;
+		typedef KeyValue<Real, Point_ConstIterator> KeyVal;
 		typedef SmallFixedSet<KeyVal> CandidateSet;
 		typedef typename CandidateSet::iterator CandidateIterator;
 		typedef typename CandidateSet::const_iterator ConstCandidateIterator;
@@ -209,7 +209,7 @@ namespace Pastel
 			kdTree, searchPoint,
 			kNearest, nearestBegin, distanceBegin,
 			maxDistance, maxRelativeError, 
-			Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator>());
+			Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>());
 	}
 
 	template <typename Real, int N, typename PointPolicy, 

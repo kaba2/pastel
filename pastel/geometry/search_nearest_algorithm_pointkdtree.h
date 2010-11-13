@@ -61,7 +61,7 @@ namespace Pastel
 		typename CandidateFunctor, typename SearchAlgorithm_PointKdTree>
 	void searchNearestAlgorithm(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator& searchIter,
+		const typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator& searchIter,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
 		const AcceptPoint& acceptPoint,

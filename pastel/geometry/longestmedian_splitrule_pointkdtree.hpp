@@ -24,8 +24,8 @@ namespace Pastel
 			const Vector<Real, N>& maxBound,
 			integer depth) const
 		{
-			typedef typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator 
-				ConstPointIterator;
+			typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator 
+				Point_ConstIterator;
 
 			const PointPolicy& pointPolicy = tree.pointPolicy();
 
@@ -42,8 +42,8 @@ namespace Pastel
 				std::vector<Real> positionSet;
 				positionSet.reserve(cursor.points());
 
-				ConstPointIterator iter = cursor.begin();
-				const ConstPointIterator iterEnd = cursor.end();
+				Point_ConstIterator iter = cursor.begin();
+				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					positionSet.push_back(
