@@ -168,6 +168,45 @@ namespace Pastel
 			points_ += points;
 		}
 
+		bool upToDate() const
+		{
+			return points_ >= 0;
+		}
+
+		void invalidate()
+		{
+			ASSERT(!leaf());
+
+			points_ = -1;
+		}
+
+		void updateHierarchical()
+		{
+			ASSERT(!leaf());
+
+			if (!left_->upToDate())
+			{
+				left_->updateHierarchical();
+			}
+
+			if (!right_->upToDate())
+			{
+				right_->updateHierarchical();
+			}
+
+			setPoints(
+				left_->points() + right_->points());
+
+			const Point_ConstIterator first = 
+				left_->empty() ? right_->first() : left_->first();
+
+			const Point_ConstIterator last = 
+				right_->empty() ? left_->last() : right_->last();
+
+			setFirst(first);
+			setLast(last);
+		}
+
 		// Splitting plane
 
 		void setSplitAxis(integer splitAxis)
@@ -243,11 +282,11 @@ namespace Pastel
 
 		Point_ConstIterator first_;
 		Point_ConstIterator last_;
-		uint32 points_;
+		int32 points_;
 
 		// Splitting plane
 
-		uint32 splitAxis_;
+		int32 splitAxis_;
 		Real splitPosition_;
 
 		// Bounds of the contained
