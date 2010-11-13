@@ -41,10 +41,10 @@ namespace
 		//setNumberOfThreads(threads);
 
 		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
-		typedef SceneTree::ConstPointIterator SceneIterator;
+		typedef SceneTree::Point_ConstIterator SceneIterator;
 
 		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
-		typedef ModelTree::ConstPointIterator ModelIterator;
+		typedef ModelTree::Point_ConstIterator ModelIterator;
 
 		Array_PointPolicy<real> pointPolicy(n);
 

@@ -14,8 +14,8 @@ namespace Pastel
 			Node* parent,
 			Node* right,
 			Node* left,
-			const ConstPointIterator& first,
-			const ConstPointIterator& last,
+			const Point_ConstIterator& first,
+			const Point_ConstIterator& last,
 			integer points,
 			integer splitAxis,
 			const Real& splitPosition)
@@ -68,29 +68,29 @@ namespace Pastel
 
 		// Points
 
-		void setFirst(const ConstPointIterator& first)
+		void setFirst(const Point_ConstIterator& first)
 		{
 			first_ = first;
 		}
 
-		const ConstPointIterator& first() const
+		const Point_ConstIterator& first() const
 		{
 			return first_;
 		}
 
-		void setLast(const ConstPointIterator& last)
+		void setLast(const Point_ConstIterator& last)
 		{
 			last_ = last;
 		}
 
-		const ConstPointIterator& last() const
+		const Point_ConstIterator& last() const
 		{
 			return last_;
 		}
 
-		ConstPointIterator end() const
+		Point_ConstIterator end() const
 		{
-			ConstPointIterator result = last_;
+			Point_ConstIterator result = last_;
 			if (points_ > 0)
 			{
 				++result;
@@ -117,8 +117,8 @@ namespace Pastel
 		}
 
 		void erase(
-			const ConstPointIterator& iter,
-			const ConstPointIterator& end)
+			const Point_ConstIterator& iter,
+			const Point_ConstIterator& end)
 		{
 			if (iter == first_)
 			{
@@ -140,10 +140,10 @@ namespace Pastel
 		}
 
 		void insert(
-			const ConstPointIterator& first,
-			const ConstPointIterator& last,
+			const Point_ConstIterator& first,
+			const Point_ConstIterator& last,
 			integer points,
-			const ConstPointIterator& end)
+			const Point_ConstIterator& end)
 		{
 			last_ = last;
 
@@ -241,8 +241,8 @@ namespace Pastel
 
 		// Points
 
-		ConstPointIterator first_;
-		ConstPointIterator last_;
+		Point_ConstIterator first_;
+		Point_ConstIterator last_;
 		uint32 points_;
 
 		// Splitting plane

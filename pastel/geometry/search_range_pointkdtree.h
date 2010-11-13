@@ -21,11 +21,11 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename PointPolicy, 
-		typename PointIterator_OutputIterator>
+		typename Point_Iterator_OutputIterator>
 	void searchRange(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const AlignedBox<Real, N>& range,
-		PointIterator_OutputIterator result,
+		Point_Iterator_OutputIterator result,
 		integer bucketSize = 8);
 
 	template <typename Real, int N, typename PointPolicy, 

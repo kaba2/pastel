@@ -544,13 +544,13 @@ namespace
 			typedef PointKdTree<real32, Dynamic, Array_PointPolicy<real32, Dynamic> >
 				Tree;
 
-			typedef Tree::ConstPointIterator ConstPointIterator;
+			typedef Tree::Point_ConstIterator Point_ConstIterator;
 
 			std::cout << "Building a kd-tree..." << std::endl;
 
 			Tree tree(pointPolicy);
 
-			std::vector<ConstPointIterator> querySet;
+			std::vector<Point_ConstIterator> querySet;
 			querySet.reserve(featureSet.height());
 
 			tree.insert(
@@ -573,7 +573,7 @@ namespace
 
 			std::cout << "Computing nearest neighbors..." << std::endl;
 
-			Array<ConstPointIterator> nearestSet(
+			Array<Point_ConstIterator> nearestSet(
 				kNearest, image.size(), tree.end());
 
 			searchAllNeighbors(
@@ -783,11 +783,11 @@ namespace
 			std::cout << "Computing nearest neighbors..." << std::endl;
 
 			typedef WindowedTree::Tree Tree;
-			typedef Tree::ConstPointIterator ConstPointIterator;
+			typedef Tree::Point_ConstIterator Point_ConstIterator;
 
 			const Tree& tree = windowedTree.tree();
 
-			Array<ConstPointIterator> nearestSet(
+			Array<Point_ConstIterator> nearestSet(
 				kNearest, image.size(), tree.end());
 
 			Vector<real32> searchPoint(

@@ -73,16 +73,16 @@ namespace Pastel
 	Search algorithm to use.
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstPointIterator_Iterator, 
+		typename Point_ConstIterator_Iterator, 
 		typename Real_Iterator,
 		typename NormBijection,
 		typename SearchAlgorithm>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
+		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator, 2>* nearestArray,
+		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
 		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -104,15 +104,15 @@ namespace Pastel
 		DepthFirst_SearchAlgorithm_PointKdTree());
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstPointIterator_Iterator, 
+		typename Point_ConstIterator_Iterator, 
 		typename Real_Iterator,
 		typename NormBijection>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
+		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator, 2>* nearestArray,
+		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
 		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError,
@@ -129,14 +129,14 @@ namespace Pastel
 		Euclidean_NormBijection<Real>());
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstPointIterator_Iterator, 
+		typename Point_ConstIterator_Iterator, 
 		typename Real_Iterator>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
+		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator, 2>* nearestArray,
+		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
 		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxRelativeError);
@@ -151,14 +151,14 @@ namespace Pastel
 		maxDistanceSet, 0);
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstPointIterator_Iterator, 
+		typename Point_ConstIterator_Iterator, 
 		typename Real_Iterator>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
+		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator, 2>* nearestArray,
+		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
 		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray,
 		const RandomAccessRange<Real_Iterator>& maxDistanceSet);
 
@@ -172,13 +172,13 @@ namespace Pastel
 		constantRange(infinity<Real>(), querySet.size()));
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstPointIterator_Iterator>
+		typename Point_ConstIterator_Iterator>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
+		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator, 2>* nearestArray,
+		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray,
 		Array<PASTEL_NO_DEDUCTION(Real), 2>* distanceArray);
 
 	//! Finds k nearest-neighbours for the given query points.
@@ -190,13 +190,13 @@ namespace Pastel
 		nearestArray, 0);
 	*/
 	template <typename Real, int N, typename PointPolicy,
-		typename ConstPointIterator_Iterator>
+		typename Point_ConstIterator_Iterator>
 	void searchAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<ConstPointIterator_Iterator>& querySet,
+		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
 		integer kNearestBegin,
 		integer kNearestEnd,
-		Array<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator, 2>* nearestArray);
+		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray);
 
 }
 

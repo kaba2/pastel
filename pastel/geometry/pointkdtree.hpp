@@ -134,31 +134,31 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+	typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 		PointKdTree<Real, N, PointPolicy>::begin() const
 	{
 		return pointList_.begin();
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	typename PointKdTree<Real, N, PointPolicy>::ConstPointDataIterator
+	typename PointKdTree<Real, N, PointPolicy>::PointData_ConstIterator
 		PointKdTree<Real, N, PointPolicy>::pointBegin() const
 	{
-		return ConstPointDataIterator(pointList_.begin());
+		return PointData_ConstIterator(pointList_.begin());
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator
+	typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 		PointKdTree<Real, N, PointPolicy>::end() const
 	{
 		return pointList_.end();
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	typename PointKdTree<Real, N, PointPolicy>::ConstPointDataIterator
+	typename PointKdTree<Real, N, PointPolicy>::PointData_ConstIterator
 		PointKdTree<Real, N, PointPolicy>::pointEnd() const
 	{
-		return ConstPointDataIterator(pointList_.end());
+		return PointData_ConstIterator(pointList_.end());
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -203,14 +203,14 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator 
+	typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator 
 		PointKdTree<Real, N, PointPolicy>::insert(const Point& point)
 	{
 		// Copy the point to the end of pointList_.
 
 		pointList_.push_back(point);
 		
-		PointIterator iter = pointList_.end();
+		Point_Iterator iter = pointList_.end();
 		--iter;
 
 		// Splice the point to the leaf node.
@@ -227,10 +227,10 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	template <typename InputIterator,
-		typename ConstPointIterator_OutputIterator>
+		typename Point_ConstIterator_OutputIterator>
 	void PointKdTree<Real, N, PointPolicy>::insert(
 		const ForwardRange<InputIterator>& pointSet, 
-		ConstPointIterator_OutputIterator iteratorSet)
+		Point_ConstIterator_OutputIterator iteratorSet)
 	{
 		if (pointSet.empty())
 		{
@@ -242,7 +242,7 @@ namespace Pastel
 		const InputIterator end = pointSet.end();
 
 		// Prepare for insertion.
-		const PointIterator first = insertPrepare(begin, end);
+		const Point_Iterator first = insertPrepare(begin, end);
 
 		// Copy the new point iterators to the user.
 		std::copy(countingIterator(first),
@@ -251,7 +251,7 @@ namespace Pastel
 
 		// Send the points down the tree.
 		const integer points = std::distance(begin, end);
-		PointIterator last = pointList_.end();
+		Point_Iterator last = pointList_.end();
 		--last;
 
 		AlignedBox<Real, N> pointBound(
@@ -276,12 +276,12 @@ namespace Pastel
 		const InputIterator end = pointSet.end();
 
 		// Prepare for insertion.
-		const PointIterator first = insertPrepare(begin, end);
+		const Point_Iterator first = insertPrepare(begin, end);
 
 		// Send the points down the tree.
 		const integer points = std::distance(begin, end);
 
-		PointIterator last = pointList_.end();
+		Point_Iterator last = pointList_.end();
 		--last;
 
 		AlignedBox<Real, N> pointBound(
@@ -293,7 +293,7 @@ namespace Pastel
 
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::erase(
-		const ConstPointIterator& iter)
+		const Point_ConstIterator& iter)
 	{
 		Node* node = iter->leaf().node_;
 
@@ -309,13 +309,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	template <typename ConstPointIterator_ConstIterator>
+	template <typename Point_ConstIterator_ConstIterator>
 	void PointKdTree<Real, N, PointPolicy>::erase(
-		const ForwardRange<ConstPointIterator_ConstIterator>& pointSet)
+		const ForwardRange<Point_ConstIterator_ConstIterator>& pointSet)
 	{
-		const ConstPointIterator_ConstIterator iter = 
+		const Point_ConstIterator_ConstIterator iter = 
 			pointSet.begin();
-		const ConstPointIterator_ConstIterator iterEnd = 
+		const Point_ConstIterator_ConstIterator iterEnd = 
 			pointSet.end();
 		while(iter != iterEnd)
 		{
@@ -368,8 +368,8 @@ namespace Pastel
 		// more storage-efficiently than using
 		// merge(root_).
 
-		ConstPointIterator begin = root_->first();
-		ConstPointIterator last = root_->last();
+		Point_ConstIterator begin = root_->first();
+		Point_ConstIterator last = root_->last();
 
 		destructSubtree(root_);
 		nodeAllocator_.clear();

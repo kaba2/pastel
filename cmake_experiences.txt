@@ -1,8 +1,6 @@
 Experiences with CMake
 ======================
 
-[[Parent]]: pastel.txt
-
 The purpose of this page is to act as a blog as I am trying
 to move to using CMake as my underlying cross-platform
 build system. I found it surprisingly difficult to find 

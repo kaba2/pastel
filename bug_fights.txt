@@ -1,8 +1,6 @@
 Bug fights
 ==========
 
-[[Parent]]: pastel.txt
-
 This page documents experiences with fighting some non-obvious bugs.
 The hope is that the next time such a bug happens, it is already documented
 here.

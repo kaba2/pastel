@@ -27,14 +27,14 @@ namespace Pastel
 	searchPoint:
 	The point for which to search a neighbor for.
 	This can be either a Vector<Real, N>, or
-	a ConstPointIterator of 'kdTree'.
+	a Point_ConstIterator of 'kdTree'.
 	
 	kNearest:
 	The number of nearest neighbors to search.
 
 	nearestBegin:
 	An output iterator to which the found neighbors 
-	(ConstPointIterator of 'kdTree') are output to.
+	(Point_ConstIterator of 'kdTree') are output to.
 
 	distanceBegin:
 	An output iterator to which the distance of the found
@@ -50,11 +50,11 @@ namespace Pastel
 	increases performance. Use 0 for exact matches. 
 
 	acceptPoint:
-	A functor that takes in a ConstPointIterator of 
+	A functor that takes in a Point_ConstIterator of 
 	the 'kdTree' and returns a bool if the point should be accepted
 	as a neighbor or not. Default construct Always_AcceptPoint class
 	to accept all candidates. Default construct Dont_AcceptPoint
-	to reject a specific ConstPointIterator of the 'kdTree'. 
+	to reject a specific Point_ConstIterator of the 'kdTree'. 
 	Construct PointDont_AcceptPoint to reject a specific 
 	Point of the 'kdTree'.
 
@@ -165,7 +165,7 @@ namespace Pastel
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, 
-		Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::ConstPointIterator>());
+		Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>());
 	*/
 	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 

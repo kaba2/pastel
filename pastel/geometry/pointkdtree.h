@@ -49,13 +49,13 @@ namespace Pastel
 		class Node;
 
 		typedef FastList<PointInfo, PointAllocator> PointContainer;
-		typedef typename PointContainer::iterator PointIterator;
+		typedef typename PointContainer::iterator Point_Iterator;
 
 	public:
 		typedef typename PointContainer::const_iterator 
-			ConstPointIterator;
-		typedef boost::indirect_iterator<ConstPointIterator, const Point> 
-			ConstPointDataIterator;
+			Point_ConstIterator;
+		typedef boost::indirect_iterator<Point_ConstIterator, const Point> 
+			PointData_ConstIterator;
 
 		//! Constructs an empty tree.
 		/*!
@@ -146,18 +146,18 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		ConstPointIterator begin() const;
+		Point_ConstIterator begin() const;
 
-		ConstPointDataIterator pointBegin() const;
+		PointData_ConstIterator pointBegin() const;
 
 		//! Returns an iterator to the end of the point list.
 		/*!
 		Exception safety:
 		nothrow
 		*/
-		ConstPointIterator end() const;
+		Point_ConstIterator end() const;
 
-		ConstPointDataIterator pointEnd() const;
+		PointData_ConstIterator pointEnd() const;
 
 		//! Returns the number of nodes in the tree.
 		/*!
@@ -195,7 +195,7 @@ namespace Pastel
 			integer bucketSize = 8);
 
 		//! Insert a point into the tree.
-		ConstPointIterator insert(const Point& point);
+		Point_ConstIterator insert(const Point& point);
 
 		//! Insert points into the tree.
 		/*!
@@ -222,17 +222,17 @@ namespace Pastel
 		iterators are reported.
 		*/
 		template <typename InputIterator,
-			typename ConstPointIterator_OutputIterator>
+			typename Point_ConstIterator_OutputIterator>
 		void insert(
 			const ForwardRange<InputIterator>& pointSet, 
-			ConstPointIterator_OutputIterator iteratorSet);
+			Point_ConstIterator_OutputIterator iteratorSet);
 
 		//! Removes a point from the tree.
-		void erase(const ConstPointIterator& iter);
+		void erase(const Point_ConstIterator& iter);
 
 		//! Removes a set of points from the tree.
-		template <typename ConstPointIterator_ConstIterator>
-		void erase(const ForwardRange<ConstPointIterator_ConstIterator>& pointSet);
+		template <typename Point_ConstIterator_ConstIterator>
+		void erase(const ForwardRange<Point_ConstIterator_ConstIterator>& pointSet);
 
 		//! Clears off subdivision and points.
 		/*!
@@ -314,8 +314,8 @@ namespace Pastel
 		//! Allocate a leaf node.
 		Node* allocateLeaf(
 			Node* parent,
-			const ConstPointIterator& first,
-			const ConstPointIterator& last,
+			const Point_ConstIterator& first,
+			const Point_ConstIterator& last,
 			integer points);
 
 		//! Runs destructors for all nodes of a subtree.
@@ -323,13 +323,13 @@ namespace Pastel
 
 		//! Compute a bounding box for points.
 		AlignedBox<Real, N> computeBound(
-			const ConstPointIterator& begin, 
-			const ConstPointIterator& end) const;
+			const Point_ConstIterator& begin, 
+			const Point_ConstIterator& end) const;
 
 		//! Compute a bounding box for points.
 		std::pair<Real, Real> computeBound(
-			const ConstPointIterator& begin, 
-			const ConstPointIterator& end,
+			const Point_ConstIterator& begin, 
+			const Point_ConstIterator& end,
 			integer axis) const;
 
 		//! Collapse a subtree into a leaf node.
@@ -340,8 +340,8 @@ namespace Pastel
 
 		//! Sets the leaf nodes of a range of points.
 		void setLeaf(
-			const ConstPointIterator& begin,
-			const ConstPointIterator& end,
+			const Point_ConstIterator& begin,
+			const Point_ConstIterator& end,
 			Node* node);
 
 		//! Remove points under a subtree.
@@ -399,7 +399,7 @@ namespace Pastel
 		Also updates the bounding box.
 		*/
 		template <typename InputIterator>
-		PointIterator insertPrepare(
+		Point_Iterator insertPrepare(
 			const InputIterator& begin,
 			const InputIterator& end);			
 
@@ -425,8 +425,8 @@ namespace Pastel
 		*/
 		void insert(
 			Node* node,
-			const PointIterator& first, 
-			const PointIterator& last,
+			const Point_Iterator& first, 
+			const Point_Iterator& last,
 			integer count,
 			AlignedBox<Real, N>& bound);
 

@@ -67,17 +67,17 @@ namespace Pastel
 
 		// Points
 
-		ConstPointIterator begin() const
+		Point_ConstIterator begin() const
 		{
 			PENSURE(node_);
 			return node_->first();
 		}
 
-		ConstPointIterator end() const
+		Point_ConstIterator end() const
 		{
 			PENSURE(node_);
 
-			ConstPointIterator iterEnd = node_->last();
+			Point_ConstIterator iterEnd = node_->last();
 			if (!empty())
 			{
 				++iterEnd;
@@ -86,14 +86,14 @@ namespace Pastel
 			return iterEnd;
 		}
 
-		ConstPointDataIterator pointBegin() const
+		PointData_ConstIterator pointBegin() const
 		{
-			return ConstPointDataIterator(begin());
+			return PointData_ConstIterator(begin());
 		}
 
-		ConstPointDataIterator pointEnd() const
+		PointData_ConstIterator pointEnd() const
 		{
-			return ConstPointDataIterator(end());
+			return PointData_ConstIterator(end());
 		}
 
 		integer points() const
@@ -146,19 +146,6 @@ namespace Pastel
 		{
 			PENSURE(node_);
 			return node_->prevMax();
-		}
-
-		template <typename NormBijection>
-		Real updateDistance(
-			const Real& position,
-			const Real& distance,
-			const NormBijection& normBijection) const
-		{
-			PENSURE(node_);
-			return node_->updateDistance(
-				position,
-				distance,
-				normBijection);
 		}
 
 	private:

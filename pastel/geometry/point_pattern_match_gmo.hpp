@@ -21,12 +21,12 @@ namespace Pastel
 		{
 		public:
 			typedef PointKdTree<Real, N, Model_PointPolicy> ModelTree;
-			typedef typename ModelTree::ConstPointIterator 
+			typedef typename ModelTree::Point_ConstIterator 
 				ConstModelIterator;
 			typedef typename ModelTree::Point ModelPoint;
 
 			typedef PointKdTree<Real, N, Scene_PointPolicy> SceneTree;
-			typedef typename SceneTree::ConstPointIterator 
+			typedef typename SceneTree::Point_ConstIterator 
 				ConstSceneIterator;
 			typedef typename SceneTree::Point ScenePoint;
 
