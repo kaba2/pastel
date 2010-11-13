@@ -305,7 +305,7 @@ namespace Pastel
 		pointList_.erase(iter);
 
 		// Propagate point set changes upwards.
-		updatePointsUpwards(node);
+		updateHierarchicalUpwards(node);
 	}
 
 	template <typename Real, int N, typename PointPolicy>

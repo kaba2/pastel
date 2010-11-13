@@ -355,14 +355,11 @@ namespace Pastel
 		*/
 		void clearPoints(Node* node);
 
-		//! Updates hierarchical point information.
-		void updatePoints(Node* node);
-
 		//! Updates hierarchical bound information.
 		void updateBounds(Node* node, const AlignedBox<Real, N>& bound);
 
 		//! Propagates hierarchical information upwards.
-		void updatePointsUpwards(Node* node);
+		void updateHierarchicalUpwards(Node* node);
 
 		//! Subdivides a leaf node with the given plane.
 		/*!

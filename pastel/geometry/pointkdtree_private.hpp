@@ -51,7 +51,7 @@ namespace Pastel
 				thatNode->min());
 			thisNode->setMax(
 				thatNode->max());
-			updatePoints(thisNode);
+			thisNode->updateHierarchical();
 		}
 	}
 
@@ -209,35 +209,6 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updatePoints(
-		Node* node)
-	{
-		ASSERT(node);
-		ASSERT(!node->leaf());
-
-		Node* left = node->left();
-		Node* right = node->right();
-
-		node->setPoints(
-			left->points() + right->points());
-
-		Point_ConstIterator first = left->first();
-		if (first == pointList_.end())
-		{
-			first = right->first();
-		}
-
-		Point_ConstIterator last = right->last();
-		if (last == pointList_.end())
-		{
-			last = left->last();
-		}
-
-		node->setFirst(first);
-		node->setLast(last);
-	}
-
-	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::updateBounds(
 		Node* node, const AlignedBox<Real, N>& bound)
 	{
@@ -252,7 +223,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updatePointsUpwards(
+	void PointKdTree<Real, N, PointPolicy>::updateHierarchicalUpwards(
 		Node* node)
 	{
 		ASSERT(node);
@@ -260,8 +231,7 @@ namespace Pastel
 		node = node->parent();
 		while (node)
 		{
-			updatePoints(node);
-
+			node->updateHierarchical();
 			node = node->parent();
 		}
 	}
@@ -284,7 +254,7 @@ namespace Pastel
 		clearPoints(node);
 
 		// Update hierarchical information.
-		updatePointsUpwards(node);
+		updateHierarchicalUpwards(node);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -557,7 +527,7 @@ namespace Pastel
 			}
 
 			// Update hierarchical information.
-			updatePoints(node);
+			node->updateHierarchical();
 			updateBounds(node, bound);
 			
 			// Finally, we need to order the points in the pointList_
@@ -641,7 +611,7 @@ namespace Pastel
 			// Update point information.
 			// The bound information has already
 			// been handled top-down.
-			updatePoints(node);
+			node->updateHierarchical();
 		}
 	}
 
