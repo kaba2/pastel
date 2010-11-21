@@ -57,24 +57,30 @@ namespace Pastel
 			typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 				Point_ConstIterator;
 
-			if (REPORT(cursor.empty() && cursor.parent().exists()))
+			// The number of points in a node reported by 'cursor.points()'
+			// must equal the distance between 'cursor.begin()' and 'cursor.end()'.
+			if (REPORT_OP((std::distance(cursor.begin(), cursor.end())), !=, cursor.points()))
+			{
+				return false;
+			}
+
+			if (REPORT_OP(cursor.points(), <, 0))
+			{
+				return false;
+			}
+
+			// If a node is empty, then 'cursor.begin()' and 'cursor.end()' must
+			// equal 'tree.end()'.
+			if (REPORT(cursor.empty() && (cursor.begin() != tree.end() ||
+				cursor.end() != tree.end())))
 			{
 				return false;
 			}
 
 			if (cursor.leaf())
 			{
-				if (REPORT(std::distance(cursor.begin(), cursor.end()) != cursor.points()))
-				{
-					return false;
-				}
-
-				if (REPORT(cursor.empty() && (cursor.begin() != tree.end() ||
-					cursor.end() != tree.end())))
-				{
-					return false;
-				}
-
+				// In a leaf node, the contained points must have that node
+				// as the associated node.
 				Point_ConstIterator iter = cursor.begin();
 				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
@@ -127,14 +133,7 @@ namespace Pastel
 					return false;
 				}
 
-				if (cursor.empty())
-				{
-					if (REPORT(cursor.begin() != tree.end() || cursor.end() != tree.end()))
-					{
-						return false;
-					}
-				}
-				else
+				if (!cursor.empty())
 				{
 					Point_ConstIterator begin = 
 						!cursor.left().empty() ? cursor.left().begin() : cursor.right().begin();

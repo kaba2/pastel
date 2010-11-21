@@ -756,6 +756,12 @@ namespace Pastel
 	void swap(Vector<Real, N>& left,
 		Vector<Real, N>& right);
 
+	template <typename Real, int N, typename HashFunction>
+	inline uint32 partialHash(
+		const Vector<Real, N>& that,
+		uint32 currentHash,
+		const HashFunction& hashFunction);
+
 	template <typename Real, int N, typename Expression>
 	Vector<Real, N> evaluate(
 		const VectorExpression<Real, N, Expression>& that);

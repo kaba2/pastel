@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename PointQuery>
 	WindowedPointTree<PointQuery>::WindowedPointTree(
 		const PointQuery& pointQuery)
-		: tree_(pointQuery.pointPolicy())
+		: tree_(pointQuery.pointPolicy(), false, true)
 		, window_()
 		, activeSet_()
 		, pointQuery_(pointQuery)
@@ -56,6 +56,9 @@ namespace Pastel
 
 		// Set the new window.
 		window_ = window;
+
+		// Update the tree.
+		tree_.update();
 	}
 
 	template <typename PointQuery>
@@ -93,9 +96,17 @@ namespace Pastel
 	void WindowedPointTree<PointQuery>::insertPoint(
 		const Point& point)
 	{
-		activeSet_.insert(
-			std::make_pair(point,
-			tree_.insert(point)));
+		ActiveSet::iterator iter = activeSet_.find(point);
+		if (iter != activeSet_.end())
+		{
+			tree_.show(iter->second);
+		}
+		else
+		{
+			activeSet_.insert(
+				std::make_pair(point,
+				tree_.insert(point)));
+		}
 	}
 
 	template <typename PointQuery>
@@ -111,12 +122,10 @@ namespace Pastel
 		const Point& point)
 	{
 		ActiveSet::iterator iter = activeSet_.find(point);
-		ENSURE(iter != activeSet_.end())
-		if (iter != activeSet_.end())
-		{
-			tree_.erase(iter->second);
-			activeSet_.erase(point);
-		}
+		PENSURE(iter != activeSet_.end())
+		//tree_.erase(iter->second);
+		tree_.hide(iter->second);
+		//activeSet_.erase(point);
 	}
 
 }

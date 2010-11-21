@@ -544,6 +544,7 @@ namespace Pastel
 		template <typename BinaryPredicate>
 		void unique(BinaryPredicate binaryPredicate);
 
+		//! Moves the content of 'that' to 'there'.
 		/*!
 		Preconditions:
 		*that.get_allocator() == *get_allocator()
@@ -554,6 +555,7 @@ namespace Pastel
 		*/
 		void splice(const_iterator there, FastList& that);
 
+		//! Moves the content of 'that' at 'i' to 'there'.
 		/*!
 		Preconditions:
 		*that.get_allocator() == *get_allocator()
@@ -566,6 +568,7 @@ namespace Pastel
 		void splice(const_iterator there, FastList& that,
 			const_iterator i);
 
+		//! Moves the content of 'that', from 'first' to 'last', to 'there'.
 		/*!
 		Preconditions:
 		*that.get_allocator() == *get_allocator()

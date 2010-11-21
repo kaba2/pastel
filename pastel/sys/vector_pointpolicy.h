@@ -53,6 +53,11 @@ namespace Pastel
 				point.rawBegin(), dimension());
 		}
 
+		const Real& axis(const Point& point, integer axis) const
+		{
+			return point[axis];
+		}
+
 		integer dimension() const
 		{
 			// The check here is to enable compile-time

@@ -16,8 +16,7 @@ namespace Pastel
 	{
 		root_ = allocateLeaf(
 			0,
-			pointList_.end(), 
-			pointList_.end(),
+			pointSet_.end(), pointSet_.end(),
 			0);
 
 		++leaves_;
@@ -51,7 +50,7 @@ namespace Pastel
 				thatNode->min());
 			thisNode->setMax(
 				thatNode->max());
-			thisNode->updateHierarchical();
+			updateHierarchical(thisNode);
 		}
 	}
 
@@ -69,11 +68,8 @@ namespace Pastel
 		Node* node = (Node*)nodeAllocator_.allocate();
 
 		new(node) Node(
-			parent,
-			0,
-			0,
-			first,
-			last,
+			parent,	0, 0,
+			first, last,
 			points, 
 			0, 0);
 
@@ -131,7 +127,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			const Real position = 
-				pointPolicy_(iter->point())[axis];
+				pointPolicy_.axis(iter->point(), axis);
 			if (position < bound.first)
 			{
 				bound.first = position;
@@ -152,45 +148,82 @@ namespace Pastel
 		Node* node)
 	{
 		ASSERT(node);
-		
-		if (!node->leaf())
-		{
-			if (node == root_)
-			{
-				merge();
-			}
-			else
-			{
-				erase(node->left());
-				erase(node->right());
 
-				node->setLeft(0);
-				node->setRight(0);
-			}
+		// This function destructs the subdivision
+		// in the subtree under 'node'. The 'node'
+		// is then made a leaf node, with its points
+		// given by those in the old subtree.
+
+		if (node->leaf())
+		{
+			// This is already a leaf node.
+			// Nothing to do.
+			return;
+		}
+		
+		if (node == root_)
+		{
+			// In case the whole tree is merged into
+			// a single node, this can be done faster
+			// by the 'merge()' function.
+			merge();
+		}
+		else
+		{
+			// Destruct the subdivision structure
+			// below.
+			clear(node->left());
+			clear(node->right());
+
+			// Turning a node into a leaf node
+			// is as simple as zeroing the
+			// children.
+			node->setLeft(0);
+			node->setRight(0);
+
+			// Set the node pointers to this node.
+			setLeaf(node->begin(), node->end(), node);
+
+			// Some of the hidden points might have had
+			// destructed nodes as their associated nodes.
+			// Therefore, we remove all associations from the
+			// hidden points, forcing them to be inserted
+			// from the root.
+			setLeaf(hiddenSet_.begin(), hiddenSet_.end(), 0);
 		}
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::erase(
+	void PointKdTree<Real, N, PointPolicy>::clear(
 		Node* node)
 	{
 		ASSERT(node);
 
-		if (!node->leaf())
+		// This function destructs the subdivision
+		// structure in the subtree of 'node', but 
+		// does not remove points.
+
+		if (node->leaf())
 		{
-			erase(node->left());
-			erase(node->right());
+			// This is a leaf node. Update the number 
+			// of leaf nodes.
+			--leaves_;
 		}
 		else
 		{
-			--leaves_;
+			// This is a split node.
+			// Destruct the child subtrees.
+			clear(node->left());
+			clear(node->right());
 		}
 
+		// Destruct the node.
 		if (!boost::has_trivial_destructor<Real>())
 		{
 			StdExt::destruct(node);
 		}
 
+		// Deallocate the memory of the node.
 		nodeAllocator_.deallocate(node);
 	}
 
@@ -223,38 +256,67 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::updateHierarchicalUpwards(
+	void PointKdTree<Real, N, PointPolicy>::updateHierarchical(
 		Node* node)
 	{
 		ASSERT(node);
+		ASSERT(!node->leaf());
 
-		node = node->parent();
-		while (node)
-		{
-			node->updateHierarchical();
-			node = node->parent();
-		}
+		Node* left = node->left();
+		Node* right = node->right();
+
+		ASSERT(!left->invalid());
+		ASSERT(!right->invalid());
+
+		// As an invariant, we maintain the points in the pointSet_
+		// so that the points in the right child come right after
+		// those in the left child. This is needed to represent
+		// the point sets in each node by a simple iterator range.
+		// We take care of this ordering by splicing.
+		pointSet_.splice(
+			left->end(), pointSet_,
+			right->first(),	right->end());
+
+		const Point_ConstIterator first = 
+			left->empty() ? right->first() : left->first();
+
+		const Point_ConstIterator last = 
+			right->empty() ? left->last() : right->last();
+
+		node->setFirst(first);
+		node->setLast(last);
+		node->setPoints(
+			left->points() + right->points());
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::erasePoints(
+	void PointKdTree<Real, N, PointPolicy>::erase(
 		Node* node)
 	{
 		ASSERT(node);
 
-		// Actually remove the points.
-		Point_ConstIterator iter = node->first();
-		const Point_ConstIterator iterEnd = node->end();
-		while(iter != iterEnd)
+		if (node == root_)
 		{
-			iter = pointList_.erase(iter);
+			// Make use of the optimization for the 
+			// whole tree.
+			erase();
+			return;
 		}
+
+		// This operation is always immediate.
+		if (lazyUpdates_)
+		{
+			update();
+		}
+
+		// Actually remove the points.
+		pointSet_.erase(node->first(), node->end());
 
 		// Clear the point ranges in the subtree.
 		clearPoints(node);
 
-		// Update hierarchical information.
-		updateHierarchicalUpwards(node);
+		// Update the path to the root.
+		updateUpwards(node);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -265,8 +327,8 @@ namespace Pastel
 
 		// Update the node state.
 
-		node->setFirst(pointList_.end());
-		node->setLast(pointList_.end());
+		node->setFirst(pointSet_.end());
+		node->setLast(pointSet_.end());
 		node->setPoints(0);
 		node->setMin(infinity<Real>());
 		node->setMax(-infinity<Real>());
@@ -303,11 +365,11 @@ namespace Pastel
 
 		const std::pair<std::pair<Point_Iterator, integer>,
 			std::pair<Point_Iterator, integer> > result =
-			partition(pointList_, node->first(), nodeEnd,
+			partition(pointSet_, node->first(), nodeEnd,
 			splitPredicate);
 
-		Point_ConstIterator leftFirst = pointList_.end();
-		Point_ConstIterator leftLast = pointList_.end();
+		Point_ConstIterator leftFirst = end();
+		Point_ConstIterator leftLast = end();
 
 		const integer leftPoints = result.first.second;
 		if (leftPoints > 0)
@@ -317,8 +379,8 @@ namespace Pastel
 			--leftLast;
 		}
 
-		Point_ConstIterator rightFirst = pointList_.end();
-		Point_ConstIterator rightLast = pointList_.end();
+		Point_ConstIterator rightFirst = end();
+		Point_ConstIterator rightLast = end();
 
 		const integer rightPoints = result.second.second;
 		if (rightPoints > 0)
@@ -404,35 +466,32 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	template <typename InputIterator>
+	template <typename Input_Point_ConstIterator>
 	typename PointKdTree<Real, N, PointPolicy>::Point_Iterator
-	PointKdTree<Real, N, PointPolicy>::insertPrepare(
-		const InputIterator& begin, 
-		const InputIterator& end)
+	PointKdTree<Real, N, PointPolicy>::copyToEnd(
+		const Input_Point_ConstIterator& begin, 
+		const Input_Point_ConstIterator& end,
+		bool hidden)
 	{
-		// Copy the points to the end of pointList_.
+		ASSERT(begin != end);
 
-		Point_Iterator oldLast = pointList_.end();
-		if (!pointList_.empty())
+		Input_Point_ConstIterator iter = begin;
+
+		pointSet_.push_back(
+			PointInfo(*iter, 0, hidden));
+		++iter;
+	
+		Point_Iterator first = pointSet_.end();
+		--first;
+
+		while(iter != end)
 		{
-			--oldLast;
-		}
+			pointSet_.push_back(
+				PointInfo(*iter, 0, hidden));
 
-		// We can't use the return value of std::copy because
-		// it is of type std::back_inserter_iterator.
-		std::copy(begin, end, std::back_inserter(pointList_));
-
-		Point_Iterator first;
-		if (oldLast == pointList_.end())
-		{
-			first = pointList_.begin();
+			++iter;
 		}
-		else
-		{
-			first = oldLast;
-			++first;
-		}
-
+	
 		return first;
 	}
 
@@ -446,6 +505,7 @@ namespace Pastel
 	{
 		ASSERT(node);
 		ASSERT_OP(points, >, 0);
+		ASSERT(first != pointSet_.end());
 
 		const Point_Iterator begin = first;
 		Point_Iterator end = last;
@@ -463,10 +523,10 @@ namespace Pastel
 			setLeaf(begin, end, node);
 
 			// Splice the points to this node.
-			pointList_.splice(node->end(), pointList_, begin, end);
+			pointSet_.splice(node->end(), pointSet_, begin, end);
 
 			// Update the node's point range.
-			node->insert(first, last, points, pointList_.end());
+			node->insert(first, last, points, pointSet_.end());
 		}
 		else
 		{
@@ -480,7 +540,7 @@ namespace Pastel
 			const std::pair<
 				std::pair<Point_Iterator, integer>,
 				std::pair<Point_Iterator, integer> > result =
-				partition(pointList_, begin, end,
+				partition(pointSet_, begin, end,
 				splitPredicate);
 
 			const Point_Iterator newRightFirst = result.second.first;
@@ -507,6 +567,10 @@ namespace Pastel
 					newLeftPoints,
 					bound);
 			}
+			else if (left->invalid())
+			{
+				updateDownwards(left);
+			}
 
 			if (newRightPoints > 0)
 			{
@@ -525,21 +589,14 @@ namespace Pastel
 				// inserted points in both the left and right child.
 				extendToCover(rightBound, bound);
 			}
+			else if (right->invalid())
+			{
+				updateDownwards(right);
+			}
 
 			// Update hierarchical information.
-			node->updateHierarchical();
+			updateHierarchical(node);
 			updateBounds(node, bound);
-			
-			// Finally, we need to order the points in the pointList_
-			// so that the points in the right child come right after
-			// those in the left child. This is needed to represent
-			// the point sets in each node by a simple iterator range.
-			// We take care of this ordering by splicing.
-			pointList_.splice(
-				left->end(),
-				pointList_,
-				right->first(),
-				right->end());
 		}
 	}
 
@@ -611,7 +668,238 @@ namespace Pastel
 			// Update point information.
 			// The bound information has already
 			// been handled top-down.
-			node->updateHierarchical();
+			updateHierarchical(node);
+		}
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::commitInsertion()
+	{
+		if (insertionSet_.empty())
+		{
+			return;
+		}
+
+		// Count the number of inserted points.
+		const integer points = insertionSet_.size();
+
+		// Find out the points to insert.
+		Point_Iterator first = insertionSet_.begin();
+		Point_Iterator last = insertionSet_.end();
+		--last;
+
+		// Move the points to the end of 'pointSet_'.
+		pointSet_.splice(pointSet_.end(), insertionSet_);
+
+		// Send the points down the tree.
+		AlignedBox<Real, N> pointBound(
+			ofDimension(dimension()));
+		insert(root_, first, last, points, pointBound);
+
+		// Update the bounding box.
+		extendToCover(pointBound, bound_);
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::commitErase(
+		const Point_ConstIterator& iter)
+	{
+		ASSERT(iter != pointSet_.end());
+
+		if (iter->leaf().exists() && 
+			!iter->hidden())
+		{
+			// The point is in a node.
+			Node* node = iter->leaf().node_;
+
+			// Remove reference to the point
+			// from this node.
+			node->erase(iter, pointSet_.end());
+
+			// Actually remove the point from the point list.
+			pointSet_.erase(iter);
+
+			// Update the path to the root.
+			updateUpwards(node);
+		}
+		else
+		{
+			// If the point does not have an associated
+			// node, or is hidden, simply remove it.
+			if (iter->hidden())
+			{
+				hiddenSet_.erase(iter);
+			}
+			else
+			{
+				insertionSet_.erase(iter);
+			}
+		}
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::commitHide(
+		const Point_ConstIterator& point)
+	{
+		ASSERT(point != pointSet_.end());
+
+		if (point->hidden())
+		{
+			// The point is already hidden.
+			// Nothing to do.
+			return;
+		}
+
+		Point_Iterator iter = pointSet_.cast(point);
+		Point_Iterator nextIter = iter;
+		++nextIter;
+
+		if (iter->leaf().exists())
+		{
+			// The point is in a node.
+			Node* node = iter->leaf().node_;
+
+			// Remove reference to the point
+			// from this node.
+			node->erase(iter, pointSet_.end());
+
+			// Move the point to the hidden region.
+			hiddenSet_.splice(
+				hiddenSet_.end(),
+				pointSet_,
+				iter, nextIter);
+
+			// Update the path to the root.
+			updateUpwards(node);
+		}
+		else
+		{
+			// The point is waiting for insertion.
+
+			// Move the point to the hidden region.
+			hiddenSet_.splice(
+				hiddenSet_.end(),
+				pointSet_,
+				iter, nextIter);
+		}
+
+		iter->setHidden(true);
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::commitShow(
+		const Point_ConstIterator& point)
+	{
+		ASSERT(point != pointSet_.end());
+
+		if (!point->hidden())
+		{
+			// The point is already shown.
+			// Nothing to do.
+			return;
+		}
+
+		Point_Iterator iter = hiddenSet_.cast(point);
+		Point_Iterator nextIter = iter;
+		++nextIter;
+
+		iter->setHidden(false);
+
+		if (iter->leaf().exists())
+		{
+			// The point has an associated node.
+			Node* node = iter->leaf().node_;
+
+			ASSERT(node->leaf());
+
+			// Move the point to the end of 'pointSet'.
+			pointSet_.splice(
+				pointSet_.end(),
+				hiddenSet_,
+				iter, nextIter);
+
+			// Insert the point back.
+			AlignedBox<Real, N> bound(
+				ofDimension(dimension()));
+			insert(node, iter, iter, 1, bound);
+
+			// Update the path to the root.
+			updateUpwards(node);
+		}
+		else
+		{
+			// Move the point to the 'insertionSet_'.
+			insertionSet_.splice(
+				insertionSet_.end(),
+				hiddenSet_,
+				iter, nextIter);
+
+			if (!lazyUpdates_)
+			{
+				// With immediate updates, we insert the
+				// point straight away.
+				commitInsertion();
+			}
+		}
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::updateDownwards(
+		Node* node)
+	{
+		if (node->invalid())
+		{
+			updateDownwards(node->left());
+			updateDownwards(node->right());
+
+			updateHierarchical(node);
+		}
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::updateUpwards(
+		Node* node)
+	{
+		ASSERT(node);
+
+		node = node->parent();
+		if (lazyUpdates_)
+		{
+			// With lazy updates we mark the
+			// nodes on the path to the root invalid.
+			while (node && !node->invalid())
+			{
+				node->invalidate();
+				node = node->parent();
+			}
+		}
+		else
+		{
+			// With immediate updates we update the
+			// hierarchical information straight away.
+			while(node)
+			{
+				ASSERT(!node->left()->invalid());
+				ASSERT(!node->right()->invalid());
+
+				updateHierarchical(node);
+
+				node = node->parent();
+			}
+		}
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	void PointKdTree<Real, N, PointPolicy>::setHidden(
+		const Point_ConstIterator& begin, 
+		const Point_ConstIterator& end,
+		bool hidden)
+	{
+		Point_ConstIterator iter = begin;
+		while(iter != end)
+		{
+			iter->setHidden(hidden);
+			++iter;
 		}
 	}
 

@@ -1,6 +1,6 @@
 // Description: UnorderedSet class
 // Detail: Unordered associative set
-// Documentation: unordered.txt
+// Documentation: hash_tables.txt
 
 #ifndef PASTEL_UNORDEREDSET_H
 #define PASTEL_UNORDEREDSET_H
@@ -14,7 +14,7 @@ namespace Pastel
 
 	template <
 		class Value,
-		class Hash = hash<Value>,
+		class Hash = Hash<Value>,
 		class Pred = std::equal_to<Value>,
 		class UniformAllocator = PoolAllocator>
 	class UnorderedSet

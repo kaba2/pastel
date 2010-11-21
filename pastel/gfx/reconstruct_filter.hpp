@@ -72,6 +72,11 @@ namespace Pastel
 					begin(point), dimension());
 			}
 
+			const Real& axis(const Point& point, integer index) const
+			{
+				return point.position_[index];
+			}
+
 			ConstIterator begin(const Point& point) const
 			{
 				return point.position_.rawBegin();

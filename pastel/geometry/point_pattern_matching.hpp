@@ -297,8 +297,7 @@ namespace Pastel
 			public:
 				std::size_t operator()(const SceneIterator& sceneIter) const
 				{
-					const hash<ScenePoint*> hash;
-					return hash(&sceneIter->point());
+					return computeHash(&sceneIter->point());
 				}
 			};
 

@@ -120,6 +120,8 @@ namespace Pastel
 			const Point_ConstIterator& iter,
 			const Point_ConstIterator& end)
 		{
+			ASSERT(leaf());
+
 			if (iter == first_)
 			{
 				if (iter == last_)
@@ -145,6 +147,8 @@ namespace Pastel
 			integer points,
 			const Point_ConstIterator& end)
 		{
+			ASSERT(leaf());
+
 			last_ = last;
 
 			if (first_ == end)
@@ -168,9 +172,9 @@ namespace Pastel
 			points_ += points;
 		}
 
-		bool upToDate() const
+		bool invalid() const
 		{
-			return points_ >= 0;
+			return points_ < 0;
 		}
 
 		void invalidate()
@@ -178,33 +182,6 @@ namespace Pastel
 			ASSERT(!leaf());
 
 			points_ = -1;
-		}
-
-		void updateHierarchical()
-		{
-			ASSERT(!leaf());
-
-			if (!left_->upToDate())
-			{
-				left_->updateHierarchical();
-			}
-
-			if (!right_->upToDate())
-			{
-				right_->updateHierarchical();
-			}
-
-			setPoints(
-				left_->points() + right_->points());
-
-			const Point_ConstIterator first = 
-				left_->empty() ? right_->first() : left_->first();
-
-			const Point_ConstIterator last = 
-				right_->empty() ? left_->last() : right_->last();
-
-			setFirst(first);
-			setLast(last);
 		}
 
 		// Splitting plane

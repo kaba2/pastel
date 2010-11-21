@@ -159,6 +159,16 @@ namespace Pastel
 		left.swap(right);
 	}
 
+	template <typename Type, typename HashFunction>
+	inline uint32 partialHash(
+		const WeakPtr<Type>& that,
+		uint32 currentHash,
+		const HashFunction& hashFunction)
+	{
+		return partialHash(that.get(), 
+			currentHash, hashFunction);
+	}
+
 }
 
 #endif

@@ -48,11 +48,11 @@ namespace Pastel
 		class PointInfo;
 		class Node;
 
-		typedef FastList<PointInfo, PointAllocator> PointContainer;
-		typedef typename PointContainer::iterator Point_Iterator;
+		typedef FastList<PointInfo, PointAllocator> PointSet;
+		typedef typename PointSet::iterator Point_Iterator;
 
 	public:
-		typedef typename PointContainer::const_iterator 
+		typedef typename PointSet::const_iterator 
 			Point_ConstIterator;
 		typedef boost::indirect_iterator<Point_ConstIterator, const Point> 
 			PointData_ConstIterator;
@@ -67,7 +67,8 @@ namespace Pastel
 		*/
 		explicit PointKdTree(
 			const PointPolicy& pointPolicy = PointPolicy(),
-			bool simulateKdTree = false);
+			bool simulateKdTree = false,
+			bool lazyUpdates = false);
 
 		//! Constructs a copy from another tree.
 		/*!
@@ -148,8 +149,6 @@ namespace Pastel
 		*/
 		Point_ConstIterator begin() const;
 
-		PointData_ConstIterator pointBegin() const;
-
 		//! Returns an iterator to the end of the point list.
 		/*!
 		Exception safety:
@@ -157,7 +156,23 @@ namespace Pastel
 		*/
 		Point_ConstIterator end() const;
 
-		PointData_ConstIterator pointEnd() const;
+		//! Returns an iterator to the beginning of the hidden point list.
+		/*!
+		Exception safety:
+		nothrow
+		*/
+		Point_ConstIterator hiddenBegin() const;
+
+		//! Returns an iterator to the end of the hidden point list.
+		/*!
+		Exception safety:
+		nothrow
+		*/
+		Point_ConstIterator hiddenEnd() const;
+
+		//! Adapts an iterator to referencing the points themselves.
+		PointData_ConstIterator asPointData(
+			const Point_ConstIterator& iter) const;
 
 		//! Returns the number of nodes in the tree.
 		/*!
@@ -190,24 +205,32 @@ namespace Pastel
 		*/
 		integer dimension() const;
 
+		//! Sets whether to do lazy updating.
+		/*!
+		When lazy updates are enabled, you need to call 'update()'
+		for changes to take effect. The advantage of having lazy
+		updates is increased performance, because then the changes 
+		to the tree structure are amortized over several changes.
+		Disabling lazy updates triggers an immediate 'update()'.
+		*/
+		void setLazyUpdate(bool lazyUpdates);
+
+		//! Returns whether the tree is using lazy updating.
+		bool lazyUpdates() const;
+
+		//! Subdivides the tree.
+		/*!
+		This operation is always immediate. The tree will be
+		up to date after this operation.
+		*/
 		template <typename SplitRule_PointKdTree>
 		void refine(const SplitRule_PointKdTree& splitRule,
 			integer bucketSize = 8);
 
 		//! Insert a point into the tree.
-		Point_ConstIterator insert(const Point& point);
-
-		//! Insert points into the tree.
-		/*!
-		Exception safety:
-		strong
-
-		begin, end:
-		An iterator range consisting of points to insert.
-		*/
-		template <typename InputIterator>
-		void insert(
-			const ForwardRange<InputIterator>& pointSet);
+		Point_ConstIterator insert(
+			const Point& point, 
+			bool hidden = false);
 
 		//! Insert points into the tree.
 		/*!
@@ -221,11 +244,24 @@ namespace Pastel
 		An output iterator to which the corresponding point
 		iterators are reported.
 		*/
-		template <typename InputIterator,
-			typename Point_ConstIterator_OutputIterator>
+		template <typename Input_Point_ConstIterator,
+			typename Point_ConstIterator_Iterator>
 		void insert(
-			const ForwardRange<InputIterator>& pointSet, 
-			Point_ConstIterator_OutputIterator iteratorSet);
+			const ForwardRange<Input_Point_ConstIterator>& pointSet, 
+			Point_ConstIterator_Iterator iteratorSet,
+			bool hidden = false);
+
+		//! Insert points into the tree.
+		/*!
+		This is a convenience function that calls:
+		
+		insert(pointSet, NullIterator())
+		
+		See the documentation for that function.
+		*/
+		template <typename Input_Point_ConstIterator>
+		void insert(
+			const ForwardRange<Input_Point_ConstIterator>& pointSet);
 
 		//! Removes a point from the tree.
 		void erase(const Point_ConstIterator& iter);
@@ -234,10 +270,32 @@ namespace Pastel
 		template <typename Point_ConstIterator_ConstIterator>
 		void erase(const ForwardRange<Point_ConstIterator_ConstIterator>& pointSet);
 
+		//! Hides all points in the tree.
+		void hide();
+
+		//! Hides a point in the tree.
+		void hide(const Point_ConstIterator& iter);
+	
+		//! Shows all hided points in the tree.
+		void show();
+
+		//! Shows a hided point in the tree.
+		void show(const Point_ConstIterator& iter);
+
+		//! Commits lazy tasks.
+		/*!
+		When lazy updates are on, this function needs to be called for
+		the changes to take effect.
+		*/
+		void update();
+
 		//! Clears off subdivision and points.
 		/*!
 		Exception safety:
 		nothrow
+
+		This operation is always immediate. The tree will be
+		up to date after this operation.
 		*/
 		void clear();
 
@@ -245,20 +303,32 @@ namespace Pastel
 		/*!
 		Exception safety:
 		nothrow
+
+		This operation is always immediate. The tree will be
+		up to date after this operation.
 		*/
-		void erasePoints();
+		void erase(bool eraseHidden = true);
 
 		//! Clears the points in a subtree but leaves subdivision intact.
-		void erasePoints(const Cursor& cursor);
+		/*!
+		This operation is always immediate. The tree will be
+		up to date after this operation.
+		*/
+		void erase(const Cursor& cursor, bool eraseHidden = true);
 
 		//! Collapses the tree into a single leaf node.
+		/*!
+		This operation is always immediate. The tree will be
+		up to date after this operation.
+		*/
 		void merge();
 
 		//! Collapse a subtree into a leaf node.
+		/*!
+		This operation is always immediate. The tree will be
+		up to date after this operation.
+		*/
 		void merge(const Cursor& cursor);
-
-		//! Returns the position of a given point.
-		Vector<Real, N> point(const Point& point) const;
 
 	private:
 		class SplitPredicate;
@@ -271,9 +341,11 @@ namespace Pastel
 			// Implicit conversion allowed.
 			PointInfo(
 				const Point& point,
-				Node* leafNode = 0)
+				Node* leafNode = 0,
+				bool hidden = false)
 				: point_(point)
 				, leafNode_(leafNode)
+				, hidden_(hidden)
 			{
 			}
 
@@ -291,6 +363,11 @@ namespace Pastel
 			{
 				return Cursor((Node*)leafNode_);
 			}
+
+			bool hidden() const
+			{
+				return hidden_;
+			}
 		
 		private:
 			void setLeaf(
@@ -299,9 +376,55 @@ namespace Pastel
 				leafNode_ = leafNode;
 			}
 
+			void setHidden(bool hidden) const
+			{
+				hidden_ = hidden;
+			}
+
 			Point point_;
 			mutable const Node* leafNode_;
+			mutable bool hidden_;
 		};
+
+		class TaskType
+		{
+		public:
+			enum Enum
+			{
+				Erase,
+				Hide,
+				Show				
+			};
+		};
+
+		class Task
+		{
+		public:
+			Task(const Point_ConstIterator& point, 
+				typename TaskType::Enum type)
+				: type_(type)
+				, point_(point)
+			{
+			}
+
+			typename TaskType::Enum type() const
+			{
+				return type_;
+			}
+
+			const Point_ConstIterator& point() const
+			{
+				return point_;
+			}
+
+		private:
+			typename TaskType::Enum type_;
+			Point_ConstIterator point_;
+		};
+
+		typedef FastList<Task, PoolAllocator> TaskSet;
+		typedef typename TaskSet::const_iterator Task_ConstIterator;
+		typedef typename TaskSet::iterator Task_Iterator;
 
 		//! Allocates the root node etc.
 		void initialize();
@@ -336,7 +459,7 @@ namespace Pastel
 		void merge(Node* node);
 
 		//! Deallocate the nodes of a subtree.
-		void erase(Node* node);
+		void clear(Node* node);
 
 		//! Sets the leaf nodes of a range of points.
 		void setLeaf(
@@ -345,21 +468,32 @@ namespace Pastel
 			Node* node);
 
 		//! Remove points under a subtree.
-		void erasePoints(Node* node);
+		void erase(Node* node);
 
 		//! Clear point ranges in a subtree, and set bucket nodes.
 		/*!
-		Note points are not actually removed. Use erasePoints()
+		Note points are not actually removed. Use erase()
 		for this. This is actually foremost a helper function for
-		erasePoints().
+		erase().
 		*/
 		void clearPoints(Node* node);
 
 		//! Updates hierarchical bound information.
 		void updateBounds(Node* node, const AlignedBox<Real, N>& bound);
 
-		//! Propagates hierarchical information upwards.
-		void updateHierarchicalUpwards(Node* node);
+		//! Updates the hierarchical information in a node.
+		void updateHierarchical(Node* node);
+
+		//! Updates the nodes in a subtree.
+		void updateDownwards(Node* node);
+		
+		//! Updates the path to the root.
+		/*!
+		With lazy updates, this means invalidating the nodes.
+		With immediate updates, this means updating hierarchical
+		information.
+		*/
+		void updateUpwards(Node* node);
 
 		//! Subdivides a leaf node with the given plane.
 		/*!
@@ -388,26 +522,46 @@ namespace Pastel
 			const Real& prevMin,
 			const Real& prevMax);
 
-		//! Inserts new points at the end of the pointList_.
+		//! Inserts new points at the end of the pointSet_.
 		/*!
+		begin, end:
+		The iterator range [begin, end[ contains the
+		new points to insert.
+
 		returns:
-		The first iterator of the inserted points.
+		The first iterator of the inserted points in
+		'pointSet_'.
 
 		Also updates the bounding box.
 		*/
-		template <typename InputIterator>
-		Point_Iterator insertPrepare(
-			const InputIterator& begin,
-			const InputIterator& end);			
+		template <typename Input_Point_ConstIterator>
+		Point_Iterator copyToEnd(
+			const Input_Point_ConstIterator& begin,
+			const Input_Point_ConstIterator& end,
+			bool hidden);			
 
 		//! Propagates new points to leaf nodes.
 		/*!
 		Preconditions:
-		1) [first, last] is an inclusive iterator range in 'pointList_'.
+		1) [first, last] is an inclusive iterator range in 'pointSet_'.
 		2) count > 0
+
+		node:
+		The node to which recursively insert the points.
+
+		first, last:
+		The iterator range [first, last] contains the
+		new points to insert.
+
+		count:
+		The number of points in [first, last].
+
+		bound:
+		This will be filled with the minimum bounding
+		box for the new points.
 		
 		If the node is an intermediate node,
-		this function reorders 'pointList_'
+		this function reorders 'pointSet_'
 		in the given range so that the points
 		going to the left node are listed
 		before those going to the right node.
@@ -441,11 +595,48 @@ namespace Pastel
 			integer depth,
 			integer bucketSize);
 
+		//! Actually inserts points into the tree.
+		void commitInsertion();
+
+		//! Actually removes a point from the tree.
+		void commitErase(const Point_ConstIterator& iter);
+
+		//! Actually hides a point in the tree.
+		void commitHide(const Point_ConstIterator& iter);
+
+		//! Actually shows a point in the tree.
+		void commitShow(const Point_ConstIterator& iter);
+
+		//! Sets the given points hidden.
+		void setHidden(
+			const Point_ConstIterator& begin,
+			const Point_ConstIterator& end,
+			bool hidden);
+
 		/*
-		pointList_:
-		Contains all points in the tree ordered
-		in such a way that the points of each leaf node 
-		are positioned sequantially in a range.
+		pointSet_:
+		Contains all the visible points in the tree. It is ordered 
+		such that the points of each leaf node are positioned 
+		sequentially in a range, and for a split node the 
+		points in a left node are always listed before those 
+		in a right node.
+
+		hiddenSet_:
+		Contains all the points in the tree which are not 
+		visible in nodes. The points in this set may or
+		may not have an associated node. 
+
+		insertionSet_:
+		Contains points waiting for insertion in the next 'update()'
+		call. The points in this set do not have an associated node. 
+
+		taskSet_:
+		The 'erase()', 'hide()', and 'show()' functions
+		are not executed immediately, but put to a task
+		queue. The task queue is committed via the 
+		'update()' function. This lazy execution allows
+		to amortize the time needed to update the
+		hierarchical information.
 
 		nodeAllocator_:
 		Allocates memory for the nodes of the tree.
@@ -460,23 +651,29 @@ namespace Pastel
 		The number of leaf nodes in the tree.
 
 		pointPolicy_:
-		See the PointPolicy concept.
+		See 'pointpolicy.txt'.
 
 		bound_:
 		An axis aligned bounding box for the
-		points in the tree.
+		points in the tree. Not necessary of minimum
+		size, since the bound is updated only on 
+		insertion (i.e., no shrinking is done).
 
 		simulateKdTree_:
 		If true, no shrinking is done to nodes.
 		*/
 
-		PointContainer pointList_;
+		PointSet pointSet_;
+		PointSet hiddenSet_;
+		PointSet insertionSet_;
+		TaskSet taskSet_;
 		NodeAllocator nodeAllocator_;
 		Node* root_;
 		integer leaves_;
 		PointPolicy pointPolicy_;
 		AlignedBox<Real, N> bound_;
 		bool simulateKdTree_;
+		bool lazyUpdates_;
 	};
 
 }

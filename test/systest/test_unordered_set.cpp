@@ -20,7 +20,7 @@ namespace
 {
 	using namespace Pastel;
 
-	typedef UnorderedSet<int, hash<int>, std::equal_to<int>,
+	typedef UnorderedSet<int, Hash<int>, std::equal_to<int>,
 		PoolAllocator> Container;
 
 	void generateRandomUniqueValues(std::vector<int>& values)

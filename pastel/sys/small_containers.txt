@@ -21,6 +21,6 @@ For these reasons, Pastel provides the _small associative
 containers_ `SmallSet`, `SmallMap`, and `SmallFixedSet`.
 
 [Binary]: [[Ref]]: redblacktree.txt
-[Hash]: [[Ref]]: unordered.txt
+[Hash]: [[Ref]]: hash_tables.txt
 
 
