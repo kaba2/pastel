@@ -56,7 +56,7 @@ namespace Pastel
 		if needed. This improves performance.
 		*/
 
-		return -std::log(random1<Real>());
+		return -std::log(randomOpen0<Real>());
 	}
 
 	template <typename Real>

@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/functional.h"
+#include "pastel/sys/hash.h"
 #include "pastel/sys/stdext_destruct.h"
 
 #include <boost/mpl/if.hpp>
@@ -767,7 +767,7 @@ namespace Pastel
 		const value_type& that)
 	{
 		remove_if(std::bind2nd(
-			equal_to<Type>(), that));
+			std::equal_to<Type>(), that));
 	}
 
 	template <
@@ -798,7 +798,7 @@ namespace Pastel
 		typename UniformAllocator>
 	void FastList<Type, UniformAllocator>::unique()
 	{
-		unique(equal_to<Type>());
+		unique(std::equal_to<Type>());
 	}
 
 	template <

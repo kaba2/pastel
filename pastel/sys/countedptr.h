@@ -6,7 +6,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
-#include "pastel/sys/functional.h"
 #include "pastel/sys/referencecounted.h"
 #include "pastel/sys/weakptr.h"
 

@@ -10,36 +10,6 @@ namespace Pastel
 {
 
 	//! A multi-dimensional array.
-	/*!
-	Let the dimensionality of the array be n.
-	The elements of the array are indexed by a tuple
-	(x_1, x_2, ..., x_n) in Z+^n. This tuple
-	must satisfy:
-	
-	for all i in [1, n]: 0 <= x_i < w_i
-	
-	where (w_1, w_2, ..., w_n) is a tuple containing
-	the extents of the array. We guarantee
-	that the elements are stored sequantially in
-	the following manner (corresponding to C
-	array storage convention):
-
-	element index = sum[i = 1..n] x_i a_i
-
-	where
-
-	a_1 = 1
-	a_i = a_(i - 1) * w_(i - 1)
-
-	For example, a 2d array stores the whole 
-	i:th row before the (i+1):th row
-	(called a row-major order).
-
-	You can obtain constant-time subviews to 
-	the array by using array views, see
-	'pastel/sys/view_all.h'.
-	*/
-
 	template <typename Type, int N>
 	class Array
 		: public Detail_Array::ArrayBase<Type, N>

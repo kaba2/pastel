@@ -9,7 +9,7 @@ namespace Pastel
 {
 
 
-	//! Returns a Triangle-distributed random real.
+	//! Returns a triangle-distributed random real.
 	/*!
 	This function assumes that
 	min = -1, mode = 0, and max = 1.
@@ -17,11 +17,11 @@ namespace Pastel
 	template <typename Real>
 	Real randomTriangle();
 
-	//! Returns a Triangle-distributed random real.
+	//! Returns a triangle-distributed random real.
 	/*!
 	Preconditions:
-	min < mode
-	mode < max
+	leftWidth > 0
+	rightWidth > 0
 	*/
 	template <typename Real>
 	Real randomTriangle(
@@ -34,6 +34,11 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& x);
 
 	//! Probability density function of the Triangle distribution.
+	/*!
+	Preconditions:
+	leftWidth > 0
+	rightWidth > 0
+	*/
 	template <typename Real>
 	Real trianglePdf(
 		const PASTEL_NO_DEDUCTION(Real)& x,

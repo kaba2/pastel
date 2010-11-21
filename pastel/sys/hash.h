@@ -90,6 +90,16 @@ namespace Pastel
 		const std::wstring& that, uint32 currentHash,
 		const HashFunction& hashFunction);
 
+	template <class T>
+	struct Hash
+		: public std::unary_function<T, std::size_t>
+	{
+		std::size_t operator()(const T& val) const
+		{
+			return computeHash(val);
+		}
+	};
+
 }
 
 #include "pastel/sys/hash.hpp"

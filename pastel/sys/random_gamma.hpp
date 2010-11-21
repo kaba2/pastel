@@ -64,7 +64,7 @@ namespace Pastel
 			//
 			// y u^(1 / shape) ~ gamma(shape, 1)
 
-			const Real u = random1<Real>();
+			const Real u = randomOpen0<Real>();
 
 			return std::pow(u, 1 / shape) * d * v;
 		}

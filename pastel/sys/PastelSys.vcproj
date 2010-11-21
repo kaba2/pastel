@@ -469,10 +469,6 @@
 						>
 					</File>
 					<File
-						RelativePath=".\functional.hpp"
-						>
-					</File>
-					<File
 						RelativePath=".\unorderedbase.h"
 						>
 					</File>

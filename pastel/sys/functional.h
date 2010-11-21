@@ -5,8 +5,6 @@
 #ifndef PASTEL_FUNCTIONAL_H
 #define PASTEL_FUNCTIONAL_H
 
-#include "pastel/sys/hash.h"
-
 #include <utility>
 #include <functional>
 #include <string>
@@ -35,30 +33,6 @@ namespace Pastel
 		}
 	};
 
-	template <typename Type>
-	struct equal_to
-		: public std::binary_function<Type, Type, bool>
-	{
-		bool operator()(
-			const Type& left,
-			const Type& right) const
-		{
-			return left == right;
-		}
-	};
-
-	template <class T>
-	struct Hash
-		: public std::unary_function<T, std::size_t>
-	{
-		std::size_t operator()(const T& val) const
-		{
-			return computeHash(val);
-		}
-	};
-
 }
-
-#include "pastel/sys/functional.hpp"
 
 #endif
