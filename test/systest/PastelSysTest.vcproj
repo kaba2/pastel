@@ -383,7 +383,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_array2.cpp"
+			RelativePath=".\test_array.cpp"
 			>
 		</File>
 		<File
@@ -412,6 +412,10 @@
 		</File>
 		<File
 			RelativePath=".\test_fastlist.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_hash.cpp"
 			>
 		</File>
 		<File

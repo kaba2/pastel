@@ -70,6 +70,7 @@ namespace Pastel
 		Point_ConstIterator begin() const
 		{
 			PENSURE(node_);
+
 			return node_->first();
 		}
 
@@ -99,12 +100,14 @@ namespace Pastel
 		integer points() const
 		{
 			PENSURE(node_);
+
 			return node_->points();
 		}
 
 		bool empty() const
 		{
 			PENSURE(node_);
+
 			return node_->empty();
 		}
 

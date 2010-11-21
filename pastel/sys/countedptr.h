@@ -184,15 +184,12 @@ namespace Pastel
 	void swap(CountedPtr<Type>& left,
 		CountedPtr<Type>& right);
 
-	// Hash function for unordered containers
-	template <typename Type>
-	struct hash<CountedPtr<Type> >
-	{
-		std::size_t operator()(const CountedPtr<Type>& that) const
-		{
-			return (std::size_t)(that.get());
-		}
-	};
+	template <typename Type, typename HashFunction>
+	uint32 partialHash(
+		const CountedPtr<Type>& that,
+		uint32 currentHash,
+		const HashFunction& hashFunction);
+
 }
 
 #include "pastel/sys/countedptr.hpp"

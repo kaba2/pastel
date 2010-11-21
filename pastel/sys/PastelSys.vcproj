@@ -447,10 +447,18 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Unordered containers"
+				Name="Hash tables"
 				>
 				<File
-					RelativePath=".\unordered.txt"
+					RelativePath=".\hash.h"
+					>
+				</File>
+				<File
+					RelativePath=".\hash.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\hash_tables.txt"
 					>
 				</File>
 				<Filter
@@ -495,7 +503,7 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Small containers"
+				Name="Small associative containers"
 				>
 				<File
 					RelativePath=".\small_containers.txt"
@@ -2179,10 +2187,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\example\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\test\CMakeLists.txt"
 				>
 			</File>
@@ -2196,6 +2200,10 @@
 			</File>
 			<File
 				RelativePath=".\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\example\CMakeLists.txt"
 				>
 			</File>
 			<File

@@ -54,7 +54,7 @@ fastlistprivate.hpp
 source_group(
 "Data structures\\Unordered containers"
 FILES
-unordered.txt
+hash_tables.txt
 )
 
 source_group(
@@ -864,7 +864,7 @@ tuple_tools.h
 tuple_tools.hpp
 tuplebase.h
 unit_testing.txt
-unordered.txt
+hash_tables.txt
 unorderedbase.h
 unorderedbase.hpp
 unorderedmap.h

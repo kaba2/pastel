@@ -1,6 +1,6 @@
 // Description: UnorderedMap class
 // Detail: An unordered associative map
-// Documentation: unordered.txt
+// Documentation: hash_tables.txt
 
 #ifndef PASTEL_UNORDEREDMAP_H
 #define PASTEL_UNORDEREDMAP_H
@@ -15,7 +15,7 @@ namespace Pastel
 	template <
 		class Key,
 		class T,
-		class Hash = hash<Key>,
+		class Hash = Hash<Key>,
 		class Pred = std::equal_to<Key>,
 		class UniformAllocator = PoolAllocator>
 	class UnorderedMap

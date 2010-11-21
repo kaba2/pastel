@@ -6,6 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vectorexpression_concept.h"
+#include "pastel/sys/iteratorrange.h"
 
 namespace Pastel
 {
@@ -37,11 +38,20 @@ namespace Pastel
 			//! The type of a const-iterator to coordinates.
 			typedef UserDefinedType ConstIterator;
 
+			//! The type of a an iterator range to coordinates.
+			typedef RandomAccessRange<ConstIterator> ConstRange;
+
 			//! Returns a vector expression representing the point.
 			/*!
 			See the vector expression concept in vectorexpression.txt.
 			*/
 			Expression operator()(const Point& point) const;
+
+			//! Returns the coordinate on the given axis.
+			Real axis(const Point& point, integer axis) const;
+
+			//! Returns a random-access range to coordinate data.
+			ConstRange range(const Point& point) const;
 
 			//! Returns an iterator to the beginning of coordinate data.
 			ConstIterator begin(const Point& point) const;

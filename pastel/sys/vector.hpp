@@ -7,10 +7,21 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-	void swap(Vector<Real, N>& left,
+	inline void swap(Vector<Real, N>& left,
 		Vector<Real, N>& right)
 	{
 		left.swap(right);
+	}
+
+	template <typename Real, int N, typename HashFunction>
+	inline uint32 partialHash(
+		const Vector<Real, N>& that,
+		uint32 currentHash,
+		const HashFunction& hashFunction)
+	{
+		return Pastel::partialHashMany(
+			forwardRange(that.begin(), that.end()),
+			currentHash, hashFunction);
 	}
 
 	template <typename Real, int N, typename Expression>

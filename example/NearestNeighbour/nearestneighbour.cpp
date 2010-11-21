@@ -112,7 +112,7 @@ private:
 	void onGfxLogic();
 	void sprayPoints(
 		const Vector2& center, real radius, integer points);
-	void erasePoints(const Vector2& center, real radius);
+	void erase(const Vector2& center, real radius);
 	void computeTree(TreeType::Enum treeType);
 	void timing();
 
@@ -284,7 +284,7 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 
 		if (key == SDLK_x)
 		{
-			tree_.erasePoints();
+			tree_.erase();
 		}
 
 		if (key == SDLK_F5)
@@ -323,6 +323,17 @@ void NearestNeighbor_Gfx_Ui::onKey(bool pressed, SDLKey key)
 			}
 
 			log() << "Nearest point count set to " << nearestPoints_ << logNewLine;
+		}
+		if (key == SDLK_h)
+		{
+			if (tree_.empty())
+			{
+				tree_.show();
+			}
+			else
+			{
+				tree_.hide();
+			}
 		}
 
 		if (key == SDLK_t)
@@ -675,6 +686,10 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 {
 	handleKeyboard();
 
+	ENSURE(check(tree_));
+
+	std::cout << tree_.points() << std::endl;
+
 	Integer2 iMouse;
 	bool leftButton = false;
 	bool rightButton = false;
@@ -696,7 +711,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 
 	if (rightButton)
 	{
-		erasePoints(worldMouse, SprayRadius);
+		erase(worldMouse, SprayRadius);
 	}
 
 	nearestPointSet_.clear();
@@ -769,7 +784,7 @@ void NearestNeighbor_Gfx_Ui::sprayPoints(
 	*/
 }
 
-void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
+void NearestNeighbor_Gfx_Ui::erase(const Vector2& center, real radius)
 {
 	NearestPointSet nearestSet;
 	searchNearest(
@@ -786,6 +801,8 @@ void NearestNeighbor_Gfx_Ui::erasePoints(const Vector2& center, real radius)
 	for (integer i = 0;i < nearestSet.size();i += 16)
 	{
 		tree_.erase(nearestSet[i]);
+		//tree_.hide(nearestSet[i]);
+		//tree_.show(nearestSet[i]);
 	}
 }
 
@@ -807,8 +824,9 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 
 	timer.setStart();
 
-	newTree.insert(
-		forwardRange(tree_.pointBegin(), tree_.pointEnd()));
+	newTree.insert(forwardRange(
+		tree_.asPointData(tree_.begin()), 
+		tree_.asPointData(tree_.end())));
 
 	ENSURE(check(newTree));
 

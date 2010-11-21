@@ -1,9 +1,11 @@
-// Description: hash class for unordered containers
+// Description: Hash class for unordered containers
 // Detail: Also some other needed functors.
-// Documentation: unordered.txt
+// Documentation: hash_tables.txt
 
 #ifndef PASTEL_FUNCTIONAL_H
 #define PASTEL_FUNCTIONAL_H
+
+#include "pastel/sys/hash.h"
 
 #include <utility>
 #include <functional>
@@ -37,7 +39,8 @@ namespace Pastel
 	struct equal_to
 		: public std::binary_function<Type, Type, bool>
 	{
-		bool operator()(const Type& left,
+		bool operator()(
+			const Type& left,
 			const Type& right) const
 		{
 			return left == right;
@@ -45,55 +48,13 @@ namespace Pastel
 	};
 
 	template <class T>
-	struct hash
+	struct Hash
 		: public std::unary_function<T, std::size_t>
 	{
 		std::size_t operator()(const T& val) const
 		{
-			return (std::size_t)val;
+			return computeHash(val);
 		}
-	};
-
-	template<class T>
-	struct hash<T*>
-		: public std::unary_function<T*, std::size_t>
-	{
-		std::size_t operator()(const T* val) const;
-	};
-
-	template <>
-	struct hash<float>
-		: public std::unary_function<float, std::size_t>
-	{
-		std::size_t operator()(float val) const;
-	};
-
-	template <>
-	struct hash<double>
-		: public std::unary_function<double, std::size_t>
-	{
-		std::size_t operator()(double val) const;
-	};
-
-	template <>
-	struct hash<long double>
-		: public std::unary_function<long double, std::size_t>
-	{
-		std::size_t operator()(long double val) const;
-	};
-
-	template <>
-	struct hash<std::string>
-		: public std::unary_function<std::string, std::size_t>
-	{
-		std::size_t operator()(const std::string& val) const;
-	};
-
-	template <>
-	struct hash<std::wstring>
-		: public std::unary_function<std::wstring, std::size_t>
-	{
-		std::size_t operator()(const std::wstring& val) const;
 	};
 
 }

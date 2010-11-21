@@ -175,15 +175,12 @@ namespace Pastel
 	void swap(WeakPtr<Type>& left,
 		WeakPtr<Type>& right);
 
-	// Hash function for unordered containers
-	template <typename Type>
-	struct hash<WeakPtr<Type> >
-	{
-		std::size_t operator()(const WeakPtr<Type>& that) const
-		{
-			return (std::size_t)(that.get());
-		}
-	};
+	template <typename Type, typename HashFunction>
+	inline uint32 partialHash(
+		const WeakPtr<Type>& that,
+		uint32 currentHash,
+		const HashFunction& hashFunction);
+
 }
 
 #include "pastel/sys/weakptr.hpp"
