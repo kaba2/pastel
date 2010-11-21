@@ -1,7 +1,7 @@
 Algorithm concept
 =================
 
-[[Parent]]: pastel.txt
+[[Parent]]: pastelsys.txt
 
 An _algorithm_, as a concept, is an object which encapsulates a _generic_
 algorithm. 

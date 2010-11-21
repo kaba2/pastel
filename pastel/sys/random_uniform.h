@@ -11,22 +11,26 @@ namespace Pastel
 {
 
 	//! Returns a uniformly distributed random integer in [0, 0x7fffffff].
-	inline integer randomInteger();
+	integer randomInteger();
 
 	//! Returns a uniformly distributed random integer in [min, max].
-	inline integer randomInteger(integer min, integer max);
+	integer randomInteger(integer min, integer max);
 
 	//! Returns a random real in [0, 1] with 32-bit resolution.
 	template <typename Real>
 	Real random();
 
-	//! Returns a random real in [0, 1[ with 32-bit resolution.
-	template <typename Real>
-	Real random0();
-
 	//! Returns a random real in ]0, 1[ with 32-bit resolution.
 	template <typename Real>
-	Real random1();
+	Real randomOpen();
+
+	//! Returns a random real in ]0, 1] with 32-bit resolution.
+	template <typename Real>
+	Real randomOpen0();
+
+	//! Returns a random real in [0, 1[ with 32-bit resolution.
+	template <typename Real>
+	Real randomOpen1();
 
 	//! Returns a random real in [0, 1] with 53-bit resolution.
 	template <typename Real>

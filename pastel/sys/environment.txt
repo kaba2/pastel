@@ -54,16 +54,16 @@ is forced to 0.
 Global type definitions
 -----------------------
 
-Pastel includes some global type definitions in the file 'mytypes.h',
+Pastel includes some global type definitions in the file [[FileLink: mytypes.h]],
 which is included in practically every file in Pastel. In that file
-there is particularly the definition of 'real' type which you might
-want to change to either 'float' or 'double' based on your specific
+there is particularly the definition of `real` type which you might
+want to change to either `float` or `double` based on your specific
 requirements. The other types should be chosen such that they meet
-the obvious requirements (e.g. the size of uint16 is 16 bits).
-These requirements are checked automatically in 'pastelsys.cpp' in
+the obvious requirements (e.g. the size of `uint16` is 16 bits).
+These requirements are checked automatically in [[FileLink: pastelsys.cpp]] in
 the PastelSys library. Compilation of that file fails if the 
 requirements are not met. In this case you might need to change the
-types in 'mytypes.h' to proper types.
+types in [[FileLink: mytypes.h]] to proper types.
 
 See also
 --------

@@ -6,6 +6,7 @@
 #define PASTEL_UNORDEREDBASE_H
 
 #include "pastel/sys/fastlist.h"
+#include "pastel/sys/hash.h"
 
 #include <boost/shared_ptr.hpp>
 

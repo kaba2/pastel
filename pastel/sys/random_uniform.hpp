@@ -10,7 +10,6 @@ namespace Pastel
 
 	inline integer randomInteger()
 	{
-		// Modified from the official Mersenne Twister source code.
 		return (integer)(Pastel::randomUint32() >> 1);
 	}
 
@@ -26,32 +25,31 @@ namespace Pastel
 	template <typename Real>
 	Real random()
 	{
-		// These real versions are due to Isaku Wada, 2002/01/09.
-		// Modified from the official Mersenne Twister source code.
-
+		// Divided by 2^32 - 1
 		return randomUint32() * ((Real)1.0 / (Real)4294967295.0); 
-		// divided by 2^32 - 1
 	}
 
 	template <typename Real>
-	Real random0()
+	Real randomOpen()
 	{
-		// These real versions are due to Isaku Wada, 2002/01/09.
-		// Modified from the official Mersenne Twister source code.
-
-		return randomUint32() * ((Real)1.0 / (Real)4294967296.0); 
-		// divided by 2^32
-	}
-
-	template <typename Real>
-	Real random1()
-	{
-		// These real versions are due to Isaku Wada, 2002/01/09.
-		// Modified from the official Mersenne Twister source code.
-
+		// Divided by 2^32
 		return ((Real)randomUint32() + (Real)0.5) * 
 			((Real)1.0 / (Real)4294967296.0); 
-		// divided by 2^32
+	}
+
+	template <typename Real>
+	Real randomOpen0()
+	{
+		// Divided by 2^32
+		return ((Real)randomUint32() + 1) * 
+			((Real)1.0 / (Real)4294967296.0); 
+	}
+
+	template <typename Real>
+	Real randomOpen1()
+	{
+		// Divided by 2^32
+		return randomUint32() * ((Real)1.0 / (Real)4294967296.0); 
 	}
 
 	template <typename Real>
