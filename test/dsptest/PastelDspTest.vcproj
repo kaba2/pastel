@@ -346,6 +346,22 @@
 			RelativePath=".\pasteldsptest.h"
 			>
 		</File>
+		<File
+			RelativePath=".\test_filter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_fourier.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_mipmap.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_ripmap.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

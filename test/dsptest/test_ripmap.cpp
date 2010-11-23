@@ -1,7 +1,7 @@
 // Description: Testing for RipMap
 // DocumentationOf: ripmap.h
 
-#include "pastelgfxtest.h"
+#include "pasteldsptest.h"
 
 #include "pastel/sys/string_tools.h"
 #include "pastel/sys/arrayview.h"
@@ -62,7 +62,7 @@ namespace
 
 	void testAdd()
 	{
-		gfxTestList().add("RipMap", testRipMap);
+		dspTestList().add("RipMap", testRipMap);
 	}
 
 	CallFunction run(testAdd);

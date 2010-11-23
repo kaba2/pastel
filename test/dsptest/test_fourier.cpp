@@ -1,7 +1,7 @@
 // Description: Testing for Fourier transform
 // DocumentationOf: fourier_transform.h
 
-#include "pastelgfxtest.h"
+#include "pasteldsptest.h"
 
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"
@@ -67,7 +67,7 @@ namespace
 	{
 	public:
 		Fourier_Test()
-			: TestSuite(&gfxTestReport())
+			: TestSuite(&dspTestReport())
 		{
 		}
 
@@ -88,7 +88,7 @@ namespace
 			const std::string& name)
 		{
 			const Array<real32>& image = 
-				*gfxStorage().get<Array<real32>*>("lena_gray");
+				*dspStorage().get<Array<real32>*>("lena_gray");
 			
 			Array<real32> tImage(image);
 
@@ -329,7 +329,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Fourier", testFourier);
+		dspTestList().add("Fourier", testFourier);
 	}
 
 	CallFunction run(addTest);

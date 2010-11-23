@@ -1,7 +1,7 @@
 // Description: Testing for MipMap
 // DocumentationOf: mipmap.h
 
-#include "pastelgfxtest.h"
+#include "pasteldsptest.h"
 
 #include "pastel/sys/string_tools.h"
 #include "pastel/sys/arrayview.h"
@@ -60,7 +60,7 @@ namespace
 
 	void testAdd()
 	{
-		gfxTestList().add("MipMap", testBegin);
+		dspTestList().add("MipMap", testBegin);
 	}
 
 	CallFunction run(testAdd);

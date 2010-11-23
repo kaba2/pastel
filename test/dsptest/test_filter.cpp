@@ -1,7 +1,7 @@
 // Description: Testing for filters
 // DocumentationOf: filter.h
 
-#include "pastelgfxtest.h"
+#include "pasteldsptest.h"
 
 #include <pastel/gfx/pcx.h>
 #include <pastel/gfx/color_space.h>
@@ -313,13 +313,13 @@ namespace
 
 	void testAdd()
 	{
-		gfxTestList().add("Filter.Shape1D", testShape1D);
-		gfxTestList().add("Filter.SeparableShape2D", testSeparableShape2D);
-		gfxTestList().add("Filter.RadialShape2D", testRadialShape2D);
-		gfxTestList().add("Filter.Cubic", testCubicFilter);
-		gfxTestList().add("Filter.Mitchell", testMitchellFilter);
-		gfxTestList().add("Filter.Table", testTableFilter);
-		gfxTestList().add("Filter.Signal", testSignal);
+		dspTestList().add("Filter.Shape1D", testShape1D);
+		dspTestList().add("Filter.SeparableShape2D", testSeparableShape2D);
+		dspTestList().add("Filter.RadialShape2D", testRadialShape2D);
+		dspTestList().add("Filter.Cubic", testCubicFilter);
+		dspTestList().add("Filter.Mitchell", testMitchellFilter);
+		dspTestList().add("Filter.Table", testTableFilter);
+		dspTestList().add("Filter.Signal", testSignal);
 	}
 
 	CallFunction run(testAdd);

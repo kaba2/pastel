@@ -399,14 +399,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_filter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_fourier.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_gray.cpp"
 			>
 		</File>
@@ -420,10 +412,6 @@
 		</File>
 		<File
 			RelativePath=".\test_imageprocessing.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_mipmap.cpp"
 			>
 		</File>
 		<File
@@ -444,10 +432,6 @@
 		</File>
 		<File
 			RelativePath=".\test_reconstructimage.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_ripmap.cpp"
 			>
 		</File>
 		<File
