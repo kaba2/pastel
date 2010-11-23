@@ -1,4 +1,4 @@
-Discrete fourier transform
+Discrete Fourier transform
 ==========================
 
 [[Parent]]: transforms.txt
@@ -6,7 +6,7 @@ Discrete fourier transform
 Theory
 ------
 
-The _discrete fourier transform_ (DFT) is an invertible linear 
+The _discrete Fourier transform_ (DFT) is an invertible linear 
 mapping ''"DFT" : CC^N -> CC^N'' defined by:
 
 ''"DFT"(x) = M x'', where ''M in CC^{N \times N}'', and
@@ -19,7 +19,7 @@ Its inverse is given by ''"IDFT" : CC^N -> CC^N'':
 
 ''M_{kn}^{-1} = (1 / N) e^{2 pi i k n / N}.''
 
-The _unitary discrete fourier transform_ is given by multiplying 
+The _unitary discrete Fourier transform_ is given by multiplying 
 ''M'' with ''1 / sqrt(N)''. This transformation has the convenient 
 property of preserving 2-norms.
 

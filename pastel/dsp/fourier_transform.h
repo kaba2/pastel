@@ -1,4 +1,4 @@
-// Description: Discrete fourier transform
+// Description: Discrete Fourier transform
 
 #ifndef PASTEL_FOURIER_TRANSFORM_H
 #define PASTEL_FOURIER_TRANSFORM_H
@@ -15,7 +15,7 @@
 namespace Pastel
 {
 
-	//! Computes a discrete fourier transform.
+	//! Computes a discrete Fourier transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(input.size())
@@ -26,7 +26,7 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
-	//! Computes a discrete fourier transform.
+	//! Computes a discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
 	dft(inputOutput, inputOutput.begin());
@@ -38,7 +38,7 @@ namespace Pastel
 
 	PASTEL_RANGE_ALGORITHM(dft, Dft);
 
-	//! Computes a unitary discrete fourier transform.
+	//! Computes a unitary discrete Fourier transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(input.size())
@@ -49,7 +49,7 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
-	//! Computes a unitary discrete fourier transform.
+	//! Computes a unitary discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
 	unitaryDft(inputOutput, inputOutput.begin());
@@ -61,7 +61,7 @@ namespace Pastel
 
 	PASTEL_RANGE_ALGORITHM(unitaryDft, UnitaryDft);
 
-	//! Computes an inverse discrete fourier transform.
+	//! Computes an inverse discrete Fourier transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(input.size())
@@ -72,7 +72,7 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
-	//! Computes an inverse discrete fourier transform.
+	//! Computes an inverse discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
 	inverseDft(inputOutput, inputOutput.begin());
@@ -84,7 +84,7 @@ namespace Pastel
 
 	PASTEL_RANGE_ALGORITHM(inverseDft, InverseDft);
 
-	//! Computes an inverse unitary discrete fourier transform.
+	//! Computes an inverse unitary discrete Fourier transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(input.size())
@@ -95,7 +95,7 @@ namespace Pastel
 		const ForwardRange<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
-	//! Computes an inverse unitary discrete fourier transform.
+	//! Computes an inverse unitary discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
 	inverseUnitaryDft(inputOutput, inputOutput.begin());

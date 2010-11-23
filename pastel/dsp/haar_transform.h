@@ -1,4 +1,4 @@
-// Description: Discrete haar transform
+// Description: Discrete Haar transform
 
 #ifndef PASTEL_HAAR_TRANSFORM_H
 #define PASTEL_HAAR_TRANSFORM_H
