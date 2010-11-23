@@ -191,7 +191,7 @@ namespace Pastel
 			// input4[2i + 1] = input2[i], for 0 <= i < 2n.
 			//
 			// We shall compute the first half of the discrete
-			// fourier transform of 'input4'.
+			// Fourier transform of 'input4'.
 					
 			// Separate the input into odd-index and 
 			// even-index subsequences.
@@ -212,10 +212,10 @@ namespace Pastel
 				oddFourier.push_back(oddFourier[i]);
 			}
 
-			// The fourier transformation of the
+			// The Fourier transformation of the
 			// even-index subsequence is zero.
 
-			// Find out the fourier transformation
+			// Find out the Fourier transformation
 			// of the odd-index subsequence.
 			dft(forwardRange(oddFourier.begin(), oddFourier.end()),
 				oddFourier.begin());

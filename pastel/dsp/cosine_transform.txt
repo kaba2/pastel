@@ -34,7 +34,7 @@ case the unitary version is called an _orthogonal discrete cosine transform_.
 
 ### Applications
 
-The DCT is interesting for the same reasons as the [discrete fourier transform][DFT].
+The DCT is interesting for the same reasons as the [discrete Fourier transform][DFT].
 However, especially when applied to images, the DCT has a strong _energy compaction
 property_, which means that most of the information (length) of a vector is contained
 in the first few coefficients. This property has been extensively taken advantage of 

@@ -1,5 +1,15 @@
-Transforms
-==========
+Signal transforms
+=================
 
 [[Parent]]: pasteldsp.txt
 
+This section provides efficient implementations of specific kinds of 
+linear transformations in ''RR^n'' and ''CC^n''. These include the
+discrete cosine transform (DCT), the discrete wavelet transform (DWT),
+and the discrete Fourier transform (DFT). Whereas an arbitrary
+linear transformation can be applied by a matrix-vector multiplication
+in time ''O(n^2)'', these transformations can be applied in time 
+''O(n log(n))'', or even in time ''O(n)''. Furthermore, no space is 
+needed to represent the transformation matrix. This efficiency is 
+achieved by exploiting the additional mathematical structure available 
+in these transforms.

@@ -49,4 +49,4 @@ which I resampled to 512 x 512 to better fit the webpage.
 
 [[Gallery]]:
 	../../images/ripmap.png
-	- A mip-map illustrated.
+	- A rip-map illustrated.
