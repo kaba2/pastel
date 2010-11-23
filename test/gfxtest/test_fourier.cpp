@@ -11,6 +11,7 @@
 
 #include "pastel/dsp/fourier_transform.h"
 #include "pastel/dsp/cosine_transform.h"
+#include "pastel/dsp/haar_transform.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
@@ -74,34 +75,47 @@ namespace
 		{
 			testSimple();
 			testRandom();
-			testImage();
+			testImage(Haar(), InverseHaar(), "haar");
+			testImage(Dct(), InverseDct(), "dct");
 		}
 
-		void testImage()
+		template <
+			typename Transform_Algorithm,
+			typename Inverse_Algorithm>
+		void testImage(
+			const Transform_Algorithm& transform,
+			const Inverse_Algorithm& inverse,
+			const std::string& name)
 		{
 			const Array<real32>& image = 
 				*gfxStorage().get<Array<real32>*>("lena_gray");
 			
-			Array<real32> dctImage(image);
+			Array<real32> tImage(image);
 
-			forEachRowOnAllAxes(dctImage(), Dct());
+			forEachRowOnAllAxes(tImage(), transform);
 
-			for (integer y = 0;y < dctImage.height();++y)
 			{
-				for (integer x = 0;x < dctImage.width();++x)
+				Array<real32> sImage(tImage);
+
+				for (integer i = 0;i < tImage.size();++i)
 				{
-					dctImage(x, y) *= std::exp(-(real32)(x * x + y * y) / 4000);
+					sImage(i) = std::log(std::abs(tImage(i)) + 1);
+				}
+
+				saveGrayscalePcx(sImage, name + "_lena.pcx", true);
+			}
+
+			for (integer y = 0;y < tImage.height();++y)
+			{
+				for (integer x = 0;x < tImage.width();++x)
+				{
+					tImage(x, y) *= std::exp(-(real32)(x * x + y * y) / 4000);
 				}
 			}
 
-			forEachRowOnAllAxes(dctImage(), InverseDct());
+			forEachRowOnAllAxes(tImage(), inverse);
 
-			//for (integer i = 0;i < dctImage.size();++i)
-			//{
-			//	dctImage(i) = std::log(std::abs(dctImage(i)) + 1);
-			//}
-
-			saveGrayscalePcx(dctImage, "dct_lena.pcx", true);
+			saveGrayscalePcx(tImage, name + "_lena_blur.pcx", true);
 		}
 
 		template <typename Complex_Iterator>
@@ -148,44 +162,80 @@ namespace
 			return testDft(randomAccessRange(input));
 		}
 
+		template <
+			typename Complex_Iterator,
+			typename Transform_Algorithm,
+			typename InverseTransform_Algorithm>
+		bool test(
+			const RandomAccessRange<Complex_Iterator>& input,
+			const Transform_Algorithm& transform,
+			const InverseTransform_Algorithm& inverse)
+		{
+			const integer n = input.size();
+
+			std::vector<real> output(input.begin(), input.end());
+			transform(
+				forwardRange(output.begin(), output.end()));
+
+			/*
+			std::cout << "Input: " << std::endl;
+			std::copy(
+				input.begin(), input.end(),
+				std::ostream_iterator<real>(std::cout, " "));
+			std::cout << std::endl;
+
+			std::cout << "Output: " << std::endl;
+			std::copy(
+				output.begin(), output.end(),
+				std::ostream_iterator<real>(std::cout, " "));
+			std::cout << std::endl;
+			*/
+
+			inverse(
+				forwardRange(output.begin(), output.end()));
+
+			for (integer i = 0;i < n;++i)
+			{
+				if (std::abs(input[i] - output[i]) > 0.001)
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		template <typename Complex_Iterator>
 		bool testDct(
 			const RandomAccessRange<Complex_Iterator>& input)
 		{
 			const integer n = input.size();
 
-			std::vector<real> output(n);
-			dct(forwardRange(input.begin(), input.end()),
-				output.begin());
-			inverseDct(
-				forwardRange(output.begin(), output.end()),
-				output.begin());
-
-			for (integer i = 0;i < n;++i)
+			if (!test(input, Dct(), InverseDct()) ||
+				!test(input, OrthogonalDct(), InverseOrthogonalDct()))
 			{
-				if (std::abs(input[i] - output[i]) > 0.001)
-				{
-					return false;
-				}
+				return false;
 			}
 
-			orthogonalDct(forwardRange(input.begin(), input.end()),
-				output.begin());
-			inverseOrthogonalDct(
-				forwardRange(output.begin(), output.end()),
-				output.begin());
+			return true;
+		}
 
-			for (integer i = 0;i < n;++i)
+		template <int N>
+		bool testHaar(const real (&input)[N])
+		{
+			return testHaar(randomAccessRange(input));
+		}
+
+		template <typename Complex_Iterator>
+		bool testHaar(
+			const RandomAccessRange<Complex_Iterator>& input)
+		{
+			const integer n = input.size();
+
+			if (!test(input, Haar(), InverseHaar()))
 			{
-				if (std::abs(input[i] - output[i]) > 0.001)
-				{
-					return false;
-				}
+				return false;
 			}
-
-			//std::copy(output.begin(), output.end(),
-			//	std::ostream_iterator<real>(std::cout, " "));
-			//std::cout << std::endl;
 
 			return true;
 		}
@@ -220,31 +270,43 @@ namespace
 				const real input[] = {1};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 			{
 				const real input[] = {1, 2};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 			{
 				const real input[] = {1, 2, 3, 4};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 			{
 				const real input[] = {4, 3, 2, 1};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 			{
 				const real input[] = {1, 2, 3, 4, 5, 6, 7, 8};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 			{
 				const real input[] = {1, 5, 2, 3, 4, 9, 5, 5};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
+			}
+			{
+				const real input[] = {2, 5, 8, 9, 7, 4, -1, 1};
+				TEST_ENSURE(testDft(input));
+				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 			{
 				const real input[] = 
@@ -254,6 +316,7 @@ namespace
 				};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
+				TEST_ENSURE(testHaar(input));
 			}
 		}
 	};

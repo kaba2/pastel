@@ -12,23 +12,23 @@ namespace
 
 	void testCcwAngle()
 	{
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(0, 1))) != 90);
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(0, 1), Vector2(-1, 0))) != 90);
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(-1, 0), Vector2(0, -1))) != 90);
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(0, -1), Vector2(1, 0))) != 90);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(1, 0), Vector2(0, 1))), !=, 90);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(0, 1), Vector2(-1, 0))), !=, 90);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(-1, 0), Vector2(0, -1))), !=, 90);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(0, -1), Vector2(1, 0))), !=, 90);
 
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(1, 1))) != 45);
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(-1, 1))) != 135);
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(-1, -1))) != 225);
-		REPORT(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(1, -1))) != 315);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(1, 0), Vector2(1, 1))), !=, 45);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(1, 0), Vector2(-1, 1))), !=, 135);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(1, 0), Vector2(-1, -1))), !=, 225);
+		REPORT_OP(radiansToDegrees<real>(
+			ccwAngle(Vector2(1, 0), Vector2(1, -1))), !=, 315);
 	}
 
 	void testQuadratic()
