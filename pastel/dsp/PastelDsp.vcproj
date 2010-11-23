@@ -543,6 +543,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\haar_transform.h"
+				>
+			</File>
+			<File
+				RelativePath=".\haar_transform.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\haar_transform.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\transforms.txt"
 				>
 			</File>
