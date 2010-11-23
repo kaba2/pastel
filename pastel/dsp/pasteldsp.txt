@@ -3,6 +3,7 @@ PastelDsp
 
 [[Parent]]: pastel.txt
 
-The purpose of the PastelDsp sub-library is to provide
-tools related to signal processing.
-
+The _PastelDsp_ sub-library provides tools for digital signal 
+processing. The tools that can be found here are mostly related 
+to resampling, filtering, and transforms between time and frequency 
+domains.

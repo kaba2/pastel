@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="PastelDsp"
-	ProjectGUID="{785939E7-58E3-4E5D-9215-1BA393315CDB}"
-	RootNamespace="PastelDsp"
+	Name="PastelDspTest"
+	ProjectGUID="{417B2842-367D-4AEA-B40F-0F1CDD0E8817}"
+	RootNamespace="PastelDspTest"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -18,9 +18,9 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)\lib"
+			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -43,7 +43,7 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;PASTELDSP_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -53,7 +53,6 @@
 				WarningLevel="3"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -66,12 +65,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys_d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
+				AdditionalDependencies="pastelsys_d.lib pastelmath_d.lib pastelgfx_d.lib pastelgeometry_d.lib pasteldevice_d.lib pasteldsp_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -98,9 +96,9 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)\lib"
+			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="2"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -125,7 +123,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;PASTELDSP_EXPORTS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="true"
@@ -134,7 +132,6 @@
 				WarningLevel="3"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -147,11 +144,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="pastelsys.lib"
+				AdditionalDependencies="pastelsys.lib pastelmath.lib pastelgfx.lib pastelgeometry.lib pasteldevice.lib pasteldsp.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(SolutionDir)\lib"
 				GenerateDebugInformation="true"
-				SubSystem="2"
+				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -180,9 +177,9 @@
 		</Configuration>
 		<Configuration
 			Name="Static Release|Win32"
-			OutputDirectory="$(SolutionDir)\lib"
+			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -207,7 +204,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				DisableLanguageExtensions="true"
@@ -216,7 +213,6 @@
 				WarningLevel="3"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -228,11 +224,21 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)_s.lib"
+				Name="VCLinkerTool"
+				AdditionalDependencies="pastelsys_s.lib pastelmath_s.lib pastelgfx_s.lib pastelgeometry_s.lib pasteldevice_s.lib pasteldsp_s.lib sdl.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="$(SolutionDir)\lib"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -244,14 +250,17 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Static Debug|Win32"
-			OutputDirectory="$(SolutionDir)\lib"
+			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -274,7 +283,7 @@
 				AdditionalOptions="/D &quot;_SECURE_SCL=0&quot; /D &quot;_HAS_ITERATOR_DEBUGGING=0&quot;"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(SolutionDir)\..\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -284,7 +293,6 @@
 				WarningLevel="3"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -296,11 +304,19 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)_sd.lib"
+				Name="VCLinkerTool"
+				AdditionalDependencies="pastelsys_sd.lib pastelmath_sd.lib pastelgfx_sd.lib pastelgeometry_sd.lib pasteldevice_sd.lib pasteldsp_sd.lib sdl.lib"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="$(SolutionDir)\lib"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -312,6 +328,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -319,268 +338,12 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Filters"
-			>
-			<File
-				RelativePath=".\box_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\box_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cubic_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\cubic_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filter.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\filter_all.h"
-				>
-			</File>
-			<File
-				RelativePath=".\gaussian_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\gaussian_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\lanczos_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\lanczos_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mitchell_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mitchell_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\table_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\table_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle_filter.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Precomputed filtering"
-			>
-			<File
-				RelativePath=".\precomputed_filtering.txt"
-				>
-			</File>
-			<Filter
-				Name="MipMap"
-				>
-				<File
-					RelativePath=".\mipmap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\mipmap.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\mipmap.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\mipmap_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\mipmap_tools.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="RipMap"
-				>
-				<File
-					RelativePath=".\ripmap.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ripmap.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\ripmap.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\ripmap_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ripmap_tools.hpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Resampling"
-			>
-			<File
-				RelativePath=".\resample.h"
-				>
-			</File>
-			<File
-				RelativePath=".\resample.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\resample.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\resample_optimal_order.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Miscellaneous"
-			>
-			<File
-				RelativePath=".\dsplibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\dsplibrary.h"
-				>
-			</File>
-			<File
-				RelativePath=".\miscellaneous.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\reconstructimage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\reconstructimage.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Deprecated"
-			>
-			<File
-				RelativePath=".\filterdesign.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\filterdesign.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\filterform.hpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Transforms"
-			>
-			<File
-				RelativePath=".\cosine_transform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cosine_transform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\cosine_transform.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\fourier_transform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\fourier_transform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\fourier_transform.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\haar_transform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\haar_transform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\haar_transform.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\transforms.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Sparsity measures"
-			>
-			<File
-				RelativePath=".\sparsity.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sparsity.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\sparsity.txt"
-				>
-			</File>
-		</Filter>
 		<File
-			RelativePath=".\CMakeLists.txt"
+			RelativePath=".\pasteldsptest.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\pasteldsp.txt"
+			RelativePath=".\pasteldsptest.h"
 			>
 		</File>
 	</Files>
