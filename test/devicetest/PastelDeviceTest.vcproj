@@ -343,10 +343,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\pasteldevicetest.cpp"
 			>
 		</File>

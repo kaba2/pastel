@@ -576,10 +576,6 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\pasteldsp.txt"
 			>
 		</File>
