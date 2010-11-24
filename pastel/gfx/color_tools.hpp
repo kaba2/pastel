@@ -6,6 +6,7 @@
 #include "pastel/sys/constants.h"
 #include "pastel/sys/math_functions.h"
 #include "pastel/sys/random_uniform.h"
+#include "pastel/sys/vector_tools.h"
 
 #include "pastel/math/matrix.h"
 #include "pastel/math/matrix_tools.h"

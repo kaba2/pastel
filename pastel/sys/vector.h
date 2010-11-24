@@ -1,5 +1,5 @@
 // Description: Vector class
-// Detail: Allows to compute with vectors in R^n
+// Detail: A vector in R^n
 
 #ifndef PASTEL_VECTOR_H
 #define PASTEL_VECTOR_H
@@ -14,28 +14,11 @@ namespace Pastel
 {
 
 	//! A vector in R^n.
-
 	/*!
-	This class represents a vector in R^n. Care has
-	been taken to make computation as efficient as possible.
-	Expression templates are used to evaluate vector
-	expressions breadth-first rather than depth-first.
-	This allows the compiler to optimize vector
-	expressions to perform equal with hand-written
-	expressions.
-	A simple template trick with TableModify
-	is used to ensure unrolling of static-sized loops.
+	Note that we are using the Curiously Recurring
+	Template Pattern so that we can implement the
+	common functionality in the VectorBase base class.
 	*/
-
-	/*
-	"Curiously recurring template pattern" (CRTP) is used
-	to place common functionality into VectorBase, so
-	we can easily specialize the lower dimensions to support
-	list initialization in constructor and set().
-	The "friend trick" is used to implement correctly
-	working left hand operators.
-	*/
-
 	template <typename Real, int N>
 	class Vector
 		: public Detail::VectorBase<Real, N>

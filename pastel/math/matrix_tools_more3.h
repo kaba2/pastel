@@ -105,7 +105,7 @@ namespace Pastel
 	void symmetricEigenDecomposition(
 		const Matrix<Real, 2, 2>& matrix,
 		Matrix<Real, 2, 2>& eigenVector,
-		Vector2& eigenValue);
+		Vector<Real, 2>& eigenValue);
 
 }
 
