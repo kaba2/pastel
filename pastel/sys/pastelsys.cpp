@@ -2,7 +2,6 @@
 // Documentation: miscellaneous.txt
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/environment.h"
 #include "pastel/sys/syslibrary.h"
 
 // These headers are here so that they
