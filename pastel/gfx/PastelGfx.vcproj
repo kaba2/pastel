@@ -1172,10 +1172,6 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\pastelgfx.txt"
 			>
 		</File>

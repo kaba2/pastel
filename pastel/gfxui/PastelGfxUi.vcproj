@@ -315,10 +315,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\common.txt"
 			>
 		</File>

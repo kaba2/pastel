@@ -452,10 +452,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

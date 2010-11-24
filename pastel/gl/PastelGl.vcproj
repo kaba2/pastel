@@ -360,10 +360,6 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\pastelgl.txt"
 			>
 		</File>

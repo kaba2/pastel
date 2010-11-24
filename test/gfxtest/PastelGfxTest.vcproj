@@ -359,10 +359,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\pastelgfxtest.cpp"
 			>
 		</File>

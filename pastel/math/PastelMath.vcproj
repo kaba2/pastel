@@ -820,10 +820,6 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\CMakeLists.txt"
-			>
-		</File>
-		<File
 			RelativePath=".\pastelmath.txt"
 			>
 		</File>
