@@ -4,7 +4,6 @@
 #ifndef PASTEL_MYTYPES_H
 #define PASTEL_MYTYPES_H
 
-#include "pastel/sys/environment.h"
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/pastelomp.h"
 

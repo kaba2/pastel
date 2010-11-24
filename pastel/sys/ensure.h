@@ -88,7 +88,7 @@ namespace Pastel
 
 // PENSURES
 
-#if (PASTEL_ENABLE_PENSURES != 0)
+#ifdef PASTEL_ENABLE_PENSURES
 
 #define PENSURE(expr) ENSURE(expr)
 #define PENSURE1(expr, a) ENSURE1(expr, a)
@@ -110,7 +110,7 @@ namespace Pastel
 
 // Assertions
 
-#if (PASTEL_DEBUG_MODE != 0)
+#ifdef PASTEL_DEBUG_MODE
 
 #define ASSERT(expr)\
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__);}}

@@ -2183,10 +2183,6 @@
 			Name="Build switches"
 			>
 			<File
-				RelativePath="..\..\test\CMakeLists.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\CMakeLists.txt"
 				>
 			</File>
@@ -2200,6 +2196,10 @@
 			</File>
 			<File
 				RelativePath="..\..\example\CMakeLists.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\test\CMakeLists.txt"
 				>
 			</File>
 			<File
@@ -2224,6 +2224,10 @@
 			</File>
 			<File
 				RelativePath=".\pastelomp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\premake4.lua"
 				>
 			</File>
 		</Filter>

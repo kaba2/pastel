@@ -3,12 +3,15 @@ Build switches
 
 [[Parent]]: pastel.txt
 
-Practice
---------
+Pastel provides several build switches to control the code generation.
+We explain these switches here.
 
-The file [[FileLink: environment.h]] contains a few configuration switches 
-in the form of preprocessors defines, which globally affect the 
-code-generation in Pastel. We explain these switches here.
+Global preprocessor switches
+----------------------------
+
+In the following we list the global preprocessor switches which 
+should be defined at the level of the build-system, not at the source
+code level.
 
 ### PASTEL\_ENABLE\_PENSURES
 
@@ -19,9 +22,8 @@ However, some of these checks can cause relatively severe
 performance degradation, notably when the function is of low complexity.
 These checks are marked as `PENSURE`s, for _Performance `ENSURE`_.
 This build switch controls the code generation for `PENSURE`s.
-If `PASTEL_ENABLE_PENSURES != 0`, the tests are generated,
-otherwise they are not. If `_DEBUG` is defined, `PASTEL_ENABLE_PENSURES`
-is forced to 1.
+If `PASTEL_ENABLE_PENSURES` is defined, the tests are generated,
+otherwise they are not.
 
 [Ensure]: [[Ref]]: ensure.txt
 
@@ -33,9 +35,8 @@ The triggering of such check always signals a presence of a bug
 on the part of the implementation. They can possibly interfere 
 with optimization and therefore this switch allows to control
 whether their code is generated or not.
-If `PASTEL_DEBUG_MODE != 0`, the tests are generated, otherwise
-they are not. If `_DEBUG` is defined, `PASTEL_DEBUG_MODE`
-is forced to 1.
+If `PASTEL_DEBUG_MODE` is defined, the tests are generated, 
+otherwise they are not.
 
 ### PASTEL\_ENABLE\_OMP
 
@@ -45,9 +46,8 @@ The OpenMp library comes with a header file omp.h, which however might not
 always be available on a given building environment. To solve
 this problem, Pastel has a redirection file named [[FileLink: pastelomp.h]],
 which includes `omp.h` conditionally based on this build switch.
-If `PASTEL_ENABLE_OMP != 0`, then `omp.h` is included in `pastelomp.h`,
-otherwise it is not included. If `_DEBUG` is defined, `PASTEL_ENABLE_OMP`
-is forced to 0.
+If `PASTEL_ENABLE_OMP` is defined, then `omp.h` is included in `pastelomp.h`,
+otherwise it is not included. 
 
 [Neighbors]: [[Ref]]: nearest_neighbors.txt 
 

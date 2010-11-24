@@ -46,7 +46,7 @@ namespace Pastel
 	inline void setNumberOfThreads(integer threads)
 	{
 		ENSURE_OP(threads, >, 0);
-#if PASTEL_ENABLE_OMP != 0
+#ifdef PASTEL_ENABLE_OMP
 		omp_set_num_threads(threads);
 #endif
 	}
