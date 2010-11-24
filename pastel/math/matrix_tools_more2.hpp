@@ -64,7 +64,7 @@ namespace Pastel
 
 		for (integer i = 0;i < size;++i)
 		{
-			result(i, i) = values[i];
+			matrix(i, i) = values[i];
 		}
 	}
 
@@ -85,12 +85,11 @@ namespace Pastel
 		const Real scaling = 
 			inverse(std::sqrt((Real)2));
 
-		Matrix<Real, N, N>::Iterator iter = 
-			result.begin();
+		typedef typename Matrix<Real, N, N>::Iterator 
+			Iterator;
 
-		const Matrix<Real, N, N>::Iterator iterEnd = 
-			result.end();
-
+		Iterator iter = result.begin();
+		const Iterator iterEnd = result.end();
 		while(iter != iterEnd)
 		{
 			*iter = randomGaussian<Real>() * scaling;

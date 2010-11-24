@@ -28,7 +28,7 @@ namespace Pastel
 
 		do
 		{
-			gammaSum += randomGamma<Real>(shape[n])
+			gammaSum += randomGamma<Real>(shape[n]);
 		}
 		while(gammaSum == 0);
 		

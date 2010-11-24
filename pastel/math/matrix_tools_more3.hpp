@@ -12,6 +12,8 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/less_equal.hpp>
 
+#include <algorithm>
+
 namespace Pastel
 {
 
@@ -190,7 +192,7 @@ namespace Pastel
 			Real operator()(const Real& left, const Real& right) const
 			{
 				return normBijection_.addAxis(left, 
-					normBijection_.signedAxis(right))
+					normBijection_.signedAxis(right));
 			}
 
 		private:
@@ -265,7 +267,7 @@ namespace Pastel
 	void symmetricEigenDecomposition(
 		const Matrix<Real, 2, 2>& matrix,
 		Matrix<Real, 2, 2>& eigenVector,
-		Vector2& eigenValue)
+		Vector<Real, 2>& eigenValue)
 	{
 		eigenValue = symmetricEigenValues(matrix);
 
@@ -281,7 +283,8 @@ namespace Pastel
 		// This happens precisely when the 'matrix' is
 		// a multiple of the identity matrix.
 
-		const Vector2 aCandidate(matrix(1, 0), eigenValue[0] - matrix(0, 0));
+		const Vector<Real, 2> aCandidate(
+			matrix(1, 0), eigenValue[0] - matrix(0, 0));
 
 		if (dot(aCandidate) > square(0.001))
 		{
@@ -289,7 +292,8 @@ namespace Pastel
 		}
 		else
 		{
-			const Vector2 bCandidate(eigenValue[0] - matrix(1, 1), matrix(0, 1));
+			const Vector<Real, 2> bCandidate(
+				eigenValue[0] - matrix(1, 1), matrix(0, 1));
 			if (dot(bCandidate) > square(0.001))
 			{
 				eigenVector[0] = bCandidate;
