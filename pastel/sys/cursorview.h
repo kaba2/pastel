@@ -73,9 +73,9 @@ namespace Pastel
 		typedef ConstCursorView<N, ViewCursor> Base;
 
 	public:
-		using typename Base::Element;
-		using typename Base::ConstReference;
-		using typename Base::ConstCursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::ConstCursor ConstCursor;
 		using Base::extent;
 		using Base::constCursor;
 		//using Base::Dimension;

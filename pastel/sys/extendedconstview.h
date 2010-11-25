@@ -68,7 +68,7 @@ namespace Pastel
 			Dimension = N
 		};
 
-		using typename Base::Element;
+		typedef typename Base::Element Element;
 		using Base::extent;
 		using Base::operator();
 
@@ -104,7 +104,7 @@ namespace Pastel
 			Dimension = N
 		};
 
-		using typename Base::Element;
+		typedef typename Base::Element Element;
 		using Base::extent;
 		using Base::operator();
 
@@ -150,7 +150,7 @@ namespace Pastel
 			Dimension = N
 		};
 
-		using typename Base::Element;
+		typedef typename Base::Element Element;
 		using Base::extent;
 		using Base::operator();
 
@@ -201,7 +201,7 @@ namespace Pastel
 			Dimension = N
 		};
 
-		using typename Base::Element;
+		typedef typename Base::Element Element;
 		using Base::extent;
 		using Base::operator();
 

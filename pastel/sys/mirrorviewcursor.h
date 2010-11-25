@@ -58,8 +58,8 @@ namespace Pastel
 			typedef ConstMirrorViewCursor<N, MirrorIndex, Cursor> Base;
 
 		public:
-			using typename Base::Element;
-			using typename Base::ConstReference;
+			typedef typename Base::Element Element;
+			typedef typename Base::ConstReference ConstReference;
 
 			typedef typename Cursor::Reference Reference;
 

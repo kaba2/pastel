@@ -242,8 +242,8 @@ namespace Pastel
 		private:
 			typedef ConstAdaptedViewCursor<N, Cursor, Adapter> Base;
 
-			using typename Base::LogicalElement;
-			using typename Base::PhysicalElement;
+			typedef typename Base::LogicalElement LogicalElement;
+			typedef typename Base::PhysicalElement PhysicalElement;
 
 			using Base::cursor_;
 			using Base::adapter_;

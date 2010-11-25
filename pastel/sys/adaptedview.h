@@ -72,7 +72,7 @@ namespace Pastel
 
 	public:
 		//using Base::Dimension;
-		using typename Base::ConstCursor;
+		typedef typename Base::ConstCursor ConstCursor;
 		using Base::extent;
 		using Base::constCursor;
 

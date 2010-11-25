@@ -22,11 +22,11 @@ namespace Pastel
 		// Using default destructor.
 
 		//using Base::Dimension;
-		using typename Base::Element;
-		using typename Base::Reference;
-		using typename Base::ConstReference;
-		using typename Base::Cursor;
-		using typename Base::ConstCursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Cursor Cursor;
+		typedef typename Base::ConstCursor ConstCursor;
 		using Base::operator=;
 
 		Array()
@@ -79,11 +79,11 @@ namespace Pastel
 		// Using default destructor.
 
 		//using Base::Dimension;
-		using typename Base::Element;
-		using typename Base::Reference;
-		using typename Base::ConstReference;
-		using typename Base::Cursor;
-		using typename Base::ConstCursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Cursor Cursor;
+		typedef typename Base::ConstCursor ConstCursor;
 		using Base::cursor;
 		using Base::constCursor;
 		using Base::operator();
@@ -201,19 +201,19 @@ namespace Pastel
 		// Using default destructor.
 
 		//using Base::Dimension;
-		using typename Base::Element;
-		using typename Base::Reference;
-		using typename Base::ConstReference;
-		using typename Base::Cursor;
-		using typename Base::ConstCursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Cursor Cursor;
+		typedef typename Base::ConstCursor ConstCursor;
 		using Base::cursor;
 		using Base::constCursor;
 		using Base::operator();
 		using Base::operator=;
 		using Base::setExtent;
 		using Base::reshape;
-		using typename Base::RowIterator;
-		using typename Base::ConstRowIterator;
+		typedef typename Base::RowIterator RowIterator;
+		typedef typename Base::ConstRowIterator ConstRowIterator;
 
 		Array()
 			: Base()
@@ -368,11 +368,11 @@ namespace Pastel
 		// Using default destructor.
 
 		//using Base::Dimension;
-		using typename Base::Element;
-		using typename Base::Reference;
-		using typename Base::ConstReference;
-		using typename Base::Cursor;
-		using typename Base::ConstCursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Cursor Cursor;
+		typedef typename Base::ConstCursor ConstCursor;
 		using Base::cursor;
 		using Base::constCursor;
 		using Base::operator();
