@@ -93,7 +93,7 @@ namespace Pastel
 			Cursor;
 
 		explicit MirrorView(const Contained_View& view)
-			: ConstMirrorView<N, Contained_View>(view)
+			: ConstMirrorView<N, MirrorIndex, Contained_View>(view)
 		{
 		}
 
