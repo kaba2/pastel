@@ -35,7 +35,7 @@ namespace Pastel
 	{
 		std::string result(text);
 		std::transform(result.begin(), result.end(), 
-			result.begin(), std::ptr_fun(std::tolower));
+			result.begin(), std::ptr_fun(&std::tolower));
 		return result;
 	}
 
@@ -43,7 +43,7 @@ namespace Pastel
 	{
 		std::string result(text);
 		std::transform(result.begin(), result.end(), 
-			result.begin(), std::ptr_fun(std::toupper));
+			result.begin(), std::ptr_fun(&std::toupper));
 		return result;
 	}
 
