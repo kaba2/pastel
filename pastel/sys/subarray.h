@@ -398,7 +398,7 @@ namespace Pastel
 		friend class SubArray<Type, N>;
 
 		typedef SubArray_ConstIterator<Type, N> ConstIterator;
-		typedef typename ConstSparseIterator<const Type*> ConstRowIterator;
+		typedef ConstSparseIterator<const Type*> ConstRowIterator;
 
 		// Using default copy constructor.
 		// Using default assignment.
