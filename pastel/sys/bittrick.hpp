@@ -82,7 +82,7 @@ namespace Pastel
 		return (number << DeltaBits) +
 			(number << (DeltaBits - FromBits)) +
 			(number << (DeltaBits - 2 * FromBits)) +
-			(number >> (3 * FromBits - DeltaBits)) +;
+			(number >> (3 * FromBits - DeltaBits));
 	}
 
 	template <int FromBit, int Bits, typename Integer>
