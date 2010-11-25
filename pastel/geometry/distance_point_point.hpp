@@ -50,7 +50,7 @@ namespace Pastel
 		const Vector<Real, N>& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
-		const Minkowksi_NormBijection<Real> 
+		const Minkowski_NormBijection<Real> 
 			normBijection(metric);
 		
 		return normBijection.toNorm(
