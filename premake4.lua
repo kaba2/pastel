@@ -151,24 +151,95 @@ solution "Pastel"
 		files(addPrefix(projectDirectory, fileSet))
 	end
 	
-	testSet =
-	{
-		PastelSysTest = "test/systest/",
-		PastelDspTest = "test/dsptest/",
-		PastelGeometryTest = "test/geometrytest/",
-		PastelMathTest = "test/mathtest/",
-		PastelGfxTest = "test/gfxtest/",
-		PastelRayTest = "test/raytest/",
-		PastelDeviceTest = "test/devicetest/",			
-	}
-	
-	libKind = "ConsoleApp"
-	
-	for projectName, projectDirectory in pairs(testSet)
-	do
-		project(projectName)
-		kind(libKind)
+	project "PastelSysTest"
+		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
-		files(addPrefix(projectDirectory, fileSet))
-	end
+		files(addPrefix("test/systest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelGfx", 
+			"PastelDsp"
+		}
 	
+	project "PastelRayTest"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		files(addPrefix("test/raytest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelGfx", 
+			"PastelDsp",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelRay"
+		}
+
+	project "PastelMathTest"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		files(addPrefix("test/mathtest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelMath",
+			"PastelGfx"
+		}
+
+	project "PastelGfxTest"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		files(addPrefix("test/gfxtest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelGfx", 
+			"PastelDsp",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelDevice",
+			"SDL"
+		}
+
+	project "PastelGeometryTest"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		files(addPrefix("test/geometrytest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelGfx", 
+			"PastelDsp",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelDevice",
+			"SDL"
+		}
+
+	project "PastelDspTest"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		files(addPrefix("test/dsptest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelGfx", 
+			"PastelDsp",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelRay",
+			"PastelDevice",
+			"SDL"
+		}
+
+	project "PastelDeviceTest"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		files(addPrefix("test/devicetest/", fileSet))
+		links 
+		{
+			"PastelSys",  
+			"PastelDevice",
+			"SDL"
+		}
