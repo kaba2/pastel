@@ -7,6 +7,7 @@
 #include "pastel/math/matrix.h"
 
 #include "pastel/sys/intersect_alignedbox_alignedbox.h"
+#include "pastel/sys/syscommon.h"
 
 namespace Pastel
 {

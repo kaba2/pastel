@@ -6,6 +6,7 @@
 #include "pastel/gfx/color_texture.h"
 
 #include "pastel/sys/alignedbox.h"
+#include "pastel/sys/syscommon.h"
 
 namespace Pastel
 {

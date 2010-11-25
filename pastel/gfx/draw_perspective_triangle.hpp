@@ -9,6 +9,7 @@
 
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/smallset.h"
+#include "pastel/sys/syscommon.h"
 
 namespace Pastel
 {
