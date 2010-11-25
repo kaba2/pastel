@@ -3,6 +3,8 @@
 
 #include "pastel/sys/mytypes.h"
 
+#include <functional>
+
 namespace Pastel
 {
 
