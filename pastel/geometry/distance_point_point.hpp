@@ -3,6 +3,8 @@
 
 #include "pastel/geometry/distance_point_point.h"
 
+#include "pastel/math/normbijection.h"
+
 #include "pastel/sys/vector_tools.h"
 
 namespace Pastel

@@ -370,7 +370,7 @@ namespace Pastel
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 
-		objectList_.set_allocator(ObjectContainer::allocator_ptr(
+		objectList_.set_allocator(typename ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
 		root_ = (Node*)nodeAllocator_.allocate();
 		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
@@ -393,7 +393,7 @@ namespace Pastel
 		ENSURE2((N != Dynamic && dimension == N) || 
 			(N == Dynamic && dimension > 0), dimension, N);
 
-		objectList_.set_allocator(ObjectContainer::allocator_ptr(
+		objectList_.set_allocator(typename ObjectContainer::allocator_ptr(
 			new Allocator(objectList_.get_allocator()->unitSize(), 1024)));
 		root_ = (Node*)nodeAllocator_.allocate();
 		new(root_) LeafNode(objectList_.end(), objectList_.end(), 0);
