@@ -4,6 +4,8 @@
 #ifndef PASTEL_REAL_CONCEPT_H
 #define PASTEL_REAL_CONCEPT_H
 
+#include "pastel/sys/mytypes.h"
+
 namespace Pastel
 {
 
