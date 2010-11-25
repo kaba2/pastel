@@ -25,7 +25,7 @@ namespace Pastel
 	{
 
 		template <typename Type_>
-		class Base
+		class Iterator_Base
 		{
 		public:
 			typedef boost::random_access_iterator_helper<
@@ -40,8 +40,6 @@ namespace Pastel
 				CountingIterator<Type_>, Type_, integer, const Type_, const Type_>
 				Forward_Base;
 
-			typedef boost::is_arithmetic<Type_> IsArithmetic;
-
 			typedef boost::is_same<typename boost::iterator_category<Type_>::type,
 				std::random_access_iterator_tag> IsRandomAccess;
 
@@ -50,13 +48,28 @@ namespace Pastel
 
 			typedef typename
 				boost::mpl::if_<
-				boost::mpl::or_<
-				IsArithmetic,
-				IsRandomAccess>,
+				IsRandomAccess,
 				RandomAccess_Base,
 				typename boost::mpl::if_<
 				IsBidirectional,
 				Bidirectional_Base, Forward_Base>::type>::type Type;
+		};
+
+		template <typename Type_>
+		class Base
+		{
+		public:
+			typedef boost::is_arithmetic<Type_> IsArithmetic;
+
+			typedef boost::random_access_iterator_helper<
+				CountingIterator<Type_>, Type_, integer, const Type_, const Type_> 
+				RandomAccess_Base;
+
+			typedef typename
+				boost::mpl::if_<
+				IsArithmetic,
+				RandomAccess_Base,
+				typename Iterator_Base<Type_>::Type>::type Type;
 		};
 
 	}
