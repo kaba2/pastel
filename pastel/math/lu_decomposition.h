@@ -47,7 +47,7 @@ namespace Pastel
 	private:
 		Matrix<Real, N, N> packedLu_;
 		Tuple<integer, N> rowPermutation_;
-		bool evenRowPermutation_;
+		bool evenPermutation_;
 		bool singular_;
 
 		Vector<Real, N> invLargestInRow_;

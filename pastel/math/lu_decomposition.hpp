@@ -12,7 +12,7 @@ namespace Pastel
 	LuDecomposition<Real, N>::LuDecomposition()
 		: packedLu_()
 		, rowPermutation_()
-		, evenRowPermutation_(true)
+		, evenPermutation_(true)
 		, invLargestInRow_(1)
 		, singular_(false)
 	{
@@ -31,7 +31,7 @@ namespace Pastel
 	LuDecomposition<Real, N>::LuDecomposition(integer dimension)
 		: packedLu_(dimension, dimension)
 		, rowPermutation_(ofDimension(dimension))
-		, evenRowPermutation_(true)
+		, evenPermutation_(true)
 		, invLargestInRow_(ofDimension(dimension), 1)
 		, singular_(false)
 	{
@@ -49,7 +49,7 @@ namespace Pastel
 		const Matrix<Real, N, N>& matrix)
 		: packedLu_(matrix.width(), matrix.height())
 		, rowPermutation_(ofDimension(matrix.width()))
-		, evenRowPermutation_(true)
+		, evenPermutation_(true)
 		, invLargestInRow_(ofDimension(matrix.width()), 1)
 		, singular_(false)
 	{
@@ -62,7 +62,7 @@ namespace Pastel
 	{
 		packedLu_.swap(that.packedLu_);
 		rowPermutation_.swap(that.rowPermutation_);
-		std::swap(evenRowPermutation_, that.evenRowPermutation_);
+		std::swap(evenPermutation_, that.evenPermutation_);
 		invLargestInRow_.swap(that.invLargestInRow_);
 		std::swap(singular_, that.singular_);
 	}
@@ -105,7 +105,7 @@ namespace Pastel
 
 		packedLu_ = matrix;
 		singular_ = false;
-		evenRowPermutation_ = true;
+		evenPermutation_ = true;
 
 		const integer width = packedLu_.width();
 		const integer height = packedLu_.height();
@@ -183,7 +183,7 @@ namespace Pastel
 				}
 
 				std::swap(invLargestInRow_[largestIndex], invLargestInRow_[k]);
-				evenRowPermutation_ = !evenRowPermutation_;
+				evenPermutation_ = !evenPermutation_;
 
 				std::swap(rowPermutation_[largestIndex], rowPermutation_[k]);
 			}

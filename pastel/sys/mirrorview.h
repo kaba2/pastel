@@ -89,12 +89,11 @@ namespace Pastel
 		using Base::constCursor;
 
 		typedef typename Contained_View::Reference Reference;
-		typedef Detail_MirrorView::MirrorViewCursor<N, MirrorIndex, typename View::Cursor>
+		typedef Detail_MirrorView::MirrorViewCursor<N, MirrorIndex, typename Contained_View::Cursor>
 			Cursor;
 
-		explicit MirrorView(
-			const Contained_View& view)
-			: ConstMirrorView<Contained_View>(view)
+		explicit MirrorView(const Contained_View& view)
+			: ConstMirrorView<N, Contained_View>(view)
 		{
 		}
 
