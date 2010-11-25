@@ -24,8 +24,17 @@ namespace Pastel
 	namespace Detail_CountingIterator
 	{
 
+		template <typename Type_, bool IsArithmetic>
+		class Base
+		{
+		public:
+			typedef boost::random_access_iterator_helper<
+				CountingIterator<Type_>, Type_, integer, const Type_, const Type_>
+				Type;
+		};
+
 		template <typename Type_>
-		class Iterator_Base
+		class Base<Type_, false>
 		{
 		public:
 			typedef boost::random_access_iterator_helper<
@@ -55,28 +64,11 @@ namespace Pastel
 				Bidirectional_Base, Forward_Base>::type>::type Type;
 		};
 
-		template <typename Type_>
-		class Base
-		{
-		public:
-			typedef boost::is_arithmetic<Type_> IsArithmetic;
-
-			typedef boost::random_access_iterator_helper<
-				CountingIterator<Type_>, Type_, integer, const Type_, const Type_> 
-				RandomAccess_Base;
-
-			typedef typename
-				boost::mpl::if_<
-				IsArithmetic,
-				RandomAccess_Base,
-				typename Iterator_Base<Type_>::Type>::type Type;
-		};
-
 	}
 
 	template <typename Type>
 	class CountingIterator
-		: public Detail_CountingIterator::Base<Type>::Type
+		: public Detail_CountingIterator::Base<Type, boost::is_arithmetic<Type>::value>::Type
 	{
 	public:
 		// Using default copy constructor.
