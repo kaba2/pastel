@@ -36,8 +36,6 @@ namespace Pastel
 		{
 			ENSURE(N == Dynamic || N == n);
 
-			ENSURE_OP(n, <=, MaxDimension);
-
 			initialize(n);
 		}
 
