@@ -21,14 +21,6 @@ namespace Pastel
 	template <typename Integer>
 	Integer ceil(const Rational<Integer>& x);
 
-	//! Returns (1/0).
-	template <typename Integer>
-	Rational<Integer> infinity(Rational<Integer>*);
-
-	//! Returns (0/0).
-	template <typename Integer>
-	Rational<Integer> nan(Rational<Integer>*);
-
 	//! Returns that == 0.
 	template <typename Integer>
 	bool zero(const Rational<Integer>& that);

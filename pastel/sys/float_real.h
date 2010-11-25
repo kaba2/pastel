@@ -19,9 +19,6 @@ namespace Pastel
 	using std::floor;
 	using std::ceil;
 
-	float infinity(float*);
-	float nan(float*);
-
 	bool zero(float x);
 	bool negative(float x);
 	bool positive(float x);

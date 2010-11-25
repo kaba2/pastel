@@ -23,10 +23,15 @@ namespace Pastel
 		return that > 0;
 	}
 
-	inline integer infinity(integer *)
+	template <>
+	class Infinity<integer>
 	{
-		return std::numeric_limits<integer>::max();
-	}
+	public:
+		integer operator()() const
+		{
+			return std::numeric_limits<integer>::max();
+		}
+	};
 
 }
 

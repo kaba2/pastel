@@ -4,10 +4,16 @@
 #ifndef PASTEL_REAL_CONCEPT_H
 #define PASTEL_REAL_CONCEPT_H
 
-#include "pastel/sys/mytypes.h"
-
 namespace Pastel
 {
+
+	//! Returns an infinity.
+	template <typename Real>
+	Real infinity();
+
+	//! Returns a Not-a-Number.
+	template <typename Real>
+	Real nan();
 
 	namespace Real_Concept
 	{
@@ -79,20 +85,12 @@ namespace Pastel
 		Real ceil(const Real& that);
 
 		//! Returns the positive infinity.
-		/*!
-		The parameter is used only for overloading 
-		purposes. This function is meant to be called 
-		by the function template infinity() below.
-		*/
-		Real infinity(const Real*);
+		//template <>
+		//Real infinity<Real>();
 
 		//! Returns a Not-A-Number.
-		/*!
-		The parameter is used only for overloading 
-		purposes. This function is meant to be called 
-		by the function template nan() below.
-		*/
-		Real nan(const Real*);
+		//template <>
+		//Real nan<Real>();
 
 		//! Returns if 'that' == 0.
 		bool zero(const Real& that);
@@ -107,16 +105,6 @@ namespace Pastel
 		NativeReal toReal(const Real& that);
 
 	}
-
-	//! Returns an infinity.
-
-	template <typename Real>
-	Real infinity();
-
-	//! Returns a Not-a-Number.
-
-	template <typename Real>
-	Real nan();
 
 }
 

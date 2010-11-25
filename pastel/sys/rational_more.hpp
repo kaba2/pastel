@@ -45,16 +45,24 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer> infinity(Rational<Integer>*)
+	class Infinity<Rational<Integer>>
 	{
-		return Rational<Integer>(1, 0);
-	}
+	public:
+		Rational<Integer> operator()() const
+		{
+			return Rational<Integer>(1, 0);
+		}
+	};
 
 	template <typename Integer>
-	Rational<Integer> nan(Rational<Integer>*)
+	class Nan<Rational<Integer>>
 	{
-		return Rational<Integer>(0, 0);
-	}
+	public:
+		Rational<Integer> operator()() const
+		{
+			return Rational<Integer>(0, 0);
+		}
+	};
 
 	template <typename Integer>
 	bool zero(const Rational<Integer>& that)
