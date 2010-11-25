@@ -979,26 +979,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\math_functions.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\math_functions.h"
-				>
-			</File>
-			<File
-				RelativePath=".\math_functions.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\math_functions_more.h"
-				>
-			</File>
-			<File
-				RelativePath=".\math_functions_more.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\why_no_points.txt"
 				>
 			</File>
@@ -1417,6 +1397,118 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Functions"
+				>
+				<File
+					RelativePath=".\angles.h"
+					>
+				</File>
+				<File
+					RelativePath=".\angles.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\beta.h"
+					>
+				</File>
+				<File
+					RelativePath=".\beta.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\binomial.h"
+					>
+				</File>
+				<File
+					RelativePath=".\binomial.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\digamma.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\digamma.h"
+					>
+				</File>
+				<File
+					RelativePath=".\digamma.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\factorial.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\factorial.h"
+					>
+				</File>
+				<File
+					RelativePath=".\factorial.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\gamma.h"
+					>
+				</File>
+				<File
+					RelativePath=".\gamma.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\math_functions.h"
+					>
+				</File>
+				<File
+					RelativePath=".\math_functions.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\math_functions.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\math_functions_more.h"
+					>
+				</File>
+				<File
+					RelativePath=".\math_functions_more.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\quadratic.h"
+					>
+				</File>
+				<File
+					RelativePath=".\quadratic.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\quantization.h"
+					>
+				</File>
+				<File
+					RelativePath=".\quantization.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\rounding.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rounding.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sinc.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sinc.hpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

@@ -81,23 +81,10 @@ void mexFunction(
 		// Find out its function pointer.
 		MatlabFunction* function = iter->second;
 
-		try
-		{
-			// Call that function, but omit the
-			// first name parameter.
-			(*function)(
-				outputs, outputSet,
-				inputs - 1, inputSet + 1);
-		}
-		catch(const Pastel::InvariantFailed& invariant)
-		{
-			// For some reason this exception is never catched.
-			// This is probably some peculiarity of the Matlab.
-
-			printf("Invariant failed.\nFile: %s\nLine: %d\nMessage: %s\n", 
-				invariant.fileName().c_str(),
-				invariant.lineNumber(),
-				invariant.message().c_str());
-		}
+		// Call that function, but omit the
+		// first name parameter.
+		(*function)(
+			outputs, outputSet,
+			inputs - 1, inputSet + 1);
 	}
 }
