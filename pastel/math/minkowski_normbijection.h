@@ -27,7 +27,6 @@ namespace Pastel
 			: power_(power)
 			, invPower_(inverse(power))
 		{
-			ENSURE(N != Dynamic);
 			ENSURE_OP(power, >=, 1);
 		}
 

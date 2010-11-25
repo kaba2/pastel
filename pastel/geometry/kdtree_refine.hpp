@@ -102,7 +102,7 @@ namespace Pastel
 
 			// Find object spread.
 
-			const integer dimension = objectPolicy.dimension();
+			const integer dimension = minBound.dimension();
 
 			AlignedBox<Real, N> objectBound(dimension);
 
