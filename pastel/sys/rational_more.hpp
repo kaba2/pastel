@@ -45,7 +45,7 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	class Infinity<Rational<Integer>>
+	class Infinity<Rational<Integer> >
 	{
 	public:
 		Rational<Integer> operator()() const
@@ -55,7 +55,7 @@ namespace Pastel
 	};
 
 	template <typename Integer>
-	class Nan<Rational<Integer>>
+	class Nan<Rational<Integer> >
 	{
 	public:
 		Rational<Integer> operator()() const
