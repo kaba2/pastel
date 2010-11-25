@@ -43,15 +43,6 @@ namespace Pastel
 				std::swap(freeIndex_, that.freeIndex_);
 			}
 
-			template <int Index>
-			PASTEL_DISABLE_IF_C(Index == 0, void) increment();
-
-			template <int Index>
-			PASTEL_ENABLE_IF_C(Index == 0, void) increment()
-			{
-				cursor_.increment(freeIndex_);
-			}
-
 			void increment(integer index)
 			{
 				PENSURE_OP(index, ==, 0);
@@ -59,29 +50,11 @@ namespace Pastel
 				cursor_.increment(freeIndex_);
 			}
 
-			template <int Index>
-			PASTEL_DISABLE_IF_C(Index == 0, void) decrement();
-
-			template <int Index>
-			PASTEL_ENABLE_IF_C(Index == 0, void) decrement()
-			{
-				cursor_.decrement(freeIndex_);
-			}
-
 			void decrement(integer index)
 			{
 				PENSURE_OP(index, ==, 0);
 
 				cursor_.decrement(freeIndex_);
-			}
-
-			template <int Index>
-			PASTEL_DISABLE_IF_C(Index == 0, void) move(integer amount);
-
-			template <int Index>
-			PASTEL_ENABLE_IF_C(Index == 0, void) move(integer amount)
-			{
-				cursor_.move(freeIndex_, amount);
 			}
 
 			void move(integer index, integer amount)

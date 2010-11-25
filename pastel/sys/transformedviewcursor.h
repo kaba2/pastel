@@ -33,22 +33,14 @@ namespace Pastel
 				std::swap(transform_, that.transform_);
 			}
 
-			template <int Index>
-			void increment()
+			void increment(integer index)
 			{
-				cursor_.increment<Index>();
+				cursor_.increment(index);
 			}
 
-			template <int Index>
-			void decrement()
+			void decrement(integer index)
 			{
-				cursor_.decrement<Index>();
-			}
-
-			template <int Index>
-			void move(integer amount)
-			{
-				cursor_.move<Index>(amount);
+				cursor_.decrement(index);
 			}
 
 			void move(Vector<integer, N> amount)

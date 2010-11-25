@@ -42,7 +42,7 @@ namespace Pastel
 	{
 		integer visited = 0;
 
-		if (that.empty())
+		if (region.empty())
 		{
 			return visited;
 		}
@@ -98,8 +98,10 @@ namespace Pastel
 		const AlignedBox<integer, N>& discreteBox)
 	{
 		return AlignedBox<Real, N>(
-			Pastel::discreteToContinuous(continuousRange, discreteRange, clippedBox.min()),
-			Pastel::discreteToContinuous(continuousRange, discreteRange, clippedBox.max()));
+			Pastel::discreteToContinuous(
+			continuousRange, discreteRange, discreteBox.min()),
+			Pastel::discreteToContinuous(
+			continuousRange, discreteRange, discreteBox.max()));
 	}
 
 	template <typename Real, int N>

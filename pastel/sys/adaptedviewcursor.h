@@ -200,32 +200,14 @@ namespace Pastel
 				adapter_.swap(that.adapter_);
 			}
 
-			template <int Index>
-			void increment()
-			{
-				cursor_.increment<Index>();
-			}
-
 			void increment(integer index)
 			{
 				cursor_.increment(index);
 			}
 
-			template <int Index>
-			void decrement()
-			{
-				cursor_.decrement<Index>();
-			}
-
 			void decrement(integer index)
 			{
 				cursor_.decrement(index);
-			}
-
-			template <int Index>
-			void move(integer amount)
-			{
-				cursor_.move<Index>(amount);
 			}
 
 			void move(integer index, integer amount)

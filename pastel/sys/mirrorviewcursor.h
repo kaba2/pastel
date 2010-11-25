@@ -30,42 +30,6 @@ namespace Pastel
 				cursor_.swap(that.cursor_);
 			}
 
-			template <int Index>
-			PASTEL_DISABLE_IF_C(Index == MirrorIndex, void) increment()
-			{
-				cursor_.increment<Index>();
-			}
-
-			template <int Index>
-			PASTEL_ENABLE_IF_C(Index == MirrorIndex, void) increment()
-			{
-				cursor_.decrement<MirrorIndex>();
-			}
-
-			template <int Index>
-			PASTEL_DISABLE_IF_C(Index == MirrorIndex, void) decrement()
-			{
-				cursor_.decrement<Index>();
-			}
-
-			template <int Index>
-			PASTEL_ENABLE_IF_C(Index == MirrorIndex, void) decrement()
-			{
-				cursor_.increment<MirrorIndex>();
-			}
-
-			template <int Index>
-			PASTEL_DISABLE_IF_C(Index == MirrorIndex, void) move(integer amount)
-			{
-				cursor_.move<Index>(amount);
-			}
-
-			template <int Index>
-			PASTEL_ENABLE_IF_C(Index == MirrorIndex, void) move(integer amount)
-			{
-				cursor_.move<MirrorIndex>(-amount);
-			}
-
 			void move(Vector<integer, N> amount)
 			{
 				amount[MirrorIndex] = -amount[MirrorIndex];

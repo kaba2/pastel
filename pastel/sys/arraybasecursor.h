@@ -37,50 +37,14 @@ namespace Pastel
 				std::swap(factor_, that.factor_);
 			}
 
-			template <int Index>
-			void increment()
-			{
-				data_ += factor_[Index];
-			}
-
-			template <>
-			void increment<0>()
-			{
-				++data_;
-			}
-
 			void increment(integer index)
 			{
 				data_ += factor_[index];
 			}
 
-			template <int Index>
-			void decrement()
-			{
-				data_ -= factor_[Index];
-			}
-
-			template <>
-			void decrement<0>()
-			{
-				--data_;
-			}
-
 			void decrement(integer index)
 			{
 				data_ -= factor_[index];
-			}
-
-			template <int Index>
-			void move(integer amount)
-			{
-				data_ += amount * factor_[Index];
-			}
-
-			template <>
-			void move<0>(integer amount)
-			{
-				data_ += amount;
 			}
 
 			void move(integer index, integer amount)
@@ -122,7 +86,7 @@ namespace Pastel
 			: public ConstCursorBase<Type, N>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef ConstCursorBase<Type, N> Base;
@@ -146,7 +110,7 @@ namespace Pastel
 			: public ConstCursorBase<Type, 1>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef ConstCursorBase<Type, 1> Base;
@@ -161,27 +125,27 @@ namespace Pastel
 
 			void xIncrement()
 			{
-				Base::increment<0>();
+				Base::increment(0);
 			}
 
 			void xDecrement()
 			{
-				Base::decrement<0>();
+				Base::decrement(0);
 			}
 
 			void xMove(integer amount)
 			{
-				Base::move<0>(amount);
+				Base::move(0, amount);
 			}
 
 			void move(integer xAmount)
 			{
-				Base::move(Vector<integer, 1>(xAmount));
+				Base::move(Vector1i(xAmount));
 			}
 
 		protected:
 			ConstCursor(Type const* data,
-				const Vector<integer, 1>& factor)
+				const Vector1i& factor)
 				: Base(data, factor)
 			{
 			}
@@ -192,7 +156,7 @@ namespace Pastel
 			: public ConstCursorBase<Type, 2>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef ConstCursorBase<Type, 2> Base;
@@ -207,42 +171,42 @@ namespace Pastel
 
 			void xIncrement()
 			{
-				Base::increment<0>();
+				Base::increment(0);
 			}
 
 			void xDecrement()
 			{
-				Base::decrement<0>();
+				Base::decrement(0);
 			}
 
 			void yIncrement()
 			{
-				Base::increment<1>();
+				Base::increment(1);
 			}
 
 			void yDecrement()
 			{
-				Base::decrement<1>();
+				Base::decrement(1);
 			}
 
 			void xMove(integer amount)
 			{
-				Base::move<0>(amount);
+				Base::move(0, amount);
 			}
 
 			void yMove(integer amount)
 			{
-				Base::move<1>(amount);
+				Base::move(1, amount);
 			}
 
 			void move(integer xAmount, integer yAmount)
 			{
-				Base::move(Vector<integer, 2>(xAmount, yAmount));
+				Base::move(Vector2i(xAmount, yAmount));
 			}
 
 		protected:
 			ConstCursor(Type const* data,
-				const Vector<integer, 2>& factor)
+				const Vector2i& factor)
 				: Base(data, factor)
 			{
 			}
@@ -253,7 +217,7 @@ namespace Pastel
 			: public ConstCursorBase<Type, 3>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef ConstCursorBase<Type, 3> Base;
@@ -268,57 +232,58 @@ namespace Pastel
 
 			void xIncrement()
 			{
-				Base::increment<0>();
+				Base::increment(0);
 			}
 
 			void xDecrement()
 			{
-				Base::decrement<0>();
+				Base::decrement(0);
 			}
 
 			void yIncrement()
 			{
-				Base::increment<1>();
+				Base::increment(1);
 			}
 
 			void yDecrement()
 			{
-				Base::decrement<1>();
+				Base::decrement(1);
 			}
 
 			void zIncrement()
 			{
-				Base::increment<2>();
+				Base::increment(2);
 			}
 
 			void zDecrement()
 			{
-				Base::decrement<2>();
+				Base::decrement(2);
 			}
 
 			void xMove(integer amount)
 			{
-				Base::move<0>(amount);
+				Base::move(0, amount);
 			}
 
 			void yMove(integer amount)
 			{
-				Base::move<1>(amount);
+				Base::move(1, amount);
 			}
 
 			void zMove(integer amount)
 			{
-				Base::move<2>(amount);
+				Base::move(2, amount);
 			}
 
 			void move(integer xAmount, integer yAmount, integer zAmount)
 			{
-				Base::move(Vector<integer, 3>(xAmount, yAmount, zAmount));
+				Base::move(Vector3i(
+					xAmount, yAmount, zAmount));
 			}
 
 		protected:
 			ConstCursor(Type const* data,
-				const Vector<integer, 3>& factor)
+				const Vector3i& factor)
 				: Base(data, factor)
 			{
 			}
@@ -375,7 +340,7 @@ namespace Pastel
 			: public CursorBase<Type, N>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef CursorBase<Type, N> Base;
@@ -399,7 +364,7 @@ namespace Pastel
 			: public CursorBase<Type, 1>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef CursorBase<Type, 1> Base;
@@ -414,27 +379,27 @@ namespace Pastel
 
 			void xIncrement()
 			{
-				Base::increment<0>();
+				Base::increment(0);
 			}
 
 			void xDecrement()
 			{
-				Base::decrement<0>();
+				Base::decrement(0);
 			}
 
 			void xMove(integer amount)
 			{
-				Base::move<0>(amount);
+				Base::move(0, amount);
 			}
 
 			void move(integer xAmount)
 			{
-				Base::move(Vector<integer, 1>(xAmount));
+				Base::move(Vector1i(xAmount));
 			}
 
 		private:
 			Cursor(Type* data,
-				const Vector<integer, 1>& factor)
+				const Vector1i& factor)
 				: Base(data, factor)
 			{
 			}
@@ -445,7 +410,7 @@ namespace Pastel
 			: public CursorBase<Type, 2>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef CursorBase<Type, 2> Base;
@@ -460,42 +425,43 @@ namespace Pastel
 
 			void xIncrement()
 			{
-				Base::increment<0>();
+				Base::increment(0);
 			}
 
 			void xDecrement()
 			{
-				Base::decrement<0>();
+				Base::decrement(0);
 			}
 
 			void yIncrement()
 			{
-				Base::increment<1>();
+				Base::increment(1);
 			}
 
 			void yDecrement()
 			{
-				Base::decrement<1>();
+				Base::decrement(1);
 			}
 
 			void xMove(integer amount)
 			{
-				Base::move<0>(amount);
+				Base::move(0, amount);
 			}
 
 			void yMove(integer amount)
 			{
-				Base::move<1>(amount);
+				Base::move(1, amount);
 			}
 
 			void move(integer xAmount, integer yAmount)
 			{
-				Base::move(Vector<integer, 2>(xAmount, yAmount));
+				Base::move(Vector2i(
+					xAmount, yAmount));
 			}
 
 		private:
 			Cursor(Type* data,
-				const Vector<integer, 2>& factor)
+				const Vector2i& factor)
 				: Base(data, factor)
 			{
 			}
@@ -506,7 +472,7 @@ namespace Pastel
 			: public CursorBase<Type, 3>
 		{
 		private:
-			template <typename Type, int N>
+			template <typename, int>
 			friend class ArrayBase;
 
 			typedef CursorBase<Type, 3> Base;
@@ -521,52 +487,53 @@ namespace Pastel
 
 			void xIncrement()
 			{
-				Base::increment<0>();
+				Base::increment(0);
 			}
 
 			void xDecrement()
 			{
-				Base::decrement<0>();
+				Base::decrement(0);
 			}
 
 			void yIncrement()
 			{
-				Base::increment<1>();
+				Base::increment(1);
 			}
 
 			void yDecrement()
 			{
-				Base::decrement<1>();
+				Base::decrement(1);
 			}
 
 			void zIncrement()
 			{
-				Base::increment<2>();
+				Base::increment(2);
 			}
 
 			void zDecrement()
 			{
-				Base::decrement<2>();
+				Base::decrement(2);
 			}
 
 			void xMove(integer amount)
 			{
-				Base::move<0>(amount);
+				Base::move(0, amount);
 			}
 
 			void yMove(integer amount)
 			{
-				Base::move<1>(amount);
+				Base::move(1, amount);
 			}
 
 			void zMove(integer amount)
 			{
-				Base::move<2>(amount);
+				Base::move(2, amount);
 			}
 
 			void move(integer xAmount, integer yAmount, integer zAmount)
 			{
-				Base::move(Vector<integer, 3>(xAmount, yAmount, zAmount));
+				Base::move(Vector3i(
+					xAmount, yAmount, zAmount));
 			}
 
 		private:
