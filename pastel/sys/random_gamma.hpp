@@ -2,6 +2,7 @@
 #define PASTEL_RANDOM_GAMMA_HPP
 
 #include "pastel/sys/random_gamma.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {

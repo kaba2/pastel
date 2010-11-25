@@ -3,6 +3,7 @@
 
 #include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/random_uniform.h"
+#include "pastel/sys/constants.h"
 
 namespace Pastel
 {

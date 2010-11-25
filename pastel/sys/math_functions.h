@@ -1,5 +1,4 @@
 // Description: Common math functions
-// Documentation: basic_math.txt
 
 #ifndef PASTEL_MATH_FUNCTIONS_H
 #define PASTEL_MATH_FUNCTIONS_H
@@ -28,26 +27,6 @@ namespace Pastel
 
 	// Arithmetic functions
 
-	//! Converts radians to degrees.
-	template <typename Real>
-	Real radiansToDegrees(
-		const PASTEL_NO_DEDUCTION(Real)& radians);
-
-	//! Converts degrees to radians.
-	template <typename Real>
-	Real degreesToRadians(
-		const PASTEL_NO_DEDUCTION(Real)& degrees);
-
-	//! Converts from [-180, 180[ range to [0, 360[ range.
-	template <typename Real>
-	Real positiveDegrees(
-		const PASTEL_NO_DEDUCTION(Real)& degrees);
-
-	//! Converts from [-pi, pi[ range to [0, 2pi[ range.
-	template <typename Real>
-	Real positiveRadians(
-		const PASTEL_NO_DEDUCTION(Real)& radians);
-
 	//! Computes floor(log_2(x)).
 	/*!
 	Preconditions:
@@ -60,14 +39,6 @@ namespace Pastel
 	//! Computes the [base-2 logarithm] of x.
 	template <typename Real>
 	Real log2(
-		const PASTEL_NO_DEDUCTION(Real)& x);
-
-	//! Computes the [cardinal sine].
-	/*!
-	sinc(x) = sin(pi * x) / (pi * x).
-	*/
-	template <typename Real>
-	Real sinc(
 		const PASTEL_NO_DEDUCTION(Real)& x);
 
 	//! Returns the [signed area of a triangle].
@@ -92,21 +63,6 @@ namespace Pastel
 		const Vector<Real, 2>& left,
 		const Vector<Real, 2>& right);
 
-	//! Measures the [counter-clockwise angle from the x-axis].
-	/*!
-	Returns:
-	The angle in radians in [0, 2 pi[.
-	*/
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& to);
-
-	//! Measures the [counter-clockwise angle between two vectors].
-	template <typename Real>
-	Real ccwAngle(
-		const Vector<Real, 2>& from,
-		const Vector<Real, 2>& to);
-
 	//! Returns the [absolute error] of a measured value to a correct value.
 	template <typename Real>
 	Real absoluteError(
@@ -118,36 +74,6 @@ namespace Pastel
 	Real relativeError(
 		const PASTEL_NO_DEDUCTION(Real)& measured,
 		const PASTEL_NO_DEDUCTION(Real)& correct);
-
-	//! Computes the [binomial coefficient].
-	/*!
-	Preconditions:
-	n >= 0
-
-	choose(n, i) = n! / ((n - i)!i!)
-
-	If i < 0 or i > n, returns 0.
-	*/
-
-	template <typename Real>
-	Real choose(integer n, integer i);
-
-	//! Computes the [factorial].
-	/*!
-	Preconditions:
-	i >= 0
-
-	i! = i * (i - 1)!
-	0! = 1
-	*/
-	template <typename Real>
-	Real factorial(integer i);
-
-	PASTELSYS real64 lnFactorialReal64(integer n);
-
-	//! Computes [logarithm of factorial].
-	template <typename Real>
-	Real lnFactorial(integer i);
 
 	//! Computes the i:th n-degree [Bernstein polynomial] at t.
 	/*!
@@ -161,22 +87,6 @@ namespace Pastel
 	template <typename Real>
 	Real bernstein(integer n, integer i, const Real& t);
 
-	//! Solves a [quadratic equation] ax^2 + bx + c = 0.
-	/*!
-	If the equation has no solution, returns false and
-	't0' and 't1' are left unmodified. Else returns
-	true and 't0' and 't1' are assigned the roots
-	such that t0 <= t1. If there is a double root,
-	t0 == t1.
-	*/
-	template <typename Real>
-	bool quadratic(
-		const PASTEL_NO_DEDUCTION(Real)& aCoeff,
-		const PASTEL_NO_DEDUCTION(Real)& bCoeff,
-		const PASTEL_NO_DEDUCTION(Real)& cCoeff,
-		Real &t0, Real &t1,
-		bool solutionsMustExist = false);
-
 	//! Computes a [harmonic number].
 	/*!
 	Preconditions:
@@ -188,35 +98,20 @@ namespace Pastel
 	template <typename Real>
 	Real harmonicNumber(integer n);
 	
-	//! Computes the digamma function for an integer argument.
-	/*!
-	Preconditions:
-	x >= 1
-
-	digamma(n) = harmonicNumber(n - 1) - constantEulerMascheroni
-	*/
-	PASTELSYS real64 digammaReal64(integer n);
-
-	//! [Digamma function]
-	template <typename Real>
-	Real digamma(integer n);
-
-	//! [Gamma function]
-	template <typename Real>
-	Real gamma(PASTEL_NO_DEDUCTION(Real) z);
-
-	//! [Logarithm of the gamma function]
-	template <typename Real>
-	Real lnGamma(PASTEL_NO_DEDUCTION(Real) z);
-
-	//! [Beta function]
-	template <typename Real>
-	Real beta(PASTEL_NO_DEDUCTION(Real) x,
-		PASTEL_NO_DEDUCTION(Real) y);
-
 }
 
 #include "pastel/sys/math_functions_more.h"
+
+#include "pastel/sys/beta.h"
+#include "pastel/sys/gamma.h"
+#include "pastel/sys/angles.h"
+#include "pastel/sys/digamma.h"
+#include "pastel/sys/sinc.h"
+#include "pastel/sys/quadratic.h"
+#include "pastel/sys/factorial.h"
+#include "pastel/sys/rounding.h"
+#include "pastel/sys/quantization.h"
+#include "pastel/sys/binomial.h"
 
 #include "pastel/sys/math_functions.hpp"
 #include "pastel/sys/math_functions_more.hpp"
