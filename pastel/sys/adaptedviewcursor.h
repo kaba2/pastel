@@ -114,24 +114,28 @@ namespace Pastel
 			template <typename ThatLogical>
 			Logical operator+(const ThatLogical& that) const
 			{
+				Adapter adapter;
 				return adapter.convert(*cursor_) + that;
 			}
 
 			template <typename ThatLogical>
 			Logical operator-(const ThatLogical& that) const
 			{
+				Adapter adapter;
 				return adapter.convert(*cursor_) - that;
 			}
 
 			template <typename ThatLogical>
 			Logical operator*(const ThatLogical& that) const
 			{
+				Adapter adapter;
 				return adapter.convert(*cursor_) * that;
 			}
 
 			template <typename ThatLogical>
 			Logical operator/(const ThatLogical& that) const
 			{
+				Adapter adapter;
 				return adapter.convert(*cursor_) / that;
 			}
 		};
