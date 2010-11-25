@@ -3,8 +3,11 @@ PastelMath
 
 [[Parent]]: pastel.txt
 
-The purpose of _PastelMath_ is to provide general-purpose 
-mathematical tools. Algorithms and tools for geometry can 
-be found from the PastelGeometry sublibrary.
+_PastelMath_ provides general-purpose mathematical tools. Algorithms 
+and data structures for geometry can be found from the 
+[PastelGeometry][Geometry] sublibrary.
+
+[Geometry]: [[Ref]]: pastelgeometry.txt
+
 
 
