@@ -73,6 +73,14 @@ namespace Pastel
 	}
 
 	template <typename Real>
+	Real randomGamma(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& scale)
+	{
+		return Pastel::randomGamma<Real>(shape) * scale;
+	}
+
+	template <typename Real>
 	Real varianceToGammaScale(
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& variance)

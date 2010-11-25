@@ -13,13 +13,21 @@ namespace Pastel
 	/*!
 	Preconditions:
 	shape > 0
-
-	Distributions with a given scale > 0 can be obtained by
-	multiplying the result with that scale.
 	*/
 	template <typename Real>
 	Real randomGamma(
 		const PASTEL_NO_DEDUCTION(Real)& shape);
+
+	//! Returns a gamma-distributed random real.
+	/*!
+	Preconditions:
+	shape > 0
+	scale > 0
+	*/
+	template <typename Real>
+	Real randomGamma(
+		const PASTEL_NO_DEDUCTION(Real)& shape,
+		const PASTEL_NO_DEDUCTION(Real)& scale);
 
 	//! Converts variance to the scale parameter of the gamma distribution.
 	/*!

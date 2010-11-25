@@ -17,15 +17,8 @@ namespace Pastel
 	{
 	private:
 		typedef ForwardRange<Iterator> Base;
-		using Base::begin_;
-		using Base::end_;
-		using Base::size_;
-		using Base::Unknown;
 
 	public:
-		using typename Base::reference;
-		using Base::empty;
-
 		typedef std::reverse_iterator<Iterator> reverse_iterator;
 
 		BidirectionalRange()
@@ -55,32 +48,32 @@ namespace Pastel
 		{
 		}
 
-		reference back() const
+		typename Base::reference back() const
 		{
-			PENSURE(!empty());
-			Iterator last = end();
+			PENSURE(!Base::empty());
+			Iterator last = Base::end();
 			--last;
 			return *last;
 		}
 
 		void pop_back()
 		{
-			PENSURE(!empty());
-			--end_;
-			if (size_ != Unknown)
+			PENSURE(!Base::empty());
+			--Base::end_;
+			if (Base::size_ != Base::Unknown)
 			{
-				--size_;
+				--Base::size_;
 			}
 		}
 
 		reverse_iterator rbegin() const
 		{
-			return reverse_iterator(end());
+			return reverse_iterator(Base::end());
 		}
 			
 		reverse_iterator rend() const
 		{
-			return reverse_iterator(begin());
+			return reverse_iterator(Base::begin());
 		}
 	};
 

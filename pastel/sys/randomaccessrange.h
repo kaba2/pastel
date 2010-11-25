@@ -18,9 +18,6 @@ namespace Pastel
 		typedef BidirectionalRange<Iterator> Base;
 
 	public:
-		using typename Base::reference;
-		using typename Base::size_type;
-		
 		RandomAccessRange()
 			: Base()
 		{
@@ -48,7 +45,8 @@ namespace Pastel
 		{
 		}
 
-		reference operator[](size_type index) const
+		typename Base::reference 
+			operator[](Base::size_type index) const
 		{
 			return *(Base::begin() + index);
 		}
