@@ -2,6 +2,9 @@
 #define PASTEL_GAMMA_HPP
 
 #include "pastel/sys/gamma.h"
+#include "pastel/sys/constants.h"
+
+#include <cmath>
 
 namespace Pastel
 {

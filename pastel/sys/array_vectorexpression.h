@@ -6,6 +6,8 @@
 
 #include "pastel/sys/vectorexpression.h"
 
+#include <algorithm>
+
 namespace Pastel
 {
 
@@ -66,8 +68,7 @@ namespace Pastel
 
 		bool operator==(const ConstArray_VectorExpression& that) const
 		{
-			return std::equal(
-				begin(), end(), that.begin());
+			return std::equal(begin(), end(), that.begin());
 		}
 
 		const Real& operator[](integer index) const

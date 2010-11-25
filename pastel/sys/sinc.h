@@ -1,3 +1,6 @@
+// Description: Sinc function
+// Documentation: math_functions.txt
+
 #ifndef PASTEL_SINC_H
 #define PASTEL_SINC_H
 
