@@ -12,7 +12,7 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/less_equal.hpp>
 
-#include <algorithm>
+#include <numeric>
 
 namespace Pastel
 {
