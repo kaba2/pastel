@@ -265,32 +265,27 @@ namespace Pastel
 	};
 
 	template <typename Integer>
-	Color integerToColor(const PASTEL_NO_DEDUCTION(Integer)& packedColor,
+	Color integerToColor(
+		const PASTEL_NO_DEDUCTION(Integer)& packedColor,
 		integer redBits, integer greenBits, integer blueBits,
-		integer redFrom = 0, 
-		integer greenFrom = redFrom + redBits, 
-		integer blueFrom = greenFrom + greenBits)
-	{
-		return Color(
-			dequantizeUnsigned(extractBits(packedColor, redFrom, redBits), 1 << redBits),
-			dequantizeUnsigned(extractBits(packedColor, greenFrom, greenBits), 1 << greenBits),
-			dequantizeUnsigned(extractBits(packedColor, blueFrom, blueBits), 1 << blueBits));
-	}
+		integer redFrom, integer greenFrom, integer blueFrom);
+
+	template <typename Integer>
+	Color integerToColor(
+		const PASTEL_NO_DEDUCTION(Integer)& packedColor,
+		integer redBits, integer greenBits, integer blueBits);
 
 	template <typename Integer>
 	Integer colorToInteger(const Color& color,
 		integer redBits, integer greenBits, integer blueBits,
-		integer redFrom = 0, 
-		integer greenFrom = redFrom + redBits, 
-		integer blueFrom = greenFrom + greenBits)
-	{
-		const Integer red = quantizeUnsigned(color[0], 1 << redBits);
-		const Integer green = quantizeUnsigned(color[1], 1 << greenBits);
-		const Integer blue = quantizeUnsigned(color[2], 1 << blueBits);
+		integer redFrom, integer greenFrom, integer blueFrom);
 
-		return (red << redFrom) + (green << greenFrom) + (blue << blueFrom);
-	}
+	template <typename Integer>
+	Integer colorToInteger(const Color& color,
+		integer redBits, integer greenBits, integer blueBits);
 
 }
+
+#include "pastel/gfx/coloradapter.hpp"
 
 #endif

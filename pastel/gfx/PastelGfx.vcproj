@@ -430,6 +430,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\coloradapter.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\coloradapter.txt"
 					>
 				</File>

@@ -2,6 +2,7 @@
 #define PASTEL_VECTOR_HPP
 
 #include "pastel/sys/vector.h"
+#include "pastel/sys/hash.h"
 
 namespace Pastel
 {

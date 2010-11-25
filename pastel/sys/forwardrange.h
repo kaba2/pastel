@@ -20,7 +20,7 @@ namespace Pastel
 	class ForwardRange
 		: boost::equality_comparable<ForwardRange<Iterator> >
 	{
-	private:
+	protected:
 		enum
 		{
 			Unknown = -1

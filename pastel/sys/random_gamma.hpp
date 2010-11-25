@@ -73,17 +73,6 @@ namespace Pastel
 	}
 
 	template <typename Real>
-	Real randomGamma(
-		const PASTEL_NO_DEDUCTION(Real)& shape,
-		const PASTEL_NO_DEDUCTION(Real)& scale)
-	{
-		PENSURE_OP(shape, >, 0);
-		PENSURE_OP(scale, >= , 0);
-
-		return Pastel::randomGamma<Real>(shape) * scale;
-	}
-
-	template <typename Real>
 	Real varianceToGammaScale(
 		const PASTEL_NO_DEDUCTION(Real)& shape,
 		const PASTEL_NO_DEDUCTION(Real)& variance)
@@ -101,7 +90,7 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 
 		return Pastel::randomGammaVector<Real, N>(
-			N, shape, scale);
+			N, shape);
 	}
 
 	template <typename Real, int N>
