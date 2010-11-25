@@ -249,8 +249,8 @@ namespace Pastel
 			using Base::adapter_;
 
 		public:
-			using Base::Element;
-			using Base::ConstReference;
+			typedef typename Base::Element Element; 
+			typedef typename Base::ConstReference ConstReference;
 
 			typedef Proxy<PhysicalElement, LogicalElement, Adapter, Cursor>
 				Reference;

@@ -19,7 +19,7 @@ namespace Pastel
 		typedef Texture<Type, N> Base;
 
 	public:
-		using Base::Element;
+		typedef typename Base::Element Element;
 
 		NearestImage_Texture()
 			: image_(0)
