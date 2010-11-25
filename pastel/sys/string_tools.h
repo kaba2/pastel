@@ -16,9 +16,15 @@ namespace Pastel
 	//! Returns whether the given string begins with another string.
 	PASTELSYS bool startsWith(const std::string& text, const std::string& prologue);
 
+	//! Converts alphabets to lowercase in-place.
+	PASTELSYS std::string& makeLowercase(std::string& text);
+
 	//! Converts alphabets to lowercase.
 	PASTELSYS std::string lowercase(const std::string& text);
 	
+	//! Converts alphabets to uppercase in-place.
+	PASTELSYS std::string& makeUppercase(std::string& text);
+
 	//! Converts alphabets to uppercase.
 	PASTELSYS std::string uppercase(const std::string& text);
 

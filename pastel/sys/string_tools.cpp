@@ -31,20 +31,45 @@ namespace Pastel
 		return true;
 	}
 
+	PASTELSYS std::string& makeLowercase(std::string& text)
+	{
+		// See the makeUppercase() function for some notes.
+		for (integer i = 0;i < text.size();++i)
+		{
+			text[i] = std::tolower(text[i]);
+		}
+
+		return text;
+	}
+
 	PASTELSYS std::string lowercase(const std::string& text)
 	{
 		std::string result(text);
-		std::transform(result.begin(), result.end(), 
-			result.begin(), std::ptr_fun(&std::tolower));
-		return result;
+		return makeLowercase(result);
+	}
+
+	PASTELSYS std::string& makeUppercase(std::string& text)
+	{
+		// See the makeUppercase() function for some notes.
+		for (integer i = 0;i < text.size();++i)
+		{
+			text[i] = std::toupper(text[i]);
+		}
+
+		// I'd use the following, but it doesn't compile in GCC.
+		// The problem may be in the definition of the
+		// toupper() function (e.g. a macro).
+
+		//std::transform(result.begin(), result.end(), 
+		//	result.begin(), std::ptr_fun(&std::toupper));
+
+		return text;
 	}
 
 	PASTELSYS std::string uppercase(const std::string& text)
 	{
 		std::string result(text);
-		std::transform(result.begin(), result.end(), 
-			result.begin(), std::ptr_fun(&std::toupper));
-		return result;
+		return makeUppercase(result);
 	}
 
 	PASTELSYS std::string repeat(const std::string& that, integer times)
