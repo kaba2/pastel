@@ -2,6 +2,7 @@
 #define PASTEL_DIGAMMA_HPP
 
 #include "pastel/sys/digamma.h"
+#include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
