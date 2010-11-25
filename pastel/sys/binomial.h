@@ -1,4 +1,5 @@
 // Description: Binomial coefficient
+// Documentation: math_functions.txt
 
 #ifndef PASTEL_BINOMIAL_H
 #define PASTEL_BINOMIAL_H

@@ -2,6 +2,7 @@
 #define PASTEL_SINC_HPP
 
 #include "pastel/sys/sinc.h"
+#include "pastel/sys/constants.h"
 
 #include <cmath>
 

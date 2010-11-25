@@ -7,6 +7,7 @@
 #include "pastel/sys/vectorexpression.h"
 #include "pastel/sys/binary_vectorexpression_detail.h"
 
+#include <algorithm>
 #include <cmath>
 
 namespace Pastel
