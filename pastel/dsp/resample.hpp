@@ -105,7 +105,7 @@ namespace Pastel
 
 				if (i >= introEnd && i < mainEnd)
 				{
-					result += weight * input[i];
+					result += weight * inputSet[i];
 				}
 				else
 				{
@@ -116,132 +116,16 @@ namespace Pastel
 					else
 					{
 						result += weight *
-							input[(*indexExtender)(i, inputWidth)];
+							inputSet[(*indexExtender)(i, inputWidth)];
 					}
 				}
 
 				sumWeights += weight;
 			}
 
-			output(x) = result / sumWeights;
+			outputSet[x] = result / sumWeights;
 
 			xFilter += xStep;
-		}
-	}
-
-	template <
-		typename Computation_Element,
-		int N,
-		typename Input_Element,
-		typename Output_Element>
-	void resample(
-		const ConstSubArray<Input_Element, N>& input,
-		const SubArray<Output_Element, N>& output,
-		const ConstFilterPtr& filter,
-		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		real blurFactor)
-	{
-		Pastel::resample(
-			input, 
-			output, 
-			tableFilter(filter), 
-			arrayExtender,
-			blurFactor);
-	}
-
-	template <
-		typename Computation_Element,
-		int N,
-		typename Input_Element,
-		typename Output_Element>
-	void resampleTable(
-		const ConstSubArray<Input_Element, N>& input,
-		const SubArray<Output_Element, N>& output,
-		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		const ConstTableFilterPtr& filter,
-		real blurFactor)
-	{
-		ENSURE_OP(blurFactor, >=, 1);
-
-		// The n-dimensional resampling is done as
-		// n subsequent 1-dimensional resamplings.
-		// If the filter radii are equal,
-		// then it can be shown that the order
-		// which maximizes performance is
-		// ascending order in (radius[i] * newExtent[i] / oldExtent[i]).
-		// If the filter radii are not equal,
-		// then it can be shown that the same
-		// condition gives an optimal order in many, but not all, cases.
-
-		SubArray<Output_Element, N> output(outputRef);
-
-		const integer dimension = input.dimension();
-		ENSURE_OP(dimension, ==, output.dimension());
-
-		if (dimension == 1)
-		{
-			Pastel::resample(
-				randomAccessRange(input.begin(), input.end()),
-				randomAccessRange(output.begin(), output.end()),
-				filter,
-				arrayExtender.extender(0),
-				arrayExtender.border(),
-				blurFactor);
-
-			return;
-		}
-
-		// Find out the mostly-optimal order.
-
-		SmallSet<Detail_Resample::AxisValue> axisSet;
-		for (integer i = 0;i < N;++i)
-		{
-			axisSet.insert(
-				Detail_Resample::AxisValue((filter->radius() * output.extent()[i]) 
-				/ input.extent()[i], i));
-		}
-
-		// The first resampling is from the input array to
-		// a temporary array.
-
-		Vector<integer, N> extent = input.extent();
-		extent[axisSet[0].axis_] = output.extent()[axisSet[0].axis_];
-		Array<Computation_Element, N> tempArray(extent);
-
-		{
-			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
-				resampleFunctor(arrayExtender.extender(0), arrayExtender.border(), 
-				filter, blurFactor);
-
-			visitRows(
-				input(), tempArray(), axisSet[0].axis_, resampleFunctor);
-		}
-
-		// The second resampling to the previous-to-last resampling
-		// is done between temporary arrays.
-
-		for (integer i = 1;i < dimension - 1;++i)
-		{
-			extent[axisSet[i].axis_] = output.extent()[axisSet[i].axis_];
-			Array<Computation_Element, N> tempArray2(extent);
-
-			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
-				resampleFunctor(arrayExtender.extender(i), arrayExtender.border(),
-				filter, blurFactor);
-
-			visitRows(tempArray(), tempArray2(), axisSet[i].axis_, resampleFunctor);
-
-			tempArray.swap(tempArray2);
-		}
-
-		// The last resampling is done to the output array.
-
-		{
-			const Detail_Resample::ResampleFunctor<Computation_Element, Input_Element> 
-				resampleFunctor(arrayExtender.extender(dimension - 1), arrayExtender.border(),
-				filter, blurFactor);
-
-			visitRows(tempArray(), output(), axisSet[dimension - 1].axis_, resampleFunctor);
 		}
 	}
 

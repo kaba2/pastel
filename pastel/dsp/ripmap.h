@@ -76,11 +76,11 @@ namespace Pastel
 
 		View<N, Array<Type, N>,
 			ArrayView<N, Array<Array<Type, N>, N> > >
-			RipMap<Type, N>::view();
+			view();
 
 		ConstView<N, Array<Type, N>,
 			ConstArrayView<N, Array<Array<Type, N>, N> > >
-			RipMap<Type, N>::constView() const;
+			constView() const;
 
 	private:
 		Array<Array<Type, N>, N> ripMapArray_;

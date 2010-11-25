@@ -37,30 +37,6 @@ namespace Pastel
 		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
 		real blurFactor = 1);
 
-	template <
-		typename Computation_Element,
-		int N,
-		typename Input_Element,
-		typename Output_Element>
-	void resample(
-		const ConstSubArray<Input_Element, N>& input,
-		const SubArray<Output_Element, N>& output,
-		const ConstFilterPtr& filter,
-		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		real blurFactor = 1);
-
-	template <
-		typename Computation_Element,
-		int N,
-		typename Input_Element,
-		typename Output_Element>
-	void resampleTable(
-		const ConstSubArray<Input_Element, N>& input,
-		const SubArray<Output_Element, N>& output,
-		const ConstTableFilterPtr& filter,
-		const PASTEL_NO_DEDUCTION((ArrayExtender<N, Input_Element>))& arrayExtender,
-		real blurFactor = 1);
-
 	//! Resamples a 1-dimensional array to a different size.
 	/*!
 	Preconditions:
