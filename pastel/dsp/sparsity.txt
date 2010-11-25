@@ -27,7 +27,7 @@ maximum and equals 1.
 * ''S'' is invariant to the permutation of vector coordinates.
 * ''S(0) = 1''
 
-[Dct]: [[Ref]]: dct.txt
+[Dct]: [[Ref]]: cosine_transform.txt
 
 ### p-sparsity measure
 

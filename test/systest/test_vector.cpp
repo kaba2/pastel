@@ -2,10 +2,10 @@
 // DocumentationOf: vector.h
 
 #include "pastelsystest.h"
-#include "pastel/sys/vector.h"
-#include "pastel/sys/vector_tools.h"
 
 #include "pastel/sys/rational_tools.h"
+#include "pastel/sys/vector.h"
+#include "pastel/sys/vector_tools.h"
 #include "pastel/sys/biginteger.h"
 
 using namespace Pastel;
