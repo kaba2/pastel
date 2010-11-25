@@ -64,7 +64,7 @@ namespace Pastel
 	}
 
 	GlGfxRenderer::GlGfxRenderer()
-		: GfxRenderer()
+		: GfxRenderer<Color>()
 	{
 	}
 
