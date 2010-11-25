@@ -276,8 +276,8 @@ namespace Pastel
 			// Needed because base class is dependent on
 			// template parameters.
 			//using Base::Dimension;
-			using typename Base::Element;
-			using typename Base::ConstCursor;
+			typedef typename Base::Element Element;
+			typedef typename Base::ConstCursor ConstCursor;
 			// We do not want to bring the ConstView's operator() into scope...
 			//using Base::operator();
 			using Base::extent;
@@ -322,11 +322,11 @@ namespace Pastel
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		using typename Base::Element;
-		using typename Base::ConstReference;
-		using typename Base::Reference;
-		using typename Base::ConstCursor;
-		using typename Base::Cursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstCursor ConstCursor;
+		typedef typename Base::Cursor Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;
@@ -359,11 +359,11 @@ namespace Pastel
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		using typename Base::Element;
-		using typename Base::ConstReference;
-		using typename Base::Reference;
-		using typename Base::ConstCursor;
-		using typename Base::Cursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstCursor ConstCursor;
+		typedef typename Base::Cursor Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;
@@ -411,11 +411,11 @@ namespace Pastel
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		using typename Base::Element;
-		using typename Base::ConstReference;
-		using typename Base::Reference;
-		using typename Base::ConstCursor;
-		using typename Base::Cursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstCursor ConstCursor;
+		typedef typename Base::Cursor Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;
@@ -468,11 +468,11 @@ namespace Pastel
 	public:
 		// Needed because base class is dependent on
 		// template parameters.
-		using typename Base::Element;
-		using typename Base::ConstReference;
-		using typename Base::Reference;
-		using typename Base::ConstCursor;
-		using typename Base::Cursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::ConstReference ConstReference;
+		typedef typename Base::Reference Reference;
+		typedef typename Base::ConstCursor ConstCursor;
+		typedef typename Base::Cursor Cursor;
 		using Base::operator();
 		using Base::extent;
 		using Base::contained;

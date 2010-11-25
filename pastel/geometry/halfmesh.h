@@ -106,15 +106,6 @@ namespace Pastel
 		: public DataPolicy
 	{
 	private:
-		// A compiler bug prevents us from doing this.
-		/*
-		using typename DataPolicy::VertexData;
-		using typename DataPolicy::HalfData;
-		using typename DataPolicy::EdgeData;
-		using typename DataPolicy::PolygonData;
-		*/
-
-		// So we get around it by doing this.
 		typedef typename DataPolicy::VertexData VertexData;
 		typedef typename DataPolicy::HalfData HalfData;
 		typedef typename DataPolicy::EdgeData EdgeData;

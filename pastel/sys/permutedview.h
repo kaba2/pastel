@@ -98,9 +98,9 @@ namespace Pastel
 
 	public:
 		//using Base::Dimension;
-		using typename Base::ConstCursor;
-		using typename Base::Element;
-		using typename Base::ConstReference;
+		typedef typename Base::ConstCursor ConstCursor;
+		typedef typename Base::Element Element;
+		typedef typename Base::ConstReference ConstReference;
 		using Base::extent;
 		using Base::constCursor;
 

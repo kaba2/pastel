@@ -84,8 +84,8 @@ namespace Pastel
 			using Base::cursor_;
 
 		public:
-			using typename Base::Element;
-			using typename Base::ConstReference;
+			typedef typename Base::Element Element;
+			typedef typename Base::ConstReference ConstReference;
 			using Base::increment;
 			using Base::decrement;
 			using Base::move;

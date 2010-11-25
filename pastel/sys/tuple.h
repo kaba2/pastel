@@ -37,8 +37,8 @@ namespace Pastel
 		typedef Detail::TupleBase<Type, N> Base;
 
 	public:
-		using typename Base::Iterator;
-		using typename Base::ConstIterator;
+		typedef typename Base::Iterator Iterator;
+		typedef typename Base::ConstIterator ConstIterator;
 
 		// Using default copy constructor.
 		// Using default destructor.
@@ -119,8 +119,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
-		using typename Base::Iterator;
-		using typename Base::ConstIterator;
+		typedef typename Base::Iterator Iterator;
+		typedef typename Base::ConstIterator ConstIterator;
 
 		Tuple()
 			: Base()
@@ -208,8 +208,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
-		using typename Base::Iterator;
-		using typename Base::ConstIterator;
+		typedef typename Base::Iterator Iterator;
+		typedef typename Base::ConstIterator ConstIterator;
 
 		Tuple()
 			: Base()
@@ -319,8 +319,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
-		using typename Base::Iterator;
-		using typename Base::ConstIterator;
+		typedef typename Base::Iterator Iterator;
+		typedef typename Base::ConstIterator ConstIterator;
 
 		Tuple()
 			: Base()
@@ -442,8 +442,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::set;
-		using typename Base::Iterator;
-		using typename Base::ConstIterator;
+		typedef typename Base::Iterator Iterator;
+		typedef typename Base::ConstIterator ConstIterator;
 
 		Tuple()
 			: Base()
@@ -578,8 +578,8 @@ namespace Pastel
 		// Using default destructor.
 
 		using Base::swap;
-		using typename Base::Iterator;
-		using typename Base::ConstIterator;
+		typedef typename Base::Iterator Iterator;
+		typedef typename Base::ConstIterator ConstIterator;
 
 		Tuple()
 			: Base()
