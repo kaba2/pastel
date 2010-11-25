@@ -12,6 +12,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_arithmetic.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 
 #include <iterator>
 
@@ -23,28 +24,28 @@ namespace Pastel
 	namespace Detail_CountingIterator
 	{
 
-		template <typename Type>
+		template <typename Type_>
 		class Base
 		{
 		public:
 			typedef boost::random_access_iterator_helper<
-				CountingIterator<Type>, Type, integer, const Type, const Type> 
+				CountingIterator<Type_>, Type_, integer, const Type_, const Type_> 
 				RandomAccess_Base;
 
 			typedef boost::bidirectional_iterator_helper<
-				CountingIterator<Type>, Type, integer, const Type, const Type>
+				CountingIterator<Type_>, Type_, integer, const Type_, const Type_>
 				Bidirectional_Base;
 
 			typedef boost::forward_iterator_helper<
-				CountingIterator<Type>, Type, integer, const Type, const Type>
+				CountingIterator<Type_>, Type_, integer, const Type_, const Type_>
 				Forward_Base;
 
-			typedef boost::is_arithmetic<Type> IsArithmetic;
+			typedef boost::is_arithmetic<Type_> IsArithmetic;
 
-			typedef boost::is_same<typename std::iterator_traits<Type>::iterator_category,
+			typedef boost::is_same<typename boost::iterator_category<Type_>::type,
 				std::random_access_iterator_tag> IsRandomAccess;
 
-			typedef boost::is_same<typename std::iterator_traits<Type>::iterator_category,
+			typedef boost::is_same<typename boost::iterator_category<Type_>::type,
 				std::bidirectional_iterator_tag> IsBidirectional;
 
 			typedef typename
