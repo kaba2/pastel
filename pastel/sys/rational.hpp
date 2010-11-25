@@ -282,8 +282,8 @@ namespace Pastel
 		-0 |    Num NaN +oo -oo
 		*/
 
-		NumberType::Enum thisType = classify();
-		NumberType::Enum thatType = that.classify();
+		typename NumberType::Enum thisType = classify();
+		typename NumberType::Enum thatType = that.classify();
 
 		Rational<Integer> result;
 
