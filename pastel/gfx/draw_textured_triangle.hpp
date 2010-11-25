@@ -5,6 +5,7 @@
 #include "pastel/gfx/assigncolormixer.h"
 
 #include "pastel/geometry/plane.h"
+#include "pastel/geometry/predicates.h"
 
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/smallset.h"
