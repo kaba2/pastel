@@ -17,6 +17,7 @@ solution "Pastel"
 
 	includeDirectorySet = 
 	{
+		"./",
 		boostDirectory,
 		sdlDirectory,
 		glewDirectory
