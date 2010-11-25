@@ -207,7 +207,7 @@ namespace Pastel
 			}
 
 			Vector<Real, N>& operator=(
-				const Vector<Real, N>& that)
+				const VectorBase<Real, N>& that)
 			{
 				// We allow the size of the vector to be
 				// changed by an assignment.
@@ -219,7 +219,7 @@ namespace Pastel
 					// as well copy construct, so that there
 					// is no redundant initialization.
 
-					Vector<Real, N> copy(that);
+					Vector<Real, N> copy((Vector<Real, N>&)that);
 					swap(copy);
 				}
 				else
