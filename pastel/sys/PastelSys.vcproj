@@ -2179,7 +2179,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\premake4.lua"
+				RelativePath="..\..\premake4.lua"
 				>
 			</File>
 			<File

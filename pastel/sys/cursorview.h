@@ -51,7 +51,7 @@ namespace Pastel
 			return result;
 		}
 
-	private:
+	protected:
 		const ViewConstCursor cursor_;
 		const Vector<integer, N> extent_;
 	};
@@ -62,7 +62,7 @@ namespace Pastel
 		const ViewConstCursor& cursor,
 		const Vector<integer, N>& extent)
 	{
-		return wrapConstView(ConstCursorView<ViewConstCursor>(cursor, extent));
+		return wrapConstView(ConstCursorView<N, ViewConstCursor>(cursor, extent));
 	}
 
 	template <int N, typename ViewCursor>
@@ -99,7 +99,7 @@ namespace Pastel
 		Cursor cursor(
 			const Vector<integer, N>& position) const
 		{
-			Cursor result = cursor_;
+			Cursor result = Base::cursor_;
 			result.move(position);
 			return result;
 		}
