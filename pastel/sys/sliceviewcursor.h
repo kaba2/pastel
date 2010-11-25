@@ -43,19 +43,6 @@ namespace Pastel
 				std::swap(fixedIndex_, that.fixedIndex_);
 			}
 
-			template <int Index>
-			void increment()
-			{
-				if (Index >= fixedIndex_)
-				{
-					cursor_.increment(fixedIndex_ + 1);
-				}
-				else
-				{
-					cursor_.increment(fixedIndex_);
-				}
-			}
-
 			void increment(integer index)
 			{
 				if (index >= fixedIndex_)
@@ -68,19 +55,6 @@ namespace Pastel
 				}
 			}
 
-			template <int Index>
-			void decrement()
-			{
-				if (Index >= fixedIndex_)
-				{
-					cursor_.decrement(fixedIndex_ + 1);
-				}
-				else
-				{
-					cursor_.decrement(fixedIndex_);
-				}
-			}
-
 			void decrement(integer index)
 			{
 				if (index >= fixedIndex_)
@@ -90,19 +64,6 @@ namespace Pastel
 				else
 				{
 					cursor_.decrement(fixedIndex_);
-				}
-			}
-
-			template <int Index>
-			void move(integer amount)
-			{
-				if (index >= fixedIndex_)
-				{
-					cursor_.move(fixedIndex_ + 1, amount);
-				}
-				else
-				{
-					cursor_.move(fixedIndex_, amount);
 				}
 			}
 

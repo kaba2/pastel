@@ -112,7 +112,7 @@ namespace Pastel
 				visitDimension<Index - 1>(
 					extent, cursor, visitor, Tag());
 
-				cursor.increment<Index>();
+				cursor.increment(Index);
 			}
 		}
 
@@ -133,7 +133,7 @@ namespace Pastel
 			{
 				visitor(*cursor);
 
-				cursor.increment<Index>();
+				cursor.increment(Index);
 			}
 		}
 
@@ -206,8 +206,8 @@ namespace Pastel
 				visitDimension<Index - 1>(
 					extent, leftCursor, rightCursor, visitor, Tag());
 
-				leftCursor.increment<Index>();
-				rightCursor.increment<Index>();
+				leftCursor.increment(Index);
+				rightCursor.increment(Index);
 			}
 		}
 
@@ -233,8 +233,8 @@ namespace Pastel
 			{
 				visitor(*leftCursor, *rightCursor);
 
-				leftCursor.increment<Index>();
-				rightCursor.increment<Index>();
+				leftCursor.increment(Index);
+				rightCursor.increment(Index);
 			}
 		}
 

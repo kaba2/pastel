@@ -39,32 +39,14 @@ namespace Pastel
 				permutation_.swap(that.permutation_);
 			}
 
-			template <int Index>
-			void increment()
-			{
-				cursor_.increment(permutation_[Index]);
-			}
-
 			void increment(integer index)
 			{
 				cursor_.increment(permutation_[index]);
 			}
 
-			template <int Index>
-			void decrement()
-			{
-				cursor_.decrement(permutation_[Index]);
-			}
-
 			void decrement(integer index)
 			{
 				cursor_.decrement(permutation_[index]);
-			}
-
-			template <int Index>
-			void move(integer amount)
-			{
-				cursor_.move(permutation_[Index], amount);
 			}
 
 			void move(integer index, integer amount)

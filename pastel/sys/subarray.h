@@ -16,6 +16,9 @@ namespace Pastel
 {
 
 	template <typename Type, int N>
+	class Array;
+
+	template <typename Type, int N>
 	class ConstSubArray;
 
 	template <typename Type, int N = 2>
@@ -30,10 +33,14 @@ namespace Pastel
 	public:
 		friend class ConstSubArray<Type, N>;
 
-		typedef SubArray_Iterator<Type, N> Iterator;
-		typedef SubArray_ConstIterator<Type, N> ConstIterator;
-		typedef typename SparseIterator<Type*> RowIterator;
-		typedef typename ConstSparseIterator<const Type*> ConstRowIterator;
+		typedef SubArray_Iterator<Type, N> 
+			Iterator;
+		typedef SubArray_ConstIterator<Type, N> 
+			ConstIterator;
+		typedef SparseIterator<Type*> 
+			RowIterator;
+		typedef ConstSparseIterator<const Type*> 
+			ConstRowIterator;
 
 		// Using default copy constructor.
 		// Using default destructor.

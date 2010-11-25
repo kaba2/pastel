@@ -33,37 +33,19 @@ namespace Pastel
 				step_.swap(that.step_);
 			}
 
-			template <int Index>
-			void increment()
-			{
-				cursor_.move<Index>(step_[Index]);
-			}
-
 			void increment(integer index)
 			{
-				cursor_.move(index, step_[Index]);
-			}
-
-			template <int Index>
-			void decrement()
-			{
-				cursor_.move<Index>(-step_[Index]);
+				cursor_.move(index, step_[index]);
 			}
 
 			void decrement(integer index)
 			{
-				cursor_.move(index, -step_[Index]);
-			}
-
-			template <int Index>
-			void move(integer amount)
-			{
-				cursor_.move<Index>(amount * step_[Index]);
+				cursor_.move(index, -step_[index]);
 			}
 
 			void move(integer index, integer amount)
 			{
-				cursor_.move(index, amount * step_[Index]);
+				cursor_.move(index, amount * step_[index]);
 			}
 
 			void move(const Vector<integer, N>& amount)

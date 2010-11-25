@@ -109,7 +109,7 @@ namespace Pastel
 		//! Sets the minimum point of the box.
 		void setMin(const Vector<Real, N>& min)
 		{
-			min_ = point;
+			min_ = min;
 		}
 
 		//! Returns the minimum point of the box.
@@ -127,7 +127,7 @@ namespace Pastel
 		//! Sets the maximum point of the box.
 		void setMax(const Vector<Real, N>& max)
 		{
-			max_ = point;
+			max_ = max;
 		}
 
 		//! Returns the maximum point of the box.
