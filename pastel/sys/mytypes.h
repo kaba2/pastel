@@ -10,6 +10,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/mpl/if.hpp>
 
 #define PASTEL_REMOVE_BRACKETS(x) typename Pastel::RemoveBrackets<void (x)>::Type
 #define PASTEL_NO_DEDUCTION(x) PASTEL_REMOVE_BRACKETS(x)
@@ -92,7 +93,10 @@ namespace Pastel
 	*/
 	typedef int                integer;
 	typedef double	           real;
-	typedef uint32             pointer_integer;
+
+	typedef boost::mpl::if_c<
+		(sizeof(void*) == 4), uint32, uint64>::type 
+		pointer_integer;
 
 	//! Removes brackets around a type.
 	/*!

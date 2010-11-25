@@ -1439,10 +1439,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\pastelsys.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\possiblyemptymember.h"
 				>
 			</File>
@@ -1468,14 +1464,6 @@
 			</File>
 			<File
 				RelativePath=".\subset.h"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.h"
 				>
 			</File>
 			<Filter
@@ -1583,22 +1571,6 @@
 				</File>
 				<File
 					RelativePath=".\commafiller.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Endian conversion"
-				>
-				<File
-					RelativePath=".\endian.h"
-					>
-				</File>
-				<File
-					RelativePath=".\endian.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\endian.txt"
 					>
 				</File>
 			</Filter>
@@ -2210,6 +2182,14 @@
 				RelativePath="..\premake4.lua"
 				>
 			</File>
+			<File
+				RelativePath=".\syslibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\syslibrary.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Algorithm concept"
@@ -2257,6 +2237,30 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Portability"
+			>
+			<File
+				RelativePath=".\pastelsys.cpp"
+				>
+			</File>
+			<Filter
+				Name="Endian conversion"
+				>
+				<File
+					RelativePath=".\endian.h"
+					>
+				</File>
+				<File
+					RelativePath=".\endian.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\endian.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>
