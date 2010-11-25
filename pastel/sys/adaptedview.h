@@ -78,7 +78,7 @@ namespace Pastel
 
 		typedef Detail_AdaptedView::AdaptedViewCursor<N, typename Contained_View::Cursor, Adapter>
 			Cursor;
-		using Base::Element;
+		typedef typename Base::Element Element;
 		typedef typename Cursor::Reference Reference;
 
 		explicit AdaptedView(

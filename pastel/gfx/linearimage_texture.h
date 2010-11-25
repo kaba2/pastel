@@ -25,7 +25,7 @@ namespace Pastel
 		typedef Texture<Type, N> Base;
 
 	public:
-		using Base::Element;
+		typedef typename Base::Element Element;
 
 		LinearImage_Texture()
 			: image_(0)
