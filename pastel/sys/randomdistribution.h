@@ -323,7 +323,6 @@ namespace Pastel
 			const Real& shape)
 			: Base(N)
 			, shape_(shape)
-			, scale_(scale)
 		{
 			ENSURE(N != Dynamic);
 		}
