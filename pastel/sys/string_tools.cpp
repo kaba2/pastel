@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cctype>
+#include <functional>
 
 namespace Pastel
 {
