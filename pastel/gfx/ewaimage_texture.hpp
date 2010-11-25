@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename Type, int N>
 	void EwaImage_Texture<Type, N>::setFilter(
 		const FilterPtr& maxFilter,
-		const FilterPtr& minFilter = triangleFilter())
+		const FilterPtr& minFilter)
 	{
 		ENSURE(!maxFilter.empty() && !minFilter.empty());
 
