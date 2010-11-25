@@ -17,10 +17,10 @@ namespace
 	void print(const DisjointGroups<Type>& group)
 	{
 		typedef DisjointGroups<Type> Disjoint;
-		typedef Disjoint::GroupIterator GroupIterator;
-		typedef Disjoint::ConstGroupIterator ConstGroupIterator;
-		typedef Disjoint::ElementIterator ElementIterator;
-		typedef Disjoint::ConstElementIterator ConstElementIterator;
+		typedef typename Disjoint::GroupIterator GroupIterator;
+		typedef typename Disjoint::ConstGroupIterator ConstGroupIterator;
+		typedef typename Disjoint::ElementIterator ElementIterator;
+		typedef typename Disjoint::ConstElementIterator ConstElementIterator;
 
 		cout << "Contents (" << group.elements() << " elements in "
 			<< group.groups() << " groups):" << endl;
@@ -54,8 +54,8 @@ namespace
 	void testDisjoint()
 	{
 		typedef DisjointGroups<int> Disjoint;
-		typedef Disjoint::GroupIterator GroupIterator;
-		typedef Disjoint::ElementIterator ElementIterator;
+		typedef typename Disjoint::GroupIterator GroupIterator;
+		typedef typename Disjoint::ElementIterator ElementIterator;
 
 		Disjoint a;
 		GroupIterator aGroup = a.insertGroup();
@@ -89,8 +89,8 @@ namespace
 	void testDisjointEmpty()
 	{
 		typedef DisjointGroups<EmptyClass> Disjoint;
-		typedef Disjoint::GroupIterator GroupIterator;
-		typedef Disjoint::ElementIterator ElementIterator;
+		typedef typename Disjoint::GroupIterator GroupIterator;
+		typedef typename Disjoint::ElementIterator ElementIterator;
 
 		Disjoint a;
 		GroupIterator aGroup = a.insertGroup();
