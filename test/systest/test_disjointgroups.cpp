@@ -54,8 +54,8 @@ namespace
 	void testDisjoint()
 	{
 		typedef DisjointGroups<int> Disjoint;
-		typedef typename Disjoint::GroupIterator GroupIterator;
-		typedef typename Disjoint::ElementIterator ElementIterator;
+		typedef Disjoint::GroupIterator GroupIterator;
+		typedef Disjoint::ElementIterator ElementIterator;
 
 		Disjoint a;
 		GroupIterator aGroup = a.insertGroup();
@@ -89,8 +89,8 @@ namespace
 	void testDisjointEmpty()
 	{
 		typedef DisjointGroups<EmptyClass> Disjoint;
-		typedef typename Disjoint::GroupIterator GroupIterator;
-		typedef typename Disjoint::ElementIterator ElementIterator;
+		typedef Disjoint::GroupIterator GroupIterator;
+		typedef Disjoint::ElementIterator ElementIterator;
 
 		Disjoint a;
 		GroupIterator aGroup = a.insertGroup();
