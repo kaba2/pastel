@@ -1,4 +1,4 @@
--- Change the following directories to reflect your your own
+-- Change the following directories to reflect your own
 -- build environment.
 
 -- The directory of the Boost library's source code.
@@ -17,7 +17,6 @@ solution "Pastel"
 
 	includeDirectorySet = 
 	{
-		"../", 
 		boostDirectory,
 		sdlDirectory,
 		glewDirectory
@@ -25,9 +24,9 @@ solution "Pastel"
 	
 	configurations 
 	{
-		"Debug", 
-		"Develop",
-		"Release"
+		"debug", 
+		"develop",
+		"release"
 	}
 	
 	flags
@@ -45,8 +44,8 @@ solution "Pastel"
 	}
 
 	language "C++"
-	location("premake/" .. _ACTION)
-	targetdir("premake/" .. _ACTION .. "/lib")
+	location("build/" .. _ACTION)
+	targetdir("build/" .. _ACTION .. "/lib")
 	
 	configuration "vs*"
 		-- Disable warnings.
@@ -92,7 +91,7 @@ solution "Pastel"
 			"/Za"			
 		}
 	
-	configuration "Debug"
+	configuration "debug"
 		targetsuffix "_d"
 		defines 
 		{
@@ -101,7 +100,7 @@ solution "Pastel"
 		}
 		flags {"Symbols"}
 		
-	configuration "Develop"
+	configuration "develop"
 		targetsuffix "_v"
 		flags {"Optimize"}
 		defines
@@ -111,7 +110,7 @@ solution "Pastel"
 			"PASTEL_ENABLE_OMP"
 		}
 	
-	configuration "Release"
+	configuration "release"
 		targetsuffix ""
 		flags {"Optimize"}
 		defines
@@ -121,15 +120,15 @@ solution "Pastel"
 
 	librarySet =
 	{
-		PastelSys = "sys/",
-		PastelDsp = "dsp/",
-		PastelGeometry = "geometry/",
-		PastelMath = "math/",
-		PastelGfx = "gfx/",
-		PastelRay = "ray/",
-		PastelDevice = "device/",
-		PastelGfxUi = "gfxui/",
-		PastelGl = "gl/"
+		PastelSys = "pastel/sys/",
+		PastelDsp = "pastel/dsp/",
+		PastelGeometry = "pastel/geometry/",
+		PastelMath = "pastel/math/",
+		PastelGfx = "pastel/gfx/",
+		PastelRay = "pastel/ray/",
+		PastelDevice = "pastel/device/",
+		PastelGfxUi = "pastel/gfxui/",
+		PastelGl = "pastel/gl/"
 	}
 	
 	libKind = "StaticLib"
@@ -150,5 +149,25 @@ solution "Pastel"
 		includedirs(includeDirectorySet)
 		files(addPrefix(projectDirectory, fileSet))
 	end
-				
-		
+	
+	testSet =
+	{
+		PastelSysTest = "test/systest/",
+		PastelDspTest = "test/dsptest/",
+		PastelGeometryTest = "test/geometrytest/",
+		PastelMathTest = "test/mathtest/",
+		PastelGfxTest = "test/gfxtest/",
+		PastelRayTest = "test/raytest/",
+		PastelDeviceTest = "test/devicetest/",			
+	}
+	
+	libKind = "ConsoleApp"
+	
+	for projectName, projectDirectory in pairs(testSet)
+	do
+		project(projectName)
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		files(addPrefix(projectDirectory, fileSet))
+	end
+	
