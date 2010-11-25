@@ -268,8 +268,8 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer>& Rational<Integer>::
-		operator+=(const Rational<Integer>& that)
+	Rational<Integer>& Rational<Integer>::operator+=(
+		const Rational<Integer>& that)
 	{
 		/*
 		+	|	Num	NaN	+oo	-oo	+0 -0
@@ -327,8 +327,8 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer>& Rational<Integer>::
-		operator-=(const Rational<Integer>& that)
+	Rational<Integer>& Rational<Integer>::operator-=(
+		const Rational<Integer>& that)
 	{
 		return (*this) +=
 			Rational<Integer>(
@@ -336,8 +336,8 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer>& Rational<Integer>::
-		operator*=(const Rational<Integer>& that)
+	Rational<Integer>& Rational<Integer>::operator*=(
+		const Rational<Integer>& that)
 	{
 		/*
 		*	|	Num	NaN	+oo	-oo	0
@@ -400,8 +400,8 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	Rational<Integer>& Rational<Integer>::
-		operator/=(const Rational<Integer>& that)
+	Rational<Integer>& Rational<Integer>::operator/=(
+		const Rational<Integer>& that)
 	{
 		return (*this) *=
 			Rational(that.denominator_, that.numerator_);
