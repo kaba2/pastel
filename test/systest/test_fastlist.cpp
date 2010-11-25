@@ -62,9 +62,6 @@ namespace
 		int value_;
 	};
 
-	template class FastList<int, PoolAllocator>;
-	template class FastList<A, PoolAllocator>;
-
 	typedef FastList<A, PoolAllocator> Container;
 	typedef Container::iterator Iterator;
 	typedef Container::const_iterator ConstIterator;
