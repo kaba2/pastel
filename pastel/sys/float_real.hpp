@@ -13,15 +13,25 @@ namespace Pastel
 		return 1 / x;
 	}
 
-	inline float infinity(float*)
+	template <>
+	class Infinity<float>
 	{
-		return std::numeric_limits<float>::infinity();
-	}
+	public:
+		float operator()() const
+		{
+			return std::numeric_limits<float>::infinity();
+		}
+	};
 
-	inline float nan(float*)
+	template <>
+	class Nan<float>
 	{
-		return std::numeric_limits<float>::quiet_NaN();
-	}
+	public:
+		float operator()() const
+		{
+			return std::numeric_limits<float>::quiet_NaN();
+		}
+	};
 
 	inline bool zero(float x)
 	{

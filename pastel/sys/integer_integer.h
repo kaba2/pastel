@@ -4,6 +4,7 @@
 #define PASTEL_INTEGER_INTEGER_H
 
 #include "pastel/sys/integer_concept.h"
+#include "pastel/sys/real_concept.h"
 
 namespace Pastel
 {
@@ -16,13 +17,6 @@ namespace Pastel
 
 	//! Returns 'that' > 0.
 	bool positive(integer that);
-
-	//! Returns numeric_limits<integer>::max().
-	/*!
-	This function approximates the Real concept.
-	See the discussion in 'integer_integer.txt'.
-	*/
-	integer infinity(integer *);
 
 }
 

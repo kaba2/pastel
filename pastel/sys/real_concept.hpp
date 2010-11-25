@@ -7,15 +7,31 @@ namespace Pastel
 {
 
 	template <typename Real>
+	class Infinity 
+	{
+	public:
+		Real operator()() const;
+	};
+
+	template <typename Real>
+	class Nan 
+	{
+	public:
+		Real operator()() const;
+	};
+
+	template <typename Real>
 	Real infinity()
 	{
-		return Pastel::infinity((Real*)0);
+		Infinity<Real> f;
+		return f();
 	}
 
 	template <typename Real>
 	Real nan()
 	{
-		return Pastel::nan((Real*)0);
+		Nan<Real> f;
+		return f();
 	}
 
 }
