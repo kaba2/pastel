@@ -129,21 +129,6 @@ solution "Pastel"
 			"PASTEL_ENABLE_OMP"
 		}
 
-	librarySet =
-	{
-		PastelSys = "pastel/sys/",
-		PastelDsp = "pastel/dsp/",
-		PastelGeometry = "pastel/geometry/",
-		PastelMath = "pastel/math/",
-		PastelGfx = "pastel/gfx/",
-		PastelRay = "pastel/ray/",
-		PastelDevice = "pastel/device/",
-		PastelGfxUi = "pastel/gfxui/",
-		PastelGl = "pastel/gl/"
-	}
-	
-	libKind = "StaticLib"
-	
 	function addPrefix(prefix, stringSet)
 		resultSet = {}
 		for i, name in pairs(stringSet)
@@ -152,16 +137,114 @@ solution "Pastel"
 		end
 		return resultSet
 	end
-	
-	for projectName, projectDirectory in pairs(librarySet)
-	do
-		project(projectName)
+
+	libKind = "StaticLib"
+
+	project "PastelSys"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
-		files(addPrefix(projectDirectory, fileSet))
-	end
+		files(addPrefix("pastel/sys/", fileSet))
 	
+	project "PastelMath"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/math/", fileSet))
+		links
+		{
+			"PastelSys"
+		}
+		
+	project "PastelDevice"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/device/", fileSet))
+		links
+		{
+			"PastelSys"
+		}
+		
+	project "PastelGeometry"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/geometry/", fileSet))
+		links
+		{
+			"PastelSys",
+			"PastelMath"
+		}
+
+	project "PastelDsp"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/dsp/", fileSet))
+		links
+		{
+			"PastelSys",
+			"PastelMath"
+		}
+
+	project "PastelGfx"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/gfx/", fileSet))
+		links
+		{
+			"PastelSys",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelDsp"
+		}
+
+	project "PastelRay"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/ray/", fileSet))
+		links
+		{
+			"PastelSys",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelDsp",
+			"PastelGfx"
+		}
+
+	project "PastelGl"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/gl/", fileSet))
+		links
+		{
+			"PastelSys",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelDsp",
+			"PastelGfx",
+			"PastelDevice"
+		}
+
+	project "PastelGfxUi"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/gfxui/", fileSet))
+		links
+		{
+			"PastelSys",
+			"PastelMath",
+			"PastelGeometry",
+			"PastelDsp",
+			"PastelGfx",
+			"PastelDevice"
+		}
+
 	project "PastelSysTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
