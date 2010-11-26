@@ -7,145 +7,137 @@ namespace Pastel
 {
 
 	template <typename Integer>
-	Rational<Integer> inverse(const Rational<Integer>& x)
-	{
-		return Rational<Integer>(
-			x.denominator(),
-			x.numerator());
-	}
-
-	template <typename Integer>
-	Integer floor(const Rational<Integer>& x)
-	{
-		// Note: Denominator is always >= 0.
-		if (x.denominator() == 1)
-		{
-			return x.numerator();
-		}
-
-		return x.numerator() / x.denominator();
-	}
-
-	template <typename Integer>
-	Integer ceil(const Rational<Integer>& x)
-	{
-		// Note: Denominator is always >= 0.
-		if (x.denominator() == 1)
-		{
-			return x.numerator();
-		}
-
-		Integer result = floor(x);
-		if (result * x.denominator() != x.numerator())
-		{
-			++result;
-		}
-
-		return result;
-	}
-
-	template <typename Integer>
-	class Infinity<Rational<Integer> >
+	class Real_Function<Rational<Integer> >
 	{
 	public:
-		Rational<Integer> operator()() const
+		static const bool Exists = true;
+
+		Rational<Integer> infinity()
 		{
 			return Rational<Integer>(1, 0);
 		}
-	};
 
-	template <typename Integer>
-	class Nan<Rational<Integer> >
-	{
-	public:
-		Rational<Integer> operator()() const
+		Rational<Integer> nan()
 		{
 			return Rational<Integer>(0, 0);
 		}
+
+		Rational<Integer> inverse(
+			const Rational<Integer>& that)
+		{
+			return Rational<Integer>(
+				that.denominator(),
+				that.numerator());
+		}
+
+		Rational<Integer> floor(
+			const Rational<Integer>& that)
+		{
+			// Note: Denominator is always >= 0.
+			if (that.denominator() == 1)
+			{
+				return that.numerator();
+			}
+
+			return that.numerator() / that.denominator();
+		}
+
+		Rational<Integer> ceil(
+			const Rational<Integer>& that)
+		{
+			// Note: Denominator is always >= 0.
+			if (that.denominator() == 1)
+			{
+				return that.numerator();
+			}
+
+			Integer result = floor(that);
+			if (result * that.denominator() != that.numerator())
+			{
+				++result;
+			}
+
+			return result;
+		}
+
+		bool zero(
+			const Rational<Integer>& that)
+		{
+			return Pastel::zero(that.numerator());
+		}
+
+		bool negative(
+			const Rational<Integer>& that)
+		{
+			return Pastel::negative(that.numerator());
+		}
+
+		bool positive(
+			const Rational<Integer>& that)
+		{
+			return Pastel::positive(that.numerator());
+		}
 	};
 
 	template <typename Integer>
-	bool zero(const Rational<Integer>& that)
-	{
-		return Pastel::zero(that.numerator());
-	}
-
-	template <typename Integer>
-	bool negative(
+	Rational<Integer> fraction(
 		const Rational<Integer>& that)
 	{
-		return Pastel::negative(that.numerator());
-	}
-
-	template <typename Integer>
-	bool positive(const Rational<Integer>& that)
-	{
-		return Pastel::positive(that.numerator());
-	}
-
-	template <typename Real, typename Integer>
-	Real toReal(const Rational<Integer>& that)
-	{
-		return (Real)that.numerator() / (Real)that.denominator();
-	}
-
-	template <typename Integer>
-	Rational<Integer> fraction(const Rational<Integer>& x)
-	{
-		if (!positive(x) && x < 1)
+		if (!positive(that) && that < 1)
 		{
-			return x;
+			return that;
 		}
 
-		return x - floor(x);
+		return that - floor(that);
 	}
 
 	template <typename Integer>
 	Rational<Integer> remainder(
-		const Rational<Integer>& x,
+		const Rational<Integer>& that,
 		const Rational<Integer>& divider)
 	{
-		if (!positive(x) && x < divider)
+		if (!positive(that) && that < divider)
 		{
-			return x;
+			return that;
 		}
 
-		return x - floor(x / divider) * divider;
+		return that - floor(that / divider) * divider;
 	}
 
 	template <typename Integer>
 	Rational<Integer> multiplyByPowerOf2(
-		const Rational<Integer>& x,
+		const Rational<Integer>& that,
 		integer power)
 	{
 		ENSURE_OP(power, >=, 0);
 		if (power == 0)
 		{
-			return x;
+			return that;
 		}
 
 		return Rational<Integer>(
-			x.numerator() << power,
-			x.denominator());
+			that.numerator() << power,
+			that.denominator());
 	}
 
 	template <typename Integer>
 	Rational<Integer> divideByPowerOf2(
-		const Rational<Integer>& x,
+		const Rational<Integer>& that,
 		integer power)
 	{
 		ENSURE_OP(power, >=, 0);
 		if (power == 0)
 		{
-			return x;
+			return that;
 		}
 
 		return Rational<Integer>(
-			x.numerator(), x.denominator() << power);
+			that.numerator(), that.denominator() << power);
 	}
 
 	template <typename Integer>
-	Rational<Integer> mabs(const Rational<Integer>& that)
+	Rational<Integer> mabs(
+		const Rational<Integer>& that)
 	{
 		if (negative(that))
 		{

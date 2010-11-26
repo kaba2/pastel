@@ -8,28 +8,40 @@
 namespace Pastel
 {
 
-	inline bool zero(integer that)
-	{
-		return that == 0;
-	}
-
-	inline bool negative(integer that)
-	{
-		return that < 0;
-	}
-
-	inline bool positive(integer that)
-	{
-		return that > 0;
-	}
-
 	template <>
-	class Infinity<integer>
+	class Real_Function<integer>
 	{
 	public:
-		integer operator()() const
+		static const bool Exists = true;
+
+		integer infinity()
 		{
 			return std::numeric_limits<integer>::max();
+		}
+
+		integer floor(integer that)
+		{
+			return that;
+		}
+
+		integer ceil(integer that)
+		{
+			return that;
+		}
+
+		bool zero(integer that)
+		{
+			return that == 0;
+		}
+
+		bool negative(integer that)
+		{
+			return that < 0;
+		}
+
+		bool positive(integer that)
+		{
+			return that > 0;
 		}
 	};
 

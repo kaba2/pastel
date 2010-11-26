@@ -4,55 +4,57 @@
 #include "pastel/sys/double_real.h"
 
 #include <limits>
+#include <cmath>
 
 namespace Pastel
 {
 
-	inline double inverse(double x)
-	{
-		return 1 / x;
-	}
-
 	template <>
-	class Infinity<double>
+	class Real_Function<double>
 	{
 	public:
-		double operator()() const
+		static const bool Exists = true;
+
+		double infinity()
 		{
 			return std::numeric_limits<double>::infinity();
 		}
-	};
 
-	template <>
-	class Nan<double>
-	{
-	public:
-		double operator()() const
+		double nan()
 		{
 			return std::numeric_limits<double>::quiet_NaN();
 		}
+
+		double inverse(double that)
+		{
+			return 1 / that;
+		}
+
+		double floor(double that)
+		{
+			return std::floor(that);
+		}
+
+		double ceil(double that)
+		{
+			return std::ceil(that);
+		}
+
+		bool zero(double that)
+		{
+			return that == 0;
+		}
+
+		bool negative(double that)
+		{
+			return that < 0;
+		}
+
+		bool positive(double that)
+		{
+			return that > 0;
+		}
 	};
-
-	inline bool zero(double x)
-	{
-		return x == 0;
-	}
-
-	inline bool negative(double x)
-	{
-		return x < 0;
-	}
-
-	inline bool positive(double x)
-	{
-		return x > 0;
-	}
-
-	template <typename Integer>
-	Integer integerCast(double x)
-	{
-		return Integer(x);
-	}
 
 }
 
