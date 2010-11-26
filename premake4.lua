@@ -22,14 +22,13 @@ solution "Pastel"
 	includeDirectorySet = 
 	{
 		"./",
-		boostDirectory,
-		sdlDirectory,
-		glewDirectory
+		boostInclude,
+		sdlInclude,
+		glewInclude
 	}
 	
 	libraryDirectorySet =
 	{
-		outputDirectory .. "/lib",
 		sdlLib,
 		glewLib
 	}
