@@ -24,7 +24,7 @@ namespace Pastel
 			template <typename, typename>
 			friend class ConstIterator;
 
-			typedef Node<Key, Value> Node;
+			typedef RedBlackTree_Detail::Node<Key, Value> Node;
 
 			// Using default copy constructor.
 			// Using default assignment.
@@ -164,8 +164,8 @@ namespace Pastel
 			// Using default assignment.
 			// Using default destructor.
 
-			typedef Iterator<Key, Value> Iterator;
-			typedef Node<Key, Value> Node;
+			typedef RedBlackTree_Detail::Iterator<Key, Value> Iterator;
+			typedef RedBlackTree_Detail::Node<Key, Value> Node;
 			
 			ConstIterator()
 				: iter_()
