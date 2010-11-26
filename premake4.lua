@@ -252,9 +252,9 @@ solution "Pastel"
 		files(addPrefix("test/systest/", fileSet))
 		links 
 		{
-			"PastelSys",  
+			"PastelDsp",
 			"PastelGfx", 
-			"PastelDsp"
+			"PastelSys"  
 		}
 	
 	project "PastelRayTest"
