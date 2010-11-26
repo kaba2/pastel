@@ -29,7 +29,7 @@ solution "Pastel"
 	
 	libraryDirectorySet =
 	{
-		outputDirectory .. "lib",
+		outputDirectory .. "/lib",
 		sdlLib,
 		glewLib
 	}
