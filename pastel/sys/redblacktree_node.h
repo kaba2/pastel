@@ -72,10 +72,10 @@ namespace Pastel
 			}
 
 		private:
-			template <typename Key, typename Compare, typename RbtPolicy>
+			template <typename, typename, typename>
 			friend class RedBlackTree;
 
-			template <typename Key, typename Value>
+			template <typename, typename>
 			friend class Iterator;
 
 			Node(const Key& key,
