@@ -17,6 +17,8 @@ glewLib = "e:/ohjelmointi/external/glew/lib"
 
 solution "Pastel"
 
+	outputDirectory = "build/" .. _ACTION
+
 	includeDirectorySet = 
 	{
 		"./",
@@ -27,7 +29,7 @@ solution "Pastel"
 	
 	libraryDirectorySet =
 	{
-		"lib",
+		outputDirectory .. "lib",
 		sdlLib,
 		glewLib
 	}
@@ -54,8 +56,8 @@ solution "Pastel"
 	}
 
 	language "C++"
-	location("build/" .. _ACTION)
-	targetdir("build/" .. _ACTION .. "/lib")
+	location(outputDirectory)
+	targetdir(outputDirectory .. "/lib")
 	
 	configuration "vs*"
 		-- Disable warnings.
