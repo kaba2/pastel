@@ -21,7 +21,7 @@ namespace Pastel
 			Iterator<Key, Value>, Node<Key, Value>, integer>
 		{
 		public:
-			template <typename Key, typename Value>
+			template <typename, typename>
 			friend class ConstIterator;
 
 			typedef Node<Key, Value> Node;
@@ -143,7 +143,7 @@ namespace Pastel
 			}
 
 		private:
-			template <typename Key, typename Compare, typename RbtPolicy>
+			template <typename, typename, typename>
 			friend class RedBlackTree;
 
 			explicit Iterator(Node* node)
@@ -235,7 +235,7 @@ namespace Pastel
 			}
 
 		private:
-			template <typename Key, typename Compare, typename RbtPolicy>
+			template <typename, typename, typename>
 			friend class RedBlackTree;
 
 			explicit ConstIterator(const Node* node)
