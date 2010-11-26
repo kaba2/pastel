@@ -3,15 +3,17 @@
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
-boostDirectory = "e:/ohjelmointi/external/boost_1_43_0"
+boostInclude = "e:/ohjelmointi/external/boost_1_43_0"
 
 -- The directory of the SDL library's header files.
 -- The includes are of the form 'SDL.h'.
-sdlDirectory = "e:/ohjelmointi/external/SDL-1.2.13/include"
+sdlInclude = "e:/ohjelmointi/external/SDL-1.2.13/include"
+sdlLib = "e:/ohjelmointi/external/SDL-1.2.13/lib"
 
 -- The directory of the GLEW library's header files.
 -- The includes are of the form 'glew.h'.
-glewDirectory = "e:/ohjelmointi/external/glew/include"
+glewInclude = "e:/ohjelmointi/external/glew/include"
+glewLib = "e:/ohjelmointi/external/glew/lib"
 
 solution "Pastel"
 
@@ -21,6 +23,13 @@ solution "Pastel"
 		boostDirectory,
 		sdlDirectory,
 		glewDirectory
+	}
+	
+	libraryDirectorySet =
+	{
+		"lib",
+		sdlLib,
+		glewLib
 	}
 	
 	configurations 
@@ -148,12 +157,14 @@ solution "Pastel"
 		project(projectName)
 		kind(libKind)
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix(projectDirectory, fileSet))
 	end
 	
 	project "PastelSysTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/systest/", fileSet))
 		links 
 		{
@@ -165,6 +176,7 @@ solution "Pastel"
 	project "PastelRayTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/raytest/", fileSet))
 		links 
 		{
@@ -179,6 +191,7 @@ solution "Pastel"
 	project "PastelMathTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/mathtest/", fileSet))
 		links 
 		{
@@ -190,6 +203,7 @@ solution "Pastel"
 	project "PastelGfxTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/gfxtest/", fileSet))
 		links 
 		{
@@ -205,6 +219,7 @@ solution "Pastel"
 	project "PastelGeometryTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/geometrytest/", fileSet))
 		links 
 		{
@@ -220,6 +235,7 @@ solution "Pastel"
 	project "PastelDspTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/dsptest/", fileSet))
 		links 
 		{
@@ -236,6 +252,7 @@ solution "Pastel"
 	project "PastelDeviceTest"
 		kind("ConsoleApp")
 		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
 		files(addPrefix("test/devicetest/", fileSet))
 		links 
 		{
