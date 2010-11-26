@@ -4,55 +4,57 @@
 #include "pastel/sys/float_real.h"
 
 #include <limits>
+#include <cmath>
 
 namespace Pastel
 {
 
-	inline float inverse(float x)
-	{
-		return 1 / x;
-	}
-
 	template <>
-	class Infinity<float>
+	class Real_Function<float>
 	{
 	public:
-		float operator()() const
+		static const bool Exists = true;
+
+		float infinity()
 		{
 			return std::numeric_limits<float>::infinity();
 		}
-	};
 
-	template <>
-	class Nan<float>
-	{
-	public:
-		float operator()() const
+		float nan()
 		{
 			return std::numeric_limits<float>::quiet_NaN();
 		}
+
+		float inverse(float that)
+		{
+			return 1 / that;
+		}
+
+		float floor(float that)
+		{
+			return std::floor(that);
+		}
+
+		float ceil(float that)
+		{
+			return std::ceil(that);
+		}
+
+		bool zero(float that)
+		{
+			return that == 0;
+		}
+
+		bool negative(float that)
+		{
+			return that < 0;
+		}
+
+		bool positive(float that)
+		{
+			return that > 0;
+		}
 	};
-
-	inline bool zero(float x)
-	{
-		return x == 0;
-	}
-
-	inline bool negative(float x)
-	{
-		return x < 0;
-	}
-
-	inline bool positive(float x)
-	{
-		return x > 0;
-	}
-
-	template <typename Integer>
-	Integer integerCast(float x)
-	{
-		return Integer(x);
-	}
 
 }
 

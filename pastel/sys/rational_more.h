@@ -9,34 +9,6 @@
 namespace Pastel
 {
 
-	//! Computes the multiplicative inverse of 'x'.
-	template <typename Integer>
-	Rational<Integer> inverse(const Rational<Integer>& x);
-
-	//! Computes the greatest integer less than or equal to x.
-	template <typename Integer>
-	Integer floor(const Rational<Integer>& x);
-
-	//! Computes the smallest integer greater than or equal to x.
-	template <typename Integer>
-	Integer ceil(const Rational<Integer>& x);
-
-	//! Returns that == 0.
-	template <typename Integer>
-	bool zero(const Rational<Integer>& that);
-
-	//! Returns that < 0.
-	template <typename Integer>
-	bool negative(
-		const Rational<Integer>& that);
-
-	//! Returns that > 0.
-	template <typename Integer>
-	bool positive(const Rational<Integer>& that);
-
-	template <typename Real, typename Integer>
-	Real toReal(const Rational<Integer>& that);
-
 	//! Computes the fractional part of x e [0, 1[.
 	/*!
 	This function is equivalent to remainder(x, 1).

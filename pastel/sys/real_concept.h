@@ -7,16 +7,27 @@
 namespace Pastel
 {
 
-	//! Returns an infinity.
 	template <typename Real>
-	Real infinity();
+	class Real_Function
+	{
+	public:
+		static const bool Exists = false;
 
-	//! Returns a Not-a-Number.
-	template <typename Real>
-	Real nan();
+		Real infinity();
+		Real nan();
+		Real inverse(const Real& that);
+		Real floor(const Real& that);
+		Real ceil(const Real& that);
+		bool zero(const Real& that);
+		bool negative(const Real& that);
+		bool positive(const Real& that);
+	};
 
 	namespace Real_Concept
 	{
+
+		// Each model of Real must specialize and implement 
+		// the Real_Function class template.
 
 		class Real
 		{
@@ -74,37 +85,57 @@ namespace Pastel
 			bool operator==(const Real& that) const;
 			bool operator!=(const Real& that) const;
 		};
-
-		//! Returns the multiplicative inverse of 'that'.
-		Real inverse(const Real& that);
-
-		//! Returns the greatest integer less than or equal to 'that'.
-		Real floor(const Real& that);
-
-		//! Returns the smallest integer greater than or equal to 'that'.
-		Real ceil(const Real& that);
-
-		//! Returns the positive infinity.
-		//template <>
-		//Real infinity<Real>();
-
-		//! Returns a Not-A-Number.
-		//template <>
-		//Real nan<Real>();
-
-		//! Returns if 'that' == 0.
-		bool zero(const Real& that);
-
-		//! Returns if 'that' < 0.
-		bool negative(const Real& that);
-
-		//! Returns if 'that' > 0.
-		bool positive(const Real& that);
-		
-		template <typename NativeReal>
-		NativeReal toReal(const Real& that);
-
+	
 	}
+
+	// Interestingly, if the following are uncommented, they
+	// will collide with their definitions. I think this
+	// may have to do with how Visual Studio handles templates:
+	// the Real_Function<Real>::Exists is given a different
+	// value in each, because the declaration is treated right
+	// away and the definition is treated only at instantiation
+	// time.
+	/*
+	//! Returns the positive infinity.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
+		infinity();
+
+	//! Returns a Not-A-Number.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
+		nan();
+
+	//! Returns the multiplicative inverse of 'that'.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
+		inverse(const Real& that);
+
+	//! Returns the greatest integer less than or equal to 'that'.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
+		floor(const Real& that);
+
+	//! Returns the smallest integer greater than or equal to 'that'.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, Real) 
+		ceil(const Real& that);
+
+	//! Returns if 'that' == 0.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
+		zero(const Real& that);
+
+	//! Returns if 'that' < 0.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
+		negative(const Real& that);
+
+	//! Returns if 'that' > 0.
+	template <typename Real>
+	PASTEL_ENABLE_IF_C(Real_Function<Real>::Exists, bool) 
+		positive(const Real& that);
+	*/
 
 }
 
