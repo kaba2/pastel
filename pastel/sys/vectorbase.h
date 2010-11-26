@@ -192,7 +192,7 @@ namespace Pastel
 			// is deliberately not a reference,
 			// because the reference could point
 			// to this vector.
-			Vector<Real, N>& operator=(const Real that)
+			Vector<Real, N>& assign(const Real that)
 			{
 				// We accept basic exception safety for performance.
 				data_.set(that);
@@ -206,8 +206,9 @@ namespace Pastel
 				return data_ |= that;
 			}
 
-			Vector<Real, N>& operator=(
-				const VectorBase<Real, N>& that)
+			// This function can't be inherited as operator=().
+			Vector<Real, N>& assign(
+				const Vector<Real, N>& that)
 			{
 				// We allow the size of the vector to be
 				// changed by an assignment.
@@ -219,14 +220,14 @@ namespace Pastel
 					// as well copy construct, so that there
 					// is no redundant initialization.
 
-					Vector<Real, N> copy((Vector<Real, N>&)that);
+					Vector<Real, N> copy(that);
 					swap(copy);
 				}
 				else
 				{				
 					// We accept basic exception safety for performance.
 
-					data_ = that.data_;
+					data_ = ((const VectorBase&)that).data_;
 				}
 
 				return (Vector<Real, N>&)*this;
@@ -235,11 +236,11 @@ namespace Pastel
 			template <typename ThatReal, int ThatN, typename Expression>
 			PASTEL_DISABLE_IF(
 				(boost::is_same<Expression, VectorBase<ThatReal, ThatN> >),
-				(Vector<Real, N>&)) operator=(
+				(Vector<Real, N>&)) assign(
 				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			/*
 			template <typename ThatReal, int ThatN, typename Expression>
-			Vector<Real, N>& operator=(
+			Vector<Real, N>& assign(
 				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			*/
 			{

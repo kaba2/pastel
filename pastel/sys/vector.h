@@ -27,8 +27,6 @@ namespace Pastel
 		typedef Detail::VectorBase<Real, N> Base;
 
 	public:
-		using Base::operator=;
-
 		// Using default copy constructor
 		// Using default assignment
 		// Using default destructor
@@ -104,6 +102,17 @@ namespace Pastel
 			: Base(that)
 		{
 		}
+
+		Vector& operator=(const Vector& that)
+		{
+			return Base::assign(that);
+		}
+
+		template <typename Type>
+		Vector& operator=(const Type& that)
+		{
+			return Base::assign(that);
+		}
 	};
 
 	// Specialization for dimension 1
@@ -124,8 +133,6 @@ namespace Pastel
 		// Using default copy constructor
 		// Using default assignment
 		// Using default destructor
-
-		using Base::operator=;
 
 		Vector()
 			: Base()
@@ -201,6 +208,17 @@ namespace Pastel
 		{
 		}
 
+		Vector& operator=(const Vector& that)
+		{
+			return Base::assign(that);
+		}
+
+		template <typename Type>
+		Vector& operator=(const Type& that)
+		{
+			return Base::assign(that);
+		}
+
 		Real& x()
 		{
 			return (*this)[0];
@@ -232,7 +250,6 @@ namespace Pastel
 		// Using default destructor
 
 		using Base::set;
-		using Base::operator=;
 
 		Vector()
 			: Base()
@@ -312,6 +329,17 @@ namespace Pastel
 		{
 		}
 
+		Vector& operator=(const Vector& that)
+		{
+			return Base::assign(that);
+		}
+
+		template <typename Type>
+		Vector& operator=(const Type& that)
+		{
+			return Base::assign(that);
+		}
+
 		void set(const Real& x, const Real& y)
 		{
 			Vector& v = *this;
@@ -360,7 +388,6 @@ namespace Pastel
 		// Using default destructor
 
 		using Base::set;
-		using Base::operator=;
 
 		Vector()
 			: Base()
@@ -442,6 +469,17 @@ namespace Pastel
 		{
 		}
 
+		Vector& operator=(const Vector& that)
+		{
+			return Base::assign(that);
+		}
+
+		template <typename Type>
+		Vector& operator=(const Type& that)
+		{
+			return Base::assign(that);
+		}
+
 		void set(const Real& x, const Real& y, const Real& z)
 		{
 			Vector& v = *this;
@@ -501,7 +539,6 @@ namespace Pastel
 		// Using default destructor
 
 		using Base::set;
-		using Base::operator=;
 
 		Vector()
 			: Base()
@@ -582,6 +619,17 @@ namespace Pastel
 		{
 		}
 
+		Vector& operator=(const Vector& that)
+		{
+			return Base::assign(that);
+		}
+
+		template <typename Type>
+		Vector& operator=(const Type& that)
+		{
+			return Base::assign(that);
+		}
+
 		void set(const Real& x, const Real& y, const Real& z,
 			const Real& w)
 		{
@@ -649,8 +697,6 @@ namespace Pastel
 		using Base::data_;
 
 	public:
-		using Base::operator=;
-
 		// Using default copy constructor
 		// Using default assignment
 		// Using default destructor
@@ -715,6 +761,17 @@ namespace Pastel
 			<ThatReal, ThatN, Expression>& that)
 			: Base(that)
 		{
+		}
+
+		Vector& operator=(const Vector& that)
+		{
+			return Base::assign(that);
+		}
+
+		template <typename Type>
+		Vector& operator=(const Type& that)
+		{
+			return Base::assign(that);
 		}
 	};
 
