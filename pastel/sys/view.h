@@ -63,7 +63,7 @@ namespace Pastel
 				return view_.constCursor(position);
 			}
 
-		protected:
+		private:
 			const Contained_ConstView view_;
 		};
 
@@ -92,7 +92,7 @@ namespace Pastel
 		}
 
 		ConstView(const ConstView& that)
-			: Base(that.view_)
+			: Base(that.contained())
 		{
 		}
 	};
