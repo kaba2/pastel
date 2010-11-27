@@ -121,6 +121,10 @@ namespace Pastel
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER,
 				GL_NEAREST);
 			break;
+		case ResamplingMode::TriLinear:
+			// Fall-through.
+		case ResamplingMode::Anisotropic:
+			// Fall-through.
 		case ResamplingMode::Bilinear:
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
 				GL_LINEAR);

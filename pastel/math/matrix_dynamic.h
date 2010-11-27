@@ -265,7 +265,6 @@ namespace Pastel
 				const integer m = height();
 				const integer n = width();
 				Iterator iter = begin();
-				const Iterator iterEnd = end();
 
 				for (integer i = 0;i < m;++i)
 				{
@@ -296,7 +295,6 @@ namespace Pastel
 				const integer m = height();
 				const integer n = width();
 				Iterator iter = begin();
-				const Iterator iterEnd = end();
 
 				for (integer i = 0;i < m;++i)
 				{

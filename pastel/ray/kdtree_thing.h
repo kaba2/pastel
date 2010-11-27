@@ -48,8 +48,8 @@ namespace Pastel
 		public:
 			explicit Intersector(
 				ShapeIntersection& intersection)
-				: intersection_(intersection)
-				, tClosest_(infinity<real>())
+				: tClosest_(infinity<real>())
+				, intersection_(intersection)
 			{
 			}
 

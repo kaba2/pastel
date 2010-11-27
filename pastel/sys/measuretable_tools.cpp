@@ -169,8 +169,6 @@ namespace Pastel
 
 			for (integer x = 0;x < columns;++x)
 			{
-				const MeasureTable::Entry& entry = measureTable(x, y);
-
 				stream << measureTable(x, y).text();
 				if (x < columns - 1)
 				{
