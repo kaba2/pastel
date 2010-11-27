@@ -2,10 +2,11 @@
 #define PASTEL_INTERSECT_LINE_TRIANGLE_HPP
 
 #include "pastel/geometry/intersect_line_triangle.h"
-
-#include "pastel/sys/mytypes.h"
 #include "pastel/geometry/line.h"
 #include "pastel/geometry/triangle.h"
+#include "pastel/geometry/plane.h"
+
+#include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 #include "pastel/sys/vector_tools.h"
 
