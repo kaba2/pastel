@@ -209,8 +209,6 @@ namespace
 		bool testDct(
 			const RandomAccessRange<Complex_Iterator>& input)
 		{
-			const integer n = input.size();
-
 			if (!test(input, Dct(), InverseDct()) ||
 				!test(input, OrthogonalDct(), InverseOrthogonalDct()))
 			{
@@ -230,8 +228,6 @@ namespace
 		bool testHaar(
 			const RandomAccessRange<Complex_Iterator>& input)
 		{
-			const integer n = input.size();
-
 			if (!test(input, Haar(), InverseHaar()))
 			{
 				return false;

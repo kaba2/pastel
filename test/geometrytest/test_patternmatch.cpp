@@ -130,8 +130,6 @@ namespace
 		std::vector<Vector2> correctSet;
 		correctSet.reserve(modelPoints);
 
-		integer removedPoints = 0;
-
 		for (integer i = 0;i < modelPoints;++i)
 		{
 			modelSet.push_back(

@@ -354,7 +354,6 @@ namespace Pastel
 		ASSERT(node->leaf());
 		ASSERT2(splitAxis >= 0 && splitAxis < dimension(), splitAxis, dimension());
 
-		const integer points = node->points();
 		const Point_ConstIterator nodeEnd = node->end();
 
 		// Reorder the points along the split position.

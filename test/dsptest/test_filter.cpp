@@ -31,8 +31,6 @@ namespace
 		Array<Color, 2>& image,
 		real maxFilterRadius = 2)
 	{
-		const integer Samples = 100;
-
 		const integer width = image.width();
 		const integer height = image.height();
 

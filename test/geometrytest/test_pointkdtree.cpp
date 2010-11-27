@@ -31,8 +31,6 @@ namespace
 		template <int N>
 		void testCircular()
 		{
-			const integer n = N;
-
 			const integer m = 10000;
 
 			std::vector<Vector<real, N> > pointSet;

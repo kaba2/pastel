@@ -166,7 +166,6 @@ namespace Pastel
 
 			Node* grandParent = parent->parent();
 			Node* a = sibling->child(d);
-			Node* b = sibling->child(!d);
 
 			// Because of symmetry, we shall only draw
 			// the examples where 'node' is the left
