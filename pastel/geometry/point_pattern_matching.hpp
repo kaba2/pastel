@@ -570,10 +570,10 @@ namespace Pastel
 		ENSURE_OP(scenePointPolicy.dimension(), ==, 2);
 
 		typedef PointKdTree<Real, N, Model_PointPolicy> SceneTree;
-		typedef SceneTree::Point_ConstIterator SceneIterator;
+		typedef typename SceneTree::Point_ConstIterator SceneIterator;
 
 		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
-		typedef ModelTree::Point_ConstIterator ModelIterator;
+		typedef typename ModelTree::Point_ConstIterator ModelIterator;
 
 		SceneTree sceneTree(scenePointPolicy);
 		sceneTree.insert(scene);

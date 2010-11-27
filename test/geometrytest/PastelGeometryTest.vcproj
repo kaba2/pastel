@@ -357,26 +357,6 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\instantiate_bounding.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\instantiate_common.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\instantiate_distance.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\instantiate_intersect.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\instantiate_overlap.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\pastelgeometrytest.cpp"
 			>
 		</File>
