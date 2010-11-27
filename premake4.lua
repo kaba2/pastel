@@ -73,14 +73,12 @@ solution "Pastel"
 		
 	OpenGlLibrary = "opengl32"
 	if os.get() == "linux" then
-		OpenGlLibrary = "mesa"
+		OpenGlLibrary = "GL"
 	end
 	if os.get() == "macosx" then
 		-- OpenGlLibrary = ??		
 	end
 	
-	print("OpenGlLibrary = ", OpenGlLibrary)
-
 	outputDirectory = "build/" .. _ACTION
 
 	includeDirectorySet = 
