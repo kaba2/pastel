@@ -96,7 +96,7 @@ namespace Pastel
 	void WindowedPointTree<PointQuery>::insertPoint(
 		const Point& point)
 	{
-		ActiveSet::iterator iter = activeSet_.find(point);
+		ActiveIterator iter = activeSet_.find(point);
 		if (iter != activeSet_.end())
 		{
 			tree_.show(iter->second);
@@ -121,7 +121,7 @@ namespace Pastel
 	void WindowedPointTree<PointQuery>::erasePoint(
 		const Point& point)
 	{
-		ActiveSet::iterator iter = activeSet_.find(point);
+		ActiveIterator iter = activeSet_.find(point);
 		PENSURE(iter != activeSet_.end())
 		//tree_.erase(iter->second);
 		tree_.hide(iter->second);
