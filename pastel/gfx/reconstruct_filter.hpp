@@ -118,7 +118,7 @@ namespace Pastel
 					return;
 				}
 
-				typedef PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
+				typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 					ConstIterator;
 
 				std::vector<ConstIterator> nearestSet;
