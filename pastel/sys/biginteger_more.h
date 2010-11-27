@@ -8,10 +8,6 @@ namespace Pastel
 
 	void swap(BigInteger& left, BigInteger& right);
 
-	bool zero(const BigInteger& that);
-	bool negative(const BigInteger& that);
-	bool positive(const BigInteger& that);
-
 }
 
 #include "pastel/sys/biginteger_more.hpp"
