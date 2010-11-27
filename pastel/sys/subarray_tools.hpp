@@ -82,7 +82,7 @@ namespace Pastel
 		typedef typename Slice_A::ConstIterator 
 			SliceIterator_A;
 
-		typename SubArray<Type_B, ModifyN<N_B, N_B -1>::Result>
+		SubArray<Type_B, ModifyN<N_B, N_B -1>::Result>
 			Slice_B;
 		typedef typename Slice_B::Iterator 
 			SliceIterator_B;
