@@ -68,8 +68,6 @@ namespace Pastel
 
 		Array<int32, 2> result(width, height, -1);
 
-		uint8 content = 0;
-
 		// We want to avoid bound comparisons
 		// so we treat the boundary pixels
 		// specially.
@@ -435,8 +433,6 @@ namespace Pastel
 		for (integer i = 0;i < 8;++i)
 		{
 			const uint32 bitMask = 1 << i;
-			const bool currentBit =
-				(resultMask & bitMask) != 0;
 			const uint32 nextMask = 1 << ((i + 1) & 7);
 			const bool nextBit =
 				(neighbourMask & nextMask) != 0;
