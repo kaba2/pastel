@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_nearest_algorithm_pointkdtree.h"
-#include "pastel/geometry/bestfirst_searchalgorithm_pointkdtree.h"
+#include "pastel/geometry/depthfirst_searchalgorithm_pointkdtree.h"
 #include "pastel/geometry/distance_alignedbox_point.h"
 #include "pastel/geometry/always_acceptpoint.h"
 
