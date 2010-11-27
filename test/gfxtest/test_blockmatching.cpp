@@ -617,10 +617,17 @@ namespace
 				tree,
 				randomAccessRange(querySet.begin(), querySet.end()),
 				0, kNearest,
+				&nearestSet);
+			/*
+			searchAllNeighbors(
+				tree,
+				randomAccessRange(querySet.begin(), querySet.end()),
+				0, kNearest,
 				&nearestSet,
 				0,
 				constantRange(infinity<real32>(), querySet.size()),
 				maxRelativeError);
+			*/
 
 			timer.store();
 
