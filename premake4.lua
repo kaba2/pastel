@@ -70,6 +70,16 @@ solution "Pastel"
 		targetsuffix ""
 		-- Enable optimizations.
 		flags {"Optimize"}
+		
+	OpenGlLibrary = "opengl32"
+	if os.get() == "linux" then
+		OpenGlLibrary = "mesa"
+	end
+	if os.get() == "macosx" then
+		-- OpenGlLibrary = ??		
+	end
+	
+	print("OpenGlLibrary = ", OpenGlLibrary)
 
 	outputDirectory = "build/" .. _ACTION
 
@@ -378,7 +388,7 @@ solution "Pastel"
 		{
 			"PastelDevice",
 			"SDL",
-			"opengl32",
+			OpenGlLibrary,
 			"glew32",
 			"PastelGl",
 			"PastelGfxUi",
@@ -398,7 +408,7 @@ solution "Pastel"
 		{
 			"PastelDevice",
 			"SDL",
-			"opengl32",
+			OpenGlLibrary,
 			"glew32",
 			"PastelGl",
 			"PastelGfxUi",
@@ -418,7 +428,7 @@ solution "Pastel"
 		{
 			"PastelDevice",
 			"SDL",
-			"opengl32",
+			OpenGlLibrary,
 			"glew32",
 			"PastelGl",
 			"PastelGfxUi",
