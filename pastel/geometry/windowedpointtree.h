@@ -50,6 +50,8 @@ namespace Pastel
 		typedef typename Tree::Point_ConstIterator ConstIterator;
 
 		typedef UnorderedMap<Point, ConstIterator> ActiveSet;
+		typedef typename ActiveSet::iterator ActiveIterator;
+		typedef typename ActiveSet::iterator ConstActiveIterator;
 
 		explicit WindowedPointTree(
 			const PointQuery& pointQuery = PointQuery());
