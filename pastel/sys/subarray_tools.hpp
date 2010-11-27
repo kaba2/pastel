@@ -90,8 +90,8 @@ namespace Pastel
 		const Vector<integer, N_A>& aStride = aArray.stride();
 		const Vector<integer, N_B>& bStride = bArray.stride();
 
-		const Slice_A slice(aArray.slice(axis, 0));
-		const Slice_B slice(bArray.slice(axis, 0));
+		const Slice_A aSlice(aArray.slice(axis, 0));
+		const Slice_B bSlice(bArray.slice(axis, 0));
 
 		const integer aEndOffset =
 			aStride[axis] * aArray.extent()[axis];
