@@ -295,7 +295,7 @@ namespace Pastel
 		const SearchAlgorithm_PointKdTree& searchAlgorithm)
 	{
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
-		typedef SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
+		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 
 		Detail_NearestAlgorithm::GenericAlgorithm<Real, N, PointPolicy, AcceptPoint, NormBijection, CandidateFunctor, SearchAlgorithm>
@@ -325,7 +325,7 @@ namespace Pastel
 		}
 
 		typedef typename PointKdTree<Real, N, PointPolicy>::Cursor Cursor;
-		typedef SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
+		typedef typename SearchAlgorithm_PointKdTree::template Instance<Real, Cursor> 
 			SearchAlgorithm;
 
 		const Vector<Real, N> searchPoint =
