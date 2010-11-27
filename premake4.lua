@@ -17,6 +17,60 @@ glewLib = "e:/ohjelmointi/external/glew/lib"
 
 solution "Pastel"
 
+	language "C++"
+
+	configurations 
+	{
+		-- Debug information, with ASSERTs and PENSURES, without OpenMP.
+		"debug",
+		-- With ASSERTs and PENSUREs, without OpenMP.
+		"develop",
+		-- Without ASSERTs and PENSUREs, without OpenMP.
+		"release-without-openmp",
+		-- Without ASSERTs and PENSUREs, with OpenMP.
+		"release"
+	}
+
+	flags
+	{
+		-- Treat wchar_t as a native type.
+		"NativeWChar", 
+		-- Do not give warnings from 64-bit checks.
+		"No64BitChecks", 
+		-- Do not use precompiled headers.
+		"NoPCH"
+	}
+
+	configuration "debug"
+		-- Debug libraries are suffixed with 'd'.
+		targetsuffix "_d"
+		-- Enable debug information.
+		flags {"Symbols"}
+		-- Enable ASSERTs and PENSUREs.
+		defines 
+		{
+			"PASTEL_DEBUG_MODE", 
+			"PASTEL_ENABLE_PENSURES"
+		}
+		
+	configuration "develop"
+		-- Developer libraries are suffixed with 'v'.
+		targetsuffix "_v"
+		-- Enable optimizations.
+		flags {"Optimize"}
+		-- Enable ASSERTs and PENSUREs.
+		defines
+		{
+			"PASTEL_DEBUG_MODE", 
+			"PASTEL_ENABLE_PENSURES",
+		}
+
+	configuration "release*"
+		-- Release libraries do not have a suffix.
+		targetsuffix ""
+		-- Enable optimizations.
+		flags {"Optimize"}
+
 	outputDirectory = "build/" .. _ACTION
 
 	includeDirectorySet = 
@@ -33,20 +87,6 @@ solution "Pastel"
 		glewLib
 	}
 	
-	configurations 
-	{
-		"debug", 
-		"develop",
-		"release"
-	}
-	
-	flags
-	{
-		"NativeWChar", 
-		"No64BitChecks", 
-		"NoPCH"
-	}
-	
 	fileSet = 
 	{
 		"*.cpp",
@@ -54,10 +94,10 @@ solution "Pastel"
 		"*.h"
 	}
 
-	language "C++"
 	location(outputDirectory)
 	targetdir(outputDirectory .. "/lib")
-	
+
+	-- Additional build options for Visual Studio
 	configuration "vs*"
 		-- Disable warnings.
 		buildoptions
@@ -101,33 +141,17 @@ solution "Pastel"
 		{
 			"/Za"			
 		}
-	
-	configuration "debug"
-		targetsuffix "_d"
-		defines 
-		{
-			"PASTEL_DEBUG_MODE", 
-			"PASTEL_ENABLE_PENSURES"
-		}
-		flags {"Symbols"}
 		
-	configuration "develop"
-		targetsuffix "_v"
-		flags {"Optimize"}
-		defines
-		{
-			"PASTEL_DEBUG_MODE", 
-			"PASTEL_ENABLE_PENSURES",
-			"PASTEL_ENABLE_OMP"
-		}
-	
+	-- Enable OpenMP if requested
+
 	configuration "release"
-		targetsuffix ""
-		flags {"Optimize"}
-		defines
-		{
-			"PASTEL_ENABLE_OMP"
-		}
+		defines { "PASTEL_ENABLE_OMP" }
+
+	configuration { "vs*",  "release" }
+		buildoptions { "/openmp" }		
+
+	configuration { "gmake",  "release" }
+		buildoptions { "-fopenmp" }		
 
 	function addPrefix(prefix, stringSet)
 		resultSet = {}
@@ -359,6 +383,7 @@ solution "Pastel"
 			"PastelGl",
 			"PastelGfxUi",
 			"PastelGfx",
+			"PastelDsp",
 			"PastelGeometry",
 			"PastelMath",
 			"PastelSys"
