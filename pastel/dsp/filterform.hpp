@@ -20,9 +20,9 @@ namespace Pastel
 	void setSincLowPass(
 		const Real& cutOff,
 		FilterWindow filterWindow,
-		Array& out)
+		Array& output)
 	{
-		const integer width = out.size();
+		const integer width = output.size();
 
 		ENSURE_OP(width, >, 0);
 		ENSURE1(odd(width), width);
@@ -36,14 +36,14 @@ namespace Pastel
 		for (integer i = 0;i < width;++i)
 		{
 			const Real distance(mabs(Real(i - half)));
-			out[i] = sinc(distance * scaleSincFreq) *
+			output[i] = sinc(distance * scaleSincFreq) *
 				filterWindow(distance * scaleWindowFreq);
-			sum += out[i];
+			sum += output[i];
 		}
 
 		for (integer i = 0;i < width;++i)
 		{
-			out[i] /= sum;
+			output[i] /= sum;
 		}
 	}
 
@@ -54,9 +54,9 @@ namespace Pastel
 	void setSincHighPass(
 		const Real& cutOff,
 		FilterWindow filterWindow,
-		Array& out)
+		Array& output)
 	{
-		const integer width = out.size();
+		const integer width = output.size();
 
 		ENSURE_OP(width, >, 0);
 		ENSURE1(odd(width), width);
@@ -70,15 +70,15 @@ namespace Pastel
 		for (integer i = 0;i < width;++i)
 		{
 			const Real distance(mabs(Real(i - half)));
-			out[i] = -sinc(distance * scaleSincFreq) *
+			output[i] = -sinc(distance * scaleSincFreq) *
 				filterWindow(distance * scaleWindowFreq);
 
-			sum += out[i];
+			sum += output[i];
 		}
 
 		for (integer i = 0;i < width;++i)
 		{
-			out[i] /= sum;
+			output[i] /= sum;
 		}
 	}
 
@@ -141,8 +141,8 @@ namespace Pastel
 		FilterWindow filterWindow,
 		const View<2, Real, Output_View>& output)
 	{
-		const integer width = out.width();
-		const integer height = out.height();
+		const integer width = output.width();
+		const integer height = output.height();
 
 		if (width == 0 ||
 			height == 0)

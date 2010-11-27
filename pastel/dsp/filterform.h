@@ -19,7 +19,7 @@ namespace Pastel
 	void setSincLowPass(
 		const Real& cutOff,
 		FilterWindow filterWindow,
-		Array& out);
+		Array& output);
 
 	template <
 		typename Real,
@@ -28,7 +28,7 @@ namespace Pastel
 	void setSincHighPass(
 		const Real& cutOff,
 		FilterWindow filterWindow,
-		Array& out);
+		Array& output);
 
 	template <
 		typename Real,
