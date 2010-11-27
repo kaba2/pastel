@@ -60,8 +60,8 @@ namespace
 
 	void testVectorBasic()
 	{
-		REPORT1(sizeof(Vector<Real, 3>) != 3 * sizeof(Real), sizeof(Vector<Real, 3>));
-		REPORT1(sizeof(Vector<integer, 3>) != 3 * sizeof(integer), sizeof(Vector<integer, 3>));
+		REPORT_OP(sizeof(Vector<Real, 3>), !=, 3 * sizeof(Real));
+		REPORT_OP(sizeof(Vector<integer, 3>), !=, 3 * sizeof(integer));
 
 		Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
 		REPORT(a[0] != 1 || a[1] != 2 || a[2] != 3);

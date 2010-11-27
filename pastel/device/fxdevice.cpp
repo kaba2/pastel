@@ -74,9 +74,9 @@ namespace Pastel
 		integer bufferSamples,
 		MixerCallBack* callBack)
 	{
-		const integer DefaultBufferSamples = 1024;
-		const integer DefaultSampleRate = 44100;
-		const integer DefaultChannels = 1;
+		//const integer DefaultBufferSamples = 1024;
+		//const integer DefaultSampleRate = 44100;
+		//const integer DefaultChannels = 1;
 
 		ENSURE(callBack);
 		ENSURE_OP(bufferSamples, >, 0);

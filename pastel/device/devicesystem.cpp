@@ -70,8 +70,6 @@ namespace Pastel
 		const real frameDelay = (real)1 / fps;
 		Timer timer;
 
-		integer logicTimer = 0;
-
 		initialize();
 
 		try
