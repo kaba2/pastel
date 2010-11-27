@@ -63,7 +63,7 @@ namespace Pastel
 				return view_.constCursor(position);
 			}
 
-		private:
+		protected:
 			const Contained_ConstView view_;
 		};
 
