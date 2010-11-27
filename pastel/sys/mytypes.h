@@ -128,11 +128,12 @@ namespace Pastel
 	};
 
 	// A literal for documenting concepts.
-	enum {UserDefinedInteger = 0};
+	static const integer UserDefinedInteger = 0;
 	// A type for documenting concepts.
 	class PASTELSYS UserDefinedType {};
 
-	enum {Dynamic = -1};
+	static const integer Dynamic = -1;
+	//enum {Dynamic = -1};
 
 	class PASTELSYS EmptyClass {};
 
