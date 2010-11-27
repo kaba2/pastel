@@ -3,17 +3,17 @@
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
-boostInclude = "e:/ohjelmointi/external/boost_1_43_0"
+boostIncludeDir = "e:/ohjelmointi/external/boost_1_43_0"
 
 -- The directory of the SDL library's header files.
 -- The includes are of the form 'SDL.h'.
-sdlInclude = "e:/ohjelmointi/external/SDL-1.2.14/include"
-sdlLib = "e:/ohjelmointi/external/SDL-1.2.14/lib"
+sdlIncludeDir = "e:/ohjelmointi/external/SDL-1.2.14/include"
+sdlLibraryDir = "e:/ohjelmointi/external/SDL-1.2.14/lib"
 
 -- The directory of the GLEW library's header files.
 -- The includes are of the form 'glew.h'.
-glewInclude = "e:/ohjelmointi/external/glew-1.5.7/include"
-glewLib = "e:/ohjelmointi/external/glew-1.5.7/lib"
+glewIncludeDir = "e:/ohjelmointi/external/glew-1.5.7/include"
+glewLibraryDir = "e:/ohjelmointi/external/glew-1.5.7/lib"
 
 solution "Pastel"
 
@@ -72,37 +72,37 @@ solution "Pastel"
 		flags {"Optimize"}
 
 	-- Determine the SDL library name.	
-	SdlLibrary = "SDL"
+	sdlLibrary = "SDL"
 	
 	-- Determine the OpenGL library name.
-	OpenGlLibrary = "GL"
+	openGlLibrary = "GL"
 	if os.get() == "windows" then
 		-- Note the same file works for both
 		-- 32bit and 64bit development. The
 		-- naming is historical.
-		OpenGlLibrary = "opengl32"
+		openGlLibrary = "opengl32"
 	end
 	
 	-- Determine the Glew library name.
 	-- Note the same file works for both
 	-- 32bit and 64bit development. The
 	-- naming is historical.
-	GlewLibrary = "glew32"
+	glewLibrary = "glew32"
 	
 	outputDirectory = "build/" .. _ACTION
 
 	includeDirectorySet = 
 	{
 		"./",
-		boostInclude,
-		sdlInclude,
-		glewInclude
+		boostIncludeDir,
+		sdlIncludeDir,
+		glewIncludeDir
 	}
 	
 	libraryDirectorySet =
 	{
-		sdlLib,
-		glewLib
+		sdlLibraryDir,
+		glewLibraryDir
 	}
 	
 	fileSet = 
@@ -334,7 +334,7 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
+			sdlLibrary,
 			"PastelGfx", 
 			"PastelDsp",
 			"PastelGeometry",
@@ -350,7 +350,7 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
+			sdlLibrary,
 			"PastelGfx", 
 			"PastelDsp",
 			"PastelGeometry",
@@ -366,7 +366,7 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
+			sdlLibrary,
 			"PastelRay",
 			"PastelGfx", 
 			"PastelDsp",
@@ -383,7 +383,7 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
+			sdlLibrary,
 			"PastelSys"
 		}
 
@@ -395,9 +395,9 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
-			OpenGlLibrary,
-			GlewLibrary,
+			sdlLibrary,
+			openGlLibrary,
+			glewLibrary,
 			"PastelGl",
 			"PastelGfxUi",
 			"PastelGfx",
@@ -415,9 +415,9 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
-			OpenGlLibrary,
-			GlewLibrary,
+			sdlLibrary,
+			openGlLibrary,
+			glewLibrary,
 			"PastelGl",
 			"PastelGfxUi",
 			"PastelGfx",
@@ -435,9 +435,9 @@ solution "Pastel"
 		links 
 		{
 			"PastelDevice",
-			SdlLibrary,
-			OpenGlLibrary,
-			GlewLibrary,
+			sdlLibrary,
+			openGlLibrary,
+			glewLibrary,
 			"PastelGl",
 			"PastelGfxUi",
 			"PastelGfx",
