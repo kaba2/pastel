@@ -60,8 +60,8 @@ namespace
 
 	void testVectorBasic()
 	{
-		REPORT_OP(sizeof(Vector<Real, 3>), !=, 3 * sizeof(Real));
-		REPORT_OP(sizeof(Vector<integer, 3>), !=, 3 * sizeof(integer));
+		PASTEL_STATIC_ASSERT(sizeof(Vector<Real, 3>) == 3 * sizeof(Real));
+		PASTEL_STATIC_ASSERT(sizeof(Vector<integer, 3>) == 3 * sizeof(integer));
 
 		Vector<Real, 3> a = Vector<Real, 3>(1, 2, 3);
 		REPORT(a[0] != 1 || a[1] != 2 || a[2] != 3);
