@@ -128,10 +128,10 @@ namespace
 		for (integer i = 0;i < EdgeCount;++i)
 		{
 			const integer index = randomInteger() % EdgeCount;
-			if (!edgeList[i].empty())
+			if (!edgeList[index].empty())
 			{
-				mesh.removeEdge(edgeList[i]);
-				edgeList[i].clear();
+				mesh.removeEdge(edgeList[index]);
+				edgeList[index].clear();
 			}
 
 			checkInvariants(mesh);

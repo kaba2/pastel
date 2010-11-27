@@ -955,6 +955,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\constants.h"
+				>
+			</File>
+			<File
+				RelativePath=".\constants.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\eps.h"
 				>
 			</File>
@@ -1156,14 +1164,6 @@
 				<Filter
 					Name="Real numbers"
 					>
-					<File
-						RelativePath=".\constants.h"
-						>
-					</File>
-					<File
-						RelativePath=".\constants.hpp"
-						>
-					</File>
 					<File
 						RelativePath=".\real.txt"
 						>
