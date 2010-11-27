@@ -164,6 +164,16 @@ solution "Pastel"
 	configuration "gmake"
 		-- Enables some additional warnings.
 		buildoptions { "-Wall" }
+		-- Disable some warnings.
+		buildoptions 
+		{ 
+			-- Pragma warnings caused by OpenMP support not being enabled.
+			"-Wno-pragmas", 
+			-- Comparison between an unsigned and a signed integer.
+			"-Wno-sign-compare", 
+			-- Conversion between an unsigned and a signed integer.
+			"-Wno-sign-conversion" 
+		}
 		
 	-- Enable OpenMP if requested
 
