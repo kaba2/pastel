@@ -213,10 +213,11 @@ namespace Pastel
 		integer kNearestEnd,
 		Array<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator, 2>* nearestArray)
 	{
+		// The cast below is needed because of a bug in GCC 4.4.5.
 		Pastel::searchAllNeighbors(
 			kdTree, querySet,
 			kNearestBegin, kNearestEnd,
-			nearestArray, 0);
+			nearestArray, (Array<Real>*)0);
 	}
 
 }
