@@ -264,12 +264,12 @@ solution "Pastel"
 		files(addPrefix("test/raytest/", fileSet))
 		links 
 		{
-			"PastelSys",  
+			"PastelRay",
 			"PastelGfx", 
+			"PastelGeometry",
 			"PastelDsp",
 			"PastelMath",
-			"PastelGeometry",
-			"PastelRay"
+			"PastelSys" 
 		}
 
 	project "PastelMathTest"
@@ -279,9 +279,9 @@ solution "Pastel"
 		files(addPrefix("test/mathtest/", fileSet))
 		links 
 		{
-			"PastelSys",  
+			"PastelGfx",
 			"PastelMath",
-			"PastelGfx"
+			"PastelSys" 
 		}
 
 	project "PastelGfxTest"
@@ -291,13 +291,13 @@ solution "Pastel"
 		files(addPrefix("test/gfxtest/", fileSet))
 		links 
 		{
-			"PastelSys",  
+			"PastelDevice",
+			"SDL",
 			"PastelGfx", 
 			"PastelDsp",
-			"PastelMath",
 			"PastelGeometry",
-			"PastelDevice",
-			"SDL"
+			"PastelMath",
+			"PastelSys"
 		}
 
 	project "PastelGeometryTest"
@@ -307,13 +307,13 @@ solution "Pastel"
 		files(addPrefix("test/geometrytest/", fileSet))
 		links 
 		{
-			"PastelSys",  
+			"PastelDevice",
+			"SDL",
 			"PastelGfx", 
 			"PastelDsp",
-			"PastelMath",
 			"PastelGeometry",
-			"PastelDevice",
-			"SDL"
+			"PastelMath",
+			"PastelSys"
 		}
 
 	project "PastelDspTest"
@@ -323,14 +323,14 @@ solution "Pastel"
 		files(addPrefix("test/dsptest/", fileSet))
 		links 
 		{
-			"PastelSys",  
+			"PastelDevice",
+			"SDL",
+			"PastelRay",
 			"PastelGfx", 
 			"PastelDsp",
-			"PastelMath",
 			"PastelGeometry",
-			"PastelRay",
-			"PastelDevice",
-			"SDL"
+			"PastelMath",
+			"PastelSys"
 		}
 
 	project "PastelDeviceTest"
@@ -340,7 +340,7 @@ solution "Pastel"
 		files(addPrefix("test/devicetest/", fileSet))
 		links 
 		{
-			"PastelSys",  
 			"PastelDevice",
-			"SDL"
+			"SDL",
+			"PastelSys"
 		}
