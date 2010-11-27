@@ -3,17 +3,17 @@
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
-boostIncludeDir = "e:/ohjelmointi/external/boost_1_43_0"
+boostIncludeDir = "../../external/boost_1_43_0"
 
 -- The directory of the SDL library's header files.
 -- The includes are of the form 'SDL.h'.
-sdlIncludeDir = "e:/ohjelmointi/external/SDL-1.2.14/include"
-sdlLibraryDir = "e:/ohjelmointi/external/SDL-1.2.14/lib"
+sdlIncludeDir = "../../external/SDL-1.2.14/include"
+sdlLibraryDir = "../../external/SDL-1.2.14/lib"
 
 -- The directory of the GLEW library's header files.
 -- The includes are of the form 'glew.h'.
-glewIncludeDir = "e:/ohjelmointi/external/glew-1.5.7/include"
-glewLibraryDir = "e:/ohjelmointi/external/glew-1.5.7/lib"
+glewIncludeDir = "../../external/glew-1.5.7/include"
+glewLibraryDir = "../../external/glew-1.5.7/lib"
 
 solution "Pastel"
 
@@ -115,7 +115,7 @@ solution "Pastel"
 	location(outputDirectory)
 	targetdir(outputDirectory .. "/lib")
 
-	-- Additional build options for Visual Studio
+	-- Visual Studio specific build options
 	configuration "vs*"
 		-- Disable warnings.
 		buildoptions
@@ -159,6 +159,11 @@ solution "Pastel"
 		{
 			"/Za"			
 		}
+		
+	-- GCC specific build options.
+	configuration "gmake"
+		-- Enables some additional warnings.
+		buildoptions { "-Wall" }
 		
 	-- Enable OpenMP if requested
 
