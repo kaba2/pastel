@@ -344,3 +344,62 @@ solution "Pastel"
 			"SDL",
 			"PastelSys"
 		}
+
+	project "ConvexHull"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("example/ConvexHull/", fileSet))
+		links 
+		{
+			"PastelDevice",
+			"SDL",
+			"opengl32",
+			"glew32",
+			"PastelGl",
+			"PastelGfxUi",
+			"PastelGfx",
+			"PastelGeometry",
+			"PastelMath",
+			"PastelSys"
+		}
+
+	project "LeastSquares"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("example/LeastSquares/", fileSet))
+		links 
+		{
+			"PastelDevice",
+			"SDL",
+			"opengl32",
+			"glew32",
+			"PastelGl",
+			"PastelGfxUi",
+			"PastelGfx",
+			"PastelDsp",
+			"PastelGeometry",
+			"PastelMath",
+			"PastelSys"
+		}
+
+	project "NearestNeighbour"
+		kind("ConsoleApp")
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("example/NearestNeighbour/", fileSet))
+		links 
+		{
+			"PastelDevice",
+			"SDL",
+			"opengl32",
+			"glew32",
+			"PastelGl",
+			"PastelGfxUi",
+			"PastelGfx",
+			"PastelDsp",
+			"PastelGeometry",
+			"PastelMath",
+			"PastelSys"
+		}
