@@ -85,7 +85,7 @@ namespace Pastel
 
 		// Side c.
 
-		const Plane<Real, 2> cPlane(c, cross(a - c))
+		const Plane<Real, 2> cPlane(c, cross(a - c));
 
 		if (intersect(line, cPlane, t))
 		{
