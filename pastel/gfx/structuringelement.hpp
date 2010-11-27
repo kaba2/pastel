@@ -214,7 +214,7 @@ namespace Pastel
 	{
 		Detail_BoxElement::VisitFunctor<N> visitFunctor(
 			Vector<real, N>(image.extent()) / 2,
-			diameter / 2, power);
+			diameter / 2);
 		visitPosition(image, visitFunctor);
 	}
 
