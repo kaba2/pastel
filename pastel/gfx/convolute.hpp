@@ -226,7 +226,7 @@ namespace Pastel
 		InputCursor yInputCursor = inputView.constCursor(0, 0);
 
 		typedef ConstView<2, Filter_Element, Filter_ConstView> FilterView;
-		typedef BorderedConstView<FilterView> BorderedFilterView;
+		typedef BorderedConstView<2, FilterView> BorderedFilterView;
 		typedef ExtendedConstView<2, Filter_Element, BorderedFilterView> ExtendedFilterView;
 
 		NearestImage_Texture<ExtendedFilterView> textureSampler = nearestImageTexture(
