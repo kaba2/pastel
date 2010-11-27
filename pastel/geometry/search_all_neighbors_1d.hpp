@@ -5,6 +5,7 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/smallfixedset.h"
+#include "pastel/sys/keyvalue.h"
 
 namespace Pastel
 {
