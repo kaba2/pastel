@@ -15,7 +15,7 @@ namespace Pastel
 
 		Array<uint8, 2> newImage(width, height);
 
-		const int32 prime = followingPrime(300);
+		//const int32 prime = followingPrime(300);
 
 		for (integer y = 0;y < height;++y)
 		{

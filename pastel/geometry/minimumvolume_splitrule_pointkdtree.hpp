@@ -53,7 +53,7 @@ namespace Pastel
 
 			if (!cursor.empty())
 			{
-				for (integer i = 0;i < tree.dimension();++i)
+				for (integer i = 0;i < n;++i)
 				{
 					// Get the positions of the points along the splitting axis.
 
