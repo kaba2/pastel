@@ -107,14 +107,14 @@ namespace Pastel
 		{
 			rangeAlgorithm2(
 				forwardRange(
-				SparseIterator<Type*>(
+				SparseIterator<Type_A*>(
 				&*aIter, aStride[axis]),
-				SparseIterator<Type*>(
+				SparseIterator<Type_A*>(
 				&*aIter + aEndOffset, aStride[axis])),
 				forwardRange(
-				SparseIterator<Type*>(
+				SparseIterator<Type_B*>(
 				&*bIter, bStride[axis]),
-				SparseIterator<Type*>(
+				SparseIterator<Type_B*>(
 				&*bIter + bEndOffset, bStride[axis])));
 
 			++aIter;
