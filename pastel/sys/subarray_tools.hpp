@@ -87,8 +87,8 @@ namespace Pastel
 		typedef typename Slice_B::Iterator 
 			SliceIterator_B;
 
-		const Vector<integer, N>& aStride = aArray.stride();
-		const Vector<integer, N>& bStride = bArray.stride();
+		const Vector<integer, N_A>& aStride = aArray.stride();
+		const Vector<integer, N_B>& bStride = bArray.stride();
 
 		const Slice_A slice(aArray.slice(axis, 0));
 		const Slice_B slice(bArray.slice(axis, 0));
