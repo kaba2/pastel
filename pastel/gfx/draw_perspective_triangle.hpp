@@ -174,7 +174,6 @@ namespace Pastel
 		// Cull and clip.
 
 		integer xMin = toPixelSpanPoint(xMinVertex.x_);
-		integer xMid = toPixelSpanPoint(xMidVertex.x_);
 		integer xMax = toPixelSpanPoint(xMaxVertex.x_);
 
 		integer yMin = toPixelSpanPoint(yMinVertex.y_);

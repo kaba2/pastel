@@ -13,8 +13,8 @@ namespace Pastel
 		: packedLu_()
 		, rowPermutation_()
 		, evenPermutation_(true)
-		, invLargestInRow_(1)
 		, singular_(false)
+		, invLargestInRow_(1)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 
@@ -32,8 +32,8 @@ namespace Pastel
 		: packedLu_(dimension, dimension)
 		, rowPermutation_(ofDimension(dimension))
 		, evenPermutation_(true)
-		, invLargestInRow_(ofDimension(dimension), 1)
 		, singular_(false)
+		, invLargestInRow_(ofDimension(dimension), 1)
 	{
 		setDiagonal(packedLu_, 0);
 		const integer size = rowPermutation_.size();
@@ -50,8 +50,8 @@ namespace Pastel
 		: packedLu_(matrix.width(), matrix.height())
 		, rowPermutation_(ofDimension(matrix.width()))
 		, evenPermutation_(true)
-		, invLargestInRow_(ofDimension(matrix.width()), 1)
 		, singular_(false)
+		, invLargestInRow_(ofDimension(matrix.width()), 1)
 	{
 		decompose(matrix);
 	}
@@ -63,8 +63,8 @@ namespace Pastel
 		packedLu_.swap(that.packedLu_);
 		rowPermutation_.swap(that.rowPermutation_);
 		std::swap(evenPermutation_, that.evenPermutation_);
-		invLargestInRow_.swap(that.invLargestInRow_);
 		std::swap(singular_, that.singular_);
+		invLargestInRow_.swap(that.invLargestInRow_);
 	}
 
 	template <typename Real, int N>

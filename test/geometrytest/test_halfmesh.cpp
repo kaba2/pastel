@@ -159,13 +159,13 @@ namespace
 			}
 		}
 
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 
 		Polygon polygon[16];
 
@@ -180,13 +180,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *   *   *   *
+		// o   o   o   o
 		// |0\
-		// *---*   *   *
+		// o---o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 
 		points.clear();
 		points.push_back(vertex[0][0]);
@@ -197,13 +197,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*   *   *
+		// o---o   o   o
 		// |0\1|
-		// *---*   *   *
+		// o---o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 
 		points.clear();
 		points.push_back(vertex[0][1]);
@@ -219,13 +219,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*---*   *
+		// o---o---o   o
 		// |0\1|###|
-		// *---*#2#*   *
+		// o---o#2#o   o
 		// |#######|
-		// *---*---*   *
+		// o---o---o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 
 		points.clear();
 		points.push_back(vertex[2][2]);
@@ -237,13 +237,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*---*   *
+		// o---o---o   o
 		// |0\1|###|
-		// *---*#2#*   *
+		// o---o#2#o   o
 		// |#######|
-		// *---*---*---*
+		// o---o---o---o
 		//         |#3#|
-		// *   *   *---*
+		// o   o   o---o
 
 		points.clear();
 		points.push_back(vertex[1][2]);
@@ -254,13 +254,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*---*   *
+		// o---o---o   o
 		// |0\1|###|
-		// *---*#2#*---*
+		// o---o#2#o---o
 		// |#######| \4|
-		// *---*---*---*
+		// o---o---o---o
 		//         |#3#|
-		// *   *   *---*
+		// o   o   o---o
 
 		points.clear();
 		points.push_back(vertex[1][2]);
@@ -271,13 +271,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*---*   *
+		// o---o---o   o
 		// |0\1|###|
-		// *---*#2#*---*
+		// o---o#2#o---o
 		// |#######|5\4|
-		// *---*---*---*
+		// o---o---o---o
 		//         |#3#|
-		// *   *   *---*
+		// o   o   o---o
 
 		points.clear();
 		points.push_back(vertex[0][2]);
@@ -289,13 +289,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*---*---*
+		// o---o---o---o
 		// |0\1|###|#6#|
-		// *---*#2#*---*
+		// o---o#2#o---o
 		// |#######|5\4|
-		// *---*---*---*
+		// o---o---o---o
 		//         |#3#|
-		// *   *   *---*
+		// o   o   o---o
 
 		points.clear();
 		points.push_back(vertex[2][0]);
@@ -309,13 +309,13 @@ namespace
 
 		checkInvariants(mesh);
 
-		// *---*---*---*
+		// o---o---o---o
 		// |0\1|###|#6#|
-		// *---*#2#*---*
+		// o---o#2#o---o
 		// |#######|5\4|
-		// *---*---*---*
+		// o---o---o---o
 		// |###7###|#3#|
-		// *---*---*---*
+		// o---o---o---o
 
 		mesh.removePolygon(polygon[5]);
 
@@ -366,13 +366,13 @@ namespace
 			}
 		}
 
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 		//
-		// *   *   *   *
+		// o   o   o   o
 
 		std::vector<Vertex> points;
 

@@ -26,9 +26,6 @@ namespace Pastel
 				const integer elementWidth = element.width();
 				const integer elementHeight = element.height();
 
-				const integer width = image.width();
-				const integer height = image.height();
-
 				for (integer i = 0;i < elementHeight;++i)
 				{
 					for (integer j = 0;j < elementWidth;++j)

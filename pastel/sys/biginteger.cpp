@@ -787,7 +787,6 @@ namespace Pastel
 		const integer leftSize = left.size();
 		const integer rightSize = right.size();
 
-		const int32 MaxDigit = 65535;
 		const int32 digits = 65536;
 		int32 borrow = 0;
 
