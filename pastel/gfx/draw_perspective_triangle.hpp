@@ -473,8 +473,6 @@ namespace Pastel
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
-				const real& uh = uv[0];
-				const real& vh = uv[1];
 				const real& wh = t[0];
 
 				// (d/dx) u(x, y)
@@ -588,8 +586,6 @@ namespace Pastel
 				Vector2 uv = uvLeft + dUvDx * xOffset;
 				tPoint t = tLeft + dtDx * xOffset;
 
-				const real& uh = uv[0];
-				const real& vh = uv[1];
 				const real& wh = t[0];
 
 				// (d/dx) u(x, y)

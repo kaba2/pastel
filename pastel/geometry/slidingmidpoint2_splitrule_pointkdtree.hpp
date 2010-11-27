@@ -25,7 +25,6 @@ namespace Pastel
 			typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator 
 				Point_ConstIterator;
 
-			const integer dimension = tree.dimension();
 			const PointPolicy& pointPolicy = tree.pointPolicy();
 
 			// Split along the longest dimension.
