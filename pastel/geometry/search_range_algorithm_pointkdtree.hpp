@@ -80,7 +80,6 @@ namespace Pastel
 				cursor.points() > bucketSize)
 			{
 				const integer splitAxis = cursor.splitAxis();
-				const Real splitPosition = cursor.splitPosition();
 				const uint32 flag = (uint32)1 << splitAxis;
 
 				if (flags == fullFlags)
