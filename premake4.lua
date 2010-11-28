@@ -172,7 +172,9 @@ solution "Pastel"
 			-- Comparison between an unsigned and a signed integer.
 			"-Wno-sign-compare", 
 			-- Conversion between an unsigned and a signed integer.
-			"-Wno-sign-conversion" 
+			"-Wno-sign-conversion",
+			-- Breaking strict aliasing rules.
+			"-Wno-strict-aliasing"
 		}
 		
 	-- Enable OpenMP if requested
