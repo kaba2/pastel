@@ -2000,6 +2000,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\building.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\cmake_experiences.txt"
 				>
 			</File>
@@ -2245,7 +2249,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Build switches"
+			Name="Build system"
 			>
 			<File
 				RelativePath=".\environment.h"
