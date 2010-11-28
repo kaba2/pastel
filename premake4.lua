@@ -15,9 +15,14 @@ sdlLibraryDir = "../../external/SDL-1.2.14/lib"
 glewIncludeDir = "../../external/glew-1.5.7/include"
 glewLibraryDir = "../../external/glew-1.5.7/lib"
 
+outputDirectory = "build/" .. _ACTION
+
 solution "Pastel"
 
 	language "C++"
+
+	location(outputDirectory)
+	targetdir(outputDirectory .. "/lib")
 
 	configurations 
 	{
@@ -89,8 +94,6 @@ solution "Pastel"
 	-- naming is historical.
 	glewLibrary = "glew32"
 	
-	outputDirectory = "build/" .. _ACTION
-
 	includeDirectorySet = 
 	{
 		"./",
@@ -111,9 +114,6 @@ solution "Pastel"
 		"*.hpp",
 		"*.h"
 	}
-
-	location(outputDirectory)
-	targetdir(outputDirectory .. "/lib")
 
 	-- Visual Studio specific build options
 	configuration "vs*"
