@@ -54,9 +54,9 @@ namespace Pastel
 			else
 			{
 				queryRange.min() = 
-					kdTree.pointPolicy(querySet[i]->point()) - maxDistanceSet[i];
+					kdTree.pointPolicy()(querySet[i]->point()) - maxDistanceSet[i];
 				queryRange.max() = 
-					kdTree.pointPolicy(querySet[i]->point()) + maxDistanceSet[i];
+					kdTree.pointPolicy()(querySet[i]->point()) + maxDistanceSet[i];
 
 				result[i] = countRange(
 					kdTree, 
