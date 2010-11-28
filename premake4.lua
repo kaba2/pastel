@@ -174,7 +174,10 @@ solution "Pastel"
 			-- Conversion between an unsigned and a signed integer.
 			"-Wno-sign-conversion",
 			-- Breaking strict aliasing rules.
-			"-Wno-strict-aliasing"
+			"-Wno-strict-aliasing",
+			-- Compiler warns that it optimizes code based on the 
+			-- assumption that signed integer overflows do not occur.
+			"-Wno-strict-overflow"
 		}
 		
 	-- Enable OpenMP if requested
