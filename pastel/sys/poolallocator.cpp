@@ -159,6 +159,7 @@ namespace Pastel
 			const bool invalidMemoryAddress =
 				(iter == blockList_.end());
 			PENSURE(!invalidMemoryAddress);
+			unused(invalidMemoryAddress);
 		}
 
 		// Inspect the found block.
