@@ -184,7 +184,8 @@ solution "Pastel"
 		buildoptions { "/openmp" }		
 
 	configuration { "gmake",  "release" }
-		buildoptions { "-fopenmp" }		
+		buildoptions { "-fopenmp" }
+		links { "gomp" }
 
 	function addPrefix(prefix, stringSet)
 		resultSet = {}

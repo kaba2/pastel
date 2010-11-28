@@ -281,7 +281,7 @@ namespace Pastel
 					direction == Direction::Left ||
 					direction == Direction::Right);
 
-				if (*directionIter == Direction::Left)
+				if (direction == Direction::Left)
 				{
 					iter = iter.left();
 				}
