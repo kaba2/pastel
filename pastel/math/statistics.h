@@ -28,6 +28,39 @@ namespace Pastel
 		const typename PointPolicy::Point& mean,
 		const PointPolicy& pointPolicy);
 
+	//! Returns the mean squared error between sequences.
+	template <
+		typename Real, 
+		typename A_ConstIterator, 
+		typename B_ConstIterator>
+	Real meanSquaredError(
+		const ForwardRange<A_ConstIterator>& aSet,
+		const ForwardRange<B_ConstIterator>& bSet);
+
+	//! Computes peak-signal-to-noise-ratio (PSNR) between sequences.
+	template <
+		typename Real, 
+		typename A_ConstIterator, 
+		typename B_ConstIterator>
+	Real peakSignalToNoise(
+		const ForwardRange<A_ConstIterator>& aSet,
+		const ForwardRange<B_ConstIterator>& bSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxValue);
+
+	//! Computes peak-signal-to-noise-ratio (PSNR) between sequences.
+	/*!
+	This is a convenience function that calls:
+	peakSignalToNoise<Real>(aSet, bSet, 1);
+	See the documentation for that function.
+	*/
+	template <
+		typename Real, 
+		typename A_ConstIterator, 
+		typename B_ConstIterator>
+	Real peakSignalToNoise(
+		const ForwardRange<A_ConstIterator>& aSet,
+		const ForwardRange<B_ConstIterator>& bSet);
+
 }
 
 #include "pastel/math/statistics.hpp"

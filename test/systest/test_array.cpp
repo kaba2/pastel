@@ -25,6 +25,7 @@ namespace
 			testTrivial();
 			testSubArray();
 			testIterator();
+			testSlice();
 		}
 
 		void testTrivial()
@@ -90,11 +91,6 @@ namespace
 				24, 25, 26, 27, 28, 29, 
 				30, 31, 32, 33, 34, 35;
 
-			std::copy(
-				a.begin(), a.end(), 
-				std::ostream_iterator<integer>(std::cout, " "));
-			std::cout << std::endl;
-
 			TEST_ENSURE(
 				std::equal(a.begin(), a.end(),
 				countingIterator(0)));
@@ -102,11 +98,6 @@ namespace
 			a(Vector2i(0, 0), Vector2i(3, 3)) = 
 				a(Vector2i(3, 3), Vector2i(6, 6));
 			
-			std::copy(
-				a.begin(), a.end(), 
-				std::ostream_iterator<integer>(std::cout, " "));
-			std::cout << std::endl;
-
 			Array<integer, 2> b(6, 6);
 			b |= 21, 22, 23, 3, 4, 5, 
 				27, 28, 29, 9, 10, 11, 
@@ -185,6 +176,42 @@ namespace
 			TEST_ENSURE(
 				std::equal(a.begin(), a.end(),
 				b.begin()));
+		}
+
+		void testSlice()
+		{
+			Array<integer> a(6, 6);
+			a |= 0,  1,  2,  3,  4,  5, 
+				 6,  7,  8,  9, 10, 11, 
+				12, 13, 14, 15, 16, 17, 
+				18, 19, 20, 21, 22, 23, 
+				24, 25, 26, 27, 28, 29, 
+				30, 31, 32, 33, 34, 35;
+
+			{
+				Array<integer, 1> b(6);
+				b |= 12, 13, 14, 15, 16, 17;
+				SubArray<integer, 1> slice = a().slice(1, 2);
+				TEST_ENSURE(
+					std::equal(slice.begin(), slice.end(),
+					b.begin()));
+			}
+
+			{
+				Array<integer, 1> b(6);
+				b |= 3, 9, 15, 21, 27, 33;
+				SubArray<integer, 1> slice = a().slice(0, 3);
+				TEST_ENSURE(
+					std::equal(slice.begin(), slice.end(),
+					b.begin()));
+
+				/*
+				std::copy(
+					slice.begin(), slice.end(), 
+					std::ostream_iterator<integer>(std::cout, " "));
+				std::cout << std::endl;
+				*/
+			}
 		}
 
 		void f(const SubArray<integer>& that,

@@ -6,6 +6,8 @@
 #include "pastel/sys/pointpolicy_tools.h"
 #include "pastel/sys/vector_pointpolicy.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
@@ -84,6 +86,65 @@ namespace Pastel
 		result /= points;
 		
 		return result;
+	}
+
+	template <
+		typename Real, 
+		typename A_ConstIterator, 
+		typename B_ConstIterator>
+	Real meanSquaredError(
+		const ForwardRange<A_ConstIterator>& aSet,
+		const ForwardRange<B_ConstIterator>& bSet)
+	{
+		Real result = 0;
+		integer n = 0;
+
+		A_ConstIterator aIter = aSet.begin();
+		B_ConstIterator bIter = bSet.begin();
+		const A_ConstIterator aEnd = aSet.end();
+		const A_ConstIterator bEnd = bSet.end();
+		while(aIter != aEnd)
+		{
+			PENSURE(bIter != bEnd);
+
+			result += square(*aIter - *bIter);
+			
+			++aIter;
+			++bIter;
+			++n;
+		}
+
+		if (n == 0)
+		{
+			return 0;
+		}
+
+		return result / n;
+	}
+
+	template <
+		typename Real, 
+		typename A_ConstIterator, 
+		typename B_ConstIterator>
+	Real peakSignalToNoise(
+		const ForwardRange<A_ConstIterator>& aSet,
+		const ForwardRange<B_ConstIterator>& bSet,
+		const PASTEL_NO_DEDUCTION(Real)& maxValue)
+	{
+		return 10 * std::log10(
+			square(maxValue) / meanSquaredError<Real>(aSet, bSet));
+	}
+
+	template <
+		typename Real, 
+		typename A_ConstIterator, 
+		typename B_ConstIterator>
+	Real peakSignalToNoise(
+		const ForwardRange<A_ConstIterator>& aSet,
+		const ForwardRange<B_ConstIterator>& bSet)
+	{
+		return Pastel::peakSignalToNoise<Real>(
+			aSet, bSet, 1);
 	}
 
 }

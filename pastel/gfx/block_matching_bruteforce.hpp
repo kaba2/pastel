@@ -7,6 +7,9 @@
 
 #include "pastel/sys/smallfixedset.h"
 #include "pastel/sys/keyvalue.h"
+#include "pastel/sys/countingiterator.h"
+
+#include <algorithm>
 
 namespace Pastel
 {
@@ -29,9 +32,10 @@ namespace Pastel
 		// -1 encodes that a neighbor does not exists.
 
 		Array<integer> nearestSet(kNearest, image.size(), -1);
-
-		if (neighborhood.empty())
+		if (kNearest == 0 ||
+			neighborhood.empty())
 		{
+			// Nothing else to do.
 			return nearestSet;
 		}
 
@@ -52,7 +56,9 @@ namespace Pastel
 		// We seek for k-nearest neighbors for
 		// block A. The 'aNearestSet' keeps track
 		// of the k best candidates.
-		SmallFixedSet<KeyValue<Real, integer> > aNearestSet(kNearest);
+		// We only seek for k - 1 neighbors, since
+		// we will automatically include the block itself.
+		SmallFixedSet<KeyValue<Real, integer> > aNearestSet(kNearest - 1);
 
 		AlignedBox<integer, N> neighborBox(
 			ofDimension(n));
@@ -92,6 +98,14 @@ namespace Pastel
 			const ConstIterator bEnd = neighborRegion.end();
 			while (bIter != bEnd)
 			{
+				if (&*aIter == &*bIter)
+				{
+					// We want the block itself to be the
+					// closest match, so we skip testing
+					// it here, and automatically include it.
+					continue;
+				}
+
 				// This is the sub-array for the block B.
 				const Region bBlock =
 					image(bIter.position(),
@@ -143,9 +157,11 @@ namespace Pastel
 			// Copy the nearest neighbors to 'nearestSet'.
 			const integer aIndex = 
 					&*aIter - &*region.begin();
+			// The nearest block is the block itself.
+			nearestSet(0, aIndex) = aIndex;
 			for (integer i = 0;i < aNearestSet.size();++i)
 			{
-				nearestSet(i, aIndex) = aNearestSet[i].value();
+				nearestSet(1 + i, aIndex) = aNearestSet[i].value();
 			}
 		}
 		}
