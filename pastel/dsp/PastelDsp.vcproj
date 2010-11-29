@@ -561,20 +561,24 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Sparsity measures"
+			Name="Measures"
 			>
-			<File
-				RelativePath=".\sparsity.h"
+			<Filter
+				Name="Sparsity"
 				>
-			</File>
-			<File
-				RelativePath=".\sparsity.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\sparsity.txt"
-				>
-			</File>
+				<File
+					RelativePath=".\sparsity.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sparsity.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sparsity.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\pasteldsp.txt"

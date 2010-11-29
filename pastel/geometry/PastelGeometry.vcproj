@@ -2039,38 +2039,6 @@
 					</File>
 				</Filter>
 			</Filter>
-			<Filter
-				Name="Point policies"
-				>
-				<File
-					RelativePath=".\array_pointpolicy.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointpolicy.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\pointpolicy_all.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointpolicy_concept.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointpolicy_design.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\pointpolicy_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\vector_pointpolicy.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
