@@ -8,7 +8,7 @@
 
 #include "pastel/sys/keyvalue.h"
 
-#include "pastel/math/normbijection.h"
+#include "pastel/math/normbijections.h"
 
 #include <vector>
 

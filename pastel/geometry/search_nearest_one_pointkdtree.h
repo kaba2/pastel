@@ -48,7 +48,7 @@ namespace Pastel
 
 	normBijection:
 	Defines the norm used to measure distance.
-	See "pastel/math/normbijection.h" for predefined norm bijections.
+	See "pastel/math/normbijections.h" for predefined norm bijections.
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.

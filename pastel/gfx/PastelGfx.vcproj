@@ -1168,11 +1168,11 @@
 			Name="Block matching"
 			>
 			<File
-				RelativePath=".\matchblock_bruteforce.h"
+				RelativePath=".\block_matching_bruteforce.h"
 				>
 			</File>
 			<File
-				RelativePath=".\matchblock_bruteforce.hpp"
+				RelativePath=".\block_matching_bruteforce.hpp"
 				>
 			</File>
 		</Filter>

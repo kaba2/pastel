@@ -31,10 +31,10 @@ Practice
 
 ### Synthetic points
 
-The PointPolicy abstract points as a read-only data structure,
+The PointPolicy abstracts points as a read-only data structure,
 so that it is possible to create a PointPolicy to generate coordinates 
-on the fly. For example, one can identify an integer ''i'' with the point
-''(i >> 8, i & 0xFF)'', thus giving a very efficient and compact 
+on the fly. For example, one can identify an integer `i` with the point
+`(i >> 8, i & 0xFF)`, thus giving a very efficient and compact 
 representation for points located in an integer grid.
 
 ### Relation to vector expressions

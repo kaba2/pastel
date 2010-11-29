@@ -752,15 +752,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\normbijection.h"
-				>
-			</File>
-			<File
 				RelativePath=".\normbijection.txt"
 				>
 			</File>
 			<File
 				RelativePath=".\normbijection_concept.h"
+				>
+			</File>
+			<File
+				RelativePath=".\normbijections.h"
 				>
 			</File>
 		</Filter>
