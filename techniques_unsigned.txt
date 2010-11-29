@@ -1,0 +1,108 @@
+Do not use unsigned integers
+============================
+
+[[Parent]]: techniques.txt
+
+In this article we present three problems in using unsigned 
+integers in your code. These are the _zero boundary problem_, the 
+_extended positive range problem_, and the _modeling problem_.
+
+Zero boundary problem
+---------------------
+
+Assume you have created an array container class. Its size can be 
+altered via a `resize` member function which takes an integer as its 
+parameter denoting the desired size. While values from 0 towards 
+infinity make sense for `size`, this is not so with negative values. 
+This is a [precondition][Ensure] to the function: all passed-in `size` 
+values should be non-negative.
+
+[Ensure]: [[Ref]]: ensure.txt
+
+Because negative values do not make sense for the `size` value, it 
+might sound like a good idea to turn it to an unsigned integer, to 
+maximize the use of the bits, and to make it impossible to pass an 
+invalid value. The problem here is that most integer calculations are 
+concentrated around a neighborhood of zero, and the zero is on the 
+boundary beyond which the assumption of working with integers falls 
+apart. Thus, when using unsigned integers, the probability of 
+introducing errors in computations increases greatly. Furthermore, 
+there is no way to catch those errors, since every value is legal. 
+
+[[Comment]]:
+	### Reserving space in the integer to detect common bugs
+
+	To fix this, you could sacrifice some of the parameter range to 
+	detect bugs: 
+		
+	[[CppCode]]:
+		ASSERT_OP(size, <, maxInteger - bugThreshold)
+
+	However, while this test is correct computationally (dependening on the
+	fact that the integers are represented as 2's complement numbers),
+	it is logically a bit odd. You wouldn't want to read that in code.
+
+	The way out is to use a signed integer. What you wanted to say in the 
+	first place was that you do not accept negative values:
+		
+	[[CppCode]]:
+		ASSERT_OP(size, >=, 0)
+		
+	Now the test agrees with logic. One should not think that a bit is wasted 
+	using signed integers. Instead, one should think that the bit is in good 
+	use allowing to detect common bugs.
+
+### Looping with unsigned integers
+
+Looping over values from n to zero backwards demonstrates the zero 
+boundary problem with unsigned integers:
+
+[[CppCode]]:
+	for (unsigned int i = n;i >= 0;--i)
+	{
+		// Do something.
+	}
+	
+Since there are no negative values to fail the loop test,
+this loop never finishes. There is no natural fix to this problem 
+with unsigned integers. In contrast, with signed integers the problem 
+does not exist, since the boundaries are located far away from zero:
+
+[[CppCode]]:
+	for (int i = n;i >= 0;--i)
+	{
+		// Do something.
+	}
+
+Extended positive range problem
+-------------------------------
+
+Conversion between an unsigned integer and a signed integer
+is an information destroying process in either direction.
+When you get to such a situation, there is no other solution than
+to close your eyes and hope for the best. By not using unsigned
+integers, you can handle your code, but there's nothing you can 
+do to external code. In particular, the `std::size_t` type defined
+and used by the standard library is an unsigned integer.
+
+Because of this, practically every program will contain 
+signed-unsigned conversions. Normally this does not cause problems 
+for programs, because the integers are never taken to the extended 
+positive range allowed by unsigned integers. However, if they are,
+then the bugs from signed-unsigned conversions become a reality.
+
+Modeling problem
+----------------
+
+From the modeling side, a problem with using unsigned integers is that
+most of the time we are assuming that, away from boundaries caused
+by the finite representation, an integer object works like an element
+of the integer ring ''ZZ''. In contrast, unsigned integers work exactly 
+like modular arithmetic in ''ZZ_{2^p}'', which is most of the time _not_ 
+what is intended.
+
+Conclusion
+----------
+
+Using unsigned integers to model integers decreases the probability that
+your code is correct.

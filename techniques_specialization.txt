@@ -3,20 +3,15 @@ Specialization without repeating all the implementation
 
 [[Parent]]: techniques.txt
 
-* Original text: 02.11.2008
-
-Abstract
---------
-
-The theme of specializing a class template for certain kinds of template parameters
-is a frequently recurring one, be it partial or explicit specialization. 
-A problem with specialization is that you need to respecify the code that 
-is common to all instances of the class template in a specialization.
-The simplest approach is to use direct copy & paste in your text editor
-to give every specialization the common functionality. However, this
-leads to a maintenance problem since a change to the code requires
-to change the code in all replicates. We demonstrate a 
-technique that avoids this kind of code replication.
+The task of specializing a class template for certain kinds of template 
+parameters is a frequently recurring one, be it partial or explicit 
+specialization. A problem with specialization is that you need to 
+respecify the code that is common to all instances of the class template 
+in a specialization. The simplest approach is to use direct copy & paste 
+in your text editor to give every specialization the common functionality. 
+However, this leads to a maintenance problem since a change to the code 
+requires to change the code in all replicates. In this article we present 
+a technique that avoids this kind of code replication.
 
 Setting up the scene
 --------------------
@@ -78,18 +73,17 @@ The class template works as follows:
 		return 0;
 	}
 
-The template implementation assumes that 
-the type Real models a certain concept which defines what you
-can do with Real's. 
+The template implementation assumes that the type `Real` models a 
+certain concept which defines what you can do with `Real`s. 
 
 Problem statement
 -----------------
 
-What we would like to do is to specialize Vector for dimension 3 in 
+What we would like to do is to specialize `Vector` for dimension 3 in 
 such a way that it works exactly like this general version except
-that it has additional member functions x(), y(), and z() to access the
-first, second, and third elements of the vector, respectively. Then
-we could rewrite the program above as:
+that it has additional member functions `x()`, `y()`, and `z()` to 
+access the first, second, and third elements of the vector, respectively. 
+Then we could rewrite the program above as:
 
 [[CppCode]]:
 	#include "vector.h"
@@ -205,17 +199,16 @@ the common implementation code to each specialization:
 		Real data_[3];
 	};
 
-The problem with this approach is that specializing n versions of the class template means
-to replicate the implementation n times. This makes code maintenance a
-nightmare. 
+The problem with this approach is that specializing n versions of the 
+class template means to replicate the implementation n times. This 
+makes code maintenance a nightmare. 
 
 Curiously Recurring Template Pattern
 ------------------------------------
 
-We shall now introduce an important template trick
-called the "Curiously Recurring Template Pattern".
-The name of the technique is a bit of a mouthful and thus we
-shall abbreviate it 'CRTP'. Here is the technique in short:
+We shall now introduce an important template technique
+called the _Curiously Recurring Template Pattern_ (CRTP).
+Here is the technique in short:
 
 [[CppCode]]:
 	
@@ -232,12 +225,12 @@ shall abbreviate it 'CRTP'. Here is the technique in short:
 		// ...
 	};
 	
-In words, the class Vector\<Real, N\> is derived from the
-class VectorBase\<Real, N, Vector\<Real, N\> \>.
+In words, the class `Vector<Real, N>` is derived from the
+class `VectorBase<Real, N, Vector<Real, N> >`.
 An important thing to notice here is that when
-Vector\<Real, N\> defines its base class, 
-the Vector\<Real, N\> has only been declared but not defined.
-Thus, what VectorBase\<Real, N, Derived\> class definition 
+`Vector<Real, N>` defines its base class, 
+the `Vector<Real, N>` has only been declared but not defined.
+Thus, what `VectorBase<Real, N, Derived>` class definition 
 sees is effectively:
 
 [[CppCode]]:
@@ -245,24 +238,24 @@ sees is effectively:
 
 But this is less restrictive than one first thinks.
 Let's see what you can't do. You can't place Derived as 
-a member variable of VectorBase. But even if you could 
+a member variable of `VectorBase`. But even if you could 
 that wouldn't make sense since it would lead to an infinite 
-recursion (Derived contains VectorBase contains Derived contains...). 
-You also can't derive VectorBase from Derived. But even if
+recursion (`Derived` contains `VectorBase` contains `Derived` contains...). 
+You also can't derive `VectorBase` from `Derived`. But even if
 you could that wouldn't make sense either for the same reason.
-Finally, you can't refer to the types or constants of Derived from the
-_declaration_ of the VectorBase (a declaration does not include
+Finally, you can't refer to the types or constants of `Derived` from the
+_declaration_ of the `VectorBase` (a declaration does not include
 function definitions/implementations). But this you can get around
-by passing them as template parameters to VectorBase.
+by passing them as template parameters to `VectorBase`.
 
-However, in the definition of a function of
-the VectorBase the Derived class is fully defined.
+However, in the _definition_ of a function of
+the `VectorBase` the `Derived` class is fully defined.
 This is because the member functions of a class template
 are only instantiated when used. On the other hand,
-when the member functions are used, Derived must necessarily
-be already defined! Thus in the implementation we
-can use Derived as a fully defined class.
-After all, we are not restricted at all.
+when the member functions are used, `Derived` must necessarily
+be already defined. Thus in the implementation we
+can use `Derived` as a fully defined class.
+After all, we are not restricted at all!
 
 Using CRTP to avoid code replication
 ------------------------------------
@@ -272,7 +265,7 @@ with specialization. Our strategy is to pack all the
 common functionality into the base class and then
 use inheritance to inject this code to the derived
 class. Nothing new? Well, the exciting thing here
-is that the Base class now knows the name of its derived
+is that the base class now knows the name of its derived
 class and thus it can use correct parameter and
 return types.
 
@@ -373,14 +366,15 @@ That is, we use inheritance to avoid code replication. All the common
 functionality is inherited from VectorBase and now we only need to
 add the dimension specific functions in Vector. 
 
-Note that we must write 'using Base::operator[];'.
-This is because if the base class is dependent on template parameters, then
-its contents are hidden to the derived class's implementation. Note however
-that outside the implementation you can see the base class's functions through
-the derived class as is the case normally. Thus the operator+= works although
-we do not declare 'using Base::operator+=;'.
-Constructors are special in that they must be implemented to forward to their
-corresponding base class constructors.
+Note that we must write `using Base::operator[];`.
+This is because if the base class is dependent on template parameters, 
+then its contents are hidden to the derived class's implementation. Note 
+however that outside the implementation you can see the base class's 
+functions through the derived class as is the case normally. Thus the 
+`operator+=` works although we do not declare `using Base::operator+=;`.
+Constructors are special in that they must be implemented to forward to 
+their corresponding base class constructors. This inconvenience is remedied 
+by the next C++ standard C++0x which allows to inher constructors.
 
 Conclusion
 ----------

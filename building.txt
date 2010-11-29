@@ -3,31 +3,47 @@ Building the Pastel library
 
 [[Parent]]: pastel.txt
 
-Pastel uses the [Premake][Premake] build-script generator to make
-cross-platform building a trivial task. Premake is a program, 
+This page describes how to build the Pastel library. This is only
+necessary if prebuilt binaries are not available for your platform 
+at the [main page][Main].
+
+Pastel uses the [Premake][Premake] build-script generator to turn
+cross-platform building into a trivial task. Premake is a program, 
 contained in a single executable, which reads in a generic 
 build-script and outputs a tool-specific build-script. 
 
-Build-process
+__Note__: While the source code contains Visual Studio specific 
+build files, you should ignore them, and follow the build process 
+described here.
+
+[Main]: [[Ref]]: pastel.txt
+
+Build process
 -------------
 
 The steps to build Pastel are as follows:
 
- 1. [Download Premake][DownloadPremake]. You might want to make 
- it so that it can be invoked from any location, or alternatively 
- just copy it to the Pastel root directory.
+### 1. Install Premake
+
+Premake can be downloaded from [here][DownloadPremake]. You might want 
+to make it so that it can be invoked from any location, or alternatively 
+just copy it to the Pastel root directory.
  
- 2. In the Pastel root directory, type
+### 2. Generate tool-specific build-scripts using Premake. 
+
+In the Pastel root directory, type
+
+	premake4 action
+
+where `action` describes the tool-set you want to generate
+the build-scripts for (Visual Studio, gcc and makefiles, etc.). 
+To see the supported tool-sets, type
+
+	premake4 --help
+
+### 3. Choose configuration and build
 	
-		premake4 action
-	
-	where `action` describes the tool-set you want to generate
-	the build-scripts for (Visual Studio, gcc and makefiles, etc.). 
-	To see the supported tool-sets, type
-	
-		premake4 --help
-	
-3. Go to the generated directory `build/action/`, where `action`
+Go to the generated directory `build/action/`, where `action`
 is the tool-set you chose in step 2, choose the desired configuration,
 and start the build.
 
@@ -42,21 +58,30 @@ Pastel comes with four different build configurations. These are:
  * release-without-openmp
 
 The `debug` configuration enables debugging information and turns on all
-[`ASSERT`s and `PENSURE`s][InvariantChecking]. All other configurations 
+[ASSERTs and PENSUREs][InvariantChecking]. All other configurations 
 disable debugging information. The `develop` version retains `ASSERT`s and 
 `PENSURE`s, while `release` and `release-without-openmp` removes them. The 
 `release-without-openmp` configuration is otherwise equivalent to `release` 
 configuration, but disables OpenMP (e.g. when your tool-set does not
 support it, as is the case with Express versions of Visual Studio).
 
-[InvariantChecking]: ensure.txt
+[InvariantChecking]: [[Ref]]: ensure.txt
 
 Building
 --------
 
 When Premake has generated you the build-scripts, you probably already
-know how to proceed, because it is a build-script you are familiar with. 
-However, here are some specific examples:
+know how to proceed. However, here are some specific examples:
+
+### Visual Studio
+
+To build Pastel using Visual Studio:
+
+ * Open the solution file `Pastel.sln`. 
+ * Right click on the solution in Solution Explorer, and choose 
+ Configuration Manager. 
+ * Select the desired Active Solution Configuration.
+ * Build solution.
 
 ### Makefiles
 
@@ -65,18 +90,10 @@ To build Pastel using makefiles, type
 	make config=configuration
 
 Where `configuration` is one of the configurations listed in the
-previous section. Type `make help` to obtain further information.
+previous section. To obtain further information, type 
 
-### Visual Studio
+	make help 
 
-To build Pastel using Visual Studio:
-
- * Open the solution file `Pastel.sln`. 
- * Right click on the Solution in Solution Explorer, and choose 
- Configuration Manager. 
- * Select the desired Active Solution Configuration.
- * Build solution.
- 
 Output files
 ------------
 
