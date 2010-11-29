@@ -23,26 +23,16 @@ internal dependencies.
 External dependencies
 ---------------------
 
-Pastel uses a few external third-party libraries which 
-must be installed in order to compile and link all
-Pastel libraries succesfully. The following list summarizes 
-these dependencies:
-
- * Boost: All of Pastel
- * SDL: PastelDevice
- * Glew: PastelGl
-
-After installing these libraries, make sure 
-you add their corresponding directories for the 
-include files (.h, .hpp, etc) and libraries (.lib, etc) 
-to the search paths of your compiler. 
+Pastel uses a few external libraries which must be installed in order 
+to compile and link all Pastel libraries succesfully. These libraries 
+are listed here.
 
 ### Boost
 
 <http://www.boost.org/>
 
 Pastel refers to Boost's include files in the form
-'#include \<boost/operators.hpp\>'.
+`boost/operators.hpp`.
 Pastel only uses the template code found in Boost and
 thus requires no linking with object code.
 Boost is licensed under the Boost license.
@@ -51,20 +41,14 @@ Boost is licensed under the Boost license.
 
 <http://www.libsdl.org/>
 
-Pastel refers to SDL's include files in the form 
-'#include \<SDL.h\>'. 
-In the included Visual Studio project files, the SDL library
-is referred to as 'SDL.lib' (both in release and debug mode).
+Pastel refers to SDL's include files in the form `SDL.h`. 
 SDL is licensed under the GNU LGPL.
 
 ### Glew (Gl Extension Wrangler)
 
 <http://glew.sourceforge.net/>
 
-Pastel refers to Glew's include files in the form 
-'#include \<GL/glew.h\>'. 
-In the included Visual Studio project files, the Glew library
-is referred to as 'glew32.lib' (both in release and debug mode).
+Pastel refers to Glew's include files in the form `GL/glew.h`. 
 Glew is licensed under a modified BSD license.
 
 ### Official Mersenne Twister source code
