@@ -1,7 +1,7 @@
 Build switches
 ==============
 
-[[Parent]]: pastel.txt
+[[Parent]]: building.txt
 
 Pastel provides several build switches to control the code generation.
 We explain these switches here.
