@@ -65,7 +65,3 @@ the PastelSys library. Compilation of that file fails if the
 requirements are not met. In this case you might need to change the
 types in [[FileLink: mytypes.h]] to proper types.
 
-See also
---------
-
-[[Link]]: ensure.txt

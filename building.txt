@@ -27,8 +27,27 @@ The steps to build Pastel are as follows:
 Premake can be downloaded from [here][DownloadPremake]. You might want 
 to make it so that it can be invoked from any location, or alternatively 
 just copy it to the Pastel root directory.
- 
-### 2. Generate tool-specific build-scripts using Premake. 
+
+### 2. Set the external library directories
+
+In the Pastel root directory, open the file `premake4.lua`, and modify
+the directories to external libraries to correspond to your setup:
+
+	-- The directory of the Boost library's source code.
+	-- The includes are of the form 'boost/static_assert.hpp'.
+	boostIncludeDir = "../../external/boost_1_43_0"
+
+	-- The directory of the SDL library's header files.
+	-- The includes are of the form 'SDL.h'.
+	sdlIncludeDir = "../../external/SDL-1.2.14/include"
+	sdlLibraryDir = "../../external/SDL-1.2.14/lib"
+
+	-- The directory of the GLEW library's header files.
+	-- The includes are of the form 'glew.h'.
+	glewIncludeDir = "../../external/glew-1.5.7/include"
+	glewLibraryDir = "../../external/glew-1.5.7/lib"
+
+### 3. Generate tool-specific build-scripts using Premake. 
 
 In the Pastel root directory, type
 
@@ -40,7 +59,7 @@ To see the supported tool-sets, type
 
 	premake4 --help
 
-### 3. Choose configuration and build
+### 4. Choose configuration and build
 	
 Go to the generated directory `build/action/`, where `action`
 is the tool-set you chose in step 2, choose the desired configuration,

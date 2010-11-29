@@ -1,3 +1,6 @@
+-- This is a Premake script for producing
+-- build files for the Pastel library.
+
 -- Change the following directories to reflect your own
 -- build environment.
 
