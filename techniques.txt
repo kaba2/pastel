@@ -3,16 +3,7 @@ Recurring programming techniques in Pastel
 
 [[Parent]]: pastel.txt
 
-Practice
---------
-
 Certain programming techniques are recurringly used in the implementation of 
 Pastel. Those techniques are introduced here with the aim of being able to
 make more sense of the source code.
 
-See also
---------
-
-[[Link]]: ensure.txt
-
-[[Link]]: algorithm.txt

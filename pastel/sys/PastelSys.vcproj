@@ -2000,7 +2000,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\building.txt"
+				RelativePath="..\..\building.txt"
 				>
 			</File>
 			<File
@@ -2048,11 +2048,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\techniques_enums.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\techniques_miscellaneous.txt"
 				>
 			</File>
 			<File
 				RelativePath="..\..\techniques_specialization.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\techniques_unsigned.txt"
 				>
 			</File>
 		</Filter>

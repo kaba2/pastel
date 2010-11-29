@@ -17,8 +17,8 @@ function, and used as a sub-algorithm.
 
 Compared to the usual use of functors, the algorithm objects are different
 in that usually the functors are not templated. Instead, the usual functors 
-carry only a specific type of function, such as std::less\<int\>() passed to 
-std::sort(). Using the algorithm concept, one would instead pass a LessThan()
+carry only a specific type of function, such as `std::less<int>()` passed to 
+`std::sort()`. Using the algorithm concept, one would instead pass a `LessThan()`
 algorithm which encapsulates a less-than comparison for all types.
 
 
