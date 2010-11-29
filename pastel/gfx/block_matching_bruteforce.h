@@ -1,5 +1,5 @@
-#ifndef PASTEL_MATCHBLOCK_BRUTEFORCE_H
-#define PASTEL_MATCHBLOCK_BRUTEFORCE_H
+#ifndef PASTEL_BLOCK_MATCHING_BRUTEFORCE_H
+#define PASTEL_BLOCK_MATCHING_BRUTEFORCE_H
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/vector.h"
@@ -48,6 +48,6 @@ namespace Pastel
 
 }
 
-#include "pastel/gfx/matchblock_bruteforce.hpp"
+#include "pastel/gfx/block_matching_bruteforce.hpp"
 
 #endif

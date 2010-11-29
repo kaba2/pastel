@@ -13,7 +13,7 @@
 #include <pastel/geometry/search_all_neighbors_pointkdtree.h>
 #include <pastel/geometry/windowedpointtree.h>
 
-#include <pastel/gfx/matchblock_bruteforce.h>
+#include <pastel/gfx/block_matching_bruteforce.h>
 #include <pastel/gfx/savepcx.h>
 
 #include <pastel/sys/subarray_tools.h>

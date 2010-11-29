@@ -1,7 +1,7 @@
-#ifndef PASTEL_MATCHBLOCK_BRUTEFORCE_HPP
-#define PASTEL_MATCHBLOCK_BRUTEFORCE_HPP
+#ifndef PASTEL_BLOCK_MATCHING_BRUTEFORCE_HPP
+#define PASTEL_BLOCK_MATCHING_BRUTEFORCE_HPP
 
-#include "pastel/gfx/matchblock_bruteforce.h"
+#include "pastel/gfx/block_matching_bruteforce.h"
 
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 
