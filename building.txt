@@ -6,7 +6,6 @@ Building the Pastel library
 This page describes how to build the Pastel library. This is only
 necessary if prebuilt binaries are not available for your platform 
 at the [main page][Main].
-
 Pastel uses the [Premake][Premake] build-script generator to turn
 cross-platform building into a trivial task. Premake is a program, 
 contained in a single executable, which reads in a generic 
