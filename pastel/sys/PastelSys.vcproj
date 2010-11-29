@@ -2016,15 +2016,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dependencies.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\..\external.txt"
-				>
-			</File>
-			<File
-				RelativePath="..\..\internal.txt"
+				RelativePath="..\..\dependencies.txt"
 				>
 			</File>
 			<File
