@@ -5,9 +5,6 @@ Pastel
 
 [Back]: http://kaba.hilvi.org
 
-Description
------------
-
 _Pastel_ is a C++ library for geometry and computer graphics.
 
 Source code
@@ -25,7 +22,6 @@ data structures and algorithms.
 [Pastel-1.2.0]: files/pastel-1.2.0.zip
 
 [[Link]]: previous_releases.txt
-[External]: [[Ref]]: external.txt
 
 Note on web-browsers
 --------------------

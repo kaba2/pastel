@@ -1559,6 +1559,14 @@
 				RelativePath=".\subset.h"
 				>
 			</File>
+			<File
+				RelativePath=".\syslibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\syslibrary.h"
+				>
+			</File>
 			<Filter
 				Name="Guid"
 				>
@@ -2000,10 +2008,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\building.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\cmake_experiences.txt"
 				>
 			</File>
@@ -2012,11 +2016,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\external.txt"
+				RelativePath=".\dependencies.txt"
 				>
 			</File>
 			<File
-				RelativePath="..\..\installation.txt"
+				RelativePath="..\..\external.txt"
 				>
 			</File>
 			<File
@@ -2257,46 +2261,6 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Build system"
-			>
-			<File
-				RelativePath=".\environment.h"
-				>
-			</File>
-			<File
-				RelativePath=".\environment.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\environment.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\mytypes.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mytypes.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelomp.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\premake4.lua"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Algorithm concept"
 			>
 			<File
@@ -2364,6 +2328,46 @@
 				</File>
 				<File
 					RelativePath=".\endian.txt"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Build system"
+			>
+			<File
+				RelativePath="..\..\building.txt"
+				>
+			</File>
+			<File
+				RelativePath="..\..\premake4.lua"
+				>
+			</File>
+			<Filter
+				Name="Build switches"
+				>
+				<File
+					RelativePath=".\environment.h"
+					>
+				</File>
+				<File
+					RelativePath=".\environment.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\environment.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\mytypes.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mytypes.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\pastelomp.h"
 					>
 				</File>
 			</Filter>

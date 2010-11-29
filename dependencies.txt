@@ -1,10 +1,27 @@
-External dependencies
-=====================
+Dependencies
+============
 
 [[Parent]]: pastel.txt
 
-Practice
---------
+Here we summarize the dependencies inside Pastel, and 
+Pastel's dependencies to external libraries.
+
+Internal dependencies
+---------------------
+
+The dependencies between Pastel's sub-libraries 
+form an acyclic directed graph. Because of this,
+Pastel can be used either in its entirety
+or only as a subset if some functionality is not required.
+The following (transitively reduced) graph summarizes the 
+internal dependencies.
+
+[[Gallery]]:
+	internal_dependencies.png
+	- Internal dependencies between the sub-libraries of Pastel.
+
+External dependencies
+---------------------
 
 Pastel uses a few external third-party libraries which 
 must be installed in order to compile and link all
