@@ -5,23 +5,27 @@ Pastel
 
 [Back]: http://kaba.hilvi.org
 
-_Pastel_ is a C++ library for geometry and computer graphics.
+_Pastel_ is a cross-platform C++ library for geometry and computer 
+graphics.
 
 Source code
 -----------
 
 Pastel is licensed under the _GNU Lesser GPL_ license, which is 
-unrestrictive and non-viral. While this allows you to build your own programs using
-Pastel, I do not recommend you do this. This is because Pastel is still under development
-and is thus prone to break backwards-compatibility. Rather, consider it from 
-an educational viewpoint containing implementations and documentations of useful 
-data structures and algorithms.
+unrestrictive and non-viral. While this allows you to build your own 
+programs using Pastel, I do not recommend you do this. This is because 
+Pastel is still under development and is thus prone to break 
+backwards-compatibility. Rather, consider it from an educational 
+viewpoint containing implementations and documentations of useful data 
+structures and algorithms.
 
 [Download Pastel 1.2.0][Pastel-1.2.0]
 
 [Pastel-1.2.0]: files/pastel-1.2.0.zip
 
-[[Link]]: previous_releases.txt
+For previous versions, see the [release history][History]
+
+[History]: [[Ref]]: release_history.txt
 
 Note on web-browsers
 --------------------
@@ -67,8 +71,6 @@ Pastel divides into a number of sub-libraries. These are:
 	pastel/gl/pastelgl.txt
 	pastel/math/pastelmath.txt
 	pastel/sys/pastelsys.txt
-	previous_releases.txt
-	more_news.txt
 
 [[Comment]]:
 	The following is a javascript for Google Analytics by which we can

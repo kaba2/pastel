@@ -1,5 +1,5 @@
-Previous releases
-=================
+Release history
+===============
 
 [[Parent]]: pastel.txt
 
