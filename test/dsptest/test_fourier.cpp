@@ -228,7 +228,8 @@ namespace
 		bool testHaar(
 			const RandomAccessRange<Complex_Iterator>& input)
 		{
-			if (!test(input, Haar(), InverseHaar()))
+			if (!test(input, Haar(), InverseHaar()) ||
+				!test(input, OrthogonalHaar(), InverseOrthogonalHaar()))
 			{
 				return false;
 			}
