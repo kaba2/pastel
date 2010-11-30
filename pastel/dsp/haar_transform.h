@@ -23,12 +23,12 @@ namespace Pastel
 	//! Computes a Haar transform.
 	/*!
 	This is a convenience function that calls
-	haar(input, input.begin()).
+	haar(inputOutput, inputOutput.begin()).
 	See the documentation for that function.
 	*/
-	template <typename Real_ConstIterator>
+	template <typename Real_Iterator>
 	void haar(
-		const ForwardRange<Real_ConstIterator>& input);
+		const ForwardRange<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(haar, Haar);
 
@@ -47,12 +47,12 @@ namespace Pastel
 	//! Computes an inverse Haar transform.
 	/*!
 	This is a convenience function that calls
-	inverseHaar(input, input.begin()).
+	inverseHaar(inputOutput, inputOutput.begin()).
 	See the documentation for that function.
 	*/
-	template <typename Real_ConstIterator>
+	template <typename Real_Iterator>
 	void inverseHaar(
-		const ForwardRange<Real_ConstIterator>& input);
+		const ForwardRange<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseHaar, InverseHaar);
 
@@ -71,12 +71,12 @@ namespace Pastel
 	//! Computes an orthogonal Haar transform.
 	/*!
 	This is a convenience function that calls
-	orthogonalHaar(input, input.begin()).
+	orthogonalHaar(inputOutput, inputOutput.begin()).
 	See the documentation for that function.
 	*/
-	template <typename Real_ConstIterator>
+	template <typename Real_Iterator>
 	void orthogonalHaar(
-		const ForwardRange<Real_ConstIterator>& input);
+		const ForwardRange<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(orthogonalHaar, OrthogonalHaar);
 
@@ -95,12 +95,12 @@ namespace Pastel
 	//! Computes an inverse orthogonal Haar transform.
 	/*!
 	This is a convenience function that calls
-	inverseOrthogonalHaar(input, input.begin()).
+	inverseOrthogonalHaar(inputOutput, inputOutput.begin()).
 	See the documentation for that function.
 	*/
 	template <typename Real_ConstIterator>
 	void inverseOrthogonalHaar(
-		const ForwardRange<Real_ConstIterator>& input);
+		const ForwardRange<Real_ConstIterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseOrthogonalHaar, InverseOrthogonalHaar);
 

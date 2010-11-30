@@ -520,45 +520,77 @@
 			Name="Transforms"
 			>
 			<File
-				RelativePath=".\cosine_transform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cosine_transform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\cosine_transform.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\fourier_transform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\fourier_transform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\fourier_transform.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\haar_transform.h"
-				>
-			</File>
-			<File
-				RelativePath=".\haar_transform.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\haar_transform.txt"
+				RelativePath=".\transforms.h"
 				>
 			</File>
 			<File
 				RelativePath=".\transforms.txt"
 				>
 			</File>
+			<Filter
+				Name="Cosine transform"
+				>
+				<File
+					RelativePath=".\cosine_transform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\cosine_transform.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\cosine_transform.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Fourier transform"
+				>
+				<File
+					RelativePath=".\fourier_transform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\fourier_transform.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\fourier_transform.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Haar transform"
+				>
+				<File
+					RelativePath=".\haar_transform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\haar_transform.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\haar_transform.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Hadamard transform"
+				>
+				<File
+					RelativePath=".\hadamard_transform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\hadamard_transform.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\hadamard_transform.txt"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Measures"
