@@ -9,9 +9,7 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/packrange.h"
 
-#include "pastel/dsp/fourier_transform.h"
-#include "pastel/dsp/cosine_transform.h"
-#include "pastel/dsp/haar_transform.h"
+#include "pastel/dsp/transforms.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
@@ -205,6 +203,12 @@ namespace
 			return true;
 		}
 
+		template <int N>
+		bool testDct(const real (&input)[N])
+		{
+			return testDct(randomAccessRange(input));
+		}
+
 		template <typename Complex_Iterator>
 		bool testDct(
 			const RandomAccessRange<Complex_Iterator>& input)
@@ -238,9 +242,22 @@ namespace
 		}
 
 		template <int N>
-		bool testDct(const real (&input)[N])
+		bool testHadamard(const real (&input)[N])
 		{
-			return testDct(randomAccessRange(input));
+			return testHadamard(randomAccessRange(input));
+		}
+
+		template <typename Complex_Iterator>
+		bool testHadamard(
+			const RandomAccessRange<Complex_Iterator>& input)
+		{
+			if (!test(input, Hadamard(), InverseHadamard()) ||
+				!test(input, OrthogonalHadamard(), InverseOrthogonalHadamard()))
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		void testRandom()
@@ -268,42 +285,49 @@ namespace
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = {1, 2};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = {1, 2, 3, 4};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = {4, 3, 2, 1};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = {1, 2, 3, 4, 5, 6, 7, 8};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = {1, 5, 2, 3, 4, 9, 5, 5};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = {2, 5, 8, 9, 7, 4, -1, 1};
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 			{
 				const real input[] = 
@@ -314,6 +338,7 @@ namespace
 				TEST_ENSURE(testDft(input));
 				TEST_ENSURE(testDct(input));
 				TEST_ENSURE(testHaar(input));
+				TEST_ENSURE(testHadamard(input));
 			}
 		}
 	};
