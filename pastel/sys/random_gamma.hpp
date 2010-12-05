@@ -138,9 +138,17 @@ namespace Pastel
 		PENSURE_OP(shape, >, 0);
 		PENSURE_OP(scale, >, 0);
 
+		/*
 		return std::pow(x, shape - 1) * 
 			std::exp(-x / scale) / 
 			(gamma<Real>(shape) * std::pow(scale, shape));
+		*/
+
+		const Real logPdf =
+			((shape - 1) * std::log(x) - (x / scale)) -
+			(lnGamma<Real>(shape) + shape * std::log(scale));
+
+		return std::exp(logPdf);
 	}
 
 	// This version does not seem to always work
