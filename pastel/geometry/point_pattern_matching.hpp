@@ -423,8 +423,8 @@ namespace Pastel
 
 					lsSimilarity =
 						lsConformalAffine(
-						forwardRange(modelGlobalMatch.begin(), modelGlobalMatch.end()),
-						forwardRange(sceneGlobalMatch.begin(), sceneGlobalMatch.end()),
+						range(modelGlobalMatch.begin(), modelGlobalMatch.end()),
+						range(sceneGlobalMatch.begin(), sceneGlobalMatch.end()),
 						Vector_PointPolicy<Real, N>(),
 						Vector_PointPolicy<Real, N>());
 

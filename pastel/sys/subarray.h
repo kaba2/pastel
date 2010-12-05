@@ -37,10 +37,19 @@ namespace Pastel
 			Iterator;
 		typedef SubArray_ConstIterator<Type, N> 
 			ConstIterator;
+		typedef typename IteratorRange<Iterator>::type
+			Range;
+		typedef typename IteratorRange<ConstIterator>::type
+			ConstRange;
+
 		typedef SparseIterator<Type*> 
 			RowIterator;
 		typedef ConstSparseIterator<const Type*> 
 			ConstRowIterator;
+		typedef typename IteratorRange<RowIterator>::type
+			RowRange;
+		typedef typename IteratorRange<ConstRowIterator>::type
+			ConstRowRange;
 
 		// Using default copy constructor.
 		// Using default destructor.
@@ -275,6 +284,11 @@ namespace Pastel
 				stride_);
 		}
 
+		Range range() const
+		{
+			return Range(begin(), end());
+		}
+
 		// Row iterators
 
 		RowIterator rowBegin(integer index, 
@@ -289,6 +303,13 @@ namespace Pastel
 			return RowIterator(address(position) + 
 				(extent_[index] - position[index]) * stride_[index], 
 				stride_[index]);
+		}
+
+		Range rowRange(integer index, 
+			const Vector<integer, N>& position) const
+		{
+			return Range(rowBegin(index, position), 
+				rowEnd(index, position));
 		}
 
 		Vector<integer, N> position(
@@ -400,6 +421,11 @@ namespace Pastel
 		typedef SubArray_ConstIterator<Type, N> ConstIterator;
 		typedef ConstSparseIterator<const Type*> ConstRowIterator;
 
+		typedef typename IteratorRange<ConstIterator>::type
+			ConstRange;
+		typedef typename IteratorRange<ConstRowIterator>::type
+			ConstRowRange;
+
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.
@@ -500,6 +526,11 @@ namespace Pastel
 			return subArray_.end();
 		}
 
+		ConstRange range() const
+		{
+			return ConstRange(begin(), end());
+		}
+
 		const Type* dataBegin() const
 		{
 			return subArray_.dataBegin();
@@ -522,6 +553,14 @@ namespace Pastel
 			const Vector<integer, N>& position) const
 		{
 			return subArray_.rowEnd(index, position);
+		}
+
+		ConstRowRange rowRange(integer index, 
+			const Vector<integer, N>& position) const
+		{
+			return ConstRowRange(
+				rowBegin(index, position), 
+				rowEnd(index, position));
 		}
 
 		const Type* address(const Vector<integer, N>& position) const

@@ -39,10 +39,10 @@ namespace
 		ConformalAffine2 similarity;
 
 		const bool success = pointPatternMatch(
-			randomAccessRange(
+			range(
 			constSparseIterator(countingIterator(sceneData), 2), 
 			scenePoints),
-			randomAccessRange(
+			range(
 			constSparseIterator(countingIterator(modelData), 2), 
 			modelPoints),
 			minMatchRatio,

@@ -67,8 +67,8 @@ namespace
 
 			const ConformalAffine2 matchedTransformation =
 				lsConformalAffine(
-				forwardRange(pattern.begin(), pattern.end()),
-				forwardRange(transformedPattern.begin(), transformedPattern.end()),
+				range(pattern.begin(), pattern.end()),
+				range(transformedPattern.begin(), transformedPattern.end()),
 				Vector_PointPolicy2(),
 				Vector_PointPolicy2());
 

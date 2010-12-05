@@ -77,42 +77,6 @@ namespace Pastel
 		}
 	};
 
-	template <typename Iterator>
-	BidirectionalRange<Iterator> bidirectionalRange(
-		const Iterator& begin)
-	{
-		return BidirectionalRange<Iterator>(begin, 1);
-	}
-
-	template <typename Iterator>
-	BidirectionalRange<Iterator> bidirectionalRange(
-		const Iterator& begin, const Iterator& end)
-	{
-		return BidirectionalRange<Iterator>(begin, end);
-	}
-
-	template <typename Iterator>
-	BidirectionalRange<Iterator> bidirectionalRange(
-		const Iterator& begin, integer size)
-	{
-		return BidirectionalRange<Iterator>(begin, size);
-	}
-
-	template <typename Iterator>
-	BidirectionalRange<Iterator> bidirectionalRange(
-		const Iterator& begin, const Iterator& end, 
-		integer size)
-	{
-		return BidirectionalRange<Iterator>(begin, end, size);
-	}
-
-	template <typename Type, int N>
-	BidirectionalRange<Type*> bidirectionalRange(
-		Type (&begin)[N])
-	{
-		return BidirectionalRange<Type*>(begin, N);
-	}
-
 }
 
 #endif

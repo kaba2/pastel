@@ -21,6 +21,7 @@ namespace Pastel
 		const AlignedBox<integer, N>& neighborhood,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
+		const PASTEL_NO_DEDUCTION(Real)& minVariance,
 		const NormBijection& normBijection)
 	{
 		ENSURE_OP(kNearest, >, 0);
@@ -40,6 +41,8 @@ namespace Pastel
 		}
 
 		const integer n = image.dimension();
+
+		const integer m = blockExtent.size();
 
 		typedef ConstSubArray<Real, N> Region;
 		typedef typename Region::ConstIterator ConstIterator;
@@ -117,12 +120,17 @@ namespace Pastel
 				ConstIterator iIter = aBlock.begin();
 				const ConstIterator iEnd = aBlock.end();
 				ConstIterator jIter = bBlock.begin();
+
+				Real meanDelta = 0;
+				Real meanSquareDelta = 0;
 				Real distance = 0;
 				while (iIter != iEnd)
 				{
+					const Real delta = *iIter - *jIter;
+
 					distance = normBijection.addAxis(
 						distance, 
-						normBijection.signedAxis(*iIter - *jIter));
+						normBijection.signedAxis(delta));
 					if (distance > kthDistance)
 					{
 						// The block is farther than the currently
@@ -131,14 +139,22 @@ namespace Pastel
 						break;
 					}
 
+					meanDelta += delta;
+					meanSquareDelta += square(delta);
+
 					++iIter;
 					++jIter;
 				}
-				if (iIter == iEnd)
+				meanDelta /= m;
+				meanSquareDelta /= m;
+
+				const Real variance = meanSquareDelta - square(meanDelta);
+
+				if (iIter == iEnd && variance >= minVariance)
 				{
 					// The distance computation was completed,
 					// and therefore this block is a new candidate 
-					// for the k-nearest neighbors. 
+					// for the k-nearest neighbors.
 
 					const integer bIndex = 
 						&*bIter - &*region.begin();

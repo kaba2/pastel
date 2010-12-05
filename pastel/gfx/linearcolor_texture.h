@@ -7,7 +7,7 @@
 #include "pastel/gfx/texture.h"
 
 #include "pastel/sys/math_functions.h"
-#include "pastel/sys/randomaccessrange.h"
+#include "pastel/sys/iteratorrange.h"
 
 #include <vector>
 
@@ -40,7 +40,7 @@ namespace Pastel
 			const Matrix<real, N, N>& m) const
 		{
 			return linear(p, 
-				randomAccessRange(data_.begin(), data_.end()));
+				range(data_.begin(), data_.end()));
 		}
 
 		virtual std::string name() const

@@ -450,6 +450,20 @@ namespace Pastel
 		}
 
 		template <typename Type, int N>
+		typename ArrayBase<Type, N>::Range
+			ArrayBase<Type, N>::range()
+		{
+			return Pastel::range(begin(), end());
+		}
+
+		template <typename Type, int N>
+		typename ArrayBase<Type, N>::ConstRange
+			ArrayBase<Type, N>::range() const
+		{
+			return Pastel::range(begin(), end());
+		}
+
+		template <typename Type, int N>
 		typename ArrayBase<Type, N>::RowIterator 
 			ArrayBase<Type, N>::rowBegin(
 			const Vector<integer, N>& position, 
@@ -498,6 +512,28 @@ namespace Pastel
 		{
 			return ((ArrayBase&)*this).rowEnd(
 				position, axis);
+		}
+
+		template <typename Type, int N>
+		typename ArrayBase<Type, N>::RowRange
+			ArrayBase<Type, N>::rowRange(
+			const Vector<integer, N>& position, 
+			integer axis)
+		{
+			return range(
+				rowBegin(position, axis), 
+				rowEnd(position, axis));
+		}
+
+		template <typename Type, int N>
+		typename ArrayBase<Type, N>::ConstRowRange
+			ArrayBase<Type, N>::rowRange(
+			const Vector<integer, N>& position, 
+			integer axis) const
+		{
+			return range(
+				rowBegin(position, axis), 
+				rowEnd(position, axis));
 		}
 
 		template <typename Type, int N>

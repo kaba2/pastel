@@ -46,7 +46,7 @@ namespace
 			Tree tree;
 
 			tree.insert(
-				forwardRange(pointSet.begin(), pointSet.end()));
+				range(pointSet.begin(), pointSet.end()));
 
 			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 			

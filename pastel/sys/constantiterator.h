@@ -6,7 +6,7 @@
 #define PASTEL_CONSTANTITERATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/randomaccessrange.h"
+#include "pastel/sys/iteratorrange.h"
 
 #include <boost/operators.hpp>
 
@@ -103,7 +103,7 @@ namespace Pastel
 	RandomAccessRange<ConstantIterator<Type> > constantRange(
 		const Type& that, integer size = 1)
 	{
-		return randomAccessRange(constantIterator(that), size);
+		return range(constantIterator(that), size);
 	}
 
 }

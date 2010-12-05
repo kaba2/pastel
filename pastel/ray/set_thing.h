@@ -4,7 +4,7 @@
 #include "pastel/ray/composite_thing.h"
 #include "pastel/ray/thing.h"
 
-#include "pastel/sys/forwardrange.h"
+#include "pastel/sys/iteratorrange.h"
 
 #include <vector>
 

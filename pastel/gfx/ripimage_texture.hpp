@@ -109,7 +109,7 @@ namespace Pastel
 		// Linearly interpolate between those samples.
 
 		return linear(tDetail, 
-			randomAccessRange(valueSet.begin(), valueSet.end()));
+			range(valueSet.begin(), valueSet.end()));
 	}
 
 }

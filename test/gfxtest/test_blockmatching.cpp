@@ -371,7 +371,7 @@ namespace
 		Expression operator()(const Point& point) const
 		{
 			return rangeAsVector<Real, N>(
-				randomAccessRange(begin(point), end(point)));
+				Pastel::range(begin(point), end(point)));
 		}
 
 		real32 axis(const Point& point, integer i) const
@@ -384,7 +384,7 @@ namespace
 			const ConstSubArray<real32> subArray = 
 				(*image_)(point, point + blockExtent_);
 
-			return randomAccessRange(subArray.begin(), subArray.end());
+			return Pastel::range(subArray.begin(), subArray.end());
 		}
 
 		ConstIterator begin(const Point& point) const
@@ -488,8 +488,8 @@ namespace
 		{
 			//testSimple();
 			//testBruteForce();
-			//testApproximate();
-			testApproximate2();
+			testApproximate();
+			//testApproximate2();
 		}
 
 		void testSimple()
@@ -615,7 +615,7 @@ namespace
 
 			searchAllNeighbors(
 				tree,
-				randomAccessRange(querySet.begin(), querySet.end()),
+				range(querySet.begin(), querySet.end()),
 				0, kNearest,
 				&nearestSet,
 				(Array<real32>*)0,
@@ -933,7 +933,7 @@ namespace
 
 			Array<integer> nearestSet = matchBlockBrute(
 				image, Vector2i(blockSize, blockSize), neighborhood, kNearest, 
-				infinity<real32>(), Euclidean_NormBijection<real32>());
+				infinity<real32>(), 0, Euclidean_NormBijection<real32>());
 
 			timer.store();
 

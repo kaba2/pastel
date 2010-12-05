@@ -203,7 +203,7 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 	}
 
 	tree_.insert(
-		forwardRange(pointSet.begin(), pointSet.end()));
+		range(pointSet.begin(), pointSet.end()));
 
 	/*
 	generateGaussianPointSet(10000, 2, pointSet_);
@@ -774,7 +774,7 @@ void NearestNeighbor_Gfx_Ui::sprayPoints(
 	}
 
 	tree_.insert(
-		forwardRange(newPointSet.begin(), newPointSet.end()));
+		range(newPointSet.begin(), newPointSet.end()));
 
 	/*
 	for (integer i = 0;i < newPointSet.size();++i)
@@ -824,7 +824,7 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 
 	timer.setStart();
 
-	newTree.insert(forwardRange(
+	newTree.insert(range(
 		tree_.asPointData(tree_.begin()), 
 		tree_.asPointData(tree_.end())));
 
@@ -955,7 +955,7 @@ void test()
 	timer.setStart();
 
 	searchAllNeighbors(tree,
-		randomAccessRange(querySet.begin(), querySet.end()),
+		range(querySet.begin(), querySet.end()),
 		0, k,
 		&nearestSet,
 		0, constantRange(infinity<real>(), querySet.size()),
@@ -977,14 +977,14 @@ void test()
 	timer.setStart();
 
 	searchAllNeighborsBruteForce(
-		randomAccessRange(
+		range(
 		pointSet.begin(), pointSet.end()),
 		d,
 		Vector_PointPolicy<real, N>(),
 		bruteSet,
 		k,
 		constantRange(infinity<real>(), pointSet.size()),
-		randomAccessRange(
+		range(
 		countingIterator(pointSet.begin()), 
 		countingIterator(pointSet.end())),
 		normBijection);

@@ -41,8 +41,8 @@ namespace
 
 			const ConformalAffine2 similarity =
 				lsConformalAffine(
-				forwardRange(from.begin(), from.end()), 
-				forwardRange(to.begin(), to.end()),
+				range(from.begin(), from.end()), 
+				range(to.begin(), to.end()),
 				Vector_PointPolicy2(),
 				Vector_PointPolicy2());
 

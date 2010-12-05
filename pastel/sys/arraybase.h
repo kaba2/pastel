@@ -10,6 +10,7 @@
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/arraybasecursor.h"
 #include "pastel/sys/subarray.h"
+#include "pastel/sys/iteratorrange.h"
 
 namespace Pastel
 {
@@ -31,6 +32,8 @@ namespace Pastel
 
 			typedef SparseIterator<Type*> RowIterator;
 			typedef ConstSparseIterator<const Type*> ConstRowIterator;
+			typedef typename IteratorRange<RowIterator> RowRange;
+			typedef typename IteratorRange<ConstRowIterator> ConstRowRange;
 
 			typedef Type Element;
 			typedef Type& Reference;
@@ -38,6 +41,9 @@ namespace Pastel
 
 			typedef Type* Iterator;
 			typedef const Type* ConstIterator;
+
+			typedef typename IteratorRange<Iterator>::type Range;
+			typedef typename IteratorRange<ConstIterator>::type ConstRange;
 
 			typedef Detail_Array::Cursor<Type, N> Cursor;
 			typedef Detail_Array::ConstCursor<Type, N> ConstCursor;
@@ -191,6 +197,12 @@ namespace Pastel
 			//! An iterator to one-past-end element.
 			ConstIterator end() const;
 
+			//! An iterator range to all elements.
+			Range range();
+
+			//! An iterator range to all elements.
+			ConstRange range() const;
+
 			//! An iterator to the first element of a row.
 			RowIterator rowBegin(
 				const Vector<integer, N>& position, 
@@ -208,6 +220,16 @@ namespace Pastel
 
 			//! An iterator to the one-past end element of a row.
 			ConstRowIterator rowEnd(
+				const Vector<integer, N>& position, 
+				integer axis) const;
+
+			//! An iterator range to the elements of a row.
+			RowRange rowRange(
+				const Vector<integer, N>& position, 
+				integer axis);
+
+			//! An iterator range to the elements of a row.
+			ConstRowRange rowRange(
 				const Vector<integer, N>& position, 
 				integer axis) const;
 

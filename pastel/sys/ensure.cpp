@@ -111,6 +111,9 @@ namespace Pastel
 
 			log().finalize();
 
+			// Move control to debugger.
+			assert(false);
+
 			std::abort();
 		}
 
@@ -133,6 +136,9 @@ namespace Pastel
 				info4Name, info4);
 
 			log().finalize();
+
+			// Move control to debugger.
+			assert(false);
 
 			std::abort();
 		}

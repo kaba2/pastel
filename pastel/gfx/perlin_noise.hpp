@@ -71,7 +71,7 @@ namespace Pastel
 
 		// Linearly interpolate between the contributions
 		// of the cube vertices.
-		const Real value = linear(t, randomAccessRange(
+		const Real value = linear(t, range(
 			vertexSet.begin(), vertexSet.end()));
 
 		// Map the noise to the [0, 1] range.

@@ -202,13 +202,13 @@ namespace Pastel
 			// Find out the Fourier transformation
 			// of the even-index subsequence.
 			discreteFourier<Inverse, false, Orthogonal>(
-				forwardRange(evenFourier.begin(), evenFourier.end()),
+				range(evenFourier.begin(), evenFourier.end()),
 				evenFourier.begin());
 
 			// Find out the Fourier transformation
 			// of the odd-index subsequence.
 			discreteFourier<Inverse, false, Orthogonal>(
-				forwardRange(oddFourier.begin(), oddFourier.end()),
+				range(oddFourier.begin(), oddFourier.end()),
 				oddFourier.begin());
 
 			// Combine the results

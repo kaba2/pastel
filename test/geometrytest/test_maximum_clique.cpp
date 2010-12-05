@@ -52,7 +52,7 @@ namespace
 			std::vector<const Box*> resultSet;
 
 			const Box clique = 
-				maximumClique(forwardRange(boxSet), boxType,
+				maximumClique(range(boxSet), boxType,
 				sweepDirection,
 				std::back_inserter(resultSet));
 			TEST_ENSURE(correct.min() == clique.min());

@@ -164,7 +164,7 @@ namespace
 
 		std::vector<real> histogram(bins);
 		computeHistogram(
-			forwardRange(sampleSet.begin(), sampleSet.end()),
+			range(sampleSet.begin(), sampleSet.end()),
 			region.min().x(), region.max().x(), bins,
 			histogram.begin());
 

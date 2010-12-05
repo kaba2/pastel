@@ -3,7 +3,7 @@
 #ifndef PASTEL_SPARSITY_H
 #define PASTEL_SPARSITY_H
 
-#include <boost/iterator_traits.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 
 namespace Pastel
 {

@@ -217,7 +217,7 @@ namespace Pastel
 
 			// Find out the Fourier transformation
 			// of the odd-index subsequence.
-			dft(forwardRange(oddFourier.begin(), oddFourier.end()),
+			dft(range(oddFourier.begin(), oddFourier.end()),
 				oddFourier.begin());
 
 			// Combine the results
@@ -328,7 +328,7 @@ namespace Pastel
 
 			oddFourier.front() *= FirstScaling;
 
-			inverseDft(forwardRange(oddFourier.begin(), oddFourier.end()),
+			inverseDft(range(oddFourier.begin(), oddFourier.end()),
 				oddFourier.begin());
 
 			const integer nHalf = n / 2;

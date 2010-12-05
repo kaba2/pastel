@@ -1991,6 +1991,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\iteratorrange.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\iteratorrange.txt"
 					>
 				</File>

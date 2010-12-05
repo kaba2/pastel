@@ -21,7 +21,7 @@ namespace Pastel
 		const HashFunction& hashFunction)
 	{
 		return Pastel::partialHashMany(
-			forwardRange(that.begin(), that.end()),
+			range(that.begin(), that.end()),
 			currentHash, hashFunction);
 	}
 

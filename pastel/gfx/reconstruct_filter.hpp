@@ -206,7 +206,7 @@ namespace Pastel
 		}
 
 		kdTree.insert(
-			forwardRange(dataPointList.begin(), dataPointList.end()));
+			range(dataPointList.begin(), dataPointList.end()));
 
 		kdTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 
