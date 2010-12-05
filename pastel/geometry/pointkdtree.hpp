@@ -62,7 +62,7 @@ namespace Pastel
 		copyConstruct(root_, that.root_);
 
 		// Then insert the points into the nodes.
-		insert(forwardRange(
+		insert(range(
 			that.pointBegin(), that.pointEnd()));
 
 		// Commit the insertions.

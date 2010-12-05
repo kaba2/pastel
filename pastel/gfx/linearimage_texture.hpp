@@ -52,7 +52,7 @@ namespace Pastel
 		}
 
 		return linear(st, 
-			randomAccessRange(valueSet.begin(), valueSet.end()));
+			range(valueSet.begin(), valueSet.end()));
 	}
 
 }

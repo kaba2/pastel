@@ -60,3 +60,28 @@ A random-access iterator range is a bidirectional iterator range.
 Similarly, a bidirectional iterator range is a forward iterator range.
 This is reflected in RandomAccessRange class being derived
 from BidirectionalRange which is in turn being derived from ForwardRange.
+
+Construction
+------------
+
+Iterator ranges can be constructed from an iterator pair, an
+iterator and a size, or a native array, by using the `range()` 
+functions in [[FileLink: iteratorrange.h]]. Using meta-programming, 
+the function's return type is determined appropriately from the 
+iterator's type, i.e., if the passed-in iterator is a bidirectional 
+iterator, then a bidirectional range is returned. For example:
+
+[[CppCode]]:
+	std::vector<real> inputSet(8, 1);
+	dct(range(inputSet.begin(), inputSet.end()));
+
+	real otherSet[8];
+	dct(range(otherSet));
+
+If a data structure in Pastel exposes a `begin()` and `end()` sequence 
+iterator interface, then it also exposes a corresponding iterator range
+`range()` member function. For example, [Array][Array] does this.
+
+[Array]: [[Ref]]: array.txt
+
+

@@ -3,7 +3,7 @@
 
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/randomaccessrange.h"
+#include "pastel/sys/iteratorrange.h"
 
 namespace Pastel
 {

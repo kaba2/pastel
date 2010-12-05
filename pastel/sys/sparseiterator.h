@@ -6,7 +6,7 @@
 #define PASTEL_SPARSEITERATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/randomaccessrange.h"
+#include "pastel/sys/iteratorrange.h"
 
 #include <boost/operators.hpp>
 #include <boost/type_traits/is_convertible.hpp>
@@ -226,7 +226,7 @@ namespace Pastel
 	{
 		PENSURE_OP(delta, >=, 1);
 
-		return randomAccessRange(
+		return range(
 			sparseIterator(begin, delta),
 			sparseEnd(begin, end, delta));
 	}
@@ -238,7 +238,7 @@ namespace Pastel
 	{
 		PENSURE_OP(delta, >=, 1);
 
-		return randomAccessRange(
+		return range(
 			constSparseIterator(begin, delta),
 			constSparseEnd(begin, end, delta));
 	}

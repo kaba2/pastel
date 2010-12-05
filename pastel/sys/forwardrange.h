@@ -162,42 +162,6 @@ namespace Pastel
 		mutable integer size_;
 	};
 
-	template <typename Iterator>
-	ForwardRange<Iterator> forwardRange(
-		const Iterator& begin)
-	{
-		return ForwardRange<Iterator>(begin, 1);
-	}
-
-	template <typename Iterator>
-	ForwardRange<Iterator> forwardRange(
-		const Iterator& begin, const Iterator& end)
-	{
-		return ForwardRange<Iterator>(begin, end);
-	}
-
-	template <typename Iterator>
-	ForwardRange<Iterator> forwardRange(
-		const Iterator& begin, integer size)
-	{
-		return ForwardRange<Iterator>(begin, size);
-	}
-
-	template <typename Iterator>
-	ForwardRange<Iterator> forwardRange(
-		const Iterator& begin, const Iterator& end, 
-		integer size)
-	{
-		return ForwardRange<Iterator>(begin, end, size);
-	}
-
-	template <typename Type, int N>
-	ForwardRange<Type*> forwardRange(
-		Type (&begin)[N])
-	{
-		return ForwardRange<Type*>(begin, N);
-	}
-
 }
 
 #endif

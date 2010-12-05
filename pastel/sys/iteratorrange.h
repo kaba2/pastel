@@ -1,10 +1,48 @@
-// Description: An aggregate file for iterator ranges.
+// Description: Iterator ranges
 
 #ifndef PASTEL_ITERATORRANGE_H
 #define PASTEL_ITERATORRANGE_H
 
-#include "pastel/sys/forwardrange.h"
-#include "pastel/sys/bidirectionalrange.h"
-#include "pastel/sys/randomaccessrange.h"
+#include "pastel/sys/mytypes.h"
+
+namespace Pastel
+{
+
+	//! Returns the type of the iterator range.
+	template <typename Iterator>
+	class IteratorRange;
+
+	//! Returns an iterator range.
+	template <typename Iterator>
+	typename IteratorRange<Iterator>::type 
+		range(const Iterator& begin, const Iterator& end);
+
+	//! Returns an iterator range.
+	/*!
+	Preconditions:
+	size >= 0
+	*/
+	template <typename Iterator>
+	typename IteratorRange<Iterator>::type 
+		range(const Iterator& begin, integer size);
+
+	//! Returns an iterator range.
+	/*!
+	Preconditions:
+	std::distance(begin, end) == size
+	*/
+	template <typename Iterator>
+	typename IteratorRange<Iterator>::type 
+		range(const Iterator& begin, const Iterator& end,
+		integer size);
+
+	//! Returns an iterator range.
+	template <typename Type, int N>
+	typename IteratorRange<Type*>::type 
+		range(Type (&begin)[N]);
+
+}
+
+#include "pastel/sys/iteratorrange.hpp"
 
 #endif

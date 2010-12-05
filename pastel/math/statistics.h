@@ -6,13 +6,43 @@
 #define PASTEL_STATISTICS_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/forwardrange.h"
+#include "pastel/sys/iteratorrange.h"
 #include "pastel/sys/pointpolicy_concept.h"
+
+#include <boost/iterator/iterator_traits.hpp>
 
 #include <vector>
 
 namespace Pastel
 {
+
+	//! Returns the mean of a number set.
+	template <
+		typename Real,
+		typename Real_ConstIterator>
+	Real numberMean(
+		const ForwardRange<Real_ConstIterator>& inputSet);
+
+	//! Returns the variance of a number set.
+	template <
+		typename Real,
+		typename Real_ConstIterator>
+	Real numberVariance(
+		const ForwardRange<Real_ConstIterator>& inputSet,
+		const PASTEL_NO_DEDUCTION(Real)& mean,
+		bool biased = true);
+
+	//! Returns the covariance between number sets.
+	template <
+		typename Real,
+		typename A_Real_ConstIterator,
+		typename B_Real_ConstIterator>
+	Real numberCovariance(
+		const ForwardRange<A_Real_ConstIterator>& aSet,
+		const PASTEL_NO_DEDUCTION(Real)& aMean,
+		const ForwardRange<B_Real_ConstIterator>& bSet,
+		const PASTEL_NO_DEDUCTION(Real)& bMean,
+		bool biased = true);
 
 	//! Returns the mean of a point set.
 	template <typename Point_ConstIterator, typename PointPolicy>

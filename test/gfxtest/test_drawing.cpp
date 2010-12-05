@@ -55,7 +55,7 @@ namespace
 
 		LinearColor_Texture<Color> smooth =
 			linearColorTexture<Color, 2>(
-			randomAccessRange(colorSet));
+			range(colorSet));
 
 		testTextureCase(
 			mixTexture(

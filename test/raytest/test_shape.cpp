@@ -70,7 +70,7 @@ namespace
 						const Color color = 
 							linear(
 							evaluate(mod(local.q * Vector2(5, 10))),
-							randomAccessRange(colorSet));
+							range(colorSet));
 
 						image(x, y) = color;
 					}

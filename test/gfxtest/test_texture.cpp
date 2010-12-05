@@ -205,7 +205,7 @@ namespace
 		drawTexturedBox(
 			AlignedBox2(0, 400, 100, 500),
 			linearColorTexture<Color, 2>(
-				randomAccessRange(colorSet)),
+				range(colorSet)),
 			arrayView(image));
 
 		drawTexturedBox(

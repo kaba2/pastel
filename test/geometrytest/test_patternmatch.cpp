@@ -48,7 +48,7 @@ namespace
 
 		const Sphere2 sceneSphere =
 			boundingSphere(
-			forwardRange(sceneSet.begin(), sceneSet.end()),
+			range(sceneSet.begin(), sceneSet.end()),
 			Vector_PointPolicy2());
 
 		const AlignedBox2 viewWindow = 
@@ -171,11 +171,11 @@ namespace
 
 		SceneTree sceneTree;
 		sceneTree.insert(
-			forwardRange(sceneSet.begin(), sceneSet.end()));
+			range(sceneSet.begin(), sceneSet.end()));
 
 		ModelTree modelTree;
 		modelTree.insert(
-			forwardRange(modelSet.begin(), modelSet.end()));
+			range(modelSet.begin(), modelSet.end()));
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
@@ -282,8 +282,8 @@ namespace
 
 		ConformalAffine2 similarity;
 		const bool success = pointPatternMatch(
-			forwardRange(sceneSet.begin(), sceneSet.end()),
-			forwardRange(modelSet.begin(), modelSet.end()),
+			range(sceneSet.begin(), sceneSet.end()),
+			range(modelSet.begin(), modelSet.end()),
 			1,  minDistance,
 			0.99,
 			similarity);
@@ -432,8 +432,8 @@ namespace
 
 		ConformalAffine2 similarity;
 		const bool success = pointPatternMatch(
-			forwardRange(sparseIterator(countingIterator(&M[0]), 2), mPoints),
-			forwardRange(sparseIterator(countingIterator(&S[0]), 2), sPoints),
+			range(sparseIterator(countingIterator(&M[0]), 2), mPoints),
+			range(sparseIterator(countingIterator(&S[0]), 2), sPoints),
 			0.6, 0.03, 0.95, similarity,
 			Array_PointPolicy2(),
 			Array_PointPolicy2());

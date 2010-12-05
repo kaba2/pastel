@@ -86,7 +86,7 @@ namespace
 
 			Texture<Spectrum>::Ptr texture(
 				new LinearColor_Texture<Spectrum>(
-				randomAccessRange(colorSet)));
+				range(colorSet)));
 			*/
 
 			Diffuse_MaterialPtr material =
@@ -113,12 +113,12 @@ namespace
 			Set_ThingPtr setThing = 
 				Set_ThingPtr(new Set_Thing);
 			setThing->insert(
-				forwardRange(thingSet.begin(), thingSet.end()));			
+				range(thingSet.begin(), thingSet.end()));			
 			*/
 			KdTree_ThingPtr setThing =
 				KdTree_ThingPtr(new KdTree_Thing);
 			setThing->insert(
-				forwardRange(thingSet.begin(), thingSet.end()));
+				range(thingSet.begin(), thingSet.end()));
 			setThing->refine();
 
 			LensPtr lens = LensPtr(new Pinhole_Lens);

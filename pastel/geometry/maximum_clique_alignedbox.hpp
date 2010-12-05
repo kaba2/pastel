@@ -577,7 +577,7 @@ namespace Pastel
 			Event_ConstIterator cliqueIter = 
 				findMaximumClique(
 				tree.root(),
-				forwardRange(maxDirectionSet.begin(), 
+				range(maxDirectionSet.begin(), 
 				maxDirectionSet.end()));
 
 			const Real xMin = cliqueIter->key().position;

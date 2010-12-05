@@ -91,7 +91,7 @@ namespace Pastel
 
 			// Compute the transform for the temporary.
 			Hadamard_Detail::hadamardInplace(
-				randomAccessRange(transform.begin(), transform.end()),
+				range(transform.begin(), transform.end()),
 				orthogonal, false);
 
 			// Copy the temporary to the output.
@@ -111,7 +111,7 @@ namespace Pastel
 			{
 				// Do the transform in-place.
 				Hadamard_Detail::hadamardInplace(
-					randomAccessRange(inputOutput.begin(), inputOutput.end()),
+					range(inputOutput.begin(), inputOutput.end()),
 					orthogonal, false);
 			}
 			else
@@ -139,7 +139,7 @@ namespace Pastel
 
 			// Compute the inverse transform for the temporary.
 			Hadamard_Detail::hadamardInplace(
-				randomAccessRange(transform.begin(), transform.end()),
+				range(transform.begin(), transform.end()),
 				orthogonal, true);
 
 			// Copy the temporary to the output.
@@ -159,7 +159,7 @@ namespace Pastel
 			{
 				// Do the transform in-place.
 				Hadamard_Detail::hadamardInplace(
-					randomAccessRange(inputOutput.begin(), inputOutput.end()),
+					range(inputOutput.begin(), inputOutput.end()),
 					orthogonal, true);
 			}
 			else

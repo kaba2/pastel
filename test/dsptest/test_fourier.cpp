@@ -123,10 +123,10 @@ namespace
 			const integer n = input.size();
 
 			std::vector<std::complex<real> > output(n);
-			dft(forwardRange(input.begin(), input.end()),
+			dft(range(input.begin(), input.end()),
 				output.begin());
 			inverseDft(
-				forwardRange(output.begin(), output.end()),
+				range(output.begin(), output.end()),
 				output.begin());
 
 			for (integer i = 0;i < n;++i)
@@ -137,10 +137,10 @@ namespace
 				}
 			}
 
-			unitaryDft(forwardRange(input.begin(), input.end()),
+			unitaryDft(range(input.begin(), input.end()),
 				output.begin());
 			inverseUnitaryDft(
-				forwardRange(output.begin(), output.end()),
+				range(output.begin(), output.end()),
 				output.begin());
 
 			for (integer i = 0;i < n;++i)
@@ -157,7 +157,7 @@ namespace
 		template <int N>
 		bool testDft(const real (&input)[N])
 		{
-			return testDft(randomAccessRange(input));
+			return testDft(range(input));
 		}
 
 		template <
@@ -173,7 +173,7 @@ namespace
 
 			std::vector<real> output(input.begin(), input.end());
 			transform(
-				forwardRange(output.begin(), output.end()));
+				range(output.begin(), output.end()));
 
 			/*
 			std::cout << "Input: " << std::endl;
@@ -190,7 +190,7 @@ namespace
 			*/
 
 			inverse(
-				forwardRange(output.begin(), output.end()));
+				range(output.begin(), output.end()));
 
 			for (integer i = 0;i < n;++i)
 			{
@@ -206,7 +206,7 @@ namespace
 		template <int N>
 		bool testDct(const real (&input)[N])
 		{
-			return testDct(randomAccessRange(input));
+			return testDct(range(input));
 		}
 
 		template <typename Complex_Iterator>
@@ -225,7 +225,7 @@ namespace
 		template <int N>
 		bool testHaar(const real (&input)[N])
 		{
-			return testHaar(randomAccessRange(input));
+			return testHaar(range(input));
 		}
 
 		template <typename Complex_Iterator>
@@ -244,7 +244,7 @@ namespace
 		template <int N>
 		bool testHadamard(const real (&input)[N])
 		{
-			return testHadamard(randomAccessRange(input));
+			return testHadamard(range(input));
 		}
 
 		template <typename Complex_Iterator>
@@ -273,8 +273,8 @@ namespace
 					input.push_back(random<real>(-1, 1));
 				}
 
-				testDct(randomAccessRange(input.begin(), input.end()));
-				testDft(randomAccessRange(input.begin(), input.end()));
+				testDct(range(input.begin(), input.end()));
+				testDft(range(input.begin(), input.end()));
 			}			
 		}
 

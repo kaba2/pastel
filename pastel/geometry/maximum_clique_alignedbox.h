@@ -3,7 +3,7 @@
 #ifndef PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 #define PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
-#include "pastel/sys/forwardrange.h"
+#include "pastel/sys/iteratorrange.h"
 
 #include <vector>
 #include <iterator>

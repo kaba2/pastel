@@ -56,42 +56,6 @@ namespace Pastel
 		}
 	};
 
-	template <typename Iterator>
-	RandomAccessRange<Iterator> randomAccessRange(
-		const Iterator& begin)
-	{
-		return RandomAccessRange<Iterator>(begin, 1);
-	}
-
-	template <typename Iterator>
-	RandomAccessRange<Iterator> randomAccessRange(
-		const Iterator& begin, const Iterator& end)
-	{
-		return RandomAccessRange<Iterator>(begin, end);
-	}
-
-	template <typename Iterator>
-	RandomAccessRange<Iterator> randomAccessRange(
-		const Iterator& begin, integer size)
-	{
-		return RandomAccessRange<Iterator>(begin, size);
-	}
-
-	template <typename Iterator>
-	RandomAccessRange<Iterator> randomAccessRange(
-		const Iterator& begin, const Iterator& end, 
-		integer size)
-	{
-		return RandomAccessRange<Iterator>(begin, end, size);
-	}
-
-	template <typename Type, int N>
-	RandomAccessRange<Type*> randomAccessRange(
-		Type (&begin)[N])
-	{
-		return RandomAccessRange<Type*>(begin, N);
-	}
-
 }
 
 #endif

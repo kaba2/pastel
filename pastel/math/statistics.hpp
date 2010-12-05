@@ -11,6 +11,102 @@
 namespace Pastel
 {
 
+	template <
+		typename Real,
+		typename Real_ConstIterator>
+	Real numberMean(
+		const ForwardRange<Real_ConstIterator>& inputSet)
+	{
+		integer n = 0;
+		Real mean = 0;
+
+		Real_ConstIterator iter = inputSet.begin();
+		const Real_ConstIterator end = inputSet.end();
+		while(iter != end)
+		{
+			mean += *iter - mean;
+			++iter;
+			++n;
+		}
+		
+		mean /= n;
+
+		return mean;
+	}
+
+	template <
+		typename Real,
+		typename Real_ConstIterator>
+	Real numberVariance(
+		const ForwardRange<Real_ConstIterator>& inputSet,
+		const PASTEL_NO_DEDUCTION(Real)& mean,
+		bool biased)
+	{
+		integer n = 0;
+		Real variance = 0;
+
+		Real_ConstIterator iter = inputSet.begin();
+		const Real_ConstIterator end = inputSet.end();
+		while(iter != end)
+		{
+			variance += square(*iter - mean);
+			++iter;
+			++n;
+		}
+		
+		if (biased)
+		{
+			variance /= n;
+		}
+		else
+		{
+			variance /= n - 1;
+		}
+
+		return variance;
+	}
+
+	template <
+		typename Real,
+		typename A_Real_ConstIterator,
+		typename B_Real_ConstIterator>
+	Real numberCovariance(
+		const ForwardRange<A_Real_ConstIterator>& aSet,
+		const PASTEL_NO_DEDUCTION(Real)& aMean,
+		const ForwardRange<B_Real_ConstIterator>& bSet,
+		const PASTEL_NO_DEDUCTION(Real)& bMean,
+		bool biased)
+	{
+		integer n = 0;
+		Real covariance = 0;
+
+		A_Real_ConstIterator aIter = aSet.begin();
+		B_Real_ConstIterator bIter = bSet.begin();
+		const A_Real_ConstIterator aEnd = aSet.end();
+		const B_Real_ConstIterator bEnd = bSet.end();
+		while(aIter != aEnd)
+		{
+			PENSURE(bIter != bEnd);
+			covariance += 
+				(*aIter - aMean) * (*bIter - bMean);
+			++aIter;
+			++bIter;
+			++n;
+		}
+		ENSURE(bIter == bEnd);
+		
+		if (biased)
+		{
+			covariance /= n;
+		}
+		else
+		{
+			covariance /= n - 1;
+		}
+
+		return covariance;
+	}
+
 	template <typename Point_ConstIterator, typename PointPolicy>
 	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetMean(

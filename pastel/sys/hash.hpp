@@ -119,7 +119,7 @@ namespace Pastel
 		const HashFunction& hashFunction)
 	{
 		return hashFunction.partialHash(
-			forwardRange((char*)&that, sizeof(const Type*)), 
+			range((char*)&that, sizeof(const Type*)), 
 			currentHash);
 	}
 
@@ -129,7 +129,7 @@ namespace Pastel
 		const HashFunction& hashFunction)
 	{
 		return hashFunction.partialHash(
-			forwardRange((char*)&that, sizeof(Type)),
+			range((char*)&that, sizeof(Type)),
 			currentHash);
 	}
 
@@ -139,7 +139,7 @@ namespace Pastel
 		const HashFunction& hashFunction)
 	{
 		return hashFunction.partialHash(
-			forwardRange(that.data(), that.size() * sizeof(char)),
+			range(that.data(), that.size() * sizeof(char)),
 			currentHash);
 	}
 
@@ -149,7 +149,7 @@ namespace Pastel
 		const HashFunction& hashFunction)
 	{
 		return hashFunction.partialHash(
-			forwardRange((char*)that.data(), 
+			range((char*)that.data(), 
 			that.size() * sizeof(wchar_t)), currentHash);
 	}
 

@@ -103,11 +103,11 @@ void LeastSquares_Gfx_Ui::onRender()
 
 	renderer().setColor(Color(1));
 	const Vector2 meanPoint = pointSetMean(
-		forwardRange(targetSet_.begin(), targetSet_.end()), 
+		range(targetSet_.begin(), targetSet_.end()), 
 		Vector_PointPolicy2());
 	const Vector2 maximalVariance = 
 		largestEigenVector(
-		forwardRange(targetSet_.begin(), targetSet_.end()), 
+		range(targetSet_.begin(), targetSet_.end()), 
 		Vector_PointPolicy2()) * -0.4;
 
 	renderer().setFilled(true);
@@ -120,7 +120,7 @@ void LeastSquares_Gfx_Ui::onRender()
 	VectorD eigenValueSet;
 
 	approximateEigenstructure(
-		forwardRange(targetSet_.begin(), targetSet_.end()),
+		range(targetSet_.begin(), targetSet_.end()),
 		Vector_PointPolicy2(),
 		2,
 		eigenVectorSet,
