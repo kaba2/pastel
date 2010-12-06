@@ -28,10 +28,17 @@ Premake can be downloaded from [here][DownloadPremake]. You might want
 to make it so that it can be invoked from any location, or alternatively 
 just copy it to the Pastel root directory.
 
-### 2. Set the external library directories
+### 2. Install external libraries
+
+See the [dependencies][Dependencies] page.
+
+[Dependencies]: [[Ref]]: dependencies.txt
+
+### 3. Set the external library directories
 
 In the Pastel root directory, open the file `premake4.lua`, and modify
-the directories to external libraries to correspond to your setup:
+the directories to refer to the locations you installed the external 
+libraries at in step 2.
 
 	-- The directory of the Boost library's source code.
 	-- The includes are of the form 'boost/static_assert.hpp'.
@@ -47,7 +54,7 @@ the directories to external libraries to correspond to your setup:
 	glewIncludeDir = "../../external/glew-1.5.7/include"
 	glewLibraryDir = "../../external/glew-1.5.7/lib"
 
-### 3. Generate tool-specific build-scripts using Premake. 
+### 4. Generate tool-specific build-scripts using Premake. 
 
 In the Pastel root directory, type
 
@@ -59,10 +66,10 @@ To see the supported tool-sets, type
 
 	premake4 --help
 
-### 4. Choose configuration and build
+### 5. Choose configuration and build
 	
 Go to the generated directory `build/action/`, where `action`
-is the tool-set you chose in step 2, choose the desired configuration,
+is the tool-set you chose in step 4, choose the desired configuration,
 and start the build.
 
 Configurations

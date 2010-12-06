@@ -41,8 +41,7 @@ namespace Pastel
 		}
 
 		const integer n = image.dimension();
-
-		const integer m = blockExtent.size();
+		const integer m = product(blockExtent);
 
 		typedef ConstSubArray<Real, N> Region;
 		typedef typename Region::ConstIterator ConstIterator;
