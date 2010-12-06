@@ -32,8 +32,8 @@ namespace Pastel
 
 			typedef SparseIterator<Type*> RowIterator;
 			typedef ConstSparseIterator<const Type*> ConstRowIterator;
-			typedef typename IteratorRange<RowIterator> RowRange;
-			typedef typename IteratorRange<ConstRowIterator> ConstRowRange;
+			typedef typename IteratorRange<RowIterator>::type RowRange;
+			typedef typename IteratorRange<ConstRowIterator>::type ConstRowRange;
 
 			typedef Type Element;
 			typedef Type& Reference;
