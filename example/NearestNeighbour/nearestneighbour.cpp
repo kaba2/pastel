@@ -958,7 +958,8 @@ void test()
 		range(querySet.begin(), querySet.end()),
 		0, k,
 		&nearestSet,
-		0, constantRange(infinity<real>(), querySet.size()),
+		(Array<real>*)0, 
+		constantRange(infinity<real>(), querySet.size()),
 		maxRelativeError,
 		normBijection,
 		DepthFirst_SearchAlgorithm_PointKdTree());
@@ -996,8 +997,8 @@ void test()
 	{
 		for (integer j = 0;j < k;++j)
 		{
-			const real* brute = bruteSet(j, i)->rawBegin();
-			const real* nearest = nearestSet(j, i)->point();
+			//const real* brute = bruteSet(j, i)->rawBegin();
+			//const real* nearest = nearestSet(j, i)->point();
 			const real bruteDistance = distance2(*bruteSet(j, i), pointSet[i]);
 			const real nearestDistance = 
 				distance2(nearestSet(j, i)->point(), pointSet[i].rawBegin(), d, Euclidean_NormBijection<real>());
