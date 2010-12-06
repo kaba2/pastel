@@ -92,10 +92,13 @@ solution "Pastel"
 	end
 	
 	-- Determine the Glew library name.
-	-- Note the same file works for both
-	-- 32bit and 64bit development. The
-	-- naming is historical.
-	glewLibrary = "glew32"
+	glewLibrary = "GLEW"
+	if os.get() == "windows" then
+		-- Note the same file works for both
+		-- 32bit and 64bit development. The
+		-- naming is historical.
+		glewLibrary = "glew32"
+	end
 	
 	includeDirectorySet = 
 	{
