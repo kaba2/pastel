@@ -23,7 +23,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		const Manhattan_NormBijection<Real> normBijection;
+		Manhattan_NormBijection<Real> normBijection;
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -36,7 +36,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		const Euclidean_NormBijection<Real> normBijection;
+		Euclidean_NormBijection<Real> normBijection;
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -50,7 +50,7 @@ namespace Pastel
 		const Vector<Real, N>& bPoint,
 		const PASTEL_NO_DEDUCTION(Real)& metric)
 	{
-		const Minkowski_NormBijection<Real> 
+		Minkowski_NormBijection<Real> 
 			normBijection(metric);
 		
 		return normBijection.toNorm(
@@ -64,7 +64,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		const Maximum_NormBijection<Real> normBijection;
+		Maximum_NormBijection<Real> normBijection;
 		
 		return normBijection.toNorm(
 			Pastel::distance2(
@@ -77,7 +77,7 @@ namespace Pastel
 		const Vector<Real, N>& aPoint,
 		const Vector<Real, N>& bPoint)
 	{
-		const Euclidean_NormBijection<Real> normBijection;
+		Euclidean_NormBijection<Real> normBijection;
 
 		return Pastel::distance2(
 			aPoint, bPoint,
