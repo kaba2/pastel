@@ -4,7 +4,11 @@ Build switches
 [[Parent]]: building.txt
 
 Pastel provides several build switches to control the code generation.
-We explain these switches here.
+We explain these switches here. Note that these switches are essentially
+enabled or disabled by the [configuration][Configuration] you use to 
+build Pastel.
+
+[Configuration]: [[Ref]]: building.txt
 
 Global preprocessor switches
 ----------------------------
