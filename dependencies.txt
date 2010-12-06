@@ -25,9 +25,12 @@ External dependencies
 
 Pastel uses a few external libraries which must be installed in order 
 to compile and link all Pastel libraries succesfully. These libraries 
-are listed here.
+are listed here. The version number that follows the library name is 
+the one that the current version of Pastel was used to develop against. 
+This is useful to know in case a later version breaks backward 
+compatibility.
 
-### Boost
+### Boost 1.43
 
 <http://www.boost.org/>
 
@@ -37,7 +40,7 @@ Pastel only uses the template code found in Boost and
 thus requires no linking with object code.
 Boost is licensed under the Boost license.
 
-### SDL (Simple DirectMedia Layer)
+### SDL 1.2
 
 <http://www.libsdl.org/>
 
@@ -58,3 +61,10 @@ Glew is licensed under a modified BSD license.
 Pastel integrates a minimally modified version of the official
 Mersenne Twister source code directly into the PastelSys library. 
 No installation is needed.
+
+### Remark 1.2
+
+<http://kaba.hilvi.org/remark>
+
+The documentation for Pastel is written in Remark. This library is
+not required to build Pastel.
