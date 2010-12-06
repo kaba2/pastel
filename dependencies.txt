@@ -47,7 +47,7 @@ Boost is licensed under the Boost license.
 Pastel refers to SDL's include files in the form `SDL.h`. 
 SDL is licensed under the GNU LGPL.
 
-### Glew (Gl Extension Wrangler)
+### Glew 1.5.7
 
 <http://glew.sourceforge.net/>
 
