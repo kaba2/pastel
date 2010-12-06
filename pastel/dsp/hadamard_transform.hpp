@@ -106,7 +106,7 @@ namespace Pastel
 			bool orthogonal)
 		{
 			if (boost::is_same<
-				boost::iterator_category<Real_Iterator>::type,
+				typename boost::iterator_category<Real_Iterator>::type,
 				std::random_access_iterator_tag>::value)
 			{
 				// Do the transform in-place.
@@ -154,7 +154,7 @@ namespace Pastel
 			bool orthogonal)
 		{
 			if (boost::is_same<
-				boost::iterator_category<Real_Iterator>::type,
+				typename boost::iterator_category<Real_Iterator>::type,
 				std::random_access_iterator_tag>::value)
 			{
 				// Do the transform in-place.
