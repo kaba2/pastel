@@ -4,7 +4,9 @@
 #include "pastel/gfx/gfxrenderer_tools.h"
 
 #include "pastel/sys/math_functions.h"
+
 #include "pastel/math/coordinates.h"
+#include "pastel/math/affinetransformation_tools.h"
 
 namespace Pastel
 {
