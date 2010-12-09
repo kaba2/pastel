@@ -123,6 +123,28 @@ namespace Pastel
 		return *this;
 	}
 
+	Log& Log::operator<<(longlong value)
+	{
+		std::stringstream stream;
+		stream << value;
+		std::string text;
+		stream >> text;
+		(*this) << text;
+
+		return *this;
+	}
+
+	Log& Log::operator<<(ulonglong value)
+	{
+		std::stringstream stream;
+		stream << value;
+		std::string text;
+		stream >> text;
+		(*this) << text;
+
+		return *this;
+	}
+
 	Log& Log::operator<<(float value)
 	{
 		std::stringstream stream;

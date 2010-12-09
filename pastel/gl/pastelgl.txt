@@ -3,4 +3,4 @@ PastelGl
 
 [[Parent]]: pastel.txt
 
-The purpose of PastelGl is to provide tools related to OpenGl.
+_PastelGl_ provides tools that rely on OpenGl.

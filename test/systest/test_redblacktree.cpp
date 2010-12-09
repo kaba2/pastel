@@ -1,5 +1,5 @@
 // Description: Testing for RedBlackTree
-// DocumentationOf: iteratorrange.h
+// DocumentationOf: redblacktree.h
 
 #include "pastelsystest.h"
 

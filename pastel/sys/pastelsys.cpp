@@ -20,29 +20,34 @@ namespace Pastel
 		{
 			using namespace std;
 
-			// Check that:
-			// char is 8 bits
-			// short is 16 bits
-			// int is 32 bits
-
+			// Check that 'char' is 8 bits.
 			PASTEL_STATIC_ASSERT(
 				CHAR_MIN == (-127 - 1) && CHAR_MAX == 127);
 			PASTEL_STATIC_ASSERT(
 				UCHAR_MAX == 0xFF);
 
+			// Check that 'short int' is 16 bits.
 			PASTEL_STATIC_ASSERT(
 				SHRT_MIN == (-32767 - 1) && SHRT_MAX == 32767);
 			PASTEL_STATIC_ASSERT(
 				USHRT_MAX == 0xFFFF);
 
+			// Check that 'int' is 32 bits.
 			PASTEL_STATIC_ASSERT(
 				INT_MIN == (-2147483647 - 1) && INT_MAX == 2147483647);
 			PASTEL_STATIC_ASSERT(
 				UINT_MAX == 0xFFFFFFFF);
 
+			// Check that 'integer' is at least 32 bits wide.
+			PASTEL_STATIC_ASSERT(
+				sizeof(integer) >= sizeof(int32));
+
+			// Check that 'pointer_integer' is of the same size as a pointer.
 			PASTEL_STATIC_ASSERT(
 				sizeof(pointer_integer) == sizeof(void*));
 
+			PASTEL_STATIC_ASSERT(
+				sizeof(uint8) == sizeof(uchar));
 			PASTEL_STATIC_ASSERT(
 				sizeof(uint16) == 2 * sizeof(uint8));
 			PASTEL_STATIC_ASSERT(

@@ -7,6 +7,8 @@
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/pastelomp.h"
 
+#include <cstddef>
+
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/static_assert.hpp>
@@ -86,17 +88,27 @@ namespace Pastel
 	typedef float              real32_ieee;
 	typedef double             real64_ieee;
 
-	// Compile-time decision types
+	//! Abstract integer type
 	/*!
-	'integer' type must be able to hold at least the same
-	numbers as a 32-bit signed native integer.
+	We require that 
+	sizeof(integer) >= sizeof(int32)
 	*/
 	typedef int                integer;
+	
+	//! Abstract real type
+	/*!
+	We require 'real' to be a native floating point
+	type.
+	*/
 	typedef double	           real;
 
-	typedef boost::mpl::if_c<
-		(sizeof(void*) == 4), uint32, uint64>::type 
-		pointer_integer;
+	//! Integer capable of holding an address
+	/*!
+	An object of this type is used to hold a pointer
+	in an integer. Thus we require:
+	sizeof(void*) == sizeof(pointer_integer)
+	*/
+	typedef std::size_t        pointer_integer;
 
 	//! Removes brackets around a type.
 	/*!

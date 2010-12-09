@@ -6,12 +6,12 @@ Iterator ranges
 Theory
 ------
 
-In Pastel, an _iterator range_ is a triple (b, e, d), 
-where b and e are iterators and d is the distance between 
-b and e. The iterators which can be reached from b before
-reaching e are said to _be in the range_. The set of these
-iterators is denoted by [b, e[. Such a range can be 
-described by giving b and either e or d, since e and d 
+In Pastel, an _iterator range_ is a triple `(b, e, d)`, 
+where `b` and `e` are iterators and `d` is the distance between 
+`b` and `e`. The iterators which can be reached from `b` before
+reaching `e` are said to be _in the range_. The set of these
+iterators is denoted by `[b, e[`. Such a range can be 
+described by giving `b` and either `e` or `d`, since `e` and `d` 
 are redundant.
 
 There are three kinds of iterator ranges corresponding to the
