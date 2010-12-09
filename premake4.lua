@@ -23,6 +23,12 @@ outputDirectory = "build/" .. _ACTION
 solution "Pastel"
 
 	language "C++"
+	platforms
+	{
+		"native",
+		"x32",
+		"x64"
+	}
 
 	location(outputDirectory)
 	targetdir(outputDirectory .. "/lib")

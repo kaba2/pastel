@@ -33,6 +33,8 @@ namespace Pastel
 		Log& operator<<(uint value);
 		Log& operator<<(long value);
 		Log& operator<<(ulong value);
+		Log& operator<<(longlong value);
+		Log& operator<<(ulonglong value);
 		Log& operator<<(float value);
 		Log& operator<<(double value);
 		Log& operator<<(void (*function)(Log&));

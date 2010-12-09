@@ -24,17 +24,17 @@ Synthetic data and iterator adapters
 
 In addition to abstracting traversal of data structures, one can
 create synthetic iterators which generate data on the fly.
-Such an iterator is given by the ConstantIterator which represents
+For example, the `ConstantIterator` represents
 a sequence which contains the same constant data everywhere.
-A CountingIterator is an adapter that can be used to dereference the
+A `CountingIterator` is an adapter that can be used to dereference the
 traversed iterator instead of its data. This is useful when you need
 to pass a function a set of iterators whose values to apply some 
-procedure. The NullIterator can be used as a no-op iterator which
+procedure. The `NullIterator` can be used as a no-op iterator which
 sends all the data written to it to oblivion. This is useful when
 you have no need for some result from a function.
-SparseIterator can be used as an adapter to take multiple steps
-instead of one. For example, using SparseIterator in combination
-with the CountingIterator with integers, you are able to generate the
+`SparseIterator` can be used as an adapter to take multiple steps
+instead of one. For example, using `SparseIterator` in combination
+with the `CountingIterator` with integers, you are able to generate the
 integer sequence 3, 5, 7, 9, 11 on the fly.
 
 Low-level nature and templates
