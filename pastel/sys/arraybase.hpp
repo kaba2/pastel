@@ -501,7 +501,8 @@ namespace Pastel
 			const Vector<integer, N>& position, 
 			integer axis)
 		{
-			return rowBegin(position, axis) + extent_[axis];
+			return rowBegin(position, axis) + 
+				(std::ptrdiff_t)extent_[axis];
 		}
 
 		template <typename Type, int N>
