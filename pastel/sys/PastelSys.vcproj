@@ -2002,6 +2002,30 @@
 					RelativePath=".\randomaccessrange.h"
 					>
 				</File>
+				<Filter
+					Name="New iterator ranges"
+					>
+					<File
+						RelativePath=".\array_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\constant_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\finite_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\functor_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\reverse_range.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
