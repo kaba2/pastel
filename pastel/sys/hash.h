@@ -7,6 +7,7 @@
 #include "pastel/sys/iteratorrange.h"
 
 #include <boost/type_traits/is_arithmetic.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 
 #include <string>
 
@@ -97,6 +98,20 @@ namespace Pastel
 		std::size_t operator()(const T& val) const
 		{
 			return computeHash(val);
+		}
+	};
+
+	template <typename Iterator>
+	class IteratorAddress_Hash
+		: public std::unary_function<Iterator, std::size_t>
+	{
+	public:
+		std::size_t operator()(const Iterator& iter) const
+		{
+			typedef typename 
+				boost::iterator_value<Iterator>::type Type;
+
+			return computeHash(&*iter);
 		}
 	};
 
