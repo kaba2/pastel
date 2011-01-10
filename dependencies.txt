@@ -14,21 +14,22 @@ form an acyclic directed graph. Because of this,
 Pastel can be used either in its entirety
 or only as a subset if some functionality is not required.
 The following (transitively reduced) graph summarizes the 
-internal dependencies.
+internal dependencies, as well as external dependencies.
 
 [[Gallery]]:
-	internal_dependencies.png
-	- Internal dependencies between the sub-libraries of Pastel.
+	dependencies.png
+	- Dependencies between the sub-libraries of Pastel.
 
 External dependencies
 ---------------------
 
-Pastel uses a few external libraries which must be installed in order 
-to compile and link all Pastel libraries succesfully. These libraries 
-are listed here. The version number that follows the library name is 
-the one that the current version of Pastel was used to develop against. 
-This is useful to know in case a later version breaks backward 
-compatibility.
+Some, but not all, of the sub-libraries of Pastel are dependent
+on external libraries which must be installed in order to compile 
+and link them. These external libraries are listed here. The detailed 
+dependency relations are visualized in the graph above. The version 
+number that follows the library name is the one that the current 
+version of Pastel was used to develop against. This is useful to know 
+in case a later version breaks backward compatibility.
 
 ### Boost 1.45
 
