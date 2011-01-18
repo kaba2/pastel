@@ -46,13 +46,16 @@ Naming
 	like normal variables.
 
 * Class member variables: `likeThis_`
-	This way it is possible to make a distinction
-	between external variables and member variables.
-	If there is a member variable named `radius_`,
-	then you can use a corresponding variable name `radius`
-	as a constructor parameter. Similarly with other
-	functions where your aim is to directly influence
-	a member variable.
+	This convention avoids naming conflicts between function
+	parameters, the member variables of a class, and the
+	getters of member variables.
+	
+* Template parameters: `LikeThis_`.
+	This convention avoids naming conflicts between template 
+	parameters, class member types, and class member constants.
+	
+* The _user_ of the library must never need to use a name with a 
+trailing underscore.
 
 * Class static variables: `likeThis__`
 
@@ -69,19 +72,27 @@ Naming
 * Getters: `radius()`
 
 * Boolean getters: `empty()`
-	In particular, `is` prefix is not used.
+	In particular, the `is` prefix is not used.
 	Exception: `is` prefix can be used for disambiguation if the
 	property can be interpreted both as a verb and an adjective.
 	For example: `open` -> `isOpen`
 
 * Collections: `shapeSet`. In particular, the plural `shapes` is
-not used, because it collides with quantities.
+not used, because it collides with quantities. In addition, more
+detailed suffixes such as `Array` or `List` are not used. This
+allows to change the type of the container easily, say, when it 
+is noticed during development that a list is needed instead of an 
+array.
 
 * Quantities: `shapes`, `leaves`.
 
 * Derived class of an abstract class: `LikeThis_BaseClass`.
 For example, if `Filter` is an abstract class, then `Gaussian_Filter`
 could be one of its derived classes.
+
+* A class modeling a concept: `ClassName_ConceptName`.
+For example, if `NormBijection` is a concept, then 
+`Euclidean_NormBijection` could be one of its models.
 
 * When using the Curiously Recurring Template Pattern with the
 class `MyClass`, name the super class `MyClassBase`
@@ -122,13 +133,6 @@ no better name.
 
 Classes
 -------
-
-* Always use classes, never use structs. Classes and structs
-are equivalent, except that classes assume private access, and
-structs assume public access. When types are forward-declared,
-it is convenient not being required to remember if the type was 
-a struct or a class. Out of the default behaviours, the one for 
-the classes is the better one since it encourages hiding.
 
 * Specify class member variables private.
 
