@@ -43,7 +43,8 @@ namespace Pastel
 
 		if (iter == data_.end())
 		{
-			iter = data_.insert(std::make_pair(key, boost::any(std::vector<Type>()))).first;
+			iter = data_.insert(std::make_pair(key, 
+				boost::any(std::vector<Type>()))).first;
 		}
 
 		std::vector<Type>& valueList = writePropertyList<Type>(iter);
@@ -51,19 +52,30 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	const Type& Config::property(const std::string& key) const
+	const Type& Config::property(
+		const std::string& key,
+		const PASTEL_NO_DEDUCTION(Type)& defaultValue) const
 	{
-		return propertyList<Type>(key)[0];
+		return property<Type>(
+			data_.find(key), defaultValue);
 	}
 
 	template <typename Type>
-	const Type& Config::property(const ConstIterator& iter) const
+	const Type& Config::property(
+		const ConstIterator& iter,
+		const PASTEL_NO_DEDUCTION(Type)& defaultValue) const
 	{
-		return property<Type>(iter->first);
+		if (iter == data_.end())
+		{
+			return defaultValue;
+		}
+
+		return propertyList<Type>(iter).front();
 	}
 
 	template <typename Type>
-	const std::vector<Type>& Config::propertyList(const std::string& key) const
+	const std::vector<Type>& Config::propertyList(
+		const std::string& key) const
 	{
 		const ConstIterator iter = data_.find(key);
 		const bool propertyExists = (iter != data_.end());
@@ -74,7 +86,8 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	const std::vector<Type>& Config::propertyList(const ConstIterator& iter) const
+	const std::vector<Type>& Config::propertyList(
+		const ConstIterator& iter) const
 	{
 		const std::vector<Type>* correctType =
 			boost::any_cast<std::vector<Type> >(&iter->second);
@@ -86,13 +99,15 @@ namespace Pastel
 	// Private
 
 	template <typename Type>
-	std::vector<Type>& Config::writePropertyList(const std::string& key)
+	std::vector<Type>& Config::writePropertyList(
+		const std::string& key)
 	{
 		return (std::vector<Type>&)((const Config*)this)->propertyList<Type>(key);
 	}
 
 	template <typename Type>
-	std::vector<Type>& Config::writePropertyList(const ConstIterator& iter)
+	std::vector<Type>& Config::writePropertyList(
+		const ConstIterator& iter)
 	{
 		return (std::vector<Type>&)((const Config*)this)->propertyList<Type>(iter);
 	}

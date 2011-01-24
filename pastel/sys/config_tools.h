@@ -5,6 +5,8 @@
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/config.h"
+#include "pastel/sys/configfile.h"
+#include "pastel/sys/forwardrange.h"
 
 #include <string>
 #include <vector>
@@ -12,16 +14,14 @@
 namespace Pastel
 {
 
-	PASTELSYS bool checkCreated(
+	template <typename String_ConstIterator>
+	bool checkCreated(
 		const Config& config,
-		const std::vector<std::string>& propertyList,
+		const ForwardRange<String_ConstIterator>& propertySet,
 		bool reportMissing = true);
 
-	PASTELSYS void createPropertyList(
-		const char** propertyArray,
-		integer properties,
-		std::vector<std::string>& propertyList);
-
 }
+
+#include "pastel/sys/config_tools.hpp"
 
 #endif

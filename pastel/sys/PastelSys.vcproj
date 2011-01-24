@@ -403,6 +403,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\griditerator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\subarray.h"
 					>
 				</File>
@@ -1701,6 +1705,10 @@
 			</File>
 			<File
 				RelativePath=".\config_tools.h"
+				>
+			</File>
+			<File
+				RelativePath=".\config_tools.hpp"
 				>
 			</File>
 			<File
