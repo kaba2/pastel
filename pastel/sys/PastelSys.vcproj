@@ -504,7 +504,7 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Small associative containers"
+				Name="Small containers"
 				>
 				<File
 					RelativePath=".\small_containers.txt"
@@ -2267,7 +2267,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\greaterthan.h"
+					>
+				</File>
+				<File
 					RelativePath=".\lessequal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\lessthan.h"
 					>
 				</File>
 				<File
@@ -2286,26 +2294,6 @@
 					RelativePath=".\relationalgorithms.h"
 					>
 				</File>
-				<Filter
-					Name="OrderRelationAlgorithm concept"
-					>
-					<File
-						RelativePath=".\greaterthan.h"
-						>
-					</File>
-					<File
-						RelativePath=".\lessthan.h"
-						>
-					</File>
-					<File
-						RelativePath=".\orderrelationalgorithm.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\orderrelationalgorithm_concept.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -2438,6 +2426,10 @@
 					RelativePath=".\randomaccessiterator_range.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Algorithms"
+				>
 			</Filter>
 		</Filter>
 	</Files>

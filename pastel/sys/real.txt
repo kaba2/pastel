@@ -6,6 +6,8 @@ Real numbers
 Theory
 ------
 
+### Field
+
 A _field_ is a triple ''(F, +, *)'', where
 
  * ''(F, +)'' is a commutative group with the identity element ''0''.
@@ -18,6 +20,8 @@ A _field_ is a triple ''(F, +, *)'', where
  
 Examples of fields include rational numbers, real numbers, complex numbers, and
 finite fields. 
+
+### Ordered field
  
 An _ordered field_ is a tuple ''((F, +, *), <=)'', where 
 
@@ -30,6 +34,8 @@ An _ordered field_ is a tuple ''((F, +, *), <=)'', where
  * ''forall x, y in F: 0 <= x and 0 <= y => 0 <= xy''
  
 Examples of ordered fields include rational numbers and real numbers.
+
+### Affinely extended ordered field
 
 An _affinely extended ordered field_ is a tuple 
 ''((F uu {-oo, +oo}, +, *), <=)'', where

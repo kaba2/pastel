@@ -3,9 +3,6 @@ Linked list
 
 [[Parent]]: data_structures.txt
 
-Motivation
-----------
-
 `FastList` is an almost-standards-conforming implementation of
 the C++ Standard Library `std::list`. The only place where it
 differs is in that of enhancing the [allocator support][Allocator].

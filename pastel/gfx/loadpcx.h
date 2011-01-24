@@ -1,4 +1,5 @@
 // Description: Loading of images in PCX format
+// Documentation: pcx.txt
 
 #ifndef PASTEL_LOADPCX_H
 #define PASTEL_LOADPCX_H

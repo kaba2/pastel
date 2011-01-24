@@ -1,5 +1,5 @@
 // Description: Testing for iterators
-// DocumentationOf: iterator.txt
+// DocumentationOf: iterators.txt
 
 #include "pastelsystest.h"
 

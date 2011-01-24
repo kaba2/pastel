@@ -3,9 +3,6 @@ Small associative containers
 
 [[Parent]]: data_structures.txt
 
-Practice
---------
-
 [Binary trees][Binary] and [hash tables][Hash] provide excellent
 performance for associative searches and are appropriate most
 of the time. However, when the number of stored elements is 

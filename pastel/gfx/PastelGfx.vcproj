@@ -691,6 +691,10 @@
 		<Filter
 			Name="Image files"
 			>
+			<File
+				RelativePath=".\image_files.txt"
+				>
+			</File>
 			<Filter
 				Name="Pcx"
 				>
@@ -708,6 +712,10 @@
 				</File>
 				<File
 					RelativePath=".\pcx.h"
+					>
+				</File>
+				<File
+					RelativePath=".\pcx.txt"
 					>
 				</File>
 				<File

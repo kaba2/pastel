@@ -3,9 +3,6 @@ Hash tables
 
 [[Parent]]: data_structures.txt
 
-Theory
-------
-
 _Hashing_ is a technique which allows for constant-time associative 
 searches in many practical cases. The hash tables in Pastel 
 implement, except for a differing [allocator model][Allocator], 

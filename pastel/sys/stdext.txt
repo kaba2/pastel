@@ -3,9 +3,6 @@ Stl extensions
 
 [[Parent]]: basic_algorithms.txt
 
-Practice
---------
-
 There are several obvious algorithms that should have been included
 in the set of algorithms provided by the C++ Standard Library, such
 as copy_n and the destruction of a range of objects.
