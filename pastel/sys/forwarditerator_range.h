@@ -1,9 +1,9 @@
-// Description: ForwardRange class
+// Description: ForwardIterator_Range class
 // Detail: Forward iterator range
 // Documentation: iteratorrange.txt
 
-#ifndef PASTEL_FORWARDRANGE_H
-#define PASTEL_FORWARDRANGE_H
+#ifndef PASTEL_FORWARDITERATOR_RANGE_H
+#define PASTEL_FORWARDITERATOR_RANGE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
@@ -17,8 +17,8 @@ namespace Pastel
 {
 
 	template <typename Iterator>
-	class ForwardRange
-		: boost::equality_comparable<ForwardRange<Iterator> >
+	class ForwardIterator_Range
+		: boost::equality_comparable<ForwardIterator_Range<Iterator> >
 	{
 	protected:
 		enum
@@ -34,14 +34,14 @@ namespace Pastel
 		typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
 		typedef Iterator iterator;
 		
-		ForwardRange()
+		ForwardIterator_Range()
 			: begin_()
 			, end_()
 			, size_(0)
 		{
 		}
 
-		ForwardRange(
+		ForwardIterator_Range(
 			const Iterator& begin,
 			const Iterator& end,
 			integer size)
@@ -53,7 +53,7 @@ namespace Pastel
 			PENSURE((size == 0) == (begin == end));
 		}
 
-		ForwardRange(
+		ForwardIterator_Range(
 			const Iterator& begin,
 			const Iterator& end)
 			: begin_(begin)
@@ -62,7 +62,7 @@ namespace Pastel
 		{
 		}
 
-		ForwardRange(
+		ForwardIterator_Range(
 			const Iterator& begin,
 			integer size)
 			: begin_(begin)
@@ -71,7 +71,7 @@ namespace Pastel
 		{
 		}
 
-		void swap(ForwardRange& that)
+		void swap(ForwardIterator_Range& that)
 		{
 			using std::swap;
 			swap(begin_, that.begin_);
@@ -92,7 +92,7 @@ namespace Pastel
 			size_ = 0;
 		}
 
-		bool operator==(const ForwardRange& that) const
+		bool operator==(const ForwardIterator_Range& that) const
 		{
 			if (begin_ == that.begin_)
 			{

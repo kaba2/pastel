@@ -7,7 +7,7 @@ namespace Pastel
 {
 	
 	template <typename ThingPtr_Iterator>
-	void KdTree_Thing::insert(const ForwardRange<ThingPtr_Iterator>& thingSet)
+	void KdTree_Thing::insert(const ForwardIterator_Range<ThingPtr_Iterator>& thingSet)
 	{
 		kdTree_.insert(thingSet.begin(), thingSet.end());
 	}

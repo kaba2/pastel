@@ -34,10 +34,10 @@ namespace
 				a.push_back(i);
 			}
 
-			ForwardRange<Iterator> r(
+			ForwardIterator_Range<Iterator> r(
 				a.begin(), a.end());
 
-			ForwardRange<Iterator> s(
+			ForwardIterator_Range<Iterator> s(
 				a.begin(), a.end(), a.size());
 
 			TEST_ENSURE(r == s);

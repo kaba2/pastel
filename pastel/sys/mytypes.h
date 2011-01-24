@@ -45,7 +45,7 @@
 	{ \
 	public: \
 		template <typename Iterator> \
-		void operator()(const ForwardRange<Iterator>& range) const \
+		void operator()(const ForwardIterator_Range<Iterator>& range) const \
 		{ \
 			FunctionName(range); \
 		} \

@@ -9,7 +9,7 @@ namespace Pastel
 	template <typename String_ConstIterator>
 	bool checkCreated(
 			const Config& config,
-			const ForwardRange<String_ConstIterator>& propertySet,
+			const ForwardIterator_Range<String_ConstIterator>& propertySet,
 			bool reportMissing)
 	{
 		bool allFound = true;

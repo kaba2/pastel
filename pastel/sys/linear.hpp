@@ -12,7 +12,7 @@ namespace Pastel
 		template <typename Type, int N, typename Iterator>
 		Type linear(
 			const Vector<real, N>& position,
-			const RandomAccessRange<Iterator>& data, 
+			const RandomAccessIterator_Range<Iterator>& data, 
 			integer index,
 			integer axis)
 		{
@@ -39,7 +39,7 @@ namespace Pastel
 	template <int N, typename Iterator>
 	typename std::iterator_traits<Iterator>::value_type linear(
 		const Vector<real, N>& position,
-		const RandomAccessRange<Iterator>& data)
+		const RandomAccessIterator_Range<Iterator>& data)
 	{
 		typedef typename std::iterator_traits<Iterator>::value_type
 			Type;

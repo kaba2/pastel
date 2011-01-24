@@ -18,7 +18,7 @@ namespace Pastel
 		virtual ~KdTree_Thing();
 
 		template <typename ThingPtr_Iterator>
-		void insert(const ForwardRange<ThingPtr_Iterator>& thingSet);
+		void insert(const ForwardIterator_Range<ThingPtr_Iterator>& thingSet);
 
 		void refine();
 

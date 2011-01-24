@@ -19,7 +19,7 @@ namespace Pastel
 
 		template <typename ThingPtr_Iterator>
 		void insert(
-			const ForwardRange<ThingPtr_Iterator>& thingSet);
+			const ForwardIterator_Range<ThingPtr_Iterator>& thingSet);
 
 		virtual AlignedBox3 bound() const;
 

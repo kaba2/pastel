@@ -23,7 +23,7 @@ namespace Pastel
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
 	void dft(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
 	//! Computes a discrete Fourier transform.
@@ -34,7 +34,7 @@ namespace Pastel
 	*/
 	template <typename Complex_Iterator>
 	void dft(
-		const ForwardRange<Complex_Iterator>& inputOutput);
+		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(dft, Dft);
 
@@ -46,7 +46,7 @@ namespace Pastel
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
 	void unitaryDft(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
 	//! Computes a unitary discrete Fourier transform.
@@ -57,7 +57,7 @@ namespace Pastel
 	*/
 	template <typename Complex_Iterator>
 	void unitaryDft(
-		const ForwardRange<Complex_Iterator>& inputOutput);
+		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(unitaryDft, UnitaryDft);
 
@@ -69,7 +69,7 @@ namespace Pastel
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
 	void inverseDft(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
 	//! Computes an inverse discrete Fourier transform.
@@ -80,7 +80,7 @@ namespace Pastel
 	*/
 	template <typename Complex_Iterator>
 	void inverseDft(
-		const ForwardRange<Complex_Iterator>& inputOutput);
+		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseDft, InverseDft);
 
@@ -92,7 +92,7 @@ namespace Pastel
 
 	template <typename Complex_ConstIterator, typename Complex_Iterator>
 	void inverseUnitaryDft(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output);
 
 	//! Computes an inverse unitary discrete Fourier transform.
@@ -103,7 +103,7 @@ namespace Pastel
 	*/
 	template <typename Complex_Iterator>
 	void inverseUnitaryDft(
-		const ForwardRange<Complex_Iterator>& inputOutput);
+		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseUnitaryDft, InverseUnitaryDft);
 

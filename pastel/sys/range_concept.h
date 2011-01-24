@@ -12,7 +12,7 @@ namespace Pastel
 	namespace Range_Concept
 	{
 
-		class ForwardRange
+		class ForwardIterator_Range
 		{
 		public:
 			// The type of the contained elements.
@@ -25,7 +25,7 @@ namespace Pastel
 			static const bool Bidirectional = true;
 
 			//! Swaps two ranges.
-			void swap(ForwardRange& that);
+			void swap(ForwardIterator_Range& that);
 
 			//! Returns true if there are no elements in the range.
 			bool empty() const;
@@ -48,8 +48,8 @@ namespace Pastel
 			integer size() const;
 		};
 
-		class BidirectionalRange
-			: public ForwardRange
+		class BidirectionalIterator_Range
+			: public ForwardIterator_Range
 		{
 			//! Removes the last element from the range.
 			/*!
@@ -66,8 +66,8 @@ namespace Pastel
 			reference back() const;
 		};
 
-		class RandomAccessRange
-			: public BidirectionalRange
+		class RandomAccessIterator_Range
+			: public BidirectionalIterator_Range
 		{
 			//! Returns the index:th element.
 			/*!

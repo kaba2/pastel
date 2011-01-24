@@ -48,7 +48,7 @@ namespace Pastel
 	template <int N, typename Iterator>
 	typename std::iterator_traits<Iterator>::value_type linear(
 		const Vector<real, N>& position,
-		const RandomAccessRange<Iterator>& data);
+		const RandomAccessIterator_Range<Iterator>& data);
 
 	//! Return midpoint of two points.
 	/*!

@@ -267,7 +267,7 @@ namespace Pastel
 		template <typename Iterator, typename Direction_Iterator>
 		Iterator findMaximumClique(
 			const Iterator& root,
-			const ForwardRange<Direction_Iterator>& directionSet)
+			const ForwardIterator_Range<Direction_Iterator>& directionSet)
 		{
 			Iterator iter = root;
 			Direction_Iterator directionIter = directionSet.begin();
@@ -364,7 +364,7 @@ namespace Pastel
 		typename AlignedBox_ConstIterator_Iterator>
 		typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
 		MaximumClique_BoxType::Enum boxType,
 		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result)
@@ -640,7 +640,7 @@ namespace Pastel
 	template <typename AlignedBox_ConstIterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
 		MaximumClique_BoxType::Enum boxType,
 		integer sweepDirection)
 	{

@@ -36,7 +36,7 @@ namespace Pastel
 	//! Computes a 32-bit hash value for a sequence of objects.
 	template <typename ConstIterator, typename HashFunction>
 	uint32 computeHashMany(
-		const ForwardRange<ConstIterator>& input,
+		const ForwardIterator_Range<ConstIterator>& input,
 		const HashFunction& hashFunction);
 
 	//! Computes a 32-bit hash value for a sequence of objects.
@@ -47,12 +47,12 @@ namespace Pastel
 	*/
 	template <typename ConstIterator>
 	uint32 computeHashMany(
-		const ForwardRange<ConstIterator>& input);
+		const ForwardIterator_Range<ConstIterator>& input);
 
 	//! Computes a 32-bit partial hash value for a sequence of objects.
 	template <typename ConstIterator, typename HashFunction>
 	uint32 partialHashMany(
-		const ForwardRange<ConstIterator>& input,
+		const ForwardIterator_Range<ConstIterator>& input,
 		uint32 currentHash,
 		const HashFunction& hashFunction);
 
@@ -64,7 +64,7 @@ namespace Pastel
 	*/
 	template <typename ConstIterator>
 	uint32 partialHashMany(
-		const ForwardRange<ConstIterator>& input,
+		const ForwardIterator_Range<ConstIterator>& input,
 		uint32 currentHash);
 
 	//! Computes a 32-bit partial hash value for a pointer.

@@ -17,7 +17,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void hadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes a Hadamard transform.
@@ -27,7 +27,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void hadamard(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(hadamard, Hadamard);
 
@@ -40,7 +40,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseHadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes an inverse Hadamard transform.
@@ -50,7 +50,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void inverseHadamard(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseHadamard, InverseHadamard);
 
@@ -63,7 +63,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void orthogonalHadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes an orthogonal Hadamard transform.
@@ -73,7 +73,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void orthogonalHadamard(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(orthogonalHadamard, OrthogonalHadamard);
 
@@ -86,7 +86,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseOrthogonalHadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes an inverse orthogonal Hadamard transform.
@@ -96,7 +96,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void inverseOrthogonalHadamard(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseOrthogonalHadamard, InverseOrthogonalHadamard);
 

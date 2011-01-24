@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <typename Real_Iterator>
 	typename boost::iterator_value<Real_Iterator>::type
-		sparsity2(const ForwardRange<Real_Iterator>& input)
+		sparsity2(const ForwardIterator_Range<Real_Iterator>& input)
 	{
 		typedef typename boost::iterator_value<Real_Iterator>::type
 			Real;

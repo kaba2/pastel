@@ -100,7 +100,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	RandomAccessRange<ConstantIterator<Type> > constantRange(
+	RandomAccessIterator_Range<ConstantIterator<Type> > constantRange(
 		const Type& that, integer size = 1)
 	{
 		return range(constantIterator(that), size);
