@@ -391,6 +391,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\array_subiterator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\arraybase.h"
 					>
 				</File>
@@ -2010,30 +2014,6 @@
 					RelativePath=".\randomaccessrange.h"
 					>
 				</File>
-				<Filter
-					Name="New iterator ranges"
-					>
-					<File
-						RelativePath=".\array_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\constant_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\finite_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\functor_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\reverse_range.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -2315,6 +2295,22 @@
 				Name="RelationAlgorithm concept"
 				>
 				<File
+					RelativePath=".\equalto.h"
+					>
+				</File>
+				<File
+					RelativePath=".\greaterequal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\lessequal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\notequalto.h"
+					>
+				</File>
+				<File
 					RelativePath=".\relationalgorithm.txt"
 					>
 				</File>
@@ -2322,9 +2318,21 @@
 					RelativePath=".\relationalgorithm_concept.h"
 					>
 				</File>
+				<File
+					RelativePath=".\relationalgorithms.h"
+					>
+				</File>
 				<Filter
 					Name="OrderRelationAlgorithm concept"
 					>
+					<File
+						RelativePath=".\greaterthan.h"
+						>
+					</File>
+					<File
+						RelativePath=".\lessthan.h"
+						>
+					</File>
 					<File
 						RelativePath=".\orderrelationalgorithm.txt"
 						>
@@ -2399,6 +2407,46 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Ranges"
+			>
+			<File
+				RelativePath=".\array_range.h"
+				>
+			</File>
+			<File
+				RelativePath=".\constant_range.h"
+				>
+			</File>
+			<File
+				RelativePath=".\finite_range.h"
+				>
+			</File>
+			<File
+				RelativePath=".\generated_range.h"
+				>
+			</File>
+			<File
+				RelativePath=".\range.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\range_concept.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ranges.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reverse_range.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stream_range.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

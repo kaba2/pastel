@@ -1,8 +1,12 @@
+// Description: Reverse range
+// Documentation: range.txt
+
 #ifndef PASTEL_REVERSE_RANGE_H
 #define PASTEL_REVERSE_RANGE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/range_concept.h"
 
 namespace Pastel
 {

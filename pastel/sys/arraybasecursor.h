@@ -20,6 +20,7 @@ namespace Pastel
 
 		template <typename Type, int N>
 		class ConstCursorBase
+			: boost::equality_comparable<ConstCursorBase<Type, N> >
 		{
 		public:
 			typedef Type Element;
@@ -67,6 +68,11 @@ namespace Pastel
 			{
 				PENSURE(data_);
 				return *data_;
+			}
+
+			bool operator==(const ConstCursorBase& that) const
+			{
+				return data_ == that.data_;
 			}
 
 		protected:
@@ -325,6 +331,12 @@ namespace Pastel
 			{
 				PENSURE(data_);
 				return *((Type*)data_);
+			}
+
+			bool operator==(const CursorBase& that) const
+			{
+				return (const ConstCursorBase&)*this == 
+					(const ConstCursorBase&)that;
 			}
 
 		protected:

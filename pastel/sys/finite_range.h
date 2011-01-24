@@ -1,8 +1,12 @@
+// Description: Finite range
+// Documentation: range.txt
+
 #ifndef PASTEL_FINITE_RANGE_H
 #define PASTEL_FINITE_RANGE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/range_concept.h"
 
 namespace Pastel
 {
@@ -54,14 +58,14 @@ namespace Pastel
 
 		void pop_front()
 		{
-			PENSURE_OP(!empty());
+			PENSURE(!empty());
 			range_.pop_front();
 			--size_;
 		}
 
 		reference front() const
 		{
-			PENSURE_OP(!empty());
+			PENSURE(!empty());
 			return range_.front();
 		}
 
@@ -72,14 +76,14 @@ namespace Pastel
 
 		void pop_back()
 		{
-			PENSURE_OP(!empty());
+			PENSURE(!empty());
 			range_.pop_back();
 			--size_;
 		}
 
 		reference back() const
 		{
-			PENSURE_OP(!empty());
+			PENSURE(!empty());
 			return range_.back();
 		}
 

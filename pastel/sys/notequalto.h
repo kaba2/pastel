@@ -1,0 +1,28 @@
+// Description: Not-equal-to algorithm
+// Documentation: relationalgorithm.txt
+
+#ifndef PASTEL_NOTEQUALTO_H
+#define PASTEL_NOTEQUALTO_H
+
+#include "pastel/sys/relationalgorithm_concept.h"
+
+namespace Pastel
+{
+
+	class NotEqualTo
+	{
+	public:
+		template <
+			typename Left, 
+			typename Right>
+		bool operator()(
+			const Left& left, 
+			const Right& right) const
+		{
+			return left != right;
+		}
+	};
+
+}
+
+#endif

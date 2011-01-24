@@ -12,13 +12,17 @@ namespace Pastel
 		: public RelationAlgorithm_Concept
 	{
 	public:
-		//! Returns whether 'a' relates to 'b'.
+		//! Returns whether 'left' relates to 'right'.
 		/*!
 		The relation must be a strict total order. That is,
 		asymmetric, transitive, and total.
 		*/
-		template <typename A, typename B>
-		bool operator()(const A& a, const B& b);
+		template <
+			typename Left, 
+			typename Right>
+		bool operator()(
+			const Left& left, 
+			const Right& right);
 	};
 
 }
