@@ -1,7 +1,7 @@
 Iterator ranges
 ===============
 
-[[Parent]]: iterators.txt
+[[Parent]]: range.txt
 
 Theory
 ------
@@ -18,6 +18,8 @@ There are three kinds of iterator ranges corresponding to the
 three kinds of iterators, which are forward, bidirectional, and
 random-access, corresponding to the iterator categories in the
 C++ Standard Library.
+
+Each iterator range is also a range.
 
 Describing iterator ranges
 --------------------------
@@ -58,8 +60,8 @@ Hierarchy
 
 A random-access iterator range is a bidirectional iterator range.
 Similarly, a bidirectional iterator range is a forward iterator range.
-This is reflected in RandomAccessRange class being derived
-from BidirectionalRange which is in turn being derived from ForwardRange.
+This is reflected in RandomAccessIterator_Range class being derived
+from BidirectionalIterator_Range which is in turn being derived from ForwardIterator_Range.
 
 Construction
 ------------

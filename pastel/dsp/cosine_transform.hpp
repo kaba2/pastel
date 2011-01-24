@@ -37,7 +37,7 @@ namespace Pastel
 		template <bool Orthogonal, bool ComplexOutput,
 			typename Complex_ConstIterator, typename Complex_Iterator>
 		void discreteCosineSmall(
-			const ForwardRange<Complex_ConstIterator>& input,
+			const ForwardIterator_Range<Complex_ConstIterator>& input,
 			Complex_Iterator output)
 		{
 			using namespace Fourier_Detail;
@@ -155,7 +155,7 @@ namespace Pastel
 		template <bool Orthogonal, bool ComplexOutput,
 			typename Complex_ConstIterator, typename Complex_Iterator>
 		void discreteCosine(
-			const ForwardRange<Complex_ConstIterator>& input,
+			const ForwardIterator_Range<Complex_ConstIterator>& input,
 			Complex_Iterator output)
 		{
 			using namespace Fourier_Detail;
@@ -266,7 +266,7 @@ namespace Pastel
 		template <bool Orthogonal, bool ComplexOutput,
 			typename Complex_ConstIterator, typename Complex_Iterator>
 		void inverseDiscreteCosine(
-			const ForwardRange<Complex_ConstIterator>& input,
+			const ForwardIterator_Range<Complex_ConstIterator>& input,
 			Complex_Iterator output)
 		{
 			using namespace Fourier_Detail;
@@ -347,14 +347,14 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void dct(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Dct_Detail::discreteCosine<false, false>(input, output);
 	}
 
 	template <typename Real_Iterator>
-	void dct(const ForwardRange<Real_Iterator>& inputOutput)
+	void dct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::dct(inputOutput, inputOutput.begin());
 	}
@@ -363,14 +363,14 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseDct(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Dct_Detail::inverseDiscreteCosine<false, false>(input, output);
 	}
 
 	template <typename Real_Iterator>
-	void inverseDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void inverseDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::inverseDct(inputOutput, inputOutput.begin());
 	}
@@ -379,14 +379,14 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void orthogonalDct(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Dct_Detail::discreteCosine<true, false>(input, output);
 	}
 
 	template <typename Real_Iterator>
-	void orthogonalDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void orthogonalDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::orthogonalDct(inputOutput, inputOutput.begin());
 	}
@@ -395,14 +395,14 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseOrthogonalDct(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Dct_Detail::inverseDiscreteCosine<true, false>(input, output);
 	}
 
 	template <typename Real_Iterator>
-	void inverseOrthogonalDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void inverseOrthogonalDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::inverseOrthogonalDct(inputOutput, inputOutput.begin());
 	}
@@ -411,14 +411,14 @@ namespace Pastel
 		typename Complex_ConstIterator, 
 		typename Complex_Iterator>
 	void complexDct(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
 		Dct_Detail::discreteCosine<false, true>(input, output);
 	}
 
 	template <typename Real_Iterator>
-	void complexDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void complexDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::complexDct(inputOutput, inputOutput.begin());
 	}
@@ -427,7 +427,7 @@ namespace Pastel
 		typename Complex_ConstIterator, 
 		typename Complex_Iterator>
 	void inverseComplexDct(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
 		// FIX: Does not work yet.
@@ -438,7 +438,7 @@ namespace Pastel
 	}
 
 	template <typename Real_Iterator>
-	void inverseComplexDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void inverseComplexDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::inverseComplexDct(inputOutput, inputOutput.begin());
 	}
@@ -447,14 +447,14 @@ namespace Pastel
 		typename Complex_ConstIterator, 
 		typename Complex_Iterator>
 	void unitaryDct(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
 		Dct_Detail::discreteCosine<true, true>(input, output);
 	}
 
 	template <typename Real_Iterator>
-	void unitaryDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void unitaryDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::unitaryDct(inputOutput, inputOutput.begin());
 	}
@@ -463,7 +463,7 @@ namespace Pastel
 		typename Complex_ConstIterator, 
 		typename Complex_Iterator>
 	void inverseUnitaryDct(
-		const ForwardRange<Complex_ConstIterator>& input,
+		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
 		// FIX: Does not work yet.
@@ -474,7 +474,7 @@ namespace Pastel
 	}
 
 	template <typename Real_Iterator>
-	void inverseUnitaryDct(const ForwardRange<Real_Iterator>& inputOutput)
+	void inverseUnitaryDct(const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Pastel::inverseUnitaryDct(inputOutput, inputOutput.begin());
 	}

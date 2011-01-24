@@ -50,7 +50,7 @@ namespace Pastel
 	toPointPolicy.dimension(toPointSet[i]) == 
 	toPointPolicy.dimension(toPointSet.front())
 	
-	Note: we are abusing notation here, since ForwardRange
+	Note: we are abusing notation here, since ForwardIterator_Range
 	does not support the [] operator. By [i] we mean here the 
 	i:th element of the range.
 
@@ -78,8 +78,8 @@ namespace Pastel
 	ConformalAffine2D<typename From_PointPolicy::Real, 
 	ResultN<From_PointPolicy::N, To_PointPolicy::N>::N > 
 		lsConformalAffine(
-		const ForwardRange<From_Point_ConstIterator>& from,
-		const ForwardRange<To_Point_ConstIterator>& to,
+		const ForwardIterator_Range<From_Point_ConstIterator>& from,
+		const ForwardIterator_Range<To_Point_ConstIterator>& to,
 		const From_PointPolicy& fromPointPolicy,
 		const To_PointPolicy& toPointPolicy);
 

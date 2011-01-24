@@ -1,21 +1,21 @@
-// Description: RandomAccessRange class
+// Description: RandomAccessIterator_Range class
 // Detail: Random-access iterator range
 // Documentation: iteratorrange.txt
 
-#ifndef PASTEL_RANDOMACCESSRANGE_H
-#define PASTEL_RANDOMACCESSRANGE_H
+#ifndef PASTEL_RANDOMACCESSITERATOR_RANGE_H
+#define PASTEL_RANDOMACCESSITERATOR_RANGE_H
 
-#include "pastel/sys/bidirectionalrange.h"
+#include "pastel/sys/bidirectionaliterator_range.h"
 
 namespace Pastel
 {
 
 	template <typename Iterator>
-	class RandomAccessRange
-		: public BidirectionalRange<Iterator>
+	class RandomAccessIterator_Range
+		: public BidirectionalIterator_Range<Iterator>
 	{
 	private:
-		typedef BidirectionalRange<Iterator> Base;
+		typedef BidirectionalIterator_Range<Iterator> Base;
 
 	public:
 		typedef typename Base::reference 
@@ -23,12 +23,12 @@ namespace Pastel
 		typedef typename Base::size_type 
 			size_type;
 
-		RandomAccessRange()
+		RandomAccessIterator_Range()
 			: Base()
 		{
 		}
 
-		RandomAccessRange(
+		RandomAccessIterator_Range(
 			const Iterator& begin,
 			const Iterator& end,
 			integer size)
@@ -36,14 +36,14 @@ namespace Pastel
 		{
 		}
 
-		RandomAccessRange(
+		RandomAccessIterator_Range(
 			const Iterator& begin,
 			const Iterator& end)
 			: Base(begin, end)
 		{
 		}
 
-		RandomAccessRange(
+		RandomAccessIterator_Range(
 			const Iterator& begin,
 			integer size)
 			: Base(begin, size)

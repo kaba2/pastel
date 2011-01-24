@@ -18,7 +18,7 @@ namespace Pastel
 
 		template <typename Real_Iterator>
 		void hadamardInplace(
-			const RandomAccessRange<Real_Iterator>& input,
+			const RandomAccessIterator_Range<Real_Iterator>& input,
 			bool orthogonal, bool inversion)
 		{
 			typedef typename std::iterator_traits<Real_Iterator>::value_type
@@ -78,7 +78,7 @@ namespace Pastel
 			typename Real_ConstIterator, 
 			typename Real_Iterator>
 		void hadamard(
-			const ForwardRange<Real_ConstIterator>& input,
+			const ForwardIterator_Range<Real_ConstIterator>& input,
 			bool orthogonal,
 			Real_Iterator output)
 		{
@@ -102,7 +102,7 @@ namespace Pastel
 
 		template <typename Real_Iterator>
 		void hadamard(
-			const ForwardRange<Real_Iterator>& inputOutput,
+			const ForwardIterator_Range<Real_Iterator>& inputOutput,
 			bool orthogonal)
 		{
 			if (boost::is_same<
@@ -126,7 +126,7 @@ namespace Pastel
 			typename Real_ConstIterator, 
 			typename Real_Iterator>
 		void inverseHadamard(
-			const ForwardRange<Real_ConstIterator>& input,
+			const ForwardIterator_Range<Real_ConstIterator>& input,
 			bool orthogonal,
 			Real_Iterator output)
 		{
@@ -150,7 +150,7 @@ namespace Pastel
 
 		template <typename Real_Iterator>
 		void inverseHadamard(
-			const ForwardRange<Real_Iterator>& inputOutput,
+			const ForwardIterator_Range<Real_Iterator>& inputOutput,
 			bool orthogonal)
 		{
 			if (boost::is_same<
@@ -176,7 +176,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void hadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Hadamard_Detail::hadamard(
@@ -185,7 +185,7 @@ namespace Pastel
 
 	template <typename Real_Iterator>
 	void hadamard(
-		const ForwardRange<Real_Iterator>& inputOutput)
+		const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Hadamard_Detail::hadamard(
 			inputOutput, false);
@@ -195,7 +195,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseHadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Hadamard_Detail::inverseHadamard(
@@ -204,7 +204,7 @@ namespace Pastel
 
 	template <typename Real_Iterator>
 	void inverseHadamard(
-		const ForwardRange<Real_Iterator>& inputOutput)
+		const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Hadamard_Detail::inverseHadamard(
 			inputOutput, false);
@@ -214,7 +214,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void orthogonalHadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Hadamard_Detail::hadamard(
@@ -223,7 +223,7 @@ namespace Pastel
 
 	template <typename Real_Iterator>
 	void orthogonalHadamard(
-		const ForwardRange<Real_Iterator>& inputOutput)
+		const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Hadamard_Detail::hadamard(
 			inputOutput, true);
@@ -233,7 +233,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseOrthogonalHadamard(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
 		Hadamard_Detail::inverseHadamard(
@@ -242,7 +242,7 @@ namespace Pastel
 
 	template <typename Real_Iterator>
 	void inverseOrthogonalHadamard(
-		const ForwardRange<Real_Iterator>& inputOutput)
+		const ForwardIterator_Range<Real_Iterator>& inputOutput)
 	{
 		Hadamard_Detail::inverseHadamard(
 			inputOutput, true);

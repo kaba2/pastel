@@ -11,7 +11,7 @@ namespace Pastel
 	// Computes the square of 2-sparsity.
 	template <typename Real_Iterator>
 	typename boost::iterator_value<Real_Iterator>::type
-		sparsity2(const ForwardRange<Real_Iterator>& input);
+		sparsity2(const ForwardIterator_Range<Real_Iterator>& input);
 
 }
 

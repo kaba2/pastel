@@ -29,7 +29,7 @@ namespace Pastel
 		typename Point_ConstIterator, typename PointPolicy>
 	Sphere<typename PointPolicy::Real, PointPolicy::N> 
 		relativeMatchingDistance(
-		const ForwardRange<Point_ConstIterator>& pointSet,
+		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy);
 
 	template <typename Real, int N, typename ScenePolicy, typename ModelPolicy>
@@ -50,8 +50,8 @@ namespace Pastel
 	template <typename Real, int N, typename SceneIterator, typename ModelIterator,
 		typename Model_PointPolicy, typename Scene_PointPolicy>
 	bool pointPatternMatch(
-		const ForwardRange<SceneIterator>& scene,
-		const ForwardRange<ModelIterator>& model,
+		const ForwardIterator_Range<SceneIterator>& scene,
+		const ForwardIterator_Range<ModelIterator>& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
@@ -73,8 +73,8 @@ namespace Pastel
 
 	template <typename Real, int N, typename SceneIterator, typename ModelIterator>
 	bool pointPatternMatch(
-		const ForwardRange<SceneIterator>& scene,
-		const ForwardRange<ModelIterator>& model,
+		const ForwardIterator_Range<SceneIterator>& scene,
+		const ForwardIterator_Range<ModelIterator>& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,

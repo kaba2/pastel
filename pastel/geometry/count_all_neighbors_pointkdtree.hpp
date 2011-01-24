@@ -20,8 +20,8 @@ namespace Pastel
 		typename NormBijection>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
-		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		const RandomAccessIterator_Range<Point_ConstIterator_Iterator>& querySet,
+		const RandomAccessIterator_Range<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result,
 		integer bucketSize,
 		const NormBijection& normBijection)
@@ -65,8 +65,8 @@ namespace Pastel
 		typename Integer_OutputIterator>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessRange<Point_ConstIterator_Iterator>& querySet,
-		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
+		const RandomAccessIterator_Range<Point_ConstIterator_Iterator>& querySet,
+		const RandomAccessIterator_Range<Real_Iterator>& maxDistanceSet,
 		Integer_OutputIterator result)
 	{
 		Pastel::countAllNeighbors(

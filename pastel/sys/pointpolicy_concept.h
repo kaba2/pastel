@@ -39,7 +39,7 @@ namespace Pastel
 			typedef UserDefinedType ConstIterator;
 
 			//! The type of a an iterator range to coordinates.
-			typedef RandomAccessRange<ConstIterator> ConstRange;
+			typedef RandomAccessIterator_Range<ConstIterator> ConstRange;
 
 			//! Returns a vector expression representing the point.
 			/*!

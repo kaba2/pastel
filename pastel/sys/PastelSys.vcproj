@@ -391,10 +391,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\array_subiterator.h"
-					>
-				</File>
-				<File
 					RelativePath=".\arraybase.h"
 					>
 				</File>
@@ -1987,34 +1983,6 @@
 				RelativePath=".\sparseiterator.h"
 				>
 			</File>
-			<Filter
-				Name="Iterator ranges"
-				>
-				<File
-					RelativePath=".\bidirectionalrange.h"
-					>
-				</File>
-				<File
-					RelativePath=".\forwardrange.h"
-					>
-				</File>
-				<File
-					RelativePath=".\iteratorrange.h"
-					>
-				</File>
-				<File
-					RelativePath=".\iteratorrange.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\iteratorrange.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\randomaccessrange.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Documentation"
@@ -2447,6 +2415,34 @@
 				RelativePath=".\stream_range.h"
 				>
 			</File>
+			<Filter
+				Name="Iterator ranges"
+				>
+				<File
+					RelativePath=".\bidirectionaliterator_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\forwarditerator_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iteratorrange.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iteratorrange.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\iteratorrange.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\randomaccessiterator_range.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

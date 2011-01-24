@@ -220,7 +220,7 @@ namespace Pastel
 	}
 
 	template <typename Iterator>
-	RandomAccessRange<SparseIterator<Iterator> > sparseRange(
+	RandomAccessIterator_Range<SparseIterator<Iterator> > sparseRange(
 		const Iterator& begin, const Iterator& end,
 		integer delta)
 	{
@@ -232,7 +232,7 @@ namespace Pastel
 	}
 
 	template <typename ConstIterator>
-	RandomAccessRange<ConstSparseIterator<ConstIterator> > constSparseRange(
+	RandomAccessIterator_Range<ConstSparseIterator<ConstIterator> > constSparseRange(
 		const ConstIterator& begin, const ConstIterator& end,
 		integer delta)
 	{

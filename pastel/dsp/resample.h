@@ -18,8 +18,8 @@ namespace Pastel
 		typename Input_ConstIterator,
 		typename Output_Iterator>
 	void resample(
-		const RandomAccessRange<Input_ConstIterator>& inputSet,
-		const RandomAccessRange<Output_Iterator>& outputSet,
+		const RandomAccessIterator_Range<Input_ConstIterator>& inputSet,
+		const RandomAccessIterator_Range<Output_Iterator>& outputSet,
 		const ConstFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
 		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
@@ -30,8 +30,8 @@ namespace Pastel
 		typename Input_ConstIterator,
 		typename Output_Iterator>
 	void resampleTable(
-		const RandomAccessRange<Input_ConstIterator>& inputSet,
-		const RandomAccessRange<Output_Iterator>& outputSet,
+		const RandomAccessIterator_Range<Input_ConstIterator>& inputSet,
+		const RandomAccessIterator_Range<Output_Iterator>& outputSet,
 		const ConstTableFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
 		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),

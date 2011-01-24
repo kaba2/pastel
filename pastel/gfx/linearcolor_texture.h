@@ -26,7 +26,7 @@ namespace Pastel
 
 		template <typename Iterator>
 		explicit LinearColor_Texture(
-			const RandomAccessRange<Iterator>& data)
+			const RandomAccessIterator_Range<Iterator>& data)
 			: data_(data.begin(), data.end())
 		{
 		}
@@ -54,7 +54,7 @@ namespace Pastel
 
 	template <typename Type, int N, typename Iterator>
 	LinearColor_Texture<Type, N> linearColorTexture(
-		const RandomAccessRange<Iterator>& data)
+		const RandomAccessIterator_Range<Iterator>& data)
 	{
 		return LinearColor_Texture<Type, N>(data);
 	}

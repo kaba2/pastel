@@ -118,7 +118,7 @@ namespace
 
 		template <typename Complex_Iterator>
 		bool testDft(
-			const RandomAccessRange<Complex_Iterator>& input)
+			const RandomAccessIterator_Range<Complex_Iterator>& input)
 		{
 			const integer n = input.size();
 
@@ -165,7 +165,7 @@ namespace
 			typename Transform_Algorithm,
 			typename InverseTransform_Algorithm>
 		bool test(
-			const RandomAccessRange<Complex_Iterator>& input,
+			const RandomAccessIterator_Range<Complex_Iterator>& input,
 			const Transform_Algorithm& transform,
 			const InverseTransform_Algorithm& inverse)
 		{
@@ -211,7 +211,7 @@ namespace
 
 		template <typename Complex_Iterator>
 		bool testDct(
-			const RandomAccessRange<Complex_Iterator>& input)
+			const RandomAccessIterator_Range<Complex_Iterator>& input)
 		{
 			if (!test(input, Dct(), InverseDct()) ||
 				!test(input, OrthogonalDct(), InverseOrthogonalDct()))
@@ -230,7 +230,7 @@ namespace
 
 		template <typename Complex_Iterator>
 		bool testHaar(
-			const RandomAccessRange<Complex_Iterator>& input)
+			const RandomAccessIterator_Range<Complex_Iterator>& input)
 		{
 			if (!test(input, Haar(), InverseHaar()) ||
 				!test(input, OrthogonalHaar(), InverseOrthogonalHaar()))
@@ -249,7 +249,7 @@ namespace
 
 		template <typename Complex_Iterator>
 		bool testHadamard(
-			const RandomAccessRange<Complex_Iterator>& input)
+			const RandomAccessIterator_Range<Complex_Iterator>& input)
 		{
 			if (!test(input, Hadamard(), InverseHadamard()) ||
 				!test(input, OrthogonalHadamard(), InverseOrthogonalHadamard()))

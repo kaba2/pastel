@@ -15,7 +15,7 @@ namespace Pastel
 		typename Real,
 		typename Real_ConstIterator>
 	Real numberMean(
-		const ForwardRange<Real_ConstIterator>& inputSet)
+		const ForwardIterator_Range<Real_ConstIterator>& inputSet)
 	{
 		integer n = 0;
 		Real mean = 0;
@@ -38,7 +38,7 @@ namespace Pastel
 		typename Real,
 		typename Real_ConstIterator>
 	Real numberVariance(
-		const ForwardRange<Real_ConstIterator>& inputSet,
+		const ForwardIterator_Range<Real_ConstIterator>& inputSet,
 		const PASTEL_NO_DEDUCTION(Real)& mean,
 		bool biased)
 	{
@@ -71,9 +71,9 @@ namespace Pastel
 		typename A_Real_ConstIterator,
 		typename B_Real_ConstIterator>
 	Real numberCovariance(
-		const ForwardRange<A_Real_ConstIterator>& aSet,
+		const ForwardIterator_Range<A_Real_ConstIterator>& aSet,
 		const PASTEL_NO_DEDUCTION(Real)& aMean,
-		const ForwardRange<B_Real_ConstIterator>& bSet,
+		const ForwardIterator_Range<B_Real_ConstIterator>& bSet,
 		const PASTEL_NO_DEDUCTION(Real)& bMean,
 		bool biased)
 	{
@@ -110,7 +110,7 @@ namespace Pastel
 	template <typename Point_ConstIterator, typename PointPolicy>
 	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetMean(
-		const ForwardRange<Point_ConstIterator>& pointSet,
+		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
@@ -148,7 +148,7 @@ namespace Pastel
 	template <typename Point_ConstIterator, typename PointPolicy>
 	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetVariance(
-		const ForwardRange<Point_ConstIterator>& pointSet,
+		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
 		const typename PointPolicy::Point& mean,
 		const PointPolicy& pointPolicy)
 	{
@@ -189,8 +189,8 @@ namespace Pastel
 		typename A_ConstIterator, 
 		typename B_ConstIterator>
 	Real meanSquaredError(
-		const ForwardRange<A_ConstIterator>& aSet,
-		const ForwardRange<B_ConstIterator>& bSet)
+		const ForwardIterator_Range<A_ConstIterator>& aSet,
+		const ForwardIterator_Range<B_ConstIterator>& bSet)
 	{
 		Real result = 0;
 		integer n = 0;
@@ -223,8 +223,8 @@ namespace Pastel
 		typename A_ConstIterator, 
 		typename B_ConstIterator>
 	Real peakSignalToNoise(
-		const ForwardRange<A_ConstIterator>& aSet,
-		const ForwardRange<B_ConstIterator>& bSet,
+		const ForwardIterator_Range<A_ConstIterator>& aSet,
+		const ForwardIterator_Range<B_ConstIterator>& bSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxValue)
 	{
 		return 10 * std::log10(
@@ -236,8 +236,8 @@ namespace Pastel
 		typename A_ConstIterator, 
 		typename B_ConstIterator>
 	Real peakSignalToNoise(
-		const ForwardRange<A_ConstIterator>& aSet,
-		const ForwardRange<B_ConstIterator>& bSet)
+		const ForwardIterator_Range<A_ConstIterator>& aSet,
+		const ForwardIterator_Range<B_ConstIterator>& bSet)
 	{
 		return Pastel::peakSignalToNoise<Real>(
 			aSet, bSet, 1);

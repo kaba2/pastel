@@ -2,9 +2,9 @@
 #define PASTEL_ITERATORRANGE_HPP
 
 #include "pastel/sys/iteratorrange.h"
-#include "pastel/sys/forwardrange.h"
-#include "pastel/sys/bidirectionalrange.h"
-#include "pastel/sys/randomaccessrange.h"
+#include "pastel/sys/forwarditerator_range.h"
+#include "pastel/sys/bidirectionaliterator_range.h"
+#include "pastel/sys/randomaccessiterator_range.h"
 
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,12 +24,12 @@ namespace Pastel
 
 		typedef boost::mpl::if_<
 			boost::is_same<Category, std::bidirectional_iterator_tag>,
-			BidirectionalRange<Iterator>,
-			ForwardRange<Iterator> > ElseIf;
+			BidirectionalIterator_Range<Iterator>,
+			ForwardIterator_Range<Iterator> > ElseIf;
 
 		typedef boost::mpl::if_<
 			boost::is_same<Category, std::random_access_iterator_tag>,
-			RandomAccessRange<Iterator>,
+			RandomAccessIterator_Range<Iterator>,
 			typename ElseIf::type> If;
 
 		typedef typename If::type type;			

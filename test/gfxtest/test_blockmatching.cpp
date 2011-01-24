@@ -72,7 +72,7 @@ namespace
 		typedef ConstIterator_ ConstIterator;
 
 		Range_VectorExpression(
-			const RandomAccessRange<ConstIterator>& range)
+			const RandomAccessIterator_Range<ConstIterator>& range)
 			: range_(range)
 		{
 		}				
@@ -117,13 +117,13 @@ namespace
 		}
 
 	private:
-		RandomAccessRange<ConstIterator> range_;
+		RandomAccessIterator_Range<ConstIterator> range_;
 	};
 
 	template <typename Real, int N, typename ConstIterator>
 	Range_VectorExpression<Real, N, ConstIterator>
 		rangeAsVector(
-		const RandomAccessRange<ConstIterator>& range)
+		const RandomAccessIterator_Range<ConstIterator>& range)
 	{
 		return Range_VectorExpression<Real, N, ConstIterator>(
 			range);
@@ -378,7 +378,7 @@ namespace
 		typedef Vector2i Point;
 
 		typedef ConstSubArray<real32>::ConstIterator ConstIterator;
-		typedef RandomAccessRange<ConstIterator> ConstRange;
+		typedef RandomAccessIterator_Range<ConstIterator> ConstRange;
 
 		typedef Range_VectorExpression<real32, N, ConstIterator> 
 			Expression;

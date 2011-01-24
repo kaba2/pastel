@@ -52,13 +52,13 @@ namespace Pastel
 		typename Point_Iterator_Iterator,
 		typename NormBijection>
 	void searchAllNeighborsBruteForce(
-		const RandomAccessRange<Point_Iterator>& pointSet,
+		const RandomAccessIterator_Range<Point_Iterator>& pointSet,
 		integer dimension,
 		const PointPolicy& pointPolicy,
 		Array<Point_Iterator>& nearestArray,
 		integer kNearest,
-		const RandomAccessRange<Real_Iterator>& maxDistanceSet,
-		const RandomAccessRange<Point_Iterator_Iterator>& indexSet,
+		const RandomAccessIterator_Range<Real_Iterator>& maxDistanceSet,
+		const RandomAccessIterator_Range<Point_Iterator_Iterator>& indexSet,
 		const NormBijection& normBijection)
 	{
 		ENSURE_OP(dimension, >, 0);

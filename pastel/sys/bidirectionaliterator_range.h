@@ -1,32 +1,32 @@
-// Description: BidirectionalRange class
+// Description: BidirectionalIterator_Range class
 // Detail: Bidirectional iterator range
 // Documentation: iteratorrange.txt
 
-#ifndef PASTEL_BIDIRECTIONALRANGE_H
-#define PASTEL_BIDIRECTIONALRANGE_H
+#ifndef PASTEL_BIDIRECTIONALITERATOR_RANGE_H
+#define PASTEL_BIDIRECTIONALITERATOR_RANGE_H
 
-#include "pastel/sys/forwardrange.h"
+#include "pastel/sys/forwarditerator_range.h"
 #include "pastel/sys/ensure.h"
 
 namespace Pastel
 {
 
 	template <typename Iterator>
-	class BidirectionalRange
-		: public ForwardRange<Iterator>
+	class BidirectionalIterator_Range
+		: public ForwardIterator_Range<Iterator>
 	{
 	private:
-		typedef ForwardRange<Iterator> Base;
+		typedef ForwardIterator_Range<Iterator> Base;
 
 	public:
 		typedef std::reverse_iterator<Iterator> reverse_iterator;
 
-		BidirectionalRange()
+		BidirectionalIterator_Range()
 			: Base()
 		{
 		}
 
-		BidirectionalRange(
+		BidirectionalIterator_Range(
 			const Iterator& begin,
 			const Iterator& end,
 			integer size)
@@ -34,14 +34,14 @@ namespace Pastel
 		{
 		}
 
-		BidirectionalRange(
+		BidirectionalIterator_Range(
 			const Iterator& begin,
 			const Iterator& end)
 			: Base(begin, end)
 		{
 		}
 
-		BidirectionalRange(
+		BidirectionalIterator_Range(
 			const Iterator& begin,
 			integer size)
 			: Base(begin, size)

@@ -284,7 +284,7 @@ namespace Pastel
 	template <typename Input_Point_ConstIterator,
 		typename Point_ConstIterator_Iterator>
 	void PointKdTree<Real, N, PointPolicy>::insert(
-		const ForwardRange<Input_Point_ConstIterator>& pointSet, 
+		const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet, 
 		Point_ConstIterator_Iterator iteratorSet,
 		bool hidden)
 	{
@@ -335,7 +335,7 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	template <typename Input_Point_ConstIterator>
 	void PointKdTree<Real, N, PointPolicy>::insert(
-		const ForwardRange<Input_Point_ConstIterator>& pointSet)
+		const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet)
 	{
 		// Insert the points, and get rid of the reported iterators.
 		// Note: the reporting is optimized away entirely.
@@ -364,7 +364,7 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	template <typename Point_ConstIterator_ConstIterator>
 	void PointKdTree<Real, N, PointPolicy>::erase(
-		const ForwardRange<Point_ConstIterator_ConstIterator>& pointSet)
+		const ForwardIterator_Range<Point_ConstIterator_ConstIterator>& pointSet)
 	{
 		Point_ConstIterator_ConstIterator iter = 
 			pointSet.begin();

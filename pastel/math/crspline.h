@@ -43,7 +43,7 @@ namespace Pastel
 
 	template <typename Vector_Iterator>
 	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
-		const RandomAccessRange<Vector_Iterator>& pointSet,
+		const RandomAccessIterator_Range<Vector_Iterator>& pointSet,
 		const typename Vector_Scalar<typename std::iterator_traits<Vector_Iterator>::value_type>::type& time);
 
 }

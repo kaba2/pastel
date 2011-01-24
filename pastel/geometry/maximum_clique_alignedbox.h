@@ -61,7 +61,7 @@ namespace Pastel
 		typename AlignedBox_ConstIterator_Iterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
 		MaximumClique_BoxType::Enum boxType,
 		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result);
@@ -76,7 +76,7 @@ namespace Pastel
 	template <typename AlignedBox_ConstIterator>
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
-		const ForwardRange<AlignedBox_ConstIterator>& boxSet,
+		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
 		MaximumClique_BoxType::Enum boxType = MaximumClique_BoxType::Closed,
 		integer sweepDirection = 1);
 

@@ -10,7 +10,7 @@ namespace Pastel
 
 	template <typename ThingPtr_Iterator>
 	void Set_Thing::insert(
-		const ForwardRange<ThingPtr_Iterator>& thingSet)
+		const ForwardIterator_Range<ThingPtr_Iterator>& thingSet)
 	{
 		ThingPtr_Iterator iter = thingSet.begin();
 		const ThingPtr_Iterator iterEnd = thingSet.end();

@@ -11,7 +11,7 @@ namespace Pastel
 	public:
 		template <typename Char_ConstIterator>
 		uint32 partialHash(
-			const ForwardRange<Char_ConstIterator>& input,
+			const ForwardIterator_Range<Char_ConstIterator>& input,
 			uint32 currentHash) const
 		{
 			// One-at-a-time hash function by Bob Jenkins,
@@ -69,7 +69,7 @@ namespace Pastel
 
 	template <typename ConstIterator, typename HashFunction>
 	inline uint32 computeHashMany(
-		const ForwardRange<ConstIterator>& input,
+		const ForwardIterator_Range<ConstIterator>& input,
 		const HashFunction& hashFunction)
 	{
 		return hashFunction.finalize(
@@ -78,14 +78,14 @@ namespace Pastel
 
 	template <typename ConstIterator>
 	inline uint32 computeHashMany(
-		const ForwardRange<ConstIterator>& input)
+		const ForwardIterator_Range<ConstIterator>& input)
 	{
 		return Pastel::computeHashMany(input, Jenkins_HashFunction());
 	}
 
 	template <typename ConstIterator, typename HashFunction>
 	inline uint32 partialHashMany(
-		const ForwardRange<ConstIterator>& input,
+		const ForwardIterator_Range<ConstIterator>& input,
 		uint32 currentHash,
 		const HashFunction& hashFunction)
 	{
@@ -106,7 +106,7 @@ namespace Pastel
 
 	template <typename ConstIterator>
 	inline uint32 partialHashMany(
-		const ForwardRange<ConstIterator>& input,
+		const ForwardIterator_Range<ConstIterator>& input,
 		uint32 currentHash)
 	{
 		return Pastel::partialHashMany(

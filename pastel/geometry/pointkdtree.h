@@ -247,7 +247,7 @@ namespace Pastel
 		template <typename Input_Point_ConstIterator,
 			typename Point_ConstIterator_Iterator>
 		void insert(
-			const ForwardRange<Input_Point_ConstIterator>& pointSet, 
+			const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet, 
 			Point_ConstIterator_Iterator iteratorSet,
 			bool hidden = false);
 
@@ -261,14 +261,14 @@ namespace Pastel
 		*/
 		template <typename Input_Point_ConstIterator>
 		void insert(
-			const ForwardRange<Input_Point_ConstIterator>& pointSet);
+			const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet);
 
 		//! Removes a point from the tree.
 		void erase(const Point_ConstIterator& iter);
 
 		//! Removes a set of points from the tree.
 		template <typename Point_ConstIterator_ConstIterator>
-		void erase(const ForwardRange<Point_ConstIterator_ConstIterator>& pointSet);
+		void erase(const ForwardIterator_Range<Point_ConstIterator_ConstIterator>& pointSet);
 
 		//! Hides all points in the tree.
 		void hide();

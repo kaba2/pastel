@@ -17,7 +17,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void haar(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes a Haar transform.
@@ -28,7 +28,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void haar(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(haar, Haar);
 
@@ -41,7 +41,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseHaar(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes an inverse Haar transform.
@@ -52,7 +52,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void inverseHaar(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseHaar, InverseHaar);
 
@@ -65,7 +65,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void orthogonalHaar(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes an orthogonal Haar transform.
@@ -76,7 +76,7 @@ namespace Pastel
 	*/
 	template <typename Real_Iterator>
 	void orthogonalHaar(
-		const ForwardRange<Real_Iterator>& inputOutput);
+		const ForwardIterator_Range<Real_Iterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(orthogonalHaar, OrthogonalHaar);
 
@@ -89,7 +89,7 @@ namespace Pastel
 		typename Real_ConstIterator, 
 		typename Real_Iterator>
 	void inverseOrthogonalHaar(
-		const ForwardRange<Real_ConstIterator>& input,
+		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output);
 
 	//! Computes an inverse orthogonal Haar transform.
@@ -100,7 +100,7 @@ namespace Pastel
 	*/
 	template <typename Real_ConstIterator>
 	void inverseOrthogonalHaar(
-		const ForwardRange<Real_ConstIterator>& inputOutput);
+		const ForwardIterator_Range<Real_ConstIterator>& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseOrthogonalHaar, InverseOrthogonalHaar);
 

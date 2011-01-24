@@ -21,3 +21,9 @@ elements in the range. A size of zero is equivalent to emptiness.
 
 If a range is infinite, or finite but unknown, then the size is defined
 as -1.
+
+Acknowledgements
+----------------
+
+I first saw the range concept, as described here, in a presentation 
+_Iterators Must Go_, by Andrei Alexandrescu, given at BoostCon 2009.
