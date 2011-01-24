@@ -15,7 +15,8 @@ namespace Pastel
 		: public BidirectionalIterator_Range<Iterator>
 	{
 	private:
-		typedef BidirectionalIterator_Range<Iterator> Base;
+		typedef BidirectionalIterator_Range<Iterator>
+			Base;
 
 	public:
 		typedef typename Base::reference 

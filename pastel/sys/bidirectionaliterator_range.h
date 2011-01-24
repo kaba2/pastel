@@ -19,7 +19,8 @@ namespace Pastel
 		typedef ForwardIterator_Range<Iterator> Base;
 
 	public:
-		typedef std::reverse_iterator<Iterator> reverse_iterator;
+		typedef std::reverse_iterator<Iterator> 
+			reverse_iterator;
 
 		BidirectionalIterator_Range()
 			: Base()

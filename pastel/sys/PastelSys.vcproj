@@ -1992,10 +1992,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\cmake_experiences.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\cpp0x.txt"
 				>
 			</File>
