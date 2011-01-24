@@ -18,7 +18,7 @@ namespace Pastel
 
 	template <typename Iterator>
 	class ForwardIterator_Range
-		: boost::equality_comparable<ForwardIterator_Range<Iterator> >
+		: public boost::equality_comparable<ForwardIterator_Range<Iterator> >
 	{
 	protected:
 		enum

@@ -21,6 +21,22 @@ C++ Standard Library.
 
 Each iterator range is also a range.
 
+Ranges vs iterator ranges
+-------------------------
+
+Ranges are strictly more expressive than iterator ranges. Ideally,
+we would not have an iterator range concept, but only the range concept. 
+However, the whole of Standard Template Library is based on iterators,
+and there the iterator ranges are formed implicitly by passing iterators
+in pairs. Therefore, to be able to take advantage of the STL algorithms,
+the used range concept must be built on top of iterators, such that
+the individual iterators can be both packed into iterator ranges, and
+then, when needed, unpacked back to iterators. The Boost.Range library
+implements this idea well. The iterator range classes, defined by Pastel,
+work directly with the Boost.Range library. However, at the same time
+they are also full-blown ranges, and thus seamlessly integrate with 
+Pastel.
+
 Describing iterator ranges
 --------------------------
 
