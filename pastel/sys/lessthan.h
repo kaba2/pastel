@@ -1,10 +1,10 @@
 // Description: Less-than algorithm
-// Documentation: orderrelationalgorithm.txt
+// Documentation: relationalgorithm.txt
 
 #ifndef PASTEL_LESSTHAN_H
 #define PASTEL_LESSTHAN_H
 
-#include "pastel/sys/orderrelationalgorithm_concept.h"
+#include "pastel/sys/relationalgorithm_concept.h"
 
 namespace Pastel
 {

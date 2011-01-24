@@ -1,4 +1,5 @@
 // Description: Algorithm concept
+// Documentation: algorithm.txt
 
 #ifndef PASTEL_ALGORITHM_CONCEPT_H
 #define PASTEL_ALGORITHM_CONCEPT_H

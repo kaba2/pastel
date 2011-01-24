@@ -6,12 +6,8 @@
 
 #include "pastel/sys/equalto.h"
 #include "pastel/sys/notequalto.h"
-
 #include "pastel/sys/lessequal.h"
 #include "pastel/sys/greaterequal.h"
-
-// Order relation algorithms
-
 #include "pastel/sys/lessthan.h"
 #include "pastel/sys/greaterthan.h"
 

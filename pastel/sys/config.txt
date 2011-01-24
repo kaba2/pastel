@@ -3,9 +3,6 @@ Configuration files
 
 [[Parent]]: pastelsys.txt
 
-Practice
---------
-
 In Pastel, a _configuration file_ is a text file which
 contains definitions of variables and has a certain
 context-free grammar. Such a file can be automatically 
