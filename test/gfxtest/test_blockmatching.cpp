@@ -45,6 +45,15 @@ Sliding kd, 8x memory, 53s
 Sliding kd + 2eps, 8x memory, 32s
 Sliding kd, 1x memory, 78s
 Sliding kd + 2eps, 1x memory, 49s
+
+Noisy image, 64D, 16N, full image
+------------------------------------------------------------
+
+(0.098 sigma gaussian noise)
+
+Sliding kd + DCT, 64x memory, 2207s = 37min
+Sliding kd + DCT + 2eps, 64x memory, 860s
+
 */
 
 namespace
@@ -161,16 +170,22 @@ namespace
 				63
 			};
 
+			const integer regionWidth = 
+				(image.width() - (blockExtent.x() - 1));
+			const integer regionHeight =
+				(image.height() - (blockExtent.y() - 1));
+
 			featureSet.setExtent(
-				blockSize, (image.width() - 8) * (image.height() - 8));
+				blockSize, 
+				regionWidth * regionHeight);
 
 #pragma omp parallel
 			{
-			Array<real32> block(8, 8);
+			Array<real32> block(blockExtent);
 #pragma omp for
-			for (integer y = 0;y < image.height() - blockExtent.y();++y)
+			for (integer y = 0;y < regionHeight;++y)
 			{
-				for (integer x = 0;x < image.width() - blockExtent.x();++x)
+				for (integer x = 0;x < regionWidth;++x)
 				{
 					block() = image(Vector2i(x, y), Vector2i(x + blockExtent.x(), y + blockExtent.y()));
 					for (integer i = 0;i < block.size();++i)
@@ -178,7 +193,7 @@ namespace
 						block(i) += random<real32>(0, inverse((real32)257));
 					}
 
-					const integer index = y * (image.width() - blockExtent.x()) + x;
+					const integer index = y * regionWidth + x;
 					if (dct)
 					{
 						forEachRowOnAllAxes(block(), OrthogonalDct());
@@ -517,14 +532,21 @@ namespace
 
 		void testApproximate()
 		{
-			const Array<real32>& image = 
+			const Array<real32>& noiseLessImage = 
 				*gfxStorage().get<Array<real32>*>("lena_gray");
+
+			const real32 noiseSigma = (real32)25 / 255;
+			Array<real32> image(noiseLessImage);
+			for (integer i = 0;i < image.size();++i)
+			{
+				image(i) += randomGaussian<real32>() * noiseSigma;
+			}
 		
 			const Vector2i blockExtent(8, 8);
-			const real32 maxRelativeError = 0;
-			const integer kNearest = 64;
+			const real32 maxRelativeError = 2;
+			const integer kNearest = 16;
 			const integer coeffs = 64;
-			bool dct = false;
+			bool dct = true;
 			bool pca = false;
 
 			Timer timer;
@@ -629,16 +651,32 @@ namespace
 
 			std::cout << "Saving results to file..." << std::endl;
 
-			std::ofstream file("lena-64-nearest-8x8-kd.txt");
+			std::string filename =
+				"lena-" + 
+				integerToString(kNearest) + 
+				"-nearest-" + 
+				integerToString(blockExtent.x()) +
+				"x" +
+				integerToString(blockExtent.y()) +
+				"-kd-eps" +
+				realToString(maxRelativeError) +
+				".txt";
+
+			const integer regionWidth =
+				image.width() - (blockExtent.y() - 1);
+			const integer regionHeight =
+				image.height() - (blockExtent.x() - 1);
+
+			std::ofstream file(filename.c_str());
 			for (integer i = 0;i < image.height();++i)
 			{
 				for (integer j = 0;j < image.width();++j)
 				{
-					if (i < image.height() - 8 && 
-						j < image.width() - 8)
+					if (i < regionHeight && 
+						j < regionWidth)
 					{
 						const integer myIndex = 
-							i * (image.width() - 8) + j;
+							i * regionWidth + j;
 
 						const integer myReportedIndex =
 							i * image.width() + j;
@@ -654,8 +692,8 @@ namespace
 								index = (nearestSet(k, myIndex)->point() - 
 									featureSet.rawBegin()) / coeffs;
 
-								const integer y = index / (image.width() - 8);
-								const integer x = index - y * (image.width() - 8);
+								const integer y = index / regionWidth;
+								const integer x = index - y * regionWidth;
 
 								index = y * image.width() + x;
 							}
@@ -928,12 +966,11 @@ namespace
 
 			timer.setStart();
 
-			AlignedBox<integer, 2> neighborhood(
-				-19, -19, 20, 20);
+			Vector2i neighborhood(15, 15);
 
 			Array<integer> nearestSet = matchBlockBrute(
 				image, Vector2i(blockSize, blockSize), neighborhood, kNearest, 
-				infinity<real32>(), 0, Euclidean_NormBijection<real32>());
+				infinity<real32>(), Euclidean_NormBijection<real32>());
 
 			timer.store();
 

@@ -30,15 +30,6 @@ namespace Pastel
 	blocks as neighbors. Use 'infinity<Real>()'
 	to remove this restriction.
 
-	minVariance:
-	The minimum variance required for the difference of 
-	blocks for a block to be considered a neighbour. In 
-	the noisy case, with i.i.d. additive noise of sigma 
-	standard deviation, it would be extremely rare for 
-	the variance of the difference to be less than 2 sigma^2. 
-	Therefore, this fact can be used to avoid matching 
-	noise with noise.
-
 	normBijection:
 	The norm to use for distance measurement.
 	See 'normbijection.txt'.
@@ -50,10 +41,9 @@ namespace Pastel
 	Array<integer, 2> matchBlockBrute(
 		const Array<Real, N>& image,
 		const Vector<integer, N>& blockExtent,
-		const AlignedBox<integer, N>& neighborhood,
+		const Vector<integer, N>& neighborhood,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
-		const PASTEL_NO_DEDUCTION(Real)& minVariance,
 		const NormBijection& normBijection);
 
 }

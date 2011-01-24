@@ -57,10 +57,14 @@ namespace Pastel
 		void erase(const std::string& key);
 
 		template <typename Type>
-		const Type& property(const std::string& key) const;
+		const Type& property(
+			const std::string& key,
+			const PASTEL_NO_DEDUCTION(Type)& defaultValue = Type()) const;
 
 		template <typename Type>
-		const Type& property(const ConstIterator& iter) const;
+		const Type& property(
+			const ConstIterator& iter,
+			const PASTEL_NO_DEDUCTION(Type)& defaultValue = Type()) const;
 
 		template <typename Type>
 		const std::vector<Type>& propertyList(const std::string& key) const;
