@@ -1,8 +1,12 @@
+// Description: Array range
+// Documentation: range.txt
+
 #ifndef PASTEL_ARRAY_RANGE_H
 #define PASTEL_ARRAY_RANGE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/range_concept.h"
 
 namespace Pastel
 {
