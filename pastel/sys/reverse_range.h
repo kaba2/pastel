@@ -90,7 +90,7 @@ namespace Pastel
 	};
 
 	template <typename Range>
-	void reverseRange(const Range& range)
+	Reverse_Range<Range> reverseRange(const Range& range)
 	{
 		return Reverse_Range<Range>(range);
 	}
