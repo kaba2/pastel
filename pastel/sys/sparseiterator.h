@@ -6,7 +6,7 @@
 #define PASTEL_SPARSEITERATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include <boost/operators.hpp>
 #include <boost/type_traits/is_convertible.hpp>

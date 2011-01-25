@@ -1,6 +1,6 @@
 // Description: RandomAccessIterator_Range class
 // Detail: Random-access iterator range
-// Documentation: iteratorrange.txt
+// Documentation: iterator_range.txt
 
 #ifndef PASTEL_RANDOMACCESSITERATOR_RANGE_H
 #define PASTEL_RANDOMACCESSITERATOR_RANGE_H

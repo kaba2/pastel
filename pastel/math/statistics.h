@@ -6,7 +6,7 @@
 #define PASTEL_STATISTICS_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 #include "pastel/sys/pointpolicy_concept.h"
 
 #include <boost/iterator/iterator_traits.hpp>

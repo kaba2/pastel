@@ -1,6 +1,6 @@
 // Description: BidirectionalIterator_Range class
 // Detail: Bidirectional iterator range
-// Documentation: iteratorrange.txt
+// Documentation: iterator_range.txt
 
 #ifndef PASTEL_BIDIRECTIONALITERATOR_RANGE_H
 #define PASTEL_BIDIRECTIONALITERATOR_RANGE_H

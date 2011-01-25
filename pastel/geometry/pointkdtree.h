@@ -8,7 +8,7 @@
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/poolallocator.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/sys/vector_pointpolicy.h"

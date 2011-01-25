@@ -7,7 +7,7 @@
 #include "pastel/gfx/texture.h"
 
 #include "pastel/sys/math_functions.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include <vector>
 

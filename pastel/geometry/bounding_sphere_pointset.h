@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/sphere.h"
 
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 namespace Pastel
 {

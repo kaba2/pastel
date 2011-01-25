@@ -1,7 +1,7 @@
-#ifndef PASTEL_ITERATORRANGE_HPP
-#define PASTEL_ITERATORRANGE_HPP
+#ifndef PASTEL_ITERATOR_RANGE_HPP
+#define PASTEL_ITERATOR_RANGE_HPP
 
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/is_same.hpp>

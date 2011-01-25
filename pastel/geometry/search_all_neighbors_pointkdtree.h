@@ -5,7 +5,7 @@
 
 #include "pastel/sys/vector.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include "pastel/geometry/pointkdtree.h"
 
