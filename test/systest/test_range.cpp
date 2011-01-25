@@ -80,10 +80,7 @@ namespace
 				constantRange2(1, 10),
 				streamRange<integer>(std::cout));
 
-			integer iSet[] = 
-			{
-				1, 6, 3, -4
-			};
+			integer iSet[] = {1, 2, 3, 4};
 
 			rangeCopy(
 				arrayRange(iSet),
@@ -91,6 +88,10 @@ namespace
 
 			rangeCopy(
 				generatedRange<real>(randomOpen<real>, 10),
+				streamRange<real>(std::cout));
+
+			rangeCopy(
+				reverseRange(arrayRange(iSet)),
 				streamRange<real>(std::cout));
 		}
 	};
