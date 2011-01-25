@@ -4,17 +4,20 @@
 #define PASTEL_ITERATORRANGE_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/forwarditerator_range.h"
+#include "pastel/sys/bidirectionaliterator_range.h"
+#include "pastel/sys/randomaccessiterator_range.h"
 
 namespace Pastel
 {
 
 	//! Returns the type of the iterator range.
 	template <typename Iterator>
-	class IteratorRange;
+	class IteratorToRange;
 
 	//! Returns an iterator range.
 	template <typename Iterator>
-	typename IteratorRange<Iterator>::type 
+	typename IteratorToRange<Iterator>::type 
 		range(const Iterator& begin, const Iterator& end);
 
 	//! Returns an iterator range.
@@ -23,7 +26,7 @@ namespace Pastel
 	size >= 0
 	*/
 	template <typename Iterator>
-	typename IteratorRange<Iterator>::type 
+	typename IteratorToRange<Iterator>::type 
 		range(const Iterator& begin, integer size);
 
 	//! Returns an iterator range.
@@ -32,13 +35,13 @@ namespace Pastel
 	std::distance(begin, end) == size
 	*/
 	template <typename Iterator>
-	typename IteratorRange<Iterator>::type 
+	typename IteratorToRange<Iterator>::type 
 		range(const Iterator& begin, const Iterator& end,
 		integer size);
 
 	//! Returns an iterator range.
 	template <typename Type, int N>
-	typename IteratorRange<Type*>::type 
+	typename IteratorToRange<Type*>::type 
 		range(Type (&begin)[N]);
 
 }

@@ -2,9 +2,6 @@
 #define PASTEL_ITERATORRANGE_HPP
 
 #include "pastel/sys/iteratorrange.h"
-#include "pastel/sys/forwarditerator_range.h"
-#include "pastel/sys/bidirectionaliterator_range.h"
-#include "pastel/sys/randomaccessiterator_range.h"
 
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -16,7 +13,7 @@ namespace Pastel
 {
 
 	template <typename Iterator>
-	class IteratorRange
+	class IteratorToRange
 	{
 	public:
 		typedef typename boost::iterator_category<Iterator>::type 
@@ -36,39 +33,39 @@ namespace Pastel
 	};
 
 	template <typename Iterator>
-	typename IteratorRange<Iterator>::type 
+	typename IteratorToRange<Iterator>::type 
 		range(const Iterator& begin, const Iterator& end)
 	{
-		typedef typename IteratorRange<Iterator>::type Range;
+		typedef typename IteratorToRange<Iterator>::type Range;
 		return Range(begin, end);
 	}
 
 	template <typename Iterator>
-	typename IteratorRange<Iterator>::type 
+	typename IteratorToRange<Iterator>::type 
 		range(const Iterator& begin, integer size)
 	{
 		PENSURE_OP(size, >=, 0);
 
-		typedef typename IteratorRange<Iterator>::type Range;
+		typedef typename IteratorToRange<Iterator>::type Range;
 		return Range(begin, size);
 	}
 
 	template <typename Iterator>
-	typename IteratorRange<Iterator>::type 
+	typename IteratorToRange<Iterator>::type 
 		range(const Iterator& begin, const Iterator& end,
 		integer size)
 	{
 		//PENSURE_OP(std::distance(begin, end), >=, 0);
 
-		typedef typename IteratorRange<Iterator>::type Range;
+		typedef typename IteratorToRange<Iterator>::type Range;
 		return Range(begin, end, size);
 	}
 
 	template <typename Type, int N>
-	typename IteratorRange<Type*>::type 
+	typename IteratorToRange<Type*>::type 
 		range(Type (&begin)[N])
 	{
-		typedef typename IteratorRange<Type*>::type Range;
+		typedef typename IteratorToRange<Type*>::type Range;
 		return Range(begin, N);
 	}
 

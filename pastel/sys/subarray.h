@@ -37,18 +37,18 @@ namespace Pastel
 			Iterator;
 		typedef SubArray_ConstIterator<Type, N> 
 			ConstIterator;
-		typedef typename IteratorRange<Iterator>::type
+		typedef typename IteratorToRange<Iterator>::type
 			Range;
-		typedef typename IteratorRange<ConstIterator>::type
+		typedef typename IteratorToRange<ConstIterator>::type
 			ConstRange;
 
 		typedef SparseIterator<Type*> 
 			RowIterator;
 		typedef ConstSparseIterator<const Type*> 
 			ConstRowIterator;
-		typedef typename IteratorRange<RowIterator>::type
+		typedef typename IteratorToRange<RowIterator>::type
 			RowRange;
-		typedef typename IteratorRange<ConstRowIterator>::type
+		typedef typename IteratorToRange<ConstRowIterator>::type
 			ConstRowRange;
 
 		// Using default copy constructor.
@@ -421,9 +421,9 @@ namespace Pastel
 		typedef SubArray_ConstIterator<Type, N> ConstIterator;
 		typedef ConstSparseIterator<const Type*> ConstRowIterator;
 
-		typedef typename IteratorRange<ConstIterator>::type
+		typedef typename IteratorToRange<ConstIterator>::type
 			ConstRange;
-		typedef typename IteratorRange<ConstRowIterator>::type
+		typedef typename IteratorToRange<ConstRowIterator>::type
 			ConstRowRange;
 
 		// Using default copy constructor.

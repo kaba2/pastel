@@ -6,6 +6,7 @@
 #define PASTEL_RANDOMACCESSITERATOR_RANGE_H
 
 #include "pastel/sys/bidirectionaliterator_range.h"
+#include "pastel/sys/randomaccessrange_concept.h"
 
 namespace Pastel
 {
