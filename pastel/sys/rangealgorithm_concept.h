@@ -4,7 +4,7 @@
 #define PASTEL_RANGEALGORITHM_CONCEPT_H
 
 #include "pastel/sys/algorithm_concept.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/forwardrange_concept.h"
 
 namespace Pastel
 {
@@ -14,8 +14,8 @@ namespace Pastel
 	{
 	public:
 		//! Applies the algorithm to an iterator range.
-		template <typename Iterator>
-		void operator()(const ForwardIterator_Range<Iterator>& range);
+		template <typename ForwardRange>
+		void operator()(ForwardRange range);
 	};
 
 	class RangeAlgorithm2_Concept
@@ -24,11 +24,11 @@ namespace Pastel
 	public:
 		//! Applies the algorithm to iterator ranges.
 		template <
-			typename Iterator_A,
-			typename Iterator_B>
+			typename A_ForwardRange,
+			typename B_ForwardRange>
 		void operator()(
-			const ForwardIterator_Range<Iterator_A>& aRange,
-			const ForwardIterator_Range<Iterator_B>& bRange);
+			A_ForwardRange aRange,
+			B_ForwardRange bRange);
 	};
 
 	class RangeAlgorithm3_Concept
@@ -37,13 +37,13 @@ namespace Pastel
 	public:
 		//! Applies the algorithm to iterator ranges.
 		template <
-			typename Iterator_A,
-			typename Iterator_B,
-			typename Iterator_C>
+			typename A_ForwardRange,
+			typename B_ForwardRange,
+			typename C_ForwardRange>
 		void operator()(
-			const ForwardIterator_Range<Iterator_A>& aRange,
-			const ForwardIterator_Range<Iterator_B>& bRange,
-			const ForwardIterator_Range<Iterator_C>& cRange);
+			A_ForwardRange aRange,
+			B_ForwardRange bRange,
+			C_ForwardRange cRange);
 	};
 
 }

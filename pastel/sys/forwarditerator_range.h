@@ -7,6 +7,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
+#include "pastel/sys/forwardrange_concept.h"
 
 #include <boost/operators.hpp>
 

@@ -10,5 +10,6 @@
 #include "pastel/sys/generated_range.h"
 #include "pastel/sys/reverse_range.h"
 #include "pastel/sys/stream_range.h"
+#include "pastel/sys/iteratorrange.h"
 
 #endif

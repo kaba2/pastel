@@ -2364,19 +2364,15 @@
 			Name="Ranges"
 			>
 			<File
-				RelativePath=".\array_range.h"
+				RelativePath=".\bidirectionalrange_concept.h"
 				>
 			</File>
 			<File
-				RelativePath=".\constant_range.h"
+				RelativePath=".\forwardrange_concept.h"
 				>
 			</File>
 			<File
-				RelativePath=".\finite_range.h"
-				>
-			</File>
-			<File
-				RelativePath=".\generated_range.h"
+				RelativePath=".\randomaccessrange_concept.h"
 				>
 			</File>
 			<File
@@ -2391,45 +2387,65 @@
 				RelativePath=".\ranges.h"
 				>
 			</File>
-			<File
-				RelativePath=".\reverse_range.h"
-				>
-			</File>
-			<File
-				RelativePath=".\stream_range.h"
-				>
-			</File>
-			<Filter
-				Name="Iterator ranges"
-				>
-				<File
-					RelativePath=".\bidirectionaliterator_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\forwarditerator_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\iteratorrange.h"
-					>
-				</File>
-				<File
-					RelativePath=".\iteratorrange.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\iteratorrange.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\randomaccessiterator_range.h"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="Algorithms"
 				>
+			</Filter>
+			<Filter
+				Name="Concrete ranges"
+				>
+				<File
+					RelativePath=".\array_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\constant_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\finite_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\generated_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\reverse_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stream_range.h"
+					>
+				</File>
+				<Filter
+					Name="Iterator ranges"
+					>
+					<File
+						RelativePath=".\bidirectionaliterator_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\forwarditerator_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\iteratorrange.h"
+						>
+					</File>
+					<File
+						RelativePath=".\iteratorrange.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\iteratorrange.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\randomaccessiterator_range.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>
