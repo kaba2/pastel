@@ -3,7 +3,7 @@
 #ifndef PASTEL_HADAMARD_TRANSFORM_H
 #define PASTEL_HADAMARD_TRANSFORM_H
 
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 namespace Pastel
 {

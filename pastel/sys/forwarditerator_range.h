@@ -1,6 +1,6 @@
 // Description: ForwardIterator_Range class
 // Detail: Forward iterator range
-// Documentation: iteratorrange.txt
+// Documentation: iterator_range.txt
 
 #ifndef PASTEL_FORWARDITERATOR_RANGE_H
 #define PASTEL_FORWARDITERATOR_RANGE_H

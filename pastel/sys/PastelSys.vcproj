@@ -2430,15 +2430,15 @@
 						>
 					</File>
 					<File
-						RelativePath=".\iteratorrange.h"
+						RelativePath=".\iterator_range.h"
 						>
 					</File>
 					<File
-						RelativePath=".\iteratorrange.hpp"
+						RelativePath=".\iterator_range.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\iteratorrange.txt"
+						RelativePath=".\iterator_range.txt"
 						>
 					</File>
 					<File

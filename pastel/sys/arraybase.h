@@ -10,7 +10,7 @@
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/arraybasecursor.h"
 #include "pastel/sys/subarray.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 namespace Pastel
 {

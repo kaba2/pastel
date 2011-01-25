@@ -4,7 +4,7 @@
 #ifndef PASTEL_HASH_H
 #define PASTEL_HASH_H
 
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/iterator/iterator_traits.hpp>

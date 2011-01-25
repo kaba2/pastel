@@ -84,7 +84,7 @@ Construction
 
 Iterator ranges can be constructed from an iterator pair, an
 iterator and a size, or a native array, by using the `range()` 
-functions in [[FileLink: iteratorrange.h]]. Using meta-programming, 
+functions in [[FileLink: iterator_range.h]]. Using meta-programming, 
 the function's return type is determined appropriately from the 
 iterator's type, i.e., if the passed-in iterator is a bidirectional 
 iterator, then a bidirectional range is returned. For example:

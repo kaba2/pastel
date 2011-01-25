@@ -6,7 +6,7 @@
 #define PASTEL_CONSTANTITERATOR_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/iteratorrange.h"
+#include "pastel/sys/iterator_range.h"
 
 #include <boost/operators.hpp>
 
