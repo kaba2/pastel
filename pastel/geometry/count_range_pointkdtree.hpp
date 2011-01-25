@@ -48,6 +48,8 @@ namespace Pastel
 		const AlignedBox<Real, N>& range,
 		integer bucketSize)
 	{
+		ENSURE_OP(bucketSize, >=, 1);
+
 		integer count = 0;
 
 		Detail_CountRange::Count_Reporter_SearchRange

@@ -1,4 +1,4 @@
-// Description: Generic orthogonal range searching using PointKdTree
+// Description: Generic orthogonal range searching using a kd-tree
 // Documentation: search_range.txt
 
 #ifndef PASTEL_SEARCH_RANGE_ALGORITHM_POINTKDTREE_H
@@ -12,14 +12,13 @@
 namespace Pastel
 {
 
-	//! Finds all points within an aligned box from a PointKdTree.
+	//! Reports all points contained in an aligned box using a kd-tree.
 	/*!
 	Preconditions:
 	kdTree.dimension() == range.dimension()
 	kdTree.dimension() <= 32
 	bucketSize >= 1
 	*/
-
 	template <typename Real, int N, typename PointPolicy, 
 		typename Reporter_SearchRange>
 	void searchRangeAlgorithm(
