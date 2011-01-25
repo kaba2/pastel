@@ -2,11 +2,11 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="PastelDevice"
-	ProjectGUID="{3B35A8C9-E7E9-48B7-82F3-0511F38AA9D5}"
-	RootNamespace="PastelDevice"
+	Name="PastelMatlab"
+	ProjectGUID="{9B59A2B7-0C8C-412E-956A-FC8B5DB5D818}"
+	RootNamespace="PastelMatlab"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -48,13 +48,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				DisableLanguageExtensions="true"
-				OpenMP="false"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -122,10 +119,8 @@
 				OpenMP="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804"
-				ForcedIncludeFiles=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -159,130 +154,30 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Fx"
+		<File
+			RelativePath=".\matlab.h"
 			>
-			<File
-				RelativePath=".\fxdevice.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\fxdevice.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sound.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Gfx"
+		</File>
+		<File
+			RelativePath=".\matlab_argument.h"
 			>
-			<File
-				RelativePath=".\gfxdevice.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\gfxdevice.h"
-				>
-			</File>
-			<File
-				RelativePath=".\graphics.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Multithreading"
+		</File>
+		<File
+			RelativePath=".\matlab_argument.hpp"
 			>
-			<File
-				RelativePath=".\multithreading.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\mutex.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mutex.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mutex.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\thread.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\thread.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Timing"
+		</File>
+		<File
+			RelativePath=".\matlab_function.cpp"
 			>
-			<File
-				RelativePath=".\timedevice.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\timedevice.h"
-				>
-			</File>
-			<File
-				RelativePath=".\timer.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\timer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\timing.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Common"
+		</File>
+		<File
+			RelativePath=".\matlab_function.h"
 			>
-			<File
-				RelativePath=".\devicelibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\devicelibrary.h"
-				>
-			</File>
-			<File
-				RelativePath=".\devices.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\devicesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\devicesystem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pasteldevice.txt"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Ui"
+		</File>
+		<File
+			RelativePath=".\pastelmatlab.txt"
 			>
-			<File
-				RelativePath=".\ui.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ui.h"
-				>
-			</File>
-		</Filter>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

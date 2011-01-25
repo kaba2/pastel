@@ -97,6 +97,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelGeometryMatlab", "geo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelDspTest", "..\test\dsptest\PastelDspTest.vcproj", "{417B2842-367D-4AEA-B40F-0F1CDD0E8817}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PastelMatlab", "matlab\PastelMatlab.vcproj", "{9B59A2B7-0C8C-412E-956A-FC8B5DB5D818}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A8AB3F-51F7-4732-90E9-1266434FE08C} = {75A8AB3F-51F7-4732-90E9-1266434FE08C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -183,6 +188,10 @@ Global
 		{417B2842-367D-4AEA-B40F-0F1CDD0E8817}.Debug|Win32.Build.0 = Debug|Win32
 		{417B2842-367D-4AEA-B40F-0F1CDD0E8817}.Release|Win32.ActiveCfg = Release|Win32
 		{417B2842-367D-4AEA-B40F-0F1CDD0E8817}.Release|Win32.Build.0 = Release|Win32
+		{9B59A2B7-0C8C-412E-956A-FC8B5DB5D818}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9B59A2B7-0C8C-412E-956A-FC8B5DB5D818}.Debug|Win32.Build.0 = Debug|Win32
+		{9B59A2B7-0C8C-412E-956A-FC8B5DB5D818}.Release|Win32.ActiveCfg = Release|Win32
+		{9B59A2B7-0C8C-412E-956A-FC8B5DB5D818}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

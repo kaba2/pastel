@@ -1,0 +1,10 @@
+PastelMatlab
+============
+
+[[Parent]]: pastel.txt
+
+_PastelMatlab_ provides tools to ease interfacing with Matlab, when 
+creating mex files. It provides the mex entry point, convenience 
+functions for retrieving Matlab arguments into Pastel's data structures, 
+and a way to register multiple functions to be callable via the entry 
+point.

@@ -1,6 +1,6 @@
 // Description: point_pattern_match
 
-#include "pastel/geometry_matlab/pastelgeometry_matlab.h"
+#include "pastel/matlab/matlab.h"
 
 #include "pastel/geometry/point_pattern_matching.h"
 #include "pastel/sys/array_pointpolicy.h"
@@ -23,17 +23,22 @@ namespace
 			confidenceIndex
 		};
 
-		const real* modelData = mxGetPr(inputSet[modelIndex]);
-		const integer modelPoints = mxGetN(inputSet[modelIndex]);
-		const real* sceneData = mxGetPr(inputSet[sceneIndex]);
-		const integer scenePoints = mxGetN(inputSet[sceneIndex]);
-		const real minMatchRatio = getReal(inputSet[minMatchRatioIndex]);
+		const real* modelData = 
+			mxGetPr(inputSet[modelIndex]);
+		const integer modelPoints = 
+			mxGetN(inputSet[modelIndex]);
+		const real* sceneData = 
+			mxGetPr(inputSet[sceneIndex]);
+		const integer scenePoints = 
+			mxGetN(inputSet[sceneIndex]);
+		const real minMatchRatio = 
+			asReal(inputSet[minMatchRatioIndex]);
 		const real relativeMatchingDistance = 
-			getReal(inputSet[relativeMatchingDistanceIndex]);
+			asReal(inputSet[relativeMatchingDistanceIndex]);
 		const real confidence =
-			getReal(inputSet[confidenceIndex]);
+			asReal(inputSet[confidenceIndex]);
 
-		//const integer threads = getInteger(inputSet[threadsIndex]);
+		//const integer threads = asInteger(inputSet[threadsIndex]);
 		//setNumberOfThreads(threads);
 
 		ConformalAffine2 similarity;
@@ -71,7 +76,7 @@ namespace
 
 	void addFunction()
 	{
-		geometryMatlabAddFunction(
+		matlabAddFunction(
 			"point_pattern_match",
 			matlabPointPatternMatch);
 	}
