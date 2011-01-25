@@ -1,8 +1,11 @@
 pastelgeometry_matlab.cpp
 *.cpp
--I'e:\ohjelmointi\hgproject\pastel_main\' 
--I'e:\ohjelmointi\external\boost_1_41_0'
--L'e:\ohjelmointi\hgproject\pastel_main\pastel\lib'
--lpastelsys_s
--lpastelmath_s
--lpastelgeometry_s
+-D_HAS_ITERATOR_DEBUGGING=0
+-DPASTEL_ENABLE_OMP
+-I'e:\ohjelmointi\hgproject\pastel\' 
+-I'e:\ohjelmointi\external\boost_1_45_0'
+-L'e:\ohjelmointi\hgproject\pastel\build\vs2008\lib'
+-lpastelsys
+-lpastelmatlab
+-lpastelmath
+-lpastelgeometry

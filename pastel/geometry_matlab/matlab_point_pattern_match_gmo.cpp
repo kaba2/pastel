@@ -1,11 +1,12 @@
 // Description: point_pattern_match
 
-#include "pastel/geometry_matlab/pastelgeometry_matlab.h"
+#include "pastel/matlab/matlab.h"
 
 #include "pastel/geometry/point_pattern_match_gmo.h"
-#include "pastel/sys/array_pointpolicy.h"
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+
+#include "pastel/sys/array_pointpolicy.h"
 
 using namespace Pastel;
 
@@ -29,15 +30,15 @@ namespace
 		const integer modelPoints = mxGetN(inputSet[modelIndex]);
 		const real* sceneData = mxGetPr(inputSet[sceneIndex]);
 		const integer scenePoints = mxGetN(inputSet[sceneIndex]);
-		const real minMatchRatio = getReal(inputSet[minMatchRatioIndex]);
+		const real minMatchRatio = asReal(inputSet[minMatchRatioIndex]);
 		const real matchingDistance = 
-			getReal(inputSet[matchingDistanceIndex]);
+			asReal(inputSet[matchingDistanceIndex]);
 		const real confidence =
-			getReal(inputSet[confidenceIndex]);
+			asReal(inputSet[confidenceIndex]);
 
 		const integer n = mxGetM(inputSet[modelIndex]);
 
-		//const integer threads = getInteger(inputSet[threadsIndex]);
+		//const integer threads = asInteger(inputSet[threadsIndex]);
 		//setNumberOfThreads(threads);
 
 		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
@@ -114,7 +115,7 @@ namespace
 
 	void addFunction()
 	{
-		geometryMatlabAddFunction(
+		matlabAddFunction(
 			"point_pattern_match_gmo",
 			matlabPointPatternMatchGmo);
 	}

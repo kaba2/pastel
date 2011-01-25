@@ -5,7 +5,10 @@
 #define PASTEL_MYTYPES_H
 
 #include "pastel/sys/syslibrary.h"
-#include "pastel/sys/pastelomp.h"
+
+#ifdef PASTEL_ENABLE_OMP
+#include "omp.h"
+#endif
 
 #include <cstddef>
 

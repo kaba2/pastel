@@ -221,6 +221,16 @@ solution "Pastel"
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/sys/", fileSet))
 	
+	project "PastelMatlab"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/matlab/", fileSet))
+		links
+		{
+			"PastelSys"
+		}
+
 	project "PastelMath"
 		kind(libKind)
 		includedirs(includeDirectorySet)

@@ -165,6 +165,14 @@
 				RelativePath=".\pastel_point_pattern_match.m"
 				>
 			</File>
+			<File
+				RelativePath=".\test_point_pattern_match.m"
+				>
+			</File>
+			<File
+				RelativePath=".\test_point_pattern_match_gmo.m"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Mex files"
@@ -179,22 +187,6 @@
 			</File>
 			<File
 				RelativePath=".\pastelgeometry_matlab.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelgeometry_matlab.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelgeometry_mex.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelgeometry_mex.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelgeometry_mex.hpp"
 				>
 			</File>
 		</Filter>
