@@ -18,6 +18,13 @@ sdlLibraryDir = "../external/SDL-1.2.14/lib"
 glewIncludeDir = "../external/glew-1.5.7/include"
 glewLibraryDir = "../external/glew-1.5.7/lib"
 
+-- The directory of the Matlab header files.
+-- The includes are of the form 'mex.h'.
+matlabIncludeDir = "C:/Program Files/MATLAB/R2008a/extern/include"
+
+-- No need to give a library path for Matlab:
+-- Mex files are built from within Matlab.
+
 outputDirectory = "build/" .. _ACTION
 
 solution "Pastel"
@@ -261,6 +268,12 @@ solution "Pastel"
 			"PastelSys",
 			"PastelMath"
 		}
+
+	project "PastelGeometryMatlab"
+		kind(libKind)
+		includedirs(includeDirectorySet)
+		libdirs(libraryDirectorySet)
+		files(addPrefix("pastel/geometry_matlab/", fileSet))
 
 	project "PastelDsp"
 		kind(libKind)

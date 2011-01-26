@@ -32,42 +32,42 @@ namespace Pastel
 		functionMap().insert(std::make_pair(name, function));
 	}
 
-	void matlabEntry(
-		int outputs, mxArray *outputSet[],
-		int inputs, const mxArray *inputSet[])
-	{
-		enum
-		{
-			FunctionName
-		};
-
-		// The first parameter is the name of the
-		// function that should be called.
-		const std::string name = asString(inputSet[FunctionName]);
-
-		// See if a function with that name has
-		// been registered.
-		FunctionIterator iter = functionMap().find(name);
-		
-		if (iter != functionMap().end())
-		{
-			// There is a function with that
-			// name registered.
-
-			// Find out its function pointer.
-			MatlabFunction* function = iter->second;
-
-			// Call that function, but omit the
-			// first name parameter.
-			(*function)(
-				outputs, outputSet,
-				inputs - 1, inputSet + 1);
-		}
-
-	}
-
 	namespace
 	{
+
+		void matlabEntry(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				FunctionName
+			};
+
+			// The first parameter is the name of the
+			// function that should be called.
+			const std::string name = asString(inputSet[FunctionName]);
+
+			// See if a function with that name has
+			// been registered.
+			FunctionIterator iter = functionMap().find(name);
+			
+			if (iter != functionMap().end())
+			{
+				// There is a function with that
+				// name registered.
+
+				// Find out its function pointer.
+				MatlabFunction* function = iter->second;
+
+				// Call that function, but omit the
+				// first name parameter.
+				(*function)(
+					outputs, outputSet,
+					inputs - 1, inputSet + 1);
+			}
+
+		}
 
 		void matlabListFunctions(
 			int outputs, mxArray *outputSet[],
@@ -101,4 +101,13 @@ namespace Pastel
 
 }
 
-PASTEL_MATLAB_ENTRY();
+// This is the actual mex entry point.
+extern "C" void mexFunction(
+	int outputs, mxArray *outputSet[],
+	int inputs, const mxArray *inputSet[])
+{
+	Pastel::matlabEntry(
+		outputs, outputSet,
+		inputs, inputSet);
+}
+

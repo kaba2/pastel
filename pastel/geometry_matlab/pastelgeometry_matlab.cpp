@@ -1,4 +1,14 @@
-// Documentation: pastelgeometry_matlab_cpp.txt
+#define FORCE_LINKING(name) \
+	void force_linking_##name(); \
+	force_linking_##name()
 
-#include "pastel/matlab/matlab.h"
+namespace
+{
 
+	void forceLinking()
+	{
+		FORCE_LINKING(point_pattern_match);
+		FORCE_LINKING(point_pattern_match_gmo);
+	}
+
+}
