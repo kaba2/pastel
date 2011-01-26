@@ -1,8 +1,8 @@
 pastelgeometrymatlab.cpp
 -D_HAS_ITERATOR_DEBUGGING=0
--I'e:\ohjelmointi\hgproject\pastel\' 
--I'e:\ohjelmointi\external\boost_1_45_0'
--L'e:\ohjelmointi\hgproject\pastel\build\vs2008\lib\'
+-I'..\..\..\pastel\' 
+-I'..\..\..\..\external\boost_1_45_0\'
+-L'..\..\..\pastel\build\vs2008\lib\'
 -lPastelSys_d
 -lPastelMatlab_d
 -lPastelMath_d
