@@ -186,7 +186,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\pastelgeometry_matlab.cpp"
+				RelativePath=".\pastelgeometrymatlab.cpp"
 				>
 			</File>
 		</Filter>
