@@ -158,6 +158,22 @@
 			Name="Matlab files"
 			>
 			<File
+				RelativePath=".\build_pastelgeometrymatlab.m"
+				>
+			</File>
+			<File
+				RelativePath=".\build_pastelgeometrymatlab_debug.m"
+				>
+			</File>
+			<File
+				RelativePath=".\build_pastelgeometrymatlab_debug_options.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\build_pastelgeometrymatlab_options.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\check.m"
 				>
 			</File>
