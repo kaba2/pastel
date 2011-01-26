@@ -1,4 +1,4 @@
-pastelgeometry_matlab.cpp
+pastelgeometrymatlab.cpp
 -D_HAS_ITERATOR_DEBUGGING=0
 -I'e:\ohjelmointi\hgproject\pastel\' 
 -I'e:\ohjelmointi\external\boost_1_45_0'

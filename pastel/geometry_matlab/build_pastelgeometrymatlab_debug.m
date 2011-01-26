@@ -1,3 +1,3 @@
 % Description: PastelGeometryMatlab mex debug building
 
-mex @build_options_debug.txt
+mex @build_pastelgeometrymatlab_debug_options.txt

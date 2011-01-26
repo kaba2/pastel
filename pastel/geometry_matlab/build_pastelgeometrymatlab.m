@@ -1,3 +1,3 @@
 % Description: PastelGeometryMatlab mex building
 
-mex @build_options.txt
+mex @build_pastelgeometrymatlab_options.txt
