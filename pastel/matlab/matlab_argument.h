@@ -17,8 +17,21 @@ namespace Pastel
 	typedef boost::shared_ptr<Array<real> > 
 		RealArrayPtr;
 
+	typedef boost::shared_ptr<Array<int32> > 
+		Int32ArrayPtr;
+
+	//! Retrieves a copy of an integer.
+	integer asInteger(const mxArray* input);
+
+	//! Retrieves a copy of a real number.
+	real asReal(const mxArray* input);
+
+	//! Retrieves a copy of a string.
+	std::string asString(const mxArray* input);
+
 	//! Retrieves a reference to a real array.
-	RealArrayPtr realArray(
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > asArray(
 		const mxArray* that);
 
 	//! Reports all real arrays in a cell-array.
@@ -29,10 +42,10 @@ namespace Pastel
 	Note: The elements are reported in Matlab's linearized
 	order.
 	*/
-	template <typename RealArrayPtr_Iterator>
-	integer asRealArrays(
+	template <typename Type, typename ArrayPtr_Iterator>
+	integer getArrays(
 		const mxArray* cellArray,
-		RealArrayPtr_Iterator output);
+		ArrayPtr_Iterator output);
 
 	//! Reports all elements in a real-array as integers.
 	/*!
@@ -56,15 +69,6 @@ namespace Pastel
 	integer getReals(
 		const mxArray* input,
 		Real_Iterator output);
-
-	//! Retrieves a copy of an integer.
-	integer asInteger(const mxArray* input);
-
-	//! Retrieves a copy of a real number.
-	real asReal(const mxArray* input);
-
-	//! Retrieves a copy of a string.
-	std::string asString(const mxArray* input);
 
 }
 

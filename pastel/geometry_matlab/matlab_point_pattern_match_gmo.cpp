@@ -8,118 +8,123 @@
 
 #include "pastel/sys/array_pointpolicy.h"
 
-using namespace Pastel;
+void force_linking_point_pattern_match_gmo() {}
 
-namespace
+namespace Pastel
 {
 
-	void matlabPointPatternMatchGmo(
-		int outputs, mxArray *outputSet[],
-		int inputs, const mxArray *inputSet[])
+	namespace
 	{
-		enum
+
+		void matlabPointPatternMatchGmo(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
 		{
-			modelIndex,
-			sceneIndex,
-			minMatchRatioIndex,
-			matchingDistanceIndex,
-			confidenceIndex
-		};
+			enum
+			{
+				modelIndex,
+				sceneIndex,
+				minMatchRatioIndex,
+				matchingDistanceIndex,
+				confidenceIndex
+			};
 
-		const real* modelData = mxGetPr(inputSet[modelIndex]);
-		const integer modelPoints = mxGetN(inputSet[modelIndex]);
-		const real* sceneData = mxGetPr(inputSet[sceneIndex]);
-		const integer scenePoints = mxGetN(inputSet[sceneIndex]);
-		const real minMatchRatio = asReal(inputSet[minMatchRatioIndex]);
-		const real matchingDistance = 
-			asReal(inputSet[matchingDistanceIndex]);
-		const real confidence =
-			asReal(inputSet[confidenceIndex]);
+			const real* modelData = mxGetPr(inputSet[modelIndex]);
+			const integer modelPoints = mxGetN(inputSet[modelIndex]);
+			const real* sceneData = mxGetPr(inputSet[sceneIndex]);
+			const integer scenePoints = mxGetN(inputSet[sceneIndex]);
+			const real minMatchRatio = asReal(inputSet[minMatchRatioIndex]);
+			const real matchingDistance = 
+				asReal(inputSet[matchingDistanceIndex]);
+			const real confidence =
+				asReal(inputSet[confidenceIndex]);
 
-		const integer n = mxGetM(inputSet[modelIndex]);
+			const integer n = mxGetM(inputSet[modelIndex]);
 
-		//const integer threads = asInteger(inputSet[threadsIndex]);
-		//setNumberOfThreads(threads);
+			//const integer threads = asInteger(inputSet[threadsIndex]);
+			//setNumberOfThreads(threads);
 
-		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
-		typedef SceneTree::Point_ConstIterator SceneIterator;
+			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
+			typedef SceneTree::Point_ConstIterator SceneIterator;
 
-		typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
-		typedef ModelTree::Point_ConstIterator ModelIterator;
+			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > ModelTree;
+			typedef ModelTree::Point_ConstIterator ModelIterator;
 
-		Array_PointPolicy<real> pointPolicy(n);
+			Array_PointPolicy<real> pointPolicy(n);
 
-		SceneTree sceneTree(pointPolicy);
-		sceneTree.insert(
-			constSparseRange(
-			countingIterator(sceneData),
-			countingIterator(sceneData + scenePoints * n),
-			n));
+			SceneTree sceneTree(pointPolicy);
+			sceneTree.insert(
+				constSparseRange(
+				countingIterator(sceneData),
+				countingIterator(sceneData + scenePoints * n),
+				n));
 
-		//constSparseIterator(countingIterator(sceneData), n), 
-		//constSparseIterator(countingIterator(sceneData), n) + scenePoints);
+			//constSparseIterator(countingIterator(sceneData), n), 
+			//constSparseIterator(countingIterator(sceneData), n) + scenePoints);
 
-		ModelTree modelTree(pointPolicy);
-		modelTree.insert(
-			constSparseRange(
-			countingIterator(modelData),
-			countingIterator(modelData + modelPoints * n),
-			n));
-			
-		//constSparseIterator(countingIterator(modelData), n),
-		//constSparseIterator(countingIterator(modelData), n) + modelPoints);
+			ModelTree modelTree(pointPolicy);
+			modelTree.insert(
+				constSparseRange(
+				countingIterator(modelData),
+				countingIterator(modelData + modelPoints * n),
+				n));
 
-		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
-		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			//constSparseIterator(countingIterator(modelData), n),
+			//constSparseIterator(countingIterator(modelData), n) + modelPoints);
 
-		// Here's where we store the results.
+			sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 
-		std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
-		Vector<real> translation(ofDimension(n));
+			// Here's where we store the results.
 
-		// Compute the point pattern match.
+			std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
+			Vector<real> translation(ofDimension(n));
 
-		const bool success = Pastel::pointPatternMatchGmo(
-			modelTree, sceneTree, 
-			minMatchRatio, matchingDistance,
-			confidence, translation, std::back_inserter(pairSet));
+			// Compute the point pattern match.
 
-		// Output the pairing.
+			const bool success = Pastel::pointPatternMatchGmo(
+				modelTree, sceneTree, 
+				minMatchRatio, matchingDistance,
+				confidence, translation, std::back_inserter(pairSet));
 
-		outputSet[0] = mxCreateDoubleMatrix(2, pairSet.size(), mxREAL);
-		real* rawPair = mxGetPr(outputSet[0]);
+			// Output the pairing.
 
-		for (integer i = 0;i < pairSet.size();++i)
-		{
-			//rawPair[i * 2] = pairSet[i].first == sceneTree.end() ? 1 : 0;
-			//rawPair[i * 2 + 1] = pairSet[i].second == modelTree.end() ? -1 : +1;
-			
-			rawPair[i * 2] = (pairSet[i].first->point() - sceneData) / n;
-			rawPair[i * 2 + 1] = (pairSet[i].second->point() - modelData) / n;
+			outputSet[0] = mxCreateDoubleMatrix(2, pairSet.size(), mxREAL);
+			real* rawPair = mxGetPr(outputSet[0]);
+
+			for (integer i = 0;i < pairSet.size();++i)
+			{
+				//rawPair[i * 2] = pairSet[i].first == sceneTree.end() ? 1 : 0;
+				//rawPair[i * 2 + 1] = pairSet[i].second == modelTree.end() ? -1 : +1;
+
+				rawPair[i * 2] = (pairSet[i].first->point() - sceneData) / n;
+				rawPair[i * 2 + 1] = (pairSet[i].second->point() - modelData) / n;
+			}
+
+			// Output the translation.
+
+			outputSet[1] = mxCreateDoubleMatrix(n, 1, mxREAL);
+			real* rawTranslation = mxGetPr(outputSet[1]);
+
+			std::copy(translation.begin(), translation.end(),
+				rawTranslation);
+
+			// Output the success flag.
+
+			outputSet[2] = mxCreateDoubleMatrix(1, 1, mxREAL);
+			real* rawSuccess = mxGetPr(outputSet[2]);
+			*rawSuccess = success ? 1 : 0;
 		}
 
-		// Output the translation.
-			
-		outputSet[1] = mxCreateDoubleMatrix(n, 1, mxREAL);
-		real* rawTranslation = mxGetPr(outputSet[1]);
+		void addFunction()
+		{
+			matlabAddFunction(
+				"point_pattern_match_gmo",
+				matlabPointPatternMatchGmo);
+		}
 
-		std::copy(translation.begin(), translation.end(),
-			rawTranslation);
+		CallFunction run(addFunction);
 
-		// Output the success flag.
-		
-		outputSet[2] = mxCreateDoubleMatrix(1, 1, mxREAL);
-		real* rawSuccess = mxGetPr(outputSet[2]);
-		*rawSuccess = success ? 1 : 0;
 	}
-
-	void addFunction()
-	{
-		matlabAddFunction(
-			"point_pattern_match_gmo",
-			matlabPointPatternMatchGmo);
-	}
-
-	CallFunction run(addFunction);
 
 }

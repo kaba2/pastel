@@ -10,17 +10,6 @@
 // This is the Matlab's mex header file.
 #include "mex.h"
 
-// Use this macro to define the mex entry point.
-#define PASTEL_MATLAB_ENTRY() \
-	extern "C" void mexFunction( \
-		int outputs, mxArray *outputSet[], \
-		int inputs, const mxArray *inputSet[]) \
-	{ \
-		Pastel::matlabEntry( \
-			outputs, outputSet, \
-			inputs, inputSet); \
-	} \
-
 namespace Pastel
 {
 
@@ -38,11 +27,6 @@ namespace Pastel
 	void matlabAddFunction(
 		const std::string& name,
 		MatlabFunction* function);
-
-	//! Call this function at mex entry to redirect to registered functions.
-	void matlabEntry(
-		int outputs, mxArray *outputSet[],
-		int inputs, const mxArray *inputSet[]);
 
 }
 

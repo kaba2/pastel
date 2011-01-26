@@ -13,7 +13,27 @@
 namespace Pastel
 {
 
-	inline RealArrayPtr asRealArray(
+	inline integer asInteger(const mxArray* input)
+	{
+		return (integer)asReal(input);
+	}
+
+	inline real asReal(const mxArray* input)
+	{
+		return *mxGetPr(input);
+	}
+
+	inline std::string asString(const mxArray* input)
+	{
+		char* text = mxArrayToString(input);
+		std::string result(text);
+		mxFree(text);
+
+		return result;
+	}
+
+	template <typename Type>
+	inline boost::shared_ptr<Array<Type> > asArray(
 		const mxArray* that)
 	{
 		// It is intentional to assign the width
@@ -23,18 +43,18 @@ namespace Pastel
 		const integer width = mxGetM(that);
 		const integer height = mxGetN(that);
 
-		real* rawData = mxGetPr(that);
+		Type* rawData = (Type*)mxGetData(that);
 		
 		// No copying is done here. Rather, we aliase
 		// the existing data.
-		return RealArrayPtr(
-			new Array<real>(width, height, withAliasing(rawData)));
+		return boost::shared_ptr<Array<Type> >(
+			new Array<Type>(width, height, withAliasing(rawData)));
 	}
 
-	template <typename RealArrayPtr_Iterator>
-	integer asRealArrays(
+	template <typename Type, typename ArrayPtr_Iterator>
+	integer getArrays(
 		const mxArray* cellArray,
-		RealArrayPtr_Iterator output)
+		ArrayPtr_Iterator output)
 	{
 		const integer n = 
 			mxGetNumberOfElements(that);
@@ -42,7 +62,7 @@ namespace Pastel
 		for (integer i = 0;i < n;++i)
 		{
 			const mxArray* cell = mxGetCell(cellArray, i);
-			*output = realArray(cell);
+			*output = asArray<Type>(cell);
 			++output;
 		}
 
@@ -68,25 +88,6 @@ namespace Pastel
 		StdExt::copy_n(mxGetPr(input), n, output);
 		
 		return n;
-	}
-
-	inline integer asInteger(const mxArray* input)
-	{
-		return (integer)asReal(input);
-	}
-
-	inline real asReal(const mxArray* input)
-	{
-		return *mxGetPr(input);
-	}
-
-	inline std::string asString(const mxArray* input)
-	{
-		char* text = mxArrayToString(input);
-		std::string result(text);
-		mxFree(text);
-
-		return result;
 	}
 
 	namespace Matlab_Detail
