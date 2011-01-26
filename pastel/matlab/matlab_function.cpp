@@ -2,6 +2,8 @@
 #include "pastel/matlab/matlab_argument.h"
 
 #include "pastel/sys/callfunction.h"
+#include "pastel/sys/log_all.h"
+#include "pastel/sys/ensure.h"
 
 #include <map>
 
@@ -34,6 +36,27 @@ namespace Pastel
 
 	namespace
 	{
+
+		class Matlab_Logger
+			: public Logger
+		{
+		public:
+			virtual ~Matlab_Logger()
+			{
+			}
+
+			virtual Matlab_Logger& operator<<(
+				const std::string& text)
+			{
+				// Matlab redefines 'printf' by a macro.
+				printf(text.c_str());
+				return *this;
+			}
+
+			virtual void finalize()
+			{
+			}
+		};
 
 		void matlabEntry(
 			int outputs, mxArray *outputSet[],
@@ -88,14 +111,22 @@ namespace Pastel
 			}
 		}
 
-		void addFunction()
+		void matlabInitialize()
 		{
+			setInvariantFailureAction(
+				InvariantFailureAction::Throw);
+
+			log().addLogger(
+				LoggerPtr(new Pastel::Matlab_Logger));
+
 			matlabAddFunction(
 				"list_functions",
 				matlabListFunctions);
+
+			setNumberOfThreads(0);
 		}
 
-		CallFunction run(addFunction);
+		CallFunction run(matlabInitialize);
 
 	}
 
@@ -106,8 +137,16 @@ extern "C" void mexFunction(
 	int outputs, mxArray *outputSet[],
 	int inputs, const mxArray *inputSet[])
 {
-	Pastel::matlabEntry(
-		outputs, outputSet,
-		inputs, inputSet);
+	try
+	{
+		Pastel::matlabEntry(
+			outputs, outputSet,
+			inputs, inputSet);
+	}
+	catch(const Pastel::InvariantFailure&)
+	{
+		// The error has already been logged.
+		// We simply absorb the exception here.
+	};
 }
 

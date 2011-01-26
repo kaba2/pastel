@@ -86,7 +86,7 @@
 #define ASSERT4(expr, a, b, c, d)\
 {if (!(expr)) {Pastel::Detail::assertionError(#expr, __FILE__, __LINE__, #a, (real64)(a), #b, (real64)(b), #c, (real64)(c), #d, (real64)(d));}}
 
-#define ASSERT_OP(x, op, y) ENSURE_OP(x, op, y)
+#define ASSERT_OP(x, op, y) ASSERT2(x op y, x, y)
 
 #else
 
@@ -101,6 +101,31 @@
 
 namespace Pastel
 {
+
+	class InvariantFailure {};
+
+	class InvariantFailureAction
+	{
+	public:
+		enum Enum
+		{
+			// std::abort();
+			Abort,
+			// assert(false); std::abort();
+			AssertAndAbort,
+			// throw InvariantFailure();
+			Throw,
+			// assert(false); throw InvariantFailure();
+			AssertAndThrow
+		};
+	};
+
+	//! Sets the action on invariant failure.
+	PASTELSYS void setInvariantFailureAction(
+		InvariantFailureAction::Enum action);
+
+	//! Returns the current invariant failure action.
+	PASTELSYS InvariantFailureAction::Enum invariantFailureAction();
 
 	namespace Detail
 	{
