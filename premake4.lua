@@ -273,7 +273,7 @@ solution "Pastel"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/geometry_matlab/", fileSet))
+		files(addPrefix("pastel/geometrymatlab/", fileSet))
 
 	project "PastelDsp"
 		kind(libKind)
