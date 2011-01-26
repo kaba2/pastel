@@ -1,4 +1,4 @@
-pastelgeometry_matlab.cpp
+pastelgeometrymatlab.cpp
 -D_HAS_ITERATOR_DEBUGGING=0
 -DPASTEL_ENABLE_OMP
 -I'e:\ohjelmointi\hgproject\pastel\' 
