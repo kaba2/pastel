@@ -6,8 +6,50 @@
 namespace Pastel
 {
 
+	namespace
+	{
+
+		InvariantFailureAction::Enum currentInvariantFailureAction = 
+			InvariantFailureAction::AssertAndAbort;
+
+	}
+
+	PASTELSYS void setInvariantFailureAction(
+		InvariantFailureAction::Enum action)
+	{
+		currentInvariantFailureAction = action;
+	}
+
+	PASTELSYS InvariantFailureAction::Enum invariantFailureAction()
+	{
+		return currentInvariantFailureAction;
+	}
+
 	namespace Detail
 	{
+
+		void invariantFailure()
+		{
+			log().finalize();
+
+			switch(currentInvariantFailureAction)
+			{
+				case InvariantFailureAction::Abort:
+					std::abort();
+					break;
+				case InvariantFailureAction::AssertAndAbort:
+					assert(false);
+					std::abort();
+					break;
+				case InvariantFailureAction::Throw:
+					throw InvariantFailure();
+					break;
+				case InvariantFailureAction::AssertAndThrow:
+					assert(false);
+					throw InvariantFailure();
+					break;
+			};
+		}
 
 		PASTELSYS void report(
 			const char* testText,
@@ -17,8 +59,6 @@ namespace Pastel
 			const char* info3Name, real64 info3,
 			const char* info4Name, real64 info4)
 		{
-			log() << "Report:" << logNewLine;
-
 			log() << "File: ";
 
 			if (fileName)
@@ -63,7 +103,7 @@ namespace Pastel
 				info3Name ||
 				info4Name)
 			{
-				log() << "More information:" << logNewLine;
+				log() << "where" << logNewLine;
 
 				if (info1Name)
 				{
@@ -87,7 +127,7 @@ namespace Pastel
 				}
 			}
 
-			log() << "End of report." << logNewLine << logNewLine;
+			log() << logNewLine << logNewLine;
 		}
 
 		PASTELSYS void error(
@@ -109,12 +149,7 @@ namespace Pastel
 				info3Name, info3,
 				info4Name, info4);
 
-			log().finalize();
-
-			// Move control to debugger.
-			assert(false);
-
-			std::abort();
+			invariantFailure();
 		}
 
 		PASTELSYS void assertionError(
@@ -126,7 +161,8 @@ namespace Pastel
 			const char* info4Name, real64 info4)
 		{
 			log() << logNewLine;
-			log() << "Internal check failed." << logNewLine;
+			log() << "Internal check failed." 
+				<< logNewLine;
 
 			report(testText,
 				fileName, lineNumber,
@@ -135,12 +171,7 @@ namespace Pastel
 				info3Name, info3,
 				info4Name, info4);
 
-			log().finalize();
-
-			// Move control to debugger.
-			assert(false);
-
-			std::abort();
+			invariantFailure();
 		}
 
 	}

@@ -233,41 +233,24 @@ solution "Pastel"
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/matlab/", fileSet))
-		links
-		{
-			"PastelSys"
-		}
 
 	project "PastelMath"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/math/", fileSet))
-		links
-		{
-			"PastelSys"
-		}
 		
 	project "PastelDevice"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/device/", fileSet))
-		links
-		{
-			"PastelSys"
-		}
 		
 	project "PastelGeometry"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/geometry/", fileSet))
-		links
-		{
-			"PastelSys",
-			"PastelMath"
-		}
 
 	project "PastelGeometryMatlab"
 		kind(libKind)
@@ -280,68 +263,30 @@ solution "Pastel"
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/dsp/", fileSet))
-		links
-		{
-			"PastelSys",
-			"PastelMath"
-		}
 
 	project "PastelGfx"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/gfx/", fileSet))
-		links
-		{
-			"PastelSys",
-			"PastelMath",
-			"PastelGeometry",
-			"PastelDsp"
-		}
 
 	project "PastelRay"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/ray/", fileSet))
-		links
-		{
-			"PastelSys",
-			"PastelMath",
-			"PastelGeometry",
-			"PastelDsp",
-			"PastelGfx"
-		}
 
 	project "PastelGl"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/gl/", fileSet))
-		links
-		{
-			"PastelSys",
-			"PastelMath",
-			"PastelGeometry",
-			"PastelDsp",
-			"PastelGfx",
-			"PastelDevice"
-		}
 
 	project "PastelGfxUi"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/gfxui/", fileSet))
-		links
-		{
-			"PastelSys",
-			"PastelMath",
-			"PastelGeometry",
-			"PastelDsp",
-			"PastelGfx",
-			"PastelDevice"
-		}
 
 	project "PastelSysTest"
 		kind("ConsoleApp")
