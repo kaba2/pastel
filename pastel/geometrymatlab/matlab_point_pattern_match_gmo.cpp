@@ -33,11 +33,11 @@ namespace Pastel
 			const integer modelPoints = mxGetN(inputSet[modelIndex]);
 			const real* sceneData = mxGetPr(inputSet[sceneIndex]);
 			const integer scenePoints = mxGetN(inputSet[sceneIndex]);
-			const real minMatchRatio = asReal(inputSet[minMatchRatioIndex]);
+			const real minMatchRatio = asScalar<real>(inputSet[minMatchRatioIndex]);
 			const real matchingDistance = 
-				asReal(inputSet[matchingDistanceIndex]);
+				asScalar<real>(inputSet[matchingDistanceIndex]);
 			const real confidence =
-				asReal(inputSet[confidenceIndex]);
+				asScalar<real>(inputSet[confidenceIndex]);
 
 			const integer n = mxGetM(inputSet[modelIndex]);
 

@@ -13,16 +13,52 @@
 namespace Pastel
 {
 
-	inline integer asInteger(const mxArray* input)
+	template <typename Type>
+	Type asScalar(const mxArray* input)
 	{
-		return (integer)asReal(input);
-	}
+		ENSURE(mxIsNumeric(input));
 
-	inline real asReal(const mxArray* input)
-	{
-		ENSURE(mxIsDouble(input));
+		Type result = 0;
+		switch(mxGetClassID(input))
+		{
+		case mxSINGLE_CLASS:
+			result = *((real32*)mxGetData(input));
+			break;
+		case mxDOUBLE_CLASS:
+			result = *((real64*)mxGetData(input));
+			break;
+		case mxINT8_CLASS:
+			result = *((int8*)mxGetData(input));
+			break;
+		case mxUINT8_CLASS:
+			result = *((uint8*)mxGetData(input));
+			break;
+		case mxINT16_CLASS:
+			result = *((int16*)mxGetData(input));
+			break;
+		case mxUINT16_CLASS:
+			result = *((uint16*)mxGetData(input));
+			break;
+		case mxINT32_CLASS:
+			result = *((int32*)mxGetData(input));
+			break;
+		case mxUINT32_CLASS:
+			result = *((uint32*)mxGetData(input));
+			break;
+		case mxINT64_CLASS:
+			result = *((int64*)mxGetData(input));
+			break;
+		case mxUINT64_CLASS:
+			result = *((uint64*)mxGetData(input));
+			break;
+		default:
+			// This should not be possible, since
+			// the above covers all numeric types.
+			ENSURE(false);
+			break;
+		};
 
-		return *mxGetPr(input);
+		return result;
 	}
 
 	inline std::string asString(const mxArray* input)
@@ -78,25 +114,54 @@ namespace Pastel
 		return n;
 	}
 
-	template <typename Integer_Iterator>
-	integer getIntegers(
+	template <typename Scalar_Iterator>
+	integer getScalars(
 		const mxArray* input,
-		Integer_Iterator output)
-	{
-		return getReals(input, output);
-	}
-
-	template <typename Real_Iterator>
-	integer getReals(
-		const mxArray* input,
-		Real_Iterator output)
+		Scalar_Iterator output)
 	{
 		ENSURE(mxIsNumeric(input));
 
 		const integer n = 
 			mxGetNumberOfElements(input);
 
-		StdExt::copy_n(mxGetPr(input), n, output);
+		switch(mxGetClassID(input))
+		{
+		case mxSINGLE_CLASS:
+			StdExt::copy_n((real32*)mxGetData(input), n, output);
+			break;
+		case mxDOUBLE_CLASS:
+			StdExt::copy_n((real64*)mxGetData(input), n, output);
+			break;
+		case mxINT8_CLASS:
+			StdExt::copy_n((int8*)mxGetData(input), n, output);
+			break;
+		case mxUINT8_CLASS:
+			StdExt::copy_n((uint8*)mxGetData(input), n, output);
+			break;
+		case mxINT16_CLASS:
+			StdExt::copy_n((int16*)mxGetData(input), n, output);
+			break;
+		case mxUINT16_CLASS:
+			StdExt::copy_n((uint16*)mxGetData(input), n, output);
+			break;
+		case mxINT32_CLASS:
+			StdExt::copy_n((int32*)mxGetData(input), n, output);
+			break;
+		case mxUINT32_CLASS:
+			StdExt::copy_n((uint32*)mxGetData(input), n, output);
+			break;
+		case mxINT64_CLASS:
+			StdExt::copy_n((int64*)mxGetData(input), n, output);
+			break;
+		case mxUINT64_CLASS:
+			StdExt::copy_n((uint64*)mxGetData(input), n, output);
+			break;
+		default:
+			// This should not be possible, since
+			// the above covers all numeric types.
+			ENSURE(false);
+			break;
+		}
 		
 		return n;
 	}
@@ -125,11 +190,16 @@ namespace Pastel
 			}
 		};
 
-        PASTEL_TYPE_TO_MATLAB_CLASSID(char, mxCHAR_CLASS);
+		// Note: the mxCHAR_CLASS coincides in type with
+		// mxINT8_CLASS. Therefore, we leave it out here:
+		// the important thing is to support the 
+		// numeric types. The mxCHAR_CLASS is handled
+		// specially for strings.
+
         PASTEL_TYPE_TO_MATLAB_CLASSID(void, mxVOID_CLASS);
         PASTEL_TYPE_TO_MATLAB_CLASSID(real64, mxDOUBLE_CLASS);
         PASTEL_TYPE_TO_MATLAB_CLASSID(real32, mxSINGLE_CLASS);
-        //PASTEL_TYPE_TO_MATLAB_CLASSID(int8, mxINT8_CLASS);
+        PASTEL_TYPE_TO_MATLAB_CLASSID(int8, mxINT8_CLASS);
         PASTEL_TYPE_TO_MATLAB_CLASSID(uint8, mxUINT8_CLASS);
         PASTEL_TYPE_TO_MATLAB_CLASSID(int16, mxINT16_CLASS);
         PASTEL_TYPE_TO_MATLAB_CLASSID(uint16, mxUINT16_CLASS);

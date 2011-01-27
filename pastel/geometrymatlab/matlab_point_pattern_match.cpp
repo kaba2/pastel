@@ -35,11 +35,11 @@ namespace Pastel
 			const integer scenePoints = 
 				mxGetN(inputSet[sceneIndex]);
 			const real minMatchRatio = 
-				asReal(inputSet[minMatchRatioIndex]);
+				asScalar<real>(inputSet[minMatchRatioIndex]);
 			const real relativeMatchingDistance = 
-				asReal(inputSet[relativeMatchingDistanceIndex]);
+				asScalar<real>(inputSet[relativeMatchingDistanceIndex]);
 			const real confidence =
-				asReal(inputSet[confidenceIndex]);
+				asScalar<real>(inputSet[confidenceIndex]);
 
 			//const integer threads = asInteger(inputSet[threadsIndex]);
 			//setNumberOfThreads(threads);
