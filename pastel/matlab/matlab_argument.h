@@ -17,8 +17,17 @@ namespace Pastel
 	typedef boost::shared_ptr<Array<real> > 
 		RealArrayPtr;
 
+	typedef boost::shared_ptr<Array<real32> > 
+		Real32ArrayPtr;
+
+	typedef boost::shared_ptr<Array<real64> > 
+		Real64ArrayPtr;
+
 	typedef boost::shared_ptr<Array<int32> > 
 		Int32ArrayPtr;
+
+	typedef boost::shared_ptr<Array<int64> > 
+		Int64ArrayPtr;
 
 	//! Retrieves a copy of an integer.
 	integer asInteger(const mxArray* input);
@@ -69,6 +78,10 @@ namespace Pastel
 	integer getReals(
 		const mxArray* input,
 		Real_Iterator output);
+
+	//! Returns the Matlab class-id corresponding to 'Type'.
+	template <typename Type>
+	mxClassID typeToMatlabClassId();
 
 }
 
