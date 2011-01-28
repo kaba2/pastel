@@ -25,10 +25,7 @@
 
 using namespace Pastel;
 
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-
-using namespace boost::lambda;
+#include <boost/bind.hpp>
 
 #include <iostream>
 
@@ -582,7 +579,7 @@ namespace
 			combineTexture(
 			mipImageTexture(aMipMap),
 			mipImageTexture(bMipMap),
-			functorColorMixer<Color>(ret<Color>(_1 - _2))),
+			functorColorMixer<Color>(std::minus<Color>())),
 			arrayView(image));
 
 		drawTexturedBox(
@@ -590,7 +587,7 @@ namespace
 			combineTexture(
 			mipImageTexture(aMipMap),
 			mipImageTexture(bMipMap),
-			functorColorMixer<Color>(ret<Color>(_1 + _2))),
+			functorColorMixer<Color>(std::plus<Color>())),
 			arrayView(image));
 
 		drawTexturedBox(
@@ -598,7 +595,7 @@ namespace
 			combineTexture(
 			mipImageTexture(aMipMap),
 			mipImageTexture(bMipMap),
-			functorColorMixer<Color>(ret<Color>(_1 * _2))),
+			functorColorMixer<Color>(std::multiplies<Color>())),
 			arrayView(image));
 
 		drawTexturedBox(

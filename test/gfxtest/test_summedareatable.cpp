@@ -13,7 +13,7 @@
 #include "pastel/gfx/summedareatable.h"
 
 #include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
+#include <boost/bind.hpp>
 
 using namespace boost::lambda;
 
@@ -32,7 +32,10 @@ namespace
 		computeSummedAreaTable(constArrayView(image), arrayView(sumImage));
 
 		const Color sum = sumImage(image.extent() - 1);
-		visit(arrayView(sumImage), _1 /= sum);
+		for (integer i = 0;i < sumImage.size();++i)
+		{
+			sumImage(i) /= sum;
+		}
 
 		savePcx(sumImage, "output/summedareatable.pcx");
 	}

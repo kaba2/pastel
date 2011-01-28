@@ -41,23 +41,26 @@ namespace Pastel
 
 		Array(
 			const Vector<integer, N>& extent,
-			const Alias<Type*>& dataAlias)
-			: Base(extent, dataAlias)
+			const Alias<Type*>& dataAlias,
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, dataAlias, order)
 		{
 		}
 
 		explicit Array(
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, defaultData, order)
 		{
 		}
 
 		Array(
 			const Array<Type, N>& that,
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(that, extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, extent, defaultData, order)
 		{
 		}
 	};
@@ -103,15 +106,17 @@ namespace Pastel
 
 		Array(
 			const Vector<integer, N>& extent,
-			const Alias<Type*>& dataAlias)
-			: Base(extent, dataAlias)
+			const Alias<Type*>& dataAlias,
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, dataAlias, order)
 		{
 		}
 
 		explicit Array(
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, defaultData, order)
 		{
 		}
 
@@ -127,16 +132,18 @@ namespace Pastel
 		Array(
 			const Array<Type, N>& that,
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(that, extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, extent, defaultData, order)
 		{
 		}
 
 		Array(
 			const Array<Type, N>& that,
 			integer width,
-			const Type& defaultData = Type())
-			: Base(that, Vector<integer, N>(width), defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, Vector<integer, N>(width), defaultData, order)
 		{
 		}
 
@@ -227,49 +234,56 @@ namespace Pastel
 
 		Array(
 			const Vector<integer, N>& extent,
-			const Alias<Type*>& dataAlias)
-			: Base(extent, dataAlias)
+			const Alias<Type*>& dataAlias,
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, dataAlias, order)
 		{
 		}
 
 		explicit Array(
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, defaultData, order)
 		{
 		}
 
 		Array(
 			integer width, integer height,
-			const Type& defaultData = Type())
-			: Base(Vector<integer, N>(width, height), defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(Vector<integer, N>(width, height), defaultData, order)
 		{
 		}
 
 		Array(
 			integer width, integer height,
-			const Alias<Type*> dataAlias)
-			: Base(Vector<integer, N>(width, height), dataAlias)
+			const Alias<Type*> dataAlias,
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(Vector<integer, N>(width, height), dataAlias, order)
 		{
 		}
 
 		Array(
 			const Array<Type, N>& that,
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(that, extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, extent, defaultData, order)
 		{
 		}
 
 		Array(
 			const Array<Type, N>& that,
 			integer width, integer height,
-			const Type& defaultData = Type())
-			: Base(that, Vector<integer, N>(width, height), defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, Vector<integer, N>(width, height), defaultData, order)
 		{
 		}
 
-		void setExtent(integer width, integer height,
+		void setExtent(
+			integer width, integer height,
 			const Type& defaultData = Type())
 		{
 			Base::setExtent(Vector<integer, N>(width, height), defaultData);
@@ -392,45 +406,51 @@ namespace Pastel
 
 		Array(
 			const Vector<integer, N>& extent,
-			const Alias<Type*>& dataAlias)
-			: Base(extent, dataAlias)
+			const Alias<Type*>& dataAlias,
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, dataAlias, order)
 		{
 		}
 
 		explicit Array(
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(extent, defaultData, order)
 		{
 		}
 
 		Array(
 			integer width, integer height, integer depth,
-			const Type& defaultData = Type())
-			: Base(Vector<integer, N>(width, height, depth), defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(Vector<integer, N>(width, height, depth), defaultData, order)
 		{
 		}
 
 		Array(
 			const Array<Type, N>& that,
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type())
-			: Base(that, extent, defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, extent, defaultData, order)
 		{
 		}
 
 		Array(
 			const Array<Type, N>& that,
 			integer width, integer height, integer depth,
-			const Type& defaultData = Type())
-			: Base(that, Vector<integer, N>(width, height, depth), defaultData)
+			const Type& defaultData = Type(),
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(that, Vector<integer, N>(width, height, depth), defaultData, order)
 		{
 		}
 
 		Array(
 			integer width, integer height, integer depth,
-			const Alias<Type*> dataAlias)
-			: Base(Vector<integer, N>(width, height, depth), dataAlias)
+			const Alias<Type*> dataAlias,
+			StorageOrder::Enum order = StorageOrder::RowMajor)
+			: Base(Vector<integer, N>(width, height, depth), dataAlias, order)
 		{
 		}
 

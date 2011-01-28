@@ -22,11 +22,6 @@
 #include <vector>
 #include <algorithm>
 
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
-
-using namespace boost::lambda;
-
 using namespace Pastel;
 
 namespace
@@ -34,12 +29,14 @@ namespace
 
 	void testImagePdf()
 	{
-		Array<Color, 2> colorImage;
+		Array<Color> colorImage;
 		loadPcx("imagepdf_input.pcx", colorImage);
 
-		Array<real32, 2> image(colorImage.extent());
-
-		visit(constArrayView(colorImage), arrayView(image), _2 = bind(luma, _1));
+		Array<real32> image(colorImage.extent());
+		for (integer i = 0;i < image.size();++i)
+		{
+			image(i) = luma(colorImage(i));
+		}
 
 		ImagePdf<real32, 2> imagePdf(constArrayView(image));
 
