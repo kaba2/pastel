@@ -79,19 +79,16 @@ namespace Pastel
 		ENSURE(mxIsNumeric(that));
 		ENSURE_OP(typeToMatlabClassId<Type>(), ==, mxGetClassID(that));
 
-		// It is intentional to assign the width
-		// and height the wrong way. The reason
-		// is that Matlab uses column-major storage
-		// while we use row-major storage.
-		const integer width = mxGetM(that);
-		const integer height = mxGetN(that);
+		const integer width = mxGetN(that);
+		const integer height = mxGetM(that);
 
 		Type* rawData = (Type*)mxGetData(that);
 		
 		// No copying is done here. Rather, we aliase
 		// the existing data.
 		return boost::shared_ptr<Array<Type> >(
-			new Array<Type>(width, height, withAliasing(rawData)));
+			new Array<Type>(width, height, withAliasing(rawData), 
+			StorageOrder::ColumnMajor));
 	}
 
 	template <typename Type, typename ArrayPtr_Iterator>

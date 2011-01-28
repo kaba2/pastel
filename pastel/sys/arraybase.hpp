@@ -7,6 +7,10 @@
 #include "pastel/sys/stdext_destruct.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/alignedbox_tools.h"
+#include "pastel/sys/difference_alignedbox_alignedbox.h"
+#include "pastel/sys/griditerator.h"
+
+#include <boost/bind.hpp>
 
 #include <algorithm>
 
@@ -20,49 +24,45 @@ namespace Pastel
 		ArrayBase<Type, N>::ArrayBase()
 			: extent_(0)
 			, stride_(0)
+			, order_(0)
 			, size_(0)
 			, data_(0)
 			, deleteData_(true)
 		{
+			setStorageOrder(StorageOrder::RowMajor);
 		}
 
 		template <typename Type, int N>
 		ArrayBase<Type, N>::ArrayBase(
 			const Vector<integer, N>& extent,
-			const Alias<Type*>& dataAlias)
+			const Alias<Type*>& dataAlias,
+			StorageOrder::Enum order)
 			: extent_(extent)
-			, stride_(0)
+			, stride_(ofDimension(extent.dimension()), 0)
+			, order_(ofDimension(extent.dimension()), 0)
 			, size_(product(extent))
 			, data_(dataAlias)
 			, deleteData_(false)
 		{
 			ENSURE(allGreaterEqual(extent, 0));
 
-			const integer n = dimension();
-
-			Vector<integer, N> newFactor(
-				ofDimension(n));
-
-			newFactor[0] = 1;
-			for (integer i = 1;i < n;++i)
-			{
-				newFactor[i] = newFactor[i - 1] * extent[i - 1];
-			}
-
-			stride_ = newFactor;
+			setStorageOrder(order);
 		}
 
 		template <typename Type, int N>
 		ArrayBase<Type, N>::ArrayBase(
 			const Vector<integer, N>& extent,
-			const Type& defaultData)
-			: extent_(0)
-			, stride_(0)
+			const Type& defaultData,
+			StorageOrder::Enum order)
+			: extent_(extent)
+			, stride_(ofDimension(extent.dimension()), 0)
+			, order_(ofDimension(extent.dimension()), 0)
 			, size_(0)
 			, data_(0)
 			, deleteData_(true)
 		{
 			allocate(extent);
+			setStorageOrder(order);
 
 			try
 			{
@@ -79,13 +79,15 @@ namespace Pastel
 		template <typename Type, int N>
 		ArrayBase<Type, N>::ArrayBase(
 			const ArrayBase& that)
-			: extent_(0)
-			, stride_(0)
+			: extent_(ofDimension(that.dimension()), 0)
+			, stride_(ofDimension(that.dimension()), 0)
+			, order_(that.order_)
 			, size_(0)
 			, data_(0)
 			, deleteData_(true)
 		{
 			allocate(that.extent_);
+			setStorageOrder(that.storageOrder());
 
 			try
 			{
@@ -103,43 +105,19 @@ namespace Pastel
 		ArrayBase<Type, N>::ArrayBase(
 			const ArrayBase& that,
 			const Vector<integer, N>& extent,
-			const Type& defaultData)
-			: extent_(0)
-			, stride_(0)
+			const Type& defaultData,
+			StorageOrder::Enum order)
+			: extent_(extent)
+			, stride_(ofDimension(extent.dimension()), 0)
+			, order_(ofDimension(extent.dimension()), 0)
 			, size_(0)
 			, data_(0)
 			, deleteData_(true)
 		{
 			allocate(extent);
+			setStorageOrder(order);
 
-			try
-			{
-				if (that.size() == 0)
-				{
-					// Nothing to copy, pure
-					// default initialization.
-					std::uninitialized_fill_n(data_,
-						size_, defaultData);
-				}
-				else if (extent_ == that.extent_)
-				{
-					// Nothing to default initialize,
-					// pure copy construction.
-					std::uninitialized_copy(
-						that.data_, that.data_ + size_, data_);
-				}
-				else
-				{
-					// Both copy construction and
-					// default initialization needed.
-					copyConstruct(that, defaultData);
-				}
-			}
-			catch(...)
-			{
-				deallocate();
-				throw;
-			};
+			copyConstruct(that, defaultData);
 		}
 
 		template <typename Type, int N>
@@ -159,6 +137,7 @@ namespace Pastel
 
 			extent_.set(0);
 			stride_.set(0);
+			// Note: we preserve the storage order.
 			size_ = 0;
 			deleteData_ = true;
 		}
@@ -168,6 +147,7 @@ namespace Pastel
 		{
 			extent_.swap(that.extent_);
 			stride_.swap(that.stride_);
+			order_.swap(that.order_);
 			std::swap(size_, that.size_);
 			std::swap(data_, that.data_);
 			std::swap(deleteData_, that.deleteData_);
@@ -213,25 +193,15 @@ namespace Pastel
 		{
 			ENSURE(allGreaterEqual(extent, 0));
 
-			const integer n = dimension();
-			const integer newSize = product(extent);
+			const integer size = product(extent);
 			
-			ENSURE_OP(newSize, ==, size_);
+			ENSURE_OP(size, ==, size_);
 
-			if (newSize > 0)
+			if (size > 0)
 			{
-				Vector<integer, N> newFactor(
-					ofDimension(n));
-
-				newFactor[0] = 1;
-				for (integer i = 1;i < n;++i)
-				{
-					newFactor[i] = newFactor[i - 1] * extent[i - 1];
-				}
-
-				stride_ = newFactor;
 				extent_ = extent;
-				size_ = newSize;
+				computeStride();
+				size_ = size;
 			}
 		}
 
@@ -257,15 +227,25 @@ namespace Pastel
 		ArrayBase<Type, N>& ArrayBase<Type, N>::operator=(
 			const ArrayBase& that)
 		{
-			if (extent() != that.extent())
+			ENSURE(extent() == that.extent());
+
+			if (storageOrder() == that.storageOrder())
 			{
-				ArrayBase<Type, N> copy(that);
-				swap(copy);
+				// Storage orders match, so simply
+				// copy all stuff.
+				std::copy(that.begin(), that.end(), 
+					begin());
 			}
 			else
 			{
-				std::copy(that.begin(), that.end(), 
-					begin());
+				// Storage orders do not match, so
+				// do a point-by-point copy.
+				GridIterator<N> iter(extent());
+				while(!iter.done())
+				{
+					(*this)(iter.position()) = that(iter.position());
+					++iter;
+				}
 			}
 
 			return *this;
@@ -469,17 +449,9 @@ namespace Pastel
 			const Vector<integer, N>& position, 
 			integer axis)
 		{
-			const integer n = dimension();
-
-			integer index = position[0];
-			for (integer i = 1;i < axis;++i)
-			{
-				index += position[i] * stride_[i];
-			}
-			for (integer i = axis + 1;i < n;++i)
-			{
-				index += position[i] * stride_[i];
-			}
+			const integer index = 
+				dot(position, stride_) - 
+				position[axis] * stride_[axis];
 
 			return RowIterator(
 				data_ + index, stride_[axis]);
@@ -571,7 +543,74 @@ namespace Pastel
 			return (Type*)((const ArrayBase&)*this).address(position);
 		}
 
+		template <typename Type, int N>
+		const Vector<integer, N>& ArrayBase<Type, N>::stride() const
+		{
+			return stride_;
+		}
+
+		template <typename Type, int N>
+		void ArrayBase<Type, N>::setStorageOrder(
+			StorageOrder::Enum order)
+		{
+			const integer n = order_.dimension();
+
+			if (order == StorageOrder::RowMajor)
+			{
+				for (integer i = 0;i < n;++i)
+				{
+					order_[i] = i;
+				}
+			}
+			else
+			{
+				for (integer i = 0;i < n;++i)
+				{
+					order_[i] = n - i - 1;
+				}
+			}
+
+			computeStride();
+		}
+
+		template <typename Type, int N>
+		StorageOrder::Enum ArrayBase<Type, N>::storageOrder() const
+		{
+			if (order_[0] == 0)
+			{
+				return StorageOrder::RowMajor;
+			}
+
+			return StorageOrder::ColumnMajor;
+		}
+
 		// Private
+
+		template <typename Type, int N>
+		void ArrayBase<Type, N>::computeStride()
+		{
+			const integer n = dimension();
+
+			Vector<integer, N> stride(
+				ofDimension(n));
+
+			// Case i = 0.
+			{
+				const integer k = order_[0];
+				stride[k] = 1;
+			}
+
+			// Case i > 0.
+			for (integer i = 1;i < n;++i)
+			{
+				const integer j = order_[i - 1];
+				const integer k = order_[i];
+
+				stride[k] = stride[j] * extent_[j];
+			}
+
+			stride_ = stride;
+		}
 
 		template <typename Type, int N>
 		void ArrayBase<Type, N>::allocate(
@@ -580,33 +619,18 @@ namespace Pastel
 			ASSERT(data_ == 0);
 			ASSERT(size_ == 0);
 
-			const integer units = product(extent);
-			if (units == 0)
+			const integer size = product(extent);
+			if (size == 0)
 			{
 				return;
 			}
 
-			Type* newData = (Type*)allocateRaw(units * sizeof(Type));
+			Type* data = (Type*)allocateRaw(size * sizeof(Type));
 
-			// Compute steps between consecutive
-			// elements on each axis.
-
-			const integer n = dimension();
-
-			Vector<integer, N> newFactor(
-				ofDimension(n));
-
-			newFactor[0] = 1;
-
-			for (integer i = 1;i < n;++i)
-			{
-				newFactor[i] = newFactor[i - 1] * extent[i - 1];
-			}
-
-			stride_ = newFactor;
 			extent_ = extent;
-			size_ = units;
-			data_ = newData;
+			// Stride computed elsewhere.
+			size_ = size;
+			data_ = data;
 			deleteData_ = true;
 		}
 
@@ -614,11 +638,29 @@ namespace Pastel
 		void ArrayBase<Type, N>::deallocate()
 		{
 			deallocateRaw((void*)data_);
-			data_ = 0;
-			size_ = 0;
-			stride_.set(0);
+			// Note: order_ is preserved.
 			extent_.set(0);
+			stride_.set(0);
+			size_ = 0;
+			data_ = 0;
 			deleteData_ = true;
+		}
+
+		template <typename Type, int N>
+		void ArrayBase<Type, N>::construct(
+			const AlignedBox<integer, N>& region,
+			const Type& defaultData)
+		{
+			GridIterator<N> iter(region.extent());
+			while(!iter.done())
+			{
+				Type* data = 
+					data_ + dot(region.min() + iter.position(), stride_);
+				
+				new(data) Type(defaultData);
+
+				++iter;
+			}
 		}
 
 		template <typename Type, int N>
@@ -631,74 +673,51 @@ namespace Pastel
 				return;
 			}
 
-			const integer n = dimension();
+			if (that.size() == 0)
+			{
+				// Nothing to copy: pure
+				// default initialization.
+				std::uninitialized_fill_n(data_,
+					size_, defaultData);
+				return;
+			}
+			
+			if (extent_ == that.extent_ &&
+				order_ == that.order_)
+			{
+				// Same linear order and extents, and nothing to 
+				// default initialize: pure copy construction.
+				std::uninitialized_copy(
+					that.data_, that.data_ + size_, data_);
+				return;
+			}
 
+			// Need a point-by-point copy construction.
+			const integer n = dimension();
 			const Vector<integer, N> minExtent = 
 				min(extent_, that.extent_);
 
-			integer outOfCopyZone = 0;
-			integer traversed = 0;
-			Vector<integer, N> position(
-				ofDimension(n), 0);
-
-			try
+			GridIterator<N> iter(minExtent);
+			while(!iter.done())
 			{
-				while(traversed < size_)
-				{
-					if (outOfCopyZone == 0)
-					{
-						std::uninitialized_copy(
-							&that(position),
-							&that(position) + minExtent[0],
-							&(*this)(position));
-						
-						traversed += minExtent[0];
+				Type* data = &(*this)(iter.position());
 
-						if (extent_[0] > minExtent[0])
-						{
-							std::uninitialized_fill_n(
-								&(*this)(position) + minExtent[0],
-								extent_[0] - minExtent[0],
-								defaultData);
-							
-							traversed -= minExtent[0];
-							traversed += extent_[0];
-						}
-					}
-					else
-					{
-						std::uninitialized_fill_n(
-							&(*this)(position),
-							extent_[0],
-							defaultData);
-
-						traversed += extent_[0];
-					}
-
-					for (integer i = 1;i < n;++i)
-					{
-						++position[i];
-						if (position[i] == minExtent[i])
-						{
-							++outOfCopyZone;
-						}
-						if (position[i] == extent_[i])
-						{
-							position[i] = 0;
-							--outOfCopyZone;
-						}
-						else
-						{
-							break;
-						}
-					}
-				}
+				new(data) Type(that(iter.position()));
+				++iter;
 			}
-			catch(...)
-			{
-				StdExt::destruct(data_, data_ + traversed);
-				throw;
-			};
+
+			// Default construct the region which is not
+			// copy constructed, i.e. the difference of the
+			// whole region and the copy-region.
+			const AlignedBox<integer, N> wholeRegion(
+				Vector<integer, N>(ofDimension(n), 0),
+				extent_);
+			const AlignedBox<integer, N> copyRegion(
+				Vector<integer, N>(ofDimension(n), 0),
+				that.extent_);
+			difference(wholeRegion, copyRegion,
+				boost::bind(&ArrayBase::construct, 
+				this, ::_1, defaultData));
 		}
 
 	}

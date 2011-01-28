@@ -11,9 +11,20 @@
 #include "pastel/sys/arraybasecursor.h"
 #include "pastel/sys/subarray.h"
 #include "pastel/sys/iterator_range.h"
+#include "pastel/sys/alignedbox.h"
 
 namespace Pastel
 {
+
+	class StorageOrder
+	{
+	public:
+		enum Enum
+		{
+			RowMajor,
+			ColumnMajor
+		};
+	};
 
 	template <typename Type, int N = 2>
 	class Array;
@@ -54,20 +65,25 @@ namespace Pastel
 			//! Construct an array of given extents using existing memory.
 			ArrayBase(
 				const Vector<integer, N>& extent,
-				const Alias<Type*>& dataAlias);
+				const Alias<Type*>& dataAlias,
+				StorageOrder::Enum order = StorageOrder::RowMajor);
 
 			//! Constructs an array of given extents filled with given data.
 			ArrayBase(
 				const Vector<integer, N>& extent,
-				const Type& defaultData = Type());
+				const Type& defaultData = Type(),
+				StorageOrder::Enum order = StorageOrder::RowMajor);
 
 			//! Copy constructs an array.
-			ArrayBase(const ArrayBase& that);
+			ArrayBase(
+				const ArrayBase& that);
 
 			//! Copy constructs an array with given extents.
-			ArrayBase(const ArrayBase& that,
+			ArrayBase(
+				const ArrayBase& that,
 				const Vector<integer, N>& extent,
-				const Type& defaultData = Type());
+				const Type& defaultData = Type(),
+				StorageOrder::Enum order = StorageOrder::RowMajor);
 
 			//! Destruct an array.
 			~ArrayBase();
@@ -279,23 +295,27 @@ namespace Pastel
 			//! Returns the memory address of the given position.
 			Type* address(const Vector<integer, N>& position);
 
-			integer stride(integer axis) const
-			{
-				PENSURE_OP(axis, >=, 0);
-				PENSURE_OP(axis, <, stride_.size());
-				return stride_[axis];
-			}
+			//! Returns the stride.
+			const Vector<integer, N>& stride() const;
 
-			const Vector<integer, N>& stride() const
-			{
-				return stride_;
-			}
+			//! Sets the storage order.
+			void setStorageOrder(
+				StorageOrder::Enum order);
+
+			//! Returns the storage order.
+			StorageOrder::Enum storageOrder() const;
 
 		private:
+			void computeStride();
+
 			void allocate(
 				const Vector<integer, N>& extent);
 
 			void deallocate();
+
+			void construct(
+				const AlignedBox<integer, N>& region,
+				const Type& defaultData);
 
 			void copyConstruct(
 				const ArrayBase& that,
@@ -309,6 +329,16 @@ namespace Pastel
 			The multiplicative factors by
 			which each coordinate is scaled before
 			being summed to form a linear index.
+			A linear index is computed by the dot
+			product of 'stride_' and a position.
+
+			order_:
+			The storage order in which the data is
+			linearized. A permutation of integers
+			from 0 to dimension() - 1.			
+			The order_[i] dimension changes 
+			faster than order_[i + 1], when increasing
+			a linear index.
 
 			size_:
 			The number of elements in the array.
@@ -327,6 +357,7 @@ namespace Pastel
 
 			Vector<integer, N> extent_;
 			Vector<integer, N> stride_;
+			Vector<integer, N> order_;
 			integer size_;
 			Type* data_;
 			bool deleteData_;

@@ -5,6 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"
+#include "pastel/sys/vector.h"
 
 #include <boost/shared_ptr.hpp>
 
