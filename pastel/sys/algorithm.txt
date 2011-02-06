@@ -10,15 +10,13 @@ Motivation
 ----------
 
 In generic programming, it is often desirable to parametrize an algorithm
-by sub-algorithms. For example, a nearest-neighbor search algorithm over
-kd-trees might be parametrized by the traversal order of nodes. This can be
-encapsulated into an algorithm object, which the user passes to the search
-function, and used as a sub-algorithm.
+by sub-algorithms. For example, the `std::sort()` algorithm in the C++ 
+Standard Library takes in an object which defines the ordering to use.
 
-Compared to the usual use of functors, the algorithm objects are different
-in that usually the functors are not templated. Instead, the usual functors 
-carry only a specific type of function, such as `std::less<int>()` passed to 
-`std::sort()`. Using the algorithm concept, one would instead pass a `LessThan()`
-algorithm which encapsulates a less-than comparison for all types.
+Compared to a usual functor, an algorithm object is different in that 
+usually the functor's `operator()` is not a function template. For 
+example, while normally you would pass a `std::less<int>()` to the 
+`std::sort()`, with algorithm objects you would pass a `LessThan()`,
+which encapsulates a less-than comparison for all types.
 
 

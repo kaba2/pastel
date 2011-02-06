@@ -3,20 +3,9 @@ IndexAllocator class
 
 [[Parent]]: miscellaneous.txt
 
-Theory
-------
-
-Sometimes one needs to allocate integer identifiers in a
-conservative manner. I.e. the identifiers are resources
-which can be allocated and deallocated, and, if on allocation
-there are two free identifiers, then the smaller of them
-is returned. With a proper data structure, this can be
-done quite efficiently.
-
-Practice
---------
-
-Pastel implements the IndexAllocator class to allocate and 
-deallocate integer identifiers conservatively. This 
-allows to perform allocations in amortized logarithmic time,
-and deallocations in logarithmic time.
+_IndexAllocator_ manages integer identifiers in a conservative manner. 
+The identifiers are resources which can be allocated and deallocated, 
+and, if on allocation there are two free identifiers, then the smaller 
+of them is returned. With a proper data structure, this can be done 
+quite efficiently: allocations work in amortized logarithmic time,
+while deallocations work in logarithmic time.

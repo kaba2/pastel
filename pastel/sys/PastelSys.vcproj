@@ -1395,14 +1395,6 @@
 				RelativePath=".\subset.h"
 				>
 			</File>
-			<File
-				RelativePath=".\syslibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\syslibrary.h"
-				>
-			</File>
 			<Filter
 				Name="Guid"
 				>
@@ -1420,30 +1412,6 @@
 				</File>
 				<File
 					RelativePath=".\guid.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="MeasureTable"
-				>
-				<File
-					RelativePath=".\measuretable.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\measuretable.h"
-					>
-				</File>
-				<File
-					RelativePath=".\measuretable.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\measuretable_tools.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\measuretable_tools.h"
 					>
 				</File>
 			</Filter>
@@ -2091,6 +2059,14 @@
 				RelativePath="..\..\premake4.lua"
 				>
 			</File>
+			<File
+				RelativePath=".\syslibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\syslibrary.h"
+				>
+			</File>
 			<Filter
 				Name="Build switches"
 				>
@@ -2215,6 +2191,10 @@
 		<Filter
 			Name="Reporting"
 			>
+			<File
+				RelativePath=".\reporting.txt"
+				>
+			</File>
 			<Filter
 				Name="Logging"
 				>
@@ -2291,7 +2271,39 @@
 				Name="Progress reporting"
 				>
 				<File
+					RelativePath=".\progress.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\progress.h"
+					>
+				</File>
+				<File
+					RelativePath=".\progress.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeasureTable"
+				>
+				<File
+					RelativePath=".\measuretable.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable_tools.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\measuretable_tools.h"
 					>
 				</File>
 			</Filter>

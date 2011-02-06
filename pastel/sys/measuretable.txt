@@ -1,17 +1,19 @@
 MeasureTable class
 ==================
 
-[[Parent]]: miscellaneous.txt
-
-Motivation
-----------
+[[Parent]]: reporting.txt
 
 The purpose of MeasureTable is to describe the visual design
 of a table of values. This is useful, for example, when measuring
 the performance of algorithms and the results need to be tabulated.
 Such a table can then be output to a stream in various formats such 
-as Latex or an ascii representation. Here is an example of a real 
-measurement stored in a MeasureTable and output to a stream in ascii:
+as Latex or an ascii representation. 
+
+Example
+-------
+
+Here is an example of a real measurement stored in a MeasureTable and 
+output to a stream in ASCII:
 
 	+---------------+-------------------+----------------------------+
 	| Samples  Cov. | El time  Tim time | El mi    Tim mi    Cor. mi |
