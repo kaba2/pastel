@@ -1,3 +1,5 @@
+% DocumentationOf: pastel_point_pattern_match.m
+
 clear all;
 close all;
 

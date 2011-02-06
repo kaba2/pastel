@@ -37,6 +37,9 @@
 % point in its matching distance, where distance is measured by the
 % Euclidean norm.
 
+% Description: Finds a similarity between unordered 2d pointsets
+% Documentation: point_pattern_match.txt
+
 function [pairSet, translation, success] = ...
     pastel_point_pattern_match_gmo(...
     modelPointSet, scenePointSet, ...

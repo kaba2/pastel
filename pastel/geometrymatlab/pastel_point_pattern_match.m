@@ -95,6 +95,9 @@
 % The time needed to state a non-match seems to grow quadratically.
 % I'm not sure if this is the expected behaviour.
 
+% Description: Finds a similarity between unordered 2d pointsets
+% Documentation: point_pattern_match.txt
+
 function [similarity, success] = pastel_point_pattern_match(...
     modelPointSet, scenePointSet, ...
     minMatchRatio, relativeMatchingDistance, ...

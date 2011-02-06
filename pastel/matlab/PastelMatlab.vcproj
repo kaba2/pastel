@@ -167,11 +167,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\matlab_argument.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\matlab_function.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\matlab_function.h"
+			>
+		</File>
+		<File
+			RelativePath=".\matlab_function.txt"
 			>
 		</File>
 		<File

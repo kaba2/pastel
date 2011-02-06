@@ -17,6 +17,9 @@
 % If a point identifier is not part of the kd-tree, a
 % NaN vector is returned for that point.
 
+% Description: Returns the coordinates of an identifier point-set.
+% Documentation: matlab_pointkdtree.txt
+
 function pointSet = poindktree_as_points(kdTree, idSet)
 
 pointSet = pastelgeometrymatlab(...

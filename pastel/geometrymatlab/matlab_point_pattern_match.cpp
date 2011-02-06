@@ -1,4 +1,5 @@
 // Description: point_pattern_match
+// Documentation: point_pattern_match.txt
 
 #include "pastel/matlab/matlab.h"
 
