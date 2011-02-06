@@ -14,6 +14,51 @@ namespace Pastel
 {
 
 	template <typename Type>
+	Type* createScalar(
+		mxArray*& output)
+	{
+		const mwSize size[] = {1, 1};
+
+		output = mxCreateNumericArray(
+			2, size, 
+			typeToMatlabClassId<Type>(),
+			mxREAL);
+
+		return (Type*)mxGetData(output);
+	}
+
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > createArray(
+		const Vector2i& extent,
+		mxArray*& output)
+	{
+		ENSURE(allGreaterEqual(extent, 0));
+
+		typedef boost::shared_ptr<Array<Type> > Result;
+
+		const mwSize size[] = {extent.y(), extent.x()};
+
+		output = mxCreateNumericArray(2, size, 
+			typeToMatlabClassId<Type>(), mxREAL);
+		
+		Type* rawData = (Type*)mxGetData(output);
+
+		return Result(
+			new Array<Type>(extent, 
+			withAliasing(rawData), 
+			StorageOrder::ColumnMajor));
+	}
+
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > createArray(
+		integer width, integer height,
+		mxArray*& output)
+	{
+		return createArray<Type>(
+			Vector2i(width, height), output);
+	}
+
+	template <typename Type>
 	Type asScalar(const mxArray* input)
 	{
 		ENSURE(mxIsNumeric(input));
@@ -54,7 +99,10 @@ namespace Pastel
 		default:
 			// This should not be possible, since
 			// the above covers all numeric types.
-			ENSURE(false);
+			{
+				const bool reachedHere = true;
+				ENSURE(!reachedHere);
+			}
 			break;
 		};
 
@@ -77,18 +125,89 @@ namespace Pastel
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
-		ENSURE_OP(typeToMatlabClassId<Type>(), ==, mxGetClassID(that));
 
 		const integer width = mxGetN(that);
 		const integer height = mxGetM(that);
+		const integer n = width * height;
 
-		Type* rawData = (Type*)mxGetData(that);
+		typedef boost::shared_ptr<Array<Type> > Result;
 		
-		// No copying is done here. Rather, we aliase
-		// the existing data.
-		return boost::shared_ptr<Array<Type> >(
-			new Array<Type>(width, height, withAliasing(rawData), 
-			StorageOrder::ColumnMajor));
+		Result result;
+
+		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
+		{
+			// No copying is done here. Rather, we aliase
+			// the existing data.
+
+			Type* rawData = (Type*)mxGetData(that);
+			
+			result = Result(
+				new Array<Type>(width, height, withAliasing(rawData), 
+				StorageOrder::ColumnMajor));
+		}
+		else
+		{
+			// Copy the data into an array of the required type.
+
+			if (n >= (1 << 14))
+			{
+				log() << "Warning: Copying a large amount of data "
+					<< "because of type mismatch. Using a matching type, " 
+					<< "if possible, avoids any copying." 
+					<< logNewLine;
+			}
+
+			result = Result(
+				new Array<Type>(width, height,
+				StorageOrder::ColumnMajor));
+
+			getScalars(that, result->begin());
+		}
+
+		return result;
+	}
+
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > asLinearizedArray(
+		const mxArray* that)
+	{
+		ENSURE(mxIsNumeric(that));
+
+		const integer n = mxGetNumberOfElements(that);
+
+		typedef boost::shared_ptr<Array<Type> > Result;
+		
+		Result result;
+
+		if (typeToMatlabClassId<Type>() == mxGetClassID(that))
+		{
+			// No copying is done here. Rather, we aliase
+			// the existing data.
+
+			Type* rawData = (Type*)mxGetData(that);
+			
+			result = Result(
+				new Array<Type>(n, 1, withAliasing(rawData)));
+		}
+		else
+		{
+			// Copy the data into an array of the required type.
+
+			if (n >= (1 << 14))
+			{
+				log() << "Warning: Copying a large amount of data "
+					<< "because of type mismatch. Using a matching type, " 
+					<< "if possible, avoids any copying." 
+					<< logNewLine;
+			}
+
+			result = Result(
+				new Array<Type>(n, 1));
+
+			getScalars(that, result->begin());
+		}
+
+		return result;
 	}
 
 	template <typename Type, typename ArrayPtr_Iterator>

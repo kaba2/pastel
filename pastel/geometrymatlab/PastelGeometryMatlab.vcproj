@@ -155,7 +155,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Matlab files"
+			Name="Build files"
 			>
 			<File
 				RelativePath=".\build_pastelgeometrymatlab.m"
@@ -177,8 +177,80 @@
 				RelativePath=".\check.m"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="PointKdTree"
+			>
+			<File
+				RelativePath=".\matlab_pointkdtree.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\matlab_pointkdtree.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_as_points.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_construct.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_destruct.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_dimension.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_insert.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_leaves.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_nodes.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_objects.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_refine.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_search_nearest.m"
+				>
+			</File>
+			<File
+				RelativePath=".\test_pointkdtree.m"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Point pattern matching"
+			>
+			<File
+				RelativePath=".\matlab_point_pattern_match.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\matlab_point_pattern_match_gmo.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\pastel_point_pattern_match.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pastel_point_pattern_match_gmo.m"
 				>
 			</File>
 			<File
@@ -190,22 +262,14 @@
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="Mex files"
+		<File
+			RelativePath=".\pastelgeometrymatlab.cpp"
 			>
-			<File
-				RelativePath=".\matlab_point_pattern_match.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\matlab_point_pattern_match_gmo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\pastelgeometrymatlab.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
+		<File
+			RelativePath=".\pastelgeometrymatlab.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

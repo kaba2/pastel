@@ -9,6 +9,7 @@ namespace
 	{
 		FORCE_LINKING(point_pattern_match);
 		FORCE_LINKING(point_pattern_match_gmo);
+		FORCE_LINKING(pointkdtree);
 	}
 
 }

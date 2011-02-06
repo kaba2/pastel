@@ -278,6 +278,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_progress.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_random.cpp"
 			>
 		</File>

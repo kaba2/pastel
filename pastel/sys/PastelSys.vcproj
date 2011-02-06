@@ -1553,78 +1553,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Logging"
-			>
-			<File
-				RelativePath=".\log.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\log.h"
-				>
-			</File>
-			<File
-				RelativePath=".\log.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\log_all.h"
-				>
-			</File>
-			<Filter
-				Name="Loggers"
-				>
-				<File
-					RelativePath=".\logger.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\logger.h"
-					>
-				</File>
-				<File
-					RelativePath=".\logger.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\loggers.h"
-					>
-				</File>
-				<Filter
-					Name="File logger"
-					>
-					<File
-						RelativePath=".\file_logger.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\file_logger.h"
-						>
-					</File>
-					<File
-						RelativePath=".\file_logger.txt"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Stream logger"
-					>
-					<File
-						RelativePath=".\stream_logger.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\stream_logger.h"
-						>
-					</File>
-					<File
-						RelativePath=".\stream_logger.txt"
-						>
-					</File>
-				</Filter>
-			</Filter>
-		</Filter>
-		<Filter
 			Name="Random variables"
 			>
 			<File
@@ -2282,6 +2210,90 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Reporting"
+			>
+			<Filter
+				Name="Logging"
+				>
+				<File
+					RelativePath=".\log.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\log.h"
+					>
+				</File>
+				<File
+					RelativePath=".\log.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\log_all.h"
+					>
+				</File>
+				<Filter
+					Name="Loggers"
+					>
+					<File
+						RelativePath=".\logger.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\logger.h"
+						>
+					</File>
+					<File
+						RelativePath=".\logger.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\loggers.h"
+						>
+					</File>
+					<Filter
+						Name="File logger"
+						>
+						<File
+							RelativePath=".\file_logger.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\file_logger.h"
+							>
+						</File>
+						<File
+							RelativePath=".\file_logger.txt"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Stream logger"
+						>
+						<File
+							RelativePath=".\stream_logger.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\stream_logger.h"
+							>
+						</File>
+						<File
+							RelativePath=".\stream_logger.txt"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Progress reporting"
+				>
+				<File
+					RelativePath=".\progress.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

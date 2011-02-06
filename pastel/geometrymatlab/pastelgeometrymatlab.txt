@@ -1,0 +1,7 @@
+PastelGeometryMatlab
+====================
+
+[[Parent]]: pastel.txt
+
+_PastelGeometryMatlab_ offers a Matlab interface to the data structures
+and algorithms of the PastelGeometry library.

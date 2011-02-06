@@ -14,6 +14,7 @@ namespace Pastel
 {
 
 	class PASTELSYS Log
+		: public Logger
 	{
 	public:
 		// Using default constructor.
@@ -26,7 +27,9 @@ namespace Pastel
 		void addLogger(const LoggerPtr& observer);
 		void removeLogger(const LoggerPtr& observer);
 
-		Log& operator<<(const std::string& value);
+		virtual Log& operator<<(const std::string& value);
+		virtual void finalize();
+
 		Log& operator<<(char value);
 		Log& operator<<(uchar value);
 		Log& operator<<(int value);
@@ -38,8 +41,6 @@ namespace Pastel
 		Log& operator<<(float value);
 		Log& operator<<(double value);
 		Log& operator<<(void (*function)(Log&));
-
-		void finalize();
 
 	private:
 		typedef std::set<LoggerPtr> ObserverContainer;
