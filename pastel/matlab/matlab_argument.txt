@@ -1,0 +1,12 @@
+Argument retrieval
+==================
+
+[[Parent]]: pastelmatlab.txt
+
+One has to be careful when handling Matlab arguments in C++. This is
+because the type information is given dynamically, and therefore can't 
+directly be enforced by the compiler. PastelMatlab offers a set of 
+functions to retrieve the arguments, and if needed, to do the necessary 
+type conversions automatically. In the case that the types match, 
+PastelMatlab references the already existing memory, rather than 
+copying the data.

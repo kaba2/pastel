@@ -254,6 +254,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\point_pattern_match.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\test_point_pattern_match.m"
 				>
 			</File>
