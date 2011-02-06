@@ -15,6 +15,27 @@
 namespace Pastel
 {
 
+	//! Creates a Matlab scalar.
+	template <typename Type>
+	Type* createScalar(
+		mxArray*& output);
+
+	//! Creates a Matlab numeric array.
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > createArray(
+		const Vector2i& extent,
+		mxArray*& output);
+
+	//! Creates a Matlab numeric array.
+	/*!
+	This is a convenience function that calls
+	createArray(Vector2i(width, height), output)
+	*/
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > createArray(
+		integer width, integer height,
+		mxArray*& output);
+
 	//! Retrieves a copy of a scalar number.
 	/*!
 	Preconditions:
@@ -40,6 +61,15 @@ namespace Pastel
 	*/
 	template <typename Type>
 	boost::shared_ptr<Array<Type> > asArray(
+		const mxArray* that);
+
+	//! Retrieves a reference to a linearized real array.
+	/*!
+	Preconditions:
+	mxIsNumeric(that)
+	*/
+	template <typename Type>
+	boost::shared_ptr<Array<Type> > asLinearizedArray(
 		const mxArray* that);
 
 	//! Reports all real arrays in a cell-array.
@@ -79,6 +109,9 @@ namespace Pastel
 	//! Returns the Matlab class-id corresponding to 'Type'.
 	template <typename Type>
 	mxClassID typeToMatlabClassId();
+
+	typedef boost::shared_ptr<Array<integer> > 
+		IntegerArrayPtr;
 
 	typedef boost::shared_ptr<Array<real> > 
 		RealArrayPtr;

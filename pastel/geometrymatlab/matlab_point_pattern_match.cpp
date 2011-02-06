@@ -19,30 +19,37 @@ namespace Pastel
 		{
 			enum
 			{
-				modelIndex,
-				sceneIndex,
-				minMatchRatioIndex,
-				relativeMatchingDistanceIndex,
-				confidenceIndex
+				ModelSet,
+				SceneSet,
+				MinMatchRatio,
+				RelativeMatchingDistance,
+				Confidence,
+				Inputs
 			};
 
-			const real* modelData = 
-				mxGetPr(inputSet[modelIndex]);
-			const integer modelPoints = 
-				mxGetN(inputSet[modelIndex]);
-			const real* sceneData = 
-				mxGetPr(inputSet[sceneIndex]);
-			const integer scenePoints = 
-				mxGetN(inputSet[sceneIndex]);
-			const real minMatchRatio = 
-				asScalar<real>(inputSet[minMatchRatioIndex]);
-			const real relativeMatchingDistance = 
-				asScalar<real>(inputSet[relativeMatchingDistanceIndex]);
-			const real confidence =
-				asScalar<real>(inputSet[confidenceIndex]);
+			enum
+			{
+				Similarity,
+				Success,
+				Outputs
+			};
 
-			//const integer threads = asInteger(inputSet[threadsIndex]);
-			//setNumberOfThreads(threads);
+			ENSURE_OP(inputs, ==, Inputs);
+
+			const real* modelData = 
+				mxGetPr(inputSet[ModelSet]);
+			const integer modelPoints = 
+				mxGetN(inputSet[ModelSet]);
+			const real* sceneData = 
+				mxGetPr(inputSet[SceneSet]);
+			const integer scenePoints = 
+				mxGetN(inputSet[SceneSet]);
+			const real minMatchRatio = 
+				asScalar<real>(inputSet[MinMatchRatio]);
+			const real relativeMatchingDistance = 
+				asScalar<real>(inputSet[RelativeMatchingDistance]);
+			const real confidence =
+				asScalar<real>(inputSet[Confidence]);
 
 			ConformalAffine2 similarity;
 
@@ -62,19 +69,23 @@ namespace Pastel
 
 			// Output the similarity.
 
-			outputSet[0] = mxCreateDoubleMatrix(1, 4, mxREAL);
-			real* rawResult = mxGetPr(outputSet[0]);
+			if (outputs > 0)
+			{
+				RealArrayPtr result =
+					createArray<real>(4, 1, outputSet[Similarity]);
 
-			rawResult[0] = similarity.scaling();
-			rawResult[1] = similarity.rotation();
-			rawResult[2] = similarity.translation().x();
-			rawResult[3] = similarity.translation().y();
+				(*result)(0) = similarity.scaling();
+				(*result)(1) = similarity.rotation();
+				(*result)(2) = similarity.translation().x();
+				(*result)(3) = similarity.translation().y();
+			}
 
 			// Output the success flag.
-
-			outputSet[1] = mxCreateDoubleMatrix(1, 1, mxREAL);
-			real* rawSuccess = mxGetPr(outputSet[1]);
-			*rawSuccess = success ? 1 : 0;
+			if (outputs > 1)
+			{
+				integer* outSuccess = createScalar<integer>(outputSet[Success]);
+				*outSuccess = success ? 1 : 0;
+			}
 		}
 
 		void addFunction()
