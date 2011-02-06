@@ -1,7 +1,7 @@
-% POINTKDTREE_OBJECTS
+% POINTKDTREE_POINTS
 % Returns the number of points in a kd-tree.
 %
-% N = pointkdtree_objects(kdTree)
+% N = pointkdtree_points(kdTree)
 %
 % where
 %
@@ -12,8 +12,8 @@
 % Description: Returns the number of points in a kd-tree
 % Documentation: matlab_pointkdtree.txt
 
-function N = pointkdtree_objects(kdTree)
+function N = pointkdtree_points(kdTree)
 
-N = pastelgeometrymatlab('pointkdtree_objects', kdTree);
+N = pastelgeometrymatlab('pointkdtree_points', kdTree);
 
 end

@@ -177,6 +177,7 @@ namespace Pastel
 				{
 					Point_ConstIterator pointIter =
 						iter->second;
+
 					std::copy(
 						pointPolicy.begin(pointIter->point()),
 						pointPolicy.end(pointIter->point()),
@@ -385,7 +386,7 @@ namespace Pastel
 			*outDimension = state->tree.dimension();
 		}
 
-		void kdObjects(
+		void kdPoints(
 			int outputs, mxArray *outputSet[],
 			int inputs, const mxArray *inputSet[])
 		{
@@ -407,7 +408,6 @@ namespace Pastel
 
 			integer* outPoints = createScalar<integer>(
 				outputSet[Points]);
-
 			*outPoints = state->tree.points();
 		}
 
@@ -433,10 +433,13 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 			ENSURE_OP(outputs, ==, Outputs);
 
-			// nearestIdSet = matlab_pointkdtree('pointkdtree_search_nearest', kdtree, idSet, Inf, k);
+			// nearestIdSet = matlab_pointkdtree('pointkdtree_search_nearest', ...
+			//		kdtree, querySet, maxDistanceSet, kNearest);
+
 			KdState* state = asState(inputSet[State]);
 			const IndexMap& indexMap = state->indexMap;
 			IntegerArrayPtr querySet = asArray<integer>(inputSet[QuerySet]);
+			RealArrayPtr maxDistanceSet = asLinearizedArray<real>(inputSet[MaxDistanceSet]);
 			const integer queries = querySet->size();
 			const integer k = asScalar<integer>(inputSet[KNearest]);
 
@@ -452,22 +455,31 @@ namespace Pastel
 				}
 			}
 			
-			Array<Point_ConstIterator> nearestArray(k, queries);
+			Array<Point_ConstIterator> nearestArray(k, queries,
+				state->tree.end());
 			searchAllNeighbors(
 				state->tree, 
 				range(queryIterSet.begin(), queryIterSet.end()),
 				0, k,
 				&nearestArray,
 				0,
-				range(mxGetPr(inputSet[MaxDistanceSet]), queries));
+				maxDistanceSet->range());
 
 			IntegerArrayPtr result =
-				createArray<integer>(queries, k, outputSet[IdSet]);
+				createArray<integer>(k, queries, outputSet[IdSet]);
 			for (integer x = 0;x < nearestArray.width();++x)
 			{
 				for (integer y = 0;y < nearestArray.height();++y)
 				{
-					(*result)(x, y) = nearestArray(x, y)->point().id;
+					Point_ConstIterator iter = nearestArray(x, y);
+					if (iter != state->tree.end())
+					{
+						(*result)(x, y) = iter->point().id;
+					}
+					else
+					{
+						(*result)(x, y) = -1;
+					}
 				}			
 			}
 		}
@@ -477,7 +489,7 @@ namespace Pastel
 			matlabAddFunction("pointkdtree_as_points", kdAsPoints);
 			matlabAddFunction("pointkdtree_construct", kdConstruct);
 			matlabAddFunction("pointkdtree_destruct", kdDestruct);
-			matlabAddFunction("pointkdtree_objects", kdObjects);
+			matlabAddFunction("pointkdtree_points", kdPoints);
 			matlabAddFunction("pointkdtree_nodes", kdNodes);
 			matlabAddFunction("pointkdtree_leaves", kdLeaves);
 			matlabAddFunction("pointkdtree_dimension", kdDimension);

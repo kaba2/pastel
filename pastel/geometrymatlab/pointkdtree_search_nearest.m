@@ -28,6 +28,6 @@ function neighborSet = pointkdtree_search_nearest(...
 	kdTree, querySet, maxDistanceSet, kNearest)
 
 neighborSet = pastelgeometrymatlab('pointkdtree_search_nearest', ...
-	kdTree, querySet, maxDistance, kNearest);
+	kdTree, querySet, maxDistanceSet, kNearest);
 
 end
