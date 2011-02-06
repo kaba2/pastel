@@ -170,6 +170,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\build_pastelgeometrymatlab_develop.m"
+				>
+			</File>
+			<File
+				RelativePath=".\build_pastelgeometrymatlab_develop_options.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\build_pastelgeometrymatlab_options.txt"
 				>
 			</File>
@@ -218,7 +226,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\pointkdtree_objects.m"
+				RelativePath=".\pointkdtree_points.m"
 				>
 			</File>
 			<File

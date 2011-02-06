@@ -15,6 +15,10 @@
 
 function pointkdtree_refine(kdTree, bucketSize)
 
+if nargin < 2
+    bucketSize = 8;
+end
+
 if bucketSize <= 0
     error('bucketSize must be a positive integer');
 end
