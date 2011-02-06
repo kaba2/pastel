@@ -1,0 +1,7 @@
+Reporting
+=========
+
+[[Parent]]: pastelsys.txt
+
+This section contains tools for reporting, i.e. conversion of data to
+forms comphrehensible by humans.

@@ -52,6 +52,8 @@ Pastel divides into a number of sub-libraries. These are:
 
 ### [[Link]]: pastel/geometry/pastelgeometry.txt
 
+### [[Link]]: pastel/geometrymatlab/pastelgeometrymatlab.txt
+
 ### [[Link]]: pastel/gfx/pastelgfx.txt
 
 ### [[Link]]: pastel/gfxui/pastelgfxui.txt
@@ -59,6 +61,8 @@ Pastel divides into a number of sub-libraries. These are:
 ### [[Link]]: pastel/gl/pastelgl.txt
 
 ### [[Link]]: pastel/math/pastelmath.txt
+
+### [[Link]]: pastel/matlab/pastelmatlab.txt
 
 ### [[Link]]: pastel/sys/pastelsys.txt
 
@@ -71,6 +75,8 @@ Pastel divides into a number of sub-libraries. These are:
 	pastel/gl/pastelgl.txt
 	pastel/math/pastelmath.txt
 	pastel/sys/pastelsys.txt
+	pastel/geometrymatlab/pastelgeometrymatlab.txt
+	pastel/matlab/pastelmatlab.txt
 
 [[Comment]]:
 	The following is a javascript for Google Analytics by which we can

@@ -1,3 +1,6 @@
+// Description: Progress reporter
+// Documentation: progress.txt
+
 #ifndef PASTEL_PROGRESS_H
 #define PASTEL_PROGRESS_H
 
@@ -9,45 +12,53 @@
 namespace Pastel
 {
 
-	class Progress
+	class PASTELSYS Progress
 	{
 	public:
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
+
+		//! Constructs a Progress object.
 		explicit Progress(
 			integer steps,
-			const std::string& name = "")
-			: name_(name)
-			, step_(0)
-			, steps_(steps)
-			, lastReportTime_(std::clock())
-		{
-			ENSURE_OP(steps, >, 0);
-		}
+			const std::string& name = "",
+			real reportDelayInSeconds = 5);
 
-		void report()
-		{
-			++step_;
-			const std::clock_t currentTime = std::clock();
-			const real elapsedSeconds =
-				(currentTime - lastReportTime_) / CLOCKS_PER_SEC;
-			const real ReportDelay = 5;
-			if (elapsedSeconds >= ReportDelay)
-			{
-				const integer percent = 
-					(step_ * 100) / steps_;
-				if (!name_.empty())
-				{
-					log() << name_ << " ";
-				}
-				log() << percent << "% " << logNewLine;
-				lastReportTime_ = currentTime;
-			}
-		}
+		//! Swaps two Progress objects.
+		void swap(Progress& that);
+
+		//! Makes one step of progress.
+		void report();
+
+		//! Sets the reporting delay.
+		/*!
+		Preconditions:
+		reportDelayInSeconds > 0
+
+		The actual reporting delay might be longer,
+		but not shorter.
+		*/
+		void setReportDelay(real reportDelayInSeconds);
+
+		//! Returns the reporting delay.
+		real reportDelay() const;
+
+		//! Returns the name of the task.
+		const std::string& name() const;
+
+		//! Returns the total number of steps.
+		integer steps() const;
+
+		//! Returns the current step.
+		integer step() const;
 
 	private:
 		std::string name_;
 		integer step_;
 		integer steps_;
 		std::clock_t lastReportTime_;
+		real reportDelay_;
 	};	
 
 }

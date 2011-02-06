@@ -1,10 +1,7 @@
 Logging
 =======
 
-[[Parent]]: pastelsys.txt
-
-Practice
---------
+[[Parent]]: reporting.txt
 
 _Logging_ is about reporting essential state of the program at runtime.
 It is important when trying to solve problems that are external to
