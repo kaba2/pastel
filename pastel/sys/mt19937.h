@@ -1,6 +1,6 @@
 // Description: Mersenne Twister
-// Detail: A high-quality random number generator with a period 2^19937 - 1
-// Documentation: random.txt
+// Detail: A high-quality random number generator
+// Documentation: random_discrete.txt
 
 #ifndef PASTEL_MT19937_H
 #define PASTEL_MT19937_H

@@ -1,4 +1,5 @@
 // Description: Gamma-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_GAMMA_H
 #define PASTEL_RANDOM_GAMMA_H

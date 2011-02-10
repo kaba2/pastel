@@ -1,4 +1,5 @@
 // Description: Generalized-Gaussian-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_GENERALIZEDGAUSSIAN_H
 #define PASTEL_RANDOM_GENERALIZEDGAUSSIAN_H

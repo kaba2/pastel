@@ -1,0 +1,13 @@
+Discrete random variables
+=========================
+
+[[Parent]]: random.txt
+
+Pseudorandom number generator
+-----------------------------
+
+_Mersenne Twister_ is a fast, high-quality pseudo-random number 
+generator with a period of ''2^19937 - 1''. Because of these properties, 
+many libraries have chosen it as the default random number generator,
+including Matlab and Python's standard library. It is also the choice in 
+Pastel where it is used to generate pseudo-random integers. 

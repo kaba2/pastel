@@ -1,4 +1,5 @@
 // Description: Cauchy-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_CAUCHY_H
 #define PASTEL_RANDOM_CAUCHY_H

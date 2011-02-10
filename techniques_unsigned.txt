@@ -3,54 +3,23 @@ Do not use unsigned integers
 
 [[Parent]]: techniques.txt
 
-In this article we present three problems in using unsigned 
-integers in your code. These are the _zero boundary problem_, the 
-_extended positive range problem_, and the _modeling problem_.
+In this article I present two problems in using unsigned 
+integers in a program. These are the _zero boundary problem_, 
+and the _extended positive range problem_.
 
 Zero boundary problem
 ---------------------
 
-Assume you have created an array container class. Its size can be 
-altered via a `resize` member function which takes an integer as its 
-parameter denoting the desired size. While values from 0 towards 
-infinity make sense for `size`, this is not so with negative values. 
-This is a [precondition][Ensure] to the function: all passed-in `size` 
-values should be non-negative.
+Most of the time we are assuming that, away from boundaries caused
+by the finite representation, an integer object works like an element
+of the integer ring ''ZZ''. In addition, it seems plausible that most 
+integer calculations are concentrated around a neighborhood of zero.
 
-[Ensure]: [[Ref]]: ensure.txt
-
-Because negative values do not make sense for the `size` value, it 
-might sound like a good idea to turn it to an unsigned integer, to 
-maximize the use of the bits, and to make it impossible to pass an 
-invalid value. The problem here is that most integer calculations are 
-concentrated around a neighborhood of zero, and the zero is on the 
-boundary beyond which the assumption of working with integers falls 
-apart. Thus, when using unsigned integers, the probability of 
-introducing errors in computations increases greatly. Furthermore, 
-there is no way to catch those errors, since every value is legal. 
-
-[[Comment]]:
-	### Reserving space in the integer to detect common bugs
-
-	To fix this, you could sacrifice some of the parameter range to 
-	detect bugs: 
-		
-	[[CppCode]]:
-		ASSERT_OP(size, <, maxInteger - bugThreshold)
-
-	However, while this test is correct computationally (dependening on the
-	fact that the integers are represented as 2's complement numbers),
-	it is logically a bit odd. You wouldn't want to read that in code.
-
-	The way out is to use a signed integer. What you wanted to say in the 
-	first place was that you do not accept negative values:
-		
-	[[CppCode]]:
-		ASSERT_OP(size, >=, 0)
-		
-	Now the test agrees with logic. One should not think that a bit is wasted 
-	using signed integers. Instead, one should think that the bit is in good 
-	use allowing to detect common bugs.
+The _zero-boundary problem_ (of unsigned integers) is that the zero 
+is on the boundary beyond which the assumption of working with integers 
+falls apart. Thus, the probability of introducing errors in computations 
+increases greatly. Furthermore, those errors can not be catched, since 
+every value is legal. 
 
 ### Looping with unsigned integers
 
@@ -64,8 +33,7 @@ boundary problem with unsigned integers:
 	}
 	
 Since there are no negative values to fail the loop test,
-this loop never finishes. There is no natural fix to this problem 
-with unsigned integers. In contrast, with signed integers the problem 
+this loop never finishes. In contrast, with signed integers the problem 
 does not exist, since the boundaries are located far away from zero:
 
 [[CppCode]]:
@@ -79,30 +47,34 @@ Extended positive range problem
 
 Conversion between an unsigned integer and a signed integer
 is an information destroying process in either direction.
-When you get to such a situation, there is no other solution than
-to close your eyes and hope for the best. By not using unsigned
-integers, you can handle your code, but there's nothing you can 
-do to external code. In particular, the `std::size_t` type defined
-and used by the standard library is an unsigned integer.
+The only way to avoid this is to use one or the other
+consistently. 
 
-Because of this, practically every program will contain 
-signed-unsigned conversions. Normally this does not cause problems 
-for programs, because the integers are never taken to the extended 
-positive range allowed by unsigned integers. However, if they are,
-then the bugs from signed-unsigned conversions become a reality.
+If the normal arithmetic is the intention, then a signed integer 
+represents a more general concept than an unsigned integer: the former
+covers both the negative and positive integers, whereas the latter 
+only covers non-negative integers. In programming terms, it is 
+possible to create a program using signed integers alone, however, 
+the same can't be said about the unsigned integers. Therefore, if
+only one type is to be used consistently, the choice should be a 
+signed integer. However, let us do some more analysis.
 
-Modeling problem
-----------------
+Since any non-trivial program must use signed integers, the use of
+unsigned integers eventually leads to an unsigned-signed 
+conversion. In particular, because `std::size_t` in the Standard
+Library is an unsigned integer, there are few programs that can 
+escape the unsigned-signed conversions.
 
-From the modeling side, a problem with using unsigned integers is that
-most of the time we are assuming that, away from boundaries caused
-by the finite representation, an integer object works like an element
-of the integer ring ''ZZ''. In contrast, unsigned integers work exactly 
-like modular arithmetic in ''ZZ_{2^p}'', which is most of the time _not_ 
-what is intended.
+Despite these conversions, programs still seem to work. The reason
+for this, I reflect, is that the unsigned integers are normally 
+not taken into the extended positive range they allow. 
+The _extended positive range problem_ is that if the unsigned integers
+are taken to their extended positive range, then the signed-unsigned 
+conversions become a reality. Ensuring correctness under such a threat 
+is hard, if not practically impossible.
 
 Conclusion
 ----------
 
-Using unsigned integers to model integers decreases the probability that
-your code is correct.
+Using unsigned integers to model integers decreases the probability 
+that a program is correct.

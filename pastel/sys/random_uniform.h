@@ -1,20 +1,14 @@
 // Description: Uniformly-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_UNIFORM_H
 #define PASTEL_RANDOM_UNIFORM_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/mt19937.h"
 
 namespace Pastel
 {
-
-	//! Returns a uniformly distributed random integer in [0, 0x7fffffff].
-	integer randomInteger();
-
-	//! Returns a uniformly distributed random integer in [min, max].
-	integer randomInteger(integer min, integer max);
 
 	//! Returns a random real in [0, 1] with 32-bit resolution.
 	template <typename Real>

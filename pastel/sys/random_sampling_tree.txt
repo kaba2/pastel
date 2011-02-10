@@ -1,0 +1,34 @@
+Random sampling tree
+====================
+
+[[Parent]]: random_discrete.txt
+
+The _random sampling tree_ is an [augmented red-black tree][RedBlack],
+which allows fast generation of random variates from an arbitrary 
+discrete probability distribution. Because of the used data structure,
+the distribution can be changed dynamically and efficiently.
+
+Time complexity
+---------------
+
+The data structure inherits the performance guarantees of the red-black
+tree. In addition, a random variate can be generated from the described
+probability distribution in time `Theta(log n)`, where `n` is the number 
+of different outcomes.
+
+Nodes
+-----
+
+The nodes of the tree are key-value pairs, where the key is the mass, 
+and the value is user-defined data:
+
+[[CppCode]]:
+	RedBlackTree<KeyValue<Real, Data>, Pastel::LessThan,
+		RandomSamplingTree_RbtPolicy<Real> >
+		
+The probability mass of a given node is given by its mass divided by 
+the total mass of all nodes. Value-data is used to keep track of the
+total mass under the subtree rooted at each node. It is this total
+mass of subtrees which allows for the fast generation of random deviates.
+
+[RedBlack]]: [[Ref]]: redblacktree.txt

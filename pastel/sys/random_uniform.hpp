@@ -3,24 +3,11 @@
 
 #include "pastel/sys/random_uniform.h"
 #include "pastel/sys/syslibrary.h"
+#include "pastel/sys/random_integer.h"
 
 namespace Pastel
 {
 
-
-	inline integer randomInteger()
-	{
-		return (integer)(Pastel::randomUint32() >> 1);
-	}
-
-	inline integer randomInteger(integer min, integer max)
-	{
-		// Note this works correctly even if
-		// min = 0 and max = 0x7fffffff, because
-		// of the 2-complement wrap-around.
-
-		return (integer)(Pastel::randomUint32() % (uint32)(max - min + 1)) + min;
-	}
 
 	template <typename Real>
 	Real random()

@@ -1,4 +1,5 @@
 // Description: Triangle-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_TRIANGLE_H
 #define PASTEL_RANDOM_TRIANGLE_H

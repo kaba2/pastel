@@ -1,4 +1,5 @@
 // Description: Dirichlet-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_DIRICHLET_H
 #define PASTEL_RANDOM_DIRICHLET_H

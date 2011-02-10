@@ -34,6 +34,11 @@ namespace Pastel
 
 		//PENSURE_OP(size, >, 0);
 
+		if (size <= 0)
+		{
+			return 0;
+		}
+
 		return ::operator new(size);		
 	}
 

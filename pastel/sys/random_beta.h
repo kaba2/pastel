@@ -1,4 +1,5 @@
 // Description: Beta-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_BETA_H
 #define PASTEL_RANDOM_BETA_H
