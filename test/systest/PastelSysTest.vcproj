@@ -286,6 +286,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_random_sampling_tree.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_range.cpp"
 			>
 		</File>

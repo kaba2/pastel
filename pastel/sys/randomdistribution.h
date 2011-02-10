@@ -1,3 +1,5 @@
+// Description: Random distribution class
+
 #ifndef PASTEL_RANDOMDISTRIBUTION_H
 #define PASTEL_RANDOMDISTRIBUTION_H
 

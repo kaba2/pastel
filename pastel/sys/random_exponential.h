@@ -1,4 +1,5 @@
 // Description: Exponential-distributed random numbers
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_EXPONENTIAL_H
 #define PASTEL_RANDOM_EXPONENTIAL_H

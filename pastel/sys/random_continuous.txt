@@ -1,0 +1,27 @@
+Continuous random variables
+===========================
+
+[[Parent]]: random.txt
+
+Pastel allows to generate random real numbers from a range of
+useful distributions. These include:
+
+ * Uniform in [0, 1], ]0, 1], [0, 1[, and ]0, 1[.
+ * Triangle
+ * Gaussian
+ * Generalized Gaussian
+ * Log-Normal
+ * Exponential
+ * Laplace
+ * Gamma
+ * Beta
+ * Dirichlet
+ * Cauchy
+ * Chi-squared
+
+For each distribution Pastel also provides its probability 
+density function and the ability to generate vectors of
+random numbers. If a parameter corresponds to a simple
+translation of the random variable, the parameter is not 
+included because it can be trivially added by the user. 
+This simplifies the interface.
