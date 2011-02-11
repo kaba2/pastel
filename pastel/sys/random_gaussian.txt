@@ -1,7 +1,7 @@
 Gaussian-distributed random numbers
 ===================================
 
-[[Parent]]: random.txt
+[[Parent]]: random_continuous.txt
 
 The probability density function of a gaussian-distributed
 random variable is given by:
