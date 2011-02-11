@@ -1,7 +1,7 @@
 Beta-distributed random numbers
 ===============================
 
-[[Parent]]: random.txt
+[[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
 	random_beta.png

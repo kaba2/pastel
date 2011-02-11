@@ -1,4 +1,5 @@
 // Description: Random distribution class
+// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOMDISTRIBUTION_H
 #define PASTEL_RANDOMDISTRIBUTION_H

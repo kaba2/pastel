@@ -1,7 +1,7 @@
 Generalized-Gaussian-distributed random numbers
 ===============================================
 
-[[Parent]]: random.txt
+[[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
 	../../images/random_generalized_gaussian.png

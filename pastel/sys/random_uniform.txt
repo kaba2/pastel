@@ -1,5 +1,5 @@
 Uniformly-distributed random numbers
 ====================================
 
-[[Parent]]: random.txt
+[[Parent]]: random_continuous.txt
 

@@ -21,7 +21,7 @@ Many algorithms derive their efficiency from using an augmented version of
 a balanced tree. For example, it is possible to augment each node of a binary
 tree with the number of nodes in its subtree, and keep this information up
 to date, without increase in complexity, under modifications of the tree.
-Red-black trees are strongly associated to implementations of the (ordered)
+Red-black trees are strongly associated with implementations of the (ordered)
 dictionary abstract data type. This is rightly so, because they are very
 efficient for this task. For example, the STL library containers `set` and 
 `map` are most commonly implemented with red-black trees. But red-black trees
