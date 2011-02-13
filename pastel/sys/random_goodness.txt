@@ -1,0 +1,5 @@
+Goodness-of-fit
+===============
+
+[[Parent]]: random.txt
+

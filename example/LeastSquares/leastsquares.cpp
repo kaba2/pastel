@@ -22,7 +22,6 @@
 #include <iostream>
 
 using namespace Pastel;
-using namespace std;
 
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;

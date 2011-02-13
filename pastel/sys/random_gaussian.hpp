@@ -5,6 +5,8 @@
 #include "pastel/sys/random_uniform.h"
 #include "pastel/sys/constants.h"
 
+#include <boost/math/distributions/normal.hpp>
+
 namespace Pastel
 {
 
@@ -93,6 +95,73 @@ namespace Pastel
 
 		return inverse(deviation * std::sqrt(2 * constantPi<Real>())) * 
 			std::exp(-square(x / deviation) / 2);
+	}
+
+	template <typename Real>
+	Real approximateGaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& deviation)
+	{
+		return Pastel::approximateGaussianCdf<Real>(
+			x / deviation);
+	}
+
+	template <typename Real>
+	Real approximateGaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x)
+	{
+		// "Handbook and Mathematical Functions",
+		// Abramowitz and Stegun, 1964.
+		//
+		// Formula 26.2.17.
+		//
+		// |Error| <= 7.5 * 10^-8
+
+		const Real b0 = 0.2316419;
+		const Real b1 = 0.319381530;
+		const Real b2 = -0.356563782;
+		const Real b3 = 1.781477937;
+		const Real b4 = -1.821255978;
+		const Real b5 = 1.330274429;
+		const Real xAbs = std::abs(x);
+		const Real t = inverse(1 + b0 * xAbs);
+		
+		//Real result = gaussianPdf<Real>(xAbs) * (
+		//	t * (b1 + t * (b2 + t * (b3 + t * (b4 + t * b5)))));
+
+		const Real t2 = square(t);
+		const Real t3 = t2 * t;
+		const Real t4 = square(t2);
+		const Real t5 = t4 * t;
+
+		Real result = gaussianPdf<Real>(xAbs) * (
+			t * b1 + t2 * b2 + t3 * b3 + t4 * b4 + t5 * b5);
+
+		if (x > 0)
+		{
+			result = (Real)1 - result;
+		}
+
+		return result;
+	}
+
+	template <typename Real>
+	Real gaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x)
+	{
+		boost::math::normal_distribution<Real>
+			normal;
+
+		return boost::math::cdf(normal, x);
+	}
+
+	template <typename Real>
+	Real gaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& deviation)
+	{
+		return Pastel::gaussianCdf<Real>(
+			x / deviation);
 	}
 
 }

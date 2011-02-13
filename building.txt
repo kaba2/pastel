@@ -88,7 +88,14 @@ disable debugging information. The `develop` version retains `ASSERT`s and
 `PENSURE`s, while `release` and `release-without-openmp` removes them. The 
 `release-without-openmp` configuration is otherwise equivalent to `release` 
 configuration, but disables OpenMP (e.g. when your tool-set does not
-support it, as is the case with Express versions of Visual Studio).
+support it, as is the case with Express versions of Visual Studio). Only
+the `release` configuration enables OpenMP.
+
+Property / Config  | debug | develop | release | release-without-openmp
+-------------------|-------|---------|---------|-----------------------
+ASSERT and PENSURE | x     | x       |         |
+OpenMP             |       |         | x       |
+Debug information  | x     |         |         |
 
 [InvariantChecking]: [[Ref]]: ensure.txt
 

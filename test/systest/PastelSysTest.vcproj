@@ -206,6 +206,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_andersondarling.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_arenaallocator.cpp"
 			>
 		</File>

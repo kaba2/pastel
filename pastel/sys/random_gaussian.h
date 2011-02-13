@@ -50,6 +50,34 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& x,
 		const PASTEL_NO_DEDUCTION(Real)& deviation);
 
+	//! Cumulative distribution function of the Gaussian distribution.
+	template <typename Real>
+	Real approximateGaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& deviation);
+
+	//! Cumulative distribution function of the Gaussian distribution.
+	/*!
+	This function assumes deviation = 1.
+	*/
+	template <typename Real>
+	Real approximateGaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x);
+
+	//! Cumulative distribution function of the Gaussian distribution.
+	/*!
+	This function assumes deviation = 1.
+	*/
+	template <typename Real>
+	Real gaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x);
+
+	//! Cumulative distribution function of the Gaussian distribution.
+	template <typename Real>
+	Real gaussianCdf(
+		const PASTEL_NO_DEDUCTION(Real)& x,
+		const PASTEL_NO_DEDUCTION(Real)& deviation);
+
 }
 
 #include "pastel/sys/random_gaussian.hpp"

@@ -11,11 +11,21 @@
 namespace Pastel
 {
 
-	template <typename Real>
+	template <typename Real, typename Value>
 	class RandomSamplingTree_RbtPolicy
 	{
 	public:
-		typedef Real ValueType;
+		struct ValueType
+		{
+			ValueType()
+				: totalMass(0)
+				, value()
+			{
+			}
+
+			Real totalMass;
+			Value value;
+		};
 
 		void swap(RbtPolicy_Concept& that)
 		{
@@ -29,35 +39,57 @@ namespace Pastel
 		template <typename Node_Iterator>
 		void updateHierarchical(const Node_Iterator& iter)
 		{
-			iter->value() = 
+			iter->value().totalMass = 
 				iter->key().key() +
-				iter.left()->value() +
-				iter.right()->value();
+				iter.left()->value().totalMass +
+				iter.right()->value().totalMass;
 		}
 	};
 
 	// This simulates a template alias.
-#	define PASTEL_RANDOM_SAMPLING_TREE(Real, Data) \
-	Pastel::RedBlackTree<KeyValue<Real, Data>, Pastel::LessThan, \
-	Pastel::RandomSamplingTree_RbtPolicy<Real> >
-	
-	template <typename Real, typename Data>
-	typename PASTEL_RANDOM_SAMPLING_TREE(Real, Data)::ConstIterator
-		randomlySample(
-		const PASTEL_RANDOM_SAMPLING_TREE(Real, Data)& tree)
+	template <typename Real, typename Key, typename Value = EmptyClass>
+	class RandomSamplingTree
 	{
-		typedef PASTEL_RANDOM_SAMPLING_TREE(Real, Data) Tree;
+	public:
+		typedef RedBlackTree<KeyValue<Real, Key>, LessThan,
+			RandomSamplingTree_RbtPolicy<Real, Value> > Tree;
 		typedef typename Tree::ConstIterator ConstIterator;
+		typedef typename Tree::Iterator Iterator;
+
+		Tree& tree()
+		{
+			return tree_;
+		}
+
+		const Tree& tree() const
+		{
+			return tree_;
+		}
+
+	private:
+		Tree tree_;
+	};
+
+	template <typename Real, typename Key, typename Value>
+	typename RandomSamplingTree<Real, Key, Value>::ConstIterator
+		randomlySample(
+		const RandomSamplingTree<Real, Key, Value>& samplingTree)
+	{
+		typedef RandomSamplingTree<Real, Key, Value> SamplingTree;
+		typedef typename SamplingTree::Tree Tree;
+		typedef typename Tree::ConstIterator ConstIterator;
+
+		const Tree& tree = samplingTree.tree();
 
 		ConstIterator iter = tree.root();
 
 		const Real totalMass = 
-			iter->value();
+			iter->value().totalMass;
 		const Real variate = 
 			randomOpen<Real>() * totalMass;
 
 		Real minMass = 
-			iter.left()->value();
+			iter.left()->value().totalMass;
 		while(!iter.sentinel())
 		{
 			const Real mass =
@@ -66,12 +98,12 @@ namespace Pastel
 			if (variate < minMass)
 			{
 				iter = iter.left();
-				minMass -= iter->key().key() + iter.right()->value();
+				minMass -= iter->key().key() + iter.right()->value().totalMass;
 			}
 			else if (variate >= minMass + mass)
 			{
 				iter = iter.right();
-				minMass += mass + iter.left()->value();
+				minMass += mass + iter.left()->value().totalMass;
 			}
 			else
 			{
