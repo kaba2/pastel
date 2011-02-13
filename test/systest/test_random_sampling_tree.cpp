@@ -28,11 +28,15 @@ namespace
 
 		void test()
 		{
-			typedef PASTEL_RANDOM_SAMPLING_TREE(real, integer)
-				Tree;
-			typedef Tree::Iterator Iterator;
+			typedef RandomSamplingTree<real, integer>
+				SamplingTree;
+			typedef SamplingTree::Iterator Iterator;
 
-			Tree tree;
+			SamplingTree samplingTree;
+
+			typedef SamplingTree::Tree Tree;
+
+			Tree& tree = samplingTree.tree();
 
 			const integer n = 10;
 			std::vector<real> massSet;
@@ -51,7 +55,7 @@ namespace
 			const integer samples = 1000000;
 			for (integer i = 0;i < samples;++i)
 			{
-				++frequencySet[randomlySample(tree)->key().value()];
+				++frequencySet[randomlySample(samplingTree)->key().value()];
 			}
 			
 			for (integer i = 0;i < n;++i)

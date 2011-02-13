@@ -1727,6 +1727,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Goodness-of-fit"
+				>
+				<File
+					RelativePath=".\random_anderson_darling.h"
+					>
+				</File>
+				<File
+					RelativePath=".\random_anderson_darling.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\random_goodness.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\random_kolmogorov_smirnov.h"
+					>
+				</File>
+				<File
+					RelativePath=".\random_kolmogorov_smirnov.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Iterators"

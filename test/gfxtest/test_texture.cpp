@@ -29,8 +29,6 @@ using namespace Pastel;
 
 #include <iostream>
 
-using namespace std;
-
 namespace
 {
 
