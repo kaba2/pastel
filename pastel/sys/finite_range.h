@@ -1,5 +1,4 @@
 // Description: Finite range
-// Documentation: range.txt
 
 #ifndef PASTEL_FINITE_RANGE_H
 #define PASTEL_FINITE_RANGE_H

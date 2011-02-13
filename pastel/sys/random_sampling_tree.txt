@@ -22,12 +22,7 @@ Nodes
 -----
 
 The nodes of the tree are key-value pairs, where the key is the non-negative
-real-valued mass, and the value is user-defined data:
-
-[[CppCode]]:
-	RedBlackTree<KeyValue<Real, Data>, Pastel::LessThan,
-		RandomSamplingTree_RbtPolicy<Real> >
-		
+real-valued mass, and the value is a user-defined secondary key.
 The probability mass of a given node is given by its mass divided by 
 the total mass of all nodes. Value-data is used to keep track of the
 total mass under the subtree rooted at each node. It is this total

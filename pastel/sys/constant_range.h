@@ -1,5 +1,4 @@
 // Description: Constant range
-// Documentation: range.txt
 
 #ifndef PASTEL_CONSTANT_RANGE_H
 #define PASTEL_CONSTANT_RANGE_H

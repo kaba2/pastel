@@ -1,5 +1,4 @@
 // Description: Uniformly-distributed random numbers
-// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_UNIFORM_H
 #define PASTEL_RANDOM_UNIFORM_H

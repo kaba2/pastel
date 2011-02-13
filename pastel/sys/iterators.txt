@@ -3,29 +3,61 @@ Iterators
 
 [[Parent]]: pastelsys.txt
 
+A _cursor_ is an object that allows traversal and protected
+node access in a graph data structure. An _iterator_ is a
+cursor which traverses nodes in a sequence.
+
 Theory
 ------
 
-An _iterator_ is an abstraction that allows to traverse a data 
-structure without knowing its exact structure. It is possibly
-the most important concept in the design of data structures,
+The cursor is an important concept in the design of data structures 
 because it allows to separate the data structure from the 
-algorithms that use that data structure.
-Failing to do this results in classes whose interfaces
-need to be continuously extended to embed new algorithms.
+algorithms that use that data structure. Failing to do this 
+results in classes whose interfaces need to be continuously 
+extended to embed new algorithms. Iterators are an essential 
+component of the C++ Standard Library.
 
-In Pastel, by an iterator we mean an iterator as above, but
-with the restriction of the data structure being sequential (linear).
-The general concept is instead named a _cursor_ (because we feel iterators 
-are too strongly associated with sequential data structures).
+Problems
+--------
 
-Synthetic data and iterator adapters
+While the cursor concept is appropriate for traversing trees and
+graphs, it is _not_ well suited for sequential traversal (i.e. iterators).
+The problems associated with iterators are as follows:
+
+ * Two separate objects are needed to define a range in a sequence.
+ This disables functional composition on ranges and opens up a 
+ possibility for pairing iterators erroneously.
+ 
+ * For many data structures, it is not possible for iterators to be 
+ both efficient and error-safe. For example, without incurring
+ non-trivial penalties, it is not possible to check whether two 
+ iterators form a valid range, or if a given iterator is in a legal 
+ range or not.
+ 
+A partial solution to these problems is to use 
+[iterator ranges][IteratorRange] instead. However, because the
+individual iterators must still be accessed at some point, the 
+problems are merely pushed deeper, rather than fundamentally solved.
+
+[IteratorRange]: [[Ref]]: iterator_range.txt
+
+A complete solution to the presented problems is to take a sequence
+of elements as the primary abstraction. This leads to the 
+[range][Range] concept. The only problem then is that the C++ Standard
+Library is unable to work with this abstraction.
+
+[Range]: [[Ref]]: range.txt
+
+Iterator adapters and synthetic data
 ------------------------------------
 
-In addition to abstracting traversal of data structures, one can
-create synthetic iterators which generate data on the fly.
-For example, the `ConstantIterator` represents
-a sequence which contains the same constant data everywhere.
+Despite the problems, PastelSys provides implementations for several 
+iterators. While the given functionality is better encapsulated
+as ranges ([as they are][Range]), iterators are needed to be able to 
+work with the algorithms in the C++ Standard Library.
+
+The `ConstantIterator` represents a sequence which contains the same 
+constant data everywhere.
 A `CountingIterator` is an adapter that can be used to dereference the
 traversed iterator instead of its data. This is useful when you need
 to pass a function a set of iterators whose values to apply some 
@@ -36,19 +68,6 @@ you have no need for some result from a function.
 instead of one. For example, using `SparseIterator` in combination
 with the `CountingIterator` with integers, you are able to generate the
 integer sequence 3, 5, 7, 9, 11 on the fly.
-
-Low-level nature and templates
-------------------------------
-
-While abstract, iterators are still quite low-level, and often not
-appropriate for interfaces because each iterator range requires two
-parameters. In addition, a function template that parametrizes the type 
-of the iterator is necessarily unconstrained. This can create problems 
-with overloading when a function template matches although that is not 
-intended. This problem has to do with the lack of concept-based 
-overloading in current C++. This can be remedied by lifting the abstraction 
-level to so-called iterator ranges. See the link below for more
-information on iterator ranges.
 
 
 

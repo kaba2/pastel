@@ -2203,7 +2203,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\array_range.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\constant_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\constant_range.txt"
 					>
 				</File>
 				<File
@@ -2211,7 +2219,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\finite_range.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\generated_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\generated_range.txt"
 					>
 				</File>
 				<File
@@ -2219,7 +2235,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\reverse_range.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\stream_range.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stream_range.txt"
 					>
 				</File>
 				<Filter

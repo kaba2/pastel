@@ -1,5 +1,4 @@
 // Description: Reverse range
-// Documentation: range.txt
 
 #ifndef PASTEL_REVERSE_RANGE_H
 #define PASTEL_REVERSE_RANGE_H
