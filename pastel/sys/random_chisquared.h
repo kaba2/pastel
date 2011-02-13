@@ -1,5 +1,4 @@
 // Description: Chi-squared-distributed random numbers
-// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_CHISQUARED_H
 #define PASTEL_RANDOM_CHISQUARED_H

@@ -21,6 +21,10 @@ namespace Pastel
 		mxArray*& output);
 
 	//! Creates a Matlab numeric array.
+	/*!
+	Preconditions:
+	allGreaterEqual(extent, 0)
+	*/
 	template <typename Type>
 	boost::shared_ptr<Array<Type> > createArray(
 		const Vector2i& extent,

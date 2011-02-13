@@ -1,5 +1,5 @@
 // Description: Testing for Anderson-Darling statistic
-// DocumentationOf: random_anderson_darling.txt
+// DocumentationOf: random_anderson_darling.h
 
 #include "pastelsystest.h"
 

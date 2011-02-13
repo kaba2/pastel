@@ -1,5 +1,4 @@
 // Description: Log-normal-distributed random numbers
-// Documentation: random_continuous.txt
 
 #ifndef PASTEL_RANDOM_LOGNORMAL_H
 #define PASTEL_RANDOM_LOGNORMAL_H

@@ -3,13 +3,17 @@ Ranges
 
 [[Parent]]: pastelsys.txt
 
-A _range_ is a sequence of elements of some specific type. The elements 
-of a range are said to be _in the range_. A _forward range_ is a range 
-whose first element can be accessed, and which can reduce itself to refer 
-to all elements, except the first. A _bidirectional range_ is a forward 
-range whose last element can be accessed, and which can reduce itself to 
-refer to all elements, except the last. A _random-access range_ is a 
-bidirectional range whose n:th element can be accessed.
+A _range_ is a sequence of elements of some specific type. 
+
+Theory
+------
+
+The elements of a range are said to be _in the range_. A _forward range_ 
+is a range whose first element can be accessed, and which can reduce itself 
+to refer to all elements, except the first. A _bidirectional range_ is a 
+forward range whose last element can be accessed, and which can reduce 
+itself to refer to all elements, except the last. A _random-access range_ 
+is a bidirectional range whose n:th element can be accessed.
 
 The first and last elements of a range are guaranteed to exist as long 
 as they are in the range. Actual range implementations may give

@@ -1,0 +1,4 @@
+Constant range
+==============
+
+[[Parent]]: range.txt

@@ -1,5 +1,4 @@
 // Description: Stream range
-// Documentation: range.txt
 
 #ifndef PASTEL_STREAM_RANGE_H
 #define PASTEL_STREAM_RANGE_H

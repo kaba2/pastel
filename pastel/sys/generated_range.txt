@@ -1,0 +1,4 @@
+Generated range
+===============
+
+[[Parent]]: range.txt

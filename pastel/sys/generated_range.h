@@ -1,5 +1,4 @@
 // Description: Generated range
-// Documentation: range.txt
 
 #ifndef PASTEL_GENERATED_RANGE_H
 #define PASTEL_GENERATED_RANGE_H
