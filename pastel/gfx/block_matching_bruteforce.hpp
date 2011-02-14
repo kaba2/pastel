@@ -137,9 +137,9 @@ namespace Pastel
 						// blocks A and B.
 
 						Real distance = 0;
-						for (integer j = 0;j < blockExtent.x();++j)
+						for (integer i = 0;i < blockExtent.x();++i)
 						{
-							for (integer i = 0;i < blockExtent.y();++i)
+							for (integer j = 0;j < blockExtent.y();++j)
 							{
 								distance = normBijection.addAxis(
 									distance, 
