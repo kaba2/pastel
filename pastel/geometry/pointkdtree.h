@@ -9,9 +9,9 @@
 #include "pastel/sys/tristate.h"
 #include "pastel/sys/poolallocator.h"
 #include "pastel/sys/iterator_range.h"
+#include "pastel/sys/vector_pointpolicy.h"
 
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/sys/vector_pointpolicy.h"
 
 #include <boost/mpl/if.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
@@ -54,8 +54,13 @@ namespace Pastel
 	public:
 		typedef typename PointSet::const_iterator 
 			Point_ConstIterator;
+		typedef BidirectionalIterator_Range<Point_ConstIterator>
+			Point_ConstRange;
+
 		typedef boost::indirect_iterator<Point_ConstIterator, const Point> 
 			PointData_ConstIterator;
+		typedef BidirectionalIterator_Range<PointData_ConstIterator>
+			PointData_ConstRange;
 
 		//! Constructs an empty tree.
 		/*!
@@ -156,6 +161,13 @@ namespace Pastel
 		*/
 		Point_ConstIterator end() const;
 
+		//! Returns an iterator range to the point list.
+		/*!
+		Exception safety:
+		nothrow
+		*/
+		Point_ConstRange range() const;
+
 		//! Returns an iterator to the beginning of the hidden point list.
 		/*!
 		Exception safety:
@@ -170,9 +182,20 @@ namespace Pastel
 		*/
 		Point_ConstIterator hiddenEnd() const;
 
+		//! Returns an iterator range to the hidden point list.
+		/*!
+		Exception safety:
+		nothrow
+		*/
+		Point_ConstRange hiddenRange() const;
+
 		//! Adapts an iterator to referencing the points themselves.
 		PointData_ConstIterator asPointData(
 			const Point_ConstIterator& iter) const;
+
+		//! Adapts a range to referencing the points themselves.
+		PointData_ConstRange asPointData(
+			const Point_ConstRange& range) const;
 
 		//! Returns the number of nodes in the tree.
 		/*!

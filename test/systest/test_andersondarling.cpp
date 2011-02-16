@@ -4,8 +4,18 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/random_anderson_darling.h"
+#include "pastel/sys/random_gaussian.h"
+#include "pastel/sys/keyvalue.h"
+#include "pastel/sys/array.h"
+
+#include "pastel/math/normbijections.h"
+
+#include "pastel/geometry/distance_point_point.h"
+
+#include "pastel/gfx/pcx.h"
 
 #include <iostream>
+#include <set>
 
 using namespace Pastel;
 
@@ -24,6 +34,7 @@ namespace
 		virtual void run()
 		{
 			test();
+			testCorrelation();
 		}
 
 		void test()
@@ -44,6 +55,11 @@ namespace
 
 			Significance | Reject normality if above
 			-------------|--------------------------
+			90%          | 0.35
+			80%          | 0.45
+			70%          | 0.55
+			60%          | 0.7
+			50%          | 0.8
 			30%          | 1.1
 			20%          | 1.4
 			10%          | 2.0
@@ -55,11 +71,11 @@ namespace
 			0.01%        | 8.4
 			*/
 
-			//real minThreshold = 1.0;
-			//real maxThreshold = 2.0;
-			real minThreshold = 0.631;
-			real maxThreshold = 0.631;
-			integer thresholds = (maxThreshold - minThreshold) * 10;
+			real minThreshold = 0.0;
+			real maxThreshold = 1.0;
+			//real minThreshold = 0.631;
+			//real maxThreshold = 0.631;
+			integer thresholds = (maxThreshold - minThreshold) * 20;
 			if (thresholds == 0)
 			{
 				++thresholds;
@@ -72,10 +88,10 @@ namespace
 				integer negatives = 0;
 				real mean = 0;
 				real deviation = 1;
-				real populationMean = nan<real>();
-				real populationDeviation = nan<real>();
-				//real populationMean = 0;
-				//real populationDeviation = 1;
+				//real populationMean = nan<real>();
+				//real populationDeviation = nan<real>();
+				real populationMean = 0;
+				real populationDeviation = 1;
 				for (integer j = 0;j < m;++j)
 				{
 					for (integer i = 0;i < n;++i)
@@ -121,6 +137,86 @@ namespace
 
 				TEST_ENSURE_OP(negativePercent, <, 10);
 			}
+		}
+
+		void testCorrelation()
+		{
+			const integer k = 1024;
+			const integer w = 512;
+			const integer n = k + w - 1;
+			
+			std::vector<real> dataSet;
+			dataSet.reserve(n);
+			for (integer i = 0;i < n;++i)
+			{
+				dataSet.push_back(randomGaussian<real>());
+			}
+
+			typedef std::set<KeyValue<real, integer> > NearestSet;
+
+			NearestSet aNearestSet;
+			NearestSet bNearestSet;
+
+			std::vector<real> differenceSet(w, 0);
+			for (integer i = 0;i < n - w + 1;++i)
+			{
+				for (integer j = 0;j < w;++j)
+				{
+					differenceSet[j] = dataSet[i + j] - dataSet[j];
+				}
+
+				const real ad =
+					gaussianAndersonDarling<real>(
+					range(differenceSet.begin(), differenceSet.end()),
+					0, 1);
+
+				aNearestSet.insert(
+					keyValue(ad, i));
+				if (aNearestSet.size() > k)
+				{
+					NearestSet::iterator aLast = aNearestSet.end();
+					--aLast;
+					aNearestSet.erase(aLast);
+				}
+
+				const real distance =
+					distance2(differenceSet.begin(), differenceSet.begin() + i,
+					w, Euclidean_NormBijection<real>());
+
+				bNearestSet.insert(
+					keyValue(distance, i));
+				if (bNearestSet.size() > k)
+				{
+					NearestSet::iterator bLast = bNearestSet.end();
+					--bLast;
+					bNearestSet.erase(bLast);
+				}
+			}
+
+			const integer imageWidth = k;
+			const integer imageHeight = k;
+			Array<real32> image(imageWidth, imageHeight);
+			NearestSet::iterator aIter = aNearestSet.begin();
+			NearestSet::iterator bIter = bNearestSet.begin();
+			
+			ENSURE_OP(aNearestSet.size(), ==, k);
+			ENSURE_OP(bNearestSet.size(), ==, k);
+
+			for (integer i = 0;i < k;++i)
+			{
+				const integer x = aIter->value();
+				const integer y = bIter->value();
+				ENSURE_OP(x, >=, 0);
+				ENSURE_OP(y, >=, 0);
+				ENSURE_OP(x, <, k);
+				ENSURE_OP(y, <, k);
+				
+				image(x, y) = 1;
+				++aIter;
+				++bIter;
+			}
+
+			saveGrayscalePcx(image, "andersondarling-vs-distance.pcx");
 		}
 	};
 

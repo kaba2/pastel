@@ -52,20 +52,22 @@ namespace Pastel
 		, simulateKdTree_(that.simulateKdTree_)
 		, lazyUpdates_(that.lazyUpdates_)
 	{
-		// FIX: Hidden and insertion regions are not being
-		// copied.
-		ENSURE(false);
-
 		initialize();
 
 		// First copy the structure of the tree.
 		copyConstruct(root_, that.root_);
 
 		// Then insert the points into the nodes.
-		insert(range(
-			that.pointBegin(), that.pointEnd()));
+		insert(that.asPointData(that.range()));
 
-		// Commit the insertions.
+		// Insert the hidden points.
+		insert(that.asPointData(that.hiddenRange()), NullIterator(), true);
+
+		// Insert the insertion points.
+		insert(that.asPointData(
+			Pastel::range(that.insertionSet_.begin(), that.insertionSet_.end())));
+
+		// Commit everything.
 		update();
 	}
 
@@ -165,6 +167,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
+	typename PointKdTree<Real, N, PointPolicy>::Point_ConstRange
+		PointKdTree<Real, N, PointPolicy>::range() const
+	{
+		return Pastel::range(begin(), end());
+	}
+
+	template <typename Real, int N, typename PointPolicy>
 	typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 		PointKdTree<Real, N, PointPolicy>::hiddenBegin() const
 	{
@@ -179,11 +188,27 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
+	typename PointKdTree<Real, N, PointPolicy>::Point_ConstRange
+		PointKdTree<Real, N, PointPolicy>::hiddenRange() const
+	{
+		return Pastel::range(hiddenBegin(), hiddenEnd());
+	}
+
+	template <typename Real, int N, typename PointPolicy>
 	typename PointKdTree<Real, N, PointPolicy>::PointData_ConstIterator
 		PointKdTree<Real, N, PointPolicy>::asPointData(
 			const Point_ConstIterator& iter) const
 	{
 		return PointData_ConstIterator(iter);
+	}
+
+	template <typename Real, int N, typename PointPolicy>
+	typename PointKdTree<Real, N, PointPolicy>::PointData_ConstRange
+		PointKdTree<Real, N, PointPolicy>::asPointData(
+			const Point_ConstRange& range) const
+	{
+		return Pastel::range(
+			asPointData(range.begin()), asPointData(range.end()));
 	}
 
 	template <typename Real, int N, typename PointPolicy>

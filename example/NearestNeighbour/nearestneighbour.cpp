@@ -688,7 +688,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 
 	ENSURE(check(tree_));
 
-	std::cout << tree_.points() << std::endl;
+	//std::cout << tree_.points() << std::endl;
 
 	Integer2 iMouse;
 	bool leftButton = false;

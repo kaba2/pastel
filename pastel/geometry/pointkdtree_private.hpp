@@ -36,7 +36,9 @@ namespace Pastel
 			subdivide(
 				thisNode, 
 				thatNode->splitPosition(),
-				thatNode->splitAxis());
+				thatNode->splitAxis(),
+				thatNode->prevMin(),
+				thatNode->prevMax());
 
 			copyConstruct(
 				thisNode->left(),
@@ -182,7 +184,7 @@ namespace Pastel
 			node->setRight(0);
 
 			// Set the node pointers to this node.
-			setLeaf(node->begin(), node->end(), node);
+			setLeaf(node->first(), node->end(), node);
 
 			// Some of the hidden points might have had
 			// destructed nodes as their associated nodes.
@@ -479,7 +481,7 @@ namespace Pastel
 		pointSet_.push_back(
 			PointInfo(*iter, 0, hidden));
 		++iter;
-	
+
 		Point_Iterator first = pointSet_.end();
 		--first;
 

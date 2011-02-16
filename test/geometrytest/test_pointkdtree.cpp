@@ -3,6 +3,7 @@
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+#include "pastel/geometry/pointkdtree_tools.h"
 
 #include "pastel/math/uniform_sampling.h"
 
@@ -17,6 +18,9 @@ namespace
 		: public TestSuite
 	{
 	public:
+		typedef PointKdTree<real, 2> Tree;
+		typedef Tree::Point_ConstIterator Point_ConstIterator;
+
 		PointKdTree_Test()
 			: TestSuite(&geometryTestReport())
 		{
@@ -24,13 +28,120 @@ namespace
 
 		virtual void run()
 		{
+			testEmpty();
+			test();
 			testCircular<2>();
 			testCircular<3>();
+		}
+
+		void test()
+		{
+			const integer m = 10000;
+
+			std::vector<Vector2> pointSet;
+			pointSet.reserve(m);
+			for (integer i = 0;i < m;++i)
+			{
+				pointSet.push_back(2 * randomVectorBall<real, 2>());
+			}
+
+			std::vector<Point_ConstIterator> iteratorSet;
+
+			Tree tree;
+			tree.insert(
+				range(pointSet.begin(), pointSet.end()),
+				std::back_inserter(iteratorSet));
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.points(), ==, m);
+			TEST_ENSURE_OP(tree.leaves(), ==, 1);
+			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+
+			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.points(), ==, m);
+
+			{
+				Tree bTree(tree);
+				TEST_ENSURE(check(bTree));
+				TEST_ENSURE(equivalentKdTree(tree, bTree));
+
+				tree.swap(bTree);
+				TEST_ENSURE(check(bTree));
+				TEST_ENSURE(equivalentKdTree(tree, bTree));
+			}
+
+			tree.merge();
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.leaves(), ==, 1);
+			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+			TEST_ENSURE_OP(tree.points(), ==, m);
+
+			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			TEST_ENSURE(check(tree));
+
+			tree.merge(tree.root());
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.leaves(), ==, 1);
+			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+			TEST_ENSURE_OP(tree.points(), ==, m);
+
+			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			TEST_ENSURE(check(tree));
+
+			tree.hide();
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.points(), ==, 0);
+
+			tree.show();
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.points(), ==, m);
+
+			tree.clear();
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.points(), ==, 0);
+			TEST_ENSURE_OP(tree.leaves(), ==, 1);
+			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+			{
+				Tree emptyTree;
+				TEST_ENSURE(equivalentKdTree(tree, emptyTree));
+			}
+		}
+
+		void testEmpty()
+		{
+			Tree tree;
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE(tree.empty());
+			TEST_ENSURE_OP(tree.points(), ==, 0);
+			TEST_ENSURE(tree.bound().empty());
+			TEST_ENSURE_OP(tree.leaves(), ==, 1);
+			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+						
+			tree.clear();
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE(tree.empty());
+			TEST_ENSURE_OP(tree.points(), ==, 0);
+			TEST_ENSURE(tree.bound().empty());
+			TEST_ENSURE_OP(tree.leaves(), ==, 1);
+			TEST_ENSURE_OP(tree.nodes(), ==, 1);
+
+			{
+				Tree bTree(tree);
+				TEST_ENSURE(check(tree));
+				TEST_ENSURE(equivalentKdTree(tree, bTree));
+
+				tree.swap(bTree);
+				TEST_ENSURE(check(tree));
+				TEST_ENSURE(equivalentKdTree(tree, bTree));
+			}
 		}
 
 		template <int N>
 		void testCircular()
 		{
+			typedef PointKdTree<real, N> Tree;
+			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
+
 			const integer m = 10000;
 
 			std::vector<Vector<real, N> > pointSet;
@@ -39,9 +150,6 @@ namespace
 			{
 				pointSet.push_back(2 * randomVectorSphere<real, N>());
 			}
-
-			typedef PointKdTree<real, N> Tree;
-			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 
 			Tree tree;
 
