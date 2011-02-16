@@ -8,9 +8,9 @@
 %
 % KDTREE is a kd-tree constructed with pointkdtree_construct().
 %
-% QUERYSET is an (m x n) numeric array, which contains n query points
-% of dimension m. The m must correspond with the dimension of
-% the kd-tree. Native type: double.
+% QUERYSET is a arbitrary-dimensional numeric array, which contains 
+% the identifiers of the query points. 
+% Native type: double.
 %
 % MAXDISTANCESET is a numeric array whose linearization contains the
 % maximum allowed (norm bijection) distance for the neighbors of each 

@@ -106,6 +106,7 @@ namespace Pastel
 
 		typedef PointKdTree<real, Dynamic, TreePoint_PointPolicy> Tree;
 		typedef Tree::Point_ConstIterator Point_ConstIterator;
+		typedef Tree::Point_ConstRange Point_ConstRange;
 		typedef UnorderedMap<integer, Point_ConstIterator> IndexMap;
 		typedef IndexMap::const_iterator ConstIterator;
 
@@ -119,6 +120,64 @@ namespace Pastel
 			{
 			}
 
+			explicit KdState(const KdState& that)
+				: tree(that.tree)
+				, indexMap()
+				, pointAllocator(that.tree.dimension() * sizeof(real))
+				, index(that.index)
+			{
+				// Remove points, but retain structure.
+				tree.erase(true);
+
+				const Tree& thatTree = that.tree;
+				const integer dimension = thatTree.dimension();
+
+				// Copy point data.
+				{
+					Point_ConstRange range = thatTree.range();
+					while(!range.empty())
+					{
+						const TreePoint& treePoint =
+							range.front().point();
+						
+						real* data = (real*)pointAllocator.allocate();
+						real* thatData = treePoint.data;
+
+						std::copy(thatData, thatData + dimension, data);
+
+						const integer index = treePoint.id;
+
+						Point_ConstIterator iter = tree.insert(TreePoint(data, index));
+						indexMap.insert(std::make_pair(index, iter));
+
+						range.pop_front();
+					}
+				}
+
+				// Copy hidden data.
+				{
+					Point_ConstRange range = thatTree.hiddenRange();
+					while(!range.empty())
+					{
+						const TreePoint& treePoint =
+							range.front().point();
+						
+						real* data = (real*)pointAllocator.allocate();
+						real* thatData = treePoint.data;
+
+						std::copy(thatData, thatData + dimension, data);
+
+						const integer index = treePoint.id;
+
+						Point_ConstIterator iter = tree.insert(
+							TreePoint(data, index), true);
+						indexMap.insert(std::make_pair(index, iter));
+
+						range.pop_front();
+					}
+				}
+			}
+
 			~KdState()
 			{
 				pointAllocator.clear();
@@ -127,9 +186,11 @@ namespace Pastel
 			typedef std::vector<TreePoint> PointSet;
 
 			Tree tree;
+			// Mapping from integer identifiers to point iterators.
 			IndexMap indexMap;
+			// Memory region for point data.
 			PoolAllocator pointAllocator;
-			PointSet pointSet;
+			// The current allocation index for identifiers.
 			integer index;
 		};
 
@@ -215,7 +276,6 @@ namespace Pastel
 			// Create a new KdState and store the pointer to
 			// the returned array.
 			KdState* state = new KdState(dimension);
-			Tree* tree = new Tree(TreePoint_PointPolicy(dimension));
 			*rawResult = state;
 		}
 
@@ -233,6 +293,82 @@ namespace Pastel
 
 			KdState* state = asState(inputSet[State]);
 			delete state;
+		}
+
+		void kdCopy(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				Inputs
+			};
+
+			ENSURE_OP(inputs, ==, Inputs);
+			
+			KdState* state = asState(inputSet[State]);
+			Tree& tree = state->tree;
+
+			// Get enough memory to hold a KdState pointer.
+			const mwSize extent[] = {1, sizeof(KdState*)};
+			outputSet[0] = mxCreateCharArray(2, extent);
+			KdState** rawResult = (KdState**)mxGetPr(outputSet[0]);
+
+			// Create a new KdState and store the pointer to
+			// the returned array.
+			KdState* newState = new KdState(*state);
+			*rawResult = newState;
+		}
+
+		void kdCheck(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				Inputs
+			};
+
+			ENSURE_OP(inputs, ==, Inputs);
+			
+			KdState* state = asState(inputSet[State]);
+			Tree& tree = state->tree;
+
+			ENSURE(check(tree));
+		}
+
+		void kdMerge(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				Inputs
+			};
+
+			ENSURE_OP(inputs, ==, Inputs);
+
+			KdState* state = asState(inputSet[State]);
+			state->tree.merge();
+		}
+
+		void kdClear(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				Inputs
+			};
+
+			ENSURE_OP(inputs, ==, Inputs);
+
+			KdState* state = asState(inputSet[State]);
+			state->tree.clear();
 		}
 
 		void kdInsert(
@@ -261,10 +397,6 @@ namespace Pastel
 			const integer elements = mxGetNumberOfElements(inputSet[PointSet]);
 			const integer points = elements / tree.dimension();
 
-			//printf("Dimension %d\n", dimension);
-			//printf("Elements %d\n", elements);
-			//printf("Points %d\n", points);
-
 			IntegerArrayPtr result =
 				createArray<integer>(points, 1, outputSet[IdSet]);
 			for (integer i = 0;i < points;++i)
@@ -273,21 +405,140 @@ namespace Pastel
 				std::copy(pointSet, pointSet + dimension, data);
 				pointSet += dimension;
 
-				/*
-				for (integer j = 0;j < dimension;++j)
-				{
-					printf("%f, ", data[j]);
-				}
-				printf("\n");
-				*/
-
 				const integer index = state->index;
-				state->pointSet.push_back(TreePoint(data, index));
 				Point_ConstIterator iter = tree.insert(TreePoint(data, index));
 				state->indexMap.insert(std::make_pair(index, iter));
 				++state->index;
 
 				(*result)(i) = index;
+			}
+		}
+
+		void kdErase(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				IdSet,
+				Inputs
+			};
+
+			enum
+			{
+				Outputs
+			};
+
+			ENSURE_OP(inputs, >=, IdSet);
+
+			KdState* state = asState(inputSet[State]);
+			Tree& tree = state->tree;
+
+			if (inputs <= IdSet)
+			{
+				// Erase all;
+				tree.erase();
+				return;
+			}
+
+			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+
+			const integer points = idSet->size();
+			for (integer i = 0;i < points;++i)
+			{
+				const integer id = (*idSet)(i);
+				ConstIterator iter = 
+					state->indexMap.find(id);
+				if (iter != state->indexMap.end())
+				{
+					state->tree.erase(iter->second);
+					state->indexMap.erase(id);
+				}
+			}
+		}
+
+		void kdHide(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				IdSet,
+				Inputs
+			};
+
+			enum
+			{
+				Outputs
+			};
+
+			ENSURE_OP(inputs, >=, IdSet);
+
+			KdState* state = asState(inputSet[State]);
+			Tree& tree = state->tree;
+
+			if (inputs <= IdSet)
+			{
+				// Hide all;
+				tree.hide();
+				return;
+			}
+
+			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+
+			const integer points = idSet->size();
+			for (integer i = 0;i < points;++i)
+			{
+				ConstIterator iter = 
+					state->indexMap.find((*idSet)(i));
+				if (iter != state->indexMap.end())
+				{
+					state->tree.hide(iter->second);
+				}
+			}
+		}
+
+		void kdShow(
+			int outputs, mxArray *outputSet[],
+			int inputs, const mxArray *inputSet[])
+		{
+			enum
+			{
+				State,
+				IdSet,
+				Inputs
+			};
+
+			enum
+			{
+				Outputs
+			};
+
+			ENSURE_OP(inputs, >=, IdSet);
+
+			KdState* state = asState(inputSet[State]);
+			Tree& tree = state->tree;
+
+			if (inputs <= IdSet)
+			{
+				// Show all;
+				tree.show();
+				return;
+			}
+
+			IntegerArrayPtr idSet = asLinearizedArray<integer>(inputSet[IdSet]);
+
+			const integer points = idSet->size();
+			for (integer i = 0;i < points;++i)
+			{
+				ConstIterator iter = 
+					state->indexMap.find((*idSet)(i));
+				if (iter != state->indexMap.end())
+				{
+					state->tree.show(iter->second);
+				}
 			}
 		}
 
@@ -309,8 +560,6 @@ namespace Pastel
 
 			state->tree.refine(
 				SlidingMidpoint_SplitRule_PointKdTree(), bucketSize);
-
-			state->tree.erase();
 		}
 
 		void kdNodes(
@@ -489,11 +738,18 @@ namespace Pastel
 			matlabAddFunction("pointkdtree_as_points", kdAsPoints);
 			matlabAddFunction("pointkdtree_construct", kdConstruct);
 			matlabAddFunction("pointkdtree_destruct", kdDestruct);
+			matlabAddFunction("pointkdtree_copy", kdCopy);
+			matlabAddFunction("pointkdtree_check", kdCheck);
+			matlabAddFunction("pointkdtree_merge", kdMerge);
+			matlabAddFunction("pointkdtree_clear", kdClear);
 			matlabAddFunction("pointkdtree_points", kdPoints);
 			matlabAddFunction("pointkdtree_nodes", kdNodes);
 			matlabAddFunction("pointkdtree_leaves", kdLeaves);
 			matlabAddFunction("pointkdtree_dimension", kdDimension);
 			matlabAddFunction("pointkdtree_insert", kdInsert);
+			matlabAddFunction("pointkdtree_erase", kdErase);
+			matlabAddFunction("pointkdtree_hide", kdHide);
+			matlabAddFunction("pointkdtree_show", kdShow);
 			matlabAddFunction("pointkdtree_refine", kdRefine);
 			matlabAddFunction("pointkdtree_search_nearest", kdSearchNearest);
 		}
