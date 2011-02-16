@@ -96,6 +96,15 @@ namespace
 			TEST_ENSURE(check(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
+			tree.erase();
+			TEST_ENSURE(check(tree));
+			TEST_ENSURE_OP(tree.points(), ==, 0);
+
+			tree.insert(
+				range(pointSet.begin(), pointSet.end()),
+				std::back_inserter(iteratorSet));
+			TEST_ENSURE(check(tree));
+
 			tree.clear();
 			TEST_ENSURE(check(tree));
 			TEST_ENSURE_OP(tree.points(), ==, 0);

@@ -202,7 +202,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\pointkdtree_clear.m"
+				>
+			</File>
+			<File
 				RelativePath=".\pointkdtree_construct.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_copy.m"
 				>
 			</File>
 			<File
@@ -214,11 +222,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\pointkdtree_erase.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_hide.m"
+				>
+			</File>
+			<File
 				RelativePath=".\pointkdtree_insert.m"
 				>
 			</File>
 			<File
 				RelativePath=".\pointkdtree_leaves.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_merge.m"
 				>
 			</File>
 			<File
@@ -235,6 +255,10 @@
 			</File>
 			<File
 				RelativePath=".\pointkdtree_search_nearest.m"
+				>
+			</File>
+			<File
+				RelativePath=".\pointkdtree_show.m"
 				>
 			</File>
 			<File

@@ -800,9 +800,8 @@ void NearestNeighbor_Gfx_Ui::erase(const Vector2& center, real radius)
 
 	for (integer i = 0;i < nearestSet.size();i += 16)
 	{
-		tree_.erase(nearestSet[i]);
 		//tree_.hide(nearestSet[i]);
-		//tree_.show(nearestSet[i]);
+		tree_.erase(nearestSet[i]);
 	}
 }
 
