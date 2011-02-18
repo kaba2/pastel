@@ -3,18 +3,14 @@ Poisson-disk pattern
 
 [[Parent]]: point_patterns.txt
 
-Theory
-------
-
-An _''epsilon''-radius poisson-disk pattern in ''S sub RR^n''_,
-''epsilon in RR^+'', is a
-finite point set ''P'' for which it holds that the minimum distance
-between the points in ''P'' is at least ''epsilon'', with the metric
-chosen freely. Such point-sets are said to satisfy the _poisson-disk 
-property_. If no point can be added to ''P'' without breaking the 
-poisson-disk property, the pattern is called _maximal_. Maximal
-poisson-disk patterns are of more interest because otherwise a single
-point would satisfy the requirements for any ''epsilon'' and 
+An _''epsilon''-radius poisson-disk pattern_ in ''S sub RR^n'',
+''epsilon in RR^+'', is a point-set ''P'' for which it holds that the 
+minimum distance between the points in ''P'' is at least ''epsilon'', with 
+the metric chosen freely. Such point-sets are said to satisfy the 
+_poisson-disk property_. If no point can be added to ''P'' without 
+breaking the poisson-disk property, the pattern is called _maximal_. 
+Maximal poisson-disk patterns are of more interest because otherwise 
+a single point would satisfy the requirements for any ''epsilon'' and 
 non-empty ''S''.
 
 Practice

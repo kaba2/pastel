@@ -1,10 +1,7 @@
 Distance between shapes
 =======================
 
-[[Parent]]: shape_algorithms.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 The _distance_ between two shapes ''A, B sub RR^n''
 is defined by
@@ -13,8 +10,3 @@ is defined by
 
 where ''d : RR^n -> RR'' is some metric.
 
-Practice
---------
-
-In all distance queries it is assumed that the
-objects are solid.

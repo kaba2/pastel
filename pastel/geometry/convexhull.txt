@@ -1,10 +1,7 @@
 Convex hull of a point-set
 ==========================
 
-[[Parent]]: pointsets.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 The _convex hull_ of a point-set ''P sub RR^n''
 is the set of all convex combinations of ''P''.

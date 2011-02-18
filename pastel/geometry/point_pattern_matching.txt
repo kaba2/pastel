@@ -1,10 +1,7 @@
 Point-pattern matching
 ======================
 
-[[Parent]]: pointsets.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 Let ''P = {p_1, ..., p_m}'' and ''Q = {q_1, ..., q_s}'' be
 two finite point-sets in ''RR^n''. Given some class of 

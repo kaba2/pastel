@@ -3,13 +3,10 @@ Maximum clique of aligned boxes
 
 [[Parent]]: intersection_graph.txt
 
-Theory
-------
-
-Given a set ''P'' of (axis-aligned) boxes in ''R^d'', ''|P| = n''. 
+Given is a set ''P'' of (axis-aligned) boxes in ''RR^d''. 
 A _clique box_ is a box which is contained in the intersection of 
 some subset ''hat(P) sub P'' of boxes. The _box maximum clique 
-problem_ is to find a clique box such that ''|hat(P)| = k'' is maximized.
+problem_ is to find a clique box such that ''|hat(P)|'' is maximized.
 Such a box is then called a _maximum clique box_. There can be several 
 maximum clique boxes, even if each box is made maximal.
 
@@ -18,25 +15,25 @@ Practice
 
 Pastel implements an algorithm to find a maximum clique box in
 time ''O(n log(n))'', and to optionally report the subset ''hat(P)''
-using additional ''O(k)'' time. Consider the subset of those boxes that
-intersect a given horizontal line. We call the maximum cliques in that
-subset the _local maximum cliques_. For each local maximum clique set,
-the algorithm samples randomly (using a uniform distribution) one of
-them for further global investigation. Among the sampled local maximum
-cliques, the algorithm primarily maximizes the area, and secondarily 
+using additional ''O(|hat(P)|)'' time.  The algorithm allows to choose 
+whether to treat boxes as open or closed sets. Note that if one 
+side of a box is open and the other side is closed, then the 
+results are equivalent to both sides being open.
+
+### Multiple maximum cliques
+
+In case there are multiple maximum cliques, the algorithm randomly
+samples through them and primarily maximizes the area, and secondarily 
 (in case of equal area, especially zero area) the maximum width or 
 height.
 
-The algorithm allows to choose whether to treat boxes as open or closed 
-sets. Note that if one side of a box is open and the other side is 
-closed, then the results are equivalent to both sides being open.
-
 ### Example of local maximum clique sampling
 
-Figure 1 demonstrates that, even in ''R^2'', ''n'' boxes can form
+Figure 1 demonstrates that, even in ''RR^2'', ''n'' boxes can form
 ''O(n^2)'' maximum cliques (here ''n = 16''). In this image the red 
 lines are boxes of width zero, and the there are four transparent blue 
-boxes of thicker width. It is easy to show for such a gridding of boxes 
+boxes of thicker width. All of the box cliques are of size 2. 
+It is easy to show for such a gridding of boxes 
 that the probability that the algorithm returns a singular maximum clique
 box is given by ''1 - (1 - 4 / n)^(n / 2)'', which for ''n = 16'' 
 evaluates to ''0.90''. Furthermore, if we let ''n'' grow, then this 

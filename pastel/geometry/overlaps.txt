@@ -1,10 +1,7 @@
 Overlap between shapes
 ======================
 
-[[Parent]]: shape_algorithms.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 Two shapes ''P, Q sub RR^n'' _overlap_ if their intersection is non-empty.
 
