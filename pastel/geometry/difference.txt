@@ -1,7 +1,7 @@
 Set-difference between shapes
 =============================
 
-[[Parent]]: shape_algorithms.txt
+[[Parent]]: geometric_algorithms.txt
 
 The _set-difference_ ''A\B'' between two shapes ''A'' and ''B'' is given 
 by ''A\B = {x in A : x !in B}''. The _symmetric difference_ ''A(+)B'' is

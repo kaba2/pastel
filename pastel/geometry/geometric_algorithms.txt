@@ -1,0 +1,8 @@
+Geometric algorithms
+====================
+
+[[Parent]]: pastelgeometry.txt
+
+A _geometric algorithm_ is an algorithm which works with shapes and 
+point-sets of ''RR^n''. A _point-set_ is a finite subset of ''RR^n''.
+

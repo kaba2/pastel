@@ -1,7 +1,7 @@
 Nearest neighbors
 =================
 
-[[Parent]]: pointsets.txt
+[[Parent]]: geometric_algorithms.txt
 
 Theory
 ------

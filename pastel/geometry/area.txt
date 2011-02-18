@@ -1,13 +1,10 @@
 Area of a shape
 ===============
 
-[[Parent]]: shape_algorithms.txt
+[[Parent]]: geometric_algorithms.txt
 
-Theory
-------
-
-The _area_ of a shape in ''RR^n'' is the ''(n-1)''-dimensional 
-Lebesgue measure of the boundary of the point-set.
+The _area_ of a shape in ''RR^n'' is defined as the ''(n-1)''-dimensional 
+measure of the boundary of the point-set.
 
 Practice
 --------

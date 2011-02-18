@@ -1,7 +1,7 @@
 Diameter of a shape
 ===================
 
-[[Parent]]: shape_algorithms.txt
+[[Parent]]: geometric_algorithms.txt
 
 Theory
 ------

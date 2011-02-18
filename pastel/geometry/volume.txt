@@ -1,9 +1,6 @@
 Volume of a shape
 =================
 
-[[Parent]]: shape_algorithms.txt
+[[Parent]]: geometric_algorithms.txt
 
-Theory
-------
-
-The _volume_ of a shape in ''RR^n'' is its Lebesgue measure.
+The _volume_ of a shape is its Lebesgue measure.

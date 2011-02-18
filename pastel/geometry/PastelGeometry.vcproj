@@ -691,11 +691,7 @@
 			Name="Algorithms"
 			>
 			<File
-				RelativePath=".\pointsets.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\shape_algorithms.txt"
+				RelativePath=".\geometric_algorithms.txt"
 				>
 			</File>
 			<Filter

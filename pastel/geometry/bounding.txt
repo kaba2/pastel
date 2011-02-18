@@ -1,18 +1,15 @@
 Bounding between shapes
 =======================
 
-[[Parent]]: shape_algorithms.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 A _bounding shape_ is a minimal covering shape of type ''A''
-for a shape of type ''B'', where 'minimal' usually refers to either 
-area or volume. _Bounding_ is the task of finding such a shape.
+for a shape of type ''B'', where _minimal_ usually refers to either 
+area or volume. _Bounding_ is the problem of finding such a shape.
 
 Practice
 --------
 
-In addition to providing algorithms that find minimal covering shapes,
+In addition to providing algorithms that find bounding shapes,
 Pastel provides algorithms that do this approximately. 
 

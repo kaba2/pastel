@@ -1,10 +1,7 @@
 Eigenstructure of a point-set
 =============================
 
-[[Parent]]: pointsets.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 An _eigenvector of a point-set_ is an eigenvector
 of the covariance matrix of the point-set.

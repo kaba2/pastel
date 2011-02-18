@@ -1,5 +1,7 @@
-Data structures
-===============
+Geometric data structures
+=========================
 
 [[Parent]]: pastelgeometry.txt
 
+A _geometric data structure_ is a data structure which organizes
+shapes and point-sets of ''RR^n''.

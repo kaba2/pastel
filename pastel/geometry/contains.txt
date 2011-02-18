@@ -1,10 +1,7 @@
 Containment between shapes
 ==========================
 
-[[Parent]]: shape_algorithms.txt
-
-Theory
-------
+[[Parent]]: geometric_algorithms.txt
 
 A point-set ''P sub RR^n'' _contains_ a point-set ''Q sub RR^n'' if
 ''Q sub P''.
