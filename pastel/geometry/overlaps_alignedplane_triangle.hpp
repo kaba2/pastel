@@ -10,15 +10,16 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			Triangle<Real, N> const &triangle)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Triangle<Real, N>& triangle)
 	{
 		// There is an intersection if two points of the triangle
 		// are located at different sides of AlignedPlane or any of
 		// the points are on the plane.
 
 		// EPSILON
-		if (alignedPlane.position() - triangle[0][alignedPlane.axis()] == 0)
+		if (plane.position() - triangle[0][plane.axis()] == 0)
 		{
 			// There is a point on the plane.
 
@@ -26,7 +27,7 @@ namespace Pastel
 		}
 
 		// EPSILON
-		if (alignedPlane.position() - triangle[1][alignedPlane.axis()] == 0)
+		if (plane.position() - triangle[1][plane.axis()] == 0)
 		{
 			// There is a point on the plane.
 
@@ -34,31 +35,32 @@ namespace Pastel
 		}
 
 		// EPSILON
-		if (alignedPlane.position() - triangle[2][alignedPlane.axis()] == 0)
+		if (plane.position() - triangle[2][plane.axis()] == 0)
 		{
 			// There is a point on the plane.
 
 			return true;
 		}
 
-		bool aSide = (alignedPlane.position() > triangle[0][alignedPlane.axis()]);
-		bool bSide = (alignedPlane.position() > triangle[1][alignedPlane.axis()]);
-		bool cSide = (alignedPlane.position() > triangle[2][alignedPlane.axis()]);
+		bool aSide = (plane.position() > triangle[0][plane.axis()]);
+		bool bSide = (plane.position() > triangle[1][plane.axis()]);
+		bool cSide = (plane.position() > triangle[2][plane.axis()]);
 
 		return ((aSide ^ bSide) || (aSide ^ cSide));
 	}
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			Triangle<Real, N> const &triangle,
-			bool &triangleOnPositiveSide)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Triangle<Real, N>& triangle,
+		bool &triangleOnPositiveSide)
 	{
 		// There is an intersection if two points of the triangle
 		// are located at different sides of AlignedPlane or any of
 		// the points are on the plane.
 
 		// EPSILON
-		if (alignedPlane.position() - triangle[0][alignedPlane.axis()] == 0)
+		if (plane.position() - triangle[0][plane.axis()] == 0)
 		{
 			// There is a point on the plane.
 
@@ -66,7 +68,7 @@ namespace Pastel
 		}
 
 		// EPSILON
-		if (alignedPlane.position() - triangle[1][alignedPlane.axis()] == 0)
+		if (plane.position() - triangle[1][plane.axis()] == 0)
 		{
 			// There is a point on the plane.
 
@@ -74,16 +76,16 @@ namespace Pastel
 		}
 
 		// EPSILON
-		if (alignedPlane.position() - triangle[2][alignedPlane.axis()] == 0)
+		if (plane.position() - triangle[2][plane.axis()] == 0)
 		{
 			// There is a point on the plane.
 
 			return true;
 		}
 
-		bool aSide = (alignedPlane.position() > triangle[0][alignedPlane.axis()]);
-		bool bSide = (alignedPlane.position() > triangle[1][alignedPlane.axis()]);
-		bool cSide = (alignedPlane.position() > triangle[2][alignedPlane.axis()]);
+		bool aSide = (plane.position() > triangle[0][plane.axis()]);
+		bool bSide = (plane.position() > triangle[1][plane.axis()]);
+		bool cSide = (plane.position() > triangle[2][plane.axis()]);
 
 		triangleOnPositiveSide = aSide;
 

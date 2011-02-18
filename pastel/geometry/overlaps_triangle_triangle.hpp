@@ -44,11 +44,12 @@ namespace Pastel
 		const Triangle<Real, 2>& aTriangle,
 		const Triangle<Real, 2>& bTriangle)
 	{
-		// Using separating axis theorem.
+		// Using the separating axis theorem.
 		// There are six edge normals to
 		// test, 3 from each triangle.
 
 		// Test for triangle 'a' edge normals
+		// ----------------------------------
 
 		for (integer i = 0;i < 3;++i)
 		{
@@ -96,6 +97,7 @@ namespace Pastel
 		}
 
 		// Test for triangle 'b' edge normals
+		// ----------------------------------
 
 		for (integer i = 0;i < 3;++i)
 		{

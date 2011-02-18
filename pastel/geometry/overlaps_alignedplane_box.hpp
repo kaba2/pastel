@@ -4,61 +4,57 @@
 #include "pastel/geometry/overlaps_alignedplane_box.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/alignedplane.h"
-#include "pastel/geometry/box.h"
 
 namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			Box<Real, N> const &box)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Box<Real, N>& box)
 	{
-		PENSURE_OP(alignedPlane.dimension(), ==, box.dimension());
+		PENSURE_OP(plane.dimension(), ==, box.dimension());
+
+		// FIX: The topology of the box is not
+		// handled correctly. The box is assumed
+		// to be closed.
 
 		// Compute the radius of the projection
-		// of box into the axis determined by the alignedplane
+		// of the box onto the plane normal.
 
-		const integer dimension = alignedPlane.dimension();
+		Real radius = 0;
 
-		Real radius(0);
-
-		for (integer i = 0;i < dimension;++i)
+		const integer n = plane.dimension();
+		for (integer i = 0;i < n;++i)
 		{
 			// Move on the edges of the box
 			// so that the positive axis direction
 			// is always chosen.
 			// When finished, we will be in the point
-			// where the boxs surface is farthest from
+			// where the box's surface is farthest from
 			// its origin. Because the box is symmetric
 			// w.r.t its axes, the minimal point
 			// is also found in -radius.
 
-			radius += mabs(box.rotation()[i][alignedPlane.axis()]);
+			radius += mabs(box.rotation()[i][plane.axis()]);
 		}
 
-		if (mabs(box.position()[alignedPlane.axis()] -
-			alignedPlane.position()) > radius)
-		{
-			// alignedPlane and box do not intersect
+		const Real centerDistance =
+			mabs(box.position()[plane.axis()] - plane.position());
 
-			return false;
-		}
-
-		// alignedPlane and box intersect
-
-		return true;
+		return centerDistance <= radius;
 	}
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			Box<Real, N> const &box,
-			bool &boxOnPositiveSide)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Box<Real, N>& box,
+		bool& boxOnPositiveSide)
 	{
 		boxOnPositiveSide =
-			box.position()[alignedPlane.axis()] > alignedPlane.position();
+			box.position()[plane.axis()] > plane.position();
 
-		return overlaps(alignedPlane, box);
+		return overlaps(plane, box);
 	}
 
 }

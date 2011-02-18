@@ -10,27 +10,31 @@ namespace Pastel
 {
 
 	//! Tests if an aligned plane and a sphere overlap.
-
 	/*!
-	The sphere is considered to be closed and solid.
-	*/
+	Preconditions:
+	plane.dimension() == sphere.dimension
 
+	Time complexity:
+	O(1)
+	*/
 	template <typename Real, int N>
-	bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-		Sphere<Real, N> const &sphere);
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Sphere<Real, N>& sphere);
 
 	//! Tests if an aligned plane and a sphere overlap.
-
 	/*!
-	The sphere is considered to be closed and solid.
-	'sphereOnPositiveSide' is filled with the
-	information if the center of the sphere is
-	on the positive side of the plane.
-	*/
+	sphereOnPositiveSide: 
+	Filled with information if the center of the sphere 
+	is on the positive side of the plane.
 
+	Returns:
+	overlaps(plane, sphere)
+	*/
 	template <typename Real, int N>
-	bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-		Sphere<Real, N> const &sphere,
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Sphere<Real, N>& sphere,
 		bool &sphereOnPositiveSide);
 
 }

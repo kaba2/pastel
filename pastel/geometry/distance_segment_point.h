@@ -10,8 +10,17 @@
 namespace Pastel
 {
 
+	//! Computes the squared distance between a line segment and a point.
+	/*!
+	Preconditions:
+	segment.dimension() == point.dimension()
+
+	Time complexity:
+	O(n), where n is the dimension.
+	*/
 	template <typename Real, int N>
-	Real distance2(const Segment<Real, N>& segment,
+	Real distance2(
+		const Segment<Real, N>& segment,
 		const Vector<Real, N>& point);
 
 }

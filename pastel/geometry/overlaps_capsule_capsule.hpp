@@ -4,6 +4,8 @@
 #include "pastel/geometry/overlaps_capsule_capsule.h"
 #include "pastel/geometry/distance_segment_segment.h"
 
+#include "pastel/sys/math_functions.h"
+
 namespace Pastel
 {
 
@@ -12,13 +14,30 @@ namespace Pastel
 		const Capsule<Real, N>& aCapsule,
 		const Capsule<Real, N>& bCapsule)
 	{
-		const Real dist2 = distance2(
+		PENSURE_OP(aCapsule.dimension(), ==, bCapsule.dimension());
+
+		// The capsules overlap if their
+		// associated line segments are closer
+		// than the sum of their radii.
+
+		const Real d2 = distance2(
 			aCapsule.segment(),
 			bCapsule.segment());
 
-		const Real sumRadius = aCapsule.radius() + bCapsule.radius();
+		const Real sumRadius2 = 
+			square(aCapsule.radius() + bCapsule.radius());
 
-		return dist2 < sumRadius * sumRadius;
+		if (d2 >= sumRadius2)
+		{
+			if (d2 > sumRadius2 ||
+				aCapsule.topology() == Topology::Open ||
+				bCapsule.topology() == Topology::Open)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

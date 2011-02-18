@@ -13,6 +13,8 @@ namespace Pastel
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment)
 	{
+		ENSURE_OP(aSegment.dimension(), ==, bSegment.dimension());
+
 		// The following ideas are from the
 		// article "Distance between Lines and Segments
 		// with their Closest Vector of Approach"
@@ -56,24 +58,28 @@ namespace Pastel
 		// d/du w^2(u, v) = -2 dot(p1 - p0, d0) - 2 v dot(d0, d1) + 2 u dot(d0)
 		// d/dv w^2(u, v) = 2 dot(p1 - p0, d1) + 2 v dot(d1) - 2 u dot(d0, d1)
 
-		const Vector<Real, N> aDelta = aSegment.end() - aSegment.start();
-		const Vector<Real, N> bDelta = bSegment.end() - bSegment.start();
+		const Vector<Real, N> aDelta = 
+			aSegment.end() - aSegment.start();
+		const Vector<Real, N> bDelta = 
+			bSegment.end() - bSegment.start();
 
 		const Real aNorm2 = dot(aDelta);
 		const Real bNorm2 = dot(bDelta);
 
-		const Vector<Real, N> aUnitDelta = aDelta / std::sqrt(aNorm2);
+		const Vector<Real, N> aUnitDelta = 
+			aDelta / std::sqrt(aNorm2);
 		const Line<Real, N> aLine(aSegment.start(), aUnitDelta);
 
-		const Vector<Real, N> bUnitDelta = bDelta / std::sqrt(aNorm2);
+		const Vector<Real, N> bUnitDelta = 
+			bDelta / std::sqrt(aNorm2);
 		const Line<Real, N> bLine(bSegment.start(), bUnitDelta);
 
 		// Handle degenerate cases.
 
 		// EPSILON
-		if (aNorm == 0)
+		if (aNorm2 == 0)
 		{
-			if (bNorm == 0)
+			if (bNorm2 == 0)
 			{
 				return Tuple<Real, 2>(0, 0);
 			}
@@ -84,7 +90,7 @@ namespace Pastel
 		}
 		else
 		{
-			if (bNorm == 0)
+			if (bNorm2 == 0)
 			{
 				return closest(aLine, bSegment.start());
 			}

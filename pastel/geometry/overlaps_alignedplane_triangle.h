@@ -10,28 +10,22 @@ namespace Pastel
 {
 
 	//! Tests if an aligned plane and a triangle overlap.
-
-	/*!
-	The triangle is considered to be closed and solid.
-	*/
-
 	template <typename Real, int N>
-		bool overlaps(const AlignedPlane<Real, N>& alignedPlane,
-			const Triangle<Real, N>& triangle);
+	bool overlaps(
+		const AlignedPlane<Real, N>& alignedPlane,
+		const Triangle<Real, N>& triangle);
 
 	//! Tests if an aligned plane and a triangle overlap.
-
 	/*!
-	The triangle is considered to be closed and solid.
 	'triangleOnPositiveSide' is filled with the
 	information if the first point of the triangle
 	is on the positive side of the plane.
 	*/
-
 	template <typename Real, int N>
-		bool overlaps(const AlignedPlane<Real, N>& alignedPlane,
-			const Triangle<Real, N>& triangle,
-			bool& triangleOnPositiveSide);
+	bool overlaps(
+		const AlignedPlane<Real, N>& alignedPlane,
+		const Triangle<Real, N>& triangle,
+		bool& triangleOnPositiveSide);
 
 }
 

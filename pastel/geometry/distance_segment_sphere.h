@@ -9,6 +9,14 @@
 namespace Pastel
 {
 
+	//! Computes the squared distance between a line segment and a sphere.
+	/*!
+	Preconditions:
+	segment.dimension() == sphere.dimension()
+
+	Time complexity:
+	O(n), where n is the dimension.
+	*/
 	template <typename Real, int N>
 	Real distance2(
 		const Segment<Real, N>& segment,

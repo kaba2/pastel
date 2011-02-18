@@ -17,323 +17,410 @@
 namespace Pastel
 {
 
-	template <typename Real>
-	bool overlaps(
-		const AlignedBox<Real, 2>& alignedBox,
-		const Triangle<Real, 2>& triangle)
+	namespace Overlaps_AlignedBox_Triangle
 	{
-		// Using separating axis theorem.
 
-		// Separating axes:
-		// * AlignedBox edge normals (2)
-		// * Triangle edge normals (3)
-
-		// Center geometry on aligned box min.
-
-		const Triangle<Real, 2> workTriangle(
-			triangle[0] - alignedBox.min(),
-			triangle[1] - alignedBox.min(),
-			triangle[2] - alignedBox.min());
-
-		const Tuple<Vector<Real, 2>, 3> edges(
-			triangle[1] - triangle[0],
-			triangle[2] - triangle[1],
-			triangle[0] - triangle[2]);
-
-		// Calculate aligned box widths
-
-		const Vector<Real, 2> halfWidths(
-			mabs(evaluate((alignedBox.max() - alignedBox.min()) * Real(0.5))));
-		const Vector<Real, 2> alignedBoxCenter(
-			alignedBox.min() + halfWidths);
-
-		Real triangleProjMin(0);
-		Real triangleProjMax(0);
-
-		// Test axis [1, 0].
-
-		// Calculate triangle projection interval.
-
-		Pastel::minMax(
-			workTriangle[0][0], workTriangle[1][0],
-			workTriangle[2][0],
-			triangleProjMin, triangleProjMax);
-
-		// Is this a separating axis?
-
-		if (triangleProjMax < halfWidths[0] ||
-			triangleProjMin > halfWidths[0])
+		template <typename Real, int N_>
+		bool overlaps2D(
+			const AlignedBox<Real, N_>& box,
+			const Triangle<Real, N_>& triangle)
 		{
-			return false;
-		}
+			ENSURE_OP(box.dimension(), ==, 2);
+			ENSURE_OP(triangle.dimension(), ==, 2);
 
-		// Test axis [0, 1].
+			enum
+			{
+				N = 2
+			};
 
-		// Calculate triangle projection interval.
+			// Using the separating axis theorem.
 
-		Pastel::minMax(
-			workTriangle[0][1], workTriangle[1][1],
-			workTriangle[2][1],
-			triangleProjMin, triangleProjMax);
+			// Separating axes:
+			// * AlignedBox edge normals (2)
+			// * Triangle edge normals (3)
 
-		// Is this a separating axis?
+			// Center geometry on aligned box min.
 
-		if (triangleProjMax < halfWidths[1] ||
-			triangleProjMin > halfWidths[1])
-		{
-			return false;
-		}
+			const Triangle<Real, 2> workTriangle(
+				triangle[0] - box.min(),
+				triangle[1] - box.min(),
+				triangle[2] - box.min());
 
-		// Test for triangle normals
+			const Tuple<Vector<Real, 2>, 3> edges(
+				triangle[1] - triangle[0],
+				triangle[2] - triangle[1],
+				triangle[0] - triangle[2]);
 
-		for (integer i = 0;i < 3;++i)
-		{
-			const integer i2 = (i + 1) % 3;
-			const integer i3 = (i + 2) % 3;
+			// Calculate aligned box widths
 
-			// In the following, note that triangle
-			// vertices 'i' and 'i2' project to the
-			// same point, so it is enough to project
-			// only two triangle vertices per axis.
+			const Vector<Real, 2> halfWidths(
+				mabs(evaluate((box.max() - box.min()) * Real(0.5))));
+			const Vector<Real, 2> boxCenter(
+				box.min() + halfWidths);
 
-			// Calculate normal vector for the current
-			// triangle edge.
+			Real triangleProjMin(0);
+			Real triangleProjMax(0);
 
-			const Vector<Real, 2> normal(cross(edges[i]));
-
-			// Project the triangle to the axis.
-
-			const Real triangleProj1(
-				dot(normal, workTriangle[i]));
-			const Real triangleProj2(
-				dot(normal, workTriangle[i3]));
+			// Test axis [1, 0].
 
 			// Calculate triangle projection interval.
 
 			Pastel::minMax(
-				triangleProj1, triangleProj2,
+				workTriangle[0][0], workTriangle[1][0],
+				workTriangle[2][0],
 				triangleProjMin, triangleProjMax);
-
-			// Calculate the radius of the aligned box projection
-			// (the aligned box is centered on the origin).
-
-			const Real alignedBoxRadius(
-				halfWidths[0] * mabs(normal[0]) +
-				halfWidths[1] * mabs(normal[1]));
 
 			// Is this a separating axis?
 
-			if (triangleProjMax < -alignedBoxRadius ||
-				triangleProjMin > alignedBoxRadius)
+			if (triangleProjMax < halfWidths[0] ||
+				triangleProjMin > halfWidths[0])
 			{
 				return false;
 			}
+
+			// Test axis [0, 1].
+
+			// Calculate triangle projection interval.
+
+			Pastel::minMax(
+				workTriangle[0][1], workTriangle[1][1],
+				workTriangle[2][1],
+				triangleProjMin, triangleProjMax);
+
+			// Is this a separating axis?
+
+			if (triangleProjMax < halfWidths[1] ||
+				triangleProjMin > halfWidths[1])
+			{
+				return false;
+			}
+
+			// Test for triangle normals
+
+			for (integer i = 0;i < 3;++i)
+			{
+				const integer i2 = (i + 1) % 3;
+				const integer i3 = (i + 2) % 3;
+
+				// In the following, note that triangle
+				// vertices 'i' and 'i2' project to the
+				// same point, so it is enough to project
+				// only two triangle vertices per axis.
+
+				// Calculate normal vector for the current
+				// triangle edge.
+
+				const Vector<Real, 2> normal(cross(edges[i]));
+
+				// Project the triangle to the axis.
+
+				const Real triangleProj1(
+					dot(normal, workTriangle[i]));
+				const Real triangleProj2(
+					dot(normal, workTriangle[i3]));
+
+				// Calculate triangle projection interval.
+
+				Pastel::minMax(
+					triangleProj1, triangleProj2,
+					triangleProjMin, triangleProjMax);
+
+				// Calculate the radius of the aligned box projection
+				// (the aligned box is centered on the origin).
+
+				const Real boxRadius(
+					halfWidths[0] * mabs(normal[0]) +
+					halfWidths[1] * mabs(normal[1]));
+
+				// Is this a separating axis?
+
+				if (triangleProjMax < -boxRadius ||
+					triangleProjMin > boxRadius)
+				{
+					return false;
+				}
+			}
+
+			// No separating axis found. Thus
+			// the aligned box and the triangle must intersect.
+
+			return true;
 		}
 
-		// No separating axis found. Thus
-		// the aligned box and the triangle must intersect.
+		template <typename Real, int N_>
+		bool overlaps3D(
+			const AlignedBox<Real, N_>& box,
+			const Triangle<Real, N_>& triangle)
+		{
+			ENSURE_OP(box.dimension(), ==, 3);
+			ENSURE_OP(triangle.dimension(), ==, 3);
 
-		return true;
+			// To avoid dynamic allocations, we
+			// will create the temporaries using
+			// a fixed dimension.
+			enum
+			{
+				N = 3
+			};
+
+			// Using the separating axis theorem.
+
+			// Potential separating axes:
+			// * Triangle normal.
+			// * Box normals (3 normals).
+			// * cross(triangle edges, box edges) (3 * 3)
+			// = 13 axes to test.
+
+			// Many of the cross and dot products
+			// have been rolled open for optimization
+			// because the vectors contain zeros and ones.
+
+			// Test for triangle normal
+			// ------------------------
+
+			// This is equivalent to testing for the overlap
+			// of the triangle plane and the box.
+
+			const Plane<Real, N> plane(
+				triangle[0],
+				cross((triangle[1] - triangle[0]),
+				(triangle[2] - triangle[0])));
+
+			if (!overlaps(box, plane))
+			{
+				return false;
+			}
+
+			// We will be dealing with the box in the form
+			// center + radius, rather min + max.
+
+			// Compute the radii of the box.
+
+			const Vector<Real, N> boxRadius(
+				mabs((box.max() - box.min()) * 0.5));
+
+			// Calculate the box center.
+
+			const Vector<Real, N> boxCenter(
+				box.min() + boxRadius);
+
+			// The algorithm transforms
+			// the problem such that the box is centered
+			// on the origin. This simplifies calculations.
+
+			const Triangle<Real, N> workTriangle(
+				Vector<Real, N>(triangle[0] - boxCenter),
+				Vector<Real, N>(triangle[1] - boxCenter),
+				Vector<Real, N>(triangle[2] - boxCenter));
+
+			// Calculate the edge vectors of the triangle.
+
+			const Tuple<Vector<Real, N>, N> edges(
+				workTriangle[1] - workTriangle[0],
+				workTriangle[2] - workTriangle[1],
+				workTriangle[0] - workTriangle[2]);
+
+			// Test for box's normals
+			// ----------------------
+
+			Real triangleMin(0);
+			Real triangleMax(0);
+
+			// C = [1, 0, 0]
+
+			Pastel::minMax(
+				workTriangle[0][0], 
+				workTriangle[1][0], 
+				workTriangle[2][0],
+				triangleMin, triangleMax);
+			if (triangleMax < -boxRadius[0] ||
+				triangleMin > boxRadius[0])
+			{
+				return false;
+			}
+
+			// C = [0, 1, 0]
+
+			Pastel::minMax(
+				workTriangle[0][1], 
+				workTriangle[1][1], 
+				workTriangle[2][1],
+				triangleMin, triangleMax);
+			if (triangleMax < -boxRadius[1] ||
+				triangleMin > boxRadius[1])
+			{
+				return false;
+			}
+
+			// C = [0, 0, 1]
+
+			Pastel::minMax(
+				workTriangle[0][2], 
+				workTriangle[1][2], 
+				workTriangle[2][2],
+				triangleMin, triangleMax);
+			if (triangleMax < -boxRadius[2] ||
+				triangleMin > boxRadius[2])
+			{
+				return false;
+			}
+
+			// Test for cross product normals
+			// ------------------------------
+
+			integer jSet[] = {1, 2, 0};
+			integer kSet[] = {2, 0, 1};
+
+			Real r = 0;
+			Real triangleProj1 = 0;
+			Real triangleProj2 = 0;
+			for (integer i = 0;i < 3;++i)
+			{
+				// For every edge of the triangle, check
+				// the separating axes given by the
+				// cross products with the [1, 0, 0],
+				// [0, 1, 0] and [0, 0 ,1].
+
+				const integer j = jSet[i];
+				const integer k = kSet[i];
+
+				// Notice in the following that
+				// only two triangle vertices need
+				// to be projected for each axis,
+				// because the left out vertex 'j' always
+				// projects to the same parameter as vertex 'i'.
+
+				// Because the tested separating axes
+				// are not of unit length,
+				// the obtained parameter is actually _not_
+				// the projection parameter. This is an
+				// optimization, possible because only
+				// the order of the projected points matter.
+
+				// C = cross([1, 0, 0], edges[i])
+				// = [0, -edges[i][2], edges[i][1]]
+				{
+					// triangleProj1 = dot(workTriangle[i], C)
+					triangleProj1 = workTriangle[i][1] * (-edges[i][2]) +
+						workTriangle[i][2] * edges[i][1];
+
+					// triangleProj2 = dot(workTriangle[k], C)
+					triangleProj2 = workTriangle[k][1] * (-edges[i][2]) +
+						workTriangle[k][2] * edges[i][1];
+
+					Pastel::minMax(triangleProj1, triangleProj2,
+						triangleMin, triangleMax);
+
+					// An elegant way of computing the radius
+					// of the box's projection (remember the
+					// aligned box is centered on origin).
+
+					// r = dot(boxRadius, mabs(C))
+					r = boxRadius[1] * mabs(edges[i][2]) +
+						boxRadius[2] * mabs(edges[i][1]);
+
+					// Check if this is a separating axis.
+					if (triangleMin > r || triangleMax < -r)
+					{
+						return false;
+					}
+				}
+
+				// C = cross([0, 1, 0], edges[i])
+				// = [edges[i][2], 0, -edges[i][0]]
+				{
+					// triangleProj1 = dot(workTriangle[i], C)
+					triangleProj1 = workTriangle[i][0] * edges[i][2] +
+						workTriangle[i][2] * (-edges[i][0]);
+					// triangleProj2 = dot(workTriangle[k], C)
+					triangleProj2 = workTriangle[k][0] * edges[i][2] +
+						workTriangle[k][2] * (-edges[i][0]);
+
+					Pastel::minMax(triangleProj1, triangleProj2,
+						triangleMin, triangleMax);
+
+					// r = dot(boxRadius, mabs(C))
+					r = boxRadius[0] * mabs(edges[i][2]) +
+						boxRadius[2] * mabs(edges[i][0]);
+
+					// Check if this is a separating axis.
+					if (triangleMin > r || triangleMax < -r)
+					{
+						return false;
+					}
+				}
+
+				// C = cross([0, 0, 1], edges[i])
+				// = [-edges[i][1], edges[i][0], 0]
+				{
+					// triangleProj1 = dot(workTriangle[i], C)
+					triangleProj1 = workTriangle[i][0] * (-edges[i][1]) +
+						workTriangle[i][1] * edges[i][0];
+					// triangleProj2 = dot(workTriangle[k], C)
+					triangleProj2 = workTriangle[k][0] * (-edges[i][1]) +
+						workTriangle[k][1] * edges[i][0];
+
+					Pastel::minMax(triangleProj1, triangleProj2,
+						triangleMin, triangleMax);
+
+					// r = dot(boxRadius, mabs(C))
+					r = boxRadius[0] * mabs(edges[i][1]) +
+						boxRadius[1] * mabs(edges[i][0]);
+
+					// Check if this is a separating axis.
+					if (triangleMin > r || triangleMax < -r)
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+	
+	}
+
+	template <typename Real, int N>
+	bool overlaps(
+		const AlignedBox<Real, N>& box,
+		const Triangle<Real, N>& triangle)
+	{
+		// Only dimensions 2 and 3 are supported.
+		PASTEL_STATIC_ASSERT(N == Dynamic);
+
+		const integer n = box.dimension();
+
+		ENSURE_OP(n, ==, triangle.dimension());
+		ENSURE1(n == 2 || n == 3, n);
+
+		if (n == 2)
+		{
+			return Overlaps_AlignedBox_Triangle::overlaps2D(box, triangle);
+		}
+
+		return Overlaps_AlignedBox_Triangle::overlaps3D(box, triangle);		
 	}
 
 	template <typename Real>
 	bool overlaps(
-		const AlignedBox<Real, 3>& alignedBox,
+		const AlignedBox<Real, 2>& box,
+		const Triangle<Real, 2>& triangle)
+	{
+		// An overload for 2D to avoid run-time selection
+		// between versions.
+
+		return Overlaps_AlignedBox_Triangle::overlaps2D(box, triangle);
+	}
+
+	template <typename Real>
+	bool overlaps(
+		const AlignedBox<Real, 3>& box,
 		const Triangle<Real, 3>& triangle)
 	{
-		// Using the separating axis theorem.
+		// An overload for 3D to avoid run-time selection 
+		// between versions.
 
-		// Separating axes:
-		// * Triangle normal
-		// * AlignedBox normals (3 normals)
-		// * Cross(triangle edges, alignedBox edges) (3 * 3)
-		// = 13 axes to test.
-
-		// Many of the cross and dot products
-		// have been rolled open for optimization
-		// because the vectors contain zeros and ones.
-
-		// Test for polygon normal
-
-		const Plane<Real, 3> plane(
-			triangle[0],
-			cross((triangle[1] - triangle[0]),
-			(triangle[2] - triangle[0])));
-
-		if (!overlaps(alignedBox, plane))
-		{
-			return false;
-		}
-
-		// Calculate the half widths of the aligned box.
-		// We will be calculating with the halfwidths
-		// from now on, rather than with min and max
-		// of the aligned box.
-
-		const Vector<Real, 3> alignedBoxHalfWidths(
-			mabs((alignedBox.max() - alignedBox.min()) * 0.5));
-
-		// Calculate the aligned box center.
-
-		const Vector<Real, 3> alignedBoxCenter(
-			alignedBox.min() + alignedBoxHalfWidths);
-
-		// The algorithm transforms
-		// the problem such that the aligned box is centered
-		// on the origin. This simplifies calculations.
-
-		const Triangle<Real, 3> workTriangle(
-			Vector<Real, 3>(triangle[0] - alignedBoxCenter),
-			Vector<Real, 3>(triangle[1] - alignedBoxCenter),
-			Vector<Real, 3>(triangle[2] - alignedBoxCenter));
-
-		// Calculate the edge vectors of the triangle.
-
-		const Tuple<Vector<Real, 3>, 3> edges(
-			workTriangle[1] - workTriangle[0],
-			workTriangle[2] - workTriangle[1],
-			workTriangle[0] - workTriangle[2]);
-
-		// Test for aligned box's normals, that is, the axes
-		// [1, 0, 0], [0, 1, 0], [0, 0, 1].
-
-		Real triangleMin(0);
-		Real triangleMax(0);
-
-		// C = [1, 0, 0]
-
-		Pastel::minMax(workTriangle[0][0], workTriangle[1][0], workTriangle[2][0],
-			triangleMin, triangleMax);
-		if (triangleMax < -alignedBoxHalfWidths[0] ||
-			triangleMin > alignedBoxHalfWidths[0])
-		{
-			return false;
-		}
-
-		// C = [0, 1, 0]
-
-		Pastel::minMax(workTriangle[0][1], workTriangle[1][1], workTriangle[2][1],
-			triangleMin, triangleMax);
-		if (triangleMax < -alignedBoxHalfWidths[1] ||
-			triangleMin > alignedBoxHalfWidths[1])
-		{
-			return false;
-		}
-
-		// C = [0, 0, 1]
-
-		Pastel::minMax(workTriangle[0][2], workTriangle[1][2], workTriangle[2][2],
-			triangleMin, triangleMax);
-		if (triangleMax < -alignedBoxHalfWidths[2] ||
-			triangleMin > alignedBoxHalfWidths[2])
-		{
-			return false;
-		}
-
-		// Test for cross product normals.
-
-		for (integer i = 0;i < 3;++i)
-		{
-			// For every edge of the triangle, check
-			// the separating axes given by the
-			// cross products with the [1, 0, 0],
-			// [0, 1, 0] and [0, 0 ,1].
-
-			const integer j = (i + 1) % 3;
-			const integer k = (i + 2) % 3;
-
-			Real r(0);
-			Real triangleProj1(0);
-			Real triangleProj2(0);
-
-			// Notice in the following that
-			// only two triangle vertices need
-			// to be projected for each axis,
-			// because the left out vertex 'j' always
-			// projects to the same parameter as vertex 'i'.
-			// Because the tested separating axes
-			// are not of unit length,
-			// the obtained parameter is actually _not_
-			// the projection parameter. This is an
-			// optimization, possible because only
-			// the order of the projected points matter.
-
-			// C = cross([1, 0, 0], edges[i])
-			// = [0, -edges[i][2], edges[i][1]]
-
-			// triangleProj1 = dot(workTriangle[i], C)
-			triangleProj1 = workTriangle[i][1] * (-edges[i][2]) +
-				workTriangle[i][2] * edges[i][1];
-
-			// triangleProj2 = dot(workTriangle[k], C)
-			triangleProj2 = workTriangle[k][1] * (-edges[i][2]) +
-				workTriangle[k][2] * edges[i][1];
-
-			Pastel::minMax(triangleProj1, triangleProj2,
-				triangleMin, triangleMax);
-
-			// An elegant way of computing the radius
-			// of the aligned boxs projection (remember the
-			// aligned box is centered on origin).
-
-			// r = dot(alignedBoxHalfWidths, mabs(C))
-			r = alignedBoxHalfWidths[1] * mabs(edges[i][2]) +
-				alignedBoxHalfWidths[2] * mabs(edges[i][1]);
-
-			// Check if this is a separating axis.
-			if (triangleMin > r || triangleMax < -r)
-			{
-				return false;
-			}
-
-			// C = cross([0, 1, 0], edges[i])
-			// = [edges[i][2], 0, -edges[i][0]]
-
-			// triangleProj1 = dot(workTriangle[i], C)
-			triangleProj1 = workTriangle[i][0] * edges[i][2] +
-				workTriangle[i][2] * (-edges[i][0]);
-			// triangleProj2 = dot(workTriangle[k], C)
-			triangleProj2 = workTriangle[k][0] * edges[i][2] +
-				workTriangle[k][2] * (-edges[i][0]);
-
-			Pastel::minMax(triangleProj1, triangleProj2,
-				triangleMin, triangleMax);
-
-			// r = dot(alignedBoxHalfWidths, mabs(C))
-			r = alignedBoxHalfWidths[0] * mabs(edges[i][2]) +
-				alignedBoxHalfWidths[2] * mabs(edges[i][0]);
-
-			// Check if this is a separating axis.
-			if (triangleMin > r || triangleMax < -r)
-			{
-				return false;
-			}
-
-			// C = cross([0, 0, 1], edges[i])
-			// = [-edges[i][1], edges[i][0], 0]
-
-			// triangleProj1 = dot(workTriangle[i], C)
-			triangleProj1 = workTriangle[i][0] * (-edges[i][1]) +
-				workTriangle[i][1] * edges[i][0];
-			// triangleProj2 = dot(workTriangle[k], C)
-			triangleProj2 = workTriangle[k][0] * (-edges[i][1]) +
-				workTriangle[k][1] * edges[i][0];
-
-			Pastel::minMax(triangleProj1, triangleProj2,
-				triangleMin, triangleMax);
-
-			// r = dot(alignedBoxHalfWidths, mabs(C))
-			r = alignedBoxHalfWidths[0] * mabs(edges[i][1]) +
-				alignedBoxHalfWidths[1] * mabs(edges[i][0]);
-
-			// Check if this is a separating axis.
-			if (triangleMin > r || triangleMax < -r)
-			{
-				return false;
-			}
-		}
-
-		return true;
+		return Overlaps_AlignedBox_Triangle::overlaps3D(box, triangle);
 	}
 
 }

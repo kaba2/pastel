@@ -12,11 +12,13 @@ namespace Pastel
 
 	//! Computes closest points between a plane and a point.
 	/*!
+	Preconditions:
+	plane.dimension() == point.dimension()
+
 	Returns:
 	A parameter t such that 'point + t * plane.normal()' and
 	'point' are closest points.
 	*/
-
 	template <typename Real, int N>
 	Real closest(
 		const Plane<Real, N>& plane,

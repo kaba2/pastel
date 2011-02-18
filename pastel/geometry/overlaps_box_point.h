@@ -4,21 +4,24 @@
 #define PASTEL_OVERLAPS_BOX_POINT_H
 
 #include "pastel/geometry/box.h"
+
 #include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
 	//! Tests if an box and a point overlap.
-
 	/*!
-	The box is considered to be closed and solid.
-	*/
+	Preconditions:
+	box.dimension() == point.dimension()
 
+	Returns:
+	Whether the box and the point overlap.
+	*/
 	template <typename Real, int N>
 	bool overlaps(
-		const Box<Real, N>& a,
-		const Vector<Real, N>& nb);
+		const Box<Real, N>& box,
+		const Vector<Real, N>& point);
 
 }
 

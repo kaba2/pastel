@@ -2,30 +2,38 @@
 #define PASTEL_OVERLAPS_SPHERE_SPHERE_HPP
 
 #include "pastel/geometry/overlaps_sphere_sphere.h"
-
-#include "pastel/sys/mytypes.h"
 #include "pastel/geometry/sphere.h"
-#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(
-			const Sphere<Real, N>& aSphere,
-			const Sphere<Real, N>& bSphere)
+	bool overlaps(
+		const Sphere<Real, N>& aSphere,
+		const Sphere<Real, N>& bSphere)
 	{
+		PENSURE_OP(aSphere.dimension(), ==, bSphere.dimension());
+
 		// Two spheres intersect if the distance
 		// between their center points is
 		// less than or equal to the sum of their radii.
 
-		const Vector<Real, N> delta(
-			bSphere.position() - aSphere.position());
+		const Real centerDistance2 =
+			dot(bSphere.position() - aSphere.position());
+		const Real radiusSum2 =
+			square(aSphere.radius() + bSphere.radius());
 
-		const Real centerDistance2(dot(delta, delta));
-		const Real radiusSum(aSphere.radius() + bSphere.radius());
+		if (centerDistance2 >= radiusSum2)
+		{
+			if (centerDistance2 > radiusSum2 ||
+				aSphere.topology() == Topology::Open ||
+				bSphere.topology() == Topology::Open)
+			{
+				return false;
+			}
+		}
 
-		return centerDistance2 <= radiusSum * radiusSum;
+		return true;
 	}
 
 }

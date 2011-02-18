@@ -13,6 +13,8 @@ namespace Pastel
 	Segment<Real, N>::Segment()
 		: start_()
 		, end_()
+		, startTopology_(Topology::Closed)
+		, endTopology_(Topology::Closed)
 	{
 	}
 
@@ -22,6 +24,21 @@ namespace Pastel
 		const Vector<Real, N>& end)
 		: start_(start)
 		, end_(end)
+		, startTopology_(Topology::Closed)
+		, endTopology_(Topology::Closed)
+	{
+	}
+
+	template <typename Real, int N>
+	Segment<Real, N>::Segment(
+		const Vector<Real, N>& start,
+		const Vector<Real, N>& end,
+		Topology::Enum startTopology,
+		Topology::Enum endTopology)
+		: start_(start)
+		, end_(end)
+		, startTopology_(startTopology)
+		, endTopology_(endTopology)
 	{
 	}
 
@@ -31,6 +48,18 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 	}
 
+	template <typename Real, int N>
+	void Segment<Real, N>::swap(
+		Segment& that)
+	{
+		using std::swap;
+
+		start_.swap(that.start_);
+		end_.swap(that.end_);
+		swap(startTopology_, that.startTopology_);
+		swap(endTopology_, that.endTopology_);
+	}
+	
 	template <typename Real, int N>
 	void Segment<Real, N>::set(
 		const Vector<Real, N>& start,
@@ -62,6 +91,32 @@ namespace Pastel
 	const Vector<Real, N>& Segment<Real, N>::end() const
 	{
 		return end_;
+	}
+
+	template <typename Real, int N>
+	void Segment<Real, N>::setStartTopology(
+		Topology::Enum startTopology)
+	{
+		startTopology_ = startTopology;
+	}
+
+	template <typename Real, int N>
+	Topology::Enum Segment<Real, N>::startTopology() const
+	{
+		return startTopology_;
+	}
+
+	template <typename Real, int N>
+	void Segment<Real, N>::setEndTopology(
+		Topology::Enum endTopology)
+	{
+		endTopology_ = endTopology;
+	}
+
+	template <typename Real, int N>
+	Topology::Enum Segment<Real, N>::endTopology() const
+	{
+		return endTopology_;
 	}
 
 	template <typename Real, int N>
@@ -110,6 +165,14 @@ namespace Pastel
 		PENSURE_OP(that, !=, 0);
 
 		return (*this) *= inverse(that);
+	}
+
+	template <typename Real, int N>
+	void swap(
+		Segment<Real, N>& left,
+		Segment<Real, N>& right)
+	{
+		left.swap(right);
 	}
 
 }

@@ -16,27 +16,31 @@ namespace Pastel
 		const AlignedBox<Real, N>& alignedBox,
 		const Vector<Real, N>& point)
 	{
-		// This overlap test is broken into N 1-dimensional tests.
-		// Each test is just a simple number-in-a-range test
-		// using coordinates on some axis.
-		// If even one of these tests fail, the objects are
-		// guaranteed not to overlap, and we can exit early.
-		// If all the tests pass, the objects overlap.
-
 		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
 
-		const integer dimension = alignedBox.dimension();
-
-		for (integer i = 0;i < dimension;++i)
+		const integer n = alignedBox.dimension();
+		for (integer i = 0;i < n;++i)
 		{
 			// Test if the i:th coordinate of the point
-			// lies beyond the closed i:th coordinate range
+			// lies beyond the i:th coordinate range
 			// of the aligned box.
 
-			if (point[i] < alignedBox.min()[i] ||
-				point[i] > alignedBox.max()[i])
+			if (point[i] <= alignedBox.min()[i])
 			{
-				return false;
+				if (point[i] < alignedBox.min()[i] ||
+					alignedBox.minTopology()[i] == Topology::Open)
+				{
+					return false;
+				}
+			}
+			
+			if (point[i] >= alignedBox.max()[i])
+			{
+				if (point[i] > alignedBox.max()[i] ||
+					alignedBox.maxTopology()[i] == Topology::Open)
+				{
+					return false;
+				}
 			}
 		}
 

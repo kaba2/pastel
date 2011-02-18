@@ -490,6 +490,10 @@
 				RelativePath=".\predicates.hpp"
 				>
 			</File>
+			<File
+				RelativePath=".\topology.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Shapes"
@@ -511,10 +515,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\mathobjects.h"
-				>
-			</File>
-			<File
 				RelativePath=".\polygon.h"
 				>
 			</File>
@@ -528,6 +528,10 @@
 			</File>
 			<File
 				RelativePath=".\ray.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\shapes.h"
 				>
 			</File>
 			<File
@@ -684,8 +688,12 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Algorithms for shapes"
+			Name="Algorithms"
 			>
+			<File
+				RelativePath=".\pointsets.txt"
+				>
+			</File>
 			<File
 				RelativePath=".\shape_algorithms.txt"
 				>
@@ -846,6 +854,10 @@
 				Name="Overlap testing"
 				>
 				<File
+					RelativePath=".\overlaps.h"
+					>
+				</File>
+				<File
 					RelativePath=".\overlaps.txt"
 					>
 				</File>
@@ -878,6 +890,10 @@
 					</File>
 					<File
 						RelativePath=".\overlaps_alignedbox_plane.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\overlaps_alignedbox_plane.txt"
 						>
 					</File>
 					<File
@@ -1558,30 +1574,6 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Algorithms for point-sets"
-			>
-			<File
-				RelativePath=".\pointsets.txt"
-				>
-			</File>
-			<Filter
-				Name="Eigenstructure"
-				>
-				<File
-					RelativePath=".\pointset_eigen.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointset_eigen.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pointset_eigen.txt"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="Convex hull"
 				>
@@ -1595,30 +1587,6 @@
 				</File>
 				<File
 					RelativePath=".\convexhull.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Point pattern matching"
-				>
-				<File
-					RelativePath=".\point_pattern_match_gmo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_match_gmo.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_matching.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_matching.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_matching.txt"
 					>
 				</File>
 			</Filter>
@@ -1655,42 +1623,18 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Orthogonal range searching"
+				Name="Eigenstructure"
 				>
 				<File
-					RelativePath=".\count_all_range_pointkdtree.h"
+					RelativePath=".\pointset_eigen.h"
 					>
 				</File>
 				<File
-					RelativePath=".\count_all_range_pointkdtree.hpp"
+					RelativePath=".\pointset_eigen.hpp"
 					>
 				</File>
 				<File
-					RelativePath=".\count_range_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\count_range_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_algorithm_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_algorithm_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_pointkdtree.hpp"
+					RelativePath=".\pointset_eigen.txt"
 					>
 				</File>
 			</Filter>
@@ -1869,6 +1813,70 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Orthogonal range searching"
+				>
+				<File
+					RelativePath=".\count_all_range_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\count_all_range_pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\count_range_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\count_range_pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range_algorithm_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range_algorithm_pointkdtree.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range_pointkdtree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\search_range_pointkdtree.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Point pattern matching"
+				>
+				<File
+					RelativePath=".\point_pattern_match_gmo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\point_pattern_match_gmo.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\point_pattern_matching.h"
+					>
+				</File>
+				<File
+					RelativePath=".\point_pattern_matching.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\point_pattern_matching.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

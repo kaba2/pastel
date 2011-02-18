@@ -14,6 +14,7 @@ namespace Pastel
 		: position_(0)
 		, radius_(0)
 		, inverseRadius_(infinity<Real>())
+		, topology_(Topology::Closed)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
@@ -23,16 +24,19 @@ namespace Pastel
 		: position_(ofDimension(dimension), 0)
 		, radius_(0)
 		, inverseRadius_(infinity<Real>())
+		, topology_(Topology::Closed)
 	{
 	}
 
 	template <typename Real, int N>
 	Sphere<Real, N>::Sphere(
 		const Vector<Real, N>& position,
-		const Real& radius)
+		const Real& radius,
+		Topology::Enum topology)
 		: position_(position)
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
+		, topology_(topology)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
 	}
@@ -41,10 +45,12 @@ namespace Pastel
 	Sphere<Real, N>::Sphere(
 		integer dimension,
 		const Vector<Real, N>& position,
-		const Real& radius)
+		const Real& radius,
+		Topology::Enum topology)
 		: position_(position)
 		, radius_(radius)
 		, inverseRadius_(inverse(radius))
+		, topology_(topology)
 	{
 		PENSURE_OP(dimension, ==, position.dimension());
 	}
@@ -56,7 +62,7 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	void Sphere<Real, N>::swap(Sphere<Real, N>& that)
+	void Sphere<Real, N>::swap(Sphere& that)
 	{
 		using std::swap;
 		using std::swap;
@@ -64,6 +70,7 @@ namespace Pastel
 		position_.swap(that.position_);
 		swap(radius_, that.radius_);
 		swap(inverseRadius_, that.inverseRadius_);
+		swap(topology_, that.topology_);
 	}
 
 	template <typename Real, int N>
@@ -101,16 +108,21 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	const Real& Sphere<Real, N>::inverseRadius() const
+	void Sphere<Real, N>::setTopology(Topology::Enum topology)
 	{
-		return inverseRadius_;
+		topology_ = topology;
 	}
 
 	template <typename Real, int N>
-	void swap(Sphere<Real, N>& left,
-		Sphere<Real, N>& right)
+	Topology::Enum Sphere<Real, N>::topology() const
 	{
-		left.swap(right);
+		return topology_;
+	}
+
+	template <typename Real, int N>
+	const Real& Sphere<Real, N>::inverseRadius() const
+	{
+		return inverseRadius_;
 	}
 
 	template <typename Real, int N>
@@ -147,6 +159,14 @@ namespace Pastel
 		inverseRadius_ *= that;
 
 		return *this;
+	}
+
+	template <typename Real, int N>
+	void swap(
+		Sphere<Real, N>& left,
+		Sphere<Real, N>& right)
+	{
+		left.swap(right);
 	}
 
 }

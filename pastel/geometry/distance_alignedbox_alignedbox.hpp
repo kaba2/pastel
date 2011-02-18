@@ -17,11 +17,10 @@ namespace Pastel
 	{
 		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
 
-		const integer dimension = aBox.dimension();
-
 		Real result = 0;
 
-		for (integer i = 0;i < dimension;++i)
+		const integer n = aBox.dimension();
+		for (integer i = 0;i < n;++i)
 		{
 			const Real& aMin = aBox.min()[i];
 			const Real& aMax = aBox.max()[i];

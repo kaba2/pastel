@@ -12,6 +12,8 @@ namespace Pastel
 		const Segment<Real, N>& aSegment,
 		const Segment<Real, N>& bSegment)
 	{
+		PENSURE_OP(aSegment.dimension(), ==, bSegment.dimension());
+
 		const Tuple<Real, 2> t = closest(aSegment, bSegment);
 		return dot(bSegment.at(t[1]) - aSegment.at(t[0]));
 	}

@@ -9,28 +9,26 @@ namespace Pastel
 {
 
 	//! Tests if two aligned boxes overlap.
-
 	/*!
-	The aligned boxes are considered to be closed and solid.
+	Preconditions:
+	aAlignedBox.dimension == bAlignedBox.dimension()
 	*/
-
 	template <typename Real, int N>
-		bool overlaps(
-			const AlignedBox<Real, N>& aAlignedBox,
-			const AlignedBox<Real, N>& bAlignedBox);
+	bool overlaps(
+		const AlignedBox<Real, N>& aAlignedBox,
+		const AlignedBox<Real, N>& bAlignedBox);
 
 	//! Tests if two moving aligned boxes overlap.
 	/*!
 	The boxes move linearly with a constant velocity.
 
 	intersectionRange:
-	In case the aligned boxes will overlap at some instants,
+	In case the aligned boxes ever overlap,
 	the first and last time of intersection
 
-	returns:
-	if the aligned boxes will overlap
+	Returns:
+	If the aligned boxes ever overlap.
 	*/
-
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& aBox,

@@ -2,45 +2,55 @@
 #define PASTEL_OVERLAPS_BOX_POINT_HPP
 
 #include "pastel/geometry/overlaps_box_point.h"
-#include "pastel/geometry/overlaps_alignedbox_point.h"
 
+#include "pastel/sys/vector_tools.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/vector.h"
-
-#include "pastel/geometry/box.h"
-#include "pastel/geometry/alignedbox.h"
-
-#include "pastel/math/matrix_tools.h"
 
 namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(
-			const Box<Real, N>& box,
-			const Vector<Real, N>& point)
+	bool overlaps(
+		const Box<Real, N>& box,
+		const Vector<Real, N>& point)
 	{
-		// Change coordinates so
-		// that the box becomes an origin
-		// centered aligned box and
-		// then use the aligned box-point
-		// overlap test.
+		PENSURE_OP(alignedBox.dimension(), ==, point.dimension());
 
-		// Inverse of an orthogonal matrix
-		// is its transpose.
+		const integer n = alignedBox.dimension();
+		for (integer i = 0;i < n;++i)
+		{
+			// When transformed to the box's coordinate
+			// system, the problem becomes the testing
+			// of overlap between an aligned box and a 
+			// point.
 
-		const Matrix<Real, N, N> boxRotationInverse(
-			transpose(box.rotation()));
+			// Test if the i:th coordinate of the point
+			// lies beyond the i:th coordinate range
+			// of the aligned box.
 
-		const Vector<Real, N> transformedPoint(
-			(point - box.position()) *
-			boxRotationInverse);
+			const Real projectedDelta =
+				dot(point - box.position(), box.rotation()[i]);
 
-		const AlignedBox<Real, N> transformedBox(
-			Vector<Real, N>(-box.width()),
-			Vector<Real, N>(box.width()));
+			if (projectedDelta <= -box.width()[i])
+			{
+				if (projectedDelta < -box.width()[i] ||
+					box.minTopology()[i] == Topology::Open)
+				{
+					return false;
+				}
+			}
 
-		return overlaps(transformedBox, transformedPoint);
+			if (projectedDelta >= box.width()[i])
+			{
+				if (projectedDelta > box.width()[i] ||
+					box.maxTopology()[i] == Topology::Open)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 
 }

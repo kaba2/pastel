@@ -1222,6 +1222,10 @@
 					RelativePath=".\intersect_alignedbox_alignedbox.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\topology.h"
+					>
+				</File>
 				<Filter
 					Name="PositionVisitor concept"
 					>
@@ -1761,6 +1765,10 @@
 			</File>
 			<File
 				RelativePath=".\countingiterator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\iterators.h"
 				>
 			</File>
 			<File

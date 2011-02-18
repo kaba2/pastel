@@ -7,6 +7,8 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
 
+#include "pastel/geometry/topology.h"
+
 #include <boost/operators.hpp>
 
 namespace Pastel
@@ -41,13 +43,16 @@ namespace Pastel
 		explicit Sphere(integer dimension);
 
 		//! Construct a sphere using given position and radius.
-		Sphere(const Vector<Real, N>& position,
-			const Real& radius);
+		Sphere(
+			const Vector<Real, N>& position,
+			const Real& radius,
+			Topology::Enum topology = Topology::Closed);
 
 		//! Construct a sphere using given position and radius.
 		Sphere(integer dimension,
 			const Vector<Real, N>& position,
-			const Real& radius);
+			const Real& radius,
+			Topology::Enum topology = Topology::Closed);
 
 		// Used for concept checking.
 		~Sphere();
@@ -69,6 +74,12 @@ namespace Pastel
 
 		//! Returns the radius of the sphere.
 		const Real& radius() const;
+
+		//! Sets the topology of the sphere.
+		void setTopology(Topology::Enum topology);
+
+		//! Returns the topology of the sphere.
+		Topology::Enum topology() const;
 
 		//! Returns the inverse of the radius of the sphere.
 		/*!
@@ -93,10 +104,13 @@ namespace Pastel
 		Vector<Real, N> position_;
 		Real radius_;
 		Real inverseRadius_;
+		Topology::Enum topology_;
 	};
 
 	template <typename Real, int N>
-	void swap(Sphere<Real, N>& left, Sphere<Real, N>& right);
+	void swap(
+		Sphere<Real, N>& left, 
+		Sphere<Real, N>& right);
 
 	typedef Sphere<real, 1> Sphere1;
 	typedef Sphere<real, 2> Sphere2;

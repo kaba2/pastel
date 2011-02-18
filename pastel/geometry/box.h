@@ -109,6 +109,7 @@ namespace Pastel
 	typedef Box<real, 2> Box2;
 	typedef Box<real, 3> Box3;
 	typedef Box<real, 4> Box4;
+	typedef Box<real, Dynamic> BoxD;
 
 }
 

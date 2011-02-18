@@ -12,11 +12,10 @@ namespace Pastel
 {
 
 	//! Computes the squared distance between a point to a line.
-
 	template <typename Real, int N>
-		Real distance2(
-			const Line<Real, N>& line,
-			const Vector<Real, N>& point);
+	Real distance2(
+		const Line<Real, N>& line,
+		const Vector<Real, N>& point);
 
 }
 
