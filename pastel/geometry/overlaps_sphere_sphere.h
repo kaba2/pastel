@@ -10,7 +10,14 @@ namespace Pastel
 
 	//! Tests if two solid spheres intersect.
 	/*!
-	The spheres are considered to be closed and solid.
+	Preconditions:
+	aSphere.dimension() == bSphere.dimension()
+
+	Time complexity:
+	O(n), where n is the dimension.
+
+	Returns:
+	Whether the spheres overlap.
 	*/
 	template <typename Real, int N>
 	bool overlaps(

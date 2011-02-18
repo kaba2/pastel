@@ -2,8 +2,8 @@
 #define PASTEL_DISTANCE_PLANE_POINT_HPP
 
 #include "pastel/geometry/distance_plane_point.h"
-#include "pastel/geometry/closest_plane_point.h"
 
+#include "pastel/sys/vector_tools.h"
 #include "pastel/sys/math_functions.h"
 
 namespace Pastel
@@ -14,19 +14,28 @@ namespace Pastel
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point)
 	{
+		PENSURE_OP(plane.dimension(), ==, point.dimension());
+
 		// Let
-		// D = a point on the plane
-		// N = a unit normal of the plane
-		// P = a point
+		// D = plan.position() - point
 		//
-		// Let the closest point on the plane
-		// w.r.t the point be C = P + tN.
+		// The length of the projection of D onto the
+		// plane normal is
+		// 
+		// |D_proj| 
+		// = |D| cos(alpha))
+		// = (|plane.normal()| |D| cos(alpha)) / |plane.normal()|
+		// = dot(plane.normal(), D) / |plane.normal()|
+		//
+		// where alpha is the angle between the plane normal
+		// and D.
+		//
+		// It then follows that:
+		// |D_proj|^2 = dot^2(plane.normal(), D) / dot(plane.normal())
 
-		// Now
-		// |C - P| = |t * N| = |t|
-
-		const Real t = closest(plane, point);
-		return t * t;
+		return square(dot(plane.normal(), 
+			plane.position() - point)) / 
+			dot(plane.normal());
 	}
 
 }

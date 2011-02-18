@@ -13,10 +13,9 @@ namespace Pastel
 		const Segment<Real, N>& segment,
 		const Vector<Real, N>& point)
 	{
-		const Vector<Real, N> delta(segment.end() - segment.start());
-
-		Real t = dot(point - segment.start(), delta) /
-			dot(delta, delta);
+		Real t = dot(point - segment.start(), 
+			segment.end() - segment.start()) /
+			dot(segment.end() - segment.start());
 
 		if (t < 0)
 		{

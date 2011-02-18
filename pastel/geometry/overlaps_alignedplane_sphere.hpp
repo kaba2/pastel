@@ -4,33 +4,48 @@
 #include "pastel/geometry/overlaps_alignedplane_sphere.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/alignedplane.h"
-#include "pastel/geometry/sphere.h"
 
 namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			Sphere<Real, N> const &sphere)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Sphere<Real, N>& sphere)
 	{
-		const Real delta(sphere.position()[alignedPlane.axis()] -
-			alignedPlane.position());
+		PENSURE_OP(plane.dimension(), ==, sphere.dimension());
 
-		return (mabs(delta) <= sphere.radius());
+		const Real distance = 
+			mabs(sphere.position()[plane.axis()] -
+			plane.position());
+
+		if (distance >= sphere.radius())
+		{
+			if (distance > sphere.radius() ||
+				sphere.topology() == Topology::Open)
+			{
+				return false;
+			}
+		}
+
+		return false;
 	}
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			Sphere<Real, N> const &sphere,
-		bool &sphereOnPositiveSide)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const Sphere<Real, N>& sphere,
+		bool& sphereOnPositiveSide)
 	{
-		const Real delta(sphere.position()[alignedPlane.axis()] -
-			alignedPlane.position());
+		PENSURE_OP(plane.dimension(), ==, sphere.dimension());
+
+		const Real delta =
+			sphere.position()[plane.axis()] -
+			plane.position();
 
 		sphereOnPositiveSide = delta > 0;
-
-		return mabs(delta) <= sphere.radius();
+		
+		return Pastel::overlaps(plane, sphere);
 	}
 
 }

@@ -9,11 +9,6 @@ namespace Pastel
 {
 
 	//! Tests if two box's overlap.
-
-	/*!
-	The box's are considered to be closed and solid.
-	*/
-
 	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,
@@ -27,10 +22,7 @@ namespace Pastel
 		Tuple<Real, 2>& intersectionRange);
 
 	//! Tests if two box's overlap and returns the projection vector.
-
 	/*!
-	The box's are considered to be closed and solid.
-
 	projection (out):
 	If the boxes intersect,
 	the shortest vector by which
@@ -41,7 +33,6 @@ namespace Pastel
 	If the boxes intersect, a point in the
 	intersection
 	*/
-
 	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& aBox,

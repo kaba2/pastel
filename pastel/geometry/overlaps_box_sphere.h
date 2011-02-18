@@ -10,12 +10,6 @@ namespace Pastel
 {
 
 	//! Tests if an box and a sphere overlap.
-
-	/*!
-	The box and the sphere are considered
-	to be closed and solid.
-	*/
-
 	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,

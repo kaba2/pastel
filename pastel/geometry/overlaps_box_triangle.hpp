@@ -5,20 +5,18 @@
 #include "pastel/geometry/overlaps_alignedbox_triangle.h"
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/vector.h"
 
-#include "pastel/geometry/box.h"
-#include "pastel/geometry/alignedbox.h"
 #include "pastel/math/matrix.h"
 #include "pastel/math/matrix_tools.h"
-#include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(
-			const Box<Real, N>& box,
-			const Triangle<Real, N>& triangle)
+	bool overlaps(
+		const Box<Real, N>& box,
+		const Triangle<Real, N>& triangle)
 	{
 		// The coordinates are transformed such that
 		// the box becomes an origin centered aligned box.

@@ -10,6 +10,12 @@ namespace Pastel
 
 	//! Computes closest points between line segments.
 	/*!
+	Preconditions:
+	aSegment.dimension() == bSegment.dimension()
+
+	Time complexity:
+	O(n), where n is the dimension.
+
 	Returns:
 	Parameters (s, t) such that 'aSegment.at(s)' and
 	'bSegment.at(t)' are closest points.

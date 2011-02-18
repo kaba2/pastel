@@ -2,13 +2,9 @@
 #define PASTEL_OVERLAPS_ALIGNEDBOX_SPHERE_HPP
 
 #include "pastel/geometry/overlaps_alignedbox_sphere.h"
-
 #include "pastel/geometry/distance_alignedbox_sphere.h"
-#include "pastel/geometry/bounding_alignedbox.h"
 
-#include "pastel/sys/mytypes.h"
-#include "pastel/geometry/alignedbox.h"
-#include "pastel/geometry/sphere.h"
+#include "pastel/sys/math_functions.h"
 
 namespace Pastel
 {
@@ -23,53 +19,25 @@ namespace Pastel
 		// point from the aligned box is smaller
 		// than the sphere's radius.
 
-		return distance2(alignedBox, sphere.position()) <
-			sphere.radius() * sphere.radius();
-	}
+		// FIX: The box's topology is not handled correctly.
+		// I do not see a way to handle it.
+		// The box is assumed closed.
 
-	template <typename Real, int N>
-	bool overlaps(
-		const AlignedBox<Real, N>& aBox,
-		const Vector<Real, N>& aVelocity,
-		const Sphere<Real, N>& bSphere,
-		const Vector<Real, N>& bVelocity,
-		const Real& maxTime,
-		Tuple<Real, 2>& intersectionRange)
-	{
-		// For documentation, see the implementation
-		// in overlaps_alignedbox_alignedbox.hpp.
+		const Real d2 =
+			distance2(alignedBox, sphere.position());
+		const Real radius2 =
+			square(sphere.radius());
 
-		const AlignedBox<Real, N> bBox(
-			boundingAlignedBox(bSphere));
-
-		Tuple<Real, 2> tRange;
-		if (!overlaps(aBox, aVelocity, bBox, bVelocity, maxTime, tRange))
+		if (d2 >= radius2)
 		{
-			return false;
+			if (d2 > radius2 ||
+				sphere.topology() == Topology::Open)
+			{
+				return false;
+			}
 		}
 
-		Real tMaxStart = tRange[0];
-		Real tMinEnd = tRange[1];
-
-		const Vector<Real, N> velocity = bVelocity - aVelocity;
-
-		ENSURE(false);
-		// What is the axis to test??
-		const Vector<Real, N> unitAxis;
-
-		const Real projectedVelocity = dot(velocity, unitAxis);
-
-		const AlignedBox<Real, 1> boxInterval = projectAxis(aBox, unitAxis);
-		const AlignedBox<Real, 1> sphereInterval = projectAxis(bSphere, unitAxis);
-
-		if (!overlaps(boxInterval, 0, sphereInterval, projectedVelocity, maxTime, tRange))
-		{
-			return false;
-		}
-
-		return Tuple<Real, 2>(
-			std::max(tMaxStart, tRange[0]),
-			std::min(tMinEnd, tRange[1]));
+		return true;
 	}
 
 }

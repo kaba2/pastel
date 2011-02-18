@@ -11,28 +11,20 @@ namespace Pastel
 {
 
 	//! Tests if an aligned box and a triangle overlap.
-
 	/*!
-	The aligned box and the triangle is considered closed
-	and solid.
+	Preconditions:
+	box.dimension() == triangle.dimension()
+
+	Returns:
+	Whether the box and the triangle intersect.
+
+	Note: Only dimensions 2 and 3 are supported.
+	Note: Currently the box is assumed to be closed.
 	*/
-
-	template <typename Real>
+	template <typename Real, int N>
 	bool overlaps(
-		const AlignedBox<Real, 2>& alignedBox,
-		const Triangle<Real, 2>& triangle);
-
-	//! Tests if an aligned box and a triangle overlap.
-
-	/*!
-	The aligned box and the triangle is considered closed
-	and solid.
-	*/
-
-	template <typename Real>
-	bool overlaps(
-		const AlignedBox<Real, 3>& alignedBox,
-		const Triangle<Real, 3>& triangle);
+		const AlignedBox<Real, N>& box,
+		const Triangle<Real, N>& triangle);
 
 }
 

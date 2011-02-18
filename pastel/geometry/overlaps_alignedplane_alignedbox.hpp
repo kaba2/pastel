@@ -10,31 +10,43 @@ namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			AlignedBox<Real, N> const &alignedBox)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const AlignedBox<Real, N>& box)
 	{
-		if (alignedPlane.position() > alignedBox.max()[alignedPlane.axis()])
+		PENSURE_OP(plane.dimension(), ==, box.dimension());
+
+		if (plane.position() >= box.max()[plane.axis()])
 		{
-			return false;
+			if (plane.position > box.max()[plane.axis()] ||
+				box.maxTopology()[plane.axis()] == Topology::Open)
+			{
+				return false;
+			}
 		}
 
-		if (alignedPlane.position() < alignedBox.min()[alignedPlane.axis()])
+		if (plane.position() <= box.min()[plane.axis()])
 		{
-			return false;
+			if (plane.position() < box.min()[plane.axis()] ||
+				box.minTopology()[plane.axis()] == Topology::Open)
+			{
+				return false;
+			}
 		}
 
 		return true;
 	}
 
 	template <typename Real, int N>
-		bool overlaps(AlignedPlane<Real, N> const &alignedPlane,
-			AlignedBox<Real, N> const &alignedBox,
-			bool &alignedBoxOnPositiveSide)
+	bool overlaps(
+		const AlignedPlane<Real, N>& plane,
+		const AlignedBox<Real, N>& box,
+		bool &boxOnPositiveSide)
 	{
-		alignedBoxOnPositiveSide =
-			alignedBox.min()[alignedPlane.axis()] > alignedPlane.position();
+		boxOnPositiveSide =
+			box.min()[plane.axis()] > plane.position();
 
-		return overlaps(alignedPlane, alignedBox);
+		return overlaps(plane, box);
 	}
 
 }

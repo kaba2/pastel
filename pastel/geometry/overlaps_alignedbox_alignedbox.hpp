@@ -4,36 +4,40 @@
 #include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/alignedbox.h"
 
 namespace Pastel
 {
 
 	template <typename Real, int N>
-		bool overlaps(
-			const AlignedBox<Real, N>& aAlignedBox,
-			const AlignedBox<Real, N>& bAlignedBox)
+	bool overlaps(
+		const AlignedBox<Real, N>& aBox,
+		const AlignedBox<Real, N>& bBox)
 	{
-		PENSURE_OP(aAlignedBox.dimension(), ==, bAlignedBox.dimension());
+		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
 
-		// Using the separating axis theorem.
-
-		// Because the normals of the aligned boxes are
-		// the natural axes, the test comes
-		// down to simply comparing the ranges of the
-		// individual components.
-
-		const integer dimension = aAlignedBox.dimension();
-
-		for (integer i = 0;i < dimension;++i)
+		const integer n = aBox.dimension();
+		for (integer i = 0;i < n;++i)
 		{
 			// Test for range-range overlap
 			// on the i:th coordinate axis.
 
-			if (aAlignedBox.min()[i] > bAlignedBox.max()[i] ||
-				aAlignedBox.max()[i] < bAlignedBox.min()[i])
+			if (aBox.min()[i] >= bBox.max()[i])
 			{
-				return false;
+				if (aBox.min()[i] > bBox.max()[i] ||
+					aBox.minTopology()[i] == Topology::Open ||
+					bBox.maxTopology()[i] == Topology::Open)
+				{
+					return false;
+				}
+			}
+			if (aBox.max()[i] <= bBox.min()[i])
+			{
+				if (aBox.max()[i] < bBox.min()[i] ||
+					aBox.maxTopology()[i] == Topology::Open ||
+					bBox.minTopology()[i] == Topology::Open)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -63,12 +67,11 @@ namespace Pastel
 		// The separating axes that need to be considered
 		// are the standard basis vectors.
 
-		const integer dimension = aBox.dimension();
-
 		Real tMaxStart = -infinity<Real>();
 		Real tMinEnd = infinity<Real>();
 
-		for (integer i = 0;i < dimension;++i)
+		const integer n = aBox.dimension();
+		for (integer i = 0;i < n;++i)
 		{
 			const Real aMin = aBox.min()[i];
 			const Real aMax = aBox.max()[i];
@@ -119,7 +122,6 @@ namespace Pastel
 		}
 
 		// No separating axis found, report intersection.
-
 		intersectionRange.set(tMaxStart, tMinEnd);
 
 		return true;

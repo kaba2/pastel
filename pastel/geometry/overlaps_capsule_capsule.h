@@ -8,11 +8,17 @@
 namespace Pastel
 {
 
-	//! Returns if two capsules overlap or not.
+	//! Tests if two capsules overlap.
 	/*!
-	The capsules are considered closed and solid.
-	*/
+	Preconditions:
+	aCapsule.dimension() == bCapsule.dimension()
 
+	Time complexity:
+	O(n), where n is the dimension.
+
+	Returns:
+	Whether the capsules overlap.
+	*/
 	template <typename Real, int N>
 	bool overlaps(
 		const Capsule<Real, N>& aCapsule,

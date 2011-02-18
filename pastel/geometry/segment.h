@@ -6,6 +6,8 @@
 
 #include "pastel/sys/vector.h"
 
+#include "pastel/geometry/topology.h"
+
 #include <boost/operators.hpp>
 
 namespace Pastel
@@ -38,11 +40,22 @@ namespace Pastel
 		Segment();
 
 		//! Constructs a segment using the given points.
-		Segment(const Vector<Real, N>& start,
+		Segment(
+			const Vector<Real, N>& start,
 			const Vector<Real, N>& end);
+
+		//! Constructs a segment using the given points.
+		Segment(
+			const Vector<Real, N>& start,
+			const Vector<Real, N>& end,
+			Topology::Enum startTopology,
+			Topology::Enum endTopology);
 
 		// Used for concept checking.
 		~Segment();
+
+		//! Swaps two segments.
+		void swap(Segment& that);
 
 		//! Sets the end points of the segment.
 		void set(const Vector<Real, N>& start,
@@ -59,6 +72,18 @@ namespace Pastel
 
 		//! Returns the end point of the segment.
 		const Vector<Real, N>& end() const;
+
+		//! Sets the topology of the start point.
+		void setStartTopology(Topology::Enum startTopology);
+
+		//! Returns the topology of the start point.
+		Topology::Enum startTopology() const;
+
+		//! Sets the topology of the end point.
+		void setEndTopology(Topology::Enum endTopology);
+
+		//! Returns the topology of the end point.
+		Topology::Enum endTopology() const;
 
 		Vector<Real, N> at(const Real& t) const;
 
@@ -77,12 +102,20 @@ namespace Pastel
 	private:
 		Vector<Real, N> start_;
 		Vector<Real, N> end_;
+		Topology::Enum startTopology_;
+		Topology::Enum endTopology_;
 	};
 
 	typedef Segment<real, 1> Segment1;
 	typedef Segment<real, 2> Segment2;
 	typedef Segment<real, 3> Segment3;
 	typedef Segment<real, 4> Segment4;
+	typedef Segment<real, Dynamic> SegmentD;
+
+	template <typename Real, int N>
+	void swap(
+		Segment<Real, N>& left,
+		Segment<Real, N>& right);
 
 }
 

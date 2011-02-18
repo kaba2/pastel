@@ -2,14 +2,24 @@
 
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
+#include "pastel/geometry/search_all_neighbors_pointkdtree.h"
 #include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 
+#include "pastel/device/timer.h"
+
 #include "pastel/math/uniform_sampling.h"
 
-#include "pastel/sys/nulliterator.h"
+#include "pastel/sys/iterators.h"
 
 using namespace Pastel;
+
+namespace Pastel
+{
+
+	integer searched();
+
+}
 
 namespace
 {
@@ -28,6 +38,7 @@ namespace
 
 		virtual void run()
 		{
+			testTiming<2>();
 			testEmpty();
 			test();
 			testCircular<2>();
@@ -198,7 +209,56 @@ namespace
 					tree, Vector<real, N>(0), normBijection.toBijection(1.999));
 				TEST_ENSURE_OP(innerCount, ==, 0);
 			}
+		}
 
+		template <int N>
+		void testTiming()
+		{
+			typedef PointKdTree<real, N> Tree;
+			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
+
+			integer m = 190000;
+			const integer k = 20;
+
+			for (integer i = 0;i < 3;++i)
+			{
+				std::vector<Vector<real, N> > pointSet;
+				pointSet.reserve(m);
+				for (integer i = 0;i < m;++i)
+				{
+					pointSet.push_back(randomGaussianVector<real, N>());
+				}
+
+				Tree tree(Vector_PointPolicy<real, N>(), true);
+
+				tree.insert(
+					range(pointSet.begin(), pointSet.end()));
+
+				tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+				
+				Array<Point_ConstIterator> nearestSet(k, m);
+
+				Timer timer;
+
+				timer.setStart();
+
+				std::vector<Point_ConstIterator> querySet(
+					countingIterator(tree.begin()), countingIterator(tree.end()));
+				
+				searchAllNeighbors(
+					tree,
+					range(querySet.begin(), querySet.end()),
+					0, k,
+					&nearestSet);
+
+				timer.store();
+
+				log() << "Searching " << k << " neighbors for " 
+					<< m << " points took " << timer.seconds() << " seconds."
+					<< logNewLine;
+
+				m *= 2;
+			}
 		}
 	};
 

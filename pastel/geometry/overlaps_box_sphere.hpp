@@ -2,12 +2,12 @@
 #define PASTEL_OVERLAPBOXSPHERE_HPP
 
 #include "pastel/geometry/overlaps_box_sphere.h"
+#include "pastel/geometry/overlaps_alignedbox_sphere.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/geometry/box.h"
-#include "pastel/math/matrix.h"
 #include "pastel/sys/vector.h"
-#include "pastel/geometry/overlaps_alignedbox_sphere.h"
+
+#include "pastel/math/matrix.h"
 
 namespace Pastel
 {
@@ -17,6 +17,9 @@ namespace Pastel
 		const Box<Real, N>& box,
 		const Sphere<Real, N>& sphere)
 	{
+		// FIX: This can be made faster by
+		// using projected distances.
+
 		// The coordinates are transformed such that
 		// the box becomes an origin centered aligned box.
 		// Then the test for aligned box-sphere overlap

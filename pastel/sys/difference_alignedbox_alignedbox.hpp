@@ -36,18 +36,18 @@ namespace Pastel
 		// intersection of the current box with the outward half-space 
 		// induced by a side of 'bBox'. This process guarantees that
 		// at most 2n boxes are produced, where n is the dimension.
+		// Note that we must be careful to get the side topologies
+		// right.
 
 		AlignedBox<Real, N> cutBox(aBox);
 
-		// First we cut out with the half-spaces
-		// induced by the minima.
 		for (integer i = 0;i < n;++i)
 		{
-			if (cutBox.min()[i] < bBox.min()[i])
+			if (cutBox.max()[i] <= bBox.min()[i])
 			{
-				const Real previousMax = cutBox.max()[i];
-
-				if (previousMax <= bBox.min()[i])
+				if (cutBox.max()[i] < bBox.min()[i] ||
+					cutBox.maxTopology()[i] == Topology::Open ||
+					bBox.minTopology()[i] == Topology::Open)
 				{
 					// The whole box is included in
 					// the cut-out box.
@@ -56,52 +56,78 @@ namespace Pastel
 					// There is nothing more to report.
 					return;
 				}
-				else
+			}
+			
+			if (cutBox.min()[i] >= bBox.max()[i])
+			{
+				if (cutBox.min()[i] > bBox.max()[i] ||
+					cutBox.minTopology()[i] == Topology::Open ||
+					bBox.maxTopology()[i] == Topology::Open)
 				{
+					// The whole box is included in
+					// the cut-out box.
+					report(cutBox);
+
+					// There is nothing more to report.
+					return;
+				}
+			}
+
+			// The boxes intersect on this axis.
+			
+			if (cutBox.min()[i] <= bBox.min()[i])
+			{
+				if (cutBox.min()[i] < bBox.min()[i] ||
+					(cutBox.minTopology()[i] == Topology::Closed &&
+					bBox.minTopology()[i] == Topology::Open))
+				{
+					const Topology::Enum previousMaxTopology = 
+						cutBox.maxTopology()[i];
+					const Real previousMax = 
+						cutBox.max()[i];
+
 					// Form the cut-out box,
 					cutBox.max()[i] = bBox.min()[i];
-
+					cutBox.maxTopology()[i] = 
+						switchTopology(bBox.minTopology()[i]);
 					// and report it.
 					report(cutBox);
-				}
 
-				// Form the rest of the box,
-				cutBox.min()[i] = bBox.min()[i];
-				cutBox.max()[i] = previousMax;
-				// and repeat the process with it.
+					// Form the rest of the box,
+					cutBox.min()[i] = bBox.min()[i];
+					cutBox.minTopology()[i] = bBox.minTopology()[i];
+					cutBox.max()[i] = previousMax;
+					cutBox.maxTopology()[i] = previousMaxTopology;
+					// and repeat the process with it.
+				}
 			}
-		}
 
-		// Then we cut out with the half-spaces
-		// induced by the maxima.
-		for (integer i = 0;i < n;++i)
-		{
-			if (cutBox.max()[i] > bBox.max()[i])
+			if (cutBox.max()[i] >= bBox.max()[i])
 			{
-				const Real previousMin = cutBox.min()[i];
-
-				if (previousMin >= bBox.max()[i])
+				if (cutBox.max()[i] > bBox.max()[i] ||
+					(cutBox.maxTopology()[i] == Topology::Closed &&
+					bBox.maxTopology()[i] == Topology::Open))
 				{
-					// The whole box is included in
-					// the cut-out box.
-					report(cutBox);
+					const Topology::Enum previousMinTopology = 
+						cutBox.minTopology()[i];
+					const Real previousMin = 
+						cutBox.min()[i];
 
-					// There is nothing more to report.
-					return;
-				}
-				else
-				{
 					// Form the cut-out box,
 					cutBox.min()[i] = bBox.max()[i];
-
+					cutBox.minTopology()[i] = 
+						switchTopology(bBox.maxTopology()[i]);
 					// and report it.
 					report(cutBox);
-				}
 
-				// Form the rest of the box,
-				cutBox.min()[i] = previousMin;
-				cutBox.max()[i] = bBox.max()[i];
-				// and repeat the process with it.
+					// Form the rest of the box,
+					cutBox.min()[i] = previousMin;
+					cutBox.minTopology()[i] = previousMinTopology;
+					cutBox.max()[i] = bBox.max()[i];
+					cutBox.maxTopology()[i] = 
+						bBox.maxTopology()[i];
+					// and repeat the process with it.
+				}
 			}
 		}
 	}

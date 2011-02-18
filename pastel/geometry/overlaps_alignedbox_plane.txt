@@ -1,0 +1,82 @@
+Overlap of an aligned box and a plane
+=====================================
+
+[[Parent]]: overlaps.txt
+
+Here we give an an algorithm to test if an aligned box
+and a plane overlap or not.
+
+Notation
+--------
+
+Let 'B = {x in RR^n : b_min <= x < b_max}' be an aligned box.
+Denote the corner vertices of this box by 
+
+	V = {v_1, ..., v_(2^n)} "."
+
+Let a plane 'P' be given by a normal 'n' and a 
+position 'q' on the plane:
+
+	P = {x in RR^n: <:x - q, n:> = 0}
+
+Let 'e_i' denote the 'i':th standard basis axis.
+
+Problem
+-------
+
+Find out if 'B' and 'P' overlap. 
+
+Solution
+--------
+
+The overlap can be characterized as follows:
+
+	B "and" P "overlap"
+	|| <=>
+	|| exists v_min, v_max in V: <:v_min - q, n:> <:v_max - q, n:> <= 0
+
+The distance 't' from a point 'p' to the plane is 
+solved by:
+
+	<:p + tn - q, n:> = 0 
+	|| ==> | <:p - q, n:> + t<:n, n:> = 0
+	|| ==> | t = <:q - p, n:> / <:n, n:>
+
+Because we are only interested in the sign
+of this value, we shall denote:
+
+	d(p) = <:p - q, n:>
+
+Find out 
+
+	d_min = min {d(p) : p in V}
+	d_max = max {d(p) : p in V}
+
+This is easy to do incrementally by starting from 'b_min',
+and then moving along standard basis axes to minimize 
+(or maximize) 'd(p)':
+
+	p(b_min) = <:b_min - q, n:>
+
+	delta_d(p, h)
+	|| = | d(p + h) - d(p)
+	|| = | <:(p + h) - q, n:> - <:p - q, n:>
+	|| = | <:h, n:>'
+
+Particularly:
+
+	delta_d(p, w_i e_i)
+	|| = | <:w_i e_i, n:>
+	|| = | w_i n_i
+
+Note: you can find 'd_min' and 'd_max' in parallel,
+since if 'delta_d' is negative, then 'd_min' should follow
+the direction (and 'd_max' not). Otherwise 'd_max'
+should follow the direction (and 'd_min' not).
+
+Thus determining 'd_min' and 'd_max' takes 'O(d)' time.
+
+The plane overlaps the box if and only if
+
+	d_min <= 0 and d_max >= 0 "."
+

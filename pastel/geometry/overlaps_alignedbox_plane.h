@@ -11,15 +11,22 @@ namespace Pastel
 {
 
 	//! Tests if an aligned box and a plane overlap.
-
 	/*!
-	The aligned box is considered to be closed and solid.
-	*/
+	Preconditions:
+	alignedBox.dimension() == plane.dimension()
 
+	Returns:
+	Whether the box and the plane overlap.
+
+	Time complexity:
+	O(n), where n is dimension.
+
+	Note: Currently the box is assumed closed.
+	*/
 	template <typename Real, int N>
-		bool overlaps(
-			const AlignedBox<Real, N>& alignedBox,
-			const Plane<Real, N>& plane);
+	bool overlaps(
+		const AlignedBox<Real, N>& alignedBox,
+		const Plane<Real, N>& plane);
 
 }
 

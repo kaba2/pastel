@@ -46,7 +46,8 @@ namespace Pastel
 		// and
 		// 2) The endpoints of segment B are
 		// on the different sides of the line A.
-		// NOTE: endpoint exactly on the line
+
+		// Note: endpoint exactly on the line
 		// is not considered an intersection.
 
 		const Plane<Real, 2> aPlane(

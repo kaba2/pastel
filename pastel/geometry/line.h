@@ -110,6 +110,7 @@ namespace Pastel
 	typedef Line<real, 2> Line2;
 	typedef Line<real, 3> Line3;
 	typedef Line<real, 4> Line4;
+	typedef Line<real, Dynamic> LineD;
 
 }
 

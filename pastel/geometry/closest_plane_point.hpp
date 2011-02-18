@@ -5,8 +5,6 @@
 
 #include "pastel/sys/vector_tools.h"
 
-#include "pastel/sys/math_functions.h"
-
 namespace Pastel
 {
 
@@ -15,9 +13,12 @@ namespace Pastel
 		const Plane<Real, N>& plane,
 		const Vector<Real, N>& point)
 	{
+		PENSURE_OP(plane.dimension(), ==, point.dimension());
+
 		// Let
-		// N = a normal of the plane
+		// N = the normal of the plane
 		// D = a point on the plane
+		// P = a point
 		//
 		// The plane equation is:
 		// dot(N, X - D) = 0
@@ -25,11 +26,11 @@ namespace Pastel
 		// Let X = R(t) = P + t * N
 		// => dot(N, (P - D) + t' * N) = 0
 		// => t' = -dot(N, (P - D)) / dot(N, N)
-		// Because the plane normal is of unit length
-		// => t' = -dot(N, (P - D)) = dot(N, (D - P))
+		// => t' = dot(N, (D - P)) / dot(N, N)
 
 		return dot(plane.normal(),
-			plane.position() - point);
+			plane.position() - point) /
+			dot(plane.normal());
 	}
 
 }

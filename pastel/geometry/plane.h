@@ -116,6 +116,7 @@ namespace Pastel
 	typedef Plane<real, 2> Plane2;
 	typedef Plane<real, 3> Plane3;
 	typedef Plane<real, 4> Plane4;
+	typedef Plane<real, Dynamic> PlaneD;
 
 }
 

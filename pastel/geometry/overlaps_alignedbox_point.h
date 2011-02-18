@@ -12,15 +12,20 @@ namespace Pastel
 {
 
 	//! Tests if an aligned box and a point overlap.
-
 	/*!
-	The aligned box is considered to be closed and solid.
-	*/
+	Preconditions:
+	alignedBox.dimension() == point.dimension()
 
+	Time complexity:
+	O(n), where n is the dimension.
+
+	Returns:
+	Whether the box and the point overlap.
+	*/
 	template <typename Real, int N>
-		bool overlaps(
-			const AlignedBox<Real, N>& alignedBox,
-			const Vector<Real, N>& point);
+	bool overlaps(
+		const AlignedBox<Real, N>& alignedBox,
+		const Vector<Real, N>& point);
 
 }
 

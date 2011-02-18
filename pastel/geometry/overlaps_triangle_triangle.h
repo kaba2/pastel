@@ -10,36 +10,18 @@ namespace Pastel
 {
 
 	//! Tests if two triangles overlap.
-
-	/*!
-	The triangles are considered to be closed
-	and solid.
-	*/
-
 	template <typename Real>
 	bool overlaps(
 		const Triangle<Real, 1>& aTriangle,
 		const Triangle<Real, 1>& bTriangle);
 
 	//! Tests if two triangles overlap.
-
-	/*!
-	The triangles are considered to be closed
-	and solid.
-	*/
-
 	template <typename Real>
 	bool overlaps(
 		const Triangle<Real, 2>& aTriangle,
 		const Triangle<Real, 2>& bTriangle);
 
 	//! Tests if two triangles overlap.
-
-	/*!
-	The triangles are considered to be closed
-	and solid.
-	*/
-
 	template <typename Real>
 	bool overlaps(
 		const Triangle<Real, 3>& aTriangle,

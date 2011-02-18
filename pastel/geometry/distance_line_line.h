@@ -10,7 +10,6 @@ namespace Pastel
 {
 
 	//! Computes the distance between two lines.
-
 	template <typename Real, int N>
 	Real distance(
 		const Line<Real, N>& aLine,

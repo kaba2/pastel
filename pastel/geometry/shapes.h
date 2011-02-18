@@ -1,11 +1,11 @@
 // Description: An aggregate file for geometric shapes
-// Documentation: shapes.txt
 
-#ifndef PASTEL_MATHOBJECTS_H
-#define PASTEL_MATHOBJECTS_H
+#ifndef PASTEL_SHAPES_H
+#define PASTEL_SHAPES_H
 
 #include "pastel/geometry/alignedbox.h"
 #include "pastel/geometry/box.h"
+#include "pastel/geometry/capsule.h"
 #include "pastel/geometry/sphere.h"
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/triangle.h"

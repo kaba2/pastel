@@ -10,16 +10,10 @@ namespace Pastel
 {
 
 	//! Tests if an box and a triangle overlap.
-
-	/*!
-	Both the box and the triangle are considered
-	to be closed and solid.
-	*/
-
 	template <typename Real, int N>
-		bool overlaps(
-			const Box<Real, N>& box,
-			const Triangle<Real, N>& triangle);
+	bool overlaps(
+		const Box<Real, N>& box,
+		const Triangle<Real, N>& triangle);
 
 }
 

@@ -5,11 +5,12 @@
 #define PASTEL_ALIGNEDBOXBASE_H
 
 #include "pastel/sys/alignedbox.h"
-
 #include "pastel/sys/constants.h"
 #include "pastel/sys/vector.h"
+#include "pastel/sys/topology.h"
 
 #include <boost/operators.hpp>
+#include <boost/type_traits/is_integral.hpp>
 
 namespace Pastel
 {
@@ -43,6 +44,9 @@ namespace Pastel
 			N_ = N
 		};
 
+		static const bool IsInteger =
+			boost::is_integral<Real>::value;
+
 		// Using default copy constructor.
 		// Using default assignment.
 
@@ -50,6 +54,8 @@ namespace Pastel
 		explicit AlignedBoxBase(integer dimension = N)
 			: min_(Dimension(dimension), infinity<Real>())
 			, max_(Dimension(dimension), -infinity<Real>())
+			, minTopology_(ofDimension(dimension), Topology::Closed)
+			, maxTopology_(ofDimension(dimension), IsInteger ? Topology::Open : Topology::Closed )
 		{
 			PENSURE2((N == Dynamic && dimension > 0) || 
 				(N != Dynamic && dimension == N), dimension, N);
@@ -59,6 +65,8 @@ namespace Pastel
 		explicit AlignedBoxBase(const Vector<Real, N>& that)
 			: min_(that)
 			, max_(that)
+			, minTopology_(ofDimension(that.dimension()), Topology::Closed)
+			, maxTopology_(ofDimension(that.dimension()), IsInteger ? Topology::Open : Topology::Closed)
 		{
 		}
 
@@ -68,6 +76,8 @@ namespace Pastel
 			const Vector<Real, N>& max)
 			: min_(min)
 			, max_(max)
+			, minTopology_(ofDimension(min.dimension()), Topology::Closed)
+			, maxTopology_(ofDimension(max.dimension()), IsInteger ? Topology::Open : Topology::Closed )
 		{
 		}
 
@@ -77,10 +87,24 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 
-		//! Returns (exist i: min()[i] >= max()[i])
+		//! Returns whether the box contains any points.
 		bool empty() const
 		{
-			return anyGreaterEqual(min_, max_);
+			const integer n = dimension();
+			for (integer i = 0;i < n;++i)
+			{
+				if (min_[i] >= max_[i])
+				{
+					if (min_[i] > max_[i] ||
+						minTopology_[i] == Topology::Open ||
+						maxTopology_[i] == Topology::Open)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
 		}
 
 		//! Swaps two aligned boxes.
@@ -88,8 +112,10 @@ namespace Pastel
 		{
 			using std::swap;
 
-			swap(min_, that.min_);
-			swap(max_, that.max_);
+			min_.swap(that.min_);
+			max_.swap(that.max_);
+			minTopology_.swap(that.minTopology_);
+			maxTopology_.swap(that.maxTopology_);
 		}
 
 		integer dimension() const
@@ -140,6 +166,30 @@ namespace Pastel
 		const Vector<Real, N>& max() const
 		{
 			return max_;
+		}
+
+		//! Returns the topology of the minimums.
+		Tuple<Topology::Enum, N>& minTopology()
+		{
+			return minTopology_;
+		}
+
+		//! Returns the topology of the minimums.
+		const Tuple<Topology::Enum, N>& minTopology() const
+		{
+			return minTopology_;
+		}
+
+		//! Returns the topology of the maximums.
+		Tuple<Topology::Enum, N>& maxTopology()
+		{
+			return maxTopology_;
+		}
+
+		//! Returns the topology of the maximums.
+		const Tuple<Topology::Enum, N>& maxTopology() const
+		{
+			return maxTopology_;
 		}
 
 		//! Returns max() - min().
@@ -207,6 +257,8 @@ namespace Pastel
 	private:
 		Vector<Real, N> min_;
 		Vector<Real, N> max_;
+		Tuple<Topology::Enum, N> minTopology_;
+		Tuple<Topology::Enum, N> maxTopology_;
 	};
 
 }

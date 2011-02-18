@@ -4,6 +4,8 @@
 #include "pastel/geometry/distance_segment_sphere.h"
 #include "pastel/geometry/distance_segment_point.h"
 
+#include <cmath>
+
 namespace Pastel
 {
 
@@ -12,22 +14,17 @@ namespace Pastel
 		const Segment<Real, N>& segment,
 		const Sphere<Real, N>& sphere)
 	{
+		PENSURE_OP(segment.dimension(), ==, sphere.dimension());
+
 		const Real centerDistance2 =
 			Pastel::distance2(segment, sphere.position());
-		const Real radius2 =
-			sphere.radius() * sphere.radius();
 
-		if (centerDistance2 < radius2)
+		if (centerDistance2 <= square(sphere.radius()))
 		{
 			return 0;
 		}
 
-		// (sqrt(centerDistance2) - sphere.radius())^2
-		// = centerDistance2 + radius2 -
-		//   2 * sqrt(centerDistance2) * sphere.radius()
-
-		return centerDistance2 + radius2 -
-			2 * std::sqrt(centerDistance2) * sphere.radius();
+		return square(std::sqrt(centerDistance2) - sphere.radius());
 	}
 
 }

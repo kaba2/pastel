@@ -2,7 +2,6 @@
 #define PASTEL_DISTANCE_PLANE_SPHERE_HPP
 
 #include "pastel/geometry/distance_plane_sphere.h"
-
 #include "pastel/geometry/distance_plane_point.h"
 
 namespace Pastel
@@ -13,6 +12,8 @@ namespace Pastel
 		const Plane<Real, N>& plane,
 		const Sphere<Real, N>& sphere)
 	{
+		PENSURE_OP(plane.dimension(), ==, sphere.dimension());
+
 		// Let
 		// s = distance from sphere's center to the plane.
 		// r = sphere's radius
@@ -22,22 +23,14 @@ namespace Pastel
 		// so then zero distance is returned.
 		// d < 0 <=> s - r < 0 <=> s < r <=> s^2 < r^2
 
-		// Otherwise
-		// d^2 = (s - r)^2 = s^2 + r^2 - 2 * s * r
-		// = s^2 + r^2 - 2 * sqrt(s^2) * r
-
-		const Real radius(sphere.radius());
-		const Real radius2(radius * radius);
-		const Real centerDistance2(
-			distance2(plane, sphere.position()));
-
-		if (centerDistance2 < radius2)
+		const Real centerDistance2 =
+			distance2(plane, sphere.position());
+		if (centerDistance2 <= square(sphere.radius()))
 		{
 			return 0;
 		}
 
-		return (centerDistance2 + radius2) -
-			2 * std::sqrt(centerDistance2) * radius;
+		return square(std::sqrt(centerDistance2) - sphere.radius());
 	}
 
 }

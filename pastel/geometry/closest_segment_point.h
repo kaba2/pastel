@@ -13,9 +13,9 @@ namespace Pastel
 	//! Computes closest points between a line segment and a point.
 	/*!
 	Returns:
-	A parameter t such that 'segment.at(t)' and 'point' are closest points;
+	A parameter t such that 'segment.at(t)' and 'point' are 
+	closest points.
 	*/
-
 	template <typename Real, int N>
 	Real closest(
 		const Segment<Real, N>& segment,

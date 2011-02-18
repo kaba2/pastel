@@ -10,25 +10,31 @@ namespace Pastel
 {
 
 	//! Tests if a plane and an box overlap.
-
 	/*!
-	The Box is considered to be closed and solid.
-	*/
+	Preconditions:
+	plane.dimension() == box.dimension()
 
+	Time complexity:
+	O(n), where n is the dimension.
+
+	Returns:
+	Whether the plane and the box overlap.
+	*/
 	template <typename Real, int N>
 	bool overlaps(
 		const Plane<Real, N>& plane,
 		const Box<Real, N>& box);
 
 	//! Tests if a plane and an box overlap.
-
 	/*!
-	The Box is considered to be closed and solid.
-	'boxOnPositiveSide' is filled with the information
-	on which side of the plane the center point
-	of the box is.
-	*/
+	boxOnPositiveSide:
+	Set true, if the center point of the box
+	is on the positive side of the plane.
+	Otherwise set to false.
 
+	Returns:
+	overlaps(plane, box)
+	*/
 	template <typename Real, int N>
 	bool overlaps(
 		const Plane<Real, N>& plane,
