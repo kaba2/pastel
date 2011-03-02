@@ -45,7 +45,7 @@ namespace Pastel
 	//! Sets negative components to zero.
 	Color fitNegativeColor(const Color& rgb);
 
-	class PASTELGFX Color_Luma_Adapter
+	class PASTELGFX Luma_Color_Adapter
 	{
 	public:
 		typedef Color Logical;
@@ -62,7 +62,7 @@ namespace Pastel
 		}
 	};
 
-	typedef ReverseAdapter<Color_Luma_Adapter> Luma_Color_Adapter;
+	typedef ReverseAdapter<Luma_Color_Adapter> Color_Luma_Adapter;
 
 }
 

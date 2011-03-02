@@ -134,7 +134,6 @@ namespace Pastel
 	uses Color_ColorByte_Adapter
 	as the adapter.
 	*/
-
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
 		Array<Color, 2>& image);
@@ -142,10 +141,19 @@ namespace Pastel
 	//! Loads a pcx image into a ByteColor array.
 	/*!
 	This is a convenience function that
+	uses Luma_Adapter<ByteColor>
+	as the adapter.
+	*/
+	PASTELGFX bool loadPcx(
+		const std::string& fileName,
+		Array<real32>& image);
+
+	//! Loads a pcx image into a ByteColor array.
+	/*!
+	This is a convenience function that
 	uses Identity_Adapter<ByteColor>
 	as the adapter.
 	*/
-
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
 		Array<ByteColor, 2>& image);

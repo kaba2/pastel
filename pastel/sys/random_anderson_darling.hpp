@@ -49,12 +49,12 @@ namespace Pastel
 		
 		std::sort(orderedSet.begin(), orderedSet.end());
 
-		const bool approximate = 
+		const bool atLeastOneApproximated = 
 			StdExt::isNan(mean) || StdExt::isNan(deviation);
 
 		// Compute mean and deviation from samples
 		// if they are not given.
-		if (approximate)
+		if (atLeastOneApproximated)
 		{
 			Real sum = 0;
 			Real squareSum = 0;
@@ -71,7 +71,14 @@ namespace Pastel
 
 			if (StdExt::isNan(deviation))
 			{
-				deviation = std::sqrt((squareSum / n) - square(mean));
+				if (StdExt::isNan(mean) && n > 1)
+				{
+					deviation = std::sqrt((squareSum - n * square(mean)) / (n - 1));
+				}
+				else
+				{
+					deviation = std::sqrt((squareSum / n) - square(mean));
+				}
 			}
 		}
 
@@ -92,9 +99,12 @@ namespace Pastel
 			-n - S / n;
 
 		// A correction for estimated variables.
+		const bool bothApproximated =
+			StdExt::isNan(mean) && StdExt::isNan(deviation);
+
 		const Real alpha =
-			approximate ?
-			(1 + (Real)3 / (4 * n) + (Real)9 / (4 * square(n))) :
+			bothApproximated ?
+			(1 + (Real)4 / n - (Real)25 / square(n)) :
 			1;
 
 		return alpha * aSquared;
