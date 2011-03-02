@@ -670,6 +670,14 @@ namespace Pastel
 
 	PASTELGFX bool loadPcx(
 		const std::string& fileName,
+		Array<real32>& image)
+	{
+		Luma_Color_Adapter adapter;
+		return loadPcx(fileName, image, adapter);
+	}
+
+	PASTELGFX bool loadPcx(
+		const std::string& fileName,
 		Array<ByteColor, 2>& image)
 	{
 		ByteColor_To_Color adapter;

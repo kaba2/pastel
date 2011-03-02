@@ -62,17 +62,21 @@ namespace
 			50%          | 0.8
 			30%          | 1.1
 			20%          | 1.4
-			10%          | 2.0
-			5%           | 2.6
-			2.5%         | 3.3
-			1%           | 4.0
+			15%          | 1.610 (*) 
+			10%          | 1.933 (*)
+			5%           | 2.492 (*)
+			2.5%         | 3.070 (*)
+			1%           | 3.857 (*)
 			0.5%         | 4.6
 			0.1%         | 6.1
 			0.01%        | 8.4
+
+			(*) "EDF Statistics for Goodness-of-Fit and Some Comparisons",
+			M.A. Stephens
 			*/
 
-			real minThreshold = 0.0;
-			real maxThreshold = 1.0;
+			real minThreshold = 1.0;
+			real maxThreshold = 2.0;
 			//real minThreshold = 0.631;
 			//real maxThreshold = 0.631;
 			integer thresholds = (maxThreshold - minThreshold) * 20;
@@ -89,9 +93,9 @@ namespace
 				real mean = 0;
 				real deviation = 1;
 				//real populationMean = nan<real>();
-				//real populationDeviation = nan<real>();
+				real populationDeviation = nan<real>();
 				real populationMean = 0;
-				real populationDeviation = 1;
+				//real populationDeviation = 1;
 				for (integer j = 0;j < m;++j)
 				{
 					for (integer i = 0;i < n;++i)
