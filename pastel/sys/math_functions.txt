@@ -3,3 +3,4 @@ Mathematical functions
 
 [[Parent]]: maths.txt
 
+This section contains common mathematical functions.
