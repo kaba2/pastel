@@ -77,4 +77,4 @@ Conclusion
 ----------
 
 Using unsigned integers to model integers decreases the probability 
-that a program is correct.
+of program being correct.

@@ -1932,6 +1932,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\techniques_aggregation.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\techniques_deduction.txt"
 				>
 			</File>
