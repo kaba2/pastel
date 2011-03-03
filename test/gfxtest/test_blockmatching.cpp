@@ -17,8 +17,8 @@
 #include <pastel/gfx/savepcx.h>
 
 #include <pastel/sys/subarray_tools.h>
-#include <pastel/sys/pointpolicy_all.h>
-#include <pastel/sys/string_tools.h>
+#include <pastel/sys/pointpolicies.h>
+#include <pastel/sys/string_algorithms.h>
 #include <pastel/sys/unorderedmap.h>
 #include <pastel/sys/nulliterator.h>
 
@@ -969,7 +969,8 @@ namespace
 			Vector2i neighborhood(15, 15);
 
 			Array<integer> nearestSet = matchBlockBrute(
-				image, Vector2i(blockSize, blockSize), neighborhood, kNearest, 
+				image, Vector2i(blockSize, blockSize), neighborhood, 
+				Vector2i(1, 1), kNearest, 
 				infinity<real32>(), Euclidean_NormBijection<real32>());
 
 			timer.store();

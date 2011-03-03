@@ -1,5 +1,6 @@
 // Description: Log class
 // Detail: Outputs logging information to a set of Logger's.
+// Documentation: logging.txt
 
 #ifndef PASTEL_LOG_H
 #define PASTEL_LOG_H

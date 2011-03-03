@@ -2,7 +2,7 @@
 #include "pastel/matlab/matlab_argument.h"
 
 #include "pastel/sys/callfunction.h"
-#include "pastel/sys/log_all.h"
+#include "pastel/sys/logging.h"
 #include "pastel/sys/ensure.h"
 
 #include <map>

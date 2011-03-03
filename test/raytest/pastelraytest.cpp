@@ -1,6 +1,6 @@
 #include "pastelraytest.h"
 
-#include "pastel/sys/log_all.h"
+#include "pastel/sys/logging.h"
 
 #include <iostream>
 #include <string>

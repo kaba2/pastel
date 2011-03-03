@@ -1,7 +1,7 @@
 Native real numbers
 ===================
 
-[[Parent]]: real.txt
+[[Parent]]: reals.txt
 
 Pastel provides support for interpreting the `float` and `double`
 types as modeling the Real concept. This support is included in

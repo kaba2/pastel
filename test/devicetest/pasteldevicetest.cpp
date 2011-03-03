@@ -1,4 +1,4 @@
-#include "pastel/sys/log_all.h"
+#include "pastel/sys/logging.h"
 
 #include <iostream>
 using std::cin;

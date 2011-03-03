@@ -1,6 +1,5 @@
-// Description: Some commonly used constants
-// Detail: pi, e, ln2, etc.
-// Documentation: basic_math.txt
+// Description: Mathematical constants
+// Documentation: maths.txt
 
 #ifndef PASTEL_CONSTANTS_H
 #define PASTEL_CONSTANTS_H

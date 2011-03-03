@@ -1,7 +1,7 @@
 #include "pastelsystest.h"
 
-#include "pastel/sys/log_all.h"
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/logging.h"
+#include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/constants.h"
 
 #include <iostream>

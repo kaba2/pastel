@@ -3,7 +3,7 @@
 
 #include "pasteldsptest.h"
 
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
 

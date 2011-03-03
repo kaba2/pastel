@@ -1,5 +1,5 @@
 #include "pastel/sys/measuretable_tools.h"
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 
 #include <vector>
 

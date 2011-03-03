@@ -1,7 +1,7 @@
 Rational numbers
 ================
 
-[[Parent]]: real.txt
+[[Parent]]: reals.txt
 
 Theory
 ------
@@ -45,7 +45,7 @@ situations.
 	template <typename Integer>
 	class Rational;
 	
-[Integer]: [[Ref]]: integer.txt
+[Integer]: [[Ref]]: integers.txt
 
 There are several values with a special meaning:
 

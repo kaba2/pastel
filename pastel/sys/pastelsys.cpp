@@ -1,5 +1,5 @@
 // Description: Native type checks
-// Documentation: miscellaneous.txt
+// Documentation: portability.txt
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"

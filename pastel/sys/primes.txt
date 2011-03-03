@@ -1,7 +1,7 @@
 Prime numbers
 =============
 
-[[Parent]]: integer.txt
+[[Parent]]: integers.txt
 
 Theory
 ------

@@ -18,9 +18,8 @@ namespace Pastel
 		Real &t0, Real &t1,
 		bool solutionsMustExist)
 	{
-		Real discriminant(
-			bCoeff * bCoeff - 4 * aCoeff * cCoeff);
-
+		Real discriminant =
+			bCoeff * bCoeff - 4 * aCoeff * cCoeff;
 		if (discriminant < 0)
 		{
 			if (solutionsMustExist)
@@ -33,11 +32,15 @@ namespace Pastel
 			}
 		}
 
-		const Real rootDiscriminant(std::sqrt(discriminant));
+		const Real rootDiscriminant =
+			std::sqrt(discriminant);
+
+		// This is a numerically stable way to solve
+		// the quadratic equation. The standard formula
+		// risks for catastrophic cancellation.
 
 		Real q = bCoeff;
-
-		if (bCoeff < (Real)0)
+		if (bCoeff < 0)
 		{
 			q -= rootDiscriminant;
 		}
@@ -51,9 +54,10 @@ namespace Pastel
 		t0 = q / aCoeff;
 		t1 = cCoeff / q;
 
-		//t0 = (-bCoeff - rootDiscriminant) / (2 * aCoeff);
-		//t1 = (-bCoeff + rootDiscriminant) / (2 * aCoeff);
+		// t0 = (-bCoeff - rootDiscriminant) / (2 * aCoeff);
+		// t1 = (-bCoeff + rootDiscriminant) / (2 * aCoeff);
 
+		// Order the solutions such that t0 <= t1.
 		if (t1 < t0)
 		{
 			std::swap(t0, t1);

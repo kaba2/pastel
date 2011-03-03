@@ -1,5 +1,5 @@
 // Description: Linear interpolation
-// Documentation: basic_math.txt
+// Documentation: math_functions.txt
 
 #ifndef PASTEL_LINEAR_H
 #define PASTEL_LINEAR_H
@@ -22,9 +22,9 @@ namespace Pastel
 		typename PointType,
 		typename Real>
 	PointType linear(
-			const PointType& startPoint,
-			const PointType& endPoint,
-			const Real& time);
+		const PointType& startPoint,
+		const PointType& endPoint,
+		const Real& time);
 
 	//! Interpolates linearly between vectors.
 	template <typename Real, int N>

@@ -1,7 +1,7 @@
 Rectangles
 ==========
 
-[[Parent]]: basic_math.txt
+[[Parent]]: maths.txt
 
 Theory
 ------
@@ -28,5 +28,5 @@ library takes [this view further][GeometryBox].
 
 [NativeInteger]: [[Ref]]: integer_integer.txt
 [GeometryBox]: [[Ref]]: ../geometry/alignedbox.txt
-[Real]: [[Ref]]: real.txt
+[Real]: [[Ref]]: reals.txt
 

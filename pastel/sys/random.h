@@ -5,5 +5,6 @@
 
 #include "pastel/sys/random_discrete.h"
 #include "pastel/sys/random_continuous.h"
+#include "pastel/sys/random_goodness.h"
 
 #endif

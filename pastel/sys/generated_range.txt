@@ -1,4 +1,4 @@
 Generated range
 ===============
 
-[[Parent]]: range.txt
+[[Parent]]: ranges.txt

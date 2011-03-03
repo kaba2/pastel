@@ -1,7 +1,7 @@
 Arbitrarily-sized integers
 ==========================
 
-[[Parent]]: integer.txt
+[[Parent]]: integers.txt
 
 The `BigInteger` class implements arbitrarily-sized integers.
 It dynamically changes its size depending on the contained number.

@@ -1,6 +1,6 @@
 #include "pastelgfxtest.h"
 
-#include "pastel/sys/log_all.h"
+#include "pastel/sys/logging.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/ewaimage_texture.h"

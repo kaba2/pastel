@@ -1,5 +1,5 @@
 Mathematical functions
 ======================
 
-[[Parent]]: basic_math.txt
+[[Parent]]: maths.txt
 

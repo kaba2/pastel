@@ -1,5 +1,5 @@
-// Description: Topology enum for rectangles
-// Documentation: alignedbox.txt
+// Description: Topology enum for shapes
+// Documentation: maths.txt
 
 #ifndef PASTELSYS_TOPOLOGY_H
 #define PASTELSYS_TOPOLOGY_H

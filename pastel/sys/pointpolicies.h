@@ -1,7 +1,10 @@
 // Description: An aggregate file for point policies
+// Documentation: pointpolicy.txt
 
-#ifndef PASTEL_POINTPOLICY_ALL_H
-#define PASTEL_POINTPOLICY_ALL_H
+#ifndef PASTEL_POINTPOLICIES_H
+#define PASTEL_POINTPOLICIES_H
+
+#include "pastel/sys/pointpolicy_concept.h"
 
 #include "pastel/sys/array_pointpolicy.h"
 #include "pastel/sys/vector_pointpolicy.h"

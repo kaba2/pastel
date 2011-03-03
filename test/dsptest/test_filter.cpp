@@ -16,7 +16,7 @@
 
 #include <pastel/sys/view_all.h>
 #include <pastel/sys/array.h>
-#include <pastel/sys/string_tools.h>
+#include <pastel/sys/string_algorithms.h>
 
 #include <pastel/sys/vector_tools.h>
 

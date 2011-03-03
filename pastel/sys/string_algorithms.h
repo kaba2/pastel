@@ -1,8 +1,8 @@
 // Description: String algorithms
 // Documentation: string_algorithms.txt
 
-#ifndef PASTEL_STRING_TOOLS_H
-#define PASTEL_STRING_TOOLS_H
+#ifndef PASTEL_STRING_ALGORITHMS_H
+#define PASTEL_STRING_ALGORITHMS_H
 
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/mytypes.h"
@@ -117,6 +117,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/string_tools.hpp"
+#include "pastel/sys/string_algorithms.hpp"
 
 #endif

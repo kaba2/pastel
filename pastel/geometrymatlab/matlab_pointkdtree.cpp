@@ -6,7 +6,7 @@
 
 #include "pastel/matlab/matlab.h"
 
-#include "pastel/sys/pointpolicy_all.h"
+#include "pastel/sys/pointpolicies.h"
 #include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/poolallocator.h"
 

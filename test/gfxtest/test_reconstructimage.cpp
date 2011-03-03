@@ -20,7 +20,7 @@
 #include "pastel/dsp/resample.h"
 
 #include "pastel/sys/indexextender_all.h"
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 
 #include <boost/bind.hpp>
 
