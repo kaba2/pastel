@@ -1,7 +1,7 @@
 #include "pastel/device/devicesystem.h"
 #include "pastel/device/gfxdevice.h"
 
-#include "pastel/sys/log_all.h"
+#include "pastel/sys/logging.h"
 #include "pastel/sys/vector_tools.h"
 
 #include "pastel/math/matrix_tools.h"

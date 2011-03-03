@@ -1,5 +1,5 @@
 // Description: Loading and saving of configuration files
-// Documentation: config.txt
+// Documentation: configuration.txt
 
 #ifndef PASTEL_CONFIGFILE_H
 #define PASTEL_CONFIGFILE_H

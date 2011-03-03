@@ -1,5 +1,5 @@
 // Description: Random access range concept
-// Documentation: range.txt
+// Documentation: ranges.txt
 
 #ifndef PASTEL_RANDOMACCESSRANGE_CONCEPT_H
 #define PASTEL_RANDOMACCESSRANGE_CONCEPT_H

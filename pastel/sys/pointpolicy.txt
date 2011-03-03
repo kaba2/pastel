@@ -1,7 +1,7 @@
 Point abstraction
 =================
 
-[[Parent]]: basic_math.txt
+[[Parent]]: maths.txt
 
 Theory
 ------

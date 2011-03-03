@@ -46,7 +46,7 @@ of elements as the primary abstraction. This leads to the
 [range][Range] concept. The only problem then is that the C++ Standard
 Library is unable to work with this abstraction.
 
-[Range]: [[Ref]]: range.txt
+[Range]: [[Ref]]: ranges.txt
 
 Iterator adapters and synthetic data
 ------------------------------------

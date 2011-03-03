@@ -53,10 +53,11 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename NormBijection>
-	Array<integer, 2> matchBlockBrute(
+	Array<integer> matchBlockBrute(
 		const Array<Real, N>& image,
 		const Vector<integer, N>& blockExtent,
 		const Vector<integer, N>& neighborhood,
+		const Vector<integer, N>& step,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection)
@@ -84,6 +85,18 @@ namespace Pastel
 		const AlignedBox<integer, N> regionBox(
 			Vector<integer, N>(ofDimension(n), 0),
 			image.extent() - blockExtent + 1);
+
+		std::vector<integer> indexSet;
+		{
+			GridIterator<N> iter(regionBox.extent() / step);
+			while(!iter.done())
+			{
+				indexSet.push_back(
+					image.index(iter.position()));
+				++iter;
+			}
+		}
+
 		
 #pragma omp parallel
 		{
@@ -133,28 +146,18 @@ namespace Pastel
 							continue;
 						}
 
+						const Vector<integer, N> bPosition(u, v);
+
 						// Compute the distance between the
 						// blocks A and B.
 
-						Real distance = 0;
-						for (integer i = 0;i < blockExtent.x();++i)
-						{
-							for (integer j = 0;j < blockExtent.y();++j)
-							{
-								distance = normBijection.addAxis(
-									distance, 
-									normBijection.signedAxis(
-									image(x + i, y + j) - image(u + i, v + j)));
-								if (distance > kthDistance)
-								{
-									break;
-								}
-							}
-							if (distance > kthDistance)
-							{
-								break;
-							}
-						}
+						const Real distance = blockDistance(
+							image,
+							aPosition,
+							bPosition,
+							blockExtent,
+							kthDistance,
+							normBijection);
 
 						if (distance <= kthDistance)
 						{

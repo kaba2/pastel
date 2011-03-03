@@ -1,5 +1,5 @@
 // Description: Real concept
-// Documentation: real.txt
+// Documentation: reals.txt
 
 #ifndef PASTEL_REAL_CONCEPT_H
 #define PASTEL_REAL_CONCEPT_H

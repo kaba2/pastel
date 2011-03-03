@@ -10,7 +10,7 @@
 #include "pastel/geometry/search_range_pointkdtree.h"
 #include "pastel/geometry/count_range_pointkdtree.h"
 #include "pastel/geometry/alignedbox_tools.h"
-#include "pastel/sys/pointpolicy_all.h"
+#include "pastel/sys/pointpolicies.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_space.h"
@@ -27,7 +27,7 @@
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/randomdistribution.h"
-#include "pastel/sys/log_all.h"
+#include "pastel/sys/logging.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/nulliterator.h"
 

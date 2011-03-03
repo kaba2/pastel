@@ -18,7 +18,7 @@
 #include "pastel/dsp/ripmap_tools.h"
 #include "pastel/dsp/filter_all.h"
 
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/keyvalue.h"
 
 #include "pastel/geometry/planar_projection.h"

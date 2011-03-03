@@ -1,5 +1,5 @@
 // Description: Integer concept
-// Documentation: integer.txt
+// Documentation: integers.txt
 
 #ifndef PASTEL_INTEGER_CONCEPT_H
 #define PASTEL_INTEGER_CONCEPT_H

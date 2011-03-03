@@ -22,6 +22,13 @@ namespace Pastel
 	blockExtent:
 	The extents of a rectangular block.
 
+	neighborhood:
+	The search region around each block.
+
+	step:
+	The step to take on each axis, when moving from a block
+	to another.
+
 	kNearest:
 	The number of nearest neighbors to find.
 
@@ -38,10 +45,11 @@ namespace Pastel
 	*/
 
 	template <typename Real, int N, typename NormBijection>
-	Array<integer, 2> matchBlockBrute(
+	Array<integer> matchBlockBrute(
 		const Array<Real, N>& image,
 		const Vector<integer, N>& blockExtent,
 		const Vector<integer, N>& neighborhood,
+		const Vector<integer, N>& step,
 		integer kNearest,
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection);

@@ -29,7 +29,6 @@ namespace Pastel
 	0 maps to 0.
 	numbers - 1 maps to 1.
 	*/
-
 	real64 dequantizeUnsignedMatchEnds(integer x, integer numbers);
 
 	//! Converts integer [0, numbers - 1] to real [0, 1].
@@ -39,7 +38,6 @@ namespace Pastel
 
 	Error is minimized.
 	*/
-
 	real64 dequantizeUnsigned(integer x, integer numbers);
 
 	//! Converts an integer [-2^(N - 1) , 2^(N - 1) - 1] to a real [-1, 1].
@@ -47,7 +45,6 @@ namespace Pastel
 	Integer values below the range will be converted to -1.
 	Integer values above the range will be converted to 1.
 	*/
-
 	template <int N>
 	real64 dequantizeSigned(integer i);
 
@@ -68,7 +65,6 @@ namespace Pastel
 	Real values below the range will be converted to -(2^(N - 1) - 1).
 	Real values above the range will be converted to 2^(N - 1) - 1.
 	*/
-
 	template <int N>
 	integer quantizeSigned(real64 r);
 

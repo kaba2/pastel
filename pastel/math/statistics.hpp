@@ -3,7 +3,6 @@
 
 #include "pastel/math/statistics.h"
 
-#include "pastel/sys/pointpolicy_tools.h"
 #include "pastel/sys/vector_pointpolicy.h"
 
 #include <cmath>

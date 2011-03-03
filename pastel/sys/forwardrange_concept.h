@@ -1,5 +1,5 @@
 // Description: Forward range concept
-// Documentation: range.txt
+// Documentation: ranges.txt
 
 #ifndef PASTEL_FORWARDRANGE_CONCEPT_H
 #define PASTEL_FORWARDRANGE_CONCEPT_H

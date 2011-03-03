@@ -20,14 +20,15 @@ namespace Pastel
 
 		// sinc(-x) = sinc(x) = sinc(|x|)
 
+		// The sinc function is an even function.
 		const Real x = mabs(xInput * constantPi<Real>());
 
 		static const Real ApproximationBound = 0.1;
 
-		// Let E = APPROXIMATION_BOUND.
+		// Let E = ApproximationBound.
 		// For numerical robustness,
 		// a polynomial approximation
-		// is used in the range [-E, E].
+		// is used in the range ]-E, E[.
 
 		// The Taylor series of sin(x) is
 		// sin(x) = x - x^3/3! + x^5/5! - O(x^7)
@@ -41,8 +42,7 @@ namespace Pastel
 		static const Real Inverse6 = inverse(Real(6));
 		static const Real Inverse120 = inverse(Real(120));
 
-		Real result;
-
+		Real result = 0;
 		if (x >= ApproximationBound)
 		{
 			// We are far from zero so just compute it.
@@ -53,10 +53,9 @@ namespace Pastel
 		{
 			// Otherwise use a polynomial approximation.
 
-			const Real x2(x * x);
-			const Real x4(x2 * x2);
+			const Real x2 = square(x);
 
-			result = 1 - x2 * Inverse6 + x4 * Inverse120;
+			result = 1 - x2 * Inverse6 + square(x2) * Inverse120;
 		}
 
 		return result;

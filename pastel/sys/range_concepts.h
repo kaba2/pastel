@@ -1,8 +1,8 @@
 // Description: An aggregate file for range concepts
-// Documentation: range.txt
+// Documentation: ranges.txt
 
-#ifndef PASTEL_RANGE_CONCEPT_H
-#define PASTEL_RANGE_CONCEPT_H
+#ifndef PASTEL_RANGE_CONCEPTS_H
+#define PASTEL_RANGE_CONCEPTS_H
 
 #include "pastel/sys/forwardrange_concept.h"
 #include "pastel/sys/bidirectionalrange_concept.h"

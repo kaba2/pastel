@@ -1,5 +1,5 @@
 // Description: Testing for new range types
-// DocumentationOf: range_concept.h
+// DocumentationOf: range_concepts.h
 
 #include "pastelsystest.h"
 

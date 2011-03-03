@@ -164,6 +164,10 @@
 			Name="Data structures"
 			>
 			<File
+				RelativePath=".\data_structures.h"
+				>
+			</File>
+			<File
 				RelativePath=".\data_structures.txt"
 				>
 			</File>
@@ -295,6 +299,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\hash_tables.h"
+					>
+				</File>
+				<File
 					RelativePath=".\hash_tables.txt"
 					>
 				</File>
@@ -338,6 +346,10 @@
 			<Filter
 				Name="Small containers"
 				>
+				<File
+					RelativePath=".\small_containers.h"
+					>
+				</File>
 				<File
 					RelativePath=".\small_containers.txt"
 					>
@@ -608,6 +620,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\memory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\memory.txt"
 				>
 			</File>
@@ -618,6 +634,10 @@
 			<Filter
 				Name="Allocators"
 				>
+				<File
+					RelativePath=".\allocators.h"
+					>
+				</File>
 				<File
 					RelativePath=".\allocators.txt"
 					>
@@ -728,6 +748,10 @@
 			Name="Testing"
 			>
 			<File
+				RelativePath=".\testing.h"
+				>
+			</File>
+			<File
 				RelativePath=".\testing.txt"
 				>
 			</File>
@@ -779,6 +803,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\unit_testing.h"
+					>
+				</File>
+				<File
 					RelativePath=".\unit_testing.txt"
 					>
 				</File>
@@ -788,23 +816,11 @@
 			Name="Mathematics"
 			>
 			<File
-				RelativePath=".\basic_math.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\constants.h"
 				>
 			</File>
 			<File
 				RelativePath=".\constants.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\eps.h"
-				>
-			</File>
-			<File
-				RelativePath=".\eps.hpp"
 				>
 			</File>
 			<File
@@ -816,11 +832,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\linear.h"
+				RelativePath=".\maths.h"
 				>
 			</File>
 			<File
-				RelativePath=".\linear.hpp"
+				RelativePath=".\maths.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\topology.h"
 				>
 			</File>
 			<File
@@ -940,22 +960,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Fuzzy logic"
-				>
-				<File
-					RelativePath=".\fuzzy_logic.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\tristate.h"
-					>
-				</File>
-				<File
-					RelativePath=".\tristate.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Point policy"
 				>
 				<File
@@ -963,11 +967,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\pointpolicy.txt"
+					RelativePath=".\pointpolicies.h"
 					>
 				</File>
 				<File
-					RelativePath=".\pointpolicy_all.h"
+					RelativePath=".\pointpolicy.txt"
 					>
 				</File>
 				<File
@@ -979,14 +983,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\pointpolicy_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointpolicy_tools.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\vector_pointpolicy.h"
 					>
 				</File>
@@ -995,6 +991,10 @@
 				Name="Numbers"
 				>
 				<File
+					RelativePath=".\numbers.h"
+					>
+				</File>
+				<File
 					RelativePath=".\numbers.txt"
 					>
 				</File>
@@ -1002,15 +1002,19 @@
 					Name="Real numbers"
 					>
 					<File
-						RelativePath=".\real.txt"
-						>
-					</File>
-					<File
 						RelativePath=".\real_concept.h"
 						>
 					</File>
 					<File
 						RelativePath=".\real_concept.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\reals.h"
+						>
+					</File>
+					<File
+						RelativePath=".\reals.txt"
 						>
 					</File>
 					<Filter
@@ -1094,10 +1098,6 @@
 					Name="Integers"
 					>
 					<File
-						RelativePath=".\integer.txt"
-						>
-					</File>
-					<File
 						RelativePath=".\integer_concept.h"
 						>
 					</File>
@@ -1107,6 +1107,14 @@
 					</File>
 					<File
 						RelativePath=".\integer_tools.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\integers.h"
+						>
+					</File>
+					<File
+						RelativePath=".\integers.txt"
 						>
 					</File>
 					<Filter
@@ -1222,10 +1230,6 @@
 					RelativePath=".\intersect_alignedbox_alignedbox.hpp"
 					>
 				</File>
-				<File
-					RelativePath=".\topology.h"
-					>
-				</File>
 				<Filter
 					Name="PositionVisitor concept"
 					>
@@ -1251,6 +1255,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\bernstein.h"
+					>
+				</File>
+				<File
+					RelativePath=".\bernstein.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\beta.h"
 					>
 				</File>
@@ -1267,6 +1279,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\clamp.h"
+					>
+				</File>
+				<File
+					RelativePath=".\clamp.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\digamma.cpp"
 					>
 				</File>
@@ -1276,6 +1296,22 @@
 				</File>
 				<File
 					RelativePath=".\digamma.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\eps.h"
+					>
+				</File>
+				<File
+					RelativePath=".\eps.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\error.h"
+					>
+				</File>
+				<File
+					RelativePath=".\error.hpp"
 					>
 				</File>
 				<File
@@ -1299,6 +1335,38 @@
 					>
 				</File>
 				<File
+					RelativePath=".\harmonic.h"
+					>
+				</File>
+				<File
+					RelativePath=".\harmonic.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\lexicographic.h"
+					>
+				</File>
+				<File
+					RelativePath=".\lexicographic.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\linear.h"
+					>
+				</File>
+				<File
+					RelativePath=".\linear.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\logarithm.h"
+					>
+				</File>
+				<File
+					RelativePath=".\logarithm.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\math_functions.h"
 					>
 				</File>
@@ -1311,11 +1379,35 @@
 					>
 				</File>
 				<File
-					RelativePath=".\math_functions_more.h"
+					RelativePath=".\minmax.h"
 					>
 				</File>
 				<File
-					RelativePath=".\math_functions_more.hpp"
+					RelativePath=".\minmax.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\mod.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mod.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\number_tests.h"
+					>
+				</File>
+				<File
+					RelativePath=".\number_tests.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\powers.h"
+					>
+				</File>
+				<File
+					RelativePath=".\powers.hpp"
 					>
 				</File>
 				<File
@@ -1343,11 +1435,27 @@
 					>
 				</File>
 				<File
+					RelativePath=".\scale_integer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\scale_integer.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\sinc.h"
 					>
 				</File>
 				<File
 					RelativePath=".\sinc.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\tristate.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tristate.hpp"
 					>
 				</File>
 			</Filter>
@@ -1381,10 +1489,6 @@
 			</File>
 			<File
 				RelativePath=".\prototypefactory.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\range.cpp"
 				>
 			</File>
 			<File
@@ -1500,10 +1604,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\config.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\config_tools.cpp"
 				>
 			</File>
@@ -1521,6 +1621,14 @@
 			</File>
 			<File
 				RelativePath=".\configfile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\configuration.h"
+				>
+			</File>
+			<File
+				RelativePath=".\configuration.txt"
 				>
 			</File>
 		</Filter>
@@ -1743,6 +1851,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\random_goodness.h"
+					>
+				</File>
+				<File
 					RelativePath=".\random_goodness.txt"
 					>
 				</File>
@@ -1920,6 +2032,10 @@
 			Name="Basic algorithms"
 			>
 			<File
+				RelativePath=".\basic_algorithms.h"
+				>
+			</File>
+			<File
 				RelativePath=".\basic_algorithms.txt"
 				>
 			</File>
@@ -1942,14 +2058,6 @@
 			<Filter
 				Name="Stl extensions"
 				>
-				<File
-					RelativePath=".\minmax.h"
-					>
-				</File>
-				<File
-					RelativePath=".\minmax.hpp"
-					>
-				</File>
 				<File
 					RelativePath=".\stdext.txt"
 					>
@@ -1991,19 +2099,19 @@
 				Name="String algorithms"
 				>
 				<File
+					RelativePath=".\string_algorithms.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\string_algorithms.h"
+					>
+				</File>
+				<File
+					RelativePath=".\string_algorithms.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\string_algorithms.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\string_tools.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\string_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\string_tools.hpp"
 					>
 				</File>
 			</Filter>
@@ -2103,6 +2211,14 @@
 				RelativePath=".\pastelsys.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\portability.h"
+				>
+			</File>
+			<File
+				RelativePath=".\portability.txt"
+				>
+			</File>
 			<Filter
 				Name="Endian conversion"
 				>
@@ -2176,33 +2292,13 @@
 			Name="Ranges"
 			>
 			<File
-				RelativePath=".\bidirectionalrange_concept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\forwardrange_concept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\randomaccessrange_concept.h"
-				>
-			</File>
-			<File
-				RelativePath=".\range.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\range_concept.h"
-				>
-			</File>
-			<File
 				RelativePath=".\ranges.h"
 				>
 			</File>
-			<Filter
-				Name="Algorithms"
+			<File
+				RelativePath=".\ranges.txt"
 				>
-			</Filter>
+			</File>
 			<Filter
 				Name="Concrete ranges"
 				>
@@ -2283,10 +2379,34 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Range concepts"
+				>
+				<File
+					RelativePath=".\bidirectionalrange_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\forwardrange_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\randomaccessrange_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\range_concepts.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Reporting"
 			>
+			<File
+				RelativePath=".\reporting.h"
+				>
+			</File>
 			<File
 				RelativePath=".\reporting.txt"
 				>
@@ -2303,11 +2423,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\log.txt"
+					RelativePath=".\logging.h"
 					>
 				</File>
 				<File
-					RelativePath=".\log_all.h"
+					RelativePath=".\logging.txt"
 					>
 				</File>
 				<Filter
@@ -2322,11 +2442,11 @@
 						>
 					</File>
 					<File
-						RelativePath=".\logger.txt"
+						RelativePath=".\loggers.h"
 						>
 					</File>
 					<File
-						RelativePath=".\loggers.h"
+						RelativePath=".\loggers.txt"
 						>
 					</File>
 					<Filter
@@ -2404,6 +2524,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\pastelsys.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

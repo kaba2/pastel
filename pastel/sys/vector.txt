@@ -1,7 +1,7 @@
 Vectors
 =======
 
-[[Parent]]: basic_math.txt
+[[Parent]]: maths.txt
 
 Theory
 ------
@@ -49,7 +49,7 @@ to be able to subdivide space in a kd-tree, for example.
 This restricted concept leaves us with fields such as
 rational numbers, algebraic numbers, and real numbers.
 
-[Real]: real.txt
+[Real]: reals.txt
 
 Dynamic and static vectors
 --------------------------

@@ -1,5 +1,5 @@
-Goodness-of-fit
-===============
+Goodness-of-fit tests
+=====================
 
 [[Parent]]: random.txt
 

@@ -1,7 +1,7 @@
 #include "pastel/sys/testrunner.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 
 #include <vector>
 #include <iostream>

@@ -5,7 +5,7 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/pcx.h"
 
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/view_all.h"
 
 #include <iostream>

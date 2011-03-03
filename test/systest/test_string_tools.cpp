@@ -1,9 +1,9 @@
 // Description: Testing for string algorithms
-// DocumentationOf: string_tools.h
+// DocumentationOf: string_algorithms.h
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/string_tools.h"
+#include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/stdext_isnan.h"
 
@@ -57,7 +57,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("string_tools", testStringTools);
+		sysTestList().add("string_algorithms", testStringTools);
 	}
 
 	CallFunction run(addTest);
