@@ -9,7 +9,7 @@
 #include "pastel/sys/smallfixedset.h"
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/countingiterator.h"
-#include "pastel/sys/griditerator.h"
+#include "pastel/sys/rectangleiterator.h"
 #include "pastel/sys/stdext_subset.h"
 #include "pastel/sys/unorderedset.h"
 
@@ -33,7 +33,7 @@ namespace Pastel
 		// blocks A and B.
 
 		Real distance = 0;
-		GridIterator<N> iter(blockExtent);
+		RectangleIterator<N> iter(blockExtent);
 		while(!iter.done())
 		{
 			distance = normBijection.addAxis(
@@ -62,22 +62,16 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Real)& maxDistance,
 		const NormBijection& normBijection)
 	{
-		PASTEL_STATIC_ASSERT(N == 2);
-
 		ENSURE_OP(kNearest, >, 0);
-		ENSURE(maxDistance >= 0);
+		ENSURE_OP(maxDistance, >=, 0);
+		ENSURE(allGreater(blockExtent, 0));
+		ENSURE(allGreaterEqual(neighborhood, 0));
+		ENSURE(allGreater(step, 0));
 
 		// The nearest-neighbor blocks are identified with
 		// the minimum point, and are further identified with
 		// the linear index of that point in the 'image' array.
 		// -1 encodes that a neighbor does not exists.
-
-		Array<integer> nearestSet(kNearest, image.size(), -1);
-		if (kNearest == 0)
-		{
-			// Nothing else to do.
-			return nearestSet;
-		}
 
 		const integer n = image.dimension();
 		const integer m = product(blockExtent);
@@ -86,18 +80,30 @@ namespace Pastel
 			Vector<integer, N>(ofDimension(n), 0),
 			image.extent() - blockExtent + 1);
 
-		std::vector<integer> indexSet;
+		const Vector<integer, N> steps =
+			(regionBox.extent() + step - 1) / step;
+
+		const integer blocks = product(steps);
+
+		Array<integer> nearestSet(kNearest, image.size(), -1);
+		if (kNearest == 0)
 		{
-			GridIterator<N> iter(regionBox.extent() / step);
+			// Nothing else to do.
+			return nearestSet;
+		}
+
+		std::vector<integer> indexSet;
+		indexSet.reserve(blocks);
+		{
+			RectangleIterator<N> iter(steps);
 			while(!iter.done())
 			{
 				indexSet.push_back(
-					image.index(iter.position()));
+					image.index(iter.position() * step));
 				++iter;
 			}
 		}
 
-		
 #pragma omp parallel
 		{
 		// We seek for k-nearest neighbors for
@@ -112,81 +118,82 @@ namespace Pastel
 
 		// For each block A in the region...
 #pragma omp for
-		for (integer y = regionBox.min().y();y < regionBox.max().y();++y)
+		for (integer t = 0;t < blocks;++t)
 		{
-			for (integer x = regionBox.min().x();x < regionBox.max().x();++x)
+			const integer aIndex = 
+				indexSet[t];
+
+			const Vector<integer, N> aPosition =
+				image.position(aIndex);
+			
+			// This is the distance to the current 
+			// kth nearest neighbor candidate.
+			Real kthDistance = maxDistance;
+
+			aNearestSet.clear();
+
+			neighborBox.min() = 
+				aPosition - neighborhood;
+			neighborBox.max() = 
+				aPosition + neighborhood + 1;
+
+			if (!intersect(regionBox, neighborBox, neighborBox))
 			{
-				// This is the distance to the current 
-				// kth nearest neighbor candidate.
-				Real kthDistance = maxDistance;
+				continue;
+			}
 
-				aNearestSet.clear();
+			RectangleIterator<N> bIter(
+				neighborBox.min(), neighborBox.max());
+			while(!bIter.done())
+			{
+				const Vector<integer, N>& bPosition =
+					bIter.position();
 
-				const Vector<integer, N> aPosition(x, y);
-
-				neighborBox.min() = 
-					aPosition - neighborhood;
-				neighborBox.max() = 
-					aPosition + neighborhood;
-
-				if (!intersect(regionBox, neighborBox, neighborBox))
+				if (aPosition == bPosition)
 				{
+					// We want the block itself to be the
+					// closest match, so we skip testing
+					// it here, and automatically include it.
+					++bIter;
 					continue;
 				}
 
-				for (integer v = neighborBox.min().y();v < neighborBox.max().y();++v)
+				// Compute the distance between the
+				// blocks A and B.
+				const Real distance = blockDistance(
+					image,
+					aPosition,
+					bPosition,
+					blockExtent,
+					kthDistance,
+					normBijection);
+
+				if (distance <= kthDistance)
 				{
-					for (integer u = neighborBox.min().x();u < neighborBox.max().x();++u)
+					// The distance computation was completed,
+					// and therefore this block is a new candidate 
+					// for the k-nearest neighbors.
+
+					const integer bIndex =
+						image.index(bPosition);
+					aNearestSet.insert(
+						keyValue(distance, bIndex));
+					if (aNearestSet.full())
 					{
-						if (x == u && y == v)
-						{
-							// We want the block itself to be the
-							// closest match, so we skip testing
-							// it here, and automatically include it.
-							continue;
-						}
-
-						const Vector<integer, N> bPosition(u, v);
-
-						// Compute the distance between the
-						// blocks A and B.
-
-						const Real distance = blockDistance(
-							image,
-							aPosition,
-							bPosition,
-							blockExtent,
-							kthDistance,
-							normBijection);
-
-						if (distance <= kthDistance)
-						{
-							// The distance computation was completed,
-							// and therefore this block is a new candidate 
-							// for the k-nearest neighbors.
-
-							const integer bIndex =
-								image.index(Vector<integer, N>(u, v));
-							aNearestSet.insert(
-								keyValue(distance, bIndex));
-							if (aNearestSet.full())
-							{
-								kthDistance = aNearestSet.back().key();
-							}
-						}
+						kthDistance = aNearestSet.back().key();
 					}
 				}
 
-				// Copy the nearest neighbors to 'nearestSet'.
-				const integer aIndex = 
-					image.index(Vector<integer, N>(x, y));
+				++bIter;
+			}
 
-				// The nearest block is the block itself.
-				nearestSet(0, aIndex) = aIndex;
-				for (integer i = 0;i < aNearestSet.size();++i)
-				{
-					nearestSet(i + 1, aIndex) = aNearestSet[i].value();
-				}
+			// Copy the nearest neighbors to 'nearestSet'.
+
+			// The nearest block is the block itself.
+			nearestSet(0, aIndex) = aIndex;
+			for (integer i = 0;i < aNearestSet.size();++i)
+			{
+				nearestSet(i + 1, aIndex) = aNearestSet[i].value();
 			}
 		}
 		}

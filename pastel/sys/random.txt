@@ -3,4 +3,4 @@ Random variables
 
 [[Parent]]: pastelsys.txt
 
-
+This section contains things related to random variables.

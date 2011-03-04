@@ -239,10 +239,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\griditerator.h"
-					>
-				</File>
-				<File
 					RelativePath=".\subarray.h"
 					>
 				</File>
@@ -1889,6 +1885,10 @@
 			</File>
 			<File
 				RelativePath=".\nulliterator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\rectangleiterator.h"
 				>
 			</File>
 			<File

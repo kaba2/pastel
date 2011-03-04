@@ -22,10 +22,49 @@ namespace
 
 		virtual void run()
 		{
+			testPosition();
 			testTrivial();
 			testSubArray();
 			testIterator();
 			testSlice();
+		}
+
+		void testPosition()
+		{
+			{
+				Array<integer> a(2, 3, 0, StorageOrder::RowMajor);
+
+				TEST_ENSURE(a.position(0) == Vector2i(0, 0));
+				TEST_ENSURE(a.position(1) == Vector2i(1, 0));
+				TEST_ENSURE(a.position(2) == Vector2i(0, 1));
+				TEST_ENSURE(a.position(3) == Vector2i(1, 1));
+				TEST_ENSURE(a.position(4) == Vector2i(0, 2));
+				TEST_ENSURE(a.position(5) == Vector2i(1, 2));
+
+				TEST_ENSURE_OP(a.index(Vector2i(0, 0)), ==, 0);
+				TEST_ENSURE_OP(a.index(Vector2i(1, 0)), ==, 1);
+				TEST_ENSURE_OP(a.index(Vector2i(0, 1)), ==, 2);
+				TEST_ENSURE_OP(a.index(Vector2i(1, 1)), ==, 3);
+				TEST_ENSURE_OP(a.index(Vector2i(0, 2)), ==, 4);
+				TEST_ENSURE_OP(a.index(Vector2i(1, 2)), ==, 5);
+			}
+			{
+				Array<integer> a(2, 3, 0, StorageOrder::ColumnMajor);
+
+				TEST_ENSURE(a.position(0) == Vector2i(0, 0));
+				TEST_ENSURE(a.position(1) == Vector2i(0, 1));
+				TEST_ENSURE(a.position(2) == Vector2i(0, 2));
+				TEST_ENSURE(a.position(3) == Vector2i(1, 0));
+				TEST_ENSURE(a.position(4) == Vector2i(1, 1));
+				TEST_ENSURE(a.position(5) == Vector2i(1, 2));
+
+				TEST_ENSURE_OP(a.index(Vector2i(0, 0)), ==, 0);
+				TEST_ENSURE_OP(a.index(Vector2i(0, 1)), ==, 1);
+				TEST_ENSURE_OP(a.index(Vector2i(0, 2)), ==, 2);
+				TEST_ENSURE_OP(a.index(Vector2i(1, 0)), ==, 3);
+				TEST_ENSURE_OP(a.index(Vector2i(1, 1)), ==, 4);
+				TEST_ENSURE_OP(a.index(Vector2i(1, 2)), ==, 5);
+			}
 		}
 
 		void testTrivial()
@@ -34,6 +73,7 @@ namespace
 			Array<int, 2> b(a);
 			a = b;
 			b.clear();
+			b.setExtent(1024, 1024);
 			b = a;
 			a.clear();
 			a.setExtent(53, 45, 15);

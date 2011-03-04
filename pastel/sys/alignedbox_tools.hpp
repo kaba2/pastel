@@ -18,13 +18,36 @@ namespace Pastel
 	template <int N>
 	Vector<integer, N> position(
 		integer linearIndex,
+		const Vector<integer, N>& stride,
+		const Vector<integer, N>& order)
+	{
+		const integer n = stride.dimension();
+
+		Vector<integer, N> result(
+			ofDimension(n));
+		
+		for (integer i = n - 1;i > 0;--i)
+		{
+			const integer k = order[i];
+			result[k] = linearIndex / stride[k];
+			linearIndex -= result[k] * stride[k];
+		}
+		const integer k = order[0];
+		result[k] = linearIndex;
+
+		return result;
+	}
+
+	template <int N>
+	Vector<integer, N> position(
+		integer linearIndex,
 		const Vector<integer, N>& stride)
 	{
 		const integer n = stride.dimension();
 
 		Vector<integer, N> result(
 			ofDimension(n));
-
+		
 		for (integer i = n - 1;i > 0;--i)
 		{
 			result[i] = linearIndex / stride[i];
