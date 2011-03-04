@@ -6,6 +6,7 @@
 #include "pastel/sys/constantiterator.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/nulliterator.h"
+#include "pastel/sys/rectangleiterator.h"
 #include "pastel/sys/sparseiterator.h"
 
 #endif

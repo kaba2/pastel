@@ -6,6 +6,7 @@
 #include "pastel/sys/constantiterator.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/sparseiterator.h"
+#include "pastel/sys/rectangleiterator.h"
 
 using namespace Pastel;
 
@@ -23,6 +24,7 @@ namespace
 
 		virtual void run()
 		{
+			testRectangle();
 			testConstant();
 			testSparse();
 			testCounting();
@@ -127,6 +129,64 @@ namespace
 			//f(iter);
 		}
 
+		void testRectangle()
+		{
+			{
+				RectangleIterator<2> iter(
+					Vector2i(1, 2), Vector2i(3, 4));
+				
+				TEST_ENSURE(iter.position() == Vector2i(1, 2));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(2, 2));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(1, 3));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(2, 3));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(1, 2));
+				TEST_ENSURE(iter.done());
+			}
+			{
+				RectangleIterator<2> iter(
+					Vector2i(2, 3));
+				
+				TEST_ENSURE(iter.position() == Vector2i(0, 0));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(1, 0));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(0, 1));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(1, 1));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(0, 2));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(1, 2));
+				TEST_ENSURE(!iter.done());
+				++iter;
+
+				TEST_ENSURE(iter.position() == Vector2i(0, 0));
+				TEST_ENSURE(iter.done());
+			}
+		}
+
 		void testCounting()
 		{
 			{
@@ -165,7 +225,7 @@ namespace
 
 	void addTests()
 	{
-		sysTestList().add("iterators", testIterators);
+		sysTestList().add("Iterators", testIterators);
 	}
 
 	CallFunction run(addTests);

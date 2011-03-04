@@ -33,6 +33,17 @@ namespace Pastel
 	template <int N>
 	Vector<integer, N> position(
 		integer linearIndex,
+		const Vector<integer, N>& stride,
+		const Vector<integer, N>& order);
+
+	//! Converts a linear index into a point in an integer grid.
+	/*!
+	This function assumes that order = [0, 1, ..., n - 1],
+	i.e. row-major.
+	*/
+	template <int N>
+	Vector<integer, N> position(
+		integer linearIndex,
 		const Vector<integer, N>& stride);
 
 	//! Calls 'positionVisitor' at each point in the region.

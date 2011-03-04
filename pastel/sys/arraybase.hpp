@@ -8,7 +8,7 @@
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/alignedbox_tools.h"
 #include "pastel/sys/difference_alignedbox_alignedbox.h"
-#include "pastel/sys/griditerator.h"
+#include "pastel/sys/rectangleiterator.h"
 
 #include <boost/bind.hpp>
 
@@ -240,7 +240,7 @@ namespace Pastel
 			{
 				// Storage orders do not match, so
 				// do a point-by-point copy.
-				GridIterator<N> iter(extent());
+				RectangleIterator<N> iter(extent());
 				while(!iter.done())
 				{
 					(*this)(iter.position()) = that(iter.position());
@@ -516,7 +516,7 @@ namespace Pastel
 			PENSURE_OP(index, >=, 0);
 			PENSURE_OP(index, <, size());
 
-			return Pastel::position(index, stride_);
+			return Pastel::position(index, stride_, order_);
 		}
 
 		template <typename Type, int N>
@@ -651,7 +651,7 @@ namespace Pastel
 			const AlignedBox<integer, N>& region,
 			const Type& defaultData)
 		{
-			GridIterator<N> iter(region.extent());
+			RectangleIterator<N> iter(region.extent());
 			while(!iter.done())
 			{
 				Type* data = 
@@ -697,7 +697,7 @@ namespace Pastel
 			const Vector<integer, N> minExtent = 
 				min(extent_, that.extent_);
 
-			GridIterator<N> iter(minExtent);
+			RectangleIterator<N> iter(minExtent);
 			while(!iter.done())
 			{
 				Type* data = &(*this)(iter.position());
