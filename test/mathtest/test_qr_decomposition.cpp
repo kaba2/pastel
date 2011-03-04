@@ -73,11 +73,11 @@ namespace
 		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		mathTestList().add("qr_decomposition", testQrDecomposition);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

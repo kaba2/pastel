@@ -104,11 +104,11 @@ namespace
 		REPORT2(threadResult != directResult, threadResult, directResult);
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		deviceTestList().add("Thread", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

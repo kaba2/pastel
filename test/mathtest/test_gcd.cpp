@@ -1,4 +1,4 @@
-// Description: Testing for integer algorithms
+// Description: Testing for gcd
 // DocumentationOf: integer_tools.h
 
 #include "pastelmathtest.h"
@@ -11,42 +11,58 @@ namespace
 
 	using namespace Pastel;
 
-	typedef BigInteger Integer;
-
-	void testSome()
+	class Test
+		: public TestSuite
 	{
-		REPORT(gcd(Integer(1), Integer(5)) != Integer(1));
-		REPORT(gcd(Integer(1), Integer(3455)) != Integer(1));
-		REPORT(gcd(Integer(1), Integer(2235)) != Integer(1));
-		REPORT(gcd(Integer(1), Integer(2344)) != Integer(1));
+	public:
+		Test()
+			: TestSuite(&mathTestReport())
+		{
+		}
 
-		REPORT(gcd(Integer(0), Integer(2344)) != Integer(2344));
-		REPORT(gcd(Integer(0), Integer(23455)) != Integer(23455));
-		REPORT(gcd(Integer(0), Integer(865)) != Integer(865));
-		REPORT(gcd(Integer(0), Integer(5487)) != Integer(5487));
+		virtual void run()
+		{
+			testSome<integer>();
+			testSome<BigInteger>();
+		}
 
-		REPORT(gcd(Integer(13), Integer(7)) != Integer(1));
-		REPORT(gcd(Integer(5), Integer(23)) != Integer(1));
-		REPORT(gcd(Integer(7), Integer(11)) != Integer(1));
-		REPORT(gcd(Integer(3), Integer(2)) != Integer(1));
+		template <typename Integer>
+		void testSome()
+		{
+			TEST_ENSURE(gcd(Integer(1), Integer(5)) == Integer(1));
+			TEST_ENSURE(gcd(Integer(1), Integer(3455)) == Integer(1));
+			TEST_ENSURE(gcd(Integer(1), Integer(2235)) == Integer(1));
+			TEST_ENSURE(gcd(Integer(1), Integer(2344)) == Integer(1));
 
-		REPORT(gcd(Integer(2), Integer(4)) != Integer(2));
+			TEST_ENSURE(gcd(Integer(0), Integer(2344)) == Integer(2344));
+			TEST_ENSURE(gcd(Integer(0), Integer(23455)) == Integer(23455));
+			TEST_ENSURE(gcd(Integer(0), Integer(865)) == Integer(865));
+			TEST_ENSURE(gcd(Integer(0), Integer(5487)) == Integer(5487));
 
-		REPORT(gcd(Integer(16), Integer(256)) != Integer(16));
-		REPORT(gcd(Integer(128), Integer(256)) != Integer(128));
-		REPORT(gcd(Integer(256), Integer(128)) != Integer(128));
+			TEST_ENSURE(gcd(Integer(13), Integer(7)) == Integer(1));
+			TEST_ENSURE(gcd(Integer(5), Integer(23)) == Integer(1));
+			TEST_ENSURE(gcd(Integer(7), Integer(11)) == Integer(1));
+			TEST_ENSURE(gcd(Integer(3), Integer(2)) == Integer(1));
+
+			TEST_ENSURE(gcd(Integer(2), Integer(4)) == Integer(2));
+
+			TEST_ENSURE(gcd(Integer(16), Integer(256)) == Integer(16));
+			TEST_ENSURE(gcd(Integer(128), Integer(256)) == Integer(128));
+			TEST_ENSURE(gcd(Integer(256), Integer(128)) == Integer(128));
+		}
+	};
+
+	void test()
+	{
+		Test test;
+		test.run();
 	}
 
-	void testBegin()
+	void addTest()
 	{
-		testSome();
+		mathTestList().add("Gcd", test);
 	}
 
-	void testAdd()
-	{
-		mathTestList().add("Gcd", testBegin);
-	}
-
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

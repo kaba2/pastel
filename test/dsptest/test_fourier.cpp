@@ -60,11 +60,11 @@ namespace
 		}
 	};
 
-	class Fourier_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Fourier_Test()
+		Test()
 			: TestSuite(&dspTestReport())
 		{
 		}
@@ -345,7 +345,7 @@ namespace
 
 	void testFourier()
 	{
-		Fourier_Test test;
+		Test test;
 		test.run();
 	}
 

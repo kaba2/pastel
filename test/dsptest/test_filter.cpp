@@ -309,7 +309,7 @@ namespace
 		savePcx(image, "output/filter_mitchell.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		dspTestList().add("Filter.Shape1D", testShape1D);
 		dspTestList().add("Filter.SeparableShape2D", testSeparableShape2D);
@@ -320,6 +320,6 @@ namespace
 		dspTestList().add("Filter.Signal", testSignal);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

@@ -15,13 +15,13 @@ namespace
 
 	using namespace StatReal;
 
-	class StatReal_Test
+	class Test
 		: public TestSuite
 	{
 	public:
 		typedef Number<real> Real;
 
-		StatReal_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -152,7 +152,7 @@ namespace
 
 	void testStatReal()
 	{
-		StatReal_Test test;
+		Test test;
 		test.run();
 	}
 

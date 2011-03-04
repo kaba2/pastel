@@ -633,7 +633,7 @@ namespace
 		}
 	}
 
-	void testBegin()
+	void test()
 	{
 		testPekka2();
 		testPekka();
@@ -642,11 +642,11 @@ namespace
 		testPatternMatch();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("PatternMatch", testBegin);
+		geometryTestList().add("PatternMatch", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

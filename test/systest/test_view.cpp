@@ -45,14 +45,14 @@ namespace
 		a.setExtent(53, 45, 15);
 	}
 
-	void testBegin()
+	void test()
 	{
 		testTrivial();
 	}
 
 	void addTest()
 	{
-		sysTestList().add("Array", testBegin);
+		sysTestList().add("Array", test);
 	}
 
 	CallFunction run(addTest);

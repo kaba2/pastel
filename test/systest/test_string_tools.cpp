@@ -12,11 +12,11 @@ using namespace Pastel;
 namespace
 {
 
-	class StringTools_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		StringTools_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -51,7 +51,7 @@ namespace
 
 	void testStringTools()
 	{
-		StringTools_Test test;
+		Test test;
 		test.run();
 	}
 

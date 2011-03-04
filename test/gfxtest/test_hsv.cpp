@@ -32,16 +32,16 @@ namespace
 		savePcx(image, "output/hsv_scale.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testHsv();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("Hsv", testBegin);
+		gfxTestList().add("Hsv", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

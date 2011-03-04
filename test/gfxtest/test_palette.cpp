@@ -72,16 +72,16 @@ namespace
 		savePalette(palette, "output/palette_random.pcx");
 }
 
-	void testBegin()
+	void test()
 	{
 		testPalette();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("Palette", testBegin);
+		gfxTestList().add("Palette", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

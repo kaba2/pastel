@@ -10,11 +10,11 @@ using namespace Pastel;
 namespace
 {
 
-	class Eps_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Eps_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -53,7 +53,7 @@ namespace
 
 	void testEps()
 	{
-		Eps_Test test;
+		Test test;
 		test.run();
 	}
 

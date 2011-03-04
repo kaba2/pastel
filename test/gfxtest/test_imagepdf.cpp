@@ -65,11 +65,11 @@ namespace
 		}
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("ImagePdf", testImagePdf);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

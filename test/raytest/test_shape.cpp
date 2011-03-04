@@ -12,11 +12,11 @@ using namespace Pastel;
 namespace
 {
 
-	class Shape_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Shape_Test()
+		Test()
 			: TestSuite(&rayTestReport())
 		{
 		}
@@ -83,7 +83,7 @@ namespace
 
 	void testShape()
 	{
-		Shape_Test test;
+		Test test;
 		test.run();
 	}
 

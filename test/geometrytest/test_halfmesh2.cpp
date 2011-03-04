@@ -284,7 +284,7 @@ namespace
 		}
 	}
 
-	void testBegin()
+	void test()
 	{
 		testTrivial();
 		testSimpleEdge();
@@ -293,11 +293,11 @@ namespace
 		testComplexHalfMesh();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("HalfMesh2", testBegin);
+		geometryTestList().add("HalfMesh2", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

@@ -87,12 +87,12 @@ namespace
 			fitColor);
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Convolution.2D", testConvolute2);
 		gfxTestList().add("Convolution.3D", testConvolute3);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

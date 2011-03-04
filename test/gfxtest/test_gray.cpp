@@ -111,7 +111,7 @@ namespace
 		savePcx(image, "output/gray_linear_lightness.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Gray.Image", testGray);
 		gfxTestList().add("Gray.Scale.Luma", testLinearLuma);
@@ -119,6 +119,6 @@ namespace
 		gfxTestList().add("Gray.Scale.Luminance", testLinearLuminance);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

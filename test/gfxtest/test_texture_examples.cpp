@@ -11,11 +11,11 @@ using namespace Pastel;
 namespace
 {
 
-	class Texture_Examples_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Texture_Examples_Test()
+		Test()
 			: TestSuite(&gfxTestReport())
 		{
 		}
@@ -101,7 +101,7 @@ namespace
 
 	void testTextureExamples()
 	{
-		Texture_Examples_Test test;
+		Test test;
 		test.run();
 	}
 

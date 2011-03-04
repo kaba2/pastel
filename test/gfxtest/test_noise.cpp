@@ -124,7 +124,7 @@ namespace
 		savePcx(image, "output/simplex_noise_3d.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testSimplex2d();
 		testSimplex3d();
@@ -134,11 +134,11 @@ namespace
 		test3d();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("Noise", testBegin);
+		gfxTestList().add("Noise", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

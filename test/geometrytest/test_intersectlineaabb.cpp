@@ -15,271 +15,287 @@ namespace
 
 	typedef Rational<BigInteger> Real;
 
-	void testPositive()
+	class Test
+		: public TestSuite
 	{
-		// Rays are inside the aligned box.
-		// The rays are axis-aligned.
-		// The aligned box is centered on origin.
-		// Send rays from the origin and
-		// make sure they intersect the aligned box
-		// as they should.
+	public:
+		Test()
+			: TestSuite(&geometryTestReport())
 		{
-			const AlignedBox<Real, 2> alignedBox(
-				Vector<Real, 2>(-1),
-				Vector<Real, 2>(1));
-
-			const Line<Real, 2> a(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(1, 0));
-
-			const Line<Real, 2> b(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(0, 1));
-
-			const Line<Real, 2> c(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(-1, 0));
-
-			const Line<Real, 2> d(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(0, -1));
-
-			Vector<Real, 2> hitList;
-
-			REPORT(!intersect(a, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(b, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(c, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(d, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-		}
-		// Rays are inside the aligned box.
-		// The rays are diagonal.
-		// The aligned box is centered on origin.
-		// Send rays from the origin and
-		// make sure they intersect the aligned box
-		// as they should.
-		{
-			const AlignedBox<Real, 2> alignedBox(
-				Vector<Real, 2>(-1),
-				Vector<Real, 2>(1));
-
-			const Line<Real, 2> a(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(Real(1, 1)));
-
-			const Line<Real, 2> b(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(Real(-1, 1)));
-
-			const Line<Real, 2> c(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(Real(-1, -1)));
-
-			const Line<Real, 2> d(
-				Vector<Real, 2>(0),
-				Vector<Real, 2>(Real(1, -1)));
-
-			Vector<Real, 2> hitList;
-
-			REPORT(!intersect(a, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(b, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(c, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(d, alignedBox, hitList));
-			REPORT(hitList[0] != -1);
-			REPORT(hitList[1] != 1);
 		}
 
-		// The aligned box is centered on origin.
-		// The rays originate from the boundary
-		// of the aligned box.
-		// Make sure the rays
-		// intersect the aligned box as they should.
+		virtual void run()
 		{
-			const AlignedBox<Real, 2> alignedBox(
-				Vector<Real, 2>(-1),
-				Vector<Real, 2>(1));
-
-			const Line<Real, 2> a(
-				Vector<Real, 2>(
-				1, Real(-1, 2)),
-				Vector<Real, 2>(
-				-2, 1));
-
-			const Line<Real, 2> b(
-				Vector<Real, 2>(
-				-1, Real(1, 2)),
-				Vector<Real, 2>(
-				2, -1));
-
-			const Line<Real, 2> c(
-				Vector<Real, 2>(
-				Real(-1, 2), -1),
-				Vector<Real, 2>(
-				Real(-1, 2), 1));
-
-			Vector<Real, 2> hitList;
-
-			REPORT(!intersect(a, alignedBox, hitList));
-			REPORT(hitList[0] != 0);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(b, alignedBox, hitList));
-			REPORT(hitList[0] != 0);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(c, alignedBox, hitList));
-			REPORT(hitList[0] != 0);
-			REPORT(hitList[1] != 1);
+			testPositive();
+			testNegative();
 		}
-		// These rays have origin outside the aligned boxes,
-		// but still intersect the aligned box.
+
+		void testPositive()
 		{
-			const AlignedBox<Real, 2> alignedBox(
-				Vector<Real, 2>(-1),
-				Vector<Real, 2>(1));
+			// Rays are inside the aligned box.
+			// The rays are axis-aligned.
+			// The aligned box is centered on origin.
+			// Send rays from the origin and
+			// make sure they intersect the aligned box
+			// as they should.
+			{
+				const AlignedBox<Real, 2> alignedBox(
+					Vector<Real, 2>(-1),
+					Vector<Real, 2>(1));
 
-			const Line<Real, 2> a(
-				Vector<Real, 2>(
-				0, -2),
-				Vector<Real, 2>(
-				1, 4));
+				const Line<Real, 2> a(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(1, 0));
 
-			const Line<Real, 2> b(
-				Vector<Real, 2>(
-				-2, 2),
-				Vector<Real, 2>(
-				1, -1));
+				const Line<Real, 2> b(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(0, 1));
 
-			Vector<Real, 2> hitList;
+				const Line<Real, 2> c(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(-1, 0));
 
-			REPORT(!intersect(a, alignedBox, hitList));
-			REPORT(hitList[0] != Real(1, 4));
-			REPORT(hitList[1] != Real(3, 4));
+				const Line<Real, 2> d(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(0, -1));
 
-			REPORT(!intersect(b, alignedBox, hitList));
-			REPORT(hitList[0] != 1);
-			REPORT(hitList[1] != 3);
+				Vector<Real, 2> hitList;
+
+				TEST_ENSURE(intersect(a, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(b, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(c, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(d, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+			}
+			// Rays are inside the aligned box.
+			// The rays are diagonal.
+			// The aligned box is centered on origin.
+			// Send rays from the origin and
+			// make sure they intersect the aligned box
+			// as they should.
+			{
+				const AlignedBox<Real, 2> alignedBox(
+					Vector<Real, 2>(-1),
+					Vector<Real, 2>(1));
+
+				const Line<Real, 2> a(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(Real(1, 1)));
+
+				const Line<Real, 2> b(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(Real(-1, 1)));
+
+				const Line<Real, 2> c(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(Real(-1, -1)));
+
+				const Line<Real, 2> d(
+					Vector<Real, 2>(0),
+					Vector<Real, 2>(Real(1, -1)));
+
+				Vector<Real, 2> hitList;
+
+				TEST_ENSURE(intersect(a, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(b, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(c, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(d, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == -1);
+				TEST_ENSURE(hitList[1] == 1);
+			}
+
+			// The aligned box is centered on origin.
+			// The rays originate from the boundary
+			// of the aligned box.
+			// Make sure the rays
+			// intersect the aligned box as they should.
+			{
+				const AlignedBox<Real, 2> alignedBox(
+					Vector<Real, 2>(-1),
+					Vector<Real, 2>(1));
+
+				const Line<Real, 2> a(
+					Vector<Real, 2>(
+					1, Real(-1, 2)),
+					Vector<Real, 2>(
+					-2, 1));
+
+				const Line<Real, 2> b(
+					Vector<Real, 2>(
+					-1, Real(1, 2)),
+					Vector<Real, 2>(
+					2, -1));
+
+				const Line<Real, 2> c(
+					Vector<Real, 2>(
+					Real(-1, 2), -1),
+					Vector<Real, 2>(
+					Real(-1, 2), 1));
+
+				Vector<Real, 2> hitList;
+
+				TEST_ENSURE(intersect(a, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 0);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(b, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 0);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(c, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 0);
+				TEST_ENSURE(hitList[1] == 1);
+			}
+			// These rays have origin outside the aligned boxes,
+			// but still intersect the aligned box.
+			{
+				const AlignedBox<Real, 2> alignedBox(
+					Vector<Real, 2>(-1),
+					Vector<Real, 2>(1));
+
+				const Line<Real, 2> a(
+					Vector<Real, 2>(
+					0, -2),
+					Vector<Real, 2>(
+					1, 4));
+
+				const Line<Real, 2> b(
+					Vector<Real, 2>(
+					-2, 2),
+					Vector<Real, 2>(
+					1, -1));
+
+				Vector<Real, 2> hitList;
+
+				TEST_ENSURE(intersect(a, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == Real(1, 4));
+				TEST_ENSURE(hitList[1] == Real(3, 4));
+
+				TEST_ENSURE(intersect(b, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 1);
+				TEST_ENSURE(hitList[1] == 3);
+			}
+			// These rays just touch the aligned box corners.
+			{
+				const AlignedBox<Real, 2> alignedBox(
+					Vector<Real, 2>(-1),
+					Vector<Real, 2>(1));
+
+				const Line<Real, 2> a(
+					Vector<Real, 2>(
+					0, 3),
+					Vector<Real, 2>(
+					-2, -4));
+
+				const Line<Real, 2> b(
+					Vector<Real, 2>(
+					-5, 0),
+					Vector<Real, 2>(
+					4, 1));
+
+				const Line<Real, 2> c(
+					Vector<Real, 2>(
+					-2, 1),
+					Vector<Real, 2>(
+					1, 0));
+
+				const Line<Real, 2> d(
+					Vector<Real, 2>(
+					-1, -2),
+					Vector<Real, 2>(
+					0, 1));
+
+				Vector<Real, 2> hitList;
+
+				TEST_ENSURE(intersect(a, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == Real(1, 2));
+				TEST_ENSURE(hitList[1] == Real(1, 2));
+
+				TEST_ENSURE(intersect(b, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 1);
+				TEST_ENSURE(hitList[1] == 1);
+
+				TEST_ENSURE(intersect(c, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 1);
+				TEST_ENSURE(hitList[1] == 3);
+
+				TEST_ENSURE(intersect(d, alignedBox, hitList));
+				TEST_ENSURE(hitList[0] == 1);
+				TEST_ENSURE(hitList[1] == 3);
+			}
 		}
-		// These rays just touch the aligned box corners.
+
+		void testNegative()
 		{
-			const AlignedBox<Real, 2> alignedBox(
-				Vector<Real, 2>(-1),
-				Vector<Real, 2>(1));
+			{
+				const AlignedBox<Real, 2> alignedBox(
+					Vector<Real, 2>(-1),
+					Vector<Real, 2>(1));
 
-			const Line<Real, 2> a(
-				Vector<Real, 2>(
-				0, 3),
-				Vector<Real, 2>(
-				-2, -4));
+				const Line<Real, 2> a(
+					Vector<Real, 2>(
+					0, -2),
+					Vector<Real, 2>(
+					2, 1));
 
-			const Line<Real, 2> b(
-				Vector<Real, 2>(
-				-5, 0),
-				Vector<Real, 2>(
-				4, 1));
+				const Line<Real, 2> b(
+					Vector<Real, 2>(
+					-2, 2),
+					Vector<Real, 2>(
+					1, 0));
 
-			const Line<Real, 2> c(
-				Vector<Real, 2>(
-				-2, 1),
-				Vector<Real, 2>(
-				1, 0));
+				const Line<Real, 2> c(
+					Vector<Real, 2>(
+					-1, -2),
+					Vector<Real, 2>(
+					-1, 3));
 
-			const Line<Real, 2> d(
-				Vector<Real, 2>(
-				-1, -2),
-				Vector<Real, 2>(
-				0, 1));
+				const Line<Real, 2> d(
+					Vector<Real, 2>(
+					0, -5),
+					Vector<Real, 2>(
+					2, 6));
 
-			Vector<Real, 2> hitList;
+				Vector<Real, 2> hitList;
 
-			REPORT(!intersect(a, alignedBox, hitList));
-			REPORT(hitList[0] != Real(1, 2));
-			REPORT(hitList[1] != Real(1, 2));
-
-			REPORT(!intersect(b, alignedBox, hitList));
-			REPORT(hitList[0] != 1);
-			REPORT(hitList[1] != 1);
-
-			REPORT(!intersect(c, alignedBox, hitList));
-			REPORT(hitList[0] != 1);
-			REPORT(hitList[1] != 3);
-
-			REPORT(!intersect(d, alignedBox, hitList));
-			REPORT(hitList[0] != 1);
-			REPORT(hitList[1] != 3);
+				TEST_ENSURE(!intersect(a, alignedBox, hitList));
+				TEST_ENSURE(!intersect(b, alignedBox, hitList));
+				TEST_ENSURE(!intersect(c, alignedBox, hitList));
+				TEST_ENSURE(!intersect(d, alignedBox, hitList));
+			}
 		}
+	};
+
+	void test()
+	{
+		Test test;
+		test.run();
 	}
 
-	void testNegative()
+	void addTest()
 	{
-		{
-			const AlignedBox<Real, 2> alignedBox(
-				Vector<Real, 2>(-1),
-				Vector<Real, 2>(1));
-
-			const Line<Real, 2> a(
-				Vector<Real, 2>(
-				0, -2),
-				Vector<Real, 2>(
-				2, 1));
-
-			const Line<Real, 2> b(
-				Vector<Real, 2>(
-				-2, 2),
-				Vector<Real, 2>(
-				1, 0));
-
-			const Line<Real, 2> c(
-				Vector<Real, 2>(
-				-1, -2),
-				Vector<Real, 2>(
-				-1, 3));
-
-			const Line<Real, 2> d(
-				Vector<Real, 2>(
-				0, -5),
-				Vector<Real, 2>(
-				2, 6));
-
-			Vector<Real, 2> hitList;
-
-			REPORT(intersect(a, alignedBox, hitList));
-			REPORT(intersect(b, alignedBox, hitList));
-			REPORT(intersect(c, alignedBox, hitList));
-			REPORT(intersect(d, alignedBox, hitList));
-		}
+		geometryTestList().add("intersect_line_alignedbox", test);
 	}
 
-	void testBegin()
-	{
-		testPositive();
-		testNegative();
-	}
-
-	void testAdd()
-	{
-		geometryTestList().add("IntersectLineAlignedBox", testBegin);
-	}
-
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

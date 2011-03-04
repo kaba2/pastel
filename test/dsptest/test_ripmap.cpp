@@ -60,11 +60,11 @@ namespace
 		savePcx(outputImage, "output/ripmap.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		dspTestList().add("RipMap", testRipMap);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

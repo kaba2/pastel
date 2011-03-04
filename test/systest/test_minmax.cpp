@@ -10,43 +10,59 @@ namespace
 
 	using namespace Pastel;
 
-	void testMinMax()
+	class Test
+		: public TestSuite
 	{
-		integer min = 0;
-		integer max = 0;
+	public:
+		Test()
+			: TestSuite(&sysTestReport())
+		{
+		}
 
-		minMax(1, 2, 3, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+		virtual void run()
+		{
+			testMinMax();
+		}
 
-		minMax(1.0, 2, 3.0f, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+		void testMinMax()
+		{
+			integer min = 0;
+			integer max = 0;
 
-		minMax(1, 3, 2, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+			minMax(1, 2, 3, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
 
-		minMax(2, 1, 3, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+			minMax(1.0, 2, 3.0f, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
 
-		minMax(2, 3, 1, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+			minMax(1, 3, 2, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
 
-		minMax(3, 1, 2, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+			minMax(2, 1, 3, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
 
-		minMax(3, 2, 1, min, max);
-		REPORT2(min != 1 || max != 3, min, max);
+			minMax(2, 3, 1, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
+
+			minMax(3, 1, 2, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
+
+			minMax(3, 2, 1, min, max);
+			TEST_ENSURE(min == 1 && max == 3);
+		}
+	};
+
+	void test()
+	{
+		Test test;
+		test.run();
 	}
 
-	void testBegin()
+	void addTest()
 	{
-		testMinMax();
+		sysTestList().add("MinMax", test);
 	}
 
-	void testAdd()
-	{
-		sysTestList().add("MinMax", testBegin);
-	}
-
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

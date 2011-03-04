@@ -11,11 +11,11 @@ using namespace Pastel;
 namespace
 {
 
-	class Array_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Array_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -263,7 +263,7 @@ namespace
 
 	void testArray()
 	{
-		Array_Test test;
+		Test test;
 		test.run();
 	}
 

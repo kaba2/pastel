@@ -62,11 +62,11 @@ namespace
 		}
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		sysTestList().add("insertionSort", testInsertionSort);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

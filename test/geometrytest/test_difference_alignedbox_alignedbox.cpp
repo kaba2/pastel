@@ -85,17 +85,17 @@ namespace
 		}
 	};
 
-	void testBegin()
+	void test()
 	{
 		Test test;
 		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("DifferenceAlignedBox", testBegin);
+		geometryTestList().add("DifferenceAlignedBox", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

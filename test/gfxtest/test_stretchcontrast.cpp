@@ -101,7 +101,7 @@ namespace
 		real scale_;
 	};
 
-	void testBegin()
+	void test()
 	{
 		Array<Color, 2> image;
 		loadPcx("lena.pcx", image);
@@ -163,11 +163,11 @@ namespace
 		savePcx(image, "output/stretch_contrast.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("StretchContrast", testBegin);
+		gfxTestList().add("StretchContrast", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

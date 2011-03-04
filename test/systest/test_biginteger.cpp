@@ -13,115 +13,131 @@ namespace
 
 	using namespace Pastel;
 
-	void testSimple()
+	class Test
+		: public TestSuite
 	{
-		REPORT(
-			BigInteger(1234) + BigInteger(5634) !=
-			BigInteger(6868));
-		REPORT(
-			BigInteger(5634) + BigInteger(1234) !=
-			BigInteger(6868));
-		REPORT(
-			BigInteger(1234) - BigInteger(5634) !=
-			BigInteger(-4400));
-		REPORT(
-			BigInteger(5634) - BigInteger(1234) !=
-			BigInteger(4400));
-		REPORT(
-			BigInteger(1234) * BigInteger(5634) !=
-			BigInteger(6952356));
-		REPORT(
-			BigInteger(5634) * BigInteger(1234) !=
-			BigInteger(6952356));
-		REPORT(
-			BigInteger(1234) / BigInteger(5634) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(5634) / BigInteger(1234) !=
-			BigInteger(4));
-		REPORT(
-			BigInteger(0) + BigInteger(0) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(1234) - BigInteger(1234) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(1234) + BigInteger(-1234) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(-1234) + BigInteger(1234) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(-1234) + BigInteger(-1234) !=
-			BigInteger(-2468));
-		REPORT(
-			BigInteger(1234) * BigInteger(0) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(0) * BigInteger(1234) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(-1234) * BigInteger(0) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger(0) * BigInteger(-1234) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger("-0") !=
-			BigInteger(0));
-		REPORT(
-			BigInteger("23452345") /
-			BigInteger(10) !=
-			BigInteger("2345234"));
-		REPORT(
-			BigInteger("2345234") /
-			BigInteger(10) !=
-			BigInteger("234523"));
-		REPORT(
-			BigInteger("234523") /
-			BigInteger(10) !=
-			BigInteger("23452"));
-		REPORT(
-			BigInteger("23452") /
-			BigInteger(10) !=
-			BigInteger("2345"));
-		REPORT(
-			BigInteger("2345") /
-			BigInteger(10) !=
-			BigInteger("234"));
-		REPORT(
-			BigInteger("234") /
-			BigInteger(10) !=
-			BigInteger("23"));
-		REPORT(
-			BigInteger("23") /
-			BigInteger(10) !=
-			BigInteger("2"));
-		REPORT(
-			BigInteger("2") /
-			BigInteger(10) !=
-			BigInteger(0));
-		REPORT(
-			BigInteger("21017020") /
-			BigInteger(10) !=
-			BigInteger("2101702"));
-		REPORT(-BigInteger(0) !=
-			BigInteger(0));
+	public:
+		Test()
+			: TestSuite(&sysTestReport())
+		{
+		}
 
-		BigInteger a("2435325");
-		BigInteger b("23452345");
+		virtual void run()
+		{
+			testSimple();
+		}
+
+		void testSimple()
+		{
+			TEST_ENSURE(
+				BigInteger(1234) + BigInteger(5634) ==
+				BigInteger(6868));
+			TEST_ENSURE(
+				BigInteger(5634) + BigInteger(1234) ==
+				BigInteger(6868));
+			TEST_ENSURE(
+				BigInteger(1234) - BigInteger(5634) ==
+				BigInteger(-4400));
+			TEST_ENSURE(
+				BigInteger(5634) - BigInteger(1234) ==
+				BigInteger(4400));
+			TEST_ENSURE(
+				BigInteger(1234) * BigInteger(5634) ==
+				BigInteger(6952356));
+			TEST_ENSURE(
+				BigInteger(5634) * BigInteger(1234) ==
+				BigInteger(6952356));
+			TEST_ENSURE(
+				BigInteger(1234) / BigInteger(5634) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(5634) / BigInteger(1234) ==
+				BigInteger(4));
+			TEST_ENSURE(
+				BigInteger(0) + BigInteger(0) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(1234) - BigInteger(1234) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(1234) + BigInteger(-1234) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(-1234) + BigInteger(1234) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(-1234) + BigInteger(-1234) ==
+				BigInteger(-2468));
+			TEST_ENSURE(
+				BigInteger(1234) * BigInteger(0) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(0) * BigInteger(1234) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(-1234) * BigInteger(0) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger(0) * BigInteger(-1234) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger("-0") ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger("23452345") /
+				BigInteger(10) ==
+				BigInteger("2345234"));
+			TEST_ENSURE(
+				BigInteger("2345234") /
+				BigInteger(10) ==
+				BigInteger("234523"));
+			TEST_ENSURE(
+				BigInteger("234523") /
+				BigInteger(10) ==
+				BigInteger("23452"));
+			TEST_ENSURE(
+				BigInteger("23452") /
+				BigInteger(10) ==
+				BigInteger("2345"));
+			TEST_ENSURE(
+				BigInteger("2345") /
+				BigInteger(10) ==
+				BigInteger("234"));
+			TEST_ENSURE(
+				BigInteger("234") /
+				BigInteger(10) ==
+				BigInteger("23"));
+			TEST_ENSURE(
+				BigInteger("23") /
+				BigInteger(10) ==
+				BigInteger("2"));
+			TEST_ENSURE(
+				BigInteger("2") /
+				BigInteger(10) ==
+				BigInteger(0));
+			TEST_ENSURE(
+				BigInteger("21017020") /
+				BigInteger(10) ==
+				BigInteger("2101702"));
+			TEST_ENSURE(-BigInteger(0) ==
+				BigInteger(0));
+
+			BigInteger a("2435325");
+			BigInteger b("23452345");
+		}
+	};
+
+	void test()
+	{
+		Test test;
+		test.run();
 	}
 
-	void testBegin()
+	void addTest()
 	{
-		testSimple();
+		sysTestList().add("BigInteger", test);
 	}
 
-	void testAdd()
-	{
-		sysTestList().add("BigInteger", testBegin);
-	}
-
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

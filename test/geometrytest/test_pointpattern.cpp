@@ -99,16 +99,16 @@ namespace
 		savePcx(image, "testpointpattern_poissondisk_4d.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testPoissonDiskPattern();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("PointPattern", testBegin);
+		geometryTestList().add("PointPattern", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

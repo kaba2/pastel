@@ -97,16 +97,16 @@ namespace
 		saveBinaryPcx(binaryImage, "output/pcx_1bit_output_1bit.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testPcx();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("Pcx", testBegin);
+		gfxTestList().add("Pcx", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

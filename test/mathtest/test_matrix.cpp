@@ -544,11 +544,11 @@ namespace
 		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		mathTestList().add("Matrix", testMatrix);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

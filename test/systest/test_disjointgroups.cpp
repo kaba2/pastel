@@ -110,17 +110,17 @@ namespace
 		GroupIterator cGroup = a.merge(aGroup, bGroup);
 	}
 
-	void testBegin()
+	void test()
 	{
 		testDisjoint();
 		testDisjointEmpty();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("DisjointGroups", testBegin);
+		sysTestList().add("DisjointGroups", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

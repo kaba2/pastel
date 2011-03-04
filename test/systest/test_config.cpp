@@ -18,16 +18,16 @@ namespace
 		saveConfig(config, "config_output.txt");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testRead();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("Config", testBegin);
+		sysTestList().add("Config", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

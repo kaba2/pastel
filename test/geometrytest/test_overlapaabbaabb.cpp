@@ -16,147 +16,170 @@ namespace
 
 	typedef Rational<integer> Real;
 
-	void testNegative()
+	class Test
+		: public TestSuite
 	{
-		// Nine non-intersecting aligned boxes have been placed
-		// in a square grid like this:
-		// g h i
-		// d e f
-		// a b c
-		// Make sure the algorithm agrees that e
-		// does not intersect any other aligned box.
+	public:
+		Test()
+			: TestSuite(&geometryTestReport())
+		{
+		}
 
-		AlignedBox<Real, 2> a(
-			Vector<Real, 2>(0, 0),
-			Vector<Real, 2>(1, 1));
+		virtual void run()
+		{
+			testNegative();
+			testPositive();
+			testSingular();
+		}
 
-		AlignedBox<Real, 2> b(
-			Vector<Real, 2>(2, 0),
-			Vector<Real, 2>(3, 1));
+		void testNegative()
+		{
+			// Nine non-intersecting aligned boxes have been placed
+			// in a square grid like this:
+			// g h i
+			// d e f
+			// a b c
+			// Make sure the algorithm agrees that e
+			// does not intersect any other aligned box.
 
-		AlignedBox<Real, 2> c(
-			Vector<Real, 2>(4, 0),
-			Vector<Real, 2>(5, 1));
+			AlignedBox<Real, 2> a(
+				Vector<Real, 2>(0, 0),
+				Vector<Real, 2>(1, 1));
 
-		AlignedBox<Real, 2> d(
-			Vector<Real, 2>(0, 2),
-			Vector<Real, 2>(1, 3));
+			AlignedBox<Real, 2> b(
+				Vector<Real, 2>(2, 0),
+				Vector<Real, 2>(3, 1));
 
-		AlignedBox<Real, 2> e(
-			Vector<Real, 2>(2, 2),
-			Vector<Real, 2>(3, 3));
+			AlignedBox<Real, 2> c(
+				Vector<Real, 2>(4, 0),
+				Vector<Real, 2>(5, 1));
 
-		AlignedBox<Real, 2> f(
-			Vector<Real, 2>(4, 2),
-			Vector<Real, 2>(5, 3));
+			AlignedBox<Real, 2> d(
+				Vector<Real, 2>(0, 2),
+				Vector<Real, 2>(1, 3));
 
-		AlignedBox<Real, 2> g(
-			Vector<Real, 2>(0, 4),
-			Vector<Real, 2>(1, 5));
+			AlignedBox<Real, 2> e(
+				Vector<Real, 2>(2, 2),
+				Vector<Real, 2>(3, 3));
 
-		AlignedBox<Real, 2> h(
-			Vector<Real, 2>(2, 4),
-			Vector<Real, 2>(3, 5));
+			AlignedBox<Real, 2> f(
+				Vector<Real, 2>(4, 2),
+				Vector<Real, 2>(5, 3));
 
-		AlignedBox<Real, 2> i(
-			Vector<Real, 2>(4, 4),
-			Vector<Real, 2>(5, 5));
+			AlignedBox<Real, 2> g(
+				Vector<Real, 2>(0, 4),
+				Vector<Real, 2>(1, 5));
 
-		REPORT(overlaps(e, a));
-		REPORT(overlaps(e, b));
-		REPORT(overlaps(e, c));
-		REPORT(overlaps(e, d));
+			AlignedBox<Real, 2> h(
+				Vector<Real, 2>(2, 4),
+				Vector<Real, 2>(3, 5));
 
-		REPORT(overlaps(e, f));
-		REPORT(overlaps(e, g));
-		REPORT(overlaps(e, h));
-		REPORT(overlaps(e, i));
+			AlignedBox<Real, 2> i(
+				Vector<Real, 2>(4, 4),
+				Vector<Real, 2>(5, 5));
 
-		REPORT(overlaps(a, e));
-		REPORT(overlaps(b, e));
-		REPORT(overlaps(c, e));
-		REPORT(overlaps(d, e));
+			TEST_ENSURE(!overlaps(e, a));
+			TEST_ENSURE(!overlaps(e, b));
+			TEST_ENSURE(!overlaps(e, c));
+			TEST_ENSURE(!overlaps(e, d));
 
-		REPORT(overlaps(f, e));
-		REPORT(overlaps(g, e));
-		REPORT(overlaps(h, e));
-		REPORT(overlaps(i, e));
+			TEST_ENSURE(!overlaps(e, f));
+			TEST_ENSURE(!overlaps(e, g));
+			TEST_ENSURE(!overlaps(e, h));
+			TEST_ENSURE(!overlaps(e, i));
+
+			TEST_ENSURE(!overlaps(a, e));
+			TEST_ENSURE(!overlaps(b, e));
+			TEST_ENSURE(!overlaps(c, e));
+			TEST_ENSURE(!overlaps(d, e));
+
+			TEST_ENSURE(!overlaps(f, e));
+			TEST_ENSURE(!overlaps(g, e));
+			TEST_ENSURE(!overlaps(h, e));
+			TEST_ENSURE(!overlaps(i, e));
+		}
+
+		void testPositive()
+		{
+			// B fully contained in A.
+			{
+				AlignedBox<Real, 2> a(
+					Vector<Real, 2>(0, 0),
+					Vector<Real, 2>(10, 20));
+
+				AlignedBox<Real, 2> b(
+					Vector<Real, 2>(5, 4),
+					Vector<Real, 2>(8, 15));
+
+				TEST_ENSURE(overlaps(a, b));
+				TEST_ENSURE(overlaps(b, a));
+			}
+
+			// A overlaps B
+			{
+				AlignedBox<Real, 2> a(
+					Vector<Real, 2>(0, 0),
+					Vector<Real, 2>(10, 20));
+
+				AlignedBox<Real, 2> b(
+					Vector<Real, 2>(6, 3),
+					Vector<Real, 2>(15, 18));
+
+				TEST_ENSURE(overlaps(a, b));
+				TEST_ENSURE(overlaps(b, a));
+			}
+
+			// A overlaps B
+			{
+				AlignedBox<Real, 2> a(
+					Vector<Real, 2>(0, 0),
+					Vector<Real, 2>(10, 20));
+
+				AlignedBox<Real, 2> b(
+					Vector<Real, 2>(1, -5),
+					Vector<Real, 2>(8, 25));
+				TEST_ENSURE(overlaps(a, b));
+				TEST_ENSURE(overlaps(b, a));
+			}
+		}
+
+		void testSingular()
+		{
+			AlignedBox<Real, 2> a(
+				Vector<Real, 2>(0, 0),
+				Vector<Real, 2>(1, 1));
+
+			// AlignedBoxs share a corner point.
+
+			AlignedBox<Real, 2> b(
+				Vector<Real, 2>(1, 1),
+				Vector<Real, 2>(2, 2));
+
+			TEST_ENSURE(overlaps(a, b));
+			TEST_ENSURE(overlaps(b, a));
+
+			// AlignedBoxs share an edge
+
+			AlignedBox<Real, 2> c(
+				Vector<Real, 2>(1, 0),
+				Vector<Real, 2>(2, 1));
+
+			TEST_ENSURE(overlaps(a, c));
+			TEST_ENSURE(overlaps(c, a));
+		}
+	};
+
+	void test()
+	{
+		Test test;
+		test.run();
 	}
 
-	void testPositive()
+	void addTest()
 	{
-		AlignedBox<Real, 2> a(
-			Vector<Real, 2>(0, 0),
-			Vector<Real, 2>(10, 20));
-
-		// AlignedBox fully contained in another.
-
-		AlignedBox<Real, 2> b(
-			Vector<Real, 2>(5, 4),
-			Vector<Real, 2>(8, 15));
-
-		REPORT(!overlaps(a, b));
-		REPORT(!overlaps(b, a));
-
-		// AlignedBoxs partially contained
-		// in another.
-
-		AlignedBox<Real, 2> c(
-			Vector<Real, 2>(6, 3),
-			Vector<Real, 2>(15, 18));
-
-		REPORT(!overlaps(a, c));
-		REPORT(!overlaps(c, a));
-
-		AlignedBox<Real, 2> d(
-			Vector<Real, 2>(1, -5),
-			Vector<Real, 2>(8, 25));
-		REPORT(!overlaps(a, d));
-		REPORT(!overlaps(d, a));
+		geometryTestList().add("overlaps_alignedbox_alignedbox", test);
 	}
 
-	void testSingular()
-	{
-		AlignedBox<Real, 2> a(
-			Vector<Real, 2>(0, 0),
-			Vector<Real, 2>(1, 1));
-
-		// AlignedBoxs share a corner point.
-
-		AlignedBox<Real, 2> b(
-			Vector<Real, 2>(1, 1),
-			Vector<Real, 2>(2, 2));
-
-		REPORT(!overlaps(a, b));
-		REPORT(!overlaps(b, a));
-
-		// AlignedBoxs share an edge
-
-		AlignedBox<Real, 2> c(
-			Vector<Real, 2>(1, 0),
-			Vector<Real, 2>(2, 1));
-
-		REPORT(!overlaps(a, c));
-		REPORT(!overlaps(c, a));
-	}
-
-	void testMoving()
-	{
-	}
-
-	void testBegin()
-	{
-		testNegative();
-		testPositive();
-		testSingular();
-		testMoving();
-	}
-
-	void testAdd()
-	{
-		geometryTestList().add("overlapsAlignedboxAlignedbox", testBegin);
-	}
-
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

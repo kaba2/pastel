@@ -24,14 +24,14 @@ namespace Pastel
 namespace
 {
 
-	class PointKdTree_Test
+	class Test
 		: public TestSuite
 	{
 	public:
 		typedef PointKdTree<real, 2> Tree;
 		typedef Tree::Point_ConstIterator Point_ConstIterator;
 
-		PointKdTree_Test()
+		Test()
 			: TestSuite(&geometryTestReport())
 		{
 		}
@@ -262,17 +262,17 @@ namespace
 		}
 	};
 
-	void testBegin()
+	void test()
 	{
-		PointKdTree_Test test;
+		Test test;
 		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("PointKdTree", testBegin);
+		geometryTestList().add("PointKdTree", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

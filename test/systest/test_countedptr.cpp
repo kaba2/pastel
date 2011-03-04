@@ -103,16 +103,16 @@ namespace
 		}
 	}
 
-	void testBegin()
+	void test()
 	{
 		testSyntax();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("CountedPtr", testBegin);
+		sysTestList().add("CountedPtr", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

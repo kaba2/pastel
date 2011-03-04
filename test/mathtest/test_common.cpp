@@ -10,103 +10,124 @@ using namespace Pastel;
 namespace
 {
 
-	void testCcwAngle()
+	class Test
+		: public TestSuite
 	{
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(0, 1))), !=, 90);
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(0, 1), Vector2(-1, 0))), !=, 90);
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(-1, 0), Vector2(0, -1))), !=, 90);
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(0, -1), Vector2(1, 0))), !=, 90);
-
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(1, 1))), !=, 45);
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(-1, 1))), !=, 135);
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(-1, -1))), !=, 225);
-		REPORT_OP(radiansToDegrees<real>(
-			ccwAngle(Vector2(1, 0), Vector2(1, -1))), !=, 315);
-	}
-
-	void testQuadratic()
-	{
-		integer failings = 0;
-
-		for (integer i = 0;i < 10000;++i)
+	public:
+		Test()
+			: TestSuite(&mathTestReport())
 		{
-			real aRoot = random<real>() * 100 - 50;
-			real bRoot = random<real>() * 100 - 50;
+		}
 
-			if (bRoot < aRoot)
+		virtual void run()
+		{
+			testSpecial();
+			testQuadratic();
+			testCcwAngle();
+			testHarmonic();
+		}
+
+		void testCcwAngle()
+		{
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(0, 1))), ==, 90);
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(0, 1), Vector2(-1, 0))), ==, 90);
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(-1, 0), Vector2(0, -1))), ==, 90);
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(0, -1), Vector2(1, 0))), ==, 90);
+
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(1, 1))), ==, 45);
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(-1, 1))), ==, 135);
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(-1, -1))), ==, 225);
+			TEST_ENSURE_OP(radiansToDegrees<real>(
+				ccwAngle(Vector2(1, 0), Vector2(1, -1))), ==, 315);
+		}
+
+		void testQuadratic()
+		{
+			integer failings = 0;
+
+			for (integer i = 0;i < 10000;++i)
 			{
-				std::swap(aRoot, bRoot);
+				real aRoot = random<real>() * 100 - 50;
+				real bRoot = random<real>() * 100 - 50;
+
+				if (bRoot < aRoot)
+				{
+					std::swap(aRoot, bRoot);
+				}
+
+				const real aCoeff = random<real>() * 100 + 2;
+				const real bCoeff = (-aRoot - bRoot) * aCoeff;
+				const real cCoeff = (aRoot * bRoot) * aCoeff;
+
+				real t0 = 0;
+				real t1 = 0;
+
+				quadratic(aCoeff, bCoeff, cCoeff, t0, t1);
+
+				const real aDelta = mabs(aRoot - t0);
+				const real bDelta = mabs(bRoot - t1);
+
+				if (aDelta >= 0.1 || bDelta >= 0.1)
+				{
+					++failings;
+				}
 			}
 
-			const real aCoeff = random<real>() * 100 + 2;
-			const real bCoeff = (-aRoot - bRoot) * aCoeff;
-			const real cCoeff = (aRoot * bRoot) * aCoeff;
+			TEST_ENSURE_OP(failings, <=, 10);
+		}
 
-			real t0 = 0;
-			real t1 = 0;
-
-			quadratic(aCoeff, bCoeff, cCoeff, t0, t1);
-
-			const real aDelta = mabs(aRoot - t0);
-			const real bDelta = mabs(bRoot - t1);
-
-			if (aDelta >= 0.1 || bDelta >= 0.1)
+		void testHarmonic()
+		{
+			for (integer i = 51200;i < 51250;++i)
 			{
-				++failings;
+				log() << harmonicNumber<real>(i) << ", ";
+				if ((i % 4) == 3)
+				{
+					log() << logNewLine;
+				}
 			}
 		}
 
-		REPORT1(failings > 10, failings);
-	}
-
-	void testHarmonic()
-	{
-		for (integer i = 51200;i < 51250;++i)
+		void testSpecial()
 		{
-			log() << harmonicNumber<real>(i) << ", ";
-			if ((i % 4) == 3)
+			log() << "Gamma function from 1 to 9" << logNewLine;
+			for (real i = 1;i < 10;i += 0.5)
 			{
-				log() << logNewLine;
+				log() << gamma<real>(i) << ", ";
 			}
+			log() << logNewLine;
+			log() << "Digamma function from 1 to 9" << logNewLine;
+			for (integer i = 1;i < 10;++i)
+			{
+				log() << digamma<real>(i) << ", ";
+			}
+			log() << "Digamma function from 301 to 309" << logNewLine;
+			for (integer i = 301;i < 310;++i)
+			{
+				log() << digamma<real>(i) << ", ";
+			}
+			log() << logNewLine;
 		}
-	}
+	};
 
-	void testSpecial()
+	void test()
 	{
-		log() << "Gamma function from 1 to 9" << logNewLine;
-		for (real i = 1;i < 10;i += 0.5)
-		{
-			log() << gamma<real>(i) << ", ";
-		}
-		log() << logNewLine;
-		log() << "Digamma function from 1 to 9" << logNewLine;
-		for (integer i = 1;i < 10;++i)
-		{
-			log() << digamma<real>(i) << ", ";
-		}
-		log() << "Digamma function from 301 to 309" << logNewLine;
-		for (integer i = 301;i < 310;++i)
-		{
-			log() << digamma<real>(i) << ", ";
-		}
-		log() << logNewLine;
+		Test test;
+		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		mathTestList().add("Special", testSpecial);
-		mathTestList().add("Quadratic", testQuadratic);
-		mathTestList().add("CcwAngle", testCcwAngle);
-		mathTestList().add("Harmonic", testHarmonic);
+		mathTestList().add("Common", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

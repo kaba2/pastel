@@ -137,12 +137,12 @@ namespace
 		savePcx(image, "output/chromatic_adaptation.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Color.Constants", testConstants);
 		gfxTestList().add("Color.ChromaticAdaptation", testChromaticAdaptation);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }
