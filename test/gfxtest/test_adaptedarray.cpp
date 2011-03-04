@@ -17,7 +17,7 @@ using namespace Pastel;
 namespace
 {
 
-	void testBegin()
+	void test()
 	{
 		Array<uint32, 2> image;
 
@@ -40,11 +40,11 @@ namespace
 		savePcx(copySmallerImage, "output/adaptedview3.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("AdaptedView", testBegin);
+		gfxTestList().add("AdaptedView", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

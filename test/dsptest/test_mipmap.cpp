@@ -53,16 +53,16 @@ namespace
 		savePcx(outputImage, "output/mipmap.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testResample();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		dspTestList().add("MipMap", testBegin);
+		dspTestList().add("MipMap", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

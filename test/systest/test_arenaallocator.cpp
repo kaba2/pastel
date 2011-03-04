@@ -96,7 +96,7 @@ namespace
 		allocator.clear();
 	}
 
-	void testBegin()
+	void test()
 	{
 		testAllocate();
 		testDeallocate();
@@ -106,7 +106,7 @@ namespace
 	void addTest()
 	{
 		sysTestList().add(
-			"ArenaAllocator", testBegin);
+			"ArenaAllocator", test);
 	}
 
 	CallFunction run(addTest);

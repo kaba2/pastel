@@ -343,7 +343,7 @@ namespace
 		savePcx(image, "test_uniform_sampling_distance_" + integerToString(N, 2) + ".pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		mathTestList().add("UniformSampling_1", test);
 		mathTestList().add("UniformSampling_2", test2);
@@ -351,6 +351,6 @@ namespace
 		mathTestList().add("UniformSampling_Distance_8", testDistance<real, 8>);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

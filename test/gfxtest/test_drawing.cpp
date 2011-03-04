@@ -495,7 +495,7 @@ namespace
 		savePcx(image, "output/drawing_evenmorelines.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Drawing.Texture", testTexture);
 		gfxTestList().add("Drawing.View", testView);
@@ -514,6 +514,6 @@ namespace
 		gfxTestList().add("Drawing.MoreCircles", testMoreCircles);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

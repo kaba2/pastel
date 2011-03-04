@@ -10,11 +10,11 @@ using namespace Pastel;
 namespace
 {
 
-	class IteratorRange_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		IteratorRange_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -46,7 +46,7 @@ namespace
 
 	void testIteratorRange()
 	{
-		IteratorRange_Test test;
+		Test test;
 		test.run();		
 	}
 

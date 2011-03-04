@@ -29,11 +29,11 @@ using namespace Pastel;
 namespace
 {
 
-	class Thing_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Thing_Test()
+		Test()
 			: TestSuite(&rayTestReport())
 		{
 		}
@@ -218,7 +218,7 @@ namespace
 
 	void testThing()
 	{
-		Thing_Test test;
+		Test test;
 		test.run();
 	}
 

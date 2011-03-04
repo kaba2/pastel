@@ -172,12 +172,12 @@ namespace
 		savePcx(image, "testlowdiscrepancy_hammersley_100000.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		mathTestList().add("LowDiscrepancy.Halton", testHalton);
 		mathTestList().add("LowDiscrepancy.Hammersley", testHammersley);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

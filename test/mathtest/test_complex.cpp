@@ -45,12 +45,11 @@ namespace
 		savePcx(image, "complex_sin.pcx");
 	}
 
-
-	void testAdd()
+	void addTest()
 	{
 		mathTestList().add("Complex.Sin", testSin);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

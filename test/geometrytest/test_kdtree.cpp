@@ -170,11 +170,11 @@ namespace
 		savePcx(image, "spheretracing.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		geometryTestList().add("KdTree.RayTracing", testSphereTracing);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

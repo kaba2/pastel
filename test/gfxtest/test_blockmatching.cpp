@@ -490,11 +490,11 @@ namespace
 		PointPolicy pointPolicy_;
 	};
 
-	class BlockMatching_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		BlockMatching_Test()
+		Test()
 			: TestSuite(&gfxTestReport())
 		{
 		}
@@ -1000,7 +1000,7 @@ namespace
 
 	void testBlockMatching()
 	{
-		BlockMatching_Test test;
+		Test test;
 		test.run();
 	}
 

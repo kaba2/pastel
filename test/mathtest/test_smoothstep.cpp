@@ -67,16 +67,16 @@ namespace
 		savePcx(image, "smoothstep.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testSmoothStep();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		mathTestList().add("SmoothStep", testBegin);
+		mathTestList().add("SmoothStep", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

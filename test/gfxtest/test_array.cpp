@@ -33,11 +33,11 @@ namespace
 		saveGrayscalePcx(matrix.asArray(), "output/matrix_rowiterator.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Array.RowIterator", testArray);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

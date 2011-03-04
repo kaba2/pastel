@@ -77,7 +77,7 @@ namespace
 		a.reserve(200);
 	}
 
-	void testBegin()
+	void test()
 	{
 		testReserve();
 		testSingle();
@@ -87,11 +87,11 @@ namespace
 		testDeallocate();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("IndexAllocator", testBegin);
+		sysTestList().add("IndexAllocator", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

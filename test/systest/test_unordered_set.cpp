@@ -23,203 +23,218 @@ namespace
 	typedef UnorderedSet<int, Hash<int>, std::equal_to<int>,
 		PoolAllocator> Container;
 
-	void generateRandomUniqueValues(std::vector<int>& values)
+	class Test
+		: public TestSuite
 	{
-		int numValues = 1 + randomInteger() % 30000;
-
-		// Generate unique values
-		std::set<int> valueSet;
-		for(int i = 0; i < numValues; ++i)
+	public:
+		Test()
+			: TestSuite(&sysTestReport())
 		{
-			valueSet.insert(randomInteger());
 		}
 
-		std::vector<int> orderedValues(valueSet.begin(), valueSet.end());
-		while (!orderedValues.empty())
+		virtual void run()
 		{
-			int index = randomInteger() % orderedValues.size();
-			values.push_back(orderedValues[index]);
-			orderedValues.erase(orderedValues.begin() + index);
-		}
-	}
-
-
-	// Check that both containers hold the same values
-	void testSameValues(
-		const Container& hashtable,
-		const std::vector<int>& values)
-	{
-		REPORT2(hashtable.size() != values.size(),
-			hashtable.size(),
-			values.size());
-
-		Container::const_iterator hashIter;
-		std::vector<int>::const_iterator valuesIter;
-
-		valuesIter = values.begin();
-		while (valuesIter != values.end())
-		{
-			REPORT(hashtable.find(*valuesIter) == hashtable.end());
-			++valuesIter;
+			test();
 		}
 
-		/*
-		hashIter = hashtable.begin();
-		while (hashIter != hashtable.end())
+		void generateRandomUniqueValues(std::vector<int>& values)
 		{
-			valuesIter = std::find(values.begin(), values.end(), *hashIter);
-			REPORT(valuesIter == values.end());
-			++hashIter;
-		}
-		*/
-	}
+			int numValues = 1 + randomInteger() % 30000;
 
-
-	// Check that find works properly
-	void testFind(
-		const Container& hashtable,
-		const std::vector<int>& values)
-	{
-		Container::const_iterator hashIter;
-		std::vector<int>::const_iterator valuesIter;
-
-		for(int i = 0; i < 2000; ++i)
-		{
-			int value = randomInteger();
-			hashIter = hashtable.find(value);
-			valuesIter = std::find(values.begin(), values.end(), value);
-			REPORT(
-				(hashIter == hashtable.end()) !=
-				(valuesIter == values.end()));
-		}
-	}
-
-	// Check that insert works properly
-	void testInsertErase(
-		Container& hashtable,
-		const std::vector<int>& values)
-	{
-		Container::iterator hashIter;
-		std::vector<int>::const_iterator valuesIter;
-
-		for(int i = 0; i < 2000; ++i)
-		{
-			int value = values[randomInteger() % values.size()];
-			std::pair<Container::iterator, bool> result =
-				hashtable.insert(value);
-
-			REPORT(*result.first != value);
-			REPORT(result.second == true);
-		}
-
-		for(int i = 0; i < 2000; ++i)
-		{
-			int value = randomInteger();
-			std::pair<Container::iterator, bool> result =
-				hashtable.insert(value);
-
-			valuesIter = std::find(values.begin(), values.end(), value);
-			REPORT(
-				(result.second == true) !=
-				(valuesIter == values.end()));
-
-			hashIter = hashtable.find(value);
-			REPORT(hashIter == hashtable.end());
-
-			hashIter = hashtable.erase(hashIter);
-			REPORT(hashtable.erase(value) != 0);
-			REPORT(hashtable.find(value) != hashtable.end());
-		}
-	}
-
-	// Test copy constructor, assignment, swap
-	void testCopyEtc(
-		Container& hashtable,
-		const std::vector<int>& values)
-	{
-		Container that(hashtable);
-		REPORT2(that.size() != values.size(), that.size(), values.size());
-		REPORT2(that.size() != hashtable.size(), that.size(), hashtable.size());
-		REPORT2(that.max_load_factor() != hashtable.max_load_factor(),
-			that.max_load_factor(), hashtable.max_load_factor());
-		testSameValues(that, values);
-		std::swap(hashtable, that);
-
-		REPORT2(that.size() != values.size(), that.size(), values.size());
-		REPORT2(that.size() != hashtable.size(), that.size(), hashtable.size());
-		REPORT2(that.max_load_factor() != hashtable.max_load_factor(),
-			that.max_load_factor(), hashtable.max_load_factor());
-		testSameValues(that, values);
-		testSameValues(hashtable, values);
-
-		hashtable = that;
-		REPORT2(that.size() != values.size(), that.size(), values.size());
-		REPORT2(that.size() != hashtable.size(), that.size(), hashtable.size());
-		REPORT2(that.max_load_factor() != hashtable.max_load_factor(),
-			that.max_load_factor(), hashtable.max_load_factor());
-		testSameValues(hashtable, values);
-
-		Container that2;
-		that2 = hashtable;
-		REPORT2(that2.size() != values.size(), that2.size(), values.size());
-		REPORT2(that2.size() != hashtable.size(), that2.size(), hashtable.size());
-		REPORT2(that2.max_load_factor() != hashtable.max_load_factor(),
-			that2.max_load_factor(), hashtable.max_load_factor());
-		testSameValues(hashtable, values);
-	}
-
-	// Test rehashing
-	void testRehash(
-		Container& hashtable,
-		const std::vector<int>& values)
-	{
-		REPORT(hashtable.load_factor() > hashtable.max_load_factor());
-
-		for(float loadFactor = 0.5; loadFactor <= 3.0; loadFactor += 0.5)
-		{
-			hashtable.max_load_factor(loadFactor);
-			for(integer i = 1; i < 100000; i += 10000)
+			// Generate unique values
+			std::set<int> valueSet;
+			for(int i = 0; i < numValues; ++i)
 			{
-				hashtable.rehash(i);
-				REPORT((integer)hashtable.bucket_count() < i);
-				REPORT(hashtable.max_load_factor() != loadFactor);
-				REPORT(hashtable.load_factor() > loadFactor);
-				testSameValues(hashtable, values);
-				testCopyEtc(hashtable, values);
+				valueSet.insert(randomInteger());
+			}
+
+			std::vector<int> orderedValues(valueSet.begin(), valueSet.end());
+			while (!orderedValues.empty())
+			{
+				int index = randomInteger() % orderedValues.size();
+				values.push_back(orderedValues[index]);
+				orderedValues.erase(orderedValues.begin() + index);
 			}
 		}
-	}
 
-	void testBegin()
+
+		// Check that both containers hold the same values
+		void testSameValues(
+			const Container& hashtable,
+			const std::vector<int>& values)
+		{
+			TEST_ENSURE_OP(hashtable.size(), ==, values.size());
+
+			Container::const_iterator hashIter;
+			std::vector<int>::const_iterator valuesIter;
+
+			valuesIter = values.begin();
+			while (valuesIter != values.end())
+			{
+				TEST_ENSURE(hashtable.find(*valuesIter) != hashtable.end());
+				++valuesIter;
+			}
+
+			/*
+			hashIter = hashtable.begin();
+			while (hashIter != hashtable.end())
+			{
+				valuesIter = std::find(values.begin(), values.end(), *hashIter);
+				TEST_ENSURE(valuesIter != values.end());
+				++hashIter;
+			}
+			*/
+		}
+
+
+		// Check that find works properly
+		void testFind(
+			const Container& hashtable,
+			const std::vector<int>& values)
+		{
+			Container::const_iterator hashIter;
+			std::vector<int>::const_iterator valuesIter;
+
+			for(int i = 0; i < 2000; ++i)
+			{
+				int value = randomInteger();
+				hashIter = hashtable.find(value);
+				valuesIter = std::find(values.begin(), values.end(), value);
+				TEST_ENSURE(
+					(hashIter == hashtable.end()) ==
+					(valuesIter == values.end()));
+			}
+		}
+
+		// Check that insert works properly
+		void testInsertErase(
+			Container& hashtable,
+			const std::vector<int>& values)
+		{
+			Container::iterator hashIter;
+			std::vector<int>::const_iterator valuesIter;
+
+			for(int i = 0; i < 2000; ++i)
+			{
+				int value = values[randomInteger() % values.size()];
+				std::pair<Container::iterator, bool> result =
+					hashtable.insert(value);
+
+				TEST_ENSURE(*result.first == value);
+				TEST_ENSURE(result.second != true);
+			}
+
+			for(int i = 0; i < 2000; ++i)
+			{
+				int value = randomInteger();
+				std::pair<Container::iterator, bool> result =
+					hashtable.insert(value);
+
+				valuesIter = std::find(values.begin(), values.end(), value);
+				TEST_ENSURE(
+					(result.second == true) ==
+					(valuesIter == values.end()));
+
+				hashIter = hashtable.find(value);
+				TEST_ENSURE(hashIter != hashtable.end());
+
+				hashIter = hashtable.erase(hashIter);
+				TEST_ENSURE(hashtable.erase(value) == 0);
+				TEST_ENSURE(hashtable.find(value) == hashtable.end());
+			}
+		}
+
+		// Test copy constructor, assignment, swap
+		void testCopyEtc(
+			Container& hashtable,
+			const std::vector<int>& values)
+		{
+			Container that(hashtable);
+			TEST_ENSURE_OP(that.size(), ==, values.size());
+			TEST_ENSURE_OP(that.size(), ==, hashtable.size());
+			TEST_ENSURE_OP(that.max_load_factor(), !=, hashtable.max_load_factor());
+			testSameValues(that, values);
+			std::swap(hashtable, that);
+
+			TEST_ENSURE_OP(that.size(), ==, values.size());
+			TEST_ENSURE_OP(that.size(), ==, hashtable.size());
+			TEST_ENSURE_OP(that.max_load_factor(), ==, hashtable.max_load_factor());
+			testSameValues(that, values);
+			testSameValues(hashtable, values);
+
+			hashtable = that;
+			TEST_ENSURE_OP(that.size(), ==, values.size());
+			TEST_ENSURE_OP(that.size(), ==, hashtable.size());
+			TEST_ENSURE_OP(that.max_load_factor(), ==, hashtable.max_load_factor());
+			testSameValues(hashtable, values);
+
+			Container that2;
+			that2 = hashtable;
+			TEST_ENSURE_OP(that2.size(), ==, values.size());
+			TEST_ENSURE_OP(that2.size(), ==, hashtable.size());
+			TEST_ENSURE_OP(that2.max_load_factor(), ==, hashtable.max_load_factor());
+			testSameValues(hashtable, values);
+		}
+
+		// Test rehashing
+		void testRehash(
+			Container& hashtable,
+			const std::vector<int>& values)
+		{
+			TEST_ENSURE_OP(hashtable.load_factor(), <=, hashtable.max_load_factor());
+
+			for(float loadFactor = 0.5; loadFactor <= 3.0; loadFactor += 0.5)
+			{
+				hashtable.max_load_factor(loadFactor);
+				for(integer i = 1; i < 100000; i += 10000)
+				{
+					hashtable.rehash(i);
+					TEST_ENSURE_OP((integer)hashtable.bucket_count(), >=, i);
+					TEST_ENSURE_OP(hashtable.max_load_factor(), ==, loadFactor);
+					TEST_ENSURE_OP(hashtable.load_factor(), <=, loadFactor);
+					testSameValues(hashtable, values);
+					testCopyEtc(hashtable, values);
+				}
+			}
+		}
+
+		void test()
+		{
+			//int seed = time(NULL);
+			int seed = 1175532569;
+			srand(seed);
+
+			std::vector<int> values;
+			generateRandomUniqueValues(values);
+
+			log() << "seed: " << seed << logNewLine;
+			log() << "values: " << values.size() << logNewLine;
+
+			Container hashtable;
+			Container hashIter;
+
+			hashtable.insert(values.begin(), values.end());
+
+			testSameValues(hashtable, values);
+			testFind(hashtable, values);
+			testCopyEtc(hashtable, values);
+			testInsertErase(hashtable, values);
+			testRehash(hashtable, values);
+
+			log() << logNewLine;
+		}
+	};
+
+	void test()
 	{
-		//int seed = time(NULL);
-		int seed = 1175532569;
-		srand(seed);
-
-		std::vector<int> values;
-		generateRandomUniqueValues(values);
-
-		log() << "seed: " << seed << logNewLine;
-		log() << "values: " << values.size() << logNewLine;
-
-		Container hashtable;
-		Container hashIter;
-
-		hashtable.insert(values.begin(), values.end());
-
-		testSameValues(hashtable, values);
-		testFind(hashtable, values);
-		testCopyEtc(hashtable, values);
-		testInsertErase(hashtable, values);
-		testRehash(hashtable, values);
-
-		log() << logNewLine;
+		Test test;
+		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("UnorderedSet", testBegin);
+		sysTestList().add("UnorderedSet", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 }

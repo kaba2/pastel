@@ -174,18 +174,18 @@ namespace
 		saveBinaryPcx(image, "output/dilate_output.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testStructuringElementLarge();
 		testStructuringElementSmall();
 		testErode();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("Erode", testBegin);
+		gfxTestList().add("Erode", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

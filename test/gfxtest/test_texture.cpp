@@ -609,7 +609,7 @@ namespace
 		savePcx(image, "output/texture_mix.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		//testMix();
 		testSamplers();
@@ -618,11 +618,11 @@ namespace
 		testEwaMagnification2();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("Texture", testBegin);
+		gfxTestList().add("Texture", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

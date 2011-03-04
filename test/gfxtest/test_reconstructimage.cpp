@@ -334,14 +334,14 @@ namespace
 		savePcx(texture, "test_shepard.pcx");
 	}
 
-	void testAdd()
+	void addTest()
 	{
 		gfxTestList().add("Reconstruction", testReconstruction);
 		gfxTestList().add("Rbf", testRbf);
 		gfxTestList().add("Shepard", testShepard);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 	void testReconstructionOld()
 	{

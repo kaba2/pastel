@@ -15,11 +15,11 @@ using namespace Pastel;
 namespace
 {
 
-	class RedBlackTree_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		RedBlackTree_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -178,7 +178,7 @@ namespace
 
 	void testRedBlackTree()
 	{
-		RedBlackTree_Test test;
+		Test test;
 		test.run();
 	}
 

@@ -11,95 +11,110 @@ using namespace Pastel;
 namespace
 {
 
-	void testSimilaritySimple()
+	class Test
+		: public TestSuite
 	{
-		for (integer i = 0;i < 10000;++i)
+	public:
+		Test()
+			: TestSuite(&geometryTestReport())
 		{
-			const ConformalAffine2 transformation(
-				random<real>() * 2 + 1,
-				random<real>() * 2 * constantPi<real>(),
-				Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
-
-			const Vector2 aFrom(random<real>(), random<real>());
-			const Vector2 bFrom(random<real>(), random<real>());
-
-			const Vector2 aTo(transformPoint(aFrom, transformation));
-			const Vector2 bTo(transformPoint(bFrom, transformation));
-
-			const ConformalAffine2 matchedTransformation =
-				conformalAffine(aFrom, bFrom, aTo, bTo);
-
-			const real scalingDelta = absoluteError<real>(
-				matchedTransformation.scaling(), 
-				transformation.scaling());
-			const real angleDelta = absoluteError<real>(
-				matchedTransformation.rotation(), 
-				transformation.rotation());
-			const real tDelta = norm(
-				matchedTransformation.translation() - 
-				transformation.translation());
-
-			REPORT_OP(scalingDelta, >, 0.001);
-			REPORT_OP(angleDelta, >, 0.001);
-			REPORT_OP(tDelta, >,  0.001);
 		}
 
-	}
-
-	void testSimilarityLs()
-	{
-		for (integer i = 0;i < 10000;++i)
+		virtual void run()
 		{
-			const ConformalAffine2 transformation(
-				random<real>() * 2 + 1,
-				random<real>() * 2 * constantPi<real>(),
-				Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
+			testSimilaritySimple();
+			testSimilarityLs();
+		}
 
-			std::vector<Vector2> pattern;
-			std::vector<Vector2> transformedPattern;
-
-			for (integer i = 0;i < 1000;++i)
+		void testSimilaritySimple()
+		{
+			for (integer i = 0;i < 10000;++i)
 			{
-				pattern.push_back(randomVector<real, 2>());
-				transformedPattern.push_back(
-					transformPoint(pattern.back(), transformation));
+				const ConformalAffine2 transformation(
+					random<real>() * 2 + 1,
+					random<real>() * 2 * constantPi<real>(),
+					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
+
+				const Vector2 aFrom(random<real>(), random<real>());
+				const Vector2 bFrom(random<real>(), random<real>());
+
+				const Vector2 aTo(transformPoint(aFrom, transformation));
+				const Vector2 bTo(transformPoint(bFrom, transformation));
+
+				const ConformalAffine2 matchedTransformation =
+					conformalAffine(aFrom, bFrom, aTo, bTo);
+
+				const real scalingDelta = absoluteError<real>(
+					matchedTransformation.scaling(), 
+					transformation.scaling());
+				const real angleDelta = absoluteError<real>(
+					matchedTransformation.rotation(), 
+					transformation.rotation());
+				const real tDelta = norm(
+					matchedTransformation.translation() - 
+					transformation.translation());
+
+				TEST_ENSURE_OP(scalingDelta, <=, 0.001);
+				TEST_ENSURE_OP(angleDelta, <=, 0.001);
+				TEST_ENSURE_OP(tDelta, <=,  0.001);
 			}
 
-			const ConformalAffine2 matchedTransformation =
-				lsConformalAffine(
-				range(pattern.begin(), pattern.end()),
-				range(transformedPattern.begin(), transformedPattern.end()),
-				Vector_PointPolicy2(),
-				Vector_PointPolicy2());
-
-			const real scalingDelta = absoluteError<real>(
-				matchedTransformation.scaling(), 
-				transformation.scaling());
-			const real angleDelta = absoluteError<real>(
-				matchedTransformation.rotation(), 
-				transformation.rotation());
-			const real tDelta = norm(
-				matchedTransformation.translation() - 
-				transformation.translation());
-
-			REPORT_OP(scalingDelta, >, 0.001);
-			REPORT_OP(angleDelta, >, 0.001);
-			REPORT_OP(tDelta, >,  0.001);
 		}
 
-	}
+		void testSimilarityLs()
+		{
+			for (integer i = 0;i < 10000;++i)
+			{
+				const ConformalAffine2 transformation(
+					random<real>() * 2 + 1,
+					random<real>() * 2 * constantPi<real>(),
+					Vector2(random<real>() * 2 - 1, random<real>() * 2 - 1));
 
-	void testBegin()
+				std::vector<Vector2> pattern;
+				std::vector<Vector2> transformedPattern;
+
+				for (integer i = 0;i < 1000;++i)
+				{
+					pattern.push_back(randomVector<real, 2>());
+					transformedPattern.push_back(
+						transformPoint(pattern.back(), transformation));
+				}
+
+				const ConformalAffine2 matchedTransformation =
+					lsConformalAffine(
+					range(pattern.begin(), pattern.end()),
+					range(transformedPattern.begin(), transformedPattern.end()),
+					Vector_PointPolicy2(),
+					Vector_PointPolicy2());
+
+				const real scalingDelta = absoluteError<real>(
+					matchedTransformation.scaling(), 
+					transformation.scaling());
+				const real angleDelta = absoluteError<real>(
+					matchedTransformation.rotation(), 
+					transformation.rotation());
+				const real tDelta = norm(
+					matchedTransformation.translation() - 
+					transformation.translation());
+
+				TEST_ENSURE_OP(scalingDelta, <=, 0.001);
+				TEST_ENSURE_OP(angleDelta, <=, 0.001);
+				TEST_ENSURE_OP(tDelta, <=,  0.001);
+			}
+		}
+	};
+
+	void test()
 	{
-		testSimilaritySimple();
-		testSimilarityLs();
+		Test test;
+		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("Transformation", testBegin);
+		geometryTestList().add("Transformation", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

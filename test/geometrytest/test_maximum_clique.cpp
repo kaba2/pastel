@@ -11,13 +11,13 @@ using namespace Pastel;
 namespace
 {
 
-	class MaximumClique_Test
+	class Test
 		: public TestSuite
 	{
 	public:
 		typedef Rational<integer> Real;
 
-		MaximumClique_Test()
+		Test()
 			: TestSuite(&geometryTestReport())
 		{
 		}
@@ -230,7 +230,7 @@ namespace
 
 	void testMaximumClique()
 	{
-		MaximumClique_Test test;
+		Test test;
 		test.run();
 	}
 

@@ -125,18 +125,18 @@ namespace
 
 	}
 
-	void testBegin()
+	void test()
 	{
 		testAllocate();
 		testDeallocate();
 		testRandomDeallocate();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("PoolAllocator", testBegin);
+		sysTestList().add("PoolAllocator", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

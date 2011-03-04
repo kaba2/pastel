@@ -15,8 +15,8 @@ namespace Pastel
 		const Sphere<Real, N>& sphere)
 	{
 		const AlignedBox<Real, N> result(
-			sphere.position() - Vector<Real, N>(sphere.radius()),
-			sphere.position() + Vector<Real, N>(sphere.radius()));
+			sphere.position() - sphere.radius(),
+			sphere.position() + sphere.radius());
 
 		return result;
 	}

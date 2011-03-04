@@ -14,7 +14,7 @@ using namespace Pastel;
 namespace
 {
 
-	void testLu()
+	void testCholesky()
 	{
 		{
 			const CholeskyDecomposition2 cholesky(
@@ -33,11 +33,11 @@ namespace
 		}
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		mathTestList().add("cholesky_decomposition", testLu);
+		mathTestList().add("cholesky_decomposition", testCholesky);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

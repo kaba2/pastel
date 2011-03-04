@@ -9,67 +9,83 @@ using namespace Pastel;
 namespace
 {
 
-	void testEndianConvert()
+	class Test
+		: public TestSuite
 	{
-		uint8 data[] = {0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8};
-
-		int16& wordData = (int16&)data[0];
-		uint16& uwordData = (uint16&)data[0];
-		int32& dwordData = (int32&)data[0];
-		uint32& udwordData = (uint32&)data[0];
-		int64& qwordData = (int64&)data[0];
-		uint64& uqwordData = (uint64&)data[0];
-
+	public:
+		Test()
+			: TestSuite(&sysTestReport())
 		{
-			int16 wordResult = littleEndian(wordData);
-			REPORT1(wordResult != 0x0201, wordResult);
-
-			uint16 uwordResult = littleEndian(uwordData);
-			REPORT1(uwordResult != 0x0201, uwordResult);
-
-			int32 dwordResult = littleEndian(dwordData);
-			REPORT1(dwordResult != 0x04030201, dwordResult);
-
-			uint32 udwordResult = littleEndian(udwordData);
-			REPORT1(udwordResult != 0x04030201, udwordResult);
-
-			int64 qwordResult = littleEndian(qwordData);
-			REPORT1(qwordResult != 0x0807060504030201ll, qwordResult);
-
-			uint64 uqwordResult = littleEndian(uqwordData);
-			REPORT1(uqwordResult != 0x0807060504030201ull, uqwordResult);
 		}
+
+		virtual void run()
 		{
-			int16 wordResult = bigEndian(wordData);
-			REPORT1(wordResult != 0x0102, wordResult);
-
-			uint16 uwordResult = bigEndian(uwordData);
-			REPORT1(uwordResult != 0x0102, uwordResult);
-
-			int32 dwordResult = bigEndian(dwordData);
-			REPORT1(dwordResult != 0x01020304, dwordResult);
-
-			uint32 udwordResult = bigEndian(udwordData);
-			REPORT1(udwordResult != 0x01020304, udwordResult);
-
-			int64 qwordResult = bigEndian(qwordData);
-			REPORT1(qwordResult != 0x0102030405060708ll, qwordResult);
-
-			uint64 uqwordResult = bigEndian(uqwordData);
-			REPORT1(uqwordResult != 0x0102030405060708ull, uqwordResult);
+			testEndianConvert();
 		}
-	}
 
-	void testBegin()
+		void testEndianConvert()
+		{
+			uint8 data[] = {0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8};
+
+			int16& wordData = (int16&)data[0];
+			uint16& uwordData = (uint16&)data[0];
+			int32& dwordData = (int32&)data[0];
+			uint32& udwordData = (uint32&)data[0];
+			int64& qwordData = (int64&)data[0];
+			uint64& uqwordData = (uint64&)data[0];
+
+			{
+				int16 wordResult = littleEndian(wordData);
+				TEST_ENSURE_OP(wordResult, ==, 0x0201);
+
+				uint16 uwordResult = littleEndian(uwordData);
+				TEST_ENSURE_OP(uwordResult, ==, 0x0201);
+
+				int32 dwordResult = littleEndian(dwordData);
+				TEST_ENSURE_OP(dwordResult, ==, 0x04030201);
+
+				uint32 udwordResult = littleEndian(udwordData);
+				TEST_ENSURE_OP(udwordResult, ==, 0x04030201);
+
+				int64 qwordResult = littleEndian(qwordData);
+				TEST_ENSURE_OP(qwordResult, ==, 0x0807060504030201ll);
+
+				uint64 uqwordResult = littleEndian(uqwordData);
+				TEST_ENSURE_OP(uqwordResult, ==, 0x0807060504030201ull);
+			}
+			{
+				int16 wordResult = bigEndian(wordData);
+				TEST_ENSURE_OP(wordResult, ==, 0x0102);
+
+				uint16 uwordResult = bigEndian(uwordData);
+				TEST_ENSURE_OP(uwordResult, ==, 0x0102);
+
+				int32 dwordResult = bigEndian(dwordData);
+				TEST_ENSURE_OP(dwordResult, ==, 0x01020304);
+
+				uint32 udwordResult = bigEndian(udwordData);
+				TEST_ENSURE_OP(udwordResult, ==, 0x01020304);
+
+				int64 qwordResult = bigEndian(qwordData);
+				TEST_ENSURE_OP(qwordResult, ==, 0x0102030405060708ll);
+
+				uint64 uqwordResult = bigEndian(uqwordData);
+				TEST_ENSURE_OP(uqwordResult, ==, 0x0102030405060708ull);
+			}
+		}
+	};
+
+	void test()
 	{
-		testEndianConvert();
+		Test test;
+		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("Endian", testBegin);
+		sysTestList().add("Endian", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

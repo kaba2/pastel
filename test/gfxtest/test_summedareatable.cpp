@@ -40,16 +40,16 @@ namespace
 		savePcx(sumImage, "output/summedareatable.pcx");
 	}
 
-	void testBegin()
+	void test()
 	{
 		testSummedAreaTable();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		gfxTestList().add("SummedAreaTable", testBegin);
+		gfxTestList().add("SummedAreaTable", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

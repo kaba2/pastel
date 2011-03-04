@@ -16,86 +16,107 @@ namespace
 
 	typedef Rational<integer> Real;
 
-	template <int N>
-	void testLuCase()
+	class Test
+		: public TestSuite
 	{
-		integer bad = 0;
-
-		for (integer i = 0;i < 10000;++i)
+	public:
+		Test()
+			: TestSuite(&mathTestReport())
 		{
-			Matrix<real, N, N> m;
-			setRandomMatrix(m);
+		}
 
-			LuDecomposition<real, N> lu(m);
+		virtual void run()
+		{
+			testLu();
+		}
 
-			if (!lu.singular())
+		template <int N>
+		void testLuCase()
+		{
+			integer bad = 0;
+
+			for (integer i = 0;i < 10000;++i)
 			{
-				const Vector<real, N> b = randomVectorCube<real, N>();
+				Matrix<real, N, N> m;
+				setRandomMatrix(m);
 
-				const Vector<real, N> x = solveLinear(lu, b);
+				LuDecomposition<real, N> lu(m);
 
-				const Vector<real, N> residual = x * m - b;
-				const real normResidual = norm(residual);
-
-				if (normResidual > 0.0001)
+				if (!lu.singular())
 				{
-					++bad;
+					const Vector<real, N> b = randomVectorCube<real, N>();
+
+					const Vector<real, N> x = solveLinear(lu, b);
+
+					const Vector<real, N> residual = x * m - b;
+					const real normResidual = norm(residual);
+
+					if (normResidual > 0.0001)
+					{
+						++bad;
+					}
 				}
 			}
+
+			TEST_ENSURE_OP(bad, <, 100);
 		}
 
-		REPORT1(bad >= 100, bad);
-	}
-
-	void testLu()
-	{
+		void testLu()
 		{
-			const LuDecomposition<Real, 2> lu(
-				Matrix<Real, 2, 2>(
-				1, Real(1, 2), 
-				Real(1, 2), 1));
-			const Matrix<Real, 2, 2> correctPackedLu(
+			{
+				const LuDecomposition<Real, 2> lu(
+					Matrix<Real, 2, 2>(
 					1, Real(1, 2), 
-					Real(1, 2), Real(3, 4));
-			const Tuple<integer, 2> correctRowPermutation(
-				0, 1);
-			REPORT(lu.packedLu() != correctPackedLu);
-			REPORT(lu.rowPermutation() != correctRowPermutation);
+					Real(1, 2), 1));
+				const Matrix<Real, 2, 2> correctPackedLu(
+						1, Real(1, 2), 
+						Real(1, 2), Real(3, 4));
+				const Tuple<integer, 2> correctRowPermutation(
+					0, 1);
+				TEST_ENSURE(lu.packedLu() == correctPackedLu);
+				TEST_ENSURE(lu.rowPermutation() == correctRowPermutation);
 
-			//std::cout << lu.packedLu() << std::endl;
-			//std::cout << lu.rowPermutation() << std::endl;
+				//std::cout << lu.packedLu() << std::endl;
+				//std::cout << lu.rowPermutation() << std::endl;
+			}
+			{
+				const LuDecomposition<Real, 3> lu(
+					Matrix<Real, 3, 3>(
+					1, 2, 3,
+					4, 5, 6,
+					7, 8, 9));
+				const Matrix<Real, 3, 3> correctPackedLu(
+					7, 8, 9,
+					Real(1, 7), Real(6, 7), Real(12, 7),
+					Real(4, 7), Real(1, 2), 0);
+				const Tuple<integer, 3> correctRowPermutation(
+					2, 0, 1);
+				TEST_ENSURE(lu.packedLu() == correctPackedLu);
+				TEST_ENSURE(lu.rowPermutation() == correctRowPermutation);
+
+				//std::cout << lu.packedLu() << std::endl;
+				//std::cout << lu.rowPermutation() << std::endl;
+			}
+
+			testLuCase<1>();
+			testLuCase<2>();
+			testLuCase<3>();
+			testLuCase<4>();
+			testLuCase<5>();
 		}
-		{
-			const LuDecomposition<Real, 3> lu(
-				Matrix<Real, 3, 3>(
-				1, 2, 3,
-				4, 5, 6,
-				7, 8, 9));
-			const Matrix<Real, 3, 3> correctPackedLu(
-				7, 8, 9,
-				Real(1, 7), Real(6, 7), Real(12, 7),
-				Real(4, 7), Real(1, 2), 0);
-			const Tuple<integer, 3> correctRowPermutation(
-				2, 0, 1);
-			REPORT(lu.packedLu() != correctPackedLu);
-			REPORT(lu.rowPermutation() != correctRowPermutation);
+	};
 
-			//std::cout << lu.packedLu() << std::endl;
-			//std::cout << lu.rowPermutation() << std::endl;
-		}
-
-		testLuCase<1>();
-		testLuCase<2>();
-		testLuCase<3>();
-		testLuCase<4>();
-		testLuCase<5>();
-	}
-
-	void testAdd()
+	void test()
 	{
-		mathTestList().add("lu_decomposition", testLu);
+		Test test;
+		test.run();
 	}
 
-	CallFunction run(testAdd);
+	void addTest()
+	{
+		mathTestList().add("lu_decomposition", test);
+	}
+
+	CallFunction run(addTest);
 
 }

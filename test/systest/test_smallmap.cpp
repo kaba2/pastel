@@ -216,7 +216,7 @@ namespace
 		}
 	}
 
-	void testBegin()
+	void test()
 	{
 		testOne();
 		testTwoBefore();
@@ -232,11 +232,11 @@ namespace
 		testEraseNotFound();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		sysTestList().add("SmallMap", testBegin);
+		sysTestList().add("SmallMap", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

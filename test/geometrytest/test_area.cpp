@@ -10,11 +10,11 @@ typedef Rational<integer> Real;
 namespace
 {
 
-	class Area_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Area_Test()
+		Test()
 			: TestSuite(&geometryTestReport())
 		{
 		}
@@ -71,7 +71,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(1, 1), Real(0, 1)));
 				p.pushBack(Vector<Real, 2>(Real(1, 1), Real(2, 1)));
 
-				REPORT(signedArea(p) != Real(1, 1));
+				TEST_ENSURE(signedArea(p) == Real(1, 1));
 			}
 			{
 				// Square
@@ -81,7 +81,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(1, 1), Real(1, 1)));
 				p.pushBack(Vector<Real, 2>(Real(0, 1), Real(1, 1)));
 
-				REPORT(signedArea(p) != Real(1, 1));
+				TEST_ENSURE(signedArea(p) == Real(1, 1));
 			}
 			{
 				// Reversed square
@@ -91,7 +91,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(1, 1), Real(1, 1)));
 				p.pushBack(Vector<Real, 2>(Real(1, 1), Real(0, 1)));
 
-				REPORT(signedArea(p) != Real(-1, 1));
+				TEST_ENSURE(signedArea(p) == Real(-1, 1));
 			}
 			{
 				// Translated square
@@ -101,7 +101,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(1 + 2, 1), Real(1 - 3, 1)));
 				p.pushBack(Vector<Real, 2>(Real(0 + 2, 1), Real(1 - 3, 1)));
 
-				REPORT(signedArea(p) != Real(1, 1));
+				TEST_ENSURE(signedArea(p) == Real(1, 1));
 			}
 			{
 				// Six sided polygon.
@@ -115,7 +115,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(-3, 1), Real(0, 1)));
 				p.pushBack(Vector<Real, 2>(Real(-2, 1), Real(2, 1)));
 
-				REPORT(signedArea(p) != Real(24, 1));
+				TEST_ENSURE(signedArea(p) == Real(24, 1));
 			}
 			{
 				// Half of the six sided polygon.
@@ -126,7 +126,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(2, 1), Real(-2, 1)));
 				p.pushBack(Vector<Real, 2>(Real(0, 1), Real(-3, 1)));
 
-				REPORT(signedArea(p) != Real(12, 1));
+				TEST_ENSURE(signedArea(p) == Real(12, 1));
 			}
 			{
 				// Quarter of the six sided polygon.
@@ -135,7 +135,7 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(2, 1), Real(2, 1)));
 				p.pushBack(Vector<Real, 2>(Real(3, 1), Real(0, 1)));
 
-				REPORT(signedArea(p) != Real(6, 1));
+				TEST_ENSURE(signedArea(p) == Real(6, 1));
 			}
 			{
 				// Translated quarter of the six sided polygon.
@@ -144,24 +144,24 @@ namespace
 				p.pushBack(Vector<Real, 2>(Real(2 - 5, 1), Real(2 + 15, 1)));
 				p.pushBack(Vector<Real, 2>(Real(3 - 5, 1), Real(0 + 15, 1)));
 
-				REPORT(signedArea(p) != Real(6, 1));
+				TEST_ENSURE(signedArea(p) == Real(6, 1));
 			}
 			*/
 		}
 	};
 
 
-	void testBegin()
+	void test()
 	{
-		Area_Test test;
+		Test test;
 		test.run();
 	}
 
-	void testAdd()
+	void addTest()
 	{
-		geometryTestList().add("Area", testBegin);
+		geometryTestList().add("Area", test);
 	}
 
-	CallFunction run(testAdd);
+	CallFunction run(addTest);
 
 }

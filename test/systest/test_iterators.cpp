@@ -13,11 +13,11 @@ using namespace Pastel;
 namespace
 {
 
-	class Iterator_Test
+	class Test
 		: public TestSuite
 	{
 	public:
-		Iterator_Test()
+		Test()
 			: TestSuite(&sysTestReport())
 		{
 		}
@@ -219,7 +219,7 @@ namespace
 
 	void testIterators()
 	{
-		Iterator_Test test;
+		Test test;
 		test.run();		
 	}
 
