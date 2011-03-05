@@ -3,6 +3,9 @@ Real numbers
 
 [[Parent]]: numbers.txt
 
+A _real number_ is an element of the unique complete ordered field 
+which contains the rational numbers.
+
 Theory
 ------
 
@@ -65,7 +68,7 @@ infinite real intervals and unbounded limiting behaviour of functions.
 Practice
 --------
 
-The Real concept abstracts elements of an affinely extended ordered field. 
+The `Real` concept abstracts elements of an affinely extended ordered field. 
 Specifically, by this abstraction we aim to capture implementations of 
 floating point numbers and exact rational numbers. The intent is to be able 
 to use the same algorithms independent of the representation of numbers. 

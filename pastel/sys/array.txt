@@ -3,6 +3,9 @@ Multi-dimensional array
 
 [[Parent]]: data_structures.txt
 
+An _array_ is a function from a rectangular subset of ''ZZ_+^n''
+onto an arbitrary set.
+
 Practice
 --------
 

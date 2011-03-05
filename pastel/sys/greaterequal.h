@@ -1,4 +1,4 @@
-// Description: Greater-than-or-equal-to algorithm
+// Description: Greater-than-or-equal-to predicate
 // Documentation: predicate.txt
 
 #ifndef PASTEL_GREATEREQUAL_H

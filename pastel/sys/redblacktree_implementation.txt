@@ -65,7 +65,7 @@ then the child pointers are assigned the sentinel node. This makes the
 implementation much more easier, since then we can stop worrying about
 boundary cases, and whether we are accessing a null-pointer or not.
 In addition to this, the sentinel node works as the one-past-end 
-iterator, when the tree is interpreted as ordered sequence. When the
+iterator, when the tree is interpreted as an ordered sequence. When the
 parent of the sentinel node points to the maximum node, one is able
 to naturally get to the precedessor (the maximum node) from the 
 one-past-end iterator. The color of the sentinel node is black, and it

@@ -1,5 +1,5 @@
 // Description: Bidirectional range concept
-// Documentation: ranges.txt
+// Documentation: range_concepts.txt
 
 #ifndef PASTEL_BIDIRECTIONALRANGE_CONCEPT_H
 #define PASTEL_BIDIRECTIONALRANGE_CONCEPT_H

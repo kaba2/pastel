@@ -1,4 +1,4 @@
-// Description: Greater-than algorithm
+// Description: Greater-than predicate
 // Documentation: predicate.txt
 
 #ifndef PASTEL_GREATERTHAN_H

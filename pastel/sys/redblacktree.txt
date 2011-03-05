@@ -1,14 +1,18 @@
-Red-black tree
-==============
+Augmented red-black tree
+========================
 
 [[Parent]]: data_structures.txt
+
+A _red-black tree_ is a certain kind of a balanced binary search tree.
+An _augmented red-black tree_ is a red-black tree which automatically
+updates extra hierarchical information in its nodes.
 
 Theory
 ------
 
-A _red-black tree_ is a balanced binary search tree. It is a data structure 
-to contain arbitrary elements, given that those elements can be totally 
-ordered by their _keys_. Such a tree has the following attractive properties.
+The red-black tree is a data structure to contain arbitrary elements, 
+given that those elements can be totally ordered by their _keys_. 
+Such a tree has the following attractive properties.
 
  * It can be constructed in ''O(n)'' time and uses ''O(n)'' space.
  * An element can be inserted into it in ''O(log(n))'' time.

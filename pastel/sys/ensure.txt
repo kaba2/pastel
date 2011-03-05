@@ -3,11 +3,12 @@ Invariant checking
 
 [[Parent]]: testing.txt
 
+In programming, an _invariant_ is a condition that must hold 
+everytime the program executes through a specific position. 
+
 Theory
 ------
 
-In programming, an _invariant_ is a condition that must hold 
-everytime the program executes through a specific position. 
 In general, we can think of splitting up a program into
 small blocks of functionality. Each such block promises to
 do something, described by a set of _postconditions_, provided
@@ -34,10 +35,9 @@ Practice
 --------
 
 One important technique in lowering the number of bugs in a program 
-is to establish and check invariants frequently. In less
-fancy terms, this means to check that the program does what 
-it promises to do. Arguably, the most important invariants
-to check are the preconditions to functions.
+is to establish and check invariants frequently. This simply means 
+to check that the program does what it promises to do. Arguably, the 
+most important invariants to check are the preconditions to functions.
 
 Pastel provides the macros `ENSURE`, `PENSURE`, and `ASSERT`, to help with
 enforcing invariants. All of the three macros work in exactly the same way,
@@ -70,12 +70,15 @@ are _not_ satisfied, then the following happens:
  1. The violated condition, file name, line number, and the parameters
  are printed into a log.
  
- 2. The program is terminated via abort().
+ 2. The program takes an invariant failure action.
 
 Triggering an `ENSURE` means that there is a bug at the _user's 
 side_ (or a bug at the condition itself). In contrast, triggering an
 `ASSERT` means that there is a bug in the _implementation_ side of the 
-algorithm (or a bug at the condition itself). 
+algorithm (or a bug at the condition itself). The user can choose
+the taken action on an invariant failure. Choices include calling
+`std::abort()`, throwing an exception, or either of these with a 
+preceding `assert()` (to invoke a possible debugger when in debug mode).
 
 The case of binary operator
 ---------------------------
@@ -126,7 +129,7 @@ Justification for the use of a macro
 The reason for using macros, which are well known for their 
 disadvantages, is to be able to report the file name and 
 line number, as well as the condition. Only the preprocessor can do
-this, and thus the use of a macro is necessary. This is one of those rare
+this, and thus the use of a macro is necessary. This is one of the rare
 conditions where the use of a macro is justified.
 
 See also

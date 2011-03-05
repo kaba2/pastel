@@ -3,11 +3,12 @@ Coordinate systems
 
 [[Parent]]: pastelmath.txt
 
+A _coordinate system_ in ''RR^n'' is a function ''f : S sub RR^n -> RR^n'' 
+such that the restriction of ''f'' to some cofinite set is a homeomorphism.
+
 Theory
 ------
 
-A _coordinate system_ in ''RR^n'' is a function ''f : S sub RR^n -> RR^n'' 
-such that the restriction of ''f'' to some cofinite set is a homeomorphism.
 Some commonly used coordinate systems include:
 
 ### Cartesian ''RR^n''

@@ -1,4 +1,4 @@
-// Description: Not-equal-to algorithm
+// Description: Not-equal-to predicate
 // Documentation: predicate.txt
 
 #ifndef PASTEL_NOTEQUALTO_H

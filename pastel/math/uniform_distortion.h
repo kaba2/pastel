@@ -1,4 +1,4 @@
-// Description: Distortion of a uniform distribution to another one
+// Description: Uniform distortion
 
 #ifndef PASTEL_UNIFORM_DISTORTION_H
 #define PASTEL_UNIFORM_DISTORTION_H

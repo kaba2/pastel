@@ -1,5 +1,4 @@
 // Description: A real number which collects statistics of its use
-// Documentation: reals.txt
 
 #ifndef PASTEL_STATREAL_H
 #define PASTEL_STATREAL_H

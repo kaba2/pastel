@@ -3,9 +3,6 @@ Uniform sampling
 
 [[Parent]]: pastelmath.txt
 
-Theory
-------
-
 _Uniform sampling of ''V sub RR^n''_ is the problem of generating random 
 samples from ''V'' with a uniform distribution. 
 

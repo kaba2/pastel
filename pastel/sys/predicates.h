@@ -1,8 +1,8 @@
-// Description: An aggregate file for relation algorithms
+// Description: An aggregate file for predicates
 // Documentation: predicate.txt
 
-#ifndef PASTEL_RELATIONALGORITHMS_H
-#define PASTEL_RELATIONALGORITHMS_H
+#ifndef PASTELSYS_PREDICATES_H
+#define PASTELSYS_PREDICATES_H
 
 #include "pastel/sys/equalto.h"
 #include "pastel/sys/notequalto.h"
