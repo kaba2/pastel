@@ -1,10 +1,10 @@
 // Description: Less-than algorithm
-// Documentation: relationalgorithm.txt
+// Documentation: predicate.txt
 
 #ifndef PASTEL_LESSTHAN_H
 #define PASTEL_LESSTHAN_H
 
-#include "pastel/sys/relationalgorithm_concept.h"
+#include "pastel/sys/predicate_concept.h"
 
 namespace Pastel
 {

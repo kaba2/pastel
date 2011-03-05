@@ -1,10 +1,10 @@
-Relation algorithm concept
-==========================
+Predicate concept
+=================
 
 [[Parent]]: algorithm.txt
 
-The _relation algorithm_ concept is a refinement of the algorithm 
-concept. It defines an algorithm which takes two arbitrary arguments
+The _predicate_ concept is a refinement of the algorithm concept. 
+It defines an algorithm which takes two arbitrary arguments
 and returns a boolean result.
 
 Example
@@ -15,7 +15,7 @@ Sorting is usually carried out something like this:
 [[CppCode]]:
 	std::sort(begin, end, std::greater<int>());
 	
-With relation algorithm objects we write this:
+With predicate objects we write this:
 
 [[CppCode]]:
 	std::sort(begin, end, GreaterThan());

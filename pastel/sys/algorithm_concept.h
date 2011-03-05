@@ -9,13 +9,18 @@
 namespace Pastel
 {
 
-	class Algorithm_Concept
+	namespace Algorithm_Concept
 	{
-	public:
-		template <typename AnyNumberOfArguments>
-		UserDefinedType operator()(
-			const AnyNumberOfArguments& that);
-	};
+
+		class Algorithm
+		{
+		public:
+			template <typename AnyNumberOfArguments>
+			UserDefinedType operator()(
+				const AnyNumberOfArguments& that);
+		};
+	
+	}
 
 }
 

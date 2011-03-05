@@ -2063,6 +2063,14 @@
 				Name="Stl extensions"
 				>
 				<File
+					RelativePath=".\interleave.h"
+					>
+				</File>
+				<File
+					RelativePath=".\interleave.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\stdext.txt"
 					>
 				</File>
@@ -2168,7 +2176,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="RelationAlgorithm concept"
+				Name="Predicate concept"
 				>
 				<File
 					RelativePath=".\equalto.h"
@@ -2195,15 +2203,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\relationalgorithm.txt"
+					RelativePath=".\predicate.txt"
 					>
 				</File>
 				<File
-					RelativePath=".\relationalgorithm_concept.h"
+					RelativePath=".\predicate_concept.h"
 					>
 				</File>
 				<File
-					RelativePath=".\relationalgorithms.h"
+					RelativePath=".\predicates.h"
 					>
 				</File>
 			</Filter>
@@ -2315,6 +2323,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\concrete_ranges.h"
+					>
+				</File>
+				<File
+					RelativePath=".\concrete_ranges.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\constant_range.h"
 					>
 				</File>
@@ -2400,6 +2416,26 @@
 				</File>
 				<File
 					RelativePath=".\range_concepts.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Algorithms"
+				>
+				<File
+					RelativePath=".\range_algorithms.h"
+					>
+				</File>
+				<File
+					RelativePath=".\range_algorithms.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\range_for_all.h"
+					>
+				</File>
+				<File
+					RelativePath=".\range_for_all.hpp"
 					>
 				</File>
 			</Filter>

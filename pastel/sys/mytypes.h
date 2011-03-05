@@ -208,6 +208,6 @@ namespace Pastel
 #include "pastel/sys/float_real.h"
 #include "pastel/sys/double_real.h"
 
-#include "pastel/sys/relationalgorithms.h"
+#include "pastel/sys/predicates.h"
 
 #endif

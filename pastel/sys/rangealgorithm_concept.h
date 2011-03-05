@@ -9,42 +9,57 @@
 namespace Pastel
 {
 
-	class RangeAlgorithm_Concept
-		: public Algorithm_Concept
+	namespace RangeAlgorithm_Concept
 	{
-	public:
-		//! Applies the algorithm to an iterator range.
-		template <typename ForwardRange>
-		void operator()(ForwardRange range);
-	};
 
-	class RangeAlgorithm2_Concept
-		: public Algorithm_Concept
-	{
-	public:
-		//! Applies the algorithm to iterator ranges.
-		template <
-			typename A_ForwardRange,
-			typename B_ForwardRange>
-		void operator()(
-			A_ForwardRange aRange,
-			B_ForwardRange bRange);
-	};
+		class RangeAlgorithm
+			: public Algorithm_Concept::Algorithm
+		{
+		public:
+			//! Applies the algorithm to an iterator range.
+			template <typename ForwardRange>
+			void operator()(ForwardRange range);
+		};
 
-	class RangeAlgorithm3_Concept
-		: public Algorithm_Concept
+	}
+
+	namespace RangeAlgorithm2_Concept
 	{
-	public:
-		//! Applies the algorithm to iterator ranges.
-		template <
-			typename A_ForwardRange,
-			typename B_ForwardRange,
-			typename C_ForwardRange>
-		void operator()(
-			A_ForwardRange aRange,
-			B_ForwardRange bRange,
-			C_ForwardRange cRange);
-	};
+
+		class RangeAlgorithm2
+			: public Algorithm_Concept::Algorithm
+		{
+		public:
+			//! Applies the algorithm to iterator ranges.
+			template <
+				typename A_ForwardRange,
+				typename B_ForwardRange>
+			void operator()(
+				A_ForwardRange aRange,
+				B_ForwardRange bRange);
+		};
+
+	}
+
+	namespace RangeAlgorithm3_Concept
+	{
+
+		class RangeAlgorithm3
+			: public Algorithm_Concept::Algorithm
+		{
+		public:
+			//! Applies the algorithm to iterator ranges.
+			template <
+				typename A_ForwardRange,
+				typename B_ForwardRange,
+				typename C_ForwardRange>
+			void operator()(
+				A_ForwardRange aRange,
+				B_ForwardRange bRange,
+				C_ForwardRange cRange);
+		};
+
+	}
 
 }
 

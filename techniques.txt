@@ -7,6 +7,8 @@ Certain programming techniques are recurringly used in the
 implementation of Pastel. Those techniques are introduced here with 
 the aim of being able to make more sense of the source code. The 
 important technique of precondition checking is explained in the 
-[testing section][Precondition].
+[testing section][Precondition]. The algorithm objects are explained
+[here][Algorithm].
 
 [Precondition]: [[Ref]]: ensure.txt
+[Algorithm]: [[Ref]]: algorithm.txt
