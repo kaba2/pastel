@@ -1,0 +1,6 @@
+Concrete ranges
+===============
+
+[[Parent]]: ranges.txt
+
+This section contains concrete range implementations.

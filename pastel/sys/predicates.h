@@ -1,5 +1,5 @@
 // Description: An aggregate file for relation algorithms
-// Documentation: relationalgorithm.txt
+// Documentation: predicate.txt
 
 #ifndef PASTEL_RELATIONALGORITHMS_H
 #define PASTEL_RELATIONALGORITHMS_H

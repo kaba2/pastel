@@ -30,6 +30,142 @@ namespace
 			testNegative();
 			testPositive();
 			testSingular();
+			testGrazing();
+		}
+
+		void testGrazing()
+		{
+			// Nine aligned boxes have been placed
+			// in a square grid like this:
+			// g h i
+			// d e f
+			// a b c
+			// Their boundaries touch each other.
+			// Depending on the topology, there
+			// either should or should not be
+			// intersections.
+
+			AlignedBox<Real, 2> a(
+				Vector<Real, 2>(0, 0),
+				Vector<Real, 2>(1, 1));
+
+			AlignedBox<Real, 2> b(
+				Vector<Real, 2>(1, 0),
+				Vector<Real, 2>(2, 1));
+
+			AlignedBox<Real, 2> c(
+				Vector<Real, 2>(2, 0),
+				Vector<Real, 2>(3, 1));
+
+			AlignedBox<Real, 2> d(
+				Vector<Real, 2>(0, 1),
+				Vector<Real, 2>(1, 2));
+
+			AlignedBox<Real, 2> e(
+				Vector<Real, 2>(1, 1),
+				Vector<Real, 2>(2, 2));
+
+			AlignedBox<Real, 2> f(
+				Vector<Real, 2>(2, 1),
+				Vector<Real, 2>(3, 2));
+
+			AlignedBox<Real, 2> g(
+				Vector<Real, 2>(0, 2),
+				Vector<Real, 2>(1, 3));
+
+			AlignedBox<Real, 2> h(
+				Vector<Real, 2>(1, 2),
+				Vector<Real, 2>(2, 3));
+
+			AlignedBox<Real, 2> i(
+				Vector<Real, 2>(2, 2),
+				Vector<Real, 2>(3, 3));
+
+			TEST_ENSURE(overlaps(e, a));
+			TEST_ENSURE(overlaps(e, b));
+			TEST_ENSURE(overlaps(e, c));
+			TEST_ENSURE(overlaps(e, d));
+
+			TEST_ENSURE(overlaps(e, f));
+			TEST_ENSURE(overlaps(e, g));
+			TEST_ENSURE(overlaps(e, h));
+			TEST_ENSURE(overlaps(e, i));
+
+			TEST_ENSURE(overlaps(a, e));
+			TEST_ENSURE(overlaps(b, e));
+			TEST_ENSURE(overlaps(c, e));
+			TEST_ENSURE(overlaps(d, e));
+
+			TEST_ENSURE(overlaps(f, e));
+			TEST_ENSURE(overlaps(g, e));
+			TEST_ENSURE(overlaps(h, e));
+			TEST_ENSURE(overlaps(i, e));
+
+			e.maxTopology().set(Topology::Open);
+
+			TEST_ENSURE(overlaps(e, a));
+			TEST_ENSURE(overlaps(e, b));
+			TEST_ENSURE(!overlaps(e, c));
+			TEST_ENSURE(overlaps(e, d));
+
+			TEST_ENSURE(!overlaps(e, f));
+			TEST_ENSURE(!overlaps(e, g));
+			TEST_ENSURE(!overlaps(e, h));
+			TEST_ENSURE(!overlaps(e, i));
+
+			TEST_ENSURE(overlaps(a, e));
+			TEST_ENSURE(overlaps(b, e));
+			TEST_ENSURE(!overlaps(c, e));
+			TEST_ENSURE(overlaps(d, e));
+
+			TEST_ENSURE(!overlaps(f, e));
+			TEST_ENSURE(!overlaps(g, e));
+			TEST_ENSURE(!overlaps(h, e));
+			TEST_ENSURE(!overlaps(i, e));
+
+			e.minTopology().set(Topology::Open);
+
+			TEST_ENSURE(!overlaps(e, a));
+			TEST_ENSURE(!overlaps(e, b));
+			TEST_ENSURE(!overlaps(e, c));
+			TEST_ENSURE(!overlaps(e, d));
+
+			TEST_ENSURE(!overlaps(e, f));
+			TEST_ENSURE(!overlaps(e, g));
+			TEST_ENSURE(!overlaps(e, h));
+			TEST_ENSURE(!overlaps(e, i));
+
+			TEST_ENSURE(!overlaps(a, e));
+			TEST_ENSURE(!overlaps(b, e));
+			TEST_ENSURE(!overlaps(c, e));
+			TEST_ENSURE(!overlaps(d, e));
+
+			TEST_ENSURE(!overlaps(f, e));
+			TEST_ENSURE(!overlaps(g, e));
+			TEST_ENSURE(!overlaps(h, e));
+			TEST_ENSURE(!overlaps(i, e));
+
+			e.maxTopology().set(Topology::Closed);
+
+			TEST_ENSURE(!overlaps(e, a));
+			TEST_ENSURE(!overlaps(e, b));
+			TEST_ENSURE(!overlaps(e, c));
+			TEST_ENSURE(!overlaps(e, d));
+
+			TEST_ENSURE(overlaps(e, f));
+			TEST_ENSURE(!overlaps(e, g));
+			TEST_ENSURE(overlaps(e, h));
+			TEST_ENSURE(overlaps(e, i));
+
+			TEST_ENSURE(!overlaps(a, e));
+			TEST_ENSURE(!overlaps(b, e));
+			TEST_ENSURE(!overlaps(c, e));
+			TEST_ENSURE(!overlaps(d, e));
+
+			TEST_ENSURE(overlaps(f, e));
+			TEST_ENSURE(!overlaps(g, e));
+			TEST_ENSURE(overlaps(h, e));
+			TEST_ENSURE(overlaps(i, e));
 		}
 
 		void testNegative()
@@ -145,27 +281,33 @@ namespace
 
 		void testSingular()
 		{
-			AlignedBox<Real, 2> a(
-				Vector<Real, 2>(0, 0),
-				Vector<Real, 2>(1, 1));
+			// Boxes share a corner point.
+			{
+				AlignedBox<Real, 2> a(
+					Vector<Real, 2>(0, 0),
+					Vector<Real, 2>(1, 1));
 
-			// AlignedBoxs share a corner point.
+				AlignedBox<Real, 2> b(
+					Vector<Real, 2>(1, 1),
+					Vector<Real, 2>(2, 2));
 
-			AlignedBox<Real, 2> b(
-				Vector<Real, 2>(1, 1),
-				Vector<Real, 2>(2, 2));
+				TEST_ENSURE(overlaps(a, b));
+				TEST_ENSURE(overlaps(b, a));
+			}
 
-			TEST_ENSURE(overlaps(a, b));
-			TEST_ENSURE(overlaps(b, a));
+			// Boxes share an edge
+			{
+				AlignedBox<Real, 2> a(
+					Vector<Real, 2>(0, 0),
+					Vector<Real, 2>(1, 1));
 
-			// AlignedBoxs share an edge
+				AlignedBox<Real, 2> b(
+					Vector<Real, 2>(1, 0),
+					Vector<Real, 2>(2, 1));
 
-			AlignedBox<Real, 2> c(
-				Vector<Real, 2>(1, 0),
-				Vector<Real, 2>(2, 1));
-
-			TEST_ENSURE(overlaps(a, c));
-			TEST_ENSURE(overlaps(c, a));
+				TEST_ENSURE(overlaps(a, b));
+				TEST_ENSURE(overlaps(b, a));
+			}
 		}
 	};
 

@@ -1,10 +1,10 @@
 // Description: Greater-than algorithm
-// Documentation: relationalgorithm.txt
+// Documentation: predicate.txt
 
 #ifndef PASTEL_GREATERTHAN_H
 #define PASTEL_GREATERTHAN_H
 
-#include "pastel/sys/relationalgorithm_concept.h"
+#include "pastel/sys/predicate_concept.h"
 
 namespace Pastel
 {

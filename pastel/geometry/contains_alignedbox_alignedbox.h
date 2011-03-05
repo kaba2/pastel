@@ -1,4 +1,4 @@
-// Description: Does an aligned box contain another aligned box?
+// Description: Containment of an aligned box by another one
 
 #ifndef PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
 #define PASTEL_CONTAINS_ALIGNEDBOX_ALIGNEDBOX_H
@@ -8,7 +8,7 @@
 namespace Pastel
 {
 
-	//! Finds out if an aligned box is contained in another one.
+	//! Returns if an aligned box is contained in another one.
 	template <typename Real, int N>
 	bool contains(
 		const AlignedBox<Real, N>& outer,
