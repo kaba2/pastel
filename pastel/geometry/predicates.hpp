@@ -1,5 +1,5 @@
-#ifndef PASTEL_PREDICATES_HPP
-#define PASTEL_PREDICATES_HPP
+#ifndef PASTELGEOMETRY_PREDICATES_HPP
+#define PASTELGEOMETRY_PREDICATES_HPP
 
 #include "pastel/geometry/predicates.h"
 

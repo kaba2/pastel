@@ -1049,6 +1049,10 @@
 							>
 						</File>
 						<File
+							RelativePath=".\statreal.txt"
+							>
+						</File>
+						<File
 							RelativePath=".\statreal_tools.cpp"
 							>
 						</File>
@@ -2416,6 +2420,10 @@
 				</File>
 				<File
 					RelativePath=".\range_concepts.h"
+					>
+				</File>
+				<File
+					RelativePath=".\range_concepts.txt"
 					>
 				</File>
 			</Filter>

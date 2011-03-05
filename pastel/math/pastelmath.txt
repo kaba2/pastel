@@ -5,9 +5,11 @@ PastelMath
 
 _PastelMath_ provides general-purpose mathematical tools. Algorithms 
 and data structures for geometry can be found from the 
-[PastelGeometry][Geometry] sublibrary.
+[PastelGeometry][Geometry] sublibrary. Some of the basic mathematical
+tools can be found from [PastelSys][Sys] sublibrary.
 
 [Geometry]: [[Ref]]: pastelgeometry.txt
+[Sys]: [[Ref]]: pastelsys.txt
 
 
 

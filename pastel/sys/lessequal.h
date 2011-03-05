@@ -1,4 +1,4 @@
-// Description: Less-than-or-equal-to algorithm
+// Description: Less-than-or-equal-to predicate
 // Documentation: predicate.txt
 
 #ifndef PASTEL_LESSEQUAL_H

@@ -3,13 +3,15 @@ Norm bijections
 
 [[Parent]]: pastelmath.txt
 
+A _norm bijection_ is the composition of a norm and an increasing bijection.
+
 Theory
 ------
 
 ### Norm bijection
 
 Let ''|x| : RR^n -> RR^+'' be a norm and ''f : RR^+ -> RR^+'' an increasing bijection.
-A _norm bijection_ is a function defined by ''(: x :) : RR^n -> RR^+ : (: x :) = f(|x|)''.
+A norm bijection is a function defined by ''(: x :) : RR^n -> RR^+ : (: x :) = f(|x|)''.
 
 ### Restricted norm bijection
 
@@ -53,9 +55,9 @@ The motivation for the definition of a norm bijection is efficiency.
 The efficiency follows from the observation that the 
 norm value is rarely of interest itself. Rather, it is the ordering of 
 norms that is of interest. In particular, the p-norms (also called 
-Minkowski norms) compute a p:th root for each evaluation, which is a 
+Minkowski norms) compute a ''p'':th root for each evaluation, which is a 
 rather slow operation. However, if all you have is an inequality 
-''x^p < y^p'', then this is equivalent to ''x < y'' and you can avoid 
+''|x|^p < |y|^p'', then this is equivalent to ''|x| < |y|'' and you can avoid 
 the root computation. 
 
 A norm bijection allows you, in particular, to move between

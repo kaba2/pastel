@@ -3,6 +3,8 @@ Vectors
 
 [[Parent]]: maths.txt
 
+A _vector_ is an element of a vector space.
+
 Theory
 ------
 

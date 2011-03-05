@@ -4,6 +4,7 @@
 #define PASTEL_STREAM_RANGE_H
 
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/range_concepts.h"
 
 #include <istream>
 #include <ostream>

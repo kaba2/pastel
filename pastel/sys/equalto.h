@@ -1,4 +1,4 @@
-// Description: Equal-to algorithm
+// Description: Equal-to predicate
 // Documentation: predicate.txt
 
 #ifndef PASTEL_EQUALTO_H

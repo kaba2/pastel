@@ -3,6 +3,9 @@ Affine transformations
 
 [[Parent]]: transformations.txt
 
+An _affine transformation_ is a function from a vector space to another 
+such that it preserves affine combinations.
+
 Theory
 ------
 
@@ -22,7 +25,7 @@ where ''A'' is an ''RR^{m xx n}'' matrix, and ''b'' is a vector in ''RR^m''.
 Practice
 --------
 
-Pastel implements the AffineTransformation class to model
+Pastel implements the `AffineTransformation` class to model
 affine transformations in ''RR^n'' as well as functions for
 forming common affine transformations from various inputs, and
 inverting a transformation.

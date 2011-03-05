@@ -3,10 +3,11 @@ Linear algebra
 
 [[Parent]]: transformations.txt
 
+_Linear algebra_ is the study of linear functions over vector spaces.
+
 Theory
 ------
 
-_Linear algebra_ is the study of linear functions over vector spaces.
 Every finite n-dimensional vector space over the reals is isomorphic to ''RR^n''.
 Thus to solve problems in all such spaces, one only needs to develop
 computational tools to handle problems in ''RR^n''. 

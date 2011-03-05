@@ -3,17 +3,10 @@ Uniform distortion
 
 [[Parent]]: pastelmath.txt
 
-Theory
-------
-
-A _uniform distortion_ is a continuous function that distorts ''[0, 1]^n sub RR^n'' 
-to another point-set ''V sub RR^n'' such that if there 
-is a uniform distribution on ''[0, 1]^n'' then the function maps
-it to a uniform distribution on ''V'' .
-If you simply need to generate random samples uniformly from ''V'',
-then that is easier and can be done more generally using [uniform sampling][Sampling].
-
-[Sampling]: [[Ref]]: uniform_sampling.txt
+A _uniform distortion_ is a continuous function which distorts 
+''[0, 1]^n sub RR^n'' to another point-set ''V sub RR^n'' such that 
+if there is a uniform distribution on ''[0, 1]^n'' then the function 
+maps it to a uniform distribution on ''V'' .
 
 Practice
 --------
@@ -37,6 +30,11 @@ This kind of uniform distribution distortion does not
 generalize easily to higher dimensions. To the best of 
 our knowledge, none of the distortions listed above 
 (except the simplex) have closed form solutions for n > 3.
+
+If you simply need to generate random samples uniformly from ''V'',
+then that is easier and can be done more generally using [uniform sampling][Sampling].
+
+[Sampling]: [[Ref]]: uniform_sampling.txt
 
 References
 ----------

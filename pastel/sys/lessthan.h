@@ -1,4 +1,4 @@
-// Description: Less-than algorithm
+// Description: Less-than predicate
 // Documentation: predicate.txt
 
 #ifndef PASTEL_LESSTHAN_H

@@ -1,8 +1,8 @@
 // Description: Some geometric predicates
 // Documentation: common.txt
 
-#ifndef PASTEL_PREDICATES_H
-#define PASTEL_PREDICATES_H
+#ifndef PASTELGEOMETRY_PREDICATES_H
+#define PASTELGEOMETRY_PREDICATES_H
 
 #include "pastel/sys/vector.h"
 #include "pastel/geometry/plane.h"

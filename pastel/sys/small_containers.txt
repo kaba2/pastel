@@ -1,7 +1,13 @@
-Small associative containers
-============================
+Small associative arrays
+========================
 
 [[Parent]]: data_structures.txt
+
+The _small associative arrays_ are arrays which keep their
+contained data sorted by their keys at all times.
+
+Practice
+--------
 
 [Binary trees][Binary] and [hash tables][Hash] provide excellent
 performance for associative searches and are appropriate most
@@ -14,8 +20,8 @@ logarithmic. Because of this sorting invariant, the insertions
 and removals are linear time operations. However, because
 of the low number of elements and good locality of reference, 
 these are still fast operations in practice.
-For these reasons, Pastel provides the _small associative 
-containers_ `SmallSet`, `SmallMap`, and `SmallFixedSet`.
+For these reasons, Pastel provides the small associative 
+arrays `SmallSet`, `SmallMap`, and `SmallFixedSet`.
 
 [Binary]: [[Ref]]: redblacktree.txt
 [Hash]: [[Ref]]: hash_tables.txt

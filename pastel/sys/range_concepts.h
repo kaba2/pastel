@@ -1,5 +1,4 @@
 // Description: An aggregate file for range concepts
-// Documentation: ranges.txt
 
 #ifndef PASTEL_RANGE_CONCEPTS_H
 #define PASTEL_RANGE_CONCEPTS_H
