@@ -3,6 +3,9 @@ Color spaces
 
 [[Parent]]: color.txt
 
+An _absolute color space_ assigns a triple of real numbers to each 
+spectrum of light.
+
 Theory
 ------
 
@@ -29,8 +32,7 @@ combinations. This is exactly what the LMS coordinates are for.
 The CIE-XYZ and the LMS space are related by an invertible linear transformation.
 This explains the ability of the CIE-XYZ space to identify metamers.
 This linear transformation has been chosen such that the Y component corresponds to
-luminance 
-and that all of the coordinate triples are positive.
+luminance and that all of the coordinate triples are positive.
 
 ### CIE-Lab color space
 

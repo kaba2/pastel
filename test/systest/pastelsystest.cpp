@@ -15,6 +15,9 @@ int main()
 	log().addLogger(streamLogger(&cout));
 	log().addLogger(fileLogger("log.txt"));
 
+	setInvariantFailureAction(
+		InvariantFailureAction::Throw);
+
 	//sysTestList().run();
 	sysTestList().console();
 

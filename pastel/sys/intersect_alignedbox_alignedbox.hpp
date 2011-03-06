@@ -19,6 +19,12 @@ namespace Pastel
 		const integer n = aBox.dimension();
 		for (integer i = 0;i < n;++i)
 		{
+			if (aBox.empty(i) ||
+				bBox.empty(i))
+			{
+				return false;
+			}
+
 			if (aBox.max()[i] <= bBox.min()[i])
 			{
 				if (aBox.max()[i] < bBox.min()[i] ||
@@ -28,11 +34,11 @@ namespace Pastel
 					return false;
 				}
 			}
-			if (bBox.max()[i] <= aBox.min()[i])
+			if (aBox.min()[i] >= bBox.max()[i])
 			{
-				if (bBox.max()[i] < aBox.min()[i] ||
-					bBox.maxTopology()[i] == Topology::Open ||
-					aBox.minTopology()[i] == Topology::Open)
+				if (aBox.min()[i] > bBox.max()[i] ||
+					aBox.minTopology()[i] == Topology::Open ||
+					bBox.maxTopology()[i] == Topology::Open)
 				{
 					return false;
 				}

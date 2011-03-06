@@ -15,18 +15,10 @@ namespace Pastel
 {
 
 	//! A capsule.
-
 	/*!
-	A capsule C is described by
-	a starting point p0,
-	an ending point p1, and
-	a radius r.
-	Then
-	C = {x | exists t in [0, 1]: |(p0 + t(p1 - p0)) - x| <= r}
-	Intuitively, it is the Minkowski sum of a line segment
-	and an origin centered r-radius sphere.
+	Invariants:
+	radius() >= 0
 	*/
-
 	template <typename Real, int N = Dynamic>
 	class Capsule
 		: boost::multipliable<Capsule<Real, N>, Real
@@ -43,14 +35,17 @@ namespace Pastel
 		// Using default assignment.
 		// Using default destructor.
 
+		//! Constructs a 0-radius origin-to-origin capsule.
 		Capsule();
 
+		//! Constructs a capsule with the given properties.
 		Capsule(
 			const Vector<Real, N>& start,
 			const Vector<Real, N>& end,
 			const Real& radius,
 			Topology::Enum topology = Topology::Closed);
 
+		//! Constructs a capsule with the given properties.
 		Capsule(
 			const Segment<Real, N>& segment,
 			const Real& radius,
@@ -59,13 +54,13 @@ namespace Pastel
 		//! Swaps two capsules.
 		void swap(Capsule& that);
 
-		Vector<Real, N>& start();
-		const Vector<Real, N>& start() const;
+		//! Returns if the shape does not contain any points.
+		bool empty() const;
 
-		Vector<Real, N>& end();
-		const Vector<Real, N>& end() const;
-
+		//! Returns the underlying line segment.
 		Segment<Real, N>& segment();
+
+		//! Returns the underlying line segment.
 		const Segment<Real, N>& segment() const;
 
 		//! Sets the radius of the capsule.

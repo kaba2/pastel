@@ -73,7 +73,16 @@ namespace Pastel
 		Matrix& operator=(
 			const Matrix& that)
 		{
-			data_ = that.data_;
+			if (width() != that.width() ||
+				height() != that.height())
+			{
+				Matrix copy(that);
+				swap(copy);
+			}
+			else
+			{
+				data_ = that.data_;
+			}
 
 			return *this;
 		}
@@ -206,15 +215,22 @@ namespace Pastel
 			// We allow the size of the matrix to
 			// change in assignment.
 
-			if (right.evaluateBeforeAssignment(&*begin(), &*end()) ||
-				width() != right.width() ||
+			if (width() != right.width() ||
 				height() != right.height())
+			{
+				// The extents do no match.
+				Matrix copy(right);
+				swap(copy);
+			}
+			else if (right.evaluateBeforeAssignment(&*begin(), &*end()))
 			{
 				// The right expression contains this matrix
 				// as a subexpression. We thus need to evaluate
 				// the expression first.
-				
-				(*this) = Matrix(right);
+
+				Matrix copy(right);
+
+				(*this) = copy;
 			}
 			else
 			{
@@ -311,12 +327,39 @@ namespace Pastel
 
 		// Matrices vs scalars
 
-		// Matrix += scalar and Matrix -= scalar are not
-		// supported because of the possibly ambiguity:
-		// it is not clear whether it should mean
-		// "add / subtract element-wise" or
-		// "add / subtract by multiples of identity matrix".
-		// For *= and /= these interpretations are equivalent.
+		// The parameter is deliberately taken by value because
+		// a reference could be from this matrix.
+		Matrix& operator+=(
+			const Real right)
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				(*iter) += right;
+				++iter;
+			}
+
+			return *this;
+		}
+
+		// The parameter is deliberately taken by value because
+		// a reference could be from this matrix.
+		Matrix& operator-=(
+			const Real right)
+		{
+			Iterator iter = begin();
+			const Iterator iterEnd = end();
+
+			while(iter != iterEnd)
+			{
+				(*iter) -= right;
+				++iter;
+			}
+
+			return *this;
+		}
 
 		// The parameter is deliberately taken by value because
 		// a reference could be from this matrix.

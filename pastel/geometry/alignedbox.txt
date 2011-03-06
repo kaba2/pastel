@@ -3,23 +3,34 @@ Axis-aligned box
 
 [[Parent]]: shapes.txt
 
+An _axis-aligned box_ ''S'' in ''RR^n'' is a Cartesian product of 
+''n'' intervals. 
+
 Theory
 ------
 
-An _axis-aligned box_ ''S'' in ''RR^n'' is a Cartesian product of 
-''n'' closed intervals. Alternatively, it is described by two points ''A'' 
-and ''B'' in ''RR^n'', such that 
+An axis-aligned box can be described by two points 
+''A'' and ''B'' in ''RR^n'', such that 
 
-''S = {x in RR^n | \forall i in [1, n] : A_i <= x_i <= B_i}''.
+''S = {x in RR^n | \forall i in [1, n] : A_i <= x_i < B_i}''.
 
 In this representation, ''A'' is called the _minimum point_, and 
-''B'' is called the _maximum point_.
+''B'' is called the _maximum point_. Here we have used half-open
+intervals, however, the ends-points may or may not be part of the
+intervals.
 
 Practice
 --------
 
 In Pastel, an axis-aligned box is modeled with the `AlignedBox` class
-using the min-max representation. 
+using the min-max representation.
+
+### Topology
+
+Whether the end-points are part of the intervals can be controlled
+by changing the topology of the box. On each axis both the min and max
+point can be either included or excluded. The default is that the
+minimums are closed and the maximums are open.
 
 ### Dual role
 

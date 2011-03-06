@@ -62,7 +62,22 @@ namespace Pastel
 		Function function = iter->second;
 		if (!REPORT(!function))
 		{
-			function();
+			try
+			{
+				function();
+			}
+			catch(const InvariantFailure&)
+			{
+				log() << "An invariant failure occurred while running the test " 
+					<< iter->first << "."
+					<< logNewLine;
+			}
+			catch(...)
+			{
+				log() << "An unknown exception was thrown while running the test " 
+					<< iter->first << "."
+					<< logNewLine;
+			};
 		}
 	}
 

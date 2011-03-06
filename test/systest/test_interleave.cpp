@@ -32,6 +32,14 @@ namespace
 		{
 			{
 				integer aSet[] = {0, 1, 2, 3, 4, 5};
+				const integer bSet[] = {0, 1, 2, 3, 4, 5};
+
+				interleave(arrayRange(aSet), 1);
+				TEST_ENSURE(rangeForAll(
+					arrayRange(aSet), arrayRange(bSet), EqualTo()));
+			}
+			{
+				integer aSet[] = {0, 1, 2, 3, 4, 5};
 				const integer bSet[] = {0, 2, 4, 1, 3, 5};
 
 				interleave(arrayRange(aSet), 3);

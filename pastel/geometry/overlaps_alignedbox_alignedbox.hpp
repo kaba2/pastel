@@ -21,6 +21,14 @@ namespace Pastel
 			// Test for range-range overlap
 			// on the i:th coordinate axis.
 
+			if (aBox.empty(i) ||
+				bBox.empty(i))
+			{
+				// Either one of the boxes is empty.
+				// No overlap.
+				return false;
+			}
+
 			if (aBox.min()[i] >= bBox.max()[i])
 			{
 				if (aBox.min()[i] > bBox.max()[i] ||

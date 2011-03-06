@@ -24,6 +24,7 @@ namespace Pastel
 		, radius_(radius)
 		, topology_(topology)
 	{
+		PENSURE_OP(radius, >=, 0);
 	}
 
 	template <typename Real, int N>
@@ -35,6 +36,7 @@ namespace Pastel
 		, radius_(radius)
 		, topology_(topology)
 	{
+		PENSURE_OP(radius, >=, 0);
 	}
 
 	template <typename Real, int N>
@@ -49,27 +51,10 @@ namespace Pastel
 	}
 
 	template <typename Real, int N>
-	Vector<Real, N>& Capsule<Real, N>::start()
+	bool Capsule<Real, N>::empty() const
 	{
-		return segment_.start();
-	}
-
-	template <typename Real, int N>
-	const Vector<Real, N>& Capsule<Real, N>::start() const
-	{
-		return segment_.start();
-	}
-
-	template <typename Real, int N>
-	Vector<Real, N>& Capsule<Real, N>::end()
-	{
-		return segment_.end();
-	}
-
-	template <typename Real, int N>
-	const Vector<Real, N>& Capsule<Real, N>::end() const
-	{
-		return segment_.end();
+		return radius_ == 0 &&
+			topology_ == Topology::Open;
 	}
 
 	template <typename Real, int N>
@@ -87,6 +72,8 @@ namespace Pastel
 	template <typename Real, int N>
 	void Capsule<Real, N>::setRadius(const Real& radius)
 	{
+		PENSURE_OP(radius, >=, 0);
+
 		radius_ = radius;
 	}
 
