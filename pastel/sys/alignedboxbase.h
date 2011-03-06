@@ -10,7 +10,6 @@
 #include "pastel/sys/topology.h"
 
 #include <boost/operators.hpp>
-#include <boost/type_traits/is_integral.hpp>
 
 namespace Pastel
 {
@@ -19,16 +18,6 @@ namespace Pastel
 	class AlignedBox;
 
 	//! An axis-aligned box
-
-	/*!
-	An axis-aligned box can be described by giving
-	two corner points. The other is called the minimum point
-	'min' and the other is called the maximum point 'max'.
-	The aligned box is the set of points p that satisfy
-	'min <= p <= max' where the inequalities are understood
-	as "for all components".
-	*/
-
 	template <typename Real, int N>
 	class AlignedBoxBase
 		: boost::multipliable<AlignedBox<Real, N>, Real
@@ -44,9 +33,6 @@ namespace Pastel
 			N_ = N
 		};
 
-		static const bool IsInteger =
-			boost::is_integral<Real>::value;
-
 		// Using default copy constructor.
 		// Using default assignment.
 
@@ -55,7 +41,7 @@ namespace Pastel
 			: min_(Dimension(dimension), infinity<Real>())
 			, max_(Dimension(dimension), -infinity<Real>())
 			, minTopology_(ofDimension(dimension), Topology::Closed)
-			, maxTopology_(ofDimension(dimension), IsInteger ? Topology::Open : Topology::Closed )
+			, maxTopology_(ofDimension(dimension), Topology::Open)
 		{
 			PENSURE2((N == Dynamic && dimension > 0) || 
 				(N != Dynamic && dimension == N), dimension, N);
@@ -66,7 +52,7 @@ namespace Pastel
 			: min_(that)
 			, max_(that)
 			, minTopology_(ofDimension(that.dimension()), Topology::Closed)
-			, maxTopology_(ofDimension(that.dimension()), IsInteger ? Topology::Open : Topology::Closed)
+			, maxTopology_(ofDimension(that.dimension()), Topology::Open)
 		{
 		}
 
@@ -77,7 +63,7 @@ namespace Pastel
 			: min_(min)
 			, max_(max)
 			, minTopology_(ofDimension(min.dimension()), Topology::Closed)
-			, maxTopology_(ofDimension(max.dimension()), IsInteger ? Topology::Open : Topology::Closed )
+			, maxTopology_(ofDimension(max.dimension()), Topology::Open)
 		{
 		}
 
@@ -87,20 +73,34 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(N == Dynamic || N > 0);
 		}
 
+		//! Returns whether the i:th projection contains any points.
+		bool empty(integer i) const
+		{
+			PENSURE_OP(i, >=, 0);
+			PENSURE_OP(i, <, dimension());
+
+			if (min_[i] >= max_[i])
+			{
+				if (min_[i] > max_[i] ||
+					minTopology_[i] == Topology::Open ||
+					maxTopology_[i] == Topology::Open)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
 		//! Returns whether the box contains any points.
 		bool empty() const
 		{
 			const integer n = dimension();
 			for (integer i = 0;i < n;++i)
 			{
-				if (min_[i] >= max_[i])
+				if (empty(i))
 				{
-					if (min_[i] > max_[i] ||
-						minTopology_[i] == Topology::Open ||
-						maxTopology_[i] == Topology::Open)
-					{
-						return true;
-					}
+					return true;
 				}
 			}
 

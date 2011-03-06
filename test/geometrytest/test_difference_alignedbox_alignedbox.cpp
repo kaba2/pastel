@@ -8,6 +8,7 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"
+#include "pastel/sys/ranges.h"
 
 using namespace Pastel;
 
@@ -15,6 +16,16 @@ typedef Rational<integer> Real;
 
 namespace
 {
+
+	bool equalBox(
+		const AlignedBox2& aBox, const AlignedBox2& bBox)
+	{
+		return 
+			aBox.min() == bBox.min() &&
+			aBox.minTopology() == bBox.minTopology() &&
+			aBox.max() == bBox.max() &&
+			aBox.maxTopology() == bBox.maxTopology();
+	}
 
 	class Test
 		: public TestSuite
@@ -27,61 +38,149 @@ namespace
 
 		virtual void run()
 		{
-			testSymmetricDifference();
+			testSame();
+			testHole();
+			testHollow();
+			testCorner();
+			testEmptyA();
+			testEmptyB();
 		}
 
-		template <typename Iterator_>
-		class Iterator_Functor
+		bool testCase(
+			const AlignedBox2& aBox,
+			const AlignedBox2& bBox,
+			const std::vector<AlignedBox2>& correctSet) const
 		{
-		public:
-			typedef Iterator_ Iterator;
-
-			explicit Iterator_Functor(const Iterator& iter)
-				: iter_(iter)
-			{
-			}
-
-			template <typename Type>
-			void operator()(const Type& that)
-			{
-				*iter_ = that;
-				++iter_;				
-			}
-
-		private:
-			Iterator iter_;
-		};
-
-		template <typename Iterator>
-		Iterator_Functor<Iterator> iteratorFunctor(
-			const Iterator& iter)
-		{
-			return Iterator_Functor<Iterator>(iter);
-		}
-
-		void testSymmetricDifference()
-		{
-			Array<Color> image(512, 512, Color(1));
-			Image_GfxRenderer<Color> renderer(
-				&image);
-
-			renderer.setViewWindow(
-				AlignedBox2(0, 0, 6, 6));
-			
 			std::vector<AlignedBox2> boxSet;
-			symmetricDifference(
-				AlignedBox2(0, 0, 4, 4),
-				AlignedBox2(2, 2, 6, 6),
-				iteratorFunctor(std::back_inserter(boxSet)));
+			difference(aBox, bBox, 
+				boost::bind(&std::vector<AlignedBox2>::push_back, &boxSet, _1));
 
-			for (integer i = 0;i < boxSet.size();++i)
+			const bool result = rangeForAll(
+				range(boxSet.begin(), boxSet.end()),
+				range(correctSet.begin(), correctSet.end()),
+				equalBox);
+
+			if (!result)
 			{
-				renderer.setColor(
-					randomVector<real32, 3>());
-				drawBox(renderer, boxSet[i]);
+				for (integer i = 0;i < boxSet.size();++i)
+				{
+					std::cout 
+						<< boxSet[i].min() << " " << std::endl
+						<< boxSet[i].minTopology() << " " << std::endl
+						<< boxSet[i].max() << " " << std::endl
+						<< boxSet[i].maxTopology() << " " << std::endl
+						<< std::endl;
+				}
 			}
 
-			savePcx(image, "difference_alignedbox_alignedbox.pcx");
+			return result;
+		}
+
+		void testSame()
+		{
+			AlignedBox2 aBox(
+				0, 0, 6, 6);
+			AlignedBox2 bBox(
+				0, 0, 6, 6);
+
+			std::vector<AlignedBox2> correctSet;
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+
+			aBox.maxTopology().set(Topology::Closed);
+			bBox.maxTopology().set(Topology::Closed);
+
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+		}
+
+		void testCorner()
+		{
+			AlignedBox2 aBox(
+				0, 0, 6, 6);
+			AlignedBox2 bBox(
+				3, 3, 6, 6);
+
+			std::vector<AlignedBox2> correctSet;
+			correctSet.push_back(
+				AlignedBox2(0, 0, 3, 6));
+			correctSet.push_back(
+				AlignedBox2(3, 0, 6, 3));
+
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+		}
+
+		void testHollow()
+		{
+			AlignedBox2 aBox(
+				0, 0, 6, 6);
+			aBox.maxTopology().set(Topology::Closed);
+			
+			AlignedBox2 bBox(
+				0, 0, 6, 6);
+			bBox.minTopology().set(Topology::Open);
+
+			std::vector<AlignedBox2> correctSet;
+			correctSet.push_back(
+				AlignedBox2(0, 0, 0, 6));
+			correctSet.back().maxTopology().set(Topology::Closed);
+
+			correctSet.push_back(
+				AlignedBox2(6, 0, 6, 6));
+			correctSet.back().maxTopology().set(Topology::Closed);
+
+			correctSet.push_back(
+				AlignedBox2(0, 0, 6, 0));
+			correctSet.back().minTopology().set(Topology::Open, Topology::Closed);
+			correctSet.back().maxTopology().set(Topology::Open, Topology::Closed);
+
+			correctSet.push_back(
+				AlignedBox2(0, 6, 6, 6));
+			correctSet.back().minTopology().set(Topology::Open, Topology::Closed);
+			correctSet.back().maxTopology().set(Topology::Open, Topology::Closed);
+
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+		}
+
+		void testHole()
+		{
+			AlignedBox2 aBox(
+				0, 0, 6, 6);
+			AlignedBox2 bBox(
+				2, 3, 4, 5);
+
+			std::vector<AlignedBox2> correctSet;
+			correctSet.push_back(
+				AlignedBox2(0, 0, 2, 6));
+			correctSet.push_back(
+				AlignedBox2(4, 0, 6, 6));
+			correctSet.push_back(
+				AlignedBox2(2, 0, 4, 3));
+			correctSet.push_back(
+				AlignedBox2(2, 5, 4, 6));
+
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+		}
+
+		void testEmptyB()
+		{
+			AlignedBox2 aBox(
+				0, 0, 6, 6);
+			AlignedBox2 bBox(
+				3, 3, 2, 2);
+
+			std::vector<AlignedBox2> correctSet;
+			correctSet.push_back(aBox);
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
+		}
+
+		void testEmptyA()
+		{
+			AlignedBox2 aBox(
+				3, 3, 2, 2);
+			AlignedBox2 bBox(
+				0, 0, 6, 6);
+
+			std::vector<AlignedBox2> correctSet;
+			TEST_ENSURE(testCase(aBox, bBox, correctSet));
 		}
 	};
 

@@ -13,11 +13,11 @@ namespace Pastel
 	template <
 		typename A_ForwardRange,
 		typename B_ForwardRange,
-		typename RelationAlgorithm>
+		typename Predicate>
 	bool rangeForAll(
 		A_ForwardRange aRange,
 		B_ForwardRange bRange,
-		RelationAlgorithm predicate);
+		Predicate predicate);
 
 }
 

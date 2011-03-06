@@ -44,6 +44,12 @@ namespace Pastel
 		typename Expression>
 	class MatrixScalarMultiplication;
 
+	template <
+		typename Real,
+		int Height, int Width,
+		typename Expression>
+	class MatrixScalarAddition;
+
 	template <typename Real, int Height, int Width, typename Expression>
 	class MatrixExpression
 	{
@@ -172,6 +178,42 @@ namespace Pastel
 				RightExpression>
 				((const Expression&)*this,
 				(const RightExpression&)right);
+		}
+
+		const MatrixScalarAddition<Real, Height, Width, Expression>
+			operator+(const Real& right) const
+		{
+			return MatrixScalarAddition
+				<Real, Height, Width, Expression>
+				((const Expression&)*this, right);
+		}
+
+		friend const MatrixScalarAddition<Real, Height, Width, Expression>
+			operator+(const Real& left,
+			const MatrixExpression& right)
+		{
+			// Scalar addition is commutative.
+			return MatrixScalarAddition
+				<Real, Height, Width, Expression>
+				((const Expression&)right, left);
+		}
+
+		const MatrixScalarAddition<Real, Height, Width, Expression>
+			operator-(const Real& right) const
+		{
+			return MatrixScalarAddition
+				<Real, Height, Width, Expression>
+				((const Expression&)*this, -right);
+		}
+
+		friend const MatrixScalarAddition<Real, Height, Width, Expression>
+			operator-(const Real& left,
+			const MatrixExpression& right)
+		{
+			// Scalar addition is commutative.
+			return MatrixScalarAddition
+				<Real, Height, Width, Expression>
+				((const Expression&)right, -left);
 		}
 
 		const MatrixScalarMultiplication<Real, Height, Width, Expression>
@@ -487,6 +529,57 @@ namespace Pastel
 	private:
 		typename Expression::StorageType data_;
 		const Real factor_;
+	};
+
+	template <typename Real, int Height, int Width,
+		typename Expression>
+	class MatrixScalarAddition
+		: public MatrixExpression<Real, Height, Width, 
+		MatrixScalarAddition<Real, Height, Width, Expression> >
+	{
+	public:
+		typedef const MatrixScalarAddition& StorageType;
+
+		MatrixScalarAddition(
+			const Expression& data,
+			const Real& term)
+			: data_(data)
+			, term_(term)
+		{
+		}
+
+		Real operator()(integer y, integer x) const
+		{
+			return data_(y, x) + term_;
+		}
+
+		integer width() const
+		{
+			return data_.width();
+		}
+
+		integer height() const
+		{
+			return data_.height();
+		}
+
+		bool involves(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return data_.involves(memoryBegin, memoryEnd);
+		}
+
+		bool evaluateBeforeAssignment(
+			const void* memoryBegin,
+			const void* memoryEnd) const
+		{
+			return data_.evaluateBeforeAssignment(memoryBegin, memoryEnd);
+		}
+
+	private:
+		typename Expression::StorageType data_;
+		const Real term_;
 	};
 
 	template <typename Real, int Height, int Width>

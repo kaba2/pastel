@@ -14,6 +14,9 @@ namespace Pastel
 	Preconditions:
 	aBox.dimension() == bBox.dimension()
 
+	Returns:
+	The number of reported boxes.
+
 	The set-difference A\B between two aligned boxes A and B
 	is reported by at most 2n aligned boxes whose union it is.
 	The interiors of these boxes do not intersect.
@@ -21,7 +24,7 @@ namespace Pastel
 	template <
 		typename Real, int N_A, int N_B,
 		typename AlignedBox_Functor>
-	void difference(
+	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
 		AlignedBox_Functor report);
@@ -38,7 +41,7 @@ namespace Pastel
 	template <
 		typename Real, int N_A, int N_B,
 		typename AlignedBox_Functor>
-	void symmetricDifference(
+	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
 		AlignedBox_Functor report);

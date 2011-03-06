@@ -23,6 +23,9 @@ int main()
 	log().addLogger(streamLogger(&std::cout));
 	log().addLogger(fileLogger("log.txt"));
 
+	setInvariantFailureAction(
+		InvariantFailureAction::Throw);
+
 	Array<Color> textureImage;
 	loadPcx("lena.pcx", textureImage);
 

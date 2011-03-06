@@ -4,6 +4,9 @@
 #ifndef PASTEL_POINTKDTREE_H
 #define PASTEL_POINTKDTREE_H
 
+#include "pastel/sys/pointpolicy_concept.h"
+#include "pastel/sys/real_concept.h"
+
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/tristate.h"
@@ -20,11 +23,6 @@ namespace Pastel
 {
 
 	//! A multi-level point kd-tree
-	/*!
-	See also:
-	pointpolicy_concept.h
-	*/
-
 	template <typename Real, int N = Dynamic, 
 		typename PointPolicy = Vector_PointPolicy<Real, N> >
 	class PointKdTree

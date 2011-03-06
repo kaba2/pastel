@@ -3,11 +3,13 @@ Color
 
 [[Parent]]: pastelgfx.txt
 
+_Color_ is the visual sensation caused by radiomagnetic radiation 
+in the 400nm-700nm wavelength range. 
+
 Theory
 ------
 
-_Color_ is the visual sensation caused by radiomagnetic radiation 
-in the 400nm-700nm wavelength range. Most humans have three kinds of receptors in the 
+Most humans have three kinds of receptors in the 
 eye which are sensitive to different parts of the spectrum on sufficiently
 high intensities (daytime), and one additional receptor which is 
 active only at low intensities (night-time). This gives rise to the 

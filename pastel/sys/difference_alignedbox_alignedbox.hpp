@@ -8,7 +8,7 @@ namespace Pastel
 
 	template <typename Real, int N_A, int N_B,
 		typename AlignedBox_Functor>
-	void difference(
+	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
 		AlignedBox_Functor report)
@@ -39,8 +39,27 @@ namespace Pastel
 		// Note that we must be careful to get the side topologies
 		// right.
 
-		AlignedBox<Real, N> cutBox(aBox);
+		integer reported = 0;
 
+		if (aBox.empty())
+		{
+			// Nothing to do since the aBox
+			// does not contain any points.
+			return reported;
+		}
+
+		if (bBox.empty())
+		{
+			// All of the aBox remains, since the
+			// bBox does not contain any points.
+
+			report(aBox);
+			++reported;
+			
+			return reported;
+		}
+
+		AlignedBox<Real, N> cutBox(aBox);
 		for (integer i = 0;i < n;++i)
 		{
 			if (cutBox.max()[i] <= bBox.min()[i])
@@ -52,9 +71,10 @@ namespace Pastel
 					// The whole box is included in
 					// the cut-out box.
 					report(cutBox);
+					++reported;
 
 					// There is nothing more to report.
-					return;
+					return reported;
 				}
 			}
 			
@@ -67,9 +87,10 @@ namespace Pastel
 					// The whole box is included in
 					// the cut-out box.
 					report(cutBox);
+					++reported;
 
 					// There is nothing more to report.
-					return;
+					return reported;
 				}
 			}
 
@@ -92,6 +113,7 @@ namespace Pastel
 						switchTopology(bBox.minTopology()[i]);
 					// and report it.
 					report(cutBox);
+					++reported;
 
 					// Form the rest of the box,
 					cutBox.min()[i] = bBox.min()[i];
@@ -119,6 +141,7 @@ namespace Pastel
 						switchTopology(bBox.maxTopology()[i]);
 					// and report it.
 					report(cutBox);
+					++reported;
 
 					// Form the rest of the box,
 					cutBox.min()[i] = previousMin;
@@ -130,18 +153,24 @@ namespace Pastel
 				}
 			}
 		}
+
+		return reported;
 	}
 
 	template <
 		typename Real, int N_A, int N_B,
 		typename AlignedBox_Functor>
-	void symmetricDifference(
+	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
 		AlignedBox_Functor report)
 	{
-		difference(aBox, bBox, report);
-		difference(bBox, aBox, report);
+		integer reported = 0;
+		
+		reported += difference(aBox, bBox, report);
+		reported += difference(bBox, aBox, report);
+		
+		return reported;
 	}
 
 }
