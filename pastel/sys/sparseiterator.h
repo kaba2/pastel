@@ -226,7 +226,7 @@ namespace Pastel
 	{
 		PENSURE_OP(delta, >=, 1);
 
-		return range(
+		return Pastel::range(
 			sparseIterator(begin, delta),
 			sparseEnd(begin, end, delta));
 	}
@@ -238,7 +238,7 @@ namespace Pastel
 	{
 		PENSURE_OP(delta, >=, 1);
 
-		return range(
+		return Pastel::range(
 			constSparseIterator(begin, delta),
 			constSparseEnd(begin, end, delta));
 	}
