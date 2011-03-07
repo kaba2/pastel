@@ -4,6 +4,14 @@
 -- Main build switches
 -- ===================
 
+-- Note: To succesfully _compile_ the sub-libraries, 
+-- you only need the header files for the external
+-- libraries. This allows you to try the compilation
+-- even if you did not have the external library
+-- binaries. It is only in the _linking_ phase of 
+-- executables and shared libraries (i.e. tests and 
+-- examples) where the binaries are needed .
+
 -- Whether to build the actual libraries.
 buildBasic = true
 
@@ -13,13 +21,15 @@ buildTests = true
 -- Whether to build the examples.
 buildExamples = true
 
--- Whether you have Matlab (say, 2008a or never).
+-- Whether you have Matlab include files 
+-- (say, for 2008a or never). Note: Binaries are not
+-- needed since the linking is done from Matlab.
 gotMatlab = true
 
--- Whether you have Glew 1.5.7.
+-- Whether you have Glew 1.5.7 include files and binaries.
 gotGlew = true
 
--- Whether you have SDL 1.2.
+-- Whether you have SDL 1.2 include files and binaries.
 gotSdl = true
 
 -- Detailed build switches
