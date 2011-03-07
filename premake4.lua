@@ -1,8 +1,70 @@
 -- This is a Premake script for producing
 -- build files for the Pastel library.
 
+-- Main build switches
+-- ===================
+
+-- Whether to build the actual libraries.
+buildBasic = true
+
+-- Whether to build the test projects.
+buildTests = true
+
+-- Whether to build the examples.
+buildExamples = true
+
+-- Whether you have Matlab (say, 2008a or never).
+gotMatlab = true
+
+-- Whether you have Glew 1.5.7.
+gotGlew = true
+
+-- Whether you have SDL 1.2.
+gotSdl = true
+
+-- Detailed build switches
+-- =======================
+
+-- Basic set.
+-- Require Boost.
+buildPastelDsp = true and buildBasic
+buildPastelMath = true and buildBasic
+buildPastelGeometry = true and buildBasic
+buildPastelGfx = true and buildBasic
+buildPastelRay = true and buildBasic
+buildPastelSys = true and buildBasic
+
+-- Requires Glew and Boost.
+buildPastelGl = true and buildBasic and gotGlew
+
+-- Requires SDL and Boost.
+buildPastelDevice = true and buildBasic and gotSdl
+buildPastelGfxUi = true and buildBasic and gotSdl
+
+-- Require Matlab.
+buildPastelGeometryMatlab = true and buildBasic and gotMatlab
+buildPastelMatlab = true and buildBasic and gotMatlab
+
+-- Require SDL and Boost.
+buildPastelSysTest = true and buildTests and gotSdl
+buildPastelRayTest = true and buildTests and gotSdl
+buildPastelMathTest = true and buildTests and gotSdl
+buildPastelGfxTest = true and buildTests and gotSdl
+buildPastelGeometryTest = true and buildTests and gotSdl
+buildPastelDspTest = true and buildTests and gotSdl
+buildPastelDeviceTest = true and buildTests and gotSdl
+
+-- Require SDL and Boost and Glew.
+buildLeastSquares = true and buildExamples and gotGlew and gotSdl
+buildNearestNeighbour = true and buildExamples and gotGlew and gotSdl
+buildConvexHull = true and buildExamples and gotGlew and gotSdl
+
+-- Paths
+-- =====
+
 -- Change the following directories to reflect your own
--- build environment.
+-- build environment. If a library is not used, the path
+-- is ignored.
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
@@ -222,228 +284,291 @@ solution "Pastel"
 
 	libKind = "StaticLib"
 
-	project "PastelSys"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/sys/", fileSet))
+	if buildPastelSys
+	then
+		project "PastelSys"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/sys/", fileSet))
+	end
 	
-	project "PastelMatlab"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/matlab/", fileSet))
+	if buildMatlabStuff 
+	then
+		project "PastelMatlab"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/matlab/", fileSet))
+	end
 
-	project "PastelMath"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/math/", fileSet))
+	if buildPastelMath
+	then
+		project "PastelMath"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/math/", fileSet))
+	end
 		
+	if buildPastelDevice
+	then
 	project "PastelDevice"
 		kind(libKind)
 		includedirs(includeDirectorySet)
 		libdirs(libraryDirectorySet)
 		files(addPrefix("pastel/device/", fileSet))
+	end
 		
-	project "PastelGeometry"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/geometry/", fileSet))
+	if buildPastelGeometry
+	then
+		project "PastelGeometry"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/geometry/", fileSet))
+	end
 
-	project "PastelGeometryMatlab"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/geometrymatlab/", fileSet))
+	if buildPastelGeometryMatlab
+	then
+		project "PastelGeometryMatlab"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/geometrymatlab/", fileSet))
+	end
 
-	project "PastelDsp"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/dsp/", fileSet))
+	if buildPastelDsp
+	then
+		project "PastelDsp"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/dsp/", fileSet))
+	end
 
-	project "PastelGfx"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/gfx/", fileSet))
+	if buildPastelGfx
+	then
+		project "PastelGfx"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/gfx/", fileSet))
+	end
 
-	project "PastelRay"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/ray/", fileSet))
+	if buildPastelRay
+	then
+		project "PastelRay"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/ray/", fileSet))
+	end
 
-	project "PastelGl"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/gl/", fileSet))
+	if buildPastelGl
+	then
+		project "PastelGl"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/gl/", fileSet))
+	end
 
-	project "PastelGfxUi"
-		kind(libKind)
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("pastel/gfxui/", fileSet))
+	if buildPastelGfxUi
+	then
+		project "PastelGfxUi"
+			kind(libKind)
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("pastel/gfxui/", fileSet))
+	end
 
-	project "PastelSysTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/systest/", fileSet))
-		links 
-		{
-			"PastelDsp",
-			"PastelGfx", 
-			"PastelSys"  
-		}
+	if buildPastelSysTest
+	then
+		project "PastelSysTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/systest/", fileSet))
+			links 
+			{
+				"PastelDsp",
+				"PastelGfx", 
+				"PastelSys"  
+			}
+	end
 	
-	project "PastelRayTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/raytest/", fileSet))
-		links 
-		{
-			"PastelRay",
-			"PastelGfx", 
-			"PastelGeometry",
-			"PastelDsp",
-			"PastelMath",
-			"PastelSys" 
-		}
+	if buildPastelRayTest
+	then
+		project "PastelRayTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/raytest/", fileSet))
+			links 
+			{
+				"PastelRay",
+				"PastelGfx", 
+				"PastelGeometry",
+				"PastelDsp",
+				"PastelMath",
+				"PastelSys" 
+			}
+	end
 
-	project "PastelMathTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/mathtest/", fileSet))
-		links 
-		{
-			"PastelGfx",
-			"PastelMath",
-			"PastelSys" 
-		}
+	if buildPastelMathTest
+	then
+		project "PastelMathTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/mathtest/", fileSet))
+			links 
+			{
+				"PastelGfx",
+				"PastelMath",
+				"PastelSys" 
+			}
+	end
 
-	project "PastelGfxTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/gfxtest/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			"PastelGfx", 
-			"PastelDsp",
-			"PastelGeometry",
-			"PastelMath",
-			"PastelSys"
-		}
+	if buildPastelGfxTest
+	then
+		project "PastelGfxTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/gfxtest/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				"PastelGfx", 
+				"PastelDsp",
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end
 
-	project "PastelGeometryTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/geometrytest/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			"PastelGfx", 
-			"PastelDsp",
-			"PastelGeometry",
-			"PastelMath",
-			"PastelSys"
-		}
+	if buildPastelGeometryTest
+	then
+		project "PastelGeometryTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/geometrytest/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				"PastelGfx", 
+				"PastelDsp",
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end
 
-	project "PastelDspTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/dsptest/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			"PastelRay",
-			"PastelGfx", 
-			"PastelDsp",
-			"PastelGeometry",
-			"PastelMath",
-			"PastelSys"
-		}
+	if buildPastelDspTest
+	then
+		project "PastelDspTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/dsptest/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				"PastelRay",
+				"PastelGfx", 
+				"PastelDsp",
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end
 
-	project "PastelDeviceTest"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("test/devicetest/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			"PastelSys"
-		}
+	if buildPastelDeviceTest
+	then
+		project "PastelDeviceTest"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("test/devicetest/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				"PastelSys"
+			}
+	end
 
-	project "ConvexHull"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("example/ConvexHull/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			openGlLibrary,
-			glewLibrary,
-			"PastelGl",
-			"PastelGfxUi",
-			"PastelGfx",
-			"PastelDsp",
-			"PastelGeometry",
-			"PastelMath",
-			"PastelSys"
-		}
+	if buildConvexHull
+	then
+		project "ConvexHull"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("example/ConvexHull/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				openGlLibrary,
+				glewLibrary,
+				"PastelGl",
+				"PastelGfxUi",
+				"PastelGfx",
+				"PastelDsp",
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end
 
-	project "LeastSquares"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("example/LeastSquares/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			openGlLibrary,
-			glewLibrary,
-			"PastelGl",
-			"PastelGfxUi",
-			"PastelGfx",
-			"PastelDsp",
-			"PastelGeometry",
-			"PastelMath",
-			"PastelSys"
-		}
+	if buildLeastSquares
+	then
+		project "LeastSquares"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("example/LeastSquares/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				openGlLibrary,
+				glewLibrary,
+				"PastelGl",
+				"PastelGfxUi",
+				"PastelGfx",
+				"PastelDsp",
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end
 
-	project "NearestNeighbour"
-		kind("ConsoleApp")
-		includedirs(includeDirectorySet)
-		libdirs(libraryDirectorySet)
-		files(addPrefix("example/NearestNeighbour/", fileSet))
-		links 
-		{
-			"PastelDevice",
-			sdlLibrary,
-			openGlLibrary,
-			glewLibrary,
-			"PastelGl",
-			"PastelGfxUi",
-			"PastelGfx",
-			"PastelDsp",
-			"PastelGeometry",
-			"PastelMath",
-			"PastelSys"
-		}
+	if buildNearestNeighbour
+	then
+		project "NearestNeighbour"
+			kind("ConsoleApp")
+			includedirs(includeDirectorySet)
+			libdirs(libraryDirectorySet)
+			files(addPrefix("example/NearestNeighbour/", fileSet))
+			links 
+			{
+				"PastelDevice",
+				sdlLibrary,
+				openGlLibrary,
+				glewLibrary,
+				"PastelGl",
+				"PastelGfxUi",
+				"PastelGfx",
+				"PastelDsp",
+				"PastelGeometry",
+				"PastelMath",
+				"PastelSys"
+			}
+	end
