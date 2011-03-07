@@ -1,5 +1,6 @@
 // Description: Filter class
 // Detail: Reconstruction filter abstraction
+// Documentation: filters.txt
 
 #ifndef PASTEL_FILTER_H
 #define PASTEL_FILTER_H

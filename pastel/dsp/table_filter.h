@@ -1,6 +1,6 @@
 // Description: Table_Filter class
 // Detail: Piecewise-linear modifiable reconstruction filter
-// Documentation: filter.txt
+// Documentation: filters.txt
 
 #ifndef PASTEL_TABLE_FILTER_H
 #define PASTEL_TABLE_FILTER_H

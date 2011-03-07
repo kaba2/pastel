@@ -1,6 +1,6 @@
 // Description: Set_RbtPolicy class
 // Detail: Plain red-black tree with no value data.
-// Documentation: rbtpolicy.txt
+// Documentation: rbtpolicies.txt
 
 #ifndef PASTEL_SET_RBTPOLICY_H
 #define PASTEL_SET_RBTPOLICY_H

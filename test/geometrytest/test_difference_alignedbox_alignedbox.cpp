@@ -1,3 +1,6 @@
+// Description: Testing for alignedbox-alignedbox difference
+// DocumentationOf: difference_alignedbox_alignedbox.h
+
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/difference_alignedbox_alignedbox.h"

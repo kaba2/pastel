@@ -1,6 +1,6 @@
 // Description: Mitchell_Filter class
 // Detail: Mitchell-Netravali cubic spline reconstruction filter
-// Documentation: filter.txt
+// Documentation: filters.txt
 
 #ifndef PASTEL_MITCHELL_FILTER_H
 #define PASTEL_MITCHELL_FILTER_H

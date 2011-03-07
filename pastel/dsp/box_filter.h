@@ -1,6 +1,6 @@
 // Description: Box_Filter class
 // Detail: Box reconstruction filter
-// Documentation: filter.txt
+// Documentation: filters.txt
 
 #ifndef PASTEL_BOX_FILTER_H
 #define PASTEL_BOX_FILTER_H

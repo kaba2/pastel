@@ -11,10 +11,10 @@
 #include <pastel/gfx/colormixers.h>
 
 #include <pastel/dsp/resample.h>
-#include <pastel/dsp/filter_all.h>
+#include <pastel/dsp/filters.h>
 #include <pastel/dsp/table_filter.h>
 
-#include <pastel/sys/view_all.h>
+#include <pastel/sys/views.h>
 #include <pastel/sys/array.h>
 #include <pastel/sys/string_algorithms.h>
 

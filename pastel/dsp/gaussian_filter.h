@@ -1,6 +1,6 @@
 // Description: Gaussian_Filter class
 // Detail: Clamped gaussian reconstruction filter
-// Documentation: filter.txt
+// Documentation: filters.txt
 
 #ifndef PASTEL_GAUSSIAN_FILTER_H
 #define PASTEL_GAUSSIAN_FILTER_H

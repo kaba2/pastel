@@ -3,8 +3,8 @@
 
 #include "pastelgfxtest.h"
 
-#include "pastel/sys/extendedconstview_all.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/extendedconstviews.h"
+#include "pastel/sys/views.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
@@ -14,7 +14,7 @@
 #include "pastel/gfx/radial_texture.h"
 
 #include "pastel/dsp/mipmap_tools.h"
-#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/filters.h"
 
 #include "pastel/math/uniform_sampling.h"
 

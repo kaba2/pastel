@@ -13,7 +13,7 @@
 #include "pastel/gfx/color_tools.h"
 
 #include "pastel/sys/random.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 #include "pastel/sys/string_algorithms.h"
 
 using namespace Pastel;

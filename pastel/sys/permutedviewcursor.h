@@ -1,5 +1,5 @@
 // Description: PermutedViewCursor class
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_PERMUTEDVIEWCURSOR_H
 #define PASTEL_PERMUTEDVIEWCURSOR_H

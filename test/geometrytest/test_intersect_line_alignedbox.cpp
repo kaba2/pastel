@@ -1,3 +1,6 @@
+// Description: Testing for line-alignedbox intersection
+// DocumentationOf: intersect_line_alignedbox.h
+
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/intersect_line_alignedbox.h"

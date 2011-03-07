@@ -1,4 +1,5 @@
 // Description: An extended view using a clamped border
+// Documentation: extendedconstviews.txt
 
 #ifndef PASTEL_CLAMPEDCONSTVIEW_H
 #define PASTEL_CLAMPEDCONSTVIEW_H

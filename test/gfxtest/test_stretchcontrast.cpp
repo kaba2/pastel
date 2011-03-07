@@ -6,7 +6,7 @@
 #include "pastel/gfx/pcx.h"
 
 #include "pastel/sys/string_algorithms.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 
 #include <iostream>
 

@@ -1,3 +1,6 @@
+// Documentaiton: IndexExtender class
+// Documentation: indexextenders.txt
+
 #ifndef PASTEL_INDEXEXTENDER_H
 #define PASTEL_INDEXEXTENDER_H
 

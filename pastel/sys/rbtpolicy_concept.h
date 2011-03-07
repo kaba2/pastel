@@ -1,4 +1,5 @@
 // Description: RbtPolicy concept
+// Documentation: rbtpolicies.txt
 
 #ifndef PASTEL_RBTPOLICY_CONCEPT_H
 #define PASTEL_RBTPOLICY_CONCEPT_H

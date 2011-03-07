@@ -59,7 +59,9 @@ trailing underscore.
 
 * Class static variables: `likeThis__`
 
-* Filenames: `intersect_alignedbox_alignedbox.h`
+* Files: `intersect_alignedbox_alignedbox.h`
+
+* Aggregate files: `filters.h`
 
 * Directories: `pastel/sys/`
 

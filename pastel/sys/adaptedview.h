@@ -1,4 +1,4 @@
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_ADAPTEDVIEW_H
 #define PASTEL_ADAPTEDVIEW_H

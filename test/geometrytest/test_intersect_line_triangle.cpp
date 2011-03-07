@@ -1,6 +1,9 @@
+// Description: Testing for line-triangle intersection
+// DocumentationOf: intersect_line_triangle.h
+
 #include "pastelgeometrytest.h"
 
-#include <pastel/geometry/intersect_line_triangle.h>
+#include "pastel/geometry/intersect_line_triangle.h"
 #include "pastel/sys/rational.h"
 #include "pastel/sys/rational_tools.h"
 #include "pastel/sys/biginteger.h"

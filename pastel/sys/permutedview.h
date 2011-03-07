@@ -1,6 +1,6 @@
 // Description: PermutedView class
 // Detail: An adapter view to permute dimensions
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_PERMUTEDVIEW_H
 #define PASTEL_PERMUTEDVIEW_H

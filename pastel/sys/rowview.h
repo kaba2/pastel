@@ -1,6 +1,6 @@
 // Description: RowView class
 // Detail: An adapter view for a 1-dimensional subset
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_ROWVIEW_H
 #define PASTEL_ROWVIEW_H

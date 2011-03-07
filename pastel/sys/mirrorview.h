@@ -1,6 +1,6 @@
 // Description: MirrorView class
 // Detail: An adapter view to mirror a specific dimension
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_MIRRORVIEW_H
 #define PASTEL_MIRRORVIEW_H

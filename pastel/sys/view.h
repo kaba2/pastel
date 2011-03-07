@@ -1,5 +1,5 @@
 // Description: View class
-// Detail: Array view
+// Documentation: views.txt
 
 #ifndef PASTEL_VIEW_H
 #define PASTEL_VIEW_H

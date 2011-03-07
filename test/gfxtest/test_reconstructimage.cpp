@@ -1,3 +1,6 @@
+// Description: Testing for signal reconstruction
+// DocumentationOf: reconstruction.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/arrayview.h"
@@ -7,7 +10,7 @@
 #include "pastel/geometry/poissondiskpattern.h"
 
 #include "pastel/gfx/color_tools.h"
-#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/filters.h"
 #include "pastel/dsp/filterform.h"
 #include "pastel/dsp/reconstructimage.h"
 #include "pastel/gfx/loadpcx.h"
@@ -19,7 +22,7 @@
 
 #include "pastel/dsp/resample.h"
 
-#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/indexextenders.h"
 #include "pastel/sys/string_algorithms.h"
 
 #include <boost/bind.hpp>

@@ -160,22 +160,6 @@
 			Name="Filters"
 			>
 			<File
-				RelativePath=".\box_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\box_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\cubic_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\cubic_filter.h"
-				>
-			</File>
-			<File
 				RelativePath=".\filter.cpp"
 				>
 			</File>
@@ -184,53 +168,73 @@
 				>
 			</File>
 			<File
-				RelativePath=".\filter.txt"
+				RelativePath=".\filters.h"
 				>
 			</File>
 			<File
-				RelativePath=".\filter_all.h"
+				RelativePath=".\filters.txt"
 				>
 			</File>
-			<File
-				RelativePath=".\gaussian_filter.cpp"
+			<Filter
+				Name="Concrete filters"
 				>
-			</File>
-			<File
-				RelativePath=".\gaussian_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\lanczos_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\lanczos_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mitchell_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\mitchell_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\table_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\table_filter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle_filter.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle_filter.h"
-				>
-			</File>
+				<File
+					RelativePath=".\box_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\box_filter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\cubic_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\cubic_filter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\gaussian_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\gaussian_filter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\lanczos_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\lanczos_filter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\mitchell_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\mitchell_filter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\table_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\table_filter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\triangle_filter.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\triangle_filter.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Precomputed filtering"

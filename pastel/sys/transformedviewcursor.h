@@ -1,5 +1,5 @@
 // Description: TransformedViewCursor class
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_TRANSFORMEDVIEWCURSOR_H
 #define PASTEL_TRANSFORMEDVIEWCURSOR_H

@@ -1,6 +1,6 @@
 // Description: ArrayView class
 // Detail: A view to an Array
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_ARRAYVIEW_H
 #define PASTEL_ARRAYVIEW_H

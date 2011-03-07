@@ -1,14 +1,14 @@
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view_all.h"
-#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/views.h"
+#include "pastel/sys/indexextenders.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/dsp/resample.h"
 #include "pastel/gfx/image_tools.h"
-#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/filters.h"
 
 #include "pastel/gfx/coloradapter.h"
 
