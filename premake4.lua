@@ -312,7 +312,7 @@ solution "Pastel"
 			files(addPrefix("pastel/sys/", fileSet))
 	end
 	
-	if buildMatlabStuff 
+	if buildPastelMatlab
 	then
 		project "PastelMatlab"
 			kind(libKind)
