@@ -35,7 +35,7 @@ namespace Pastel
 		while(iter != iterEnd)
 		{
 			rangeAlgorithm(
-				range(
+				Pastel::range(
 				SparseIterator<Type*>(
 				&*iter, stride[axis]),
 				SparseIterator<Type*>(
@@ -106,12 +106,12 @@ namespace Pastel
 		while(aIter != aIterEnd)
 		{
 			rangeAlgorithm2(
-				range(
+				Pastel::range(
 				SparseIterator<Type_A*>(
 				&*aIter, aStride[axis]),
 				SparseIterator<Type_A*>(
 				&*aIter + aEndOffset, aStride[axis])),
-				range(
+				Pastel::range(
 				SparseIterator<Type_B*>(
 				&*bIter, bStride[axis]),
 				SparseIterator<Type_B*>(
