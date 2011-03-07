@@ -74,7 +74,6 @@ namespace Pastel
 		// -1 encodes that a neighbor does not exists.
 
 		const integer n = image.dimension();
-		const integer m = product(blockExtent);
 
 		const AlignedBox<integer, N> regionBox(
 			Vector<integer, N>(ofDimension(n), 0),

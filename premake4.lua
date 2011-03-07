@@ -180,7 +180,8 @@ solution "Pastel"
 		"./",
 		boostIncludeDir,
 		sdlIncludeDir,
-		glewIncludeDir
+		glewIncludeDir,
+		matlabIncludeDir
 	}
 	
 	libraryDirectorySet =
