@@ -8,9 +8,6 @@
 #include "pastel/sys/configfile.h"
 #include "pastel/sys/forwarditerator_range.h"
 
-#include <string>
-#include <vector>
-
 namespace Pastel
 {
 

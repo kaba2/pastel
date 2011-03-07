@@ -2,6 +2,9 @@
 #define PASTEL_CONFIG_TOOLS_HPP
 
 #include "pastel/sys/config_tools.h"
+#include "pastel/sys/log.h"
+
+#include <string>
 
 namespace Pastel
 {
