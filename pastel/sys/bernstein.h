@@ -18,10 +18,10 @@ namespace Pastel
 
 	The Bernstein polynomials are the terms
 	of the binomial expansion of ((1 - t) + t)^n = 1.
-	B_{i, n}(t) = choose(i, n) t^(n - i) (1 - t)^i
+	B_{i, n}(t) = binomial(i, n) t^(n - i) (1 - t)^i
 	*/
 	template <typename Real>
-	Real bernstein(integer n, integer i, const Real& t);
+	Real bernstein(integer i, integer n, const Real& t);
 
 }
 
