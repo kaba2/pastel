@@ -1,25 +1,8 @@
 -- This is a Premake script for producing
 -- build files for the Pastel library.
 
--- Main build switches
--- ===================
-
--- Note: To succesfully _compile_ the sub-libraries, 
--- you only need the header files for the external
--- libraries. This allows you to try the compilation
--- even if you did not have the external library
--- binaries. It is only in the _linking_ phase of 
--- executables and shared libraries (i.e. tests and 
--- examples) where the binaries are needed .
-
--- Whether to build the actual libraries.
-buildBasic = true
-
--- Whether to build the test projects.
-buildTests = true
-
--- Whether to build the examples.
-buildExamples = true
+-- Available external libraries
+-- ============================
 
 -- Whether you have Matlab include files 
 -- (say, for 2008a or never). Note: Binaries are not
@@ -32,42 +15,67 @@ gotGlew = true
 -- Whether you have SDL 1.2 include files and binaries.
 gotSdl = true
 
+-- Whether you have Boost 1.45 include files.
+gotBoost = true
+
+-- Note: To succesfully _compile_ the libraries, 
+-- you only need the header files for the external
+-- libraries. This allows you to try the compilation
+-- even if you did not have the external library
+-- binaries. It is only in the _linking_ phase of 
+-- executables and shared libraries (i.e. tests and 
+-- examples) where the binaries are needed .
+
+-- Main build switches
+-- ===================
+
+-- Whether to build the libraries.
+buildLibraries = true
+
+-- Whether to build the test projects.
+buildTests = true
+
+-- Whether to build the examples.
+buildExamples = true
+
 -- Detailed build switches
 -- =======================
 
--- Basic set.
--- Require Boost.
-buildPastelDsp = true and buildBasic
-buildPastelMath = true and buildBasic
-buildPastelGeometry = true and buildBasic
-buildPastelGfx = true and buildBasic
-buildPastelRay = true and buildBasic
-buildPastelSys = true and buildBasic
+-- Requirements
+basicRequirements = gotBoost
+libraryRequirements = basicRequirements and buildLibraries
+testRequirements = basicRequirements and buildTests and gotSdl
+exampleRequirements = basicRequirements and buildExamples and gotGlew and gotSdl
 
--- Requires Glew and Boost.
-buildPastelGl = true and buildBasic and gotGlew
+-- Sub-libraries
+buildPastelDsp = true and libraryRequirements
+buildPastelMath = true and libraryRequirements
+buildPastelGeometry = true and libraryRequirements
+buildPastelGfx = true and libraryRequirements
+buildPastelRay = true and libraryRequirements
+buildPastelSys = true and libraryRequirements
 
--- Requires SDL and Boost.
-buildPastelDevice = true and buildBasic and gotSdl
-buildPastelGfxUi = true and buildBasic and gotSdl
+buildPastelGl = true and libraryRequirements and gotGlew
 
--- Require Matlab.
-buildPastelGeometryMatlab = true and buildBasic and gotMatlab
-buildPastelMatlab = true and buildBasic and gotMatlab
+buildPastelDevice = true and libraryRequirements and gotSdl
+buildPastelGfxUi = true and libraryRequirements and gotSdl
 
--- Require SDL and Boost.
-buildPastelSysTest = true and buildTests and gotSdl
-buildPastelRayTest = true and buildTests and gotSdl
-buildPastelMathTest = true and buildTests and gotSdl
-buildPastelGfxTest = true and buildTests and gotSdl
-buildPastelGeometryTest = true and buildTests and gotSdl
-buildPastelDspTest = true and buildTests and gotSdl
-buildPastelDeviceTest = true and buildTests and gotSdl
+buildPastelGeometryMatlab = true and libraryRequirements and gotMatlab
+buildPastelMatlab = true and libraryRequirements and gotMatlab
 
--- Require SDL and Boost and Glew.
-buildLeastSquares = true and buildExamples and gotGlew and gotSdl
-buildNearestNeighbour = true and buildExamples and gotGlew and gotSdl
-buildConvexHull = true and buildExamples and gotGlew and gotSdl
+-- Tests
+buildPastelSysTest = true and testRequirements
+buildPastelRayTest = true and testRequirements
+buildPastelMathTest = true and testRequirements
+buildPastelGfxTest = true and testRequirements
+buildPastelGeometryTest = true and testRequirements
+buildPastelDspTest = true and testRequirements
+buildPastelDeviceTest = true and testRequirements
+
+-- Examples
+buildLeastSquares = true and exampleRequirements
+buildNearestNeighbour = true and exampleRequirements
+buildConvexHull = true and exampleRequirements
 
 -- Paths
 -- =====
