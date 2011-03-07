@@ -103,7 +103,7 @@ namespace Pastel
 	RandomAccessIterator_Range<ConstantIterator<Type> > constantRange(
 		const Type& that, integer size = 1)
 	{
-		return range(constantIterator(that), size);
+		return Pastel::range(constantIterator(that), size);
 	}
 
 }
