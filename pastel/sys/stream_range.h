@@ -6,8 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/range_concepts.h"
 
-#include <istream>
-#include <ostream>
+#include <iostream>
 
 namespace Pastel
 {
