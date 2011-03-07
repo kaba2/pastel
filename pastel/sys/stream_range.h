@@ -21,10 +21,17 @@ namespace Pastel
 		static const bool RandomAccess = false;
 		static const bool Bidirectional = false;
 
+		OutputStream_Range()
+			: stream_(&std::cout)
+			, current_()
+			, separator_()
+		{
+		}
+
 		explicit OutputStream_Range(
 			std::ostream& stream,
 			const std::string& separator)
-			: stream_(stream)
+			: stream_(&stream)
 			, current_()
 			, separator_(separator)
 		{
@@ -33,7 +40,7 @@ namespace Pastel
 		void swap(OutputStream_Range& that)
 		{
 			using std::swap;
-			stream_.swap(that.stream_);
+			swap(stream_, that.stream_);
 			swap(current_, that.current_);
 			separator_.swap(that.separator_);
 		}
@@ -45,7 +52,7 @@ namespace Pastel
 
 		void pop_front()
 		{
-			stream_ << current_ << separator_;
+			(*stream_) << current_ << separator_;
 		}
 
 		reference front() const
@@ -59,7 +66,7 @@ namespace Pastel
 		}
 
 	private:
-		std::ostream& stream_;
+		std::ostream* stream_;
 		mutable Type current_;
 		std::string separator_;
 	};
@@ -82,6 +89,13 @@ namespace Pastel
 		static const bool RandomAccess = false;
 		static const bool Bidirectional = false;
 
+		InputStream_Range()
+			: stream_(&std::cin)
+			, current_()
+			, cached_(false)
+		{
+		}
+
 		explicit InputStream_Range(std::istream& stream)
 			: stream_(stream)
 			, current_()
@@ -92,7 +106,7 @@ namespace Pastel
 		void swap(InputStream_Range& that)
 		{
 			using std::swap;
-			stream_.swap(that.stream_);
+			swap(stream_, that.stream_);
 			swap(current_, that.current_);
 		}
 
@@ -105,7 +119,7 @@ namespace Pastel
 		{
 			if (!cached_)
 			{
-				stream >> current_;
+				(*stream_) >> current_;
 			}
 
 			cached_ = false;
@@ -115,7 +129,7 @@ namespace Pastel
 		{
 			if (!cached_)
 			{
-				stream >> current_;
+				(*stream_) >> current_;
 				cached_ = true;
 			}
 
@@ -128,7 +142,7 @@ namespace Pastel
 		}
 
 	private:
-		std::istream& stream_;
+		std::istream* stream_;
 		Type current_;
 		bool cached_;
 	};
