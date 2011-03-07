@@ -14,12 +14,12 @@ namespace Pastel
 	Preconditions:
 	n >= 0
 
-	choose(n, i) = n! / ((n - i)!i!)
+	binomial(i, n) = n! / ((n - i)!i!)
 
 	If i < 0 or i > n, returns 0.
 	*/
 	template <typename Real>
-	Real choose(integer n, integer i);
+	Real binomial(integer i, integer n);
 
 }
 

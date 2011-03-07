@@ -8,18 +8,18 @@ namespace Pastel
 {
 
 	template <typename Real>
-	Real choose(integer n, integer i)
+	Real binomial(integer i, integer n)
 	{
 		// i <= n
-		// choose(n, i) = n! / [(n - i)!i!]
+		// binomial(i, n) = n! / [(n - i)!i!]
 		// = prod[a = n-i+1...n](a) / prod[a = 1...i](a)
 
 		// So the computation takes 2*i + 1 operations.
-		// Because choose(n, i) == choose(n, n - i),
+		// Because binomial(i, n) == binomial(n - i, n),
 		// we can minimize the amount of operations by
 		// computing the one with the smaller second operand.
 
-		// choose(n,i) = prod[a = 0...i-1]((n - a)/(i - a))
+		// binomial(i, n) = prod[a = 0...i-1]((n - a)/(i - a))
 		// For accuracy, interleave the multiplications and
 		// divisions.
 
