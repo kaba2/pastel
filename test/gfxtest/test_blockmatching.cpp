@@ -637,7 +637,7 @@ namespace
 
 			searchAllNeighbors(
 				tree,
-				range(querySet.begin(), querySet.end()),
+				Pastel::range(querySet.begin(), querySet.end()),
 				0, kNearest,
 				&nearestSet,
 				(Array<real32>*)0,
