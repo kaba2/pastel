@@ -218,7 +218,7 @@ namespace Pastel
 		ENSURE(mxIsCell(cellArray));
 
 		const integer n = 
-			mxGetNumberOfElements(that);
+			mxGetNumberOfElements(cellArray);
 
 		for (integer i = 0;i < n;++i)
 		{
