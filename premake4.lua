@@ -105,6 +105,10 @@ matlabIncludeDir = "C:/Program Files/MATLAB/R2008a/extern/include"
 -- No need to give a library path for Matlab:
 -- Mex files are built from within Matlab.
 
+if (_ACTION == nil) then
+   return
+end
+
 outputDirectory = "build/" .. _ACTION
 
 solution "Pastel"

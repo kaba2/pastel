@@ -1,8 +1,8 @@
 // Description: Intersection between two aligned boxes
 // Documentation: alignedbox.txt
 
-#ifndef PASTEL_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
-#define PASTEL_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
+#ifndef PASTELSYS_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
+#define PASTELSYS_INTERSECT_ALIGNEDBOX_ALIGNEDBOX_H
 
 #include "pastel/sys/alignedbox.h"
 
@@ -11,9 +11,15 @@ namespace Pastel
 
 	//! Finds the intersection of two aligned boxes.
 	/*!
-	If the boxes do not intersect, 'result' is not
-	changed. The 'result' can be the same as 'aBox' 
-	and 'bBox'.
+	aBox, bBox:
+	The boxes whose intersection to compute.
+
+	result:
+	A box which is contained in both 'aBox' and 'bBox'.
+	Can be the same as 'aBox' or 'bBox'. 
+	
+	Returns:
+	Whether the boxes intersect.
 	*/
 	template <typename Real, int N>
 	bool intersect(
