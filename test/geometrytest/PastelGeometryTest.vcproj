@@ -217,6 +217,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_intersect_alignedbox_alignedbox.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_intersectlineaabb.cpp"
 			>
 		</File>

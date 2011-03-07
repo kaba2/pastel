@@ -16,40 +16,40 @@ namespace Pastel
 	{
 		PENSURE_OP(aBox.dimension(), ==, bBox.dimension());
 
+		bool empty = false;
 		const integer n = aBox.dimension();
 		for (integer i = 0;i < n;++i)
 		{
-			if (aBox.empty(i) ||
-				bBox.empty(i))
+			if (aBox.min()[i] > bBox.min()[i] ||
+				(aBox.min()[i] == bBox.min()[i] &&
+				aBox.minTopology()[i] == Topology::Open))
 			{
-				return false;
+				result.min()[i] = aBox.min()[i];
+				result.minTopology()[i] = aBox.minTopology()[i];
+			}
+			else
+			{
+				result.min()[i] = bBox.min()[i];
+				result.minTopology()[i] = bBox.minTopology()[i];
 			}
 
-			if (aBox.max()[i] <= bBox.min()[i])
+			if (aBox.max()[i] < bBox.max()[i] ||
+				(aBox.max()[i] == bBox.max()[i] &&
+				aBox.maxTopology()[i] == Topology::Open))
 			{
-				if (aBox.max()[i] < bBox.min()[i] ||
-					aBox.maxTopology()[i] == Topology::Open ||
-					bBox.minTopology()[i] == Topology::Open)
-				{
-					return false;
-				}
+				result.max()[i] = aBox.max()[i];
+				result.maxTopology()[i] = aBox.maxTopology()[i];
 			}
-			if (aBox.min()[i] >= bBox.max()[i])
+			else
 			{
-				if (aBox.min()[i] > bBox.max()[i] ||
-					aBox.minTopology()[i] == Topology::Open ||
-					bBox.maxTopology()[i] == Topology::Open)
-				{
-					return false;
-				}
+				result.max()[i] = bBox.max()[i];
+				result.maxTopology()[i] = bBox.maxTopology()[i];
 			}
+
+			empty |= result.empty(i);
 		}
-
-		result.set(
-			max(aBox.min(), bBox.min()),
-			min(aBox.max(), bBox.max()));
-
-		return true;
+		
+		return !empty;
 	}
 
 }
