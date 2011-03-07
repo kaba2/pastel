@@ -335,8 +335,8 @@ namespace Pastel
 
 			bool operator==(const CursorBase& that) const
 			{
-				return (const ConstCursorBase&)*this == 
-					(const ConstCursorBase&)that;
+				return (const ConstCursorBase<Type, N>&)*this == 
+					(const ConstCursorBase<Type, N>&)that;
 			}
 
 		protected:
