@@ -34,7 +34,7 @@ namespace Pastel
 			return 0;
 		}
 
-		return std::sqrt(centerDistance2) - radius;
+		return std::sqrt(centerDistance2) - sphere.radius();
 	}
 
 	template <typename Real, int N>
