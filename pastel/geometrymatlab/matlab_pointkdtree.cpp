@@ -308,7 +308,6 @@ namespace Pastel
 			ENSURE_OP(inputs, ==, Inputs);
 			
 			KdState* state = asState(inputSet[State]);
-			Tree& tree = state->tree;
 
 			// Get enough memory to hold a KdState pointer.
 			const mwSize extent[] = {1, sizeof(KdState*)};
@@ -711,7 +710,7 @@ namespace Pastel
 				range(queryIterSet.begin(), queryIterSet.end()),
 				0, k,
 				&nearestArray,
-				0,
+				(Array<real>*)0,
 				maxDistanceSet->range());
 
 			IntegerArrayPtr result =
