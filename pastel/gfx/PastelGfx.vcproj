@@ -755,10 +755,6 @@
 			Name="Reconstruction"
 			>
 			<File
-				RelativePath=".\reconstruct_all.h"
-				>
-			</File>
-			<File
 				RelativePath=".\reconstruct_filter.h"
 				>
 			</File>
@@ -776,6 +772,14 @@
 			</File>
 			<File
 				RelativePath=".\reconstruct_rbf.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruction.h"
+				>
+			</File>
+			<File
+				RelativePath=".\reconstruction.txt"
 				>
 			</File>
 		</Filter>

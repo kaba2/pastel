@@ -2,7 +2,7 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
-#include "pastel/sys/extendedconstview_all.h"
+#include "pastel/sys/extendedconstviews.h"
 #include "pastel/sys/vector_tools.h"
 
 #include "pastel/gfx/colormixers.h"

@@ -1,4 +1,4 @@
-// Documentation: indexextender.txt
+// Documentation: indexextenders.txt
 
 #ifndef PASTEL_CLAMPEXTENDER_H
 #define PASTEL_CLAMPEXTENDER_H

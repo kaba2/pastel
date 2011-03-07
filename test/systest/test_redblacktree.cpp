@@ -4,7 +4,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/redblacktree_tools.h"
-#include "pastel/sys/rbtpolicy_all.h"
+#include "pastel/sys/rbtpolicies.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <iostream>

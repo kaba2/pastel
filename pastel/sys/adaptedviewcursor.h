@@ -1,5 +1,5 @@
 // Description: AdaptedViewCursor class
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_ADAPTEDVIEWCURSOR_H
 #define PASTEL_ADAPTEDVIEWCURSOR_H

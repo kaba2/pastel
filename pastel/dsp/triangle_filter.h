@@ -1,6 +1,6 @@
 // Description: Triangle_Filter class
 // Detail: Triangle reconstruction filter
-// Documentation: filter.txt
+// Documentation: filters.txt
 
 #ifndef PASTEL_TRIANGLE_FILTER_H
 #define PASTEL_TRIANGLE_FILTER_H

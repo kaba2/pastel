@@ -189,6 +189,46 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Uniform distortion"
+			>
+			<File
+				RelativePath=".\test_uniform_distortion.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Transformations"
+			>
+			<File
+				RelativePath=".\test_matrix.cpp"
+				>
+			</File>
+			<Filter
+				Name="Decompositions"
+				>
+				<File
+					RelativePath=".\test_cholesky_decomposition.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test_lu_decomposition.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test_qr_decomposition.cpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Numbers"
+			>
+			<File
+				RelativePath=".\test_gcd.cpp"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\mathinstantiate.cpp"
 			>
@@ -206,10 +246,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_cholesky_decomposition.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_common.cpp"
 			>
 		</File>
@@ -218,19 +254,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_gcd.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_lowdiscrepancy.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_lu_decomposition.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_matrix.cpp"
 			>
 		</File>
 		<File
@@ -242,15 +266,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_qr_decomposition.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_smoothstep.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_uniform_distortion.cpp"
 			>
 		</File>
 	</Files>

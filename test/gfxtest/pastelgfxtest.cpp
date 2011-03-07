@@ -9,7 +9,7 @@
 #include "pastel/dsp/mipmap_tools.h"
 
 #include "pastel/sys/arrayextender.h"
-#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/indexextenders.h"
 
 using namespace Pastel;
 

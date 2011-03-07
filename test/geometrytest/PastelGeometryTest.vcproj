@@ -188,6 +188,90 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="Intersection"
+			>
+			<File
+				RelativePath=".\test_intersect_alignedbox_alignedbox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test_intersect_line_alignedbox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\test_intersect_line_triangle.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Difference"
+			>
+			<File
+				RelativePath=".\test_difference_alignedbox_alignedbox.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Overlapping"
+			>
+			<File
+				RelativePath=".\test_overlap_alignedbox_alignedbox.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Maximum clique"
+			>
+			<File
+				RelativePath=".\test_maximum_clique.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Data structures"
+			>
+			<Filter
+				Name="KdTree"
+				>
+				<File
+					RelativePath=".\test_kdtree.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="PointKdTree"
+				>
+				<File
+					RelativePath=".\test_pointkdtree.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="HalfMesh"
+				>
+				<File
+					RelativePath=".\test_halfmesh.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test_halfmesh2.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test_simplehalfmesh.cpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Area"
+			>
+			<File
+				RelativePath=".\test_area.cpp"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\pastelgeometrytest.cpp"
 			>
@@ -201,47 +285,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_area.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_difference_alignedbox_alignedbox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_halfmesh.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_halfmesh2.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_intersect_alignedbox_alignedbox.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_intersectlineaabb.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_intersectlinetriangle.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_kdtree.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_leastsquares.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_maximum_clique.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_overlapaabbaabb.cpp"
 			>
 		</File>
 		<File
@@ -249,15 +293,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_pointkdtree.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_pointpattern.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\test_simplehalfmesh.cpp"
 			>
 		</File>
 		<File

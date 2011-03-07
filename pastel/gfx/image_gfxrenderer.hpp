@@ -5,7 +5,7 @@
 #include "pastel/gfx/draw.h"
 #include "pastel/gfx/textures.h"
 
-#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/indexextenders.h"
 
 #include "pastel/math/matrix_tools.h"
 #include "pastel/math/affinetransformation_tools.h"

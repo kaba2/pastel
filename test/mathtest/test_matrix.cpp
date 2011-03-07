@@ -7,7 +7,7 @@
 #include "pastel/math/lu_decomposition_tools.h"
 
 #include "pastel/math/uniform_sampling.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 
 #include "pastel/gfx/pcx.h"
 

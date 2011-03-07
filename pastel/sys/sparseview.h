@@ -1,6 +1,6 @@
 // Description: SparseView class
 // Detail: An adapter view for a sparse grid subset
-// Documentation: view.txt
+// Documentation: views.txt
 
 #ifndef PASTEL_SPARSEVIEW_H
 #define PASTEL_SPARSEVIEW_H

@@ -13,7 +13,7 @@
 #include "pastel/sys/random.h"
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 
 #include "pastel/sys/vector_tools.h"
 

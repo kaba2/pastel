@@ -1,3 +1,6 @@
+// Description: Testing for shapes
+// DocumentationOf: shape.h
+
 #include "pastelraytest.h"
 
 #include <pastel/ray/sphere_shape.h>

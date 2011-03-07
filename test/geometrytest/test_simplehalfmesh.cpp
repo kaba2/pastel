@@ -1,3 +1,6 @@
+// Description: Some testing for HalfMesh
+// DocumentationOf: halfmesh.h
+
 #include "pastelgeometrytest.h"
 #include "pastel/geometry/simplehalfmesh.h"
 

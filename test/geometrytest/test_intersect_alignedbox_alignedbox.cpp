@@ -1,6 +1,9 @@
+// Description: Testing for alignedbox-alignedbox intersection
+// DocumentationOf: intersect_alignedbox_alignedbox.h
+
 #include "pastelgeometrytest.h"
 
-#include "pastel/geometry/difference_alignedbox_alignedbox.h"
+#include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"

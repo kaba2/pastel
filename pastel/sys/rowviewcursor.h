@@ -1,5 +1,5 @@
 // Description: RowViewCursor class
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_ROWVIEWCURSOR_H
 #define PASTEL_ROWVIEWCURSOR_H

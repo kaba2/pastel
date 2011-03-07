@@ -1,5 +1,5 @@
 // Description: SliceViewCursor class
-// Documentation: view.txt
+// Documentation: concrete_views.txt
 
 #ifndef PASTEL_SLICEVIEWCURSOR_H
 #define PASTEL_SLICEVIEWCURSOR_H

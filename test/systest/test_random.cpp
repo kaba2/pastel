@@ -12,7 +12,7 @@
 
 #include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/random.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 #include "pastel/sys/histogram.h"
 
 #include <boost/bind.hpp>

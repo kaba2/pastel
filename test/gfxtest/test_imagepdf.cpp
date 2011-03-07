@@ -1,3 +1,6 @@
+// Description: Testing for image pdfs
+// DocumentationOf: imagepdf.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/gfx/savepcx.h"
@@ -8,11 +11,11 @@
 #include "pastel/gfx/imagepdf.h"
 #include "pastel/gfx/draw.h"
 
-#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/filters.h"
 #include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 #include "pastel/sys/string_algorithms.h"
 
 #include "pastel/device/timer.h"

@@ -10,7 +10,7 @@
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
-#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/indexextenders.h"
 
 #include <GL/glew.h>
 

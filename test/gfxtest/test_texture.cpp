@@ -5,9 +5,9 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
-#include "pastel/sys/extendedconstview_all.h"
+#include "pastel/sys/extendedconstviews.h"
 #include "pastel/sys/view_tools.h"
-#include "pastel/sys/indexextender_all.h"
+#include "pastel/sys/indexextenders.h"
 
 #include "pastel/gfx/colormixers.h"
 #include "pastel/gfx/textures.h"
@@ -16,7 +16,7 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/dsp/mipmap_tools.h"
 #include "pastel/dsp/ripmap_tools.h"
-#include "pastel/dsp/filter_all.h"
+#include "pastel/dsp/filters.h"
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/keyvalue.h"

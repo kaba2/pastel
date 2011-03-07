@@ -226,10 +226,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_countedptr.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_disjointgroups.cpp"
 			>
 		</File>

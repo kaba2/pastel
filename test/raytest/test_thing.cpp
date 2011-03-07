@@ -1,3 +1,6 @@
+// Description: Testing for Things
+// DocumentationOf: thing.h
+
 #include "pastelraytest.h"
 
 #include <pastel/ray/sphere_shape.h>
@@ -20,8 +23,8 @@
 #include <pastel/gfx/color_srgb.h>
 #include <pastel/gfx/textures.h>
 
-#include <pastel/sys/view_all.h>
-#include <pastel/sys/indexextender_all.h>
+#include <pastel/sys/views.h>
+#include <pastel/sys/indexextenders.h>
 #include <pastel/sys/random_uniform.h>
 
 using namespace Pastel;

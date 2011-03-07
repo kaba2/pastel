@@ -1,6 +1,6 @@
 // Description: Map_RbtPolicy class
 // Detail: Stores value data in each node.
-// Documentation: rbtpolicy.txt
+// Documentation: rbtpolicies.txt
 
 #ifndef PASTEL_MAP_RBTPOLICY_H
 #define PASTEL_MAP_RBTPOLICY_H

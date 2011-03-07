@@ -1,7 +1,10 @@
+// Description: Testing for Views
+// DocumentationOf: views.h
+
 #include "pastelsystest.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 
 using namespace Pastel;
 

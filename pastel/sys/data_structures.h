@@ -10,6 +10,6 @@
 #include "pastel/sys/parallelarray.h"
 #include "pastel/sys/redblacktree_tools.h"
 #include "pastel/sys/small_containers.h"
-#include "pastel/sys/view_all.h"
+#include "pastel/sys/views.h"
 
 #endif
