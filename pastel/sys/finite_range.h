@@ -29,7 +29,7 @@ namespace Pastel
 		static const bool Bidirectional = Range::RandomAccess;
 
 		Finite_Range()
-			: data_()
+			: range_()
 			, size_(0)
 		{
 		}
