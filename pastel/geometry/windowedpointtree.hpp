@@ -12,7 +12,7 @@ namespace Pastel
 	template <typename PointQuery>
 	WindowedPointTree<PointQuery>::WindowedPointTree(
 		const PointQuery& pointQuery)
-		: tree_(pointQuery.pointPolicy(), false, true)
+		: tree_(pointQuery.pointPolicy(), false)
 		, window_()
 		, activeSet_()
 		, pointQuery_(pointQuery)
@@ -56,9 +56,6 @@ namespace Pastel
 
 		// Set the new window.
 		window_ = window;
-
-		// Update the tree.
-		tree_.update();
 	}
 
 	template <typename PointQuery>

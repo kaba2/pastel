@@ -1,6 +1,6 @@
 // Description: Vector_PointPolicy class
 // Detail: Point from a Vector
-// Documentation: pointpolicy.txt
+// Documentation: pointpolicies.txt
 
 #ifndef PASTEL_VECTOR_POINTPOLICY_H
 #define PASTEL_VECTOR_POINTPOLICY_H

@@ -18,19 +18,16 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	PointKdTree<Real, N, PointPolicy>::PointKdTree(
 		const PointPolicy& pointPolicy,
-		bool simulateKdTree,
-		bool lazyUpdates)
+		bool simulateKdTree)
 		: pointSet_()
 		, hiddenSet_(pointSet_.get_allocator())
 		, insertionSet_(pointSet_.get_allocator())
-		, taskSet_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
 		, leaves_(0)
 		, pointPolicy_(pointPolicy)
 		, bound_(pointPolicy.dimension())
 		, simulateKdTree_(simulateKdTree)
-		, lazyUpdates_(lazyUpdates)
 	{
 		ENSURE(N == Dynamic || 
 			N == pointPolicy.dimension());
@@ -43,14 +40,12 @@ namespace Pastel
 		: pointSet_()
 		, hiddenSet_(pointSet_.get_allocator())
 		, insertionSet_(pointSet_.get_allocator())
-		, taskSet_()
 		, nodeAllocator_(sizeof(Node))
 		, root_(0)
 		, leaves_(0)
 		, pointPolicy_(that.pointPolicy_)
 		, bound_(that.bound_)
 		, simulateKdTree_(that.simulateKdTree_)
-		, lazyUpdates_(that.lazyUpdates_)
 	{
 		initialize();
 
@@ -66,9 +61,6 @@ namespace Pastel
 		// Insert the insertion points.
 		insert(that.asPointData(
 			Pastel::range(that.insertionSet_.begin(), that.insertionSet_.end())));
-
-		// Commit everything.
-		update();
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -109,14 +101,12 @@ namespace Pastel
 		pointSet_.swap(that.pointSet_);
 		hiddenSet_.swap(that.hiddenSet_);
 		insertionSet_.swap(that.insertionSet_);
-		taskSet_.swap(that.taskSet_);
 		nodeAllocator_.swap(that.nodeAllocator_);
 		swap(root_, that.root_);
 		swap(leaves_, that.leaves_);
 		swap(pointPolicy_, that.pointPolicy_);
 		bound_.swap(that.bound_);
 		swap(simulateKdTree_, that.simulateKdTree_);
-		swap(lazyUpdates_, that.lazyUpdates_);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -238,26 +228,6 @@ namespace Pastel
 	}
 	
 	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::setLazyUpdate(
-		bool lazyUpdates)
-	{
-		if (lazyUpdates_ && !lazyUpdates)
-		{
-			// Disabling lazy updates triggers
-			// an immediate update.
-			update();
-		}
-
-		lazyUpdates_ = lazyUpdates;
-	}
-
-	template <typename Real, int N, typename PointPolicy>
-	bool PointKdTree<Real, N, PointPolicy>::lazyUpdates() const
-	{
-		return lazyUpdates_;
-	}
-
-	template <typename Real, int N, typename PointPolicy>
 	template <typename SplitRule_PointKdTree>
 	void PointKdTree<Real, N, PointPolicy>::refine(
 		const SplitRule_PointKdTree& splitRule,
@@ -348,12 +318,7 @@ namespace Pastel
 				pointSet_,
 				first, pointSet_.end());
 
-			if (!lazyUpdates_)
-			{
-				// Do the insertion straight away, rather
-				// than waiting for update().
-				commitInsertion();
-			}
+			commitInsertion();
 		}
 	}
 
@@ -371,19 +336,7 @@ namespace Pastel
 	void PointKdTree<Real, N, PointPolicy>::erase(
 		const Point_ConstIterator& iter)
 	{
-		if (lazyUpdates_)
-		{
-			// On lazy updates, push the task
-			// into the task queue.
-			taskSet_.push_back(
-				Task(iter, TaskType::Erase));
-		}
-		else
-		{
-			// On immediate updates, just do the
-			// erasing.
-			commitErase(iter);
-		}
+		commitErase(iter);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -415,12 +368,6 @@ namespace Pastel
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::hide()
 	{
-		// This operation is always immediate.
-		if (lazyUpdates_)
-		{
-			update();		
-		}
-
 		setHidden(pointSet_.begin(), pointSet_.end(), true);
 		setHidden(insertionSet_.begin(), insertionSet_.end(), true);
 		hiddenSet_.splice(hiddenSet_.end(), pointSet_);
@@ -433,30 +380,12 @@ namespace Pastel
 	void PointKdTree<Real, N, PointPolicy>::hide(
 		const Point_ConstIterator& iter)
 	{
-		if (lazyUpdates_)
-		{
-			// On lazy updates, push the task
-			// into the task queue.
-			taskSet_.push_back(
-				Task(iter, TaskType::Hide));
-		}
-		else
-		{
-			// On immediate updates, just do the
-			// hiding.
-			commitHide(iter);
-		}
+		commitHide(iter);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::show()
 	{
-		// This operation is always immediate.
-		if (lazyUpdates_)
-		{
-			update();		
-		}
-
 		Point_ConstIterator iter = hiddenSet_.begin();
 		Point_ConstIterator end = hiddenSet_.end();
 		while(iter != end)
@@ -468,70 +397,15 @@ namespace Pastel
 
 			iter = nextIter;
 		}
-
-		if (lazyUpdates_)
-		{
-			updateDownwards(root_);
-		}
 	}
 
 	template <typename Real, int N, typename PointPolicy>
 	void PointKdTree<Real, N, PointPolicy>::show(
 		const Point_ConstIterator& iter)
 	{
-		if (lazyUpdates_)
-		{
-			// On lazy updates, push the task
-			// into the task queue.
-			taskSet_.push_back(
-				Task(iter, TaskType::Show));
-		}
-		else
-		{
-			// On immediate updates, just do the
-			// showing.
-			commitShow(iter);
-		}
-	}
-
-	template <typename Real, int N, typename PointPolicy>
-	void PointKdTree<Real, N, PointPolicy>::update()
-	{
-		// The update is done in the following order:
-		// 1) Commit the task list (erasing, hiding, and showing).
-		// 2) Commit insertion.
-		//
-		// Note that the tasks can also refer to the points in
-		// the insertion region.
-
-		Task_ConstIterator taskIter = taskSet_.begin();
-		const Task_ConstIterator taskEnd = taskSet_.end();
-		while(taskIter != taskEnd)
-		{
-			const Point_ConstIterator iter = 
-				taskIter->point();
-
-			switch(taskIter->type())
-			{
-			case TaskType::Erase:
-				commitErase(iter);
-				break;
-			case TaskType::Hide:
-				commitHide(iter);
-				break;
-			case TaskType::Show:
-				commitShow(iter);
-				break;
-			};
-
-			++taskIter;
-		}
-		
-		taskSet_.clear();
-
-		commitInsertion();
-
-		updateDownwards(root_);
+		// On immediate updates, just do the
+		// showing.
+		commitShow(iter);
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -539,13 +413,9 @@ namespace Pastel
 	{
 		// This operation is always immediate.
 
-		// It is correct to not commit any tasks,
-		// since the points will be removed anyway.
-
 		pointSet_.clear();
 		hiddenSet_.clear();
 		insertionSet_.clear();
-		taskSet_.clear();
 		destructSubtree(root_);
 		nodeAllocator_.clear();
 		root_ = 0;
@@ -566,19 +436,6 @@ namespace Pastel
 		{
 			// Remove all points in the hidden set.
 			hiddenSet_.clear();
-
-			// We can ignore all tasks,
-			// since all points will be removed
-			// anyway.
-			taskSet_.clear();
-		}
-		else if (lazyUpdates_)
-		{
-			// With lazy updates we first complete the 
-			// currently queued tasks. This is because
-			// the set of points in the hidden region 
-			// can be changed by the update.
-			update();
 		}
 
 		// Remove the visible points.
@@ -623,14 +480,6 @@ namespace Pastel
 
 		setLeaf(pointSet_.begin(), pointSet_.end(), root_);
 		setLeaf(hiddenSet_.begin(), hiddenSet_.end(), root_);
-
-		if (lazyUpdates_)
-		{
-			// It is more efficient to do the updates now,
-			// compared to doing them in the beginning of this 
-			// function.
-			update();
-		}
 	}
 
 	template <typename Real, int N, typename PointPolicy>

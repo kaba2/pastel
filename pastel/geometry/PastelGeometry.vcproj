@@ -297,10 +297,6 @@
 					Name="PointKdTree"
 					>
 					<File
-						RelativePath=".\multilevel_kdtree.txt"
-						>
-					</File>
-					<File
 						RelativePath=".\pointkdtree.h"
 						>
 					</File>

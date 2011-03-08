@@ -1,5 +1,5 @@
 // Description: PointPolicy concept
-// Documentation: pointpolicy.txt
+// Documentation: pointpolicies.txt
 
 #ifndef PASTEL_POINTPOLICY_CONCEPT_H
 #define PASTEL_POINTPOLICY_CONCEPT_H

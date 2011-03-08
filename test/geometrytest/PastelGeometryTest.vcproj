@@ -285,6 +285,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_count_range_pointkdtree.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_leastsquares.cpp"
 			>
 		</File>

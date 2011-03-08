@@ -63,7 +63,7 @@ namespace Pastel
 	Two sets of points.
 
 	fromPointPolicy, toPointPolicy:
-	See the PointPolicy concept from 'pastel/sys/pointpolicy.txt'.
+	See the PointPolicy concept from 'pastel/sys/pointpolicies.txt'.
 
 	returns:
 	A conformal affine transformation such that mapping 'fromPointSet'
