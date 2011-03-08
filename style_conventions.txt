@@ -99,14 +99,6 @@ For example, if `NormBijection` is a concept, then
 * When using the Curiously Recurring Template Pattern with the
 class `MyClass`, name the super class `MyClassBase`
 
-* When prohibiting the use of implicitly generated class
-members, declare them private, with no implementation and
-comment them `Prohibited`.
-
-* In a switch structure, if one case is meant to slip
-through to the handler of the next case, comment it
-with a `Fall-through`.
-
 Statements
 ----------
 
@@ -133,24 +125,13 @@ no better name.
 * Separate binary operators with spaces from both sides:
 `a + b, a - b, a = b, a * b, a / b, a % b, a b`, ...
 
-Classes
--------
+* When prohibiting the use of implicitly generated class
+members, declare them private, with no implementation and
+comment them `Prohibited`.
 
-* Specify class member variables private.
-
-* Define member functions out-of-class.
-Exception: A class that is not to be used directly by a user 
-(for example, a `detail` class) and that contains a lot of template 
-parameters can have member functions defined in-class. This is because 
-in the current C++ out-of-class definitions for such a class generates 
-a lot of distracting, redundant template boilerplate.
-Exception: Friend functions.
-
-* Define inner classes out-of-class.
-Exception: Those classes that are needed to be complete inside the 
-containing class must of course be defined in-class.
-Exception: Pod classes can be defined in-class because they contain 
-relevant information in compact form.
+* In a switch structure, if one case is meant to slip
+through to the handler of the next case, comment it
+with a `Fall-through`.
 
 * Specify variables const as often as possible.
 This makes the code easier to read since the reader
