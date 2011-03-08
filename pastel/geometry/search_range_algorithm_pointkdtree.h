@@ -16,8 +16,8 @@ namespace Pastel
 	/*!
 	Preconditions:
 	kdTree.dimension() == range.dimension()
-	kdTree.dimension() <= 32
-	bucketSize >= 1
+	kdTree.dimension() <= 64
+	bucketSize > 0
 	*/
 	template <typename Real, int N, typename PointPolicy, 
 		typename Reporter_SearchRange>

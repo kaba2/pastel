@@ -19,6 +19,8 @@ namespace Pastel
 		integer bucketSize)
 	{
 		ENSURE_OP(range.dimension(), ==, kdTree.dimension());
+		ENSURE_OP(kdTree.dimension(), <=, 64);
+		ENSURE_OP(bucketSize, >, 0);
 
 		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 			Point_ConstIterator;
@@ -29,17 +31,17 @@ namespace Pastel
 
 		// Note: we assume the search region is open.
 
-		if (kdTree.empty())
+		if (kdTree.empty() ||
+			range.empty())
 		{
+			// Nothing to do.
 			return;
 		}
 
-		const integer dimension = kdTree.dimension();
+		typedef uint64 Flags;
 
-		ENSURE_OP(dimension, <=, 32);
-		ENSURE_OP(bucketSize, >=, 1);
-
-		const uint32 fullFlags = ((uint32)1 << dimension) - 1;
+		const integer n = kdTree.dimension();
+		const Flags fullFlags = ((Flags)1 << n) - 1;
 
 		const Vector<Real, N>& rangeMin = range.min();
 		const Vector<Real, N>& rangeMax = range.max();
@@ -48,8 +50,8 @@ namespace Pastel
 
 		const AlignedBox<Real, N>& bound = kdTree.bound();
 
-		uint32 rootFlags = 0;
-		for (integer i = 0;i < dimension;++i)
+		Flags rootFlags = 0;
+		for (integer i = 0;i < n;++i)
 		{
 			if (bound.max()[i] <= rangeMin[i] ||
 				bound.min()[i] >= rangeMax[i])
@@ -62,17 +64,17 @@ namespace Pastel
 			if (rangeMin[i] < bound.min()[i] && 
 				rangeMax[i] > bound.max()[i])
 			{
-				rootFlags += (1 << i);
+				rootFlags += ((Flags)1 << i);
 			}
 		}
 
-		std::vector<std::pair<Cursor, uint32> > nodeSet;
+		std::vector<std::pair<Cursor, Flags> > nodeSet;
 		nodeSet.push_back(std::make_pair(kdTree.root(), rootFlags));
 
 		while(!nodeSet.empty())
 		{
 			Cursor cursor = nodeSet.back().first;
-			uint32 flags = nodeSet.back().second;
+			Flags flags = nodeSet.back().second;
 			nodeSet.pop_back();
 
 			bool foundSomething = true;
@@ -80,7 +82,7 @@ namespace Pastel
 				cursor.points() > bucketSize)
 			{
 				const integer splitAxis = cursor.splitAxis();
-				const uint32 flag = (uint32)1 << splitAxis;
+				const Flags flag = (Flags)1 << splitAxis;
 
 				if (flags == fullFlags)
 				{
@@ -99,8 +101,8 @@ namespace Pastel
 
 				bool visitRight = false;
 				bool visitLeft = false;
-				uint32 leftFlags = flags;
-				uint32 rightFlags = flags;
+				Flags leftFlags = flags;
+				Flags rightFlags = flags;
 
 				if (rangeMin[splitAxis] < leftMax &&
 					rangeMax[splitAxis] > leftMin)
@@ -181,9 +183,9 @@ namespace Pastel
 				while(iter != iterEnd)
 				{
 					const typename PointPolicy::Point& point = iter->point();
-					// Cull the point dimension by dimension.
+					// Cull the point dimension by n.
 					integer i = 0;
-					while(i < dimension)
+					while(i < n)
 					{
 						const Real position = 
 							pointPolicy(point)[i];
@@ -195,7 +197,7 @@ namespace Pastel
 						}
 						++i;
 					}
-					if (i == dimension)
+					if (i == n)
 					{
 						reporter.report(iter);
 					}

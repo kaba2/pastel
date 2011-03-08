@@ -13,7 +13,7 @@ namespace Pastel
 	//! Counts the number of points contained in an aligned box.
 	/*!
 	Preconditions:
-	bucketSize >= 1
+	bucketSize > 0
 
 	kdTree:
 	The kd-tree to count the points in.
