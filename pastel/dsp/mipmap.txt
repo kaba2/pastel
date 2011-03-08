@@ -3,19 +3,11 @@ Mip mapping
 
 [[Parent]]: precomputed_filtering.txt
 
-Theory
-------
-
-Let ''I'' be an n-dimensional image with extents ''w in ZZ^n'' and
-values in a vector space. In the following, if there are expressions
-involving vectors, the operations are carried out elementwise.
-Let ''m in ZZ'', such that ''m = |~text(log)_2(text(max)(w))~|''. 
-Let ''hat(w) in ZZ^n'', such that ''hat(w) = (2^m, ..., 2^m)''. 
 A _mip-map_ is a set of images ''M = {M_0, ..., M_m}'', where for all ''s'':
 
- * ''M_s'' is a resampling of ''I''.
+ * ''M_s'' is a resampling of ''M_0''.
 
- * ''M_s'' has extents ''hat(w) / 2^s = (2^{m - s}, ..., 2^{m - s})''. 
+ * ''M_s'' has extents ''(2^{m - s}, ..., 2^{m - s})''. 
 
 As an overload of terminology, each ''M_s'' is also called
 a mip-map. The meaning of the term should be clear from the
@@ -24,7 +16,7 @@ context.
 Practice
 --------
 
-Pastel implements the MipMap class for storing and manipulating
+Pastel implements the `MipMap` class for storing and manipulating
 mip-maps. It is declared as:
 
 [[CppCode]]:

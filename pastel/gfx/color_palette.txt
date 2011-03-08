@@ -3,6 +3,8 @@ Color palettes
 
 [[Parent]]: color.txt
 
+A _color palette_ is a function which maps integers to colors.
+
 Theory
 ------
 

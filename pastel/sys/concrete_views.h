@@ -1,3 +1,5 @@
+// Description: An aggregate file for concrete views
+
 #ifndef PASTEL_CONCRETE_VIEWS_H
 #define PASTEL_CONCRETE_VIEWS_H
 

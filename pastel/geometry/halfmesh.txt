@@ -3,14 +3,13 @@ Half-edge structure
 
 [[Parent]]: meshes.txt
 
+The _half-edge structure_ is a data structure to efficiently
+store and manipulate a restricted set of 2-cell-complexes.
+
 Theory
 ------
 
-### Half-edge structure
-
-The _half-edge structure_ is a data structure to efficiently
-store and manipulate a restricted set of 2-cell-complexes.
-In particular, this set includes 
+In particular, the half-edge structure can represent
 
  * Those 2-cell-complexes which are also 2-manifolds with a boundary.
  

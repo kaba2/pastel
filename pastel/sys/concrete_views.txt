@@ -2,3 +2,5 @@ Concrete views
 ==============
 
 [[Parent]]: views.txt
+
+This section contains concrete view implementations.

@@ -3,11 +3,12 @@ PointKdTree class
 
 [[Parent]]: multilevel_kdtree.txt
 
+The `PointKdTree` class is a data structure that allows storing
+and manipulating a multi-level kd-tree efficiently.
+
 Practice
 --------
 
-The PointKdTree class is a data structure that allows storing
-and manipulating a multi-level kd-tree efficiently.
 This data structure has been primarily designed for efficient
 nearest neighbor searching in static and semi-dynamic point-sets.
 It is declared as:
@@ -17,15 +18,15 @@ It is declared as:
 		typename PointPolicy = Vector_PointPolicy<Real, N> >
 	class PointKdTree;
 
-where N is the dimensionality of the tree, Real is a computation
-type which models an ordered field, and PointPolicy is a policy
+where N is the dimensionality of the tree, `Real` is a computation
+type which models an ordered field, and `PointPolicy` is a policy
 class which allows to store the points in different ways.
-The dimensionality can be set to Dynamic meaning that it is chosen 
+The dimensionality can be set to `Dynamic` meaning that it is chosen 
 at runtime. 
 
 ### Traversal of the subdivision using cursors
 
-The nodes of the kd-tree can be traversed using cursors. 
+The nodes of the kd-tree can be traversed using [cursors][Cursor]. 
 From each node you can traverse either to a parent (if it exists) 
 or to left or right child (if they exist). At each node you can inspect:
 
@@ -39,6 +40,8 @@ or to left or right child (if they exist). At each node you can inspect:
  * What are the cursors to the child nodes?
  
  * What is the cursor to the parent node?
+
+[Cursor]: [[Ref]]: iterators.txt
 
 ### Traversal of the points in the kd-tree
 

@@ -1011,6 +1011,10 @@
 			Name="Block matching"
 			>
 			<File
+				RelativePath=".\block_matching.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\block_matching_bruteforce.h"
 				>
 			</File>

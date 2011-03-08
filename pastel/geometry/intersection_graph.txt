@@ -5,7 +5,12 @@ Intersection graph algorithms
 
 Given a set ''V'' of shapes in ''RR^n'', their _intersection graph_ is a 
 graph ''(V, E)'', where ''(v_1, v_2) in E sub V^2'' if and only if 
-''v_1 nn v_2 != O/''. If there is a problem about the shapes which can
+''v_1 nn v_2 != O/''. 
+
+Theory
+------
+
+If there is a problem about the shapes which can
 be formulated in terms of their intersection graph, then we call solutions
 to these problems _intersection graph algorithms_. Such an abstraction 
 turns a geometric question to a topological one, and thus destroys 

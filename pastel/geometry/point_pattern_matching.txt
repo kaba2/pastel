@@ -8,7 +8,12 @@ two finite point-sets in ''RR^n''. Given some class of
 transformations, such as the class of affine, conformal affine, 
 rigid, or projective transformations, the problem of
 _point-pattern matching_ is to find a transformation in that class 
-which maps ''P'' to ''Q'' _well enough_. Ideally, one would give an
+which maps ''P'' to ''Q'' _well enough_. 
+
+Theory
+------
+
+Ideally, one would give an
 ''epsilon in RR'' as a parameter such that a transformation is good 
 enough if the image of each point ''p_i'' has a unique nearest neighbor 
 ''q_{j(i)}'' in its ''epsilon''-neighborhood (under some chosen metric). 

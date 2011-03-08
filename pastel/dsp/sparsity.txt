@@ -3,17 +3,19 @@ Sparsity measures
 
 [[Parent]]: pasteldsp.txt
 
+Given a set of vectors in a finite dimensional vector space, _sparsity_ 
+is the property of there existing a basis in which most of the length 
+of the vectors are contributed by only a few coefficients. 
+
 Theory
 ------
 
-Given a set of vectors in a finite dimensional vector space, _sparsity_ 
-is the property of there existing a basis in which most of the length 
-of the vectors are contributed by only a few coefficients. Sparsity is 
-quite general an idea, and can be made more concrete by defining specific 
-sparsity measures. As an example, natural images and sounds often exhibit 
-high sparsity, which is taken advantage of in compression. In particular, 
-the [discrete cosine transform][Dct] is well-known for its ability to 
-transform blocks of natural images to sparse representations.
+Sparsity is quite general an idea, and can be made more concrete by 
+defining specific sparsity measures. As an example, natural images 
+and sounds often exhibit high sparsity, which is taken advantage of 
+in compression. In particular, the [discrete cosine transform][Dct] 
+is well-known for its ability to transform blocks of natural images 
+to sparse representations.
 
 In Pastel, a _sparsity measure_ is a function ''S: RR^n to [0, 1] sub RR'' 
 which satisfies that:

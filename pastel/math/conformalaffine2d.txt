@@ -3,14 +3,15 @@ Conformal affine transformation in 2D
 
 [[Parent]]: transformations.txt
 
-Theory
-------
-
 A _conformal affine transformation_ (CAT) in ''RR^n'' is a function
 ''f : RR^n -> RR^n : f(x) = sQx + t'', where 
 ''s in RR'', 
 ''Q'' is an orthogonal matrix, and 
 ''t in RR^n''.
+
+Theory
+------
+
 We shall identify ''f = [s, Q, t]'', because of an obvious bijection.
 The CATs are closed under composition. For if ''g(x) = s'Q'x + t''', then:
 

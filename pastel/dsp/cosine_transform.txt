@@ -3,9 +3,6 @@ Discrete cosine transform
 
 [[Parent]]: transforms.txt
 
-Theory
-------
-
 The _discrete cosine transform_ (DCT) is an invertible linear 
 mapping ''"DCT" : CC^N -> CC^N'' defined by:
 
@@ -13,18 +10,22 @@ mapping ''"DCT" : CC^N -> CC^N'' defined by:
 
 ''M_{kn} = cos((pi k (2n + 1)) / (2N)).''
 
-Its inverse is given by ''"IDCT" : CC^N -> CC^N'':
+The _unitary discrete cosine transform_ is given by multiplying 
+the first row of ''M'' by ''sqrt(1 / N)'', and the rest of ''M'' 
+by ''sqrt(2 / N)''.
+
+Theory
+------
+
+The unitary DCT has the convenient property of preserving 2-norms.
+The DCT can be viewed as a change of basis from the standard basis 
+to a cosine basis. The inverse of the DCT is given by ''"IDCT" : CC^N -> CC^N'':
 
 ''"IDCT"(x) = M^{-1} x'', where ''M^{-1} in CC^{N \times N}'', 
 
 ''M_{nk}^{-1} = w_n cos((pi k (2n + 1)) / (2N))'', and
 
 ''w_n = ((1 / N, ", for " n = 1), (2 / N, ", otherwise"))''
-
-The _unitary discrete cosine transform_ is given by multiplying the first row of ''M''
-by ''sqrt(1 / N)'', and the rest of ''M'' by ''sqrt(2 / N)''. Such a transformation 
-has the convenient property of preserving 2-norms.
-The DCT can be viewed as a change of basis from the standard basis to a cosine basis. 
 
 ### Real vs complex
 
@@ -35,7 +36,7 @@ case the unitary version is called an _orthogonal discrete cosine transform_.
 ### Applications
 
 The DCT is interesting for the same reasons as the [discrete Fourier transform][DFT].
-However, especially when applied to images, the DCT has a strong _energy compaction
+However, especially when applied to natural images, the DCT has a strong _energy compaction
 property_, which means that most of the information (length) of a vector is contained
 in the first few coefficients. This property has been extensively taken advantage of 
 in image compression.

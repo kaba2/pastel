@@ -3,6 +3,10 @@ Guid class
 
 [[Parent]]: miscellaneous.txt
 
+A _globally unique identifier_ is an algorithmically generated integer 
+which is extremely probable to be unique among other integers generated 
+by the same algorithm.
+
 Theory
 ------
 

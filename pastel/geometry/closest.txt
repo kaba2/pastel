@@ -4,5 +4,5 @@ Closest points between shapes
 [[Parent]]: geometric_algorithms.txt
 
 A _closest point pair_ between a shape of type A and a shape of type B
-is a pair of points ''(a, b) in A xx B'' where the distance between ''a''
-and ''b'' is the infimum distance between the shapes.
+is a pair of points ''(a, b) in A xx B'' such that the distance between 
+''a'' and ''b'' equals the distance between the shapes.

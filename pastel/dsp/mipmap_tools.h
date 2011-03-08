@@ -1,4 +1,4 @@
-// Description: Algorithms for MipMap's
+// Description: Algorithms for mip-maps
 
 #ifndef PASTEL_MIPMAP_TOOLS_H
 #define PASTEL_MIPMAP_TOOLS_H

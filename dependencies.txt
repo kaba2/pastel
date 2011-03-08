@@ -3,7 +3,7 @@ Dependencies
 
 [[Parent]]: pastel.txt
 
-Here we summarize the dependencies inside Pastel, and 
+In this section we summarize the dependencies inside Pastel and
 Pastel's dependencies to external libraries.
 
 Internal dependencies

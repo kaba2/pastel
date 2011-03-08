@@ -433,24 +433,20 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Measures"
+			Name="Sparsity"
 			>
-			<Filter
-				Name="Sparsity"
+			<File
+				RelativePath=".\sparsity.h"
 				>
-				<File
-					RelativePath=".\sparsity.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sparsity.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sparsity.txt"
-					>
-				</File>
-			</Filter>
+			</File>
+			<File
+				RelativePath=".\sparsity.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\sparsity.txt"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\pasteldsp.txt"

@@ -3,9 +3,6 @@ Nearest neighbors
 
 [[Parent]]: geometric_algorithms.txt
 
-Theory
-------
-
 Let ''P = {p_1, ..., p_m} sub RR^n'' be a finite point-set, and ''d : RR^n xx RR^n -> RR'' a metric.
 Let ''q in RR^n'' and ''<_q sub RR^n xx RR^n'' be the (total) relation
 
