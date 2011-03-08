@@ -3,9 +3,5 @@ NativeAllocator class
 
 [[Parent]]: allocators.txt
 
-Practice
---------
-
-The intent of this class is to be able to use the
-native allocator with some data structures in Pastel
-such as FastList.
+The `NativeAllocator` is a memory allocator which simply wraps the
+default memory allocation routines.

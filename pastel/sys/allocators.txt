@@ -7,32 +7,3 @@ A _memory allocator_ is a data structure which keeps track of the use
 of computer memory, allows to reserve memory for arbitrary exclusive 
 use, and later to undo this reservation so that the memory region can 
 be reused.
-
-Theory
-------
-
-In general, creating custom allocators to gain efficiency
-compared to the default allocator is a bad idea.
-However, in specialized situations one can do much better, 
-both in space and time. 
-
-One such situation is when the memory is allocated at 
-arbitrary times, but is deallocated all at once. This leads to 
-the idea of _arena allocation_: allocate big chunks of memory at a 
-time, and share memory from this chunk with an almost trivial 
-algorithm (just incrementing a pointer). When one wants to deallocate
-the memory, simply deallocate all the chunks that have been
-allocated.
-
-Another situation is when the allocated memory is of fixed
-size. This assumption allows to create very efficient allocation
-and deallocation algorithms, and with minimal book-keeping.
-This leads to the so-called _pool allocation_.
-
-Practice
---------
-
-Pastel implements allocators for arena and pool allocation.
-In addition, Pastel has an adapter for the native allocator.
-These allocators are used by many data structures in Pastel.
-
