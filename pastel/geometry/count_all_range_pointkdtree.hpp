@@ -23,7 +23,7 @@ namespace Pastel
 		integer bucketSize)
 	{
 		ENSURE_OP(querySet.size(), ==, maxDistanceSet.size());
-		ENSURE_OP(bucketSize, >=, 1);
+		ENSURE_OP(bucketSize, >, 0);
 
 		if (kdTree.empty() || querySet.empty())
 		{

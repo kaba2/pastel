@@ -66,6 +66,7 @@ namespace
 
 			tree.refine(SlidingMidpoint_SplitRule_PointKdTree(), 1);
 
+			// Increasing radius from the origin.
 			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-1, -1, 1, 1), 1), ==, 0);
 			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-2, -2, 2, 2), 1), ==, 3);
 			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-3, -3, 3, 3), 1), ==, 7);
@@ -75,6 +76,16 @@ namespace
 
 			// Empty box
 			TEST_ENSURE_OP(countRange(tree, AlignedBox2(6, 6, -6, -6), 1), ==, 0);
+
+			// The point with index 7.
+			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-4, 3, -4, 3), 1), ==, 0);
+			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-5, 2, -3, 4), 1), ==, 1);
+
+			// Quarants
+			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-6, -6, 0, 0), 1), ==, 5);
+			TEST_ENSURE_OP(countRange(tree, AlignedBox2(0, 0, 6, 6), 1), ==, 3);
+			TEST_ENSURE_OP(countRange(tree, AlignedBox2(0, -6, 6, 0), 1), ==, 2);
+			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-6, 0, 0, 6), 1), ==, 6);
 		}
 	};
 

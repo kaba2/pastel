@@ -48,7 +48,7 @@ namespace Pastel
 		const AlignedBox<Real, N>& range,
 		integer bucketSize)
 	{
-		ENSURE_OP(bucketSize, >=, 1);
+		ENSURE_OP(bucketSize, >, 0);
 
 		integer count = 0;
 

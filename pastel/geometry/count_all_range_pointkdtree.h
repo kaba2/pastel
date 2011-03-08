@@ -14,7 +14,7 @@ namespace Pastel
 	//! Counts the number of points contained in each query cube.
 	/*!
 	Preconditions:
-	bucketSize >= 1
+	bucketSize > 0
 	querySet.size() == maxDistanceSet.size()
 
 	kdTree:

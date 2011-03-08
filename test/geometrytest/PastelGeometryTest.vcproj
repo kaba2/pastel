@@ -189,46 +189,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Intersection"
-			>
-			<File
-				RelativePath=".\test_intersect_alignedbox_alignedbox.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\test_intersect_line_alignedbox.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\test_intersect_line_triangle.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Difference"
-			>
-			<File
-				RelativePath=".\test_difference_alignedbox_alignedbox.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Overlapping"
-			>
-			<File
-				RelativePath=".\test_overlap_alignedbox_alignedbox.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Maximum clique"
-			>
-			<File
-				RelativePath=".\test_maximum_clique.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Data structures"
 			>
 			<Filter
@@ -265,12 +225,64 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Area"
+			Name="Algorithms"
 			>
-			<File
-				RelativePath=".\test_area.cpp"
+			<Filter
+				Name="Difference"
 				>
-			</File>
+				<File
+					RelativePath=".\test_difference_alignedbox_alignedbox.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Maximum clique"
+				>
+				<File
+					RelativePath=".\test_maximum_clique.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Intersection"
+				>
+				<File
+					RelativePath=".\test_intersect_alignedbox_alignedbox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test_intersect_line_alignedbox.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\test_intersect_line_triangle.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Range counting"
+				>
+				<File
+					RelativePath=".\test_count_range_pointkdtree.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Overlapping"
+				>
+				<File
+					RelativePath=".\test_overlap_alignedbox_alignedbox.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Area"
+				>
+				<File
+					RelativePath=".\test_area.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\pastelgeometrytest.cpp"
@@ -282,10 +294,6 @@
 		</File>
 		<File
 			RelativePath=".\pastelgeometrytest.txt"
-			>
-		</File>
-		<File
-			RelativePath=".\test_count_range_pointkdtree.cpp"
 			>
 		</File>
 		<File
