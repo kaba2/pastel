@@ -490,46 +490,10 @@
 				RelativePath=".\predicates.hpp"
 				>
 			</File>
-			<File
-				RelativePath=".\topology.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Shapes"
 			>
-			<File
-				RelativePath=".\alignedplane.h"
-				>
-			</File>
-			<File
-				RelativePath=".\alignedplane.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\flat.h"
-				>
-			</File>
-			<File
-				RelativePath=".\flat.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\polygon.h"
-				>
-			</File>
-			<File
-				RelativePath=".\polygon.hpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ray.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ray.hpp"
-				>
-			</File>
 			<File
 				RelativePath=".\shapes.h"
 				>
@@ -539,11 +503,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\simplex.h"
-				>
-			</File>
-			<File
-				RelativePath=".\triangle.h"
+				RelativePath=".\topology.h"
 				>
 			</File>
 			<Filter
@@ -683,6 +643,94 @@
 				</File>
 				<File
 					RelativePath=".\ellipsoid.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Ray"
+				>
+				<File
+					RelativePath=".\ray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ray.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ray.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Aligned plane"
+				>
+				<File
+					RelativePath=".\alignedplane.h"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedplane.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\alignedplane.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Flat"
+				>
+				<File
+					RelativePath=".\flat.h"
+					>
+				</File>
+				<File
+					RelativePath=".\flat.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\flat.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Polygon"
+				>
+				<File
+					RelativePath=".\polygon.h"
+					>
+				</File>
+				<File
+					RelativePath=".\polygon.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\polygon.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Simplex"
+				>
+				<File
+					RelativePath=".\simplex.h"
+					>
+				</File>
+				<File
+					RelativePath=".\simplex.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Triangle"
+				>
+				<File
+					RelativePath=".\triangle.h"
+					>
+				</File>
+				<File
+					RelativePath=".\triangle.txt"
 					>
 				</File>
 			</Filter>

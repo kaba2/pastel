@@ -1,6 +1,5 @@
 // Description: AlignedPlane class
 // Detail: Allows to work with axis-aligned planes
-// Documentation: shapes.txt
 
 #ifndef PASTEL_ALIGNEDPLANE_H
 #define PASTEL_ALIGNEDPLANE_H
