@@ -67,7 +67,8 @@ namespace Pastel
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
 		const RandomAccessIterator_Range<Point_ConstIterator_Iterator>& querySet,
 		const RandomAccessIterator_Range<Real_Iterator>& maxDistanceSet,
-		Integer_OutputIterator result)
+		Integer_OutputIterator result,
+		integer bucketSize)
 	{
 		Pastel::countAllNeighbors(
 			kdTree, querySet,
