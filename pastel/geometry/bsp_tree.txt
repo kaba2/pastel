@@ -1,5 +1,5 @@
-BSP trees
-=========
+Binary space-partitioning trees
+===============================
 
 [[Parent]]: data_structures.txt
 

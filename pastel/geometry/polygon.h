@@ -1,6 +1,4 @@
 // Description: Polygon class
-// Detail: Allows to work with polygons
-// Documentation: shapes.txt
 
 #ifndef PASTEL_POLYGON_H
 #define PASTEL_POLYGON_H

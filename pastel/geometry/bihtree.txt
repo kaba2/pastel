@@ -1,4 +1,4 @@
-Bounding Interval Hierachy Tree
+Bounding interval hierachy tree
 ===============================
 
 [[Parent]]: data_structures.txt

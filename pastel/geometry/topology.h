@@ -1,5 +1,5 @@
 // Description: Topology enum for shapes
-// Documentation: common.h
+// Documentation: shapes.h
 
 #ifndef PASTELGEOMETRY_TOPOLOGY_H
 #define PASTELGEOMETRY_TOPOLOGY_H
