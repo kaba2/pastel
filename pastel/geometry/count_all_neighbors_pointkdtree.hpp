@@ -47,7 +47,7 @@ namespace Pastel
 			PENSURE_OP(maxDistanceSet[i], >=, 0);
 
 			const Vector<Real, N> queryPoint =
-				kdTree.pointPolicy(querySet[i]->point());
+				kdTree.pointPolicy()(querySet[i]->point());
 
 			result[i] = countNearest(
 				kdTree, 
