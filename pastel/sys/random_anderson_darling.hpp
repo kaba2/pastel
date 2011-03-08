@@ -3,7 +3,7 @@
 
 #include "pastel/sys/random_anderson_darling.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/stdext_isnan.h"
+#include "pastel/sys/isnan.h"
 #include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/math_functions.h"
 
@@ -50,7 +50,7 @@ namespace Pastel
 		std::sort(orderedSet.begin(), orderedSet.end());
 
 		const bool atLeastOneApproximated = 
-			StdExt::isNan(mean) || StdExt::isNan(deviation);
+			isNan(mean) || isNan(deviation);
 
 		// Compute mean and deviation from samples
 		// if they are not given.
@@ -64,14 +64,14 @@ namespace Pastel
 				squareSum += square(orderedSet[i]);
 			}
 
-			if (StdExt::isNan(mean))
+			if (isNan(mean))
 			{
 				mean = sum / n;
 			}
 
-			if (StdExt::isNan(deviation))
+			if (isNan(deviation))
 			{
-				if (StdExt::isNan(mean) && n > 1)
+				if (isNan(mean) && n > 1)
 				{
 					deviation = std::sqrt((squareSum - n * square(mean)) / (n - 1));
 				}
@@ -100,7 +100,7 @@ namespace Pastel
 
 		// A correction for estimated variables.
 		const bool bothApproximated =
-			StdExt::isNan(mean) && StdExt::isNan(deviation);
+			isNan(mean) && isNan(deviation);
 
 		const Real alpha =
 			bothApproximated ?

@@ -5,7 +5,7 @@
 
 #include <pastel/sys/ensure.h>
 #include <pastel/sys/pastelomp.h>
-#include <pastel/sys/stdext_copy_n.h>
+#include <pastel/sys/copy_n.h>
 
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -243,34 +243,34 @@ namespace Pastel
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
-			StdExt::copy_n((real32*)mxGetData(input), n, output);
+			copy_n((real32*)mxGetData(input), n, output);
 			break;
 		case mxDOUBLE_CLASS:
-			StdExt::copy_n((real64*)mxGetData(input), n, output);
+			copy_n((real64*)mxGetData(input), n, output);
 			break;
 		case mxINT8_CLASS:
-			StdExt::copy_n((int8*)mxGetData(input), n, output);
+			copy_n((int8*)mxGetData(input), n, output);
 			break;
 		case mxUINT8_CLASS:
-			StdExt::copy_n((uint8*)mxGetData(input), n, output);
+			copy_n((uint8*)mxGetData(input), n, output);
 			break;
 		case mxINT16_CLASS:
-			StdExt::copy_n((int16*)mxGetData(input), n, output);
+			copy_n((int16*)mxGetData(input), n, output);
 			break;
 		case mxUINT16_CLASS:
-			StdExt::copy_n((uint16*)mxGetData(input), n, output);
+			copy_n((uint16*)mxGetData(input), n, output);
 			break;
 		case mxINT32_CLASS:
-			StdExt::copy_n((int32*)mxGetData(input), n, output);
+			copy_n((int32*)mxGetData(input), n, output);
 			break;
 		case mxUINT32_CLASS:
-			StdExt::copy_n((uint32*)mxGetData(input), n, output);
+			copy_n((uint32*)mxGetData(input), n, output);
 			break;
 		case mxINT64_CLASS:
-			StdExt::copy_n((int64*)mxGetData(input), n, output);
+			copy_n((int64*)mxGetData(input), n, output);
 			break;
 		case mxUINT64_CLASS:
-			StdExt::copy_n((uint64*)mxGetData(input), n, output);
+			copy_n((uint64*)mxGetData(input), n, output);
 			break;
 		default:
 			// This should not be possible, since

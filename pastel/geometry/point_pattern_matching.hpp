@@ -13,7 +13,7 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/smallset.h"
 #include "pastel/sys/nulliterator.h"
-#include "pastel/sys/stdext_subset.h"
+#include "pastel/sys/random_subset.h"
 
 namespace Pastel
 {
@@ -184,7 +184,7 @@ namespace Pastel
 					std::log(1 - confidence_) / 
 					std::log(1 - minMatchRatio_), 
 					1, modelPoints_));
-				StdExt::subset(
+				subset(
 					modelIndexList.begin(),
 					modelIndexList.end(),
 					modelPointsToTest);

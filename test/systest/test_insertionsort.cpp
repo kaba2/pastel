@@ -1,9 +1,9 @@
 // Description: Testing for insertion sort
-// DocumentationOf: insertionsort.h
+// DocumentationOf: insertion_sort.h
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/insertionsort.h"
+#include "pastel/sys/insertion_sort.h"
 #include "pastel/sys/log.h"
 
 #include <iostream>

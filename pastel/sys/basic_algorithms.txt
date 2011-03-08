@@ -3,3 +3,5 @@ Basic algorithms
 
 [[Parent]]: pastelsys.txt
 
+This section contains some basic algorithms which are often
+needed.

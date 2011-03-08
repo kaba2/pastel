@@ -263,7 +263,7 @@ namespace Pastel
 				Type* address = PossiblyEmptyMember<Type>::data();
 				if (address)
 				{
-					StdExt::destruct(address);
+					destruct(address);
 				}
 			}
 

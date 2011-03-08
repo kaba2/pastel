@@ -262,7 +262,7 @@ namespace Pastel
 		// and the destruction can be avoided.
 		if (!boost::has_trivial_destructor<Type>())
 		{
-			StdExt::destruct(node);
+			destruct(node);
 		}
 
 		allocator_->deallocate(node);

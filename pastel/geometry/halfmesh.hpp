@@ -955,7 +955,7 @@ namespace Pastel
 				DataPolicy::destructVertex(vertexBody->data());
 				// Fall-through
 			case 2:
-				StdExt::destruct(vertexBody);
+				destruct(vertexBody);
 				// Fall-through
 			case 1:
 				vertexAllocator_.deallocate(vertexBody);
@@ -997,7 +997,7 @@ namespace Pastel
 				DataPolicy::destructHalf(halfBody->data());
 				// Fall-through
 			case 2:
-				StdExt::destruct(halfBody);
+				destruct(halfBody);
 				// Fall through.
 			case 1:
 				halfAllocator_.deallocate(halfBody);
@@ -1041,7 +1041,7 @@ namespace Pastel
 				DataPolicy::destructEdge(edgeBody->data());
 				// Fall-through
 			case 2:
-				StdExt::destruct(edgeBody);
+				destruct(edgeBody);
 				// Fall-through
 			case 1:
 				edgeAllocator_.deallocate(edgeBody);
@@ -1085,7 +1085,7 @@ namespace Pastel
 				DataPolicy::destructPolygon(polygonBody->data());
 				// Fall-through
 			case 2:
-				StdExt::destruct(polygonBody);
+				destruct(polygonBody);
 				// Fall-through
 			case 1:
 				polygonAllocator_.deallocate(polygonBody);
@@ -1110,9 +1110,9 @@ namespace Pastel
 		DataPolicy::destructVertex(vertexBody->data());
 		if (vertexBody->data())
 		{
-			StdExt::destruct(vertexBody->data());
+			destruct(vertexBody->data());
 		}
-		StdExt::destruct(vertexBody);
+		destruct(vertexBody);
 		vertexAllocator_.deallocate(vertexBody);
 	}
 
@@ -1126,9 +1126,9 @@ namespace Pastel
 		DataPolicy::destructHalf(halfBody->data());
 		if (halfBody->data())
 		{
-			StdExt::destruct(halfBody->data());
+			destruct(halfBody->data());
 		}
-		StdExt::destruct(halfBody);
+		destruct(halfBody);
 		halfAllocator_.deallocate(halfBody);
 	}
 
@@ -1142,9 +1142,9 @@ namespace Pastel
 		DataPolicy::destructEdge(edgeBody->data());
 		if (edgeBody->data())
 		{
-			StdExt::destruct(edgeBody->data());
+			destruct(edgeBody->data());
 		}
-		StdExt::destruct(edgeBody);
+		destruct(edgeBody);
 		edgeAllocator_.deallocate(edgeBody);
 	}
 
@@ -1158,9 +1158,9 @@ namespace Pastel
 		DataPolicy::destructPolygon(polygonBody->data());
 		if (polygonBody->data())
 		{
-			StdExt::destruct(polygonBody->data());
+			destruct(polygonBody->data());
 		}
-		StdExt::destruct(polygonBody);
+		destruct(polygonBody);
 		polygonAllocator_.deallocate(polygonBody);
 	}
 

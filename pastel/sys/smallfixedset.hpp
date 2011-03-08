@@ -4,7 +4,7 @@
 #include "pastel/sys/smallfixedset.h"
 
 #include "pastel/sys/smallfixedset.h"
-#include "pastel/sys/stdext_destruct.h"
+#include "pastel/sys/destruct.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/mytypes.h"
 
@@ -49,7 +49,7 @@ namespace Pastel
 	template <typename Type>
 	SmallFixedSet<Type>::~SmallFixedSet()
 	{
-		StdExt::destruct(begin(), end());
+		destruct(begin(), end());
 		deallocateRaw((void*)data_);
 		data_ = 0;
 		capacity_ = 0;
@@ -200,7 +200,7 @@ namespace Pastel
 	template <typename Type>
 	void SmallFixedSet<Type>::clear()
 	{
-		StdExt::destruct(begin(), end());
+		destruct(begin(), end());
 		size_ = 0;
 	}
 

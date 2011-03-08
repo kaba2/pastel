@@ -1,5 +1,5 @@
 // Description: Interleaves subsequent sequences
-// Documentation: stdext.txt
+// Documentation: sequence_algorithms.txt
 
 #ifndef PASTEL_INTERLEAVE_H
 #define PASTEL_INTERLEAVE_H

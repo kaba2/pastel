@@ -4,7 +4,7 @@
 #include "pastel/sys/arraybase.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/stdext_destruct.h"
+#include "pastel/sys/destruct.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/alignedbox_tools.h"
 #include "pastel/sys/difference_alignedbox_alignedbox.h"
@@ -131,7 +131,7 @@ namespace Pastel
 		{
 			if (deleteData_ && data_)
 			{
-				StdExt::destruct(data_, data_ + size_);
+				destruct(data_, data_ + size_);
 				deallocate();
 			}
 

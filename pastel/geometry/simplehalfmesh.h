@@ -50,7 +50,7 @@ namespace Pastel
 
 		void destructVertex(VertexData* data)
 		{
-			StdExt::destruct(data);
+			destruct(data);
 		}
 
 		void constructHalf(HalfData* data)
@@ -63,7 +63,7 @@ namespace Pastel
 
 		void destructHalf(HalfData* data)
 		{
-			StdExt::destruct(data);
+			destruct(data);
 		}
 
 		void constructEdge(EdgeData* data)
@@ -76,7 +76,7 @@ namespace Pastel
 
 		void destructEdge(EdgeData* data)
 		{
-			StdExt::destruct(data);
+			destruct(data);
 		}
 
 		void constructPolygon(PolygonData* data)
@@ -89,7 +89,7 @@ namespace Pastel
 
 		void destructPolygon(PolygonData* data)
 		{
-			StdExt::destruct(data);
+			destruct(data);
 		}
 	};
 

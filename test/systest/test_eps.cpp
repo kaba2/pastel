@@ -41,7 +41,7 @@ namespace
 			TEST_ENSURE_OP(nextSmaller(infinity<Type>()), ==, infinity<Type>());
 			TEST_ENSURE_OP(nextGreater(-infinity<Type>()), ==, -infinity<Type>());
 			TEST_ENSURE_OP(nextSmaller(-infinity<Type>()), ==, -infinity<Type>());
-			TEST_ENSURE(StdExt::isNan(nextSmaller(nan<Type>())));
+			TEST_ENSURE(isNan(nextSmaller(nan<Type>())));
 		}
 
 		void test()

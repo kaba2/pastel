@@ -10,7 +10,7 @@
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/rectangleiterator.h"
-#include "pastel/sys/stdext_subset.h"
+#include "pastel/sys/random_subset.h"
 #include "pastel/sys/unorderedset.h"
 
 #include <boost/range.hpp>
