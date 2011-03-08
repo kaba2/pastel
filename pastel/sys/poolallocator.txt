@@ -3,28 +3,18 @@ PoolAllocator class
 
 [[Parent]]: allocators.txt
 
-Practice
---------
-
-In situations where dynamic allocation and deallocation
-of small objects is frequent and large scale, the performance
-of the native allocator can often be enhanced substantially in some
-restricted cases. One such case is where the size of the allocated
-objects is constant. This allows for minimal book-keeping and very 
-fast allocation and deallocation. The basic approach is based on
-allocating big blocks of memory which is then shared as required.
-PoolAllocator only allocates raw memory, construction and destruction 
-of objects is left to the user of the memory.
-
-PoolAllocator allows to deallocate memory. PoolAllocator is conservative 
-in memory allocation: no new memory is allocated until all existing 
-memory is used.
+The `PoolAllocator` is a memory allocator for memory regions of
+uniform size. This allows for minimal book-keeping and very fast 
+allocation and deallocation. The basic approach is based on 
+allocating big blocks of memory which is then shared as required. 
+`PoolAllocator` is _conservative_ in memory allocation: no new 
+memory is allocated until all existing memory is used.
 
 Acknowledgements
 ----------------
 
-I first saw the idea of embedding the linked list inside the memory block
-in the book _Modern C++ Design_ by Andrei Alexandrescu. He
+I first saw the idea of embedding the linked list inside the memory 
+block in the book _Modern C++ Design_ by Andrei Alexandrescu. He
 discusses the implementation of a similar memory allocator.
 
 References
