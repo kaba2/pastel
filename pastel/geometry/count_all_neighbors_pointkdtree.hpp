@@ -36,7 +36,6 @@ namespace Pastel
 		}
 
 		const integer queries = querySet.size();
-		const integer dimension = kdTree.dimension();
 
 		typedef typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator
 			Point_ConstIterator;
