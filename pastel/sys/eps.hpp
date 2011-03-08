@@ -4,7 +4,7 @@
 #include "pastel/sys/eps.h"
 #include "pastel/sys/constants.h"
 #include "pastel/sys/log.h"
-#include "pastel/sys/stdext_isnan.h"
+#include "pastel/sys/isnan.h"
 
 namespace Pastel
 {
@@ -65,7 +65,7 @@ namespace Pastel
 		// Infinity -> Infinity (1)
 		// Nan -> Nan (1)
 
-		if (StdExt::isNan(that) ||
+		if (isNan(that) ||
 			that == infinity<real64_ieee>() ||
 			that == -infinity<real64_ieee>())
 		{
@@ -100,7 +100,7 @@ namespace Pastel
 
 	inline real64_ieee nextSmaller(real64_ieee that)
 	{
-		if (StdExt::isNan(that) ||
+		if (isNan(that) ||
 			that == infinity<real64_ieee>() ||
 			that == -infinity<real64_ieee>())
 		{
@@ -139,7 +139,7 @@ namespace Pastel
 
 	inline real32_ieee nextGreater(real32_ieee that)
 	{
-		if (StdExt::isNan(that) ||
+		if (isNan(that) ||
 			that == infinity<real32_ieee>() ||
 			that == -infinity<real32_ieee>())
 		{
@@ -174,7 +174,7 @@ namespace Pastel
 
 	inline real32_ieee nextSmaller(real32_ieee that)
 	{
-		if (StdExt::isNan(that) ||
+		if (isNan(that) ||
 			that == infinity<real32_ieee>() ||
 			that == -infinity<real32_ieee>())
 		{

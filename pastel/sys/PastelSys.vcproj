@@ -2068,11 +2068,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\insertionsort.h"
-				>
-			</File>
-			<File
-				RelativePath=".\insertionsort.hpp"
+				RelativePath=".\isnan.h"
 				>
 			</File>
 			<File
@@ -2083,54 +2079,6 @@
 				RelativePath=".\syscommon.hpp"
 				>
 			</File>
-			<Filter
-				Name="Stl extensions"
-				>
-				<File
-					RelativePath=".\interleave.h"
-					>
-				</File>
-				<File
-					RelativePath=".\interleave.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_algorithm.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_copy_n.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_copy_n.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_destruct.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_destruct.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_isnan.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_subset.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stdext_subset.hpp"
-					>
-				</File>
-			</Filter>
 			<Filter
 				Name="String algorithms"
 				>
@@ -2172,6 +2120,58 @@
 				</File>
 				<File
 					RelativePath=".\bittrick.txt"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Sequence algorithms"
+				>
+				<File
+					RelativePath=".\copy_n.h"
+					>
+				</File>
+				<File
+					RelativePath=".\copy_n.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\destruct.h"
+					>
+				</File>
+				<File
+					RelativePath=".\destruct.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\insertion_sort.h"
+					>
+				</File>
+				<File
+					RelativePath=".\insertion_sort.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\interleave.h"
+					>
+				</File>
+				<File
+					RelativePath=".\interleave.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\random_subset.h"
+					>
+				</File>
+				<File
+					RelativePath=".\random_subset.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\sequence_algorithms.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sequence_algorithms.txt"
 					>
 				</File>
 			</Filter>

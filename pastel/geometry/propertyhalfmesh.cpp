@@ -107,7 +107,7 @@ namespace Pastel
 				vertexIndices_.deallocate(id);
 				// Fall-through
 			case 1:
-				StdExt::destruct(data);
+				destruct(data);
 				break;
 			};
 
@@ -118,7 +118,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructVertex(EntityData* data)
 	{
 		vertexIndices_.deallocate(*data);
-		StdExt::destruct(data);
+		destruct(data);
 	}
 
 	void PropertyHalfMesh_Policy::constructHalf(EntityData* data)
@@ -154,7 +154,7 @@ namespace Pastel
 				halfIndices_.deallocate(id);
 				// Fall-through
 			case 1:
-				StdExt::destruct(data);
+				destruct(data);
 				break;
 			};
 
@@ -165,7 +165,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructHalf(EntityData* data)
 	{
 		halfIndices_.deallocate(*data);
-		StdExt::destruct(data);
+		destruct(data);
 	}
 
 	void PropertyHalfMesh_Policy::constructEdge(EntityData* data)
@@ -201,7 +201,7 @@ namespace Pastel
 				edgeIndices_.deallocate(id);
 				// Fall-through
 			case 1:
-				StdExt::destruct(data);
+				destruct(data);
 				break;
 			};
 
@@ -212,7 +212,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructEdge(EntityData* data)
 	{
 		edgeIndices_.deallocate(*data);
-		StdExt::destruct(data);
+		destruct(data);
 	}
 
 	void PropertyHalfMesh_Policy::constructPolygon(EntityData* data)
@@ -248,7 +248,7 @@ namespace Pastel
 				polygonIndices_.deallocate(id);
 				// Fall-through
 			case 1:
-				StdExt::destruct(data);
+				destruct(data);
 				break;
 			};
 
@@ -259,7 +259,7 @@ namespace Pastel
 	void PropertyHalfMesh_Policy::destructPolygon(EntityData* data)
 	{
 		polygonIndices_.deallocate(*data);
-		StdExt::destruct(data);
+		destruct(data);
 	}
 
 }

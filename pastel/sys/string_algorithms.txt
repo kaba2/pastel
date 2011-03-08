@@ -3,3 +3,5 @@ String algorithms
 
 [[Parent]]: basic_algorithms.txt
 
+This section contains algorithms which work with strings,
+i.e., sequences of characters.

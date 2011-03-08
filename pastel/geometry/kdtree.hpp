@@ -636,7 +636,7 @@ namespace Pastel
 		// This is ok, because the memory block is of the size
 		// sizeof(SplitNode) >= sizeof(LeafNode).
 
-		StdExt::destruct(node);
+		destruct(node);
 
 		new(node) SplitNode(
 			positiveLeaf,

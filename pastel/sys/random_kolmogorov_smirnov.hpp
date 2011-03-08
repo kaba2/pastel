@@ -3,7 +3,7 @@
 
 #include "pastel/sys/random_kolmogorov_smirnov.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/stdext_isnan.h"
+#include "pastel/sys/isnan.h"
 #include "pastel/sys/random_gaussian.h"
 #include "pastel/sys/math_functions.h"
 
@@ -33,7 +33,7 @@ namespace Pastel
 
 		// Compute mean and deviation from samples
 		// if they are not given.
-		if (StdExt::isNan(mean) || StdExt::isNan(deviation))
+		if (isNan(mean) || isNan(deviation))
 		{
 			Real sum = 0;
 			Real squareSum = 0;
@@ -43,12 +43,12 @@ namespace Pastel
 				squareSum += square(orderedSet[i]);
 			}
 
-			if (StdExt::isNan(mean))
+			if (isNan(mean))
 			{
 				mean = sum / n;
 			}
 
-			if (StdExt::isNan(deviation))
+			if (isNan(deviation))
 			{
 				deviation = std::sqrt((squareSum / n) - square(mean));
 			}

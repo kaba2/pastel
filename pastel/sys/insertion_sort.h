@@ -1,8 +1,8 @@
 // Description: Insertion sort
-// Documentation: basic_algorithms.txt
+// Documentation: sequence_algorithms.txt
 
-#ifndef PASTEL_INSERTIONSORT_H
-#define PASTEL_INSERTIONSORT_H
+#ifndef PASTEL_INSERTION_SORT_H
+#define PASTEL_INSERTION_SORT_H
 
 namespace Pastel
 {
@@ -16,6 +16,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/insertionsort.hpp"
+#include "pastel/sys/insertion_sort.hpp"
 
 #endif

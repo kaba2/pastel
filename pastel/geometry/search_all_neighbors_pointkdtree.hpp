@@ -12,7 +12,7 @@
 #include "pastel/sys/pastelomp.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/constantiterator.h"
-#include "pastel/sys/stdext_copy_n.h"
+#include "pastel/sys/copy_n.h"
 
 namespace Pastel
 {

@@ -2,7 +2,7 @@
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
 #include "pastel/sys/constants.h"
-#include "pastel/sys/stdext_isnan.h"
+#include "pastel/sys/isnan.h"
 
 #include <algorithm>
 #include <sstream>
@@ -393,7 +393,7 @@ namespace Pastel
 		{
 			return std::string("-inf");
 		}
-		else if (StdExt::isNan(number))
+		else if (isNan(number))
 		{
 			return std::string("nan");
 		}
