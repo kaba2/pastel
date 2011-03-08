@@ -3,5 +3,5 @@ Transformations
 
 [[Parent]]: pastelmath.txt
 
-A _transformation_ is a synonym for a function, used especially when 
+A _transformation_ is a synonym for a function, especially when 
 thinking of the involved sets geometrically.
