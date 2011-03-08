@@ -1,5 +1,4 @@
 // Description: An aggregate file for point policies
-// Documentation: pointpolicy.txt
 
 #ifndef PASTEL_POINTPOLICIES_H
 #define PASTEL_POINTPOLICIES_H

@@ -1,32 +1,33 @@
-PointKdTree class
-=================
+Multi-level kd-tree
+===================
 
-[[Parent]]: multilevel_kdtree.txt
+[[Parent]]: bsp_tree.txt
 
-The `PointKdTree` class is a data structure that allows storing
-and manipulating a multi-level kd-tree efficiently.
+A _multi-level kd-tree_ is a point kd-tree in which each node has
+access to the points (and their number) under its subtree.
 
 Practice
 --------
 
-This data structure has been primarily designed for efficient
-nearest neighbor searching in static and semi-dynamic point-sets.
-It is declared as:
+The `PointKdTree` class is a data structure for storing and 
+manipulating a multi-level kd-tree. It is declared as:
 
 [[CppCode]]:
 	template <typename Real, int N = Dynamic, 
 		typename PointPolicy = Vector_PointPolicy<Real, N> >
 	class PointKdTree;
 
-where N is the dimensionality of the tree, `Real` is a computation
-type which models an ordered field, and `PointPolicy` is a policy
-class which allows to store the points in different ways.
-The dimensionality can be set to `Dynamic` meaning that it is chosen 
-at runtime. 
+where `N` is the dimensionality of the tree, `Real` is a computation
+type which models an [ordered field][Real], and `PointPolicy` defines
+the [representation of points][PointPolicy]. The dimensionality can be 
+set to `Dynamic` meaning that it is chosen at runtime. 
+
+[Real]: [[Ref]]: reals.txt
+[PointPolicy]: [[Ref]]: pointpolicies.txt
 
 ### Traversal of the subdivision using cursors
 
-The nodes of the kd-tree can be traversed using [cursors][Cursor]. 
+The nodes of the kd-tree are traversed using [cursors][Cursor]. 
 From each node you can traverse either to a parent (if it exists) 
 or to left or right child (if they exist). At each node you can inspect:
 
@@ -43,47 +44,46 @@ or to left or right child (if they exist). At each node you can inspect:
 
 [Cursor]: [[Ref]]: iterators.txt
 
-### Traversal of the points in the kd-tree
+### Features
 
-All of the points stored in the kd-tree can be traversed as a
-sequence using an iterator interface. Note that their order
+ * The points stored in the kd-tree are traversed through
+an iterator interface. Note that their order
 can change after subdivision, and if a point is removed and
 immediately inserted back, it might take another position in 
 the point list.
 
-### Insertion of points
-
-Points can be inserted into the tree at any time, either one
+ * Points can be inserted into the tree at any time, either one
 by one or as a set. No new nodes are created in this process.
-However, the kd-tree automatically adapts to higher resolution
-when it updates the positions of the bucket nodes.
 
-### Removal of points
-
-Points can be removed from the tree at any time. This can be
+ * Points can be removed from the tree at any time. This can be
 done either one by one, or by removing all points at once.
 
-### Refinement of the subdivision
-
-The recursive subdivision of the kd-tree can be refined
+ * The recursive subdivision of the kd-tree can be refined
 at any time. In this process existing leaf nodes are converted
 into split nodes by recursively subdividing them into two new leaf 
 nodes. The split plane is chosen by a _splitting rule_.
 
-### Parent nodes for up-traversal
-
-In addition to being able to traverse the tree from the
-root to the leaves, PointKdTree allows you to move from
-a child to its parent. 
-
-### Node bounds on the splitting axis
-
-Each split node contains the bounds of the node on
+ * Each split node contains the bounds of the node on
 the splitting axis. Knowing these bounds is essential in
 the implementation of an efficient nearest neighbor
 searching algorithm.
 
+Illustration
+------------
+
+The image below illustrates the multi-level kd-tree in ''RR^2''.
+
+[[Gallery]]:
+	multilevel_kdtree.png
+	- Figure 1. A multi-level kd-tree visualized. Number of points in a subtree shown after dash.
+	multilevel_kdtree_buckets.png
+	- Figure 2. Blue nodes of the multi-level kd-tree from Figure 1.
+	multilevel_kdtree_leaves.png
+	- Figure 3. Leaf nodes of the multi-level kd-tree from Figure 1.
+
 See also
 --------
 
-[[Link]]: pointpolicy.txt
+[[Link]]: pointpolicies.txt
+
+[[Link]]: nearest_neighbors_semidynamic.txt

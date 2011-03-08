@@ -305,12 +305,6 @@ namespace Pastel
 			return;
 		}
 
-		// This operation is always immediate.
-		if (lazyUpdates_)
-		{
-			update();
-		}
-
 		// Actually remove the points.
 		pointSet_.erase(node->first(), node->end());
 
@@ -835,12 +829,9 @@ namespace Pastel
 				hiddenSet_,
 				iter, nextIter);
 
-			if (!lazyUpdates_)
-			{
-				// With immediate updates, we insert the
-				// point straight away.
-				commitInsertion();
-			}
+			// With immediate updates, we insert the
+			// point straight away.
+			commitInsertion();
 		}
 	}
 
@@ -864,29 +855,16 @@ namespace Pastel
 		ASSERT(node);
 
 		node = node->parent();
-		if (lazyUpdates_)
+		// With immediate updates we update the
+		// hierarchical information straight away.
+		while(node)
 		{
-			// With lazy updates we mark the
-			// nodes on the path to the root invalid.
-			while (node && !node->invalid())
-			{
-				node->invalidate();
-				node = node->parent();
-			}
-		}
-		else
-		{
-			// With immediate updates we update the
-			// hierarchical information straight away.
-			while(node)
-			{
-				ASSERT(!node->left()->invalid());
-				ASSERT(!node->right()->invalid());
+			ASSERT(!node->left()->invalid());
+			ASSERT(!node->right()->invalid());
 
-				updateHierarchical(node);
+			updateHierarchical(node);
 
-				node = node->parent();
-			}
+			node = node->parent();
 		}
 	}
 

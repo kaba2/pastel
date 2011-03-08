@@ -1,6 +1,6 @@
 // Description: Array_PointPolicy class
 // Detail: Point from a pointer to coordinates
-// Documentation: pointpolicy.txt
+// Documentation: pointpolicies.txt
 
 #ifndef PASTEL_ARRAY_POINTPOLICY_H
 #define PASTEL_ARRAY_POINTPOLICY_H

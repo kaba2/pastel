@@ -29,4 +29,4 @@ neighbors are searched, and points are removed and inserted incrementally.
 See also
 --------
 
-[[Link]]: multilevel_kdtree.txt
+[[Link]]: pointkdtree.txt

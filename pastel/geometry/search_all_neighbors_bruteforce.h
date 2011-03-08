@@ -31,7 +31,7 @@ namespace Pastel
 
 	pointPolicy:
 	An object modeling the PointPolicy concept.
-	See pointpolicy.txt.
+	See pointpolicies.txt.
 
 	nearestArray (output):
 	An array of iterators from 'pointSet' such that 

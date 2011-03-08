@@ -1,7 +1,7 @@
 PointPolicy concept design considerations
 =========================================
 
-[[Parent]]: pointpolicy.txt
+[[Parent]]: pointpolicies.txt
 
 Here we discuss the design considerations of the PointPolicy concept.
 

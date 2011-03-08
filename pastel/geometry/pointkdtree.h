@@ -70,8 +70,7 @@ namespace Pastel
 		*/
 		explicit PointKdTree(
 			const PointPolicy& pointPolicy = PointPolicy(),
-			bool simulateKdTree = false,
-			bool lazyUpdates = false);
+			bool simulateKdTree = false);
 
 		//! Constructs a copy from another tree.
 		/*!
@@ -226,19 +225,6 @@ namespace Pastel
 		*/
 		integer dimension() const;
 
-		//! Sets whether to do lazy updating.
-		/*!
-		When lazy updates are enabled, you need to call 'update()'
-		for changes to take effect. The advantage of having lazy
-		updates is increased performance, because then the changes 
-		to the tree structure are amortized over several changes.
-		Disabling lazy updates triggers an immediate 'update()'.
-		*/
-		void setLazyUpdate(bool lazyUpdates);
-
-		//! Returns whether the tree is using lazy updating.
-		bool lazyUpdates() const;
-
 		//! Subdivides the tree.
 		/*!
 		This operation is always immediate. The tree will be
@@ -302,13 +288,6 @@ namespace Pastel
 
 		//! Shows a hided point in the tree.
 		void show(const Point_ConstIterator& iter);
-
-		//! Commits lazy tasks.
-		/*!
-		When lazy updates are on, this function needs to be called for
-		the changes to take effect.
-		*/
-		void update();
 
 		//! Clears off subdivision and points.
 		/*!
@@ -406,46 +385,6 @@ namespace Pastel
 			mutable const Node* leafNode_;
 			mutable bool hidden_;
 		};
-
-		class TaskType
-		{
-		public:
-			enum Enum
-			{
-				Erase,
-				Hide,
-				Show				
-			};
-		};
-
-		class Task
-		{
-		public:
-			Task(const Point_ConstIterator& point, 
-				typename TaskType::Enum type)
-				: type_(type)
-				, point_(point)
-			{
-			}
-
-			typename TaskType::Enum type() const
-			{
-				return type_;
-			}
-
-			const Point_ConstIterator& point() const
-			{
-				return point_;
-			}
-
-		private:
-			typename TaskType::Enum type_;
-			Point_ConstIterator point_;
-		};
-
-		typedef FastList<Task, PoolAllocator> TaskSet;
-		typedef typename TaskSet::const_iterator Task_ConstIterator;
-		typedef typename TaskSet::iterator Task_Iterator;
 
 		//! Allocates the root node etc.
 		void initialize();
@@ -651,14 +590,6 @@ namespace Pastel
 		Contains points waiting for insertion in the next 'update()'
 		call. The points in this set do not have an associated node. 
 
-		taskSet_:
-		The 'erase()', 'hide()', and 'show()' functions
-		are not executed immediately, but put to a task
-		queue. The task queue is committed via the 
-		'update()' function. This lazy execution allows
-		to amortize the time needed to update the
-		hierarchical information.
-
 		nodeAllocator_:
 		Allocates memory for the nodes of the tree.
 		Because all nodes are of the same size,
@@ -672,7 +603,7 @@ namespace Pastel
 		The number of leaf nodes in the tree.
 
 		pointPolicy_:
-		See 'pointpolicy.txt'.
+		See 'pointpolicies.txt'.
 
 		bound_:
 		An axis aligned bounding box for the
@@ -687,14 +618,12 @@ namespace Pastel
 		PointSet pointSet_;
 		PointSet hiddenSet_;
 		PointSet insertionSet_;
-		TaskSet taskSet_;
 		NodeAllocator nodeAllocator_;
 		Node* root_;
 		integer leaves_;
 		PointPolicy pointPolicy_;
 		AlignedBox<Real, N> bound_;
 		bool simulateKdTree_;
-		bool lazyUpdates_;
 	};
 
 }
