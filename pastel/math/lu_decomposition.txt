@@ -3,10 +3,8 @@ PLU decomposition
 
 [[Parent]]: matrix_decompositions.txt
 
-Theory
-------
-
-An arbitrary ''m xx n'' matrix ''A'' can be decomposed into
+The _PLU-decomposition_ is a factorization of an arbitrary 
+''m xx n'' matrix ''A'' into the product
 
 ''A = PLU''
 

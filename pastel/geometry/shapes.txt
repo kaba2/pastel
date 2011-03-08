@@ -3,17 +3,17 @@ Shapes
 
 [[Parent]]: pastelgeometry.txt
 
+A _shape_ is a closed and simply connected subset of ''RR^n''.
+
 Theory
 ------
 
-A _shape_ is a closed and simply connected subset of ''RR^n''. 
 A shape ''S'' is called _convex_, if it holds that 
 
 ''A, B in S => \forall t in [0, 1]: A + t(B - A) in S''.
 
 A shape that is not convex is called _concave_. 
-Shapes ''S_1'' and ''S_2'' _overlap_ if their intersection
-is non-empty.
+Shapes _overlap_ if their intersection is non-empty.
 
 Practice
 --------

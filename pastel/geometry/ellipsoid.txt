@@ -3,10 +3,11 @@ Ellipsoid
 
 [[Parent]]: shapes.txt
 
+An _ellipsoid_ is an affine transform of a sphere.
+
 Theory
 ------
 
-An _ellipsoid_ is an affine transform of a sphere.
 Alternatively, a subset ''Q sub RR^n'' is called
 an ellipsoid if
 

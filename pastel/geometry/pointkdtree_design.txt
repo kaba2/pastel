@@ -3,6 +3,9 @@ PointKdTree design notes
 
 [[Parent]]: pointkdtree.txt
 
+This section contains some design notes on the implementation of
+the `PointKdTree`.
+
 Invariants
 ----------
 

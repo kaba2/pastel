@@ -3,9 +3,6 @@ Oriented box
 
 [[Parent]]: shapes.txt
 
-Theory
-------
-
 An _oriented box_ is an angle-preserving transform of an axis-aligned box.
 
 See also

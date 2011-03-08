@@ -3,12 +3,7 @@ Meshes
 
 [[Parent]]: data_structures.txt
 
-Theory
-------
-
-### Cell-complex
-
-An _n-dimensional cell-complex_ ''C'', is an (n + 1)-tuple
+An _n-dimensional cell-complex_, or a _mesh_, ''C'', is an (n + 1)-tuple
 ''C = (C_0, C_1, ..., C_n)'', such that 
 
  * ''C_0'' is a finite family of singular subsets of ''RR^n''.
@@ -19,16 +14,18 @@ An _n-dimensional cell-complex_ ''C'', is an (n + 1)-tuple
  * ''\forall k > 0: \forall c in C_k: \exists S sub C_{k - 1}: del c = uu S'',
  where ''del c'' denotes the boundary of ''c''.
  
+Theory
+------
+
 The elements of the set ''C_k'' are called _k-cells_.
-A _mesh_ is an alternative name for a cell-complex.
-
-### Embeddings
-
 A cell-complex is purely a _topological_ description: in itself it says nothing about
 the geometry of the cells. The essential part in the description is
 how the cells of different dimensionality relate to each other, and how
 the cells of the same dimensionality glue together by sharing boundary cells.
 These properties are clearly invariant under homeomorphisms. 
+
+### Embeddings
+
 In a geometric application, a mesh is associated with geometry by mapping cells 
 to ''RR^m'', a process which is called _embedding_. 
 Familiar embeddings include:

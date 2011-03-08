@@ -3,13 +3,10 @@ Matrix decompositions
 
 [[Parent]]: linear_algebra.txt
 
-Theory
-------
-
-Matrix decompositions factorize a matrix into a product of 
-several matrices. While important theoretically when
-deriving results, they are also important from the
-computational point of view. 
+A _matrix decomposition_ is a factorization of a matrix into a 
+product of several matrices. While important theoretically when 
+deriving results, they are also important from the computational 
+point of view. 
 
 Practice
 --------

@@ -3,6 +3,9 @@ Textures
 
 [[Parent]]: pastelgfx.txt
 
+A _texture_ is a pair ''(g, h)'', where ''g'' is a continuous image, and
+''h'' is a function ''RR^n -> RR'', called a _detail filter_. 
+
 Theory
 ------
 
@@ -11,8 +14,6 @@ Theory
 A _continuous image_ is a continuous function ''RR^n -> V'', where ''V'' is a
 vector space over the reals.
 
-A _texture_ is a pair (g, h), where g is a continuous image, and
-h is a function ''RR^n -> RR'', called a _detail filter_. 
 Given a texture T = (g, h), its _texture sampler_ is a function 
 
 ''f_T : RR^{n xx n} xx RR^n -> V : f_T(M, x) = ((h \circ M^-1) ox g)(x)'',

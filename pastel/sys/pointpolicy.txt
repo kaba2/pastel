@@ -3,15 +3,13 @@ Point abstraction
 
 [[Parent]]: maths.txt
 
-Theory
-------
-
 The `PointPolicy` concept abstracts the representation of points 
 in ''RR^n'' by an arbitrary object. This allows to create generic 
 algorithms that work not only with the Pastel's Vector, but also with 
 raw arrays, a user's own type, or even with data generated on the fly.
 
-### Motivation
+Motivation
+----------
 
 Being such a basic data structure, a point type is commonly among the
 first types implemented in a geometric library. In addition, there are

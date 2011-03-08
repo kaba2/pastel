@@ -3,9 +3,6 @@ Rational numbers
 
 [[Parent]]: reals.txt
 
-Theory
-------
-
 The _rational numbers_ are an ordered field ''((QQ, +, *), <=)'', where 
 
  * ''QQ = (ZZ xx ZZ^+)/~''
@@ -17,6 +14,9 @@ The _rational numbers_ are an ordered field ''((QQ, +, *), <=)'', where
  * ''forall x, z in ZZ, y, w in ZZ^+: [(x, y)] + [(z, w)] = [(x * w + y * z, y * w)]''
 
  * ''forall x, z in ZZ, y, w in ZZ^+: [(x, y)] * [(z, w)] = [(x * z, y * w)]''
+
+Theory
+------
 
 It follows that:
 

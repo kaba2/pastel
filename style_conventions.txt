@@ -61,7 +61,7 @@ trailing underscore.
 
 * Files: `intersect_alignedbox_alignedbox.h`
 
-* Aggregate files: `filters.h`
+* Aggregation files: `filters.h` or `reconstruction.h`.
 
 * Directories: `pastel/sys/`
 
@@ -88,7 +88,7 @@ array.
 
 * Quantities: `shapes`, `leaves`.
 
-* Derived class of an abstract class: `LikeThis_BaseClass`.
+* Derived classes of an abstract class: `LikeThis_BaseClass`.
 For example, if `Filter` is an abstract class, then `Gaussian_Filter`
 could be one of its derived classes.
 

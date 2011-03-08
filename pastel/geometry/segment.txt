@@ -3,9 +3,6 @@ Line segment
 
 [[Parent]]: shapes.txt
 
-Theory
-------
-
 A _line segment_ ''S'' in ''RR^n'' is the convex hull of 
 two points ''A'' and ''B''. That is:
 

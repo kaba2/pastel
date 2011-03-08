@@ -3,10 +3,8 @@ Filters
 
 [[Parent]]: pasteldsp.txt
 
-Theory
-------
-
-In Pastel, a _filter_ is a continuous function ''RR -> RR'' with bounded support.
+In Pastel, a _filter_ is a piecewise continuous function ''RR -> RR'' 
+with bounded support.
 
 Practice
 --------

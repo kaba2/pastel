@@ -3,9 +3,6 @@ Line
 
 [[Parent]]: shapes.txt
 
-Theory
-------
-
 A _line_ ''S'' in ''RR^n'' is the affine hull of two points ''A'' and ''B''. 
 That is:
 

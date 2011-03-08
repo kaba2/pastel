@@ -1,4 +1,4 @@
-// Documentation: An aggregate file for reconstruction
+// Description: An aggregate file for reconstruction
 
 #ifndef PASTEL_RECONSTRUCTION_H
 #define PASTEL_RECONSTRUCTION_H

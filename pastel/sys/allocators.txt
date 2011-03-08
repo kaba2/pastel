@@ -3,6 +3,11 @@ Memory allocators
 
 [[Parent]]: memory.txt
 
+A _memory allocator_ is a data structure which keeps track of the use
+of computer memory, allows to reserve memory for arbitrary exclusive 
+use, and later to undo this reservation so that the memory region can 
+be reused.
+
 Theory
 ------
 

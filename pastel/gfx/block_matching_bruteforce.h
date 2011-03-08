@@ -1,3 +1,6 @@
+// Description: Brute-force block matching
+// Documentation: block_matching.txt
+
 #ifndef PASTEL_BLOCK_MATCHING_BRUTEFORCE_H
 #define PASTEL_BLOCK_MATCHING_BRUTEFORCE_H
 

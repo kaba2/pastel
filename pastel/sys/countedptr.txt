@@ -3,6 +3,10 @@ Reference-counted pointers
 
 [[Parent]]: memory.txt
 
+A _reference-counted pointer_ is an object which tracks the number of
+reference-counted pointers referencing a given object, and destructs 
+the tracked object when this number drops to zero.
+
 Theory
 ------
 

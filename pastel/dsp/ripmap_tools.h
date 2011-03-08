@@ -1,4 +1,4 @@
-// Description: Algorithms for RipMap's
+// Description: Algorithms for rip-maps
 
 #ifndef PASTEL_RIPMAP_TOOLS_H
 #define PASTEL_RIPMAP_TOOLS_H

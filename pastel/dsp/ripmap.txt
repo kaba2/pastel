@@ -3,21 +3,12 @@ Rip mapping
 
 [[Parent]]: precomputed_filtering.txt
 
-Theory
-------
+A _rip-map_ is a set of images ''R = {R_s : s in [0, m_1] xx .. xx [0, m_n] sub ZZ^n}'', 
+where for all ''s'':
 
-Let ''I'' be an n-dimensional image with extents ''w in ZZ^n'' and
-values in a vector space. In the following, if there are expressions
-involving vectors, the operations are carried out elementwise.
-Let ''m in ZZ^n'', such that ''m = |~text(log)_2(w)~|''. 
-Let ''hat(w) in ZZ^n'', such that ''hat(w) = 2^m''. 
-A _rip-map_ is a set of images ''R = {R_s}'', where for all ''s'':
+ * ''R_s'' is a resampling of ''R_0''.
 
- * ''s in ZZ^n'', such that ''0 <= s <= m''.
-
- * ''R_s'' is a resampling of ''I''.
-
- * ''R_s'' has extents ''hat(w) / 2^s''. 
+ * ''R_s'' has extents ''(2^(m_1 - s_1), ..., 2^(m_n - s_n))''. 
 
 As an overload of terminology, each ''R_s'' is also called
 a rip-map. The meaning of the term should be clear from the
@@ -26,7 +17,7 @@ context.
 Practice
 --------
 
-Pastel implements the RipMap class for storing and manipulating
+Pastel implements the `RipMap` class for storing and manipulating
 rip-maps. It is declared as:
 
 [[CppCode]]:

@@ -3,19 +3,22 @@ Low-discrepancy sequences
 
 [[Parent]]: pastelmath.txt
 
-Theory
-------
-
-Let ''m'' be the Lebesgue measure in ''RR^n'' and ''A sub RR^n'' such that ''m(A) < oo''. 
-Let ''S = {s_1, s_2, s_3, ...} sub A''. The _discrepancy of ''S''_ is defined by
+Let ''m'' be the Lebesgue measure in ''RR^n'' and ''A sub RR^n'' such 
+that ''m(A) < oo''. Let ''S = {s_1, s_2, s_3, ...} sub A''. The _discrepancy 
+of ''S''_ is defined by
 
 ''D(N) = text(sup){({s_1, ..., s_N} nn B) / N - (m(B)) / (m(A)) | B sub A}''
+
+A _low-discrepancy sequence_ is a sequence in ''RR^n'' which has a low 
+discrepancy for all ''N''. 
+
+Theory
+------
 
 Most often, ''A = [0, 1]^n'', and the sets ''B'' are restricted to the
 form ''[0, w_1] xx [0, w_2] xx ... xx [0, w_n]''. The resulting discrepancy
 is called _star discrepancy_.
 
-A _low-discrepancy sequence_ is sequence in ''RR^n'' which has a low discrepancy for all ''N''. 
 It is conjectured that for any finite sequence of length ''N'' the star-discrepancy has a lower
 bound ''f(N) = C_n (log N)^(n-1) / N'', with the constant ''C_n'' only depending
 on the dimension ''n'' of the space. This conjecture has been proved for
