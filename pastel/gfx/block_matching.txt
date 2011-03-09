@@ -1,0 +1,6 @@
+Block matching
+==============
+
+[[Parent]]: pastelgfx.txt
+
+This section contains algorithms for block matching.

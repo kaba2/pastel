@@ -1920,14 +1920,6 @@
 			Name="Documentation"
 			>
 			<File
-				RelativePath="..\..\bug_fights.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\cpp0x.txt"
-				>
-			</File>
-			<File
 				RelativePath="..\..\dependencies.txt"
 				>
 			</File>
