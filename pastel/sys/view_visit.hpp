@@ -94,6 +94,27 @@ namespace Pastel
 			const Vector<integer, N>& extent,
 			const Cursor& startCursor,
 			const VisitFunctor& visitor,
+			TerminateTag)
+		{
+			ASSERT2(Index >= 0 && Index < N, Index, N);
+
+			const integer width = extent[Index];
+
+			Cursor cursor = startCursor;
+
+			for (integer i = 0;i < width;++i)
+			{
+				visitor(*cursor);
+
+				cursor.increment(Index);
+			}
+		}
+
+		template <int Index, int N, typename Cursor, typename VisitFunctor>
+		void visitDimension(
+			const Vector<integer, N>& extent,
+			const Cursor& startCursor,
+			const VisitFunctor& visitor,
 			NormalTag)
 		{
 			ASSERT2(Index > 0 && Index < N, Index, N);
@@ -111,27 +132,6 @@ namespace Pastel
 
 				visitDimension<Index - 1>(
 					extent, cursor, visitor, Tag());
-
-				cursor.increment(Index);
-			}
-		}
-
-		template <int Index, int N, typename Cursor, typename VisitFunctor>
-		void visitDimension(
-			const Vector<integer, N>& extent,
-			const Cursor& startCursor,
-			const VisitFunctor& visitor,
-			TerminateTag)
-		{
-			ASSERT2(Index >= 0 && Index < N, Index, N);
-
-			const integer width = extent[Index];
-
-			Cursor cursor = startCursor;
-
-			for (integer i = 0;i < width;++i)
-			{
-				visitor(*cursor);
 
 				cursor.increment(Index);
 			}

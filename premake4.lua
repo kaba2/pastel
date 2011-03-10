@@ -527,52 +527,6 @@ solution "Pastel"
 			}
 	end
 
-	if buildConvexHull
-	then
-		project "ConvexHull"
-			kind("ConsoleApp")
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("example/ConvexHull/", fileSet))
-			links 
-			{
-				"PastelDevice",
-				sdlLibrary,
-				openGlLibrary,
-				glewLibrary,
-				"PastelGl",
-				"PastelGfxUi",
-				"PastelGfx",
-				"PastelDsp",
-				"PastelGeometry",
-				"PastelMath",
-				"PastelSys"
-			}
-	end
-
-	if buildLeastSquares
-	then
-		project "LeastSquares"
-			kind("ConsoleApp")
-			includedirs(includeDirectorySet)
-			libdirs(libraryDirectorySet)
-			files(addPrefix("example/LeastSquares/", fileSet))
-			links 
-			{
-				"PastelDevice",
-				sdlLibrary,
-				openGlLibrary,
-				glewLibrary,
-				"PastelGl",
-				"PastelGfxUi",
-				"PastelGfx",
-				"PastelDsp",
-				"PastelGeometry",
-				"PastelMath",
-				"PastelSys"
-			}
-	end
-
 	if buildNearestNeighbour
 	then
 		project "NearestNeighbour"
