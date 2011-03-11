@@ -59,42 +59,48 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	Type asScalar(const mxArray* input)
+	Type asScalar(const mxArray* input,
+		integer index)
 	{
 		ENSURE(mxIsNumeric(input));
+
+		const integer n = mxGetNumberOfElements(input);
+
+		ENSURE_OP(index, >=, 0);
+		ENSURE_OP(index, <, n);
 
 		Type result = 0;
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
-			result = *((real32*)mxGetData(input));
+			result = *((real32*)mxGetData(input) + index);
 			break;
 		case mxDOUBLE_CLASS:
-			result = *((real64*)mxGetData(input));
+			result = *((real64*)mxGetData(input) + index);
 			break;
 		case mxINT8_CLASS:
-			result = *((int8*)mxGetData(input));
+			result = *((int8*)mxGetData(input) + index);
 			break;
 		case mxUINT8_CLASS:
-			result = *((uint8*)mxGetData(input));
+			result = *((uint8*)mxGetData(input) + index);
 			break;
 		case mxINT16_CLASS:
-			result = *((int16*)mxGetData(input));
+			result = *((int16*)mxGetData(input) + index);
 			break;
 		case mxUINT16_CLASS:
-			result = *((uint16*)mxGetData(input));
+			result = *((uint16*)mxGetData(input) + index);
 			break;
 		case mxINT32_CLASS:
-			result = *((int32*)mxGetData(input));
+			result = *((int32*)mxGetData(input) + index);
 			break;
 		case mxUINT32_CLASS:
-			result = *((uint32*)mxGetData(input));
+			result = *((uint32*)mxGetData(input) + index);
 			break;
 		case mxINT64_CLASS:
-			result = *((int64*)mxGetData(input));
+			result = *((int64*)mxGetData(input) + index);
 			break;
 		case mxUINT64_CLASS:
-			result = *((uint64*)mxGetData(input));
+			result = *((uint64*)mxGetData(input) + index);
 			break;
 		default:
 			// This should not be possible, since
@@ -233,44 +239,52 @@ namespace Pastel
 	template <typename Scalar_Iterator>
 	integer getScalars(
 		const mxArray* input,
-		Scalar_Iterator output)
+		Scalar_Iterator output,
+		integer offset)
 	{
 		ENSURE(mxIsNumeric(input));
+		ENSURE_OP(offset, >=, 0);
 
 		const integer n = 
 			mxGetNumberOfElements(input);
+		if (offset >= n)
+		{
+			return n;
+		}
+
+		const integer m = n - offset;
 
 		switch(mxGetClassID(input))
 		{
 		case mxSINGLE_CLASS:
-			copy_n((real32*)mxGetData(input), n, output);
+			copy_n((real32*)mxGetData(input) + offset, m, output);
 			break;
 		case mxDOUBLE_CLASS:
-			copy_n((real64*)mxGetData(input), n, output);
+			copy_n((real64*)mxGetData(input) + offset, m, output);
 			break;
 		case mxINT8_CLASS:
-			copy_n((int8*)mxGetData(input), n, output);
+			copy_n((int8*)mxGetData(input) + offset, m, output);
 			break;
 		case mxUINT8_CLASS:
-			copy_n((uint8*)mxGetData(input), n, output);
+			copy_n((uint8*)mxGetData(input) + offset, m, output);
 			break;
 		case mxINT16_CLASS:
-			copy_n((int16*)mxGetData(input), n, output);
+			copy_n((int16*)mxGetData(input) + offset, m, output);
 			break;
 		case mxUINT16_CLASS:
-			copy_n((uint16*)mxGetData(input), n, output);
+			copy_n((uint16*)mxGetData(input) + offset, m, output);
 			break;
 		case mxINT32_CLASS:
-			copy_n((int32*)mxGetData(input), n, output);
+			copy_n((int32*)mxGetData(input) + offset, m, output);
 			break;
 		case mxUINT32_CLASS:
-			copy_n((uint32*)mxGetData(input), n, output);
+			copy_n((uint32*)mxGetData(input) + offset, m, output);
 			break;
 		case mxINT64_CLASS:
-			copy_n((int64*)mxGetData(input), n, output);
+			copy_n((int64*)mxGetData(input) + offset, m, output);
 			break;
 		case mxUINT64_CLASS:
-			copy_n((uint64*)mxGetData(input), n, output);
+			copy_n((uint64*)mxGetData(input) + offset, m, output);
 			break;
 		default:
 			// This should not be possible, since

@@ -44,12 +44,15 @@ namespace Pastel
 	/*!
 	Preconditions:
 	mxIsNumeric(input)
+	index >= 0
+	index < mxGetNumberOfElements(input)
 
 	Note: Conversion is done automatically
 	from the type of 'input' to type 'Type'.
 	*/
 	template <typename Type>
-	Type asScalar(const mxArray* input);
+	Type asScalar(const mxArray* input,
+		integer index = 0);
 
 	//! Retrieves a copy of a string.
 	/*!
@@ -97,6 +100,11 @@ namespace Pastel
 	/*!
 	Preconditions:
 	mxIsNumeric(input)
+	offset >= 0
+
+	Offset:
+	The index of the element from which
+	to start.
 
 	Returns:
 	The number of elements in the array.
@@ -108,7 +116,8 @@ namespace Pastel
 	template <typename Scalar_Iterator>
 	integer getScalars(
 		const mxArray* input,
-		Scalar_Iterator output);
+		Scalar_Iterator output,
+		integer offset = 0);
 
 	//! Returns the Matlab class-id corresponding to 'Type'.
 	template <typename Type>
