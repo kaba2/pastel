@@ -1932,6 +1932,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\pastel_license_matlab.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\pastelsys.txt"
 				>
 			</File>
