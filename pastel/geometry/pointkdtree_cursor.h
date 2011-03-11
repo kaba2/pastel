@@ -151,13 +151,15 @@ namespace Pastel
 			return node_->prevMax();
 		}
 
-	private:
-		friend class PointKdTree<Real, N, PointPolicy>;
-
+		// FIX: This should be private!
+		// Moved here due to a bug in gcc 4.0.
 		explicit Cursor(Node* node)
 			: node_(node)
 		{
 		}
+
+	private:
+		friend class PointKdTree<Real, N, PointPolicy>;
 
 		Node* node_;
 	};

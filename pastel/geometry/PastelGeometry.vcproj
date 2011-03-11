@@ -426,22 +426,6 @@
 					</File>
 				</Filter>
 			</Filter>
-			<Filter
-				Name="Range tree"
-				>
-				<File
-					RelativePath=".\rangetree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\rangetree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\rangetree.txt"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Common"
