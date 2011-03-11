@@ -3,3 +3,5 @@ Image files
 
 [[Parent]]: pastelgfx.txt
 
+This section contains things related to handling of
+image files.

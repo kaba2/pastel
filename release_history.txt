@@ -3,17 +3,51 @@ Release history
 
 [[Parent]]: pastel.txt
 
-Here we list all the releases of Pastel thus far.
+This section summarizes the release history of Pastel.
 
-Pastel 1.2.0 (xx.xx.2010)
--------------------------
+Conventions
+-----------
 
-[Download Pastel 1.2.0][Pastel-1.2.0]
+### Versioning
 
-[Pastel-1.2.0]: files/pastel-1.2.0.zip
+The versioning of Pastel is given in the form x.y.z, where x, y, and z 
+are integers. The x increments only for major changes, the y increments 
+for feature changes, and the z increments for bug fixes or documentation 
+updates. Whenever y is incremented, z is zeroed, and whenever x is 
+incremented, both y and z are zeroed. The x, y, and z need not consist 
+of a single digit, and, for example, 1.12.0 is a much later version 
+than 1.1.3.
 
+### Previous versions
+
+It is possible to visit the webpages of a 
+previous version by visiting the address
+
+	http://kaba.hilvi.org/pastel/pastel-x.y.z
+	
+where x.y.z is a version number. That webpage then works as
+it did on the time release, and can be used to obtain the
+older software.
+
+Pastel 1.2.0
+------------
+
+Release data 11.3.2011
+
+#### PastelMatlab
+
+ * A new library to aid in interfacing Pastel with Matlab.
+ 
+#### PastelGeometryMatlab
+
+ * A new library to offer a Matlab interface to a subset
+ of PastelGeometry.
+ 
 #### PastelGeometry
 
+ * Added an ''O(n log(n))'' box maximum clique algorithm.
+ * Added a set-difference algorithm for boxes.
+ * Added a way to define the openness of shapes.
  * Turned nearest neighbor searching on kd-trees into a generic 
  implementation on which variants can be implemented as customizations.
  * Removed the support for bucket nodes from PointKdTree because of no gain.
@@ -24,13 +58,42 @@ Pastel 1.2.0 (xx.xx.2010)
  * Changed to use open search regions in nearest-neighbors and range
  searching.
  * Lifted PointPolicy_PointKdTree concept to a global PointPolicy concept.
+
+#### PastelDsp
+
+ * Added the computation of the discrete cosine transform, the discrete 
+ fourier transform, the discrete Haar transform, and the discrete Hadamard 
+ transform.
+ * Added the algorithm object concept.
+
+#### PastelSys
+
+ * Added an augmented red-black tree.
+ * Generalized vector expressions to mix between dynamic and compile-time
+ dimensions.
+ * Added a way to specify different actions on invariant failures. 
+ * Added finalization for loggers, to give them an opportunity to flush
+ buffered output before aborting a program.
+ * Added a progress reporter class.
+ * Added goodness-of-fit tests for random variables.
+ * Added a way to specify storage ordering in Array. 
+
+#### Build system
+
+ * Changed to use the Premake build system, which generates
+ the environment-specific build files.
+ * The code now compiles on Windows, Linux, and Mac, on
+ both Visual Studio and gcc, and in 32-bit and 64-bit modes.
  
-Pastel 1.1.0 (13.3.2010)
-------------------------
+### Others
 
-[Download Pastel 1.1.0][Pastel-1.1.0]
+ * A lot of refactoring, bug fixes, and updates to documentation.
+ * Documentation built on Remark 1.3.
 
-[Pastel-1.1.0]: files/pastel-1.1.0.zip
+Pastel 1.1.0
+------------
+
+Release date 13.3.2010.
 
 #### PastelGeometry
 
@@ -49,10 +112,8 @@ Pastel 1.1.0 (13.3.2010)
 
  * A new library to offer a simple graphical gui.
 
-Pastel 1.0.1 (13.1.2010)
-------------------------
+Pastel 1.0.1
+------------
 
-[Download Pastel 1.0.1][Pastel-1.0.1]
-
-[Pastel-1.0.1]: files/pastel-1.0.1.zip
+Release date 13.1.2010.
 

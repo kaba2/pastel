@@ -2,3 +2,5 @@ Pcx image files
 ===============
 
 [[Parent]]: image_files.txt
+
+This section contains tools for working with PCX image files.
