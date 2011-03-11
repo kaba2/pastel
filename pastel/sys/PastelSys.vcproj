@@ -1928,6 +1928,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\pastel_license.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\pastelsys.txt"
 				>
 			</File>
