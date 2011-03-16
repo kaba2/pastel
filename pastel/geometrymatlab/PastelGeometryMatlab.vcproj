@@ -166,19 +166,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\build_pastelgeometrymatlab_debug_options.txt"
-				>
-			</File>
-			<File
 				RelativePath=".\build_pastelgeometrymatlab_develop.m"
 				>
 			</File>
 			<File
-				RelativePath=".\build_pastelgeometrymatlab_develop_options.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\build_pastelgeometrymatlab_options.txt"
+				RelativePath=".\build_pastelgeometrymatlab_release_without_openmp.m"
 				>
 			</File>
 			<File
