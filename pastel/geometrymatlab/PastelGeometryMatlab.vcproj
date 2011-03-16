@@ -162,6 +162,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\build_pastelgeometrymatlab.txt"
+				>
+			</File>
+			<File
 				RelativePath=".\build_pastelgeometrymatlab_debug.m"
 				>
 			</File>

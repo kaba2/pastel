@@ -1,0 +1,114 @@
+Building PastelGeometry Matlab interface
+========================================
+
+[[Parent]]: pastelgeometrymatlab.txt
+
+This page describes how to build the PastelGeometry Matlab interface. 
+This is only necessary if prebuilt binaries are not available for your 
+platform at the [main page][Main]. To be able to build the PastelGeometry
+Matlab interface, you need to first [build the Pastel libraries][Core].
+
+[Core]: [[Ref]]: building.txt
+[Main]: [[Ref]]: pastel.txt
+
+Build process
+-------------
+
+Matlab uses special kinds of shared libraries to extend it. These
+are called _mex files_. The building process for such files must be 
+driven from Matlab, because this is the only way that the approriate
+libraries will get linked into the resulting mex library, no matter
+what the Matlab version. Matlab redirects the compilation and linking
+to an external compiler, such as Visual Studio or gcc. 
+
+### 1. Select a compiler
+
+To select the compiler Matlab uses, type
+
+	mex -setup
+	
+on the Matlab command line, and follow the instructions. 
+A compiler can be used to build the PastelGeometry Matlab 
+interface if
+ 
+ * The compiler is supported by Matlab, meaning also that the
+   compiler has been used to build the Matlab external interface
+   libraries (i.e. it is not ok to change the used gcc version 
+   manually). The main point here is that the used C++ standard 
+   libraries must match across all libraries.
+ 
+ * The same compiler is used to build the Pastel libraries.
+ 
+ * The architectures of the libraries match: 
+ 32-bit libraries against 32-bit libraries,
+ and 64-bit libraries against 64-bit libraries.
+ 
+The current list of supported compilers for Matlab 2010b can be 
+found [from here][MatlabSupported]. There is a similar list for
+the previous versions.
+
+__Note__: since OpenMP was introduced in gcc 4.2, and the supported
+compiler for Mac OS X is only of version 4.0, it is not currently 
+possible to build PaslteGeometry Matlab interface in Mac OS X with 
+OpenMP enabled.
+
+__Note__: Matlab 32-bit is required to build 32-bit mex files, and
+Matlab 64-bit is required to build 64-bit mex files. In particular, it 
+is not possible to do 32-bit builds from Matlab 64-bit.
+
+[MatlabSupported]: http://www.mathworks.com/support/compilers/R2010b/index.html
+
+### 2. Set the external library directories
+
+In `pastel/geometrymatlab` directory, open the file `build_pastelgeometry.m`,
+which will read something like this:
+
+    mex pastelgeometrymatlab.cpp ...
+		-D_HAS_ITERATOR_DEBUGGING=0 ...
+		-DPASTEL_ENABLE_OMP ...
+		-I'../../../pastel' ... 
+		-I'../../../../external/boost_1_45_0' ...
+		-L'../../../pastel/build/vs2008/lib' ...
+		-lPastelGeometryMatlab ...
+		-lPastelGeometry ...
+		-lPastelMath ...
+		-lPastelMatlab ...
+		-lPastelSys
+	
+Replace the directories to reflect the locations of the libraries.
+The `I` is for an include directory, while `L` is for a library
+directory. There are similarly named build files for debug, 
+develop, and release-without-openmp modes.
+
+### 3. Add some flags and libraries
+
+To enable OpenMP (support for multiple cores), do the following:
+
+* Add the OpenMP flag to the compiler flags.
+Since Matlab does not have a compiler-independent option for this,
+you must manually modify the Matlab options file for your compiler. 
+Consult the Matlab documentation on how to do this. 
+On gcc the flag is `-fopenmp`, while for Visual Studio the flag is `/openmp`.
+
+* On Linux, add the `-lgomp` option in `build_pastelgeometrymatlab.m` 
+to include the OpenMP library.
+
+On the 64-bit Linux, if you want to build the 32-bit version (requires 
+Matlab 32-bit), add the `-m32` compiler flag in the g++ flags of the 
+`glnx86` section in the options file.
+
+### 4. Choose configuration and build
+
+To build PastelGeometry Matlab interface in release mode, type in 
+Matlab command line:
+
+	>> build_pastelgeometry
+
+Alternatively, you can build the PastelGeometry Matlab interface in 
+other modes by running the script with the desired configuration.
+
+Output files
+------------
+
+The only output file from this process is the `pastelgeometrymatlab` mex file.
+
