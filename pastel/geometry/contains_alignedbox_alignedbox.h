@@ -9,6 +9,9 @@ namespace Pastel
 {
 
 	//! Returns if an aligned box is contained in another one.
+	/*!
+	Note: an empty box is contained in every box (even in an empty box).
+	*/
 	template <typename Real, int N>
 	bool contains(
 		const AlignedBox<Real, N>& outer,

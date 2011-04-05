@@ -283,6 +283,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Containment"
+				>
+				<File
+					RelativePath=".\test_contains_alignedbox_alignedbox.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\pastelgeometrytest.cpp"
