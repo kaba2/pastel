@@ -4,6 +4,8 @@
 #ifndef PASTEL_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_H
 #define PASTEL_DEPTHFIRST_SEARCHALGORITHM_POINTKDTREE_H
 
+#include "pastel/geometry/searchalgorithm_pointkdtree_concept.h"
+
 namespace Pastel
 {
 

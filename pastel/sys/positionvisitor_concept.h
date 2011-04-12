@@ -9,23 +9,28 @@
 namespace Pastel
 {
 
-	class PositionVisitor_Concept
+	namespace PositionVisitor_Concept
 	{
-	public:
-		//! The compile-time dimension.
-		enum {N = UserDefinedInteger};
 
-		//! Visits the given position.
-		/*!
-		position:
-		Position to visit.
+		class PositionVisitor
+		{
+		public:
+			//! The compile-time dimension.
+			enum {N = UserDefinedInteger};
 
-		Returns:
-		Whether the visitation should be continued
-		to other positions.
-		*/
-		bool operator()(const Vector<integer, N>& position);
-	};
+			//! Visits the given position.
+			/*!
+			position:
+			Position to visit.
+
+			Returns:
+			Whether the visitation should be continued
+			to other positions.
+			*/
+			bool operator()(const Vector<integer, N>& position);
+		};
+
+	}
 
 }
 

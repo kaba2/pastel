@@ -138,7 +138,7 @@ namespace Pastel
 
 		return Pastel::countNearest(
 			kdTree, searchPoint, maxDistance,
-			Always_AcceptPoint<Point_ConstIterator>());
+			alwaysAcceptPoint(kdTree));
 	}
 
 }

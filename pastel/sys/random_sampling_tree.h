@@ -27,7 +27,7 @@ namespace Pastel
 			Value value;
 		};
 
-		void swap(RbtPolicy_Concept& that)
+		void swap(RandomSamplingTree_RbtPolicy& that)
 		{
 		}
 
