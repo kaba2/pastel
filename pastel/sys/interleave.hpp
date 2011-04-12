@@ -66,13 +66,13 @@ namespace Pastel
 		// range[i] and range[f(i)], and then updating
 		// i := f(i).
 
-		using std::swap;
-
 		integer i = 1;
 		while(true)
 		{
 			// Move to the previous element.
+
 			const integer b = i / parts;
+			// mod(i, parts) = i - b * parts
 			const integer fi = (i - b * parts) * n + b;
 
 			if (fi == 1)
@@ -83,6 +83,7 @@ namespace Pastel
 			// Since n >= 4, we know that the swapping sequence
 			// contains at least 2 elements, and thus the
 			// swap here is always sensible.
+			using std::swap;
 			swap(range[fi], range[i]);
 
 			i = fi;
