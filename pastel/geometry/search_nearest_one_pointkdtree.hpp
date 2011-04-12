@@ -126,7 +126,7 @@ namespace Pastel
 		return Pastel::searchNearestOne(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
-			Always_AcceptPoint<Point_ConstIterator>());
+			alwaysAcceptPoint(kdTree));
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -143,7 +143,7 @@ namespace Pastel
 		return Pastel::searchNearestOne(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
-			Dont_AcceptPoint<Point_ConstIterator>(searchPoint));
+			dontAcceptPoint(searchPoint));
 	}
 
 	template <typename Real, int N, typename PointPolicy,

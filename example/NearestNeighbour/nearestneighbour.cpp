@@ -724,7 +724,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		std::back_inserter(nearestPointSet_), 
 		NullIterator(),
 		normBijection_.toBijection(searchRadius_ * scaling_), 0,
-		Always_AcceptPoint<MyTree::Point_ConstIterator>(),
+		alwaysAcceptPoint(tree_),
 		8,
 		normBijection_);
 
@@ -739,7 +739,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		const integer count2 = countNearest(tree_,
 			worldMouse,
 			searchRadius_ * scaling_,
-			Always_AcceptPoint<MyTree::Point_ConstIterator>(),
+			alwaysAcceptPoint(tree_),
 			8,
 			Maximum_NormBijection<real>());
 		searchRange(tree_, 
@@ -794,7 +794,7 @@ void NearestNeighbor_Gfx_Ui::erase(const Vector2& center, real radius)
 		std::back_inserter(nearestSet),
 		NullIterator(),
 		normBijection_.toBijection(radius), 0,
-		Always_AcceptPoint<MyTree::Point_ConstIterator>(),
+		alwaysAcceptPoint(tree_),
 		8,
 		normBijection_);
 

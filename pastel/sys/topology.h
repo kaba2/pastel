@@ -28,6 +28,42 @@ namespace Pastel
 		return Topology::Closed;
 	}
 
+	template <typename Real>
+	bool containsPositiveHalfspace(
+		const Real& outerMin, Topology::Enum outerMinTopology,
+		const Real& innerMin, Topology::Enum innerMinTopology)
+	{
+		if (innerMin <= outerMin)
+		{
+			if (innerMin < outerMin ||
+				(innerMinTopology == Topology::Closed &&
+				outerMinTopology == Topology::Open))
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	template <typename Real>
+	bool containsNegativeHalfspace(
+		const Real& outerMax, Topology::Enum outerMaxTopology,
+		const Real& innerMax, Topology::Enum innerMaxTopology)
+	{
+		if (innerMax >= outerMax)
+		{
+			if (innerMax > outerMax ||
+				(innerMaxTopology == Topology::Closed &&
+				outerMaxTopology == Topology::Open))
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
 }
 
 #endif

@@ -209,7 +209,7 @@ namespace Pastel
 			kdTree, searchPoint,
 			kNearest, nearestBegin, distanceBegin,
 			maxDistance, maxRelativeError, 
-			Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>());
+			alwaysAcceptPoint(kdTree));
 	}
 
 	template <typename Real, int N, typename PointPolicy, 

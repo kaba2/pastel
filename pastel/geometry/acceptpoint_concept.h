@@ -8,14 +8,19 @@
 namespace Pastel
 {
 
-	class AcceptPoint_Concept
+	namespace AcceptPoint_Concept
 	{
-	public:
-		typedef UserDefinedType Point;
 
-		//! Return whether to accept an object.
-		bool operator()(const Point& point) const;
-	};
+		class AcceptPoint
+		{
+		public:
+			typedef UserDefinedType Point;
+
+			//! Return whether to accept an object.
+			bool operator()(const Point& point) const;
+		};
+
+	}
 
 }
 

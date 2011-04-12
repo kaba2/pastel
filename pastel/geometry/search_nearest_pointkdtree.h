@@ -42,7 +42,8 @@ namespace Pastel
 
 	maxDistance:
 	The distance after which points are not considered neighbors
-	anymore. Can be set to infinity<Real>().
+	anymore. Can be set to infinity<Real>(). The distance is
+	in terms of the norm bijection.
 
 	maxRelativeError:
 	Maximum allowed relative error in the distance of the k:th 
@@ -52,25 +53,15 @@ namespace Pastel
 	acceptPoint:
 	A functor that takes in a Point_ConstIterator of 
 	the 'kdTree' and returns a bool if the point should be accepted
-	as a neighbor or not. Default construct Always_AcceptPoint class
-	to accept all candidates. Default construct Dont_AcceptPoint
-	to reject a specific Point_ConstIterator of the 'kdTree'. 
-	Construct PointDont_AcceptPoint to reject a specific 
-	Point of the 'kdTree'.
+	as a neighbor or not. See 'acceptpoint.txt'.
 
 	normBijection:
-	Defines the norm used to measure distance.
-	See "pastel/math/normbijections.h" for predefined norm bijections.
+	The norm used to measure distance.
+	See 'pastel/math/normbijection.txt'.
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.
-	The possible algorithms at the moment are
-	DepthFirst_SearchAlgorithm_PointKdTree
-	in 'depthfirst_searchalgorithm_pointkdtree.h' and
-	BestFirst_SearchAlgorithm_PointKdTree
-	in 'bestfirst_searchalgorithm_pointkdtree.h'
-	Default construct an object of this class as 
-	an argument.
+	See 'searchalgorithm_pointkdtree.txt'.
 
 	returns:
 	The number of found neighbors.
@@ -165,7 +156,7 @@ namespace Pastel
 	searchNearest(kdTree, searchPoint,
 		kNearest, nearestBegin, distanceBegin,
 		maxDistance, maxRelativeError, 
-		Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>());
+		alwaysAcceptPoint(kdTree));
 	*/
 	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename NearestIterator, 

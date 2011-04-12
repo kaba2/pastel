@@ -32,6 +32,13 @@ namespace Pastel
 		Point exception_;
 	};
 
+	template <typename Type>
+	Dont_AcceptPoint<Type> dontAcceptPoint(
+		const Type& that)
+	{
+		return Dont_AcceptPoint<Type>(that);
+	}
+
 }
 
 #endif

@@ -235,7 +235,7 @@ namespace Pastel
 								sceneNearest.rowBegin(j),
 								NullIterator(),
 								infinity<Real>(), 0,
-								Dont_AcceptPoint<SceneIterator>(sceneIter));
+								dontAcceptPoint(sceneIter));
 						}
 
 						// Get the k-nearest neighbors from the cache.
@@ -256,7 +256,7 @@ namespace Pastel
 							modelSet.begin() + 1,
 							NullIterator(),
 							infinity<Real>(), 0,
-							Dont_AcceptPoint<ModelIterator>(modelIter));
+							dontAcceptPoint(modelIter));
 
 						// Try to match the nearest neighbours.
 						// If they match, then try to improve the

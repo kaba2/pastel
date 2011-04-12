@@ -36,6 +36,13 @@ namespace Pastel
 		AcceptPoint inner_;
 	};
 
+	template <typename AcceptPoint>
+	Negate_AcceptPoint<AcceptPoint> negateAcceptPoint(
+		const AcceptPoint& that)
+	{
+		return Negate_AcceptPoint<AcceptPoint>(that);
+	}
+
 }
 
 #endif

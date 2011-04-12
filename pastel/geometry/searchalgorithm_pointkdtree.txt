@@ -3,5 +3,5 @@ SearchAlgorithm_PointKdTree concept
 
 [[Parent]]: nearest_neighbors.txt
 
-The SearchAlgorithm_PointKdTree concept abstracts the details of
-a generic nearest-neighbor searching algorithm on a PointKdTree.
+The `SearchAlgorithm_PointKdTree` concept abstracts the details of
+a generic nearest-neighbor searching algorithm on a `PointKdTree`.

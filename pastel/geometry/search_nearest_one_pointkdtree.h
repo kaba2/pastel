@@ -30,7 +30,8 @@ namespace Pastel
 	
 	maxDistance:
 	The distance after which points are not considered neighbors
-	anymore. Can be set to infinity<Real>().
+	anymore. Can be set to infinity<Real>(). This distance
+	is in terms of the used norm bijection.
 
 	maxRelativeError:
 	Maximum allowed relative error in the distance of the  
@@ -38,27 +39,16 @@ namespace Pastel
 	increases performance. Use 0 for exact matches. 
 
 	acceptPoint:
-	A functor that takes in a Point_ConstIterator of 
-	the 'kdTree' and returns a bool if the point should be accepted
-	as a neighbor or not. Default construct Always_AcceptPoint class
-	to accept all candidates. Default construct Dont_AcceptPoint
-	to reject a specific Point_ConstIterator of the 'kdTree'. 
-	Construct PointDont_AcceptPoint to reject a specific 
-	Point of the 'kdTree'.
+	A functor that determines whether to accept a point
+	as a neighbor or not. See 'acceptpoint.txt'.
 
 	normBijection:
-	Defines the norm used to measure distance.
-	See "pastel/math/normbijections.h" for predefined norm bijections.
+	The norm used to measure distance.
+	See 'pastel/math/normbijection.txt'.
 
 	searchAlgorithm:
 	The search algorithm to use for searching the 'kdTree'.
-	The possible algorithms at the moment are
-	DepthFirst_SearchAlgorithm_PointKdTree
-	in 'depthfirst_searchalgorithm_pointkdtree.h' and
-	BestFirst_SearchAlgorithm_PointKdTree
-	in 'bestfirst_searchalgorithm_pointkdtree.h'
-	Default construct a point of this class as 
-	an argument.
+	See 'searchalgorithm_pointkdtree.txt'.
 
 	returns:
 	A key-value pair, where the key is the distance
@@ -149,7 +139,7 @@ namespace Pastel
 	searchNearestOne(
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
-		Always_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>());
+		alwaysAcceptPoint(kdTree));
 	*/
 	template <typename Real, int N, typename PointPolicy,
 		typename SearchPoint>
@@ -166,7 +156,7 @@ namespace Pastel
 	searchNearestOne(
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
-		Dont_AcceptPoint<typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>(searchPoint));
+		dontAcceptPoint(searchPoint));
 	*/
 	template <typename Real, int N, typename PointPolicy>
 	KeyValue<Real, typename PointKdTree<Real, N, PointPolicy>::Point_ConstIterator>

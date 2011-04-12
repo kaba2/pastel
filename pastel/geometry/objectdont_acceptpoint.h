@@ -2,8 +2,8 @@
 // Detail: Rejects a given point but accepts otherwise.
 // Documentation: acceptpoint.txt
 
-#ifndef PASTEL_OBJECTDONT_ACCEPTPOINT_H
-#define PASTEL_OBJECTDONT_ACCEPTPOINT_H
+#ifndef PASTEL_POINTDONT_ACCEPTPOINT_H
+#define PASTEL_POINTDONT_ACCEPTPOINT_H
 
 #include "pastel/geometry/acceptpoint_concept.h"
 

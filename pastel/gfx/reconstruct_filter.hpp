@@ -130,7 +130,7 @@ namespace Pastel
 					std::back_inserter(nearestSet),
 					NullIterator(),
 					filter_.radius() * filterStretch_, 0,
-					Always_AcceptPoint<ConstIterator>(),
+					alwaysAcceptPoint(kdTree_),
 					8,
 					Maximum_NormBijection<Real>());
 

@@ -84,7 +84,7 @@ namespace Pastel
 				kNearestEnd,
 				nearestSet.begin(), distanceSet.begin(),
 				maxDistanceSet[i], maxRelativeError,
-				Dont_AcceptPoint<Point_ConstIterator>(querySet[i]),
+				dontAcceptPoint(querySet[i]),
 				bucketSize,
 				normBijection, 
 				searchAlgorithm);
