@@ -16,10 +16,11 @@ namespace Pastel
 		B_ForwardRange bRange,
 		Predicate predicate)
 	{
-		ENSURE_OP(aRange.size(), ==, bRange.size());
-
 		while(!aRange.empty())
 		{
+			// Test whether bRange.size() < aRange.size().
+			ENSURE(!bRange.empty());
+
 			if (!predicate(aRange.front(), bRange.front()))
 			{
 				return false;
@@ -28,6 +29,8 @@ namespace Pastel
 			aRange.pop_front();
 			bRange.pop_front();
 		}
+		// Test whether aRange.size() < bRange.size().
+		ENSURE(bRange.empty());
 
 		return true;
 	};

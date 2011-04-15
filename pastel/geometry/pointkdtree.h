@@ -293,9 +293,6 @@ namespace Pastel
 		/*!
 		Exception safety:
 		nothrow
-
-		This operation is always immediate. The tree will be
-		up to date after this operation.
 		*/
 		void clear();
 
@@ -303,31 +300,16 @@ namespace Pastel
 		/*!
 		Exception safety:
 		nothrow
-
-		This operation is always immediate. The tree will be
-		up to date after this operation.
 		*/
 		void erase(bool eraseHidden = true);
 
 		//! Clears the points in a subtree but leaves subdivision intact.
-		/*!
-		This operation is always immediate. The tree will be
-		up to date after this operation.
-		*/
 		void erase(const Cursor& cursor, bool eraseHidden = true);
 
 		//! Collapses the tree into a single leaf node.
-		/*!
-		This operation is always immediate. The tree will be
-		up to date after this operation.
-		*/
 		void merge();
 
 		//! Collapse a subtree into a leaf node.
-		/*!
-		This operation is always immediate. The tree will be
-		up to date after this operation.
-		*/
 		void merge(const Cursor& cursor);
 
 	private:
