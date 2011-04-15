@@ -6,7 +6,6 @@
 #include "pastel/sys/copy_n.h"
 #include "pastel/sys/destruct.h"
 #include "pastel/sys/insertion_sort.h"
-#include "pastel/sys/interleave.h"
 #include "pastel/sys/random_subset.h"
 
 #endif

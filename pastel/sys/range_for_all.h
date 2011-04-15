@@ -10,6 +10,10 @@ namespace Pastel
 {
 
 	//! Returns if a predicate holds between corresponding elements.
+	/*!
+	Preconditions:
+	aRange.size() == bRange.size()
+	*/
 	template <
 		typename A_ForwardRange,
 		typename B_ForwardRange,

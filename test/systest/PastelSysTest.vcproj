@@ -254,10 +254,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\test_interleave.cpp"
-			>
-		</File>
-		<File
 			RelativePath=".\test_iteratorrange.cpp"
 			>
 		</File>
