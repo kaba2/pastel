@@ -133,8 +133,6 @@ The libraries and executables will be written to the `lib/`
 sub-directory of the `build/action/` directory. The intermediate
 files, such as object files, will be written to the `obj/`
 sub-directory of the `build/action` directory.
-The `debug` versions will be suffixed with `_d`, while the
-`develop` versions will be suffixed with `_v`.
 
 [Premake]: http://industriousone.com/premake
 
