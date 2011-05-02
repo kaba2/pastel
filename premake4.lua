@@ -122,7 +122,6 @@ solution "Pastel"
 	}
 
 	location(outputDirectory)
-	targetdir(outputDirectory .. "/lib")
 
 	configurations 
 	{
@@ -147,8 +146,7 @@ solution "Pastel"
 	}
 
 	configuration "debug"
-		-- Debug libraries are suffixed with 'd'.
-		targetsuffix "_d"
+		targetdir(outputDirectory .. "/lib/debug")
 		-- Enable debug information.
 		flags {"Symbols"}
 		-- Enable ASSERTs and PENSUREs.
@@ -159,8 +157,7 @@ solution "Pastel"
 		}
 		
 	configuration "develop"
-		-- Developer libraries are suffixed with 'v'.
-		targetsuffix "_v"
+		targetdir(outputDirectory .. "/lib/develop")
 		-- Enable optimizations.
 		flags {"Optimize"}
 		-- Enable ASSERTs and PENSUREs.
@@ -170,9 +167,13 @@ solution "Pastel"
 			"PASTEL_ENABLE_PENSURES",
 		}
 
-	configuration "release*"
-		-- Release libraries do not have a suffix.
-		targetsuffix ""
+	configuration "release"
+		targetdir(outputDirectory .. "/lib/release")
+		-- Enable optimizations.
+		flags {"Optimize"}
+
+	configuration "release_without_openmp"
+		targetdir(outputDirectory .. "/lib/release_without_openmp")
 		-- Enable optimizations.
 		flags {"Optimize"}
 

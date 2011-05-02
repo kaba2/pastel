@@ -278,7 +278,7 @@ namespace Pastel
 		integer trimmed = 0;
 		std::string nText = lowercase(ltrim(text, &trimmed));
 
-		real result = 0;
+		real result = nan<real>();
 		integer matchSize = trimmed;
 		bool foundMatch = false;
 		bool positive = true;
@@ -313,12 +313,7 @@ namespace Pastel
 			stream << nText;
 			real number = 0;
 			stream >> number;
-			if (!stream)
-			{
-				log() << "stringToReal: could not convert '"
-					<< text << "' to a number." << logNewLine;
-			}
-			else
+			if (stream)
 			{
 				result = number;
 				matchSize = stream.tellg();
