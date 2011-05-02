@@ -32,12 +32,17 @@ namespace
 			TEST_ENSURE(isNan(stringToReal("nan")));
 			TEST_ENSURE(isNan(stringToReal("+nan")));
 			TEST_ENSURE(isNan(stringToReal("-nan")));
-			TEST_ENSURE(stringToReal("inf") == infinity<real>());
-			TEST_ENSURE(stringToReal("+inf") == infinity<real>());
-			TEST_ENSURE(stringToReal("infinity") == infinity<real>());
-			TEST_ENSURE(stringToReal("+infinity") == infinity<real>());
-			TEST_ENSURE(stringToReal("-inf") == -infinity<real>());
-			TEST_ENSURE(stringToReal("-infinity") == -infinity<real>());
+			TEST_ENSURE_OP(stringToReal("inf"), ==, infinity<real>());
+			TEST_ENSURE_OP(stringToReal("+inf"), ==, infinity<real>());
+			TEST_ENSURE_OP(stringToReal("-inf"), ==, -infinity<real>());
+			TEST_ENSURE_OP(stringToReal("123"), ==, 123);
+			TEST_ENSURE_OP(stringToReal("-123"), ==, -123);
+			TEST_ENSURE_OP(stringToReal("+123"), ==, +123);
+			TEST_ENSURE_OP(stringToReal("1.0"), ==, 1.0);
+			TEST_ENSURE_OP(stringToReal("1.01"), ==, 1.01);
+			TEST_ENSURE_OP(stringToReal("1.01e5"), ==, 1.01e5);
+			TEST_ENSURE_OP(stringToReal("1.01e-5"), ==, 1.01e-5);
+			TEST_ENSURE_OP(stringToReal("1.01e+5"), ==, 1.01e+5);
 		}
 
 		void testRealToString()
@@ -45,6 +50,8 @@ namespace
 			TEST_ENSURE(realToString(infinity<real>()) == "inf");
 			TEST_ENSURE(realToString(-infinity<real>()) == "-inf");
 			TEST_ENSURE(realToString(nan<real>()) == "nan");
+			TEST_ENSURE(realToString(123) == "123");
+			TEST_ENSURE(realToString(-123) == "-123");
 		}
 
 	};

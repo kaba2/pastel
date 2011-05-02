@@ -283,13 +283,13 @@ namespace Pastel
 		bool foundMatch = false;
 		bool positive = true;
 
-		if (nText == "-")
+		if (startsWith(nText, "-"))
 		{
 			positive = false;
 			nText = nText.substr(1);
 			matchSize += 1;
 		}
-		else if (nText == "+")
+		else if (startsWith(nText, "+"))
 		{
 			nText = nText.substr(1);
 			matchSize += 1;
@@ -310,7 +310,7 @@ namespace Pastel
 		else
 		{
 			std::stringstream stream;
-			stream << text;
+			stream << nText;
 			real number = 0;
 			stream >> number;
 			if (!stream)
