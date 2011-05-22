@@ -92,6 +92,7 @@ namespace
 
 		void test()
 		{
+			// Identical boxes.
 			{
 				Box boxSet[] = 
 				{
@@ -101,6 +102,7 @@ namespace
 				const Box correct(-1, -1, 1, 1);
 				testCase(boxSet, correct);
 			}
+			// First box contained in the second.
 			{
 				Box boxSet[] = 
 				{
@@ -110,6 +112,7 @@ namespace
 				const Box correct(-1, -1, 1, 1);
 				testCase(boxSet, correct);
 			}
+			// Overlap on both axes.
 			{
 				Box boxSet[] = 
 				{
@@ -119,6 +122,7 @@ namespace
 				const Box correct(0, 0, 1, 1);
 				testCase(boxSet, correct);
 			}
+			// Singular vertical overlap.
 			{
 				Box boxSet[] = 
 				{
@@ -128,6 +132,7 @@ namespace
 				const Box correct(0, -1, 0, 1);
 				testCase(boxSet, correct);
 			}
+			// Singular vertical overlap with open boxes.
 			{
 				Box boxSet[] = 
 				{
@@ -138,6 +143,7 @@ namespace
 				testCase(boxSet, correct, 
 					MaximumClique_BoxType::Open);
 			}
+			// Singular horizontal overlap.
 			{
 				Box boxSet[] = 
 				{
@@ -147,6 +153,7 @@ namespace
 				const Box correct(-1, 0, 1, 0);
 				testCase(boxSet, correct);
 			}
+			// Singular horizontal overlap with open boxes.
 			{
 				Box boxSet[] = 
 				{
@@ -157,6 +164,7 @@ namespace
 				testCase(boxSet, correct, 
 					MaximumClique_BoxType::Open);
 			}
+			// Singular point overlap.
 			{
 				Box boxSet[] = 
 				{
@@ -166,6 +174,7 @@ namespace
 				const Box correct(0, 0, 0, 0);
 				testCase(boxSet, correct);
 			}
+			// Singular point overlap with open boxes.
 			{
 				Box boxSet[] = 
 				{
@@ -176,6 +185,7 @@ namespace
 				testCase(boxSet, correct, 
 					MaximumClique_BoxType::Open);
 			}
+			// Disjoint boxes.
 			{
 				Box boxSet[] = 
 				{
@@ -185,6 +195,7 @@ namespace
 				const Box correct;
 				testCase(boxSet, correct);
 			}
+			// Multiple boxes, general position.
 			{
 				Box boxSet[] = 
 				{
@@ -195,6 +206,7 @@ namespace
 				const Box correct(0, 0, 1, 1);
 				testCase(boxSet, correct);
 			}
+			// Multiple boxes.
 			{
 				Box boxSet[] = 
 				{
@@ -218,7 +230,7 @@ namespace
 					Box(0, 0, 2, 2),
 					Box(3, 0, 5, 2),
 					Box(4, 0, 6, 2),
-					Box(7, 0, 9, 2),
+					Box(7, 0, 9, 2)
 				};
 				integer correctSet[] =
 				{

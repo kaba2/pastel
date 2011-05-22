@@ -22,16 +22,99 @@ namespace Pastel
 		public:
 			enum Enum
 			{
-				// These numbers were carefully
-				// chosen to make the <-relation
-				// matrix of this enum to have a 
-				// certain form.
-				OpenMin = 0,
-				ClosedMin = 1,
-				OpenMax = 2,
-				ClosedMax = 3
+				// These numbers were chosen to make the l < r
+				// relation matrix have the following form:
+				//
+				//        r
+				//   < ( [ ] ) 
+				//   ( F F F F 
+				// l [ T F F F
+				//   ] T T F F 
+				//   ) T T T F
+
+				OpenMin = 3,
+				ClosedMin = 2,
+				ClosedMax = 1,
+				OpenMax = 0
 			};
 		};
+
+		inline bool compareType(
+			EventType::Enum left,
+			EventType::Enum right)
+		{
+			// A strict order relation < is irreflexive,
+			// antisymmetric, and transitive.
+			//
+			// 1) Irreflexivity gives the diagonal.
+			// ( < ( <=> F
+			// [ < [ <=> F
+			// ] < ] <=> F
+			// ) < ) <=> F
+			//
+			// 2) Otherwise: 
+			// [a, oo) < (a, oo)    (intersection)
+			// [a, oo) < (-oo, a]   (intersection)
+			// (-oo, a] < (a, oo)   (no intersection)
+			// (-oo, a) < (a, oo)   (no intersection)
+			// (-oo, a) < [a, oo)   (no intersection)
+			// (-oo, a) < (-oo, a]  (intersection)
+			//
+			// 3) Summary:
+			//
+			//        r
+			//   < ( [ ] )
+			//   ( F      
+			// l [ T F T  
+			//   ] T   F  
+			//   ) T T T F
+			//
+			// 5) Full relation matrix by antisymmetry:
+			//
+			//        r
+			//   < ( [ ] ) 
+			//   ( F F F F 
+			// l [ T F T F
+			//   ] T F F F 
+			//   ) T T T F
+			//
+			// This relation is anti-symmetric, as can be
+			// checked by the following brute-force Matlab
+			// program:
+			//
+			// A = logical([...
+			//     0, 0, 0, 0; ...
+			//     1, 0, 1, 0; ...
+			//     1, 0, 0, 0; ...
+			//     1, 1, 1, 0]);
+			//
+			// for i = 1 : 4
+			//     for j = 1 : 4
+			//         for k = 1 : 4
+			//             if A(i, j) && A(j, k) && ~A(i, k)
+			//                 disp('Oh noes!');
+			//             end
+			//         end
+			//     end
+			// end
+
+			if (left == EventType::ClosedMax &&
+				right == EventType::ClosedMin)
+			{
+				return false;
+			}
+			if (left == EventType::ClosedMin &&
+				right == EventType::ClosedMax)
+			{
+				return true;
+			}
+			
+			// Otherwise return true if in the
+			// lower triangle. Note this relies
+			// on the correct ordering of the EventType
+			// enum.
+			return left < right;
+		}
 
 		template <typename Real, typename ConstIterator>
 		class Event
@@ -40,7 +123,6 @@ namespace Pastel
 			Event()
 				: position(0)
 				, index(0)
-				, label(0)
 				, type(EventType::ClosedMin)
 				, box()
 			{
@@ -48,77 +130,13 @@ namespace Pastel
 
 			Event(const Real& position_,
 				integer index_,
-				integer label_,
 				EventType::Enum type_,
 				const ConstIterator& box_)
 				: position(position_)
 				, index(index_)
-				, label(label_)
 				, type(type_)
 				, box(box_)
 			{
-			}
-
-			bool compareType(
-				EventType::Enum left,
-				EventType::Enum right) const
-			{
-				// Less-than is an irreflexive, asymmetric, and
-				// transitive relation. Thus logically we need only 
-				// explain the following cases:
-				//
-				//        r
-				//     ( [ ) ]
-				//   ( F      
-				// l [ T F    
-				//   ) T T F  
-				//   ] T F T F
-				//
-				// This relation matrix is transitive,
-				// which I checked with Matlab.
-				//
-				// 1) Irreflexivity explains the diagonal.
-				//
-				// 2) If there is OpenMin and ClosedMin,
-				// then we can choose either way. We use
-				// the opportunity to make the relation
-				// matrix simpler by placing true values
-				// to lower-right.
-				//
-				// 3) If both are closed, but not equal, 
-				// the minimum one should come first to
-				// cause an intersection.
-				//
-				// 4) If both are open, but not equal,
-				// the maximum one should come first to
-				// not cause an intersection.
-				//
-				// 5) If there is OpenMin and ClosedMax,
-				// or ClosedMin and OpenMax, the closing
-				// one should come first to not cause an
-				// intersection.
-				//
-				// Full relation matrix:
-				//
-				//        r
-				//     ( [ ) ]
-				//   ( F F F F
-				// l [ T F F T   
-				//   ) T T F F 
-				//   ] T F T F
-
-				if (left == EventType::ClosedMax &&
-					right == EventType::ClosedMin)
-				{
-					return false;
-				}
-				if (left == EventType::ClosedMin &&
-					right == EventType::ClosedMax)
-				{
-					return true;
-				}
-				
-				return right < left;
 			}
 
 			bool operator<(
@@ -131,15 +149,6 @@ namespace Pastel
 				
 				if (type != that.type)
 				{
-					if (label == that.label)
-					{
-						// If the labels are equal,
-						// then we treat them specially
-						// so that two closed event-points
-						// won't cause an intersection.
-						return that.type < type;
-					}
-
 					return compareType(type, that.type);
 				}
 
@@ -153,12 +162,13 @@ namespace Pastel
 
 			bool min() const
 			{
-				return type <= 1;
+				return 
+					type == EventType::ClosedMin ||
+					type == EventType::OpenMin;
 			}
 
 			Real position;
 			integer index;
-			integer label;
 			EventType::Enum type;
 			ConstIterator box;
 		};
@@ -300,60 +310,94 @@ namespace Pastel
 			const Iterator& root,
 			Direction_Iterator result)
 		{
+			// The augmented red-black tree is traversed
+			// from the root to a leaf to find _a_ maximum clique.
+			// Maximum cliques are not unique; there can be
+			// many of them. In this case we choose one randomly.
+			// The tree consist of the end-points of the
+			// projections of boxes on the x-axis. The returned
+			// iterator is such that:
+			// * It points to a starting point.
+			// * When incrementing the iterator, all boxes
+			// before the first ending point are part of the
+			// chosen maximum clique.
+
 			Direction::Enum candidateSet[3];
 
 			ASSERT(!root.sentinel());
 
+			// Start from the root of the tree.
 			Iterator iter = root;
+
+			// While we are not in a leaf node...
 			while(!iter.left().sentinel() ||
 				!iter.right().sentinel()) 
 			{
-				// There can be many maximum cliques in the tree.
-				// We choose one randomly.
-
+				// A maximum clique can be in the current node,
+				// in the left subtree, or in the right subtree.
+				// These are not exclusive; any combination is
+				// possible.
 				integer candidates = 0;
 				if (cliqueHere(iter))
 				{
+					// There is a maximum clique in this node.
 					candidateSet[candidates] = Direction::Current;
 					++candidates;
 				}
 				if (cliqueOnLeft(iter))
 				{
+					// There is a maximum clique in the left subtree.
 					candidateSet[candidates] = Direction::Left;
 					++candidates;
 				}
 				if (cliqueOnRight(iter))
 				{
+					// There is a maximum clique in the right subtree.
 					candidateSet[candidates] = Direction::Right;
 					++candidates;
 				}
 
+				// Necessarily there is at least one maximum clique
+				// in the tree.
 				ASSERT_OP(candidates, >, 0);
 
+				// If there is only one choice, pick that.
 				integer index = 0;
 				if (candidates == 2)
 				{
+					// If there are two choices, pick one
+					// randomly.
+					// Here logical-and is used for an efficient
+					// mod 2.
 					index = randomInteger() & 1;
 				}
 				else if (candidates == 3)
 				{
+					// If there are three choices, pick one
+					// randomly. Here we must use the
+					// remainder operator.
 					index = randomInteger() % 3;
 				}
-
+				
 				const Direction::Enum direction = candidateSet[index];
-
 				if (direction == Direction::Current)
 				{
+					// There is a maximum clique in this node,
+					// and it was chosen.
 					break;
 				}
 
+				// Traverse into the chosen subtree.
 				iter = (direction == Direction::Left) ? 
 					iter.left() : iter.right();
 
+				// Write the chosen subtree into the
+				// direction set.
 				*result = direction;
 				++result;
 			}
-
+			
+			// Return the result.
 			return iter;
 		}
 
@@ -369,20 +413,6 @@ namespace Pastel
 		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result)
 	{
-		using namespace MaximumCliqueAlignedBox_Detail;
-
-		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
-			value_type Box;
-		typedef typename Box::Real_ Real;
-
-		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
-
-		typedef Event<Real, AlignedBox_ConstIterator> Event;
-		typedef MaximumClique_RbtPolicy RbtPolicy;
-		typedef RedBlackTree<Event, std::less<Event>, RbtPolicy> Tree;
-		typedef typename Tree::ConstIterator Event_ConstIterator;
-		typedef RbtPolicy::ValueType Value;
-
 		// This is a sweepline algorithm to compute an
 		// aligned box of maximum overlap in a set of aligned 
 		// boxes. The paper
@@ -396,6 +426,20 @@ namespace Pastel
 		// they augment 2-3-trees, we augment red-black trees. The
 		// point here is to have a balanced tree to guarantee O(log n)
 		// augmented insertion and deletion.
+
+		using namespace MaximumCliqueAlignedBox_Detail;
+
+		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
+			value_type Box;
+		typedef typename Box::Real_ Real;
+
+		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
+
+		typedef Event<Real, AlignedBox_ConstIterator> Event;
+		typedef MaximumClique_RbtPolicy RbtPolicy;
+		typedef RedBlackTree<Event, std::less<Event>, RbtPolicy> Tree;
+		typedef typename Tree::ConstIterator Event_ConstIterator;
+		typedef RbtPolicy::ValueType Value;
 
 		ENSURE_OP(sweepDirection, >=, 0);
 		ENSURE_OP(sweepDirection, <, 2);
@@ -414,6 +458,11 @@ namespace Pastel
 			boxType == MaximumClique_BoxType::Closed ?
 			EventType::ClosedMax : EventType::OpenMax;
 
+		// We allow the sweeping direction to be chosen freely.
+		// For convenience, we shall call the sweep direction the 
+		// y-axis, and the other axis x-axis. This allows us,
+		// at the same time, to be generic and have a specific 
+		// geometric situtation in mind.
 		const integer y = sweepDirection;
 		const integer x = !y;
 
@@ -430,10 +479,12 @@ namespace Pastel
 			{
 				PENSURE(iter->dimension() == 2);
 
+				// First the minimum y-point.
 				eventSet.push_back(
-					Event(iter->min()[y], i, i, minType, iter));
+					Event(iter->min()[y], i, minType, iter));
+				// Then the maximum y-point.
 				eventSet.push_back(
-					Event(iter->max()[y], i, i, maxType, iter));
+					Event(iter->max()[y], i, maxType, iter));
 
 				++i;
 				++iter;
@@ -442,9 +493,10 @@ namespace Pastel
 
 		// Sort the event list lexicographically in the
 		// following order of priority:
-		// 1) y is non-decreasing
-		// 2) minimum comes before maximum
-		// 3) index increases
+		// 1) Y is non-decreasing.
+		// 2) If boxes are closed, minimum comes before maximum. 
+		// Otherwise maximum comes before minimum.
+		// 3) Index increases.
 		std::sort(eventSet.begin(), eventSet.end());
 
 		Tree tree;
@@ -461,14 +513,17 @@ namespace Pastel
 		{
 			// The first time in this loop (j == 0), our 
 			// aim is to find the _number_ of boxes in the
-			// maximum clique.
+			// maximum clique. This is called the 
+			// _search phase_.
 
 			// The second time in this loop (j == 1), our 
 			// aim is to reconstruct the tree where the
-			// maximum clique was found.
+			// maximum clique was found. This is called
+			// the _reconstruction phase_.
 
 			tree.clear();
 
+			// For each event...
 			for (integer i = 0;i < n;++i)
 			{
 				// The events come out in increasing y-order. 
@@ -479,20 +534,22 @@ namespace Pastel
 				// Find out the extremities of the box
 				// in the _x_ direction.
 				const Event minEvent(
-					e.box->min()[x], e.index, e.label, minType, e.box);
+					e.box->min()[x], e.index, minType, e.box);
 				const Event maxEvent(
-					e.box->max()[x], e.index, e.label, maxType, e.box);
+					e.box->max()[x], e.index, maxType, e.box);
 
 				if (e.min())
 				{
-					// If this event begins a new box, then
-					// we insert the x-endpoints of that box 
-					// into the tree.
+					// This event begins a new box.
+					
+					// Insert the x-endpoints of that box into the tree.
 					tree.insert(minEvent);
 					tree.insert(maxEvent);
 					
 					if (j == 0)
 					{
+						// This is the search phase.
+
 						// Primarily, we want to maximize the size of
 						// the maximum clique.
 						const integer maxCliqueSize = 
@@ -536,22 +593,27 @@ namespace Pastel
 							}
 						}
 					}
-					else if (i == maxIndex)
+					else 
 					{
-						// We have now reconstructed a tree which 
-						// contains a maximum clique rectangle.
-						// Although there could be several maximum 
-						// cliques, we are content with just one (this 
-						// also saves some computation).
-						yMin = e.position;
-						yMax = eventSet[i + 1].position;
-						break;
+						// This is the reconstruction phase.
+						if (i == maxIndex)
+						{
+							// We have now reconstructed a tree which 
+							// contains a maximum clique rectangle.
+							// Although there could be several maximum 
+							// cliques, we are content with just one (this 
+							// also saves some computation).
+							yMin = e.position;
+							yMax = eventSet[i + 1].position;
+							break;
+						}
 					}
 				}
 				else
 				{
-					// If this event ends an existing box, then
-					// we remove that box from the tree.
+					// This event ends an existing box.
+					
+					// Remove the box from the tree.
 					tree.erase(minEvent);
 					tree.erase(maxEvent);
 				}
@@ -559,78 +621,79 @@ namespace Pastel
 
 			if (maxMaxCliqueSize == 1)
 			{
-				// There are no non-singular cliques.
-				// That is, all boxes are separated.
+				// All boxes are separated.
 				break;
 			}
 		}
 
 		Box clique(2);
-
-		if (maxMaxCliqueSize > 1)
+		if (maxMaxCliqueSize < 2)
 		{
-			// We have now reconstructed a tree which 
-			// contains a maximum clique rectangle.
-			// We already know its y-range. Now we need
-			// to find its x-range.
+			// All boxes are separated.
+			return clique;
+		}
 
-			Event_ConstIterator cliqueIter = 
-				findMaximumClique(
-				tree.root(),
-				range(maxDirectionSet.begin(), 
-				maxDirectionSet.end()));
+		// We have now reconstructed a tree which 
+		// contains a maximum clique rectangle.
+		// We already know its y-range. Now we need
+		// to find its x-range.
+		Event_ConstIterator cliqueIter = 
+			findMaximumClique(
+			tree.root(),
+			range(maxDirectionSet.begin(), 
+			maxDirectionSet.end()));
 
-			const Real xMin = cliqueIter->key().position;
-			++cliqueIter;
-			const Real xMax = cliqueIter->key().position;
+		const Real xMin = cliqueIter->key().position;
+		++cliqueIter;
+		const Real xMax = cliqueIter->key().position;
 
-			clique.min()[x] = xMin;
-			clique.min()[y] = yMin;
-			clique.max()[x] = xMax;
-			clique.max()[y] = yMax;
+		clique.min()[x] = xMin;
+		clique.min()[y] = yMin;
+		clique.max()[x] = xMax;
+		clique.max()[y] = yMax;
 
-			const bool reportBoxes = 
-				!boost::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
+		const bool reportBoxes = 
+			!boost::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
+		if (!reportBoxes)
+		{
+			return clique;
+		}
 
-			if (reportBoxes)
+		// Do a linear scan to find out which boxes
+		// are active in our chosen maximum clique.
+
+		typedef UnorderedMap<integer, AlignedBox_ConstIterator>
+			ActiveSet;
+		typedef typename ActiveSet::const_iterator Active_ConstIterator;
+
+		UnorderedMap<integer, AlignedBox_ConstIterator> activeSet;
+		
+		// Find out all the participating boxes.
+		{
+			Event_ConstIterator iter = tree.begin();
+			while(iter != cliqueIter)
 			{
-				// Do a linear scan to find out which boxes
-				// are active in our chosen maximum clique.
-
-				typedef UnorderedMap<integer, AlignedBox_ConstIterator>
-					ActiveSet;
-				typedef typename ActiveSet::const_iterator Active_ConstIterator;
-
-				UnorderedMap<integer, AlignedBox_ConstIterator> activeSet;
-				
-				// Find out all the participating boxes.
+				if (iter->key().min())
 				{
-					Event_ConstIterator iter = tree.begin();
-					while(iter != cliqueIter)
-					{
-						if (iter->key().min())
-						{
-							activeSet.insert(
-								std::make_pair(iter->key().index, iter->key().box));
-						}
-						else
-						{
-							activeSet.erase(iter->key().index);
-						}
-						++iter;
-					}
+					activeSet.insert(
+						std::make_pair(iter->key().index, iter->key().box));
 				}
-
-				// Report all the participating boxes.
+				else
 				{
-					Active_ConstIterator iter = activeSet.begin();
-					while(iter != activeSet.end())
-					{
-						*result = iter->second;
-						++result;
-						++iter;
-					}
+					activeSet.erase(iter->key().index);
 				}
+				++iter;
+			}
+		}
+
+		// Report all the participating boxes.
+		{
+			Active_ConstIterator iter = activeSet.begin();
+			while(iter != activeSet.end())
+			{
+				*result = iter->second;
+				++result;
+				++iter;
 			}
 		}
 

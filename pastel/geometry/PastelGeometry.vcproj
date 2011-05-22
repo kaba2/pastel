@@ -1893,6 +1893,14 @@
 					RelativePath=".\point_pattern_matching.txt"
 					>
 				</File>
+				<File
+					RelativePath=".\ppm_translation.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ppm_translation.txt"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>
