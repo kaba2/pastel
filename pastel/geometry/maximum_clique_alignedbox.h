@@ -11,29 +11,11 @@
 namespace Pastel
 {
 	
-	class MaximumClique_BoxType
-	{
-	public:
-		enum Enum
-		{
-			Open,
-			Closed
-		};
-	};
-	
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	boxSet:
 	An iterator range where AlignedBox_ConstIterator
 	dereferences to AlignedBox<Real, N>.
-
-	boxType:
-	Whether to interpret boxes as open or closed sets.
-	Notice that if in x-direction a box is half-open of
-	the form [a, b), or (a, b], then the result of this 
-	algorithm is the same as using an x-open box.
-	The same goes for the y-direction. Thus no generality 
-	is lost by concentrating just on open and closed boxes.
 
 	sweepDirection:
 	The axis on which the width of the maximum clique box
@@ -64,14 +46,13 @@ namespace Pastel
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
 		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
-		MaximumClique_BoxType::Enum boxType,
 		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result);
 
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	This is a convenience function that calls:
-	maximumClique(boxSet, boxType, sweepDirection, NullIterator())
+	maximumClique(boxSet, sweepDirection, NullIterator())
 
 	See the documentation for the general function.
 	*/
@@ -79,7 +60,6 @@ namespace Pastel
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
 		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
-		MaximumClique_BoxType::Enum boxType = MaximumClique_BoxType::Closed,
 		integer sweepDirection = 1);
 
 }

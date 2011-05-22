@@ -187,6 +187,10 @@ namespace Pastel
 				{
 				}
 
+				// The difference between the number of 
+				// ending points and the number of starting
+				// points in the subtree rooted at the current 
+				// node.
 				integer actives;
 				integer maxCliqueSize;
 			};
@@ -199,20 +203,81 @@ namespace Pastel
 			template <typename Iterator>
 			void updateHierarchical(const Iterator& iter)
 			{
+				// The size of the clique in the current node
+				// is given simply by the number of active
+				// intervals. However, this quantity can't
+				// be computed hierarchically at each node,
+				// so we have to be a little more indirect.
+
+				// The 'actives' node variable traces
+				// the difference between the number of ending
+				// points and the number of starting points
+				// in a subtree.
+				// This is _not_ the same as the number of
+				// active intervals, except at the root, since 
+				// intervals can be starting outside the subtree 
+				// rooted at the current node.
+
+				// The point is to trace a path from the root
+				// downwards, such that it gives the maximum 
+				// amount of 'actives' difference. There can
+				// be many such nodes, as the maximum clique
+				// is not unique. Interestingly, we are able
+				// to encode all of these paths by just using
+				// the augmented 'actives' and 'maxCliqueSize'
+				// node variables.
+
 				const integer v = iter->key().min() ? 1 : -1;
 
+				// The difference between the number of ending 
+				// points and the number of starting points in
+				// a subtree is easily computed recursively.
 				iter->value().actives = 
 					iter.left()->value().actives + 
 					iter.right()->value().actives +
 					v;
 
+				// The difference in the current node
+				// is simply given by the difference in the
+				// left node plus the 'v'-value of the current 
+				// node.
+				const integer currentDifference =
+					iter.left()->value().actives + v;
+
+				// The current difference might not mark
+				// the largest difference, since there can be 
+				// larger differences in the left and right 
+				// subtrees.
+								
+				// The maximum difference in the left subtree,
+				// given our expanded view from a parent node,
+				// is unchanged.
+				const integer leftDifference =
+					iter.left()->value().maxCliqueSize;
+
+				// The maximum difference in the right subtree,
+				// given our expanded view from a parent node, is 
+				// the sum of the current difference and the 
+				// maximum difference in the right subtree.
+
+				// Note that maxCliqueSize is -1 in the
+				// sentinel node, so it does not always hold
+				// that rightDifference >= currentDifference.
+				const integer rightDifference =
+					currentDifference +
+					iter.right()->value().maxCliqueSize;
+
+				// Finally, the maximum difference in the
+				// current subtree is the maximum among the
+				// three differences.
 				iter->value().maxCliqueSize = 
-					std::max(
-					iter.left()->value().maxCliqueSize,
-					std::max(
-					iter.left()->value().actives + v,
-					iter.left()->value().actives + v + 
-					iter.right()->value().maxCliqueSize));
+					std::max(leftDifference,
+					std::max(currentDifference,
+					rightDifference));
+
+				// Note that at the root of the tree,
+				// the maxCliqueSize really is the size of the
+				// maximum clique.
 			}
 
 			void swap(MaximumClique_RbtPolicy& that)
@@ -225,6 +290,9 @@ namespace Pastel
 		{
 			const integer v = iter->key().min() ? 1 : -1;
 
+			// There is a maximum clique in the current node, 
+			// if the maxCliqueSize was computed as it is for
+			// the current node.
 			if (iter->value().maxCliqueSize == 
 				iter.left()->value().actives + v)
 			{
@@ -237,6 +305,9 @@ namespace Pastel
 		template <typename Iterator>
 		bool cliqueOnLeft(const Iterator& iter)
 		{
+			// There is a maximum clique in the left subtree, 
+			// if the maxCliqueSize was computed as it is for
+			// the left subtree.
 			if (!iter.left().sentinel() && 
 				iter->value().maxCliqueSize == 
 				iter.left()->value().maxCliqueSize)
@@ -252,6 +323,9 @@ namespace Pastel
 		{
 			const integer v = iter->key().min() ? 1 : -1;
 
+			// There is a maximum clique in the right subtree, 
+			// if the maxCliqueSize was computed as it is for
+			// the right subtree.
 			if (!iter.right().sentinel() &&
 				iter->value().maxCliqueSize == 
 				iter.left()->value().actives + v +
@@ -284,6 +358,8 @@ namespace Pastel
 			const Direction_Iterator directionEnd = directionSet.end();
 			while(directionIter != directionEnd)
 			{
+				ASSERT(!iter.sentinel());
+
 				const Direction::Enum direction =
 					*directionIter;
 
@@ -311,16 +387,17 @@ namespace Pastel
 			Direction_Iterator result)
 		{
 			// The augmented red-black tree is traversed
-			// from the root to a leaf to find _a_ maximum clique.
+			// from the root downwards to find _a_ maximum clique.
 			// Maximum cliques are not unique; there can be
 			// many of them. In this case we choose one randomly.
 			// The tree consist of the end-points of the
 			// projections of boxes on the x-axis. The returned
 			// iterator is such that:
 			// * It points to a starting point.
-			// * When incrementing the iterator, all boxes
-			// before the first ending point are part of the
-			// chosen maximum clique.
+			// * The next point is an ending point (since otherwise
+			// that point would have a larger clique).
+			// * All active boxes before the ending point
+			// are part of the maximum clique.
 
 			Direction::Enum candidateSet[3];
 
@@ -409,7 +486,6 @@ namespace Pastel
 		typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
 		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
-		MaximumClique_BoxType::Enum boxType,
 		integer sweepDirection,
 		AlignedBox_ConstIterator_Iterator result)
 	{
@@ -450,17 +526,9 @@ namespace Pastel
 		// of 'eventSet' below beforehand.
 		const integer n = boxSet.size();
 
-		const EventType::Enum minType = 
-			boxType == MaximumClique_BoxType::Closed ?
-			EventType::ClosedMin : EventType::OpenMin;
-
-		const EventType::Enum maxType = 
-			boxType == MaximumClique_BoxType::Closed ?
-			EventType::ClosedMax : EventType::OpenMax;
-
 		// We allow the sweeping direction to be chosen freely.
 		// For convenience, we shall call the sweep direction the 
-		// y-axis, and the other axis x-axis. This allows us,
+		// y-axis, and the other axis the x-axis. This allows us,
 		// at the same time, to be generic and have a specific 
 		// geometric situtation in mind.
 		const integer y = sweepDirection;
@@ -480,9 +548,20 @@ namespace Pastel
 				PENSURE(iter->dimension() == 2);
 
 				// First the minimum y-point.
+
+				const EventType::Enum minType = 
+					iter->minTopology()[y] == Topology::Closed ?
+					EventType::ClosedMin : EventType::OpenMin;
+
 				eventSet.push_back(
 					Event(iter->min()[y], i, minType, iter));
+
 				// Then the maximum y-point.
+
+				const EventType::Enum maxType = 
+					iter->maxTopology()[y] == Topology::Closed ?
+					EventType::ClosedMax : EventType::OpenMax;
+
 				eventSet.push_back(
 					Event(iter->max()[y], i, maxType, iter));
 
@@ -491,12 +570,9 @@ namespace Pastel
 			}
 		}
 
-		// Sort the event list lexicographically in the
-		// following order of priority:
-		// 1) Y is non-decreasing.
-		// 2) If boxes are closed, minimum comes before maximum. 
-		// Otherwise maximum comes before minimum.
-		// 3) Index increases.
+		// Sort the event list lexicographically.
+		// Have a look at the Event::operator<() for the
+		// order.
 		std::sort(eventSet.begin(), eventSet.end());
 
 		Tree tree;
@@ -533,8 +609,20 @@ namespace Pastel
 
 				// Find out the extremities of the box
 				// in the _x_ direction.
+
+				// First the minimum x-point.
+				const EventType::Enum minType = 
+					e.box->minTopology()[x] == Topology::Closed ?
+					EventType::ClosedMin : EventType::OpenMin;
+
 				const Event minEvent(
 					e.box->min()[x], e.index, minType, e.box);
+
+				// Then the maximum x-point.
+				const EventType::Enum maxType = 
+					e.box->maxTopology()[x] == Topology::Closed ?
+					EventType::ClosedMax : EventType::OpenMax;
+
 				const Event maxEvent(
 					e.box->max()[x], e.index, maxType, e.box);
 
@@ -671,6 +759,8 @@ namespace Pastel
 		// Find out all the participating boxes.
 		{
 			Event_ConstIterator iter = tree.begin();
+			// Note we already advanced cliqueIter by one,
+			// so this loop really includes all boxes.
 			while(iter != cliqueIter)
 			{
 				if (iter->key().min())
@@ -704,11 +794,10 @@ namespace Pastel
 	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
 		maximumClique(
 		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
-		MaximumClique_BoxType::Enum boxType,
 		integer sweepDirection)
 	{
 		return Pastel::maximumClique(
-			boxSet, boxType, sweepDirection, NullIterator());
+			boxSet, sweepDirection, NullIterator());
 	}
 
 }
