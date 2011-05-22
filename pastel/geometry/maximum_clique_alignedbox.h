@@ -41,7 +41,9 @@ namespace Pastel
 
 	result:
 	An iterator which dereferences to something that can
-	be assigned an AlignedBox_ConstIterator.
+	be assigned an AlignedBox_ConstIterator. Will be
+	filled with iterators to the boxes which are part of
+	the maximum clique.
 
 	Preconditions:
 	The dimension of the aligned boxes are 2.
@@ -54,7 +56,7 @@ namespace Pastel
 	boxes. Let '(v_1, v_2) in E subset V^2' if and only if 'v_1' and
 	'v_2' overlap. Then a maximum clique in this graph gives the set
 	of those boxes whose common intersection contains a maximum
-	number of boxes
+	number of boxes.
 	*/
 	template <
 		typename AlignedBox_ConstIterator,
