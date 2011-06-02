@@ -10,7 +10,7 @@
 
 namespace Pastel
 {
-	
+
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	boxSet:
