@@ -571,9 +571,6 @@ namespace
 		const integer scenePoints = (sizeof(sceneData) / sizeof(real)) / n;
 		const integer modelPoints = (sizeof(modelData) / sizeof(real)) / n;
 
-		//const integer threads = asInteger(inputSet[threadsIndex]);
-		//setNumberOfThreads(threads);
-
 		typedef Array_PointPolicy<real> PointPolicy;
 
 		typedef PointKdTree<real, Dynamic, PointPolicy> SceneTree;

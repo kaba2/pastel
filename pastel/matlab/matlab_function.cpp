@@ -156,7 +156,7 @@ namespace Pastel
 			// a mex file in memory. Because it is easy to forget
 			// to do this, or to do this in wrong order, a better
 			// workaround is to set the number of threads here.
-			setNumberOfThreads(0);
+			setNumberOfThreads(numberOfProcessors());
 		}
 
 		CallFunction run(matlabInitialize);

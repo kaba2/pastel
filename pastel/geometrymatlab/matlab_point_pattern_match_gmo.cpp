@@ -42,9 +42,6 @@ namespace Pastel
 
 			const integer n = mxGetM(inputSet[modelIndex]);
 
-			//const integer threads = asInteger(inputSet[threadsIndex]);
-			//setNumberOfThreads(threads);
-
 			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
 			typedef SceneTree::Point_ConstIterator SceneIterator;
 

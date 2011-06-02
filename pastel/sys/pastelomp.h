@@ -16,6 +16,15 @@ namespace Pastel
 	*/
 	void setNumberOfThreads(integer threads);
 
+	//! Returns the number of currently executing threads in OpenMP.
+	/*!
+	Note: In a serial section this is always 1.
+	*/
+	integer numberOfThreads();
+
+	//! Returns the number of processors in the machine.
+	integer numberOfProcessors();
+
 }
 
 #include "pastel/sys/pastelomp.hpp"
