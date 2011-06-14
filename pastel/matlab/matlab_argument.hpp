@@ -347,21 +347,6 @@ namespace Pastel
 		return f();
 	}
 
-	namespace Matlab_Detail
-	{
-
-		// For things to work, the 'real' type must be 'double'.
-		// If you get an error from this check, change the 'real'
-		// type in 'mytypes.h'.
-
-		enum
-		{
-			RealIsDouble = boost::is_same<real, double>::value
-		};
-		BOOST_STATIC_ASSERT(RealIsDouble);
-
-	}
-
 }
 
 #endif
