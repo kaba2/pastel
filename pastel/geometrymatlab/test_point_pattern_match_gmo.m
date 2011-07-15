@@ -14,6 +14,9 @@ minMatchRatio = 0.6;
 % The matching distance.
 matchingDistance = 0.1;
 
+% 0 for first match, 1 for most stable maximum match.
+matchingMode = 1;
+
 % The amplitude of the gaussian noise to apply to the model
 % points in the scene.
 %noiseAmount = 0.02;
@@ -56,9 +59,9 @@ n = size(S, d);
 % Attempt to recover the similarity from the two
 % pointsets using point-pattern matching.
 tic
-[pairSet, nTranslation, success] = ...
+[pairSet, nTranslation, stability, success] = ...
     pastel_point_pattern_match_gmo(M, S, ...
-    minMatchRatio, matchingDistance);
+    minMatchRatio, matchingDistance, matchingMode);
 timeSpent = toc;
 
 foundPairSet = zeros(1, m);
@@ -77,6 +80,7 @@ if success
     fprintf('Found a match with %d points!\n', matchSize);
     fprintf('Out of these points, %d match with the correct pair.\n', ...
         correctPairs);
+    fprintf('The match has stability %f.\n', stability);
     fprintf('Here are the returned parameters, ');
     fprintf('correct parameters in parentheses:\n');
     fprintf('xDelta:   %f (%f)\n', ...

@@ -294,6 +294,24 @@ namespace Pastel
 		return sum(left * right);
 	}
 
+	template <typename Real, int N, typename Expression, 
+		typename NormBijection>
+	Real norm2(const VectorExpression<Real, N, Expression>& that,
+		const NormBijection& normBijection)
+	{
+		Real result = 0;
+
+		const integer n = that.dimension();
+		for (integer i = 0;i < n;++i)
+		{
+			result = normBijection.addAxis(
+				result, 
+				normBijection.signedAxis(that[i]));
+		}
+
+		return result;
+	}
+
 	template <typename Real, int N, typename Expression>
 	PASTEL_ENABLE_IF_C(N > 1 || N == Dynamic, Real)
 		norm(const VectorExpression<Real, N, Expression>& that)

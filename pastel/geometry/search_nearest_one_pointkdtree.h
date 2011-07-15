@@ -121,7 +121,7 @@ namespace Pastel
 		kdTree, searchPoint,
 		maxDistance, maxRelativeError,
 		acceptPoint, 
-		1);
+		16);
 	*/
 	template <typename Real, int N, typename PointPolicy, 
 		typename SearchPoint, typename AcceptPoint>
