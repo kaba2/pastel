@@ -20,7 +20,7 @@ namespace
 	{
 	public:
 		TestQrDecomposition()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -75,7 +75,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("qr_decomposition", testQrDecomposition);
+		testRunner().add("qr_decomposition", testQrDecomposition);
 	}
 
 	CallFunction run(addTest);

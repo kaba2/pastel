@@ -14,13 +14,16 @@ using namespace std;
 
 int main()
 {
-	log().addLogger(streamLogger(&std::cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&std::cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
 
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	deviceTestList().console();
+	testRunner().console();
 
 	string tmp;
 	getline(cin, tmp);

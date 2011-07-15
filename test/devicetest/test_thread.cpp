@@ -106,7 +106,7 @@ namespace
 
 	void addTest()
 	{
-		deviceTestList().add("Thread", test);
+		testRunner().add("Thread", test);
 	}
 
 	CallFunction run(addTest);

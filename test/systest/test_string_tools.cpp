@@ -17,7 +17,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -64,7 +64,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("string_algorithms", testStringTools);
+		testRunner().add("string_algorithms", testStringTools);
 	}
 
 	CallFunction run(addTest);

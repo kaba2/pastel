@@ -89,7 +89,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("IndexAllocator", test);
+		testRunner().add("IndexAllocator", test);
 	}
 
 	CallFunction run(addTest);

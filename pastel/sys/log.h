@@ -20,14 +20,17 @@ namespace Pastel
 	public:
 		// Using default constructor.
 		// Using default copy constructor.
-		// Using default destructor.
+
+		~Log();
 
 		void swap(Log& that);
 		Log& operator=(const Log& that);
 
-		void addLogger(const LoggerPtr& observer);
-		void removeLogger(const LoggerPtr& observer);
+		void addLogger(Logger* logger);
+		void removeLogger(Logger* logger);
+		void removeLoggers();
 
+		// Virtual since Log is a Logger.
 		virtual Log& operator<<(const std::string& value);
 		virtual void finalize();
 
@@ -44,11 +47,11 @@ namespace Pastel
 		Log& operator<<(void (*function)(Log&));
 
 	private:
-		typedef std::set<LoggerPtr> ObserverContainer;
-		typedef ObserverContainer::iterator ObserverIterator;
-		typedef ObserverContainer::const_iterator ConstObserverIterator;
+		typedef std::set<Logger*> LoggerSet;
+		typedef LoggerSet::iterator Logger_Iterator;
+		typedef LoggerSet::const_iterator Logger_ConstIterator;
 
-		ObserverContainer observer_;
+		LoggerSet loggerSet_;
 	};
 
 	PASTELSYS Log& log();

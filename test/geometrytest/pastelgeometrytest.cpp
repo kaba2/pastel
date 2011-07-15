@@ -19,15 +19,18 @@ using namespace std;
 
 int main()
 {
-	log().addLogger(streamLogger(&cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&std::cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
 
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	geometryTestList().console();
+	testRunner().console();
 
-	generateTestReport(geometryTestReport(), log());
+	generateTestReport(testReport(), testLog());
 
 	string tmp;
 	getline(cin, tmp);

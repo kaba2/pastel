@@ -79,7 +79,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Palette", test);
+		testRunner().add("Palette", test);
 	}
 
 	CallFunction run(addTest);

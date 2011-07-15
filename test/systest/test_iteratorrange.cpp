@@ -15,7 +15,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -52,7 +52,7 @@ namespace
 
 	void addTests()
 	{
-		sysTestList().add("IteratorRange", testIteratorRange);
+		testRunner().add("IteratorRange", testIteratorRange);
 	}
 
 	CallFunction run(addTests);

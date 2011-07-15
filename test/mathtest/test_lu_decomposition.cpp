@@ -21,7 +21,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -114,7 +114,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("lu_decomposition", test);
+		testRunner().add("lu_decomposition", test);
 	}
 
 	CallFunction run(addTest);

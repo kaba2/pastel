@@ -64,7 +64,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("insertionSort", testInsertionSort);
+		testRunner().add("insertionSort", testInsertionSort);
 	}
 
 	CallFunction run(addTest);

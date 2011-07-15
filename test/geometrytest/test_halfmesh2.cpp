@@ -298,7 +298,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("HalfMesh2", test);
+		testRunner().add("HalfMesh2", test);
 	}
 
 	CallFunction run(addTest);

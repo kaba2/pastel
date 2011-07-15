@@ -35,7 +35,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("cholesky_decomposition", testCholesky);
+		testRunner().add("cholesky_decomposition", testCholesky);
 	}
 
 	CallFunction run(addTest);

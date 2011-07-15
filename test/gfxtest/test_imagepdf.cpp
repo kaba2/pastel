@@ -70,7 +70,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("ImagePdf", testImagePdf);
+		testRunner().add("ImagePdf", testImagePdf);
 	}
 
 	CallFunction run(addTest);

@@ -17,7 +17,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -75,7 +75,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("RandomSamplingTree", test);
+		testRunner().add("RandomSamplingTree", test);
 	}
 
 	CallFunction run(addTest);

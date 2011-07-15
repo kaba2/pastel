@@ -16,7 +16,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -112,7 +112,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("Transformation", test);
+		testRunner().add("Transformation", test);
 	}
 
 	CallFunction run(addTest);

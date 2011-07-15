@@ -1016,8 +1016,11 @@ void test()
 
 int myMain()
 {
-	log().addLogger(streamLogger(&std::cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&std::cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
 
 	//test();
 

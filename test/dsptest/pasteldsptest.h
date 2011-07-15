@@ -8,16 +8,16 @@
 #include "pastel/sys/callfunction.h"
 #include "pastel/sys/anystorage.h"
 
-inline Pastel::TestRunner& dspTestList()
+inline Pastel::TestRunner& testRunner()
 {
-	static Pastel::TestRunner dspTestRunner("PastelDsp");
-	return dspTestRunner;
+	static Pastel::TestRunner theTestRunner("PastelDsp");
+	return theTestRunner;
 }
 
-inline Pastel::TestReport& dspTestReport()
+inline Pastel::TestReport& testReport()
 {
-	static Pastel::TestReport theDspTestReport("PastelDsp");
-	return theDspTestReport;
+	static Pastel::TestReport theTestReport("PastelDsp");
+	return theTestReport;
 }
 
 inline Pastel::AnyStorage& dspStorage()

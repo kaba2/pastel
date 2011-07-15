@@ -1,0 +1,102 @@
+Blog
+====
+
+Superclass delegation
+---------------------
+
+14.7.2011
+
+Say that Logger is an abstract class. A Logger can be attached
+as an observer to a (unique) Log object. Let us require that
+whenever an object with a type of a subclass of Logger is 
+destructed, it reports this beforehand to its corresponding Log 
+(if it exists). This means that each Logger object must store
+a pointer to the associated Log object. On the other hand,
+each subclass of Logger must remember to report the destruction
+to its Log.
+
+If each subclass has to be implement this reporting manually,
+the same functionality is implemented over and over again,
+which is redundant. On the other hand, the feature is
+not at all specific to the subclasses and can be completely
+implemented in the Logger superclass. This begs for factoring 
+the functionality out of the subclass into the Logger class.
+But are there problems with such a factoring?
+
+It is perfectly valid to have concrete functions
+implemented by the Logger, perhaps built using the abstract 
+functions. However, how about member variables in an abstract
+superclass? This results in the need for 'superclass delegation',
+which is that constructors, copy constructors, and assignment
+operators _must_ remember to call their superclass correspondences,
+an operation which is otherwise not needed (since the superclass
+has no state). This is again a redundancy, perhaps well described
+as 'superclass delegation', which the implementor of the subclass 
+might forget to do with unfortunate consequences.
+
+The choice is then between two redundancies: 'superclass delegation'
+or 'reimplementation of a features common to all subclasses'.
+Between these two, the 'superclass delegation' is a better
+option. The reasons are that
+
+ * The common functionality can be varied, if needed, without much
+ effort. This option is not practically available when the 
+ functionality is replicated to all subclasses.
+ 
+ * The superclass delegation approach scales with the increasing
+ complexity of the common functionality.
+
+Invasive reference counting
+---------------------------
+
+2.7.2011
+
+In general, invasive reference counting (e.g. via `CountedPtr`) suggests 
+that the counted objects should not be allocated in the stack. 
+But whether the lifetime of an object should be decided by the amount of 
+references or automatically by the stack, is object-dependent, and thus 
+should not be decided on the class level.
+
+_Pastel should get rid of `CountedPtr` and move on to use C++0x 
+`shared_ptr` as needed._
+
+Reference-counted pointers
+--------------------------
+
+2.7.2011
+
+The `Log` class redirects its output to attached observers, called
+`Loggers`. The `Log` is itself a `Logger`, to allow for composition.
+The loggers are attached by reference. Should `Log` accept these
+references as raw pointers, or as reference-counted pointers?
+The problem here is that with raw pointers the references can become
+invalid if the referred objects are destructed. A bit of reflection 
+shows that the actual problem is to consider different options on 
+what should happen when an observer object is destructed.
+
+### Option 1: dangling references
+
+After an observer object is destructed, the references to it
+become invalid. Subsequent use of the observer object then cause 
+a crash or similar. Avoiding crashes requires the user to detach 
+the observer before destruction. As always, leaving something 
+to a human's responsibility is a bad idea.
+
+### Option 2: shared ownership
+
+With reference counting, the observer is destructed only when the 
+references to it goes to zero. If the `Log` has a reference to the 
+observer, the observer is never destructed before detachment. This 
+is shared ownership. It is not clear though that the `Log` should 
+have such an ownership privilege. This forces the users of `Log`
+to allocate loggers dynamically and store them in the smart pointer
+given in the interface of `Log`.
+
+### Option 3: automatic detachment on destruction
+
+When a logger is destructed, it is automatically detached from the log. 
+This requires that each log knows its loggers, and that each logger knows 
+its logs. This makes the lifetimes of logs and loggers independent. As a 
+simplification, it could be useful to restrict the number of attached-to 
+logs to one. 
+

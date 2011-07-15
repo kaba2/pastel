@@ -136,7 +136,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Noise", test);
+		testRunner().add("Noise", test);
 	}
 
 	CallFunction run(addTest);

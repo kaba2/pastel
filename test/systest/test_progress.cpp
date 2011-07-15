@@ -18,7 +18,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -53,7 +53,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("Progress", test);
+		testRunner().add("Progress", test);
 	}
 
 	CallFunction run(addTest);

@@ -7,9 +7,15 @@
 namespace Pastel
 {
 
+	Log::~Log()
+	{
+		removeLoggers();
+	}
+
 	void Log::swap(Log& that)
 	{
-		observer_.swap(that.observer_);
+		Logger::swap(that);
+		loggerSet_.swap(that.loggerSet_);
 	}
 
 	Log& Log::operator=(const Log& that)
@@ -19,21 +25,34 @@ namespace Pastel
 		return *this;
 	}
 
-	void Log::addLogger(const LoggerPtr& observer)
+	void Log::addLogger(Logger* logger)
 	{
-		observer_.insert(observer);
+		loggerSet_.insert(logger);
+		logger->addLog(this);
 	}
 
-	void Log::removeLogger(const LoggerPtr& observer)
+	void Log::removeLogger(Logger* logger)
 	{
-		observer_.erase(observer);
+		logger->removeLog(this);
+		loggerSet_.erase(logger);
+	}
+
+	void Log::removeLoggers()
+	{
+		Logger_ConstIterator iter = loggerSet_.begin();
+		const Logger_ConstIterator iterEnd = loggerSet_.end();
+		while (iter != iterEnd)
+		{
+			(*iter)->removeLog(this);
+
+			++iter;
+		}
 	}
 
 	void Log::finalize()
 	{
-		ConstObserverIterator iter(observer_.begin());
-		ConstObserverIterator iterEnd(observer_.end());
-
+		Logger_ConstIterator iter = loggerSet_.begin();
+		const Logger_ConstIterator iterEnd = loggerSet_.end();
 		while (iter != iterEnd)
 		{
 			(*iter)->finalize();
@@ -44,8 +63,8 @@ namespace Pastel
 
 	Log& Log::operator<<(const std::string& value)
 	{
-		ConstObserverIterator iter(observer_.begin());
-		ConstObserverIterator iterEnd(observer_.end());
+		Logger_ConstIterator iter = loggerSet_.begin();
+		const Logger_ConstIterator iterEnd = loggerSet_.end();
 
 		while (iter != iterEnd)
 		{

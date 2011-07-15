@@ -105,7 +105,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add(
+		testRunner().add(
 			"ArenaAllocator", test);
 	}
 

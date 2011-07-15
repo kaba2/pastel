@@ -10,13 +10,16 @@ using namespace Pastel;
 
 int main()
 {
-	log().addLogger(streamLogger(&cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&std::cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
 
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	rayTestList().console();
+	testRunner().console();
 
 	string tmp;
 	getline(cin, tmp);

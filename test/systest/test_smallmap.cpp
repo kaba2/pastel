@@ -234,7 +234,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("SmallMap", test);
+		testRunner().add("SmallMap", test);
 	}
 
 	CallFunction run(addTest);

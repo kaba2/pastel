@@ -3,11 +3,6 @@
 namespace Pastel
 {
 
-	PASTELSYS File_LoggerPtr fileLogger(const std::string& fileName)
-	{
-		return File_LoggerPtr(new File_Logger(fileName));
-	}
-
 	File_Logger::File_Logger(const std::string& fileName)
 		: file_(fileName.c_str())
 	{
@@ -15,6 +10,7 @@ namespace Pastel
 
 	File_Logger::~File_Logger()
 	{
+		finalize();
 	}
 
 	File_Logger& File_Logger::operator<<(const std::string& value)

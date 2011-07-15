@@ -345,10 +345,10 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("UniformSampling_1", test);
-		mathTestList().add("UniformSampling_2", test2);
-		mathTestList().add("UniformSampling_Distance_2", testDistance<real, 2>);
-		mathTestList().add("UniformSampling_Distance_8", testDistance<real, 8>);
+		testRunner().add("UniformSampling_1", test);
+		testRunner().add("UniformSampling_2", test2);
+		testRunner().add("UniformSampling_Distance_2", testDistance<real, 2>);
+		testRunner().add("UniformSampling_Distance_8", testDistance<real, 8>);
 	}
 
 	CallFunction run(addTest);

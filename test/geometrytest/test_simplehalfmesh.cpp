@@ -20,7 +20,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -107,7 +107,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("SimpleHalfMesh", test);
+		testRunner().add("SimpleHalfMesh", test);
 	}
 
 	CallFunction run(addTest);

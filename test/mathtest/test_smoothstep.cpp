@@ -74,7 +74,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("SmoothStep", test);
+		testRunner().add("SmoothStep", test);
 	}
 
 	CallFunction run(addTest);

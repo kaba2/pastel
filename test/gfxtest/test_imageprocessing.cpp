@@ -183,7 +183,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Erode", test);
+		testRunner().add("Erode", test);
 	}
 
 	CallFunction run(addTest);

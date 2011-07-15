@@ -670,8 +670,8 @@ namespace
 
 	void addTests()
 	{
-		sysTestList().add("Random.DrawDistributions", drawDistributions);
-		sysTestList().add("Gamma", testGamma);
+		testRunner().add("Random.DrawDistributions", drawDistributions);
+		testRunner().add("Gamma", testGamma);
 	}
 
 	CallFunction run(addTests);

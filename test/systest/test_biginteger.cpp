@@ -18,7 +18,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -135,7 +135,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("BigInteger", test);
+		testRunner().add("BigInteger", test);
 	}
 
 	CallFunction run(addTest);

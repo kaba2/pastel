@@ -1920,6 +1920,10 @@
 			Name="Documentation"
 			>
 			<File
+				RelativePath="..\..\blog.txt"
+				>
+			</File>
+			<File
 				RelativePath="..\..\dependencies.txt"
 				>
 			</File>

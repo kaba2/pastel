@@ -20,7 +20,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -184,7 +184,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("RedBlackTree", testRedBlackTree);
+		testRunner().add("RedBlackTree", testRedBlackTree);
 	}
 
 	CallFunction run(addTest);

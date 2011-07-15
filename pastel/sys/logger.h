@@ -6,15 +6,16 @@
 #define PASTEL_LOGGER_H
 
 #include "pastel/sys/syslibrary.h"
-#include "pastel/sys/countedptr.h"
+#include "pastel/sys/unorderedset.h"
 
 #include <string>
 
 namespace Pastel
 {
 
+	class PASTELSYS Log;
+
 	class PASTELSYS Logger
-		: public ReferenceCounted
 	{
 	public:
 		// Using default constructor.
@@ -23,6 +24,8 @@ namespace Pastel
 		// Using default destructor.
 
 		virtual ~Logger();
+
+		void swap(Logger& that);
 
 		//! Write a string.
 		virtual Logger& operator<<(
@@ -36,10 +39,22 @@ namespace Pastel
 		a file or flush the contents of a stream.
 		*/
 		virtual void finalize() = 0;
-	};
 
-	typedef CountedPtr<Logger> LoggerPtr;
-	typedef CountedPtr<const Logger> ConstLoggerPtr;
+	private:
+		friend class Log;
+		
+		//! Add a log to the set of observer logs.
+		void addLog(Log* log);
+		//! Remove a log from the set of observed logs.
+		void removeLog(Log* log);
+
+		typedef UnorderedSet<Log*> LogSet;
+		typedef LogSet::iterator Log_Iterator;
+		typedef LogSet::const_iterator Log_ConstIterator;
+
+		//! The set of observer logs.
+		LogSet logSet_;
+	};
 
 }
 

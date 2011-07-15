@@ -174,8 +174,8 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("LowDiscrepancy.Halton", testHalton);
-		mathTestList().add("LowDiscrepancy.Hammersley", testHammersley);
+		testRunner().add("LowDiscrepancy.Halton", testHalton);
+		testRunner().add("LowDiscrepancy.Hammersley", testHammersley);
 	}
 
 	CallFunction run(addTest);

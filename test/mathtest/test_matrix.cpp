@@ -23,7 +23,7 @@ namespace
 	{
 	public:
 		TestMatrix()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -546,7 +546,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("Matrix", testMatrix);
+		testRunner().add("Matrix", testMatrix);
 	}
 
 	CallFunction run(addTest);

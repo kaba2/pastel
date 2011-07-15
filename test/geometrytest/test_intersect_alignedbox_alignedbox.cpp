@@ -35,7 +35,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -124,7 +124,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("intersect_alignedbox_alignedbox", test);
+		testRunner().add("intersect_alignedbox_alignedbox", test);
 	}
 
 	CallFunction run(addTest);

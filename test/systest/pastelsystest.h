@@ -7,16 +7,22 @@
 #include "pastel/sys/testsuite.h"
 #include "pastel/sys/callfunction.h"
 
-inline Pastel::TestRunner& sysTestList()
+inline Pastel::TestRunner& testRunner()
 {
-	static Pastel::TestRunner sysTestRunner("PastelSys");
-	return sysTestRunner;
+	static Pastel::TestRunner theTestRunner("PastelSys");
+	return theTestRunner;
 }
 
-inline Pastel::TestReport& sysTestReport()
+inline Pastel::TestReport& testReport()
 {
-	static Pastel::TestReport theSysTestReport("PastelSys");
-	return theSysTestReport;
+	static Pastel::TestReport theTestReport("PastelSys");
+	return theTestReport;
+}
+
+inline Pastel::Log& testLog()
+{
+	static Pastel::Log theLog;
+	return theLog;
 }
 
 #endif

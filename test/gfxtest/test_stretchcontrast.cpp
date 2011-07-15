@@ -165,7 +165,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("StretchContrast", test);
+		testRunner().add("StretchContrast", test);
 	}
 
 	CallFunction run(addTest);

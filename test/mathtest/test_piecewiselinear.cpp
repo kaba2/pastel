@@ -19,7 +19,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -67,7 +67,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("PiecewiseLinear", test);
+		testRunner().add("PiecewiseLinear", test);
 	}
 
 	CallFunction run(addTest);

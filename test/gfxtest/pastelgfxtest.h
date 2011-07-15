@@ -10,16 +10,16 @@
 
 #include "pastel/gfx/pcx.h"
 
-inline Pastel::TestRunner& gfxTestList()
+inline Pastel::TestRunner& testRunner()
 {
-	static Pastel::TestRunner gfxTestRunner("PastelGfx");
-	return gfxTestRunner;
+	static Pastel::TestRunner theTestRunner("PastelGfx");
+	return theTestRunner;
 }
 
-inline Pastel::TestReport& gfxTestReport()
+inline Pastel::TestReport& testReport()
 {
-	static Pastel::TestReport theGfxTestReport("PastelGfx");
-	return theGfxTestReport;
+	static Pastel::TestReport theTestReport("PastelGfx");
+	return theTestReport;
 }
 
 inline Pastel::AnyStorage& gfxStorage()

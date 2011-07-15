@@ -106,7 +106,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("PointPattern", test);
+		testRunner().add("PointPattern", test);
 	}
 
 	CallFunction run(addTest);

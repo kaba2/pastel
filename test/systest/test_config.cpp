@@ -25,7 +25,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("Config", test);
+		testRunner().add("Config", test);
 	}
 
 	CallFunction run(addTest);

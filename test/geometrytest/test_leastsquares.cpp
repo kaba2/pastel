@@ -18,7 +18,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -75,7 +75,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("LeastSquares", test);
+		testRunner().add("LeastSquares", test);
 	}
 
 	CallFunction run(addTest);

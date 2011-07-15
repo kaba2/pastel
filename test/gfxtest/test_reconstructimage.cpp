@@ -339,9 +339,9 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Reconstruction", testReconstruction);
-		gfxTestList().add("Rbf", testRbf);
-		gfxTestList().add("Shepard", testShepard);
+		testRunner().add("Reconstruction", testReconstruction);
+		testRunner().add("Rbf", testRbf);
+		testRunner().add("Shepard", testShepard);
 	}
 
 	CallFunction run(addTest);

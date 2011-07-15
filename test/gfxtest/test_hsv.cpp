@@ -39,7 +39,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Hsv", test);
+		testRunner().add("Hsv", test);
 	}
 
 	CallFunction run(addTest);

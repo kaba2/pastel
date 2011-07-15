@@ -136,8 +136,8 @@ namespace Pastel
 			// the Matlab window. This is convenient when
 			// an invariant failure occurs, or a file can't 
 			// be found, etc.
-			log().addLogger(
-				LoggerPtr(new Pastel::Matlab_Logger));
+			static Pastel::Matlab_Logger matlabLogger;
+			log().addLogger(&matlabLogger);
 
 			// We will add one callable function automatically.
 			// This one lists all the callable functions,

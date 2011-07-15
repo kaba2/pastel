@@ -23,7 +23,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -287,7 +287,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("intersect_line_triangle", test);
+		testRunner().add("intersect_line_triangle", test);
 	}
 
 	CallFunction run(addTest);
