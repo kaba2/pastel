@@ -9,24 +9,24 @@ close all;
 % At least 90% of the transformed model points must 
 % each match a unique scene point. 'To match' means
 % to be at a matching distance.
-minMatchRatio = 0.9;
+minMatchRatio = 0.2;
 
 matchingDistance = 0.01;
 
-% This should correspond roughly to the probability that
-% if the algorithm finds no match, then there really is no
-% match.
-confidence = 0.95;
-
 % The amplitude of the gaussian noise to apply to the model
 % points in the scene.
-noiseAmount = 0.02;
+%noiseAmount = 0.02;
+noiseAmount = 0.06;
+
+missingPointsPercentage = 0.7;
 
 % Generate a random set of model points.
 
 d = 2;
-m = 100;
+m = 200;
 M = randn(d, m);
+
+missingPoints = floor(m * missingPointsPercentage);
 
 % Generate a random translation.
 translation = rand(d, 1) * 5;
@@ -43,13 +43,15 @@ n = size(S, d);
 S = S(:, randperm(n));
 M = M(:, randperm(m));
 
+% Get rid of some of the scene points.
+S = S(:, 1 : n - missingPoints);
+
 % Attempt to recover the similarity from the two
 % pointsets using point-pattern matching.
 tic
 [pairSet, nTranslation, success] = ...
     pastel_point_pattern_match_gmo(M, S, ...
-    minMatchRatio, matchingDistance, ...
-    confidence);
+    minMatchRatio, matchingDistance);
 timeSpent = toc;
 
 %pairSet

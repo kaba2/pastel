@@ -598,7 +598,8 @@ namespace Pastel
 	{
 		return Pastel::pointPatternMatch(
 			scene, model,
-			minMatchRatio, relativeMatchingDistance,
+			minMatchRatio, 
+			relativeMatchingDistance,
 			confidence,
 			similarityResult,
 			Vector_PointPolicy<Real, N>(),

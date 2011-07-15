@@ -3,8 +3,7 @@
 %
 % [pairSet, translation, success] = pastel_point_pattern_match(
 %     modelPointSet, scenePointSet, ...
-%     minMatchRatio, matchingDistance, ...
-%     confidence)
+%     minMatchRatio, matchingDistance)
 %
 % where
 %
@@ -23,10 +22,6 @@
 % under which a mapped point from the 'modelPointSet' is considered 
 % matching a point from the 'scenePointSet'.
 %
-% CONFIDENCE is a real number in the range [0, 1]. It is roughly the 
-% probability, that if the algorithm finds no match, then there really 
-% is no match. Default: 0.99. 
-%
 % SUCCESS is a real number, which is 1 if a match was found, and 0
 % otherwise.
 %
@@ -43,18 +38,12 @@
 function [pairSet, translation, success] = ...
     pastel_point_pattern_match_gmo(...
     modelPointSet, scenePointSet, ...
-    minMatchRatio, matchingDistance, ...
-    confidence)
-
-if nargin < 5
-    confidence = 0.99;
-end
+    minMatchRatio, matchingDistance)
 
 check(modelPointSet, 'pointset');
 check(scenePointSet, 'pointset');
 check(minMatchRatio, 'real');
 check(matchingDistance, 'real');
-check(confidence, 'real');
 
 if minMatchRatio < 0 || minMatchRatio > 1
     error('minMatchRatio must be in the range [0, 1].');
@@ -64,10 +53,6 @@ if matchingDistance < 0
     error('matchingDistance must be non-negative.');
 end
 
-if confidence < 0 || confidence > 1
-    error('confidence must be in the range [0, 1].');
-end
-
 if size(modelPointSet, 1) ~= size(scenePointSet)
     error('The dimensions of modelPointSet and scenePointSet must be equal.');
 end
@@ -75,7 +60,6 @@ end
 [pairSet, translation, success] = ...
     pastelgeometrymatlab('point_pattern_match_gmo', ...
     modelPointSet, scenePointSet, ...
-    minMatchRatio, matchingDistance, ...
-    confidence);
+    minMatchRatio, matchingDistance);
 
 

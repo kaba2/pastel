@@ -24,12 +24,13 @@ namespace Pastel
 		Vector_PointPolicy()
 			: dimension_(N)
 		{
+			ENSURE_OP(N, >=, 0);
 		}
 
 		explicit Vector_PointPolicy(integer dimension)
 			: dimension_(dimension)
 		{
-			PENSURE(N == dimension || N == Dynamic);
+			ENSURE(N == dimension || N == Dynamic);
 		}
 
 		typedef Real_ Real;

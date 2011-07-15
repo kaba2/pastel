@@ -23,24 +23,24 @@ namespace Pastel
 		{
 			enum
 			{
-				modelIndex,
-				sceneIndex,
-				minMatchRatioIndex,
-				matchingDistanceIndex,
-				confidenceIndex
+				ModelSet,
+				SceneSet,
+				MinMatchRatio,
+				MatchingDistance,
+				Inputs
 			};
 
-			const real* modelData = mxGetPr(inputSet[modelIndex]);
-			const integer modelPoints = mxGetN(inputSet[modelIndex]);
-			const real* sceneData = mxGetPr(inputSet[sceneIndex]);
-			const integer scenePoints = mxGetN(inputSet[sceneIndex]);
-			const real minMatchRatio = asScalar<real>(inputSet[minMatchRatioIndex]);
-			const real matchingDistance = 
-				asScalar<real>(inputSet[matchingDistanceIndex]);
-			const real confidence =
-				asScalar<real>(inputSet[confidenceIndex]);
+			ENSURE_OP(inputs, ==, Inputs);
 
-			const integer n = mxGetM(inputSet[modelIndex]);
+			const real* modelData = mxGetPr(inputSet[ModelSet]);
+			const integer modelPoints = mxGetN(inputSet[ModelSet]);
+			const real* sceneData = mxGetPr(inputSet[SceneSet]);
+			const integer scenePoints = mxGetN(inputSet[SceneSet]);
+			const real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
+			const real matchingDistance = 
+				asScalar<real>(inputSet[MatchingDistance]);
+
+			const integer n = mxGetM(inputSet[ModelSet]);
 
 			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
 			typedef SceneTree::Point_ConstIterator SceneIterator;
@@ -83,7 +83,7 @@ namespace Pastel
 			const bool success = Pastel::pointPatternMatchGmo(
 				modelTree, sceneTree, 
 				minMatchRatio, matchingDistance,
-				confidence, translation, std::back_inserter(pairSet));
+				translation, std::back_inserter(pairSet));
 
 			// Output the pairing.
 

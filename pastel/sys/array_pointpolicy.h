@@ -28,13 +28,13 @@ namespace Pastel
 			// We can't allow N == Dynamic here, since
 			// then there would be no way to get the
 			// dimensionality of the points.
-			PENSURE(N >= 0);
+			ENSURE(N >= 0);
 		}
 
 		explicit Array_PointPolicy(integer dimension)
 			: dimension_(dimension)
 		{
-			PENSURE(N == Dynamic || N == dimension);
+			ENSURE(N == Dynamic || N == dimension);
 		}
 
 		typedef Real_ Real;
