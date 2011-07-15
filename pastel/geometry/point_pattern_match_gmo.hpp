@@ -61,7 +61,6 @@ namespace Pastel
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 				const Real& minMatchRatio,
 				const Real& matchingDistance,
-				const Real& confidence,
 				Vector<Real, N>& translation,
 				SceneModel_Iterator output)
 			{
@@ -83,19 +82,11 @@ namespace Pastel
 					std::min((integer)std::ceil(minMatchRatio * modelSet.size()),
 					(integer)modelSet.size());
 
-				const Real suggestedTries = 
-					std::ceil(std::log(1 - confidence) / std::log(1 - minMatchRatio));
-
-				integer tries = modelSet.size();
-				if (suggestedTries >= 1 && suggestedTries < tries)
-				{
-					tries = suggestedTries;
-				}
-
-				for (integer i = 0;i < tries;++i)
+				const integer n = modelSet.size();
+				for (integer i = 0;i < n;++i)
 				{
 					// Pick a model pivot point.
-					ConstModelIterator modelPivotIter = modelSet[i];
+					const ConstModelIterator modelPivotIter = modelSet[i];
 
 					// Go over all scene pivot points.
 					ConstSceneIterator scenePivotIter = sceneTree.begin();
@@ -127,6 +118,8 @@ namespace Pastel
 								matchingDistance,
 								maxRelativeError,
 								Unique_AcceptPoint<ConstSceneIterator>(pairSet));
+
+							//log() << "Distance " << neighbor.key() << logNewLine;
 							
 							if (neighbor.value() != sceneTree.end())
 							{
@@ -134,6 +127,8 @@ namespace Pastel
 									neighbor.value(), modelIter));
 							}
 						}
+
+						//log() << pairSet.size() << " ";
 
 						if (pairSet.size() >= minMatches)
 						{
@@ -162,15 +157,12 @@ namespace Pastel
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
-		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		Vector<Real, N>& translation,
 		SceneModel_Iterator output)
 	{
 		ENSURE_OP(minMatchRatio, >=, 0);
 		ENSURE_OP(minMatchRatio, <=, 1);
 		ENSURE_OP(matchingDistance, >=, 0);
-		ENSURE_OP(confidence, >=, 0);
-		ENSURE_OP(confidence, <=, 1);
 
 		Detail_PointPatternMatch::PointPatternGmo<
 			Real, N, Model_PointPolicy, 
@@ -178,8 +170,9 @@ namespace Pastel
 			pointPattern;
 
 		return pointPattern.match(
-			modelTree, sceneTree, minMatchRatio,
-			matchingDistance, confidence,
+			modelTree, sceneTree, 
+			minMatchRatio,
+			matchingDistance,
 			translation, output);
 	}
 

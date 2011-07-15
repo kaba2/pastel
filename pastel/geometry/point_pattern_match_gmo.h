@@ -18,7 +18,6 @@ namespace Pastel
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
-		const PASTEL_NO_DEDUCTION(Real)& confidence,
 		Vector<Real, N>& translation,
 		SceneModel_Iterator output);
 

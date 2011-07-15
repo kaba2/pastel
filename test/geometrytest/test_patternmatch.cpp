@@ -137,7 +137,7 @@ namespace
 		const real matchingDistance = 0.1;
 
 		const real noise = 0;
-		const real confidence = -1;
+		const real confidence = 1;
 
 		// Storage for scene points.
 		std::vector<Vector2> sceneSet;
@@ -629,7 +629,7 @@ namespace
 		typedef PointKdTree<real, Dynamic, PointPolicy> ModelTree;
 		typedef ModelTree::Point_ConstIterator ModelIterator;
 
-		PointPolicy pointPolicy;
+		PointPolicy pointPolicy(n);
 
 		SceneTree sceneTree(pointPolicy);
 		sceneTree.insert(
@@ -661,14 +661,13 @@ namespace
 
 		// Compute the point pattern match.
 
-		const real minMatchRatio = 0.90;
-		const real matchingDistance = 0.01;
-		const real confidence = 0.99;
+		const real minMatchRatio = 0.50;
+		const real matchingDistance = 10;
 
 		const bool success = Pastel::pointPatternMatchGmo(
 			sceneTree, modelTree, 
 			minMatchRatio, matchingDistance,
-			confidence, translation, std::back_inserter(pairSet));
+			translation, std::back_inserter(pairSet));
 
 		if (success)
 		{
@@ -682,11 +681,11 @@ namespace
 
 	void test()
 	{
-		//testPekka2();
+		testPekka2();
 		//testPekka();
 		//testBoxPatternMatch(100, 0, "box_edge");
 		//testBoxPatternMatch(0, 100, "box_uniform");
-		testPatternMatch();
+		//testPatternMatch();
 	}
 
 	void addTest()
