@@ -1,6 +1,7 @@
 Blog
 ====
 
+
 Superclass delegation
 ---------------------
 
