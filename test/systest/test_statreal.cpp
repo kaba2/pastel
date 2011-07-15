@@ -22,7 +22,7 @@ namespace
 		typedef Number<real> Real;
 
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -158,7 +158,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("StatReal", testStatReal);
+		testRunner().add("StatReal", testStatReal);
 	}
 
 	CallFunction run(addTest);

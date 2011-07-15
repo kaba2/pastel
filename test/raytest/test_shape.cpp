@@ -20,7 +20,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&rayTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -92,7 +92,7 @@ namespace
 
 	void addTest()
 	{
-		rayTestList().add("Shape", testShape);
+		testRunner().add("Shape", testShape);
 	}
 
 	CallFunction run(addTest);

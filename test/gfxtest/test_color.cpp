@@ -139,8 +139,8 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Color.Constants", testConstants);
-		gfxTestList().add("Color.ChromaticAdaptation", testChromaticAdaptation);
+		testRunner().add("Color.Constants", testConstants);
+		testRunner().add("Color.ChromaticAdaptation", testChromaticAdaptation);
 	}
 
 	CallFunction run(addTest);

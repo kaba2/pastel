@@ -29,7 +29,7 @@ namespace
 		typedef Tree::Point_ConstIterator Point_ConstIterator;
 
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -442,7 +442,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("PointKdTree", test);
+		testRunner().add("PointKdTree", test);
 	}
 
 	CallFunction run(addTest);

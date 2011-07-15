@@ -21,7 +21,7 @@ namespace
 		typedef Rational<integer> Real;
 
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -279,7 +279,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("MaximumClique", testMaximumClique);
+		testRunner().add("MaximumClique", testMaximumClique);
 	}
 
 	CallFunction run(addTest);

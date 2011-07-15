@@ -15,7 +15,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -59,7 +59,7 @@ namespace
 
 	void addTests()
 	{
-		sysTestList().add("eps", testEps);
+		testRunner().add("eps", testEps);
 	}
 
 	CallFunction run(addTests);

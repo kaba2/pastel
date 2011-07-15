@@ -498,7 +498,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&gfxTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -1009,7 +1009,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("BlockMatching", testBlockMatching);
+		testRunner().add("BlockMatching", testBlockMatching);
 	}
 
 	CallFunction run(addTest);

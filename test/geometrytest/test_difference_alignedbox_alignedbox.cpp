@@ -35,7 +35,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -195,7 +195,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("DifferenceAlignedBox", test);
+		testRunner().add("DifferenceAlignedBox", test);
 	}
 
 	CallFunction run(addTest);

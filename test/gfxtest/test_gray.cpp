@@ -113,10 +113,10 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Gray.Image", testGray);
-		gfxTestList().add("Gray.Scale.Luma", testLinearLuma);
-		gfxTestList().add("Gray.Scale.Lightness", testLinearLightness);
-		gfxTestList().add("Gray.Scale.Luminance", testLinearLuminance);
+		testRunner().add("Gray.Image", testGray);
+		testRunner().add("Gray.Scale.Luma", testLinearLuma);
+		testRunner().add("Gray.Scale.Lightness", testLinearLightness);
+		testRunner().add("Gray.Scale.Luminance", testLinearLuminance);
 	}
 
 	CallFunction run(addTest);

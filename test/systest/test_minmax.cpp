@@ -15,7 +15,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -60,7 +60,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("MinMax", test);
+		testRunner().add("MinMax", test);
 	}
 
 	CallFunction run(addTest);

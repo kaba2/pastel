@@ -20,7 +20,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -195,7 +195,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("Polynomial", test);
+		testRunner().add("Polynomial", test);
 	}
 
 	CallFunction run(addTest);

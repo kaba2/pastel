@@ -27,10 +27,6 @@ namespace Pastel
 		std::ostream* stream_;
 	};
 
-	typedef CountedPtr<Stream_Logger> Stream_LoggerPtr;
-
-	PASTELSYS Stream_LoggerPtr streamLogger(std::ostream* stream);
-
 }
 
 #endif

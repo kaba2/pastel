@@ -38,7 +38,7 @@ namespace
 
 	void quantizeTests()
 	{
-		gfxTestList() +=
+		testRunner() +=
 			testErrorDiffusion,
 			testRounding;
 	}

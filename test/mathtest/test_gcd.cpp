@@ -16,7 +16,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -60,7 +60,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("Gcd", test);
+		testRunner().add("Gcd", test);
 	}
 
 	CallFunction run(addTest);

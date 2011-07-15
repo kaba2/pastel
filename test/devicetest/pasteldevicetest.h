@@ -5,7 +5,7 @@
 #include "pastel/sys/testrunner.h"
 #include "pastel/sys/callfunction.h"
 
-inline Pastel::TestRunner& deviceTestList()
+inline Pastel::TestRunner& testRunner()
 {
 	static Pastel::TestRunner deviceTestRunner("PastelDevice");
 	return deviceTestRunner;

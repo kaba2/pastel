@@ -15,7 +15,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -194,7 +194,7 @@ namespace
 
 	void addTests()
 	{
-		sysTestList().add("math_functions", test);
+		testRunner().add("math_functions", test);
 	}
 
 	CallFunction run(addTests);

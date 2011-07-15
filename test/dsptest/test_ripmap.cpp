@@ -62,7 +62,7 @@ namespace
 
 	void addTest()
 	{
-		dspTestList().add("RipMap", testRipMap);
+		testRunner().add("RipMap", testRipMap);
 	}
 
 	CallFunction run(addTest);

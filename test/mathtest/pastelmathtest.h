@@ -8,16 +8,16 @@
 
 #include <iostream>
 
-inline Pastel::TestRunner& mathTestList()
+inline Pastel::TestRunner& testRunner()
 {
-	static Pastel::TestRunner mathTestRunner("PastelMath");
-	return mathTestRunner;
+	static Pastel::TestRunner theTestRunner("PastelMath");
+	return theTestRunner;
 }
 
-inline Pastel::TestReport& mathTestReport()
+inline Pastel::TestReport& testReport()
 {
-	static Pastel::TestReport theMathTestReport("PastelMath");
-	return theMathTestReport;
+	static Pastel::TestReport theTestReport("PastelMath");
+	return theTestReport;
 }
 
 #endif

@@ -20,8 +20,11 @@ using namespace std;
 
 int main()
 {
-	log().addLogger(streamLogger(&std::cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&std::cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
 
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
@@ -46,9 +49,9 @@ int main()
 	gfxStorage().set("lena_mipmap", &mipMap);
 	gfxStorage().set("lena_texture", &texture);
 
-	gfxTestList().console();
+	testRunner().console();
 
-	generateTestReport(gfxTestReport(), log());
+	generateTestReport(testReport(), log());
 
 	std::string tmp;
 	std::getline(std::cin, tmp);

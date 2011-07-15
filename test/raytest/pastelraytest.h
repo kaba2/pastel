@@ -7,16 +7,16 @@
 #include "pastel/sys/callfunction.h"
 #include "pastel/sys/log.h"
 
-inline Pastel::TestRunner& rayTestList()
+inline Pastel::TestRunner& testRunner()
 {
-	static Pastel::TestRunner rayTestRunner("PastelRay");
-	return rayTestRunner;
+	static Pastel::TestRunner theTestRunner("PastelRay");
+	return theTestRunner;
 }
 
-inline Pastel::TestReport& rayTestReport()
+inline Pastel::TestReport& testReport()
 {
-	static Pastel::TestReport theRayTestReport("PastelRay");
-	return theRayTestReport;
+	static Pastel::TestReport theTestReport("PastelRay");
+	return theTestReport;
 }
 
 #endif

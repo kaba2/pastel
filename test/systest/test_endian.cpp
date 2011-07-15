@@ -14,7 +14,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -83,7 +83,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("Endian", test);
+		testRunner().add("Endian", test);
 	}
 
 	CallFunction run(addTest);

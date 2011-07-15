@@ -83,7 +83,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -366,7 +366,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("FastList", test);
+		testRunner().add("FastList", test);
 	}
 
 	CallFunction run(addTest);

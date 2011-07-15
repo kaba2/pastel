@@ -55,7 +55,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("Array", test);
+		testRunner().add("Array", test);
 	}
 
 	CallFunction run(addTest);

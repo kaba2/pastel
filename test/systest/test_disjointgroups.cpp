@@ -118,7 +118,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("DisjointGroups", test);
+		testRunner().add("DisjointGroups", test);
 	}
 
 	CallFunction run(addTest);

@@ -47,7 +47,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("SummedAreaTable", test);
+		testRunner().add("SummedAreaTable", test);
 	}
 
 	CallFunction run(addTest);

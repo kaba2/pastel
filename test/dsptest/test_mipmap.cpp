@@ -60,7 +60,7 @@ namespace
 
 	void addTest()
 	{
-		dspTestList().add("MipMap", test);
+		testRunner().add("MipMap", test);
 	}
 
 	CallFunction run(addTest);

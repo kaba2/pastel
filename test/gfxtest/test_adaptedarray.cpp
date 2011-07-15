@@ -42,7 +42,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("AdaptedView", test);
+		testRunner().add("AdaptedView", test);
 	}
 
 	CallFunction run(addTest);

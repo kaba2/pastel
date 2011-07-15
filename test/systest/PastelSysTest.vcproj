@@ -262,6 +262,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_log.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_math_functions.cpp"
 			>
 		</File>

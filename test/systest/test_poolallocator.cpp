@@ -134,7 +134,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("PoolAllocator", test);
+		testRunner().add("PoolAllocator", test);
 	}
 
 	CallFunction run(addTest);

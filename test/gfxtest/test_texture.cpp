@@ -620,7 +620,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Texture", test);
+		testRunner().add("Texture", test);
 	}
 
 	CallFunction run(addTest);

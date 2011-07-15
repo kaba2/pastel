@@ -18,7 +18,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -162,7 +162,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("Area", test);
+		testRunner().add("Area", test);
 	}
 
 	CallFunction run(addTest);

@@ -28,7 +28,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -351,7 +351,7 @@ namespace
 
 	void addTest()
 	{
-		sysTestList().add("SmallSet", test);
+		testRunner().add("SmallSet", test);
 	}
 
 	CallFunction run(addTest);

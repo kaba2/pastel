@@ -175,7 +175,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("KdTree.RayTracing", testSphereTracing);
+		testRunner().add("KdTree.RayTracing", testSphereTracing);
 	}
 
 	CallFunction run(addTest);

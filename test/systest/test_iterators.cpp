@@ -18,7 +18,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&sysTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -225,7 +225,7 @@ namespace
 
 	void addTests()
 	{
-		sysTestList().add("Iterators", testIterators);
+		testRunner().add("Iterators", testIterators);
 	}
 
 	CallFunction run(addTests);

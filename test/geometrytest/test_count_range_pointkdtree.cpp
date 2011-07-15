@@ -16,7 +16,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&geometryTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -97,7 +97,7 @@ namespace
 
 	void addTest()
 	{
-		geometryTestList().add("count_range_pointkdtree", test);
+		testRunner().add("count_range_pointkdtree", test);
 	}
 
 	CallFunction run(addTest);

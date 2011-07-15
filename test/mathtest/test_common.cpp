@@ -15,7 +15,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&mathTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -125,7 +125,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("Common", test);
+		testRunner().add("Common", test);
 	}
 
 	CallFunction run(addTest);

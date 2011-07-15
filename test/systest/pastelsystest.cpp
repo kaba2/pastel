@@ -12,16 +12,21 @@ using namespace Pastel;
 
 int main()
 {
-	log().addLogger(streamLogger(&cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
+
+	testLog().addLogger(&log());
 
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	//sysTestList().run();
-	sysTestList().console();
+	//testRunner().run();
+	testRunner().console();
 
-	generateTestReport(sysTestReport(), log());
+	generateTestReport(testReport(), log());
 
 	string tmp;
 	getline(cin, tmp);

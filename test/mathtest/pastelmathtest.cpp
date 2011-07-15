@@ -11,15 +11,18 @@ using namespace Pastel;
 
 int main()
 {
-	log().addLogger(streamLogger(&std::cout));
-	log().addLogger(fileLogger("log.txt"));
+	Stream_Logger streamLogger(&std::cout);
+	File_Logger fileLogger("log.txt");
+
+	log().addLogger(&streamLogger);
+	log().addLogger(&fileLogger);
 
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	mathTestList().console();
+	testRunner().console();
 
-	generateTestReport(mathTestReport(), log());
+	generateTestReport(testReport(), log());
 
 	std::string tmp;
 	std::getline(std::cin, tmp);

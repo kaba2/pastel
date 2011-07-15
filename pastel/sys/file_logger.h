@@ -27,10 +27,6 @@ namespace Pastel
 		std::ofstream file_;
 	};
 
-	typedef CountedPtr<File_Logger> File_LoggerPtr;
-
-	PASTELSYS File_LoggerPtr fileLogger(const std::string& fileName);
-
 }
 
 #endif

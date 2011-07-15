@@ -65,7 +65,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&dspTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -351,7 +351,7 @@ namespace
 
 	void addTest()
 	{
-		dspTestList().add("Fourier", testFourier);
+		testRunner().add("Fourier", testFourier);
 	}
 
 	CallFunction run(addTest);

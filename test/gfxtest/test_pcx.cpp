@@ -104,7 +104,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Pcx", test);
+		testRunner().add("Pcx", test);
 	}
 
 	CallFunction run(addTest);

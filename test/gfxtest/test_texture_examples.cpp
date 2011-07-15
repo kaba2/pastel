@@ -16,7 +16,7 @@ namespace
 	{
 	public:
 		Test()
-			: TestSuite(&gfxTestReport())
+			: TestSuite(&testReport())
 		{
 		}
 
@@ -107,7 +107,7 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Texture_Examples", testTextureExamples);
+		testRunner().add("Texture_Examples", testTextureExamples);
 	}
 
 	CallFunction run(addTest);

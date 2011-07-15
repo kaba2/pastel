@@ -89,8 +89,8 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Convolution.2D", testConvolute2);
-		gfxTestList().add("Convolution.3D", testConvolute3);
+		testRunner().add("Convolution.2D", testConvolute2);
+		testRunner().add("Convolution.3D", testConvolute3);
 	}
 
 	CallFunction run(addTest);

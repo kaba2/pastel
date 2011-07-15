@@ -497,21 +497,21 @@ namespace
 
 	void addTest()
 	{
-		gfxTestList().add("Drawing.Texture", testTexture);
-		gfxTestList().add("Drawing.View", testView);
-		gfxTestList().add("Drawing.Binary", testBinary);
-		gfxTestList().add("Drawing.FloodFill", testFloodFill);
-		gfxTestList().add("Drawing.Lines", testLines);
-		gfxTestList().add("Drawing.MoreLines", testMoreLines);
-		gfxTestList().add("Drawing.EvenMoreLines", testEvenMoreLines);
-		gfxTestList().add("Drawing.SolidTriangle", testSolidTriangle);
-		gfxTestList().add("Drawing.TextureTriangle", testTextureTriangle);
-		gfxTestList().add("Drawing.EwaTriangle", testEwaTriangle);
-		gfxTestList().add("Drawing.PerspectiveTriangle", testPerspectiveTriangle);
-		gfxTestList().add("Drawing.EwaPerspectiveTriangle", testEwaPerspectiveTriangle);
-		gfxTestList().add("Drawing.Boxes", testBoxes);
-		gfxTestList().add("Drawing.Circles", testCircles);
-		gfxTestList().add("Drawing.MoreCircles", testMoreCircles);
+		testRunner().add("Drawing.Texture", testTexture);
+		testRunner().add("Drawing.View", testView);
+		testRunner().add("Drawing.Binary", testBinary);
+		testRunner().add("Drawing.FloodFill", testFloodFill);
+		testRunner().add("Drawing.Lines", testLines);
+		testRunner().add("Drawing.MoreLines", testMoreLines);
+		testRunner().add("Drawing.EvenMoreLines", testEvenMoreLines);
+		testRunner().add("Drawing.SolidTriangle", testSolidTriangle);
+		testRunner().add("Drawing.TextureTriangle", testTextureTriangle);
+		testRunner().add("Drawing.EwaTriangle", testEwaTriangle);
+		testRunner().add("Drawing.PerspectiveTriangle", testPerspectiveTriangle);
+		testRunner().add("Drawing.EwaPerspectiveTriangle", testEwaPerspectiveTriangle);
+		testRunner().add("Drawing.Boxes", testBoxes);
+		testRunner().add("Drawing.Circles", testCircles);
+		testRunner().add("Drawing.MoreCircles", testMoreCircles);
 	}
 
 	CallFunction run(addTest);

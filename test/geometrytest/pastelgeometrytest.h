@@ -7,16 +7,22 @@
 #include "pastel/sys/testsuite.h"
 #include "pastel/sys/callfunction.h"
 
-inline Pastel::TestRunner& geometryTestList()
+inline Pastel::TestRunner& testRunner()
 {
 	static Pastel::TestRunner geometryTestRunner("PastelGeometry");
 	return geometryTestRunner;
 }
 
-inline Pastel::TestReport& geometryTestReport()
+inline Pastel::TestReport& testReport()
 {
 	static Pastel::TestReport theGeometryTestReport("PastelGeometry");
 	return theGeometryTestReport;
+}
+
+inline Pastel::Log& testLog()
+{
+	static Pastel::Log theGeometryTestLog;
+	return theGeometryTestLog;
 }
 
 #endif

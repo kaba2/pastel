@@ -3,11 +3,6 @@
 namespace Pastel
 {
 
-	PASTELSYS Stream_LoggerPtr streamLogger(std::ostream* stream)
-	{
-		return Stream_LoggerPtr(new Stream_Logger(stream));
-	}
-
 	Stream_Logger::Stream_Logger(std::ostream* stream)
 		: stream_(stream)
 	{
@@ -15,6 +10,7 @@ namespace Pastel
 
 	Stream_Logger::~Stream_Logger()
 	{
+		finalize();
 	}
 
 	void Stream_Logger::finalize()

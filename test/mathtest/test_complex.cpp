@@ -47,7 +47,7 @@ namespace
 
 	void addTest()
 	{
-		mathTestList().add("Complex.Sin", testSin);
+		testRunner().add("Complex.Sin", testSin);
 	}
 
 	CallFunction run(addTest);
