@@ -60,7 +60,7 @@ namespace Pastel
 				const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 				const Real& minMatchRatio,
-				const Real& matchingDistance,
+				const Real& actualMatchingDistance,
 				Vector<Real, N>& translation,
 				SceneModel_Iterator output)
 			{
@@ -70,6 +70,10 @@ namespace Pastel
 					countingIterator(modelTree.begin()),
 					countingIterator(modelTree.end()));
 				std::random_shuffle(modelSet.begin(), modelSet.end());
+
+				Euclidean_NormBijection<Real> normBijection;
+				const Real matchingDistance = 
+					normBijection.toBijection(actualMatchingDistance);
 
 				Vector<Real, N> searchPoint(ofDimension(modelTree.dimension()));
 				Vector<Real, N> tryTranslation(ofDimension(modelTree.dimension()));
