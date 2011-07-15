@@ -27,6 +27,7 @@ namespace Pastel
 				SceneSet,
 				MinMatchRatio,
 				MatchingDistance,
+				MatchingMode,
 				Inputs
 			};
 
@@ -34,11 +35,20 @@ namespace Pastel
 			{
 				PairSet,
 				Translation,
+				Stability,
 				Success,
 				Outputs
 			};
 
 			ENSURE_OP(inputs, ==, Inputs);
+
+			MatchingMode::Enum matchingModeSet[] =
+			{
+				MatchingMode::FirstMatch,
+				MatchingMode::MaximumMatch
+			};
+			const integer matchingModes = 
+				sizeof(matchingModeSet) / sizeof(MatchingMode::Enum);
 
 			const real* modelData = mxGetPr(inputSet[ModelSet]);
 			const integer modelPoints = mxGetN(inputSet[ModelSet]);
@@ -47,6 +57,13 @@ namespace Pastel
 			const real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
 			const real matchingDistance = 
 				asScalar<real>(inputSet[MatchingDistance]);
+			const integer matchingModeId = asScalar<integer>(inputSet[MatchingMode]);
+
+			ENSURE_OP(matchingModeId, >=, 0);
+			ENSURE_OP(matchingModeId, <, matchingModes);
+			
+			const MatchingMode::Enum matchingMode = 
+				matchingModeSet[matchingModeId];
 
 			const integer modelDimension = mxGetM(inputSet[ModelSet]);
 			const integer sceneDimension = mxGetM(inputSet[SceneSet]);
@@ -84,13 +101,19 @@ namespace Pastel
 
 			std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
 			Vector<real> translation(ofDimension(n));
+			real stability = 0;
 
 			// Compute the point pattern match.
 
+			Euclidean_NormBijection<real> normBijection;
 			const bool success = Pastel::pointPatternMatchGmo(
 				modelTree, sceneTree, 
 				minMatchRatio, matchingDistance,
-				translation, std::back_inserter(pairSet));
+				matchingMode,
+				normBijection,
+				translation, 
+				stability,
+				std::back_inserter(pairSet));
 
 			// Output the pairing.
 
@@ -110,6 +133,11 @@ namespace Pastel
 				createArray<real>(Vector2i(1, n), outputSet[Translation]);
 			std::copy(translation.begin(), translation.end(),
 				outTranslation->begin());
+
+			// Output the stability.
+
+			real* outStability = createScalar<real>(outputSet[Stability]);
+			*outStability = stability;
 
 			// Output the success flag.
 

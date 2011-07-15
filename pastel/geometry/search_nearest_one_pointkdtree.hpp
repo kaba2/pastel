@@ -108,7 +108,7 @@ namespace Pastel
 		return Pastel::searchNearestOne(
 			kdTree, searchPoint, 
 			maxDistance, maxRelativeError,
-			acceptPoint, 1);
+			acceptPoint, 16);
 	}
 
 	template <typename Real, int N, typename PointPolicy,

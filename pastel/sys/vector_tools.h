@@ -117,6 +117,12 @@ namespace Pastel
 		const VectorExpression<Real, LeftN, LeftExpression>& left,
 		const VectorExpression<Real, RightN, RightExpression>& right);
 
+	//! Returns the norm bijection of a vector.
+	template <typename Real, int N, typename Expression, 
+		typename NormBijection>
+	Real norm2(const VectorExpression<Real, N, Expression>& that,
+		const NormBijection& normBijection);
+
 	//! Returns the Euclidean norm of a vector.
 	/*!
 	The Euclidean (L2) norm is:

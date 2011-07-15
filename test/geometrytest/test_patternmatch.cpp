@@ -658,8 +658,11 @@ namespace
 
 		std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
 		Vector<real> translation(ofDimension(n));
+		real stability = 0;
 
 		// Compute the point pattern match.
+
+		Euclidean_NormBijection<real> normBijection;
 
 		const real minMatchRatio = 0.50;
 		const real matchingDistance = 10;
@@ -667,7 +670,11 @@ namespace
 		const bool success = Pastel::pointPatternMatchGmo(
 			sceneTree, modelTree, 
 			minMatchRatio, matchingDistance,
-			translation, std::back_inserter(pairSet));
+			MatchingMode::MaximumMatch,
+			normBijection,
+			translation, 
+			stability,
+			std::back_inserter(pairSet));
 
 		if (success)
 		{

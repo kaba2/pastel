@@ -15,21 +15,22 @@ namespace Pastel
 	{
 
 		template <typename Real, int N, typename Model_PointPolicy, 
-			typename Scene_PointPolicy, typename SceneModel_Iterator>
+			typename Scene_PointPolicy, typename SceneModel_Iterator,
+			typename NormBijection>
 		class PointPatternGmo
 		{
 		public:
 			typedef PointKdTree<Real, N, Model_PointPolicy> ModelTree;
 			typedef typename ModelTree::Point_ConstIterator 
-				ConstModelIterator;
+				Model_ConstIterator;
 			typedef typename ModelTree::Point ModelPoint;
 
 			typedef PointKdTree<Real, N, Scene_PointPolicy> SceneTree;
 			typedef typename SceneTree::Point_ConstIterator 
-				ConstSceneIterator;
+				Scene_ConstIterator;
 			typedef typename SceneTree::Point ScenePoint;
 
-			typedef std::map<ConstSceneIterator, ConstModelIterator> 
+			typedef std::map<Scene_ConstIterator, Model_ConstIterator> 
 				PairSet;
 			typedef typename PairSet::iterator Pair_Iterator;
 			typedef typename PairSet::const_iterator Pair_ConstIterator;
@@ -61,22 +62,27 @@ namespace Pastel
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 				const Real& minMatchRatio,
 				const Real& actualMatchingDistance,
-				Vector<Real, N>& translation,
+				MatchingMode::Enum matchingMode,
+				const NormBijection& normBijection,
+				Vector<Real, N>& outTranslation,
+				Real& outStability,
 				SceneModel_Iterator output)
 			{
-				// It always holds that modelTree.size() <= sceneTree.size().						
+				const integer d = modelTree.dimension();
 
-				std::vector<ConstModelIterator> modelSet(
+				outTranslation = Vector<Real, N>(ofDimension(d), 0);
+				outStability = 0;
+
+				std::vector<Model_ConstIterator> modelSet(
 					countingIterator(modelTree.begin()),
 					countingIterator(modelTree.end()));
 				std::random_shuffle(modelSet.begin(), modelSet.end());
 
-				Euclidean_NormBijection<Real> normBijection;
 				const Real matchingDistance = 
 					normBijection.toBijection(actualMatchingDistance);
 
-				Vector<Real, N> searchPoint(ofDimension(modelTree.dimension()));
-				Vector<Real, N> tryTranslation(ofDimension(modelTree.dimension()));
+				Vector<Real, N> searchPoint(ofDimension(d));
+				Vector<Real, N> translation(ofDimension(d));
 				// We allow relative error for the nearest neighbor,
 				// since this is an approximate algorithm anyway.
 				// This gives us some performance boost.
@@ -86,42 +92,50 @@ namespace Pastel
 					std::min((integer)std::ceil(minMatchRatio * modelSet.size()),
 					(integer)modelSet.size());
 
+				PairSet bestPairSet;
+				Vector<Real, N> bestTranslation(ofDimension(d));
+				Real bestStability = 0;
+
+				bool exitEarly = false;
+
 				const integer n = modelSet.size();
-				for (integer i = 0;i < n;++i)
+				for (integer i = 0;i < n && !exitEarly;++i)
 				{
 					// Pick a model pivot point.
-					const ConstModelIterator modelPivotIter = modelSet[i];
+					const Model_ConstIterator modelPivotIter = modelSet[i];
 
 					// Go over all scene pivot points.
-					ConstSceneIterator scenePivotIter = sceneTree.begin();
-					const ConstSceneIterator scenePivotEnd = sceneTree.end();
-					while(scenePivotIter != scenePivotEnd)
+					Scene_ConstIterator scenePivotIter = sceneTree.begin();
+					const Scene_ConstIterator scenePivotEnd = sceneTree.end();
+					while(scenePivotIter != scenePivotEnd && !exitEarly)
 					{
-						tryTranslation = 
+						translation = 
 							sceneTree.pointPolicy()(
 							scenePivotIter->point()) -
 							modelTree.pointPolicy()(
 							modelPivotIter->point());
 
 						// Find out how many points match
-						// under this translation.
+						// under this outTranslation.
 
 						PairSet pairSet;
 						for (integer j = 0;j < modelSet.size();++j)
 						{
-							const ConstModelIterator modelIter = modelSet[j];
+							const Model_ConstIterator modelIter = modelSet[j];
 							
 							searchPoint = modelTree.pointPolicy()(
 								modelIter->point()) + 
-								tryTranslation;
+								translation;
 
-							const KeyValue<Real, ConstSceneIterator> neighbor = 
+							const KeyValue<Real, Scene_ConstIterator> neighbor = 
 								searchNearestOne(
 								sceneTree, 
 								searchPoint,
 								matchingDistance,
 								maxRelativeError,
-								Unique_AcceptPoint<ConstSceneIterator>(pairSet));
+								Unique_AcceptPoint<Scene_ConstIterator>(pairSet),
+								16,
+								normBijection);
 
 							//log() << "Distance " << neighbor.key() << logNewLine;
 							
@@ -134,18 +148,88 @@ namespace Pastel
 
 						//log() << pairSet.size() << " ";
 
-						if (pairSet.size() >= minMatches)
+						if (pairSet.size() >= minMatches &&
+							pairSet.size() >= bestPairSet.size())
 						{
-							// We have found a matching translation.
-							std::copy(
-								pairSet.begin(), pairSet.end(),
-								output);
-							translation = tryTranslation;
-							return true;
+							// We have found a match.
+
+							// Compute the stability of the match.
+							// The stability is the minimum percentage of the
+							// matching distance such that a outTranslation by
+							// that distance would lose the match.
+							Real stability = 0;
+							{
+								Real maxDistance = 0;
+
+								Pair_ConstIterator iter = pairSet.begin();
+								const Pair_ConstIterator iterEnd = pairSet.end();
+								while(iter != iterEnd)
+								{
+									const Real distance = 
+										norm2(
+										sceneTree.pointPolicy()(iter->first->point()) -
+										(modelTree.pointPolicy()(iter->second->point()) + translation),
+										normBijection);
+
+									if (distance > maxDistance)
+									{
+										maxDistance = distance;
+									}
+
+									++iter;
+								}
+
+								stability = 
+									1 - normBijection.toNorm(maxDistance) /
+									actualMatchingDistance;
+							}							
+
+							if (matchingMode == MatchingMode::FirstMatch)
+							{
+								// The first match was asked for,
+								// so return this match.
+
+								bestPairSet.swap(pairSet);
+								bestTranslation = translation;
+								bestStability = stability;
+
+								// No need to look for additional matches.
+								exitEarly = true;
+							}
+							else if (matchingMode == MatchingMode::MaximumMatch)
+							{
+								// A maximum match was asked for,
+								// so the greater-than here is on purpose
+								// (there can be many maximum matches).
+								// Between matches of the same size,
+								// we pick the more stable one.
+
+								if (pairSet.size() > bestPairSet.size() ||
+									(pairSet.size() == bestPairSet.size() &&
+									stability > bestStability))
+								{
+									bestPairSet.swap(pairSet);
+									bestTranslation = translation;
+									bestStability = stability;
+								}
+							}
 						}
 
 						++scenePivotIter;
 					}
+				}
+
+				if (!bestPairSet.empty())
+				{
+					// A match was found. Report it.
+
+					std::copy(
+						bestPairSet.begin(), bestPairSet.end(),
+						output);
+					outTranslation = bestTranslation;
+					outStability = bestStability;
+
+					return true;
 				}
 
 				return false;
@@ -155,13 +239,17 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename SceneModel_Iterator>
+		typename Scene_PointPolicy, typename SceneModel_Iterator,
+		typename NormBijection>
 	bool pointPatternMatchGmo(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
-		Vector<Real, N>& translation,
+		MatchingMode::Enum matchingMode,
+		const NormBijection& normBijection,
+		Vector<Real, N>& outTranslation,
+		PASTEL_NO_DEDUCTION(Real)& outStability,
 		SceneModel_Iterator output)
 	{
 		ENSURE_OP(minMatchRatio, >=, 0);
@@ -170,14 +258,19 @@ namespace Pastel
 
 		Detail_PointPatternMatch::PointPatternGmo<
 			Real, N, Model_PointPolicy, 
-			Scene_PointPolicy, SceneModel_Iterator> 
+			Scene_PointPolicy, SceneModel_Iterator,
+			NormBijection> 
 			pointPattern;
 
 		return pointPattern.match(
 			modelTree, sceneTree, 
 			minMatchRatio,
 			matchingDistance,
-			translation, output);
+			matchingMode,
+			normBijection,
+			outTranslation, 
+			outStability,
+			output);
 	}
 
 }
