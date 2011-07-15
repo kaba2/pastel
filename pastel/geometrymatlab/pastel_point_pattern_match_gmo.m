@@ -22,11 +22,15 @@
 % under which a mapped point from the 'modelPointSet' is considered 
 % matching a point from the 'scenePointSet'.
 %
-% SUCCESS is a real number, which is 1 if a match was found, and 0
-% otherwise.
+% PAIRSET is a (2 x k)-integer-array of indices, where each column is
+% a pair (i, j), where i is the index of a scene point, and j is the index
+% of its matched model point. 
 %
 % TRANSLATION is a (d x 1)-real-array which gives the matching translation
 % in case such is found ('success' is 1).
+%
+% SUCCESS is a real number, which is 1 if a match was found, and 0
+% otherwise.
 %
 % A transformed model-point is said to match if it has a unique scene 
 % point in its matching distance, where distance is measured by the

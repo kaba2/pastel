@@ -30,6 +30,14 @@ namespace Pastel
 				Inputs
 			};
 
+			enum
+			{
+				PairSet,
+				Translation,
+				Success,
+				Outputs
+			};
+
 			ENSURE_OP(inputs, ==, Inputs);
 
 			const real* modelData = mxGetPr(inputSet[ModelSet]);
@@ -40,7 +48,12 @@ namespace Pastel
 			const real matchingDistance = 
 				asScalar<real>(inputSet[MatchingDistance]);
 
-			const integer n = mxGetM(inputSet[ModelSet]);
+			const integer modelDimension = mxGetM(inputSet[ModelSet]);
+			const integer sceneDimension = mxGetM(inputSet[SceneSet]);
+			
+			ENSURE_OP(modelDimension, ==, sceneDimension);
+
+			const integer n = modelDimension;
 
 			typedef PointKdTree<real, Dynamic, Array_PointPolicy<real> > SceneTree;
 			typedef SceneTree::Point_ConstIterator SceneIterator;
@@ -57,18 +70,12 @@ namespace Pastel
 				countingIterator(sceneData + scenePoints * n),
 				n));
 
-			//constSparseIterator(countingIterator(sceneData), n), 
-			//constSparseIterator(countingIterator(sceneData), n) + scenePoints);
-
 			ModelTree modelTree(pointPolicy);
 			modelTree.insert(
 				constSparseRange(
 				countingIterator(modelData),
 				countingIterator(modelData + modelPoints * n),
 				n));
-
-			//constSparseIterator(countingIterator(modelData), n),
-			//constSparseIterator(countingIterator(modelData), n) + modelPoints);
 
 			sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 			modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
@@ -87,31 +94,27 @@ namespace Pastel
 
 			// Output the pairing.
 
-			outputSet[0] = mxCreateDoubleMatrix(2, pairSet.size(), mxREAL);
-			real* rawPair = mxGetPr(outputSet[0]);
+			Int32ArrayPtr outPairSet = createArray<int32>(
+				Vector2i(pairSet.size(), 2), outputSet[PairSet]);
 
 			for (integer i = 0;i < pairSet.size();++i)
 			{
-				//rawPair[i * 2] = pairSet[i].first == sceneTree.end() ? 1 : 0;
-				//rawPair[i * 2 + 1] = pairSet[i].second == modelTree.end() ? -1 : +1;
-
-				rawPair[i * 2] = (pairSet[i].first->point() - sceneData) / n;
-				rawPair[i * 2 + 1] = (pairSet[i].second->point() - modelData) / n;
+				// The +1 is because Matlab has 1-based indexing.
+				(*outPairSet)(i, 0) = (pairSet[i].first->point() - sceneData) / n + 1;
+				(*outPairSet)(i, 1) = (pairSet[i].second->point() - modelData) / n + 1;
 			}
 
 			// Output the translation.
 
-			outputSet[1] = mxCreateDoubleMatrix(n, 1, mxREAL);
-			real* rawTranslation = mxGetPr(outputSet[1]);
-
+			RealArrayPtr outTranslation =
+				createArray<real>(Vector2i(1, n), outputSet[Translation]);
 			std::copy(translation.begin(), translation.end(),
-				rawTranslation);
+				outTranslation->begin());
 
 			// Output the success flag.
 
-			outputSet[2] = mxCreateDoubleMatrix(1, 1, mxREAL);
-			real* rawSuccess = mxGetPr(outputSet[2]);
-			*rawSuccess = success ? 1 : 0;
+			int32* outSuccess = createScalar<int32>(outputSet[Success]);
+			*outSuccess = success ? 1 : 0;
 		}
 
 		void addFunction()
