@@ -1,7 +1,7 @@
 Iterators
 =========
 
-[[Parent]]: pastelsys.txt
+[[Parent]]: generic_programming.txt
 
 A _cursor_ is an object that allows traversal and protected
 node access in a graph data structure. An _iterator_ is a

@@ -1,0 +1,4 @@
+Reporter concept
+================
+
+[[Parent]]: generic_programming.txt

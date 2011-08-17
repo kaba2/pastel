@@ -619,6 +619,26 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="As_Pair concept"
+				>
+				<File
+					RelativePath=".\as_pair_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\as_pair_concept.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\keyvalue_as_pair.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stdpair_as_pair.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Memory management"
@@ -1885,38 +1905,6 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Iterators"
-			>
-			<File
-				RelativePath=".\constantiterator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\countingiterator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\iterators.h"
-				>
-			</File>
-			<File
-				RelativePath=".\iterators.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\nulliterator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\rectangleiterator.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sparseiterator.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Documentation"
 			>
 			<File
@@ -2171,67 +2159,15 @@
 					>
 				</File>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Algorithm concept"
-			>
-			<File
-				RelativePath=".\algorithm.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\algorithm_concept.h"
-				>
-			</File>
 			<Filter
-				Name="RangeAlgorithm concept"
+				Name="Maximum bipartite matching"
 				>
 				<File
-					RelativePath=".\rangealgorithm.txt"
+					RelativePath=".\maximum_bipartite_matching.h"
 					>
 				</File>
 				<File
-					RelativePath=".\rangealgorithm_concept.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Predicate concept"
-				>
-				<File
-					RelativePath=".\equalto.h"
-					>
-				</File>
-				<File
-					RelativePath=".\greaterequal.h"
-					>
-				</File>
-				<File
-					RelativePath=".\greaterthan.h"
-					>
-				</File>
-				<File
-					RelativePath=".\lessequal.h"
-					>
-				</File>
-				<File
-					RelativePath=".\lessthan.h"
-					>
-				</File>
-				<File
-					RelativePath=".\notequalto.h"
-					>
-				</File>
-				<File
-					RelativePath=".\predicate.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\predicate_concept.h"
-					>
-				</File>
-				<File
-					RelativePath=".\predicates.h"
+					RelativePath=".\maximum_bipartite_matching.hpp"
 					>
 				</File>
 			</Filter>
@@ -2316,150 +2252,6 @@
 				</File>
 				<File
 					RelativePath=".\pastelomp.hpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="Ranges"
-			>
-			<File
-				RelativePath=".\ranges.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ranges.txt"
-				>
-			</File>
-			<Filter
-				Name="Concrete ranges"
-				>
-				<File
-					RelativePath=".\array_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\array_range.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\concrete_ranges.h"
-					>
-				</File>
-				<File
-					RelativePath=".\concrete_ranges.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\constant_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\constant_range.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\finite_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\finite_range.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\generated_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\generated_range.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\reverse_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\reverse_range.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\stream_range.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stream_range.txt"
-					>
-				</File>
-				<Filter
-					Name="Iterator ranges"
-					>
-					<File
-						RelativePath=".\bidirectionaliterator_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\forwarditerator_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\iterator_range.h"
-						>
-					</File>
-					<File
-						RelativePath=".\iterator_range.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\iterator_range.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\randomaccessiterator_range.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Range concepts"
-				>
-				<File
-					RelativePath=".\bidirectionalrange_concept.h"
-					>
-				</File>
-				<File
-					RelativePath=".\forwardrange_concept.h"
-					>
-				</File>
-				<File
-					RelativePath=".\randomaccessrange_concept.h"
-					>
-				</File>
-				<File
-					RelativePath=".\range_concepts.h"
-					>
-				</File>
-				<File
-					RelativePath=".\range_concepts.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Algorithms"
-				>
-				<File
-					RelativePath=".\range_algorithms.h"
-					>
-				</File>
-				<File
-					RelativePath=".\range_algorithms.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\range_for_all.h"
-					>
-				</File>
-				<File
-					RelativePath=".\range_for_all.hpp"
 					>
 				</File>
 			</Filter>
@@ -2586,6 +2378,266 @@
 					RelativePath=".\measuretable_tools.h"
 					>
 				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Generic programming"
+			>
+			<File
+				RelativePath=".\generic_programming.txt"
+				>
+			</File>
+			<Filter
+				Name="Reporter concept"
+				>
+				<File
+					RelativePath=".\reporter.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\reporter_concept.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Ranges"
+				>
+				<File
+					RelativePath=".\ranges.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ranges.txt"
+					>
+				</File>
+				<Filter
+					Name="Concrete ranges"
+					>
+					<File
+						RelativePath=".\array_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\array_range.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\concrete_ranges.h"
+						>
+					</File>
+					<File
+						RelativePath=".\concrete_ranges.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\constant_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\constant_range.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\finite_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\finite_range.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\generated_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\generated_range.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\reverse_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\reverse_range.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\stream_range.h"
+						>
+					</File>
+					<File
+						RelativePath=".\stream_range.txt"
+						>
+					</File>
+					<Filter
+						Name="Iterator ranges"
+						>
+						<File
+							RelativePath=".\bidirectionaliterator_range.h"
+							>
+						</File>
+						<File
+							RelativePath=".\forwarditerator_range.h"
+							>
+						</File>
+						<File
+							RelativePath=".\iterator_range.h"
+							>
+						</File>
+						<File
+							RelativePath=".\iterator_range.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\iterator_range.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\randomaccessiterator_range.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Range concepts"
+					>
+					<File
+						RelativePath=".\bidirectionalrange_concept.h"
+						>
+					</File>
+					<File
+						RelativePath=".\forwardrange_concept.h"
+						>
+					</File>
+					<File
+						RelativePath=".\randomaccessrange_concept.h"
+						>
+					</File>
+					<File
+						RelativePath=".\range_concepts.h"
+						>
+					</File>
+					<File
+						RelativePath=".\range_concepts.txt"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Algorithms"
+					>
+					<File
+						RelativePath=".\range_algorithms.h"
+						>
+					</File>
+					<File
+						RelativePath=".\range_algorithms.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\range_for_all.h"
+						>
+					</File>
+					<File
+						RelativePath=".\range_for_all.hpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Iterators"
+				>
+				<File
+					RelativePath=".\constantiterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\countingiterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iterators.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iterators.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\nulliterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\rectangleiterator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\sparseiterator.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Algorithm concept"
+				>
+				<File
+					RelativePath=".\algorithm.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\algorithm_concept.h"
+					>
+				</File>
+				<Filter
+					Name="RangeAlgorithm concept"
+					>
+					<File
+						RelativePath=".\rangealgorithm.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\rangealgorithm_concept.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Predicate concept"
+					>
+					<File
+						RelativePath=".\equalto.h"
+						>
+					</File>
+					<File
+						RelativePath=".\greaterequal.h"
+						>
+					</File>
+					<File
+						RelativePath=".\greaterthan.h"
+						>
+					</File>
+					<File
+						RelativePath=".\lessequal.h"
+						>
+					</File>
+					<File
+						RelativePath=".\lessthan.h"
+						>
+					</File>
+					<File
+						RelativePath=".\notequalto.h"
+						>
+					</File>
+					<File
+						RelativePath=".\predicate.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\predicate_concept.h"
+						>
+					</File>
+					<File
+						RelativePath=".\predicates.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<File

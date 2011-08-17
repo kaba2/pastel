@@ -1,7 +1,7 @@
 Ranges
 ======
 
-[[Parent]]: pastelsys.txt
+[[Parent]]: generic_programming.txt
 
 A _range_ is a sequence of elements of some specific type. 
 
