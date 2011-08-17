@@ -270,6 +270,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_maximum_bipartite_matching.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_minmax.cpp"
 			>
 		</File>
@@ -319,6 +323,10 @@
 		</File>
 		<File
 			RelativePath=".\test_string_tools.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_template.cpp"
 			>
 		</File>
 		<File

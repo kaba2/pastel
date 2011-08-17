@@ -619,26 +619,6 @@
 					</File>
 				</Filter>
 			</Filter>
-			<Filter
-				Name="As_Pair concept"
-				>
-				<File
-					RelativePath=".\as_pair_concept.h"
-					>
-				</File>
-				<File
-					RelativePath=".\as_pair_concept.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\keyvalue_as_pair.h"
-					>
-				</File>
-				<File
-					RelativePath=".\stdpair_as_pair.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Memory management"
@@ -2160,16 +2140,28 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Maximum bipartite matching"
+				Name="Graph algorithms"
 				>
 				<File
-					RelativePath=".\maximum_bipartite_matching.h"
+					RelativePath=".\graph_algorithms.txt"
 					>
 				</File>
-				<File
-					RelativePath=".\maximum_bipartite_matching.hpp"
+				<Filter
+					Name="Maximum bipartite matching"
 					>
-				</File>
+					<File
+						RelativePath=".\maximum_bipartite_matching.h"
+						>
+					</File>
+					<File
+						RelativePath=".\maximum_bipartite_matching.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\maximum_bipartite_matching.txt"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -2638,6 +2630,30 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="As_Pair concept"
+				>
+				<File
+					RelativePath=".\as_pair_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\as_pair_concept.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\keyvalue_as_pair.h"
+					>
+				</File>
+				<File
+					RelativePath=".\stdpair_as_pair.h"
+					>
+				</File>
+				<File
+					RelativePath=".\tuple_as_pair.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File

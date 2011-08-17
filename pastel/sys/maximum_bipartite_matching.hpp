@@ -5,9 +5,11 @@
 #include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/keyvalue.h"
+#include "pastel/sys/tuple_as_pair.h"
 
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 namespace Pastel
 {
@@ -18,20 +20,23 @@ namespace Pastel
 		class Algorithm
 		{
 		public:
-			void work()
+			template <typename Vertex_Pair_ForwardRange, typename As_Pair>
+			void work(
+				Vertex_Pair_ForwardRange range,
+				const As_Pair& asPair)
 			{
 				// This is the Hopcroft-Karp algorithm for 
 				// maximum bipartite matching.
 
-				initialize();
+				initialize(range, asPair);
 
 				while(findAugmentingPaths())
 				{
 					// As long as there are augmenting paths...
-					const integer leftVertices = leftSet.size();
+					const integer leftVertices = leftSet_.size();
 					for (integer i = 0;i < leftVertices;++i)
 					{
-						const integer leftIndex = leftSet[i];
+						const integer leftIndex = leftSet_[i];
 						Vertex& left = vertexSet_[leftIndex];
 						if (!left.paired())
 						{
@@ -49,13 +54,13 @@ namespace Pastel
 			{
 				std::queue<integer> eventSet;
 
-				vertexSet[Sentinel].unvisit();
+				vertexSet_[Sentinel].unvisit();
 
-				const integer leftVertices = leftSet.size();
+				const integer leftVertices = leftSet_.size();
 				for (integer i = 0;i < leftVertices;++i)
 				{
 					Vertex& vertex = 
-						vertexSet_[leftSet[i]];
+						vertexSet_[leftSet_[i]];
 					if (!vertex.paired())
 					{
 						vertex.visit(0);
@@ -76,7 +81,7 @@ namespace Pastel
 					// This gives a breadth-first ordering for
 					// visiting the graph.
 					Vertex& left = 
-						vertexSet[eventSet.front()];
+						vertexSet_[eventSet.front()];
 					eventSet.pop();
 
 					// As an invariant, 'left' is not paired.
@@ -84,19 +89,18 @@ namespace Pastel
 					// not part of the match yet.
 					ASSERT(!left.paired());
 
-					const integer edges = vertex.edges();
+					const integer edges = left.edges();
 					for (integer i = 0;i < edges;++i)
 					{
 						Vertex& right =
-							adjacent(vertex, i);
+							adjacent(left, i);
 
 						// The 'nextLeft' is either a sentinel
 						// node or a left vertex. If it is a 
 						// sentinel (i.e. 'right' is not paired),
 						// then it means we have found at least 
 						// one augmenting path.
-						Vertex& nextLeft = 
-							right.pair();
+						Vertex& nextLeft = pair(right);
 
 						if (!nextLeft.visited())
 						{
@@ -121,27 +125,27 @@ namespace Pastel
 				// Whether at least one augmented path was found
 				// is seen by whether the sentinel node was visited
 				// or not.
-				return vertexSet[Sentinel].visited();
+				return vertexSet_[Sentinel].visited();
 			}
 
 			bool flipPossibleAugmentingPath(integer leftIndex)
 			{
-				if (index == Sentinel)
+				if (leftIndex == Sentinel)
 				{
 					return true;
 				}
 
 				Vertex& left = vertexSet_[leftIndex];
-				const integer edges = vertex.edges();
+				const integer edges = left.edges();
 				for (integer i = 0;i < edges;++i)
 				{
 					Vertex& right = adjacent(left, i);
-					Vertex& nextLeft = right.pair();
+					Vertex& nextLeft = pair(right);
 					if (nextLeft.level() == left.level() + 1)
 					{
 						const integer nextLeftIndex =
 							right.pairIndex();
-						if (depthFirst(nextLeftIndex))
+						if (flipPossibleAugmentingPath(nextLeftIndex))
 						{
 							right.setPair(leftIndex);
 							const integer rightIndex = 
@@ -158,11 +162,22 @@ namespace Pastel
 				return false;
 			}
 
-			void initialize()
+			template <typename Vertex_Pair_ForwardRange, typename As_Pair>
+			void initialize(
+				Vertex_Pair_ForwardRange range,
+				const As_Pair& ignoreAsPair)
 			{
+				typedef typename Vertex_Pair_ForwardRange::value_type Type;
+				typedef typename As_Pair::ConceptMap<Type> Type_As_Pair;
+				typedef typename Type_As_Pair::Left Left;
+				typedef typename Type_As_Pair::Right Right;
+
+				Type_As_Pair asPair;
+
 				// * Throw away duplicate edges.
 
-				typedef UnorderedMap<Type, integer> VertexMap;
+				typedef UnorderedMap<Left, integer> LeftMap;
+				typedef UnorderedMap<Right, integer> RightMap;
 
 				// The left vertices and right vertices
 				// are disjoint sets. Since we allow to use equal
@@ -171,11 +186,9 @@ namespace Pastel
 				// maps.
 
 				// Associates each left vertex with an integer.
-				VertexMap leftMap;
+				LeftMap leftMap;
 				// Associates each right vertex with an integer.
-				VertexMap rightMap;
-				// Associates each index with a vertex.
-				std::vector<Type> inverseMap;
+				RightMap rightMap;
 
 				// Directed edges between integers.
 				std::vector<KeyValue<integer, integer> > edgeSet;
@@ -183,10 +196,10 @@ namespace Pastel
 				// The 0 index is reserved to the sentinel 
 				// vertex here.
 				integer vertices = 1;
-				while(...)
+				while(!range.empty())
 				{
-					const Type& left = ...;
-					const Type& right = ...;
+					const Left& left = asPair.left(range.front());
+					const Right& right = asPair.right(range.front());
 
 					integer i = vertices;
 					if (leftMap.count(left))
@@ -201,8 +214,7 @@ namespace Pastel
 						// identify with the integer i.
 						leftMap.insert(
 							std::make_pair(left, i));
-						inverseMap.push_back(left);
-						leftSet.push_back(i);
+						leftSet_.push_back(i);
 						++vertices;
 					}
 
@@ -219,7 +231,6 @@ namespace Pastel
 						// identify with the integer i.
 						rightMap.insert(
 							std::make_pair(right, j));
-						inverseMap.push_back(right);
 						++vertices;
 					}
 
@@ -228,6 +239,8 @@ namespace Pastel
 					// Add an edge to both directions.
 					edgeSet.push_back(keyValue(i, j));
 					edgeSet.push_back(keyValue(j, i));
+
+					range.pop_front();
 				}
 
 				// Sort the edge-set of each vertex to an interval.
@@ -244,8 +257,8 @@ namespace Pastel
 
 				// Create the sentinel vertex.
 				{
-					const integer* edgeBegin = 
-						&adjacencySet_.front() + adjacencySet.size();
+					integer* edgeBegin = 
+						&adjacencySet_.front() + adjacencySet_.size();
 					const integer adjacencies = 0;
 					vertexSet_.push_back(
 						Vertex(edgeBegin, adjacencies));
@@ -256,8 +269,8 @@ namespace Pastel
 				{
 					// The pointer remains valid, since there will be no
 					// resizes thanks to an early reserve() call.
-					const integer* edgeBegin = 
-						&adjacencySet_.front() + adjacencySet.size();
+					integer* edgeBegin = 
+						&adjacencySet_.front() + adjacencySet_.size();
 
 					integer adjacencies = 0;
 					// Since edgeSet is sorted primarily according to
@@ -321,7 +334,7 @@ namespace Pastel
 					return pair_ != Sentinel;
 				}
 
-				integer edgeBegin() const
+				integer* edgeBegin() const
 				{
 					return edgeBegin_;
 				}
@@ -331,12 +344,17 @@ namespace Pastel
 					return edges_;
 				}
 
-				integer edge(const Vertex& vertex, integer index)
+				integer edge(integer index)
 				{
-					ASSERT_OP(index, <, vertex.edges());
+					ASSERT_OP(index, <, edges());
 					ASSERT_OP(index, >=, 0);
 
 					return edgeBegin_[index];
+				}
+
+				void setPair(integer pair)
+				{
+					pair_ = pair;
 				}
 
 				integer pairIndex() const
@@ -373,11 +391,22 @@ namespace Pastel
 
 	}
 
-	void maximumBipartiteMatching()
+	template <typename Vertex_Pair_ForwardRange, typename As_Pair>
+	void maximumBipartiteMatching(
+		Vertex_Pair_ForwardRange range,
+		const As_Pair& asPair)
 	{
 		MaximumBipartiteMatching::Algorithm algorithm;
 
-		algorithm.work();
+		algorithm.work(range, asPair);
+	}
+
+	template <typename Tuple2_ForwardRange>
+	void maximumBipartiteMatching(
+		Tuple2_ForwardRange range)
+	{
+		Pastel::maximumBipartiteMatching(
+			range, Tuple_As_Pair());
 	}
 
 }
