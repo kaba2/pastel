@@ -1,0 +1,7 @@
+Graph algorithms
+================
+
+[[Parent]]: basic_algorithms.txt
+
+_Graph algorithms_ are algorithms which work with graphs ''(V, E)'', 
+''E sub V xx V''.

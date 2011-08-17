@@ -85,7 +85,7 @@ Release data 17.3.2011
  * The code now compiles on Windows, Linux, and Mac, on
  both Visual Studio and gcc, and in 32-bit and 64-bit modes.
  
-### Others
+#### Others
 
  * A lot of refactoring, bug fixes, and updates to documentation.
  * Documentation built on Remark 1.3.

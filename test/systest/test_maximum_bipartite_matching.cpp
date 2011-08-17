@@ -4,6 +4,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/maximum_bipartite_matching.h"
+#include "pastel/sys/tuple.h"
 
 using namespace Pastel;
 using namespace std;
@@ -27,13 +28,13 @@ namespace
 
 		void test()
 		{
-			KeyValue<integer, integer> edgeSet[] =
+			Integer2 edgeSet[] =
 			{
-				keyValue(0, 0);				
+				Integer2(0, 0)
 			};
 			
 			maximumBipartiteMatching(
-				range(edgeSet), KeyValue_Pair_ConceptMap());
+				range(edgeSet));
 		}
 	};
 

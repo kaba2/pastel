@@ -18,14 +18,25 @@ namespace Pastel
 			class ConceptMap
 			{
 			public:
+				//! The type of the first element.
 				typedef UserDefinedType Left;
+
+				//! The type of the second element.
 				typedef UserDefinedType Right;
+
+				//! The type of the concrete pair.
 				typedef Type_ Type;
 
+				//! Returns the first element of a pair.
 				Left& left(Type& that);
+
+				//! Returns the first element of a pair.
 				const Left& left(const Type& that);
 
+				//! Returns the second element of a pair.
 				Right& right(Type& that);
+
+				//! Returns the second element of a pair.
 				const Right& right(const Type& that);
 			};
 		};
