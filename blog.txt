@@ -1,6 +1,28 @@
 Blog
 ====
 
+Transmitting a set of pairs generically
+---------------------------------------
+
+17.8.2011
+
+The problem is to transmit a set of pairs as an input to a function.
+
+### Option 1
+
+Transmit two sequences of equal length, the other corresponding
+to the first elements of pairs, and the other to the second elements
+of pairs.
+
+### Option 2
+
+Transmit a sequence of a known type, and require from the type a
+similar interface as some concrete type, such as std::pair.
+
+### Option 3:
+
+Transmit a sequence of pairs, and an object to extract the elements
+of each pair.
 
 Superclass delegation
 ---------------------
@@ -16,7 +38,7 @@ a pointer to the associated Log object. On the other hand,
 each subclass of Logger must remember to report the destruction
 to its Log.
 
-If each subclass has to be implement this reporting manually,
+If each subclass has to implement this reporting manually,
 the same functionality is implemented over and over again,
 which is redundant. On the other hand, the feature is
 not at all specific to the subclasses and can be completely
