@@ -1,9 +1,9 @@
 Null reporter
 =============
 
-[[Parent]]: reporter.txt
+[[Parent]]: reporters.txt
 
-The _null reporter_ does not do anything with the reported object.
+A _null reporter_ does not do anything with the reported object.
 It forgets it, or sends it to an oblivion. This is useful when a
 certain information is not of interest. Not only is this convenient,
 but it also enables the compiler to possibly optimize away some 

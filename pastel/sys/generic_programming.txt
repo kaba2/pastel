@@ -8,16 +8,16 @@ in terms of unspecified types, requiring only that each unspecified type
 supports a prespecified set of syntactical constructs specific to that 
 type. A set of such type-requirements is called a _concept_. Each
 generic function or a type can later be _instantiated_ by binding
-each of its unspecified type to a concrete type, which might happen 
+each of its unspecified types to a concrete type, which might happen 
 _explicitly_, as with types, or _implicitly_, as with functions
 (the types can be inferred from the function arguments).
 
-Current C++ is well known for its support for generic programming
-via templates. Almost as well as known are the cryptic error messages
+C++ is well known for its support for generic programming
+via templates. Almost as well known are the cryptic error messages
 which are triggered when a type does not conform to the required 
 concept. The problem is that the unfilled requirement is often detected 
 very late in a deep instantiation stack of generic code, thus
-exposing lots of implementation details none of which clearly states
+exposing lots of implementation details, none of which clearly states
 what the missing requirement for a type was. Unfortunately, proper 
 support for (checking) concepts requires language support, such as 
 was planned for the C++11 standard, but revoked at the 
@@ -25,16 +25,15 @@ last moments.
 
 Ideally generic programming frees one from having to worry about which 
 of the _equivalent_ data structures to use (say, two implementations of 
-a pair data-type by different persons), and the unnecessary conversions
+a pair data type by different persons), and the unnecessary conversions
 between such needed only because some interface can work only with a
 specific type. The problem then becomes of how to map the syntactical 
 constructs of a concept to the syntactical constructs of the concrete 
 type (the concept induced by all the syntactical constructs the type 
-supports). Such a mapping is called a _concept map_, because it maps a 
-concept to another. Concept maps allows transforming the syntactical
-face of a type to another form.
+supports). Such a mapping is called a _concept map_. Concept maps 
+allows transforming the syntactical face of a type to another form.
 
 Most of Pastel is based on generic programming. In Pastel, we 
 attempt to describe the concepts and concept maps in C++ itself, although 
-the code itself is only of documentary nature. When the concepts are 
-part of the code base, they are easy to keep updated and to refer to.
+that code is only of documentary nature. When the concepts are part of 
+the code base, they are easy to keep updated and to refer to.
