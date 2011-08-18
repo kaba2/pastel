@@ -1,5 +1,5 @@
-Reporter concept
-================
+Reporters
+=========
 
 [[Parent]]: generic_programming.txt
 

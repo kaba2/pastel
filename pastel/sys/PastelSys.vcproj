@@ -2383,6 +2383,14 @@
 				Name="Reporter concept"
 				>
 				<File
+					RelativePath=".\iterator_reporter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\iterator_reporter.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\null_reporter.h"
 					>
 				</File>
@@ -2399,15 +2407,15 @@
 					>
 				</File>
 				<File
-					RelativePath=".\reporter.txt"
-					>
-				</File>
-				<File
 					RelativePath=".\reporter_concept.h"
 					>
 				</File>
 				<File
 					RelativePath=".\reporters.h"
+					>
+				</File>
+				<File
+					RelativePath=".\reporters.txt"
 					>
 				</File>
 			</Filter>

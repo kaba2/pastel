@@ -1,5 +1,5 @@
 // Description: Reporter concept
-// Documentation: reporter.txt
+// Documentation: reporters.txt
 
 #ifndef PASTEL_REPORTER_CONCEPT_H
 #define PASTEL_REPORTER_CONCEPT_H
