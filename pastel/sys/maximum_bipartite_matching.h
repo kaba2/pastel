@@ -5,6 +5,7 @@
 
 #include "pastel/sys/as_pair_concept.h"
 #include "pastel/sys/forwardrange_concept.h"
+#include "pastel/sys/reporter_concept.h"
 
 namespace Pastel
 {
@@ -23,9 +24,13 @@ namespace Pastel
 	second elements, respectively, of the pairs provided as inputs.
 	The pairs themselves provided the edges of the graph. 
 	*/
-	template <typename Vertex_Pair_ForwardRange, typename As_Pair>
+	template <
+		typename Vertex_Pair_ForwardRange, 
+		typename Vertex_Pair_Reporter,
+		typename As_Pair>
 	void maximumBipartiteMatching(
 		Vertex_Pair_ForwardRange range,
+		const Vertex_Pair_Reporter& reporter,
 		const As_Pair& asPair);
 
 	//! Computes the maximum matching in a bipartite graph.
@@ -37,9 +42,12 @@ namespace Pastel
 
 	See the documentation for that function.
 	*/
-	template <typename Tuple2_ForwardRange>
+	template <
+		typename Tuple2_ForwardRange,
+		typename Vertex_Pair_Reporter>
 	void maximumBipartiteMatching(
-		Tuple2_ForwardRange range);
+		Tuple2_ForwardRange range,
+		const Vertex_Pair_Reporter& reporter);
 
 }
 

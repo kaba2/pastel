@@ -184,7 +184,7 @@ namespace Pastel
 					std::log(1 - confidence_) / 
 					std::log(1 - minMatchRatio_), 
 					1, modelPoints_));
-				subset(
+				randomSubset(
 					modelIndexList.begin(),
 					modelIndexList.end(),
 					modelPointsToTest);

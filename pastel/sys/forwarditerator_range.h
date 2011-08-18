@@ -21,12 +21,6 @@ namespace Pastel
 	class ForwardIterator_Range
 		: public boost::equality_comparable<ForwardIterator_Range<Iterator> >
 	{
-	protected:
-		enum
-		{
-			Unknown = -1
-		};
-
 	public:
 		typedef typename std::iterator_traits<Iterator>::value_type value_type;
 		typedef integer size_type;
@@ -59,7 +53,7 @@ namespace Pastel
 			const Iterator& end)
 			: begin_(begin)
 			, end_(end)
-			, size_(Unknown)
+			, size_(std::distance(begin, end))
 		{
 		}
 
@@ -70,6 +64,7 @@ namespace Pastel
 			, end_(begin)
 			, size_(size)
 		{
+			std::advance(end_, size);
 		}
 
 		void swap(ForwardIterator_Range& that)
@@ -80,48 +75,28 @@ namespace Pastel
 			swap(size_, that.size_);
 		}
 
-		void updateCache() const
-		{
-			end();
-			size();
-		}
-
 		void clear()
 		{
-			begin_ = Iterator();
-			end_ = Iterator();
+			begin_ = end_;
 			size_ = 0;
 		}
 
 		bool operator==(const ForwardIterator_Range& that) const
 		{
-			if (begin_ == that.begin_)
-			{
-				if (size_ == Unknown && that.size_ == Unknown)
-				{
-					return end_ == that.end_;
-				}
-				
-				// Accessing via function to trigger evaluation.
-				return size() == that.size();
-			}
-
-			return false;
+			return begin_ == that.begin_ &&
+				size_ == that.size_;
 		}
 
 		bool empty() const
 		{
-			return !(size_ > 0 || begin_ != end_);
+			return size_ == 0;
 		}
 
 		void pop_front()
 		{
 			PENSURE(!empty());
 			++begin_;
-			if (size_ != Unknown)
-			{
-				--size_;
-			}
+			--size_;
 		}
 
 		reference front() const
@@ -136,31 +111,18 @@ namespace Pastel
 
 		const Iterator& end() const
 		{
-			if (end_ == begin_ && size_ > 0)
-			{
-				end_ = begin_;
-				// Update cache.
-				std::advance(end_, size_);
-			}
-
 			return end_;
 		}
 
 		integer size() const
 		{
-			if (size_ == Unknown)
-			{
-				// Update cache.
-				size_ = std::distance(begin_, end_);
-			}
-
 			return size_;
 		}
 
 	protected:
 		Iterator begin_;
-		mutable Iterator end_;
-		mutable integer size_;
+		Iterator end_;
+		integer size_;
 	};
 
 }

@@ -2383,11 +2383,19 @@
 				Name="Reporter concept"
 				>
 				<File
+					RelativePath=".\push_back_reporter.h"
+					>
+				</File>
+				<File
 					RelativePath=".\reporter.txt"
 					>
 				</File>
 				<File
 					RelativePath=".\reporter_concept.h"
+					>
+				</File>
+				<File
+					RelativePath=".\reporters.h"
 					>
 				</File>
 			</Filter>

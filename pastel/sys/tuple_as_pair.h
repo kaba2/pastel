@@ -20,22 +20,22 @@ namespace Pastel
 			typedef typename Tuple::value_type Right;
 			typedef Tuple Type;
 
-			Left& left(Type& that)
+			Left& left(Type& that) const
 			{
 				return that[0];
 			}
 
-			const Left& left(const Type& that)
+			const Left& left(const Type& that) const
 			{
 				return that[0];
 			}
 
-			Right& right(Type& that)
+			Right& right(Type& that) const
 			{
 				return that[1];
 			}
 
-			const Right& right(const Type& that)
+			const Right& right(const Type& that) const
 			{
 				return that[1];
 			}			

@@ -7,6 +7,8 @@
 #include "pastel/sys/testsuite.h"
 #include "pastel/sys/callfunction.h"
 
+#include <iostream>
+
 inline Pastel::TestRunner& testRunner()
 {
 	static Pastel::TestRunner theTestRunner("PastelSys");
