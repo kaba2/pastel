@@ -1,0 +1,9 @@
+Push-back reporter
+==================
+
+[[Parent]]: reporter.txt
+
+The _push-back reporter_ takes an object `A` as a parameter
+and passes the reported object to the `push_back` function
+of `A`. In particular, this allows to transmit data into
+some of the sequence containers in STL.
