@@ -10,7 +10,7 @@ namespace Pastel
 {
 
 	template <typename RandomAccess_Iterator>
-	void subset(
+	void randomSubset(
 		RandomAccess_Iterator begin,
 		RandomAccess_Iterator end,
 		integer k)

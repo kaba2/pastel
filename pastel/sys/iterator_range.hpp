@@ -66,7 +66,7 @@ namespace Pastel
 		range(Type (&begin)[N])
 	{
 		typedef typename IteratorToRange<Type*>::type Range;
-		return Range(begin, N);
+		return Range(begin, begin + N, N);
 	}
 
 }

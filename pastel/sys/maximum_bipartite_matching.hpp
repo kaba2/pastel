@@ -17,12 +17,26 @@ namespace Pastel
 	namespace MaximumBipartiteMatching
 	{
 
+		template <
+			typename Vertex_Pair_ForwardRange, 
+			typename Vertex_Pair_Reporter,
+			typename As_Pair>
 		class Algorithm
 		{
 		public:
-			template <typename Vertex_Pair_ForwardRange, typename As_Pair>
+			typedef typename Vertex_Pair_ForwardRange::value_type Type;
+			typedef typename As_Pair::ConceptMap<Type> Type_As_Pair;
+			typedef typename Type_As_Pair::Left Left;
+			typedef typename Type_As_Pair::Right Right;
+
+			typedef UnorderedMap<Left, integer> LeftMap;
+			typedef UnorderedMap<Right, integer> RightMap;
+			typedef UnorderedMap<integer, Left> InverseLeftMap;
+			typedef UnorderedMap<integer, Right> InverseRightMap;
+
 			void work(
 				Vertex_Pair_ForwardRange range,
+				const Vertex_Pair_Reporter& reporter,
 				const As_Pair& asPair)
 			{
 				// This is the Hopcroft-Karp algorithm for 
@@ -45,7 +59,23 @@ namespace Pastel
 							flipPossibleAugmentingPath(leftIndex);
 						}
 					}
+				}
 
+				// Report the matching edges.
+				const integer leftVertices = leftSet_.size();
+				for (integer i = 0;i < leftVertices;++i)
+				{
+					const integer leftIndex = leftSet_[i];
+					Vertex& left = vertexSet_[leftIndex];
+					if (left.paired())
+					{
+						const integer rightIndex = left.pairIndex();
+
+						reporter(
+							std::make_pair(
+							inverseLeftMap_[leftIndex],
+							inverseRightMap_[rightIndex]));
+					}
 				}
 			}
 
@@ -59,12 +89,14 @@ namespace Pastel
 				const integer leftVertices = leftSet_.size();
 				for (integer i = 0;i < leftVertices;++i)
 				{
+					const integer leftIndex = leftSet_[i];
+
 					Vertex& vertex = 
-						vertexSet_[leftSet_[i]];
+						vertexSet_[leftIndex];
 					if (!vertex.paired())
 					{
 						vertex.visit(0);
-						eventSet.push(i);
+						eventSet.push(leftIndex);
 					}
 					else
 					{
@@ -80,14 +112,12 @@ namespace Pastel
 					// Pick up the next vertex from the queue.
 					// This gives a breadth-first ordering for
 					// visiting the graph.
-					Vertex& left = 
-						vertexSet_[eventSet.front()];
-					eventSet.pop();
+					const integer leftIndex = eventSet.front();
+					ASSERT_OP(leftIndex, !=, Sentinel);
 
-					// As an invariant, 'left' is not paired.
-					// Thus any edge leaving from 'left' is
-					// not part of the match yet.
-					ASSERT(!left.paired());
+					Vertex& left = 
+						vertexSet_[leftIndex];
+					eventSet.pop();
 
 					const integer edges = left.edges();
 					for (integer i = 0;i < edges;++i)
@@ -112,7 +142,10 @@ namespace Pastel
 							// traversal...
 							const integer nextLeftIndex =
 								right.pairIndex();
-							eventSet.push(nextLeftIndex);
+							if (nextLeftIndex != Sentinel)
+							{
+								eventSet.push(nextLeftIndex);
+							}
 						}
 
 						// If 'nextLeft' is already visited, the 
@@ -162,22 +195,13 @@ namespace Pastel
 				return false;
 			}
 
-			template <typename Vertex_Pair_ForwardRange, typename As_Pair>
 			void initialize(
 				Vertex_Pair_ForwardRange range,
 				const As_Pair& ignoreAsPair)
 			{
-				typedef typename Vertex_Pair_ForwardRange::value_type Type;
-				typedef typename As_Pair::ConceptMap<Type> Type_As_Pair;
-				typedef typename Type_As_Pair::Left Left;
-				typedef typename Type_As_Pair::Right Right;
-
 				Type_As_Pair asPair;
 
 				// * Throw away duplicate edges.
-
-				typedef UnorderedMap<Left, integer> LeftMap;
-				typedef UnorderedMap<Right, integer> RightMap;
 
 				// The left vertices and right vertices
 				// are disjoint sets. Since we allow to use equal
@@ -214,6 +238,8 @@ namespace Pastel
 						// identify with the integer i.
 						leftMap.insert(
 							std::make_pair(left, i));
+						inverseLeftMap_.insert(
+							std::make_pair(i, left));
 						leftSet_.push_back(i);
 						++vertices;
 					}
@@ -231,6 +257,8 @@ namespace Pastel
 						// identify with the integer i.
 						rightMap.insert(
 							std::make_pair(right, j));
+						inverseRightMap_.insert(
+							std::make_pair(j, right));
 						++vertices;
 					}
 
@@ -255,15 +283,6 @@ namespace Pastel
 				// No such worries here, this is only for performance.
 				vertexSet_.reserve(vertices);
 
-				// Create the sentinel vertex.
-				{
-					integer* edgeBegin = 
-						&adjacencySet_.front() + adjacencySet_.size();
-					const integer adjacencies = 0;
-					vertexSet_.push_back(
-						Vertex(edgeBegin, adjacencies));
-				}
-
 				integer edge = 0;
 				for (integer i = 0;i < vertices;++i)
 				{
@@ -284,9 +303,12 @@ namespace Pastel
 						++edge;
 					}
 
-					// Each vertex has at least one adjacent edge,
-					// since the vertices are induced by the input edge-set.
-					ASSERT_OP(adjacencies, >, 0);
+					// Each non-sentinel vertex has at least one adjacent 
+					// edge, since the vertices are induced by the input 
+					// edge-set.
+					ASSERT(
+						(i == 0 && adjacencies == 0) || 
+						(i > 0 && adjacencies > 0));
 
 					// Create the vertex.
 					vertexSet_.push_back(
@@ -310,7 +332,7 @@ namespace Pastel
 					, edges_(edges)
 				{
 					ASSERT(edgeBegin);
-					ASSERT_OP(edges, >, 0);
+					ASSERT_OP(edges, >=, 0);
 				}
 
 				void visit(integer level)
@@ -387,26 +409,37 @@ namespace Pastel
 			std::vector<integer> adjacencySet_;
 			std::vector<Vertex> vertexSet_;
 			std::vector<integer> leftSet_;
+
+			InverseLeftMap inverseLeftMap_;
+			InverseRightMap inverseRightMap_;
 		};
 
 	}
 
-	template <typename Vertex_Pair_ForwardRange, typename As_Pair>
+	template <
+		typename Vertex_Pair_ForwardRange, 
+		typename Vertex_Pair_Reporter,
+		typename As_Pair>
 	void maximumBipartiteMatching(
 		Vertex_Pair_ForwardRange range,
+		const Vertex_Pair_Reporter& reporter,
 		const As_Pair& asPair)
 	{
-		MaximumBipartiteMatching::Algorithm algorithm;
+		MaximumBipartiteMatching::Algorithm<Vertex_Pair_ForwardRange,
+			Vertex_Pair_Reporter, As_Pair> algorithm;
 
-		algorithm.work(range, asPair);
+		algorithm.work(range, reporter, asPair);
 	}
 
-	template <typename Tuple2_ForwardRange>
+	template <
+		typename Tuple2_ForwardRange,
+		typename Vertex_Pair_Reporter>
 	void maximumBipartiteMatching(
-		Tuple2_ForwardRange range)
+		Tuple2_ForwardRange range,
+		const Vertex_Pair_Reporter& reporter)
 	{
 		Pastel::maximumBipartiteMatching(
-			range, Tuple_As_Pair());
+			range, reporter, Tuple_As_Pair());
 	}
 
 }
