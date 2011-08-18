@@ -1,5 +1,4 @@
 // Description: Push-back-into-a-container reporter
-// Documentation: reporter.txt
 
 #ifndef PASTEL_PUSH_BACK_REPORTER_H
 #define PASTEL_PUSH_BACK_REPORTER_H

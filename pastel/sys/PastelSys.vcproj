@@ -2383,7 +2383,19 @@
 				Name="Reporter concept"
 				>
 				<File
+					RelativePath=".\null_reporter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\null_reporter.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\push_back_reporter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\push_back_reporter.txt"
 					>
 				</File>
 				<File

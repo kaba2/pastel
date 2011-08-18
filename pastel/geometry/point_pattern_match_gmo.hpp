@@ -116,7 +116,7 @@ namespace Pastel
 							modelPivotIter->point());
 
 						// Find out how many points match
-						// under this outTranslation.
+						// under this translation.
 
 						PairSet pairSet;
 						for (integer j = 0;j < modelSet.size();++j)
