@@ -1,5 +1,5 @@
 // Description: Equal-to predicate
-// Documentation: predicate.txt
+// Documentation: predicates.txt
 
 #ifndef PASTEL_EQUALTO_H
 #define PASTEL_EQUALTO_H

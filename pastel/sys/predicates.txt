@@ -1,0 +1,22 @@
+Predicates
+==========
+
+[[Parent]]: algorithm.txt
+
+The _predicate_ concept is a refinement of the algorithm concept.
+It requires additionally that the algorithm takes two arbitrary 
+arguments and returns a boolean result.
+
+Example
+-------
+
+Sorting is usually carried out something like this:
+
+[[CppCode]]:
+	std::sort(begin, end, std::greater<int>());
+	
+With predicates we write this:
+
+[[CppCode]]:
+	std::sort(begin, end, GreaterThan());
+	

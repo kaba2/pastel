@@ -2380,7 +2380,7 @@
 				>
 			</File>
 			<Filter
-				Name="Reporter concept"
+				Name="Reporters"
 				>
 				<File
 					RelativePath=".\iterator_reporter.h"
@@ -2596,7 +2596,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Algorithm concept"
+				Name="Algorithm objects"
 				>
 				<File
 					RelativePath=".\algorithm.txt"
@@ -2607,7 +2607,7 @@
 					>
 				</File>
 				<Filter
-					Name="RangeAlgorithm concept"
+					Name="Range algorithms"
 					>
 					<File
 						RelativePath=".\rangealgorithm.txt"
@@ -2619,7 +2619,7 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Predicate concept"
+					Name="Predicates"
 					>
 					<File
 						RelativePath=".\equalto.h"
@@ -2646,15 +2646,15 @@
 						>
 					</File>
 					<File
-						RelativePath=".\predicate.txt"
-						>
-					</File>
-					<File
 						RelativePath=".\predicate_concept.h"
 						>
 					</File>
 					<File
 						RelativePath=".\predicates.h"
+						>
+					</File>
+					<File
+						RelativePath=".\predicates.txt"
 						>
 					</File>
 				</Filter>

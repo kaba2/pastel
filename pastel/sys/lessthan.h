@@ -1,5 +1,5 @@
 // Description: Less-than predicate
-// Documentation: predicate.txt
+// Documentation: predicates.txt
 
 #ifndef PASTEL_LESSTHAN_H
 #define PASTEL_LESSTHAN_H

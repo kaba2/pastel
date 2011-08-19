@@ -1,5 +1,4 @@
 // Description: An aggregate file for predicates
-// Documentation: predicate.txt
 
 #ifndef PASTELSYS_PREDICATES_H
 #define PASTELSYS_PREDICATES_H
