@@ -1,7 +1,7 @@
 // Description: Poisson-disk pattern
 
-#ifndef PASTEL_POISSONDISKPATTERN_H
-#define PASTEL_POISSONDISKPATTERN_H
+#ifndef PASTEL_POISSON_DISK_PATTERN_H
+#define PASTEL_POISSON_DISK_PATTERN_H
 
 #include "pastel/geometry/alignedbox.h"
 
@@ -52,6 +52,6 @@ namespace Pastel
 
 }
 
-#include "pastel/geometry/poissondiskpattern.hpp"
+#include "pastel/geometry/poisson_disk_pattern.hpp"
 
 #endif

@@ -787,7 +787,7 @@
 			Name="Discrete poisson disk pattern"
 			>
 			<File
-				RelativePath=".\discretepoissondiskpattern.h"
+				RelativePath=".\discrete_poisson_disk_pattern.h"
 				>
 			</File>
 		</Filter>

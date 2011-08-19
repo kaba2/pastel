@@ -7,7 +7,7 @@
 
 #include "pastel/math/uniform_sampling.h"
 
-#include "pastel/geometry/poissondiskpattern.h"
+#include "pastel/geometry/poisson_disk_pattern.h"
 
 #include "pastel/gfx/color_tools.h"
 #include "pastel/dsp/filters.h"

@@ -1,7 +1,7 @@
 Poisson-disk pattern
 ====================
 
-[[Parent]]: point_patterns.txt
+[[Parent]]: shape_generation.txt
 
 An _''epsilon''-radius poisson-disk pattern_ in ''S sub RR^n'',
 ''epsilon in RR^+'', is a point-set ''P'' for which it holds that the 
