@@ -1,5 +1,0 @@
-Point-patterns
-==============
-
-[[Parent]]: shape_generation.txt
-

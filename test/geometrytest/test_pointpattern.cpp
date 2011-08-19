@@ -2,7 +2,7 @@
 
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
-#include "pastel/geometry/poissondiskpattern.h"
+#include "pastel/geometry/poisson_disk_pattern.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/draw.h"

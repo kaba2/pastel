@@ -730,39 +730,7 @@
 					>
 				</File>
 				<Filter
-					Name="Point patterns"
-					>
-					<File
-						RelativePath=".\point_patterns.h"
-						>
-					</File>
-					<File
-						RelativePath=".\point_patterns.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\point_patterns.txt"
-						>
-					</File>
-					<Filter
-						Name="Poisson-disk pattern"
-						>
-						<File
-							RelativePath=".\poissondiskpattern.h"
-							>
-						</File>
-						<File
-							RelativePath=".\poissondiskpattern.hpp"
-							>
-						</File>
-						<File
-							RelativePath=".\poissondiskpattern.txt"
-							>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="Bounding"
+					Name="Bounding shapes"
 					>
 					<File
 						RelativePath=".\bounding.h"
@@ -1070,6 +1038,22 @@
 					</File>
 					<File
 						RelativePath=".\intersect_triangle_triangle.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Poisson-disk pattern"
+					>
+					<File
+						RelativePath=".\poisson_disk_pattern.h"
+						>
+					</File>
+					<File
+						RelativePath=".\poisson_disk_pattern.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\poisson_disk_pattern.txt"
 						>
 					</File>
 				</Filter>
@@ -1946,6 +1930,18 @@
 					</File>
 				</Filter>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Not sure"
+			>
+			<File
+				RelativePath=".\point_patterns.h"
+				>
+			</File>
+			<File
+				RelativePath=".\point_patterns.hpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

@@ -5,7 +5,7 @@
 
 #include "pastel/math/uniform_distortion.h"
 
-#include "pastel/geometry/poissondiskpattern.h"
+#include "pastel/geometry/poisson_disk_pattern.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/draw.h"
