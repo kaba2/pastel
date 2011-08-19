@@ -1,0 +1,7 @@
+Single reporter
+===============
+
+[[Parent]]: reporters.txt
+
+A _single reporter_ captures a single object `A` by reference,
+and then assigns all reported objects to `A`.
