@@ -1,15 +1,20 @@
-Range algorithm concept
-=======================
+Range algorithms
+================
 
 [[Parent]]: algorithm.txt
 
 A _range algorithm_ is a refinement of the algorithm concept.
-It requires additionally that the argument be a forward iterator range.
+It requires additionally that the argument be a forward iterator 
+range. A _reversible range algorithm_ is a refinement of the
+range algorithm which requires that the argument be a reversible
+iterator range. An _indexable range algorithm_ is a refinement of 
+the reversible range algorithm which requires that the argument
+be an indexable iterator range.
 
 Motivation
 ----------
 
-Particularly with arrays, it is often the case that 
+Particularly with multi-dimensional arrays, it is often the case that 
 some algorithm needs to be applied to each row of the 
 array, in some dimension. As an example, the
 [discrete cosine transform][DCT] is done this way by applying the

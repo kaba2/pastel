@@ -1,5 +1,5 @@
 // Description: Greater-than predicate
-// Documentation: predicate.txt
+// Documentation: predicates.txt
 
 #ifndef PASTEL_GREATERTHAN_H
 #define PASTEL_GREATERTHAN_H

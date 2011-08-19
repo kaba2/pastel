@@ -1,4 +1,5 @@
 // Description: Predicate concept
+// Documentation: predicates.txt
 
 #ifndef PASTEL_PREDICATE_CONCEPT_H
 #define PASTEL_PREDICATE_CONCEPT_H

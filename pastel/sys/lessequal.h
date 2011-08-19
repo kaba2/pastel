@@ -1,5 +1,5 @@
 // Description: Less-than-or-equal-to predicate
-// Documentation: predicate.txt
+// Documentation: predicates.txt
 
 #ifndef PASTEL_LESSEQUAL_H
 #define PASTEL_LESSEQUAL_H

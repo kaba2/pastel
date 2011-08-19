@@ -1,15 +1,11 @@
-Algorithm concept
+Algorithm objects
 =================
 
 [[Parent]]: generic_programming.txt
 
-An _algorithm_, as a concept, is an object which encapsulates a _generic_
-algorithm. 
-
-Motivation
-----------
-
-In generic programming, it is often desirable to parametrize an algorithm
+An _algorithm object_, is an object which encapsulates a _generic_
+algorithm. The corresponding concept is called an _algorithm_.
+In generic programming, it is often desirable to parametrize an algorithm 
 by sub-algorithms. For example, the `std::sort()` algorithm in the C++ 
 Standard Library takes in an object which defines the ordering to use.
 

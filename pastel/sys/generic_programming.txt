@@ -10,7 +10,9 @@ type. A set of such type-requirements is called a _concept_. Each
 generic function or a type can later be _instantiated_ by binding
 each of its unspecified types to a concrete type, which might happen 
 _explicitly_, as with types, or _implicitly_, as with functions
-(the types can be inferred from the function arguments).
+(the types can be inferred from the function arguments). The goal
+of generic programming is to create algorithms which work with the
+widest possible set of types, with the minimum number of requirements.
 
 C++ is well known for its support for generic programming
 via templates. Almost as well known are the cryptic error messages

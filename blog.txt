@@ -1,5 +1,89 @@
-Blog
-====
+Implementation blog
+===================
+
+Naming of concept models
+------------------------
+
+19.8.2011
+
+Currently we name the models of a concept (and derived classes of an 
+abstract class) in the form `Array_Range`, where the modeled concept 
+is given by `Range`. Assume the `Range` concept has a refinement
+`IndexableRange`, and that `Array_Range` also models the 
+`IndexableRange` concept. Should we then rename `Array_Range` as
+`Array_IndexableRange`? That is, should the suffixed concept be the
+weakest, or the strongest concept the type models?
+
+To keep the names short, I think the naming should be by the weakest 
+concept, i.e. `Array_Range` in this case.
+
+Naming of ranges
+----------------
+
+19.8.2011
+
+Currently the ranges are named `ForwardRange`, `BidirectionalRange`,
+and `RandomAccessRange`. The names are a bit too long. Could we find
+shorter names? Some naming suggestions follows:
+
+### Forward ranges
+
+ * ForwardRange (no: every range is forward, so it is redundant)
+ * Range
+ 
+### Bidirectional ranges
+
+Best ones:
+ 
+ * BidirectionalRange (no: too long)
+ * DuplexRange (no: duplex term may not be well-known)
+ * BidiRange (no: non-standard abbreviation)
+ * ReversibleRange
+ 
+Others:
+
+ * TwoWayRange (no: don't like two-part names)
+ * BiRange (no: confused with two parallel ranges)
+ * LeftRightRange (no: don't like two-part names, looks bad)
+ * BothRange (no: uninformative)
+ * ListRange (no: confused with only being applicable to std::list)
+ * LinkedRange (no: forward ranges are also linked, uninformative)
+ * LinkRange (no: forward ranges are also linked, uninformative)
+ * DoubleRange (no: confused with two parallel ranges)
+ * ChainedRange (no: uninformative, forward ranges are also chained)
+ * SequentialRange (no: forward ranges are also sequential)
+ * SequenceRange (no: forward ranges are also sequences)
+ * NeighborRange (no: uninformative, graph nodes have neighbors too)
+ * AdjacentRange (no: uninformative, graph nodes have adjacencies too)
+ 
+### Random access ranges
+
+Best ones:
+
+ * RandomAccessRange (no: too long, two-part)
+ * IndexedRange (yes: like an indexed set, no: indexable, not indexed)
+ * IndexableRange 
+
+Others:
+ 
+ * RandomRange (no: confused with random values)
+ * ArrayRange (no: confused with only being applicable to arrays)
+ * VectorRange (no: confused with only being applicable to std::vector)
+ * CompleteRange (like in a complete graph, no: not recognized)
+
+### Extensions to iterators
+
+The names of the ranges should extend nicely to iterators.
+
+ * Iterator
+ * ReversibleIterator
+ * IndexableIterator
+ 
+This also gives a nice 'associativity of names':
+
+ * Iterator_Range ~ IteratorRange
+ * ReversibleIterator_Range ~ Reversible_IteratorRange
+ * IndexableIterator_Range ~ Indexable_IteratorRange
 
 Transmitting a set of pairs generically
 ---------------------------------------
