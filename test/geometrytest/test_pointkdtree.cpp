@@ -15,6 +15,7 @@
 #include "pastel/math/uniform_sampling.h"
 
 #include "pastel/sys/iterators.h"
+#include "pastel/sys/reporters.h"
 
 using namespace Pastel;
 
@@ -359,8 +360,8 @@ namespace
 				const integer count = searchNearest(
 					tree, Vector<real, N>(0), 
 					m, 
-					std::back_inserter(neighborSet), 
-					std::back_inserter(distanceSet));
+					pushBackReporter(neighborSet), 
+					pushBackReporter(distanceSet));
 				
 				TEST_ENSURE_OP(count, ==, m);
 				TEST_ENSURE_OP(neighborSet.size(), ==, m);

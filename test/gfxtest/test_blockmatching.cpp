@@ -23,7 +23,7 @@
 #include <pastel/sys/pointpolicies.h>
 #include <pastel/sys/string_algorithms.h>
 #include <pastel/sys/unorderedmap.h>
-#include <pastel/sys/nulliterator.h>
+#include <pastel/sys/reporters.h>
 
 #include <fstream>
 
@@ -845,8 +845,8 @@ namespace
 						tree,
 						searchPoint,
 						kNearest,
-						nearestSet.rowBegin(y * image.width() + x),
-						NullIterator(),
+						rangeReporter(nearestSet.rowRange(y * image.width() + x)),
+						nullReporter(),
 						infinity<real32>(),
 						maxRelativeError);
 

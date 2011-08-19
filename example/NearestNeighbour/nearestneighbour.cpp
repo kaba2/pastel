@@ -10,7 +10,6 @@
 #include "pastel/geometry/search_range_pointkdtree.h"
 #include "pastel/geometry/count_range_pointkdtree.h"
 #include "pastel/geometry/alignedbox_tools.h"
-#include "pastel/sys/pointpolicies.h"
 
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_space.h"
@@ -29,7 +28,8 @@
 #include "pastel/sys/randomdistribution.h"
 #include "pastel/sys/logging.h"
 #include "pastel/sys/vector_tools.h"
-#include "pastel/sys/nulliterator.h"
+#include "pastel/sys/reporters.h"
+#include "pastel/sys/pointpolicies.h"
 
 #include "pastel/gl/glgfxrenderer.h"
 
@@ -721,8 +721,8 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		tree_, 
 		worldMouse, 
 		nearestPoints_,
-		std::back_inserter(nearestPointSet_), 
-		NullIterator(),
+		pushBackReporter(nearestPointSet_), 
+		nullReporter(),
 		normBijection_.toBijection(searchRadius_ * scaling_), 0,
 		alwaysAcceptPoint(tree_),
 		8,
@@ -791,8 +791,8 @@ void NearestNeighbor_Gfx_Ui::erase(const Vector2& center, real radius)
 		tree_,
 		center,
 		tree_.points(),
-		std::back_inserter(nearestSet),
-		NullIterator(),
+		pushBackReporter(nearestSet),
+		nullReporter(),
 		normBijection_.toBijection(radius), 0,
 		alwaysAcceptPoint(tree_),
 		8,
@@ -884,8 +884,8 @@ void NearestNeighbor_Gfx_Ui::timing()
 			tree_, 
 			iter->point(),
 			NearestPoints, 
-			std::back_inserter(nearestPointSet_),
-			NullIterator());
+			pushBackReporter(nearestPointSet_),
+			nullReporter());
 		++iter;
 	}
 

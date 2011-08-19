@@ -12,7 +12,7 @@
 #include "pastel/sys/unorderedset.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/smallset.h"
-#include "pastel/sys/nulliterator.h"
+#include "pastel/sys/reporters.h"
 #include "pastel/sys/random_subset.h"
 
 namespace Pastel
@@ -232,8 +232,8 @@ namespace Pastel
 								sceneTree_,
 								sceneIter,
 								k_,
-								sceneNearest.rowBegin(j),
-								NullIterator(),
+								rangeReporter(sceneNearest.rowRange(j)),
+								nullReporter(),
 								infinity<Real>(), 0,
 								dontAcceptPoint(sceneIter));
 						}
@@ -245,7 +245,7 @@ namespace Pastel
 							sceneSet.begin() + 1);
 
 						// Find the k-nearest neighbors for the model
-						// point. These need not reused, so we don't
+						// point. These need not be reused, so we don't
 						// need to cache them.
 
 						modelSet.front() = modelIter;
@@ -253,8 +253,8 @@ namespace Pastel
 							modelTree_,
 							modelIter,
 							k_,
-							modelSet.begin() + 1,
-							NullIterator(),
+							rangeReporter(range(modelSet.begin() + 1, modelSet.end())),
+							nullReporter(),
 							infinity<Real>(), 0,
 							dontAcceptPoint(modelIter));
 
