@@ -1,7 +1,7 @@
-All-k-nearest-neighbors searching
-=================================
+All-nearest-neighbors searching
+===============================
 
 [[Parent]]: nearest_neighbors.txt
 
-Let ''P sub RR^n'' be a finite point-set. The problem of all-k-nearest-neighbors 
+Let ''P sub RR^n'' be a finite point-set. The problem of all-nearest-neighbors 
 searching is to report for all points in ''P'' their ''k'' nearest neighbors in ''P''.

@@ -1,5 +1,5 @@
-SearchAlgorithm_PointKdTree concept
-===================================
+Point kd-tree search algorithms
+===============================
 
 [[Parent]]: nearest_neighbors.txt
 

@@ -1,7 +1,7 @@
 Intersection between shapes
 ===========================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_generation.txt
 
 The _intersection_ ''S'' between two shapes ''A'' and ''B'' in ''RR^n''
 is ''S = A nn B''.

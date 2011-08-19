@@ -1,7 +1,7 @@
 Area of a shape
 ===============
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_measurements.txt
 
 The _area_ of a shape in ''RR^n'' is defined as the ''(n-1)''-dimensional 
 measure of the boundary of the point-set.

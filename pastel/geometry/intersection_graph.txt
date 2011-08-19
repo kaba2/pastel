@@ -1,7 +1,7 @@
 Intersection graph algorithms
 =============================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: subset_searches.txt
 
 Given a set ''V'' of shapes in ''RR^n'', their _intersection graph_ is a 
 graph ''(V, E)'', where ''(v_1, v_2) in E sub V^2'' if and only if 

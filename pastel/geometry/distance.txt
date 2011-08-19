@@ -1,7 +1,7 @@
 Distance between shapes
 =======================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_measurements.txt
 
 The _distance_ between two shapes ''A, B sub RR^n''
 is defined by

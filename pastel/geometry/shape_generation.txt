@@ -1,0 +1,7 @@
+Shape generation
+================
+
+[[Parent]]: geometric_algorithms.txt
+
+This section contains things related to generating new shapes,
+possibly based on a set of existing shapes.

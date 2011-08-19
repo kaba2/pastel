@@ -1,5 +1,5 @@
 Point-patterns
 ==============
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_generation.txt
 
