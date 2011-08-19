@@ -1,7 +1,7 @@
 Bounding between shapes
 =======================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_generation.txt
 
 A _bounding shape_ is a minimal covering shape of type ''A''
 for a shape of type ''B'', where _minimal_ usually refers to either 

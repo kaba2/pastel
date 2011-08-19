@@ -1,0 +1,7 @@
+Shape measurements
+==================
+
+[[Parent]]: geometric_algorithms.txt
+
+This section contains things related to measuring shapes, such
+as computing areas, volumes, or distances.

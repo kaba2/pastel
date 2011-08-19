@@ -1,7 +1,7 @@
 Diameter of a shape
 ===================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_measurements.txt
 
 The _diameter_ of a shape ''P sub RR^n'' is defined by
 ''w = text(sup) {d(x, y) | x, y in P}'', where ''d'' is 

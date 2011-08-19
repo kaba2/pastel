@@ -1,0 +1,8 @@
+Subset searches
+===============
+
+[[Parent]]: geometric_algorithms.txt
+
+This section contains algorithms to search for a subset of a given
+shape set with some specific set of properties (such as nearness
+to a point or containment in a given set).

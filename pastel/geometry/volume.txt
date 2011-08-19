@@ -1,6 +1,6 @@
 Volume of a shape
 =================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_measurements.txt
 
 The _volume_ of a shape is its Lebesgue measure.

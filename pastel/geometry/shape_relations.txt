@@ -1,0 +1,7 @@
+Shape relations
+===============
+
+[[Parent]]: geometric_algorithms.txt
+
+This section contains algorithms to test for relations between
+shapes, such as containment or overlap.

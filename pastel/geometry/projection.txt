@@ -1,5 +1,5 @@
 Projections
 ===========
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: transformation_recovery.txt
 

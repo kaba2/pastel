@@ -1,7 +1,7 @@
-Containment between shapes
-==========================
+Containment testing
+===================
 
-[[Parent]]: geometric_algorithms.txt
+[[Parent]]: shape_relations.txt
 
 A point-set ''P sub RR^n'' _contains_ a point-set ''Q sub RR^n'' if
 ''Q sub P''.

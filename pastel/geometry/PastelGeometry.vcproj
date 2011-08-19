@@ -160,7 +160,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Data structures"
+			Name="Geometric data structures"
 			>
 			<File
 				RelativePath=".\data_structures.txt"
@@ -716,1191 +716,1235 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Algorithms"
+			Name="Geometric algorithms"
 			>
 			<File
 				RelativePath=".\geometric_algorithms.txt"
 				>
 			</File>
 			<Filter
-				Name="Distance"
+				Name="Shape generation"
 				>
 				<File
-					RelativePath=".\distance.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_alignedbox_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_alignedbox_alignedbox.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_alignedbox_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_alignedbox_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_alignedbox_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_alignedbox_sphere.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_line_line.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_line_line.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_line_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_line_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_plane_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_plane_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_plane_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_plane_sphere.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_point_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_point_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_segment_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_segment_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_segment_segment.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_segment_segment.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_segment_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\distance_segment_sphere.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Closest points"
-				>
-				<File
-					RelativePath=".\closest.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_alignedbox_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_alignedbox_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_line_line.h"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_line_line.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_line_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_line_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_plane_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_plane_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_segment_point.h"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_segment_point.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_segment_segment.h"
-					>
-				</File>
-				<File
-					RelativePath=".\closest_segment_segment.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Overlap testing"
-				>
-				<File
-					RelativePath=".\overlaps.h"
-					>
-				</File>
-				<File
-					RelativePath=".\overlaps.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\overlaps_design.txt"
+					RelativePath=".\shape_generation.txt"
 					>
 				</File>
 				<Filter
-					Name="Involving AlignedBox"
+					Name="Point patterns"
 					>
 					<File
-						RelativePath=".\overlaps_alignedbox_alignedbox.h"
+						RelativePath=".\point_patterns.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedbox_alignedbox.hpp"
+						RelativePath=".\point_patterns.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedbox_box.h"
+						RelativePath=".\point_patterns.txt"
+						>
+					</File>
+					<Filter
+						Name="Poisson-disk pattern"
+						>
+						<File
+							RelativePath=".\poissondiskpattern.h"
+							>
+						</File>
+						<File
+							RelativePath=".\poissondiskpattern.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\poissondiskpattern.txt"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Bounding"
+					>
+					<File
+						RelativePath=".\bounding.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedbox_box.hpp"
+						RelativePath=".\bounding.txt"
+						>
+					</File>
+					<Filter
+						Name="Bounding aligned box"
+						>
+						<File
+							RelativePath=".\bounding_alignedbox.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_alignedbox.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_alignedbox.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_pointset.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_pointset.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_segment.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_segment.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_alignedbox_sphere.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Bounding sphere"
+						>
+						<File
+							RelativePath=".\bounding_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_alignedbox.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_alignedbox.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_pointset.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_pointset.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_segment.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_sphere_segment.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Bounding box"
+						>
+						<File
+							RelativePath=".\bounding_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\bounding_box.txt"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Convex hull"
+					>
+					<File
+						RelativePath=".\convexhull.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedbox_plane.h"
+						RelativePath=".\convexhull.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedbox_plane.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_plane.txt"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_point.h"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_point.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_sphere.h"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_sphere.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_triangle.h"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedbox_triangle.hpp"
+						RelativePath=".\convexhull.txt"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="Involving AlignedPlane"
+					Name="Set-difference"
 					>
 					<File
-						RelativePath=".\overlaps_alignedplane_alignedbox.h"
+						RelativePath=".\difference.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedplane_alignedbox.hpp"
+						RelativePath=".\difference.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_alignedplane_box.h"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedplane_box.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedplane_sphere.h"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedplane_sphere.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedplane_triangle.h"
-						>
-					</File>
-					<File
-						RelativePath=".\overlaps_alignedplane_triangle.hpp"
+						RelativePath=".\difference_alignedbox_alignedbox.h"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="Involving Box"
+					Name="Intersection"
 					>
 					<File
-						RelativePath=".\overlaps_box_box.h"
+						RelativePath=".\intersect.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_box.hpp"
+						RelativePath=".\intersect.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_point.h"
+						RelativePath=".\intersect_alignedbox_alignedbox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_point.hpp"
+						RelativePath=".\intersect_alignedbox_plane.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_sphere.h"
+						RelativePath=".\intersect_alignedbox_plane.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_sphere.hpp"
+						RelativePath=".\intersect_alignedbox_segment.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_triangle.h"
+						RelativePath=".\intersect_alignedbox_segment.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_box_triangle.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Involving Plane"
-					>
-					<File
-						RelativePath=".\overlaps_plane_box.h"
+						RelativePath=".\intersect_flat_plane.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_plane_box.hpp"
+						RelativePath=".\intersect_flat_plane.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_plane_sphere.h"
+						RelativePath=".\intersect_line_alignedbox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_plane_sphere.hpp"
+						RelativePath=".\intersect_line_alignedbox.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_plane_triangle.h"
+						RelativePath=".\intersect_line_alignedplane.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_plane_triangle.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Involving Sphere"
-					>
-					<File
-						RelativePath=".\overlaps_sphere_point.h"
+						RelativePath=".\intersect_line_alignedplane.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_sphere_point.hpp"
+						RelativePath=".\intersect_line_box.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_sphere_sphere.h"
+						RelativePath=".\intersect_line_box.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_sphere_sphere.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Involving others"
-					>
-					<File
-						RelativePath=".\overlaps_capsule_capsule.h"
+						RelativePath=".\intersect_line_plane.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_capsule_capsule.hpp"
+						RelativePath=".\intersect_line_plane.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_flat_plane.h"
+						RelativePath=".\intersect_line_polygon.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_flat_plane.hpp"
+						RelativePath=".\intersect_line_polygon.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_segment_segment.h"
+						RelativePath=".\intersect_line_sphere.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_segment_segment.hpp"
+						RelativePath=".\intersect_line_sphere.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_segments.h"
+						RelativePath=".\intersect_line_triangle.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_segments.hpp"
+						RelativePath=".\intersect_line_triangle.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_simplex_point.h"
+						RelativePath=".\intersect_plane_sphere.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_simplex_point.hpp"
+						RelativePath=".\intersect_plane_sphere.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_triangle_triangle.h"
+						RelativePath=".\intersect_ray_alignedbox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\overlaps_triangle_triangle.hpp"
+						RelativePath=".\intersect_ray_alignedbox.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_ray_alignedplane.h"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_ray_alignedplane.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_ray_plane.h"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_ray_plane.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_ray_sphere.h"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_ray_sphere.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_segment_halfspace.h"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_segment_halfspace.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_triangle_triangle.h"
+						>
+					</File>
+					<File
+						RelativePath=".\intersect_triangle_triangle.hpp"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Containment"
+				Name="Subset searches"
 				>
 				<File
-					RelativePath=".\contains.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\contains_alignedbox_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\contains_alignedbox_alignedbox.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\contains_alignedbox_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\contains_alignedbox_sphere.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\contains_sphere_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\contains_sphere_alignedbox.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Intersection"
-				>
-				<File
-					RelativePath=".\intersect.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_alignedbox_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_alignedbox_plane.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_alignedbox_plane.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_alignedbox_segment.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_alignedbox_segment.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_flat_plane.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_flat_plane.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_alignedbox.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_alignedplane.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_alignedplane.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_box.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_box.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_plane.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_plane.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_polygon.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_polygon.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_sphere.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_triangle.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_line_triangle.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_plane_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_plane_sphere.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_alignedbox.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_alignedplane.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_alignedplane.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_plane.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_plane.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_sphere.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_ray_sphere.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_segment_halfspace.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_segment_halfspace.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_triangle_triangle.h"
-					>
-				</File>
-				<File
-					RelativePath=".\intersect_triangle_triangle.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Bounding"
-				>
-				<File
-					RelativePath=".\bounding.h"
-					>
-				</File>
-				<File
-					RelativePath=".\bounding.txt"
+					RelativePath=".\subset_searches.txt"
 					>
 				</File>
 				<Filter
-					Name="Bounding aligned box"
+					Name="Orthogonal range searching"
 					>
 					<File
-						RelativePath=".\bounding_alignedbox.h"
+						RelativePath=".\count_range_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_alignedbox.txt"
+						RelativePath=".\count_range_pointkdtree.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_alignedbox_alignedbox.h"
+						RelativePath=".\search_range.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_alignedbox_alignedbox.hpp"
+						RelativePath=".\search_range_algorithm_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_alignedbox_box.h"
+						RelativePath=".\search_range_algorithm_pointkdtree.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_alignedbox_box.hpp"
+						RelativePath=".\search_range_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_alignedbox_pointset.h"
-						>
-					</File>
-					<File
-						RelativePath=".\bounding_alignedbox_pointset.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\bounding_alignedbox_segment.h"
-						>
-					</File>
-					<File
-						RelativePath=".\bounding_alignedbox_segment.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\bounding_alignedbox_sphere.h"
-						>
-					</File>
-					<File
-						RelativePath=".\bounding_alignedbox_sphere.hpp"
+						RelativePath=".\search_range_pointkdtree.hpp"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="Bounding sphere"
+					Name="Nearest neighbors"
 					>
 					<File
-						RelativePath=".\bounding_sphere.h"
+						RelativePath=".\count_nearest_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere.hpp"
+						RelativePath=".\count_nearest_pointkdtree.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere.txt"
+						RelativePath=".\nearest_neighbors.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_alignedbox.h"
+						RelativePath=".\nearest_neighbors_semidynamic.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_alignedbox.hpp"
+						RelativePath=".\search_nearest_algorithm_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_box.h"
+						RelativePath=".\search_nearest_algorithm_pointkdtree.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_box.hpp"
+						RelativePath=".\search_nearest_one_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_pointset.h"
+						RelativePath=".\search_nearest_one_pointkdtree.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_pointset.hpp"
+						RelativePath=".\search_nearest_pointkdtree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_segment.h"
+						RelativePath=".\search_nearest_pointkdtree.hpp"
+						>
+					</File>
+					<Filter
+						Name="All nearest neighbors counting"
+						>
+						<File
+							RelativePath=".\count_all_neighbors.h"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors_1d.h"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors_1d.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors_bruteforce.h"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors_bruteforce.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\count_all_neighbors_pointkdtree.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="All nearest neighbors searching"
+						>
+						<File
+							RelativePath=".\search_all_neighbors.h"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors_1d.h"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors_1d.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors_bruteforce.h"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors_bruteforce.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\search_all_neighbors_pointkdtree.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="AcceptPoint"
+						>
+						<File
+							RelativePath=".\acceptpoint.h"
+							>
+						</File>
+						<File
+							RelativePath=".\acceptpoint.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\acceptpoint_concept.h"
+							>
+						</File>
+						<File
+							RelativePath=".\always_acceptpoint.h"
+							>
+						</File>
+						<File
+							RelativePath=".\dont_acceptpoint.h"
+							>
+						</File>
+						<File
+							RelativePath=".\negate_acceptpoint.h"
+							>
+						</File>
+						<File
+							RelativePath=".\objectdont_acceptpoint.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Point kd-tree search algorithms"
+						>
+						<File
+							RelativePath=".\bestfirst_searchalgorithm_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\bestfirst_searchalgorithm_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\depthfirst_searchalgorithm_pointkdtree.h"
+							>
+						</File>
+						<File
+							RelativePath=".\depthfirst_searchalgorithm_pointkdtree.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\searchalgorithm_pointkdtree.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\searchalgorithm_pointkdtree_concept.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Intersection graph"
+					>
+					<File
+						RelativePath=".\intersection_graph.txt"
+						>
+					</File>
+					<Filter
+						Name="Maximum clique"
+						>
+						<File
+							RelativePath=".\maximum_clique_alignedbox.h"
+							>
+						</File>
+						<File
+							RelativePath=".\maximum_clique_alignedbox.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\maximum_clique_alignedbox.txt"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Transformation fitting"
+				>
+				<File
+					RelativePath=".\transformation_fitting.txt"
+					>
+				</File>
+				<Filter
+					Name="Point pattern matching"
+					>
+					<File
+						RelativePath=".\point_pattern_match_gmo.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_sphere_segment.hpp"
+						RelativePath=".\point_pattern_match_gmo.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\point_pattern_matching.h"
+						>
+					</File>
+					<File
+						RelativePath=".\point_pattern_matching.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\point_pattern_matching.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\ppm_translation.h"
+						>
+					</File>
+					<File
+						RelativePath=".\ppm_translation.txt"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="Bounding box"
+					Name="Projection"
 					>
 					<File
-						RelativePath=".\bounding_box.h"
+						RelativePath=".\linear_projection.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_box.hpp"
+						RelativePath=".\linear_projection.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\bounding_box.txt"
+						RelativePath=".\planar_projection.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\planar_projection.h"
+						>
+					</File>
+					<File
+						RelativePath=".\planar_projection.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\projection.txt"
 						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Area"
+				Name="Shape relations"
 				>
 				<File
-					RelativePath=".\area.h"
-					>
-				</File>
-				<File
-					RelativePath=".\area.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\box_area.h"
-					>
-				</File>
-				<File
-					RelativePath=".\box_area.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\polygon_area.h"
-					>
-				</File>
-				<File
-					RelativePath=".\polygon_area.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_area.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_area.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_area.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Diameter"
-				>
-				<File
-					RelativePath=".\alignedbox_diameter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\alignedbox_diameter.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\box_diameter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\box_diameter.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\diameter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\diameter.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_diameter.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_diameter.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Volume"
-				>
-				<File
-					RelativePath=".\box_volume.h"
-					>
-				</File>
-				<File
-					RelativePath=".\box_volume.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_volume.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_volume.h"
-					>
-				</File>
-				<File
-					RelativePath=".\sphere_volume.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\volume.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Projection"
-				>
-				<File
-					RelativePath=".\linear_projection.h"
-					>
-				</File>
-				<File
-					RelativePath=".\linear_projection.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\planar_projection.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\planar_projection.h"
-					>
-				</File>
-				<File
-					RelativePath=".\planar_projection.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\projection.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Intersection graph"
-				>
-				<File
-					RelativePath=".\intersection_graph.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\maximum_clique_alignedbox.h"
-					>
-				</File>
-				<File
-					RelativePath=".\maximum_clique_alignedbox.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\maximum_clique_alignedbox.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Difference"
-				>
-				<File
-					RelativePath=".\difference.h"
-					>
-				</File>
-				<File
-					RelativePath=".\difference.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\difference_alignedbox_alignedbox.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Convex hull"
-				>
-				<File
-					RelativePath=".\convexhull.h"
-					>
-				</File>
-				<File
-					RelativePath=".\convexhull.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\convexhull.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Point patterns"
-				>
-				<File
-					RelativePath=".\point_patterns.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point_patterns.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\point_patterns.txt"
+					RelativePath=".\shape_relations.txt"
 					>
 				</File>
 				<Filter
-					Name="Poisson-disk pattern"
+					Name="Containment testing"
 					>
 					<File
-						RelativePath=".\poissondiskpattern.h"
+						RelativePath=".\contains.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\poissondiskpattern.hpp"
+						RelativePath=".\contains_alignedbox_alignedbox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\poissondiskpattern.txt"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Eigenstructure"
-				>
-				<File
-					RelativePath=".\pointset_eigen.h"
-					>
-				</File>
-				<File
-					RelativePath=".\pointset_eigen.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\pointset_eigen.txt"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Nearest neighbors"
-				>
-				<File
-					RelativePath=".\count_nearest_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\count_nearest_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\nearest_neighbors.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\nearest_neighbors_semidynamic.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\search_nearest_algorithm_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_nearest_algorithm_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\search_nearest_one_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_nearest_one_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\search_nearest_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_nearest_pointkdtree.hpp"
-					>
-				</File>
-				<Filter
-					Name="All nearest neighbors counting"
-					>
-					<File
-						RelativePath=".\count_all_neighbors.h"
+						RelativePath=".\contains_alignedbox_alignedbox.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\count_all_neighbors.txt"
+						RelativePath=".\contains_alignedbox_sphere.h"
 						>
 					</File>
 					<File
-						RelativePath=".\count_all_neighbors_1d.h"
+						RelativePath=".\contains_alignedbox_sphere.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\count_all_neighbors_1d.hpp"
+						RelativePath=".\contains_sphere_alignedbox.h"
 						>
 					</File>
 					<File
-						RelativePath=".\count_all_neighbors_bruteforce.h"
-						>
-					</File>
-					<File
-						RelativePath=".\count_all_neighbors_bruteforce.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\count_all_neighbors_pointkdtree.h"
-						>
-					</File>
-					<File
-						RelativePath=".\count_all_neighbors_pointkdtree.hpp"
+						RelativePath=".\contains_sphere_alignedbox.hpp"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="All nearest neighbors searching"
+					Name="Overlap testing"
 					>
 					<File
-						RelativePath=".\search_all_neighbors.h"
+						RelativePath=".\overlaps.h"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors.txt"
+						RelativePath=".\overlaps.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors_1d.h"
+						RelativePath=".\overlaps_design.txt"
+						>
+					</File>
+					<Filter
+						Name="Involving AlignedBox"
+						>
+						<File
+							RelativePath=".\overlaps_alignedbox_alignedbox.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_alignedbox.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_plane.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_plane.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_plane.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_point.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_point.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_sphere.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_triangle.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedbox_triangle.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Involving AlignedPlane"
+						>
+						<File
+							RelativePath=".\overlaps_alignedplane_alignedbox.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_alignedbox.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_sphere.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_triangle.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_alignedplane_triangle.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Involving Box"
+						>
+						<File
+							RelativePath=".\overlaps_box_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_point.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_point.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_sphere.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_triangle.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_box_triangle.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Involving Plane"
+						>
+						<File
+							RelativePath=".\overlaps_plane_box.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_plane_box.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_plane_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_plane_sphere.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_plane_triangle.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_plane_triangle.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Involving Sphere"
+						>
+						<File
+							RelativePath=".\overlaps_sphere_point.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_sphere_point.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_sphere_sphere.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_sphere_sphere.hpp"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Involving others"
+						>
+						<File
+							RelativePath=".\overlaps_capsule_capsule.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_capsule_capsule.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_flat_plane.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_flat_plane.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_segment_segment.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_segment_segment.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_segments.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_segments.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_simplex_point.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_simplex_point.hpp"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_triangle_triangle.h"
+							>
+						</File>
+						<File
+							RelativePath=".\overlaps_triangle_triangle.hpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Shape measurements"
+				>
+				<File
+					RelativePath=".\shape_measurements.txt"
+					>
+				</File>
+				<Filter
+					Name="Area"
+					>
+					<File
+						RelativePath=".\area.h"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors_1d.hpp"
+						RelativePath=".\area.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors_bruteforce.h"
+						RelativePath=".\box_area.h"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors_bruteforce.hpp"
+						RelativePath=".\box_area.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors_pointkdtree.h"
+						RelativePath=".\polygon_area.h"
 						>
 					</File>
 					<File
-						RelativePath=".\search_all_neighbors_pointkdtree.hpp"
+						RelativePath=".\polygon_area.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\sphere_area.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\sphere_area.h"
+						>
+					</File>
+					<File
+						RelativePath=".\sphere_area.hpp"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="AcceptPoint"
+					Name="Diameter"
 					>
 					<File
-						RelativePath=".\acceptpoint.h"
+						RelativePath=".\alignedbox_diameter.h"
 						>
 					</File>
 					<File
-						RelativePath=".\acceptpoint.txt"
+						RelativePath=".\alignedbox_diameter.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\acceptpoint_concept.h"
+						RelativePath=".\box_diameter.h"
 						>
 					</File>
 					<File
-						RelativePath=".\always_acceptpoint.h"
+						RelativePath=".\box_diameter.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\dont_acceptpoint.h"
+						RelativePath=".\diameter.h"
 						>
 					</File>
 					<File
-						RelativePath=".\negate_acceptpoint.h"
+						RelativePath=".\diameter.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\objectdont_acceptpoint.h"
+						RelativePath=".\sphere_diameter.h"
+						>
+					</File>
+					<File
+						RelativePath=".\sphere_diameter.hpp"
 						>
 					</File>
 				</Filter>
 				<Filter
-					Name="SearchAlgorithm_PointKdTree"
+					Name="Volume"
 					>
 					<File
-						RelativePath=".\bestfirst_searchalgorithm_pointkdtree.h"
+						RelativePath=".\box_volume.h"
 						>
 					</File>
 					<File
-						RelativePath=".\bestfirst_searchalgorithm_pointkdtree.hpp"
+						RelativePath=".\box_volume.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\depthfirst_searchalgorithm_pointkdtree.h"
+						RelativePath=".\sphere_volume.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\depthfirst_searchalgorithm_pointkdtree.hpp"
+						RelativePath=".\sphere_volume.h"
 						>
 					</File>
 					<File
-						RelativePath=".\searchalgorithm_pointkdtree.txt"
+						RelativePath=".\sphere_volume.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\searchalgorithm_pointkdtree_concept.h"
+						RelativePath=".\volume.txt"
 						>
 					</File>
 				</Filter>
-			</Filter>
-			<Filter
-				Name="Orthogonal range searching"
-				>
-				<File
-					RelativePath=".\count_range_pointkdtree.h"
+				<Filter
+					Name="Distance"
 					>
-				</File>
-				<File
-					RelativePath=".\count_range_pointkdtree.hpp"
+					<File
+						RelativePath=".\distance.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_alignedbox_alignedbox.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_alignedbox_alignedbox.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_alignedbox_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_alignedbox_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_alignedbox_sphere.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_alignedbox_sphere.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_line_line.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_line_line.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_line_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_line_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_plane_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_plane_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_plane_sphere.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_plane_sphere.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_point_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_point_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_segment_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_segment_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_segment_segment.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_segment_segment.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_segment_sphere.h"
+						>
+					</File>
+					<File
+						RelativePath=".\distance_segment_sphere.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Closest points"
 					>
-				</File>
-				<File
-					RelativePath=".\search_range.txt"
+					<File
+						RelativePath=".\closest.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_alignedbox_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_alignedbox_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_line_line.h"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_line_line.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_line_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_line_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_plane_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_plane_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_segment_point.h"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_segment_point.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_segment_segment.h"
+						>
+					</File>
+					<File
+						RelativePath=".\closest_segment_segment.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Eigenstructure"
 					>
-				</File>
-				<File
-					RelativePath=".\search_range_algorithm_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_algorithm_pointkdtree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_pointkdtree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\search_range_pointkdtree.hpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Point pattern matching"
-				>
-				<File
-					RelativePath=".\point_pattern_match_gmo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_match_gmo.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_matching.h"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_matching.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\point_pattern_matching.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\ppm_translation.h"
-					>
-				</File>
-				<File
-					RelativePath=".\ppm_translation.txt"
-					>
-				</File>
+					<File
+						RelativePath=".\pointset_eigen.h"
+						>
+					</File>
+					<File
+						RelativePath=".\pointset_eigen.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\pointset_eigen.txt"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>
