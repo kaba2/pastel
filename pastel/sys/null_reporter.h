@@ -17,6 +17,11 @@ namespace Pastel
 		}
 	};
 
+	inline Null_Reporter nullReporter()
+	{
+		return Null_Reporter();
+	}
+
 }
 
 #endif

@@ -9,6 +9,8 @@
 
 #include "pastel/math/euclidean_normbijection.h"
 
+#include "pastel/sys/single_reporter.h"
+
 #include <boost/type_traits/is_same.hpp>
 
 namespace Pastel
@@ -46,7 +48,8 @@ namespace Pastel
 
 		searchNearest(
 			kdTree, searchPoint, 
-			1, &nearest, &distance,
+			1, singleReporter(nearest), 
+			singleReporter(distance),
 			maxDistance, maxRelativeError,
 			acceptPoint, bucketSize,
 			normBijection, 

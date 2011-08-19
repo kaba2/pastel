@@ -2407,6 +2407,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\range_reporter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\range_reporter.txt"
+					>
+				</File>
+				<File
 					RelativePath=".\reporter_concept.h"
 					>
 				</File>
@@ -2416,6 +2424,14 @@
 				</File>
 				<File
 					RelativePath=".\reporters.txt"
+					>
+				</File>
+				<File
+					RelativePath=".\single_reporter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\single_reporter.txt"
 					>
 				</File>
 			</Filter>

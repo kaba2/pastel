@@ -221,6 +221,8 @@ namespace Pastel
 		using Base::reshape;
 		typedef typename Base::RowIterator RowIterator;
 		typedef typename Base::ConstRowIterator ConstRowIterator;
+		typedef typename Base::RowRange RowRange;
+		typedef typename Base::ConstRowRange ConstRowRange;
 
 		Array()
 			: Base()
@@ -322,6 +324,16 @@ namespace Pastel
 		ConstCursor constCursor(integer x, integer y) const
 		{
 			return Base::constCursor(Vector<integer, N>(x, y));
+		}
+
+		RowRange rowRange(integer y)
+		{
+			return Base::rowRange(Vector<integer, N>(0, y), 0);
+		}
+
+		ConstRowRange rowRange(integer y) const
+		{
+			return Base::rowRange(Vector<integer, N>(0, y), 0);
 		}
 
 		RowIterator rowBegin(integer y)

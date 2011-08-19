@@ -11,7 +11,6 @@
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
-#include "pastel/sys/range.h"
 
 namespace Pastel
 {

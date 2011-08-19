@@ -9,6 +9,7 @@
 #include "pastel/sys/alignedbox_tools.h"
 #include "pastel/sys/difference_alignedbox_alignedbox.h"
 #include "pastel/sys/rectangleiterator.h"
+#include "pastel/sys/iterator_range.h"
 
 #include <boost/bind.hpp>
 
@@ -493,7 +494,7 @@ namespace Pastel
 			const Vector<integer, N>& position, 
 			integer axis)
 		{
-			return range(
+			return Pastel::range(
 				rowBegin(position, axis), 
 				rowEnd(position, axis));
 		}
@@ -504,7 +505,7 @@ namespace Pastel
 			const Vector<integer, N>& position, 
 			integer axis) const
 		{
-			return range(
+			return Pastel::range(
 				rowBegin(position, axis), 
 				rowEnd(position, axis));
 		}

@@ -6,7 +6,6 @@
 
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/memory_overlaps.h"
-#include "pastel/sys/range.h"
 #include "pastel/sys/vector_tools.h"
 #include "pastel/sys/subarray_iterator.h"
 
