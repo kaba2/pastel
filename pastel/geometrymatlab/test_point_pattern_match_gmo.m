@@ -3,28 +3,33 @@
 clear all;
 close all;
 
+drawCircles = true;
+
 % This program demonstrates the use of the point-pattern matching
 % algorithm.
 
 % At least minMatchRatio * 100% of the transformed model points must 
 % each match a unique scene point. 'To match' means
 % to be at a matching distance.
-minMatchRatio = 0.4;
+minMatchRatio = 0.6;
 
 % The matching distance.
 matchingDistance = 0.1;
 %matchingDistance = 0.2;
+%matchingDistance = 0.5;
+
+% The maximum allowed bias.
+maxBias = 0.2;
 
 % 0 for first match, 1 for most stable maximum match.
-matchingMode = 1;
+matchingMode = 0;
 
 % The amplitude of the gaussian noise to apply to the model
 % points in the scene.
 noiseAmount = 0.02;
 %noiseAmount = 0;
 
-%missingPointsPercentage = 0.7;
-missingPointsPercentage = 0.5;
+missingPointsPercentage = 0.3;
 
 % Generate a random set of model points.
 
@@ -60,9 +65,10 @@ n = size(S, d);
 % Attempt to recover the similarity from the two
 % pointsets using point-pattern matching.
 tic
-[pairSet, nTranslation, stability, success] = ...
+[pairSet, nTranslation, bias, success] = ...
     pastel_point_pattern_match_gmo(M, S, ...
-    minMatchRatio, matchingDistance, matchingMode);
+    minMatchRatio, matchingDistance, maxBias, ...
+    matchingMode);
 timeSpent = toc;
 
 foundPairSet = zeros(1, m);
@@ -81,7 +87,7 @@ if success
     fprintf('Found a match with %d points!\n', matchSize);
     fprintf('Out of these points, %d match with the correct pair.\n', ...
         correctPairs);
-    fprintf('The match has stability %f.\n', stability);
+    fprintf('The match has bias %f.\n', bias);
     fprintf('Here are the returned parameters, ');
     fprintf('correct parameters in parentheses:\n');
     fprintf('xDelta:   %f (%f)\n', ...
@@ -105,13 +111,16 @@ axis equal;
 
 % Draw a blue circle around each scene point,
 % with the matching distance as the radius.
-[x, y, ignore] = cylinder(matchingDistance, 100);
-for i = 1 : n
-    plot(x(1, :) + S(1, i), ...
-        y(1, :) + S(2, i), 'b');
+if drawCircles
+    [x, y, ignore] = cylinder(matchingDistance, 100);
+    for i = 1 : n
+        plot(x(1, :) + S(1, i), ...
+            y(1, :) + S(2, i), 'b');
+    end
 end
 
-%scatter(S(1, :), S(2, :), 100, 'b.');
+% Draw a blue dot to each scene point.
+scatter(S(1, :), S(2, :), 100, 'b.');
 
 % Draw a red dot to each transformed model point.
 scatter(nM(1, :), nM(2, :), 100, 'r.');

@@ -29,10 +29,11 @@ namespace Pastel
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxBias,
 		MatchingMode::Enum matchingMode,
 		const NormBijection& normBijection,
 		Vector<Real, N>& translation,
-		PASTEL_NO_DEDUCTION(Real)& stability,
+		PASTEL_NO_DEDUCTION(Real)& bias,
 		SceneModel_Iterator output);
 
 }

@@ -27,6 +27,7 @@ namespace Pastel
 				SceneSet,
 				MinMatchRatio,
 				MatchingDistance,
+				MaxBias,
 				MatchingMode,
 				Inputs
 			};
@@ -35,7 +36,7 @@ namespace Pastel
 			{
 				PairSet,
 				Translation,
-				Stability,
+				Bias,
 				Success,
 				Outputs
 			};
@@ -57,6 +58,8 @@ namespace Pastel
 			const real minMatchRatio = asScalar<real>(inputSet[MinMatchRatio]);
 			const real matchingDistance = 
 				asScalar<real>(inputSet[MatchingDistance]);
+			const real maxBias =
+				asScalar<real>(inputSet[MaxBias]);
 			const integer matchingModeId = asScalar<integer>(inputSet[MatchingMode]);
 
 			ENSURE_OP(matchingModeId, >=, 0);
@@ -101,19 +104,16 @@ namespace Pastel
 
 			std::vector<std::pair<SceneIterator, ModelIterator> > pairSet;
 			Vector<real> translation(ofDimension(n));
-			real stability = 0;
+			real bias = 0;
 
 			// Compute the point pattern match.
 
 			Euclidean_NormBijection<real> normBijection;
 			const bool success = Pastel::pointPatternMatchGmo(
 				modelTree, sceneTree, 
-				minMatchRatio, matchingDistance,
-				matchingMode,
-				normBijection,
-				translation, 
-				stability,
-				std::back_inserter(pairSet));
+				minMatchRatio, matchingDistance, maxBias,
+				matchingMode, normBijection, translation, 
+				bias, std::back_inserter(pairSet));
 
 			// Output the pairing.
 
@@ -134,10 +134,10 @@ namespace Pastel
 			std::copy(translation.begin(), translation.end(),
 				outTranslation->begin());
 
-			// Output the stability.
+			// Output the bias.
 
-			real* outStability = createScalar<real>(outputSet[Stability]);
-			*outStability = stability;
+			real* outBias = createScalar<real>(outputSet[Bias]);
+			*outBias = bias;
 
 			// Output the success flag.
 

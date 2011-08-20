@@ -666,10 +666,11 @@ namespace
 
 		const real minMatchRatio = 0.50;
 		const real matchingDistance = 10;
+		const real maxBias = 1;
 
 		const bool success = Pastel::pointPatternMatchGmo(
 			sceneTree, modelTree, 
-			minMatchRatio, matchingDistance,
+			minMatchRatio, matchingDistance, maxBias,
 			MatchingMode::MaximumMatch,
 			normBijection,
 			translation, 
