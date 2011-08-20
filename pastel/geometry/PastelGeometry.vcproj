@@ -1098,7 +1098,7 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Nearest neighbors"
+					Name="Nearest neighbors searching"
 					>
 					<File
 						RelativePath=".\count_nearest_pointkdtree.h"

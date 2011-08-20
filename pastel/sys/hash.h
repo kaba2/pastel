@@ -115,6 +115,13 @@ namespace Pastel
 		}
 	};
 
+	template <typename Iterator>
+	IteratorAddress_Hash<Iterator> iteratorAddressHash(
+		const Iterator& iter)
+	{
+		return IteratorAddress_Hash<Iterator>();
+	}
+
 }
 
 #include "pastel/sys/hash.hpp"

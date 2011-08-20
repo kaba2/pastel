@@ -1,6 +1,24 @@
 Implementation blog
 ===================
 
+Extending hashing
+-----------------
+
+19.8.2011
+
+Consider the function
+
+[[CppCode]]:
+	template <typename Range>
+	void f(Range range)
+
+Assume `f` requires the value-type of range to be hashable.
+If this isn't the case, how should this be made to work?
+
+### Option 1
+
+Add the hash function as an argument of `f`.
+
 Naming of concept models
 ------------------------
 
