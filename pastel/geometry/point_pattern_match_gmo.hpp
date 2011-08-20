@@ -66,16 +66,17 @@ namespace Pastel
 				const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 				const Real& minMatchRatio,
 				const Real& actualMatchingDistance,
+				const Real& maxBias,
 				MatchingMode::Enum matchingMode,
 				const NormBijection& normBijection,
 				Vector<Real, N>& outTranslation,
-				Real& outStability,
+				Real& outBias,
 				SceneModel_Iterator output)
 			{
 				const integer d = modelTree.dimension();
 
 				outTranslation = Vector<Real, N>(ofDimension(d), 0);
-				outStability = 0;
+				outBias = 0;
 
 				std::vector<Model_ConstIterator> modelSet(
 					countingIterator(modelTree.begin()),
@@ -98,7 +99,7 @@ namespace Pastel
 
 				PairSet bestPairSet;
 				Vector<Real, N> bestTranslation(ofDimension(d));
-				Real bestStability = 0;
+				Real bestBias = 1;
 
 				bool exitEarly = false;
 
@@ -159,70 +160,64 @@ namespace Pastel
 
 						//log() << pairSet.size() << " ";
 
-						if (pairSet.size() >= minMatches &&
+						if (!pairSet.empty() &&
+							pairSet.size() >= minMatches &&
 							pairSet.size() >= bestPairSet.size())
 						{
-							// We have found a match.
+							// We have found a possible match.
 
-							// Compute the stability of the match.
-							// The stability is the minimum percentage of the
-							// matching distance such that a outTranslation by
-							// that distance would lose the match.
-							Real stability = 0;
+							// Compute the bias of the match.
+							// The bias is the norm of the mean difference
+							// between the pairs, divided by the matching distance.
+							Real bias = 0;
 							{
-								Real maxDistance = 0;
+								Vector<Real, N> meanDelta(ofDimension(d));
 
 								Pair_ConstIterator iter = pairSet.begin();
 								const Pair_ConstIterator iterEnd = pairSet.end();
 								while(iter != iterEnd)
 								{
-									const Real distance = 
-										norm2(
+									meanDelta += 
 										sceneTree.pointPolicy()(iter->first->point()) -
-										(modelTree.pointPolicy()(iter->second->point()) + translation),
-										normBijection);
-
-									if (distance > maxDistance)
-									{
-										maxDistance = distance;
-									}
+										(modelTree.pointPolicy()(iter->second->point()) + 
+										translation);
 
 									++iter;
 								}
 
-								stability = 
-									1 - normBijection.toNorm(maxDistance) /
-									actualMatchingDistance;
+								meanDelta /= pairSet.size();
+
+								const Real meanNorm = 
+									normBijection.toNorm(norm2(meanDelta, normBijection));
+
+								bias = meanNorm / actualMatchingDistance;
 							}							
 
-							if (matchingMode == MatchingMode::FirstMatch)
+							// Check that the bias is not too large.
+							if (bias <= maxBias)
 							{
-								// The first match was asked for,
-								// so return this match.
+								// We have a match.
 
-								bestPairSet.swap(pairSet);
-								bestTranslation = translation;
-								bestStability = stability;
-
-								// No need to look for additional matches.
-								exitEarly = true;
-							}
-							else if (matchingMode == MatchingMode::MaximumMatch)
-							{
-								// A maximum match was asked for,
-								// so the greater-than here is on purpose
-								// (there can be many maximum matches).
-								// Between matches of the same size,
-								// we pick the more stable one.
-
+								// See if it is better than the existing
+								// match. Larger match size is primarily better,
+								// smaller bias is secondarily better.
 								if (pairSet.size() > bestPairSet.size() ||
 									(pairSet.size() == bestPairSet.size() &&
-									stability > bestStability))
+									bias < bestBias))
 								{
 									bestPairSet.swap(pairSet);
 									bestTranslation = translation;
-									bestStability = stability;
+									bestBias = bias;
 								}
+
+								if (matchingMode == MatchingMode::FirstMatch)
+								{
+									// The first match was asked for,
+									// so return this match.
+									exitEarly = true;
+								}
+								// else we are looking for the best match,
+								// and continue searching.
 							}
 						}
 
@@ -238,7 +233,7 @@ namespace Pastel
 						bestPairSet.begin(), bestPairSet.end(),
 						output);
 					outTranslation = bestTranslation;
-					outStability = bestStability;
+					outBias = bestBias;
 
 					return true;
 				}
@@ -257,15 +252,18 @@ namespace Pastel
 		const PointKdTree<Real, N, Scene_PointPolicy>& sceneTree,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& matchingDistance,
+		const PASTEL_NO_DEDUCTION(Real)& maxBias,
 		MatchingMode::Enum matchingMode,
 		const NormBijection& normBijection,
 		Vector<Real, N>& outTranslation,
-		PASTEL_NO_DEDUCTION(Real)& outStability,
+		PASTEL_NO_DEDUCTION(Real)& outBias,
 		SceneModel_Iterator output)
 	{
 		ENSURE_OP(minMatchRatio, >=, 0);
 		ENSURE_OP(minMatchRatio, <=, 1);
 		ENSURE_OP(matchingDistance, >=, 0);
+		ENSURE_OP(maxBias, >=, 0);
+		ENSURE_OP(maxBias, <=, 1);
 
 		Detail_PointPatternMatch::PointPatternGmo<
 			Real, N, Model_PointPolicy, 
@@ -277,10 +275,11 @@ namespace Pastel
 			modelTree, sceneTree, 
 			minMatchRatio,
 			matchingDistance,
+			maxBias,
 			matchingMode,
 			normBijection,
 			outTranslation, 
-			outStability,
+			outBias,
 			output);
 	}
 
