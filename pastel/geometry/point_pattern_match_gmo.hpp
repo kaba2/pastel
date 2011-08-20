@@ -5,6 +5,10 @@
 #include "pastel/geometry/search_nearest_one_pointkdtree.h"
 
 #include "pastel/sys/countingiterator.h"
+#include "pastel/sys/maximum_bipartite_matching.h"
+#include "pastel/sys/reporters.h"
+#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/stdpair_as_pair.h"
 
 #include <map>
 
@@ -30,31 +34,31 @@ namespace Pastel
 				Scene_ConstIterator;
 			typedef typename SceneTree::Point ScenePoint;
 
-			typedef std::map<Scene_ConstIterator, Model_ConstIterator> 
+			typedef std::vector<std::pair<Scene_ConstIterator, Model_ConstIterator> > 
 				PairSet;
 			typedef typename PairSet::iterator Pair_Iterator;
 			typedef typename PairSet::const_iterator Pair_ConstIterator;
 
-			template <typename Type>
-			class Unique_AcceptPoint
+			class Neighbor_Reporter
 			{
 			public:
-				typedef Type Point;
-
-				explicit Unique_AcceptPoint(
-					const PairSet& pairSet)
+				explicit Neighbor_Reporter(
+					PairSet& pairSet,
+					const Model_ConstIterator& model)
 					: pairSet_(pairSet)
+					, model_(model)
 				{
 				}
 
-				bool operator()(
-					const Point& that) const
+				void operator()(const Scene_ConstIterator& scene) const
 				{
-					return pairSet_.find(that) == pairSet_.end();
+					pairSet_.push_back(
+						std::make_pair(scene, model_));
 				}
 
 			private:
-				const PairSet& pairSet_;
+				PairSet& pairSet_;
+				Model_ConstIterator model_;
 			};
 
 			bool match(
@@ -118,7 +122,7 @@ namespace Pastel
 						// Find out how many points match
 						// under this translation.
 
-						PairSet pairSet;
+						PairSet candidatePairSet;
 						for (integer j = 0;j < modelSet.size();++j)
 						{
 							const Model_ConstIterator modelIter = modelSet[j];
@@ -127,24 +131,31 @@ namespace Pastel
 								modelIter->point()) + 
 								translation;
 
-							const KeyValue<Real, Scene_ConstIterator> neighbor = 
-								searchNearestOne(
+							const integer kNearest = 16;
+
+							searchNearest(
 								sceneTree, 
 								searchPoint,
+								kNearest,
+								Neighbor_Reporter(candidatePairSet, modelIter),
+								nullReporter(),
 								matchingDistance,
 								maxRelativeError,
-								Unique_AcceptPoint<Scene_ConstIterator>(pairSet),
+								Always_AcceptPoint<Scene_ConstIterator>(),
 								16,
 								normBijection);
 
 							//log() << "Distance " << neighbor.key() << logNewLine;
-							
-							if (neighbor.value() != sceneTree.end())
-							{
-								pairSet.insert(std::make_pair(
-									neighbor.value(), modelIter));
-							}
+						
 						}
+
+						PairSet pairSet;
+						maximumBipartiteMatching(
+							range(candidatePairSet.begin(), candidatePairSet.end()),
+							pushBackReporter(pairSet),
+							StdPair_As_Pair(),
+							iteratorAddressHash(sceneTree.end()),
+							iteratorAddressHash(modelTree.end()));
 
 						//log() << pairSet.size() << " ";
 

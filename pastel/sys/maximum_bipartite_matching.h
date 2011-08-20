@@ -27,6 +27,29 @@ namespace Pastel
 	template <
 		typename Vertex_Pair_ForwardRange, 
 		typename Vertex_Pair_Reporter,
+		typename As_Pair,
+		typename LeftHash,
+		typename RightHash>
+	void maximumBipartiteMatching(
+		Vertex_Pair_ForwardRange range,
+		const Vertex_Pair_Reporter& reporter,
+		const As_Pair& asPair,
+		const LeftHash& leftHash,
+		const RightHash& rightHash);
+
+	//! Computes the maximum matching in a bipartite graph.
+	/*!
+	This is a convenience function which calls
+
+	maximumBipartiteMatching(
+		range, reporter, asPair,
+		Hash<Left>(), Hash<Right>());
+
+	See the documentation for that function.
+	*/
+	template <
+		typename Vertex_Pair_ForwardRange, 
+		typename Vertex_Pair_Reporter,
 		typename As_Pair>
 	void maximumBipartiteMatching(
 		Vertex_Pair_ForwardRange range,
@@ -38,7 +61,7 @@ namespace Pastel
 	This is a convenience function which calls
 
 	maximumBipartiteMatching(
-		range, Tuple_As_Pair());
+		range, reporter, Tuple_As_Pair());
 
 	See the documentation for that function.
 	*/

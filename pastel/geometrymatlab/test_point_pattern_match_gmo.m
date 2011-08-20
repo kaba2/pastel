@@ -9,21 +9,22 @@ close all;
 % At least minMatchRatio * 100% of the transformed model points must 
 % each match a unique scene point. 'To match' means
 % to be at a matching distance.
-minMatchRatio = 0.6;
+minMatchRatio = 0.4;
 
 % The matching distance.
 matchingDistance = 0.1;
+%matchingDistance = 0.2;
 
 % 0 for first match, 1 for most stable maximum match.
 matchingMode = 1;
 
 % The amplitude of the gaussian noise to apply to the model
 % points in the scene.
-%noiseAmount = 0.02;
-noiseAmount = 0;
+noiseAmount = 0.02;
+%noiseAmount = 0;
 
 %missingPointsPercentage = 0.7;
-missingPointsPercentage = 0.3;
+missingPointsPercentage = 0.5;
 
 % Generate a random set of model points.
 

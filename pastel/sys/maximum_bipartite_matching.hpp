@@ -20,7 +20,9 @@ namespace Pastel
 		template <
 			typename Vertex_Pair_ForwardRange, 
 			typename Vertex_Pair_Reporter,
-			typename As_Pair>
+			typename As_Pair,
+			typename LeftHash,
+			typename RightHash>
 		class Algorithm
 		{
 		public:
@@ -29,20 +31,30 @@ namespace Pastel
 			typedef typename Type_As_Pair::Left Left;
 			typedef typename Type_As_Pair::Right Right;
 
-			typedef UnorderedMap<Left, integer> LeftMap;
-			typedef UnorderedMap<Right, integer> RightMap;
+			typedef UnorderedMap<Left, integer, LeftHash> LeftMap;
+			typedef UnorderedMap<Right, integer, RightHash> RightMap;
 			typedef UnorderedMap<integer, Left> InverseLeftMap;
 			typedef UnorderedMap<integer, Right> InverseRightMap;
 
 			void work(
 				Vertex_Pair_ForwardRange range,
 				const Vertex_Pair_Reporter& reporter,
-				const As_Pair& asPair)
+				const As_Pair& asPair,
+				const LeftHash& leftHash,
+				const RightHash& rightHash)
 			{
 				// This is the Hopcroft-Karp algorithm for 
 				// maximum bipartite matching.
 
+				if (range.empty())
+				{
+					return;
+				}
+
 				initialize(range, asPair);
+
+				leftHash_ = leftHash;
+				rightHash_ = rightHash;
 
 				while(findAugmentingPaths())
 				{
@@ -210,9 +222,9 @@ namespace Pastel
 				// maps.
 
 				// Associates each left vertex with an integer.
-				LeftMap leftMap;
+				LeftMap leftMap(1, leftHash_);
 				// Associates each right vertex with an integer.
-				RightMap rightMap;
+				RightMap rightMap(1, rightHash_);
 
 				// Directed edges between integers.
 				std::vector<KeyValue<integer, integer> > edgeSet;
@@ -279,7 +291,10 @@ namespace Pastel
 
 				// Reserving memory in advance here is important to
 				// avoid pointer-invalidating reallocations later.
-				adjacencySet_.reserve(edges);
+				// We are using resize() because I don't know whether
+				// reserve() guarantees the validity of 
+				// &adjacencySet_[edge] on an empty vector.
+				adjacencySet_.resize(edges);
 				// No such worries here, this is only for performance.
 				vertexSet_.reserve(vertices);
 
@@ -289,7 +304,7 @@ namespace Pastel
 					// The pointer remains valid, since there will be no
 					// resizes thanks to an early reserve() call.
 					integer* edgeBegin = 
-						&adjacencySet_.front() + adjacencySet_.size();
+						&adjacencySet_[edge];
 
 					integer adjacencies = 0;
 					// Since edgeSet is sorted primarily according to
@@ -297,8 +312,7 @@ namespace Pastel
 					// grouped in an interval.
 					while(edge < edges && edgeSet[edge].key() == i)
 					{
-						// No resizing occurs because of the reserve() call.
-						adjacencySet_.push_back(edgeSet[edge].value());
+						adjacencySet_[edge] = edgeSet[edge].value();
 						++adjacencies;
 						++edge;
 					}
@@ -412,8 +426,30 @@ namespace Pastel
 
 			InverseLeftMap inverseLeftMap_;
 			InverseRightMap inverseRightMap_;
+
+			LeftHash leftHash_;
+			RightHash rightHash_;
 		};
 
+	}
+
+	template <
+		typename Vertex_Pair_ForwardRange, 
+		typename Vertex_Pair_Reporter,
+		typename As_Pair,
+		typename LeftHash,
+		typename RightHash>
+	void maximumBipartiteMatching(
+		Vertex_Pair_ForwardRange range,
+		const Vertex_Pair_Reporter& reporter,
+		const As_Pair& asPair,
+		const LeftHash& leftHash,
+		const RightHash& rightHash)
+	{
+		MaximumBipartiteMatching::Algorithm<Vertex_Pair_ForwardRange,
+			Vertex_Pair_Reporter, As_Pair, LeftHash, RightHash> algorithm;
+
+		algorithm.work(range, reporter, asPair, leftHash, rightHash);
 	}
 
 	template <
@@ -425,10 +461,13 @@ namespace Pastel
 		const Vertex_Pair_Reporter& reporter,
 		const As_Pair& asPair)
 	{
-		MaximumBipartiteMatching::Algorithm<Vertex_Pair_ForwardRange,
-			Vertex_Pair_Reporter, As_Pair> algorithm;
+		typedef typename Vertex_Pair_ForwardRange::value_type Type;
+		typedef typename As_Pair::ConceptMap<Type> Type_As_Pair;
+		typedef typename Type_As_Pair::Left Left;
+		typedef typename Type_As_Pair::Right Right;
 
-		algorithm.work(range, reporter, asPair);
+		Pastel::maximumBipartiteMatching(range, reporter, asPair,
+			Hash<Left>(), Hash<Right>());
 	}
 
 	template <
