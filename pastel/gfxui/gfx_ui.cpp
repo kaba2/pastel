@@ -11,6 +11,7 @@ namespace Pastel
 		GfxRenderer<Color>* renderer,
 		integer logicToRenderRatio)
 		: renderer_(renderer)
+		, renderTime_(0)
 		, logicToRenderRatio_(logicToRenderRatio)
 	{
 	}
@@ -28,6 +29,8 @@ namespace Pastel
 		++renderTime_;
 		if (renderTime_ >= logicToRenderRatio_)
 		{
+			renderTime_ = 0;
+
 			// Render stuff.
 			render();
 		}
