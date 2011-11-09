@@ -12,6 +12,7 @@
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/ranges.h"
+#include "pastel/sys/reporters.h"
 
 using namespace Pastel;
 
@@ -55,8 +56,7 @@ namespace
 			const std::vector<AlignedBox2>& correctSet) const
 		{
 			std::vector<AlignedBox2> boxSet;
-			difference(aBox, bBox, 
-				boost::bind(&std::vector<AlignedBox2>::push_back, &boxSet, _1));
+			difference(aBox, bBox, pushBackReporter(boxSet));
 
 			const bool result = rangeForAll(
 				range(boxSet.begin(), boxSet.end()),

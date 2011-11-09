@@ -7,8 +7,7 @@
 
 #include <string>
 
-// This is the Matlab's mex header file.
-#include "mex.h"
+#include "pastel/matlab/matlab_mex.h"
 
 namespace Pastel
 {

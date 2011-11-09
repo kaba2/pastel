@@ -183,6 +183,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\matlab_mex.h"
+			>
+		</File>
+		<File
 			RelativePath=".\pastelmatlab.txt"
 			>
 		</File>

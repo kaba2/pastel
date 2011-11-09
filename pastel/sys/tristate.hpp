@@ -98,7 +98,8 @@ namespace Pastel
 		return result;
 	}
 
-	inline TriState::Enum triOr(TriState::Enum left, TriState::Enum right)
+	inline TriState::Enum triOr(
+		TriState::Enum left, TriState::Enum right)
 	{
 		TriState::Enum result = TriState::False;
 

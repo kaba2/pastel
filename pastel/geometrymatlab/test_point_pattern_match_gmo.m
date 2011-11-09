@@ -12,6 +12,7 @@ drawCircles = true;
 % each match a unique scene point. 'To match' means
 % to be at a matching distance.
 minMatchRatio = 0.6;
+%minMatchRatio = 1;
 
 % The matching distance.
 matchingDistance = 0.1;
@@ -22,7 +23,7 @@ matchingDistance = 0.1;
 maxBias = 0.2;
 
 % 0 for first match, 1 for most stable maximum match.
-matchingMode = 0;
+matchingMode = 1;
 
 % The amplitude of the gaussian noise to apply to the model
 % points in the scene.
