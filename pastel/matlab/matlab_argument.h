@@ -7,10 +7,9 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/vector.h"
 
-#include <boost/shared_ptr.hpp>
+#include "pastel/matlab/matlab_mex.h"
 
-// This is the Matlab's mex header file.
-#include "mex.h"
+#include <boost/shared_ptr.hpp>
 
 namespace Pastel
 {
