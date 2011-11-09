@@ -172,8 +172,8 @@ solution "Pastel"
 		-- Enable optimizations.
 		flags {"Optimize"}
 
-	configuration "release_without_openmp"
-		targetdir(outputDirectory .. "/lib/release_without_openmp")
+	configuration "release-without-openmp"
+		targetdir(outputDirectory .. "/lib/release-without-openmp")
 		-- Enable optimizations.
 		flags {"Optimize"}
 
