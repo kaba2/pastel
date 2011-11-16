@@ -113,6 +113,13 @@ namespace Pastel
 	*/
 	typedef std::size_t        pointer_integer;
 
+	//! Integer for holding hash integers.
+	/*!
+	An integer of this type is used to hold hash
+	values.
+	*/
+	typedef uint32 hash_integer;
+
 	//! Removes brackets around a type.
 	/*!
 	To transmit a type containing commas through a macro,

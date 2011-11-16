@@ -184,9 +184,9 @@ namespace Pastel
 		CountedPtr<Type>& right);
 
 	template <typename Type, typename HashFunction>
-	uint32 partialHash(
+	hash_integer partialHash(
 		const CountedPtr<Type>& that,
-		uint32 currentHash,
+		hash_integer currentHash,
 		const HashFunction& hashFunction);
 
 }
