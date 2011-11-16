@@ -5,6 +5,7 @@
 #define PASTEL_HASH_H
 
 #include "pastel/sys/iterator_range.h"
+#include "pastel/sys/keyvalue.h"
 
 #include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -14,82 +15,109 @@
 namespace Pastel
 {
 
-	//! Computes a 32-bit hash-value.
+	//! Computes a hash-value.
 	/*!
 	To provide support for hashing additional types, 
 	overload the partialHash() function.
 	*/
 	template <typename Type, typename HashFunction>
-	uint32 computeHash(
+	hash_integer computeHash(
 		const Type& that, 
 		const HashFunction& hashFunction);
 
-	//! Computes a 32-bit hash-value.
+	//! Computes a hash-value.
 	/*!
 	This is a convenience function that calls
 	computeHash(that, Jenkins_HashFunction()).
 	See the documentation for that function.
 	*/
 	template <typename Type>
-	uint32 computeHash(const Type& that);
+	hash_integer computeHash(const Type& that);
 
-	//! Computes a 32-bit hash value for a sequence of objects.
+	//! Computes a hash value for a sequence of objects.
 	template <typename ConstIterator, typename HashFunction>
-	uint32 computeHashMany(
+	hash_integer computeHashMany(
 		const ForwardIterator_Range<ConstIterator>& input,
 		const HashFunction& hashFunction);
 
-	//! Computes a 32-bit hash value for a sequence of objects.
+	//! Computes a hash value for a sequence of objects.
 	/*!
 	This is a convenience function that calls
-	computeHash(input, Jenkins_HashFunction()).
+	computeHashMany(input, Jenkins_HashFunction()).
 	See the documentation for that function.
 	*/
 	template <typename ConstIterator>
-	uint32 computeHashMany(
+	hash_integer computeHashMany(
 		const ForwardIterator_Range<ConstIterator>& input);
 
-	//! Computes a 32-bit partial hash value for a sequence of objects.
+	//! Computes a partial hash value for a sequence of objects.
 	template <typename ConstIterator, typename HashFunction>
-	uint32 partialHashMany(
+	hash_integer partialHashMany(
 		const ForwardIterator_Range<ConstIterator>& input,
-		uint32 currentHash,
+		hash_integer currentHash,
 		const HashFunction& hashFunction);
 
-	//! Computes a 32-bit partial hash value for a sequence of objects.
+	//! Computes a partial hash value for a sequence of objects.
 	/*!
 	This is a convenience function that calls
 	partialHash(input, currentHash, Jenkins_HashFunction()).
 	See the documentation for that function.
 	*/
 	template <typename ConstIterator>
-	uint32 partialHashMany(
+	hash_integer partialHashMany(
 		const ForwardIterator_Range<ConstIterator>& input,
-		uint32 currentHash);
+		hash_integer currentHash);
 
-	//! Computes a 32-bit partial hash value for a pointer.
+	//! Computes a partial hash value for a pointer.
 	template <typename Type, typename HashFunction>
-	uint32 partialHash(
-		const Type* that, uint32 currentHash,
+	hash_integer partialHash(
+		const Type* that, hash_integer currentHash,
 		const HashFunction& hashFunction);
 
-	//! Computes a 32-bit partial hash value for a native arithmetic type.
+	//! Computes a partial hash value for a native arithmetic type.
 	template <typename Type, typename HashFunction>
-	PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, uint32)
-		partialHash(Type that, uint32 currentHash,
+	PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, hash_integer)
+		partialHash(Type that, hash_integer currentHash,
 		const HashFunction& hashFunction);
 
-	//! Computes a 32-bit partial hash value for an std::string.
+	//! Computes a partial hash value for an std::string.
 	template <typename HashFunction>
-	uint32 partialHash(
-		const std::string& that, uint32 currentHash,
+	hash_integer partialHash(
+		const std::string& that, hash_integer currentHash,
 		const HashFunction& hashFunction);
 
-	//! Computes a 32-bit partial hash value for an std::wstring.
+	//! Computes a partial hash value for an std::wstring.
 	template <typename HashFunction>
-	uint32 partialHash(
-		const std::wstring& that, uint32 currentHash,
+	hash_integer partialHash(
+		const std::wstring& that, hash_integer currentHash,
 		const HashFunction& hashFunction);
+
+	//! Computes a partial hash value for a KeyValue.
+	template <typename Key, typename Value, typename HashFunction>
+	hash_integer partialHash(
+		const KeyValue<Key, Value>& that, hash_integer currentHash,
+		const HashFunction& hashFunction);
+
+	//! Computes a partial hash value for a pointer.
+	/*!
+	This is a convenience function that calls
+	partialHash(that, currentHash, Jenkins_HashFunction()).
+	*/
+	template <typename Type>
+	hash_integer partialHash(
+		const Type& that, hash_integer currentHash);
+
+	//! Perform the final hash value after partial hashes.
+	template <typename HashFunction>
+	hash_integer finalizeHash(hash_integer currentHash,
+		const HashFunction& hashFunction);
+
+	//! Perform the final hash value after partial hashes.
+	/*!
+	This is a convenience function that calls
+	finalizeHash(currentHash, Jenkins_HashFunction()).
+	*/
+	hash_integer finalizeHash(hash_integer currentHash);
 
 	template <class T>
 	struct Hash

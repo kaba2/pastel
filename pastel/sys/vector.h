@@ -797,9 +797,9 @@ namespace Pastel
 		Vector<Real, N>& right);
 
 	template <typename Real, int N, typename HashFunction>
-	inline uint32 partialHash(
+	inline hash_integer partialHash(
 		const Vector<Real, N>& that,
-		uint32 currentHash,
+		hash_integer currentHash,
 		const HashFunction& hashFunction);
 
 	template <typename Real, int N, typename Expression>

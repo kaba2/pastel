@@ -244,9 +244,9 @@ namespace Pastel
 	}
 
 	template <typename Type, typename HashFunction>
-	inline uint32 partialHash(
+	inline hash_integer partialHash(
 		const CountedPtr<Type>& that,
-		uint32 currentHash,
+		hash_integer currentHash,
 		const HashFunction& hashFunction)
 	{
 		return partialHash(that.get(), 
