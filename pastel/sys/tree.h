@@ -19,6 +19,12 @@ namespace Pastel
 		typedef Tree_Iterator<Data> Iterator;
 		typedef Tree_ConstIterator<Data> ConstIterator;
 
+		enum
+		{
+			Left,
+			Right
+		};
+
 	private:
 		typedef Tree_Private::Node<Data> Node;
 
@@ -30,6 +36,30 @@ namespace Pastel
 			, size_(0)
 		{
 			construct();
+		}
+
+		Tree(const Tree& that)
+			: sentinel_(0)
+			, leftMost_(0)
+			, root_(0)
+			, size_(0)
+		{
+			construct();
+
+			try
+			{
+				if (!that.empty())
+				{
+					insert(end(), 0, *that.croot());
+
+					copyConstruct(that.croot(), croot());
+				}
+			}
+			catch(...)
+			{
+				clear();
+				throw;
+			}
 		}
 
 #		ifdef PASTEL_MOVE_SEMANTICS
@@ -101,6 +131,21 @@ namespace Pastel
 			size_ = 0;
 		}
 
+		Iterator root()
+		{
+			return Iterator(root_);
+		}
+
+		ConstIterator root() const
+		{
+			return ConstIterator(root_);
+		}
+
+		ConstIterator croot() const
+		{
+			return ConstIterator(root_);
+		}
+
 		Iterator begin()
 		{
 			return Iterator(leftMost_);
@@ -146,8 +191,8 @@ namespace Pastel
 
 			Node*& parentChild = parent->childSet[childIndex];
 			
-			const bool childAlreadyExists = (parentChild != 0);
-			PENSURE(!childAlreadyExists);
+			const bool childAlreadyExists = (parentChild != sentinel_);
+			ENSURE(!childAlreadyExists);
 
 			// The rightmost node is stored at the
 			// sentinel parent link. 
@@ -226,6 +271,42 @@ namespace Pastel
 			return tree;
 		}
 
+		void rotate(
+			const ConstIterator& that,
+			integer direction)
+		{
+			PENSURE_OP(direction, >=, 0);
+			PENSURE_OP(direction, <, 2);
+
+			const integer L = direction;
+			const integer R = !L;
+
+			ConstIterator right = that.child(R);
+			ConstIterator rightLeft = right.child(L);
+
+			const bool rotationWellDefined = 
+				!rightLeft.sentinel();
+			ENSURE(rotationWellDefined);
+
+			Node* thatNode = (Node*)that.node_;
+			Node* rightNode = (Node*)right.node_;
+			Node* rightLeftNode = (Node*)rightLeft.node_;
+			Node* thatParent = thatNode->parent;
+
+			thatNode->childSet[R] = rightLeftNode;
+			rightLeftNode->parent = thatNode;
+
+			rightNode->childSet[L] = thatNode;
+			thatNode->parent = rightNode;
+
+			rightNode->parent = thatParent;
+
+			if (thatNode == root_)
+			{
+				root_ = rightNode;
+			}
+		}
+
 	private:
 		void construct()
 		{
@@ -240,6 +321,8 @@ namespace Pastel
 
 		integer size(Node* node)
 		{
+			ASSERT(node);
+
 			integer result = 0;
 
 			for (integer i = 0;i < 2;++i)
@@ -261,6 +344,8 @@ namespace Pastel
 
 		void clear(Node* node)
 		{
+			ASSERT(node);
+
 			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->childSet[i];
@@ -307,7 +392,26 @@ namespace Pastel
 			ASSERT_OP(size_, >=, 0);
 		}
 
-		Tree(const Tree& that);
+		void copyConstruct(
+			const ConstIterator& from, 
+			const ConstIterator& to)
+		{
+			ASSERT(!from.sentinel());
+			ASSERT(!to.sentinel());
+
+			for (integer i = 0;i < 2;++i)
+			{
+				if (!from.child(i).sentinel())
+				{
+					const ConstIterator newFrom =
+						from.child(i);
+					const ConstIterator newTo = 
+						insert(to, i, *from);
+					
+					copyConstruct(newFrom, newTo);
+				}
+			}
+		}
 
 		Node* sentinel_;
 		Node* leftMost_;
