@@ -301,6 +301,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\matrix_notes.txt"
+						>
+					</File>
+					<File
 						RelativePath=".\matrix_static.h"
 						>
 					</File>

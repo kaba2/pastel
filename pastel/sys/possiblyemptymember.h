@@ -8,8 +8,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
 
-#include "pastel/sys/tuple.h"
-
 namespace Pastel
 {
 
@@ -28,16 +26,16 @@ namespace Pastel
 
 		Type* data()
 		{
-			return (Type*)&data_.front();
+			return (Type*)data_;
 		}
 
 		const Type* data() const
 		{
-			return (Type*)&data_.front();
+			return (Type*)data_;
 		}
 
 	private:
-		Tuple<char, sizeof(Type)> data_;
+		char data_[sizeof(Type)];
 	};
 
 	template <>

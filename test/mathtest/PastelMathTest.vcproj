@@ -204,6 +204,10 @@
 				RelativePath=".\test_matrix.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\test_matrix2.cpp"
+				>
+			</File>
 			<Filter
 				Name="Decompositions"
 				>
