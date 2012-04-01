@@ -24,6 +24,7 @@ namespace
 		virtual void run()
 		{
 			test();
+			testInsert();
 		}
 
 		typedef Tree<integer> Tree;
@@ -52,21 +53,35 @@ namespace
 			tree.rotate(aIter, Tree::Right);
 			print(tree);
 
-			tree.clear();
-			TEST_ENSURE(tree.empty());
-			TEST_ENSURE_OP(tree.size(), ==, 0);
-
 			Tree copyTree(tree);
-			TEST_ENSURE(copyTree.empty());
-			TEST_ENSURE_OP(copyTree.size(), ==, 0);
+			TEST_ENSURE(!copyTree.empty());
+			TEST_ENSURE_OP(copyTree.size(), ==, 3);
 
 			print(copyTree);
 			printReverse(copyTree);
 
-			tree = copyTree;
+			tree.clear();
 			TEST_ENSURE(tree.empty());
 			TEST_ENSURE_OP(tree.size(), ==, 0);
 
+			tree = copyTree;
+			TEST_ENSURE(!tree.empty());
+			TEST_ENSURE_OP(tree.size(), ==, 3);
+
+			print(tree);
+			printReverse(tree);
+		}
+
+		void testInsert()
+		{
+			Tree tree;
+			Iterator aIter = tree.insert(tree.cend(), Tree::Left, 0);
+			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
+			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
+			
+			tree.insert(bIter, Tree::Left, tree);
+
+			print(tree);
 		}
 
 		void print(const Tree& tree)

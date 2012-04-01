@@ -124,7 +124,10 @@ namespace Pastel
 		
 		void clear()
 		{
-			clear(sentinel_);
+			if (!empty())
+			{
+				erase(root_);
+			}
 
 			leftMost_ = sentinel_;
 			root_ = sentinel_;
@@ -240,6 +243,44 @@ namespace Pastel
 			return Iterator(node);
 		}
 
+		void insert(
+			const ConstIterator& there, 
+			integer childIndex,
+			const Tree& that)
+		{
+			PENSURE_OP(childIndex, >=, 0);
+			PENSURE_OP(childIndex, <, 2);
+			
+			integer rollback = 0;
+			ConstIterator copyRoot;
+			try
+			{
+				copyRoot = insert(there, childIndex, *that.root());
+				++rollback;
+
+				copyConstruct(that.root(), copyRoot, copyRoot);
+				++rollback;
+			}
+			catch(...)
+			{
+				switch(rollback)
+				{
+				case 1:
+					erase(copyRoot);
+					break;
+				};
+				
+				throw;
+			}
+		}
+
+		void erase(const ConstIterator& that)
+		{
+			PENSURE(!that.sentinel());
+
+			erase((Node*)that.node_);
+		}
+
 		Tree detach(const ConstIterator& that)
 		{
 			ENSURE(!that.sentinel());
@@ -342,23 +383,47 @@ namespace Pastel
 			return result;
 		}
 
-		void clear(Node* node)
+		void erase(Node* node)
 		{
 			ASSERT(node);
+			ASSERT(node != sentinel_);
 
 			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->childSet[i];
 				if (child != sentinel_)
 				{
-					clear(child);
+					erase(child);
 				}
 			}
-			
-			if (node != sentinel_)
+
+			Node* parent = node->parent;
+			for (integer i = 0;i < 2;++i)
 			{
-				deallocate(node);
+				if (parent->childSet[i] == node)
+				{
+					parent->childSet[i] = sentinel_;
+					break;
+				}
 			}
+
+			if (node == leftMost_)
+			{
+				leftMost_ = parent;
+			}
+
+			Node*& rightMost = sentinel_->parent;
+			if (node == rightMost)
+			{
+				rightMost = parent;
+			}
+
+			if (node == root_)
+			{
+				root_ = sentinel_;
+			}
+			
+			deallocate(node);
 		}
 
 		Node* allocate(const Data& data)
@@ -394,21 +459,23 @@ namespace Pastel
 
 		void copyConstruct(
 			const ConstIterator& from, 
-			const ConstIterator& to)
+			const ConstIterator& to,
+			const ConstIterator& forbidden = ConstIterator())
 		{
 			ASSERT(!from.sentinel());
 			ASSERT(!to.sentinel());
 
 			for (integer i = 0;i < 2;++i)
 			{
-				if (!from.child(i).sentinel())
+				const ConstIterator newFrom =
+					from.child(i);
+				if (!newFrom.sentinel() &&
+					newFrom != forbidden)
 				{
-					const ConstIterator newFrom =
-						from.child(i);
 					const ConstIterator newTo = 
-						insert(to, i, *from);
-					
-					copyConstruct(newFrom, newTo);
+						insert(to, i, *newFrom);
+
+					copyConstruct(newFrom, newTo, forbidden);
 				}
 			}
 		}
