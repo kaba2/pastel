@@ -274,6 +274,65 @@ namespace Pastel
 			}
 		}
 
+#ifdef PASTEL_MOVE_SEMANTICS
+		void insert(
+			const ConstIterator& there, 
+			integer childIndex,
+			Tree&& that)
+		{
+			PENSURE_OP(childIndex, >=, 0);
+			PENSURE_OP(childIndex, <, 2);
+
+			if (that.empty())
+			{
+				return;
+			}
+			
+			integer rollback = 0;
+			ConstIterator copyRoot;
+			try
+			{
+
+				Node* thatNode = (Node*)that.root().node_;
+				Node* thereNode = (Node*)there.node_;
+
+				if (thereNode != sentinel_)
+				{
+					thereNode->childSet[childIndex] = thatNode;
+				}
+				thatNode->parent = parent;
+
+				if (thereNode == leftMost_)
+				{
+					leftMost_ = that.leftMost_;
+				}
+				
+				Node*& rightMost = sentinel_->parent;
+				if (thereNode == rightMost)
+				{
+					rightMost = that.rightMost_;
+				}
+
+				size_ += that.size_;
+
+				that.leftMost_ = that.sentinel_;
+				that.root_ = that.sentinel_;
+				that.size_ = 0;
+			}
+			catch(...)
+			{
+				switch(rollback)
+				{
+				case 1:
+					erase(copyRoot);
+					break;
+				};
+				
+				throw;
+			}
+		}
+#endif
+
 		void erase(const ConstIterator& that)
 		{
 			PENSURE(!that.sentinel());
