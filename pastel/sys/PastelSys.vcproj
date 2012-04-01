@@ -548,73 +548,121 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Red-black tree"
+				Name="List graph"
 				>
 				<File
-					RelativePath=".\redblacktree.h"
+					RelativePath=".\list_graph.h"
 					>
 				</File>
-				<File
-					RelativePath=".\redblacktree.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_erase.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_implementation.txt"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_insert.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_iterator.h"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_node.h"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_private.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_tools.h"
-					>
-				</File>
-				<File
-					RelativePath=".\redblacktree_tools.hpp"
-					>
-				</File>
+			</Filter>
+			<Filter
+				Name="Binary trees"
+				>
 				<Filter
-					Name="RbtPolicy"
+					Name="Red-black tree"
 					>
 					<File
-						RelativePath=".\map_rbtpolicy.h"
+						RelativePath=".\redblacktree.h"
 						>
 					</File>
 					<File
-						RelativePath=".\rbtpolicies.h"
+						RelativePath=".\redblacktree.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\rbtpolicies.txt"
+						RelativePath=".\redblacktree.txt"
 						>
 					</File>
 					<File
-						RelativePath=".\rbtpolicy_concept.h"
+						RelativePath=".\redblacktree_erase.hpp"
 						>
 					</File>
 					<File
-						RelativePath=".\set_rbtpolicy.h"
+						RelativePath=".\redblacktree_implementation.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\redblacktree_insert.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\redblacktree_iterator.h"
+						>
+					</File>
+					<File
+						RelativePath=".\redblacktree_node.h"
+						>
+					</File>
+					<File
+						RelativePath=".\redblacktree_private.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\redblacktree_tools.h"
+						>
+					</File>
+					<File
+						RelativePath=".\redblacktree_tools.hpp"
+						>
+					</File>
+					<Filter
+						Name="RbtPolicy"
+						>
+						<File
+							RelativePath=".\map_rbtpolicy.h"
+							>
+						</File>
+						<File
+							RelativePath=".\rbtpolicies.h"
+							>
+						</File>
+						<File
+							RelativePath=".\rbtpolicies.txt"
+							>
+						</File>
+						<File
+							RelativePath=".\rbtpolicy_concept.h"
+							>
+						</File>
+						<File
+							RelativePath=".\set_rbtpolicy.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="Binary tree"
+					>
+					<File
+						RelativePath=".\tree.h"
+						>
+					</File>
+					<File
+						RelativePath=".\tree.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\tree_cursor.h"
+						>
+					</File>
+					<File
+						RelativePath=".\tree_design.txt"
+						>
+					</File>
+					<File
+						RelativePath=".\tree_iterator.h"
+						>
+					</File>
+					<File
+						RelativePath=".\tree_iterator.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\tree_node.h"
+						>
+					</File>
+					<File
+						RelativePath=".\tree_options_concept.h"
 						>
 					</File>
 				</Filter>

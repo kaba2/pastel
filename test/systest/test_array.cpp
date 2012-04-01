@@ -261,7 +261,7 @@ namespace
 		}
 	};
 
-	void testArray()
+	void test()
 	{
 		Test test;
 		test.run();
@@ -269,7 +269,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("Array", testArray);
+		testRunner().add("Array", test);
 	}
 
 	CallFunction run(addTest);

@@ -1,0 +1,145 @@
+Tree design notes
+=================
+
+[[Parent]]: tree.txt
+
+This page contains the design considerations for the generic binary 
+tree.
+
+Selecting the proper properties
+-------------------------------
+ 
+The following are orthogonal properties of a tree:
+
+ * static/dynamic amount of children per node
+ * homegeneous/heterogeneous amount of children per node
+ * homogeneous/heterogeneous node types
+ 
+We shall now select a subset of these combinations to implement
+in our tree abstraction.
+
+### Homogeneous node types
+ 
+The trees with heterogeneous node types are mainly seen as compile-time
+expression trees (e.g. matrix expressions). They can be best implemented
+with specialized techniques (e.g. Boost Proto). Thus we shall now 
+concentrate on trees with homogeneous types.
+
+### Binary trees
+
+I have yet to see a data structure for which having more than two children
+were fundamental. For an example, consider octrees. Sure one can construct
+a ray-traversal algorithm for this data structure. However, it won't generalize
+to higher-dimensions because the subdivision increases the number of nodes 
+exponentially. In addition, the algorithms are unnecessarily complex simply
+because they are doing many things at once (subdiving space in all n directions 
+at once). In contrast, one obtains much cleaner, simpler and faster algorithms 
+by using kd-trees instead (which are binary).
+
+Here is another example of how having more than 2 children can affect the 
+asymptotic resource and performance requirements. Consider the in-order 
+traversal of a tree when there can be more than 2 children in a node. Then 
+each node along the path from the root to the current node requires bookkeeping 
+information to know which child to visit after returning back to a node from 
+another child. Depending on the depth of the path, this may mean anything 
+between a logarithmic and a linear storage (w.r.t. the number of nodes in the 
+tree).
+
+On the other hand, branching is essential. A maximum of 2 children is the 
+minimum amount of children to open up the power of hierarchical data 
+structures. A maximum of 1 child gives a linked list instead. Thus we shall
+fix the number of children per node to 2.
+
+Expression trees
+----------------
+
+One important application of trees is to represent (run-time) expressions. 
+A binary tree can represent nullary, unary prefix, unary postfix, and 
+binary infix operators. Operators with more than two operands are rare. 
+At first you might think that a binary tree is not natural for the unary 
+operators since one of the children is wasted. However, consider 
+representing a prefix (postfix) operator as a node which has only the 
+right (left) child. Then if you think of going through the nodes in 
+in-order, the prefix (postfix) operator actually comes before (after) its
+operand, which seems logical. The in-order traversal through such an 
+expression tree 'reads' the expression (as a string) from left to right.
+In addition, a right-rotation can be used to convert (-n)! to -(n!),
+so that tree rotations also make sense in this representation.
+
+Tracking nodes
+--------------
+
+A reoccuring feature in trees is that they track some specific nodes so
+that they can refer to them in constant time. These nodes are the root
+node, the leftmost node, and the rightmost node. For example, if the 
+tree is actually an ordered tree, then the leftmost node is the minimum
+node, and the rightmost node is the maximum node. The root node is 
+the starting point for many hierarchical algorithms (e.g. kd-tree
+nearest neighbors searching). On the other hand, I haven't seen any 
+other nodes treated specially in this way. Thus tracking these nodes
+should cover a lot of uses (it is also very simple).
+
+Referring to the children
+-------------------------
+
+In the user interface, the children should be referred to by integer
+indices 0 and 1, and not by 'left' and 'right'. This allows to 
+efficiently exploit symmetries in algorithms (such as in the 
+red-black tree implementation). In particular, the sibling of a
+node with the index 'i' is given by 'i!'.
+
+On trees built from independent pieces
+--------------------------------------
+
+A reoccuring design is to make a node an independent object, _not_
+encapsulated as a part of tree structure, and such that it contains 
+links to its children. Here the memory of the node is usually managed 
+with a smart pointer. This seems like a flexible design, but it is not.
+Some of the flaws in this approach are:
+
+ * Using std::shared_ptr, it is not possible to create a working 
+ implementation of a tree which also offers links to parents. On the
+ one hand, when constructing an expression, you don't yet have the 
+ access to a containing shared_ptr, and thus can't use a shared_ptr
+ or a weak_ptr for the parent links. On the other hand, a raw pointer can 
+ not be used either, because it can not be converted to a shared_ptr
+ later (if you do construct a shared_ptr, its reference count does not
+ refer to the previous reference count). This could be fixed by using 
+ intrusive reference counting instead (embedding the reference counting 
+ into the node itself).
+ 
+ * A node can be a child of many nodes at the same time. However, usually
+ a node can have only one parent. If sharing subtrees is a point in
+ this design, it is certainly not well realized. Subtrees are better
+ shared by using iterators to them.
+  
+ * There is nothing to prevent you from creating loops in the 'tree'. 
+ Thus the design actually reflects a graph (although with a limited 
+ amount of edges per node), and not a tree. Having a loop like this 
+ will mess up most of the tree algorithms.
+ 
+ * A sentinel node can not be naturally incorporated into the 
+ implementation. A sentinel node is important because it gets rids
+ of special cases in tree algorithms near the tree boundaries.
+ Either there are many sentinel nodes (which can locally be identified
+ as such), or there is a single global sentinel node.
+
+Summary
+-------
+
+Create a tree data structure such that
+
+ * each node belongs to exactly one tree,
+ * each node has exactly one parent node,
+ * each node has exactly two children,
+ * a unique tree-local sentinel node denotes a 
+ non-existing child or parent,
+ * a tree always contains the sentinel node,
+ * the sentinel contains no user data (no constructors are run),
+ * the root, leftmost, and rightmost nodes are tracked so that
+ they can be reported in constant time, 
+ * the children are referred to by integers 0 and 1 in the user interface,
+ * the nodes are accessed by iterators,
+ * the iterators can be used to move in in-order order, to treat
+ the nodes as a sequence, or to move arbitrarily in the tree.
+ 

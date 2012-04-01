@@ -262,6 +262,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\test_list_graph.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\test_log.cpp"
 			>
 		</File>
@@ -327,6 +331,10 @@
 		</File>
 		<File
 			RelativePath=".\test_template.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\test_tree.cpp"
 			>
 		</File>
 		<File
