@@ -35,6 +35,24 @@ namespace Pastel
 				return childSet[0] == this;
 			}
 
+			Node*& childRef(Node* child) const
+			{
+				ASSERT(child);
+
+				for (integer i = 0;i < 2;++i)
+				{
+					if (childSet[i] == child)
+					{
+						return childSet[i];
+					}
+				}
+
+				const bool gotHere = true;
+				ASSERT(!gotHere);
+
+				return 0;
+			}
+
 			Node* parent;
 			Tuple<Node*, 2> childSet;
 		};
