@@ -1,33 +1,316 @@
-// Description: Preorder tree iterator
-
 #ifndef PASTEL_TREE_ITERATOR_H
 #define PASTEL_TREE_ITERATOR_H
 
-#include "pastel/sys/tree_cursor.h"
+#include "pastel/sys/tree.h"
+#include "pastel/sys/tree_node.h"
+#include "pastel/sys/ensure.h"
+
+#include <boost/operators.hpp>
 
 namespace Pastel
 {
 
-	//! A preorder tree iterator.
+	template <typename Type, typename Derived>
+	class Tree;
+
 	template <typename Data>
 	class Tree_Iterator;
 
-	//! A preorder tree iterator.
 	template <typename Data>
-	class Tree_ConstIterator;
+	class Tree_ConstIterator
+		: boost::totally_ordered<Tree_ConstIterator<Data>
+		, boost::unit_steppable<Tree_ConstIterator<Data>
+		, boost::dereferenceable<Tree_ConstIterator<Data>, const Data
+		> > >
+	{
+	private:
+		typedef Tree_Private::Node<Data> Node;
+		friend class Tree_Iterator<Data>;
+		
+		template <typename Type, typename Derived>
+		friend class Tree;
 
-	//! Converts a tree cursor to a preorder tree iterator.
-	template <typename Data>
-	Tree_ConstIterator<Data> asIterator(
-		const Tree_ConstCursor<Data, 2>& cursor);
+	public:
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
 
-	//! Converts a tree cursor to a preorder tree iterator.
+		Tree_ConstIterator()
+			: node_(0)
+		{
+		}
+
+		void swap(Tree_ConstIterator& that)
+		{
+			std::swap(node_, that.node_);
+		}
+
+		bool empty() const
+		{
+			return node_ == 0;
+		}
+
+		bool sentinel() const
+		{
+			// The sentinel node is the unique node in
+			// which all children point to itself.
+			return node_ == node_->childSet_[0];
+		}
+
+		Tree_Iterator<Data> parent() const
+		{
+			return Tree_Iterator<Data, N>(node_->parent);
+		}
+
+		Tree_Iterator<Data> child(integer index) const
+		{
+			ASSERT_OP(index, >=, 0);
+			ASSERT_OP(index, <, 2);
+
+			return Tree_Iterator<Data>(node_->childSet[index]);
+		}
+
+		const Data& operator*() const
+		{
+			ASSERT(!empty());
+			ASSERT(node_->data());
+
+			return *(node_->data());
+		}
+
+		Tree_ConstIterator& operator++()
+		{
+			// If the cursor is in the sentinel node,
+			// we should remain in that node.
+			if (!node_->sentinel())
+			{
+				node_ = next(1);
+			}
+
+			return *this;
+		}
+
+		Tree_ConstIterator& operator--()
+		{
+			// If the cursor is in the sentinel node,
+			// we should back out from it to the
+			// 'maximum' node (the parent of the
+			// sentinel node). Thus no special 
+			// handling for the sentinel node here.
+
+			node_ = next(0);
+
+			return *this;
+		}
+
+		bool operator==(const Tree_ConstIterator& that) const
+		{
+			return node_ == that.node_;
+		}
+
+		bool operator<(const Tree_ConstIterator& that) const
+		{
+			return node_ < that.node_;
+		}
+
+	protected:
+		explicit Tree_ConstIterator(const Node* node)
+			: node_(node)
+		{
+		}
+
+		const Node* node() const
+		{
+			return node_;
+		}
+
+		const Node* next(integer forward)
+		{
+			ASSERT_OP(forward, >=, 0);
+			ASSERT_OP(forward, <=, 1);
+
+			const integer backward = !forward;
+
+			const Node* result;
+			const Node* child = node_->childSet[forward];
+		
+			if (child->sentinel())
+			{
+				result = node_;
+
+				const Node* previous = 0;
+				do
+				{
+					previous = result;
+					result = previous->parent;
+				}
+				while(!result->sentinel() && 
+					result->childSet[backward] != previous);
+			}
+			else
+			{
+				result = child;
+
+				while(!result->childSet[backward]->sentinel())
+				{
+					result = result->childSet[backward];
+				}
+			}
+
+			return result;
+		}
+
+		const Node* node_;
+	};
+
 	template <typename Data>
-	Tree_Iterator<Data> asIterator(
-		const Tree_Cursor<Data, 2>& cursor);
+	class Tree_Iterator
+		: public Tree_ConstIterator<Data>
+	{
+	public:
+		// Using default constructor.
+		// Using default copy constructor.
+		// Using default assignment.
+		// Using default destructor.
+
+		template <typename Type, typename Derived>
+		friend class Tree;
+
+		typedef Tree_ConstIterator<Data> Base;
+		
+		void swap(Tree_Iterator& that)
+		{
+			Base::swap(that);
+		}
+
+		typedef Base::Node Node;
+		using Base::empty;
+		using Base::sentinel;
+
+		Tree_Iterator parent() const
+		{
+			return Tree_Iterator((Node*)Base::parent().node_);
+		}
+		
+		Tree_Iterator child(integer index) const
+		{
+			return Tree_Iterator((Node*)Base::child(index).node_);
+		}
+
+		Data& operator*() const
+		{
+			return (Data&)Base::operator*();
+		}
+
+		Data* operator->() const
+		{
+			return (Data*)Base::operator->();
+		}
+
+		Tree_Iterator& operator++()
+		{
+			Base::operator++();
+
+			return *this;
+		}
+
+		Tree_Iterator& operator--()
+		{
+			Base::operator--();
+
+			return *this;
+		}
+
+		bool operator==(const Tree_Iterator& that) const
+		{
+			return Base::operator==(that);
+		}
+
+		bool operator!=(const Tree_Iterator& that) const
+		{
+			return Base::operator!=(that);
+		}
+
+		bool operator<(const Tree_Iterator& that) const
+		{
+			return Base::operator<(that);
+		}
+
+		bool operator<=(const Tree_Iterator& that) const
+		{
+			return Base::operator<=(that);
+		}
+
+		bool operator>(const Tree_Iterator& that) const
+		{
+			return Base::operator>(that);
+		}
+
+		bool operator>=(const Tree_Iterator& that) const
+		{
+			return Base::operator>=(that);
+		}
+
+	private:
+		explicit Tree_Iterator(Node* node)
+			: Base(node)
+		{
+		}
+
+		Node* node() const
+		{
+			return (Node*)Base::node_;
+		}
+	};
+
+	template <typename Type, typename Derived>
+	Tree_Iterator<Type> begin(Tree<Type, Derived>& tree)
+	{
+		return tree.begin();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> begin(const Tree<Type, Derived>& tree)
+	{
+		return tree.begin();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> cbegin(Tree<Type, Derived>& tree)
+	{
+		return tree.cbegin();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> cbegin(const Tree<Type, Derived>& tree)
+	{
+		return tree.cbegin();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_Iterator<Type> end(Tree<Type, Derived>& tree)
+	{
+		return tree.end();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> end(const Tree<Type, Derived>& tree)
+	{
+		return tree.end();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> cend(Tree<Type, Derived>& tree)
+	{
+		return tree.cend();
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> cend(const Tree<Type, Derived>& tree)
+	{
+		return tree.cend();
+	}
 
 }
-
-#include "pastel/sys/tree_iterator.hpp"
 
 #endif
