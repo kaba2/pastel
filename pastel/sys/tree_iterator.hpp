@@ -10,7 +10,7 @@ namespace Pastel
 	class Tree_ConstIterator
 	{
 	public:
-		typedef Tree_ConstCursor<Data, 2> ConstCursor;
+		typedef Tree_ConstCursor<Data> ConstCursor;
 
 		explicit Tree_ConstIterator(
 			const ConstCursor& cursor)
@@ -98,7 +98,7 @@ namespace Pastel
 	{
 	public:
 		typedef Tree_ConstIterator<Data> Base;
-		typedef Tree_Cursor<Data, 2> Cursor;
+		typedef Tree_Cursor<Data> Cursor;
 
 		explicit Tree_Iterator(
 			const Cursor& cursor)
@@ -106,14 +106,14 @@ namespace Pastel
 		{
 		}
 
-		Tree_ConstIterator& operator++()
+		Tree_Iterator& operator++()
 		{
 			Base::operator++();
 
 			return *this;
 		}
 
-		Tree_ConstIterator& operator--()
+		Tree_Iterator& operator--()
 		{
 			Base::operator--();
 
@@ -133,16 +133,40 @@ namespace Pastel
 
 	template <typename Data>
 	Tree_ConstIterator<Data> asIterator(
-		const Tree_ConstCursor<Data, 2>& cursor)
+		const Tree_ConstCursor<Data>& cursor)
 	{
 		return Tree_ConstIterator<Data>(cursor);
 	}
 
 	template <typename Data>
 	Tree_Iterator<Data> asIterator(
-		const Tree_Cursor<Data, 2>& cursor)
+		const Tree_Cursor<Data>& cursor)
 	{
 		return Tree_Iterator<Data>(cursor);
+	}
+
+	template <typename Type, typename Derived>
+	Tree_Iterator<Type> begin(Tree<Type, Derived>& tree)
+	{
+		return asIterator(tree.leftMost());
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> begin(const Tree<Type, Derived>& tree)
+	{
+		return asIterator(tree.leftMost());
+	}
+
+	template <typename Type, typename Derived>
+	Tree_Iterator<Type> end(Tree<Type, Derived>& tree)
+	{
+		return asIterator(tree.sentinel());
+	}
+
+	template <typename Type, typename Derived>
+	Tree_ConstIterator<Type> end(const Tree<Type, Derived>& tree)
+	{
+		return asIterator(tree.sentinel());
 	}
 
 }

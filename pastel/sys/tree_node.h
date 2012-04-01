@@ -11,7 +11,7 @@ namespace Pastel
 	namespace Tree_Private
 	{
 
-		template <typename Data, int N>
+		template <typename Data>
 		class Node
 			: public PossiblyEmptyMember<Data>
 		{
@@ -28,8 +28,15 @@ namespace Pastel
 			{
 			}
 
+			bool sentinel() const
+			{
+				// The sentinel is the unique node whose
+				// children point to itself.
+				return childSet[0] == this;
+			}
+
 			Node* parent;
-			Tuple<Node*, N> childSet;
+			Tuple<Node*, 2> childSet;
 		};
 	}
 

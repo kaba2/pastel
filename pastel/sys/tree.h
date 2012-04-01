@@ -3,44 +3,30 @@
 #ifndef PASTEL_TREE_H
 #define PASTEL_TREE_H
 
-#include "pastel/sys/tree_options_concept.h"
+#include "pastel/sys/destruct.h"
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
-#include "pastel/sys/tree_cursor.h"
-
-#include "pastel/sys/destruct.h"
-
-#include <array>
 
 namespace Pastel
 {
 
-	template <typename Type>
-	class Binary_Tree_Options
-	{
-	public:
-		enum {N = 2};
-
-		typedef Type Data;
-	};
-
-	template <typename Tree_Options, typename Derived = EmptyClass>
+	template <typename Type, typename Derived = EmptyClass>
 	class Tree
 	{
 	public:
-		typedef Tree_Options Options;
-		enum {N = Options::N};
-		typedef typename Options::Data Data;
+		typedef Type Data;
 
-		typedef Tree_Cursor<Data, N> Cursor;
-		typedef Tree_ConstCursor<Data, N> ConstCursor;
+		typedef Tree_Iterator<Data> Iterator;
+		typedef Tree_ConstIterator<Data> ConstIterator;
 
 	private:
-		typedef Tree_Private::Node<Data, N> Node;
+		typedef Tree_Private::Node<Data> Node;
 
 	public:
 		Tree()
 			: sentinel_(0)
+			, leftMost_(0)
+			, root_(0)
 			, size_(0)
 		{
 			construct();
@@ -49,6 +35,8 @@ namespace Pastel
 #		ifdef PASTEL_MOVE_SEMANTICS
 		Tree(Tree&& that)
 			: sentinel_(0)
+			, leftMost_(0)
+			, root_(0)
 			, size_(0)
 		{
 			construct();
@@ -66,7 +54,6 @@ namespace Pastel
 			// has no user data.
 			delete sentinel_;
 			sentinel_ = 0;
-			size_ = 0;
 		}
 
 		Tree& operator=(const Tree& that)
@@ -90,6 +77,8 @@ namespace Pastel
 			using std::swap;
 
 			swap(sentinel_, that.sentinel_);
+			swap(leftMost_, that.leftMost_);
+			swap(root_, that.root_);
 			swap(size_, that.size_);
 		}
 
@@ -106,45 +95,107 @@ namespace Pastel
 		void clear()
 		{
 			clear(sentinel_);
+
+			leftMost_ = sentinel_;
+			root_ = sentinel_;
+			size_ = 0;
 		}
 
-		Cursor sentinel()
+		Iterator begin()
 		{
-			return Cursor(sentinel_);
+			return Iterator(leftMost_);
 		}
 
-		ConstCursor sentinel() const
+		ConstIterator begin() const
 		{
-			return ConstCursor(sentinel_);
+			return ConstIterator(leftMost_);
 		}
 
-		Cursor insert(
-			const ConstCursor& here, 
+		ConstIterator cbegin() const
+		{
+			return ConstIterator(leftMost_);
+		}
+
+		Iterator end()
+		{
+			return Iterator(sentinel_);
+		}
+
+		ConstIterator end() const
+		{
+			return ConstIterator(sentinel_);
+		}
+
+		ConstIterator cend() const
+		{
+			return ConstIterator(sentinel_);
+		}
+
+		Iterator insert(
+			const ConstIterator& here, 
 			integer childIndex,
 			const Data& data = Data())
 		{
 			PENSURE_OP(childIndex, >=, 0);
-			PENSURE_OP(childIndex, <, N);
+			PENSURE_OP(childIndex, <, 2);
 
 			Node* parent = (Node*)here.node_;
 
 			Node* node = allocate(data);
 			node->parent = parent;
 
-			Node*& child = parent->childSet[childIndex];
+			Node*& parentChild = parent->childSet[childIndex];
 			
-			const bool childAlreadyExists = (child != 0);
+			const bool childAlreadyExists = (parentChild != 0);
 			PENSURE(!childAlreadyExists);
+
+			// The rightmost node is stored at the
+			// sentinel parent link. 
+			Node*& rightMost = sentinel_->parent;
 
 			if (parent != sentinel_)
 			{
-				parent->childSet[childIndex] = node;
+				parentChild = node;
+
+				if (childIndex == 0)
+				{
+					if (parent == leftMost_)
+					{
+						// If the parent node is the leftmost node, 
+						// and we are inserting on the left, then 
+						// we have a new leftmost node.
+						leftMost_ = node;
+					}
+				}
+				else
+				{
+					if (parent == rightMost)
+					{
+						// If the parent node is the rightmost node, 
+						// and we are inserting on the right, then 
+						// we have a new rightmost node.
+						rightMost = node;
+					}
+				}
 			}
-						
-			return Cursor(node);
+			else
+			{
+				// The children of the sentinel node always
+				// refer to itself. Thus we do not set the
+				// child pointer here.
+				
+				// Since this is the first actual node in
+				// the tree, it is leftmost, rightmost and
+				// the root.
+				leftMost_ = node;
+				rightMost = node;
+				root_ = node;
+			}
+
+			return Iterator(node);
 		}
 
-		Tree detach(const ConstCursor& that)
+		Tree detach(const ConstIterator& that)
 		{
 			ENSURE(!that.sentinel());
 
@@ -156,7 +207,7 @@ namespace Pastel
 
 			Node* parent = node->parent;
 			integer index = 0;
-			while (index < N && parent->childSet[index] != node)
+			while (index < 2 && parent->childSet[index] != node)
 			{
 				++index;
 			}
@@ -182,13 +233,16 @@ namespace Pastel
 			// constructed with allocate(). It
 			// has no user data.
 			sentinel_ = new Node;
+
+			leftMost_ = sentinel_;
+			root_ = sentinel_;
 		}
 
 		integer size(Node* node)
 		{
 			integer result = 0;
 
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->child(i);
 				if (child != sentinel_)
@@ -207,7 +261,7 @@ namespace Pastel
 
 		void clear(Node* node)
 		{
-			for (integer i = 0;i < N;++i)
+			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->childSet[i];
 				if (child != sentinel_)
@@ -256,6 +310,8 @@ namespace Pastel
 		Tree(const Tree& that);
 
 		Node* sentinel_;
+		Node* leftMost_;
+		Node* root_;
 		integer size_;
 	};
 
