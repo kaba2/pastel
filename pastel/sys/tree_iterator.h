@@ -52,28 +52,27 @@ namespace Pastel
 
 		bool sentinel() const
 		{
-			// The sentinel node is the unique node in
-			// which all children point to itself.
-			return node_ == node_->childSet_[0];
+			return node_->sentinel();
 		}
 
-		Tree_Iterator<Data> parent() const
+		Tree_ConstIterator parent() const
 		{
-			return Tree_Iterator<Data, N>(node_->parent);
+			return Tree_ConstIterator(node_->parent);
 		}
 
-		Tree_Iterator<Data> child(integer index) const
+		Tree_ConstIterator child(integer index) const
 		{
 			ASSERT_OP(index, >=, 0);
 			ASSERT_OP(index, <, 2);
 
-			return Tree_Iterator<Data>(node_->childSet[index]);
+			return Tree_ConstIterator(node_->childSet[index]);
 		}
 
 		const Data& operator*() const
 		{
 			ASSERT(!empty());
 			ASSERT(node_->data());
+			PENSURE(!node_->sentinel());
 
 			return *(node_->data());
 		}
