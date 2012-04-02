@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9FE41360-16BA-48F4-AF5A-90D7C5C2E13D}</ProjectGuid>
+    <RootNamespace>PastelGfx</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_DEBUG_MODE" /D "PASTEL_ENABLE_PENSURES" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_ENABLE_OMP" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="color.h" />
+    <ClInclude Include="color_tools.h" />
+    <ClInclude Include="color_tools.hpp" />
+    <ClInclude Include="color_hsv.h" />
+    <ClInclude Include="color_lab.h" />
+    <ClInclude Include="color_lch.h" />
+    <ClInclude Include="color_lms.h" />
+    <ClInclude Include="color_space.h" />
+    <ClInclude Include="color_srgb.h" />
+    <ClInclude Include="color_xyy.h" />
+    <ClInclude Include="color_yuv.h" />
+    <ClInclude Include="coloradapter.h" />
+    <ClInclude Include="coloradapter.hpp" />
+    <ClInclude Include="color_palette.h" />
+    <ClInclude Include="color_illuminant.h" />
+    <ClInclude Include="color_illuminant.hpp" />
+    <ClInclude Include="gfxlibrary.h" />
+    <ClInclude Include="image_tools.h" />
+    <ClInclude Include="image_tools.hpp" />
+    <ClInclude Include="draw.h" />
+    <ClInclude Include="draw_box.h" />
+    <ClInclude Include="draw_box.hpp" />
+    <ClInclude Include="draw_floodfill.h" />
+    <ClInclude Include="draw_floodfill.hpp" />
+    <ClInclude Include="draw_horizontal_line.h" />
+    <ClInclude Include="draw_horizontal_line.hpp" />
+    <ClInclude Include="draw_perspective_triangle.h" />
+    <ClInclude Include="draw_perspective_triangle.hpp" />
+    <ClInclude Include="draw_pixel.h" />
+    <ClInclude Include="draw_pixel.hpp" />
+    <ClInclude Include="draw_projective_quad.h" />
+    <ClInclude Include="draw_projective_quad.hpp" />
+    <ClInclude Include="draw_segment.h" />
+    <ClInclude Include="draw_segment.hpp" />
+    <ClInclude Include="draw_textured_box.h" />
+    <ClInclude Include="draw_textured_box.hpp" />
+    <ClInclude Include="draw_textured_triangle.h" />
+    <ClInclude Include="draw_textured_triangle.hpp" />
+    <ClInclude Include="draw_triangle.h" />
+    <ClInclude Include="draw_triangle.hpp" />
+    <ClInclude Include="draw_vertical_line.h" />
+    <ClInclude Include="draw_vertical_line.hpp" />
+    <ClInclude Include="draw_view.h" />
+    <ClInclude Include="draw_view.hpp" />
+    <ClInclude Include="marchingtriangles.h" />
+    <ClInclude Include="noise.h" />
+    <ClInclude Include="gradientfield.h" />
+    <ClInclude Include="gradientfield.hpp" />
+    <ClInclude Include="perlin_noise.h" />
+    <ClInclude Include="perlin_noise.hpp" />
+    <ClInclude Include="simplex_noise.h" />
+    <ClInclude Include="simplex_noise.hpp" />
+    <ClInclude Include="loadpcx.h" />
+    <ClInclude Include="loadpcx.hpp" />
+    <ClInclude Include="pcx.h" />
+    <ClInclude Include="pcxheader.h" />
+    <ClInclude Include="savepcx.h" />
+    <ClInclude Include="savepcx.hpp" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="textures.h" />
+    <ClInclude Include="combine_texture.h" />
+    <ClInclude Include="mix_texture.h" />
+    <ClInclude Include="ripimage_texture.h" />
+    <ClInclude Include="ripimage_texture.hpp" />
+    <ClInclude Include="mipimage_texture.h" />
+    <ClInclude Include="mipimage_texture.hpp" />
+    <ClInclude Include="linearimage_texture.h" />
+    <ClInclude Include="linearimage_texture.hpp" />
+    <ClInclude Include="ewaimage_texture.h" />
+    <ClInclude Include="ewaimage_texture.hpp" />
+    <ClInclude Include="nearestimage_texture.h" />
+    <ClInclude Include="nearestimage_texture.hpp" />
+    <ClInclude Include="color_texture.h" />
+    <ClInclude Include="linearcolor_texture.h" />
+    <ClInclude Include="linearsimplex_texture.h" />
+    <ClInclude Include="noise_texture.h" />
+    <ClInclude Include="turbulence_texture.h" />
+    <ClInclude Include="radial_texture.h" />
+    <ClInclude Include="sub_texture.h" />
+    <ClInclude Include="transform_texture.h" />
+    <ClInclude Include="reconstruct_filter.h" />
+    <ClInclude Include="reconstruct_filter.hpp" />
+    <ClInclude Include="reconstruct_nearest.h" />
+    <ClInclude Include="reconstruct_nearest.hpp" />
+    <ClInclude Include="reconstruct_rbf.h" />
+    <ClInclude Include="reconstruction.h" />
+    <ClInclude Include="discrete_poisson_disk_pattern.h" />
+    <ClInclude Include="imagepdf.h" />
+    <ClInclude Include="imagepdf.hpp" />
+    <ClInclude Include="gfxrenderer.h" />
+    <ClInclude Include="gfxrenderer.hpp" />
+    <ClInclude Include="gfxrenderer_tools.h" />
+    <ClInclude Include="gfxrenderer_tools.hpp" />
+    <ClInclude Include="image_gfxrenderer.h" />
+    <ClInclude Include="image_gfxrenderer.hpp" />
+    <ClInclude Include="additivecolormixer.h" />
+    <ClInclude Include="assigncolormixer.h" />
+    <ClInclude Include="colormixer.h" />
+    <ClInclude Include="colormixers.h" />
+    <ClInclude Include="functorcolormixer.h" />
+    <ClInclude Include="transparentcolormixer.h" />
+    <ClInclude Include="boxlabel.h" />
+    <ClInclude Include="connectedcomponents.h" />
+    <ClInclude Include="connectedcomponents.hpp" />
+    <ClInclude Include="dilate.h" />
+    <ClInclude Include="dilate.hpp" />
+    <ClInclude Include="erode.h" />
+    <ClInclude Include="erode.hpp" />
+    <ClInclude Include="convolute.h" />
+    <ClInclude Include="convolute.hpp" />
+    <ClInclude Include="branchingnumber.h" />
+    <ClInclude Include="gfxresource.h" />
+    <ClInclude Include="labeltoimage.h" />
+    <ClInclude Include="packrange.h" />
+    <ClInclude Include="pixelneighbours.h" />
+    <ClInclude Include="quantize.h" />
+    <ClInclude Include="quantize.hpp" />
+    <ClInclude Include="structuringelement.h" />
+    <ClInclude Include="structuringelement.hpp" />
+    <ClInclude Include="summedareatable.h" />
+    <ClInclude Include="summedareatable.hpp" />
+    <ClInclude Include="block_matching_bruteforce.h" />
+    <ClInclude Include="block_matching_bruteforce.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="color.txt" />
+    <None Include="color_space.txt" />
+    <None Include="coloradapter.txt" />
+    <None Include="color_palette.txt" />
+    <None Include="color_illuminant.txt" />
+    <None Include="common.txt" />
+    <None Include="draw.txt" />
+    <None Include="draw_segment_notes.txt" />
+    <None Include="noise.txt" />
+    <None Include="gradientfield.txt" />
+    <None Include="perlin_noise.txt" />
+    <None Include="simplex_noise.txt" />
+    <None Include="simplex_noise_notes.txt" />
+    <None Include="image_files.txt" />
+    <None Include="pcx.txt" />
+    <None Include="pcx_file.txt" />
+    <None Include="texture.txt" />
+    <None Include="modifier_textures.txt" />
+    <None Include="image_textures.txt" />
+    <None Include="ripimage_texture.txt" />
+    <None Include="mipimage_texture.txt" />
+    <None Include="linearimage_texture.txt" />
+    <None Include="ewaimage_texture.txt" />
+    <None Include="nearestimage_texture.txt" />
+    <None Include="synthetic_textures.txt" />
+    <None Include="distortion_textures.txt" />
+    <None Include="radial_texture.txt" />
+    <None Include="transform_texture.txt" />
+    <None Include="reconstruction.txt" />
+    <None Include="renderer.txt" />
+    <None Include="block_matching.txt" />
+    <None Include="pastelgfx.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="color_tools.cpp" />
+    <ClCompile Include="color_hsv.cpp" />
+    <ClCompile Include="color_lab.cpp" />
+    <ClCompile Include="color_lch.cpp" />
+    <ClCompile Include="color_lms.cpp" />
+    <ClCompile Include="color_srgb.cpp" />
+    <ClCompile Include="color_xyy.cpp" />
+    <ClCompile Include="color_yuv.cpp" />
+    <ClCompile Include="coloradapter.cpp" />
+    <ClCompile Include="color_palette.cpp" />
+    <ClCompile Include="color_illuminant.cpp" />
+    <ClCompile Include="gfxlibrary.cpp" />
+    <ClCompile Include="image_tools.cpp" />
+    <ClCompile Include="loadpcx.cpp" />
+    <ClCompile Include="pcxheader.cpp" />
+    <ClCompile Include="savepcx.cpp" />
+    <ClCompile Include="gfxrenderer.cpp" />
+    <ClCompile Include="gfxrenderer_tools.cpp" />
+    <ClCompile Include="image_gfxrenderer.cpp" />
+    <ClCompile Include="boxlabel.cpp" />
+    <ClCompile Include="branchingnumber.cpp" />
+    <ClCompile Include="labeltoimage.cpp" />
+    <ClCompile Include="pixelneighbours.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dsp\PastelDsp.vcxproj">
+      <Project>{785939e7-58e3-4e5d-9215-1ba393315cdb}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\geometry\pastelgeometry.vcxproj">
+      <Project>{0e7fd7e1-0fdf-4989-a1d1-1eaa03a8bb77}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\math\pastelmath.vcxproj">
+      <Project>{d866f479-947d-4a26-b3bc-9e75f78f828a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\sys\pastelsys.vcxproj">
+      <Project>{75a8ab3f-51f7-4732-90e9-1266434fe08c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0E7FD7E1-0FDF-4989-A1D1-1EAA03A8BB77}</ProjectGuid>
+    <RootNamespace>PastelGeometry</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_DEBUG_MODE" /D "PASTEL_ENABLE_PENSURES" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_ENABLE_OMP" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="data_structures.txt" />
+    <None Include="meshes.txt" />
+    <None Include="halfmesh.txt" />
+    <None Include="bihtree.txt" />
+    <None Include="bsp_tree.txt" />
+    <None Include="kdtree.txt" />
+    <None Include="pointkdtree.txt" />
+    <None Include="pointkdtree_design.txt" />
+    <None Include="fair_splitrule_pointkdtree.txt" />
+    <None Include="longestmedian_splitrule_pointkdtree.txt" />
+    <None Include="minimumvolume_splitrule_pointkdtree.txt" />
+    <None Include="slidingmidpoint2_splitrule_pointkdtree.txt" />
+    <None Include="slidingmidpoint_splitrule_pointkdtree.txt" />
+    <None Include="splitrule_pointkdtree.txt" />
+    <None Include="common.txt" />
+    <None Include="pastelgeometry.txt" />
+    <None Include="shapes.txt" />
+    <None Include="alignedbox.txt" />
+    <None Include="box.txt" />
+    <None Include="capsule.txt" />
+    <None Include="line.txt" />
+    <None Include="plane.txt" />
+    <None Include="segment.txt" />
+    <None Include="sphere.txt" />
+    <None Include="ellipsoid.txt" />
+    <None Include="ray.txt" />
+    <None Include="alignedplane.txt" />
+    <None Include="flat.txt" />
+    <None Include="polygon.txt" />
+    <None Include="simplex.txt" />
+    <None Include="triangle.txt" />
+    <None Include="geometric_algorithms.txt" />
+    <None Include="shape_generation.txt" />
+    <None Include="bounding.txt" />
+    <None Include="bounding_alignedbox.txt" />
+    <None Include="bounding_sphere.txt" />
+    <None Include="bounding_box.txt" />
+    <None Include="convexhull.txt" />
+    <None Include="difference.txt" />
+    <None Include="intersect.txt" />
+    <None Include="poisson_disk_pattern.txt" />
+    <None Include="subset_searches.txt" />
+    <None Include="search_range.txt" />
+    <None Include="nearest_neighbors.txt" />
+    <None Include="nearest_neighbors_semidynamic.txt" />
+    <None Include="count_all_neighbors.txt" />
+    <None Include="search_all_neighbors.txt" />
+    <None Include="acceptpoint.txt" />
+    <None Include="searchalgorithm_pointkdtree.txt" />
+    <None Include="intersection_graph.txt" />
+    <None Include="maximum_clique_alignedbox.txt" />
+    <None Include="transformation_fitting.txt" />
+    <None Include="point_pattern_matching.txt" />
+    <None Include="ppm_translation.txt" />
+    <None Include="projection.txt" />
+    <None Include="shape_relations.txt" />
+    <None Include="contains.txt" />
+    <None Include="overlaps.txt" />
+    <None Include="overlaps_design.txt" />
+    <None Include="overlaps_alignedbox_plane.txt" />
+    <None Include="shape_measurements.txt" />
+    <None Include="area.txt" />
+    <None Include="diameter.txt" />
+    <None Include="volume.txt" />
+    <None Include="distance.txt" />
+    <None Include="closest.txt" />
+    <None Include="pointset_eigen.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="halfmesh.h" />
+    <ClInclude Include="halfmesh.hpp" />
+    <ClInclude Include="halfmesh_tools.h" />
+    <ClInclude Include="propertyhalfmesh.h" />
+    <ClInclude Include="propertyhalfmesh.hpp" />
+    <ClInclude Include="simplehalfmesh.h" />
+    <ClInclude Include="simplehalfmesh.hpp" />
+    <ClInclude Include="bihtree.h" />
+    <ClInclude Include="bihtree.hpp" />
+    <ClInclude Include="bihtree_more.h" />
+    <ClInclude Include="bihtree_tools.h" />
+    <ClInclude Include="bihtree_tools.hpp" />
+    <ClInclude Include="concept_shapequery.h" />
+    <ClInclude Include="kdtree.h" />
+    <ClInclude Include="kdtree.hpp" />
+    <ClInclude Include="kdtree_raytraversal.h" />
+    <ClInclude Include="kdtree_raytraversal.hpp" />
+    <ClInclude Include="kdtree_refine.h" />
+    <ClInclude Include="kdtree_refine.hpp" />
+    <ClInclude Include="kdtree_tools.h" />
+    <ClInclude Include="kdtree_tools.hpp" />
+    <ClInclude Include="pointkdtree.h" />
+    <ClInclude Include="pointkdtree.hpp" />
+    <ClInclude Include="pointkdtree_cursor.h" />
+    <ClInclude Include="pointkdtree_node.h" />
+    <ClInclude Include="pointkdtree_private.hpp" />
+    <ClInclude Include="pointkdtree_splitpredicate.h" />
+    <ClInclude Include="pointkdtree_tools.h" />
+    <ClInclude Include="pointkdtree_tools.hpp" />
+    <ClInclude Include="fair_splitrule_pointkdtree.h" />
+    <ClInclude Include="fair_splitrule_pointkdtree.hpp" />
+    <ClInclude Include="longestmedian_splitrule_pointkdtree.h" />
+    <ClInclude Include="longestmedian_splitrule_pointkdtree.hpp" />
+    <ClInclude Include="minimumvolume_splitrule_pointkdtree.h" />
+    <ClInclude Include="minimumvolume_splitrule_pointkdtree.hpp" />
+    <ClInclude Include="slidingmidpoint2_splitrule_pointkdtree.h" />
+    <ClInclude Include="slidingmidpoint2_splitrule_pointkdtree.hpp" />
+    <ClInclude Include="slidingmidpoint_splitrule_pointkdtree.h" />
+    <ClInclude Include="slidingmidpoint_splitrule_pointkdtree.hpp" />
+    <ClInclude Include="splitrule_pointkdtree.h" />
+    <ClInclude Include="splitrule_pointkdtree_concept.h" />
+    <ClInclude Include="windowedpointtree.h" />
+    <ClInclude Include="windowedpointtree.hpp" />
+    <ClInclude Include="barycentric.h" />
+    <ClInclude Include="barycentric.hpp" />
+    <ClInclude Include="geometrylibrary.h" />
+    <ClInclude Include="nearest_main_axis.h" />
+    <ClInclude Include="nearest_main_axis.hpp" />
+    <ClInclude Include="predicates.h" />
+    <ClInclude Include="predicates.hpp" />
+    <ClInclude Include="shapes.h" />
+    <ClInclude Include="topology.h" />
+    <ClInclude Include="alignedbox.h" />
+    <ClInclude Include="alignedbox_tools.h" />
+    <ClInclude Include="alignedbox_tools.hpp" />
+    <ClInclude Include="box.h" />
+    <ClInclude Include="box.hpp" />
+    <ClInclude Include="boxtools.h" />
+    <ClInclude Include="boxtools.hpp" />
+    <ClInclude Include="capsule.h" />
+    <ClInclude Include="capsule.hpp" />
+    <ClInclude Include="line.h" />
+    <ClInclude Include="line.hpp" />
+    <ClInclude Include="plane.h" />
+    <ClInclude Include="plane.hpp" />
+    <ClInclude Include="segment.h" />
+    <ClInclude Include="segment.hpp" />
+    <ClInclude Include="sphere.h" />
+    <ClInclude Include="sphere.hpp" />
+    <ClInclude Include="ellipsoid.h" />
+    <ClInclude Include="ellipsoid.hpp" />
+    <ClInclude Include="ray.h" />
+    <ClInclude Include="ray.hpp" />
+    <ClInclude Include="alignedplane.h" />
+    <ClInclude Include="alignedplane.hpp" />
+    <ClInclude Include="flat.h" />
+    <ClInclude Include="flat.hpp" />
+    <ClInclude Include="polygon.h" />
+    <ClInclude Include="polygon.hpp" />
+    <ClInclude Include="simplex.h" />
+    <ClInclude Include="triangle.h" />
+    <ClInclude Include="bounding.h" />
+    <ClInclude Include="bounding_alignedbox.h" />
+    <ClInclude Include="bounding_alignedbox_alignedbox.h" />
+    <ClInclude Include="bounding_alignedbox_alignedbox.hpp" />
+    <ClInclude Include="bounding_alignedbox_box.h" />
+    <ClInclude Include="bounding_alignedbox_box.hpp" />
+    <ClInclude Include="bounding_alignedbox_pointset.h" />
+    <ClInclude Include="bounding_alignedbox_pointset.hpp" />
+    <ClInclude Include="bounding_alignedbox_segment.h" />
+    <ClInclude Include="bounding_alignedbox_segment.hpp" />
+    <ClInclude Include="bounding_alignedbox_sphere.h" />
+    <ClInclude Include="bounding_alignedbox_sphere.hpp" />
+    <ClInclude Include="bounding_sphere.h" />
+    <ClInclude Include="bounding_sphere.hpp" />
+    <ClInclude Include="bounding_sphere_alignedbox.h" />
+    <ClInclude Include="bounding_sphere_alignedbox.hpp" />
+    <ClInclude Include="bounding_sphere_box.h" />
+    <ClInclude Include="bounding_sphere_box.hpp" />
+    <ClInclude Include="bounding_sphere_pointset.h" />
+    <ClInclude Include="bounding_sphere_pointset.hpp" />
+    <ClInclude Include="bounding_sphere_segment.h" />
+    <ClInclude Include="bounding_sphere_segment.hpp" />
+    <ClInclude Include="bounding_box.h" />
+    <ClInclude Include="bounding_box.hpp" />
+    <ClInclude Include="convexhull.h" />
+    <ClInclude Include="convexhull.hpp" />
+    <ClInclude Include="difference.h" />
+    <ClInclude Include="difference_alignedbox_alignedbox.h" />
+    <ClInclude Include="intersect.h" />
+    <ClInclude Include="intersect_alignedbox_alignedbox.h" />
+    <ClInclude Include="intersect_alignedbox_plane.h" />
+    <ClInclude Include="intersect_alignedbox_plane.hpp" />
+    <ClInclude Include="intersect_alignedbox_segment.h" />
+    <ClInclude Include="intersect_alignedbox_segment.hpp" />
+    <ClInclude Include="intersect_flat_plane.h" />
+    <ClInclude Include="intersect_flat_plane.hpp" />
+    <ClInclude Include="intersect_line_alignedbox.h" />
+    <ClInclude Include="intersect_line_alignedbox.hpp" />
+    <ClInclude Include="intersect_line_alignedplane.h" />
+    <ClInclude Include="intersect_line_alignedplane.hpp" />
+    <ClInclude Include="intersect_line_box.h" />
+    <ClInclude Include="intersect_line_box.hpp" />
+    <ClInclude Include="intersect_line_plane.h" />
+    <ClInclude Include="intersect_line_plane.hpp" />
+    <ClInclude Include="intersect_line_polygon.h" />
+    <ClInclude Include="intersect_line_polygon.hpp" />
+    <ClInclude Include="intersect_line_sphere.h" />
+    <ClInclude Include="intersect_line_sphere.hpp" />
+    <ClInclude Include="intersect_line_triangle.h" />
+    <ClInclude Include="intersect_line_triangle.hpp" />
+    <ClInclude Include="intersect_plane_sphere.h" />
+    <ClInclude Include="intersect_plane_sphere.hpp" />
+    <ClInclude Include="intersect_ray_alignedbox.h" />
+    <ClInclude Include="intersect_ray_alignedbox.hpp" />
+    <ClInclude Include="intersect_ray_alignedplane.h" />
+    <ClInclude Include="intersect_ray_alignedplane.hpp" />
+    <ClInclude Include="intersect_ray_plane.h" />
+    <ClInclude Include="intersect_ray_plane.hpp" />
+    <ClInclude Include="intersect_ray_sphere.h" />
+    <ClInclude Include="intersect_ray_sphere.hpp" />
+    <ClInclude Include="intersect_segment_halfspace.h" />
+    <ClInclude Include="intersect_segment_halfspace.hpp" />
+    <ClInclude Include="intersect_triangle_triangle.h" />
+    <ClInclude Include="intersect_triangle_triangle.hpp" />
+    <ClInclude Include="poisson_disk_pattern.h" />
+    <ClInclude Include="poisson_disk_pattern.hpp" />
+    <ClInclude Include="count_range_pointkdtree.h" />
+    <ClInclude Include="count_range_pointkdtree.hpp" />
+    <ClInclude Include="search_range_algorithm_pointkdtree.h" />
+    <ClInclude Include="search_range_algorithm_pointkdtree.hpp" />
+    <ClInclude Include="search_range_pointkdtree.h" />
+    <ClInclude Include="search_range_pointkdtree.hpp" />
+    <ClInclude Include="count_nearest_pointkdtree.h" />
+    <ClInclude Include="count_nearest_pointkdtree.hpp" />
+    <ClInclude Include="search_nearest_algorithm_pointkdtree.h" />
+    <ClInclude Include="search_nearest_algorithm_pointkdtree.hpp" />
+    <ClInclude Include="search_nearest_one_pointkdtree.h" />
+    <ClInclude Include="search_nearest_one_pointkdtree.hpp" />
+    <ClInclude Include="search_nearest_pointkdtree.h" />
+    <ClInclude Include="search_nearest_pointkdtree.hpp" />
+    <ClInclude Include="count_all_neighbors.h" />
+    <ClInclude Include="count_all_neighbors_1d.h" />
+    <ClInclude Include="count_all_neighbors_1d.hpp" />
+    <ClInclude Include="count_all_neighbors_bruteforce.h" />
+    <ClInclude Include="count_all_neighbors_bruteforce.hpp" />
+    <ClInclude Include="count_all_neighbors_pointkdtree.h" />
+    <ClInclude Include="count_all_neighbors_pointkdtree.hpp" />
+    <ClInclude Include="search_all_neighbors.h" />
+    <ClInclude Include="search_all_neighbors_1d.h" />
+    <ClInclude Include="search_all_neighbors_1d.hpp" />
+    <ClInclude Include="search_all_neighbors_bruteforce.h" />
+    <ClInclude Include="search_all_neighbors_bruteforce.hpp" />
+    <ClInclude Include="search_all_neighbors_pointkdtree.h" />
+    <ClInclude Include="search_all_neighbors_pointkdtree.hpp" />
+    <ClInclude Include="acceptpoint.h" />
+    <ClInclude Include="acceptpoint_concept.h" />
+    <ClInclude Include="always_acceptpoint.h" />
+    <ClInclude Include="dont_acceptpoint.h" />
+    <ClInclude Include="negate_acceptpoint.h" />
+    <ClInclude Include="objectdont_acceptpoint.h" />
+    <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.h" />
+    <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.hpp" />
+    <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.h" />
+    <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.hpp" />
+    <ClInclude Include="searchalgorithm_pointkdtree_concept.h" />
+    <ClInclude Include="maximum_clique_alignedbox.h" />
+    <ClInclude Include="maximum_clique_alignedbox.hpp" />
+    <ClInclude Include="point_pattern_match_gmo.h" />
+    <ClInclude Include="point_pattern_match_gmo.hpp" />
+    <ClInclude Include="point_pattern_matching.h" />
+    <ClInclude Include="point_pattern_matching.hpp" />
+    <ClInclude Include="ppm_translation.h" />
+    <ClInclude Include="linear_projection.h" />
+    <ClInclude Include="linear_projection.hpp" />
+    <ClInclude Include="planar_projection.h" />
+    <ClInclude Include="planar_projection.hpp" />
+    <ClInclude Include="contains_alignedbox_alignedbox.h" />
+    <ClInclude Include="contains_alignedbox_alignedbox.hpp" />
+    <ClInclude Include="contains_alignedbox_sphere.h" />
+    <ClInclude Include="contains_alignedbox_sphere.hpp" />
+    <ClInclude Include="contains_sphere_alignedbox.h" />
+    <ClInclude Include="contains_sphere_alignedbox.hpp" />
+    <ClInclude Include="overlaps.h" />
+    <ClInclude Include="overlaps_alignedbox_alignedbox.h" />
+    <ClInclude Include="overlaps_alignedbox_alignedbox.hpp" />
+    <ClInclude Include="overlaps_alignedbox_box.h" />
+    <ClInclude Include="overlaps_alignedbox_box.hpp" />
+    <ClInclude Include="overlaps_alignedbox_plane.h" />
+    <ClInclude Include="overlaps_alignedbox_plane.hpp" />
+    <ClInclude Include="overlaps_alignedbox_point.h" />
+    <ClInclude Include="overlaps_alignedbox_point.hpp" />
+    <ClInclude Include="overlaps_alignedbox_sphere.h" />
+    <ClInclude Include="overlaps_alignedbox_sphere.hpp" />
+    <ClInclude Include="overlaps_alignedbox_triangle.h" />
+    <ClInclude Include="overlaps_alignedbox_triangle.hpp" />
+    <ClInclude Include="overlaps_alignedplane_alignedbox.h" />
+    <ClInclude Include="overlaps_alignedplane_alignedbox.hpp" />
+    <ClInclude Include="overlaps_alignedplane_box.h" />
+    <ClInclude Include="overlaps_alignedplane_box.hpp" />
+    <ClInclude Include="overlaps_alignedplane_sphere.h" />
+    <ClInclude Include="overlaps_alignedplane_sphere.hpp" />
+    <ClInclude Include="overlaps_alignedplane_triangle.h" />
+    <ClInclude Include="overlaps_alignedplane_triangle.hpp" />
+    <ClInclude Include="overlaps_box_box.h" />
+    <ClInclude Include="overlaps_box_box.hpp" />
+    <ClInclude Include="overlaps_box_point.h" />
+    <ClInclude Include="overlaps_box_point.hpp" />
+    <ClInclude Include="overlaps_box_sphere.h" />
+    <ClInclude Include="overlaps_box_sphere.hpp" />
+    <ClInclude Include="overlaps_box_triangle.h" />
+    <ClInclude Include="overlaps_box_triangle.hpp" />
+    <ClInclude Include="overlaps_plane_box.h" />
+    <ClInclude Include="overlaps_plane_box.hpp" />
+    <ClInclude Include="overlaps_plane_sphere.h" />
+    <ClInclude Include="overlaps_plane_sphere.hpp" />
+    <ClInclude Include="overlaps_plane_triangle.h" />
+    <ClInclude Include="overlaps_plane_triangle.hpp" />
+    <ClInclude Include="overlaps_sphere_point.h" />
+    <ClInclude Include="overlaps_sphere_point.hpp" />
+    <ClInclude Include="overlaps_sphere_sphere.h" />
+    <ClInclude Include="overlaps_sphere_sphere.hpp" />
+    <ClInclude Include="overlaps_capsule_capsule.h" />
+    <ClInclude Include="overlaps_capsule_capsule.hpp" />
+    <ClInclude Include="overlaps_flat_plane.h" />
+    <ClInclude Include="overlaps_flat_plane.hpp" />
+    <ClInclude Include="overlaps_segment_segment.h" />
+    <ClInclude Include="overlaps_segment_segment.hpp" />
+    <ClInclude Include="overlaps_segments.h" />
+    <ClInclude Include="overlaps_segments.hpp" />
+    <ClInclude Include="overlaps_simplex_point.h" />
+    <ClInclude Include="overlaps_simplex_point.hpp" />
+    <ClInclude Include="overlaps_triangle_triangle.h" />
+    <ClInclude Include="overlaps_triangle_triangle.hpp" />
+    <ClInclude Include="area.h" />
+    <ClInclude Include="box_area.h" />
+    <ClInclude Include="box_area.hpp" />
+    <ClInclude Include="polygon_area.h" />
+    <ClInclude Include="polygon_area.hpp" />
+    <ClInclude Include="sphere_area.h" />
+    <ClInclude Include="sphere_area.hpp" />
+    <ClInclude Include="alignedbox_diameter.h" />
+    <ClInclude Include="alignedbox_diameter.hpp" />
+    <ClInclude Include="box_diameter.h" />
+    <ClInclude Include="box_diameter.hpp" />
+    <ClInclude Include="diameter.h" />
+    <ClInclude Include="sphere_diameter.h" />
+    <ClInclude Include="sphere_diameter.hpp" />
+    <ClInclude Include="box_volume.h" />
+    <ClInclude Include="box_volume.hpp" />
+    <ClInclude Include="sphere_volume.h" />
+    <ClInclude Include="sphere_volume.hpp" />
+    <ClInclude Include="distance_alignedbox_alignedbox.h" />
+    <ClInclude Include="distance_alignedbox_alignedbox.hpp" />
+    <ClInclude Include="distance_alignedbox_point.h" />
+    <ClInclude Include="distance_alignedbox_point.hpp" />
+    <ClInclude Include="distance_alignedbox_sphere.h" />
+    <ClInclude Include="distance_alignedbox_sphere.hpp" />
+    <ClInclude Include="distance_line_line.h" />
+    <ClInclude Include="distance_line_line.hpp" />
+    <ClInclude Include="distance_line_point.h" />
+    <ClInclude Include="distance_line_point.hpp" />
+    <ClInclude Include="distance_plane_point.h" />
+    <ClInclude Include="distance_plane_point.hpp" />
+    <ClInclude Include="distance_plane_sphere.h" />
+    <ClInclude Include="distance_plane_sphere.hpp" />
+    <ClInclude Include="distance_point_point.h" />
+    <ClInclude Include="distance_point_point.hpp" />
+    <ClInclude Include="distance_segment_point.h" />
+    <ClInclude Include="distance_segment_point.hpp" />
+    <ClInclude Include="distance_segment_segment.h" />
+    <ClInclude Include="distance_segment_segment.hpp" />
+    <ClInclude Include="distance_segment_sphere.h" />
+    <ClInclude Include="distance_segment_sphere.hpp" />
+    <ClInclude Include="closest_alignedbox_point.h" />
+    <ClInclude Include="closest_alignedbox_point.hpp" />
+    <ClInclude Include="closest_line_line.h" />
+    <ClInclude Include="closest_line_line.hpp" />
+    <ClInclude Include="closest_line_point.h" />
+    <ClInclude Include="closest_line_point.hpp" />
+    <ClInclude Include="closest_plane_point.h" />
+    <ClInclude Include="closest_plane_point.hpp" />
+    <ClInclude Include="closest_segment_point.h" />
+    <ClInclude Include="closest_segment_point.hpp" />
+    <ClInclude Include="closest_segment_segment.h" />
+    <ClInclude Include="closest_segment_segment.hpp" />
+    <ClInclude Include="pointset_eigen.h" />
+    <ClInclude Include="pointset_eigen.hpp" />
+    <ClInclude Include="point_patterns.h" />
+    <ClInclude Include="point_patterns.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="propertyhalfmesh.cpp" />
+    <ClCompile Include="geometrylibrary.cpp" />
+    <ClCompile Include="planar_projection.cpp" />
+    <ClCompile Include="sphere_area.cpp" />
+    <ClCompile Include="sphere_volume.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\math\pastelmath.vcxproj">
+      <Project>{d866f479-947d-4a26-b3bc-9e75f78f828a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\sys\pastelsys.vcxproj">
+      <Project>{75a8ab3f-51f7-4732-90e9-1266434fe08c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{75A8AB3F-51F7-4732-90E9-1266434FE08C}</ProjectGuid>
+    <RootNamespace>PastelSys</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_DEBUG_MODE" /D "PASTEL_ENABLE_PENSURES" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_ENABLE_OMP" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ShowIncludes>false</ShowIncludes>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="data_structures.h" />
+    <ClInclude Include="parallelarray.h" />
+    <ClInclude Include="parallelarray.hpp" />
+    <ClInclude Include="propertyid.h" />
+    <ClInclude Include="disjointgroups.h" />
+    <ClInclude Include="disjointgroups.hpp" />
+    <ClInclude Include="array.h" />
+    <ClInclude Include="array.hpp" />
+    <ClInclude Include="arraybase.h" />
+    <ClInclude Include="arraybase.hpp" />
+    <ClInclude Include="arraybasecursor.h" />
+    <ClInclude Include="subarray.h" />
+    <ClInclude Include="subarray_iterator.h" />
+    <ClInclude Include="subarray_tools.h" />
+    <ClInclude Include="subarray_tools.hpp" />
+    <ClInclude Include="fastlist.h" />
+    <ClInclude Include="fastlist.hpp" />
+    <ClInclude Include="fastlist_tools.h" />
+    <ClInclude Include="fastlist_tools.hpp" />
+    <ClInclude Include="fastlistprivate.hpp" />
+    <ClInclude Include="hash.h" />
+    <ClInclude Include="hash.hpp" />
+    <ClInclude Include="hash_tables.h" />
+    <ClInclude Include="functional.h" />
+    <ClInclude Include="unorderedbase.h" />
+    <ClInclude Include="unorderedbase.hpp" />
+    <ClInclude Include="unorderedmap.h" />
+    <ClInclude Include="unorderedmap.hpp" />
+    <ClInclude Include="unorderedset.h" />
+    <ClInclude Include="unorderedset.hpp" />
+    <ClInclude Include="small_containers.h" />
+    <ClInclude Include="smallfixedset.h" />
+    <ClInclude Include="smallfixedset.hpp" />
+    <ClInclude Include="smallset.h" />
+    <ClInclude Include="smallset.hpp" />
+    <ClInclude Include="smallmap.h" />
+    <ClInclude Include="smallmap.hpp" />
+    <ClInclude Include="view.h" />
+    <ClInclude Include="view_tools.h" />
+    <ClInclude Include="view_tools.hpp" />
+    <ClInclude Include="view_visit.h" />
+    <ClInclude Include="view_visit.hpp" />
+    <ClInclude Include="view_visit_more.h" />
+    <ClInclude Include="view_visit_more.hpp" />
+    <ClInclude Include="view_visit_more2.h" />
+    <ClInclude Include="view_visit_more2.hpp" />
+    <ClInclude Include="views.h" />
+    <ClInclude Include="borderedconstview.h" />
+    <ClInclude Include="clampedconstview.h" />
+    <ClInclude Include="extendedconstview.h" />
+    <ClInclude Include="extendedconstviews.h" />
+    <ClInclude Include="mirroredconstview.h" />
+    <ClInclude Include="repeatedconstview.h" />
+    <ClInclude Include="adaptedview.h" />
+    <ClInclude Include="adaptedviewcursor.h" />
+    <ClInclude Include="arrayview.h" />
+    <ClInclude Include="concrete_views.h" />
+    <ClInclude Include="cursorview.h" />
+    <ClInclude Include="mirrorview.h" />
+    <ClInclude Include="mirrorviewcursor.h" />
+    <ClInclude Include="permutedview.h" />
+    <ClInclude Include="permutedviewcursor.h" />
+    <ClInclude Include="rowview.h" />
+    <ClInclude Include="rowviewcursor.h" />
+    <ClInclude Include="sliceview.h" />
+    <ClInclude Include="sliceviewcursor.h" />
+    <ClInclude Include="sparseview.h" />
+    <ClInclude Include="sparseviewcursor.h" />
+    <ClInclude Include="subview.h" />
+    <ClInclude Include="transformedview.h" />
+    <ClInclude Include="transformedviewcursor.h" />
+    <ClInclude Include="list_graph.h" />
+    <ClInclude Include="redblacktree.h" />
+    <ClInclude Include="redblacktree.hpp" />
+    <ClInclude Include="redblacktree_erase.hpp" />
+    <ClInclude Include="redblacktree_insert.hpp" />
+    <ClInclude Include="redblacktree_iterator.h" />
+    <ClInclude Include="redblacktree_node.h" />
+    <ClInclude Include="redblacktree_private.hpp" />
+    <ClInclude Include="redblacktree_tools.h" />
+    <ClInclude Include="redblacktree_tools.hpp" />
+    <ClInclude Include="map_rbtpolicy.h" />
+    <ClInclude Include="rbtpolicies.h" />
+    <ClInclude Include="rbtpolicy_concept.h" />
+    <ClInclude Include="set_rbtpolicy.h" />
+    <ClInclude Include="tree.h" />
+    <ClInclude Include="tree_iterator.h" />
+    <ClInclude Include="tree_node.h" />
+    <ClInclude Include="addressof.h" />
+    <ClInclude Include="addressof.hpp" />
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="memory_overlaps.h" />
+    <ClInclude Include="allocators.h" />
+    <ClInclude Include="arenaallocator.h" />
+    <ClInclude Include="arenaallocator.hpp" />
+    <ClInclude Include="nativeallocator.h" />
+    <ClInclude Include="nativeallocator.hpp" />
+    <ClInclude Include="poolallocator.h" />
+    <ClInclude Include="poolallocator.hpp" />
+    <ClInclude Include="countedptr.h" />
+    <ClInclude Include="countedptr.hpp" />
+    <ClInclude Include="referencecounted.h" />
+    <ClInclude Include="referencecounted.hpp" />
+    <ClInclude Include="weakptr.h" />
+    <ClInclude Include="weakptr.hpp" />
+    <ClInclude Include="testing.h" />
+    <ClInclude Include="ensure.h" />
+    <ClInclude Include="ensure.hpp" />
+    <ClInclude Include="testreport.h" />
+    <ClInclude Include="testrunner.h" />
+    <ClInclude Include="testsuite.h" />
+    <ClInclude Include="unit_testing.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="constants.hpp" />
+    <ClInclude Include="histogram.h" />
+    <ClInclude Include="histogram.hpp" />
+    <ClInclude Include="maths.h" />
+    <ClInclude Include="topology.h" />
+    <ClInclude Include="vector.h" />
+    <ClInclude Include="vector.hpp" />
+    <ClInclude Include="vector_compare.h" />
+    <ClInclude Include="vector_compare.hpp" />
+    <ClInclude Include="vector_tools.h" />
+    <ClInclude Include="vector_tools.hpp" />
+    <ClInclude Include="vector_tools_more.h" />
+    <ClInclude Include="vector_tools_more.hpp" />
+    <ClInclude Include="vectorbase.h" />
+    <ClInclude Include="array_vectorexpression.h" />
+    <ClInclude Include="binary_vectorexpression.h" />
+    <ClInclude Include="binary_vectorexpression_detail.h" />
+    <ClInclude Include="unary_vectorexpression.h" />
+    <ClInclude Include="unary_vectorexpression_detail.h" />
+    <ClInclude Include="vectorexpression.h" />
+    <ClInclude Include="vectorexpression_concept.h" />
+    <ClInclude Include="tuple.h" />
+    <ClInclude Include="tuple.hpp" />
+    <ClInclude Include="tuple_tools.h" />
+    <ClInclude Include="tuple_tools.hpp" />
+    <ClInclude Include="tuplebase.h" />
+    <ClInclude Include="array_pointpolicy.h" />
+    <ClInclude Include="pointpolicies.h" />
+    <ClInclude Include="pointpolicy_concept.h" />
+    <ClInclude Include="vector_pointpolicy.h" />
+    <ClInclude Include="numbers.h" />
+    <ClInclude Include="real_concept.h" />
+    <ClInclude Include="real_concept.hpp" />
+    <ClInclude Include="reals.h" />
+    <ClInclude Include="double_real.h" />
+    <ClInclude Include="double_real.hpp" />
+    <ClInclude Include="float_real.h" />
+    <ClInclude Include="float_real.hpp" />
+    <ClInclude Include="statreal.h" />
+    <ClInclude Include="statreal_tools.h" />
+    <ClInclude Include="rational.h" />
+    <ClInclude Include="rational.hpp" />
+    <ClInclude Include="rational_more.h" />
+    <ClInclude Include="rational_more.hpp" />
+    <ClInclude Include="rational_tools.h" />
+    <ClInclude Include="rational_tools.hpp" />
+    <ClInclude Include="integer_concept.h" />
+    <ClInclude Include="integer_tools.h" />
+    <ClInclude Include="integer_tools.hpp" />
+    <ClInclude Include="integers.h" />
+    <ClInclude Include="biginteger.h" />
+    <ClInclude Include="biginteger_more.h" />
+    <ClInclude Include="biginteger_more.hpp" />
+    <ClInclude Include="biginteger_tools.h" />
+    <ClInclude Include="integer_integer.h" />
+    <ClInclude Include="integer_integer.hpp" />
+    <ClInclude Include="primes.h" />
+    <ClInclude Include="alignedbox.h" />
+    <ClInclude Include="alignedbox.hpp" />
+    <ClInclude Include="alignedbox_tools.h" />
+    <ClInclude Include="alignedbox_tools.hpp" />
+    <ClInclude Include="alignedboxbase.h" />
+    <ClInclude Include="alignedboxbase.hpp" />
+    <ClInclude Include="difference_alignedbox_alignedbox.h" />
+    <ClInclude Include="difference_alignedbox_alignedbox.hpp" />
+    <ClInclude Include="intersect_alignedbox_alignedbox.h" />
+    <ClInclude Include="intersect_alignedbox_alignedbox.hpp" />
+    <ClInclude Include="positionvisitor_concept.h" />
+    <ClInclude Include="angles.h" />
+    <ClInclude Include="angles.hpp" />
+    <ClInclude Include="bernstein.h" />
+    <ClInclude Include="bernstein.hpp" />
+    <ClInclude Include="beta.h" />
+    <ClInclude Include="beta.hpp" />
+    <ClInclude Include="binomial.h" />
+    <ClInclude Include="binomial.hpp" />
+    <ClInclude Include="clamp.h" />
+    <ClInclude Include="clamp.hpp" />
+    <ClInclude Include="digamma.h" />
+    <ClInclude Include="digamma.hpp" />
+    <ClInclude Include="eps.h" />
+    <ClInclude Include="eps.hpp" />
+    <ClInclude Include="error.h" />
+    <ClInclude Include="error.hpp" />
+    <ClInclude Include="factorial.h" />
+    <ClInclude Include="factorial.hpp" />
+    <ClInclude Include="gamma.h" />
+    <ClInclude Include="gamma.hpp" />
+    <ClInclude Include="harmonic.h" />
+    <ClInclude Include="harmonic.hpp" />
+    <ClInclude Include="lexicographic.h" />
+    <ClInclude Include="lexicographic.hpp" />
+    <ClInclude Include="linear.h" />
+    <ClInclude Include="linear.hpp" />
+    <ClInclude Include="logarithm.h" />
+    <ClInclude Include="logarithm.hpp" />
+    <ClInclude Include="math_functions.h" />
+    <ClInclude Include="math_functions.hpp" />
+    <ClInclude Include="minmax.h" />
+    <ClInclude Include="minmax.hpp" />
+    <ClInclude Include="mod.h" />
+    <ClInclude Include="mod.hpp" />
+    <ClInclude Include="number_tests.h" />
+    <ClInclude Include="number_tests.hpp" />
+    <ClInclude Include="powers.h" />
+    <ClInclude Include="powers.hpp" />
+    <ClInclude Include="quadratic.h" />
+    <ClInclude Include="quadratic.hpp" />
+    <ClInclude Include="quantization.h" />
+    <ClInclude Include="quantization.hpp" />
+    <ClInclude Include="rounding.h" />
+    <ClInclude Include="rounding.hpp" />
+    <ClInclude Include="scale_integer.h" />
+    <ClInclude Include="scale_integer.hpp" />
+    <ClInclude Include="sinc.h" />
+    <ClInclude Include="sinc.hpp" />
+    <ClInclude Include="tristate.h" />
+    <ClInclude Include="tristate.hpp" />
+    <ClInclude Include="callfunction.h" />
+    <ClInclude Include="callfunction.hpp" />
+    <ClInclude Include="keyvalue.h" />
+    <ClInclude Include="possiblyemptymember.h" />
+    <ClInclude Include="prototypefactory.h" />
+    <ClInclude Include="prototypefactory.hpp" />
+    <ClInclude Include="range.h" />
+    <ClInclude Include="subset.h" />
+    <ClInclude Include="guid.h" />
+    <ClInclude Include="guid.hpp" />
+    <ClInclude Include="binaryfile.h" />
+    <ClInclude Include="abstractarray.h" />
+    <ClInclude Include="adaptedarray.h" />
+    <ClInclude Include="indexallocator.h" />
+    <ClInclude Include="indexallocator.hpp" />
+    <ClInclude Include="commafiller.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="config.hpp" />
+    <ClInclude Include="config_tools.h" />
+    <ClInclude Include="config_tools.hpp" />
+    <ClInclude Include="configfile.h" />
+    <ClInclude Include="configuration.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="random_beta.h" />
+    <ClInclude Include="random_beta.hpp" />
+    <ClInclude Include="random_cauchy.h" />
+    <ClInclude Include="random_cauchy.hpp" />
+    <ClInclude Include="random_chisquared.h" />
+    <ClInclude Include="random_chisquared.hpp" />
+    <ClInclude Include="random_continuous.h" />
+    <ClInclude Include="random_dirichlet.h" />
+    <ClInclude Include="random_dirichlet.hpp" />
+    <ClInclude Include="random_exponential.h" />
+    <ClInclude Include="random_exponential.hpp" />
+    <ClInclude Include="random_gamma.h" />
+    <ClInclude Include="random_gamma.hpp" />
+    <ClInclude Include="random_gaussian.h" />
+    <ClInclude Include="random_gaussian.hpp" />
+    <ClInclude Include="random_generalizedgaussian.h" />
+    <ClInclude Include="random_generalizedgaussian.hpp" />
+    <ClInclude Include="random_laplace.h" />
+    <ClInclude Include="random_laplace.hpp" />
+    <ClInclude Include="random_lognormal.h" />
+    <ClInclude Include="random_lognormal.hpp" />
+    <ClInclude Include="random_triangle.h" />
+    <ClInclude Include="random_triangle.hpp" />
+    <ClInclude Include="random_uniform.h" />
+    <ClInclude Include="random_uniform.hpp" />
+    <ClInclude Include="randomdistribution.h" />
+    <ClInclude Include="mt19937.h" />
+    <ClInclude Include="random_discrete.h" />
+    <ClInclude Include="random_integer.h" />
+    <ClInclude Include="random_integer.hpp" />
+    <ClInclude Include="random_sampling_tree.h" />
+    <ClInclude Include="random_anderson_darling.h" />
+    <ClInclude Include="random_anderson_darling.hpp" />
+    <ClInclude Include="random_goodness.h" />
+    <ClInclude Include="random_kolmogorov_smirnov.h" />
+    <ClInclude Include="random_kolmogorov_smirnov.hpp" />
+    <ClInclude Include="tablemodify.h" />
+    <ClInclude Include="listarray.h" />
+    <ClInclude Include="listarray.hpp" />
+    <ClInclude Include="memoryview.h" />
+    <ClInclude Include="memoryview.hpp" />
+    <ClInclude Include="arrayextender.h" />
+    <ClInclude Include="indexextender.h" />
+    <ClInclude Include="indexextenders.h" />
+    <ClInclude Include="clampextender.h" />
+    <ClInclude Include="mirrorextender.h" />
+    <ClInclude Include="repeatextender.h" />
+    <ClInclude Include="anystorage.h" />
+    <ClInclude Include="basic_algorithms.h" />
+    <ClInclude Include="isnan.h" />
+    <ClInclude Include="syscommon.h" />
+    <ClInclude Include="syscommon.hpp" />
+    <ClInclude Include="string_algorithms.h" />
+    <ClInclude Include="string_algorithms.hpp" />
+    <ClInclude Include="bitquery.h" />
+    <ClInclude Include="bitquery.hpp" />
+    <ClInclude Include="bittrick.h" />
+    <ClInclude Include="bittrick.hpp" />
+    <ClInclude Include="copy_n.h" />
+    <ClInclude Include="copy_n.hpp" />
+    <ClInclude Include="destruct.h" />
+    <ClInclude Include="destruct.hpp" />
+    <ClInclude Include="insertion_sort.h" />
+    <ClInclude Include="insertion_sort.hpp" />
+    <ClInclude Include="random_subset.h" />
+    <ClInclude Include="random_subset.hpp" />
+    <ClInclude Include="sequence_algorithms.h" />
+    <ClInclude Include="maximum_bipartite_matching.h" />
+    <ClInclude Include="maximum_bipartite_matching.hpp" />
+    <ClInclude Include="portability.h" />
+    <ClInclude Include="endian.h" />
+    <ClInclude Include="endian.hpp" />
+    <ClInclude Include="syslibrary.h" />
+    <ClInclude Include="environment.h" />
+    <ClInclude Include="environment.hpp" />
+    <ClInclude Include="mytypes.h" />
+    <ClInclude Include="mytypes.hpp" />
+    <ClInclude Include="pastelomp.h" />
+    <ClInclude Include="pastelomp.hpp" />
+    <ClInclude Include="reporting.h" />
+    <ClInclude Include="log.h" />
+    <ClInclude Include="logging.h" />
+    <ClInclude Include="logger.h" />
+    <ClInclude Include="loggers.h" />
+    <ClInclude Include="file_logger.h" />
+    <ClInclude Include="stream_logger.h" />
+    <ClInclude Include="progress.h" />
+    <ClInclude Include="measuretable.h" />
+    <ClInclude Include="measuretable_tools.h" />
+    <ClInclude Include="iterator_reporter.h" />
+    <ClInclude Include="null_reporter.h" />
+    <ClInclude Include="push_back_reporter.h" />
+    <ClInclude Include="range_reporter.h" />
+    <ClInclude Include="reporter_concept.h" />
+    <ClInclude Include="reporters.h" />
+    <ClInclude Include="single_reporter.h" />
+    <ClInclude Include="ranges.h" />
+    <ClInclude Include="array_range.h" />
+    <ClInclude Include="concrete_ranges.h" />
+    <ClInclude Include="constant_range.h" />
+    <ClInclude Include="finite_range.h" />
+    <ClInclude Include="generated_range.h" />
+    <ClInclude Include="reverse_range.h" />
+    <ClInclude Include="stream_range.h" />
+    <ClInclude Include="bidirectionaliterator_range.h" />
+    <ClInclude Include="forwarditerator_range.h" />
+    <ClInclude Include="iterator_range.h" />
+    <ClInclude Include="iterator_range.hpp" />
+    <ClInclude Include="randomaccessiterator_range.h" />
+    <ClInclude Include="bidirectionalrange_concept.h" />
+    <ClInclude Include="forwardrange_concept.h" />
+    <ClInclude Include="randomaccessrange_concept.h" />
+    <ClInclude Include="range_concepts.h" />
+    <ClInclude Include="range_algorithms.h" />
+    <ClInclude Include="range_for_all.h" />
+    <ClInclude Include="range_for_all.hpp" />
+    <ClInclude Include="constantiterator.h" />
+    <ClInclude Include="countingiterator.h" />
+    <ClInclude Include="iterators.h" />
+    <ClInclude Include="nulliterator.h" />
+    <ClInclude Include="rectangleiterator.h" />
+    <ClInclude Include="sparseiterator.h" />
+    <ClInclude Include="algorithm_concept.h" />
+    <ClInclude Include="rangealgorithm_concept.h" />
+    <ClInclude Include="equalto.h" />
+    <ClInclude Include="greaterequal.h" />
+    <ClInclude Include="greaterthan.h" />
+    <ClInclude Include="lessequal.h" />
+    <ClInclude Include="lessthan.h" />
+    <ClInclude Include="notequalto.h" />
+    <ClInclude Include="predicate_concept.h" />
+    <ClInclude Include="predicates.h" />
+    <ClInclude Include="as_pair_concept.h" />
+    <ClInclude Include="keyvalue_as_pair.h" />
+    <ClInclude Include="stdpair_as_pair.h" />
+    <ClInclude Include="tuple_as_pair.h" />
+    <ClInclude Include="pastelsys.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data_structures.txt" />
+    <None Include="parallelarray.txt" />
+    <None Include="disjointgroups.txt" />
+    <None Include="disjointgroups_design.txt" />
+    <None Include="array.txt" />
+    <None Include="fastlist.txt" />
+    <None Include="hash_tables.txt" />
+    <None Include="small_containers.txt" />
+    <None Include="views.txt" />
+    <None Include="extendedconstviews.txt" />
+    <None Include="concrete_views.txt" />
+    <None Include="redblacktree.txt" />
+    <None Include="redblacktree_implementation.txt" />
+    <None Include="rbtpolicies.txt" />
+    <None Include="tree.txt" />
+    <None Include="tree_design.txt" />
+    <None Include="memory.txt" />
+    <None Include="allocators.txt" />
+    <None Include="arenaallocator.txt" />
+    <None Include="nativeallocator.txt" />
+    <None Include="poolallocator.txt" />
+    <None Include="poolallocator_notes.txt" />
+    <None Include="countedptr.txt" />
+    <None Include="testing.txt" />
+    <None Include="ensure.txt" />
+    <None Include="unit_testing.txt" />
+    <None Include="maths.txt" />
+    <None Include="why_no_points.txt" />
+    <None Include="vector.txt" />
+    <None Include="vector_design.txt" />
+    <None Include="vectorexpression.txt" />
+    <None Include="tuple.txt" />
+    <None Include="pointpolicies.txt" />
+    <None Include="pointpolicy_design.txt" />
+    <None Include="numbers.txt" />
+    <None Include="reals.txt" />
+    <None Include="native_reals.txt" />
+    <None Include="statreal.txt" />
+    <None Include="rational.txt" />
+    <None Include="integers.txt" />
+    <None Include="biginteger.txt" />
+    <None Include="integer_integer.txt" />
+    <None Include="primes.txt" />
+    <None Include="alignedbox.txt" />
+    <None Include="positionvisitor.txt" />
+    <None Include="math_functions.txt" />
+    <None Include="miscellaneous.txt" />
+    <None Include="guid.txt" />
+    <None Include="binaryfile.txt" />
+    <None Include="indexallocator.txt" />
+    <None Include="commafiller.txt" />
+    <None Include="configuration.txt" />
+    <None Include="random.txt" />
+    <None Include="random_beta.txt" />
+    <None Include="random_cauchy.txt" />
+    <None Include="random_chisquared.txt" />
+    <None Include="random_continuous.txt" />
+    <None Include="random_dirichlet.txt" />
+    <None Include="random_exponential.txt" />
+    <None Include="random_gamma.txt" />
+    <None Include="random_gaussian.txt" />
+    <None Include="random_generalizedgaussian.txt" />
+    <None Include="random_laplace.txt" />
+    <None Include="random_lognormal.txt" />
+    <None Include="random_triangle.txt" />
+    <None Include="random_uniform.txt" />
+    <None Include="random_discrete.txt" />
+    <None Include="random_sampling_tree.txt" />
+    <None Include="random_goodness.txt" />
+    <None Include="..\..\blog.txt" />
+    <None Include="..\..\dependencies.txt" />
+    <None Include="..\..\pastel.txt" />
+    <None Include="..\..\pastel_license.txt" />
+    <None Include="..\..\pastel_license_matlab.txt" />
+    <None Include="pastelsys.txt" />
+    <None Include="..\..\release_history.txt" />
+    <None Include="..\..\style_conventions.txt" />
+    <None Include="..\..\techniques.txt" />
+    <None Include="..\..\techniques_aggregation.txt" />
+    <None Include="..\..\techniques_deduction.txt" />
+    <None Include="..\..\techniques_enums.txt" />
+    <None Include="..\..\techniques_specialization.txt" />
+    <None Include="..\..\techniques_unsigned.txt" />
+    <None Include="..\..\techniques_warnings.txt" />
+    <None Include="notsure.txt" />
+    <None Include="indexextenders.txt" />
+    <None Include="basic_algorithms.txt" />
+    <None Include="string_algorithms.txt" />
+    <None Include="bittrick.txt" />
+    <None Include="sequence_algorithms.txt" />
+    <None Include="graph_algorithms.txt" />
+    <None Include="maximum_bipartite_matching.txt" />
+    <None Include="portability.txt" />
+    <None Include="endian.txt" />
+    <None Include="..\..\building.txt" />
+    <None Include="..\..\premake4.lua" />
+    <None Include="environment.txt" />
+    <None Include="reporting.txt" />
+    <None Include="logging.txt" />
+    <None Include="loggers.txt" />
+    <None Include="file_logger.txt" />
+    <None Include="stream_logger.txt" />
+    <None Include="progress.txt" />
+    <None Include="measuretable.txt" />
+    <None Include="generic_programming.txt" />
+    <None Include="iterator_reporter.txt" />
+    <None Include="null_reporter.txt" />
+    <None Include="push_back_reporter.txt" />
+    <None Include="range_reporter.txt" />
+    <None Include="reporters.txt" />
+    <None Include="single_reporter.txt" />
+    <None Include="ranges.txt" />
+    <None Include="array_range.txt" />
+    <None Include="concrete_ranges.txt" />
+    <None Include="constant_range.txt" />
+    <None Include="finite_range.txt" />
+    <None Include="generated_range.txt" />
+    <None Include="reverse_range.txt" />
+    <None Include="stream_range.txt" />
+    <None Include="iterator_range.txt" />
+    <None Include="range_concepts.txt" />
+    <None Include="range_algorithms.txt" />
+    <None Include="iterators.txt" />
+    <None Include="algorithm.txt" />
+    <None Include="rangealgorithm.txt" />
+    <None Include="predicates.txt" />
+    <None Include="as_pair_concept.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="arenaallocator.cpp" />
+    <ClCompile Include="nativeallocator.cpp" />
+    <ClCompile Include="poolallocator.cpp" />
+    <ClCompile Include="countedptr.cpp" />
+    <ClCompile Include="ensure.cpp" />
+    <ClCompile Include="testreport.cpp" />
+    <ClCompile Include="testrunner.cpp" />
+    <ClCompile Include="testsuite.cpp" />
+    <ClCompile Include="statreal.cpp" />
+    <ClCompile Include="statreal_tools.cpp" />
+    <ClCompile Include="biginteger.cpp" />
+    <ClCompile Include="biginteger_tools.cpp" />
+    <ClCompile Include="primes.cpp" />
+    <ClCompile Include="digamma.cpp" />
+    <ClCompile Include="factorial.cpp" />
+    <ClCompile Include="subset.cpp" />
+    <ClCompile Include="guid.cpp" />
+    <ClCompile Include="binaryfile.cpp" />
+    <ClCompile Include="abstractarray.cpp" />
+    <ClCompile Include="indexallocator.cpp" />
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="config_tools.cpp" />
+    <ClCompile Include="configfile.cpp" />
+    <ClCompile Include="mt19937.cpp" />
+    <ClCompile Include="string_algorithms.cpp" />
+    <ClCompile Include="pastelsys.cpp" />
+    <ClCompile Include="syslibrary.cpp" />
+    <ClCompile Include="log.cpp" />
+    <ClCompile Include="logger.cpp" />
+    <ClCompile Include="file_logger.cpp" />
+    <ClCompile Include="stream_logger.cpp" />
+    <ClCompile Include="progress.cpp" />
+    <ClCompile Include="measuretable.cpp" />
+    <ClCompile Include="measuretable_tools.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
