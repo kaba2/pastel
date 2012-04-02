@@ -36,6 +36,9 @@ namespace
 			testAddition();
 			testMultiply();
 			testFloat();
+			testDouble();
+
+			std::cout << Rat(0.15) << std::endl;
 		}
 
 		void testSimple()
@@ -201,38 +204,59 @@ namespace
 
 		void testFloat()
 		{
-			float number = 0;
+			TEST_ENSURE(Rat(0.125f) == Rat(1, 8));
+			TEST_ENSURE(Rat(-0.125f) == Rat(-1, 8));
+			TEST_ENSURE(Rat(0.0f) == Rat(0));
+			TEST_ENSURE(Rat(-0.0f) == Rat(0));
+
+			real32_ieee number = 0;
 			uint32& bits = *((uint32*)&number);
-			Rat rat;
 
+			// Positive zero.
 			bits = (0x0 << 31) + (0x00 << 23) + (0x000000);
-			rat = Rat(number);
-			cout << rat << endl;
-			TEST_ENSURE(rat == 0);
+			TEST_ENSURE(Rat(number) == 0);
 
+			// Negative zero.
 			bits = (0x1 << 31) + (0x00 << 23) + (0x000000);
-			rat = Rat(number);
-			cout << rat << endl;
-			TEST_ENSURE(rat == 0);
+			TEST_ENSURE(Rat(number) == 0);
 
+			// Positive infinity.
 			bits = (0x0 << 31) + (0xFF << 23) + (0x000000);
-			rat = Rat(number);
-			cout << rat << endl;
-			TEST_ENSURE(rat == infinity<Rat>());
+			TEST_ENSURE(Rat(number) == infinity<Rat>());
 
+			// Negative infinity.
 			bits = (0x1 << 31) + (0xFF << 23) + (0x000000);
-			rat = Rat(number);
-			cout << rat << endl;
-			TEST_ENSURE(rat == -infinity<Rat>());
+			TEST_ENSURE(Rat(number) == -infinity<Rat>());
 
 			bits = (0x0 << 31) + (0x7F << 23) + (0x123456);
-			rat = Rat(number);
-			cout << rat << endl;
-			TEST_ENSURE(rat == Rat(0x123456 + 0x800000, 1 << 23));
+			TEST_ENSURE(Rat(number) == Rat(0x123456 + 0x800000, 1 << 23));
+		}
 
-			cout << Rat(1.2134f) << endl;
-			cout << Rat(61234.934f) << endl;
-			cout << Rat(1435.642f) << endl;
+		void testDouble()
+		{
+			TEST_ENSURE(Rat(0.125) == Rat(1, 8));
+			TEST_ENSURE(Rat(-0.125) == Rat(-1, 8));
+			TEST_ENSURE(Rat(0.0) == Rat(0));
+			TEST_ENSURE(Rat(-0.0) == Rat(0));
+
+			real64_ieee number = 0;
+			uint64& bits = *((uint64*)&number);
+
+			// Positive zero.
+			bits = ((uint64)0x0 << 63) + ((uint64)0x000 << 52) + ((uint64)0x0000000000000);
+			TEST_ENSURE(Rat(number) == 0);
+
+			// Negative zero.
+			bits = ((uint64)0x1 << 63) + ((uint64)0x000 << 52) + ((uint64)0x0000000000000);
+			TEST_ENSURE(Rat(number) == 0);
+
+			// Positive infinity.
+			bits = ((uint64)0x0 << 63) + ((uint64)0x7FF << 52) + ((uint64)0x0000000000000);
+			TEST_ENSURE(Rat(number) == infinity<Rat>());
+
+			// Negative infinity.
+			bits = ((uint64)0x1 << 63) + ((uint64)0x7FF << 52) + ((uint64)0x0000000000000);
+			TEST_ENSURE(Rat(number) == -infinity<Rat>());
 		}
 
 		void testSyntax()

@@ -18,6 +18,22 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>::Rational(
+		const Rational& that)
+		: numerator_(that.numerator_)
+		, denominator_(that.denominator_)
+	{
+	}
+
+	template <typename Integer>
+	Rational<Integer>::Rational(
+		Rational&& that)
+		: numerator_(std::move(that.numerator_))
+		, denominator_(std::move(that.denominator_))
+	{
+	}
+
+	template <typename Integer>
+	Rational<Integer>::Rational(
 		integer wholes)
 		: numerator_(wholes)
 		, denominator_(1)
@@ -26,19 +42,16 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>::Rational(
-		const typename boost::mpl::if_<
-		boost::is_same<integer, Integer>, EmptyClass, Integer>::type& wholes)
-		: numerator_(wholes)
+		typename boost::mpl::if_<boost::is_same<integer, Integer>, EmptyClass, Integer>::type wholes)
+		: numerator_(std::move(wholes))
 		, denominator_(1)
 	{
 	}
 
 	template <typename Integer>
-	Rational<Integer>::Rational(
-		const Integer& numerator,
-		const Integer& denominator)
-		: numerator_(numerator)
-		, denominator_(denominator)
+	Rational<Integer>::Rational(Integer numerator, Integer denominator)
+		: numerator_(std::move(numerator))
+		, denominator_(std::move(denominator))
 	{
 		simplify();
 	}
@@ -227,19 +240,17 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>& Rational<Integer>::operator=(
-		const Rational<Integer>& that)
+		Rational that)
 	{
-		Rational<Integer> copy(that);
-		swap(copy);
+		swap(that);
 
 		return *this;
 	}
 
 	template <typename Integer>
 	void Rational<Integer>::swap(
-		Rational<Integer>& that)
+		Rational& that)
 	{
-		using std::swap;
 		using std::swap;
 
 		swap(numerator_, that.numerator_);
@@ -247,11 +258,12 @@ namespace Pastel
 	}
 
 	template <typename Integer>
-	void Rational<Integer>::set(
-		const Integer& numerator,
-		const Integer& denominator)
+	void Rational<Integer>::set(Integer numerator, Integer denominator)
 	{
-		Rational copy(numerator, denominator);
+		Rational copy(
+			std::move(numerator), 
+			std::move(denominator));
+
 		swap(copy);
 	}
 
@@ -269,7 +281,7 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>& Rational<Integer>::operator+=(
-		const Rational<Integer>& that)
+		Rational that)
 	{
 		/*
 		+	|	Num	NaN	+oo	-oo	+0 -0
@@ -285,7 +297,7 @@ namespace Pastel
 		typename NumberType::Enum thisType = classify();
 		typename NumberType::Enum thatType = that.classify();
 
-		Rational<Integer> result;
+		Rational result;
 
 		if (thisType == NumberType::Nan ||
 			thatType == NumberType::Nan ||
@@ -295,29 +307,28 @@ namespace Pastel
 			thatType == NumberType::Infinity))
 		{
 			// The result is NaN.
-
-			result.set(0, 0);
+			result.set(0, 0, SkipSimplify());
 		}
-		else if (thisType == NumberType::Infinity ||
+		else if (
+			thisType == NumberType::Infinity ||
 			thatType == NumberType::Infinity)
 		{
 			// The result is +oo.
-
-			result.set(1, 0);
+			result.set(1, 0, SkipSimplify());
 		}
-		else if (thisType == NumberType::MinusInfinity ||
+		else if (
+			thisType == NumberType::MinusInfinity ||
 			thatType == NumberType::MinusInfinity)
 		{
 			// The result is -oo.
-
-			result.set(-1, 0);
+			result.set(-1, 0, SkipSimplify());
 		}
 		else
 		{
 			// Both are just normal numbers.
-
-			result.set(numerator_ * that.denominator_ +
-				that.numerator_ * denominator_,
+			result.set(
+				numerator_ * that.denominator_ +
+				std::move(that.numerator_) * denominator_,
 				denominator_ * that.denominator_);
 		}
 
@@ -328,16 +339,16 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>& Rational<Integer>::operator-=(
-		const Rational<Integer>& that)
+		Rational that)
 	{
 		return (*this) +=
-			Rational<Integer>(
-			-that.numerator_, that.denominator_);
+			Rational(
+			-that.numerator_, std::move(that.denominator_));
 	}
 
 	template <typename Integer>
 	Rational<Integer>& Rational<Integer>::operator*=(
-		const Rational<Integer>& that)
+		Rational that)
 	{
 		/*
 		*	|	Num	NaN	+oo	-oo	0
@@ -346,20 +357,19 @@ namespace Pastel
 		NaN|	NaN	NaN
 		+oo|	+oo	NaN	+oo
 		-oo|	-oo	NaN	-oo	+oo
-		0	|	0		NaN	0		0		0
+		0  |      0 NaN	0	0   0
 		*/
 
 		typename NumberType::Enum thisType = classify();
 		typename NumberType::Enum thatType = that.classify();
 
-		Rational<Integer> result;
+		Rational result;
 
 		if (thisType == NumberType::Nan ||
 			thatType == NumberType::Nan)
 		{
 			// The result is NaN.
-
-			result.set(0, 0);
+			result.set(0, 0, SkipSimplify());
 		}
 		else if ((thisType == NumberType::Infinity &&
 			thatType == NumberType::Infinity) ||
@@ -367,8 +377,7 @@ namespace Pastel
 			thatType == NumberType::MinusInfinity))
 		{
 			// The result is +oo.
-
-			result.set(1, 0);
+			result.set(1, 0, SkipSimplify());
 		}
 		else if ((thisType == NumberType::Infinity &&
 			thatType == NumberType::MinusInfinity) ||
@@ -376,22 +385,20 @@ namespace Pastel
 			thatType == NumberType::Infinity))
 		{
 			// The result is -oo.
-
-			result.set(-1, 0);
+			result.set(-1, 0, SkipSimplify());
 		}
 		else if (thisType == NumberType::Zero ||
 			thatType == NumberType::Zero)
 		{
 			// The result is zero.
-
-			result.set(0, 1);
+			result.set(0, 1, SkipSimplify());
 		}
 		else
 		{
 			// Both are just normal numbers.
-
-			result.set(numerator_ * that.numerator_,
-				denominator_ * that.denominator_);
+			result.set(
+				numerator_  * std::move(that.numerator_),
+				denominator_ * std::move(that.denominator_));
 		}
 
 		swap(result);
@@ -401,16 +408,18 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>& Rational<Integer>::operator/=(
-		const Rational<Integer>& that)
+		Rational that)
 	{
 		return (*this) *=
-			Rational(that.denominator_, that.numerator_);
+			Rational(
+			std::move(that.denominator_), 
+			std::move(that.numerator_));
 	}
 
 	template <typename Integer>
 	Rational<Integer> Rational<Integer>::operator-() const
 	{
-		return Rational<Integer>(-numerator_, denominator_);
+		return Rational(-numerator_, denominator_);
 	}
 
 	template <typename Integer>
@@ -420,6 +429,28 @@ namespace Pastel
 	}
 
 	// Private
+
+	template <typename Integer>
+	Rational<Integer>::Rational(
+		Integer numerator, Integer denominator,
+		SkipSimplify)
+		: numerator_(std::move(numerator))
+		, denominator_(std::move(denominator))
+	{
+	}
+
+	template <typename Integer>
+	void Rational<Integer>::set(
+		Integer numerator, Integer denominator,
+		SkipSimplify)
+	{
+		Rational copy(
+			std::move(numerator), 
+			std::move(denominator),
+			SkipSimplify());
+
+		swap(copy);
+	}
 
 	template <typename Integer>
 	void Rational<Integer>::simplify()
@@ -433,7 +464,7 @@ namespace Pastel
 			Integer theGcd(gcd(numerator_, denominator_));
 
 			numerator_ /= theGcd;
-			denominator_ /= theGcd;
+			denominator_ /= std::move(theGcd);
 
 			if (negative(denominator_))
 			{
@@ -539,7 +570,7 @@ namespace Pastel
 			}
 			else
 			{
-				const Integer det(a * d - b * c);
+				Integer det(a * d - b * c);
 				result = negative(det);
 			}
 		}
