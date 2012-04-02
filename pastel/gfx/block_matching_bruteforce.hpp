@@ -84,7 +84,7 @@ namespace Pastel
 
 		const integer blocks = product(steps);
 
-		Array<integer> nearestSet(kNearest, image.size(), -1);
+		Array<integer> nearestSet(Vector2i(kNearest, image.size()), -1);
 		if (kNearest == 0)
 		{
 			// Nothing else to do.

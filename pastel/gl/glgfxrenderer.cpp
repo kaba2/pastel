@@ -194,12 +194,12 @@ namespace Pastel
 				<< width << " x " << height << " -> "
 				<< width2 << " x " << height2 << logNewLine;
 
-			Array<Color, 2> resampledImage(width2, height2);
+			Array<Color, 2> resampledImage(Vector2i(width2, height2));
 			resample<Color>(constArrayView(image), clampExtender(),
 				gaussianFilter(2), arrayView(resampledImage));
 			transform(arrayView(resampledImage), fitColor);
 
-			loadImage.setExtent(width2 * 4, height2);
+			loadImage.setExtent(Vector2i(width2 * 4, height2));
 
 			for (integer y = 0;y < height2;++y)
 			{
@@ -220,7 +220,7 @@ namespace Pastel
 		}
 		else
 		{
-			loadImage.setExtent(width * 4, height);
+			loadImage.setExtent(Vector2i(width * 4, height));
 
 			for (integer y = 0;y < height;++y)
 			{

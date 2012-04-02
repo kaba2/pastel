@@ -46,13 +46,13 @@ namespace Pastel
 
 		template <int Height, int Width, typename Expression>
 		Matrix(const MatrixExpression<Real, Height, Width, Expression>& that)
-			: data_(that.width(), that.height())
+			: data_(Vector2i(that.width(), that.height()))
 		{
 			*this = that;
 		}
 
 		Matrix(integer height, integer width)
-			: data_(width, height, 0)
+			: data_(Vector2i(width, height), 0)
 		{
 			const integer minSize = std::min(width, height);
 
@@ -65,7 +65,7 @@ namespace Pastel
 		Matrix(
 			integer height, integer width,
 			const Alias<Real*>& dataAlias)
-			: data_(width, height, dataAlias)
+			: data_(Vector2i(width, height), dataAlias)
 		{
 		}
 
@@ -399,7 +399,7 @@ namespace Pastel
 		{
 			const integer oldMinSize = std::min(width(), height());
 
-			data_.setExtent(newWidth, newHeight, 0);
+			data_.setExtent(Vector2i(newWidth, newHeight), 0);
 
 			const integer newMinSize = std::min(newWidth, newHeight);
 

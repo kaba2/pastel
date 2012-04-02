@@ -47,7 +47,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<bool, 2> image(Width, Height);
+		Array<bool, 2> image(Vector2i(Width, Height));
 		for (integer x = 0;x < Width;++x)
 		{
 			const real t = (real)x / (Width - 1);
@@ -62,7 +62,7 @@ namespace
 	{
 		const real Width = 500;
 		const real Height = 500;
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		for (integer i = 0;i < 20;++i)
 		{

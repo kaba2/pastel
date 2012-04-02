@@ -43,7 +43,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		Array<Color, 2> image(Width * 2, Height * 2);
+		Array<Color, 2> image(Vector2i(Width * 2, Height * 2));
 
 		const AlignedBox2 textureBox(0.4, 0.45, 0.55, 0.60);
 
@@ -101,7 +101,7 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		Array<Color, 2> textureImage(40, 40);
+		Array<Color, 2> textureImage(Vector2i(40, 40));
 
 		const integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
@@ -136,7 +136,7 @@ namespace
 			ArrayExtender<2, Color>(clampExtender()));
 		transform(mipMap, fitColor);
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		std::vector<Texture<Color>::Ptr> textureList;
 		textureList.push_back(
@@ -178,7 +178,7 @@ namespace
 
 	void testSamplers()
 	{
-		Array<Color, 2> image(750, 500);
+		Array<Color, 2> image(Vector2i(750, 500));
 		Array<Color, 2> textureImage;
 
 		loadPcx("lena.pcx", textureImage);
@@ -306,7 +306,7 @@ namespace
 			}
 		}
 
-		Array<Color, 2> image(500, ceil(yMax));
+		Array<Color, 2> image(Vector2i(500, ceil(yMax)));
 
 		drawProjectiveQuad(
 			quad,
@@ -319,8 +319,8 @@ namespace
 
 	void testChecker()
 	{
-		Array<Color, 2> image(500, 500);
-		Array<Color, 2> textureImage(40, 40);
+		Array<Color, 2> image(Vector2i(500, 500));
+		Array<Color, 2> textureImage(Vector2i(40, 40));
 
 		const integer CheckerWidth = 20;
 		const integer CheckerHeight = 20;
@@ -551,7 +551,7 @@ namespace
 		Array<Color, 2> bTexture;
 		loadPcx("kodak_test_images/kodim19.pcx", bTexture);
 
-		Array<Color, 2> image(750, 750, Color(0));
+		Array<Color, 2> image(Vector2i(750, 750), Color(0));
 
 		MipMap<Color, 2> aMipMap(constArrayView(aTexture));
 		transform(aMipMap, fitColor);

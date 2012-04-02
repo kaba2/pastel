@@ -37,7 +37,7 @@ namespace
 			Transform_Texture<Color> distortedTexture =
 				transformTexture(inputTexture, transform);
 
-			Array<Color> image(512, 512);
+			Array<Color> image(Vector2i(512, 512));
 			drawBox(AlignedBox2(Vector2(0, 0), Vector2(image.extent())),
 				distortedTexture,
 				arrayView(image));
@@ -50,7 +50,7 @@ namespace
 			EwaImage_Texture<Color>& texture = 
 				*gfxStorage().get<EwaImage_Texture<Color>*>("lena_texture");			
 
-			Array<Color, 2> image(768, 256);
+			Array<Color, 2> image(Vector2i(768, 256));
 
 			const real minRadius = 0.25;
 			const real maxRadius = 0.5;

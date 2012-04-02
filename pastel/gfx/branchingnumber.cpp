@@ -66,7 +66,7 @@ namespace Pastel
 		const integer width = image.width();
 		const integer height = image.height();
 
-		Array<int32, 2> result(width, height, -1);
+		Array<int32, 2> result(Vector2i(width, height), -1);
 
 		// We want to avoid bound comparisons
 		// so we treat the boundary pixels

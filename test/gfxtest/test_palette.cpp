@@ -30,8 +30,7 @@ namespace
 		const integer width = colorWidth * 16;
 		const integer height = colorHeight * 16;
 
-		Array<Color, 2> image;
-		image.setExtent(width, height);
+		Array<Color, 2> image(Vector2i(width, height));
 
 		for (integer y = 0;y < 16;++y)
 		{

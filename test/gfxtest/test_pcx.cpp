@@ -70,7 +70,8 @@ namespace
 		}
 		*/
 
-		Array<bool, 2> binaryImage(indexedImage.width(), indexedImage.height());
+		Array<bool, 2> binaryImage(
+			Vector2i(indexedImage.width(), indexedImage.height()));
 
 		//copy(constArrayView(indexedImage), arrayView(binaryImage));
 

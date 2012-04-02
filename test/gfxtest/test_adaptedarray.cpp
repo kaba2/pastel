@@ -23,7 +23,7 @@ namespace
 
 		loadPcx("lena.pcx", image);
 
-		Array<uint32, 2> smallerImage(200, 200);
+		Array<uint32, 2> smallerImage(Vector2i(200, 200));
 
 		savePcx(image, "output/adaptedview1.pcx");
 

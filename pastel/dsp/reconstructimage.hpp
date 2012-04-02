@@ -20,13 +20,13 @@ namespace Pastel
 		ENSURE(odd(filter.width()));
 		ENSURE(odd(filter.height()));
 
-		result.setExtent(image.width(), image.height());
+		result.setExtent(image.extent());
 
 		const integer imageWidth = image.width();
 		const integer imageHeight = image.height();
 
 		Array<FilterType, 2> weightImage(
-			imageWidth, imageHeight, 0);
+			Vector2i(imageWidth, imageHeight), 0);
 
 		result = image;
 

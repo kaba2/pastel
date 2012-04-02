@@ -30,7 +30,7 @@ namespace
 
 		void testTrivial()
 		{
-			Array<real32> image(512, 512);
+			Array<real32> image(Vector2i(512, 512));
 			for (integer y = 0;y < image.height();++y)
 			{
 				for (integer x = 0;x < image.width();++x)

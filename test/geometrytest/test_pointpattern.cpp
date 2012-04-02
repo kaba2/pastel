@@ -64,7 +64,7 @@ namespace
 
 		PoissonDiskReporter poissonDiskReporter(image);
 
-		image.setExtent(width, 100, Color(0));
+		image.setExtent(Vector2i(width, 100), Color(0));
 		clear(Color(0), arrayView(image));
 
 		poissonDiskPattern(
@@ -73,7 +73,7 @@ namespace
 
 		savePcx(image, "testpointpattern_poissondisk_1d.pcx");
 
-		image.setExtent(width, height, Color(0));
+		image.setExtent(Vector2i(width, height), Color(0));
 		clear(Color(0), arrayView(image));
 
 		poissonDiskPattern(

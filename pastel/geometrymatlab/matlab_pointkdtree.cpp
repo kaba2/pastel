@@ -703,7 +703,7 @@ namespace Pastel
 				}
 			}
 			
-			Array<Point_ConstIterator> nearestArray(k, queries,
+			Array<Point_ConstIterator> nearestArray(Vector2i(k, queries),
 				state->tree.end());
 			searchAllNeighbors(
 				state->tree, 

@@ -44,7 +44,7 @@ namespace
 		const integer Width = 600;
 		const integer Height = 600;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		std::vector<Vector2> square;
 
@@ -247,7 +247,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 250;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		std::vector<Vector2> square;
 		PushBack pushBack(square);
@@ -330,7 +330,7 @@ namespace
 			}
 		}
 
-		Array<Color, 2> image(Width, Height, Color(1, 1, 1));
+		Array<Color, 2> image(Vector2i(Width, Height), Color(1, 1, 1));
 		for (integer x = 0;x < Width;++x)
 		{
 			const real t = dequantizeUnsigned(x, Width);

@@ -179,8 +179,7 @@ namespace
 				(image.height() - (blockExtent.y() - 1));
 
 			featureSet.setExtent(
-				blockSize, 
-				regionWidth * regionHeight);
+				Vector2i(blockSize, regionWidth * regionHeight));
 
 #pragma omp parallel
 			{
@@ -314,8 +313,9 @@ namespace
 			, pointPolicy_(product(blockExtent))
 		{
 			featureSet.setExtent(
+				Vector2i(
 				image.height() * blockExtent.x(), 
-				image.width() - blockExtent.x());
+				image.width() - blockExtent.x()));
 
 			for (integer y = 0; y < image.height();++y)
 			{
@@ -512,7 +512,7 @@ namespace
 
 		void testSimple()
 		{
-			Array<real> image(512, 512, 0.5);
+			Array<real> image(Vector2i(512, 512), 0.5);
 			Vector<integer, 2> blockExtent(8, 8);
 
 			SubArray<real> region =
@@ -579,7 +579,7 @@ namespace
 
 			// Dimensionality reduction
 			featureSet.setExtent(
-				coeffs, featureSet.height());
+				Vector2i(coeffs, featureSet.height()));
 			
 			PointPolicy pointPolicy(coeffs);
 
@@ -636,7 +636,7 @@ namespace
 			std::cout << "Computing nearest neighbors..." << std::endl;
 
 			Array<Point_ConstIterator> nearestSet(
-				kNearest, image.size(), tree.end());
+				Vector2i(kNearest, image.size()), tree.end());
 
 			searchAllNeighbors(
 				tree,
@@ -758,7 +758,7 @@ namespace
 			//saveGrayscalePcx(featureSet, "feature_image.pcx");
 
 			/*
-			Array<real32> test(blockWidth, blockWidth);
+			Array<real32> test(Vector2i(blockWidth, blockWidth));
 			std::copy(
 				pointPolicy(&featureSet(0, 1)).begin(),
 				pointPolicy(&featureSet(0, 1)).end(),
@@ -810,7 +810,7 @@ namespace
 			const Tree& tree = windowedTree.tree();
 
 			Array<Point_ConstIterator> nearestSet(
-				kNearest, image.size(), tree.end());
+				Vector2i(kNearest, image.size()), tree.end());
 
 			Vector<real32> searchPoint(
 				ofDimension(square(blockWidth)));

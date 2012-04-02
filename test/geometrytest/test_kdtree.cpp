@@ -134,7 +134,7 @@ namespace
 		const integer width = 800;
 		const integer height = 800;
 
-		Array<Color, 2> image(width, height, Color(0));
+		Array<Color, 2> image(Vector2i(width, height), Color(0));
 
 		integer reportedProgress = -1;
 

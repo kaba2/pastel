@@ -17,7 +17,7 @@ namespace
 		const integer Width = 512;
 		const integer Height = 512;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		for (integer y = 0;y < Height;++y)
 		{
