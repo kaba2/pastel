@@ -1,5 +1,6 @@
 // Description: Rational class
 // Detail: Allows to work with rational numbers
+// Tags: C++11
 
 #ifndef PASTEL_RATIONAL_H
 #define PASTEL_RATIONAL_H
@@ -14,20 +15,23 @@ namespace Pastel
 	//! A rational number.
 	template <typename Integer>
 	class Rational
-		: boost::less_than_comparable<
-		Rational<Integer>
-		, boost::equality_comparable<
+		: boost::totally_ordered<
 		Rational<Integer>
 		, boost::field_operators1<
 		Rational<Integer>
-		> > >
+		> >
 	{
 	public:
-		// Using default copy constructor.
 		// Using default destructor.
 
 		//! Constructs with the value (0 / 1).
 		Rational();
+
+		//! Copy-constructs with another number.
+		Rational(const Rational& that);
+
+		//! Move-constructs with another number.
+		Rational(Rational&& that);
 
 		// Note in the following the different
 		// kinds of constructors. The intent is
@@ -39,7 +43,9 @@ namespace Pastel
 		// Rational(real64_ieee that);
 
 		//! Constructs with the value (wholes / 1).
-		// Implicit conversion allowed.
+		/*! 
+		Implicit conversion allowed.
+		*/
 		Rational(integer wholes);
 
 		//! Constructs with the value (wholes / 1).
@@ -51,30 +57,34 @@ namespace Pastel
 		it to take an EmptyClass which we mean
 		to never be used.
 		*/
-		Rational(const typename boost::mpl::if_<
-			boost::is_same<integer, Integer>, EmptyClass, Integer>::type& wholes);
+		Rational(typename boost::mpl::if_<boost::is_same<integer, Integer>, EmptyClass, Integer>::type wholes);
 
 		//! Constructs with the value (numerator / denominator).
-		Rational(const Integer& numerator,
-				 const Integer& denominator);
+		Rational(Integer numerator,
+				 Integer denominator);
 
 		//! Constructs with the value of the ieee single floating point.
-		// Implicit conversion allowed.
+		/*!
+		Implicit conversion allowed.
+		*/
 		Rational(real32_ieee that);
 
 		//! Constructs with the value of the ieee double floating point.
-		// Implicit conversion allowed.
+		/*! 
+		Implicit conversion allowed.
+		*/
 		Rational(real64_ieee that);
 
 		//! Assigns another rational number.
-		Rational<Integer>& operator=(const Rational<Integer>& that);
+		Rational<Integer>& operator=(Rational that);
 
 		//! Swaps two rational numbers.
-		void swap(Rational<Integer>& that);
+		void swap(Rational& that);
 
 		//! Sets the value to (numerator / denominator).
-		void set(const Integer& numerator,
-			const Integer& denominator);
+		void set(
+			Integer numerator,
+			Integer denominator);
 
 		//! Returns the numerator.
 		const Integer& numerator() const;
@@ -83,16 +93,16 @@ namespace Pastel
 		const Integer& denominator() const;
 
 		//! Adds the given number to this number.
-		Rational<Integer>& operator+=(const Rational<Integer>& that);
+		Rational<Integer>& operator+=(Rational that);
 
 		//! Subtracts the given number from this number.
-		Rational<Integer>& operator-=(const Rational<Integer>& that);
+		Rational<Integer>& operator-=(Rational that);
 
 		//! Multiplies this number with the given number.
-		Rational<Integer>& operator*=(const Rational<Integer>& that);
+		Rational<Integer>& operator*=(Rational that);
 
 		//! Divides this number with the given number.
-		Rational<Integer>& operator/=(const Rational<Integer>& that);
+		Rational<Integer>& operator/=(Rational that);
 
 		//! Returns the negation of this number.
 		Rational<Integer> operator-() const;
@@ -112,14 +122,16 @@ namespace Pastel
 		// functions in the base class.
 
 		//! Returns if the given number equals this number.
-		friend bool operator==(const Rational& left,
+		friend bool operator==(
+			const Rational& left,
 			const Rational& right)
 		{
 			return left.equal(right);
 		}
 
 		//! Returns if this number is less than the given number.
-		friend bool operator<(const Rational& left,
+		friend bool operator<(
+			const Rational& left,
 			const Rational& right)
 		{
 			return left.lessThan(right);
@@ -138,8 +150,29 @@ namespace Pastel
 				Zero
 			};
 		};
+		
+		class SkipSimplify {};
 
+		//! Constructs with the value (numerator / denominator).
+		Rational(Integer numerator,
+				 Integer denominator,
+				 SkipSimplify);
+
+		//! Sets the value to (numerator / denominator).
+		void set(
+			Integer numerator,
+			Integer denominator,
+			SkipSimplify);
+
+		//! Brings the rational number to a normal form.
+		/*!
+		If the number is not NaN (0, 0), then the normal
+		form is where gcd(numerator, denominator) = 1
+		and numerator >= 0.	The normal form for NaN is 
+		NaN itself.
+		*/
 		void simplify();
+
 		typename NumberType::Enum classify() const;
 
 		bool lessThan(const Rational& that) const;
