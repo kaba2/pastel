@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D866F479-947D-4A26-B3BC-9E75F78F828A}</ProjectGuid>
+    <RootNamespace>PastelMath</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_DEBUG_MODE" /D "PASTEL_ENABLE_PENSURES" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>false</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName)_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "PASTEL_ENABLE_OMP" %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <OpenMPSupport>true</OpenMPSupport>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4305;4244;4251;4351;4996;4267;4018;4312;4224;4180;4800;4804;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="crspline.h" />
+    <ClInclude Include="crspline.hpp" />
+    <ClInclude Include="hermite.h" />
+    <ClInclude Include="hermite.hpp" />
+    <ClInclude Include="interpolation.h" />
+    <ClInclude Include="kbspline.h" />
+    <ClInclude Include="kbspline.hpp" />
+    <ClInclude Include="piecewiselinear.h" />
+    <ClInclude Include="piecewiselinear.hpp" />
+    <ClInclude Include="smoothstep.h" />
+    <ClInclude Include="smoothstep.hpp" />
+    <ClInclude Include="affinetransformation.h" />
+    <ClInclude Include="affinetransformation.hpp" />
+    <ClInclude Include="affinetransformation_tools.h" />
+    <ClInclude Include="affinetransformation_tools.hpp" />
+    <ClInclude Include="quaternion.h" />
+    <ClInclude Include="quaternion.hpp" />
+    <ClInclude Include="affinebijection.h" />
+    <ClInclude Include="affinebijection.hpp" />
+    <ClInclude Include="matrix.h" />
+    <ClInclude Include="matrix.hpp" />
+    <ClInclude Include="matrix_dynamic.h" />
+    <ClInclude Include="matrix_static.h" />
+    <ClInclude Include="matrixexpression.h" />
+    <ClInclude Include="matrixview.h" />
+    <ClInclude Include="cholesky_decomposition.h" />
+    <ClInclude Include="cholesky_decomposition.hpp" />
+    <ClInclude Include="cholesky_decomposition_tools.h" />
+    <ClInclude Include="cholesky_decomposition_tools.hpp" />
+    <ClInclude Include="lu_decomposition.h" />
+    <ClInclude Include="lu_decomposition.hpp" />
+    <ClInclude Include="lu_decomposition_tools.h" />
+    <ClInclude Include="lu_decomposition_tools.hpp" />
+    <ClInclude Include="qr_decomposition.h" />
+    <ClInclude Include="qr_decomposition.hpp" />
+    <ClInclude Include="qr_decomposition_tools.h" />
+    <ClInclude Include="qr_decomposition_tools.hpp" />
+    <ClInclude Include="matrix_tools.h" />
+    <ClInclude Include="matrix_tools.hpp" />
+    <ClInclude Include="matrix_tools_more.h" />
+    <ClInclude Include="matrix_tools_more.hpp" />
+    <ClInclude Include="matrix_tools_more2.h" />
+    <ClInclude Include="matrix_tools_more2.hpp" />
+    <ClInclude Include="matrix_tools_more3.h" />
+    <ClInclude Include="matrix_tools_more3.hpp" />
+    <ClInclude Include="matrix_tools_more4.h" />
+    <ClInclude Include="matrix_tools_more4.hpp" />
+    <ClInclude Include="conformalaffine2d.h" />
+    <ClInclude Include="conformalaffine2d.hpp" />
+    <ClInclude Include="conformalaffine2d_tools.h" />
+    <ClInclude Include="conformalaffine2d_tools.hpp" />
+    <ClInclude Include="mathlibrary.h" />
+    <ClInclude Include="orthonormal.h" />
+    <ClInclude Include="orthonormal.hpp" />
+    <ClInclude Include="statistics.h" />
+    <ClInclude Include="statistics.hpp" />
+    <ClInclude Include="uniform_distortion.h" />
+    <ClInclude Include="uniform_distortion.hpp" />
+    <ClInclude Include="polynomial.h" />
+    <ClInclude Include="polynomial.hpp" />
+    <ClInclude Include="polynomial_tools.h" />
+    <ClInclude Include="polynomial_tools.hpp" />
+    <ClInclude Include="coordinates.h" />
+    <ClInclude Include="coordinates.hpp" />
+    <ClInclude Include="coordinates_derivatives.h" />
+    <ClInclude Include="coordinates_derivatives.hpp" />
+    <ClInclude Include="euclidean_normbijection.h" />
+    <ClInclude Include="manhattan_normbijection.h" />
+    <ClInclude Include="maximum_normbijection.h" />
+    <ClInclude Include="minkowski_normbijection.h" />
+    <ClInclude Include="normbijection_concept.h" />
+    <ClInclude Include="normbijections.h" />
+    <ClInclude Include="lowdiscrepancy.h" />
+    <ClInclude Include="lowdiscrepancy.hpp" />
+    <ClInclude Include="uniform_sampling.h" />
+    <ClInclude Include="uniform_sampling.hpp" />
+    <ClInclude Include="interval.h" />
+    <ClInclude Include="interval.hpp" />
+    <ClInclude Include="interval_tools.h" />
+    <ClInclude Include="interval_tools.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="interpolation.txt" />
+    <None Include="transformations.txt" />
+    <None Include="affinetransformation.txt" />
+    <None Include="quaternion.txt" />
+    <None Include="affinebijection.txt" />
+    <None Include="linear_algebra.txt" />
+    <None Include="matrix.txt" />
+    <None Include="matrix_notes.txt" />
+    <None Include="matrix_decompositions.txt" />
+    <None Include="cholesky_decomposition.txt" />
+    <None Include="lu_decomposition.txt" />
+    <None Include="qr_decomposition.txt" />
+    <None Include="conformalaffine2d.txt" />
+    <None Include="common.txt" />
+    <None Include="uniform_distortion.txt" />
+    <None Include="polynomial.txt" />
+    <None Include="coordinates.txt" />
+    <None Include="coordinates_derivatives.txt" />
+    <None Include="normbijection.txt" />
+    <None Include="lowdiscrepancy.txt" />
+    <None Include="uniform_sampling.txt" />
+    <None Include="interval.txt" />
+    <None Include="pastelmath.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mathlibrary.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sys\pastelsys.vcxproj">
+      <Project>{75a8ab3f-51f7-4732-90e9-1266434fe08c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
