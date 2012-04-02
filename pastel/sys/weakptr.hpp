@@ -131,7 +131,7 @@ namespace Pastel
 	{
 		enum
 		{
-			IsBase = boost::is_base_of<ReferenceCounted, Type>::value
+			IsBase = std::is_base_of<ReferenceCounted, Type>::value
 		};
 
 		PASTEL_STATIC_ASSERT(IsBase);

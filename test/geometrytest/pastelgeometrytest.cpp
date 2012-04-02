@@ -1,10 +1,5 @@
 #include "pastel/sys/logging.h"
 
-#include "pastel/geometry/polygon_area.h"
-
-#include "pastel/geometry/triangle.h"
-#include "pastel/geometry/simplex.h"
-
 #include <iostream>
 using std::cin;
 

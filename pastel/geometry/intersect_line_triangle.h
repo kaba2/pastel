@@ -14,7 +14,7 @@ namespace Pastel
 
 	template <typename Real>
 	bool intersect(const Line<Real, 2>& line,
-		const Triangle<Real, 2>& triangle,
+		const PASTEL_TRIANGLE(Real, 2)& triangle,
 		Real& tIntersection);
 
 	//! Finds the intersection between a line and a triangle.
@@ -28,7 +28,7 @@ namespace Pastel
 	template <typename Real>
 	bool intersect(
 		const Line<Real, 3>& line,
-		const Triangle<Real, 3>& triangle,
+		const PASTEL_TRIANGLE(Real, 3)& triangle,
 		Real& tIntersection,
 		Real& uIntersection,
 		Real& vIntersection);

@@ -8,99 +8,17 @@
 
 #include "pastel/geometry/simplex.h"
 
+// This simulates an alias template.
+#define PASTEL_TRIANGLE(Type, N) PASTEL_SIMPLEX(Type, (N), 2)
+
 namespace Pastel
 {
 
-	template <typename Real, int N = Dynamic>
-	class Triangle
-		: public Simplex<Real, N, 2>
-	{
-	private:
-		typedef Simplex<Real, N, 2> Base;
-
-	public:
-		typedef Real Real_;
-		enum {N_ = N};
-
-		using Base::operator[];
-
-		Triangle()
-			: Base()
-		{
-		}
-
-		Triangle(
-			const Tuple<Vector<Real, N>, 3>& that)
-			: Base(that)
-		{
-		}
-
-		Triangle(
-			const Vector<Real, N>& a,
-			const Vector<Real, N>& b,
-			const Vector<Real, N>& c)
-			: Base(a, b, c)
-		{
-		}
-
-		Triangle<Real, N>& operator=(
-			const Tuple<Vector<Real, N>, 3>& that)
-		{
-			Base::operator=(that);
-			return *this;
-		}
-	};
-
-	typedef Triangle<real, 1> Triangle1;
-	typedef Triangle<real, 2> Triangle2;
-	typedef Triangle<real, 3> Triangle3;
-	typedef Triangle<real, 4> Triangle4;
-	typedef Triangle<real, Dynamic> TriangleD;
-
-/*
-	template <typename Real, int N>
-	class Triangle
-		: public Tuple<Vector<Real, N>, 3>
-	{
-	private:
-		typedef Tuple<Vector<Real, N>, 3> Base;
-
-	public:
-		using Base::operator[];
-
-		Triangle()
-			: Base()
-		{
-		}
-
-		Triangle(
-			const Tuple<Vector<Real, N>, 3>& that)
-			: Base(that)
-		{
-		}
-
-		Triangle(
-			const Vector<Real, N>& a,
-			const Vector<Real, N>& b,
-			const Vector<Real, N>& c)
-			: Base(a, b, c)
-		{
-		}
-
-		Triangle<Real, N>& operator=(
-			const Tuple<Vector<Real, N>, 3>& that)
-		{
-			Base::operator=(that);
-			return *this;
-		}
-	};
-
-	typedef Triangle<real, 1> Triangle1;
-	typedef Triangle<real, 2> Triangle2;
-	typedef Triangle<real, 3> Triangle3;
-	typedef Triangle<real, 4> Triangle4;
-
-*/
+	typedef PASTEL_TRIANGLE(real, 1) Triangle1;
+	typedef PASTEL_TRIANGLE(real, 2) Triangle2;
+	typedef PASTEL_TRIANGLE(real, 3) Triangle3;
+	typedef PASTEL_TRIANGLE(real, 4) Triangle4;
+	typedef PASTEL_TRIANGLE(real, Dynamic) TriangleD;
 
 }
 

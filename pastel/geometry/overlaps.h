@@ -24,7 +24,6 @@
 #include "pastel/geometry/overlaps_flat_plane.h"
 #include "pastel/geometry/overlaps_segment_segment.h"
 #include "pastel/geometry/overlaps_segments.h"
-#include "pastel/geometry/overlaps_simplex_point.h"
 #include "pastel/geometry/overlaps_triangle_triangle.h"
 
 #include "pastel/geometry/overlaps_plane_box.h"

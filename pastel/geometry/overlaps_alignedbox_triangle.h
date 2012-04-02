@@ -24,7 +24,7 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& box,
-		const Triangle<Real, N>& triangle);
+		const PASTEL_TRIANGLE(Real, N)& triangle);
 
 }
 

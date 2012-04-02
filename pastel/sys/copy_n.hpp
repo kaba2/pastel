@@ -60,7 +60,7 @@ namespace Pastel
 		ENSURE_OP(count, >=, 0);
 
 		typedef typename boost::mpl::if_<
-			boost::is_same<
+			std::is_same<
 			typename std::iterator_traits<Source_ForwardIterator>::iterator_category,
 			std::random_access_iterator_tag>,
 			Detail_Copy_n::RandomAccess_Version,

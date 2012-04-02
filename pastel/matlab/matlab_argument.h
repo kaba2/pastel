@@ -25,7 +25,7 @@ namespace Pastel
 	allGreaterEqual(extent, 0)
 	*/
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > createArray(
+	std::unique_ptr<Array<Type> > createArray(
 		const Vector2i& extent,
 		mxArray*& output);
 
@@ -35,7 +35,7 @@ namespace Pastel
 	createArray(Vector2i(width, height), output)
 	*/
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > createArray(
+	std::unique_ptr<Array<Type> > createArray(
 		integer width, integer height,
 		mxArray*& output);
 
@@ -66,7 +66,7 @@ namespace Pastel
 	mxIsNumeric(that)
 	*/
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > asArray(
+	std::unique_ptr<Array<Type> > asArray(
 		const mxArray* that);
 
 	//! Retrieves a reference to a linearized real array.
@@ -75,7 +75,7 @@ namespace Pastel
 	mxIsNumeric(that)
 	*/
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > asLinearizedArray(
+	std::unique_ptr<Array<Type> > asLinearizedArray(
 		const mxArray* that);
 
 	//! Reports all real arrays in a cell-array.
@@ -122,40 +122,40 @@ namespace Pastel
 	template <typename Type>
 	mxClassID typeToMatlabClassId();
 
-	typedef boost::shared_ptr<Array<integer> > 
+	typedef std::unique_ptr<Array<integer> > 
 		IntegerArrayPtr;
 
-	typedef boost::shared_ptr<Array<real> > 
+	typedef std::unique_ptr<Array<real> > 
 		RealArrayPtr;
 
-	typedef boost::shared_ptr<Array<real32> > 
+	typedef std::unique_ptr<Array<real32> > 
 		Real32ArrayPtr;
 
-	typedef boost::shared_ptr<Array<real64> > 
+	typedef std::unique_ptr<Array<real64> > 
 		Real64ArrayPtr;
 
-	typedef boost::shared_ptr<Array<int8> > 
+	typedef std::unique_ptr<Array<int8> > 
 		Int8ArrayPtr;
 
-	typedef boost::shared_ptr<Array<uint8> > 
+	typedef std::unique_ptr<Array<uint8> > 
 		UInt8ArrayPtr;
 
-	typedef boost::shared_ptr<Array<int16> > 
+	typedef std::unique_ptr<Array<int16> > 
 		Int16ArrayPtr;
 
-	typedef boost::shared_ptr<Array<uint16> > 
+	typedef std::unique_ptr<Array<uint16> > 
 		UInt16ArrayPtr;
 
-	typedef boost::shared_ptr<Array<int32> > 
+	typedef std::unique_ptr<Array<int32> > 
 		Int32ArrayPtr;
 
-	typedef boost::shared_ptr<Array<uint32> > 
+	typedef std::unique_ptr<Array<uint32> > 
 		UInt32ArrayPtr;
 
-	typedef boost::shared_ptr<Array<int64> > 
+	typedef std::unique_ptr<Array<int64> > 
 		Int64ArrayPtr;
 
-	typedef boost::shared_ptr<Array<uint64> > 
+	typedef std::unique_ptr<Array<uint64> > 
 		UInt64ArrayPtr;
 
 }

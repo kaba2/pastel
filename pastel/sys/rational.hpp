@@ -42,7 +42,7 @@ namespace Pastel
 
 	template <typename Integer>
 	Rational<Integer>::Rational(
-		typename boost::mpl::if_<boost::is_same<integer, Integer>, EmptyClass, Integer>::type wholes)
+		typename boost::mpl::if_<std::is_same<integer, Integer>, EmptyClass, Integer>::type wholes)
 		: numerator_(std::move(wholes))
 		, denominator_(1)
 	{

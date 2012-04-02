@@ -15,7 +15,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	inline PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, Type) 
+	inline PASTEL_ENABLE_IF(std::is_arithmetic<Type>, Type) 
 		mabs(Type that)
 	{
 		if (that < 0)

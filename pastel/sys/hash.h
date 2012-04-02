@@ -7,7 +7,6 @@
 #include "pastel/sys/iterator_range.h"
 #include "pastel/sys/keyvalue.h"
 
-#include <boost/type_traits/is_arithmetic.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 
 #include <string>
@@ -76,7 +75,7 @@ namespace Pastel
 
 	//! Computes a partial hash value for a native arithmetic type.
 	template <typename Type, typename HashFunction>
-	PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, hash_integer)
+	PASTEL_ENABLE_IF(std::is_arithmetic<Type>, hash_integer)
 		partialHash(Type that, hash_integer currentHash,
 		const HashFunction& hashFunction);
 

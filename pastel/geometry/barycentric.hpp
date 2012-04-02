@@ -8,20 +8,21 @@
 namespace Pastel
 {
 
-	template <typename Real, int N>
+	template <typename Real, int N, typename Vector_Range>
 	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
 		const Vector<Real, N>& point,
-		const Simplex<Real, N, N>& simplex)
+		Vector_Range simplexRange)
 	{
-		PENSURE_OP(point.dimension(), ==, simplex.dimension());
+		const integer n = point.dimension();
 
-		const integer dimension = point.dimension();
+		PENSURE_OP(simplexRange.size(), ==, n + 1);
+		PENSURE_OP(point.dimension(), ==, simplexRange.front().dimension());
 
-		Matrix<Real, ModifyN<N, N + 1>::Result, ModifyN<N, N + 1>::Result> m(
-			dimension + 1, dimension + 1);
-		for (integer i = 0;i < dimension + 1;++i)
+		Matrix<Real> m(n + 1, n + 1);
+		for (integer i = 0;i < n + 1;++i)
 		{
-			m[i] = extend(simplex[i], 1);
+			m[i] = extend(simplexRange.front(), 1);
+			simplexRange.pop_front();
 		}
 
 		return solveLinear(m, extend(point, 1));
@@ -49,13 +50,13 @@ namespace Pastel
 		// u = 1 - v - w.
 		// Generalization to higher N is obvious.
 
-		const integer dimension = point.dimension();
+		const integer n = point.dimension();
 
-		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(dimension));
+		Vector<Real, ModifyN<N, N + 1>::Result> result(ofDimension(n));
 
 		result[0] = 1 - sum(point);
 
-		for (integer i = 1;i < dimension + 1;++i)
+		for (integer i = 1;i < n + 1;++i)
 		{
 			result[i] = point[i - 1];
 		}

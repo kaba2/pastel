@@ -120,7 +120,7 @@ namespace Pastel
 			{
 				enum
 				{
-					IsBase = boost::is_base_of<VectorBase, Vector<Real, N> >::value
+					IsBase = std::is_base_of<VectorBase, Vector<Real, N> >::value
 				};
 
 				PASTEL_STATIC_ASSERT(IsBase);
@@ -235,7 +235,7 @@ namespace Pastel
 
 			template <typename ThatReal, int ThatN, typename Expression>
 			PASTEL_DISABLE_IF(
-				(boost::is_same<Expression, VectorBase<ThatReal, ThatN> >),
+				(std::is_same<Expression, VectorBase<ThatReal, ThatN> >),
 				(Vector<Real, N>&)) assign(
 				const VectorExpression<ThatReal, ThatN, Expression>& that)
 			/*

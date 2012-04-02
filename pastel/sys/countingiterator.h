@@ -49,10 +49,10 @@ namespace Pastel
 				CountingIterator<Type_>, Type_, integer, const Type_, const Type_>
 				Forward_Base;
 
-			typedef boost::is_same<typename boost::iterator_category<Type_>::type,
+			typedef std::is_same<typename boost::iterator_category<Type_>::type,
 				std::random_access_iterator_tag> IsRandomAccess;
 
-			typedef boost::is_same<typename boost::iterator_category<Type_>::type,
+			typedef std::is_same<typename boost::iterator_category<Type_>::type,
 				std::bidirectional_iterator_tag> IsBidirectional;
 
 			typedef typename
@@ -68,7 +68,7 @@ namespace Pastel
 
 	template <typename Type>
 	class CountingIterator
-		: public Detail_CountingIterator::Base<Type, boost::is_arithmetic<Type>::value>::Type
+		: public Detail_CountingIterator::Base<Type, std::is_arithmetic<Type>::value>::Type
 	{
 	public:
 		// Using default copy constructor.

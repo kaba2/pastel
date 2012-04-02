@@ -6,8 +6,6 @@
 #include <pastel/sys/biginteger.h>
 #include <pastel/sys/biginteger_tools.h>
 
-#include <iostream>
-
 namespace
 {
 
