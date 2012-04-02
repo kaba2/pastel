@@ -741,7 +741,7 @@ namespace Pastel
 		clique.max()[y] = yMax;
 
 		const bool reportBoxes = 
-			!boost::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
+			!std::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
 		if (!reportBoxes)
 		{
 			return clique;

@@ -67,8 +67,8 @@ namespace Pastel
 	Type littleEndian(const Type& that)
 	{
 		PASTEL_STATIC_ASSERT(
-			boost::is_integral<Type>::value ||
-			boost::is_floating_point<Type>::value);
+			std::is_integral<Type>::value ||
+			std::is_floating_point<Type>::value);
 
 		if (!isLittleEndian())
 		{
@@ -84,8 +84,8 @@ namespace Pastel
 	Type bigEndian(const Type& that)
 	{
 		PASTEL_STATIC_ASSERT(
-			boost::is_integral<Type>::value ||
-			boost::is_floating_point<Type>::value);
+			std::is_integral<Type>::value ||
+			std::is_floating_point<Type>::value);
 
 		if (isLittleEndian())
 		{

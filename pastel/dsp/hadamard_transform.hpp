@@ -105,7 +105,7 @@ namespace Pastel
 			const ForwardIterator_Range<Real_Iterator>& inputOutput,
 			bool orthogonal)
 		{
-			if (boost::is_same<
+			if (std::is_same<
 				typename boost::iterator_category<Real_Iterator>::type,
 				std::random_access_iterator_tag>::value)
 			{
@@ -153,7 +153,7 @@ namespace Pastel
 			const ForwardIterator_Range<Real_Iterator>& inputOutput,
 			bool orthogonal)
 		{
-			if (boost::is_same<
+			if (std::is_same<
 				typename boost::iterator_category<Real_Iterator>::type,
 				std::random_access_iterator_tag>::value)
 			{

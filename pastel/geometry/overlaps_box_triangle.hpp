@@ -16,7 +16,7 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const Box<Real, N>& box,
-		const Triangle<Real, N>& triangle)
+		const PASTEL_TRIANGLE(Real, N)& triangle)
 	{
 		// The coordinates are transformed such that
 		// the box becomes an origin centered aligned box.
@@ -26,7 +26,7 @@ namespace Pastel
 		const Matrix<Real, N, N> boxRotationInverse(
 			transpose(box.rotation()));
 
-		const Triangle<Real, N> transformedTriangle(
+		const PASTEL_TRIANGLE(Real, N) transformedTriangle(
 			(triangle[0] - box.position()) *
 			boxRotationInverse,
 			(triangle[1] - box.position()) *

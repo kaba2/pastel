@@ -23,7 +23,7 @@ namespace Pastel
 		template <typename Real, int N_>
 		bool overlaps2D(
 			const AlignedBox<Real, N_>& box,
-			const Triangle<Real, N_>& triangle)
+			const PASTEL_TRIANGLE(Real, N_)& triangle)
 		{
 			ENSURE_OP(box.dimension(), ==, 2);
 			ENSURE_OP(triangle.dimension(), ==, 2);
@@ -41,7 +41,7 @@ namespace Pastel
 
 			// Center geometry on aligned box min.
 
-			const Triangle<Real, 2> workTriangle(
+			const PASTEL_TRIANGLE(Real, 2) workTriangle(
 				triangle[0] - box.min(),
 				triangle[1] - box.min(),
 				triangle[2] - box.min());
@@ -150,7 +150,7 @@ namespace Pastel
 		template <typename Real, int N_>
 		bool overlaps3D(
 			const AlignedBox<Real, N_>& box,
-			const Triangle<Real, N_>& triangle)
+			const PASTEL_TRIANGLE(Real, N_)& triangle)
 		{
 			ENSURE_OP(box.dimension(), ==, 3);
 			ENSURE_OP(triangle.dimension(), ==, 3);
@@ -208,7 +208,7 @@ namespace Pastel
 			// the problem such that the box is centered
 			// on the origin. This simplifies calculations.
 
-			const Triangle<Real, N> workTriangle(
+			const PASTEL_TRIANGLE(Real, N) workTriangle(
 				Vector<Real, N>(triangle[0] - boxCenter),
 				Vector<Real, N>(triangle[1] - boxCenter),
 				Vector<Real, N>(triangle[2] - boxCenter));
@@ -383,7 +383,7 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedBox<Real, N>& box,
-		const Triangle<Real, N>& triangle)
+		const PASTEL_TRIANGLE(Real, N)& triangle)
 	{
 		// Only dimensions 2 and 3 are supported.
 		PASTEL_STATIC_ASSERT(N == Dynamic);
@@ -404,7 +404,7 @@ namespace Pastel
 	template <typename Real>
 	bool overlaps(
 		const AlignedBox<Real, 2>& box,
-		const Triangle<Real, 2>& triangle)
+		const PASTEL_TRIANGLE(Real, 2)& triangle)
 	{
 		// An overload for 2D to avoid run-time selection
 		// between versions.
@@ -415,7 +415,7 @@ namespace Pastel
 	template <typename Real>
 	bool overlaps(
 		const AlignedBox<Real, 3>& box,
-		const Triangle<Real, 3>& triangle)
+		const PASTEL_TRIANGLE(Real, 3)& triangle)
 	{
 		// An overload for 3D to avoid run-time selection 
 		// between versions.

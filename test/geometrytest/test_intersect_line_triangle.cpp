@@ -38,7 +38,7 @@ namespace
 		void testPositive2()
 		{
 			/*
-			const Triangle<Real, 2> triangle(
+			const PASTEL_TRIANGLE(Real, 2) triangle(
 				Vector<Real, 2>(1, 1),
 				Vector<Real, 2>(3, 1),
 				Vector<Real, 2>(3, 3));
@@ -98,7 +98,7 @@ namespace
 		void testNegative2()
 		{
 			/*
-			const Triangle<Real, 2> triangle(
+			const PASTEL_TRIANGLE(Real, 2) triangle(
 				Vector<Real, 2>(1, 1),
 				Vector<Real, 2>(3, 1),
 				Vector<Real, 2>(3, 3));
@@ -179,7 +179,7 @@ namespace
 
 		void testPositive3()
 		{
-			const Triangle<Real, 3> triangle(
+			const PASTEL_TRIANGLE(Real, 3) triangle(
 				Vector<Real, 3>(1, 1, 1),
 				Vector<Real, 3>(3, 1, 1),
 				Vector<Real, 3>(3, 3, 1));
@@ -233,7 +233,7 @@ namespace
 
 		void testNegative3()
 		{
-			const Triangle<Real, 3> triangle(
+			const PASTEL_TRIANGLE(Real, 3) triangle(
 				Vector<Real, 3>(1, 1, 1),
 				Vector<Real, 3>(3, 1, 1),
 				Vector<Real, 3>(3, 3, 1));

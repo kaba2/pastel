@@ -20,12 +20,12 @@ namespace Pastel
 			Category;
 
 		typedef boost::mpl::if_<
-			boost::is_same<Category, std::bidirectional_iterator_tag>,
+			std::is_same<Category, std::bidirectional_iterator_tag>,
 			BidirectionalIterator_Range<Iterator>,
 			ForwardIterator_Range<Iterator> > ElseIf;
 
 		typedef boost::mpl::if_<
-			boost::is_same<Category, std::random_access_iterator_tag>,
+			std::is_same<Category, std::random_access_iterator_tag>,
 			RandomAccessIterator_Range<Iterator>,
 			typename ElseIf::type> If;
 

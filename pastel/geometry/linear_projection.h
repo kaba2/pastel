@@ -116,7 +116,7 @@ namespace Pastel
 
 	template <typename Real, int N>
 	AlignedBox<Real, 1> projectAxis(
-		const Triangle<Real, N>& triangle,
+		const PASTEL_TRIANGLE(Real, N)& triangle,
 		const Vector<Real, N>& unitAxis);
 
 }

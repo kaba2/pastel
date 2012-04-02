@@ -12,22 +12,18 @@
 
 #include <vector>
 #include <string>
+#include <type_traits>
 
 #include <boost/operators.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace Pastel
 {
 
 	class PASTELSYS BigInteger
-		: boost::less_than_comparable<
-		BigInteger
-		, boost::equality_comparable<
-		BigInteger
-		, boost::incrementable<
-		BigInteger
-		, boost::decrementable<
-		BigInteger
-		> > > >
+		: boost::totally_ordered<BigInteger
+		, boost::unit_steppable<BigInteger
+		> >
 	{
 	public:
 		class BadNumberString {};
@@ -37,8 +33,11 @@ namespace Pastel
 
 		BigInteger();
 		explicit BigInteger(const std::string& text);
+
 		// Implicit conversion allowed.
-		BigInteger(integer that);
+		template <typename BuiltInInteger>
+		BigInteger(BuiltInInteger that, 
+			PASTEL_ENABLE_IF((std::is_integral<BuiltInInteger>), bool) visible = true);
 
 		BigInteger& operator=(const BigInteger& that);
 
@@ -89,6 +88,14 @@ namespace Pastel
 	private:
 		typedef std::vector<uint16> DigitContainer;
 
+		template <typename BuiltInInteger>
+		void construct(
+			PASTEL_ENABLE_IF((std::is_signed<BuiltInInteger>), BuiltInInteger) that);
+
+		template <typename BuiltInInteger>
+		void construct(
+			PASTEL_DISABLE_IF((std::is_signed<BuiltInInteger>), BuiltInInteger) that);
+
 		BigInteger(DigitContainer& digits,
 			bool sign);
 		BigInteger(int32 value,
@@ -116,5 +123,7 @@ namespace Pastel
 #include "pastel/sys/biginteger_tools.h"
 
 #include "pastel/sys/biginteger_more.h"
+
+#include "pastel/sys/biginteger.hpp"
 
 #endif

@@ -15,22 +15,21 @@ namespace Pastel
 {
 
 	//! Finds the minimum volume bounding sphere of a 0-simplex.
-
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
-		const Simplex<Real, N, 0>& simplex);
+		const PASTEL_SIMPLEX(Real, N, 0)& simplex);
 
 	//! Finds the minimum volume bounding sphere of a 1-simplex.
 
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
-		const Simplex<Real, N, 1>& simplex);
+		const PASTEL_SIMPLEX(Real, N, 1)& simplex);
 
 	//! Finds the minimum volume bounding sphere of an M-simplex.
 
 	template <typename Real, int N, int M>
 	Sphere<Real, N> boundingSphere(
-		const Simplex<Real, N, M>& simplex);
+		const PASTEL_SIMPLEX(Real, N, M)& simplex);
 
 	//! Finds the circumscribed sphere of a point.
 
@@ -49,19 +48,19 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
-		const Simplex<Real, N, 0>& simplex);
+		const PASTEL_SIMPLEX(Real, N, 0)& simplex);
 
 	//! Finds the circumscribed sphere of a 1-simplex.
 
 	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
-		const Simplex<Real, N, 1>& simplex);
+		const PASTEL_SIMPLEX(Real, N, 1)& simplex);
 
 	//! Finds the circumscribed sphere of an M-simplex.
 
 	template <typename Real, int N, int M>
 	Sphere<Real, N> circumscribedSphere(
-		const Simplex<Real, N, M>& simplex);
+		const PASTEL_SIMPLEX(Real, N, M)& simplex);
 
 }
 

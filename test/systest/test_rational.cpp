@@ -37,8 +37,6 @@ namespace
 			testMultiply();
 			testFloat();
 			testDouble();
-
-			std::cout << Rat(0.15) << std::endl;
 		}
 
 		void testSimple()

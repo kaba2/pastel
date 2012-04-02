@@ -12,20 +12,20 @@ namespace Pastel
 	//! Tests if two triangles overlap.
 	template <typename Real>
 	bool overlaps(
-		const Triangle<Real, 1>& aTriangle,
-		const Triangle<Real, 1>& bTriangle);
+		const PASTEL_TRIANGLE(Real, 1)& aTriangle,
+		const PASTEL_TRIANGLE(Real, 1)& bTriangle);
 
 	//! Tests if two triangles overlap.
 	template <typename Real>
 	bool overlaps(
-		const Triangle<Real, 2>& aTriangle,
-		const Triangle<Real, 2>& bTriangle);
+		const PASTEL_TRIANGLE(Real, 2)& aTriangle,
+		const PASTEL_TRIANGLE(Real, 2)& bTriangle);
 
 	//! Tests if two triangles overlap.
 	template <typename Real>
 	bool overlaps(
-		const Triangle<Real, 3>& aTriangle,
-		const Triangle<Real, 3>& bTriangle);
+		const PASTEL_TRIANGLE(Real, 3)& aTriangle,
+		const PASTEL_TRIANGLE(Real, 3)& bTriangle);
 
 }
 

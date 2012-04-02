@@ -4,19 +4,16 @@
 #ifndef PASTEL_BARYCENTRIC_H
 #define PASTEL_BARYCENTRIC_H
 
-#include "pastel/geometry/simplex.h"
-
 #include "pastel/sys/vector.h"
 
 namespace Pastel
 {
 
 	//! Computes the barycentric coordinates of a point in a simplex.
-
-	template <typename Real, int N>
+	template <typename Real, int N, typename Vector_Range>
 	Vector<Real, ModifyN<N, N + 1>::Result> barycentric(
 		const Vector<Real, N>& point,
-		const Simplex<Real, N, N>& simplex);
+		Vector_Range simplexRange);
 
 	//! Computes the barycentric coordinates of a point in a standard simplex.
 	/*!

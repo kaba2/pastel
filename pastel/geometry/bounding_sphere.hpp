@@ -19,14 +19,14 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
-		const Simplex<Real, N, 0>& simplex)
+		const PASTEL_SIMPLEX(Real, N, 0)& simplex)
 	{
 		return circumscribedSphere(simplex);
 	}
 
 	template <typename Real, int N>
 	Sphere<Real, N> boundingSphere(
-		const Simplex<Real, N, 1>& simplex)
+		const PASTEL_SIMPLEX(Real, N, 1)& simplex)
 	{
 		return circumscribedSphere(simplex);
 	}
@@ -94,7 +94,7 @@ namespace Pastel
 
 		template <typename Real, int N, int M>
 		Sphere<Real, N> boundingSphere(
-			const Simplex<Real, N, M>& simplex,
+			const PASTEL_SIMPLEX(Real, N, M)& simplex,
 			DimensionTag<M>)
 		{
 			return circumscribedSphere(simplex);
@@ -102,12 +102,12 @@ namespace Pastel
 
 		template <typename Real, int N, int M, int K>
 		Sphere<Real, N> boundingSphere(
-			const Simplex<Real, N, M>& simplex,
+			const PASTEL_SIMPLEX(Real, N, M)& simplex,
 			DimensionTag<K>)
 		{
 			// Find all the K-subsimplices.
 
-			Simplex<Real, N, K> subSimplex;
+			PASTEL_SIMPLEX(Real, N, K) subSimplex;
 
 			Tuple<integer, K + 1> indexSubset;
 			Tuple<integer, K + 1> largestSubset;
@@ -167,7 +167,7 @@ namespace Pastel
 
 	template <typename Real, int N, int M>
 	Sphere<Real, N> boundingSphere(
-		const Simplex<Real, N, M>& simplex)
+		const PASTEL_SIMPLEX(Real, N, M)& simplex)
 	{
 		// Let m(K) be the boundary K-simplex of
 		// the M-simplex S that has the largest
@@ -214,14 +214,14 @@ namespace Pastel
 
 	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
-		const Simplex<Real, N, 0>& simplex)
+		const PASTEL_SIMPLEX(Real, N, 0)& simplex)
 	{
 		return Sphere<Real, N>(simplex[0], 0);
 	}
 
 	template <typename Real, int N>
 	Sphere<Real, N> circumscribedSphere(
-		const Simplex<Real, N, 1>& simplex)
+		const PASTEL_SIMPLEX(Real, N, 1)& simplex)
 	{
 		return Sphere<Real, N>(
 			linear(simplex[0], simplex[1], 0.5),
@@ -230,7 +230,7 @@ namespace Pastel
 
 	template <typename Real, int N, int M>
 	Sphere<Real, N> circumscribedSphere(
-		const Simplex<Real, N, M>& simplex)
+		const PASTEL_SIMPLEX(Real, N, M)& simplex)
 	{
 		// Let p be the (m+1)-tuple of vertices
 		// of an m-simplex.

@@ -13,7 +13,7 @@ namespace Pastel
 	public:
 		enum
 		{
-			HashIntegerIs32Bit = boost::is_same<hash_integer, uint32>::value
+			HashIntegerIs32Bit = std::is_same<hash_integer, uint32>::value
 		};
 		PASTEL_STATIC_ASSERT(HashIntegerIs32Bit);
 
@@ -132,7 +132,7 @@ namespace Pastel
 	}
 
 	template <typename Type, typename HashFunction>
-	inline PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, hash_integer)
+	inline PASTEL_ENABLE_IF(std::is_arithmetic<Type>, hash_integer)
 		partialHash(Type that, hash_integer currentHash,
 		const HashFunction& hashFunction)
 	{

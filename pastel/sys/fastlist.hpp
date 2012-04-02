@@ -376,7 +376,7 @@ namespace Pastel
 		InputIterator to)
 	{
 		typedef typename boost::mpl::if_<
-			boost::is_integral<InputIterator>,
+			std::is_integral<InputIterator>,
 			ValueTag,
 			RangeTag>::type Tag;
 
@@ -651,7 +651,7 @@ namespace Pastel
 		InputIterator to)
 	{
 		typedef typename boost::mpl::if_<
-			boost::is_integral<InputIterator>,
+			std::is_integral<InputIterator>,
 			ValueTag,
 			RangeTag>::type Tag;
 
@@ -711,7 +711,7 @@ namespace Pastel
 			// then so does the whole DataNode,
 			// and the destruction can be avoided.
 
-			if (!boost::has_trivial_destructor<Type>())
+			if (!std::has_trivial_destructor<Type>::value)
 			{
 				Node* node = head_->next_;
 				while (node != head_)

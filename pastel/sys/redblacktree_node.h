@@ -26,7 +26,7 @@ namespace Pastel
 			enum
 			{
 				ValueExists = 
-					!boost::is_same<Value, EmptyClass>::value
+					!std::is_same<Value, EmptyClass>::value
 			};
 
 			enum

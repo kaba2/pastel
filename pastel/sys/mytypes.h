@@ -11,17 +11,15 @@
 #endif
 
 #include <cstddef>
+#include <type_traits>
 
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_arithmetic.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/mpl/if.hpp>
 
 #define PASTEL_REMOVE_BRACKETS(x) typename Pastel::RemoveBrackets<void (x)>::Type
 #define PASTEL_NO_DEDUCTION(x) PASTEL_REMOVE_BRACKETS(x)
 
-//#define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
-#define PASTEL_STATIC_ASSERT(x) BOOST_STATIC_ASSERT(x);
+#define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
 #define PASTEL_ENABLE_IF(Condition, ReturnType) \
 	typename boost::enable_if< \
@@ -42,6 +40,16 @@
 	typename boost::disable_if_c< \
 	(Condition), \
 	PASTEL_REMOVE_BRACKETS(ReturnType)>::type 
+
+#define PASTEL_VISIBLE_IF(Condition, ReturnType) \
+	typename boost::mpl::if_< \
+	(Condition), \
+	EmptyClass, PASTEL_REMOVE_BRACKETS(ReturnType)>::type
+
+#define PASTEL_VISIBLE_IF_C(Condition, ReturnType) \
+	typename boost::mpl::if_c< \
+	(Condition), \
+	EmptyClass, PASTEL_REMOVE_BRACKETS(ReturnType)>::type
 
 #define PASTEL_RANGE_ALGORITHM(FunctionName, Name) \
 	class Name \
@@ -170,7 +178,7 @@ namespace Pastel
 	void unused(const Type&);
 
 	template <typename Type>
-	PASTEL_ENABLE_IF(boost::is_arithmetic<Type>, Type) mabs(Type that);
+	PASTEL_ENABLE_IF(std::is_arithmetic<Type>, Type) mabs(Type that);
 
 	//! Allocates a raw memory block.
 	/*!

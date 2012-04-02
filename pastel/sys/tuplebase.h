@@ -187,7 +187,7 @@ namespace Pastel
 
 				enum
 				{
-					IsBase = boost::is_base_of<TupleBase, Tuple<Type, N> >::value
+					IsBase = std::is_base_of<TupleBase, Tuple<Type, N> >::value
 				};
 
 				PASTEL_STATIC_ASSERT(IsBase);
@@ -522,7 +522,7 @@ namespace Pastel
 
 				enum
 				{
-					IsBase = boost::is_base_of<TupleBase, Tuple<Type, N> >::value
+					IsBase = std::is_base_of<TupleBase, Tuple<Type, N> >::value
 				};
 
 				PASTEL_STATIC_ASSERT(IsBase);

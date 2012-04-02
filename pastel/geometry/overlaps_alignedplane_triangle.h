@@ -13,7 +13,7 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& alignedPlane,
-		const Triangle<Real, N>& triangle);
+		const PASTEL_TRIANGLE(Real, N)& triangle);
 
 	//! Tests if an aligned plane and a triangle overlap.
 	/*!
@@ -24,7 +24,7 @@ namespace Pastel
 	template <typename Real, int N>
 	bool overlaps(
 		const AlignedPlane<Real, N>& alignedPlane,
-		const Triangle<Real, N>& triangle,
+		const PASTEL_TRIANGLE(Real, N)& triangle,
 		bool& triangleOnPositiveSide);
 
 }

@@ -28,13 +28,13 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > createArray(
+	std::unique_ptr<Array<Type> > createArray(
 		const Vector2i& extent,
 		mxArray*& output)
 	{
 		ENSURE(allGreaterEqual(extent, 0));
 
-		typedef boost::shared_ptr<Array<Type> > Result;
+		typedef std::unique_ptr<Array<Type> > Result;
 
 		const mwSize size[] = {extent.y(), extent.x()};
 
@@ -50,7 +50,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > createArray(
+	std::unique_ptr<Array<Type> > createArray(
 		integer width, integer height,
 		mxArray*& output)
 	{
@@ -127,7 +127,7 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	inline boost::shared_ptr<Array<Type> > asArray(
+	inline std::unique_ptr<Array<Type> > asArray(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
@@ -136,7 +136,7 @@ namespace Pastel
 		const integer height = mxGetM(that);
 		const integer n = width * height;
 
-		typedef boost::shared_ptr<Array<Type> > Result;
+		typedef std::unique_ptr<Array<Type> > Result;
 		
 		Result result;
 
@@ -174,14 +174,14 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	boost::shared_ptr<Array<Type> > asLinearizedArray(
+	std::unique_ptr<Array<Type> > asLinearizedArray(
 		const mxArray* that)
 	{
 		ENSURE(mxIsNumeric(that));
 
 		const integer n = mxGetNumberOfElements(that);
 
-		typedef boost::shared_ptr<Array<Type> > Result;
+		typedef std::unique_ptr<Array<Type> > Result;
 		
 		Result result;
 

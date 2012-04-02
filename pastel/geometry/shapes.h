@@ -10,7 +10,6 @@
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/triangle.h"
 #include "pastel/geometry/polygon.h"
-#include "pastel/geometry/simplex.h"
 #include "pastel/geometry/alignedplane.h"
 #include "pastel/geometry/line.h"
 #include "pastel/geometry/segment.h"

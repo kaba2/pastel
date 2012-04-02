@@ -57,7 +57,7 @@ namespace Pastel
 		it to take an EmptyClass which we mean
 		to never be used.
 		*/
-		Rational(typename boost::mpl::if_<boost::is_same<integer, Integer>, EmptyClass, Integer>::type wholes);
+		Rational(typename boost::mpl::if_<std::is_same<integer, Integer>, EmptyClass, Integer>::type wholes);
 
 		//! Constructs with the value (numerator / denominator).
 		Rational(Integer numerator,

@@ -82,26 +82,6 @@ namespace Pastel
 		}
 	}
 
-	BigInteger::BigInteger(integer that)
-		: digits_()
-		, sign_(that >= 0)
-	{
-		if (that != 0)
-		{
-			if (!sign_)
-			{
-				that = -that;
-			}
-
-			digits_.push_back(that & 0xFFFF);
-			const integer upperBits = that >> 16;
-			if (upperBits != 0)
-			{
-				digits_.push_back(upperBits);
-			}
-		}
-	}
-
 	BigInteger& BigInteger::operator=(const BigInteger& that)
 	{
 		BigInteger copy(that);
