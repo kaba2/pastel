@@ -356,7 +356,7 @@ namespace
 		const integer height = image.height();
 
 		Array<bool, 2> mask(
-			width, height, false);
+			Vector2i(width, height), false);
 
 		for (integer y = 0;y < height;++y)
 		{
@@ -370,7 +370,7 @@ namespace
 			}
 		}
 
-		Array<Color, 2> maskImage(width, height);
+		Array<Color, 2> maskImage(Vector2i(width, height));
 		for (integer y = 0;y < height;++y)
 		{
 			for (integer x = 0;x < width;++x)
@@ -384,7 +384,7 @@ namespace
 
 		const integer HoleWidth = 33;
 		Array<real, 2> filter(
-			HoleWidth, HoleWidth);
+			Vector2i(HoleWidth, HoleWidth));
 		setFilter(boost::bind(gaussian<real>, _1, (real)0.1), arrayView(filter));
 
 		Array<Color, 2> result;

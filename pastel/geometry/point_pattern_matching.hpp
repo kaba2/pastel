@@ -202,7 +202,7 @@ namespace Pastel
 					std::swap(sceneIndexList[i], sceneIndexList[j]);
 				}
 
-				Array<SceneIterator> sceneNearest(k_, scenePoints_);
+				Array<SceneIterator> sceneNearest(Vector2i(k_, scenePoints_));
 				std::vector<SceneIterator> sceneSet(k_ + 1);
 				std::vector<ModelIterator> modelSet(k_ + 1);
 

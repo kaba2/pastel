@@ -13,7 +13,7 @@ namespace Pastel
 		const integer width = labelImage.width();
 		const integer height = labelImage.height();
 
-		Array<uint8, 2> newImage(width, height);
+		Array<uint8, 2> newImage(Vector2i(width, height));
 
 		//const int32 prime = followingPrime(300);
 

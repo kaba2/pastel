@@ -949,7 +949,7 @@ void test()
 	log() << "Bounding search" << logNewLine;
 
 	Euclidean_NormBijection<real> normBijection;
-	Array<PointKdTree<real, N, Array_PointPolicy<real> >::Point_ConstIterator> nearestSet(k, n);
+	Array<PointKdTree<real, N, Array_PointPolicy<real> >::Point_ConstIterator> nearestSet(Vector2i(k, n));
 
 	timer.setStart();
 
@@ -971,8 +971,8 @@ void test()
 
 	log() << "Brute-force search" << logNewLine;
 
-	//Array<integer> bruteSet(k, n);
-	Array<PointSet::iterator> bruteSet(k, n);
+	//Array<integer> bruteSet(Vector2i(k, n));
+	Array<PointSet::iterator> bruteSet(Vector2i(k, n));
 
 	timer.setStart();
 

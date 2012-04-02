@@ -190,8 +190,8 @@ namespace
 		const integer superSample = 4;
 		const integer width = 512;
 		const integer height = 384;
-		Array<Color, 2> superImage(width * superSample, height * superSample);
-		Array<Color, 2> image(width, height);
+		Array<Color, 2> superImage(Vector2i(width * superSample, height * superSample));
+		Array<Color, 2> image(Vector2i(width, height));
 
 		Image_GfxRenderer<Color> renderer(&superImage);
 
@@ -648,7 +648,7 @@ namespace
 	{
 		const integer width = 800;
 		const integer height = 600;
-		Array<Color, 2> image(width, height);
+		Array<Color, 2> image(Vector2i(width, height));
 		Image_GfxRenderer<Color> renderer(&image);
 
 		renderer.setColor(Color(0, 1, 0));

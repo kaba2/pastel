@@ -45,7 +45,7 @@ namespace
 		{
 			const integer width = 768;
 			const integer height = 768;
-			Array<Spectrum> image(width, height, Spectrum());
+			Array<Spectrum> image(Vector2i(width, height), Spectrum());
 
 			Array<Color> textureImage;
 			loadPcx("texture.pcx", textureImage);

@@ -15,7 +15,7 @@ namespace Pastel
 
 	void MeasureTable::setSize(integer width, integer height)
 	{
-		data_.setExtent(width, height);
+		data_.setExtent(Vector2i(width, height));
 	}
 
 	integer MeasureTable::width() const

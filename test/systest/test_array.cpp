@@ -4,6 +4,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/array.h"
+
 #include "pastel/sys/countingiterator.h"
 
 using namespace Pastel;
@@ -32,7 +33,7 @@ namespace
 		void testPosition()
 		{
 			{
-				Array<integer> a(2, 3, 0, StorageOrder::RowMajor);
+				Array<integer> a(Vector2i(2, 3), 0, StorageOrder::RowMajor);
 
 				TEST_ENSURE(a.position(0) == Vector2i(0, 0));
 				TEST_ENSURE(a.position(1) == Vector2i(1, 0));
@@ -49,7 +50,7 @@ namespace
 				TEST_ENSURE_OP(a.index(Vector2i(1, 2)), ==, 5);
 			}
 			{
-				Array<integer> a(2, 3, 0, StorageOrder::ColumnMajor);
+				Array<integer> a(Vector2i(2, 3), 0, StorageOrder::ColumnMajor);
 
 				TEST_ENSURE(a.position(0) == Vector2i(0, 0));
 				TEST_ENSURE(a.position(1) == Vector2i(0, 1));
@@ -69,14 +70,14 @@ namespace
 
 		void testTrivial()
 		{
-			Array<int, 2> a(1024, 1024);
+			Array<int, 2> a(Vector2i(1024, 1024));
 			Array<int, 2> b(a);
 			a = b;
 			b.clear();
-			b.setExtent(1024, 1024);
+			b.setExtent(Vector2i(1024, 1024));
 			b = a;
 			a.clear();
-			a.setExtent(53, 45, 15);
+			a.setExtent(Vector2i(53, 45), 15);
 		}
 
 		void print(const Array<integer, 2>& that)
@@ -95,13 +96,13 @@ namespace
 
 		void testIterator()
 		{
-			Array<integer, 2> a(6, 6);
+			Array<integer, 2> a(Vector2i(6, 6));
 			for (integer i = 0;i < a.size();++i)
 			{
 				a(i) = i;
 			}
 			
-			Array<integer, 2> b(6, 6);
+			Array<integer, 2> b(Vector2i(6, 6));
 			std::copy(
 				countingIterator(0), countingIterator(b.size()),
 				b.begin());
@@ -122,7 +123,7 @@ namespace
 
 		void testSubArray()
 		{
-			Array<integer, 2> a(6, 6);
+			Array<integer, 2> a(Vector2i(6, 6));
 
 			a |= 0, 1, 2, 3, 4, 5, 
 				6, 7, 8, 9, 10, 11, 
@@ -138,7 +139,7 @@ namespace
 			a(Vector2i(0, 0), Vector2i(3, 3)) = 
 				a(Vector2i(3, 3), Vector2i(6, 6));
 			
-			Array<integer, 2> b(6, 6);
+			Array<integer, 2> b(Vector2i(6, 6));
 			b |= 21, 22, 23, 3, 4, 5, 
 				27, 28, 29, 9, 10, 11, 
 				33, 34, 35, 15, 16, 17, 
@@ -220,7 +221,7 @@ namespace
 
 		void testSlice()
 		{
-			Array<integer> a(6, 6);
+			Array<integer> a(Vector2i(6, 6));
 			a |= 0,  1,  2,  3,  4,  5, 
 				 6,  7,  8,  9, 10, 11, 
 				12, 13, 14, 15, 16, 17, 
@@ -229,7 +230,7 @@ namespace
 				30, 31, 32, 33, 34, 35;
 
 			{
-				Array<integer, 1> b(6);
+				Array<integer, 1> b(Vector1i(6));
 				b |= 12, 13, 14, 15, 16, 17;
 				SubArray<integer, 1> slice = a().slice(1, 2);
 				TEST_ENSURE(
@@ -238,7 +239,7 @@ namespace
 			}
 
 			{
-				Array<integer, 1> b(6);
+				Array<integer, 1> b(Vector1i(6));
 				b |= 3, 9, 15, 21, 27, 33;
 				SubArray<integer, 1> slice = a().slice(0, 3);
 				TEST_ENSURE(

@@ -17,7 +17,7 @@ namespace Pastel
 		const integer width = indexedImage.width();
 		const integer height = indexedImage.height();
 
-		Array<Color, 2> colorImage(width, height);
+		Array<Color, 2> colorImage(Vector2i(width, height));
 		for (integer y = 0;y < height;++y)
 		{
 			for (integer x = 0;x < width;++x)

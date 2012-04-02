@@ -209,7 +209,7 @@ namespace
 
 			// A const view can be adapted to a matrix expression:
 
-			Array<real32, 2> b(height, width);
+			Array<real32, 2> b(Vector2i(height, width));
 			
 			a *= asMatrix(constArrayView(b));
 

@@ -86,6 +86,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="array_cursor.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="parallelarray.h" />
@@ -95,9 +96,6 @@
     <ClInclude Include="disjointgroups.hpp" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />
-    <ClInclude Include="arraybase.h" />
-    <ClInclude Include="arraybase.hpp" />
-    <ClInclude Include="arraybasecursor.h" />
     <ClInclude Include="subarray.h" />
     <ClInclude Include="subarray_iterator.h" />
     <ClInclude Include="subarray_tools.h" />

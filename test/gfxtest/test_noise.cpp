@@ -16,7 +16,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 80;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - fromColor);
@@ -38,7 +38,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 400;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - fromColor);
@@ -61,7 +61,7 @@ namespace
 		const integer Width = 400;
 		const integer Height = 400;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - fromColor);
@@ -84,7 +84,7 @@ namespace
 		const integer Width = 512;
 		const integer Height = 512;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - fromColor);
@@ -107,7 +107,7 @@ namespace
 		const integer Width = 512;
 		const integer Height = 512;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 		Color fromColor = Color(0, 0, 0);
 		Color toColor = Color(0, 0, 1);
 		Color deltaColor(toColor - fromColor);

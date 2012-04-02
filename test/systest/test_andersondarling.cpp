@@ -199,7 +199,7 @@ namespace
 
 			const integer imageWidth = k;
 			const integer imageHeight = k;
-			Array<real32> image(imageWidth, imageHeight);
+			Array<real32> image(Vector2i(imageWidth, imageHeight));
 			NearestSet::iterator aIter = aNearestSet.begin();
 			NearestSet::iterator bIter = bNearestSet.begin();
 			

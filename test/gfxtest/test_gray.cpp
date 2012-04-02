@@ -51,7 +51,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 Step = 1 / Width;
 
@@ -73,7 +73,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 Step = 1 / Width;
 
@@ -94,7 +94,7 @@ namespace
 	{
 		const real Width = 400;
 		const real Height = 100;
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		const real32 Step = 100 / Width;
 

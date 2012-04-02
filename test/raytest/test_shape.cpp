@@ -28,7 +28,7 @@ namespace
 		{
 			const integer width = 512;
 			const integer height = 512;
-			Array<Color> image(width, height, Color(1));
+			Array<Color> image(Vector2i(width, height), Color(1));
 
 			renderShape(
 				ShapePtr(new Sphere_Shape()), 

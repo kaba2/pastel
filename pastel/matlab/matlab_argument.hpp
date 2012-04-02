@@ -148,7 +148,7 @@ namespace Pastel
 			Type* rawData = (Type*)mxGetData(that);
 			
 			result = Result(
-				new Array<Type>(width, height, withAliasing(rawData), 
+				new Array<Type>(Vector2i(width, height), withAliasing(rawData), 
 				StorageOrder::ColumnMajor));
 		}
 		else
@@ -164,7 +164,7 @@ namespace Pastel
 			}
 
 			result = Result(
-				new Array<Type>(width, height,
+				new Array<Type>(Vector2i(width, height),
 				StorageOrder::ColumnMajor));
 
 			getScalars(that, result->begin());
@@ -193,7 +193,7 @@ namespace Pastel
 			Type* rawData = (Type*)mxGetData(that);
 			
 			result = Result(
-				new Array<Type>(n, 1, withAliasing(rawData)));
+				new Array<Type>(Vector2i(n, 1), withAliasing(rawData)));
 		}
 		else
 		{
@@ -208,7 +208,7 @@ namespace Pastel
 			}
 
 			result = Result(
-				new Array<Type>(n, 1));
+				new Array<Type>(Vector2i(n, 1)));
 
 			getScalars(that, result->begin());
 		}

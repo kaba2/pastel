@@ -29,7 +29,7 @@ namespace
 
 	void testRowVisit()
 	{
-		Array<int, 2> a(1000, 1000);
+		Array<int> a(Vector2i(1000, 1000));
 		visitRows(constArrayView(a), 0, RowVisitor());
 		visitRows(arrayView(a), 0, RowVisitor());
 		visitRows(arrayView(a), arrayView(a), 0, RowVisitor());
@@ -39,13 +39,13 @@ namespace
 
 	void testTrivial()
 	{
-		Array<int, 2> a(1024, 1024);
-		Array<int, 2> b(a);
+		Array<int> a(Vector2i(1024, 1024));
+		Array<int> b(a);
 		a = b;
 		b.clear();
 		b = a;
 		a.clear();
-		a.setExtent(53, 45, 15);
+		a.setExtent(Vector2i(53, 45), 15);
 	}
 
 	void test()

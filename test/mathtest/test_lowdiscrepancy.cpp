@@ -22,7 +22,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		Color color;
 		Color aColor = Color(1, 0, 0);
@@ -100,7 +100,7 @@ namespace
 		const integer Width = 500;
 		const integer Height = 500;
 
-		Array<Color, 2> image(Width, Height);
+		Array<Color, 2> image(Vector2i(Width, Height));
 
 		Color color;
 		Color aColor = Color(1, 0, 0);

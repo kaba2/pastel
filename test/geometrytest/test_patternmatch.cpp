@@ -44,7 +44,7 @@ namespace
 
 		const integer modelPoints = modelSet.size();
 
-		Array<Color, 2> image(width, height);
+		Array<Color, 2> image(Vector2i(width, height));
 
 		const Sphere2 sceneSphere =
 			boundingSphere(

@@ -33,7 +33,7 @@ namespace
 	{
 		const integer width = 512;
 		const integer height = 512;
-		Array<Color> image(width, height);
+		Array<Color> image(Vector2i(width, height));
 
 		drawBox(
 			AlignedBox2(0, 0, width, height),
@@ -74,7 +74,7 @@ namespace
 
 	void testView()
 	{
-		Array<Color, 2> image(500, 500, Color(0));
+		Array<Color, 2> image(Vector2i(500, 500), Color(0));
 
 		clear(Color(1), subView(arrayView(image), AlignedBox2i(10, 20, 100, 110)));
 		clear(Color(1), sparseView(subView(arrayView(image), AlignedBox2i(110, 120, 200, 210)), Vector2i(0), Vector2i(2, 2)));
@@ -90,7 +90,7 @@ namespace
 
 	void testBinary()
 	{
-		Array<bool, 2> image(500, 500, false);
+		Array<bool, 2> image(Vector2i(500, 500), false);
 
 		clear(false, arrayView(image));
 
@@ -105,7 +105,7 @@ namespace
 
 	void testFloodFill()
 	{
-		Array<Color, 2> image(500, 500, Color(0));
+		Array<Color, 2> image(Vector2i(500, 500), Color(0));
 
 		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -132,7 +132,7 @@ namespace
 
 	void testPerspectiveTriangle()
 	{
-		Array<Color, 2> image(500, 500);
+		Array<Color, 2> image(Vector2i(500, 500));
 
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
@@ -171,7 +171,7 @@ namespace
 		const integer width = 512 * superSample;
 		const integer height = 512 * superSample;
 
-		Array<Color, 2> image(width, height);
+		Array<Color, 2> image(Vector2i(width, height));
 
 		Array<Color, 2> textureImage;
 		loadPcx("lena.pcx", textureImage);
@@ -199,7 +199,7 @@ namespace
 				arrayView(image));
 		}
 
-		Array<Color> smallImage(width / superSample, height / superSample);
+		Array<Color> smallImage(Vector2i(width / superSample, height / superSample));
 		resample<Color>(
 			constArrayView(image),
 			ArrayExtender<2, Color>(clampExtender()),
@@ -212,7 +212,7 @@ namespace
 
 	void testTextureTriangle()
 	{
-		Array<Color, 2> image(500, 500);
+		Array<Color, 2> image(Vector2i(500, 500));
 
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
@@ -247,7 +247,7 @@ namespace
 
 	void testEwaTriangle()
 	{
-		Array<Color, 2> image(500, 500);
+		Array<Color, 2> image(Vector2i(500, 500));
 
 		Array<Color, 2> textureImage;
 		loadPcx("lena.pcx", textureImage);
@@ -281,7 +281,7 @@ namespace
 
 	void testSolidTriangle()
 	{
-		Array<Color, 2> image(500, 500);
+		Array<Color, 2> image(Vector2i(500, 500));
 
 		Array<Color, 2> texture;
 		loadPcx("lena.pcx", texture);
@@ -310,7 +310,7 @@ namespace
 
 	void testBoxes()
 	{
-		Array<Color, 2> image(640, 480);
+		Array<Color, 2> image(Vector2i(640, 480));
 
 		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -334,7 +334,7 @@ namespace
 
 	void testMoreCircles()
 	{
-		Array<Color, 2> image(640, 480);
+		Array<Color, 2> image(Vector2i(640, 480));
 
 		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -354,7 +354,7 @@ namespace
 
 	void testCircles()
 	{
-		Array<Color, 2> image(640, 480);
+		Array<Color, 2> image(Vector2i(640, 480));
 
 		Image_GfxRenderer<Color> renderer;
 		renderer.setImage(&image);
@@ -421,7 +421,7 @@ namespace
 
 	void testLines()
 	{
-		Array<Color, 2> image(640, 480);
+		Array<Color, 2> image(Vector2i(640, 480));
 
 		const integer steps = 128;
 
@@ -449,7 +449,7 @@ namespace
 
 	void testMoreLines()
 	{
-		Array<Color, 2> image(640, 480);
+		Array<Color, 2> image(Vector2i(640, 480));
 
 		const integer lines = 500;
 
@@ -475,7 +475,7 @@ namespace
 		const real XYStep = (real)(YEnd - YStart) / (XLines - 1);
 		const real YYStep = (real)(YEnd - YStart) / (YLines - 1);
 
-		Array<Color, 2> image(XLines* BoxWidth, YLines * BoxHeight);
+		Array<Color, 2> image(Vector2i(XLines* BoxWidth, YLines * BoxHeight));
 
 		for (integer y = 0;y < YLines;++y)
 		{
