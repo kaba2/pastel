@@ -154,6 +154,10 @@ namespace
 				ArrayExtender<2, Color>(clampExtender()),
 				lanczosFilter(2))));
 		textureList.push_back(
+			Texture<Color>::Ptr(new EwaImage_Texture<Color>(mipMap,
+				ArrayExtender<2, Color>(clampExtender()),
+				boxFilter())));
+		textureList.push_back(
 			Texture<Color>::Ptr(new LinearImage_Texture<Color>(textureImage,
 				ArrayExtender<2, Color>(clampExtender()))));
 		textureList.push_back(
