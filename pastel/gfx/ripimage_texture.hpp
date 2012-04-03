@@ -37,6 +37,8 @@ namespace Pastel
 			return Type();
 		}
 
+		const integer n = uv.size();
+
 		const Array<Type, N>& mostDetailedImage = 
 			ripMap_->mostDetailed();
 
@@ -75,7 +77,6 @@ namespace Pastel
 		Vector<integer, N> p(floor(level));
 		const Vector<real, N> tDetail = level - Vector<real, N>(p);
 
-		const integer n = p.size();
 		const integer samples = 1 << n;
 
 		Tuple<Type, ModifyN<N, 1 << N>::Result> valueSet(ofDimension(samples));

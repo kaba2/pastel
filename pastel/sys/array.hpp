@@ -251,14 +251,17 @@ namespace Pastel
 	Array<Type, N>& Array<Type, N>::operator=(
 		const Array& that)
 	{
-		if (extent() == that.extent())
+		if (this != &that)
 		{
-			assign(that);
-		}
-		else
-		{
-			Array copy(that, storageOrder());
-			swap(copy);
+			if (extent() == that.extent())
+			{
+				assign(that);
+			}
+			else
+			{
+				Array copy(that, storageOrder());
+				swap(copy);
+			}
 		}
 
 		return *this;
@@ -268,8 +271,11 @@ namespace Pastel
 	Array<Type, N>& Array<Type, N>::operator=(
 		Array&& that)
 	{
-		clear();
-		swap(that);
+		if (this != &that)
+		{
+			clear();
+			swap(that);
+		}
 
 		return *this;
 	}
@@ -795,6 +801,9 @@ namespace Pastel
 		const Type& defaultData,
 		StorageOrder::Enum order)
 	{
+		allocate(extent());
+		setStorageOrder(order);
+
 		if (size_ == 0)
 		{
 			return;
@@ -816,9 +825,6 @@ namespace Pastel
 			copyConstruct(that, order);
 			return;
 		}
-
-		allocate(extent());
-		setStorageOrder(order);
 
 		// Need a point-by-point copy construction.
 		const integer n = dimension();

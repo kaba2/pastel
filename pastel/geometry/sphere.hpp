@@ -12,8 +12,8 @@ namespace Pastel
 	template <typename Real, int N>
 	Sphere<Real, N>::Sphere()
 		: position_(0)
-		, radius_(0)
-		, inverseRadius_(infinity<Real>())
+		, radius_(1)
+		, inverseRadius_(1)
 		, topology_(Topology::Closed)
 	{
 		PASTEL_STATIC_ASSERT(N != Dynamic);
@@ -22,8 +22,8 @@ namespace Pastel
 	template <typename Real, int N>
 	Sphere<Real, N>::Sphere(integer dimension)
 		: position_(ofDimension(dimension), 0)
-		, radius_(0)
-		, inverseRadius_(infinity<Real>())
+		, radius_(1)
+		, inverseRadius_(1)
 		, topology_(Topology::Closed)
 	{
 	}

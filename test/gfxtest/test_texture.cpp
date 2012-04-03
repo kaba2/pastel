@@ -37,7 +37,9 @@ namespace
 		integer Width = 400;
 		integer Height = 400;
 
-		Array<Color>& textureImage = *gfxStorage().get<Array<Color>*>("lena");
+		Array<Color>* textureImagePtr = gfxStorage().get<Array<Color>*>("lena_image");
+		ENSURE(textureImagePtr);
+		Array<Color>& textureImage = *textureImagePtr;
 
 		MipMap<Color, 2> mipMap(constArrayView(textureImage),
 			ArrayExtender<2, Color>(clampExtender()));
@@ -376,8 +378,10 @@ namespace
 			mipMap, ArrayExtender<2, Color>(extender), boxFilter());
 		EwaImage_Texture<Color> textureEwaTriangle(
 			mipMap, ArrayExtender<2, Color>(extender), triangleFilter());
-		MipImage_Texture<Color> textureMip(mipMap);
-		RipImage_Texture<Color> textureRip(ripMap);
+		MipImage_Texture<Color> textureMip(
+			mipMap, ArrayExtender<2, Color>(extender));
+		RipImage_Texture<Color> textureRip(
+			ripMap, ArrayExtender<2, Color>(extender));
 
 		std::vector<KeyValue<std::string, Texture<Color>*> > textureList;
 
