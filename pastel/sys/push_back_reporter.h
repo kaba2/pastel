@@ -17,10 +17,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename Type>
-		void operator()(const Type& data) const
+		template <typename That>
+		bool operator()(That&& that) const
 		{
-			container_.push_back(data);
+			container_.push_back(std::forward<That>(that));
+			return true;
 		}
 
 	private:

@@ -72,6 +72,7 @@ namespace
 		{
 			Array<int, 2> a(Vector2i(1024, 1024));
 			Array<int, 2> b(a);
+			Array<int, 2> c(a, StorageOrder::RowMajor);
 			a = b;
 			b.clear();
 			b.setExtent(Vector2i(1024, 1024));

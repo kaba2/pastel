@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	template <int N_>
+	template <int N_, bool RowMajor = true>
 	class RectangleIterator
 	{
 	public:
@@ -45,9 +45,11 @@ namespace Pastel
 		RectangleIterator& operator++()
 		{
 			const integer n = dimension();
+			enum {Step = RowMajor ? 1 : -1};
 
-			integer i = 0;
-			while(i < n)
+			integer i = RowMajor ? 0 : n - 1;
+			while((!RowMajor && i >= 0) || 
+				(RowMajor && i < n))
 			{
 				++position_[i];
 				if (position_[i] >= max_[i])
@@ -59,9 +61,13 @@ namespace Pastel
 				{
 					break;
 				}
-				++i;
+				
+				i += Step;
 			}
-			done_ = (i == n);
+			
+			done_ = 
+				(!RowMajor && i == -1) ||
+				(RowMajor && i == n);
 
 			return *this;
 		}
@@ -69,9 +75,11 @@ namespace Pastel
 		RectangleIterator& operator--()
 		{
 			const integer n = dimension();
+			enum {Step = RowMajor ? 1 : -1};
 
-			integer i = 0;
-			while(i < n)
+			integer i = RowMajor ? 0 : n - 1;
+			while((!RowMajor && i >= 0) || 
+				(RowMajor && i < n))
 			{
 				--position_[i];
 				if (position_[i] < min_[i])
@@ -83,9 +91,13 @@ namespace Pastel
 				{
 					break;
 				}
-				++i;
+
+				i += Step;
 			}
-			done_ = (i == n);
+
+			done_ = 
+				(!RowMajor && i == -1) ||
+				(RowMajor && i == n);
 
 			return *this;
 		}

@@ -5,4 +5,5 @@ Range reporter
 
 A _range reporter_ fills a range with the reported objects.
 If all elements of the range become assigned to, all additional
-reported objects are ignored.
+reported objects are ignored. If the range becomes full, the 
+reporter breaks.

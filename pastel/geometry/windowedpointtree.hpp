@@ -4,8 +4,6 @@
 #include "pastel/geometry/windowedpointtree.h"
 #include "pastel/geometry/difference_alignedbox_alignedbox.h"
 
-#include <boost/bind.hpp>
-
 namespace Pastel
 {
 
@@ -46,13 +44,48 @@ namespace Pastel
 	{
 		// The points that are in the current window,
 		// but not in the new window, need to be removed.
+		auto pointEraser = [&](const Point& point) -> bool
+		{
+			ActiveIterator iter = activeSet_.find(point);
+			PENSURE(iter != activeSet_.end())
+				//tree_.erase(iter->second);
+				tree_.hide(iter->second);
+			//activeSet_.erase(point);
+
+			return true;
+		};
+
 		difference(window_, window, 
-			boost::bind(&WindowedPointTree::eraseBox, this, _1));
+			[&](const AlignedBox<integer, M>& box) -> bool
+		{
+			pointQuery_.queryPoints(box, pointEraser);
+			return true;
+		});
 
 		// The points that are in the new window,
 		// but not in the current window, need to be added.
+
+		auto pointInserter = [&](const Point& point)
+		{
+			ActiveIterator iter = activeSet_.find(point);
+			if (iter != activeSet_.end())
+			{
+				tree_.show(iter->second);
+			}
+			else
+			{
+				activeSet_.insert(
+					std::make_pair(point,
+					tree_.insert(point)));
+			}
+		};
+
 		difference(window, window_, 
-			boost::bind(&WindowedPointTree::insertBox, this, _1));
+			[&](const AlignedBox<integer, M>& box) -> bool
+		{
+			pointQuery_.queryPoints(box, pointInserter);
+			return true;
+		});
 
 		// Set the new window.
 		window_ = window;
@@ -77,52 +110,6 @@ namespace Pastel
 		WindowedPointTree<PointQuery>::activeSet() const
 	{
 		return activeSet_;
-	}
-
-	// Private:
-
-	template <typename PointQuery>
-	void WindowedPointTree<PointQuery>::insertBox(
-		const AlignedBox<integer, M>& box)
-	{
-		pointQuery_.queryPoints(
-			box, boost::bind(&WindowedPointTree::insertPoint, this, _1));
-	}
-
-	template <typename PointQuery>
-	void WindowedPointTree<PointQuery>::insertPoint(
-		const Point& point)
-	{
-		ActiveIterator iter = activeSet_.find(point);
-		if (iter != activeSet_.end())
-		{
-			tree_.show(iter->second);
-		}
-		else
-		{
-			activeSet_.insert(
-				std::make_pair(point,
-				tree_.insert(point)));
-		}
-	}
-
-	template <typename PointQuery>
-	void WindowedPointTree<PointQuery>::eraseBox(
-		const AlignedBox<integer, M>& box)
-	{
-		pointQuery_.queryPoints(
-			box, boost::bind(&WindowedPointTree::erasePoint, this, _1));
-	}
-
-	template <typename PointQuery>
-	void WindowedPointTree<PointQuery>::erasePoint(
-		const Point& point)
-	{
-		ActiveIterator iter = activeSet_.find(point);
-		PENSURE(iter != activeSet_.end())
-		//tree_.erase(iter->second);
-		tree_.hide(iter->second);
-		//activeSet_.erase(point);
 	}
 
 }

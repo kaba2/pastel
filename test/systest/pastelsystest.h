@@ -21,10 +21,4 @@ inline Pastel::TestReport& testReport()
 	return theTestReport;
 }
 
-inline Pastel::Log& testLog()
-{
-	static Pastel::Log theLog;
-	return theLog;
-}
-
 #endif

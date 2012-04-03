@@ -11,8 +11,6 @@
 #include "pastel/sys/rectangleiterator.h"
 #include "pastel/sys/iterator_range.h"
 
-#include <boost/bind.hpp>
-
 #include <algorithm>
 
 namespace Pastel
@@ -76,6 +74,20 @@ namespace Pastel
 
 	template <typename Type, int N>
 	Array<Type, N>::Array(
+		const Array& that,
+		StorageOrder::Enum order)
+		: extent_(ofDimension(that.dimension()), 0)
+		, stride_(ofDimension(that.dimension()), 0)
+		, order_(ofDimension(that.dimension()), 0)
+		, size_(0)
+		, data_(0)
+		, deleteData_(true)
+	{
+		copyConstruct(that, order);
+	}
+
+	template <typename Type, int N>
+	Array<Type, N>::Array(
 		const Array& that)
 		: extent_(ofDimension(that.dimension()), 0)
 		, stride_(ofDimension(that.dimension()), 0)
@@ -84,19 +96,36 @@ namespace Pastel
 		, data_(0)
 		, deleteData_(true)
 	{
-		allocate(that.extent_);
-		setStorageOrder(that.storageOrder());
+		copyConstruct(that, that.storageOrder());
+	}
 
-		try
-		{
-			std::uninitialized_copy(
-				that.data_, that.data_ + size_, data_);
-		}
-		catch(...)
-		{
-			deallocate();
-			throw;
-		};
+	template <typename Type, int N>
+	Array<Type, N>::Array(Array&& that)
+		: extent_(0)
+		, stride_(0)
+		, order_(0)
+		, size_(0)
+		, data_(0)
+		, deleteData_(true)
+	{
+		setStorageOrder(StorageOrder::RowMajor);
+
+		swap(that);
+	}
+
+	template <typename Type, int N>
+	Array<Type, N>::Array(
+		const Array& that,
+		const Vector<integer, N>& extent,
+		const Type& defaultData)
+		: extent_(extent)
+		, stride_(ofDimension(extent.dimension()), 0)
+		, order_(ofDimension(extent.dimension()), 0)
+		, size_(0)
+		, data_(0)
+		, deleteData_(true)
+	{
+		copyConstructLarger(that, defaultData, that.storageOrder());
 	}
 
 	template <typename Type, int N>
@@ -112,10 +141,7 @@ namespace Pastel
 		, data_(0)
 		, deleteData_(true)
 	{
-		allocate(extent);
-		setStorageOrder(order);
-
-		copyConstruct(that, defaultData);
+		copyConstructLarger(that, defaultData, order);
 	}
 
 	template <typename Type, int N>
@@ -225,6 +251,32 @@ namespace Pastel
 	Array<Type, N>& Array<Type, N>::operator=(
 		const Array& that)
 	{
+		if (extent() == that.extent())
+		{
+			assign(that);
+		}
+		else
+		{
+			Array copy(that, storageOrder());
+			swap(copy);
+		}
+
+		return *this;
+	}
+
+	template <typename Type, int N>
+	Array<Type, N>& Array<Type, N>::operator=(
+		Array&& that)
+	{
+		clear();
+		swap(that);
+
+		return *this;
+	}
+
+	template <typename Type, int N>
+	void Array<Type, N>::assign(const Array& that)
+	{
 		ENSURE(extent() == that.extent());
 
 		if (storageOrder() == that.storageOrder())
@@ -245,8 +297,6 @@ namespace Pastel
 				++iter;
 			}
 		}
-
-		return *this;
 	}
 
 	template <typename Type, int N>
@@ -585,6 +635,85 @@ namespace Pastel
 	// Private
 
 	template <typename Type, int N>
+	void Array<Type, N>::copyConstruct(
+		const Array& that,
+		StorageOrder::Enum order)
+	{
+		allocate(that.extent_);
+		setStorageOrder(order);
+
+		if (order == that.storageOrder())
+		{
+			// Storage orders match. Simply do copy-initialization.
+
+			try
+			{
+				std::uninitialized_copy(
+					that.data_, that.data_ + size_, data_);
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			};
+		}
+		else
+		{
+			// Storage orders do not match, so
+			// do a point-by-point copy-initialization.
+
+			try
+			{
+				if (order == StorageOrder::RowMajor)
+				{
+					copyInitialize<true>(that);
+				}
+				else
+				{
+					copyInitialize<false>(that);
+				}
+			}
+			catch(...)
+			{
+				deallocate();
+				throw;
+			}
+		}
+	}
+
+	template <typename Type, int N>
+	template <bool ThisInRowOrder>
+	void Array<Type, N>::copyInitialize(const Array& that)
+	{
+		Iterator iter = begin();
+
+		try
+		{
+			RectangleIterator<N, ThisInRowOrder> thatIter(extent());
+			while(iter != end())
+			{
+				const Type& thatElement = that(thatIter.position());
+
+				// Copy-initialize to 'thatElement'.
+				new(&*iter) Type(thatElement);
+
+				++iter;
+			}
+		}
+		catch(...)
+		{
+			// Rollback the constructions.
+			while(iter != begin())
+			{
+				--iter;
+				iter->~Type();
+			}
+
+			throw;
+		}
+	}
+
+	template <typename Type, int N>
 	void Array<Type, N>::computeStride()
 	{
 		const integer n = dimension();
@@ -649,22 +778,22 @@ namespace Pastel
 		const AlignedBox<integer, N>& region,
 		const Type& defaultData)
 	{
-		RectangleIterator<N> iter(region.extent());
+		RectangleIterator<N> iter(region.min(), region.max());
 		while(!iter.done())
 		{
-			Type* data = 
-				data_ + dot(region.min() + iter.position(), stride_);
+			Type& data = (*this)(iter.position());
 				
-			new(data) Type(defaultData);
+			new(&data) Type(defaultData);
 
 			++iter;
 		}
 	}
 
 	template <typename Type, int N>
-	void Array<Type, N>::copyConstruct(
+	void Array<Type, N>::copyConstructLarger(
 		const Array& that,
-		const Type& defaultData)
+		const Type& defaultData,
+		StorageOrder::Enum order)
 	{
 		if (size_ == 0)
 		{
@@ -683,12 +812,13 @@ namespace Pastel
 		if (extent_ == that.extent_ &&
 			order_ == that.order_)
 		{
-			// Same linear order and extents, and nothing to 
-			// default initialize: pure copy construction.
-			std::uninitialized_copy(
-				that.data_, that.data_ + size_, data_);
+			// Same extents. Use the regular copy construction.
+			copyConstruct(that, order);
 			return;
 		}
+
+		allocate(extent());
+		setStorageOrder(order);
 
 		// Need a point-by-point copy construction.
 		const integer n = dimension();
@@ -713,9 +843,54 @@ namespace Pastel
 		const AlignedBox<integer, N> copyRegion(
 			Vector<integer, N>(ofDimension(n), 0),
 			that.extent_);
-		difference(wholeRegion, copyRegion,
-			boost::bind(&Array::construct, 
-			this, ::_1, defaultData));
+
+		// Mentioning RectangleIterator<N> inside the
+		// lambda triggers an internal compiler error
+		// in Visual Studio 2010 SP1, which is related
+		// to mentioning the N. Typedeffing the type
+		// in advance here avoids the bug.
+		typedef RectangleIterator<N> RectangleIterator_AvoidBug;
+
+		integer defaultConstructed = 0;
+		try
+		{
+			difference(wholeRegion, copyRegion, 
+				[&](const AlignedBox<integer, N>& region) -> bool
+			{
+				RectangleIterator_AvoidBug iter(region.min(), region.max());
+				while(!iter.done())
+				{
+					Type& data = (*this)(iter.position());
+
+					new(&data) Type(defaultData);
+					++defaultConstructed;
+
+					++iter;
+				}
+				return true;
+			});
+		}
+		catch(...)
+		{
+			difference(wholeRegion, copyRegion, 
+				[&](const AlignedBox<integer, N>& region) -> bool
+			{
+				RectangleIterator_AvoidBug iter(region.min(), region.max());
+				while(!iter.done() && defaultConstructed > 0)
+				{
+					Type* data = &(*this)(iter.position());
+
+					destruct(data);
+					--defaultConstructed;
+
+					++iter;
+				}
+
+				return defaultConstructed > 0;
+			});
+
+			throw;
+		}
 	}
 
 	template <typename Type, int N>

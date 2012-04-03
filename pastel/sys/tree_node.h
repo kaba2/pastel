@@ -17,9 +17,13 @@ namespace Pastel
 		{
 		public:
 			Node()
-				: parent(this)
-				, childSet(this)
+				: parent(0)
+				, childSet(0)
 			{
+				// Can't use 'this' in the initializer list,
+				// because the object is not yet constructed.
+				parent = this;
+				childSet.set(this);
 			}
 
 			explicit Node(Node* sentinel)

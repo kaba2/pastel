@@ -5,6 +5,7 @@
 #define PASTEL_DIFFERENCE_ALIGNEDBOX_ALIGNEDBOX_H
 
 #include "pastel/sys/alignedbox.h"
+#include "pastel/sys/reporter_concept.h"
 
 namespace Pastel
 {
@@ -23,11 +24,11 @@ namespace Pastel
 	*/
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Functor>
+		typename AlignedBox_Reporter>
 	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Functor report);
+		AlignedBox_Reporter report);
 
 	//! Computes the symmetric set-difference between two aligned boxes.
 	/*!
@@ -40,11 +41,11 @@ namespace Pastel
 	*/
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Functor>
+		typename AlignedBox_Reporter>
 	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Functor report);
+		AlignedBox_Reporter report);
 
 }
 
