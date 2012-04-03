@@ -24,7 +24,7 @@ namespace
 		virtual void run()
 		{
 			testPosition();
-			testTrivial();
+			testCopyAssign();
 			testSubArray();
 			testIterator();
 			testSlice();
@@ -68,17 +68,91 @@ namespace
 			}
 		}
 
-		void testTrivial()
+		template <typename Type>
+		bool equal(const Array<Type>& left, const Array<Type>& right)
 		{
-			Array<int, 2> a(Vector2i(1024, 1024));
+			if (left.extent() != right.extent())
+			{
+				return false;
+			}
+
+			const integer width = left.width();
+			const integer height = left.height();
+			for (integer y = 0;y < height;++y)
+			{
+				for (integer x = 0;x < width;++x)
+				{
+					if (left(x, y) != right(x, y))
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		void testCopyAssign()
+		{
+			const integer Width = 100;
+			const integer Height = 200;
+
+			Array<int, 2> a(Vector2i(Width, Height));
+			for (integer i = 0;i < a.size();++i)
+			{
+				a(i) = i;
+			}
+			
+			TEST_ENSURE_OP(a.size(), ==, Width * Height);
+			TEST_ENSURE(a.extent() == Vector2i(Width, Height));
+			TEST_ENSURE_OP(a.storageOrder(), ==, StorageOrder::RowMajor);
+
 			Array<int, 2> b(a);
+
+			TEST_ENSURE_OP(b.size(), ==, a.size());
+			TEST_ENSURE(b.extent() == a.extent());
+			TEST_ENSURE_OP(b.storageOrder(), ==, StorageOrder::RowMajor);
+			TEST_ENSURE(equal(b, a));
+
 			Array<int, 2> c(a, StorageOrder::RowMajor);
-			a = b;
-			b.clear();
-			b.setExtent(Vector2i(1024, 1024));
-			b = a;
+
+			TEST_ENSURE_OP(c.size(), ==, a.size());
+			TEST_ENSURE(c.extent() == a.extent());
+			TEST_ENSURE_OP(c.storageOrder(), ==, StorageOrder::RowMajor);
+			TEST_ENSURE(equal(c, a));
+
 			a.clear();
+			TEST_ENSURE_OP(a.size(), ==, 0);
+			TEST_ENSURE(allEqual(a.extent(), 0));
+			TEST_ENSURE(a.empty());
+			
+			a = std::move(c);
+			TEST_ENSURE_OP(a.size(), ==, b.size());
+			TEST_ENSURE(a.extent() == b.extent());
+			TEST_ENSURE(!a.empty());
+			TEST_ENSURE(equal(a, b));
+			TEST_ENSURE(c.empty());
+			TEST_ENSURE_OP(c.size(), ==, 0);
+			TEST_ENSURE(allEqual(c.extent(), 0));
+
+			a = a;
+			TEST_ENSURE_OP(a.size(), ==, b.size());
+			TEST_ENSURE(a.extent() == b.extent());
+			TEST_ENSURE(equal(a, b));
+
+			a = std::move(a);
+			TEST_ENSURE_OP(a.size(), ==, b.size());
+			TEST_ENSURE(a.extent() == b.extent());
+			TEST_ENSURE(equal(a, b));
+
+			b.clear();
+			b.setExtent(Vector2i(Width + 100, Height + 50));
+			
+			b = a;
+			TEST_ENSURE(equal(a, b));
+
 			a.setExtent(Vector2i(53, 45), 15);
+			a.setExtent(Vector2i(20, 200), 7);
 		}
 
 		void print(const Array<integer, 2>& that)

@@ -3,6 +3,7 @@
 
 #include "pastel/gfx/mipimage_texture.h"
 #include "pastel/gfx/linearimage_texture.h"
+
 #include "pastel/dsp/mipmap.h"
 
 #include "pastel/sys/arrayview.h"
@@ -53,7 +54,7 @@ namespace Pastel
 		real d = 0;
 		for (integer i = 0;i < n;++i)
 		{
-			const real dotMi = dot(m[i] * Vector2(mostDetailedImage.extent()));
+			const real dotMi = dot(m[i] * Vector<real, N>(mostDetailedImage.extent()));
 			if (dotMi > d)
 			{
 				d = dotMi;
