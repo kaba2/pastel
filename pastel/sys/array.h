@@ -67,21 +67,41 @@ namespace Pastel
 			StorageOrder::Enum order = StorageOrder::RowMajor);
 
 		//! Constructs an array of given extents filled with given data.
-		Array(
+		explicit Array(
 			const Vector<integer, N>& extent,
 			const Type& defaultData = Type(),
 			StorageOrder::Enum order = StorageOrder::RowMajor);
 
-		//! Copy constructs an array.
+		//! Copy-constructs an array.
+		/*!
+		This is equivalent to
+		Array(that, that.storageOrder()).
+		*/
+		Array(const Array& that);
+		
+		//! Copy-constructs an array.
+		Array(const Array& that,
+			StorageOrder::Enum order);
+
+		//! Move-constructs an array.
+		Array(Array&& that);
+
+		//! Copy constructs an array with given extents.
+		/*!
+		This is equivalent to
+		Array(that, extent, defaultData, that.storageOrder()).
+		*/
 		Array(
-			const Array& that);
+			const Array& that,
+			const Vector<integer, N>& extent,
+			const Type& defaultData = Type());
 
 		//! Copy constructs an array with given extents.
 		Array(
 			const Array& that,
 			const Vector<integer, N>& extent,
-			const Type& defaultData = Type(),
-			StorageOrder::Enum order = StorageOrder::RowMajor);
+			const Type& defaultData,
+			StorageOrder::Enum order);
 
 		//! Destruct an array.
 		~Array();
@@ -138,8 +158,30 @@ namespace Pastel
 		//! Returns the dimension of the array.
 		integer dimension() const;
 
-		//! Assigns content from another array.
+		//! Copy-assigns from another array.
+		/*!
+		Preserves storage order.
+		Preserves storage address if and only if
+		the extents of the arrays are equal.
+		*/
 		Array<Type, N>& operator=(const Array& that);
+
+		//! Move-assigns from another array.
+		/*!
+		Does not preserve storage order.
+		Does not preserve storage address.
+		*/
+		Array<Type, N>& operator=(Array&& that);
+
+		//! Copies data from another array.
+		/*!
+		Preconditions:
+		extent() == that.extent()
+
+		Preserves storage order.
+		Preserves storage address.
+		*/
+		void assign(const Array& that);
 
 		//! Returns a reference to the element with the given index.
 		Type& operator()(integer index);
@@ -426,6 +468,14 @@ namespace Pastel
 		}
 
 	private:
+		//! Copy constructs an array.
+		void copyConstruct(
+			const Array& that,
+			StorageOrder::Enum order);
+
+		template <bool ThisInRowOrder>
+		void copyInitialize(const Array& that);
+
 		void computeStride();
 
 		void allocate(
@@ -437,9 +487,10 @@ namespace Pastel
 			const AlignedBox<integer, N>& region,
 			const Type& defaultData);
 
-		void copyConstruct(
+		void copyConstructLarger(
 			const Array& that,
-			const Type& defaultData);
+			const Type& defaultData,
+			StorageOrder::Enum order);
 
 		/*
 		extent_:

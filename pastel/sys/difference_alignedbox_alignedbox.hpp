@@ -7,11 +7,11 @@ namespace Pastel
 {
 
 	template <typename Real, int N_A, int N_B,
-		typename AlignedBox_Functor>
+		typename AlignedBox_Reporter>
 	integer difference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Functor report)
+		AlignedBox_Reporter report)
 	{
 		PASTEL_STATIC_ASSERT(
 			N_A == N_B || 
@@ -59,8 +59,9 @@ namespace Pastel
 			return reported;
 		}
 
+		bool wantToContinue = true;
 		AlignedBox<Real, N> cutBox(aBox);
-		for (integer i = 0;i < n;++i)
+		for (integer i = 0;i < n && wantToContinue;++i)
 		{
 			if (cutBox.max()[i] <= bBox.min()[i])
 			{
@@ -70,7 +71,7 @@ namespace Pastel
 				{
 					// The whole box is included in
 					// the cut-out box.
-					report(cutBox);
+					wantToContinue |= report(cutBox);
 					++reported;
 
 					// There is nothing more to report.
@@ -86,7 +87,7 @@ namespace Pastel
 				{
 					// The whole box is included in
 					// the cut-out box.
-					report(cutBox);
+					wantToContinue |= report(cutBox);
 					++reported;
 
 					// There is nothing more to report.
@@ -112,7 +113,7 @@ namespace Pastel
 					cutBox.maxTopology()[i] = 
 						switchTopology(bBox.minTopology()[i]);
 					// and report it.
-					report(cutBox);
+					wantToContinue |= report(cutBox);
 					++reported;
 
 					// Form the rest of the box,
@@ -140,7 +141,7 @@ namespace Pastel
 					cutBox.minTopology()[i] = 
 						switchTopology(bBox.maxTopology()[i]);
 					// and report it.
-					report(cutBox);
+					wantToContinue |= report(cutBox);
 					++reported;
 
 					// Form the rest of the box,
@@ -159,11 +160,11 @@ namespace Pastel
 
 	template <
 		typename Real, int N_A, int N_B,
-		typename AlignedBox_Functor>
+		typename AlignedBox_Reporter>
 	integer symmetricDifference(
 		const AlignedBox<Real, N_A>& aBox,
 		const AlignedBox<Real, N_B>& bBox,
-		AlignedBox_Functor report)
+		AlignedBox_Reporter report)
 	{
 		integer reported = 0;
 		

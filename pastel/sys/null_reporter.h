@@ -11,9 +11,10 @@ namespace Pastel
 	class Null_Reporter
 	{
 	public:
-		template <typename Type>
-		void operator()(const Type&) const
+		template <typename That>
+		bool operator()(That&&) const
 		{
+			return false;
 		}
 	};
 

@@ -19,10 +19,4 @@ inline Pastel::TestReport& testReport()
 	return theGeometryTestReport;
 }
 
-inline Pastel::Log& testLog()
-{
-	static Pastel::Log theGeometryTestLog;
-	return theGeometryTestLog;
-}
-
 #endif

@@ -3,10 +3,22 @@ Reporters
 
 [[Parent]]: generic_programming.txt
 
-A _reporter_ is any object which can be called like a function and
-passed another object as an argument. In generic functions it works
-as an abstraction for transmitting a sequence of unspecified length
-back to the caller.
+A _reporter_ is any object which can be called like a function,
+taking a single object as an argument and returning a boolean. In 
+generic functions it works as an abstraction for transmitting a 
+sequence of unspecified length back to the caller.
+
+The returned boolean tells the surrounding algorithm whether it should
+continue reporting or not. This allows for an early exit in the reporting
+process in case not all information is needed (say, finding the first
+occurence of an element in a sequence, instead of all). The algorithm 
+may choose to follow this advice or not.
+
+In C++11, the best way to specify reporters is by lambda functions.
+The reporters provided here were created under the restrictions of
+C++98 which does not have lambdas. The user may choose to use either
+these types or lambdas. In any case, the provided reporters at least
+work as examples.
 
 In C++ STL, _output iterators_ are used to transmit sequences 
 generically out of functions. However, output iterators have a lot

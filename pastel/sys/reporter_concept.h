@@ -15,8 +15,8 @@ namespace Pastel
 		class Reporter
 		{
 		public:
-			//! Report 'that'.
-			void operator()(const UserDefinedType& that);
+			//! Reports 'that'. Returns whether to continue reporting.
+			bool operator()(const UserDefinedType& that);
 		};
 	
 	}

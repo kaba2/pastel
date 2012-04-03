@@ -17,10 +17,11 @@ namespace Pastel
 		{
 		}
 
-		template <typename T>
-		void operator()(const T& data) const
+		template <typename That>
+		bool operator()(That&& that) const
 		{
-			data_ = data;
+			data_ = std::forward<That>(that);
+			return false;
 		}
 
 	private:

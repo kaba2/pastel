@@ -18,14 +18,16 @@ namespace Pastel
 		{
 		}
 
-		template <typename Type>
-		void operator()(const Type& data) const
+		template <typename That>
+		bool operator()(That&& that) const
 		{
 			if (!range_.empty())
 			{
-				range_.front() = data;
+				range_.front() = std::forward<That>(that);
 				range_.pop_front();
 			}
+
+			return !range_.empty();
 		}
 
 	private:

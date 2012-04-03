@@ -25,6 +25,8 @@ int main()
 
 	testRunner().console();
 
+	generateTestReport(testReport(), log());
+
 	string tmp;
 	getline(cin, tmp);
 

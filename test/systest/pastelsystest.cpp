@@ -18,8 +18,6 @@ int main()
 	log().addLogger(&streamLogger);
 	log().addLogger(&fileLogger);
 
-	testLog().addLogger(&log());
-
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 

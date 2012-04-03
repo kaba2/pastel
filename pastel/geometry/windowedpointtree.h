@@ -72,12 +72,6 @@ namespace Pastel
 		const ActiveSet& activeSet() const;
 
 	private:
-		void insertBox(const AlignedBox<integer, M>& box);
-		void insertPoint(const Point& point);
-
-		void eraseBox(const AlignedBox<integer, M>& box);
-		void erasePoint(const Point& point);
-
 		Tree tree_;
 		AlignedBox<integer, M> window_;
 		ActiveSet activeSet_;
