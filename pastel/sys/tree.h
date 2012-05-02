@@ -54,7 +54,7 @@ namespace Pastel
 			{
 				if (!that.empty())
 				{
-					insert(end(), 0, *that.croot());
+					insertRoot(*that.croot());
 
 					copyConstruct(that.croot(), croot());
 				}
@@ -194,13 +194,41 @@ namespace Pastel
 			return ConstRange(cbegin(), cend());
 		}
 
+		Iterator insertRoot(const Data& data = Data())
+		{
+			ENSURE(empty());
+
+			// The children of the sentinel node always
+			// refer to itself. Thus we do not set the
+			// child pointer here.
+				
+			Node* node = allocate(data);
+
+			// The rightmost node is stored at the
+			// sentinel parent link. 
+			Node*& rightMost = sentinel_->parent;
+
+			// Since this is the first actual node in
+			// the tree, it is leftmost, rightmost and
+			// the root.
+			leftMost_ = node;
+			rightMost = node;
+			root_ = node;
+
+			return Iterator(node);
+		}
+
 		Iterator insert(
 			const ConstIterator& here, 
 			integer childIndex,
 			const Data& data = Data())
 		{
-			PENSURE_OP(childIndex, >=, 0);
-			PENSURE_OP(childIndex, <, 2);
+			ENSURE_OP(childIndex, >=, 0);
+			ENSURE_OP(childIndex, <, 2);
+
+			const bool insertAtSentinel =
+				here.sentinel();
+			ENSURE(!insertAtSentinel);
 
 			Node* parent = (Node*)here.node_;
 
@@ -208,51 +236,40 @@ namespace Pastel
 			node->parent = parent;
 
 			Node*& parentChild = parent->childSet[childIndex];
-			
-			const bool childAlreadyExists = (parentChild != sentinel_);
+
+			const bool childAlreadyExists = 
+				!(parentChild->sentinel());
 			ENSURE(!childAlreadyExists);
+
+			const bool iteratorFromAnotherTree = 
+				(parentChild != sentinel_);
+			ENSURE(!iteratorFromAnotherTree);
 
 			// The rightmost node is stored at the
 			// sentinel parent link. 
 			Node*& rightMost = sentinel_->parent;
 
-			if (parent != sentinel_)
-			{
-				parentChild = node;
+			parentChild = node;
 
-				if (childIndex == 0)
+			if (childIndex == 0)
+			{
+				if (parent == leftMost_)
 				{
-					if (parent == leftMost_)
-					{
-						// If the parent node is the leftmost node, 
-						// and we are inserting on the left, then 
-						// we have a new leftmost node.
-						leftMost_ = node;
-					}
-				}
-				else
-				{
-					if (parent == rightMost)
-					{
-						// If the parent node is the rightmost node, 
-						// and we are inserting on the right, then 
-						// we have a new rightmost node.
-						rightMost = node;
-					}
+					// If the parent node is the leftmost node, 
+					// and we are inserting on the left, then 
+					// we have a new leftmost node.
+					leftMost_ = node;
 				}
 			}
 			else
 			{
-				// The children of the sentinel node always
-				// refer to itself. Thus we do not set the
-				// child pointer here.
-				
-				// Since this is the first actual node in
-				// the tree, it is leftmost, rightmost and
-				// the root.
-				leftMost_ = node;
-				rightMost = node;
-				root_ = node;
+				if (parent == rightMost)
+				{
+					// If the parent node is the rightmost node, 
+					// and we are inserting on the right, then 
+					// we have a new rightmost node.
+					rightMost = node;
+				}
 			}
 
 			return Iterator(node);
