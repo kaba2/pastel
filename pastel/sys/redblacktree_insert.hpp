@@ -88,6 +88,10 @@ namespace Pastel
 			// This fixes that locally.
 			node = rotate(node, Left);
 
+			// Note that being left-leaning is deliberately 
+			// _not_ an invariant of the tree, although
+			// we make that choice here.
+
 			policy_.updateHierarchical(
 				Iterator(node->left()));
 			policy_.updateHierarchical(

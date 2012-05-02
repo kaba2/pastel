@@ -1,4 +1,4 @@
-// Description: RedBlackTree class
+// Description: A red-black tree
 
 #ifndef PASTEL_REDBLACKTREE_H
 #define PASTEL_REDBLACKTREE_H
@@ -13,7 +13,7 @@
 namespace Pastel
 {
 
-	//! Left-leaning red-black tree
+	//! A red-black tree
 	template <
 		typename Key,
 		typename Compare = std::less<Key>, 
