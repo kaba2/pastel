@@ -1,5 +1,6 @@
 // Description: Array class
 // Detail: An n-dimensional array
+// Tags: C++11
 
 #ifndef PASTEL_ARRAY_H
 #define PASTEL_ARRAY_H

@@ -18,10 +18,9 @@ namespace Pastel
 
 	template <typename Data>
 	class Tree_ConstIterator
-		: boost::totally_ordered<Tree_ConstIterator<Data>
-		, boost::unit_steppable<Tree_ConstIterator<Data>
-		, boost::dereferenceable<Tree_ConstIterator<Data>, const Data
-		> > >
+		: boost::bidirectional_iteratable<Tree_ConstIterator<Data>, const Data
+		, boost::less_than_comparable<Tree_ConstIterator<Data>
+		> >
 	{
 	private:
 		typedef Tree_Private::Node<Data> Node;
@@ -31,6 +30,12 @@ namespace Pastel
 		friend class Tree;
 
 	public:
+		typedef const Data value_type;
+		typedef pointer_integer difference_type;
+		typedef const Data* pointer;
+		typedef const Data& reference;
+		typedef std::bidirectional_iterator_tag iterator_category;
+
 		// Using default copy constructor.
 		// Using default assignment.
 		// Using default destructor.

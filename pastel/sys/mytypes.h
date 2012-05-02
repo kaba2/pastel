@@ -157,8 +157,10 @@ namespace Pastel
 		typedef void Type;
 	};
 
-	// A literal for documenting concepts.
+	// An integer literal for documenting concepts.
 	static const integer UserDefinedInteger = 0;
+	// A boolean literal for documenting concepts.
+	static const bool UserDefinedBoolean = true;
 	// A type for documenting concepts.
 	class PASTELSYS UserDefinedType {};
 

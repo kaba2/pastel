@@ -56,7 +56,7 @@ Expression trees
 One important application of trees is to represent (run-time) expressions. 
 A binary tree can represent nullary, unary prefix, unary postfix, and 
 binary infix operators. Operators with more than two operands are rare. 
-At first you might think that a binary tree is not natural for the unary 
+At first it might seem that a binary tree is not natural for the unary 
 operators since one of the children is wasted. However, consider 
 representing a prefix (postfix) operator as a node which has only the 
 right (left) child. Then if you think of going through the nodes in 

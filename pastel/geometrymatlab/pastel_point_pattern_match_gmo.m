@@ -58,9 +58,9 @@
 % located consistently at the same direction, then the bias is positive.
 % Bias is indicative of an unoptimal translation, although the pairing 
 % is correct. As an example, think of picking the scene point to align 
-% with from an extraneous point near an embedded model point.
+% with an extraneous point near an embedded model point.
 
-% Description: Finds a similarity between unordered pointsets
+% Description: Finds a matching translation between unordered pointsets
 % Documentation: point_pattern_match.txt
 
 function [pairSet, translation, bias, success] = ...

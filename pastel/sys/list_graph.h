@@ -46,7 +46,6 @@ namespace Pastel
 		{
 		}
 
-#ifdef PASTEL_MOVE_SEMANTICS
 		List_Graph(List_Graph&& that)
 			: vertexSet_()
 			, edges_(0)
@@ -59,7 +58,6 @@ namespace Pastel
 			swap(that);
 			return *this;
 		}
-#endif
 
 		List_Graph& operator=(const List_Graph& that)
 		{
@@ -165,7 +163,6 @@ namespace Pastel
 				}
 			}
 
-#ifdef PASTEL_MOVE_SEMANTICS
 			Vertex(Vertex&& that)
 				: exidentSet_()
 			{
@@ -176,7 +173,6 @@ namespace Pastel
 
 				swap(that);
 			}
-#endif
 
 			explicit Vertex(const VertexData& data)
 				: exidentSet_()
@@ -202,13 +198,11 @@ namespace Pastel
 				return *this;
 			}
 
-#ifdef PASTEL_MOVE_SEMANTICS
 			Vertex& operator=(Vertex&& that)
 			{
 				swap(that);
 				return *this;
 			}
-#endif
 
 			void swap(Vertex& that)
 			{

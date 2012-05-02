@@ -640,6 +640,11 @@ namespace Pastel
 		*/
 		void reverse();
 
+		//! Converts a const iterator to an iterator.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		iterator cast(const const_iterator& that);
 
 	private:
