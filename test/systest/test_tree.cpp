@@ -55,7 +55,7 @@ namespace
 				TEST_ENSURE_OP(tree.size(), ==, 0);
 			}
 
-			Iterator aIter = tree.insert(tree.cend(), Tree::Left, 0);
+			Iterator aIter = tree.insertRoot(0);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 1);
 				TEST_ENSURE(!tree.empty());
@@ -110,7 +110,7 @@ namespace
 		void testInsert()
 		{
 			Tree tree;
-			Iterator aIter = tree.insert(tree.cend(), Tree::Left, 0);
+			Iterator aIter = tree.insertRoot(0);
 			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
 			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
 			{

@@ -124,6 +124,34 @@ Some of the flaws in this approach are:
  Either there are many sentinel nodes (which can locally be identified
  as such), or there is a single global sentinel node.
 
+Creation of nodes
+-----------------
+
+When inserting new nodes, the following use-cases come to mind.
+
+1) Predetermined position.
+
+In an ordered binary tree, for example, there is a unique position
+to which a new node should be created to contain the inserted value.
+The tree might be empty at insertion.
+
+2) User-determined position, the tree always contains a root node.
+
+In a kd-tree subdividing space, for example, the user determines the
+node the subdivide. Both children are then created at the same time.
+The tree always contains the root node, so that it can be subdivided.
+
+3) User-determined position, possibly empty tree.
+
+We want to support both the creation of the kd-tree and the ordered
+binary tree. To generalize, the creation position must determinable
+by the user by a node-child pair. The problematic thing here is to 
+specify how the root node is created. The root node could be created 
+as a child of a sentinel node. But then it isn't clear what the 
+left-right child distinction means here. A way to solve this is to 
+make the creation of the root node special, i.e. provide a function 
+createRoot(). This is the approach we adopt.
+
 Summary
 -------
 
@@ -142,4 +170,6 @@ Create a tree data structure such that
  * the nodes are accessed by iterators,
  * the iterators can be used to move in in-order order, to treat
  the nodes as a sequence, or to move arbitrarily in the tree.
+ * a node can be created only under an existing node, or by
+ a special procedure to create the root node.
  
