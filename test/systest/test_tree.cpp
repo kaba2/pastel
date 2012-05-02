@@ -4,6 +4,9 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/tree.h"
+#include "pastel/sys/range_for_all.h"
+#include "pastel/sys/ranges.h"
+#include "pastel/sys/predicates.h"
 
 #include <iostream>
 
@@ -28,48 +31,80 @@ namespace
 		}
 
 		typedef Tree<integer> Tree;
-		typedef Tree_Iterator<integer> Iterator;
-		typedef Tree_ConstIterator<integer> ConstIterator;
+		typedef Tree::Iterator Iterator;
+		typedef Tree::ConstIterator ConstIterator;
+		typedef Tree::Range Range;
+		typedef Tree::ConstRange ConstRange;
+
+		template <int N>
+		bool same(const Tree& tree, int (&correctSet)[N]) const
+		{
+			return rangeForAll(arrayRange(correctSet), tree.crange(), EqualTo());
+		}
+
+		bool same(const Tree& tree, const Tree& that)
+		{
+			return rangeForAll(tree.crange(), that.crange(), EqualTo());
+		}
 
 		void test()
 		{
 			Tree tree;
-			TEST_ENSURE(tree.empty());
-			TEST_ENSURE_OP(tree.size(), ==, 0);
+			{
+				TEST_ENSURE(tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 0);
+			}
 
 			Iterator aIter = tree.insert(tree.cend(), Tree::Left, 0);
-			TEST_ENSURE_OP(tree.size(), ==, 1);
-			TEST_ENSURE(!tree.empty());
+			{
+				TEST_ENSURE_OP(tree.size(), ==, 1);
+				TEST_ENSURE(!tree.empty());
+
+				integer correctSet[] = {0};
+				TEST_ENSURE(same(tree, correctSet));
+			}
 
 			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
-			TEST_ENSURE_OP(tree.size(), ==, 2);
+			{
+				TEST_ENSURE_OP(tree.size(), ==, 2);
+
+				integer correctSet[] = {1, 0};
+				TEST_ENSURE(same(tree, correctSet));
+			}
 
 			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
-			TEST_ENSURE_OP(tree.size(), ==, 3);
+			{
+				TEST_ENSURE_OP(tree.size(), ==, 3);
 
-			print(tree);
-			printReverse(tree);
+				integer correctSet[] = {1, 2, 0};
+				TEST_ENSURE(same(tree, correctSet));
+			}
 
 			tree.rotate(aIter, Tree::Right);
-			print(tree);
+			{
+				integer correctSet[] = {1, 2, 0};
+				TEST_ENSURE(same(tree, correctSet));
+			}
 
 			Tree copyTree(tree);
-			TEST_ENSURE(!copyTree.empty());
-			TEST_ENSURE_OP(copyTree.size(), ==, 3);
-
-			print(copyTree);
-			printReverse(copyTree);
+			{
+				TEST_ENSURE(!copyTree.empty());
+				TEST_ENSURE_OP(copyTree.size(), ==, 3);
+				TEST_ENSURE(same(tree, copyTree));
+			}
 
 			tree.clear();
-			TEST_ENSURE(tree.empty());
-			TEST_ENSURE_OP(tree.size(), ==, 0);
+			{
+				TEST_ENSURE(tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 0);
+			}
 
 			tree = copyTree;
-			TEST_ENSURE(!tree.empty());
-			TEST_ENSURE_OP(tree.size(), ==, 3);
-
-			print(tree);
-			printReverse(tree);
+			{
+				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 3);
+				TEST_ENSURE(same(tree, copyTree));
+			}
 		}
 
 		void testInsert()
@@ -78,40 +113,16 @@ namespace
 			Iterator aIter = tree.insert(tree.cend(), Tree::Left, 0);
 			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
 			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
+			{
+				integer correctSet[] = {1, 2, 0};
+				TEST_ENSURE(same(tree, correctSet));
+			}
 			
 			tree.insert(bIter, Tree::Left, tree);
-
-			print(tree);
-		}
-
-		void print(const Tree& tree)
-		{
-			ConstIterator iter = tree.cbegin();
-			ConstIterator iterEnd = tree.cend();
-			while(iter != iterEnd)
 			{
-				std::cout << *iter << ", ";
-				++iter;
+				integer correctSet[] = {1, 2, 0, 1, 2, 0};
+				TEST_ENSURE(same(tree, correctSet));
 			}
-
-			std::cout << "end." << std::endl;
-		}
-
-		void printReverse(const Tree& tree)
-		{
-			if (!tree.empty())
-			{
-				ConstIterator iter = tree.cend();
-				ConstIterator iterBegin = tree.cbegin();
-				do
-				{
-					--iter;
-					std::cout << *iter << ", ";
-				}
-				while(iter != iterBegin);
-			}
-
-			std::cout << "end." << std::endl;
 		}
 	};
 

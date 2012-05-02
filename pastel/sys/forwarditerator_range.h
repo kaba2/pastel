@@ -10,6 +10,8 @@
 #include "pastel/sys/forwardrange_concept.h"
 
 #include <boost/operators.hpp>
+#include <boost/iterator/iterator_traits.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <algorithm>
 #include <iterator>
@@ -28,7 +30,20 @@ namespace Pastel
 		typedef typename std::iterator_traits<Iterator>::reference reference;
 		typedef typename std::iterator_traits<Iterator>::difference_type difference_type;
 		typedef Iterator iterator;
-		
+		enum
+		{
+			RandomAccess = boost::is_same<
+			boost::iterator_category<Iterator>, 
+			std::random_access_iterator_tag>::value
+		};
+
+		enum
+		{
+			Bidirectional = boost::is_same<
+			boost::iterator_category<Iterator>, 
+			std::bidirectional_iterator_tag>::value || RandomAccess
+		};
+	
 		ForwardIterator_Range()
 			: begin_()
 			, end_()

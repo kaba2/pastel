@@ -6,6 +6,7 @@
 #include "pastel/sys/destruct.h"
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
+#include "pastel/sys/bidirectionaliterator_range.h"
 
 namespace Pastel
 {
@@ -18,6 +19,9 @@ namespace Pastel
 
 		typedef Tree_Iterator<Data> Iterator;
 		typedef Tree_ConstIterator<Data> ConstIterator;
+
+		typedef BidirectionalIterator_Range<Iterator> Range;
+		typedef BidirectionalIterator_Range<ConstIterator> ConstRange;
 
 		enum
 		{
@@ -62,7 +66,6 @@ namespace Pastel
 			}
 		}
 
-#		ifdef PASTEL_MOVE_SEMANTICS
 		Tree(Tree&& that)
 			: sentinel_(0)
 			, leftMost_(0)
@@ -73,7 +76,6 @@ namespace Pastel
 
 			swap(that);
 		}
-#		endif
 
 		~Tree()
 		{
@@ -93,14 +95,12 @@ namespace Pastel
 			return *this;
 		}
 
-#		ifdef PASTEL_MOVE_SEMANTICS
 		Tree& operator=(Tree&& that)
 		{
 			Tree copy(that);
 			swap(copy);
 			return *this;
 		}
-#		endif
 
 		void swap(Tree& that)
 		{
@@ -177,6 +177,21 @@ namespace Pastel
 		ConstIterator cend() const
 		{
 			return ConstIterator(sentinel_);
+		}
+
+		Range range()
+		{
+			return Range(begin(), end());
+		}
+
+		ConstRange range() const
+		{
+			return ConstRange(begin(), end());
+		}
+
+		ConstRange crange() const
+		{
+			return ConstRange(cbegin(), cend());
 		}
 
 		Iterator insert(
@@ -274,7 +289,6 @@ namespace Pastel
 			}
 		}
 
-#ifdef PASTEL_MOVE_SEMANTICS
 		void insert(
 			const ConstIterator& there, 
 			integer childIndex,
@@ -331,7 +345,6 @@ namespace Pastel
 				throw;
 			}
 		}
-#endif
 
 		void erase(const ConstIterator& that)
 		{

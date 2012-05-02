@@ -19,10 +19,10 @@ namespace Pastel
 			typedef UserDefinedType value_type;
 			// A reference to a contained element.
 			typedef UserDefinedType& reference;
-			// Whether this a random-access range.
-			static const bool RandomAccess = true;
+			// Whether this is a random-access range.
+			static const bool RandomAccess = UserDefinedBoolean;
 			// Whether this is a bidirectional range.
-			static const bool Bidirectional = true;
+			static const bool Bidirectional = UserDefinedBoolean;
 
 			//! Swaps two ranges.
 			void swap(ForwardRange& that);

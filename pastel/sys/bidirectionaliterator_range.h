@@ -62,10 +62,7 @@ namespace Pastel
 		{
 			PENSURE(!Base::empty());
 			--Base::end_;
-			if (Base::size_ != Base::Unknown)
-			{
-				--Base::size_;
-			}
+			--Base::size_;
 		}
 
 		reverse_iterator rbegin() const
