@@ -1,4 +1,4 @@
-// Description: Generic tree data structure
+// Description: A generic binary tree
 
 #ifndef PASTEL_TREE_H
 #define PASTEL_TREE_H
