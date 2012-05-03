@@ -1,5 +1,12 @@
-Binary tree
-===========
+Generic binary tree
+===================
 
 [[Parent]]: data_structures.txt
+
+The `Tree` class implements a generic binary tree data structure.
+Its purpose is to work as a back-end for more structured trees,
+such as a red-black tree, a kd-tree, or an expression tree; it 
+is meant as a reusable low-level component for a library 
+writer. As a library user you should not have to bother with 
+this class.
 

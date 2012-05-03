@@ -181,6 +181,10 @@ namespace Pastel
 		friend class Tree;
 
 		typedef Tree_ConstIterator<Data> Base;
+
+		Tree_Iterator()
+		{
+		}
 		
 		void swap(Tree_Iterator& that)
 		{
