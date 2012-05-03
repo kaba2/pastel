@@ -31,7 +31,9 @@ namespace Pastel
 		};
 
 	private:
-		typedef Tree_Private::Node<Data> Node;
+		typedef Tree_Private::Node Node;
+		typedef Tree_Private::Data_Node<Data> Data_Node;
+		typedef Tree_Private::Sentinel_Node Sentinel_Node;
 
 	public:
 		//! Construct an empty tree.
@@ -104,10 +106,7 @@ namespace Pastel
 		{
 			initialize();
 
-			// The sentinel node of 'that' is not
-			// preserved. This is ok, since
-			// 'that' will not be used anymore.
-			swap(that);
+			*this = std::move(that);
 		}
 
 		//! Destructs the tree.
@@ -127,7 +126,8 @@ namespace Pastel
 		//! Copy-assigns from another tree.
 		/*!
 		Time complexity:
-		O(size() + that.size())
+		O(size()) for destruction + 
+		O(that.size()) for construction
 
 		Exception safety: 
 		strong
@@ -140,12 +140,12 @@ namespace Pastel
 			// Detach the current tree.
 			Node* oldRoot = root_;
 			Node* oldLeftMost = leftMost_;
-			Node* oldRightMost = sentinel_->parent;
+			Node* oldRightMost = rightMost();
 			integer oldSize = size_;
 
 			root_ = sentinel_;
 			leftMost_ = sentinel_;
-			sentinel_->parent = sentinel_;
+			setRightMost(sentinel_);
 			size_ = 0;
 
 			try
@@ -159,7 +159,7 @@ namespace Pastel
 				// Attach the old tree back.
 				root_ = oldRoot;
 				leftMost_ = oldLeftMost;
-				sentinel_->parent = oldRightMost;
+				setRightMost(oldRightMost);
 				size_ = oldSize;
 
 				throw;
@@ -167,13 +167,13 @@ namespace Pastel
 
 			Node* newRoot = root_;
 			Node* newLeftMost = leftMost_;
-			Node* newRightMost = sentinel_->parent;
+			Node* newRightMost = rightMost();
 			integer newSize = size_;
 
 			// Switch the old tree back.
 			root_ = oldRoot;
 			leftMost_ = oldLeftMost;
-			sentinel_->parent = oldRightMost;
+			setRightMost(oldRightMost);
 			size_ = oldSize;
 
 			// Destruct the old tree.
@@ -182,7 +182,7 @@ namespace Pastel
 			// Attach the copy of 'that' back.
 			root_ = newRoot;
 			leftMost_ = newLeftMost;
-			sentinel_->parent = newRightMost;
+			setRightMost(newRightMost);
 			size_ = newSize;
 			
 			return *this;
@@ -191,7 +191,8 @@ namespace Pastel
 		//! Move-assigns from another tree.
 		/*!
 		Complexity:
-		O(size() + that.size())
+		O(size()) for destruction +	
+		O(1) for moving
 
 		Exception safety: 
 		strong
@@ -200,20 +201,21 @@ namespace Pastel
 		{
 			// Note that we want to preserve the sentinel nodes.
 
+			// Destruct the current tree.
 			clear();
 
+			// Move the stuff from 'that' to this tree.
 			root_ = that.root_;
 			leftMost_ = that.leftMost_;
-			sentinel_->parent = that.sentinel_->parent;
+			setRightMost(that.rightMost());
 			size_ = that.size_;
 
+			// And clear out 'that' tree.
 			that.root_ = that.sentinel_;
 			that.leftMost_ = that.sentinel_;
-			that.sentinel_->parent = that.sentinel_;
+			that.setRightMost(that.sentinel_);
 			that.size_ = 0;
 
-			updateSentinel(root_);
-			
 			return *this;
 		}
 
@@ -273,7 +275,7 @@ namespace Pastel
 		{
 			if (!empty())
 			{
-				erase(root_);
+				erase((Data_Node*)root_);
 			}
 
 			leftMost_ = sentinel_;
@@ -460,15 +462,11 @@ namespace Pastel
 			// child pointer here.
 			Node* node = allocate(data);
 
-			// The rightmost node is stored at the
-			// sentinel parent link. 
-			Node*& rightMost = sentinel_->parent;
-
 			// Since this is the first actual node in
 			// the tree, it is leftmost, rightmost and
 			// the root.
 			leftMost_ = node;
-			rightMost = node;
+			setRightMost(node);
 			root_ = node;
 
 			return Iterator(node);
@@ -502,23 +500,15 @@ namespace Pastel
 			Node* node = allocate(data);
 			node->parent = parent;
 
-			Node*& parentChild = parent->childSet[childIndex];
+			Node* parentChild = parent->child(childIndex);
 
 			const bool childAlreadyExists = 
 				!(parentChild->sentinel());
 			ENSURE(!childAlreadyExists);
 
-			const bool iteratorFromAnotherTree = 
-				(parentChild != sentinel_);
-			ENSURE(!iteratorFromAnotherTree);
+			parent->setChild(childIndex, node);
 
-			// The rightmost node is stored at the
-			// sentinel parent link. 
-			Node*& rightMost = sentinel_->parent;
-
-			parentChild = node;
-
-			if (childIndex == 0)
+			if (childIndex == Left)
 			{
 				if (parent == leftMost_)
 				{
@@ -530,12 +520,12 @@ namespace Pastel
 			}
 			else
 			{
-				if (parent == rightMost)
+				if (parent == rightMost())
 				{
 					// If the parent node is the rightmost node, 
 					// and we are inserting on the right, then 
 					// we have a new rightmost node.
-					rightMost = node;
+					setRightMost(node);
 				}
 			}
 
@@ -601,7 +591,7 @@ namespace Pastel
 		//! Moves a tree under a node.
 		/*!
 		Time complexity:
-		O(that.size())
+		O(1)
 
 		Exception safety:
 		nothrow
@@ -632,22 +622,21 @@ namespace Pastel
 
 				root_ = thatRoot;
 				leftMost_ = that.leftMost_;
-				rightMost_ = that.rightMost_;
+				setRightMost(that.rightMost());
 				size_ = that.size_;
 			}
 			else
 			{			
 				Node* thereNode = (Node*)there.node_;
 
-				Node*& childRef = thereNode->childSet[childIndex];
+				Node* child = thereNode->child(childIndex);
 				
 				// Check that the child does not already exist.
-				const bool childAlreadyExists = 
-					(childRef != sentinel_);
+				const bool childAlreadyExists = !child->sentinel();
 				ENSURE(!childAlreadyExists);
 
 				// Link 'that' tree to 'there' node.
-				childRef = thatRoot;
+				thereNode->setChild(childIndex, thatRoot);
 				thatNode->parent = thereNode;
 
 				// Possibly update the leftmost node.
@@ -662,10 +651,9 @@ namespace Pastel
 				// Possibly update the rightmost node.
 				if (childIndex == Right)		
 				{				
-					Node*& rightMost = sentinel_->parent;
-					if (thereNode == rightMost)
+					if (thereNode == rightMost())
 					{
-						rightMost = that.rightMost_;
+						setRightMost(that.rightMost());
 					}
 				}
 
@@ -673,14 +661,10 @@ namespace Pastel
 				size_ += that.size_;
 			}
 
-			// Change the sentinel nodes to refer to 
-			// this tree.
-			updateSentinel(thatRoot);
-
 			// Get rid of the tree in 'that'.
 			that.leftMost_ = that.sentinel_;
 			that.root_ = that.sentinel_;
-			that.sentinel_->parent_ = that.sentinel_;
+			that.setRightMost(that.sentinel_);
 			that.size_ = 0;
 
 			return Iterator(thatRoot);
@@ -698,7 +682,7 @@ namespace Pastel
 		{
 			PENSURE(!that.sentinel());
 
-			erase((Node*)that.node_);
+			erase((Data_Node*)that.node_);
 		}
 
 		//! Rotates a node.
@@ -735,10 +719,10 @@ namespace Pastel
 			Node* rightLeftNode = (Node*)rightLeft.node_;
 			Node* thatParent = thatNode->parent;
 
-			thatNode->childSet[R] = rightLeftNode;
+			thatNode->setChild(R, rightLeftNode);
 			rightLeftNode->parent = thatNode;
 
-			rightNode->childSet[L] = thatNode;
+			rightNode->setChild(L, thatNode);
 			thatNode->parent = rightNode;
 
 			rightNode->parent = thatParent;
@@ -762,6 +746,27 @@ namespace Pastel
 			return Iterator((Node*)that.node_);
 		}
 
+		//! Returns the reference count of the sentinel node.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+
+		This function is mainly useful for testing purposes.
+		Each tree has a local sentinel node which works as
+		the one-past-end node for iterators. However, the
+		sentinel nodes are also used as child references to
+		denote an empty child. Here the sentinel nodes may
+		be shared between trees, and their lifetime is
+		tracked using reference counting.
+		*/
+		integer sentinelCount() const
+		{
+			return sentinel_->count();
+		}
+
 	private:
 		//! Initializations common to all constructors.
 		/*!
@@ -773,10 +778,8 @@ namespace Pastel
 		*/
 		void initialize()
 		{
-			// The sentinel node should not be
-			// constructed with allocate(). It
-			// has no user data.
-			sentinel_ = new Node;
+			sentinel_ = new Sentinel_Node;
+			sentinel_->increaseCount();
 
 			leftMost_ = sentinel_;
 			root_ = sentinel_;
@@ -792,10 +795,9 @@ namespace Pastel
 		*/
 		void deinitialize()
 		{
-			// The sentinel node should not be
-			// destructed with deallocate(). It
-			// has no user data.
-			delete sentinel_;
+			// Note that this line may delete
+			// the sentinel node.
+			sentinel_->decreaseCount();
 			sentinel_ = 0;
 			leftMost_ = 0;
 			size_ = 0;
@@ -818,13 +820,13 @@ namespace Pastel
 			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->child(i);
-				if (child != sentinel_)
+				if (!child->sentinel())
 				{
 					result += size(child);
 				}
 			}
 
-			if (node != sentinel_)
+			if (!node->sentinel())
 			{
 				result += 1;
 			}
@@ -840,50 +842,65 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void erase(Node* node)
+		void erase(Data_Node* node)
 		{
 			ASSERT(node);
-			ASSERT(node != sentinel_);
-
-			for (integer i = 0;i < 2;++i)
-			{
-				Node* child = node->childSet[i];
-				if (child != sentinel_)
-				{
-					erase(child);
-				}
-			}
+			ASSERT(!node->sentinel());
 
 			Node* parent = node->parent;
 			for (integer i = 0;i < 2;++i)
 			{
-				if (parent->childSet[i] == node)
+				if (parent->child(i) == node)
 				{
-					parent->childSet[i] = sentinel_;
+					parent->setChild(i, sentinel_);
 					break;
 				}
 			}
 
+			eraseSubtree(node);
+		}
+
+		void eraseSubtree(Data_Node* node)
+		{
+			ASSERT(node);
+			ASSERT(!node->sentinel());
+
+			// Recurse to remove child subtrees.
+			for (integer i = 0;i < 2;++i)
+			{
+				Node* child = node->child(i);
+				if (!child->sentinel())
+				{
+					eraseSubtree((Data_Node*)child);
+				}
+			}
+
+			Node* parent = node->parent;
 			if (node == leftMost_)
 			{
+				// We are removing the leftmost node.
+				// Make the parent node the leftmost node.
 				leftMost_ = parent;
 			}
 
-			Node*& rightMost = sentinel_->parent;
-			if (node == rightMost)
+			if (node == rightMost())
 			{
-				rightMost = parent;
+				// We are removing the rightmost node.
+				// Make the parent node the rightmost node.
+				setRightMost(parent);
 			}
 
 			if (node == root_)
 			{
+				// We are removing the root node.
+				// Make sentinel node the root node.
 				root_ = sentinel_;
 			}
 			
 			deallocate(node);
 		}
 
-		//! Allocates a node.
+		//! Allocates a data node.
 		/*!
 		Time complexity:
 		O(1)
@@ -891,14 +908,14 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Node* allocate(const Data& data)
+		Data_Node* allocate(const Data& data)
 		{
 			integer rollBack = 0;
-			Node* node = 0;
+			Data_Node* node = 0;
 
 			try
 			{
-				node = new Node(sentinel_);
+				node = new Data_Node(sentinel_);
 				++rollBack;
 			
 				if (node->data())
@@ -924,7 +941,7 @@ namespace Pastel
 			return node;
 		}
 
-		//! Deallocates a node.
+		//! Deallocates a data node.
 		/*!
 		Time complexity:
 		O(1)
@@ -932,16 +949,15 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void deallocate(Node* node)
+		void deallocate(Data_Node* node)
 		{
 			ASSERT(node);
-			ASSERT(node != sentinel_);
+			ASSERT(!node->sentinel());
 
 			if (node->data())
 			{
 				destruct(node->data());
 			}
-
 			delete node;
 
 			--size_;
@@ -972,6 +988,20 @@ namespace Pastel
 			}
 		}
 
+		void setRightMost(Node* node)
+		{
+			sentinel_->parent = node;
+			if (!node->sentinel())
+			{
+				node->setChild(Right, sentinel_);
+			}
+		}
+
+		Node* rightMost() const
+		{
+			return sentinel_->parent;
+		}
+
 		//! Turns all sentinel references to this tree.
 		/*!
 		Time complexity:
@@ -980,32 +1010,40 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
+		/*
 		void updateSentinel(Node* node)
 		{
 			ASSERT(!node->sentinel());
 
 			for (integer i = 0;i < 2;++i)
 			{
-				Node*& childRef = node->childSet[i];
+				Node* child = node->child(i);
 
-				if (childRef->sentinel())
+				if (child->sentinel())
 				{
 					// This is a sentinel reference,
 					// but not necessary to this tree.
-					
-					// Turn the reference to this tree.
-					childRef = sentinel_;
+
+					if (child != sentinel_)
+					{
+						Sentinel_Node* sentinelNode =
+							(Sentinel_Node*)child;
+
+						// Turn the reference to this tree.
+						sentinelNode->setChild(i, sentinel_);
+					}
 				}
 				else
 				{
 					// This is a normal node reference.
 					// Recurse.
-					updateSentinel(childRef);
+					updateSentinel(child);
 				}
 			}
 		}
+		*/
 
-		Node* sentinel_;
+		Sentinel_Node* sentinel_;
 		Node* leftMost_;
 		Node* root_;
 		integer size_;

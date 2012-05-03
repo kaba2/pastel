@@ -152,6 +152,93 @@ left-right child distinction means here. A way to solve this is to
 make the creation of the root node special, i.e. provide a function 
 createRoot(). This is the approach we adopt.
 
+Moving sub-trees
+----------------
+
+Ideally, we would like to like to be able to move sub-trees fast.
+The design choice of how to represent the empty children
+references interacts with this requirement.
+
+1) Null references
+
+Having all empty children references as null pointers is not
+an option, since this prohibits iterators from working.
+If it were an option, then it would enable constant-time
+moves of sub-trees in many cases. However, there would still 
+be some difficulties when keeping the leftmost and rightmost 
+nodes up to date.
+
+2) Sentinel references
+
+In this option all empty children references point to the
+sentinel node. Now moving a tree into another tree requires
+to reassign the sentinel nodes to match the sentinel node of
+the assigned-to tree. This requires time linear in the number
+of moved nodes.
+
+3) Null references, and a sentinel reference at the right 
+child of the rightmost node
+
+This is a hybrid of the options 1 and 2 which enables the
+iterators to work correctly, and also fast moves. However, 
+having null references means that the internal algorithms 
+will be complicated since one can not assume a child of a 
+child exists. This complication is also on the user of the 
+class. In addition, the non-uniformity of having a single 
+exceptional reference will probably bite back.
+
+4) Shared sentinel references
+
+In this option sentinel nodes are used everywhere, as in
+option 2, but the sentinel nodes can be shared between trees,
+and a single tree can contain multiple different sentinel
+nodes. The rightmost node is always kept linked to the local
+sentinel node so that iterators work correctly.
+
+The different sentinel nodes compare unequal, that is,
+as they would normally compare as node pointers. Doing
+otherwise would be a non-uniformity. Also, their unequal 
+comparison might be needed when storing the iterators
+in containers.
+
+As otherwise, detecting a sentinel node is done by testing 
+for a local criterion, as in `if (iter.sentinel())`. The
+test `if (iter == tree.end())` is also correct when using the
+iterators as a sequence, but not when traversing the tree
+in free manner, since then the sentinel references might not
+be to `tree.end()`. This represents a small trap in this
+approach.
+
+This approach requires that each sentinel node is reference
+counted. This can be achieved in multiple ways.
+
+First assume a tree keeps up a list of 'keep-alive' 
+`shared_ptr`s to all the sentinel nodes referenced in it.
+It is then difficult to think of a way to cull off these 
+keep-alive pointers automatically when the corresponding 
+sentinel nodes are no longer used in a tree. I can also 
+imagine that there is a strategy to grow the number of 
+keep-alive pointers unboundedly using only a bounded amount of nodes.
+One could go a step further to change the tree child references
+to `shared_ptr`. But this takes much of extraneous resources.
+
+This strongly suggests that this is an exceptional
+situation where a specially crafted intrusive reference 
+counting for the sentinel nodes is the way to go. Here
+a reference count is stored alongside each sentinel node.
+The tree that creates the sentinel node adds one to the
+reference count in construction; that same tree decreases
+the reference count of its created sentinel node in its 
+destruction. That is, the lifetime of a sentinel node
+of a tree might extend beyond the tree which created it.
+When constructing a node, the children will be set to
+point to the local sentinel node of the tree. This will
+add two to its reference count. When a node is destructed,
+it will decrease the reference count of whichever sentinel
+nodes its children references are set to. If the reference
+count of a sentinel ever reaches zero, the sentinel node
+is destructed.
+
 Summary
 -------
 

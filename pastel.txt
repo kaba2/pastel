@@ -5,7 +5,7 @@ Pastel
 
 [Back]: http://kaba.hilvi.org
 
-_Pastel_ is a cross-platform C++ library for geometry and computer 
+_Pastel_ is a cross-platform C++11 library for geometry and computer 
 graphics.
 
 Source code
