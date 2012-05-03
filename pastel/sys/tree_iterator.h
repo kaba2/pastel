@@ -23,7 +23,8 @@ namespace Pastel
 		> >
 	{
 	private:
-		typedef Tree_Private::Node<Data> Node;
+		typedef Tree_Private::Node Node;
+		typedef Tree_Private::Data_Node<Data> Data_Node;
 		friend class Tree_Iterator<Data>;
 		
 		template <typename Type, typename Derived>
@@ -70,16 +71,16 @@ namespace Pastel
 			ASSERT_OP(index, >=, 0);
 			ASSERT_OP(index, <, 2);
 
-			return Tree_ConstIterator(node_->childSet[index]);
+			return Tree_ConstIterator(node_->child(index));
 		}
 
 		const Data& operator*() const
 		{
 			ASSERT(!empty());
-			ASSERT(node_->data());
 			PENSURE(!node_->sentinel());
+			ASSERT(((Data_Node*)node_)->data());
 
-			return *(node_->data());
+			return *(((Data_Node*)node_)->data());
 		}
 
 		Tree_ConstIterator& operator++()
@@ -136,7 +137,7 @@ namespace Pastel
 			const integer backward = !forward;
 
 			const Node* result;
-			const Node* child = node_->childSet[forward];
+			const Node* child = node_->child(forward);
 		
 			if (child->sentinel())
 			{
@@ -149,15 +150,15 @@ namespace Pastel
 					result = previous->parent;
 				}
 				while(!result->sentinel() && 
-					result->childSet[backward] != previous);
+					result->child(backward) != previous);
 			}
 			else
 			{
 				result = child;
 
-				while(!result->childSet[backward]->sentinel())
+				while(!result->child(backward)->sentinel())
 				{
-					result = result->childSet[backward];
+					result = result->child(backward);
 				}
 			}
 

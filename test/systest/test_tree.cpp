@@ -53,12 +53,13 @@ namespace
 			{
 				TEST_ENSURE(tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 0);
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 1);
 			}
-
 			Iterator aIter = tree.insertRoot(0);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 1);
 				TEST_ENSURE(!tree.empty());
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 3);
 
 				integer correctSet[] = {0};
 				TEST_ENSURE(same(tree, correctSet));
@@ -67,6 +68,7 @@ namespace
 			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 2);
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
 
 				integer correctSet[] = {1, 0};
 				TEST_ENSURE(same(tree, correctSet));
@@ -75,6 +77,7 @@ namespace
 			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 3);
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
 
 				integer correctSet[] = {1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));
@@ -82,12 +85,16 @@ namespace
 
 			tree.rotate(aIter, Tree::Right);
 			{
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
+
 				integer correctSet[] = {1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));
 			}
 
 			Tree copyTree(tree);
 			{
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
+				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
 				TEST_ENSURE(!copyTree.empty());
 				TEST_ENSURE_OP(copyTree.size(), ==, 3);
 				TEST_ENSURE(same(tree, copyTree));
@@ -95,12 +102,16 @@ namespace
 
 			tree.clear();
 			{
+				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 1);
 				TEST_ENSURE(tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 0);
 			}
 
 			tree = copyTree;
 			{
+				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 5);
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
 				TEST_ENSURE(!tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 				TEST_ENSURE(same(tree, copyTree));
@@ -108,6 +119,8 @@ namespace
 
 			copyTree = std::move(tree);
 			{
+				TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 2);
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
 				integer correctSet[] = {1, 2, 0};
 				TEST_ENSURE(tree.empty());
 				TEST_ENSURE_OP(tree.size(), ==, 0);
@@ -116,14 +129,22 @@ namespace
 				TEST_ENSURE(same(copyTree, correctSet));
 			}
 
-			Tree anotherTree(std::move(copyTree));
 			{
-				integer correctSet[] = {1, 2, 0};
-				TEST_ENSURE(copyTree.empty());
-				TEST_ENSURE_OP(copyTree.size(), ==, 0);
-				TEST_ENSURE(!anotherTree.empty());
-				TEST_ENSURE_OP(anotherTree.size(), ==, 3);
-				TEST_ENSURE(same(anotherTree, correctSet));
+				Tree anotherTree(std::move(copyTree));
+				{
+					TEST_ENSURE_OP(copyTree.sentinelCount(), ==, 1);
+					TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
+					TEST_ENSURE_OP(anotherTree.sentinelCount(), ==, 2);
+					integer correctSet[] = {1, 2, 0};
+					TEST_ENSURE(copyTree.empty());
+					TEST_ENSURE_OP(copyTree.size(), ==, 0);
+					TEST_ENSURE(!anotherTree.empty());
+					TEST_ENSURE_OP(anotherTree.size(), ==, 3);
+					TEST_ENSURE(same(anotherTree, correctSet));
+				}
+			}
+			{
+				TEST_ENSURE_OP(tree.sentinelCount(), ==, 1);
 			}
 		}
 
