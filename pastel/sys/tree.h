@@ -701,37 +701,6 @@ namespace Pastel
 			erase((Node*)that.node_);
 		}
 
-		Tree detach(const ConstIterator& that)
-		{
-			ENSURE(!that.sentinel());
-
-			Node* node = (Node*)that.node_;
-			const integer detachedSize = size(node);
-
-			// Detach the subtree given by 'that' 
-			// from this tree.
-
-			Node* parent = node->parent;
-			integer index = 0;
-			while (index < 2 && parent->childSet[index] != node)
-			{
-				++index;
-			}
-
-			parent->childSet[index] = sentinel_;
-
-			size_ -= detachedSize;
-
-			// Attach the subtree to a new tree.
-			
-			Tree tree;
-			node->parent = tree.sentinel_;
-			tree.sentinel_->childSet[0] = node;
-			tree.size_ = detachedSize;
-
-			return tree;
-		}
-
 		//! Rotates a node.
 		/*!
 		Preconditions:
@@ -1003,7 +972,7 @@ namespace Pastel
 			}
 		}
 
-		//! Turn all sentinel references to this tree.
+		//! Turns all sentinel references to this tree.
 		/*!
 		Time complexity:
 		O(size(node))

@@ -105,6 +105,26 @@ namespace
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 				TEST_ENSURE(same(tree, copyTree));
 			}
+
+			copyTree = std::move(tree);
+			{
+				integer correctSet[] = {1, 2, 0};
+				TEST_ENSURE(tree.empty());
+				TEST_ENSURE_OP(tree.size(), ==, 0);
+				TEST_ENSURE(!copyTree.empty());
+				TEST_ENSURE_OP(copyTree.size(), ==, 3);
+				TEST_ENSURE(same(copyTree, correctSet));
+			}
+
+			Tree anotherTree(std::move(copyTree));
+			{
+				integer correctSet[] = {1, 2, 0};
+				TEST_ENSURE(copyTree.empty());
+				TEST_ENSURE_OP(copyTree.size(), ==, 0);
+				TEST_ENSURE(!anotherTree.empty());
+				TEST_ENSURE_OP(anotherTree.size(), ==, 3);
+				TEST_ENSURE(same(anotherTree, correctSet));
+			}
 		}
 
 		void testInsert()
@@ -123,6 +143,18 @@ namespace
 				integer correctSet[] = {1, 2, 0, 1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));
 			}
+		}
+
+		void print(const Tree& that)
+		{
+			ConstRange range = that.crange();
+			while(!range.empty())
+			{
+				std::cout << range.front() << ", ";
+				range.pop_back();
+			}
+
+			std::cout << "end." << std::endl;
 		}
 	};
 
