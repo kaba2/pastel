@@ -67,24 +67,34 @@ namespace Pastel
 			, root_(0)
 			, size_(0)
 		{
-			initialize();
+			integer rollBack = 0;
 
 			try
 			{
+				initialize();
+				++rollBack;
+
 				if (!that.empty())
 				{
 					insertRoot(*that.croot());
+					++rollBack;
 
 					copyConstruct(that.croot(), croot());
 				}
 			}
 			catch(...)
 			{
-				clear();
-				
-				// The destructor will not be run,
-				// so remember to deinitialize.
-				deinitialize();
+				switch(rollBack)
+				{
+				case 2:
+					clear();
+					// Fall-through.
+				case 1:				
+					// The destructor will not be run,
+					// so remember to deinitialize.
+					deinitialize();
+					break;
+				};
 
 				throw;
 			}
@@ -104,8 +114,9 @@ namespace Pastel
 			, root_(0)
 			, size_(0)
 		{
+			// Strong guarantee.
 			initialize();
-
+			// Nothrow.
 			*this = std::move(that);
 		}
 
@@ -119,7 +130,9 @@ namespace Pastel
 		*/
 		~Tree()
 		{
+			// Nothrow
 			clear();
+			// Nothrow
 			deinitialize();
 		}
 
@@ -134,57 +147,27 @@ namespace Pastel
 		*/
 		Tree& operator=(const Tree& that)
 		{
-			// Note that we want to preserve the sentinel node.
-			// This is why we do this rather than copy and swap.
+			// Note that we want to preserve the sentinel nodes.
 
-			// Detach the current tree.
-			Node* oldRoot = root_;
-			Node* oldLeftMost = leftMost_;
-			Node* oldRightMost = rightMost();
-			integer oldSize = size_;
-
-			root_ = sentinel_;
-			leftMost_ = sentinel_;
-			setRightMost(sentinel_);
-			size_ = 0;
-
-			try
+			if (this != &that)
 			{
-				// Create a copy of 'that'.
-				Iterator copyRoot = 
-					insert(end(), Tree::Right, that);
-			}
-			catch(...)
-			{
-				// Attach the old tree back.
-				root_ = oldRoot;
-				leftMost_ = oldLeftMost;
-				setRightMost(oldRightMost);
-				size_ = oldSize;
+				// Detach the current tree.
+				Tree temporary(std::move(*this));
 
-				throw;
+				try
+				{
+					// Create a copy of 'that'.
+					insert(end(), Right, that);
+				}
+				catch(...)
+				{
+					// Attach the old tree back.
+					*this = std::move(temporary);
+
+					throw;
+				}
 			}
 
-			Node* newRoot = root_;
-			Node* newLeftMost = leftMost_;
-			Node* newRightMost = rightMost();
-			integer newSize = size_;
-
-			// Switch the old tree back.
-			root_ = oldRoot;
-			leftMost_ = oldLeftMost;
-			setRightMost(oldRightMost);
-			size_ = oldSize;
-
-			// Destruct the old tree.
-			clear();
-
-			// Attach the copy of 'that' back.
-			root_ = newRoot;
-			leftMost_ = newLeftMost;
-			setRightMost(newRightMost);
-			size_ = newSize;
-			
 			return *this;
 		}
 
@@ -195,26 +178,26 @@ namespace Pastel
 		O(1) for moving
 
 		Exception safety: 
-		strong
+		nothrow
 		*/
 		Tree& operator=(Tree&& that)
 		{
 			// Note that we want to preserve the sentinel nodes.
 
-			// Destruct the current tree.
-			clear();
+			if (this != &that)
+			{
+				// Destruct the current tree.
+				clear();
 
-			// Move the stuff from 'that' to this tree.
-			root_ = that.root_;
-			leftMost_ = that.leftMost_;
-			setRightMost(that.rightMost());
-			size_ = that.size_;
+				// Move the stuff from 'that' to this tree.
+				root_ = that.root_;
+				leftMost_ = that.leftMost_;
+				setRightMost(that.rightMost());
+				size_ = that.size_;
 
-			// And clear out 'that' tree.
-			that.root_ = that.sentinel_;
-			that.leftMost_ = that.sentinel_;
-			that.setRightMost(that.sentinel_);
-			that.size_ = 0;
+				// Forget that 'that' ever owned the stuff.
+				that.forget();
+			}
 
 			return *this;
 		}
@@ -607,9 +590,16 @@ namespace Pastel
 			PENSURE_OP(childIndex, >=, 0);
 			PENSURE_OP(childIndex, <, 2);
 
+			if (this == &that)
+			{
+				// Trying to move the tre as a subtree of itself.
+				// Copy instead.
+				return insert(there, childIndex, (const Tree&)that);
+			}
+
 			if (that.empty())
 			{
-				return;
+				return end();
 			}
 
 			Node* thatRoot = that.root_;
@@ -620,10 +610,7 @@ namespace Pastel
 					empty();
 				ENSURE(emptyWhenInsertingToSentinel);
 
-				root_ = thatRoot;
-				leftMost_ = that.leftMost_;
-				setRightMost(that.rightMost());
-				size_ = that.size_;
+				*this = std::move(that);
 			}
 			else
 			{			
@@ -659,13 +646,10 @@ namespace Pastel
 
 				// Update the size.
 				size_ += that.size_;
-			}
 
-			// Get rid of the tree in 'that'.
-			that.leftMost_ = that.sentinel_;
-			that.root_ = that.sentinel_;
-			that.setRightMost(that.sentinel_);
-			that.size_ = 0;
+				// Forget that 'that' ever owned the stuff.
+				that.forget();
+			}
 
 			return Iterator(thatRoot);
 		}
@@ -988,6 +972,19 @@ namespace Pastel
 			}
 		}
 
+		//! Sets the rightmost node.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+
+		The rightmost node is stored at the parent of
+		the sentinel node, since this way the iterator
+		naturally traverses between one-past-last (end())
+		and the rightmost node.
+		*/
 		void setRightMost(Node* node)
 		{
 			sentinel_->parent = node;
@@ -997,9 +994,33 @@ namespace Pastel
 			}
 		}
 
+		//! Returns the rightmost node.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+		*/
 		Node* rightMost() const
 		{
 			return sentinel_->parent;
+		}
+
+		//! Sets all to initial position without destructions.
+		/*!
+		Time complexity:
+		O(1)
+
+		Exception safety:
+		nothrow
+		*/
+		void forget()
+		{
+			root_ = sentinel_;
+			leftMost_ = sentinel_;
+			setRightMost(sentinel_);
+			size_ = 0;
 		}
 
 		//! Turns all sentinel references to this tree.

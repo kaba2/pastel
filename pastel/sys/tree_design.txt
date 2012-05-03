@@ -155,42 +155,33 @@ createRoot(). This is the approach we adopt.
 Moving sub-trees
 ----------------
 
-Ideally, we would like to like to be able to move sub-trees fast.
-The design choice of how to represent the empty children
-references interacts with this requirement.
+We would like to be able to move sub-trees around in constant time,
+even between different trees. The design choice of how to represent 
+the empty children references interacts with this requirement.
 
-1) Null references
-
-Having all empty children references as null pointers is not
-an option, since this prohibits iterators from working.
-If it were an option, then it would enable constant-time
-moves of sub-trees in many cases. However, there would still 
-be some difficulties when keeping the leftmost and rightmost 
-nodes up to date.
-
-2) Sentinel references
+1) Unique sentinel references
 
 In this option all empty children references point to the
-sentinel node. Now moving a tree into another tree requires
-to reassign the sentinel nodes to match the sentinel node of
-the assigned-to tree. This requires time linear in the number
-of moved nodes.
+unique sentinel node of the tree. Now moving a tree into 
+another tree requires to reassign the sentinel nodes to match 
+the sentinel node of the assigned-to tree. This requires time 
+linear in the number of moved nodes.
 
-3) Null references, and a sentinel reference at the right 
+2) Null references, and a sentinel reference at the right 
 child of the rightmost node
 
-This is a hybrid of the options 1 and 2 which enables the
-iterators to work correctly, and also fast moves. However, 
-having null references means that the internal algorithms 
-will be complicated since one can not assume a child of a 
-child exists. This complication is also on the user of the 
-class. In addition, the non-uniformity of having a single 
-exceptional reference will probably bite back.
+This option would make iterators work correctly, and also 
+enable fast moves. However, having null references means that 
+the internal algorithms will be _much_ complicated since one 
+can not assume a child of a child exists. What's worse is that
+this complication also affects the user's algorithms. The 
+non-uniformity of having a single exceptional reference would 
+probably bite back.
 
 4) Shared sentinel references
 
 In this option sentinel nodes are used everywhere, as in
-option 2, but the sentinel nodes can be shared between trees,
+option 1, but the sentinel nodes can be shared between trees,
 and a single tree can contain multiple different sentinel
 nodes. The rightmost node is always kept linked to the local
 sentinel node so that iterators work correctly.
@@ -210,7 +201,7 @@ be to `tree.end()`. This represents a small trap in this
 approach.
 
 This approach requires that each sentinel node is reference
-counted. This can be achieved in multiple ways.
+counted.
 
 First assume a tree keeps up a list of 'keep-alive' 
 `shared_ptr`s to all the sentinel nodes referenced in it.
@@ -222,22 +213,20 @@ keep-alive pointers unboundedly using only a bounded amount of nodes.
 One could go a step further to change the tree child references
 to `shared_ptr`. But this takes much of extraneous resources.
 
-This strongly suggests that this is an exceptional
-situation where a specially crafted intrusive reference 
-counting for the sentinel nodes is the way to go. Here
+A much better way is to use specially crafted intrusive 
+reference counting for the sentinel nodes. Here
 a reference count is stored alongside each sentinel node.
 The tree that creates the sentinel node adds one to the
 reference count in construction; that same tree decreases
 the reference count of its created sentinel node in its 
-destruction. That is, the lifetime of a sentinel node
+destruction. When constructing a node, the children will 
+be set to point to the local sentinel node of the tree. 
+This will add two to its reference count. When a node is 
+destructed, it will decrease the reference count of whichever 
+sentinel nodes its children references are set to. If the 
+reference count of a sentinel ever reaches zero, the 
+sentinel node is destructed. The lifetime of a sentinel node
 of a tree might extend beyond the tree which created it.
-When constructing a node, the children will be set to
-point to the local sentinel node of the tree. This will
-add two to its reference count. When a node is destructed,
-it will decrease the reference count of whichever sentinel
-nodes its children references are set to. If the reference
-count of a sentinel ever reaches zero, the sentinel node
-is destructed.
 
 Summary
 -------
@@ -247,10 +236,18 @@ Create a tree data structure such that
  * each node belongs to exactly one tree,
  * each node has exactly one parent node,
  * each node has exactly two children,
- * a unique tree-local sentinel node denotes a 
- non-existing child or parent,
- * a tree always contains the sentinel node,
- * the sentinel contains no user data (no constructors are run),
+ * a tree always contains a local sentinel node,
+ * the local sentinel node is unique for the lifetime of the tree,
+ * a sentinel node contains no user data (no constructors are run),
+ * the parent of the local sentinel node always points to the
+ rightmost node of the tree,
+ * the right child of the rightmost node of the tree always points 
+ to the local sentinel node,
+ * a sentinel node is always itself its both children, a unique
+ property by which it can be recognized,
+ * each local sentinel node is reference counted by non-self 
+ child links and by its tree link,
+ * a sentinel node denotes a non-existing child or parent,
  * the root, leftmost, and rightmost nodes are tracked so that
  they can be reported in constant time, 
  * the children are referred to by integers 0 and 1 in the user interface,
