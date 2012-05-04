@@ -1,7 +1,7 @@
 Augmented red-black tree
 ========================
 
-[[Parent]]: data_structures.txt
+[[Parent]]: trees.txt
 
 A _red-black tree_ is a certain kind of a balanced binary search tree.
 An _augmented red-black tree_ is a red-black tree which automatically

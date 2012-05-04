@@ -10,3 +10,34 @@ is meant as a reusable low-level component for a library
 writer. As a library user you should not have to bother with 
 this class.
 
+Implementing a generic binary tree well is, perhaps surprisingly, 
+non-trivial. Failing to find certain design strategies leads to
+implementation- and user-code which contains accidental complexity,
+is prone to errors, has linear time-complexity where constant 
+time-complexity would suffice, and can not be used with iterators.
+For a discussion of the different design options, see the discussion
+[here][TreeDesign].
+
+[TreeDesign]: [[Ref]]: tree_design.txt
+
+Here we will present a generic binary tree data structure which
+
+ * contains both child and parent links in each node,
+ * can be traversed bidirectionally as a sequence by iterators in in-order,
+ * can be traversed freely by iterators using parent and child links,
+ * can move subtrees in constant time (even between trees),
+ * automatically keeps track of the leftmost node, the rightmost node, 
+ and the root node,
+ * automatically updates hierarchical information in the tree
+ according to a user-specified local procedure,
+ * is exception safe,
+ * marks missing children by references to sentinel nodes,
+ thereby simplifying algorithms significantly (the children
+ of a node always exist),
+ * preserves the local sentinel node in all operations,
+ * can contain user-defined data in nodes,
+ * can avoid using any memory for user-defined data in nodes 
+ if such is not needed, and
+ * does not use any memory for user-defined data in 
+ sentinel nodes.
+

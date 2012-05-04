@@ -1,5 +1,5 @@
-Tree design notes
-=================
+Generic binary tree design notes
+================================
 
 [[Parent]]: tree.txt
 
@@ -28,8 +28,8 @@ concentrate on trees with homogeneous types.
 ### Binary trees
 
 I have yet to see a data structure for which having more than two children
-were fundamental. For an example, consider octrees. Sure one can construct
-a ray-traversal algorithm for this data structure. However, it won't generalize
+were fundamental. For an example, consider octrees. It is possible construct
+a fast ray-traversal algorithm for this data structure. However, it won't generalize
 to higher-dimensions because the subdivision increases the number of nodes 
 exponentially. In addition, the algorithms are unnecessarily complex simply
 because they are doing many things at once (subdiving space in all n directions 
@@ -121,8 +121,6 @@ Some of the flaws in this approach are:
  * A sentinel node can not be naturally incorporated into the 
  implementation. A sentinel node is important because it gets rids
  of special cases in tree algorithms near the tree boundaries.
- Either there are many sentinel nodes (which can locally be identified
- as such), or there is a single global sentinel node.
 
 Creation of nodes
 -----------------
@@ -144,7 +142,7 @@ The tree always contains the root node, so that it can be subdivided.
 3) User-determined position, possibly empty tree.
 
 We want to support both the creation of the kd-tree and the ordered
-binary tree. To generalize, the creation position must determinable
+binary tree. To generalize, the creation position must be determinable
 by the user by a node-child pair. The problematic thing here is to 
 specify how the root node is created. The root node could be created 
 as a child of a sentinel node. But then it isn't clear what the 
@@ -176,7 +174,7 @@ the internal algorithms will be _much_ complicated since one
 can not assume a child of a child exists. What's worse is that
 this complication also affects the user's algorithms. The 
 non-uniformity of having a single exceptional reference would 
-probably bite back.
+probably also bite back.
 
 4) Shared sentinel references
 

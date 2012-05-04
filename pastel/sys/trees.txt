@@ -1,0 +1,16 @@
+Trees
+=====
+
+[[Parent]]: data_structures.txt
+
+A _tree_ is a connected graph without cycles. A tree is called _rooted_
+if some node, called the _root_, is chosen specifically to measure 
+distances in the tree. The root induces a partial order ''<'' for the nodes
+by the subset relation for the paths from a node to the root. If for nodes
+A and B it holds that ''A < B'', then B is called a _descendant_ of A and 
+A is called an _ancestor_ of B. If ''A < B'' and there is no other node C 
+such that ''A < C < B'', then B is called a _child_ of A, and A is called 
+the _parent_ of B. If a node does not have any descendants, it is called 
+a _leaf_ node. The root node is the only node which does not have any 
+ancestors. A tree is called _n-ary_, if every node has at most n 
+children. The _binary tree_ is a synonym for a 2-ary tree.
