@@ -478,6 +478,7 @@
     <ClInclude Include="pastelsys.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="trees.txt" />
     <None Include="data_structures.txt" />
     <None Include="parallelarray.txt" />
     <None Include="disjointgroups.txt" />

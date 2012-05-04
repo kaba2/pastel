@@ -159,10 +159,19 @@ namespace
 				TEST_ENSURE(same(tree, correctSet));
 			}
 			
-			tree.insert(bIter, Tree::Left, tree);
+			Iterator newIter = tree.insert(bIter, Tree::Left, tree);
 			{
 				integer correctSet[] = {1, 2, 0, 1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));
+			}
+
+			Tree detached = tree.detach(newIter);
+			{
+				integer correctSet[] = {1, 2, 0};
+				TEST_ENSURE(same(tree, correctSet));
+				TEST_ENSURE_OP(tree.size(), ==, 3);
+				TEST_ENSURE(same(detached, correctSet));
+				TEST_ENSURE_OP(detached.size(), ==, 3);
 			}
 		}
 

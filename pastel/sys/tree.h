@@ -24,7 +24,7 @@ namespace Pastel
 		typedef BidirectionalIterator_Range<Iterator> Range;
 		typedef BidirectionalIterator_Range<ConstIterator> ConstRange;
 
-		enum
+		enum Direction
 		{
 			Left,
 			Right
@@ -191,6 +191,8 @@ namespace Pastel
 
 				// Move the stuff from 'that' to this tree.
 				root_ = that.root_;
+				// Preserve the local sentinel as a parent of root.
+				root_->parent = sentinel_;
 				leftMost_ = that.leftMost_;
 				setRightMost(that.rightMost());
 				size_ = that.size_;
@@ -669,6 +671,79 @@ namespace Pastel
 			erase((Data_Node*)that.node_);
 		}
 
+		//! Detaches a sub-tree to its own tree.
+		/*!
+		Time complexity:
+		O(size(node))
+
+		Exception safety:
+		strong
+		*/
+		Tree detach(const ConstIterator& that)
+		{
+			PENSURE(!that.sentinel());
+
+			Node* detachedRoot = (Node*)that.node_;
+			Node* oldParent = detachedRoot->parent;
+
+			// Compute leftmost node, rightmost node,
+			// and the size of the sub-tree.
+			Node* detachedLeftMost = leftMost_; 
+			Node* detachedRightMost = rightMost();
+			integer detachedSize = size_;
+			if (detachedRoot != root_)
+			{
+				// We only need to compute these if
+				// the node is not the root node. This
+				// is the common case, but we optimize
+				// the root case anyway.
+				detachedLeftMost = extremum(detachedRoot, Left);
+				detachedRightMost = extremum(detachedRoot, Right);
+				detachedSize = size(detachedRoot);
+			}
+
+			// Detach the sub-tree to its own tree.
+			Tree detached;
+			detachedRoot->parent = detached.sentinel_;
+			detached.root_ = detachedRoot;
+			detached.leftMost_ = detachedLeftMost;
+			detached.setRightMost(detachedRightMost);
+			detached.size_ = detachedSize;
+
+			// Update the removed child of the parent.
+			for (integer i = 0;i < 2;++i)
+			{
+				if (oldParent->child(i) == detachedRoot)
+				{
+					oldParent->setChild(i, sentinel_);
+					break;
+				}
+			}
+
+			// Update the root node if necessary.
+			if (detachedRoot == root_)
+			{
+				root_ = sentinel_;
+			}
+
+			// Update the leftmost node if necessary.
+			if (detachedLeftMost == leftMost_)
+			{
+				leftMost_ = oldParent;
+			}
+
+			// Update the rightmost node if necessary.
+			if (detachedRightMost == rightMost())
+			{
+				setRightMost(oldParent);
+			}
+
+			// Update the size.
+			size_ -= detachedSize;
+
+			return detached;
+		}
+
 		//! Rotates a node.
 		/*!
 		Preconditions:
@@ -787,6 +862,31 @@ namespace Pastel
 			size_ = 0;
 		}
 
+		//! Traverses left (right) as much as possible.
+		/*!
+		Time complexity:
+		O(size(node))
+
+		Exception safety:
+		nothrow
+		*/
+		Node* extremum(
+			Node* node,
+			Direction direction)
+		{
+			ASSERT(!node->sentinel());
+
+			Node* next = node;
+			do
+			{
+				node = next;
+				next = node->child(direction);
+			}
+			while(!next->sentinel());
+
+			return node;
+		}
+
 		//! Computes the size of a subtree recursively.
 		/*!
 		Time complexity:
@@ -795,7 +895,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		integer size(Node* node)
+		integer size(Node* node) const
 		{
 			ASSERT(node);
 
@@ -832,6 +932,9 @@ namespace Pastel
 			ASSERT(!node->sentinel());
 
 			Node* parent = node->parent;
+
+			eraseSubtree(node);
+
 			for (integer i = 0;i < 2;++i)
 			{
 				if (parent->child(i) == node)
@@ -840,10 +943,16 @@ namespace Pastel
 					break;
 				}
 			}
-
-			eraseSubtree(node);
 		}
 
+		//! Removes a subtree recursively.
+		/*!
+		Time complexity:
+		O(size(node))
+
+		Exception safety:
+		nothrow
+		*/
 		void eraseSubtree(Data_Node* node)
 		{
 			ASSERT(node);
@@ -1022,47 +1131,6 @@ namespace Pastel
 			setRightMost(sentinel_);
 			size_ = 0;
 		}
-
-		//! Turns all sentinel references to this tree.
-		/*!
-		Time complexity:
-		O(size(node))
-
-		Exception safety:
-		nothrow
-		*/
-		/*
-		void updateSentinel(Node* node)
-		{
-			ASSERT(!node->sentinel());
-
-			for (integer i = 0;i < 2;++i)
-			{
-				Node* child = node->child(i);
-
-				if (child->sentinel())
-				{
-					// This is a sentinel reference,
-					// but not necessary to this tree.
-
-					if (child != sentinel_)
-					{
-						Sentinel_Node* sentinelNode =
-							(Sentinel_Node*)child;
-
-						// Turn the reference to this tree.
-						sentinelNode->setChild(i, sentinel_);
-					}
-				}
-				else
-				{
-					// This is a normal node reference.
-					// Recurse.
-					updateSentinel(child);
-				}
-			}
-		}
-		*/
 
 		Sentinel_Node* sentinel_;
 		Node* leftMost_;
