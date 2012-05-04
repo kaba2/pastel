@@ -1,7 +1,7 @@
 Generic binary tree
 ===================
 
-[[Parent]]: data_structures.txt
+[[Parent]]: trees.txt
 
 The `Tree` class implements a generic binary tree data structure.
 Its purpose is to work as a back-end for more structured trees,

@@ -150,8 +150,8 @@ left-right child distinction means here. A way to solve this is to
 make the creation of the root node special, i.e. provide a function 
 createRoot(). This is the approach we adopt.
 
-Moving sub-trees
-----------------
+Moving sub-trees and empty children
+-----------------------------------
 
 We would like to be able to move sub-trees around in constant time,
 even between different trees. The design choice of how to represent 
@@ -225,6 +225,37 @@ sentinel nodes its children references are set to. If the
 reference count of a sentinel ever reaches zero, the 
 sentinel node is destructed. The lifetime of a sentinel node
 of a tree might extend beyond the tree which created it.
+
+Moving sub-trees
+----------------
+
+Consider offering a function to arbitrarily move a sub-tree to 
+another position inside the same tree. Then the following problem 
+presents itself: it is possible to specify a position in the moved 
+sub-tree itself. Being able to specify such ambiguous situations
+is a sign of bad design. This specification is possible because
+the sub-tree is already itself a part of something to which it 
+should be attached to. This can only be avoided if the moving of 
+a sub-tree is from a tree to another. 
+
+This suggests that the correct way would be to offer a way to 
+move/insert a whole tree as sub-tree of another tree, and in the 
+other direction, to offer a way to detach a sub-tree to its own tree. 
+Conceptually, it is then not possible to specify a position in the 
+moved tree itself (*). It is even trivial to check that the moved-to 
+tree and moved-from tree are not the same object. 
+
+When detaching a sub-tree to its own tree, its size, leftmost
+node, and rightmost node need to be computed. Detaching a sub-tree
+is useful in its own, but when used in a detach-attach sequence,
+these computations can be most of the time avoided when moving a 
+sub-tree inside a tree.
+
+(*) The position in the moved-to tree is specified with an iterator. 
+There is no efficient way to check whether the iterator actually 
+points to the moved-to tree at all (one would have to traverse to 
+the root to compare). This is a general problem with iterators
+and not specifically related to moving sub-trees.
 
 Summary
 -------
