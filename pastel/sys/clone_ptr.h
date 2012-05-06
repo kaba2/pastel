@@ -3,84 +3,23 @@
 #ifndef PASTEL_CLONE_PTR_H
 #define PASTEL_CLONE_PTR_H
 
+#include "pastel/sys/clone_ptr_concepts.h"
+#include "pastel/sys/clone_ptr_private.h"
+
 #include <cstddef>
-#include <type_traits>
 #include <memory>
 #include <utility>
 
-#include <boost/mpl/if.hpp>
 #include <boost/operators.hpp>
 
 namespace Pastel
 {
 
-	namespace ClonePtr_Concepts
-	{
-		
-		class Cloner
-		{
-		};
-
-	}
-
 	/*
-	Note: The code here is essentially a copy of that in the paper
+	Note: The code here follows closely to that in the paper
 	"A Preliminary Proposal for a Deep-Copying Smart Pointer",
 	Walter Bright, 2012, WG21/N3339 = PL22.16/12-0029.
 	*/
-
-	namespace ClonePtr_
-	{
-
-		template<class Type>
-		struct is_cloneable
-		{
-		private:
-			typedef char (& Yes)[1];
-			typedef char (& No)[2];
-
-			template<class U, U* (U::*)() const = &U::clone> 
-			struct cloneable {};
-
-			template<class U> static Yes test( cloneable<U>* );
-			template<class U> static No test(...);
-
-		public:
-			static bool const value = 
-				(sizeof(test<Type>(0)) == sizeof(Yes));
-		};
-
-		class Copy_Cloner
-		{
-		public:
-			template<class Type>
-			Type* operator()(const Type& that) const 
-			{ 
-				return new Type(that); 
-			}
-		};
-
-		class Clone_Cloner
-		{
-		public:
-			template<class Type>
-			Type* operator()(const Type& that) const 
-			{ 
-				return that.clone(); 
-			}
-		};
-
-		template <typename Type>
-		class Default_Cloner
-		{
-		public:
-			typedef typename boost::mpl::if_c<
-				std::is_polymorphic<Type>::value &&
-				is_cloneable<Type>::value,
-				Clone_Cloner, Copy_Cloner>::type type;
-		};
-
-	}
 
 	template <
 		typename Type_, 
