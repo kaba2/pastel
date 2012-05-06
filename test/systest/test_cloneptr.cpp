@@ -22,6 +22,8 @@ namespace
 		{
 			return new A(*this);
 		}
+
+		integer data;
 	};
 
 	class B
@@ -77,9 +79,12 @@ namespace
 			}
 			{
 				ClonePtr<A> a(new A);
+				*a;
+				a->data = 3;
 			}
 			{
 				ClonePtr<A> b(new B);
+				b.reset();
 			}
 			{
 				// This should not compile because C 

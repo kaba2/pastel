@@ -3,3 +3,11 @@ Cloning pointer
 
 [[Parent]]: memory.txt
 
+The `ClonePtr` is a smart pointer which follows value semantics
+for its pointee. The cloning, and deletion, procedure for the pointee 
+can be provided by the user. The default cloning behaviour (given by a 
+_cloner_) is as follows. If the pointee type contains a member 
+function `clone()`, then that function is called to make a deep 
+copy of the pointee. Otherwise the copy constructor is called to 
+create the deep copy. The default deletion procedure (given by a 
+_deleter_) is simply to call `delete`.

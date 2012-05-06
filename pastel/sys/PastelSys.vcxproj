@@ -89,6 +89,8 @@
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="clone_ptr.h" />
+    <ClInclude Include="clone_ptr_concepts.h" />
+    <ClInclude Include="clone_ptr_private.h" />
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="parallelarray.h" />
     <ClInclude Include="parallelarray.hpp" />
