@@ -55,8 +55,8 @@ namespace Pastel
 		typedef typename IteratorToRange<Iterator>::type Range;
 		typedef typename IteratorToRange<ConstIterator>::type ConstRange;
 
-		typedef Array_Private::Cursor<Type, N> Cursor;
-		typedef Array_Private::ConstCursor<Type, N> ConstCursor;
+		typedef Array_::Cursor<Type, N> Cursor;
+		typedef Array_::ConstCursor<Type, N> ConstCursor;
 
 		//! Constructs an empty array.
 		Array();

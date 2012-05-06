@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	namespace RedBlackTreeTools_Detail
+	namespace RedBlackTreeTools_
 	{
 
 		template <typename ConstIterator>
@@ -87,7 +87,7 @@ namespace Pastel
 		}
 
 		integer blackHeight = 0;
-		return RedBlackTreeTools_Detail::check(tree.root(), blackHeight);
+		return RedBlackTreeTools_::check(tree.root(), blackHeight);
 	}
 
 }

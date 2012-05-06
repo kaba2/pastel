@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="biginteger.hpp" />
+    <ClInclude Include="clone_ptr.h" />
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="parallelarray.h" />
     <ClInclude Include="parallelarray.hpp" />
@@ -478,6 +479,7 @@
     <ClInclude Include="pastelsys.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="clone_ptr.txt" />
     <None Include="trees.txt" />
     <None Include="data_structures.txt" />
     <None Include="parallelarray.txt" />

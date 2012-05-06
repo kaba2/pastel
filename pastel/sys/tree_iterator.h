@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	template <typename Type, typename Derived>
+	template <typename Type>
 	class Tree;
 
 	template <typename Data>
@@ -23,11 +23,11 @@ namespace Pastel
 		> >
 	{
 	private:
-		typedef Tree_Private::Node Node;
-		typedef Tree_Private::Data_Node<Data> Data_Node;
+		typedef Tree_::Node Node;
+		typedef Tree_::Data_Node<Data> Data_Node;
 		friend class Tree_Iterator<Data>;
 		
-		template <typename Type, typename Derived>
+		template <typename Type>
 		friend class Tree;
 
 	public:
@@ -178,7 +178,7 @@ namespace Pastel
 		// Using default assignment.
 		// Using default destructor.
 
-		template <typename Type, typename Derived>
+		template <typename Type>
 		friend class Tree;
 
 		typedef Tree_ConstIterator<Data> Base;
@@ -271,54 +271,6 @@ namespace Pastel
 			return (Node*)Base::node_;
 		}
 	};
-
-	template <typename Type, typename Derived>
-	Tree_Iterator<Type> begin(Tree<Type, Derived>& tree)
-	{
-		return tree.begin();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_ConstIterator<Type> begin(const Tree<Type, Derived>& tree)
-	{
-		return tree.begin();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_ConstIterator<Type> cbegin(Tree<Type, Derived>& tree)
-	{
-		return tree.cbegin();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_ConstIterator<Type> cbegin(const Tree<Type, Derived>& tree)
-	{
-		return tree.cbegin();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_Iterator<Type> end(Tree<Type, Derived>& tree)
-	{
-		return tree.end();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_ConstIterator<Type> end(const Tree<Type, Derived>& tree)
-	{
-		return tree.end();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_ConstIterator<Type> cend(Tree<Type, Derived>& tree)
-	{
-		return tree.cend();
-	}
-
-	template <typename Type, typename Derived>
-	Tree_ConstIterator<Type> cend(const Tree<Type, Derived>& tree)
-	{
-		return tree.cend();
-	}
 
 }
 

@@ -112,6 +112,7 @@
     <ClCompile Include="test_arenaallocator.cpp" />
     <ClCompile Include="test_array.cpp" />
     <ClCompile Include="test_biginteger.cpp" />
+    <ClCompile Include="test_cloneptr.cpp" />
     <ClCompile Include="test_config.cpp" />
     <ClCompile Include="test_disjointgroups.cpp" />
     <ClCompile Include="test_endian.cpp" />

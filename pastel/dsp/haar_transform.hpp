@@ -10,7 +10,7 @@
 namespace Pastel
 {
 
-	namespace Haar_Detail
+	namespace Haar_
 	{
 
 		template <
@@ -113,7 +113,7 @@ namespace Pastel
 		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
-		Haar_Detail::haar<false>(input, output);
+		Haar_::haar<false>(input, output);
 	}
 
 	template <typename Real_Iterator>
@@ -130,7 +130,7 @@ namespace Pastel
 		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
-		Haar_Detail::inverseHaar<false>(input, output);
+		Haar_::inverseHaar<false>(input, output);
 	}
 
 	template <typename Real_Iterator>
@@ -147,7 +147,7 @@ namespace Pastel
 		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
-		Haar_Detail::haar<true>(input, output);
+		Haar_::haar<true>(input, output);
 	}
 
 	template <typename Real_Iterator>
@@ -165,7 +165,7 @@ namespace Pastel
 		const ForwardIterator_Range<Real_ConstIterator>& input,
 		Real_Iterator output)
 	{
-		Haar_Detail::inverseHaar<true>(input, output);
+		Haar_::inverseHaar<true>(input, output);
 	}
 
 	template <typename Real_Iterator>

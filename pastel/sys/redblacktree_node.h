@@ -10,7 +10,7 @@ namespace Pastel
 	template <typename Key, typename Compare, typename RbtPolicy>
 	class RedBlackTree;
 
-	namespace RedBlackTree_Detail
+	namespace RedBlackTree_
 	{
 
 		template <typename Key, typename Value>

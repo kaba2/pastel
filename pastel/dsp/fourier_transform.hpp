@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	namespace Fourier_Detail
+	namespace Fourier_
 	{
 
 		template <typename Type>
@@ -155,7 +155,7 @@ namespace Pastel
 			const ForwardIterator_Range<Complex_ConstIterator>& input,
 			Complex_Iterator output)
 		{
-			using namespace Fourier_Detail;
+			using namespace Fourier_;
 
 			typedef typename std::iterator_traits<Complex_ConstIterator>::value_type
 				InputComplex;
@@ -175,7 +175,7 @@ namespace Pastel
 				// As base-cases we handle 1, 2, and 4 size 
 				// instances by hand.
 
-				Fourier_Detail::discreteFourierSmall<Inverse, TopLevel, Orthogonal>(
+				Fourier_::discreteFourierSmall<Inverse, TopLevel, Orthogonal>(
 					input, output);
 				return;
 			}
@@ -279,7 +279,7 @@ namespace Pastel
 		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
-		Fourier_Detail::discreteFourier<false, true, false>(
+		Fourier_::discreteFourier<false, true, false>(
 			input, output);
 	}
 
@@ -295,7 +295,7 @@ namespace Pastel
 		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
-		Fourier_Detail::discreteFourier<false, true, true>(
+		Fourier_::discreteFourier<false, true, true>(
 			input, output);
 	}
 
@@ -311,7 +311,7 @@ namespace Pastel
 		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
-		Fourier_Detail::discreteFourier<true, true, false>(
+		Fourier_::discreteFourier<true, true, false>(
 			input, output);
 	}
 
@@ -327,7 +327,7 @@ namespace Pastel
 		const ForwardIterator_Range<Complex_ConstIterator>& input,
 		Complex_Iterator output)
 	{
-		Fourier_Detail::discreteFourier<true, true, true>(
+		Fourier_::discreteFourier<true, true, true>(
 			input, output);
 	}
 
