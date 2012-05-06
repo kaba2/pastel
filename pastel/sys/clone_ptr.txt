@@ -1,0 +1,5 @@
+Cloning pointer
+===============
+
+[[Parent]]: memory.txt
+

@@ -11,7 +11,7 @@ namespace Pastel
 	template <typename Type, int N>
 	class Array;
 
-	namespace Array_Private
+	namespace Array_
 	{
 
 		template <typename Type, int N>

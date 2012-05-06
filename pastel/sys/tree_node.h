@@ -7,7 +7,7 @@
 namespace Pastel
 {
 
-	namespace Tree_Private
+	namespace Tree_
 	{
 
 		class Sentinel_Node;

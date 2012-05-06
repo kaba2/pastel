@@ -296,7 +296,7 @@ namespace Pastel
 		return n;
 	}
 
-	namespace Matlab_Detail
+	namespace Matlab_
 	{
 
 #define PASTEL_TYPE_TO_MATLAB_CLASSID(Type, Id) \
@@ -314,7 +314,7 @@ namespace Pastel
 		class TypeToMatlabClassId
 		{
 		public:
-			mxClassID operator()(const mxArray* that) const
+			mxClassID operator()() const
 			{
 				return mxUNKNOWN_CLASS;
 			}
@@ -343,7 +343,7 @@ namespace Pastel
 	template <typename Type>
 	mxClassID typeToMatlabClassId()
 	{
-		Matlab_Detail::TypeToMatlabClassId<Type> f;
+		Matlab_::TypeToMatlabClassId<Type> f;
 		return f();
 	}
 

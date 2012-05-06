@@ -14,7 +14,7 @@
 namespace Pastel
 {
 
-	namespace MaximumCliqueAlignedBox_Detail
+	namespace MaximumCliqueAlignedBox_
 	{
 
 		class EventType
@@ -503,7 +503,7 @@ namespace Pastel
 		// point here is to have a balanced tree to guarantee O(log n)
 		// augmented insertion and deletion.
 
-		using namespace MaximumCliqueAlignedBox_Detail;
+		using namespace MaximumCliqueAlignedBox_;
 
 		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
 			value_type Box;

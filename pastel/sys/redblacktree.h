@@ -25,8 +25,8 @@ namespace Pastel
 		typedef typename RbtPolicy::ValueType ValueType;
 		typedef Compare CompareType;
 
-		typedef RedBlackTree_Detail::Iterator<Key, ValueType> Iterator;
-		typedef RedBlackTree_Detail::ConstIterator<Key, ValueType> ConstIterator;
+		typedef RedBlackTree_::Iterator<Key, ValueType> Iterator;
+		typedef RedBlackTree_::ConstIterator<Key, ValueType> ConstIterator;
 
 		//! Constructs an empty tree.
 		/*!
@@ -190,7 +190,7 @@ namespace Pastel
 			Right = 1
 		};
 
-		typedef RedBlackTree_Detail::Node<Key, ValueType> Node;
+		typedef RedBlackTree_::Node<Key, ValueType> Node;
 
 		//! Allocates the sentinel node.
 		/*!

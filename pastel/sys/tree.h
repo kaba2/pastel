@@ -12,7 +12,7 @@ namespace Pastel
 {
 
 	//! A generic binary tree
-	template <typename Type, typename Derived = EmptyClass>
+	template <typename Type>
 	class Tree
 	{
 	public:
@@ -31,9 +31,9 @@ namespace Pastel
 		};
 
 	private:
-		typedef Tree_Private::Node Node;
-		typedef Tree_Private::Data_Node<Data> Data_Node;
-		typedef Tree_Private::Sentinel_Node Sentinel_Node;
+		typedef Tree_::Node Node;
+		typedef Tree_::Data_Node<Data> Data_Node;
+		typedef Tree_::Sentinel_Node Sentinel_Node;
 
 	public:
 		//! Construct an empty tree.
@@ -575,6 +575,10 @@ namespace Pastel
 
 		//! Moves a tree under a node.
 		/*!
+		Preconditions:
+		this != &that
+		0 <= childIndex < 2
+
 		Time complexity:
 		O(1)
 
@@ -592,12 +596,9 @@ namespace Pastel
 			PENSURE_OP(childIndex, >=, 0);
 			PENSURE_OP(childIndex, <, 2);
 
-			if (this == &that)
-			{
-				// Trying to move the tre as a subtree of itself.
-				// Copy instead.
-				return insert(there, childIndex, (const Tree&)that);
-			}
+			const bool tryingToMoveUnderItself =
+				(this == &that);
+			ENSURE(!tryingToMoveUnderItself);
 
 			if (that.empty())
 			{
@@ -1137,6 +1138,42 @@ namespace Pastel
 		Node* root_;
 		integer size_;
 	};
+
+	template <typename Type>
+	Tree_Iterator<Type> begin(Tree<Type>& tree)
+	{
+		return tree.begin();
+	}
+
+	template <typename Type>
+	Tree_ConstIterator<Type> begin(const Tree<Type>& tree)
+	{
+		return tree.begin();
+	}
+
+	template <typename Type>
+	Tree_ConstIterator<Type> cbegin(const Tree<Type>& tree)
+	{
+		return tree.cbegin();
+	}
+
+	template <typename Type>
+	Tree_Iterator<Type> end(Tree<Type>& tree)
+	{
+		return tree.end();
+	}
+
+	template <typename Type>
+	Tree_ConstIterator<Type> end(const Tree<Type>& tree)
+	{
+		return tree.end();
+	}
+
+	template <typename Type>
+	Tree_ConstIterator<Type> cend(const Tree<Type>& tree)
+	{
+		return tree.cend();
+	}
 
 }
 

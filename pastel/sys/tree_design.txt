@@ -257,6 +257,42 @@ points to the moved-to tree at all (one would have to traverse to
 the root to compare). This is a general problem with iterators
 and not specifically related to moving sub-trees.
 
+Cases of moving sub-trees to sub-trees in the same tree
+-------------------------------------------------------
+
+Knowing whether one is on the left edge or the right
+edge requires O(h) time, where h is the length of the
+edge.
+
+1) From left edge to middle
+
+New leftmost is the parent of the moved sub-tree.
+
+2) From left edge to right child of rightmost
+
+New leftmost is the parent of the moved sub-tree.
+New rightmost needs to be scanned.
+
+3) From middle to left-edge
+
+New leftmost needs to be scanned.
+
+4) From middle to middle
+
+No changes needed.
+
+5) From right edge to middle
+
+Symmetric to 1.
+
+6) From right edge to left child of leftmost 
+
+Symmetric to 2.
+
+6) From middle to right-edge 
+
+Symmetric to 3.
+
 Summary
 -------
 
