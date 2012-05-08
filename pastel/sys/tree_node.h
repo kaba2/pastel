@@ -19,7 +19,7 @@ namespace Pastel
 			explicit Node(Sentinel_Node* sentinel);
 			~Node();
 
-			bool sentinel() const;
+			bool empty() const;
 			Node* child(integer childIndex) const;
 
 			void setChild(
@@ -70,13 +70,13 @@ namespace Pastel
 
 		Node::~Node()
 		{
-			if (!sentinel())
+			if (!empty())
 			{
 				for (integer i = 0;i < 2;++i)
 				{
 					Node*& child = childSet[i];
 					ASSERT(child);
-					if (child->sentinel())
+					if (child->empty())
 					{
 						Sentinel_Node* sentinelNode =
 							(Sentinel_Node*)child;
@@ -87,10 +87,10 @@ namespace Pastel
 			}
 		}
 
-		bool Node::sentinel() const
+		bool Node::empty() const
 		{
-			// The sentinel is the unique node whose
-			// children point to itself.
+			// A sentinel is identified by its
+			// children pointing to itself.
 			return childSet[0] == this;
 		}
 
@@ -104,11 +104,11 @@ namespace Pastel
 			Node* child)
 		{
 			ASSERT(child);
-			ASSERT(!sentinel());
+			ASSERT(!empty());
 			ASSERT_OP(childIndex, >=, 0);
 			ASSERT_OP(childIndex, <, 2);
 
-			if (child->sentinel())
+			if (child->empty())
 			{
 				Sentinel_Node* newSentinel =
 					(Sentinel_Node*)child;
@@ -116,7 +116,7 @@ namespace Pastel
 			}
 
 			Node*& childRef = childSet[childIndex];
-			if (childRef->sentinel())
+			if (childRef->empty())
 			{
 				Sentinel_Node* oldSentinel =
 					(Sentinel_Node*)childRef;

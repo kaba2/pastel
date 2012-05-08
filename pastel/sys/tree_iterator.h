@@ -18,7 +18,7 @@ namespace Pastel
 
 	template <typename Data>
 	class Tree_ConstIterator
-		: boost::bidirectional_iteratable<Tree_ConstIterator<Data>, const Data
+		: public boost::bidirectional_iteratable<Tree_ConstIterator<Data>, const Data*
 		, boost::less_than_comparable<Tree_ConstIterator<Data>
 		> >
 	{
@@ -53,12 +53,8 @@ namespace Pastel
 
 		bool empty() const
 		{
-			return node_ == 0;
-		}
-
-		bool sentinel() const
-		{
-			return node_->sentinel();
+			ASSERT(node_);
+			return node_->empty();
 		}
 
 		Tree_ConstIterator parent() const
@@ -76,8 +72,8 @@ namespace Pastel
 
 		const Data& operator*() const
 		{
-			ASSERT(!empty());
-			PENSURE(!node_->sentinel());
+			ASSERT(node_);
+			PENSURE(!node_->empty());
 			ASSERT(((Data_Node*)node_)->data());
 
 			return *(((Data_Node*)node_)->data());
@@ -87,7 +83,7 @@ namespace Pastel
 		{
 			// If the cursor is in the sentinel node,
 			// we should remain in that node.
-			if (!node_->sentinel())
+			if (!node_->empty())
 			{
 				node_ = next(1);
 			}
@@ -139,7 +135,7 @@ namespace Pastel
 			const Node* result;
 			const Node* child = node_->child(forward);
 		
-			if (child->sentinel())
+			if (child->empty())
 			{
 				result = node_;
 
@@ -149,14 +145,14 @@ namespace Pastel
 					previous = result;
 					result = previous->parent;
 				}
-				while(!result->sentinel() && 
+				while(!result->empty() && 
 					result->child(backward) != previous);
 			}
 			else
 			{
 				result = child;
 
-				while(!result->child(backward)->sentinel())
+				while(!result->child(backward)->empty())
 				{
 					result = result->child(backward);
 				}
@@ -194,7 +190,6 @@ namespace Pastel
 
 		typedef Base::Node Node;
 		using Base::empty;
-		using Base::sentinel;
 
 		Tree_Iterator parent() const
 		{

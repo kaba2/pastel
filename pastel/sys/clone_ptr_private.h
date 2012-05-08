@@ -1,3 +1,5 @@
+// Description: Default cloning behaviour for ClonedPtr
+
 #ifndef PASTEL_CLONE_PTR_PRIVATE_H
 #define PASTEL_CLONE_PTR_PRIVATE_H
 

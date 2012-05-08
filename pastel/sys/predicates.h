@@ -9,5 +9,6 @@
 #include "pastel/sys/greaterequal.h"
 #include "pastel/sys/lessthan.h"
 #include "pastel/sys/greaterthan.h"
+#include "pastel/sys/iterator_predicate.h"
 
 #endif

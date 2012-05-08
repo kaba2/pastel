@@ -1,4 +1,4 @@
-// Description: PoolAllocator class
+// Description: Pool allocator
 // Detail: A uniform-sized memory allocator
 
 #ifndef PASTEL_POOLALLOCATOR_H

@@ -11,6 +11,16 @@
 namespace Pastel
 {
 
+	class Tree_Child
+	{
+	public:
+		enum Enum
+		{
+			Tree_Child::Left,
+			Tree_Child::Right
+		};
+	};
+
 	//! A generic binary tree
 	template <typename Type>
 	class Tree
@@ -23,12 +33,6 @@ namespace Pastel
 
 		typedef BidirectionalIterator_Range<Iterator> Range;
 		typedef BidirectionalIterator_Range<ConstIterator> ConstRange;
-
-		enum Direction
-		{
-			Left,
-			Right
-		};
 
 	private:
 		typedef Tree_::Node Node;
@@ -157,7 +161,7 @@ namespace Pastel
 				try
 				{
 					// Create a copy of 'that'.
-					insert(end(), Right, that);
+					insert(end(), Tree_Child::Right, that);
 				}
 				catch(...)
 				{
@@ -477,7 +481,7 @@ namespace Pastel
 			ENSURE_OP(childIndex, <, 2);
 
 			const bool insertAtSentinel =
-				here.sentinel();
+				here.empty();
 			ENSURE(!insertAtSentinel);
 
 			Node* parent = (Node*)here.node_;
@@ -488,12 +492,12 @@ namespace Pastel
 			Node* parentChild = parent->child(childIndex);
 
 			const bool childAlreadyExists = 
-				!(parentChild->sentinel());
+				!(parentChild->empty());
 			ENSURE(!childAlreadyExists);
 
 			parent->setChild(childIndex, node);
 
-			if (childIndex == Left)
+			if (childIndex == Tree_Child::Left)
 			{
 				if (parent == leftMost_)
 				{
@@ -545,7 +549,7 @@ namespace Pastel
 			Iterator copyRoot;
 			try
 			{
-				if (there.sentinel())
+				if (there.empty())
 				{
 					copyRoot = insertRoot(*that.root());
 				}
@@ -607,7 +611,7 @@ namespace Pastel
 
 			Node* thatRoot = that.root_;
 
-			if (there.sentinel())
+			if (there.empty())
 			{
 				const bool emptyWhenInsertingToSentinel =
 					empty();
@@ -622,15 +626,15 @@ namespace Pastel
 				Node* child = thereNode->child(childIndex);
 				
 				// Check that the child does not already exist.
-				const bool childAlreadyExists = !child->sentinel();
+				const bool childAlreadyExists = !child->empty();
 				ENSURE(!childAlreadyExists);
 
 				// Link 'that' tree to 'there' node.
 				thereNode->setChild(childIndex, thatRoot);
-				thatNode->parent = thereNode;
+				thatRoot->parent = thereNode;
 
 				// Possibly update the leftmost node.
-				if (childIndex == Left)
+				if (childIndex == Tree_Child::Left)
 				{
 					if (thereNode == leftMost_)
 					{
@@ -639,7 +643,7 @@ namespace Pastel
 				}
 
 				// Possibly update the rightmost node.
-				if (childIndex == Right)		
+				if (childIndex == Tree_Child::Right)		
 				{				
 					if (thereNode == rightMost())
 					{
@@ -667,7 +671,7 @@ namespace Pastel
 		*/
 		void erase(const ConstIterator& that)
 		{
-			PENSURE(!that.sentinel());
+			PENSURE(!that.empty());
 
 			erase((Data_Node*)that.node_);
 		}
@@ -682,7 +686,7 @@ namespace Pastel
 		*/
 		Tree detach(const ConstIterator& that)
 		{
-			PENSURE(!that.sentinel());
+			PENSURE(!that.empty());
 
 			Node* detachedRoot = (Node*)that.node_;
 			Node* oldParent = detachedRoot->parent;
@@ -698,8 +702,8 @@ namespace Pastel
 				// the node is not the root node. This
 				// is the common case, but we optimize
 				// the root case anyway.
-				detachedLeftMost = extremum(detachedRoot, Left);
-				detachedRightMost = extremum(detachedRoot, Right);
+				detachedLeftMost = extremum(detachedRoot, Tree_Child::Left);
+				detachedRightMost = extremum(detachedRoot, Tree_Child::Right);
 				detachedSize = size(detachedRoot);
 			}
 
@@ -748,7 +752,7 @@ namespace Pastel
 		//! Rotates a node.
 		/*!
 		Preconditions:
-		!that.child(R).child(L).sentinel()
+		!that.child(R).child(L).empty()
 		where L = direction, and R = !L.
 
 		Time complexity:
@@ -771,7 +775,7 @@ namespace Pastel
 			ConstIterator rightLeft = right.child(L);
 
 			const bool rotationWellDefined = 
-				!rightLeft.sentinel();
+				!rightLeft.empty();
 			ENSURE(rotationWellDefined);
 
 			Node* thatNode = (Node*)that.node_;
@@ -873,9 +877,9 @@ namespace Pastel
 		*/
 		Node* extremum(
 			Node* node,
-			Direction direction)
+			Tree_Child::Enum direction)
 		{
-			ASSERT(!node->sentinel());
+			ASSERT(!node->empty());
 
 			Node* next = node;
 			do
@@ -883,7 +887,7 @@ namespace Pastel
 				node = next;
 				next = node->child(direction);
 			}
-			while(!next->sentinel());
+			while(!next->empty());
 
 			return node;
 		}
@@ -905,13 +909,13 @@ namespace Pastel
 			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->child(i);
-				if (!child->sentinel())
+				if (!child->empty())
 				{
 					result += size(child);
 				}
 			}
 
-			if (!node->sentinel())
+			if (!node->empty())
 			{
 				result += 1;
 			}
@@ -930,7 +934,7 @@ namespace Pastel
 		void erase(Data_Node* node)
 		{
 			ASSERT(node);
-			ASSERT(!node->sentinel());
+			ASSERT(!node->empty());
 
 			Node* parent = node->parent;
 
@@ -957,13 +961,13 @@ namespace Pastel
 		void eraseSubtree(Data_Node* node)
 		{
 			ASSERT(node);
-			ASSERT(!node->sentinel());
+			ASSERT(!node->empty());
 
 			// Recurse to remove child subtrees.
 			for (integer i = 0;i < 2;++i)
 			{
 				Node* child = node->child(i);
-				if (!child->sentinel())
+				if (!child->empty())
 				{
 					eraseSubtree((Data_Node*)child);
 				}
@@ -1046,7 +1050,7 @@ namespace Pastel
 		void deallocate(Data_Node* node)
 		{
 			ASSERT(node);
-			ASSERT(!node->sentinel());
+			ASSERT(!node->empty());
 
 			if (node->data())
 			{
@@ -1064,14 +1068,14 @@ namespace Pastel
 			const ConstIterator& to,
 			const ConstIterator& forbidden = ConstIterator())
 		{
-			ASSERT(!from.sentinel());
-			ASSERT(!to.sentinel());
+			ASSERT(!from.empty());
+			ASSERT(!to.empty());
 
 			for (integer i = 0;i < 2;++i)
 			{
 				const ConstIterator newFrom =
 					from.child(i);
-				if (!newFrom.sentinel() &&
+				if (!newFrom.empty() &&
 					newFrom != forbidden)
 				{
 					const ConstIterator newTo = 
@@ -1098,9 +1102,9 @@ namespace Pastel
 		void setRightMost(Node* node)
 		{
 			sentinel_->parent = node;
-			if (!node->sentinel())
+			if (!node->empty())
 			{
-				node->setChild(Right, sentinel_);
+				node->setChild(Tree_Child::Right, sentinel_);
 			}
 		}
 

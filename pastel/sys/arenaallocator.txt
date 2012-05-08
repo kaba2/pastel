@@ -1,5 +1,5 @@
-ArenaAllocator class
-====================
+Arena allocator
+===============
 
 [[Parent]]: allocators.txt
 

@@ -1,4 +1,4 @@
-// Description: NativeAllocator class
+// Description: Native allocator
 // Detail: An allocator wrapper for new and delete
 
 #ifndef PASTEL_NATIVEALLOCATOR_H

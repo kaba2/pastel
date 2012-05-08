@@ -125,6 +125,7 @@
     <ClInclude Include="smallset.hpp" />
     <ClInclude Include="smallmap.h" />
     <ClInclude Include="smallmap.hpp" />
+    <ClInclude Include="iterator_predicate.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
     <ClInclude Include="view_tools.hpp" />

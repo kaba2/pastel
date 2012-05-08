@@ -138,7 +138,6 @@
     <None Include="maximum_clique_alignedbox.txt" />
     <None Include="transformation_fitting.txt" />
     <None Include="point_pattern_matching.txt" />
-    <None Include="ppm_translation.txt" />
     <None Include="projection.txt" />
     <None Include="shape_relations.txt" />
     <None Include="contains.txt" />
@@ -346,7 +345,6 @@
     <ClInclude Include="point_pattern_match_gmo.hpp" />
     <ClInclude Include="point_pattern_matching.h" />
     <ClInclude Include="point_pattern_matching.hpp" />
-    <ClInclude Include="ppm_translation.h" />
     <ClInclude Include="linear_projection.h" />
     <ClInclude Include="linear_projection.hpp" />
     <ClInclude Include="planar_projection.h" />
