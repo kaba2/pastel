@@ -155,8 +155,8 @@ namespace Pastel
 							range(candidatePairSet.begin(), candidatePairSet.end()),
 							pushBackReporter(pairSet),
 							StdPair_As_Pair(),
-							iteratorAddressHash(sceneTree.end()),
-							iteratorAddressHash(modelTree.end()));
+							IteratorAddress_Hash(),
+							IteratorAddress_Hash());
 
 						//log() << pairSet.size() << " ";
 

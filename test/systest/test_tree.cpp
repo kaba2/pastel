@@ -65,7 +65,7 @@ namespace
 				TEST_ENSURE(same(tree, correctSet));
 			}
 
-			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
+			Iterator bIter = tree.insert(aIter, Tree_Child::Left, 1);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 2);
 				TEST_ENSURE_OP(tree.sentinelCount(), ==, 4);
@@ -74,7 +74,7 @@ namespace
 				TEST_ENSURE(same(tree, correctSet));
 			}
 
-			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
+			Iterator cIter = tree.insert(bIter, Tree_Child::Right, 2);
 			{
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
@@ -83,7 +83,7 @@ namespace
 				TEST_ENSURE(same(tree, correctSet));
 			}
 
-			tree.rotate(aIter, Tree::Right);
+			tree.rotate(aIter, Tree_Child::Right);
 			{
 				TEST_ENSURE_OP(tree.sentinelCount(), ==, 5);
 
@@ -152,14 +152,14 @@ namespace
 		{
 			Tree tree;
 			Iterator aIter = tree.insertRoot(0);
-			Iterator bIter = tree.insert(aIter, Tree::Left, 1);
-			Iterator cIter = tree.insert(bIter, Tree::Right, 2);
+			Iterator bIter = tree.insert(aIter, Tree_Child::Left, 1);
+			Iterator cIter = tree.insert(bIter, Tree_Child::Right, 2);
 			{
 				integer correctSet[] = {1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));
 			}
 			
-			Iterator newIter = tree.insert(bIter, Tree::Left, tree);
+			Iterator newIter = tree.insert(bIter, Tree_Child::Left, tree);
 			{
 				integer correctSet[] = {1, 2, 0, 1, 2, 0};
 				TEST_ENSURE(same(tree, correctSet));

@@ -120,14 +120,14 @@ namespace Pastel
 
 	template <class T>
 	struct Hash
-		: public std::unary_function<T, std::size_t>
 	{
-		std::size_t operator()(const T& val) const
+		hash_integer operator()(const T& val) const
 		{
 			return computeHash(val);
 		}
 	};
 
+	/*
 	template <typename Iterator>
 	class IteratorAddress_Hash
 		: public std::unary_function<Iterator, std::size_t>
@@ -141,13 +141,20 @@ namespace Pastel
 			return computeHash(&*iter);
 		}
 	};
+	*/
 
-	template <typename Iterator>
-	IteratorAddress_Hash<Iterator> iteratorAddressHash(
-		const Iterator& iter)
-	{
-		return IteratorAddress_Hash<Iterator>();
-	}
+	class IteratorAddress_Hash
+	{ 
+	public:
+		template <typename Iterator>
+		hash_integer operator()(const Iterator& iter) const
+		{
+			typedef typename 
+				boost::iterator_value<Iterator>::type Type;
+
+			return computeHash(&*iter);
+		}
+	};
 
 }
 

@@ -1,5 +1,5 @@
-NativeAllocator class
-=====================
+Native allocator
+================
 
 [[Parent]]: allocators.txt
 

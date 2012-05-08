@@ -1,4 +1,4 @@
-// Description: ArenaAllocator class
+// Description: Arena allocator
 // Detail: A deallocate-once, arbitrary size memory allocator
 
 #ifndef PASTEL_ARENAALLOCATOR_H
