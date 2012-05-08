@@ -47,7 +47,7 @@ namespace Pastel
 			integer count_;
 		};
 
-		Node::Node()
+		inline Node::Node()
 			: parent(0)
 			, childSet(0)
 		{
@@ -57,7 +57,7 @@ namespace Pastel
 			childSet.set(this);
 		}
 
-		Node::Node(Sentinel_Node* sentinel)
+		inline Node::Node(Sentinel_Node* sentinel)
 			: parent(sentinel)
 			, childSet(0)
 		{
@@ -68,7 +68,7 @@ namespace Pastel
 			sentinel->increaseCount(2);
 		}
 
-		Node::~Node()
+		inline Node::~Node()
 		{
 			if (!empty())
 			{
@@ -87,19 +87,19 @@ namespace Pastel
 			}
 		}
 
-		bool Node::empty() const
+		inline bool Node::empty() const
 		{
 			// A sentinel is identified by its
 			// children pointing to itself.
 			return childSet[0] == this;
 		}
 
-		Node* Node::child(integer childIndex) const
+		inline Node* Node::child(integer childIndex) const
 		{
 			return childSet[childIndex];
 		}
 
-		void Node::setChild(
+		inline void Node::setChild(
 			integer childIndex,
 			Node* child)
 		{
@@ -126,24 +126,24 @@ namespace Pastel
 			childRef = child;
 		}
 
-		Sentinel_Node::Sentinel_Node()
+		inline Sentinel_Node::Sentinel_Node()
 			: Node()
 			, count_(0)
 		{
 		}
 
-		integer Sentinel_Node::count() const
+		inline integer Sentinel_Node::count() const
 		{
 			return count_;
 		}
 
-		void Sentinel_Node::increaseCount(integer amount)
+		inline void Sentinel_Node::increaseCount(integer amount)
 		{
 			ASSERT_OP(amount, >, 0);
 			count_ += amount;
 		}
 
-		void Sentinel_Node::decreaseCount(integer amount)
+		inline void Sentinel_Node::decreaseCount(integer amount)
 		{
 			ASSERT_OP(amount, >, 0);
 			ASSERT_OP(count_, >=, amount);

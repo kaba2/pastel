@@ -114,6 +114,20 @@ namespace Pastel
 			return node_ < that.node_;
 		}
 
+		integer children() const
+		{
+			integer result = 0;
+			for (integer i = 0;i < 2;++i)
+			{
+				if (!child(i).empty())
+				{
+					++result;
+				}
+			}
+			
+			return result;
+		}
+
 	protected:
 		explicit Tree_ConstIterator(const Node* node)
 			: node_(node)
