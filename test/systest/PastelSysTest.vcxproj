@@ -141,6 +141,7 @@
     <ClCompile Include="test_statreal.cpp" />
     <ClCompile Include="test_string_tools.cpp" />
     <ClCompile Include="test_template.cpp" />
+    <ClCompile Include="test_transitive_closure.cpp" />
     <ClCompile Include="test_tree.cpp" />
     <ClCompile Include="test_unordered_set.cpp" />
     <ClCompile Include="test_vector.cpp" />

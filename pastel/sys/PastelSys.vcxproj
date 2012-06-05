@@ -112,6 +112,9 @@
     <ClInclude Include="hash.hpp" />
     <ClInclude Include="hash_tables.h" />
     <ClInclude Include="functional.h" />
+    <ClInclude Include="transitive_closure.h" />
+    <ClInclude Include="transitive_closure.hpp" />
+    <ClInclude Include="transitive_closure_concepts.h" />
     <ClInclude Include="unorderedbase.h" />
     <ClInclude Include="unorderedbase.hpp" />
     <ClInclude Include="unorderedmap.h" />
