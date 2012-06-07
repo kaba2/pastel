@@ -43,6 +43,6 @@ But there are now at least two problems:
 To solve these problems, replace the pair-iterator-interface with
 an iterator-adaptor which encapsulates the pair-iterator and offers
 access only to the value-field of the pair. This is exactly what is
-offered by the [Second_Iterator] adaptor.
+offered by the [Second_Iterator][Second_Iterator] adaptor.
 
 [Second_Iterator]: [[Ref]]: iterators.txt
