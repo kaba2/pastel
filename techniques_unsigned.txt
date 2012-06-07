@@ -1,5 +1,5 @@
-Do not use unsigned integers
-============================
+Use of unsigned integers
+========================
 
 [[Parent]]: techniques.txt
 

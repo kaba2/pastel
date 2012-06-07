@@ -8,10 +8,43 @@
 #include "pastel/sys/sparseiterator.h"
 #include "pastel/sys/rectangleiterator.h"
 
+#include "pastel/sys/second_iterator.h"
+
+#include "pastel/sys/ranges.h"
+
+#include <boost/iterator/transform_iterator.hpp>
+
 using namespace Pastel;
 
 namespace
 {
+
+	class A;
+
+	typedef std::map<A, A> PairSet;
+	typedef Second_Iterator<PairSet::iterator> Pair_Iterator;
+	typedef Second_Iterator<PairSet::const_iterator, true> Pair_ConstIterator;
+
+	class A
+	{
+	public:
+		A(int a)
+			: a_(a)
+		{
+		}
+
+		bool operator<(const A& that) const
+		{
+			return a_ < that.a_;
+		}
+
+		bool operator==(const A& that) const
+		{
+			return a_ == that.a_;
+		}
+
+		int a_;
+	};
 
 	class Test
 		: public TestSuite
@@ -24,10 +57,67 @@ namespace
 
 		virtual void run()
 		{
+			testSecond();
 			testRectangle();
 			testConstant();
 			testSparse();
 			testCounting();
+		}
+
+		void testSecond()
+		{
+			PairSet a;
+			a.insert(std::make_pair(1, 3));
+			a.insert(std::make_pair(2, 4));
+			a.insert(std::make_pair(4, -2));
+			a.insert(std::make_pair(5, 1));
+
+			std::vector<A> b;
+			b.push_back(3);
+			b.push_back(4);
+			b.push_back(-2);
+			b.push_back(1);
+
+			TEST_ENSURE(std::equal(b.begin(), b.end(), 
+				Pair_Iterator(a.begin())));
+			
+			{
+				Pair_Iterator aIter(a.begin());
+				Pair_ConstIterator bIter(aIter);
+				//Pair_Iterator c(b);
+
+				TEST_ENSURE(aIter == aIter);
+				TEST_ENSURE(aIter == bIter);
+				TEST_ENSURE(!(aIter != aIter));
+				TEST_ENSURE(!(aIter != bIter));
+
+				++aIter;
+				--aIter;
+				aIter++;
+				aIter--;
+
+				++bIter;
+				--bIter;
+				bIter++;
+				bIter--;
+			}
+
+			integer i = 0;
+			std::for_each(
+				Pair_Iterator(a.begin()), Pair_Iterator(a.end()),
+				[&](A& a)
+			{
+				a.a_ = i;
+				++i;
+			});
+
+			b[0] = 0;
+			b[1] = 1;
+			b[2] = 2;
+			b[3] = 3;
+
+			TEST_ENSURE(std::equal(b.begin(), b.end(), 
+				Pair_ConstIterator(a.begin())));
 		}
 
 		void testConstant()

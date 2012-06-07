@@ -86,7 +86,9 @@ In the user interface, the children should be referred to by integer
 indices 0 and 1, and not by 'left' and 'right'. This allows to 
 efficiently exploit symmetries in algorithms (such as in the 
 red-black tree implementation). In particular, the sibling of a
-node with the index 'i' is given by 'i!'.
+node with the index 'i' is given by 'i!'. Once the index-based 
+interface is in place, the 'left' and 'right' functions can be 
+added too for convenience.
 
 On trees built from independent pieces
 --------------------------------------

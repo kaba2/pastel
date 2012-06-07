@@ -19,6 +19,12 @@ namespace
 		: public TestSuite
 	{
 	public:
+		typedef Tree<integer> Tree;
+		typedef Tree::Iterator Iterator;
+		typedef Tree::ConstIterator ConstIterator;
+		typedef Tree::Range Range;
+		typedef Tree::ConstRange ConstRange;
+
 		Test()
 			: TestSuite(&testReport())
 		{
@@ -28,13 +34,9 @@ namespace
 		{
 			test();
 			testInsert();
+			testIterator<ConstIterator>();
+			testIterator<Iterator>();
 		}
-
-		typedef Tree<integer> Tree;
-		typedef Tree::Iterator Iterator;
-		typedef Tree::ConstIterator ConstIterator;
-		typedef Tree::Range Range;
-		typedef Tree::ConstRange ConstRange;
 
 		template <int N>
 		bool same(const Tree& tree, int (&correctSet)[N]) const
@@ -172,6 +174,88 @@ namespace
 				TEST_ENSURE_OP(tree.size(), ==, 3);
 				TEST_ENSURE(same(detached, correctSet));
 				TEST_ENSURE_OP(detached.size(), ==, 3);
+			}
+		}
+
+		template <typename Iter>
+		void testIterator()
+		{
+			Tree tree;
+			Iter aIter = tree.insertRoot(0);
+			Iter bIter = tree.insert(aIter, Tree_Child::Left, 1);
+			Iter cIter = tree.insert(bIter, Tree_Child::Right, 2);
+
+			// Finding the leftmost.
+			{
+				Iter iter = leftMost(aIter);
+				TEST_ENSURE(iter == bIter);
+			}
+			{
+				Iter iter = leftMost(bIter);
+				TEST_ENSURE(iter == bIter);
+			}
+			{
+				Iter iter = leftMost(tree.end());
+				TEST_ENSURE(iter == tree.end());
+			}
+			{
+				Iter iter = leftMost(cIter);
+				TEST_ENSURE(iter == cIter);
+			}
+			
+			// Finding the rightmost.
+			{
+				Iter iter = rightMost(aIter);
+				TEST_ENSURE(iter == aIter);
+			}
+			{
+				Iter iter = rightMost(bIter);
+				TEST_ENSURE(iter == cIter);
+			}
+			{
+				Iter iter = rightMost(tree.end());
+				TEST_ENSURE(iter == tree.end());
+			}
+			{
+				Iter iter = rightMost(cIter);
+				TEST_ENSURE(iter == cIter);
+			}
+
+			// Finding the root.
+			{
+				Iter iter = root(cIter);
+				TEST_ENSURE(iter == tree.root());
+			}
+			{
+				Iter iter = root(bIter);
+				TEST_ENSURE(iter == tree.root());
+			}
+			{
+				Iter iter = root(aIter);
+				TEST_ENSURE(iter == tree.root());
+			}
+			{
+				Iter iter = root(tree.end());
+				++iter;
+				TEST_ENSURE(iter == tree.end());
+			}
+			{
+				Iter iter = root(tree.end());
+				TEST_ENSURE(iter == tree.end());
+			}
+
+			// Wrapping behaviour.
+			{
+				// The beginning wraps around to the one-past-end.
+				Iter iter = tree.begin();
+				--iter;
+				TEST_ENSURE(iter == tree.end());
+			}
+			{
+				// The one-past one-past-end stays where it is.
+				Iter iter = tree.end();
+				++iter;
+				TEST_ENSURE(iter == tree.end());
 			}
 		}
 

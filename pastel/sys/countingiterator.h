@@ -21,7 +21,7 @@ namespace Pastel
 	template <typename Type>
 	class CountingIterator;
 
-	namespace Detail_CountingIterator
+	namespace CountingIterator_
 	{
 
 		template <typename Type_, bool IsArithmetic>
@@ -68,7 +68,7 @@ namespace Pastel
 
 	template <typename Type>
 	class CountingIterator
-		: public Detail_CountingIterator::Base<Type, std::is_arithmetic<Type>::value>::Type
+		: public CountingIterator_::Base<Type, std::is_arithmetic<Type>::value>::Type
 	{
 	public:
 		// Using default copy constructor.

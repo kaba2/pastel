@@ -1,0 +1,48 @@
+Iterators in interfaces
+=======================
+
+[[Parent]]: techniques.txt
+
+Consider that there is a data structure A which stores a set of values
+in an `std::map` to enable fast associative searches by a key, and also 
+that the set of values in that map are exposed to the user of the data 
+structure. Then initially one might consider a design like the following.
+
+[[CppCode]]:
+	class A
+	{
+	public:
+		typedef std::map<int, int> ValueSet;
+		typedef ValueSet::iterator Iterator;
+
+		Iterator begin() const
+		{
+			return valueSet_.begin();
+		}
+
+		Iterator end() const
+		{
+			return valueSet_.end();
+		}
+
+	private:
+		ValueSet valueSet_;
+	};
+
+But there are now at least two problems:
+
+ * Having the iterators dereference to an std::pair exposes an 
+ implementation detail. It is not possible to change the underlying
+ data structure afterwards.
+
+ * While logically you simply have a set of values, physically you are 
+ required to deal with std::pairs when dereferencing an iterator.
+ This is extremely confusing to the user who might have no idea about 
+ the meaning of the key. 
+
+To solve these problems, replace the pair-iterator-interface with
+an iterator-adaptor which encapsulates the pair-iterator and offers
+access only to the value-field of the pair. This is exactly what is
+offered by the [Second_Iterator] adaptor.
+
+[Second_Iterator]: [[Ref]]: iterators.txt

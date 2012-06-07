@@ -1,6 +1,77 @@
 Implementation blog
 ===================
 
+A summary of C++11 state in Visual Studio 2010
+----------------------------------------------
+
+Of highest interest, and complete:
+
+ * auto
+ * right-angle brackets
+ * static_assert
+ * trailing return types
+ * nullptr
+
+Of highest interest, and usable:
+
+ * rvalue-references
+ * lambdas
+ * override
+
+Of highest interest, but works incorrectly:
+
+ * decltype
+
+The features listed up to this point are the
+ones we will have to work with.
+
+Of highest interest, but not available:
+
+ * initializer lists
+ * default function template arguments
+ * alias templates
+ * strongly typed enums
+ * noexcept
+ * variadic templates
+
+Of interest, but not available:
+
+ * explicit conversion operators
+ * forward declared enums
+ * range-based for loop
+ * delegating constructors
+ * inheriting constructors
+ * default and deleted functions
+ * char16_t and char32_t
+ * unicode string literals
+ 
+Implementation details affecting interface
+------------------------------------------
+
+07.06.2012
+
+Inside a data structure I have something like this:
+
+	typedef std::multimap<NonTerminal_ConstIterator, Rule, 
+		Pastel::Iterator_Less> RuleSet;
+
+Using the map gives a fast access to Rules based on a 
+NonTerminal key. I will then expose an iterator- or range-based
+interface directly to RuleSet.
+
+### Problem
+
+The user of the data structure is only interested
+in the set of Rules, not in NonTerminal-Rule pairs. The pairs
+make the interface uncomfortable to use. How to expose only
+the Rule-part?
+
+## Solution 1: Iterator facade
+
+Rather than exposing direct iterators to the RuleSet,
+expose a facade iterator which gives access only to the Rule-part
+of the pair.
+
 Extending hashing
 -----------------
 
