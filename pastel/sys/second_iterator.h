@@ -1,5 +1,4 @@
 // Description: A 'second'-member pair-iterator facade
-// Documentation: iterators.txt
 
 #ifndef PASTEL_SECOND_ITERATOR_H
 #define PASTEL_SECOND_ITERATOR_H
