@@ -3,9 +3,12 @@ Scoped enums
 
 [[Parent]]: techniques.txt
 
-In this section we present a technique for scoping enum values.
-While the next standard C++0x will bring scoped enums into the 
-language itself, meanwhile we need a convenient work-around.
+In this section we present a technique for scoping enum values, i.e.
+simulating strongly typed enums. C++11 has this feature, but at
+the time of the last update of this section (June 2012), they aren't
+yet implemented in Visual Studio 2010. While waiting for the support,
+we need something else. The following is what we have been using
+when working with C++03.
 
 Problem
 -------

@@ -16,7 +16,7 @@ namespace Pastel
 	class IteratorToRange
 	{
 	public:
-		typedef typename boost::iterator_category<Iterator>::type 
+		typedef typename std::iterator_traits<Iterator>::iterator_category
 			Category;
 
 		typedef boost::mpl::if_<

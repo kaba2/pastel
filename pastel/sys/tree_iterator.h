@@ -62,6 +62,16 @@ namespace Pastel
 			return Tree_ConstIterator(node_->parent);
 		}
 
+		Tree_ConstIterator left() const
+		{
+			return child(0);
+		}
+
+		Tree_ConstIterator right() const
+		{
+			return child(1);
+		}
+
 		Tree_ConstIterator child(integer index) const
 		{
 			ASSERT_OP(index, >=, 0);
@@ -210,6 +220,16 @@ namespace Pastel
 			return Tree_Iterator((Node*)Base::parent().node_);
 		}
 		
+		Tree_Iterator left() const
+		{
+			return Tree_Iterator((Node*)Base::left().node_);
+		}
+
+		Tree_Iterator right() const
+		{
+			return Tree_Iterator((Node*)Base::right().node_);
+		}
+
 		Tree_Iterator child(integer index) const
 		{
 			return Tree_Iterator((Node*)Base::child(index).node_);
@@ -280,6 +300,90 @@ namespace Pastel
 			return (Node*)Base::node_;
 		}
 	};
+
+	template <typename Data>
+	Tree_Iterator<Data> root(Tree_Iterator<Data> that)
+	{
+		if (!that.empty())
+		{
+			while(!that.parent().empty())
+			{
+				that = that.parent();
+			};
+		}
+
+		return that;
+	}
+
+	template <typename Data>
+	Tree_Iterator<Data> leftMost(Tree_Iterator<Data> that)
+	{
+		if (!that.empty())
+		{
+			while(!that.left().empty())
+			{
+				that = that.left();
+			};
+		}
+
+		return that;
+	}
+
+	template <typename Data>
+	Tree_Iterator<Data> rightMost(Tree_Iterator<Data> that)
+	{
+		if (!that.empty())
+		{
+			while(!that.right().empty())
+			{
+				that = that.right();
+			};
+		}
+
+		return that;
+	}
+
+	template <typename Data>
+	Tree_ConstIterator<Data> root(Tree_ConstIterator<Data> that)
+	{
+		if (!that.empty())
+		{
+			while(!that.parent().empty())
+			{
+				that = that.parent();
+			};
+		}
+
+		return that;
+	}
+
+	template <typename Data>
+	Tree_ConstIterator<Data> leftMost(Tree_ConstIterator<Data> that)
+	{
+		if (!that.empty())
+		{
+			while(!that.left().empty())
+			{
+				that = that.left();
+			};
+		}
+
+		return that;
+	}
+
+	template <typename Data>
+	Tree_ConstIterator<Data> rightMost(Tree_ConstIterator<Data> that)
+	{
+		if (!that.empty())
+		{
+			while(!that.right().empty())
+			{
+				that = that.right();
+			};
+		}
+
+		return that;
+	}
 
 }
 
