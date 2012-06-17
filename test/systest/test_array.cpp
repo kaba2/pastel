@@ -179,7 +179,7 @@ namespace
 			
 			Array<integer, 2> b(Vector2i(6, 6));
 			std::copy(
-				countingIterator(0), countingIterator(b.size()),
+				countingIterator((integer)0), countingIterator(b.size()),
 				b.begin());
 
 			TEST_ENSURE(std::equal(a.begin(), a.end(), b.begin()));

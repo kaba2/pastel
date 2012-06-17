@@ -33,23 +33,23 @@ namespace Pastel
 	}
 
 	template <typename Integer>
+	template <typename That_Integer>
 	Rational<Integer>::Rational(
-		integer wholes)
+		That_Integer wholes, 
+		PASTEL_ENABLE_IF(IsNativeOrInteger<That_Integer>, Private)*)
 		: numerator_(wholes)
 		, denominator_(1)
 	{
 	}
 
 	template <typename Integer>
+	template <
+		typename Numerator_Integer, 
+		typename Denominator_Integer>
 	Rational<Integer>::Rational(
-		typename boost::mpl::if_<std::is_same<integer, Integer>, EmptyClass, Integer>::type wholes)
-		: numerator_(std::move(wholes))
-		, denominator_(1)
-	{
-	}
-
-	template <typename Integer>
-	Rational<Integer>::Rational(Integer numerator, Integer denominator)
+		Numerator_Integer numerator,
+		Denominator_Integer denominator,
+		PASTEL_ENABLE_IF((AreNativeOrInteger<Numerator_Integer, Denominator_Integer>), Private)*)
 		: numerator_(std::move(numerator))
 		, denominator_(std::move(denominator))
 	{

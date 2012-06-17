@@ -114,7 +114,7 @@ namespace Pastel
 				// For 2- and 4-bit images, use
 				// the setExtent of the 16 color palette.
 
-				const integer toCopy = std::min(colors, 16);
+				const integer toCopy = std::min(colors, (integer)16);
 				for (integer i = 0;i < toCopy;++i)
 				{
 					palette[i] =
@@ -248,7 +248,7 @@ namespace Pastel
 		const integer width = pcxHeader.width();
 		const integer height = pcxHeader.height();
 
-		image.setExtent(Vector<integer, 2>(width, height));
+		image.setExtent(Vector2i(width, height));
 
 		for (integer yPos = height - 1;yPos >= 0;--yPos)
 		{

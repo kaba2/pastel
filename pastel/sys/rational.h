@@ -7,7 +7,11 @@
 
 #include <boost/operators.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_signed.hpp>
 
 namespace Pastel
 {
@@ -21,6 +25,35 @@ namespace Pastel
 		Rational<Integer>
 		> >
 	{
+	private:
+		class Private {};
+
+		template <typename That_Integer>
+		struct IsNative
+			: boost::is_signed<That_Integer> 
+		{};
+
+		template <typename That_Integer>
+		struct IsInteger
+			: boost::mpl::and_<
+			boost::mpl::not_<boost::is_signed<That_Integer>>, 
+			boost::is_same<That_Integer, Integer>>
+		{};
+
+		template <typename That_Integer>
+		struct IsNativeOrInteger
+			: boost::mpl::or_<
+			IsNative<That_Integer>,
+			IsInteger<That_Integer>> 
+		{};
+
+		template <typename Left_Integer, typename Right_Integer>
+		struct AreNativeOrInteger
+			: boost::mpl::and_<
+			IsNativeOrInteger<Left_Integer>,
+			IsNativeOrInteger<Right_Integer>> 
+		{};
+
 	public:
 		// Using default destructor.
 
@@ -36,32 +69,26 @@ namespace Pastel
 		// Note in the following the different
 		// kinds of constructors. The intent is
 		// to identify literals such as 1, 2.3f,
-		// 2.3 with Rational numbers. This is
-		// why we provide
-		// Rational(integer wholes);
-		// Rational(real32_ieee that);
-		// Rational(real64_ieee that);
-
+		// 2.3 with Rational numbers. One has to
+		// be careful to not create ambiguities 
+		// when creating these overloads.
+	
 		//! Constructs with the value (wholes / 1).
 		/*! 
 		Implicit conversion allowed.
 		*/
-		Rational(integer wholes);
-
-		//! Constructs with the value (wholes / 1).
-		/*! 
-		Implicit conversion allowed.
-		This constructor causes an amgiguity
-		if integer == Integer. Thus we "remove"
-		this constructor in that case by changing
-		it to take an EmptyClass which we mean
-		to never be used.
-		*/
-		Rational(typename boost::mpl::if_<std::is_same<integer, Integer>, EmptyClass, Integer>::type wholes);
+		template <typename That_Integer>
+		Rational(That_Integer wholes, 
+			PASTEL_ENABLE_IF(IsNativeOrInteger<That_Integer>, Private)* = 0);
 
 		//! Constructs with the value (numerator / denominator).
-		Rational(Integer numerator,
-				 Integer denominator);
+		template <
+			typename Numerator_Integer, 
+			typename Denominator_Integer>
+		Rational(
+			Numerator_Integer numerator,
+			Denominator_Integer denominator,
+			PASTEL_ENABLE_IF((AreNativeOrInteger<Numerator_Integer, Denominator_Integer>), Private)* = 0);
 
 		//! Constructs with the value of the ieee single floating point.
 		/*!

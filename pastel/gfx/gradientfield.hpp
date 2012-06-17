@@ -59,7 +59,7 @@ namespace Pastel
 			// [0, permutationSize[^n).
 
 			const integer permutationSize = 
-				std::max(roundUpToPowerOf2(gradients), 256);
+				std::max(roundUpToPowerOf2(gradients), (integer)256);
 			permutationMask_ = permutationSize - 1;
 			
 			// Generate the standard permutation.

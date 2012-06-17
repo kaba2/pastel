@@ -462,7 +462,7 @@ namespace Pastel
 
 		for (integer y = yMin;y < yMid;++y)
 		{
-			const integer xBegin = std::max(toPixelSpanPoint(xLeft), 0);
+			const integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
 			const integer xEnd = std::min(toPixelSpanPoint(xRight), width);
 
 			if (xEnd - xBegin > 0)
@@ -575,7 +575,7 @@ namespace Pastel
 
 		for (integer y = yMid;y < yMax;++y)
 		{
-			const integer xBegin = std::max(toPixelSpanPoint(xLeft), 0);
+			const integer xBegin = std::max(toPixelSpanPoint(xLeft), (integer)0);
 			const integer xEnd = std::min(toPixelSpanPoint(xRight), width);
 
 			if (xEnd - xBegin > 0)

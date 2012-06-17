@@ -39,7 +39,7 @@ namespace
 		}
 
 		template <int N>
-		bool same(const Tree& tree, int (&correctSet)[N]) const
+		bool same(const Tree& tree, integer (&correctSet)[N]) const
 		{
 			return rangeForAll(arrayRange(correctSet), tree.crange(), EqualTo());
 		}

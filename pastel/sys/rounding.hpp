@@ -50,6 +50,57 @@ namespace Pastel
 		return Pastel::roundUpToEven((integer)std::ceil(that));
 	}
 
+	inline int16 roundUpToPowerOf2(int16 that)
+	{
+		PENSURE_OP(that, >=, 0);
+
+		// NOTE: Works only for 16-bit integer.
+
+		--that;
+
+		that |= that >> 1;
+		that |= that >> 2;
+		that |= that >> 4;
+		that |= that >> 8;
+
+		return that + 1;
+	}
+
+	inline int32 roundUpToPowerOf2(int32 that)
+	{
+		PENSURE_OP(that, >=, 0);
+
+		// NOTE: Works only for 32-bit integer.
+
+		--that;
+
+		that |= that >> 1;
+		that |= that >> 2;
+		that |= that >> 4;
+		that |= that >> 8;
+		that |= that >> 16;
+
+		return that + 1;
+	}
+
+	inline int64 roundUpToPowerOf2(int64 that)
+	{
+		PENSURE_OP(that, >=, 0);
+
+		// NOTE: Works only for 64-bit integer.
+
+		--that;
+
+		that |= that >> 1;
+		that |= that >> 2;
+		that |= that >> 4;
+		that |= that >> 8;
+		that |= that >> 16;
+		that |= that >> 32;
+
+		return that + 1;
+	}
+
 	inline integer roundUpToPowerOf2(integer that, integer power)
 	{
 		PENSURE_OP(that, >=, 0);
@@ -64,25 +115,6 @@ namespace Pastel
 		}
 
 		return that;
-	}
-
-	inline integer roundUpToPowerOf2(integer that)
-	{
-		PASTEL_STATIC_ASSERT(sizeof(integer) == sizeof(int32));
-
-		PENSURE_OP(that, >=, 0);
-
-		// NOTE: Works only for 32 bit integer.
-
-		--that;
-
-		that |= that >> 1;
-		that |= that >> 2;
-		that |= that >> 4;
-		that |= that >> 8;
-		that |= that >> 16;
-
-		return that + 1;
 	}
 
 }
