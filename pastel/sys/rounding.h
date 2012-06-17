@@ -54,7 +54,31 @@ namespace Pastel
 	Time complexity: constant
 	Exception safety: nothrow
 	*/
-	integer roundUpToPowerOf2(integer that);
+	int16 roundUpToPowerOf2(int16 that);
+
+	//! Rounds up 'that' to the next power of 2.
+	/*!
+	[Round up to power of 2]
+
+	Preconditions:
+	that >= 0
+
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+	int32 roundUpToPowerOf2(int32 that);
+
+	//! Rounds up 'that' to the next power of 2.
+	/*!
+	[Round up to power of 2]
+
+	Preconditions:
+	that >= 0
+
+	Time complexity: constant
+	Exception safety: nothrow
+	*/
+	int64 roundUpToPowerOf2(int64 that);
 
 	//! Rounds up 'that' to the next multiple of power of 2.
 	/*!

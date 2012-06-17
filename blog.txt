@@ -1,8 +1,19 @@
 Implementation blog
 ===================
 
+Property sheets for 64-bit platform
+-----------------------------------
+
+16.6.2012
+
+After adding the x64 platform to the project in Visual Studio 2010 SP1, 
+the property sheet Microsoft.cpp.x64.user was not created for the 
+projects. This was resolved by restarting the Visual Studio.
+
 A summary of C++11 state in Visual Studio 2010
 ----------------------------------------------
+
+xx.06.2012
 
 Of highest interest, and complete:
 

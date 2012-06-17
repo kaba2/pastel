@@ -10,6 +10,9 @@
 
 #include <climits>
 
+#include <boost/type_traits/is_signed.hpp>
+#include <boost/type_traits/is_float.hpp>
+
 namespace Pastel
 {
 
@@ -38,13 +41,31 @@ namespace Pastel
 			PASTEL_STATIC_ASSERT(
 				UINT_MAX == 0xFFFFFFFF);
 
+			// Check that 'real' is a native floating point type.
+			PASTEL_STATIC_ASSERT(
+				boost::is_float<real>::value);
+
 			// Check that 'integer' is at least 32 bits wide.
 			PASTEL_STATIC_ASSERT(
 				sizeof(integer) >= sizeof(int32));
 
+			// Check that 'integer' is a native signed integer type.
+			PASTEL_STATIC_ASSERT(
+				boost::is_signed<integer>::value);
+			
+#			ifdef PASTEL_LARGE_INTEGER
+			// Check that 'integer' is of the same size as a pointer.
+			PASTEL_STATIC_ASSERT(
+				sizeof(integer) == sizeof(void*));
+#			endif
+
 			// Check that 'pointer_integer' is of the same size as a pointer.
 			PASTEL_STATIC_ASSERT(
 				sizeof(pointer_integer) == sizeof(void*));
+
+			// Check that 'pointer_integer' is a native signed integer type.
+			PASTEL_STATIC_ASSERT(
+				boost::is_signed<pointer_integer>::value);
 
 			PASTEL_STATIC_ASSERT(
 				sizeof(uint8) == sizeof(uchar));

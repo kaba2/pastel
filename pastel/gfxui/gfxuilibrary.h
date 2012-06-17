@@ -6,14 +6,10 @@
 
 #include "pastel/sys/environment.h"
 
-#ifdef _USRDLL
-#	ifdef PASTELGFXUI_EXPORTS
-#		define PASTELGFXUI PASTEL_DLLEXPORT
-#	else
-#		define PASTELGFXUI PASTEL_DLLIMPORT
-#	endif
+#ifdef PASTELGFXUI_EXPORTS
+#	define PASTELGFXUI PASTEL_DLLEXPORT
 #else
-#	define PASTELGFXUI
+#	define PASTELGFXUI PASTEL_DLLIMPORT
 #endif
 
 #endif

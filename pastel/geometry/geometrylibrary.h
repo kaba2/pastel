@@ -6,14 +6,10 @@
 
 #include "pastel/sys/environment.h"
 
-#ifdef _USRDLL
-#	ifdef PASTELGEOMETRY_EXPORTS
-#		define PASTELGEOMETRY PASTEL_DLLEXPORT
-#	else
-#		define PASTELGEOMETRY PASTEL_DLLIMPORT
-#	endif
+#ifdef PASTELGEOMETRY_EXPORTS
+#	define PASTELGEOMETRY PASTEL_DLLEXPORT
 #else
-#	define PASTELGEOMETRY
+#	define PASTELGEOMETRY PASTEL_DLLIMPORT
 #endif
 
 #endif

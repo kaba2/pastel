@@ -100,7 +100,7 @@ namespace Pastel
 						nearestSet.begin() + nearestCount,
 						nearestArray->rowBegin(i));
 				}
-				const integer fillStart = std::max(nearestCount - kNearestBegin, 0);
+				const integer fillStart = std::max(nearestCount - kNearestBegin, (integer)0);
 				std::fill(
 					nearestArray->rowBegin(i) + fillStart,
 					nearestArray->rowEnd(i),
@@ -115,7 +115,7 @@ namespace Pastel
 						distanceSet.begin() + nearestCount,
 						distanceArray->rowBegin(i));
 				}
-				const integer fillStart = std::max(nearestCount - kNearestBegin, 0);
+				const integer fillStart = std::max(nearestCount - kNearestBegin, (integer)0);
 				std::fill(
 					distanceArray->rowBegin(i) + fillStart,
 					distanceArray->rowEnd(i), infinity<Real>());

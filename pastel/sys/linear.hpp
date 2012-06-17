@@ -30,7 +30,7 @@ namespace Pastel
 
 			return Pastel::linear<Type>(
 				linear<Type>(position, data, index, axis + 1),
-				linear<Type>(position, data, index + (1 << axis), axis + 1),
+				linear<Type>(position, data, index + ((integer)1 << axis), axis + 1),
 				position[axis]);
 		}
 
@@ -45,7 +45,7 @@ namespace Pastel
 			Type;
 
 		const integer n = position.size();
-		ENSURE_OP(data.size(), >=, (1 << n));
+		ENSURE_OP(data.size(), >=, ((integer)1 << n));
 
 		return Detail_Linear::linear<Type>(position, data, 0, 0);
 	}

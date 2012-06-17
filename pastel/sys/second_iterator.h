@@ -31,8 +31,9 @@ namespace Pastel
 	class Second_Iterator
 		: boost::less_than_comparable<Second_Iterator<Iterator, Const>
 		, boost::unit_steppable<Second_Iterator<Iterator, Const>
-		, boost::addable2<Second_Iterator<Iterator, Const>, integer
-		> > >
+		, boost::addable2<Second_Iterator<Iterator, Const>, typename std::iterator_traits<Iterator>::difference_type
+		, boost::subtractable<Second_Iterator<Iterator, Const>, typename std::iterator_traits<Iterator>::difference_type
+		> > > >
 	{
 	private:
 		class Disabler {};
@@ -109,12 +110,12 @@ namespace Pastel
 			return iter_ < that.iter_;
 		}
 
-		Second_Iterator& operator+=(integer n)
+		Second_Iterator& operator+=(difference_type n)
 		{
 			iter_ += n;
 		}
 
-		Second_Iterator& operator-=(integer n)
+		Second_Iterator& operator-=(difference_type n)
 		{
 			iter_ -= n;
 		}

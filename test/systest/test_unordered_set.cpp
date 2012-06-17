@@ -152,7 +152,7 @@ namespace
 			Container that(hashtable);
 			TEST_ENSURE_OP(that.size(), ==, values.size());
 			TEST_ENSURE_OP(that.size(), ==, hashtable.size());
-			TEST_ENSURE_OP(that.max_load_factor(), !=, hashtable.max_load_factor());
+			TEST_ENSURE_OP(that.max_load_factor(), ==, hashtable.max_load_factor());
 			testSameValues(that, values);
 			std::swap(hashtable, that);
 

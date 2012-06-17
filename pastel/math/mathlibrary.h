@@ -6,14 +6,10 @@
 
 #include "pastel/sys/environment.h"
 
-#ifdef _USRDLL
-#	ifdef PASTELMATH_EXPORTS
-#		define PASTELMATH PASTEL_DLLEXPORT
-#	else
-#		define PASTELMATH PASTEL_DLLIMPORT
-#	endif
+#ifdef PASTELMATH_EXPORTS
+#	define PASTELMATH PASTEL_DLLEXPORT
 #else
-#	define PASTELMATH
+#	define PASTELMATH PASTEL_DLLIMPORT
 #endif
 
 #endif

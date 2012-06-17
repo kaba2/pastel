@@ -51,7 +51,7 @@ namespace Pastel
 
 			explicit SparseIteratorBase(
 				const Iterator& iter,
-				integer delta = 1)
+				typename Base::difference_type delta = 1)
 				: iter_(iter)
 				, delta_(delta)
 			{
@@ -70,14 +70,14 @@ namespace Pastel
 			}
 
 			Derived& operator+=(
-				integer that)
+				typename Base::difference_type that)
 			{
 				iter_ += delta_ * that;
 				return (Derived&)*this;
 			}
 
 			Derived& operator-=(
-				integer that)
+				typename Base::difference_type that)
 			{
 				iter_ -= delta_ * that;
 				return (Derived&)*this;
@@ -110,7 +110,7 @@ namespace Pastel
 
 		protected:
 			Iterator iter_;
-			integer delta_;
+			typename Base::difference_type delta_;
 		};
 
 	}
@@ -137,7 +137,7 @@ namespace Pastel
 
 		explicit SparseIterator(
 			const Iterator& iter,
-			integer delta = 1)
+			typename Base::difference_type delta = 1)
 			: Base(iter, delta)
 		{
 		}
@@ -174,7 +174,8 @@ namespace Pastel
 
 	template <typename Iterator>
 	SparseIterator<Iterator> sparseIterator(
-		const Iterator& that, integer delta)
+		const Iterator& that, 
+		typename std::iterator_traits<Iterator>::difference_type delta)
 	{
 		PENSURE_OP(delta, >=, 1);
 
@@ -183,7 +184,8 @@ namespace Pastel
 
 	template <typename ConstIterator>
 	ConstSparseIterator<ConstIterator> constSparseIterator(
-		const ConstIterator& that, integer delta)
+		const ConstIterator& that, 
+		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{
 		PENSURE_OP(delta, >=, 1);
 
@@ -193,7 +195,7 @@ namespace Pastel
 	template <typename Iterator>
 	SparseIterator<Iterator> sparseEnd(
 		const Iterator& begin, const Iterator& end,
-		integer delta)
+		typename std::iterator_traits<Iterator>::difference_type delta)
 	{
 		PENSURE_OP(delta, >= , 1);
 
@@ -212,7 +214,7 @@ namespace Pastel
 	template <typename ConstIterator>
 	ConstSparseIterator<ConstIterator> constSparseEnd(
 		const ConstIterator& begin, const ConstIterator& end,
-		integer delta)
+		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{
 		PENSURE_OP(delta, >=, 1);
 
@@ -222,7 +224,7 @@ namespace Pastel
 	template <typename Iterator>
 	RandomAccessIterator_Range<SparseIterator<Iterator> > sparseRange(
 		const Iterator& begin, const Iterator& end,
-		integer delta)
+		typename std::iterator_traits<Iterator>::difference_type delta)
 	{
 		PENSURE_OP(delta, >=, 1);
 
@@ -234,7 +236,7 @@ namespace Pastel
 	template <typename ConstIterator>
 	RandomAccessIterator_Range<ConstSparseIterator<ConstIterator> > constSparseRange(
 		const ConstIterator& begin, const ConstIterator& end,
-		integer delta)
+		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{
 		PENSURE_OP(delta, >=, 1);
 

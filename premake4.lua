@@ -5,23 +5,23 @@
 -- ============================
 
 -- Whether you have Matlab include files 
--- (say, for 2008a or never). Note: Binaries are not
+-- (say, for 2008a or newer). Note: Binaries are not
 -- needed since the linking is done from Matlab.
 gotMatlab = true
 
--- Whether you have Glew 1.5.7 include files and binaries.
+-- Whether you have Glew 1.7.0 include files and binaries.
 gotGlew = true
 
--- Whether you have SDL 1.2 include files and binaries.
+-- Whether you have SDL 1.2.15 include files and binaries.
 gotSdl = true
 
--- Whether you have Boost 1.45 include files.
+-- Whether you have Boost 1.49 include files.
 gotBoost = true
 
 -- Note: To succesfully _compile_ the libraries, 
 -- you only need the header files for the external
 -- libraries. This allows you to try the compilation
--- even if you did not have the external library
+-- even if you do not have the external library
 -- binaries. It is only in the _linking_ phase of 
 -- executables and shared libraries (i.e. tests and 
 -- examples) where the binaries are needed .
@@ -37,6 +37,12 @@ buildTests = true
 
 -- Whether to build the examples.
 buildExamples = true
+
+-- Whether to build dynamic libraries (vs static libraries)
+wantDynamicLibraries = false
+
+-- Whether the 'integer'-type should be as large as a pointer (vs 32-bit).
+wantLargeIntegers = false
 
 -- Detailed build switches
 -- =======================
@@ -86,21 +92,21 @@ buildConvexHull = true and exampleRequirements
 
 -- The directory of the Boost library's source code.
 -- The includes are of the form 'boost/static_assert.hpp'.
-boostIncludeDir = "../../external/boost_1_45_0"
+boostIncludeDir = "../boost_1_49_0"
 
 -- The directory of the SDL library's header files.
 -- The includes are of the form 'SDL.h'.
-sdlIncludeDir = "../../external/SDL-1.2.14/include"
-sdlLibraryDir = "../../external/SDL-1.2.14/lib"
+sdlIncludeDir = "../SDL-1.2.15/include"
+sdlLibraryDir = "../SDL-1.2.15/lib"
 
 -- The directory of the GLEW library's header files.
 -- The includes are of the form 'glew.h'.
-glewIncludeDir = "../../external/glew-1.5.7/include"
-glewLibraryDir = "../../external/glew-1.5.7/lib"
+glewIncludeDir = "../glew-1.7.0-64bit/include"
+glewLibraryDir = "../glew-1.7.0-64bit/lib"
 
 -- The directory of the Matlab header files.
 -- The includes are of the form 'mex.h'.
-matlabIncludeDir = "C:/Program Files/MATLAB/R2008a/extern/include"
+matlabIncludeDir = "C:/Program Files/MATLAB/R2011b/extern/include"
 
 -- No need to give a library path for Matlab:
 -- Mex files are built from within Matlab.
@@ -206,7 +212,7 @@ solution "Pastel"
 		glewIncludeDir,
 		matlabIncludeDir
 	}
-	
+
 	libraryDirectorySet =
 	{
 		sdlLibraryDir,
@@ -255,14 +261,7 @@ solution "Pastel"
 		defines
 		{
 			"_SECURE_SCL=0",
-			"_HAS_ITERATOR_DEBUGGING=0",
-			"PASTEL_VISUAL_STUDIO",
-		}
-		
-		-- Disable language extensions
-		buildoptions
-		{
-			"/Za"			
+			"_HAS_ITERATOR_DEBUGGING=0"
 		}
 		
 	-- GCC specific build options.
@@ -287,7 +286,23 @@ solution "Pastel"
 			-- assumption that signed integer overflows do not occur.
 			"-Wno-strict-overflow"
 		}
+
+	-- Enable dynamic libraries if requested
+
+	if wantDynamicLibraries
+	then
+		configuration "*"
+			defines { "PASTEL_DYNAMIC_LIBRARIES" }
+	end
 		
+	-- Enable large integers if requested
+
+	if wantLargeIntegers
+	then
+		configuration "*"
+			defines { "PASTEL_LARGE_INTEGERS" }
+	end
+
 	-- Enable OpenMP if requested
 
 	configuration "release"

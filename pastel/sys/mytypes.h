@@ -65,8 +65,6 @@
 namespace Pastel
 {
 
-	// PORTABILITY: long long is not standard C++
-
 	// Shortened native types
 
 	typedef signed char        schar;
@@ -83,6 +81,8 @@ namespace Pastel
 
 	// PORTABILITY: the size of the native
 	// types is not defined in standard C++.
+	// We check these assumptions at compile-time
+	// in pastelsys.cpp.
 
 	typedef char               int8;
 	typedef short              int16;
@@ -99,27 +99,65 @@ namespace Pastel
 	typedef float              real32_ieee;
 	typedef double             real64_ieee;
 
-	//! Abstract integer type
-	/*!
-	We require that 
-	sizeof(integer) >= sizeof(int32)
-	*/
-	typedef int                integer;
-	
-	//! Abstract real type
-	/*!
-	We require 'real' to be a native floating point
-	type.
-	*/
-	typedef double	           real;
+	namespace MyTypes_
+	{
 
-	//! Integer capable of holding an address
+		template <int N>
+		struct IntegerOfSize {};
+
+		template <>
+		struct IntegerOfSize<2>
+		{
+			typedef int16 type;
+		};
+
+		template <>
+		struct IntegerOfSize<4>
+		{
+			typedef int32 type;
+		};
+
+		template <>
+		struct IntegerOfSize<8>
+		{
+			typedef int64 type;
+		};
+
+	}
+
+	//! Integer capable of holding a pointer.
 	/*!
-	An object of this type is used to hold a pointer
-	in an integer. Thus we require:
+	Preconditions:
 	sizeof(void*) == sizeof(pointer_integer)
+	'pointer_integer' is a native signed integer type.
 	*/
-	typedef std::size_t        pointer_integer;
+	typedef MyTypes_::IntegerOfSize<sizeof(void*)>::type 
+		pointer_integer;
+
+	//! Abstract native integer type
+	/*!
+	Preconditions:
+	sizeof(integer) >= sizeof(int32)
+	sizeof(integer) <= sizeof(int64)
+	'integer' is a native signed integer type.
+	
+	If PASTEL_LARGE_INTEGER is defined, then additionally:
+	sizeof(integer) >= min(sizeof(void*), sizeof(int64)) 
+	*/
+#	ifdef PASTEL_LARGE_INTEGER
+		typedef std::conditional<
+			sizeof(void*) <= sizeof(int64),
+			pointer_integer, int64>::type integer;
+#	else
+		typedef int32 integer;
+#	endif
+	
+	//! Abstract native real type
+	/*!
+	Preconditions:
+	'real' is a native floating point type.
+	*/
+	typedef real64 real;
 
 	//! Integer for holding hash integers.
 	/*!
