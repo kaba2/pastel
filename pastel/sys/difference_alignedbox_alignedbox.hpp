@@ -59,9 +59,8 @@ namespace Pastel
 			return reported;
 		}
 
-		bool wantToContinue = true;
 		AlignedBox<Real, N> cutBox(aBox);
-		for (integer i = 0;i < n && wantToContinue;++i)
+		for (integer i = 0;i < n;++i)
 		{
 			if (cutBox.max()[i] <= bBox.min()[i])
 			{
@@ -71,7 +70,7 @@ namespace Pastel
 				{
 					// The whole box is included in
 					// the cut-out box.
-					wantToContinue |= report(cutBox);
+					report(cutBox);
 					++reported;
 
 					// There is nothing more to report.
@@ -87,7 +86,7 @@ namespace Pastel
 				{
 					// The whole box is included in
 					// the cut-out box.
-					wantToContinue |= report(cutBox);
+					report(cutBox);
 					++reported;
 
 					// There is nothing more to report.
@@ -113,7 +112,7 @@ namespace Pastel
 					cutBox.maxTopology()[i] = 
 						switchTopology(bBox.minTopology()[i]);
 					// and report it.
-					wantToContinue |= report(cutBox);
+					report(cutBox);
 					++reported;
 
 					// Form the rest of the box,
@@ -141,7 +140,7 @@ namespace Pastel
 					cutBox.minTopology()[i] = 
 						switchTopology(bBox.maxTopology()[i]);
 					// and report it.
-					wantToContinue |= report(cutBox);
+					report(cutBox);
 					++reported;
 
 					// Form the rest of the box,
