@@ -1,10 +1,29 @@
 Implementation blog
 ===================
 
+Mercurial SSL-certificate
+-------------------------
+
+17.06.2012
+
+While pushing changes in TortoiseHG, it said that
+"SSL: Server certificate verify failed". The problem
+is that the certificate in the server is self-signed.
+Two ways to fix this:
+
+1) Add to mercurial.ini (Global Settings --> Edit file)
+
+	[web]
+	cacerts=
+
+2) or, in the Synchronization window of TortoiseHg,
+   push the lock-icon to get to the security options,
+   and then select "No host validation.".
+
 Property sheets for 64-bit platform
 -----------------------------------
 
-16.6.2012
+16.06.2012
 
 After adding the x64 platform to the project in Visual Studio 2010 SP1, 
 the property sheet Microsoft.cpp.x64.user was not created for the 

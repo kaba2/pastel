@@ -42,17 +42,17 @@ libraries at in step 1.
 
 	-- The directory of the Boost library's source code.
 	-- The includes are of the form 'boost/static_assert.hpp'.
-	boostIncludeDir = "../boost_1_43_0"
+	boostIncludeDir = "../boost_1_49_0"
 
 	-- The directory of the SDL library's header files.
 	-- The includes are of the form 'SDL.h'.
-	sdlIncludeDir = "../SDL-1.2.14/include"
-	sdlLibraryDir = "../SDL-1.2.14/lib"
+	sdlIncludeDir = "../SDL-1.2.15/include"
+	sdlLibraryDir = "../SDL-1.2.15/lib"
 
 	-- The directory of the GLEW library's header files.
 	-- The includes are of the form 'glew.h'.
-	glewIncludeDir = "../glew-1.5.7/include"
-	glewLibraryDir = "../glew-1.5.7/lib"
+	glewIncludeDir = "../glew-1.7.0/include"
+	glewLibraryDir = "../glew-1.7.0/lib"
 
 ### 4. Generate tool-specific build-scripts using Premake. 
 
