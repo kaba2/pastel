@@ -13,6 +13,51 @@ However, this leads to a maintenance problem since a change to the code
 requires to change the code in all replicates. In this article we present 
 a technique that avoids this kind of code replication.
 
+A warning in retrospect
+-----------------------
+
+This section has been written years later (18.06.2012) to report on the 
+disadvantages of this technique. In short, I recommend against using the
+technique as specified in this page. I will give options for solving
+the problem in C++11 below.
+
+### Confusing code organization
+
+The actual code in this technique goes into the CRTP base class. This
+is confusing in two ways. First, the actual code file, say `array.h`
+only contains classes to inherit from the CRTP base class, and therefore
+does not show any interface. This is confusing for documentation.
+Second, even if one understands to look at the CRTP base class for
+documentation, one finds it sprinkled with mentions to the `Derived` 
+class.
+
+### Maintenance problems
+
+The specializations create a maintenance problem in that all constructors,
+assignments etc. must be replicated across all versions. This quickly
+becomes a serious problem, although it might not seem like it at first.
+
+### Solving the specialization problem in C++11
+
+Most of my use of this specialization technique has been to make
+generic multidimensional interfaces easier to use in fixed low
+dimensions. For example, to set the size of a 2-d array, I would
+have a specialization `setExtent(width, height)` rather than
+`setExtent(Vector2i(width, height))`. In retrospect, and in the 
+light of C++11, these techniques have only been trying to simulate 
+the effect of initialization lists. Once initialization list support 
+becomes available, I will abandon the uses of CRTP specialization and 
+use initialization lists instead.
+
+The extraction of the x-component from an n-dimensional vector `v` is a 
+bit different. Here we would like to write, in low-dimensions,
+`v.x()` instead of `v[0]`. In this case initialization lists do not
+help. An option in this case would be to make `x()`, `y()`, and `z()` 
+part of the generic interface and then assert on the dimensionality at
+runtime. But the delay in error-reporting from compile-time to run-time
+would be unacceptable. In C++11 it is possible to remove these functions 
+conditionally based on SFINAE using function template default parameters.
+
 Setting up the scene
 --------------------
 
