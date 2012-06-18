@@ -1,6 +1,42 @@
 Implementation blog
 ===================
 
+Build switches
+--------------
+
+18.06.2012
+
+I am seeing two approaches to implementing library-wide 
+build switches, of which both are problematic. These are
+
+### As header file switches
+
+In this approach the build switches are located in a such
+.h file which is included in every file in the library,
+i.e. `environment.h`. In this file the appropriate 
+preprocessor defines can be set to the desired values, 
+e.g. `#define PASTEL_DEBUG_MODE 1`, before the build.
+
+The problem with this approach is that each configuration
+of the library (e.g. debug and release) needs a different
+set of these defines. Setting the switches in a header 
+file does not work well with build tools where you can
+select any configuration to build.
+
+### As compiler switches
+
+In this approach the build switches are given to the
+compiler when building the library, e.g. 
+`/DPASTEL_DEBUG_MODE`. This will avoid the problems with
+the header file approach. However, it then creates new 
+problems. Consider a library B using a library A.
+Then the library B needs to remember the build switches 
+that were used to build the library A and use those same
+switches to build B, in addition to its own build switches.
+In general, if there are n libraries in a sequence, then 
+the m:th library needs to remember m build switch sets. 
+Clearly this approach does not scale well.
+
 Property sheets in Visual Studio 2010
 -------------------------------------
 
