@@ -10,7 +10,6 @@
     <ClCompile>
       <DisableSpecificWarnings>4018;4180;4224;4244;4251;4267;4305;4351;4800;4804;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
-      <AdditionalOptions>/D "_SECURE_SCL=0" /D "_HAS_ITERATOR_DEBUGGING=0" %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_UNICODE;UNICODE;_SECURE_SCL=0;_HAS_ITERATOR_DEBUGGING=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Lib>
