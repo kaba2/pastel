@@ -1,6 +1,17 @@
 Implementation blog
 ===================
 
+Disabling iterator checking in Visual Studio 2010
+-------------------------------------------------
+
+In Visual Studio 2010, the preferred way to disable
+iterator checking is to define `_ITERATOR_DEBUG_LEVEL = 0`.
+The `_ITERATOR_DEBUG_LEVEL` replaces the different
+combinations of `_SECURE_SCL` and `_HAS_ITERATOR_DEBUGGING`. 
+See [here][DebugIterator] for more information.
+
+[DebugIterator]: http://channel9.msdn.com/Shows/Going+Deep/C9-Lectures-Stephan-T-Lavavej-Advanced-STL-3-of-n
+
 Build switches
 --------------
 
