@@ -4,6 +4,8 @@ Implementation blog
 Disabling iterator checking in Visual Studio 2010
 -------------------------------------------------
 
+19.06.2012
+
 In Visual Studio 2010, the preferred way to disable
 iterator checking is to define `_ITERATOR_DEBUG_LEVEL = 0`.
 The `_ITERATOR_DEBUG_LEVEL` replaces the different
@@ -47,6 +49,23 @@ switches to build B, in addition to its own build switches.
 In general, if there are n libraries in a sequence, then 
 the m:th library needs to remember m build switch sets. 
 Clearly this approach does not scale well.
+
+### Checking for ABI-incompatible switches
+
+Visual Studio 2010 introduces the pragma 
+`detect_mismatch`, which can be used as follows.
+
+[[CppCode]]:
+	#pragma detect_mismatch("PASTEL_VERSION", "1.3.0")
+
+It creates a key-value pair which is embedded into each
+object file whose translation unit contains this pragma.
+If the object file is later linked together with another
+object file with a differing value for the same key,
+it is reported as a linker error. In addition to the
+version numbers of libraries, we should check each 
+ABI-incompatibility-causing build switch in this way,
+such as the `PASTEL_LARGE_INTEGER`.
 
 Property sheets in Visual Studio 2010
 -------------------------------------
