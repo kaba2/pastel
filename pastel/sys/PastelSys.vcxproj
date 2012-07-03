@@ -111,7 +111,6 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Lib />
     <Lib />
@@ -129,7 +128,6 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Lib />
     <Lib />

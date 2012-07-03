@@ -168,7 +168,7 @@ namespace Pastel
 			{
 				if (Base::data())
 				{
-					new(Base::data()) VertexData();
+					new(Base::data()) VertexData;
 				}
 
 				swap(that);

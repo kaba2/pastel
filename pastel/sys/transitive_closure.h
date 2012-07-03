@@ -12,8 +12,6 @@ namespace Pastel
 
 	//! Transitive closure of a function
 	/*!
-	See 'transitive_closure_concepts.h' for the concepts.
-
 	Let X be a set, (Y, +) be a commutative monoid, f : X --> Y, 
 	and ~ subset X^2. Then the transitive closure f^+ : X --> Y 
 	of f is given by
@@ -25,9 +23,41 @@ namespace Pastel
 	where I is the identity of the monoid, and +{y} = y, for
 	all y in Y.
 
+	See 'transitive_closure_concepts.h' for the concepts.
+
+	identity:
+	The identity element I of the monoid Y.
+
+	function:
+	The function f : X --> Y.
+
+	codomainOperator:
+	The monoid operator + : Y^2 --> Y.
+	
+	forEachRelated:
+	For a given domain element x, calls the given function
+	on all x' such that x ~ x'. Specifies implicitly the 
+	relation ~ in X^2.
+
+	forEachDomain:
+	For each domain element, calls the given function.
+	Specifies implicitly the domain-set X. Will be called
+	twice: once to compute the transitive closure, and 
+	once to report the results.
+
+	closureReporter:
+	Reports the transitive closure function f^+ : X --> Y to the user 
+	one (x, y)-pair at a time by closureReporter(x, std::move(y)). Only 
+	the elements in the domain will be reported, even if some elements 
+	might be related to elements outside the domain.
+
 	reflexiveClosure:
 	Extends the relation ~ to be reflexive, i.e. takes
 	a reflexive-transitive closure instead.
+
+	domainHash:
+	Specifies the hash function to use for the domain
+	elements.
 	*/
 	template <
 		typename Domain, 
@@ -36,7 +66,7 @@ namespace Pastel
 		typename CodomainOperator, 
 		typename ForEachRelated,
 		typename ForEachDomain,
-		typename Function_Reporter,
+		typename Closure_Reporter,
 		typename Domain_Hash>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
@@ -44,7 +74,7 @@ namespace Pastel
 		const CodomainOperator& codomainOperator,
 		const ForEachRelated& forEachRelated,
 		const ForEachDomain& forEachDomain,
-		const Function_Reporter& functionReporter,
+		const Closure_Reporter& closureReporter,
 		bool reflexiveClosure = false,
 		const Domain_Hash& domainHash = Hash<Domain>());
 

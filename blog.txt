@@ -1,6 +1,19 @@
 Implementation blog
 ===================
 
+Redundancy and abstraction
+--------------------------
+
+The golden rule of abstraction:
+
+	If there exists two or more pieces of text, written in a language S,
+	for which you can easily describe an algorithm by which they are 
+	similar, then either the language is lacking an abstraction 
+	mechanism, or the mechanism is not taken advantage of.
+
+In this rule, if the abstraction mechanism exists, but is hard to use,
+this also counts as lacking.
+
 Disabling iterator checking in Visual Studio 2010
 -------------------------------------------------
 

@@ -16,7 +16,7 @@ namespace Pastel
 		typename CodomainOperator, 
 		typename ForEachRelated,
 		typename ForEachDomain,
-		typename Function_Reporter,
+		typename Closure_Reporter,
 		typename Domain_Hash>
 	class TransitiveClosure
 	{
@@ -27,7 +27,7 @@ namespace Pastel
 			const CodomainOperator& codomainOperator_,
 			const ForEachRelated& forEachRelated_,
 			const ForEachDomain& forEachDomain_,
-			const Function_Reporter& functionReporter_,
+			const Closure_Reporter& closureReporter_,
 			bool reflexiveClosure_,
 			const Domain_Hash& domainHash_)
 			: identity(identity_)
@@ -35,7 +35,7 @@ namespace Pastel
 			, codomainOperator(codomainOperator_)
 			, forEachRelated(forEachRelated_)
 			, forEachDomain(forEachDomain_)
-			, functionReporter(functionReporter_)
+			, closureReporter(closureReporter_)
 			, reflexiveClosure(reflexiveClosure_)
 			, domainHash(domainHash_)
 		{
@@ -43,7 +43,8 @@ namespace Pastel
 
 		void work()
 		{
-			auto visitIt = [&](const Domain& x)
+			auto visitIt = 
+				[&](const Domain& x)
 			{
 				if (!progressSet.count(x))
 				{
@@ -56,16 +57,20 @@ namespace Pastel
 
 			forEachDomain(visitIt);
 
-			// Report the closure function.
-			Progress_Iterator iter = progressSet.begin();
-			Progress_Iterator iterEnd = progressSet.end();
-			while(iter != iterEnd)
+			// Report the closure function, but only
+			// for those nodes which are in the domain.
+			auto reportIt = 
+				[&](const Domain& x)
 			{
-				functionReporter(
+				auto iter = progressSet.find(x);
+				ASSERT(iter != progressSet.end());
+
+				closureReporter(
 					iter->first,
 					std::move(iter->second.value));
-				++iter;
-			}
+			};
+
+			forEachDomain(reportIt);
 		}
 
 	private:
@@ -174,15 +179,6 @@ namespace Pastel
 					}
 					visitedSet.pop_back();
 				}
-
-				// Now that the node 'x' has been handled (will not
-				// be visited again), we still must take care of
-				// 'x' being related to itself, a task we postponed above.
-				// In case the 'x' was part of some strongly connected 
-				// component, then 'x' already contains its value, and
-				// thus nothing needs to be done. However, if 'x' is only
-				// related to itself, and not to anyone else, then it
-				// needs to be added its value.
 			}
 		}
 
@@ -222,7 +218,7 @@ namespace Pastel
 		const CodomainOperator& codomainOperator;
 		const ForEachDomain& forEachDomain;
 		const ForEachRelated& forEachRelated;
-		const Function_Reporter& functionReporter;
+		const Closure_Reporter& closureReporter;
 		bool reflexiveClosure;
 
 		typedef UnorderedMap<Domain, Progress, Domain_Hash> ProgressSet;
@@ -240,7 +236,7 @@ namespace Pastel
 		typename CodomainOperator, 
 		typename ForEachRelated,
 		typename ForEachDomain,
-		typename Function_Reporter,
+		typename Closure_Reporter,
 		typename Domain_Hash>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
@@ -248,19 +244,19 @@ namespace Pastel
 		const CodomainOperator& codomainOperator,
 		const ForEachRelated& forEachRelated,
 		const ForEachDomain& forEachDomain,
-		const Function_Reporter& functionReporter,
+		const Closure_Reporter& closureReporter,
 		bool reflexiveClosure,
 		const Domain_Hash& domainHash)
 	{
 		TransitiveClosure<Domain, Codomain,
 			Function, CodomainOperator,
-			ForEachRelated, ForEachDomain, Function_Reporter, Domain_Hash> algorithm(
+			ForEachRelated, ForEachDomain, Closure_Reporter, Domain_Hash> algorithm(
 				identity,
 				function,
 				codomainOperator,
 				forEachRelated,
 				forEachDomain,
-				functionReporter,
+				closureReporter,
 				reflexiveClosure,
 				domainHash);
 
