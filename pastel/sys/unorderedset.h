@@ -14,7 +14,7 @@ namespace Pastel
 
 	template <
 		class Value,
-		class Hash = Hash<Value>,
+		class Hash = std::hash<Value>,
 		class Pred = std::equal_to<Value>,
 		class UniformAllocator = PoolAllocator>
 	class UnorderedSet

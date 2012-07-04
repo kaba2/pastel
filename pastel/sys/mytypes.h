@@ -167,7 +167,7 @@ namespace Pastel
 		An integer of this type is used to hold hash
 		values.
 		*/
-		typedef uint32 hash_integer;
+		typedef std::size_t hash_integer;
 
 		//! Removes brackets around a type.
 		/*!

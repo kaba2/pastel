@@ -174,11 +174,21 @@ namespace Pastel
 	void swap(WeakPtr<Type>& left,
 		WeakPtr<Type>& right);
 
-	template <typename Type, typename HashFunction>
-	inline hash_integer partialHash(
-		const WeakPtr<Type>& that,
-		hash_integer currentHash,
-		const HashFunction& hashFunction);
+}
+
+namespace std
+{
+
+	template <typename Type>
+	class hash<Pastel::WeakPtr<Type>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::WeakPtr<Type>& that) const
+		{
+			return Pastel::computeHash(that.get());
+		}
+	};
 
 }
 

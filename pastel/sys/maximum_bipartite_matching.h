@@ -43,7 +43,7 @@ namespace Pastel
 
 	maximumBipartiteMatching(
 		range, reporter, asPair,
-		Hash<Left>(), Hash<Right>());
+		std::hash<Left>(), std::hash<Right>());
 
 	See the documentation for that function.
 	*/

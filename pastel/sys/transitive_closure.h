@@ -76,7 +76,7 @@ namespace Pastel
 		const ForEachDomain& forEachDomain,
 		const Closure_Reporter& closureReporter,
 		bool reflexiveClosure = false,
-		const Domain_Hash& domainHash = Hash<Domain>());
+		const Domain_Hash& domainHash = std::hash<Domain>());
 
 }
 

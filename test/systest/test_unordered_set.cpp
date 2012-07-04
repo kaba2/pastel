@@ -20,7 +20,7 @@ namespace
 {
 	using namespace Pastel;
 
-	typedef UnorderedSet<int, Hash<int>, std::equal_to<int>,
+	typedef UnorderedSet<int, std::hash<int>, std::equal_to<int>,
 		PoolAllocator> Container;
 
 	class Test

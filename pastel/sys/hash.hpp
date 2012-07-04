@@ -3,31 +3,86 @@
 
 #include "pastel/sys/hash.h"
 
-#include <boost/type_traits/is_same.hpp>
+namespace Pastel
+{
+
+	template <typename Type>
+	hash_integer computeHash(
+		const Type& that)
+	{
+		std::hash<Type> hasher;
+		return hasher(that);
+	}
+
+	template <class Type> 
+	hash_integer combineHash(
+		hash_integer hash, 
+		const Type& that)
+	{ 
+		// This code is from the Boost library.
+
+		hash ^= 
+			computeHash(that) + 
+			0x9e3779b9 + 
+			(hash << 6) + 
+			(hash >> 2);
+
+		return hash;
+	} 
+
+	template <typename ConstIterator>
+	hash_integer computeHashMany(
+		ForwardIterator_Range<ConstIterator> input)
+	{
+		hash_integer hash = 0;
+		while(!input.empty())
+		{
+			hash = combineHash(hash, input.front());
+			input.pop_front();
+		}
+		return hash;
+	}
+
+}
+
+namespace std
+{
+
+	// The hash can be specialized for user-defined types,
+	// but not for the types in the STL itself.
+
+	template <typename Key, typename Value>
+	class hash<Pastel::KeyValue<Key, Value>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::KeyValue<Key, Value>& that) const
+		{
+			return thatcombineHash(
+				thatcomputeHash(that.key()),
+				that.value());
+		}
+	};
+
+}
 
 namespace Pastel
 {
 
-	class Jenkins_HashFunction
+	class Jenkins32_HashFunction
 	{
 	public:
-		enum
-		{
-			HashIntegerIs32Bit = std::is_same<hash_integer, uint32>::value
-		};
-		PASTEL_STATIC_ASSERT(HashIntegerIs32Bit);
-
 		template <typename Char_ConstIterator>
-		hash_integer partialHash(
+		uint32 partialHash(
 			const ForwardIterator_Range<Char_ConstIterator>& input,
-			hash_integer currentHash) const
+			uint32 currentHash) const
 		{
 			// One-at-a-time hash function by Bob Jenkins,
 			// the incremental part.
 			
 			// FIX: This function produces only 32-bit hashes.
 
-			hash_integer hash = currentHash;
+			uint32 hash = currentHash;
 
 			Char_ConstIterator iter = input.begin();
 			const Char_ConstIterator end = input.end();
@@ -43,14 +98,14 @@ namespace Pastel
 			return hash;
 		}
 
-		hash_integer finalize(hash_integer currentHash) const
+		uint32 finalize(uint32 currentHash) const
 		{
 			// One-at-a-time hash function by Bob Jenkins,
 			// the finalization part.
 
 			// FIX: This function produces only 32-bit hashes.
 
-			hash_integer hash = currentHash;
+			uint32 hash = currentHash;
 
 			hash += (hash << 3);
 			hash ^= (hash >> 11);
@@ -59,143 +114,6 @@ namespace Pastel
 			return hash;
 		}
 	};
-
-	template <typename Type, typename HashFunction>
-	inline hash_integer computeHash(
-		const Type& that, 
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.finalize(
-			partialHash(that, 0, hashFunction));
-	}
-
-	template <typename Type>
-	inline hash_integer computeHash(const Type& that)
-	{
-		return Pastel::computeHash(that, Jenkins_HashFunction());
-	}
-
-	template <typename ConstIterator, typename HashFunction>
-	inline hash_integer computeHashMany(
-		const ForwardIterator_Range<ConstIterator>& input,
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.finalize(
-			partialHashMany(input, 0, hashFunction));
-	}
-
-	template <typename ConstIterator>
-	inline hash_integer computeHashMany(
-		const ForwardIterator_Range<ConstIterator>& input)
-	{
-		return Pastel::computeHashMany(input, Jenkins_HashFunction());
-	}
-
-	template <typename ConstIterator, typename HashFunction>
-	inline hash_integer partialHashMany(
-		const ForwardIterator_Range<ConstIterator>& input,
-		hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		hash_integer result = currentHash;
-
-		ConstIterator iter = input.begin();
-		const ConstIterator end = input.end();
-		while(iter != end)
-		{
-			result = partialHash(
-				*iter, result, hashFunction);
-
-			++iter;
-		}
-		
-		return result;
-	}
-
-	template <typename ConstIterator>
-	inline hash_integer partialHashMany(
-		const ForwardIterator_Range<ConstIterator>& input,
-		hash_integer currentHash)
-	{
-		return Pastel::partialHashMany(
-			input, currentHash, Jenkins_HashFunction());
-	}
-
-	template <typename Type, typename HashFunction>
-	inline hash_integer partialHash(
-		const Type* that, hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.partialHash(
-			range((char*)&that, sizeof(const Type*)), 
-			currentHash);
-	}
-
-	template <typename Type, typename HashFunction>
-	inline PASTEL_ENABLE_IF(std::is_arithmetic<Type>, hash_integer)
-		partialHash(Type that, hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.partialHash(
-			range((char*)&that, sizeof(Type)),
-			currentHash);
-	}
-
-	template <typename HashFunction>
-	inline hash_integer partialHash(
-		const std::string& that, hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.partialHash(
-			range(that.data(), that.size() * sizeof(char)),
-			currentHash);
-	}
-
-	template <typename HashFunction>
-	inline hash_integer partialHash(
-		const std::wstring& that, hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.partialHash(
-			range((char*)that.data(), 
-			that.size() * sizeof(wchar_t)), currentHash);
-	}
-
-	template <typename Key, typename Value, typename HashFunction>
-	hash_integer partialHash(
-		const KeyValue<Key, Value>& that, hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		hash_integer hash = partialHash(
-			that.key(), currentHash, hashFunction);
-
-		hash = partialHash(
-			that.value(), hash, hashFunction);
-
-		return hash;
-	}
-
-	template <typename Type>
-	hash_integer partialHash(
-		const Type& that, hash_integer currentHash)
-	{
-		return Pastel::partialHash(that, currentHash,
-			Jenkins_HashFunction());
-	}
-
-	template <typename HashFunction>
-	hash_integer finalizeHash(hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return hashFunction.finalize(currentHash);
-	}
-
-	inline hash_integer finalizeHash(
-		hash_integer currentHash)
-	{
-		return Pastel::finalizeHash(currentHash,
-			Jenkins_HashFunction());
-	}
 
 }
 
