@@ -243,16 +243,6 @@ namespace Pastel
 		left.swap(right);
 	}
 
-	template <typename Type, typename HashFunction>
-	inline hash_integer partialHash(
-		const CountedPtr<Type>& that,
-		hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return partialHash(that.get(), 
-			currentHash, hashFunction);
-	}
-
 }
 
 #endif

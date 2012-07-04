@@ -467,7 +467,7 @@ namespace Pastel
 		typedef typename Type_As_Pair::Right Right;
 
 		Pastel::maximumBipartiteMatching(range, reporter, asPair,
-			Hash<Left>(), Hash<Right>());
+			std::hash<Left>(), std::hash<Right>());
 	}
 
 	template <

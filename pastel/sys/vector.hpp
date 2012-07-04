@@ -14,17 +14,6 @@ namespace Pastel
 		left.swap(right);
 	}
 
-	template <typename Real, int N, typename HashFunction>
-	inline hash_integer partialHash(
-		const Vector<Real, N>& that,
-		hash_integer currentHash,
-		const HashFunction& hashFunction)
-	{
-		return Pastel::partialHashMany(
-			range(that.begin(), that.end()),
-			currentHash, hashFunction);
-	}
-
 	template <typename Real, int N, typename Expression>
 	Vector<Real, N> evaluate(
 		const VectorExpression<Real, N, Expression>& that)

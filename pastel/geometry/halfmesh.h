@@ -1053,7 +1053,7 @@ namespace Pastel
 			}
 
 		private:
-			Hash<VertexBody*> hash_;
+			std::hash<VertexBody*> hash_;
 		};
 
 		class HalfHash
@@ -1074,7 +1074,7 @@ namespace Pastel
 			}
 
 		private:
-			Hash<HalfBody*> hash_;
+			std::hash<HalfBody*> hash_;
 		};
 
 		class EdgeHash
@@ -1095,7 +1095,7 @@ namespace Pastel
 			}
 
 		private:
-			Hash<EdgeBody*> hash_;
+			std::hash<EdgeBody*> hash_;
 		};
 
 		class PolygonHash
@@ -1116,7 +1116,7 @@ namespace Pastel
 			}
 
 		private:
-			Hash<PolygonBody*> hash_;
+			std::hash<PolygonBody*> hash_;
 		};
 	};
 

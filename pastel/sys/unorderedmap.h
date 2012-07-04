@@ -15,7 +15,7 @@ namespace Pastel
 	template <
 		class Key,
 		class T,
-		class Hash = Hash<Key>,
+		class Hash = std::hash<Key>,
 		class Pred = std::equal_to<Key>,
 		class UniformAllocator = PoolAllocator>
 	class UnorderedMap

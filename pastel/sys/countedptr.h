@@ -183,11 +183,21 @@ namespace Pastel
 	void swap(CountedPtr<Type>& left,
 		CountedPtr<Type>& right);
 
-	template <typename Type, typename HashFunction>
-	hash_integer partialHash(
-		const CountedPtr<Type>& that,
-		hash_integer currentHash,
-		const HashFunction& hashFunction);
+}
+
+namespace std
+{
+
+	template <typename Type>
+	class hash<Pastel::CountedPtr<Type>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::CountedPtr<Type>& that) const
+		{
+			return Pastel::computeHash(that.get());
+		}
+	};
 
 }
 

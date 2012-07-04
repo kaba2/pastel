@@ -796,12 +796,6 @@ namespace Pastel
 	void swap(Vector<Real, N>& left,
 		Vector<Real, N>& right);
 
-	template <typename Real, int N, typename HashFunction>
-	inline hash_integer partialHash(
-		const Vector<Real, N>& that,
-		hash_integer currentHash,
-		const HashFunction& hashFunction);
-
 	template <typename Real, int N, typename Expression>
 	Vector<Real, N> evaluate(
 		const VectorExpression<Real, N, Expression>& that);
@@ -813,6 +807,23 @@ namespace Pastel
 	template <typename Real, int N>
 	const Tuple<Real, N>& asTuple(
 		const Vector<Real, N>& that);
+
+}
+
+namespace std
+{
+
+	template <typename Real, int N>
+	class hash<Pastel::Vector<Real, N>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::Vector<Real, N>& that) const
+		{
+			return Pastel::computeHashMany(
+				Pastel::range(that.begin(), that.end()));
+		}
+	};
 
 }
 
