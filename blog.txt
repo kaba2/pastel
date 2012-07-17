@@ -1,6 +1,127 @@
 Implementation blog
 ===================
 
+Layered data structures
+-----------------------
+
+13.07.2012
+
+Consider data structures A and B, where B refers to parts of A.
+Then the modification, or destruction, of A, invalidates the state
+of B. How can we guarantee that it is not possible to make the
+state of a B invalid?
+
+### Option 1: Documenting
+
+In this option we simply state in documentation that A must not be
+modified or destructed when it is referred to in B, and leave it to 
+the user to enforce this. 
+
+A problem with this approach is that does not automatically enforce
+the validity of B. It is thus as prone to human error as before.
+
+This option is unacceptable.
+
+### Option 2: Versioning
+
+In this option the A has a version number associated with it.
+This version number is incremented every time a mutating operation
+is called on A. Before accessing A, the B always checks for the
+current version number of A against the version number of A when 
+creating B. If the version numbers do not match, an error is
+generated. 
+
+A problem with this approach is that not all mutating operations 
+may go through A. This is the case when A offers direct access to 
+some of its parts. Another problem with this approach is that the 
+versioning does not detect if A is destructed when it is still 
+referred to by a B. 
+
+This option is unacceptable.
+
+### Option 3: Transferred ownership
+
+In this option A is moved into B. This guarantees that A can not
+be modified or destructed, as long as B exists and refers to A.
+The B can release the ownership of A to outside, given that it
+also clears its state. 
+
+A problem with this approach is that there can be only one data 
+structure B which can refer to A.
+
+This option is unacceptable.
+
+### Option 4: Read-only objects
+
+In this option A is moved into a read-only-object. This is an object
+which contains a shared_ptr to an A to which A is move-constructed.
+Copying a read-only object copies the shared_ptr, not the A, thus
+making it possible to have multiple references to A. The read-only-object 
+can only be used to access a const-reference of A. The read-only-object 
+can release its object to outside given that it only has one single 
+reference. The B object accepts a read-only-object of A, instead of A. 
+This approach fixes the problem with option 3. 
+
+A problem with this approach is that it is a bit awkward to use:
+
+[[CppCode]]:
+	Grammar grammar;
+	// Change grammar...
+    ReadOnly<Grammar> cGrammar = std::move(grammar);
+	{
+		LrZeroAutomaton lrZero(cGrammar);
+		LalrAutomaton lalr(cGrammar);
+		// Do some stuff..
+	}
+	grammar = cGrammar.release();
+	// Change grammar...
+	cGrammar = std::move(grammar);
+
+Name suggestions: Complete, Locked, Protected, Const, Frozen, Static,
+Unchangeable, Preserve, Managed, Readable, Sealed, Final, Unmutable,
+Packed, Ref, ReadOnly.
+
+Another problem is that it is easy to confure `cGrammar` with
+the `grammar`. This easily creates typo-bugs.
+
+This option is acceptable, but perhaps too clumsy.
+
+### Option 5: Locking
+
+In this option B notifies A that it is being referred to. In each
+mutating operation of A, or when destructing A, A checks whether it 
+is being referred to. If this is the case, an error is generated at
+run-time.
+
+[[CppCode]]:
+	Grammar grammar;
+	// Change grammar...
+	LrZeroAutomaton lrZero(grammar);
+	LalrAutomaton lalr(grammar);	
+	// Error: can't modify while being referred to.
+	grammar.change();
+
+A problem with this approach is that the A is most often passed
+to B as a const-reference. This means that the reference-count in
+A must be mutable even if A is not, which means additional issues
+with concurrency.
+
+This option is acceptable.
+
+[[CppCode]]:
+	ReadOnlyPtr<Grammar> grammar_;
+
+### Option 6: Observers
+
+In this option B registers itself as an observer of A. Whenever A is 
+modified, or destructed, the A notifies its observers of the change. 
+B can then react appropriately. The problem is that the generality the 
+observer pattern provides is not needed; the option 5 is enough.
+Another problem is again that the observer list needs to mutable
+at all times, which means additional issues with concurrency.
+
+This option is acceptable, but unnecessarily complex.
+
 Redundancy and abstraction
 --------------------------
 

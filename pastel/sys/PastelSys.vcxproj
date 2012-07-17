@@ -140,6 +140,7 @@
     <ClInclude Include="clone_ptr_private.h" />
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="graph_algorithms.h" />
+    <ClInclude Include="read_protected.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="parallelarray.h" />
     <ClInclude Include="parallelarray.hpp" />
@@ -535,6 +536,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="clone_ptr.txt" />
+    <None Include="read_protected.txt" />
     <None Include="second_iterator.txt" />
     <None Include="techniques_iterators.txt" />
     <None Include="transitive_closure.txt" />
