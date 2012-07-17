@@ -1,0 +1,66 @@
+Read protection
+===============
+
+[[Parent]]: generic_programming.txt
+
+_Read protection_ is a technique for enforcing the immutability of an
+object in a given time interval. A class `A` must be designed 
+for read protection by deriving it from `ReadProtected<A>`, and by
+calling `ReadProtected<A>::readProtect()` from the mutating functions
+of `A`. The desire to make an object of type `A` immutable is expressed
+by holding a `ReadPtr<A>` to the object. The immutability of the object
+is then enforced at those times when there exists at least one 
+`ReadPtr<A>` to the object. Enforcing immutability means generating
+a run-time assertion when immutability would be violated. The 
+`ReadProtected<A>` is implicitly convertible to `ReadPtr<A>`. This
+is the only way to obtain original `ReadPtr<A>`'s; the remaining ones
+are copies of other `ReadPtr<A>`'s. Example:
+
+[[CppCode]]:
+	#include "pastel/sys/read_protected.h"
+
+	using namespace Pastel;
+
+	class A
+	: public ReadProtected<A>
+	{
+	public:
+		void mutate()
+		{
+			readProtect();
+		}
+
+		integer query() const
+		{
+			return 0;
+		}
+	};
+
+	class B
+	{
+	public:
+		explicit B(const A& a)
+		: a_(a)
+		{
+		}
+	
+	private:
+		ReadPtr<A> a_;
+	};
+
+	int main()
+	{
+		A a;
+		// Ok.
+		a.query();
+		// Ok.
+		a.mutate();
+
+		B b(a);
+		// Ok.
+		a.query();
+		// Error.
+		a.mutate();
+
+		return 0;
+	}
