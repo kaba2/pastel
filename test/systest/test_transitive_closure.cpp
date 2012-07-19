@@ -65,7 +65,7 @@ namespace
 
 			auto f = [](const Vertex_Iterator& vertex) -> integer 
 			{
-				return (*vertex)();
+				return vertex->data();
 			};
 
 			auto op = [](integer left, integer right) -> integer 
@@ -76,10 +76,9 @@ namespace
 			auto forEachDomain = [&relation](
 				const std::function<void(const Vertex_Iterator&)>& visit) 
 			{
-				auto vertexRange = relation.vertexRange();
 				std::for_each(
-					countingIterator(vertexRange.begin()),
-					countingIterator(vertexRange.end()),
+					countingIterator(relation.vertexBegin()),
+					countingIterator(relation.vertexEnd()),
 					visit);
 			};
 
@@ -87,18 +86,17 @@ namespace
 				const Vertex_Iterator& vertex, 
 				const std::function<void(const Vertex_Iterator&)>& visit)
 			{
-				auto edgeRange = vertex->exidentRange();
 				std::for_each(
-					countingIterator(edgeRange.begin()),
-					countingIterator(edgeRange.end()),
+					countingIterator(vertex->begin()),
+					countingIterator(vertex->end()),
 					[&](const Edge_Iterator& edge){visit(edge->to());});
 			};
 
 			auto report = [](
 				const Vertex_Iterator& vertex, integer value)
 			{
-				std::cout << (*vertex)() << " before, ";
-				(*vertex)() = value;
+				std::cout << vertex->data() << " before, ";
+				vertex->data() = value;
 				std::cout << value << " after." << std::endl;
 			};
 
@@ -156,7 +154,7 @@ namespace
 
 			auto f = [](const Vertex_Iterator& vertex) -> const Set&
 			{
-				return (*vertex)();
+				return vertex->data();
 			};
 
 			auto op = [](Set&& left, const Set& right) -> Set
@@ -170,10 +168,9 @@ namespace
 			auto forEachDomain = [&relation](
 				const std::function<void(const Vertex_Iterator&)>& visit) 
 			{
-				auto vertexRange = relation.vertexRange();
 				std::for_each(
-					countingIterator(vertexRange.begin()),
-					countingIterator(vertexRange.end()),
+					countingIterator(relation.vertexBegin()),
+					countingIterator(relation.vertexEnd()),
 					visit);
 			};
 
@@ -181,17 +178,16 @@ namespace
 				const Vertex_Iterator& vertex, 
 				const std::function<void(const Vertex_Iterator&)>& visit)
 			{
-				auto edgeRange = vertex->exidentRange();
 				std::for_each(
-					countingIterator(edgeRange.begin()),
-					countingIterator(edgeRange.end()),
+					countingIterator(vertex->begin()),
+					countingIterator(vertex->end()),
 					[&](const Edge_Iterator& edge){visit(edge->to());});
 			};
 
 			auto report = [](
 				const Vertex_Iterator& vertex, Set&& set)
 			{
-				std::for_each((*vertex)().begin(), (*vertex)().end(),
+				std::for_each(vertex->data().begin(), vertex->data().end(),
 					[](const integer& that) {std::cout << that << ", ";});
 				std::cout << " before, ";
 

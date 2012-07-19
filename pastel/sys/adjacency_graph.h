@@ -13,47 +13,61 @@ namespace Pastel
 	public:
 		Adjacency_Graph()
 			: vertexSet_()
-			, edges_(0)
-		{
-		}
-
-		Adjacency_Graph(const Adjacency_Graph& that)
-			: vertexSet_(that.vertexSet_)
-			, edges_(that.edges_)
+			, edgeSet_()
 		{
 		}
 
 		Adjacency_Graph(Adjacency_Graph&& that)
 			: vertexSet_()
-			, edges_(0)
+			, edgeSet_()
 		{
 			swap(that);
 		}
 
-		Adjacency_Graph& operator=(Adjacency_Graph&& that)
+		Adjacency_Graph& operator=(Adjacency_Graph that)
 		{
 			swap(that);
-			return *this;
-		}
-
-		Adjacency_Graph& operator=(const Adjacency_Graph& that)
-		{
-			Adjacency_Graph copy(that);
-			swap(copy);
 			return *this;
 		}
 
 		void swap(Adjacency_Graph& that)
 		{
-			using std::swap;
 			vertexSet_.swap(that.vertexSet_);
-			swap(edges_, that.edges_);
+			edgeSet_.swap(that.edgeSet_);
 		}
 
 		void clear()
 		{
 			vertexSet_.clear();
-			edges_ = 0;
+			edgeSet_.clear();
+		}
+
+		// Vertices
+
+		Vertex_Iterator addVertex(
+			VertexData vertexData = VertexData())
+		{
+			vertexSet_.emplace_back(
+				Vertex(std::move(vertexData), edgeSet_.end()));
+
+			Vertex_Iterator vertex = vertexSet_.end();
+			--vertex;
+
+			return vertex;
+		}
+
+		void removeVertex(
+			const Vertex_ConstIterator& vertex)
+		{
+			// Remove all the edges that leave
+			// from this vertex.
+			edgeSet_.erase(
+				vertex->cbegin(),
+				vertex->cend());
+			cast(vertex)->erase(edgeSet_.end());
+
+			// Remove the vertex.
+			vertexSet_.erase(vertex);
 		}
 
 		Vertex_Iterator cast(
@@ -62,50 +76,24 @@ namespace Pastel
 			return vertexSet_.erase(vertex, vertex);
 		}
 
-		Vertex_Iterator addVertex(
-			const VertexData& vertexData = VertexData())
+		Vertex_Iterator vertexBegin()
 		{
-			vertexSet_.push_back(Vertex(vertexData));
-
-			Vertex_Iterator iter = vertexSet_.end();
-			--iter;
-
-			return iter;
+			return vertexSet_.begin();
 		}
 
-		void removeVertex(
-			const Vertex_ConstIterator& vertex)
+		Vertex_ConstIterator cVertexBegin() const
 		{
-			vertexSet_.erase(vertex);
+			return vertexSet_.cbegin();
 		}
 
-		Edge_Iterator addEdge(
-			const Vertex_ConstIterator& from,
-			const Vertex_ConstIterator& to,
-			const EdgeData& edgeData = EdgeData())
+		Vertex_Iterator vertexEnd()
 		{
-			Vertex_Iterator mutableFrom = cast(from);
-			Vertex_Iterator mutableTo = cast(to);
-
-			mutableFrom->exidentSet_.push_back(
-				Edge(mutableTo, edgeData));
-
-			Edge_Iterator iter = mutableFrom->exidentSet_.end();
-			--iter;
-
-			++edges_;
-
-			return iter;
+			return vertexSet_.end();
 		}
 
-		Vertex_Range vertexRange()
+		Vertex_ConstIterator cVertexEnd() const
 		{
-			return range(vertexSet_.begin(), vertexSet_.end());
-		}
-
-		Vertex_ConstRange vertexRange() const
-		{
-			return range(vertexSet_.begin(), vertexSet_.end());
+			return vertexSet_.cend();
 		}
 
 		integer vertices() const
@@ -113,14 +101,81 @@ namespace Pastel
 			return vertexSet_.size();
 		}
 
+		// Edges
+
+		Edge_Iterator addEdge(
+			const Vertex_ConstIterator& from,
+			const Vertex_ConstIterator& to,
+			EdgeData edgeData = EdgeData())
+		{
+			Vertex_Iterator mutableFrom = cast(from);
+			Vertex_Iterator mutableTo = cast(to);
+
+			edgeSet_.emplace_back(
+				Edge(mutableFrom, mutableTo, 
+				std::move(edgeData)));
+
+			Edge_Iterator edge = edgeSet_.end();
+			--edge;
+
+			edgeSet_.splice(
+				mutableFrom->end(),
+				edgeSet_,
+				edge);
+
+			mutableFrom->insert(edge);
+
+			return edge;
+		}
+
+		void removeEdge(
+			const Edge_ConstIterator& edge)
+		{
+			Vertex_Iterator from =
+				cast(edge->from());
+			
+			from->erase(cast(edge), edgeSet_.end());
+
+			edgeSet_.erase(edge);
+		}
+
+		Edge_Iterator cast(
+			const Edge_ConstIterator& edge)
+		{
+			return edgeSet_.erase(edge, edge);
+		}
+
+		Edge_Iterator edgeBegin()
+		{
+			return edgeSet_.begin();
+		}
+
+		Edge_ConstIterator cEdgeBegin() const
+		{
+			return edgeSet_.cbegin();
+		}
+
+		Edge_Iterator edgeEnd()
+		{
+			return edgeSet_.end();
+		}
+
+		Edge_ConstIterator cEdgeEnd() const
+		{
+			return edgeSet_.cend();
+		}
+
 		integer edges() const
 		{
-			return edges_;
+			return edgeSet_.size();
 		}
 
 	private:
+		// TODO: Implement
+		Adjacency_Graph(const Adjacency_Graph& that);
+
 		VertexSet vertexSet_;
-		integer edges_;
+		EdgeSet edgeSet_;
 	};
 
 }

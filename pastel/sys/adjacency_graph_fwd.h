@@ -2,7 +2,6 @@
 #define PASTEL_ADJACENCY_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/iterator_range.h"
 #include "pastel/sys/possiblyemptymember.h"
 
 #include <list>
@@ -23,19 +22,9 @@ namespace Pastel
 		typedef typename VertexSet::const_iterator Vertex_ConstIterator;
 
 		class Edge;
-		typedef std::list<Edge> ExidentSet;
-		typedef typename ExidentSet::iterator Edge_Iterator;
-		typedef typename ExidentSet::const_iterator Edge_ConstIterator;
-
-		typedef typename IteratorToRange<Vertex_Iterator>::type 
-			Vertex_Range;
-		typedef typename IteratorToRange<Vertex_ConstIterator>::type
-			Vertex_ConstRange;
-
-		typedef typename IteratorToRange<Edge_Iterator>::type 
-			Edge_Range;
-		typedef typename IteratorToRange<Edge_ConstIterator>::type
-			Edge_ConstRange;
+		typedef std::list<Edge> EdgeSet;
+		typedef typename EdgeSet::iterator Edge_Iterator;
+		typedef typename EdgeSet::const_iterator Edge_ConstIterator;
 
 	protected:
 		class Vertex
@@ -45,41 +34,38 @@ namespace Pastel
 			typedef PossiblyEmptyMember<VertexData> Base;
 			friend class Adjacency_Graph<VertexData, EdgeData>;
 
-			Vertex()
-				: exidentSet_()
-			{
-				if (Base::data())
-				{
-					new(Base::data()) VertexData();
-				}
-			}
-
 			Vertex(const Vertex& that)
-				: exidentSet_(that.exidentSet_)
+				: first_(that.first_)
+				, last_(that.last_)
+				, edges_(that.edges_)
 			{
 				if (Base::data())
 				{
-					new(Base::data()) VertexData(that());
+					new(Base::data()) VertexData(that.data());
 				}
 			}
 
 			Vertex(Vertex&& that)
-				: exidentSet_()
+				: first_(that.first_)
+				, last_(that.last_)
+				, edges_(that.edges_)
 			{
 				if (Base::data())
 				{
-					new(Base::data()) VertexData;
+					new(Base::data()) VertexData(std::move(that.data()));
 				}
-
-				swap(that);
 			}
 
-			explicit Vertex(const VertexData& data)
-				: exidentSet_()
+			explicit Vertex(
+				VertexData data,
+				Edge_Iterator end)
+				: first_(end)
+				, last_(end)
+				, edges_(0)
 			{
 				if (Base::data())
 				{
-					new(Base::data()) VertexData(data);
+					new(Base::data()) VertexData(std::move(data));
 				}
 			}
 
@@ -91,53 +77,100 @@ namespace Pastel
 				}
 			}
 
-			Vertex& operator=(const Vertex& that)
+			Edge_Iterator begin()
 			{
-				Vertex thatCopy(that);
-				swap(thatCopy);
-				return *this;
+				return first_;
 			}
 
-			Vertex& operator=(Vertex&& that)
+			Edge_Iterator end()
 			{
-				swap(that);
-				return *this;
-			}
-
-			void swap(Vertex& that)
-			{
-				exidentSet_.swap(that.exidentSet_);
-				if (Base::data() && that.Base::data())
+				Edge_Iterator result = last_;
+				if (edges_ > 0)
 				{
-					using std::swap;
-					swap(*Base::data(), *that.Base::data());
+					++result;
 				}
+				return result;
 			}
 
-			Edge_Range exidentRange()
+			Edge_ConstIterator cbegin() const
 			{
-				return range(exidentSet_.begin(), exidentSet_.end());
+				return ((Vertex&)*this).begin();
 			}
 
-			Edge_ConstRange exidentRange() const
+			Edge_ConstIterator cend() const
 			{
-				return range(exidentSet_.begin(), exidentSet_.end());
+				return ((Vertex&)*this).end();
 			}
 
-			VertexData& operator()()
+			integer edges() const
+			{
+				return edges_;
+			}
+
+			VertexData& data()
 			{
 				PENSURE(Base::data());
 				return *Base::data();
 			}
 
-			const VertexData& operator()() const
+			const VertexData& data() const
 			{
 				PENSURE(Base::data());
 				return *Base::data();
 			}
 
 		private:
-			ExidentSet exidentSet_;
+			// Deleted
+			Vertex();
+			// Deleted
+			Vertex& operator=(Vertex that);
+
+			void insert(
+				const Edge_Iterator& edge)
+			{
+				if (edges_ == 0)
+				{
+					first_ = edge;
+				}
+				last_ = edge;
+				++edges_;
+			}
+
+			void erase(
+				const Edge_Iterator& edge,
+				const Edge_Iterator& end)
+			{
+				ASSERT_OP(edges_, >, 0);
+				--edges_;
+				if (edges_ == 0)
+				{
+					first_ = end;
+					last_ = end;
+				}
+				else
+				{
+					if (first_ == edge)
+					{
+						++first_;
+					}
+					else if (last_ == edge)
+					{
+						--last_;
+					}
+				}
+			}
+
+			void erase(
+				const Edge_Iterator& end)
+			{
+				first_ = end;
+				last_ = end;
+				edges_ = 0;
+			}
+
+			Edge_Iterator first_;
+			Edge_Iterator last_;
+			integer edges_;
 		};
 
 		class Edge
@@ -146,14 +179,36 @@ namespace Pastel
 		public:
 			typedef PossiblyEmptyMember<EdgeData> Base;
 
-			explicit Edge(
-				const Vertex_Iterator& to,
-				const EdgeData& data = EdgeData())
-				: to_(to)
+			Edge(const Edge& that)
+				: from_(that.from_)
+				, to_(that.to_)
 			{
 				if (Base::data())
 				{
-					new(Base::data()) EdgeData(data);
+					new(Base::data()) EdgeData(that.data());
+				}
+			}
+
+			Edge(Edge&& that)
+				: from_(that.from_)
+				, to_(that.to_)
+			{
+				if (Base::data())
+				{
+					new(Base::data()) EdgeData(std::move(that.data()));
+				}
+			}
+
+			explicit Edge(
+				Vertex_Iterator from,
+				Vertex_Iterator to,
+				EdgeData data = EdgeData())
+				: from_(from)
+				, to_(to)
+			{
+				if (Base::data())
+				{
+					new(Base::data()) EdgeData(std::move(data));
 				}
 			}
 
@@ -163,6 +218,16 @@ namespace Pastel
 				{
 					Base::data()->~EdgeData();
 				}
+			}
+
+			const Vertex_Iterator& from()
+			{
+				return from_;
+			}
+
+			const Vertex_ConstIterator& from() const
+			{
+				return from_;
 			}
 
 			const Vertex_Iterator& to()
@@ -175,19 +240,25 @@ namespace Pastel
 				return to_;
 			}
 
-			const EdgeData& operator()() const
+			const EdgeData& data() const
 			{
 				PENSURE(Base::data());
 				return *Base::data();
 			}
 
-			EdgeData& operator()()
+			EdgeData& data()
 			{
 				PENSURE(Base::data());
 				return *Base::data();
 			}
 
 		private:
+			// Deleted
+			Edge();
+			// Deleted
+			Edge& operator=(Edge that);
+
+			Vertex_Iterator from_;
 			Vertex_Iterator to_;
 		};
 	};

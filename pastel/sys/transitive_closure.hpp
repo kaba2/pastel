@@ -263,6 +263,34 @@ namespace Pastel
 		algorithm.work();
 	}
 
+	template <
+		typename Domain, 
+		typename Codomain,
+		typename Function,
+		typename CodomainOperator, 
+		typename ForEachRelated,
+		typename ForEachDomain,
+		typename Closure_Reporter>
+	void transitiveClosure(
+		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const Function& function,
+		const CodomainOperator& codomainOperator,
+		const ForEachRelated& forEachRelated,
+		const ForEachDomain& forEachDomain,
+		const Closure_Reporter& closureReporter,
+		bool reflexiveClosure)
+	{
+		return Pastel::transitiveClosure<Domain, Codomain>(
+			identity,
+			function,
+			codomainOperator,
+			forEachRelated,
+			forEachDomain,
+			closureReporter,
+			reflexiveClosure,
+			std::hash<Domain>());
+	}
+
 }
 
 #endif
