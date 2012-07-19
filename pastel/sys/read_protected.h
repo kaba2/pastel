@@ -49,11 +49,13 @@ namespace Pastel
 
 		const Type& operator*() const
 		{
-			return data_;
+			ASSERT(data_);
+			return *data_;
 		}
 
 		const Type* operator->() const
 		{
+			ASSERT(data_);
 			return data_;
 		}
 

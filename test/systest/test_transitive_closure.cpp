@@ -4,7 +4,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/transitive_closure.h"
-#include "pastel/sys/list_graph.h"
+#include "pastel/sys/adjacency_graph.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hash.h"
@@ -34,7 +34,7 @@ namespace
 
 		void testTransitiveClosureAddition()
 		{
-			typedef Pastel::List_Graph<integer> Graph;
+			typedef Pastel::Adjacency_Graph<integer> Graph;
 			typedef Graph::Vertex Vertex;
 			typedef Graph::Edge Edge;
 			typedef Graph::Vertex_Iterator Vertex_Iterator;
@@ -111,7 +111,7 @@ namespace
 		{
 			typedef std::unordered_set<integer> Set;
 
-			typedef Pastel::List_Graph<Set> Graph;
+			typedef Pastel::Adjacency_Graph<Set> Graph;
 			typedef Graph::Vertex Vertex;
 			typedef Graph::Edge Edge;
 			typedef Graph::Vertex_Iterator Vertex_Iterator;

@@ -133,6 +133,8 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="adjacency_graph.h" />
+    <ClInclude Include="adjacency_graph_fwd.h" />
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="clone_ptr.h" />
@@ -213,7 +215,6 @@
     <ClInclude Include="subview.h" />
     <ClInclude Include="transformedview.h" />
     <ClInclude Include="transformedviewcursor.h" />
-    <ClInclude Include="list_graph.h" />
     <ClInclude Include="redblacktree.h" />
     <ClInclude Include="redblacktree.hpp" />
     <ClInclude Include="redblacktree_erase.hpp" />
