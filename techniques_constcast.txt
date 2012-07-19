@@ -1,0 +1,77 @@
+Casting away constness of an iterator
+=====================================
+
+[[Parent]]: techniques.txt
+
+A slightly annoying shortcoming of the Standard Template Library, 
+even in C++11, is that its containers do not allow to cast away
+the constness of their const iterators. While at first this might
+seem like breaking const-correctness, this is not so. Consider
+the following code.
+
+[[CppCode]]:
+	#include <list>
+
+	typedef std::list<int> NumberSet;
+	typedef NumberSet::iterator Number_Iterator;
+	typedef NumberSet::const_iterator Number_ConstIterator;
+
+	Number_ConstIterator find(
+		Number_ConstIterator begin,
+		Number_ConstIterator end)
+	{
+		Number_ConstIterator result = begin;
+		// Find the proper number to 'result'...
+		return result;
+	}
+
+	int main()
+	{
+		NumberSet numberSet;
+		numberSet.push_back(1);
+	
+		// Let us assume that the number we are 
+		// searching for exists.
+		Number_ConstIterator number = 
+			find(numberSet.cbegin(), numberSet.cend());
+
+		// Problem: How to modify the found number?
+		
+		// Does not compile, since 'number' is a const iterator.
+		// *number = 2;
+
+		// We need to obtain a mutable iterator
+		// instead to 'number'. But how?
+		Number_Iterator mutableNumber;
+		
+		// Ideally, we would have something like this. 
+		// Unfortunately, there is no such functionality in the STL.
+		// mutableNumber = numberSet.cast(number);
+
+		// Fortunately we can hack the effect for the
+		// STL containers.
+		mutableNumber = 
+			numberSet.erase(number, number);
+
+		// Ok.
+		*mutableNumber = 2;
+
+		return 0;
+	}
+
+The code above demonstrates that it is perfectly normal to end up
+holding a const iterator, where a mutable iterator would be required
+instead. If the original container is not available, then this would
+simply be proper protection by constness. However, if the original
+container _is_ available, then you have unlimited access to the
+container in any case, and therefore should be able to convert
+a const iterator to a mutable iterator. This functionality _has_ to
+be provided by the container, or else we find ourselves in a dead end.
+It is a very fortunate coincidence that the iterator const-cast can
+be simulated by the empty erase call. Strictly speaking, however,
+the cast function should be part of the container requirements, to
+clearly document intent.
+
+In Pastel, all data structures which provide mutable iterators
+also provide cast functions to convert a const iterator to a
+mutable iterator. These are given by the `cast()´ member functions.
