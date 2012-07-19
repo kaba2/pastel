@@ -56,6 +56,12 @@ namespace Pastel
 			edges_ = 0;
 		}
 
+		Vertex_Iterator cast(
+			const Vertex_ConstIterator& vertex)
+		{
+			return vertexSet_.erase(vertex, vertex);
+		}
+
 		Vertex_Iterator addVertex(
 			const VertexData& vertexData = VertexData())
 		{
@@ -78,10 +84,8 @@ namespace Pastel
 			const Vertex_ConstIterator& to,
 			const EdgeData& edgeData = EdgeData())
 		{
-			Vertex_Iterator mutableFrom =
-				vertexSet_.erase(from, from);
-			Vertex_Iterator mutableTo =
-				vertexSet_.erase(to, to);
+			Vertex_Iterator mutableFrom = cast(from);
+			Vertex_Iterator mutableTo = cast(to);
 
 			mutableFrom->exidentSet_.push_back(
 				Edge(mutableTo, edgeData));
