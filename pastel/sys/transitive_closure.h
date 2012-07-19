@@ -75,8 +75,39 @@ namespace Pastel
 		const ForEachRelated& forEachRelated,
 		const ForEachDomain& forEachDomain,
 		const Closure_Reporter& closureReporter,
-		bool reflexiveClosure = false,
-		const Domain_Hash& domainHash = std::hash<Domain>());
+		bool reflexiveClosure,
+		const Domain_Hash& domainHash);
+
+	//! Transitive closure of a function
+	/*!
+	This is a convenience function which calls
+		
+	transitiveClosure<Domain, Codomain>(
+		identity,
+		function,
+		codomainOperator,
+		forEachRelated,
+		forEachDomain,
+		closureReporter,
+		reflexiveClosure,
+		std::hash<Domain>())
+	*/
+	template <
+		typename Domain, 
+		typename Codomain,
+		typename Function,
+		typename CodomainOperator, 
+		typename ForEachRelated,
+		typename ForEachDomain,
+		typename Closure_Reporter>
+	void transitiveClosure(
+		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const Function& function,
+		const CodomainOperator& codomainOperator,
+		const ForEachRelated& forEachRelated,
+		const ForEachDomain& forEachDomain,
+		const Closure_Reporter& closureReporter,
+		bool reflexiveClosure = false);
 
 }
 

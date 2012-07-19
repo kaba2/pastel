@@ -3,11 +3,17 @@ Casting away constness of an iterator
 
 [[Parent]]: techniques.txt
 
+This technique is summarized as follows: when creating a data
+structure, always provide a way to convert a const iterator to
+a mutable iterator via a mutable reference to the data structure.
+
+Demonstration
+-------------
+
 A slightly annoying shortcoming of the Standard Template Library, 
-even in C++11, is that its containers do not allow to cast away
-the constness of their const iterators. While at first this might
-seem like breaking const-correctness, this is not so. Consider
-the following code.
+even in C++11, is that its containers do not directly allow to cast 
+away the constness of their const iterators. Consider the following 
+code.
 
 [[CppCode]]:
 	#include <list>
@@ -72,6 +78,15 @@ be simulated by the empty erase call. Strictly speaking, however,
 the cast function should be part of the container requirements, to
 clearly document intent.
 
+Concerning the example code, the hack to convert the const iterator 
+to an iterator does not work in C++03. This is because of an oversight 
+in the STL, where erase function in containers was required to take a 
+mutable iterator as a parameter. This oversight was fixed in C++11.
+
+Uses in Pastel
+--------------
+
 In Pastel, all data structures which provide mutable iterators
 also provide cast functions to convert a const iterator to a
 mutable iterator. These are given by the `cast()´ member functions.
+
