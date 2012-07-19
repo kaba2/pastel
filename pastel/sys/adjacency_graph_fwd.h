@@ -1,5 +1,5 @@
-#ifndef PASTEL_LIST_GRAPH_H
-#define PASTEL_LIST_GRAPH_H
+#ifndef PASTEL_ADJACENCY_GRAPH_FWD_H
+#define PASTEL_ADJACENCY_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/iterator_range.h"
@@ -10,8 +10,11 @@
 namespace Pastel
 {
 
-	template <typename VertexData = EmptyClass, typename EdgeData = EmptyClass>
-	class List_Graph
+	template <typename VertexData, typename EdgeData>
+	class Adjacency_Graph;
+
+	template <typename VertexData, typename EdgeData>
+	class Adjacency_Graph_Fwd
 	{
 	public:
 		class Vertex;
@@ -34,116 +37,13 @@ namespace Pastel
 		typedef typename IteratorToRange<Edge_ConstIterator>::type
 			Edge_ConstRange;
 
-		List_Graph()
-			: vertexSet_()
-			, edges_(0)
-		{
-		}
-
-		List_Graph(const List_Graph& that)
-			: vertexSet_(that.vertexSet_)
-			, edges_(that.edges_)
-		{
-		}
-
-		List_Graph(List_Graph&& that)
-			: vertexSet_()
-			, edges_(0)
-		{
-			swap(that);
-		}
-
-		List_Graph& operator=(List_Graph&& that)
-		{
-			swap(that);
-			return *this;
-		}
-
-		List_Graph& operator=(const List_Graph& that)
-		{
-			List_Graph copy(that);
-			swap(copy);
-			return *this;
-		}
-
-		void swap(List_Graph& that)
-		{
-			using std::swap;
-			vertexSet_.swap(that.vertexSet_);
-			swap(edges_, that.edges_);
-		}
-
-		void clear()
-		{
-			vertexSet_.clear();
-			edges_ = 0;
-		}
-
-		Vertex_Iterator addVertex(
-			const VertexData& vertexData = VertexData())
-		{
-			vertexSet_.push_back(Vertex(vertexData));
-
-			Vertex_Iterator iter = vertexSet_.end();
-			--iter;
-
-			return iter;
-		}
-
-		void removeVertex(
-			const Vertex_ConstIterator& vertex)
-		{
-			vertexSet_.erase(vertex);
-		}
-
-		Edge_Iterator addEdge(
-			const Vertex_ConstIterator& from,
-			const Vertex_ConstIterator& to,
-			const EdgeData& edgeData = EdgeData())
-		{
-			Vertex_Iterator mutableFrom =
-				vertexSet_.erase(from, from);
-			Vertex_Iterator mutableTo =
-				vertexSet_.erase(to, to);
-
-			mutableFrom->exidentSet_.push_back(
-				Edge(mutableTo, edgeData));
-
-			Edge_Iterator iter = mutableFrom->exidentSet_.end();
-			--iter;
-
-			++edges_;
-
-			return iter;
-		}
-
-		Vertex_Range vertexRange()
-		{
-			return range(vertexSet_.begin(), vertexSet_.end());
-		}
-
-		Vertex_ConstRange vertexRange() const
-		{
-			return range(vertexSet_.begin(), vertexSet_.end());
-		}
-
-		integer vertices() const
-		{
-			return vertexSet_.size();
-		}
-
-		integer edges() const
-		{
-			return edges_;
-		}
-
-	private:
+	protected:
 		class Vertex
 			: private PossiblyEmptyMember<VertexData>
 		{
 		public:
 			typedef PossiblyEmptyMember<VertexData> Base;
-			friend class List_Graph<VertexData, EdgeData>;
+			friend class Adjacency_Graph<VertexData, EdgeData>;
 
 			Vertex()
 				: exidentSet_()
@@ -277,21 +177,19 @@ namespace Pastel
 
 			const EdgeData& operator()() const
 			{
-				return data_;
+				PENSURE(Base::data());
+				return *Base::data();
 			}
 
 			EdgeData& operator()()
 			{
-				return data_;
+				PENSURE(Base::data());
+				return *Base::data();
 			}
 
 		private:
 			Vertex_Iterator to_;
-			EdgeData data_;
 		};
-
-		VertexSet vertexSet_;
-		integer edges_;
 	};
 
 }

@@ -1,9 +1,9 @@
-// Description: Testing for List_Graph
-// DocumentationOf: list_graph.h
+// Description: Testing for Adjacency_Graph
+// DocumentationOf: adjacency_graph.h
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/list_graph.h"
+#include "pastel/sys/adjacency_graph.h"
 
 using namespace Pastel;
 
@@ -33,7 +33,7 @@ namespace
 
 	void addTests()
 	{
-		testRunner().add("List_Graph", test);
+		testRunner().add("Adjacency_Graph", test);
 	}
 
 	CallFunction run(addTests);
