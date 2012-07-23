@@ -92,7 +92,7 @@ namespace
 					countingIterator(vertex->outgoingEnd()),
 					[&](const Incidence_Iterator& incidence)
 				{
-					visit(incidence->edge()->to());
+					visit(incidence->vertex());
 				});
 			};
 
@@ -191,7 +191,7 @@ namespace
 					countingIterator(vertex->outgoingEnd()),
 					[&](const Incidence_Iterator& incidence)
 				{
-					visit(incidence->edge()->to());
+					visit(incidence->vertex());
 				});
 			};
 

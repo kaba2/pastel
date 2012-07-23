@@ -126,7 +126,7 @@ namespace Pastel
 
 			// Create the edge.
 			edgeSet_.emplace_back(
-				Edge(mutableFrom, mutableTo, std::move(edgeData)));
+				Edge(std::move(edgeData)));
 
 			Edge_Iterator edge = edgeSet_.end();
 			--edge;
@@ -134,19 +134,19 @@ namespace Pastel
 			// Link the edge to the 'from' vertex.
 			{
 				Incidence* incidence = 
-					new Incidence(edge);
+					new Incidence(mutableTo, edge);
 
 				mutableFrom->insert<Outgoing>(incidence);
-				edge->fromIncidence_ = incidence;
+				edge->from_ = incidence;
 			}
 
 			// Link the edge to the 'to' vertex.
 			{
 				Incidence* incidence = 
-					new Incidence(edge);
+					new Incidence(mutableFrom, edge);
 
 				mutableTo->insert<Incoming>(incidence);
-				edge->toIncidence_ = incidence;
+				edge->to_ = incidence;
 			}
 
 			return edge;
@@ -155,17 +155,14 @@ namespace Pastel
 		void removeEdge(
 			const Edge_ConstIterator& edge)
 		{
+			Vertex_Iterator from = cast(edge)->from();
+			Vertex_Iterator to = cast(edge)->to();
+
 			// Link the edge off from the 'from' vertex.
-			{
-				Vertex_Iterator vertex = cast(edge)->from();
-				vertex->erase<Outgoing>(edge->fromIncidence_);
-			}
+			from->erase<Outgoing>(edge->from_);
 
 			// Link the edge off from the 'to' vertex.
-			{
-				Vertex_Iterator vertex = cast(edge)->to();
-				vertex->erase<Incoming>(edge->toIncidence_);
-			}
+			to->erase<Incoming>(edge->to_);
 
 			// Remove the edge.
 			edgeSet_.erase(edge);
