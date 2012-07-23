@@ -60,7 +60,8 @@ namespace Pastel
 			// to the from-vertex of the edge. And vice versa.
 			// This is because when examining a vertex, it
 			// would not give you any extra-information if
-			// the vertex reference were to the vertex itself.
+			// the vertex reference of its incidence were 
+			// to the vertex itself.
 			return to_->vertex();
 		}
 
