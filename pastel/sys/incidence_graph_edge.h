@@ -6,50 +6,128 @@
 namespace Pastel
 {
 
+	namespace Incidence_Graph_
+	{
+
+		template <typename EdgeData, GraphType::Enum Type>
+		class Optional_EdgeData;
+
+		template <typename EdgeData>
+		class Optional_EdgeData<EdgeData, GraphType::Directed>
+			: protected PossiblyEmptyMember<EdgeData>
+		{
+		public:
+			explicit Optional_EdgeData(bool directed)
+			{
+			}
+
+			bool directed() const
+			{
+				return true;
+			}
+
+		protected:
+			void setDirected(bool directed)
+			{
+			}
+		};
+
+		template <typename EdgeData>
+		class Optional_EdgeData<EdgeData, GraphType::Undirected>
+			: protected PossiblyEmptyMember<EdgeData>
+		{
+		public:
+			explicit Optional_EdgeData(bool directed)
+			{
+			}
+
+			bool directed() const
+			{
+				return false;
+			}
+
+		protected:
+			void setDirected(bool directed)
+			{
+			}
+		};
+
+		template <typename EdgeData>
+		class Optional_EdgeData<EdgeData, GraphType::Mixed>
+			: protected PossiblyEmptyMember<EdgeData>
+		{
+		public:
+			explicit Optional_EdgeData(bool directed)
+				: directed_(directed)
+			{
+			}
+
+			bool directed() const
+			{
+				return directed_;
+			}
+
+		protected:
+			void setDirected(bool directed)
+			{
+				directed_ = directed;
+			}
+
+			bool directed_;
+		};
+
+	}
+
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Edge
-		: private PossiblyEmptyMember<EdgeData>
+		: public Incidence_Graph_::Optional_EdgeData<EdgeData, Type>
 	{
 	public:
 		friend class Incidence_Graph<Type, VertexData, EdgeData>;
 
-		typedef PossiblyEmptyMember<EdgeData> Base;
+		typedef Incidence_Graph_::Optional_EdgeData<EdgeData, Type>
+			Base;
+
+		typedef PossiblyEmptyMember<EdgeData> Data;
 
 		Edge(const Edge& that)
-			: from_(that.from_)
+			: Base(that)
+			, from_(that.from_)
 			, to_(that.to_)
 		{
-			if (Base::data())
+			if (Data::data())
 			{
-				new(Base::data()) EdgeData(that.data());
+				new(Data::data()) EdgeData(that.data());
 			}
 		}
 
 		Edge(Edge&& that)
-			: from_(that.from_)
+			: Base(that)
+			, from_(that.from_)
 			, to_(that.to_)
 		{
-			if (Base::data())
+			if (Data::data())
 			{
-				new(Base::data()) EdgeData(std::move(that.data()));
+				new(Data::data()) EdgeData(std::move(that.data()));
 			}
 		}
 
-		explicit Edge(EdgeData data)
-			: from_(0)
+		explicit Edge(EdgeData data, bool directed)
+			: Base(directed)
+			, from_(0)
 			, to_(0)
 		{
-			if (Base::data())
+			if (Data::data())
 			{
-				new(Base::data()) EdgeData(std::move(data));
+				new(Data::data()) EdgeData(std::move(data));
 			}
 		}
 
 		~Edge()
 		{
-			if (Base::data())
+			if (Data::data())
 			{
-				Base::data()->~EdgeData();
+				Data::data()->~EdgeData();
 			}
 		}
 
@@ -82,14 +160,14 @@ namespace Pastel
 
 		const EdgeData& data() const
 		{
-			PENSURE(Base::data());
-			return *Base::data();
+			PENSURE(Data::data());
+			return *Data::data();
 		}
 
 		EdgeData& data()
 		{
-			PENSURE(Base::data());
-			return *Base::data();
+			PENSURE(Data::data());
+			return *Data::data();
 		}
 
 	private:
