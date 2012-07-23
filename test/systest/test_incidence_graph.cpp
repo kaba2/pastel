@@ -56,6 +56,8 @@ namespace
 			TEST_ENSURE_OP(c->data(), ==, 4);
 		
 			Edge e1 = graph.addEdge(a, b, 1);
+			TEST_ENSURE(e1->from() == a);
+			TEST_ENSURE(e1->to() == b);
 			TEST_ENSURE_OP(graph.edges(), ==, 1);
 			TEST_ENSURE_OP(e1->data(), ==, 1);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
@@ -63,6 +65,8 @@ namespace
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
 
 			Edge e2 = graph.addEdge(b, c, 2);
+			TEST_ENSURE(e2->from() == b);
+			TEST_ENSURE(e2->to() == c);
 			TEST_ENSURE_OP(graph.edges(), ==, 2);
 			TEST_ENSURE_OP(e2->data(), ==, 2);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
@@ -70,6 +74,8 @@ namespace
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 0);
 
 			Edge e3 = graph.addEdge(c, a, 3);
+			TEST_ENSURE(e3->from() == c);
+			TEST_ENSURE(e3->to() == a);
 			TEST_ENSURE_OP(graph.edges(), ==, 3);
 			TEST_ENSURE_OP(e3->data(), ==, 3);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
@@ -77,6 +83,8 @@ namespace
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
 
 			Edge e4 = graph.addEdge(b, a, 4);
+			TEST_ENSURE(e4->from() == b);
+			TEST_ENSURE(e4->to() == a);
 			TEST_ENSURE_OP(graph.edges(), ==, 4);
 			TEST_ENSURE_OP(e4->data(), ==, 4);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
@@ -84,6 +92,8 @@ namespace
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 1);
 
 			Edge e5 = graph.addEdge(c, b, 5);
+			TEST_ENSURE(e5->from() == c);
+			TEST_ENSURE(e5->to() == b);
 			TEST_ENSURE_OP(graph.edges(), ==, 5);
 			TEST_ENSURE_OP(e5->data(), ==, 5);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
@@ -91,6 +101,8 @@ namespace
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
 
 			Edge e6 = graph.addEdge(a, c, 6);
+			TEST_ENSURE(e6->from() == a);
+			TEST_ENSURE(e6->to() == c);
 			TEST_ENSURE_OP(graph.edges(), ==, 6);
 			TEST_ENSURE_OP(e6->data(), ==, 6);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 2);
@@ -140,11 +152,15 @@ namespace
 			TEST_ENSURE_OP(graph.edges(), ==, 0);
 
 			Edge e1 = graph.addEdge(a, a);
+			TEST_ENSURE(e1->from() == a);
+			TEST_ENSURE(e1->to() == a);
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
 			TEST_ENSURE_OP(graph.edges(), ==, 1);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
 
 			Edge e2 = graph.addEdge(a, a);
+			TEST_ENSURE(e2->from() == a);
+			TEST_ENSURE(e2->to() == a);
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
 			TEST_ENSURE_OP(graph.edges(), ==, 2);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 2);

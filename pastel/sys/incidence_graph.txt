@@ -51,9 +51,10 @@ data structure.
  of edges, in constant time,
  * can provide for each vertex separate lists of its incoming, 
  outgoing, and incident undirected edges each in constant time, 
- as well the size of those lists,
+ as well the size of those lists; the opposing vertices can be
+ obtained without needing to compare vertices,
  * can provide for each edge its end-vertices, in constant time,
-
+ 
 ### Space optimality
 
  * does not use any extra memory in supporting the different
