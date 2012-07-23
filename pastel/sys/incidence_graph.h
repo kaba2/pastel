@@ -1,40 +1,40 @@
-#ifndef PASTEL_ADJACENCY_GRAPH_H
-#define PASTEL_ADJACENCY_GRAPH_H
+#ifndef PASTEL_INCIDENCE_GRAPH_H
+#define PASTEL_INCIDENCE_GRAPH_H
 
-#include "pastel/sys/adjacency_graph_fwd.h"
-#include "pastel/sys/adjacency_graph_incidence.h"
-#include "pastel/sys/adjacency_graph_vertex.h"
-#include "pastel/sys/adjacency_graph_edge.h"
+#include "pastel/sys/incidence_graph_fwd.h"
+#include "pastel/sys/incidence_graph_incidence.h"
+#include "pastel/sys/incidence_graph_vertex.h"
+#include "pastel/sys/incidence_graph_edge.h"
 
 namespace Pastel
 {
 
 	template <GraphType::Enum Type = GraphType::Directed, 
 		typename VertexData = EmptyClass, typename EdgeData = EmptyClass>
-	class Adjacency_Graph
-		: public Adjacency_Graph_Fwd<Type, VertexData, EdgeData>
+	class Incidence_Graph
+		: public Incidence_Graph_Fwd<Type, VertexData, EdgeData>
 	{
 	public:
-		Adjacency_Graph()
+		Incidence_Graph()
 			: vertexSet_()
 			, edgeSet_()
 		{
 		}
 
-		Adjacency_Graph(Adjacency_Graph&& that)
+		Incidence_Graph(Incidence_Graph&& that)
 			: vertexSet_()
 			, edgeSet_()
 		{
 			swap(that);
 		}
 
-		Adjacency_Graph& operator=(Adjacency_Graph that)
+		Incidence_Graph& operator=(Incidence_Graph that)
 		{
 			swap(that);
 			return *this;
 		}
 
-		void swap(Adjacency_Graph& that)
+		void swap(Incidence_Graph& that)
 		{
 			vertexSet_.swap(that.vertexSet_);
 			edgeSet_.swap(that.edgeSet_);
@@ -204,7 +204,7 @@ namespace Pastel
 
 	private:
 		// TODO: Implement
-		Adjacency_Graph(const Adjacency_Graph& that);
+		Incidence_Graph(const Incidence_Graph& that);
 
 		VertexSet vertexSet_;
 		EdgeSet edgeSet_;

@@ -1,9 +1,9 @@
-// Description: Testing for Adjacency_Graph
-// DocumentationOf: adjacency_graph.h
+// Description: Testing for Incidence_Graph
+// DocumentationOf: incidence_graph.h
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/adjacency_graph.h"
+#include "pastel/sys/incidence_graph.h"
 
 using namespace Pastel;
 
@@ -19,7 +19,7 @@ namespace
 		{
 		}
 
-		typedef Adjacency_Graph<GraphType::Directed, integer, integer> Graph;
+		typedef Incidence_Graph<GraphType::Directed, integer, integer> Graph;
 		typedef Graph::Vertex_Iterator Vertex;
 		typedef Graph::Edge_Iterator Edge;
 
@@ -170,7 +170,7 @@ namespace
 
 	void addTests()
 	{
-		testRunner().add("Adjacency_Graph", test);
+		testRunner().add("Incidence_Graph", test);
 	}
 
 	CallFunction run(addTests);

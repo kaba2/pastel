@@ -1,7 +1,7 @@
-#ifndef PASTEL_ADJACENCY_GRAPH_VERTEX_H
-#define PASTEL_ADJACENCY_GRAPH_VERTEX_H
+#ifndef PASTEL_INCIDENCE_GRAPH_VERTEX_H
+#define PASTEL_INCIDENCE_GRAPH_VERTEX_H
 
-#include "pastel/sys/adjacency_graph.h"
+#include "pastel/sys/incidence_graph.h"
 
 #include <array>
 
@@ -9,13 +9,13 @@ namespace Pastel
 {
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
-	class Adjacency_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
+	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
 		: private PossiblyEmptyMember<VertexData>
 	{
 	public:
-		typedef Adjacency_Graph_Fwd<Type, VertexData, EdgeData> Graph;
+		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Graph;
 		typedef PossiblyEmptyMember<VertexData> Base;
-		friend class Adjacency_Graph<Type, VertexData, EdgeData>;
+		friend class Incidence_Graph<Type, VertexData, EdgeData>;
 
 		Vertex(const Vertex& that)
 			: partitionSet_()
