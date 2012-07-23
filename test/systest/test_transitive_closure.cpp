@@ -34,11 +34,12 @@ namespace
 
 		void testTransitiveClosureAddition()
 		{
-			typedef Pastel::Adjacency_Graph<integer> Graph;
+			typedef Pastel::Adjacency_Graph<GraphType::Directed, integer> Graph;
 			typedef Graph::Vertex Vertex;
 			typedef Graph::Edge Edge;
 			typedef Graph::Vertex_Iterator Vertex_Iterator;
 			typedef Graph::Edge_Iterator Edge_Iterator;
+			typedef Graph::Incidence_Iterator Incidence_Iterator;
 
 			Graph relation;
 
@@ -87,9 +88,12 @@ namespace
 				const std::function<void(const Vertex_Iterator&)>& visit)
 			{
 				std::for_each(
-					countingIterator(vertex->begin()),
-					countingIterator(vertex->end()),
-					[&](const Edge_Iterator& edge){visit(edge->to());});
+					countingIterator(vertex->outgoingBegin()),
+					countingIterator(vertex->outgoingEnd()),
+					[&](const Incidence_Iterator& incidence)
+				{
+					visit(incidence->vertex());
+				});
 			};
 
 			auto report = [](
@@ -109,11 +113,12 @@ namespace
 		{
 			typedef std::unordered_set<integer> Set;
 
-			typedef Pastel::Adjacency_Graph<Set> Graph;
+			typedef Pastel::Adjacency_Graph<GraphType::Directed, Set> Graph;
 			typedef Graph::Vertex Vertex;
 			typedef Graph::Edge Edge;
 			typedef Graph::Vertex_Iterator Vertex_Iterator;
 			typedef Graph::Edge_Iterator Edge_Iterator;
+			typedef Graph::Incidence_Iterator Incidence_Iterator;
 
 			Graph relation;
 	
@@ -160,7 +165,10 @@ namespace
 			auto op = [](Set&& left, const Set& right) -> Set
 			{
 				std::for_each(right.begin(), right.end(),
-					[&](integer that) {left.insert(that);});
+					[&](integer that) 
+				{
+					left.insert(that);
+				});
 		
 				return left;
 			};
@@ -179,9 +187,12 @@ namespace
 				const std::function<void(const Vertex_Iterator&)>& visit)
 			{
 				std::for_each(
-					countingIterator(vertex->begin()),
-					countingIterator(vertex->end()),
-					[&](const Edge_Iterator& edge){visit(edge->to());});
+					countingIterator(vertex->outgoingBegin()),
+					countingIterator(vertex->outgoingEnd()),
+					[&](const Incidence_Iterator& incidence)
+				{
+					visit(incidence->vertex());
+				});
 			};
 
 			auto report = [](

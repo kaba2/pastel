@@ -4,18 +4,79 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/possiblyemptymember.h"
 
+#include <boost/iterator/iterator_adaptor.hpp>
+
 #include <list>
 
 namespace Pastel
 {
 
-	template <typename VertexData, typename EdgeData>
+	class GraphType
+	{
+	public:
+		enum Enum
+		{
+			Undirected,
+			Directed,
+			Mixed,
+		};
+	};
+
+	namespace Adjacency_Graph_
+	{
+
+		template <typename Type>
+		class Incidence_Iterator
+			: public boost::iterator_adaptor<
+			Incidence_Iterator<Type>, Type>
+		{
+		private:
+			struct enabler {};
+
+		public:
+			Incidence_Iterator()
+				: Incidence_Iterator::iterator_adaptor_(0) 
+			{
+			}
+
+			Incidence_Iterator(Type that)
+				: Incidence_Iterator::iterator_adaptor_(that) 
+			{
+			}
+
+			template <typename That>
+			Incidence_Iterator(
+				const Incidence_Iterator<That>& that,
+				typename boost::enable_if<
+				boost::is_convertible<That, Type>, 
+				enabler>::type = enabler())
+				: Incidence_Iterator::iterator_adaptor_(that.base()) 
+			{
+			}
+
+		private:
+			friend class boost::iterator_core_access;
+
+			void increment() 
+			{ 
+				this->base_reference() = this->base()->next_;
+			}
+		};
+
+	}
+
+	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
 	class Adjacency_Graph;
 
-	template <typename VertexData, typename EdgeData>
+	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
 	class Adjacency_Graph_Fwd
 	{
 	public:
+		PASTEL_STATIC_ASSERT(
+			Type == GraphType::Undirected ||
+			Type == GraphType::Directed ||
+			Type == GraphType::Mixed);
+
 		class Vertex;
 		typedef std::list<Vertex> VertexSet;
 		typedef typename VertexSet::iterator Vertex_Iterator;
@@ -26,240 +87,18 @@ namespace Pastel
 		typedef typename EdgeSet::iterator Edge_Iterator;
 		typedef typename EdgeSet::const_iterator Edge_ConstIterator;
 
+		class Incidence_Link;
+		class Incidence;
+		typedef Adjacency_Graph_::Incidence_Iterator<Incidence*> Incidence_Iterator;
+		typedef Adjacency_Graph_::Incidence_Iterator<const Incidence*> Incidence_ConstIterator;
+
 	protected:
-		class Vertex
-			: private PossiblyEmptyMember<VertexData>
+		enum IncidenceType
 		{
-		public:
-			typedef PossiblyEmptyMember<VertexData> Base;
-			friend class Adjacency_Graph<VertexData, EdgeData>;
-
-			Vertex(const Vertex& that)
-				: first_(that.first_)
-				, last_(that.last_)
-				, edges_(that.edges_)
-			{
-				if (Base::data())
-				{
-					new(Base::data()) VertexData(that.data());
-				}
-			}
-
-			Vertex(Vertex&& that)
-				: first_(that.first_)
-				, last_(that.last_)
-				, edges_(that.edges_)
-			{
-				if (Base::data())
-				{
-					new(Base::data()) VertexData(std::move(that.data()));
-				}
-			}
-
-			explicit Vertex(
-				VertexData data,
-				Edge_Iterator end)
-				: first_(end)
-				, last_(end)
-				, edges_(0)
-			{
-				if (Base::data())
-				{
-					new(Base::data()) VertexData(std::move(data));
-				}
-			}
-
-			~Vertex()
-			{
-				if (Base::data())
-				{
-					Base::data()->~VertexData();
-				}
-			}
-
-			Edge_Iterator begin()
-			{
-				return first_;
-			}
-
-			Edge_Iterator end()
-			{
-				Edge_Iterator result = last_;
-				if (edges_ > 0)
-				{
-					++result;
-				}
-				return result;
-			}
-
-			Edge_ConstIterator cbegin() const
-			{
-				return ((Vertex&)*this).begin();
-			}
-
-			Edge_ConstIterator cend() const
-			{
-				return ((Vertex&)*this).end();
-			}
-
-			integer edges() const
-			{
-				return edges_;
-			}
-
-			VertexData& data()
-			{
-				PENSURE(Base::data());
-				return *Base::data();
-			}
-
-			const VertexData& data() const
-			{
-				PENSURE(Base::data());
-				return *Base::data();
-			}
-
-		private:
-			// Deleted
-			Vertex();
-			// Deleted
-			Vertex& operator=(Vertex that);
-
-			void insert(
-				const Edge_Iterator& edge)
-			{
-				if (edges_ == 0)
-				{
-					first_ = edge;
-				}
-				last_ = edge;
-				++edges_;
-			}
-
-			void erase(
-				const Edge_Iterator& edge,
-				const Edge_Iterator& end)
-			{
-				ASSERT_OP(edges_, >, 0);
-				--edges_;
-				if (edges_ == 0)
-				{
-					first_ = end;
-					last_ = end;
-				}
-				else
-				{
-					if (first_ == edge)
-					{
-						++first_;
-					}
-					else if (last_ == edge)
-					{
-						--last_;
-					}
-				}
-			}
-
-			void erase(
-				const Edge_Iterator& end)
-			{
-				first_ = end;
-				last_ = end;
-				edges_ = 0;
-			}
-
-			Edge_Iterator first_;
-			Edge_Iterator last_;
-			integer edges_;
-		};
-
-		class Edge
-			: private PossiblyEmptyMember<EdgeData>
-		{
-		public:
-			typedef PossiblyEmptyMember<EdgeData> Base;
-
-			Edge(const Edge& that)
-				: from_(that.from_)
-				, to_(that.to_)
-			{
-				if (Base::data())
-				{
-					new(Base::data()) EdgeData(that.data());
-				}
-			}
-
-			Edge(Edge&& that)
-				: from_(that.from_)
-				, to_(that.to_)
-			{
-				if (Base::data())
-				{
-					new(Base::data()) EdgeData(std::move(that.data()));
-				}
-			}
-
-			explicit Edge(
-				Vertex_Iterator from,
-				Vertex_Iterator to,
-				EdgeData data = EdgeData())
-				: from_(from)
-				, to_(to)
-			{
-				if (Base::data())
-				{
-					new(Base::data()) EdgeData(std::move(data));
-				}
-			}
-
-			~Edge()
-			{
-				if (Base::data())
-				{
-					Base::data()->~EdgeData();
-				}
-			}
-
-			const Vertex_Iterator& from()
-			{
-				return from_;
-			}
-
-			const Vertex_ConstIterator& from() const
-			{
-				return from_;
-			}
-
-			const Vertex_Iterator& to()
-			{
-				return to_;
-			}
-
-			const Vertex_ConstIterator& to() const
-			{
-				return to_;
-			}
-
-			const EdgeData& data() const
-			{
-				PENSURE(Base::data());
-				return *Base::data();
-			}
-
-			EdgeData& data()
-			{
-				PENSURE(Base::data());
-				return *Base::data();
-			}
-
-		private:
-			// Deleted
-			Edge();
-			// Deleted
-			Edge& operator=(Edge that);
-
-			Vertex_Iterator from_;
-			Vertex_Iterator to_;
+			IncidenceTypes = (Type == GraphType::Undirected) ? 1 : ((Type == GraphType::Directed) ? 2 : 3),
+			Undirected = (Type == GraphType::Directed) ? IncidenceTypes : 0,
+			Incoming = (Type == GraphType::Directed) ? 0 : ((Type == GraphType::Mixed) ? 1 : IncidenceTypes),
+			Outgoing = (Type == GraphType::Directed) ? 1 : ((Type == GraphType::Mixed) ? 2 : IncidenceTypes)
 		};
 	};
 

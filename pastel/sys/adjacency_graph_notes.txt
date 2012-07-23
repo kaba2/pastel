@@ -1,0 +1,5 @@
+Adjacency graph design notes
+============================
+
+[[Parent]]: adjacency_graph.txt
+

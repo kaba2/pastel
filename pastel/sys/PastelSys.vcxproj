@@ -134,7 +134,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="adjacency_graph.h" />
+    <ClInclude Include="adjacency_graph_edge.h" />
     <ClInclude Include="adjacency_graph_fwd.h" />
+    <ClInclude Include="adjacency_graph_incidence.h" />
+    <ClInclude Include="adjacency_graph_vertex.h" />
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="clone_ptr.h" />
@@ -538,6 +541,8 @@
   <ItemGroup>
     <None Include="..\..\techniques_constcast.txt" />
     <None Include="..\..\techniques_iterators.txt" />
+    <None Include="adjacency_graph.txt" />
+    <None Include="adjacency_graph_notes.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="read_protected.txt" />
     <None Include="second_iterator.txt" />
