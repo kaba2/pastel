@@ -1,17 +1,17 @@
-#ifndef PASTEL_ADJACENCY_GRAPH_INCIDENCE_H
-#define PASTEL_ADJACENCY_GRAPH_INCIDENCE_H
+#ifndef PASTEL_INCIDENCE_GRAPH_INCIDENCE_H
+#define PASTEL_INCIDENCE_GRAPH_INCIDENCE_H
 
-#include "pastel/sys/adjacency_graph.h"
+#include "pastel/sys/incidence_graph.h"
 
 namespace Pastel
 {
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
-	class Adjacency_Graph_Fwd<Type, VertexData, EdgeData>::Incidence_Link
+	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence_Link
 	{
 	public:
 		template <typename Type>
-		friend class Adjacency_Graph_::Incidence_Iterator;
+		friend class Incidence_Graph_::Incidence_Iterator;
 
 		friend class Vertex;
 
@@ -29,11 +29,11 @@ namespace Pastel
 	};
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
-	class Adjacency_Graph_Fwd<Type, VertexData, EdgeData>::Incidence
+	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Incidence
 		: public Incidence_Link
 	{
 	public:
-		friend class Adjacency_Graph_Fwd<Type, VertexData, EdgeData>;
+		friend class Incidence_Graph_Fwd<Type, VertexData, EdgeData>;
 
 		Incidence()
 			: vertex_()

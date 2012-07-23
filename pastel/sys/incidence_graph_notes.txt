@@ -1,0 +1,5 @@
+Incidence graph design notes
+============================
+
+[[Parent]]: incidence_graph.txt
+

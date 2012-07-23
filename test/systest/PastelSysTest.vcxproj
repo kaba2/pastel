@@ -174,7 +174,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="pastelsystest.cpp" />
-    <ClCompile Include="test_adjacency_graph.cpp" />
     <ClCompile Include="test_andersondarling.cpp" />
     <ClCompile Include="test_arenaallocator.cpp" />
     <ClCompile Include="test_array.cpp" />
@@ -186,6 +185,7 @@
     <ClCompile Include="test_eps.cpp" />
     <ClCompile Include="test_fastlist.cpp" />
     <ClCompile Include="test_hash.cpp" />
+    <ClCompile Include="test_incidence_graph.cpp" />
     <ClCompile Include="test_indexallocator.cpp" />
     <ClCompile Include="test_insertionsort.cpp" />
     <ClCompile Include="test_iteratorrange.cpp" />

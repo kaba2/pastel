@@ -26,7 +26,7 @@ sets, called the _vertex labels_ and the _edge labels_, respectively.
 Data structure
 --------------
 
-The following describes the properties of the adjacency graph
+The following describes the properties of the incidence graph
 data structure.
 
 ### Generality

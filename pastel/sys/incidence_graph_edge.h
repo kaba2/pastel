@@ -1,17 +1,17 @@
-#ifndef PASTEL_ADJACENCY_GRAPH_EDGE_H
-#define PASTEL_ADJACENCY_GRAPH_EDGE_H
+#ifndef PASTEL_INCIDENCE_GRAPH_EDGE_H
+#define PASTEL_INCIDENCE_GRAPH_EDGE_H
 
-#include "pastel/sys/adjacency_graph.h"
+#include "pastel/sys/incidence_graph.h"
 
 namespace Pastel
 {
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
-	class Adjacency_Graph_Fwd<Type, VertexData, EdgeData>::Edge
+	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Edge
 		: private PossiblyEmptyMember<EdgeData>
 	{
 	public:
-		friend class Adjacency_Graph<Type, VertexData, EdgeData>;
+		friend class Incidence_Graph<Type, VertexData, EdgeData>;
 
 		typedef PossiblyEmptyMember<EdgeData> Base;
 

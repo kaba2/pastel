@@ -1,5 +1,5 @@
-#ifndef PASTEL_ADJACENCY_GRAPH_FWD_H
-#define PASTEL_ADJACENCY_GRAPH_FWD_H
+#ifndef PASTEL_INCIDENCE_GRAPH_FWD_H
+#define PASTEL_INCIDENCE_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/possiblyemptymember.h"
@@ -22,7 +22,7 @@ namespace Pastel
 		};
 	};
 
-	namespace Adjacency_Graph_
+	namespace Incidence_Graph_
 	{
 
 		template <typename Type>
@@ -66,10 +66,10 @@ namespace Pastel
 	}
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
-	class Adjacency_Graph;
+	class Incidence_Graph;
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
-	class Adjacency_Graph_Fwd
+	class Incidence_Graph_Fwd
 	{
 	public:
 		PASTEL_STATIC_ASSERT(
@@ -77,20 +77,32 @@ namespace Pastel
 			Type == GraphType::Directed ||
 			Type == GraphType::Mixed);
 
+		// Vertices
+
 		class Vertex;
 		typedef std::list<Vertex> VertexSet;
-		typedef typename VertexSet::iterator Vertex_Iterator;
-		typedef typename VertexSet::const_iterator Vertex_ConstIterator;
+		typedef typename VertexSet::iterator 
+			Vertex_Iterator;
+		typedef typename VertexSet::const_iterator 
+			Vertex_ConstIterator;
+
+		// Edges
 
 		class Edge;
 		typedef std::list<Edge> EdgeSet;
-		typedef typename EdgeSet::iterator Edge_Iterator;
-		typedef typename EdgeSet::const_iterator Edge_ConstIterator;
+		typedef typename EdgeSet::iterator 
+			Edge_Iterator;
+		typedef typename EdgeSet::const_iterator 
+			Edge_ConstIterator;
+
+		// Incidences
 
 		class Incidence_Link;
 		class Incidence;
-		typedef Adjacency_Graph_::Incidence_Iterator<Incidence*> Incidence_Iterator;
-		typedef Adjacency_Graph_::Incidence_Iterator<const Incidence*> Incidence_ConstIterator;
+		typedef Incidence_Graph_::Incidence_Iterator<Incidence*> 
+			Incidence_Iterator;
+		typedef Incidence_Graph_::Incidence_Iterator<const Incidence*> 
+			Incidence_ConstIterator;
 
 	protected:
 		enum IncidenceType
