@@ -2,13 +2,17 @@
 #define PASTEL_ADJACENCY_GRAPH_H
 
 #include "pastel/sys/adjacency_graph_fwd.h"
+#include "pastel/sys/adjacency_graph_incidence.h"
+#include "pastel/sys/adjacency_graph_vertex.h"
+#include "pastel/sys/adjacency_graph_edge.h"
 
 namespace Pastel
 {
 
-	template <typename VertexData = EmptyClass, typename EdgeData = EmptyClass>
+	template <GraphType::Enum Type = GraphType::Directed, 
+		typename VertexData = EmptyClass, typename EdgeData = EmptyClass>
 	class Adjacency_Graph
-		: public Adjacency_Graph_Fwd<VertexData, EdgeData>
+		: public Adjacency_Graph_Fwd<Type, VertexData, EdgeData>
 	{
 	public:
 		Adjacency_Graph()
@@ -47,24 +51,33 @@ namespace Pastel
 		Vertex_Iterator addVertex(
 			VertexData vertexData = VertexData())
 		{
+			// Construct the vertex...
 			vertexSet_.emplace_back(
-				Vertex(std::move(vertexData), edgeSet_.end()));
+				Vertex(std::move(vertexData)));
 
+			// ... and return it.
 			Vertex_Iterator vertex = vertexSet_.end();
 			--vertex;
-
 			return vertex;
 		}
 
 		void removeVertex(
 			const Vertex_ConstIterator& vertex)
 		{
-			// Remove all the edges that leave
-			// from this vertex.
-			edgeSet_.erase(
-				vertex->cbegin(),
-				vertex->cend());
-			cast(vertex)->erase(edgeSet_.end());
+			// Remove all edges incident to this vertex.
+			while(vertex->incidences() > 0)
+			{
+				// Note that self-loops contribute twice
+				// to the set of incidences, while the other edges
+				// contribute only once. This is why the indices() 
+				// is checked repeatedly, rather than being decremented.
+
+				// Also, note that removing an edge removes incidences
+				// from the incidenceSet in an arbitrary way.
+				// This is why we do the removal so that we always
+				// retrieve a fresh incidence iterator.
+				removeEdge(vertex->cbegin()->edge());
+			}
 
 			// Remove the vertex.
 			vertexSet_.erase(vertex);
@@ -111,19 +124,30 @@ namespace Pastel
 			Vertex_Iterator mutableFrom = cast(from);
 			Vertex_Iterator mutableTo = cast(to);
 
+			// Create the edge.
 			edgeSet_.emplace_back(
-				Edge(mutableFrom, mutableTo, 
-				std::move(edgeData)));
+				Edge(std::move(edgeData)));
 
 			Edge_Iterator edge = edgeSet_.end();
 			--edge;
 
-			edgeSet_.splice(
-				mutableFrom->end(),
-				edgeSet_,
-				edge);
+			// Link the edge to the 'from' vertex.
+			{
+				Incidence* incidence = 
+					new Incidence(cast(from), edge);
 
-			mutableFrom->insert(edge);
+				mutableFrom->insert<Outgoing>(incidence);
+				edge->from_ = incidence;
+			}
+
+			// Link the edge to the 'to' vertex.
+			{
+				Incidence* incidence = 
+					new Incidence(cast(to), edge);
+
+				mutableTo->insert<Incoming>(incidence);
+				edge->to_ = incidence;
+			}
 
 			return edge;
 		}
@@ -131,11 +155,19 @@ namespace Pastel
 		void removeEdge(
 			const Edge_ConstIterator& edge)
 		{
-			Vertex_Iterator from =
-				cast(edge->from());
-			
-			from->erase(cast(edge), edgeSet_.end());
+			// Link the edge off from the 'from' vertex.
+			{
+				Vertex_Iterator vertex = cast(edge)->from();
+				vertex->erase<Outgoing>(edge->from_);
+			}
 
+			// Link the edge off from the 'to' vertex.
+			{
+				Vertex_Iterator vertex = cast(edge)->to();
+				vertex->erase<Incoming>(edge->to_);
+			}
+
+			// Remove the edge.
 			edgeSet_.erase(edge);
 		}
 
