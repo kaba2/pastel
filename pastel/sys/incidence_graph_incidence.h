@@ -33,7 +33,7 @@ namespace Pastel
 		: public Incidence_Link
 	{
 	public:
-		friend class Incidence_Graph_Fwd<Type, VertexData, EdgeData>;
+		friend class Incidence_Graph<Type, VertexData, EdgeData>;
 
 		Incidence()
 			: vertex_()
@@ -41,11 +41,9 @@ namespace Pastel
 		{
 		}
 
-		Incidence(
-			Vertex_Iterator vertex,
-			Edge_Iterator edge)
+		explicit Incidence(Vertex_Iterator vertex)
 			: vertex_(vertex)
-			, edge_(edge)
+			, edge_()
 		{
 		}
 

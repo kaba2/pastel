@@ -242,7 +242,7 @@ namespace Pastel
 		}
 
 		template <IncidenceType I>
-		void erase(Incidence* incidence)
+		void release(Incidence* incidence)
 		{
 			ASSERT_OP(I, <, IncidenceTypes);
 			ASSERT_OP(incidencesSet_[I], >, 0);
@@ -267,9 +267,23 @@ namespace Pastel
 			{
 				partitionSet_[I] = next;
 			}
+		}
+
+		template <IncidenceType I>
+		void erase(Incidence* incidence)
+		{
+			release<I>(incidence);
 
 			// Delete the incidence.
 			delete incidence;
+		}
+
+		template <IncidenceType From, IncidenceType To>
+		void move(
+			Incidence* incidence)
+		{
+			release<From>(incidence);
+			insert<To>(incidence);
 		}
 
 		template <IncidenceType I>
