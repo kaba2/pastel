@@ -27,6 +27,7 @@ namespace
 		{
 			testAddRemove();
 			testSelfLoops();
+			testMixed();
 		}
 
 		void testAddRemove()
@@ -109,6 +110,10 @@ namespace
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 2);
 			TEST_ENSURE_OP(c->outgoingEdges(), ==, 2);
 
+			Graph copy(graph);
+			TEST_ENSURE_OP(copy.vertices(), ==, graph.vertices());
+			TEST_ENSURE_OP(copy.edges(), ==, graph.edges());
+
 			graph.removeEdge(e1);
 			TEST_ENSURE_OP(graph.edges(), ==, 5);
 			TEST_ENSURE_OP(graph.vertices(), ==, 3);
@@ -174,6 +179,63 @@ namespace
 			TEST_ENSURE_OP(graph.vertices(), ==, 1);
 			TEST_ENSURE_OP(graph.edges(), ==, 0);
 			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+		}
+
+		void testMixed()
+		{
+			typedef Incidence_Graph<GraphType::Mixed, integer, integer> Graph;
+			typedef Graph::Vertex_Iterator Vertex;
+			typedef Graph::Edge_Iterator Edge;
+
+			Graph graph;
+
+			Vertex a = graph.addVertex();
+			Vertex b = graph.addVertex();
+			Vertex c = graph.addVertex();
+
+			Edge e1 = graph.addEdge(a, b);
+			TEST_ENSURE(!e1->directed());
+			TEST_ENSURE(e1->from() == a);
+			TEST_ENSURE(e1->to() == b);
+			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->undirectedEdges(), ==, 1);
+			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->undirectedEdges(), ==, 1);
+			
+			graph.reverse(e1);
+			TEST_ENSURE(!e1->directed());
+			TEST_ENSURE(e1->from() == b);
+			TEST_ENSURE(e1->to() == a);
+			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->undirectedEdges(), ==, 1);
+			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->undirectedEdges(), ==, 1);
+
+			graph.setDirected(e1, true);
+			TEST_ENSURE(e1->directed());
+			TEST_ENSURE(e1->from() == b);
+			TEST_ENSURE(e1->to() == a);
+			TEST_ENSURE_OP(a->incomingEdges(), ==, 1);
+			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->undirectedEdges(), ==, 0);
+			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->outgoingEdges(), ==, 1);
+			TEST_ENSURE_OP(b->undirectedEdges(), ==, 0);
+
+			graph.reverse(e1);
+			TEST_ENSURE(e1->directed());
+			TEST_ENSURE(e1->from() == a);
+			TEST_ENSURE(e1->to() == b);
+			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
+			TEST_ENSURE_OP(a->undirectedEdges(), ==, 0);
+			TEST_ENSURE_OP(b->incomingEdges(), ==, 1);
+			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->undirectedEdges(), ==, 0);
 		}
 
 	};

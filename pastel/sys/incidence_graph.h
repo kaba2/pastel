@@ -5,7 +5,9 @@
 #include "pastel/sys/incidence_graph_incidence.h"
 #include "pastel/sys/incidence_graph_vertex.h"
 #include "pastel/sys/incidence_graph_edge.h"
+#include "pastel/sys/hash.h"
 
+#include <unordered_map>
 #include <memory>
 
 namespace Pastel
@@ -29,6 +31,49 @@ namespace Pastel
 			: vertexSet_()
 			, edgeSet_()
 		{
+		}
+
+		//! Copy-constructs from another graph.
+		/*!
+		Time complexity:
+		O(n + m)
+		where
+		n is the number of vertices, and
+		m is the number of edges.
+
+		Exception safety:
+		strong
+		*/
+		Incidence_Graph(const Incidence_Graph& that)
+			: vertexSet_()
+			, edgeSet_()
+		{
+			std::unordered_map<
+				Vertex_ConstIterator,
+				Vertex_ConstIterator,
+				IteratorAddress_Hash> vertexMap;
+
+			Incidence_Graph copy;
+
+			for (auto vertex = that.cVertexBegin();
+				vertex != that.cVertexEnd();
+				++vertex)
+			{
+				vertexMap[vertex] = 
+					copy.addVertex(vertex->data());
+			}
+
+			for (auto edge = that.cEdgeBegin();
+				edge != that.cEdgeEnd();
+				++edge)
+			{
+				copy.addEdge(
+					vertexMap[edge->from()],
+					vertexMap[edge->to()],
+					edge->data());
+			}
+
+			swap(copy);
 		}
 
 		//! Move-constructs from another graph.
@@ -237,7 +282,7 @@ namespace Pastel
 		constant + edge-data construction
 
 		Exception safety:
-		shady, FIX
+		strong
 		*/
 		Edge_Iterator addEdge(
 			const Vertex_ConstIterator& from,
@@ -253,6 +298,15 @@ namespace Pastel
 			Vertex_Iterator mutableFrom = cast(from);
 			Vertex_Iterator mutableTo = cast(to);
 
+			// Create the incidences. Note that the incidence 
+			// gets the opposing vertex. We are creating
+			// the incidences before the edge, because we want
+			// strong exception safety.
+			std::unique_ptr<Incidence> fromIncidence(
+				new Incidence(mutableTo));
+			std::unique_ptr<Incidence> toIncidence( 
+				new Incidence(mutableFrom));
+
 			// Create the edge.
 			edgeSet_.emplace_back(
 				Edge(std::move(edgeData), directed));
@@ -260,18 +314,14 @@ namespace Pastel
 			Edge_Iterator edge = edgeSet_.end();
 			--edge;
 
+			fromIncidence->edge_ = edge;
+			edge->from_ = fromIncidence.get();
+
+			toIncidence->edge_ = edge;
+			edge->to_ = toIncidence.get();
+
 			// Link the edge to the vertices.
 			{
-				// Note that the incidence gets the 
-				// opposing vertex.
-				std::unique_ptr<Incidence> fromIncidence(
-					new Incidence(mutableTo, edge));
-				std::unique_ptr<Incidence> toIncidence( 
-					new Incidence(mutableFrom, edge));
-
-				edge->from_ = fromIncidence.get();
-				edge->to_ = toIncidence.get();
-
 				if (edge->directed())
 				{
 					mutableFrom->insert<Outgoing>(
@@ -319,6 +369,71 @@ namespace Pastel
 
 			// Remove the edge.
 			edgeSet_.erase(edge);
+		}
+
+		//! Reverses the directionality of an edge.
+		/*!
+		Time complexity:
+		constant
+		
+		Exception safety:
+		nothrow
+		*/
+		void reverse(
+			const Edge_ConstIterator& edge)
+		{
+			Vertex_Iterator from =
+				cast(edge->from());
+			Vertex_Iterator to =
+				cast(edge->to());
+
+			if (edge->directed())
+			{
+				from->move<Outgoing, Incoming>(
+					cast(edge)->from_);
+				to->move<Incoming, Outgoing>(
+					cast(edge)->to_);
+			}
+
+			std::swap(cast(edge)->from_, cast(edge)->to_);
+		}
+
+		void setDirected(
+			const Edge_ConstIterator& edge,
+			bool directed)
+		{
+			ENSURE(Type != GraphType::Mixed);
+
+			if (edge->directed() == directed)
+			{
+				return;
+			}
+
+			Vertex_Iterator from =
+				cast(edge->from());
+			Vertex_Iterator to =
+				cast(edge->to());
+
+			if (directed)
+			{
+				// Turn an undirected edge into 
+				// a directed edge.
+				from->move<Undirected, Outgoing>(
+					cast(edge)->from_);
+				to->move<Undirected, Incoming>(
+					cast(edge)->to_);
+			}
+			else
+			{
+				// Turn a directed edge into 
+				// an undirected edge.
+				from->move<Outgoing, Undirected>(
+					cast(edge)->from_);
+				to->move<Incoming, Undirected>(
+					cast(edge)->to_);
+			}
+
+			cast(edge)->setDirected(directed);
 		}
 
 		//! Casts away constness of an edge.
@@ -401,9 +516,6 @@ namespace Pastel
 		}
 
 	private:
-		// TODO: Implement
-		Incidence_Graph(const Incidence_Graph& that);
-
 		VertexSet vertexSet_;
 		EdgeSet edgeSet_;
 	};
