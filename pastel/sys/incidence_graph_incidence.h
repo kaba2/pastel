@@ -36,27 +36,13 @@ namespace Pastel
 		friend class Incidence_Graph_Fwd<Type, VertexData, EdgeData>;
 
 		Incidence()
-			: vertex_()
-			, edge_()
+			: edge_()
 		{
 		}
 
-		Incidence(
-			Vertex_Iterator vertex,
-			Edge_Iterator edge)
-			: vertex_(vertex)
-			, edge_(edge)
+		explicit Incidence(Edge_Iterator edge)
+			: edge_(edge)
 		{
-		}
-
-		Vertex_Iterator vertex()
-		{
-			return vertex_;
-		}
-
-		Vertex_ConstIterator vertex() const
-		{
-			return vertex_;
 		}
 
 		Edge_Iterator edge()
@@ -70,7 +56,6 @@ namespace Pastel
 		}
 
 	private:
-		Vertex_Iterator vertex_;
 		Edge_Iterator edge_;
 	};
 

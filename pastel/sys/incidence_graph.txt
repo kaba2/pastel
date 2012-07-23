@@ -3,8 +3,8 @@ Incidence graph
 
 [[Parent]]: data_structures.txt
 
-The _incidence graph_, or the incidence list, is a data structure for
-storing and manipulating labeled graphs. 
+The `Incidence_Graph` is a data structure for storing and manipulating 
+labeled graphs. 
 
 Graphs
 ------
