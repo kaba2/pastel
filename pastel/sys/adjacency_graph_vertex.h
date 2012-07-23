@@ -118,7 +118,7 @@ namespace Pastel
 			return cend_<Graph::Outgoing>();
 		}
 
-		integer outgoing() const
+		integer outgoingEdges() const
 		{
 			return incidences_<Graph::Outgoing>();
 		}
@@ -145,7 +145,7 @@ namespace Pastel
 			return cend_<Graph::Incoming>();
 		}
 
-		integer incoming() const
+		integer incomingEdges() const
 		{
 			return incidences_<Graph::Incoming>();
 		}
@@ -159,7 +159,7 @@ namespace Pastel
 
 		Incidence_Iterator end() const
 		{
-			return sentinel_.prev_;
+			return sentinel_;
 		}
 
 		Incidence_ConstIterator cbegin() const
@@ -169,10 +169,10 @@ namespace Pastel
 
 		Incidence_ConstIterator cend() const
 		{
-			return sentinel_.prev_;
+			return sentinel_;
 		}
 
-		integer incidences() const
+		integer incidentEdges() const
 		{
 			integer result = 0;
 			for (integer i = 0;i < IncidenceTypes;++i)
@@ -248,6 +248,7 @@ namespace Pastel
 			ASSERT_OP(incidencesSet_[I], >, 0);
 			ASSERT(incidence != &sentinel_);
 
+			// Link the incidence off the list.
 			Incidence* next = incidence->next_;
 			Incidence* prev = incidence->prev_;
 
@@ -255,6 +256,9 @@ namespace Pastel
 			prev->next_ = next;
 
 			--incidencesSet_[I];
+
+			// Make sure the partitionSet does not
+			// reference 'incidence'.
 			if (incidencesSet_[I] == 0)
 			{
 				partitionSet_[I] = (Incidence*)&sentinel_;
@@ -263,6 +267,8 @@ namespace Pastel
 			{
 				partitionSet_[I] = next;
 			}
+
+			// Delete the incidence.
 			delete incidence;
 		}
 
@@ -282,6 +288,7 @@ namespace Pastel
 		{
 			Incidence* sentinel = (Incidence*)&sentinel_;
 
+			// Delete all incidences.
 			Incidence* incidence = sentinel->next_;
 			while(incidence != sentinel)
 			{
@@ -289,7 +296,8 @@ namespace Pastel
 				delete incidence;
 				incidence = next;
 			}
-
+			
+			// Forget all incidences.
 			partitionSet_.fill(sentinel);
 			incidencesSet_.fill(0);
 
@@ -331,7 +339,7 @@ namespace Pastel
 
 		//! Partition of incidences into lists of given incidence type.
 		/*!
-		Depending on the graph type, the 'partitionSet'
+		Depending on the type of the graph, the 'partitionSet'
 		contains either 1 (undirected graph), 2 (directed graph),
 		or 3 (mixed graph) components. 	In any case, the partitionSet
 		denotes three intervals in a looped doubly-linked list of
@@ -341,10 +349,10 @@ namespace Pastel
 		of type I (Incoming, Outgoing, Undirected). The other incidences
 		of the same type can be found by following the 'next' fields
 		of 'Incidence'. The one-past-end element of the incidences of 
-		type I is contained in the partitionSet[J] where J is the first 
-		incidence type reachable by incrementing modulo IndicenceTypes 
-		where incidenceSet[J] > 0. If incidenceSet[I] = 0, then 
-		partitionSet[I] = (Incidence*)&sentinel.
+		type I is contained in the partitionSet[J] where J > I is the first 
+		incidence type with incidenceSet[J] > 0. If there is no such J,
+		the one-past-end element is given by &sentinel_. If 
+		incidenceSet[I] = 0, then partitionSet[I] = &sentinel.
 		*/
 		std::array<Incidence*, IncidenceTypes> partitionSet_;
 		Incidence_Link sentinel_;

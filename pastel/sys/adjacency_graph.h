@@ -65,7 +65,7 @@ namespace Pastel
 			const Vertex_ConstIterator& vertex)
 		{
 			// Remove all edges incident to this vertex.
-			while(vertex->incidences() > 0)
+			while(vertex->incidentEdges() > 0)
 			{
 				// Note that self-loops contribute twice
 				// to the set of incidences, while the other edges
