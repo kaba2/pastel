@@ -402,7 +402,7 @@ namespace Pastel
 			const Edge_ConstIterator& edge,
 			bool directed)
 		{
-			ENSURE(Type != GraphType::Mixed);
+			ENSURE(Type == GraphType::Mixed);
 
 			if (edge->directed() == directed)
 			{
