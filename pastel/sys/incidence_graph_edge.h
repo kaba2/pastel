@@ -18,6 +18,8 @@ namespace Pastel
 		Edge(const Edge& that)
 			: from_(that.from_)
 			, to_(that.to_)
+			, fromIncidence_(that.fromIncidence_)
+			, toIncidence_(that.toIncidence_)
 		{
 			if (Base::data())
 			{
@@ -28,6 +30,8 @@ namespace Pastel
 		Edge(Edge&& that)
 			: from_(that.from_)
 			, to_(that.to_)
+			, fromIncidence_(that.fromIncidence_)
+			, toIncidence_(that.toIncidence_)
 		{
 			if (Base::data())
 			{
@@ -35,9 +39,14 @@ namespace Pastel
 			}
 		}
 
-		explicit Edge(EdgeData data)
-			: from_(0)
-			, to_(0)
+		explicit Edge(
+			Vertex_Iterator from,
+			Vertex_Iterator to,
+			EdgeData data)
+			: from_(from)
+			, to_(to)
+			, fromIncidence_(0)
+			, toIncidence_(0)
 		{
 			if (Base::data())
 			{
@@ -55,27 +64,22 @@ namespace Pastel
 
 		Vertex_Iterator from()
 		{
-			return from_->vertex();
+			return from_;
 		}
 
 		Vertex_ConstIterator from() const
 		{
-			return from_->vertex();
+			return from_;
 		}
 
 		Vertex_Iterator to()
 		{
-			return to_->vertex();
+			return to_;
 		}
 
 		Vertex_ConstIterator to() const
 		{
-			return to_->vertex();
-		}
-
-		bool directed() const
-		{
-			return directed_;
+			return to_;
 		}
 
 		const EdgeData& data() const
@@ -96,9 +100,10 @@ namespace Pastel
 		// Deleted
 		Edge& operator=(Edge that);
 
-		Incidence* from_;
-		Incidence* to_;
-		bool directed_;
+		Vertex_Iterator from_;
+		Vertex_Iterator to_;
+		Incidence* fromIncidence_;
+		Incidence* toIncidence_;
 	};
 
 }
