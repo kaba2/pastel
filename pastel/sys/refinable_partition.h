@@ -12,47 +12,63 @@
 namespace Pastel
 {
 
+	//! Refinable partition
+	/*!
+	Preconditions:
+	Type is move/copy-constructible.
+	*/
+	template <typename Type>
 	class RefinablePartition
-		: public RefinablePartition_Fwd
+		: public RefinablePartition_Fwd<Type>
 	{
 	public:
-		//! Constructs a trivial refinable partition.
+		//! Constructs an empty refinable partition.
 		/*!
-		Preconditions:
-		n >= 0
-
 		Time complexity:
-		O(n)
+		constant
 
 		Exception safety:
 		strong
-		
-		If n == 0, the partition does not contain any blocks.
-		Otherwise, the partition contains exactly one block
-		which contains all the elements.
 		*/
-		explicit RefinablePartition(
-			integer n = 0)
+		RefinablePartition()
 			: elementSet_()
 			, blockSet_()
 			, partitionSet_()
 			, splitSet_()
 		{
-			ENSURE_OP(n, >=, 0);
+		}
 
-			if (n == 0)
+		//! Constructs a refinable partition.
+		/*!
+		Time complexity:
+		O(std::distance(begin, end)) * copy/move-construct(Type)
+
+		Exception safety:
+		strong
+
+		Note: if begin == end, there will be no sets in the 
+		partition. Otherwise, there will be exactly one set 
+		in the partition, containing all the elements.
+		*/
+		template <typename Type_ConstIterator>
+		RefinablePartition(
+			const Type_ConstIterator& begin,
+			const Type_ConstIterator& end)
+			: elementSet_()
+			, blockSet_()
+			, partitionSet_()
+			, splitSet_()
+		{
+			if (begin == end)
 			{
 				// Nothing to do.
 				return;
 			}
 
-			// Pre-allocate and construct,
-			// so that the block has something
-			// to reference.
-			partitionSet_.resize(n);
-
-			// Create the block containing all
-			// elements.
+			// Create the block. At this point
+			// the partitionSet is still empty,
+			// so we need to set the block elements
+			// later.
 			blockSet_.emplace_back(
 				Block(
 				partitionSet_.begin(),
@@ -63,18 +79,29 @@ namespace Pastel
 				blockSet_.end();
 			--block;
 
-			// Create the elements and fill the
-			// partition-set.
+			const integer n = std::distance(begin, end);
+
+			// Create the elements and the initial partition.
 			elementSet_.reserve(n);
-			for (integer i = 0;i < n;++i)
+			partitionSet_.reserve(n);
+			integer i = 0;
+			for (auto iter = begin; iter != end; ++iter)
 			{
 				elementSet_.emplace_back(
 					Element(block, 
-					partitionSet_.begin() + i));
+					partitionSet_.begin() + i,
+					*iter));
 
-				partitionSet_[i] = 
-					elementSet_.begin() + i;
+				partitionSet_.emplace_back(
+					elementSet_.begin() + i);
+
+				++i;
 			}
+
+			// Set the block elements properly.
+			block->begin_ = partitionSet_.begin();
+			block->end_ = partitionSet_.end();
+			block->unmarkedBegin_ = block->begin_;
 		}
 
 		//! Move-constructs from another refinable partition.
@@ -85,6 +112,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
+
 		RefinablePartition(
 			RefinablePartition&& that)
 			: elementSet_()
@@ -272,8 +300,9 @@ namespace Pastel
 					continue;
 				}
 
-				// Split off the smaller part.
-				if (block.marked() < block.elements())
+				// Split off the smaller part, and the marked
+				// part if of equal size.
+				if (block.marked() <= block.unmarked())
 				{
 					// The marked part is the smaller part.
 					// Make it the new block.

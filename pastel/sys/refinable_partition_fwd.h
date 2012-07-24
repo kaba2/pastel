@@ -7,6 +7,7 @@
 namespace Pastel
 {
 	
+	template <typename Type>
 	class RefinablePartition_Fwd
 	{
 	public:
@@ -15,30 +16,30 @@ namespace Pastel
 
 		typedef std::vector<Element>
 			ElementSet;
-		typedef ElementSet::iterator
+		typedef typename ElementSet::iterator
 			Element_Iterator;
-		typedef ElementSet::const_iterator
+		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
 
 		typedef std::list<Block>
 			BlockSet;
-		typedef BlockSet::iterator
+		typedef typename BlockSet::iterator
 			Block_Iterator;
-		typedef BlockSet::const_iterator
+		typedef typename BlockSet::const_iterator
 			Block_ConstIterator;
 
 		typedef std::vector<Element_Iterator>
 			PartitionSet;
-		typedef PartitionSet::iterator
+		typedef typename PartitionSet::iterator
 			Partition_Iterator;
-		typedef PartitionSet::const_iterator
+		typedef typename PartitionSet::const_iterator
 			Partition_ConstIterator;
 
 		typedef std::vector<Block_Iterator>
 			SplitSet;
-		typedef SplitSet::iterator
+		typedef typename SplitSet::iterator
 			Split_Iterator;
-		typedef SplitSet::const_iterator
+		typedef typename SplitSet::const_iterator
 			Split_ConstIterator;
 	};
 
