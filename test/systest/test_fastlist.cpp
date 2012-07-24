@@ -5,7 +5,7 @@
 
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/log.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 
 #include <iostream>
 

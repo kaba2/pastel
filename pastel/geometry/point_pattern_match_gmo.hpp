@@ -4,7 +4,7 @@
 #include "pastel/geometry/point_pattern_match_gmo.h"
 #include "pastel/geometry/search_nearest_one_pointkdtree.h"
 
-#include "pastel/sys/countingiterator.h"
+#include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/reporters.h"
 #include "pastel/sys/iterator_range.h"

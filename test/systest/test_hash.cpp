@@ -4,7 +4,7 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/countingiterator.h"
+#include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/hash.h"
 
 #include "pastel/gfx/pcx.h"

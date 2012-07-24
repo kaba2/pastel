@@ -1,7 +1,7 @@
-#ifndef PASTEL_POOLALLOCATOR_HPP
-#define PASTEL_POOLALLOCATOR_HPP
+#ifndef PASTEL_POOL_ALLOCATOR_HPP
+#define PASTEL_POOL_ALLOCATOR_HPP
 
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 
 namespace Pastel
 {

@@ -1,8 +1,8 @@
 // Description: Pool allocator
 // Detail: A uniform-sized memory allocator
 
-#ifndef PASTEL_POOLALLOCATOR_H
-#define PASTEL_POOLALLOCATOR_H
+#ifndef PASTEL_POOL_ALLOCATOR_H
+#define PASTEL_POOL_ALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
@@ -169,6 +169,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/poolallocator.hpp"
+#include "pastel/sys/pool_allocator.hpp"
 
 #endif

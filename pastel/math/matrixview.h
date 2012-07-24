@@ -8,7 +8,7 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/arrayview.h"
-#include "pastel/sys/sparseiterator.h"
+#include "pastel/sys/sparse_iterator.h"
 #include "pastel/sys/memory_overlaps.h"
 
 #include "pastel/sys/integer_tools.h"

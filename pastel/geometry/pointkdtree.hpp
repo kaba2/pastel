@@ -6,9 +6,9 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
-#include "pastel/sys/countingiterator.h"
-#include "pastel/sys/constantiterator.h"
-#include "pastel/sys/nulliterator.h"
+#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/constant_iterator.h"
+#include "pastel/sys/null_iterator.h"
 
 #include <boost/operators.hpp>
 

@@ -2,8 +2,8 @@
 // Detail: An iterator adapter for a larger step size.
 // Documentation: iterators.txt
 
-#ifndef PASTEL_SPARSEITERATOR_H
-#define PASTEL_SPARSEITERATOR_H
+#ifndef PASTEL_SPARSE_ITERATOR_H
+#define PASTEL_SPARSE_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/iterator_range.h"

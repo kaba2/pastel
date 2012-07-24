@@ -1,7 +1,7 @@
-#ifndef PASTEL_ARENAALLOCATOR_HPP
-#define PASTEL_ARENAALLOCATOR_HPP
+#ifndef PASTEL_ARENA_ALLOCATOR_HPP
+#define PASTEL_ARENA_ALLOCATOR_HPP
 
-#include "pastel/sys/arenaallocator.h"
+#include "pastel/sys/arena_allocator.h"
 
 namespace Pastel
 {

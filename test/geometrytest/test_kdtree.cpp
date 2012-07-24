@@ -17,7 +17,7 @@
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/tristate.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 
 #include <iostream>
 #include <string>

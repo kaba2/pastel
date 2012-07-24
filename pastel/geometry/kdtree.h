@@ -6,9 +6,9 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"
-#include "pastel/sys/arenaallocator.h"
+#include "pastel/sys/arena_allocator.h"
 #include "pastel/sys/tristate.h"
-//#include "pastel/sys/poolallocator.h"
+//#include "pastel/sys/pool_allocator.h"
 
 #include "pastel/geometry/alignedbox.h"
 

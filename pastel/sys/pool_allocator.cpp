@@ -1,4 +1,4 @@
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/log.h"
 #include "pastel/sys/addressof.h"

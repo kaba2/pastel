@@ -5,7 +5,7 @@
 #define PASTEL_HALFMESH_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 #include "pastel/sys/possiblyemptymember.h"
 
 #include <boost/operators.hpp>

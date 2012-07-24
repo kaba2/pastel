@@ -3,8 +3,8 @@
 #ifndef PASTEL_ALLOCATORS_H
 #define PASTEL_ALLOCATORS_H
 
-#include "pastel/sys/arenaallocator.h"
-#include "pastel/sys/nativeallocator.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/arena_allocator.h"
+#include "pastel/sys/native_allocator.h"
+#include "pastel/sys/pool_allocator.h"
 
 #endif

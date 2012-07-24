@@ -7,8 +7,8 @@
 #include "pastel/geometry/distance_point_point.h"
 
 #include "pastel/sys/keyvalue.h"
-#include "pastel/sys/countingiterator.h"
-#include "pastel/sys/rectangleiterator.h"
+#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/rectangle_iterator.h"
 #include "pastel/sys/random_subset.h"
 
 #include <boost/range.hpp>

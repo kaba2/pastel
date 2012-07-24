@@ -6,7 +6,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/geometry/alignedbox.h"
-#include "pastel/sys/arenaallocator.h"
+#include "pastel/sys/arena_allocator.h"
 
 #include "pastel/geometry/concept_shapequery.h"
 
