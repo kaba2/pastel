@@ -1,0 +1,49 @@
+Finite-state automaton
+======================
+
+[[Parent]]: data_structures.txt
+
+The `Automaton` is a data structure for storing and manipulating 
+finite-state automata.
+
+Definitions
+-----------
+
+A _finite-state_ automaton is a tuple ''(Sigma, S, s, delta, F)'',
+where ''Sigma'' and ''S'' are finite, non-empty sets, called the 
+_symbols_ and the _states_, respectively, ''s in S'' and 
+''F subset S'', called the _start state_ and the _final states_, 
+respectively, and ''delta : S times Sigma --> power-set(S)'', 
+called the _transition function_.
+
+Alternatively, a finite-state automaton is a labeled directed 
+[graph][Graph] with vertices ''S'', called the states, with a start
+state ''s in S'', and a set of final states ''F subset S'', where 
+the edges have been labeled with symbols ''Sigma'', and there is 
+a (unique) edge between ''a, b in S'' labeled ''t in Sigma'' 
+if and only if ''b in delta(a, t)''. 
+
+[Graph]: [[Ref: incidence_graph.txt]]
+
+Data structure
+--------------
+
+The data structure underlying the automaton is the 
+[[Link: incidence_graph.txt]]; the automaton has all the 
+properties that the incidence graph has. What the automaton
+data structure layers on top of this is that
+
+ * it stores the start and the final states, 
+ * it provides a fast way to search for transitions associatively,
+ that is, for a state ''q'' and symbol ''t'', the data structure can 
+ find in amortized constant time all the transitions from state ''q''
+ with symbol ''t'',
+ * it creates a _reject state_, which works as the target state of 
+ those transitions which are not defined, simplifying user code in
+ these boundary cases.
+
+Additionally,
+
+ * the support for non-determinism is optional at compile-time;
+ if it is known that the automaton is deterministic, then this
+ is both enforced and memory saved.

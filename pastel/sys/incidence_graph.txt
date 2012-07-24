@@ -6,8 +6,8 @@ Incidence graph
 The `Incidence_Graph` is a data structure for storing and manipulating 
 labeled graphs. 
 
-Graphs
-------
+Definitions
+-----------
 
 A _graph_ is a triple ''(V, E, I)'', where ''V'' and ''E'' are finite 
 sets, called the _vertices_ and the _edges_, respectively, and 
@@ -66,6 +66,8 @@ data structure.
 ### Preservation of identity
 
  * preserves the identity (memory address) of vertices and 
- edges during their lifetime, and
+ edges during their lifetime,
  * can change the directionality of an edge without changing
- the identity of the edge.
+ the identity of the edge, and
+ * can change a directed edge to an undirected edge and vice
+ versa without changing the identity of the edge.
