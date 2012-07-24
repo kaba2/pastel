@@ -104,9 +104,49 @@ namespace
 				int data[] = {0, 2, 4};
 				TEST_ENSURE(
 					same(data, partition.blockBegin()));
+
+				auto block = partition.blockBegin();
+				++block;
+
+				int data2[] = {1, 3};
+				TEST_ENSURE(same(data2, block));
+				TEST_ENSURE_OP(block->marked(), ==, 0);
+				TEST_ENSURE_OP(block->unmarked(), ==, 2);
+				TEST_ENSURE_OP(block->elements(), ==, 2);
+
+				TEST_ENSURE(
+					(partition.elementBegin() + 1)->block() == block);
+				TEST_ENSURE(
+					(partition.elementBegin() + 3)->block() == block);
 			}
 
-			partition.swap(partition);
+			partition.mark(
+				partition.elementBegin() + 1);
+			partition.mark(
+				partition.elementBegin() + 3);
+			{
+				Partition::Block_ConstIterator block = 
+					partition.blockBegin();
+				++block;
+
+				TEST_ENSURE_OP(
+					block->elements(), ==, 2);
+				TEST_ENSURE_OP(
+					block->marked(), ==, 2);
+				TEST_ENSURE_OP(
+					block->unmarked(), ==, 0);
+				TEST_ENSURE_OP(
+					partition.splits(), ==, 1);
+			}
+
+			partition.split();
+			{
+				TEST_ENSURE_OP(
+					partition.blocks(), ==, 2);
+
+				TEST_ENSURE_OP(
+					partition.splits(), ==, 0);
+			}
 
 			partition.clear();
 			TEST_ENSURE_OP(partition.splits(), ==, 0);

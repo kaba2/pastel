@@ -297,8 +297,17 @@ namespace Pastel
 				{
 					// If all elements have been marked,
 					// there is nothing to split.
+
+					// Clear the set of marked elements in the current block.
+					block.unmarkedBegin_ = block.begin_;
+
 					continue;
 				}
+
+				// This will contain the newly-created
+				// block. The other part will reside in
+				// the current block.
+				Block_Iterator newBlock;
 
 				// Split off the smaller part, and the marked
 				// part if of equal size.
@@ -306,7 +315,8 @@ namespace Pastel
 				{
 					// The marked part is the smaller part.
 					// Make it the new block.
-					blockSet_.emplace_back(
+					newBlock = blockSet_.emplace(
+						blockSet_.cend(),
 						Block(block.begin_, block.unmarkedBegin_, 
 						splitSet_.end()));
 					
@@ -317,12 +327,22 @@ namespace Pastel
 				{
 					// The unmarked part is the smaller part.
 					// Make it the new block.
-					blockSet_.emplace_back(
+					newBlock = blockSet_.emplace(
+						blockSet_.cend(),
 						Block(block.unmarkedBegin_, block.end_,
 						splitSet_.end()));
 
 					// Use the current block for the larger part.
 					block.end_ = block.unmarkedBegin_;
+				}
+
+				// Update the block-reference for each element
+				// of the block.
+				for (auto iter = newBlock->begin();
+					iter != newBlock->end();
+					++iter)
+				{
+					(*iter)->block_ = newBlock;
 				}
 				
 				// Clear the set of marked elements in the current block.
@@ -394,7 +414,7 @@ namespace Pastel
 		//! The partition of elements.
 		PartitionSet partitionSet_;
 
-		//! Blocks with both marked and unmarked elements.
+		//! Blocks with marked elements.
 		SplitSet splitSet_;
 	};
 
