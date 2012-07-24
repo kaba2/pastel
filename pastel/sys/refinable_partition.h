@@ -4,10 +4,10 @@
 #define PASTEL_REFINABLE_PARTITION_H
 
 #include "pastel/sys/mytypes.h"
-
 #include "pastel/sys/refinable_partition_fwd.h"
 #include "pastel/sys/refinable_partition_element.h"
 #include "pastel/sys/refinable_partition_block.h"
+#include "pastel/sys/constantiterator.h"
 
 namespace Pastel
 {
@@ -16,8 +16,12 @@ namespace Pastel
 	/*!
 	Preconditions:
 	Type is move/copy-constructible.
+
+	Note:
+	Specifying Type as EmptyClass avoids allocating
+	any memory for the data.
 	*/
-	template <typename Type>
+	template <typename Type = EmptyClass>
 	class RefinablePartition
 		: public RefinablePartition_Fwd<Type>
 	{
@@ -38,6 +42,36 @@ namespace Pastel
 		{
 		}
 
+		//! Constructs a refinable partition with n elements.
+		/*!
+		Preconditions:
+		n >= 0
+
+		This is a convenience function that calls
+
+		RefinablePartition(
+			constantIterator(Type(), 0),
+			constantIterator(Type(), n)).
+
+		Note:
+		This constructor is useful when you want all the
+		data default-constructed, or when you don't have
+		data at all (Type is EmptyClass).
+		*/
+		explicit RefinablePartition(integer n)
+			: elementSet_()
+			, blockSet_()
+			, partitionSet_()
+			, splitSet_()
+		{
+			ENSURE_OP(n, >=, 0);
+
+			RefinablePartition copy(
+				constantIterator(Type(), 0),
+				constantIterator(Type(), n));
+			swap(copy);
+		}
+
 		//! Constructs a refinable partition.
 		/*!
 		Time complexity:
@@ -46,7 +80,8 @@ namespace Pastel
 		Exception safety:
 		strong
 
-		Note: if begin == end, there will be no sets in the 
+		Note: 
+		If begin == end, there will be no sets in the 
 		partition. Otherwise, there will be exactly one set 
 		in the partition, containing all the elements.
 		*/
