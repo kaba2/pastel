@@ -141,6 +141,9 @@ namespace
 
 			partition.split();
 			{
+				// Nothing should happen when all
+				// the elements in a block are marked.
+
 				TEST_ENSURE_OP(
 					partition.blocks(), ==, 2);
 
