@@ -177,6 +177,7 @@
     <ClCompile Include="test_andersondarling.cpp" />
     <ClCompile Include="test_arenaallocator.cpp" />
     <ClCompile Include="test_array.cpp" />
+    <ClCompile Include="test_automaton.cpp" />
     <ClCompile Include="test_biginteger.cpp" />
     <ClCompile Include="test_cloneptr.cpp" />
     <ClCompile Include="test_config.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="test_range.cpp" />
     <ClCompile Include="test_rational.cpp" />
     <ClCompile Include="test_redblacktree.cpp" />
+    <ClCompile Include="test_refinable_partition.cpp" />
     <ClCompile Include="test_smallmap.cpp" />
     <ClCompile Include="test_smallset.cpp" />
     <ClCompile Include="test_statreal.cpp" />

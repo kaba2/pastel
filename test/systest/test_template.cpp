@@ -1,4 +1,4 @@
-// Description: Unit-testing template
+// Description: Testing template
 // Documentation: unit_testing.txt
 
 #include "pastelsystest.h"

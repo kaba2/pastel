@@ -398,6 +398,14 @@ namespace Pastel
 			std::swap(cast(edge)->from_, cast(edge)->to_);
 		}
 
+		//! Sets the directness of an edge.
+		/*!
+		Time complexity:
+		constant
+		
+		Exception safety:
+		nothrow
+		*/
 		void setDirected(
 			const Edge_ConstIterator& edge,
 			bool directed)

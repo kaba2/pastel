@@ -134,6 +134,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="array_cursor.h" />
+    <ClInclude Include="automaton.h" />
+    <ClInclude Include="automaton.hpp" />
+    <ClInclude Include="automaton_fwd.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="clone_ptr.h" />
     <ClInclude Include="clone_ptr_concepts.h" />
@@ -146,6 +149,10 @@
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
     <ClInclude Include="read_protected.h" />
+    <ClInclude Include="refinable_partition.h" />
+    <ClInclude Include="refinable_partition_block.h" />
+    <ClInclude Include="refinable_partition_element.h" />
+    <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="parallelarray.h" />
     <ClInclude Include="parallelarray.hpp" />
@@ -541,10 +548,12 @@
   <ItemGroup>
     <None Include="..\..\techniques_constcast.txt" />
     <None Include="..\..\techniques_iterators.txt" />
+    <None Include="automaton.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />
     <None Include="read_protected.txt" />
+    <None Include="refinable_partition.txt" />
     <None Include="second_iterator.txt" />
     <None Include="transitive_closure.txt" />
     <None Include="trees.txt" />
