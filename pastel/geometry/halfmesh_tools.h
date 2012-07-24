@@ -4,9 +4,9 @@
 #define PASTEL_HALFMESH_TOOLS_H
 
 #include "pastel/geometry/halfmesh.h"
-#include "pastel/sys/unorderedmap.h"
 
 #include <iostream>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -17,7 +17,7 @@ namespace Pastel
 	{
 		typedef HalfMesh<UserDataPolicy> Mesh;
 
-		UnorderedMap<typename Mesh::Vertex,
+		std::unordered_map<typename Mesh::Vertex,
 			integer, typename Mesh::VertexHash> vertexMap;
 
 		integer vertexId = 0;

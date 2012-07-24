@@ -1,3 +1,5 @@
+// Description: Incidence graph
+
 #ifndef PASTEL_INCIDENCE_GRAPH_H
 #define PASTEL_INCIDENCE_GRAPH_H
 
@@ -13,6 +15,12 @@
 namespace Pastel
 {
 
+	//! Incidence graph
+	/*!
+	Note:
+	Specifying EmptyClass for user-data avoids allocating any memory
+	for them.
+	*/
 	template <GraphType::Enum Type = GraphType::Directed, 
 		typename VertexData = EmptyClass, typename EdgeData = EmptyClass>
 	class Incidence_Graph

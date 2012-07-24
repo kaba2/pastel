@@ -1,14 +1,14 @@
 #ifndef PASTEL_GFXRESOURCE_H
 #define PASTEL_GFXRESOURCE_H
 
-#include "pastel/sys/unorderedmap.h"
-
 #include "pastel/gfx/color.h"
+
+#include <unordered_map>
 
 namespace Pastel
 {
 
-	typedef UnorderedMap<std::string, Color> ColorResource;
+	typedef std::unordered_map<std::string, Color> ColorResource;
 
 }
 

@@ -9,7 +9,6 @@
 #include "pastel/math/affinetransformation_tools.h"
 #include "pastel/math/conformalaffine2d_tools.h"
 
-#include "pastel/sys/unorderedset.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/smallset.h"
 #include "pastel/sys/reporters.h"
@@ -439,7 +438,7 @@ namespace Pastel
 					// Thus we keep track of which scene points
 					// we have already paired.
 
-					typedef UnorderedSet<SceneIterator, SceneIteratorHash> UsedSceneSet;
+					typedef std::unordered_set<SceneIterator, SceneIteratorHash> UsedSceneSet;
 					UsedSceneSet usedSet;
 
 					ModelIterator modelIter = modelTree_.begin();

@@ -88,5 +88,5 @@ Uses in Pastel
 
 In Pastel, all data structures which provide mutable iterators
 also provide cast functions to convert a const iterator to a
-mutable iterator. These are given by the `cast()´ member functions.
+mutable iterator. These are given by the `cast()` member functions.
 

@@ -7,8 +7,9 @@
 #include "pastel/matlab/matlab.h"
 
 #include "pastel/sys/pointpolicies.h"
-#include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/poolallocator.h"
+
+#include <unordered_map>
 
 void force_linking_pointkdtree() {}
 
@@ -107,7 +108,7 @@ namespace Pastel
 		typedef PointKdTree<real, Dynamic, TreePoint_PointPolicy> Tree;
 		typedef Tree::Point_ConstIterator Point_ConstIterator;
 		typedef Tree::Point_ConstRange Point_ConstRange;
-		typedef UnorderedMap<integer, Point_ConstIterator> IndexMap;
+		typedef std::unordered_map<integer, Point_ConstIterator> IndexMap;
 		typedef IndexMap::const_iterator ConstIterator;
 
 		struct KdState

@@ -4,7 +4,6 @@
 #define PASTEL_FOURIER_TRANSFORM_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/memoryview.h"
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
 

@@ -1,5 +1,0 @@
-Disjoint sets
-=============
-
-[[Parent]]: data_structures.txt
-

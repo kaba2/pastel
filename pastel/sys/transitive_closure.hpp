@@ -2,8 +2,8 @@
 #define PASTEL_TRANSITIVE_CLOSURE_HPP
 
 #include "pastel/sys/transitive_closure.h"
-#include "pastel/sys/unorderedmap.h"
 
+#include <unordered_map>
 #include <vector>
 
 namespace Pastel
@@ -221,7 +221,7 @@ namespace Pastel
 		const Closure_Reporter& closureReporter;
 		bool reflexiveClosure;
 
-		typedef UnorderedMap<Domain, Progress, Domain_Hash> ProgressSet;
+		typedef std::unordered_map<Domain, Progress, Domain_Hash> ProgressSet;
 		typedef typename ProgressSet::iterator Progress_Iterator;
 		typedef typename ProgressSet::iterator Progress_ConstIterator;
 

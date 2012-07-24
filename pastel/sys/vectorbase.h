@@ -8,7 +8,6 @@
 #include "pastel/sys/vectorexpression.h"
 #include "pastel/sys/tuple.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/tablemodify.h"
 #include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
 

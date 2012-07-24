@@ -27,8 +27,8 @@ namespace Pastel
 			unused(userData);
 			if (mixerCallBack__)
 			{
-				(*mixerCallBack__)(MemoryView<int8>(
-					(int8*)stream, (integer)length));
+				(*mixerCallBack__)(
+					(int8*)stream, (int8*)stream + length);
 			}
 		}
 

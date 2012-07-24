@@ -6,9 +6,9 @@
 #define PASTEL_LOGGER_H
 
 #include "pastel/sys/syslibrary.h"
-#include "pastel/sys/unorderedset.h"
 
 #include <string>
+#include <unordered_set>
 
 namespace Pastel
 {
@@ -48,7 +48,7 @@ namespace Pastel
 		//! Remove a log from the set of observed logs.
 		void removeLog(Log* log);
 
-		typedef UnorderedSet<Log*> LogSet;
+		typedef std::unordered_set<Log*> LogSet;
 		typedef LogSet::iterator Log_Iterator;
 		typedef LogSet::const_iterator Log_ConstIterator;
 

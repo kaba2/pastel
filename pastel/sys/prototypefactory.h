@@ -5,10 +5,10 @@
 #ifndef PASTEL_PROTOTYPEFACTORY_H
 #define PASTEL_PROTOTYPEFACTORY_H
 
-#include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/countedptr.h"
 
 #include <string>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -24,7 +24,7 @@ namespace Pastel
 	class PrototypeFactory
 	{
 	private:
-		typedef UnorderedMap<std::string, CountedPtr<Type> > 
+		typedef std::unordered_map<std::string, CountedPtr<Type> > 
 			PrototypeMap;
 		typedef typename PrototypeMap::iterator Iterator;
 
