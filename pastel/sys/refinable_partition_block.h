@@ -6,7 +6,8 @@
 namespace Pastel
 {
 
-	class RefinablePartition_Fwd::Block
+	template <typename Type>
+	class RefinablePartition_Fwd<Type>::Block
 	{
 	public:
 		Block(
@@ -18,6 +19,23 @@ namespace Pastel
 			, unmarkedBegin_(begin)
 			, split_(split)
 		{
+		}
+
+		Block(const Block& that)
+			: begin_(that.begin_)
+			, end_(that.end_)
+			, unmarkedBegin_(that.unmarkedBegin_)
+			, split_(that.split_)
+		{
+		}
+
+		Block(Block&& that)
+			: begin_()
+			, end_()
+			, unmarkedBegin_()
+			, split_()
+		{
+			swap(that);
 		}
 
 		integer elements() const
@@ -66,12 +84,31 @@ namespace Pastel
 		}
 
 	private:
+		template <typename Type>
 		friend class RefinablePartition;
 
-		// Deleted.
-		Block();
-		// Deleted.
-		Block& operator=(const Block& that);
+		Block()
+			: begin_()
+			, end_()
+			, unmarkedBegin_()
+			, split_()
+		{
+		}
+
+		Block& operator=(Block that)
+		{
+			swap(that);
+			return *this;
+		}
+
+		void swap(Block& that)
+		{
+			using std::swap;
+			swap(begin_, that.begin_);
+			swap(end_, that.end_);
+			swap(unmarkedBegin_, that.unmarkedBegin_);
+			swap(split_, that.split_);
+		}
 
 		Partition_Iterator begin_;
 		Partition_Iterator end_;
