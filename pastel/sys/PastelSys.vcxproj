@@ -170,13 +170,6 @@
     <ClInclude Include="transitive_closure.h" />
     <ClInclude Include="transitive_closure.hpp" />
     <ClInclude Include="transitive_closure_concepts.h" />
-    <ClInclude Include="small_containers.h" />
-    <ClInclude Include="smallfixedset.h" />
-    <ClInclude Include="smallfixedset.hpp" />
-    <ClInclude Include="smallset.h" />
-    <ClInclude Include="smallset.hpp" />
-    <ClInclude Include="smallmap.h" />
-    <ClInclude Include="smallmap.hpp" />
     <ClInclude Include="iterator_predicate.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
@@ -545,7 +538,6 @@
     <None Include="data_structures.txt" />
     <None Include="array.txt" />
     <None Include="fastlist.txt" />
-    <None Include="small_containers.txt" />
     <None Include="views.txt" />
     <None Include="extendedconstviews.txt" />
     <None Include="concrete_views.txt" />

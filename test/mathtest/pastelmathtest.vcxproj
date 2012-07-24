@@ -185,7 +185,6 @@
     <ClCompile Include="test_common.cpp" />
     <ClCompile Include="test_complex.cpp" />
     <ClCompile Include="test_lowdiscrepancy.cpp" />
-    <ClCompile Include="test_piecewiselinear.cpp" />
     <ClCompile Include="test_polynomial.cpp" />
     <ClCompile Include="test_smoothstep.cpp" />
   </ItemGroup>

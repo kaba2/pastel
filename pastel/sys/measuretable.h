@@ -5,7 +5,8 @@
 #define PASTEL_MEASURETABLE_H
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/smallset.h"
+
+#include <unordered_set>
 
 namespace Pastel
 {
@@ -78,8 +79,8 @@ namespace Pastel
 
 	private:
 		Array<Entry, 2> data_;
-		SmallSet<integer> hSeparatorSet_;
-		SmallSet<integer> vSeparatorSet_;
+		std::unordered_set<integer> hSeparatorSet_;
+		std::unordered_set<integer> vSeparatorSet_;
 		std::string caption_;
 	};
 

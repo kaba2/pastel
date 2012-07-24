@@ -6,7 +6,6 @@
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 #include "pastel/geometry/distance_point_point.h"
 
-#include "pastel/sys/smallfixedset.h"
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/rectangleiterator.h"
@@ -15,7 +14,7 @@
 #include <boost/range.hpp>
 
 #include <algorithm>
-#include <unordered_set>
+#include <set>
 
 namespace Pastel
 {
@@ -110,7 +109,7 @@ namespace Pastel
 		// of the k best candidates.
 		// We only seek for k - 1 neighbors, since
 		// we will automatically include the block itself.
-		SmallFixedSet<KeyValue<Real, integer> > aNearestSet(kNearest - 1);
+		std::set<KeyValue<Real, integer> > aNearestSet;
 
 		AlignedBox<integer, N> neighborBox(
 			ofDimension(n));
@@ -177,9 +176,15 @@ namespace Pastel
 						image.index(bPosition);
 					aNearestSet.insert(
 						keyValue(distance, bIndex));
-					if (aNearestSet.full())
+					if (aNearestSet.size() > kNearest - 1)
 					{
-						kthDistance = aNearestSet.back().key();
+						aNearestSet.erase(
+							std::prev(aNearestSet.end()));
+					}
+
+					if (aNearestSet.size() == kNearest - 1)
+					{
+						kthDistance = std::prev(aNearestSet.end())->key();
 					}
 				}
 
@@ -190,9 +195,13 @@ namespace Pastel
 
 			// The nearest block is the block itself.
 			nearestSet(0, aIndex) = aIndex;
-			for (integer i = 0;i < aNearestSet.size();++i)
+			integer i = 0;
+			for (auto iter = aNearestSet.begin();
+				iter != aNearestSet.end();
+				++iter)
 			{
-				nearestSet(i + 1, aIndex) = aNearestSet[i].value();
+				nearestSet(i + 1, aIndex) = iter->value();
+				++i;
 			}
 		}
 		}

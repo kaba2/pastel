@@ -4,7 +4,6 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/smallfixedset.h"
 #include "pastel/sys/keyvalue.h"
 
 namespace Pastel

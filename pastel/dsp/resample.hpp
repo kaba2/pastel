@@ -7,7 +7,6 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/math_functions.h"
-#include "pastel/sys/smallset.h"
 #include "pastel/sys/syscommon.h"
 #include "pastel/sys/math_functions.h"
 
@@ -396,13 +395,16 @@ namespace Pastel
 
 		// Find out the mostly-optimal order.
 
-		SmallSet<Detail_Resample::AxisValue> axisSet;
+		std::vector<Detail_Resample::AxisValue> axisSet;
+		axisSet.reserve(N);
 		for (integer i = 0;i < N;++i)
 		{
-			axisSet.insert(
+			axisSet.push_back(
 				Detail_Resample::AxisValue((filter->radius() * output.extent()[i]) 
 				/ input.extent()[i], i));
 		}
+
+		std::sort(axisSet.begin(), axisSet.end());
 
 		// The first resampling is from the input view to
 		// a temporary array.

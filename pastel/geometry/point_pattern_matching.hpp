@@ -10,7 +10,6 @@
 #include "pastel/math/conformalaffine2d_tools.h"
 
 #include "pastel/sys/array.h"
-#include "pastel/sys/smallset.h"
 #include "pastel/sys/reporters.h"
 #include "pastel/sys/random_subset.h"
 
