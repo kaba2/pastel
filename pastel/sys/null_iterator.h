@@ -2,8 +2,8 @@
 // Detail: An iterator for sending data into oblivion.
 // Documentation: iterators.txt
 
-#ifndef PASTEL_NULLITERATOR_H
-#define PASTEL_NULLITERATOR_H
+#ifndef PASTEL_NULL_ITERATOR_H
+#define PASTEL_NULL_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
 

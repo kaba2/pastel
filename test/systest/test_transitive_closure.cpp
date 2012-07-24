@@ -5,7 +5,7 @@
 
 #include "pastel/sys/transitive_closure.h"
 #include "pastel/sys/incidence_graph.h"
-#include "pastel/sys/countingiterator.h"
+#include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/hash.h"
 

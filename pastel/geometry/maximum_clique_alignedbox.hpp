@@ -4,8 +4,8 @@
 #include "pastel/geometry/maximum_clique_alignedbox.h"
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/countingiterator.h"
-#include "pastel/sys/nulliterator.h"
+#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/null_iterator.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <boost/type_traits/is_same.hpp>

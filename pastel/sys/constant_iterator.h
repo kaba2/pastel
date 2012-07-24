@@ -2,8 +2,8 @@
 // Detail: A constant value iterator 
 // Documentation: iterators.txt
 
-#ifndef PASTEL_CONSTANTITERATOR_H
-#define PASTEL_CONSTANTITERATOR_H
+#ifndef PASTEL_CONSTANT_ITERATOR_H
+#define PASTEL_CONSTANT_ITERATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/iterator_range.h"

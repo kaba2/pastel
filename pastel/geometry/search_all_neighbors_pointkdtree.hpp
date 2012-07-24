@@ -10,8 +10,8 @@
 #include "pastel/math/euclidean_normbijection.h"
 
 #include "pastel/sys/pastelomp.h"
-#include "pastel/sys/countingiterator.h"
-#include "pastel/sys/constantiterator.h"
+#include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/copy_n.h"
 #include "pastel/sys/reporters.h"
 

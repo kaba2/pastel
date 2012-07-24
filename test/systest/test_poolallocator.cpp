@@ -1,8 +1,8 @@
 // Description: Testing for PoolAllocator
-// DocumentationOf: poolallocator.h
+// DocumentationOf: pool_allocator.h
 
 #include "pastelsystest.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 
 #include "pastel/sys/random.h"
 

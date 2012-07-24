@@ -1,8 +1,8 @@
 // Description: Testing for ArenaAllocator
-// DocumentationOf: arenaallocator.h
+// DocumentationOf: arena_allocator.h
 
 #include "pastelsystest.h"
-#include "pastel/sys/arenaallocator.h"
+#include "pastel/sys/arena_allocator.h"
 
 #include <vector>
 

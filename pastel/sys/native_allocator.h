@@ -1,8 +1,8 @@
 // Description: Native allocator
 // Detail: An allocator wrapper for new and delete
 
-#ifndef PASTEL_NATIVEALLOCATOR_H
-#define PASTEL_NATIVEALLOCATOR_H
+#ifndef PASTEL_NATIVE_ALLOCATOR_H
+#define PASTEL_NATIVE_ALLOCATOR_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
@@ -122,6 +122,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/nativeallocator.hpp"
+#include "pastel/sys/native_allocator.hpp"
 
 #endif

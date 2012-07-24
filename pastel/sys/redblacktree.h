@@ -4,7 +4,7 @@
 #define PASTEL_REDBLACKTREE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 #include "pastel/sys/rbtpolicy_concept.h"
 #include "pastel/sys/set_rbtpolicy.h"
 #include "pastel/sys/redblacktree_node.h"

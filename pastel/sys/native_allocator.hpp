@@ -1,7 +1,7 @@
-#ifndef PASTEL_NATIVEALLOCATOR_HPP
-#define PASTEL_NATIVEALLOCATOR_HPP
+#ifndef PASTEL_NATIVE_ALLOCATOR_HPP
+#define PASTEL_NATIVE_ALLOCATOR_HPP
 
-#include "pastel/sys/nativeallocator.h"
+#include "pastel/sys/native_allocator.h"
 
 namespace Pastel
 {

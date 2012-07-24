@@ -133,6 +133,8 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="arena_allocator.h" />
+    <ClInclude Include="arena_allocator.hpp" />
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="automaton.h" />
     <ClInclude Include="automaton.hpp" />
@@ -141,6 +143,8 @@
     <ClInclude Include="clone_ptr.h" />
     <ClInclude Include="clone_ptr_concepts.h" />
     <ClInclude Include="clone_ptr_private.h" />
+    <ClInclude Include="constant_iterator.h" />
+    <ClInclude Include="counting_iterator.h" />
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="graph_algorithms.h" />
     <ClInclude Include="incidence_graph.h" />
@@ -148,7 +152,13 @@
     <ClInclude Include="incidence_graph_fwd.h" />
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
+    <ClInclude Include="native_allocator.h" />
+    <ClInclude Include="native_allocator.hpp" />
+    <ClInclude Include="null_iterator.h" />
+    <ClInclude Include="pool_allocator.h" />
+    <ClInclude Include="pool_allocator.hpp" />
     <ClInclude Include="read_protected.h" />
+    <ClInclude Include="rectangle_iterator.h" />
     <ClInclude Include="refinable_partition.h" />
     <ClInclude Include="refinable_partition_block.h" />
     <ClInclude Include="refinable_partition_element.h" />
@@ -156,6 +166,7 @@
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />
+    <ClInclude Include="sparse_iterator.h" />
     <ClInclude Include="subarray.h" />
     <ClInclude Include="subarray_iterator.h" />
     <ClInclude Include="subarray_tools.h" />
@@ -226,12 +237,6 @@
     <ClInclude Include="memory.h" />
     <ClInclude Include="memory_overlaps.h" />
     <ClInclude Include="allocators.h" />
-    <ClInclude Include="arenaallocator.h" />
-    <ClInclude Include="arenaallocator.hpp" />
-    <ClInclude Include="nativeallocator.h" />
-    <ClInclude Include="nativeallocator.hpp" />
-    <ClInclude Include="poolallocator.h" />
-    <ClInclude Include="poolallocator.hpp" />
     <ClInclude Include="countedptr.h" />
     <ClInclude Include="countedptr.hpp" />
     <ClInclude Include="referencecounted.h" />
@@ -370,7 +375,6 @@
     <ClInclude Include="possiblyemptymember.h" />
     <ClInclude Include="prototypefactory.h" />
     <ClInclude Include="prototypefactory.hpp" />
-    <ClInclude Include="range.h" />
     <ClInclude Include="subset.h" />
     <ClInclude Include="guid.h" />
     <ClInclude Include="guid.hpp" />
@@ -500,12 +504,7 @@
     <ClInclude Include="range_algorithms.h" />
     <ClInclude Include="range_for_all.h" />
     <ClInclude Include="range_for_all.hpp" />
-    <ClInclude Include="constantiterator.h" />
-    <ClInclude Include="countingiterator.h" />
     <ClInclude Include="iterators.h" />
-    <ClInclude Include="nulliterator.h" />
-    <ClInclude Include="rectangleiterator.h" />
-    <ClInclude Include="sparseiterator.h" />
     <ClInclude Include="algorithm_concept.h" />
     <ClInclude Include="rangealgorithm_concept.h" />
     <ClInclude Include="equalto.h" />
@@ -525,11 +524,15 @@
   <ItemGroup>
     <None Include="..\..\techniques_constcast.txt" />
     <None Include="..\..\techniques_iterators.txt" />
+    <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="hash.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />
+    <None Include="native_allocator.txt" />
+    <None Include="pool_allocator.txt" />
+    <None Include="pool_allocator_notes.txt" />
     <None Include="read_protected.txt" />
     <None Include="refinable_partition.txt" />
     <None Include="second_iterator.txt" />
@@ -548,10 +551,6 @@
     <None Include="tree_design.txt" />
     <None Include="memory.txt" />
     <None Include="allocators.txt" />
-    <None Include="arenaallocator.txt" />
-    <None Include="nativeallocator.txt" />
-    <None Include="poolallocator.txt" />
-    <None Include="poolallocator_notes.txt" />
     <None Include="countedptr.txt" />
     <None Include="testing.txt" />
     <None Include="ensure.txt" />
@@ -659,11 +658,11 @@
     <None Include="as_pair_concept.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="arenaallocator.cpp" />
-    <ClCompile Include="nativeallocator.cpp" />
-    <ClCompile Include="poolallocator.cpp" />
+    <ClCompile Include="arena_allocator.cpp" />
     <ClCompile Include="countedptr.cpp" />
     <ClCompile Include="ensure.cpp" />
+    <ClCompile Include="native_allocator.cpp" />
+    <ClCompile Include="pool_allocator.cpp" />
     <ClCompile Include="testreport.cpp" />
     <ClCompile Include="testrunner.cpp" />
     <ClCompile Include="testsuite.cpp" />

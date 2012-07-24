@@ -6,7 +6,7 @@
 
 #include "pastel/math/matrix.h"
 
-#include "pastel/sys/sparseiterator.h"
+#include "pastel/sys/sparse_iterator.h"
 #include "pastel/sys/commafiller.h"
 #include "pastel/sys/memory_overlaps.h"
 

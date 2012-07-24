@@ -2,7 +2,7 @@
 #define PASTEL_SUBARRAY_TOOLS_HPP
 
 #include "pastel/sys/subarray_tools.h"
-#include "pastel/sys/sparseiterator.h"
+#include "pastel/sys/sparse_iterator.h"
 
 namespace Pastel
 {

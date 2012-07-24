@@ -10,7 +10,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/tristate.h"
-#include "pastel/sys/poolallocator.h"
+#include "pastel/sys/pool_allocator.h"
 #include "pastel/sys/iterator_range.h"
 #include "pastel/sys/vector_pointpolicy.h"
 
