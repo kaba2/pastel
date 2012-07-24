@@ -11,11 +11,11 @@
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/rectangleiterator.h"
 #include "pastel/sys/random_subset.h"
-#include "pastel/sys/unorderedset.h"
 
 #include <boost/range.hpp>
 
 #include <algorithm>
+#include <unordered_set>
 
 namespace Pastel
 {

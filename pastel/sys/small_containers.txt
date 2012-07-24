@@ -24,6 +24,6 @@ For these reasons, Pastel provides the small associative
 arrays `SmallSet`, `SmallMap`, and `SmallFixedSet`.
 
 [Binary]: [[Ref]]: redblacktree.txt
-[Hash]: [[Ref]]: hash_tables.txt
+[Hash]: [[Ref]]: hash.txt
 
 

@@ -4,7 +4,6 @@
 #include "pastel/dsp/dsplibrary.h"
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/memoryview.h"
 #include "pastel/sys/view.h"
 
 #include "pastel/sys/vector.h"

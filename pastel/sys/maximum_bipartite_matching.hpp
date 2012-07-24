@@ -2,7 +2,6 @@
 #define PASTEL_MAXIMUM_BIPARTITE_MATCHING_HPP
 
 #include "pastel/sys/maximum_bipartite_matching.h"
-#include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/keyvalue.h"
 #include "pastel/sys/tuple_as_pair.h"
@@ -10,6 +9,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -31,10 +31,10 @@ namespace Pastel
 			typedef typename Type_As_Pair::Left Left;
 			typedef typename Type_As_Pair::Right Right;
 
-			typedef UnorderedMap<Left, integer, LeftHash> LeftMap;
-			typedef UnorderedMap<Right, integer, RightHash> RightMap;
-			typedef UnorderedMap<integer, Left> InverseLeftMap;
-			typedef UnorderedMap<integer, Right> InverseRightMap;
+			typedef std::unordered_map<Left, integer, LeftHash> LeftMap;
+			typedef std::unordered_map<Right, integer, RightHash> RightMap;
+			typedef std::unordered_map<integer, Left> InverseLeftMap;
+			typedef std::unordered_map<integer, Right> InverseRightMap;
 
 			void work(
 				Vertex_Pair_ForwardRange range,

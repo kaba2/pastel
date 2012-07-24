@@ -6,7 +6,6 @@
 #define PASTEL_SIMPLEHALFMESH_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/parallelarray.h"
 #include "pastel/sys/indexallocator.h"
 #include "pastel/sys/tuple.h"
 

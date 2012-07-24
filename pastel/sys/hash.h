@@ -1,5 +1,5 @@
 // Description: Hash functions
-// Documentation: hash_tables.txt
+// Documentation: hash.txt
 
 #ifndef PASTEL_HASH_H
 #define PASTEL_HASH_H

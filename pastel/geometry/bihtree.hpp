@@ -9,7 +9,6 @@
 #include "pastel/geometry/alignedplane.h"
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/countedptr.h"
-#include "pastel/sys/memoryview.h"
 
 namespace Pastel
 {

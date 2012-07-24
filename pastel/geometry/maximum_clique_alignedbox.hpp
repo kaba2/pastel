@@ -6,10 +6,11 @@
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/countingiterator.h"
 #include "pastel/sys/nulliterator.h"
-#include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <boost/type_traits/is_same.hpp>
+
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -750,11 +751,11 @@ namespace Pastel
 		// Do a linear scan to find out which boxes
 		// are active in our chosen maximum clique.
 
-		typedef UnorderedMap<integer, AlignedBox_ConstIterator>
+		typedef std::unordered_map<integer, AlignedBox_ConstIterator>
 			ActiveSet;
 		typedef typename ActiveSet::const_iterator Active_ConstIterator;
 
-		UnorderedMap<integer, AlignedBox_ConstIterator> activeSet;
+		std::unordered_map<integer, AlignedBox_ConstIterator> activeSet;
 		
 		// Find out all the participating boxes.
 		{

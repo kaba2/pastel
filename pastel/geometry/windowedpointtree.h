@@ -6,7 +6,7 @@
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/alignedbox.h"
 
-#include "pastel/sys/unorderedmap.h"
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -49,7 +49,7 @@ namespace Pastel
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Point_ConstIterator ConstIterator;
 
-		typedef UnorderedMap<Point, ConstIterator> ActiveSet;
+		typedef std::unordered_map<Point, ConstIterator> ActiveSet;
 		typedef typename ActiveSet::iterator ActiveIterator;
 		typedef typename ActiveSet::iterator ConstActiveIterator;
 

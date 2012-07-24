@@ -7,11 +7,11 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/poolallocator.h"
 #include "pastel/sys/possiblyemptymember.h"
-#include "pastel/sys/unorderedset.h"
 
 #include <boost/operators.hpp>
 
 #include <vector>
+#include <unordered_set>
 
 namespace Pastel
 {
@@ -128,16 +128,16 @@ namespace Pastel
 		class PolygonHash;
 
 	private:
-		typedef UnorderedSet<Vertex, VertexHash> VertexSet;
+		typedef std::unordered_set<Vertex, VertexHash> VertexSet;
 		typedef typename VertexSet::iterator VertexIterator;
 
-		typedef UnorderedSet<Half, HalfHash> HalfSet;
+		typedef std::unordered_set<Half, HalfHash> HalfSet;
 		typedef typename HalfSet::iterator HalfIterator;
 
-		typedef UnorderedSet<Edge, EdgeHash> EdgeSet;
+		typedef std::unordered_set<Edge, EdgeHash> EdgeSet;
 		typedef typename EdgeSet::iterator EdgeIterator;
 
-		typedef UnorderedSet<Polygon, PolygonHash> PolygonSet;
+		typedef std::unordered_set<Polygon, PolygonHash> PolygonSet;
 		typedef typename PolygonSet::iterator PolygonIterator;
 
 	public:

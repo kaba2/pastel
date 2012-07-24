@@ -206,8 +206,6 @@
     <ClInclude Include="halfmesh.h" />
     <ClInclude Include="halfmesh.hpp" />
     <ClInclude Include="halfmesh_tools.h" />
-    <ClInclude Include="propertyhalfmesh.h" />
-    <ClInclude Include="propertyhalfmesh.hpp" />
     <ClInclude Include="simplehalfmesh.h" />
     <ClInclude Include="simplehalfmesh.hpp" />
     <ClInclude Include="bihtree.h" />
@@ -512,7 +510,6 @@
     <ClInclude Include="point_patterns.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="propertyhalfmesh.cpp" />
     <ClCompile Include="geometrylibrary.cpp" />
     <ClCompile Include="planar_projection.cpp" />
     <ClCompile Include="sphere_area.cpp" />

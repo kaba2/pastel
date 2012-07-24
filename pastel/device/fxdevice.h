@@ -7,7 +7,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"
-#include "pastel/sys/memoryview.h"
 
 namespace Pastel
 {
@@ -33,7 +32,7 @@ namespace Pastel
 		};
 
 		typedef void (MixerCallBack)(
-			const MemoryView<int8>& data);
+			int8* begin, int8* end);
 
 		//! Initializes the audio device.
 		/*!

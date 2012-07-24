@@ -3,11 +3,10 @@
 #ifndef PASTEL_ANYSTORAGE_H
 #define PASTEL_ANYSTORAGE_H
 
-#include "pastel/sys/unorderedmap.h"
-
 #include <boost/any.hpp>
 
 #include <string>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -15,7 +14,7 @@ namespace Pastel
 	class AnyStorage
 	{
 	private:
-		typedef UnorderedMap<std::string, boost::any>
+		typedef std::unordered_map<std::string, boost::any>
 			DataSet;
 		typedef DataSet::const_iterator ConstIterator;
 
@@ -47,7 +46,7 @@ namespace Pastel
 		}
 		
 	private:
-		UnorderedMap<std::string, boost::any> dataSet_;
+		std::unordered_map<std::string, boost::any> dataSet_;
 	};
 
 }

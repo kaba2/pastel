@@ -181,7 +181,6 @@
     <ClCompile Include="test_biginteger.cpp" />
     <ClCompile Include="test_cloneptr.cpp" />
     <ClCompile Include="test_config.cpp" />
-    <ClCompile Include="test_disjointgroups.cpp" />
     <ClCompile Include="test_endian.cpp" />
     <ClCompile Include="test_eps.cpp" />
     <ClCompile Include="test_fastlist.cpp" />
@@ -195,7 +194,6 @@
     <ClCompile Include="test_math_functions.cpp" />
     <ClCompile Include="test_maximum_bipartite_matching.cpp" />
     <ClCompile Include="test_minmax.cpp" />
-    <ClCompile Include="test_parallelarray.cpp" />
     <ClCompile Include="test_poolallocator.cpp" />
     <ClCompile Include="test_progress.cpp" />
     <ClCompile Include="test_random.cpp" />
@@ -211,7 +209,6 @@
     <ClCompile Include="test_template.cpp" />
     <ClCompile Include="test_transitive_closure.cpp" />
     <ClCompile Include="test_tree.cpp" />
-    <ClCompile Include="test_unordered_set.cpp" />
     <ClCompile Include="test_vector.cpp" />
     <ClCompile Include="test_view.cpp" />
   </ItemGroup>

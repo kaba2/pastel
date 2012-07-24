@@ -7,7 +7,6 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/device/devicelibrary.h"
-#include "pastel/sys/memoryview.h"
 
 namespace Pastel
 {

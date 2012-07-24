@@ -3,8 +3,9 @@
 
 #include "pastel/geometry/halfmesh.h"
 
-#include "pastel/sys/unorderedmap.h"
 #include "pastel/sys/ensure.h"
+
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -36,7 +37,7 @@ namespace Pastel
 		, edgeAllocator_(sizeof(EdgeBody))
 		, polygonAllocator_(sizeof(PolygonBody))
 	{
-		UnorderedMap<Vertex, Vertex, VertexHash> vertexMap;
+		std::unordered_map<Vertex, Vertex, VertexHash> vertexMap;
 
 		// Construct vertices along with a vertex map.
 		{
