@@ -5,9 +5,9 @@
 #include "pastel/geometry/search_all_neighbors_1d.h"
 #include "pastel/geometry/distance_point_point.h"
 
-#include "pastel/sys/smallfixedset.h"
 #include "pastel/sys/pastelomp.h"
 
+#include <set>
 #include <algorithm>
 
 namespace Pastel
@@ -82,7 +82,7 @@ namespace Pastel
 		
 		typedef typename PointPolicy::Real Real;
 		typedef Detail_AllNearestNeighborsBruteForce::Entry<Real> Entry;
-		typedef SmallFixedSet<Entry> NearestSet;
+		typedef std::set<Entry> NearestSet;
 		typedef typename NearestSet::iterator NearestIterator;
 		typedef typename PointPolicy::ConstIterator RealIterator;
 
@@ -97,7 +97,7 @@ namespace Pastel
 
 #		pragma omp parallel
 		{
-			NearestSet nearestSet(kNearest);
+			NearestSet nearestSet;
 
 #		pragma omp for
 		for (integer i = 0;i < indices;++i)
@@ -121,10 +121,15 @@ namespace Pastel
 					if (distance < cullDistance)
 					{
 						nearestSet.insert(Entry(distance, j));
-						if (nearestSet.full())
+						if (nearestSet.size() > kNearest)
+						{
+							nearestSet.erase(
+								std::prev(nearestSet.end()));
+						}
+						if (nearestSet.size() == kNearest)
 						{
 							cullDistance = std::min(
-								nearestSet.back().distance_ * protectiveFactor,
+								std::prev(nearestSet.end())->distance_ * protectiveFactor,
 								maxDistanceSet[i]);
 						}
 					}

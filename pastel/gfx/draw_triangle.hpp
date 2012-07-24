@@ -9,7 +9,9 @@
 #include "pastel/geometry/predicates.h"
 
 #include "pastel/sys/syscommon.h"
-#include "pastel/sys/smallset.h"
+
+#include <vector>
+#include <algorithm>
 
 namespace Pastel
 {
@@ -64,13 +66,13 @@ namespace Pastel
 	{
 		typedef Detail_SolidTriangle::Vertex Vertex;
 
-		SmallSet<Vertex> vertex;
+		std::vector<Vertex> vertex;
 		vertex.reserve(3);
-
+		vertex.push_back(Vertex(triangle[0], 0));
+		vertex.push_back(Vertex(triangle[1], 1));
+		vertex.push_back(Vertex(triangle[2], 2));
 		// Sort the triangle vertices lexicographically.
-		vertex.insert(Vertex(triangle[0], 0));
-		vertex.insert(Vertex(triangle[1], 1));
-		vertex.insert(Vertex(triangle[2], 2));
+		std::sort(vertex.begin(), vertex.end());
 
 		const bool longLeftEdge = side(vertex[1].position_,
 			Plane2(vertex[0].position_,

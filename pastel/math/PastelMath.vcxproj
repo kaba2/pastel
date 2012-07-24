@@ -142,8 +142,6 @@
     <ClInclude Include="interpolation.h" />
     <ClInclude Include="kbspline.h" />
     <ClInclude Include="kbspline.hpp" />
-    <ClInclude Include="piecewiselinear.h" />
-    <ClInclude Include="piecewiselinear.hpp" />
     <ClInclude Include="smoothstep.h" />
     <ClInclude Include="smoothstep.hpp" />
     <ClInclude Include="affinetransformation.h" />

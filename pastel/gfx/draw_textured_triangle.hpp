@@ -8,8 +8,10 @@
 #include "pastel/geometry/predicates.h"
 
 #include "pastel/sys/syscommon.h"
-#include "pastel/sys/smallset.h"
 #include "pastel/sys/vector_tools.h"
+
+#include <vector>
+#include <algorithm>
 
 namespace Pastel
 {
@@ -101,12 +103,13 @@ namespace Pastel
 
 		// Order vertices vertically.
 
-		SmallSet<Vertex, Detail_DrawTexturedTriangle::VerticalComparison> yVertex;
+		std::vector<Vertex> yVertex;
 		yVertex.reserve(3);
-
-		yVertex.insert(Vertex(triangle[0], uvTriangle[0], 0));
-		yVertex.insert(Vertex(triangle[1], uvTriangle[1], 1));
-		yVertex.insert(Vertex(triangle[2], uvTriangle[2], 2));
+		yVertex.push_back(Vertex(triangle[0], uvTriangle[0], 0));
+		yVertex.push_back(Vertex(triangle[1], uvTriangle[1], 1));
+		yVertex.push_back(Vertex(triangle[2], uvTriangle[2], 2));
+		std::sort(yVertex.begin(), yVertex.end(),
+			Detail_DrawTexturedTriangle::VerticalComparison());
 
 		const Vertex& yMinVertex = yVertex[0];
 		const Vertex& yMidVertex = yVertex[1];
@@ -114,11 +117,13 @@ namespace Pastel
 
 		// Order vertices horizontally.
 
-		SmallSet<Vertex, Detail_DrawTexturedTriangle::HorizontalComparison> xVertex;
-
-		xVertex.insert(Vertex(triangle[0], uvTriangle[0], 0));
-		xVertex.insert(Vertex(triangle[1], uvTriangle[1], 1));
-		xVertex.insert(Vertex(triangle[2], uvTriangle[2], 2));
+		std::vector<Vertex> xVertex;
+		xVertex.reserve(3);
+		xVertex.push_back(Vertex(triangle[0], uvTriangle[0], 0));
+		xVertex.push_back(Vertex(triangle[1], uvTriangle[1], 1));
+		xVertex.push_back(Vertex(triangle[2], uvTriangle[2], 2));
+		std::sort(xVertex.begin(), xVertex.end(),
+			Detail_DrawTexturedTriangle::HorizontalComparison());
 
 		const Vertex& xMinVertex = xVertex[0];
 		const Vertex& xMidVertex = xVertex[1];

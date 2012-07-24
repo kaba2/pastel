@@ -8,9 +8,8 @@
 
 #include "pastel/math/euclidean_normbijection.h"
 
-#include "pastel/sys/smallfixedset.h"
-
 #include <vector>
+#include <set>
 
 namespace Pastel
 {
@@ -27,12 +26,14 @@ namespace Pastel
 			typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 			typedef KeyValue<Real, Point_ConstIterator> KeyVal;
 
-			typedef SmallFixedSet<KeyVal> CandidateSet;
+			typedef std::set<KeyVal> CandidateSet;
 
 		public:
 			explicit CandidateFunctor(
-				CandidateSet& candidateSet)
+				CandidateSet& candidateSet,
+				integer k)
 				: candidateSet_(candidateSet)
+				, k_(k)
 			{
 			}
 
@@ -42,13 +43,18 @@ namespace Pastel
 			{
 				candidateSet_.insert(
 					KeyVal(distance, iter));
+				if (candidateSet_.size() > k_)
+				{
+					candidateSet_.erase(
+						std::prev(candidateSet_.end()));
+				}
 			}
 
 			Real suggestCullDistance() const
 			{
-				if (candidateSet_.full())
+				if (candidateSet_.size() == k_)
 				{
-					return candidateSet_.back().key();
+					return std::prev(candidateSet_.end())->key();
 				}
 
 				return infinity<Real>();
@@ -56,6 +62,7 @@ namespace Pastel
 
 		private:
 			CandidateSet& candidateSet_;
+			integer k_;
 		};
 
 	}
@@ -97,12 +104,12 @@ namespace Pastel
 		typedef PointKdTree<Real, N, PointPolicy> Tree;
 		typedef typename Tree::Point_ConstIterator Point_ConstIterator;
 		typedef KeyValue<Real, Point_ConstIterator> KeyVal;
-		typedef SmallFixedSet<KeyVal> CandidateSet;
+		typedef std::set<KeyVal> CandidateSet;
 		typedef typename CandidateSet::iterator Candidate_Iterator;
 		typedef typename CandidateSet::const_iterator Candidate_ConstIterator;
 
-		CandidateSet candidateSet(kNearest);
-		const CandidateFunctor candidateFunctor(candidateSet);
+		CandidateSet candidateSet;
+		CandidateFunctor candidateFunctor(candidateSet, kNearest);
 
 		searchNearestAlgorithm(
 			kdTree, searchPoint, 

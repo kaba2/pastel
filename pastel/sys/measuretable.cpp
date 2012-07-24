@@ -50,12 +50,12 @@ namespace Pastel
 
 	bool MeasureTable::hasHorizontalSeparator(integer y) const
 	{
-		return hSeparatorSet_.find(y) < hSeparatorSet_.size();
+		return hSeparatorSet_.count(y);
 	}
 
 	bool MeasureTable::hasVerticalSeparator(integer x) const
 	{
-		return vSeparatorSet_.find(x) < vSeparatorSet_.size();
+		return vSeparatorSet_.count(x);
 	}
 
 }
