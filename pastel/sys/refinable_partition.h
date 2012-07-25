@@ -135,6 +135,112 @@ namespace Pastel
 			splitSet_.swap(that.splitSet_);
 		}
 
+		// Elements
+
+		//! Removes an element from the partition.
+		/*!
+		returns:
+		std::next(element)
+
+		Note:
+		If the containing set of the element becomes empty,
+		the set is not removed.
+		*/
+		Element_Iterator erase(
+			const Element_ConstIterator& element)
+		{
+			// Remove the element from its set.
+			cast(element)->set_->erase(
+				cast(element),
+				memberSet_.end());
+
+			// Remove the element.
+			return elementSet_.erase(element);
+		}
+
+		//! Marks an element of a set.
+		/*!
+		This is a convenience function that calls
+		mark(element, true).
+		*/
+		void mark(const Element_ConstIterator& element)
+		{
+			mark(element, true);
+		}
+
+		//! Unmarks an element of a set.
+		/*!
+		This is a convenience function that calls
+		mark(element, false).
+		*/
+		void unmark(const Element_ConstIterator& element)
+		{
+			mark(element, false);
+		}
+
+		//! Marks or unmarks an element of a set.
+		/*!
+		markIt:
+		Whether to mark the element (true)
+		or unmark the element (false).
+
+		Time complexity:
+		constant
+
+		Exception safety:
+		nothrow
+		*/
+		void mark(
+			const Element_ConstIterator& element, 
+			bool markIt)
+		{
+			PENSURE(element != elementSet_.cend());
+
+			if (element->marked() == markIt)
+			{
+				// Nothing to do.
+				return;
+			}
+
+			Set_Iterator set = element->set_;
+			if (markIt)
+			{
+				// The element is unmarked and we
+				// want to mark it.
+
+				if (set->marked() == 0)
+				{
+					// This is the first marked element
+					// of the set. Add the set to be
+					// splitted later.
+					Split_Iterator split =
+						splitSet_.emplace(
+						splitSet_.cend(),
+						set);
+					
+					set->split_ = split;
+				}
+
+				set->moveToMarked(cast(element));
+			}
+			else
+			{
+				// The element is marked and we
+				// want to unmark it.
+
+				set->moveToUnmarked(cast(element));
+
+				if (set->marked() == 0)
+				{
+					// The set no more contains a marked
+					// element. Remove the set from the
+					// split set.
+					splitSet_.erase(set->split_);
+					set->split_ = splitSet_.end();
+				}
+			}
+		}
+
 		// Sets
 
 		//! Inserts an empty set into the partition.
@@ -156,36 +262,6 @@ namespace Pastel
 				0, false,
 				std::move(data)));
 		}
-
-		//! Removes a set from the partition.
-		/*!
-		returns:
-		std::next(set)
-
-		Time complexity:
-		O(set->elements())
-
-		Exception safety:
-		nothrow
-		*/
-		Set_Iterator erase(
-			const Set_ConstIterator& set)
-		{
-			// Remove all the elements and members
-			// in the set.
-			auto member = set->begin();
-			auto memberEnd = set->end();
-			while(member != memberEnd)
-			{
-				elementSet_.erase(*member);
-				member = memberSet_.erase(member);
-			}
-
-			// Remove the set.
-			return setSet_.erase(set);
-		}
-
-		// Elements
 
 		//! Inserts elements into a new set.
 		/*!
@@ -301,116 +377,40 @@ namespace Pastel
 			return cast(set);
 		}
 
-		//! Removes an element from the partition.
+		//! Removes a set from the partition.
 		/*!
 		returns:
-		std::next(element)
-
-		Note:
-		If the containing set of the element becomes empty,
-		the set is not removed.
-		*/
-		Element_Iterator erase(
-			const Element_ConstIterator& element)
-		{
-			// Remove the element from its set.
-			cast(element)->set_->erase(
-				cast(element),
-				memberSet_.end());
-
-			// Remove the element.
-			return elementSet_.erase(element);
-		}
-
-		//! Marks an element of a set.
-		/*!
-		This is a convenience function that calls
-		mark(element, true).
-		*/
-		void mark(const Element_ConstIterator& element)
-		{
-			mark(element, true);
-		}
-
-		//! Unmarks an element of a set.
-		/*!
-		This is a convenience function that calls
-		mark(element, false).
-		*/
-		void unmark(const Element_ConstIterator& element)
-		{
-			mark(element, false);
-		}
-
-		//! Marks or unmarks an element of a set.
-		/*!
-		markIt:
-		Whether to mark the element (true)
-		or unmark the element (false).
+		std::next(set)
 
 		Time complexity:
-		constant
+		O(set->elements())
 
 		Exception safety:
 		nothrow
 		*/
-		void mark(
-			const Element_ConstIterator& element, 
-			bool markIt)
+		Set_Iterator erase(
+			const Set_ConstIterator& set)
 		{
-			PENSURE(element != elementSet_.cend());
-
-			if (element->marked() == markIt)
+			// Remove all the elements and members
+			// in the set.
+			auto member = set->begin();
+			auto memberEnd = set->end();
+			while(member != memberEnd)
 			{
-				// Nothing to do.
-				return;
+				elementSet_.erase(*member);
+				member = memberSet_.erase(member);
 			}
 
-			Set_Iterator set = element->set_;
-			if (markIt)
-			{
-				// The element is unmarked and we
-				// want to mark it.
-
-				if (set->marked() == 0)
-				{
-					// This is the first marked element
-					// of the set. Add the set to be
-					// splitted later.
-					Split_Iterator split =
-						splitSet_.emplace(
-						splitSet_.cend(),
-						set);
-					
-					set->split_ = split;
-				}
-
-				set->moveToMarked(cast(element));
-			}
-			else
-			{
-				// The element is marked and we
-				// want to unmark it.
-
-				set->moveToUnmarked(cast(element));
-
-				if (set->marked() == 0)
-				{
-					// The set no more contains a marked
-					// element. Remove the set from the
-					// split set.
-					splitSet_.erase(set->split_);
-					set->split_ = splitSet_.end();
-				}
-			}
+			// Remove the set.
+			return setSet_.erase(set);
 		}
 
 		//! Splits sets with both marked and unmarked elements.
 		/*!
-		Time complexity:
+		Time complexity: 
 		amortized constant
 
-		Exception safety:
+		Exception safety: 
 		nothrow
 		*/
 		void split(SetData data = SetData())
@@ -477,72 +477,155 @@ namespace Pastel
 			}
 		}
 
-		// Sets
-
+		// Returns the first iterator of the set-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Set_Iterator setBegin()
 		{
 			return setSet_.begin();
 		}
 
+		// Returns the first iterator of the set-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Set_Iterator cSetBegin() const
 		{
 			return setSet_.cbegin();
 		}
 
+		// Returns the end-iterator of the set-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Set_Iterator setEnd()
 		{
 			return setSet_.end();
 		}
 
+		// Returns the end-iterator of the set-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Set_Iterator cSetEnd() const
 		{
 			return setSet_.cend();
 		}
 
+		//! Returns the number of sets in the partition.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		integer sets() const
 		{
 			return setSet_.size();
 		}
 
+		//! Casts away the constness of a set iterator.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
+		Set_Iterator cast(const Set_ConstIterator& that)
+		{
+			return setSet_.erase(that, that);
+		}
+
 		// Elements
 
+		// Returns the first iterator of the element-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Element_Iterator elementBegin()
 		{
 			return elementSet_.begin();
 		}
 
+		// Returns the first iterator of the element-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Element_ConstIterator cElementBegin() const
 		{
 			return elementSet_.cbegin();
 		}
 
+		// Returns the end-iterator of the element-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Element_Iterator elementEnd()
 		{
 			return elementSet_.end();
 		}
 
+		// Returns the end-iterator of the element-set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Element_ConstIterator cElementEnd() const
 		{
 			return elementSet_.cend();
 		}
 
+		//! Returns the number of elements.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		integer elements() const
 		{
 			return elementSet_.size();
 		}
 
+		//! Casts away the constness of an element iterator.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
+		Element_Iterator cast(const Element_ConstIterator& that)
+		{
+			return elementSet_.erase(that, that);
+		}
+
 		// Splits
 
+		//! Returns the first iterator of the marked-set set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Split_ConstIterator splitBegin() const
 		{
 			return splitSet_.cbegin();
 		}
 
+		//! Returns the end-iterator of the marked-set set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Split_ConstIterator splitEnd() const
 		{
 			return splitSet_.cend();
 		}
 
+		//! Returns the number of marked sets.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		integer splits() const
 		{
 			return splitSet_.size();
@@ -552,28 +635,24 @@ namespace Pastel
 		// TODO: Implement
 		RefinablePartition(const RefinablePartition& that);
 
-		//! Casts away the constness of an element iterator.
-		Element_Iterator cast(const Element_ConstIterator& that)
-		{
-			return elementSet_.erase(that, that);
-		}
-
-		//! Casts away the constness of a set iterator.
-		Set_Iterator cast(const Set_ConstIterator& that)
-		{
-			return setSet_.erase(that, that);
-		}
-
-		//! Casts away the constness of a split iterator.
-		Split_Iterator cast(const Split_ConstIterator& that)
-		{
-			return splitSet_.erase(that, that);
-		}
-
 		//! Casts away the constness of a member iterator.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_Iterator cast(const Member_ConstIterator& that)
 		{
 			return memberSet_.erase(that, that);
+		}
+
+		//! Casts away the constness of a split iterator.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
+		Split_Iterator cast(const Split_ConstIterator& that)
+		{
+			return splitSet_.erase(that, that);
 		}
 
 		//! The set of elements.
@@ -583,9 +662,22 @@ namespace Pastel
 		SetSet setSet_;
 
 		//! The partition of elements.
+		/*!
+		The partition is stored in this list such that each
+		set has an associated interval to this list. The
+		elements in this interval are the members of the
+		set. The interval may be empty.
+		*/
 		MemberSet memberSet_;
 
 		//! Sets with marked elements.
+		/*!
+		This set contains exactly those sets of the partition 
+		which have at least one marked element. The split() 
+		function goes through this list and splits all of 
+		these sets (except those which have all of their 
+		elements marked).
+		*/
 		SplitSet splitSet_;
 	};
 
