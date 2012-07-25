@@ -7,7 +7,6 @@
 #include "pastel/sys/refinable_partition_fwd.h"
 #include "pastel/sys/refinable_partition_element.h"
 #include "pastel/sys/refinable_partition_block.h"
-#include "pastel/sys/constant_iterator.h"
 
 namespace Pastel
 {
@@ -37,38 +36,9 @@ namespace Pastel
 		RefinablePartition()
 			: elementSet_()
 			, setSet_()
-			, positionSet_()
+			, memberSet_()
 			, splitSet_()
 		{
-		}
-
-		//! Constructs a partition with n elements.
-		/*!
-		Preconditions:
-		n >= 0
-
-		This is a convenience function that calls
-
-		RefinablePartition(
-			constantIterator(Type(), 0),
-			constantIterator(Type(), n)).
-
-		Note:
-		This constructor is useful when you want all the
-		data default-constructed, or when you don't have
-		data at all (Type is EmptyClass).
-		*/
-		explicit RefinablePartition(integer n)
-			: elementSet_()
-			, setSet_()
-			, positionSet_()
-			, splitSet_()
-		{
-			ENSURE_OP(n, >=, 0);
-
-			insert(
-				constantIterator(Type(), 0),
-				constantIterator(Type(), n));
 		}
 
 		//! Constructs a partition with the given elements.
@@ -90,7 +60,7 @@ namespace Pastel
 			const Type_ConstIterator& end)
 			: elementSet_()
 			, setSet_()
-			, positionSet_()
+			, memberSet_()
 			, splitSet_()
 		{
 			insert(begin, end);
@@ -104,12 +74,11 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-
 		RefinablePartition(
 			RefinablePartition&& that)
 			: elementSet_()
 			, setSet_()
-			, positionSet_()
+			, memberSet_()
 			, splitSet_()
 		{
 			swap(that);
@@ -143,11 +112,11 @@ namespace Pastel
 		{
 			elementSet_.clear();
 			setSet_.clear();
-			positionSet_.clear();
+			memberSet_.clear();
 			splitSet_.clear();
 		}
 
-		//! Swaps two refinable positions.
+		//! Swaps two partitions.
 		/*!
 		Time complexity:
 		constant
@@ -159,7 +128,7 @@ namespace Pastel
 		{
 			elementSet_.swap(that.elementSet_);
 			setSet_.swap(that.setSet_);
-			positionSet_.swap(that.positionSet_);
+			memberSet_.swap(that.memberSet_);
 			splitSet_.swap(that.splitSet_);
 		}
 
@@ -178,29 +147,38 @@ namespace Pastel
 			return setSet_.emplace(
 				setSet_.cend(), 
 				Set(
-				positionSet_.end(),
-				positionSet_.end(),
+				memberSet_.end(),
+				memberSet_.end(),
 				splitSet_.end(),
 				0, false));
 		}
 
 		//! Removes a set from the partition.
-		void erase(const Set_ConstIterator& set)
+		/*!
+		returns:
+		std::next(set)
+
+		Time complexity:
+		O(set->elements())
+
+		Exception safety:
+		nothrow
+		*/
+		Set_ConstIterator erase(
+			const Set_ConstIterator& set)
 		{
-			// Remove all the elements and positions
+			// Remove all the elements and members
 			// in the set.
-			auto position = set.begin();
-			auto positionEnd = set.end();
-			while(position != positionEnd)
+			auto member = set->begin();
+			auto memberEnd = set->end();
+			while(member != memberEnd)
 			{
-				auto nextPosition = std::next(position);
-				elementSet_.erase(*position);
-				positionSet_.erase(position);
-				position = nextPosition;
+				elementSet_.erase(*member);
+				member = memberSet_.erase(member);
 			}
 
 			// Remove the set.
-			setSet_.erase(set);
+			return setSet_.erase(set);
 		}
 
 		// Elements
@@ -228,7 +206,7 @@ namespace Pastel
 		O(std::distance(begin, end)) * copy/move-construct(Type)
 		
 		Exception safety:
-		unsafe, FIX
+		strong
 		
 		Note:
 		If begin == end, then no set is created and 
@@ -256,22 +234,52 @@ namespace Pastel
 				set = insert();
 			}
 
+			// We need to keep track of the number
+			// created objects so that we can roll
+			// back their creation on an exception.
+			integer elementsCreated = 0;
+			integer membersCreated = 0;
+
 			// Create the elements and the initial partition.
 			integer n = 0;
 			for (auto iter = begin; iter != end; ++iter)
 			{
-				Element_Iterator element =
-					elementSet_.emplace(
-					elementSet_.cend(),
-					Element(cast(set), 
-					positionSet_.end(),
-					*iter));
+				try
+				{
+					Element_Iterator element =
+						elementSet_.emplace(
+						elementSet_.cend(),
+						Element(cast(set), 
+						memberSet_.end(),
+						*iter));
+					++elementsCreated;
 
-				Position_Iterator position =
-					positionSet_.emplace(
-					positionSet_.cend(),
-					element);
-				element->position_ = position;
+					Member_Iterator member =
+						memberSet_.emplace(
+						memberSet_.cend(),
+						element);
+					element->member_ = member;
+					++membersCreated;
+				}
+				catch(...)
+				{
+					// Roll back element creation.
+					for (integer i = 0;i < elementsCreated;++i)
+					{
+						elementSet_.pop_back();
+					}
+
+					// Roll back member creation.
+					for (integer i = 0;i < membersCreated;++i)
+					{
+						memberSet_.pop_back();
+					}
+
+					// Roll back set creation.
+					erase(set);
+
+					throw;
+				}
 
 				// Also count the number of elements to n.
 				++n;
@@ -279,8 +287,8 @@ namespace Pastel
 
 			// Set the set elements properly.
 			cast(set)->set(
-				positionSet_.begin(),
-				positionSet_.end(),
+				memberSet_.begin(),
+				memberSet_.end(),
 				n);
 
 			return set;
@@ -288,19 +296,23 @@ namespace Pastel
 
 		//! Removes an element from the partition.
 		/*!
+		returns:
+		std::next(element)
+
 		Note:
 		If the containing set of the element becomes empty,
 		the set is not removed.
 		*/
-		void erase(const Element_ConstIterator& element)
+		Element_ConstIterator erase(
+			const Element_ConstIterator& element)
 		{
 			// Remove the element from its set.
 			cast(element)->set_->erase(
 				cast(element),
-				positionSet_.end());
+				memberSet_.end());
 
 			// Remove the element.
-			elementSet_.erase(element);
+			return elementSet_.erase(element);
 		}
 
 		//! Marks an element of a set.
@@ -524,10 +536,10 @@ namespace Pastel
 			return splitSet_.erase(that, that);
 		}
 
-		//! Casts away the constness of a position iterator.
-		Position_Iterator cast(const Position_ConstIterator& that)
+		//! Casts away the constness of a member iterator.
+		Member_Iterator cast(const Member_ConstIterator& that)
 		{
-			return positionSet_.erase(that, that);
+			return memberSet_.erase(that, that);
 		}
 
 		//! The set of elements.
@@ -537,7 +549,7 @@ namespace Pastel
 		SetSet setSet_;
 
 		//! The partition of elements.
-		PositionSet positionSet_;
+		MemberSet memberSet_;
 
 		//! Sets with marked elements.
 		SplitSet splitSet_;

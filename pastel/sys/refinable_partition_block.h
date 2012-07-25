@@ -10,9 +10,8 @@ namespace Pastel
 	class RefinablePartition_Fwd<Type>::Set
 	{
 	public:
-		Set(
-			Position_Iterator begin,
-			Position_Iterator end,
+		Set(Member_Iterator begin,
+			Member_Iterator end,
 			Split_Iterator split,
 			integer elements,
 			bool type)
@@ -64,32 +63,32 @@ namespace Pastel
 			return elements_ - marked_;
 		}
 
-		Position_ConstIterator begin() const
+		Member_ConstIterator begin() const
 		{
 			return begin_;
 		}
 
-		Position_ConstIterator end() const
+		Member_ConstIterator end() const
 		{
 			return elements() > 0 ? std::next(last_) : last_;
 		}
 
-		Position_ConstIterator unmarkedBegin() const
+		Member_ConstIterator unmarkedBegin() const
 		{
 			return unmarkedBegin_;
 		}
 
-		Position_ConstIterator unmarkedEnd() const
+		Member_ConstIterator unmarkedEnd() const
 		{
 			return end();
 		}
 
-		Position_ConstIterator markedBegin() const
+		Member_ConstIterator markedBegin() const
 		{
 			return begin();
 		}
 
-		Position_ConstIterator markedEnd() const
+		Member_ConstIterator markedEnd() const
 		{
 			return unmarkedBegin_;
 		}
@@ -125,8 +124,8 @@ namespace Pastel
 		}
 
 		void set(
-			Position_Iterator begin,
-			Position_Iterator end,
+			Member_Iterator begin,
+			Member_Iterator end,
 			integer elements)
 		{
 			ASSERT_OP(elements, >=, 0);
@@ -184,13 +183,13 @@ namespace Pastel
 			ASSERT(&*element->set() == this);
 			ASSERT(!element->marked());
 
-			Element_Iterator& p = *element->position_;
+			Element_Iterator& p = *element->member_;
 			Element_Iterator& q = *unmarkedBegin_;
 
 			// Swap the first unmarked element with
 			// the element to be marked.
 			std::swap(p, q);
-			std::swap(p->position_, q->position_);
+			std::swap(p->member_, q->member_);
 
 			// Then extend the marked region to
 			// cover the given element.
@@ -208,13 +207,13 @@ namespace Pastel
 			ASSERT(&*element->set_ == this);
 			ASSERT(element->marked());
 
-			Element_Iterator& p = *element->position_;
+			Element_Iterator& p = *element->member_;
 			Element_Iterator& q = *unmarkedBegin_;
 
 			// Swap the last marked element with
 			// the element to be unmarked.
 			std::swap(p, std::prev(q));
-			std::swap(p->position_, std::prev(q)->position_);
+			std::swap(p->member_, std::prev(q)->member_);
 
 			// Then shrink the marked region to
 			// exclude the given element.
@@ -231,51 +230,51 @@ namespace Pastel
 		{
 			ASSERT(&*set == this);
 
-			auto positionEnd = end();
-			for (auto position = begin_; 
-				position != positionEnd; 
-				++position)
+			auto memberEnd = end();
+			for (auto member = begin_; 
+				member != memberEnd; 
+				++member)
 			{
-				(*position)->set_ = set;
-				ASSERT((*position)->type_ == type_);
+				(*member)->set_ = set;
+				ASSERT((*member)->type_ == type_);
 			}
 		}
 
 		//! Removes an element from the set.
 		void erase(
 			const Element_ConstIterator& element,
-			const Position_Iterator& positionEnd)
+			const Member_Iterator& memberEnd)
 		{
 			ASSERT(&*element->set_ == this);
 
-			Position_Iterator position =
-				element->position_;
+			Member_Iterator member =
+				element->member_;
 			
 			--elements_;
 			if (elements_ == 0)
 			{
-				begin_ = positionEnd;
-				last_ = positionEnd;
+				begin_ = memberEnd;
+				last_ = memberEnd;
 				unmarkedBegin_ = begin_;
 			}
 			else
 			{
-				if (position == begin_)
+				if (member == begin_)
 				{
 					++begin_;
 				}
-				if (position == unmarkedBegin_)
+				if (member == unmarkedBegin_)
 				{
-					if (position == last_)
+					if (member == last_)
 					{
-						unmarkedBegin_ = positionEnd;
+						unmarkedBegin_ = memberEnd;
 					}
 					else
 					{
 						++unmarkedBegin_;
 					}
 				}
-				if (position == last_)
+				if (member == last_)
 				{
 					--last_;
 				}
@@ -287,9 +286,9 @@ namespace Pastel
 			}	
 		}
 
-		Position_Iterator begin_;
-		Position_Iterator last_;
-		Position_Iterator unmarkedBegin_;
+		Member_Iterator begin_;
+		Member_Iterator last_;
+		Member_Iterator unmarkedBegin_;
 		Split_Iterator split_;
 		integer elements_;
 		integer marked_;

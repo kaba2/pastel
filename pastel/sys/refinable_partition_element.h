@@ -16,7 +16,7 @@ namespace Pastel
 
 		Element(const Element& that)
 			: set_(that.set_)
-			, position_(that.position_)
+			, member_(that.member_)
 			, type_(that.type_)
 		{
 			if (Data::data())
@@ -27,7 +27,7 @@ namespace Pastel
 
 		Element(Element&& that)
 			: set_()
-			, position_()
+			, member_()
 			, type_(false)
 		{
 			if (Data::data())
@@ -72,10 +72,10 @@ namespace Pastel
 			return set_;
 		}
 
-		//! Returns the position in the position-set.
-		Position_ConstIterator position() const
+		//! Returns the member in the member-set.
+		Member_ConstIterator member() const
 		{
-			return position_;
+			return member_;
 		}
 
 		//! Returns whether the element is marked.
@@ -98,7 +98,7 @@ namespace Pastel
 
 		Element()
 			: set_()
-			, position_()
+			, member_()
 			, type_(false)
 		{
 			if (Data::data())
@@ -109,10 +109,10 @@ namespace Pastel
 
 		Element(
 			Set_Iterator set,
-			Position_Iterator position,
+			Member_Iterator member,
 			Type data)
 			: set_(set)
-			, position_(position)
+			, member_(member)
 			, type_(set->type())
 		{
 			if (Data::data())
@@ -125,7 +125,7 @@ namespace Pastel
 		{
 			using std::swap;
 			swap(set_, that.set_);
-			swap(position_, that.position_);
+			swap(member_, that.member_);
 			swap(type_, that.type_);
 			if (Data::data())
 			{
@@ -149,8 +149,8 @@ namespace Pastel
 		//! The set which contains this element.
 		Set_Iterator set_;
 		
-		//! The position in the position-set.
-		Position_Iterator position_;
+		//! The member in the member-set.
+		Member_Iterator member_;
 
 		//! The type of the element.
 		bool type_;
