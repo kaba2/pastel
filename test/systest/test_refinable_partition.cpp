@@ -26,12 +26,17 @@ namespace
 		{
 			test();
 			testRemove();
+			testCopy();
 		}
 
 		typedef RefinablePartition<integer, integer>
 			Partition;
+		typedef Partition::Set_Iterator 
+			Set_Iterator;
 		typedef Partition::Set_ConstIterator 
 			Set_ConstIterator;
+		typedef Partition::Element_Iterator 
+			Element_Iterator;
 		typedef Partition::Element_ConstIterator 
 			Element_ConstIterator;
 
@@ -67,8 +72,13 @@ namespace
 		{
 			integer data[] = {0, 1, 2, 3, 4};
 
-			Partition partition(
-				std::begin(data), std::end(data), 0);
+			Partition partition;
+
+			Set_Iterator set =
+				partition.addSet();
+
+			partition.insert(
+				set, std::begin(data), std::end(data));
 			{
 				TEST_ENSURE_OP(partition.splits(), ==, 0);
 				TEST_ENSURE_OP(partition.sets(), ==, 1);
@@ -165,6 +175,33 @@ namespace
 			TEST_ENSURE_OP(partition.elements(), ==, 0);
 		}
 
+		void testCopy()
+		{
+			Partition partition;
+			Set_ConstIterator set = partition.addSet(0);
+			partition.insertOne(set, 0);
+			partition.insertOne(set, 1);
+			partition.insertOne(set, 2);
+			
+			partition.mark(partition.elementBegin());
+			
+			Partition copy(partition);
+			{
+				TEST_ENSURE_OP(partition.elements(), ==, copy.elements());
+				TEST_ENSURE_OP(partition.splits(), ==, copy.splits());
+				TEST_ENSURE_OP(partition.sets(), ==, copy.sets());
+
+				Set_ConstIterator set =
+					partition.cSetBegin();
+				Set_ConstIterator copySet =
+					copy.cSetBegin();
+				
+				TEST_ENSURE_OP(set->elements(), ==, copySet->elements());
+				TEST_ENSURE_OP(set->marked(), ==, copySet->marked());
+				TEST_ENSURE_OP(set->unmarked(), ==, copySet->unmarked());
+			}
+		}
+
 		void print(const Partition& partition)
 		{
 			std::for_each(
@@ -181,7 +218,9 @@ namespace
 		{
 			integer data[] = {0, 1, 2, 3, 4};
 
-			Partition partition(
+			Partition partition;
+
+			partition.addSet(
 				std::begin(data), std::end(data));
 
 			partition.erase(
@@ -257,9 +296,9 @@ namespace
 				TEST_ENSURE_OP(partition.sets(), ==, 0);
 			}
 
-			Set_ConstIterator set = 
-				partition.insert(
+			Set_Iterator set = partition.addSet(
 				std::begin(data), std::end(data));
+			
 			partition.erase(set);
 			{
 				TEST_ENSURE_OP(partition.elements(), ==, 0);
