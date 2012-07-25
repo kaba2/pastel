@@ -247,6 +247,14 @@ namespace Pastel
 			return type_;
 		}
 
+		//! Sets the member-set interval.
+		/*!
+		Preconditions:
+		elements > 0
+
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void set(
 			Member_Iterator begin,
 			Member_Iterator end,
@@ -263,6 +271,9 @@ namespace Pastel
 
 		//! Forgets the elements in the unmarked part.
 		/*!
+		Preconditions:
+		marked() > 0
+
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
@@ -291,6 +302,9 @@ namespace Pastel
 
 		//! Forgets the elements in the marked part.
 		/*!
+		Preconditions:
+		marked() < elements()
+
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
@@ -310,6 +324,10 @@ namespace Pastel
 
 		//! Moves an element from unmarked to marked part.
 		/*!
+		Preconditions:
+		&*element->set() == this
+		!element->marked()
+
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
@@ -338,6 +356,10 @@ namespace Pastel
 
 		//! Moves an element from marked to unmarked part.
 		/*!
+		Preconditions:
+		&*element->set_ == this
+		element->marked()
+
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
@@ -366,6 +388,9 @@ namespace Pastel
 
 		//! Updates the element's set-reference.
 		/*!
+		Preconditions:
+		&*set == this
+
 		Time complexity: O(set->elements())
 		Exception safety: nothrow
 		*/
@@ -386,6 +411,10 @@ namespace Pastel
 
 		//! Removes an element from the set.
 		/*!
+		Preconditions:
+		&*element->set_ == this
+		!element->marked()
+
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
@@ -394,6 +423,7 @@ namespace Pastel
 			const Member_Iterator& memberEnd)
 		{
 			ASSERT(&*element->set_ == this);
+			ASSERT(!element->marked());
 
 			Member_Iterator member =
 				element->member_;
@@ -405,33 +435,14 @@ namespace Pastel
 				last_ = memberEnd;
 				unmarkedBegin_ = begin_;
 			}
-			else
+			else if (member == begin_)
 			{
-				if (member == begin_)
-				{
-					++begin_;
-				}
-				if (member == unmarkedBegin_)
-				{
-					if (member == last_)
-					{
-						unmarkedBegin_ = memberEnd;
-					}
-					else
-					{
-						++unmarkedBegin_;
-					}
-				}
-				if (member == last_)
-				{
-					--last_;
-				}
+				++begin_;
 			}
-
-			if (element->marked())
+			else if (member == last_)
 			{
-				--marked_;
-			}	
+				--last_;
+			}
 		}
 
 		//! The first iterator of the member-set.
