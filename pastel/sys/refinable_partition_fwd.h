@@ -6,7 +6,7 @@
 namespace Pastel
 {
 	
-	template <typename Type>
+	template <typename ElementData, typename SetData>
 	class RefinablePartition_Fwd
 	{
 	public:

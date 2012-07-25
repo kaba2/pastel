@@ -6,24 +6,14 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	class RefinablePartition_Fwd<Type>::Set
+	template <
+		typename ElementData,
+		typename SetData>
+	class RefinablePartition_Fwd<ElementData, SetData>::Set
+		: public PossiblyEmptyMember<SetData>
 	{
 	public:
-		Set(Member_Iterator begin,
-			Member_Iterator end,
-			Split_Iterator split,
-			integer elements,
-			bool type)
-			: begin_(begin)
-			, last_(elements > 0 ? std::prev(end) : end)
-			, unmarkedBegin_(begin)
-			, split_(split)
-			, elements_(elements)
-			, marked_(0)
-			, type_(type)
-		{
-		}
+		typedef PossiblyEmptyMember<SetData> Data;
 
 		Set(const Set& that)
 			: begin_(that.begin_)
@@ -34,6 +24,10 @@ namespace Pastel
 			, marked_(that.marked_)
 			, type_(that.type_)
 		{
+			if (Data::data())
+			{
+				new(Data::data()) SetData(that.data());
+			}
 		}
 
 		Set(Set&& that)
@@ -45,7 +39,34 @@ namespace Pastel
 			, marked_(0)
 			, type_(false)
 		{
+			if (Data::data())
+			{
+				new(Data::data()) SetData;
+			}
+
 			swap(that);
+		}
+
+		~Set()
+		{
+			if (Data::data())
+			{
+				Data::data()->~SetData();
+			}
+		}
+
+		//! Returns the contained data.
+		SetData& data()
+		{
+			PENSURE(Data::data());
+			return *Data::data();
+		}
+
+		//! Returns the contained data.
+		const SetData& data() const
+		{
+			PENSURE(Data::data());
+			return *Data::data();
 		}
 
 		integer elements() const
@@ -94,17 +115,37 @@ namespace Pastel
 		}
 
 	private:
-		template <typename Type>
+		template <typename ElementData, typename SetData>
 		friend class RefinablePartition;
 
-		template <typename Type>
-		friend class RefinablePartition<Type>::Element;
+		template <typename ElementData, typename SetData>
+		friend class RefinablePartition<ElementData, SetData>::Element;
 
 		// Deleted.
 		Set();
 
 		// Deleted.
 		Set& operator=(Set that);
+
+		Set(Member_Iterator begin,
+			Member_Iterator end,
+			Split_Iterator split,
+			integer elements,
+			bool type,
+			SetData data)
+			: begin_(begin)
+			, last_(elements > 0 ? std::prev(end) : end)
+			, unmarkedBegin_(begin)
+			, split_(split)
+			, elements_(elements)
+			, marked_(0)
+			, type_(type)
+		{
+			if (Data::data())
+			{
+				new(Data::data()) SetData(std::move(data));
+			}
+		}
 
 		void swap(Set& that)
 		{
@@ -116,6 +157,11 @@ namespace Pastel
 			swap(elements_, that.elements_);
 			swap(marked_, that.marked_);
 			swap(type_, that.type_);
+
+			if (Data::data())
+			{
+				swap(data(), that.data());
+			}
 		}
 
 		bool type() const

@@ -14,15 +14,17 @@ namespace Pastel
 	//! Refinable partition
 	/*!
 	Preconditions:
-	Type is move/copy-constructible.
+	ElementData is move/copy-constructible.
 
 	Note:
-	Specifying Type as EmptyClass avoids allocating
-	any memory for the data.
+	Specifying ElementData or SetData as EmptyClass avoids 
+	allocating any memory for the data.
 	*/
-	template <typename Type = EmptyClass>
+	template <
+		typename ElementData = EmptyClass, 
+		typename SetData = EmptyClass>
 	class RefinablePartition
-		: public RefinablePartition_Fwd<Type>
+		: public RefinablePartition_Fwd<ElementData, SetData>
 	{
 	public:
 		//! Constructs an empty partition.
@@ -44,7 +46,7 @@ namespace Pastel
 		//! Constructs a partition with the given elements.
 		/*!
 		Time complexity:
-		O(std::distance(begin, end)) * copy/move-construct(Type)
+		O(std::distance(begin, end)) * copy/move-construct(ElementData)
 
 		Exception safety:
 		strong
@@ -54,16 +56,17 @@ namespace Pastel
 		partition. Otherwise, there will be exactly one set 
 		in the partition, containing all the elements.
 		*/
-		template <typename Type_ConstIterator>
+		template <typename ElementData_ConstIterator>
 		RefinablePartition(
-			const Type_ConstIterator& begin,
-			const Type_ConstIterator& end)
+			const ElementData_ConstIterator& begin,
+			const ElementData_ConstIterator& end,
+			SetData data = SetData())
 			: elementSet_()
 			, setSet_()
 			, memberSet_()
 			, splitSet_()
 		{
-			insert(begin, end);
+			insert(begin, end, std::move(data));
 		}
 
 		//! Move-constructs from another partition.
@@ -142,7 +145,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		Set_ConstIterator insert()
+		Set_Iterator insert(SetData data = SetData())
 		{
 			return setSet_.emplace(
 				setSet_.cend(), 
@@ -150,7 +153,8 @@ namespace Pastel
 				memberSet_.end(),
 				memberSet_.end(),
 				splitSet_.end(),
-				0, false));
+				0, false,
+				std::move(data)));
 		}
 
 		//! Removes a set from the partition.
@@ -164,7 +168,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		Set_ConstIterator erase(
+		Set_Iterator erase(
 			const Set_ConstIterator& set)
 		{
 			// Remove all the elements and members
@@ -186,14 +190,16 @@ namespace Pastel
 		//! Inserts elements into a new set.
 		/*!
 		This is a convenience function which calls
-		insert(begin, end, setEnd()).
+		insert(begin, end, data, setEnd()).
 		*/
-		template <typename Type_ConstIterator>
-		Set_ConstIterator insert(
-			const Type_ConstIterator& begin,
-			const Type_ConstIterator& end)
+		template <typename ElementData_ConstIterator>
+		Set_Iterator insert(
+			const ElementData_ConstIterator& begin,
+			const ElementData_ConstIterator& end,
+			SetData data = SetData())
 		{
-			return insert(begin, end, setEnd());
+			return insert(begin, end, 
+				std::move(data), setEnd());
 		}
 
 		//! Inserts elements into a set.
@@ -203,7 +209,7 @@ namespace Pastel
 		were inserted.
 
 		Time complexity:
-		O(std::distance(begin, end)) * copy/move-construct(Type)
+		O(std::distance(begin, end)) * copy/move-construct(ElementData)
 		
 		Exception safety:
 		strong
@@ -216,22 +222,23 @@ namespace Pastel
 		then the elements are inserted into the 
 		given existing set.
 		*/
-		template <typename Type_ConstIterator>
-		Set_ConstIterator insert(
-			const Type_ConstIterator& begin,
-			const Type_ConstIterator& end,
+		template <typename ElementData_ConstIterator>
+		Set_Iterator insert(
+			const ElementData_ConstIterator& begin,
+			const ElementData_ConstIterator& end,
+			SetData data,
 			Set_ConstIterator set)
 		{
 			if (begin == end)
 			{
 				// Nothing to do.
-				return setSet_.cend();
+				return setSet_.end();
 			}
 
 			if (set == setSet_.cend())
 			{
 				// Create an empty set into the partition.
-				set = insert();
+				set = insert(data);
 			}
 
 			// We need to keep track of the number
@@ -291,7 +298,7 @@ namespace Pastel
 				memberSet_.end(),
 				n);
 
-			return set;
+			return cast(set);
 		}
 
 		//! Removes an element from the partition.
@@ -303,7 +310,7 @@ namespace Pastel
 		If the containing set of the element becomes empty,
 		the set is not removed.
 		*/
-		Element_ConstIterator erase(
+		Element_Iterator erase(
 			const Element_ConstIterator& element)
 		{
 			// Remove the element from its set.
@@ -337,13 +344,19 @@ namespace Pastel
 
 		//! Marks or unmarks an element of a set.
 		/*!
+		markIt:
+		Whether to mark the element (true)
+		or unmark the element (false).
+
 		Time complexity:
 		constant
 
 		Exception safety:
 		nothrow
 		*/
-		void mark(const Element_ConstIterator& element, bool markIt)
+		void mark(
+			const Element_ConstIterator& element, 
+			bool markIt)
 		{
 			PENSURE(element != elementSet_.cend());
 
@@ -400,7 +413,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void split()
+		void split(SetData data = SetData())
 		{
 			while(!splitSet_.empty())
 			{
@@ -436,7 +449,7 @@ namespace Pastel
 						setSet_.cend(),
 						Set(set->begin_, set->unmarkedBegin_, 
 						splitSet_.end(), set->marked(),
-						!set->type()));
+						!set->type(), std::move(data)));
 					
 					// Use the current set for the larger
 					// unmarked part.
@@ -450,7 +463,8 @@ namespace Pastel
 						setSet_.cend(),
 						Set(set->unmarkedBegin_, cast(set->end()),
 						splitSet_.end(), set->unmarked(),
-						set->type()));
+						set->type(),
+						std::move(data)));
 
 					// Use the current set for the larger 
 					// marked part.
@@ -465,12 +479,22 @@ namespace Pastel
 
 		// Sets
 
-		Set_ConstIterator setBegin() const
+		Set_Iterator setBegin()
+		{
+			return setSet_.begin();
+		}
+
+		Set_Iterator cSetBegin() const
 		{
 			return setSet_.cbegin();
 		}
 
-		Set_ConstIterator setEnd() const
+		Set_Iterator setEnd()
+		{
+			return setSet_.end();
+		}
+
+		Set_Iterator cSetEnd() const
 		{
 			return setSet_.cend();
 		}
@@ -482,12 +506,22 @@ namespace Pastel
 
 		// Elements
 
-		Element_ConstIterator elementBegin() const
+		Element_Iterator elementBegin()
+		{
+			return elementSet_.begin();
+		}
+
+		Element_ConstIterator cElementBegin() const
 		{
 			return elementSet_.cbegin();
 		}
 
-		Element_ConstIterator elementEnd() const
+		Element_Iterator elementEnd()
+		{
+			return elementSet_.end();
+		}
+
+		Element_ConstIterator cElementEnd() const
 		{
 			return elementSet_.cend();
 		}
