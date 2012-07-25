@@ -15,12 +15,16 @@ namespace Pastel
 	public:
 		typedef PossiblyEmptyMember<SetData> Data;
 
-		//! Copy-constructs from another set.
+		//! Move-constructs from another set.
 		/*!
 		Time complexity: constant
 		Exception safety: strong
+
+		FIX: This function is needed solely because Visual Studio 2010
+		does not support the emplace function properly. Remove this 
+		function when support for emplace becomes available.
 		*/
-		Set(const Set& that)
+		Set(Set&& that)
 			: begin_(that.begin_)
 			, last_(that.last_)
 			, unmarkedBegin_(that.unmarkedBegin_)
@@ -31,30 +35,8 @@ namespace Pastel
 		{
 			if (Data::data())
 			{
-				new(Data::data()) SetData(that.data());
+				new(Data::data()) SetData(std::move(that.data()));
 			}
-		}
-
-		//! Move-constructs from another set.
-		/*!
-		Time complexity: constant
-		Exception safety: strong
-		*/
-		Set(Set&& that)
-			: begin_()
-			, last_()
-			, unmarkedBegin_()
-			, split_()
-			, elements_(0)
-			, marked_(0)
-			, type_(false)
-		{
-			if (Data::data())
-			{
-				new(Data::data()) SetData;
-			}
-
-			swap(that);
 		}
 
 		//! Destructs the set.
@@ -193,6 +175,9 @@ namespace Pastel
 		Set();
 
 		// Deleted.
+		Set(const Set& that);
+
+		// Deleted.
 		Set& operator=(Set that);
 
 		Set(Member_Iterator begin,
@@ -212,28 +197,6 @@ namespace Pastel
 			if (Data::data())
 			{
 				new(Data::data()) SetData(std::move(data));
-			}
-		}
-
-		//! Swaps two sets.
-		/*!
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		void swap(Set& that)
-		{
-			using std::swap;
-			swap(begin_, that.begin_);
-			swap(last_, that.last_);
-			swap(unmarkedBegin_, that.unmarkedBegin_);
-			swap(split_, that.split_);
-			swap(elements_, that.elements_);
-			swap(marked_, that.marked_);
-			swap(type_, that.type_);
-
-			if (Data::data())
-			{
-				swap(data(), that.data());
 			}
 		}
 
