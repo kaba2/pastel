@@ -4,12 +4,12 @@ Refinable partition
 [[Parent]]: data_structures.txt
 
 The _refinable partition_ data structure is used to store and refine 
-the partitioning of a static set of elements.
+the partitioning of a (dynamic) set of elements.
 
 Definitions
 -----------
 
-A _partition_ of a set ''S'' is a set of disjoint non-empty subsets 
+A _partition_ of a set ''S'' is a set of disjoint subsets 
 ''P subset power-set(S)'' such that ''Union P = S''. A partition
 ''Q'' is called a refinement of a partition ''P'', if each ''p in P''
 can be given as a union of some sets in ''Q''. In such a case the ''Q''
@@ -26,24 +26,44 @@ partition is wanted to be split into two, this split is denoted
 by marking the elements of the other part. Multiple sets in the
 partition can be marked this way, perhaps incrementally. The actual
 refinement is committed by the `split()` function which splits all 
-those sets that have both marked and unmarked elements. The refinable 
-partition data structure has the following properties.
+those sets that have both marked and unmarked elements. 
 
-### Functionality
+Properties
+----------
 
- * can provide the list of elements, marked elements, and 
- unmarked elements of a set, in constant time,
- * can provide the containing set of an element, in constant time,
- * can provide the list of those sets which contain both marked
- and unmarked elements, in constant time,
- * can provide the list of elements and blocks in the partition,
- in constant time,
- * can both mark and unmark elements, in constant time,
+The refinable partition data structure implemented in Pastel has 
+the following properties.
 
-### Time and space
+### Storage
 
- * sets are split in constant time when amortized over the
- number of marked elements, and
+ * user data can be stored in both elements and sets,
+ * user data is optional in compile-time; in case it is not
+ needed, it will not take additional memory.
+
+### Queries
+
+ * can provide the list (and number) of elements in the partition in O(1),
+ * can provide the list (and number) of sets in the partition in O(1),
+ * can provide the list (and number) of elements, marked elements, 
+ and unmarked elements of a set in O(1),
+ * can provide the containing set of an element in O(1),
+ * can provide the list of those sets which contain marked elements in O(1),
+ * can provide the information whether an element is marked or not in O(1),
+ 
+### Operations
+
+ * can mark an element in O(1),
+ * can unmark an element in O(1),
+ * can insert an element into a set in O(1),
+ * can remove an element from a set in O(1),
+ * can insert an empty set into the partition in O(1),
+ * can remove a set from the partition, in O(m), where
+ m is the number of contained elements,
+ * can split a set in amortized O(1), and
+ 
+### Space
+
  * takes O(n) space, where n is the number of elements.
+
  
 

@@ -2,7 +2,6 @@
 #define PASTEL_REFINABLE_PARTITION_FWD_H
 
 #include <list>
-#include <vector>
 
 namespace Pastel
 {
@@ -12,30 +11,30 @@ namespace Pastel
 	{
 	public:
 		class Element;
-		class Block;
+		class Set;
 
-		typedef std::vector<Element>
+		typedef std::list<Element>
 			ElementSet;
 		typedef typename ElementSet::iterator
 			Element_Iterator;
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
 
-		typedef std::list<Block>
-			BlockSet;
-		typedef typename BlockSet::iterator
-			Block_Iterator;
-		typedef typename BlockSet::const_iterator
-			Block_ConstIterator;
+		typedef std::list<Set>
+			SetSet;
+		typedef typename SetSet::iterator
+			Set_Iterator;
+		typedef typename SetSet::const_iterator
+			Set_ConstIterator;
 
-		typedef std::vector<Element_Iterator>
-			PartitionSet;
-		typedef typename PartitionSet::iterator
-			Partition_Iterator;
-		typedef typename PartitionSet::const_iterator
-			Partition_ConstIterator;
+		typedef std::list<Element_Iterator>
+			PositionSet;
+		typedef typename PositionSet::iterator
+			Position_Iterator;
+		typedef typename PositionSet::const_iterator
+			Position_ConstIterator;
 
-		typedef std::vector<Block_Iterator>
+		typedef std::list<Set_Iterator>
 			SplitSet;
 		typedef typename SplitSet::iterator
 			Split_Iterator;

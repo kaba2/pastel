@@ -26,7 +26,7 @@ namespace Pastel
 		: public RefinablePartition_Fwd<Type>
 	{
 	public:
-		//! Constructs an empty refinable partition.
+		//! Constructs an empty partition.
 		/*!
 		Time complexity:
 		constant
@@ -36,13 +36,13 @@ namespace Pastel
 		*/
 		RefinablePartition()
 			: elementSet_()
-			, blockSet_()
-			, partitionSet_()
+			, setSet_()
+			, positionSet_()
 			, splitSet_()
 		{
 		}
 
-		//! Constructs a refinable partition with n elements.
+		//! Constructs a partition with n elements.
 		/*!
 		Preconditions:
 		n >= 0
@@ -60,19 +60,18 @@ namespace Pastel
 		*/
 		explicit RefinablePartition(integer n)
 			: elementSet_()
-			, blockSet_()
-			, partitionSet_()
+			, setSet_()
+			, positionSet_()
 			, splitSet_()
 		{
 			ENSURE_OP(n, >=, 0);
 
-			RefinablePartition copy(
+			insert(
 				constantIterator(Type(), 0),
 				constantIterator(Type(), n));
-			swap(copy);
 		}
 
-		//! Constructs a refinable partition.
+		//! Constructs a partition with the given elements.
 		/*!
 		Time complexity:
 		O(std::distance(begin, end)) * copy/move-construct(Type)
@@ -90,56 +89,14 @@ namespace Pastel
 			const Type_ConstIterator& begin,
 			const Type_ConstIterator& end)
 			: elementSet_()
-			, blockSet_()
-			, partitionSet_()
+			, setSet_()
+			, positionSet_()
 			, splitSet_()
 		{
-			if (begin == end)
-			{
-				// Nothing to do.
-				return;
-			}
-
-			// Create the block. At this point
-			// the partitionSet is still empty,
-			// so we need to set the block elements
-			// later.
-			blockSet_.emplace_back(
-				Block(
-				partitionSet_.begin(),
-				partitionSet_.end(),
-				splitSet_.end()));
-
-			Block_Iterator block =
-				blockSet_.end();
-			--block;
-
-			const integer n = std::distance(begin, end);
-
-			// Create the elements and the initial partition.
-			elementSet_.reserve(n);
-			partitionSet_.reserve(n);
-			integer i = 0;
-			for (auto iter = begin; iter != end; ++iter)
-			{
-				elementSet_.emplace_back(
-					Element(block, 
-					partitionSet_.begin() + i,
-					*iter));
-
-				partitionSet_.emplace_back(
-					elementSet_.begin() + i);
-
-				++i;
-			}
-
-			// Set the block elements properly.
-			block->begin_ = partitionSet_.begin();
-			block->end_ = partitionSet_.end();
-			block->unmarkedBegin_ = block->begin_;
+			insert(begin, end);
 		}
 
-		//! Move-constructs from another refinable partition.
+		//! Move-constructs from another partition.
 		/*!
 		Time complexity:
 		constant
@@ -151,14 +108,14 @@ namespace Pastel
 		RefinablePartition(
 			RefinablePartition&& that)
 			: elementSet_()
-			, blockSet_()
-			, partitionSet_()
+			, setSet_()
+			, positionSet_()
 			, splitSet_()
 		{
 			swap(that);
 		}
 
-		//! Assigns from another refinable partition.
+		//! Assigns from another partition.
 		/*!
 		Time complexity:
 		O(that.elements()), if that was copy-constructed,
@@ -174,7 +131,7 @@ namespace Pastel
 			return *this;
 		}
 
-		//! Removes all elements and blocks.
+		//! Removes all elements and sets.
 		/*!
 		Time complexity:
 		O(elements())
@@ -185,12 +142,12 @@ namespace Pastel
 		void clear()
 		{
 			elementSet_.clear();
-			blockSet_.clear();
-			partitionSet_.clear();
+			setSet_.clear();
+			positionSet_.clear();
 			splitSet_.clear();
 		}
 
-		//! Swaps two refinable partitions.
+		//! Swaps two refinable positions.
 		/*!
 		Time complexity:
 		constant
@@ -201,12 +158,152 @@ namespace Pastel
 		void swap(RefinablePartition& that)
 		{
 			elementSet_.swap(that.elementSet_);
-			blockSet_.swap(that.blockSet_);
-			partitionSet_.swap(that.partitionSet_);
+			setSet_.swap(that.setSet_);
+			positionSet_.swap(that.positionSet_);
 			splitSet_.swap(that.splitSet_);
 		}
 
-		//! Marks an element of a block.
+		// Sets
+
+		//! Inserts an empty set into the partition.
+		/*!
+		Time complexity:
+		constant
+
+		Exception safety:
+		strong
+		*/
+		Set_ConstIterator insert()
+		{
+			return setSet_.emplace(
+				setSet_.cend(), 
+				Set(
+				positionSet_.end(),
+				positionSet_.end(),
+				splitSet_.end(),
+				0, false));
+		}
+
+		//! Removes a set from the partition.
+		void erase(const Set_ConstIterator& set)
+		{
+			// Remove all the elements and positions
+			// in the set.
+			auto position = set.begin();
+			auto positionEnd = set.end();
+			while(position != positionEnd)
+			{
+				auto nextPosition = std::next(position);
+				elementSet_.erase(*position);
+				positionSet_.erase(position);
+				position = nextPosition;
+			}
+
+			// Remove the set.
+			setSet_.erase(set);
+		}
+
+		// Elements
+
+		//! Inserts elements into a new set.
+		/*!
+		This is a convenience function which calls
+		insert(begin, end, setEnd()).
+		*/
+		template <typename Type_ConstIterator>
+		Set_ConstIterator insert(
+			const Type_ConstIterator& begin,
+			const Type_ConstIterator& end)
+		{
+			return insert(begin, end, setEnd());
+		}
+
+		//! Inserts elements into a set.
+		/*!
+		returns:
+		An iterator to the set into which the elements
+		were inserted.
+
+		Time complexity:
+		O(std::distance(begin, end)) * copy/move-construct(Type)
+		
+		Exception safety:
+		unsafe, FIX
+		
+		Note:
+		If begin == end, then no set is created and 
+		setEnd() is returned. If begin != end and 
+		set == setEnd(), a new set is created for 
+		the elements. If begin != end and set != setEnd(), 
+		then the elements are inserted into the 
+		given existing set.
+		*/
+		template <typename Type_ConstIterator>
+		Set_ConstIterator insert(
+			const Type_ConstIterator& begin,
+			const Type_ConstIterator& end,
+			Set_ConstIterator set)
+		{
+			if (begin == end)
+			{
+				// Nothing to do.
+				return setSet_.cend();
+			}
+
+			if (set == setSet_.cend())
+			{
+				// Create an empty set into the partition.
+				set = insert();
+			}
+
+			// Create the elements and the initial partition.
+			integer n = 0;
+			for (auto iter = begin; iter != end; ++iter)
+			{
+				Element_Iterator element =
+					elementSet_.emplace(
+					elementSet_.cend(),
+					Element(cast(set), 
+					positionSet_.end(),
+					*iter));
+
+				Position_Iterator position =
+					positionSet_.emplace(
+					positionSet_.cend(),
+					element);
+				element->position_ = position;
+
+				// Also count the number of elements to n.
+				++n;
+			}
+
+			// Set the set elements properly.
+			cast(set)->set(
+				positionSet_.begin(),
+				positionSet_.end(),
+				n);
+
+			return set;
+		}
+
+		//! Removes an element from the partition.
+		/*!
+		Note:
+		If the containing set of the element becomes empty,
+		the set is not removed.
+		*/
+		void erase(const Element_ConstIterator& element)
+		{
+			// Remove the element from its set.
+			cast(element)->set_->erase(
+				cast(element),
+				positionSet_.end());
+
+			// Remove the element.
+			elementSet_.erase(element);
+		}
+
+		//! Marks an element of a set.
 		/*!
 		This is a convenience function that calls
 		mark(element, true).
@@ -216,7 +313,7 @@ namespace Pastel
 			mark(element, true);
 		}
 
-		//! Unmarks an element of a block.
+		//! Unmarks an element of a set.
 		/*!
 		This is a convenience function that calls
 		mark(element, false).
@@ -226,7 +323,7 @@ namespace Pastel
 			mark(element, false);
 		}
 
-		//! Marks or unmarks an element of a block.
+		//! Marks or unmarks an element of a set.
 		/*!
 		Time complexity:
 		constant
@@ -234,81 +331,56 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void mark(const Element_ConstIterator& element, bool type)
+		void mark(const Element_ConstIterator& element, bool markIt)
 		{
 			PENSURE(element != elementSet_.cend());
 
-			Block_Iterator block = element->block_;
-
-			// An element is marked if and only if it is in the 
-			// marked region of the block, i.e. 
-			// block->begin <= element->position < block->unmarkedBegin.
-			// Since we already know that the element is in its
-			// block, the latter test suffices.
-			const bool currentType = 
-				(element->position_ < block->unmarkedBegin_);
-
-			if (currentType == type)
+			if (element->marked() == markIt)
 			{
 				// Nothing to do.
 				return;
 			}
 
-			Element_Iterator& p = *element->position_;
-			Element_Iterator& q = *block->unmarkedBegin_;
-
-			if (type)
+			Set_Iterator set = element->set_;
+			if (markIt)
 			{
 				// The element is unmarked and we
 				// want to mark it.
 
-				if (block->marked() == 0)
+				if (set->marked() == 0)
 				{
 					// This is the first marked element
-					// of the block. Add the block to be
+					// of the set. Add the set to be
 					// splitted later.
-					splitSet_.emplace_back(block);
+					Split_Iterator split =
+						splitSet_.emplace(
+						splitSet_.cend(),
+						set);
 					
-					Split_Iterator split = splitSet_.end();
-					--split;
-					block->split_ = split;
+					set->split_ = split;
 				}
 
-				// Swap the first unmarked element with
-				// the element to be marked.
-				std::swap(p, q);
-				std::swap(p->position_, q->position_);
-
-				// Then extend the marked region to
-				// cover the given element.
-				++block->unmarkedBegin_;
+				set->moveToMarked(cast(element));
 			}
 			else
 			{
 				// The element is marked and we
 				// want to unmark it.
 
-				// Swap the last marked element with
-				// the element to be unmarked.
-				std::swap(p, q - 1);
-				std::swap(p->position_, (q - 1)->position_);
+				set->moveToUnmarked(cast(element));
 
-				// Then shrink the marked region to
-				// exclude the given element.
-				--block->unmarkedBegin_;
-
-				if (block->marked() == 0)
+				if (set->marked() == 0)
 				{
-					// The block no more contains a marked
-					// element. Remove the block from the
+					// The set no more contains a marked
+					// element. Remove the set from the
 					// split set.
-					splitSet_.erase(block->split_);
-					block->split_ = splitSet_.end();
+					splitSet_.erase(set->split_);
+					set->split_ = splitSet_.end();
 				}
 			}
 		}
 
-		//! Splits blocks with both marked and unmarked elements.
+		//! Splits sets with both marked and unmarked elements.
 		/*!
 		Time complexity:
 		amortized constant
@@ -320,86 +392,80 @@ namespace Pastel
 		{
 			while(!splitSet_.empty())
 			{
-				Block& block = *splitSet_.back();
+				Set_Iterator set = splitSet_.back();
 				splitSet_.pop_back();
 				
-				// As an invariant, a block is only pushed in the
+				// As an invariant, a set is only pushed in the
 				// splitSet if it has at least one marked element.
 				// Enforce that.
-				ASSERT_OP(block.marked(), >, 0);
+				ASSERT_OP(set->marked(), >, 0);
 
-				if (block.marked() == block.elements())
+				if (set->marked() == set->elements())
 				{
 					// If all elements have been marked,
 					// there is nothing to split.
-
-					// Clear the set of marked elements in the current block.
-					block.unmarkedBegin_ = block.begin_;
+					set->shrinkToMarked();
 
 					continue;
 				}
 
 				// This will contain the newly-created
-				// block. The other part will reside in
-				// the current block.
-				Block_Iterator newBlock;
+				// set. The other part will reside in
+				// the current set.
+				Set_Iterator newSet;
 
-				// Split off the smaller part, and the marked
+				// Split off the smaller part, or the marked
 				// part if of equal size.
-				if (block.marked() <= block.unmarked())
+				if (set->marked() <= set->unmarked())
 				{
 					// The marked part is the smaller part.
-					// Make it the new block.
-					newBlock = blockSet_.emplace(
-						blockSet_.cend(),
-						Block(block.begin_, block.unmarkedBegin_, 
-						splitSet_.end()));
+					// Make it the new set.
+					newSet = setSet_.emplace(
+						setSet_.cend(),
+						Set(set->begin_, set->unmarkedBegin_, 
+						splitSet_.end(), set->marked(),
+						!set->type()));
 					
-					// Use the current block for the larger part.
-					block.begin_ = block.unmarkedBegin_;
+					// Use the current set for the larger
+					// unmarked part.
+					set->shrinkToUnmarked();
 				}
 				else
 				{
 					// The unmarked part is the smaller part.
-					// Make it the new block.
-					newBlock = blockSet_.emplace(
-						blockSet_.cend(),
-						Block(block.unmarkedBegin_, block.end_,
-						splitSet_.end()));
+					// Make it the new set->
+					newSet = setSet_.emplace(
+						setSet_.cend(),
+						Set(set->unmarkedBegin_, cast(set->end()),
+						splitSet_.end(), set->unmarked(),
+						set->type()));
 
-					// Use the current block for the larger part.
-					block.end_ = block.unmarkedBegin_;
+					// Use the current set for the larger 
+					// marked part.
+					set->shrinkToMarked();
 				}
 
-				// Update the block-reference for each element
-				// of the block.
-				for (auto iter = newBlock->begin();
-					iter != newBlock->end();
-					++iter)
-				{
-					(*iter)->block_ = newBlock;
-				}
-				
-				// Clear the set of marked elements in the current block.
-				block.unmarkedBegin_ = block.begin_;
+				// Update the set-reference for each element
+				// of the new set.
+				newSet->updateElements(newSet);
 			}
 		}
 
-		// Blocks
+		// Sets
 
-		Block_ConstIterator blockBegin() const
+		Set_ConstIterator setBegin() const
 		{
-			return blockSet_.cbegin();
+			return setSet_.cbegin();
 		}
 
-		Block_ConstIterator blockEnd() const
+		Set_ConstIterator setEnd() const
 		{
-			return blockSet_.cend();
+			return setSet_.cend();
 		}
 
-		integer blocks() const
+		integer sets() const
 		{
-			return blockSet_.size();
+			return setSet_.size();
 		}
 
 		// Elements
@@ -440,16 +506,40 @@ namespace Pastel
 		// TODO: Implement
 		RefinablePartition(const RefinablePartition& that);
 
+		//! Casts away the constness of an element iterator.
+		Element_Iterator cast(const Element_ConstIterator& that)
+		{
+			return elementSet_.erase(that, that);
+		}
+
+		//! Casts away the constness of a set iterator.
+		Set_Iterator cast(const Set_ConstIterator& that)
+		{
+			return setSet_.erase(that, that);
+		}
+
+		//! Casts away the constness of a split iterator.
+		Split_Iterator cast(const Split_ConstIterator& that)
+		{
+			return splitSet_.erase(that, that);
+		}
+
+		//! Casts away the constness of a position iterator.
+		Position_Iterator cast(const Position_ConstIterator& that)
+		{
+			return positionSet_.erase(that, that);
+		}
+
 		//! The set of elements.
 		ElementSet elementSet_;
 
-		//! The set of blocks.
-		BlockSet blockSet_;
+		//! The set of sets.
+		SetSet setSet_;
 
 		//! The partition of elements.
-		PartitionSet partitionSet_;
+		PositionSet positionSet_;
 
-		//! Blocks with marked elements.
+		//! Sets with marked elements.
 		SplitSet splitSet_;
 	};
 
