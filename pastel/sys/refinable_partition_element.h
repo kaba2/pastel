@@ -15,8 +15,9 @@ namespace Pastel
 		typedef PossiblyEmptyMember<Type> Data;
 
 		Element(const Element& that)
-			: block_(that.block_)
+			: set_(that.set_)
 			, position_(that.position_)
+			, type_(that.type_)
 		{
 			if (Data::data())
 			{
@@ -25,8 +26,9 @@ namespace Pastel
 		}
 
 		Element(Element&& that)
-			: block_()
+			: set_()
 			, position_()
+			, type_(false)
 		{
 			if (Data::data())
 			{
@@ -50,35 +52,54 @@ namespace Pastel
 			return *this;
 		}
 
+		//! Returns the contained data.
 		Type& data()
 		{
 			PENSURE(Data::data());
 			return *Data::data();
 		}
 
+		//! Returns the contained data.
 		const Type& data() const
 		{
 			PENSURE(Data::data());
 			return *Data::data();
 		}
 
-		Block_ConstIterator block() const
+		//! Returns the containing set.
+		Set_ConstIterator set() const
 		{
-			return block_;
+			return set_;
 		}
 
-		Partition_ConstIterator position() const
+		//! Returns the position in the position-set.
+		Position_ConstIterator position() const
 		{
 			return position_;
+		}
+
+		//! Returns whether the element is marked.
+		/*!
+		The element is marked if and only if
+		the type of the element is different
+		than the type of the containing set.
+		*/
+		bool marked() const
+		{
+			return type_ != set_->type();
 		}
 
 	private:
 		template <typename Type>
 		friend class RefinablePartition;
 
+		template <typename Type>
+		friend class RefinablePartition<Type>::Set;
+
 		Element()
-			: block_()
+			: set_()
 			, position_()
+			, type_(false)
 		{
 			if (Data::data())
 			{
@@ -87,11 +108,12 @@ namespace Pastel
 		}
 
 		Element(
-			Block_Iterator block,
-			Partition_Iterator position,
+			Set_Iterator set,
+			Position_Iterator position,
 			Type data)
-			: block_(block)
+			: set_(set)
 			, position_(position)
+			, type_(set->type())
 		{
 			if (Data::data())
 			{
@@ -102,16 +124,36 @@ namespace Pastel
 		void swap(Element& that)
 		{
 			using std::swap;
-			swap(block_, that.block_);
+			swap(set_, that.set_);
 			swap(position_, that.position_);
+			swap(type_, that.type_);
 			if (Data::data())
 			{
 				swap(data(), that.data());
 			}
 		}
 
-		Block_Iterator block_;
-		Partition_Iterator position_;
+		void mark(bool markIt)
+		{
+			// If the element is to be marked,
+			// then give it the type which is
+			// the negation of the set type.
+			// Otherwise give the type set
+			// type.
+
+			type_ = markIt ^ set_->type();
+
+			ASSERT(marked() == markIt);
+		}
+
+		//! The set which contains this element.
+		Set_Iterator set_;
+		
+		//! The position in the position-set.
+		Position_Iterator position_;
+
+		//! The type of the element.
+		bool type_;
 	};
 
 }

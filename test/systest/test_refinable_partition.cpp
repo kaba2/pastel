@@ -23,16 +23,20 @@ namespace
 		virtual void run()
 		{
 			test();
+			testRemove();
 		}
 
 		typedef RefinablePartition<integer>
 			Partition;
 
+		typedef Partition::Set_ConstIterator 
+			Set_ConstIterator;
+
 		template <int N, typename Type>
 		bool same(Type (&data)[N], 
-			Partition::Block_ConstIterator block) const
+			Partition::Set_ConstIterator set) const
 		{
-			if (N != block->elements())
+			if (N != set->elements())
 			{
 				return false;
 			}
@@ -41,8 +45,8 @@ namespace
 				std::begin(data), std::end(data));
 			std::sort(aSet.begin(), aSet.end());
 
-			auto iter = block->begin();			
-			auto end = block->end();
+			auto iter = set->begin();			
+			auto end = set->end();
 
 			std::vector<Type> bSet;
 			while(iter != end)
@@ -64,30 +68,30 @@ namespace
 				std::begin(data), std::end(data));
 			{
 				TEST_ENSURE_OP(partition.splits(), ==, 0);
-				TEST_ENSURE_OP(partition.blocks(), ==, 1);
+				TEST_ENSURE_OP(partition.sets(), ==, 1);
 				TEST_ENSURE_OP(partition.elements(), ==, 5);
-				TEST_ENSURE(same(data, partition.blockBegin()));
+				TEST_ENSURE(same(data, partition.setBegin()));
 			}
 
 			partition.mark(
-				partition.elementBegin() + 0);
+				partition.elementBegin());
 			{
 				TEST_ENSURE_OP(partition.splits(), ==, 1);
 			}
 
 			partition.mark(
-				partition.elementBegin() + 2);
+				std::next(partition.elementBegin(), 2));
 			{
 				TEST_ENSURE_OP(partition.splits(), ==, 1);
 			}
 
 			partition.mark(
-				partition.elementBegin() + 4);
+				std::next(partition.elementBegin(), 4));
 			{
 				TEST_ENSURE_OP(
-					partition.blockBegin()->marked(), ==, 3);
+					partition.setBegin()->marked(), ==, 3);
 				TEST_ENSURE_OP(
-					partition.blockBegin()->unmarked(), ==, 2);
+					partition.setBegin()->unmarked(), ==, 2);
 			}
 
 			partition.split();
@@ -95,46 +99,46 @@ namespace
 				TEST_ENSURE_OP(
 					partition.splits(), ==, 0);
 				TEST_ENSURE_OP(
-					partition.blocks(), ==, 2);
+					partition.sets(), ==, 2);
 				TEST_ENSURE_OP(
 					partition.elements(), ==, 5);
 
 				// In the splitting, the smaller part
-				// should get the new block.
+				// should get the new set.
 				int data[] = {0, 2, 4};
 				TEST_ENSURE(
-					same(data, partition.blockBegin()));
+					same(data, partition.setBegin()));
 
-				auto block = partition.blockBegin();
-				++block;
+				auto set = partition.setBegin();
+				++set;
 
 				int data2[] = {1, 3};
-				TEST_ENSURE(same(data2, block));
-				TEST_ENSURE_OP(block->marked(), ==, 0);
-				TEST_ENSURE_OP(block->unmarked(), ==, 2);
-				TEST_ENSURE_OP(block->elements(), ==, 2);
+				TEST_ENSURE(same(data2, set));
+				TEST_ENSURE_OP(set->marked(), ==, 0);
+				TEST_ENSURE_OP(set->unmarked(), ==, 2);
+				TEST_ENSURE_OP(set->elements(), ==, 2);
 
 				TEST_ENSURE(
-					(partition.elementBegin() + 1)->block() == block);
+					std::next(partition.elementBegin())->set() == set);
 				TEST_ENSURE(
-					(partition.elementBegin() + 3)->block() == block);
+					std::next(partition.elementBegin(), 3)->set() == set);
 			}
 
 			partition.mark(
-				partition.elementBegin() + 1);
+				std::next(partition.elementBegin(), 1));
 			partition.mark(
-				partition.elementBegin() + 3);
+				std::next(partition.elementBegin(), 3));
 			{
-				Partition::Block_ConstIterator block = 
-					partition.blockBegin();
-				++block;
+				Partition::Set_ConstIterator set = 
+					partition.setBegin();
+				++set;
 
 				TEST_ENSURE_OP(
-					block->elements(), ==, 2);
+					set->elements(), ==, 2);
 				TEST_ENSURE_OP(
-					block->marked(), ==, 2);
+					set->marked(), ==, 2);
 				TEST_ENSURE_OP(
-					block->unmarked(), ==, 0);
+					set->unmarked(), ==, 0);
 				TEST_ENSURE_OP(
 					partition.splits(), ==, 1);
 			}
@@ -142,10 +146,10 @@ namespace
 			partition.split();
 			{
 				// Nothing should happen when all
-				// the elements in a block are marked.
+				// the elements in a set are marked.
 
 				TEST_ENSURE_OP(
-					partition.blocks(), ==, 2);
+					partition.sets(), ==, 2);
 
 				TEST_ENSURE_OP(
 					partition.splits(), ==, 0);
@@ -153,8 +157,31 @@ namespace
 
 			partition.clear();
 			TEST_ENSURE_OP(partition.splits(), ==, 0);
-			TEST_ENSURE_OP(partition.blocks(), ==, 0);
+			TEST_ENSURE_OP(partition.sets(), ==, 0);
 			TEST_ENSURE_OP(partition.elements(), ==, 0);
+		}
+
+		void testRemove()
+		{
+			integer data[] = {0, 1, 2, 3, 4};
+
+			Partition partition(
+				std::begin(data), std::end(data));
+
+			partition.erase(
+				std::next(partition.elementBegin()));
+			{
+				Set_ConstIterator set =
+					partition.setBegin();
+
+				TEST_ENSURE_OP(set->elements(), ==, 4);
+				TEST_ENSURE_OP(set->marked(), ==, 0);
+				TEST_ENSURE_OP(set->unmarked(), ==, 4);
+				TEST_ENSURE_OP(partition.elements(), ==, 4);
+
+				integer data[] = {0, 2, 3, 4};
+				TEST_ENSURE(same(data, set));
+			}
 		}
 	};
 
