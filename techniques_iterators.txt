@@ -3,6 +3,15 @@ Iterators in interfaces
 
 [[Parent]]: techniques.txt
 
+This technique is summarized as follows: if your data structure contains
+an `std::map` or `std::unordered_map` container, the value-elements of 
+which you must expose to the user, then provide an iterator wrapper to
+dereference the value-element instead of returning the pair-dereferencing
+original iterator.
+
+Problem
+-------
+
 Consider that there is a data structure A which stores a set of values
 in an `std::map` to enable fast associative searches by a key, and also 
 that the set of values in that map are exposed to the user of the data 
@@ -13,14 +22,14 @@ structure. Then initially one might consider a design like the following.
 	{
 	public:
 		typedef std::map<int, int> ValueSet;
-		typedef ValueSet::iterator Iterator;
+		typedef ValueSet::const_iterator ConstIterator;
 
-		Iterator begin() const
+		ConstIterator begin() const
 		{
 			return valueSet_.begin();
 		}
 
-		Iterator end() const
+		ConstIterator end() const
 		{
 			return valueSet_.end();
 		}
@@ -31,14 +40,17 @@ structure. Then initially one might consider a design like the following.
 
 But there are now at least two problems:
 
- * Having the iterators dereference to an std::pair exposes an 
+ * Having the iterators dereference to an `std::pair` exposes an 
  implementation detail. It is not possible to change the underlying
  data structure afterwards.
 
  * While logically you simply have a set of values, physically you are 
- required to deal with std::pairs when dereferencing an iterator.
+ required to deal with `std::pair`s when dereferencing an iterator.
  This is extremely confusing to the user who might have no idea about 
  the meaning of the key. 
+
+Solution
+--------
 
 To solve these problems, replace the pair-iterator-interface with
 an iterator-adaptor which encapsulates the pair-iterator and offers
