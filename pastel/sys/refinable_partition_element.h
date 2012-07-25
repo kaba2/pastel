@@ -7,12 +7,12 @@
 namespace Pastel
 {
 
-	template <typename Type>
-	class RefinablePartition_Fwd<Type>::Element
-		: public PossiblyEmptyMember<Type>
+	template <typename ElementData, typename SetData>
+	class RefinablePartition_Fwd<ElementData, SetData>::Element
+		: public PossiblyEmptyMember<ElementData>
 	{
 	public:
-		typedef PossiblyEmptyMember<Type> Data;
+		typedef PossiblyEmptyMember<ElementData> Data;
 
 		Element(const Element& that)
 			: set_(that.set_)
@@ -21,7 +21,7 @@ namespace Pastel
 		{
 			if (Data::data())
 			{
-				new(Data::data()) Type(that.data());
+				new(Data::data()) ElementData(that.data());
 			}
 		}
 
@@ -32,7 +32,7 @@ namespace Pastel
 		{
 			if (Data::data())
 			{
-				new(Data::data()) Type;
+				new(Data::data()) ElementData;
 			}
 
 			swap(that);
@@ -42,25 +42,19 @@ namespace Pastel
 		{
 			if (Data::data())
 			{
-				Data::data()->~Type();
+				Data::data()->~ElementData();
 			}
 		}
 
-		Element& operator=(Element that)
-		{
-			swap(that);
-			return *this;
-		}
-
 		//! Returns the contained data.
-		Type& data()
+		ElementData& data()
 		{
 			PENSURE(Data::data());
 			return *Data::data();
 		}
 
 		//! Returns the contained data.
-		const Type& data() const
+		const ElementData& data() const
 		{
 			PENSURE(Data::data());
 			return *Data::data();
@@ -90,34 +84,29 @@ namespace Pastel
 		}
 
 	private:
-		template <typename Type>
+		template <typename ElementData, typename SetData>
 		friend class RefinablePartition;
 
-		template <typename Type>
-		friend class RefinablePartition<Type>::Set;
+		template <typename ElementData, typename SetData>
+		friend class RefinablePartition<ElementData, SetData>::Set;
 
-		Element()
-			: set_()
-			, member_()
-			, type_(false)
-		{
-			if (Data::data())
-			{
-				new(Data::data()) Type;
-			}
-		}
+		// Deleted.
+		Element();
+
+		// Deleted.
+		Element& operator=(Element that);
 
 		Element(
 			Set_Iterator set,
 			Member_Iterator member,
-			Type data)
+			ElementData data)
 			: set_(set)
 			, member_(member)
 			, type_(set->type())
 		{
 			if (Data::data())
 			{
-				new(Data::data()) Type(std::move(data));
+				new(Data::data()) ElementData(std::move(data));
 			}
 		}
 
