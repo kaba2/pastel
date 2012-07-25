@@ -160,9 +160,9 @@
     <ClInclude Include="read_protected.h" />
     <ClInclude Include="rectangle_iterator.h" />
     <ClInclude Include="refinable_partition.h" />
-    <ClInclude Include="refinable_partition_block.h" />
     <ClInclude Include="refinable_partition_element.h" />
     <ClInclude Include="refinable_partition_fwd.h" />
+    <ClInclude Include="refinable_partition_set.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />

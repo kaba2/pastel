@@ -6,7 +6,7 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/refinable_partition_fwd.h"
 #include "pastel/sys/refinable_partition_element.h"
-#include "pastel/sys/refinable_partition_block.h"
+#include "pastel/sys/refinable_partition_set.h"
 
 namespace Pastel
 {
