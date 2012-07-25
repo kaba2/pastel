@@ -15,6 +15,11 @@ namespace Pastel
 	public:
 		typedef PossiblyEmptyMember<SetData> Data;
 
+		//! Copy-constructs from another set.
+		/*!
+		Time complexity: constant
+		Exception safety: strong
+		*/
 		Set(const Set& that)
 			: begin_(that.begin_)
 			, last_(that.last_)
@@ -30,6 +35,11 @@ namespace Pastel
 			}
 		}
 
+		//! Move-constructs from another set.
+		/*!
+		Time complexity: constant
+		Exception safety: strong
+		*/
 		Set(Set&& that)
 			: begin_()
 			, last_()
@@ -47,6 +57,11 @@ namespace Pastel
 			swap(that);
 		}
 
+		//! Destructs the set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		~Set()
 		{
 			if (Data::data())
@@ -56,6 +71,10 @@ namespace Pastel
 		}
 
 		//! Returns the contained data.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		SetData& data()
 		{
 			PENSURE(Data::data());
@@ -63,52 +82,101 @@ namespace Pastel
 		}
 
 		//! Returns the contained data.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		const SetData& data() const
 		{
 			PENSURE(Data::data());
 			return *Data::data();
 		}
 
+		//! Returns the number of elements.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		integer elements() const
 		{
 			return elements_;
 		}
 
+		//! Returns the number of marked elements.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		integer marked() const
 		{
 			return marked_;
 		}
 
+		//! Returns the number of unmarked elements.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		integer unmarked() const
 		{
 			return elements_ - marked_;
 		}
 
+		//! Returns the first iterator of the members.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_ConstIterator begin() const
 		{
 			return begin_;
 		}
 
+		//! Returns the end-iterator of the members.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_ConstIterator end() const
 		{
 			return elements() > 0 ? std::next(last_) : last_;
 		}
 
+		//! Returns the first iterator of the unmarked members.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_ConstIterator unmarkedBegin() const
 		{
 			return unmarkedBegin_;
 		}
 
+		//! Returns the end-iterator of the unmarked members.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_ConstIterator unmarkedEnd() const
 		{
 			return end();
 		}
 
+		//! Returns the first iterator of the marked members.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_ConstIterator markedBegin() const
 		{
 			return begin();
 		}
 
+		//! Returns the end-iterator of the marked members.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		Member_ConstIterator markedEnd() const
 		{
 			return unmarkedBegin_;
@@ -147,6 +215,11 @@ namespace Pastel
 			}
 		}
 
+		//! Swaps two sets.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void swap(Set& that)
 		{
 			using std::swap;
@@ -164,6 +237,11 @@ namespace Pastel
 			}
 		}
 
+		//! Returns the type of the set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		bool type() const
 		{
 			return type_;
@@ -184,6 +262,10 @@ namespace Pastel
 		}
 
 		//! Forgets the elements in the unmarked part.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void shrinkToMarked()
 		{
 			ASSERT_OP(marked_, >, 0);
@@ -208,6 +290,10 @@ namespace Pastel
 		}
 
 		//! Forgets the elements in the marked part.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void shrinkToUnmarked()
 		{
 			ASSERT_OP(marked_, <, elements_);
@@ -223,6 +309,10 @@ namespace Pastel
 		}
 
 		//! Moves an element from unmarked to marked part.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void moveToMarked(
 			const Element_Iterator& element)
 		{
@@ -247,6 +337,10 @@ namespace Pastel
 		}
 
 		//! Moves an element from marked to unmarked part.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void moveToUnmarked(
 			const Element_Iterator& element)
 		{
@@ -271,6 +365,10 @@ namespace Pastel
 		}
 
 		//! Updates the element's set-reference.
+		/*!
+		Time complexity: O(set->elements())
+		Exception safety: nothrow
+		*/
 		void updateElements(
 			Set_Iterator set)
 		{
@@ -287,6 +385,10 @@ namespace Pastel
 		}
 
 		//! Removes an element from the set.
+		/*!
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
 		void erase(
 			const Element_ConstIterator& element,
 			const Member_Iterator& memberEnd)
@@ -332,12 +434,49 @@ namespace Pastel
 			}	
 		}
 
+		//! The first iterator of the member-set.
 		Member_Iterator begin_;
+
+		//! The last iterator of the member-set.
+		/*!
+		We need to store the last iterator rather than
+		the end-iterator, because otherwise removing a
+		set could invalidate the end-iterator of another
+		set. In elements_ = 0, then begin_ = last_ = 
+		unmarkedBegin_ = end-iterator.
+		*/
 		Member_Iterator last_;
+
+		//! The first iterator of the unmarked member-set.
 		Member_Iterator unmarkedBegin_;
+
+		//! If the set is in the split set, an iterator to that.
+		/*!
+		This iterator is needed so that when the number of
+		marked elements goes to zero, the set can be removed
+		from the split set in constant time.
+		*/
 		Split_Iterator split_;
+
+		//! The number of elements in the set.
+		/*!
+		This number needs to be tracked because all the
+		iterators are bidirectional.
+		*/
 		integer elements_;
+
+		//! The number of marked elements in the set.
+		/*!
+		This number needs to be tracked because all the
+		iterators are bidirectional.
+		*/
 		integer marked_;
+
+		//! The type of the set.
+		/*!
+		An element is marked if and only if its type 
+		differs from the type of its containing set.
+		*/
 		bool type_;
 	};
 

@@ -15,6 +15,7 @@ namespace Pastel
 	/*!
 	Preconditions:
 	ElementData is move/copy-constructible.
+	SetData is move/copy-constructible.
 
 	Note:
 	Specifying ElementData or SetData as EmptyClass avoids 
