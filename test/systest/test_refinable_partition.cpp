@@ -28,11 +28,12 @@ namespace
 			testRemove();
 		}
 
-		typedef RefinablePartition<integer>
+		typedef RefinablePartition<integer, integer>
 			Partition;
-
 		typedef Partition::Set_ConstIterator 
 			Set_ConstIterator;
+		typedef Partition::Element_ConstIterator 
+			Element_ConstIterator;
 
 		template <int N, typename Type>
 		bool same(Type (&data)[N], 
@@ -67,12 +68,13 @@ namespace
 			integer data[] = {0, 1, 2, 3, 4};
 
 			Partition partition(
-				std::begin(data), std::end(data));
+				std::begin(data), std::end(data), 0);
 			{
 				TEST_ENSURE_OP(partition.splits(), ==, 0);
 				TEST_ENSURE_OP(partition.sets(), ==, 1);
 				TEST_ENSURE_OP(partition.elements(), ==, 5);
 				TEST_ENSURE(same(data, partition.setBegin()));
+				TEST_ENSURE_OP(partition.setBegin()->data(), ==, 0);
 			}
 
 			partition.mark(
@@ -163,6 +165,18 @@ namespace
 			TEST_ENSURE_OP(partition.elements(), ==, 0);
 		}
 
+		void print(const Partition& partition)
+		{
+			std::for_each(
+				partition.cSetBegin()->begin(),
+				partition.cSetBegin()->end(),
+				[&](const Element_ConstIterator& element)
+			{
+				std::cout << element->data() << " ";
+			});
+			std::cout << std::endl;
+		}
+
 		void testRemove()
 		{
 			integer data[] = {0, 1, 2, 3, 4};
@@ -182,6 +196,35 @@ namespace
 				TEST_ENSURE_OP(partition.elements(), ==, 4);
 
 				integer data[] = {0, 2, 3, 4};
+				TEST_ENSURE(same(data, set));
+			}
+
+			partition.mark(
+				std::next(partition.elementBegin()));
+			{
+				Set_ConstIterator set =
+					partition.setBegin();
+
+				TEST_ENSURE_OP(set->elements(), ==, 4);
+				TEST_ENSURE_OP(set->marked(), ==, 1);
+				TEST_ENSURE_OP(set->unmarked(), ==, 3);
+				TEST_ENSURE_OP(partition.elements(), ==, 4);
+				TEST_ENSURE_OP(partition.splits(), ==, 1);
+			}
+
+			partition.erase(
+				std::next(partition.elementBegin()));
+			{
+				Set_ConstIterator set =
+					partition.setBegin();
+
+				TEST_ENSURE_OP(set->elements(), ==, 3);
+				TEST_ENSURE_OP(set->marked(), ==, 0);
+				TEST_ENSURE_OP(set->unmarked(), ==, 3);
+				TEST_ENSURE_OP(partition.elements(), ==, 3);
+				TEST_ENSURE_OP(partition.splits(), ==, 0);
+
+				integer data[] = {0, 3, 4};
 				TEST_ENSURE(same(data, set));
 			}
 		}

@@ -150,10 +150,16 @@ namespace Pastel
 		Element_Iterator erase(
 			const Element_ConstIterator& element)
 		{
+			// If the element is marked, unmark it.
+			mark(element, false);
+
 			// Remove the element from its set.
 			cast(element)->set_->erase(
 				cast(element),
 				memberSet_.end());
+
+			// Remove the element from the member-set.
+			memberSet_.erase(element->member());
 
 			// Remove the element.
 			return elementSet_.erase(element);
@@ -493,7 +499,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Set_Iterator cSetBegin() const
+		Set_ConstIterator cSetBegin() const
 		{
 			return setSet_.cbegin();
 		}
@@ -513,7 +519,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Set_Iterator cSetEnd() const
+		Set_ConstIterator cSetEnd() const
 		{
 			return setSet_.cend();
 		}

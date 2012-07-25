@@ -37,7 +37,7 @@ the following properties.
 ### Storage
 
  * user data can be stored in both elements and sets,
- * user data is optional in compile-time; in case it is not
+ * user data is optional at compile-time; in case it is not
  needed, it will not take additional memory.
 
 ### Queries
