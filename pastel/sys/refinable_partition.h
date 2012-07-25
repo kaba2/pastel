@@ -63,17 +63,17 @@ namespace Pastel
 			RefinablePartition copy;
 
 			// For each set...
-			for (auto set = that.cSetBegin();
+			for (Set_ConstIterator set = that.cSetBegin();
 				set != that.cSetEnd();
 				++set)
 			{
 				// Create a copy-set.
-				auto copySet = copy.addSet(
+				Set_Iterator copySet = copy.addSet(
 					set->data());
 
 				// Then copy the elements from the
 				// set to the copy-set.
-				for (auto member = set->begin();
+				for (Member_ConstIterator member = set->begin();
 					member != set->end();
 					++member)
 				{
