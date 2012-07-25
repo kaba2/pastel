@@ -399,7 +399,7 @@ namespace Pastel
 			const Set_ConstIterator& set)
 		{
 			// Remove all the elements and members
-			// in the set.
+			// of the set.
 			auto member = set->begin();
 			auto memberEnd = set->end();
 			while(member != memberEnd)

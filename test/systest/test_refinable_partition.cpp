@@ -194,6 +194,7 @@ namespace
 				TEST_ENSURE_OP(set->marked(), ==, 0);
 				TEST_ENSURE_OP(set->unmarked(), ==, 4);
 				TEST_ENSURE_OP(partition.elements(), ==, 4);
+				TEST_ENSURE_OP(partition.sets(), ==, 1);
 
 				integer data[] = {0, 2, 3, 4};
 				TEST_ENSURE(same(data, set));
@@ -210,6 +211,7 @@ namespace
 				TEST_ENSURE_OP(set->unmarked(), ==, 3);
 				TEST_ENSURE_OP(partition.elements(), ==, 4);
 				TEST_ENSURE_OP(partition.splits(), ==, 1);
+				TEST_ENSURE_OP(partition.sets(), ==, 1);
 			}
 
 			partition.erase(
@@ -223,9 +225,46 @@ namespace
 				TEST_ENSURE_OP(set->unmarked(), ==, 3);
 				TEST_ENSURE_OP(partition.elements(), ==, 3);
 				TEST_ENSURE_OP(partition.splits(), ==, 0);
+				TEST_ENSURE_OP(partition.sets(), ==, 1);
 
 				integer data[] = {0, 3, 4};
 				TEST_ENSURE(same(data, set));
+			}
+
+			partition.erase(
+				partition.elementBegin());
+			partition.erase(
+				partition.elementBegin());
+			partition.erase(
+				partition.elementBegin());
+			{
+				Set_ConstIterator set =
+					partition.setBegin();
+
+				TEST_ENSURE_OP(set->elements(), ==, 0);
+				TEST_ENSURE_OP(set->marked(), ==, 0);
+				TEST_ENSURE_OP(set->unmarked(), ==, 0);
+				TEST_ENSURE_OP(partition.elements(), ==, 0);
+				TEST_ENSURE_OP(partition.splits(), ==, 0);
+				TEST_ENSURE_OP(partition.sets(), ==, 1);
+			}
+			
+			partition.erase(
+				partition.setBegin());
+			{
+				TEST_ENSURE_OP(partition.elements(), ==, 0);
+				TEST_ENSURE_OP(partition.splits(), ==, 0);
+				TEST_ENSURE_OP(partition.sets(), ==, 0);
+			}
+
+			Set_ConstIterator set = 
+				partition.insert(
+				std::begin(data), std::end(data));
+			partition.erase(set);
+			{
+				TEST_ENSURE_OP(partition.elements(), ==, 0);
+				TEST_ENSURE_OP(partition.splits(), ==, 0);
+				TEST_ENSURE_OP(partition.sets(), ==, 0);
 			}
 		}
 	};
