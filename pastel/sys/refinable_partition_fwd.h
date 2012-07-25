@@ -28,11 +28,11 @@ namespace Pastel
 			Set_ConstIterator;
 
 		typedef std::list<Element_Iterator>
-			PositionSet;
-		typedef typename PositionSet::iterator
-			Position_Iterator;
-		typedef typename PositionSet::const_iterator
-			Position_ConstIterator;
+			MemberSet;
+		typedef typename MemberSet::iterator
+			Member_Iterator;
+		typedef typename MemberSet::const_iterator
+			Member_ConstIterator;
 
 		typedef std::list<Set_Iterator>
 			SplitSet;

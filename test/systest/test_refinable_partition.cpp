@@ -5,6 +5,8 @@
 
 #include <pastel/sys/refinable_partition.h>
 
+#include <algorithm>
+
 using namespace Pastel;
 using namespace std;
 
