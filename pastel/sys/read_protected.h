@@ -1,3 +1,5 @@
+// Description: Read protection
+
 #ifndef PASTEL_READ_PROTECTED_H
 #define PASTEL_READ_PROTECTED_H
 
