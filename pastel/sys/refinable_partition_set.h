@@ -372,6 +372,38 @@ namespace Pastel
 			}
 		}
 
+		//! Inserts an element into the set.
+		/*!
+		&*element->set_ == this
+		!element->marked()
+
+		Time complexity: constant
+		Exception safety: nothrow
+		*/
+		void insertUnmarked(
+			const Element_ConstIterator& element)
+		{
+			ASSERT(&*element->set_ == this);
+			ASSERT(!element->marked());
+
+			Member_Iterator member =
+				element->member_;
+
+			if (elements_ == 0)
+			{
+				begin_ = member;
+				unmarkedBegin_ = member;
+				marked_ = 0;
+			}
+			else
+			{
+				ASSERT(std::prev(member) == last_);
+			}
+
+			last_ = member;
+			++elements_;
+		}
+
 		//! Removes an element from the set.
 		/*!
 		Preconditions:
