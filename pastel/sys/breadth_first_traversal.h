@@ -1,18 +1,18 @@
-// Description: Depth-first traversal of a graph
+// Description: Breadth-first traversal of a graph
 
-#ifndef PASTEL_DEPTH_FIRST_TRAVERSAL_H
-#define PASTEL_DEPTH_FIRST_TRAVERSAL_H
+#ifndef PASTEL_BREADTH_FIRST_TRAVERSAL_H
+#define PASTEL_BREADTH_FIRST_TRAVERSAL_H
 
-#include "pastel/sys/depth_first_traversal_concepts.h"
+#include "pastel/sys/breadth_first_traversal_concepts.h"
 
 namespace Pastel
 {
 
-	//! Traverses a graph in a depth-first manner.
+	//! Traverses a graph in a breadth-first manner.
 	/*!
 	This is a convenience function which calls
 
-	traverseDepthFirst(
+	traverseBreadthFirst(
 		forEachSeedVertex, forEachAdjacent,
 		report, std::hash<Vertex>())
 	*/
@@ -21,17 +21,20 @@ namespace Pastel
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
 		typename Vertex_Reporter>
-	void traverseDepthFirst(
+	void traverseBreadthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
 		const Vertex_Reporter& report);
 
-	//! Traverses a graph in a depth-first manner.
+	//! Traverses a graph in a breadth-first manner.
 	/*!
+	Preconditions:
+	Vertex is copy-constructible.
+
 	For a vertex-set V, the set of seed vertices is a set
 	S subset V. The seed vertices will be traversed sequentially
-	in a depth-first manner. Every vertex reachable from the seed 
-	vertices will be visited exactly once.
+	in a breadth-first manner. Every vertex reachable from 
+	the seed vertices will be visited exactly once.
 	*/
 	template <
 		typename Vertex,
@@ -39,7 +42,7 @@ namespace Pastel
 		typename ForEachAdjacent,
 		typename Vertex_Reporter,
 		typename Vertex_Hash>
-	void traverseDepthFirst(
+	void traverseBreadthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
 		const Vertex_Reporter& report,
@@ -47,6 +50,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/depth_first_traversal.hpp"
+#include "pastel/sys/breadth_first_traversal.hpp"
 
 #endif

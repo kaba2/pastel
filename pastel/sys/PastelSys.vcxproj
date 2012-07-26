@@ -140,6 +140,9 @@
     <ClInclude Include="automaton.hpp" />
     <ClInclude Include="automaton_fwd.h" />
     <ClInclude Include="biginteger.hpp" />
+    <ClInclude Include="breadth_first_traversal.h" />
+    <ClInclude Include="breadth_first_traversal.hpp" />
+    <ClInclude Include="breadth_first_traversal_concepts.h" />
     <ClInclude Include="clone_ptr.h" />
     <ClInclude Include="clone_ptr_concepts.h" />
     <ClInclude Include="clone_ptr_private.h" />
@@ -530,6 +533,7 @@
     <None Include="..\..\techniques_iterators.txt" />
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
+    <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
     <None Include="hash.txt" />

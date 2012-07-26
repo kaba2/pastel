@@ -1,16 +1,16 @@
 // Description: Concepts for the depth-first traversal
 
-#ifndef PASTEL_DEPTH_FIRST_TRAVERSAL_CONCEPTS_H
-#define PASTEL_DEPTH_FIRST_TRAVERSAL_CONCEPTS_H
+#ifndef PASTEL_BREADTH_FIRST_TRAVERSAL_CONCEPTS_H
+#define PASTEL_BREADTH_FIRST_TRAVERSAL_CONCEPTS_H
 
-#include "pastel/sys/depth_first_traversal.h"
+#include "pastel/sys/breadth_first_traversal.h"
 
 #include <functional>
 
 namespace Pastel
 {
 
-	namespace DepthFirstTraversal_Concepts
+	namespace BreadthFirstTraversal_Concepts
 	{
 
 		//! The vertex-set V of the graph.

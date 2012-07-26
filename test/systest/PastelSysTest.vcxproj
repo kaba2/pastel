@@ -179,6 +179,7 @@
     <ClCompile Include="test_array.cpp" />
     <ClCompile Include="test_automaton.cpp" />
     <ClCompile Include="test_biginteger.cpp" />
+    <ClCompile Include="test_breadth_first_traversal.cpp" />
     <ClCompile Include="test_cloneptr.cpp" />
     <ClCompile Include="test_config.cpp" />
     <ClCompile Include="test_depth_first_traversal.cpp" />

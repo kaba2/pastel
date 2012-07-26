@@ -1,9 +1,9 @@
-// Description: Testing for depth-first traversal
-// DocumentationOf: depth_first_traversal.h
+// Description: Testing for breadth-first traversal
+// DocumentationOf: breadth_first_traversal.h
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/depth_first_traversal.h"
+#include "pastel/sys/breadth_first_traversal.h"
 
 using namespace Pastel;
 using namespace std;
@@ -52,12 +52,12 @@ namespace
 				reportSet.push_back(vertex);
 			};
 
-			traverseDepthFirst<integer>(
+			traverseBreadthFirst<integer>(
 				forEachSeedVertex,
 				forEachAdjacent,
 				report);
 
-			integer correctSet[] = {0, 1, 3, 7, 8, 4, 9, 10, 2, 5, 11, 12, 6, 13, 14};
+			integer correctSet[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 			integer correctSize = std::end(correctSet) - std::begin(correctSet);
 			
 			TEST_ENSURE_OP(reportSet.size(), ==, correctSize);
@@ -79,7 +79,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("traverseDepthFirst", test);
+		testRunner().add("traverseBreadthFirst", test);
 	}
 
 	CallFunction run(addTest);
