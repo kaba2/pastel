@@ -277,6 +277,9 @@
     <Filter Include="Algorithms\Graph algorithms\Depth-first traversal">
       <UniqueIdentifier>{b8fc0ab2-2d16-4f2d-9dec-c242d52820a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Breadth-first traversal">
+      <UniqueIdentifier>{1a8fa588-2c32-4c19-932d-59c822705579}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1450,6 +1453,15 @@
     <ClInclude Include="depth_first_traversal.hpp">
       <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
     </ClInclude>
+    <ClInclude Include="breadth_first_traversal.h">
+      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="breadth_first_traversal.hpp">
+      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="breadth_first_traversal_concepts.h">
+      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1856,6 +1868,9 @@
     </None>
     <None Include="depth_first_traversal.txt">
       <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+    </None>
+    <None Include="breadth_first_traversal.txt">
+      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

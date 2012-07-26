@@ -104,6 +104,9 @@
     <ClCompile Include="test_depth_first_traversal.cpp">
       <Filter>Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="test_breadth_first_traversal.cpp">
+      <Filter>Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelsystest.h" />

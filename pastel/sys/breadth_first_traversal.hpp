@@ -1,10 +1,11 @@
-#ifndef PASTEL_DEPTH_FIRST_TRAVERSAL_HPP
-#define PASTEL_DEPTH_FIRST_TRAVERSAL_HPP
+#ifndef PASTEL_BREADTH_FIRST_TRAVERSAL_HPP
+#define PASTEL_BREADTH_FIRST_TRAVERSAL_HPP
 
-#include "pastel/sys/depth_first_traversal.h"
+#include "pastel/sys/breadth_first_traversal.h"
 #include "pastel/sys/hash.h"
 
 #include <unordered_set>
+#include <list>
 #include <functional>
 
 namespace Pastel
@@ -16,11 +17,11 @@ namespace Pastel
 		typename ForEachAdjacent,
 		typename Vertex_Reporter,
 		typename Vertex_Hash>
-	class TraverseDepthFirst
+	class TraverseBreadthFirst
 	{
 	public:
 	
-		TraverseDepthFirst(
+		TraverseBreadthFirst(
 			const ForEachSeedVertex& forEachSeedVertex_,
 			const ForEachAdjacent& forEachAdjacent_,
 			const Vertex_Reporter& report_,
@@ -30,6 +31,7 @@ namespace Pastel
 			, report(report_)
 			, vertexHash(vertexHash_)
 			, visitedSet()
+			, workSet()
 		{
 		}
 
@@ -37,15 +39,24 @@ namespace Pastel
 		{
 			using namespace std::placeholders;
 
-			// Traverse each seed-vertex depth-first.
+			// Traverse each seed-vertex breadth-first.
 			forEachSeedVertex(
-				std::bind(&TraverseDepthFirst::visit, *this, _1));
+				[&](const Vertex& that)
+			{
+				workSet.push_back(that);
+			});
+
+			// Do the breadth-first traversal.
+			while(!workSet.empty())
+			{
+				// Retrieve new work from the front (queue).
+				visit(workSet.front());
+				workSet.pop_front();
+			}
 		}
 
 		void visit(const Vertex& vertex)
 		{
-			using namespace std::placeholders;
-
 			// Avoid visiting the same vertex twice.
 			if (!visitedSet.count(vertex))
 			{
@@ -57,7 +68,11 @@ namespace Pastel
 
 				// Traverse the edges.
 				forEachAdjacent(vertex,
-					std::bind(&TraverseDepthFirst::visit, *this, _1));
+					[&](const Vertex& that)
+				{
+					// Push new work to back (queue).
+					workSet.push_back(that);
+				});
 			}
 		}
 
@@ -67,6 +82,7 @@ namespace Pastel
 		const Vertex_Hash& vertexHash;
 
 		std::unordered_set<Vertex> visitedSet;
+		std::list<Vertex> workSet;
 	};
 
 	template <
@@ -74,12 +90,12 @@ namespace Pastel
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
 		typename Vertex_Reporter>
-	void traverseDepthFirst(
+	void traverseBreadthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
 		const Vertex_Reporter& report)
 	{
-		Pastel::traverseDepthFirst<Vertex>(
+		Pastel::traverseBreadthFirst<Vertex>(
 			forEachSeedVertex, forEachAdjacent,
 			report, std::hash<Vertex>());
 	}
@@ -90,13 +106,13 @@ namespace Pastel
 		typename ForEachAdjacent,
 		typename Vertex_Reporter,
 		typename Vertex_Hash>
-	void traverseDepthFirst(
+	void traverseBreadthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
 		const Vertex_Reporter& report,
 		const Vertex_Hash& vertexHash)
 	{
-		TraverseDepthFirst<Vertex, ForEachSeedVertex, 
+		TraverseBreadthFirst<Vertex, ForEachSeedVertex, 
 			ForEachAdjacent, Vertex_Reporter, Vertex_Hash> work(
 			forEachSeedVertex, forEachAdjacent,
 			report, vertexHash);
