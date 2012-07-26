@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Build files">
+      <UniqueIdentifier>{080cdbda-2e39-4bf5-accf-7110fa2c0b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PointKdTree">
+      <UniqueIdentifier>{320b432f-93f8-4f3a-ba22-d692b9fb8f95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Point pattern matching">
+      <UniqueIdentifier>{1ae2b953-6d16-42f9-bb9e-9baf272235ae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build_pastelgeometrymatlab.m">
+      <Filter>Build files</Filter>
+    </None>
+    <None Include="build_pastelgeometrymatlab.txt">
+      <Filter>Build files</Filter>
+    </None>
+    <None Include="build_pastelgeometrymatlab_debug.m">
+      <Filter>Build files</Filter>
+    </None>
+    <None Include="build_pastelgeometrymatlab_develop.m">
+      <Filter>Build files</Filter>
+    </None>
+    <None Include="build_pastelgeometrymatlab_release_without_openmp.m">
+      <Filter>Build files</Filter>
+    </None>
+    <None Include="check.m">
+      <Filter>Build files</Filter>
+    </None>
+    <None Include="matlab_pointkdtree.txt">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_as_points.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_clear.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_construct.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_copy.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_destruct.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_dimension.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_erase.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_hide.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_insert.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_leaves.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_merge.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_nodes.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_points.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_refine.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_search_nearest.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pointkdtree_show.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="test_pointkdtree.m">
+      <Filter>PointKdTree</Filter>
+    </None>
+    <None Include="pastel_point_pattern_match.m">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="pastel_point_pattern_match_gmo.m">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="point_pattern_match.txt">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="test_point_pattern_match.m">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="test_point_pattern_match_gmo.m">
+      <Filter>Point pattern matching</Filter>
+    </None>
+    <None Include="pastelgeometrymatlab.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="matlab_pointkdtree.cpp">
+      <Filter>PointKdTree</Filter>
+    </ClCompile>
+    <ClCompile Include="matlab_point_pattern_match.cpp">
+      <Filter>Point pattern matching</Filter>
+    </ClCompile>
+    <ClCompile Include="matlab_point_pattern_match_gmo.cpp">
+      <Filter>Point pattern matching</Filter>
+    </ClCompile>
+    <ClCompile Include="pastelgeometrymatlab.cpp" />
+  </ItemGroup>
+</Project>

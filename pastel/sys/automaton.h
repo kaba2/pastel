@@ -124,6 +124,9 @@ namespace Pastel
 		and X is a symbol, this multi-map contains all the
 		edges from state q with symbol X. There might be
 		many such edges if the automaton is non-deterministic.
+		However, there must not be multiple transitions between
+		two states with the same symbol; the relation from
+		transitions to states is a partial function.
 		*/
 		TransitionSet transitionSet_;
 

@@ -43,15 +43,16 @@ namespace Pastel
 			instead for performance. However, this is not 
 			required.
 			*/
-			Codomain operator()(const Domain& x);
+			Codomain operator()(const Domain& x) const;
 		};
 
 		//! Visits each x in X.
 		class ForEachDomain
 		{
+		public:
 			//! Visits each x in X.
 			void operator()(
-				const std::function<void(const Domain&)>& visitor);
+				const std::function<void(const Domain&)>& visitor) const;
 		};
 
 		//! Visits each x' in X such that x ~ x'.
@@ -61,7 +62,7 @@ namespace Pastel
 			//! Visits each x' in X such that x ~ x'.
 			void operator()(
 				const Domain& x,
-				const std::function<void(const Domain&)>& visitor);
+				const std::function<void(const Domain&)>& visitor) const;
 		};
 
 	}

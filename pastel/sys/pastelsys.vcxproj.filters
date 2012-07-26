@@ -1,0 +1,1963 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Data structures">
+      <UniqueIdentifier>{177d9222-95fa-469c-8271-54e6e3001733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Array">
+      <UniqueIdentifier>{7f9f7c16-c4b0-4616-9514-2e07849f340f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\FastList">
+      <UniqueIdentifier>{ed37438f-7c40-496b-bfe2-71e7ca4d8aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Views">
+      <UniqueIdentifier>{ab8e924c-50d9-4258-9358-b979ec1091b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Views\Extended ConstView">
+      <UniqueIdentifier>{2b4b1267-e624-4935-adef-b0565d5f6de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Views\Concrete views">
+      <UniqueIdentifier>{aa4b59af-3b1c-4066-a47b-ac51d2dd592c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Binary trees">
+      <UniqueIdentifier>{b47fa53d-445b-40ce-a24b-8b796db7adcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Binary trees\Red-black tree">
+      <UniqueIdentifier>{90540cfa-04ac-4620-a7a0-91280b05c920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Binary trees\Red-black tree\RbtPolicy">
+      <UniqueIdentifier>{16e96d00-a036-4616-8d26-27b5be104ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management">
+      <UniqueIdentifier>{74934457-0729-48aa-92fa-ac4de916f335}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management\Allocators">
+      <UniqueIdentifier>{6b47a3f7-f4c8-45ce-8eef-9f812940db3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management\Allocators\Arena allocator">
+      <UniqueIdentifier>{c02a1168-4c9d-4e76-b54c-986ce22571f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management\Allocators\Native allocator">
+      <UniqueIdentifier>{ab61edef-7ab6-4e19-942e-2a2ac7914526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management\Allocators\Pool allocator">
+      <UniqueIdentifier>{1210ecc8-c4cf-4760-9ec9-ac76b8dc3799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management\Reference counted pointers">
+      <UniqueIdentifier>{ab5ef608-17c7-4724-918e-9fbc08a559ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{b55b11a8-f620-47f0-89ce-eecbba8f0274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing\Invariant checking">
+      <UniqueIdentifier>{e8428331-5ef2-4b0f-8840-f1c9f00b91e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing\Unit testing">
+      <UniqueIdentifier>{314613f8-2ad7-4da3-bfd3-d585013aa6ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics">
+      <UniqueIdentifier>{4d27e504-fa20-4079-addb-597765cce017}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Vector">
+      <UniqueIdentifier>{3a0c9dc6-c811-49f1-b2d7-7a6e9d1a9434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Vector\Vector expressions">
+      <UniqueIdentifier>{f9c51a28-c704-42ae-bd28-3099e90f79ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Tuple">
+      <UniqueIdentifier>{c6c219c5-e94e-4de6-821f-769977e71b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Point policy">
+      <UniqueIdentifier>{8acb854b-9df8-4cc1-95b4-95d0e13673bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers">
+      <UniqueIdentifier>{ec287345-0fa9-48a0-908d-d575b4ed0ad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Real numbers">
+      <UniqueIdentifier>{3fb1441a-b737-412e-b080-34918425bbed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Real numbers\Native reals">
+      <UniqueIdentifier>{1e218163-f841-4446-87f5-53d35c1e10b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Real numbers\StatReal">
+      <UniqueIdentifier>{5898d824-cb60-49d4-b266-88d38830fab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Real numbers\Rational">
+      <UniqueIdentifier>{a9c6f5fb-df0d-4235-9bba-cf161b9c2dcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Integers">
+      <UniqueIdentifier>{67cb670d-a5d2-4ea1-bbf8-fcbb1df2c4c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Integers\BigInteger">
+      <UniqueIdentifier>{56732e87-81f4-407c-8dfc-1581c1343b3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Integers\Native integers">
+      <UniqueIdentifier>{a4321b02-fbea-4245-900a-f30ae1c0454c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Numbers\Integers\Primes">
+      <UniqueIdentifier>{c3e61663-8796-423d-881f-e38bca560f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Rectangles">
+      <UniqueIdentifier>{7975d37e-647d-45c1-a48f-aa900f285b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Rectangles\PositionVisitor concept">
+      <UniqueIdentifier>{49cedcfe-03e2-4dbe-89b3-22e6b19cd571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mathematics\Functions">
+      <UniqueIdentifier>{fae791ad-fd49-4413-85ba-4c544cec7b37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous">
+      <UniqueIdentifier>{7abe37f2-395f-40f0-9cfe-c25e8515d0e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous\Guid">
+      <UniqueIdentifier>{b5494c76-ea46-4ee2-8c81-a3ed93000839}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous\BinaryFile">
+      <UniqueIdentifier>{1766e5a0-f314-421c-b7cc-823c9888022d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous\AbstractArray">
+      <UniqueIdentifier>{154505de-bdfb-4c53-b51f-8f0b74c41178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous\IndexAllocator">
+      <UniqueIdentifier>{c2242d11-83bb-4f88-be45-d8aafc2393d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous\CommaFiller">
+      <UniqueIdentifier>{16393aca-156d-4981-86ec-6e3de53bbefb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Configuration files">
+      <UniqueIdentifier>{4e8adf2c-e82f-47d5-8e79-939831e45ffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Random variables">
+      <UniqueIdentifier>{920aae68-e54f-4852-8b94-b3d9baf2776c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Random variables\Continuous random variables">
+      <UniqueIdentifier>{d2102a54-3ce3-4667-9f19-c33750dbe5bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Random variables\Discrete random variables">
+      <UniqueIdentifier>{f78d267c-65a6-45d9-a1cc-b84d64b93dc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Random variables\Goodness-of-fit">
+      <UniqueIdentifier>{983fda47-f78b-4fe4-8885-34b2209251e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Documentation">
+      <UniqueIdentifier>{7ea3a8e3-c92e-4a19-a93f-f3da5f5b7b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not sure if good ideas">
+      <UniqueIdentifier>{1c033986-6f87-4959-983f-9e39e7b534bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not sure if good ideas\ListArray">
+      <UniqueIdentifier>{c08488ab-f715-4814-87af-54f88d70ff45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not sure if good ideas\IndexExtender">
+      <UniqueIdentifier>{6b4d1ccd-16fe-461f-91db-0d9540fd652d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not sure if good ideas\IndexExtender\Concrete index extenders">
+      <UniqueIdentifier>{570defec-c8d4-4199-9872-7503ef8f658c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Not sure if good ideas\AnyStorage">
+      <UniqueIdentifier>{35fdc2e2-ad82-4127-9767-661b32bc975b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Portability">
+      <UniqueIdentifier>{5a0ae4e4-4b17-495e-84a3-1225cb2d4c84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Portability\Endian conversion">
+      <UniqueIdentifier>{e0f8e40f-6344-47d8-98e0-2611df06062f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Build system">
+      <UniqueIdentifier>{c4f95b42-bba3-4467-8df6-ce6ebf5e2200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Build system\Build switches">
+      <UniqueIdentifier>{38c1d271-ef2b-451c-98a8-1918cd8471dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting">
+      <UniqueIdentifier>{0c07b3fe-e4ab-495a-806d-1f40ddc0cf4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting\Logging">
+      <UniqueIdentifier>{63069449-936a-4723-af80-7656b2e76864}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting\Logging\Loggers">
+      <UniqueIdentifier>{01cde380-1f48-4295-ab1b-b090123ff9a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting\Logging\Loggers\File logger">
+      <UniqueIdentifier>{fb7bdee2-20bc-44e9-b657-27e069a5fdb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting\Logging\Loggers\Stream logger">
+      <UniqueIdentifier>{8d28de16-8d8b-4c84-82a2-abeb202ffbb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting\Progress reporting">
+      <UniqueIdentifier>{1be0e037-eba4-45f1-a829-a016dfb772d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Reporting\MeasureTable">
+      <UniqueIdentifier>{86f43b1e-2d86-4c69-a8b3-2a0664a870ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming">
+      <UniqueIdentifier>{12ec9aec-c46f-495d-8f12-8946eb61fee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Reporters">
+      <UniqueIdentifier>{0404dc87-241c-42a6-b314-b2f35d5411a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Ranges">
+      <UniqueIdentifier>{43f40f0d-f70d-4ae8-b598-65a83ab84716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Ranges\Concrete ranges">
+      <UniqueIdentifier>{884ae438-aa39-42b9-b2ce-a0be6934004f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Ranges\Concrete ranges\Iterator ranges">
+      <UniqueIdentifier>{3d16013e-8a00-4070-90e4-e259bd970645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Ranges\Range concepts">
+      <UniqueIdentifier>{e02d3ce6-4e19-4bdf-a653-d579d2db3d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Ranges\Algorithms">
+      <UniqueIdentifier>{eea0cea8-129a-4da3-b65d-55e8461c571e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Iterators">
+      <UniqueIdentifier>{7f27277d-6a22-45a4-a252-6bf580272444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Algorithm objects">
+      <UniqueIdentifier>{4f488cbc-2d22-40d9-afd1-880be6e12db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Algorithm objects\Range algorithms">
+      <UniqueIdentifier>{054f358d-4652-47f8-babe-c54db909906d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Algorithm objects\Predicates">
+      <UniqueIdentifier>{d9ac788b-ed4a-4cef-b0cf-301a68e9198b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\As_Pair concept">
+      <UniqueIdentifier>{cf02d9d6-d132-4618-a097-aab59d48dd7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Binary trees\Generic tree">
+      <UniqueIdentifier>{ab79aac2-1d7f-4e12-ae5b-b8cf151be275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory management\Cloning pointer">
+      <UniqueIdentifier>{7a18128a-56dd-472e-ad6b-6b4f2f9a7aea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Read protection">
+      <UniqueIdentifier>{e5b151ca-a9dc-4d99-ade5-d63b54022d10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms">
+      <UniqueIdentifier>{4b6e11bf-1a3b-4e14-a400-8abf8f2af7df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\String algorithms">
+      <UniqueIdentifier>{2e2bb666-a740-4452-a2ff-d4ab99cb057c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Bit tricks">
+      <UniqueIdentifier>{9fda24a2-f192-4f73-9e73-cffd70c8e92c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Sequence algorithms">
+      <UniqueIdentifier>{d2d4cc81-01e9-4c81-a7db-754eb1382af8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms">
+      <UniqueIdentifier>{13d671f5-e952-479a-b0ef-c609631413bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Maximum bipartite matching">
+      <UniqueIdentifier>{e9c837ea-4c91-4888-8ce0-caed987f47e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Functional transitive closure">
+      <UniqueIdentifier>{3d71038a-5451-4d74-aa3e-760b5799971f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Incidence graph">
+      <UniqueIdentifier>{f0efaad4-f75e-4bf6-a5b6-c5a47e299a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Finite-state automaton">
+      <UniqueIdentifier>{99dc3905-0adb-4444-888f-d014bc0e2ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Refinable partition">
+      <UniqueIdentifier>{760f0172-3b89-4737-b57c-095dc1887160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Hashing">
+      <UniqueIdentifier>{2e8d68e2-42c1-4fc4-9a23-6c640ead7acc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Iterators\Second iterator">
+      <UniqueIdentifier>{09fe0d04-f703-4636-b9e2-c960732fb837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms">
+      <UniqueIdentifier>{60a4329b-e3ab-48f8-8ac9-26621abfc6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Depth-first traversal">
+      <UniqueIdentifier>{b8fc0ab2-2d16-4f2d-9dec-c242d52820a6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="data_structures.h">
+      <Filter>Data structures</Filter>
+    </ClInclude>
+    <ClInclude Include="array.h">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="array.hpp">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="subarray.h">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="subarray_iterator.h">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="subarray_tools.h">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="subarray_tools.hpp">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="fastlist.h">
+      <Filter>Data structures\FastList</Filter>
+    </ClInclude>
+    <ClInclude Include="fastlist.hpp">
+      <Filter>Data structures\FastList</Filter>
+    </ClInclude>
+    <ClInclude Include="fastlist_tools.h">
+      <Filter>Data structures\FastList</Filter>
+    </ClInclude>
+    <ClInclude Include="fastlist_tools.hpp">
+      <Filter>Data structures\FastList</Filter>
+    </ClInclude>
+    <ClInclude Include="fastlistprivate.hpp">
+      <Filter>Data structures\FastList</Filter>
+    </ClInclude>
+    <ClInclude Include="hash.h">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="hash.hpp">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="view.h">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_tools.h">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_tools.hpp">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_visit.h">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_visit.hpp">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_visit_more.h">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_visit_more.hpp">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_visit_more2.h">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="view_visit_more2.hpp">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="views.h">
+      <Filter>Data structures\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="borderedconstview.h">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </ClInclude>
+    <ClInclude Include="clampedconstview.h">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </ClInclude>
+    <ClInclude Include="extendedconstview.h">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </ClInclude>
+    <ClInclude Include="extendedconstviews.h">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </ClInclude>
+    <ClInclude Include="mirroredconstview.h">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </ClInclude>
+    <ClInclude Include="repeatedconstview.h">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </ClInclude>
+    <ClInclude Include="adaptedview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="adaptedviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="concrete_views.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="cursorview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="mirrorview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="mirrorviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="permutedview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="permutedviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="rowview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="rowviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="sliceview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="sliceviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="sparseview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="sparseviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="subview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="transformedview.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="transformedviewcursor.h">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree.h">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree.hpp">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_erase.hpp">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_insert.hpp">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_iterator.h">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_node.h">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_private.hpp">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_tools.h">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_tools.hpp">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="map_rbtpolicy.h">
+      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
+    </ClInclude>
+    <ClInclude Include="rbtpolicies.h">
+      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
+    </ClInclude>
+    <ClInclude Include="rbtpolicy_concept.h">
+      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
+    </ClInclude>
+    <ClInclude Include="set_rbtpolicy.h">
+      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>Data structures\Binary trees\Generic tree</Filter>
+    </ClInclude>
+    <ClInclude Include="tree_iterator.h">
+      <Filter>Data structures\Binary trees\Generic tree</Filter>
+    </ClInclude>
+    <ClInclude Include="tree_node.h">
+      <Filter>Data structures\Binary trees\Generic tree</Filter>
+    </ClInclude>
+    <ClInclude Include="addressof.h">
+      <Filter>Memory management</Filter>
+    </ClInclude>
+    <ClInclude Include="addressof.hpp">
+      <Filter>Memory management</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.h">
+      <Filter>Memory management</Filter>
+    </ClInclude>
+    <ClInclude Include="memory_overlaps.h">
+      <Filter>Memory management</Filter>
+    </ClInclude>
+    <ClInclude Include="allocators.h">
+      <Filter>Memory management\Allocators</Filter>
+    </ClInclude>
+    <ClInclude Include="countedptr.h">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="countedptr.hpp">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="referencecounted.h">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="referencecounted.hpp">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="weakptr.h">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="weakptr.hpp">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClInclude>
+    <ClInclude Include="testing.h">
+      <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="ensure.h">
+      <Filter>Testing\Invariant checking</Filter>
+    </ClInclude>
+    <ClInclude Include="ensure.hpp">
+      <Filter>Testing\Invariant checking</Filter>
+    </ClInclude>
+    <ClInclude Include="testreport.h">
+      <Filter>Testing\Unit testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testrunner.h">
+      <Filter>Testing\Unit testing</Filter>
+    </ClInclude>
+    <ClInclude Include="testsuite.h">
+      <Filter>Testing\Unit testing</Filter>
+    </ClInclude>
+    <ClInclude Include="unit_testing.h">
+      <Filter>Testing\Unit testing</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.h">
+      <Filter>Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="constants.hpp">
+      <Filter>Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="histogram.h">
+      <Filter>Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="histogram.hpp">
+      <Filter>Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="maths.h">
+      <Filter>Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="topology.h">
+      <Filter>Mathematics</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.hpp">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_compare.h">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_compare.hpp">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_tools.h">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_tools.hpp">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_tools_more.h">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_tools_more.hpp">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="vectorbase.h">
+      <Filter>Mathematics\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="array_vectorexpression.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="binary_vectorexpression.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="binary_vectorexpression_detail.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="unary_vectorexpression.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="unary_vectorexpression_detail.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="vectorexpression.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="vectorexpression_concept.h">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple.h">
+      <Filter>Mathematics\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple.hpp">
+      <Filter>Mathematics\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple_tools.h">
+      <Filter>Mathematics\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple_tools.hpp">
+      <Filter>Mathematics\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="tuplebase.h">
+      <Filter>Mathematics\Tuple</Filter>
+    </ClInclude>
+    <ClInclude Include="array_pointpolicy.h">
+      <Filter>Mathematics\Point policy</Filter>
+    </ClInclude>
+    <ClInclude Include="pointpolicies.h">
+      <Filter>Mathematics\Point policy</Filter>
+    </ClInclude>
+    <ClInclude Include="pointpolicy_concept.h">
+      <Filter>Mathematics\Point policy</Filter>
+    </ClInclude>
+    <ClInclude Include="vector_pointpolicy.h">
+      <Filter>Mathematics\Point policy</Filter>
+    </ClInclude>
+    <ClInclude Include="numbers.h">
+      <Filter>Mathematics\Numbers</Filter>
+    </ClInclude>
+    <ClInclude Include="real_concept.h">
+      <Filter>Mathematics\Numbers\Real numbers</Filter>
+    </ClInclude>
+    <ClInclude Include="real_concept.hpp">
+      <Filter>Mathematics\Numbers\Real numbers</Filter>
+    </ClInclude>
+    <ClInclude Include="reals.h">
+      <Filter>Mathematics\Numbers\Real numbers</Filter>
+    </ClInclude>
+    <ClInclude Include="double_real.h">
+      <Filter>Mathematics\Numbers\Real numbers\Native reals</Filter>
+    </ClInclude>
+    <ClInclude Include="double_real.hpp">
+      <Filter>Mathematics\Numbers\Real numbers\Native reals</Filter>
+    </ClInclude>
+    <ClInclude Include="float_real.h">
+      <Filter>Mathematics\Numbers\Real numbers\Native reals</Filter>
+    </ClInclude>
+    <ClInclude Include="float_real.hpp">
+      <Filter>Mathematics\Numbers\Real numbers\Native reals</Filter>
+    </ClInclude>
+    <ClInclude Include="statreal.h">
+      <Filter>Mathematics\Numbers\Real numbers\StatReal</Filter>
+    </ClInclude>
+    <ClInclude Include="statreal_tools.h">
+      <Filter>Mathematics\Numbers\Real numbers\StatReal</Filter>
+    </ClInclude>
+    <ClInclude Include="rational.h">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </ClInclude>
+    <ClInclude Include="rational.hpp">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </ClInclude>
+    <ClInclude Include="rational_more.h">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </ClInclude>
+    <ClInclude Include="rational_more.hpp">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </ClInclude>
+    <ClInclude Include="rational_tools.h">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </ClInclude>
+    <ClInclude Include="rational_tools.hpp">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </ClInclude>
+    <ClInclude Include="integer_concept.h">
+      <Filter>Mathematics\Numbers\Integers</Filter>
+    </ClInclude>
+    <ClInclude Include="integer_tools.h">
+      <Filter>Mathematics\Numbers\Integers</Filter>
+    </ClInclude>
+    <ClInclude Include="integer_tools.hpp">
+      <Filter>Mathematics\Numbers\Integers</Filter>
+    </ClInclude>
+    <ClInclude Include="integers.h">
+      <Filter>Mathematics\Numbers\Integers</Filter>
+    </ClInclude>
+    <ClInclude Include="biginteger.h">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClInclude>
+    <ClInclude Include="biginteger_more.h">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClInclude>
+    <ClInclude Include="biginteger_more.hpp">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClInclude>
+    <ClInclude Include="biginteger_tools.h">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClInclude>
+    <ClInclude Include="integer_integer.h">
+      <Filter>Mathematics\Numbers\Integers\Native integers</Filter>
+    </ClInclude>
+    <ClInclude Include="integer_integer.hpp">
+      <Filter>Mathematics\Numbers\Integers\Native integers</Filter>
+    </ClInclude>
+    <ClInclude Include="primes.h">
+      <Filter>Mathematics\Numbers\Integers\Primes</Filter>
+    </ClInclude>
+    <ClInclude Include="alignedbox.h">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="alignedbox.hpp">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="alignedbox_tools.h">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="alignedbox_tools.hpp">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="alignedboxbase.h">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="alignedboxbase.hpp">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="difference_alignedbox_alignedbox.h">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="difference_alignedbox_alignedbox.hpp">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="intersect_alignedbox_alignedbox.h">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="intersect_alignedbox_alignedbox.hpp">
+      <Filter>Mathematics\Rectangles</Filter>
+    </ClInclude>
+    <ClInclude Include="positionvisitor_concept.h">
+      <Filter>Mathematics\Rectangles\PositionVisitor concept</Filter>
+    </ClInclude>
+    <ClInclude Include="angles.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="angles.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="bernstein.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="bernstein.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="beta.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="beta.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="binomial.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="binomial.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="clamp.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="clamp.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="digamma.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="digamma.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="eps.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="eps.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="error.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="error.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="factorial.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="factorial.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="gamma.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="gamma.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="harmonic.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="harmonic.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="lexicographic.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="lexicographic.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="linear.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="linear.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="logarithm.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="logarithm.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="math_functions.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="math_functions.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="minmax.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="minmax.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="mod.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="mod.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="number_tests.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="number_tests.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="powers.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="powers.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="quadratic.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="quadratic.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="quantization.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="quantization.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="rounding.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="rounding.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="scale_integer.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="scale_integer.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="sinc.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="sinc.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="tristate.h">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="tristate.hpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="callfunction.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="callfunction.hpp">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="keyvalue.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="possiblyemptymember.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="prototypefactory.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="prototypefactory.hpp">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="subset.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="guid.h">
+      <Filter>Miscellaneous\Guid</Filter>
+    </ClInclude>
+    <ClInclude Include="guid.hpp">
+      <Filter>Miscellaneous\Guid</Filter>
+    </ClInclude>
+    <ClInclude Include="binaryfile.h">
+      <Filter>Miscellaneous\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="abstractarray.h">
+      <Filter>Miscellaneous\AbstractArray</Filter>
+    </ClInclude>
+    <ClInclude Include="adaptedarray.h">
+      <Filter>Miscellaneous\AbstractArray</Filter>
+    </ClInclude>
+    <ClInclude Include="indexallocator.h">
+      <Filter>Miscellaneous\IndexAllocator</Filter>
+    </ClInclude>
+    <ClInclude Include="indexallocator.hpp">
+      <Filter>Miscellaneous\IndexAllocator</Filter>
+    </ClInclude>
+    <ClInclude Include="commafiller.h">
+      <Filter>Miscellaneous\CommaFiller</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Configuration files</Filter>
+    </ClInclude>
+    <ClInclude Include="config.hpp">
+      <Filter>Configuration files</Filter>
+    </ClInclude>
+    <ClInclude Include="config_tools.h">
+      <Filter>Configuration files</Filter>
+    </ClInclude>
+    <ClInclude Include="config_tools.hpp">
+      <Filter>Configuration files</Filter>
+    </ClInclude>
+    <ClInclude Include="configfile.h">
+      <Filter>Configuration files</Filter>
+    </ClInclude>
+    <ClInclude Include="configuration.h">
+      <Filter>Configuration files</Filter>
+    </ClInclude>
+    <ClInclude Include="random.h">
+      <Filter>Random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_beta.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_beta.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_cauchy.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_cauchy.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_chisquared.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_chisquared.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_continuous.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_dirichlet.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_dirichlet.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_exponential.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_exponential.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_gamma.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_gamma.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_gaussian.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_gaussian.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_generalizedgaussian.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_generalizedgaussian.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_laplace.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_laplace.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_lognormal.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_lognormal.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_triangle.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_triangle.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_uniform.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_uniform.hpp">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="randomdistribution.h">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="mt19937.h">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_discrete.h">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_integer.h">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_integer.hpp">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_sampling_tree.h">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </ClInclude>
+    <ClInclude Include="random_anderson_darling.h">
+      <Filter>Random variables\Goodness-of-fit</Filter>
+    </ClInclude>
+    <ClInclude Include="random_anderson_darling.hpp">
+      <Filter>Random variables\Goodness-of-fit</Filter>
+    </ClInclude>
+    <ClInclude Include="random_goodness.h">
+      <Filter>Random variables\Goodness-of-fit</Filter>
+    </ClInclude>
+    <ClInclude Include="random_kolmogorov_smirnov.h">
+      <Filter>Random variables\Goodness-of-fit</Filter>
+    </ClInclude>
+    <ClInclude Include="random_kolmogorov_smirnov.hpp">
+      <Filter>Random variables\Goodness-of-fit</Filter>
+    </ClInclude>
+    <ClInclude Include="listarray.h">
+      <Filter>Not sure if good ideas\ListArray</Filter>
+    </ClInclude>
+    <ClInclude Include="listarray.hpp">
+      <Filter>Not sure if good ideas\ListArray</Filter>
+    </ClInclude>
+    <ClInclude Include="arrayextender.h">
+      <Filter>Not sure if good ideas\IndexExtender</Filter>
+    </ClInclude>
+    <ClInclude Include="indexextender.h">
+      <Filter>Not sure if good ideas\IndexExtender</Filter>
+    </ClInclude>
+    <ClInclude Include="indexextenders.h">
+      <Filter>Not sure if good ideas\IndexExtender</Filter>
+    </ClInclude>
+    <ClInclude Include="clampextender.h">
+      <Filter>Not sure if good ideas\IndexExtender\Concrete index extenders</Filter>
+    </ClInclude>
+    <ClInclude Include="mirrorextender.h">
+      <Filter>Not sure if good ideas\IndexExtender\Concrete index extenders</Filter>
+    </ClInclude>
+    <ClInclude Include="repeatextender.h">
+      <Filter>Not sure if good ideas\IndexExtender\Concrete index extenders</Filter>
+    </ClInclude>
+    <ClInclude Include="anystorage.h">
+      <Filter>Not sure if good ideas\AnyStorage</Filter>
+    </ClInclude>
+    <ClInclude Include="basic_algorithms.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="isnan.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="syscommon.h">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="syscommon.hpp">
+      <Filter>Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="string_algorithms.h">
+      <Filter>Algorithms\String algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="string_algorithms.hpp">
+      <Filter>Algorithms\String algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="bitquery.h">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="bitquery.hpp">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="bittrick.h">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="bittrick.hpp">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </ClInclude>
+    <ClInclude Include="copy_n.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="copy_n.hpp">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="destruct.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="destruct.hpp">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="insertion_sort.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="insertion_sort.hpp">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_subset.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="random_subset.hpp">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="sequence_algorithms.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="maximum_bipartite_matching.h">
+      <Filter>Algorithms\Graph algorithms\Maximum bipartite matching</Filter>
+    </ClInclude>
+    <ClInclude Include="maximum_bipartite_matching.hpp">
+      <Filter>Algorithms\Graph algorithms\Maximum bipartite matching</Filter>
+    </ClInclude>
+    <ClInclude Include="portability.h">
+      <Filter>Portability</Filter>
+    </ClInclude>
+    <ClInclude Include="endian.h">
+      <Filter>Portability\Endian conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="endian.hpp">
+      <Filter>Portability\Endian conversion</Filter>
+    </ClInclude>
+    <ClInclude Include="syslibrary.h">
+      <Filter>Build system</Filter>
+    </ClInclude>
+    <ClInclude Include="environment.h">
+      <Filter>Build system\Build switches</Filter>
+    </ClInclude>
+    <ClInclude Include="environment.hpp">
+      <Filter>Build system\Build switches</Filter>
+    </ClInclude>
+    <ClInclude Include="mytypes.h">
+      <Filter>Build system\Build switches</Filter>
+    </ClInclude>
+    <ClInclude Include="mytypes.hpp">
+      <Filter>Build system\Build switches</Filter>
+    </ClInclude>
+    <ClInclude Include="pastelomp.h">
+      <Filter>Build system\Build switches</Filter>
+    </ClInclude>
+    <ClInclude Include="pastelomp.hpp">
+      <Filter>Build system\Build switches</Filter>
+    </ClInclude>
+    <ClInclude Include="reporting.h">
+      <Filter>Reporting</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
+      <Filter>Reporting\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h">
+      <Filter>Reporting\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>Reporting\Logging\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="loggers.h">
+      <Filter>Reporting\Logging\Loggers</Filter>
+    </ClInclude>
+    <ClInclude Include="file_logger.h">
+      <Filter>Reporting\Logging\Loggers\File logger</Filter>
+    </ClInclude>
+    <ClInclude Include="stream_logger.h">
+      <Filter>Reporting\Logging\Loggers\Stream logger</Filter>
+    </ClInclude>
+    <ClInclude Include="progress.h">
+      <Filter>Reporting\Progress reporting</Filter>
+    </ClInclude>
+    <ClInclude Include="measuretable.h">
+      <Filter>Reporting\MeasureTable</Filter>
+    </ClInclude>
+    <ClInclude Include="measuretable_tools.h">
+      <Filter>Reporting\MeasureTable</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_reporter.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="null_reporter.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="push_back_reporter.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="range_reporter.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="reporter_concept.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="reporters.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="single_reporter.h">
+      <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="ranges.h">
+      <Filter>Generic programming\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="array_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="concrete_ranges.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="constant_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="finite_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="generated_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="reverse_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="stream_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="bidirectionaliterator_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="forwarditerator_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_range.hpp">
+      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="randomaccessiterator_range.h">
+      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="bidirectionalrange_concept.h">
+      <Filter>Generic programming\Ranges\Range concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="forwardrange_concept.h">
+      <Filter>Generic programming\Ranges\Range concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="randomaccessrange_concept.h">
+      <Filter>Generic programming\Ranges\Range concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="range_concepts.h">
+      <Filter>Generic programming\Ranges\Range concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="range_algorithms.h">
+      <Filter>Generic programming\Ranges\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="range_for_all.h">
+      <Filter>Generic programming\Ranges\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="range_for_all.hpp">
+      <Filter>Generic programming\Ranges\Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="iterators.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="algorithm_concept.h">
+      <Filter>Generic programming\Algorithm objects</Filter>
+    </ClInclude>
+    <ClInclude Include="rangealgorithm_concept.h">
+      <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="equalto.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="greaterequal.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="greaterthan.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="lessequal.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="lessthan.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="notequalto.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="predicate_concept.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="predicates.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="as_pair_concept.h">
+      <Filter>Generic programming\As_Pair concept</Filter>
+    </ClInclude>
+    <ClInclude Include="keyvalue_as_pair.h">
+      <Filter>Generic programming\As_Pair concept</Filter>
+    </ClInclude>
+    <ClInclude Include="stdpair_as_pair.h">
+      <Filter>Generic programming\As_Pair concept</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple_as_pair.h">
+      <Filter>Generic programming\As_Pair concept</Filter>
+    </ClInclude>
+    <ClInclude Include="pastelsys.h" />
+    <ClInclude Include="biginteger.hpp">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClInclude>
+    <ClInclude Include="array_cursor.h">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="clone_ptr.h">
+      <Filter>Memory management\Cloning pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="clone_ptr_concepts.h">
+      <Filter>Memory management\Cloning pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="clone_ptr_private.h">
+      <Filter>Memory management\Cloning pointer</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_predicate.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="transitive_closure_concepts.h">
+      <Filter>Algorithms\Graph algorithms\Functional transitive closure</Filter>
+    </ClInclude>
+    <ClInclude Include="transitive_closure.h">
+      <Filter>Algorithms\Graph algorithms\Functional transitive closure</Filter>
+    </ClInclude>
+    <ClInclude Include="transitive_closure.hpp">
+      <Filter>Algorithms\Graph algorithms\Functional transitive closure</Filter>
+    </ClInclude>
+    <ClInclude Include="graph_algorithms.h">
+      <Filter>Algorithms\Graph algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="read_protected.h">
+      <Filter>Generic programming\Read protection</Filter>
+    </ClInclude>
+    <ClInclude Include="incidence_graph.h">
+      <Filter>Data structures\Incidence graph</Filter>
+    </ClInclude>
+    <ClInclude Include="incidence_graph_edge.h">
+      <Filter>Data structures\Incidence graph</Filter>
+    </ClInclude>
+    <ClInclude Include="incidence_graph_fwd.h">
+      <Filter>Data structures\Incidence graph</Filter>
+    </ClInclude>
+    <ClInclude Include="incidence_graph_incidence.h">
+      <Filter>Data structures\Incidence graph</Filter>
+    </ClInclude>
+    <ClInclude Include="incidence_graph_vertex.h">
+      <Filter>Data structures\Incidence graph</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton.h">
+      <Filter>Data structures\Finite-state automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton.hpp">
+      <Filter>Data structures\Finite-state automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_fwd.h">
+      <Filter>Data structures\Finite-state automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="refinable_partition.h">
+      <Filter>Data structures\Refinable partition</Filter>
+    </ClInclude>
+    <ClInclude Include="refinable_partition_fwd.h">
+      <Filter>Data structures\Refinable partition</Filter>
+    </ClInclude>
+    <ClInclude Include="refinable_partition_element.h">
+      <Filter>Data structures\Refinable partition</Filter>
+    </ClInclude>
+    <ClInclude Include="constant_iterator.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="counting_iterator.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="null_iterator.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="sparse_iterator.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle_iterator.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="second_iterator.h">
+      <Filter>Generic programming\Iterators\Second iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="arena_allocator.h">
+      <Filter>Memory management\Allocators\Arena allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="arena_allocator.hpp">
+      <Filter>Memory management\Allocators\Arena allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="native_allocator.h">
+      <Filter>Memory management\Allocators\Native allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="native_allocator.hpp">
+      <Filter>Memory management\Allocators\Native allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="pool_allocator.h">
+      <Filter>Memory management\Allocators\Pool allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="pool_allocator.hpp">
+      <Filter>Memory management\Allocators\Pool allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="refinable_partition_set.h">
+      <Filter>Data structures\Refinable partition</Filter>
+    </ClInclude>
+    <ClInclude Include="minimize_automaton.h">
+      <Filter>Algorithms\Automaton algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="depth_first_traversal.h">
+      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="depth_first_traversal_concepts.h">
+      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="depth_first_traversal.hpp">
+      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data_structures.txt">
+      <Filter>Data structures</Filter>
+    </None>
+    <None Include="array.txt">
+      <Filter>Data structures\Array</Filter>
+    </None>
+    <None Include="fastlist.txt">
+      <Filter>Data structures\FastList</Filter>
+    </None>
+    <None Include="views.txt">
+      <Filter>Data structures\Views</Filter>
+    </None>
+    <None Include="extendedconstviews.txt">
+      <Filter>Data structures\Views\Extended ConstView</Filter>
+    </None>
+    <None Include="concrete_views.txt">
+      <Filter>Data structures\Views\Concrete views</Filter>
+    </None>
+    <None Include="redblacktree.txt">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </None>
+    <None Include="redblacktree_implementation.txt">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </None>
+    <None Include="rbtpolicies.txt">
+      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
+    </None>
+    <None Include="tree.txt">
+      <Filter>Data structures\Binary trees\Generic tree</Filter>
+    </None>
+    <None Include="tree_design.txt">
+      <Filter>Data structures\Binary trees\Generic tree</Filter>
+    </None>
+    <None Include="memory.txt">
+      <Filter>Memory management</Filter>
+    </None>
+    <None Include="allocators.txt">
+      <Filter>Memory management\Allocators</Filter>
+    </None>
+    <None Include="countedptr.txt">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </None>
+    <None Include="testing.txt">
+      <Filter>Testing</Filter>
+    </None>
+    <None Include="ensure.txt">
+      <Filter>Testing\Invariant checking</Filter>
+    </None>
+    <None Include="unit_testing.txt">
+      <Filter>Testing\Unit testing</Filter>
+    </None>
+    <None Include="maths.txt">
+      <Filter>Mathematics</Filter>
+    </None>
+    <None Include="why_no_points.txt">
+      <Filter>Mathematics</Filter>
+    </None>
+    <None Include="vector.txt">
+      <Filter>Mathematics\Vector</Filter>
+    </None>
+    <None Include="vector_design.txt">
+      <Filter>Mathematics\Vector</Filter>
+    </None>
+    <None Include="vectorexpression.txt">
+      <Filter>Mathematics\Vector\Vector expressions</Filter>
+    </None>
+    <None Include="tuple.txt">
+      <Filter>Mathematics\Tuple</Filter>
+    </None>
+    <None Include="pointpolicies.txt">
+      <Filter>Mathematics\Point policy</Filter>
+    </None>
+    <None Include="pointpolicy_design.txt">
+      <Filter>Mathematics\Point policy</Filter>
+    </None>
+    <None Include="numbers.txt">
+      <Filter>Mathematics\Numbers</Filter>
+    </None>
+    <None Include="reals.txt">
+      <Filter>Mathematics\Numbers\Real numbers</Filter>
+    </None>
+    <None Include="native_reals.txt">
+      <Filter>Mathematics\Numbers\Real numbers\Native reals</Filter>
+    </None>
+    <None Include="statreal.txt">
+      <Filter>Mathematics\Numbers\Real numbers\StatReal</Filter>
+    </None>
+    <None Include="rational.txt">
+      <Filter>Mathematics\Numbers\Real numbers\Rational</Filter>
+    </None>
+    <None Include="integers.txt">
+      <Filter>Mathematics\Numbers\Integers</Filter>
+    </None>
+    <None Include="biginteger.txt">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </None>
+    <None Include="integer_integer.txt">
+      <Filter>Mathematics\Numbers\Integers\Native integers</Filter>
+    </None>
+    <None Include="primes.txt">
+      <Filter>Mathematics\Numbers\Integers\Primes</Filter>
+    </None>
+    <None Include="alignedbox.txt">
+      <Filter>Mathematics\Rectangles</Filter>
+    </None>
+    <None Include="positionvisitor.txt">
+      <Filter>Mathematics\Rectangles\PositionVisitor concept</Filter>
+    </None>
+    <None Include="math_functions.txt">
+      <Filter>Mathematics\Functions</Filter>
+    </None>
+    <None Include="miscellaneous.txt">
+      <Filter>Miscellaneous</Filter>
+    </None>
+    <None Include="guid.txt">
+      <Filter>Miscellaneous\Guid</Filter>
+    </None>
+    <None Include="binaryfile.txt">
+      <Filter>Miscellaneous\BinaryFile</Filter>
+    </None>
+    <None Include="indexallocator.txt">
+      <Filter>Miscellaneous\IndexAllocator</Filter>
+    </None>
+    <None Include="commafiller.txt">
+      <Filter>Miscellaneous\CommaFiller</Filter>
+    </None>
+    <None Include="configuration.txt">
+      <Filter>Configuration files</Filter>
+    </None>
+    <None Include="random.txt">
+      <Filter>Random variables</Filter>
+    </None>
+    <None Include="random_beta.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_cauchy.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_chisquared.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_continuous.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_dirichlet.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_exponential.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_gamma.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_gaussian.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_generalizedgaussian.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_laplace.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_lognormal.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_triangle.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_uniform.txt">
+      <Filter>Random variables\Continuous random variables</Filter>
+    </None>
+    <None Include="random_discrete.txt">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </None>
+    <None Include="random_sampling_tree.txt">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </None>
+    <None Include="random_goodness.txt">
+      <Filter>Random variables\Goodness-of-fit</Filter>
+    </None>
+    <None Include="..\..\blog.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\dependencies.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\pastel.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\pastel_license.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\pastel_license_matlab.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="pastelsys.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\release_history.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\style_conventions.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_aggregation.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_deduction.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_enums.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_specialization.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_unsigned.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_warnings.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="notsure.txt">
+      <Filter>Not sure if good ideas</Filter>
+    </None>
+    <None Include="indexextenders.txt">
+      <Filter>Not sure if good ideas\IndexExtender</Filter>
+    </None>
+    <None Include="basic_algorithms.txt">
+      <Filter>Algorithms</Filter>
+    </None>
+    <None Include="string_algorithms.txt">
+      <Filter>Algorithms\String algorithms</Filter>
+    </None>
+    <None Include="bittrick.txt">
+      <Filter>Algorithms\Bit tricks</Filter>
+    </None>
+    <None Include="sequence_algorithms.txt">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </None>
+    <None Include="graph_algorithms.txt">
+      <Filter>Algorithms\Graph algorithms</Filter>
+    </None>
+    <None Include="maximum_bipartite_matching.txt">
+      <Filter>Algorithms\Graph algorithms\Maximum bipartite matching</Filter>
+    </None>
+    <None Include="portability.txt">
+      <Filter>Portability</Filter>
+    </None>
+    <None Include="endian.txt">
+      <Filter>Portability\Endian conversion</Filter>
+    </None>
+    <None Include="..\..\building.txt">
+      <Filter>Build system</Filter>
+    </None>
+    <None Include="..\..\premake4.lua">
+      <Filter>Build system</Filter>
+    </None>
+    <None Include="environment.txt">
+      <Filter>Build system\Build switches</Filter>
+    </None>
+    <None Include="reporting.txt">
+      <Filter>Reporting</Filter>
+    </None>
+    <None Include="logging.txt">
+      <Filter>Reporting\Logging</Filter>
+    </None>
+    <None Include="loggers.txt">
+      <Filter>Reporting\Logging\Loggers</Filter>
+    </None>
+    <None Include="file_logger.txt">
+      <Filter>Reporting\Logging\Loggers\File logger</Filter>
+    </None>
+    <None Include="stream_logger.txt">
+      <Filter>Reporting\Logging\Loggers\Stream logger</Filter>
+    </None>
+    <None Include="progress.txt">
+      <Filter>Reporting\Progress reporting</Filter>
+    </None>
+    <None Include="measuretable.txt">
+      <Filter>Reporting\MeasureTable</Filter>
+    </None>
+    <None Include="generic_programming.txt">
+      <Filter>Generic programming</Filter>
+    </None>
+    <None Include="iterator_reporter.txt">
+      <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="null_reporter.txt">
+      <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="push_back_reporter.txt">
+      <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="range_reporter.txt">
+      <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="reporters.txt">
+      <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="single_reporter.txt">
+      <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="ranges.txt">
+      <Filter>Generic programming\Ranges</Filter>
+    </None>
+    <None Include="array_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="concrete_ranges.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="constant_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="finite_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="generated_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="reverse_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="stream_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
+    </None>
+    <None Include="iterator_range.txt">
+      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
+    </None>
+    <None Include="range_concepts.txt">
+      <Filter>Generic programming\Ranges\Range concepts</Filter>
+    </None>
+    <None Include="range_algorithms.txt">
+      <Filter>Generic programming\Ranges\Algorithms</Filter>
+    </None>
+    <None Include="iterators.txt">
+      <Filter>Generic programming\Iterators</Filter>
+    </None>
+    <None Include="algorithm.txt">
+      <Filter>Generic programming\Algorithm objects</Filter>
+    </None>
+    <None Include="rangealgorithm.txt">
+      <Filter>Generic programming\Algorithm objects\Range algorithms</Filter>
+    </None>
+    <None Include="predicates.txt">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </None>
+    <None Include="as_pair_concept.txt">
+      <Filter>Generic programming\As_Pair concept</Filter>
+    </None>
+    <None Include="trees.txt">
+      <Filter>Data structures\Binary trees</Filter>
+    </None>
+    <None Include="clone_ptr.txt">
+      <Filter>Memory management\Cloning pointer</Filter>
+    </None>
+    <None Include="transitive_closure.txt">
+      <Filter>Algorithms\Graph algorithms\Functional transitive closure</Filter>
+    </None>
+    <None Include="read_protected.txt">
+      <Filter>Generic programming\Read protection</Filter>
+    </None>
+    <None Include="..\..\techniques_iterators.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="..\..\techniques_constcast.txt">
+      <Filter>Documentation</Filter>
+    </None>
+    <None Include="incidence_graph.txt">
+      <Filter>Data structures\Incidence graph</Filter>
+    </None>
+    <None Include="incidence_graph_notes.txt">
+      <Filter>Data structures\Incidence graph</Filter>
+    </None>
+    <None Include="automaton.txt">
+      <Filter>Data structures\Finite-state automaton</Filter>
+    </None>
+    <None Include="refinable_partition.txt">
+      <Filter>Data structures\Refinable partition</Filter>
+    </None>
+    <None Include="hash.txt">
+      <Filter>Data structures\Hashing</Filter>
+    </None>
+    <None Include="second_iterator.txt">
+      <Filter>Generic programming\Iterators\Second iterator</Filter>
+    </None>
+    <None Include="arena_allocator.txt">
+      <Filter>Memory management\Allocators\Arena allocator</Filter>
+    </None>
+    <None Include="native_allocator.txt">
+      <Filter>Memory management\Allocators\Native allocator</Filter>
+    </None>
+    <None Include="pool_allocator.txt">
+      <Filter>Memory management\Allocators\Pool allocator</Filter>
+    </None>
+    <None Include="pool_allocator_notes.txt">
+      <Filter>Memory management\Allocators\Pool allocator</Filter>
+    </None>
+    <None Include="depth_first_traversal.txt">
+      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="countedptr.cpp">
+      <Filter>Memory management\Reference counted pointers</Filter>
+    </ClCompile>
+    <ClCompile Include="ensure.cpp">
+      <Filter>Testing\Invariant checking</Filter>
+    </ClCompile>
+    <ClCompile Include="testreport.cpp">
+      <Filter>Testing\Unit testing</Filter>
+    </ClCompile>
+    <ClCompile Include="testrunner.cpp">
+      <Filter>Testing\Unit testing</Filter>
+    </ClCompile>
+    <ClCompile Include="testsuite.cpp">
+      <Filter>Testing\Unit testing</Filter>
+    </ClCompile>
+    <ClCompile Include="statreal.cpp">
+      <Filter>Mathematics\Numbers\Real numbers\StatReal</Filter>
+    </ClCompile>
+    <ClCompile Include="statreal_tools.cpp">
+      <Filter>Mathematics\Numbers\Real numbers\StatReal</Filter>
+    </ClCompile>
+    <ClCompile Include="biginteger.cpp">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClCompile>
+    <ClCompile Include="biginteger_tools.cpp">
+      <Filter>Mathematics\Numbers\Integers\BigInteger</Filter>
+    </ClCompile>
+    <ClCompile Include="primes.cpp">
+      <Filter>Mathematics\Numbers\Integers\Primes</Filter>
+    </ClCompile>
+    <ClCompile Include="digamma.cpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="factorial.cpp">
+      <Filter>Mathematics\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="subset.cpp">
+      <Filter>Miscellaneous</Filter>
+    </ClCompile>
+    <ClCompile Include="guid.cpp">
+      <Filter>Miscellaneous\Guid</Filter>
+    </ClCompile>
+    <ClCompile Include="binaryfile.cpp">
+      <Filter>Miscellaneous\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="abstractarray.cpp">
+      <Filter>Miscellaneous\AbstractArray</Filter>
+    </ClCompile>
+    <ClCompile Include="indexallocator.cpp">
+      <Filter>Miscellaneous\IndexAllocator</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>Configuration files</Filter>
+    </ClCompile>
+    <ClCompile Include="config_tools.cpp">
+      <Filter>Configuration files</Filter>
+    </ClCompile>
+    <ClCompile Include="configfile.cpp">
+      <Filter>Configuration files</Filter>
+    </ClCompile>
+    <ClCompile Include="mt19937.cpp">
+      <Filter>Random variables\Discrete random variables</Filter>
+    </ClCompile>
+    <ClCompile Include="string_algorithms.cpp">
+      <Filter>Algorithms\String algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="syslibrary.cpp">
+      <Filter>Build system</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>Reporting\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>Reporting\Logging\Loggers</Filter>
+    </ClCompile>
+    <ClCompile Include="file_logger.cpp">
+      <Filter>Reporting\Logging\Loggers\File logger</Filter>
+    </ClCompile>
+    <ClCompile Include="stream_logger.cpp">
+      <Filter>Reporting\Logging\Loggers\Stream logger</Filter>
+    </ClCompile>
+    <ClCompile Include="progress.cpp">
+      <Filter>Reporting\Progress reporting</Filter>
+    </ClCompile>
+    <ClCompile Include="measuretable.cpp">
+      <Filter>Reporting\MeasureTable</Filter>
+    </ClCompile>
+    <ClCompile Include="measuretable_tools.cpp">
+      <Filter>Reporting\MeasureTable</Filter>
+    </ClCompile>
+    <ClCompile Include="pastelsys.cpp" />
+    <ClCompile Include="arena_allocator.cpp">
+      <Filter>Memory management\Allocators\Arena allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="native_allocator.cpp">
+      <Filter>Memory management\Allocators\Native allocator</Filter>
+    </ClCompile>
+    <ClCompile Include="pool_allocator.cpp">
+      <Filter>Memory management\Allocators\Pool allocator</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -146,12 +146,16 @@
     <ClInclude Include="constant_iterator.h" />
     <ClInclude Include="counting_iterator.h" />
     <ClInclude Include="data_structures.h" />
+    <ClInclude Include="depth_first_traversal.h" />
+    <ClInclude Include="depth_first_traversal.hpp" />
+    <ClInclude Include="depth_first_traversal_concepts.h" />
     <ClInclude Include="graph_algorithms.h" />
     <ClInclude Include="incidence_graph.h" />
     <ClInclude Include="incidence_graph_edge.h" />
     <ClInclude Include="incidence_graph_fwd.h" />
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
+    <ClInclude Include="minimize_automaton.h" />
     <ClInclude Include="native_allocator.h" />
     <ClInclude Include="native_allocator.hpp" />
     <ClInclude Include="null_iterator.h" />
@@ -527,6 +531,7 @@
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
     <None Include="clone_ptr.txt" />
+    <None Include="depth_first_traversal.txt" />
     <None Include="hash.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />

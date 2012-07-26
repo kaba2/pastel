@@ -181,6 +181,7 @@
     <ClCompile Include="test_biginteger.cpp" />
     <ClCompile Include="test_cloneptr.cpp" />
     <ClCompile Include="test_config.cpp" />
+    <ClCompile Include="test_depth_first_traversal.cpp" />
     <ClCompile Include="test_endian.cpp" />
     <ClCompile Include="test_eps.cpp" />
     <ClCompile Include="test_fastlist.cpp" />

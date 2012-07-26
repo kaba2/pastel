@@ -175,7 +175,6 @@
   <ItemGroup>
     <ClCompile Include="test_uniform_distortion.cpp" />
     <ClCompile Include="test_matrix.cpp" />
-    <ClCompile Include="test_matrix2.cpp" />
     <ClCompile Include="test_cholesky_decomposition.cpp" />
     <ClCompile Include="test_lu_decomposition.cpp" />
     <ClCompile Include="test_qr_decomposition.cpp" />

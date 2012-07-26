@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Curve interpolation">
+      <UniqueIdentifier>{239a795d-6a52-4bac-b9ef-0b7567c387ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations">
+      <UniqueIdentifier>{90d27abd-aa7f-4ce1-9fb7-eabd9c0d34f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Affine transformation">
+      <UniqueIdentifier>{071b13c4-ecdf-46a7-8ecf-9e9ecee962d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Quaternion">
+      <UniqueIdentifier>{ac6dc408-4e76-4f84-b94a-a631ee0f7b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\AffineBijection">
+      <UniqueIdentifier>{3284e932-f496-4f8e-b0c8-297115f9cc71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra">
+      <UniqueIdentifier>{19147643-816d-4222-83fd-22e71ecaf547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix">
+      <UniqueIdentifier>{114a4a0d-e3ad-4e16-907c-11a74548f83e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix decompositions">
+      <UniqueIdentifier>{6e144c58-5ea8-45e5-9c0d-cfd653c76f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition">
+      <UniqueIdentifier>{9a864fbc-8e3d-49a8-ac75-b77b8554eb80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix decompositions\Lu decomposition">
+      <UniqueIdentifier>{ccde1e09-5c9d-4d79-9f64-a4eccc895ed5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix decompositions\Qr decomposition">
+      <UniqueIdentifier>{6371bed2-b346-4c03-9ec2-6ea2894f84ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Linear algebra\Matrix tools">
+      <UniqueIdentifier>{66118e9d-d46c-48e6-b121-13571a634ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\ConformalAffine2D">
+      <UniqueIdentifier>{c937e2ec-4fa1-4d19-840c-87ba72bc6d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{885a09f8-fe01-42cc-811e-3dc7474204ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Uniform distortion">
+      <UniqueIdentifier>{823fe47e-bb15-4ed1-8a4a-06408acbcd24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Polynomials">
+      <UniqueIdentifier>{d825242e-c60b-416d-ab3c-32472d496f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Coordinate conversions">
+      <UniqueIdentifier>{1856c0e1-f978-4a4a-8151-5d7ec58aee9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Norm bijections">
+      <UniqueIdentifier>{31e81b00-9391-4f91-bf24-ca4f1d9d361a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Low discrepancy sequences">
+      <UniqueIdentifier>{7063899b-93ef-4bf0-94aa-9645301be08d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Uniform sampling">
+      <UniqueIdentifier>{b1408134-2262-4fbc-90d1-9a4f34c62607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interval">
+      <UniqueIdentifier>{f542cf26-9eab-4678-96fe-ee7896fe8e66}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="crspline.h">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="crspline.hpp">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="hermite.h">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="hermite.hpp">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="interpolation.h">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="kbspline.h">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="kbspline.hpp">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="smoothstep.h">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="smoothstep.hpp">
+      <Filter>Curve interpolation</Filter>
+    </ClInclude>
+    <ClInclude Include="affinetransformation.h">
+      <Filter>Transformations\Affine transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="affinetransformation.hpp">
+      <Filter>Transformations\Affine transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="affinetransformation_tools.h">
+      <Filter>Transformations\Affine transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="affinetransformation_tools.hpp">
+      <Filter>Transformations\Affine transformation</Filter>
+    </ClInclude>
+    <ClInclude Include="quaternion.h">
+      <Filter>Transformations\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="quaternion.hpp">
+      <Filter>Transformations\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="affinebijection.h">
+      <Filter>Transformations\AffineBijection</Filter>
+    </ClInclude>
+    <ClInclude Include="affinebijection.hpp">
+      <Filter>Transformations\AffineBijection</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.hpp">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_dynamic.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_static.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrixexpression.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrixview.h">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="cholesky_decomposition.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="cholesky_decomposition.hpp">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="cholesky_decomposition_tools.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="cholesky_decomposition_tools.hpp">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="lu_decomposition.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="lu_decomposition.hpp">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="lu_decomposition_tools.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="lu_decomposition_tools.hpp">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="qr_decomposition.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="qr_decomposition.hpp">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="qr_decomposition_tools.h">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="qr_decomposition_tools.hpp">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools.h">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools.hpp">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more.h">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more.hpp">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more2.h">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more2.hpp">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more3.h">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more3.hpp">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more4.h">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix_tools_more4.hpp">
+      <Filter>Transformations\Linear algebra\Matrix tools</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d.h">
+      <Filter>Transformations\ConformalAffine2D</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d.hpp">
+      <Filter>Transformations\ConformalAffine2D</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_tools.h">
+      <Filter>Transformations\ConformalAffine2D</Filter>
+    </ClInclude>
+    <ClInclude Include="conformalaffine2d_tools.hpp">
+      <Filter>Transformations\ConformalAffine2D</Filter>
+    </ClInclude>
+    <ClInclude Include="mathlibrary.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="orthonormal.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="orthonormal.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="statistics.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="statistics.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="uniform_distortion.h">
+      <Filter>Uniform distortion</Filter>
+    </ClInclude>
+    <ClInclude Include="uniform_distortion.hpp">
+      <Filter>Uniform distortion</Filter>
+    </ClInclude>
+    <ClInclude Include="polynomial.h">
+      <Filter>Polynomials</Filter>
+    </ClInclude>
+    <ClInclude Include="polynomial.hpp">
+      <Filter>Polynomials</Filter>
+    </ClInclude>
+    <ClInclude Include="polynomial_tools.h">
+      <Filter>Polynomials</Filter>
+    </ClInclude>
+    <ClInclude Include="polynomial_tools.hpp">
+      <Filter>Polynomials</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinates.h">
+      <Filter>Coordinate conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinates.hpp">
+      <Filter>Coordinate conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinates_derivatives.h">
+      <Filter>Coordinate conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinates_derivatives.hpp">
+      <Filter>Coordinate conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="euclidean_normbijection.h">
+      <Filter>Norm bijections</Filter>
+    </ClInclude>
+    <ClInclude Include="manhattan_normbijection.h">
+      <Filter>Norm bijections</Filter>
+    </ClInclude>
+    <ClInclude Include="maximum_normbijection.h">
+      <Filter>Norm bijections</Filter>
+    </ClInclude>
+    <ClInclude Include="minkowski_normbijection.h">
+      <Filter>Norm bijections</Filter>
+    </ClInclude>
+    <ClInclude Include="normbijection_concept.h">
+      <Filter>Norm bijections</Filter>
+    </ClInclude>
+    <ClInclude Include="normbijections.h">
+      <Filter>Norm bijections</Filter>
+    </ClInclude>
+    <ClInclude Include="lowdiscrepancy.h">
+      <Filter>Low discrepancy sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="lowdiscrepancy.hpp">
+      <Filter>Low discrepancy sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="uniform_sampling.h">
+      <Filter>Uniform sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="uniform_sampling.hpp">
+      <Filter>Uniform sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="interval.h">
+      <Filter>Interval</Filter>
+    </ClInclude>
+    <ClInclude Include="interval.hpp">
+      <Filter>Interval</Filter>
+    </ClInclude>
+    <ClInclude Include="interval_tools.h">
+      <Filter>Interval</Filter>
+    </ClInclude>
+    <ClInclude Include="interval_tools.hpp">
+      <Filter>Interval</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="interpolation.txt">
+      <Filter>Curve interpolation</Filter>
+    </None>
+    <None Include="transformations.txt">
+      <Filter>Transformations</Filter>
+    </None>
+    <None Include="affinetransformation.txt">
+      <Filter>Transformations\Affine transformation</Filter>
+    </None>
+    <None Include="quaternion.txt">
+      <Filter>Transformations\Quaternion</Filter>
+    </None>
+    <None Include="affinebijection.txt">
+      <Filter>Transformations\AffineBijection</Filter>
+    </None>
+    <None Include="linear_algebra.txt">
+      <Filter>Transformations\Linear algebra</Filter>
+    </None>
+    <None Include="matrix.txt">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </None>
+    <None Include="matrix_notes.txt">
+      <Filter>Transformations\Linear algebra\Matrix</Filter>
+    </None>
+    <None Include="matrix_decompositions.txt">
+      <Filter>Transformations\Linear algebra\Matrix decompositions</Filter>
+    </None>
+    <None Include="cholesky_decomposition.txt">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Cholesky decomposition</Filter>
+    </None>
+    <None Include="lu_decomposition.txt">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Lu decomposition</Filter>
+    </None>
+    <None Include="qr_decomposition.txt">
+      <Filter>Transformations\Linear algebra\Matrix decompositions\Qr decomposition</Filter>
+    </None>
+    <None Include="conformalaffine2d.txt">
+      <Filter>Transformations\ConformalAffine2D</Filter>
+    </None>
+    <None Include="common.txt">
+      <Filter>Common</Filter>
+    </None>
+    <None Include="uniform_distortion.txt">
+      <Filter>Uniform distortion</Filter>
+    </None>
+    <None Include="polynomial.txt">
+      <Filter>Polynomials</Filter>
+    </None>
+    <None Include="coordinates.txt">
+      <Filter>Coordinate conversions</Filter>
+    </None>
+    <None Include="coordinates_derivatives.txt">
+      <Filter>Coordinate conversions</Filter>
+    </None>
+    <None Include="normbijection.txt">
+      <Filter>Norm bijections</Filter>
+    </None>
+    <None Include="lowdiscrepancy.txt">
+      <Filter>Low discrepancy sequences</Filter>
+    </None>
+    <None Include="uniform_sampling.txt">
+      <Filter>Uniform sampling</Filter>
+    </None>
+    <None Include="interval.txt">
+      <Filter>Interval</Filter>
+    </None>
+    <None Include="pastelmath.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mathlibrary.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -21,7 +21,12 @@ Alternatively, a finite-state automaton is a labeled directed
 state ''s in S'', and a set of final states ''F subset S'', where 
 the edges have been labeled with symbols ''Sigma'', and there is 
 a (unique) edge between ''a, b in S'' labeled ''t in Sigma'' 
-if and only if ''b in delta(a, t)''. 
+if and only if ''b in delta(a, t)''.
+
+A generalization which more closely resembles the practical 
+implementation of a finite-state automaton is given by only
+requiring the ''delta'' to be a partial function (i.e. a 
+single-valued relation).
 
 [Graph]: [[Ref: incidence_graph.txt]]
 
