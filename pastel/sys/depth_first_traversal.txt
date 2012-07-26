@@ -1,0 +1,5 @@
+Depth-first traversal
+=====================
+
+[[Parent]]: graph_algorithms.txt
+

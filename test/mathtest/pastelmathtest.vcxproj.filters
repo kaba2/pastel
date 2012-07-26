@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Uniform distortion">
+      <UniqueIdentifier>{f74946a4-eadb-4e9c-8bbb-950a1e504e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations">
+      <UniqueIdentifier>{241dacf2-fb56-49d4-8ae1-f4d464a5e987}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transformations\Decompositions">
+      <UniqueIdentifier>{79c125f5-a827-4f94-826c-291b32739e4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Numbers">
+      <UniqueIdentifier>{c8ee25c8-0ba3-4f74-8207-9495f4802094}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test_uniform_distortion.cpp">
+      <Filter>Uniform distortion</Filter>
+    </ClCompile>
+    <ClCompile Include="test_matrix.cpp">
+      <Filter>Transformations</Filter>
+    </ClCompile>
+    <ClCompile Include="test_cholesky_decomposition.cpp">
+      <Filter>Transformations\Decompositions</Filter>
+    </ClCompile>
+    <ClCompile Include="test_lu_decomposition.cpp">
+      <Filter>Transformations\Decompositions</Filter>
+    </ClCompile>
+    <ClCompile Include="test_qr_decomposition.cpp">
+      <Filter>Transformations\Decompositions</Filter>
+    </ClCompile>
+    <ClCompile Include="test_gcd.cpp">
+      <Filter>Numbers</Filter>
+    </ClCompile>
+    <ClCompile Include="mathinstantiate.cpp" />
+    <ClCompile Include="pastelmathtest.cpp" />
+    <ClCompile Include="test_common.cpp" />
+    <ClCompile Include="test_complex.cpp" />
+    <ClCompile Include="test_lowdiscrepancy.cpp" />
+    <ClCompile Include="test_polynomial.cpp" />
+    <ClCompile Include="test_smoothstep.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pastelmathtest.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pastelmathtest.txt" />
+  </ItemGroup>
+</Project>

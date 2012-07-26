@@ -1,0 +1,56 @@
+Matrix implementation notes
+===========================
+
+Requirements
+------------
+
+ * Vectors are matrices, to avoid repetition for vectors.
+ * Vectors can be row or column matrices.
+ * Matrix expressions should be evaluated lazily.
+ * The width and height of a matrix should not
+ be not stored with small matrices to save space
+ (e.g. 2-dimensional points). This is of course available
+ only if the width and height are compile-time constants.
+ * Dynamic allocation should not be used for small matrices,
+ since it has to store the number of allocated bytes.
+ * Do not specialize behaviour of small matrices with CRTP.
+ * Do not specialize dynamic and static matrices with CRTP.
+ * Do not allow for initialization by a single value in the 
+ constructor, to avoid ambiguities with specifying matrix size.
+ 
+Projected use cases
+-------------------
+ 
+Vector2(vector2(1, 2));
+Vector<real, 2>(vector<real, 2>(1, 2));
+
+==> Need initializer lists to make this
+
+Vector2{1, 2};
+Vector<real, 2>{1, 2};
+
+Matrix<real, 3, 3> a(3, 3); 
+ 
+General principle
+-----------------
+ 
+Avoid specializing specific configurations with CRTP 
+(such as 4x4 matrices etc). 
+
+1) It creates maintenance problems, since constructor and
+assignment delegation gets replicated over and over. In the other
+direction, if the generic interface gets added a constructor or
+an assignment, then it needs to be added to the specializations.
+
+2) It creates problems with genericy, since some functionality
+is only available for specific specializations. For example:
+forgetting to specify the size of a dynamically allocated matrix, 
+because the generic code is tested with a statically allocated 
+matrix (and there is a special constructor which does not require
+the size, since it is known).
+ 
+Instead, specialize the behaviour with matrix expressions
+(e.g. create a function returning a 4x4 matrix expression based on
+its 16 values). The static-dynamic specialization can be encapsulated 
+in the storage of the data.
+
