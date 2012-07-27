@@ -68,7 +68,7 @@ namespace Pastel
 				++vertex)
 			{
 				vertexMap[vertex] = 
-					copy.addVertex(vertex->data());
+					copy.addVertex(*vertex);
 			}
 
 			for (auto edge = that.cEdgeBegin();
@@ -78,7 +78,7 @@ namespace Pastel
 				copy.addEdge(
 					vertexMap[edge->from()],
 					vertexMap[edge->to()],
-					edge->data());
+					*edge);
 			}
 
 			swap(copy);

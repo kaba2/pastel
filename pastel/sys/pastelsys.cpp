@@ -4,10 +4,6 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/syslibrary.h"
 
-// These headers are here so that they
-// get dll-exported.
-#include "pastel/sys/possiblyemptymember.h"
-
 #include <climits>
 
 #include <boost/type_traits/is_signed.hpp>

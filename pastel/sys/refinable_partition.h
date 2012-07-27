@@ -68,8 +68,7 @@ namespace Pastel
 				++set)
 			{
 				// Create a copy-set.
-				Set_Iterator copySet = copy.addSet(
-					set->data());
+				Set_Iterator copySet = copy.addSet(*set);
 
 				// Then copy the elements from the
 				// set to the copy-set.
@@ -79,7 +78,7 @@ namespace Pastel
 				{
 					Element_Iterator element = *member;
 					Element_Iterator copyElement = 
-						copy.insertOne(copySet, element->data());
+						copy.insertOne(copySet, *element);
 					if (element->marked())
 					{
 						// If the element is marked,

@@ -107,6 +107,9 @@
     <ClCompile Include="test_breadth_first_traversal.cpp">
       <Filter>Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="test_object_forwarding.cpp">
+      <Filter>Generic programming</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelsystest.h" />

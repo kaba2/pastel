@@ -28,11 +28,9 @@ namespace Pastel
 
 			void initialize(integer n);
 
-			// Prohibited
-			GradientField(const GradientField& that);
-			// Prohibited
+			GradientField(const GradientField& that) PASTEL_DELETE;
 			GradientField<Real, N>& operator=(
-				const GradientField& that);
+				const GradientField& that) PASTEL_DELETE;
 
 			std::vector<integer> permutation_;
 			integer permutationMask_;

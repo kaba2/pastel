@@ -40,10 +40,8 @@ namespace Pastel
 		TimeDevice();
 		~TimeDevice();
 
-		// Prohibited
-		TimeDevice(TimeDevice& that);
-		// Prohibited
-		TimeDevice& operator=(const TimeDevice& that);
+		TimeDevice(TimeDevice& that) PASTEL_DELETE;
+		TimeDevice& operator=(const TimeDevice& that) PASTEL_DELETE;
 	};
 
 	//! Returns the only instance of TimeDevice.

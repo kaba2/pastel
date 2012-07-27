@@ -60,10 +60,8 @@ namespace Pastel
 		GfxDevice();
 		~GfxDevice();
 
-		// Prohibited
-		GfxDevice(GfxDevice& that);
-		// Prohibited
-		GfxDevice& operator=(const GfxDevice& that);
+		GfxDevice(GfxDevice& that) PASTEL_DELETE;
+		GfxDevice& operator=(const GfxDevice& that) PASTEL_DELETE;
 
 		bool initialized_;
 	};

@@ -193,8 +193,7 @@ namespace Pastel
 		}
 
 	private:
-		// Prohibited.
-		AlignedPlane();
+		AlignedPlane() PASTEL_DELETE;
 
 		integer dimension_;
 		Real position_;

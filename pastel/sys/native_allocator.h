@@ -109,10 +109,8 @@ namespace Pastel
 		void deallocate(const void* memAddress);
 
 	private:
-		// Prohibited
-		NativeAllocator(const NativeAllocator& that);
-		// Prohibited
-		NativeAllocator& operator=(const NativeAllocator& that);
+		NativeAllocator(const NativeAllocator& that) PASTEL_DELETE;
+		NativeAllocator& operator=(const NativeAllocator& that) PASTEL_DELETE;
 
 		integer unitSize_;
 		integer unitsAllocated_;

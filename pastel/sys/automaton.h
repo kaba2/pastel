@@ -107,7 +107,7 @@ namespace Pastel
 
 	private:
 		// Deleted
-		Automaton(const Automaton& that);
+		Automaton(const Automaton& that) PASTEL_DELETE;
 
 		//! Initialization common to all constructors.
 		/*!

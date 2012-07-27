@@ -178,7 +178,7 @@ namespace Pastel
 		const Transition_ConstIterator& transition)
 	{
 		transitionSet_.erase(
-			Transition(transition->from(), transition->data()));
+			Transition(transition->from(), *transition));
 		graph_.erase(transition);
 	}
 

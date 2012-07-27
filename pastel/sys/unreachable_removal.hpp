@@ -10,6 +10,14 @@ namespace Pastel
 	Automaton<State, Symbol> removeUnreachable(
 		Automaton<State, Symbol> automaton)
 	{
+		if (automaton.startState() == automaton.rejectState())
+		{
+			// Since there is no start state, no state
+			// can be reached.
+
+			automaton.clear();
+		}
+
 		return automaton;
 	}
 

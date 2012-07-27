@@ -26,10 +26,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		// Prohibited
-		Box_Filter(const Box_Filter& that);
-		// Prohibited
-		Box_Filter& operator=(const Box_Filter& that);
+		Box_Filter(const Box_Filter& that) PASTEL_DELETE;
+		Box_Filter& operator=(const Box_Filter& that) PASTEL_DELETE;
 	};
 
 	typedef CountedPtr<Box_Filter> BoxFilterPtr;

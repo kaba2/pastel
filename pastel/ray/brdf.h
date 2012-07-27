@@ -26,10 +26,8 @@ namespace Pastel
 			const Vector3& to) const = 0;
 
 	private:
-		// Prohibited
-		Brdf(const Brdf&);
-		// Prohibited
-		Brdf& operator=(const Brdf&);
+		Brdf(const Brdf&) PASTEL_DELETE;
+		Brdf& operator=(const Brdf&) PASTEL_DELETE;
 	};
 
 }

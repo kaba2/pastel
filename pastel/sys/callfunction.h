@@ -5,6 +5,8 @@
 #ifndef PASTEL_CALLFUNCTION_H
 #define PASTEL_CALLFUNCTION_H
 
+#include "pastel/sys/mytypes.h"
+
 namespace Pastel
 {
 
@@ -25,12 +27,9 @@ namespace Pastel
 		explicit CallFunction(Function function);
 
 	private:
-		// Prohibited
-		CallFunction();
-		// Prohibited
-		CallFunction(const CallFunction&);
-		// Prohibited
-		CallFunction operator=(const CallFunction&);
+		CallFunction() PASTEL_DELETE;
+		CallFunction(const CallFunction&) PASTEL_DELETE;
+		CallFunction operator=(const CallFunction&) PASTEL_DELETE;
 	};
 
 }

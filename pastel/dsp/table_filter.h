@@ -49,10 +49,8 @@ namespace Pastel
 		virtual real evaluateInRange(real position) const;
 
 	private:
-		// Prohibited
-		Table_Filter(const Table_Filter& that);
-		// Prohibited
-		Table_Filter& operator=(const Table_Filter& that);
+		Table_Filter(const Table_Filter& that) PASTEL_DELETE;
+		Table_Filter& operator=(const Table_Filter& that) PASTEL_DELETE;
 
 		virtual void onSetRadius();
 

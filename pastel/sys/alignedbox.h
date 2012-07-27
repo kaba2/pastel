@@ -287,8 +287,7 @@ namespace Pastel
 		// We require the dimension to be
 		// specified at construction for
 		// unbounded vectors.
-		// Prohibited
-		AlignedBox();
+		AlignedBox() PASTEL_DELETE;
 	public:
 
 		explicit AlignedBox(integer dimension)
