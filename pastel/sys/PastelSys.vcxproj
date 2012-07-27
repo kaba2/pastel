@@ -138,6 +138,7 @@
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="automaton.h" />
     <ClInclude Include="automaton.hpp" />
+    <ClInclude Include="automaton_algorithms.h" />
     <ClInclude Include="automaton_fwd.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="breadth_first_traversal.h" />
@@ -158,7 +159,7 @@
     <ClInclude Include="incidence_graph_fwd.h" />
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
-    <ClInclude Include="minimize_automaton.h" />
+    <ClInclude Include="automaton_minimization.h" />
     <ClInclude Include="native_allocator.h" />
     <ClInclude Include="native_allocator.hpp" />
     <ClInclude Include="null_iterator.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="refinable_partition_element.h" />
     <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="refinable_partition_set.h" />
+    <ClInclude Include="unaccepting_removal.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />
@@ -189,6 +191,9 @@
     <ClInclude Include="transitive_closure.hpp" />
     <ClInclude Include="transitive_closure_concepts.h" />
     <ClInclude Include="iterator_predicate.h" />
+    <ClInclude Include="unaccepting_removal.hpp" />
+    <ClInclude Include="unreachable_removal.h" />
+    <ClInclude Include="unreachable_removal.hpp" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
     <ClInclude Include="view_tools.hpp" />
@@ -533,12 +538,14 @@
     <None Include="..\..\techniques_iterators.txt" />
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
+    <None Include="automaton_algorithms.txt" />
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
     <None Include="hash.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />
+    <None Include="automaton_minimization.txt" />
     <None Include="native_allocator.txt" />
     <None Include="pool_allocator.txt" />
     <None Include="pool_allocator_notes.txt" />
@@ -550,6 +557,8 @@
     <None Include="data_structures.txt" />
     <None Include="array.txt" />
     <None Include="fastlist.txt" />
+    <None Include="unaccepting_removal.txt" />
+    <None Include="unreachable_removal.txt" />
     <None Include="views.txt" />
     <None Include="extendedconstviews.txt" />
     <None Include="concrete_views.txt" />
