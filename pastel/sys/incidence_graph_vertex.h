@@ -19,12 +19,12 @@ namespace Pastel
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
-		: public MakeClass<VertexData>::type
+		: public Forward<VertexData>::type
 	{
 	public:
 		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Graph;
 		friend class Incidence_Graph<Type, VertexData, EdgeData>;
-		typedef typename MakeClass<VertexData>::type Base;
+		typedef typename Forward<VertexData>::type Base;
 
 		using Base::operator=;
 

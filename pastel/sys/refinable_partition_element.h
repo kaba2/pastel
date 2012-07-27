@@ -17,10 +17,10 @@ namespace Pastel
 
 	template <typename ElementData, typename SetData>
 	class RefinablePartition_Fwd<ElementData, SetData>::Element
-		: public MakeClass<ElementData>::type
+		: public Forward<ElementData>::type
 	{
 	public:
-		typedef typename MakeClass<ElementData>::type 
+		typedef typename Forward<ElementData>::type 
 			Base;
 
 		using Base::operator=;
