@@ -125,10 +125,6 @@ no better name.
 * Separate binary operators with spaces from both sides:
 `a + b, a - b, a = b, a * b, a / b, a % b, a b`, ...
 
-* When prohibiting the use of implicitly generated class
-members, declare them private, with no implementation and
-comment them `Prohibited`.
-
 * In a switch structure, if one case is meant to slip
 through to the handler of the next case, comment it
 with a `Fall-through`.

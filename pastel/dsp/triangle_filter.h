@@ -26,10 +26,8 @@ namespace Pastel
 		virtual real evaluateInRange(real position) const;
 
 	private:
-		// Prohibited
-		Triangle_Filter(const Triangle_Filter& that);
-		// Prohibited
-		Triangle_Filter& operator=(const Triangle_Filter& that);
+		Triangle_Filter(const Triangle_Filter& that) PASTEL_DELETE;
+		Triangle_Filter& operator=(const Triangle_Filter& that) PASTEL_DELETE;
 	};
 
 	typedef CountedPtr<Triangle_Filter> TriangleFilterPtr;

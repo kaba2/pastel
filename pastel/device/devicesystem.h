@@ -69,10 +69,8 @@ namespace Pastel
 		DeviceSystem();
 		~DeviceSystem();
 
-		// Prohibited
-		DeviceSystem(DeviceSystem& that);
-		// Prohibited
-		DeviceSystem& operator=(const DeviceSystem& that);
+		DeviceSystem(DeviceSystem& that) PASTEL_DELETE;
+		DeviceSystem& operator=(const DeviceSystem& that) PASTEL_DELETE;
 
 		integer referenceCount_;
 		bool eventLoopActive_;

@@ -11,6 +11,14 @@ namespace Pastel
 	Automaton<State, Symbol> removeUnaccepting(
 		Automaton<State, Symbol> automaton)
 	{
+		if (automaton.finalStates() == 0)
+		{
+			// Since the automaton does not have any
+			// final states, every state is unaccepting.
+
+			automaton.clear();
+		}
+
 		typedef Automaton<State, Symbol>
 			Automaton;
 		typedef Automaton::State_ConstIterator

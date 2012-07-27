@@ -2,6 +2,15 @@
 #define PASTEL_INCIDENCE_GRAPH_VERTEX_H
 
 #include "pastel/sys/incidence_graph.h"
+#include "pastel/sys/object_forwarding.h"
+
+// Visual Studio generates "multiple assignment operators" warning,
+// because it does not implement the deletion of functions 
+// (which we simulate below).
+#if (defined _WIN32 || defined _WIN64)
+#	pragma warning(push)
+#	pragma warning(disable: 4522)
+#endif
 
 #include <array>
 
@@ -10,63 +19,48 @@ namespace Pastel
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
-		: private PossiblyEmptyMember<VertexData>
+		: public MakeClass<VertexData>::type
 	{
 	public:
 		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Graph;
-		typedef PossiblyEmptyMember<VertexData> Base;
 		friend class Incidence_Graph<Type, VertexData, EdgeData>;
+		typedef typename MakeClass<VertexData>::type Base;
 
-		Vertex(const Vertex& that)
-			: partitionSet_()
-			, sentinel_()
-			, incidencesSet_()
-		{
-			partitionSet_.fill((Incidence*)&sentinel_);
-			incidencesSet_.fill(0);
+		using Base::operator=;
 
-			if (Base::data())
-			{
-				new(Base::data()) VertexData(that.data());
-			}
-		}
+		//! Move-constructs from another vertex.
+		/*!
+		Time complexity: constant
+		Exception safety: strong
 
+		FIX: This function is needed solely because Visual Studio 2010
+		does not support the emplace function properly. Remove this 
+		function when support for emplace becomes available.
+		*/
 		Vertex(Vertex&& that)
-			: partitionSet_()
+			: Base(std::move((VertexData&&)that))
+			, partitionSet_(std::move(that.partitionSet_))
 			, sentinel_()
-			, incidencesSet_()
+			, incidencesSet_(std::move(that.incidencesSet_))
 		{
-			partitionSet_.fill((Incidence*)&sentinel_);
-			incidencesSet_.fill(0);
+			Incidence* next = that.sentinel_.next_;
+			Incidence* prev = that.sentinel_.prev_;
 
-			if (Base::data())
+			if (next != &that.sentinel_)
 			{
-				new(Base::data()) VertexData(std::move(that.data()));
+				sentinel_.next_ = next;
+				next->prev_ = (Incidence*)&sentinel_;
+				
+				sentinel_.prev_ = prev;
+				prev->next_ = (Incidence*)&sentinel_;
 			}
-		}
 
-		explicit Vertex(VertexData data)
-			: partitionSet_()
-			, sentinel_()
-			, incidencesSet_()
-		{
-			partitionSet_.fill((Incidence*)&sentinel_);
-			incidencesSet_.fill(0);
-
-			if (Base::data())
-			{
-				new(Base::data()) VertexData(std::move(data));
-			}
+			that.forget();
 		}
 
 		~Vertex()
 		{
 			clear();
-
-			if (Base::data())
-			{
-				Base::data()->~VertexData();
-			}
 		}
 
 		// Undirected incidences
@@ -159,7 +153,7 @@ namespace Pastel
 
 		Incidence_Iterator end() const
 		{
-			return sentinel_;
+			return (Incidence*)&sentinel_;
 		}
 
 		Incidence_ConstIterator cbegin() const
@@ -169,7 +163,7 @@ namespace Pastel
 
 		Incidence_ConstIterator cend() const
 		{
-			return sentinel_;
+			return (const Incidence*)&sentinel_;
 		}
 
 		integer incidentEdges() const
@@ -182,25 +176,20 @@ namespace Pastel
 			return result;
 		}
 
-		// Label data
-
-		VertexData& data()
-		{
-			PENSURE(Base::data());
-			return *Base::data();
-		}
-
-		const VertexData& data() const
-		{
-			PENSURE(Base::data());
-			return *Base::data();
-		}
-
 	private:
-		// Deleted
-		Vertex();
-		// Deleted
-		Vertex& operator=(Vertex that);
+		Vertex() PASTEL_DELETE;
+		Vertex(const Vertex& that) PASTEL_DELETE;
+		Vertex& operator=(Vertex that) PASTEL_DELETE;
+
+		explicit Vertex(VertexData data)
+			: Base(std::move(data))
+			, partitionSet_()
+			, sentinel_()
+			, incidencesSet_()
+		{
+			partitionSet_.fill((Incidence*)&sentinel_);
+			incidencesSet_.fill(0);
+		}
 
 		template <IncidenceType I>
 		void insert(Incidence* incidence)
@@ -310,8 +299,15 @@ namespace Pastel
 				delete incidence;
 				incidence = next;
 			}
-			
+
+			forget();
+		}
+
+		void forget()
+		{
 			// Forget all incidences.
+			Incidence* sentinel = (Incidence*)&sentinel_;
+
 			partitionSet_.fill(sentinel);
 			incidencesSet_.fill(0);
 
@@ -376,5 +372,9 @@ namespace Pastel
 	};
 
 }
+
+#if (defined _WIN32 || defined _WIN64)
+#	pragma warning(pop)
+#endif
 
 #endif

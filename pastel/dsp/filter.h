@@ -56,10 +56,8 @@ namespace Pastel
 		const std::string& name() const;
 
 	private:
-		// Prohibited
-		Filter(const Filter& that);
-		// Prohibited
-		Filter& operator=(const Filter& that);
+		Filter(const Filter& that) PASTEL_DELETE;
+		Filter& operator=(const Filter& that) PASTEL_DELETE;
 
 		virtual void onSetRadius();
 

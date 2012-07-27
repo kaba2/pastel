@@ -580,9 +580,8 @@ namespace Pastel
 	private:
 		SubArray<Type, N> subArray_;
 
-		// Prohibited
 		ConstSubArray& operator=(
-			const ConstSubArray& that);
+			const ConstSubArray& that) PASTEL_DELETE;
 	};
 
 }

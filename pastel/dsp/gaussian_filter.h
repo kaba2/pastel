@@ -25,10 +25,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		// Prohibited
-		Gaussian_Filter(const Gaussian_Filter& that);
-		// Prohibited
-		Gaussian_Filter& operator=(const Gaussian_Filter& that);
+		Gaussian_Filter(const Gaussian_Filter& that) PASTEL_DELETE;
+		Gaussian_Filter& operator=(const Gaussian_Filter& that) PASTEL_DELETE;
 	};
 
 	typedef CountedPtr<Gaussian_Filter> GaussianFilterPtr;

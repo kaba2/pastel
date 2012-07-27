@@ -27,10 +27,8 @@ namespace Pastel
 		Vector3 sampleDirection() const;
 
 	private:
-		// Prohibited
-		Lambertian_Brdf(const Lambertian_Brdf&);
-		// Prohibited
-		Lambertian_Brdf& operator=(const Lambertian_Brdf&);
+		Lambertian_Brdf(const Lambertian_Brdf&) PASTEL_DELETE;
+		Lambertian_Brdf& operator=(const Lambertian_Brdf&) PASTEL_DELETE;
 
 		Spectrum reflectance_;
 	};

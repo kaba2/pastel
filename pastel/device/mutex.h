@@ -25,10 +25,8 @@ namespace Pastel
 		void unlock();
 
 	private:
-		// Prohibited
-		Mutex(const Mutex& that);
-		// Prohibited
-		Mutex& operator=(const Mutex& that);
+		Mutex(const Mutex& that) PASTEL_DELETE;
+		Mutex& operator=(const Mutex& that) PASTEL_DELETE;
 
 		// The following should actually read
 		// SDL_mutex* data_;
@@ -52,12 +50,9 @@ namespace Pastel
 		~MutexLock();
 
 	private:
-		// Prohibited
-		MutexLock();
-		// Prohibited
-		MutexLock(const MutexLock& that);
-		// Prohibited
-		MutexLock& operator=(const MutexLock& that);
+		MutexLock() PASTEL_DELETE;
+		MutexLock(const MutexLock& that) PASTEL_DELETE;
+		MutexLock& operator=(const MutexLock& that) PASTEL_DELETE;
 
 		Mutex* mutex_;
 	};

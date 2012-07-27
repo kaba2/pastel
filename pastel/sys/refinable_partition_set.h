@@ -2,6 +2,15 @@
 #define PASTEL_REFINABLE_PARTITION_SET_H
 
 #include "pastel/sys/refinable_partition.h"
+#include "pastel/sys/object_forwarding.h"
+
+// Visual Studio generates "multiple assignment operators" warning,
+// because it does not implement the deletion of functions 
+// (which we simulate below).
+#if (defined _WIN32 || defined _WIN64)
+#	pragma warning(push)
+#	pragma warning(disable: 4522)
+#endif
 
 namespace Pastel
 {
@@ -10,10 +19,13 @@ namespace Pastel
 		typename ElementData,
 		typename SetData>
 	class RefinablePartition_Fwd<ElementData, SetData>::Set
-		: public PossiblyEmptyMember<SetData>
+		: public MakeClass<SetData>::type
 	{
 	public:
-		typedef PossiblyEmptyMember<SetData> Data;
+		typedef typename MakeClass<SetData>::type 
+			Base;
+
+		using Base::operator=;
 
 		//! Move-constructs from another set.
 		/*!
@@ -25,53 +37,15 @@ namespace Pastel
 		function when support for emplace becomes available.
 		*/
 		Set(Set&& that)
-			: begin_(that.begin_)
-			, last_(that.last_)
-			, unmarkedBegin_(that.unmarkedBegin_)
-			, split_(that.split_)
-			, elements_(that.elements_)
-			, marked_(that.marked_)
-			, type_(that.type_)
+			: Base(std::move((SetData&&)that))
+			, begin_(std::move(that.begin_))
+			, last_(std::move(that.last_))
+			, unmarkedBegin_(std::move(that.unmarkedBegin_))
+			, split_(std::move(that.split_))
+			, elements_(std::move(that.elements_))
+			, marked_(std::move(that.marked_))
+			, type_(std::move(that.type_))
 		{
-			if (Data::data())
-			{
-				new(Data::data()) SetData(std::move(that.data()));
-			}
-		}
-
-		//! Destructs the set.
-		/*!
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		~Set()
-		{
-			if (Data::data())
-			{
-				Data::data()->~SetData();
-			}
-		}
-
-		//! Returns the contained data.
-		/*!
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		SetData& data()
-		{
-			PENSURE(Data::data());
-			return *Data::data();
-		}
-
-		//! Returns the contained data.
-		/*!
-		Time complexity: constant
-		Exception safety: nothrow
-		*/
-		const SetData& data() const
-		{
-			PENSURE(Data::data());
-			return *Data::data();
 		}
 
 		//! Returns the number of elements.
@@ -171,14 +145,9 @@ namespace Pastel
 		template <typename ElementData, typename SetData>
 		friend class RefinablePartition<ElementData, SetData>::Element;
 
-		// Deleted.
-		Set();
-
-		// Deleted.
-		Set(const Set& that);
-
-		// Deleted.
-		Set& operator=(Set that);
+		Set() PASTEL_DELETE;
+		Set(const Set& that) PASTEL_DELETE;
+		Set& operator=(Set that) PASTEL_DELETE;
 
 		Set(Member_Iterator begin,
 			Member_Iterator end,
@@ -186,7 +155,8 @@ namespace Pastel
 			integer elements,
 			bool type,
 			SetData data)
-			: begin_(begin)
+			: Base(std::move(data))
+			, begin_(begin)
 			, last_(elements > 0 ? std::prev(end) : end)
 			, unmarkedBegin_(begin)
 			, split_(split)
@@ -194,10 +164,6 @@ namespace Pastel
 			, marked_(0)
 			, type_(type)
 		{
-			if (Data::data())
-			{
-				new(Data::data()) SetData(std::move(data));
-			}
 		}
 
 		//! Returns the type of the set.
@@ -487,5 +453,9 @@ namespace Pastel
 	};
 
 }
+
+#if (defined _WIN32 || defined _WIN64)
+#	pragma warning(pop)
+#endif
 
 #endif

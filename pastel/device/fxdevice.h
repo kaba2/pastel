@@ -69,10 +69,8 @@ namespace Pastel
 		FxDevice();
 		~FxDevice();
 
-		// Prohibited
-		FxDevice(FxDevice& that);
-		// Prohibited
-		FxDevice& operator=(const FxDevice& that);
+		FxDevice(FxDevice& that) PASTEL_DELETE;
+		FxDevice& operator=(const FxDevice& that) PASTEL_DELETE;
 
 		bool playing_;
 		bool initialized_;

@@ -31,10 +31,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		// Prohibited
-		Lanczos_Filter(const Lanczos_Filter& that);
-		// Prohibited
-		Lanczos_Filter& operator=(const Lanczos_Filter& that);
+		Lanczos_Filter(const Lanczos_Filter& that) PASTEL_DELETE;
+		Lanczos_Filter& operator=(const Lanczos_Filter& that) PASTEL_DELETE;
 
 		virtual void onSetRadius();
 

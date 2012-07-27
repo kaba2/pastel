@@ -208,9 +208,8 @@ namespace Pastel
 		}
 
 	private:
-		// Prohibited
 		ConstSubMatrix& operator=(
-			const ConstSubMatrix& that);
+			const ConstSubMatrix& that) PASTEL_DELETE;
 
 		ConstSubArray<Real> data_;
 	};

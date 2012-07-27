@@ -265,12 +265,9 @@ namespace Pastel
 			bool compute();
 
 		private:
-			// Prohibited
-			OverlapSegments();
-			// Prohibited
-			OverlapSegments(const OverlapSegments& that);
-			// Prohibited
-			OverlapSegments& operator=(const OverlapSegments& that);
+			OverlapSegments() PASTEL_DELETE;
+			OverlapSegments(const OverlapSegments& that) PASTEL_DELETE;
+			OverlapSegments& operator=(const OverlapSegments& that) PASTEL_DELETE;
 
 			bool removeIncident(const EventPoint& eventPoint);
 			bool insertExident(const EventPoint& eventPoint);

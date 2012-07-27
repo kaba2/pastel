@@ -196,6 +196,7 @@
     <ClCompile Include="test_math_functions.cpp" />
     <ClCompile Include="test_maximum_bipartite_matching.cpp" />
     <ClCompile Include="test_minmax.cpp" />
+    <ClCompile Include="test_object_forwarding.cpp" />
     <ClCompile Include="test_poolallocator.cpp" />
     <ClCompile Include="test_progress.cpp" />
     <ClCompile Include="test_random.cpp" />

@@ -123,10 +123,8 @@ namespace Pastel
 		void deallocate(const void* memAddress);
 
 	private:
-		// Prohibited
-		PoolAllocator(const PoolAllocator& that);
-		// Prohibited
-		PoolAllocator& operator=(const PoolAllocator& that);
+		PoolAllocator(const PoolAllocator& that) PASTEL_DELETE;
+		PoolAllocator& operator=(const PoolAllocator& that) PASTEL_DELETE;
 
 		struct Block
 		{

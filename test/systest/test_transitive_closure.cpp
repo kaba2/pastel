@@ -66,7 +66,7 @@ namespace
 
 			auto f = [](const Vertex_Iterator& vertex) -> integer 
 			{
-				return vertex->data();
+				return *vertex;
 			};
 
 			auto op = [](integer left, integer right) -> integer 
@@ -99,8 +99,8 @@ namespace
 			auto report = [](
 				const Vertex_Iterator& vertex, integer value)
 			{
-				std::cout << vertex->data() << " before, ";
-				vertex->data() = value;
+				std::cout << *vertex << " before, ";
+				*vertex = value;
 				std::cout << value << " after." << std::endl;
 			};
 
@@ -159,7 +159,7 @@ namespace
 
 			auto f = [](const Vertex_Iterator& vertex) -> const Set&
 			{
-				return vertex->data();
+				return *vertex;
 			};
 
 			auto op = [](Set&& left, const Set& right) -> Set
@@ -198,7 +198,7 @@ namespace
 			auto report = [](
 				const Vertex_Iterator& vertex, Set&& set)
 			{
-				std::for_each(vertex->data().begin(), vertex->data().end(),
+				std::for_each(((const Set&)*vertex).begin(), ((const Set&)*vertex).end(),
 					[](const integer& that) {std::cout << that << ", ";});
 				std::cout << " before, ";
 

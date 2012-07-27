@@ -64,11 +64,8 @@ namespace Pastel
 			const Triangle2& texture) const;
 
 	private:
-		// Prohibited
-		Image_GfxRenderer(const Image_GfxRenderer&);
-
-		//Prohibited
-		Image_GfxRenderer& operator=(const Image_GfxRenderer&);
+		Image_GfxRenderer(const Image_GfxRenderer&) PASTEL_DELETE;
+		Image_GfxRenderer& operator=(const Image_GfxRenderer&) PASTEL_DELETE;
 
 		void updateModelView();
 

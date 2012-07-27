@@ -89,10 +89,8 @@ namespace Pastel
 		void deallocate(const void* memoryIgnored, integer units = 1);
 
 	private:
-		// Prohibited
-		ArenaAllocator(const ArenaAllocator& that);
-		// Prohibited
-		ArenaAllocator& operator=(const ArenaAllocator& that);
+		ArenaAllocator(const ArenaAllocator& that) PASTEL_DELETE;
+		ArenaAllocator& operator=(const ArenaAllocator& that) PASTEL_DELETE;
 
 		struct Block
 		{

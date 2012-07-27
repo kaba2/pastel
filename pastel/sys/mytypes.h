@@ -21,6 +21,12 @@
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 
+#if (defined _WIN32 || defined _WIN64)
+#	define PASTEL_DELETE
+#else
+#	define PASTEL_DELETE = delete
+#endif
+
 #define PASTEL_ENABLE_IF(Condition, ReturnType) \
 	typename boost::enable_if< \
 	PASTEL_REMOVE_BRACKETS(Condition), \

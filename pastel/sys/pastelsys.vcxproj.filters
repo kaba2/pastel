@@ -289,6 +289,9 @@
     <Filter Include="Algorithms\Automaton algorithms\Unaccepting removal">
       <UniqueIdentifier>{baf57490-be2d-4c74-a394-24d5bd9a5710}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generic programming\Object forwarding">
+      <UniqueIdentifier>{ef2a75fd-92a0-4a8e-a2c4-66cbfcd8edb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1486,6 +1489,12 @@
     <ClInclude Include="unreachable_removal.hpp">
       <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
     </ClInclude>
+    <ClInclude Include="object_forwarding.h">
+      <Filter>Generic programming\Object forwarding</Filter>
+    </ClInclude>
+    <ClInclude Include="object_forwarding.hpp">
+      <Filter>Generic programming\Object forwarding</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1907,6 +1916,9 @@
     </None>
     <None Include="unreachable_removal.txt">
       <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
+    </None>
+    <None Include="object_forwarding.txt">
+      <Filter>Generic programming\Object forwarding</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

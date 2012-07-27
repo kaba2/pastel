@@ -40,10 +40,8 @@ namespace Pastel
 		virtual real evaluateInRange(real x) const;
 
 	private:
-		// Prohibited
-		Cubic_Filter(const Cubic_Filter& that);
-		// Prohibited
-		Cubic_Filter& operator=(const Cubic_Filter& that);
+		Cubic_Filter(const Cubic_Filter& that) PASTEL_DELETE;
+		Cubic_Filter& operator=(const Cubic_Filter& that) PASTEL_DELETE;
 
 		real d_;
 	};

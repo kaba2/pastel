@@ -59,7 +59,7 @@ namespace
 			std::vector<Type> bSet;
 			while(iter != end)
 			{
-				bSet.push_back((*iter)->data());
+				bSet.push_back(**iter);
 				++iter;
 			}
 			std::sort(bSet.begin(), bSet.end());
@@ -84,7 +84,7 @@ namespace
 				TEST_ENSURE_OP(partition.sets(), ==, 1);
 				TEST_ENSURE_OP(partition.elements(), ==, 5);
 				TEST_ENSURE(same(data, partition.setBegin()));
-				TEST_ENSURE_OP(partition.setBegin()->data(), ==, 0);
+				TEST_ENSURE_OP(*partition.setBegin(), ==, 0);
 			}
 
 			partition.mark(
@@ -209,7 +209,7 @@ namespace
 				partition.cSetBegin()->end(),
 				[&](const Element_ConstIterator& element)
 			{
-				std::cout << element->data() << " ";
+				std::cout << *element << " ";
 			});
 			std::cout << std::endl;
 		}

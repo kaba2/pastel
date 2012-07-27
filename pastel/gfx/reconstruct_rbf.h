@@ -38,10 +38,8 @@ namespace Pastel
 		}
 
 	private:
-		// Prohibited
-		MultiQuadric_Rbf(const MultiQuadric_Rbf& that);
-		// Prohibited
-		MultiQuadric_Rbf& operator=(const MultiQuadric_Rbf& that);
+		MultiQuadric_Rbf(const MultiQuadric_Rbf& that) PASTEL_DELETE;
+		MultiQuadric_Rbf& operator=(const MultiQuadric_Rbf& that) PASTEL_DELETE;
 
 		real beta_;
 	};
