@@ -11,38 +11,41 @@ namespace Pastel
 {
 
 	template <
-		typename Vertex,
-		typename ForEachSeedVertex,
-		typename ForEachAdjacent,
-		typename Vertex_Reporter,
-		typename Vertex_Hash>
+		typename Vertex, 
+		typename VertexHash = std::hash<Vertex>>
 	class TraverseDepthFirst
 	{
 	public:
-	
+		template <
+			typename ForEachSeedVertex,
+			typename ForEachAdjacent,
+			typename Vertex_Reporter>
 		TraverseDepthFirst(
-			const ForEachSeedVertex& forEachSeedVertex_,
-			const ForEachAdjacent& forEachAdjacent_,
-			const Vertex_Reporter& report_,
-			const Vertex_Hash& vertexHash_)
-			: forEachSeedVertex(forEachSeedVertex_)
-			, forEachAdjacent(forEachAdjacent_)
-			, report(report_)
-			, vertexHash(vertexHash_)
-			, visitedSet()
-		{
-		}
-
-		void work()
+			const ForEachSeedVertex& forEachSeedVertex,
+			const ForEachAdjacent& forEachAdjacent,
+			const Vertex_Reporter& report)
+			: visitedSet()
 		{
 			using namespace std::placeholders;
 
 			// Traverse each seed-vertex depth-first.
 			forEachSeedVertex(
-				std::bind(&TraverseDepthFirst::visit, *this, _1));
+				std::bind(&TraverseDepthFirst::visit<ForEachSeedVertex, 
+				ForEachAdjacent, Vertex_Reporter>, 
+				*this, _1, 
+				std::cref(forEachSeedVertex), 
+				std::cref(forEachAdjacent),
+				std::cref(report)));
 		}
 
-		void visit(const Vertex& vertex)
+		template <
+			typename ForEachSeedVertex,
+			typename ForEachAdjacent,
+			typename Vertex_Reporter>
+		void visit(const Vertex& vertex,
+			const ForEachSeedVertex& forEachSeedVertex,
+			const ForEachAdjacent& forEachAdjacent,
+			const Vertex_Reporter& report)
 		{
 			using namespace std::placeholders;
 
@@ -57,16 +60,23 @@ namespace Pastel
 
 				// Traverse the edges.
 				forEachAdjacent(vertex,
-					std::bind(&TraverseDepthFirst::visit, *this, _1));
+					std::bind(&TraverseDepthFirst::visit<ForEachSeedVertex, 
+					ForEachAdjacent, Vertex_Reporter>, 
+					*this, _1, 
+					std::cref(forEachSeedVertex), 
+					std::cref(forEachAdjacent),
+					std::cref(report)));
 			}
 		}
 
-		const ForEachSeedVertex& forEachSeedVertex;
-		const ForEachAdjacent& forEachAdjacent;
-		const Vertex_Reporter& report;
-		const Vertex_Hash& vertexHash;
+		typedef std::unordered_set<Vertex, VertexHash>
+			VisitedSet;
+		typedef typename VisitedSet::iterator
+			Visiter_Iterator;
+		typedef typename VisitedSet::const_iterator
+			Visiter_ConstIterator;
 
-		std::unordered_set<Vertex> visitedSet;
+		VisitedSet visitedSet;
 	};
 
 	template <
@@ -96,12 +106,8 @@ namespace Pastel
 		const Vertex_Reporter& report,
 		const Vertex_Hash& vertexHash)
 	{
-		TraverseDepthFirst<Vertex, ForEachSeedVertex, 
-			ForEachAdjacent, Vertex_Reporter, Vertex_Hash> work(
-			forEachSeedVertex, forEachAdjacent,
-			report, vertexHash);
-
-		work.work();
+		TraverseDepthFirst<Vertex, Vertex_Hash> work(
+			forEachSeedVertex, forEachAdjacent, report);
 	}
 
 }

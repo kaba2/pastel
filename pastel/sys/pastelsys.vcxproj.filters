@@ -280,6 +280,15 @@
     <Filter Include="Algorithms\Graph algorithms\Breadth-first traversal">
       <UniqueIdentifier>{1a8fa588-2c32-4c19-932d-59c822705579}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Automaton minimization">
+      <UniqueIdentifier>{72ffb64d-a10f-4921-b98c-e2684a77c1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Unreachable removal">
+      <UniqueIdentifier>{448f5e01-f2f8-4adc-9014-2f7c640b4858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Unaccepting removal">
+      <UniqueIdentifier>{baf57490-be2d-4c74-a394-24d5bd9a5710}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1441,9 +1450,6 @@
     <ClInclude Include="refinable_partition_set.h">
       <Filter>Data structures\Refinable partition</Filter>
     </ClInclude>
-    <ClInclude Include="minimize_automaton.h">
-      <Filter>Algorithms\Automaton algorithms</Filter>
-    </ClInclude>
     <ClInclude Include="depth_first_traversal.h">
       <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
     </ClInclude>
@@ -1461,6 +1467,24 @@
     </ClInclude>
     <ClInclude Include="breadth_first_traversal_concepts.h">
       <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_minimization.h">
+      <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_algorithms.h">
+      <Filter>Algorithms\Automaton algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="unaccepting_removal.h">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting removal</Filter>
+    </ClInclude>
+    <ClInclude Include="unreachable_removal.h">
+      <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
+    </ClInclude>
+    <ClInclude Include="unaccepting_removal.hpp">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting removal</Filter>
+    </ClInclude>
+    <ClInclude Include="unreachable_removal.hpp">
+      <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1871,6 +1895,18 @@
     </None>
     <None Include="breadth_first_traversal.txt">
       <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+    </None>
+    <None Include="automaton_algorithms.txt">
+      <Filter>Algorithms\Automaton algorithms</Filter>
+    </None>
+    <None Include="automaton_minimization.txt">
+      <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
+    </None>
+    <None Include="unaccepting_removal.txt">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting removal</Filter>
+    </None>
+    <None Include="unreachable_removal.txt">
+      <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

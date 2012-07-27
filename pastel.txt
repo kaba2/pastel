@@ -27,20 +27,6 @@ For previous versions, see the [release history][History]
 
 [History]: [[Ref]]: release_history.txt
 
-Note on web-browsers
---------------------
-
-This documentation uses MathML to display inlined mathematics.
-Unfortunately not all browsers support MathML natively, including
-Internet Explorer. In this case you will not be able to see the 
-mathematical expressions at all. While there is a plug-in 
-available (MathPlayer) for adding this capability to Internet Explorer, 
-in our tests this combination crashed the browser when viewing 
-these pages. According to Wikipedia, some major web-browsers that 
-currently display MathML natively include Mozilla Firefox, Opera, 
-and Camino. At this point we can't do anything else than to direct 
-you to use these browsers to view these pages.
-
 Sub-libraries
 ------------
 

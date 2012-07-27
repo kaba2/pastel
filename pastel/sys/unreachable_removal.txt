@@ -1,0 +1,7 @@
+Removal of unreachable states
+=============================
+
+[[Parent]]: automaton_algorithms.txt
+
+This algorithm removes those states from the automaton which 
+can not be reached from the start state.

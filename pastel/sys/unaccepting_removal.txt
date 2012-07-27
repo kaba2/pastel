@@ -1,0 +1,7 @@
+Removal of unaccepting states
+=============================
+
+[[Parent]]: automaton_algorithms.txt
+
+This algorithm removes those states from the automaton which 
+can never lead to an accepting state.
