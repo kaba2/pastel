@@ -120,8 +120,9 @@ namespace Pastel
 
 		using Base::operator=;
 
+		// FIX: Delete after emplace becomes available in Visual Studio.
 		Edge(Edge&& that)
-			: Base(that.directed(), std::move((EdgeData&&)that))
+			: Base(that.directed(), std::move((EdgeData_Class&&)that))
 			, from_(std::move(that.from_))
 			, to_(std::move(that.to_))
 		{
@@ -164,7 +165,7 @@ namespace Pastel
 		Edge(const Edge& that) PASTEL_DELETE;
 		Edge& operator=(Edge that) PASTEL_DELETE;
 
-		explicit Edge(EdgeData data, bool directed)
+		explicit Edge(EdgeData_Class data, bool directed)
 			: Base(directed, std::move(data))
 			, from_(0)
 			, to_(0)

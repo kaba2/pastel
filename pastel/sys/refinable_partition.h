@@ -24,8 +24,8 @@ namespace Pastel
 	allocating any memory for the data.
 	*/
 	template <
-		typename ElementData = EmptyClass, 
-		typename SetData = EmptyClass>
+		typename ElementData = void, 
+		typename SetData = void>
 	class RefinablePartition
 		: public RefinablePartition_Fwd<ElementData, SetData>
 	{

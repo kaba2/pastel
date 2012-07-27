@@ -19,14 +19,13 @@ namespace Pastel
 
 	template <GraphType::Enum Type, typename VertexData, typename EdgeData>
 	class Incidence_Graph_Fwd<Type, VertexData, EdgeData>::Vertex
-		: public Forward<VertexData>::type
+		: public VertexData_Class
 	{
 	public:
 		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Graph;
 		friend class Incidence_Graph<Type, VertexData, EdgeData>;
-		typedef typename Forward<VertexData>::type Base;
 
-		using Base::operator=;
+		using VertexData_Class::operator=;
 
 		//! Move-constructs from another vertex.
 		/*!
@@ -38,7 +37,7 @@ namespace Pastel
 		function when support for emplace becomes available.
 		*/
 		Vertex(Vertex&& that)
-			: Base(std::move((VertexData&&)that))
+			: VertexData_Class(std::move((VertexData_Class&&)that))
 			, partitionSet_(std::move(that.partitionSet_))
 			, sentinel_()
 			, incidencesSet_(std::move(that.incidencesSet_))
@@ -181,8 +180,8 @@ namespace Pastel
 		Vertex(const Vertex& that) PASTEL_DELETE;
 		Vertex& operator=(Vertex that) PASTEL_DELETE;
 
-		explicit Vertex(VertexData data)
-			: Base(std::move(data))
+		explicit Vertex(VertexData_Class data)
+			: VertexData_Class(std::move(data))
 			, partitionSet_()
 			, sentinel_()
 			, incidencesSet_()

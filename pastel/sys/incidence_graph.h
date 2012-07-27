@@ -16,13 +16,10 @@ namespace Pastel
 {
 
 	//! Incidence graph
-	/*!
-	Note:
-	Specifying EmptyClass for user-data avoids allocating any memory
-	for them.
-	*/
-	template <GraphType::Enum Type = GraphType::Directed, 
-		typename VertexData = EmptyClass, typename EdgeData = EmptyClass>
+	template <
+		GraphType::Enum Type = GraphType::Directed, 
+		typename VertexData = void, 
+		typename EdgeData = void>
 	class Incidence_Graph
 		: public Incidence_Graph_Fwd<Type, VertexData, EdgeData>
 	{
@@ -159,7 +156,7 @@ namespace Pastel
 		strong
 		*/
 		Vertex_Iterator addVertex(
-			VertexData vertexData = VertexData())
+			VertexData_Class vertexData = VertexData_Class())
 		{
 			// Construct the vertex...
 			vertexSet_.emplace_back(
@@ -291,18 +288,15 @@ namespace Pastel
 
 		Exception safety:
 		strong
+
+		Note:
+		For mixed graphs, the created edge is undirected.
 		*/
 		Edge_Iterator addEdge(
 			const Vertex_ConstIterator& from,
 			const Vertex_ConstIterator& to,
-			EdgeData edgeData = EdgeData(),
-			bool directed = (Type == GraphType::Directed))
+			EdgeData_Class edgeData = EdgeData_Class())
 		{
-			ENSURE(
-				(Type == GraphType::Undirected && !directed) ||
-				(Type == GraphType::Directed && directed) ||
-				(Type == GraphType::Mixed));
-
 			Vertex_Iterator mutableFrom = cast(from);
 			Vertex_Iterator mutableTo = cast(to);
 
@@ -314,6 +308,13 @@ namespace Pastel
 				new Incidence(mutableTo));
 			std::unique_ptr<Incidence> toIncidence( 
 				new Incidence(mutableFrom));
+
+			// For directed graphs, the edge is of course
+			// always directed. For undirected and mixed
+			// graphs, the default is to create undirected
+			// edges.
+			const bool directed = 
+				(Type == GraphType::Directed);
 
 			// Create the edge.
 			edgeSet_.emplace_back(

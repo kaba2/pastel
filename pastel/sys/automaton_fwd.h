@@ -1,10 +1,10 @@
 #ifndef PASTEL_AUTOMATON_FWD_H
 #define PASTEL_AUTOMATON_FWD_H
 
+#include "pastel/sys/hash.h"
+#include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/mytypes.h"
-
-#include <pastel/sys/hash.h>
-#include <pastel/sys/incidence_graph.h>
+#include "pastel/sys/object_forwarding.h"
 
 #include <list>
 #include <unordered_map>
@@ -12,11 +12,21 @@
 namespace Pastel
 {
 
-	template <typename State, typename Symbol>
+	template <
+		typename Symbol, 
+		typename StateData = void, 
+		typename TransitionData = void>
 	class Automaton_Fwd
 	{
 	public:
-		typedef Incidence_Graph<GraphType::Directed, State, Symbol> Graph;
+		typedef typename Forward<StateData>::type
+			StateData_Class;
+		typedef typename Forward<TransitionData>::type
+			TransitionData_Class;
+
+		class Transition;
+
+		typedef Incidence_Graph<GraphType::Directed, StateData, Transition> Graph;
 
 		typedef typename Graph::Vertex_Iterator
 			State_Iterator;
@@ -28,10 +38,10 @@ namespace Pastel
 		typedef typename Graph::Edge_ConstIterator
 			Transition_ConstIterator;
 
-		class Transition
+		class StateSymbol
 		{
 		public:
-			Transition(
+			StateSymbol(
 				State_ConstIterator state_,
 				Symbol symbol_)
 				: state(state_)
@@ -39,13 +49,13 @@ namespace Pastel
 			{
 			}
 			
-			bool operator==(const Transition& that) const
+			bool operator==(const StateSymbol& that) const
 			{
 				return state == that.state &&
 					symbol == that.symbol;
 			}
 
-			bool operator!=(const Transition& that) const
+			bool operator!=(const StateSymbol& that) const
 			{
 				return !(*this == that);
 			}
@@ -54,11 +64,11 @@ namespace Pastel
 			Symbol symbol;
 		};
 
-		class Transition_Hash
+		class StateSymbol_Hash
 		{
 		public:
 			hash_integer operator()(
-				const Transition& transition) const
+				const StateSymbol& transition) const
 			{
 				return combineHash(
 					computeHash(&*transition.state),
@@ -74,8 +84,8 @@ namespace Pastel
 		causes a transition to state B. 
 		*/
 		typedef std::unordered_map<
-			Transition, Transition_Iterator, Transition_Hash> 
-			TransitionSet;
+			StateSymbol, Transition_Iterator, StateSymbol_Hash> 
+			SearchSet;
 	};
 
 }

@@ -2,7 +2,7 @@
 #define PASTEL_INCIDENCE_GRAPH_FWD_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/possiblyemptymember.h"
+#include "pastel/sys/object_forwarding.h"
 
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -76,6 +76,11 @@ namespace Pastel
 			Type == GraphType::Undirected ||
 			Type == GraphType::Directed ||
 			Type == GraphType::Mixed);
+
+		typedef typename Forward<VertexData>::type 
+			VertexData_Class;
+		typedef typename Forward<EdgeData>::type 
+			EdgeData_Class;
 
 		// Vertices
 

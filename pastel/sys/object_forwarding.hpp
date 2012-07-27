@@ -22,9 +22,8 @@ namespace Pastel
 		{
 		}
 
-		template <typename That>
-		Class(That&& that)
-			: member_(std::forward<That>(that))
+		Class(Type that)
+			: member_(that)
 		{
 		}
 
