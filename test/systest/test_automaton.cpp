@@ -27,22 +27,20 @@ namespace
 
 		void testSimple()
 		{
-			/*
-			typedef Automaton<integer, integer> Automaton;
+			typedef Automaton<integer, void, void> Automaton;
 			typedef Automaton::State_Iterator State;
 			typedef Automaton::Transition_Iterator Transition;
 
 			Automaton automaton;
-			State a = automaton.addState(1);
-			State b = automaton.addState(2);
-			State c = automaton.addState(3);
+			State a = automaton.addState();
+			State b = automaton.addState();
+			State c = automaton.addState();
 
 			Transition A = automaton.addTransition(
 				a, 0, b);
 			Transition B = automaton.addTransition(
 				b, 0, c);
 			automaton.setStartState(a);
-			*/
 		}
 	};
 

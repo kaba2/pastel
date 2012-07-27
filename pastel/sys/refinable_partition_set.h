@@ -19,25 +19,20 @@ namespace Pastel
 		typename ElementData,
 		typename SetData>
 	class RefinablePartition_Fwd<ElementData, SetData>::Set
-		: public Forward<SetData>::type
+		: public SetData_Class
 	{
 	public:
-		typedef typename Forward<SetData>::type 
-			Base;
-
-		using Base::operator=;
+		using SetData_Class::operator=;
 
 		//! Move-constructs from another set.
 		/*!
 		Time complexity: constant
 		Exception safety: strong
 
-		FIX: This function is needed solely because Visual Studio 2010
-		does not support the emplace function properly. Remove this 
-		function when support for emplace becomes available.
+		FIX: Delete after emplace becomes available in Visual Studio.
 		*/
 		Set(Set&& that)
-			: Base(std::move((SetData&&)that))
+			: SetData_Class(std::move((SetData_Class&&)that))
 			, begin_(std::move(that.begin_))
 			, last_(std::move(that.last_))
 			, unmarkedBegin_(std::move(that.unmarkedBegin_))
@@ -154,8 +149,8 @@ namespace Pastel
 			Split_Iterator split,
 			integer elements,
 			bool type,
-			SetData data)
-			: Base(std::move(data))
+			SetData_Class data)
+			: SetData_Class(std::move(data))
 			, begin_(begin)
 			, last_(elements > 0 ? std::prev(end) : end)
 			, unmarkedBegin_(begin)

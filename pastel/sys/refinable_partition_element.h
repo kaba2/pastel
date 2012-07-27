@@ -17,25 +17,20 @@ namespace Pastel
 
 	template <typename ElementData, typename SetData>
 	class RefinablePartition_Fwd<ElementData, SetData>::Element
-		: public Forward<ElementData>::type
+		: public ElementData_Class
 	{
 	public:
-		typedef typename Forward<ElementData>::type 
-			Base;
-
-		using Base::operator=;
+		using ElementData_Class::operator=;
 
 		//! Move-constructs from another element.
 		/*!
 		Time complexity: constant
 		Exception safety: strong
 
-		FIX: This function is needed solely because Visual Studio 2010
-		does not support the emplace function properly. Remove this 
-		function when support for emplace becomes available.
+		FIX: Delete after emplace becomes available in Visual Studio.
 		*/
 		Element(Element&& that)
-			: Base(std::move((ElementData&&)that))
+			: ElementData_Class(std::move((ElementData_Class&&)that))
 			, set_(std::move(that.set_))
 			, member_(std::move(that.member_))
 			, type_(std::move(that.type_))
@@ -91,8 +86,8 @@ namespace Pastel
 		Element(
 			Set_Iterator set,
 			Member_Iterator member,
-			ElementData data)
-			: Base(std::move(data))
+			ElementData_Class data)
+			: ElementData_Class(std::move(data))
 			, set_(set)
 			, member_(member)
 			, type_(set->type())

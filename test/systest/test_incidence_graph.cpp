@@ -28,6 +28,7 @@ namespace
 			testAddRemove();
 			testSelfLoops();
 			testMixed();
+			testPure();
 		}
 
 		void testAddRemove()
@@ -236,6 +237,17 @@ namespace
 			TEST_ENSURE_OP(b->incomingEdges(), ==, 1);
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
 			TEST_ENSURE_OP(b->undirectedEdges(), ==, 0);
+		}
+
+		void testPure()
+		{
+			typedef Incidence_Graph<GraphType::Directed> Graph;
+			typedef Graph::Vertex_Iterator Vertex;
+
+			Graph graph;
+			Vertex a = graph.addVertex();
+			Vertex b = graph.addVertex();
+			graph.addEdge(a, b);
 		}
 
 	};

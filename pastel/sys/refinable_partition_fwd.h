@@ -1,6 +1,8 @@
 #ifndef PASTEL_REFINABLE_PARTITION_FWD_H
 #define PASTEL_REFINABLE_PARTITION_FWD_H
 
+#include "pastel/sys/object_forwarding.h"
+
 #include <list>
 
 namespace Pastel
@@ -12,6 +14,11 @@ namespace Pastel
 	public:
 		class Element;
 		class Set;
+
+		typedef typename Forward<ElementData>::type
+			ElementData_Class;
+		typedef typename Forward<SetData>::type
+			SetData_Class;
 
 		typedef std::list<Element>
 			ElementSet;
