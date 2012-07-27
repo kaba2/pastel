@@ -25,6 +25,8 @@ namespace Pastel
 			, rejectGraph_()
 			, startState_(graph_.vertexEnd())
 			, rejectState_(rejectGraph_.vertexEnd())
+			, emptyBranchSet_()
+			, finalSet_()
 		{
 			construct();
 		}
@@ -36,6 +38,8 @@ namespace Pastel
 			, rejectGraph_()
 			, startState_(graph_.end())
 			, rejectState_(rejectGraph_.vertexEnd())
+			, emptyBranchSet_()
+			, finalSet_()
 		{
 			construct();
 			swap(that);
@@ -51,12 +55,13 @@ namespace Pastel
 		//! Removes all states and transitions.
 		void clear()
 		{
-			// The rejectGraph and rejectState
-			// are kept the same.
+			// The rejectGraph, rejectState, 
+			// and emptyBranchSet are kept the same.
 
 			graph_.clear();
 			searchSet_.clear();
 			startState_ = rejectState_;
+			finalSet_.clear();
 		}
 
 		//! Removes all transitions.
@@ -65,7 +70,7 @@ namespace Pastel
 			searchSet_.clear();
 		}
 
-		//! Swaps two parse-tables.
+		//! Swaps two automata.
 		void swap(Automaton& that)
 		{
 			using std::swap;
@@ -75,6 +80,8 @@ namespace Pastel
 			rejectGraph_.swap(that.rejectGraph_);
 			swap(startState_, that.startState_);
 			swap(rejectState_, that.rejectState_);
+			emptyBranchSet_.swap(that.emptyBranchSet_);
+			finalSet_.swap(that.finalSet_);
 		}
 
 		// States
@@ -102,7 +109,8 @@ namespace Pastel
 		}
 
 		//! Removes constness from a state-iterator.
-		State_Iterator cast(State_ConstIterator state)
+		State_Iterator cast(
+			const State_ConstIterator& state)
 		{
 			return graph_.cast(state);
 		}
@@ -124,6 +132,26 @@ namespace Pastel
 		State_ConstIterator startState() const
 		{
 			return startState_;
+		}
+
+		//! Makes the given state final.
+		void addFinal(
+			const State_ConstIterator& state)
+		{
+			finalSet_.insert(state);
+		}
+		
+		//! Removes finality from the given state.
+		void removeFinal(
+			const State_ConstIterator& state)
+		{
+			finalSet_.erase(state);
+		}
+
+		//! Returns whether the state is final.
+		bool final(const State_ConstIterator& state) const
+		{
+			return finalSet_.count(state);
 		}
 
 		//! Returns the reject-state.
@@ -172,60 +200,184 @@ namespace Pastel
 
 		//! Adds a new transition.
 		Transition_Iterator addTransition(
-			State_ConstIterator fromState,
-			Symbol symbol,
-			State_ConstIterator toState,
+			const State_ConstIterator& fromState,
+			const Symbol& symbol,
+			const State_ConstIterator& toState,
 			TransitionData_Class transitionData = TransitionData_Class())
 		{
-			/*
-			if (searchSet_.count(
-				StateSymbol(fromState, symbol)))
+			Transition_Iterator transition =
+				findTransition(fromState, symbol, toState);
+			if (transition != graph_.edgeEnd())
 			{
-				return graph_.cEdgeEnd();
+				// The transition already exists.
+				return transition;
 			}
-			*/
 
-			auto transition = graph_.addEdge(
+			integer rollback = 0;
+
+			transition = graph_.addEdge(
 				fromState, toState, 
 				Transition(symbol, std::move(transitionData)));
+			++rollback;
 
-			searchSet_.emplace(
-				std::make_pair(StateSymbol(fromState, symbol), 
-				transition));
+			Search_Iterator search;
+			try
+			{
+				// Either the branch already exists, and then it
+				// is returned, or it will be created. 
+				search = searchSet_.emplace(
+					std::make_pair(
+					StateSymbol(fromState, symbol), 
+					BranchSet())).first;
+				++rollback;
+										
+				BranchSet& branch = search->second;
+
+				// Add the transition to the branch.
+				branch.insert(
+					std::make_pair(toState, transition));
+			}
+			catch(...)
+			{
+				switch(rollback)
+				{
+				case 2:
+					searchSet_.erase(search);
+					// Fall-through
+				case 1:
+					graph_.removeEdge(transition);
+					break;
+				};
+				throw;
+			}
 
 			return transition;
 		}
 
 		//! Removes a transition.
-		void removeTransition(
+		Transition_Iterator removeTransition(
 			const Transition_ConstIterator& transition)
 		{
 			searchSet_.erase(
 				StateSymbol(transition->from(), *transition));
-			graph_.erase(transition);
+			return graph_.erase(transition);
 		}
 
 		//! Searches for the given transition.
 		Transition_Iterator findTransition(
-			const StateSymbol& transition)
+			const State_ConstIterator& fromState,
+			const Symbol& symbol)
 		{
-			auto iter = searchSet_.find(transition);
-			return iter->second;
+			return cast(((const Automaton&)*this).findTransition(
+				fromState, symbol));
+		}
+
+		//! Searches for a given transition.
+		/*!
+		Note:
+		If the automaton is non-deterministic,
+		there may be many transitions for a given
+		from-state and symbol. In this case this
+		function returns one of those transitions.
+		If you need all transitions, see the
+		findTransitions() function.
+		*/
+		Transition_ConstIterator findTransition(
+			const State_ConstIterator& fromState,
+			const Symbol& symbol) const
+		{
+			// Find all branches.
+			auto range = findTransitions(
+				fromState, symbol);
+
+			if (range.first == range.second)
+			{
+				// There are no branches.
+				return graph_.cEdgeEnd();
+			}
+
+			// Return the first branch.
+			return *range.first;
 		}
 
 		//! Searches for the given transition.
-		Transition_ConstIterator findTransition(
-			const StateSymbol& transition) const
+		Transition_Iterator findTransition(
+			const State_ConstIterator& fromState,
+			const Symbol& symbol,
+			const State_ConstIterator& toState)
 		{
-			auto iter = searchSet_.find(transition);
-			return iter->second;
+			return cast(((const Automaton&)*this).findTransition(
+				fromState, symbol, toState));
+		}
+
+		//! Searches for the given transition.
+		/*!
+		Note:
+		By the definition of a finite-state automaton,
+		there can be at most one transition from a state
+		to another with a given symbol.
+		*/
+		Transition_ConstIterator findTransition(
+			const State_ConstIterator& fromState,
+			const Symbol& symbol,
+			const State_ConstIterator& toState) const
+		{
+			Search_ConstIterator search = 
+				searchSet_.find(
+				StateSymbol(fromState, symbol));
+			
+			const BranchSet& branchSet = search->second;
+			
+			Branch_ConstIterator branch =
+				branchSet.find(toState);
+
+			return (branch == branchSet.cend()) ?
+				graph_.cEdgeEnd() : branch->second;
+		}
+
+		//! Returns the branches of a given state-symbol pair.
+		/*!
+		returns:
+		A set of Transition_ConstIterator's by an iterator range.
+
+		A set of transitions sharing the same from-state
+		and symbol is called a branch set, with the
+		transitions in it called branches (since in the 
+		non-deterministic case the computation branches).
+
+		Note:
+		If the automaton is deterministic, then there is at most
+		one transition from a given state and symbol. In this
+		case it may be more convenient to use the findTransition() 
+		function.
+		*/
+		std::pair<Branch_ConstIterator, Branch_ConstIterator>
+			findTransitions(
+			const State_ConstIterator& fromState,
+			const Symbol& symbol) const
+		{
+			auto search = searchSet_.find(
+				StateSymbol(fromState, symbol));
+			if (search == searchSet_.cend())
+			{
+				return std::make_pair(
+					emptyBranchSet_.cbegin(),
+					emptyBranchSet_.cend());
+			}
+
+			const BranchSet& branch = search.second;
+			
+			return std::make_pair(
+				branch.cbegin(), 
+				branch.cend());
 		}
 
 		//! Tests for the existence of a transition.
 		bool existsTransition(
-			const StateSymbol& transition) const
+			const State_ConstIterator& state,
+			const Symbol& symbol) const
 		{
-			return findTransition(transition) != cTransitionEnd();
+			return findTransition(state, symbol) != cTransitionEnd();
 		}
 
 		//! Returns the first iterator of the transition-set.
@@ -280,6 +432,13 @@ namespace Pastel
 			return state->cend();
 		}
 
+		//! Removes constness from a transition-iterator.
+		Transition_Iterator cast(
+			const Transition_ConstIterator& transition)
+		{
+			return graph_.cast(transition);
+		}
+
 		//! Returns the number of transitions.
 		integer transitions() const
 		{
@@ -309,13 +468,13 @@ namespace Pastel
 		
 		//! Fast associative searches of transitions.
 		/*!
-		Given a transition (q, X), where q is a state
-		and X is a symbol, this multi-map contains all the
-		edges from state q with symbol X. There might be
-		many such edges if the automaton is non-deterministic.
-		However, there must not be multiple transitions between
-		two states with the same symbol; the relation from
-		transitions to states is a partial function.
+		Given a pair (q, X), where q is a state and X is a symbol, 
+		this map returns the set of transitions from state q with 
+		symbol X. There might be many such transitions if the automaton
+		is non-deterministic. However, by the definition of a 
+		finite-state automaton, there will not be multiple transitions 
+		between two states with the same symbol; the relation from 
+		state-symbol pairs to states is a partial function.
 		*/
 		SearchSet searchSet_;
 
@@ -330,6 +489,9 @@ namespace Pastel
 		//! The start state.
 		State_Iterator startState_;
 
+		//! The set of final states.
+		FinalSet finalSet_;
+
 		//! The reject state.
 		/*!
 		The reject state ensures that each transition in the automaton 
@@ -337,6 +499,9 @@ namespace Pastel
 		cases in the code.
 		*/
 		State_Iterator rejectState_;
+
+		//! An empty set of transitions.
+		BranchSet emptyBranchSet_;
 	};
 
 }
