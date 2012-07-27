@@ -6,8 +6,8 @@
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/object_forwarding.h"
 
-#include <list>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace Pastel
 {
@@ -76,16 +76,31 @@ namespace Pastel
 			}
 		};
 
-		//! The transitions between states.
-		/*!
-		Each transition is a triple (A, s, B), where
-		A and B are states and s is a symbol. The 
-		semantics is that reading the symbol s in state A 
-		causes a transition to state B. 
-		*/
+		//! A set of transitions.
+		typedef std::unordered_map<State_ConstIterator, 
+			Transition_ConstIterator, IteratorAddress_Hash> BranchSet;
+		typedef typename BranchSet::iterator
+			Branch_Iterator;
+		typedef typename BranchSet::const_iterator
+			Branch_ConstIterator;
+
+		//! The transition search set.
 		typedef std::unordered_map<
-			StateSymbol, Transition_Iterator, StateSymbol_Hash> 
+			StateSymbol, BranchSet, StateSymbol_Hash> 
 			SearchSet;
+		typedef typename SearchSet::iterator
+			Search_Iterator;
+		typedef typename SearchSet::const_iterator
+			Search_ConstIterator;
+
+		//! The set of final states.
+		typedef std::unordered_set<
+			State_ConstIterator, IteratorAddress_Hash>
+			FinalSet;
+		typedef typename FinalSet::iterator
+			Final_Iterator;
+		typedef typename FinalSet::const_iterator
+			Final_ConstIterator;
 	};
 
 }
