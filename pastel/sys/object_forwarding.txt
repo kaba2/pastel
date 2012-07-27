@@ -8,9 +8,72 @@ a member of another object, and where all the operations on the containing
 object are forwarded to the contained object. The purpose of this 
 technique is to be able to "derive classes from native types", such as 
 `int`. This in turn is useful in the implementation of data structures
-which support embedding user-data in its parts. First, this automatically
-makes use of the empty base-class optimization, so that memory use can
-be completely avoided when user-data is not needed. Second, being able
-to derive arbitrary types makes it possible to fuse several layers of 
-user data and data-structure-specific data seamlessly together.
+which support embedding user-data in its parts. First, deriving from the
+(forwarded) user type automatically makes use of the empty base-class 
+optimization, so that memory use can be completely avoided when user-data 
+is not needed. Second, being able to derive from arbitrary types makes 
+it possible to fuse several layers of user data and data-structure-specific 
+data seamlessly together.
+
+Example
+-------
+
+An example is given by a [generic graph data structure][Graph] which 
+allows to embed user-defined labels into the edges and vertices. In 
+case the user data-type (say, for the edges) is `void`, no memory 
+should be allocated for the user data. Using the object-forwarding
+pattern in this section, this would be implemented similarly to the
+following.
+
+[[CppCode]]:
+	#include "pastel/sys/object_forwarding.h"
+
+	using namespace Pastel;
+
+	class Vertex {};
+	typedef Vertex* VertexRef;
+
+	template <typename EdgeData>
+	class Edge
+		: public Forward<EdgeData>::type
+	{
+	public:
+		typedef typename Forward<EdgeData>::type Base;
+
+		using Base::operator=;
+		Edge& operator=(Edge edge) = delete;
+
+		VertexRef from() {return from_;}
+		VertexRef to() {return to_;}
+
+	private:
+		VertexRef from_;
+		VertexRef to_;
+	};
+
+	class Label
+	{
+	public:
+		int label;
+	};
+
+	int main()
+	{
+		Edge<void> a;
+		a;
+		a.from();
+	
+		Edge<int> b;
+		b = 5;
+		b.to();
+
+		Edge<Label> c;
+		c.label = 5;
+		c.from();
+	
+		return 0;
+	}
+	
+
+[Graph]: [[Ref]]: incidence_graph.txt
 

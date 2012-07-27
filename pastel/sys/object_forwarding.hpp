@@ -14,6 +14,10 @@ namespace Pastel
 		// Only non-class types are allowed to be forwarded.
 		PASTEL_STATIC_ASSERT(!std::is_class<Type>::value);
 
+		// FIX: Once variadic templates become available in
+		// Visual Studio, replace these constructors with
+		// the variadic forwarder.
+
 		Class()
 			: member_()
 		{
@@ -82,10 +86,6 @@ namespace Pastel
 		{
 		}
 
-		~Class()
-		{
-		}
-
 		operator Type&()
 		{
 			return member_;
@@ -98,11 +98,6 @@ namespace Pastel
 
 	private:
 		Type member_;
-	};
-
-	template <>
-	class Class<void>
-	{
 	};
 
 }
