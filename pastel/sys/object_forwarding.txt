@@ -10,7 +10,7 @@ technique is to be able to "derive classes from native types", such as
 `int`. This in turn is useful in the implementation of data structures
 which support embedding user-data in its parts. First, deriving from the
 (forwarded) user type automatically makes use of the empty base-class 
-optimization, so that memory use can be completely avoided when user-data 
+optimization, so that memory-use can be completely avoided when user-data 
 is not needed. Second, being able to derive from arbitrary types makes 
 it possible to fuse several layers of user data and data-structure-specific 
 data seamlessly together.
