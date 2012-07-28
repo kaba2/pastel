@@ -67,6 +67,7 @@ namespace Pastel
 		//! Removes all transitions.
 		void clearTransitions()
 		{
+			graph_.clearEdges();
 			searchSet_.clear();
 		}
 
@@ -134,6 +135,8 @@ namespace Pastel
 			return startState_;
 		}
 
+		// Final states
+
 		//! Makes the given state final.
 		void addFinal(
 			const State_ConstIterator& state)
@@ -152,6 +155,31 @@ namespace Pastel
 		bool final(const State_ConstIterator& state) const
 		{
 			return finalSet_.count(state);
+		}
+
+		Final_Iterator finalBegin()
+		{
+			return finalSet_.begin();
+		}
+
+		Final_ConstIterator cFinalBegin() const
+		{
+			return finalSet_.cbegin();
+		}
+
+		Final_Iterator finalEnd()
+		{
+			return finalSet_.end();
+		}
+
+		Final_ConstIterator cFinalEnd() const
+		{
+			return finalSet_.cend();
+		}
+
+		integer finalStates() const
+		{
+			return finalSet_.size();
 		}
 
 		//! Returns the reject-state.

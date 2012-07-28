@@ -54,6 +54,14 @@ namespace Pastel
 				prev->next_ = (Incidence*)&sentinel_;
 			}
 
+			for (integer i = 0;i < IncidenceTypes;++i)
+			{
+				if (incidencesSet_[i] == 0)
+				{
+					partitionSet_[i] = (Incidence*)&sentinel_;
+				}
+			}
+
 			that.forget();
 		}
 
@@ -76,12 +84,12 @@ namespace Pastel
 
 		Incidence_ConstIterator cUndirectedBegin() const
 		{
-			return cbegin_<Graph::Undirected>();
+			return begin_<Graph::Undirected>();
 		}
 
 		Incidence_ConstIterator cUndirectedEnd() const
 		{
-			return cend_<Graph::Undirected>();
+			return end_<Graph::Undirected>();
 		}
 
 		integer undirectedEdges() const
@@ -103,12 +111,12 @@ namespace Pastel
 
 		Incidence_ConstIterator cOutgoingBegin() const
 		{
-			return cbegin_<Graph::Outgoing>();
+			return begin_<Graph::Outgoing>();
 		}
 
 		Incidence_ConstIterator cOutgoingEnd() const
 		{
-			return cend_<Graph::Outgoing>();
+			return end_<Graph::Outgoing>();
 		}
 
 		integer outgoingEdges() const
@@ -130,12 +138,12 @@ namespace Pastel
 
 		Incidence_ConstIterator cIncomingBegin() const
 		{
-			return cbegin_<Graph::Incoming>();
+			return begin_<Graph::Incoming>();
 		}
 
 		Incidence_ConstIterator cIncomingEnd() const
 		{
-			return cend_<Graph::Incoming>();
+			return end_<Graph::Incoming>();
 		}
 
 		integer incomingEdges() const
