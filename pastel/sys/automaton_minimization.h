@@ -15,10 +15,15 @@ namespace Pastel
 	O(n + m log(n)) in practice, since we use a hash-table to 
 	sort transitions by symbols.
 	*/
-	template <typename State, typename Symbol>
-	Automaton<State, Symbol> minimize(
-		Automaton<State, Symbol> automaton);
+	template <
+		typename Symbol, 
+		typename StateData, 
+		typename TransitionData>
+	Automaton<Symbol, StateData, TransitionData> minimizeAutomaton(
+		Automaton<Symbol, StateData, TransitionData> automaton);
 
 }
+
+#include "pastel/sys/automaton_minimization.hpp"
 
 #endif

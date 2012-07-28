@@ -168,7 +168,7 @@ namespace Pastel
 		strong
 		*/
 		Set_Iterator addSet(
-			SetData setData = SetData())
+			SetData_Class setData = SetData_Class())
 		{
 			return setSet_.emplace(
 				setSet_.cend(), 
@@ -192,7 +192,7 @@ namespace Pastel
 		Set_Iterator addSet(
 			const ElementData_ConstIterator& begin,
 			const ElementData_ConstIterator& end,
-			SetData setData = SetData())
+			SetData_Class setData = SetData_Class())
 		{
 			Set_Iterator set =
 				addSet(std::move(setData));
@@ -255,7 +255,7 @@ namespace Pastel
 		own set, and places the new set at the back of the 
 		set-sequence.
 		*/
-		Set_Iterator split(SetData setData = SetData())
+		Set_Iterator split(SetData_Class setData = SetData_Class())
 		{
 			Set_Iterator firstNewSet = setSet_.end();
 			while(!splitSet_.empty())
@@ -399,7 +399,7 @@ namespace Pastel
 		*/
 		Element_Iterator insertOne(
 			const Set_ConstIterator& set,
-			ElementData elementData)
+			ElementData_Class elementData = ElementData_Class())
 		{
 			ENSURE(set != cSetEnd());
 
