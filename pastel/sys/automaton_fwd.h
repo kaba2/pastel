@@ -14,8 +14,8 @@ namespace Pastel
 
 	template <
 		typename Symbol, 
-		typename StateData = void, 
-		typename TransitionData = void>
+		typename StateData, 
+		typename TransitionData>
 	class Automaton_Fwd
 	{
 	public:
