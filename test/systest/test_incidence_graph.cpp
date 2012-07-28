@@ -243,6 +243,7 @@ namespace
 		{
 			typedef Incidence_Graph<GraphType::Directed> Graph;
 			typedef Graph::Vertex_Iterator Vertex;
+			typedef Graph::Edge_Iterator Edge;
 
 			Graph graph;
 			Vertex a = graph.addVertex();
@@ -251,7 +252,7 @@ namespace
 			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
 			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
 
-			graph.addEdge(a, b);
+			Edge A = graph.addEdge(a, b);
 			
 			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
 			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
@@ -262,6 +263,16 @@ namespace
 			TEST_ENSURE_OP(b->incomingEdges(), ==, 1);
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
 			TEST_ENSURE(b->cIncomingBegin()->vertex() == a);
+
+			graph.removeEdge(A);
+
+			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
+			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->outgoingEdges(), ==, 0);
+
+			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
+			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
 		}
 
 	};

@@ -1498,6 +1498,9 @@
     <ClInclude Include="unreachable_traversal.hpp">
       <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
     </ClInclude>
+    <ClInclude Include="automaton_minimization.hpp">
+      <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

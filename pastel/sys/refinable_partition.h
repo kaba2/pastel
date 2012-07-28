@@ -240,14 +240,24 @@ namespace Pastel
 
 		//! Splits sets with both marked and unmarked elements.
 		/*!
+		returns:
+		The first new set that was split off from an 
+		existing set.
+
 		Time complexity: 
 		amortized constant
 
 		Exception safety: 
 		nothrow
+
+		For each set in the split-set, this function splits off
+		the _smaller_ part of the set (marked or unmarked) to its 
+		own set, and places the new set at the back of the 
+		set-sequence.
 		*/
-		void split(SetData setData = SetData())
+		Set_Iterator split(SetData setData = SetData())
 		{
+			Set_Iterator firstNewSet = setSet_.end();
 			while(!splitSet_.empty())
 			{
 				Set_Iterator set = splitSet_.back();
@@ -307,7 +317,14 @@ namespace Pastel
 				// Update the set-reference for each element
 				// of the new set.
 				newSet->updateElements(newSet);
+
+				if (firstNewSet == setSet_.end())
+				{
+					firstNewSet = newSet;
+				}
 			}
+
+			return firstNewSet;
 		}
 
 		// Returns the first iterator of the set-set.
