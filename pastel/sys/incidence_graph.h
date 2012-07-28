@@ -196,7 +196,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void removeVertex(
+		Vertex_Iterator removeVertex(
 			const Vertex_ConstIterator& vertex)
 		{
 			// Remove all edges incident to this vertex.
@@ -215,7 +215,7 @@ namespace Pastel
 			}
 
 			// Remove the vertex.
-			vertexSet_.erase(vertex);
+			return vertexSet_.erase(vertex);
 		}
 
 		//! Casts away constness of a vertex.
@@ -376,7 +376,7 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void removeEdge(
+		Edge_Iterator removeEdge(
 			const Edge_ConstIterator& edge)
 		{
 			Vertex_Iterator from = cast(edge)->from();
@@ -395,7 +395,7 @@ namespace Pastel
 			}
 
 			// Remove the edge.
-			edgeSet_.erase(edge);
+			return edgeSet_.erase(edge);
 		}
 
 		//! Reverses the directionality of an edge.

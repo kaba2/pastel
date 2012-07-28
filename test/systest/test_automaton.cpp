@@ -6,6 +6,7 @@
 #include <pastel/sys/automaton.h>
 #include <pastel/sys/unreachable_traversal.h>
 #include <pastel/sys/unaccepting_traversal.h>
+#include <pastel/sys/automaton_minimization.h>
 
 #include <algorithm>
 
@@ -29,14 +30,15 @@ namespace
 			testSimple();
 		}
 
+		typedef Automaton<integer> Automaton;
+		typedef Automaton::State_ConstIterator State_ConstIterator;
+		typedef Automaton::State_Iterator State_Iterator;
+		typedef Automaton::Transition_Iterator Transition;
+
 		void testSimple()
 		{
-			typedef Automaton<integer> Automaton;
-			typedef Automaton::State_ConstIterator State_ConstIterator;
-			typedef Automaton::State_Iterator State_Iterator;
-			typedef Automaton::Transition_Iterator Transition;
-
 			Automaton automaton;
+
 			State_ConstIterator a = automaton.addState();
 			State_ConstIterator b = automaton.addState();
 			State_ConstIterator c = automaton.addState();
@@ -123,6 +125,9 @@ namespace
 						std::begin(correctSet)));
 				}
 			}
+
+			automaton = minimizeAutomaton(
+				std::move(automaton));
 		}
 	};
 

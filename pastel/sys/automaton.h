@@ -288,8 +288,9 @@ namespace Pastel
 			const Transition_ConstIterator& transition)
 		{
 			searchSet_.erase(
-				StateSymbol(transition->from(), *transition));
-			return graph_.erase(transition);
+				StateSymbol(transition->from(), transition->symbol()));
+			
+			return graph_.removeEdge(transition);
 		}
 
 		//! Searches for the given transition.

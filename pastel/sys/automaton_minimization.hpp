@@ -6,19 +6,25 @@
 #include "pastel/sys/unaccepting_traversal.h"
 #include "pastel/sys/unreachable_traversal.h"
 #include "pastel/sys/refinable_partition.h"
+#include "pastel/sys/counting_iterator.h"
+
+#include <unordered_map>
 
 namespace Pastel
 {
 
-	template <typename State, typename Symbol>
-	Automaton<State, Symbol> minimize(
-		Automaton<State, Symbol> automaton)
+	template <
+		typename Symbol, 
+		typename StateData, 
+		typename TransitionData>
+	Automaton<Symbol, StateData, TransitionData> minimizeAutomaton(
+		Automaton<Symbol, StateData, TransitionData> automaton)
 	{
 		// "Fast brief practical DFA minimization",
 		// Antti Valmari, Information Processing Letters,
 		// Volume 112, Issue 6, 2012, pp. 213-217.
 
-		typedef Automaton<State, Symbol> Automaton;
+		typedef Automaton<Symbol, StateData, TransitionData> Automaton;
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 		typedef typename Automaton::Transition_ConstIterator
@@ -28,11 +34,15 @@ namespace Pastel
 			StatePartition;
 		typedef typename StatePartition::Set_Iterator
 			Block_Iterator;
+		typedef typename StatePartition::Element_Iterator
+			BlockElement_Iterator;
 
 		typedef RefinablePartition<Transition_ConstIterator>
 			TransitionPartition;
-		typedef typename StatePartition::Set_Iterator
+		typedef typename TransitionPartition::Set_Iterator
 			Cord_Iterator;
+		typedef typename TransitionPartition::Element_Iterator
+			CordElement_Iterator;
 
 		// Remove unreachable states.
 		forEachUnreachable(
@@ -50,16 +60,34 @@ namespace Pastel
 			automaton.removeState(state);
 		});
 
+		// These are used for fast conversion of an 
+		// automaton element to a partition element.
+
+		std::unordered_map<State_ConstIterator, 
+			BlockElement_Iterator, IteratorAddress_Hash> blockElementSet;
+
+		std::unordered_map<Transition_ConstIterator, 
+			CordElement_Iterator, IteratorAddress_Hash> cordElementSet;
+
 		// Create the initial partition of states with 
 		// a single set containing all the states.
 		
 		RefinablePartition<State_ConstIterator>
 			statePartition;
+
+		Block_Iterator initialBlock = 
+			statePartition.addSet();
 		
-		statePartition.insert(
-			statePartition.addSet(), 
-			countingIterator(automaton.cStateBegin()),
-			countingIterator(automaton.cStateEnd()));
+		for (auto state = automaton.cStateBegin();
+			state != automaton.cStateEnd();
+			++state)
+		{
+			BlockElement_Iterator element = 
+				statePartition.insertOne(initialBlock, state);
+
+			blockElementSet.insert(
+				std::make_pair(state, element));
+		}
 
 		// Partition the states into final states
 		// and non-final states.
@@ -69,7 +97,8 @@ namespace Pastel
 			automaton.cFinalEnd(),
 			[&](const State_ConstIterator& state)
 		{
-			statePartition.mark(state);
+			statePartition.mark(
+				blockElementSet[state]);
 		});
 
 		statePartition.split();
@@ -96,15 +125,19 @@ namespace Pastel
 				search = searchSet.insert(
 					std::make_pair(
 					transition->symbol(),
-					transitionPartition.addSet()));
+					transitionPartition.addSet())).first;
 			}
 			
 			Cord_Iterator cord =
 				search->second;
 			
 			// Add the transition into the cord.
-			transitionPartition.insertOne(
+			CordElement_Iterator element = 
+				transitionPartition.insertOne(
 				cord, transition);
+
+			cordElementSet.insert(
+				std::make_pair(transition, element));
 		}
 
 		// Partition the states into minimal amount of 
@@ -125,10 +158,14 @@ namespace Pastel
 			// in the block have a transition in the cord.
 			std::for_each(
 				cord->begin(), cord->end(),
-				[&](const Transition_ConstIterator& transition)
+				[&](const CordElement_Iterator& element)
 			{
-				statePartition.mark(transition->from());
-			};
+				Transition_ConstIterator transition =
+					*element;
+
+				statePartition.mark(
+					blockElementSet[transition->from()]);
+			});
 
 			// Make the blocks compatible with this cord
 			// by splitting the incompatible blocks.
@@ -156,14 +193,17 @@ namespace Pastel
 				// the block.
 				std::for_each(
 					block->begin(), block->end(),
-					[&](const State_ConstIterator& state)
+					[&](const BlockElement_Iterator& element)
 				{
+					State_ConstIterator state =
+						*element;
+
 					for (auto incidence = state->cIncomingBegin();
 						incidence != state->cIncomingEnd();
 						++incidence)
 					{
 						transitionPartition.mark(
-							incidence->edge());
+							cordElementSet[incidence->edge()]);
 					}
 				});
 
