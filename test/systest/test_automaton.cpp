@@ -4,6 +4,7 @@
 #include "pastelsystest.h"
 
 #include <pastel/sys/automaton.h>
+#include <pastel/sys/unreachable_removal.h>
 
 using namespace Pastel;
 using namespace std;
@@ -27,7 +28,7 @@ namespace
 
 		void testSimple()
 		{
-			typedef Automaton<integer, void, void> Automaton;
+			typedef Automaton<integer> Automaton;
 			typedef Automaton::State_Iterator State;
 			typedef Automaton::Transition_Iterator Transition;
 
@@ -40,7 +41,16 @@ namespace
 				a, 0, b);
 			Transition B = automaton.addTransition(
 				b, 0, c);
+			Transition C = automaton.addTransition(
+				c, 0, a);
+			Transition D = automaton.addTransition(
+				a, 0, c);
 			automaton.setStartState(a);
+			automaton.addFinal(b);
+			automaton.addFinal(c);
+
+			automaton = removeUnreachable(
+				std::move(automaton));
 		}
 	};
 

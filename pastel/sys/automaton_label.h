@@ -18,14 +18,14 @@ namespace Pastel
 		typename Symbol, 
 		typename StateData, 
 		typename TransitionData>
-	class Automaton_Fwd<Symbol, StateData, TransitionData>::Transition
+	class Automaton_Fwd<Symbol, StateData, TransitionData>::Label
 		: public TransitionData_Class
 	{
 	public:
 		using TransitionData_Class::operator=;
 
 		// FIX: Delete after emplace becomes available in Visual Studio.
-		Transition(Transition&& that)
+		Label(Label&& that)
 			: TransitionData_Class(std::move((TransitionData_Class&&)that))
 			, symbol_(std::move(that.symbol_))
 		{
@@ -37,9 +37,9 @@ namespace Pastel
 		}
 
 	private:
-		Transition() PASTEL_DELETE;
-		Transition(const Transition& that) PASTEL_DELETE;
-		Transition& operator=(Transition that) PASTEL_DELETE;
+		Label() PASTEL_DELETE;
+		Label(const Label& that) PASTEL_DELETE;
+		Label& operator=(Label that) PASTEL_DELETE;
 
 		template <
 			typename Symbol, 
@@ -47,7 +47,7 @@ namespace Pastel
 			typename TransitionData>
 		friend class Automaton;
 
-		Transition(
+		Label(
 			Symbol symbol,
 			TransitionData_Class transitionData)
 			: TransitionData_Class(std::move(transitionData))

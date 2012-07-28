@@ -140,7 +140,7 @@
     <ClInclude Include="automaton.hpp" />
     <ClInclude Include="automaton_algorithms.h" />
     <ClInclude Include="automaton_fwd.h" />
-    <ClInclude Include="automaton_transition.h" />
+    <ClInclude Include="automaton_label.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="breadth_first_traversal.h" />
     <ClInclude Include="breadth_first_traversal.hpp" />

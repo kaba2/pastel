@@ -1495,7 +1495,7 @@
     <ClInclude Include="object_forwarding.hpp">
       <Filter>Generic programming\Object forwarding</Filter>
     </ClInclude>
-    <ClInclude Include="automaton_transition.h">
+    <ClInclude Include="automaton_label.h">
       <Filter>Data structures\Finite-state automaton</Filter>
     </ClInclude>
   </ItemGroup>
