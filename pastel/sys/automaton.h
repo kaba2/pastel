@@ -4,7 +4,7 @@
 #define PASTEL_AUTOMATON_H
 
 #include "pastel/sys/automaton_fwd.h"
-#include "pastel/sys/automaton_transition.h"
+#include "pastel/sys/automaton_label.h"
 
 namespace Pastel
 {
@@ -23,7 +23,7 @@ namespace Pastel
 			: graph_()
 			, searchSet_()
 			, rejectGraph_()
-			, startState_(graph_.vertexEnd())
+			, startState_(rejectGraph_.vertexEnd())
 			, rejectState_(rejectGraph_.vertexEnd())
 			, emptyBranchSet_()
 			, finalSet_()
@@ -36,7 +36,7 @@ namespace Pastel
 			: graph_()
 			, searchSet_()
 			, rejectGraph_()
-			, startState_(graph_.end())
+			, startState_(rejectGraph_.vertexEnd())
 			, rejectState_(rejectGraph_.vertexEnd())
 			, emptyBranchSet_()
 			, finalSet_()
@@ -217,7 +217,7 @@ namespace Pastel
 
 			transition = graph_.addEdge(
 				fromState, toState, 
-				Transition(symbol, std::move(transitionData)));
+				Label(symbol, std::move(transitionData)));
 			++rollback;
 
 			Search_Iterator search;
@@ -322,17 +322,34 @@ namespace Pastel
 			const Symbol& symbol,
 			const State_ConstIterator& toState) const
 		{
+			// See if this state-symbol pair has any
+			// branches.
 			Search_ConstIterator search = 
 				searchSet_.find(
 				StateSymbol(fromState, symbol));
+			if (search == searchSet_.cend())
+			{
+				// There are no branches.
+				return graph_.cEdgeEnd();
+			}
 			
-			const BranchSet& branchSet = search->second;
+			// Obtain the branch set.
+			const BranchSet& branchSet = 
+				search->second;
 			
+			// Search the branch set for a branch
+			// with the given to-state.
 			Branch_ConstIterator branch =
 				branchSet.find(toState);
+			if (branch == branchSet.cend())
+			{
+				// None of the branches end up in 
+				// the to-state.
+				return graph_.cEdgeEnd();
+			}
 
-			return (branch == branchSet.cend()) ?
-				graph_.cEdgeEnd() : branch->second;
+			// The branch was found.
+			return branch->second;
 		}
 
 		//! Returns the branches of a given state-symbol pair.
@@ -408,7 +425,7 @@ namespace Pastel
 		Transition_Iterator transitionBegin(
 			const State_ConstIterator& state)
 		{
-			return state->cbegin();
+			return state->begin();
 		}
 
 		//! Returns the first iterator of the transition-set of the state.
@@ -422,7 +439,7 @@ namespace Pastel
 		Transition_Iterator transitionEnd(
 			const State_ConstIterator& state)
 		{
-			return state->cend();
+			return state->end();
 		}
 
 		//! Returns the end-iterator of the transition-set of the state.
