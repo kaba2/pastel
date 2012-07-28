@@ -95,7 +95,8 @@ namespace Pastel
 		}
 
 		//! Removes a state.
-		State_Iterator removeState(State_ConstIterator state)
+		State_Iterator removeState(
+			const State_ConstIterator& state)
 		{
 			// Remove all transitions that are 
 			// incoming or outgoing at this vertex.
