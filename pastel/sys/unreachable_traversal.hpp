@@ -1,24 +1,20 @@
-#ifndef PASTEL_UNACCEPTING_REMOVAL_HPP
-#define PASTEL_UNACCEPTING_REMOVAL_HPP
+#ifndef PASTEL_UNREACHABLE_TRAVERSAL_HPP
+#define PASTEL_UNREACHABLE_TRAVERSAL_HPP
 
-#include "pastel/sys/unaccepting_removal.h"
+#include "pastel/sys/unreachable_traversal.h"
 #include "pastel/sys/depth_first_traversal.h"
 
 namespace Pastel
 {
 
-	template <typename State, typename Symbol>
-	Automaton<State, Symbol> removeUnaccepting(
-		Automaton<State, Symbol> automaton)
+	template <
+		typename State, 
+		typename Symbol,
+		typename State_Reporter>
+	void forEachUnreachable(
+		const Automaton<State, Symbol>& automaton,
+		const State_Reporter& report)
 	{
-		if (automaton.finalStates() == 0)
-		{
-			// Since the automaton does not have any
-			// final states, every state is unaccepting.
-
-			automaton.clear();
-		}
-
 		typedef Automaton<State, Symbol>
 			Automaton;
 		typedef Automaton::State_ConstIterator
@@ -27,37 +23,34 @@ namespace Pastel
 		auto forEachSeedVertex = 
 			[&](const std::function<void(const State_ConstIterator&)>& visit)
 		{
-			// Insert final states.
+			visit(automaton.startState());
 		};
 
 		auto forEachAdjacent =
 			[&](const State_ConstIterator& vertex,
 			const std::function<void(const State_ConstIterator&)>& visit)
 		{
-			for (auto edge = vertex->incomingBegin();
-				edge != vertex->incomingEnd();
+			for (auto edge = vertex->cOutgoingBegin();
+				edge != vertex->cOutgoingEnd();
 				++edge)
 			{
 				visit(edge->vertex());
 			}
 		};
 
-		// See which vertices can reach a final state.
+		// See which vertices can be reached from the start state.
 		TraverseDepthFirst<State_ConstIterator, IteratorAddress_Hash> traversal(
-			forEachSeedVertex, forEachAdjacent, [](){});
-		
-		// Remove those vertices which were not visited.
+			forEachSeedVertex, forEachAdjacent, [](const State_ConstIterator&){});
+
 		for (auto state = automaton.cStateBegin();
 			state != automaton.cStateEnd();
 			++state)
 		{
 			if (!traversal.visitedSet.count(state))
 			{
-				automaton.erase(state);
+				report(state);
 			}
 		}
-
-		return automaton;
 	}
 
 }

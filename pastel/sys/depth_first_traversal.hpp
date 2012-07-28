@@ -32,7 +32,7 @@ namespace Pastel
 			forEachSeedVertex(
 				std::bind(&TraverseDepthFirst::visit<ForEachSeedVertex, 
 				ForEachAdjacent, Vertex_Reporter>, 
-				*this, _1, 
+				std::ref(*this), _1, 
 				std::cref(forEachSeedVertex), 
 				std::cref(forEachAdjacent),
 				std::cref(report)));
@@ -62,7 +62,7 @@ namespace Pastel
 				forEachAdjacent(vertex,
 					std::bind(&TraverseDepthFirst::visit<ForEachSeedVertex, 
 					ForEachAdjacent, Vertex_Reporter>, 
-					*this, _1, 
+					std::ref(*this), _1, 
 					std::cref(forEachSeedVertex), 
 					std::cref(forEachAdjacent),
 					std::cref(report)));

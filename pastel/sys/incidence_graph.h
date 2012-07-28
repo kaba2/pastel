@@ -145,6 +145,24 @@ namespace Pastel
 			edgeSet_.clear();
 		}
 
+		//! Removes all edges.
+		/*!
+		Time complexity:
+		O(m)
+		where 
+		m is the number of edges.
+
+		Exception safety:
+		nothrow
+		*/
+		void clearEdges()
+		{
+			while(!edgeSet_.empty())
+			{
+				removeEdge(edgeSet.cbegin());
+			}
+		}
+
 		// Vertices
 
 		//! Adds a new vertex into the graph.

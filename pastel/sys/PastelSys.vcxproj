@@ -174,7 +174,7 @@
     <ClInclude Include="refinable_partition_element.h" />
     <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="refinable_partition_set.h" />
-    <ClInclude Include="unaccepting_removal.h" />
+    <ClInclude Include="unaccepting_traversal.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />
@@ -194,9 +194,9 @@
     <ClInclude Include="transitive_closure.hpp" />
     <ClInclude Include="transitive_closure_concepts.h" />
     <ClInclude Include="iterator_predicate.h" />
-    <ClInclude Include="unaccepting_removal.hpp" />
-    <ClInclude Include="unreachable_removal.h" />
-    <ClInclude Include="unreachable_removal.hpp" />
+    <ClInclude Include="unaccepting_traversal.hpp" />
+    <ClInclude Include="unreachable_traversal.h" />
+    <ClInclude Include="unreachable_traversal.hpp" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
     <ClInclude Include="view_tools.hpp" />
@@ -561,8 +561,8 @@
     <None Include="data_structures.txt" />
     <None Include="array.txt" />
     <None Include="fastlist.txt" />
-    <None Include="unaccepting_removal.txt" />
-    <None Include="unreachable_removal.txt" />
+    <None Include="unaccepting_traversal.txt" />
+    <None Include="unreachable_traversal.txt" />
     <None Include="views.txt" />
     <None Include="extendedconstviews.txt" />
     <None Include="concrete_views.txt" />

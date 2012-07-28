@@ -247,7 +247,21 @@ namespace
 			Graph graph;
 			Vertex a = graph.addVertex();
 			Vertex b = graph.addVertex();
+
+			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
+			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
+
 			graph.addEdge(a, b);
+			
+			TEST_ENSURE(a->cIncomingBegin() == a->cIncomingEnd());
+			TEST_ENSURE_OP(a->incomingEdges(), ==, 0);
+			TEST_ENSURE_OP(a->outgoingEdges(), ==, 1);
+			TEST_ENSURE(a->cOutgoingBegin()->vertex() == b);
+
+			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
+			TEST_ENSURE_OP(b->incomingEdges(), ==, 1);
+			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+			TEST_ENSURE(b->cIncomingBegin()->vertex() == a);
 		}
 
 	};
