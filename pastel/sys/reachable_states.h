@@ -13,12 +13,10 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
-		typename State_Reporter,
 		typename Mark,
 		typename Marked>
 	void forEachReachable(
 		const Automaton<Symbol, StateData, TransitionData>& automaton,
-		const State_Reporter& report,
 		const Mark& mark,
 		const Marked& marked);
 

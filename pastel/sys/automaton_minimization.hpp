@@ -65,9 +65,6 @@ namespace Pastel
 
 		StateSet reachableSet;
 
-		auto reportReachable =
-			[&](const State_ConstIterator& state) {};
-
 		auto markReachable =
 			[&](const State_ConstIterator& state)
 		{
@@ -82,7 +79,6 @@ namespace Pastel
 
 		forEachReachable(
 			automaton,
-			reportReachable,
 			markReachable,
 			markedReachable);
 
@@ -90,21 +86,17 @@ namespace Pastel
 
 		StateSet productiveSet;
 
-		auto reportProductive =
+		auto markProductive =
 			[&](const State_ConstIterator& state) 
 		{
+			productiveSet.insert(state);
+
 			if (reachableSet.count(state))
 			{
 				// Make a state relevant if it is both
 				// reachable and productive.
 				relevantSet.insert(state);
 			}
-		};
-
-		auto markProductive =
-			[&](const State_ConstIterator& state) 
-		{
-			productiveSet.insert(state);
 		};
 
 		auto markedProductive =
@@ -115,7 +107,6 @@ namespace Pastel
 
 		forEachProductive(
 			automaton,
-			reportProductive,
 			markProductive,
 			markedProductive);
 

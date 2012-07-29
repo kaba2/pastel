@@ -12,12 +12,10 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
-		typename State_Reporter,
 		typename Mark,
 		typename Marked>
 	void forEachProductive(
 		const Automaton<Symbol, StateData, TransitionData>& automaton,
-		const State_Reporter& report,
 		const Mark& mark,
 		const Marked& marked)
 	{
@@ -39,7 +37,7 @@ namespace Pastel
 				state != automaton.cStateEnd();
 				++state)
 			{
-				report(state);
+				mark(state);
 			}
 
 			return;
@@ -69,7 +67,7 @@ namespace Pastel
 		};
 
 		traverseDepthFirst<State_ConstIterator>(
-			forEachSeedVertex, forEachAdjacent, report, 
+			forEachSeedVertex, forEachAdjacent, 
 			mark, marked);
 	}
 

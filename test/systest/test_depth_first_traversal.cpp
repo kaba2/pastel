@@ -47,16 +47,11 @@ namespace
 			std::unordered_set<integer> visitedSet;
 			std::vector<integer> reportSet;
 
-			auto report =
-				[&](integer vertex)
-			{
-				reportSet.push_back(vertex);
-			};
-
 			auto mark = 
 				[&](integer vertex)
 			{
 				visitedSet.insert(vertex);
+				reportSet.push_back(vertex);
 			};
 
 			auto marked =
@@ -68,7 +63,6 @@ namespace
 			traverseDepthFirst<integer>(
 				forEachSeedVertex,
 				forEachAdjacent,
-				report,
 				mark,
 				marked);
 
