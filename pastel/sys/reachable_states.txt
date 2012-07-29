@@ -3,5 +3,5 @@ Computation of reachable states
 
 [[Parent]]: automaton_algorithms.txt
 
-The algorithms given here compute those states in the automaton which
+The algorithm given here computes those states in the automaton which
 can be reached from the start state.

@@ -171,6 +171,8 @@
     <ClInclude Include="object_forwarding.hpp" />
     <ClInclude Include="pool_allocator.h" />
     <ClInclude Include="pool_allocator.hpp" />
+    <ClInclude Include="productive_states_concepts.h" />
+    <ClInclude Include="reachable_states_concepts.h" />
     <ClInclude Include="read_protected.h" />
     <ClInclude Include="rectangle_iterator.h" />
     <ClInclude Include="refinable_partition.h" />

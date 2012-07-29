@@ -3,5 +3,5 @@ Computating of productive states
 
 [[Parent]]: automaton_algorithms.txt
 
-The algorithms given here compute those states in the automaton 
+The algorithm given here computes those states in the automaton 
 which reach at least one final state.
