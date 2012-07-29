@@ -80,7 +80,6 @@ namespace
 
 			forEachReachable(
 				automaton,
-				[&](const State_ConstIterator& state) {},
 				markReachable,
 				markedReachable);
 
@@ -125,7 +124,6 @@ namespace
 
 			forEachProductive(
 				automaton,
-				[&](const State_ConstIterator& state) {},
 				markProductive,
 				markedProductive);
 

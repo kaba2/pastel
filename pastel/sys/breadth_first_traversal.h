@@ -22,13 +22,11 @@ namespace Pastel
 		typename Vertex,
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
-		typename Vertex_Reporter,
 		typename Mark,
 		typename Marked>
 	void traverseBreadthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
-		const Vertex_Reporter& report,
 		const Mark& mark,
 		const Marked& marked);
 

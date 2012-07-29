@@ -15,7 +15,6 @@ namespace Pastel
 			typename Vertex,
 			typename ForEachSeedVertex,
 			typename ForEachAdjacent,
-			typename Vertex_Reporter,
 			typename Mark,
 			typename Marked>
 		class Work
@@ -24,12 +23,10 @@ namespace Pastel
 			Work(
 				const ForEachSeedVertex& forEachSeedVertex_,
 				const ForEachAdjacent& forEachAdjacent_,
-				const Vertex_Reporter& report_,
 				const Mark& mark_,
 				const Marked& marked_)
 				: forEachSeedVertex(forEachSeedVertex_)
 				, forEachAdjacent(forEachAdjacent_)
-				, report(report_)
 				, mark(mark_)
 				, marked(marked_)
 			{
@@ -51,9 +48,6 @@ namespace Pastel
 					// Mark as visited.
 					mark(vertex);
 
-					// Report this vertex.
-					report(vertex);
-
 					// Traverse the edges.
 					forEachAdjacent(
 						vertex,
@@ -65,7 +59,6 @@ namespace Pastel
 		private:
 			const ForEachSeedVertex& forEachSeedVertex;
 			const ForEachAdjacent& forEachAdjacent;
-			const Vertex_Reporter& report;
 			const Mark& mark;
 			const Marked& marked;
 		};
@@ -76,20 +69,18 @@ namespace Pastel
 		typename Vertex,
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
-		typename Vertex_Reporter,
 		typename Mark,
 		typename Marked>
 	void traverseDepthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
-		const Vertex_Reporter& report,
 		const Mark& mark,
 		const Marked& marked)
 	{
 		TraverseDepthFirst_::Work<Vertex, 
-		ForEachSeedVertex, ForEachAdjacent, Vertex_Reporter,
+		ForEachSeedVertex, ForEachAdjacent,
 		Mark, Marked> work(
-			forEachSeedVertex, forEachAdjacent, report,
+			forEachSeedVertex, forEachAdjacent,
 			mark, marked);
 	}
 

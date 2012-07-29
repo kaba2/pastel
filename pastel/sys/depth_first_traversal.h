@@ -25,7 +25,6 @@ namespace Pastel
 	void traverseDepthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
-		const Vertex_Reporter& report,
 		const Mark& mark,
 		const Marked& marked);
 
