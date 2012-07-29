@@ -43,11 +43,7 @@ namespace Pastel
 		{
 		public:
 			//! Reports a traversed vertex.
-			/*!
-			returns:
-			Whether to continue the traversal.
-			*/
-			bool operator()(const Vertex& vertex) const;
+			void operator()(const Vertex& vertex) const;
 		};
 
 		//! Marks a vertex as visited.

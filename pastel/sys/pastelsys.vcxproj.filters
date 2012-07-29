@@ -1510,6 +1510,12 @@
     <ClInclude Include="reachable_states.hpp">
       <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
     </ClInclude>
+    <ClInclude Include="productive_states_concepts.h">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+    </ClInclude>
+    <ClInclude Include="reachable_states_concepts.h">
+      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

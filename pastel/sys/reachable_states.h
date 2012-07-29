@@ -1,14 +1,16 @@
-// Description: Removal of unreachable states
+// Description: Traversal of reachable states
 
 #ifndef PASTEL_REACHABLE_STATES_H
 #define PASTEL_REACHABLE_STATES_H
+
+#include "pastel/sys/reachable_states_concepts.h"
 
 #include "pastel/sys/automaton.h"
 
 namespace Pastel
 {
 
-	//! Reports the states which can be reached from the start state.
+	//! Traverses the states which can be reached from the start state.
 	template <
 		typename Symbol,
 		typename StateData,

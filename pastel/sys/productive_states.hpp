@@ -24,25 +24,6 @@ namespace Pastel
 		typedef Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		if (automaton.finalStates() == 0)
-		{
-			// Every state is non-productive.
-			return;
-		}
-
-		if (automaton.finalStates() == automaton.states())
-		{
-			// Every state is productive.
-			for (auto state = automaton.cStateBegin();
-				state != automaton.cStateEnd();
-				++state)
-			{
-				mark(state);
-			}
-
-			return;
-		}
-
 		auto forEachSeedVertex = 
 			[&](const std::function<void(const State_ConstIterator&)>& visit)
 		{
