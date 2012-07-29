@@ -3,7 +3,7 @@
 #ifndef PASTEL_DEPTH_FIRST_TRAVERSAL_H
 #define PASTEL_DEPTH_FIRST_TRAVERSAL_H
 
-#include "pastel/sys/depth_first_traversal_concepts.h"
+#include "pastel/sys/graph_traversal_concepts.h"
 
 namespace Pastel
 {
@@ -19,7 +19,6 @@ namespace Pastel
 		typename Vertex,
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
-		typename Vertex_Reporter,
 		typename Mark,
 		typename Marked>
 	void traverseDepthFirst(
@@ -27,6 +26,30 @@ namespace Pastel
 		const ForEachAdjacent& forEachAdjacent,
 		const Mark& mark,
 		const Marked& marked);
+
+	//! An algorithm-object for depth-first traversal.
+	class DepthFirst_GraphTraversal
+	{
+	public:
+		template <
+			typename Vertex,
+			typename ForEachSeedVertex,
+			typename ForEachAdjacent,
+			typename Mark,
+			typename Marked>
+		void operator()(
+			const ForEachSeedVertex& forEachSeedVertex,
+			const ForEachAdjacent& forEachAdjacent,
+			const Mark& mark,
+			const Marked& marked)
+		{
+			traverseDepthFirst<Vertex>(
+				forEachSeedVertex,
+				forEachAdjacent,
+				mark,
+				marked);
+		}
+	};
 
 }
 

@@ -274,12 +274,6 @@
     <Filter Include="Algorithms\Automaton algorithms">
       <UniqueIdentifier>{60a4329b-e3ab-48f8-8ac9-26621abfc6da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Graph algorithms\Depth-first traversal">
-      <UniqueIdentifier>{b8fc0ab2-2d16-4f2d-9dec-c242d52820a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Graph algorithms\Breadth-first traversal">
-      <UniqueIdentifier>{1a8fa588-2c32-4c19-932d-59c822705579}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Automaton algorithms\Automaton minimization">
       <UniqueIdentifier>{72ffb64d-a10f-4921-b98c-e2684a77c1a0}</UniqueIdentifier>
     </Filter>
@@ -294,6 +288,15 @@
     </Filter>
     <Filter Include="Algorithms\Automaton algorithms\Unaccepting states">
       <UniqueIdentifier>{baf57490-be2d-4c74-a394-24d5bd9a5710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Graph traversal">
+      <UniqueIdentifier>{dc192ba3-ed6a-4b87-9dfb-735b5ed3e9b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Graph traversal\Breadth-first traversal">
+      <UniqueIdentifier>{1a8fa588-2c32-4c19-932d-59c822705579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Graph algorithms\Graph traversal\Depth-first traversal">
+      <UniqueIdentifier>{b8fc0ab2-2d16-4f2d-9dec-c242d52820a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1457,22 +1460,16 @@
       <Filter>Data structures\Refinable partition</Filter>
     </ClInclude>
     <ClInclude Include="depth_first_traversal.h">
-      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
-    </ClInclude>
-    <ClInclude Include="depth_first_traversal_concepts.h">
-      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+      <Filter>Algorithms\Graph algorithms\Graph traversal\Depth-first traversal</Filter>
     </ClInclude>
     <ClInclude Include="depth_first_traversal.hpp">
-      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+      <Filter>Algorithms\Graph algorithms\Graph traversal\Depth-first traversal</Filter>
     </ClInclude>
     <ClInclude Include="breadth_first_traversal.h">
-      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+      <Filter>Algorithms\Graph algorithms\Graph traversal\Breadth-first traversal</Filter>
     </ClInclude>
     <ClInclude Include="breadth_first_traversal.hpp">
-      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
-    </ClInclude>
-    <ClInclude Include="breadth_first_traversal_concepts.h">
-      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+      <Filter>Algorithms\Graph algorithms\Graph traversal\Breadth-first traversal</Filter>
     </ClInclude>
     <ClInclude Include="automaton_minimization.h">
       <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
@@ -1515,6 +1512,9 @@
     </ClInclude>
     <ClInclude Include="reachable_states_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+    </ClInclude>
+    <ClInclude Include="graph_traversal_concepts.h">
+      <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1921,10 +1921,10 @@
       <Filter>Memory management\Allocators\Pool allocator</Filter>
     </None>
     <None Include="depth_first_traversal.txt">
-      <Filter>Algorithms\Graph algorithms\Depth-first traversal</Filter>
+      <Filter>Algorithms\Graph algorithms\Graph traversal\Depth-first traversal</Filter>
     </None>
     <None Include="breadth_first_traversal.txt">
-      <Filter>Algorithms\Graph algorithms\Breadth-first traversal</Filter>
+      <Filter>Algorithms\Graph algorithms\Graph traversal\Breadth-first traversal</Filter>
     </None>
     <None Include="automaton_algorithms.txt">
       <Filter>Algorithms\Automaton algorithms</Filter>
@@ -1943,6 +1943,9 @@
     </None>
     <None Include="reachable_states.txt">
       <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+    </None>
+    <None Include="graph_traversal.txt">
+      <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

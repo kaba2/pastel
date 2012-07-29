@@ -147,7 +147,6 @@
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="breadth_first_traversal.h" />
     <ClInclude Include="breadth_first_traversal.hpp" />
-    <ClInclude Include="breadth_first_traversal_concepts.h" />
     <ClInclude Include="clone_ptr.h" />
     <ClInclude Include="clone_ptr_concepts.h" />
     <ClInclude Include="clone_ptr_private.h" />
@@ -156,8 +155,8 @@
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="depth_first_traversal.h" />
     <ClInclude Include="depth_first_traversal.hpp" />
-    <ClInclude Include="depth_first_traversal_concepts.h" />
     <ClInclude Include="graph_algorithms.h" />
+    <ClInclude Include="graph_traversal_concepts.h" />
     <ClInclude Include="incidence_graph.h" />
     <ClInclude Include="incidence_graph_edge.h" />
     <ClInclude Include="incidence_graph_fwd.h" />
@@ -551,6 +550,7 @@
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
+    <None Include="graph_traversal.txt" />
     <None Include="hash.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />
