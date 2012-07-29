@@ -10,24 +10,6 @@ namespace Pastel
 
 	//! Traverses a graph in a breadth-first manner.
 	/*!
-	This is a convenience function which calls
-
-	traverseBreadthFirst(
-		forEachSeedVertex, forEachAdjacent,
-		report, std::hash<Vertex>())
-	*/
-	template <
-		typename Vertex,
-		typename ForEachSeedVertex,
-		typename ForEachAdjacent,
-		typename Vertex_Reporter>
-	void traverseBreadthFirst(
-		const ForEachSeedVertex& forEachSeedVertex,
-		const ForEachAdjacent& forEachAdjacent,
-		const Vertex_Reporter& report);
-
-	//! Traverses a graph in a breadth-first manner.
-	/*!
 	Preconditions:
 	Vertex is copy-constructible.
 
@@ -41,12 +23,14 @@ namespace Pastel
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
 		typename Vertex_Reporter,
-		typename Vertex_Hash>
+		typename Mark,
+		typename Marked>
 	void traverseBreadthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
 		const Vertex_Reporter& report,
-		const Vertex_Hash& vertexHash);
+		const Mark& mark,
+		const Marked& marked);
 
 }
 

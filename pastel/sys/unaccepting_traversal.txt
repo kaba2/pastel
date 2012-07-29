@@ -1,7 +1,0 @@
-Traversal of unaccepting states
-===============================
-
-[[Parent]]: automaton_algorithms.txt
-
-This algorithm traverses those states in the automaton which 
-can never lead to an accepting state.

@@ -44,18 +44,33 @@ namespace
 				}
 			};
 
+			std::unordered_set<integer> visitedSet;
 			std::vector<integer> reportSet;
 
-			auto report = 
+			auto report =
 				[&](integer vertex)
 			{
 				reportSet.push_back(vertex);
 			};
 
+			auto mark = 
+				[&](integer vertex)
+			{
+				visitedSet.insert(vertex);
+			};
+
+			auto marked =
+				[&](integer vertex) -> bool
+			{
+				return visitedSet.count(vertex);
+			};
+
 			traverseDepthFirst<integer>(
 				forEachSeedVertex,
 				forEachAdjacent,
-				report);
+				report,
+				mark,
+				marked);
 
 			integer correctSet[] = {0, 1, 3, 7, 8, 4, 9, 10, 2, 5, 11, 12, 6, 13, 14};
 			integer correctSize = std::end(correctSet) - std::begin(correctSet);

@@ -139,6 +139,8 @@
     <ClInclude Include="automaton.h" />
     <ClInclude Include="automaton.hpp" />
     <ClInclude Include="automaton_algorithms.h" />
+    <ClInclude Include="automaton_determinization.h" />
+    <ClInclude Include="automaton_determinization.hpp" />
     <ClInclude Include="automaton_fwd.h" />
     <ClInclude Include="automaton_label.h" />
     <ClInclude Include="automaton_minimization.hpp" />
@@ -175,7 +177,7 @@
     <ClInclude Include="refinable_partition_element.h" />
     <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="refinable_partition_set.h" />
-    <ClInclude Include="unaccepting_traversal.h" />
+    <ClInclude Include="productive_states.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />
@@ -195,9 +197,9 @@
     <ClInclude Include="transitive_closure.hpp" />
     <ClInclude Include="transitive_closure_concepts.h" />
     <ClInclude Include="iterator_predicate.h" />
-    <ClInclude Include="unaccepting_traversal.hpp" />
-    <ClInclude Include="unreachable_traversal.h" />
-    <ClInclude Include="unreachable_traversal.hpp" />
+    <ClInclude Include="productive_states.hpp" />
+    <ClInclude Include="reachable_states.h" />
+    <ClInclude Include="reachable_states.hpp" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
     <ClInclude Include="view_tools.hpp" />
@@ -543,6 +545,7 @@
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
     <None Include="automaton_algorithms.txt" />
+    <None Include="automaton_determinization.txt" />
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
@@ -562,8 +565,8 @@
     <None Include="data_structures.txt" />
     <None Include="array.txt" />
     <None Include="fastlist.txt" />
-    <None Include="unaccepting_traversal.txt" />
-    <None Include="unreachable_traversal.txt" />
+    <None Include="productive_states.txt" />
+    <None Include="reachable_states.txt" />
     <None Include="views.txt" />
     <None Include="extendedconstviews.txt" />
     <None Include="concrete_views.txt" />

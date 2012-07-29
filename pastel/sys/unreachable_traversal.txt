@@ -1,7 +1,0 @@
-Traversal of unreachable states
-===============================
-
-[[Parent]]: automaton_algorithms.txt
-
-This algorithm traverses those states in the automaton which 
-can not be reached from the start state.
