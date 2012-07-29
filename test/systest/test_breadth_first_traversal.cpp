@@ -45,6 +45,7 @@ namespace
 			};
 
 			std::vector<integer> reportSet;
+			std::unordered_set<integer> visitedSet;
 
 			auto report = 
 				[&](integer vertex)
@@ -52,10 +53,24 @@ namespace
 				reportSet.push_back(vertex);
 			};
 
+			auto mark =
+				[&](integer vertex)
+			{
+				visitedSet.insert(vertex);
+			};
+
+			auto marked =
+				[&](integer vertex) -> bool
+			{
+				return visitedSet.count(vertex);
+			};
+
 			traverseBreadthFirst<integer>(
 				forEachSeedVertex,
 				forEachAdjacent,
-				report);
+				report,
+				mark,
+				marked);
 
 			integer correctSet[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 			integer correctSize = std::end(correctSet) - std::begin(correctSet);

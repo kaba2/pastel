@@ -1,0 +1,8 @@
+Automaton determinization
+=========================
+
+[[Parent]]: automaton_algorithms.txt
+
+_Automaton determinization_ is the problem of finding a deterministic
+finite-state automaton recognizing the same language as a given
+non-deterministic finite-state automaton.

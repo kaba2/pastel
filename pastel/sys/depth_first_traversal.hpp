@@ -2,96 +2,74 @@
 #define PASTEL_DEPTH_FIRST_TRAVERSAL_HPP
 
 #include "pastel/sys/depth_first_traversal.h"
-#include "pastel/sys/hash.h"
 
-#include <unordered_set>
 #include <functional>
 
 namespace Pastel
 {
 
-	template <
-		typename Vertex, 
-		typename VertexHash = std::hash<Vertex>>
-	class TraverseDepthFirst
+	namespace TraverseDepthFirst_
 	{
-	public:
-		template <
-			typename ForEachSeedVertex,
-			typename ForEachAdjacent,
-			typename Vertex_Reporter>
-		TraverseDepthFirst(
-			const ForEachSeedVertex& forEachSeedVertex,
-			const ForEachAdjacent& forEachAdjacent,
-			const Vertex_Reporter& report)
-			: visitedSet()
-		{
-			using namespace std::placeholders;
-
-			// Traverse each seed-vertex depth-first.
-			forEachSeedVertex(
-				std::bind(&TraverseDepthFirst::visit<ForEachSeedVertex, 
-				ForEachAdjacent, Vertex_Reporter>, 
-				std::ref(*this), _1, 
-				std::cref(forEachSeedVertex), 
-				std::cref(forEachAdjacent),
-				std::cref(report)));
-		}
 
 		template <
+			typename Vertex,
 			typename ForEachSeedVertex,
 			typename ForEachAdjacent,
-			typename Vertex_Reporter>
-		void visit(const Vertex& vertex,
-			const ForEachSeedVertex& forEachSeedVertex,
-			const ForEachAdjacent& forEachAdjacent,
-			const Vertex_Reporter& report)
+			typename Vertex_Reporter,
+			typename Mark,
+			typename Marked>
+		class Work
 		{
-			using namespace std::placeholders;
-
-			// Avoid visiting the same vertex twice.
-			if (!visitedSet.count(vertex))
+		public:
+			Work(
+				const ForEachSeedVertex& forEachSeedVertex_,
+				const ForEachAdjacent& forEachAdjacent_,
+				const Vertex_Reporter& report_,
+				const Mark& mark_,
+				const Marked& marked_)
+				: forEachSeedVertex(forEachSeedVertex_)
+				, forEachAdjacent(forEachAdjacent_)
+				, report(report_)
+				, mark(mark_)
+				, marked(marked_)
 			{
-				// Mark as visited.
-				visitedSet.emplace(vertex);
+				using namespace std::placeholders;
 
-				// Report this vertex.
-				report(vertex);
-
-				// Traverse the edges.
-				forEachAdjacent(vertex,
-					std::bind(&TraverseDepthFirst::visit<ForEachSeedVertex, 
-					ForEachAdjacent, Vertex_Reporter>, 
-					std::ref(*this), _1, 
-					std::cref(forEachSeedVertex), 
-					std::cref(forEachAdjacent),
-					std::cref(report)));
+				// Traverse each seed-vertex depth-first.
+				forEachSeedVertex(
+					std::bind(&Work::visit, 
+					std::ref(*this), _1));
 			}
-		}
 
-		typedef std::unordered_set<Vertex, VertexHash>
-			VisitedSet;
-		typedef typename VisitedSet::iterator
-			Visiter_Iterator;
-		typedef typename VisitedSet::const_iterator
-			Visiter_ConstIterator;
+			void visit(const Vertex& vertex)
+			{
+				using namespace std::placeholders;
 
-		VisitedSet visitedSet;
-	};
+				// Avoid visiting the same vertex twice.
+				if (!marked(vertex))
+				{
+					// Mark as visited.
+					mark(vertex);
 
-	template <
-		typename Vertex,
-		typename ForEachSeedVertex,
-		typename ForEachAdjacent,
-		typename Vertex_Reporter>
-	void traverseDepthFirst(
-		const ForEachSeedVertex& forEachSeedVertex,
-		const ForEachAdjacent& forEachAdjacent,
-		const Vertex_Reporter& report)
-	{
-		Pastel::traverseDepthFirst<Vertex>(
-			forEachSeedVertex, forEachAdjacent,
-			report, std::hash<Vertex>());
+					// Report this vertex.
+					report(vertex);
+
+					// Traverse the edges.
+					forEachAdjacent(
+						vertex,
+						std::bind(&Work::visit, 
+						std::ref(*this), _1));
+				}
+			}
+
+		private:
+			const ForEachSeedVertex& forEachSeedVertex;
+			const ForEachAdjacent& forEachAdjacent;
+			const Vertex_Reporter& report;
+			const Mark& mark;
+			const Marked& marked;
+		};
+
 	}
 
 	template <
@@ -99,15 +77,20 @@ namespace Pastel
 		typename ForEachSeedVertex,
 		typename ForEachAdjacent,
 		typename Vertex_Reporter,
-		typename Vertex_Hash>
+		typename Mark,
+		typename Marked>
 	void traverseDepthFirst(
 		const ForEachSeedVertex& forEachSeedVertex,
 		const ForEachAdjacent& forEachAdjacent,
 		const Vertex_Reporter& report,
-		const Vertex_Hash& vertexHash)
+		const Mark& mark,
+		const Marked& marked)
 	{
-		TraverseDepthFirst<Vertex, Vertex_Hash> work(
-			forEachSeedVertex, forEachAdjacent, report);
+		TraverseDepthFirst_::Work<Vertex, 
+		ForEachSeedVertex, ForEachAdjacent, Vertex_Reporter,
+		Mark, Marked> work(
+			forEachSeedVertex, forEachAdjacent, report,
+			mark, marked);
 	}
 
 }

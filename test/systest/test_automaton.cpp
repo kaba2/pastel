@@ -4,8 +4,8 @@
 #include "pastelsystest.h"
 
 #include <pastel/sys/automaton.h>
-#include <pastel/sys/unreachable_traversal.h>
-#include <pastel/sys/unaccepting_traversal.h>
+#include <pastel/sys/reachable_states.h>
+#include <pastel/sys/productive_states.h>
 #include <pastel/sys/automaton_minimization.h>
 
 #include <algorithm>
@@ -64,67 +64,95 @@ namespace
 			automaton.addFinal(b);
 			automaton.addFinal(c);
 
-			std::vector<State_ConstIterator> unreachableSet;
-			forEachUnreachable(
-				automaton,
+			std::unordered_set<State_ConstIterator, IteratorAddress_Hash> reachableSet;
+
+			auto markReachable =
 				[&](const State_ConstIterator& state)
 			{
-				unreachableSet.push_back(state);
-			});
+				reachableSet.insert(state);
+			};
 
+			auto markedReachable =
+				[&](const State_ConstIterator& state) -> bool
+			{
+				return reachableSet.count(state);
+			};
+
+			forEachReachable(
+				automaton,
+				[&](const State_ConstIterator& state) {},
+				markReachable,
+				markedReachable);
+
+			/*
 			{
 				std::sort(
-					std::begin(unreachableSet), 
-					std::end(unreachableSet), 
+					std::begin(reachableSet), 
+					std::end(reachableSet), 
 					Iterator_Less());
 
-				State_ConstIterator correctSet[] = {d, e};
+				State_ConstIterator correctSet[] = {a, b, c};
 				std::sort(
 					std::begin(correctSet), 
 					std::end(correctSet), 
 					Iterator_Less());
 
-				TEST_ENSURE_OP(unreachableSet.size(), ==, 2);
-				if (unreachableSet.size() == 2)
+				TEST_ENSURE_OP(reachableSet.size(), ==, 3);
+				if (reachableSet.size() == 3)
 				{
 					TEST_ENSURE(
 						std::equal(
-						std::begin(unreachableSet),
-						std::end(unreachableSet),
+						std::begin(reachableSet),
+						std::end(reachableSet),
 						std::begin(correctSet)));
 				}
 			}
+			*/
 
-			std::vector<State_ConstIterator> unacceptingSet;
-			forEachUnaccepting(
-				automaton,
+			std::unordered_set<State_ConstIterator, IteratorAddress_Hash> productiveSet;
+
+			auto markProductive =
 				[&](const State_ConstIterator& state)
 			{
-				unacceptingSet.push_back(state);
-			});
+				productiveSet.insert(state);
+			};
 
+			auto markedProductive =
+				[&](const State_ConstIterator& state) -> bool
+			{
+				return productiveSet.count(state);
+			};
+
+			forEachProductive(
+				automaton,
+				[&](const State_ConstIterator& state) {},
+				markProductive,
+				markedProductive);
+
+			/*
 			{
 				std::sort(
-					std::begin(unacceptingSet), 
-					std::end(unacceptingSet), 
+					std::begin(productiveSet), 
+					std::end(productiveSet), 
 					Iterator_Less());
 
-				State_ConstIterator correctSet[] = {e};
+				State_ConstIterator correctSet[] = {a, b, c, d};
 				std::sort(
 					std::begin(correctSet), 
 					std::end(correctSet), 
 					Iterator_Less());
 
-				TEST_ENSURE_OP(unacceptingSet.size(), ==, 1);
-				if (unacceptingSet.size() == 1)
+				TEST_ENSURE_OP(productiveSet.size(), ==, 4);
+				if (productiveSet.size() == 4)
 				{
 					TEST_ENSURE(
 						std::equal(
-						std::begin(unacceptingSet),
-						std::end(unacceptingSet),
+						std::begin(productiveSet),
+						std::end(productiveSet),
 						std::begin(correctSet)));
 				}
 			}
+			*/
 
 			automaton = minimizeAutomaton(
 				std::move(automaton));

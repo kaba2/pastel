@@ -283,13 +283,16 @@
     <Filter Include="Algorithms\Automaton algorithms\Automaton minimization">
       <UniqueIdentifier>{72ffb64d-a10f-4921-b98c-e2684a77c1a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Automaton algorithms\Unreachable removal">
-      <UniqueIdentifier>{448f5e01-f2f8-4adc-9014-2f7c640b4858}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generic programming\Object forwarding">
       <UniqueIdentifier>{ef2a75fd-92a0-4a8e-a2c4-66cbfcd8edb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Automaton algorithms\Unaccepting traversal">
+    <Filter Include="Algorithms\Automaton algorithms\Automaton determinization">
+      <UniqueIdentifier>{2a644b80-bc04-4868-876c-f34720bb4eb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Unreachable states">
+      <UniqueIdentifier>{448f5e01-f2f8-4adc-9014-2f7c640b4858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Unaccepting states">
       <UniqueIdentifier>{baf57490-be2d-4c74-a394-24d5bd9a5710}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -1486,20 +1489,26 @@
     <ClInclude Include="automaton_label.h">
       <Filter>Data structures\Finite-state automaton</Filter>
     </ClInclude>
-    <ClInclude Include="unaccepting_traversal.h">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting traversal</Filter>
-    </ClInclude>
-    <ClInclude Include="unaccepting_traversal.hpp">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting traversal</Filter>
-    </ClInclude>
-    <ClInclude Include="unreachable_traversal.h">
-      <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
-    </ClInclude>
-    <ClInclude Include="unreachable_traversal.hpp">
-      <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
-    </ClInclude>
     <ClInclude Include="automaton_minimization.hpp">
       <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_determinization.h">
+      <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_determinization.hpp">
+      <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
+    </ClInclude>
+    <ClInclude Include="productive_states.h">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+    </ClInclude>
+    <ClInclude Include="productive_states.hpp">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+    </ClInclude>
+    <ClInclude Include="reachable_states.h">
+      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+    </ClInclude>
+    <ClInclude Include="reachable_states.hpp">
+      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1920,11 +1929,14 @@
     <None Include="object_forwarding.txt">
       <Filter>Generic programming\Object forwarding</Filter>
     </None>
-    <None Include="unaccepting_traversal.txt">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting traversal</Filter>
+    <None Include="automaton_determinization.txt">
+      <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
     </None>
-    <None Include="unreachable_traversal.txt">
-      <Filter>Algorithms\Automaton algorithms\Unreachable removal</Filter>
+    <None Include="productive_states.txt">
+      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+    </None>
+    <None Include="reachable_states.txt">
+      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,22 @@ namespace Pastel
 			bool operator()(const Vertex& vertex) const;
 		};
 
+		//! Marks a vertex as visited.
+		class Mark
+		{
+		public:
+			//! Marks a vertex as visited.
+			void operator()(const Vertex& vertex) const;
+		};
+
+		//! Returns whether a vertex has been marked.
+		class Marked
+		{
+		public:
+			//! Returns whether a vertex has been marked.
+			bool operator()(const Vertex& vertex) const;
+		};
+
 	}
 
 }

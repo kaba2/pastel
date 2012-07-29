@@ -38,7 +38,7 @@ namespace Pastel
 				const std::function<void(const Vertex&)>& visit) const;
 		};
 
-		//! Reports each traversed vertex to the user.
+		//! Reports a traversed vertex.
 		class Vertex_Reporter
 		{
 		public:
@@ -47,6 +47,22 @@ namespace Pastel
 			returns:
 			Whether to continue the traversal.
 			*/
+			bool operator()(const Vertex& vertex) const;
+		};
+
+		//! Marks a vertex as visited.
+		class Mark
+		{
+		public:
+			//! Marks a vertex as visited.
+			void operator()(const Vertex& vertex) const;
+		};
+
+		//! Returns whether a vertex has been marked.
+		class Marked
+		{
+		public:
+			//! Returns whether a vertex has been marked.
 			bool operator()(const Vertex& vertex) const;
 		};
 

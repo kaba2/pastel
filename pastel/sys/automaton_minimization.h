@@ -20,7 +20,7 @@ namespace Pastel
 		typename StateData, 
 		typename TransitionData>
 	Automaton<Symbol, StateData, TransitionData> minimizeAutomaton(
-		Automaton<Symbol, StateData, TransitionData> automaton);
+		const Automaton<Symbol, StateData, TransitionData>& automaton);
 
 }
 

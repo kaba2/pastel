@@ -3,12 +3,13 @@
 
 #include "pastel/sys/automaton_minimization.h"
 
-#include "pastel/sys/unaccepting_traversal.h"
-#include "pastel/sys/unreachable_traversal.h"
-#include "pastel/sys/refinable_partition.h"
 #include "pastel/sys/counting_iterator.h"
+#include "pastel/sys/productive_states.h"
+#include "pastel/sys/reachable_states.h"
+#include "pastel/sys/refinable_partition.h"
 
 #include <unordered_map>
+#include <unordered_set>
 
 namespace Pastel
 {
@@ -18,7 +19,7 @@ namespace Pastel
 		typename StateData, 
 		typename TransitionData>
 	Automaton<Symbol, StateData, TransitionData> minimizeAutomaton(
-		Automaton<Symbol, StateData, TransitionData> automaton)
+		const Automaton<Symbol, StateData, TransitionData>& automaton)
 	{
 		// "Fast brief practical DFA minimization",
 		// Antti Valmari, Information Processing Letters,
@@ -30,50 +31,105 @@ namespace Pastel
 		typedef typename Automaton::Transition_ConstIterator
 			Transition_ConstIterator;
 
-		typedef RefinablePartition<State_ConstIterator>
+		typedef RefinablePartition<State_ConstIterator, State_ConstIterator>
 			StatePartition;
 		typedef typename StatePartition::Set_Iterator
 			Block_Iterator;
+		typedef typename StatePartition::Set_ConstIterator
+			Block_ConstIterator;
 		typedef typename StatePartition::Element_Iterator
 			BlockElement_Iterator;
+		typedef typename StatePartition::Element_ConstIterator
+			BlockElement_ConstIterator;
 
 		typedef RefinablePartition<Transition_ConstIterator>
 			TransitionPartition;
 		typedef typename TransitionPartition::Set_Iterator
 			Cord_Iterator;
+		typedef typename TransitionPartition::Set_ConstIterator
+			Cord_ConstIterator;
 		typedef typename TransitionPartition::Element_Iterator
 			CordElement_Iterator;
+		typedef typename TransitionPartition::Element_ConstIterator
+			CordElement_ConstIterator;
 
-		// Remove unreachable states.
-		forEachUnreachable(
-			automaton,
-			[&](const State_ConstIterator& state)
-		{
-			automaton.removeState(state);
-		});
+		typedef std::unordered_set<State_ConstIterator, IteratorAddress_Hash>
+			StateSet;
+
+		// A state is relevant if it can be reached from the
+		// start state (reachability) and can reach a final 
+		// state (productivity).
+		StateSet relevantSet;
+		StateSet reachableSet;
+		StateSet productiveSet;
 		
-		// Remove unaccepting states.
-		forEachUnaccepting(
-			automaton,
+		// Compute the states reachable from the start symbol.
+
+		auto reportReachable =
+			[&](const State_ConstIterator& state) {};
+
+		auto markReachable =
 			[&](const State_ConstIterator& state)
 		{
-			automaton.removeState(state);
-		});
+			reachableSet.insert(state);
+		};
+
+		auto markedReachable =
+			[&](const State_ConstIterator& state) -> bool
+		{
+			return reachableSet.count(state);
+		};
+
+		forEachReachable(
+			automaton,
+			reportReachable,
+			markReachable,
+			markedReachable);
+
+		// Compute the states that can reach a final state.
+
+		auto reportProductive =
+			[&](const State_ConstIterator& state) 
+		{
+			if (reachableSet.count(state))
+			{
+				// Make a state relevant if it is both
+				// reachable and productive.
+				relevantSet.insert(state);
+			}
+		};
+
+		auto markProductive =
+			[&](const State_ConstIterator& state) 
+		{
+			productiveSet.insert(state);
+		};
+
+		auto markedProductive =
+			[&](const State_ConstIterator& state) -> bool
+		{
+			return productiveSet.count(state);
+		};
+
+		forEachProductive(
+			automaton,
+			reportProductive,
+			markProductive,
+			markedProductive);
 
 		// These are used for fast conversion of an 
 		// automaton element to a partition element.
 
 		std::unordered_map<State_ConstIterator, 
-			BlockElement_Iterator, IteratorAddress_Hash> blockElementSet;
+			BlockElement_Iterator, IteratorAddress_Hash> stateToElement;
 
 		std::unordered_map<Transition_ConstIterator, 
-			CordElement_Iterator, IteratorAddress_Hash> cordElementSet;
+			CordElement_Iterator, IteratorAddress_Hash> transitionToElement;
 
 		// Create the initial partition of states with 
-		// a single set containing all the states.
+		// a single set containing all the relevant states.
 		
-		RefinablePartition<State_ConstIterator>
-			statePartition;
+		StatePartition statePartition;
 
 		Block_Iterator initialBlock = 
 			statePartition.addSet();
@@ -82,10 +138,16 @@ namespace Pastel
 			state != automaton.cStateEnd();
 			++state)
 		{
+			if (!relevantSet.count(state))
+			{
+				// Ignore irrelevant states.
+				continue;
+			}
+
 			BlockElement_Iterator element = 
 				statePartition.insertOne(initialBlock, state);
 
-			blockElementSet.insert(
+			stateToElement.insert(
 				std::make_pair(state, element));
 		}
 
@@ -97,16 +159,18 @@ namespace Pastel
 			automaton.cFinalEnd(),
 			[&](const State_ConstIterator& state)
 		{
-			statePartition.mark(
-				blockElementSet[state]);
+			if (relevantSet.count(state))
+			{
+				statePartition.mark(
+					stateToElement[state]);
+			}
 		});
 
 		statePartition.split();
 
 		// Create the initial partition of transitions
 		// based on the symbols.
-		RefinablePartition<Transition_ConstIterator>
-			transitionPartition;
+		TransitionPartition transitionPartition;
 
 		std::unordered_map<Symbol, 
 			Cord_Iterator> searchSet;
@@ -136,7 +200,7 @@ namespace Pastel
 				transitionPartition.insertOne(
 				cord, transition);
 
-			cordElementSet.insert(
+			transitionToElement.insert(
 				std::make_pair(transition, element));
 		}
 
@@ -144,6 +208,11 @@ namespace Pastel
 		// equivalence classes based on compatibility.
 
 		Block_Iterator block = statePartition.setBegin();
+
+		// Skip partitioning the cords by the first block.
+		// Note that the state-partition always contains at 
+		// least one block.
+		++block;
 
 		// As long as there are cords for which we haven't yet
 		// checked compatibility with blocks (note that this
@@ -164,7 +233,7 @@ namespace Pastel
 					*element;
 
 				statePartition.mark(
-					blockElementSet[transition->from()]);
+					stateToElement[transition->from()]);
 			});
 
 			// Make the blocks compatible with this cord
@@ -202,8 +271,16 @@ namespace Pastel
 						incidence != state->cIncomingEnd();
 						++incidence)
 					{
-						transitionPartition.mark(
-							cordElementSet[incidence->edge()]);
+						Transition_ConstIterator transition =
+							incidence->edge();
+
+						// Ignore irrelevant transitions.
+						if (relevantSet.count(transition->from()) &&
+							relevantSet.count(transition->to()))
+						{
+							transitionPartition.mark(
+								transitionToElement[incidence->edge()]);
+						}
 					}
 				});
 
@@ -215,7 +292,36 @@ namespace Pastel
 			}
 		}
 
-		return automaton;
+		// Form the minimal automaton.
+		Automaton minimal;
+
+		// Create the states of the minimal automaton.
+		for (auto block = statePartition.setBegin();
+			block != statePartition.setEnd();
+			++block)
+		{
+			// We will store the corresponding minimal 
+			// automaton state in the block data.
+			*block = minimal.addState();
+		}
+		
+		// Create the transitions of the minimal automaton.
+		for (auto cord = transitionPartition.cSetBegin();
+			cord != transitionPartition.cSetEnd();
+			++cord)
+		{
+			ASSERT_OP(cord->elements(), >, 0);
+
+			Transition_ConstIterator transition =
+				**(cord->begin());
+
+			minimal.addTransition(
+				*(stateToElement[transition->from()]->set()), 
+				transition->symbol(), 
+				*(stateToElement[transition->to()]->set()));				
+		}
+		
+		return minimal;
 	}
 
 }
