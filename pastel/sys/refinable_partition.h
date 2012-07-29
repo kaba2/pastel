@@ -16,12 +16,12 @@ namespace Pastel
 	//! Refinable partition
 	/*!
 	Preconditions:
-	ElementData is move/copy-constructible.
-	SetData is move/copy-constructible.
+	ElementData is move- or copy-constructible.
+	SetData is copy-constructible.
 
-	Note:
-	Specifying ElementData or SetData as EmptyClass avoids 
-	allocating any memory for the data.
+	The copy-constructibility for the SetData is required because the
+	split() function copies the set-data of a set to its split-off
+	part.
 	*/
 	template <
 		typename ElementData = void, 
@@ -253,9 +253,10 @@ namespace Pastel
 		For each set in the split-set, this function splits off
 		the _smaller_ part of the set (marked or unmarked) to its 
 		own set, and places the new set at the back of the 
-		set-sequence.
+		set-sequence. The set-data will be copied to the split-off
+		part.
 		*/
-		Set_Iterator split(SetData_Class setData = SetData_Class())
+		Set_Iterator split()
 		{
 			Set_Iterator firstNewSet = setSet_.end();
 			while(!splitSet_.empty())
@@ -292,7 +293,7 @@ namespace Pastel
 						setSet_.cend(),
 						Set(set->begin_, set->unmarkedBegin_, 
 						splitSet_.end(), set->marked(),
-						!set->type(), std::move(setData)));
+						!set->type(), *set));
 					
 					// Use the current set for the larger
 					// unmarked part.
@@ -307,7 +308,7 @@ namespace Pastel
 						Set(set->unmarkedBegin_, cast(set->end()),
 						splitSet_.end(), set->unmarked(),
 						set->type(),
-						std::move(setData)));
+						*set));
 
 					// Use the current set for the larger 
 					// marked part.

@@ -60,10 +60,10 @@ namespace Pastel
 		// start state (reachability) and can reach a final 
 		// state (productivity).
 		StateSet relevantSet;
-		StateSet reachableSet;
-		StateSet productiveSet;
 		
 		// Compute the states reachable from the start symbol.
+
+		StateSet reachableSet;
 
 		auto reportReachable =
 			[&](const State_ConstIterator& state) {};
@@ -87,6 +87,8 @@ namespace Pastel
 			markedReachable);
 
 		// Compute the states that can reach a final state.
+
+		StateSet productiveSet;
 
 		auto reportProductive =
 			[&](const State_ConstIterator& state) 
@@ -300,9 +302,22 @@ namespace Pastel
 			block != statePartition.setEnd();
 			++block)
 		{
+			ASSERT_OP(block->elements(), >, 0);
+
 			// We will store the corresponding minimal 
 			// automaton state in the block data.
 			*block = minimal.addState();
+
+			// Pick any state from the block.
+			State_ConstIterator state =
+				**(block->begin());
+			if (automaton.final(state))
+			{
+				// If one of the states in the block is
+				// a final, they all are. Therefore the
+				// minimal automaton state is final.
+				minimal.addFinal(*block);
+			}
 		}
 		
 		// Create the transitions of the minimal automaton.
@@ -318,9 +333,16 @@ namespace Pastel
 			minimal.addTransition(
 				*(stateToElement[transition->from()]->set()), 
 				transition->symbol(), 
-				*(stateToElement[transition->to()]->set()));				
+				*(stateToElement[transition->to()]->set()));
 		}
-		
+
+		// Set the start-state of the minimal automaton.
+		if (relevantSet.count(automaton.startState()))
+		{
+			minimal.setStartState(
+				*(stateToElement[automaton.startState()]->set()));
+		}
+
 		return minimal;
 	}
 
