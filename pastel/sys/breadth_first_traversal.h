@@ -3,7 +3,7 @@
 #ifndef PASTEL_BREADTH_FIRST_TRAVERSAL_H
 #define PASTEL_BREADTH_FIRST_TRAVERSAL_H
 
-#include "pastel/sys/breadth_first_traversal_concepts.h"
+#include "pastel/sys/graph_traversal_concepts.h"
 
 namespace Pastel
 {
@@ -29,6 +29,30 @@ namespace Pastel
 		const ForEachAdjacent& forEachAdjacent,
 		const Mark& mark,
 		const Marked& marked);
+
+	//! An algorithm-object for breadth-first traversal.
+	class BreadthFirst_GraphTraversal
+	{
+	public:
+		template <
+			typename Vertex,
+			typename ForEachSeedVertex,
+			typename ForEachAdjacent,
+			typename Mark,
+			typename Marked>
+		void operator()(
+			const ForEachSeedVertex& forEachSeedVertex,
+			const ForEachAdjacent& forEachAdjacent,
+			const Mark& mark,
+			const Marked& marked)
+		{
+			traverseBreadthFirst<Vertex>(
+				forEachSeedVertex,
+				forEachAdjacent,
+				mark,
+				marked);
+		}
+	};
 
 }
 

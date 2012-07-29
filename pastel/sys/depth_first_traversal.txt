@@ -1,14 +1,23 @@
 Depth-first traversal
 =====================
 
-[[Parent]]: graph_algorithms.txt
+[[Parent]]: graph_traversal.txt
 
-The _depth-first traversal_ is an algorithm for traversing the vertices
-of a graph. The algorithm first pushes all the _seed_ vertices to a stack. 
-As long as there is a vertex ''v'' at the back of the stack, the 
-algorithm marks ''v'' as traversed, reports ''v'', removes ''v'' from 
-the stack, and then pushes all the untraversed adjacent vertices of ''v'' 
-at the back of the stack. This description parallels that for the 
-breadth-first search. The traversal is commonly implemented by recursive 
-function calls for efficiency; the stack is then implicit as the function 
-call stack.
+The _depth-first traversal_ is an algorithm for traversing the 
+vertices of a graph. The `DepthFirst_GraphTraversal` class 
+provides algorithm-objects for depth-first traversal.
+
+Algorithm
+---------
+
+The algorithm first pushes all the _seed_ vertices at the back
+of a stack. As long as there is a vertex ''v'' at the back of the 
+stack, the algorithm marks ''v'', removes ''v'' from the stack, and 
+then pushes all the unmarked adjacent vertices of ''v'' at the back 
+of the stack. 
+
+This description parallels that for the breadth-first search. However, 
+the traversal is commonly implemented by recursive function calls for 
+efficiency; the stack is then implicit as the function call stack.
+
+
