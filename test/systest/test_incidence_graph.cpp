@@ -29,6 +29,7 @@ namespace
 			testSelfLoops();
 			testMixed();
 			testPure();
+			testMerge();
 		}
 
 		void testAddRemove()
@@ -273,6 +274,48 @@ namespace
 			TEST_ENSURE(b->cOutgoingBegin() == b->cOutgoingEnd());
 			TEST_ENSURE_OP(b->incomingEdges(), ==, 0);
 			TEST_ENSURE_OP(b->outgoingEdges(), ==, 0);
+		}
+
+		void testMerge()
+		{
+			Graph aGraph;
+
+			Vertex a = aGraph.addVertex();
+			Vertex b = aGraph.addVertex();
+			Vertex c = aGraph.addVertex();
+			{
+				TEST_ENSURE_OP(aGraph.vertices(), ==, 3);
+			}
+
+			aGraph.addEdge(a, b);
+			aGraph.addEdge(b, c);
+			aGraph.addEdge(c, a);
+			{
+				TEST_ENSURE_OP(aGraph.edges(), ==, 3);
+			}
+
+			Graph bGraph;
+			Vertex d = bGraph.addVertex();
+			Vertex e = bGraph.addVertex();
+			Vertex f = bGraph.addVertex();
+			{
+				TEST_ENSURE_OP(bGraph.vertices(), ==, 3);
+			}
+
+			bGraph.addEdge(d, e);
+			bGraph.addEdge(e, f);
+			bGraph.addEdge(f, d);
+			{
+				TEST_ENSURE_OP(bGraph.edges(), ==, 3);
+			}
+			
+			aGraph.merge(bGraph);
+			{
+				TEST_ENSURE_OP(aGraph.vertices(), ==, 6);
+				TEST_ENSURE_OP(aGraph.edges(), ==, 6);
+				TEST_ENSURE_OP(bGraph.vertices(), ==, 0);
+				TEST_ENSURE_OP(bGraph.edges(), ==, 0);
+			}
 		}
 
 	};

@@ -47,9 +47,9 @@ namespace Pastel
 			}
 		};
 
-		traverseDepthFirst<State_ConstIterator>(
+		traverseGraph<State_ConstIterator>(
 			forEachSeedVertex, forEachAdjacent, 
-			mark, marked);
+			mark, marked, DepthFirst_GraphTraversal());
 	}
 
 }

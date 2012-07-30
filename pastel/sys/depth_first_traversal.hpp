@@ -8,9 +8,28 @@
 namespace Pastel
 {
 
-	namespace TraverseDepthFirst_
+	class DepthFirst_GraphTraversal
 	{
+	public:
+		template <
+			typename Vertex,
+			typename ForEachSeedVertex,
+			typename ForEachAdjacent,
+			typename Mark,
+			typename Marked>
+		void work(
+			const ForEachSeedVertex& forEachSeedVertex,
+			const ForEachAdjacent& forEachAdjacent,
+			const Mark& mark,
+			const Marked& marked) const
+		{
+			Work<Vertex, ForEachSeedVertex, 
+				ForEachAdjacent, Mark, Marked> work(
+				forEachSeedVertex, forEachAdjacent,
+				mark, marked);
+		}
 
+	private:
 		template <
 			typename Vertex,
 			typename ForEachSeedVertex,
@@ -62,27 +81,7 @@ namespace Pastel
 			const Mark& mark;
 			const Marked& marked;
 		};
-
-	}
-
-	template <
-		typename Vertex,
-		typename ForEachSeedVertex,
-		typename ForEachAdjacent,
-		typename Mark,
-		typename Marked>
-	void traverseDepthFirst(
-		const ForEachSeedVertex& forEachSeedVertex,
-		const ForEachAdjacent& forEachAdjacent,
-		const Mark& mark,
-		const Marked& marked)
-	{
-		TraverseDepthFirst_::Work<Vertex, 
-		ForEachSeedVertex, ForEachAdjacent,
-		Mark, Marked> work(
-			forEachSeedVertex, forEachAdjacent,
-			mark, marked);
-	}
+	};
 
 }
 

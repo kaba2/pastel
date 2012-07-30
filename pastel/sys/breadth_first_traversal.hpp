@@ -9,9 +9,28 @@
 namespace Pastel
 {
 
-	namespace TraverseBreadthFirst_
+	class BreadthFirst_GraphTraversal
 	{
+	public:
+		template <
+			typename Vertex,
+			typename ForEachSeedVertex,
+			typename ForEachAdjacent,
+			typename Mark,
+			typename Marked>
+		void work(
+			const ForEachSeedVertex& forEachSeedVertex,
+			const ForEachAdjacent& forEachAdjacent,
+			const Mark& mark,
+			const Marked& marked) const
+		{
+			Work<Vertex, ForEachSeedVertex, 
+				ForEachAdjacent, Mark, Marked> work(
+				forEachSeedVertex, forEachAdjacent,
+				mark, marked);
+		}
 
+	private:
 		template <
 			typename Vertex,
 			typename ForEachSeedVertex,
@@ -32,12 +51,6 @@ namespace Pastel
 				, marked(marked_)
 				, workSet()
 			{
-			}
-
-			void work()
-			{
-				using namespace std::placeholders;
-
 				// Traverse each seed-vertex breadth-first.
 				forEachSeedVertex(
 					[&](const Vertex& that)
@@ -72,6 +85,7 @@ namespace Pastel
 				}
 			}
 
+		private:
 			const ForEachSeedVertex& forEachSeedVertex;
 			const ForEachAdjacent& forEachAdjacent;
 			const Mark& mark;
@@ -79,29 +93,7 @@ namespace Pastel
 
 			std::list<Vertex> workSet;
 		};
-
-	}
-
-	template <
-		typename Vertex,
-		typename ForEachSeedVertex,
-		typename ForEachAdjacent,
-		typename Mark,
-		typename Marked>
-	void traverseBreadthFirst(
-		const ForEachSeedVertex& forEachSeedVertex,
-		const ForEachAdjacent& forEachAdjacent,
-		const Mark& mark,
-		const Marked& marked)
-	{
-		TraverseBreadthFirst_::Work<
-			Vertex, ForEachSeedVertex, 
-			ForEachAdjacent, Mark, Marked> work(
-			forEachSeedVertex, forEachAdjacent,
-			mark, marked);
-
-		work.work();
-	}
+	};
 
 }
 

@@ -6,22 +6,21 @@ Graph traversal
 A _graph-traversal_ algorithm visits (exactly once) all those 
 vertices ''V'' of a graph which are reachable from a given set of 
 _seed_ vertices ''S subset V''. The order in which the vertices 
-are visited depends on the specific algorithm. A generic description 
-of the algorithm follows.
-
-Generic algorithm
------------------
-
-If ''S'' is empty, the algorithm terminates. Otherwise the algorithm 
-picks a vertex ''v in S'', visits it, and then adds all unvisited 
-adjacent vertices of ''v'' to ''S''. This process is repeated until 
-the algorithm terminates.
+are visited depends on the specific algorithm. 
 
 Algorithm objects
 -----------------
 
 A specific graph traversal algorithm is encapsulated by an 
-[algorithm-object][Algorithm] implementing the `GraphTraversal_Algorithm` 
-concept.
+[algorithm-object][Algorithm] implementing the `GraphTraversal` 
+concept. An algorithm-object of this type can be executed by
+the `traverseGraph()` function implemented in 
+[[FileLink: generic_traversal.h]].
 
 [Algorithm]: [[Ref]]: algorithm.txt
+
+Example
+-------
+
+[[CppCode]]:
+	auto forEachSeed

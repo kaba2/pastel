@@ -259,9 +259,6 @@
     <Filter Include="Data structures\Incidence graph">
       <UniqueIdentifier>{f0efaad4-f75e-4bf6-a5b6-c5a47e299a8f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data structures\Finite-state automaton">
-      <UniqueIdentifier>{99dc3905-0adb-4444-888f-d014bc0e2ea4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\Refinable partition">
       <UniqueIdentifier>{760f0172-3b89-4737-b57c-095dc1887160}</UniqueIdentifier>
     </Filter>
@@ -297,6 +294,12 @@
     </Filter>
     <Filter Include="Algorithms\Graph algorithms\Graph traversal\Depth-first traversal">
       <UniqueIdentifier>{b8fc0ab2-2d16-4f2d-9dec-c242d52820a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Minimal automaton">
+      <UniqueIdentifier>{ceae851e-7180-442d-9b65-d7de6a86012d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Automaton">
+      <UniqueIdentifier>{99dc3905-0adb-4444-888f-d014bc0e2ea4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1403,13 +1406,13 @@
       <Filter>Data structures\Incidence graph</Filter>
     </ClInclude>
     <ClInclude Include="automaton.h">
-      <Filter>Data structures\Finite-state automaton</Filter>
+      <Filter>Data structures\Automaton</Filter>
     </ClInclude>
     <ClInclude Include="automaton.hpp">
-      <Filter>Data structures\Finite-state automaton</Filter>
+      <Filter>Data structures\Automaton</Filter>
     </ClInclude>
     <ClInclude Include="automaton_fwd.h">
-      <Filter>Data structures\Finite-state automaton</Filter>
+      <Filter>Data structures\Automaton</Filter>
     </ClInclude>
     <ClInclude Include="refinable_partition.h">
       <Filter>Data structures\Refinable partition</Filter>
@@ -1484,7 +1487,7 @@
       <Filter>Generic programming\Object forwarding</Filter>
     </ClInclude>
     <ClInclude Include="automaton_label.h">
-      <Filter>Data structures\Finite-state automaton</Filter>
+      <Filter>Data structures\Automaton</Filter>
     </ClInclude>
     <ClInclude Include="automaton_minimization.hpp">
       <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
@@ -1515,6 +1518,18 @@
     </ClInclude>
     <ClInclude Include="graph_traversal_concepts.h">
       <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="graph_traversal.h">
+      <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="generic_traversal.h">
+      <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="minimal_automaton.h">
+      <Filter>Data structures\Minimal automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="minimal_automaton_fwd.h">
+      <Filter>Data structures\Minimal automaton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1897,7 +1912,7 @@
       <Filter>Data structures\Incidence graph</Filter>
     </None>
     <None Include="automaton.txt">
-      <Filter>Data structures\Finite-state automaton</Filter>
+      <Filter>Data structures\Automaton</Filter>
     </None>
     <None Include="refinable_partition.txt">
       <Filter>Data structures\Refinable partition</Filter>
@@ -1946,6 +1961,9 @@
     </None>
     <None Include="graph_traversal.txt">
       <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
+    </None>
+    <None Include="minimal_automaton.txt">
+      <Filter>Data structures\Minimal automaton</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

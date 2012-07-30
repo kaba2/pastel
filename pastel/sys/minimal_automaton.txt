@@ -1,0 +1,14 @@
+Minimal finite-state automaton
+==============================
+
+[[Parent]]: data_structures.txt
+
+The `MinimalAutomaton` is a data-structure for storing and modifying
+minimal (deterministic) finite-state automata. The data-structure takes 
+in a [finite-state automaton][Automaton], minimizes it, and from there 
+after preserves the property of the automaton being minimal under the 
+operations permitted by the data structure. The automaton can be
+modified by either adding or removing words to the language recognized
+by the automaton.
+
+[Automaton]: [[Ref]]: automaton.txt

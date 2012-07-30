@@ -27,6 +27,9 @@ namespace
 
 		void test()
 		{
+			std::vector<integer> reportSet;
+			std::unordered_set<integer> visitedSet;
+
 			auto forEachSeedVertex = 
 				[](const std::function<void(integer)>& visit)
 			{
@@ -44,9 +47,6 @@ namespace
 				}
 			};
 
-			std::vector<integer> reportSet;
-			std::unordered_set<integer> visitedSet;
-
 			auto mark =
 				[&](integer vertex)
 			{
@@ -60,11 +60,12 @@ namespace
 				return visitedSet.count(vertex);
 			};
 
-			traverseBreadthFirst<integer>(
+			traverseGraph<integer>(
 				forEachSeedVertex,
 				forEachAdjacent,
 				mark,
-				marked);
+				marked,
+				BreadthFirst_GraphTraversal());
 
 			integer correctSet[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 			integer correctSize = std::end(correctSet) - std::begin(correctSet);

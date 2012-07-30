@@ -50,7 +50,7 @@ namespace Pastel
 			bool operator()(const Vertex& vertex) const;
 		};
 
-		//! An algorithm-object for graph traversal.
+		//! A concept for graph traversal.
 		class GraphTraversal_Algorithm
 			: public Algorithm_Concept::Algorithm
 		{
@@ -61,18 +61,11 @@ namespace Pastel
 				typename ForEachAdjacent,
 				typename Mark,
 				typename Marked>
-			void operator()(
+			void work(
 				const ForEachSeedVertex& forEachSeedVertex,
 				const ForEachAdjacent& forEachAdjacent,
 				const Mark& mark,
-				const Marked& marked)
-			{
-				traverseDepthFirst<Vertex>(
-					forEachSeedVertex,
-					forEachAdjacent,
-					mark,
-					marked);
-			}
+				const Marked& marked);
 		};
 
 	}
