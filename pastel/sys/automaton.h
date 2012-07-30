@@ -491,7 +491,7 @@ namespace Pastel
 		{
 			return graph_.edges();
 		}
-
+		
 	private:
 		// Deleted
 		Automaton(const Automaton& that) PASTEL_DELETE;

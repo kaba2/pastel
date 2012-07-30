@@ -550,6 +550,29 @@ namespace Pastel
 			return edgeSet_.size();
 		}
 
+		// Global operations
+
+		//! Merges a graph into this graph.
+		/*!
+		Time complexity:
+		constant
+		
+		Exception safety:
+		nothrow
+		*/
+		void merge(Incidence_Graph& that)
+		{
+			// Merge the vertex sets.
+			vertexSet_.splice(
+				vertexSet_.cend(),
+				that.vertexSet_);
+
+			// Merge the edge sets.
+			edgeSet_.splice(
+				edgeSet_.cend(),
+				that.edgeSet_);
+		}
+
 	private:
 		VertexSet vertexSet_;
 		EdgeSet edgeSet_;

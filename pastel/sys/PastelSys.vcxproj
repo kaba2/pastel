@@ -155,7 +155,9 @@
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="depth_first_traversal.h" />
     <ClInclude Include="depth_first_traversal.hpp" />
+    <ClInclude Include="generic_traversal.h" />
     <ClInclude Include="graph_algorithms.h" />
+    <ClInclude Include="graph_traversal.h" />
     <ClInclude Include="graph_traversal_concepts.h" />
     <ClInclude Include="incidence_graph.h" />
     <ClInclude Include="incidence_graph_edge.h" />
@@ -163,6 +165,8 @@
     <ClInclude Include="incidence_graph_incidence.h" />
     <ClInclude Include="incidence_graph_vertex.h" />
     <ClInclude Include="automaton_minimization.h" />
+    <ClInclude Include="minimal_automaton.h" />
+    <ClInclude Include="minimal_automaton_fwd.h" />
     <ClInclude Include="native_allocator.h" />
     <ClInclude Include="native_allocator.hpp" />
     <ClInclude Include="null_iterator.h" />
@@ -555,6 +559,7 @@
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />
     <None Include="automaton_minimization.txt" />
+    <None Include="minimal_automaton.txt" />
     <None Include="native_allocator.txt" />
     <None Include="object_forwarding.txt" />
     <None Include="pool_allocator.txt" />

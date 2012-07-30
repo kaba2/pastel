@@ -60,11 +60,12 @@ namespace
 				return visitedSet.count(vertex);
 			};
 
-			traverseDepthFirst<integer>(
+			traverseGraph<integer>(
 				forEachSeedVertex,
 				forEachAdjacent,
 				mark,
-				marked);
+				marked,
+				DepthFirst_GraphTraversal());
 
 			integer correctSet[] = {0, 1, 3, 7, 8, 4, 9, 10, 2, 5, 11, 12, 6, 13, 14};
 			integer correctSize = std::end(correctSet) - std::begin(correctSet);

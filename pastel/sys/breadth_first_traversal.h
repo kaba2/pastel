@@ -5,54 +5,13 @@
 
 #include "pastel/sys/graph_traversal_concepts.h"
 
+#include "pastel/sys/generic_traversal.h"
+
 namespace Pastel
 {
 
-	//! Traverses a graph in a breadth-first manner.
-	/*!
-	Preconditions:
-	Vertex is copy-constructible.
-
-	For a vertex-set V, the set of seed vertices is a set
-	S subset V. The seed vertices will be traversed sequentially
-	in a breadth-first manner. Every vertex reachable from 
-	the seed vertices will be visited exactly once.
-	*/
-	template <
-		typename Vertex,
-		typename ForEachSeedVertex,
-		typename ForEachAdjacent,
-		typename Mark,
-		typename Marked>
-	void traverseBreadthFirst(
-		const ForEachSeedVertex& forEachSeedVertex,
-		const ForEachAdjacent& forEachAdjacent,
-		const Mark& mark,
-		const Marked& marked);
-
-	//! An algorithm-object for breadth-first traversal.
-	class BreadthFirst_GraphTraversal
-	{
-	public:
-		template <
-			typename Vertex,
-			typename ForEachSeedVertex,
-			typename ForEachAdjacent,
-			typename Mark,
-			typename Marked>
-		void operator()(
-			const ForEachSeedVertex& forEachSeedVertex,
-			const ForEachAdjacent& forEachAdjacent,
-			const Mark& mark,
-			const Marked& marked)
-		{
-			traverseBreadthFirst<Vertex>(
-				forEachSeedVertex,
-				forEachAdjacent,
-				mark,
-				marked);
-		}
-	};
+	//! A graph-traversal algorithm for breadth-first traversal.
+	class BreadthFirst_GraphTraversal;
 
 }
 
