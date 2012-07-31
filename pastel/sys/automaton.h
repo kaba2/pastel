@@ -60,6 +60,24 @@ namespace Pastel
 			graph_.clearEdges();
 		}
 
+		//! Removes all start-state marks.
+		void clearStart()
+		{
+			while(startStates() > 0)
+			{
+				removeStart(startSet_.front());
+			}
+		}
+
+		//! Removes all final-state marks.
+		void clearFinal()
+		{
+			while(finalStates() > 0)
+			{
+				removeFinal(finalSet_.front());
+			}
+		}
+
 		//! Swaps two automata.
 		void swap(Automaton& that)
 		{
@@ -122,19 +140,25 @@ namespace Pastel
 		void addStart(
 			const State_ConstIterator& state)
 		{
-			cast(state)->startPosition_ = 
-				startSet_.insert(
-				startSet_.cend(), state);
+			if (!state->start())
+			{
+				cast(state)->startPosition_ = 
+					startSet_.insert(
+					startSet_.cend(), state);
 			
-			cast(state)->setStart(true);
+				cast(state)->setStart(true);
+			}
 		}
 		
 		//! Removes the given state from the start states.
 		void removeStart(
 			const State_ConstIterator& state)
 		{
-			startSet_.erase(state->startPosition_);
-			cast(state)->setStart(false);
+			if (state->start())
+			{
+				startSet_.erase(state->startPosition_);
+				cast(state)->setStart(false);
+			}
 		}
 
 		Start_Iterator startBegin()
@@ -169,20 +193,26 @@ namespace Pastel
 		void addFinal(
 			const State_ConstIterator& state)
 		{
-			cast(state)->finalPosition_ = 
-				finalSet_.insert(
-				finalSet_.cend(), state);
+			if (!state->final())
+			{
+				cast(state)->finalPosition_ = 
+					finalSet_.insert(
+					finalSet_.cend(), state);
 			
-			cast(state)->setFinal(true);
+				cast(state)->setFinal(true);
+			}
 		}
 		
 		//! Removes finality from the given state.
 		void removeFinal(
 			const State_ConstIterator& state)
 		{
-			finalSet_.erase(state->finalPosition_);
-			cast(state)->finalPosition_ = finalSet_.end();
-			cast(state)->setFinal(false);
+			if (state->final())
+			{
+				finalSet_.erase(state->finalPosition_);
+				cast(state)->finalPosition_ = finalSet_.end();
+				cast(state)->setFinal(false);
+			}
 		}
 
 		Final_Iterator finalBegin()

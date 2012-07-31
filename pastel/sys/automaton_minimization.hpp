@@ -59,6 +59,17 @@ namespace Pastel
 		// The automaton has to be deterministic.
 		ENSURE_OP(automaton.startStates(), <=, 1);
 
+		// This will contain the minimal automaton.
+		Automaton minimal;
+
+		if (automaton.startStates() == 0)
+		{
+			// If there are no start states, then the minimal
+			// automaton is the empty automaton (the automaton
+			// recognizes the empty language).
+			return minimal;			
+		}
+
 		// A state is relevant if it can be reached from the
 		// start state (reachability) and can reach a final 
 		// state (productivity).
@@ -288,9 +299,6 @@ namespace Pastel
 			}
 		}
 
-		// Form the minimal automaton.
-		Automaton minimal;
-
 		// Create the states of the minimal automaton.
 		for (auto block = statePartition.setBegin();
 			block != statePartition.setEnd();
@@ -330,16 +338,13 @@ namespace Pastel
 				*(stateToElement[transition->to()]->set()));
 		}
 
-		if (automaton.startStates() == 1)
+		// Set the start-state of the minimal automaton.
+		State_ConstIterator startState = 
+			*automaton.cStartBegin();
+		if (relevantSet.count(startState))
 		{
-			// Set the start-state of the minimal automaton.
-			State_ConstIterator startState = 
-				*automaton.cStartBegin();
-			if (relevantSet.count(startState))
-			{
-				minimal.addStart(
-					*(stateToElement[startState]->set()));
-			}
+			minimal.addStart(
+				*(stateToElement[startState]->set()));
 		}
 
 		return minimal;

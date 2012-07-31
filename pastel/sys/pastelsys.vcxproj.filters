@@ -280,12 +280,6 @@
     <Filter Include="Algorithms\Automaton algorithms\Automaton determinization">
       <UniqueIdentifier>{2a644b80-bc04-4868-876c-f34720bb4eb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Automaton algorithms\Unreachable states">
-      <UniqueIdentifier>{448f5e01-f2f8-4adc-9014-2f7c640b4858}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Algorithms\Automaton algorithms\Unaccepting states">
-      <UniqueIdentifier>{baf57490-be2d-4c74-a394-24d5bd9a5710}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Algorithms\Graph algorithms\Graph traversal">
       <UniqueIdentifier>{dc192ba3-ed6a-4b87-9dfb-735b5ed3e9b9}</UniqueIdentifier>
     </Filter>
@@ -300,6 +294,15 @@
     </Filter>
     <Filter Include="Data structures\Automaton">
       <UniqueIdentifier>{99dc3905-0adb-4444-888f-d014bc0e2ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Productive states">
+      <UniqueIdentifier>{baf57490-be2d-4c74-a394-24d5bd9a5710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Reachable states">
+      <UniqueIdentifier>{448f5e01-f2f8-4adc-9014-2f7c640b4858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Regular expressions">
+      <UniqueIdentifier>{4a9afe37-67da-499b-88a6-1a0882df9b65}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1493,22 +1496,22 @@
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
     </ClInclude>
     <ClInclude Include="productive_states.h">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Productive states</Filter>
     </ClInclude>
     <ClInclude Include="productive_states.hpp">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Productive states</Filter>
     </ClInclude>
     <ClInclude Include="reachable_states.h">
-      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Reachable states</Filter>
     </ClInclude>
     <ClInclude Include="reachable_states.hpp">
-      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Reachable states</Filter>
     </ClInclude>
     <ClInclude Include="productive_states_concepts.h">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Productive states</Filter>
     </ClInclude>
     <ClInclude Include="reachable_states_concepts.h">
-      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Reachable states</Filter>
     </ClInclude>
     <ClInclude Include="graph_traversal_concepts.h">
       <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
@@ -1530,6 +1533,9 @@
     </ClInclude>
     <ClInclude Include="automaton_state_label.h">
       <Filter>Data structures\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="regex.h">
+      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1954,10 +1960,10 @@
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
     </None>
     <None Include="productive_states.txt">
-      <Filter>Algorithms\Automaton algorithms\Unaccepting states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Productive states</Filter>
     </None>
     <None Include="reachable_states.txt">
-      <Filter>Algorithms\Automaton algorithms\Unreachable states</Filter>
+      <Filter>Algorithms\Automaton algorithms\Reachable states</Filter>
     </None>
     <None Include="graph_traversal.txt">
       <Filter>Algorithms\Graph algorithms\Graph traversal</Filter>
