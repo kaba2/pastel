@@ -186,8 +186,14 @@ namespace Pastel
 	private:
 		Vertex() PASTEL_DELETE;
 		Vertex(const Vertex& that) PASTEL_DELETE;
+
+		// Making the operator= private would give the error
+		// C2876: "not all overloads are accessible".
+		// FIX: Remove public when 'delete' becomes available.
+	public:
 		Vertex& operator=(Vertex that) PASTEL_DELETE;
 
+	private:
 		explicit Vertex(VertexData_Class data)
 			: VertexData_Class(std::move(data))
 			, partitionSet_()

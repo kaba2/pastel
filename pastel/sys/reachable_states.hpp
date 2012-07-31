@@ -26,7 +26,10 @@ namespace Pastel
 		auto forEachSeedVertex = 
 			[&](const std::function<void(const State_ConstIterator&)>& visit)
 		{
-			visit(automaton.startState());
+			std::for_each(
+				automaton.cStartBegin(),
+				automaton.cStartEnd(),
+				visit);
 		};
 
 		auto forEachAdjacent =

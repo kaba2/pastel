@@ -56,6 +56,9 @@ namespace Pastel
 		typedef std::unordered_set<State_ConstIterator, IteratorAddress_Hash>
 			StateSet;
 
+		// The automaton has to be deterministic.
+		ENSURE_OP(automaton.startStates(), <=, 1);
+
 		// A state is relevant if it can be reached from the
 		// start state (reachability) and can reach a final 
 		// state (productivity).
@@ -302,7 +305,7 @@ namespace Pastel
 			// Pick any state from the block.
 			State_ConstIterator state =
 				**(block->begin());
-			if (automaton.final(state))
+			if (state->final())
 			{
 				// If one of the states in the block is
 				// a final, they all are. Therefore the
@@ -327,11 +330,16 @@ namespace Pastel
 				*(stateToElement[transition->to()]->set()));
 		}
 
-		// Set the start-state of the minimal automaton.
-		if (relevantSet.count(automaton.startState()))
+		if (automaton.startStates() == 1)
 		{
-			minimal.setStartState(
-				*(stateToElement[automaton.startState()]->set()));
+			// Set the start-state of the minimal automaton.
+			State_ConstIterator startState = 
+				*automaton.cStartBegin();
+			if (relevantSet.count(startState))
+			{
+				minimal.addStart(
+					*(stateToElement[startState]->set()));
+			}
 		}
 
 		return minimal;

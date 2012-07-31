@@ -1408,9 +1408,6 @@
     <ClInclude Include="automaton.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
-    <ClInclude Include="automaton.hpp">
-      <Filter>Data structures\Automaton</Filter>
-    </ClInclude>
     <ClInclude Include="automaton_fwd.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
@@ -1486,9 +1483,6 @@
     <ClInclude Include="object_forwarding.hpp">
       <Filter>Generic programming\Object forwarding</Filter>
     </ClInclude>
-    <ClInclude Include="automaton_label.h">
-      <Filter>Data structures\Automaton</Filter>
-    </ClInclude>
     <ClInclude Include="automaton_minimization.hpp">
       <Filter>Algorithms\Automaton algorithms\Automaton minimization</Filter>
     </ClInclude>
@@ -1530,6 +1524,12 @@
     </ClInclude>
     <ClInclude Include="minimal_automaton_fwd.h">
       <Filter>Data structures\Minimal automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_transition_label.h">
+      <Filter>Data structures\Automaton</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_state_label.h">
+      <Filter>Data structures\Automaton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
