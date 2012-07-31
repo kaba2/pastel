@@ -23,16 +23,19 @@ namespace Pastel
 		typedef typename Forward<StateData>::type
 			StateData_Class;
 
+		//! The start/final-labeling of the state.
+		class StateLabel;
+
 		//! The user-data for the transitions.
 		typedef typename Forward<TransitionData>::type
 			TransitionData_Class;
 
-		//! The symbol-labeling of the edge.
-		class Label;
+		//! The symbol-labeling of the transition.
+		class TransitionLabel;
 
 		//! The underlying graph.
 		typedef Incidence_Graph<GraphType::Directed, 
-			StateData, Label> Graph;
+			StateLabel, TransitionLabel> Graph;
 
 		//! The states.
 		/*!
@@ -91,51 +94,21 @@ namespace Pastel
 			}
 		};
 
-		//! A branch-set.
-		/*!
-		A branch-set is a set of transitions such that the transitions 
-		have the same from-state and symbol. These transitions are
-		called branches (as in the branching of computation in a 
-		non-deterministic automaton). For a deterministic automaton
-		the size of a branch set is at most one. This data structure 
-		has two responbilities. The first is to store a branch-set
-		so that a non-deterministic automaton can be simulated 
-		efficiently. The second is to efficiently check whether a 
-		transition from a state to another with a given symbol already 
-		exists; while the SearchSet checks the from-state-symbol pair,
-		the to-state is checked by the BranchSet. This check is needed 
-		to enforce the definition of a finite state automaton when 
-		inserting new transitions.
-		*/
-		typedef std::unordered_map<State_ConstIterator, 
-			Transition_ConstIterator, IteratorAddress_Hash> BranchSet;
-		typedef typename BranchSet::iterator
-			Branch_Iterator;
-		typedef typename BranchSet::const_iterator
-			Branch_ConstIterator;
-
-		//! The branch-set search-set.
-		/*!
-		This data structure allows to efficiently find the branch-set
-		of a given from-state-symbol pair. This is needed to simulate
-		any automaton.
-		*/
-		typedef std::unordered_map<
-			StateSymbol, BranchSet, StateSymbol_Hash> 
-			SearchSet;
-		typedef typename SearchSet::iterator
-			Search_Iterator;
-		typedef typename SearchSet::const_iterator
-			Search_ConstIterator;
-
 		//! The set of final states.
-		typedef std::unordered_set<
-			State_ConstIterator, IteratorAddress_Hash>
+		typedef std::list<State_ConstIterator>
 			FinalSet;
 		typedef typename FinalSet::iterator
 			Final_Iterator;
 		typedef typename FinalSet::const_iterator
 			Final_ConstIterator;
+
+		//! The set of start states.
+		typedef std::list<State_ConstIterator>
+			StartSet;
+		typedef typename StartSet::iterator
+			Start_Iterator;
+		typedef typename StartSet::const_iterator
+			Start_ConstIterator;
 	};
 
 }

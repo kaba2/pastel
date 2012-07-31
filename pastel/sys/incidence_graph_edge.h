@@ -46,6 +46,12 @@ namespace Pastel
 			void setDirected(bool directed)
 			{
 			}
+
+		private:
+			Directed_EdgeData() PASTEL_DELETE;
+			Directed_EdgeData(Directed_EdgeData&& that) PASTEL_DELETE;
+			Directed_EdgeData(const Directed_EdgeData& that) PASTEL_DELETE;
+			Directed_EdgeData& operator=(Directed_EdgeData that) PASTEL_DELETE;
 		};
 
 		template <typename Data>
@@ -73,6 +79,12 @@ namespace Pastel
 			void setDirected(bool directed)
 			{
 			}
+
+		private:
+			Directed_EdgeData() PASTEL_DELETE;
+			Directed_EdgeData(Directed_EdgeData&& that) PASTEL_DELETE;
+			Directed_EdgeData(const Directed_EdgeData& that) PASTEL_DELETE;
+			Directed_EdgeData& operator=(Directed_EdgeData that) PASTEL_DELETE;
 		};
 
 		template <typename Data>
@@ -104,6 +116,12 @@ namespace Pastel
 			}
 
 		private:
+			Directed_EdgeData() PASTEL_DELETE;
+			Directed_EdgeData(Directed_EdgeData&& that) PASTEL_DELETE;
+			Directed_EdgeData(const Directed_EdgeData& that) PASTEL_DELETE;
+			Directed_EdgeData& operator=(Directed_EdgeData that) PASTEL_DELETE;
+		
+		private:
 			bool directed_;
 		};
 
@@ -118,7 +136,7 @@ namespace Pastel
 		typedef Incidence_Graph_::Directed_EdgeData<Type, EdgeData>
 			Base;
 
-		using Base::operator=;
+		using EdgeData_Class::operator=;
 
 		// FIX: Delete after emplace becomes available in Visual Studio.
 		Edge(Edge&& that)
@@ -163,8 +181,14 @@ namespace Pastel
 	private:
 		Edge() PASTEL_DELETE;
 		Edge(const Edge& that) PASTEL_DELETE;
+		
+		// Making the operator= private would give the error
+		// C2876: "not all overloads are accessible".
+		// FIX: Remove public when 'delete' becomes available.
+	public:
 		Edge& operator=(Edge that) PASTEL_DELETE;
-
+	
+	private:
 		explicit Edge(EdgeData_Class data, bool directed)
 			: Base(directed, std::move(data))
 			, from_(0)

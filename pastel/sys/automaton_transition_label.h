@@ -1,5 +1,5 @@
-#ifndef PASTEL_AUTOMATON_TRANSITION_H
-#define PASTEL_AUTOMATON_TRANSITION_H
+#ifndef PASTEL_AUTOMATON_TRANSITION_LABEL_H
+#define PASTEL_AUTOMATON_TRANSITION_LABEL_H
 
 #include "pastel/sys/automaton.h"
 
@@ -18,14 +18,14 @@ namespace Pastel
 		typename Symbol, 
 		typename StateData, 
 		typename TransitionData>
-	class Automaton_Fwd<Symbol, StateData, TransitionData>::Label
+	class Automaton_Fwd<Symbol, StateData, TransitionData>::TransitionLabel
 		: public TransitionData_Class
 	{
 	public:
 		using TransitionData_Class::operator=;
 
 		// FIX: Delete after emplace becomes available in Visual Studio.
-		Label(Label&& that)
+		TransitionLabel(TransitionLabel&& that)
 			: TransitionData_Class(std::move((TransitionData_Class&&)that))
 			, symbol_(std::move(that.symbol_))
 		{
@@ -37,17 +37,23 @@ namespace Pastel
 		}
 
 	private:
-		Label() PASTEL_DELETE;
-		Label(const Label& that) PASTEL_DELETE;
-		Label& operator=(Label that) PASTEL_DELETE;
+		TransitionLabel() PASTEL_DELETE;
+		TransitionLabel(const TransitionLabel& that) PASTEL_DELETE;
 
+		// Making the operator= private would give the error
+		// C2876: "not all overloads are accessible".
+		// FIX: Remove public when 'delete' becomes available.
+	public:
+		TransitionLabel& operator=(TransitionLabel that) PASTEL_DELETE;
+
+	private:
 		template <
 			typename Symbol, 
 			typename StateData, 
 			typename TransitionData>
 		friend class Automaton;
 
-		Label(
+		TransitionLabel(
 			Symbol symbol,
 			TransitionData_Class transitionData)
 			: TransitionData_Class(std::move(transitionData))

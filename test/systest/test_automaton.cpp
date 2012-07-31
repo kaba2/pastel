@@ -60,7 +60,7 @@ namespace
 			automaton.addTransition(
 				d, 2, c);
 			
-			automaton.setStartState(a);
+			automaton.addStart(a);
 			automaton.addFinal(b);
 			automaton.addFinal(c);
 

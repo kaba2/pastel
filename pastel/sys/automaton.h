@@ -4,7 +4,8 @@
 #define PASTEL_AUTOMATON_H
 
 #include "pastel/sys/automaton_fwd.h"
-#include "pastel/sys/automaton_label.h"
+#include "pastel/sys/automaton_state_label.h"
+#include "pastel/sys/automaton_transition_label.h"
 
 namespace Pastel
 {
@@ -21,27 +22,17 @@ namespace Pastel
 		//! Constructs an empty automaton.
 		Automaton()
 			: graph_()
-			, searchSet_()
-			, rejectGraph_()
-			, startState_(rejectGraph_.vertexEnd())
-			, rejectState_(rejectGraph_.vertexEnd())
-			, emptyBranchSet_()
+			, startSet_()
 			, finalSet_()
 		{
-			construct();
 		}
 
 		//! Move-constructs from another automaton.
 		Automaton(Automaton&& that)
 			: graph_()
-			, searchSet_()
-			, rejectGraph_()
-			, startState_(rejectGraph_.vertexEnd())
-			, rejectState_(rejectGraph_.vertexEnd())
-			, emptyBranchSet_()
+			, startSet_()
 			, finalSet_()
 		{
-			construct();
 			swap(that);
 		}
 
@@ -59,8 +50,7 @@ namespace Pastel
 			// and emptyBranchSet are kept the same.
 
 			graph_.clear();
-			searchSet_.clear();
-			startState_ = rejectState_;
+			startSet_.clear();
 			finalSet_.clear();
 		}
 
@@ -68,7 +58,6 @@ namespace Pastel
 		void clearTransitions()
 		{
 			graph_.clearEdges();
-			searchSet_.clear();
 		}
 
 		//! Swaps two automata.
@@ -77,11 +66,7 @@ namespace Pastel
 			using std::swap;
 
 			graph_.swap(that.graph_);
-			searchSet_.swap(that.searchSet_);
-			rejectGraph_.swap(that.rejectGraph_);
-			swap(startState_, that.startState_);
-			swap(rejectState_, that.rejectState_);
-			emptyBranchSet_.swap(that.emptyBranchSet_);
+			startSet_.swap(that.startSet_);
 			finalSet_.swap(that.finalSet_);
 		}
 
@@ -90,7 +75,9 @@ namespace Pastel
 		//! Adds a new state.
 		State_Iterator addState(StateData_Class stateData = StateData_Class())
 		{
-			auto iter = graph_.addVertex(std::move(stateData));
+			auto iter = graph_.addVertex(
+				StateLabel(std::move(stateData)));
+
 			return iter;
 		}
 
@@ -106,6 +93,18 @@ namespace Pastel
 					state->cbegin()->edge());
 			}
 
+			if (state->final())
+			{
+				// Remove designation of a final state.
+				removeFinal(state);
+			}
+
+			if (state->start())
+			{
+				// Remove designation of a start state.
+				removeStart(state);
+			}
+
 			// Remove the vertex.
 			return graph_.removeVertex(state);
 		}
@@ -117,23 +116,51 @@ namespace Pastel
 			return graph_.cast(state);
 		}
 
-		//! Sets the start-state.
-		void setStartState(
-			State_ConstIterator state)
+		// Start states
+
+		//! Adds the given state to the start states.
+		void addStart(
+			const State_ConstIterator& state)
 		{
-			startState_ = cast(state);
+			cast(state)->startPosition_ = 
+				startSet_.insert(
+				startSet_.cend(), state);
+			
+			cast(state)->setStart(true);
+		}
+		
+		//! Removes the given state from the start states.
+		void removeStart(
+			const State_ConstIterator& state)
+		{
+			startSet_.erase(state->startPosition_);
+			cast(state)->setStart(false);
 		}
 
-		//! Returns the start-state.
-		State_Iterator startState()
+		Start_Iterator startBegin()
 		{
-			return startState_;
+			return startSet_.begin();
 		}
 
-		//! Returns the start-state.
-		State_ConstIterator startState() const
+		Start_ConstIterator cStartBegin() const
 		{
-			return startState_;
+			return startSet_.cbegin();
+		}
+
+		Start_Iterator startEnd()
+		{
+			return startSet_.end();
+		}
+
+		Start_ConstIterator cStartEnd() const
+		{
+			return startSet_.cend();
+		}
+
+		//! Returns the number of start states.
+		integer startStates() const
+		{
+			return startSet_.size();
 		}
 
 		// Final states
@@ -142,20 +169,20 @@ namespace Pastel
 		void addFinal(
 			const State_ConstIterator& state)
 		{
-			finalSet_.insert(state);
+			cast(state)->finalPosition_ = 
+				finalSet_.insert(
+				finalSet_.cend(), state);
+			
+			cast(state)->setFinal(true);
 		}
 		
 		//! Removes finality from the given state.
 		void removeFinal(
 			const State_ConstIterator& state)
 		{
-			finalSet_.erase(state);
-		}
-
-		//! Returns whether the state is final.
-		bool final(const State_ConstIterator& state) const
-		{
-			return finalSet_.count(state);
+			finalSet_.erase(state->finalPosition_);
+			cast(state)->finalPosition_ = finalSet_.end();
+			cast(state)->setFinal(false);
 		}
 
 		Final_Iterator finalBegin()
@@ -178,22 +205,13 @@ namespace Pastel
 			return finalSet_.cend();
 		}
 
+		//! Returns the number of final states.
 		integer finalStates() const
 		{
 			return finalSet_.size();
 		}
 
-		//! Returns the reject-state.
-		State_Iterator rejectState()
-		{
-			return rejectState_;
-		}
-
-		//! Returns the reject-state.
-		State_ConstIterator rejectState() const
-		{
-			return rejectState_;
-		}
+		// All states
 
 		//! Returns the first iterator of the state-set.
 		State_Iterator stateBegin()
@@ -234,197 +252,16 @@ namespace Pastel
 			const State_ConstIterator& toState,
 			TransitionData_Class transitionData = TransitionData_Class())
 		{
-			Transition_Iterator transition =
-				findTransition(fromState, symbol, toState);
-			if (transition != graph_.edgeEnd())
-			{
-				// The transition already exists.
-				return transition;
-			}
-
-			integer rollback = 0;
-
-			transition = graph_.addEdge(
+			return graph_.addEdge(
 				fromState, toState, 
-				Label(symbol, std::move(transitionData)));
-			++rollback;
-
-			Search_Iterator search;
-			try
-			{
-				// Either the branch already exists, and then it
-				// is returned, or it will be created. 
-				search = searchSet_.emplace(
-					std::make_pair(
-					StateSymbol(fromState, symbol), 
-					BranchSet())).first;
-				++rollback;
-										
-				BranchSet& branch = search->second;
-
-				// Add the transition to the branch.
-				branch.insert(
-					std::make_pair(toState, transition));
-			}
-			catch(...)
-			{
-				switch(rollback)
-				{
-				case 2:
-					searchSet_.erase(search);
-					// Fall-through
-				case 1:
-					graph_.removeEdge(transition);
-					break;
-				};
-				throw;
-			}
-
-			return transition;
+				TransitionLabel(symbol, std::move(transitionData)));
 		}
 
 		//! Removes a transition.
 		Transition_Iterator removeTransition(
 			const Transition_ConstIterator& transition)
 		{
-			searchSet_.erase(
-				StateSymbol(transition->from(), transition->symbol()));
-			
 			return graph_.removeEdge(transition);
-		}
-
-		//! Searches for the given transition.
-		Transition_Iterator findTransition(
-			const State_ConstIterator& fromState,
-			const Symbol& symbol)
-		{
-			return cast(((const Automaton&)*this).findTransition(
-				fromState, symbol));
-		}
-
-		//! Searches for a given transition.
-		/*!
-		Note:
-		If the automaton is non-deterministic,
-		there may be many transitions for a given
-		from-state and symbol. In this case this
-		function returns one of those transitions.
-		If you need all transitions, see the
-		findTransitions() function.
-		*/
-		Transition_ConstIterator findTransition(
-			const State_ConstIterator& fromState,
-			const Symbol& symbol) const
-		{
-			// Find all branches.
-			auto range = findTransitions(
-				fromState, symbol);
-
-			if (range.first == range.second)
-			{
-				// There are no branches.
-				return graph_.cEdgeEnd();
-			}
-
-			// Return the first branch.
-			return *range.first;
-		}
-
-		//! Searches for the given transition.
-		Transition_Iterator findTransition(
-			const State_ConstIterator& fromState,
-			const Symbol& symbol,
-			const State_ConstIterator& toState)
-		{
-			return cast(((const Automaton&)*this).findTransition(
-				fromState, symbol, toState));
-		}
-
-		//! Searches for the given transition.
-		/*!
-		Note:
-		By the definition of a finite-state automaton,
-		there can be at most one transition from a state
-		to another with a given symbol.
-		*/
-		Transition_ConstIterator findTransition(
-			const State_ConstIterator& fromState,
-			const Symbol& symbol,
-			const State_ConstIterator& toState) const
-		{
-			// See if this state-symbol pair has any
-			// branches.
-			Search_ConstIterator search = 
-				searchSet_.find(
-				StateSymbol(fromState, symbol));
-			if (search == searchSet_.cend())
-			{
-				// There are no branches.
-				return graph_.cEdgeEnd();
-			}
-			
-			// Obtain the branch set.
-			const BranchSet& branchSet = 
-				search->second;
-			
-			// Search the branch set for a branch
-			// with the given to-state.
-			Branch_ConstIterator branch =
-				branchSet.find(toState);
-			if (branch == branchSet.cend())
-			{
-				// None of the branches end up in 
-				// the to-state.
-				return graph_.cEdgeEnd();
-			}
-
-			// The branch was found.
-			return branch->second;
-		}
-
-		//! Returns the branches of a given state-symbol pair.
-		/*!
-		returns:
-		A set of Transition_ConstIterator's by an iterator range.
-
-		A set of transitions sharing the same from-state
-		and symbol is called a branch set, with the
-		transitions in it called branches (since in the 
-		non-deterministic case the computation branches).
-
-		Note:
-		If the automaton is deterministic, then there is at most
-		one transition from a given state and symbol. In this
-		case it may be more convenient to use the findTransition() 
-		function.
-		*/
-		std::pair<Branch_ConstIterator, Branch_ConstIterator>
-			findTransitions(
-			const State_ConstIterator& fromState,
-			const Symbol& symbol) const
-		{
-			auto search = searchSet_.find(
-				StateSymbol(fromState, symbol));
-			if (search == searchSet_.cend())
-			{
-				return std::make_pair(
-					emptyBranchSet_.cbegin(),
-					emptyBranchSet_.cend());
-			}
-
-			const BranchSet& branch = search.second;
-			
-			return std::make_pair(
-				branch.cbegin(), 
-				branch.cend());
-		}
-
-		//! Tests for the existence of a transition.
-		bool existsTransition(
-			const State_ConstIterator& state,
-			const Symbol& symbol) const
-		{
-			return findTransition(state, symbol) != cTransitionEnd();
 		}
 
 		//! Returns the first iterator of the transition-set.
@@ -491,98 +328,39 @@ namespace Pastel
 		{
 			return graph_.edges();
 		}
+
+		// Global operations
+
+		void merge(Automaton& that)
+		{
+			// Bring in the graph.
+			graph_.merge(that.graph_);
+			
+			// Bring in the start states.
+			startSet_.splice(
+				startSet_.cend(),
+				that.startSet_);
+
+			// Bring in the final states.
+			finalSet_.splice(
+				finalSet_.cend(),
+				that.finalSet_);
+		}
 		
 	private:
 		// Deleted
 		Automaton(const Automaton& that) PASTEL_DELETE;
 
-		//! Initialization common to all constructors.
-		/*!
-		This function creates the reject state.
-		*/
-		void construct()
-		{
-			// Construct the reject state.
-			rejectState_ = rejectGraph_.addVertex();
-
-			// The start-state is the reject-state
-			// in the beginning.
-			startState_ = rejectState_;
-		}
-
 		//! The underlying graph.
 		Graph graph_;
 		
-		//! Fast associative searches of transitions.
-		/*!
-		Given a pair (q, X), where q is a state and X is a symbol, 
-		this map returns the set of transitions from state q with 
-		symbol X. There might be many such transitions if the automaton
-		is non-deterministic. However, by the definition of a 
-		finite-state automaton, there will not be multiple transitions 
-		between two states with the same symbol; the relation from 
-		state-symbol pairs to states is a partial function.
-		*/
-		SearchSet searchSet_;
-
-		//! Storage for the reject state.
-		/*!
-		The reject-state is stored here rather than in 
-		the 'graph' to make it simpler to preserve the 
-		identity of the reject state.
-		*/
-		Graph rejectGraph_;
-
-		//! The start state.
-		State_Iterator startState_;
+		//! The set of start states.
+		StartSet startSet_;
 
 		//! The set of final states.
 		FinalSet finalSet_;
-
-		//! The reject state.
-		/*!
-		The reject state ensures that each transition in the automaton 
-		always has a dereferencable state. This gets rid of boundary
-		cases in the code.
-		*/
-		State_Iterator rejectState_;
-
-		//! An empty set of transitions.
-		BranchSet emptyBranchSet_;
 	};
 
 }
-
-namespace Pastel
-{
-
-	//! Returns the target-state of a state-symbol transition.
-	/*!
-	If the transition does not exists, the 
-	automaton.rejectState() is returned instead.
-	*/
-	template <typename State, typename Symbol>
-	auto transition(
-		const Automaton<State, Symbol>& automaton,
-		typename Automaton<State, Symbol>::State_ConstIterator state,
-		Symbol symbol)
-		-> typename Automaton<State, Symbol>::State_ConstIterator;
-
-	//! Returns the target-state of a state-symbol-list transition.
-	/*!
-	If some of the transitions does not exists, the 
-	automaton.rejectState() is returned instead.
-	*/
-	template <typename State, typename Symbol,
-		typename Symbol_ConstRange>
-	auto transition(
-		const Automaton<State, Symbol>& automaton,
-		typename Automaton<State, Symbol>::State_ConstIterator state,
-		Symbol_ConstRange symbolSet)
-		-> typename Automaton<State, Symbol>::State_ConstIterator;
-
-}
-
-#include "pastel/sys/automaton.hpp"
 
 #endif

@@ -137,13 +137,13 @@
     <ClInclude Include="arena_allocator.hpp" />
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="automaton.h" />
-    <ClInclude Include="automaton.hpp" />
     <ClInclude Include="automaton_algorithms.h" />
     <ClInclude Include="automaton_determinization.h" />
     <ClInclude Include="automaton_determinization.hpp" />
     <ClInclude Include="automaton_fwd.h" />
-    <ClInclude Include="automaton_label.h" />
+    <ClInclude Include="automaton_transition_label.h" />
     <ClInclude Include="automaton_minimization.hpp" />
+    <ClInclude Include="automaton_state_label.h" />
     <ClInclude Include="biginteger.hpp" />
     <ClInclude Include="breadth_first_traversal.h" />
     <ClInclude Include="breadth_first_traversal.hpp" />
