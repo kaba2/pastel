@@ -172,6 +172,7 @@
     <ClInclude Include="null_iterator.h" />
     <ClInclude Include="object_forwarding.h" />
     <ClInclude Include="object_forwarding.hpp" />
+    <ClInclude Include="regex.h" />
     <ClInclude Include="pool_allocator.h" />
     <ClInclude Include="pool_allocator.hpp" />
     <ClInclude Include="productive_states_concepts.h" />
