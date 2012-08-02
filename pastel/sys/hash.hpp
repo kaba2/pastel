@@ -14,16 +14,45 @@ namespace Pastel
 		return hasher(that);
 	}
 
-	template <class Type> 
-	hash_integer combineHash(
-		hash_integer hash, 
-		const Type& that)
+	template <typename Integer, typename Type> 
+	PASTEL_ENABLE_IF((boost::mpl::and_<
+		boost::is_integral<Integer>, 
+		boost::mpl::bool_<sizeof(Integer) == sizeof(uint32)>>), Integer) 
+		combineHash(Integer hash, const Type& that)
 	{ 
 		// This code is from the Boost library.
 
+		// This is 2^32 / [(1 + sqrt(5)) / 2],
+		// where the divider is the golden ratio.
+		// The important part about the inverse
+		// of the golden ratio is that it is 
+		// irrational, supposedly giving bits 
+		// without a repeating pattern.
+		const uint32 magic = 0x9e3779b9;
+
 		hash ^= 
 			computeHash(that) + 
-			0x9e3779b9 + 
+			magic + 
+			(hash << 6) + 
+			(hash >> 2);
+
+		return hash;
+	} 
+
+	template <typename Integer, typename Type> 
+	PASTEL_ENABLE_IF((boost::mpl::and_<
+		boost::is_integral<Integer>, 
+		boost::mpl::bool_<sizeof(Integer) == sizeof(uint64)>>), Integer) 
+		combineHash(Integer hash, const Type& that)
+	{ 
+		// This is 2^64 / [(1 + sqrt(5)) / 2].
+		// See the combineHash32() function.
+		const uint64 magic = 
+			0x4F1BBCDCBFA53E0Bull;
+
+		hash ^= 
+			computeHash(that) + 
+			magic + 
 			(hash << 6) + 
 			(hash >> 2);
 

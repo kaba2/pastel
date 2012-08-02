@@ -36,9 +36,9 @@ the minimal automaton for the empty language, and the construction of
 the union of two automata becomes cumbersome. In contrast, when using
 a set of start-states, one can
 
- * present the minimal automaton for the empty language as 
+ * represent the minimal automaton for the empty language as 
  ''Q = S = F = T = empty-set'', and
- * present the union of two automata as ''Q = Q_1 union Q_2'', 
+ * represent the union of two automata as ''Q = Q_1 union Q_2'', 
  ''S = S_1 union S_2'', ''F = F_1 union F_2'',
  ''Sigma = Sigma_1 union Sigma_2'', and ''T = T_1 union T_2''.
 
