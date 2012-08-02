@@ -6,6 +6,11 @@
 
 #include "pastel/sys/iterator_range.h"
 #include "pastel/sys/keyvalue.h"
+#include "pastel/sys/mytypes.h"
+
+#include <boost/type_traits/is_integral.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/bool.hpp>
 
 #include <functional>
 #include <string>
@@ -18,11 +23,19 @@ namespace Pastel
 	hash_integer computeHash(
 		const Type& that);
 
-	//! Combines an existing hash with the hash of 'that'.
-	template <class Type> 
-	hash_integer combineHash(
-		hash_integer hash, 
-		const Type& that);
+	//! Combines an existing 32-bit hash with the hash of 'that'.
+	template <typename Integer, typename Type> 
+	PASTEL_ENABLE_IF((boost::mpl::and_<
+		boost::is_integral<Integer>, 
+		boost::mpl::bool_<sizeof(Integer) == sizeof(uint32)>>), Integer) 
+		combineHash(Integer hash, const Type& that);
+
+	//! Combines an existing 64-bit hash with the hash of 'that'.
+	template <typename Integer, typename Type> 
+	PASTEL_ENABLE_IF((boost::mpl::and_<
+		boost::is_integral<Integer>, 
+		boost::mpl::bool_<sizeof(Integer) == sizeof(uint64)>>), Integer) 
+		combineHash(Integer hash, const Type& that);
 
 	//! Sequentially combines the hashes of the input values.
 	template <typename ConstIterator>

@@ -56,44 +56,6 @@ namespace Pastel
 		typedef typename Graph::Edge_ConstIterator
 			Transition_ConstIterator;
 
-		class StateSymbol
-		{
-		public:
-			StateSymbol(
-				State_ConstIterator state_,
-				Symbol symbol_)
-				: state(state_)
-				, symbol(symbol_)
-			{
-			}
-			
-			bool operator==(const StateSymbol& that) const
-			{
-				return state == that.state &&
-					symbol == that.symbol;
-			}
-
-			bool operator!=(const StateSymbol& that) const
-			{
-				return !(*this == that);
-			}
-
-			State_ConstIterator state;
-			Symbol symbol;
-		};
-
-		class StateSymbol_Hash
-		{
-		public:
-			hash_integer operator()(
-				const StateSymbol& transition) const
-			{
-				return combineHash(
-					computeHash(&*transition.state),
-					computeHash(transition.symbol));
-			}
-		};
-
 		//! The set of final states.
 		typedef std::list<State_ConstIterator>
 			FinalSet;
