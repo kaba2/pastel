@@ -138,7 +138,7 @@ namespace Pastel
 		friend class RefinablePartition;
 
 		template <typename ElementData, typename SetData>
-		friend class RefinablePartition<ElementData, SetData>::Element;
+		friend class RefinablePartition_Fwd<ElementData, SetData>::Element;
 
 		Set() PASTEL_DELETE;
 		Set(const Set& that) PASTEL_DELETE;

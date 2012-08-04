@@ -32,11 +32,6 @@ namespace Pastel
 		}
 
 		template <typename Node_Iterator>
-		void updateInsertDown(const Node_Iterator& iter)
-		{
-		}
-
-		template <typename Node_Iterator>
 		void updateHierarchical(const Node_Iterator& iter)
 		{
 			iter->value().totalMass = 

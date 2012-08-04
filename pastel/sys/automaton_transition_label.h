@@ -50,7 +50,8 @@ namespace Pastel
 		template <
 			typename Symbol, 
 			typename StateData, 
-			typename TransitionData>
+			typename TransitionData,
+			typename Customization>
 		friend class Automaton;
 
 		TransitionLabel(

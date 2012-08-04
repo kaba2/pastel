@@ -20,7 +20,7 @@ namespace Pastel
 	Note:
 	Only non-class types are allowed to be forwarded.
 	The class types are already classes	so there is
-	no sense in forwarding them. Use the Forward
+	no sense in forwarding them. Use the AsClass
 	meta-function below to form Class's conditionally.
 	*/
 	template <typename Type>
@@ -35,7 +35,7 @@ namespace Pastel
 	Preserves a class type.
 	*/
 	template <typename Type>
-	class Forward
+	class AsClass
 	{
 	public:
 		typedef typename std::conditional<

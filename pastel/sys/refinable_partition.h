@@ -30,6 +30,28 @@ namespace Pastel
 		: public RefinablePartition_Fwd<ElementData, SetData>
 	{
 	public:
+		typedef RefinablePartition_Fwd<ElementData, SetData> Fwd;
+
+		PASTEL_FWD(Element);
+		PASTEL_FWD(ElementSet);
+		PASTEL_FWD(Element_Iterator);
+		PASTEL_FWD(Element_ConstIterator);
+		PASTEL_FWD(ElementData_Class);
+
+		PASTEL_FWD(Set);
+		PASTEL_FWD(SetSet);
+		PASTEL_FWD(Set_Iterator);
+		PASTEL_FWD(Set_ConstIterator);
+		PASTEL_FWD(SetData_Class);
+
+		PASTEL_FWD(MemberSet);
+		PASTEL_FWD(Member_Iterator);
+		PASTEL_FWD(Member_ConstIterator);
+
+		PASTEL_FWD(SplitSet);
+		PASTEL_FWD(Split_Iterator);
+		PASTEL_FWD(Split_ConstIterator);
+
 		//! Constructs an empty partition.
 		/*!
 		Time complexity:

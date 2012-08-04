@@ -13,26 +13,24 @@ namespace Pastel
 	{
 	public:
 		class Element;
-		class Set;
-
-		typedef typename Forward<ElementData>::type
-			ElementData_Class;
-		typedef typename Forward<SetData>::type
-			SetData_Class;
-
 		typedef std::list<Element>
 			ElementSet;
 		typedef typename ElementSet::iterator
 			Element_Iterator;
 		typedef typename ElementSet::const_iterator
 			Element_ConstIterator;
+		typedef typename AsClass<ElementData>::type
+			ElementData_Class;
 
+		class Set;
 		typedef std::list<Set>
 			SetSet;
 		typedef typename SetSet::iterator
 			Set_Iterator;
 		typedef typename SetSet::const_iterator
 			Set_ConstIterator;
+		typedef typename AsClass<SetData>::type
+			SetData_Class;
 
 		typedef std::list<Element_Iterator>
 			MemberSet;

@@ -1,0 +1,204 @@
+Customization of data structures
+================================
+
+[[Parent]]: techniques.txt
+
+A data structure is _customizable_, if 
+
+ * code can be injected to be run at various customization-points of 
+ the data structure,
+ * data can be injected to be carried within the data structure, and
+ * the injected code can arbitrarily modify and depend on the injected data
+ and the data structure itself (using its public methods only).
+
+Additionally, it might be required that
+ 
+ * new functions can be added into the interface of the data structure.
+
+Example
+-------
+
+The [red-black tree][RedBlack] is a self-balancing binary search tree.
+After enabling customization for this data structure, one can implement
+with a negligible effort 'new' data structures, such as an interval tree,
+or a way to find any quantile in logarithmic time, all this while 
+preserving the properties of the red-black tree. To enable this, it is
+enough to provide a way to inject data into the tree nodes, and then 
+provide a customization-point in which the value of the injected data
+of a node can be computed from its children.
+
+[RedBlack]: [[Ref]]: redblacktree.txt
+
+Option 1: Customization by a base-class
+---------------------------------------
+
+In this option the customization is located at a base-class.
+The data structure is passed the type of its customization 
+from which it derives from. The customization makes its
+constructors and assignment operator only available to the
+data structure, to avoid the possibility of slicing.
+
+[[CppCode]]:
+	template <typename Customization>
+	class DataStructure
+	: public Customization
+	{
+	public:
+		void addPart(int someParameter)
+		{
+			// Define a customization point here.
+			onAddPart(someParameter);
+		}
+	};
+
+	template <typename DataStructure>
+	class Customization
+	{
+	public:
+		// The code for the new member functions.
+		void newMemberFunction() 
+		{
+			// The data structure is accessible as follows.
+			DataStructure& dataStructure = 
+				(DataStructure&)*this;
+		}
+
+	protected:
+		// Only the data structure can access these.
+		// This is to avoid the possibility of splicing.
+		Customization() {}
+		Customization(const Customization& that) {}
+		Customization(Customization&& that) {}
+		Customization& operator=(Customization that) {}
+
+		// The code for the customization points.
+		void onAddPart(int someParameter) {}
+
+	private:
+		// The injected data.
+		int state_;
+	};
+
+	// This is how the data structure appears in code.
+	template <typename Customization>
+	void f(const DataStructure<Customization>& dataStructure)
+	{
+	}
+
+Option 2: Customization by a derived class
+------------------------------------------
+
+In this option the customization is located at a derived
+class. The data structure is passed the type of its derived 
+class (from which it must be derived) so that it can refer
+to the customization operations of the derived class at 
+compile-time. Note that
+
+ * the data structure has to be passed by its customization
+ to be able to use the new functions in the interface, and
+ * when passing by the `DataStructure` type, the object is in
+ danger of slicing.
+
+A run-time variation of this technique defines an abstract
+interface in the data structure which is used to refer to 
+the customization operations of the derived class at run-time.
+
+[[CppCode]]:
+	template <typename Customization>
+	class DataStructure
+	{
+	public:
+		void addPart(int someParameter)
+		{
+			// This is how the derived customization
+			// class is accessed.
+			Customization& customization =
+				(Customization&)*this;
+
+			// Define a customization point here.
+			customization.onAddPart(someParameter);
+		}
+	};
+
+	class Customization
+		: public DataStructure<Customization>
+	{
+	public:
+		// The code for the new member functions.
+		void newMemberFunction() {}
+
+	protected:
+		// The code for the customization points.
+		void onAddPart(int someParameter) {}
+
+	private:
+		// The injected data.
+		int state_;
+	};
+
+	// This is how the data structure appears in code.
+	void f(const Customization& dataStructure)
+	{
+	}
+
+Option 3: Customization by a member variable
+--------------------------------------------
+
+In this option the customization object is stored as a member
+variable. Note that
+
+ * the reference to the data structure now has to be passed 
+ as a parameter to the customization, and
+ * this technique is not able to add new member functions
+ to the data structure.
+
+A variation of this technique is to use an abstract
+base class for the customizations and then inject the concrete
+customization at run-time. The problem with this variation is
+that it is not possible to control the types of the customization,
+so that it is not clear whether it makes sense to copy or swap 
+data structures with incompatible customizations.
+
+[[CppCode]]:
+	template <typename Customization>
+	class DataStructure
+	{
+	public:
+		void addPart(int someParameter)
+		{
+			customization_.onAddPart(*this, someParameter);
+		}
+
+	private:
+		Customization customization_;
+	};
+
+	template <typename DataStructure>
+	class Customization
+	{
+	public:
+		// The code for the customization points.
+		void onAddPart(
+			const DataStructure& dataStructure,
+			int someParameter) {}
+
+	private:
+		// The injected data.
+		int state_;
+	};
+
+	// This is how the data structure appears in code.
+	template <typename Customization>
+	void f(const DataStructure<Customization>& dataStructure)
+	{
+	}
+
+Summary
+-------
+
+As a summary, you should
+
+ * prefer customization by a base class to the other techniques;
+ it is both safer, and more powerful,
+ * prefer compile-time to run-time, to enable optimizations,
+ and to avoid problems of customization compatibility.

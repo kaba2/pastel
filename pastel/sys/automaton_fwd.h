@@ -19,16 +19,8 @@ namespace Pastel
 	class Automaton_Fwd
 	{
 	public:
-		//! The user-data for the states.
-		typedef typename Forward<StateData>::type
-			StateData_Class;
-
 		//! The start/final-labeling of the state.
 		class StateLabel;
-
-		//! The user-data for the transitions.
-		typedef typename Forward<TransitionData>::type
-			TransitionData_Class;
 
 		//! The symbol-labeling of the transition.
 		class TransitionLabel;
@@ -46,6 +38,10 @@ namespace Pastel
 		typedef typename Graph::Vertex_ConstIterator
 			State_ConstIterator;
 
+		//! The user-data for the states.
+		typedef typename AsClass<StateData>::type
+			StateData_Class;
+
 		//! The transitions.
 		/*!
 		The transitions are the edges of the graph, 
@@ -55,6 +51,10 @@ namespace Pastel
 			Transition_Iterator;
 		typedef typename Graph::Edge_ConstIterator
 			Transition_ConstIterator;
+
+		//! The user-data for the transitions.
+		typedef typename AsClass<TransitionData>::type
+			TransitionData_Class;
 
 		//! The set of final states.
 		typedef std::list<State_ConstIterator>

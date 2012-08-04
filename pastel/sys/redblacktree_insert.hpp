@@ -49,12 +49,6 @@ namespace Pastel
 			return newNode;
 		}
 
-		// On the way down we visit each node
-		// on the path.
-
-		policy_.updateInsertDown(
-			Iterator(node));
-
 		if (compare_(key, node->key()))
 		{
 			// Smaller elements are located at the left child.

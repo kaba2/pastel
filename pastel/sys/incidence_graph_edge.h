@@ -23,10 +23,10 @@ namespace Pastel
 
 		template <typename Data>
 		class Directed_EdgeData<GraphType::Directed, Data>
-			: public Forward<Data>::type
+			: public AsClass<Data>::type
 		{
 		public:
-			typedef typename Forward<Data>::type 
+			typedef typename AsClass<Data>::type 
 				Base;
 
 			template <typename Data_>
@@ -56,10 +56,10 @@ namespace Pastel
 
 		template <typename Data>
 		class Directed_EdgeData<GraphType::Undirected, Data>
-			: public Forward<Data>::type
+			: public AsClass<Data>::type
 		{
 		public:
-			typedef typename Forward<Data>::type 
+			typedef typename AsClass<Data>::type 
 				Base;
 
 			template <typename Data_>
@@ -89,10 +89,10 @@ namespace Pastel
 
 		template <typename Data>
 		class Directed_EdgeData<GraphType::Mixed, Data>
-			: public Forward<Data>::type
+			: public AsClass<Data>::type
 		{
 		public:
-			typedef typename Forward<Data>::type 
+			typedef typename AsClass<Data>::type 
 				Base;
 
 			template <typename Data_>

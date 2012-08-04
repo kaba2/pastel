@@ -40,11 +40,6 @@ namespace
 			}
 
 			template <typename Iterator>
-			void updateInsertDown(const Iterator& iter)
-			{
-			}
-
-			template <typename Iterator>
 			void updateHierarchical(const Iterator& iter)
 			{
 				iter->value() = 
