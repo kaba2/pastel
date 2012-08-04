@@ -1,0 +1,14 @@
+Automaton design notes
+======================
+
+[[Parent]]: automaton.txt
+
+Goals
+-----
+
+ * automata must be mergable in constant time, to enable the incremental 
+ construction of automata recognizing regular expressions,
+ * for a given state, one can get a list all the incoming and outgoing 
+ transitions (and get their number) in constant time,
+ * user-data can be associated with states and transitions,
+

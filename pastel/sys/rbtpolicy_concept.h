@@ -28,9 +28,6 @@ namespace Pastel
 			*/
 			void swap(RbtPolicy& that);
 
-			template <typename Node_Iterator>
-			void updateInsertDown(const Node_Iterator& iter);
-
 			//! Updates the hierarchical data in a node.
 			/*!
 			This function updates the hierarchical data for the

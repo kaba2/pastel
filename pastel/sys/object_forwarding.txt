@@ -35,10 +35,10 @@ following.
 
 	template <typename EdgeData>
 	class Edge
-		: public Forward<EdgeData>::type
+		: public AsClass<EdgeData>::type
 	{
 	public:
-		typedef typename Forward<EdgeData>::type Base;
+		typedef typename AsClass<EdgeData>::type Base;
 
 		using Base::operator=;
 		Edge& operator=(Edge edge) = delete;

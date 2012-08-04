@@ -1537,6 +1537,9 @@
     <ClInclude Include="regex.h">
       <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </ClInclude>
+    <ClInclude Include="no_automaton_customization.h">
+      <Filter>Data structures\Automaton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1970,6 +1973,12 @@
     </None>
     <None Include="minimal_automaton.txt">
       <Filter>Data structures\Minimal automaton</Filter>
+    </None>
+    <None Include="automaton_design.txt">
+      <Filter>Data structures\Automaton</Filter>
+    </None>
+    <None Include="techniques_customization.txt">
+      <Filter>Documentation</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

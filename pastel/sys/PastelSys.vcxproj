@@ -169,6 +169,7 @@
     <ClInclude Include="minimal_automaton_fwd.h" />
     <ClInclude Include="native_allocator.h" />
     <ClInclude Include="native_allocator.hpp" />
+    <ClInclude Include="no_automaton_customization.h" />
     <ClInclude Include="null_iterator.h" />
     <ClInclude Include="object_forwarding.h" />
     <ClInclude Include="object_forwarding.hpp" />
@@ -551,6 +552,7 @@
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
     <None Include="automaton_algorithms.txt" />
+    <None Include="automaton_design.txt" />
     <None Include="automaton_determinization.txt" />
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
@@ -568,6 +570,7 @@
     <None Include="read_protected.txt" />
     <None Include="refinable_partition.txt" />
     <None Include="second_iterator.txt" />
+    <None Include="techniques_customization.txt" />
     <None Include="transitive_closure.txt" />
     <None Include="trees.txt" />
     <None Include="data_structures.txt" />

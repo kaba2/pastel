@@ -6,6 +6,7 @@
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
+#include "pastel/sys/no_automaton_customization.h"
 
 namespace Pastel
 {
@@ -14,11 +15,34 @@ namespace Pastel
 	template <
 		typename Symbol, 
 		typename StateData = void, 
-		typename TransitionData = void>
+		typename TransitionData = void,
+		typename Customization = No_Automaton_Customization<Symbol, StateData, TransitionData>>
 	class Automaton
-		: public Automaton_Fwd<Symbol, StateData, TransitionData>
+		: public Customization
 	{
 	public:
+		typedef Automaton_Fwd<Symbol, StateData, TransitionData> Fwd;
+
+		PASTEL_FWD(StateLabel);
+		PASTEL_FWD(TransitionLabel);
+		PASTEL_FWD(Graph);
+		
+		PASTEL_FWD(State_Iterator);
+		PASTEL_FWD(State_ConstIterator);
+		PASTEL_FWD(StateData_Class);
+		
+		PASTEL_FWD(Transition_Iterator);
+		PASTEL_FWD(Transition_ConstIterator);
+		PASTEL_FWD(TransitionData_Class);
+		
+		PASTEL_FWD(StartSet);
+		PASTEL_FWD(Start_Iterator);
+		PASTEL_FWD(Start_ConstIterator);
+		
+		PASTEL_FWD(FinalSet);
+		PASTEL_FWD(Final_Iterator);
+		PASTEL_FWD(Final_ConstIterator);
+
 		//! Constructs an empty automaton.
 		Automaton()
 			: graph_()
@@ -46,8 +70,7 @@ namespace Pastel
 		//! Removes all states and transitions.
 		void clear()
 		{
-			// The rejectGraph, rejectState, 
-			// and emptyBranchSet are kept the same.
+			onClear();
 
 			graph_.clear();
 			startSet_.clear();
@@ -57,12 +80,16 @@ namespace Pastel
 		//! Removes all transitions.
 		void clearTransitions()
 		{
+			onClearTransitions();
+
 			graph_.clearEdges();
 		}
 
 		//! Removes all start-state marks.
 		void clearStart()
 		{
+			onClearStart();
+
 			while(startStates() > 0)
 			{
 				removeStart(startSet_.front());
@@ -72,6 +99,8 @@ namespace Pastel
 		//! Removes all final-state marks.
 		void clearFinal()
 		{
+			onClearFinal();
+
 			while(finalStates() > 0)
 			{
 				removeFinal(finalSet_.front());
@@ -81,8 +110,7 @@ namespace Pastel
 		//! Swaps two automata.
 		void swap(Automaton& that)
 		{
-			using std::swap;
-
+			Customization::swap((Customization&)that);
 			graph_.swap(that.graph_);
 			startSet_.swap(that.startSet_);
 			finalSet_.swap(that.finalSet_);
@@ -93,16 +121,20 @@ namespace Pastel
 		//! Adds a new state.
 		State_Iterator addState(StateData_Class stateData = StateData_Class())
 		{
-			auto iter = graph_.addVertex(
+			State_Iterator state = graph_.addVertex(
 				StateLabel(std::move(stateData)));
 
-			return iter;
+			onAddState(state);
+
+			return state;
 		}
 
 		//! Removes a state.
 		State_Iterator removeState(
 			const State_ConstIterator& state)
 		{
+			onRemoveState(state);
+
 			// Remove all transitions that are 
 			// incoming or outgoing at this vertex.
 			while(state->incidentEdges() > 0)
@@ -147,6 +179,8 @@ namespace Pastel
 					startSet_.cend(), state);
 			
 				cast(state)->setStart(true);
+
+				onAddStart(state);
 			}
 		}
 		
@@ -156,6 +190,8 @@ namespace Pastel
 		{
 			if (state->start())
 			{
+				onRemoveStart(state);
+
 				startSet_.erase(state->startPosition_);
 				cast(state)->setStart(false);
 			}
@@ -200,6 +236,8 @@ namespace Pastel
 					finalSet_.cend(), state);
 			
 				cast(state)->setFinal(true);
+
+				onAddFinal(state);
 			}
 		}
 		
@@ -209,6 +247,8 @@ namespace Pastel
 		{
 			if (state->final())
 			{
+				onRemoveFinal(state);
+
 				finalSet_.erase(state->finalPosition_);
 				cast(state)->finalPosition_ = finalSet_.end();
 				cast(state)->setFinal(false);
@@ -282,15 +322,21 @@ namespace Pastel
 			const State_ConstIterator& toState,
 			TransitionData_Class transitionData = TransitionData_Class())
 		{
-			return graph_.addEdge(
+			Transition_Iterator transition = graph_.addEdge(
 				fromState, toState, 
 				TransitionLabel(symbol, std::move(transitionData)));
+
+			onAddTransition(transition);
+
+			return transition;
 		}
 
 		//! Removes a transition.
 		Transition_Iterator removeTransition(
 			const Transition_ConstIterator& transition)
 		{
+			onRemoveTransition(transition);
+
 			return graph_.removeEdge(transition);
 		}
 
@@ -363,6 +409,8 @@ namespace Pastel
 
 		void merge(Automaton& that)
 		{
+			onMerge(that);
+
 			// Bring in the graph.
 			graph_.merge(that.graph_);
 			

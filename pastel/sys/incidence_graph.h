@@ -24,6 +24,27 @@ namespace Pastel
 		: public Incidence_Graph_Fwd<Type, VertexData, EdgeData>
 	{
 	public:
+		typedef Incidence_Graph_Fwd<Type, VertexData, EdgeData> Fwd;
+
+		PASTEL_FWD(Vertex);
+		PASTEL_FWD(VertexSet);
+		PASTEL_FWD(Vertex_Iterator);
+		PASTEL_FWD(Vertex_ConstIterator);
+		PASTEL_FWD(VertexData_Class);
+
+		PASTEL_FWD(Edge);
+		PASTEL_FWD(EdgeSet);
+		PASTEL_FWD(Edge_Iterator);
+		PASTEL_FWD(Edge_ConstIterator);
+		PASTEL_FWD(EdgeData_Class);
+
+		PASTEL_FWD(Incidence_Link);
+		PASTEL_FWD(Incidence);
+		PASTEL_FWD(Incidence_Iterator);
+		PASTEL_FWD(Incidence_ConstIterator);
+
+		using Fwd::IncidenceType;
+
 		//! Constructs an empty graph.
 		/*!
 		Time complexity:

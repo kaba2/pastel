@@ -77,11 +77,6 @@ namespace Pastel
 			Type == GraphType::Directed ||
 			Type == GraphType::Mixed);
 
-		typedef typename Forward<VertexData>::type 
-			VertexData_Class;
-		typedef typename Forward<EdgeData>::type 
-			EdgeData_Class;
-
 		// Vertices
 
 		class Vertex;
@@ -90,6 +85,8 @@ namespace Pastel
 			Vertex_Iterator;
 		typedef typename VertexSet::const_iterator 
 			Vertex_ConstIterator;
+		typedef typename AsClass<VertexData>::type 
+			VertexData_Class;
 
 		// Edges
 
@@ -99,6 +96,8 @@ namespace Pastel
 			Edge_Iterator;
 		typedef typename EdgeSet::const_iterator 
 			Edge_ConstIterator;
+		typedef typename AsClass<EdgeData>::type 
+			EdgeData_Class;
 
 		// Incidences
 
