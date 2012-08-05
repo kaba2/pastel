@@ -8,7 +8,6 @@
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
-#include "pastel/sys/no_automaton_customization.h"
 
 namespace Pastel
 {
@@ -18,7 +17,7 @@ namespace Pastel
 		typename Symbol, 
 		typename StateData = void, 
 		typename TransitionData = void,
-		typename Customization = No_Automaton_Customization<Symbol, StateData, TransitionData>>
+		typename Customization = Automaton_Concepts::Customization<Symbol, StateData, TransitionData>>
 	class Automaton
 		: public Customization
 	{

@@ -170,7 +170,6 @@
     <ClInclude Include="minimal_automaton_fwd.h" />
     <ClInclude Include="native_allocator.h" />
     <ClInclude Include="native_allocator.hpp" />
-    <ClInclude Include="no_automaton_customization.h" />
     <ClInclude Include="null_iterator.h" />
     <ClInclude Include="object_forwarding.h" />
     <ClInclude Include="object_forwarding.hpp" />
@@ -186,6 +185,7 @@
     <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="refinable_partition_set.h" />
     <ClInclude Include="productive_states.h" />
+    <ClInclude Include="search_automaton_customization.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />

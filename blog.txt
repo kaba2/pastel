@@ -1,6 +1,290 @@
 Implementation blog
 ===================
 
+Programming paradigms
+---------------------
+
+05.08.2012
+
+Algorithms
+----------
+
+An _algorithm_ is a halting program written in a Turing-equivalent 
+programming language. It is a partial function which transforms data 
+(input) to another form of data (output). Being a function means that 
+a given input always results in the same output. Being partial means
+that the algorithm will only work with input which satisfies certain
+_pre-conditions_ specific to that algorithm. The relationship between
+the input and the output is specified by _post-conditions_; conditions
+which must hold for the output given the input. 
+
+### Example
+
+Consider the following algorithm:
+
+[[CppCode]]:
+	real sqrt(real x)
+	{
+		ENSURE_OP(x, >=, 0);
+		real result = 0;
+		// Compute the square-root of 'x' of to 'result'.
+		return result;
+	}
+
+The name of the algorithm is `sqrt`. Its input data consists of one
+(object representing a) real number, and its output data consists of
+another real number such that it is a square-root of `x` (post-condition). 
+The pre-condition of this algorithm is that `x` be non-negative,
+which is enforced by the check `ENSURE_OP`.
+
+Programming paradigms
+---------------------
+
+The _Church-Turing thesis_ is a conjecture which states that the definition 
+given for the definition of an algorithm is the most general one. In other
+words, all Turing-equivalent programming languages are equivalent in the
+set of algorithms they can describe. Whatever you can do with Assembler,
+you can also do with C++. It is a conjecture, because such a claim can never
+be proved; if a more powerful computation paradigm were found, then we 
+still could not prove that it was the most powerful one. Rather, the
+Church-Turing thesis is to be accepted on intuitive grounds; it does not
+take much programming experience to reach this acceptance.
+
+If the Church-Turing thesis is to be accepted, then does this mean that
+the programming paradigm is simply a matter of taste? Certainly not.
+It just means that Turing-equivalence becomes a basic requirement expected
+from any serious programming language. In addition, there are numerous 
+other requirements, the most important of which is the ability of the
+language to form _domain-specific abstractions_. 
+
+### From machine-code to assembler
+
+To understand what is meant by this term, consider an assembler programming 
+language, which is very light abstraction over machine-code. In assembler, 
+the programmer directly modifies the registers and memory addresses of the 
+computer. For example, to compute the sum of first 30 integers starting 
+from 1, one could do something like this:
+
+[[CppCode]]:
+	mov eax, 0
+	mov ecx, 30
+
+	loop:
+	add eax, ecx
+	dec ecx
+	jnz loop
+
+Here the `eax` and `ecx` are 32-bit integer registers. The `mov` 
+command is used to move content from right to left, while the `add`
+command is used to add the contents of right to the contents of 
+left. The `dec` command subtracts one from the given register,
+and the `jnz` transfers the program flow to the `loop` label if
+the `ecx` register is not zero.
+
+You might consider this low level. However, the assembler is already a
+welcome abstraction over the _machine-code_, where these almost-readable
+commands have equivalents as a small sequences of integers. Back in the
+days the pioneer programmers specified the machine-code directly.
+
+The assembler-style languages recognize the need to abstract over
+actual memory addresses: it is not important which absolute memory
+address is used to, say, denote the start of a loop. Rather, the start 
+of the loop is marked relative to other commands, and the actual 
+machine address computed later. This enabled easy editing of programs,
+since the addition or removal of commands do not shift the upcoming
+memory addresses. In addition, the command `mov` is much easier to
+remember and teach, than its corresponding command-identifier 0x8B
+(hex number). While here we have only use registers of the processor
+directly, in an assembler language the memory addresses can also 
+reserved by name by the user.
+
+The assembler language quickly reveals a number of opportunies for
+abstraction. For example, to compute something, data must be moved from 
+the memory to registers, the computation made, and then data moved back 
+to memory. The problematic thing here is that the programmer must himself
+manage the use of the registers, something which can be automated. In 
+addition, direct use of the registers means that the programmers code
+is irreversibly tied to the specific processor.
+
+### From assembler to procedural languages
+
+The procedural languages abstract away the registers of the
+processor, so that all operations are logically carried out in the 
+memory of the computer. The compiler then translates this abstract
+representation to a process-specific assembler- or machine-code. One
+could then write things such as:
+
+[[CppCode]]:
+	int a = 1;
+	int b = a + 5;
+
+In addition, the procedural languages abstract away the
+concept of _program flow_, which is the transfer of the program pointer
+to another location. While in machine-code the transfers can be to
+any location, and in assembler the transfers can only be to any labeled
+location, in a procedural language the transfers can only
+be to well-defined pieces of code called functions, or to the start
+of loops or branches. This recognizes the fact that only a minority 
+of the code locations are usable to be transferred control to. The
+pieces of code that are found in loops or branches of a conditional
+jump no longer need to be named; they are abstracted away as irrelevant
+details.
+
+Examples of program-flow-constructs are `for` and `while` loops, and
+the `if` statement (the program needs to transfer the control to the
+right branch based on a condition). These are demonstrated here to
+compute the sum of all even numbers between 1 and 30.
+
+[[CppCode]]:
+	bool isEven(int x)
+	{
+		return (sum % 1) == 0;
+	}
+
+	int computeSum()
+	{
+		int sum = 0;
+		for (int i = 30;i != 0;--i)
+		{
+			if (isEven(x))
+			{
+				sum += i;
+			}
+		}
+
+		return sum;
+	}
+
+### From procedural languages to object-based languages
+
+A procedural languages massively improves the productivity 
+of a programmer since it abstracts away much of what is irrelevant,
+meaning the things which can be automated without sacrificing any
+properties. In the same vein as with the assembler, after some time
+one starts to find ever-reoccuring patterns of general usefulness.
+
+In particular, it seems that the data that occurs in the problems
+tends to be grouped, or _tightly coupled_ together. For example,
+a person has a strong association to his name, age, and height. 
+Representing this association can be done in many ways, however, 
+perhaps the most natural way is to group the data into a
+single logical entity which contains this data in one place. 
+The idea is that if one these data is needed, then they all 
+probably are.
+
+An object-based programming language is a programming language which 
+supports the abstraction of several types into a new _composite_ type 
+containing an object of each given type. For example:
+
+[[CppCode]]:
+	struct Person
+	{
+		string name;
+		int age;
+		int height;		
+	};
+	
+	Person a;
+	Person b;
+
+Perhaps the best-known example of a procedural object-based
+programming language is C. However, its support for the 
+object-based paradigm is only ad-hoc.
+
+### From an object-based language to an ad-hoc object-based paradigm
+
+In the object-based programming _paradigm_, the programmer represents 
+an object abstraction, such as the person, by a composite type containing 
+the tightly coupled data related to the abstraction, and then makes sure 
+that the data can only be modified through a well-defined 
+interface, so as to prevent an unaware libary-user from making 
+the data inconsistent by accident by breaking an object _invariant_. 
+Doing this, the programmer abstracts away the object by _encapsulating_ 
+the details of the object's functionality and representation.
+Continuing our example, we would write functions such as:
+
+[[CppCode]]:
+	void personSetAge(Person* person, int age)
+	{
+		ENSURE_OP(age, >=, 0);
+		person->age = age;
+	}
+
+	int personAge(Person* person)
+	{
+		return person->age;
+	}
+
+In this example the object invariant is that the age and 
+the height must both be non-negative integers.
+
+### From an ad-hoc object-based paradigm to a proper one
+
+It can be said that a programming language only supports a
+paradigm if it makes it easy to program in the paradigm and
+enforces that paradigm (Bjarne Stroustrup). By this 
+definition the C language does not properly support the 
+object-based paradigm.
+
+After programming using the ad-hoc object-based paradigm for
+some time, certain patterns appear yet again. First, while 
+a given object should be accessed only through its interface, 
+according to the programmer of the library, it is still 
+possible to access the data directly (for example, the 
+person's age). This is because the programming language is
+lacking an abstraction mechanism for _encapsulation_, which
+means a way to hide, and protect, object information from the 
+user of the object.
+
+A programming language is said to support the object-based
+paradigm if it allows to define _classes_, where a class
+is a composite type together with functions that work with 
+the composite type, such that selected data and functions 
+can be hidden from the user of the class object, and which
+makes it easy to keep up object invariants, from construction 
+to destruction. This means that the class has to make it
+possible for providing customized functions for
+
+ * a _constructor_, which is run when an object is created, and
+ * a _destructor_, which is run when an object is destructed.
+
+For example:
+ 
+[[CppCode]]:
+	class Person
+	{
+	public:
+		// Constructor
+		Person()
+			: name_("")
+			, age_(0)
+			, height_(0)
+		{
+		}
+
+		// Destructor
+		~Person()
+		{
+		}
+
+		void setAge(int age)
+		{
+			ENSURE_OP(age, >=, 0);
+			age_ = age;
+		}
+
+		int age() const
+		{
+			return age_;
+		}
+
+	// These data are encapsulated.
+	private:
+		string name_;
+		int age_;
+		int height_;
+	};
+
 Layered data structures
 -----------------------
 

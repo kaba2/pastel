@@ -1537,10 +1537,10 @@
     <ClInclude Include="regex.h">
       <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </ClInclude>
-    <ClInclude Include="no_automaton_customization.h">
+    <ClInclude Include="automaton_concepts.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
-    <ClInclude Include="automaton_concepts.h">
+    <ClInclude Include="search_automaton_customization.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
   </ItemGroup>
