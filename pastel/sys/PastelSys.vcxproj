@@ -138,6 +138,7 @@
     <ClInclude Include="array_cursor.h" />
     <ClInclude Include="automaton.h" />
     <ClInclude Include="automaton_algorithms.h" />
+    <ClInclude Include="automaton_concepts.h" />
     <ClInclude Include="automaton_determinization.h" />
     <ClInclude Include="automaton_determinization.hpp" />
     <ClInclude Include="automaton_fwd.h" />

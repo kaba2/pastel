@@ -3,6 +3,8 @@
 #ifndef PASTEL_AUTOMATON_H
 #define PASTEL_AUTOMATON_H
 
+#include "pastel/sys/automaton_concepts.h"
+
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
@@ -44,6 +46,10 @@ namespace Pastel
 		PASTEL_FWD(Final_ConstIterator);
 
 		//! Constructs an empty automaton.
+		/*!
+		Time complexity: O(1)
+		Exception safety: strong
+		*/
 		Automaton()
 			: graph_()
 			, startSet_()
@@ -52,6 +58,13 @@ namespace Pastel
 		}
 
 		//! Move-constructs from another automaton.
+		/*!
+		Time complexity: 
+		O(1)
+
+		Exception safety: 
+		strong
+		*/
 		Automaton(Automaton&& that)
 			: graph_()
 			, startSet_()
@@ -61,6 +74,13 @@ namespace Pastel
 		}
 
 		//! Move-assigns from another automaton.
+		/*!
+		Time complexity: 
+		Move/copy-construction
+
+		Exception safety: 
+		Move/copy-construction
+		*/
 		Automaton& operator=(Automaton that)
 		{
 			swap(that);
@@ -68,6 +88,16 @@ namespace Pastel
 		}
 
 		//! Removes all states and transitions.
+		/*!
+		Time complexity:
+		O(n + m) + customization,
+		where 
+		n is the number of states, and
+		m is the number of transitions.
+
+		Exception safety:
+		nothrow
+		*/
 		void clear()
 		{
 			onClear();
@@ -78,6 +108,15 @@ namespace Pastel
 		}
 
 		//! Removes all transitions.
+		/*!
+		Time complexity:
+		O(m) + customization,
+		where
+		m is the number of transitions.
+
+		Exception safety:
+		nothrow
+		*/
 		void clearTransitions()
 		{
 			onClearTransitions();
@@ -86,6 +125,15 @@ namespace Pastel
 		}
 
 		//! Removes all start-state marks.
+		/*!
+		Time complexity:
+		O(k) + customization,
+		where
+		k is the number of start-states.
+
+		Exception safety:
+		nothrow
+		*/
 		void clearStart()
 		{
 			onClearStart();
@@ -97,6 +145,15 @@ namespace Pastel
 		}
 
 		//! Removes all final-state marks.
+		/*!
+		Time complexity:
+		O(k) + customization
+		where
+		k is the number of start-states.
+
+		Exception safety:
+		nothrow
+		*/
 		void clearFinal()
 		{
 			onClearFinal();
@@ -108,6 +165,13 @@ namespace Pastel
 		}
 
 		//! Swaps two automata.
+		/*!
+		Time complexity:
+		O(1) + customization
+
+		Exception safety:
+		nothrow
+		*/
 		void swap(Automaton& that)
 		{
 			Customization::swap((Customization&)that);
@@ -119,6 +183,13 @@ namespace Pastel
 		// States
 
 		//! Adds a new state.
+		/*!
+		Time complexity:
+		O(1) + customization
+
+		Exception safety:
+		strong + customization
+		*/
 		State_Iterator addState(StateData_Class stateData = StateData_Class())
 		{
 			State_Iterator state = graph_.addVertex(
@@ -138,6 +209,13 @@ namespace Pastel
 		}
 
 		//! Removes a state.
+		/*!
+		Time complexity:
+		O(1) + customization
+
+		Exception safety:
+		nothrow
+		*/
 		State_Iterator removeState(
 			const State_ConstIterator& state)
 		{
@@ -168,6 +246,10 @@ namespace Pastel
 		}
 
 		//! Removes constness from a state-iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		State_Iterator cast(
 			const State_ConstIterator& state)
 		{
@@ -177,6 +259,13 @@ namespace Pastel
 		// Start states
 
 		//! Adds the given state to the start states.
+		/*!
+		Time complexity: 
+		O(1) + customization
+		
+		Exception safety: 
+		strong + customization
+		*/
 		void addStart(
 			const State_ConstIterator& state)
 		{
@@ -204,7 +293,14 @@ namespace Pastel
 			}
 		}
 		
-		//! Removes the given state from the start states.
+		//! Removes the given state from the start-states.
+		/*!
+		Time complexity:
+		O(1) + customization
+
+		Exception safety:
+		nothrow
+		*/
 		void removeStart(
 			const State_ConstIterator& state)
 		{
@@ -219,27 +315,51 @@ namespace Pastel
 			cast(state)->setStart(false);
 		}
 
+		//! Returns the first iterator of the start-states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Start_Iterator startBegin()
 		{
 			return startSet_.begin();
 		}
 
+		//! Returns the first iterator of the start-states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Start_ConstIterator cStartBegin() const
 		{
 			return startSet_.cbegin();
 		}
 
+		//! Returns the end-iterator of the start-states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Start_Iterator startEnd()
 		{
 			return startSet_.end();
 		}
 
+		//! Returns the end-iterator of the start-states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Start_ConstIterator cStartEnd() const
 		{
 			return startSet_.cend();
 		}
 
 		//! Returns the number of start states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		integer startStates() const
 		{
 			return startSet_.size();
@@ -248,6 +368,13 @@ namespace Pastel
 		// Final states
 
 		//! Makes the given state final.
+		/*!
+		Time complexity: 
+		O(1) + customization
+		
+		Exception safety: 
+		strong + customization
+		*/
 		void addFinal(
 			const State_ConstIterator& state)
 		{
@@ -276,6 +403,13 @@ namespace Pastel
 		}
 		
 		//! Removes finality from the given state.
+		/*!
+		Time complexity: 
+		O(1) + customization
+		
+		Exception safety: 
+		nothrow
+		*/
 		void removeFinal(
 			const State_ConstIterator& state)
 		{
@@ -291,27 +425,51 @@ namespace Pastel
 			cast(state)->setFinal(false);
 		}
 
+		//! Returns the first iterator of the final states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Final_Iterator finalBegin()
 		{
 			return finalSet_.begin();
 		}
 
+		//! Returns the first iterator of the final states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Final_ConstIterator cFinalBegin() const
 		{
 			return finalSet_.cbegin();
 		}
 
+		//! Returns the end-iterator of the final states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Final_Iterator finalEnd()
 		{
 			return finalSet_.end();
 		}
 
+		//! Returns the end-iterator of the final states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Final_ConstIterator cFinalEnd() const
 		{
 			return finalSet_.cend();
 		}
 
 		//! Returns the number of final states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		integer finalStates() const
 		{
 			return finalSet_.size();
@@ -320,30 +478,50 @@ namespace Pastel
 		// All states
 
 		//! Returns the first iterator of the state-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		State_Iterator stateBegin()
 		{
 			return graph_.vertexBegin();
 		}
 
 		//! Returns the first iterator of the state-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		State_ConstIterator cStateBegin() const
 		{
 			return graph_.cVertexBegin();
 		}
 
 		//! Returns the end-iterator of the state-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		State_Iterator stateEnd()
 		{
 			return graph_.vertexEnd();
 		}
 
 		//! Returns the end-iterator of the state-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		State_ConstIterator cStateEnd() const
 		{
 			return graph_.cVertexEnd();
 		}
 
 		//! Returns the number of states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		integer states() const
 		{
 			return graph_.vertices();
@@ -352,6 +530,13 @@ namespace Pastel
 		// Transitions
 
 		//! Adds a new transition.
+		/*!
+		Time complexity: 
+		O(1) + customization
+
+		Exception safety: 
+		strong + customization
+		*/
 		Transition_Iterator addTransition(
 			const State_ConstIterator& fromState,
 			const Symbol& symbol,
@@ -376,6 +561,13 @@ namespace Pastel
 		}
 
 		//! Removes a transition.
+		/*!
+		Time complexity: 
+		O(1) + customization
+
+		Exception safety: 
+		nothrow
+		*/
 		Transition_Iterator removeTransition(
 			const Transition_ConstIterator& transition)
 		{
@@ -385,30 +577,50 @@ namespace Pastel
 		}
 
 		//! Returns the first iterator of the transition-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_Iterator transitionBegin()
 		{
 			return graph_.edgeBegin();
 		}
 
 		//! Returns the first iterator of the transition-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_ConstIterator cTransitionBegin() const
 		{
 			return graph_.cEdgeBegin();
 		}
 
 		//! Returns the end-iterator of the transition-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_Iterator transitionEnd()
 		{
 			return graph_.edgeEnd();
 		}
 
 		//! Returns the end-iterator of the transition-set.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_ConstIterator cTransitionEnd() const
 		{
 			return graph_.cEdgeEnd();
 		}
 
 		//! Returns the first iterator of the transition-set of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_Iterator transitionBegin(
 			const State_ConstIterator& state)
 		{
@@ -416,6 +628,10 @@ namespace Pastel
 		}
 
 		//! Returns the first iterator of the transition-set of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_ConstIterator cTransitionBegin(
 			const State_ConstIterator& state) const
 		{
@@ -423,6 +639,10 @@ namespace Pastel
 		}
 
 		//! Returns the end-iterator of the transition-set of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_Iterator transitionEnd(
 			const State_ConstIterator& state)
 		{
@@ -430,6 +650,10 @@ namespace Pastel
 		}
 
 		//! Returns the end-iterator of the transition-set of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_ConstIterator cTransitionEnd(
 			const State_ConstIterator& state) const
 		{
@@ -437,6 +661,10 @@ namespace Pastel
 		}
 
 		//! Removes constness from a transition-iterator.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		Transition_Iterator cast(
 			const Transition_ConstIterator& transition)
 		{
@@ -444,6 +672,10 @@ namespace Pastel
 		}
 
 		//! Returns the number of transitions.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		integer transitions() const
 		{
 			return graph_.edges();
@@ -451,6 +683,14 @@ namespace Pastel
 
 		// Global operations
 
+		//! Merges two automata together.
+		/*!
+		Time complexity: 
+		O(1) + customization
+
+		Exception safety: 
+		nothrow + customization
+		*/
 		void merge(Automaton& that)
 		{
 			onMerge(that);
