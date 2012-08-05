@@ -124,7 +124,15 @@ namespace Pastel
 			State_Iterator state = graph_.addVertex(
 				StateLabel(std::move(stateData)));
 
-			onAddState(state);
+			try
+			{
+				onAddState(state);
+			}
+			catch(...)
+			{
+				graph_.removeVertex(state);
+				throw;
+			}
 
 			return state;
 		}
@@ -172,15 +180,27 @@ namespace Pastel
 		void addStart(
 			const State_ConstIterator& state)
 		{
-			if (!state->start())
+			if (state->start())
 			{
-				cast(state)->startPosition_ = 
-					startSet_.insert(
-					startSet_.cend(), state);
+				return;
+			}
 			
-				cast(state)->setStart(true);
+			Start_Iterator start = startSet_.insert(
+				startSet_.cend(), state);
 
+			cast(state)->startPosition_ = start; 
+			cast(state)->setStart(true);
+
+			try
+			{
 				onAddStart(state);
+			}
+			catch(...)
+			{
+				cast(state)->startPosition_ = startSet_.end(); 
+				cast(state)->setStart(false);
+				startSet_.erase(start);
+				throw;
 			}
 		}
 		
@@ -188,13 +208,15 @@ namespace Pastel
 		void removeStart(
 			const State_ConstIterator& state)
 		{
-			if (state->start())
+			if (!state->start())
 			{
-				onRemoveStart(state);
-
-				startSet_.erase(state->startPosition_);
-				cast(state)->setStart(false);
+				return;
 			}
+			
+			onRemoveStart(state);
+
+			startSet_.erase(state->startPosition_);
+			cast(state)->setStart(false);
 		}
 
 		Start_Iterator startBegin()
@@ -229,15 +251,27 @@ namespace Pastel
 		void addFinal(
 			const State_ConstIterator& state)
 		{
-			if (!state->final())
+			if (state->final())
 			{
-				cast(state)->finalPosition_ = 
-					finalSet_.insert(
-					finalSet_.cend(), state);
-			
-				cast(state)->setFinal(true);
+				return;
+			}
 
+			Final_Iterator final = finalSet_.insert(
+				finalSet_.cend(), state);
+
+			cast(state)->finalPosition_ = final;
+			cast(state)->setFinal(true);
+
+			try
+			{
 				onAddFinal(state);
+			}
+			catch(...)
+			{
+				cast(state)->finalPosition_ = finalSet_.end();
+				cast(state)->setFinal(false);
+				finalSet_.erase(final);
+				throw;
 			}
 		}
 		
@@ -245,14 +279,16 @@ namespace Pastel
 		void removeFinal(
 			const State_ConstIterator& state)
 		{
-			if (state->final())
+			if (!state->final())
 			{
-				onRemoveFinal(state);
-
-				finalSet_.erase(state->finalPosition_);
-				cast(state)->finalPosition_ = finalSet_.end();
-				cast(state)->setFinal(false);
+				return;
 			}
+
+			onRemoveFinal(state);
+
+			finalSet_.erase(state->finalPosition_);
+			cast(state)->finalPosition_ = finalSet_.end();
+			cast(state)->setFinal(false);
 		}
 
 		Final_Iterator finalBegin()
@@ -326,7 +362,15 @@ namespace Pastel
 				fromState, toState, 
 				TransitionLabel(symbol, std::move(transitionData)));
 
-			onAddTransition(transition);
+			try
+			{
+				onAddTransition(transition);
+			}
+			catch(...)
+			{
+				graph_.removeEdge(transition);
+				throw;
+			}
 
 			return transition;
 		}
