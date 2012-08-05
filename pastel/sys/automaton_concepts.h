@@ -15,12 +15,11 @@ namespace Pastel
 			typename TransitionData>
 		class Customization
 		{
-		public:
-			// The new member functions.
+		private:
+			// The following definitions are here only to
+			// simplify the part below. They are not used in 
+			// Automaton.
 
-			void newMemberFunction() {}
-
-		protected:
 			typedef Automaton_Fwd<Symbol, StateData, TransitionData> Fwd;
 		
 			PASTEL_FWD(State_Iterator);
@@ -28,17 +27,22 @@ namespace Pastel
 			PASTEL_FWD(Transition_Iterator);
 			PASTEL_FWD(Transition_ConstIterator);
 
-			typedef Automaton<Symbol, StateData, TransitionData,
-				Customization> Automaton;
+		public:
+			// The new member functions.
 
+			//void newMemberFunction() {}
+
+		protected:
 			// The constructors and assignment should be protected to avoid
 			// the possibility of splicing.
 
 			Customization() {}
-			Customization(const Customization&) {}
-			Customization(Customization&&) {}
+			Customization(const Customization& that) {}
+			Customization(Customization&& that) {}
 			Customization& operator=(
-				Customization) {return *this;}
+				Customization that) {return *this;}
+
+			// The customization functions.
 
 			//! Called at the start of swap().
 			/*!
@@ -49,8 +53,6 @@ namespace Pastel
 			nothrow
 			*/
 			void swap(Customization& that) {}
-
-			// The customization functions.
 
 			//! Called at the start of clear().
 			/*!
@@ -147,7 +149,13 @@ namespace Pastel
 			Exception safety:
 			basic or stronger
 			*/
-			void onMerge(Automaton& that) {}
+			void onMerge(Automaton<Symbol, StateData, TransitionData,
+				Customization>& that) {}
+
+		private:
+			// The new state data.
+
+			// int state_;
 		};
 
 	}

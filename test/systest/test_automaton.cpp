@@ -4,6 +4,7 @@
 #include "pastelsystest.h"
 
 #include <pastel/sys/automaton.h>
+#include <pastel/sys/search_automaton_customization.h>
 #include <pastel/sys/reachable_states.h>
 #include <pastel/sys/productive_states.h>
 #include <pastel/sys/automaton_minimization.h>
@@ -28,15 +29,16 @@ namespace
 		virtual void run()
 		{
 			testSimple();
+			testCustom();
 		}
-
-		typedef Automaton<integer> Automaton;
-		typedef Automaton::State_ConstIterator State_ConstIterator;
-		typedef Automaton::State_Iterator State_Iterator;
-		typedef Automaton::Transition_Iterator Transition;
 
 		void testSimple()
 		{
+			typedef Automaton<integer> Automaton;
+			typedef Automaton::State_ConstIterator State_ConstIterator;
+			typedef Automaton::State_Iterator State_Iterator;
+			typedef Automaton::Transition_Iterator Transition;
+
 			Automaton automaton;
 
 			State_ConstIterator a = automaton.addState();
@@ -154,6 +156,14 @@ namespace
 
 			automaton = minimizeAutomaton(
 				std::move(automaton));
+		}
+
+		void testCustom()
+		{
+			typedef Automaton<integer, void, void, Search_Automaton_Customization<integer, void, void>>
+				Automaton;
+
+			Automaton automaton;
 		}
 	};
 
