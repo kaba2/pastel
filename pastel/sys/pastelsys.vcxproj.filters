@@ -1540,6 +1540,9 @@
     <ClInclude Include="no_automaton_customization.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
+    <ClInclude Include="automaton_concepts.h">
+      <Filter>Data structures\Automaton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

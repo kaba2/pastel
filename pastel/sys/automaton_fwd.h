@@ -1,16 +1,19 @@
 #ifndef PASTEL_AUTOMATON_FWD_H
 #define PASTEL_AUTOMATON_FWD_H
 
-#include "pastel/sys/hash.h"
-#include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/object_forwarding.h"
-
-#include <unordered_map>
-#include <unordered_set>
 
 namespace Pastel
 {
+
+	template <
+		typename Symbol, 
+		typename StateData, 
+		typename TransitionData,
+		typename Customization>
+	class Automaton;
 
 	template <
 		typename Symbol, 
