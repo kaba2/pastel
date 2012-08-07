@@ -160,6 +160,8 @@
     <ClInclude Include="graph_algorithms.h" />
     <ClInclude Include="graph_traversal.h" />
     <ClInclude Include="graph_traversal_concepts.h" />
+    <ClInclude Include="hashed_tree.h" />
+    <ClInclude Include="hashed_tree.hpp" />
     <ClInclude Include="incidence_graph.h" />
     <ClInclude Include="incidence_graph_edge.h" />
     <ClInclude Include="incidence_graph_fwd.h" />
@@ -557,6 +559,7 @@
     <None Include="depth_first_traversal.txt" />
     <None Include="graph_traversal.txt" />
     <None Include="hash.txt" />
+    <None Include="hashed_tree.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />
     <None Include="automaton_minimization.txt" />

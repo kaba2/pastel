@@ -1,0 +1,11 @@
+Hashed tree
+===========
+
+[[Parent]]: data_structures.txt
+
+The _hashed tree_ is a red-black tree which has been customized to maintain 
+the combined hash of the hashes of the elements in the subtree 
+of each node. This tree has exactly the same properties as the red-black 
+tree, with the added ability to provide the hash of its elements (the hash
+of the root node) in constant time. This enables storing sets of elements
+in a hash-table.

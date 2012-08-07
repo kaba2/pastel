@@ -178,6 +178,9 @@ namespace Pastel
 		ConstIterator root() const;
 
 	private:
+		// FIX: Implement
+		RedBlackTree(const RedBlackTree& that) PASTEL_DELETE;
+
 		enum
 		{
 			Left = 0,

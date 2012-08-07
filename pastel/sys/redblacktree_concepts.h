@@ -1,16 +1,11 @@
 #ifndef PASTEL_REDBLACKTREE_CONCEPTS_H
 #define PASTEL_REDBLACKTREE_CONCEPTS_H
 
+#include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblacktree_fwd.h"
 
 namespace Pastel
 {
-	template <
-		typename Key,
-		typename Compare,
-		typename Data,
-		typename Customization>
-	class RedBlackTree;
 
 	namespace RedBlackTree_Concepts
 	{
@@ -29,10 +24,11 @@ namespace Pastel
 			PASTEL_FWD(ConstIterator);
 
 		protected:
+			//! Constructs an empty customization.
+			/*!
+			Exception safety: strong
+			*/
 			Customization() {}
-			Customization(const Customization& that) {}
-			Customization(Customization&& that) {}
-			Customization& operator=(Customization) PASTEL_DELETE;
 
 			//! Swaps two customizations.
 			/*!
@@ -42,12 +38,21 @@ namespace Pastel
 			void swap(Customization& that) {}
 
 			//! Called at the start of clear().
+			/*!
+			Exception safety: nothrow
+			*/
 			void onClear() {}
 
 			//! Called at the end of insert().
+			/*!
+			Exception safety: basic or stronger
+			*/
 			void onInsert(const Iterator& element) {}
 
 			//! Called at the start of erase().
+			/*!
+			Exception safety: nothrow
+			*/
 			void onErase(const ConstIterator& element) {}
 
 			//! Updates the hierarchical data in a node.
@@ -65,6 +70,13 @@ namespace Pastel
 			hierarchical data is recursively defined).
 			*/
 			void updateHierarchical(const ConstIterator& node) {}
+
+		private:
+			// These functions will not be used, and so should
+			// be deleted to avoid accidental splicing.
+			Customization(const Customization& that) PASTEL_DELETE;
+			Customization(Customization&& that) PASTEL_DELETE;
+			Customization& operator=(Customization) PASTEL_DELETE;
 		};
 
 	}
