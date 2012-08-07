@@ -6,9 +6,9 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node* 
-		RedBlackTree<Key, Compare, RbtPolicy>::erase(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node* 
+		RedBlackTree<Key, Compare, Data, Customization>::erase(
 		Node* node)
 	{
 		if (node == sentinel_)
@@ -77,8 +77,7 @@ namespace Pastel
 		const bool detachedWasRed = toDetach->red();
 
 		// Free the memory of 'node'.
-		destructNode(node);
-		allocator_.deallocate(node);
+		delete node;
 		--size_;
 
 		if (detachedWasRed)
@@ -118,8 +117,8 @@ namespace Pastel
 		return successor;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::rebalance(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::rebalance(
 		Node* toRebalance, bool leftLowOnBlack)
 	{
 		if (toRebalance == sentinel_)
@@ -184,10 +183,10 @@ namespace Pastel
 				node->flipColor();
 
 				// The color of 'node' has changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(node));
 				// The left child of 'parent' has changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(parent));
 				break;
 			}
@@ -205,7 +204,7 @@ namespace Pastel
 				// upwards the tree.
 
 				// The child of 'parent' has changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(parent));
 			}
 			else if (a->red())
@@ -238,13 +237,13 @@ namespace Pastel
 				a->flipColor();
 
 				// The children of 'parent' have changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(parent));
 				// The children of 'sibling' have changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(sibling));
 				// The children of 'a' have changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(a));
 				break;
 			}
@@ -273,10 +272,10 @@ namespace Pastel
 				sibling->flipColor();
 
 				// The children of 'parent' have changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(parent));
 				// The children of 'sibling' have changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(sibling));
 				break;
 			}
@@ -304,10 +303,10 @@ namespace Pastel
 
 				// The children of 'parent' have changed
 				// (as well as its color).
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(parent));
 				// The children of 'sibling' have changed.
-				policy_.updateHierarchical(
+				updateHierarchical(
 					Iterator(sibling));
 			}
 

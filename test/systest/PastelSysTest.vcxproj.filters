@@ -64,9 +64,6 @@
     <ClCompile Include="test_random.cpp">
       <Filter>Random variables</Filter>
     </ClCompile>
-    <ClCompile Include="test_random_sampling_tree.cpp">
-      <Filter>Random variables</Filter>
-    </ClCompile>
     <ClCompile Include="test_andersondarling.cpp">
       <Filter>Random variables</Filter>
     </ClCompile>

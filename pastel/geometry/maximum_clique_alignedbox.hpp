@@ -174,29 +174,41 @@ namespace Pastel
 			ConstIterator box;
 		};
 
-		class MaximumClique_RbtPolicy
+		class Data
 		{
 		public:
-			class ValueType
+			Data(
+				integer actives_ = 0,
+				integer maxCliqueSize_ = -1)
+				: actives(actives_)
+				, maxCliqueSize(maxCliqueSize_)
 			{
-			public:
-				ValueType(
-					integer actives_ = 0,
-					integer maxCliqueSize_ = -1)
-					: actives(actives_)
-					, maxCliqueSize(maxCliqueSize_)
-				{
-				}
+			}
 
-				// The difference between the number of 
-				// ending points and the number of starting
-				// points in the subtree rooted at the current 
-				// node.
-				integer actives;
-				integer maxCliqueSize;
-			};
+			// The difference between the number of 
+			// ending points and the number of starting
+			// points in the subtree rooted at the current 
+			// node.
+			integer actives;
+			integer maxCliqueSize;
+		};
 
-			template <typename Iterator>
+		template <
+			typename Key,
+			typename Compare,
+			typename Data>
+		class MaximumClique_Customization
+			: public RedBlackTree_Concepts::Customization<Key, Compare, Data>
+		{
+		protected:
+			typedef RedBlackTree_Fwd<Key, Compare, Data> Tree;
+			typedef typename Tree::Iterator
+				Iterator;
+			typedef typename Tree::ConstIterator
+				ConstIterator;
+
+			void swap(MaximumClique_Customization& that) {}
+
 			void updateHierarchical(const Iterator& iter)
 			{
 				// The size of the clique in the current node
@@ -223,14 +235,14 @@ namespace Pastel
 				// the augmented 'actives' and 'maxCliqueSize'
 				// node variables.
 
-				const integer v = iter->key().min() ? 1 : -1;
+				const integer v = iter.key().min() ? 1 : -1;
 
 				// The difference between the number of ending 
 				// points and the number of starting points in
 				// a subtree is easily computed recursively.
-				iter->value().actives = 
-					iter.left()->value().actives + 
-					iter.right()->value().actives +
+				iter->actives = 
+					iter.left()->actives + 
+					iter.right()->actives +
 					v;
 
 				// The difference in the current node
@@ -238,7 +250,7 @@ namespace Pastel
 				// left node plus the 'v'-value of the current 
 				// node.
 				const integer currentDifference =
-					iter.left()->value().actives + v;
+					iter.left()->actives + v;
 
 				// The current difference might not mark
 				// the largest difference, since there can be 
@@ -249,7 +261,7 @@ namespace Pastel
 				// given our expanded view from a parent node,
 				// is unchanged.
 				const integer leftDifference =
-					iter.left()->value().maxCliqueSize;
+					iter.left()->maxCliqueSize;
 
 				// The maximum difference in the right subtree,
 				// given our expanded view from a parent node, is 
@@ -261,12 +273,12 @@ namespace Pastel
 				// that rightDifference >= currentDifference.
 				const integer rightDifference =
 					currentDifference +
-					iter.right()->value().maxCliqueSize;
+					iter.right()->maxCliqueSize;
 
 				// Finally, the maximum difference in the
 				// current subtree is the maximum among the
 				// three differences.
-				iter->value().maxCliqueSize = 
+				iter->maxCliqueSize = 
 					std::max(leftDifference,
 					std::max(currentDifference,
 					rightDifference));
@@ -275,22 +287,18 @@ namespace Pastel
 				// the maxCliqueSize really is the size of the
 				// maximum clique.
 			}
-
-			void swap(MaximumClique_RbtPolicy& that)
-			{
-			}
 		};
 
 		template <typename Iterator>
 		bool cliqueHere(const Iterator& iter)
 		{
-			const integer v = iter->key().min() ? 1 : -1;
+			const integer v = iter.key().min() ? 1 : -1;
 
 			// There is a maximum clique in the current node, 
 			// if the maxCliqueSize was computed as it is for
 			// the current node.
-			if (iter->value().maxCliqueSize == 
-				iter.left()->value().actives + v)
+			if (iter->maxCliqueSize == 
+				iter.left()->actives + v)
 			{
 				return true;
 			}
@@ -305,8 +313,8 @@ namespace Pastel
 			// if the maxCliqueSize was computed as it is for
 			// the left subtree.
 			if (!iter.left().sentinel() && 
-				iter->value().maxCliqueSize == 
-				iter.left()->value().maxCliqueSize)
+				iter->maxCliqueSize == 
+				iter.left()->maxCliqueSize)
 			{
 				return true;
 			}
@@ -317,15 +325,15 @@ namespace Pastel
 		template <typename Iterator>
 		bool cliqueOnRight(const Iterator& iter)
 		{
-			const integer v = iter->key().min() ? 1 : -1;
+			const integer v = iter.key().min() ? 1 : -1;
 
 			// There is a maximum clique in the right subtree, 
 			// if the maxCliqueSize was computed as it is for
 			// the right subtree.
 			if (!iter.right().sentinel() &&
-				iter->value().maxCliqueSize == 
-				iter.left()->value().actives + v +
-				iter.right()->value().maxCliqueSize)
+				iter->maxCliqueSize == 
+				iter.left()->actives + v +
+				iter.right()->maxCliqueSize)
 			{
 				return true;
 			}
@@ -508,10 +516,11 @@ namespace Pastel
 		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
 
 		typedef Event<Real, AlignedBox_ConstIterator> Event;
-		typedef MaximumClique_RbtPolicy RbtPolicy;
-		typedef RedBlackTree<Event, std::less<Event>, RbtPolicy> Tree;
+		typedef MaximumCliqueAlignedBox_::Data Data;
+		typedef MaximumClique_Customization<Event, LessThan, Data> Customization;
+
+		typedef RedBlackTree<Event, LessThan, Data, Customization> Tree;
 		typedef typename Tree::ConstIterator Event_ConstIterator;
-		typedef RbtPolicy::ValueType Value;
 
 		ENSURE_OP(sweepDirection, >=, 0);
 		ENSURE_OP(sweepDirection, <, 2);
@@ -637,7 +646,7 @@ namespace Pastel
 						// Primarily, we want to maximize the size of
 						// the maximum clique.
 						const integer maxCliqueSize = 
-							tree.root()->value().maxCliqueSize;
+							tree.root()->maxCliqueSize;
 
 						if (maxCliqueSize > 1 && maxCliqueSize >= maxMaxCliqueSize)
 						{
@@ -648,9 +657,9 @@ namespace Pastel
 								findSomeMaximumClique(tree.root(),
 								std::back_inserter(directionSet));
 
-							const Real xMinNew = cliqueIter->key().position;
+							const Real xMinNew = cliqueIter.key().position;
 							++cliqueIter;
-							const Real xMaxNew = cliqueIter->key().position;
+							const Real xMaxNew = cliqueIter.key().position;
 
 							const Real yMinNew = e.position;
 							const Real yMaxNew = eventSet[i + 1].position;
@@ -727,9 +736,9 @@ namespace Pastel
 			range(maxDirectionSet.begin(), 
 			maxDirectionSet.end()));
 
-		const Real xMin = cliqueIter->key().position;
+		const Real xMin = cliqueIter.key().position;
 		++cliqueIter;
-		const Real xMax = cliqueIter->key().position;
+		const Real xMax = cliqueIter.key().position;
 
 		clique.min()[x] = xMin;
 		clique.min()[y] = yMin;
@@ -759,14 +768,14 @@ namespace Pastel
 			// so this loop really includes all boxes.
 			while(iter != cliqueIter)
 			{
-				if (iter->key().min())
+				if (iter.key().min())
 				{
 					activeSet.insert(
-						std::make_pair(iter->key().index, iter->key().box));
+						std::make_pair(iter.key().index, iter.key().box));
 				}
 				else
 				{
-					activeSet.erase(iter->key().index);
+					activeSet.erase(iter.key().index);
 				}
 				++iter;
 			}

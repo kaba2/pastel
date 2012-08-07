@@ -200,7 +200,6 @@
     <ClCompile Include="test_poolallocator.cpp" />
     <ClCompile Include="test_progress.cpp" />
     <ClCompile Include="test_random.cpp" />
-    <ClCompile Include="test_random_sampling_tree.cpp" />
     <ClCompile Include="test_range.cpp" />
     <ClCompile Include="test_rational.cpp" />
     <ClCompile Include="test_redblacktree.cpp" />

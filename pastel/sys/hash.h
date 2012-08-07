@@ -24,18 +24,10 @@ namespace Pastel
 		const Type& that);
 
 	//! Combines an existing 32-bit hash with the hash of 'that'.
-	template <typename Integer, typename Type> 
-	PASTEL_ENABLE_IF((boost::mpl::and_<
-		boost::is_integral<Integer>, 
-		boost::mpl::bool_<sizeof(Integer) == sizeof(uint32)>>), Integer) 
-		combineHash(Integer hash, const Type& that);
+	uint32 combineHash(uint32 left, uint32 right);
 
 	//! Combines an existing 64-bit hash with the hash of 'that'.
-	template <typename Integer, typename Type> 
-	PASTEL_ENABLE_IF((boost::mpl::and_<
-		boost::is_integral<Integer>, 
-		boost::mpl::bool_<sizeof(Integer) == sizeof(uint64)>>), Integer) 
-		combineHash(Integer hash, const Type& that);
+	uint64 combineHash(uint64 left, uint64 right);
 
 	//! Sequentially combines the hashes of the input values.
 	template <typename ConstIterator>
@@ -54,6 +46,19 @@ namespace Pastel
 		hash_integer operator()(const Iterator& iter) const
 		{
 			return computeHash(&*iter);
+		}
+	};
+
+	class Pair_Hash
+	{
+	public:
+		template <typename First, typename Second>
+		hash_integer operator()(
+			const std::pair<First, Second>& that) const
+		{
+			return combineHash(
+				computeHash(that.first),
+				computeHash(that.second));
 		}
 	};
 

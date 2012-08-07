@@ -6,17 +6,17 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-	RedBlackTree<Key, Compare, RbtPolicy>::insert(
-	const Key& key, const ValueType* value, Node* node,
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
+	RedBlackTree<Key, Compare, Data, Customization>::insert(
+	Key key, Data_Class data, Node* node,
 	Node* parent, bool fromLeft, Node*& newNode)
 	{
 		if (node == sentinel_)
 		{
 			// The key does not exist, so insert it as a leaf node.
 			// New nodes are created red.
-			newNode = allocateNode(key, value, parent, true);
+			newNode = allocateNode(std::move(key), std::move(data), parent, true);
 			++size_;
 
 			if (parent != sentinel_)
@@ -43,7 +43,7 @@ namespace Pastel
 				setMaximum(newNode);
 			}
 
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(newNode));
 
 			return newNode;
@@ -53,14 +53,14 @@ namespace Pastel
 		{
 			// Smaller elements are located at the left child.
 			node->left() = insert(
-				key, value, node->left(), 
+				key, std::move(data), node->left(), 
 				node, true, newNode);
 		}
 		else if (compare_(node->key(), key))
 		{
 			// Greater elements are located at the right child.
 			node->right() = insert(
-				key, value, node->right(), 
+				key, std::move(data), node->right(), 
 				node, false, newNode);
 		}
 		else
@@ -72,7 +72,7 @@ namespace Pastel
 			return newNode;
 		}
 
-		policy_.updateHierarchical(
+		updateHierarchical(
 			Iterator(node));
 
 		if (node->left()->black() &&
@@ -86,9 +86,9 @@ namespace Pastel
 			// _not_ an invariant of the tree, although
 			// we make that choice here.
 
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node->left()));
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node));
 		}
 
@@ -100,9 +100,9 @@ namespace Pastel
 			// This fixes that locally.
 			node = rotate(node, Right);
 
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node->right()));
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node));
 		}
 
@@ -111,11 +111,11 @@ namespace Pastel
 		{
 			flipColors(node);
 
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node->left()));
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node->right()));
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node));
 		}
 

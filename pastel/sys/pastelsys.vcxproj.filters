@@ -25,9 +25,6 @@
     <Filter Include="Data structures\Binary trees\Red-black tree">
       <UniqueIdentifier>{90540cfa-04ac-4620-a7a0-91280b05c920}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data structures\Binary trees\Red-black tree\RbtPolicy">
-      <UniqueIdentifier>{16e96d00-a036-4616-8d26-27b5be104ec2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Memory management">
       <UniqueIdentifier>{74934457-0729-48aa-92fa-ac4de916f335}</UniqueIdentifier>
     </Filter>
@@ -476,18 +473,6 @@
     </ClInclude>
     <ClInclude Include="redblacktree_tools.hpp">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
-    </ClInclude>
-    <ClInclude Include="map_rbtpolicy.h">
-      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
-    </ClInclude>
-    <ClInclude Include="rbtpolicies.h">
-      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
-    </ClInclude>
-    <ClInclude Include="rbtpolicy_concept.h">
-      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
-    </ClInclude>
-    <ClInclude Include="set_rbtpolicy.h">
-      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
     </ClInclude>
     <ClInclude Include="tree.h">
       <Filter>Data structures\Binary trees\Generic tree</Filter>
@@ -1065,9 +1050,6 @@
     <ClInclude Include="random_integer.hpp">
       <Filter>Random variables\Discrete random variables</Filter>
     </ClInclude>
-    <ClInclude Include="random_sampling_tree.h">
-      <Filter>Random variables\Discrete random variables</Filter>
-    </ClInclude>
     <ClInclude Include="random_anderson_darling.h">
       <Filter>Random variables\Goodness-of-fit</Filter>
     </ClInclude>
@@ -1543,6 +1525,12 @@
     <ClInclude Include="search_automaton_customization.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
+    <ClInclude Include="redblacktree_concepts.h">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
+    <ClInclude Include="redblacktree_fwd.h">
+      <Filter>Data structures\Binary trees\Red-black tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1568,9 +1556,6 @@
     </None>
     <None Include="redblacktree_implementation.txt">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
-    </None>
-    <None Include="rbtpolicies.txt">
-      <Filter>Data structures\Binary trees\Red-black tree\RbtPolicy</Filter>
     </None>
     <None Include="tree.txt">
       <Filter>Data structures\Binary trees\Generic tree</Filter>
@@ -1717,9 +1702,6 @@
       <Filter>Random variables\Continuous random variables</Filter>
     </None>
     <None Include="random_discrete.txt">
-      <Filter>Random variables\Discrete random variables</Filter>
-    </None>
-    <None Include="random_sampling_tree.txt">
       <Filter>Random variables\Discrete random variables</Filter>
     </None>
     <None Include="random_goodness.txt">

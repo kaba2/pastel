@@ -4,6 +4,5 @@
 #define PASTEL_RANDOM_DISCRETE_H
 
 #include "pastel/sys/random_integer.h"
-#include "pastel/sys/random_sampling_tree.h"
 
 #endif
