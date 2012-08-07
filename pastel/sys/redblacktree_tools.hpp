@@ -80,14 +80,14 @@ namespace Pastel
 	template <typename Key, typename Compare, typename Data, typename Customization>
 	bool check(const RedBlackTree<Key, Compare, Data, Customization>& tree)
 	{
-		if (!tree.root().black())
+		if (!tree.croot().black())
 		{
 			// The root of the tree must be black.
 			return false;
 		}
 
 		integer blackHeight = 0;
-		return RedBlackTreeTools_::check(tree.root(), blackHeight);
+		return RedBlackTreeTools_::check(tree.croot(), blackHeight);
 	}
 
 }

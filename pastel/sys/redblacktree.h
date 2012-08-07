@@ -38,7 +38,18 @@ namespace Pastel
 			Key sentinelKey = Key(), 
 			Data_Class sentinelData = Data_Class());
 
+		//! Copy-constructs from another tree.
+		/*!
+		Exception safety: strong
+		Time complexity: O(n)
+		*/
+		RedBlackTree(const RedBlackTree& that);
+
 		//! Move-constructs from another tree.
+		/*!
+		Exception safety: nothrow
+		Time complexity: O(1)
+		*/
 		RedBlackTree(RedBlackTree&& that);
 
 		//! Replaces this tree with a copy of another tree.
@@ -136,7 +147,7 @@ namespace Pastel
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		ConstIterator begin() const;
+		ConstIterator cbegin() const;
 
 		//! Returns the iterator to the one-past-greatest element.
 		/*!
@@ -149,7 +160,7 @@ namespace Pastel
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		ConstIterator end() const;
+		ConstIterator cend() const;
 
 		//! Returns the iterator to the greatest element.
 		/*!
@@ -162,7 +173,7 @@ namespace Pastel
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		ConstIterator last() const;
+		ConstIterator clast() const;
 
 		//! Returns the iterator to the root element.
 		/*!
@@ -175,12 +186,9 @@ namespace Pastel
 		Exception safety: nothrow
 		Time complexity: constant
 		*/
-		ConstIterator root() const;
+		ConstIterator croot() const;
 
 	private:
-		// FIX: Implement
-		RedBlackTree(const RedBlackTree& that) PASTEL_DELETE;
-
 		enum
 		{
 			Left = 0,

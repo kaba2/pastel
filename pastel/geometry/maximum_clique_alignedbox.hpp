@@ -240,9 +240,9 @@ namespace Pastel
 				// The difference between the number of ending 
 				// points and the number of starting points in
 				// a subtree is easily computed recursively.
-				iter->actives = 
-					iter.left()->actives + 
-					iter.right()->actives +
+				iter.data().actives = 
+					iter.left().data().actives + 
+					iter.right().data().actives +
 					v;
 
 				// The difference in the current node
@@ -250,7 +250,7 @@ namespace Pastel
 				// left node plus the 'v'-value of the current 
 				// node.
 				const integer currentDifference =
-					iter.left()->actives + v;
+					iter.left().data().actives + v;
 
 				// The current difference might not mark
 				// the largest difference, since there can be 
@@ -261,7 +261,7 @@ namespace Pastel
 				// given our expanded view from a parent node,
 				// is unchanged.
 				const integer leftDifference =
-					iter.left()->maxCliqueSize;
+					iter.left().data().maxCliqueSize;
 
 				// The maximum difference in the right subtree,
 				// given our expanded view from a parent node, is 
@@ -273,12 +273,12 @@ namespace Pastel
 				// that rightDifference >= currentDifference.
 				const integer rightDifference =
 					currentDifference +
-					iter.right()->maxCliqueSize;
+					iter.right().data().maxCliqueSize;
 
 				// Finally, the maximum difference in the
 				// current subtree is the maximum among the
 				// three differences.
-				iter->maxCliqueSize = 
+				iter.data().maxCliqueSize = 
 					std::max(leftDifference,
 					std::max(currentDifference,
 					rightDifference));
@@ -297,8 +297,8 @@ namespace Pastel
 			// There is a maximum clique in the current node, 
 			// if the maxCliqueSize was computed as it is for
 			// the current node.
-			if (iter->maxCliqueSize == 
-				iter.left()->actives + v)
+			if (iter.data().maxCliqueSize == 
+				iter.left().data().actives + v)
 			{
 				return true;
 			}
@@ -313,8 +313,8 @@ namespace Pastel
 			// if the maxCliqueSize was computed as it is for
 			// the left subtree.
 			if (!iter.left().sentinel() && 
-				iter->maxCliqueSize == 
-				iter.left()->maxCliqueSize)
+				iter.data().maxCliqueSize == 
+				iter.left().data().maxCliqueSize)
 			{
 				return true;
 			}
@@ -331,9 +331,9 @@ namespace Pastel
 			// if the maxCliqueSize was computed as it is for
 			// the right subtree.
 			if (!iter.right().sentinel() &&
-				iter->maxCliqueSize == 
-				iter.left()->actives + v +
-				iter.right()->maxCliqueSize)
+				iter.data().maxCliqueSize == 
+				iter.left().data().actives + v +
+				iter.right().data().maxCliqueSize)
 			{
 				return true;
 			}
@@ -646,7 +646,7 @@ namespace Pastel
 						// Primarily, we want to maximize the size of
 						// the maximum clique.
 						const integer maxCliqueSize = 
-							tree.root()->maxCliqueSize;
+							tree.root().data().maxCliqueSize;
 
 						if (maxCliqueSize > 1 && maxCliqueSize >= maxMaxCliqueSize)
 						{
