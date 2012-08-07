@@ -48,6 +48,9 @@ namespace Pastel
 		, size_(0)
 		, compare_()
 	{
+		allocateSentinel(that.sentinel_->key(), *that.sentinel_);
+		initialize();
+
 		swap(that);
 	}
 
