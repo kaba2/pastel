@@ -16,9 +16,27 @@ namespace Pastel
 		, compare_()
 	{
 		allocateSentinel(std::move(sentinelKey), std::move(sentinelData));
-
-		// This doesn't throw.
 		initialize();
+	}
+
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	RedBlackTree<Key, Compare, Data, Customization>::RedBlackTree(
+		const RedBlackTree& that)
+		: root_(0)
+		, sentinel_(0)
+		, minimum_(0)
+		, size_(0)
+		, compare_()
+	{
+		allocateSentinel(that.sentinel_->key(), *that.sentinel_);
+		initialize();
+
+		for (auto iter = that.cbegin();
+			iter != that.cend();
+			++iter)
+		{
+			insert(iter.key(), iter.data());
+		}
 	}
 
 	template <typename Key, typename Compare, typename Data, typename Customization>
@@ -173,7 +191,7 @@ namespace Pastel
 			}
 		}
 
-		return end();
+		return cend();
 	}
 
 	template <typename Key, typename Compare, typename Data, typename Customization>
@@ -185,7 +203,7 @@ namespace Pastel
 
 	template <typename Key, typename Compare, typename Data, typename Customization>
 	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::begin() const
+	RedBlackTree<Key, Compare, Data, Customization>::cbegin() const
 	{
 		return ConstIterator(minimum());
 	}
@@ -199,7 +217,7 @@ namespace Pastel
 
 	template <typename Key, typename Compare, typename Data, typename Customization>
 	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::end() const
+	RedBlackTree<Key, Compare, Data, Customization>::cend() const
 	{
 		return ConstIterator(sentinel_);
 	}
@@ -213,7 +231,7 @@ namespace Pastel
 
 	template <typename Key, typename Compare, typename Data, typename Customization>
 	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::last() const
+	RedBlackTree<Key, Compare, Data, Customization>::clast() const
 	{
 		return ConstIterator(maximum());
 	}
@@ -227,7 +245,7 @@ namespace Pastel
 
 	template <typename Key, typename Compare, typename Data, typename Customization>
 	typename RedBlackTree<Key, Compare, Data, Customization>::ConstIterator 
-	RedBlackTree<Key, Compare, Data, Customization>::root() const
+	RedBlackTree<Key, Compare, Data, Customization>::croot() const
 	{
 		return ConstIterator(root_);
 	}

@@ -37,9 +37,9 @@ namespace
 			template <typename Iterator>
 			void updateHierarchical(const Iterator& iter)
 			{
-				*iter = 
-					*iter.left() + 
-					*iter.right() + 
+				iter.data() = 
+					iter.left().data() + 
+					iter.right().data() + 
 					(iter.red() ? 1 : 0);
 			}
 		};
@@ -79,14 +79,11 @@ namespace
 				}
 			}
 
-			/*
 			{
 				Tree copyTree(tree);
 				copyTree.swap(tree);
 				TEST_ENSURE(check(tree));
 			}
-			*/
-		
 		}
 
 		void testSimple()
@@ -155,7 +152,7 @@ namespace
 		void find(const Tree& tree, integer that)
 		{
 			ConstIterator iter = tree.find(that);
-			if (iter != tree.end())
+			if (iter != tree.cend())
 			{
 				std::cout << "Found " << iter.key() << " : " << *iter << "." << std::endl;
 			}

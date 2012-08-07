@@ -20,7 +20,7 @@ namespace Pastel
 		template <typename Key, typename Data>
 		class Iterator
 			: public boost::bidirectional_iterator_helper<
-			Iterator<Key, Data>, typename AsClass<Data>::type, integer>
+			Iterator<Key, Data>, Key, integer>
 		{
 		public:
 			template <typename, typename>
@@ -110,15 +110,19 @@ namespace Pastel
 				return *this;
 			}
 
-			Data_Class& operator*() const
+			const Key& operator*() const
 			{
-				ASSERT(node_);
-				return *node_;
+				return node_->key();
 			}
 
 			const Key& key() const
 			{
 				return node_->key();
+			}
+
+			Data_Class& data() const
+			{
+				return *node_;
 			}
 
 			bool sentinel() const
@@ -166,7 +170,7 @@ namespace Pastel
 		template <typename Key, typename Data>
 		class ConstIterator
 			: public boost::bidirectional_iterator_helper<
-			ConstIterator<Key, Data>, const typename AsClass<Data>::type, integer>
+			ConstIterator<Key, Data>, const Key, integer>
 		{
 		public:
 			// Using default copy constructor.
@@ -210,14 +214,19 @@ namespace Pastel
 				return *this;
 			}
 
-			const Data_Class& operator*() const
+			const Key& operator*() const
 			{
-				return (const Node&)*iter_;
+				return *iter_;
 			}
 
 			const Key& key() const
 			{
 				return iter_.key();
+			}
+
+			const Data_Class& data() const
+			{
+				return iter_.data();
 			}
 
 			bool sentinel() const
