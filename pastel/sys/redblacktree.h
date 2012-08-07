@@ -4,11 +4,10 @@
 #define PASTEL_REDBLACKTREE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/pool_allocator.h"
-#include "pastel/sys/rbtpolicy_concept.h"
-#include "pastel/sys/set_rbtpolicy.h"
+#include "pastel/sys/redblacktree_concepts.h"
 #include "pastel/sys/redblacktree_node.h"
 #include "pastel/sys/redblacktree_iterator.h"
+#include "pastel/sys/object_forwarding.h"
 
 namespace Pastel
 {
@@ -16,17 +15,19 @@ namespace Pastel
 	//! A red-black tree
 	template <
 		typename Key,
-		typename Compare = std::less<Key>, 
-		typename RbtPolicy = Set_RbtPolicy>
+		typename Compare = LessThan,
+		typename Data = void,
+		typename Customization = RedBlackTree_Concepts::Customization<Key, Compare, Data>>
 	class RedBlackTree
+		: public Customization
 	{
 	public:
-		typedef Key KeyType;
-		typedef typename RbtPolicy::ValueType ValueType;
-		typedef Compare CompareType;
+		typedef RedBlackTree_Fwd<Key, Compare, Data> Fwd;
+		typedef Customization Customization_;
 
-		typedef RedBlackTree_::Iterator<Key, ValueType> Iterator;
-		typedef RedBlackTree_::ConstIterator<Key, ValueType> ConstIterator;
+		PASTEL_FWD(Iterator);
+		PASTEL_FWD(ConstIterator);
+		PASTEL_FWD(Data_Class);
 
 		//! Constructs an empty tree.
 		/*!
@@ -34,25 +35,18 @@ namespace Pastel
 		Time complexity: constant
 		*/
 		explicit RedBlackTree(
-			const RbtPolicy& policy = RbtPolicy(),
-			const Key& sentinelKey = Key(), 
-			const ValueType& sentinelValue = ValueType());
+			Key sentinelKey = Key(), 
+			Data_Class sentinelData = Data_Class());
 
-		//! Constructs a copy of another tree.
-		/*!
-		Exception safety: strong
-		Time complexity: O(n)
-		*/
-		RedBlackTree(
-			const RedBlackTree& that,
-			const RbtPolicy& policy = RbtPolicy());
+		//! Move-constructs from another tree.
+		RedBlackTree(RedBlackTree&& that);
 
 		//! Replaces this tree with a copy of another tree.
 		/*!
 		Exception safety: strong
 		Time complexity: O(n)
 		*/
-		RedBlackTree& operator=(const RedBlackTree& that);
+		RedBlackTree& operator=(RedBlackTree that);
 
 		//! Destructs the tree.
 		/*!
@@ -98,8 +92,8 @@ namespace Pastel
 		user-specified hierarchical data (usually O(1)).
 		*/
 		Iterator insert(
-			const Key& key, 
-			const ValueType& value = ValueType());
+			Key key, 
+			Data_Class data = Data_Class());
 
 		//! Removes an element from the tree.
 		/*!
@@ -118,13 +112,13 @@ namespace Pastel
 		*/
 		Iterator erase(const Key& key);
 
-		//! Searches for a node with the given value.
+		//! Searches for a node with the given key.
 		/*!
 		See the documentation for the const version.
 		*/
 		Iterator find(const Key& key);
 
-		//! Searches for a node with the given value.
+		//! Searches for a node with the given key.
 		/*!
 		Exception safety: nothrow
 		Time complexity: O(log n)
@@ -190,7 +184,7 @@ namespace Pastel
 			Right = 1
 		};
 
-		typedef RedBlackTree_::Node<Key, ValueType> Node;
+		typedef RedBlackTree_::Node<Key, Data> Node;
 
 		//! Allocates the sentinel node.
 		/*!
@@ -198,8 +192,8 @@ namespace Pastel
 		Time complexity: constant
 		*/
 		void allocateSentinel(
-			const Key& sentinelKey,
-			const ValueType* sentinelValue);
+			Key key,
+			Data_Class data);
 
 		//! Deallocates the sentinel node.
 		/*!
@@ -224,22 +218,15 @@ namespace Pastel
 		Time complexity:	constant
 		*/
 		Node* allocateNode(
-			const Key& key, 
-			const ValueType* value,
+			Key key, 
+			Data_Class data,
 			Node* parent,
 			bool red);
 
-		//! Destruct a node.
-		/*!
-		Exception safety: nothrow
-		Time complexity: constant
-		*/
-		void destructNode(Node* node);
-		
 		//! Inserts a new node.
 		Node* insert(
-			const Key& key, 
-			const ValueType* value, 
+			Key key, 
+			Data_Class data, 
 			Node* node,
 			Node* parent,
 			bool fromLeft,
@@ -250,7 +237,7 @@ namespace Pastel
 
 		//! Updates hierarhical data on the path to root.
 		/*!
-		Calls policy_.updateHierarhical(node) for each node in 
+		Calls updateHierarhical(node) for each node in 
 		the path to the root, including 'node' itself.
 		*/
 		void updateToRoot(Node* node);
@@ -366,14 +353,8 @@ namespace Pastel
 		//! The number of stored elements in the tree.
 		integer size_;
 
-		//! The allocator for the nodes.
-		PoolAllocator allocator_;
-
 		//! The comparison functor.
 		Compare compare_;
-
-		//! The policy.
-		RbtPolicy policy_;
 	};
 
 }

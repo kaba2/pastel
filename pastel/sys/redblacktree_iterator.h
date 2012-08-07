@@ -1,9 +1,11 @@
 #ifndef PASTEL_REDBLACKTREE_ITERATOR_H
 #define PASTEL_REDBLACKTREE_ITERATOR_H
 
+#include "pastel/sys/mytypes.h"
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/redblacktree_node.h"
 
+#include <boost/operators.hpp>
 #include <boost/iterator.hpp>
 
 namespace Pastel
@@ -12,19 +14,21 @@ namespace Pastel
 	namespace RedBlackTree_
 	{
 
-		template <typename Key, typename Value>
+		template <typename Key, typename Data>
 		class ConstIterator;
 
-		template <typename Key, typename Value>
+		template <typename Key, typename Data>
 		class Iterator
 			: public boost::bidirectional_iterator_helper<
-			Iterator<Key, Value>, Node<Key, Value>, integer>
+			Iterator<Key, Data>, typename AsClass<Data>::type, integer>
 		{
 		public:
 			template <typename, typename>
 			friend class ConstIterator;
 
-			typedef RedBlackTree_::Node<Key, Value> Node;
+			typedef RedBlackTree_::Node<Key, Data> Node;
+
+			typedef typename AsClass<Data>::type Data_Class;
 
 			// Using default copy constructor.
 			// Using default assignment.
@@ -106,10 +110,15 @@ namespace Pastel
 				return *this;
 			}
 
-			Node& operator*() const
+			Data_Class& operator*() const
 			{
 				ASSERT(node_);
 				return *node_;
+			}
+
+			const Key& key() const
+			{
+				return node_->key();
 			}
 
 			bool sentinel() const
@@ -143,7 +152,7 @@ namespace Pastel
 			}
 
 		private:
-			template <typename, typename, typename>
+			template <typename, typename, typename, typename>
 			friend class RedBlackTree;
 
 			explicit Iterator(Node* node)
@@ -154,19 +163,21 @@ namespace Pastel
 			Node* node_;
 		};
 
-		template <typename Key, typename Value>
+		template <typename Key, typename Data>
 		class ConstIterator
 			: public boost::bidirectional_iterator_helper<
-			ConstIterator<Key, Value>, const Node<Key, Value>, integer>
+			ConstIterator<Key, Data>, const typename AsClass<Data>::type, integer>
 		{
 		public:
 			// Using default copy constructor.
 			// Using default assignment.
 			// Using default destructor.
 
-			typedef RedBlackTree_::Iterator<Key, Value> Iterator;
-			typedef RedBlackTree_::Node<Key, Value> Node;
+			typedef RedBlackTree_::Iterator<Key, Data> Iterator;
+			typedef RedBlackTree_::Node<Key, Data> Node;
 			
+			typedef typename AsClass<Data>::type Data_Class;
+
 			ConstIterator()
 				: iter_()
 			{
@@ -199,9 +210,14 @@ namespace Pastel
 				return *this;
 			}
 
-			const Node& operator*() const
+			const Data_Class& operator*() const
 			{
 				return (const Node&)*iter_;
+			}
+
+			const Key& key() const
+			{
+				return iter_.key();
 			}
 
 			bool sentinel() const
@@ -235,7 +251,7 @@ namespace Pastel
 			}
 
 		private:
-			template <typename, typename, typename>
+			template <typename, typename, typename, typename>
 			friend class RedBlackTree;
 
 			explicit ConstIterator(const Node* node)

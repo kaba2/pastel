@@ -4,7 +4,6 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/redblacktree_tools.h"
-#include "pastel/sys/rbtpolicies.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <iostream>
@@ -30,34 +29,28 @@ namespace
 			testSimple();
 		}
 
-		class Counting_RbtPolicy
+		class Counting_Customization
+			: public RedBlackTree_Concepts::Customization<
+			integer, LessThan, integer>
 		{
 		public:
-			typedef integer ValueType;
-
-			void swap(Counting_RbtPolicy& that)
-			{
-			}
-
 			template <typename Iterator>
 			void updateHierarchical(const Iterator& iter)
 			{
-				iter->value() = 
-					iter.left()->value() + 
-					iter.right()->value() + 
+				*iter = 
+					*iter.left() + 
+					*iter.right() + 
 					(iter.red() ? 1 : 0);
 			}
 		};
 
-		//typedef RedBlackTree<integer, std::less<integer>, Map_RbtPolicy<integer> > Tree;
-		typedef RedBlackTree<integer, std::less<integer>, Counting_RbtPolicy> Tree;
-		//typedef RedBlackTree<integer> Tree;
+		typedef RedBlackTree<integer, std::less<integer>, integer, Counting_Customization> Tree;
 		typedef Tree::Iterator Iterator;
 		typedef Tree::ConstIterator ConstIterator;
 
 		void testRandom()
 		{
-			Tree tree(Counting_RbtPolicy(), 0, 0);
+			Tree tree(0, 0);
 
 			std::list<integer> dataSet;
 
@@ -96,7 +89,7 @@ namespace
 
 		void testSimple()
 		{
-			Tree tree(Counting_RbtPolicy(), 0, 0);
+			Tree tree(0, 0);
 
 			tree.insert(1, 1);
 			tree.insert(5, 1);
@@ -108,15 +101,15 @@ namespace
 			tree.insert(9, 1);
 			tree.insert(2, 1);
 
-			std::cout << "Minimum " << tree.begin()->key() << std::endl;
-			std::cout << "Maximum " << tree.last()->key() << std::endl;
+			std::cout << "Minimum " << tree.begin().key() << std::endl;
+			std::cout << "Maximum " << tree.last().key() << std::endl;
 			
 			ConstIterator iter = tree.begin();
 			const ConstIterator iterEnd = tree.end();
 			while(iter != iterEnd)
 			{
-				std::cout << "(" << iter->key() << " : " 
-					<< iter->value() << "), ";
+				std::cout << "(" << iter.key() << " : " 
+					<< *iter << "), ";
 				++iter;
 			}
 
@@ -132,8 +125,8 @@ namespace
 			do
 			{
 				--iter;			
-				std::cout << "(" << iter->key() << " : " 
-					<< iter->value() << "), ";
+				std::cout << "(" << iter.key() << " : " 
+					<< *iter << "), ";
 			}
 			while(iter != tree.begin());
 
@@ -147,8 +140,8 @@ namespace
 			}
 
 			std::cout << "Root " 
-				<< tree.root()->key() << " : " 
-				<< tree.root()->value() << "." << std::endl;
+				<< tree.root().key() << " : " 
+				<< *tree.root() << "." << std::endl;
 
 			find(tree, 3);
 			find(tree, -1);
@@ -162,7 +155,7 @@ namespace
 			ConstIterator iter = tree.find(that);
 			if (iter != tree.end())
 			{
-				std::cout << "Found " << iter->key() << " : " << iter->value() << "." << std::endl;
+				std::cout << "Found " << iter.key() << " : " << *iter << "." << std::endl;
 			}
 			else
 			{

@@ -6,56 +6,32 @@
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::allocateSentinel(
-		const Key& sentinelKey,
-		const ValueType* sentinelValue)
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::allocateSentinel(
+		Key key,
+		Data_Class data)
 	{
 		// The sentinel is not allocated from the allocator,
 		// since we want to keep its identity even if the
 		// whole tree was freed with clear().
 
-		integer rollBackIndex = 0;
-		try
-		{
-			// The balancing algorithms assume that the
-			// color of the sentinel is black.
-			sentinel_ = new Node(sentinelKey, 0, 0, 0, false);
-			sentinel_->parent() = sentinel_;
-			sentinel_->left() = sentinel_;
-			sentinel_->right() = sentinel_;
-			++rollBackIndex;
-
-			if (Node::ValueExists && sentinelValue)
-			{
-				// Construct the value.
-				new(sentinel_->valuePtr()) ValueType(*sentinelValue);
-				++rollBackIndex;
-			}
-		}
-		catch(...)
-		{
-			switch(rollBackIndex)
-			{
-			case 1:
-				delete sentinel_;
-				break;
-			};
-
-			throw;
-		}
+		// The balancing algorithms assume that the
+		// color of the sentinel is black.
+		sentinel_ = new Node(std::move(key), std::move(data), 0, 0, 0, false);
+		sentinel_->parent() = sentinel_;
+		sentinel_->left() = sentinel_;
+		sentinel_->right() = sentinel_;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::deallocateSentinel()
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::deallocateSentinel()
 	{
-		destructNode(sentinel_);
 		delete sentinel_;
 		sentinel_ = 0;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::initialize()
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::initialize()
 	{
 		// This function is called both in construction
 		// and in clear().
@@ -71,62 +47,19 @@ namespace Pastel
 		size_ = 0;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-	RedBlackTree<Key, Compare, RbtPolicy>::allocateNode(
-	const Key& key, const ValueType* value, 
-	Node* parent, bool red)
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
+	RedBlackTree<Key, Compare, Data, Customization>::allocateNode(
+	Key key, Data_Class data, Node* parent, bool red)
 	{
-		Node* node = 0;
-		integer rollBackIndex = 0;
-		try
-		{
-			node = (Node*)allocator_.allocate();
-			++rollBackIndex;
-
-			// Construct the node.
-			new(node) Node(key, parent, sentinel_, sentinel_, red);
-			++rollBackIndex;
-
-			if (Node::ValueExists && value)
-			{
-				// Construct the value.
-				new(node->valuePtr()) ValueType(*value);
-			}
-		}
-		catch(...)
-		{
-			switch(rollBackIndex)
-			{
-			case 2:
-				node->~Node();
-				// Fall-through.
-			case 1:
-				allocator_.deallocate(node);
-				break;
-			};
-
-			throw;
-		}
+		Node* node = new Node(std::move(key), std::move(data), 
+			parent, sentinel_, sentinel_, red);
 
 		return node;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::destructNode(Node* node)
-	{
-		if (Node::ValueExists)
-		{
-			// Destruct the value.
-			node->valuePtr()->~ValueType();
-		}
-		
-		// Destruct the node.
-		node->~Node();
-	}
-
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::updateToRoot(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::updateToRoot(
 		Node* node)
 	{
 		if (node == sentinel_)
@@ -137,7 +70,7 @@ namespace Pastel
 		Node* child = node;
 		while(node != sentinel_)
 		{
-			policy_.updateHierarchical(
+			updateHierarchical(
 				Iterator(node));
 			child = node;
 			node = node->parent();
@@ -146,9 +79,9 @@ namespace Pastel
 		root_ = child;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node* 
-		RedBlackTree<Key, Compare, RbtPolicy>::copyConstruct(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node* 
+		RedBlackTree<Key, Compare, Data, Customization>::copyConstruct(
 		Node* parent, Node* thatNode)
 	{
 		if (thatNode->sentinel())
@@ -161,7 +94,7 @@ namespace Pastel
 		try
 		{
 			node = allocateNode(
-				thatNode->key(), thatNode->valuePtr(), 
+				thatNode->key(), *thatNode, 
 				parent, thatNode->red());
 			++rollBackIndex;
 
@@ -196,8 +129,8 @@ namespace Pastel
 		return node;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::clear(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::clear(
 		Node* node)
 	{
 		// The sentinel should not be destructed
@@ -210,14 +143,14 @@ namespace Pastel
 		clear(node->left());
 		clear(node->right());
 		
-		destructNode(node);
+		delete node;
 
 		// The node deallocation is left to
 		// be done at higher level all at once.
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::link(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::link(
 		Node* parent, Node* child, integer direction)
 	{
 		if (parent != sentinel_)
@@ -234,9 +167,9 @@ namespace Pastel
 		}
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::rotate(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
+		RedBlackTree<Key, Compare, Data, Customization>::rotate(
 		Node* node, integer direction)
 	{
 		ASSERT(node != sentinel_);
@@ -265,8 +198,8 @@ namespace Pastel
 		return x;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::flipColors(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::flipColors(
 		Node* node)
 	{
 		ASSERT(node != sentinel_);
@@ -282,30 +215,30 @@ namespace Pastel
 		}
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::setMinimum(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::setMinimum(
 		Node* node)
 	{
 		minimum_ = node;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::minimum() const
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
+		RedBlackTree<Key, Compare, Data, Customization>::minimum() const
 	{
 		return minimum_;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	void RedBlackTree<Key, Compare, RbtPolicy>::setMaximum(
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	void RedBlackTree<Key, Compare, Data, Customization>::setMaximum(
 		Node* node)
 	{
 		sentinel_->parent() = node;
 	}
 
-	template <typename Key, typename Compare, typename RbtPolicy>
-	typename RedBlackTree<Key, Compare, RbtPolicy>::Node*
-		RedBlackTree<Key, Compare, RbtPolicy>::maximum() const
+	template <typename Key, typename Compare, typename Data, typename Customization>
+	typename RedBlackTree<Key, Compare, Data, Customization>::Node*
+		RedBlackTree<Key, Compare, Data, Customization>::maximum() const
 	{
 		return sentinel_->parent();
 	}

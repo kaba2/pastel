@@ -2,32 +2,27 @@
 #define PASTEL_REDBLACKTREE_NODE_H
 
 #include "pastel/sys/redblacktree.h"
-#include "pastel/sys/possiblyemptymember.h"
+#include "pastel/sys/object_forwarding.h"
 
 namespace Pastel
 {
 
-	template <typename Key, typename Compare, typename RbtPolicy>
+	template <typename Key, typename Compare, typename Data, typename Customization>
 	class RedBlackTree;
 
 	namespace RedBlackTree_
 	{
 
-		template <typename Key, typename Value>
+		template <typename Key, typename Data>
 		class ConstIterator;
 
-		template <typename Key, typename Value>
+		template <typename Key, typename Data>
 		class Node
-			: private PossiblyEmptyMember<Value>
+			: public AsClass<Data>::type
 		{
 		public:
-			typedef PossiblyEmptyMember<Value> Base;
-
-			enum
-			{
-				ValueExists = 
-					!std::is_same<Value, EmptyClass>::value
-			};
+			typedef typename AsClass<Data>::type
+				Data_Class;
 
 			enum
 			{
@@ -50,20 +45,6 @@ namespace Pastel
 				return !red_;
 			}
 			
-			Value& value()
-			{
-				PASTEL_STATIC_ASSERT(ValueExists);
-
-				return *Base::data();
-			}
-
-			const Value& value() const
-			{
-				PASTEL_STATIC_ASSERT(ValueExists);
-
-				return *Base::data();
-			}
-
 			bool sentinel() const
 			{
 				// A sentinel is identified by the unique property
@@ -72,18 +53,25 @@ namespace Pastel
 			}
 
 		private:
-			template <typename, typename, typename>
+			Node() PASTEL_DELETE;
+			Node(const Node& that) PASTEL_DELETE;
+			Node(Node&& that) PASTEL_DELETE;
+			Node& operator=(Node that) PASTEL_DELETE;
+
+			template <typename, typename, typename, typename>
 			friend class RedBlackTree;
 
 			template <typename, typename>
 			friend class Iterator;
 
-			Node(const Key& key,
+			Node(Key key,
+				Data_Class data,
 				Node* parent,
 				Node* left,
 				Node* right,
 				bool red)
-				: key_(key)
+				: Data_Class(std::move(data))
+				, key_(std::move(key))
 				, parent_(parent)
 				, child_()
 				, red_(red)
@@ -152,11 +140,6 @@ namespace Pastel
 			Node* right() const
 			{
 				return child_[Right];
-			}
-
-			Value* valuePtr() const
-			{
-				return (Value*)Base::data();
 			}
 
 			void flipColor()

@@ -173,6 +173,7 @@
     <ClInclude Include="null_iterator.h" />
     <ClInclude Include="object_forwarding.h" />
     <ClInclude Include="object_forwarding.hpp" />
+    <ClInclude Include="redblacktree_fwd.h" />
     <ClInclude Include="regex.h" />
     <ClInclude Include="pool_allocator.h" />
     <ClInclude Include="pool_allocator.hpp" />
@@ -251,10 +252,7 @@
     <ClInclude Include="redblacktree_private.hpp" />
     <ClInclude Include="redblacktree_tools.h" />
     <ClInclude Include="redblacktree_tools.hpp" />
-    <ClInclude Include="map_rbtpolicy.h" />
-    <ClInclude Include="rbtpolicies.h" />
-    <ClInclude Include="rbtpolicy_concept.h" />
-    <ClInclude Include="set_rbtpolicy.h" />
+    <ClInclude Include="redblacktree_concepts.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="tree_iterator.h" />
     <ClInclude Include="tree_node.h" />
@@ -447,7 +445,6 @@
     <ClInclude Include="random_discrete.h" />
     <ClInclude Include="random_integer.h" />
     <ClInclude Include="random_integer.hpp" />
-    <ClInclude Include="random_sampling_tree.h" />
     <ClInclude Include="random_anderson_darling.h" />
     <ClInclude Include="random_anderson_darling.hpp" />
     <ClInclude Include="random_goodness.h" />
@@ -584,7 +581,6 @@
     <None Include="concrete_views.txt" />
     <None Include="redblacktree.txt" />
     <None Include="redblacktree_implementation.txt" />
-    <None Include="rbtpolicies.txt" />
     <None Include="tree.txt" />
     <None Include="tree_design.txt" />
     <None Include="memory.txt" />
@@ -634,7 +630,6 @@
     <None Include="random_triangle.txt" />
     <None Include="random_uniform.txt" />
     <None Include="random_discrete.txt" />
-    <None Include="random_sampling_tree.txt" />
     <None Include="random_goodness.txt" />
     <None Include="..\..\blog.txt" />
     <None Include="..\..\dependencies.txt" />

@@ -14,11 +14,7 @@ namespace Pastel
 		return hasher(that);
 	}
 
-	template <typename Integer, typename Type> 
-	PASTEL_ENABLE_IF((boost::mpl::and_<
-		boost::is_integral<Integer>, 
-		boost::mpl::bool_<sizeof(Integer) == sizeof(uint32)>>), Integer) 
-		combineHash(Integer hash, const Type& that)
+	inline uint32 combineHash(uint32 left, uint32 right)
 	{ 
 		// This code is from the Boost library.
 
@@ -30,33 +26,29 @@ namespace Pastel
 		// without a repeating pattern.
 		const uint32 magic = 0x9e3779b9;
 
-		hash ^= 
-			computeHash(that) + 
+		left ^= 
+			right + 
 			magic + 
-			(hash << 6) + 
-			(hash >> 2);
+			(left << 6) + 
+			(left >> 2);
 
-		return hash;
+		return left;
 	} 
 
-	template <typename Integer, typename Type> 
-	PASTEL_ENABLE_IF((boost::mpl::and_<
-		boost::is_integral<Integer>, 
-		boost::mpl::bool_<sizeof(Integer) == sizeof(uint64)>>), Integer) 
-		combineHash(Integer hash, const Type& that)
+	inline uint64 combineHash(uint64 left, uint64 right)
 	{ 
 		// This is 2^64 / [(1 + sqrt(5)) / 2].
 		// See the combineHash32() function.
 		const uint64 magic = 
 			0x4F1BBCDCBFA53E0Bull;
 
-		hash ^= 
-			computeHash(that) + 
+		left ^= 
+			right + 
 			magic + 
-			(hash << 6) + 
-			(hash >> 2);
+			(left << 6) + 
+			(left >> 2);
 
-		return hash;
+		return left;
 	} 
 
 	template <typename ConstIterator>
@@ -66,7 +58,8 @@ namespace Pastel
 		hash_integer hash = 0;
 		while(!input.empty())
 		{
-			hash = combineHash(hash, input.front());
+			hash = combineHash(hash, 
+				computeHash(input.front()));
 			input.pop_front();
 		}
 		return hash;
@@ -87,9 +80,9 @@ namespace std
 		Pastel::hash_integer operator()(
 			const Pastel::KeyValue<Key, Value>& that) const
 		{
-			return thatcombineHash(
-				thatcomputeHash(that.key()),
-				that.value());
+			return combineHash(
+				computeHash(that.key()),
+				computeHash(that.value()));
 		}
 	};
 

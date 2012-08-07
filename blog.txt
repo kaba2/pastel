@@ -365,7 +365,7 @@ Name suggestions: Complete, Locked, Protected, Const, Frozen, Static,
 Unchangeable, Preserve, Managed, Readable, Sealed, Final, Unmutable,
 Packed, Ref, ReadOnly.
 
-Another problem is that it is easy to confure `cGrammar` with
+Another problem is that it is easy to confuse `cGrammar` with
 the `grammar`. This easily creates typo-bugs.
 
 This option is acceptable, but perhaps too clumsy.
