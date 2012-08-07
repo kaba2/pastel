@@ -301,6 +301,9 @@
     <Filter Include="Algorithms\Automaton algorithms\Regular expressions">
       <UniqueIdentifier>{4a9afe37-67da-499b-88a6-1a0882df9b65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data structures\Hashed tree">
+      <UniqueIdentifier>{99437f89-cfa2-4560-a77b-c8816a0727f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1531,6 +1534,12 @@
     <ClInclude Include="redblacktree_fwd.h">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
     </ClInclude>
+    <ClInclude Include="hashed_tree.h">
+      <Filter>Data structures\Hashed tree</Filter>
+    </ClInclude>
+    <ClInclude Include="hashed_tree.hpp">
+      <Filter>Data structures\Hashed tree</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -1964,6 +1973,9 @@
     </None>
     <None Include="techniques_customization.txt">
       <Filter>Documentation</Filter>
+    </None>
+    <None Include="hashed_tree.txt">
+      <Filter>Data structures\Hashed tree</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

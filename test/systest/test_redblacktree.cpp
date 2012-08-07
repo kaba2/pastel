@@ -79,11 +79,13 @@ namespace
 				}
 			}
 
+			/*
 			{
 				Tree copyTree(tree);
 				copyTree.swap(tree);
 				TEST_ENSURE(check(tree));
 			}
+			*/
 		
 		}
 
