@@ -11,14 +11,15 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
+		typename Customization,
 		typename Mark,
 		typename Marked>
 	void forEachReachable(
-		const Automaton<Symbol, StateData, TransitionData>& automaton,
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
 		const Mark& mark,
 		const Marked& marked)
 	{
-		typedef Automaton<Symbol, StateData, TransitionData>
+		typedef Automaton<Symbol, StateData, TransitionData, Customization>
 			Automaton;
 		typedef Automaton::State_ConstIterator
 			State_ConstIterator;
@@ -36,11 +37,11 @@ namespace Pastel
 			[&](const State_ConstIterator& vertex,
 			const std::function<void(const State_ConstIterator&)>& visit)
 		{
-			for (auto edge = vertex->cOutgoingBegin();
-				edge != vertex->cOutgoingEnd();
-				++edge)
+			for (auto incidence = vertex->cOutgoingBegin();
+				incidence != vertex->cOutgoingEnd();
+				++incidence)
 			{
-				visit(edge->vertex());
+				visit(incidence->vertex());
 			}
 		};
 

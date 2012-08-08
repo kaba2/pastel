@@ -1,7 +1,12 @@
-#ifndef PASTEL_AUTOMATON_DETERMINIZATION_H
-#define PASTEL_AUTOMATON_DETERMINIZATION_H
+#ifndef PASTEL_AUTOMATON_DETERMINIZATION_HPP
+#define PASTEL_AUTOMATON_DETERMINIZATION_HPP
 
 #include "pastel/sys/automaton_determinization.h"
+#include "pastel/sys/hashed_tree.h"
+#include "pastel/sys/epsilon_closure.h"
+
+#include <list>
+#include <unordered_map>
 
 namespace Pastel
 {
@@ -9,37 +14,190 @@ namespace Pastel
 	template <
 		typename Symbol, 
 		typename StateData, 
-		typename TransitionData>
-	class DeterminizeAutomaton
+		typename TransitionData,
+		typename Customization,
+		typename State_Reporter,
+		typename Transition_Reporter>
+	void determinizeAutomaton(
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
+		const Symbol& epsilon,
+		const State_Reporter& reportState,
+		const Transition_Reporter& transitionReport)
 	{
-	private:
-		typedef Automaton<Symbol, StateData, TransitionData>
+		typedef Automaton<Symbol, StateData, TransitionData, Customization> 
 			Automaton;
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		class StateSet
+		// A state-set is a set automaton states.
+		// The important thing about the set-type
+		// is that it can be hashed in constant time
+		// and so associatively searched efficiently 
+		// in a hash table.
+		typedef typename AsHashedTree<
+			State_ConstIterator>::type StateSet;
+
+		if (automaton.states() == 0)
 		{
-		public:
+			return;
+		}
 
-			std::set<State_ConstIterator> stateSet_;
-			hash_integer hash_;
-		};
-	};
+		// Compute the epsilon-closure for each state.
+		typedef std::unordered_map<State_ConstIterator, 
+			StateSet, IteratorAddress_Hash> ClosureMap;
+		ClosureMap closureMap;
+		{
+			auto epsilonSetReporter =
+				[&](const State_ConstIterator& state,
+				StateSet&& stateSet)
+			{
+				closureMap.emplace(
+					std::make_pair(state, std::move(stateSet)));
+			};
 
-	template <
-		typename Symbol, 
-		typename StateData, 
-		typename TransitionData>
-	Automaton<Symbol, StateData, TransitionData> determinizeAutomaton(
-		Automaton<Symbol, StateData, TransitionData> automaton)
-	{
+			epsilonClosure<StateSet>(
+				automaton, epsilon, epsilonSetReporter);
+		}
 
+		// This set contains the state-sets that are
+		// waiting to be examined. At the the beginning
+		// it only contains the start state-set.
+		typedef std::list<StateSet> WorkSet;
+		typedef typename WorkSet::iterator Work_Iterator;
+		WorkSet workSet;
 
-		typedef std::unordered_set<State_ConstIterator>
-			StateSet;
-		
+		// When a state-set from workSet is started to
+		// be examined, it is spliced into this set;
+		// this preserves the memory address of the
+		// state-set.
+		WorkSet readySet;
 
+		// This set records the set of state-sets that we have already
+		// generated. By using a pointer to a state-set, we avoid making 
+		// a copy of the state-set. This is possible since we always 
+		// preserve the memory address of the state-sets. The mapped-value
+		// gives an iterator to the 'readySet', so that we can guarantee
+		// that when we report the user the same state-set (as part of
+		// transition), then it always has the same memory address.
+		typedef std::unordered_map<const StateSet*, Work_Iterator, 
+			Dereferenced_Hash, Dereferenced_EqualTo> VisitedMap;
+		VisitedMap visitedMap;
+
+		// Create the start state-set.
+		{
+			workSet.emplace_back(StateSet());
+			StateSet& startStateSet = workSet.back();
+
+			// Add all the states in the epsilon closure
+			// of the start states into the 'startStateSet'.
+			std::for_each(
+				automaton.cStartBegin(),
+				automaton.cStartEnd(),
+				[&](const State_ConstIterator& state)
+			{
+				const StateSet& epsilonClosure =
+					closureMap[state];
+				startStateSet.insertMany(
+					epsilonClosure.cbegin(),
+					epsilonClosure.cend());
+			});
+
+			// Report the start state-set.
+			reportState(
+				(const StateSet&)startStateSet);
+		}
+
+		while(!workSet.empty())
+		{
+			// Move the state-set from the work-set to
+			// the ready-set. Note that we preserve the
+			// memory address of the state-set.
+			readySet.splice(
+				readySet.cend(),
+				workSet,
+				workSet.cbegin());
+
+			const StateSet& stateSet = readySet.back();
+
+			// Mark the state-set as visited.
+			visitedMap.emplace(
+				std::make_pair(&stateSet, std::prev(readySet.cend())));
+
+			// This set will contain, for each symbol,
+			// the states that can be reached from the
+			// current state-set by following transitions
+			// with this symbol.
+			typedef std::unordered_map<
+				Symbol, StateSet> SymbolStateSetMap;
+			SymbolStateSetMap symbolStateSetMap;
+
+			// Find out the state-sets which are produced
+			// by following each possible symbol for the
+			// states in the state-set.
+			std::for_each(
+				stateSet.cbegin(), stateSet.cend(),
+				[&](const State_ConstIterator& state)
+			{
+				for (auto incidence = state.cOutgoingBegin();
+					incidence != state.cOutgoingEnd();
+					++incidence)
+				{
+					StateSet& toStateSet = 
+						symbolStateSetMap[transition.symbol()];
+					
+					// Add all the states in the epsilon closure
+					// of 'state' into the 'toStateSet'.
+					const StateSet& epsilonClosure =
+						closureMap[incidence->vertex()];
+					toStateSet.insertMany(
+						epsilonClosure.cbegin(),
+						epsilonClosure.cend());
+				}
+			});
+
+			// Report transitions between state-sets, and report
+			// new state-sets.
+			for (auto symbolStateSet = symbolStateSetMap.cbegin();
+				symbolStateSet != symbolStateSetMap.cend();
+				++symbolStateSet)
+			{
+				Symbol symbol =
+					symbolStateSet->first;
+
+				StateSet& newStateSet =
+					symbolStateSet->second;
+
+				auto visited = visitedMap.find(&newStateSet);
+				if (visited == visitedMap.cend())
+				{
+					// This state-set is a new one.
+
+					// Store the state-set in the work-set.
+					workSet.emplace_back(std::move(newStateSet));
+					
+					// Report the new state-set.
+					reportState(
+						(const StateSet&)workSet.back());
+					
+					// Report the transition which lead
+					// into the new state-set.
+					reportTransition(
+						(const StateSet&)stateSet, symbol, 
+						(const StateSet&)workSet.back());
+				}
+				else
+				{
+					// The state-set already exists.
+
+					// Report the transition which lead
+					// into the state-set.
+					reportTransition(
+						(const StateSet&)stateSet, symbol, 
+						(const StateSet&)*visitedMap->second);
+				}
+				
+			}
+		}
 	}
 
 }

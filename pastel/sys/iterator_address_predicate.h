@@ -1,8 +1,8 @@
 // Description: Comparison predicates for iterators
 // Documentation: predicates.txt
 
-#ifndef PASTEL_ITERATOR_PREDICATE_H
-#define PASTEL_ITERATOR_PREDICATE_H
+#ifndef PASTEL_ITERATORADDRESS_PREDICATE_H
+#define PASTEL_ITERATORADDRESS_PREDICATE_H
 
 #include "pastel/sys/predicate_concept.h"
 
@@ -17,7 +17,7 @@ namespace Pastel
 {
 
 	template <typename Predicate>
-	class Iterator_Predicate
+	class IteratorAddress_Predicate
 	{
 	public:
 		template <
@@ -31,12 +31,12 @@ namespace Pastel
 		}
 	};
 
-	typedef Iterator_Predicate<LessThan> Iterator_Less;
-	typedef Iterator_Predicate<LessEqual> Iterator_LessEqual;
-	typedef Iterator_Predicate<GreaterThan> Iterator_Greater;
-	typedef Iterator_Predicate<GreaterEqual> Iterator_GreaterEqual;
-	typedef Iterator_Predicate<EqualTo> Iterator_EqualTo;
-	typedef Iterator_Predicate<NotEqualTo> Iterator_NotEqualTo;
+	typedef IteratorAddress_Predicate<LessThan> IteratorAddress_Less;
+	typedef IteratorAddress_Predicate<LessEqual> IteratorAddress_LessEqual;
+	typedef IteratorAddress_Predicate<GreaterThan> IteratorAddress_Greater;
+	typedef IteratorAddress_Predicate<GreaterEqual> IteratorAddress_GreaterEqual;
+	typedef IteratorAddress_Predicate<EqualTo> IteratorAddress_EqualTo;
+	typedef IteratorAddress_Predicate<NotEqualTo> IteratorAddress_NotEqualTo;
 
 }
 

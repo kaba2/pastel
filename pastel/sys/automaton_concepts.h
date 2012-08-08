@@ -152,6 +152,21 @@ namespace Pastel
 			void onMerge(Automaton<Symbol, StateData, TransitionData,
 				Customization>& that) {}
 
+			//! Returns whether to add the transition into the automaton.
+			/*!
+			Exception safety:
+			nothrow
+
+			Called at the start of addTransition().			
+			*/
+			bool canAddTransition(
+				const State_ConstIterator& fromState,
+				const Symbol& symbol,
+				const State_ConstIterator& toState) 
+			{
+				return true;
+			}
+
 		private:
 			// The new state data.
 

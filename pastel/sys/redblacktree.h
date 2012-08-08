@@ -32,7 +32,7 @@ namespace Pastel
 		//! Constructs an empty tree.
 		/*!
 		Exception safety: strong
-		Time complexity: constant
+		Time complexity: O(1)
 		*/
 		explicit RedBlackTree(
 			Key sentinelKey = Key(), 
@@ -41,7 +41,7 @@ namespace Pastel
 		//! Copy-constructs from another tree.
 		/*!
 		Exception safety: strong
-		Time complexity: O(n)
+		Time complexity: O(that.size()) * insert()
 		*/
 		RedBlackTree(const RedBlackTree& that);
 
@@ -55,49 +55,49 @@ namespace Pastel
 		//! Replaces this tree with a copy of another tree.
 		/*!
 		Exception safety: strong
-		Time complexity: O(n)
+		Time complexity: move/copy-construction
 		*/
 		RedBlackTree& operator=(RedBlackTree that);
 
 		//! Destructs the tree.
 		/*!
 		Exception safety: nothrow
-		Time complexity: O(n)
+		Time complexity: clear()
 		*/
 		~RedBlackTree();
 
 		//! Swaps two trees.
 		/*!
 		Exception safety: nothrow
-		Time complexity: constant
+		Time complexity: O(1)
 		*/
 		void swap(RedBlackTree& that);
 
 		//! Removes all elements from the tree.
 		/*!
 		Exception safety: nothrow
-		Time complexity: O(n)
+		Time complexity: O(size()) + onClear()
 		*/
 		void clear();
 
 		//! Returns the number of elements in the tree.
 		/*!
 		Exception safety: nothrow
-		Time complexity: constant
+		Time complexity: O(1)
 		*/
 		integer size() const;
 
 		//! Returns true if the tree is empty.
 		/*!
 		Exception safety: nothrow
-		Time complexity: constant
+		Time complexity: O(1)
 		*/
 		bool empty() const;
 
 		//! Inserts an element into the tree.
 		/*!
-		Exception safety: nothrow
-		Time complexity: O(f(n) log n)
+		Exception safety: strong + onInsert()
+		Time complexity: O(log n) * updateHieararchicalData() + onInsert()
 
 		Here f(n) is the time spent computing the
 		user-specified hierarchical data (usually O(1)).
@@ -106,13 +106,20 @@ namespace Pastel
 			Key key, 
 			Data_Class data = Data_Class());
 
+		//! Inserts elements into the tree.
+		/*!
+		Exception safety: basic
+		Time complexity: insert() * std::distance(begin, end)
+		*/
+		template <typename Key_ConstIterator>
+		void insertMany(
+			Key_ConstIterator begin,
+			Key_ConstIterator end);
+
 		//! Removes an element from the tree.
 		/*!
 		Exception safety: nothrow
-		Time complexity: O(f(n) log n)
-
-		Here f(n) is the time spent computing the
-		user-specified hierarchical data (usually O(1)).
+		Time complexity: O(log n) * updateHierarchicalData() + onErase()
 		*/
 		Iterator erase(const ConstIterator& that);
 

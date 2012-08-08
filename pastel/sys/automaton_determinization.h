@@ -12,9 +12,15 @@ namespace Pastel
 	template <
 		typename Symbol, 
 		typename StateData, 
-		typename TransitionData>
-	Automaton<Symbol, StateData, TransitionData> determinizeAutomaton(
-		Automaton<Symbol, StateData, TransitionData> automaton);
+		typename TransitionData,
+		typename Customization,
+		typename State_Reporter,
+		typename Transition_Reporter>
+	void determinizeAutomaton(
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
+		const Symbol& epsilon,
+		const State_Reporter& reportState,
+		const Transition_Reporter& transitionReport);
 
 }
 

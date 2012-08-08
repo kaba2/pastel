@@ -9,6 +9,8 @@
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
 
+#include <unordered_map>
+
 namespace Pastel
 {
 
@@ -54,6 +56,65 @@ namespace Pastel
 			, startSet_()
 			, finalSet_()
 		{
+		}
+
+		//! Copy-constructs from another automaton.
+		/*!
+		Time complexity: 
+		O(that.states() + that.transitions())
+
+		Exception safety: 
+		strong
+		*/
+		Automaton(const Automaton& that)
+			: graph_()
+			, startSet_()
+			, finalSet_()
+		{
+			// This will map states from 'that' automaton
+			// to this automaton.
+			std::unordered_map<
+				State_ConstIterator,
+				State_ConstIterator,
+				IteratorAddress_Hash> stateMap;
+
+			// Create the states and the state-mapping.
+			for (auto state = that.cStateBegin();
+				state != that.cStateEnd();
+				++state)
+			{
+				stateMap[state] = addState(*state);
+			}
+			
+			// Create the transitions.
+			for (auto transition = that.cTransitionBegin();
+				transition != that.cTransitionEnd();
+				++transition)
+			{
+				addTransition(
+					stateMap[transition->from()],
+					transition->symbol(),
+					stateMap[transition->to()],
+					*transition);
+			}
+
+			// Add the start states.
+			std::for_each(
+				that.cStartBegin(),
+				that.cStartEnd(),
+				[&](const State_ConstIterator& state)
+			{
+				addStart(state);
+			});
+
+			// Add the final states.
+			std::for_each(
+				that.cFinalBegin(),
+				that.cFinalEnd(),
+				[&](const State_ConstIterator& state)
+			{
+				addFinal(state);
+			});
 		}
 
 		//! Move-constructs from another automaton.
@@ -542,6 +603,11 @@ namespace Pastel
 			const State_ConstIterator& toState,
 			TransitionData_Class transitionData = TransitionData_Class())
 		{
+			if (!canAddTransition(fromState, symbol, toState))
+			{
+				return transitionEnd();
+			}
+
 			Transition_Iterator transition = graph_.addEdge(
 				fromState, toState, 
 				TransitionLabel(symbol, std::move(transitionData)));
@@ -709,9 +775,6 @@ namespace Pastel
 		}
 		
 	private:
-		// Deleted
-		Automaton(const Automaton& that) PASTEL_DELETE;
-
 		//! The underlying graph.
 		Graph graph_;
 		

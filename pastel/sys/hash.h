@@ -48,6 +48,16 @@ namespace Pastel
 			return computeHash(&*iter);
 		}
 	};
+	
+	class Dereferenced_Hash
+	{
+	public:
+		template <typename Iterator>
+		hash_integer operator()(const Iterator& iter) const
+		{
+			return computeHash(*iter);
+		}
+	};
 
 	class Pair_Hash
 	{

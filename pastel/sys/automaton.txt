@@ -70,8 +70,9 @@ The data structure underlying the automaton is the
 [[Link: incidence_graph.txt]]; the automaton has all the 
 properties that the `IncidenceGraph` has. In addition, it
 
- * stores the set of start states and the set of final states, and also 
-makes this information available through a state,
+ * stores the set of start-states and the set of final-states, and also 
+makes this information available so that a state can tell whether it
+is a start- or a final-state,
 * can merge two automata in constant time to yield the 
 (non-deterministic) automaton recognizing the union of the languages 
 recognized by the automata,

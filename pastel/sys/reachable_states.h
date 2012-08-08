@@ -15,10 +15,11 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
+		typename Customization,
 		typename Mark,
 		typename Marked>
 	void forEachReachable(
-		const Automaton<Symbol, StateData, TransitionData>& automaton,
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
 		const Mark& mark,
 		const Marked& marked);
 
