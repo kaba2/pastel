@@ -20,7 +20,6 @@ namespace Pastel
 		typename State_StateSet_Reporter>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const Symbol& epsilon,
 		const State_StateSet_Reporter& report)
 	{
 		typedef Automaton<Symbol, StateData, TransitionData>
@@ -57,7 +56,7 @@ namespace Pastel
 				incidence != vertex->cOutgoingEnd();
 				++incidence)
 			{
-				if (incidence->edge.symbol() == epsilon)
+				if (incidence->edge.symbol() == Epsilon())
 				{
 					visit(incidence->vertex());
 				}

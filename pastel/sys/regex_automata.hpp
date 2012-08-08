@@ -1,87 +1,7 @@
-#ifndef PASTEL_REGEX_H
-#define PASTEL_REGEX_H
+#ifndef PASTEL_REGEX_AUTOMATA_HPP
+#define PASTEL_REGEX_AUTOMATA_HPP
 
-#include "pastel/sys/automaton.h"
-
-namespace Pastel
-{
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularSingleStart(
-		Automaton<Symbol, StateData, TransitionData, Customization> automaton)
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularEmpty()
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularEpsilon()
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularSymbol(
-		const PASTEL_NO_DEDUCTION(Symbol)& symbol)
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularUnion(
-		Automaton<Symbol, StateData, TransitionData, Customization> left,
-		Automaton<Symbol, StateData, TransitionData, Customization> right)
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularSequence(
-		Automaton<Symbol, StateData, TransitionData, Customization> left,
-		Automaton<Symbol, StateData, TransitionData, Customization> right,
-		const PASTEL_NO_DEDUCTION(Symbol)& epsilon)
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-	
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularOptional(
-		Automaton<Symbol, StateData, TransitionData, Customization> automaton,
-		const PASTEL_NO_DEDUCTION(Symbol)& epsilon)
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularKleeneStar(
-		Automaton<Symbol, StateData, TransitionData, Customization> automaton,
-		const PASTEL_NO_DEDUCTION(Symbol)& epsilon)
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
-}
+#include "pastel/sys/regex_automata.h"
 
 namespace Pastel
 {
@@ -207,8 +127,7 @@ namespace Pastel
 		typename Customization>
 	auto regularSequence(
 		Automaton<Symbol, StateData, TransitionData, Customization> left,
-		Automaton<Symbol, StateData, TransitionData, Customization> right,
-		const PASTEL_NO_DEDUCTION(Symbol)& epsilon)
+		Automaton<Symbol, StateData, TransitionData, Customization> right)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization>
@@ -234,7 +153,7 @@ namespace Pastel
 			{
 				left.removeFinal(state);
 				left.addTransition(
-					state, epsilon, rightStart);
+					state, Epsilon(), rightStart);
 			});
 		}
 
@@ -249,8 +168,7 @@ namespace Pastel
 		typename TransitionData,
 		typename Customization>
 	auto regularOptional(
-		Automaton<Symbol, StateData, TransitionData, Customization> automaton,
-		const PASTEL_NO_DEDUCTION(Symbol)& epsilon)
+		Automaton<Symbol, StateData, TransitionData, Customization> automaton)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization>
@@ -281,7 +199,7 @@ namespace Pastel
 				automaton.removeStart(start);
 
 				automaton.addTransition(
-					newStart, epsilon, start);
+					newStart, Epsilon(), start);
 			}
 		}
 
@@ -294,8 +212,7 @@ namespace Pastel
 		typename TransitionData,
 		typename Customization>
 	auto regularKleeneStar(
-		Automaton<Symbol, StateData, TransitionData, Customization> automaton,
-		const PASTEL_NO_DEDUCTION(Symbol)& epsilon)
+		Automaton<Symbol, StateData, TransitionData, Customization> automaton)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization>
@@ -303,7 +220,7 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		automaton = regularOptional(automaton, epsilon);
+		automaton = regularOptional(automaton);
 
 		if (automaton.startStates() > 0)
 		{
@@ -316,7 +233,7 @@ namespace Pastel
 				[&](const State_ConstIterator& state)
 			{
 				automaton.addTransition(
-					state, epsilon, start); 
+					state, Epsilon(), start); 
 			});
 		}
 

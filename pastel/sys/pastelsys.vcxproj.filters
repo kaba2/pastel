@@ -1522,9 +1522,6 @@
     <ClInclude Include="automaton_state_label.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
-    <ClInclude Include="regex.h">
-      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
-    </ClInclude>
     <ClInclude Include="automaton_concepts.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
@@ -1557,6 +1554,12 @@
     </ClInclude>
     <ClInclude Include="optional.h">
       <Filter>Generic programming\Optional objects</Filter>
+    </ClInclude>
+    <ClInclude Include="regex_automata.hpp">
+      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="regex_automata.h">
+      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1994,6 +1997,12 @@
     </None>
     <None Include="hashed_tree.txt">
       <Filter>Data structures\Hashed tree</Filter>
+    </None>
+    <None Include="epsilon_closure.txt">
+      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
+    </None>
+    <None Include="regex_automata.txt">
+      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

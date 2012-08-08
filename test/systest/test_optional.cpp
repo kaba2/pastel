@@ -25,6 +25,22 @@ namespace
 			test();
 		}
 
+		class B
+		{
+		public:
+			B()
+				: b(0)
+			{
+			}
+
+			explicit B(int b_)
+				: b(b_)
+			{
+			}
+
+			int b;
+		};
+
 		void test()
 		{
 			Optional<integer> a;
@@ -37,6 +53,17 @@ namespace
 
 			a.clear();
 			TEST_ENSURE(a.empty());
+
+			Optional<B> b;
+			TEST_ENSURE(b.empty());
+			TEST_ENSURE(b.b == 0);
+			
+			b.b = 3;
+			TEST_ENSURE(b.empty());
+			TEST_ENSURE(b.b == 3);
+			b = B(2);
+			TEST_ENSURE(!b.empty());
+			TEST_ENSURE(b.b == 2);
 		}
 	};
 

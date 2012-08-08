@@ -56,7 +56,7 @@ namespace Pastel
 			};
 
 			epsilonClosure<StateSet>(
-				automaton, epsilon, epsilonSetReporter);
+				automaton, epsilonSetReporter);
 		}
 
 		// This set contains the state-sets that are

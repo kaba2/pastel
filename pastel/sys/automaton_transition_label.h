@@ -2,6 +2,7 @@
 #define PASTEL_AUTOMATON_TRANSITION_LABEL_H
 
 #include "pastel/sys/automaton.h"
+#include "pastel/sys/optional.h"
 
 // Visual Studio generates "multiple assignment operators" warning,
 // because it does not implement the deletion of functions 
@@ -31,7 +32,7 @@ namespace Pastel
 		{
 		}
 
-		const Symbol& symbol() const
+		const Optional<Symbol>& symbol() const
 		{
 			return symbol_;
 		}
@@ -55,14 +56,14 @@ namespace Pastel
 		friend class Automaton;
 
 		TransitionLabel(
-			Symbol symbol,
+			Optional<Symbol> symbol,
 			TransitionData_Class transitionData)
 			: TransitionData_Class(std::move(transitionData))
-			, symbol_(symbol)
+			, symbol_(std::move(symbol))
 		{
 		}
 
-		Symbol symbol_;
+		Optional<Symbol> symbol_;
 	};
 
 }

@@ -14,7 +14,6 @@ namespace Pastel
 		typename State_StateSet_Reporter>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const Symbol& epsilon,
 		const State_StateSet_Reporter& report);
 
 }
