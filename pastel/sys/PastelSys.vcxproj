@@ -180,7 +180,7 @@
     <ClInclude Include="object_forwarding.hpp" />
     <ClInclude Include="optional.h" />
     <ClInclude Include="redblacktree_fwd.h" />
-    <ClInclude Include="regex.h" />
+    <ClInclude Include="regex_automata.h" />
     <ClInclude Include="pool_allocator.h" />
     <ClInclude Include="pool_allocator.hpp" />
     <ClInclude Include="productive_states_concepts.h" />
@@ -192,6 +192,7 @@
     <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="refinable_partition_set.h" />
     <ClInclude Include="productive_states.h" />
+    <ClInclude Include="regex_automata.hpp" />
     <ClInclude Include="search_automaton_customization.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
@@ -561,6 +562,7 @@
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
+    <None Include="epsilon_closure.txt" />
     <None Include="graph_traversal.txt" />
     <None Include="hash.txt" />
     <None Include="hashed_tree.txt" />
@@ -574,6 +576,7 @@
     <None Include="pool_allocator_notes.txt" />
     <None Include="read_protected.txt" />
     <None Include="refinable_partition.txt" />
+    <None Include="regex_automata.txt" />
     <None Include="second_iterator.txt" />
     <None Include="techniques_customization.txt" />
     <None Include="transitive_closure.txt" />

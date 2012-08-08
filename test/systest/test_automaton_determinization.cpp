@@ -3,7 +3,7 @@
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/regex.h"
+#include "pastel/sys/regex_automata.h"
 
 using namespace Pastel;
 using namespace std;

@@ -9,6 +9,8 @@
 namespace Pastel
 {
 
+	class Epsilon {};
+
 	template <typename Type>
 	class Optional
 		: public AsClass<Type>::type
@@ -18,6 +20,12 @@ namespace Pastel
 			Type_Class;
 
 		Optional()
+			: Type_Class()
+			, empty_(true)
+		{
+		}
+
+		Optional(Epsilon)
 			: Type_Class()
 			, empty_(true)
 		{
@@ -47,6 +55,11 @@ namespace Pastel
 			Type_Class::operator=(that);
 			empty_ = that.empty_;
 			return *this;
+		}
+
+		bool operator==(const Epsilon& that) const
+		{
+			return empty();
 		}
 
 		void swap(Optional& that)
