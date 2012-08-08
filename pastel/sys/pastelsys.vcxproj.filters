@@ -304,6 +304,12 @@
     <Filter Include="Data structures\Hashed tree">
       <UniqueIdentifier>{99437f89-cfa2-4560-a77b-c8816a0727f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Epsilon closure">
+      <UniqueIdentifier>{1874952b-2e56-47d5-a97d-fb54c2dc78c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generic programming\Optional objects">
+      <UniqueIdentifier>{4ddb3d62-09b9-4bf9-9307-fe52183c03a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1360,9 +1366,6 @@
     <ClInclude Include="clone_ptr_private.h">
       <Filter>Memory management\Cloning pointer</Filter>
     </ClInclude>
-    <ClInclude Include="iterator_predicate.h">
-      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
-    </ClInclude>
     <ClInclude Include="transitive_closure_concepts.h">
       <Filter>Algorithms\Graph algorithms\Functional transitive closure</Filter>
     </ClInclude>
@@ -1539,6 +1542,21 @@
     </ClInclude>
     <ClInclude Include="hashed_tree.hpp">
       <Filter>Data structures\Hashed tree</Filter>
+    </ClInclude>
+    <ClInclude Include="epsilon_closure.h">
+      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
+    </ClInclude>
+    <ClInclude Include="epsilon_closure.hpp">
+      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_address_predicate.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="dereferenced_predicate.h">
+      <Filter>Generic programming\Algorithm objects\Predicates</Filter>
+    </ClInclude>
+    <ClInclude Include="optional.h">
+      <Filter>Generic programming\Optional objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

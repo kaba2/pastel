@@ -107,6 +107,12 @@
     <ClCompile Include="test_object_forwarding.cpp">
       <Filter>Generic programming</Filter>
     </ClCompile>
+    <ClCompile Include="test_automaton_determinization.cpp">
+      <Filter>Algorithms</Filter>
+    </ClCompile>
+    <ClCompile Include="test_optional.cpp">
+      <Filter>Data structures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelsystest.h" />

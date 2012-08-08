@@ -133,6 +133,19 @@ namespace Pastel
 	}
 	
 	template <typename Key, typename Compare, typename Data, typename Customization>
+	template <typename Key_ConstIterator>
+	void RedBlackTree<Key, Compare, Data, Customization>::insertMany(
+		Key_ConstIterator begin,
+		Key_ConstIterator end)
+	{
+		while(begin != end)
+		{
+			insert(*begin);
+			++begin;
+		}
+	}
+
+	template <typename Key, typename Compare, typename Data, typename Customization>
 	typename RedBlackTree<Key, Compare, Data, Customization>::Iterator 
 		RedBlackTree<Key, Compare, Data, Customization>::erase(
 		const ConstIterator& that)

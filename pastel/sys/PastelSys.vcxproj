@@ -156,6 +156,9 @@
     <ClInclude Include="data_structures.h" />
     <ClInclude Include="depth_first_traversal.h" />
     <ClInclude Include="depth_first_traversal.hpp" />
+    <ClInclude Include="dereferenced_predicate.h" />
+    <ClInclude Include="epsilon_closure.h" />
+    <ClInclude Include="epsilon_closure.hpp" />
     <ClInclude Include="generic_traversal.h" />
     <ClInclude Include="graph_algorithms.h" />
     <ClInclude Include="graph_traversal.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="null_iterator.h" />
     <ClInclude Include="object_forwarding.h" />
     <ClInclude Include="object_forwarding.hpp" />
+    <ClInclude Include="optional.h" />
     <ClInclude Include="redblacktree_fwd.h" />
     <ClInclude Include="regex.h" />
     <ClInclude Include="pool_allocator.h" />
@@ -207,7 +211,7 @@
     <ClInclude Include="transitive_closure.h" />
     <ClInclude Include="transitive_closure.hpp" />
     <ClInclude Include="transitive_closure_concepts.h" />
-    <ClInclude Include="iterator_predicate.h" />
+    <ClInclude Include="iterator_address_predicate.h" />
     <ClInclude Include="productive_states.hpp" />
     <ClInclude Include="reachable_states.h" />
     <ClInclude Include="reachable_states.hpp" />

@@ -178,6 +178,7 @@
     <ClCompile Include="test_arenaallocator.cpp" />
     <ClCompile Include="test_array.cpp" />
     <ClCompile Include="test_automaton.cpp" />
+    <ClCompile Include="test_automaton_determinization.cpp" />
     <ClCompile Include="test_biginteger.cpp" />
     <ClCompile Include="test_breadth_first_traversal.cpp" />
     <ClCompile Include="test_cloneptr.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="test_maximum_bipartite_matching.cpp" />
     <ClCompile Include="test_minmax.cpp" />
     <ClCompile Include="test_object_forwarding.cpp" />
+    <ClCompile Include="test_optional.cpp" />
     <ClCompile Include="test_poolallocator.cpp" />
     <ClCompile Include="test_progress.cpp" />
     <ClCompile Include="test_random.cpp" />

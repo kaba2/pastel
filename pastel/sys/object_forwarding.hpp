@@ -3,6 +3,7 @@
 
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/mytypes.h"
+#include "pastel/sys/hash.h"
 
 #include <utility>
 #include <type_traits>
@@ -39,6 +40,33 @@ namespace Pastel
 
 	private:
 		Type member_;
+	};
+
+}
+
+namespace std
+{
+
+	template <typename Type>
+	class hash<Pastel::Class<Type>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::Class<Type>& that) const
+		{
+			return Pastel::computeHash<Type>(that);
+		}
+	};
+
+	template <>
+	class hash<Pastel::Class<void>>
+	{
+	public:
+		Pastel::hash_integer operator()(
+			const Pastel::Class<void>& that) const
+		{
+			return Pastel::computeHash<void*>(0);
+		}
 	};
 
 }

@@ -65,10 +65,11 @@ computed for a node from its subtree, assuming the
 hierarchical data of the children are up to date.
 Examples include:
 
-* The number of nodes in a subtree.
-* The sum of keys/values in a subtree.
-* The maximum/minimum of keys/values in a subtree.
-* Any associative binary operation of keys/values in a subtree.
+* the number of nodes in a subtree,
+* the sum of keys/values in a subtree,
+* the combined hash of the hashes of the keys in a subtree,
+* the maximum/minimum of keys/values in a subtree, and
+* any associative binary operation of keys/values in a subtree.
 
 Such hierarchical data can be used, for example, to find _any_
 quantile of an element set in ''O(log(n))'' time. When the local 

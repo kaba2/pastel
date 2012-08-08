@@ -282,6 +282,21 @@ namespace Pastel
 			branchMapMap_.swap(branchMapMap);
 		}
 
+		//! Returns whether to add the transition into the automaton.
+		/*!
+		Exception safety: nothrow
+		*/
+		bool canAddTransition(
+			const State_ConstIterator& fromState,
+			const Symbol& symbol,
+			const State_ConstIterator& toState) 
+		{
+			const BranchMap& branch =
+				branchMap(state, symbol);
+			
+			return !branch.count(toState);
+		}
+
 	private:
 		Search_Automaton_Customization(
 			Search_Automaton_Customization&& that) PASTEL_DELETE;
