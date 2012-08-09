@@ -113,6 +113,9 @@
     <ClCompile Include="test_optional.cpp">
       <Filter>Data structures</Filter>
     </ClCompile>
+    <ClCompile Include="test_regex.cpp">
+      <Filter>Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelsystest.h" />

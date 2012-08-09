@@ -206,6 +206,7 @@
     <ClCompile Include="test_rational.cpp" />
     <ClCompile Include="test_redblacktree.cpp" />
     <ClCompile Include="test_refinable_partition.cpp" />
+    <ClCompile Include="test_regex.cpp" />
     <ClCompile Include="test_statreal.cpp" />
     <ClCompile Include="test_string_tools.cpp" />
     <ClCompile Include="test_template.cpp" />

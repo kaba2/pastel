@@ -580,6 +580,7 @@
     <None Include="regex_automata.txt" />
     <None Include="second_iterator.txt" />
     <None Include="techniques_customization.txt" />
+    <None Include="techniques_layered.txt" />
     <None Include="transitive_closure.txt" />
     <None Include="trees.txt" />
     <None Include="data_structures.txt" />
