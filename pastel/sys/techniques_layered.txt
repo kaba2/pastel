@@ -1,0 +1,508 @@
+Layered data structures
+=======================
+
+[[Parent]]: techniques.txt
+
+09.08.2012
+
+For this article, a _data-structure_ is a type together with a set of 
+_invariants_ that restrict the states of its objects to a subset of 
+all possible states, called the _valid_ states. A type with no 
+invariants is trivially a data-structure (e.g. int, void*, ...),
+called a _trivial_ data-structure. Data-structures are identified
+both by their type, and their invariants. An object of the data-
+structure type is called an _instance_ of the data-structure.
+
+If a data-structure is composed of a set of smaller data-structures, 
+it is called _layered_. The smaller data-structures in the composition
+are called _parts_. For example, the following struct is a trivial
+layered data-structure composed of trivial data-structures, whose
+instance is composed of two instances of the int data-structure:
+
+[[CppCode]]:
+	struct Person
+	{
+		int age;
+		int height;
+	};
+
+Data-structures are tightly interconnected with algorithms. Fast
+algorithms necessarily rely on the use of well-selected data-structures. 
+The efficiency of these data-structures in turn depend on the use of 
+well-selected algorithms. The apparent cyclicity in this reasoning is 
+broken by the fact that the algorithms in the data structures are always
+'easier' than the algorithm the data structure is used to solve; the 
+dependencies between algorithms and data-structures form a directed 
+acyclic graph.
+
+For this article, an _algorithm_ is any function written in C++, together 
+with an ambiguous description of the relationship between its input data 
+and output data, and its time- and space-complexity. Algorithms are
+identified by all of these properties. An algorithm is called _trivial_ 
+if it uses only trivial data structures. For example, by this definition 
+the quick-sort algorithm for a native array is trivial; this is not meant 
+to imply that a trivial algorithm could not be elegant, highly efficient, 
+and very useful. Be definition then, non-trivial algorithms require 
+non-trivial data-structures. This paper concentrates on the implementation 
+of non-trivial data-structures. 
+
+Basic principles: The doubly-linked list
+----------------------------------------
+
+To demonstrate the basic principles of data-structure implementation,
+we take the doubly-linked list representing a sequence of elements. It 
+is a layered data-structure containing a finite cyclic sequence of 
+data-carrying nodes, where the sequence is encoded by storing in each 
+node pointers to a next and previous node, where the previous of the 
+next is the node itself, together with a special node, called the 
+_sentinel_ node, such that the represented sequence is given by 
+following the next pointers from the sentinel node until reaching the 
+sentinel node again. In the following we will first provide the 
+complete example code, and then discuss the general implementation 
+techniques that are in use here.
+
+[[CppCode]]:
+	#include <boost/iterator/iterator_adaptor.hpp>
+
+	#include <cassert>
+	#include <memory>
+
+	namespace List_
+	{
+
+		class Link
+		{
+		public:
+			Link()
+				: next(0)
+				, prev(0)
+			{
+				next = this;
+				prev = this;
+			}
+
+			Link* next;
+			Link* prev;
+		};
+
+		template <typename Data>
+		class Node
+			: public Link
+		{
+		public:
+			Node(Data data_)
+				: Link()
+				, data(std::move(data_))
+			{
+			}
+
+			Data data;
+		};
+
+		template <typename NodePtr, typename Data>
+		class Node_Iterator
+			: public boost::iterator_adaptor<
+			Node_Iterator<NodePtr, Data>, NodePtr, Data,
+			boost::bidirectional_traversal_tag>
+		{
+		public:
+			explicit Node_Iterator(NodePtr node = 0)
+				: Node_Iterator::iterator_adaptor_(node) 
+			{
+			}
+
+			template <typename That_NodePtr, typename That_Data>
+			Node_Iterator(
+				const Node_Iterator<That_NodePtr, That_Data>& that)
+				: Node_Iterator::iterator_adaptor_(that.base()) 
+			{
+			}
+
+		private:
+			friend class boost::iterator_core_access;
+
+			void increment() 
+			{ 
+				this->base_reference() = (NodePtr)this->base()->next; 
+			}
+
+			void decrement() 
+			{ 
+				this->base_reference() = (NodePtr)this->base()->prev; 
+			}
+
+			Data& dereference() const
+			{
+				return this->base()->data;
+			}
+		};
+
+	}
+
+	template <typename Data>
+	class List
+	{
+	private:
+		typedef List_::Link Link;
+		typedef List_::Node<Data> Node;
+
+	public:
+		typedef List_::Node_Iterator<Node*, Data> Iterator;
+		typedef List_::Node_Iterator<const Node*, const Data> ConstIterator;
+
+		List()
+			: sentinel_(new Link)
+		{
+		}
+
+		List(const List& that)
+			: sentinel_(new Link)
+		{
+			for (auto iter = that.cbegin();
+				iter != that.cend();
+				++iter)
+			{
+				insert(*iter);
+			}
+		}
+
+		List(List&& that)
+			: sentinel_(new Link)
+		{
+			swap(that);
+		}
+
+		~List()
+		{
+			clear();
+		}
+
+		List& operator=(List that)
+		{
+			swap(that);
+			return *this;
+		}
+
+		void swap(List& that)
+		{
+			sentinel_.swap(that.sentinel_);
+		}
+
+		void clear()
+		{
+			while(!empty())
+			{
+				erase(cbegin());
+			}
+		}
+
+		bool empty() const
+		{
+			return cbegin() == cend();
+		}
+
+		Iterator insert(Data data)
+		{
+			return insert(std::move(data), cend());
+		}
+
+		Iterator insert(Data data,
+			const ConstIterator& before)
+		{
+			Node* node = new Node(std::move(data));
+			Node* beforeNode = (Node*)before.base();
+
+			Link* next = beforeNode;
+			Link* prev = beforeNode->prev;
+
+			node->next = next;
+			next->prev = node;
+
+			node->prev = prev;
+			prev->next = node;
+
+			return Iterator(node);
+		}
+
+		void erase(const ConstIterator& that)
+		{
+			assert(that != cend());
+
+			Node* node = (Node*)that.base();
+
+			Link* prev = node->prev;
+			Link* next = node->next;
+
+			prev->next = next;
+			next->prev = prev;
+
+			delete node;
+		}
+
+		Iterator cast(const ConstIterator& that)
+		{
+			return Iterator((Node*)that.base());
+		}
+
+		Iterator begin()
+		{
+			return Iterator((Node*)sentinel_->next);
+		}
+
+		ConstIterator cbegin() const
+		{
+			return ConstIterator((Node*)sentinel_->next);
+		}
+
+		Iterator end()
+		{
+			return Iterator((Node*)sentinel_.get());
+		}
+
+		ConstIterator cend() const
+		{
+			return ConstIterator((Node*)sentinel_.get());
+		}
+
+	private:
+		std::unique_ptr<Link> sentinel_;
+	};
+
+### Encapsulation and iterators
+
+The first thing to notice about the List class is that it completely
+encapsulates its state. This is necessary for any data-structure which
+is to preserve invariants. In particular, it is not possible for the 
+user to directly change the next and previous pointers of the nodes. 
+Since the data-structure encapsulates its state, it means that it needs
+to provide some protected way of accesing and traversing its parts. 
+This is achieved by an iterator. Iterators are not relevant only for
+sequences; in general, an iterator refers to any object which gives a 
+controlled access to the parts of the data-structure, and allows to
+move between the parts. However, note that the C++ standard gives a 
+very specific meaning to iterators which implies sequential traversal; 
+my generalized use of the term iterator should not be confused with 
+the use in the C++ standard. Having said that, the iterators for the 
+List class are C++ Standard Library iterators, and can freely be used 
+in C++ Standard Library algorithms.
+
+Let us briefly mention the approach we took to implement the iterators.
+Implementing iterators that conform to the C++ Standard Library iterators
+can be a very verbose business. However, there is a way to cut through
+all this redundancy. A particularly often occuring use-case is that
+an existing iterator is to be simply wrapped in an object, and then
+the iterator machinery added on top of that, changing some small
+details. This kind of customization can be made automatically, and
+has been provided by the boost::iterator_facade template. It's use
+is demonstrated above, just to show that iterators can be defined
+quite easily. Refer to the Boost.Iterator documentation for more
+details on the iterator facade.
+
+### Inner types and type-dependency minimization
+
+Every private type that is needed by the List class is encapsulated
+into the List_ namespace (the underscore denotes 'private'). Implementing
+these inner types separately from the class itself is useful for two
+reasons. First, the inner types are implementation details and are of no 
+interest to the user. Ideally, the implementation details would be placed 
+into their own file(s). In addition to hiding implementation details, this 
+approach helps in minimizing the dependencies of the inner types to the 
+template arguments of the List class. For example, note that the Link 
+class is not dependent on any type, and thus can be shared (as a type) by 
+all instances of the Link class template. When this type-dependency 
+minimization is applied to iterators, these iterators are called SCARY
+(it's a positive term). While easy to remember, the technique applies in 
+general to all inner types.
+
+### Memory management
+
+It is not uncommon in data-structure implementation that the 
+data-structure has to take care of allocating and deallocating memory
+for its parts. Such is the case with the List class too, mostly.
+The memory for the data-carrying nodes are allocated in insert() and
+deallocated in erase(). 
+
+In contrast, the memory for the sentinel node is allocated in the 
+constructor, and then passed into std::unique_ptr. This is more useful 
+than first meets the eye. For example, if the copy-constructor throws 
+an exception during element-insertion, the unique_ptr makes sure that 
+the memory for the sentinel node is correctly released. This automatically 
+provides strong exception safety in the copy-constructor. And of course, 
+we do not need to worry about the releasing the memory at the destructor, 
+because it is released automatically by the unique_ptr.
+
+### Sentinel node
+
+The sentinel node is a general implementation technique in 
+data-structures, not just a special trick for the doubly-linked list.
+In general, when you have a data-structure which contains nodes linked
+with node-pointers, the sentinel node can be used to cut down the 
+complexity of the implementation because then there is always a node
+behind any node pointer (e.g. the child of a child always exists in
+a tree). However, the sentinel node is also needed to denote a
+one-past-last iterator in an iterator sequence. In addition, in our
+List class, it is used to store the first and last elements of the
+sequence.
+
+Note that we have separated the definition of Node into the data
+and the Link. This is useful because it does not make sense to store
+data in the sentinel node. By only allocating a Link object, instead
+of a Node object, for the sentinel solves the problem of how to
+initialize the sentinel node data. In terms of generic programming,
+this may even reduce the number of requirements for the data-type.
+
+### Exception-safety
+
+A function is called _exception-safe_, or have the _basic_ exception 
+safety, if it never leaks resources, even in the presence of exceptions. 
+A function is said to be _strongly_ exception-safe if it either succeeds 
+or does not result in any observable behaviour (commit or rollback).
+A class is called (strongly) exception-safe if all its member functions 
+are (*).
+
+We have already mentioned that the use of the unique_ptr automatically
+provides us with the strong exception-safety in constructors. However,
+all of the functions in the Link class are strongly exception-safe.
+Take the insert() function for example. If the allocation of the Node
+fails, then no change is made to the data-structure. However, if the
+allocation succeeds, then the following operations never throw an
+exception.
+
+A function is said to be _non-throwing_, if it can never throw an 
+exception. This is the highest level of exception-safety, and is 
+required of functions which perform destructive operations, or 
+reading queries, such as erase() or empty(). This is so that the 
+rollback is guaranteed to succeed when an exception is thrown. The 
+functions cbegin, cend, clear, erase, empty, and swap in the Link 
+class are all non-throwing.
+
+The List class is strongly exception-safe.
+
+(*) The exception-safety principles were formulated by Dave Abrahams.
+
+### Const-correctness
+
+A free function is _const-correct_, if it always takes an input 
+object by const-reference whenever the object isn't mutated by the
+function. A member-function of a class is const-correct in the
+sense of the free function after implicitly transforming it to a
+free function which takes a reference to the class object as an 
+additional argument. The constness of this reference is controlled 
+by whether there is the 'const' keyword at the end of a member 
+function. A class is const-correct if all its member functions
+are and mutating iterators into the class object can only be 
+obtained through a mutable reference to the class object.
+The List class is const-correct.
+
+### Principle of minimal requirements and maximal information
+
+It is important that the erase() takes the reference to the 
+node by a const-iterator. As important is the fact that the
+insert returns a mutable iterator instead of a const-iterator.
+The guiding principle in this is that the data-structure should
+minimize any requirements, and maximize the information it
+provides. Destructing the node referred to by a const-iterator
+is _not_ against const-correctness; a mutating member function
+of the data-structure is in complete control of the 
+data-structure, and may change it arbitrarily. The const-iterator
+simply refers to the part of the data-structure which is to be
+removed. Requiring a const-iterator instead of a mutable iterator
+is more general, since the user might not have a mutable iterator
+at hand. Looking at the C++ Standard Library, using const-iterators
+in the interface was overlooked for the C++98 standard. However,
+this was fixed in the C++11 standard.
+
+Directly related to this is the fact that to make const-correctness
+implementable in _all_ cases is that the data-structure must offer a 
+way to convert a const-iterator to a mutable iterator, but 
+only if the data-structure is accessed by a mutable reference.
+Since we have full control over the data-structure, certainly
+we should be able to turn a const-iterator to a mutable iterator.
+Interestingly the C++ Standard Library, even in C++11, has overlooked
+this detail. Fortunately, there is a workaround: the range-based
+erase() function of the STL containers can be used to convert a
+const-iterator to an iterator by a specifying an empty iterator range.
+
+The const-iterator conversion is provided by the cast() function
+in the Link class.
+
+### Open-closed principle
+
+Consider the implementation of the merge-sort algorithm 
+for the List class. It is a common mistake to place a new
+algorithm inside the List class as a new member function.
+This is unfortunate, since it makes the class implementation 
+unstable. Ideally, a data-structure implementation follows the
+_open-closed principle_ (*): it is open for extension, but
+closed for modification. This means that a well-designed 
+data-structure never needs to be added new member functions, 
+since it already provides ways to achieve everything 
+_from the outside_. 
+
+An algorithm is commonly added as member function because
+the implementer can not implement the algorithm without resorting 
+to the implementation details of the data-structure. In this 
+case the implementer should reflect on whether the data-structure 
+is lacking some fundamental property. If that is the case, the 
+implementer should add that property instead.
+
+Concerning the merge-sort algorithm, the List class lacks a 
+critical feature for its implementation: a way to splice parts 
+of the list to another position in constant time, and without 
+changing data addresses. The List class is therefore not 
+following the open-closed principle, but it should be. This 
+shortcoming is fixed by adding the _splicing_ (not the 
+merge-sort algorithm) as a new member function to the 
+List class:
+
+[[CppCode]]:
+	void splice(
+		ConstIterator before,
+		List& fromList,
+		ConstIterator begin,
+		ConstIterator end)
+	{
+		Node* beginNode = (Node*)begin.base();
+		Node* endNode = (Node*)end.base();
+
+		Node* beginPrev = (Node*)beginNode->prev;
+		Node* endNext = (Node*)endNode->next;
+		
+		beginPrev->next = endNext;
+		endNext->prev = beginPrev;
+
+		Node* beforeNode = (Node*)before.base();
+		Node* beforePrev = (Node*)beforeNode->prev;
+		
+		beforePrev->next = beginNode;
+		beginNode->prev = beforePrev;
+
+		beforeNode->prev = endNode;		
+		endNode->next = beforeNode;
+	}
+
+After this addition, the merge-sort algorithm can be implemented
+as a free function outside the class, as it should be.
+
+(*) The principle was formulated by Herb Sutter.
+
+### Summary of basic principles
+
+The basic principles are summarized as follows. 
+A data-structure should
+
+* encapsulate its state and provide controlled ways to modify
+and query the state,
+* provide controlled access to its parts by iterators,
+* define its inner types separately from the actual 
+data-structure, both away from inside the type, and away 
+from the same file,
+* use a sentinel node, if it is based on nodes,
+* be exception-safe,
+* be const-correct,
+* follow the principle of minimal requirements 
+and maximal information, and
+* follow the open-closed principle.
+
+
+

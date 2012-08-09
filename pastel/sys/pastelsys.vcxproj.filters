@@ -2007,6 +2007,9 @@
     <None Include="regex_automata.txt">
       <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </None>
+    <None Include="techniques_layered.txt">
+      <Filter>Documentation</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="countedptr.cpp">
