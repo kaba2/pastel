@@ -8,6 +8,7 @@
 #include "pastel/sys/automaton_fwd.h"
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
+#include "pastel/sys/optional.h"
 
 #include <unordered_map>
 
@@ -599,7 +600,7 @@ namespace Pastel
 		*/
 		Transition_Iterator addTransition(
 			const State_ConstIterator& fromState,
-			const Symbol& symbol,
+			Optional<Symbol> symbol,
 			const State_ConstIterator& toState,
 			TransitionData_Class transitionData = TransitionData_Class())
 		{
@@ -610,7 +611,7 @@ namespace Pastel
 
 			Transition_Iterator transition = graph_.addEdge(
 				fromState, toState, 
-				TransitionLabel(symbol, std::move(transitionData)));
+				TransitionLabel(std::move(symbol), std::move(transitionData)));
 
 			try
 			{

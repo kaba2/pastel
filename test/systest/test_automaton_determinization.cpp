@@ -43,13 +43,10 @@ namespace
 				Automaton_Concepts::Customization<integer, void, void>>(1);
 
 			Automaton zeroOrOne = regularUnion(zero, one);
-			/*
 			Automaton regex = regularSequence(regularSequence(
 				regularSequence(
 				regularKleeneStar(zeroOrOne),
 				zero), zeroOrOne), zeroOrOne);
-			*/
-			
 		}
 	};
 

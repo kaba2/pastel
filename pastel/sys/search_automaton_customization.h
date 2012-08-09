@@ -288,7 +288,7 @@ namespace Pastel
 		*/
 		bool canAddTransition(
 			const State_ConstIterator& fromState,
-			const Symbol& symbol,
+			const Optional<Symbol>& symbol,
 			const State_ConstIterator& toState) 
 		{
 			const BranchMap& branch =
