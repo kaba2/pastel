@@ -69,7 +69,7 @@ namespace std
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const typename Pastel::AsHashedTree<Element>::type& that) const
+			const typename Pastel::AsHashedTree<Element, Compare>::type& that) const
 		{
 			// The hashed tree stores the hash of all elements
 			// in the root element data.

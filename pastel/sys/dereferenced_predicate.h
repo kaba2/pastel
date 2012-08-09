@@ -28,9 +28,9 @@ namespace Pastel
 		}
 	};
 
-	typedef Dereferenced_Predicate<LessThan> Dereferenced_Less;
+	typedef Dereferenced_Predicate<LessThan> Dereferenced_LessThan;
 	typedef Dereferenced_Predicate<LessEqual> Dereferenced_LessEqual;
-	typedef Dereferenced_Predicate<GreaterThan> Dereferenced_Greater;
+	typedef Dereferenced_Predicate<GreaterThan> Dereferenced_GreaterThan;
 	typedef Dereferenced_Predicate<GreaterEqual> Dereferenced_GreaterEqual;
 	typedef Dereferenced_Predicate<EqualTo> Dereferenced_EqualTo;
 	typedef Dereferenced_Predicate<NotEqualTo> Dereferenced_NotEqualTo;

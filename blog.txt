@@ -664,7 +664,7 @@ Implementation details affecting interface
 Inside a data structure I have something like this:
 
 	typedef std::multimap<NonTerminal_ConstIterator, Rule, 
-		Pastel::IteratorAddress_Less> RuleSet;
+		Pastel::IteratorAddress_LessThan> RuleSet;
 
 Using the map gives a fast access to Rules based on a 
 NonTerminal key. I will then expose an iterator- or range-based

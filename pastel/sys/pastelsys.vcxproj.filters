@@ -1561,6 +1561,9 @@
     <ClInclude Include="regex_automata.h">
       <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </ClInclude>
+    <ClInclude Include="automaton_determinization_concepts.h">
+      <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

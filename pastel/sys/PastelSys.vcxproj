@@ -141,6 +141,7 @@
     <ClInclude Include="automaton_concepts.h" />
     <ClInclude Include="automaton_determinization.h" />
     <ClInclude Include="automaton_determinization.hpp" />
+    <ClInclude Include="automaton_determinization_concepts.h" />
     <ClInclude Include="automaton_fwd.h" />
     <ClInclude Include="automaton_transition_label.h" />
     <ClInclude Include="automaton_minimization.hpp" />
