@@ -2,6 +2,7 @@
 #define PASTEL_AUTOMATON_CONCEPTS_H
 
 #include "pastel/sys/automaton_fwd.h"
+#include "pastel/sys/optional.h"
 
 namespace Pastel
 {
@@ -161,7 +162,7 @@ namespace Pastel
 			*/
 			bool canAddTransition(
 				const State_ConstIterator& fromState,
-				const Symbol& symbol,
+				const Optional<Symbol>& symbol,
 				const State_ConstIterator& toState) 
 			{
 				return true;

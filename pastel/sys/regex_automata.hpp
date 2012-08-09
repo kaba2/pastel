@@ -32,10 +32,10 @@ namespace Pastel
 			{
 				automaton.removeStart(state);
 				automaton.addTransition(
-					start, epsilon, state);
+					start, Epsilon(), state);
 			});
 
-			automaton.addStart(rightStart);
+			automaton.addStart(start);
 		}
 
 		return automaton;
@@ -181,7 +181,7 @@ namespace Pastel
 			automaton = regularSingleStart(std::move(automaton));
 
 			State_ConstIterator start = 
-				*automaton.cStartBegin()
+				*automaton.cStartBegin();
 			automaton.addFinal(start);
 		}
 		else if (automaton.startStates() == 1)
