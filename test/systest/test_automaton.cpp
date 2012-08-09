@@ -90,13 +90,13 @@ namespace
 				std::sort(
 					std::begin(reachableSet), 
 					std::end(reachableSet), 
-					IteratorAddress_Less());
+					IteratorAddress_LessThan());
 
 				State_ConstIterator correctSet[] = {a, b, c};
 				std::sort(
 					std::begin(correctSet), 
 					std::end(correctSet), 
-					IteratorAddress_Less());
+					IteratorAddress_LessThan());
 
 				TEST_ENSURE_OP(reachableSet.size(), ==, 3);
 				if (reachableSet.size() == 3)
@@ -134,13 +134,13 @@ namespace
 				std::sort(
 					std::begin(productiveSet), 
 					std::end(productiveSet), 
-					IteratorAddress_Less());
+					IteratorAddress_LessThan());
 
 				State_ConstIterator correctSet[] = {a, b, c, d};
 				std::sort(
 					std::begin(correctSet), 
 					std::end(correctSet), 
-					IteratorAddress_Less());
+					IteratorAddress_LessThan());
 
 				TEST_ENSURE_OP(productiveSet.size(), ==, 4);
 				if (productiveSet.size() == 4)

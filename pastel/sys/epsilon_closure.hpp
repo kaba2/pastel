@@ -16,7 +16,7 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
-		typename Customization
+		typename Customization,
 		typename State_StateSet_Reporter>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
@@ -31,13 +31,12 @@ namespace Pastel
 		auto forEachDomain = 
 			[&](const std::function<void(const State_ConstIterator&)>& visit)
 		{
-			std::for_each(
-				automaton.cStateBegin(), 
-				automaton.cStateEnd(),
-				[&](const State_ConstIterator& state)
+			for (auto state = automaton.cStateBegin();
+				state != automaton.cStateEnd();
+				++state)
 			{
 				visit(state);
-			});
+			}
 		};
 
 		// The epsilon-set of a state A contains the epsilon-set
@@ -56,7 +55,7 @@ namespace Pastel
 				incidence != vertex->cOutgoingEnd();
 				++incidence)
 			{
-				if (incidence->edge.symbol() == Epsilon())
+				if (incidence->edge()->symbol() == Epsilon())
 				{
 					visit(incidence->vertex());
 				}
@@ -90,7 +89,7 @@ namespace Pastel
 
 		// Compute the epsilon-sets by reflexive-transitive 
 		// functional closure.
-		transitiveClosure<State_ConstIterator>(
+		transitiveClosure<State_ConstIterator, StateSet>(
 			StateSet(), directEpsilonSet, unionOp, 
 			forEachRelated, forEachDomain,
 			report, true, IteratorAddress_Hash());

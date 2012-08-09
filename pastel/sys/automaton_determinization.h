@@ -3,6 +3,8 @@
 #ifndef PASTEL_AUTOMATON_DETERMINIZATION_H
 #define PASTEL_AUTOMATON_DETERMINIZATION_H
 
+#include "pastel/sys/automaton_determinization_concepts.h"
+
 #include "pastel/sys/automaton.h"
 
 namespace Pastel
@@ -18,9 +20,8 @@ namespace Pastel
 		typename Transition_Reporter>
 	void determinizeAutomaton(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const Symbol& epsilon,
 		const State_Reporter& reportState,
-		const Transition_Reporter& transitionReport);
+		const Transition_Reporter& reportTransition);
 
 }
 

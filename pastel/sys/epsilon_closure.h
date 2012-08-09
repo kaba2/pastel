@@ -10,7 +10,7 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
-		typename Customization
+		typename Customization,
 		typename State_StateSet_Reporter>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,

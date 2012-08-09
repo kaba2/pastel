@@ -20,9 +20,8 @@ namespace Pastel
 		typename Transition_Reporter>
 	void determinizeAutomaton(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const Symbol& epsilon,
 		const State_Reporter& reportState,
-		const Transition_Reporter& transitionReport)
+		const Transition_Reporter& reportTransition)
 	{
 		typedef Automaton<Symbol, StateData, TransitionData, Customization> 
 			Automaton;
@@ -35,7 +34,7 @@ namespace Pastel
 		// and so associatively searched efficiently 
 		// in a hash table.
 		typedef typename AsHashedTree<
-			State_ConstIterator>::type StateSet;
+			State_ConstIterator, IteratorAddress_LessThan>::type StateSet;
 
 		if (automaton.states() == 0)
 		{
@@ -119,9 +118,11 @@ namespace Pastel
 
 			const StateSet& stateSet = readySet.back();
 
+			std::cout << stateSet.size() << std::endl;
+
 			// Mark the state-set as visited.
 			visitedMap.emplace(
-				std::make_pair(&stateSet, std::prev(readySet.cend())));
+				std::make_pair(&stateSet, std::prev(readySet.end())));
 
 			// This set will contain, for each symbol,
 			// the states that can be reached from the
@@ -138,12 +139,12 @@ namespace Pastel
 				stateSet.cbegin(), stateSet.cend(),
 				[&](const State_ConstIterator& state)
 			{
-				for (auto incidence = state.cOutgoingBegin();
-					incidence != state.cOutgoingEnd();
+				for (auto incidence = state->cOutgoingBegin();
+					incidence != state->cOutgoingEnd();
 					++incidence)
 				{
 					StateSet& toStateSet = 
-						symbolStateSetMap[transition.symbol()];
+						symbolStateSetMap[incidence->edge()->symbol()];
 					
 					// Add all the states in the epsilon closure
 					// of 'state' into the 'toStateSet'.
@@ -157,8 +158,8 @@ namespace Pastel
 
 			// Report transitions between state-sets, and report
 			// new state-sets.
-			for (auto symbolStateSet = symbolStateSetMap.cbegin();
-				symbolStateSet != symbolStateSetMap.cend();
+			for (auto symbolStateSet = symbolStateSetMap.begin();
+				symbolStateSet != symbolStateSetMap.end();
 				++symbolStateSet)
 			{
 				Symbol symbol =
@@ -193,9 +194,8 @@ namespace Pastel
 					// into the state-set.
 					reportTransition(
 						(const StateSet&)stateSet, symbol, 
-						(const StateSet&)*visitedMap->second);
+						(const StateSet&)*visited->second);
 				}
-				
 			}
 		}
 	}

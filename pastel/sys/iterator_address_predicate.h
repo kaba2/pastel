@@ -31,9 +31,9 @@ namespace Pastel
 		}
 	};
 
-	typedef IteratorAddress_Predicate<LessThan> IteratorAddress_Less;
+	typedef IteratorAddress_Predicate<LessThan> IteratorAddress_LessThan;
 	typedef IteratorAddress_Predicate<LessEqual> IteratorAddress_LessEqual;
-	typedef IteratorAddress_Predicate<GreaterThan> IteratorAddress_Greater;
+	typedef IteratorAddress_Predicate<GreaterThan> IteratorAddress_GreaterThan;
 	typedef IteratorAddress_Predicate<GreaterEqual> IteratorAddress_GreaterEqual;
 	typedef IteratorAddress_Predicate<EqualTo> IteratorAddress_EqualTo;
 	typedef IteratorAddress_Predicate<NotEqualTo> IteratorAddress_NotEqualTo;
