@@ -34,7 +34,9 @@ namespace Pastel
 		// and so associatively searched efficiently 
 		// in a hash table.
 		typedef typename AsHashedTree<
-			State_ConstIterator, IteratorAddress_LessThan>::type StateSet;
+			State_ConstIterator, 
+			IteratorAddress_LessThan,
+			IteratorAddress_Hash>::type StateSet;
 
 		if (automaton.states() == 0)
 		{
@@ -110,7 +112,7 @@ namespace Pastel
 
 			// Report the start state-set.
 			reportState(
-				(const StateSet&)startStateSet);
+				(const StateSet&)startStateSet, true);
 		}
 
 		while(!workSet.empty())
@@ -124,8 +126,6 @@ namespace Pastel
 				workSet.cbegin());
 
 			const StateSet& stateSet = readySet.back();
-
-			std::cout << stateSet.size() << std::endl;
 
 			// Mark the state-set as visited.
 			visitedMap.emplace(
@@ -150,8 +150,17 @@ namespace Pastel
 					incidence != state->cOutgoingEnd();
 					++incidence)
 				{
+					Optional<Symbol> symbol = 
+						incidence->edge()->symbol();
+
+					if (symbol.empty())
+					{
+						// Do not follow epsilon-transitions.
+						continue;
+					}
+
 					StateSet& toStateSet = 
-						symbolStateSetMap[incidence->edge()->symbol()];
+						symbolStateSetMap[symbol];
 					
 					// Add all the states in the epsilon closure
 					// of 'state' into the 'toStateSet'.
@@ -185,7 +194,7 @@ namespace Pastel
 					
 					// Report the new state-set.
 					reportState(
-						(const StateSet&)workSet.back());
+						(const StateSet&)workSet.back(), false);
 					
 					// Report the transition which lead
 					// into the new state-set.

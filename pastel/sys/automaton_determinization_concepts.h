@@ -22,8 +22,10 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		typedef typename AsHashedTree<State_ConstIterator, 
-			IteratorAddress_LessThan>::type
+		typedef typename AsHashedTree<
+			State_ConstIterator, 
+			IteratorAddress_LessThan,
+			IteratorAddress_Hash>::type
 			StateSet;
 
 		class State_Reporter
@@ -35,9 +37,13 @@ namespace Pastel
 			of states of the non-deterministic automaton. It
 			is guaranteed that the memory address of the
 			passed 'stateSet' given here will be preserved 
-			over the reporting of the transitions.
+			over the reporting of the transitions. The second
+			argument tells whether the state is the start 
+			state of the deterministic automaton.
 			*/
-			void operator()(const StateSet& stateSet) const;
+			void operator()(
+				const StateSet& stateSet,
+				bool startState) const;
 		};
 
 		class Transition_Reporter

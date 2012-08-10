@@ -48,12 +48,15 @@ namespace
 			Vertex_Iterator c = relation.addVertex(2);
 			Vertex_Iterator d = relation.addVertex(7);
 			Vertex_Iterator e = relation.addVertex(6);
+			Vertex_Iterator f = relation.addVertex(4);
+			Vertex_Iterator g = relation.addVertex(8);
 		
 			Edge_Iterator at = relation.addEdge(a, a);
 			Edge_Iterator bt = relation.addEdge(b, b);
 			Edge_Iterator ct = relation.addEdge(c, c);
 			Edge_Iterator dt = relation.addEdge(d, d);
 			Edge_Iterator et = relation.addEdge(e, e);
+			Edge_Iterator ft = relation.addEdge(f, f);
 
 			relation.addEdge(a, b);
 			relation.addEdge(c, b);
@@ -61,7 +64,7 @@ namespace
 			relation.addEdge(d, e);
 			relation.addEdge(e, d);
 
-			auto f = [](const Vertex_Iterator& vertex) -> integer 
+			auto fn = [](const Vertex_Iterator& vertex) -> integer 
 			{
 				return *vertex;
 			};
@@ -104,7 +107,7 @@ namespace
 			};
 
 			transitiveClosure<Vertex_Iterator, integer>(
-				0, f, op, forEachRelated, forEachDomain, report,
+				0, fn, op, forEachRelated, forEachDomain, report,
 				false, IteratorAddress_Hash());
 			{
 				TEST_ENSURE_OP(closureMap[a], ==, 19);
@@ -112,6 +115,8 @@ namespace
 				TEST_ENSURE_OP(closureMap[c], ==, 20);
 				TEST_ENSURE_OP(closureMap[d], ==, 13);
 				TEST_ENSURE_OP(closureMap[e], ==, 13);
+				TEST_ENSURE_OP(closureMap[f], ==, 4);
+				TEST_ENSURE_OP(closureMap[g], ==, 0);
 			}
 
 			relation.removeEdge(at);
@@ -122,7 +127,7 @@ namespace
 
 			closureMap.clear();
 			transitiveClosure<Vertex_Iterator, integer>(
-				0, f, op, forEachRelated, forEachDomain, report,
+				0, fn, op, forEachRelated, forEachDomain, report,
 				true, IteratorAddress_Hash());
 			{
 				TEST_ENSURE_OP(closureMap[a], ==, 19);
@@ -130,11 +135,13 @@ namespace
 				TEST_ENSURE_OP(closureMap[c], ==, 20);
 				TEST_ENSURE_OP(closureMap[d], ==, 13);
 				TEST_ENSURE_OP(closureMap[e], ==, 13);
+				TEST_ENSURE_OP(closureMap[f], ==, 4);
+				TEST_ENSURE_OP(closureMap[g], ==, 8);
 			}
 
 			closureMap.clear();
 			transitiveClosure<Vertex_Iterator, integer>(
-				0, f, op, forEachRelated, forEachDomain, report,
+				0, fn, op, forEachRelated, forEachDomain, report,
 				false, IteratorAddress_Hash());
 			{
 				TEST_ENSURE_OP(closureMap[a], ==, 18);
@@ -142,6 +149,8 @@ namespace
 				TEST_ENSURE_OP(closureMap[c], ==, 18);
 				TEST_ENSURE_OP(closureMap[d], ==, 13);
 				TEST_ENSURE_OP(closureMap[e], ==, 13);
+				TEST_ENSURE_OP(closureMap[f], ==, 4);
+				TEST_ENSURE_OP(closureMap[g], ==, 0);
 			}
 
 		}

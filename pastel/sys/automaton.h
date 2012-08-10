@@ -105,7 +105,7 @@ namespace Pastel
 				that.cStartEnd(),
 				[&](const State_ConstIterator& state)
 			{
-				addStart(state);
+				addStart(stateMap[state]);
 			});
 
 			// Add the final states.
@@ -114,7 +114,7 @@ namespace Pastel
 				that.cFinalEnd(),
 				[&](const State_ConstIterator& state)
 			{
-				addFinal(state);
+				addFinal(stateMap[state]);
 			});
 		}
 
@@ -362,18 +362,21 @@ namespace Pastel
 		Exception safety:
 		nothrow
 		*/
-		void removeStart(
+		Start_Iterator removeStart(
 			const State_ConstIterator& state)
 		{
 			if (!state->start())
 			{
-				return;
+				return state->startPosition_;
 			}
 			
 			onRemoveStart(state);
 
-			startSet_.erase(state->startPosition_);
+			Start_Iterator next =
+				startSet_.erase(state->startPosition_);
 			cast(state)->setStart(false);
+
+			return next;
 		}
 
 		//! Returns the first iterator of the start-states.
@@ -471,19 +474,22 @@ namespace Pastel
 		Exception safety: 
 		nothrow
 		*/
-		void removeFinal(
+		Final_Iterator removeFinal(
 			const State_ConstIterator& state)
 		{
 			if (!state->final())
 			{
-				return;
+				return state->finalPosition_;
 			}
 
 			onRemoveFinal(state);
 
-			finalSet_.erase(state->finalPosition_);
+			Final_Iterator next = 
+				finalSet_.erase(state->finalPosition_);
 			cast(state)->finalPosition_ = finalSet_.end();
 			cast(state)->setFinal(false);
+
+			return next;
 		}
 
 		//! Returns the first iterator of the final states.
@@ -785,6 +791,88 @@ namespace Pastel
 		//! The set of final states.
 		FinalSet finalSet_;
 	};
+
+}
+
+#include <ostream>
+#include <unordered_map>
+
+namespace Pastel
+{
+
+	template <
+		typename Symbol, 
+		typename StateData, 
+		typename TransitionData,
+		typename Customization>
+	std::ostream& operator<<(
+		std::ostream& stream,
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton)
+	{
+		typedef Automaton<Symbol, StateData, TransitionData, Customization>
+			Automaton;
+		typedef typename Automaton::State_ConstIterator
+			State_ConstIterator;
+		typedef typename Automaton::Transition_ConstIterator
+			Transition_ConstIterator;
+
+		stream << automaton.states() << " states, "
+			<< automaton.transitions() << " transitions." 
+			<< std::endl << std::endl;
+
+		std::unordered_map<State_ConstIterator, integer,
+			IteratorAddress_Hash> stateMap;
+
+		integer stateId = 0;
+		for (auto state = automaton.cStateBegin();
+			state != automaton.cStateEnd();
+			++state)
+		{
+			stateMap[state] = stateId;
+			++stateId;
+		}
+
+		stream << "Transitions:" << std::endl
+			<< std::endl;
+
+		for (auto transition = automaton.cTransitionBegin();
+			transition != automaton.cTransitionEnd();
+			++transition)
+		{
+			stream << "(" << stateMap[transition->from()]
+				<< ", " << transition->symbol()
+				<< ") --> " << stateMap[transition->to()] << std::endl;
+		}
+
+		stream << std::endl;
+
+		stream << "Start states: ";
+
+		std::for_each(
+			automaton.cStartBegin(),
+			automaton.cStartEnd(),
+			[&](const State_ConstIterator& state)
+		{
+			stream << stateMap[state] << " ";
+		});
+
+		stream << std::endl << std::endl;
+
+		stream << "Final states: ";
+
+		std::for_each(
+			automaton.cFinalBegin(),
+			automaton.cFinalEnd(),
+			[&](const State_ConstIterator& state)
+		{
+			stream << stateMap[state] << " ";
+		});
+
+		stream << std::endl;
+
+		return stream;
+	}
+
 
 }
 

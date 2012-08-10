@@ -8,17 +8,19 @@
 namespace Pastel
 {
 
-	template <typename Element, typename Compare>
+	template <typename Element, typename Compare, typename Hash>
 	class Hash_RedBlackTree_Customization;
 
 	// This simulates an alias template until it becomes
 	// available in Visual Studio.
-	template <typename Element, typename Compare = LessThan>
+	template <typename Element, 
+		typename Compare = LessThan,
+		typename Hash = std::hash<Element>>
 	class AsHashedTree
 	{
 	public:
 		typedef RedBlackTree<Element, Compare, hash_integer,
-			Hash_RedBlackTree_Customization<Element, Compare>> type;
+			Hash_RedBlackTree_Customization<Element, Compare, Hash>> type;
 	};
 
 }

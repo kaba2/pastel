@@ -168,6 +168,7 @@ namespace Pastel
 		{
 			if (relevantSet.count(state))
 			{
+				ASSERT(stateToElement.count(state));
 				statePartition.mark(
 					stateToElement[state]);
 			}
@@ -179,12 +180,19 @@ namespace Pastel
 		// based on the symbols.
 		TransitionPartition transitionPartition;
 
-		std::unordered_map<Symbol, 
-			Cord_Iterator> searchSet;
+		std::unordered_map<Symbol, Cord_Iterator> searchSet;
 		for (auto transition = automaton.cTransitionBegin();
 			transition != automaton.cTransitionEnd();
 			++transition)
 		{
+			if (!relevantSet.count(transition->from()) ||
+				!relevantSet.count(transition->to()))
+			{
+				// Only consider the transition if both of its
+				// states are relevant.
+				continue;
+			}
+
 			// See if we have already created a partition-set
 			// for this symbol.
 			auto search = searchSet.find(
@@ -286,7 +294,7 @@ namespace Pastel
 							relevantSet.count(transition->to()))
 						{
 							transitionPartition.mark(
-								transitionToElement[incidence->edge()]);
+								transitionToElement[transition]);
 						}
 					}
 				});
@@ -316,7 +324,7 @@ namespace Pastel
 			if (state->final())
 			{
 				// If one of the states in the block is
-				// a final, they all are. Therefore the
+				// final, they all are. Therefore the
 				// minimal automaton state is final.
 				minimal.addFinal(*block);
 			}
