@@ -6,7 +6,7 @@
 namespace Pastel
 {
 
-	template <typename Element, typename Compare>
+	template <typename Element, typename Compare, typename Hash>
 	class Hash_RedBlackTree_Customization
 		: public RedBlackTree_Concepts::Customization<
 		Element, Compare, hash_integer>
@@ -22,8 +22,10 @@ namespace Pastel
 		void updateHierarchical(const Iterator& node)
 		{
 			node.data() = combineHash(
+				Hash()(node.key()),
+				combineHash(
 				node.left().data(),
-				node.right().data());
+				node.right().data()));
 		}
 
 	private:
@@ -32,12 +34,12 @@ namespace Pastel
 		Hash_RedBlackTree_Customization& operator=(Hash_RedBlackTree_Customization) PASTEL_DELETE;
 	};
 
-	template <typename Element, typename Compare>
+	template <typename Element, typename Compare, typename Hash>
 	bool operator==(
 		const RedBlackTree<Element, Compare, hash_integer,
-			Hash_RedBlackTree_Customization<Element, Compare>>& left,
+			Hash_RedBlackTree_Customization<Element, Compare, Hash>>& left,
 		const RedBlackTree<Element, Compare, hash_integer,
-			Hash_RedBlackTree_Customization<Element, Compare>>& right)
+			Hash_RedBlackTree_Customization<Element, Compare, Hash>>& right)
 	{
 		bool result = false;
 
@@ -63,13 +65,13 @@ namespace Pastel
 namespace std
 {
 
-	template <typename Element, typename Compare>
+	template <typename Element, typename Compare, typename Hash>
 	class hash<Pastel::RedBlackTree<Element, Compare, Pastel::hash_integer,
-		Pastel::Hash_RedBlackTree_Customization<Element, Compare>>>
+		Pastel::Hash_RedBlackTree_Customization<Element, Compare, Hash>>>
 	{
 	public:
 		Pastel::hash_integer operator()(
-			const typename Pastel::AsHashedTree<Element, Compare>::type& that) const
+			const typename Pastel::AsHashedTree<Element, Compare, Hash>::type& that) const
 		{
 			// The hashed tree stores the hash of all elements
 			// in the root element data.

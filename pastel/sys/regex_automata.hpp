@@ -25,15 +25,15 @@ namespace Pastel
 			State_ConstIterator start = 
 				automaton.addState();
 
-			std::for_each(
-				automaton.cStartBegin(),
-				automaton.cStartEnd(),
-				[&](const State_ConstIterator& state)
+			while(automaton.startStates() > 0)
 			{
+				State_ConstIterator state =
+					*automaton.cStartBegin();
+
 				automaton.removeStart(state);
 				automaton.addTransition(
 					start, Epsilon(), state);
-			});
+			}
 
 			automaton.addStart(start);
 		}
@@ -146,15 +146,15 @@ namespace Pastel
 			State_ConstIterator rightStart =
 				*right.cStartBegin();
 
-			std::for_each(
-				left.cFinalBegin(),
-				left.cFinalEnd(),
-				[&](const State_ConstIterator& state)
+			while(left.finalStates() > 0)
 			{
+				State_ConstIterator state =
+					*left.cFinalBegin();
+
 				left.removeFinal(state);
 				left.addTransition(
 					state, Epsilon(), rightStart);
-			});
+			}
 		}
 
 		left.merge(right);

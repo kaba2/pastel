@@ -125,19 +125,17 @@ namespace Pastel
 				}
 
 				const Progress& yProgress = progressSet[y];
-				if (yProgress.depth >= 0 && yProgress.depth < xProgress.depth)
+				if (yProgress.depth >= 0)
 				{
 					// After finishing visiting the related nodes,
 					// the depth of node x is the minimum of the depths 
-					// encountered in children. Negative depth values 
-					// are used to mark nodes which have already been 
-					// assigned a strongly connected component; those
-					// nodes should not be considered for this depth
-					// minimization.
-					xProgress.depth = yProgress.depth;
+					// encountered in children.
+					if (yProgress.depth < xProgress.depth)
+					{
+						xProgress.depth = yProgress.depth;
+					}
 				}
-
-				if (yProgress.depth == ClosureValueReady)
+				else
 				{
 					// If the node y has a negative depth value, then
 					// this means that its closure-value has already

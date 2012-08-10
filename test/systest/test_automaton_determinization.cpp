@@ -5,6 +5,7 @@
 
 #include "pastel/sys/regex_automata.h"
 #include "pastel/sys/automaton_determinization.h"
+#include "pastel/sys/automaton_minimization.h"
 
 using namespace Pastel;
 using namespace std;
@@ -44,27 +45,45 @@ namespace
 				Automaton_Concepts::Customization<integer, void, void>>(1);
 
 			Automaton zeroOrOne = regularUnion(zero, one);
+
+			Automaton zeroOrOneStar = regularKleeneStar(zeroOrOne);
+
+			Automaton zeroOrOneStarAndZero = 
+				regularSequence(zeroOrOneStar, zero);
+
 			Automaton regex = regularSequence(regularSequence(
-				regularSequence(
-				regularKleeneStar(zeroOrOne),
-				zero), zeroOrOne), zeroOrOne);
+				zeroOrOneStarAndZero, zeroOrOne), zeroOrOne);
 
-			typedef AsHashedTree<State, IteratorAddress_LessThan>::type StateSet;
+			typedef AsHashedTree<
+				State, IteratorAddress_LessThan,
+				IteratorAddress_Hash>::type StateSet;
 
-			typedef std::unordered_map<
-				const StateSet*, integer> StateMap;
+			Automaton det;
 
-			StateMap stateMap;
-
-			integer stateId = 0;
-
+			std::unordered_map<
+				const StateSet*, State> stateMap;
+			
 			auto reportState =
-				[&](const StateSet& stateSet)
+				[&](const StateSet& stateSet,
+				bool start)
 			{
-				if (!stateMap.count(&stateSet))
+				stateMap[&stateSet] = det.addState();
+
+				bool allStartStates = true;
+				std::for_each(
+					stateSet.cbegin(),
+					stateSet.cend(),
+					[&](const State& state)
 				{
-					stateMap[&stateSet] = stateId;
-					++stateId;
+					if (state->final())
+					{
+						det.addFinal(stateMap[&stateSet]);
+					}
+				});
+
+				if (start)
+				{
+					det.addStart(stateMap[&stateSet]);
 				}
 			};
 			
@@ -73,15 +92,20 @@ namespace
 				const Optional<integer>& symbol,
 				const StateSet& toStateSet)
 			{
-				std::cout 
-					<< stateMap[&fromStateSet] 
-					<< " " << symbol << " " 
-					<< stateMap[&toStateSet]
-					<< std::endl;
+				det.addTransition(
+					stateMap[&fromStateSet],
+					symbol,
+					stateMap[&toStateSet]);
 			};
 
-			determinizeAutomaton(regex,
+			determinizeAutomaton(zeroOrOneStarAndZero,
 				reportState, reportTransition);
+
+			std::cout << det << std::endl;
+
+			Automaton minimal = minimizeAutomaton(det);
+
+			std::cout << minimal << std::endl;
 		}
 	};
 
