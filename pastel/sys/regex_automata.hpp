@@ -165,6 +165,7 @@ namespace Pastel
 
 		State_ConstIterator rightStart =
 			*right.cStartBegin();
+		right.removeStart(rightStart);
 
 		while(left.finalStates() > 0)
 		{
@@ -175,7 +176,7 @@ namespace Pastel
 			left.addTransition(
 				state, Epsilon(), rightStart);
 		}
-		
+	
 		left.merge(right);
 
 		return left;
