@@ -71,7 +71,11 @@ namespace Pastel
 			State_ConstIterator;
 
 		Automaton automaton;
-		automaton.addFinal(automaton.addState());
+
+		State_ConstIterator state = automaton.addState();
+
+		automaton.addStart(state);
+		automaton.addFinal(state);
 
 		return automaton;
 	}
@@ -116,8 +120,23 @@ namespace Pastel
 		Automaton<Symbol, StateData, TransitionData, Customization> right)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>
 	{
-		left.merge(right);
-		return left;
+		typedef Automaton<Symbol, StateData, TransitionData, Customization>
+			Automaton;
+
+		if (left.useful())
+		{
+			if (right.useful())
+			{
+				left.merge(right);
+			}
+			return left;
+		}
+		else if (right.useful())
+		{
+			return right;
+		}
+
+		return Automaton();
 	}
 
 	template <
@@ -135,30 +154,30 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
+		if (!left.useful() || !right.useful())
+		{
+			// Either one accepts nothing. Thus the sequence
+			// is the empty language.
+			return Automaton();
+		}
+
 		right = regularSingleStart(std::move(right));
 
-		if (right.startStates() == 0)
+		State_ConstIterator rightStart =
+			*right.cStartBegin();
+
+		while(left.finalStates() > 0)
 		{
-			right.clearFinal();
+			State_ConstIterator state =
+				*left.cFinalBegin();
+
+			left.removeFinal(state);
+			left.addTransition(
+				state, Epsilon(), rightStart);
 		}
-		else
-		{
-			State_ConstIterator rightStart =
-				*right.cStartBegin();
-
-			while(left.finalStates() > 0)
-			{
-				State_ConstIterator state =
-					*left.cFinalBegin();
-
-				left.removeFinal(state);
-				left.addTransition(
-					state, Epsilon(), rightStart);
-			}
-		}
-
+		
 		left.merge(right);
-			
+
 		return left;
 	}
 	
@@ -176,6 +195,11 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
+		if (!automaton.useful())
+		{
+			return regularEpsilon<Symbol, StateData, TransitionData, Customization>();
+		}
+
 		if (automaton.startStates() > 1)
 		{
 			automaton = regularSingleStart(std::move(automaton));
@@ -184,10 +208,10 @@ namespace Pastel
 				*automaton.cStartBegin();
 			automaton.addFinal(start);
 		}
-		else if (automaton.startStates() == 1)
+		else
 		{
 			State_ConstIterator start =
-				automaton.cStateBegin();
+				*automaton.cStartBegin();
 
 			if (!start->final())
 			{
@@ -220,22 +244,27 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		automaton = regularOptional(automaton);
-
-		if (automaton.startStates() > 0)
+		if (!automaton.useful())
 		{
-			State_ConstIterator start = 
-				*automaton.cStartBegin();
+			return regularEpsilon<Symbol, StateData, TransitionData, Customization>();
+		}
 
-			std::for_each(
-				automaton.cFinalBegin(),
-				automaton.cFinalEnd(),
-				[&](const State_ConstIterator& state)
+		automaton = regularOptional(std::move(automaton));
+
+		State_ConstIterator start = 
+			*automaton.cStartBegin();
+
+		std::for_each(
+			automaton.cFinalBegin(),
+			automaton.cFinalEnd(),
+			[&](const State_ConstIterator& state)
+		{
+			if (state != start)
 			{
 				automaton.addTransition(
 					state, Epsilon(), start); 
-			});
-		}
+			}
+		});
 
 		return automaton;
 	}

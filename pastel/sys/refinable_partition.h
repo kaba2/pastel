@@ -324,7 +324,7 @@ namespace Pastel
 				else
 				{
 					// The unmarked part is the smaller part.
-					// Make it the new set->
+					// Make it the new set.
 					newSet = setSet_.emplace(
 						setSet_.cend(),
 						Set(set->unmarkedBegin_, cast(set->end()),

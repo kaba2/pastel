@@ -185,6 +185,10 @@ namespace Pastel
 			transition != automaton.cTransitionEnd();
 			++transition)
 		{
+			Optional<Symbol> symbol = transition->symbol();
+			// The automaton should be deterministic.
+			ENSURE(symbol != Epsilon());
+
 			if (!relevantSet.count(transition->from()) ||
 				!relevantSet.count(transition->to()))
 			{
@@ -195,15 +199,14 @@ namespace Pastel
 
 			// See if we have already created a partition-set
 			// for this symbol.
-			auto search = searchSet.find(
-				transition->symbol());
+			auto search = searchSet.find(symbol);
 			if (search == searchSet.end())
 			{
 				// There is no partition-set for this symbol.
 				// Create a new one.
 				search = searchSet.insert(
 					std::make_pair(
-					transition->symbol(),
+					symbol,
 					transitionPartition.addSet())).first;
 			}
 			
@@ -331,19 +334,36 @@ namespace Pastel
 		}
 		
 		// Create the transitions of the minimal automaton.
-		for (auto cord = transitionPartition.cSetBegin();
-			cord != transitionPartition.cSetEnd();
-			++cord)
+		for (auto block = statePartition.setBegin();
+			block != statePartition.setEnd();
+			++block)
 		{
-			ASSERT_OP(cord->elements(), >, 0);
+			ASSERT_OP(block->elements(), >, 0);
 
-			Transition_ConstIterator transition =
-				**(cord->begin());
+			// Pick any state from the block...
+			State_ConstIterator state =
+				**(block->begin());
 
-			minimal.addTransition(
-				*(stateToElement[transition->from()]->set()), 
-				transition->symbol(), 
-				*(stateToElement[transition->to()]->set()));
+			// ... and report its transitions.
+			// The transitions are the same for all
+			// states in the block.
+			for (auto incidence = state->cOutgoingBegin();
+				incidence != state->cOutgoingEnd();
+				++incidence)
+			{
+				Transition_ConstIterator transition =
+					incidence->edge();
+
+				// Only report relevant edges.
+				if (relevantSet.count(transition->from()) &&
+					relevantSet.count(transition->to()))
+				{
+					minimal.addTransition(
+						*(stateToElement[transition->from()]->set()), 
+						transition->symbol(), 
+						*(stateToElement[transition->to()]->set()));
+				}
+			}
 		}
 
 		// Set the start-state of the minimal automaton.
