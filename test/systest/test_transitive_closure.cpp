@@ -49,20 +49,17 @@ namespace
 			Vertex_Iterator d = relation.addVertex(7);
 			Vertex_Iterator e = relation.addVertex(6);
 		
-			relation.addEdge(a, a);
-			relation.addEdge(b, b);
-			relation.addEdge(c, c);
-			relation.addEdge(d, d);
-			relation.addEdge(e, e);
+			Edge_Iterator at = relation.addEdge(a, a);
+			Edge_Iterator bt = relation.addEdge(b, b);
+			Edge_Iterator ct = relation.addEdge(c, c);
+			Edge_Iterator dt = relation.addEdge(d, d);
+			Edge_Iterator et = relation.addEdge(e, e);
 
 			relation.addEdge(a, b);
 			relation.addEdge(c, b);
 			relation.addEdge(b, d);
 			relation.addEdge(d, e);
 			relation.addEdge(e, d);
-
-			std::cout << "The graph has " << relation.vertices() << " vertices, and "
-				<< relation.edges() << " edges." << std::endl;
 
 			auto f = [](const Vertex_Iterator& vertex) -> integer 
 			{
@@ -96,17 +93,57 @@ namespace
 				});
 			};
 
-			auto report = [](
+			std::unordered_map<Vertex_Iterator, integer,
+				IteratorAddress_Hash> closureMap; 
+
+			auto report = [&](
 				const Vertex_Iterator& vertex, integer value)
 			{
-				std::cout << *vertex << " before, ";
-				*vertex = value;
-				std::cout << value << " after." << std::endl;
+				closureMap.insert(
+					std::make_pair(vertex, value));
 			};
 
 			transitiveClosure<Vertex_Iterator, integer>(
 				0, f, op, forEachRelated, forEachDomain, report,
 				false, IteratorAddress_Hash());
+			{
+				TEST_ENSURE_OP(closureMap[a], ==, 19);
+				TEST_ENSURE_OP(closureMap[b], ==, 18);
+				TEST_ENSURE_OP(closureMap[c], ==, 20);
+				TEST_ENSURE_OP(closureMap[d], ==, 13);
+				TEST_ENSURE_OP(closureMap[e], ==, 13);
+			}
+
+			relation.removeEdge(at);
+			relation.removeEdge(bt);
+			relation.removeEdge(ct);
+			relation.removeEdge(dt);
+			relation.removeEdge(et);
+
+			closureMap.clear();
+			transitiveClosure<Vertex_Iterator, integer>(
+				0, f, op, forEachRelated, forEachDomain, report,
+				true, IteratorAddress_Hash());
+			{
+				TEST_ENSURE_OP(closureMap[a], ==, 19);
+				TEST_ENSURE_OP(closureMap[b], ==, 18);
+				TEST_ENSURE_OP(closureMap[c], ==, 20);
+				TEST_ENSURE_OP(closureMap[d], ==, 13);
+				TEST_ENSURE_OP(closureMap[e], ==, 13);
+			}
+
+			closureMap.clear();
+			transitiveClosure<Vertex_Iterator, integer>(
+				0, f, op, forEachRelated, forEachDomain, report,
+				false, IteratorAddress_Hash());
+			{
+				TEST_ENSURE_OP(closureMap[a], ==, 18);
+				TEST_ENSURE_OP(closureMap[b], ==, 13);
+				TEST_ENSURE_OP(closureMap[c], ==, 18);
+				TEST_ENSURE_OP(closureMap[d], ==, 13);
+				TEST_ENSURE_OP(closureMap[e], ==, 13);
+			}
+
 		}
 
 		void testTransitiveClosureUnion()
@@ -154,9 +191,6 @@ namespace
 			relation.addEdge(d, e);
 			relation.addEdge(e, d);
 
-			std::cout << "The graph has " << relation.vertices() << " vertices, and "
-				<< relation.edges() << " edges." << std::endl;
-
 			auto f = [](const Vertex_Iterator& vertex) -> const Set&
 			{
 				return *vertex;
@@ -198,6 +232,7 @@ namespace
 			auto report = [](
 				const Vertex_Iterator& vertex, Set&& set)
 			{
+				/*
 				std::for_each(((const Set&)*vertex).begin(), ((const Set&)*vertex).end(),
 					[](const integer& that) {std::cout << that << ", ";});
 				std::cout << " before, ";
@@ -205,6 +240,7 @@ namespace
 				std::for_each(set.begin(), set.end(),
 					[](const integer& that) {std::cout << that << ", ";});
 				std::cout << " after." << std::endl;
+				*/
 			};
 
 			Set emptySet;

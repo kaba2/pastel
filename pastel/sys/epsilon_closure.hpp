@@ -17,10 +17,12 @@ namespace Pastel
 		typename StateData,
 		typename TransitionData,
 		typename Customization,
-		typename State_StateSet_Reporter>
+		typename Closure_Reporter,
+		typename Insert_State>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const State_StateSet_Reporter& report)
+		const Insert_State& insert,
+		const Closure_Reporter& report)
 	{
 		typedef Automaton<Symbol, StateData, TransitionData>
 			Automaton;
@@ -69,7 +71,7 @@ namespace Pastel
 			-> StateSet
 		{
 			StateSet stateSet;
-			stateSet.insert(state);
+			insert(state, stateSet);
 			return stateSet;
 		};
 
