@@ -62,6 +62,11 @@ namespace Pastel
 			return empty();
 		}
 
+		bool operator!=(const Epsilon& that) const
+		{
+			return !(*this == that);
+		}
+
 		void swap(Optional& that)
 		{
 			using std::swap;

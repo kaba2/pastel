@@ -51,8 +51,10 @@ namespace
 			Automaton zeroOrOneStarAndZero = 
 				regularSequence(zeroOrOneStar, zero);
 
-			Automaton regex = regularSequence(regularSequence(
-				zeroOrOneStarAndZero, zeroOrOne), zeroOrOne);
+			Automaton regex = regularSequence(
+				zeroOrOneStarAndZero, zeroOrOne);
+
+			std::cout << regex << std::endl;
 
 			typedef AsHashedTree<
 				State, IteratorAddress_LessThan,
@@ -98,7 +100,7 @@ namespace
 					stateMap[&toStateSet]);
 			};
 
-			determinizeAutomaton(zeroOrOneStarAndZero,
+			determinizeAutomaton(regex,
 				reportState, reportTransition);
 
 			std::cout << det << std::endl;

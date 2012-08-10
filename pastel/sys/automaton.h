@@ -696,7 +696,7 @@ namespace Pastel
 		Transition_Iterator transitionBegin(
 			const State_ConstIterator& state)
 		{
-			return state->begin();
+			return state->outgoingBegin();
 		}
 
 		//! Returns the first iterator of the transition-set of the state.
@@ -707,7 +707,7 @@ namespace Pastel
 		Transition_ConstIterator cTransitionBegin(
 			const State_ConstIterator& state) const
 		{
-			return state->cbegin();
+			return state->cOutgoingBegin();
 		}
 
 		//! Returns the end-iterator of the transition-set of the state.
@@ -718,7 +718,7 @@ namespace Pastel
 		Transition_Iterator transitionEnd(
 			const State_ConstIterator& state)
 		{
-			return state->end();
+			return state->outgoingEnd();
 		}
 
 		//! Returns the end-iterator of the transition-set of the state.
@@ -729,7 +729,7 @@ namespace Pastel
 		Transition_ConstIterator cTransitionEnd(
 			const State_ConstIterator& state) const
 		{
-			return state->cend();
+			return state->cOutgoingEnd();
 		}
 
 		//! Removes constness from a transition-iterator.
@@ -779,6 +779,17 @@ namespace Pastel
 			finalSet_.splice(
 				finalSet_.cend(),
 				that.finalSet_);
+		}
+
+		//! Returns whether there are both start and final states.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		bool useful() const
+		{
+			return startStates() > 0 &&
+				finalStates() > 0;
 		}
 		
 	private:
@@ -839,9 +850,16 @@ namespace Pastel
 			transition != automaton.cTransitionEnd();
 			++transition)
 		{
-			stream << "(" << stateMap[transition->from()]
-				<< ", " << transition->symbol()
-				<< ") --> " << stateMap[transition->to()] << std::endl;
+			stream << "(" << stateMap[transition->from()] << ", ";
+			if (transition->symbol().empty())
+			{
+				stream << "-";
+			}
+			else
+			{
+				stream << transition->symbol();
+			};
+			stream << ") --> " << stateMap[transition->to()] << std::endl;
 		}
 
 		stream << std::endl;
