@@ -1,9 +1,10 @@
-Layered data structures
+Layered data-structures
 =======================
 
 [[Parent]]: techniques.txt
 
-09.08.2012
+Definitions
+-----------
 
 For this article, a _data-structure_ is a type together with a set of 
 _invariants_ that restrict the states of its objects to a subset of 
@@ -20,18 +21,18 @@ layered data-structure composed of trivial data-structures, whose
 instance is composed of two instances of the int data-structure:
 
 [[CppCode]]:
-	struct Person
+	struct Point
 	{
-		int age;
-		int height;
+		int x;
+		int y;
 	};
 
 Data-structures are tightly interconnected with algorithms. Fast
 algorithms necessarily rely on the use of well-selected data-structures. 
 The efficiency of these data-structures in turn depend on the use of 
 well-selected algorithms. The apparent cyclicity in this reasoning is 
-broken by the fact that the algorithms in the data structures are always
-'easier' than the algorithm the data structure is used to solve; the 
+broken by the fact that the algorithms in the data-structures are always
+'easier' than the algorithm the data-structure is used to solve; the 
 dependencies between algorithms and data-structures form a directed 
 acyclic graph.
 
@@ -39,15 +40,15 @@ For this article, an _algorithm_ is any function written in C++, together
 with an ambiguous description of the relationship between its input data 
 and output data, and its time- and space-complexity. Algorithms are
 identified by all of these properties. An algorithm is called _trivial_ 
-if it uses only trivial data structures. For example, by this definition 
+if it uses only trivial data-structures. For example, by this definition 
 the quick-sort algorithm for a native array is trivial; this is not meant 
 to imply that a trivial algorithm could not be elegant, highly efficient, 
 and very useful. Be definition then, non-trivial algorithms require 
 non-trivial data-structures. This paper concentrates on the implementation 
 of non-trivial data-structures. 
 
-Basic principles: The doubly-linked list
-----------------------------------------
+Basic principles
+----------------
 
 To demonstrate the basic principles of data-structure implementation,
 we take the doubly-linked list representing a sequence of elements. It 

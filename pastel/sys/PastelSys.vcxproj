@@ -160,6 +160,9 @@
     <ClInclude Include="dereferenced_predicate.h" />
     <ClInclude Include="epsilon_closure.h" />
     <ClInclude Include="epsilon_closure.hpp" />
+    <ClInclude Include="epsilon_closure_concepts.h" />
+    <ClInclude Include="exactly_equal.h" />
+    <ClInclude Include="exactly_equal.hpp" />
     <ClInclude Include="generic_traversal.h" />
     <ClInclude Include="graph_algorithms.h" />
     <ClInclude Include="graph_traversal.h" />

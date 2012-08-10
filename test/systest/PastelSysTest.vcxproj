@@ -186,6 +186,7 @@
     <ClCompile Include="test_depth_first_traversal.cpp" />
     <ClCompile Include="test_endian.cpp" />
     <ClCompile Include="test_eps.cpp" />
+    <ClCompile Include="test_epsilon_closure.cpp" />
     <ClCompile Include="test_fastlist.cpp" />
     <ClCompile Include="test_hash.cpp" />
     <ClCompile Include="test_incidence_graph.cpp" />
@@ -206,7 +207,6 @@
     <ClCompile Include="test_rational.cpp" />
     <ClCompile Include="test_redblacktree.cpp" />
     <ClCompile Include="test_refinable_partition.cpp" />
-    <ClCompile Include="test_regex.cpp" />
     <ClCompile Include="test_statreal.cpp" />
     <ClCompile Include="test_string_tools.cpp" />
     <ClCompile Include="test_template.cpp" />

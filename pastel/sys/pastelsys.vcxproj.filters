@@ -1564,6 +1564,15 @@
     <ClInclude Include="automaton_determinization_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
     </ClInclude>
+    <ClInclude Include="epsilon_closure_concepts.h">
+      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
+    </ClInclude>
+    <ClInclude Include="exactly_equal.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="exactly_equal.hpp">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">

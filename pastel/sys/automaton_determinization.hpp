@@ -46,7 +46,7 @@ namespace Pastel
 			StateSet, IteratorAddress_Hash> ClosureMap;
 		ClosureMap closureMap;
 		{
-			auto epsilonSetReporter =
+			auto reportEpsilon =
 				[&](const State_ConstIterator& state,
 				StateSet&& stateSet)
 			{
@@ -54,8 +54,15 @@ namespace Pastel
 					std::make_pair(state, std::move(stateSet)));
 			};
 
+			auto insertEpsilon =
+				[&](const State_ConstIterator& state,
+				StateSet& stateSet)
+			{
+				stateSet.insert(state);
+			};
+
 			epsilonClosure<StateSet>(
-				automaton, epsilonSetReporter);
+				automaton, insertEpsilon, reportEpsilon);
 		}
 
 		// This set contains the state-sets that are
