@@ -292,7 +292,7 @@ namespace Pastel
 			const State_ConstIterator& toState) 
 		{
 			const BranchMap& branch =
-				branchMap(state, symbol);
+				branchMap(fromState, symbol);
 			
 			return !branch.count(toState);
 		}

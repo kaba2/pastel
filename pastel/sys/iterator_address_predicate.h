@@ -1,4 +1,4 @@
-// Description: Comparison predicates for iterators
+// Description: Predicates for iterator-address's
 // Documentation: predicates.txt
 
 #ifndef PASTEL_ITERATORADDRESS_PREDICATE_H

@@ -1,4 +1,8 @@
-Epsilon closure of automaton states
+Epsilon-closure of automaton states
 ===================================
 
 [[Parent]]: automaton_algorithms.txt
+
+The _epsilon-closure_ of a state S of a finite-state automaton
+is the set of states that can be reached from S by following
+epsilon-transitions.
