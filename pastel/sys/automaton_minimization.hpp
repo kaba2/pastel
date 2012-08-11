@@ -17,15 +17,16 @@ namespace Pastel
 	template <
 		typename Symbol, 
 		typename StateData, 
-		typename TransitionData>
-	Automaton<Symbol, StateData, TransitionData> minimizeAutomaton(
-		const Automaton<Symbol, StateData, TransitionData>& automaton)
+		typename TransitionData,
+		typename Customization>
+	Automaton<Symbol, StateData, TransitionData, Customization> minimizeAutomaton(
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton)
 	{
 		// "Fast brief practical DFA minimization",
 		// Antti Valmari, Information Processing Letters,
 		// Volume 112, Issue 6, 2012, pp. 213-217.
 
-		typedef Automaton<Symbol, StateData, TransitionData> Automaton;
+		typedef Automaton<Symbol, StateData, TransitionData, Customization> Automaton;
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 		typedef typename Automaton::Transition_ConstIterator

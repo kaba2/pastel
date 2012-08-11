@@ -1,4 +1,4 @@
-// Description: Traversal of productive states
+// Description: Traversal of productive automaton states
 
 #ifndef PASTEL_PRODUCTIVE_STATES_H
 #define PASTEL_PRODUCTIVE_STATES_H
