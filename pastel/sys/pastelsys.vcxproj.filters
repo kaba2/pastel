@@ -310,6 +310,9 @@
     <Filter Include="Generic programming\Optional objects">
       <UniqueIdentifier>{4ddb3d62-09b9-4bf9-9307-fe52183c03a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Generic programming\Algorithm objects\Functions">
+      <UniqueIdentifier>{572d9289-a82e-49dd-ab1a-ff486ebd853c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1573,6 +1576,15 @@
     <ClInclude Include="exactly_equal.hpp">
       <Filter>Algorithms\Sequence algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="identity_function.h">
+      <Filter>Generic programming\Algorithm objects\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="functions.h">
+      <Filter>Generic programming\Algorithm objects\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="function_concept.h">
+      <Filter>Generic programming\Algorithm objects\Functions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -2018,6 +2030,9 @@
     </None>
     <None Include="techniques_layered.txt">
       <Filter>Documentation</Filter>
+    </None>
+    <None Include="functions.txt">
+      <Filter>Generic programming\Algorithm objects\Functions</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

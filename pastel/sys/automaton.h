@@ -864,7 +864,7 @@ namespace Pastel
 
 		stream << std::endl;
 
-		stream << "Start states: ";
+		stream << "Start states: { ";
 
 		std::for_each(
 			automaton.cStartBegin(),
@@ -874,9 +874,9 @@ namespace Pastel
 			stream << stateMap[state] << " ";
 		});
 
-		stream << std::endl << std::endl;
+		stream << "}" << std::endl << std::endl;
 
-		stream << "Final states: ";
+		stream << "Final states: { ";
 
 		std::for_each(
 			automaton.cFinalBegin(),
@@ -886,7 +886,7 @@ namespace Pastel
 			stream << stateMap[state] << " ";
 		});
 
-		stream << std::endl;
+		stream << "}" << std::endl;
 
 		return stream;
 	}

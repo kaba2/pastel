@@ -1,3 +1,6 @@
+// Desciprition: Dereferenced predicates
+// Documentation: predicates.txt
+
 #ifndef PASTEL_DEREFERENCED_PREDICATE_H
 #define PASTEL_DEREFERENCED_PREDICATE_H
 
