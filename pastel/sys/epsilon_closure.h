@@ -1,3 +1,5 @@
+// Description: Epsilon closure of automaton states
+
 #ifndef PASTEL_EPSILON_CLOSURE_H
 #define PASTEL_EPSILON_CLOSURE_H
 
@@ -8,7 +10,7 @@
 namespace Pastel
 {
 
-	//! Computes the epsilon-closure of each state.
+	//! Computes the epsilon-closure of each state in the automaton.
 	/*!
 	The epsilon-closure of a state A is the set of those states which 
 	are	reachable by epsilon-transitions from A. The type of the 

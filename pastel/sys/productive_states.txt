@@ -1,7 +1,7 @@
-Computating of productive states
-================================
+Traversal of productive automaton states
+========================================
 
 [[Parent]]: automaton_algorithms.txt
 
-The algorithm given here computes those states in the automaton 
-which reach at least one final state.
+The algorithm given here traverses those states in the 
+automaton which reach at least one final state.

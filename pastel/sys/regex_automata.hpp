@@ -46,22 +46,6 @@ namespace Pastel
 		typename StateData,
 		typename TransitionData,
 		typename Customization>
-	auto regularEmpty()
-		-> Automaton<Symbol, StateData, TransitionData, Customization>
-	{
-		typedef Automaton<Symbol, StateData, TransitionData, Customization>
-			Automaton;
-		typedef typename Automaton::State_ConstIterator
-			State_ConstIterator;
-
-		return Automaton();
-	}
-
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
 	auto regularEpsilon()
 		-> Automaton<Symbol, StateData, TransitionData, Customization>
 	{

@@ -1,3 +1,5 @@
+// Description: Regular expression automata
+
 #ifndef PASTEL_REGEX_AUTOMATA_H
 #define PASTEL_REGEX_AUTOMATA_H
 
@@ -6,6 +8,7 @@
 namespace Pastel
 {
 
+	//! Returns an equivalent automaton with at most one start-state.
 	template <
 		typename Symbol,
 		typename StateData,
@@ -15,14 +18,7 @@ namespace Pastel
 		Automaton<Symbol, StateData, TransitionData, Customization> automaton)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>;
 
-	template <
-		typename Symbol,
-		typename StateData,
-		typename TransitionData,
-		typename Customization>
-	auto regularEmpty()
-		-> Automaton<Symbol, StateData, TransitionData, Customization>;
-
+	//! Returns an automaton accepting {epsilon}.
 	template <
 		typename Symbol,
 		typename StateData,
@@ -31,6 +27,7 @@ namespace Pastel
 	auto regularEpsilon()
 		-> Automaton<Symbol, StateData, TransitionData, Customization>;
 
+	//! Returns an automaton accepting {symbol}.
 	template <
 		typename Symbol,
 		typename StateData,
@@ -40,6 +37,7 @@ namespace Pastel
 		const PASTEL_NO_DEDUCTION(Symbol)& symbol)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>;
 
+	//! Returns an automaton accepting L(left) union L(right).
 	template <
 		typename Symbol,
 		typename StateData,
@@ -50,6 +48,7 @@ namespace Pastel
 		Automaton<Symbol, StateData, TransitionData, Customization> right)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>;
 
+	//! Returns an automaton accepting L(left) L(right).
 	template <
 		typename Symbol,
 		typename StateData,
@@ -60,6 +59,7 @@ namespace Pastel
 		Automaton<Symbol, StateData, TransitionData, Customization> right)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>;
 	
+	//! Returns an automaton accepting L(automaton) union {epsilon}.
 	template <
 		typename Symbol,
 		typename StateData,
@@ -69,6 +69,7 @@ namespace Pastel
 		Automaton<Symbol, StateData, TransitionData, Customization> automaton)
 		-> Automaton<Symbol, StateData, TransitionData, Customization>;
 
+	//! Returns an automaton accepting L(automaton)*.
 	template <
 		typename Symbol,
 		typename StateData,

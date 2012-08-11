@@ -1,4 +1,4 @@
-Epsilon closure
-===============
+Epsilon closure of automaton states
+===================================
 
 [[Parent]]: automaton_algorithms.txt

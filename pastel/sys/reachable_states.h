@@ -1,4 +1,4 @@
-// Description: Traversal of reachable states
+// Description: Traversal of reachable automaton states
 
 #ifndef PASTEL_REACHABLE_STATES_H
 #define PASTEL_REACHABLE_STATES_H

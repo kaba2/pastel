@@ -1,4 +1,4 @@
-// Description: Automaton minimization
+// Description: Minimization of a deterministic automaton
 // Documentation: automaton_algorithms.txt
 
 #ifndef PASTEL_AUTOMATON_MINIMIZATION_H
@@ -9,25 +9,27 @@
 namespace Pastel
 {
 
-	//! Minimizes the given automaton.
+	//! Minimizes the given deterministic automaton.
 	/*!
 	Preconditions:
 	The automaton is deterministic; it has at most one start state,
-	and a transition from a state q with a symbol s always leads to
-	the same state p (this definition allows multiple such transitions).
+	there is at most one transition between states and q and p with 
+	a given symbol s, and there are no epsilon-transitions.
 
 	Time complexity:
 	O(n + m log(n)) in practice (*), where n is the number of
 	states, and m is the number of transitions.
 	
-	(*) Since we use a hash-table to sort transitions by symbols.
+	(*) Since hash-tables are used, this can't be guaranteed in the 
+	worst case, as always.
 	*/
 	template <
 		typename Symbol, 
 		typename StateData, 
-		typename TransitionData>
-	Automaton<Symbol, StateData, TransitionData> minimizeAutomaton(
-		const Automaton<Symbol, StateData, TransitionData>& automaton);
+		typename TransitionData,
+		typename Customization>
+	Automaton<Symbol, StateData, TransitionData, Customization> minimizeAutomaton(
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton);
 
 }
 
