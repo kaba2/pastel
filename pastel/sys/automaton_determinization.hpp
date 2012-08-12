@@ -6,7 +6,7 @@
 #include "pastel/sys/automaton_closure.h"
 
 #include <list>
-#include <unordered_map>
+#include <unordered_set>
 
 namespace Pastel
 {
@@ -63,8 +63,9 @@ namespace Pastel
 				stateSet.insert(state);
 			};
 
-			epsilonClosure<StateSet>(
-				automaton, insertEpsilon, reportEpsilon);
+			epsilonClosure(
+				automaton, StateSet(), 
+				insertEpsilon, reportEpsilon);
 		}
 
 		// This set contains the state-sets that are
@@ -87,14 +88,13 @@ namespace Pastel
 		// gives an iterator to the 'readySet', so that we can guarantee
 		// that when we report the user the same state-set (as part of
 		// transition), then it always has the same memory address.
-		typedef std::unordered_map<const StateSet*, Work_Iterator, 
-			Dereferenced_Hash, Dereferenced_EqualTo> VisitedMap;
-		VisitedMap visitedMap;
+		typedef std::unordered_set<const StateSet*, 
+			Dereferenced_Hash, Dereferenced_EqualTo> ExistingSet;
+		ExistingSet existingSet;
 
 		// Create the start state-set.
 		{
-			workSet.emplace_back(StateSet());
-			StateSet& startStateSet = workSet.back();
+			StateSet startStateSet;
 
 			// Add all the states in the epsilon closure
 			// of the start states into the 'startStateSet'.
@@ -110,9 +110,12 @@ namespace Pastel
 					closure.cend());
 			});
 
+			workSet.emplace_back(std::move(startStateSet));
+			existingSet.emplace(&workSet.back());
+
 			// Report the start state-set.
 			reportState(
-				(const StateSet&)startStateSet, true);
+				(const StateSet&)workSet.back(), true);
 		}
 
 		while(!workSet.empty())
@@ -126,10 +129,7 @@ namespace Pastel
 				workSet.cbegin());
 
 			const StateSet& stateSet = readySet.back();
-
-			// Mark the state-set as visited.
-			visitedMap.emplace(
-				std::make_pair(&stateSet, std::prev(readySet.end())));
+			ASSERT(existingSet.count(&stateSet));
 
 			// This set will contain, for each symbol,
 			// the states that can be reached from the
@@ -184,13 +184,14 @@ namespace Pastel
 				StateSet& newStateSet =
 					symbolStateSet->second;
 
-				auto visited = visitedMap.find(&newStateSet);
-				if (visited == visitedMap.cend())
+				auto existing = existingSet.find(&newStateSet);
+				if (existing == existingSet.cend())
 				{
 					// This state-set is a new one.
 
 					// Store the state-set in the work-set.
 					workSet.emplace_back(std::move(newStateSet));
+					existingSet.emplace(&workSet.back());
 					
 					// Report the new state-set.
 					reportState(
@@ -210,7 +211,7 @@ namespace Pastel
 					// into the state-set.
 					reportTransition(
 						(const StateSet&)stateSet, symbol, 
-						(const StateSet&)*visited->second);
+						(const StateSet&)**existing);
 				}
 			}
 		}

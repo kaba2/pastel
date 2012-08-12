@@ -153,27 +153,27 @@ namespace Pastel
 
 		// All incidences
 
-		Incidence_Iterator begin() const
+		Incidence_Iterator allBegin() const
 		{
 			return sentinel_.next_;
 		}
 
-		Incidence_Iterator end() const
+		Incidence_Iterator allEnd() const
 		{
 			return (Incidence*)&sentinel_;
 		}
 
-		Incidence_ConstIterator cbegin() const
+		Incidence_ConstIterator cAllBegin() const
 		{
 			return sentinel_.next_;
 		}
 
-		Incidence_ConstIterator cend() const
+		Incidence_ConstIterator cAllEnd() const
 		{
 			return (const Incidence*)&sentinel_;
 		}
 
-		integer incidentEdges() const
+		integer allEdges() const
 		{
 			integer result = 0;
 			for (integer i = 0;i < IncidenceTypes;++i)

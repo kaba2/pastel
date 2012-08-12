@@ -187,7 +187,6 @@
     <ClInclude Include="object_forwarding.hpp" />
     <ClInclude Include="optional.h" />
     <ClInclude Include="redblacktree_fwd.h" />
-    <ClInclude Include="regex_automata.h" />
     <ClInclude Include="pool_allocator.h" />
     <ClInclude Include="pool_allocator.hpp" />
     <ClInclude Include="productive_states_concepts.h" />
@@ -199,8 +198,6 @@
     <ClInclude Include="refinable_partition_fwd.h" />
     <ClInclude Include="refinable_partition_set.h" />
     <ClInclude Include="productive_states.h" />
-    <ClInclude Include="regex_automata.hpp" />
-    <ClInclude Include="search_automaton_customization.h" />
     <ClInclude Include="second_iterator.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="array.hpp" />
@@ -584,7 +581,6 @@
     <None Include="pool_allocator_notes.txt" />
     <None Include="read_protected.txt" />
     <None Include="refinable_partition.txt" />
-    <None Include="regex_automata.txt" />
     <None Include="second_iterator.txt" />
     <None Include="techniques_customization.txt" />
     <None Include="techniques_layered.txt" />

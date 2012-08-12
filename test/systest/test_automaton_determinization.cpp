@@ -3,7 +3,6 @@
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/regex_automata.h"
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/automaton_minimization.h"
 
@@ -27,7 +26,7 @@ namespace
 			test();
 		}
 
-		typedef Automaton<integer> Automaton;
+		typedef Automaton<integer, integer> Automaton;
 		typedef Automaton::State_ConstIterator State;
 		typedef Automaton::Transition_ConstIterator Transition;
 
@@ -36,25 +35,20 @@ namespace
 			Automaton automaton;
 
 			// Let us build the regular language
-			// (0 + 1)* 0 (0 + 1)^2.
+			// (0 + 1)* 0 (0 + 1)
 
-			Automaton zero = regularSymbol<integer, void, void, 
-				Automaton_Concepts::Customization<integer, void, void>>(0);
+			State a = automaton.addState(0);
+			State b = automaton.addState(1);
+			State c = automaton.addState(2);
 
-			Automaton one = regularSymbol<integer, void, void, 
-				Automaton_Concepts::Customization<integer, void, void>>(1);
-
-			Automaton zeroOrOne = regularUnion(zero, one);
-
-			Automaton zeroOrOneStar = regularKleeneStar(zeroOrOne);
-
-			Automaton zeroOrOneStarAndZero = 
-				regularSequence(zeroOrOneStar, zero);
-
-			Automaton regex = regularSequence(
-				zeroOrOneStarAndZero, zeroOrOne);
-
-			std::cout << regex << std::endl;
+			automaton.addTransition(a, 0, a);
+			automaton.addTransition(a, 1, a);
+			automaton.addTransition(a, 0, b);
+			automaton.addTransition(b, 0, c);
+			automaton.addTransition(b, 1, c);
+			
+			automaton.addStart(a);
+			automaton.addFinal(c);
 
 			typedef AsHashedTree<
 				State, IteratorAddress_LessThan,
@@ -100,7 +94,7 @@ namespace
 					stateMap[&toStateSet]);
 			};
 
-			determinizeAutomaton(regex,
+			determinizeAutomaton(automaton,
 				reportState, reportTransition);
 
 			std::cout << det << std::endl;

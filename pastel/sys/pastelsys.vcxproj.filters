@@ -298,9 +298,6 @@
     <Filter Include="Algorithms\Automaton algorithms\Reachable states">
       <UniqueIdentifier>{448f5e01-f2f8-4adc-9014-2f7c640b4858}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Automaton algorithms\Regular expressions">
-      <UniqueIdentifier>{4a9afe37-67da-499b-88a6-1a0882df9b65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\Hashed tree">
       <UniqueIdentifier>{99437f89-cfa2-4560-a77b-c8816a0727f1}</UniqueIdentifier>
     </Filter>
@@ -1528,9 +1525,6 @@
     <ClInclude Include="automaton_concepts.h">
       <Filter>Data structures\Automaton</Filter>
     </ClInclude>
-    <ClInclude Include="search_automaton_customization.h">
-      <Filter>Data structures\Automaton</Filter>
-    </ClInclude>
     <ClInclude Include="redblacktree_concepts.h">
       <Filter>Data structures\Binary trees\Red-black tree</Filter>
     </ClInclude>
@@ -1551,12 +1545,6 @@
     </ClInclude>
     <ClInclude Include="optional.h">
       <Filter>Generic programming\Optional objects</Filter>
-    </ClInclude>
-    <ClInclude Include="regex_automata.hpp">
-      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
-    </ClInclude>
-    <ClInclude Include="regex_automata.h">
-      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </ClInclude>
     <ClInclude Include="automaton_determinization_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
@@ -2021,9 +2009,6 @@
     </None>
     <None Include="hashed_tree.txt">
       <Filter>Data structures\Hashed tree</Filter>
-    </None>
-    <None Include="regex_automata.txt">
-      <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </None>
     <None Include="techniques_layered.txt">
       <Filter>Documentation</Filter>

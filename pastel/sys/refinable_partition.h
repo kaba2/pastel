@@ -94,8 +94,8 @@ namespace Pastel
 
 				// Then copy the elements from the
 				// set to the copy-set.
-				for (Member_ConstIterator member = set->begin();
-					member != set->end();
+				for (Member_ConstIterator member = set->cbegin();
+					member != set->cend();
 					++member)
 				{
 					Element_Iterator element = *member;
@@ -248,8 +248,8 @@ namespace Pastel
 		{
 			// Remove all the elements and members
 			// of the set.
-			auto member = set->begin();
-			auto memberEnd = set->end();
+			auto member = set->cbegin();
+			auto memberEnd = set->cend();
 			while(member != memberEnd)
 			{
 				elementSet_.erase(*member);
@@ -327,7 +327,7 @@ namespace Pastel
 					// Make it the new set.
 					newSet = setSet_.emplace(
 						setSet_.cend(),
-						Set(set->unmarkedBegin_, cast(set->end()),
+						Set(set->unmarkedBegin_, cast(set->cend()),
 						splitSet_.end(), set->unmarked(),
 						set->type(),
 						*set));
@@ -437,7 +437,7 @@ namespace Pastel
 			{
 				Member_Iterator member =
 					memberSet_.emplace(
-					set->unmarkedEnd(),
+					set->cUnmarkedEnd(),
 					element);
 
 				element->member_ = member;

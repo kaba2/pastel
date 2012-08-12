@@ -9,36 +9,59 @@
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
 #include "pastel/sys/optional.h"
+#include "pastel/sys/bidirectionaliterator_range.h"
 
 #include <unordered_map>
 
 namespace Pastel
 {
 
+	template <
+		typename Symbol, 
+		typename StateData, 
+		typename TransitionData>
+	class No_Automaton_Customization
+		: public Automaton_Concepts::Customization<Symbol, StateData, TransitionData>
+	{
+	};
+
 	//! Finite-state automaton
 	template <
 		typename Symbol, 
 		typename StateData = void, 
 		typename TransitionData = void,
-		typename Customization = Automaton_Concepts::Customization<Symbol, StateData, TransitionData>>
+		typename Customization = No_Automaton_Customization<Symbol, StateData, TransitionData>>
 	class Automaton
 		: public Customization
 	{
-	public:
+	private:
 		typedef Automaton_Fwd<Symbol, StateData, TransitionData> Fwd;
 
 		PASTEL_FWD(StateLabel);
 		PASTEL_FWD(TransitionLabel);
 		PASTEL_FWD(Graph);
-		
+
+		PASTEL_FWD(Actual_Branch_Iterator);
+		PASTEL_FWD(Actual_Branch_ConstIterator);
+
+		PASTEL_FWD(Symbol_BranchMap_Map);
+		PASTEL_FWD(Symbol_BranchMap_Iterator);
+		PASTEL_FWD(Symbol_BranchMap_ConstIterator);
+		PASTEL_FWD(StateSymbol);
+		PASTEL_FWD(StateSymbol_Hash);
+
+	public:
 		PASTEL_FWD(State_Iterator);
 		PASTEL_FWD(State_ConstIterator);
 		PASTEL_FWD(StateData_Class);
-		
+
 		PASTEL_FWD(Transition_Iterator);
 		PASTEL_FWD(Transition_ConstIterator);
 		PASTEL_FWD(TransitionData_Class);
 		
+		PASTEL_FWD(Incidence_Iterator);
+		PASTEL_FWD(Incidence_ConstIterator);
+
 		PASTEL_FWD(StartSet);
 		PASTEL_FWD(Start_Iterator);
 		PASTEL_FWD(Start_ConstIterator);
@@ -46,6 +69,10 @@ namespace Pastel
 		PASTEL_FWD(FinalSet);
 		PASTEL_FWD(Final_Iterator);
 		PASTEL_FWD(Final_ConstIterator);
+
+		PASTEL_FWD(BranchMap);
+		PASTEL_FWD(Branch_Iterator);
+		PASTEL_FWD(Branch_ConstIterator);
 
 		//! Constructs an empty automaton.
 		/*!
@@ -166,6 +193,7 @@ namespace Pastel
 			graph_.clear();
 			startSet_.clear();
 			finalSet_.clear();
+			branchMapMap_.clear();
 		}
 
 		//! Removes all transitions.
@@ -183,6 +211,7 @@ namespace Pastel
 			onClearTransitions();
 
 			graph_.clearEdges();
+			branchMapMap_.clear();
 		}
 
 		//! Removes all start-state marks.
@@ -239,6 +268,8 @@ namespace Pastel
 			graph_.swap(that.graph_);
 			startSet_.swap(that.startSet_);
 			finalSet_.swap(that.finalSet_);
+			branchMapMap_.swap(that.branchMapMap_);
+			emptyBranchMap_.swap(that.emptyBranchMap_);
 		}
 
 		// States
@@ -284,7 +315,7 @@ namespace Pastel
 
 			// Remove all transitions that are 
 			// incoming or outgoing at this vertex.
-			while(state->incidentEdges() > 0)
+			while(state->allEdges() > 0)
 			{
 				removeTransition(
 					state->cbegin()->edge());
@@ -615,17 +646,71 @@ namespace Pastel
 				return transitionEnd();
 			}
 
-			Transition_Iterator transition = graph_.addEdge(
-				fromState, toState, 
-				TransitionLabel(std::move(symbol), std::move(transitionData)));
+			integer rollback = 0;
+
+			// See if the branch-set for the transition
+			// symbol already exists.
+			Symbol_BranchMap_Iterator branchMap =
+				branchMapMap_.find(
+				StateSymbol(fromState, symbol));
+			Actual_Branch_Iterator branch;
+
+			if (branchMap == branchMapMap_.end())
+			{
+				// The branch-set does not exist,
+				// create it now.
+				branchMap = branchMapMap_.insert(
+					std::make_pair(StateSymbol(fromState, symbol),
+					BranchMap())).first;
+			}
+			else
+			{
+				// The branch-set already exists.
+				// See if the branch is already there.
+				branch = branchMap->second.find(toState);
+				if (branch != branchMap->second.cend())
+				{
+					// The transition is already present in the
+					// automaton. Do nothing.
+					return cast(branch->second);
+				}
+			}
+			++rollback;
+
+			Transition_Iterator transition;
 
 			try
 			{
+				// Add the transition into the graph.
+				transition = graph_.addEdge(
+					fromState, toState, 
+					TransitionLabel(std::move(symbol), std::move(transitionData)));
+				++rollback;
+
+				// Add the transition into the branch set.
+				branch = branchMap->second.insert(
+					std::make_pair(toState, transition)).first;
+				++rollback;
+
 				onAddTransition(transition);
 			}
 			catch(...)
 			{
-				graph_.removeEdge(transition);
+				switch(rollback)
+				{
+				case 3:
+					branchMap->second.erase(branch);
+					// Fall-through
+				case 2:
+					graph_.removeEdge(transition);
+					// Fall-through
+				case 1:
+					if (branchMap->second.empty())
+					{
+						branchMapMap_.erase(branchMap);
+					}
+					break;
+				};
 				throw;
 			}
 
@@ -644,6 +729,17 @@ namespace Pastel
 			const Transition_ConstIterator& transition)
 		{
 			onRemoveTransition(transition);
+
+			Symbol_BranchMap_Iterator branchMap =
+				branchMapMap_.find(StateSymbol(
+				transition->from(), transition->symbol()));
+			ASSERT(branchMap != branchMapMap_.end());
+
+			branchMap->second.erase(transition);
+			if (branchMap->second.empty())
+			{
+				branchMapMap_.erase(branchMap);
+			}
 
 			return graph_.removeEdge(transition);
 		}
@@ -688,48 +784,92 @@ namespace Pastel
 			return graph_.cEdgeEnd();
 		}
 
-		//! Returns the first iterator of the transition-set of the state.
+		//! Returns the first iterator of the outgoing incidences of the state.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Transition_Iterator transitionBegin(
+		Incidence_Iterator outgoingBegin(
 			const State_ConstIterator& state)
 		{
 			return state->outgoingBegin();
 		}
 
-		//! Returns the first iterator of the transition-set of the state.
+		//! Returns the first iterator of the outgoing incidences of the state.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Transition_ConstIterator cTransitionBegin(
+		Incidence_ConstIterator cOutgoingBegin(
 			const State_ConstIterator& state) const
 		{
 			return state->cOutgoingBegin();
 		}
 
-		//! Returns the end-iterator of the transition-set of the state.
+		//! Returns the end-iterator of the outgoing incidences of the state.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Transition_Iterator transitionEnd(
+		Incidence_Iterator outgoingEnd(
 			const State_ConstIterator& state)
 		{
 			return state->outgoingEnd();
 		}
 
-		//! Returns the end-iterator of the transition-set of the state.
+		//! Returns the end-iterator of the outgoing incidences of the state.
 		/*!
 		Time complexity: O(1)
 		Exception safety: nothrow
 		*/
-		Transition_ConstIterator cTransitionEnd(
+		Incidence_ConstIterator cOutgoingEnd(
 			const State_ConstIterator& state) const
 		{
 			return state->cOutgoingEnd();
+		}
+
+		//! Returns the first iterator of the incoming incidences of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Incidence_Iterator incomingBegin(
+			const State_ConstIterator& state)
+		{
+			return state->incomingBegin();
+		}
+
+		//! Returns the first iterator of the incoming incidences of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Incidence_ConstIterator cIncomingBegin(
+			const State_ConstIterator& state) const
+		{
+			return state->cIncomingBegin();
+		}
+
+		//! Returns the end-iterator of the incoming incidences of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Incidence_Iterator incomingEnd(
+			const State_ConstIterator& state)
+		{
+			return state->incomingEnd();
+		}
+
+		//! Returns the end-iterator of the incoming incidences of the state.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
+		Incidence_ConstIterator cIncomingEnd(
+			const State_ConstIterator& state) const
+		{
+			return state->cIncomingEnd();
 		}
 
 		//! Removes constness from a transition-iterator.
@@ -758,14 +898,26 @@ namespace Pastel
 		//! Merges two automata together.
 		/*!
 		Time complexity: 
-		O(1) + customization
+		O(transitions() + that.transitions()) + customization
 
 		Exception safety: 
-		nothrow + customization
+		strong + customization
 		*/
 		void merge(Automaton& that)
 		{
 			onMerge(that);
+
+			Symbol_BranchMap_Map branchMapMap;
+			
+			branchMapMap.insert(
+				branchMapMap_.begin(),
+				branchMapMap_.end());
+			
+			branchMapMap.insert(
+				that.branchMapMap_.begin(),
+				that.branchMapMap_.end());
+			
+			branchMapMap_.swap(branchMapMap);
 
 			// Bring in the graph.
 			graph_.merge(that.graph_);
@@ -791,8 +943,76 @@ namespace Pastel
 			return startStates() > 0 &&
 				finalStates() > 0;
 		}
+
+		// Branch-sets
 		
+		BidirectionalIterator_Range<Branch_ConstIterator> cBranchRange(
+			const State_ConstIterator& state,
+			const Optional<Symbol>& symbol) const
+		{
+			const BranchMap& map = branchMap(state, symbol);
+
+			return range(
+				Branch_ConstIterator(map.cbegin()),
+				Branch_ConstIterator(map.cend()));
+		}
+
+		//! Returns whether there is a transition from 'state' with 'symbol'.
+		/*!
+		Time complexity: O(1) on average
+		Exception safety: nothrow
+		*/
+		bool existsTransition(
+			const State_ConstIterator& state,
+			const Symbol& symbol) const
+		{
+			const BranchMap& branch =
+				branchMap(state, symbol);
+			return !branch.empty();
+		}
+
+		Transition_ConstIterator findTransition(
+			const State_ConstIterator& state,
+			const Symbol& symbol) const
+		{
+			const BranchMap& branch =
+				branchMap(state, symbol);
+
+			if (branch.empty())
+			{
+				return ((Automaton&)*this).cTransitionEnd();
+			}
+
+			return branch.cbegin()->second;
+		}
+
 	private:
+		//! Returns the set of branches from 'state' with 'symbol'.
+		/*!
+		Time complexity:
+		O(1) on average
+
+		Exception safety:
+		nothrow
+
+		A set of transitions which share the from-state and the
+		symbol is called a branch-set (because if there is more
+		than one branch, then the computation in an NFA branches).
+		*/
+		const BranchMap& branchMap(
+			const State_ConstIterator& state,
+			const Optional<Symbol>& symbol) const
+		{
+			Symbol_BranchMap_ConstIterator branchMap =
+				branchMapMap_.find(StateSymbol(state, symbol));
+			if (branchMap == branchMapMap_.cend())
+			{
+				return emptyBranchMap_;
+			}
+
+			return branchMap->second;
+		}
+
 		//! The underlying graph.
 		Graph graph_;
 		
@@ -801,6 +1021,9 @@ namespace Pastel
 
 		//! The set of final states.
 		FinalSet finalSet_;
+
+		Symbol_BranchMap_Map branchMapMap_;
+		BranchMap emptyBranchMap_;
 	};
 
 }

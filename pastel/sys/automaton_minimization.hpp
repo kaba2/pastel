@@ -188,7 +188,7 @@ namespace Pastel
 		{
 			Optional<Symbol> symbol = transition->symbol();
 			// The automaton should be deterministic.
-			ENSURE(symbol != Epsilon());
+			ENSURE(!symbol.empty());
 
 			if (!relevantSet.count(transition->from()) ||
 				!relevantSet.count(transition->to()))
@@ -245,7 +245,7 @@ namespace Pastel
 			// if and only if either all or none of the states
 			// in the block have a transition in the cord.
 			std::for_each(
-				cord->begin(), cord->end(),
+				cord->cbegin(), cord->cend(),
 				[&](const CordElement_Iterator& element)
 			{
 				Transition_ConstIterator transition =
@@ -280,7 +280,7 @@ namespace Pastel
 				// of the transitions in the cord end-up in
 				// the block.
 				std::for_each(
-					block->begin(), block->end(),
+					block->cbegin(), block->cend(),
 					[&](const BlockElement_Iterator& element)
 				{
 					State_ConstIterator state =
@@ -324,7 +324,7 @@ namespace Pastel
 
 			// Pick any state from the block.
 			State_ConstIterator state =
-				**(block->begin());
+				**(block->cbegin());
 			if (state->final())
 			{
 				// If one of the states in the block is
@@ -343,7 +343,7 @@ namespace Pastel
 
 			// Pick any state from the block...
 			State_ConstIterator state =
-				**(block->begin());
+				**(block->cbegin());
 
 			// ... and report its transitions.
 			// The transitions are the same for all

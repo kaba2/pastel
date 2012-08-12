@@ -37,10 +37,28 @@ namespace Pastel
 		{
 		}
 
-		Optional(Optional&& that)
-			: Type_Class(std::move((Type_Class&)that))
+		template <typename That>
+		Optional(const Optional<That>& that)
+			: Type_Class(that)
 			, empty_(that.empty_)
 		{
+			// Note that this function never 
+			// matches the copy-constructor.
+		}
+
+		Optional(Optional&& that)
+			: Type_Class(std::move(that.data()))
+			, empty_(std::move(that.empty_))
+		{
+		}
+
+		template <typename That>
+		Optional(Optional<That>&& that)
+			: Type_Class(std::move(that.data()))
+			, empty_(std::move(that.empty_))
+		{
+			// Note that this function never 
+			// matches the move-constructor.
 		}
 
 		template <typename That>
@@ -57,12 +75,34 @@ namespace Pastel
 			return *this;
 		}
 
-		bool operator==(const Epsilon& that) const
+		template <typename That>
+		bool operator==(const Optional<That>& that) const
 		{
-			return empty();
+			return compare(that);
 		}
 
-		bool operator!=(const Epsilon& that) const
+		template <typename That>
+		bool operator!=(const Optional<That>& that) const
+		{
+			return !compare.that();
+		}
+
+		template <typename That>
+		bool operator==(const That& that) const
+		{
+			// Treat 'that' as if it was a non-empty
+			// optional.
+
+			if (empty())
+			{
+				return false;
+			}
+
+			return data() == that;
+		}
+
+		template <typename That>
+		bool operator!=(const That& that) const
 		{
 			return !(*this == that);
 		}
@@ -86,6 +126,32 @@ namespace Pastel
 		}
 
 	private:
+		template <typename That>
+		bool compare(const Optional<That>& that) const
+		{
+			if (empty() != that.empty())
+			{
+				return false;
+			}
+			
+			if (empty())
+			{
+				return true;
+			}
+
+			return data() == that.data();
+		}
+
+		Type_Class& data()
+		{
+			return (Type_Class&)*this;
+		}
+
+		const Type_Class& data() const
+		{
+			return (const Type_Class&)*this;
+		}
+
 		bool empty_;
 	};
 

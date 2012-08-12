@@ -12,21 +12,22 @@ namespace Pastel
 {
 
 	template <
-		typename StateSet,
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
 		typename Customization,
-		typename IsClosureSymbol,
+		typename StateSet,
+		typename ForEachRelated,
 		typename Insert_State,
 		typename Closure_Reporter>
 	void automatonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const IsClosureSymbol& isClosureSymbol,
+		const StateSet& emptySet,
+		const ForEachRelated& forEachRelated,
 		const Insert_State& insert,
 		const Closure_Reporter& report)
 	{
-		typedef Automaton<Symbol, StateData, TransitionData>
+		typedef Automaton<Symbol, StateData, TransitionData, Customization>
 			Automaton;
 		typedef Automaton::State_ConstIterator
 			State_ConstIterator;
@@ -43,36 +44,13 @@ namespace Pastel
 			}
 		};
 
-		// The epsilon-set of a state A contains the epsilon-set
-		// of a state B if and only if there is an epsilon-transition 
-		// from A to B.
-		auto forEachRelated =
-			[&](const State_ConstIterator& vertex,
-			const std::function<void(const State_ConstIterator&)>& visit)
-		{
-			// This is less efficient than it could be.
-			// Here we traverse over all outgoing transitions,
-			// while an automaton with the search-customization
-			// could visit exactly those transitions with the 
-			// epsilon symbol.
-			for (auto incidence = vertex->cOutgoingBegin();
-				incidence != vertex->cOutgoingEnd();
-				++incidence)
-			{
-				if (isClosureSymbol(incidence->edge()->symbol()))
-				{
-					visit(incidence->vertex());
-				}
-			}
-		};
-
 		// Each state contributes itself to an closure-set,
 		// if referenced by a transition with a closure symbol.
 		auto directSet =
 			[&](const State_ConstIterator& state)
 			-> StateSet
 		{
-			StateSet stateSet;
+			StateSet stateSet(emptySet);
 			insert(state, stateSet);
 			return stateSet;
 		};
@@ -85,7 +63,7 @@ namespace Pastel
 			std::for_each(right.cbegin(), right.cend(),
 				[&](const State_ConstIterator& state)
 			{
-				left.insert(state);
+				insert(state, left);
 			});
 
 			return left;
@@ -94,32 +72,51 @@ namespace Pastel
 		// Compute the closure-sets by reflexive-transitive 
 		// functional closure.
 		transitiveClosure<State_ConstIterator, StateSet>(
-			StateSet(), directSet, unionOp, 
+			emptySet, directSet, unionOp, 
 			forEachRelated, forEachDomain,
 			report, true, IteratorAddress_Hash());
 	}
 
 	template <
-		typename StateSet,
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
 		typename Customization,
+		typename StateSet,
 		typename Insert_State,
 		typename Closure_Reporter>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
+		const StateSet& emptySet,
 		const Insert_State& insert,
 		const Closure_Reporter& report)
 	{
-		auto isClosureSymbol =
-			[&](const Optional<Symbol>& symbol)
+		typedef Automaton<Symbol, StateData, TransitionData, Customization>
+			Automaton;
+		typedef Automaton::State_ConstIterator
+			State_ConstIterator;
+		typedef Automaton::Transition_ConstIterator
+			Transition_ConstIterator;
+
+		typedef Automaton::BranchMap BranchMap;
+
+		auto forEachRelated =
+			[&](const State_ConstIterator& state, 
+			const std::function<void(const State_ConstIterator&)>& visit)
 		{
-			return symbol.empty();
+			auto branchRange = automaton.cBranchRange(state, Epsilon());
+
+			std::for_each(
+				branchRange.begin(), 
+				branchRange.end(),
+				[&](const Transition_ConstIterator& transition)
+			{
+				visit(transition->to());
+			});
 		};
 
-		return automatonClosure<StateSet>(
-			automaton, isClosureSymbol, 
+		return automatonClosure(
+			automaton, emptySet, forEachRelated, 
 			insert, report);
 	}
 
