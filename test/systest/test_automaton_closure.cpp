@@ -1,9 +1,9 @@
-// Description: Testing for epsilon closure
+// Description: Testing for automaton closure
 // Documentation: unit_testing.txt
 
 #include "pastelsystest.h"
 
-#include "pastel/sys/epsilon_closure.h"
+#include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/sequence_algorithms.h"
 #include "pastel/sys/predicates.h"
 
@@ -74,7 +74,7 @@ namespace
 				stateSet.insert(state);
 			};
 
-			epsilonClosure<StateSet>(automaton,	insert, report);
+			epsilonClosure<StateSet>(automaton, insert, report);
 			
 			{
 				State correctClosure[] = {a, b, c};
@@ -118,7 +118,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("epsilonClosure", test);
+		testRunner().add("automatonClosure", test);
 	}
 
 	CallFunction run(addTest);

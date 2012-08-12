@@ -158,9 +158,9 @@
     <ClInclude Include="depth_first_traversal.h" />
     <ClInclude Include="depth_first_traversal.hpp" />
     <ClInclude Include="dereferenced_predicate.h" />
-    <ClInclude Include="epsilon_closure.h" />
-    <ClInclude Include="epsilon_closure.hpp" />
-    <ClInclude Include="epsilon_closure_concepts.h" />
+    <ClInclude Include="automaton_closure.h" />
+    <ClInclude Include="automaton_closure.hpp" />
+    <ClInclude Include="automaton_closure_concepts.h" />
     <ClInclude Include="exactly_equal.h" />
     <ClInclude Include="exactly_equal.hpp" />
     <ClInclude Include="functions.h" />
@@ -569,7 +569,7 @@
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
-    <None Include="epsilon_closure.txt" />
+    <None Include="automaton_closure.txt" />
     <None Include="functions.txt" />
     <None Include="graph_traversal.txt" />
     <None Include="hash.txt" />

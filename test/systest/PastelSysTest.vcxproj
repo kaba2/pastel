@@ -186,7 +186,7 @@
     <ClCompile Include="test_depth_first_traversal.cpp" />
     <ClCompile Include="test_endian.cpp" />
     <ClCompile Include="test_eps.cpp" />
-    <ClCompile Include="test_epsilon_closure.cpp" />
+    <ClCompile Include="test_automaton_closure.cpp" />
     <ClCompile Include="test_fastlist.cpp" />
     <ClCompile Include="test_hash.cpp" />
     <ClCompile Include="test_incidence_graph.cpp" />
