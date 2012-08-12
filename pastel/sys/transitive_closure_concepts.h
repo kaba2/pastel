@@ -64,7 +64,7 @@ namespace Pastel
 			//! Visits each x' in X such that x ~ x'.
 			void operator()(
 				const Domain& x,
-				const std::function<void(const Domain&)>& visitor) const;
+				const std::function<void(const Domain&)>& visit) const;
 		};
 
 		class Closure_Reporter

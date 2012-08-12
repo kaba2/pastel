@@ -41,15 +41,28 @@ namespace
 			int b;
 		};
 
+		void f(integer x)
+		{
+		}
+
+		void g(Optional<integer> x)
+		{
+		}
+
 		void test()
 		{
 			Optional<integer> a;
 			TEST_ENSURE(a.empty());
-			TEST_ENSURE(a == 0);
-			
+			// The zero is treated as a non-empty
+			// optional: therefore it should not
+			// match.
+			TEST_ENSURE(a != 0);
+			TEST_ENSURE(a != 0.0);
+
 			a = 2;
 			TEST_ENSURE(!a.empty());
 			TEST_ENSURE(a == 2);
+			TEST_ENSURE(a == 2.0);
 
 			a.clear();
 			TEST_ENSURE(a.empty());
@@ -64,6 +77,13 @@ namespace
 			b = B(2);
 			TEST_ENSURE(!b.empty());
 			TEST_ENSURE(b.b == 2);
+
+			// Optional<Type> is implicitly convertible 
+			// to type.
+			f(a);
+
+			// Type is implicitly convertible to Optional<Type>.
+			g(3);
 		}
 	};
 

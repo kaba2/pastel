@@ -27,7 +27,7 @@ namespace Pastel
 
 	}
 
-	template <typename Iterator, bool Const = false>
+	template <typename Iterator, bool Const>
 	class Second_Iterator
 		: boost::less_than_comparable<Second_Iterator<Iterator, Const>
 		, boost::unit_steppable<Second_Iterator<Iterator, Const>

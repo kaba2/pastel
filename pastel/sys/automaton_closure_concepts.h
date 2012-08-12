@@ -23,17 +23,13 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		class IsClosureSymbol
+		class ForEachRelated
 		{
 		public:
-			//! Returns whether the symbol takes part in closures.
-			/*!
-			The closure of a state A is the set of those states that
-			can be reached from A through transitions with closure 
-			symbols.
-			*/
+			//! Visits each state in the direct closure of 'state'.
 			bool operator()(
-				const Optional<Symbol>& symbol) const;
+				const State_ConstIterator& state,
+				const std::function<void(const State_ConstIterator&)>& visit) const;
 		};
 
 		class Closure_Reporter

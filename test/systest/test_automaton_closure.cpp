@@ -74,7 +74,7 @@ namespace
 				stateSet.insert(state);
 			};
 
-			epsilonClosure<StateSet>(automaton, insert, report);
+			epsilonClosure(automaton, StateSet(), insert, report);
 			
 			{
 				State correctClosure[] = {a, b, c};

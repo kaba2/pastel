@@ -78,7 +78,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Member_ConstIterator begin() const
+		Member_ConstIterator cbegin() const
 		{
 			return begin_;
 		}
@@ -88,7 +88,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Member_ConstIterator end() const
+		Member_ConstIterator cend() const
 		{
 			return elements() > 0 ? std::next(last_) : last_;
 		}
@@ -98,7 +98,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Member_ConstIterator unmarkedBegin() const
+		Member_ConstIterator cUnmarkedBegin() const
 		{
 			return unmarkedBegin_;
 		}
@@ -108,9 +108,9 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Member_ConstIterator unmarkedEnd() const
+		Member_ConstIterator cUnmarkedEnd() const
 		{
-			return end();
+			return cend();
 		}
 
 		//! Returns the first iterator of the marked members.
@@ -118,9 +118,9 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Member_ConstIterator markedBegin() const
+		Member_ConstIterator cMarkedBegin() const
 		{
-			return begin();
+			return cbegin();
 		}
 
 		//! Returns the end-iterator of the marked members.
@@ -128,7 +128,7 @@ namespace Pastel
 		Time complexity: constant
 		Exception safety: nothrow
 		*/
-		Member_ConstIterator markedEnd() const
+		Member_ConstIterator cMarkedEnd() const
 		{
 			return unmarkedBegin_;
 		}
@@ -323,7 +323,7 @@ namespace Pastel
 		{
 			ASSERT(&*set == this);
 
-			auto memberEnd = end();
+			auto memberEnd = cend();
 			for (auto member = begin_; 
 				member != memberEnd; 
 				++member)

@@ -22,7 +22,7 @@ namespace
 	class A;
 
 	typedef std::map<A, A> PairSet;
-	typedef Second_Iterator<PairSet::iterator> Pair_Iterator;
+	typedef Second_Iterator<PairSet::iterator, false> Pair_Iterator;
 	typedef Second_Iterator<PairSet::const_iterator, true> Pair_ConstIterator;
 
 	class A

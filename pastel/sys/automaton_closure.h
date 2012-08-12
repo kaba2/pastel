@@ -13,16 +13,16 @@ namespace Pastel
 	//! Computes the closure of each state in the automaton.
 	/*!
 	The closure of a state A is the set of those states which 
-	are	reachable from a by transitions with closure symbols. 
+	are	reachable from A by transitions with closure symbols. 
 	The type of the state-set to contain these states needs to 
 	be explicitly specified by the user. Have a look at 
 	automaton_closure_concepts.h for more information.
 
 	Preconditions:
-	StateSet is default-constructible.
+	StateSet is copy-constructible.
 
-	isClosureSymbol:
-	Returns whether the given symbol is a closure symbol.
+	forEachRelated:
+	Visits each state in the direct closure of 'state'.
 
 	insert:
 	Inserts the given state in the given state-set.
@@ -31,35 +31,37 @@ namespace Pastel
 	Reports the closure-set of a specific state.
 	*/
 	template <
-		typename StateSet,
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
 		typename Customization,
-		typename IsClosureSymbol,
+		typename StateSet,
+		typename ForEachRelated,
 		typename Insert_State,
 		typename Closure_Reporter>
 	void automatonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
-		const IsClosureSymbol& isClosureSymbol,
+		const StateSet& emptySet,
+		const ForEachRelated& forEachRelated,
 		const Insert_State& insert,
 		const Closure_Reporter& report);
 
 	//! Compures the epsilon-closure of each state in the automaton.
 	/*!
 	This is a convenience function which calls automatonClosure()
-	with the IsClosureSymbol recognizing the epsilon-transitions.
+	with the ForEachRelated traversing the epsilon-transitions.
 	*/
 	template <
-		typename StateSet,
 		typename Symbol,
 		typename StateData,
 		typename TransitionData,
 		typename Customization,
+		typename StateSet,
 		typename Insert_State,
 		typename Closure_Reporter>
 	void epsilonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
+		const StateSet& emptySet,
 		const Insert_State& insert,
 		const Closure_Reporter& report);
 }

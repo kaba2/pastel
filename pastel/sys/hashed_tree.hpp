@@ -51,7 +51,7 @@ namespace Pastel
 		{
 			// Note that this testing for equality of
 			// item-sets relies on the items being ordered
-			// the same way, as is the case with ItemSet.
+			// the same way, as is the case with RedBlackTree.
 			result = std::equal(
 				left.cbegin(), left.cend(),
 				right.cbegin());

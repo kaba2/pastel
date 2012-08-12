@@ -53,8 +53,8 @@ namespace
 				std::begin(data), std::end(data));
 			std::sort(aSet.begin(), aSet.end());
 
-			auto iter = set->begin();			
-			auto end = set->end();
+			auto iter = set->cbegin();			
+			auto end = set->cend();
 
 			std::vector<Type> bSet;
 			while(iter != end)
@@ -205,8 +205,8 @@ namespace
 		void print(const Partition& partition)
 		{
 			std::for_each(
-				partition.cSetBegin()->begin(),
-				partition.cSetBegin()->end(),
+				partition.cSetBegin()->cbegin(),
+				partition.cSetBegin()->cend(),
 				[&](const Element_ConstIterator& element)
 			{
 				std::cout << *element << " ";

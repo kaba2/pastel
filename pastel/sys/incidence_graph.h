@@ -221,7 +221,7 @@ namespace Pastel
 			const Vertex_ConstIterator& vertex)
 		{
 			// Remove all edges incident to this vertex.
-			while(vertex->incidentEdges() > 0)
+			while(vertex->allEdges() > 0)
 			{
 				// Note that self-loops contribute twice
 				// to the set of incidences, while the other edges
@@ -232,7 +232,7 @@ namespace Pastel
 				// from the incidenceSet in an arbitrary way.
 				// This is why we do the removal so that we always
 				// retrieve a fresh incidence iterator.
-				removeEdge(vertex->cbegin()->edge());
+				removeEdge(vertex->cAllBegin()->edge());
 			}
 
 			// Remove the vertex.
