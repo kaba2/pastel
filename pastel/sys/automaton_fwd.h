@@ -117,8 +117,8 @@ namespace Pastel
 			StateSymbol(
 				State_ConstIterator state_,
 				Optional<Symbol> symbol_)
-				: state(state_)
-				, symbol(symbol_)
+				: state(std::move(state_))
+				, symbol(std::move(symbol_))
 			{
 			}
 			

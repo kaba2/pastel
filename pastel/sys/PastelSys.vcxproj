@@ -220,6 +220,7 @@
     <ClInclude Include="productive_states.hpp" />
     <ClInclude Include="reachable_states.h" />
     <ClInclude Include="reachable_states.hpp" />
+    <ClInclude Include="underlined.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
     <ClInclude Include="view_tools.hpp" />

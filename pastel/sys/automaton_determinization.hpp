@@ -134,7 +134,8 @@ namespace Pastel
 			// This set will contain, for each symbol,
 			// the states that can be reached from the
 			// current state-set by following transitions
-			// with this symbol.
+			// with this symbol. Note this set will not
+			// contain epsilons, so using Symbol is ok.
 			typedef std::unordered_map<
 				Symbol, StateSet> SymbolStateSetMap;
 			SymbolStateSetMap symbolStateSetMap;

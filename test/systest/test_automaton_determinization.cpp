@@ -50,6 +50,10 @@ namespace
 			automaton.addStart(a);
 			automaton.addFinal(c);
 
+			TEST_ENSURE(!automaton.deterministic());
+
+			std::cout << automaton << std::endl;
+
 			typedef AsHashedTree<
 				State, IteratorAddress_LessThan,
 				IteratorAddress_Hash>::type StateSet;
@@ -96,10 +100,12 @@ namespace
 
 			determinizeAutomaton(automaton,
 				reportState, reportTransition);
+			TEST_ENSURE(det.deterministic());
 
 			std::cout << det << std::endl;
 
 			Automaton minimal = minimizeAutomaton(det);
+			TEST_ENSURE(minimal.deterministic());
 
 			std::cout << minimal << std::endl;
 		}

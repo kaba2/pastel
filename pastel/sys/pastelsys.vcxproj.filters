@@ -1573,6 +1573,9 @@
     <ClInclude Include="automaton_closure_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Automaton closure</Filter>
     </ClInclude>
+    <ClInclude Include="underlined.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
