@@ -1,5 +1,0 @@
-Regular expression automata
-===========================
-
-[[Parent]]: automaton_algorithms.txt
-
