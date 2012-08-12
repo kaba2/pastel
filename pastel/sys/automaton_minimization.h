@@ -12,9 +12,7 @@ namespace Pastel
 	//! Minimizes the given deterministic automaton.
 	/*!
 	Preconditions:
-	The automaton is deterministic; it has at most one start state,
-	there is at most one transition between states and q and p with 
-	a given symbol s, and there are no epsilon-transitions.
+	automaton.deterministic()
 
 	Time complexity:
 	O(n + m log(n)) in practice (*), where n is the number of

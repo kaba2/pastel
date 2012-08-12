@@ -19,6 +19,7 @@
 #define PASTEL_REMOVE_BRACKETS(x) typename Pastel::RemoveBrackets<void (x)>::Type
 #define PASTEL_NO_DEDUCTION(x) PASTEL_REMOVE_BRACKETS(x)
 #define PASTEL_FWD(member) typedef typename Fwd::member member
+#define PASTEL_FWD_(member) typedef Fwd::member member
 
 #define PASTEL_STATIC_ASSERT(x) static_assert((x), #x);
 

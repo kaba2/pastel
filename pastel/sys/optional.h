@@ -32,14 +32,14 @@ namespace Pastel
 		}
 
 		Optional(const Optional& that)
-			: Type_Class(that)
+			: Type_Class(that.data())
 			, empty_(that.empty_)
 		{
 		}
 
 		template <typename That>
 		Optional(const Optional<That>& that)
-			: Type_Class(that)
+			: Type_Class(that.data())
 			, empty_(that.empty_)
 		{
 			// Note that this function never 
@@ -61,17 +61,16 @@ namespace Pastel
 			// matches the move-constructor.
 		}
 
-		template <typename That>
-		Optional(That&& that)
-			: Type_Class(std::forward<That>(that))
+		Optional(Type that)
+			: Type_Class(std::move(that))
 			, empty_(false)
 		{
 		}
 
 		Optional& operator=(Optional that)
 		{
-			Type_Class::operator=(that);
-			empty_ = that.empty_;
+			Type_Class::operator=(std::move(that.data()));
+			empty_ = std::move(that.empty_);
 			return *this;
 		}
 

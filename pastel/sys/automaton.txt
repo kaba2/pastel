@@ -9,18 +9,17 @@ finite-state automata.
 Definitions
 -----------
 
-A _finite-state automaton_ is a finite labeled directed [graph][Graph]
-with vertices ''Q'', called the _states_, and ''Sigma''-labeled 
-edges 'T', called the _transitions_, together with a set of _start_ 
-states ''S subset Q'', and a set of _final_ states ''F subset Q''.
-
-Let ''~~> subset (Q times Sigma) times Q'' be a relation such that
-''(q, s) ~~> p'' if and only if there exists a transition ''t in T''
-from ''q'' to ''p'' with the label ''s''. Then the ''~~>'' is called 
-the _transition relation_. The transition relation is extended to 
-''Q times Sigma^*'' by ''(q, epsilon) ~~> q'', and ''(q, xs) ~~> p'' 
+A _finite-state_ automaton is a tuple ''(Q, Sigma, S, ~~>, F)'',
+where ''Q'' and ''Sigma'' are finite sets, called the _states_ and 
+the _symbols_, respectively, ''S subset Q'' and ''F subset Q'' are 
+finite sets, called the _start states_ and the _final states_, 
+respectively, and ''~~> subset (Q times Sigma) times Q'' is a relation,
+called the _transition relation_. The transition relation is extended 
+to ''Q times Sigma^*'' by ''(q, epsilon) ~~> q'', and ''(q, xs) ~~> p'' 
 if and only if there exists ''r in Q'' such that ''(q, x) ~~> r'' 
-and ''(r, s) ~~> p''.
+and ''(r, s) ~~> p''. Every transition relation can be represented 
+as a ''Sigma''-edge-labeled directed graph _without_ multiple transitions
+with the same symbol between two states, and vice versa.
 
 A finite-state automaton is called _deterministic_ if and only if it
 has at most one start-state, and the transition relation is a partial
@@ -42,27 +41,6 @@ a set of start-states, one can
  ''S = S_1 union S_2'', ''F = F_1 union F_2'',
  ''Sigma = Sigma_1 union Sigma_2'', and ''T = T_1 union T_2''.
 
-### Traditional definition
-
-A slightly weaker, but more traditional, definition is the following.
-A _finite-state_ automaton is a tuple ''(Q, Sigma, S, ~~>, F)'',
-where ''Q'' and ''Sigma'' are finite sets, called the _states_ and 
-the _symbols_, respectively, ''S subset Q'' and ''F subset Q'' are 
-finite sets, called the _start states_ and the _final states_, 
-respectively, and ''~~> subset (Q times Sigma) times Q'' is a relation,
-called the _transition relation_.
-
-The difference between this definition and the definition above is that
-the latter allows for multiple transitions between two states with the 
-same symbol, while the former does not. The two definitions are equal
-in recognition power, and the definitions given above using the transition
-relation hold here too. The finite-state automaton in this traditional
-sense is a finite-state automaton in the above sense when it is defined
-that there is a transition from ''q'' to ''p'' with a label ''s'' if
-and only if ''(q, s) ~~> p''.
-
-[Graph]: [[Ref: incidence_graph.txt]]
-
 Data structure
 --------------
 
@@ -70,12 +48,20 @@ The data structure underlying the automaton is the
 [[Link: incidence_graph.txt]]; the automaton has all the 
 properties that the `IncidenceGraph` has. In addition, it
 
- * stores the set of start-states and the set of final-states, and also 
+* can represent any non-deterministic automaton, with epsilon-transitions,
+* stores the set of start-states and the set of final-states, and also 
 makes this information available so that a state can tell whether it
 is a start- or a final-state,
-* can merge two automata in constant time to yield the 
-(non-deterministic) automaton recognizing the union of the languages 
-recognized by the automata,
+* can give a list of all transitions from a given state with a given
+symbol in average O(1) time,
+* can check whether there is a transition between two states with a
+given symbol in average O(1),
+* can check whether the automaton is deterministic in O(1) time,
+* can be fully [customized][Customization] to add extra functionality,
+* can associate user-data at with states and transitions,
+
+[Customization]: [[Ref]]: techniques_customization.txt
+
 
 
 

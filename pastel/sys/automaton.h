@@ -83,6 +83,8 @@ namespace Pastel
 			: graph_()
 			, startSet_()
 			, finalSet_()
+			, epsilonTransitions_(0)
+			, ambiguousTransitions_(0)
 		{
 		}
 
@@ -98,6 +100,8 @@ namespace Pastel
 			: graph_()
 			, startSet_()
 			, finalSet_()
+			, epsilonTransitions_(0)
+			, ambiguousTransitions_(0)
 		{
 			// This will map states from 'that' automaton
 			// to this automaton.
@@ -157,6 +161,8 @@ namespace Pastel
 			: graph_()
 			, startSet_()
 			, finalSet_()
+			, epsilonTransitions_(0)
+			, ambiguousTransitions_(0)
 		{
 			swap(that);
 		}
@@ -194,6 +200,8 @@ namespace Pastel
 			startSet_.clear();
 			finalSet_.clear();
 			branchMapMap_.clear();
+			epsilonTransitions_ = 0;
+			ambiguousTransitions_ = 0;
 		}
 
 		//! Removes all transitions.
@@ -212,6 +220,8 @@ namespace Pastel
 
 			graph_.clearEdges();
 			branchMapMap_.clear();
+			epsilonTransitions_ = 0;
+			ambiguousTransitions_ = 0;
 		}
 
 		//! Removes all start-state marks.
@@ -264,12 +274,16 @@ namespace Pastel
 		*/
 		void swap(Automaton& that)
 		{
+			using std::swap;
+
 			Customization::swap((Customization&)that);
 			graph_.swap(that.graph_);
 			startSet_.swap(that.startSet_);
 			finalSet_.swap(that.finalSet_);
 			branchMapMap_.swap(that.branchMapMap_);
 			emptyBranchMap_.swap(that.emptyBranchMap_);
+			swap(epsilonTransitions_, that.epsilonTransitions_);
+			swap(ambiguousTransitions_, that.ambiguousTransitions_);
 		}
 
 		// States
@@ -655,6 +669,8 @@ namespace Pastel
 				StateSymbol(fromState, symbol));
 			Actual_Branch_Iterator branch;
 
+			bool ambiguous = false;
+
 			if (branchMap == branchMapMap_.end())
 			{
 				// The branch-set does not exist,
@@ -666,6 +682,8 @@ namespace Pastel
 			else
 			{
 				// The branch-set already exists.
+				ambiguous = true;
+
 				// See if the branch is already there.
 				branch = branchMap->second.find(toState);
 				if (branch != branchMap->second.cend())
@@ -692,6 +710,20 @@ namespace Pastel
 					std::make_pair(toState, transition)).first;
 				++rollback;
 
+				if (symbol.empty())
+				{
+					// Update the epsilon-transition counter.
+					++epsilonTransitions_;
+				}
+
+				if (ambiguous)
+				{
+					// Update the non-deterministic-transition
+					// counter.
+					++ambiguousTransitions_;
+				}
+
+				// Call the customization.
 				onAddTransition(transition);
 			}
 			catch(...)
@@ -700,6 +732,14 @@ namespace Pastel
 				{
 				case 3:
 					branchMap->second.erase(branch);
+					if (symbol.empty())
+					{
+						--epsilonTransitions_;
+					}
+					if (ambiguous)
+					{
+						--ambiguousTransitions_;
+					}
 					// Fall-through
 				case 2:
 					graph_.removeEdge(transition);
@@ -735,7 +775,18 @@ namespace Pastel
 				transition->from(), transition->symbol()));
 			ASSERT(branchMap != branchMapMap_.end());
 
+			if (transition->symbol().empty())
+			{
+				--epsilonTransitions_;
+			}
+
 			branchMap->second.erase(transition);
+
+			if (branchMap->second.size() == 1)
+			{
+				--ambiguousTransitions_;
+			}
+
 			if (branchMap->second.empty())
 			{
 				branchMapMap_.erase(branchMap);
@@ -964,7 +1015,7 @@ namespace Pastel
 		*/
 		bool existsTransition(
 			const State_ConstIterator& state,
-			const Symbol& symbol) const
+			const Optional<Symbol>& symbol) const
 		{
 			const BranchMap& branch =
 				branchMap(state, symbol);
@@ -973,7 +1024,7 @@ namespace Pastel
 
 		Transition_ConstIterator findTransition(
 			const State_ConstIterator& state,
-			const Symbol& symbol) const
+			const Optional<Symbol>& symbol) const
 		{
 			const BranchMap& branch =
 				branchMap(state, symbol);
@@ -984,6 +1035,30 @@ namespace Pastel
 			}
 
 			return branch.cbegin()->second;
+		}
+
+		integer epsilonTransitions() const
+		{
+			return epsilonTransitions_;
+		}
+
+		integer ambiguousTransitions() const
+		{
+			return ambiguousTransitions_;
+		}
+
+		//! Returns whether the automaton is deterministic.
+		/*!
+		The automaton is deterministic if and only if
+		it has at most one start-state, has no epsilon-transitions,
+		and has at most one transition from a given state with
+		a given symbol.
+		*/
+		bool deterministic() const
+		{
+			return startStates() <= 1 &&
+				epsilonTransitions() == 0 &&
+				ambiguousTransitions() == 0;
 		}
 
 	private:
@@ -1024,6 +1099,12 @@ namespace Pastel
 
 		Symbol_BranchMap_Map branchMapMap_;
 		BranchMap emptyBranchMap_;
+
+		//! The number of epsilon-transitions.
+		integer epsilonTransitions_;
+
+		//! The number of non-deterministic transitions.
+		integer ambiguousTransitions_;
 	};
 
 }
@@ -1050,8 +1131,10 @@ namespace Pastel
 		typedef typename Automaton::Transition_ConstIterator
 			Transition_ConstIterator;
 
-		stream << automaton.states() << " states, "
-			<< automaton.transitions() << " transitions." 
+		stream << automaton.states() << " states, " << std::endl
+			<< automaton.transitions() << " transitions, " << std::endl
+			<< automaton.epsilonTransitions() << " epsilon-transitions, and " << std::endl
+			<< automaton.ambiguousTransitions() << " non-deterministic transitions."
 			<< std::endl << std::endl;
 
 		std::unordered_map<State_ConstIterator, integer,

@@ -11,13 +11,8 @@ The automaton
  * can represent any non-deterministic automaton, with epsilon-transitions,
  * for a given state, can get a list all the incoming and outgoing 
  transitions (and get their number) in constant time,
- * can be customizable at compile-time, for example, to 
- enable the transitions to be searched by a (fromState, symbol) pair,
- or to restrict the automaton to a deterministic one,
- * can associate user-data at compile-time with states and transitions,
- * can be merged with another automaton in constant time, to enable the 
- incremental construction of automata recognizing regular expressions,
- 
+ * can be customizable at compile-time,
+ * can associate user-data with states and transitions,
 
 Epsilon transitions
 -------------------

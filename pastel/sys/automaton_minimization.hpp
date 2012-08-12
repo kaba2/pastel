@@ -58,7 +58,7 @@ namespace Pastel
 			StateSet;
 
 		// The automaton has to be deterministic.
-		ENSURE_OP(automaton.startStates(), <=, 1);
+		ENSURE(automaton.deterministic());
 
 		// This will contain the minimal automaton.
 		Automaton minimal;
@@ -188,7 +188,7 @@ namespace Pastel
 		{
 			Optional<Symbol> symbol = transition->symbol();
 			// The automaton should be deterministic.
-			ENSURE(!symbol.empty());
+			ASSERT(!symbol.empty());
 
 			if (!relevantSet.count(transition->from()) ||
 				!relevantSet.count(transition->to()))
