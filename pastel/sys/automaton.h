@@ -1017,11 +1017,29 @@ namespace Pastel
 			const State_ConstIterator& state,
 			const Optional<Symbol>& symbol) const
 		{
-			const BranchMap& branch =
-				branchMap(state, symbol);
-			return !branch.empty();
+			return findTransition(fromState, symbol) != 
+				cTransitionEnd();
 		}
 
+		//! Returns whether the given transition exists.
+		/*!
+		Time complexity: O(1) on average
+		Exception safety: nothrow
+		*/
+		bool existsTransition(
+			const State_ConstIterator& fromState,
+			const Optional<Symbol>& symbol,
+			const State_ConstIterator& toState) const
+		{
+			return findTransition(fromState, symbol, toState) != 
+				cTransitionEnd();
+		}
+
+		//! Returns some transition from 'state' with 'symbol'.
+		/*!
+		Time complexity: O(1) on average
+		Exception safety: nothrow
+		*/
 		Transition_ConstIterator findTransition(
 			const State_ConstIterator& state,
 			const Optional<Symbol>& symbol) const
@@ -1031,17 +1049,50 @@ namespace Pastel
 
 			if (branch.empty())
 			{
-				return ((Automaton&)*this).cTransitionEnd();
+				return cTransitionEnd();
 			}
 
 			return branch.cbegin()->second;
 		}
 
+		//! Returns the given transition if it exists.
+		/*!
+		Time complexity: O(1) on average
+		Exception safety: nothrow
+		*/
+		Transition_ConstIterator findTransition(
+			const State_ConstIterator& fromState,
+			const Optional<Symbol>& symbol,
+			const State_ConstIterator& toState) const
+		{
+			const BranchMap& map =
+				branchMap(state, symbol);
+
+			const Branch_ConstIterator branch = 
+				map.find(toState);
+			if (branch == map.cend())
+			{
+				return cTransitionEnd();
+			}
+
+			return branch->second;
+		}
+		
+		//! Returns the number of epsilon-transitions.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		integer epsilonTransitions() const
 		{
 			return epsilonTransitions_;
 		}
 
+		//! Returns the number non-deterministic transitions.
+		/*!
+		Time complexity: O(1)
+		Exception safety: nothrow
+		*/
 		integer ambiguousTransitions() const
 		{
 			return ambiguousTransitions_;
@@ -1053,6 +1104,9 @@ namespace Pastel
 		it has at most one start-state, has no epsilon-transitions,
 		and has at most one transition from a given state with
 		a given symbol.
+
+		Time complexity: O(1)
+		Exception safety: nothrow
 		*/
 		bool deterministic() const
 		{
