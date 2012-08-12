@@ -24,7 +24,7 @@ namespace Pastel
 		}
 
 		Class(Type that)
-			: member_(that)
+			: member_(std::move(that))
 		{
 		}
 
