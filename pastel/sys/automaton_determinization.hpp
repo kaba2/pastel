@@ -3,7 +3,7 @@
 
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/hashed_tree.h"
-#include "pastel/sys/epsilon_closure.h"
+#include "pastel/sys/automaton_closure.h"
 
 #include <list>
 #include <unordered_map>
@@ -103,11 +103,11 @@ namespace Pastel
 				automaton.cStartEnd(),
 				[&](const State_ConstIterator& state)
 			{
-				const StateSet& epsilonClosure =
+				const StateSet& closure =
 					closureMap[state];
 				startStateSet.insertMany(
-					epsilonClosure.cbegin(),
-					epsilonClosure.cend());
+					closure.cbegin(),
+					closure.cend());
 			});
 
 			// Report the start state-set.
@@ -164,11 +164,11 @@ namespace Pastel
 					
 					// Add all the states in the epsilon closure
 					// of 'state' into the 'toStateSet'.
-					const StateSet& epsilonClosure =
+					const StateSet& closure =
 						closureMap[incidence->vertex()];
 					toStateSet.insertMany(
-						epsilonClosure.cbegin(),
-						epsilonClosure.cend());
+						closure.cbegin(),
+						closure.cend());
 				}
 			});
 

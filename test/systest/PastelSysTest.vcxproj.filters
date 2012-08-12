@@ -113,7 +113,7 @@
     <ClCompile Include="test_optional.cpp">
       <Filter>Data structures</Filter>
     </ClCompile>
-    <ClCompile Include="test_epsilon_closure.cpp">
+    <ClCompile Include="test_automaton_closure.cpp">
       <Filter>Algorithms</Filter>
     </ClCompile>
   </ItemGroup>

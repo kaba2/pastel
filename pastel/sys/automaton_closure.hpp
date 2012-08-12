@@ -1,7 +1,7 @@
-#ifndef PASTEL_EPSILON_CLOSURE_HPP
-#define PASTEL_EPSILON_CLOSURE_HPP
+#ifndef PASTEL_AUTOMATON_CLOSURE_HPP
+#define PASTEL_AUTOMATON_CLOSURE_HPP
 
-#include "pastel/sys/epsilon_closure.h"
+#include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/transitive_closure.h"
 #include "pastel/sys/hash.h"
 
@@ -17,10 +17,12 @@ namespace Pastel
 		typename StateData,
 		typename TransitionData,
 		typename Customization,
-		typename Closure_Reporter,
-		typename Insert_State>
-	void epsilonClosure(
+		typename IsClosureSymbol,
+		typename Insert_State,
+		typename Closure_Reporter>
+	void automatonClosure(
 		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
+		const IsClosureSymbol& isClosureSymbol,
 		const Insert_State& insert,
 		const Closure_Reporter& report)
 	{
@@ -29,7 +31,7 @@ namespace Pastel
 		typedef Automaton::State_ConstIterator
 			State_ConstIterator;
 
-		// The epsilon-set is computed for each state of the automaton.
+		// The closure-set is computed for each state of the automaton.
 		auto forEachDomain = 
 			[&](const std::function<void(const State_ConstIterator&)>& visit)
 		{
@@ -57,16 +59,16 @@ namespace Pastel
 				incidence != vertex->cOutgoingEnd();
 				++incidence)
 			{
-				if (incidence->edge()->symbol() == Epsilon())
+				if (isClosureSymbol(incidence->edge()->symbol()))
 				{
 					visit(incidence->vertex());
 				}
 			}
 		};
 
-		// Each state contributes itself to an epsilon-set,
-		// if referenced by an epsilon-transition.
-		auto directEpsilonSet =
+		// Each state contributes itself to an closure-set,
+		// if referenced by a transition with a closure symbol.
+		auto directSet =
 			[&](const State_ConstIterator& state)
 			-> StateSet
 		{
@@ -75,7 +77,7 @@ namespace Pastel
 			return stateSet;
 		};
 
-		// The epsilon-sets are combined by the set-union.
+		// The closure-sets are combined by the set-union.
 		auto unionOp =
 			[&](StateSet&& left, const StateSet& right)
 			-> StateSet
@@ -89,14 +91,37 @@ namespace Pastel
 			return left;
 		};
 
-		// Compute the epsilon-sets by reflexive-transitive 
+		// Compute the closure-sets by reflexive-transitive 
 		// functional closure.
 		transitiveClosure<State_ConstIterator, StateSet>(
-			StateSet(), directEpsilonSet, unionOp, 
+			StateSet(), directSet, unionOp, 
 			forEachRelated, forEachDomain,
 			report, true, IteratorAddress_Hash());
 	}
 
+	template <
+		typename StateSet,
+		typename Symbol,
+		typename StateData,
+		typename TransitionData,
+		typename Customization,
+		typename Insert_State,
+		typename Closure_Reporter>
+	void epsilonClosure(
+		const Automaton<Symbol, StateData, TransitionData, Customization>& automaton,
+		const Insert_State& insert,
+		const Closure_Reporter& report)
+	{
+		auto isClosureSymbol =
+			[&](const Optional<Symbol>& symbol)
+		{
+			return symbol.empty();
+		};
+
+		return automatonClosure<StateSet>(
+			automaton, isClosureSymbol, 
+			insert, report);
+	}
 
 }
 

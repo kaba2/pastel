@@ -304,14 +304,14 @@
     <Filter Include="Data structures\Hashed tree">
       <UniqueIdentifier>{99437f89-cfa2-4560-a77b-c8816a0727f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Algorithms\Automaton algorithms\Epsilon closure">
-      <UniqueIdentifier>{1874952b-2e56-47d5-a97d-fb54c2dc78c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generic programming\Optional objects">
       <UniqueIdentifier>{4ddb3d62-09b9-4bf9-9307-fe52183c03a9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Generic programming\Algorithm objects\Functions">
       <UniqueIdentifier>{572d9289-a82e-49dd-ab1a-ff486ebd853c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Automaton closure">
+      <UniqueIdentifier>{1874952b-2e56-47d5-a97d-fb54c2dc78c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1543,12 +1543,6 @@
     <ClInclude Include="hashed_tree.hpp">
       <Filter>Data structures\Hashed tree</Filter>
     </ClInclude>
-    <ClInclude Include="epsilon_closure.h">
-      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
-    </ClInclude>
-    <ClInclude Include="epsilon_closure.hpp">
-      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
-    </ClInclude>
     <ClInclude Include="iterator_address_predicate.h">
       <Filter>Generic programming\Algorithm objects\Predicates</Filter>
     </ClInclude>
@@ -1567,9 +1561,6 @@
     <ClInclude Include="automaton_determinization_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
     </ClInclude>
-    <ClInclude Include="epsilon_closure_concepts.h">
-      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
-    </ClInclude>
     <ClInclude Include="exactly_equal.h">
       <Filter>Algorithms\Sequence algorithms</Filter>
     </ClInclude>
@@ -1584,6 +1575,15 @@
     </ClInclude>
     <ClInclude Include="function_concept.h">
       <Filter>Generic programming\Algorithm objects\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_closure.h">
+      <Filter>Algorithms\Automaton algorithms\Automaton closure</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_closure.hpp">
+      <Filter>Algorithms\Automaton algorithms\Automaton closure</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_closure_concepts.h">
+      <Filter>Algorithms\Automaton algorithms\Automaton closure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2022,9 +2022,6 @@
     <None Include="hashed_tree.txt">
       <Filter>Data structures\Hashed tree</Filter>
     </None>
-    <None Include="epsilon_closure.txt">
-      <Filter>Algorithms\Automaton algorithms\Epsilon closure</Filter>
-    </None>
     <None Include="regex_automata.txt">
       <Filter>Algorithms\Automaton algorithms\Regular expressions</Filter>
     </None>
@@ -2033,6 +2030,9 @@
     </None>
     <None Include="functions.txt">
       <Filter>Generic programming\Algorithm objects\Functions</Filter>
+    </None>
+    <None Include="automaton_closure.txt">
+      <Filter>Algorithms\Automaton algorithms\Automaton closure</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

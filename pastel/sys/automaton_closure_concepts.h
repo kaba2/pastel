@@ -1,9 +1,11 @@
-#ifndef PASTEL_EPSILON_CLOSURE_CONCEPTS_H
-#define PASTEL_EPSILON_CLOSURE_CONCEPTS_H
+#ifndef PASTEL_AUTOMATON_CLOSURE_CONCEPTS_H
+#define PASTEL_AUTOMATON_CLOSURE_CONCEPTS_H
 
-#include "pastel/sys/epsilon_closure.h"
+#include "pastel/sys/automaton_closure.h"
 
+#include "pastel/sys/reporter_concept.h"
 #include "pastel/sys/automaton_fwd.h"
+#include "pastel/sys/optional.h"
 
 namespace Pastel
 {
@@ -13,7 +15,7 @@ namespace Pastel
 		typename Symbol,
 		typename StateData,
 		typename TransitionData>
-	class Epsilon_Closure_Concepts
+	class Automaton_Closure_Concepts
 	{
 	public:
 		typedef Automaton_Fwd<Symbol, StateData, TransitionData>
@@ -21,13 +23,26 @@ namespace Pastel
 		typedef typename Automaton::State_ConstIterator
 			State_ConstIterator;
 
+		class IsClosureSymbol
+		{
+		public:
+			//! Returns whether the symbol takes part in closures.
+			/*!
+			The closure of a state A is the set of those states that
+			can be reached from A through transitions with closure 
+			symbols.
+			*/
+			bool operator()(
+				const Optional<Symbol>& symbol) const;
+		};
+
 		class Closure_Reporter
 		{
 		public:
-			//! Reports the epsilon-closure of a state.
+			//! Reports the closure of a state.
 			/*!
 			Note that the StateSet-type is explicitly specified
-			by the user in the call to epsilonClosure().
+			by the user in the call to automatonClosure().
 			*/
 			void operator()(
 				const State_ConstIterator& state,
