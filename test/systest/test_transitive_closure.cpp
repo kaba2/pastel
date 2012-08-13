@@ -107,7 +107,7 @@ namespace
 			};
 
 			transitiveClosure<Vertex_Iterator, integer>(
-				0, fn, op, forEachRelated, forEachDomain, report,
+				0, forEachDomain, forEachRelated, fn, op, report,
 				false, IteratorAddress_Hash());
 			{
 				TEST_ENSURE_OP(closureMap[a], ==, 19);
@@ -127,7 +127,7 @@ namespace
 
 			closureMap.clear();
 			transitiveClosure<Vertex_Iterator, integer>(
-				0, fn, op, forEachRelated, forEachDomain, report,
+				0, forEachDomain, forEachRelated, fn, op, report,
 				true, IteratorAddress_Hash());
 			{
 				TEST_ENSURE_OP(closureMap[a], ==, 19);
@@ -141,7 +141,7 @@ namespace
 
 			closureMap.clear();
 			transitiveClosure<Vertex_Iterator, integer>(
-				0, fn, op, forEachRelated, forEachDomain, report,
+				0, forEachDomain, forEachRelated, fn, op, report,
 				false, IteratorAddress_Hash());
 			{
 				TEST_ENSURE_OP(closureMap[a], ==, 18);
@@ -255,7 +255,7 @@ namespace
 			Set emptySet;
 
 			transitiveClosure<Vertex_Iterator, Set>(
-				emptySet, f, op, forEachRelated, forEachDomain, report,
+				emptySet, forEachDomain, forEachRelated, f, op, report,
 				false, IteratorAddress_Hash());
 		}
 	};

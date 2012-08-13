@@ -1014,7 +1014,7 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		bool existsTransition(
-			const State_ConstIterator& state,
+			const State_ConstIterator& fromState,
 			const Optional<Symbol>& symbol) const
 		{
 			return findTransition(fromState, symbol) != 
@@ -1041,11 +1041,11 @@ namespace Pastel
 		Exception safety: nothrow
 		*/
 		Transition_ConstIterator findTransition(
-			const State_ConstIterator& state,
+			const State_ConstIterator& fromState,
 			const Optional<Symbol>& symbol) const
 		{
 			const BranchMap& branch =
-				branchMap(state, symbol);
+				branchMap(fromState, symbol);
 
 			if (branch.empty())
 			{

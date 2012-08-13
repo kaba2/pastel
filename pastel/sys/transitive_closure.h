@@ -45,9 +45,9 @@ namespace Pastel
 	twice: once to compute the transitive closure, and 
 	once to report the results.
 
-	closureReporter:
+	report:
 	Reports the transitive closure function f^+ : X --> Y to the user 
-	one (x, y)-pair at a time by closureReporter(x, std::move(y)). Only 
+	one (x, y)-pair at a time by report(x, std::move(y)). Only 
 	the elements in the domain will be reported, even if some elements 
 	might be related to elements outside the domain.
 
@@ -62,19 +62,19 @@ namespace Pastel
 	template <
 		typename Domain, 
 		typename Codomain,
+		typename ForEachDomain,
+		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename ForEachRelated,
-		typename ForEachDomain,
 		typename Closure_Reporter,
 		typename Domain_Hash>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const ForEachDomain& forEachDomain,
+		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const ForEachRelated& forEachRelated,
-		const ForEachDomain& forEachDomain,
-		const Closure_Reporter& closureReporter,
+		const Closure_Reporter& report,
 		bool reflexiveClosure,
 		const Domain_Hash& domainHash);
 
@@ -84,29 +84,29 @@ namespace Pastel
 		
 	transitiveClosure<Domain, Codomain>(
 		identity,
+		forEachDomain,
+		forEachRelated,
 		function,
 		codomainOperator,
-		forEachRelated,
-		forEachDomain,
-		closureReporter,
+		report,
 		reflexiveClosure,
 		std::hash<Domain>())
 	*/
 	template <
 		typename Domain, 
 		typename Codomain,
+		typename ForEachDomain,
+		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename ForEachRelated,
-		typename ForEachDomain,
 		typename Closure_Reporter>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const ForEachDomain& forEachDomain,
+		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const ForEachRelated& forEachRelated,
-		const ForEachDomain& forEachDomain,
-		const Closure_Reporter& closureReporter,
+		const Closure_Reporter& report,
 		bool reflexiveClosure = false);
 
 }

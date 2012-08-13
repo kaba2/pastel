@@ -310,6 +310,9 @@
     <Filter Include="Algorithms\Automaton algorithms\Automaton closure">
       <UniqueIdentifier>{1874952b-2e56-47d5-a97d-fb54c2dc78c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Algorithms\Automaton algorithms\Automaton simulation">
+      <UniqueIdentifier>{53d67485-baca-4278-94ec-a1e2113dcc3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1576,6 +1579,12 @@
     <ClInclude Include="underlined.h">
       <Filter>Miscellaneous</Filter>
     </ClInclude>
+    <ClInclude Include="automaton_simulation.h">
+      <Filter>Algorithms\Automaton algorithms\Automaton simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="automaton_simulation.hpp">
+      <Filter>Algorithms\Automaton algorithms\Automaton simulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -2021,6 +2030,9 @@
     </None>
     <None Include="automaton_closure.txt">
       <Filter>Algorithms\Automaton algorithms\Automaton closure</Filter>
+    </None>
+    <None Include="automaton_simulation.txt">
+      <Filter>Algorithms\Automaton algorithms\Automaton simulation</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
