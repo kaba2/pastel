@@ -72,8 +72,7 @@ namespace Pastel
 		// Compute the closure-sets by reflexive-transitive 
 		// functional closure.
 		transitiveClosure<State_ConstIterator, StateSet>(
-			emptySet, directSet, unionOp, 
-			forEachRelated, forEachDomain,
+			emptySet, forEachDomain, forEachRelated, directSet, unionOp, 
 			report, true, IteratorAddress_Hash());
 	}
 

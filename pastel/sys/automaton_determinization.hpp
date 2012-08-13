@@ -2,8 +2,8 @@
 #define PASTEL_AUTOMATON_DETERMINIZATION_HPP
 
 #include "pastel/sys/automaton_determinization.h"
-#include "pastel/sys/hashed_tree.h"
 #include "pastel/sys/automaton_closure.h"
+#include "pastel/sys/hashed_tree.h"
 
 #include <list>
 #include <unordered_set>
@@ -151,7 +151,7 @@ namespace Pastel
 					incidence != state->cOutgoingEnd();
 					++incidence)
 				{
-					Optional<Symbol> symbol = 
+					const Optional<Symbol>& symbol = 
 						incidence->edge()->symbol();
 
 					if (symbol.empty())
@@ -179,7 +179,7 @@ namespace Pastel
 				symbolStateSet != symbolStateSetMap.end();
 				++symbolStateSet)
 			{
-				Symbol symbol =
+				const Symbol& symbol =
 					symbolStateSet->first;
 
 				StateSet& newStateSet =

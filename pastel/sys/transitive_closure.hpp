@@ -12,10 +12,10 @@ namespace Pastel
 	template <
 		typename Domain, 
 		typename Codomain,
+		typename ForEachDomain,
+		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename ForEachRelated,
-		typename ForEachDomain,
 		typename Closure_Reporter,
 		typename Domain_Hash>
 	class TransitiveClosure
@@ -23,19 +23,19 @@ namespace Pastel
 	public:
 		TransitiveClosure(
 			const Codomain& identity_,
+			const ForEachDomain& forEachDomain_,
+			const ForEachRelated& forEachRelated_,
 			const Function& function_,
 			const CodomainOperator& codomainOperator_,
-			const ForEachRelated& forEachRelated_,
-			const ForEachDomain& forEachDomain_,
-			const Closure_Reporter& closureReporter_,
+			const Closure_Reporter& report_,
 			bool reflexiveClosure_,
 			const Domain_Hash& domainHash_)
 			: identity(identity_)
+			, forEachDomain(forEachDomain_)
+			, forEachRelated(forEachRelated_)
 			, function(function_)
 			, codomainOperator(codomainOperator_)
-			, forEachRelated(forEachRelated_)
-			, forEachDomain(forEachDomain_)
-			, closureReporter(closureReporter_)
+			, report(report_)
 			, reflexiveClosure(reflexiveClosure_)
 			, domainHash(domainHash_)
 		{
@@ -65,7 +65,7 @@ namespace Pastel
 				auto iter = progressSet.find(x);
 				ASSERT(iter != progressSet.end());
 
-				closureReporter(
+				report(
 					iter->first,
 					std::move(iter->second.value));
 			};
@@ -283,12 +283,12 @@ namespace Pastel
 		};
 
 		const Codomain& identity;
+		const ForEachDomain& forEachDomain;
+		const ForEachRelated& forEachRelated;
 		const Domain_Hash& domainHash;
 		const Function& function;
 		const CodomainOperator& codomainOperator;
-		const ForEachDomain& forEachDomain;
-		const ForEachRelated& forEachRelated;
-		const Closure_Reporter& closureReporter;
+		const Closure_Reporter& report;
 		bool reflexiveClosure;
 
 		typedef std::unordered_map<Domain, Progress, Domain_Hash> ProgressSet;
@@ -302,31 +302,32 @@ namespace Pastel
 	template <
 		typename Domain, 
 		typename Codomain,
+		typename ForEachDomain,
+		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename ForEachRelated,
-		typename ForEachDomain,
 		typename Closure_Reporter,
 		typename Domain_Hash>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const ForEachDomain& forEachDomain,
+		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const ForEachRelated& forEachRelated,
-		const ForEachDomain& forEachDomain,
-		const Closure_Reporter& closureReporter,
+		const Closure_Reporter& report,
 		bool reflexiveClosure,
 		const Domain_Hash& domainHash)
 	{
-		TransitiveClosure<Domain, Codomain,
+		TransitiveClosure<Domain, Codomain, 
+			ForEachDomain, ForEachRelated, 
 			Function, CodomainOperator,
-			ForEachRelated, ForEachDomain, Closure_Reporter, Domain_Hash> algorithm(
+			Closure_Reporter, Domain_Hash> algorithm(
 				identity,
+				forEachDomain,
+				forEachRelated,
 				function,
 				codomainOperator,
-				forEachRelated,
-				forEachDomain,
-				closureReporter,
+				report,
 				reflexiveClosure,
 				domainHash);
 
@@ -336,27 +337,27 @@ namespace Pastel
 	template <
 		typename Domain, 
 		typename Codomain,
+		typename ForEachDomain,
+		typename ForEachRelated,
 		typename Function,
 		typename CodomainOperator, 
-		typename ForEachRelated,
-		typename ForEachDomain,
 		typename Closure_Reporter>
 	void transitiveClosure(
 		const PASTEL_NO_DEDUCTION(Codomain)& identity,
+		const ForEachDomain& forEachDomain,
+		const ForEachRelated& forEachRelated,
 		const Function& function,
 		const CodomainOperator& codomainOperator,
-		const ForEachRelated& forEachRelated,
-		const ForEachDomain& forEachDomain,
-		const Closure_Reporter& closureReporter,
+		const Closure_Reporter& report,
 		bool reflexiveClosure)
 	{
 		return Pastel::transitiveClosure<Domain, Codomain>(
 			identity,
+			forEachDomain,
+			forEachRelated,
 			function,
 			codomainOperator,
-			forEachRelated,
-			forEachDomain,
-			closureReporter,
+			report,
 			reflexiveClosure,
 			std::hash<Domain>());
 	}

@@ -143,6 +143,8 @@
     <ClInclude Include="automaton_determinization.hpp" />
     <ClInclude Include="automaton_determinization_concepts.h" />
     <ClInclude Include="automaton_fwd.h" />
+    <ClInclude Include="automaton_simulation.h" />
+    <ClInclude Include="automaton_simulation.hpp" />
     <ClInclude Include="automaton_transition_label.h" />
     <ClInclude Include="automaton_minimization.hpp" />
     <ClInclude Include="automaton_state_label.h" />
@@ -564,6 +566,7 @@
     <None Include="automaton_algorithms.txt" />
     <None Include="automaton_design.txt" />
     <None Include="automaton_determinization.txt" />
+    <None Include="automaton_simulation.txt" />
     <None Include="breadth_first_traversal.txt" />
     <None Include="clone_ptr.txt" />
     <None Include="depth_first_traversal.txt" />
