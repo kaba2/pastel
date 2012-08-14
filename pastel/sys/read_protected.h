@@ -7,11 +7,12 @@
 #include "pastel/sys/ensure.h"
 
 #include <utility>
+#include <memory>
 
 namespace Pastel
 {
 
-	template <typename Type, typename Base = EmptyClass>
+	template <typename Type>
 	class ReadProtected;
 
 	template <typename Type>
@@ -19,129 +20,87 @@ namespace Pastel
 	{
 	public:
 		ReadPtr()
-			: data_(0)
-			, count_(0)
+			: read_()
 		{
 		}
 
-		ReadPtr(ReadPtr<Type>&& that)
-			: data_(0)
-			, count_(0)
+		ReadPtr(const ReadPtr& that)
+			: read_(that.read_)
 		{
-			swap(that);
 		}
 
-		ReadPtr(const ReadPtr<Type>& that)
-			: data_(that.data_)
-			, count_(that.count_)
+		ReadPtr(ReadPtr&& that)
+			: read_(std::move(that.read_))
 		{
-			increaseCount();
 		}
 
-		~ReadPtr()
+		template <typename That>
+		bool operator==(const ReadPtr<That>& that) const
 		{
-			clear();
+			return get() == that.get();
 		}
 
-		ReadPtr& operator=(ReadPtr that)
+		template <typename That>
+		bool operator!=(const ReadPtr<That>& that) const
 		{
-			swap(that);
-			return *this;
-		}
-
-		const Type& operator*() const
-		{
-			ASSERT(data_);
-			return *data_;
-		}
-
-		const Type* operator->() const
-		{
-			ASSERT(data_);
-			return data_;
+			return !(*this == that);
 		}
 
 		void swap(ReadPtr& that)
 		{
-			using std::swap;
-			swap(data_, that.data_);
-			swap(count_, that.count_);
+			read_.swap(that.read_);
 		}
 
 		void clear()
 		{
-			decreaseCount();
-			data_ = 0;
-			count_ = 0;
+			read_.reset();
 		}
 
-		integer count() const
+		int readCount() const
 		{
-			ASSERT(count_);
-			return *count_;
+			return read_.use_count();
+		}
+
+		const Type* get() const
+		{
+			return *read_;
+		}
+
+		const Type* operator->() const
+		{
+			return *read_;
+		}
+
+		const Type& operator*() const
+		{
+			return **read_;
 		}
 
 	private:
-		template <typename Type, typename Base>
-		friend class ReadProtected;
+		friend class ReadProtected<Type>;
 
-		explicit ReadPtr(const Type* data, integer* count)
-			: data_(data)
-			, count_(count)
+		explicit ReadPtr(const Type* that)
+			: read_(new const Type*)
 		{
-			increaseCount();
+			*read_ = that;
 		}
 
-		void increaseCount()
+		void swapPtr(ReadPtr& that)
 		{
-			if (count_)
-			{
-				++(*count_);
-			}
+			ASSERT(read_ && that.read_);
+			std::swap(*read_, *that.read_);
 		}
 
-		void decreaseCount()
-		{
-			if (count_)
-			{
-				--(*count_);
-			}
-		}
-
-		const Type* data_;
-		integer* count_;
+		std::shared_ptr<const Type*> read_;
 	};
 
-	template <typename Type, typename Base>
+	template <typename Type>
 	class ReadProtected
-		: public Base
 	{
 	public:
-		// Note that a reference counter counts
-		// the references to the _memory address_.
-		// Thus assignment, copy construction and
-		// swap must not influence the reference count.
-		// In a way we should then prohibit them,
-		// but in this special case it is easier
-		// to define these functions but not
-		// copy the reference counts. This
-		// way the derived classes can use default
-		// compiler implementations of copy constructors etc.
-
-		ReadProtected()
-			: readCount_(0)
+		explicit ReadProtected(const Type* that)
+			: read_(that)
 		{
-		}
-
-		ReadProtected(
-			const ReadProtected& that)
-			: readCount_(0)
-		{
-		}
-
-		ReadProtected& operator=(const ReadProtected& that)
-		{
-			return *this;
 		}
 
 		~ReadProtected()
@@ -149,18 +108,34 @@ namespace Pastel
 			readProtect();
 		}
 
-		operator ReadPtr<Type>() const
-		{
-			return ReadPtr<Type>((const Type*)this, &readCount_);
-		}
-
-	protected:
 		void readProtect()
 		{
-			ENSURE_OP(readCount_, ==, 0);
+			ENSURE_OP(readCount(), ==, 1);
 		}
 
-		mutable integer readCount_;
+		int readCount() const
+		{
+			return read_.readCount();
+		}
+
+		void swap(ReadProtected& that)
+		{
+			read_.swap(that.read_);
+			read_.swapPtr(that.read_);
+		}
+
+		ReadPtr<Type> read() const
+		{
+			return read_;
+		}
+
+	private:
+		ReadProtected();
+		ReadProtected(ReadProtected&& that);
+		ReadProtected(const ReadProtected& that);
+		ReadProtected& operator=(ReadProtected that);
+
+		ReadPtr<Type> read_;
 	};
 
 }
