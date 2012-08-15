@@ -163,6 +163,8 @@
     <ClInclude Include="automaton_closure.h" />
     <ClInclude Include="automaton_closure.hpp" />
     <ClInclude Include="automaton_closure_concepts.h" />
+    <ClInclude Include="equal_sets.h" />
+    <ClInclude Include="equal_sets.hpp" />
     <ClInclude Include="exactly_equal.h" />
     <ClInclude Include="exactly_equal.hpp" />
     <ClInclude Include="functions.h" />

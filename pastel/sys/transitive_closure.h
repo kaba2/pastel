@@ -29,7 +29,9 @@ namespace Pastel
 	The identity element I of the monoid Y.
 
 	function:
-	The function f : X --> Y.
+	The function f : X --> Y. If the relation is reflexive, then
+	the function will be evaluated exactly once at each x in X.
+	Otherwise the function might be evaluated multiple times.
 
 	codomainOperator:
 	The monoid operator + : Y^2 --> Y.
