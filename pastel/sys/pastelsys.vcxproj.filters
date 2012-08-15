@@ -1585,6 +1585,12 @@
     <ClInclude Include="automaton_simulation.hpp">
       <Filter>Algorithms\Automaton algorithms\Automaton simulation</Filter>
     </ClInclude>
+    <ClInclude Include="equal_sets.h">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="equal_sets.hpp">
+      <Filter>Algorithms\Sequence algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
