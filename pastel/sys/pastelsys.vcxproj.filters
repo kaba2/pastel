@@ -313,6 +313,9 @@
     <Filter Include="Algorithms\Automaton algorithms\Automaton simulation">
       <UniqueIdentifier>{53d67485-baca-4278-94ec-a1e2113dcc3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data structures\Named tuples">
+      <UniqueIdentifier>{80ec6fd9-0e5a-42c1-9fac-9cdf7ae5d02b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -1591,6 +1594,9 @@
     <ClInclude Include="equal_sets.hpp">
       <Filter>Algorithms\Sequence algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="named_tuples.h">
+      <Filter>Data structures\Named tuples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
@@ -2039,6 +2045,9 @@
     </None>
     <None Include="automaton_simulation.txt">
       <Filter>Algorithms\Automaton algorithms\Automaton simulation</Filter>
+    </None>
+    <None Include="named_tuples.txt">
+      <Filter>Data structures\Named tuples</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

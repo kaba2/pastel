@@ -59,6 +59,16 @@ namespace Pastel
 		}
 	};
 
+	class Embedded_Hash
+	{
+	public:
+		template <typename Type>
+		hash_integer operator()(const Type& that) const
+		{
+			return that.hash();
+		}
+	};
+
 	class Pair_Hash
 	{
 	public:

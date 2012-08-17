@@ -184,6 +184,7 @@
     <ClInclude Include="automaton_minimization.h" />
     <ClInclude Include="minimal_automaton.h" />
     <ClInclude Include="minimal_automaton_fwd.h" />
+    <ClInclude Include="named_tuples.h" />
     <ClInclude Include="native_allocator.h" />
     <ClInclude Include="native_allocator.hpp" />
     <ClInclude Include="null_iterator.h" />
@@ -581,6 +582,7 @@
     <None Include="incidence_graph_notes.txt" />
     <None Include="automaton_minimization.txt" />
     <None Include="minimal_automaton.txt" />
+    <None Include="named_tuples.txt" />
     <None Include="native_allocator.txt" />
     <None Include="object_forwarding.txt" />
     <None Include="pool_allocator.txt" />
