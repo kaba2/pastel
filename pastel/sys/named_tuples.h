@@ -11,8 +11,8 @@
 	{ \
 	public: \
 		Type( \
-			A a##_, \
-			B b##_) \
+			PASTEL_REMOVE_BRACKETS_(A) a##_, \
+			PASTEL_REMOVE_BRACKETS_(B) b##_) \
 			: a(std::move(a##_)) \
 			, b(std::move(b##_)) \
 		{ \
@@ -25,15 +25,15 @@
 				b == that.b; \
 		} \
 		\
-		hash_integer hash() const \
+		Pastel::hash_integer hash() const \
 		{ \
 			return Pastel::combineHash( \
 				Pastel::computeHash(a), \
 				Pastel::computeHash(b)); \
 		} \
 		\
-		A a; \
-		B b; \
+		PASTEL_REMOVE_BRACKETS_(A) a; \
+		PASTEL_REMOVE_BRACKETS_(B) b; \
 	}
 
 #define PASTEL_NAMED_TUPLE3(Type, A, a, B, b, C, c) \
@@ -42,9 +42,9 @@
 	{ \
 	public: \
 		Type( \
-			A a##_, \
-			B b##_, \
-			C c##_) \
+			PASTEL_REMOVE_BRACKETS_(A) a##_, \
+			PASTEL_REMOVE_BRACKETS_(B) b##_, \
+			PASTEL_REMOVE_BRACKETS_(C) c##_) \
 			: a(std::move(a##_)) \
 			, b(std::move(b##_)) \
 			, c(std::move(c##_)) \
@@ -59,7 +59,7 @@
 				c == that.c; \
 		} \
 		\
-		hash_integer hash() const \
+		Pastel::hash_integer hash() const \
 		{ \
 			return Pastel::combineHash( \
 				Pastel::combineHash( \
@@ -68,9 +68,9 @@
 				Pastel::computeHash(c)); \
 		} \
 		\
-		A a; \
-		B b; \
-		C c; \
+		PASTEL_REMOVE_BRACKETS_(A) a; \
+		PASTEL_REMOVE_BRACKETS_(B) b; \
+		PASTEL_REMOVE_BRACKETS_(C) c; \
 	}
 
 #endif
