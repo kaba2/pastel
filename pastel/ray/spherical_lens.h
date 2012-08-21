@@ -1,3 +1,6 @@
+// Description: Spherical lens
+// Documentation: lenses.txt
+
 #ifndef PASTEL_SPHERICAL_LENS_H
 #define PASTEL_SPHERICAL_LENS_H
 

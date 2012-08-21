@@ -1,3 +1,4 @@
+// Description: Adapted view
 // Documentation: concrete_views.txt
 
 #ifndef PASTEL_ADAPTEDVIEW_H

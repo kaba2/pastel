@@ -318,12 +318,6 @@
     <ClInclude Include="subarray_iterator.h">
       <Filter>Data structures\Array</Filter>
     </ClInclude>
-    <ClInclude Include="subarray_tools.h">
-      <Filter>Data structures\Array</Filter>
-    </ClInclude>
-    <ClInclude Include="subarray_tools.hpp">
-      <Filter>Data structures\Array</Filter>
-    </ClInclude>
     <ClInclude Include="fastlist.h">
       <Filter>Data structures\FastList</Filter>
     </ClInclude>
@@ -1539,6 +1533,12 @@
     </ClInclude>
     <ClInclude Include="hashes.h">
       <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="subarray_for_each.hpp">
+      <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="subarray_for_each.h">
+      <Filter>Data structures\Array</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,3 +1,5 @@
+// Description: Testing for adapted array
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/array.h"

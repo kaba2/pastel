@@ -1,3 +1,6 @@
+// Description: Shape thing
+// Documentation: things.txt
+
 #ifndef PASTEL_SHAPE_THING_H
 #define PASTEL_SHAPE_THING_H
 

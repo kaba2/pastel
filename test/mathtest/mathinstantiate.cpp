@@ -1,5 +1,5 @@
-// Template instantiation of math classes
-// for compile testing purposes.
+// Description: Template instantiation of shapes for testing
+// Documentation: pastelmathtest.txt
 
 #include "pastel/sys/mytypes.h"
 

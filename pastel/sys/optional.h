@@ -1,3 +1,5 @@
+// Description: Optional object
+
 #ifndef PASTEL_OPTIONAL_H
 #define PASTEL_OPTIONAL_H
 

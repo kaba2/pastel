@@ -1,3 +1,6 @@
+// Description: Testing for summed-area tables
+// DocumentationOf: summedareatable.h
+
 #include "pastelgfxtest.h"
 
 #include "pastel/sys/array.h"

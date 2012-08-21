@@ -27,9 +27,7 @@ namespace Pastel
 
 		template <typename Real, int N>
 		class VectorBase
-			: public boost::equality_comparable1<Vector<Real, N>,
-			VectorExpression<Real, N, VectorBase<Real, N> >
-			>
+			: public VectorExpression<Real, N, VectorBase<Real, N>>
 		{
 		private:
 			template <typename, int>
@@ -277,11 +275,6 @@ namespace Pastel
 				}
 
 				return (Vector<Real, N>&)*this;
-			}
-
-			bool operator==(const Vector<Real, N>& that) const
-			{
-				return data_ == that.data_;
 			}
 
 			Real& operator[](integer index)

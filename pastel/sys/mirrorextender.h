@@ -1,3 +1,4 @@
+// Description: Mirroring index extender
 // Documentation: indexextenders.txt
 
 #ifndef PASTEL_MIRROREXTENDER_H

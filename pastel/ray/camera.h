@@ -1,3 +1,6 @@
+// Description: Camera
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_CAMERA_H
 #define PASTEL_CAMERA_H
 

@@ -1,3 +1,6 @@
+// Description: Pinhole lens
+// Documentation: lenses.txt
+
 #ifndef PASTEL_PINHOLE_LENS_H
 #define PASTEL_PINHOLE_LENS_H
 

@@ -1,3 +1,6 @@
+// Description: Optical laws
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_OPTICS_H
 #define PASTEL_OPTICS_H
 

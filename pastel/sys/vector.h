@@ -829,4 +829,6 @@ namespace std
 
 #include "pastel/sys/vector.hpp"
 
+#include "pastel/sys/vector_compare.h"
+
 #endif

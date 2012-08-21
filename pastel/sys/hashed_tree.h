@@ -1,3 +1,5 @@
+// Description: Hashed tree
+
 #ifndef PASTEL_HASHED_TREE_H
 #define PASTEL_HASHED_TREE_H
 

@@ -224,7 +224,6 @@ namespace Pastel
 #include "pastel/sys/binary_vectorexpression.h"
 
 #include "pastel/sys/vector_tools_more.h"
-#include "pastel/sys/vector_compare.h"
 
 #include "pastel/sys/vector_tools.hpp"
 #include "pastel/sys/vector_tools_more.hpp"

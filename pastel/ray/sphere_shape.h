@@ -1,3 +1,5 @@
+// Description: Sphere shape
+
 #ifndef PASTEL_SPHERE_SHAPE_H
 #define PASTEL_SPHERE_SHAPE_H
 

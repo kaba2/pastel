@@ -1,3 +1,4 @@
+// Description: Array extender
 // Documentation: indexextenders.txt
 
 #ifndef PASTEL_ARRAYEXTENDER_H

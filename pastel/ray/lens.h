@@ -1,3 +1,6 @@
+// Description: An abstract lens
+// Documentation: lenses.txt
+
 #ifndef PASTEL_LENS_H
 #define PASTEL_LENS_H
 

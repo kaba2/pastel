@@ -1,3 +1,6 @@
+// Description: Lambertian brdf
+// Documentation: brdfs.txt
+
 #ifndef PASTEL_LAMBERTIAN_BRDF_H
 #define PASTEL_LAMBERTIAN_BRDF_H
 

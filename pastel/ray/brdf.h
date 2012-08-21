@@ -1,3 +1,6 @@
+// Description: An abstract brdf
+// Documentation: brdfs.txt
+
 #ifndef PASTEL_BRDF_H
 #define PASTEL_BRDF_H
 

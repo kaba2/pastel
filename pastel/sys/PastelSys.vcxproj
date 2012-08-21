@@ -215,8 +215,8 @@
     <ClInclude Include="sparse_iterator.h" />
     <ClInclude Include="subarray.h" />
     <ClInclude Include="subarray_iterator.h" />
-    <ClInclude Include="subarray_tools.h" />
-    <ClInclude Include="subarray_tools.hpp" />
+    <ClInclude Include="subarray_for_each.h" />
+    <ClInclude Include="subarray_for_each.hpp" />
     <ClInclude Include="fastlist.h" />
     <ClInclude Include="fastlist.hpp" />
     <ClInclude Include="fastlist_tools.h" />

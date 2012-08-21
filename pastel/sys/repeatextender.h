@@ -1,3 +1,4 @@
+// Description: Repeating index extender
 // Documentation: indexextenders.txt
 
 #ifndef PASTEL_REPEATEXTENDER_H

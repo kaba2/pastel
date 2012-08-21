@@ -1,3 +1,6 @@
+// Description: Light spectrum
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_SPECTRUM_H
 #define PASTEL_SPECTRUM_H
 

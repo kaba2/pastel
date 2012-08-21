@@ -1,3 +1,6 @@
+// Description: Geometric optics
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_BEAM_TOOLS_H
 #define PASTEL_BEAM_TOOLS_H
 

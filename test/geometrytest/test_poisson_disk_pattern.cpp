@@ -1,3 +1,6 @@
+// Description: Testing for poisson-disk pattern
+// DocumentationOf: poisson_disk_pattern.h
+
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/pointkdtree_tools.h"

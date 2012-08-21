@@ -1,3 +1,5 @@
+// Description: Box shape
+
 #ifndef PASTEL_BOX_SHAPE_H
 #define PASTEL_BOX_SHAPE_H
 

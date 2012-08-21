@@ -1,3 +1,6 @@
+// Description: More testing for Textures
+// DocumentationOf: textures.h
+
 #include "pastelgfxtest.h"
 
 #include <pastel/gfx/color_tools.h>

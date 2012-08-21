@@ -19,7 +19,7 @@
 #include <pastel/gfx/block_matching_bruteforce.h>
 #include <pastel/gfx/savepcx.h>
 
-#include <pastel/sys/subarray_tools.h>
+#include <pastel/sys/subarray_for_each.h>
 #include <pastel/sys/pointpolicies.h>
 #include <pastel/sys/string_algorithms.h>
 #include <pastel/sys/reporters.h>

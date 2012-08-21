@@ -1,3 +1,5 @@
+// Description: Unit testing for PastelDevice
+
 #ifndef PASTEL_PASTELDEVICETEST_H
 #define PASTEL_PASTELDEVICETEST_H
 

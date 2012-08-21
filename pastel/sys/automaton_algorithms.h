@@ -1,3 +1,5 @@
+// Description: An aggregate file for automaton algorithms.
+
 #ifndef PASTEL_AUTOMATON_ALGORITHMS_H
 #define PASTEL_AUTOMATON_ALGORITHMS_H
 

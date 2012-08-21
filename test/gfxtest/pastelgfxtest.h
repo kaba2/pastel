@@ -1,3 +1,5 @@
+// Description: Unit testing for PastelGfx
+
 #ifndef PASTEL_PASTELGFXTEST_H
 #define PASTEL_PASTELGFXTEST_H
 

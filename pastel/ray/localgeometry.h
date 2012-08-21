@@ -1,3 +1,6 @@
+// Description: Local geometry of a shape
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_LOCALGEOMETRY_H
 #define PASTEL_LOCALGEOMETRY_H
 

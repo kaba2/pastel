@@ -16,15 +16,15 @@
     <Filter Include="Material">
       <UniqueIdentifier>{08019577-7b7a-4675-aa76-b9c184340b84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shape\Sphere">
+      <UniqueIdentifier>{18b6b16f-90bc-4b2d-b17d-446f6a4d0d23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shape\Box">
+      <UniqueIdentifier>{7a5f0aff-35aa-464d-acf4-cd6e633296e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="box_shape.cpp">
-      <Filter>Shape</Filter>
-    </ClCompile>
     <ClCompile Include="shape.cpp">
-      <Filter>Shape</Filter>
-    </ClCompile>
-    <ClCompile Include="sphere_shape.cpp">
       <Filter>Shape</Filter>
     </ClCompile>
     <ClCompile Include="brdf.cpp">
@@ -69,17 +69,16 @@
     <ClCompile Include="differential_geometry.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="localgeometry.cpp" />
-    <ClCompile Include="render.cpp" />
     <ClCompile Include="spectrum.cpp" />
+    <ClCompile Include="sphere_shape.cpp">
+      <Filter>Shape\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="box_shape.cpp">
+      <Filter>Shape\Box</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="box_shape.h">
-      <Filter>Shape</Filter>
-    </ClInclude>
     <ClInclude Include="shape.h">
-      <Filter>Shape</Filter>
-    </ClInclude>
-    <ClInclude Include="sphere_shape.h">
       <Filter>Shape</Filter>
     </ClInclude>
     <ClInclude Include="brdf.h">
@@ -128,20 +127,53 @@
     <ClInclude Include="beam_tools.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="differential_geometry.h" />
-    <ClInclude Include="integrator.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="localgeometry.h" />
     <ClInclude Include="optics.h" />
     <ClInclude Include="optics.hpp" />
-    <ClInclude Include="rayforward.h" />
     <ClInclude Include="raylibrary.h" />
     <ClInclude Include="shapeintersection.h" />
     <ClInclude Include="spectrum.h" />
     <ClInclude Include="spectrum.hpp" />
+    <ClInclude Include="sphere_shape.h">
+      <Filter>Shape\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="box_shape.h">
+      <Filter>Shape\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="shapes.h">
+      <Filter>Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="ray_fwd.h" />
+    <ClInclude Include="lenses.h">
+      <Filter>Lens</Filter>
+    </ClInclude>
+    <ClInclude Include="brdfs.h">
+      <Filter>Brdf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="sphere_shape.txt">
+    <None Include="shapes.txt">
       <Filter>Shape</Filter>
+    </None>
+    <None Include="pastelray.txt" />
+    <None Include="sphere_shape.txt">
+      <Filter>Shape\Sphere</Filter>
+    </None>
+    <None Include="box_shape.txt">
+      <Filter>Shape\Box</Filter>
+    </None>
+    <None Include="things.txt">
+      <Filter>Thing</Filter>
+    </None>
+    <None Include="materials.txt">
+      <Filter>Material</Filter>
+    </None>
+    <None Include="lenses.txt">
+      <Filter>Lens</Filter>
+    </None>
+    <None Include="brdfs.txt">
+      <Filter>Brdf</Filter>
     </None>
   </ItemGroup>
 </Project>
