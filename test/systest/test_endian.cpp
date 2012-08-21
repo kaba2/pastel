@@ -1,7 +1,7 @@
 // Description: Testing for endian conversions
 // DocumentationOf: endian.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 #include "pastel/sys/endian.h"
 
 using namespace Pastel;

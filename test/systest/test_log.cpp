@@ -1,7 +1,7 @@
 // Description: Testing for logging
 // DocumentationOf: log.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/log.h"
 #include "pastel/sys/loggers.h"

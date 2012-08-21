@@ -1,14 +1,14 @@
 // Description: Testing for uniform distortion
 // DocumentationOf: uniform_distortion.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/math/uniform_distortion.h"
 
 #include "pastel/geometry/poisson_disk_pattern.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
 

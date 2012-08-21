@@ -1,4 +1,5 @@
 // Description: Drawing a box
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_BOX_H
 #define PASTEL_DRAW_BOX_H

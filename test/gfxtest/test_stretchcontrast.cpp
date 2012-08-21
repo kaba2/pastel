@@ -1,4 +1,4 @@
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/color_space.h"

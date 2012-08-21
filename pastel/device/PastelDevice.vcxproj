@@ -164,6 +164,7 @@
     <None Include="timing.txt" />
     <None Include="devices.txt" />
     <None Include="pasteldevice.txt" />
+    <None Include="ui.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\sys\pastelsys.vcxproj">

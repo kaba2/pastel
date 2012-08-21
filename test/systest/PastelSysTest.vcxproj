@@ -173,7 +173,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pastelsystest.cpp" />
+    <ClCompile Include="test_pastelsys.cpp" />
     <ClCompile Include="test_andersondarling.cpp" />
     <ClCompile Include="test_arenaallocator.cpp" />
     <ClCompile Include="test_array.cpp" />
@@ -214,10 +214,10 @@
     <ClCompile Include="test_view.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pastelsystest.h" />
+    <ClInclude Include="test_pastelsys.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="pastelsystest.txt" />
+    <None Include="test_pastelsys.txt" />
     <None Include="poolspeed.txt" />
   </ItemGroup>
   <ItemGroup>

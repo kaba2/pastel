@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_PROJECTIVE_QUAD_HPP
 
 #include "pastel/gfx/draw_projective_quad.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/geometry/planar_projection.h"
 

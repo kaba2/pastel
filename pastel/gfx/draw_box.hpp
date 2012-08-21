@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_BOX_HPP
 
 #include "pastel/gfx/draw_box.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 #include "pastel/gfx/color_texture.h"
 
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"

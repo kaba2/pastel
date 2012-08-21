@@ -1,14 +1,14 @@
 // Description: Testing for drawing
-// DocumentationOf: draw.h
+// DocumentationOf: drawing.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/sys/extendedconstviews.h"
 #include "pastel/sys/views.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/radial_texture.h"

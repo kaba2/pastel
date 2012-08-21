@@ -1,7 +1,7 @@
 // Description: Testing for Progress class
 // DocumentationOf: progress.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/progress.h"
 

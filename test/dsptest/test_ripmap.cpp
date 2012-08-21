@@ -1,7 +1,7 @@
 // Description: Testing for RipMap
 // DocumentationOf: ripmap.h
 
-#include "pasteldsptest.h"
+#include "test_pasteldsp.h"
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/arrayview.h"
@@ -9,7 +9,7 @@
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 
 #include "pastel/dsp/ripmap_tools.h"
 

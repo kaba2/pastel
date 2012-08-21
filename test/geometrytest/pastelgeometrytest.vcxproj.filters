@@ -81,16 +81,16 @@
     <ClCompile Include="test_contains_alignedbox_alignedbox.cpp">
       <Filter>Algorithms\Containment</Filter>
     </ClCompile>
-    <ClCompile Include="pastelgeometrytest.cpp" />
     <ClCompile Include="test_leastsquares.cpp" />
     <ClCompile Include="test_patternmatch.cpp" />
     <ClCompile Include="test_transformation.cpp" />
     <ClCompile Include="test_poisson_disk_pattern.cpp" />
+    <ClCompile Include="test_pastelgeometry.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pastelgeometrytest.h" />
+    <ClInclude Include="test_pastelgeometry.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="pastelgeometrytest.txt" />
+    <None Include="test_pastelgeometry.txt" />
   </ItemGroup>
 </Project>

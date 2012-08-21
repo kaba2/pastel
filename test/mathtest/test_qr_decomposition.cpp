@@ -1,7 +1,7 @@
 // Description: Testing for QrDecomposition
 // DocumentationOf: qr_decomposition.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/math/qr_decomposition_tools.h"
 #include "pastel/math/matrix_tools.h"

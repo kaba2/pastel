@@ -1,7 +1,7 @@
 A generalized midpoint algorithm for drawing line segments
 ==========================================================
 
-[[Parent]]: draw.txt
+[[Parent]]: drawing.txt
 
 Abstract
 --------

@@ -1,7 +1,7 @@
 // Description: Testing for CholeskyDecomposition
 // DocumentationOf: cholesky_decomposition.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/tuple_tools.h"

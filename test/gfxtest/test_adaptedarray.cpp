@@ -1,6 +1,6 @@
 // Description: Testing for adapted array
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/views.h"

@@ -1,4 +1,5 @@
 // Description: Drawing a pixel
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_PIXEL_H
 #define PASTEL_DRAW_PIXEL_H

@@ -100,5 +100,8 @@
     <None Include="pasteldevice.txt">
       <Filter>Common</Filter>
     </None>
+    <None Include="ui.txt">
+      <Filter>Ui</Filter>
+    </None>
   </ItemGroup>
 </Project>

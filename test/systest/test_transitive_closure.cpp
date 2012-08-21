@@ -1,7 +1,7 @@
 // Description: Testing for functional transitive closure
 // DocumentationOf: transitive_closure.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/transitive_closure.h"
 #include "pastel/sys/incidence_graph.h"

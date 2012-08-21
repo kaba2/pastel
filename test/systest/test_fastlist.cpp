@@ -1,7 +1,7 @@
 // Description: Testing for FastList
 // DocumentationOf: fastlist.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/fastlist.h"
 #include "pastel/sys/log.h"

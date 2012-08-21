@@ -169,15 +169,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pastelraytest.cpp" />
+    <ClCompile Include="test_pastelray.cpp" />
     <ClCompile Include="test_shape.cpp" />
     <ClCompile Include="test_thing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pastelraytest.h" />
+    <ClInclude Include="test_pastelray.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="pastelraytest.txt" />
+    <None Include="test_pastelray.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">

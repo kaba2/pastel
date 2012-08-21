@@ -1,7 +1,7 @@
 // Description: Testing for low-discrepancy sequences
 // DocumentationOf: lowdiscrepancy.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/vector.h"
@@ -9,7 +9,7 @@
 #include "pastel/math/lowdiscrepancy.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/color_tools.h"
 
 using namespace Pastel;

@@ -1,7 +1,7 @@
 // Description: Testing for hash functions
 // DocumentationOf: hash.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/counting_iterator.h"

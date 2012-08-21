@@ -1,7 +1,7 @@
 // Description: Testing for IndexAllocator
 // DocumentationOf: indexallocator.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/indexallocator.h"
 

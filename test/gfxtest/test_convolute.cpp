@@ -1,7 +1,7 @@
 // Description: Testing for convolution
-// DocumentationOf: convolute.h
+// DocumentationOf: convolution.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/sys/arrayview.h"
 
@@ -9,12 +9,12 @@
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/mipimage_texture.h"
 #include "pastel/dsp/filterform.h"
-#include "pastel/gfx/convolute.h"
+#include "pastel/gfx/convolution.h"
 #include "pastel/gfx/packrange.h"
 #include "pastel/gfx/noise.h"
 

@@ -1,14 +1,14 @@
 // Description: Testing for poisson-disk pattern
 // DocumentationOf: poisson_disk_pattern.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
 #include "pastel/geometry/poisson_disk_pattern.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_space.h"

@@ -155,14 +155,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pasteldsptest.cpp" />
+    <ClCompile Include="test_pasteldsp.cpp" />
     <ClCompile Include="test_filter.cpp" />
     <ClCompile Include="test_fourier.cpp" />
     <ClCompile Include="test_mipmap.cpp" />
     <ClCompile Include="test_ripmap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pasteldsptest.h" />
+    <ClInclude Include="test_pasteldsp.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">

@@ -1,7 +1,7 @@
 // Description: Testing for ArenaAllocator
 // DocumentationOf: arena_allocator.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 #include "pastel/sys/arena_allocator.h"
 
 #include <vector>

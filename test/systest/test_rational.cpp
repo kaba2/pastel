@@ -1,7 +1,7 @@
 // Description: Testing for Rational
 // DocumentationOf: rational.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/biginteger.h"

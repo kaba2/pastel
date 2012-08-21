@@ -1,7 +1,7 @@
 // Description: Testing for Things
 // DocumentationOf: thing.h
 
-#include "pastelraytest.h"
+#include "test_pastelray.h"
 
 #include <pastel/ray/sphere_shape.h>
 

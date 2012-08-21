@@ -1,12 +1,12 @@
 // Description: Testing for smooth-step functions
 // DocumentationOf: smoothstep.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/math/smoothstep.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/color_tools.h"
 
 #include "pastel/sys/random.h"

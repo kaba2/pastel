@@ -1,0 +1,4 @@
+Image quantization
+==================
+
+[[Parent]]: image_processing.txt

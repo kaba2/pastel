@@ -1,7 +1,7 @@
 // Description: Testing for textures
 // DocumentationOf: textures.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/view_visit.h"
@@ -11,7 +11,7 @@
 
 #include "pastel/gfx/colormixers.h"
 #include "pastel/gfx/textures.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/dsp/mipmap_tools.h"

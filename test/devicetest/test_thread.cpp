@@ -1,7 +1,7 @@
 // Description: Testing for Thread
 // DocumentationOf: thread.h
 
-#include "pasteldevicetest.h"
+#include "test_pasteldevice.h"
 
 #include "pastel/device/thread.h"
 

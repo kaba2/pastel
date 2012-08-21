@@ -1,4 +1,5 @@
 // Description: Drawing a textured triangle in perspective
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_PERSPECTIVE_TRIANGLE_H
 #define PASTEL_DRAW_PERSPECTIVE_TRIANGLE_H

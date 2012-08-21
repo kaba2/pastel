@@ -3,7 +3,7 @@
 
 #include "pastel/gfx/draw_triangle.h"
 #include "pastel/gfx/draw_horizontal_line.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/predicates.h"

@@ -1,7 +1,7 @@
 // Description: Testing for alignedbox-alignedbox containment
 // DocumentationOf: contains_alignedbox_alignedbox.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/contains_alignedbox_alignedbox.h"
 

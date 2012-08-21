@@ -1,7 +1,7 @@
 // Description: Testing for image pdfs
 // DocumentationOf: imagepdf.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/loadpcx.h"
@@ -9,7 +9,7 @@
 #include "pastel/gfx/noise.h"
 #include "pastel/gfx/summedareatable.h"
 #include "pastel/gfx/imagepdf.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 
 #include "pastel/dsp/filters.h"
 #include "pastel/dsp/mipmap.h"

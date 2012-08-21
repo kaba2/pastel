@@ -1,7 +1,7 @@
 // Description: Testing for Vector
 // DocumentationOf: vector.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/rational_tools.h"
 #include "pastel/sys/vector.h"

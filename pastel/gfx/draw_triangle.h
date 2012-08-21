@@ -1,4 +1,5 @@
 // Description: Drawing a triangle
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_TRIANGLE_H
 #define PASTEL_DRAW_TRIANGLE_H

@@ -1,7 +1,7 @@
 // Description: Testing for PointKdTree
 // DocumentationOf: pointkdtree.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"

@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="pastelsystest.cpp" />
     <ClCompile Include="test_config.cpp" />
     <ClCompile Include="test_indexallocator.cpp" />
     <ClCompile Include="test_fastlist.cpp">
@@ -110,13 +109,11 @@
     <ClCompile Include="test_automaton_closure.cpp">
       <Filter>Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="test_pastelsys.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pastelsystest.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="pastelsystest.txt" />
     <None Include="poolspeed.txt" />
+    <None Include="test_pastelsys.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Data structures">
@@ -143,5 +140,8 @@
     <Filter Include="Portability">
       <UniqueIdentifier>{c4f04805-4fa7-4f3c-aded-bd440586ff30}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test_pastelsys.h" />
   </ItemGroup>
 </Project>

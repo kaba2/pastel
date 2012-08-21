@@ -1,7 +1,7 @@
 // Description: Testing for RedBlackTree
 // DocumentationOf: redblacktree.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/redblacktree_tools.h"
 #include "pastel/sys/random_uniform.h"

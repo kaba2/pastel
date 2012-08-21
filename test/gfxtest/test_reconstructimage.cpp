@@ -1,7 +1,7 @@
 // Description: Testing for signal reconstruction
 // DocumentationOf: reconstruction.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/sys/arrayview.h"
 

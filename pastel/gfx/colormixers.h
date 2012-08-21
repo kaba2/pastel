@@ -3,9 +3,9 @@
 #ifndef PASTEL_COLORMIXERS_H
 #define PASTEL_COLORMIXERS_H
 
-#include "pastel/gfx/transparentcolormixer.h"
-#include "pastel/gfx/assigncolormixer.h"
-#include "pastel/gfx/additivecolormixer.h"
-#include "pastel/gfx/functorcolormixer.h"
+#include "pastel/gfx/additive_colormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
+#include "pastel/gfx/functor_colormixer.h"
+#include "pastel/gfx/transparent_colormixer.h"
 
 #endif

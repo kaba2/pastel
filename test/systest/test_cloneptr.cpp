@@ -1,7 +1,7 @@
 // Description: Testing for ClonePtr
 // DocumentationOf: clone_ptr.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/clone_ptr.h"
 

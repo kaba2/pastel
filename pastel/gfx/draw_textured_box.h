@@ -1,4 +1,5 @@
 // Description: Drawing a textured box
+// Documentation: drawing.txt
 
 #ifndef DRAW_TEXTURED_BOX_H
 #define DRAW_TEXTURED_BOX_H

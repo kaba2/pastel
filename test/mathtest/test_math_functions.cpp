@@ -1,7 +1,7 @@
 // Description: Testing for math functions
 // DocumentationOf: math_functions.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/sys/random.h"
 #include "pastel/sys/math_functions.h"

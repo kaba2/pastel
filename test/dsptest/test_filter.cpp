@@ -1,12 +1,12 @@
 // Description: Testing for filters
 // DocumentationOf: filter.h
 
-#include "pasteldsptest.h"
+#include "test_pasteldsp.h"
 
 #include <pastel/gfx/pcx.h>
 #include <pastel/gfx/color_space.h>
 #include <pastel/gfx/color_tools.h>
-#include <pastel/gfx/draw.h>
+#include <pastel/gfx/drawing.h>
 #include <pastel/gfx/noise.h>
 #include <pastel/gfx/colormixers.h>
 

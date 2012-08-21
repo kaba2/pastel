@@ -1,13 +1,13 @@
 // Description: Testing for Color
 // DocumentationOf: color.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/pcx.h"
 #include "pastel/gfx/color_space.h"
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/color_illuminant.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/views.h"

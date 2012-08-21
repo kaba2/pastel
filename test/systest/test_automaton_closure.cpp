@@ -1,7 +1,7 @@
 // Description: Testing for automaton closure
 // Documentation: unit_testing.txt
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/sequence_algorithms.h"

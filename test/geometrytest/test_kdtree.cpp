@@ -1,7 +1,7 @@
 // Description: Testing for KdTree
 // DocumentationOf: kdtree.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/kdtree_tools.h"

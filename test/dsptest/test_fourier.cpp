@@ -1,7 +1,7 @@
 // Description: Testing for signal transforms
-// DocumentationOf: transforms.h
+// DocumentationOf: signal_transforms.h
 
-#include "pasteldsptest.h"
+#include "test_pasteldsp.h"
 
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"

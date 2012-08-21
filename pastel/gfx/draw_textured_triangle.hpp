@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_TEXTURED_TRIANGLE_HPP
 
 #include "pastel/gfx/draw_textured_triangle.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/predicates.h"

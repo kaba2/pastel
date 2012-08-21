@@ -1,7 +1,7 @@
 // Description: Testing for image quantization
 // DocumentationOf: image_quantization.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/image_quantization.h"
 

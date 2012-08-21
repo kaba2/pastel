@@ -1,7 +1,7 @@
 // Description: Testing for BigInteger
 // DocumentationOf: biginteger.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include <pastel/sys/biginteger.h>
 #include <pastel/sys/biginteger_tools.h>

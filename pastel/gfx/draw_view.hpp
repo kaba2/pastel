@@ -4,7 +4,7 @@
 #include "pastel/geometry/intersect_alignedbox_alignedbox.h"
 
 #include "pastel/gfx/draw_view.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/sys/view_visit.h"
 #include "pastel/sys/subview.h"

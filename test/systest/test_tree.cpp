@@ -1,7 +1,7 @@
 // Description: Testing for Tree
 // DocumentationOf: tree.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/tree.h"
 #include "pastel/sys/predicates.h"

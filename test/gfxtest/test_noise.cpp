@@ -1,7 +1,7 @@
 // Description: Testing for noise
 // DocumentationOf: noise.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/noise.h"
 #include "pastel/gfx/savepcx.h"

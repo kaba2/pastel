@@ -1,4 +1,5 @@
 // Description: Drawing a quad in perspective
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_PROJECTIVE_QUAD_H
 #define PASTEL_DRAW_PROJECTIVE_QUAD_H

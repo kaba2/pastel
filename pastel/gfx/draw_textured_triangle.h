@@ -1,4 +1,5 @@
 // Description: Drawing a textured triangle
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_TEXTURED_TRIANGLE_H
 #define PASTEL_DRAW_TEXTURED_TRIANGLE_H

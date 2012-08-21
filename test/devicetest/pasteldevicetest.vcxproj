@@ -159,14 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pasteldevicetest.cpp" />
+    <ClCompile Include="test_pasteldevice.cpp" />
     <ClCompile Include="test_thread.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pasteldevicetest.h" />
+    <ClInclude Include="test_pasteldevice.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="pasteldevicetest.txt" />
+    <None Include="test_pasteldevice.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">

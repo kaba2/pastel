@@ -1,7 +1,7 @@
 // Description: Testing for Incidence_Graph
 // DocumentationOf: incidence_graph.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/incidence_graph.h"
 

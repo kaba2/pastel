@@ -1,7 +1,7 @@
 // Description: More testing for conformal affine transformations
 // DocumentationOf: conformalaffine2d.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/math/conformalaffine2d_tools.h"
 #include "pastel/math/uniform_sampling.h"
