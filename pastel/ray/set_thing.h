@@ -1,3 +1,6 @@
+// Description: Set thing
+// Documentation: things.txt
+
 #ifndef PASTEL_SET_THING_H
 #define PASTEL_SET_THING_H
 

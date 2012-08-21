@@ -190,7 +190,7 @@
     <ClCompile Include="pastelgeometrytest.cpp" />
     <ClCompile Include="test_leastsquares.cpp" />
     <ClCompile Include="test_patternmatch.cpp" />
-    <ClCompile Include="test_pointpattern.cpp" />
+    <ClCompile Include="test_poisson_disk_pattern.cpp" />
     <ClCompile Include="test_transformation.cpp" />
   </ItemGroup>
   <ItemGroup>

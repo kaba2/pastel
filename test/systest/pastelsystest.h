@@ -1,3 +1,5 @@
+// Description: Unit testing for PastelSys
+
 #ifndef PASTEL_PASTELSYSTEST_H
 #define PASTEL_PASTELSYSTEST_H
 

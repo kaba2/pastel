@@ -1,3 +1,5 @@
+// Description: Unit testing for PastelDsp
+
 #ifndef PASTEL_PASTELDSPTEST_H
 #define PASTEL_PASTELDSPTEST_H
 

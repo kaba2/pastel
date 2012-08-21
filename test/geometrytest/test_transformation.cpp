@@ -1,3 +1,6 @@
+// Description: More testing for conformal affine transformations
+// DocumentationOf: conformalaffine2d.h
+
 #include "pastelgeometrytest.h"
 
 #include "pastel/math/conformalaffine2d_tools.h"

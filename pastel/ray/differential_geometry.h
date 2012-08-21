@@ -1,3 +1,6 @@
+// Description: Differential geometry
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_DIFFERENTIAL_GEOMETRY_H
 #define PASTEL_DIFFERENTIAL_GEOMETRY_H
 

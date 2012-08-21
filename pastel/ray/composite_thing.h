@@ -1,3 +1,6 @@
+// Description: Composite thing
+// Documentation: things.txt
+
 #ifndef PASTEL_COMPOSITE_THING_H
 #define PASTEL_COMPOSITE_THING_H
 

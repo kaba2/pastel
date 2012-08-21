@@ -1,3 +1,5 @@
+// Description: Unit testing for PastelRay
+
 #ifndef PASTEL_PASTELRAYTEST_H
 #define PASTEL_PASTELRAYTEST_H
 

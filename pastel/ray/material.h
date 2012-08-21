@@ -1,3 +1,6 @@
+// Description: An abstract material
+// Documentation: materials.txt
+
 #ifndef PASTEL_MATERIAL_H
 #define PASTEL_MATERIAL_H
 

@@ -188,7 +188,7 @@
     <ClCompile Include="test_noise.cpp" />
     <ClCompile Include="test_palette.cpp" />
     <ClCompile Include="test_pcx.cpp" />
-    <ClCompile Include="test_quantize.cpp" />
+    <ClCompile Include="test_image_quantization.cpp" />
     <ClCompile Include="test_reconstructimage.cpp" />
     <ClCompile Include="test_stretchcontrast.cpp" />
     <ClCompile Include="test_summedareatable.cpp" />

@@ -1,5 +1,5 @@
-#ifndef PASTEL_SUBARRAY_TOOLS_H
-#define PASTEL_SUBARRAY_TOOLS_H
+#ifndef PASTEL_SUBARRAY_FOR_EACH_H
+#define PASTEL_SUBARRAY_FOR_EACH_H
 
 #include "pastel/sys/subarray.h"
 
@@ -57,6 +57,6 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/subarray_tools.hpp"
+#include "pastel/sys/subarray_for_each.hpp"
 
 #endif

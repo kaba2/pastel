@@ -152,12 +152,14 @@
     <ClCompile Include="differential_geometry.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="localgeometry.cpp" />
-    <ClCompile Include="render.cpp" />
     <ClCompile Include="spectrum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="box_shape.h" />
+    <ClInclude Include="brdfs.h" />
+    <ClInclude Include="lenses.h" />
     <ClInclude Include="shape.h" />
+    <ClInclude Include="shapes.h" />
     <ClInclude Include="sphere_shape.h" />
     <ClInclude Include="brdf.h" />
     <ClInclude Include="lambertian_brdf.h" />
@@ -177,19 +179,25 @@
     <ClInclude Include="beam_tools.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="differential_geometry.h" />
-    <ClInclude Include="integrator.h" />
     <ClInclude Include="light.h" />
     <ClInclude Include="localgeometry.h" />
     <ClInclude Include="optics.h" />
     <ClInclude Include="optics.hpp" />
-    <ClInclude Include="rayforward.h" />
+    <ClInclude Include="ray_fwd.h" />
     <ClInclude Include="raylibrary.h" />
     <ClInclude Include="shapeintersection.h" />
     <ClInclude Include="spectrum.h" />
     <ClInclude Include="spectrum.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="box_shape.txt" />
+    <None Include="brdfs.txt" />
+    <None Include="lenses.txt" />
+    <None Include="materials.txt" />
+    <None Include="pastelray.txt" />
+    <None Include="shapes.txt" />
     <None Include="sphere_shape.txt" />
+    <None Include="things.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

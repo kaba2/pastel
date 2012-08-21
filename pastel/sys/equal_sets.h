@@ -1,3 +1,6 @@
+// Description: Comparison of sets
+// Documentation: sequence_algorithms.txt
+
 #ifndef PASTEL_EQUAL_SETS_H
 #define PASTEL_EQUAL_SETS_H
 

@@ -1,3 +1,6 @@
+// Description: Testing for pattern matching
+// Documentation: point_pattern_matching.txt
+
 #include "pastelgeometrytest.h"
 
 #include "pastel/geometry/pointkdtree_tools.h"

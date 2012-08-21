@@ -1,5 +1,8 @@
-#ifndef PASTEL_RAYFORWARD_H
-#define PASTEL_RAYFORWARD_H
+// Description: Forward-declarations for types
+// Documentation: pastelray.txt
+
+#ifndef PASTEL_RAY_FWD_H
+#define PASTEL_RAY_FWD_H
 
 #include "pastel/ray/raylibrary.h"
 

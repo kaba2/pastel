@@ -36,9 +36,9 @@ the following properties.
 
 ### Storage
 
- * user data can be stored in both elements and sets,
- * user data is optional at compile-time; in case it is not
- needed, it will not take additional memory.
+ * user-data can be stored in both elements and sets,
+ * user-data is optional at compile-time; in case it is not
+ needed, it will not take additional memory,
 
 ### Queries
 
@@ -57,7 +57,7 @@ the following properties.
  * can insert an element into a set in O(1),
  * can remove an element from a set in O(1),
  * can insert an empty set into the partition in O(1),
- * can remove a set from the partition, in O(m), where
+ * can remove a set from the partition in O(m), where
  m is the number of contained elements,
  * can split a set in amortized O(1), and
  

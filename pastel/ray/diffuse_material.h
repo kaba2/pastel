@@ -1,3 +1,6 @@
+// Description: Diffusee material
+// Documentation: materials.txt
+
 #ifndef PASTEL_DIFFUSE_MATERIAL_H
 #define PASTEL_DIFFUSE_MATERIAL_H
 

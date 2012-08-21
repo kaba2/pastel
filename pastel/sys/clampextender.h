@@ -1,3 +1,4 @@
+// Description: Clamping index extended
 // Documentation: indexextenders.txt
 
 #ifndef PASTEL_CLAMPEXTENDER_H

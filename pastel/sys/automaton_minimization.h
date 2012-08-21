@@ -1,5 +1,4 @@
 // Description: Minimization of a deterministic automaton
-// Documentation: automaton_algorithms.txt
 
 #ifndef PASTEL_AUTOMATON_MINIMIZATION_H
 #define PASTEL_AUTOMATON_MINIMIZATION_H

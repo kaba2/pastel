@@ -1,4 +1,4 @@
-// Desciprition: Dereferenced predicates
+// Description: Dereferenced predicates
 // Documentation: predicates.txt
 
 #ifndef PASTEL_DEREFERENCED_PREDICATE_H

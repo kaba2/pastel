@@ -1,3 +1,6 @@
+// Description: A beam of light
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_BEAM_H
 #define PASTEL_BEAM_H
 

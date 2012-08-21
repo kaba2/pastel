@@ -250,8 +250,8 @@
     <ClInclude Include="labeltoimage.h" />
     <ClInclude Include="packrange.h" />
     <ClInclude Include="pixelneighbours.h" />
-    <ClInclude Include="quantize.h" />
-    <ClInclude Include="quantize.hpp" />
+    <ClInclude Include="image_quantization.h" />
+    <ClInclude Include="image_quantization.hpp" />
     <ClInclude Include="structuringelement.h" />
     <ClInclude Include="structuringelement.hpp" />
     <ClInclude Include="summedareatable.h" />

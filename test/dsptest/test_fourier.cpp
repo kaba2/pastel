@@ -14,7 +14,7 @@
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
 #include "pastel/sys/adaptedview.h"
-#include "pastel/sys/subarray_tools.h"
+#include "pastel/sys/subarray_for_each.h"
 
 #include <iostream>
 #include <string>

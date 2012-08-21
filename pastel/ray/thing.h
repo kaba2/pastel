@@ -1,7 +1,10 @@
+// Description: An abstract object
+// Documentation: things.txt
+
 #ifndef PASTEL_THING_H
 #define PASTEL_THING_H
 
-#include "pastel/ray/rayforward.h"
+#include "pastel/ray/ray_fwd.h"
 #include "pastel/ray/localgeometry.h"
 #include "pastel/ray/shapeintersection.h"
 

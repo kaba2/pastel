@@ -118,6 +118,9 @@
     <Filter Include="Block matching">
       <UniqueIdentifier>{0be706ca-6055-4291-ac87-86f4f6a25d62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Not sure\Image processing\Image quantization">
+      <UniqueIdentifier>{37f36677-eaed-4444-8dfd-797dbed87cdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.h">
@@ -465,12 +468,6 @@
     <ClInclude Include="pixelneighbours.h">
       <Filter>Not sure\Image processing\Miscellaneous</Filter>
     </ClInclude>
-    <ClInclude Include="quantize.h">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
-    </ClInclude>
-    <ClInclude Include="quantize.hpp">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
-    </ClInclude>
     <ClInclude Include="structuringelement.h">
       <Filter>Not sure\Image processing\Structuring elements</Filter>
     </ClInclude>
@@ -488,6 +485,12 @@
     </ClInclude>
     <ClInclude Include="block_matching_bruteforce.hpp">
       <Filter>Block matching</Filter>
+    </ClInclude>
+    <ClInclude Include="image_quantization.h">
+      <Filter>Not sure\Image processing\Image quantization</Filter>
+    </ClInclude>
+    <ClInclude Include="image_quantization.hpp">
+      <Filter>Not sure\Image processing\Image quantization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

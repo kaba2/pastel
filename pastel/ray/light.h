@@ -1,3 +1,6 @@
+// Description: Light distribution
+// Documentation: pastelray.txt
+
 #ifndef PASTEL_LIGHT_H
 #define PASTEL_LIGHT_H
 

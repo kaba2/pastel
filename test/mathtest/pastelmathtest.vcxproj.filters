@@ -35,11 +35,10 @@
     </ClCompile>
     <ClCompile Include="mathinstantiate.cpp" />
     <ClCompile Include="pastelmathtest.cpp" />
-    <ClCompile Include="test_common.cpp" />
-    <ClCompile Include="test_complex.cpp" />
     <ClCompile Include="test_lowdiscrepancy.cpp" />
     <ClCompile Include="test_polynomial.cpp" />
     <ClCompile Include="test_smoothstep.cpp" />
+    <ClCompile Include="test_math_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastelmathtest.h" />
