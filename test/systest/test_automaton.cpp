@@ -1,7 +1,7 @@
 // Description: Testing for Automaton
 // DocumentationOf: automaton.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include <pastel/sys/automaton.h>
 #include <pastel/sys/reachable_states.h>

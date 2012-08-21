@@ -88,38 +88,38 @@
     <Filter Include="Rendering\Image_GfxRenderer">
       <UniqueIdentifier>{04552bf9-2c81-44b9-ba9e-b191adc41ef4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Not sure">
-      <UniqueIdentifier>{990e9588-92b8-46c6-88c8-a137afeb9813}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Color mixers">
-      <UniqueIdentifier>{0a65609f-ff5a-4948-9a75-a0f1969fd610}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Image processing">
-      <UniqueIdentifier>{63f25d96-a027-4d15-b4ab-8aa2ae27bcee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Image processing\Labeling">
-      <UniqueIdentifier>{bcd5c967-3338-44e4-8dc6-cf2bf8dba356}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Image processing\Morphology">
-      <UniqueIdentifier>{519adb7d-30bc-4f03-b4c4-90a98b992e6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Image processing\Convolution">
-      <UniqueIdentifier>{3479f1f0-8616-4f08-9fe8-69df8e67e7e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Image processing\Miscellaneous">
-      <UniqueIdentifier>{d5fc701b-6fb0-464f-9952-74d7d0d8c744}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Not sure\Image processing\Structuring elements">
-      <UniqueIdentifier>{82f1f46e-eaef-4090-b7f5-b5d5aa8da8f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Summed-area tables">
       <UniqueIdentifier>{e1ea35ef-1d25-4718-9b29-0e4b43c4bb3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Block matching">
       <UniqueIdentifier>{0be706ca-6055-4291-ac87-86f4f6a25d62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Not sure\Image processing\Image quantization">
+    <Filter Include="Image processing">
+      <UniqueIdentifier>{63f25d96-a027-4d15-b4ab-8aa2ae27bcee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Labeling">
+      <UniqueIdentifier>{bcd5c967-3338-44e4-8dc6-cf2bf8dba356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Morphology">
+      <UniqueIdentifier>{519adb7d-30bc-4f03-b4c4-90a98b992e6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Convolution">
+      <UniqueIdentifier>{3479f1f0-8616-4f08-9fe8-69df8e67e7e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Miscellaneous">
+      <UniqueIdentifier>{d5fc701b-6fb0-464f-9952-74d7d0d8c744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Structuring elements">
+      <UniqueIdentifier>{82f1f46e-eaef-4090-b7f5-b5d5aa8da8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Image quantization">
       <UniqueIdentifier>{37f36677-eaed-4444-8dfd-797dbed87cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Color mixers">
+      <UniqueIdentifier>{0a65609f-ff5a-4948-9a75-a0f1969fd610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Branching number">
+      <UniqueIdentifier>{6110cecb-9808-466b-9db5-2bfa1b373ba5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +179,6 @@
     </ClInclude>
     <ClInclude Include="image_tools.hpp">
       <Filter>Common\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="draw.h">
-      <Filter>2d drawing</Filter>
     </ClInclude>
     <ClInclude Include="draw_box.h">
       <Filter>2d drawing</Filter>
@@ -408,71 +405,23 @@
     <ClInclude Include="image_gfxrenderer.hpp">
       <Filter>Rendering\Image_GfxRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="additivecolormixer.h">
-      <Filter>Not sure\Color mixers</Filter>
-    </ClInclude>
-    <ClInclude Include="assigncolormixer.h">
-      <Filter>Not sure\Color mixers</Filter>
-    </ClInclude>
     <ClInclude Include="colormixer.h">
-      <Filter>Not sure\Color mixers</Filter>
+      <Filter>Color mixers</Filter>
     </ClInclude>
     <ClInclude Include="colormixers.h">
-      <Filter>Not sure\Color mixers</Filter>
-    </ClInclude>
-    <ClInclude Include="functorcolormixer.h">
-      <Filter>Not sure\Color mixers</Filter>
-    </ClInclude>
-    <ClInclude Include="transparentcolormixer.h">
-      <Filter>Not sure\Color mixers</Filter>
-    </ClInclude>
-    <ClInclude Include="boxlabel.h">
-      <Filter>Not sure\Image processing\Labeling</Filter>
-    </ClInclude>
-    <ClInclude Include="connectedcomponents.h">
-      <Filter>Not sure\Image processing\Labeling</Filter>
-    </ClInclude>
-    <ClInclude Include="connectedcomponents.hpp">
-      <Filter>Not sure\Image processing\Labeling</Filter>
-    </ClInclude>
-    <ClInclude Include="dilate.h">
-      <Filter>Not sure\Image processing\Morphology</Filter>
-    </ClInclude>
-    <ClInclude Include="dilate.hpp">
-      <Filter>Not sure\Image processing\Morphology</Filter>
-    </ClInclude>
-    <ClInclude Include="erode.h">
-      <Filter>Not sure\Image processing\Morphology</Filter>
-    </ClInclude>
-    <ClInclude Include="erode.hpp">
-      <Filter>Not sure\Image processing\Morphology</Filter>
-    </ClInclude>
-    <ClInclude Include="convolute.h">
-      <Filter>Not sure\Image processing\Convolution</Filter>
-    </ClInclude>
-    <ClInclude Include="convolute.hpp">
-      <Filter>Not sure\Image processing\Convolution</Filter>
-    </ClInclude>
-    <ClInclude Include="branchingnumber.h">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
+      <Filter>Color mixers</Filter>
     </ClInclude>
     <ClInclude Include="gfxresource.h">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
+      <Filter>Image processing\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="labeltoimage.h">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
+      <Filter>Image processing\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="packrange.h">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
+      <Filter>Image processing\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="pixelneighbours.h">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
-    </ClInclude>
-    <ClInclude Include="structuringelement.h">
-      <Filter>Not sure\Image processing\Structuring elements</Filter>
-    </ClInclude>
-    <ClInclude Include="structuringelement.hpp">
-      <Filter>Not sure\Image processing\Structuring elements</Filter>
+      <Filter>Image processing\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="summedareatable.h">
       <Filter>Summed-area tables</Filter>
@@ -487,10 +436,61 @@
       <Filter>Block matching</Filter>
     </ClInclude>
     <ClInclude Include="image_quantization.h">
-      <Filter>Not sure\Image processing\Image quantization</Filter>
+      <Filter>Image processing\Image quantization</Filter>
     </ClInclude>
     <ClInclude Include="image_quantization.hpp">
-      <Filter>Not sure\Image processing\Image quantization</Filter>
+      <Filter>Image processing\Image quantization</Filter>
+    </ClInclude>
+    <ClInclude Include="drawing.h">
+      <Filter>2d drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="additive_colormixer.h">
+      <Filter>Color mixers</Filter>
+    </ClInclude>
+    <ClInclude Include="assign_colormixer.h">
+      <Filter>Color mixers</Filter>
+    </ClInclude>
+    <ClInclude Include="functor_colormixer.h">
+      <Filter>Color mixers</Filter>
+    </ClInclude>
+    <ClInclude Include="transparent_colormixer.h">
+      <Filter>Color mixers</Filter>
+    </ClInclude>
+    <ClInclude Include="convolution.h">
+      <Filter>Image processing\Convolution</Filter>
+    </ClInclude>
+    <ClInclude Include="convolution.hpp">
+      <Filter>Image processing\Convolution</Filter>
+    </ClInclude>
+    <ClInclude Include="component_labeling.h">
+      <Filter>Image processing\Labeling</Filter>
+    </ClInclude>
+    <ClInclude Include="component_labeling.hpp">
+      <Filter>Image processing\Labeling</Filter>
+    </ClInclude>
+    <ClInclude Include="box_labeling.h">
+      <Filter>Image processing\Labeling</Filter>
+    </ClInclude>
+    <ClInclude Include="branching_number.h">
+      <Filter>Image processing\Branching number</Filter>
+    </ClInclude>
+    <ClInclude Include="structuring_elements.h">
+      <Filter>Image processing\Structuring elements</Filter>
+    </ClInclude>
+    <ClInclude Include="structuring_elements.hpp">
+      <Filter>Image processing\Structuring elements</Filter>
+    </ClInclude>
+    <ClInclude Include="image_dilation.h">
+      <Filter>Image processing\Morphology</Filter>
+    </ClInclude>
+    <ClInclude Include="image_dilation.hpp">
+      <Filter>Image processing\Morphology</Filter>
+    </ClInclude>
+    <ClInclude Include="image_eroding.h">
+      <Filter>Image processing\Morphology</Filter>
+    </ClInclude>
+    <ClInclude Include="image_eroding.hpp">
+      <Filter>Image processing\Morphology</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -511,9 +511,6 @@
     </None>
     <None Include="common.txt">
       <Filter>Common</Filter>
-    </None>
-    <None Include="draw.txt">
-      <Filter>2d drawing</Filter>
     </None>
     <None Include="draw_segment_notes.txt">
       <Filter>2d drawing</Filter>
@@ -588,6 +585,33 @@
       <Filter>Block matching</Filter>
     </None>
     <None Include="pastelgfx.txt" />
+    <None Include="drawing.txt">
+      <Filter>2d drawing</Filter>
+    </None>
+    <None Include="colormixers.txt">
+      <Filter>Color mixers</Filter>
+    </None>
+    <None Include="image_processing.txt">
+      <Filter>Image processing</Filter>
+    </None>
+    <None Include="convolution.txt">
+      <Filter>Image processing\Convolution</Filter>
+    </None>
+    <None Include="labeling.txt">
+      <Filter>Image processing\Labeling</Filter>
+    </None>
+    <None Include="branching_number.txt">
+      <Filter>Image processing\Branching number</Filter>
+    </None>
+    <None Include="structuring_elements.txt">
+      <Filter>Image processing\Structuring elements</Filter>
+    </None>
+    <None Include="image_quantization.txt">
+      <Filter>Image processing\Image quantization</Filter>
+    </None>
+    <None Include="image_morphology.txt">
+      <Filter>Image processing\Morphology</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="color_tools.cpp">
@@ -647,17 +671,17 @@
     <ClCompile Include="image_gfxrenderer.cpp">
       <Filter>Rendering\Image_GfxRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="boxlabel.cpp">
-      <Filter>Not sure\Image processing\Labeling</Filter>
-    </ClCompile>
-    <ClCompile Include="branchingnumber.cpp">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
-    </ClCompile>
     <ClCompile Include="labeltoimage.cpp">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
+      <Filter>Image processing\Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="pixelneighbours.cpp">
-      <Filter>Not sure\Image processing\Miscellaneous</Filter>
+      <Filter>Image processing\Miscellaneous</Filter>
+    </ClCompile>
+    <ClCompile Include="box_labeling.cpp">
+      <Filter>Image processing\Labeling</Filter>
+    </ClCompile>
+    <ClCompile Include="branching_number.cpp">
+      <Filter>Image processing\Branching number</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

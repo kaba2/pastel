@@ -1,7 +1,7 @@
 // Description: Testing for iterators
 // Documentation: iterators.txt
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/constant_iterator.h"
 #include "pastel/sys/counting_iterator.h"

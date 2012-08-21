@@ -1,7 +1,7 @@
 // Description: Testing for automaton determinization
 // DocumentationOf: automaton_determinization.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/automaton_minimization.h"

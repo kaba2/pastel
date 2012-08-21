@@ -1,7 +1,7 @@
 // Description: Testing for pattern matching
 // Documentation: point_pattern_matching.txt
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/point_pattern_matching.h"
@@ -10,7 +10,7 @@
 #include "pastel/sys/array_pointpolicy.h"
 
 #include "pastel/gfx/savepcx.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/image_gfxrenderer.h"
 #include "pastel/gfx/gfxrenderer_tools.h"
 #include "pastel/gfx/color_tools.h"

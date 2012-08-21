@@ -1,7 +1,7 @@
 // Description: Testing for PCX files
 // DocumentationOf: loadpcx.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"

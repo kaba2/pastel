@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_TEXTURED_BOX_HPP
 
 #include "pastel/gfx/draw_textured_box.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/math/matrix.h"
 

@@ -1,7 +1,7 @@
 // Description: Testing for StatReal
 // DocumentationOf: statreal.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/statreal_tools.h"
 #include "pastel/sys/vector_tools.h"

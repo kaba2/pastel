@@ -1,7 +1,7 @@
 // Description: Testing for area computations
 // DocumentationOf: area.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/area.h"
 #include "pastel/sys/rational.h"

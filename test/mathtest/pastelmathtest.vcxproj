@@ -180,17 +180,17 @@
     <ClCompile Include="test_qr_decomposition.cpp" />
     <ClCompile Include="test_gcd.cpp" />
     <ClCompile Include="mathinstantiate.cpp" />
-    <ClCompile Include="pastelmathtest.cpp" />
+    <ClCompile Include="test_pastelmath.cpp" />
     <ClCompile Include="test_math_functions.cpp" />
     <ClCompile Include="test_lowdiscrepancy.cpp" />
     <ClCompile Include="test_polynomial.cpp" />
     <ClCompile Include="test_smoothstep.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pastelmathtest.h" />
+    <ClInclude Include="test_pastelmath.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="pastelmathtest.txt" />
+    <None Include="test_pastelmath.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">

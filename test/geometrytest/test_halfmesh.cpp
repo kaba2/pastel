@@ -1,7 +1,7 @@
 // Description: Testing for HalfMesh
 // DocumentationOf: halfmesh.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/halfmesh_tools.h"
 #include "pastel/geometry/simplehalfmesh.h"

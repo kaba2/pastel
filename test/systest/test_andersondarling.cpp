@@ -1,7 +1,7 @@
 // Description: Testing for Anderson-Darling statistic
 // DocumentationOf: random_anderson_darling.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/random_anderson_darling.h"
 #include "pastel/sys/random_gaussian.h"

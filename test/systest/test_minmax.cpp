@@ -1,7 +1,7 @@
 // Description: Testing for minMax
 // DocumentationOf: minmax.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/minmax.h"
 

@@ -1,7 +1,7 @@
 // Description: Testing for adjacent floating point numbers
 // DocumentationOf: eps.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/eps.h"
 

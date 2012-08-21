@@ -1,7 +1,7 @@
 // Description: Testing for string algorithms
 // DocumentationOf: string_algorithms.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/constants.h"

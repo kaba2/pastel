@@ -1,0 +1,4 @@
+Structuring elements
+====================
+
+[[Parent]]: image_processing.txt

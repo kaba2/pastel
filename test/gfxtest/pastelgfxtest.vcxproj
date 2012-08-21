@@ -175,7 +175,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pastelgfxtest.cpp" />
+    <ClCompile Include="test_pastelgfx.cpp" />
     <ClCompile Include="test_adaptedarray.cpp" />
     <ClCompile Include="test_blockmatching.cpp" />
     <ClCompile Include="test_color.cpp" />
@@ -196,10 +196,10 @@
     <ClCompile Include="test_texture_examples.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pastelgfxtest.h" />
+    <ClInclude Include="test_pastelgfx.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="pastelgfxtest.txt" />
+    <None Include="test_pastelgfx.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">

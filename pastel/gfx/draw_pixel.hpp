@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_PIXEL_HPP
 
 #include "pastel/gfx/draw_pixel.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/sys/vector_compare.h"
 

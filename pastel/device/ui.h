@@ -1,3 +1,5 @@
+// Description: An abstract user-interface
+
 #ifndef PASTEL_UI_H
 #define PASTEL_UI_H
 

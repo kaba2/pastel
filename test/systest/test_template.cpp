@@ -1,7 +1,7 @@
 // Description: Testing template
 // Documentation: unit_testing.txt
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 using namespace Pastel;
 using namespace std;

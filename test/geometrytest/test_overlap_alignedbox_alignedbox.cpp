@@ -1,7 +1,7 @@
 // Description: Testing for alignedbox-alignedbox overlap
 // DocumentationOf: overlaps_alignedbox_alignedbox.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/overlaps_alignedbox_alignedbox.h"
 

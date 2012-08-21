@@ -1,7 +1,7 @@
 // Description: Testing for refinable partition
 // DocumentationOf: refinable_partition.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include <pastel/sys/refinable_partition.h>
 

@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_HORIZONTAL_LINE_HPP
 
 #include "pastel/gfx/draw_horizontal_line.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/sys/syscommon.h"
 

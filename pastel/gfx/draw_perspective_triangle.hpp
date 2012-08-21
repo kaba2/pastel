@@ -2,7 +2,7 @@
 #define PASTEL_DRAW_PERSPECTIVE_TRIANGLE_HPP
 
 #include "pastel/gfx/draw_perspective_triangle.h"
-#include "pastel/gfx/assigncolormixer.h"
+#include "pastel/gfx/assign_colormixer.h"
 
 #include "pastel/geometry/plane.h"
 #include "pastel/geometry/predicates.h"

@@ -1,7 +1,7 @@
 // Description: Testing for block matching
 // DocumentationOf: block_matching_bruteforce.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include <pastel/device/timer.h>
 

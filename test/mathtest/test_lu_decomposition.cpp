@@ -1,7 +1,7 @@
 // Description: Testing for PluDecomposition
 // DocumentationOf: lu_decomposition.h
 
-#include "pastelmathtest.h"
+#include "test_pastelmath.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/tuple_tools.h"

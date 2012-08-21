@@ -1,4 +1,5 @@
 // Description: Drawing a horizontal line segment
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_HORIZONTAL_LINE_H
 #define PASTEL_DRAW_HORIZONTAL_LINE_H

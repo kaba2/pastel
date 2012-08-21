@@ -1,7 +1,7 @@
 // Description: Testing for range counting in PointKdTree
 // DocumentationOf: count_range_pointkdtree.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/count_range_pointkdtree.h"
 #include "pastel/geometry/splitrule_pointkdtree.h"

@@ -1,7 +1,7 @@
 // Description: Testing for maximum bipartite matching
 // DocumentationOf: maximum_bipartite_matching.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/tuple_tools.h"

@@ -1,7 +1,7 @@
 // Description: Testing for Array
 // DocumentationOf: array.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/array.h"
 

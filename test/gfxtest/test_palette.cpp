@@ -1,14 +1,14 @@
 // Description: Testing for palettes
 // DocumentationOf: color_palette.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/sys/arrayview.h"
 
 #include "pastel/gfx/loadpcx.h"
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/color_tools.h"
-#include "pastel/gfx/draw.h"
+#include "pastel/gfx/drawing.h"
 #include "pastel/gfx/color_palette.h"
 
 #include <iostream>

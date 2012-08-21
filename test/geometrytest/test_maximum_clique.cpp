@@ -1,7 +1,7 @@
 // Description: Testing for aligned box maximum clique
 // DocumentationOf: maximum_clique_alignedbox.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/maximum_clique_alignedbox.h"
 #include "pastel/geometry/alignedbox.h"

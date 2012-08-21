@@ -1,0 +1,15 @@
+Branching number
+================
+
+[[Parent]]: image_processing.txt
+
+The branching number of a pixel is the number of 4-connected 1-components 
+in its 8-neighbourhood (the pixel itself does not take part of any component).
+In the following example
+
+[[Verbatim]]:
+	0 1 0
+	1 x 1
+	1 0 1
+	
+the branching number of x is three.

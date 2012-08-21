@@ -1,3 +1,6 @@
+// Description: Marching triangles
+// Documentation: drawing.txt
+
 #ifndef PASTEL_MARCHINGTRIANGLES_H
 #define PASTEL_MARCHINGTRIANGLES_H
 

@@ -1,7 +1,7 @@
 // Description: Testing for Config
 // DocumentationOf: configfile.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include "pastel/sys/configfile.h"
 

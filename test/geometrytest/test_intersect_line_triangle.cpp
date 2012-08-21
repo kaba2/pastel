@@ -1,7 +1,7 @@
 // Description: Testing for line-triangle intersection
 // DocumentationOf: intersect_line_triangle.h
 
-#include "pastelgeometrytest.h"
+#include "test_pastelgeometry.h"
 
 #include "pastel/geometry/intersect_line_triangle.h"
 #include "pastel/sys/rational.h"

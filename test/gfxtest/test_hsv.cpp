@@ -1,7 +1,7 @@
 // Description: Testing for HSV color space
 // DocumentationOf: color_hsv.h
 
-#include "pastelgfxtest.h"
+#include "test_pastelgfx.h"
 
 #include "pastel/gfx/savepcx.h"
 #include "pastel/gfx/color_space.h"

@@ -1,7 +1,7 @@
 // Description: Testing for object forwarding
 // DocumentationOf: object_forwarding.h
 
-#include "pastelsystest.h"
+#include "test_pastelsys.h"
 
 #include <pastel/sys/object_forwarding.h>
 

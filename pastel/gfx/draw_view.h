@@ -1,4 +1,5 @@
 // Description: Drawing a view
+// Documentation: drawing.txt
 
 #ifndef PASTEL_DRAW_VIEW_H
 #define PASTEL_DRAW_VIEW_H
