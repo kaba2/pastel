@@ -7,8 +7,9 @@
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/reporters.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 #include "pastel/sys/stdpair_as_pair.h"
+#include "pastel/sys/iteratoraddress_hash.h"
 
 #include <map>
 

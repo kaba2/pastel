@@ -3,7 +3,7 @@
 
 #include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/transitive_closure.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/iteratoraddress_hash.h"
 
 #include <unordered_set>
 #include <functional>

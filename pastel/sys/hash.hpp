@@ -70,6 +70,8 @@ namespace Pastel
 
 }
 
+#include "pastel/sys/keyvalue.h"
+
 namespace std
 {
 

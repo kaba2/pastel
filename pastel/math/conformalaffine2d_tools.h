@@ -5,7 +5,7 @@
 
 #include "pastel/sys/pointpolicy_concept.h"
 
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 namespace Pastel
 {

@@ -7,7 +7,7 @@
 #include "pastel/sys/array.h"
 #include "pastel/sys/view.h"
 
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 #include <complex>
 

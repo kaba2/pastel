@@ -11,8 +11,6 @@
 #include "pastel/sys/rectangle_iterator.h"
 #include "pastel/sys/random_subset.h"
 
-#include <boost/range.hpp>
-
 #include <algorithm>
 #include <set>
 

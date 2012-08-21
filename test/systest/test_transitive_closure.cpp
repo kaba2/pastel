@@ -7,7 +7,7 @@
 #include "pastel/sys/incidence_graph.h"
 #include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/iteratoraddress_hash.h"
 
 #include <unordered_set>
 

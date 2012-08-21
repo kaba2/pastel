@@ -9,7 +9,7 @@
 #include "pastel/sys/vector.h"
 #include "pastel/sys/sparse_iterator.h"
 #include "pastel/sys/subarray.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 #include "pastel/sys/alignedbox.h"
 
 #include "pastel/sys/array_cursor.h"

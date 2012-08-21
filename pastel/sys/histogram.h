@@ -5,7 +5,7 @@
 #define PASTEL_HISTOGRAM_H
 
 #include "pastel/sys/view.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 #include <iterator>
 

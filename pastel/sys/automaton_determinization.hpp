@@ -4,6 +4,8 @@
 #include "pastel/sys/automaton_determinization.h"
 #include "pastel/sys/automaton_closure.h"
 #include "pastel/sys/hashed_tree.h"
+#include "pastel/sys/iteratoraddress_hash.h"
+#include "pastel/sys/dereferenced_hash.h"
 
 #include <list>
 #include <unordered_set>

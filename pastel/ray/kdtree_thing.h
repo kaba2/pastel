@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/kdtree.h"
 
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 namespace Pastel
 {
