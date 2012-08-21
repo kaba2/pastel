@@ -190,7 +190,6 @@
     <ClCompile Include="test_pcx.cpp" />
     <ClCompile Include="test_image_quantization.cpp" />
     <ClCompile Include="test_reconstructimage.cpp" />
-    <ClCompile Include="test_stretchcontrast.cpp" />
     <ClCompile Include="test_summedareatable.cpp" />
     <ClCompile Include="test_texture.cpp" />
     <ClCompile Include="test_texture_examples.cpp" />

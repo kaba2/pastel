@@ -4,7 +4,7 @@
 #define PASTEL_OPTIONAL_H
 
 #include "pastel/sys/object_forwarding.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 #include <utility>
 

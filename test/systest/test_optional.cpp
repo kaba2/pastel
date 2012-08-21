@@ -1,4 +1,4 @@
-// Description: Testing for Optional
+// Description: Testing for optional objects
 // DocumentationOf: optional.h
 
 #include "test_pastelsys.h"

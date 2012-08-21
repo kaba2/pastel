@@ -1,7 +1,7 @@
-#ifndef PASTEL_HASH_HPP
-#define PASTEL_HASH_HPP
+#ifndef PASTEL_HASHING_HPP
+#define PASTEL_HASHING_HPP
 
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {

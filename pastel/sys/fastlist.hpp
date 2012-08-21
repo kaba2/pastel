@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 #include "pastel/sys/destruct.h"
 
 #include <boost/mpl/if.hpp>

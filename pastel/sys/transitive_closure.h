@@ -5,7 +5,7 @@
 
 #include "pastel/sys/transitive_closure_concepts.h"
 #include "pastel/sys/reporter_concept.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {

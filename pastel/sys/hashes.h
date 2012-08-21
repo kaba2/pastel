@@ -1,5 +1,5 @@
 // Description: An aggregate file for hashes.
-// Documentation: hash.txt
+// Documentation: hashing.txt
 
 #ifndef PASTEL_HASHES_H
 #define PASTEL_HASHES_H

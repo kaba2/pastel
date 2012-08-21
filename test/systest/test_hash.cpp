@@ -1,11 +1,11 @@
 // Description: Testing for hash functions
-// DocumentationOf: hash.h
+// DocumentationOf: hashing.h
 
 #include "test_pastelsys.h"
 
 #include "pastel/sys/array.h"
 #include "pastel/sys/counting_iterator.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 #include "pastel/gfx/pcx.h"
 
