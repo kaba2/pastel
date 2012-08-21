@@ -7,6 +7,7 @@
 #include <pastel/sys/reachable_states.h>
 #include <pastel/sys/productive_states.h>
 #include <pastel/sys/automaton_minimization.h>
+#include <pastel/sys/iteratoraddress_hash.h>
 
 #include <algorithm>
 

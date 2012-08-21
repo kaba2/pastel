@@ -9,6 +9,7 @@
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
 #include "pastel/sys/optional.h"
+#include "pastel/sys/iteratoraddress_hash.h"
 
 #include <unordered_map>
 

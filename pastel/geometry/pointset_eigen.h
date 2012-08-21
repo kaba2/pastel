@@ -5,7 +5,7 @@
 #define PASTEL_POINTSET_EIGEN_H
 
 #include "pastel/sys/vector.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 #include "pastel/sys/pointpolicy_concept.h"
 
 #include "pastel/math/matrix.h"

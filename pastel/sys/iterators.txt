@@ -3,26 +3,21 @@ Iterators
 
 [[Parent]]: generic_programming.txt
 
-A _cursor_ is an object that allows traversal and protected
-node access in a graph data structure. An _iterator_ is a
-cursor which traverses nodes in a sequence.
+An _iterator_ is an object which allows traversal and protected
+node access in a graph data structure. Iterators are important
+in the design of data structures because they allow to separate 
+the data structure from the algorithms that use that data structure. 
+Iterators are an essential component of the C++ Standard Library, 
+where their meaning is strictly defined. While the C++ iterators
+are always restricted to sequences, we shall adopt the more general 
+definition.
 
-Theory
-------
+Iterator ranges
+---------------
 
-The cursor is an important concept in the design of data structures 
-because it allows to separate the data structure from the 
-algorithms that use that data structure. Failing to do this 
-results in classes whose interfaces need to be continuously 
-extended to embed new algorithms. Iterators are an essential 
-component of the C++ Standard Library.
-
-Problems
---------
-
-While the cursor concept is appropriate for traversing trees and
-graphs, it is _not_ well suited for sequential traversal (i.e. iterators).
-The problems associated with iterators are as follows:
+While the iterator concept is appropriate for traversing trees and
+graphs, it is _not_ well suited for sequential traversal. The problems 
+associated with sequential iterators are as follows:
 
  * Two separate objects are needed to define a range in a sequence.
  This disables functional composition on ranges and opens up a 
@@ -31,43 +26,22 @@ The problems associated with iterators are as follows:
  * For many data structures, it is not possible for iterators to be 
  both efficient and error-safe. For example, without incurring
  non-trivial penalties, it is not possible to check whether two 
- iterators form a valid range, or if a given iterator is in a legal 
- range or not.
- 
-A partial solution to these problems is to use 
-[iterator ranges][IteratorRange] instead. However, because the
-individual iterators must still be accessed at some point, the 
-problems are merely pushed deeper, rather than fundamentally solved.
+ iterators form a valid range (e.g. linked list), or if a given 
+ iterator is in a legal range or not.
 
-[IteratorRange]: [[Ref]]: iterator_range.txt
+A partial solution to these problems is to combine the iterators
+into a single object called an _iterator range_. This instantly
+solves the problem of composition and significantly aids in the
+problem of incorrect pairing. However, because the individual 
+iterators must still be accessed at some point, the problems are 
+merely pushed deeper, rather than fundamentally solved.
 
-A complete solution to the presented problems is to take a sequence
-of elements as the primary abstraction. This leads to the 
-[range][Range] concept. The only problem then is that the C++ Standard
-Library is unable to work with this abstraction.
+A complete solution to the presented problems would be to take a 
+sequence of elements as the primary abstraction. However, this 
+solution is impractical, since all the algorithms in the C++ Standard 
+Library are built around the iterator concept.
 
-[Range]: [[Ref]]: ranges.txt
-
-Iterator adapters and synthetic data
-------------------------------------
-
-Despite the problems, PastelSys provides implementations for several 
-iterators. While the given functionality is better encapsulated
-as ranges ([as they are][Range]), iterators are needed to be able to 
-work with the algorithms in the C++ Standard Library.
-
-The `ConstantIterator` represents a sequence which contains the same 
-constant data everywhere.
-A `CountingIterator` is an adapter that can be used to dereference the
-traversed iterator instead of its data. This is useful when you need
-to pass a function a set of iterators whose values to apply some 
-procedure. The `NullIterator` can be used as a no-op iterator which
-sends all the data written to it to oblivion. This is useful when
-you have no need for some result from a function.
-`SparseIterator` can be used as an adapter to take multiple steps
-instead of one. For example, using `SparseIterator` in combination
-with the `CountingIterator` with integers, you are able to generate the
-integer sequence 3, 5, 7, 9, 11 on the fly.
-
-
-
+Pastel uses the iterator range solution, which has been elegantly
+implemented in the Boost.Range library. This library lifts the
+abstraction level of the C++ Standard Library algorithms to
+iterator ranges, and offers ways to compose and filter ranges.

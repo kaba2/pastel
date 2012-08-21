@@ -3,7 +3,7 @@
 #ifndef PASTEL_COSINE_TRANSFORM_H
 #define PASTEL_COSINE_TRANSFORM_H
 
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 namespace Pastel
 {

@@ -7,6 +7,7 @@
 #include "pastel/sys/productive_states.h"
 #include "pastel/sys/reachable_states.h"
 #include "pastel/sys/refinable_partition.h"
+#include "pastel/sys/iteratoraddress_hash.h"
 
 #include <unordered_map>
 #include <unordered_set>

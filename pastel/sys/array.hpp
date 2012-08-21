@@ -9,7 +9,7 @@
 #include "pastel/sys/alignedbox_tools.h"
 #include "pastel/sys/difference_alignedbox_alignedbox.h"
 #include "pastel/sys/rectangle_iterator.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 #include <algorithm>
 

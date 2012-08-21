@@ -4,7 +4,7 @@
 #define PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
 #include "pastel/sys/reporter_concept.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 #include <vector>
 #include <iterator>

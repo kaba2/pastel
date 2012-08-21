@@ -20,6 +20,9 @@ C++98 which does not have lambdas. The user may choose to use either
 these types or lambdas. In any case, the provided reporters at least
 work as examples.
 
+Reporters vs output iterators
+-----------------------------
+
 In C++ STL, _output iterators_ are used to transmit sequences 
 generically out of functions. However, output iterators have a lot
 of extraneous functionality which is not essential to the task.

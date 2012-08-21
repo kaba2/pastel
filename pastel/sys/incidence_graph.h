@@ -7,7 +7,7 @@
 #include "pastel/sys/incidence_graph_incidence.h"
 #include "pastel/sys/incidence_graph_vertex.h"
 #include "pastel/sys/incidence_graph_edge.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/iteratoraddress_hash.h"
 
 #include <unordered_map>
 #include <memory>

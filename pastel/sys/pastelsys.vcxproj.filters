@@ -193,9 +193,6 @@
     <Filter Include="Generic programming\Reporters">
       <UniqueIdentifier>{0404dc87-241c-42a6-b314-b2f35d5411a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generic programming\Ranges">
-      <UniqueIdentifier>{43f40f0d-f70d-4ae8-b598-65a83ab84716}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generic programming\Iterators">
       <UniqueIdentifier>{7f27277d-6a22-45a4-a252-6bf580272444}</UniqueIdentifier>
     </Filter>
@@ -289,9 +286,6 @@
     <Filter Include="Data structures\Hashed tree">
       <UniqueIdentifier>{99437f89-cfa2-4560-a77b-c8816a0727f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generic programming\Optional objects">
-      <UniqueIdentifier>{4ddb3d62-09b9-4bf9-9307-fe52183c03a9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generic programming\Algorithm objects\Functions">
       <UniqueIdentifier>{572d9289-a82e-49dd-ab1a-ff486ebd853c}</UniqueIdentifier>
     </Filter>
@@ -303,6 +297,9 @@
     </Filter>
     <Filter Include="Data structures\Named tuples">
       <UniqueIdentifier>{80ec6fd9-0e5a-42c1-9fac-9cdf7ae5d02b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Optional objects">
+      <UniqueIdentifier>{4ddb3d62-09b9-4bf9-9307-fe52183c03a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1475,7 +1472,7 @@
       <Filter>Generic programming\Algorithm objects\Predicates</Filter>
     </ClInclude>
     <ClInclude Include="optional.h">
-      <Filter>Generic programming\Optional objects</Filter>
+      <Filter>Data structures\Optional objects</Filter>
     </ClInclude>
     <ClInclude Include="automaton_determinization_concepts.h">
       <Filter>Algorithms\Automaton algorithms\Automaton determinization</Filter>
@@ -1522,14 +1519,26 @@
     <ClInclude Include="named_tuples.h">
       <Filter>Data structures\Named tuples</Filter>
     </ClInclude>
-    <ClInclude Include="iterator_range.h">
-      <Filter>Generic programming\Ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="iterator_range.hpp">
-      <Filter>Generic programming\Ranges</Filter>
-    </ClInclude>
     <ClInclude Include="range_reporter.h">
       <Filter>Generic programming\Reporters</Filter>
+    </ClInclude>
+    <ClInclude Include="range.h">
+      <Filter>Generic programming\Iterators</Filter>
+    </ClInclude>
+    <ClInclude Include="iteratoraddress_hash.h">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="dereferenced_hash.h">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="embedded_hash.h">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="pair_hash.h">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="hashes.h">
+      <Filter>Data structures\Hashing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1949,6 +1958,9 @@
     </None>
     <None Include="range_reporter.txt">
       <Filter>Generic programming\Reporters</Filter>
+    </None>
+    <None Include="optional.txt">
+      <Filter>Data structures\Optional objects</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

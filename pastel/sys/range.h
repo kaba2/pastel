@@ -1,7 +1,8 @@
 // Description: Iterator ranges
+// Documentation: iterators.txt
 
-#ifndef PASTEL_ITERATOR_RANGE_H
-#define PASTEL_ITERATOR_RANGE_H
+#ifndef PASTEL_RANGE_H
+#define PASTEL_RANGE_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/ensure.h"
@@ -39,7 +40,5 @@ namespace Pastel
 	}
 	
 }
-
-#include "pastel/sys/iterator_range.hpp"
 
 #endif

@@ -5,7 +5,7 @@
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/vector.h"
-#include "pastel/sys/iterator_range.h"
+#include "pastel/sys/range.h"
 
 #include "pastel/geometry/pointkdtree.h"
 
