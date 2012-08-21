@@ -1,4 +1,0 @@
-Array range
-===========
-
-[[Parent]]: concrete_ranges.txt

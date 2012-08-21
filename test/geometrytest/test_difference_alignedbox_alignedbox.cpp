@@ -11,8 +11,9 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/ranges.h"
 #include "pastel/sys/reporters.h"
+
+#include <boost/range/algorithm/equal.hpp>
 
 using namespace Pastel;
 
@@ -58,7 +59,7 @@ namespace
 			std::vector<AlignedBox2> boxSet;
 			difference(aBox, bBox, pushBackReporter(boxSet));
 
-			const bool result = rangeForAll(
+			const bool result = boost::equal(
 				range(boxSet.begin(), boxSet.end()),
 				range(correctSet.begin(), correctSet.end()),
 				equalBox);

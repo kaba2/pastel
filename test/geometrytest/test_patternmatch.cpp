@@ -212,7 +212,7 @@ namespace
 		typedef SceneTree::Point_ConstIterator SceneIterator;
 
 		SceneTree sceneTree;
-		sceneTree.insert(
+		sceneTree.insertRange(
 			range(sceneSet.begin(), sceneSet.end()));
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 
@@ -222,7 +222,7 @@ namespace
 		typedef ModelTree::Point_ConstIterator ModelIterator;
 
 		ModelTree modelTree;
-		modelTree.insert(
+		modelTree.insertRange(
 			range(modelSet.begin(), modelSet.end()));
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 
@@ -632,7 +632,7 @@ namespace
 		PointPolicy pointPolicy(n);
 
 		SceneTree sceneTree(pointPolicy);
-		sceneTree.insert(
+		sceneTree.insertRange(
 			constSparseRange(
 			countingIterator(&sceneData[0]),
 			countingIterator(&sceneData[0] + scenePoints * n),
@@ -642,7 +642,7 @@ namespace
 		//constSparseIterator(countingIterator(&sceneData[0]), n) + scenePoints);
 
 		ModelTree modelTree(pointPolicy);
-		modelTree.insert(
+		modelTree.insertRange(
 			constSparseRange(
 			countingIterator(&modelData[0]),
 			countingIterator(&modelData[0] + modelPoints * n),
@@ -675,7 +675,7 @@ namespace
 			normBijection,
 			translation, 
 			stability,
-			std::back_inserter(pairSet));
+			pushBackReporter(pairSet));
 
 		if (success)
 		{

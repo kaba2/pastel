@@ -28,10 +28,6 @@ namespace Pastel
 
 	inline void* allocateRaw(integer size)
 	{
-		// Can't use PENSURE here, since
-		// that would include ensure.h to
-		// mytypes.h.
-
 		//PENSURE_OP(size, >, 0);
 
 		if (size <= 0)

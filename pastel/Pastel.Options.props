@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <DisableSpecificWarnings>4018;4180;4224;4244;4251;4267;4305;4351;4355;4800;4804;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4018;4180;4224;4244;4251;4267;4305;4334;4351;4355;4800;4804;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalIncludeDirectories>$(SolutionDir)..\</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_UNICODE;UNICODE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>

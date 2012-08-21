@@ -41,11 +41,6 @@ namespace Pastel
 		const PointType& nextPoint,
 		const Real& time);
 
-	template <typename Vector_Iterator>
-	typename std::iterator_traits<Vector_Iterator>::value_type crSpline(
-		const RandomAccessIterator_Range<Vector_Iterator>& pointSet,
-		const typename Vector_Scalar<typename std::iterator_traits<Vector_Iterator>::value_type>::type& time);
-
 }
 
 #include "pastel/math/crspline.hpp"

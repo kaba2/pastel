@@ -4,7 +4,6 @@
 #define PASTEL_MAXIMUM_BIPARTITE_MATCHING_H
 
 #include "pastel/sys/as_pair_concept.h"
-#include "pastel/sys/forwardrange_concept.h"
 #include "pastel/sys/reporter_concept.h"
 
 namespace Pastel

@@ -17,9 +17,9 @@ namespace Pastel
 	public:
 		virtual ~Set_Thing();
 
-		template <typename ThingPtr_Iterator>
+		template <typename ThingPtr_Range>
 		void insert(
-			const ForwardIterator_Range<ThingPtr_Iterator>& thingSet);
+			const ThingPtr_Range& thingSet);
 
 		virtual AlignedBox3 bound() const;
 

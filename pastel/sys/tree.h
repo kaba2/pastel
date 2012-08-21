@@ -6,7 +6,6 @@
 #include "pastel/sys/destruct.h"
 #include "pastel/sys/tree_node.h"
 #include "pastel/sys/tree_iterator.h"
-#include "pastel/sys/bidirectionaliterator_range.h"
 
 namespace Pastel
 {
@@ -31,8 +30,8 @@ namespace Pastel
 		typedef Tree_Iterator<Data> Iterator;
 		typedef Tree_ConstIterator<Data> ConstIterator;
 
-		typedef BidirectionalIterator_Range<Iterator> Range;
-		typedef BidirectionalIterator_Range<ConstIterator> ConstRange;
+		typedef boost::iterator_range<Iterator> Range;
+		typedef boost::iterator_range<ConstIterator> ConstRange;
 
 	private:
 		typedef Tree_::Node Node;
@@ -399,7 +398,7 @@ namespace Pastel
 		*/
 		Range range()
 		{
-			return Range(begin(), end(), size_);
+			return Range(begin(), end());
 		}
 
 		//! Returns a range to the element sequence.
@@ -412,7 +411,7 @@ namespace Pastel
 		*/
 		ConstRange range() const
 		{
-			return ConstRange(begin(), end(), size_);
+			return ConstRange(begin(), end());
 		}
 
 		//! Returns a range to the element sequence.
@@ -425,7 +424,7 @@ namespace Pastel
 		*/
 		ConstRange crange() const
 		{
-			return ConstRange(cbegin(), cend(), size_);
+			return ConstRange(cbegin(), cend());
 		}
 
 		//! Inserts an element into the root.

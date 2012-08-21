@@ -19,7 +19,7 @@ namespace Pastel
 	{
 
 		template <typename Real, int N, typename Model_PointPolicy, 
-			typename Scene_PointPolicy, typename SceneModel_Iterator,
+			typename Scene_PointPolicy, typename Scene_Model_Reporter,
 			typename NormBijection>
 		class PointPatternGmo
 		{
@@ -71,7 +71,7 @@ namespace Pastel
 				const NormBijection& normBijection,
 				Vector<Real, N>& outTranslation,
 				Real& outBias,
-				SceneModel_Iterator output)
+				const Scene_Model_Reporter& report)
 			{
 				const integer d = modelTree.dimension();
 
@@ -229,9 +229,13 @@ namespace Pastel
 				{
 					// A match was found. Report it.
 
-					std::copy(
+					std::for_each(
 						bestPairSet.begin(), bestPairSet.end(),
-						output);
+						[&](const std::pair<Scene_ConstIterator, Model_ConstIterator>& that)
+					{
+						report(that);
+					});
+
 					outTranslation = bestTranslation;
 					outBias = bestBias;
 

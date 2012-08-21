@@ -52,12 +52,12 @@ namespace Pastel
 	public:
 		typedef typename PointSet::const_iterator 
 			Point_ConstIterator;
-		typedef BidirectionalIterator_Range<Point_ConstIterator>
+		typedef boost::iterator_range<Point_ConstIterator>
 			Point_ConstRange;
 
 		typedef boost::indirect_iterator<Point_ConstIterator, const Point> 
 			PointData_ConstIterator;
-		typedef BidirectionalIterator_Range<PointData_ConstIterator>
+		typedef boost::iterator_range<PointData_ConstIterator>
 			PointData_ConstRange;
 
 		//! Constructs an empty tree.
@@ -251,11 +251,12 @@ namespace Pastel
 		An output iterator to which the corresponding point
 		iterators are reported.
 		*/
-		template <typename Input_Point_ConstIterator,
-			typename Point_ConstIterator_Iterator>
-		void insert(
-			const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet, 
-			Point_ConstIterator_Iterator iteratorSet,
+		template <
+			typename Input_Point_ConstRange,
+			typename Point_ConstIterator_Reporter>
+		void insertRange(
+			const Input_Point_ConstRange& pointSet, 
+			const Point_ConstIterator_Reporter& report,
 			bool hidden = false);
 
 		//! Insert points into the tree.
@@ -266,16 +267,16 @@ namespace Pastel
 		
 		See the documentation for that function.
 		*/
-		template <typename Input_Point_ConstIterator>
-		void insert(
-			const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet);
+		template <typename Input_Point_ConstRange>
+		void insertRange(
+			const Input_Point_ConstRange& pointSet);
 
 		//! Removes a point from the tree.
 		void erase(const Point_ConstIterator& iter);
 
 		//! Removes a set of points from the tree.
-		template <typename Point_ConstIterator_ConstIterator>
-		void erase(const ForwardIterator_Range<Point_ConstIterator_ConstIterator>& pointSet);
+		template <typename Point_ConstIterator_ConstRange>
+		void erase(const Point_ConstIterator_ConstRange& pointSet);
 
 		//! Hides all points in the tree.
 		void hide();

@@ -115,9 +115,9 @@ namespace
 			std::vector<Point_ConstIterator> iteratorSet;
 
 			Tree tree;
-			tree.insert(
+			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
-				std::back_inserter(iteratorSet));
+				pushBackReporter(iteratorSet));
 			TEST_ENSURE(check(tree));
 
 			tree.refine(SlidingMidpoint_SplitRule_PointKdTree(), 1);
@@ -232,9 +232,9 @@ namespace
 			std::vector<Point_ConstIterator> iteratorSet;
 
 			Tree tree;
-			tree.insert(
+			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
-				std::back_inserter(iteratorSet));
+				pushBackReporter(iteratorSet));
 			TEST_ENSURE(check(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
@@ -284,9 +284,9 @@ namespace
 			TEST_ENSURE(check(tree));
 			TEST_ENSURE_OP(tree.points(), ==, 0);
 
-			tree.insert(
+			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()),
-				std::back_inserter(iteratorSet));
+				pushBackReporter(iteratorSet));
 			TEST_ENSURE(check(tree));
 
 			tree.clear();
@@ -346,7 +346,7 @@ namespace
 
 			Tree tree;
 
-			tree.insert(
+			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()));
 
 			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());

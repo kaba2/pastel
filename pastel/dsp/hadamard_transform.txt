@@ -1,5 +1,5 @@
 Discrete Hadamard transform
 ===========================
 
-[[Parent]]: transforms.txt
+[[Parent]]: signal_transforms.txt
 

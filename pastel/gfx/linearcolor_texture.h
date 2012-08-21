@@ -24,9 +24,9 @@ namespace Pastel
 		{
 		}
 
-		template <typename Iterator>
+		template <typename Type_Range>
 		explicit LinearColor_Texture(
-			const RandomAccessIterator_Range<Iterator>& data)
+			const Type_Range& data)
 			: data_(data.begin(), data.end())
 		{
 		}
@@ -52,9 +52,9 @@ namespace Pastel
 		std::vector<Type> data_;
 	};
 
-	template <typename Type, int N, typename Iterator>
+	template <typename Type, int N, typename Type_Range>
 	LinearColor_Texture<Type, N> linearColorTexture(
-		const RandomAccessIterator_Range<Iterator>& data)
+		const Type_Range& data)
 	{
 		return LinearColor_Texture<Type, N>(data);
 	}

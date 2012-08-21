@@ -52,9 +52,6 @@
     <ClCompile Include="test_transitive_closure.cpp">
       <Filter>Algorithms</Filter>
     </ClCompile>
-    <ClCompile Include="test_iteratorrange.cpp">
-      <Filter>Generic programming</Filter>
-    </ClCompile>
     <ClCompile Include="test_iterators.cpp">
       <Filter>Generic programming</Filter>
     </ClCompile>
@@ -69,9 +66,6 @@
     </ClCompile>
     <ClCompile Include="test_insertionsort.cpp">
       <Filter>Algorithms</Filter>
-    </ClCompile>
-    <ClCompile Include="test_range.cpp">
-      <Filter>Generic programming</Filter>
     </ClCompile>
     <ClCompile Include="test_string_tools.cpp">
       <Filter>Algorithms</Filter>

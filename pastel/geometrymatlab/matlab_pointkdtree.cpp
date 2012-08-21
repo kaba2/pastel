@@ -50,7 +50,7 @@ namespace Pastel
 			{
 			}
 
-			typedef RandomAccessIterator_Range<ConstIterator>
+			typedef boost::iterator_range<ConstIterator>
 				ConstRange;
 
 			typedef Array_VectorExpression<real, Dynamic>

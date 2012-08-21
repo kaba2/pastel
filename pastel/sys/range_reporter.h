@@ -4,41 +4,48 @@
 #define PASTEL_RANGE_REPORTER_H
 
 #include "pastel/sys/reporter_concept.h"
-#include "pastel/sys/range_concepts.h"
 
 namespace Pastel
 {
 
-	template <typename Range>
+	template <typename Iterator>
 	class Range_Reporter
 	{
 	public:
-		explicit Range_Reporter(const Range& range)
-			: range_(range)
+		explicit Range_Reporter(
+			Iterator begin,
+			Iterator end)
+			: begin_(begin)
+			, end_(end)
 		{
 		}
 
 		template <typename That>
 		bool operator()(That&& that) const
 		{
-			if (!range_.empty())
+			if (begin_ != end_)
 			{
-				range_.front() = std::forward<That>(that);
-				range_.pop_front();
+				*begin_ = std::forward<That>(that);
+				++begin_;
 			}
 
-			return !range_.empty();
+			return begin_ != end_;
 		}
 
 	private:
-		mutable Range range_;
+		mutable Iterator begin_;
+		Iterator end_;
 	};
 
 	template <typename Range>
-	Range_Reporter<Range> rangeReporter(
+	Range_Reporter<typename boost::range_iterator<Range>::type> rangeReporter(
 		const Range& range)
 	{
-		return Range_Reporter<Range>(range);
+		typedef typename boost::range_iterator<Range>::type
+			Iterator;
+
+		return Range_Reporter<Iterator>(
+			range.begin(), range.end());
 	}
 
 }

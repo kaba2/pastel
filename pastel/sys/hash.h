@@ -30,9 +30,9 @@ namespace Pastel
 	uint64 combineHash(uint64 left, uint64 right);
 
 	//! Sequentially combines the hashes of the input values.
-	template <typename ConstIterator>
+	template <typename ConstRange>
 	hash_integer computeHashMany(
-		ForwardIterator_Range<ConstIterator> input);
+		const ConstRange& input);
 
 }
 

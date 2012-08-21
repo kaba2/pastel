@@ -8,9 +8,9 @@
 namespace Pastel
 {
 
-	template <typename ThingPtr_Iterator>
+	template <typename ThingPtr_Range>
 	void Set_Thing::insert(
-		const ForwardIterator_Range<ThingPtr_Iterator>& thingSet)
+		const ThingPtr_Range& thingSet)
 	{
 		ThingPtr_Iterator iter = thingSet.begin();
 		const ThingPtr_Iterator iterEnd = thingSet.end();

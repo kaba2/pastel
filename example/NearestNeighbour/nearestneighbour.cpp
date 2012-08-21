@@ -202,7 +202,7 @@ NearestNeighbor_Gfx_Ui::NearestNeighbor_Gfx_Ui()
 		extendToCover(pointSet.back(), bound);
 	}
 
-	tree_.insert(
+	tree_.insertRange(
 		range(pointSet.begin(), pointSet.end()));
 
 	/*
@@ -745,7 +745,7 @@ void NearestNeighbor_Gfx_Ui::onGfxLogic()
 		searchRange(tree_, 
 			AlignedBox2(worldMouse - searchRadius_ * scaling_, 
 			worldMouse + searchRadius_ * scaling_),
-			std::back_inserter(rangePointSet_));
+			pushBackReporter(rangePointSet_));
 		ENSURE_OP(count, ==, rangePointSet_.size());
 		ENSURE_OP(count, ==, count2);
 	}
@@ -773,7 +773,7 @@ void NearestNeighbor_Gfx_Ui::sprayPoints(
 		}
 	}
 
-	tree_.insert(
+	tree_.insertRange(
 		range(newPointSet.begin(), newPointSet.end()));
 
 	/*
@@ -823,7 +823,7 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 
 	timer.setStart();
 
-	newTree.insert(range(
+	newTree.insertRange(range(
 		tree_.asPointData(tree_.begin()), 
 		tree_.asPointData(tree_.end())));
 

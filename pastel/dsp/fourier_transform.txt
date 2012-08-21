@@ -1,7 +1,7 @@
 Discrete Fourier transform
 ==========================
 
-[[Parent]]: transforms.txt
+[[Parent]]: signal_transforms.txt
 
 The _discrete Fourier transform_ (DFT) is an invertible linear 
 mapping ''"DFT" : CC^N -> CC^N'' defined by:

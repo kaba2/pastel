@@ -14,9 +14,9 @@
 namespace Pastel
 {
 
-	template <typename Real, typename Real_ConstIterator>
+	template <typename Real, typename Real_ConstRange>
 	Real gaussianKolmogorovSmirnov(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
+		const Real_ConstRange& input,
 		PASTEL_NO_DEDUCTION(Real) mean,
 		PASTEL_NO_DEDUCTION(Real) deviation)
 	{

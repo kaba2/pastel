@@ -4,6 +4,7 @@
 #ifndef PASTEL_POINT_PATTERN_MATCH_GMO_H
 #define PASTEL_POINT_PATTERN_MATCH_GMO_H
 
+#include "pastel/sys/reporter_concept.h"
 #include "pastel/sys/vector.h"
 
 #include "pastel/geometry/pointkdtree.h"
@@ -22,7 +23,7 @@ namespace Pastel
 	};
 
 	template <typename Real, int N, typename Model_PointPolicy, 
-		typename Scene_PointPolicy, typename SceneModel_Iterator,
+		typename Scene_PointPolicy, typename Scene_Model_Reporter,
 		typename NormBijection>
 	bool pointPatternMatchGmo(
 		const PointKdTree<Real, N, Model_PointPolicy>& modelTree,
@@ -34,7 +35,7 @@ namespace Pastel
 		const NormBijection& normBijection,
 		Vector<Real, N>& translation,
 		PASTEL_NO_DEDUCTION(Real)& bias,
-		SceneModel_Iterator output);
+		Scene_Model_Reporter report);
 
 }
 

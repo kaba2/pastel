@@ -192,7 +192,6 @@
     <ClCompile Include="test_incidence_graph.cpp" />
     <ClCompile Include="test_indexallocator.cpp" />
     <ClCompile Include="test_insertionsort.cpp" />
-    <ClCompile Include="test_iteratorrange.cpp" />
     <ClCompile Include="test_iterators.cpp" />
     <ClCompile Include="test_log.cpp" />
     <ClCompile Include="test_math_functions.cpp" />
@@ -203,7 +202,6 @@
     <ClCompile Include="test_poolallocator.cpp" />
     <ClCompile Include="test_progress.cpp" />
     <ClCompile Include="test_random.cpp" />
-    <ClCompile Include="test_range.cpp" />
     <ClCompile Include="test_rational.cpp" />
     <ClCompile Include="test_redblacktree.cpp" />
     <ClCompile Include="test_refinable_partition.cpp" />

@@ -14,21 +14,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void haar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes a Haar transform.
 	/*!
 	This is a convenience function that calls
-	haar(inputOutput, inputOutput.begin()).
+	haar(inputOutput, inputOutput).
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void haar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(haar, Haar);
 
@@ -38,21 +38,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an inverse Haar transform.
 	/*!
 	This is a convenience function that calls
-	inverseHaar(inputOutput, inputOutput.begin()).
+	inverseHaar(inputOutput, inputOutput).
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseHaar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseHaar, InverseHaar);
 
@@ -62,21 +62,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void orthogonalHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an orthogonal Haar transform.
 	/*!
 	This is a convenience function that calls
-	orthogonalHaar(inputOutput, inputOutput.begin()).
+	orthogonalHaar(inputOutput, inputOutput).
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void orthogonalHaar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(orthogonalHaar, OrthogonalHaar);
 
@@ -86,21 +86,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseOrthogonalHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an inverse orthogonal Haar transform.
 	/*!
 	This is a convenience function that calls
-	inverseOrthogonalHaar(inputOutput, inputOutput.begin()).
+	inverseOrthogonalHaar(inputOutput, inputOutput).
 	See the documentation for that function.
 	*/
-	template <typename Real_ConstIterator>
+	template <typename Real_ConstRange>
 	void inverseOrthogonalHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& inputOutput);
+		const Real_ConstRange& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseOrthogonalHaar, InverseOrthogonalHaar);
 

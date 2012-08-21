@@ -11,7 +11,6 @@
 
 #include "pastel/sys/rational.h"
 #include "pastel/sys/array.h"
-#include "pastel/sys/ranges.h"
 
 using namespace Pastel;
 

@@ -1,4 +1,0 @@
-Finite range
-============
-
-[[Parent]]: concrete_ranges.txt

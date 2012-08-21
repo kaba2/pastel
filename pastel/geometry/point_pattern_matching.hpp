@@ -16,10 +16,10 @@
 namespace Pastel
 {
 
-	template <typename Point_ConstIterator, typename PointPolicy>
+	template <typename Point_ConstRange, typename PointPolicy>
 	typename PointPolicy::Real 
 		relativeToAbsoluteMatchingDistance(
-		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
+		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy,
 		const typename PointPolicy::Real& relativeMatchingDistance)
 	{
@@ -552,11 +552,11 @@ namespace Pastel
 		return succeeded;
 	}
 
-	template <typename Real, int N, typename SceneIterator, typename ModelIterator,
+	template <typename Real, int N, typename SceneRange, typename ModelRange,
 		typename Model_PointPolicy, typename Scene_PointPolicy>
 	bool pointPatternMatch(
-		const ForwardIterator_Range<SceneIterator>& scene,
-		const ForwardIterator_Range<ModelIterator>& model,
+		const SceneRange& scene,
+		const ModelRange& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,
@@ -571,10 +571,10 @@ namespace Pastel
 		typedef PointKdTree<Real, N, Scene_PointPolicy> ModelTree;
 
 		SceneTree sceneTree(scenePointPolicy);
-		sceneTree.insert(scene);
+		sceneTree.insertRange(scene);
 
 		ModelTree modelTree(modelPointPolicy);
-		modelTree.insert(model);
+		modelTree.insertRange(model);
 
 		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
 		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
@@ -585,10 +585,10 @@ namespace Pastel
 			confidence, similarityResult);
 	}
 
-	template <typename Real, int N, typename SceneIterator, typename ModelIterator>
+	template <typename Real, int N, typename SceneRange, typename ModelRange>
 	bool pointPatternMatch(
-		const ForwardIterator_Range<SceneIterator>& scene,
-		const ForwardIterator_Range<ModelIterator>& model,
+		const SceneRange& scene,
+		const ModelRange& model,
 		const PASTEL_NO_DEDUCTION(Real)& minMatchRatio,
 		const PASTEL_NO_DEDUCTION(Real)& relativeMatchingDistance,
 		const PASTEL_NO_DEDUCTION(Real)& confidence,

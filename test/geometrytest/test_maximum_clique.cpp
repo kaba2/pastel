@@ -8,6 +8,7 @@
 
 #include "pastel/sys/rational_tools.h"
 #include "pastel/sys/vector_tools.h"
+#include "pastel/sys/push_back_reporter.h"
 
 using namespace Pastel;
 
@@ -55,7 +56,7 @@ namespace
 			const Box clique = 
 				maximumClique(range(boxSet), 
 				sweepDirection,
-				std::back_inserter(resultSet));
+				pushBackReporter(resultSet));
 			TEST_ENSURE(correct.min() == clique.min());
 			TEST_ENSURE(correct.max() == clique.max());
 

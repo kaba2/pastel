@@ -25,23 +25,23 @@
     <Filter Include="Deprecated">
       <UniqueIdentifier>{5cbfceb4-8eb5-43d0-b969-bcb62ae5618d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Transforms">
-      <UniqueIdentifier>{d887d5fa-8156-4125-8eec-c6f913bc98b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transforms\Cosine transform">
-      <UniqueIdentifier>{67c2d3d5-0364-45f3-b66d-9f6839d0c709}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transforms\Fourier transform">
-      <UniqueIdentifier>{6ba784a5-15d1-4b14-8733-3540623eb44c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transforms\Haar transform">
-      <UniqueIdentifier>{1be23e56-7afd-4f5f-b153-9c8b4e133f3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Transforms\Hadamard transform">
-      <UniqueIdentifier>{72dd4dc5-eaa4-4081-ab6c-5ffa844a1d97}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sparsity">
       <UniqueIdentifier>{cdfae31d-56a8-4ada-b9d7-3691716f33a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Signal transforms">
+      <UniqueIdentifier>{d887d5fa-8156-4125-8eec-c6f913bc98b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Signal transforms\Cosine transform">
+      <UniqueIdentifier>{67c2d3d5-0364-45f3-b66d-9f6839d0c709}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Signal transforms\Fourier transform">
+      <UniqueIdentifier>{6ba784a5-15d1-4b14-8733-3540623eb44c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Signal transforms\Haar transform">
+      <UniqueIdentifier>{1be23e56-7afd-4f5f-b153-9c8b4e133f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Signal transforms\Hadamard transform">
+      <UniqueIdentifier>{72dd4dc5-eaa4-4081-ab6c-5ffa844a1d97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -152,38 +152,38 @@
     <ClInclude Include="filterform.hpp">
       <Filter>Deprecated</Filter>
     </ClInclude>
-    <ClInclude Include="transforms.h">
-      <Filter>Transforms</Filter>
-    </ClInclude>
     <ClInclude Include="cosine_transform.h">
-      <Filter>Transforms\Cosine transform</Filter>
+      <Filter>Signal transforms\Cosine transform</Filter>
     </ClInclude>
     <ClInclude Include="cosine_transform.hpp">
-      <Filter>Transforms\Cosine transform</Filter>
+      <Filter>Signal transforms\Cosine transform</Filter>
     </ClInclude>
     <ClInclude Include="fourier_transform.h">
-      <Filter>Transforms\Fourier transform</Filter>
+      <Filter>Signal transforms\Fourier transform</Filter>
     </ClInclude>
     <ClInclude Include="fourier_transform.hpp">
-      <Filter>Transforms\Fourier transform</Filter>
+      <Filter>Signal transforms\Fourier transform</Filter>
     </ClInclude>
     <ClInclude Include="haar_transform.h">
-      <Filter>Transforms\Haar transform</Filter>
+      <Filter>Signal transforms\Haar transform</Filter>
     </ClInclude>
     <ClInclude Include="haar_transform.hpp">
-      <Filter>Transforms\Haar transform</Filter>
+      <Filter>Signal transforms\Haar transform</Filter>
     </ClInclude>
     <ClInclude Include="hadamard_transform.h">
-      <Filter>Transforms\Hadamard transform</Filter>
+      <Filter>Signal transforms\Hadamard transform</Filter>
     </ClInclude>
     <ClInclude Include="hadamard_transform.hpp">
-      <Filter>Transforms\Hadamard transform</Filter>
+      <Filter>Signal transforms\Hadamard transform</Filter>
     </ClInclude>
     <ClInclude Include="sparsity.h">
       <Filter>Sparsity</Filter>
     </ClInclude>
     <ClInclude Include="sparsity.hpp">
       <Filter>Sparsity</Filter>
+    </ClInclude>
+    <ClInclude Include="signal_transforms.h">
+      <Filter>Signal transforms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,24 +208,24 @@
     <None Include="miscellaneous.txt">
       <Filter>Miscellaneous</Filter>
     </None>
-    <None Include="transforms.txt">
-      <Filter>Transforms</Filter>
-    </None>
     <None Include="cosine_transform.txt">
-      <Filter>Transforms\Cosine transform</Filter>
+      <Filter>Signal transforms\Cosine transform</Filter>
     </None>
     <None Include="fourier_transform.txt">
-      <Filter>Transforms\Fourier transform</Filter>
+      <Filter>Signal transforms\Fourier transform</Filter>
     </None>
     <None Include="haar_transform.txt">
-      <Filter>Transforms\Haar transform</Filter>
+      <Filter>Signal transforms\Haar transform</Filter>
     </None>
     <None Include="hadamard_transform.txt">
-      <Filter>Transforms\Hadamard transform</Filter>
+      <Filter>Signal transforms\Hadamard transform</Filter>
     </None>
     <None Include="sparsity.txt">
       <Filter>Sparsity</Filter>
     </None>
     <None Include="pasteldsp.txt" />
+    <None Include="signal_transforms.txt">
+      <Filter>Signal transforms</Filter>
+    </None>
   </ItemGroup>
 </Project>

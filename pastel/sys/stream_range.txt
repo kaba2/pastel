@@ -1,4 +1,0 @@
-Stream range
-============
-
-[[Parent]]: concrete_ranges.txt

@@ -110,21 +110,26 @@ namespace Pastel
 	}
 
 	template <
-		typename From_Point_ConstIterator, 
-		typename To_Point_ConstIterator,
+		typename From_Point_ConstRange, 
+		typename To_Point_ConstRange,
 		typename From_PointPolicy,
 		typename To_PointPolicy>
 	ConformalAffine2D<typename From_PointPolicy::Real, 
 		ResultN<From_PointPolicy::N, To_PointPolicy::N>::N> 
 		lsConformalAffine(
-		const ForwardIterator_Range<From_Point_ConstIterator>& from,
-		const ForwardIterator_Range<To_Point_ConstIterator>& to,
+		const From_Point_ConstRange& from,
+		const To_Point_ConstRange& to,
 		const From_PointPolicy& fromPointPolicy,
 		const To_PointPolicy& toPointPolicy)
 	{
 		typedef typename From_PointPolicy::Real Real;
 		typedef typename From_PointPolicy::Point FromPoint;
 		typedef typename To_PointPolicy::Point ToPoint;
+
+		typedef boost::range_iterator<From_Point_ConstRange>::type
+			From_Point_ConstIterator;
+		typedef boost::range_iterator<To_Point_ConstRange>::type
+			To_Point_ConstIterator;
 
 		enum
 		{

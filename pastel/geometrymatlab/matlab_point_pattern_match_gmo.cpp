@@ -84,14 +84,14 @@ namespace Pastel
 			Array_PointPolicy<real> pointPolicy(n);
 
 			SceneTree sceneTree(pointPolicy);
-			sceneTree.insert(
+			sceneTree.insertRange(
 				constSparseRange(
 				countingIterator(sceneData),
 				countingIterator(sceneData + scenePoints * n),
 				n));
 
 			ModelTree modelTree(pointPolicy);
-			modelTree.insert(
+			modelTree.insertRange(
 				constSparseRange(
 				countingIterator(modelData),
 				countingIterator(modelData + modelPoints * n),
@@ -113,7 +113,7 @@ namespace Pastel
 				modelTree, sceneTree, 
 				minMatchRatio, matchingDistance, maxBias,
 				matchingMode, normBijection, translation, 
-				bias, std::back_inserter(pairSet));
+				bias, pushBackReporter(pairSet));
 
 			// Output the pairing.
 

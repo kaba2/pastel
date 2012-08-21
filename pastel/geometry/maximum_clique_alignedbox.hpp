@@ -5,7 +5,7 @@
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/counting_iterator.h"
-#include "pastel/sys/null_iterator.h"
+#include "pastel/sys/null_reporter.h"
 #include "pastel/sys/random_uniform.h"
 
 #include <boost/type_traits/is_same.hpp>
@@ -352,11 +352,14 @@ namespace Pastel
 			};
 		};
 
-		template <typename Iterator, typename Direction_Iterator>
+		template <typename Iterator, typename Direction_Range>
 		Iterator findMaximumClique(
 			const Iterator& root,
-			const ForwardIterator_Range<Direction_Iterator>& directionSet)
+			const Direction_Range& directionSet)
 		{
+			typedef typename boost::range_iterator<Direction_Range>::type
+				Direction_Iterator;
+
 			Iterator iter = root;
 			Direction_Iterator directionIter = directionSet.begin();
 			const Direction_Iterator directionEnd = directionSet.end();
@@ -385,10 +388,10 @@ namespace Pastel
 			return iter;
 		}
 
-		template <typename Iterator, typename Direction_Iterator>
+		template <typename Iterator, typename Direction_Reporter>
 		Iterator findSomeMaximumClique(
 			const Iterator& root,
-			Direction_Iterator result)
+			const Direction_Reporter& report)
 		{
 			// The augmented red-black tree is traversed
 			// from the root downwards to find _a_ maximum clique.
@@ -472,10 +475,9 @@ namespace Pastel
 				iter = (direction == Direction::Left) ? 
 					iter.left() : iter.right();
 
-				// Write the chosen subtree into the
+				// Report the chosen subtree into the
 				// direction set.
-				*result = direction;
-				++result;
+				report(direction);
 			}
 			
 			// Return the result.
@@ -485,13 +487,13 @@ namespace Pastel
 	}
 
 	template <
-		typename AlignedBox_ConstIterator,
-		typename AlignedBox_ConstIterator_Iterator>
-		typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+		typename AlignedBox_ConstRange,
+		typename AlignedBox_Reporter>
+		typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
-		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
+		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection,
-		AlignedBox_ConstIterator_Iterator result)
+		const AlignedBox_Reporter& report)
 	{
 		// This is a sweepline algorithm to compute an
 		// aligned box of maximum overlap in a set of aligned 
@@ -509,8 +511,9 @@ namespace Pastel
 
 		using namespace MaximumCliqueAlignedBox_;
 
-		typedef typename std::iterator_traits<AlignedBox_ConstIterator>::
-			value_type Box;
+		typedef typename boost::range_iterator<AlignedBox_ConstRange>::type
+			AlignedBox_ConstIterator;
+		typedef typename boost::range_value<AlignedBox_ConstRange>::type Box;
 		typedef typename Box::Real_ Real;
 
 		PASTEL_STATIC_ASSERT(Box::N_ == 2 || Box::N_ == Dynamic);
@@ -655,7 +658,7 @@ namespace Pastel
 							std::vector<Direction::Enum> directionSet;
 							Event_ConstIterator cliqueIter = 
 								findSomeMaximumClique(tree.root(),
-								std::back_inserter(directionSet));
+								pushBackReporter(directionSet));
 
 							const Real xMinNew = cliqueIter.key().position;
 							++cliqueIter;
@@ -746,7 +749,7 @@ namespace Pastel
 		clique.max()[y] = yMax;
 
 		const bool reportBoxes = 
-			!std::is_same<AlignedBox_ConstIterator_Iterator, NullIterator>::value;
+			!std::is_same<AlignedBox_Reporter, Null_Reporter>::value;
 		if (!reportBoxes)
 		{
 			return clique;
@@ -786,8 +789,7 @@ namespace Pastel
 			Active_ConstIterator iter = activeSet.begin();
 			while(iter != activeSet.end())
 			{
-				*result = iter->second;
-				++result;
+				report(iter->second);
 				++iter;
 			}
 		}
@@ -795,14 +797,14 @@ namespace Pastel
 		return clique;
 	}	
 
-	template <typename AlignedBox_ConstIterator>
-	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+	template <typename AlignedBox_ConstRange>
+	typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
-		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
+		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection)
 	{
 		return Pastel::maximumClique(
-			boxSet, sweepDirection, NullIterator());
+			boxSet, sweepDirection, Null_Reporter());
 	}
 
 }

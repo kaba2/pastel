@@ -68,8 +68,8 @@
 	class Name \
 	{ \
 	public: \
-		template <typename Iterator> \
-		void operator()(const ForwardIterator_Range<Iterator>& range) const \
+		template <typename Range> \
+		void operator()(const Range& range) const \
 		{ \
 			FunctionName(range); \
 		} \
@@ -277,12 +277,13 @@ namespace Pastel
 
 }
 
-#include "pastel/sys/mytypes.hpp"
-
+#include "pastel/sys/ensure.h"
 #include "pastel/sys/integer_integer.h"
 #include "pastel/sys/float_real.h"
 #include "pastel/sys/double_real.h"
-
 #include "pastel/sys/predicates.h"
+#include "pastel/sys/iterator_range.h"
+
+#include "pastel/sys/mytypes.hpp"
 
 #endif

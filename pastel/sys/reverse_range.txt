@@ -1,4 +1,0 @@
-Reverse range
-=============
-
-[[Parent]]: concrete_ranges.txt

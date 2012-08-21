@@ -51,17 +51,20 @@ namespace Pastel
 		return left;
 	} 
 
-	template <typename ConstIterator>
+	template <typename ConstRange>
 	hash_integer computeHashMany(
-		ForwardIterator_Range<ConstIterator> input)
+		const ConstRange& input)
 	{
+		auto iter = input.begin();
+
 		hash_integer hash = 0;
-		while(!input.empty())
+		while(iter != input.end())
 		{
 			hash = combineHash(hash, 
-				computeHash(input.front()));
-			input.pop_front();
+				computeHash(*iter));
+			++iter;
 		}
+
 		return hash;
 	}
 
@@ -94,9 +97,9 @@ namespace Pastel
 	class Jenkins32_HashFunction
 	{
 	public:
-		template <typename Char_ConstIterator>
+		template <typename Char_ConstRange>
 		uint32 partialHash(
-			const ForwardIterator_Range<Char_ConstIterator>& input,
+			const Char_ConstRange& input,
 			uint32 currentHash) const
 		{
 			// One-at-a-time hash function by Bob Jenkins,
@@ -106,8 +109,8 @@ namespace Pastel
 
 			uint32 hash = currentHash;
 
-			Char_ConstIterator iter = input.begin();
-			const Char_ConstIterator end = input.end();
+			Char_ConstIterator iter = boost::begin(input);
+			const Char_ConstIterator end = boost::end(input);
 			while(iter != end)
 			{
 				hash += *iter;

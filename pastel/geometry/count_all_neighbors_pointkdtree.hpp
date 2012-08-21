@@ -14,14 +14,14 @@ namespace Pastel
 {
 
 	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_Iterator,
-		typename Real_Iterator,
+		typename Point_ConstIterator_RandomAccessRange,
+		typename Real_RandomAccessRange,
 		typename Integer_OutputIterator,
 		typename NormBijection>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessIterator_Range<Point_ConstIterator_Iterator>& querySet,
-		const RandomAccessIterator_Range<Real_Iterator>& maxDistanceSet,
+		const Point_ConstIterator_RandomAccessRange& querySet,
+		const Real_RandomAccessRange& maxDistanceSet,
 		Integer_OutputIterator result,
 		integer bucketSize,
 		const NormBijection& normBijection)
@@ -59,13 +59,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy,
-		typename Point_ConstIterator_Iterator,
-		typename Real_Iterator,
+		typename Point_ConstIterator_RandomAccessRange,
+		typename Real_RandomAccessRange,
 		typename Integer_OutputIterator>
 	void countAllNeighbors(
 		const PointKdTree<Real, N, PointPolicy>& kdTree,
-		const RandomAccessIterator_Range<Point_ConstIterator_Iterator>& querySet,
-		const RandomAccessIterator_Range<Real_Iterator>& maxDistanceSet,
+		const Point_ConstIterator_RandomAccessRange& querySet,
+		const Real_RandomAccessRange& maxDistanceSet,
 		Integer_OutputIterator result,
 		integer bucketSize)
 	{

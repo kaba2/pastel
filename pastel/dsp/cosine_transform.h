@@ -14,21 +14,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void dct(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes a discrete cosine transform.
 	/*!
 	This is a convenience function that calls:
-	dct(inputOutput, inputOutput.begin())
+	dct(inputOutput, inputOutput)
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void dct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void dct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(dct, Dct);
 
@@ -38,11 +38,11 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseDct(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an inverse discrete cosine transform.
 	/*!
@@ -51,8 +51,8 @@ namespace Pastel
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void inverseDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void inverseDct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseDct, InverseDct);
 
@@ -62,21 +62,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void orthogonalDct(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an orthogonal discrete cosine transform.
 	/*!
 	This is a convenience function that calls:
-	orthogonalDct(inputOutput, inputOutput.begin())
+	orthogonalDct(inputOutput, inputOutput)
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void orthogonalDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void orthogonalDct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(orthogonalDct, OrthogonalDct);
 
@@ -86,21 +86,22 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseOrthogonalDct(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an orthogonal discrete cosine transform.
 	/*!
 	This is a convenience function that calls:
-	inverseOrthogonalDct(inputOutput, inputOutput.begin())
+	inverseOrthogonalDct(inputOutput, inputOutput)
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void inverseOrthogonalDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void inverseOrthogonalDct(
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseOrthogonalDct, InverseOrthogonalDct);
 
@@ -110,21 +111,21 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Complex_ConstIterator, 
-		typename Complex_Iterator>
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void complexDct(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes a complex discrete cosine transform.
 	/*!
 	This is a convenience function that calls:
-	complexDct(inputOutput, inputOutput.begin())
+	complexDct(inputOutput, inputOutput)
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void complexDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void complexDct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(complexDct, ComplexDct);
 
@@ -134,11 +135,11 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Complex_ConstIterator, 
-		typename Complex_Iterator>
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void inverseComplexDct(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes an inverse complex discrete cosine transform.
 	/*!
@@ -147,8 +148,8 @@ namespace Pastel
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void inverseComplexDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void inverseComplexDct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseComplexDct, InverseComplexDct);
 
@@ -158,11 +159,11 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Complex_ConstIterator, 
-		typename Complex_Iterator>
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void unitaryDct(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes a unitary discrete cosine transform.
 	/*!
@@ -171,8 +172,8 @@ namespace Pastel
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void unitaryDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void unitaryDct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(unitaryDct, UnitaryDct);
 
@@ -182,11 +183,11 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Complex_ConstIterator, 
-		typename Complex_Iterator>
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void inverseUnitaryDct(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		Complex_Range output);
 
 	//! Computes an inverse unitary discrete cosine transform.
 	/*!
@@ -195,8 +196,8 @@ namespace Pastel
 
 	See the documentation for that function.
 	*/
-	template <typename Real_Iterator>
-	void inverseUnitaryDct(const ForwardIterator_Range<Real_Iterator>& inputOutput);
+	template <typename Real_Range>
+	void inverseUnitaryDct(const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseUnitaryDct, InverseUnitaryDct);
 

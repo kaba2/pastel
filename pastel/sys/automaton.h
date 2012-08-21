@@ -9,7 +9,6 @@
 #include "pastel/sys/automaton_state_label.h"
 #include "pastel/sys/automaton_transition_label.h"
 #include "pastel/sys/optional.h"
-#include "pastel/sys/bidirectionaliterator_range.h"
 
 #include <unordered_map>
 
@@ -997,7 +996,7 @@ namespace Pastel
 
 		// Branch-sets
 		
-		BidirectionalIterator_Range<Branch_ConstIterator> cBranchRange(
+		boost::iterator_range<Branch_ConstIterator> cBranchRange(
 			const State_ConstIterator& state,
 			const Optional<Symbol>& symbol) const
 		{

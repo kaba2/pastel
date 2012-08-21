@@ -196,18 +196,6 @@
     <Filter Include="Generic programming\Ranges">
       <UniqueIdentifier>{43f40f0d-f70d-4ae8-b598-65a83ab84716}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generic programming\Ranges\Concrete ranges">
-      <UniqueIdentifier>{884ae438-aa39-42b9-b2ce-a0be6934004f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Generic programming\Ranges\Concrete ranges\Iterator ranges">
-      <UniqueIdentifier>{3d16013e-8a00-4070-90e4-e259bd970645}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Generic programming\Ranges\Range concepts">
-      <UniqueIdentifier>{e02d3ce6-4e19-4bdf-a653-d579d2db3d1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Generic programming\Ranges\Algorithms">
-      <UniqueIdentifier>{eea0cea8-129a-4da3-b65d-55e8461c571e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generic programming\Iterators">
       <UniqueIdentifier>{7f27277d-6a22-45a4-a252-6bf580272444}</UniqueIdentifier>
     </Filter>
@@ -1239,9 +1227,6 @@
     <ClInclude Include="push_back_reporter.h">
       <Filter>Generic programming\Reporters</Filter>
     </ClInclude>
-    <ClInclude Include="range_reporter.h">
-      <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
     <ClInclude Include="reporter_concept.h">
       <Filter>Generic programming\Reporters</Filter>
     </ClInclude>
@@ -1250,66 +1235,6 @@
     </ClInclude>
     <ClInclude Include="single_reporter.h">
       <Filter>Generic programming\Reporters</Filter>
-    </ClInclude>
-    <ClInclude Include="ranges.h">
-      <Filter>Generic programming\Ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="array_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="concrete_ranges.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="constant_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="finite_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="generated_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="reverse_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="stream_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="bidirectionaliterator_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="forwarditerator_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="iterator_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="iterator_range.hpp">
-      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="randomaccessiterator_range.h">
-      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
-    </ClInclude>
-    <ClInclude Include="bidirectionalrange_concept.h">
-      <Filter>Generic programming\Ranges\Range concepts</Filter>
-    </ClInclude>
-    <ClInclude Include="forwardrange_concept.h">
-      <Filter>Generic programming\Ranges\Range concepts</Filter>
-    </ClInclude>
-    <ClInclude Include="randomaccessrange_concept.h">
-      <Filter>Generic programming\Ranges\Range concepts</Filter>
-    </ClInclude>
-    <ClInclude Include="range_concepts.h">
-      <Filter>Generic programming\Ranges\Range concepts</Filter>
-    </ClInclude>
-    <ClInclude Include="range_algorithms.h">
-      <Filter>Generic programming\Ranges\Algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="range_for_all.h">
-      <Filter>Generic programming\Ranges\Algorithms</Filter>
-    </ClInclude>
-    <ClInclude Include="range_for_all.hpp">
-      <Filter>Generic programming\Ranges\Algorithms</Filter>
     </ClInclude>
     <ClInclude Include="iterators.h">
       <Filter>Generic programming\Iterators</Filter>
@@ -1596,6 +1521,15 @@
     </ClInclude>
     <ClInclude Include="named_tuples.h">
       <Filter>Data structures\Named tuples</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_range.h">
+      <Filter>Generic programming\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="iterator_range.hpp">
+      <Filter>Generic programming\Ranges</Filter>
+    </ClInclude>
+    <ClInclude Include="range_reporter.h">
+      <Filter>Generic programming\Reporters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1890,47 +1824,11 @@
     <None Include="push_back_reporter.txt">
       <Filter>Generic programming\Reporters</Filter>
     </None>
-    <None Include="range_reporter.txt">
-      <Filter>Generic programming\Reporters</Filter>
-    </None>
     <None Include="reporters.txt">
       <Filter>Generic programming\Reporters</Filter>
     </None>
     <None Include="single_reporter.txt">
       <Filter>Generic programming\Reporters</Filter>
-    </None>
-    <None Include="ranges.txt">
-      <Filter>Generic programming\Ranges</Filter>
-    </None>
-    <None Include="array_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="concrete_ranges.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="constant_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="finite_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="generated_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="reverse_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="stream_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges</Filter>
-    </None>
-    <None Include="iterator_range.txt">
-      <Filter>Generic programming\Ranges\Concrete ranges\Iterator ranges</Filter>
-    </None>
-    <None Include="range_concepts.txt">
-      <Filter>Generic programming\Ranges\Range concepts</Filter>
-    </None>
-    <None Include="range_algorithms.txt">
-      <Filter>Generic programming\Ranges\Algorithms</Filter>
     </None>
     <None Include="iterators.txt">
       <Filter>Generic programming\Iterators</Filter>
@@ -2048,6 +1946,9 @@
     </None>
     <None Include="named_tuples.txt">
       <Filter>Data structures\Named tuples</Filter>
+    </None>
+    <None Include="range_reporter.txt">
+      <Filter>Generic programming\Reporters</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

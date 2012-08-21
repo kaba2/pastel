@@ -4,9 +4,9 @@
 #include "pastelsystest.h"
 
 #include "pastel/sys/tree.h"
-#include "pastel/sys/range_for_all.h"
-#include "pastel/sys/ranges.h"
 #include "pastel/sys/predicates.h"
+
+#include <boost/range/algorithm/equal.hpp>
 
 #include <iostream>
 
@@ -41,12 +41,12 @@ namespace
 		template <int N>
 		bool same(const Tree& tree, integer (&correctSet)[N]) const
 		{
-			return rangeForAll(arrayRange(correctSet), tree.crange(), EqualTo());
+			return boost::equal(range(correctSet), tree.crange(), EqualTo());
 		}
 
 		bool same(const Tree& tree, const Tree& that)
 		{
-			return rangeForAll(tree.crange(), that.crange(), EqualTo());
+			return boost::equal(tree.crange(), that.crange(), EqualTo());
 		}
 
 		void test()

@@ -9,10 +9,10 @@ namespace Pastel
 	namespace Detail_Linear
 	{
 
-		template <typename Type, int N, typename Iterator>
+		template <typename Type, int N, typename Vector_Range>
 		Type linear(
 			const Vector<real, N>& position,
-			const RandomAccessIterator_Range<Iterator>& data, 
+			const Vector_Range& data, 
 			integer index,
 			integer axis)
 		{
@@ -36,12 +36,12 @@ namespace Pastel
 
 	}
 
-	template <int N, typename Iterator>
-	typename std::iterator_traits<Iterator>::value_type linear(
+	template <int N, typename Vector_Range>
+	typename boost::range_value<Vector_Range>::type linear(
 		const Vector<real, N>& position,
-		const RandomAccessIterator_Range<Iterator>& data)
+		const Vector_Range& data)
 	{
-		typedef typename std::iterator_traits<Iterator>::value_type
+		typedef typename boost::range_value<Vector_Range>::type
 			Type;
 
 		const integer n = position.size();

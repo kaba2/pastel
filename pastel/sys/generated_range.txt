@@ -1,4 +1,0 @@
-Generated range
-===============
-
-[[Parent]]: concrete_ranges.txt

@@ -15,19 +15,19 @@ namespace Pastel
 
 		template <
 			bool Orthogonal,
-			typename Real_ConstIterator, 
-			typename Real_Iterator>
+			typename Real_ConstRange, 
+			typename Real_Range>
 		void haar(
-			const ForwardIterator_Range<Real_ConstIterator>& input,
-			Real_Iterator output)
+			const Real_ConstRange& inputRange,
+			const Real_Range& outputRange)
 		{
-			typedef typename std::iterator_traits<Real_ConstIterator>::value_type
+			typedef typename boost::range_value<Real_ConstRange>::type
 				Real;
 
-			const integer n = input.size();
+			const integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
-			std::vector<Real> a(input.begin(), input.end());
+			std::vector<Real> a(inputRange.begin(), inputRange.end());
 			std::vector<Real> b(n);
 
 			const Real InvSqrt2 = 
@@ -60,23 +60,23 @@ namespace Pastel
 					a.begin());
 			}
 
-			std::copy(a.begin(), a.end(), output);
+			std::copy(a.begin(), a.end(), outputRange.begin());
 		}
 
 		template <
 			bool Orthogonal,
-			typename Real_ConstIterator, 
-			typename Real_Iterator>
+			typename Real_ConstRange, 
+			typename Real_Range>
 		void inverseHaar(
-			const ForwardIterator_Range<Real_ConstIterator>& input,
-			Real_Iterator output)
+			const Real_ConstRange& inputRange,
+			const Real_Range& outputRange)
 		{
-			typedef typename std::iterator_traits<Real_ConstIterator>::value_type
+			typedef typename boost::range_value<Real_ConstRange>::type
 				Real;
 
-			const integer n = input.size();
+			const integer n = inputRange.size();
 
-			std::vector<Real> a(input.begin(), input.end());
+			std::vector<Real> a(inputRange.begin(), inputRange.end());
 			std::vector<Real> b(n);
 			
 			ENSURE1(isPowerOfTwo(n), n);
@@ -101,79 +101,79 @@ namespace Pastel
 				k <<= 1;
 			}
 
-			std::copy(a.begin(), a.end(), output);
+			std::copy(a.begin(), a.end(), outputRange.begin());
 		}
 
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void haar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Haar_::haar<false>(input, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void haar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
-		Pastel::haar(inputOutput, inputOutput.begin());
+		Pastel::haar(inputOutput, inputOutput);
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Haar_::inverseHaar<false>(input, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseHaar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
-		Pastel::inverseHaar(inputOutput, inputOutput.begin());
+		Pastel::inverseHaar(inputOutput, inputOutput);
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void orthogonalHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Haar_::haar<true>(input, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void orthogonalHaar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
 		Pastel::orthogonalHaar(
-			inputOutput, inputOutput.begin());
+			inputOutput, inputOutput);
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseOrthogonalHaar(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Haar_::inverseHaar<true>(input, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseOrthogonalHaar(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
 		Pastel::inverseOrthogonalHaar(
-			inputOutput, inputOutput.begin());
+			inputOutput, inputOutput);
 	}
 
 }

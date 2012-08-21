@@ -4,7 +4,6 @@
 #define PASTEL_RANGEALGORITHM_CONCEPT_H
 
 #include "pastel/sys/algorithm_concept.h"
-#include "pastel/sys/forwardrange_concept.h"
 
 namespace Pastel
 {
