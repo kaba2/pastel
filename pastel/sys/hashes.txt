@@ -1,0 +1,4 @@
+Hash objects
+============
+
+[[Parent]]: hashing.txt

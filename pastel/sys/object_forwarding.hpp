@@ -3,7 +3,7 @@
 
 #include "pastel/sys/object_forwarding.h"
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 #include <utility>
 #include <type_traits>

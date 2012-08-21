@@ -222,8 +222,8 @@
     <ClInclude Include="fastlist_tools.h" />
     <ClInclude Include="fastlist_tools.hpp" />
     <ClInclude Include="fastlistprivate.hpp" />
-    <ClInclude Include="hash.h" />
-    <ClInclude Include="hash.hpp" />
+    <ClInclude Include="hashing.h" />
+    <ClInclude Include="hashing.hpp" />
     <ClInclude Include="transitive_closure.h" />
     <ClInclude Include="transitive_closure.hpp" />
     <ClInclude Include="transitive_closure_concepts.h" />
@@ -562,7 +562,8 @@
     <None Include="automaton_closure.txt" />
     <None Include="functions.txt" />
     <None Include="graph_traversal.txt" />
-    <None Include="hash.txt" />
+    <None Include="hashes.txt" />
+    <None Include="hashing.txt" />
     <None Include="hashed_tree.txt" />
     <None Include="incidence_graph.txt" />
     <None Include="incidence_graph_notes.txt" />

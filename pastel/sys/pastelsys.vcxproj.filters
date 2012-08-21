@@ -301,6 +301,9 @@
     <Filter Include="Data structures\Optional objects">
       <UniqueIdentifier>{4ddb3d62-09b9-4bf9-9307-fe52183c03a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data structures\Hashing\Hash objects">
+      <UniqueIdentifier>{a8a23c9f-15ee-47dd-8011-70c763235441}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_structures.h">
@@ -332,12 +335,6 @@
     </ClInclude>
     <ClInclude Include="fastlistprivate.hpp">
       <Filter>Data structures\FastList</Filter>
-    </ClInclude>
-    <ClInclude Include="hash.h">
-      <Filter>Data structures\Hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="hash.hpp">
-      <Filter>Data structures\Hashing</Filter>
     </ClInclude>
     <ClInclude Include="view.h">
       <Filter>Data structures\Views</Filter>
@@ -1519,26 +1516,32 @@
     <ClInclude Include="range.h">
       <Filter>Generic programming\Iterators</Filter>
     </ClInclude>
-    <ClInclude Include="iteratoraddress_hash.h">
-      <Filter>Data structures\Hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="dereferenced_hash.h">
-      <Filter>Data structures\Hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="embedded_hash.h">
-      <Filter>Data structures\Hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="pair_hash.h">
-      <Filter>Data structures\Hashing</Filter>
-    </ClInclude>
-    <ClInclude Include="hashes.h">
-      <Filter>Data structures\Hashing</Filter>
-    </ClInclude>
     <ClInclude Include="subarray_for_each.hpp">
       <Filter>Data structures\Array</Filter>
     </ClInclude>
     <ClInclude Include="subarray_for_each.h">
       <Filter>Data structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="hashing.h">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="hashing.hpp">
+      <Filter>Data structures\Hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="iteratoraddress_hash.h">
+      <Filter>Data structures\Hashing\Hash objects</Filter>
+    </ClInclude>
+    <ClInclude Include="pair_hash.h">
+      <Filter>Data structures\Hashing\Hash objects</Filter>
+    </ClInclude>
+    <ClInclude Include="dereferenced_hash.h">
+      <Filter>Data structures\Hashing\Hash objects</Filter>
+    </ClInclude>
+    <ClInclude Include="embedded_hash.h">
+      <Filter>Data structures\Hashing\Hash objects</Filter>
+    </ClInclude>
+    <ClInclude Include="hashes.h">
+      <Filter>Data structures\Hashing\Hash objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1884,9 +1887,6 @@
     <None Include="refinable_partition.txt">
       <Filter>Data structures\Refinable partition</Filter>
     </None>
-    <None Include="hash.txt">
-      <Filter>Data structures\Hashing</Filter>
-    </None>
     <None Include="second_iterator.txt">
       <Filter>Generic programming\Iterators\Second iterator</Filter>
     </None>
@@ -1961,6 +1961,12 @@
     </None>
     <None Include="optional.txt">
       <Filter>Data structures\Optional objects</Filter>
+    </None>
+    <None Include="hashing.txt">
+      <Filter>Data structures\Hashing</Filter>
+    </None>
+    <None Include="hashes.txt">
+      <Filter>Data structures\Hashing\Hash objects</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 #ifndef PASTEL_NAMED_TUPLES_H
 #define PASTEL_NAMED_TUPLES_H
 
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 #include <boost/operators.hpp>
 

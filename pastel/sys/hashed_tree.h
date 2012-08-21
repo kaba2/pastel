@@ -5,7 +5,7 @@
 
 #include "pastel/sys/redblacktree.h"
 #include "pastel/sys/lessthan.h"
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {

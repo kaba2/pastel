@@ -1,10 +1,10 @@
 // Description: Hash from dereferenced value
-// Documentation: hash.txt
+// Documentation: hashes.txt
 
 #ifndef PASTEL_DEREFERENCED_HASH_H
 #define PASTEL_DEREFERENCED_HASH_H
 
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {

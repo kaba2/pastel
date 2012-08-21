@@ -13,7 +13,7 @@ where the `x` is the number of contained objects. The macros take as
 input the name of the tuple type, and the types and names of 
 the contained objects.
 
-[Hash]: hash.txt
+[Hash]: hashing.txt
 
 Named tuples vs C++11 tuples
 ----------------------------

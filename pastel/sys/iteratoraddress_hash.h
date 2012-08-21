@@ -1,10 +1,10 @@
 // Description: Hash from dereferenced address
-// Documentation: hash.txt
+// Documentation: hashes.txt
 
 #ifndef PASTEL_ITERATORADDRESS_HASH_H
 #define PASTEL_ITERATORADDRESS_HASH_H
 
-#include "pastel/sys/hash.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {
