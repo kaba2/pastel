@@ -13,7 +13,6 @@
 #include "pastel/sys/memory.h"
 #include "pastel/sys/portability.h"
 #include "pastel/sys/random.h"
-#include "pastel/sys/ranges.h"
 #include "pastel/sys/reporting.h"
 #include "pastel/sys/testing.h"
 

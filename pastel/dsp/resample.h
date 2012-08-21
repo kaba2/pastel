@@ -15,26 +15,28 @@ namespace Pastel
 
 	template <
 		typename Computation_Element,
-		typename Input_ConstIterator,
-		typename Output_Iterator>
-	void resample(
-		const RandomAccessIterator_Range<Input_ConstIterator>& inputSet,
-		const RandomAccessIterator_Range<Output_Iterator>& outputSet,
+		typename Input_RandomAccessConstRange,
+		typename Output_RandomAccessRange>
+	void resampleRange(
+		const Input_RandomAccessConstRange& inputSet,
+		const Output_RandomAccessRange& outputSet,
 		const ConstFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
-		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
+		const typename boost::range_value<Input_RandomAccessConstRange>::type& border = 
+		typename boost::range_value<Input_RandomAccessConstRange>::type(),
 		real blurFactor = 1);
 
 	template <
 		typename Computation_Element,
-		typename Input_ConstIterator,
-		typename Output_Iterator>
-	void resampleTable(
-		const RandomAccessIterator_Range<Input_ConstIterator>& inputSet,
-		const RandomAccessIterator_Range<Output_Iterator>& outputSet,
+		typename Input_RandomAccessConstRange,
+		typename Output_RandomAccessRange>
+	void resampleRangeTable(
+		const Input_RandomAccessConstRange& inputSet,
+		const Output_RandomAccessRange& outputSet,
 		const ConstTableFilterPtr& filter,
 		const IndexExtenderPtr& indexExtender,
-		const typename Input_ConstIterator::value_type& border = typename Input_ConstIterator::value_type(),
+		const typename boost::range_value<Input_RandomAccessConstRange>::type& border = 
+		typename boost::range_value<Input_RandomAccessConstRange>::type(),
 		real blurFactor = 1);
 
 	//! Resamples a 1-dimensional array to a different size.

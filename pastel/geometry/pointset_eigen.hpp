@@ -11,11 +11,11 @@ namespace Pastel
 {
 
 	template <
-		typename Point_ConstIterator, 
+		typename Point_ConstRange, 
 		typename PointPolicy>
 	Vector<typename PointPolicy::Real, PointPolicy::N> 
 	largestEigenVector(
-		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
+		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
@@ -73,9 +73,9 @@ namespace Pastel
 		return result;
 	}
 
-	template <typename Point_ConstIterator, typename PointPolicy>
+	template <typename Point_ConstRange, typename PointPolicy>
 	void approximateEigenstructure(
-		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
+		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy,
 		integer eigenvectors,
 		Matrix<typename PointPolicy::Real>& qOut,
@@ -104,8 +104,8 @@ namespace Pastel
 
 		Vector<Real> x(ofDimension(n));
 
-		Point_ConstIterator iter = pointSet.begin();
-		const Point_ConstIterator iterEnd = pointSet.end();
+		auto iter = pointSet.begin();
+		auto iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
 			x = pointPolicy(*iter) - meanPoint;

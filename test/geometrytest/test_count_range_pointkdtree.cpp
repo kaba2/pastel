@@ -62,7 +62,7 @@ namespace
 				Vector2(1, -3)
 			};
 
-			tree.insert(range(pointSet));
+			tree.insertRange(range(pointSet));
 
 			tree.refine(SlidingMidpoint_SplitRule_PointKdTree(), 1);
 

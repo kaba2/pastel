@@ -4,46 +4,40 @@
 #define PASTEL_ITERATOR_RANGE_H
 
 #include "pastel/sys/mytypes.h"
-#include "pastel/sys/forwarditerator_range.h"
-#include "pastel/sys/bidirectionaliterator_range.h"
-#include "pastel/sys/randomaccessiterator_range.h"
+#include "pastel/sys/ensure.h"
+
+#include <boost/range/iterator_range.hpp>
+#include <boost/range/metafunctions.hpp>
 
 namespace Pastel
 {
 
-	//! Returns the type of the iterator range.
 	template <typename Iterator>
-	class IteratorToRange;
+	boost::iterator_range<Iterator> range(
+		const Iterator& begin,
+		integer size)
+	{
+		ENSURE_OP(size, >=, 0);
+		return boost::make_iterator_range(
+			begin, std::next(begin, size));
+	}
 
-	//! Returns an iterator range.
 	template <typename Iterator>
-	typename IteratorToRange<Iterator>::type 
-		range(const Iterator& begin, const Iterator& end);
+	boost::iterator_range<Iterator> range(
+		const Iterator& begin,
+		const Iterator& end)
+	{
+		return boost::make_iterator_range(begin, end);
+	}
 
-	//! Returns an iterator range.
-	/*!
-	Preconditions:
-	size >= 0
-	*/
-	template <typename Iterator>
-	typename IteratorToRange<Iterator>::type 
-		range(const Iterator& begin, integer size);
-
-	//! Returns an iterator range.
-	/*!
-	Preconditions:
-	std::distance(begin, end) == size
-	*/
-	template <typename Iterator>
-	typename IteratorToRange<Iterator>::type 
-		range(const Iterator& begin, const Iterator& end,
-		integer size);
-
-	//! Returns an iterator range.
 	template <typename Type, int N>
-	typename IteratorToRange<Type*>::type 
-		range(Type (&begin)[N]);
-
+	boost::iterator_range<Type*> range(
+		Type (&that)[N])
+	{
+		return boost::make_iterator_range(
+			boost::begin(that), boost::end(that));
+	}
+	
 }
 
 #include "pastel/sys/iterator_range.hpp"

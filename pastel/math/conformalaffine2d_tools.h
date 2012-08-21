@@ -71,15 +71,15 @@ namespace Pastel
 	distance to 'toPointSet'.
 	*/
 	template <
-		typename From_Point_ConstIterator, 
-		typename To_Point_ConstIterator,
+		typename From_Point_ConstRange, 
+		typename To_Point_ConstRange,
 		typename From_PointPolicy,
 		typename To_PointPolicy>
 	ConformalAffine2D<typename From_PointPolicy::Real, 
 	ResultN<From_PointPolicy::N, To_PointPolicy::N>::N > 
 		lsConformalAffine(
-		const ForwardIterator_Range<From_Point_ConstIterator>& from,
-		const ForwardIterator_Range<To_Point_ConstIterator>& to,
+		const From_Point_ConstRange& from,
+		const To_Point_ConstRange& to,
 		const From_PointPolicy& fromPointPolicy,
 		const To_PointPolicy& toPointPolicy);
 

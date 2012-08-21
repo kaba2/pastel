@@ -6,9 +6,8 @@
 
 #include "pastel/sys/ensure.h"
 #include "pastel/sys/fastlist_tools.h"
-#include "pastel/sys/counting_iterator.h"
 #include "pastel/sys/constant_iterator.h"
-#include "pastel/sys/null_iterator.h"
+#include "pastel/sys/null_reporter.h"
 
 #include <boost/operators.hpp>
 
@@ -53,13 +52,13 @@ namespace Pastel
 		copyConstruct(root_, that.root_);
 
 		// Then insert the points into the nodes.
-		insert(that.asPointData(that.range()));
+		insertRange(that.asPointData(that.range()));
 
 		// Insert the hidden points.
-		insert(that.asPointData(that.hiddenRange()), NullIterator(), true);
+		insertRange(that.asPointData(that.hiddenRange()), Null_Reporter(), true);
 
 		// Insert the insertion points.
-		insert(that.asPointData(
+		insertRange(that.asPointData(
 			Pastel::range(that.insertionSet_.begin(), that.insertionSet_.end())));
 	}
 
@@ -270,17 +269,23 @@ namespace Pastel
 	{
 		Point_ConstIterator iter;
 
-		insert(constantRange(point, 1), &iter, hidden);
+		auto report = [&](const Point_ConstIterator& iter_)
+		{
+			iter = iter_;
+		};
+		
+		insertRange(constantRange(point, 1), report, hidden);
 
 		return iter;
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	template <typename Input_Point_ConstIterator,
-		typename Point_ConstIterator_Iterator>
-	void PointKdTree<Real, N, PointPolicy>::insert(
-		const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet, 
-		Point_ConstIterator_Iterator iteratorSet,
+	template <
+		typename Input_Point_ConstRange,
+		typename Point_ConstIterator_Reporter>
+	void PointKdTree<Real, N, PointPolicy>::insertRange(
+		const Input_Point_ConstRange& pointSet, 
+		const Point_ConstIterator_Reporter& report,
 		bool hidden)
 	{
 		if (pointSet.empty())
@@ -288,6 +293,9 @@ namespace Pastel
 			// Nothing to do.
 			return;
 		}
+
+		typedef boost::range_iterator<Input_Point_ConstRange>::type
+			Input_Point_ConstIterator;
 
 		const Input_Point_ConstIterator inputBegin = pointSet.begin();
 		const Input_Point_ConstIterator inputEnd = pointSet.end();
@@ -297,10 +305,10 @@ namespace Pastel
 			copyToEnd(inputBegin, inputEnd, hidden);
 
 		// Copy the new point iterators to the user.
-		std::copy(
-			countingIterator(first),
-			countingIterator(pointSet_.end()),
-			iteratorSet);
+		for (auto point = first; point != pointSet_.end();++point)
+		{
+			report(point);
+		}
 
 		if (hidden)
 		{
@@ -323,13 +331,13 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	template <typename Input_Point_ConstIterator>
-	void PointKdTree<Real, N, PointPolicy>::insert(
-		const ForwardIterator_Range<Input_Point_ConstIterator>& pointSet)
+	template <typename Input_Point_ConstRange>
+	void PointKdTree<Real, N, PointPolicy>::insertRange(
+		const Input_Point_ConstRange& pointSet)
 	{
 		// Insert the points, and get rid of the reported iterators.
 		// Note: the reporting is optimized away entirely.
-		insert(pointSet, NullIterator());
+		insertRange(pointSet, Null_Reporter());
 	}
 
 	template <typename Real, int N, typename PointPolicy>
@@ -340,9 +348,9 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	template <typename Point_ConstIterator_ConstIterator>
+	template <typename Point_ConstIterator_ConstRange>
 	void PointKdTree<Real, N, PointPolicy>::erase(
-		const ForwardIterator_Range<Point_ConstIterator_ConstIterator>& pointSet)
+		const Point_ConstIterator_ConstRange& pointSet)
 	{
 		Point_ConstIterator_ConstIterator iter = 
 			pointSet.begin();

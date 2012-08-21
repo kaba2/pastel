@@ -170,7 +170,7 @@
     <ClInclude Include="filterdesign.h" />
     <ClInclude Include="filterform.h" />
     <ClInclude Include="filterform.hpp" />
-    <ClInclude Include="transforms.h" />
+    <ClInclude Include="signal_transforms.h" />
     <ClInclude Include="cosine_transform.h" />
     <ClInclude Include="cosine_transform.hpp" />
     <ClInclude Include="fourier_transform.h" />
@@ -190,7 +190,7 @@
     <None Include="resample.txt" />
     <None Include="resample_optimal_order.txt" />
     <None Include="miscellaneous.txt" />
-    <None Include="transforms.txt" />
+    <None Include="signal_transforms.txt" />
     <None Include="cosine_transform.txt" />
     <None Include="fourier_transform.txt" />
     <None Include="haar_transform.txt" />

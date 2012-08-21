@@ -100,10 +100,10 @@ namespace Pastel
 	}
 
 	template <typename Type>
-	RandomAccessIterator_Range<ConstantIterator<Type> > constantRange(
+	boost::iterator_range<ConstantIterator<Type> > constantRange(
 		const Type& that, integer size = 1)
 	{
-		return Pastel::range(constantIterator(that), size);
+		return Pastel::range(constantIterator(that), constantIterator(that, size));
 	}
 
 }

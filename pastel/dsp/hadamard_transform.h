@@ -14,20 +14,20 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void hadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes a Hadamard transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(inputOutput.size())
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void hadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(hadamard, Hadamard);
 
@@ -37,20 +37,20 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseHadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an inverse Hadamard transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(inputOutput.size())
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseHadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseHadamard, InverseHadamard);
 
@@ -60,20 +60,20 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void orthogonalHadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an orthogonal Hadamard transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(inputOutput.size())
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void orthogonalHadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(orthogonalHadamard, OrthogonalHadamard);
 
@@ -83,20 +83,20 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseOrthogonalHadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output);
+		const Real_ConstRange& input,
+		const Real_Range& output);
 
 	//! Computes an inverse orthogonal Hadamard transform.
 	/*!
 	Preconditions:
 	isPowerOfTwo(inputOutput.size())
 	*/
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseOrthogonalHadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput);
+		const Real_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseOrthogonalHadamard, InverseOrthogonalHadamard);
 

@@ -6,7 +6,6 @@
 #include "pastel/sys/maximum_bipartite_matching.h"
 #include "pastel/sys/tuple_tools.h"
 #include "pastel/sys/reporters.h"
-#include "pastel/sys/ranges.h"
 #include "pastel/sys/random_subset.h"
 #include "pastel/sys/random.h"
 
@@ -158,7 +157,7 @@ namespace
 			Integer2 (&edgeSet)[N],
 			integer maximumMatchSize)
 		{
-			return testCase(arrayRange(edgeSet), maximumMatchSize);
+			return testCase(range(edgeSet), maximumMatchSize);
 		}
 
 		template <typename Range>

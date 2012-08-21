@@ -19,62 +19,62 @@ namespace Pastel
 	//! Returns the mean of a number set.
 	template <
 		typename Real,
-		typename Real_ConstIterator>
+		typename Real_ConstRange>
 	Real numberMean(
-		const ForwardIterator_Range<Real_ConstIterator>& inputSet);
+		const Real_ConstRange& inputSet);
 
 	//! Returns the variance of a number set.
 	template <
 		typename Real,
-		typename Real_ConstIterator>
+		typename Real_ConstRange>
 	Real numberVariance(
-		const ForwardIterator_Range<Real_ConstIterator>& inputSet,
+		const Real_ConstRange& inputSet,
 		const PASTEL_NO_DEDUCTION(Real)& mean,
 		bool biased = true);
 
 	//! Returns the covariance between number sets.
 	template <
 		typename Real,
-		typename A_Real_ConstIterator,
-		typename B_Real_ConstIterator>
+		typename A_Real_ConstRange,
+		typename B_Real_ConstRange>
 	Real numberCovariance(
-		const ForwardIterator_Range<A_Real_ConstIterator>& aSet,
+		const A_Real_ConstRange& aSet,
 		const PASTEL_NO_DEDUCTION(Real)& aMean,
-		const ForwardIterator_Range<B_Real_ConstIterator>& bSet,
+		const B_Real_ConstRange& bSet,
 		const PASTEL_NO_DEDUCTION(Real)& bMean,
 		bool biased = true);
 
 	//! Returns the mean of a point set.
-	template <typename Point_ConstIterator, typename PointPolicy>
+	template <typename Point_ConstRange, typename PointPolicy>
 	Vector<typename PointPolicy::Real, PointPolicy::N> pointSetMean(
-		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
+		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy);
 
 	//! Returns the variance along each axis.
-	template <typename Point_ConstIterator, typename PointPolicy>
+	template <typename Point_ConstRange, typename PointPolicy>
 	Vector<typename PointPolicy::Real, PointPolicy::N> 
 		pointSetVariance(
-		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
+		const Point_ConstRange& pointSet,
 		const typename PointPolicy::Point& mean,
 		const PointPolicy& pointPolicy);
 
 	//! Returns the mean squared error between sequences.
 	template <
 		typename Real, 
-		typename A_ConstIterator, 
-		typename B_ConstIterator>
+		typename A_ConstRange, 
+		typename B_ConstRange>
 	Real meanSquaredError(
-		const ForwardIterator_Range<A_ConstIterator>& aSet,
-		const ForwardIterator_Range<B_ConstIterator>& bSet);
+		const A_ConstRange& aSet,
+		const B_ConstRange& bSet);
 
 	//! Computes peak-signal-to-noise-ratio (PSNR) between sequences.
 	template <
 		typename Real, 
-		typename A_ConstIterator, 
-		typename B_ConstIterator>
+		typename A_ConstRange, 
+		typename B_ConstRange>
 	Real peakSignalToNoise(
-		const ForwardIterator_Range<A_ConstIterator>& aSet,
-		const ForwardIterator_Range<B_ConstIterator>& bSet,
+		const A_ConstRange& aSet,
+		const B_ConstRange& bSet,
 		const PASTEL_NO_DEDUCTION(Real)& maxValue);
 
 	//! Computes peak-signal-to-noise-ratio (PSNR) between sequences.
@@ -85,11 +85,11 @@ namespace Pastel
 	*/
 	template <
 		typename Real, 
-		typename A_ConstIterator, 
-		typename B_ConstIterator>
+		typename A_ConstRange, 
+		typename B_ConstRange>
 	Real peakSignalToNoise(
-		const ForwardIterator_Range<A_ConstIterator>& aSet,
-		const ForwardIterator_Range<B_ConstIterator>& bSet);
+		const A_ConstRange& aSet,
+		const B_ConstRange& bSet);
 
 }
 

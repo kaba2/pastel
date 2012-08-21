@@ -12,11 +12,11 @@
 namespace Pastel
 {
 
-	template <typename Real_ConstIterator, typename Real_OutputIterator>
+	template <typename Real_ConstRange, typename Real_OutputIterator>
 	void computeHistogram(
-		const ForwardIterator_Range<Real_ConstIterator>& dataSet,
-		const typename std::iterator_traits<Real_ConstIterator>::value_type& min,
-		const typename std::iterator_traits<Real_ConstIterator>::value_type& max,
+		const Real_ConstRange& dataSet,
+		const typename boost::range_value<Real_ConstRange>::type& min,
+		const typename boost::range_value<Real_ConstRange>::type& max,
 		integer bins,
 		const Real_OutputIterator& outputBegin);
 

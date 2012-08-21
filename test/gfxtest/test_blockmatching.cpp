@@ -75,7 +75,7 @@ namespace
 		typedef ConstIterator_ ConstIterator;
 
 		Range_VectorExpression(
-			const RandomAccessIterator_Range<ConstIterator>& range)
+			const boost::iterator_range<ConstIterator>& range)
 			: range_(range)
 		{
 		}				
@@ -120,13 +120,13 @@ namespace
 		}
 
 	private:
-		RandomAccessIterator_Range<ConstIterator> range_;
+		boost::iterator_range<ConstIterator> range_;
 	};
 
 	template <typename Real, int N, typename ConstIterator>
 	Range_VectorExpression<Real, N, ConstIterator>
 		rangeAsVector(
-		const RandomAccessIterator_Range<ConstIterator>& range)
+		const boost::iterator_range<ConstIterator>& range)
 	{
 		return Range_VectorExpression<Real, N, ConstIterator>(
 			range);
@@ -381,7 +381,7 @@ namespace
 		typedef Vector2i Point;
 
 		typedef ConstSubArray<real32>::ConstIterator ConstIterator;
-		typedef RandomAccessIterator_Range<ConstIterator> ConstRange;
+		typedef boost::iterator_range<ConstIterator> ConstRange;
 
 		typedef Range_VectorExpression<real32, N, ConstIterator> 
 			Expression;
@@ -615,12 +615,12 @@ namespace
 			std::vector<Point_ConstIterator> querySet;
 			querySet.reserve(featureSet.height());
 
-			tree.insert(
+			tree.insertRange(
 				sparseRange(
 				countingIterator(featureSet.rawBegin()), 
 				countingIterator(featureSet.rawEnd()), 
 				coeffs),
-				std::back_inserter(querySet));
+				pushBackReporter(querySet));
 
 			//tree.refine(SlidingMidpoint_SplitRule_PointKdTree());	
 			tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());	

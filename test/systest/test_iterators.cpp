@@ -10,8 +10,6 @@
 
 #include "pastel/sys/second_iterator.h"
 
-#include "pastel/sys/ranges.h"
-
 #include <boost/iterator/transform_iterator.hpp>
 
 using namespace Pastel;

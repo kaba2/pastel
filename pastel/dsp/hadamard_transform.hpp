@@ -7,6 +7,7 @@
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <boost/range/algorithm/copy.hpp>
 
 #include <vector>
 
@@ -16,24 +17,24 @@ namespace Pastel
 	namespace Hadamard_
 	{
 
-		template <typename Real_Iterator>
+		template <typename Real_RandomAccessRange>
 		void hadamardInplace(
-			const RandomAccessIterator_Range<Real_Iterator>& input,
+			const Real_RandomAccessRange& inputRange,
 			bool orthogonal, bool inversion)
 		{
-			typedef typename std::iterator_traits<Real_Iterator>::value_type
+			typedef typename boost::range_value<Real_RandomAccessRange>::type
 				Real;
 
-			const integer n = input.size();
+			const integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
-			const Real_Iterator inputEnd = input.end();
+			auto inputEnd = boost::end(inputRange);
 
 			integer k = 1;
 			while (k < n)
 			{
-				Real_Iterator data = input.begin();
-				Real_Iterator kData = data;
+				auto data = boost::begin(inputRange);
+				auto kData = data;
 				while(data != inputEnd)
 				{
 					kData += k;
@@ -65,7 +66,7 @@ namespace Pastel
 					orthogonal ? inverse(std::sqrt((Real)n)) :
 					inverse((Real)n);
 
-				Real_Iterator iter = input.begin();
+				auto iter = inputRange.begin();
 				while(iter != inputEnd)
 				{
 					*iter *= normalization;
@@ -75,19 +76,19 @@ namespace Pastel
 		}
 
 		template <
-			typename Real_ConstIterator, 
-			typename Real_Iterator>
+			typename Real_ConstRange, 
+			typename Real_Range>
 		void hadamard(
-			const ForwardIterator_Range<Real_ConstIterator>& input,
+			const Real_ConstRange& inputRange,
 			bool orthogonal,
-			Real_Iterator output)
+			const Real_Range& outputRange)
 		{
-			typedef typename std::iterator_traits<Real_ConstIterator>::value_type
+			typedef typename boost::range_value<Real_ConstRange>::type
 				Real;
 
 			// Copy the data to a temporary.
 			std::vector<Real> transform(
-				input.begin(), input.end());
+				boost::begin(inputRange), boost::end(inputRange));
 
 			// Compute the transform for the temporary.
 			Hadamard_::hadamardInplace(
@@ -97,16 +98,16 @@ namespace Pastel
 			// Copy the temporary to the output.
 			std::copy(
 				transform.begin(), transform.end(),
-				output);
+				boost::begin(outputRange));
 		}
 
-		template <typename Real_Iterator>
+		template <typename Real_Range>
 		void hadamard(
-			const ForwardIterator_Range<Real_Iterator>& inputOutput,
+			const Real_Range& inputOutput,
 			bool orthogonal)
 		{
 			if (std::is_same<
-				typename boost::iterator_category<Real_Iterator>::type,
+				typename boost::range_category<Real_Range>::type,
 				std::random_access_iterator_tag>::value)
 			{
 				// Do the transform in-place.
@@ -118,24 +119,24 @@ namespace Pastel
 			{
 				// Need to use a temporary.
 				Hadamard_::hadamard(
-					inputOutput, orthogonal, inputOutput.begin());
+					inputOutput, orthogonal, inputOutput);
 			}
 		}
 
 		template <
-			typename Real_ConstIterator, 
-			typename Real_Iterator>
+			typename Real_ConstRange, 
+			typename Real_Range>
 		void inverseHadamard(
-			const ForwardIterator_Range<Real_ConstIterator>& input,
+			const Real_ConstRange& inputRange,
 			bool orthogonal,
-			Real_Iterator output)
+			const Real_Range& outputRange)
 		{
-			typedef typename std::iterator_traits<Real_ConstIterator>::value_type
+			typedef typename boost::range_value<Real_ConstRange>::type
 				Real;
 
 			// Copy the data to a temporary.
 			std::vector<Real> transform(
-				input.begin(), input.end());
+				inputRange.begin(), inputRange.end());
 
 			// Compute the inverse transform for the temporary.
 			Hadamard_::hadamardInplace(
@@ -143,18 +144,18 @@ namespace Pastel
 				orthogonal, true);
 
 			// Copy the temporary to the output.
-			std::copy(
-				transform.begin(), transform.end(),
-				output);
+			boost::copy(
+				range(transform.cbegin(), transform.cend()), 
+				boost::begin(outputRange));
 		}
 
-		template <typename Real_Iterator>
+		template <typename Real_Range>
 		void inverseHadamard(
-			const ForwardIterator_Range<Real_Iterator>& inputOutput,
+			const Real_Range& inputOutput,
 			bool orthogonal)
 		{
 			if (std::is_same<
-				typename boost::iterator_category<Real_Iterator>::type,
+				typename boost::range_category<Real_Range>::type,
 				std::random_access_iterator_tag>::value)
 			{
 				// Do the transform in-place.
@@ -166,83 +167,83 @@ namespace Pastel
 			{
 				// Need to use a temporary.
 				Hadamard_::inverseHadamard(
-					inputOutput, orthogonal, inputOutput.begin());
+					inputOutput, orthogonal, inputOutput);
 			}
 		}
 
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void hadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Hadamard_::hadamard(
 			input, false, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void hadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
 		Hadamard_::hadamard(
 			inputOutput, false);
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseHadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Hadamard_::inverseHadamard(
 			input, false, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseHadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
 		Hadamard_::inverseHadamard(
 			inputOutput, false);
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void orthogonalHadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Hadamard_::hadamard(
 			input, true, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void orthogonalHadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
 		Hadamard_::hadamard(
 			inputOutput, true);
 	}
 
 	template <
-		typename Real_ConstIterator, 
-		typename Real_Iterator>
+		typename Real_ConstRange, 
+		typename Real_Range>
 	void inverseOrthogonalHadamard(
-		const ForwardIterator_Range<Real_ConstIterator>& input,
-		Real_Iterator output)
+		const Real_ConstRange& input,
+		const Real_Range& output)
 	{
 		Hadamard_::inverseHadamard(
 			input, true, output);
 	}
 
-	template <typename Real_Iterator>
+	template <typename Real_Range>
 	void inverseOrthogonalHadamard(
-		const ForwardIterator_Range<Real_Iterator>& inputOutput)
+		const Real_Range& inputOutput)
 	{
 		Hadamard_::inverseHadamard(
 			inputOutput, true);

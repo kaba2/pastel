@@ -27,7 +27,8 @@ namespace
 
 		savePcx(image, "output/adaptedview1.pcx");
 
-		resample<Color>(constRgb888View(image), clampExtender(), lanczosFilter(2),
+		resample<Color>(
+			constRgb888View(image), clampExtender(), lanczosFilter(2),
 			rgb888View(smallerImage));
 
 		savePcx(smallerImage, "output/adaptedview2.pcx");

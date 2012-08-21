@@ -1,5 +1,5 @@
-// Description: Testing for Fourier transform
-// DocumentationOf: fourier_transform.h
+// Description: Testing for signal transforms
+// DocumentationOf: transforms.h
 
 #include "pasteldsptest.h"
 
@@ -9,7 +9,7 @@
 #include "pastel/gfx/color_tools.h"
 #include "pastel/gfx/packrange.h"
 
-#include "pastel/dsp/transforms.h"
+#include "pastel/dsp/signal_transforms.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/view_tools.h"
@@ -116,18 +116,18 @@ namespace
 			saveGrayscalePcx(tImage, name + "_lena_blur.pcx", true);
 		}
 
-		template <typename Complex_Iterator>
+		template <typename Complex_RandomAccessRange>
 		bool testDft(
-			const RandomAccessIterator_Range<Complex_Iterator>& input)
+			const Complex_RandomAccessRange& input)
 		{
 			const integer n = input.size();
 
 			std::vector<std::complex<real> > output(n);
 			dft(range(input.begin(), input.end()),
-				output.begin());
+				range(output.begin(), output.end()));
 			inverseDft(
 				range(output.begin(), output.end()),
-				output.begin());
+				range(output.begin(), output.end()));
 
 			for (integer i = 0;i < n;++i)
 			{
@@ -137,11 +137,12 @@ namespace
 				}
 			}
 
-			unitaryDft(range(input.begin(), input.end()),
-				output.begin());
+			unitaryDft(
+				range(input.begin(), input.end()),
+				range(output.begin(), output.end()));
 			inverseUnitaryDft(
 				range(output.begin(), output.end()),
-				output.begin());
+				range(output.begin(), output.end()));
 
 			for (integer i = 0;i < n;++i)
 			{
@@ -161,11 +162,11 @@ namespace
 		}
 
 		template <
-			typename Complex_Iterator,
+			typename Complex_RandomAccessRange,
 			typename Transform_Algorithm,
 			typename InverseTransform_Algorithm>
 		bool test(
-			const RandomAccessIterator_Range<Complex_Iterator>& input,
+			const Complex_RandomAccessRange& input,
 			const Transform_Algorithm& transform,
 			const InverseTransform_Algorithm& inverse)
 		{
@@ -209,9 +210,9 @@ namespace
 			return testDct(range(input));
 		}
 
-		template <typename Complex_Iterator>
+		template <typename Complex_RandomAccessRange>
 		bool testDct(
-			const RandomAccessIterator_Range<Complex_Iterator>& input)
+			const Complex_RandomAccessRange& input)
 		{
 			if (!test(input, Dct(), InverseDct()) ||
 				!test(input, OrthogonalDct(), InverseOrthogonalDct()))
@@ -228,9 +229,9 @@ namespace
 			return testHaar(range(input));
 		}
 
-		template <typename Complex_Iterator>
+		template <typename Complex_RandomAccessRange>
 		bool testHaar(
-			const RandomAccessIterator_Range<Complex_Iterator>& input)
+			const Complex_RandomAccessRange& input)
 		{
 			if (!test(input, Haar(), InverseHaar()) ||
 				!test(input, OrthogonalHaar(), InverseOrthogonalHaar()))
@@ -247,9 +248,9 @@ namespace
 			return testHadamard(range(input));
 		}
 
-		template <typename Complex_Iterator>
+		template <typename Complex_RandomAccessRange>
 		bool testHadamard(
-			const RandomAccessIterator_Range<Complex_Iterator>& input)
+			const Complex_RandomAccessRange& input)
 		{
 			if (!test(input, Hadamard(), InverseHadamard()) ||
 				!test(input, OrthogonalHadamard(), InverseOrthogonalHadamard()))

@@ -3,6 +3,7 @@
 #ifndef PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 #define PASTEL_MAXIMUM_CLIQUE_ALIGNEDBOX_H
 
+#include "pastel/sys/reporter_concept.h"
 #include "pastel/sys/iterator_range.h"
 
 #include <vector>
@@ -41,25 +42,25 @@ namespace Pastel
 	number of boxes.
 	*/
 	template <
-		typename AlignedBox_ConstIterator,
-		typename AlignedBox_ConstIterator_Iterator>
-	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+		typename AlignedBox_ConstRange,
+		typename AlignedBox_Reporter>
+	typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
-		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
+		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection,
-		AlignedBox_ConstIterator_Iterator result);
+		const AlignedBox_Reporter& result);
 
 	//! Finds an aligned box of maximum intersection among aligned boxes.
 	/*!
 	This is a convenience function that calls:
-	maximumClique(boxSet, sweepDirection, NullIterator())
+	maximumClique(boxSet, sweepDirection, Null_Reporter())
 
 	See the documentation for the general function.
 	*/
-	template <typename AlignedBox_ConstIterator>
-	typename std::iterator_traits<AlignedBox_ConstIterator>::value_type 
+	template <typename AlignedBox_ConstRange>
+	typename boost::range_value<AlignedBox_ConstRange>::type 
 		maximumClique(
-		const ForwardIterator_Range<AlignedBox_ConstIterator>& boxSet,
+		const AlignedBox_ConstRange& boxSet,
 		integer sweepDirection = 1);
 
 }

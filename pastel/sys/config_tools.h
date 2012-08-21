@@ -6,15 +6,14 @@
 #include "pastel/sys/syslibrary.h"
 #include "pastel/sys/config.h"
 #include "pastel/sys/configfile.h"
-#include "pastel/sys/forwarditerator_range.h"
 
 namespace Pastel
 {
 
-	template <typename String_ConstIterator>
+	template <typename String_ConstRange>
 	bool checkCreated(
 		const Config& config,
-		const ForwardIterator_Range<String_ConstIterator>& propertySet,
+		const String_ConstRange& propertySet,
 		bool reportMissing = true);
 
 }

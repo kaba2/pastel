@@ -20,20 +20,22 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void dft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes a discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
-	dft(inputOutput, inputOutput.begin());
+	dft(inputOutput, inputOutput);
 	See the documentation for that function.
 	*/
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void dft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
+		const Complex_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(dft, Dft);
 
@@ -43,20 +45,22 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void unitaryDft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes a unitary discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
-	unitaryDft(inputOutput, inputOutput.begin());
+	unitaryDft(inputOutput, inputOutput);
 	See the documentation for that function.
 	*/
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void unitaryDft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
+		const Complex_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(unitaryDft, UnitaryDft);
 
@@ -66,20 +70,22 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void inverseDft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes an inverse discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
-	inverseDft(inputOutput, inputOutput.begin());
+	inverseDft(inputOutput, inputOutput);
 	See the documentation for that function.
 	*/
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void inverseDft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
+		const Complex_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseDft, InverseDft);
 
@@ -89,20 +95,22 @@ namespace Pastel
 	isPowerOfTwo(input.size())
 	*/
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void inverseUnitaryDft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output);
+		const Complex_ConstRange& input,
+		const Complex_Range& output);
 
 	//! Computes an inverse unitary discrete Fourier transform.
 	/*!
 	This is a convenience function that calls:
-	inverseUnitaryDft(inputOutput, inputOutput.begin());
+	inverseUnitaryDft(inputOutput, inputOutput);
 	See the documentation for that function.
 	*/
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void inverseUnitaryDft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput);
+		const Complex_Range& inputOutput);
 
 	PASTEL_RANGE_ALGORITHM(inverseUnitaryDft, InverseUnitaryDft);
 

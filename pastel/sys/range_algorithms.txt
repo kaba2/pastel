@@ -1,6 +1,0 @@
-Range algorithms
-================
-
-[[Parent]]: ranges.txt
-
-This section contains algorithms for ranges.

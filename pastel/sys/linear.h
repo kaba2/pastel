@@ -45,10 +45,10 @@ namespace Pastel
 	The values of the cube vertices 
 	in lexicographical order in coordinates.
 	*/
-	template <int N, typename Iterator>
-	typename std::iterator_traits<Iterator>::value_type linear(
+	template <int N, typename Vector_Range>
+	typename boost::range_value<Vector_Range>::type linear(
 		const Vector<real, N>& position,
-		const RandomAccessIterator_Range<Iterator>& data);
+		const Vector_Range& data);
 
 	//! Return midpoint of two points.
 	/*!

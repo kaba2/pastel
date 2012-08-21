@@ -1,6 +1,0 @@
-Range concepts
-==============
-
-[[Parent]]: ranges.txt
-
-This section contains concepts related to ranges.

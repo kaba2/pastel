@@ -222,7 +222,7 @@ namespace Pastel
 	}
 
 	template <typename Iterator>
-	RandomAccessIterator_Range<SparseIterator<Iterator> > sparseRange(
+	boost::iterator_range<SparseIterator<Iterator> > sparseRange(
 		const Iterator& begin, const Iterator& end,
 		typename std::iterator_traits<Iterator>::difference_type delta)
 	{
@@ -234,7 +234,7 @@ namespace Pastel
 	}
 
 	template <typename ConstIterator>
-	RandomAccessIterator_Range<ConstSparseIterator<ConstIterator> > constSparseRange(
+	boost::iterator_range<ConstSparseIterator<ConstIterator> > constSparseRange(
 		const ConstIterator& begin, const ConstIterator& end,
 		typename std::iterator_traits<ConstIterator>::difference_type delta)
 	{

@@ -32,18 +32,21 @@ namespace Pastel
 		};
 
 		template <bool Inverse, bool TopLevel, bool Orthogonal, 
-			typename Complex_ConstIterator, typename Complex_Iterator>
+			typename Complex_ConstRange, typename Complex_Range>
 		void discreteFourierSmall(
-			const ForwardIterator_Range<Complex_ConstIterator>& input,
-			Complex_Iterator output)
+			const Complex_ConstRange& inputRange,
+			const Complex_Range& outputRange)
 		{
 			typedef typename Complex_RealType<
-				typename std::iterator_traits<Complex_ConstIterator>::value_type>::Result Real;
+				typename boost::range_value<Complex_ConstRange>::type>::Result Real;
 			typedef std::complex<Real> Complex;
+			typedef typename boost::range_iterator<Complex_ConstRange>::type
+				ConstIterator;
 
-			Complex_ConstIterator iter = input.begin();
+			auto input = inputRange.begin();
+			auto output = outputRange.begin();
 
-			const integer n = input.size();
+			const integer n = inputRange.size();
 			ENSURE_OP(n, <=, 8);
 			ENSURE1(isPowerOfTwo(n), n);
 
@@ -60,8 +63,8 @@ namespace Pastel
 			case 1:
 				{
 					// Size 1 dft
-					const Complex a0(*iter);
-					++iter;
+					const Complex a0(*input);
+					++input;
 
 					*output = a0;
 					++output;
@@ -70,10 +73,10 @@ namespace Pastel
 			case 2:
 				{
 					// Size 1 dfts
-					const Complex a0(*iter);
-					++iter;
-					const Complex a1(*iter);
-					++iter;
+					const Complex a0(*input);
+					++input;
+					const Complex a1(*input);
+					++input;
 
 					// Size 2 dft
 					if (Normalize)
@@ -97,14 +100,14 @@ namespace Pastel
 			case 4:
 				{
 					// Size 1 dfts
-					const Complex a0(*iter);
-					++iter;
-					const Complex a1(*iter);
-					++iter;
-					const Complex a2(*iter);
-					++iter;
-					const Complex a3(*iter);
-					++iter;
+					const Complex a0(*input);
+					++input;
+					const Complex a1(*input);
+					++input;
+					const Complex a2(*input);
+					++input;
+					const Complex a3(*input);
+					++input;
 
 					// Size-2 dfts
 					const Complex b0(a0 + a2);
@@ -150,24 +153,24 @@ namespace Pastel
 		}
 
 		template <bool Inverse, bool TopLevel, bool Orthogonal,
-			typename Complex_ConstIterator, typename Complex_Iterator>
+			typename Complex_ConstRange, typename Complex_Range>
 		void discreteFourier(
-			const ForwardIterator_Range<Complex_ConstIterator>& input,
-			Complex_Iterator output)
+			const Complex_ConstRange& inputRange,
+			const Complex_Range& outputRange)
 		{
 			using namespace Fourier_;
 
-			typedef typename std::iterator_traits<Complex_ConstIterator>::value_type
+			typedef typename boost::range_value<Complex_ConstRange>::type
 				InputComplex;
 			typedef typename Complex_RealType<InputComplex>::Result Real;
 			typedef std::complex<Real> Complex;
 
-			if (input.empty())
+			if (inputRange.empty())
 			{
 				return;
 			}
 
-			const integer n = input.size();
+			const integer n = inputRange.size();
 			ENSURE1(isPowerOfTwo(n), n);
 
 			if (n <= 4)
@@ -176,16 +179,17 @@ namespace Pastel
 				// instances by hand.
 
 				Fourier_::discreteFourierSmall<Inverse, TopLevel, Orthogonal>(
-					input, output);
+					inputRange, outputRange);
 				return;
 			}
 
 			const integer nHalf = n / 2;
 
-			// Separate the input into odd-index and 
+			// Separate the inputRange into odd-index and 
 			// even-index subsequences.
 
-			Complex_ConstIterator iter = input.begin();
+			auto input = inputRange.begin();
+			auto output = outputRange.begin();
 
 			std::vector<Complex> evenFourier;
 			evenFourier.reserve(nHalf);
@@ -193,23 +197,23 @@ namespace Pastel
 			oddFourier.reserve(nHalf);
 			for (integer i = 0;i < nHalf;++i)
 			{
-				evenFourier.push_back(*iter);
-				++iter;
-				oddFourier.push_back(*iter);
-				++iter;
+				evenFourier.push_back(*input);
+				++input;
+				oddFourier.push_back(*input);
+				++input;
 			}
 
 			// Find out the Fourier transformation
 			// of the even-index subsequence.
 			discreteFourier<Inverse, false, Orthogonal>(
 				range(evenFourier.begin(), evenFourier.end()),
-				evenFourier.begin());
+				range(evenFourier.begin(), evenFourier.end()));
 
 			// Find out the Fourier transformation
 			// of the odd-index subsequence.
 			discreteFourier<Inverse, false, Orthogonal>(
 				range(oddFourier.begin(), oddFourier.end()),
-				oddFourier.begin());
+				range(oddFourier.begin(), oddFourier.end()));
 
 			// Combine the results
 
@@ -274,68 +278,76 @@ namespace Pastel
 
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void dft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+		const Complex_ConstRange& input,
+		const Complex_Range& output)
 	{
 		Fourier_::discreteFourier<false, true, false>(
 			input, output);
 	}
 
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void dft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput)
+		const Complex_Range& inputOutput)
 	{
-		Pastel::dft(inputOutput, inputOutput.begin());
+		Pastel::dft(inputOutput, inputOutput);
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void unitaryDft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+		const Complex_ConstRange& input,
+		const Complex_Range& output)
 	{
 		Fourier_::discreteFourier<false, true, true>(
 			input, output);
 	}
 
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void unitaryDft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput)
+		const Complex_Range& inputOutput)
 	{
-		Pastel::unitaryDft(inputOutput, inputOutput.begin());
+		Pastel::unitaryDft(inputOutput, inputOutput);
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void inverseDft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+		const Complex_ConstRange& input,
+		const Complex_Range& output)
 	{
 		Fourier_::discreteFourier<true, true, false>(
 			input, output);
 	}
 
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void inverseDft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput)
+		const Complex_Range& inputOutput)
 	{
-		Pastel::inverseDft(inputOutput, inputOutput.begin());
+		Pastel::inverseDft(inputOutput, inputOutput);
 	}
 
-	template <typename Complex_ConstIterator, typename Complex_Iterator>
+	template <
+		typename Complex_ConstRange, 
+		typename Complex_Range>
 	void inverseUnitaryDft(
-		const ForwardIterator_Range<Complex_ConstIterator>& input,
-		Complex_Iterator output)
+		const Complex_ConstRange& input,
+		const Complex_Range& output)
 	{
 		Fourier_::discreteFourier<true, true, true>(
 			input, output);
 	}
 
-	template <typename Complex_Iterator>
+	template <typename Complex_Range>
 	void inverseUnitaryDft(
-		const ForwardIterator_Range<Complex_Iterator>& inputOutput)
+		const Complex_Range& inputOutput)
 	{
-		Pastel::inverseUnitaryDft(inputOutput, inputOutput.begin());
+		Pastel::inverseUnitaryDft(inputOutput, inputOutput);
 	}
 
 }

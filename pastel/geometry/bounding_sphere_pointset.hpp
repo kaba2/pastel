@@ -27,10 +27,10 @@ namespace Pastel
 			norm(evaluate(bPoint - aPoint)) * 0.5);
 	}
 
-	template <typename Point_ConstIterator, typename PointPolicy>
+	template <typename Point_ConstRange, typename PointPolicy>
 	Sphere<typename PointPolicy::Real, PointPolicy::N> 
 		boundingSphere(
-		const ForwardIterator_Range<Point_ConstIterator>& pointSet,
+		const Point_ConstRange& pointSet,
 		const PointPolicy& pointPolicy)
 	{
 		typedef typename PointPolicy::Real Real;
@@ -55,8 +55,8 @@ namespace Pastel
 
 		// Compute the maximum distance from the midpoint.
 		Real maxDistance2 = 0;
-		Point_ConstIterator iter = pointSet.begin();
-		const Point_ConstIterator iterEnd = pointSet.end();
+		auto iter = pointSet.begin();
+		auto iterEnd = pointSet.end();
 		while(iter != iterEnd)
 		{
 			const Real currentDistance2 =
