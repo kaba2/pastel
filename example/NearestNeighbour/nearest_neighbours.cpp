@@ -1,3 +1,5 @@
+// Description: Nearest-neighbors example
+
 #include "pastel/geometry/pointkdtree.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/distance_point_point.h"
