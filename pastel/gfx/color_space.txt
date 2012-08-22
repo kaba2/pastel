@@ -91,9 +91,10 @@ color science.
 The following image shows a slice through the HSV space with
 constant value. 
 
-![A slice of HSV color space](../../images/hsv.png)
-
-_A slice of the HSV color space.
+[[Gallery]]:
+	hsv.png
+	- A slice of the HSV color space. 
+	
 The saturation varies along the y-axis from the
 bottom 0 to top 1. The hue varies along the x-axis from the
 left 0 to top 1._

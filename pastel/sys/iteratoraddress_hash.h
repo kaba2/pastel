@@ -1,4 +1,4 @@
-// Description: Hash from dereferenced address
+// Description: Hashing of dereferenced address
 // Documentation: hashes.txt
 
 #ifndef PASTEL_ITERATORADDRESS_HASH_H

@@ -4,5 +4,5 @@ Exponential-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_exponential.png
+	random_exponential.png
 	- Exponential distribution with various parameters.

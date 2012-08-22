@@ -4,5 +4,5 @@ Log-normal-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_lognormal.png
+	random_lognormal.png
 	- Log-normal distribution with various parameters.

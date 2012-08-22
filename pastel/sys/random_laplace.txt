@@ -4,5 +4,5 @@ Laplace-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_laplace.png
+	random_laplace.png
 	- Laplace distribution with various parameters.

@@ -4,5 +4,5 @@ Generalized-Gaussian-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_generalized_gaussian.png
+	random_generalized_gaussian.png
 	- Generalized Gaussian distribution with various parameters.

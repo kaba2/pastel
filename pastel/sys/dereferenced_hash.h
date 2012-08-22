@@ -1,4 +1,4 @@
-// Description: Hash from dereferenced value
+// Description: Hashing of dereferenced value
 // Documentation: hashes.txt
 
 #ifndef PASTEL_DEREFERENCED_HASH_H

@@ -4,5 +4,5 @@ Chi-squared-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_chisquared.png
+	random_chisquared.png
 	- Chi-squared distribution with various parameters.

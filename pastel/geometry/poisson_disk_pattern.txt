@@ -26,9 +26,9 @@ on randomization.
 Here are maximal poisson-disk patterns in ''RR^2'' and ''RR''.
 
 [[Gallery]]:
-	../../images/poissondisk_2d.png
+	poissondisk_2d.png
 	- Maximal poisson-disk pattern in 2D.
-	../../images/poissondisk_1d.png
+	poissondisk_1d.png
 	- Maximal poisson-disk pattern in 1D. Each point has been extended to a  vertical line for visualization.
 
 References

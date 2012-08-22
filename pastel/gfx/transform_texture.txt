@@ -10,7 +10,7 @@ Example
 -------
 
 [[Gallery]]:
-	../../images/transform_texture.png
+	transform_texture.png
 	- Radial texture
 
 _The result of rotating and translating the Lena image 
