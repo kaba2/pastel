@@ -1,8 +1,5 @@
-Pastel's nearest neighbours example
-===================================
-
-Description
------------
+Nearest neighbours example
+==========================
 
 This is a program to visualize a kd-tree and a 
 bounding interval tree. A point set is drawn along with its 
