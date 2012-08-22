@@ -11,6 +11,6 @@ random variable is given by:
 This pdf is shown for various ''sigma'' in the image below.
 
 [[Gallery]]: 
-	../../images/random_gaussian.png
+	random_gaussian.png
 	- Gaussian distribution with various sigma.
 

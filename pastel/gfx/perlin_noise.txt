@@ -7,9 +7,9 @@ Examples
 --------
 
 [[Gallery]]:
-	../../images/perlin_noise_1d.png
+	perlin_noise_1d.png
 	- Perlin's classic noise in 1d. Each point has been extended to a vertical line for visualization.
-	../../images/perlin_noise_2d.png
+	perlin_noise_2d.png
 	- Perlin's classic noise in 2d.
-	../../images/perlin_noise_3d.png
+	perlin_noise_3d.png
 	- Perlin's classic noise in 3d with a slice through a 2d-plane.

@@ -4,5 +4,5 @@ Cauchy-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_cauchy.png
+	random_cauchy.png
 	- Cauchy distribution with various parameters.

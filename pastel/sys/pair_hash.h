@@ -1,4 +1,4 @@
-// Description: Hash for std::pair
+// Description: Hashing of std::pair
 // Documentation: hashes.txt
 
 #ifndef PASTEL_PAIR_HASH_H

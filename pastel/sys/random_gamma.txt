@@ -4,5 +4,5 @@ Gamma-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_gamma.png
+	random_gamma.png
 	- Gamma distribution with various parameters.

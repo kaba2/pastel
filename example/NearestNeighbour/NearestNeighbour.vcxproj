@@ -171,11 +171,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="nearestneighbour.cpp" />
-    <ClCompile Include="nearestneighbourmain.cpp" />
+    <ClCompile Include="nearest_neighbours.cpp" />
+    <ClCompile Include="nearest_neighbours_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="readme.txt" />
+    <None Include="nearest_neighbours.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\pastel\device\pasteldevice.vcxproj">

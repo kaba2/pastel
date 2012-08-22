@@ -4,5 +4,5 @@ Triangle-distributed random numbers
 [[Parent]]: random_continuous.txt
 
 [[Gallery]]: 
-	../../images/random_triangle.png
+	random_triangle.png
 	- Triangle distribution with various parameters.
