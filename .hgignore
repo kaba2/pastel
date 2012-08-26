@@ -1,0 +1,7 @@
+syntax: glob
+*.user
+*.sdf
+*.opensdf
+*.suo
+*.pcx
+*.mexw32
