@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Uniform distortion">
-      <UniqueIdentifier>{f74946a4-eadb-4e9c-8bbb-950a1e504e37}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Transformations">
       <UniqueIdentifier>{241dacf2-fb56-49d4-8ae1-f4d464a5e987}</UniqueIdentifier>
     </Filter>
@@ -15,9 +12,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test_uniform_distortion.cpp">
-      <Filter>Uniform distortion</Filter>
-    </ClCompile>
     <ClCompile Include="test_matrix.cpp">
       <Filter>Transformations</Filter>
     </ClCompile>
@@ -35,7 +29,6 @@
     </ClCompile>
     <ClCompile Include="mathinstantiate.cpp" />
     <ClCompile Include="test_polynomial.cpp" />
-    <ClCompile Include="test_smoothstep.cpp" />
     <ClCompile Include="test_math_functions.cpp" />
     <ClCompile Include="test_pastelmath.cpp" />
   </ItemGroup>

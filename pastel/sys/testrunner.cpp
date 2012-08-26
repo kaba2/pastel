@@ -45,8 +45,8 @@ namespace Pastel
 			++iter;
 		}
 
-		log() << name_ << " testing complete."
-			<< logNewLine << logNewLine;
+		//log() << name_ << " testing complete."
+		//	<< logNewLine << logNewLine;
 	}
 
 	void TestRunner::run(

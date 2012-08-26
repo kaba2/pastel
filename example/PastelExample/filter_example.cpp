@@ -1,7 +1,7 @@
-// Description: Testing for filters
+// Description: Filter example
 // DocumentationOf: filter.h
 
-#include "test_pasteldsp.h"
+#include "pastel_example.h"
 
 #include <pastel/gfx/pcx.h>
 #include <pastel/gfx/color_space.h>

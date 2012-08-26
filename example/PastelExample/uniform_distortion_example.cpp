@@ -1,7 +1,7 @@
-// Description: Testing for uniform distortion
+// Description: Uniform distortion example
 // DocumentationOf: uniform_distortion.h
 
-#include "test_pastelmath.h"
+#include "pastel_example.h"
 
 #include "pastel/math/uniform_distortion.h"
 

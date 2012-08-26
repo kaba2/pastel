@@ -25,6 +25,21 @@ namespace Pastel
 	}
 
 	template <typename DataPolicy>
+	HalfMesh<DataPolicy>::HalfMesh(HalfMesh&& that)
+		: DataPolicy()
+		, vertexSet_()
+		, halfSet_()
+		, edgeSet_()
+		, polygonSet_()
+		, vertexAllocator_(sizeof(VertexBody))
+		, halfAllocator_(sizeof(HalfBody))
+		, edgeAllocator_(sizeof(EdgeBody))
+		, polygonAllocator_(sizeof(PolygonBody))
+	{
+		swap(that);
+	}
+
+	template <typename DataPolicy>
 	HalfMesh<DataPolicy>::HalfMesh(
 		const HalfMesh& that)
 		: DataPolicy()
@@ -45,8 +60,9 @@ namespace Pastel
 			const ConstVertexIterator iterEnd = that.vertexEnd();
 			while(iter != iterEnd)
 			{
-				const Vertex thatVertex = *iter;
-				const Vertex vertex = addVertex();
+				Vertex thatVertex = *iter;
+				Vertex vertex = addVertex();
+				ASSERT(!vertex.empty());
 
 				vertexMap.insert(std::make_pair(thatVertex, vertex));
 				*vertex = *thatVertex;
@@ -61,11 +77,12 @@ namespace Pastel
 			const ConstEdgeIterator iterEnd = that.edgeEnd();
 			while(iter != iterEnd)
 			{
-				const Edge thatEdge = *iter;
+				Edge thatEdge = *iter;
 
-				const Edge edge = addEdge(
+				Edge edge = addEdge(
 					vertexMap[thatEdge.half().origin()],
 					vertexMap[thatEdge.half().destination()]);
+				ASSERT(!edge.empty());
 				*edge = *thatEdge;
 
 				++iter;
@@ -80,8 +97,8 @@ namespace Pastel
 			{
 				std::vector<Vertex> vertexLoop;
 
-				const Polygon thatPolygon = *iter;
-				const Half halfBegin = thatPolygon.half();
+				Polygon thatPolygon = *iter;
+				Half halfBegin = thatPolygon.half();
 				Half half = halfBegin;
 				do
 				{
@@ -91,7 +108,8 @@ namespace Pastel
 				}
 				while(half != halfBegin);
 
-				const Polygon polygon = addPolygon(vertexLoop);
+				Polygon polygon = addPolygon(vertexLoop);
+				ASSERT(!polygon.empty());
 				*polygon = *thatPolygon;
 
 				++iter;
@@ -107,9 +125,8 @@ namespace Pastel
 
 	template <typename DataPolicy>
 	HalfMesh<DataPolicy>&
-		HalfMesh<DataPolicy>::operator=(const HalfMesh& that)
+		HalfMesh<DataPolicy>::operator=(HalfMesh that)
 	{
-		HalfMesh copy(that);
 		swap(copy);
 		return *this;
 	}
@@ -316,7 +333,7 @@ namespace Pastel
 		// edge loops.
 
 		const bool edgeLoop = (fromVertex == toVertex);
-		if (REPORT(edgeLoop))
+		if (edgeLoop)
 		{
 			return Edge();
 		}
@@ -335,7 +352,7 @@ namespace Pastel
 				*outAlreadyExisted = true;
 			}
 
-			return existingHalf.edge();
+			return Edge();
 		}
 
 		// Check that the vertices are free.

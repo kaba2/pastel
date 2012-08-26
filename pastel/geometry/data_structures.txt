@@ -1,5 +1,5 @@
-Geometric data structures
-=========================
+Data structures
+===============
 
 [[Parent]]: pastelgeometry.txt
 

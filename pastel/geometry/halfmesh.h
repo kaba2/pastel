@@ -161,7 +161,14 @@ namespace Pastel
 		*/
 		HalfMesh();
 
-		//! Constructs with a copy from another mesh.
+		//! Move-constructs from another mesh.
+		/*!
+		Exception safety:
+		strong
+		*/
+		HalfMesh(HalfMesh&& that);
+
+		//! Copy-constructs from another mesh.
 		/*!
 		Exception safety:
 		strong
@@ -180,8 +187,7 @@ namespace Pastel
 		Exception safety:
 		strong
 		*/
-		HalfMesh<DataPolicy>&
-			operator=(const HalfMesh& that);
+		HalfMesh<DataPolicy>& operator=(HalfMesh that);
 
 		//! Swaps two half-edge meshes.
 		/*!

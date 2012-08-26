@@ -15,16 +15,15 @@ int main(integer argc, const char* argv[])
 	log().addLogger(&streamLogger);
 	log().addLogger(&fileLogger);
 
-	setInvariantFailureAction(
-		InvariantFailureAction::Throw);
-
-	if (argc > 1 && argv[1] == std::string("-c"))
+	if (argc > 1 && argv[1] == std::string("-r"))
 	{
-		testRunner().console();
+		setInvariantFailureAction(
+			InvariantFailureAction::Throw);
+		testRunner().run();
 	}
 	else
 	{
-		testRunner().run();
+		testRunner().console();
 	}
 	
 	if (testReport().totalErrors() > 0)
