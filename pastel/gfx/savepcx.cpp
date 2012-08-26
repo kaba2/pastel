@@ -67,10 +67,12 @@ namespace Pastel
 	{
 		// TODO: This does not work with empty images!
 
+		/*
 		log() << "Saving a binary image to file "
 			<< fileName
 			<< " in pcx format."
 			<< logNewLine;
+		*/
 
 		if (fileName.empty())
 		{
@@ -172,9 +174,11 @@ namespace Pastel
 	{
 		// TODO: This does not work with empty images!
 
+		/*
 		log() << "Saving an indexed image to file "
 			<< fileName << " in pcx format."
 			<< logNewLine;
+		*/
 
 		if (fileName.empty())
 		{
@@ -291,10 +295,12 @@ namespace Pastel
 	{
 		// TODO: This does not work with empty images!
 
+		/*
 		log() << "Saving an rgb image to file "
 			<< fileName
 			<< " in pcx format."
 			<< logNewLine;
+		*/
 
 		if (fileName.empty())
 		{

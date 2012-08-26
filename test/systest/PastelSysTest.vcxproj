@@ -100,7 +100,8 @@
       </Command>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelSysTest.exe</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
@@ -134,7 +135,8 @@
       </Command>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelSysTest.exe</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
@@ -172,7 +174,8 @@
       </Command>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelSysTest.exe</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>
@@ -209,7 +212,8 @@
       </Command>
     </CustomBuildStep>
     <PostBuildEvent>
-      <Command>$(SolutionDir)lib\$(Platform)\$(Configuration)\PastelSysTest.exe</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>

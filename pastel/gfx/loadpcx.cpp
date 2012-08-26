@@ -429,8 +429,8 @@ namespace Pastel
 		const std::string& fileName,
 		AbstractArray<2, Color>& image)
 	{
-		log() << "Loading a pcx image from "
-			<< fileName << "." << logNewLine;
+		//log() << "Loading a pcx image from "
+		//	<< fileName << "." << logNewLine;
 
 		BinaryFile file;
 		PcxHeader pcxHeader;

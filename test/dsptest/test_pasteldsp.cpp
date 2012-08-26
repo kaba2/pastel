@@ -18,16 +18,13 @@ using namespace Pastel;
 
 using namespace std;
 
-int main()
+int main(integer argc, const char* argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
 
 	log().addLogger(&streamLogger);
 	log().addLogger(&fileLogger);
-
-	setInvariantFailureAction(
-		InvariantFailureAction::Throw);
 
 	Array<Color> textureImage;
 	loadPcx("lena.pcx", textureImage);
@@ -49,12 +46,21 @@ int main()
 	dspStorage().set("lena_mipmap", &mipMap);
 	dspStorage().set("lena_texture", &texture);
 
-	testRunner().console();
+	if (argc > 1 && argv[1] == std::string("-r"))
+	{
+		setInvariantFailureAction(
+			InvariantFailureAction::Throw);
+		testRunner().run();
+	}
+	else
+	{
+		testRunner().console();
+	}
+	
+	if (testReport().totalErrors() > 0)
+	{
+		generateTestReport(testReport(), log());
+	}
 
-	generateTestReport(testReport(), log());
-
-	std::string tmp;
-	std::getline(std::cin, tmp);
-
-	return 0;
+	return testReport().totalErrors();
 }

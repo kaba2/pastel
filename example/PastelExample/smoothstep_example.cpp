@@ -1,7 +1,7 @@
-// Description: Testing for smooth-step functions
+// Description: Smooth-step function example
 // DocumentationOf: smoothstep.h
 
-#include "test_pastelmath.h"
+#include "pastel_example.h"
 
 #include "pastel/math/smoothstep.h"
 

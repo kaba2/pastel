@@ -1,18 +1,13 @@
+#include "test_pastelgeometry.h"
+
 #include "pastel/sys/logging.h"
 
 #include <iostream>
-using std::cin;
-
 #include <string>
-using std::string;
-using std::getline;
-
-#include "test_pastelgeometry.h"
 
 using namespace Pastel;
-using namespace std;
 
-int main()
+int main(integer argc, const char* argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
@@ -20,15 +15,21 @@ int main()
 	log().addLogger(&streamLogger);
 	log().addLogger(&fileLogger);
 
-	setInvariantFailureAction(
-		InvariantFailureAction::Throw);
+	if (argc > 1 && argv[1] == std::string("-r"))
+	{
+		setInvariantFailureAction(
+			InvariantFailureAction::Throw);
+		testRunner().run();
+	}
+	else
+	{
+		testRunner().console();
+	}
+	
+	if (testReport().totalErrors() > 0)
+	{
+		generateTestReport(testReport(), log());
+	}
 
-	testRunner().console();
-
-	generateTestReport(testReport(), log());
-
-	string tmp;
-	getline(cin, tmp);
-
-	return 0;
+	return testReport().totalErrors();
 }

@@ -83,8 +83,13 @@ namespace Pastel
 		while (vertexIter != vertexEnd)
 		{
 			Vertex vertex(*vertexIter);
+			if (vertex.empty())
+			{
+				return false;
+			}
+			
 			Half half(vertex.half());
-			if (REPORT(!half.empty() && half.origin() != vertex))
+			if (!half.empty() && half.origin() != vertex)
 			{
 				return false;
 			}
@@ -102,8 +107,14 @@ namespace Pastel
 		while (edgeIter != edgeEnd)
 		{
 			Edge edge(*edgeIter);
+			if (edge.empty())
+			{
+				return false;
+			}
+
 			Half half(edge.half());
-			if (REPORT(half.empty() || half.edge() != edge))
+			if (half.empty() || 
+				half.edge() != edge)
 			{
 				return false;
 			}
@@ -121,8 +132,14 @@ namespace Pastel
 		while (polygonIter != polygonEnd)
 		{
 			Polygon polygon(*polygonIter);
+			if (polygon.empty())
+			{
+				return false;
+			}
+			
 			Half half(polygon.half());
-			if (REPORT(half.empty() || half.left() != polygon))
+			if (half.empty() || 
+				half.left() != polygon)
 			{
 				return false;
 			}
@@ -140,20 +157,28 @@ namespace Pastel
 		while (halfIter != halfEnd)
 		{
 			const Half half(*halfIter);
+			if (half.empty())
+			{
+				return false;
+			}
+
 			const Half previous(half.previous());
 			const Half next(half.next());
 			const Half pair(half.pair());
 
-			if (REPORT(half.origin().empty()) ||
-				REPORT(half.edge().empty()) |
-				REPORT(previous.next() != half) ||
-				REPORT(next.previous() != half) ||
-				REPORT(next.left() != half.left()) ||
-				REPORT(previous.left() != half.left()) ||
-				REPORT(pair.pair() != half) ||
-				REPORT(half.origin() != pair.destination()) ||
-				REPORT(pair.origin() != half.destination()) ||
-				REPORT(half.edge() != pair.edge()))
+			if (previous.empty() ||
+				next.empty() ||
+				pair.empty() ||
+				half.origin().empty() ||
+				half.edge().empty() |
+				previous.next() != half ||
+				next.previous() != half ||
+				next.left() != half.left() ||
+				previous.left() != half.left() ||
+				pair.pair() != half ||
+				half.origin() != pair.destination() ||
+				pair.origin() != half.destination() ||
+				half.edge() != pair.edge())
 			{
 				return false;
 			}

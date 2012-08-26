@@ -73,10 +73,12 @@ namespace
 		{
 			testSimple();
 			testRandom();
-			testImage(Haar(), InverseHaar(), "haar");
-			testImage(Dct(), InverseDct(), "dct");
+			//testImage(Haar(), InverseHaar(), "haar");
+			//testImage(Dct(), InverseDct(), "dct");
 		}
 
+		// Move to examples
+		/*
 		template <
 			typename Transform_Algorithm,
 			typename Inverse_Algorithm>
@@ -115,7 +117,8 @@ namespace
 
 			saveGrayscalePcx(tImage, name + "_lena_blur.pcx", true);
 		}
-
+		*/
+		
 		template <typename Complex_RandomAccessRange>
 		bool testDft(
 			const Complex_RandomAccessRange& input)

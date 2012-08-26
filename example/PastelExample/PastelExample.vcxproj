@@ -153,6 +153,9 @@
     <ClCompile Include="progress_example.cpp" />
     <ClCompile Include="random_example.cpp" />
     <ClCompile Include="low_discrepancy_example.cpp" />
+    <ClCompile Include="smoothstep_example.cpp" />
+    <ClCompile Include="filter_example.cpp" />
+    <ClCompile Include="uniform_distortion_example.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pastel_example.h" />

@@ -8,297 +8,286 @@
 #include "pastel/sys/random.h"
 
 using namespace Pastel;
+using namespace std;
 
 namespace
 {
 
-	void printHalfMesh(const PureHalfMesh& halfMesh)
+	class Test
+		: public TestSuite
 	{
-	}
-
-	void testTrivial()
-	{
-		PureHalfMesh halfMesh;
-		halfMesh.addVertex();
-		for (int i = 0;i < 10000;i++)
+	public:
+		Test()
+			: TestSuite(&testReport())
 		{
+		}
+
+		virtual void run()
+		{
+			testTrivial();
+			testSimpleEdge();
+			testMultiHalfMesh();
+			testSimpleRemoval();
+			testComplexHalfMesh();
+		}
+
+		void testTrivial()
+		{
+			PureHalfMesh halfMesh;
 			halfMesh.addVertex();
-			checkInvariants(halfMesh);
+			for (int i = 0;i < 10000;i++)
+			{
+				halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+
+			{
+				PureHalfMesh otherMesh(halfMesh);
+				TEST_ENSURE(checkInvariants(otherMesh));
+			}
 		}
 
+		void testSimpleEdge()
 		{
-			PureHalfMesh otherMesh(halfMesh);
-			checkInvariants(otherMesh);
-		}
-	}
+			{
+				PureHalfMesh halfMesh;
+				PureHalfMesh::Vertex a = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
 
-	void testSimpleEdge()
-	{
+				PureHalfMesh::Edge e = halfMesh.addEdge(a, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+			{
+				PureHalfMesh halfMesh;
+				PureHalfMesh::Vertex a = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex c = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+
+				halfMesh.addEdge(a, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, c);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(a, c);
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+			{
+				PureHalfMesh halfMesh;
+				PureHalfMesh::Vertex a = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(a, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+		}
+
+		void testMultiHalfMesh()
 		{
+			{
+				PureHalfMesh halfMesh;
+
+				PureHalfMesh::Vertex a = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+
+				halfMesh.addEdge(a, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+			{
+				PureHalfMesh halfMesh;
+
+				PureHalfMesh::Vertex a = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+
+				halfMesh.addEdge(a, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+
+				halfMesh.addEdge(a, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(a, a);
+				TEST_ENSURE(checkInvariants(halfMesh));
+				halfMesh.addEdge(b, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+		}
+
+		void testSimpleRemoval()
+		{
+			{
+				PureHalfMesh halfMesh;
+				PureHalfMesh::Vertex a = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Vertex b = halfMesh.addVertex();
+				TEST_ENSURE(checkInvariants(halfMesh));
+				PureHalfMesh::Edge edge = halfMesh.addEdge(a, b);
+				TEST_ENSURE(checkInvariants(halfMesh));
+
+				halfMesh.removeEdge(edge);
+				TEST_ENSURE(checkInvariants(halfMesh));
+			}
+			{
+				enum
+				{
+					Vertices = 100
+				};
+
+				PureHalfMesh halfMesh;
+				PureHalfMesh::Vertex vertices[Vertices];
+				PureHalfMesh::Edge edges[Vertices - 1];
+				for (int i = 0;i < Vertices;++i)
+				{
+					vertices[i] = halfMesh.addVertex();
+					TEST_ENSURE(checkInvariants(halfMesh));
+				}
+
+				for (int i = 1;i < Vertices;++i)
+				{
+					edges[i - 1] = halfMesh.addEdge(vertices[0], vertices[i]);
+					TEST_ENSURE(checkInvariants(halfMesh));
+				}
+
+				for (int i = 0;i < Vertices - 1;++i)
+				{
+					halfMesh.removeEdge(edges[i]);
+					TEST_ENSURE(checkInvariants(halfMesh));
+				}
+			}
+			/*
+			{
 			PureHalfMesh halfMesh;
 			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Vertex b = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-
-			PureHalfMesh::Edge e = halfMesh.addEdge(a, b);
-			checkInvariants(halfMesh);
-		}
-		{
-			PureHalfMesh halfMesh;
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Vertex b = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Vertex c = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-
-			halfMesh.addEdge(a, b);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, c);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(a, c);
-			checkInvariants(halfMesh);
-		}
-		{
-			PureHalfMesh halfMesh;
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(a, a);
-			checkInvariants(halfMesh);
-		}
-	}
-
-	void testMultiHalfMesh()
-	{
-		{
-			PureHalfMesh halfMesh;
-
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Vertex b = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-
-			halfMesh.addEdge(a, b);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, a);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, a);
-			checkInvariants(halfMesh);
-		}
-		{
-			PureHalfMesh halfMesh;
-
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Vertex b = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-
-			halfMesh.addEdge(a, b);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, a);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, a);
-			checkInvariants(halfMesh);
-
-			halfMesh.addEdge(a, a);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, b);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(a, a);
-			checkInvariants(halfMesh);
-			halfMesh.addEdge(b, b);
-			checkInvariants(halfMesh);
-		}
-	}
-
-	void testSimpleRemoval()
-	{
-		{
-			PureHalfMesh halfMesh;
-			PureHalfMesh::Vertex a = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Vertex b = halfMesh.addVertex();
-			checkInvariants(halfMesh);
-			PureHalfMesh::Edge edge = halfMesh.addEdge(a, b);
-			checkInvariants(halfMesh);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge edge = halfMesh.addEdge(a, a);
+			TEST_ENSURE(checkInvariants(halfMesh));
 
 			halfMesh.removeEdge(edge);
-			checkInvariants(halfMesh);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			}
+			*/
+
+			/*
+			{
+			PureHalfMesh halfMesh;
+
+			PureHalfMesh::Vertex a = halfMesh.addVertex();
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Vertex b = halfMesh.addVertex();
+			TEST_ENSURE(checkInvariants(halfMesh));
+
+			PureHalfMesh::Edge A = halfMesh.addEdge(a, b);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge B = halfMesh.addEdge(b, a);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge C = halfMesh.addEdge(b, a);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge D = halfMesh.addEdge(a, a);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge E = halfMesh.addEdge(b, b);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge F = halfMesh.addEdge(a, a);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			PureHalfMesh::Edge G = halfMesh.addEdge(b, b);
+			TEST_ENSURE(checkInvariants(halfMesh));
+
+			halfMesh.removeEdge(D);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			halfMesh.removeEdge(E);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			halfMesh.removeEdge(A);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			halfMesh.removeEdge(B);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			halfMesh.removeEdge(F);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			halfMesh.removeEdge(C);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			halfMesh.removeEdge(G);
+			TEST_ENSURE(checkInvariants(halfMesh));
+			}
+			*/
 		}
+
+		void testComplexHalfMesh()
 		{
 			enum
 			{
-				Vertices = 100
+				Vertices = 1000,
+				Edges = 1000
 			};
 
+			std::vector<PureHalfMesh::Vertex> vertices;
+			std::vector<PureHalfMesh::Edge> edges;
 			PureHalfMesh halfMesh;
-			PureHalfMesh::Vertex vertices[Vertices];
-			PureHalfMesh::Edge edges[Vertices - 1];
-			for (int i = 0;i < Vertices;++i)
+
 			{
-				vertices[i] = halfMesh.addVertex();
-				checkInvariants(halfMesh);
-			}
-
-			for (int i = 1;i < Vertices;++i)
-			{
-				edges[i - 1] = halfMesh.addEdge(vertices[0], vertices[i]);
-				checkInvariants(halfMesh);
-			}
-
-			for (int i = 0;i < Vertices - 1;++i)
-			{
-				halfMesh.removeEdge(edges[i]);
-				checkInvariants(halfMesh);
-			}
-		}
-		/*
-		{
-		PureHalfMesh halfMesh;
-		PureHalfMesh::Vertex a = halfMesh.addVertex();
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge edge = halfMesh.addEdge(a, a);
-		checkInvariants(halfMesh);
-
-		halfMesh.removeEdge(edge);
-		checkInvariants(halfMesh);
-		}
-		*/
-
-		/*
-		{
-		PureHalfMesh halfMesh;
-
-		PureHalfMesh::Vertex a = halfMesh.addVertex();
-		checkInvariants(halfMesh);
-		PureHalfMesh::Vertex b = halfMesh.addVertex();
-		checkInvariants(halfMesh);
-
-		PureHalfMesh::Edge A = halfMesh.addEdge(a, b);
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge B = halfMesh.addEdge(b, a);
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge C = halfMesh.addEdge(b, a);
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge D = halfMesh.addEdge(a, a);
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge E = halfMesh.addEdge(b, b);
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge F = halfMesh.addEdge(a, a);
-		checkInvariants(halfMesh);
-		PureHalfMesh::Edge G = halfMesh.addEdge(b, b);
-		checkInvariants(halfMesh);
-
-		halfMesh.removeEdge(D);
-		checkInvariants(halfMesh);
-		halfMesh.removeEdge(E);
-		checkInvariants(halfMesh);
-		halfMesh.removeEdge(A);
-		checkInvariants(halfMesh);
-		halfMesh.removeEdge(B);
-		checkInvariants(halfMesh);
-		halfMesh.removeEdge(F);
-		checkInvariants(halfMesh);
-		halfMesh.removeEdge(C);
-		checkInvariants(halfMesh);
-		halfMesh.removeEdge(G);
-		checkInvariants(halfMesh);
-		}
-		*/
-	}
-
-	void testComplexHalfMesh()
-	{
-		enum
-		{
-			Vertices = 100000,
-			Edges = 100000
-		};
-
-		std::vector<PureHalfMesh::Vertex> vertices;
-		std::vector<PureHalfMesh::Edge> edges;
-		PureHalfMesh halfMesh;
-
-		{
-			int previous = 0;
-			for (int i = 0;i < Vertices;++i)
-			{
-				vertices.push_back(halfMesh.addVertex());
-				if (i / 1000 != previous)
+				vertices.reserve(Vertices);
+				for (integer i = 0;i < Vertices;++i)
 				{
-					log() << i << ", ";
-					previous = i / 1000;
+					vertices.push_back(halfMesh.addVertex());
 				}
 			}
-		}
-		checkInvariants(halfMesh);
-		log() << "vertices added" << logNewLine;
+			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE_OP(vertices.size(), ==, Vertices);
 
-		{
-			PureHalfMesh otherMesh(halfMesh);
-			checkInvariants(otherMesh);
-		}
-
-		{
-			for (int i = 0;i < Edges;++i)
 			{
-				PureHalfMesh::Edge edge;
-				while (edge.empty())
+				edges.reserve(Edges);
+				for (integer i = 0;i < Edges;++i)
 				{
-					int aIndex = randomInteger() % Vertices;
-					int bIndex = randomInteger() % Vertices;
+					PureHalfMesh::Edge edge;
+					while (edge.empty())
+					{
+						integer aIndex = randomInteger() % Vertices;
+						integer bIndex = randomInteger() % Vertices;
 
-					PureHalfMesh::Vertex a = vertices[aIndex];
-					PureHalfMesh::Vertex b = vertices[bIndex];
+						PureHalfMesh::Vertex a = vertices[aIndex];
+						PureHalfMesh::Vertex b = vertices[bIndex];
+						edge = halfMesh.addEdge(a, b);
+					}
+					TEST_ENSURE(checkInvariants(halfMesh));
 
-					edge = halfMesh.addEdge(a, b);
+					edges.push_back(edge);
 				}
-
-				edges.push_back(edge);
 			}
-		}
-		checkInvariants(halfMesh);
-		log() << "edges added" << logNewLine;
+			TEST_ENSURE(checkInvariants(halfMesh));
+			TEST_ENSURE_OP(edges.size(), ==, Edges);
 
-		{
-			PureHalfMesh otherMesh(halfMesh);
-			checkInvariants(otherMesh);
-		}
-
-		{
-			for (int i = 0;i < Edges;++i)
 			{
-				int index = randomInteger() % Edges;
-				PureHalfMesh::Edge edge = edges[index];
-				edges[index] = PureHalfMesh::Edge();
-
-				if (!edge.empty())
+				for (integer i = 0;i < Edges;++i)
 				{
+					PureHalfMesh::Edge edge = edges[i];
+					TEST_ENSURE(checkInvariants(halfMesh));
 					halfMesh.removeEdge(edge);
 				}
 			}
+			TEST_ENSURE(checkInvariants(halfMesh));
 		}
-		checkInvariants(halfMesh);
-
-		{
-			PureHalfMesh otherMesh(halfMesh);
-			checkInvariants(otherMesh);
-		}
-	}
+	};
 
 	void test()
 	{
-		testTrivial();
-		testSimpleEdge();
-		testMultiHalfMesh();
-		testSimpleRemoval();
-		testComplexHalfMesh();
+		Test test;
+		test.run();
 	}
 
 	void addTest()
 	{
-		testRunner().add("HalfMesh2", test);
+		testRunner().add("MoreHalfMesh", test);
 	}
 
 	CallFunction run(addTest);

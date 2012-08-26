@@ -9,8 +9,6 @@
 #include "pastel/math/uniform_sampling.h"
 #include "pastel/sys/views.h"
 
-#include "pastel/gfx/pcx.h"
-
 #include <algorithm>
 
 using namespace Pastel;
@@ -127,8 +125,6 @@ namespace
 			d |= 3, 2, 1, 4, 5, 6, 7, 6, 7,
 				 12, 11, 10, 13, 14, 15, 16, 15, 16;
 
-			std::cout << c << std::endl;
-
 			TEST_ENSURE(c == d);
 		}
 
@@ -220,11 +216,6 @@ namespace
 			// The data retains its row-major ordering.
 
 			a.reshape(8, 2);
-
-			// The array data structure underlying the matrix
-			// can be obtained for non-mutable purposes.
-
-			saveGrayscalePcx(a.asArray(), "test_matrix_asarray.pcx");
 		}
 
 		void testMatrixArray()

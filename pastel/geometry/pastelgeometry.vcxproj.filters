@@ -1,33 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Geometric data structures">
-      <UniqueIdentifier>{82fbcbe4-0a9d-408c-a805-99cb262fb0b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Meshes">
-      <UniqueIdentifier>{755c150d-65f8-4bde-9ff7-88a3bef4bfcb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Meshes\HalfMesh">
-      <UniqueIdentifier>{999ffa7f-9d75-4a18-8eb3-db4741da3da8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\BihTree">
-      <UniqueIdentifier>{87336d6f-f7ea-4d2c-b109-410efbc03f58}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Bsp trees">
-      <UniqueIdentifier>{1dbefa8b-1118-4885-919f-477ab732982b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Bsp trees\KdTree">
-      <UniqueIdentifier>{63c52d91-b2d2-43ce-a63a-306d32517c5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Bsp trees\PointKdTree">
-      <UniqueIdentifier>{4c17e715-0757-49de-ae1f-c82842e98e63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Bsp trees\PointKdTree\Split rules">
-      <UniqueIdentifier>{058370e8-0bd3-4357-b4c3-d2b14fbea86f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric data structures\Bsp trees\WindowedPointTree">
-      <UniqueIdentifier>{35880c9e-d989-453b-8885-97a9eae63c71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{bb466eb3-c5c3-4f45-ac36-58f50d6f135a}</UniqueIdentifier>
     </Filter>
@@ -76,148 +49,175 @@
     <Filter Include="Shapes\Triangle">
       <UniqueIdentifier>{050fe077-7e54-4015-aa1b-0a9295312038}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Geometric algorithms">
-      <UniqueIdentifier>{2f148393-a110-4b4c-932d-c96912003154}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation">
-      <UniqueIdentifier>{c050cbf9-0f12-4673-95ec-a43a5c43203d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Bounding shapes">
-      <UniqueIdentifier>{6c3acc3e-99fa-4b0e-a675-1c738c360dcd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box">
-      <UniqueIdentifier>{b44d49dd-4c83-42c6-9a43-f0af84976138}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere">
-      <UniqueIdentifier>{88628317-581f-4910-8772-88913c934939}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Bounding shapes\Bounding box">
-      <UniqueIdentifier>{3d61bdef-df2f-4fe8-8742-cdf2d8e7629b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Convex hull">
-      <UniqueIdentifier>{ebef4be3-3c5f-4cbe-afd1-aaee94524c2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Set-difference">
-      <UniqueIdentifier>{b81239ab-e7f2-4678-b8c3-132ebe55331c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Intersection">
-      <UniqueIdentifier>{f9de921a-f94e-4bac-8eed-651e54d56cff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape generation\Poisson-disk pattern">
-      <UniqueIdentifier>{916f2df8-8ff5-40ed-a014-239596ae668e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches">
-      <UniqueIdentifier>{7b149f4a-a9d1-4e5c-8b49-27bd267d97ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Orthogonal range searching">
-      <UniqueIdentifier>{5f98dbf1-0a1f-4766-a80c-bf3898f3ab00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Nearest neighbors searching">
-      <UniqueIdentifier>{b9d0d562-920d-4b24-a6f3-b91a28ca5dc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting">
-      <UniqueIdentifier>{37e4e4c7-8798-417c-84be-e158e762fcde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching">
-      <UniqueIdentifier>{3abc2870-266a-4115-a4eb-5efbc2f17acf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint">
-      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms">
-      <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Intersection graph">
-      <UniqueIdentifier>{45abe6a3-2fca-4f7f-8ba8-bbc0f56d7ba8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Subset searches\Intersection graph\Maximum clique">
-      <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Transformation fitting">
-      <UniqueIdentifier>{e6b253b5-9929-44a0-b1c0-69789dc376cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Transformation fitting\Point pattern matching">
-      <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Transformation fitting\Projection">
-      <UniqueIdentifier>{d96c16f9-25e0-48ea-826a-28d7c4f68e09}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations">
-      <UniqueIdentifier>{faa39d9a-04b2-428e-aa19-cb7e11fc8b64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Containment testing">
-      <UniqueIdentifier>{994d0836-368b-4e52-a379-dee037d93160}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing">
-      <UniqueIdentifier>{b54c153f-16bb-4f1c-9a8d-baee27a3d866}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox">
-      <UniqueIdentifier>{12b672b1-f55b-4020-9817-f041836fc793}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane">
-      <UniqueIdentifier>{544d2a89-8912-4636-8ce9-b60f5287adb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing\Involving Box">
-      <UniqueIdentifier>{f2702b9d-d3c6-4a19-8140-77b0630e77a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing\Involving Plane">
-      <UniqueIdentifier>{6792a24d-6465-4d1c-8972-0bf3b35ef783}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing\Involving Sphere">
-      <UniqueIdentifier>{6117dc4f-1ced-4e39-bedb-3a0cf8cf826c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape relations\Overlap testing\Involving others">
-      <UniqueIdentifier>{a51b49ac-fd28-4d2a-8a10-79b40eaadc17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements">
-      <UniqueIdentifier>{2e292726-adcb-4841-a84f-4e7195e761ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements\Area">
-      <UniqueIdentifier>{6bf24589-1d1d-491d-8080-23861c9398bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements\Diameter">
-      <UniqueIdentifier>{5fb1a435-3887-4049-b295-aba823ed39ca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements\Volume">
-      <UniqueIdentifier>{c96e0285-b1f5-4b07-86b9-857e2deb7d0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements\Distance">
-      <UniqueIdentifier>{748d1823-7df5-4a80-96d0-f322ba4d26ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements\Closest points">
-      <UniqueIdentifier>{cbe206e7-e3b0-4e5f-9bd9-6dc52e0b4d79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Geometric algorithms\Shape measurements\Eigenstructure">
-      <UniqueIdentifier>{ce172e75-1ba6-4bc7-9cf2-8787af548afb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Not sure">
       <UniqueIdentifier>{15a348e0-d81d-478f-92fa-a37f9421b6ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures">
+      <UniqueIdentifier>{82fbcbe4-0a9d-408c-a805-99cb262fb0b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Meshes">
+      <UniqueIdentifier>{755c150d-65f8-4bde-9ff7-88a3bef4bfcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Meshes\HalfMesh">
+      <UniqueIdentifier>{999ffa7f-9d75-4a18-8eb3-db4741da3da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\BihTree">
+      <UniqueIdentifier>{87336d6f-f7ea-4d2c-b109-410efbc03f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees">
+      <UniqueIdentifier>{1dbefa8b-1118-4885-919f-477ab732982b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\KdTree">
+      <UniqueIdentifier>{63c52d91-b2d2-43ce-a63a-306d32517c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\PointKdTree">
+      <UniqueIdentifier>{4c17e715-0757-49de-ae1f-c82842e98e63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\PointKdTree\Split rules">
+      <UniqueIdentifier>{058370e8-0bd3-4357-b4c3-d2b14fbea86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data structures\Bsp trees\WindowedPointTree">
+      <UniqueIdentifier>{35880c9e-d989-453b-8885-97a9eae63c71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms">
+      <UniqueIdentifier>{2f148393-a110-4b4c-932d-c96912003154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation">
+      <UniqueIdentifier>{c050cbf9-0f12-4673-95ec-a43a5c43203d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Bounding shapes">
+      <UniqueIdentifier>{6c3acc3e-99fa-4b0e-a675-1c738c360dcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Bounding shapes\Bounding aligned box">
+      <UniqueIdentifier>{b44d49dd-4c83-42c6-9a43-f0af84976138}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Bounding shapes\Bounding sphere">
+      <UniqueIdentifier>{88628317-581f-4910-8772-88913c934939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Bounding shapes\Bounding box">
+      <UniqueIdentifier>{3d61bdef-df2f-4fe8-8742-cdf2d8e7629b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Convex hull">
+      <UniqueIdentifier>{ebef4be3-3c5f-4cbe-afd1-aaee94524c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Set-difference">
+      <UniqueIdentifier>{b81239ab-e7f2-4678-b8c3-132ebe55331c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Intersection">
+      <UniqueIdentifier>{f9de921a-f94e-4bac-8eed-651e54d56cff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape generation\Poisson-disk pattern">
+      <UniqueIdentifier>{916f2df8-8ff5-40ed-a014-239596ae668e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches">
+      <UniqueIdentifier>{7b149f4a-a9d1-4e5c-8b49-27bd267d97ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Orthogonal range searching">
+      <UniqueIdentifier>{5f98dbf1-0a1f-4766-a80c-bf3898f3ab00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching">
+      <UniqueIdentifier>{b9d0d562-920d-4b24-a6f3-b91a28ca5dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting">
+      <UniqueIdentifier>{37e4e4c7-8798-417c-84be-e158e762fcde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching">
+      <UniqueIdentifier>{3abc2870-266a-4115-a4eb-5efbc2f17acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint">
+      <UniqueIdentifier>{e4037b2c-6b64-4725-8ae7-9376c4e32999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms">
+      <UniqueIdentifier>{27472255-152d-4943-90c0-bfda2a427ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Intersection graph">
+      <UniqueIdentifier>{45abe6a3-2fca-4f7f-8ba8-bbc0f56d7ba8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Subset searches\Intersection graph\Maximum clique">
+      <UniqueIdentifier>{14dc881e-caf5-48c2-b95a-9cfbd7185a39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Transformation fitting">
+      <UniqueIdentifier>{e6b253b5-9929-44a0-b1c0-69789dc376cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Transformation fitting\Point pattern matching">
+      <UniqueIdentifier>{bef91569-428b-4fb7-9ce5-eaa314234778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Transformation fitting\Projection">
+      <UniqueIdentifier>{d96c16f9-25e0-48ea-826a-28d7c4f68e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations">
+      <UniqueIdentifier>{faa39d9a-04b2-428e-aa19-cb7e11fc8b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Containment testing">
+      <UniqueIdentifier>{994d0836-368b-4e52-a379-dee037d93160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing">
+      <UniqueIdentifier>{b54c153f-16bb-4f1c-9a8d-baee27a3d866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing\Involving AlignedBox">
+      <UniqueIdentifier>{12b672b1-f55b-4020-9817-f041836fc793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing\Involving AlignedPlane">
+      <UniqueIdentifier>{544d2a89-8912-4636-8ce9-b60f5287adb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing\Involving Box">
+      <UniqueIdentifier>{f2702b9d-d3c6-4a19-8140-77b0630e77a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing\Involving Plane">
+      <UniqueIdentifier>{6792a24d-6465-4d1c-8972-0bf3b35ef783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing\Involving Sphere">
+      <UniqueIdentifier>{6117dc4f-1ced-4e39-bedb-3a0cf8cf826c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape relations\Overlap testing\Involving others">
+      <UniqueIdentifier>{a51b49ac-fd28-4d2a-8a10-79b40eaadc17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements">
+      <UniqueIdentifier>{2e292726-adcb-4841-a84f-4e7195e761ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements\Area">
+      <UniqueIdentifier>{6bf24589-1d1d-491d-8080-23861c9398bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements\Diameter">
+      <UniqueIdentifier>{5fb1a435-3887-4049-b295-aba823ed39ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements\Volume">
+      <UniqueIdentifier>{c96e0285-b1f5-4b07-86b9-857e2deb7d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements\Distance">
+      <UniqueIdentifier>{748d1823-7df5-4a80-96d0-f322ba4d26ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements\Closest points">
+      <UniqueIdentifier>{cbe206e7-e3b0-4e5f-9bd9-6dc52e0b4d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Algorithms\Shape measurements\Eigenstructure">
+      <UniqueIdentifier>{ce172e75-1ba6-4bc7-9cf2-8787af548afb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="data_structures.txt">
-      <Filter>Geometric data structures</Filter>
+      <Filter>Data structures</Filter>
     </None>
     <None Include="meshes.txt">
-      <Filter>Geometric data structures\Meshes</Filter>
+      <Filter>Data structures\Meshes</Filter>
     </None>
     <None Include="halfmesh.txt">
-      <Filter>Geometric data structures\Meshes\HalfMesh</Filter>
+      <Filter>Data structures\Meshes\HalfMesh</Filter>
     </None>
     <None Include="bihtree.txt">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </None>
     <None Include="bsp_tree.txt">
-      <Filter>Geometric data structures\Bsp trees</Filter>
+      <Filter>Data structures\Bsp trees</Filter>
     </None>
     <None Include="kdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </None>
     <None Include="pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </None>
     <None Include="pointkdtree_design.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </None>
     <None Include="common.txt">
       <Filter>Common</Filter>
@@ -271,216 +271,216 @@
       <Filter>Shapes\Triangle</Filter>
     </None>
     <None Include="geometric_algorithms.txt">
-      <Filter>Geometric algorithms</Filter>
+      <Filter>Algorithms</Filter>
     </None>
     <None Include="shape_generation.txt">
-      <Filter>Geometric algorithms\Shape generation</Filter>
+      <Filter>Algorithms\Shape generation</Filter>
     </None>
     <None Include="bounding.txt">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes</Filter>
     </None>
     <None Include="bounding_alignedbox.txt">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </None>
     <None Include="bounding_sphere.txt">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </None>
     <None Include="bounding_box.txt">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding box</Filter>
     </None>
     <None Include="convexhull.txt">
-      <Filter>Geometric algorithms\Shape generation\Convex hull</Filter>
+      <Filter>Algorithms\Shape generation\Convex hull</Filter>
     </None>
     <None Include="difference.txt">
-      <Filter>Geometric algorithms\Shape generation\Set-difference</Filter>
+      <Filter>Algorithms\Shape generation\Set-difference</Filter>
     </None>
     <None Include="intersect.txt">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </None>
     <None Include="poisson_disk_pattern.txt">
-      <Filter>Geometric algorithms\Shape generation\Poisson-disk pattern</Filter>
+      <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </None>
     <None Include="subset_searches.txt">
-      <Filter>Geometric algorithms\Subset searches</Filter>
+      <Filter>Algorithms\Subset searches</Filter>
     </None>
     <None Include="search_range.txt">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </None>
     <None Include="nearest_neighbors.txt">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </None>
     <None Include="nearest_neighbors_semidynamic.txt">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </None>
     <None Include="count_all_neighbors.txt">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </None>
     <None Include="search_all_neighbors.txt">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </None>
     <None Include="acceptpoint.txt">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </None>
     <None Include="searchalgorithm_pointkdtree.txt">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </None>
     <None Include="intersection_graph.txt">
-      <Filter>Geometric algorithms\Subset searches\Intersection graph</Filter>
+      <Filter>Algorithms\Subset searches\Intersection graph</Filter>
     </None>
     <None Include="maximum_clique_alignedbox.txt">
-      <Filter>Geometric algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
+      <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
     </None>
     <None Include="transformation_fitting.txt">
-      <Filter>Geometric algorithms\Transformation fitting</Filter>
+      <Filter>Algorithms\Transformation fitting</Filter>
     </None>
     <None Include="point_pattern_matching.txt">
-      <Filter>Geometric algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </None>
     <None Include="projection.txt">
-      <Filter>Geometric algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
     </None>
     <None Include="shape_relations.txt">
-      <Filter>Geometric algorithms\Shape relations</Filter>
+      <Filter>Algorithms\Shape relations</Filter>
     </None>
     <None Include="contains.txt">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </None>
     <None Include="overlaps.txt">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing</Filter>
     </None>
     <None Include="overlaps_design.txt">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing</Filter>
     </None>
     <None Include="overlaps_alignedbox_plane.txt">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </None>
     <None Include="shape_measurements.txt">
-      <Filter>Geometric algorithms\Shape measurements</Filter>
+      <Filter>Algorithms\Shape measurements</Filter>
     </None>
     <None Include="area.txt">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </None>
     <None Include="diameter.txt">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </None>
     <None Include="volume.txt">
-      <Filter>Geometric algorithms\Shape measurements\Volume</Filter>
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
     </None>
     <None Include="distance.txt">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </None>
     <None Include="closest.txt">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </None>
     <None Include="pointset_eigen.txt">
-      <Filter>Geometric algorithms\Shape measurements\Eigenstructure</Filter>
+      <Filter>Algorithms\Shape measurements\Eigenstructure</Filter>
     </None>
     <None Include="fair_splitrule.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </None>
     <None Include="longestmedian_splitrule.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </None>
     <None Include="minimumvolume_splitrule.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </None>
     <None Include="slidingmidpoint2_splitrule.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </None>
     <None Include="slidingmidpoint_splitrule.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </None>
     <None Include="splitrules.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="halfmesh.h">
-      <Filter>Geometric data structures\Meshes\HalfMesh</Filter>
+      <Filter>Data structures\Meshes\HalfMesh</Filter>
     </ClInclude>
     <ClInclude Include="halfmesh.hpp">
-      <Filter>Geometric data structures\Meshes\HalfMesh</Filter>
+      <Filter>Data structures\Meshes\HalfMesh</Filter>
     </ClInclude>
     <ClInclude Include="halfmesh_tools.h">
-      <Filter>Geometric data structures\Meshes\HalfMesh</Filter>
+      <Filter>Data structures\Meshes\HalfMesh</Filter>
     </ClInclude>
     <ClInclude Include="simplehalfmesh.h">
-      <Filter>Geometric data structures\Meshes\HalfMesh</Filter>
+      <Filter>Data structures\Meshes\HalfMesh</Filter>
     </ClInclude>
     <ClInclude Include="simplehalfmesh.hpp">
-      <Filter>Geometric data structures\Meshes\HalfMesh</Filter>
+      <Filter>Data structures\Meshes\HalfMesh</Filter>
     </ClInclude>
     <ClInclude Include="bihtree.h">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="bihtree.hpp">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="bihtree_more.h">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="bihtree_tools.h">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="bihtree_tools.hpp">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="concept_shapequery.h">
-      <Filter>Geometric data structures\BihTree</Filter>
+      <Filter>Data structures\BihTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree.h">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_raytraversal.h">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_raytraversal.hpp">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_refine.h">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_refine.hpp">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_tools.h">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="kdtree_tools.hpp">
-      <Filter>Geometric data structures\Bsp trees\KdTree</Filter>
+      <Filter>Data structures\Bsp trees\KdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_cursor.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_node.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_private.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_splitpredicate.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_tools.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="pointkdtree_tools.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree</Filter>
     </ClInclude>
     <ClInclude Include="windowedpointtree.h">
-      <Filter>Geometric data structures\Bsp trees\WindowedPointTree</Filter>
+      <Filter>Data structures\Bsp trees\WindowedPointTree</Filter>
     </ClInclude>
     <ClInclude Include="windowedpointtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\WindowedPointTree</Filter>
+      <Filter>Data structures\Bsp trees\WindowedPointTree</Filter>
     </ClInclude>
     <ClInclude Include="barycentric.h">
       <Filter>Common</Filter>
@@ -597,676 +597,676 @@
       <Filter>Shapes\Triangle</Filter>
     </ClInclude>
     <ClInclude Include="bounding.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_box.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_box.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_pointset.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_pointset.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_segment.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_segment.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_sphere.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_alignedbox_sphere.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding aligned box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_box.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_box.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_pointset.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_pointset.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_segment.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_sphere_segment.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding sphere</Filter>
     </ClInclude>
     <ClInclude Include="bounding_box.h">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding box</Filter>
     </ClInclude>
     <ClInclude Include="bounding_box.hpp">
-      <Filter>Geometric algorithms\Shape generation\Bounding shapes\Bounding box</Filter>
+      <Filter>Algorithms\Shape generation\Bounding shapes\Bounding box</Filter>
     </ClInclude>
     <ClInclude Include="convexhull.h">
-      <Filter>Geometric algorithms\Shape generation\Convex hull</Filter>
+      <Filter>Algorithms\Shape generation\Convex hull</Filter>
     </ClInclude>
     <ClInclude Include="convexhull.hpp">
-      <Filter>Geometric algorithms\Shape generation\Convex hull</Filter>
+      <Filter>Algorithms\Shape generation\Convex hull</Filter>
     </ClInclude>
     <ClInclude Include="difference.h">
-      <Filter>Geometric algorithms\Shape generation\Set-difference</Filter>
+      <Filter>Algorithms\Shape generation\Set-difference</Filter>
     </ClInclude>
     <ClInclude Include="difference_alignedbox_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Set-difference</Filter>
+      <Filter>Algorithms\Shape generation\Set-difference</Filter>
     </ClInclude>
     <ClInclude Include="intersect.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_alignedbox_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_alignedbox_plane.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_alignedbox_plane.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_alignedbox_segment.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_alignedbox_segment.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_flat_plane.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_flat_plane.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_alignedplane.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_alignedplane.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_box.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_box.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_plane.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_plane.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_polygon.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_polygon.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_sphere.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_sphere.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_triangle.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_line_triangle.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_plane_sphere.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_plane_sphere.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_alignedbox.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_alignedplane.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_alignedplane.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_plane.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_plane.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_sphere.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_ray_sphere.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_segment_halfspace.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_segment_halfspace.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_triangle_triangle.h">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="intersect_triangle_triangle.hpp">
-      <Filter>Geometric algorithms\Shape generation\Intersection</Filter>
+      <Filter>Algorithms\Shape generation\Intersection</Filter>
     </ClInclude>
     <ClInclude Include="poisson_disk_pattern.h">
-      <Filter>Geometric algorithms\Shape generation\Poisson-disk pattern</Filter>
+      <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </ClInclude>
     <ClInclude Include="poisson_disk_pattern.hpp">
-      <Filter>Geometric algorithms\Shape generation\Poisson-disk pattern</Filter>
+      <Filter>Algorithms\Shape generation\Poisson-disk pattern</Filter>
     </ClInclude>
     <ClInclude Include="count_range_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </ClInclude>
     <ClInclude Include="count_range_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_algorithm_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </ClInclude>
     <ClInclude Include="search_range_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Orthogonal range searching</Filter>
+      <Filter>Algorithms\Subset searches\Orthogonal range searching</Filter>
     </ClInclude>
     <ClInclude Include="count_nearest_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="count_nearest_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_algorithm_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_algorithm_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_one_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_one_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_nearest_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_1d.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_1d.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_bruteforce.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_bruteforce.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="count_all_neighbors_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors counting</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_1d.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_1d.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_bruteforce.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_bruteforce.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="search_all_neighbors_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\All nearest neighbors searching</Filter>
     </ClInclude>
     <ClInclude Include="acceptpoint.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="acceptpoint_concept.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="always_acceptpoint.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="dont_acceptpoint.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="negate_acceptpoint.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="objectdont_acceptpoint.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\AcceptPoint</Filter>
     </ClInclude>
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="bestfirst_searchalgorithm_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="depthfirst_searchalgorithm_pointkdtree.hpp">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="searchalgorithm_pointkdtree_concept.h">
-      <Filter>Geometric algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
+      <Filter>Algorithms\Subset searches\Nearest neighbors searching\Point kd-tree search algorithms</Filter>
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.h">
-      <Filter>Geometric algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
+      <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
     </ClInclude>
     <ClInclude Include="maximum_clique_alignedbox.hpp">
-      <Filter>Geometric algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
+      <Filter>Algorithms\Subset searches\Intersection graph\Maximum clique</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_match_gmo.h">
-      <Filter>Geometric algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_match_gmo.hpp">
-      <Filter>Geometric algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching.h">
-      <Filter>Geometric algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="point_pattern_matching.hpp">
-      <Filter>Geometric algorithms\Transformation fitting\Point pattern matching</Filter>
+      <Filter>Algorithms\Transformation fitting\Point pattern matching</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.h">
-      <Filter>Geometric algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
     </ClInclude>
     <ClInclude Include="linear_projection.hpp">
-      <Filter>Geometric algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
     </ClInclude>
     <ClInclude Include="planar_projection.h">
-      <Filter>Geometric algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
     </ClInclude>
     <ClInclude Include="planar_projection.hpp">
-      <Filter>Geometric algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
     </ClInclude>
     <ClInclude Include="contains_alignedbox_alignedbox.h">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
     <ClInclude Include="contains_alignedbox_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
     <ClInclude Include="contains_alignedbox_sphere.h">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
     <ClInclude Include="contains_alignedbox_sphere.hpp">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
     <ClInclude Include="contains_sphere_alignedbox.h">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
     <ClInclude Include="contains_sphere_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape relations\Containment testing</Filter>
+      <Filter>Algorithms\Shape relations\Containment testing</Filter>
     </ClInclude>
     <ClInclude Include="overlaps.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_alignedbox.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_box.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_box.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_plane.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_plane.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_point.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_point.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_sphere.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_sphere.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_triangle.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedbox_triangle.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedBox</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_alignedbox.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_box.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_box.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_sphere.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_sphere.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_triangle.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_alignedplane_triangle.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving AlignedPlane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_box.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_box.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_point.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_point.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_sphere.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_sphere.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_triangle.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_box_triangle.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Box</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Box</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_plane_box.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_plane_box.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_plane_sphere.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_plane_sphere.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_plane_triangle.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_plane_triangle.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Plane</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_sphere_point.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_sphere_point.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_sphere_sphere.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_sphere_sphere.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving Sphere</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_capsule_capsule.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_capsule_capsule.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_flat_plane.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_flat_plane.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_segment_segment.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_segment_segment.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_segments.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_segments.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_triangle_triangle.h">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="overlaps_triangle_triangle.hpp">
-      <Filter>Geometric algorithms\Shape relations\Overlap testing\Involving others</Filter>
+      <Filter>Algorithms\Shape relations\Overlap testing\Involving others</Filter>
     </ClInclude>
     <ClInclude Include="area.h">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="box_area.h">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="box_area.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="polygon_area.h">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="polygon_area.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="sphere_area.h">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="sphere_area.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClInclude>
     <ClInclude Include="alignedbox_diameter.h">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="alignedbox_diameter.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="box_diameter.h">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="box_diameter.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="diameter.h">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="sphere_diameter.h">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="sphere_diameter.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Diameter</Filter>
+      <Filter>Algorithms\Shape measurements\Diameter</Filter>
     </ClInclude>
     <ClInclude Include="box_volume.h">
-      <Filter>Geometric algorithms\Shape measurements\Volume</Filter>
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClInclude>
     <ClInclude Include="box_volume.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Volume</Filter>
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClInclude>
     <ClInclude Include="sphere_volume.h">
-      <Filter>Geometric algorithms\Shape measurements\Volume</Filter>
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClInclude>
     <ClInclude Include="sphere_volume.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Volume</Filter>
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClInclude>
     <ClInclude Include="distance_alignedbox_alignedbox.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_alignedbox_alignedbox.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_alignedbox_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_alignedbox_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_alignedbox_sphere.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_alignedbox_sphere.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_line_line.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_line_line.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_line_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_line_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_plane_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_plane_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_plane_sphere.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_plane_sphere.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_point_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_point_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_segment_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_segment_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_segment_segment.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_segment_segment.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_segment_sphere.h">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="distance_segment_sphere.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Distance</Filter>
+      <Filter>Algorithms\Shape measurements\Distance</Filter>
     </ClInclude>
     <ClInclude Include="closest_alignedbox_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_alignedbox_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_line_line.h">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_line_line.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_line_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_line_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_plane_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_plane_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_segment_point.h">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_segment_point.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_segment_segment.h">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="closest_segment_segment.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Closest points</Filter>
+      <Filter>Algorithms\Shape measurements\Closest points</Filter>
     </ClInclude>
     <ClInclude Include="pointset_eigen.h">
-      <Filter>Geometric algorithms\Shape measurements\Eigenstructure</Filter>
+      <Filter>Algorithms\Shape measurements\Eigenstructure</Filter>
     </ClInclude>
     <ClInclude Include="pointset_eigen.hpp">
-      <Filter>Geometric algorithms\Shape measurements\Eigenstructure</Filter>
+      <Filter>Algorithms\Shape measurements\Eigenstructure</Filter>
     </ClInclude>
     <ClInclude Include="point_patterns.h">
       <Filter>Not sure</Filter>
@@ -1275,40 +1275,40 @@
       <Filter>Not sure</Filter>
     </ClInclude>
     <ClInclude Include="fair_splitrule.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="fair_splitrule.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="longestmedian_splitrule.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="longestmedian_splitrule.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="minimumvolume_splitrule.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="minimumvolume_splitrule.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint2_splitrule.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint2_splitrule.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint_splitrule.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="slidingmidpoint_splitrule.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="splitrule_concept.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="splitrules.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+      <Filter>Data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1316,13 +1316,13 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="planar_projection.cpp">
-      <Filter>Geometric algorithms\Transformation fitting\Projection</Filter>
+      <Filter>Algorithms\Transformation fitting\Projection</Filter>
     </ClCompile>
     <ClCompile Include="sphere_area.cpp">
-      <Filter>Geometric algorithms\Shape measurements\Area</Filter>
+      <Filter>Algorithms\Shape measurements\Area</Filter>
     </ClCompile>
     <ClCompile Include="sphere_volume.cpp">
-      <Filter>Geometric algorithms\Shape measurements\Volume</Filter>
+      <Filter>Algorithms\Shape measurements\Volume</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
