@@ -19,9 +19,9 @@ backwards-compatibility. Rather, consider it from an educational
 viewpoint containing implementations and documentations of useful data 
 structures and algorithms.
 
-[Download Pastel 1.2.0][Pastel-1.2.0]
+[Download Pastel 1.3.0][Pastel-1.3.0]
 
-[Pastel-1.2.0]: files/pastel-1.2.0.zip
+[Pastel-1.3.0]: files/pastel-1.3.0.zip
 
 For previous versions, see the [release history][History]
 
