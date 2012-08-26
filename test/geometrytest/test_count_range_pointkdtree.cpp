@@ -4,7 +4,7 @@
 #include "test_pastelgeometry.h"
 
 #include "pastel/geometry/count_range_pointkdtree.h"
-#include "pastel/geometry/splitrule_pointkdtree.h"
+#include "pastel/geometry/splitrules.h"
 
 using namespace Pastel;
 
@@ -64,7 +64,7 @@ namespace
 
 			tree.insertRange(range(pointSet));
 
-			tree.refine(SlidingMidpoint_SplitRule_PointKdTree(), 1);
+			tree.refine(SlidingMidpoint_SplitRule(), 1);
 
 			// Increasing radius from the origin.
 			TEST_ENSURE_OP(countRange(tree, AlignedBox2(-1, -1, 1, 1), 1), ==, 0);

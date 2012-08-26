@@ -1,17 +1,17 @@
-// Description: SplitRule_PointKdTree concept
+// Description: SplitRule concept
 
-#ifndef PASTEL_SPLITRULE_POINTKDTREE_CONCEPT_H
-#define PASTEL_SPLITRULE_POINTKDTREE_CONCEPT_H
+#ifndef PASTEL_SPLITRULE_CONCEPT_H
+#define PASTEL_SPLITRULE_CONCEPT_H
 
 #include "pastel/geometry/pointkdtree.h"
 
 namespace Pastel
 {
 
-	namespace SplitRule_PointKdTree_Concept
+	namespace SplitRule_Concept
 	{
 
-		class SplitRule_PointKdTree
+		class SplitRule
 		{
 		public:
 			//! Returns the splitting plane for a PointKdTree node.

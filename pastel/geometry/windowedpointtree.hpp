@@ -30,9 +30,9 @@ namespace Pastel
 	}
 
 	template <typename PointQuery>
-	template <typename SplitRule_PointKdTree>
+	template <typename SplitRule>
 	void WindowedPointTree<PointQuery>::refine(
-		const SplitRule_PointKdTree& splitRule,
+		const SplitRule& splitRule,
 		integer bucketSize)
 	{
 		tree_.refine(splitRule, bucketSize);

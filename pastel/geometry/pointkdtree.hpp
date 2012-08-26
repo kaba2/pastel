@@ -227,9 +227,9 @@ namespace Pastel
 	}
 	
 	template <typename Real, int N, typename PointPolicy>
-	template <typename SplitRule_PointKdTree>
+	template <typename SplitRule>
 	void PointKdTree<Real, N, PointPolicy>::refine(
-		const SplitRule_PointKdTree& splitRule,
+		const SplitRule& splitRule,
 		integer bucketSize)
 	{
 		Vector<Real, N> minBound(bound_.min());

@@ -1,15 +1,17 @@
-#ifndef PASTEL_SLIDINGMIDPOINT_SPLITRULE_POINTKDTREE_HPP
-#define PASTEL_SLIDINGMIDPOINT_SPLITRULE_POINTKDTREE_HPP
+#ifndef PASTEL_LONGESTMEDIAN_SPLITRULE_HPP
+#define PASTEL_LONGESTMEDIAN_SPLITRULE_HPP
 
-#include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+#include "pastel/geometry/longestmedian_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
 
+#include <algorithm>
+
 namespace Pastel
 {
 
-	class SlidingMidpoint_SplitRule_PointKdTree
+	class LongestMedian_SplitRule
 	{
 	public:
 		template <
@@ -33,49 +35,27 @@ namespace Pastel
 			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 
-			// Sliding midpoint
-
 			if (!cursor.empty())
 			{
-				Real leftMax = -infinity<Real>();
-				Real rightMin = infinity<Real>();
-				integer leftCount = 0;
-				integer rightCount = 0;
+				// Get the positions of the points along the splitting axis.
+
+				std::vector<Real> positionSet;
+				positionSet.reserve(cursor.points());
 
 				Point_ConstIterator iter = cursor.begin();
 				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					const Real position = 
-						pointPolicy(iter->point())[splitAxis];
-					if (position < splitPosition)
-					{
-						if (position > leftMax)
-						{
-							leftMax = position;
-						}
-						++leftCount;
-					}
-					else
-					{
-						if (position < rightMin)
-						{
-							rightMin = position;
-						}
-						++rightCount;
-					}
-
+					positionSet.push_back(
+						pointPolicy(iter->point())[splitAxis]);
 					++iter;
 				}
 
-				if (leftCount == 0)
-				{
-					splitPosition = rightMin;
-				}
-				else if (rightCount == 0)
-				{
-					splitPosition = leftMax;
-				}
+				// Get the median of the points on the splitting axis.
+
+				std::sort(positionSet.begin(), positionSet.end());
+
+				splitPosition = positionSet[positionSet.size() / 2];
 			}
 
 			return std::make_pair(splitPosition, splitAxis);

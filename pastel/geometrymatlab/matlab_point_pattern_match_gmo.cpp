@@ -5,7 +5,7 @@
 
 #include "pastel/geometry/point_pattern_match_gmo.h"
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+#include "pastel/geometry/slidingmidpoint_splitrule.h"
 
 #include "pastel/sys/array_pointpolicy.h"
 
@@ -97,8 +97,8 @@ namespace Pastel
 				countingIterator(modelData + modelPoints * n),
 				n));
 
-			sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
-			modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			sceneTree.refine(SlidingMidpoint_SplitRule());
+			modelTree.refine(SlidingMidpoint_SplitRule());
 
 			// Here's where we store the results.
 

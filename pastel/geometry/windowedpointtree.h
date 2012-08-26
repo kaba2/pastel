@@ -58,8 +58,8 @@ namespace Pastel
 
 		void swap(WindowedPointTree& that);
 
-		template <typename SplitRule_PointKdTree>
-		void refine(const SplitRule_PointKdTree& splitRule,
+		template <typename SplitRule>
+		void refine(const SplitRule& splitRule,
 			integer bucketSize = 8);
 
 		void setWindow(

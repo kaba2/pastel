@@ -1,7 +1,7 @@
 Minimum-volume splitting rule
 =============================
 
-[[Parent]]: splitrule_pointkdtree.txt
+[[Parent]]: splitrule.txt
 
 This splitting rule only makes sense for a bounding interval tree.
 The _minimum-volume_ splitting rule chooses the split plane as follows.

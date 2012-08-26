@@ -230,8 +230,8 @@ namespace Pastel
 		This operation is always immediate. The tree will be
 		up to date after this operation.
 		*/
-		template <typename SplitRule_PointKdTree>
-		void refine(const SplitRule_PointKdTree& splitRule,
+		template <typename SplitRule>
+		void refine(const SplitRule& splitRule,
 			integer bucketSize = 8);
 
 		//! Insert a point into the tree.
@@ -529,12 +529,12 @@ namespace Pastel
 		Preconditions:
 		allLessEqual(minBound, maxBound)
 		*/
-		template <typename SplitRule_PointKdTree>
+		template <typename SplitRule>
 		void refine(
 			Node* node,
 			Vector<Real, N>& minBound,
 			Vector<Real, N>& maxBound,
-			const SplitRule_PointKdTree& splitRule,
+			const SplitRule& splitRule,
 			integer depth,
 			integer bucketSize);
 

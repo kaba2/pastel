@@ -47,10 +47,10 @@ using std::endl;
 
 using namespace Pastel;
 
-//typedef MinimumVolume_SplitRule_PointKdTree SplitRule;
-//typedef SlidingMidpoint_SplitRule_PointKdTree SplitRule;
-typedef LongestMedian_SplitRule_PointKdTree SplitRule;
-//typedef Midpoint_SplitRule_PointKdTree SplitRule;
+//typedef MinimumVolume_SplitRule SplitRule;
+//typedef SlidingMidpoint_SplitRule SplitRule;
+typedef LongestMedian_SplitRule SplitRule;
+//typedef Midpoint_SplitRule SplitRule;
 
 const integer ScreenWidth = 800;
 const integer ScreenHeight = 600;
@@ -836,12 +836,12 @@ void NearestNeighbor_Gfx_Ui::computeTree(TreeType::Enum treeType)
 	case TreeType::SlidingKd:
 		// Fall-through.
 	case TreeType::SlidingBit:
-		newTree.refine(SlidingMidpoint_SplitRule_PointKdTree(), bucketSize_);
+		newTree.refine(SlidingMidpoint_SplitRule(), bucketSize_);
 		break;
 	case TreeType::MedianKd:
 		// Fall-through.
 	case TreeType::MedianBit:
-		newTree.refine(LongestMedian_SplitRule_PointKdTree(), bucketSize_);
+		newTree.refine(LongestMedian_SplitRule(), bucketSize_);
 		break;
 	}
 

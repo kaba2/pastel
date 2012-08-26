@@ -559,7 +559,7 @@ namespace Pastel
 			const integer bucketSize = asScalar<integer>(inputSet[BucketSize]);
 
 			state->tree.refine(
-				SlidingMidpoint_SplitRule_PointKdTree(), bucketSize);
+				SlidingMidpoint_SplitRule(), bucketSize);
 		}
 
 		void kdNodes(

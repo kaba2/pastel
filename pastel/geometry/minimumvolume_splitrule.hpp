@@ -1,7 +1,7 @@
-#ifndef PASTEL_MINIMUMVOLUME_SPLITRULE_POINTKDTREE_HPP
-#define PASTEL_MINIMUMVOLUME_SPLITRULE_POINTKDTREE_HPP
+#ifndef PASTEL_MINIMUMVOLUME_SPLITRULE_HPP
+#define PASTEL_MINIMUMVOLUME_SPLITRULE_HPP
 
-#include "pastel/geometry/minimumvolume_splitrule_pointkdtree.h"
+#include "pastel/geometry/minimumvolume_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
@@ -11,7 +11,7 @@
 namespace Pastel
 {
 
-	class MinimumVolume_SplitRule_PointKdTree
+	class MinimumVolume_SplitRule
 	{
 	public:
 		template <

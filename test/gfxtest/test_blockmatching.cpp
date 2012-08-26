@@ -622,11 +622,11 @@ namespace
 				coeffs),
 				pushBackReporter(querySet));
 
-			//tree.refine(SlidingMidpoint_SplitRule_PointKdTree());	
-			tree.refine(SlidingMidpoint2_SplitRule_PointKdTree());	
-			//tree.refine(LongestMedian_SplitRule_PointKdTree());	
-			//tree.refine(MinimumVolume_SplitRule_PointKdTree());	
-			//tree.refine(Fair_SplitRule_PointKdTree());
+			//tree.refine(SlidingMidpoint_SplitRule());	
+			tree.refine(SlidingMidpoint2_SplitRule());	
+			//tree.refine(LongestMedian_SplitRule());	
+			//tree.refine(MinimumVolume_SplitRule());	
+			//tree.refine(Fair_SplitRule());
 
 			std::cout << "Tree depth " << depth(tree) << std::endl;
 			//std::cout << "Tree points " << tree.points() << std::endl;
@@ -792,10 +792,10 @@ namespace
 				image.width() - blockWidth, image.height() - blockWidth));
 			
 			windowedTree.refine(
-				SlidingMidpoint2_SplitRule_PointKdTree());
+				SlidingMidpoint2_SplitRule());
 
 			//windowedTree.refine(
-			//	LongestMedian_SplitRule_PointKdTree());
+			//	LongestMedian_SplitRule());
 
 			std::cout << "Tree depth " << depth(windowedTree.tree()) << std::endl;
 			std::cout << "Tree points " << windowedTree.tree().points() << std::endl;
