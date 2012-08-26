@@ -154,7 +154,7 @@ namespace Pastel
 
 		file.close();
 
-		log() << "Pcx image saving complete." << logNewLine;
+		//log() << "Pcx image saving complete." << logNewLine;
 
 		return true;
 	}
@@ -275,7 +275,7 @@ namespace Pastel
 
 		file.close();
 
-		log() << "Pcx image saving complete." << logNewLine;
+		//log() << "Pcx image saving complete." << logNewLine;
 
 		return true;
 	}
@@ -358,7 +358,7 @@ namespace Pastel
 
 		file.close();
 
-		log() << "Pcx image saving complete." << logNewLine;
+		//log() << "Pcx image saving complete." << logNewLine;
 
 		return true;
 	}

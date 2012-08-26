@@ -73,52 +73,8 @@ namespace
 		{
 			testSimple();
 			testRandom();
-			//testImage(Haar(), InverseHaar(), "haar");
-			//testImage(Dct(), InverseDct(), "dct");
 		}
-
-		// Move to examples
-		/*
-		template <
-			typename Transform_Algorithm,
-			typename Inverse_Algorithm>
-		void testImage(
-			const Transform_Algorithm& transform,
-			const Inverse_Algorithm& inverse,
-			const std::string& name)
-		{
-			const Array<real32>& image = 
-				*dspStorage().get<Array<real32>*>("lena_gray");
-			
-			Array<real32> tImage(image);
-
-			forEachRowOnAllAxes(tImage(), transform);
-
-			{
-				Array<real32> sImage(tImage);
-
-				for (integer i = 0;i < tImage.size();++i)
-				{
-					sImage(i) = std::log(std::abs(tImage(i)) + 1);
-				}
-
-				saveGrayscalePcx(sImage, name + "_lena.pcx", true);
-			}
-
-			for (integer y = 0;y < tImage.height();++y)
-			{
-				for (integer x = 0;x < tImage.width();++x)
-				{
-					tImage(x, y) *= std::exp(-(real32)(x * x + y * y) / 4000);
-				}
-			}
-
-			forEachRowOnAllAxes(tImage(), inverse);
-
-			saveGrayscalePcx(tImage, name + "_lena_blur.pcx", true);
-		}
-		*/
-		
+	
 		template <typename Complex_RandomAccessRange>
 		bool testDft(
 			const Complex_RandomAccessRange& input)

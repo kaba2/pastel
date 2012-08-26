@@ -3,7 +3,6 @@
 #include "pastel/sys/logging.h"
 
 #include <iostream>
-#include <string>
 
 using namespace Pastel;
 
