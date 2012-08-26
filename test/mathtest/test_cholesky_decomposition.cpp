@@ -3,41 +3,59 @@
 
 #include "test_pastelmath.h"
 
-#include "pastel/sys/arrayview.h"
-#include "pastel/sys/tuple_tools.h"
-
 #include "pastel/math/cholesky_decomposition_tools.h"
 #include "pastel/math/matrix_tools.h"
 
 using namespace Pastel;
+using namespace std;
 
 namespace
 {
 
-	void testCholesky()
+	class Test
+		: public TestSuite
 	{
+	public:
+		Test()
+			: TestSuite(&testReport())
+		{
+		}
+
+		virtual void run()
+		{
+			test();
+		}
+
+		void test()
 		{
 			const CholeskyDecomposition2 cholesky(
 				Matrix2(
 				1, 0.5, 
 				0.5, 1));
+			{
+				const Matrix2 correctLower(
+					1.000, 0.0000,
+					0.5000, 0.8660);
 
-			const Matrix2 correctLower(
-				1, 0,
-				0.5, 0.8660);
-
-			//REPORT(cholesky.lower() != correctLower);
-			//REPORT(determinant(cholesky) != 1 - 0.5 * 0.5);
-
-			std::cout << cholesky.lower() << std::endl;
+				TEST_ENSURE_OP(maxNorm(cholesky.lower() - correctLower), <, 0.001);
+				TEST_ENSURE_OP(determinant(cholesky) - (1 - 0.5 * 0.5), <, 0.001);
+			}
 		}
+	};
+
+	void test()
+	{
+		Test test;
+		test.run();
 	}
 
 	void addTest()
 	{
-		testRunner().add("cholesky_decomposition", testCholesky);
+		testRunner().add("cholesky_decomposition", test);
 	}
 
 	CallFunction run(addTest);
 
 }
+
+

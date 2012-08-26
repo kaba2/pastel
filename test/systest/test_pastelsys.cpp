@@ -1,19 +1,15 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/logging.h"
-#include "pastel/sys/string_algorithms.h"
-#include "pastel/sys/constants.h"
 
 #include <iostream>
 #include <string>
-#include <cstdint>
 
-using namespace std;
 using namespace Pastel;
 
-int main()
+int main(integer argc, const char* argv[])
 {
-	Stream_Logger streamLogger(&cout);
+	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
 
 	log().addLogger(&streamLogger);
@@ -22,13 +18,19 @@ int main()
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	//testRunner().run();
-	testRunner().console();
+	if (argc > 1 && argv[1] == std::string("-c"))
+	{
+		testRunner().console();
+	}
+	else
+	{
+		testRunner().run();
+	}
+	
+	if (testReport().totalErrors() > 0)
+	{
+		generateTestReport(testReport(), log());
+	}
 
-	generateTestReport(testReport(), log());
-
-	string tmp;
-	getline(cin, tmp);
-
-	return 0;
+	return testReport().totalErrors();
 }

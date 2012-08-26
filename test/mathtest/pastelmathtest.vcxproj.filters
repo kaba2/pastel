@@ -34,7 +34,6 @@
       <Filter>Numbers</Filter>
     </ClCompile>
     <ClCompile Include="mathinstantiate.cpp" />
-    <ClCompile Include="test_lowdiscrepancy.cpp" />
     <ClCompile Include="test_polynomial.cpp" />
     <ClCompile Include="test_smoothstep.cpp" />
     <ClCompile Include="test_math_functions.cpp" />

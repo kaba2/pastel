@@ -1,7 +1,7 @@
-// Description: Testing for low-discrepancy sequences
+// Description: Low-discrepancy sequence example
 // DocumentationOf: lowdiscrepancy.h
 
-#include "test_pastelmath.h"
+#include "pastel_example.h"
 
 #include "pastel/sys/arrayview.h"
 #include "pastel/sys/vector.h"

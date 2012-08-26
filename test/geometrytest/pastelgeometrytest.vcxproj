@@ -173,7 +173,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="test_kdtree.cpp" />
     <ClCompile Include="test_pointkdtree.cpp" />
     <ClCompile Include="test_halfmesh.cpp" />
     <ClCompile Include="test_halfmesh2.cpp" />

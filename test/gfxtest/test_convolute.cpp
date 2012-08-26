@@ -33,7 +33,7 @@ namespace
 
 		setFilter(bartlettWindow<real32>, arrayView(filter));
 
-		saveGrayscalePcx(filter, "output/convolution_filter.pcx");
+		saveGrayscalePcx(filter, "convolution_filter.pcx");
 
 		const integer points = 1000;
 
@@ -43,7 +43,7 @@ namespace
 				randomVector<real, 2>() * Vector2(extent - 1)) = randomRgbColor();
 		}
 
-		savePcx(input, "output/convolution_input.pcx");
+		savePcx(input, "convolution_input.pcx");
 
 		Array<Color, 2> output(extent);
 
@@ -55,7 +55,7 @@ namespace
 			arrayView(output),
 			fitColor);
 
-		savePcx(output, "output/convolution_output.pcx");
+		savePcx(output, "convolution_output.pcx");
 	}
 
 	void testConvolute3()

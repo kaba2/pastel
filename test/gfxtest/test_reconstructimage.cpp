@@ -117,7 +117,7 @@ namespace
 				Color(1);
 		}
 
-		savePcx(image, "output/reconstruct_samples_" + integerToString(k, 2) +  "_" + name + ".pcx");
+		savePcx(image, "reconstruct_samples_" + integerToString(k, 2) +  "_" + name + ".pcx");
 
 		/*
 		for (integer kNearest = 1;kNearest <= 3;++kNearest)
@@ -140,7 +140,7 @@ namespace
 				kNearest, 
 				0);
 
-			savePcx(image, "output/reconstruct_nearest_" + integerToString(kNearest) + "_"
+			savePcx(image, "reconstruct_nearest_" + integerToString(kNearest) + "_"
 				+ integerToString(k, 2) + "_" + name + ".pcx");
 		}
 		*/
@@ -155,7 +155,7 @@ namespace
 				1,
 				maxRelativeError);
 
-			savePcx(image, "output/reconstruct_nearest_1_"
+			savePcx(image, "reconstruct_nearest_1_"
 				+ integerToString(maxRelativeError) + "_"
 				+ integerToString(k, 2) + "_" + name + ".pcx");
 		}
@@ -170,7 +170,7 @@ namespace
 			sampleDistance * (image.width() + 1),
 			arrayView(image));
 
-		savePcx(image, "output/reconstruct_filter_" + integerToString(k, 2) + "_" + name + ".pcx");
+		savePcx(image, "reconstruct_filter_" + integerToString(k, 2) + "_" + name + ".pcx");
 	}
 
 	void testReconstruction()
@@ -380,7 +380,7 @@ namespace
 			}
 		}
 
-		savePcx(maskImage, "output/reconstructionmask.pcx");
+		savePcx(maskImage, "reconstructionmask.pcx");
 
 		const integer HoleWidth = 33;
 		Array<real, 2> filter(
@@ -390,7 +390,7 @@ namespace
 		Array<Color, 2> result;
 		reconstructImage(image, mask, filter, result);
 
-		savePcx(result, "output/reconstructionresult.pcx");
+		savePcx(result, "reconstructionresult.pcx");
 	}
 
 }

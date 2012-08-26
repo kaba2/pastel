@@ -6,6 +6,8 @@
 #include "pastel/sys/redblacktree_tools.h"
 #include "pastel/sys/random_uniform.h"
 
+#include <boost/range/adaptor/reversed.hpp> 
+
 #include <iostream>
 #include <list>
 
@@ -99,67 +101,46 @@ namespace
 			tree.insert(6, 1);
 			tree.insert(9, 1);
 			tree.insert(2, 1);
-
-			std::cout << "Minimum " << tree.begin().key() << std::endl;
-			std::cout << "Maximum " << tree.last().key() << std::endl;
-			
-			ConstIterator iter = tree.begin();
-			const ConstIterator iterEnd = tree.end();
-			while(iter != iterEnd)
 			{
-				std::cout << "(" << iter.key() << " : " 
-					<< *iter << "), ";
-				++iter;
+				integer correctSet[] = 
+				{
+					1, 2, 3, 4, 5, 6, 7, 8, 9
+				};
+				TEST_ENSURE(boost::equal(
+					range(tree.cbegin(), tree.cend()), 
+					range(correctSet)));
 			}
-
-			std::cout << "end." << std::endl;
 
 			{
 				// The iterator should stay on end().
-				ConstIterator copyIter = iter;
+				ConstIterator copyIter = tree.cend();
 				++copyIter;
-				TEST_ENSURE(copyIter == iter);
+				TEST_ENSURE(copyIter == tree.cend());
 			}
 
-			do
 			{
-				--iter;			
-				std::cout << "(" << iter.key() << " : " 
-					<< *iter << "), ";
-			}
-			while(iter != tree.begin());
+				integer correctSet[] = 
+				{
+					9, 8, 7, 6, 5, 4, 3, 2, 1
+				};
 
-			std::cout << "end." << std::endl;
+				TEST_ENSURE(boost::equal(
+					range(tree.cbegin(), tree.cend()) | boost::adaptors::reversed, 
+					range(correctSet)));
+			}
 
 			{
 				// The iterator should stay on begin().
-				ConstIterator copyIter = iter;
+				ConstIterator copyIter = tree.cbegin();
 				--copyIter;
-				TEST_ENSURE(copyIter == iter);
+				TEST_ENSURE(copyIter == tree.cbegin());
 			}
 
-			std::cout << "Root " 
-				<< tree.root().key() << " : " 
-				<< *tree.root() << "." << std::endl;
-
-			find(tree, 3);
-			find(tree, -1);
-			find(tree, 10);
-			find(tree, 9);
-			find(tree, 1);
-		}
-
-		void find(const Tree& tree, integer that)
-		{
-			ConstIterator iter = tree.find(that);
-			if (iter != tree.cend())
-			{
-				std::cout << "Found " << iter.key() << " : " << *iter << "." << std::endl;
-			}
-			else
-			{
-				std::cout << "Not found " << that << std::endl;
-			}
+			TEST_ENSURE(tree.find(3) != tree.end());
+			TEST_ENSURE(tree.find(-1) == tree.end());
+			TEST_ENSURE(tree.find(10) == tree.end());
+			TEST_ENSURE(tree.find(9) != tree.end());
+			TEST_ENSURE(tree.find(1) != tree.end());
 		}
 	};
 

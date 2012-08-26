@@ -54,7 +54,7 @@ namespace
 			drawPixel(Vector2(x, LabDetail::labFunction(t) * Height), true, arrayView(image));
 		}
 
-		saveBinaryPcx(image, "output/lab_function.pcx");
+		saveBinaryPcx(image, "lab_function.pcx");
 		*/
 	}
 
@@ -82,7 +82,7 @@ namespace
 				}
 			}
 
-			savePcx(image, "output/chromaticity_" + integerToString(i, 2) + ".pcx");
+			savePcx(image, "chromaticity_" + integerToString(i, 2) + ".pcx");
 		}
 	}
 
@@ -134,7 +134,7 @@ namespace
 		const TransformVisitor transformVisitor;
 		transform(arrayView(image), transformVisitor);
 
-		savePcx(image, "output/chromatic_adaptation.pcx");
+		savePcx(image, "chromatic_adaptation.pcx");
 	}
 
 	void addTest()

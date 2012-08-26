@@ -30,7 +30,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/perlin_noise_1d.pcx");
+		savePcx(image, "perlin_noise_1d.pcx");
 	}
 
 	void test2d()
@@ -53,7 +53,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/perlin_noise_2d.pcx");
+		savePcx(image, "perlin_noise_2d.pcx");
 	}
 
 	void test3d()
@@ -76,7 +76,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/perlin_noise_3d.pcx");
+		savePcx(image, "perlin_noise_3d.pcx");
 	}
 
 	void testSimplex2d()
@@ -99,7 +99,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/simplex_noise_2d.pcx");
+		savePcx(image, "simplex_noise_2d.pcx");
 	}
 
 	void testSimplex3d()
@@ -121,7 +121,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/simplex_noise_3d.pcx");
+		savePcx(image, "simplex_noise_3d.pcx");
 	}
 
 	void test()

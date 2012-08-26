@@ -4,67 +4,85 @@
 #include "test_pastelsys.h"
 
 #include "pastel/sys/insertion_sort.h"
-#include "pastel/sys/log.h"
-
-#include <iostream>
 
 using namespace Pastel;
+using namespace std;
 
 namespace
 {
 
-	class A
+	class Test
+		: public TestSuite
 	{
 	public:
-		A()
-			: data_(0)
+		Test()
+			: TestSuite(&testReport())
 		{
 		}
 
-		explicit A(integer data)
-			: data_(data)
+		virtual void run()
 		{
+			testInsertionSort();
 		}
 
-		void swap(A& that)
+		class A
 		{
-			std::swap(data_, that.data_);
+		public:
+			A()
+				: data_(0)
+			{
+			}
+
+			explicit A(integer data)
+				: data_(data)
+			{
+			}
+
+			void swap(A& that)
+			{
+				std::swap(data_, that.data_);
+			}
+
+		private:
+			integer data_;
+		};
+
+		void swap(A& left, A& right)
+		{
+			left.swap(right);
 		}
 
-	private:
-		integer data_;
+		void testInsertionSort()
+		{
+			const integer n = 100;
+
+			std::vector<integer> v;
+			v.reserve(n);
+			for (integer i = 0;i < n;++i)
+			{
+				v.push_back(i);
+			}
+
+			std::random_shuffle(v.begin(), v.end());
+
+			insertionSort(v.begin(), v.end());
+
+			for (integer i = 0;i < n;++i)
+			{
+				TEST_ENSURE_OP(v[i], ==, i);
+			}
+		}
 	};
 
-	void swap(A& left, A& right)
+	void test()
 	{
-		std::cout << "Swapped.";
-		left.swap(right);
-	}
-
-	void testInsertionSort()
-	{
-		const integer n = 100;
-
-		std::vector<integer> v;
-		v.reserve(n);
-		for (integer i = 0;i < n;++i)
-		{
-			v.push_back(i);
-		}
-
-		std::random_shuffle(v.begin(), v.end());
-
-		insertionSort(v.begin(), v.end());
-
-		for (integer i = 0;i < n;++i)
-		{
-			REPORT(v[i] != i);
-		}
+		Test test;
+		test.run();
 	}
 
 	void addTest()
 	{
-		testRunner().add("insertionSort", testInsertionSort);
+		testRunner().add("insertionSort ", test);
 	}
 
 	CallFunction run(addTest);

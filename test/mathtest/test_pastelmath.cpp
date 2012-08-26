@@ -1,15 +1,13 @@
 #include "test_pastelmath.h"
 
-#include "pastel/sys/math_functions.h"
 #include "pastel/sys/logging.h"
-#include "pastel/sys/testreport.h"
 
 #include <iostream>
 #include <string>
 
 using namespace Pastel;
 
-int main()
+int main(integer argc, const char* argv[])
 {
 	Stream_Logger streamLogger(&std::cout);
 	File_Logger fileLogger("log.txt");
@@ -20,12 +18,19 @@ int main()
 	setInvariantFailureAction(
 		InvariantFailureAction::Throw);
 
-	testRunner().console();
+	if (argc > 1 && argv[1] == std::string("-c"))
+	{
+		testRunner().console();
+	}
+	else
+	{
+		testRunner().run();
+	}
+	
+	if (testReport().totalErrors() > 0)
+	{
+		generateTestReport(testReport(), log());
+	}
 
-	generateTestReport(testReport(), log());
-
-	std::string tmp;
-	std::getline(std::cin, tmp);
-
-	return 0;
+	return testReport().totalErrors();
 }

@@ -1,7 +1,7 @@
-// Description: Testing for KdTree
+// Description: Sphere tracing example
 // DocumentationOf: kdtree.h
 
-#include "test_pastelgeometry.h"
+#include "pastel_example.h"
 
 #include "pastel/geometry/kdtree.h"
 #include "pastel/geometry/kdtree_tools.h"
@@ -175,7 +175,7 @@ namespace
 
 	void addTest()
 	{
-		testRunner().add("KdTree.RayTracing", testSphereTracing);
+		testRunner().add("Sphere tracing", testSphereTracing);
 	}
 
 	CallFunction run(addTest);

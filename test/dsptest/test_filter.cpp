@@ -174,7 +174,7 @@ namespace
 					TransparentColorMixer<Color>(0.5));
 			}
 
-			savePcx(image, "output/filter_" + filter->name() + "_" + integerToString(i, 3) + ".pcx");
+			savePcx(image, "filter_" + filter->name() + "_" + integerToString(i, 3) + ".pcx");
 		}
 	}
 
@@ -204,7 +204,7 @@ namespace
 		drawFilter(tableFilter(filter, 16), 
 			hsvToRgb(Color(random<real32>(), 1, 1)), image, 4);
 
-		savePcx(image, "output/filter_table.pcx");
+		savePcx(image, "filter_table.pcx");
 	}
 
 	void testShape1D()
@@ -220,7 +220,7 @@ namespace
 		drawFilter(mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 		//drawFilter(Cubic_Filter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
 
-		savePcx(image, "output/filter_shape.pcx");
+		savePcx(image, "filter_shape.pcx");
 	}
 
 	void testSeparableShape2D()
@@ -231,19 +231,19 @@ namespace
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		drawFilter2D(gaussianFilter(2), gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_shape_gaussian.pcx");
+		savePcx(image, "filter_shape_gaussian.pcx");
 
 		drawFilter2D(triangleFilter(), triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_shape_triangle.pcx");
+		savePcx(image, "filter_shape_triangle.pcx");
 
 		drawFilter2D(boxFilter(), boxFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_shape_box.pcx");
+		savePcx(image, "filter_shape_box.pcx");
 
 		drawFilter2D(mitchellFilter(), mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_shape_mitchell.pcx");
+		savePcx(image, "filter_shape_mitchell.pcx");
 
 		drawFilter2D(cubicFilter(), cubicFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_shape_cubic.pcx");
+		savePcx(image, "filter_shape_cubic.pcx");
 	}
 
 	void testRadialShape2D()
@@ -254,19 +254,19 @@ namespace
 		Array<Color, 2> image(Vector2i(Width, Height));
 
 		drawRadialFilter2D(gaussianFilter(2), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_radial_shape_gaussian.pcx");
+		savePcx(image, "filter_radial_shape_gaussian.pcx");
 
 		drawRadialFilter2D(triangleFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_radial_shape_triangle.pcx");
+		savePcx(image, "filter_radial_shape_triangle.pcx");
 
 		drawRadialFilter2D(boxFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_radial_shape_box.pcx");
+		savePcx(image, "filter_radial_shape_box.pcx");
 
 		drawRadialFilter2D(mitchellFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_radial_shape_mitchell.pcx");
+		savePcx(image, "filter_radial_shape_mitchell.pcx");
 
 		drawRadialFilter2D(cubicFilter(), hsvToRgb(Color(random<real32>(), 1, 1)), image);
-		savePcx(image, "output/filter_radial_shape_cubic.pcx");
+		savePcx(image, "filter_radial_shape_cubic.pcx");
 	}
 
 	void testCubicFilter()
@@ -284,7 +284,7 @@ namespace
 				linear((real)-Range, (real)(1 + Range), (real)i / (Steps - 1))), randomRgbColor(), image);
 		}
 
-		savePcx(image, "output/filter_cubic.pcx");
+		savePcx(image, "filter_cubic.pcx");
 	}
 
 	void testMitchellFilter()
@@ -306,7 +306,7 @@ namespace
 			drawFilter(mitchellFilter(b, c), randomRgbColor(), image);
 		}
 
-		savePcx(image, "output/filter_mitchell.pcx");
+		savePcx(image, "filter_mitchell.pcx");
 	}
 
 	void addTest()

@@ -45,7 +45,7 @@ namespace
 				distortedTexture,
 				arrayView(image));
 			
-			savePcx(image, "output/transform_texture.pcx");
+			savePcx(image, "transform_texture.pcx");
 		}
 
 		void testRadial()
@@ -79,7 +79,7 @@ namespace
 
 			transform(arrayView(image), fitColor);
 
-			savePcx(image, "output/radial_texture.pcx");
+			savePcx(image, "radial_texture.pcx");
 
 			Image_GfxRenderer<Color> renderer;
 			renderer.setImage(&image);
@@ -97,7 +97,7 @@ namespace
 				transformPoint(Vector2(minRadius, 0), rotation2<real>(angleEnd)), 
 				transformPoint(Vector2(maxRadius, 0), rotation2<real>(angleEnd))));
 
-			savePcx(image, "output/radial_texture_input.pcx");
+			savePcx(image, "radial_texture_input.pcx");
 		}
 	
 	};

@@ -52,23 +52,23 @@ namespace
 
 		grayscalePalette(palette, 256);
 
-		savePalette(palette, "output/palette_grayscale.pcx");
+		savePalette(palette, "palette_grayscale.pcx");
 
 		vgaPalette(palette);
 
-		savePalette(palette, "output/palette_vga.pcx");
+		savePalette(palette, "palette_vga.pcx");
 
 		smoothFalseColorPalette(palette, 256);
 
-		savePalette(palette, "output/palette_smoothfalsecolor.pcx");
+		savePalette(palette, "palette_smoothfalsecolor.pcx");
 
 		falseColorPalette(palette, 256);
 
-		savePalette(palette, "output/palette_falsecolor.pcx");
+		savePalette(palette, "palette_falsecolor.pcx");
 
 		randomPalette(palette, 256);
 
-		savePalette(palette, "output/palette_random.pcx");
+		savePalette(palette, "palette_random.pcx");
 }
 
 	void test()

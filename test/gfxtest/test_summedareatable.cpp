@@ -40,7 +40,7 @@ namespace
 			sumImage(i) /= sum;
 		}
 
-		savePcx(sumImage, "output/summedareatable.pcx");
+		savePcx(sumImage, "summedareatable.pcx");
 	}
 
 	void test()
