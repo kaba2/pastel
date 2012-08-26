@@ -192,7 +192,6 @@
     <ClCompile Include="test_pointkdtree.cpp" />
     <ClCompile Include="test_halfmesh.cpp" />
     <ClCompile Include="test_halfmesh2.cpp" />
-    <ClCompile Include="test_simplehalfmesh.cpp" />
     <ClCompile Include="test_difference_alignedbox_alignedbox.cpp" />
     <ClCompile Include="test_maximum_clique.cpp" />
     <ClCompile Include="test_intersect_alignedbox_alignedbox.cpp" />
@@ -204,7 +203,6 @@
     <ClCompile Include="test_contains_alignedbox_alignedbox.cpp" />
     <ClCompile Include="test_pastelgeometry.cpp" />
     <ClCompile Include="test_leastsquares.cpp" />
-    <ClCompile Include="test_patternmatch.cpp" />
     <ClCompile Include="test_poisson_disk_pattern.cpp" />
     <ClCompile Include="test_transformation.cpp" />
   </ItemGroup>

@@ -152,9 +152,6 @@ namespace
 				}
 			}
 			*/
-
-			automaton = minimizeAutomaton(
-				std::move(automaton));
 		}
 	};
 

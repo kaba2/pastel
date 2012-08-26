@@ -1,7 +1,7 @@
-// Description: Testing for MipMap
+// Description: MipMap example
 // DocumentationOf: mipmap.h
 
-#include "test_pasteldsp.h"
+#include "pastel_example.h"
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/arrayview.h"

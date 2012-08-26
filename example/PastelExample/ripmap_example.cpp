@@ -1,7 +1,7 @@
-// Description: Testing for RipMap
+// Description: RipMap example
 // DocumentationOf: ripmap.h
 
-#include "test_pasteldsp.h"
+#include "pastel_example.h"
 
 #include "pastel/sys/string_algorithms.h"
 #include "pastel/sys/arrayview.h"

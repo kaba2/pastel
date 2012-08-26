@@ -637,7 +637,7 @@ namespace Pastel
 
 		file.close();
 
-		log() << "Pcx image loading complete." << logNewLine;
+		//log() << "Pcx image loading complete." << logNewLine;
 
 		return true;
 	}

@@ -45,9 +45,6 @@
     <ClCompile Include="test_halfmesh2.cpp">
       <Filter>Data structures\HalfMesh</Filter>
     </ClCompile>
-    <ClCompile Include="test_simplehalfmesh.cpp">
-      <Filter>Data structures\HalfMesh</Filter>
-    </ClCompile>
     <ClCompile Include="test_difference_alignedbox_alignedbox.cpp">
       <Filter>Algorithms\Difference</Filter>
     </ClCompile>
@@ -76,7 +73,6 @@
       <Filter>Algorithms\Containment</Filter>
     </ClCompile>
     <ClCompile Include="test_leastsquares.cpp" />
-    <ClCompile Include="test_patternmatch.cpp" />
     <ClCompile Include="test_transformation.cpp" />
     <ClCompile Include="test_poisson_disk_pattern.cpp" />
     <ClCompile Include="test_pastelgeometry.cpp" />
