@@ -2,7 +2,7 @@
 #define PASTEL_POINTKDTREE_PRIVATE_HPP
 
 #include "pastel/geometry/pointkdtree.h"
-#include "pastel/geometry/longestmedian_splitrule_pointkdtree.h"
+#include "pastel/geometry/longestmedian_splitrule.h"
 
 namespace Pastel
 {
@@ -594,12 +594,12 @@ namespace Pastel
 	}
 
 	template <typename Real, int N, typename PointPolicy>
-	template <typename SplitRule_PointKdTree>
+	template <typename SplitRule>
 	void PointKdTree<Real, N, PointPolicy>::refine(
 		Node* node,
 		Vector<Real, N>& minBound,
 		Vector<Real, N>& maxBound,
-		const SplitRule_PointKdTree& splitRule,
+		const SplitRule& splitRule,
 		integer depth,
 		integer bucketSize)
 	{

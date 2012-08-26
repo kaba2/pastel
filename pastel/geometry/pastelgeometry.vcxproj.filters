@@ -219,24 +219,6 @@
     <None Include="pointkdtree_design.txt">
       <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
     </None>
-    <None Include="fair_splitrule_pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </None>
-    <None Include="longestmedian_splitrule_pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </None>
-    <None Include="minimumvolume_splitrule_pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </None>
-    <None Include="slidingmidpoint2_splitrule_pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </None>
-    <None Include="slidingmidpoint_splitrule_pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </None>
-    <None Include="splitrule_pointkdtree.txt">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </None>
     <None Include="common.txt">
       <Filter>Common</Filter>
     </None>
@@ -393,6 +375,24 @@
     <None Include="pointset_eigen.txt">
       <Filter>Geometric algorithms\Shape measurements\Eigenstructure</Filter>
     </None>
+    <None Include="fair_splitrule.txt">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </None>
+    <None Include="longestmedian_splitrule.txt">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </None>
+    <None Include="minimumvolume_splitrule.txt">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </None>
+    <None Include="slidingmidpoint2_splitrule.txt">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </None>
+    <None Include="slidingmidpoint_splitrule.txt">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </None>
+    <None Include="splitrules.txt">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="halfmesh.h">
@@ -475,42 +475,6 @@
     </ClInclude>
     <ClInclude Include="pointkdtree_tools.hpp">
       <Filter>Geometric data structures\Bsp trees\PointKdTree</Filter>
-    </ClInclude>
-    <ClInclude Include="fair_splitrule_pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="fair_splitrule_pointkdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="longestmedian_splitrule_pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="longestmedian_splitrule_pointkdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="minimumvolume_splitrule_pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="minimumvolume_splitrule_pointkdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="slidingmidpoint2_splitrule_pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="slidingmidpoint2_splitrule_pointkdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="slidingmidpoint_splitrule_pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="slidingmidpoint_splitrule_pointkdtree.hpp">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="splitrule_pointkdtree.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
-    </ClInclude>
-    <ClInclude Include="splitrule_pointkdtree_concept.h">
-      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
     <ClInclude Include="windowedpointtree.h">
       <Filter>Geometric data structures\Bsp trees\WindowedPointTree</Filter>
@@ -1309,6 +1273,42 @@
     </ClInclude>
     <ClInclude Include="point_patterns.hpp">
       <Filter>Not sure</Filter>
+    </ClInclude>
+    <ClInclude Include="fair_splitrule.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="fair_splitrule.hpp">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="longestmedian_splitrule.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="longestmedian_splitrule.hpp">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="minimumvolume_splitrule.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="minimumvolume_splitrule.hpp">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="slidingmidpoint2_splitrule.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="slidingmidpoint2_splitrule.hpp">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="slidingmidpoint_splitrule.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="slidingmidpoint_splitrule.hpp">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="splitrule_concept.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
+    </ClInclude>
+    <ClInclude Include="splitrules.h">
+      <Filter>Geometric data structures\Bsp trees\PointKdTree\Split rules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

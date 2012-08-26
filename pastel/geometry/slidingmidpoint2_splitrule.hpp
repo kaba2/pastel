@@ -1,7 +1,7 @@
-#ifndef PASTEL_SLIDINGMIDPOINT2_SPLITRULE_POINTKDTREE_HPP
-#define PASTEL_SLIDINGMIDPOINT2_SPLITRULE_POINTKDTREE_HPP
+#ifndef PASTEL_SLIDINGMIDPOINT2_SPLITRULE_HPP
+#define PASTEL_SLIDINGMIDPOINT2_SPLITRULE_HPP
 
-#include "pastel/geometry/slidingmidpoint2_splitrule_pointkdtree.h"
+#include "pastel/geometry/slidingmidpoint2_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	class SlidingMidpoint2_SplitRule_PointKdTree
+	class SlidingMidpoint2_SplitRule
 	{
 	public:
 		template <

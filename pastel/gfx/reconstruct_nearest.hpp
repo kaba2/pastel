@@ -174,7 +174,7 @@ namespace Pastel
 		kdTree.insertRange(
 			range(dataPointList.begin(), dataPointList.end()));
 
-		kdTree.refine(SlidingMidpoint2_SplitRule_PointKdTree());
+		kdTree.refine(SlidingMidpoint2_SplitRule());
 
 		Detail_ReconstructNearest::ReconstructFunctor<Real, N, DataPolicy>
 			reconstructFunctor(kdTree, kNearest, maxRelativeError);

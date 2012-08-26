@@ -1,7 +1,7 @@
-#ifndef PASTEL_FAIR_SPLITRULE_POINTKDTREE_HPP
-#define PASTEL_FAIR_SPLITRULE_POINTKDTREE_HPP
+#ifndef PASTEL_SLIDINGMIDPOINT_SPLITRULE_HPP
+#define PASTEL_SLIDINGMIDPOINT_SPLITRULE_HPP
 
-#include "pastel/geometry/fair_splitrule_pointkdtree.h"
+#include "pastel/geometry/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
@@ -9,7 +9,7 @@
 namespace Pastel
 {
 
-	class Fair_SplitRule_PointKdTree
+	class SlidingMidpoint_SplitRule
 	{
 	public:
 		template <
@@ -33,36 +33,49 @@ namespace Pastel
 			Real splitPosition = linear(minBound[splitAxis], 
 				maxBound[splitAxis], 0.5);
 
+			// Sliding midpoint
+
 			if (!cursor.empty())
 			{
-				// Find out the minimum bounding interval for
-				// the contained points on the splitting axis.
-
-				Real minPosition = infinity<Real>();
-				Real maxPosition = -infinity<Real>();
+				Real leftMax = -infinity<Real>();
+				Real rightMin = infinity<Real>();
+				integer leftCount = 0;
+				integer rightCount = 0;
 
 				Point_ConstIterator iter = cursor.begin();
 				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
 					const Real position = 
-						pointPolicy.axis(iter->point(), splitAxis);
-					if (position < minPosition)
+						pointPolicy(iter->point())[splitAxis];
+					if (position < splitPosition)
 					{
-						minPosition = position;
+						if (position > leftMax)
+						{
+							leftMax = position;
+						}
+						++leftCount;
 					}
-					if (position > maxPosition)
+					else
 					{
-						maxPosition = position;
+						if (position < rightMin)
+						{
+							rightMin = position;
+						}
+						++rightCount;
 					}
+
 					++iter;
 				}
 
-				// Split at the midpoint of the minimum
-				// bounding interval.
-
-				splitPosition = 
-					linear(minPosition, maxPosition, 0.5);
+				if (leftCount == 0)
+				{
+					splitPosition = rightMin;
+				}
+				else if (rightCount == 0)
+				{
+					splitPosition = leftMax;
+				}
 			}
 
 			return std::make_pair(splitPosition, splitAxis);

@@ -217,7 +217,7 @@ namespace
 		SceneTree sceneTree;
 		sceneTree.insertRange(
 			range(sceneSet.begin(), sceneSet.end()));
-		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+		sceneTree.refine(SlidingMidpoint_SplitRule());
 
 		// Compute the kd-tree for the model set.
 
@@ -227,7 +227,7 @@ namespace
 		ModelTree modelTree;
 		modelTree.insertRange(
 			range(modelSet.begin(), modelSet.end()));
-		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+		modelTree.refine(SlidingMidpoint_SplitRule());
 
 		// Compute the pattern matching.
 
@@ -654,8 +654,8 @@ namespace
 		//constSparseIterator(countingIterator(&modelData[0]), n),
 		//constSparseIterator(countingIterator(&modelData[0]), n) + modelPoints);
 
-		sceneTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
-		modelTree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+		sceneTree.refine(SlidingMidpoint_SplitRule());
+		modelTree.refine(SlidingMidpoint_SplitRule());
 
 		// Here's where we store the results.
 

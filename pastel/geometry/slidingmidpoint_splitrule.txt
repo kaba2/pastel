@@ -1,7 +1,7 @@
 Sliding midpoint splitting rule
 ===============================
 
-[[Parent]]: splitrule_pointkdtree.txt
+[[Parent]]: splitrule.txt
 
 The sliding midpoint rule chooses to split along the longest side 
 of the node. On this axis it first tries to split a node from 

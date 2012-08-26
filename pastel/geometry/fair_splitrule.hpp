@@ -1,17 +1,15 @@
-#ifndef PASTEL_LONGESTMEDIAN_SPLITRULE_POINTKDTREE_HPP
-#define PASTEL_LONGESTMEDIAN_SPLITRULE_POINTKDTREE_HPP
+#ifndef PASTEL_FAIR_SPLITRULE_HPP
+#define PASTEL_FAIR_SPLITRULE_HPP
 
-#include "pastel/geometry/longestmedian_splitrule_pointkdtree.h"
+#include "pastel/geometry/fair_splitrule.h"
 #include "pastel/geometry/pointkdtree.h"
 
 #include "pastel/sys/vector_tools.h"
 
-#include <algorithm>
-
 namespace Pastel
 {
 
-	class LongestMedian_SplitRule_PointKdTree
+	class Fair_SplitRule
 	{
 	public:
 		template <
@@ -37,25 +35,34 @@ namespace Pastel
 
 			if (!cursor.empty())
 			{
-				// Get the positions of the points along the splitting axis.
+				// Find out the minimum bounding interval for
+				// the contained points on the splitting axis.
 
-				std::vector<Real> positionSet;
-				positionSet.reserve(cursor.points());
+				Real minPosition = infinity<Real>();
+				Real maxPosition = -infinity<Real>();
 
 				Point_ConstIterator iter = cursor.begin();
 				const Point_ConstIterator iterEnd = cursor.end();
 				while(iter != iterEnd)
 				{
-					positionSet.push_back(
-						pointPolicy(iter->point())[splitAxis]);
+					const Real position = 
+						pointPolicy.axis(iter->point(), splitAxis);
+					if (position < minPosition)
+					{
+						minPosition = position;
+					}
+					if (position > maxPosition)
+					{
+						maxPosition = position;
+					}
 					++iter;
 				}
 
-				// Get the median of the points on the splitting axis.
+				// Split at the midpoint of the minimum
+				// bounding interval.
 
-				std::sort(positionSet.begin(), positionSet.end());
-
-				splitPosition = positionSet[positionSet.size() / 2];
+				splitPosition = 
+					linear(minPosition, maxPosition, 0.5);
 			}
 
 			return std::make_pair(splitPosition, splitAxis);

@@ -24,7 +24,7 @@ namespace Pastel
 	checking and performance comparison purposes.
 	*/
 
-	class Fair_SplitRule_PointKdTree;
+	class Fair_SplitRule;
 
 	//! Refines a kd-tree using the sliding midpoint rule.
 	/*!
@@ -43,7 +43,7 @@ namespace Pastel
 	nearest neighbors for points.
 	*/
 
-	class SlidingMidpoint_SplitRule_PointKdTree;
+	class SlidingMidpoint_SplitRule;
 
 	//! Refines a kd-tree using the surface area heuristic.
 	/*!

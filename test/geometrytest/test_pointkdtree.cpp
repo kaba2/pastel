@@ -6,7 +6,7 @@
 #include "pastel/geometry/count_nearest_pointkdtree.h"
 #include "pastel/geometry/search_nearest_pointkdtree.h"
 #include "pastel/geometry/search_all_neighbors_pointkdtree.h"
-#include "pastel/geometry/slidingmidpoint_splitrule_pointkdtree.h"
+#include "pastel/geometry/slidingmidpoint_splitrule.h"
 #include "pastel/geometry/pointkdtree_tools.h"
 #include "pastel/geometry/bestfirst_searchalgorithm_pointkdtree.h"
 
@@ -120,7 +120,7 @@ namespace
 				pushBackReporter(iteratorSet));
 			TEST_ENSURE(check(tree));
 
-			tree.refine(SlidingMidpoint_SplitRule_PointKdTree(), 1);
+			tree.refine(SlidingMidpoint_SplitRule(), 1);
 			TEST_ENSURE(check(tree));
 			
 			/*
@@ -240,7 +240,7 @@ namespace
 			TEST_ENSURE_OP(tree.leaves(), ==, 1);
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 
-			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			tree.refine(SlidingMidpoint_SplitRule());
 			TEST_ENSURE(check(tree));
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
@@ -260,7 +260,7 @@ namespace
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
-			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			tree.refine(SlidingMidpoint_SplitRule());
 			TEST_ENSURE(check(tree));
 
 			tree.merge(tree.root());
@@ -269,7 +269,7 @@ namespace
 			TEST_ENSURE_OP(tree.nodes(), ==, 1);
 			TEST_ENSURE_OP(tree.points(), ==, m);
 
-			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			tree.refine(SlidingMidpoint_SplitRule());
 			TEST_ENSURE(check(tree));
 
 			tree.hide();
@@ -349,7 +349,7 @@ namespace
 			tree.insertRange(
 				range(pointSet.begin(), pointSet.end()));
 
-			tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+			tree.refine(SlidingMidpoint_SplitRule());
 			
 			Euclidean_NormBijection<real> normBijection;
 
@@ -407,7 +407,7 @@ namespace
 				tree.insert(
 					range(pointSet.begin(), pointSet.end()));
 
-				tree.refine(SlidingMidpoint_SplitRule_PointKdTree());
+				tree.refine(SlidingMidpoint_SplitRule());
 				
 				Array<Point_ConstIterator> nearestSet(k, m);
 

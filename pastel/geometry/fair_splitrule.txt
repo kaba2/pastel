@@ -1,7 +1,7 @@
 Fair splitting rule
 ===================
 
-[[Parent]]: splitrule_pointkdtree.txt
+[[Parent]]: splitrule.txt
 
 The fair rule chooses to split along the longest side of the node.
 On this axis it chooses to split at the midpoint of the 
