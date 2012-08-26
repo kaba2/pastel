@@ -57,7 +57,7 @@ namespace
 			yPosition += ripMap(Vector<integer, 2>(0, y)).extent().y();
 		}
 
-		savePcx(outputImage, "output/ripmap.pcx");
+		savePcx(outputImage, "ripmap.pcx");
 	}
 
 	void addTest()

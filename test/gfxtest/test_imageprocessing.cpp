@@ -29,27 +29,27 @@ namespace
 
 		ellipsoidElement(arrayView(image), Vector2(93.734));
 
-		saveBinaryPcx(image, "output/structuring_element_ellipsoid.pcx");
+		saveBinaryPcx(image, "structuring_element_ellipsoid.pcx");
 
 		ellipsoidElement(arrayView(image), Vector2(93.123));
 
-		saveBinaryPcx(image, "output/structuring_element_ellipsoid2.pcx");
+		saveBinaryPcx(image, "structuring_element_ellipsoid2.pcx");
 
 		diamondElement(arrayView(image), Vector2(93.734));
 
-		saveBinaryPcx(image, "output/structuring_element_diamond.pcx");
+		saveBinaryPcx(image, "structuring_element_diamond.pcx");
 
 		diamondElement(arrayView(image), Vector2(93.123));
 
-		saveBinaryPcx(image, "output/structuring_element_diamond2.pcx");
+		saveBinaryPcx(image, "structuring_element_diamond2.pcx");
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(93.734));
 
-		saveBinaryPcx(image, "output/structuring_element_pellipsoid.pcx");
+		saveBinaryPcx(image, "structuring_element_pellipsoid.pcx");
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(93.123));
 
-		saveBinaryPcx(image, "output/structuring_element_pellipsoid2.pcx");
+		saveBinaryPcx(image, "structuring_element_pellipsoid2.pcx");
 
 		Array<bool, 3> volumeImage(Vector3i(100, 200, 10), false);
 		pEllipsoidElement(arrayView(volumeImage), 1.5, Vector3(53.23, 93.734, 9.5));
@@ -64,67 +64,67 @@ namespace
 
 		ellipsoidElement(arrayView(image), Vector2(1));
 
-		saveBinaryPcx(image, "output/structuring_element_small_ellipsoid.pcx");
+		saveBinaryPcx(image, "structuring_element_small_ellipsoid.pcx");
 
 		ellipsoidElement(arrayView(image), Vector2(2));
 
-		saveBinaryPcx(image, "output/structuring_element_small_ellipsoid2.pcx");
+		saveBinaryPcx(image, "structuring_element_small_ellipsoid2.pcx");
 
 		ellipsoidElement(arrayView(image), Vector2(3));
 
-		saveBinaryPcx(image, "output/structuring_element_small_ellipsoid3.pcx");
+		saveBinaryPcx(image, "structuring_element_small_ellipsoid3.pcx");
 
 		ellipsoidElement(arrayView(image), Vector2(4));
 
-		saveBinaryPcx(image, "output/structuring_element_small_ellipsoid4.pcx");
+		saveBinaryPcx(image, "structuring_element_small_ellipsoid4.pcx");
 
 		ellipsoidElement(arrayView(image), Vector2(5));
 
-		saveBinaryPcx(image, "output/structuring_element_small_ellipsoid5.pcx");
+		saveBinaryPcx(image, "structuring_element_small_ellipsoid5.pcx");
 
 
 
 		diamondElement(arrayView(image), Vector2(1));
 
-		saveBinaryPcx(image, "output/structuring_element_small_diamond.pcx");
+		saveBinaryPcx(image, "structuring_element_small_diamond.pcx");
 
 		diamondElement(arrayView(image), Vector2(2));
 
-		saveBinaryPcx(image, "output/structuring_element_small_diamond2.pcx");
+		saveBinaryPcx(image, "structuring_element_small_diamond2.pcx");
 
 		diamondElement(arrayView(image), Vector2(3));
 
-		saveBinaryPcx(image, "output/structuring_element_small_diamond3.pcx");
+		saveBinaryPcx(image, "structuring_element_small_diamond3.pcx");
 
 		diamondElement(arrayView(image), Vector2(4));
 
-		saveBinaryPcx(image, "output/structuring_element_small_diamond4.pcx");
+		saveBinaryPcx(image, "structuring_element_small_diamond4.pcx");
 
 		diamondElement(arrayView(image), Vector2(5));
 
-		saveBinaryPcx(image, "output/structuring_element_small_diamond5.pcx");
+		saveBinaryPcx(image, "structuring_element_small_diamond5.pcx");
 
 
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(1));
 
-		saveBinaryPcx(image, "output/structuring_element_small_pEllipsoid.pcx");
+		saveBinaryPcx(image, "structuring_element_small_pEllipsoid.pcx");
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(2));
 
-		saveBinaryPcx(image, "output/structuring_element_small_pEllipsoid2.pcx");
+		saveBinaryPcx(image, "structuring_element_small_pEllipsoid2.pcx");
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(3));
 
-		saveBinaryPcx(image, "output/structuring_element_small_pEllipsoid3.pcx");
+		saveBinaryPcx(image, "structuring_element_small_pEllipsoid3.pcx");
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(4));
 
-		saveBinaryPcx(image, "output/structuring_element_small_pEllipsoid4.pcx");
+		saveBinaryPcx(image, "structuring_element_small_pEllipsoid4.pcx");
 
 		pEllipsoidElement(arrayView(image), 1.5, Vector2(5));
 
-		saveBinaryPcx(image, "output/structuring_element_small_pEllipsoid5.pcx");
+		saveBinaryPcx(image, "structuring_element_small_pEllipsoid5.pcx");
 	}
 
 	void testErode()
@@ -150,14 +150,14 @@ namespace
 
 		drawTriangle(elementRenderer, Triangle2(Vector2(-1, -1), Vector2(0, 1), Vector2(1, -1)));
 
-		saveBinaryPcx(image, "output/erode_input.pcx");
-		saveBinaryPcx(element, "output/erode_element.pcx");
+		saveBinaryPcx(image, "erode_input.pcx");
+		saveBinaryPcx(element, "erode_element.pcx");
 
 		Array<bool, 2> output(Vector2i(width, height), false);
 
 		erode(borderedConstView(constArrayView(image), false), constArrayView(element), arrayView(output));
 
-		saveBinaryPcx(output, "output/erode_output.pcx");
+		saveBinaryPcx(output, "erode_output.pcx");
 
 		for (integer y = 0;y < 500;++y)
 		{
@@ -167,11 +167,11 @@ namespace
 			}
 		}
 
-		saveBinaryPcx(image, "output/erode_difference.pcx");
+		saveBinaryPcx(image, "erode_difference.pcx");
 
 		dilate(constArrayView(output), constArrayView(element), 15, 10, arrayView(image));
 
-		saveBinaryPcx(image, "output/dilate_output.pcx");
+		saveBinaryPcx(image, "dilate_output.pcx");
 	}
 
 	void test()

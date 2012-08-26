@@ -52,7 +52,7 @@ namespace
 
 			TEST_ENSURE(!automaton.deterministic());
 
-			std::cout << automaton << std::endl;
+			//std::cout << automaton << std::endl;
 
 			typedef AsHashedTree<
 				State, IteratorAddress_LessThan,
@@ -102,12 +102,12 @@ namespace
 				reportState, reportTransition);
 			TEST_ENSURE(det.deterministic());
 
-			std::cout << det << std::endl;
+			//std::cout << det << std::endl;
 
 			Automaton minimal = minimizeAutomaton(det);
 			TEST_ENSURE(minimal.deterministic());
 
-			std::cout << minimal << std::endl;
+			//std::cout << minimal << std::endl;
 		}
 	};
 

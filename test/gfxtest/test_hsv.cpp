@@ -29,7 +29,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/hsv_scale.pcx");
+		savePcx(image, "hsv_scale.pcx");
 	}
 
 	void test()

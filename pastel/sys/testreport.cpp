@@ -85,7 +85,7 @@ namespace Pastel
 
 				if (errorInfo.lineNumber() >= 0)
 				{
-					output << ", line " << errorInfo.lineNumber() << ".";
+					output << " (" << errorInfo.lineNumber() << "):";
 				}
 	
 				output << logNewLine;

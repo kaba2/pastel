@@ -24,31 +24,29 @@ namespace
 
 		virtual void run()
 		{
-			testSpecial();
-			testQuadratic();
 			testCcwAngle();
-			testHarmonic();
+			testQuadratic();
 		}
 
 		void testCcwAngle()
 		{
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(0, 1))), ==, 90);
+				ccwAngle(Vector2(1, 0), Vector2(0, 1))) - 90, <, 0.001);
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(0, 1), Vector2(-1, 0))), ==, 90);
+				ccwAngle(Vector2(0, 1), Vector2(-1, 0))) - 90, <, 0.001);
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(-1, 0), Vector2(0, -1))), ==, 90);
+				ccwAngle(Vector2(-1, 0), Vector2(0, -1))) - 90, < , 0.001);
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(0, -1), Vector2(1, 0))), ==, 90);
+				ccwAngle(Vector2(0, -1), Vector2(1, 0))) - 90, <, 0.001);
 
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(1, 1))), ==, 45);
+				ccwAngle(Vector2(1, 0), Vector2(1, 1))) - 45, <, 0.001);
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(-1, 1))), ==, 135);
+				ccwAngle(Vector2(1, 0), Vector2(-1, 1))) - 135, <, 0.001);
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(-1, -1))), ==, 225);
+				ccwAngle(Vector2(1, 0), Vector2(-1, -1))) - 225, <, 0.001);
 			TEST_ENSURE_OP(radiansToDegrees<real>(
-				ccwAngle(Vector2(1, 0), Vector2(1, -1))), ==, 315);
+				ccwAngle(Vector2(1, 0), Vector2(1, -1))) - 315, <, 0.001);
 		}
 
 		void testQuadratic()
@@ -84,39 +82,6 @@ namespace
 			}
 
 			TEST_ENSURE_OP(failings, <=, 10);
-		}
-
-		void testHarmonic()
-		{
-			for (integer i = 51200;i < 51250;++i)
-			{
-				log() << harmonicNumber<real>(i) << ", ";
-				if ((i % 4) == 3)
-				{
-					log() << logNewLine;
-				}
-			}
-		}
-
-		void testSpecial()
-		{
-			log() << "Gamma function from 1 to 9" << logNewLine;
-			for (real i = 1;i < 10;i += 0.5)
-			{
-				log() << gamma<real>(i) << ", ";
-			}
-			log() << logNewLine;
-			log() << "Digamma function from 1 to 9" << logNewLine;
-			for (integer i = 1;i < 10;++i)
-			{
-				log() << digamma<real>(i) << ", ";
-			}
-			log() << "Digamma function from 301 to 309" << logNewLine;
-			for (integer i = 301;i < 310;++i)
-			{
-				log() << digamma<real>(i) << ", ";
-			}
-			log() << logNewLine;
 		}
 	};
 

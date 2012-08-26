@@ -27,20 +27,20 @@ namespace
 
 		Array<uint32, 2> smallerImage(Vector2i(200, 200));
 
-		savePcx(image, "output/adaptedview1.pcx");
+		savePcx(image, "adaptedview1.pcx");
 
 		resample<Color>(
 			constRgb888View(image), clampExtender(), lanczosFilter(2),
 			rgb888View(smallerImage));
 
-		savePcx(smallerImage, "output/adaptedview2.pcx");
+		savePcx(smallerImage, "adaptedview2.pcx");
 
 		Array<uint32, 2> copySmallerImage(smallerImage.extent());
 
 		copy(constArrayView(smallerImage),
 			arrayView(copySmallerImage));
 
-		savePcx(copySmallerImage, "output/adaptedview3.pcx");
+		savePcx(copySmallerImage, "adaptedview3.pcx");
 	}
 
 	void addTest()

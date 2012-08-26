@@ -39,12 +39,12 @@ namespace
 		transform(constArrayView(image),
 			arrayView(transformed), lumaColor);
 
-		savePcx(transformed, "output/gray_luma.pcx");
+		savePcx(transformed, "gray_luma.pcx");
 
 		transform(constArrayView(image),
 			arrayView(transformed), lightness);
 
-		savePcx(transformed, "output/gray_lightness.pcx");
+		savePcx(transformed, "gray_lightness.pcx");
 	}
 
 	void testLinearLuminance()
@@ -66,7 +66,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/gray_linear_luminance.pcx");
+		savePcx(image, "gray_linear_luminance.pcx");
 	}
 
 	void testLinearLuma()
@@ -87,7 +87,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/gray_linear_luma.pcx");
+		savePcx(image, "gray_linear_luma.pcx");
 	}
 
 	void testLinearLightness()
@@ -108,7 +108,7 @@ namespace
 			}
 		}
 
-		savePcx(image, "output/gray_linear_lightness.pcx");
+		savePcx(image, "gray_linear_lightness.pcx");
 	}
 
 	void addTest()

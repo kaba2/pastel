@@ -4,9 +4,6 @@
     <Filter Include="Data structures">
       <UniqueIdentifier>{421c4e89-c6e7-4319-b877-371a9d52017d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Data structures\KdTree">
-      <UniqueIdentifier>{8f4dd823-db1b-418e-ac10-72c2630abffb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Data structures\PointKdTree">
       <UniqueIdentifier>{c1f67173-ec48-497b-a050-453067c7457b}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test_kdtree.cpp">
-      <Filter>Data structures\KdTree</Filter>
-    </ClCompile>
     <ClCompile Include="test_pointkdtree.cpp">
       <Filter>Data structures\PointKdTree</Filter>
     </ClCompile>

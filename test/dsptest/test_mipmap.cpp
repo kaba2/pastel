@@ -50,7 +50,7 @@ namespace
 			position += mipMap.view(i).extent();
 		}
 
-		savePcx(outputImage, "output/mipmap.pcx");
+		savePcx(outputImage, "mipmap.pcx");
 	}
 
 	void test()

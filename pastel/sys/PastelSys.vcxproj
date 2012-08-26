@@ -114,6 +114,10 @@
     </ClCompile>
     <Lib />
     <Lib />
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

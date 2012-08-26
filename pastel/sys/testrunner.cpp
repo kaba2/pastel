@@ -34,7 +34,7 @@ namespace Pastel
 
 	void TestRunner::run() const
 	{
-		log() << "Running " << name_ << " test suite..."
+		log() << "Testing " << name_ << "..."
 			<< logNewLine << logNewLine;
 
 		ConstIterator iter(functionSet_.begin());
@@ -45,7 +45,7 @@ namespace Pastel
 			++iter;
 		}
 
-		log() << name_ << " test suite complete."
+		log() << name_ << " testing complete."
 			<< logNewLine << logNewLine;
 	}
 
@@ -57,10 +57,10 @@ namespace Pastel
 			return;
 		}
 
-		log() << iter->first << logNewLine;
+		//log() << iter->first << logNewLine;
 
 		Function function = iter->second;
-		if (!REPORT(!function))
+		if (function)
 		{
 			try
 			{

@@ -1,7 +1,7 @@
-// Description: Testing for random numbers
+// Description: Random distributions example
 // DocumentationOf: random.h
 
-#include "test_pastelsys.h"
+#include "pastel_example.h"
 
 #include "pastel/gfx/drawing.h"
 #include "pastel/gfx/pcx.h"
@@ -670,7 +670,7 @@ namespace
 
 	void addTests()
 	{
-		testRunner().add("Random.DrawDistributions", drawDistributions);
+		testRunner().add("Random", drawDistributions);
 		testRunner().add("Gamma", testGamma);
 	}
 
