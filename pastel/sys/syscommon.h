@@ -1,5 +1,4 @@
 // Description: Miscellaneous tools
-// Documentation: algorithms.txt
 
 #ifndef PASTELSYS_SYSCOMMON_H
 #define PASTELSYS_SYSCOMMON_H

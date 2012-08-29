@@ -2,3 +2,5 @@ Hash objects
 ============
 
 [[Parent]]: hashing.txt
+
+This section contains hash objects.

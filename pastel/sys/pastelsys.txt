@@ -3,5 +3,4 @@ PastelSys
 
 [[Parent]]: pastel.txt
 
-_PastelSys_ provides general-purpose tools needed in almost 
-any non-trivial program.
+_PastelSys_ provides general-purpose algorithms and data structures.

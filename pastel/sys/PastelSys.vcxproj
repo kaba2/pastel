@@ -174,8 +174,6 @@
     <ClInclude Include="embedded_hash.h" />
     <ClInclude Include="equal_sets.h" />
     <ClInclude Include="equal_sets.hpp" />
-    <ClInclude Include="exactly_equal.h" />
-    <ClInclude Include="exactly_equal.hpp" />
     <ClInclude Include="functions.h" />
     <ClInclude Include="function_concept.h" />
     <ClInclude Include="generic_programming.h" />
@@ -242,6 +240,7 @@
     <ClInclude Include="productive_states.hpp" />
     <ClInclude Include="reachable_states.h" />
     <ClInclude Include="reachable_states.hpp" />
+    <ClInclude Include="trees.h" />
     <ClInclude Include="underlined.h" />
     <ClInclude Include="view.h" />
     <ClInclude Include="view_tools.h" />
@@ -564,7 +563,6 @@
     <None Include="arena_allocator.txt" />
     <None Include="automaton.txt" />
     <None Include="automaton_algorithms.txt" />
-    <None Include="automaton_design.txt" />
     <None Include="automaton_determinization.txt" />
     <None Include="automaton_simulation.txt" />
     <None Include="breadth_first_traversal.txt" />
@@ -577,7 +575,6 @@
     <None Include="hashing.txt" />
     <None Include="hashed_tree.txt" />
     <None Include="incidence_graph.txt" />
-    <None Include="incidence_graph_notes.txt" />
     <None Include="automaton_minimization.txt" />
     <None Include="minimal_automaton.txt" />
     <None Include="named_tuples.txt" />

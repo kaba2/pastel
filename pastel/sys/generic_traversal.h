@@ -1,4 +1,5 @@
 // Description: A function for executing graph-traversal algorithm-objects.
+// Documentation: graph_traversal.txt
 
 #ifndef PASTELSYS_GENERIC_TRAVERSAL_H
 #define PASTELSYS_GENERIC_TRAVERSAL_H

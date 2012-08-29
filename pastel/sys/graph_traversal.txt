@@ -19,8 +19,3 @@ the `traverseGraph()` function implemented in
 
 [Algorithm]: [[Ref]]: algorithm_objects.txt
 
-Example
--------
-
-[[CppCode]]:
-	auto forEachSeed

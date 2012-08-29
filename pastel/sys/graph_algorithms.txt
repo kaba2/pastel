@@ -3,4 +3,7 @@ Graph algorithms
 
 [[Parent]]: algorithms.txt
 
-_Graph algorithms_ are algorithms which work with graphs.
+This section contains algorithms for [graphs][Graph].
+
+[Graph]: [[Ref]]: incidence_graph.txt
+

@@ -2,3 +2,9 @@ Optional objects
 ================
 
 [[Parent]]: data_structures.txt
+
+An _optional object_ is an object which either contains 
+another object or not. The optional object can be queried
+about the state of containment. When the optional object 
+contains an object, all the operations are redirected to 
+the underlying object.

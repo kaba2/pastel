@@ -3,7 +3,6 @@ Automaton algorithms
 
 [[Parent]]: algorithms.txt
 
-The _automaton algorithms_ are algorithms which work with 
-[finite-state automata][Automata].
+This section contains algorithms for [finite-state automata][Automata].
 
 [Automata]: [[Ref]]: automaton.txt

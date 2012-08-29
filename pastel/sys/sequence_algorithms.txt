@@ -3,5 +3,5 @@ Sequence algorithms
 
 [[Parent]]: algorithms.txt
 
-This section contains algorithms which work on sequences of data,
-complementing the algorithms already available in the STL.
+This section contains algorithms for sequences,
+complementing those already available in the STL.

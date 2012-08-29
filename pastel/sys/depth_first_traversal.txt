@@ -5,7 +5,7 @@ Depth-first traversal
 
 The _depth-first traversal_ is an algorithm for traversing the 
 vertices of a graph. The `DepthFirst_GraphTraversal` class 
-provides algorithm-objects for depth-first traversal.
+provides an algorithm-object for depth-first traversal.
 
 Algorithm
 ---------

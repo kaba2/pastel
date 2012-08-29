@@ -9,15 +9,15 @@ finite-state automata.
 Definitions
 -----------
 
-A _finite-state_ automaton is a tuple ''(Q, Sigma, S, ~~>, F)'',
+A _finite-state_ automaton is a tuple ''(Q, Sigma, S, ->, F)'',
 where ''Q'' and ''Sigma'' are finite sets, called the _states_ and 
 the _symbols_, respectively, ''S subset Q'' and ''F subset Q'' are 
 finite sets, called the _start states_ and the _final states_, 
-respectively, and ''~~> subset (Q times Sigma) times Q'' is a relation,
+respectively, and ''-> subset (Q times Sigma) times Q'' is a relation,
 called the _transition relation_. The transition relation is extended 
-to ''Q times Sigma^*'' by ''(q, epsilon) ~~> q'', and ''(q, xs) ~~> p'' 
-if and only if there exists ''r in Q'' such that ''(q, x) ~~> r'' 
-and ''(r, s) ~~> p''. Every transition relation can be represented 
+to ''Q times Sigma^*'' by ''(q, epsilon) -> q'', and ''(q, xs) -> p'' 
+if and only if there exists ''r in Q'' such that ''(q, x) -> r'' 
+and ''(r, s) -> p''. Every transition relation can be represented 
 as a ''Sigma''-edge-labeled directed graph _without_ multiple transitions
 with the same symbol between two states, and vice versa.
 
@@ -25,21 +25,21 @@ A finite-state automaton is called _deterministic_ if and only if it
 has at most one start-state, and the transition relation is a partial
 function. The _language_ recognized by a finite-state automaton ''A'' 
 is defined by 
-''L(A) = {x in Sigma^* : exists q in S: exists p in F: (q, x) ~~> p}''.
+''L(A) = {x in Sigma^* : exists q in S: exists p in F: (q, x) -> p}''.
 
 ### Single start-state vs a set of start-states
 
 Sometimes finite-state automata are defined as having exactly one
 start-state. This is problematic, because one can not then represent 
 the minimal automaton for the empty language, and the construction of 
-the union of two automata becomes cumbersome. In contrast, when using
+the cup of two automata becomes cumbersome. In contrast, when using
 a set of start-states, one can
 
  * represent the minimal automaton for the empty language as 
- ''Q = S = F = T = empty-set'', and
- * represent the union of two automata as ''Q = Q_1 union Q_2'', 
- ''S = S_1 union S_2'', ''F = F_1 union F_2'',
- ''Sigma = Sigma_1 union Sigma_2'', and ''T = T_1 union T_2''.
+ ''Q = S = F = T = emptyset'', and
+ * represent the cup of two automata as ''Q = Q_1 cup Q_2'', 
+ ''S = S_1 cup S_2'', ''F = F_1 cup F_2'',
+ ''Sigma = Sigma_1 cup Sigma_2'', and ''T = T_1 cup T_2''.
 
 Data structure
 --------------

@@ -3,3 +3,5 @@ Bit tricks
 
 [[Parent]]: algorithms.txt
 
+This section contains algorithms for working with the 
+bit-representation of integers.

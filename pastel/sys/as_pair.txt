@@ -1,8 +1,6 @@
 As_Pair concept map
 ===================
 
-[[Parent]]: generic_programming.txt
-
 Pairs of objects occur repeatedly in programming, most often
 to denote 2d coordinates, an association between two objects,
 or simply a logical grouping. Since it is such a fundamental
