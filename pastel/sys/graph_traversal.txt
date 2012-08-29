@@ -17,7 +17,7 @@ concept. An algorithm-object of this type can be executed by
 the `traverseGraph()` function implemented in 
 [[FileLink: generic_traversal.h]].
 
-[Algorithm]: [[Ref]]: algorithm_objects.txtt
+[Algorithm]: [[Ref]]: algorithm_objects.txt
 
 Example
 -------

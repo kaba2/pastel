@@ -1,7 +1,7 @@
 Range algorithms
 ================
 
-[[Parent]]: algorithm_objects.txtt
+[[Parent]]: algorithm_objects.txt
 
 A _range algorithm_ is a refinement of the algorithm concept.
 It requires additionally that the argument be a forward iterator 

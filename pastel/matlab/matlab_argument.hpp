@@ -1,5 +1,5 @@
-#ifndef PASTEL_MATLAB_ARGUMENT_HPP
-#define PASTEL_MATLAB_ARGUMENT_HPP
+#ifndef PASTELMATLAB_MATLAB_ARGUMENT_HPP
+#define PASTELMATLAB_MATLAB_ARGUMENT_HPP
 
 #include "pastel/matlab/matlab_argument.h"
 

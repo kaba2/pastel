@@ -1,4 +1,4 @@
-// Description: Unit testing for PastelDevice
+// Description: Testing for PastelDevice
 
 #ifndef PASTEL_TEST_PASTELDEVICE_H
 #define PASTEL_TEST_PASTELDEVICE_H

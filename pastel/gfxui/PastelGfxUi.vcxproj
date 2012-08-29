@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="gfx_ui.h" />
     <ClInclude Include="gfxuilibrary.h" />
+    <ClInclude Include="pastelgfxui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

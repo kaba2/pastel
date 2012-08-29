@@ -1,7 +1,7 @@
 // Description: Functions to retrieve Matlab function arguments
 
-#ifndef PASTEL_MATLAB_ARGUMENT_H
-#define PASTEL_MATLAB_ARGUMENT_H
+#ifndef PASTELMATLAB_MATLAB_ARGUMENT_H
+#define PASTELMATLAB_MATLAB_ARGUMENT_H
 
 #include "pastel/sys/mytypes.h"
 #include "pastel/sys/array.h"
