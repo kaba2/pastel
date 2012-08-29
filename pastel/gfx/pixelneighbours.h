@@ -1,4 +1,5 @@
 // Description: Counting and examination of pixel neighbors
+// Documentation: branching_number.txt
 
 #ifndef PASTELGFX_PIXELNEIGHBOURS_H
 #define PASTELGFX_PIXELNEIGHBOURS_H

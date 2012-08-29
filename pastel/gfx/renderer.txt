@@ -1,4 +1,3 @@
 Renderer
 ========
 
-[[Parent]]: pastelgfx.txt

@@ -152,7 +152,11 @@
     <ClInclude Include="color_palette.h" />
     <ClInclude Include="color_illuminant.h" />
     <ClInclude Include="color_illuminant.hpp" />
+    <ClInclude Include="diffusion_quantization.h" />
+    <ClInclude Include="diffusion_quantization.hpp" />
     <ClInclude Include="gfxlibrary.h" />
+    <ClInclude Include="image_morphology.h" />
+    <ClInclude Include="image_processing.h" />
     <ClInclude Include="image_tools.h" />
     <ClInclude Include="image_tools.hpp" />
     <ClInclude Include="drawing.h" />
@@ -180,6 +184,7 @@
     <ClInclude Include="draw_vertical_line.hpp" />
     <ClInclude Include="draw_view.h" />
     <ClInclude Include="draw_view.hpp" />
+    <ClInclude Include="labeling.h" />
     <ClInclude Include="marchingtriangles.h" />
     <ClInclude Include="noise.h" />
     <ClInclude Include="gradientfield.h" />
@@ -187,6 +192,7 @@
     <ClInclude Include="pastelgfx.h" />
     <ClInclude Include="perlin_noise.h" />
     <ClInclude Include="perlin_noise.hpp" />
+    <ClInclude Include="rounding_quantization.h" />
     <ClInclude Include="simplex_noise.h" />
     <ClInclude Include="simplex_noise.hpp" />
     <ClInclude Include="loadpcx.h" />
@@ -249,11 +255,11 @@
     <ClInclude Include="convolution.hpp" />
     <ClInclude Include="branching_number.h" />
     <ClInclude Include="gfxresource.h" />
-    <ClInclude Include="labeltoimage.h" />
+    <ClInclude Include="labeling_to_image.h" />
     <ClInclude Include="packrange.h" />
     <ClInclude Include="pixelneighbours.h" />
     <ClInclude Include="image_quantization.h" />
-    <ClInclude Include="image_quantization.hpp" />
+    <ClInclude Include="rounding_quantization.hpp" />
     <ClInclude Include="structuring_elements.h" />
     <ClInclude Include="structuring_elements.hpp" />
     <ClInclude Include="summedareatable.h" />
@@ -286,6 +292,7 @@
     <None Include="pcx.txt" />
     <None Include="pcx_file.txt" />
     <None Include="structuring_elements.txt" />
+    <None Include="summedareatable.txt" />
     <None Include="texture.txt" />
     <None Include="modifier_textures.txt" />
     <None Include="image_textures.txt" />
@@ -325,7 +332,7 @@
     <ClCompile Include="image_gfxrenderer.cpp" />
     <ClCompile Include="box_labeling.cpp" />
     <ClCompile Include="branching_number.cpp" />
-    <ClCompile Include="labeltoimage.cpp" />
+    <ClCompile Include="labeling_to_image.cpp" />
     <ClCompile Include="pixelneighbours.cpp" />
   </ItemGroup>
   <ItemGroup>

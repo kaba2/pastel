@@ -1,4 +1,4 @@
 Summed-area tables
 ==================
 
-[Parent]: pastelgfx.txt
+[Parent]: image_processing.txt

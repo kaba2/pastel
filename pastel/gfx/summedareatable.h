@@ -1,5 +1,4 @@
 // Description: Summed-area tables
-// Documentation: summedareatable.txt
 
 #ifndef PASTELGFX_SUMMEDAREATABLE_H
 #define PASTELGFX_SUMMEDAREATABLE_H

@@ -1,7 +1,7 @@
-#include "pastel/gfx/labeltoimage.h"
+#include "pastel/gfx/labeling_to_image.h"
 #include "pastel/gfx/color_tools.h"
 
-#include "pastel/sys/primes.h"
+#include "pastel/sys/hashing.h"
 
 namespace Pastel
 {
@@ -13,9 +13,7 @@ namespace Pastel
 		const integer width = labelImage.width();
 		const integer height = labelImage.height();
 
-		Array<uint8, 2> newImage(Vector2i(width, height));
-
-		//const int32 prime = followingPrime(300);
+		Array<uint8> newImage(Vector2i(width, height));
 
 		for (integer y = 0;y < height;++y)
 		{
@@ -24,8 +22,7 @@ namespace Pastel
 				int32 data = labelImage(x, y);
 				if (data > 255)
 				{
-					//data *= prime;
-					data &= 0xFF;
+					data = computeHash(data);
 				}
 
 				newImage(x, y) = (uint8)data;

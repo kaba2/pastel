@@ -1,7 +1,8 @@
 // Description: Conversion of a labeled image to an indexed image
+// Documentation: labeling.txt
 
-#ifndef PASTELGFX_LABELTOIMAGE_H
-#define PASTELGFX_LABELTOIMAGE_H
+#ifndef PASTELGFX_LABELING_TO_IMAGE_H
+#define PASTELGFX_LABELING_TO_IMAGE_H
 
 #include "pastel/sys/array.h"
 

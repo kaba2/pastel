@@ -76,21 +76,6 @@
     <Filter Include="Reconstruction">
       <UniqueIdentifier>{c0bc89f3-5c72-41b7-952a-e45da5b029b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Discrete poisson disk pattern">
-      <UniqueIdentifier>{7e522310-3e55-4786-bf90-77fb274d9c9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Probability distribution from image">
-      <UniqueIdentifier>{7fed9de7-decd-4a9f-ad21-ce149729a531}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering">
-      <UniqueIdentifier>{4e75b011-720f-4bf5-9d54-21c982cfb94a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering\Image_GfxRenderer">
-      <UniqueIdentifier>{04552bf9-2c81-44b9-ba9e-b191adc41ef4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Summed-area tables">
-      <UniqueIdentifier>{e1ea35ef-1d25-4718-9b29-0e4b43c4bb3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Block matching">
       <UniqueIdentifier>{0be706ca-6055-4291-ac87-86f4f6a25d62}</UniqueIdentifier>
     </Filter>
@@ -106,9 +91,6 @@
     <Filter Include="Image processing\Convolution">
       <UniqueIdentifier>{3479f1f0-8616-4f08-9fe8-69df8e67e7e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Image processing\Miscellaneous">
-      <UniqueIdentifier>{d5fc701b-6fb0-464f-9952-74d7d0d8c744}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Image processing\Structuring elements">
       <UniqueIdentifier>{82f1f46e-eaef-4090-b7f5-b5d5aa8da8f4}</UniqueIdentifier>
     </Filter>
@@ -120,6 +102,24 @@
     </Filter>
     <Filter Include="Image processing\Branching number">
       <UniqueIdentifier>{6110cecb-9808-466b-9db5-2bfa1b373ba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Discrete poisson disk pattern">
+      <UniqueIdentifier>{7e522310-3e55-4786-bf90-77fb274d9c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented">
+      <UniqueIdentifier>{d5fc701b-6fb0-464f-9952-74d7d0d8c744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Probability distribution from image">
+      <UniqueIdentifier>{7fed9de7-decd-4a9f-ad21-ce149729a531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image processing\Summed-area tables">
+      <UniqueIdentifier>{e1ea35ef-1d25-4718-9b29-0e4b43c4bb3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Rendering">
+      <UniqueIdentifier>{4e75b011-720f-4bf5-9d54-21c982cfb94a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Undocumented\Rendering\Image_GfxRenderer">
+      <UniqueIdentifier>{04552bf9-2c81-44b9-ba9e-b191adc41ef4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -379,31 +379,31 @@
       <Filter>Reconstruction</Filter>
     </ClInclude>
     <ClInclude Include="discrete_poisson_disk_pattern.h">
-      <Filter>Discrete poisson disk pattern</Filter>
+      <Filter>Image processing\Discrete poisson disk pattern</Filter>
     </ClInclude>
     <ClInclude Include="imagepdf.h">
-      <Filter>Probability distribution from image</Filter>
+      <Filter>Undocumented\Probability distribution from image</Filter>
     </ClInclude>
     <ClInclude Include="imagepdf.hpp">
-      <Filter>Probability distribution from image</Filter>
+      <Filter>Undocumented\Probability distribution from image</Filter>
     </ClInclude>
     <ClInclude Include="gfxrenderer.h">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="gfxrenderer.hpp">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="gfxrenderer_tools.h">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="gfxrenderer_tools.hpp">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="image_gfxrenderer.h">
-      <Filter>Rendering\Image_GfxRenderer</Filter>
+      <Filter>Undocumented\Rendering\Image_GfxRenderer</Filter>
     </ClInclude>
     <ClInclude Include="image_gfxrenderer.hpp">
-      <Filter>Rendering\Image_GfxRenderer</Filter>
+      <Filter>Undocumented\Rendering\Image_GfxRenderer</Filter>
     </ClInclude>
     <ClInclude Include="colormixer.h">
       <Filter>Color mixers</Filter>
@@ -412,22 +412,16 @@
       <Filter>Color mixers</Filter>
     </ClInclude>
     <ClInclude Include="gfxresource.h">
-      <Filter>Image processing\Miscellaneous</Filter>
-    </ClInclude>
-    <ClInclude Include="labeltoimage.h">
-      <Filter>Image processing\Miscellaneous</Filter>
+      <Filter>Undocumented</Filter>
     </ClInclude>
     <ClInclude Include="packrange.h">
-      <Filter>Image processing\Miscellaneous</Filter>
-    </ClInclude>
-    <ClInclude Include="pixelneighbours.h">
-      <Filter>Image processing\Miscellaneous</Filter>
+      <Filter>Undocumented</Filter>
     </ClInclude>
     <ClInclude Include="summedareatable.h">
-      <Filter>Summed-area tables</Filter>
+      <Filter>Image processing\Summed-area tables</Filter>
     </ClInclude>
     <ClInclude Include="summedareatable.hpp">
-      <Filter>Summed-area tables</Filter>
+      <Filter>Image processing\Summed-area tables</Filter>
     </ClInclude>
     <ClInclude Include="block_matching_bruteforce.h">
       <Filter>Block matching</Filter>
@@ -436,9 +430,6 @@
       <Filter>Block matching</Filter>
     </ClInclude>
     <ClInclude Include="image_quantization.h">
-      <Filter>Image processing\Image quantization</Filter>
-    </ClInclude>
-    <ClInclude Include="image_quantization.hpp">
       <Filter>Image processing\Image quantization</Filter>
     </ClInclude>
     <ClInclude Include="drawing.h">
@@ -495,6 +486,33 @@
     <ClInclude Include="pastelgfx.h" />
     <ClInclude Include="block_matching.h">
       <Filter>Block matching</Filter>
+    </ClInclude>
+    <ClInclude Include="image_processing.h">
+      <Filter>Image processing</Filter>
+    </ClInclude>
+    <ClInclude Include="labeling.h">
+      <Filter>Image processing\Labeling</Filter>
+    </ClInclude>
+    <ClInclude Include="image_morphology.h">
+      <Filter>Image processing\Morphology</Filter>
+    </ClInclude>
+    <ClInclude Include="pixelneighbours.h">
+      <Filter>Image processing\Branching number</Filter>
+    </ClInclude>
+    <ClInclude Include="labeling_to_image.h">
+      <Filter>Image processing\Labeling</Filter>
+    </ClInclude>
+    <ClInclude Include="rounding_quantization.h">
+      <Filter>Image processing\Image quantization</Filter>
+    </ClInclude>
+    <ClInclude Include="rounding_quantization.hpp">
+      <Filter>Image processing\Image quantization</Filter>
+    </ClInclude>
+    <ClInclude Include="diffusion_quantization.h">
+      <Filter>Image processing\Image quantization</Filter>
+    </ClInclude>
+    <ClInclude Include="diffusion_quantization.hpp">
+      <Filter>Image processing\Image quantization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -583,7 +601,7 @@
       <Filter>Reconstruction</Filter>
     </None>
     <None Include="renderer.txt">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </None>
     <None Include="block_matching.txt">
       <Filter>Block matching</Filter>
@@ -615,6 +633,9 @@
     </None>
     <None Include="image_morphology.txt">
       <Filter>Image processing\Morphology</Filter>
+    </None>
+    <None Include="summedareatable.txt">
+      <Filter>Image processing\Summed-area tables</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -667,25 +688,25 @@
       <Filter>Image files\Pcx</Filter>
     </ClCompile>
     <ClCompile Include="gfxrenderer.cpp">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="gfxrenderer_tools.cpp">
-      <Filter>Rendering</Filter>
+      <Filter>Undocumented\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="image_gfxrenderer.cpp">
-      <Filter>Rendering\Image_GfxRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="labeltoimage.cpp">
-      <Filter>Image processing\Miscellaneous</Filter>
-    </ClCompile>
-    <ClCompile Include="pixelneighbours.cpp">
-      <Filter>Image processing\Miscellaneous</Filter>
+      <Filter>Undocumented\Rendering\Image_GfxRenderer</Filter>
     </ClCompile>
     <ClCompile Include="box_labeling.cpp">
       <Filter>Image processing\Labeling</Filter>
     </ClCompile>
     <ClCompile Include="branching_number.cpp">
       <Filter>Image processing\Branching number</Filter>
+    </ClCompile>
+    <ClCompile Include="pixelneighbours.cpp">
+      <Filter>Image processing\Branching number</Filter>
+    </ClCompile>
+    <ClCompile Include="labeling_to_image.cpp">
+      <Filter>Image processing\Labeling</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
